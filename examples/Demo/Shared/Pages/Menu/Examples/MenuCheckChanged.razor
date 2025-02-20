@@ -1,0 +1,77 @@
+﻿
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="40">
+
+    <FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+
+        <FluentLabel Typo="Typography.H5">Role=MenuItemCheckbox</FluentLabel>
+        <FluentMenu Open="true" OnCheckedChanged="HandleMenuItemCheckbox">
+
+            <FluentMenuItem Id="menuitem1"
+                            Role="MenuItemRole.MenuItemCheckbox"
+                            @bind-Checked=menuItemCheckbox1>
+                        Checkbox MenuItem 1 is @(menuItemCheckbox1 ? "Checked" : "Unchecked")
+            </FluentMenuItem>
+
+            <FluentMenuItem Id="menuitem2"
+                            Role="MenuItemRole.MenuItemCheckbox"
+                            @bind-Checked=menuItemCheckbox2>
+                        Checkbox MenuItem 2 is @(menuItemCheckbox2 ? "Checked" : "Unchecked")
+            </FluentMenuItem>
+
+        </FluentMenu>
+
+        <FluentButton OnClick="ToggleCheckboxItem2">Toggle checkbox item 2</FluentButton>
+
+    </FluentStack>
+
+    <FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+
+        <FluentLabel Typo="Typography.H5">Role=MenuItemRadio</FluentLabel>
+        <FluentMenu Open="true">
+
+            <FluentMenuItem Id="menuitem1" 
+                            Role="MenuItemRole.MenuItemRadio"
+                            CheckedChanged="MenuItem1RadioCheckChanged">
+                        Radio MenuItem 1
+            </FluentMenuItem>
+
+            <FluentMenuItem Id="menuitem2"
+                            Role="MenuItemRole.MenuItemRadio"
+                            CheckedChanged="MenuItem2RadioCheckChanged">
+                        Radio MenuItem 2
+            </FluentMenuItem>
+
+        </FluentMenu>
+
+    </FluentStack>
+
+</FluentStack>
+
+@code {
+
+    private bool menuItemCheckbox1 = false;
+    private bool menuItemCheckbox2 = false;
+
+    private void ToggleCheckboxItem2()
+    {
+        menuItemCheckbox2 = !menuItemCheckbox2;
+    }
+
+    // Handle with FluentMenu event
+    private void HandleMenuItemCheckbox(FluentMenuItem item)
+    {
+        DemoLogger.WriteLine(@$"{item.Id} {(item.Checked ? "Checked" : "Unchecked")}");
+    }
+
+    // Handle with FluentMenuItem event
+    private void MenuItem1RadioCheckChanged(bool value)
+    {
+        DemoLogger.WriteLine(@$"Radio1: {(value ? "Checked" : "Unchecked")}");
+    }
+
+    private void MenuItem2RadioCheckChanged(bool value)
+    {
+        DemoLogger.WriteLine(@$"Radio2: {(value ? "Checked" : "Unchecked")}");
+    }
+    
+}

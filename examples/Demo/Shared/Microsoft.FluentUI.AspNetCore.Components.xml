@@ -6585,6 +6585,11 @@
             Gets or sets the horizontal scaling mode.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OnCheckedChanged">
+            <summary>
+            Raised when FluentMenuItem Checked changed.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
@@ -6669,8 +6674,10 @@
             Event raised when the user click on this item.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
-            <summary />
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.CheckedChanged">
+            <summary>
+            Event raised for checkbox and radio menuitems
+            </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.#ctor">
             <summary />

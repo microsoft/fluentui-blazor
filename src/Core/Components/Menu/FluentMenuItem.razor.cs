@@ -6,6 +6,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentMenuItem : FluentComponentBase, IDisposable
 {
+    private bool _previousChecked = false;
+
     /// <summary>
     /// Gets or sets the owning FluentMenu.
     /// </summary>
@@ -66,6 +68,12 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
+    /// <summary>
+    /// Event raised for checkbox and radio menuitems
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> CheckedChanged { get; set; }
+
     public FluentMenuItem()
     {
         Id = Identifier.NewId();
@@ -76,7 +84,15 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
         Owner?.Register(this);
     }
 
-    /// <summary />
+    protected override async Task OnParametersSetAsync()
+    {
+        if (_previousChecked != Checked)
+        {
+            _previousChecked = Checked;
+            await SetCheckedAsync(Checked);
+        }
+    }
+
     protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (Disabled)
@@ -89,7 +105,28 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
             await Owner.CloseAsync();
         }
 
+        if (Owner != null && (Role == MenuItemRole.MenuItemCheckbox || Role == MenuItemRole.MenuItemRadio))
+        {
+            await SetCheckedAsync(!Checked);
+        }
+
         await OnClick.InvokeAsync(ev);
+    }
+
+    internal async Task SetCheckedAsync(bool value)
+    {
+        if (Checked == value)
+        {
+            return;
+        }
+
+        Checked = value;
+
+        if (Owner != null && (Role == MenuItemRole.MenuItemCheckbox || Role == MenuItemRole.MenuItemRadio))
+        {
+            await Owner.NotifyCheckedChangedAsync(this);
+        }
+        await CheckedChanged.InvokeAsync(Checked);
     }
 
     protected string? GetRole()
