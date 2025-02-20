@@ -18,10 +18,9 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
 {
     /// <summary>
     /// Gets or sets the size for the slider.
-    /// Default is <see cref="SliderSize.Medium"/>.
     /// </summary>
     [Parameter]
-    public SliderSize? Size { get; set; } = SliderSize.Medium;
+    public SliderSize? Size { get; set; }
 
     /// <summary>
     /// Gets or sets the slider's minimal value.
@@ -43,10 +42,9 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
 
     /// <summary>
     /// Gets or sets the orientation of the stacked components.
-    /// Default is <see cref="Orientation.Horizontal"/>.
     /// </summary>
     [Parameter]
-    public Orientation Orientation { get; set; } = Orientation.Horizontal;
+    public Orientation Orientation { get; set; }
 
     /// <summary>
     /// Gets or sets the selection mode.
@@ -59,6 +57,24 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the value of the slider.
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (typeof(TValue) != typeof(byte) &&
+           typeof(TValue) != typeof(int) &&
+           typeof(TValue) != typeof(long) &&
+           typeof(TValue) != typeof(float) &&
+           typeof(TValue) != typeof(double) &&
+           typeof(TValue) != typeof(decimal))
+        {
+            throw new InvalidOperationException("FluentSlider only supports numeric types.");
+        }
+    }
 
     /// <summary>
     /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
@@ -102,4 +118,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     {
         return this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
     }
+
+    // Only for Unit Tests
+    internal string? ValidateFormatValueAsString(TValue? value) => FormatValueAsString(value);
 }

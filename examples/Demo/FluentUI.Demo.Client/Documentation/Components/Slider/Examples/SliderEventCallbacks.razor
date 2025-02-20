@@ -1,0 +1,20 @@
+﻿<FluentSlider Min="10"
+              Max="40"
+              Value=celsius
+              TValue="double"
+              Step="0.5"
+              Style="width:300px"
+              ValueChanged="ValueChangedHandler"
+              Label="@($"C° : {celsius}")" />
+
+<p>Convert to F° : @fahrenheit</p>
+@code {
+    double celsius = 19;
+    double fahrenheit;
+
+    void ValueChangedHandler(double value)
+    {
+	    celsius = value;
+	    fahrenheit = value * 9 / 5 + 32;
+    }
+}

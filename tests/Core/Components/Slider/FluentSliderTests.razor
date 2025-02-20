@@ -2,6 +2,7 @@
 @using Xunit;
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
 @inherits TestContext
+@typeparam TValue
 @code
 {
 	public FluentSliderTests()
@@ -56,60 +57,33 @@
 		Assert.Equal(disabled, actual);
 	}
 
-	[Fact]
-	public void FluentSlider_Value()
+	[Theory]
+	[InlineData((byte)42, (byte)100)]
+	[InlineData((int)42, (int)100)]
+	[InlineData((long)42, (long)100)]
+	[InlineData((float)42.0, (float)100)]
+	[InlineData((double)42.0, (double)100)]
+	public void FluentSlider_TypeOfValue<T>(T value, T max)
 	{
-		int value = 42;
 		// Arrange
-		var cut = Render(@<FluentSlider Max="10" @bind-Value="@value" />);
+		var cut = Render(@<FluentSlider Max="@max" @bind-Value="@value" />);
+		var valueAttribute = cut.Find("fluent-slider").GetAttribute("value");
 
 		// Assert
-		cut.Verify();
+		Assert.Equal(value?.ToString(), valueAttribute);
 	}
 
-	[Fact]
-	public void FluentSlider_Value_Double()
-	{
+    [Fact]
+    public void FluentSlider_Value_String()
+    {
 		// Arrange && Act
-		double value = 16.10;
-		var cut = Render(@<FluentSlider Max="10" @bind-Value="@value" />);
+		string value = "42";
+		string max = "42";
+		var cut = Render(@<FluentSlider Max="@max" @bind-Value="@value" />);
 
 		// Assert
-		cut.Verify();
+		cut.FindComponent<FluentSlider<TValue>>().Instance.ValidateFormatValueAsString((TValue)Convert.ChangeType(value, typeof(TValue)));
 	}
-
-	[Fact]
-	public void FluentSlider_Value_Long()
-	{
-		// Arrange && Act
-		long value = long.MaxValue;
-		var cut = Render(@<FluentSlider Max="10" @bind-Value="@value" />);
-
-		// Assert
-		cut.Verify();
-	}
-
-	[Fact]
-	public void FluentSlider_Value_Float()
-	{
-		// Arrange && Act
-		float value = float.MaxValue;
-		var cut = Render(@<FluentSlider Max="10" @bind-Value="@value" />);
-
-		// Assert
-		cut.Verify();
-	}
-
-	// [Fact]
-	// public void FluentSlider_Value_Short()
-	// {
-	// 	// Arrange && Act
-	// 	short value = short.MaxValue;
-	// 	var cut = Render(@<FluentSlider Max="10" @bind-Value="@value" />);
-
-	// 	// Assert
-	// 	cut.Verify();
-	// }
 
 	[Fact]
 	public void FluentSlider_Value_Decimal()
