@@ -93,6 +93,9 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter]
     public RenderFragment? ColumnOptions { get; set; }
 
+    [Parameter]
+    public string? SortName { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether the data should be sortable by this column.
     ///
