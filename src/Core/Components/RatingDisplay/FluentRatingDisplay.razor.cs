@@ -44,7 +44,7 @@ public partial class FluentRatingDisplay : FluentComponentBase
     /// This controls the number of rating items displayed. Must be a whole number greater than 1
     /// </summary>
     [Parameter]
-    public int? Max { get; set; }
+    public byte? Max { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the rating items
