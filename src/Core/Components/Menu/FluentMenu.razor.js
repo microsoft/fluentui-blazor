@@ -1,4 +1,4 @@
-﻿// Add Left click event to open the PowerMenu
+// Add Left click event to open the PowerMenu
 export function addEventLeftClick(id, dotNetHelper) {
     var item = document.getElementById(id);
     if (!!item) {
@@ -18,4 +18,14 @@ export function addEventRightClick(id, dotNetHelper) {
             return false;
         }, false);
     }
+}
+
+export function isChecked(menuItemId) {
+    return new Promise(resolve => {
+        requestAnimationFrame(() => {
+            const menuItemElement = document.getElementById(menuItemId);
+            if (!menuItemElement) return resolve(false);
+            resolve(menuItemElement.hasAttribute("checked") || menuItemElement.getAttribute("aria-checked") === "true");
+        });
+    });
 }

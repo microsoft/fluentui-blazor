@@ -205,9 +205,10 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     {
         if (firstRender)
         {
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+
             if (Trigger != MouseButton.None)
             {
-                _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
                 _dotNetHelper = DotNetObjectReference.Create(this);
 
@@ -322,23 +323,15 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
         }
     }
 
-    internal async Task NotifyCheckedChangedAsync(FluentMenuItem menuItem)
+    internal async Task NotifyCheckedChangedAsync(FluentMenuItem fluentMenuItem)
     {
-        if (menuItem.Role == MenuItemRole.MenuItemRadio && menuItem.Checked)
-        {
-            foreach (var otherItem in items.Values)
-            {
-                if (otherItem != menuItem &&
-                    otherItem.Role == MenuItemRole.MenuItemRadio &&
-                    otherItem.Checked)
-                {
-                    await otherItem.SetCheckedAsync(false);
-                }
-            }
-        }
-        await OnCheckedChanged.InvokeAsync(menuItem);
+        await OnCheckedChanged.InvokeAsync(fluentMenuItem);
     }
 
+    internal async Task<bool> IsCheckedAsync (FluentMenuItem item)
+    {
+        return await _jsModule.InvokeAsync<bool>("isChecked", item.Id);
+    }
 
     /// <summary>
     /// Dispose this menu.
