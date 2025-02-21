@@ -6,8 +6,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentMenuItem : FluentComponentBase, IDisposable
 {
-    private bool _previousChecked = false;
-
     /// <summary>
     /// Gets or sets the owning FluentMenu.
     /// </summary>
@@ -84,15 +82,6 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
         Owner?.Register(this);
     }
 
-    protected override async Task OnParametersSetAsync()
-    {
-        if (_previousChecked != Checked)
-        {
-            _previousChecked = Checked;
-            await SetCheckedAsync(Checked);
-        }
-    }
-
     protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (Disabled)
@@ -105,28 +94,26 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
             await Owner.CloseAsync();
         }
 
-        if (Owner != null && (Role == MenuItemRole.MenuItemCheckbox || Role == MenuItemRole.MenuItemRadio))
-        {
-            await SetCheckedAsync(!Checked);
-        }
-
         await OnClick.InvokeAsync(ev);
     }
 
-    internal async Task SetCheckedAsync(bool value)
+    protected async Task OnChangeHandlerAsync(ChangeEventArgs ev)
     {
-        if (Checked == value)
+        // fluent-menu-item v2 does not pass the checked state as a parameter when emitting
+        // the change event so we need to capture the state from the html element using javascript.
+        // The value is passed in v3 so javscript lookup won't be necessary. 
+        if (Owner != null && Role is MenuItemRole.MenuItemCheckbox or MenuItemRole.MenuItemRadio)
         {
-            return;
-        }
+            var isChecked = await Owner.IsCheckedAsync(this);
+            Checked = isChecked;
 
-        Checked = value;
+            await CheckedChanged.InvokeAsync(Checked);
 
-        if (Owner != null && (Role == MenuItemRole.MenuItemCheckbox || Role == MenuItemRole.MenuItemRadio))
-        {
-            await Owner.NotifyCheckedChangedAsync(this);
+            if (Role == MenuItemRole.MenuItemCheckbox || (Role == MenuItemRole.MenuItemRadio && isChecked))
+            {
+                await Owner.NotifyCheckedChangedAsync(this);
+            }
         }
-        await CheckedChanged.InvokeAsync(Checked);
     }
 
     protected string? GetRole()
