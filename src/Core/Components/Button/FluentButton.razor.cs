@@ -42,7 +42,7 @@ public partial class FluentButton : FluentComponentBase
     public string? FormId { get; set; }
 
     /// <summary>
-    /// gets or sets the URL that processes the information submitted by the button.
+    /// Gets or sets the URL that processes the information submitted by the button.
     /// </summary>
     [Parameter]
     public string? FormAction { get; set; }
