@@ -93,14 +93,15 @@ public class Icon : IconInfo
     /// <summary>
     /// Gets the HTML markup of the icon.
     /// </summary>
-    public virtual MarkupString ToMarkup(string? size = null, string? color = null)
+    public virtual MarkupString ToMarkup(string? size = null, string? color = null, string? backgroundColor = null)
     {
         if (Size != IconSize.Custom && ContainsSVG)
         {
             var sizeAsString = ((int)Size).ToString(CultureInfo.InvariantCulture);
             var styleWidth = size ?? $"{sizeAsString}px";
             var styleColor = color ?? Color ?? Components.Color.Primary.ToAttributeValue();
-            return new MarkupString($"<svg viewBox=\"0 0 {sizeAsString} {sizeAsString}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: var(--colorNeutralBackground1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
+            var styleBackgroundColor = backgroundColor ?? "var(--colorNeutralBackground1)";
+            return new MarkupString($"<svg viewBox=\"0 0 {sizeAsString} {sizeAsString}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: {styleBackgroundColor}; width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
         }
 
         if (string.IsNullOrEmpty(size) && string.IsNullOrEmpty(color))
