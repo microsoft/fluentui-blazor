@@ -7,10 +7,10 @@
 	<fluent-slider slot="input"
 	               id="@Id"
 	               disabled="@Disabled"
-				   min="@FormatValueAsStringOrNull(Min)"
-				   max="@FormatValueAsStringOrNull(Max)"
-				   value="@FormatValueAsStringOrNull(Value)"
-				   step="@FormatValueAsStringOrNull(Step)"
+	               min="@FormatValueAsStringOrNull(Min)"
+	               max="@FormatValueAsStringOrNull(Max)"
+	               value="@FormatValueAsStringOrNull(Value)"
+	               step="@FormatValueAsStringOrNull(Step)"
 	               size="@Size.ToAttributeValue()"
 	               orientation="@(Orientation == Orientation.Horizontal ? null : Orientation.ToAttributeValue())"
 	               mode="@Mode.ToAttributeValue()"
@@ -18,11 +18,11 @@
 	               readonly="@ReadOnly"
 	               aria-label="@AriaLabel"
 	               autofocus="@Autofocus"
-				   required="@Required"
-				   tabindex="@GetTabIndexValue"
+	               required="@Required"
+	               tabindex="@GetTabIndexValue"
 	               @onfocusout="@FocusOutHandlerAsync"
 	               @onchange="@ChangeHandlerAsync"
-				   @attributes="AdditionalAttributes">
+	               @attributes="AdditionalAttributes">
 		@ChildContent
     </fluent-slider>
 </FluentField>

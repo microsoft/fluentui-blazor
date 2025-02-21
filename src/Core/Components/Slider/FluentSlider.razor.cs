@@ -16,16 +16,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     where TValue : struct, IComparable<TValue>
 {
-    ///// <summary />
-    //protected string? ClassValue => DefaultClassBuilder
-    //    .AddClass("loading-button", when: () => LoadingOverlay)
-    //    .Build();
-
-    ///// <summary />
-    //private string? SliderClass => DefaultClassBuilder
-    //    .AddClass("readonly", when: ReadOnly)
-    //    .Build();
-
     /// <summary>
     /// Gets or sets the size for the slider.
     /// </summary>
@@ -86,6 +76,9 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
         }
     }
 
+    /// <summary>
+    /// To prevent the tab from leaving the focus when ReadOnly is true
+    /// </summary>
     private int? GetTabIndexValue =>
         ReadOnly && (!AdditionalAttributes?.ContainsKey("tabindex") ?? true)
         ? -1
