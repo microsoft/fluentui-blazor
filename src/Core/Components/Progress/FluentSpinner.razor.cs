@@ -49,7 +49,7 @@ public partial class FluentSpinner : FluentComponentBase
 
     private SpinnerSize? GetSize()
     {
-        if (Size == null)
+        if (Size == null && Stroke != null)
         {
             return Stroke switch
             {

@@ -41,14 +41,22 @@
     [InlineData(SpinnerSize.ExtraLarge)]
     [InlineData(SpinnerSize.Huge)]
     [InlineData((SpinnerSize)999)]
+    [InlineData(null)]
 
-    public void FluentSpinner_Size(SpinnerSize size)
+    public void FluentSpinner_Size(SpinnerSize? size)
     {
         // Act
         var cut = Render(@<FluentSpinner Size="@size" />);
 
         // Assert
-        cut.MarkupMatches($"<fluent-spinner size='{size.ToAttributeValue()}' />");
+        if (size == null)
+        {
+            cut.MarkupMatches($"<fluent-spinner />");
+        }
+        else
+        {
+            cut.MarkupMatches($"<fluent-spinner size='{size.ToAttributeValue()}' />");
+        }
     }
 
 #pragma warning disable CS0618

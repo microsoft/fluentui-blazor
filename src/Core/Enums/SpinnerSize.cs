@@ -12,6 +12,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum SpinnerSize
 {
     /// <summary>
+    /// The medium size (and default value).
+    /// </summary>
+    [Description("medium")]
+    Medium,
+
+    /// <summary>
     /// The tiny size.
     /// </summary>
     [Description("tiny")]
@@ -28,12 +34,6 @@ public enum SpinnerSize
     /// </summary>
     [Description("small")]
     Small,
-
-    /// <summary>
-    /// The medium size.
-    /// </summary>
-    [Description("medium")]
-    Medium,
 
     /// <summary>
     /// The large size.
