@@ -1,0 +1,80 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+    public FluentSpinnerTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSpinner_Default()
+    {
+        // Act
+        var cut = Render(@<FluentSpinner />);
+
+        // Assert
+        cut.MarkupMatches("<fluent-spinner />");
+    }
+
+
+    [Fact]
+    public void FluentSpinner_AppearanceInverted()
+    {
+        // Act
+        var cut = Render(@<FluentSpinner AppearanceInverted="true" />);
+
+        // Assert
+        cut.MarkupMatches("<fluent-spinner appearance='inverted' />");
+    }
+
+    [Theory]
+    [InlineData(SpinnerSize.Tiny)]
+    [InlineData(SpinnerSize.ExtraSmall)]
+    [InlineData(SpinnerSize.Small)]
+    [InlineData(SpinnerSize.Medium)]
+    [InlineData(SpinnerSize.Large)]
+    [InlineData(SpinnerSize.ExtraLarge)]
+    [InlineData(SpinnerSize.Huge)]
+    [InlineData((SpinnerSize)999)]
+    [InlineData(null)]
+
+    public void FluentSpinner_Size(SpinnerSize? size)
+    {
+        // Act
+        var cut = Render(@<FluentSpinner Size="@size" />);
+
+        // Assert
+        if (size == null)
+        {
+            cut.MarkupMatches($"<fluent-spinner />");
+        }
+        else
+        {
+            cut.MarkupMatches($"<fluent-spinner size='{size.ToAttributeValue()}' />");
+        }
+    }
+
+#pragma warning disable CS0618
+    [Theory]
+    [InlineData(ProgressStroke.Small, "small")]
+    [InlineData(ProgressStroke.Normal, "medium")]
+    [InlineData(ProgressStroke.Large, "large")]
+    [InlineData((ProgressStroke)999, null)]
+    [InlineData(null, null)]
+    public void FluentSpinner_Stroke(ProgressStroke? stroke, string? expectedThickness)
+    {
+        // Act
+        var cut = Render(@<FluentProgressRing Stroke="@stroke" />);
+
+        // Assert
+        var actual = cut.Find("fluent-spinner").GetAttribute("size");
+        Assert.Equal(expectedThickness, actual);
+    }
+#pragma warning restore
+
+}
