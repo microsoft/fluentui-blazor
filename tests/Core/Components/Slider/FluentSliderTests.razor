@@ -15,7 +15,7 @@
 	public void FluentSlider_Default()
 	{
 		// Arrange && Act
-		var cut = Render(@<FluentSlider>fluent-Slider</FluentSlider>);
+		var cut = Render(@<FluentSlider Value=10>fluent-Slider</FluentSlider>);
 
 		// Assert
 		cut.Verify();
@@ -25,7 +25,7 @@
 	public void FluentSlider_Min()
 	{
 		// Arrange && Act
-		var cut = Render(@<FluentSlider Min="2" Max="10" />);
+		var cut = Render(@<FluentSlider Min="2" Value=10 />);
 
 		// Assert
 		cut.Verify();
@@ -38,7 +38,7 @@
 	public void FluentSlider_Size(SliderSize sliderSize)
 	{
 		// Arrange && Act
-		using var cut = Render(@<FluentSlider Max="10" Size="@sliderSize" />);
+		using var cut = Render(@<FluentSlider Value=10 Size="@sliderSize" />);
 
 		// Assert
 		cut.Verify(suffix: sliderSize.ToString());
@@ -50,47 +50,75 @@
 	public void FluentSlider_DisabledAttribute(bool disabled)
 	{
 		// Arrange && Act
-		var cut = Render(@<FluentSlider Max="10" Disabled="@disabled" />);
+		var cut = Render(@<FluentSlider Value=10 Disabled="@disabled" />);
 
 		// Assert
 		var actual = cut.Find("fluent-slider").HasAttribute("disabled");
 		Assert.Equal(disabled, actual);
 	}
 
-	[Theory]
-	[InlineData((byte)42, (byte)100)]
-	[InlineData((int)42, (int)100)]
-	[InlineData((long)42, (long)100)]
-	[InlineData((float)42.0, (float)100)]
-	[InlineData((double)42.0, (double)100)]
-	public void FluentSlider_TypeOfValue<T>(T value, T max)
+	[Fact]
+	public void FluentSlider_Value_Double()
 	{
-		// Arrange
-		var cut = Render(@<FluentSlider Max="@max" @bind-Value="@value" />);
-		var valueAttribute = cut.Find("fluent-slider").GetAttribute("value");
-
-		// Assert
-		Assert.Equal(value?.ToString(), valueAttribute);
-	}
-
-    [Fact]
-    public void FluentSlider_Value_String()
-    {
 		// Arrange && Act
-		string value = "42";
-		string max = "42";
-		var cut = Render(@<FluentSlider Max="@max" @bind-Value="@value" />);
+		double value = double.MaxValue;
+		var cut = Render(@<FluentSlider @bind-Value="@value" />);
 
 		// Assert
-		cut.FindComponent<FluentSlider<TValue>>().Instance.ValidateFormatValueAsString((TValue)Convert.ChangeType(value, typeof(TValue)));
+		cut.Verify();
 	}
+
+	[Fact]
+	public void FluentSlider_Value_Float()
+	{
+		// Arrange && Act
+		float value = float.MaxValue;
+		var cut = Render(@<FluentSlider @bind-Value="@value" />);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentSlider_Value_Long()
+	{
+		// Arrange && Act
+		long value = long.MaxValue;
+		var cut = Render(@<FluentSlider @bind-Value="@value" />);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentSlider_Value_Byte()
+	{
+		// Arrange && Act
+		byte value = byte.MaxValue;
+		var cut = Render(@<FluentSlider @bind-Value="@value" />);
+
+		// Assert
+		cut.Verify();
+	}
+
+ //    [Fact]
+ //    public void FluentSlider_Value_String()
+ //    {
+	// 	// Arrange && Act
+	// 	string value = "42";
+	// 	string max = "42";
+	// 	var cut = Render(@<FluentSlider TValue="string" @bind-Value="@value" />);
+
+	// 	// Assert
+	// 	cut.FindComponent<FluentSlider<TValue>>().Instance.ValidateFormatValueAsString((TValue)Convert.ChangeType(value, typeof(TValue)));
+	// }
 
 	[Fact]
 	public void FluentSlider_Value_Decimal()
 	{
 		// Arrange && Act
 		decimal value = decimal.MaxValue;
-		var cut = Render(@<FluentSlider Max="10" @bind-Value="@value" />);
+		var cut = Render(@<FluentSlider @bind-Value="@value" />);
 
 		// Assert
 		cut.Verify();
@@ -100,7 +128,7 @@
 	public void FluentSlider_Step()
 	{
 		// Arrange
-		var cut = Render(@<FluentSlider Max="42.2" Step="1.5" />);
+		var cut = Render(@<FluentSlider Value=10 TValue="double" Step="1.5" />);
 
 		// Assert
 		cut.Verify();
@@ -112,7 +140,7 @@
 	public void FluentSlider_Mode(SliderMode sliderMode)
 	{
 		// Arrange && Act
-		using var cut = Render(@<FluentSlider Max="10" Mode="@sliderMode" />);
+		using var cut = Render(@<FluentSlider Value=10 Mode="@sliderMode" />);
 
 		// Assert
 		cut.Verify(suffix: sliderMode.ToString());
@@ -125,7 +153,7 @@
 	public void FluentSlider_Orientation(Orientation orientation)
 	{
 		// Arrange && Act
-		using var cut = Render(@<FluentSlider Max="10" Orientation="@orientation" />);
+		using var cut = Render(@<FluentSlider Value=10 Orientation="@orientation" />);
 
 		// Assert
 		cut.Verify(suffix: orientation.ToString());
@@ -136,7 +164,7 @@
 	{
 		// Arrange
 		int value = 3;
-		var cut = Render(@<FluentSlider Max="10" Step="1" @bind-Value="@value"></FluentSlider>);
+		var cut = Render(@<FluentSlider Step="1" @bind-Value="@value"></FluentSlider>);
 
 		// Act
 		var slider = cut.Find("fluent-slider");
@@ -151,7 +179,7 @@
 	{
 		// Arrange
 		double value = 3.5;
-		var cut = Render(@<FluentSlider Max="10" Step="0.5" @bind-Value="@value" />);
+		var cut = Render(@<FluentSlider Step="0.5" @bind-Value="@value" />);
 
 		// Act
 		var slider = cut.Find("fluent-slider");
@@ -165,7 +193,7 @@
 	public void FluentSlider_Label()
 	{
 		// Arrange && Act
-		var cut = Render(@<FluentSlider Max="10" Label="label" />);
+		var cut = Render(@<FluentSlider Value=10 Label="label" />);
 
 		// Assert
 		cut.Verify();
@@ -176,7 +204,7 @@
 	public void FluentSlider_Slot_Thumb()
 	{
 		// Arrange && Act
-		var cut = Render(@<FluentSlider Max="10"><p slot="thumb"></p></FluentSlider>);
+		var cut = Render(@<FluentSlider Value=10><p slot="thumb"></p></FluentSlider>);
 
 		// Assert
 		cut.Verify();

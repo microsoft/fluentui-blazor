@@ -3,7 +3,6 @@
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 
-
 <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
 	<fluent-slider slot="input"
 	               id="@Id"
@@ -19,11 +18,11 @@
 	               readonly="@ReadOnly"
 	               aria-label="@AriaLabel"
 	               autofocus="@Autofocus"
-	               required="@Required"
+				   required="@Required"
+				   tabindex="@GetTabIndexValue"
 	               @onfocusout="@FocusOutHandlerAsync"
 	               @onchange="@ChangeHandlerAsync"
-	               @attributes="AdditionalAttributes"
-	               style="width:100%">
+				   @attributes="AdditionalAttributes">
 		@ChildContent
     </fluent-slider>
 </FluentField>

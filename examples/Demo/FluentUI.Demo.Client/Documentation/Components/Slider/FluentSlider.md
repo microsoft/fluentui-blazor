@@ -45,10 +45,10 @@ View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/
 
 ## Know restrictions
 
-At this point, the `ReadOnly` property and the `FluentSliderLabel` elements cannot be applied.
+At this point, the `FluentSliderLabel` elements cannot be applied.
 
 > These features are under investigation.
 
 ##  API FluentSlider
 
-{{ API Type=FluentSlider }}
+{{ API Type=FluentSlider<int> }}

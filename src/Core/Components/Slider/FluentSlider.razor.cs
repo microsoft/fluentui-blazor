@@ -16,6 +16,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     where TValue : struct, IComparable<TValue>
 {
+    ///// <summary />
+    //protected string? ClassValue => DefaultClassBuilder
+    //    .AddClass("loading-button", when: () => LoadingOverlay)
+    //    .Build();
+
+    ///// <summary />
+    //private string? SliderClass => DefaultClassBuilder
+    //    .AddClass("readonly", when: ReadOnly)
+    //    .Build();
+
     /// <summary>
     /// Gets or sets the size for the slider.
     /// </summary>
@@ -58,24 +68,28 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the value of the slider.
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
-    ///// <summary>
-    ///// Gets or sets the value of the slider.
-    ///// </summary>
-    //protected override void OnParametersSet()
-    //{
-    //    base.OnParametersSet();
+        if (typeof(TValue) != typeof(byte) &&
+           typeof(TValue) != typeof(int) &&
+           typeof(TValue) != typeof(long) &&
+           typeof(TValue) != typeof(float) &&
+           typeof(TValue) != typeof(double) &&
+           typeof(TValue) != typeof(decimal))
+        {
+            throw new InvalidOperationException("FluentSlider only supports numeric types.");
+        }
+    }
 
-    //    if (typeof(TValue) != typeof(byte) &&
-    //       typeof(TValue) != typeof(int) &&
-    //       typeof(TValue) != typeof(long) &&
-    //       typeof(TValue) != typeof(float) &&
-    //       typeof(TValue) != typeof(double) &&
-    //       typeof(TValue) != typeof(decimal))
-    //    {
-    //        throw new InvalidOperationException("FluentSlider only supports numeric types.");
-    //    }
-    //}
+    private int? GetTabIndexValue =>
+        ReadOnly && (!AdditionalAttributes?.ContainsKey("tabindex") ?? true)
+        ? -1
+        : null;
 
     /// <summary>
     /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
