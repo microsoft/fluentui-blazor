@@ -2,6 +2,9 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Reflection.Metadata;
+using System.Text.RegularExpressions;
+using FluentUI.Demo.DocViewer.Extensions;
 using FluentUI.Demo.DocViewer.Models;
 using FluentUI.Demo.DocViewer.Services;
 using Microsoft.AspNetCore.Components;
@@ -109,11 +112,41 @@ public partial class MarkdownViewer
 
     private ApiClass? GetApiClassFromName(string? name, bool allProperties = false)
     {
+
+        if (string.IsNullOrEmpty(name))
+        {
+            return null;
+        }
+
+        var componentName = name;
+        var componentType = "";
+
+        // Convert "MyComponent<MyType>" to ("MyComponent", "MyType")
+        var match = Regex.Match(name, @"(\w+)<(\w+)>");
+        if (match.Success)
+        {
+            componentName = match.Groups[1].Value;
+            componentType = match.Groups[2].Value;
+        }
+
+        // Get the component type
         var type = DocViewerService.ApiAssembly
                                   ?.GetTypes()
-                                  ?.FirstOrDefault(i => i.Name == name || i.Name.StartsWith($"{name}`1"));
+                                  ?.FirstOrDefault(i => i.Name == componentName || i.Name.StartsWith($"{componentName}`1"));
 
-        return type is null ? null : new ApiClass(DocViewerService, type, allProperties);
+        // Create the ApiClass
+        var result = type is null ? null : new ApiClass(DocViewerService, type, allProperties);
+
+        // if the component type is specified, set the InstanceTypes
+        if (result != null && !string.IsNullOrEmpty(componentType))
+        {
+            type = ReflectionExtensions.KnownTypeNames
+                                       .FirstOrDefault(i => string.Compare(i.Value, componentType, StringComparison.InvariantCultureIgnoreCase) == 0)
+                                       .Key;
+            result.InstanceTypes = [type];
+        }
+
+        return result;
     }
 
     /// <summary />
