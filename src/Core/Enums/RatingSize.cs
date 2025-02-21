@@ -12,16 +12,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum RatingSize
 {
     /// <summary>
-    /// Small size of the rating items.
-    /// </summary>
-    [Description("small")]
-    Small,
-
-    /// <summary>
     /// Medium size of the rating items.
     /// </summary>
     [Description("medium")]
     Medium,
+
+    /// <summary>
+    /// Small size of the rating items.
+    /// </summary>
+    [Description("small")]
+    Small,
 
     /// <summary>
     /// Large size of the rating items.

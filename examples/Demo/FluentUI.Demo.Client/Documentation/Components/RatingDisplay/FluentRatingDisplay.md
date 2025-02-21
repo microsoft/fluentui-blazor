@@ -64,5 +64,3 @@ You can customize the appearance of the `FluentRatingDisplay` using the `Color` 
 ## API FluentRatingDisplay
 
 {{ API Type=FluentRatingDisplay}}
-
-
