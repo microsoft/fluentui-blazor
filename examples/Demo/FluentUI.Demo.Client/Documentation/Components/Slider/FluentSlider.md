@@ -7,6 +7,8 @@ route: /Slider
 
 The **FluentSlider** component is an input where the user selects a value from within a given range. Sliders typically have a slider thumb that can be moved along a bar, rail, or track to change the value of the slider.
 
+Default settings are `Min=0`, `Max=100` and `Step=1`.
+
 `TValue` can be one of the following `Type`'s:  
 
 - `byte`

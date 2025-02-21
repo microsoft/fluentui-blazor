@@ -1,4 +1,11 @@
 ﻿<FluentStack Orientation="Orientation.Vertical">
-    <FluentSlider Max="100" />
-    <FluentSlider Max="100" Disabled="true" />
+	<FluentSlider @bind-Value="@value" />
+	<FluentLabel>Value: @value</FluentLabel>
+	<FluentSlider Disabled="true" />
+	<FluentSlider Value="10" Disabled="true" />
 </FluentStack>
+
+@code
+{
+    int value = 50;
+}

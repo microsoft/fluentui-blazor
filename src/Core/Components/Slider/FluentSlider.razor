@@ -3,14 +3,15 @@
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 
+
 <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
 	<fluent-slider slot="input"
 	               id="@Id"
 	               disabled="@Disabled"
-	               min="@FormatValueAsString(Min)"
-	               max="@FormatValueAsString(Max)"	
-	               value="@FormatValueAsString(Value)"
-	               step="@(Step is null || (Step is int value && value == 0) ? null : FormatValueAsString(Step))"
+				   min="@FormatValueAsStringOrNull(Min)"
+				   max="@FormatValueAsStringOrNull(Max)"
+				   value="@FormatValueAsStringOrNull(Value)"
+				   step="@FormatValueAsStringOrNull(Step)"
 	               size="@Size.ToAttributeValue()"
 	               orientation="@(Orientation == Orientation.Horizontal ? null : Orientation.ToAttributeValue())"
 	               mode="@Mode.ToAttributeValue()"

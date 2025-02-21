@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -15,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>
+    where TValue : struct, IComparable<TValue>
 {
     /// <summary>
     /// Gets or sets the size for the slider.
@@ -31,7 +31,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     /// <summary>
     /// Gets or sets the slider's maximum value.
     /// </summary>
-    [Parameter, EditorRequired]
+    [Parameter]
     public TValue? Max { get; set; }
 
     /// <summary>
@@ -58,42 +58,33 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// Gets or sets the value of the slider.
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
 
-        if (typeof(TValue) != typeof(byte) &&
-           typeof(TValue) != typeof(int) &&
-           typeof(TValue) != typeof(long) &&
-           typeof(TValue) != typeof(float) &&
-           typeof(TValue) != typeof(double) &&
-           typeof(TValue) != typeof(decimal))
-        {
-            throw new InvalidOperationException("FluentSlider only supports numeric types.");
-        }
-    }
+    ///// <summary>
+    ///// Gets or sets the value of the slider.
+    ///// </summary>
+    //protected override void OnParametersSet()
+    //{
+    //    base.OnParametersSet();
+
+    //    if (typeof(TValue) != typeof(byte) &&
+    //       typeof(TValue) != typeof(int) &&
+    //       typeof(TValue) != typeof(long) &&
+    //       typeof(TValue) != typeof(float) &&
+    //       typeof(TValue) != typeof(double) &&
+    //       typeof(TValue) != typeof(decimal))
+    //    {
+    //        throw new InvalidOperationException("FluentSlider only supports numeric types.");
+    //    }
+    //}
 
     /// <summary>
     /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
     /// </summary>
     /// <param name = "value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
-    protected override string? FormatValueAsString(TValue? value)
+    protected override string? FormatValueAsString(TValue value)
     {
-        // Avoiding a cast to IFormattable to avoid boxing.
-        return value switch
-        {
-            null => null,
-            int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
-            long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
-            float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
-            double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
-            decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
-            _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}"),
-        };
+        return Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture);
     }
 
     /// <summary>
@@ -120,5 +111,13 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     }
 
     // Only for Unit Tests
-    internal string? ValidateFormatValueAsString(TValue? value) => FormatValueAsString(value);
+    internal string? FormatValueAsStringOrNull(TValue? value)
+    {
+        if (value is null)
+        {
+            return null;
+        }
+
+        return FormatValueAsString(value.Value);
+    }
 }
