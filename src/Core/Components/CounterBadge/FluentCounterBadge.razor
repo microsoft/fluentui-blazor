@@ -8,7 +8,7 @@
                       color="@Color.ToAttributeValue()"
                       shape="@Shape.ToAttributeValue()"
                       size="@Size.ToAttributeValue()"
-                      count="@_internalCount"
+                      count="@GetCount()"
                       overflow-count="@OverflowCount"
                       show-zero="@ShowZero"
                       dot="@Dot"
@@ -17,9 +17,6 @@
     {
         <FluentIcon Value="@IconStart" Slot="start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
     }
-
-
-
     @if (IconEnd != null)
     {
         <FluentIcon Value="@IconEnd" Slot="end" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />

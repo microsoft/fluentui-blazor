@@ -35,10 +35,10 @@ A counter badge can be shown even if the count is zero.
 
 ## ShowWhen
 A counter badge can be shown when a specific condition (lambda expression) is met.
-For instance, `ShowWhen=@(Count => Count > 4)` will show the badge only when the count is greater than 4.
+For instance, `ShowWhen=@(c => c > 4)` will show the badge only when the count is greater than 4.
 
-- First example count=3. With rule set like above it will not show
-- Second example count=5. With rule set like above it will show
+- First example `Count="3"`. With rule set like above it will not show
+- Second example `Count="5"`. With rule set like above it will show
 
 {{ CounterBadgeShowWhen }}
 
@@ -61,13 +61,13 @@ An `Icon` can be shown in the start or end slot (or both). The color of the icon
 ## Appearance
 
 The counter badge appearance can be set to a value from the `BadgeAppearance` enumeration.
-**Ghost and Tint are not supported in CounterBadge**.
+**CounterBadge does not support Ghost and Tint appearances**.
 
 {{ CounterBadgeAppearances }}
 
 ## Shape
 The counter shape can be set to a value from the `BadgeShape` enumeration.
-**Square is not supported in CounterBadge**.
+**CounterBadge does not support the Square shape**.
 
 {{ CounterBadgeShapes }}
 

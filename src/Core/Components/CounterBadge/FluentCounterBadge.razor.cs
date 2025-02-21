@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
 {
-    private int _internalCount;
+    private int? GetCount() => ShowWhen?.Invoke(Count) == true ? Count : null;
 
     /// <summary>
     ///  Gets or sets the badge's dot state.
@@ -28,24 +28,26 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
 
     /// <summary>
     /// Gets or sets if the badge displays the count based on the specified lambda expression.
-    /// By default the badge shows the count when it is not equal to 0.
+    /// By default the badge only shows a count when it's not equal to 0.
     /// For example, to show the count on the badge when the count greater than 4, use ShowWhen=@(Count => Count > 4)
     /// </summary>
     [Parameter]
-    public Func<int, bool>? ShowWhen { get; set; }
+    public Func<int?, bool>? ShowWhen { get; set; } = Count => Count != 0;
 
     /// <summary>
     /// Gets or sets the badge's count.
+    /// The default value is `null`. Internally the component uses 0 as its default value.
+    /// With ShowZero being false by default, the default result will be an empty counter badge
     /// </summary>
     [Parameter]
-    public int Count { get; set; }
+    public int? Count { get; set; }
 
     /// <summary>
     /// Gets or sets the badge's overflow count.
-    /// Default is 99
+    /// The default value is `null`. Internally the component uses 99 as its default value.
     /// </summary>
     [Parameter]
-    public int OverflowCount { get; set; } = 99;
+    public int? OverflowCount { get; set; }
 
     /// <summary />
     protected override void OnParametersSet()
@@ -57,21 +59,12 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
 
         if (Appearance == BadgeAppearance.Outline || Appearance == BadgeAppearance.Tint)
         {
-            throw new ArgumentException("CounterBadge does not support Outline or Tint appearance.");
+            throw new ArgumentException("FluentCounterBadge does not support Outline or Tint appearance.");
         }
 
         if (Shape == BadgeShape.Square)
         {
-            throw new ArgumentException("CounterBadge does not support Square shape.");
-        }
-
-        if (ShowWhen is not null && !ShowWhen.Invoke(Count))
-        {
-            _internalCount = 0;
-        }
-        else
-        {
-            _internalCount = Count;
+            throw new ArgumentException("FluentCounterBadge does not support Square shape.");
         }
     }
 }

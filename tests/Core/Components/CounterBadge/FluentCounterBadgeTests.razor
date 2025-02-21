@@ -198,10 +198,19 @@
     }
 
     [Fact]
-    public void FluentCounterBadge_OverflowCount()
+    public void FluentCounterBadge_OverflowCountNull()
     {
         // Arrange && Act
-        var cut = Render(@<FluentCounterBadge OverflowCount="100" />);
+        var cut = Render(@<FluentCounterBadge Count="100" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_OverflowCountNotNull()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="11" OverflowCount="10" />);
         // Assert
         cut.Verify();
     }
