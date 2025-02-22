@@ -1,0 +1,35 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Rendering;
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-avatar id="@Id"
+               role="@GetRoleValue"
+               tabindex="@GetTabIndexValue"
+               class="@ClassValue"
+               style="@StyleValue"
+               active="@GetActiveValue"
+               appearance="@ActiveAppearance.ToAttributeValue()"
+               color="@Color.ToAttributeValue()"
+               initials="@GetInitialsValue"
+               name="@GetNameValue"
+               shape="@Shape.ToAttributeValue()"
+               size="@Size.ToAttributeValue()"
+               @onclick="@OnClickHandlerAsync"
+               @onkeydown="@OnKeyDownHandlerAsync"
+               @attributes="AdditionalAttributes">
+
+    @if (DisplayImage)
+    {
+        <img alt="@Name"
+             role="presentation"
+             aria-hidden="true"
+             src="@Image" />
+    }
+
+    @if (DisplayIcon && Icon is not null)
+    {
+        @Icon.ToMarkup(size: GetAvatarSize, color: "currentcolor", backgroundColor: "unset")
+    }
+
+</fluent-avatar>
