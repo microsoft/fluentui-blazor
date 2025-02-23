@@ -72,31 +72,4 @@
       <DependentUpon>FluentLocalizer.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Components\Switch\FluentSwitchTests.FluentCheckbox_Size-medium.verified.razor.html">
-      <DependentUpon>FluentSwitchTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\Switch\FluentSwitchTests.FluentCheckbox_Size-large.verified.razor.html">
-      <DependentUpon>FluentSwitchTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\Switch\FluentSwitchTests.FluentCheckbox_ShowIndeterminate.verified.razor.html">
-      <DependentUpon>FluentSwitchTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\Switch\FluentSwitchTests.FluentCheckbox_Shape-square.verified.razor.html">
-      <DependentUpon>FluentSwitchTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\Switch\FluentSwitchTests.FluentCheckbox_Shape-circular.verified.razor.html">
-      <DependentUpon>FluentSwitchTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\Switch\FluentSwitchTests.FluentCheckbox_LabelTemplate.verified.razor.html">
-      <DependentUpon>FluentSwitchTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\Switch\FluentSwitchTests.FluentCheckbox_EnableThreeState.verified.razor.html">
-      <DependentUpon>FluentSwitchTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\Switch\FluentSwitchTests.FluentCheckbox_Default.verified.razor.html">
-      <DependentUpon>FluentSwitchTests.razor</DependentUpon>
-    </None>
-  </ItemGroup>
 </Project>
