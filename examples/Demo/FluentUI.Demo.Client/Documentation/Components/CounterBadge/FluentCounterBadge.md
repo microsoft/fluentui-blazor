@@ -28,6 +28,12 @@ The CounterBadge does not have a content slot. It can only show a count (through
 
 {{ CounterBadgeDefault }}
 
+
+## Attached to content
+A counter badge can be attached to any content. The default position is above-end. The position can be changed using the `Positioning` parameter.
+
+{{ CounterBadgeAttached }}
+
 ## ShowZero
 A counter badge can be shown even if the count is zero.
 

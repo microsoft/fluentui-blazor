@@ -1,0 +1,143 @@
+﻿<FluentCounterBadge Color="BadgeColor.Danger" Count="99" Size="BadgeSize.Small">
+    <FluentButton icon-only Appearance="ButtonAppearance.Default" IconStart="@(new Icons.Regular.Size24.Mail())" />
+</FluentCounterBadge>
+
+
+<FluentCounterBadge Color="BadgeColor.Danger" Dot="true" Size="BadgeSize.Large">
+    <FluentButton icon-only Appearance="ButtonAppearance.Default" IconStart="@(new Icons.Regular.Size24.Mail())" />
+</FluentCounterBadge>
+
+<hr />
+
+<style>
+    .grid {
+        display: grid;
+        margin: auto;
+        gap: 4px;
+        width: min-content;
+        grid-template-areas: ". above-start above above-end ."
+                             "before-top . . . after-top"
+                             "before . . . after"
+                             "before-bottom . . . after-bottom"
+                             ". below-start below below-end .";
+    }
+</style>
+
+<div class="grid">
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="above-start" Style="grid-area: above-start; anchor-name: --above-start;" tabindex="0" aria-describedby="tooltip-57">
+        <svg style="transform: rotate(-90deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="above-start" positioning="above-start" popover="" aria-hidden="true" style="position-anchor: --above-start;" Id="tooltip-57">
+        above-start
+    </fluent-tooltip>
+
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="above" Style="grid-area: above; anchor-name: --above;" tabindex="0" aria-describedby="tooltip-58">
+        <svg style="transform: rotate(0deg)"><use href="#arrow-step-out-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="above" positioning="above" popover="" aria-hidden="true" style="position-anchor: --above;" Id="tooltip-58">
+        above
+    </fluent-tooltip>
+
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="above-end" Style="grid-area: above-end; anchor-name: --above-end;" tabindex="0" aria-describedby="tooltip-59">
+        <svg style="transform: rotate(90deg)"><use href="#arrow-step-back-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="above-end" positioning="above-end" popover="" aria-hidden="true" style="position-anchor: --above-end;" Id="tooltip-59">
+        above-end
+    </fluent-tooltip>
+
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="before-top" Style="grid-area: before-top; anchor-name: --before-top;" tabindex="0" aria-describedby="tooltip-60">
+        <svg style="transform: rotate(0deg)"><use href="#arrow-step-back-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="before-top" positioning="before-top" popover="" aria-hidden="true" style="position-anchor: --before-top;" Id="tooltip-60">
+        before-top
+    </fluent-tooltip>
+
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="before" Style="grid-area: before; anchor-name: --before;" tabindex="0" aria-describedby="tooltip-61">
+        <svg style="transform: rotate(-90deg)"><use href="#arrow-step-out-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="before" positioning="before" popover="" aria-hidden="true" style="position-anchor: --before;" Id="tooltip-61">
+        before
+    </fluent-tooltip>
+
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="before-bottom" Style="grid-area: before-bottom; anchor-name: --before-bottom;" tabindex="0" aria-describedby="tooltip-62">
+        <svg style="transform: rotate(180deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="before-bottom" positioning="before-bottom" popover="" aria-hidden="true" style="position-anchor: --before-bottom;" Id="tooltip-62">
+        before-bottom
+    </fluent-tooltip>
+
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="after-top" Style="grid-area: after-top; anchor-name: --after-top;" tabindex="0" aria-describedby="tooltip-63">
+        <svg style="transform: rotate(0deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="after-top" positioning="after-top" popover="" aria-hidden="true" style="position-anchor: --after-top;" Id="tooltip-63">
+        after-top
+    </fluent-tooltip>
+
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="after" Style="grid-area: after; anchor-name: --after;" tabindex="0" aria-describedby="tooltip-64">
+        <svg style="transform: rotate(90deg)"><use href="#arrow-step-out-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="after" positioning="after" popover="" aria-hidden="true" style="position-anchor: --after;" Id="tooltip-64">
+        after
+    </fluent-tooltip>
+
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="after-bottom" Style="grid-area: after-bottom; anchor-name: --after-bottom;" tabindex="0" aria-describedby="tooltip-65">
+        <svg style="transform: rotate(180deg)"><use href="#arrow-step-back-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="after-bottom" positioning="after-bottom" popover="" aria-hidden="true" style="position-anchor: --after-bottom;" Id="tooltip-65">
+        after-bottom
+    </fluent-tooltip>
+
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="below-start" Style="grid-area: below-start; anchor-name: --below-start;" tabindex="0" aria-describedby="tooltip-66">
+        <svg style="transform: rotate(-90deg)"><use href="#arrow-step-back-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="below-start" positioning="below-start" popover="" aria-hidden="true" style="position-anchor: --below-start;" Id="tooltip-66">
+        below-start
+    </fluent-tooltip>
+
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="below" Style="grid-area: below; anchor-name: --below;" tabindex="0" aria-describedby="tooltip-67">
+        <svg style="transform: rotate(180deg)"><use href="#arrow-step-out-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="below" positioning="below" popover="" aria-hidden="true" style="position-anchor: --below;" Id="tooltip-67">
+        below
+    </fluent-tooltip>
+
+
+    <FluentButton icon-only Size="ButtonSize.Large" Id="below-end" Style="grid-area: below-end; anchor-name: --below-end;" tabindex="0" aria-describedby="tooltip-68">
+        <svg style="transform: rotate(90deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
+    </FluentButton>
+
+    <fluent-tooltip anchor="below-end" positioning="below-end" popover="" aria-hidden="true" style="position-anchor: --below-end;" Id="tooltip-68">
+        below-end
+    </fluent-tooltip>
+
+    <svg style="display: none">
+        <symbol Id="arrow-step-out-20-regular" viewBox="0 0 20 20">
+            <path fill="currentColor" d="M10 15a1 1 0 1 0 0 2a1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0a2 2 0 0 1-4 0m2-4a.5.5 0 0 0 .5-.5V3.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L9.5 3.707V11.5a.5.5 0 0 0 .5.5"></path>
+        </symbol>
+        <symbol Id="arrow-step-back-20-regular" viewBox="0 0 20 20">
+            <path fill="currentColor" d="M7.851 3.146a.5.5 0 0 1 0 .707L4.706 7H10c2.932 0 5.593 1.64 6.936 4.043a.5.5 0 1 1-.872.488C14.894 9.439 12.564 8 10 8H4.707l3.144 3.145a.5.5 0 0 1-.707.707L3.161 7.867a.5.5 0 0 1-.014-.721l3.997-4a.5.5 0 0 1 .707 0M8 15a2 2 0 1 1 4 0a2 2 0 0 1-4 0m2-1a1 1 0 1 0 0 2a1 1 0 0 0 0-2"></path>
+        </symbol>
+    </svg>
+</div>

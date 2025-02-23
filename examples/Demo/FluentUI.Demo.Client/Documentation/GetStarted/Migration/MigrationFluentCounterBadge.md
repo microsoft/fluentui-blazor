@@ -1,6 +1,7 @@
 ### General
-A CounterBadge is now just a badge. It does not wrap any content and neither
-positions itself on top of that content anymore. 
+A CounterBadge is now just a badge. If child content is provided, the counter badge
+will be displayed on top of that content. By default, the counter badge will be displayed
+at the above-end corner of the content. Use the Positioning parameter to specify a different placement.
 
 ### New parameters
   `Size`, `Shape`, `OverflowCount`, `IconStart` and `IconEnd` are new parameters.

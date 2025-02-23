@@ -12,7 +12,25 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
 {
+
+    private bool _isAttached => ChildContent is not null;
+
     private int? GetCount() => ShowWhen?.Invoke(Count) == true ? Count : null;
+
+    /// <summary />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("background-color", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
+        .AddStyle("position", "absolute", _isAttached)
+        .AddStyle("inset", "auto auto calc(100% - 9px) calc(100% - 9px)", _isAttached)
+        .AddStyle("z-index", "1", _isAttached)
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the badge's positioning relative to the <see cref="FluentBadge.ChildContent" />.
+    /// The default value is `null`. Internally the component uses AboveEnd as its default value.
+    /// </summary>
+    [Parameter]
+    public Positioning? Positioning { get; set; }
 
     /// <summary>
     ///  Gets or sets the badge's dot state.
