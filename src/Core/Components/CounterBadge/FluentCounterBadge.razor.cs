@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -22,7 +23,7 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
         .AddStyle("background-color", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
         .AddStyle("position", "absolute", _isAttached)
         .AddStyle("inset", "auto auto calc(100% - 9px) calc(100% - 9px)", _isAttached)
-        .AddStyle("z-index", "1", _isAttached)
+        .AddStyle("z-index", ZIndex.Badge.ToString(CultureInfo.InvariantCulture), _isAttached)
         .Build();
 
     /// <summary>
