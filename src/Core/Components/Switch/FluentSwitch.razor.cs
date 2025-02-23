@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -12,19 +11,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// The FluentSwitch component is used to render a Switch
 /// </summary>
-public partial class FluentSwitch : FluentInputBase<bool>, IFluentComponentElementBase
+public partial class FluentSwitch : FluentInputBase<bool>
 {
     /// <summary>
-    /// 
+    /// Initializes a new instance of the <see cref="FluentSwitch"/> class.
     /// </summary>
     public FluentSwitch()
     {
         LabelPosition = Components.LabelPosition.After;
     }
-
-    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
-    [Parameter]
-    public ElementReference Element { get; set; }
 
     /// <summary>
     /// Handler for the OnFocus event.
