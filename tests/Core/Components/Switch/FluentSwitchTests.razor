@@ -47,6 +47,18 @@
     }
 
     [Fact]
+    public void FluentCheckbox_ReadOnly()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch ReadOnly="true" />
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentCheckbox_Required()
     {
         // Arrange && Act

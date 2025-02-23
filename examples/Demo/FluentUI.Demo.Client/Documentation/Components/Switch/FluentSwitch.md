@@ -31,6 +31,10 @@ A Switch can be disabled.
 
 {{ SwitchLabelPosition }}
 
+## ReadOnly
+
+{{ SwitchReadOnly }}
+
 ## Required
 
 {{ SwitchRequired }}
