@@ -1,0 +1,117 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Microsoft.FluentUI.AspNetCore.Components;
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentRatingDisplayTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentRatingDisplay_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRatingDisplay Value="2.5" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentRatingDisplay_Max()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRatingDisplay Value="2.5" Max="10" />);
+
+        // Assert
+        var value = cut.Find("fluent-rating-display").GetAttribute("max");
+
+        Assert.Equal("10", value);
+    }
+
+    [Fact]
+    public void FluentRatingDisplay_CompactMode()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRatingDisplay Value="3.89" Compact="true" />);
+
+        // Assert
+        var value = cut.Find("fluent-rating-display").HasAttribute("compact");
+    }
+
+    [Fact]
+    public void FluentRatingDisplay_Count()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRatingDisplay Count="56487498" Value="1" />);
+
+        // Assert
+        var value = cut.Find("fluent-rating-display").GetAttribute("count");
+
+        Assert.Equal("56487498.00", value);
+    }
+
+    [Fact]
+    public void FluentRatingDisplay_Value()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRatingDisplay Value="1" />);
+
+        // Assert
+        var value = cut.Find("fluent-rating-display").GetAttribute("value");
+
+        Assert.Equal("1.00", value);
+    }
+
+    [Theory]
+    [InlineData(RatingSize.Small, "small")]
+    [InlineData(RatingSize.Medium, "medium")]
+    [InlineData(RatingSize.Large, "large")]
+    [InlineData(null, "")]
+    [InlineData((RatingSize)999, "")]
+
+    public void FluentRatingDisplay_Size(RatingSize? size, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRatingDisplay Value="1" Size="size" />);
+
+        // Assert
+        var value = cut.Find("fluent-rating-display").GetAttribute("size") ?? string.Empty;
+
+        Assert.Equal(expectedValue, value);
+    }
+
+    [Theory]
+    [InlineData(RatingDisplayColor.Brand, "brand")]
+    [InlineData(RatingDisplayColor.Marigold, "marigold")]
+    [InlineData(RatingDisplayColor.Neutral, "neutral")]
+    [InlineData(null, "")]
+    [InlineData((RatingDisplayColor)999, "")]
+
+    public void FluentRatingDisplay_Color(RatingDisplayColor? color, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRatingDisplay Value="1" Color="color" />);
+
+        // Assert
+        var value = cut.Find("fluent-rating-display").GetAttribute("color") ?? string.Empty;
+
+        Assert.Equal(expectedValue, value);
+    }
+
+    [Fact]
+    public void FluentRatingDisplay_Shape()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRatingDisplay Value="1" Shape="@(Samples.Icons.Info)" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+}
