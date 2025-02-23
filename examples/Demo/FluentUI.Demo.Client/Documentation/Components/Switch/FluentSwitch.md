@@ -20,6 +20,10 @@ A Switch can be disabled.
 
 {{ SwitchLabelPosition }}
 
+## Required
+
+{{ SwitchRequired }}
+
 ## API FluentSwitch
 
 {{ API Type=FluentSwitch }}

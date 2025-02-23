@@ -40,7 +40,7 @@ public partial class FluentSwitch : FluentInputBase<bool>, IFluentComponentEleme
     private void OnSwitchChangedHandler(ChangeEventArgs e)
     {
         ArgumentNullException.ThrowIfNull(e);
-
+        
         CurrentValue = !CurrentValue;
     }
 
