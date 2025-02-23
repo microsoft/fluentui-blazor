@@ -1,0 +1,19 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputBase<bool>
+
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+    <fluent-switch @ref="@Element"
+                     aria-label="@AriaLabel"
+                     autofocus="@Autofocus"
+                     checked="@(CurrentValue)"
+                     disabled="@Disabled"
+                     id="@Id"
+                     name="@Name"
+                     readonly="@ReadOnly"
+                     required="@Required"
+                     @onfocusout="@FocusOutHandlerAsync"
+                     @attributes="AdditionalAttributes"
+                     @onchange="@OnSwitchChangedHandler"
+                     slot="input" />
+</FluentField>

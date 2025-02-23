@@ -1,0 +1,44 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.ComponentModel.DataAnnotations
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentSwitchTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSwitch_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch Autofocus="true"
+                AriaLabel="My aria label"
+                Name="MyName"
+                Value="true" />
+        );
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    public void FluentSwitch_OnClick(bool initialValue, bool expectedValue)
+    {
+        // Arrange
+        var value = initialValue;
+        var cut = Render(@<FluentSwitch @bind-value="@value" />);
+
+        // Act
+        cut.Find("fluent-switch").Change("");
+
+        // Assert
+        Assert.Equal(expectedValue, value);
+    }
+}
