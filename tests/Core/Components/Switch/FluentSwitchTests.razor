@@ -17,11 +17,7 @@
     public void FluentSwitch_Default()
     {
         // Arrange && Act
-        var cut = Render(@<FluentSwitch Autofocus="true"
-                AriaLabel="My aria label"
-                Name="MyName"
-                Value="true" />
-        );
+        var cut = Render(@<FluentSwitch />);
         // Assert
         cut.Verify();
     }
@@ -69,7 +65,7 @@
     {
         // Arrange
         var value = initialValue;
-        var cut = Render(@<FluentSwitch @bind-value="@value" />);
+        var cut = Render(@<FluentSwitch @bind-Value="@value" />);
 
         // Act
         cut.Find("fluent-switch").Change("");
