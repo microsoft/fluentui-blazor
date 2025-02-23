@@ -5,17 +5,6 @@ export function addAriaHidden(id) {
         fieldElement?.setAttribute("aria-hidden", "true");
     }
 }
-
-export function setClearButtonDisabled(id, disabled){
-    const fieldElement = document.querySelector("#" + id)?.shadowRoot?.querySelector(".clear-button");
-
-    if(!!fieldElement && disabled){
-        fieldElement?.setAttribute("disabled", ""); // set disabled attribute
-    }else{
-        fieldElement?.removeAttribute("disabled");
-    }
-}
-
 export function setControlAttribute(id, attrName, value) {
     const fieldElement = document.querySelector("#" + id)?.shadowRoot?.querySelector("#control");
 
