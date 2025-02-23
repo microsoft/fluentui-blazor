@@ -155,6 +155,13 @@ public partial class FluentButton : FluentComponentBase
     public bool Loading { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets if the button only shows an icon
+    /// Can be used when using <see cref="ChildContent"/> that renders as an icon
+    /// </summary>
+    [Parameter]
+    public bool IconOnly { get; set; }
+
+    /// <summary>
     /// Gets or sets the <see cref="Icon"/> displayed at the start of button content.
     /// </summary>
     [Parameter]
