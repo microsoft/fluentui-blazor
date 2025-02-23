@@ -26,6 +26,18 @@
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentCheckbox_LabelTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch Label="Title" />
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
     [Theory]
     [InlineData(false, true)]
     [InlineData(true, false)]
