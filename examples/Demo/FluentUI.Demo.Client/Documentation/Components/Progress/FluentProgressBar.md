@@ -14,7 +14,7 @@ This component is a wrapper for the web component.
 - Use an `indeterminate` **ProgressBar** (`Value=null`) when the total units 
   to completion is unknown.
 - Provide a clear description of the progress operation
-- Show text above and/or below the bar
+- Show text above and/or below the bar (you can use a [FluentField](/Field))
 - Combine steps of a single operation into one bar
 - Use a `FluentField` to add a validation `Message` and hint message for the 
   indeterminate Bar when reduced-motion is active
