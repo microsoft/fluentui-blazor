@@ -105,7 +105,6 @@ public partial class FluentSearch : FluentInputBase<string?>
             await Module.InvokeVoidAsync("setDataList", Id, DataList);
         }
 
-        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
         await Module.InvokeVoidAsync("setClearButtonDisabled", Id, Disabled || ReadOnly);
     }
 
