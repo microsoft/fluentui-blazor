@@ -87,22 +87,26 @@ public partial class FluentSearch : FluentInputBase<string?>
     {
         await base.OnAfterRenderAsync(firstRender);
 
+        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+
         if (firstRender)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             await Module.InvokeVoidAsync("addAriaHidden", Id);
 
             if (AutoComplete != null)
             {
                 await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", AutoComplete);
             }
+
         }
 
         if (DataList != null && !string.IsNullOrEmpty(Id))
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             await Module.InvokeVoidAsync("setDataList", Id, DataList);
         }
+
+        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+        await Module.InvokeVoidAsync("setClearButtonDisabled", Id, Disabled || ReadOnly);
     }
 
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
