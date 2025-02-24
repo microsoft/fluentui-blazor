@@ -8,12 +8,15 @@ route: /CounterBadge
 The `CounterBadge` component is a visual indicator that communicates a numerical count.
 It uses numbers, color, and icons for quick recognition and is placed near the relavant content.
 
+Typically a `CounterBadge` 'wraps' a component, such as a `FluentButton`, to indicate a count that represents a status.
+
 ## Best practices
 
 The same principles that apply to [badges](/Badge) apply to `CounterBadge` as well.
 
 ### Numbers on Badge
-CounterBadges are intented to have short, small numerical values or status information. An `OverflowCount` can be set as the maximum number that is shown in the CounterBadge.
+CounterBadges are intented to have short, small numerical values or status information.
+An `OverflowCount` can be set as the maximum number that is shown in the CounterBadge.
 It will add a `+` sign to the end of the number to indacate that the number is larger than the `OverflowCount`.
 
 ### Content

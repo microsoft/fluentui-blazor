@@ -8,6 +8,8 @@ route: /Badge
 The `Badge` component is a visual indicator that communicates a status or description of an associated component.
 It uses short text, color, and icons for quick recognition and is placed near the relavant content.
 
+Typically a `Badge` 'wraps' a component, such as a `FluentButton`, to indicate a status.
+
 ## Best practices
 
 ### Badges should not receive focus
@@ -26,10 +28,11 @@ There are two actions authors should consider taking when using Badge to improve
 
 1. If the text of the badge itself is not sufficient to convey its meaning, the parent element should be given an explicit label:
     ```
-    <FluentButton aria-label="Inbox, 6 unread messages">
-        Inbox
-        <FluentBadge>6</FluentBadge>
-    </FluentButton>
+    <FluentBadge Content="New">
+        <FluentButton aria-label="Inbox, 6 new messages">
+            Inbox
+        </FluentButton>
+    </FluentBadge>
     ```     
 
 ### Badge shouldn't rely only on color information
