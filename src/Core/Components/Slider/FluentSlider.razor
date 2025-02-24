@@ -9,11 +9,10 @@
 	               disabled="@Disabled"
 	               min="@FormatValueAsStringOrNull(Min)"
 	               max="@FormatValueAsStringOrNull(Max)"
-	               value="@FormatValueAsStringOrNull(Value)"
+				   value="@FormatValueAsString(Value)"
 	               step="@FormatValueAsStringOrNull(Step)"
 	               size="@Size.ToAttributeValue()"
 	               orientation="@(Orientation == Orientation.Horizontal ? null : Orientation.ToAttributeValue())"
-	               mode="@Mode.ToAttributeValue()"
 	               name="@Name"
 	               readonly="@ReadOnly"
 	               aria-label="@AriaLabel"
@@ -22,7 +21,7 @@
 	               tabindex="@GetTabIndexValue"
 	               @onfocusout="@FocusOutHandlerAsync"
 	               @onchange="@ChangeHandlerAsync"
-	               @attributes="AdditionalAttributes">
-		@ChildContent
+	               @attributes="@AdditionalAttributes">
+				@ChildContent
     </fluent-slider>
 </FluentField>

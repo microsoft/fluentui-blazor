@@ -47,12 +47,6 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     public Orientation Orientation { get; set; }
 
     /// <summary>
-    /// Gets or sets the selection mode.
-    /// </summary>
-    [Parameter]
-    public SliderMode? Mode { get; set; }
-
-    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
@@ -70,7 +64,8 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
            typeof(TValue) != typeof(long) &&
            typeof(TValue) != typeof(float) &&
            typeof(TValue) != typeof(double) &&
-           typeof(TValue) != typeof(decimal))
+           typeof(TValue) != typeof(decimal)&&
+           typeof(TValue) != typeof(short))
         {
             throw new InvalidOperationException("FluentSlider only supports numeric types.");
         }
