@@ -52,11 +52,6 @@ public partial class FluentSwitch : FluentInputBase<bool>
         throw new NotSupportedException();
     }
 
-    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out bool result, [NotNullWhen(false)] out string? validationErrorMessage)
-    {
-        return TryParseValueFromString(value, out result, out validationErrorMessage);
-    }
-
     private int? GetTabIndexValue =>
         ReadOnly && (!AdditionalAttributes?.ContainsKey("tabindex") ?? true)
         ? -1
