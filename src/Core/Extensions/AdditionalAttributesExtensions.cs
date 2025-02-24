@@ -35,7 +35,7 @@ internal static class AdditionalAttributesExtensions
     /// <param name="value">Value to return if the attribute is not found</param>
     /// <param name="when">Condition to check, to return the value</param>
     /// <returns>null if the attribute is found, or if the condition is not met</returns>
-    public static AdditionalAttributeCondition GetValueIfNoAdditionalAttribute(this IReadOnlyDictionary<string, object>? attributes, string name, object? value, Func<bool> when)
+    public static AdditionalAttributeCondition GetValueIfNoAdditionalAttribute(this IReadOnlyDictionary<string, object>? attributes, string name, object? value, Func<bool>? when = null)
     {
         return new AdditionalAttributeCondition(attributes).GetValueIfNoAdditionalAttribute(name, value, when);
     }
@@ -46,7 +46,7 @@ internal static class AdditionalAttributesExtensions
     internal class AdditionalAttributeCondition
     {
         private readonly IReadOnlyDictionary<string, object>? _additionalAttributes;
-        private readonly List<AdditionalAttributeConditionItem> _listOfConditions = new();
+        private readonly List<AdditionalAttributeConditionItem> _listOfConditions = [];
 
         /// <summary />
         internal AdditionalAttributeCondition(IReadOnlyDictionary<string, object>? attributes)
@@ -61,9 +61,9 @@ internal static class AdditionalAttributesExtensions
         /// <param name="value">Value to return if the attribute is not found</param>
         /// <param name="when">Condition to check, to return the value</param>
         /// <returns>null if the attribute is found, or if the condition is not met</returns>
-        public AdditionalAttributeCondition GetValueIfNoAdditionalAttribute(string name, object? value, Func<bool> when)
+        public AdditionalAttributeCondition GetValueIfNoAdditionalAttribute(string name, object? value, Func<bool>? when = null)
         {
-            var item = new AdditionalAttributeConditionItem(name, value, when);
+            var item = new AdditionalAttributeConditionItem(name, value, when is null ? () => true : when);
             _listOfConditions.Add(item);
             return this;
         }

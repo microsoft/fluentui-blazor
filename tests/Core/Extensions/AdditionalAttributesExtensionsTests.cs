@@ -73,4 +73,30 @@ public class AdditionalAttributesExtensionsTests
         // Assert
         Assert.Equal(defaultValue, result);
     }
+
+    [Theory]
+    [InlineData(false, true, "-1")]
+    [InlineData(false, false, "0")]
+    [InlineData(null, true, "-1")]
+    [InlineData(null, false, "0")]
+    [InlineData(true, true, null)]
+    [InlineData(true, false, null)]
+    public void AdditionalAttributesExtensions_GetValueIfNoAdditionalAttribute_NoExistingAttributes(bool? existingAdditionalAttributes, bool readOnly, string? expectedTabIndex)
+    {
+        // Arrange
+        var attributes = existingAdditionalAttributes switch
+        {
+            true => new Dictionary<string, object> { { "tabindex", "2" } },
+            false => new Dictionary<string, object>(),
+            _ => null
+        };
+
+        // Act
+        var result = attributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => readOnly == true)
+                               .GetValueIfNoAdditionalAttribute("tabindex", "0")
+                               .Build();
+
+        // Assert
+        Assert.Equal(expectedTabIndex, result);
+    }
 }
