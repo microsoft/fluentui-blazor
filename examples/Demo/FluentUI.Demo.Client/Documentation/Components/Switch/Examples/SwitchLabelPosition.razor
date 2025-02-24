@@ -1,11 +1,5 @@
 ﻿<FluentStack Orientation="Orientation.Vertical">
-    <FluentSwitch @bind-Value="@value1" Label="Label position Above" LabelPosition="LabelPosition.Above" />
-    <FluentSwitch @bind-Value="@value1" Label="Label position After" LabelPosition="LabelPosition.After" />
-    <FluentSwitch @bind-Value="@value1" Label="Label position Before" LabelPosition="LabelPosition.Before" />
-
-    <p>Switch value: @value1</p>
+    <FluentSwitch Label="Label position Above" LabelPosition="LabelPosition.Above" />
+    <FluentSwitch Label="Label position After" LabelPosition="LabelPosition.After" />
+    <FluentSwitch Label="Label position Before" LabelPosition="LabelPosition.Before" />
 </FluentStack>
-
-@code {
-    bool value1 = false;
-}
