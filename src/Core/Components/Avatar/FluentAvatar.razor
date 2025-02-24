@@ -5,7 +5,7 @@
 
 <fluent-avatar id="@Id"
                role="@GetRoleValue"
-               tabindex="@GetTabIndexValue"
+               tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "0", when: () => OnClick.HasDelegate)"
                class="@ClassValue"
                style="@StyleValue"
                active="@GetActiveValue"
@@ -17,7 +17,7 @@
                size="@Size.ToAttributeValue()"
                @onclick="@OnClickHandlerAsync"
                @onkeydown="@OnKeyDownHandlerAsync"
-               @attributes="AdditionalAttributes">
+               @attributes="@AdditionalAttributes">
 
     @if (DisplayImage)
     {

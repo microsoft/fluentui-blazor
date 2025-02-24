@@ -133,9 +133,4 @@ public partial class FluentAvatar : FluentComponentBase
         OnClick.HasDelegate
         ? "button"
         : null;
-
-    private int? GetTabIndexValue =>
-        OnClick.HasDelegate && (!AdditionalAttributes?.ContainsKey("tabindex") ?? true)
-        ? 0
-        : null;
 }
