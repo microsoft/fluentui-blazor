@@ -1,12 +1,22 @@
+### General
+The text that is displayed in a badge is now set using the `Content` parameter. The `ChildContent`
+parameter is now used to specify the badge 'wraps'.
+
 ### New parameters
-  `Size`, `Shape`, `IconStart` and `IconEnd` are new parameters.
+- `Size`
+- `Shape`
+- `IconStart`
+- `IconEnd` 
+- `Positioning`
+- `OffsetX`
+- `OffsetY`
 
 ### Removed parameters💥
-  The `Fill` parameter has been removed.
-  The `Circular` parameter has been removed. Use `Shape` instead.
-  The `Width` and `Height` parameters have been removed. Use `Size` instead.
-  The `OnClick` parameter has been removed. This to make clearer a Badge should not be used as a Button.
-  The `DismissIcon`, `DismissTitle` and `OnClickDismiss` parameters have been removed. There might be a more general dismissable component in the future.
+  - `Fill`
+  - `Circular`; use `Shape` instead.
+  - `Width`, `Height`; Use `Size` instead.
+  - `OnClick`; This to make clearer a `Badge` should not be used as a Button.
+  - `DismissIcon`, `DismissTitle` and `OnClickDismiss`; There might be a more general dismissable component in the future.
 
 
 ### Appearance 💥
