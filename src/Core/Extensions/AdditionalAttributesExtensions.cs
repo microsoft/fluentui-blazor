@@ -35,16 +35,71 @@ internal static class AdditionalAttributesExtensions
     /// <param name="value">Value to return if the attribute is not found</param>
     /// <param name="when">Condition to check, to return the value</param>
     /// <returns>null if the attribute is found, or if the condition is not met</returns>
-    public static object? GetValueIfNoAdditionalAttribute(this IReadOnlyDictionary<string, object>? attributes, string name, object? value, Func<bool> when)
+    public static AdditionalAttributeCondition GetValueIfNoAdditionalAttribute(this IReadOnlyDictionary<string, object>? attributes, string name, object? value, Func<bool> when)
     {
-        // Returns null if the attribute is found
-        if (attributes is not null &&
-            attributes.ContainsKey(name))
+        return new AdditionalAttributeCondition(attributes).GetValueIfNoAdditionalAttribute(name, value, when);
+    }
+
+    /// <summary>
+    /// Returns the value of the additional attribute with the specified name if it is not found.
+    /// </summary>
+    internal class AdditionalAttributeCondition
+    {
+        private readonly IReadOnlyDictionary<string, object>? _additionalAttributes;
+        private readonly List<AdditionalAttributeConditionItem> _listOfConditions = new();
+
+        /// <summary />
+        internal AdditionalAttributeCondition(IReadOnlyDictionary<string, object>? attributes)
         {
+            _additionalAttributes = attributes;
+        }
+
+        /// <summary>
+        /// Returns the value of the additional attribute with the specified name if it is not found.
+        /// </summary>
+        /// <param name="name">Name of the attribute</param>
+        /// <param name="value">Value to return if the attribute is not found</param>
+        /// <param name="when">Condition to check, to return the value</param>
+        /// <returns>null if the attribute is found, or if the condition is not met</returns>
+        public AdditionalAttributeCondition GetValueIfNoAdditionalAttribute(string name, object? value, Func<bool> when)
+        {
+            var item = new AdditionalAttributeConditionItem(name, value, when);
+            _listOfConditions.Add(item);
+            return this;
+        }
+
+        /// <summary>
+        /// Returns the value of the additional attribute with the specified name if it is not found.
+        /// </summary>
+        /// <returns></returns>
+        public object? Build()
+        {
+            foreach (var item in _listOfConditions)
+            {
+                if (_additionalAttributes is not null &&
+                    _additionalAttributes.ContainsKey(item.Name))
+                {
+                    return null;
+                }
+
+                if (item.When())
+                {
+                    return item.Value;
+                }
+            }
+
             return null;
         }
 
-        // Or the value if not found and the condition is met
-        return when() ? value : null;
+        /// <summary>
+        /// Returns the value of the additional attribute with the specified name if it is not found.
+        /// </summary>
+        /// <returns></returns>
+        public override string? ToString()
+        {
+            return Build()?.ToString() ?? null;
+        }
+
+        private record AdditionalAttributeConditionItem(string Name, object? Value, Func<bool> When);
     }
 }
