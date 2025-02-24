@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputBase<bool>
 
-<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" AdditionalAttributes="@fieldAdditionalAttributes">
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
     <fluent-switch aria-label="@AriaLabel"
                    autofocus="@Autofocus"
                    checked="@CurrentValue"
@@ -14,5 +14,6 @@
                    @onfocusout="@FocusOutHandlerAsync"
                    @attributes="AdditionalAttributes"
                    @onchange="@OnSwitchChangedHandler"
-                   slot="input" />
+                   slot="input"
+                   tabindex="@((ReadOnly && (AdditionalAttributes != null && !AdditionalAttributes.ContainsKey("tabindex"))) ? "-1" : AdditionalAttributes?["tabindex"])" />
 </FluentField>
