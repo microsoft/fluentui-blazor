@@ -128,9 +128,4 @@ public partial class FluentAvatar : FluentComponentBase
             ? "active"
             : "inactive"
         : null;
-
-    private string? GetRoleValue =>
-        OnClick.HasDelegate
-        ? "button"
-        : null;
 }
