@@ -13,12 +13,28 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentSwitch : FluentInputBase<bool>
 {
+    private IReadOnlyDictionary<string, object>? fieldAdditionalAttributes;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentSwitch"/> class.
     /// </summary>
     public FluentSwitch()
     {
         LabelPosition = Components.LabelPosition.After;
+    }
+
+    /// <summary>
+    /// Initializes the component.
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if (ReadOnly)
+        {
+            fieldAdditionalAttributes = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase) { { "readonly", true } };
+        }
     }
 
     /// <summary>

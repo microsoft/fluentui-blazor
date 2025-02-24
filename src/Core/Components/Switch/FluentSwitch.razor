@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputBase<bool>
 
-<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@((ReadOnly ? "pointer-events: none;" : "") + StyleValue)">
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" AdditionalAttributes="@fieldAdditionalAttributes">
     <fluent-switch aria-label="@AriaLabel"
                    autofocus="@Autofocus"
                    checked="@CurrentValue"
