@@ -56,4 +56,9 @@ public partial class FluentSwitch : FluentInputBase<bool>
     {
         return TryParseValueFromString(value, out result, out validationErrorMessage);
     }
+
+    private int? GetTabIndexValue =>
+        ReadOnly && (!AdditionalAttributes?.ContainsKey("tabindex") ?? true)
+        ? -1
+        : null;
 }

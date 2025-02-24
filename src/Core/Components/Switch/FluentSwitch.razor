@@ -15,5 +15,5 @@
                    @attributes="AdditionalAttributes"
                    @onchange="@OnSwitchChangedHandler"
                    slot="input"
-                   tabindex="@((ReadOnly && (AdditionalAttributes != null && !AdditionalAttributes.ContainsKey("tabindex"))) ? "-1" : AdditionalAttributes?["tabindex"])" />
+                   tabindex="@GetTabIndexValue" />
 </FluentField>
