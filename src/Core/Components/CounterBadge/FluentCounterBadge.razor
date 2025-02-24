@@ -5,26 +5,28 @@
 
 <AddTag Name="span" TagWhen="@(() => _isAttached)" style="position: relative; display: inline-block;">
     @ChildContent
-<fluent-counter-badge id="@Id"
-                      class="@ClassValue"
-                      style="@StyleValue"
-                      appearance="@Appearance.ToAttributeValue()"
-                      color="@Color.ToAttributeValue()"
-                      shape="@Shape.ToAttributeValue()"
-                      size="@Size.ToAttributeValue()"
-                      count="@GetCount()"
-                      overflow-count="@OverflowCount"
-                      show-zero="@ShowZero"
-                      dot="@Dot"
-                      @attributes="@AdditionalAttributes">
-    @if (IconStart != null)
-    {
-        <FluentIcon Value="@IconStart" Slot="start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
-    }
-    @if (IconEnd != null)
-    {
-        <FluentIcon Value="@IconEnd" Slot="end" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
-    }
-</fluent-counter-badge>
+    <AddTag Name="span" TagWhen="@(() => _isAttached)" style="@_internalStyle">
+        <fluent-counter-badge id="@Id"
+                              class="@ClassValue"
+                              style="@StyleValue"
+                              appearance="@Appearance.ToAttributeValue()"
+                              color="@Color.ToAttributeValue()"
+                              shape="@Shape.ToAttributeValue()"
+                              size="@Size.ToAttributeValue()"
+                              count="@GetCount()"
+                              overflow-count="@OverflowCount"
+                              show-zero="@ShowZero"
+                              dot="@Dot"
+                              @attributes="@AdditionalAttributes">
+            @if (IconStart != null)
+            {
+                <FluentIcon Value="@IconStart" Slot="start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+            }
+            @if (IconEnd != null)
+            {
+                <FluentIcon Value="@IconEnd" Slot="end" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+            }
+        </fluent-counter-badge>
+    </AddTag>
 </AddTag>
 

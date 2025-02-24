@@ -4,12 +4,13 @@
 
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The FluentBadge component is a visual indicator that communicates a status or description of an associated component.
-/// It uses short text, color, and icons for quick recognition and is placed near the relavant content.
+/// The FluentCounterBadge component is a visual indicator that communicates a value about an associated component.
+/// It uses short postive numbers, color, and icons for quick recognition and is placed near the relavant content.
 /// </summary>
 public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
 {
@@ -18,20 +19,18 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
 
     private int? GetCount() => ShowWhen?.Invoke(Count) == true ? Count : null;
 
+    private string? _internalStyle => new StyleBuilder()
+        .AddStyle(" position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex;")
+        .AddStyle("justify-content", GetXPosition(Positioning))
+        .AddStyle("align-items", GetYPosition(Positioning))
+        .Build();
+
     /// <summary />
     protected override string? StyleValue => DefaultStyleBuilder
         .AddStyle("background-color", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
-        .AddStyle("position", "absolute", _isAttached)
-        .AddStyle("inset", "auto auto calc(100% - 9px) calc(100% - 9px)", _isAttached)
+        .AddStyle("inset", CalculatePosition(Positioning, OffsetX, OffsetY), _isAttached)
         .AddStyle("z-index", ZIndex.Badge.ToString(CultureInfo.InvariantCulture), _isAttached)
         .Build();
-
-    /// <summary>
-    /// Gets or sets the badge's positioning relative to the <see cref="FluentBadge.ChildContent" />.
-    /// The default value is `null`. Internally the component uses AboveEnd as its default value.
-    /// </summary>
-    [Parameter]
-    public Positioning? Positioning { get; set; }
 
     /// <summary>
     ///  Gets or sets the badge's dot state.
@@ -47,11 +46,11 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
 
     /// <summary>
     /// Gets or sets if the badge displays the count based on the specified lambda expression.
-    /// By default the badge only shows a count when it's not equal to 0.
+    /// By default the badge only shows a count when it's greater than 0.
     /// For example, to show the count on the badge when the count greater than 4, use ShowWhen=@(Count => Count > 4)
     /// </summary>
     [Parameter]
-    public Func<int?, bool>? ShowWhen { get; set; } = Count => Count != 0;
+    public Func<int?, bool>? ShowWhen { get; set; } = Count => Count > 0;
 
     /// <summary>
     /// Gets or sets the badge's count.
@@ -59,7 +58,7 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
     /// With ShowZero being false by default, the default result will be an empty counter badge
     /// </summary>
     [Parameter]
-    public int? Count { get; set; }
+    public ushort? Count { get; set; }
 
     /// <summary>
     /// Gets or sets the badge's overflow count.

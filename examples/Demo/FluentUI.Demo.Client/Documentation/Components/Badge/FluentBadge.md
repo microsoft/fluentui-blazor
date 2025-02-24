@@ -44,6 +44,10 @@ First example shows an empty badge. Second example shows a badge with content.
 
 {{ BadgeDefault }}
 
+## Attached to content
+A badge can be attached to any content. The default position is above-end. The position can be changed using the `Positioning` parameter.
+
+{{ BadgeAttached }}
 
 ## Colors
 

@@ -18,7 +18,8 @@ It will add a `+` sign to the end of the number to indacate that the number is l
 
 ### Content
 
-The CounterBadge does not have a content slot. It can only show a count (through the `Count` parameter) If you need to add content, you can use the `Badge` component.
+The CounterBadge can only show a count (through the `Count` parameter).
+If you need to add textual content, you can use the `Badge` component.
 
 ## Default
 

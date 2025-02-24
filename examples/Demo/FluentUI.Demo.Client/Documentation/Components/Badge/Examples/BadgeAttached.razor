@@ -10,28 +10,29 @@
             "before-bottom . . . after-bottom"
             ". below-start below below-end .";
     }
+
 </style>
 <FluentStack VerticalAlignment="VerticalAlignment.Top">
     <span>
         <FluentStack HorizontalAlignment="HorizontalAlignment.Left" Orientation="Orientation.Vertical">
-            <FluentTextInput InputMode="TextInputMode.Numeric" @bind-Value="@count" Label="Count" AutoComplete="off" />
+            <FluentTextInput InputMode="TextInputMode.Numeric" @bind-Value="@content" Label="Content" AutoComplete="off" />
             <FluentTextInput InputMode="TextInputMode.Numeric" @bind-Value="@offsetX" Label="Offset X" AutoComplete="off" />
             <FluentTextInput InputMode="TextInputMode.Numeric" @bind-Value="@offsetY" Label="Offset Y" AutoComplete="off" />
         </FluentStack>
     </span>
     <div class="grid">
-        <div style="grid-area:contents">
-            <FluentCounterBadge Color="BadgeColor.Danger"
-                                Count="@(UInt16.TryParse(count, out ushort c) ? c : null)"
+        <div style="grid-area: contents; grid-column: 2/5; ">
+            <FluentBadge Color="BadgeColor.Danger"
+                                Content="@content"
                                 OffsetX="@(SByte.TryParse(offsetX, out sbyte x) ? x : null)"
                                 OffsetY="@(SByte.TryParse(offsetY, out sbyte y) ? y : null)"
                                 Size="BadgeSize.Small"
                                 Positioning="@_positioning">
-                <FluentButton Id="center-center" IconOnly="true" Appearance="ButtonAppearance.Default" IconStart="@(new Icons.Regular.Size24.Mail())" OnClick="@(() => HandlePositioning(Positioning.CenterCenter))" />
+                <FluentButton Id="center-center" Appearance="ButtonAppearance.Default" IconStart="@(new Icons.Regular.Size24.Mail())" OnClick="@(() => HandlePositioning(Positioning.CenterCenter))">Inbox</FluentButton>
                 <fluent-tooltip anchor="center-center" positioning="center-center">
                     center-center
                 </fluent-tooltip>
-            </FluentCounterBadge>
+            </FluentBadge>
         </div>
 
         <FluentButton IconOnly="true"
@@ -180,9 +181,9 @@
 </FluentStack>
 
 @code {
-    private string? count;
-    private string? offsetX;
-    private string? offsetY;
+    private string? content = "Badge";
+    private string? offsetX = "30";
+    private string? offsetY = "5";
 
     private Positioning _positioning;
 
