@@ -2,7 +2,6 @@
 @inherits FluentInputBase<TValue>
 @typeparam TValue where TValue : new()
 @using System.Globalization;
-@using System.Reflection;
 
 @{
     var value = BindConverter.FormatValue(CurrentValue, CultureInfo.InvariantCulture);
@@ -21,8 +20,8 @@
                      minlength="@MinLength"
                      size="@Size"
                      step=@Step
-                     max="@(ReadOnly ? value : Max)"
-                     min="@(ReadOnly ? value : Min)"
+                     max="@(ReadOnly ? value : MaxValue)"
+                     min="@(ReadOnly ? value : MinValue)"
                      id=@Id
                      value="@value"
                      disabled="@Disabled"

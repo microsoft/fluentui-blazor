@@ -1,46 +1,77 @@
 ﻿<p>
-    <FluentNumberField @bind-Value="exampleLong">Long</FluentNumberField><br />
+    <FluentNumberField @bind-Value="exampleLong">Long</FluentNumberField>
+    <br/>
     Example long: @exampleLong
-    <br />
-    Minimum value: -999999999999; Maximum value: 999999999999
+    <br/>
+    Minimum value: @(MinValue); Maximum value: @(MaxValue)
 </p>
 <p>
     <FluentNumberField @bind-Value="shortMin">Short</FluentNumberField>
-    <br />
+    <br/>
     Minimum value: @(short.MinValue); Maximum value: @(short.MaxValue)
 </p>
 
 <p>
-    <FluentNumberField @bind-Value="@exampleFloat">Float</FluentNumberField><br />
+    <FluentNumberField @bind-Value="@exampleFloat">Float</FluentNumberField>
+    <br/>
     Example float: @exampleFloat
-    <br />
-    Minimum value: @(float.MinValue); Maximum value: @(float.MaxValue)
+    <br/>
+    Minimum value: @(MinValue); Maximum value: @(MaxValue)
 </p>
 <p>
-    <FluentNumberField Step=0.25 @bind-Value="@exampleFloat">Float</FluentNumberField><br />
-    Example float: @exampleFloat (step=0.25)
-    <br />
-    Minimum value: @(float.MinValue); Maximum value: @(float.MaxValue)
+    <FluentNumberField Step=0.25 @bind-Value="@exampleFloat2">Float</FluentNumberField>
+    <br/>
+    Example float: @exampleFloat2 (step=0.25)
+    <br/>
+    Minimum value: @(MinValue); Maximum value: @(MaxValue)
 </p>
 <p>
-    <FluentNumberField @bind-Value="@exampleDouble" >Double</FluentNumberField><br />
+    <FluentNumberField @bind-Value="@exampleDouble">Double</FluentNumberField>
+    <br/>
     Example double: @exampleDouble
-    <br />
-    Minimum value: @(double.MinValue); Maximum value: @(double.MaxValue)
+    <br/>
+    Minimum value: @(MinValue); Maximum value: @(MaxValue)
 </p>
 <p>
-    <FluentNumberField @bind-Value="@exampleDecimal">Decimal</FluentNumberField><br />
+    <FluentNumberField @bind-Value="@exampleDecimal">Decimal</FluentNumberField>
+    <br/>
     Example decimal: @exampleDecimal
-    <br />
-    Minimum value: @(decimal.MinValue); Maximum value: @(decimal.MaxValue)
+    <br/>
+    Minimum value: @(MinValue); Maximum value: @(MaxValue)
+</p>
+
+<p>
+    <FluentNumberField @bind-Value="@exampleUshort">Unsigned short</FluentNumberField>
+    Example unsigned short: @exampleUshort
+    <br/>
+    Minimum value: @(ushort.MinValue); Maximum value: @(ushort.MaxValue)
+</p>
+
+<p>
+    <FluentNumberField @bind-Value="@exampleUint">Unsigned integer</FluentNumberField>
+    Example unsigned integer: @exampleUint
+    <br/>
+    Minimum value: @(uint.MinValue); Maximum value: @(uint.MaxValue)
+</p>
+
+<p>
+    <FluentNumberField @bind-Value="@exampleUlong">Unsigned long</FluentNumberField>
+    Example unsigned long: @exampleUlong
+    <br/>
+    Minimum value: @(ulong.MinValue); Maximum value: @(MaxValue)
 </p>
 
 @code {
-    int exampleInt { get; set; } = 123;
-    int exampleInt2 { get; set; } = 345;
     short shortMin = short.MinValue;
-    long exampleLong { get; set; } = 999999999999;
+    long exampleLong { get; set; } = 9999999997;
     float exampleFloat { get; set; } = 123.45f;
+    float exampleFloat2 { get; set; } = 123.45f;
     double exampleDouble { get; set; } = 456.32d;
     decimal exampleDecimal { get; set; } = Decimal.One / 3;
+    ushort exampleUshort { get; set; }
+    uint exampleUint { get; set; }
+    ulong exampleUlong { get; set; }
+
+    private const long MaxValue = 9999999999;
+    private const long MinValue = -9999999999;
 }

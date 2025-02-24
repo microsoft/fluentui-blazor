@@ -4,19 +4,25 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal static class InputHelpers<TValue>
 {
+    private const string WebComponentMaxValue = "9999999999";
+    private const string WebComponentMinValue = "-9999999999";
+    /// <summary>
+    /// Because of the limitation of the web component, the maximum value is set to 9999999999 for really large numbers.
+    /// </summary>
+    /// <returns>The maximum value for the underlying type</returns>
     public static string GetMaxValue()
     {
         Type? targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
         TypeCode typeCode = Type.GetTypeCode(targetType);
         var value = typeCode switch
         {
-            TypeCode.Decimal => decimal.MaxValue.ToString(CultureInfo.InvariantCulture),
-            TypeCode.Double => double.MaxValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.Decimal => WebComponentMaxValue,
+            TypeCode.Double => WebComponentMaxValue,
             TypeCode.Int16 => short.MaxValue.ToString(),
             TypeCode.Int32 => int.MaxValue.ToString(),
             TypeCode.Int64 => "999999999999",
             TypeCode.SByte => sbyte.MaxValue.ToString(),
-            TypeCode.Single => float.MaxValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.Single => WebComponentMaxValue,
             TypeCode.UInt16 => ushort.MaxValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.UInt32 => uint.MaxValue.ToString(),
             TypeCode.UInt64 => "999999999999",
@@ -26,6 +32,10 @@ internal static class InputHelpers<TValue>
         return value;
     }
 
+    /// <summary>
+    /// Because of the limitation of the web component, the minimum value is set to -9999999999 for really large negative numbers.
+    /// </summary>
+    /// <returns>The minimum value for the underlying type</returns>
     public static string GetMinValue()
     {
         Type? targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
@@ -34,16 +44,16 @@ internal static class InputHelpers<TValue>
         var value = typeCode switch
         {
 
-            TypeCode.Decimal => decimal.MinValue.ToString(CultureInfo.InvariantCulture),
-            TypeCode.Double => double.MinValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.Decimal => WebComponentMinValue,
+            TypeCode.Double => WebComponentMinValue,
             TypeCode.Int16 => short.MinValue.ToString(),
             TypeCode.Int32 => int.MinValue.ToString(),
-            TypeCode.Int64 => "-999999999999",
+            TypeCode.Int64 => WebComponentMinValue,
             TypeCode.SByte => sbyte.MinValue.ToString(),
-            TypeCode.Single => float.MinValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.Single => WebComponentMinValue,
             TypeCode.UInt16 => ushort.MinValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.UInt32 => uint.MinValue.ToString(),
-            TypeCode.UInt64 => "-999999999999",
+            TypeCode.UInt64 => ulong.MinValue.ToString(),
             _ => ""
 
         };
@@ -80,16 +90,6 @@ internal static class InputHelpers<TValue>
         if (maxValue < minValue)
         {
             throw new ArgumentException("Long Max value is smaller then Min value.");
-        }
-
-        if (maxValue > 999999999999)
-        {
-            throw new ArgumentException("Long Max value can not be bigger than 999999999999.");
-        }
-
-        if (minValue < -999999999999)
-        {
-            throw new ArgumentException("Long Min value can not be less than -999999999999.");
         }
     }
 
@@ -137,12 +137,65 @@ internal static class InputHelpers<TValue>
         }
     }
 
+    internal static void ValidateUShortInputs(string max, string min)
+    {
+        var maxValue = Convert.ToUInt16(max);
+        var minValue = Convert.ToUInt16(min);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Unsigned Short Max value is smaller than Min value.");
+        }
+    }
+
+    internal static void ValidateUIntegerInputs(string max, string min)
+    {
+        var maxValue = Convert.ToUInt32(max);
+        var minValue = Convert.ToUInt32(min);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Unsigned integer Max value is smaller than Min value.");
+        }
+    }
+
+    internal static void ValidateULongInputs(string max, string min)
+    {
+        var maxValue = Convert.ToUInt64(max);
+        var minValue = Convert.ToUInt64(min);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Unsigned Long Max value is smaller than Min value.");
+        }
+    }
+
     internal static void ValidateInputParameters(string? max, string? min)
     {
-
         if (max == null || min == null)
         {
-            return; //nothing to validate
+            // No need to validate if either max or min is null
+            return;
+        }
+
+        if (typeof(TValue) == typeof(ushort))
+        {
+            ValidateUShortInputs(max, min);
+        }
+
+        if (typeof(TValue) == typeof(uint))
+        {
+            ValidateUIntegerInputs(max, min);
+        }
+
+        if (typeof(TValue) == typeof(ulong))
+        {
+            ValidateULongInputs(max, min);
+        }
+
+        if(typeof(TValue) == typeof(byte))
+        {
+            ValidateUShortInputs(max, min);
         }
 
         if (typeof(TValue) == typeof(sbyte))
