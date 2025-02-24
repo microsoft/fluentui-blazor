@@ -26,6 +26,7 @@
 
     <div style="grid-column: 1; grid-row: 1; ">
         <InputFile OnChange="OnUploadFilesHandlerAsync"
+                   @attributes="@AdditionalAttributes"
                    @ref="@_inputFile"
                    id="@Id"
                    multiple=@Multiple
