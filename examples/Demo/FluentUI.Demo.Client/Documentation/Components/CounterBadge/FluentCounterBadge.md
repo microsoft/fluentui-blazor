@@ -8,7 +8,7 @@ route: /CounterBadge
 The `CounterBadge` component is a visual indicator that communicates a numerical count.
 It uses numbers, color, and icons for quick recognition and is placed near the relavant content.
 
-Typically a `CounterBadge` 'wraps' a component, such as a `FluentButton`, to indicate a count that represents a status.
+Typically a `CounterBadge` 'wraps' a component, such as a `FluentButton`, to indicate a count (>0) that represents a status.
 
 ## Best practices
 
@@ -35,8 +35,9 @@ If you need to add textual content, you can use the `Badge` component.
 
 ## Attached to content
 A counter badge can be attached to any content. The default position is above-end. The position can be changed using the `Positioning` parameter.
+The `OffestX` and `OffsetY` allow for tuning the positioning further.
 
-{{ CounterBadgeAttached }}
+{{ CounterBadgeAttached SourceCode=false}}
 
 ## ShowZero
 A counter badge can be shown even if the count is zero.

@@ -179,17 +179,4 @@
     <p style="width: 400px;">We use a general <code>Positioning</code> enumeration. When using it for the badge positioning, the 'corner' position pairs (eg. AboveStart and BeforeTop) give the exact same result.</p>
 </FluentStack>
 
-@code {
-    private string? count;
-    private string? offsetX;
-    private string? offsetY;
 
-    private Positioning _positioning;
-
-    private void HandlePositioning(Positioning positioning)
-    {
-        Console.WriteLine($"Positioning: {positioning}");
-
-        _positioning = positioning;
-    }
-}

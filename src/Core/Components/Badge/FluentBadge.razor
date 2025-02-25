@@ -2,11 +2,11 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<AddTag Name="span" TagWhen="@(() => _isAttached)" style="position: relative; display: inline-block;">
+<AddTag Name="span" TagWhen="@(() => _isAttached)" class="container">
     @ChildContent
-    <AddTag Name="span" TagWhen="@(() => _isAttached)" style="@_internalStyle">
-
+    <AddTag Name="span" TagWhen="@(() => _isAttached)" class="wrapper" style="@_internalStyle">
         <fluent-badge id="@Id"
+                      fuib
                       class="@ClassValue"
                       style="@StyleValue"
                       appearance="@Appearance.ToAttributeValue()"
@@ -16,28 +16,13 @@
                       @attributes="@AdditionalAttributes">
             @if (IconStart != null)
             {
-                if (Content is null)
-                {
-                    <FluentIcon Value="@IconStart" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
-                }
-                else
-                {
-                    <FluentIcon Value="@IconStart" Slot="start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
-                }
+                <FluentIcon Value="@IconStart" Slot="@(Content is null ? null : "start")" Color = "Components.Color.Custom" CustomColor = "@GetIconColor()" aria-label = "@IconLabel" />
+
             }
             @Content
             @if (IconEnd != null)
             {
-
-                if (Content is null)
-                {
-                    <FluentIcon Value="@IconEnd" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
-                }
-                else
-                {
-                    <FluentIcon Value="@IconEnd" Slot="end" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
-                }
-
+                <FluentIcon Value="@IconEnd" Slot="@(Content is null ? null : "end")" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
             }
         </fluent-badge>
     </AddTag>

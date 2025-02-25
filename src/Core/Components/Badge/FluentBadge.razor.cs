@@ -17,7 +17,6 @@ public partial class FluentBadge : FluentComponentBase
     private bool _isAttached => ChildContent is not null;
 
     private string? _internalStyle => new StyleBuilder()
-        .AddStyle(" position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex;")
         .AddStyle("justify-content", GetXPosition(Positioning))
         .AddStyle("align-items", GetYPosition(Positioning))
         .Build();

@@ -21,7 +21,7 @@
         </FluentStack>
     </span>
     <div class="grid">
-        <div style="grid-area: contents; grid-column: 2/5; ">
+        <span style="grid-area: contents; grid-column: 2/5; ">
             <FluentBadge Color="BadgeColor.Danger"
                                 Content="@content"
                                 OffsetX="@(SByte.TryParse(offsetX, out sbyte x) ? x : null)"
@@ -33,7 +33,7 @@
                     center-center
                 </fluent-tooltip>
             </FluentBadge>
-        </div>
+        </span>
 
         <FluentButton IconOnly="true"
                       Id="above-start"
@@ -179,18 +179,3 @@
     </div>
     <p style="width: 400px;">We use a general <code>Positioning</code> enumeration. When using it for the badge positioning, the 'corner' position pairs (eg. AboveStart and BeforeTop) give the exact same result.</p>
 </FluentStack>
-
-@code {
-    private string? content = "Badge";
-    private string? offsetX = "30";
-    private string? offsetY = "5";
-
-    private Positioning _positioning;
-
-    private void HandlePositioning(Positioning positioning)
-    {
-        Console.WriteLine($"Positioning: {positioning}");
-
-        _positioning = positioning;
-    }
-}
