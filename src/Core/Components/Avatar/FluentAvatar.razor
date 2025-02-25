@@ -4,8 +4,8 @@
 @inherits FluentComponentBase
 
 <fluent-avatar id="@Id"
-               role="@GetRoleValue"
-               tabindex="@GetTabIndexValue"
+               role="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("role", "button", when: () => OnClick.HasDelegate)"
+               tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "0", when: () => OnClick.HasDelegate)"
                class="@ClassValue"
                style="@StyleValue"
                active="@GetActiveValue"
@@ -17,7 +17,7 @@
                size="@Size.ToAttributeValue()"
                @onclick="@OnClickHandlerAsync"
                @onkeydown="@OnKeyDownHandlerAsync"
-               @attributes="AdditionalAttributes">
+               @attributes="@AdditionalAttributes">
 
     @if (DisplayImage)
     {
