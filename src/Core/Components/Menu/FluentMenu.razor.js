@@ -1,4 +1,4 @@
-﻿// Add Left click event to open the PowerMenu
+// Add Left click event to open the FluentMenu
 export function addEventLeftClick(id, dotNetHelper) {
     var item = document.getElementById(id);
     if (!!item) {
@@ -8,7 +8,7 @@ export function addEventLeftClick(id, dotNetHelper) {
     }
 }
 
-// Add Right click event to open the PowerMenu
+// Add Right click event to open the FluentMenu
 export function addEventRightClick(id, dotNetHelper) {
     var item = document.getElementById(id);
     if (!!item) {
@@ -18,4 +18,16 @@ export function addEventRightClick(id, dotNetHelper) {
             return false;
         }, false);
     }
+}
+
+// Must use an animation frame to ensure the DOM is fully updated before checking the element's
+// attributes to prevent stale or inconsistent reads.
+export function isChecked(menuItemId) {
+    return new Promise(resolve => {
+        requestAnimationFrame(() => {
+            const menuItemElement = document.getElementById(menuItemId);
+            if (!menuItemElement) return resolve(false);
+            resolve(menuItemElement.hasAttribute("checked") || menuItemElement.getAttribute("aria-checked") === "true");
+        });
+    });
 }
