@@ -52,6 +52,9 @@ public partial class FluentSwitch : FluentInputBase<bool>
         throw new NotSupportedException();
     }
 
+    private string? GetLabelValue =>
+        (!string.IsNullOrEmpty(CheckedMessage) && CurrentValue) ? CheckedMessage : (!string.IsNullOrEmpty(UncheckedMessage) && !CurrentValue ? UncheckedMessage : Label);
+
     private int? GetTabIndexValue =>
         ReadOnly && (!AdditionalAttributes?.ContainsKey("tabindex") ?? true)
         ? -1
