@@ -1,0 +1,98 @@
+﻿
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="40">
+
+    <FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+
+        <FluentLabel Typo="Typography.H5">Role=MenuItemCheckbox</FluentLabel>
+        <FluentMenu Open="true" OnCheckedChanged="HandleCheckedChanged">
+
+            <FluentMenuItem Id="ck1" Role="MenuItemRole.MenuItemCheckbox" @bind-Checked=checkbox1>
+                    Checkbox MenuItem 1 is @(checkbox1 ? "Checked" : "Unchecked")
+            </FluentMenuItem>
+
+            <FluentMenuItem Id="ck2" Role="MenuItemRole.MenuItemCheckbox" @bind-Checked=checkbox2>
+                    Checkbox MenuItem 2 is @(checkbox2 ? "Checked" : "Unchecked")
+            </FluentMenuItem>
+
+        </FluentMenu>
+
+        <FluentButton Appearance="Appearance.Accent" OnClick="ToggleCheckboxItem2">Toggle checkbox item 2</FluentButton>
+
+    </FluentStack>
+
+    <FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+
+        <FluentLabel Typo="Typography.H5">Role=MenuItemRadio</FluentLabel>
+        <FluentMenu Open="true" OnCheckedChanged="HandleCheckedChanged">
+
+            <FluentMenuItem id="radio1" Role="MenuItemRole.MenuItemRadio" @bind-Checked=radio1>
+                Radio 1 is @(radio1? "Checked" : "Unchecked" )
+            </FluentMenuItem>
+
+            <FluentMenuItem Id="radio2" Role="MenuItemRole.MenuItemRadio" @bind-Checked=radio2>
+                Radio 2 is @(radio2 ? "Checked" : "Unchecked")
+            </FluentMenuItem>
+
+            <FluentMenuItem Id="radio3" Role="MenuItemRole.MenuItemRadio" @bind-Checked=radio3>
+                Radio 3 is @(radio3 ? "Checked" : "Unchecked")
+            </FluentMenuItem>
+
+            <FluentDivider/>
+
+            <FluentMenuItem id="radio4" Role="MenuItemRole.MenuItemRadio" @bind-Checked=radio4>
+                Radio 4 is @(radio4 ? "Checked" : "Unchecked")
+            </FluentMenuItem>
+
+            <FluentMenuItem Id="radio5" Role="MenuItemRole.MenuItemRadio" @bind-Checked=radio5>
+                Radio 5 is @(radio5 ? "Checked" : "Unchecked")
+            </FluentMenuItem>
+
+            <FluentMenuItem Id="radio6" Role="MenuItemRole.MenuItemRadio" @bind-Checked=radio6>
+                Radio 6 is @(radio6 ? "Checked" : "Unchecked")
+            </FluentMenuItem>
+
+            <FluentMenuItem Id="radio7" Role="MenuItemRole.MenuItemRadio" @bind-Checked=radio7>
+                Radio 7 is @(radio7 ? "Checked" : "Unchecked")
+            </FluentMenuItem>
+
+            <FluentMenuItem Id="radio8" Role="MenuItemRole.MenuItemRadio" @bind-Checked=radio8>
+                Radio 8 is @(radio8 ? "Checked" : "Unchecked")
+            </FluentMenuItem>
+
+        </FluentMenu>
+
+        <FluentButton Appearance="Appearance.Accent" OnClick="ToggleRadioItem6">Toggle radio item 6</FluentButton>
+
+    </FluentStack>
+
+</FluentStack>
+
+@code {
+
+    private bool checkbox1 = false;
+    private bool checkbox2 = false;
+
+    private bool radio1 = false; 
+    private bool radio2 = false;
+    private bool radio3 = false;
+    private bool radio4 = false;
+    private bool radio5 = false;
+    private bool radio6 = false;
+    private bool radio7 = false;
+    private bool radio8 = false;
+
+    private void ToggleCheckboxItem2()
+    {
+        checkbox2 = !checkbox2;
+    }
+
+    private void ToggleRadioItem6()
+    {
+        radio6 = !radio6;
+    }
+
+    private void HandleCheckedChanged(FluentMenuItem item)
+    {
+        DemoLogger.WriteLine(@$"{item.Id} {(item.Checked ? "Checked" : "Unchecked")}");
+    }
+}
