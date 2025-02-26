@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -528,7 +532,11 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         _selectedItems.Clear();
         if (SelectAll == true)
         {
-            _selectedItems.AddRange(InternalGridContext.Grid.Items?.ToArray() ?? InternalGridContext.Items);
+            // Only add selectable items
+            _selectedItems.AddRange((InternalGridContext.Grid.Items?.ToList() ?? InternalGridContext.Items)
+                .Where(item => Selectable?.Invoke(item) ?? false)
+                .ToArray()
+);
         }
 
         if (SelectedItemsChanged.HasDelegate)
