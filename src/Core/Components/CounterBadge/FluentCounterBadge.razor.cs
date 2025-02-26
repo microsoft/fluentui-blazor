@@ -1,10 +1,7 @@
 // ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
-
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -18,18 +15,6 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
     private bool _isAttached => ChildContent is not null;
 
     private int? GetCount() => ShowWhen?.Invoke(Count) == true ? Count : null;
-
-    private string? _internalStyle => new StyleBuilder()
-        .AddStyle("justify-content", GetXPosition(Positioning))
-        .AddStyle("align-items", GetYPosition(Positioning))
-        .Build();
-
-    /// <summary />
-    protected override string? StyleValue => DefaultStyleBuilder
-        .AddStyle("background-color", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
-        .AddStyle("inset", CalculatePosition(Positioning, OffsetX, OffsetY), _isAttached)
-        .AddStyle("z-index", ZIndex.Badge.ToString(CultureInfo.InvariantCulture), _isAttached)
-        .Build();
 
     /// <summary>
     ///  Gets or sets the badge's dot state.

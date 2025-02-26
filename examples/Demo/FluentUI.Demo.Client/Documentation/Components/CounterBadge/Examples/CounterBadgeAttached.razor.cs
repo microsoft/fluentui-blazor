@@ -7,7 +7,7 @@ using Microsoft.FluentUI.AspNetCore.Components;
 namespace FluentUI.Demo.Client.Documentation.Components.CounterBadge.Examples;
 public partial class CounterBadgeAttached
 {
-    private string? count;
+    private string? count = "3";
     private string? offsetX;
     private string? offsetY;
 

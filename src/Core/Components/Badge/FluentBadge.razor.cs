@@ -4,7 +4,7 @@
 
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,11 +16,6 @@ public partial class FluentBadge : FluentComponentBase
 {
     private bool _isAttached => ChildContent is not null;
 
-    private string? _internalStyle => new StyleBuilder()
-        .AddStyle("justify-content", GetXPosition(Positioning))
-        .AddStyle("align-items", GetYPosition(Positioning))
-        .Build();
-
     /// <summary />
     protected virtual string? ClassValue => DefaultClassBuilder
          .Build();
@@ -28,7 +23,9 @@ public partial class FluentBadge : FluentComponentBase
     /// <summary />
     protected virtual string? StyleValue => DefaultStyleBuilder
         .AddStyle("background-color", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
-        .AddStyle("inset", CalculatePosition(Positioning, OffsetX, OffsetY), _isAttached)
+        .AddStyle("position", "absolute", _isAttached)
+        .AddStyle("transform", GetTransform(), _isAttached)
+        .AddStyle(GetPosition(), _isAttached)
         .AddStyle("z-index", ZIndex.Badge.ToString(CultureInfo.InvariantCulture), _isAttached)
         .Build();
 
@@ -103,6 +100,7 @@ public partial class FluentBadge : FluentComponentBase
 
     /// <summary>
     /// Gets or sets how much the badge overlaps the content it wraps on the x-axis
+    /// Must be a valid CSS value or variable
     /// Only applied when <see cref="ChildContent"/> is not null
     /// </summary>
     [Parameter]
@@ -110,6 +108,7 @@ public partial class FluentBadge : FluentComponentBase
 
     /// <summary>
     /// Gets or sets how much the badge overlaps the content it wraps on the y-axis
+    /// Must be a valid CSS value or variable
     /// Only applied when <see cref="ChildContent"/> is not null
     /// </summary>
     [Parameter]
@@ -221,11 +220,7 @@ public partial class FluentBadge : FluentComponentBase
         return "center";
     }
 
-    /// <summary>
-    /// Gets the align-items (y) position of the badge.
-    /// </summary>
-    /// <param name="positioning"></param>
-    /// <returns></returns>
+    /// <summary />
     protected static string GetYPosition(Positioning? positioning)
     {
         if (positioning.HasValue)
@@ -258,5 +253,86 @@ public partial class FluentBadge : FluentComponentBase
         }
 
         return "center";
+    }
+
+    /// <summary />
+    protected string GetPosition()
+    {
+        var _offsetX = $"{OffsetX?.ToString(CultureInfo.InvariantCulture) ?? "0"}px";
+        var _offsetY = $"{OffsetY?.ToString(CultureInfo.InvariantCulture) ?? "0"}px";
+
+        var positioning = Positioning.ToAttributeValue()?.Split('-') ?? [];
+
+        var direction = positioning.Length > 0 ? positioning[0] : null;
+        var alignment = positioning.Length > 1 ? positioning[1] : null;
+
+        if (alignment == null)
+        {
+            if (string.Equals(direction, "above", StringComparison.Ordinal) || string.Equals(direction, "below", StringComparison.Ordinal))
+            {
+                alignment = "centerX";
+            }
+
+            if (string.Equals(direction, "before", StringComparison.Ordinal) || string.Equals(direction, "after", StringComparison.Ordinal))
+            {
+                alignment = "centerY";
+            }
+        }
+
+        var directionCSSMap = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            { "above", $"top: {_offsetY};" },
+            { "below", $"bottom: -{_offsetY};" },
+            { "before", $"left: {_offsetX};" },
+            { "after", $"right: -{_offsetX};" },
+            { "center", $"right: calc(50% + {_offsetX});" },
+        };
+
+        directionCSSMap.TryGetValue(direction ?? "above", out var directionCSS);
+
+        var alignmentCSSMap = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            { "start", $"left: {_offsetX};" },
+            { "end", $"right: -{_offsetX};" },
+            { "top", $"top: {_offsetY};" },
+            { "bottom", $"bottom: {_offsetY};" },
+
+            { "center", $"top: calc(50% + {_offsetY});" },
+            { "centerX", $"left: calc(50% + {_offsetX});" },
+            { "centerY", $"top: calc(50% + {_offsetY});" },
+        };
+
+        alignmentCSSMap.TryGetValue(alignment ?? "end", out var alignmentCSS);
+
+        return $"{directionCSS} {alignmentCSS}";
+    }
+
+    /// <summary>
+    /// Gets the needed transform CSS string based on the <see cref="Positioning" />
+    /// </summary>
+    protected string GetTransform()
+    {
+        var value = Positioning switch
+        {
+            Components.Positioning.AboveStart => "translate(-50%,-50%)",
+            Components.Positioning.Above => "translate(-50%,-50%)",
+            Components.Positioning.AboveEnd => "translate(50%,-50%)",
+
+            Components.Positioning.BelowStart => "translate(-50%,50%)",
+            Components.Positioning.Below => "translate(-50%,50%)",
+            Components.Positioning.BelowEnd => "translate(50%,50%)",
+
+            Components.Positioning.BeforeTop => "translate(-50%,-50%)",
+            Components.Positioning.Before => "translate(-50%,-50%)",
+            Components.Positioning.BeforeBottom => "translate(-50%,50%)",
+
+            Components.Positioning.AfterTop => "translate(50%,-50%)",
+            Components.Positioning.After => "translate(50%,-50%)",
+            Components.Positioning.AfterBottom => "translate(50%,50%)",
+
+            _ => "translate(50%,-50%)"
+        };
+
+        return $"{value};";
     }
 }

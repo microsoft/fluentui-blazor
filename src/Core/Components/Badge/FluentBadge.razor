@@ -2,28 +2,26 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<AddTag Name="span" TagWhen="@(() => _isAttached)" class="container">
+<AddTag Name="span" TagWhen="@(() => _isAttached)" style="position: relative; display: inline-block;">
     @ChildContent
-    <AddTag Name="span" TagWhen="@(() => _isAttached)" class="wrapper" style="@_internalStyle">
-        <fluent-badge id="@Id"
-                      fuib
-                      class="@ClassValue"
-                      style="@StyleValue"
-                      appearance="@Appearance.ToAttributeValue()"
-                      color="@Color.ToAttributeValue()"
-                      shape="@Shape.ToAttributeValue()"
-                      size="@Size.ToAttributeValue()"
-                      @attributes="@AdditionalAttributes">
-            @if (IconStart != null)
-            {
-                <FluentIcon Value="@IconStart" Slot="@(Content is null ? null : "start")" Color = "Components.Color.Custom" CustomColor = "@GetIconColor()" aria-label = "@IconLabel" />
+    <fluent-badge id="@Id"
+                  fuib
+                  class="@ClassValue"
+                  style="@StyleValue"
+                  appearance="@Appearance.ToAttributeValue()"
+                  color="@Color.ToAttributeValue()"
+                  shape="@Shape.ToAttributeValue()"
+                  size="@Size.ToAttributeValue()"
+                  @attributes="@AdditionalAttributes">
+        @if (IconStart != null)
+        {
+            <FluentIcon Value="@IconStart" Slot="@(Content is null ? null : "start")" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
 
-            }
-            @Content
-            @if (IconEnd != null)
-            {
-                <FluentIcon Value="@IconEnd" Slot="@(Content is null ? null : "end")" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
-            }
-        </fluent-badge>
-    </AddTag>
+        }
+        @Content
+        @if (IconEnd != null)
+        {
+            <FluentIcon Value="@IconEnd" Slot="@(Content is null ? null : "end")" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+        }
+    </fluent-badge>
 </AddTag>

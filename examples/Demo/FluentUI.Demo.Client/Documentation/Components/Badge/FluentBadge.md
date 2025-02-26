@@ -10,6 +10,10 @@ It uses short text, color, and icons for quick recognition and is placed near th
 
 Typically a `Badge` 'wraps' a component, such as a `FluentButton`, to indicate a status.
 
+There are 9 possible positions for a badge to attach to the content it wraps:
+
+{{ BadgePositions SourceCode=false }}
+
 ## Best practices
 
 ### Badges should not receive focus
@@ -26,7 +30,7 @@ There are two actions authors should consider taking when using Badge to improve
    <FluentBadge IconLabel="paste" />
    ```
 
-1. If the text of the badge itself is not sufficient to convey its meaning, the parent element should be given an explicit label:
+2. If the text of the badge itself is not sufficient to convey its meaning, the parent element should be given an explicit label:
     ```
     <FluentBadge Content="New">
         <FluentButton aria-label="Inbox, 6 new messages">

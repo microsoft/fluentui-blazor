@@ -10,6 +10,10 @@ It uses numbers, color, and icons for quick recognition and is placed near the r
 
 Typically a `CounterBadge` 'wraps' a component, such as a `FluentButton`, to indicate a count (>0) that represents a status.
 
+There are 9 possible positions for a badge to attach to the content it wraps:
+
+{{ BadgePositions SourceCode=false }}
+
 ## Best practices
 
 The same principles that apply to [badges](/Badge) apply to `CounterBadge` as well.
