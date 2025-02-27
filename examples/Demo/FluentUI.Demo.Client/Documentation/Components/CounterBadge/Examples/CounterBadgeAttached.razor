@@ -28,10 +28,7 @@
                                 Size="BadgeSize.Small"
                                 Positioning="@_positioning">
                 <FluentButton Id="center-center" IconOnly="true" Appearance="ButtonAppearance.Default" IconStart="@(new Icons.Regular.Size24.Mail())" OnClick="@(() => HandlePositioning(Positioning.CenterCenter))" />
-                <fluent-tooltip anchor="center-center" positioning="center-center">
-                    center-center
-                </fluent-tooltip>
-            </FluentCounterBadge>
+             </FluentCounterBadge>
         </div>
 
         <FluentButton IconOnly="true"
@@ -41,32 +38,19 @@
             <svg style="transform: rotate(-90deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
         </FluentButton>
 
-        <fluent-tooltip anchor="above-start" positioning="above-start">
-            above-start
-        </fluent-tooltip>
-
-
-        <FluentButton IconOnly="true"
+         <FluentButton IconOnly="true"
                       Id="above"
                       Style="grid-area: above"
                       OnClick="@(() => HandlePositioning(Positioning.Above))">
             <svg style="transform: rotate(0deg)"><use href="#arrow-step-out-20-regular"></use></svg>
         </FluentButton>
 
-        <fluent-tooltip anchor="above" positioning="above">
-            above
-        </fluent-tooltip>
-
-        <FluentButton IconOnly="true"
+         <FluentButton IconOnly="true"
                       Id="above-end"
                       Style="grid-area: above-end"
                       OnClick="@(() => HandlePositioning(Positioning.AboveEnd))">
             <svg style="transform: rotate(90deg)"><use href="#arrow-step-back-20-regular"></use></svg>
         </FluentButton>
-
-        <fluent-tooltip anchor="above-end" positioning="above-end">
-            above-end
-        </fluent-tooltip>
 
         <FluentButton IconOnly="true"
                       Id="before-top"
@@ -75,20 +59,12 @@
             <svg style="transform: rotate(0deg)"><use href="#arrow-step-back-20-regular"></use></svg>
         </FluentButton>
 
-        <fluent-tooltip anchor="before-top" positioning="before-top">
-            before-top
-        </fluent-tooltip>
-
         <FluentButton IconOnly="true"
                       Id="before"
                       Style="grid-area: before"
                       OnClick="@(() => HandlePositioning(Positioning.Before))">
             <svg style="transform: rotate(-90deg)"><use href="#arrow-step-out-20-regular"></use></svg>
         </FluentButton>
-
-        <fluent-tooltip anchor="before" positioning="before">
-            before
-        </fluent-tooltip>
 
         <FluentButton IconOnly="true"
                       Id="before-bottom"
@@ -97,20 +73,12 @@
             <svg style="transform: rotate(180deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
         </FluentButton>
 
-        <fluent-tooltip anchor="before-bottom" positioning="before-bottom">
-            before-bottom
-        </fluent-tooltip>
-
-        <FluentButton IconOnly="true"
+         <FluentButton IconOnly="true"
                       Id="after-top"
                       Style="grid-area: after-top"
                       OnClick="@(() => HandlePositioning(Positioning.AfterTop))">
             <svg style="transform: rotate(0deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
         </FluentButton>
-
-        <fluent-tooltip anchor="after-top" positioning="after-top">
-            after-top
-        </fluent-tooltip>
 
         <FluentButton IconOnly="true"
                       Id="after"
@@ -119,10 +87,6 @@
             <svg style="transform: rotate(90deg)"><use href="#arrow-step-out-20-regular"></use></svg>
         </FluentButton>
 
-        <fluent-tooltip anchor="after" positioning="after">
-            after
-        </fluent-tooltip>
-
         <FluentButton IconOnly="true"
                       Id="after-bottom"
                       Style="grid-area: after-bottom"
@@ -130,20 +94,12 @@
             <svg style="transform: rotate(180deg)"><use href="#arrow-step-back-20-regular"></use></svg>
         </FluentButton>
 
-        <fluent-tooltip anchor="after-bottom" positioning="after-bottom">
-            after-bottom
-        </fluent-tooltip>
-
-        <FluentButton IconOnly="true"
+       <FluentButton IconOnly="true"
                       Id="below-start"
                       Style="grid-area: below-start"
                       OnClick="@(() => HandlePositioning(Positioning.BelowStart))">
             <svg style="transform: rotate(-90deg)"><use href="#arrow-step-back-20-regular"></use></svg>
         </FluentButton>
-
-        <fluent-tooltip anchor="below-start" positioning="below-start">
-            below-start
-        </fluent-tooltip>
 
         <FluentButton IconOnly="true"
                       Id="below"
@@ -152,22 +108,14 @@
             <svg style="transform: rotate(180deg)"><use href="#arrow-step-out-20-regular"></use></svg>
         </FluentButton>
 
-        <fluent-tooltip anchor="below" positioning="below">
-            below
-        </fluent-tooltip>
-
-        <FluentButton IconOnly="true"
+         <FluentButton IconOnly="true"
                       Id="below-end"
                       Style="grid-area: below-end"
                       OnClick="@(() => HandlePositioning(Positioning.BelowEnd))">
             <svg style="transform: rotate(90deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
         </FluentButton>
 
-        <fluent-tooltip anchor="below-end" positioning="below-end">
-            below-end
-        </fluent-tooltip>
-
-        <svg style="display: none">
+         <svg style="display: none">
             <symbol id="arrow-step-out-20-regular" viewBox="0 0 20 20">
                 <path fill="currentColor" d="M10 15a1 1 0 1 0 0 2a1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0a2 2 0 0 1-4 0m2-4a.5.5 0 0 0 .5-.5V3.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L9.5 3.707V11.5a.5.5 0 0 0 .5.5"></path>
             </symbol>
@@ -178,5 +126,3 @@
     </div>
     <p style="width: 400px;">We use a general <code>Positioning</code> enumeration. When using it for the badge positioning, the 'corner' position pairs (eg. AboveStart and BeforeTop) give the exact same result.</p>
 </FluentStack>
-
-
