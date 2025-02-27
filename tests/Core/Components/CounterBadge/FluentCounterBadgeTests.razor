@@ -31,6 +31,16 @@
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentCounterBadge_CountOutOfRange()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="256" />);
+
+        // Assert
+        cut.Verify();
+    }
+
     [Theory]
     [InlineData(BadgeAppearance.Filled, "filled")]
     [InlineData(BadgeAppearance.Ghost, "ghost")]
@@ -250,5 +260,49 @@
         // Assert
         cut.Verify();
     }
+
+    [Theory]
+    [InlineData(Positioning.AboveStart)]
+    [InlineData(Positioning.Above)]
+    [InlineData(Positioning.AboveEnd)]
+    [InlineData(Positioning.BeforeTop)]
+    [InlineData(Positioning.Before)]
+    [InlineData(Positioning.BeforeBottom)]
+    [InlineData(Positioning.AfterTop)]
+    [InlineData(Positioning.After)]
+    [InlineData(Positioning.AfterBottom)]
+    [InlineData(Positioning.BelowStart)]
+    [InlineData(Positioning.Below)]
+    [InlineData(Positioning.BelowEnd)]
+    [InlineData(Positioning.CenterCenter)]
+    [InlineData(null)]
+    [InlineData((Positioning)999)]
+    public void FluentCounterBadge_Positioning(Positioning? value)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Positioning="@value" />);
+
+        // Assert
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
+    }
+
+    [Fact]
+    public void FluentCounterBadge_OffsetX()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="11" OffsetX="4" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_OffsetY()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="11" OffsetY="4" />);
+        // Assert
+        cut.Verify();
+    }
+
 }
 
