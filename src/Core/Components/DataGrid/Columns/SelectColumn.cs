@@ -534,9 +534,8 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         {
             // Only add selectable items
             _selectedItems.AddRange((InternalGridContext.Grid.Items?.ToList() ?? InternalGridContext.Items)
-                .Where(item => Selectable?.Invoke(item) ?? false)
-                .ToArray()
-);
+                .Where(item => Selectable?.Invoke(item) ?? true)
+            );
         }
 
         if (SelectedItemsChanged.HasDelegate)
