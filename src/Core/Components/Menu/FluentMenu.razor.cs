@@ -173,6 +173,12 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     [Parameter]
     public AxisScalingMode? HorizontalScaling { get; set; }
 
+    /// <summary>
+    /// Raised when FluentMenuItem Checked changed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentMenuItem> OnCheckedChanged { get; set; }
+
     protected override void OnInitialized()
     {
         if (Anchored && string.IsNullOrEmpty(Anchor))
@@ -199,9 +205,10 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     {
         if (firstRender)
         {
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+
             if (Trigger != MouseButton.None)
             {
-                _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
                 _dotNetHelper = DotNetObjectReference.Create(this);
 
@@ -314,6 +321,16 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
         {
             await OpenChanged.InvokeAsync(Open);
         }
+    }
+
+    internal async Task NotifyCheckedChangedAsync(FluentMenuItem fluentMenuItem)
+    {
+        await OnCheckedChanged.InvokeAsync(fluentMenuItem);
+    }
+
+    internal async Task<bool> IsCheckedAsync (FluentMenuItem item)
+    {
+        return await _jsModule.InvokeAsync<bool>("isChecked", item.Id);
     }
 
     /// <summary>

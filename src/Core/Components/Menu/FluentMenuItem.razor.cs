@@ -66,6 +66,12 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
+    /// <summary>
+    /// Event raised for checkbox and radio menuitems
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> CheckedChanged { get; set; }
+
     public FluentMenuItem()
     {
         Id = Identifier.NewId();
@@ -76,7 +82,6 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
         Owner?.Register(this);
     }
 
-    /// <summary />
     protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (Disabled)
@@ -90,6 +95,25 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
         }
 
         await OnClick.InvokeAsync(ev);
+    }
+
+    protected async Task OnChangeHandlerAsync(ChangeEventArgs ev)
+    {
+        // fluent-menu-item v2 does not pass the checked state as a parameter when emitting
+        // the change event so we need to capture the state from the html element using javascript.
+        // The value is passed in v3 so javscript lookup won't be necessary. 
+        if (Owner != null && Role is MenuItemRole.MenuItemCheckbox or MenuItemRole.MenuItemRadio)
+        {
+            var isChecked = await Owner.IsCheckedAsync(this);
+            Checked = isChecked;
+
+            await CheckedChanged.InvokeAsync(Checked);
+
+            if (Role == MenuItemRole.MenuItemCheckbox || (Role == MenuItemRole.MenuItemRadio && isChecked))
+            {
+                await Owner.NotifyCheckedChangedAsync(this);
+            }
+        }
     }
 
     protected string? GetRole()
