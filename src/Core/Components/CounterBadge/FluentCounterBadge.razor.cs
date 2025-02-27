@@ -68,5 +68,10 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
         {
             throw new ArgumentException("FluentCounterBadge does not support Square shape.");
         }
+
+        if (Positioning is null && _isAttached)
+        {
+            Positioning = Components.Positioning.AboveEnd;
+        }
     }
 }

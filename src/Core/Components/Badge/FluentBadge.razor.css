@@ -11,6 +11,12 @@
 
 */
 
+fluent-badge-container,
+fluent-counter-badge-container {
+  position: relative;
+  display: inline-block;
+}
+
 fluent-badge[positioning='before-top'],
 fluent-badge[positioning='above-start'],
 fluent-counter-badge[positioning='before-top'],

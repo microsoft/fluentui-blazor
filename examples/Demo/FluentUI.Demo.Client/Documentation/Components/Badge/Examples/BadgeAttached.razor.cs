@@ -11,7 +11,7 @@ public partial class BadgeAttached
     private string? offsetX; // = "30";
     private string? offsetY; // = "5";
 
-    private Positioning _positioning;
+    private Positioning? _positioning;
 
     private void HandlePositioning(Positioning positioning)
     {

@@ -11,7 +11,7 @@ public partial class CounterBadgeAttached
     private string? offsetX;
     private string? offsetY;
 
-    private Positioning _positioning;
+    private Positioning? _positioning;
 
     private void HandlePositioning(Positioning positioning)
     {
