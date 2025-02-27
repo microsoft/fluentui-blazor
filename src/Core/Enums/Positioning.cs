@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Determines the placement of aligned content releative to the base content.
+/// Determines the placement of aligned content relative to the base content.
 /// This is used for example in the <see cref="FluentCounterBadge"/> component.
 /// </summary>
 public enum Positioning

@@ -1,0 +1,86 @@
+/*
+fluent-badge {
+  --offsetX: 0px;
+  --offsetY: 0px;
+}
+
+*/
+  /*
+    before-top       above        after-top
+    above-start                   above-end
+
+
+    before       center-center    after
+
+
+    before-bottom    below        after-bottom
+    below-start                   below-end
+
+*/
+
+  fluent-badge[position='before-top'],
+  fluent-badge[position='above-start'] {
+    position: absolute;
+    top: calc(1 * attr(offset-y px, 0px));
+    left: calc(1 * attr(offset-x px, 0px));
+    transform: translate(-50%, -50%);
+  }
+
+  fluent-badge[position='above'] {
+    position: absolute;
+    top: calc(1 * attr(offset-y px, 0px));
+    left: calc(50% + 1 * attr(offset-x px, 0px));
+    transform: translate(-50%, -50%);
+  }
+
+  fluent-badge[position='after-top'],
+  fluent-badge[position='above-end'] {
+    position: absolute;
+    top: calc(1 * attr(offset-y px, 0px));
+    right: calc(-1 * attr(offset-x px, 0px));
+    transform: translate(50%, -50%);
+  }
+
+  fluent-badge[position='after'] {
+    position: absolute;
+    top: calc(50% + attr(offset-y px, 0px));
+    right: calc(-1 * attr(offset-x px, 0px));
+    transform: translate(50%, -50%);
+  }
+
+  fluent-badge[position='after-bottom'],
+  fluent-badge[position='below-end'] {
+    position: absolute;
+    bottom: calc(-1 * attr(offset-y px, 0px));
+    right: calc(-1 * attr(offset-x px, 0px));
+    transform: translate(50%, 50%);
+  }
+
+  fluent-badge[position='below'] {
+    position: absolute;
+    bottom: calc(-1 * attr(offset-y px, 0px));
+    left: calc(50% + 1 * attr(offset-x px, 0px));
+    transform: translate(-50%, 50%);
+  }
+
+  fluent-badge[position='before-bottom'],
+  fluent-badge[position='below-start'] {
+    position: absolute;
+    bottom: calc(-1 * attr(offset-y px, 0px));
+    left: calc(1 * attr(offset-x px, 0px));
+    transform: translate(-50%, 50%);
+  }
+
+  fluent-badge[position='before'] {
+    position: absolute;
+    top: calc(50% + attr(offset-y px, 0px));
+    left: calc(1 * attr(offset-x px, 0px));
+    transform: translate(-50%, -50%);
+  }
+
+  fluent-badge[position='center-center'] {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: calc(50% + 1* attr(offset-x px, 0px));
+    top: calc(50% + attr(offset-y px, 0px));
+  }
