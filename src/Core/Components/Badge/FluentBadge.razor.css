@@ -1,0 +1,92 @@
+/*
+    before-top       above        after-top
+    above-start                   above-end
+
+
+    before       center-center    after
+
+
+    before-bottom    below        after-bottom
+    below-start                   below-end
+
+*/
+
+fluent-badge[positioning='before-top'],
+fluent-badge[positioning='above-start'],
+fluent-counter-badge[positioning='before-top'],
+fluent-counter-badge[positioning='above-start'] {
+  position: absolute;
+  top: calc(1 * attr(offset-y px, 0px));
+  left: calc(1 * attr(offset-x px, 0px));
+  transform: translate(-50%, -50%);
+}
+
+fluent-badge[positioning='above'],
+fluent-counter-badge[positioning='above'] {
+  position: absolute;
+  top: calc(1 * attr(offset-y px, 0px));
+  left: calc(50% + 1 * attr(offset-x px, 0px));
+  transform: translate(-50%, -50%);
+}
+
+fluent-badge[positioning='after-top'],
+fluent-badge[positioning='above-end'],
+fluent-counter-badge[positioning='after-top'],
+fluent-counter-badge[positioning='above-end'] {
+  position: absolute;
+  top: calc(1 * attr(offset-y px, 0px));
+  right: calc(-1 * attr(offset-x px, 0px));
+  transform: translate(50%, -50%);
+}
+
+fluent-badge[positioning='after'],
+fluent-counter-badge[positioning='after'] {
+  position: absolute;
+  top: calc(50% + attr(offset-y px, 0px));
+  right: calc(-1 * attr(offset-x px, 0px));
+  transform: translate(50%, -50%);
+}
+
+fluent-badge[positioning='after-bottom'],
+fluent-badge[positioning='below-end'],
+fluent-counter-badge[positioning='after-bottom'],
+fluent-counter-badge[positioning='below-end'] {
+  position: absolute;
+  bottom: calc(-1 * attr(offset-y px, 0px));
+  right: calc(-1 * attr(offset-x px, 0px));
+  transform: translate(50%, 50%);
+}
+
+fluent-badge[positioning='below'],
+fluent-counter-badge[positioning='below'] {
+  position: absolute;
+  bottom: calc(-1 * attr(offset-y px, 0px));
+  left: calc(50% + 1 * attr(offset-x px, 0px));
+  transform: translate(-50%, 50%);
+}
+
+fluent-badge[positioning='before-bottom'],
+fluent-badge[positioning='below-start'],
+fluent-counter-badge[positioning='before-bottom'],
+fluent-counter-badge[positioning='below-start'] {
+  position: absolute;
+  bottom: calc(-1 * attr(offset-y px, 0px));
+  left: calc(1 * attr(offset-x px, 0px));
+  transform: translate(-50%, 50%);
+}
+
+fluent-badge[positioning='before'],
+fluent-counter-badge[positioning='before'] {
+  position: absolute;
+  top: calc(50% + attr(offset-y px, 0px));
+  left: calc(1 * attr(offset-x px, 0px));
+  transform: translate(-50%, -50%);
+}
+
+fluent-badge[positioning='center-center'],
+fluent-counter-badge[positioning='center-center'] {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: calc(50% + 1* attr(offset-x px, 0px));
+  top: calc(50% + attr(offset-y px, 0px));
+}

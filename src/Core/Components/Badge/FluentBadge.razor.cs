@@ -23,9 +23,6 @@ public partial class FluentBadge : FluentComponentBase
     /// <summary />
     protected virtual string? StyleValue => DefaultStyleBuilder
         .AddStyle("background-color", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
-        .AddStyle("position", "absolute", _isAttached)
-        .AddStyle("transform", GetTransform(), _isAttached)
-        .AddStyle(GetPosition(), _isAttached)
         .AddStyle("z-index", ZIndex.Badge.ToString(CultureInfo.InvariantCulture), _isAttached)
         .Build();
 
