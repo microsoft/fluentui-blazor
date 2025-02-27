@@ -4,84 +4,58 @@
 @inject NavigationManager NavManager
 
 <div style="height: 434px; overflow:auto;" tabindex="-1">
-    <FluentDataGrid @ref="dataGrid"
-                    Items="foodRecallItems"
-                    RefreshItems="RefreshItemsAsync"
+    <FluentDataGrid
+                    ItemsProvider="foodRecallProvider"
                     OnRowDoubleClick="@(()=>DemoLogger.WriteLine("Row double clicked!"))"
+                    Virtualize="true"
                     ItemSize="46"
                     GenerateHeader="GenerateHeaderOption.Sticky"
-                    TGridItem="FoodRecall"
-                    Loading="loading"
-                    Pagination="pagination">
+                    TGridItem="FoodRecall" >
         <PropertyColumn Title="ID" Property="@(c => c!.Event_Id)" />
         <PropertyColumn Property="@(c => c!.State)" Style="color: #af5f00 ;" />
         <PropertyColumn Property="@(c => c!.City)" />
-        <PropertyColumn Title="Company" Property="@(c => c!.Recalling_Firm)" Tooltip="true" />
+        <PropertyColumn Title="Company" Property="@(c => c!.Recalling_Firm)" Tooltip="true"/>
         <PropertyColumn Property="@(c => c!.Status)" />
         <TemplateColumn Title="Actions" Align="@Align.End">
             <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => DemoLogger.WriteLine("Edit clicked"))" />
             <FluentButton aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => DemoLogger.WriteLine("Delete clicked"))" />
         </TemplateColumn>
-        <PropertyColumn Title="Termination Date" Property="@(c => c!.Termination_Date)" SortName="termination_date" Sortable="true" />
     </FluentDataGrid>
 </div>
-<div class="mt-3">
-    <FluentPaginator State="@pagination" />
-</div>
-<FluentButton IconStart="@(new Icons.Regular.Size16.ArrowClockwise())"
-              Appearance="Appearance.Accent"
-              Loading="@loading"
-              OnClick="DataGridRefreshDataAsync">
-    Search
-</FluentButton>
 
 <p>Total: <strong>@numResults results found</strong></p>
-<p>Call Times: <strong>@qtdCall</strong></p>
 
 @code {
-    FluentDataGrid<FoodRecall> dataGrid = default!;
-    IQueryable<FoodRecall> foodRecallItems = default!;
-    bool loading = true;
+    GridItemsProvider<FoodRecall> foodRecallProvider = default!;
     int? numResults;
-    PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
-    int qtdCall;
 
-    protected async Task RefreshItemsAsync(GridItemsProviderRequest<FoodRecall> req)
+    protected override async Task OnInitializedAsync()
     {
-        qtdCall++;
-
-        loading = true;
-        await InvokeAsync(StateHasChanged);
-
-        var filters = new Dictionary<string, object?>
+        // Define the GridRowsDataProvider. Its job is to convert QuickGrid's GridRowsDataProviderRequest into a query against
+        // an arbitrary data soure. In this example, we need to translate query parameters into the particular URL format
+        // supported by the external JSON API. It's only possible to perform whatever sorting/filtering/etc is supported
+        // by the external API.
+        foodRecallProvider = async req =>
         {
-            { "skip", req.StartIndex },
-            { "limit", req.Count },
+            var url = NavManager.GetUriWithQueryParameters("https://api.fda.gov/food/enforcement.json", new Dictionary<string, object?>
+                        {
+                { "skip", req.StartIndex },
+                { "limit", req.Count },
+                        });
+
+            var response = await Http.GetFromJsonAsync<FoodRecallQueryResult>(url, req.CancellationToken);
+
+            // Simulate a slow data retrieval process
+            if (req.Count is null)
+            {
+                await Task.Delay(2500);
+            }
+            return GridItemsProviderResult.From(
+                items: response!.Results,
+                totalItemCount: response!.Meta.Results.Total);
         };
 
-        if (req.SortByColumn != null)
-            filters.Add("sort", req.SortByColumn.SortName + (req.SortByAscending ? ":asc" : ":desc"));
-
-        var url = NavManager.GetUriWithQueryParameters("https://api.fda.gov/food/enforcement.json", filters);
-
-        var response = await Http.GetFromJsonAsync<FoodRecallQueryResult>(url);
-
-        // Simulate a slow data retrieval process
-        if (req.Count is null)
-        {
-            await Task.Delay(2500);
-        }
-
-        foodRecallItems = response!.Results.AsQueryable();
-        await pagination.SetTotalItemCountAsync(response!.Meta.Results.Total);
-
-        loading = false;
-        await InvokeAsync(StateHasChanged);
+        // Display the number of results just for information. This is completely separate from the grid.
+        numResults = (await Http.GetFromJsonAsync<FoodRecallQueryResult>("https://api.fda.gov/food/enforcement.json"))!.Meta.Results.Total;
     }
-
-    protected async Task DataGridRefreshDataAsync()
-    {
-        await dataGrid.RefreshDataAsync(true);
-    }
-
 }

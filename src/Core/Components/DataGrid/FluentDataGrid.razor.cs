@@ -53,6 +53,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public IQueryable<TGridItem>? Items { get; set; }
 
+    /// <summary>
+    /// Gets or sets a callback which will be called if there is a change in pagination, ordering or if a RefreshDataAsync is forced.
+    ///
+    /// You must supply <see cref="Items"/> if you use this callback.
+    /// </summary>
     [Parameter]
     public Func<GridItemsProviderRequest<TGridItem>, Task>? RefreshItems { get; set; }
 

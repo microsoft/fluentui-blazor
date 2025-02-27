@@ -1250,6 +1250,11 @@
              "show options" UI and invoke the grid's <see cref="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnOptionsAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})" />).
              </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.SortName">
+            <summary>
+            Gets or sets the name used to assist the external ordering.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Sortable">
              <summary>
              Gets or sets a value indicating whether the data should be sortable by this column.
@@ -1848,6 +1853,13 @@
              or an EntityFramework DataSet or an <see cref="T:System.Linq.IQueryable"/> derived from it.
             
              You should supply either <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider"/>, but not both.
+             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RefreshItems">
+             <summary>
+             Gets or sets a callback which will be called if there is a change in pagination, ordering or if a RefreshDataAsync is forced.
+            
+             You must supply <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Items"/> if you use this callback.
              </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider">

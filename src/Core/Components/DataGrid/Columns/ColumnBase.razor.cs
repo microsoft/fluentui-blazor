@@ -93,6 +93,9 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter]
     public RenderFragment? ColumnOptions { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name used to assist the external ordering.
+    /// </summary>
     [Parameter]
     public string? SortName { get; set; }
 
