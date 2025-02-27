@@ -94,6 +94,12 @@ public abstract partial class ColumnBase<TGridItem>
     public RenderFragment? ColumnOptions { get; set; }
 
     /// <summary>
+    /// Gets or sets the name used to assist the external ordering.
+    /// </summary>
+    [Parameter]
+    public string? SortName { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the data should be sortable by this column.
     ///
     /// The default value may vary according to the column type (for example, a <see cref="TemplateColumn{TGridItem}" />

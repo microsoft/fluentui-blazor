@@ -62,4 +62,29 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     /// <returns>A collection of (property name, direction) pairs representing the sorting rules</returns>
     public IReadOnlyCollection<SortedProperty> GetSortByProperties() =>
         SortByColumn?.SortBy?.ToPropertyList(SortByAscending) ?? Array.Empty<SortedProperty>();
+
+    public bool IsSameRequest(GridItemsProviderRequest<TGridItem> req)
+    {
+        if (StartIndex != req.StartIndex)
+        {
+            return false;
+        }
+
+        if (Count != req.Count)
+        {
+            return false;
+        }
+
+        if (SortByColumn?.Index != req.SortByColumn?.Index)
+        {
+            return false;
+        }
+
+        if (SortByAscending != req.SortByAscending)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
