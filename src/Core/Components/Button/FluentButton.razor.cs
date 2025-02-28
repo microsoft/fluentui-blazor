@@ -42,7 +42,7 @@ public partial class FluentButton : FluentComponentBase
     public string? FormId { get; set; }
 
     /// <summary>
-    /// gets or sets the URL that processes the information submitted by the button.
+    /// Gets or sets the URL that processes the information submitted by the button.
     /// </summary>
     [Parameter]
     public string? FormAction { get; set; }
@@ -153,6 +153,13 @@ public partial class FluentButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool Loading { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets if the button only shows an icon
+    /// Can be used when using <see cref="ChildContent"/> that renders as an icon
+    /// </summary>
+    [Parameter]
+    public bool IconOnly { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="Icon"/> displayed at the start of button content.

@@ -114,6 +114,19 @@ Example:
 <FluentButton Margin="mt-0" Padding="pa-3" />      => <fluent-button class="mt-0 pa-3" />
 ```
 
+## `Margin` and `Padding` Helper constants
+
+To help developers use these CSS classes, we've created **C# constants**
+that are more **explicit** and use **IntelliSense** completion.
+
+```csharp
+<FluentButton Margin="@Margin.Top0" />                              // CSS `mt-0` (Top: 0px).
+<FluentButton Padding="@Padding.All3" />                            // CSS `pa-3` (All: 12px).
+
+<FluentButton Margin="@(Margin.Top0 + Margin.Bottom3_ForLarge)" />  // CSS `mt-0` (Top: 0px)
+                                                                    // CSS `mb-lg-3` (Bottom: 12px) where `min-width: 1280px`.
+```
+
 ## Demo
 
 {{ SpacingDefault }}
