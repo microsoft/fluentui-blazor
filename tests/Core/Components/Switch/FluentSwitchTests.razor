@@ -1,0 +1,88 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.ComponentModel.DataAnnotations
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentSwitchTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSwitch_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCheckbox_LabelPosition()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch LabelPosition="LabelPosition.Above" />
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCheckbox_LabelTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch Label="Title" />
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCheckbox_ReadOnly()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch ReadOnly="true" />
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCheckbox_Required()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch Required="true" />
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    public void FluentSwitch_OnClick(bool initialValue, bool expectedValue)
+    {
+        // Arrange
+        var value = initialValue;
+        var cut = Render(@<FluentSwitch @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-switch").Change("");
+
+        // Assert
+        Assert.Equal(expectedValue, value);
+    }
+}
