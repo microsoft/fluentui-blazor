@@ -7,18 +7,10 @@ route: /Slider
 
 The **FluentSlider** component is an input where the user selects a value from within a given range. Sliders typically have a slider thumb that can be moved along a bar, rail, or track to change the value of the slider.
 
-Default settings are `Min="0"`, `Max="100"` and `Step="1"`.
+**Default** settings are `Min="0"`, `Max="100"` and `Step="1"`.
 
-`TValue` can be one of the following `Type`'s:  
-
-- `byte`
-- `short`
-- `int`  
-- `long`  
-- `short`  
-- `float`  
-- `double`  
-- `decimal`  
+**Value** can be one of the following **Numeric Type**:
+`byte`, `sbyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `float`, `double`, `decimal`.
 
 ## Best practices
 
@@ -42,6 +34,8 @@ View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/
 
 ## Orientation
 
+The minimum height of the slider is `120px`.
+
 {{ SliderOrientation }}
 
 ## Size
@@ -50,7 +44,11 @@ View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/
 
 ## Thumbs
 
-The slider's thumb can be customized with any HTML element (e.g. an icon). Simply add your element as a child of the **FluentSlider** component with the `Slot="thumb"` attribute.
+The slider's thumb can be customized with any HTML element (e.g. an icon).
+Simply add your element as a child of the **FluentSlider** component with the
+`Slot="thumb"` attribute.
+
+If you add content that is **not part** of `Slot="thumb"`, it will be ignored.
 
 {{ SliderThumbs }}
 

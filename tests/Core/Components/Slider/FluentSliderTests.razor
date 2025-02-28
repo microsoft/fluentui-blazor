@@ -113,13 +113,17 @@
     public static IEnumerable<object[]> TypeOfValues =>
         [
             [ (byte)1 ],
-            [ (int)2 ],
-            [ (long)3 ],
-            [ (float)4.1 ],
-            [ (double)5.1 ],
-            [ (decimal)6.1 ],
-            [ (short)7 ],
-        ];
+            [ (sbyte)1 ],
+            [ (short)1 ],
+            [ (ushort)1 ],
+            [ (int)1 ],
+            [ (uint)1 ],
+            [ (long)1 ],
+            [ (ulong)1 ],
+            [ (float)1.1 ],
+            [ (double)1.1 ],
+            [ (decimal)1.1 ],
+    ];
 
     [Theory]
     [MemberData(nameof(TypeOfValues))]
@@ -141,5 +145,16 @@
 
         // Assert
         Assert.Equal("99", valueUpdated);
-    }    
+    }
+
+    [Fact]
+    public void FluentSlider_InvalidTypeOfValue()
+    {
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            // Arrange
+            var value = 'a';
+            var cut = Render(@<FluentSlider TValue="char" Value="@value" />);
+        });
+    }
 }
