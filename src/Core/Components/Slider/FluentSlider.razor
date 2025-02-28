@@ -18,7 +18,7 @@
                    aria-label="@AriaLabel"
                    autofocus="@Autofocus"
                    required="@Required"
-                   tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "0", when: () => ReadOnly)"
+                   tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1" , when: () => ReadOnly)"
                    @onfocusout="@FocusOutHandlerAsync"
                    @onchange="@ChangeHandlerAsync"
                    @attributes="@AdditionalAttributes">
