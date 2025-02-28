@@ -25,7 +25,7 @@
     public void FluentBadge_Content()
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge>Hello World</FluentBadge>);
+        var cut = Render(@<FluentBadge Content="Hello World"></FluentBadge>);
 
         // Assert
         cut.Verify();
@@ -41,7 +41,7 @@
     public void FluentBadge_Appearance(BadgeAppearance? value, string expectedValue)
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge Appearance="@value">Content</FluentBadge>);
+        var cut = Render(@<FluentBadge Appearance="@value" Content="Content" />);
 
         // Assert
         var attribute = cut.Find("fluent-badge").GetAttribute("appearance") ?? string.Empty;
@@ -62,7 +62,7 @@
     public void FluentBadge_Color(BadgeColor? value, string expectedValue)
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge Color="@value">Content</FluentBadge>);
+        var cut = Render(@<FluentBadge Color="@value" Content="Content"></FluentBadge>);
 
         // Assert
         var attribute = cut.Find("fluent-badge").GetAttribute("color") ?? string.Empty;
@@ -75,7 +75,7 @@
         Assert.Throws<ArgumentException>(() =>
         {
             // Arrange && Act
-            var cut = Render(@<FluentBadge BackgroundColor="mediumpurple" Color="BadgeColor.Danger">Hello World</FluentBadge>);
+            var cut = Render(@<FluentBadge BackgroundColor="mediumpurple" Color="BadgeColor.Danger" Content="Hello World"></FluentBadge>);
         });
     }
 
@@ -83,7 +83,7 @@
     public void FluentBadge_BackgroundColorNull()
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge BackgroundColor="mediumpurple" Color="null">Hello World</FluentBadge>);
+        var cut = Render(@<FluentBadge BackgroundColor="mediumpurple" Color="null" Content="Hello World"></FluentBadge>);
 
         // Assert
         cut.Verify();
@@ -98,7 +98,7 @@
     public void FluentBadge_Shape(BadgeShape? value, string expectedValue)
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge Shape="@value">Content</FluentBadge>);
+        var cut = Render(@<FluentBadge Shape="@value" Content="Content"></FluentBadge>);
 
         // Assert
         var attribute = cut.Find("fluent-badge").GetAttribute("shape") ?? string.Empty;
@@ -117,7 +117,7 @@
     public void FluentBadge_Size(BadgeSize? value, string expectedValue)
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge Size="@value">Content</FluentBadge>);
+        var cut = Render(@<FluentBadge Size="@value" Content="Content"></FluentBadge>);
 
         // Assert
         var attribute = cut.Find("fluent-badge").GetAttribute("size") ?? string.Empty;
@@ -128,7 +128,7 @@
     public void FluentBadge_IconStart()
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info">Content</FluentBadge>);
+        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info" Content="Content"></FluentBadge>);
         // Assert
         cut.Verify();
     }
@@ -146,7 +146,7 @@
     public void FluentBadge_IconEnd()
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge IconEnd="@Samples.Icons.Info">Content</FluentBadge>);
+        var cut = Render(@<FluentBadge IconEnd="@Samples.Icons.Info" Content="Content"></FluentBadge>);
         // Assert
         cut.Verify();
     }
@@ -164,7 +164,7 @@
     public void FluentBadge_IconStartAndEnd()
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info" IconEnd="@Samples.Icons.Info">Content</FluentBadge>);
+        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info" IconEnd="@Samples.Icons.Info" Content="Content"></FluentBadge>);
         // Assert
         cut.Verify();
     }
@@ -173,7 +173,7 @@
     public void FluentBadge_IconLabel()
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info" IconLabel="Add">Content</FluentBadge>);
+        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info" IconLabel="Add" Content="Content"></FluentBadge>);
         // Assert
         cut.Verify();
     }
@@ -188,10 +188,53 @@
     public void FluentBadge_IconColor(BadgeColor? value, string expectedValue)
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info"  Color="@value">Content</FluentBadge>);
+        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info"  Color="@value" Content="Content"></FluentBadge>);
 
         // Assert
         var attribute = cut.Find("svg").GetAttribute("style") ?? string.Empty;
         Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(Positioning.AboveStart)]
+    [InlineData(Positioning.Above)]
+    [InlineData(Positioning.AboveEnd)]
+    [InlineData(Positioning.BeforeTop)]
+    [InlineData(Positioning.Before)]
+    [InlineData(Positioning.BeforeBottom)]
+    [InlineData(Positioning.AfterTop)]
+    [InlineData(Positioning.After)]
+    [InlineData(Positioning.AfterBottom)]
+    [InlineData(Positioning.BelowStart)]
+    [InlineData(Positioning.Below)]
+    [InlineData(Positioning.BelowEnd)]
+    [InlineData(Positioning.CenterCenter)]
+    [InlineData(null)]
+    [InlineData((Positioning)999)]
+    public void FluentCounterBadge_Positioning(Positioning? value)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Positioning="@value" Content="Hello" />);
+
+        // Assert
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
+    }
+
+    [Fact]
+    public void FluentCounterBadge_OffsetX()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Content="Badge" OffsetX="4" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_OffsetY()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Content="Badge" OffsetY="4" />);
+        // Assert
+        cut.Verify();
     }
 }
