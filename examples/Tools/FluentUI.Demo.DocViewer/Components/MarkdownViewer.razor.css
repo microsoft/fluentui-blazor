@@ -149,7 +149,7 @@
 
       .doc-viewer ::deep .api-table td code {
         font-weight: 600;
-        background-color: rgb(243, 243, 243);
+        background-color: var(--colorNeutralBackground4);
       }
 
       .doc-viewer ::deep .api-table td p {

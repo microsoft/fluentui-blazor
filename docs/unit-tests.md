@@ -369,8 +369,8 @@ public void FluentButton_OnClick()
 
 ### Example with parameters
 
-You can use the xUnit `[InlineData]` attribute to test several scenarios.
-La méthode `Verify` dispose alors d'un attribut `suffix` pour générer plusieurs fichiers
+You can use the xUnit `[InlineData]` attribute to test several scenarios.  
+In this case, we suggest you to use the `suffix` parameter of the `Verify` method to generate multiple files for each test:
 
   - `FluentButtonTests.FluentButton_FormIdAttribute-form-id-attribute.verified.razor.html`
   - `FluentButtonTests.FluentButton_FormIdAttribute-[null].received.razor.html`

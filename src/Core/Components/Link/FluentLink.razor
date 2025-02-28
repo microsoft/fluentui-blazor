@@ -1,0 +1,27 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-link href="@Href"
+			 hreflang="@HrefLang"
+			 referrerpolicy="@ReferrerPolicy.ToAttributeValue()"
+			 rel="@Rel.ToAttributeValue()"
+			 type="@LinkType"
+			 target="@Target.ToAttributeValue()"
+			 appearance="@Appearance.ToAttributeValue(returnEmptyAsNull: true)"
+			 inline="@Inline"
+			 id="@Id"
+			 class="@ClassValue"
+			 style="@StyleValue"
+			 @onclick="@OnClickHandlerAsync"
+			 @attributes="AdditionalAttributes">
+	@if (IconStart is not null)
+	{
+		<FluentIcon Value="@IconStart" Width="16" Margin="me-1" />
+	}
+	@ChildContent
+	@if (IconEnd is not null)
+	{
+		<FluentIcon Value="@IconEnd" Width="16" Margin="ms-1" />
+	}
+</fluent-link>

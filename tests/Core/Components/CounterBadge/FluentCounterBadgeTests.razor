@@ -1,0 +1,308 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentCounterBadgeTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_Count()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="3" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_CountOutOfRange()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="256" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(BadgeAppearance.Filled, "filled")]
+    [InlineData(BadgeAppearance.Ghost, "ghost")]
+    [InlineData(null, "")]
+    [InlineData((BadgeAppearance)999, "")]
+    public void FluentCounterBadge_Appearance(BadgeAppearance? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Appearance="@value" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-counter-badge").GetAttribute("appearance") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(BadgeAppearance.Tint)]
+    [InlineData(BadgeAppearance.Outline)]
+    public void FluentCounterBadge_InvalidAppearance(BadgeAppearance? value)
+    {
+        Assert.Throws<ArgumentException>(() =>
+        {
+            // Arrange && Act
+            var cut = Render(@<FluentCounterBadge Appearance="@value" />);
+        });
+    }
+
+    [Theory]
+    [InlineData(BadgeColor.Brand, "brand")]
+    [InlineData(BadgeColor.Danger, "danger")]
+    [InlineData(BadgeColor.Important, "important")]
+    [InlineData(BadgeColor.Informative, "informative")]
+    [InlineData(BadgeColor.Severe, "severe")]
+    [InlineData(BadgeColor.Subtle, "subtle")]
+    [InlineData(BadgeColor.Success, "success")]
+    [InlineData(BadgeColor.Warning, "warning")]
+    [InlineData(null, "")]
+    [InlineData((BadgeColor)999, "")]
+    public void FluentCounterBadge_Color(BadgeColor? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Color="@value" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-counter-badge").GetAttribute("color") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentCounterBadge_BackgroundColorNotNull()
+    {
+        Assert.Throws<ArgumentException>(() =>
+        {
+            // Arrange && Act
+            var cut = Render(@<FluentCounterBadge BackgroundColor="mediumpurple" Color="BadgeColor.Danger" />);
+        });
+    }
+
+    [Fact]
+    public void FluentCounterBadge_BackgroundColorNull()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge BackgroundColor="mediumpurple" Color="null" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(BadgeShape.Rounded, "rounded")]
+    [InlineData(BadgeShape.Circular, "circular")]
+    [InlineData(null, "")]
+    [InlineData((BadgeShape)999, "")]
+    public void FluentCounterBadge_Shape(BadgeShape? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Shape="@value" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-counter-badge").GetAttribute("shape") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(BadgeShape.Square)]
+    public void FluentCounterBadge_InvalidShape(BadgeShape? value)
+    {
+        Assert.Throws<ArgumentException>(() =>
+        {
+            // Arrange && Act
+            var cut = Render(@<FluentCounterBadge Shape="@value" />);
+        });
+    }
+
+    [Theory]
+    [InlineData(BadgeSize.Tiny, "tiny")]
+    [InlineData(BadgeSize.ExtraSmall, "extra-small")]
+    [InlineData(BadgeSize.Small, "small")]
+    [InlineData(BadgeSize.Medium, "medium")]
+    [InlineData(BadgeSize.Large, "large")]
+    [InlineData(BadgeSize.ExtraLarge, "extra-large")]
+    [InlineData(null, "")]
+    [InlineData((BadgeSize)999, "")]
+    public void FluentCounterBadge_Size(BadgeSize? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Size="@value" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-counter-badge").GetAttribute("size") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentCounterBadge_IconStart()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge IconStart="@Samples.Icons.Info" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_IconEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge IconEnd="@Samples.Icons.Info" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_IconStartAndEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge IconStart="@Samples.Icons.Info" IconEnd="@Samples.Icons.Info" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_IconLabel()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge IconStart="@Samples.Icons.Info" IconLabel="Add" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(BadgeColor.Brand, "width: 24px; fill: var(--colorNeutralForegroundOnBrand);")]
+    [InlineData(BadgeColor.Informative, "width: 24px; fill: var(--colorNeutralForeground3);")]
+    [InlineData(BadgeColor.Subtle, "width: 24px; fill: var(--colorNeutralForeground1);")]
+    [InlineData(BadgeColor.Warning, "width: 24px; fill: var(--colorNeutralForeground1Static);")]
+    [InlineData(null, "width: 24px; fill: var(--colorNeutralForegroundOnBrand);")]
+    [InlineData((BadgeColor)999, "width: 24px; fill: var(--colorNeutralForegroundOnBrand);")]
+    public void FluentCounterBadge_IconColor(BadgeColor? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge IconStart="@Samples.Icons.Info"  Color="@value" />);
+
+        // Assert
+        var attribute = cut.Find("svg").GetAttribute("style") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentCounterBadge_OverflowCountNull()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="100" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_OverflowCountNotNull()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="11" OverflowCount="10" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_ShowZero()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge ShowZero="true" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_Dot()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Dot="true" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_ShowWhenFalse()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="3" ShowWhen="@(Count => Count > 4)" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_ShowWhenTrue()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="3" ShowWhen="@(Count => Count < 4)" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(Positioning.AboveStart)]
+    [InlineData(Positioning.Above)]
+    [InlineData(Positioning.AboveEnd)]
+    [InlineData(Positioning.BeforeTop)]
+    [InlineData(Positioning.Before)]
+    [InlineData(Positioning.BeforeBottom)]
+    [InlineData(Positioning.AfterTop)]
+    [InlineData(Positioning.After)]
+    [InlineData(Positioning.AfterBottom)]
+    [InlineData(Positioning.BelowStart)]
+    [InlineData(Positioning.Below)]
+    [InlineData(Positioning.BelowEnd)]
+    [InlineData(Positioning.CenterCenter)]
+    [InlineData(null)]
+    [InlineData((Positioning)999)]
+    public void FluentCounterBadge_Positioning(Positioning? value)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Positioning="@value" />);
+
+        // Assert
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
+    }
+
+    [Fact]
+    public void FluentCounterBadge_OffsetX()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="11" OffsetX="4" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_OffsetY()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="11" OffsetY="4" />);
+        // Assert
+        cut.Verify();
+    }
+
+}
+

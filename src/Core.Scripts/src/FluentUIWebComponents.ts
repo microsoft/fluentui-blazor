@@ -86,12 +86,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
       ...createDarkTheme(themeColorVariants),
     };
 
-
-    darkTheme.colorBrandForeground1 = themeColorVariants[110];
-    darkTheme.colorBrandForeground2 = themeColorVariants[120];
-
     setTheme(webLightTheme);
-
 
     blazor.theme = {
       isSystemDark: () => {
@@ -101,6 +96,14 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
       isDarkMode: () => {
         const luminance: string = getComputedStyle(document.documentElement).getPropertyValue('--base-layer-luminance');
         return parseFloat(luminance) < 0.5;
+      },
+
+      setLightTheme: () => {
+        setTheme(webLightTheme);
+      },
+
+      setDarkTheme: () => {
+        setTheme(webDarkTheme);
       }
     }
   }

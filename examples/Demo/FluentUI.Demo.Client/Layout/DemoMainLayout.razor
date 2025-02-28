@@ -23,11 +23,19 @@
 
     <div style="flex-grow: 1" />
 
+    @* DarkTheme *@
+    <FluentButton IconStart="@(new Icons.Regular.Size20.DarkTheme().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                  OnClick="@SwitchThemeAsync"
+                  Appearance="ButtonAppearance.Subtle"
+                  BackgroundColor="@(_darkTheme? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                  Title="Switch to Dark theme (Under development)" />
+
     @* Reboot *@
     <FluentButton IconStart="@(new Icons.Regular.Size20.DrawText().WithColor("var(--colorNeutralForegroundOnBrand)"))"
                   OnClick="@ReloadReboot"
                   Appearance="ButtonAppearance.Subtle"
                   BackgroundColor="@(_useReboot ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                  Style="display: none;"
                   Title="Use the Reboot.css styles" />
 
     @* Open Console *@

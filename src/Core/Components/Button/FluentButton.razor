@@ -18,7 +18,7 @@
                    size="@(Size == ButtonSize.Medium ? null : Size.ToAttributeValue())"
                    id="@Id"
                    value="@Value"
-                   icon-only="@(ChildContent is null)"
+                   icon-only="@(IconOnly || ChildContent is null)"
                    disabled="@(Disabled || Loading)"
                    disabled-focusable="@(DisabledFocusable || Loading)"
                    name="@Name"
@@ -28,7 +28,7 @@
                    appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
                    @onclick="@OnClickHandlerAsync"
                    @onclick:stopPropagation="@StopPropagation"
-                   @attributes="AdditionalAttributes">
+                   @attributes="@AdditionalAttributes">
         @if (IconStart != null)
         {
             if (Loading)

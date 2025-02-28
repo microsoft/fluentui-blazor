@@ -4,8 +4,17 @@
 
 @if (_icon.Size != IconSize.Custom && _icon.ContainsSVG)
 {
-    <svg id="@Id" slot="@Slot" class="@ClassValue" style="@StyleValue" focusable="@(Focusable ? "true" : "false")" tabindex="@(Focusable ? 0 : null)" role="@(Focusable ? "button" : null)" viewBox="@($"0 0 {((int)_icon.Size)} {((int)_icon.Size)}")"
-         aria-hidden="@(Focusable ? null : "true")" @onkeydown="@OnKeyDownAsync" @onclick="@OnClickHandlerAsync" @attributes="@AdditionalAttributes">
+    <svg id="@Id" slot="@Slot"
+         class="@ClassValue"
+         style="@StyleValue"
+         focusable="@(Focusable ? "true" : "false")"
+         tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "0", when: () => Focusable)"
+         role="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("role", "button", when: () => Focusable)"
+         viewBox="@($"0 0 {((int)_icon.Size)} {((int)_icon.Size)}")"
+         aria-hidden="@(Focusable ? null : "true")"
+         @onkeydown="@OnKeyDownAsync"
+         @onclick="@OnClickHandlerAsync"
+         @attributes="@AdditionalAttributes">
         @if (!string.IsNullOrEmpty(Title))
         {
             <title>@Title</title>
@@ -15,8 +24,16 @@
 }
 else
 {
-    <div id="@Id" slot="@Slot" class="@ClassValue" style="@StyleValue" title="@Title" tabindex="@(Focusable ? 0 : null)" role="@(Focusable ? "button" : null)"
-         @attributes="@AdditionalAttributes" @onkeydown="@OnKeyDownAsync" @onclick="@OnClickHandlerAsync">
+    <div id="@Id"
+         slot="@Slot"
+         class="@ClassValue"
+         style="@StyleValue"
+         title="@Title"
+         tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "0", when: () => Focusable)"
+         role="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("role", "button", when: () => Focusable)"
+         @attributes="@AdditionalAttributes"
+         @onkeydown="@OnKeyDownAsync"
+         @onclick="@OnClickHandlerAsync">
         @((MarkupString)@_icon.Content)
     </div>
 }

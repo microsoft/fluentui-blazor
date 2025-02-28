@@ -1,0 +1,21 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+@if (Visible)
+{
+    @if (HasCustomStyle)
+    {
+        @CustomStyle()
+    }
+    <fluent-progress-bar id="@GetId()"
+                         class="@ClassValue"
+                         style="@StyleValue"
+                         min="@Min"
+                         max="@Max"
+                         shape="@Shape.ToAttributeValue()"
+                         thickness="@GetThicknessAttribute()"
+                         value="@Value"
+                         validation-state="@State.ToAttributeValue()"
+                         @attributes="AdditionalAttributes" />
+}
