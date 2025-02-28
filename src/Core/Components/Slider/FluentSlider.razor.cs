@@ -72,14 +72,6 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     }
 
     /// <summary>
-    /// To prevent the tab from leaving the focus when ReadOnly is true
-    /// </summary>
-    private int? GetTabIndexValue =>
-        ReadOnly && (!AdditionalAttributes?.ContainsKey("tabindex") ?? true)
-        ? -1
-        : null;
-
-    /// <summary>
     /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
     /// </summary>
     /// <param name = "value">The value to format.</param>

@@ -2,6 +2,6 @@ fluent-slider {
   width: 100%;
 }
 
-fluent-slider[readonly] {
-  pointer-events: none;
-}
+  fluent-slider[readonly] {
+    pointer-events: none;
+  }
