@@ -11,7 +11,7 @@ public class StaticGridSort<TGridItem> : IGridSort<TGridItem>
 
     public StaticGridSort(
         string propertyName,
-        Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>? sortFunction)
+        Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>? sortFunction = null)
     {
         _propertyName = propertyName;
         _sortFunction = sortFunction;
