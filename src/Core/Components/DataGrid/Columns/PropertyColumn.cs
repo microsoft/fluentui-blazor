@@ -2,12 +2,12 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System.Linq.Expressions;
-using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -22,8 +22,8 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     private Expression<Func<TGridItem, TProp>>? _lastAssignedProperty;
     private Func<TGridItem, string?>? _cellTextFunc;
     private Func<TGridItem, string?>? _cellTooltipTextFunc;
-    private GridSort<TGridItem>? _sortBuilder;
-    private GridSort<TGridItem>? _customSortBy;
+    private IGridSort<TGridItem>? _sortBuilder;
+    private IGridSort<TGridItem>? _customSortBy;
 
     public PropertyInfo? PropertyInfo { get; private set; }
 
@@ -47,7 +47,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     [Parameter] public IComparer<TProp>? Comparer { get; set; } = null;
 
     [Parameter]
-    public override GridSort<TGridItem>? SortBy
+    public override IGridSort<TGridItem>? SortBy
     {
         get => _customSortBy ?? _sortBuilder;
         set => _customSortBy = value;
