@@ -1,14 +1,14 @@
 // ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
-
 namespace Microsoft.FluentUI.AspNetCore.Components.Components;
-public class StaticGridSort<TGridItem> : IGridSort<TGridItem>
+
+public class PropertyNameGridSort<TGridItem> : IGridSort<TGridItem>
 {
     private readonly string _propertyName;
     private readonly Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>? _sortFunction;
 
-    public StaticGridSort(
+    public PropertyNameGridSort(
         string propertyName,
         Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>? sortFunction = null)
     {
