@@ -3,12 +3,12 @@
 // ------------------------------------------------------------------------
 namespace Microsoft.FluentUI.AspNetCore.Components.Components;
 
-public class PropertyNameGridSort<TGridItem> : IGridSort<TGridItem>
+public class ColumnKeyGridSort<TGridItem> : IGridSort<TGridItem>
 {
     private readonly string _propertyName;
     private readonly Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>? _sortFunction;
 
-    public PropertyNameGridSort(
+    public ColumnKeyGridSort(
         string propertyName,
         Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>? sortFunction = null)
     {
