@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
-namespace Microsoft.FluentUI.AspNetCore.Components.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public class ColumnKeyGridSort<TGridItem> : IGridSort<TGridItem>
 {
