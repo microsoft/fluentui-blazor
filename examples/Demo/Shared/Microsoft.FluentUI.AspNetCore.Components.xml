@@ -1850,6 +1850,13 @@
              You should supply either <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider"/>, but not both.
              </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RefreshItems">
+             <summary>
+             Gets or sets a callback which will be called if there is a change in pagination, ordering or if a RefreshDataAsync is forced.
+            
+             You must supply <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Items"/> if you use this callback.
+             </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider">
              <summary>
              Gets or sets a callback that supplies data for the rid.
@@ -2158,7 +2165,7 @@
             <param name="index">The column index whose resize UI is to be displayed.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RefreshDataAsync">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RefreshDataAsync(System.Boolean)">
             <summary>
             Instructs the grid to re-fetch and render the current data from the supplied data source
             (either <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider"/>).
