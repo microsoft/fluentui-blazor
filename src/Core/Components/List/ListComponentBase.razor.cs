@@ -433,6 +433,12 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         return Disabled;  // To allow overrides
     }
 
+    protected override async Task ChangeHandlerAsync(ChangeEventArgs e)
+    {
+        await Task.Delay(10);
+        await base.ChangeHandlerAsync(e);
+    }
+
     /// <summary />
     protected virtual bool GetOptionSelected(TOption item)
     {
