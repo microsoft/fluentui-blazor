@@ -195,7 +195,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
     /// <inheritdoc />
     [Parameter]
-    public override GridSort<TGridItem>? SortBy { get; set; }
+    public override IGridSort<TGridItem>? SortBy { get; set; }
 
     /// <summary>
     /// Allows to clear the selection.

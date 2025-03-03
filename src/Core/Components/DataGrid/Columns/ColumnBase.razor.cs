@@ -120,7 +120,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// <summary>
     /// Gets or sets the sorting rules for a column.
     /// </summary>
-    public abstract GridSort<TGridItem>? SortBy { get; set; }
+    public abstract IGridSort<TGridItem>? SortBy { get; set; }
 
     /// <summary>
     /// Gets or sets the initial sort direction.
