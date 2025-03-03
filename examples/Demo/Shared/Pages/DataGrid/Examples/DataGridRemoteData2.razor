@@ -13,14 +13,14 @@
         </FluentGrid>
         <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.End">
             <FluentButton IconStart="@(new Icons.Regular.Size16.Broom())"
-            Disabled="loading"
-            OnClick="ClearFilters">
+                          Disabled="loading"
+                          OnClick="ClearFilters">
                 Clear
             </FluentButton>
             <FluentButton IconStart="@(new Icons.Regular.Size16.ArrowClockwise())"
-            Appearance="Appearance.Accent"
-            Loading="loading"
-            OnClick="DataGridRefreshDataAsync">
+                          Appearance="Appearance.Accent"
+                          Loading="loading"
+                          OnClick="DataGridRefreshDataAsync">
                 Search
             </FluentButton>
         </FluentStack>
@@ -29,20 +29,20 @@
 <br />
 <div style="height: 370px; overflow:auto;" tabindex="-1">
     <FluentDataGrid @ref="dataGrid"
-    Items="foodRecallItems"
-    RefreshItems="RefreshItemsAsync"
-    OnRowDoubleClick="@(()=>DemoLogger.WriteLine("Row double clicked!"))"
-    ItemSize="46"
-    GenerateHeader="GenerateHeaderOption.Sticky"
-    TGridItem="FoodRecall"
-    Loading="loading"
-    Pagination="pagination">
+                    Items="foodRecallItems"
+                    RefreshItems="RefreshItemsAsync"
+                    OnRowDoubleClick="@(()=>DemoLogger.WriteLine("Row double clicked!"))"
+                    ItemSize="46"
+                    GenerateHeader="GenerateHeaderOption.Sticky"
+                    TGridItem="FoodRecall"
+                    Loading="loading"
+                    Pagination="pagination">
         <PropertyColumn Title="ID" Property="@(c => c!.Event_Id)" />
         <PropertyColumn Property="@(c => c!.State)" Style="color: #af5f00 ;" />
         <PropertyColumn Property="@(c => c!.City)" />
         <PropertyColumn Title="Company" Property="@(c => c!.Recalling_Firm)" Tooltip="true" />
         <PropertyColumn Property="@(c => c!.Status)" />
-        <PropertyColumn Title="Termination Date" Property="@(c => c!.Termination_Date)" SortName="termination_date" Sortable="true" />
+        <PropertyColumn Title="Termination Date" Property="@(c => c!.Termination_Date)" SortBy="@(new ColumnKeyGridSort<FoodRecall>("termination_date"))" Sortable="true" />
         <TemplateColumn Title="Actions" Align="@Align.End">
             <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => DemoLogger.WriteLine("Edit clicked"))" />
             <FluentButton aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => DemoLogger.WriteLine("Delete clicked"))" />
@@ -57,7 +57,7 @@
     IQueryable<FoodRecall> foodRecallItems = default!;
     bool loading = true;
     PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
-    string _stateFilter = "NY";
+    string? _stateFilter = "NY";
 
     protected async Task RefreshItemsAsync(GridItemsProviderRequest<FoodRecall> req)
     {
@@ -73,18 +73,15 @@
         if (!string.IsNullOrWhiteSpace(_stateFilter))
             filters.Add("search", $"state:{_stateFilter}");
 
-        if (req.SortByColumn != null)
-            filters.Add("sort", req.SortByColumn.SortName + (req.SortByAscending ? ":asc" : ":desc"));
+        var s = req.GetSortByProperties().FirstOrDefault();
+        if (req.SortByColumn != null && !string.IsNullOrEmpty(s.PropertyName))
+        {
+            filters.Add("sort", s.PropertyName + (s.Direction == SortDirection.Ascending ? ":asc" : ":desc"));
+        }
 
         var url = NavManager.GetUriWithQueryParameters("https://api.fda.gov/food/enforcement.json", filters);
 
         var response = await Http.GetFromJsonAsync<FoodRecallQueryResult>(url);
-
-        // Simulate a slow data retrieval process
-        if (req.Count is null)
-        {
-            await Task.Delay(2500);
-        }
 
         foodRecallItems = response!.Results.AsQueryable();
         await pagination.SetTotalItemCountAsync(response!.Meta.Results.Total);
@@ -102,5 +99,4 @@
     {
         await dataGrid.RefreshDataAsync(true);
     }
-
 }

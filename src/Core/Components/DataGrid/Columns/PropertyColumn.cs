@@ -114,8 +114,6 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
                 {
                     Title = memberExpression.Member.Name;
                 }
-
-                SortName = SortName ?? memberExpression.Member.Name;
             }
         }
     }
