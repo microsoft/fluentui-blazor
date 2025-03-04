@@ -5,7 +5,7 @@
 @* This file must be updated when the `fluent-select` web-component will be available  *@
 
 <CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
-    <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+    <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" size="@Size.ToAttributeValue()">
         <select aria-label="@AriaLabel"
                 autofocus="@Autofocus"
                 disabled="@Disabled"

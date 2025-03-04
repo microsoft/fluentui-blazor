@@ -1,0 +1,29 @@
+<Solution>
+  <Folder Name="/eng/" />
+  <Folder Name="/examples/" />
+  <Folder Name="/examples/demo/">
+    <Project Path="examples/Demo/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj" />
+    <Project Path="examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" />
+  </Folder>
+  <Folder Name="/examples/tools/">
+    <Project Path="examples/Tools/FluentUI.Demo.DocApiGen/FluentUI.Demo.DocApiGen.csproj" />
+    <Project Path="examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj" />
+    <Project Path="examples/Tools/FluentUI.Demo.DocViewer/FluentUI.Demo.DocViewer.csproj" />
+    <Project Path="examples/Tools/FluentUI.Demo.SampleApi/FluentUI.Demo.SampleApi.csproj" />
+    <Project Path="examples/Tools/FluentUI.Demo.SampleData/FluentUI.Demo.SampleData.csproj" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Core/">
+    <Project Path="src/Core.Scripts/Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj">
+      <Build />
+      <Deploy />
+    </Project>
+    <Project Path="src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Core/Components.Tests.csproj" />
+    <Project Path="tests/Integration/Components.IntegrationTests.csproj">
+      <Build Solution="Debug|*" Project="false" />
+    </Project>
+  </Folder>
+</Solution>
