@@ -1,3 +1,179 @@
+## V4.11.6
+
+### Icons and Emoji
+- Update to Fluent UI System Icons 1.1.278 (changes since 1.1.273)
+
+  **What's new (Name / Size(s) / Variant(s))**
+  - Agents / 16, 28, 32, 48 / Filled & Regular
+  - Alert Badge / 32 / Filled & Regular
+  - Apps List / 32 / Filled & Regular
+  - Apps List Detail / 32 / Filled & Regular
+  - Arrow Circle Up Sparkle / 20, 24 / Filled & Regular
+  - Arrow Counterclockwise Info / 20, 24, 28, 32, 48 / Filled & Regular
+  - Arrow Square / 32 / Filled & Regular
+  - Bot / 16 / Color
+  - Bot Sparkle / 16 / Color
+  - Branch Request Closed / 16, 20 / Filled & Regular
+  - Branch Request Draft / 16, 20 / Filled & Regular
+  - Building Home / 32 / Filled & Regular
+  - Calendar Clock / 32 / Filled & Regular
+  - Call Rectangle Landscape / 16, 20, 24, 28 / Filled & Regular
+  - Call Square / 16, 20, 24, 28 / Filled & Regular
+  - Crown Subtract / 20 / Filled & Regular
+  - Data Area / 20, 24, 32 / Filled & Regular
+  - Data Line / 32 / Filled & Regular
+  - Data Pie / 20, 24, 32 / Filled & Regular
+  - Data Scatter / 20, 24, 32 / Filled & Regular
+  - Data Trending / 20, 32 / Filled & Regular
+  - Data Usage Sparkle / 20, 24 / Filled & Regular
+  - Database Arrow Right / 16 / Filled & Regular
+  - Document Arrow Right / 16 / Filled & Regular
+  - Info Sparkle / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Lightbulb Checkmark / 24, 32 / Filled & Regular
+  - List Bar / 24, 32 / Filled & Regular
+  - Mail Clock / 32 / Filled & Regular
+  - Mail Data Bar / 16, 20, 24 / Filled & Regular
+  - Number Symbol Square / 32 / Filled
+  - Number Symbol Square / 32 / Regular
+  - People Sync / 24, 32 / Filled & Regular
+  - Person Arrow Back / 16 / Filled & Regular
+  - Person Heart / 32 / Filled & Regular
+  - Person Key / 24, 32 / Filled & Regular
+  - Person Sync / 24, 32 / Filled & Regular
+  - Person Tentative / 32 / Filled & Regular
+  - Ribbon Star / 32 / Filled & Regular
+  - Send Clock / 32 / Filled & Regular
+  - Skip Back 15 / 20, 24 / Filled & Regular
+  - Skip Forward 15 / 20, 24 / Filled & Regular
+  - Square Text Arrow Repeat All / 32 / Filled & Regular
+  - Star Settings / 32 / Filled & Regular
+  - Table Alt Text / 20, 24, 32 / Filled & Light & Regular
+  - Table Cell Add / 16, 20, 24 / Filled & Regular
+  - Temperature Degree Celsius / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Temperature Degree Fahrenheit / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Text Bullet List Square Sparkle / 32 / Filled & Regular
+  - Text Paragraph Direction Left / 24 / Filled & Regular
+  - Text Paragraph Direction Right / 24 / Filled & Regular
+  - Video Multiple / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Window Text / 16, 24, 28 / Filled & Regular
+
+
+  **What's updated (Name / Size(s) / Variant(s))**
+  - Arrow Forward / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Arrow Reply All / 16, 20, 24, 28, 32, 48 / Filled
+  - Chart Multiple / 16, 20, 24, 32 / Filled & Regular
+  - Diversity / 16, 20, 24, 28, 48 / Filled & Regular
+  - Guest / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Info / 24, 28 / Filled & Regular
+  - Lock Closed Ribbon / 16, 20, 24, 28, 48 / Filled & Regular
+  - Person Sync / 16, 20, 24, 28, 32, 48 / Filled & Regular
+
+  **What's got color now (Name / Size(s) / Variant(s))**
+  - Alert Badge / 16, 20, 24, 32 / Color
+  - Alert Urgent / 16, 20, 24 / Color
+  - Animal Paw Print / 16, 20, 24, 28, 32, 48 / Color
+  - Apps List Detail / 20, 24, 32 / Color
+  - Apps List / 20, 24, 32 / Color
+  - Arrow Clockwise Dashes Settings / 16, 20, 24, 28, 32, 48 / Color
+  - Arrow Clockwise Dashes / 16, 20, 24, 32 / Color
+  - Arrow Square / 20, 24, 32 / Color
+  - Arrow Sync / 16, 20, 24 / Color
+  - Board / 16, 20, 24, 28 / Color
+  - Book Database / 16, 20, 24, 32 / Color
+  - Book Open / 16, 20, 24, 28, 32, 48 / Color
+  - Book Star / 20, 24 / Color
+  - Book / 16, 20, 24, 28, 32, 48 / Color
+  - Bookmark / 16, 20, 24, 28, 32 / Color
+  - Bot Sparkle / 20, 24 / Color
+  - Bot / 20, 24 / Color
+  - Building Government Search / 16, 20, 24, 32 / Color
+  - Building Government / 16, 20, 24, 32 / Color
+  - Building Home / 16, 20, 24, 32 / Color
+  - Calendar Data Bar / 16, 20, 24, 28 / Color
+  - Calendar Edit / 16, 20, 24, 32 / Color
+  - Calendar Sync / 16, 20, 24 / Color
+  - Certificate / 16, 20, 24, 32 / Color
+  - Chart Multiple / 16, 20, 24, 32 / Color
+  - Clipboard Task / 16, 20, 24 / Color
+  - Clock / 16, 20, 24, 28, 32, 48 / Color
+  - Cloud Words / 16, 20, 24, 28, 32, 48 / Color
+  - Code / 16, 20, 24 / Color
+  - Coin Multiple / 16, 20, 24, 28, 32, 48 / Color
+  - Comment Multiple / 16, 20, 24, 28, 32 / Color
+  - Comment / 16, 20, 24, 28, 32, 48 / Color
+  - Contact Card / 16, 20, 24, 28, 32, 48 / Color
+  - Content View / 16, 20, 24, 28, 32 / Color
+  - Data Area / 20, 24, 32 / Color
+  - Data Line / 20, 24, 32 / Color
+  - Data Pie / 20, 24, 32 / Color
+  - Data Scatter / 20, 24, 32 / Color
+  - Data Trending / 16, 20, 24, 28, 32, 48 / Color
+  - Database / 16, 20, 24, 32, 48 / Color
+  - Diversity / 16, 20, 24, 28, 48 / Color
+  - Document Edit / 16, 20, 24 / Color
+  - Document Lock / 32 / Color
+  - Document Text / 16, 20, 24, 28, 32, 48 / Color
+  - Drafts / 16, 20, 24 / Color
+  - Flag / 16, 20, 24, 28, 32, 48 / Color
+  - Form / 20, 24, 28, 48 / Color
+  - Gauge / 20, 24, 32 / Color
+  - Gift Card / 16, 20, 24 / Color
+  - Gift / 16, 20, 24 / Color
+  - Guest / 16, 20, 24, 28, 32, 48 / Color
+  - Heart / 16, 20, 24, 28, 32, 48 / Color
+  - Image Off / 20, 24, 28, 32, 48 / Color
+  - Image / 16, 20, 24, 28, 32, 48 / Color
+  - Laptop / 16, 20, 24, 28, 32, 48 / Color
+  - Layer Diagonal Person / 16, 20, 24 / Color
+  - Lightbulb Checkmark / 20, 24, 32 / Color
+  - Lightbulb / 16, 20, 24, 28, 32, 48 / Color
+  - Link Multiple / 16, 20, 24 / Color
+  - List Bar / 16, 20, 24, 32 / Color
+  - Location Ripple / 16, 20, 24 / Color
+  - Lock Closed / 16, 20, 24, 28, 32, 48 / Color
+  - Lock Shield / 16, 20, 24, 28, 32, 48 / Color
+  - Mail Alert / 16, 20, 24, 28, 32 / Color
+  - Mail Clock / 16, 20, 24, 32 / Color
+  - Megaphone Loud / 16, 20, 24, 28, 32 / Color
+  - Molecule / 16, 20, 24, 28, 32, 48 / Color
+  - News / 16, 20, 24, 28 / Color
+  - Notebook Question Mark / 20, 24 / Color
+  - Notebook / 16, 20, 24, 32 / Color
+  - Number Symbol Square / 20, 24, 32 / Color
+  - Options / 16, 20, 24, 28, 32, 48 / Color
+  - Paint Brush / 16, 20, 24, 28, 32 / Color
+  - Patient / 20, 24, 32 / Color
+  - People List / 16, 20, 24, 28, 32 / Color
+  - People Sync / 16, 20, 24, 28, 32 / Color
+  - Person Feedback / 16, 20, 24, 28, 32, 48 / Color
+  - Person Heart / 20, 24, 32 / Color
+  - Person Key / 20, 24, 32 / Color
+  - Person Tentative / 16, 20, 24, 32 / Color
+  - Person Warning / 16, 20, 24, 28, 32, 48 / Color
+  - Phone Laptop / 16, 20, 24, 32 / Color
+  - Phone / 16, 20, 24, 28, 32, 48 / Color
+  - Premium / 16, 20, 24, 28, 32 / Color
+  - Puzzle Piece / 16, 20, 24, 28, 32, 48 / Color
+  - Ribbon Star / 20, 24, 32 / Color
+  - Ribbon / 16, 20, 24, 32 / Color
+  - Send Clock / 20, 24, 32 / Color
+  - Send / 16, 20, 24, 28, 32, 48 / Color
+  - Settings / 16, 20, 24, 28, 32, 48 / Color
+  - Share Android / 16, 20, 24, 32 / Color
+  - Sport / 16, 20, 24 / Color
+  - Star Settings / 20, 24, 32 / Color
+  - Star / 16, 20, 24, 28, 32, 48 / Color
+  - Table / 16, 20, 24, 28, 32, 48 / Color
+  - Text Bullet List Square Sparkle / 16, 20, 24, 32 / Color
+  - Text Bullet List Square / 16, 20, 24, 28, 32, 48 / Color
+  - Toolbox / 16, 20, 24, 28, 32 / Color
+  - Trophy / 16, 20, 24, 28, 32, 48 / Color
+  - Weather Snowflake / 20, 24, 32, 48 / Color
+  - Weather Sunny Low / 20, 24, 48 / Color
+  - WiFi Warning / 20, 24 / Color
+  - WiFi / 20, 24 / Color
+  - Wrench Screwdriver / 20, 24, 32 / Color
+
 ## V4.11.5
 
 ### General
