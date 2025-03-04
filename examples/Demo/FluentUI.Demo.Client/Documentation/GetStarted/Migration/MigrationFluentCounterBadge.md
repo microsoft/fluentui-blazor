@@ -1,15 +1,22 @@
 ### General
-A CounterBadge is now just a badge. It does not wrap any content and neither
-positions itself on top of that content anymore. 
+If `ChildContent` is provided, the counter badge will 'wrap' that content nd be positioned on top.
+By default, the counter badge will be displayed at the above-end corner of the content.
+Use the `Positioning` parameter to specify a different placement.Use the `OffsetX` and `OffsetY` parameters to specify the offset from the specified position.
 
 ### New parameters
-  `Size`, `Shape`, `OverflowCount`, `IconStart` and `IconEnd` are new parameters.
+- `Size`
+- `Shape`
+- `OverflowCount`
+- `IconStart` 
+- `IconEnd` 
+- `Positioning`
+- `OffsetX`
+- `OffsetY`
 
 ### Removed parameters💥
-  The `ChildContent` parameter has been removed. Only the `Count` can be displayed.
-  The `HorizontalPosition` and `VerticalPosition` parameters have been removed.
-  The `ShowOverflow` parameter has been removed. 
-  The `Max` parameter has been removed. Use `OverflowCount` instead. 
+  - `HorizontalPosition` and `VerticalPosition`.
+  - `ShowOverflow`. 
+  - `Max`; Use `OverflowCount` instead. 
 
 ### Appearance 💥
   The `Appearance` parameter has been updated to use the `BadgeAppearance` enum

@@ -1,17 +1,19 @@
 // ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
-
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The FluentBadge component is a visual indicator that communicates a status or description of an associated component.
-/// It uses short text, color, and icons for quick recognition and is placed near the relavant content.
+/// The FluentCounterBadge component is a visual indicator that communicates a value about an associated component.
+/// It uses short postive numbers, color, and icons for quick recognition and is placed near the relavant content.
 /// </summary>
 public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
 {
+
+    private bool _isAttached => ChildContent is not null;
+
     private int? GetCount() => ShowWhen?.Invoke(Count) == true ? Count : null;
 
     /// <summary>
@@ -28,11 +30,11 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
 
     /// <summary>
     /// Gets or sets if the badge displays the count based on the specified lambda expression.
-    /// By default the badge only shows a count when it's not equal to 0.
+    /// By default the badge only shows a count when it's greater than 0.
     /// For example, to show the count on the badge when the count greater than 4, use ShowWhen=@(Count => Count > 4)
     /// </summary>
     [Parameter]
-    public Func<int?, bool>? ShowWhen { get; set; } = Count => Count != 0;
+    public Func<int?, bool>? ShowWhen { get; set; } = Count => Count > 0;
 
     /// <summary>
     /// Gets or sets the badge's count.
@@ -40,7 +42,7 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
     /// With ShowZero being false by default, the default result will be an empty counter badge
     /// </summary>
     [Parameter]
-    public int? Count { get; set; }
+    public ushort? Count { get; set; }
 
     /// <summary>
     /// Gets or sets the badge's overflow count.
@@ -65,6 +67,11 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
         if (Shape == BadgeShape.Square)
         {
             throw new ArgumentException("FluentCounterBadge does not support Square shape.");
+        }
+
+        if (Positioning is null && _isAttached)
+        {
+            Positioning = Components.Positioning.AboveEnd;
         }
     }
 }
