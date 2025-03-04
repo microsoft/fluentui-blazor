@@ -46,7 +46,8 @@ public partial class FluentOption<TOption>
     public EventCallback<bool> SelectedChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to display in the description slot.
+    /// Gets or sets the content to display below the main option text.
+    /// This can be used to add additional textual information (no markup) about the option.
     /// </summary>
     [Parameter]
     public string? Description { get; set; }
