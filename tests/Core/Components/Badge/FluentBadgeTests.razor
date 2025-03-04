@@ -211,7 +211,7 @@
     [InlineData(Positioning.CenterCenter)]
     [InlineData(null)]
     [InlineData((Positioning)999)]
-    public void FluentCounterBadge_Positioning(Positioning? value)
+    public void FluentBadge_Positioning(Positioning? value)
     {
         // Arrange && Act
         var cut = Render(@<FluentBadge Positioning="@value" Content="Hello" />);
@@ -221,7 +221,7 @@
     }
 
     [Fact]
-    public void FluentCounterBadge_OffsetX()
+    public void FluentBadge_OffsetX()
     {
         // Arrange && Act
         var cut = Render(@<FluentBadge Content="Badge" OffsetX="4" />);
@@ -230,10 +230,28 @@
     }
 
     [Fact]
-    public void FluentCounterBadge_OffsetY()
+    public void FluentBadge_OffsetY()
     {
         // Arrange && Act
         var cut = Render(@<FluentBadge Content="Badge" OffsetY="4" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_Attached_NoPositioning()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Content="Badge"><FluentButton>Test</FluentButton></FluentBadge> );
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_Attached_WithPositioning()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Content="Badge" Positioning="Positioning.CenterCenter"><FluentButton>Test</FluentButton></FluentBadge> );
         // Assert
         cut.Verify();
     }
