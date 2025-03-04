@@ -19,6 +19,11 @@ We recommend to use a spacing of 24px between text fields and other components.
 
 {{ TextAreaAppearances }}
 
+## Size
+A textarea supports `Small`, `Medium` (default) and `Large` size.
+
+{{ TextAreaSizeExample }}
+
 ## Resize
 
 The `Resize` property allows you to specify how the textarea can be resized by the user.
