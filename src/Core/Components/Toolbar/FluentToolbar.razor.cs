@@ -17,7 +17,7 @@ public partial class FluentToolbar : FluentComponentBase, IAsyncDisposable
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference Module { get; set; } = default!;
+    private IJSObjectReference? Module { get; set; }
 
     /// <summary>
     /// Gets or sets the toolbar's orentation. See <see cref="Orientation"/>
@@ -57,10 +57,19 @@ public partial class FluentToolbar : FluentComponentBase, IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        if (Module is not null && !string.IsNullOrEmpty(Id))
+        try
         {
-            await Module.InvokeVoidAsync("removePreventArrowKeyNavigation", Id);
-            await Module.DisposeAsync();
+            if (Module is not null && !string.IsNullOrEmpty(Id))
+            {
+                await Module.InvokeVoidAsync("removePreventArrowKeyNavigation", Id);
+                await Module.DisposeAsync();
+            }
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
     }
 }
