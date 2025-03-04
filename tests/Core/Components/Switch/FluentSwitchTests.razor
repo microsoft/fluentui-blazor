@@ -34,6 +34,21 @@
         cut.Verify();
     }
 
+    [Theory]
+    [InlineData(LabelPosition.Above)]
+    [InlineData(LabelPosition.After)]
+    [InlineData(LabelPosition.Before)]
+    [InlineData(null)]
+    [InlineData((LabelPosition)999)]
+    public void FluentSwitch_LabelPosition(LabelPosition? value)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch LabelPosition="@value" />);
+
+        // Assert
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
+    }
+
     [Fact]
     public void FluentCheckbox_LabelTemplate()
     {
