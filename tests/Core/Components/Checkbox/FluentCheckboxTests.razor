@@ -27,27 +27,31 @@
     }
 
     [Theory]
-    [InlineData(CheckboxShape.Circular, "circular")]
-    [InlineData(CheckboxShape.Square, "square")]
-    public void FluentCheckbox_Shape(CheckboxShape checkboxShape, string expectedAttribute)
+    [InlineData(CheckboxShape.Circular)]
+    [InlineData(CheckboxShape.Square)]
+    [InlineData(null)]
+    [InlineData((CheckboxShape)999)]
+    public void FluentCheckbox_Shape(CheckboxShape? checkboxShape)
     {
         // Arrange && Act
         var cut = Render(@<FluentCheckbox Id="xxx" Shape="@checkboxShape" />);
 
         // Assert
-        cut.Verify(suffix: expectedAttribute);
+        cut.Verify(suffix: checkboxShape.ToString());
     }
 
     [Theory]
-    [InlineData(CheckboxSize.Medium, "medium")]
-    [InlineData(CheckboxSize.Large, "large")]
-    public void FluentCheckbox_Size(CheckboxSize checkboxSize, string expectedAttribute)
+    [InlineData(CheckboxSize.Medium)]
+    [InlineData(CheckboxSize.Large)]
+    [InlineData(null)]
+    [InlineData((CheckboxSize)999)]
+    public void FluentCheckbox_Size(CheckboxSize? checkboxSize)
     {
         // Arrange && Act
         var cut = Render(@<FluentCheckbox Id="xxx" Size="@checkboxSize" />);
 
         // Assert
-        cut.Verify(suffix: expectedAttribute);
+        cut.Verify(suffix: checkboxSize.ToString());
     }
 
     [Fact]

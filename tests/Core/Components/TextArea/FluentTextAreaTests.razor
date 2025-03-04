@@ -76,18 +76,18 @@
     }
 
     [Theory]
-    [InlineData(TextAreaSize.Small, "small")]
-    [InlineData(TextAreaSize.Medium, "medium")]
-    [InlineData(TextAreaSize.Large, "large")]
-    public void FluentTextArea_Size(TextAreaSize size, string expectedAttribute)
+    [InlineData(TextAreaSize.Small)]
+    [InlineData(TextAreaSize.Medium)]
+    [InlineData(TextAreaSize.Large)]
+    [InlineData((TextAreaSize)999)]
+    [InlineData(null)]
+    public void FluentTextArea_Size(TextAreaSize? size)
     {
         // Arrange && Act
-        using var context = new IdentifierContext(i => "myId");
         var cut = Render(@<FluentTextArea Size="@size" />);
 
         // Assert
-        cut.Find("fluent-textarea")
-            .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\"  size=\"{expectedAttribute}\" />");
+        cut.Verify(suffix: size.ToString());
     }
 
     [Fact]
