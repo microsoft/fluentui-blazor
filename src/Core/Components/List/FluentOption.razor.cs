@@ -9,13 +9,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// The Option element is used to define an item contained in a List component.
 /// </summary>
-public partial class FluentOption : FluentComponentBase
+public partial class FluentOption<TOption>
 {
     /// <summary>
     /// Gets or sets the context of the list.
     /// </summary>
     [CascadingParameter(Name = "ListContext")]
-    internal InternalListContext<object>? InternalListContext { get; set; }
+    internal InternalListContext<TOption>? InternalListContext { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the element is disabled.
@@ -27,7 +27,7 @@ public partial class FluentOption : FluentComponentBase
     /// Gets or sets the value of this option.
     /// </summary>
     [Parameter]
-    public string? Value { get; set; }
+    public TOption? Value { get; set; }
 
     /// <summary>
     /// Gets or sets the value indicating whether the element is selected.
@@ -44,6 +44,12 @@ public partial class FluentOption : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<bool> SelectedChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to display in the description slot.
+    /// </summary>
+    [Parameter]
+    public string? Description { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

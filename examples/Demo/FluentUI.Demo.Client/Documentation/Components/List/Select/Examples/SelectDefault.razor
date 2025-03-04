@@ -22,9 +22,9 @@
     </FluentSelect>
 
     <FluentSelect Label="Manual" @bind-Value="@Value">
-        <FluentOption Value="One">One</FluentOption>
-        <FluentOption Value="Two">Two</FluentOption>
-        <FluentOption Value="Three">Three</FluentOption>
+        <FluentOption Value="@("One")">One</FluentOption>
+        <FluentOption Value="@("Two")">Two</FluentOption>
+        <FluentOption Value="@("Three")">Three</FluentOption>
     </FluentSelect>
 
     <FluentSelect Label="Colors" Items="@GetEnumValues()" @bind-Value="@SelectedColor" />
@@ -41,7 +41,7 @@
 
 @code {
 
-    private string?[] Digits = new string?[] { null, "One", "Two", "Three" };
+    private string?[] Digits = new string?[] { "One", "Two", "Three" };
     private string? Value;
     private Color SelectedColor;
 

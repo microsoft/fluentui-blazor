@@ -7,7 +7,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
 /// <typeparam name="TOption"></typeparam>
 public partial class FluentSelect<TOption> : FluentListBase<TOption>
@@ -17,4 +17,5 @@ public partial class FluentSelect<TOption> : FluentListBase<TOption>
         .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, when: !string.IsNullOrEmpty(Height))
         .Build();
+
 }

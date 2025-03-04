@@ -76,6 +76,12 @@ public partial class FluentAvatar : FluentComponentBase
     public AvatarSize? Size { get; set; }
 
     /// <summary>
+    /// Gets or sets the slot where the avatar is displayed in.
+    /// </summary>
+    [Parameter]
+    public string? Slot { get; set; } = null;
+
+    /// <summary>
     /// Gets or sets a command executed when the user clicks on the button.
     /// </summary>
     [Parameter]
