@@ -181,4 +181,22 @@
         });
 #pragma warning restore BL0005
     }
+
+    [Theory]
+    [InlineData(FieldSize.Small)]
+    [InlineData(FieldSize.Medium)]
+    [InlineData(FieldSize.Large)]
+    [InlineData(null)]
+    [InlineData((FieldSize)99)]
+
+    public void FluentField_Size(FieldSize? value)
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentField Label="My label" Size="@value">Field content</FluentField>);
+
+        // Assert
+        cut.Verify(suffix: value.ToString());
+
+
+    }
 }

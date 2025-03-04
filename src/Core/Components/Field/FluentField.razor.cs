@@ -99,6 +99,12 @@ public partial class FluentField : FluentComponentBase, IFluentField
     [Parameter]
     public MessageState? MessageState { get; set; }
 
+    /// <summary>
+    /// Gets or sets the <see cref="FieldSize"/> of the label in the field.
+    /// </summary>
+    [Parameter]
+    public FieldSize? Size { get; set; }
+
     private FluentFieldParameterSelector Parameters => new(this, Localizer);
 
     internal string? GetId(string slot)
