@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputBase<bool>
 
-<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" size="@Size.ToAttributeValue()">
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Size="@Size.ToFieldSize()">
     <fluent-checkbox @ref="@Element"
                      aria-label="@AriaLabel"
                      autofocus="@Autofocus"
