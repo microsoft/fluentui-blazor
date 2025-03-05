@@ -31,13 +31,13 @@
     [InlineData(CheckboxShape.Square)]
     [InlineData(null)]
     [InlineData((CheckboxShape)999)]
-    public void FluentCheckbox_Shape(CheckboxShape? checkboxShape)
+    public void FluentCheckbox_Shape(CheckboxShape? value)
     {
         // Arrange && Act
-        var cut = Render(@<FluentCheckbox Id="xxx" Shape="@checkboxShape" />);
+        var cut = Render(@<FluentCheckbox Id="xxx" Shape="@value" />);
 
         // Assert
-        cut.Verify(suffix: checkboxShape.ToString());
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
     }
 
     [Theory]
@@ -45,13 +45,13 @@
     [InlineData(CheckboxSize.Large)]
     [InlineData(null)]
     [InlineData((CheckboxSize)999)]
-    public void FluentCheckbox_Size(CheckboxSize? checkboxSize)
+    public void FluentCheckbox_Size(CheckboxSize? value)
     {
         // Arrange && Act
-        var cut = Render(@<FluentCheckbox Id="xxx" Size="@checkboxSize" />);
+        var cut = Render(@<FluentCheckbox Id="xxx" Size="@value" />);
 
         // Assert
-        cut.Verify(suffix: checkboxSize.ToString());
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
     }
 
     [Fact]
@@ -94,7 +94,7 @@
 
         // Assert
         cut.Verify();
-    } 
+    }
 
     [Theory]
     [InlineData(true, true)]
