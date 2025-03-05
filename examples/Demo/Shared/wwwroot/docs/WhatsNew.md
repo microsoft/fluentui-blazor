@@ -1,3 +1,23 @@
+## V4.11.6
+
+### Components
+- \[Autocomplete\] Apply invalid css to autocomplete ([#3417](https://github.com/microsoft/fluentui-blazor/pull/3417))
+- \[DataGrid\] Add IGridSort interface, fixes sorting when using ItemsProvider ([#3460](https://github.com/microsoft/fluentui-blazor/pull/3460))
+- \[DataGrid\] Fix error in handling GridTemplateColumns ([#3413](https://github.com/microsoft/fluentui-blazor/pull/3413))
+- \[DataGrid\] Only add Selectable items when using Select All ([#3453](https://github.com/microsoft/fluentui-blazor/pull/3453))
+- \[DataGrid\] Provide alternate way to refresh when working with remote data ([#3423](https://github.com/microsoft/fluentui-blazor/pull/3423))
+- \[Search\] FluentSearch fix deletion if Disabled/Readonly ([#3433](https://github.com/microsoft/fluentui-blazor/pull/3433))
+- \[InputFile\] Add @attributes ([#3441](https://github.com/microsoft/fluentui-blazor/pull/3441))
+- \[Lists\] Fix Form validation happening too late ([#3468](https://github.com/microsoft/fluentui-blazor/pull/3468))
+- \[Lists\] Fix Form validation issue ([#3466](https://github.com/microsoft/fluentui-blazor/pull/3466))
+- \[Lists\] Do not have parameters only be set once ([#3457](https://github.com/microsoft/fluentui-blazor/pull/3457))
+- \[Menu\] Add CheckedChanged EventCallback (fix 3390) ([#3414](https://github.com/microsoft/fluentui-blazor/pull/3414))
+- \[Select\] Fix style when Multiple set/not set ([#3442](https://github.com/microsoft/fluentui-blazor/pull/3442))
+- \[Toolbar\] Dispose of JS module properly ([#3470](https://github.com/microsoft/fluentui-blazor/pull/3470))
+
+### Demo site and documentation
+- \[Docs\] Anchor docs ([#3428](https://github.com/microsoft/fluentui-blazor/pull/3428))
+
 ## V4.11.5
 
 ### General
