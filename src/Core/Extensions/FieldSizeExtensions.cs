@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 /// <summary>
 /// Contains extension methods to convert different size enumerations to <see cref="FluentField.Size"/>.
 /// </summary>
-public static class FieldSizeExtensions
+internal static class FieldSizeExtensions
 {
     /// <summary>
     /// Converts a <see cref="CheckboxSize"/> to a <see cref="FieldSize"/>.
