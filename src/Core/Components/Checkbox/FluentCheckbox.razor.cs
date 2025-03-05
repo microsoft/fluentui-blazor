@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentElementBase
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public FluentCheckbox()
     {
@@ -36,7 +36,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
 
     /// <summary>
     /// Gets or sets the shape of the checkbox. See <see cref="CheckboxShape"/>
-    /// /// The default value is `null`. Internally the component uses CheckboxShape.Square.
+    /// The default value is `null`. Internally the component uses CheckboxShape.Square.
     /// </summary>
     [Parameter]
     public CheckboxShape? Shape { get; set; }
@@ -173,7 +173,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
             }
             else
             {
-                // Current Uncheck 
+                // Current Uncheck
                 if (ThreeStateOrderUncheckToIntermediate && ShowIndeterminate)
                 {
                     await SetToIndeterminateAsync();
