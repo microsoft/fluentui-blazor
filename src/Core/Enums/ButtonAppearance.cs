@@ -10,19 +10,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum ButtonAppearance
 {
     /// <summary>
-    /// The button appears with the default style
+    /// Removes background styling.
     /// </summary>
-    Default,
+    Outline,
 
     /// <summary>
     /// Emphasizes the button as a primary action.
     /// </summary>
     Primary,
-
-    /// <summary>
-    /// Removes background styling.
-    /// </summary>
-    Outline,
 
     /// <summary>
     /// Minimizes emphasis to blend into the background until hovered or focused

@@ -17,14 +17,14 @@ public static class AppearanceExtensions
 #pragma warning disable CS0618 // Type or member is obsolete
         return appearance switch
         {
-            Appearance.Neutral => ButtonAppearance.Default,
+            Appearance.Neutral => ButtonAppearance.Outline,
             Appearance.Accent => ButtonAppearance.Primary,
-            Appearance.Hypertext => ButtonAppearance.Default,
+            Appearance.Hypertext => ButtonAppearance.Outline,
             Appearance.Lightweight => ButtonAppearance.Transparent,
             Appearance.Outline => ButtonAppearance.Outline,
-            Appearance.Stealth => ButtonAppearance.Default,
-            Appearance.Filled => ButtonAppearance.Default,
-            _ => ButtonAppearance.Default
+            Appearance.Stealth => ButtonAppearance.Subtle,
+            Appearance.Filled => ButtonAppearance.Outline,
+            _ => ButtonAppearance.Outline
         };
 #pragma warning restore CS0618 // Type or member is obsolete
     }

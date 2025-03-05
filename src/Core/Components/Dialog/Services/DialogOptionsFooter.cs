@@ -28,7 +28,7 @@ public class DialogOptionsFooter
     /// <summary>
     /// Gets or sets the secondary action for the footer.
     /// </summary>
-    public DialogOptionsFooterAction SecondaryAction { get; } = new(ButtonAppearance.Default);
+    public DialogOptionsFooterAction SecondaryAction { get; } = new();
 
     /// <summary />
     internal IEnumerable<DialogOptionsFooterAction> GetActions()

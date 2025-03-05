@@ -12,20 +12,19 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class DialogOptionsFooterAction
 {
     /// <summary />
-    public DialogOptionsFooterAction() : this(ButtonAppearance.Default)
+    public DialogOptionsFooterAction()
     {
-        
     }
 
     /// <summary />
-    internal DialogOptionsFooterAction(ButtonAppearance appearance)
+    internal DialogOptionsFooterAction(ButtonAppearance? appearance)
     {
         Appearance = appearance;
         ShortCut = appearance == ButtonAppearance.Primary ? "Enter" : "Escape";
     }
 
     /// <summary />
-    internal ButtonAppearance Appearance { get; }
+    internal ButtonAppearance? Appearance { get; }
 
     /// <summary>
     /// Gets or sets the label of the action button.

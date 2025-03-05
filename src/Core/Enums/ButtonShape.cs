@@ -10,14 +10,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum ButtonShape
 {
     /// <summary>
-    /// Circular button.
-    /// </summary>
-    Circular,
-
-    /// <summary>
     /// Rounded button.
     /// </summary>
     Rounded,
+
+    /// <summary>
+    /// Circular button.
+    /// </summary>
+    Circular,
 
     /// <summary>
     /// Square button.

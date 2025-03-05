@@ -77,24 +77,24 @@ public partial class FluentButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the button type. See <see cref="ButtonType"/> for more details.
-    /// Default is <see cref="ButtonType.Button"/>.
+    /// Default is `null`. Internally the component uses  <see cref="ButtonType.Button"/> as default.
     /// </summary>
     [Parameter]
-    public ButtonType Type { get; set; } = ButtonType.Button;
+    public ButtonType? Type { get; set; }
 
     /// <summary>
     /// Gets or sets the shape of the button.
-    /// Default is <see cref="ButtonShape.Rounded"/>.
+    /// Default is `null`. Internally the component uses <see cref="ButtonShape.Rounded"/> as default.
     /// </summary>
     [Parameter]
-    public ButtonShape Shape { get; set; } = ButtonShape.Rounded;
+    public ButtonShape? Shape { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the button.
-    /// Default is <see cref="ButtonSize.Medium"/>.
+    /// Default is `null`. Internally the component uses <see cref="ButtonSize.Medium"/> as default.
     /// </summary>
     [Parameter]
-    public ButtonSize Size { get; set; } = ButtonSize.Medium;
+    public ButtonSize? Size { get; set; }
 
     /// <summary>
     /// Gets or sets the value associated with the button.
@@ -130,10 +130,10 @@ public partial class FluentButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the visual appearance.
-    /// Default is <see cref="ButtonAppearance.Default"/>.
+    /// Default is `null'. Internally the component uses <see cref="ButtonAppearance.Outline"/> as default.
     /// </summary>
     [Parameter]
-    public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
+    public ButtonAppearance? Appearance { get; set; }
 
     /// <summary>
     /// Gets or sets the background color of this button (overrides the <see cref="Appearance"/> property).
