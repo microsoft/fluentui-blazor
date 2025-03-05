@@ -19,7 +19,6 @@ public partial class FluentAnchorButton : FluentComponentBase
     protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("background-color", BackgroundColor, when: () => !string.IsNullOrEmpty(BackgroundColor))
         .AddStyle("color", Color, when: () => !string.IsNullOrEmpty(Color))
-        //.AddStyle("opacity", "0.3", when: () => Disabled && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))
         .Build();
 
     /// <summary>

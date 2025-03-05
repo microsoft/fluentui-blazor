@@ -16,10 +16,7 @@
     [Fact]
     public void FluentAnchorButton_Default()
     {
-        // Arrange
-        using var id = Identifier.SequentialContext();
-
-        // Act
+        // Arrange & Act
         var cut = Render(@<FluentAnchorButton>fluent-anchor-button</FluentAnchorButton>);
 
         // Assert
@@ -90,6 +87,7 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentAnchorButton Shape="@shape">fluent-anchor-button</FluentAnchorButton>);
+
         // Assert
         var attribute = cut.Find("fluent-anchor-button").GetAttribute("shape") ?? string.Empty;
         Assert.Equal(expectedValue, attribute);
