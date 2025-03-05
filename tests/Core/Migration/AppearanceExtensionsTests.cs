@@ -26,5 +26,20 @@ public partial class AppearanceExtensionsTests
         Assert.Equal(expected, appearance.ToButtonAppearance());
     }
 
+    [Theory]
+    [InlineData(Appearance.Neutral, BadgeAppearance.Filled)]
+    [InlineData(Appearance.Accent, BadgeAppearance.Filled)]
+    [InlineData(Appearance.Hypertext, BadgeAppearance.Filled)]
+    [InlineData(Appearance.Lightweight, BadgeAppearance.Ghost)]
+    [InlineData(Appearance.Outline, BadgeAppearance.Filled)]
+    [InlineData(Appearance.Stealth, BadgeAppearance.Filled)]
+    [InlineData(Appearance.Filled, BadgeAppearance.Filled)]
+    [InlineData(Appearance.Filled | Appearance.Accent, BadgeAppearance.Filled)]
+    [InlineData((Appearance)999, BadgeAppearance.Filled)]
+    public void Appearance_ToBadgeAppearance(Appearance appearance, BadgeAppearance expected)
+    {
+        Assert.Equal(expected, appearance.ToBadgeAppearance());
+    }
+
 #pragma warning restore CS0618 // Type or member is obsolete
 }
