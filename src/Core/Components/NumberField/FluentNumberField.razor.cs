@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
@@ -150,9 +154,9 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
             float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
             double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
             decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
-            uint @uint => BindConverter.FormatValue(@uint, CultureInfo.InvariantCulture).ToString(),
-            ushort @ushort => BindConverter.FormatValue(@ushort, CultureInfo.InvariantCulture).ToString(),
-            ulong @ulong => BindConverter.FormatValue(@ulong, CultureInfo.InvariantCulture).ToString(),
+            uint @uint => BindConverter.FormatValue(@uint, CultureInfo.InvariantCulture)?.ToString(),
+            ushort @ushort => BindConverter.FormatValue(@ushort, CultureInfo.InvariantCulture)?.ToString(),
+            ulong @ulong => BindConverter.FormatValue(@ulong, CultureInfo.InvariantCulture)?.ToString(),
             _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}"),
         };
     }

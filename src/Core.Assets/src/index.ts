@@ -56,7 +56,8 @@ fluent-number-field.invalid,
 [role='combobox'].invalid::part(control),
 fluent-combobox.invalid::part(control),
 fluent-text-area.invalid::part(control),
-fluent-text-field.invalid::part(root)
+fluent-text-field.invalid::part(root),
+.fluent-autocomplete-multiselect.invalid > fluent-text-field::part(root)
 {
     outline: calc(var(--stroke-width) * 1px)  solid var(--error);
 }
