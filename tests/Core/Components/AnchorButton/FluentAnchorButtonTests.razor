@@ -1,0 +1,180 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@using Xunit;
+
+@inherits TestContext
+
+@code
+{
+    public FluentAnchorButtonTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentAnchorButton_Default()
+    {
+        // Arrange
+        using var id = Identifier.SequentialContext();
+
+        // Act
+        var cut = Render(@<FluentAnchorButton>fluent-anchor-button</FluentAnchorButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAnchorButton_HrefAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Href="https://example.com">fluent-anchor-button</FluentAnchorButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(LinkTarget.Blank, "_blank")]
+    [InlineData(LinkTarget.Parent, "_parent")]
+    [InlineData(LinkTarget.Self, "_self")]
+    [InlineData(LinkTarget.Top, "_top")]
+    [InlineData(null, "")]
+    [InlineData((LinkTarget)99, "")]
+    public void FluentAnchorButton_TargetAttribute(LinkTarget? target, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Target="@target">fluent-anchor-button</FluentAnchorButton>);
+
+        // Assert
+        var attribute = cut.Find("fluent-anchor-button").GetAttribute("target") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentAnchorButton_RelAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Rel="noopener noreferrer">fluent-anchor-button</FluentAnchorButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(ButtonAppearance.Primary, "primary")]
+    [InlineData(ButtonAppearance.Outline, "outline")]
+    [InlineData(ButtonAppearance.Transparent, "transparent")]
+    [InlineData(ButtonAppearance.Subtle, "subtle")]
+    [InlineData(null, "")]
+    [InlineData((ButtonAppearance)99, "")]
+    public void FluentAnchorButton_AppearanceAttribute(ButtonAppearance? appearance, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Appearance="@appearance">fluent-anchor-button</FluentAnchorButton>);
+
+        // Assert
+        var attribute = cut.Find("fluent-anchor-button").GetAttribute("appearance") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(ButtonShape.Circular, "circular")]
+    [InlineData(ButtonShape.Rounded, "rounded")]
+    [InlineData(ButtonShape.Square, "square")]
+    [InlineData(null, "")]
+    [InlineData((ButtonShape)99, "")]
+    public void FluentAnchorButton_ShapeAttribute(ButtonShape? shape, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Shape="@shape">fluent-anchor-button</FluentAnchorButton>);
+        // Assert
+        var attribute = cut.Find("fluent-anchor-button").GetAttribute("shape") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentAnchorButton_IconStart()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Href="#" IconStart="@Samples.Icons.Info">fluent-anchor-button</FluentAnchorButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAnchorButton_IconEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Href="#" IconEnd="@Samples.Icons.Info">fluent-anchor-button</FluentAnchorButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAnchorButton_IconStartNoChildConten()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Href="#" IconStart="@Samples.Icons.Info" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAnchorButton_IconEndNoChildConten()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Href="#" IconEnd="@Samples.Icons.Info" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAnchorButton_BackgroundColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton BackgroundColor="#ff0000">fluent-anchor-button</FluentAnchorButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAnchorButton_Color()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Color="#00ff00">fluent-anchor-button</FluentAnchorButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAnchorButton_BackgroundColorColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton BackgroundColor="#ff0000" Color="#00ff00">fluent-anchor-button</FluentAnchorButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAnchorButton_IconOnly()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton IconOnly="true">
+            <svg viewBox="0 0 20 20">
+                <path fill="currentColor" d="M7.851 3.146a.5.5 0 0 1 0 .707L4.706 7H10c2.932 0 5.593 1.64 6.936 4.043a.5.5 0 1 1-.872.488C14.894 9.439 12.564 8 10 8H4.707l3.144 3.145a.5.5 0 0 1-.707.707L3.161 7.867a.5.5 0 0 1-.014-.721l3.997-4a.5.5 0 0 1 .707 0M8 15a2 2 0 1 1 4 0a2 2 0 0 1-4 0m2-1a1 1 0 1 0 0 2a1 1 0 0 0 0-2"></path>
+            </svg>
+        </FluentAnchorButton>);
+        // Assert
+        cut.Verify();
+    }
+}
