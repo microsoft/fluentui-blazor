@@ -11,8 +11,6 @@
   - Arrow Circle Up Sparkle / 20, 24 / Filled & Regular
   - Arrow Counterclockwise Info / 20, 24, 28, 32, 48 / Filled & Regular
   - Arrow Square / 32 / Filled & Regular
-  - Bot / 16 / Color
-  - Bot Sparkle / 16 / Color
   - Branch Request Closed / 16, 20 / Filled & Regular
   - Branch Request Draft / 16, 20 / Filled & Regular
   - Building Home / 32 / Filled & Regular
@@ -84,8 +82,8 @@
   - Book Star / 20, 24 / Color
   - Book / 16, 20, 24, 28, 32, 48 / Color
   - Bookmark / 16, 20, 24, 28, 32 / Color
-  - Bot Sparkle / 20, 24 / Color
-  - Bot / 20, 24 / Color
+  - Bot Sparkle / 16, 20, 24 / Color
+  - Bot / 16, 20, 24 / Color
   - Building Government Search / 16, 20, 24, 32 / Color
   - Building Government / 16, 20, 24, 32 / Color
   - Building Home / 16, 20, 24, 32 / Color
