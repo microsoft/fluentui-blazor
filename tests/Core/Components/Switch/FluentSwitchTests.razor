@@ -90,4 +90,17 @@
         // Assert
         Assert.Equal(expectedValue, value);
     }
+
+#pragma warning disable CS0618
+    [Fact]
+    public void FluentSpinner_ChildContent()
+    {
+        // Act
+        var cut = Render(@<FluentSwitch><ChildContent>Label</ChildContent></FluentSwitch>);
+
+        // Assert
+        var actual = cut.Find("fluent-switch").GetElementsByTagName("label").FirstOrDefault();
+        Assert.Null(actual);
+    }
+#pragma warning restore
 }
