@@ -11,6 +11,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
+[CascadingTypeParameter(nameof(TOption))]
 public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
 {
     /// <summary>
@@ -141,8 +142,5 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     }
 
     /// <summary />
-    internal InternalListContext<TOption> GetCurrentContext()
-    {
-        return new InternalListContext<TOption>(this);
-    }
+    internal InternalListContext<TOption> GetCurrentContext() => new(this);
 }

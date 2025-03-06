@@ -6,7 +6,8 @@
 
 <CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
     <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
-        <select aria-label="@AriaLabel"
+        <fluent-dropdown type="select"
+                aria-label="@AriaLabel"
                 autofocus="@Autofocus"
                 disabled="@Disabled"
                 id="@Id"
@@ -18,7 +19,9 @@
                 @onfocusout="@FocusOutHandlerAsync"
                 @onchange="ChangeHandlerAsync"
                 @attributes=AdditionalAttributes>
-            @RenderOptions()
-        </select>
+            <fluent-listbox>
+                @RenderOptions()
+            </fluent-listbox>
+        </fluent-dropdown>
     </FluentField>
 </CascadingValue>

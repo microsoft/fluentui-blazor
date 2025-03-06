@@ -23,8 +23,7 @@
                 <FluentOption Value="@GetOptionValue(item)"
                               Disabled="@(GetOptionDisabled(item))"
                               Selected="@GetOptionSelected(item)"
-                              SelectedChanged="@(e => OnSelectedItemChangedHandlerAsync(item))"
-                              aria-selected="@(GetOptionSelected(item) ? "true" : null)">
+                              SelectedChanged="@(e => OnSelectedItemChangedHandlerAsync(item))">
                     @if (OptionTemplate is not null)
                     {
                         @OptionTemplate(item)
