@@ -43,8 +43,8 @@
         // Arrange && Act
         var cut = Render(
             @<FluentSwitch>
-                <LabelTemplate>Label</LabelTemplate>
-            </FluentSwitch>
+    <LabelTemplate>Label</LabelTemplate>
+</FluentSwitch>
         );
 
         // Assert
@@ -95,12 +95,26 @@
     [Fact]
     public void FluentSpinner_ChildContent()
     {
-        // Act
+        // Arrange && Act
         var cut = Render(@<FluentSwitch><ChildContent>Label</ChildContent></FluentSwitch>);
 
         // Assert
-        var actual = cut.Find("fluent-switch").GetElementsByTagName("label").FirstOrDefault();
+        var actual = cut.Find("fluent-field").GetElementsByTagName("label").FirstOrDefault();
         Assert.Null(actual);
     }
+
+    [Theory]
+    [InlineData("Checked", "Unchecked", false, "Unchecked")]
+    [InlineData("Checked", "Unchecked", true, "Checked")]
+    public void FluentSwitch_Message(string checkedMessage, string uncheckedMessage, bool value, string expectedLabel)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch CheckedMessage="@checkedMessage" UncheckedMessage="@uncheckedMessage" @bind-Value="@value" />);
+
+        // Assert
+        var actual = cut.Find("fluent-field").GetElementsByTagName("label").FirstOrDefault();
+        Assert.Equal(expectedLabel, actual.GetInnerText());
+    }
+
 #pragma warning restore
 }
