@@ -17,6 +17,28 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     where TValue : struct, IComparable<TValue>
 {
     /// <summary>
+    /// Initializes a new instance of the <see cref="FluentSlider{TValue}"/> class.
+    /// </summary>
+    /// <exception cref="InvalidOperationException"></exception>
+    public FluentSlider()
+    {
+        if (typeof(TValue) != typeof(byte) &&
+            typeof(TValue) != typeof(sbyte) &&
+            typeof(TValue) != typeof(short) &&
+            typeof(TValue) != typeof(ushort) &&
+            typeof(TValue) != typeof(int) &&
+            typeof(TValue) != typeof(uint) &&
+            typeof(TValue) != typeof(long) &&
+            typeof(TValue) != typeof(ulong) &&
+            typeof(TValue) != typeof(float) &&
+            typeof(TValue) != typeof(double) &&
+            typeof(TValue) != typeof(decimal))
+        {
+            throw new InvalidOperationException("FluentSlider only supports numeric types.");
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the size for the slider.
     /// </summary>
     [Parameter]
@@ -51,33 +73,6 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// Gets or sets the value of the slider.
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        if (typeof(TValue) != typeof(byte) &&
-           typeof(TValue) != typeof(int) &&
-           typeof(TValue) != typeof(long) &&
-           typeof(TValue) != typeof(float) &&
-           typeof(TValue) != typeof(double) &&
-           typeof(TValue) != typeof(decimal)&&
-           typeof(TValue) != typeof(short))
-        {
-            throw new InvalidOperationException("FluentSlider only supports numeric types.");
-        }
-    }
-
-    /// <summary>
-    /// To prevent the tab from leaving the focus when ReadOnly is true
-    /// </summary>
-    private int? GetTabIndexValue =>
-        ReadOnly && (!AdditionalAttributes?.ContainsKey("tabindex") ?? true)
-        ? -1
-        : null;
 
     /// <summary>
     /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.

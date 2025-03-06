@@ -1,11 +1,9 @@
 ﻿<FluentStack Orientation="Orientation.Vertical">
-	<FluentSlider @bind-Value="@value" />
-	<FluentLabel>Value: @value</FluentLabel>
-	<FluentSlider Value="10" Disabled="true" Label="Disabled" />
-	<FluentSlider Value="10" ReadOnly="true" Label="Read Only" />
+    <FluentSlider @bind-Value="@value">Hello</FluentSlider>
+    <FluentLabel>Value: @value</FluentLabel>
 </FluentStack>
 
 @code
 {
-	int value = 50;
+    int value = 50;
 }
