@@ -2,7 +2,7 @@
 @using FluentUI.Demo.Shared.Pages.DataGrid.Examples
 
 <PageTitle>Auto items per page</PageTitle>
-<DemoSection Title="Auto items per page" Component="@typeof(DataGridAutoItemsPerPage)">
+<DemoSection Title="Auto items per page" Component="@typeof(DataGridAutoItemsPerPage)" AdditionalFiles="@(new[]{"CustomCSS.css"})">
     <Description>
         <p>
             The example and code below show what you need to get auto items per page functionality for the pagination of a datagrid.
@@ -21,41 +21,6 @@
     </Description>
 </DemoSection>
 
-<CodeSnippet>
-    &lt;style>
-
-        #datagrid-container {
-            height: calc(100% - 3rem);
-            min-height: 8rem;
-            overflow-x: auto;
-            overflow-y: hidden;
-        }
-
-        article {
-            min-height: 32rem;
-            max-height: 80dvh;
-        }
-
-        .demo-section-content {
-            height: calc(100% - 10rem);
-        }
-
-        .demo-section-example {
-            min-height: 135px!important;
-            height: 100%;
-        }
-
-        fluent-tabs {
-            height: 100%;
-        }
-
-        #tab-example-autoitemsperpage-panel {
-            height: 100% !important;
-            max-height: calc(100% - 2rem) !important;
-        }
-    &lt;/style>
-
-</CodeSnippet>
 <style>
 
     #datagrid-container {
