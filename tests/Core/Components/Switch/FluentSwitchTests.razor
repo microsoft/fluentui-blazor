@@ -42,7 +42,9 @@
     {
         // Arrange && Act
         var cut = Render(
-            @<FluentSwitch Label="Title" />
+            @<FluentSwitch>
+                <LabelTemplate>Label</LabelTemplate>
+            </FluentSwitch>
         );
 
         // Assert
