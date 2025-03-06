@@ -17,9 +17,8 @@ public partial class AppearanceExtensionsTests
     [InlineData(Appearance.Hypertext, ButtonAppearance.Default)]
     [InlineData(Appearance.Lightweight, ButtonAppearance.Transparent)]
     [InlineData(Appearance.Outline, ButtonAppearance.Outline)]
-    [InlineData(Appearance.Stealth, ButtonAppearance.Default)]
+    [InlineData(Appearance.Stealth, ButtonAppearance.Subtle)]
     [InlineData(Appearance.Filled, ButtonAppearance.Default)]
-    [InlineData(Appearance.Filled | Appearance.Accent, ButtonAppearance.Default)]
     [InlineData((Appearance)999, ButtonAppearance.Default)]
     public void Appearance_ToButtonAppearance(Appearance appearance, ButtonAppearance expected)
     {

@@ -27,7 +27,7 @@
                                 OffsetY="@(SByte.TryParse(offsetY, out sbyte y) ? y : null)"
                                 Size="BadgeSize.Small"
                                 Positioning="@_positioning">
-                <FluentButton Id="center-center" IconOnly="true" Appearance="ButtonAppearance.Default" IconStart="@(new Icons.Regular.Size24.Mail())" OnClick="@(() => HandlePositioning(Positioning.CenterCenter))" />
+                <FluentButton Id="center-center" IconOnly="true" IconStart="@(new Icons.Regular.Size24.Mail())" OnClick="@(() => HandlePositioning(Positioning.CenterCenter))" />
              </FluentCounterBadge>
         </div>
 
