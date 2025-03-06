@@ -84,18 +84,19 @@
     }
 
     [Theory]
-    [InlineData(TextInputSize.Small, "small")]
-    [InlineData(TextInputSize.Medium, "medium")]
-    [InlineData(TextInputSize.Large, "large")]
-    public void FluentInputText_Size(TextInputSize size, string expectedAttribute)
+    [InlineData(TextInputSize.Small)]
+    [InlineData(TextInputSize.Medium)]
+    [InlineData(TextInputSize.Large)]
+    [InlineData((TextInputSize)999)]
+    [InlineData(null)]
+    public void FluentInputText_Size(TextInputSize? size)
     {
         // Arrange && Act
-        using var context = new IdentifierContext(i => "myId");
+        
         var cut = Render(@<FluentTextInput Size="@size" />);
 
         // Assert
-        cut.Find("fluent-text-input")
-           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" control-size=\"{expectedAttribute}\" />");
+        cut.Verify(suffix: size.ToString());
     }
 
     [Fact]
