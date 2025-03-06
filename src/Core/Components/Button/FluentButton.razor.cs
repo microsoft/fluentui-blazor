@@ -130,7 +130,7 @@ public partial class FluentButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the visual appearance.
-    /// Default is `null'. Internally the component uses <see cref="ButtonAppearance.Outline"/> as default.
+    /// Default is `null'. Internally the component uses <see cref="ButtonAppearance.Default"/> as default.
     /// </summary>
     [Parameter]
     public ButtonAppearance? Appearance { get; set; }

@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class DialogOptionsFooterAction
 {
     /// <summary />
-    public DialogOptionsFooterAction()
+    public DialogOptionsFooterAction() : this(ButtonAppearance.Default)
     {
     }
 

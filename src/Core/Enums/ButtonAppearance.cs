@@ -10,6 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum ButtonAppearance
 {
     /// <summary>
+    /// The button appears with the default style
+    /// </summary>
+    Default,
+
+    /// <summary>
     /// Removes background styling.
     /// </summary>
     Outline,

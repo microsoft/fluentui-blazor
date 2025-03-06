@@ -25,7 +25,7 @@
                    required="@Required"
                    aria-label="@Title"
                    title="@Title"
-                   appearance="@Appearance.ToAttributeValue()"
+                   appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
                    @onclick="@OnClickHandlerAsync"
                    @onclick:stopPropagation="@StopPropagation"
                    @attributes="@AdditionalAttributes">

@@ -12,15 +12,14 @@ public partial class AppearanceExtensionsTests
 #pragma warning disable CS0618 // Type or member is obsolete
 
     [Theory]
-    [InlineData(Appearance.Neutral, ButtonAppearance.Outline)]
+    [InlineData(Appearance.Neutral, ButtonAppearance.Default)]
     [InlineData(Appearance.Accent, ButtonAppearance.Primary)]
-    [InlineData(Appearance.Hypertext, ButtonAppearance.Outline)]
+    [InlineData(Appearance.Hypertext, ButtonAppearance.Default)]
     [InlineData(Appearance.Lightweight, ButtonAppearance.Transparent)]
     [InlineData(Appearance.Outline, ButtonAppearance.Outline)]
     [InlineData(Appearance.Stealth, ButtonAppearance.Subtle)]
-    [InlineData(Appearance.Filled, ButtonAppearance.Outline)]
-    [InlineData(Appearance.Filled | Appearance.Accent, ButtonAppearance.Outline)]
-    [InlineData((Appearance)999, ButtonAppearance.Outline)]
+    [InlineData(Appearance.Filled, ButtonAppearance.Default)]
+    [InlineData((Appearance)999, ButtonAppearance.Default)]
     public void Appearance_ToButtonAppearance(Appearance appearance, ButtonAppearance expected)
     {
         Assert.Equal(expected, appearance.ToButtonAppearance());
