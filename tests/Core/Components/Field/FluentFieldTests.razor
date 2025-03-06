@@ -55,13 +55,15 @@
     [InlineData(MessageState.Success)]
     [InlineData(MessageState.Warning)]
     [InlineData(MessageState.Error)]
-    public void FluentField_MessageState(MessageState state)
+    [InlineData(null)]
+    [InlineData((MessageState)99)]
+    public void FluentField_MessageState(MessageState? value)
     {
         // Arrange & Act
-        var cut = Render(@<FluentField MessageState="@state">Field content</FluentField>);
+        var cut = Render(@<FluentField MessageState="@value">Field content</FluentField>);
 
         // Assert
-        cut.Verify(suffix: state.ToString());
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
     }
 
     [Theory]
@@ -180,5 +182,23 @@
             field2.GetId("Unknown");
         });
 #pragma warning restore BL0005
+    }
+
+    [Theory]
+    [InlineData(FieldSize.Small)]
+    [InlineData(FieldSize.Medium)]
+    [InlineData(FieldSize.Large)]
+    [InlineData(null)]
+    [InlineData((FieldSize)99)]
+
+    public void FluentField_Size(FieldSize? value)
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentField Label="My label" Size="@value">Field content</FluentField>);
+
+        // Assert
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
+
+
     }
 }

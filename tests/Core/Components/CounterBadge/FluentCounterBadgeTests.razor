@@ -304,5 +304,23 @@
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentCounterBadge_Attached_NoPositioning()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="4"><FluentButton>Test</FluentButton></FluentCounterBadge> );
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_Attached_WithPositioning()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCounterBadge Count="4" Positioning="Positioning.CenterCenter"><FluentButton>Test</FluentButton></FluentCounterBadge> );
+        // Assert
+        cut.Verify();
+    }
+
 }
 
