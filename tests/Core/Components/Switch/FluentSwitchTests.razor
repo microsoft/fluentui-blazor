@@ -22,18 +22,6 @@
         cut.Verify();
     }
 
-    [Fact]
-    public void FluentCheckbox_LabelPosition()
-    {
-        // Arrange && Act
-        var cut = Render(
-            @<FluentSwitch LabelPosition="LabelPosition.Above" />
-        );
-
-        // Assert
-        cut.Verify();
-    }
-
     [Theory]
     [InlineData(LabelPosition.Above)]
     [InlineData(LabelPosition.After)]
