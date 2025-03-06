@@ -54,9 +54,4 @@ public partial class FluentSwitch : FluentInputBase<bool>
 
     private string? GetLabel =>
         (!string.IsNullOrEmpty(CheckedMessage) && CurrentValue) ? CheckedMessage : (!string.IsNullOrEmpty(UncheckedMessage) && !CurrentValue ? UncheckedMessage : Label);
-
-    private int? GetTabIndexValue =>
-        ReadOnly && (!AdditionalAttributes?.ContainsKey("tabindex") ?? true)
-        ? -1
-        : null;
 }
