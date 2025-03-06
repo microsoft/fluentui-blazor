@@ -52,6 +52,8 @@ public partial class FluentSwitch : FluentInputBase<bool>
         throw new NotSupportedException();
     }
 
+#pragma warning disable CS0618
     private string? GetLabel =>
         (!string.IsNullOrEmpty(CheckedMessage) && CurrentValue) ? CheckedMessage : (!string.IsNullOrEmpty(UncheckedMessage) && !CurrentValue ? UncheckedMessage : Label);
+#pragma warning restore
 }

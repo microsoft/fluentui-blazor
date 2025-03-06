@@ -19,13 +19,13 @@ public partial class FluentSwitch
     /// Gets or sets the checked message
     /// </summary>
     [Parameter]
-    //[Obsolete("This property is not supported anymore and will be removed in a future release.")]
+    [Obsolete("This property is not supported anymore and will be removed in a future release.")]
     public string? CheckedMessage { get; set; }
 
     /// <summary>
     /// Gets or sets the unchecked message
     /// </summary>
     [Parameter]
-    //[Obsolete("This property is not supported anymore and will be removed in a future release.")]
+    [Obsolete("This property is not supported anymore and will be removed in a future release.")]
     public string? UncheckedMessage { get; set; }
 }
