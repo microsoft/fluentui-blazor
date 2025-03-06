@@ -12,7 +12,7 @@ public static class AppearanceExtensions
     /// </summary>
     /// <param name="appearance"></param>
     /// <returns></returns>
-    public static ButtonAppearance ToButtonAppearance(this Appearance appearance)
+    public static ButtonAppearance? ToButtonAppearance(this Appearance appearance)
     {
 #pragma warning disable CS0618 // Type or member is obsolete
         return appearance switch
@@ -22,7 +22,7 @@ public static class AppearanceExtensions
             Appearance.Hypertext => ButtonAppearance.Default,
             Appearance.Lightweight => ButtonAppearance.Transparent,
             Appearance.Outline => ButtonAppearance.Outline,
-            Appearance.Stealth => ButtonAppearance.Default,
+            Appearance.Stealth => ButtonAppearance.Subtle,
             Appearance.Filled => ButtonAppearance.Default,
             _ => ButtonAppearance.Default
         };
