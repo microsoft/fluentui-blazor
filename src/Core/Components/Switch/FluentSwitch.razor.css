@@ -1,3 +1,7 @@
+fluent-field:has(fluent-switch[readonly]) {
+  pointer-events: none;
+}
+
 fluent-switch[readonly] {
   pointer-events: none;
 }
