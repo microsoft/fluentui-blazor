@@ -91,6 +91,16 @@
         Assert.Equal(expectedValue, value);
     }
 
+    [Fact]
+    public void FluentSwitch_TryParseValueFromString()
+    {
+        // Arrange
+        var fluentSwitch = new FluentSwitch();
+
+        // Act & Assert
+        Assert.Throws<NotSupportedException>(() => fluentSwitch.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
+    }
+
 #pragma warning disable CS0618
     [Fact]
     public void FluentSwitch_ChildContent()
@@ -101,6 +111,30 @@
         // Assert
         var actual = cut.Find("fluent-field").GetElementsByTagName("label").FirstOrDefault();
         Assert.Null(actual);
+    }
+
+    [Fact]
+    public void FluentSwitch_CheckedMessage()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch CheckedMessage="Checked" />
+            );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSwitch_UncheckedMessage()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch UncheckedMessage="Unchecked" />
+            );
+
+        // Assert
+        cut.Verify();
     }
 
     [Theory]

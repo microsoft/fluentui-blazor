@@ -52,6 +52,11 @@ public partial class FluentSwitch : FluentInputBase<bool>
         throw new NotSupportedException();
     }
 
+    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out bool result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        return TryParseValueFromString(value, out result, out validationErrorMessage);
+    }
+
 #pragma warning disable CS0618
     private string? GetLabel =>
         (!string.IsNullOrEmpty(CheckedMessage) && CurrentValue) ? CheckedMessage : (!string.IsNullOrEmpty(UncheckedMessage) && !CurrentValue ? UncheckedMessage : Label);
