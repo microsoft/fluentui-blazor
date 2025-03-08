@@ -32,6 +32,10 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 
 {{ INCLUDE MigrationFluentLabel }}
 
+## FluentSwitch
+
+{{ INCLUDE MigrationFluentSwitch }}
+
 ## FluentTextArea
 
 {{ INCLUDE MigrationFluentTextArea }}
