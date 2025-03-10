@@ -1,0 +1,175 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits TestContext
+@code
+{
+    public FluentFieldConditionTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Theory]
+    [InlineData(15, 0, true, "a > 10")]
+    [InlineData(15, 25, true, "a > 10")]
+    [InlineData(0, 25, true, "b > 20")]
+    [InlineData(0, 0, false, null)]
+    public void FluentFieldCondition_Message(int a, int b, bool expectedBuild, string? expectedMessage)
+    {
+        // Arrange
+        var field = new FluentField();
+
+        bool MyCondition(IFluentField field)
+        {
+            return field.When(() => a > 10).Display("a > 10")
+                        .When(() => b > 20).Display("b > 20")
+                        .Build();
+        }
+
+        // Act
+        var ok = MyCondition(field);
+
+        // Assert
+        Assert.Equal(expectedBuild, ok);
+        Assert.Equal(expectedMessage, field.Message);
+    }
+
+    [Theory]
+    [InlineData(15, 0, true, MessageState.Error)]
+    [InlineData(15, 25, true, MessageState.Error)]
+    [InlineData(0, 25, true, MessageState.Warning)]
+    [InlineData(0, 0, false, null)]
+    public void FluentFieldCondition_State(int a, int b, bool expectedBuild, MessageState? expectedState)
+    {
+        // Arrange
+        var field = new FluentField();
+
+        bool MyCondition(IFluentField field)
+        {
+            return field.When(() => a > 10).Display(MessageState.Error)
+                        .When(() => b > 20).Display(MessageState.Warning)
+                        .Build();
+        }
+
+        // Act
+        var ok = MyCondition(field);
+
+        // Assert
+        Assert.Equal(expectedBuild, ok);
+        Assert.Equal(expectedState, field.MessageState);
+    }
+
+    [Theory]
+    [InlineData(15, 0, true, "Info")]
+    [InlineData(15, 25, true, "Info")]
+    [InlineData(0, 25, true, "Warning")]
+    [InlineData(0, 0, false, null)]
+    public void FluentFieldCondition_Icon(int a, int b, bool expectedBuild, string? expectedIconName)
+    {
+        // Arrange
+        var field = new FluentField();
+
+        bool MyCondition(IFluentField field)
+        {
+            return field.When(() => a > 10).Display("a > 10", Samples.Icons.Info)
+                        .When(() => b > 20).Display("a > 20", Samples.Icons.Warning)
+                    .Build();
+        }
+
+        // Act
+        var ok = MyCondition(field);
+
+        // Assert
+        Assert.Equal(expectedBuild, ok);
+        Assert.Equal(expectedIconName, field.MessageIcon?.Name);
+    }
+
+    [Theory]
+    [InlineData(15, 0, true, "a > 10", MessageState.Warning, "Warning")]
+    [InlineData(15, 25, true, "a > 10", MessageState.Warning, "Warning")]
+    [InlineData(0, 25, true, "b > 20", MessageState.Success, null)]
+    [InlineData(0, 0, false, null, null, null)]
+    public void FluentFieldCondition_MessageStateIcon(int a, int b,
+        bool expectedBuild, string? expectedMessage, MessageState? expectedState, string? expectedIconName)
+    {
+        // Arrange
+        var field = new FluentField();
+
+        bool MyCondition(IFluentField field)
+        {
+            return field.When(() => a > 10).Display("a > 10", MessageState.Warning, Samples.Icons.Warning)
+                        .When(() => b > 20).Display("b > 20", MessageState.Success, icon: null)
+                        .Build();
+        }
+
+        // Act
+        var ok = MyCondition(field);
+
+        // Assert
+        Assert.Equal(expectedBuild, ok);
+        Assert.Equal(expectedMessage, field.Message);
+        Assert.Equal(expectedState, field.MessageState);
+        Assert.Equal(expectedIconName, field.MessageIcon?.Name);
+    }
+
+    [Fact]
+    public void FluentFieldCondition_Always()
+    {
+        // Arrange
+        var field = new FluentField();
+
+        // Act
+        var ok = FluentFieldCondition.Always(field);
+
+        // Assert
+        Assert.True(ok);
+    }
+
+    [Fact]
+    public void FluentFieldCondition_Never()
+    {
+        // Arrange
+        var field = new FluentField();
+
+        // Act
+        var ok = FluentFieldCondition.Never(field);
+
+        // Assert
+        Assert.False(ok);
+    }
+
+    [Theory]
+    [InlineData("", new string[] { "8+ characters", "Using number", "Capital letters", "Lowercase letters" })]
+    [InlineData("ab", new string[] { "8+ characters", "Using number", "Capital letters" })]
+    [InlineData("ab12", new string[] { "8+ characters", "Capital letters" })]
+    [InlineData("ab12CD", new string[] { "8+ characters" })]
+    [InlineData("ab12CD23", new string[] { "Valid password" })]
+    public void FluentFieldCondition_MultipleConditions(string value, string[] expectedMessages)
+    {
+        // Arrange
+        var MyValue = value;
+
+        // Act
+        var cut = Render(
+            @<FluentTextInput  @bind-Value="@MyValue"
+                 Immediate="true"
+                 MessageCondition="@(i => i.When(() => MyValue.Length < 8)
+                                                .Display("8+ characters", MessageState.Error)
+                                           .When(() => MyValue.Any(char.IsDigit) == false)
+                                                .Display("Using number", MessageState.Error)
+                                           .When(() => MyValue.Any(char.IsUpper) == false)
+                                                .Display("Capital letters", MessageState.Error)
+                                           .When(() => MyValue.Any(char.IsLower) == false)
+                                                .Display("Lowercase letters", MessageState.Error)
+                                           .When(() => MyValue.Length >= 8 && MyValue.Any(char.IsDigit) && MyValue.Any(char.IsUpper) && MyValue.Any(char.IsLower))
+                                                .Display("Valid password")
+                                           .Build(options => options.BreakOnFirst = false))" />);
+
+        // Assert
+        foreach (var message in expectedMessages)
+        {
+            cut.Markup.Contains(message);
+        }
+    }
+}

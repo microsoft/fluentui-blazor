@@ -17,9 +17,23 @@ public static class EnumExtensions
     /// Returns the Description attribute of an enum value if present.
     /// </summary>
     /// <param name="value"></param>
+    /// <param name="returnEmptyAsNull">If True, returns null if the description is empty.</param>
     /// <returns></returns>
-    public static string? ToAttributeValue(this Enum? value)
-        => value == null ? null : GetDescription(value);
+    public static string? ToAttributeValue(this Enum? value, bool? returnEmptyAsNull = false)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+
+        var description = GetDescription(value);
+        if (returnEmptyAsNull == true && string.IsNullOrEmpty(description))
+        {
+            return null;
+        }
+
+        return description;
+    }
 
     /// <summary>
     /// Returns the Description attribute of an enum value if present.
@@ -30,8 +44,13 @@ public static class EnumExtensions
     public static string GetDescription(this Enum value)
     {
         var memberInfo = value.GetType().GetMember(value.ToString());
-        var attribute = memberInfo[0].GetCustomAttribute<DescriptionAttribute>();
 
+        if (memberInfo.Length == 0)
+        {
+            return string.Empty;
+        }
+
+        var attribute = memberInfo[0].GetCustomAttribute<DescriptionAttribute>();
         var result = attribute?.Description ?? value.ToString().ToLower(System.Globalization.CultureInfo.InvariantCulture);
 
         return result;

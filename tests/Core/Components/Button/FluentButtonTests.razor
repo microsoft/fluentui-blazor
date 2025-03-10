@@ -127,16 +127,19 @@
     }
 
     [Theory]
-    [InlineData(ButtonType.Button)]
-    [InlineData(ButtonType.Reset)]
-    [InlineData(ButtonType.Submit)]
-    public void FluentButton_TypeAttribute(ButtonType buttonType)
+    [InlineData(ButtonType.Button, "button")]
+    [InlineData(ButtonType.Reset, "reset")]
+    [InlineData(ButtonType.Submit, "submit")]
+    [InlineData(null, "")]
+    [InlineData((ButtonType)99, "")]
+    public void FluentButton_TypeAttribute(ButtonType? buttonType, string expectedValue)
     {
         // Arrange && Act
         var cut = Render(@<FluentButton Type="@buttonType">fluent-button</FluentButton>);
 
         // Assert
-        cut.Verify(suffix: buttonType.ToString());
+        var attribute = cut.Find("fluent-button").GetAttribute("type") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
     }
 
     [Theory]
@@ -198,18 +201,51 @@
     }
 
     [Theory]
-    [InlineData(ButtonAppearance.Primary)]
-    [InlineData(ButtonAppearance.Default)]
-    [InlineData(ButtonAppearance.Outline)]
-    [InlineData(ButtonAppearance.Transparent)]
-    [InlineData(ButtonAppearance.Subtle)]
-    public void FluentButton_AppearanceAttribute(ButtonAppearance appearance)
+    [InlineData(ButtonAppearance.Default, "")]
+    [InlineData(ButtonAppearance.Primary, "primary")]
+    [InlineData(ButtonAppearance.Outline, "outline")]
+    [InlineData(ButtonAppearance.Transparent, "transparent")]
+    [InlineData(ButtonAppearance.Subtle, "subtle")]
+    [InlineData(null, "")]
+    [InlineData((ButtonAppearance)99, "")]
+    public void FluentButton_AppearanceAttribute(ButtonAppearance? appearance, string expectedValue)
     {
         // Arrange && Act
         var cut = Render(@<FluentButton Appearance="@appearance">fluent-button</FluentButton>);
 
         // Assert
-        cut.Verify(suffix: appearance.ToString());
+        var attribute = cut.Find("fluent-button").GetAttribute("appearance") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(ButtonShape.Rounded, "rounded")]
+    [InlineData(ButtonShape.Circular, "circular")]
+    [InlineData(ButtonShape.Square, "square")]
+    [InlineData(null, "")]
+    [InlineData((ButtonShape)99, "")]
+    public void FluentButton_ShapeAttribute(ButtonShape? shape, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Shape="@shape">fluent-button</FluentButton>);
+        // Assert
+        var attribute = cut.Find("fluent-button").GetAttribute("shape") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(ButtonSize.Large, "large")]
+    [InlineData(ButtonSize.Medium, "medium")]
+    [InlineData(ButtonSize.Small, "small")]
+    [InlineData(null, "")]
+    [InlineData((ButtonSize)99, "")]
+    public void FluentButton_SizeAttribute(ButtonSize? size, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Size="@size">fluent-button</FluentButton>);
+        // Assert
+        var attribute = cut.Find("fluent-button").GetAttribute("size") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
     }
 
     [Fact]
@@ -354,7 +390,7 @@
         bool clicked = false;
 
         // Arrange
-        var cut = Render(@<FluentButton OnClick="@(e => { clicked = true; } )">My button</FluentButton>);
+        var cut = Render(@<FluentButton OnClick="@(e => { clicked = true; })">My button</FluentButton>);
 
         // Act
         cut.Find("fluent-button").Click();
@@ -402,10 +438,10 @@
         // Arrange
         // Not adding StopPropagation here explicitly because it is false by default
         var cut = Render(@<div @onclick="@(e => {clickedondiv = true; })">
-                            <FluentButton OnClick="@(e => { clicked = true; } )">
-                                My button
-                            </FluentButton>
-                          </div>);
+            <FluentButton OnClick="@(e => { clicked = true; })">
+                My button
+            </FluentButton>
+        </div>);
 
         // Act
         cut.Find("fluent-button").Click();
@@ -423,10 +459,10 @@
 
         // Arrange
         var cut = Render(@<div @onclick="@(e => {clickedondiv = true; })">
-                            <FluentButton StopPropagation="true" OnClick="@(e => { clicked = true; } )">
-                                My button
-                            </FluentButton>
-                          </div>);
+            <FluentButton StopPropagation="true" OnClick="@(e => { clicked = true; })">
+                My button
+            </FluentButton>
+        </div>);
 
         // Act
         cut.Find("fluent-button").Click();
@@ -435,5 +471,18 @@
         Assert.False(clickedondiv);
         Assert.True(clicked);
     }
+
+    [Fact]
+    public void FluentButton_IconOnly()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton IconOnly="true">
+            <svg viewBox="0 0 20 20">
+                <path fill="currentColor" d="M7.851 3.146a.5.5 0 0 1 0 .707L4.706 7H10c2.932 0 5.593 1.64 6.936 4.043a.5.5 0 1 1-.872.488C14.894 9.439 12.564 8 10 8H4.707l3.144 3.145a.5.5 0 0 1-.707.707L3.161 7.867a.5.5 0 0 1-.014-.721l3.997-4a.5.5 0 0 1 .707 0M8 15a2 2 0 1 1 4 0a2 2 0 0 1-4 0m2-1a1 1 0 1 0 0 2a1 1 0 0 0 0-2"></path>
+            </svg>
+        </FluentButton>);
+        // Assert
+        cut.Verify();
+    }
 }
-}
+

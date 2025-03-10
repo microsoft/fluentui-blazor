@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -102,7 +103,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// <summary />
     protected virtual async Task OnSelectedItemChangedHandlerAsync(TOption? item)
     {
-        if (Disabled || item == null)
+        if (Disabled ?? false || item == null)
         {
             return;
         }
@@ -121,6 +122,17 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// </summary>
     /// <returns></returns>
     protected virtual RenderFragment? RenderOptions() => InternalRenderOptions;
+
+    /// <summary>
+    /// Handler for the OnFocus event.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
+    {
+        FocusLost = true;
+        return Task.CompletedTask;
+    }
 
     /// <summary />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TOption result, [NotNullWhen(false)] out string? validationErrorMessage)

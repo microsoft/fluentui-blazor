@@ -33,16 +33,19 @@ internal class ApiClass
     private readonly Type _component;
     private readonly DocViewerService _docViewerService;
     private IEnumerable<ApiClassMember>? _allMembers;
+    private readonly bool _allProperties;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ApiClass"/> class.
     /// </summary>
     /// <param name="docViewerService"></param>
     /// <param name="component"></param>
-    public ApiClass(DocViewerService docViewerService, Type component)
+    /// <param name="allProperties">False to returns only [Parameter] properties</param>
+    public ApiClass(DocViewerService docViewerService, Type component, bool allProperties = false)
     {
         _docViewerService = docViewerService;
         _component = component;
+        _allProperties = allProperties;
     }
 
     /// <summary>
@@ -61,7 +64,7 @@ internal class ApiClass
     /// <summary>
     /// Gets the list of properties for the specified component.
     /// </summary>
-    public IEnumerable<ApiClassMember> Properties => GetMembers(MemberTypes.Property).Where(i => i.IsParameter);
+    public IEnumerable<ApiClassMember> Properties => GetMembers(MemberTypes.Property).Where(i => _allProperties ? true : i.IsParameter);
 
     /// <summary>
     /// Gets the list of Events for the specified component.
@@ -138,21 +141,12 @@ internal class ApiClass
                             // Parameters/properties
                             if (!isEvent)
                             {
-                                // Icon? icon = null;
                                 var defaultValue = "";
                                 if (propertyInfo.PropertyType.IsValueType || propertyInfo.PropertyType == typeof(string))
                                 {
                                     defaultValue = GetObjectValue(propertyInfo.Name)?.ToString();
                                 }
-                                //else if (propertyInfo.PropertyType == typeof(Icon))
-                                //{
-                                //    if (GetObjectValue(propertyInfo.Name) is Icon value)
-                                //    {
-                                //        icon = value;
-                                //        defaultValue = $"{value.Variant}.{value.Size}.{value.Name}";
-                                //    }
-                                //}
-
+                                
                                 members.Add(new ApiClassMember()
                                 {
                                     MemberType = MemberTypes.Property,
@@ -162,7 +156,7 @@ internal class ApiClass
                                     Default = defaultValue,
                                     Description = GetSummary(_component, propertyInfo),
                                     IsParameter = isParameter,
-                                    //Icon = icon
+                                    IsInherited = propertyInfo.IsInherited(_component),
                                 });
                             }
 
@@ -176,6 +170,7 @@ internal class ApiClass
                                     Name = propertyInfo.Name,
                                     Type = propertyInfo.ToTypeNameString(),
                                     Description = GetSummary(_component, propertyInfo),
+                                    IsInherited = propertyInfo.IsInherited(_component),
                                 });
                             }
                         }
@@ -202,6 +197,7 @@ internal class ApiClass
                                 Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
                                 Type = methodInfo.ToTypeNameString(),
                                 Description = GetSummary(_component, methodInfo),
+                                IsInherited = methodInfo.IsInherited(_component),
                             });
                         }
                     }
@@ -222,7 +218,7 @@ internal class ApiClass
     /// <summary />
     private string GetSummary(Type component, MemberInfo? member)
     {
-        var summary = _docViewerService.ApiCommentSummary(component, member);
+        var summary = _docViewerService.ApiCommentSummary(ApiDocSummary.Cached, component, member);
 
         if (string.IsNullOrWhiteSpace(summary))
         {

@@ -27,11 +27,11 @@ public partial class FluentGrid : FluentComponentBase
     }
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .Build();
 
     /// <summary />
@@ -100,7 +100,7 @@ public partial class FluentGrid : FluentComponentBase
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <inheritdoc cref="IAsyncDisposable.DisposeAsync" />
     /// </summary>
     /// <returns></returns>
     [ExcludeFromCodeCoverage(Justification = "Tested via integration tests.")]

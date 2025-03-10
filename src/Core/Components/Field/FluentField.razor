@@ -1,0 +1,60 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-field id="@GetId("field")"
+              label-position="@Parameters.LabelPosition.ToAttributeValue()"
+              class="@ClassValue"
+              style="@StyleValue"
+              size="@Size.ToAttributeValue()"
+              @attributes="AdditionalAttributes">
+
+    @if (HasLabel)
+    {
+        <label id="@GetId("label")"
+               slot="label"
+               for="@GetId("input")"
+               required="@(Parameters.Required ?? false)"
+               disabled="@(Parameters.Disabled ?? false)"
+               style="@LabelStyle">
+            @Parameters.Label
+            @Parameters.LabelTemplate
+            @if (Parameters.Required == true)
+            {
+                <span class="asterisk" aria-hidden="true" />
+            }
+        </label>
+    }
+
+    @if (ChildContent is not null)
+    {
+        @if (Parameters.HasInputComponent)
+        {
+            @ChildContent
+        }
+        else
+        {
+            <div slot="input" id="@GetId("input")">
+                @ChildContent
+            </div>
+        }
+    }
+
+    @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
+    {
+        <FluentText slot="message" size="@TextSize.Size200">
+
+            @CreateIcon(Parameters.MessageIcon)
+
+            @if (Parameters.MessageTemplate is not null)
+            {
+                @Parameters.MessageTemplate
+            }
+            else
+            {
+                @Parameters.Message
+            }
+        </FluentText>
+    }
+
+</fluent-field>

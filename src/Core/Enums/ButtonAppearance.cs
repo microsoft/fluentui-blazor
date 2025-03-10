@@ -15,14 +15,14 @@ public enum ButtonAppearance
     Default,
 
     /// <summary>
-    /// Emphasizes the button as a primary action.
-    /// </summary>
-    Primary,
-
-    /// <summary>
     /// Removes background styling.
     /// </summary>
     Outline,
+
+    /// <summary>
+    /// Emphasizes the button as a primary action.
+    /// </summary>
+    Primary,
 
     /// <summary>
     /// Minimizes emphasis to blend into the background until hovered or focused
@@ -34,4 +34,3 @@ public enum ButtonAppearance
     /// </summary>
     Transparent,
 }
-

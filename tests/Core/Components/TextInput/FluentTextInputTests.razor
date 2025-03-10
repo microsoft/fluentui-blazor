@@ -38,10 +38,12 @@
     public void FluentInputText_Appearance(TextInputAppearance appearance, string expectedAttribute)
     {
         // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
         var cut = Render(@<FluentTextInput Appearance="@appearance" />);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text-input appearance=\"{expectedAttribute}\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"{expectedAttribute}\" />");
     }
 
     [Theory]
@@ -56,10 +58,12 @@
     public void FluentInputText_InputMode(TextInputMode inputMode, string expectedAttribute)
     {
         // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
         var cut = Render(@<FluentTextInput InputMode="@inputMode" />);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" inputmode=\"{expectedAttribute}\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" inputmode=\"{expectedAttribute}\" />");
     }
 
     [Theory]
@@ -71,23 +75,28 @@
     public void FluentInputText_TextFieldType(TextInputType type, string expectedAttribute)
     {
         // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
         var cut = Render(@<FluentTextInput TextFieldType="@type" />);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" type=\"{expectedAttribute}\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" type=\"{expectedAttribute}\" />");
     }
 
     [Theory]
-    [InlineData(TextInputSize.Small, "small")]
-    [InlineData(TextInputSize.Medium, "medium")]
-    [InlineData(TextInputSize.Large, "large")]
-    public void FluentInputText_Size(TextInputSize size, string expectedAttribute)
+    [InlineData(TextInputSize.Small)]
+    [InlineData(TextInputSize.Medium)]
+    [InlineData(TextInputSize.Large)]
+    [InlineData((TextInputSize)999)]
+    [InlineData(null)]
+    public void FluentInputText_Size(TextInputSize? size)
     {
         // Arrange && Act
+        
         var cut = Render(@<FluentTextInput Size="@size" />);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" control-size=\"{expectedAttribute}\" />");
+        cut.Verify(suffix: size.ToString());
     }
 
     [Fact]
@@ -123,6 +132,7 @@
     public void FluentInputText_OnChange()
     {
         // Arrange
+        using var context = new IdentifierContext(i => "myId");
         var value = "init";
         var cut = Render(@<FluentTextInput @bind-Value="@value" />);
 
@@ -131,7 +141,8 @@
 
         // Assert
         Assert.Equal("new value", value);
-        cut.MarkupMatches("<fluent-text-input appearance=\"outline\" value=\"new value\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"new value\" />");
     }
 
     [Theory]
@@ -141,6 +152,7 @@
     public async Task FluentInputText_OnInput(bool immediate, int immediateDelay, string expectedImmediateValue, string expectedDelayedValue)
     {
         // Arrange
+        using var context = new IdentifierContext(i => "myId");
         var value = "init";
         var cut = Render(@<FluentTextInput @bind-Value="@value" Immediate="@immediate" ImmediateDelay="@immediateDelay" />);
 
@@ -149,17 +161,20 @@
 
         // Assert: Immediate
         Assert.Equal(expectedImmediateValue, value);
-        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" value=\"{expectedImmediateValue}\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedImmediateValue}\" />");
 
         // Assert: After a small delay
         await Task.Delay(200);
         Assert.Equal(expectedDelayedValue, value);
-        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" value=\"{expectedDelayedValue}\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedDelayedValue}\" />");
     }
 
     [Theory]
     [InlineData(FluentInputAppearance.Filled, TextInputAppearance.FilledDarker)]
     [InlineData(FluentInputAppearance.Outline, TextInputAppearance.Outline)]
+    [InlineData((FluentInputAppearance)999, TextInputAppearance.Outline)]
     public void FluentInputText_ToTextInputAppearance(FluentInputAppearance appearance, TextInputAppearance expected)
     {
         var value = AspNetCore.Components.Migration.FluentInputAppearanceExtensions.ToTextInputAppearance(appearance);

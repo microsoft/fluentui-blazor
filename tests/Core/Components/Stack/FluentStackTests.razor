@@ -1,0 +1,120 @@
+﻿@using Xunit;
+@using Fuib = Microsoft.FluentUI.AspNetCore.Components;
+@using Xunit.Abstractions
+@inherits TestContext
+@code
+{
+    public FluentStackTests(ITestOutputHelper testOutputHelper)
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+        Output = testOutputHelper;
+    }
+
+    private ITestOutputHelper Output { get; }
+
+    [Theory]
+    [InlineData("fluent-stack-horizontal", null)]
+    [InlineData("fluent-stack-horizontal", Orientation.Horizontal)]
+    [InlineData("fluent-stack-vertical", Orientation.Vertical)]
+    public void FluentStack_Orientation(string expectedClass, Orientation? orientation)
+    {
+        // Arrange && Act
+        var cut = orientation == null
+                ? Render(@<FluentStack />)
+                : Render(@<FluentStack Orientation="@((Orientation)orientation)" />);
+
+        // Assert
+        Assert.Contains($"class=\"{expectedClass}\"", cut.Markup);
+    }
+
+    [Theory]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Horizontal, Fuib.HorizontalAlignment.Left)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Horizontal, Fuib.HorizontalAlignment.Start)]
+    [InlineData("justify-content: center; align-items: start;", Orientation.Horizontal, Fuib.HorizontalAlignment.Center)]
+    [InlineData("justify-content: end; align-items: start;", Orientation.Horizontal, Fuib.HorizontalAlignment.Right)]
+    [InlineData("justify-content: end; align-items: start;", Orientation.Horizontal, Fuib.HorizontalAlignment.End)]
+    [InlineData("justify-content: stretch; align-items: start;", Orientation.Horizontal, Fuib.HorizontalAlignment.Stretch)]
+    [InlineData("justify-content: space-between; align-items: start;", Orientation.Horizontal, Fuib.HorizontalAlignment.SpaceBetween)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Horizontal, (Fuib.HorizontalAlignment)999)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Vertical, Fuib.HorizontalAlignment.Left)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Vertical, Fuib.HorizontalAlignment.Start)]
+    [InlineData("justify-content: start; align-items: center;", Orientation.Vertical, Fuib.HorizontalAlignment.Center)]
+    [InlineData("justify-content: start; align-items: end;", Orientation.Vertical, Fuib.HorizontalAlignment.Right)]
+    [InlineData("justify-content: start; align-items: end;", Orientation.Vertical, Fuib.HorizontalAlignment.End)]
+    [InlineData("justify-content: start; align-items: stretch;", Orientation.Vertical, Fuib.HorizontalAlignment.Stretch)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Vertical, Fuib.HorizontalAlignment.SpaceBetween)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Vertical, (Fuib.HorizontalAlignment)999)]
+    public void FluentStack_HorizontalAlignment(string expectedStyle, Orientation orientation, Fuib.HorizontalAlignment alignment)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentStack Orientation="@((Orientation)orientation)" HorizontalAlignment="@alignment" />);
+        var styles = cut.Find("div").GetAttribute("style");
+
+        // Assert
+        Assert.Contains(expectedStyle, styles);
+    }
+
+    [Theory]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Horizontal, Fuib.VerticalAlignment.Top)]
+    [InlineData("justify-content: start; align-items: center;", Orientation.Horizontal, Fuib.VerticalAlignment.Center)]
+    [InlineData("justify-content: start; align-items: end;", Orientation.Horizontal, Fuib.VerticalAlignment.Bottom)]
+    [InlineData("justify-content: start; align-items: stretch;", Orientation.Horizontal, Fuib.VerticalAlignment.Stretch)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Horizontal, Fuib.VerticalAlignment.SpaceBetween)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Horizontal, (Fuib.VerticalAlignment)999)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Vertical, Fuib.VerticalAlignment.Top)]
+    [InlineData("justify-content: center; align-items: start;", Orientation.Vertical, Fuib.VerticalAlignment.Center)]
+    [InlineData("justify-content: end; align-items: start;", Orientation.Vertical, Fuib.VerticalAlignment.Bottom)]
+    [InlineData("justify-content: stretch; align-items: start;", Orientation.Vertical, Fuib.VerticalAlignment.Stretch)]
+    [InlineData("justify-content: space-between; align-items: start;", Orientation.Vertical, Fuib.VerticalAlignment.SpaceBetween)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Vertical, (Fuib.VerticalAlignment)999)]
+    public void FluentStack_VerticalAlignment(string expectedStyle, Orientation orientation, Fuib.VerticalAlignment alignment)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentStack Orientation="@((Orientation)orientation)" VerticalAlignment="@alignment" />);
+        var styles = cut.Find("div").GetAttribute("style");
+
+        // Assert
+        Assert.Contains(expectedStyle, styles);
+    }
+
+    [Theory]
+    [InlineData("", null, null)]
+    [InlineData("width: 100px; height: 100px;", "100px", "100px")]
+    public void FluentStack_WidthHeight(string expectedStyle, string? width, string? height)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentStack Width="@width" Height="@height" />);
+        var styles = cut.Find("div").GetAttribute("style");
+
+        // Assert
+        Assert.Contains(expectedStyle, styles);
+    }
+
+    [Fact]
+    public void FluentStack_Wrap()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentStack Wrap="true" />);
+        var styles = cut.Find("div").GetAttribute("style");
+
+        // Assert
+        Assert.Contains("flex-wrap: wrap;", styles);
+    }
+
+    [Theory]
+    [InlineData("column-gap: 10px; row-gap: 20px;", "10px", "20px")]
+    [InlineData("column-gap: 10px; row-gap: 20px;", "10", "20")]
+    [InlineData("row-gap: 20px;", null, "20px")]
+    [InlineData("column-gap: 10px;", "10px", null)]
+    [InlineData("", null, null)]
+    public void FluentStack_Gaps(string expectedStyle, string? horizontalGap, string? verticalGap)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentStack HorizontalGap="@horizontalGap" VerticalGap="@verticalGap" />);
+        var styles = cut.Find("div").GetAttribute("style");
+
+        // Assert
+        Assert.Contains(expectedStyle, styles);
+    }
+}

@@ -416,3 +416,5 @@ FodyWeavers.xsd
 Microsoft.FluentUI.AspNetCore.Components.xml
 /examples/Demo/FluentUI.Demo.Client/wwwroot/sources/
 /examples/Demo/FluentUI.Demo.Client/wwwroot/documentation/
+api-comments.json
+/global.json

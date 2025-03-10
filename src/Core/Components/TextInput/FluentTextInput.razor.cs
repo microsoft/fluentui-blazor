@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -13,9 +14,27 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "TextInput/FluentTextInput.razor.js";
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
+    /// </summary>
+    public FluentTextInput()
+    {
+        // Default conditions for the message
+        MessageCondition = (field) =>
+        {
+            field.MessageIcon = FluentStatus.ErrorIcon;
+            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
 
-    /// <inheritdoc />
+            return FocusLost &&
+                   (Required ?? false)
+                   && !(Disabled ?? false)
+                   && !ReadOnly
+                   && string.IsNullOrEmpty(CurrentValueAsString);
+        };
+
+    }
+
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
     public ElementReference Element { get; set; }
 
@@ -100,17 +119,12 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     [Parameter]
     public TextInputMode? InputMode { get; set; }   // TODO: To verify if this is supported by the component
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            // Import the JavaScript module
-            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
-            // Call a function from the JavaScript module
-            // Wait for this PR to delete the code: https://github.com/microsoft/fluentui/pull/33144
-            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TextInput.ObserveAttributeChanges", Element);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "value");
         }
     }
 
@@ -126,5 +140,16 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
         result = value;
         validationErrorMessage = null;
         return true;
+    }
+
+    /// <summary>
+    /// Handler for the OnFocus event.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
+    {
+        FocusLost = true;
+        return Task.CompletedTask;
     }
 }

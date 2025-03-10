@@ -23,7 +23,7 @@ public partial class FluentLayoutItem
     /// <summary>
     /// <inheritdoc cref="FluentComponentBase.Class"/>
     /// </summary>
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-layout-item")
         .Build();
 
@@ -35,7 +35,7 @@ public partial class FluentLayoutItem
         get
         {
             // User styles
-            var styles = new StyleBuilder(Style);
+            var styles = DefaultStyleBuilder;
 
             // Grid Area
             AddGridAreaStyles(styles);

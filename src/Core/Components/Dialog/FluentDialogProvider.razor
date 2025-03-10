@@ -1,0 +1,18 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
+    @if (DialogService != null)
+    {
+        @foreach (var dialog in DialogService.Items.Values.OrderBy(i => i.Index))
+        {
+            <FluentDialog Id="@dialog.Id"
+                          Class="@dialog.Options?.ClassValue"
+                          Style="@dialog.Options?.StyleValue"
+                          Data="@dialog.Options?.Data"
+                          Instance="@dialog"
+                          OnStateChange="@(dialog.Options?.OnStateChange ?? EmptyOnStateChange)"
+                          @attributes="@AdditionalAttributes" />
+        }
+    }
+</div>

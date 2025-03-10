@@ -1,0 +1,22 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputBase<bool>
+
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Size="@Size.ToFieldSize()">
+    <fluent-checkbox @ref="@Element"
+                     aria-label="@AriaLabel"
+                     autofocus="@Autofocus"
+                     checked="@(_checked ? "true" : "false")"
+                     disabled="@Disabled"
+                     indeterminate="@(_indeterminate ? "true" : "false")"
+                     id="@Id"
+                     name="@Name"
+                     readonly="@ReadOnly"
+                     required="@Required"
+                     shape="@Shape.ToAttributeValue()"
+                     size="@Size.ToAttributeValue()"
+                     @onfocusout="@FocusOutHandlerAsync"
+                     @attributes="AdditionalAttributes"
+                     @onchange="@OnCheckChangedHandlerAsync"
+                     slot="input" />
+</FluentField>

@@ -4,20 +4,19 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Content placed within a <see cref="FluentGrid"/> layout using the <see cref="FluentGridItem"/> component.
+/// Value placed within a <see cref="FluentGrid"/> layout using the <see cref="FluentGridItem"/> component.
 /// </summary>
 public partial class FluentGridItem : FluentComponentBase
 {
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class).Build();
+    protected string? ClassValue => DefaultClassBuilder.Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("justify-content", Justify.ToAttributeValue(), when: Justify is not null)
         .AddStyle("display", "flex", when: Justify is not null)
         .AddStyle("gap", Gap, when: !string.IsNullOrEmpty(Gap))

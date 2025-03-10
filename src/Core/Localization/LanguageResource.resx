@@ -126,4 +126,43 @@
   <data name="FluentInputBase_Required" xml:space="preserve">
     <value>Required</value>
   </data>
+  <data name="MessageBox_ButtonYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="MessageBox_ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="MessageBox_ButtonNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="MessageBox_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="MessageBox_Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="MessageBox_ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="TextInput_RequiredMessage" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
+  <data name="Field_ErrorMessage" xml:space="preserve">
+    <value>An error occurred</value>
+  </data>
+  <data name="Field_SuccessMessage" xml:space="preserve">
+    <value>Valid data</value>
+  </data>
+  <data name="Field_WarningMessage" xml:space="preserve">
+    <value>Please, check this value</value>
+  </data>
 </root>

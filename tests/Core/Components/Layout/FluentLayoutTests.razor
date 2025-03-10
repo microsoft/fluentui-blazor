@@ -186,4 +186,18 @@
         });
 
     }
+
+    [Fact]
+    public void FluentLayout_InvalidArea()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLayout GlobalScrollbar="false">
+        <FluentLayoutItem Area="(LayoutArea)999" Height="36px">Content</FluentLayoutItem>
+        <FluentLayoutItem Area="(LayoutArea)888" Height="42px" Sticky="true">Aside</FluentLayoutItem>
+    </FluentLayout>);
+
+        // Assert
+        Assert.Contains("style=\"height: 36px;\" area=\"\"", cut.Markup);
+        Assert.Contains("style=\"height: 42px;\" area=\"\"", cut.Markup);
+    }
 }

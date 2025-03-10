@@ -1,0 +1,258 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentBadgeTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentBadge_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_Content()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Content="Hello World"></FluentBadge>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(BadgeAppearance.Tint, "tint")]
+    [InlineData(BadgeAppearance.Filled, "filled")]
+    [InlineData(BadgeAppearance.Outline, "outline")]
+    [InlineData(BadgeAppearance.Ghost, "ghost")]
+    [InlineData(null, "")]
+    [InlineData((BadgeAppearance)999, "")]
+    public void FluentBadge_Appearance(BadgeAppearance? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Appearance="@value" Content="Content" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-badge").GetAttribute("appearance") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(BadgeColor.Brand, "brand")]
+    [InlineData(BadgeColor.Danger, "danger")]
+    [InlineData(BadgeColor.Important, "important")]
+    [InlineData(BadgeColor.Informative, "informative")]
+    [InlineData(BadgeColor.Severe, "severe")]
+    [InlineData(BadgeColor.Subtle, "subtle")]
+    [InlineData(BadgeColor.Success, "success")]
+    [InlineData(BadgeColor.Warning, "warning")]
+    [InlineData(null, "")]
+    [InlineData((BadgeColor)999, "")]
+    public void FluentBadge_Color(BadgeColor? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Color="@value" Content="Content"></FluentBadge>);
+
+        // Assert
+        var attribute = cut.Find("fluent-badge").GetAttribute("color") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentBadge_BackgroundColorNotNull()
+    {
+        Assert.Throws<ArgumentException>(() =>
+        {
+            // Arrange && Act
+            var cut = Render(@<FluentBadge BackgroundColor="mediumpurple" Color="BadgeColor.Danger" Content="Hello World"></FluentBadge>);
+        });
+    }
+
+    [Fact]
+    public void FluentBadge_BackgroundColorNull()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge BackgroundColor="mediumpurple" Color="null" Content="Hello World"></FluentBadge>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(BadgeShape.Rounded, "rounded")]
+    [InlineData(BadgeShape.Circular, "circular")]
+    [InlineData(BadgeShape.Square, "square")]
+    [InlineData(null, "")]
+    [InlineData((BadgeShape)999, "")]
+    public void FluentBadge_Shape(BadgeShape? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Shape="@value" Content="Content"></FluentBadge>);
+
+        // Assert
+        var attribute = cut.Find("fluent-badge").GetAttribute("shape") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(BadgeSize.Tiny, "tiny")]
+    [InlineData(BadgeSize.ExtraSmall, "extra-small")]
+    [InlineData(BadgeSize.Small, "small")]
+    [InlineData(BadgeSize.Medium, "medium")]
+    [InlineData(BadgeSize.Large, "large")]
+    [InlineData(BadgeSize.ExtraLarge, "extra-large")]
+    [InlineData(null, "")]
+    [InlineData((BadgeSize)999, "")]
+    public void FluentBadge_Size(BadgeSize? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Size="@value" Content="Content"></FluentBadge>);
+
+        // Assert
+        var attribute = cut.Find("fluent-badge").GetAttribute("size") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentBadge_IconStart()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info" Content="Content"></FluentBadge>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_IconStartNoContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info"/>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_IconEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge IconEnd="@Samples.Icons.Info" Content="Content"></FluentBadge>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_IconEndNoContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge IconEnd="@Samples.Icons.Info"/>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_IconStartAndEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info" IconEnd="@Samples.Icons.Info" Content="Content"></FluentBadge>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_IconLabel()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info" IconLabel="Add" Content="Content"></FluentBadge>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(BadgeColor.Brand, "width: 24px; fill: var(--colorNeutralForegroundOnBrand);")]
+    [InlineData(BadgeColor.Informative, "width: 24px; fill: var(--colorNeutralForeground3);")]
+    [InlineData(BadgeColor.Subtle, "width: 24px; fill: var(--colorNeutralForeground1);")]
+    [InlineData(BadgeColor.Warning, "width: 24px; fill: var(--colorNeutralForeground1Static);")]
+    [InlineData(null, "width: 24px; fill: var(--colorNeutralForegroundOnBrand);")]
+    [InlineData((BadgeColor)999, "width: 24px; fill: var(--colorNeutralForegroundOnBrand);")]
+    public void FluentBadge_IconColor(BadgeColor? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge IconStart="@Samples.Icons.Info"  Color="@value" Content="Content"></FluentBadge>);
+
+        // Assert
+        var attribute = cut.Find("svg").GetAttribute("style") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(Positioning.AboveStart)]
+    [InlineData(Positioning.Above)]
+    [InlineData(Positioning.AboveEnd)]
+    [InlineData(Positioning.BeforeTop)]
+    [InlineData(Positioning.Before)]
+    [InlineData(Positioning.BeforeBottom)]
+    [InlineData(Positioning.AfterTop)]
+    [InlineData(Positioning.After)]
+    [InlineData(Positioning.AfterBottom)]
+    [InlineData(Positioning.BelowStart)]
+    [InlineData(Positioning.Below)]
+    [InlineData(Positioning.BelowEnd)]
+    [InlineData(Positioning.CenterCenter)]
+    [InlineData(null)]
+    [InlineData((Positioning)999)]
+    public void FluentBadge_Positioning(Positioning? value)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Positioning="@value" Content="Hello" />);
+
+        // Assert
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
+    }
+
+    [Fact]
+    public void FluentBadge_OffsetX()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Content="Badge" OffsetX="4" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_OffsetY()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Content="Badge" OffsetY="4" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_Attached_NoPositioning()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Content="Badge"><FluentButton>Test</FluentButton></FluentBadge> );
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_Attached_WithPositioning()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentBadge Content="Badge" Positioning="Positioning.CenterCenter"><FluentButton>Test</FluentButton></FluentBadge> );
+        // Assert
+        cut.Verify();
+    }
+}

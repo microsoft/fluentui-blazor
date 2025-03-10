@@ -5,13 +5,12 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The FluentButton component allows users to commit a change or trigger an action via a single click or tap and
-/// is often found inside forms, dialogs, panels and/or pages.
+/// is often found inside forms, dialogs, drawers (panels) and/or pages.
 /// </summary>
 public partial class FluentButton : FluentComponentBase
 {
@@ -19,12 +18,12 @@ public partial class FluentButton : FluentComponentBase
     private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .AddClass("loading-button", when: () => LoadingOverlay)
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("background-color", BackgroundColor, when: () => !string.IsNullOrEmpty(BackgroundColor))
         .AddStyle("color", Color, when: () => !string.IsNullOrEmpty(Color))
         .AddStyle("opacity", "0.3", when: () => Disabled && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))
@@ -43,7 +42,7 @@ public partial class FluentButton : FluentComponentBase
     public string? FormId { get; set; }
 
     /// <summary>
-    /// gets or sets the URL that processes the information submitted by the button.
+    /// Gets or sets the URL that processes the information submitted by the button.
     /// </summary>
     [Parameter]
     public string? FormAction { get; set; }
@@ -78,24 +77,24 @@ public partial class FluentButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the button type. See <see cref="ButtonType"/> for more details.
-    /// Default is <see cref="ButtonType.Button"/>.
+    /// Default is `null`. Internally the component uses  <see cref="ButtonType.Button"/> as default.
     /// </summary>
     [Parameter]
-    public ButtonType Type { get; set; } = ButtonType.Button;
+    public ButtonType? Type { get; set; }
 
     /// <summary>
     /// Gets or sets the shape of the button.
-    /// Default is <see cref="ButtonShape.Rounded"/>.
+    /// Default is `null`. Internally the component uses <see cref="ButtonShape.Rounded"/> as default.
     /// </summary>
     [Parameter]
-    public ButtonShape Shape { get; set; } = ButtonShape.Rounded;
+    public ButtonShape? Shape { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the button.
-    /// Default is <see cref="ButtonSize.Medium"/>.
+    /// Default is `null`. Internally the component uses <see cref="ButtonSize.Medium"/> as default.
     /// </summary>
     [Parameter]
-    public ButtonSize Size { get; set; } = ButtonSize.Medium;
+    public ButtonSize? Size { get; set; }
 
     /// <summary>
     /// Gets or sets the value associated with the button.
@@ -131,10 +130,10 @@ public partial class FluentButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the visual appearance.
-    /// Default is <see cref="ButtonAppearance.Default"/>.
+    /// Default is `null'. Internally the component uses <see cref="ButtonAppearance.Default"/> as default.
     /// </summary>
     [Parameter]
-    public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
+    public ButtonAppearance? Appearance { get; set; }
 
     /// <summary>
     /// Gets or sets the background color of this button (overrides the <see cref="Appearance"/> property).
@@ -154,6 +153,13 @@ public partial class FluentButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool Loading { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets if the button only shows an icon
+    /// Can be used when using <see cref="ChildContent"/> that renders as an icon
+    /// </summary>
+    [Parameter]
+    public bool IconOnly { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="Icon"/> displayed at the start of button content.

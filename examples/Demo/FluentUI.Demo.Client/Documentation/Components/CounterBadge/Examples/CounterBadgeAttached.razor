@@ -1,0 +1,128 @@
+﻿<style>
+    .grid {
+        display: grid;
+        margin: auto;
+        gap: 4px;
+        width: min-content;
+        grid-template-areas: ". above-start above above-end ."
+            "before-top . . . after-top"
+            "before . contents . after"
+            "before-bottom . . . after-bottom"
+            ". below-start below below-end .";
+    }
+</style>
+<FluentStack VerticalAlignment="VerticalAlignment.Top">
+    <span>
+        <FluentStack HorizontalAlignment="HorizontalAlignment.Left" Orientation="Orientation.Vertical">
+            <FluentTextInput InputMode="TextInputMode.Numeric" @bind-Value="@count" Label="Count" AutoComplete="off" />
+            <FluentTextInput InputMode="TextInputMode.Numeric" @bind-Value="@offsetX" Label="Offset X" AutoComplete="off" />
+            <FluentTextInput InputMode="TextInputMode.Numeric" @bind-Value="@offsetY" Label="Offset Y" AutoComplete="off" />
+        </FluentStack>
+    </span>
+    <div class="grid">
+        <div style="grid-area:contents">
+            <FluentCounterBadge Color="BadgeColor.Danger"
+                                Count="@(UInt16.TryParse(count, out ushort c) ? c : null)"
+                                OffsetX="@(SByte.TryParse(offsetX, out sbyte x) ? x : null)"
+                                OffsetY="@(SByte.TryParse(offsetY, out sbyte y) ? y : null)"
+                                Size="BadgeSize.Small"
+                                Positioning="@_positioning">
+                <FluentButton Id="center-center" IconOnly="true" IconStart="@(new Icons.Regular.Size24.Mail())" OnClick="@(() => HandlePositioning(Positioning.CenterCenter))" />
+             </FluentCounterBadge>
+        </div>
+
+        <FluentButton IconOnly="true"
+                      Id="above-start"
+                      Style="grid-area: above-start"
+                      OnClick="@(() => HandlePositioning(Positioning.AboveStart))">
+            <svg style="transform: rotate(-90deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
+        </FluentButton>
+
+         <FluentButton IconOnly="true"
+                      Id="above"
+                      Style="grid-area: above"
+                      OnClick="@(() => HandlePositioning(Positioning.Above))">
+            <svg style="transform: rotate(0deg)"><use href="#arrow-step-out-20-regular"></use></svg>
+        </FluentButton>
+
+         <FluentButton IconOnly="true"
+                      Id="above-end"
+                      Style="grid-area: above-end"
+                      OnClick="@(() => HandlePositioning(Positioning.AboveEnd))">
+            <svg style="transform: rotate(90deg)"><use href="#arrow-step-back-20-regular"></use></svg>
+        </FluentButton>
+
+        <FluentButton IconOnly="true"
+                      Id="before-top"
+                      Style="grid-area: before-top"
+                      OnClick="@(() => HandlePositioning(Positioning.BeforeTop))">
+            <svg style="transform: rotate(0deg)"><use href="#arrow-step-back-20-regular"></use></svg>
+        </FluentButton>
+
+        <FluentButton IconOnly="true"
+                      Id="before"
+                      Style="grid-area: before"
+                      OnClick="@(() => HandlePositioning(Positioning.Before))">
+            <svg style="transform: rotate(-90deg)"><use href="#arrow-step-out-20-regular"></use></svg>
+        </FluentButton>
+
+        <FluentButton IconOnly="true"
+                      Id="before-bottom"
+                      Style="grid-area: before-bottom"
+                      OnClick="@(() => HandlePositioning(Positioning.BeforeBottom))">
+            <svg style="transform: rotate(180deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
+        </FluentButton>
+
+         <FluentButton IconOnly="true"
+                      Id="after-top"
+                      Style="grid-area: after-top"
+                      OnClick="@(() => HandlePositioning(Positioning.AfterTop))">
+            <svg style="transform: rotate(0deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
+        </FluentButton>
+
+        <FluentButton IconOnly="true"
+                      Id="after"
+                      Style="grid-area: after"
+                      OnClick="@(() => HandlePositioning(Positioning.After))">
+            <svg style="transform: rotate(90deg)"><use href="#arrow-step-out-20-regular"></use></svg>
+        </FluentButton>
+
+        <FluentButton IconOnly="true"
+                      Id="after-bottom"
+                      Style="grid-area: after-bottom"
+                      OnClick="@(() => HandlePositioning(Positioning.AfterBottom))">
+            <svg style="transform: rotate(180deg)"><use href="#arrow-step-back-20-regular"></use></svg>
+        </FluentButton>
+
+       <FluentButton IconOnly="true"
+                      Id="below-start"
+                      Style="grid-area: below-start"
+                      OnClick="@(() => HandlePositioning(Positioning.BelowStart))">
+            <svg style="transform: rotate(-90deg)"><use href="#arrow-step-back-20-regular"></use></svg>
+        </FluentButton>
+
+        <FluentButton IconOnly="true"
+                      Id="below"
+                      Style="grid-area: below"
+                      OnClick="@(() => HandlePositioning(Positioning.Below))">
+            <svg style="transform: rotate(180deg)"><use href="#arrow-step-out-20-regular"></use></svg>
+        </FluentButton>
+
+         <FluentButton IconOnly="true"
+                      Id="below-end"
+                      Style="grid-area: below-end"
+                      OnClick="@(() => HandlePositioning(Positioning.BelowEnd))">
+            <svg style="transform: rotate(90deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
+        </FluentButton>
+
+         <svg style="display: none">
+            <symbol id="arrow-step-out-20-regular" viewBox="0 0 20 20">
+                <path fill="currentColor" d="M10 15a1 1 0 1 0 0 2a1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0a2 2 0 0 1-4 0m2-4a.5.5 0 0 0 .5-.5V3.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L9.5 3.707V11.5a.5.5 0 0 0 .5.5"></path>
+            </symbol>
+            <symbol id="arrow-step-back-20-regular" viewBox="0 0 20 20">
+                <path fill="currentColor" d="M7.851 3.146a.5.5 0 0 1 0 .707L4.706 7H10c2.932 0 5.593 1.64 6.936 4.043a.5.5 0 1 1-.872.488C14.894 9.439 12.564 8 10 8H4.707l3.144 3.145a.5.5 0 0 1-.707.707L3.161 7.867a.5.5 0 0 1-.014-.721l3.997-4a.5.5 0 0 1 .707 0M8 15a2 2 0 1 1 4 0a2 2 0 0 1-4 0m2-1a1 1 0 1 0 0 2a1 1 0 0 0 0-2"></path>
+            </symbol>
+        </svg>
+    </div>
+    <p style="width: 400px;">We use a general <code>Positioning</code> enumeration. When using it for the badge positioning, the 'corner' position pairs (eg. AboveStart and BeforeTop) give the exact same result.</p>
+</FluentStack>

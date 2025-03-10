@@ -1,0 +1,172 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.ComponentModel.DataAnnotations
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentTextAreaTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentTextArea_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextArea Appearance="@TextAreaAppearance.Outline"
+                 Autofocus="true"
+                 AriaLabel="My aria label"
+                 Label="My Label"
+                 Name="MyName"
+                 Placeholder="My help"
+                 Value="My Value" />
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(TextAreaAppearance.Outline, "outline")]
+    [InlineData(TextAreaAppearance.FilledLighter, "filled-lighter")]
+    [InlineData(TextAreaAppearance.FilledDarker, "filled-darker")]
+    public void FluentTextArea_Appearance(TextAreaAppearance appearance, string expectedAttribute)
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
+        var cut = Render(@<FluentTextArea Appearance="@appearance" />);
+
+        // Assert
+        cut.Find("fluent-textarea")
+           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" appearance=\"{expectedAttribute}\" />");
+    }
+
+    [Theory]
+    [InlineData(TextAreaAppearance.FilledLighterShadow, "filled-lighter")]
+    [InlineData(TextAreaAppearance.FilledDarkerShadow, "filled-darker")]
+    public void FluentTextArea_AppearanceWithShadow(TextAreaAppearance appearance, string expectedAttribute)
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
+        var cut = Render(@<FluentTextArea Appearance="@appearance" />);
+
+        // Assert
+        cut.Find("fluent-textarea")
+           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" display-shadow=\"true\" appearance=\"{expectedAttribute}\" />");
+    }
+
+    [Theory]
+    [InlineData(TextAreaResize.None, "none")]
+    [InlineData(TextAreaResize.Both, "both")]
+    [InlineData(TextAreaResize.Vertical, "vertical")]
+    [InlineData(TextAreaResize.Horizontal, "horizontal")]
+    public void FluentTextArea_Resize(TextAreaResize resizeMode, string expectedAttribute)
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
+        var cut = Render(@<FluentTextArea Resize="@resizeMode" />);
+
+        // Assert
+        cut.Find("fluent-textarea")
+           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" resize=\"{expectedAttribute}\" />");
+    }
+
+    [Theory]
+    [InlineData(TextAreaSize.Small)]
+    [InlineData(TextAreaSize.Medium)]
+    [InlineData(TextAreaSize.Large)]
+    [InlineData((TextAreaSize)999)]
+    [InlineData(null)]
+    public void FluentTextArea_Size(TextAreaSize? size)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextArea Size="@size" />);
+
+        // Assert
+        cut.Verify(suffix: size.ToString());
+    }
+
+    [Fact]
+    public void FluentTextArea_LabelTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentTextArea>
+                <LabelTemplate><div style="font-weight: bold;">My label</div></LabelTemplate>
+            </FluentTextArea>
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTextArea_AutoResize()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentTextArea AutoResize="true" />
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTextArea_OnChange()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = "init";
+        var cut = Render(@<FluentTextArea @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-textarea").Change("new value");
+
+        // Assert
+        Assert.Equal("new value", value);
+        cut.Find("fluent-textarea")
+           .MarkupMatches("<fluent-textarea id=\"myId\" slot=\"input\" value=\"new value\" />");
+    }
+
+    [Theory]
+    [InlineData(false, 0, "init", "init")]              // No Immediate
+    [InlineData(true, 0, "new value", "new value")]     // With Immediate and Delay = 0 ms
+    [InlineData(true, 100, "init", "new value")]        // With Immediate and Delay = 100 ms
+    public async Task FluentTextArea_OnInput(bool immediate, int immediateDelay, string expectedImmediateValue, string expectedDelayedValue)
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = "init";
+        var cut = Render(@<FluentTextArea @bind-Value="@value" Immediate="@immediate" ImmediateDelay="@immediateDelay" />);
+
+        // Act
+        cut.Find("fluent-textarea").Input("new value");
+
+        // Assert: Immediate
+        Assert.Equal(expectedImmediateValue, value);
+        cut.Find("fluent-textarea")
+           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" value=\"{expectedImmediateValue}\" />");
+
+        // Assert: After a small delay
+        await Task.Delay(200);
+        Assert.Equal(expectedDelayedValue, value);
+        cut.Find("fluent-textarea")
+           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" value=\"{expectedDelayedValue}\" />");
+    }
+
+    [Theory]
+    [InlineData(FluentInputAppearance.Filled, TextAreaAppearance.FilledDarker)]
+    [InlineData(FluentInputAppearance.Outline, TextAreaAppearance.Outline)]
+    [InlineData((FluentInputAppearance)999, TextAreaAppearance.Outline)]
+    public void FluentTextArea_ToTextInputAppearance(FluentInputAppearance appearance, TextAreaAppearance expected)
+    {
+        var value = AspNetCore.Components.Migration.FluentInputAppearanceExtensions.ToTextAreaAppearance(appearance);
+
+        Assert.Equal(expected, value);
+    }
+}

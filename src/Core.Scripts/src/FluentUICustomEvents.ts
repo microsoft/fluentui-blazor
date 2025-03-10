@@ -8,21 +8,34 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
   *    E.g. `FluentUICustomEvents.RadioGroup(blazor);`
   */
 
+  export function DialogToggle(blazor: Blazor) {
 
-  // TODO: Example of custom event for "not yet existing" RadioGroup component
-  export function RadioGroup(blazor: Blazor) {
-
-    blazor.registerCustomEventType('radiogroupclick', {
-      browserEventName: 'click',
+    blazor.registerCustomEventType('dialogbeforetoggle', {
+      browserEventName: 'beforetoggle',
       createEventArgs: event => {
-        if (event.target.readOnly || event.target.disabled) {
-          return null;
-        }
         return {
-          value: event.target.value
+          id: event.target.id,
+          type: event.type,
+          oldState: event.detail.oldState,
+          newState: event.detail.newState,
         };
       }
     });
 
+    blazor.registerCustomEventType('dialogtoggle', {
+      browserEventName: 'toggle',
+      createEventArgs: event => {
+        return {
+          id: event.target.id,
+          type: event.type,
+          oldState: event.detail.oldState,
+          newState: event.detail.newState,
+        };
+      }
+    });
   }
+
+
+  // [^^^ Add your other custom events before this line ^^^]
+
 }

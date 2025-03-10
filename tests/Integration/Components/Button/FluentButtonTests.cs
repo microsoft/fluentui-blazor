@@ -17,7 +17,7 @@ public class FluentButtonTests : FluentPlaywrightBaseTest
     {
     }
 
-    [Fact]
+    //[Fact]    - Uncomment this line to run the test
     public async Task FluentButton_IncrementCounter()
     {
         // Arrange

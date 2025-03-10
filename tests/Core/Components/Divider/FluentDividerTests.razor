@@ -1,0 +1,80 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentDividerTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentDivider_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDivider>Hello World</FluentDivider>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(DividerAlignContent.Center, "center")]
+    [InlineData(DividerAlignContent.Start, "start")]
+    [InlineData(DividerAlignContent.End, "end")]
+    [InlineData(null, "")]
+    [InlineData((DividerAlignContent)999, "")]
+    public void FluentDivider_AlignContent(DividerAlignContent? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDivider AlignContent="@value">My content</FluentDivider>);
+
+        // Assert
+        var attribute = cut.Find("fluent-divider").GetAttribute("align-content") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(DividerAppearance.Default, "")]
+    [InlineData(DividerAppearance.Subtle, "subtle")]
+    [InlineData(DividerAppearance.Brand, "brand")]
+    [InlineData(DividerAppearance.Strong, "strong")]
+    [InlineData(null, "")]
+    [InlineData((DividerAppearance)999, "")]
+    public void FluentDivider_DividerAppearance(DividerAppearance? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDivider Appearance="@value">My content</FluentDivider>);
+
+        // Assert
+        var attribute = cut.Find("fluent-divider").GetAttribute("appearance") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(true, "vertical")]
+    [InlineData(false, "horizontal")]
+    [InlineData(null, "")]
+    public void FluentDivider_Orientation(bool? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDivider Vertical="@value">My content</FluentDivider>);
+
+        // Assert
+        var attribute = cut.Find("fluent-divider").GetAttribute("orientation") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentDivider_Inset()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDivider Inset="true">My content</FluentDivider>);
+
+        // Assert
+        Assert.True(cut.Find("fluent-divider").HasAttribute("inset"));
+    }
+}
