@@ -454,4 +454,39 @@ public class FluentCounterBadgeTests : TestBase
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentCounterBadge_DotWithPositioning()
+    {
+        // Arrange && Act
+        TestContext.Services.AddSingleton(GlobalState);
+
+        var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
+        {
+            parameters.Add(p => p.Dot, true);
+            parameters.Add(p => p.Count, 1);
+            parameters.Add(parameters => parameters.HorizontalPosition, -25);
+            parameters.Add(parameters => parameters.VerticalPosition, -25);
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_WithPositioning()
+    {
+        // Arrange && Act
+        TestContext.Services.AddSingleton(GlobalState);
+
+        var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
+        {
+            parameters.Add(p => p.Count, 1);
+            parameters.Add(parameters => parameters.HorizontalPosition, -25);
+            parameters.Add(parameters => parameters.VerticalPosition, -25);
+        });
+
+        // Assert
+        cut.Verify();
+    }
 }
