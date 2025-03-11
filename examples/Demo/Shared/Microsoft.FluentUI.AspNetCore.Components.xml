@@ -2042,6 +2042,15 @@
             Automatically fit the number of items per page to the available height.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.DisplayMode">
+            <summary>
+            Gets or set the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode"/> of the grid.
+            Default is 'Grid'.
+            When set to Grid, <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns" /> can be used to specify column widths.
+            When set to Table, widths need to be specified at the column level.
+            When using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Virtualize"/>, it is recommended to use Table.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowSize">
             <summary>
             Gets or sets the size of each row in the grid based on the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize"/> enum.
@@ -15258,6 +15267,22 @@
             <summary>
             Releases all resources used by the DebounceTask dispatcher.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction`1.Run(System.Int32,System.Func{System.Threading.Tasks.Task{`0}})">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="milliseconds"></param>
+            <param name="action"></param>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction`1.RunAsync(System.Int32,System.Func{System.Threading.Tasks.Task{`0}})">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="milliseconds"></param>
+            <param name="action"></param>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask">
             <summary>

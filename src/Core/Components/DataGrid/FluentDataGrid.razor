@@ -200,13 +200,24 @@
 
     private void RenderEmptyContent(RenderTreeBuilder __builder)
     {
-        @if (_manualGrid)
+        if (_manualGrid)
         {
             return;
         }
 
+        string? style = null;
+        string? colspan = null;
+        if (DisplayMode == DataGridDisplayMode.Grid)
+        {
+            style = $"grid-column: 1 / {_columns.Count + 1}";
+        }
+        else
+        {
+            colspan = _columns.Count.ToString();
+        }
+
         <FluentDataGridRow Class="@EMPTY_CONTENT_ROW_CLASS" TGridItem="TGridItem">
-            <FluentDataGridCell Class="empty-content-cell" Style="@($"grid-column: 1 / {_columns.Count + 1}")">
+            <FluentDataGridCell Class="empty-content-cell" Style="@style" colspan="@colspan">
                 @if (EmptyContent is null)
                 {
                     @("No data to show!")
@@ -222,8 +233,19 @@
 
     private void RenderLoadingContent(RenderTreeBuilder __builder)
     {
+        string? style = null;
+        string? colspan = null;
+        if (DisplayMode == DataGridDisplayMode.Grid)
+        {
+            style = $"grid-column: 1 / {_columns.Count + 1}";
+        }
+        else
+        {
+            colspan = _columns.Count.ToString();
+        }
+
         <FluentDataGridRow Class="@LOADING_CONTENT_ROW_CLASS" TGridItem="TGridItem">
-            <FluentDataGridCell Class="loading-content-cell" Style="@($"grid-column: 1 / {_columns.Count + 1}")">
+            <FluentDataGridCell Class="loading-content-cell" Style="@style" colspan="@colspan">
                 @if (LoadingContent is null)
                 {
                     <FluentStack HorizontalGap="3" HorizontalAlignment="@HorizontalAlignment.Center">
