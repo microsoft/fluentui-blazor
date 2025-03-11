@@ -15268,22 +15268,6 @@
             Releases all resources used by the DebounceTask dispatcher.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction`1.Run(System.Int32,System.Func{System.Threading.Tasks.Task{`0}})">
-            <summary>
-            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
-            </summary>
-            <param name="milliseconds"></param>
-            <param name="action"></param>
-            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction`1.RunAsync(System.Int32,System.Func{System.Threading.Tasks.Task{`0}})">
-            <summary>
-            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
-            </summary>
-            <param name="milliseconds"></param>
-            <param name="action"></param>
-            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
-        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask">
             <summary>
             The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.

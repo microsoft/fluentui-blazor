@@ -369,8 +369,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private GridItemsProviderRequest<TGridItem>? _lastRequest;
     private bool _forceRefreshData;
-    private readonly Debounce<ItemsProviderResult<(int, TGridItem)>> _debounce = new();
-    //private readonly Debounce _debounce = new();
 
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
