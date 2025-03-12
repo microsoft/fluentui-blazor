@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
+@using System.Globalization
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 @typeparam TGridItem
@@ -241,7 +242,7 @@
         }
         else
         {
-            colspan = _columns.Count.ToString();
+            colspan = _columns.Count.ToString(CultureInfo.InvariantCulture);
         }
 
         <FluentDataGridRow Class="@LOADING_CONTENT_ROW_CLASS" TGridItem="TGridItem">
