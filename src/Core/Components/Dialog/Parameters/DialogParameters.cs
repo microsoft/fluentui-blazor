@@ -175,6 +175,16 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// This is a suitable callback to use when you need to validate the data in the dialog <em>before</em> it closes.
     /// </remarks>
     public Func<Task<bool>> ValidateDialogAsync { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets the horizontal alignment of the components in the footer stack.
+    /// </summary>
+    public virtual HorizontalAlignment? ActionsHorizontalAlignment { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the footer stack is reversed.
+    /// </summary>
+    public virtual bool ActionsReversed { get; set; }
 }
 
 /// <summary>

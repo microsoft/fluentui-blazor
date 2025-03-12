@@ -4,7 +4,8 @@
 @if (Visible)
 {
     <FluentStack Orientation="Orientation.Horizontal"
-                 HorizontalAlignment="@(Dialog.Instance?.Parameters?.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)"
+                 HorizontalAlignment="@(Dialog.Instance?.Parameters?.ActionsHorizontalAlignment != null ? (HorizontalAlignment)Dialog.Instance?.Parameters?.ActionsHorizontalAlignment! : Dialog.Instance?.Parameters?.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)"
+                 Reversed="@(Dialog.Instance?.Parameters?.ActionsReversed ?? false)"
                  VerticalAlignment="VerticalAlignment.Bottom"
                  Style="@StyleValue"
                  Class="@ClassValue"
