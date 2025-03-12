@@ -643,6 +643,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
+    /// Closes the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI that was previously displayed.
+    /// </summary>
+    public Task CloseColumnOptionsAsync()
+    {
+        _displayOptionsForColumn = null;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     /// Displays the column resize UI for the specified column, closing any other column
     /// resize UI that was previously displayed.
     /// </summary>
