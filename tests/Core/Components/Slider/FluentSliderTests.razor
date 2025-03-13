@@ -88,7 +88,7 @@
     [Theory]
     [InlineData(Orientation.Horizontal, null)]
     [InlineData(Orientation.Vertical, "vertical")]
-    [InlineData((Orientation)999, "")]
+	[InlineData((Orientation)999, "")]
     public void FluentSlider_Orientation(Orientation orientation, string? expectedOrientation)
     {
         // Arrange

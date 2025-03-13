@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,6 +17,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     where TValue : struct, IComparable<TValue>
 {
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Slider/FluentSlider.razor.js";
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentSlider{TValue}"/> class.
     /// </summary>
@@ -37,6 +40,13 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
             throw new InvalidOperationException("FluentSlider only supports numeric types.");
         }
     }
+
+    /// <summary>
+    /// Represents a reference to a DOM element in the component. It allows interaction with the specified element in
+    /// the browser.
+    /// </summary>
+    [Parameter]
+    public ElementReference Element { get; set; }
 
     /// <summary>
     /// Gets or sets the size for the slider.
@@ -73,6 +83,17 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+
+            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Slider.tabindexFixer", Element);
+        }
+    }
 
     /// <summary>
     /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.

@@ -52,6 +52,10 @@ If you add content that is **not part** of `Slot="thumb"`, it will be ignored.
 
 {{ SliderThumbs }}
 
+## ReadOnly
+
+{{ SliderReadOnly }}
+
 ## EventCallback
 
 {{ SliderEventCallbacks }}

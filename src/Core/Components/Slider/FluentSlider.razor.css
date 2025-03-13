@@ -5,4 +5,5 @@ fluent-slider {
 
   fluent-slider[readonly] {
     pointer-events: none;
+    user-select: none;
   }
