@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentElementBase
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public FluentCheckbox()
     {
@@ -35,16 +35,18 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     public bool? CheckState { get; set; }
 
     /// <summary>
-    /// Gets or sets the shape of the checkbox
+    /// Gets or sets the shape of the checkbox. See <see cref="CheckboxShape"/>
+    /// The default value is `null`. Internally the component uses CheckboxShape.Square.
     /// </summary>
     [Parameter]
-    public CheckboxShape Shape { get; set; } = CheckboxShape.Square;
+    public CheckboxShape? Shape { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the checkbox. See <see cref="CheckboxSize"/>
+    /// The default value is `null`. Internally the component uses CheckboxSize.Medium.
     /// </summary>
     [Parameter]
-    public CheckboxSize Size { get; set; } = CheckboxSize.Medium;
+    public CheckboxSize? Size { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
@@ -171,7 +173,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
             }
             else
             {
-                // Current Uncheck 
+                // Current Uncheck
                 if (ThreeStateOrderUncheckToIntermediate && ShowIndeterminate)
                 {
                     await SetToIndeterminateAsync();

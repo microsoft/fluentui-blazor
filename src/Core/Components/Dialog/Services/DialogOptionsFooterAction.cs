@@ -14,7 +14,6 @@ public class DialogOptionsFooterAction
     /// <summary />
     public DialogOptionsFooterAction() : this(ButtonAppearance.Default)
     {
-        
     }
 
     /// <summary />

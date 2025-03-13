@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputImmediateBase<string?>
 
-<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Size="@Size.ToFieldSize()" >
     <fluent-textarea @ref="@Element"
                      appearance="@Appearance.ToAttributeValue()"
                      autocomplete="@AutoComplete"
