@@ -49,7 +49,7 @@ public partial class FluentStack : FluentComponentBase
     /// Gets or sets a value indicating whether the stack is reversed.
     /// </summary>
     [Parameter]
-    public bool? Reversed { get; set; } = null;
+    public bool? Reversed { get; set; }
 
     /// <summary>
     /// Gets or sets the width of the stack as a percentage string (default = 100%).
