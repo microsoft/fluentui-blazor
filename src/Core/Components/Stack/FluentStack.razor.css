@@ -8,12 +8,12 @@
     flex-direction: row;
 }
 
-.stack-vertical[reverse='true'] {
+.stack-vertical[reverse] {
     display: flex;
     flex-direction: column-reverse;
 }
 
-.stack-horizontal[reverse='true'] {
+.stack-horizontal[reverse] {
     display: flex;
     flex-direction: row-reverse;
 }
