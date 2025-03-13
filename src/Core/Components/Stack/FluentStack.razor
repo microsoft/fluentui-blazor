@@ -2,6 +2,6 @@
 
 @inherits FluentComponentBase
 
-<div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
+<div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes" reverse="@(Reversed == true ? "true" : "false")">
     @ChildContent
 </div>

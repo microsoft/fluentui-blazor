@@ -9243,6 +9243,11 @@
             Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Reversed">
+            <summary>
+            Gets or sets a value indicating whether the stack is reversed.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Width">
             <summary>
             Gets or sets the width of the stack as a percentage string (default = 100%).
