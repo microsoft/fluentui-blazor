@@ -6,10 +6,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentStack : FluentComponentBase
 {
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("stack-horizontal", () => Orientation == Orientation.Horizontal && !Reversed)
-        .AddClass("stack-vertical", () => Orientation == Orientation.Vertical && !Reversed)
-        .AddClass("stack-horizontal-reversed", () => Orientation == Orientation.Horizontal && Reversed)
-        .AddClass("stack-vertical-reversed", () => Orientation == Orientation.Vertical && Reversed)
+        .AddClass("stack-horizontal", () => Orientation == Orientation.Horizontal)
+        .AddClass("stack-vertical", () => Orientation == Orientation.Vertical)
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
@@ -46,12 +44,6 @@ public partial class FluentStack : FluentComponentBase
     /// </summary>
     [Parameter]
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the stack is reversed.
-    /// </summary>
-    [Parameter]
-    public bool Reversed { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the width of the stack as a percentage string (default = 100%).

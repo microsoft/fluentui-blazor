@@ -3789,16 +3789,6 @@
             This is a suitable callback to use when you need to validate the data in the dialog <em>before</em> it closes.
             </remarks>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.ActionsHorizontalAlignment">
-            <summary>
-            Gets or sets the horizontal alignment of the components in the footer stack.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.ActionsReversed">
-            <summary>
-            Gets or sets a value indicating whether the footer stack is reversed.
-            </summary>
-        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DialogParameters`1">
             <summary>
             Parameters for a dialog.
@@ -3999,43 +3989,39 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowPanelAsync``1(System.Type,Microsoft.FluentUI.AspNetCore.Components.DialogParameters{``0})">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowPanelAsync``1(System.Type,Microsoft.FluentUI.AspNetCore.Components.DialogParameters{``0})"/>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccess(System.String,System.String,System.String,System.Nullable{Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccess(System.String,System.String,System.String)">
             <summary>
             Shows a success message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
             <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
-            <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarning(System.String,System.String,System.String,System.Nullable{Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarning(System.String,System.String,System.String)">
             <summary>
             Shows a warning message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
             <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
-            <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowError(System.String,System.String,System.String,System.Nullable{Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowError(System.String,System.String,System.String)">
             <summary>
             Shows an error message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
             <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
-            <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfo(System.String,System.String,System.String,System.Nullable{Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfo(System.String,System.String,System.String)">
             <summary>
             Shows an information message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
             <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
-            <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmation(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String,System.Nullable{Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment},System.Boolean)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmation(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
             <summary>
             Shows a confirmation message box. Has a callback function which returns boolean 
             (true=PrimaryAction clicked, false=SecondaryAction clicked).
@@ -4046,8 +4032,6 @@
             <param name="primaryText">The text to display on the primary button.</param>
             <param name="secondaryText">The text to display on the secondary button.</param>
             <param name="title">The title to display on the dialog.</param>
-            <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-            <param name="actionsReversed">The value indicating whether the actions position is reversed.</param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowMessageBox(Microsoft.FluentUI.AspNetCore.Components.DialogParameters{Microsoft.FluentUI.AspNetCore.Components.MessageBoxContent})">
             <summary>
@@ -4056,43 +4040,39 @@
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccessAsync(System.String,System.String,System.String,System.Nullable{Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccessAsync(System.String,System.String,System.String)">
             <summary>
             Shows a success message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
             <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
-            <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarningAsync(System.String,System.String,System.String,System.Nullable{Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarningAsync(System.String,System.String,System.String)">
             <summary>
             Shows a warning message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
             <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
-            <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowErrorAsync(System.String,System.String,System.String,System.Nullable{Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowErrorAsync(System.String,System.String,System.String)">
             <summary>
             Shows an error message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
             <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
-            <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfoAsync(System.String,System.String,System.String,System.Nullable{Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfoAsync(System.String,System.String,System.String)">
             <summary>
             Shows an information message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
             <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
-            <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmationAsync(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String,System.Nullable{Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment},System.Boolean)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmationAsync(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
             <summary>
             Shows a confirmation message box. Has a callback function which returns boolean 
             (true=PrimaryAction clicked, false=SecondaryAction clicked).
@@ -4103,10 +4083,8 @@
             <param name="primaryText">The text to display on the primary button.</param>
             <param name="secondaryText">The text to display on the secondary button.</param>
             <param name="title">The title to display on the dialog.</param>
-            <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-            <param name="actionsReversed">The value indicating whether the actions position is reversed.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmationAsync(System.String,System.String,System.String,System.String,System.Nullable{Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment},System.Boolean)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmationAsync(System.String,System.String,System.String,System.String)">
             <summary>
             Shows a confirmation message box. Has no callback function
             (true=PrimaryAction clicked, false=SecondaryAction clicked).
@@ -4115,8 +4093,6 @@
             <param name="primaryText">The text to display on the primary button.</param>
             <param name="secondaryText">The text to display on the secondary button.</param>
             <param name="title">The title to display on the dialog.</param>
-            <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-            <param name="actionsReversed">The value indicating whether the actions position is reversed.</param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowMessageBoxAsync(Microsoft.FluentUI.AspNetCore.Components.DialogParameters{Microsoft.FluentUI.AspNetCore.Components.MessageBoxContent})">
             <summary>
@@ -9265,11 +9241,6 @@
             <summary>
             Gets or sets the orientation of the stacked components.
             Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Reversed">
-            <summary>
-            Gets or sets a value indicating whether the stack is reversed.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Width">

@@ -10,8 +10,7 @@ public partial class DialogService
     /// <param name="message">The message to display.</param>
     /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    /// <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-    public void ShowSuccess(string message, string? title = null, string? primaryAction = null, HorizontalAlignment? actionsHorizontalAlignment = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
+    public void ShowSuccess(string message, string? title = null, string? primaryAction = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -24,7 +23,6 @@ public partial class DialogService
         DialogType = DialogType.MessageBox,
         PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
         SecondaryAction = string.Empty,
-        ActionsHorizontalAlignment = actionsHorizontalAlignment
     });
 
     /// <summary>
@@ -33,8 +31,7 @@ public partial class DialogService
     /// <param name="message">The message to display.</param>
     /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    /// <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-    public void ShowWarning(string message, string? title = null, string? primaryAction = null, HorizontalAlignment? actionsHorizontalAlignment = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
+    public void ShowWarning(string message, string? title = null, string? primaryAction = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -47,7 +44,6 @@ public partial class DialogService
         DialogType = DialogType.MessageBox,
         PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
         SecondaryAction = string.Empty,
-        ActionsHorizontalAlignment = actionsHorizontalAlignment
     });
 
     /// <summary>
@@ -56,8 +52,7 @@ public partial class DialogService
     /// <param name="message">The message to display.</param>
     /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    /// <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-    public void ShowError(string message, string? title = null, string? primaryAction = null, HorizontalAlignment? actionsHorizontalAlignment = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
+    public void ShowError(string message, string? title = null, string? primaryAction = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -70,7 +65,6 @@ public partial class DialogService
         DialogType = DialogType.MessageBox,
         PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "Close" : primaryAction,
         SecondaryAction = string.Empty,
-        ActionsHorizontalAlignment = actionsHorizontalAlignment
     });
 
     /// <summary>
@@ -79,8 +73,7 @@ public partial class DialogService
     /// <param name="message">The message to display.</param>
     /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    /// <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-    public void ShowInfo(string message, string? title = null, string? primaryAction = null, HorizontalAlignment? actionsHorizontalAlignment = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
+    public void ShowInfo(string message, string? title = null, string? primaryAction = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -93,7 +86,6 @@ public partial class DialogService
         DialogType = DialogType.MessageBox,
         PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
         SecondaryAction = string.Empty,
-        ActionsHorizontalAlignment = actionsHorizontalAlignment
     });
 
     /// <summary>
@@ -106,9 +98,7 @@ public partial class DialogService
     /// <param name="primaryText">The text to display on the primary button.</param>
     /// <param name="secondaryText">The text to display on the secondary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    /// <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-    /// <param name="actionsReversed">The value indicating whether the actions position is reversed.</param>
-    public void ShowConfirmation(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null, HorizontalAlignment? actionsHorizontalAlignment = null, bool actionsReversed = false)
+    public void ShowConfirmation(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
         => ShowMessageBox(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -122,9 +112,7 @@ public partial class DialogService
             DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText,
             SecondaryAction = secondaryText,
-            OnDialogResult = EventCallback.Factory.Create(receiver, callback),
-            ActionsHorizontalAlignment = actionsHorizontalAlignment,
-            ActionsReversed = actionsReversed
+            OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });
 
     /// <summary>
@@ -160,8 +148,7 @@ public partial class DialogService
     /// <param name="message">The message to display.</param>
     /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    /// <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-    public async Task<IDialogReference> ShowSuccessAsync(string message, string? title = null, string? primaryAction = null, HorizontalAlignment? actionsHorizontalAlignment = null)
+    public async Task<IDialogReference> ShowSuccessAsync(string message, string? title = null, string? primaryAction = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -175,7 +162,6 @@ public partial class DialogService
             DialogType = DialogType.MessageBox,
             PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
             SecondaryAction = string.Empty,
-            ActionsHorizontalAlignment = actionsHorizontalAlignment
         });
 
     /// <summary>
@@ -184,8 +170,7 @@ public partial class DialogService
     /// <param name="message">The message to display.</param>
     /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    /// <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-    public async Task<IDialogReference> ShowWarningAsync(string message, string? title = null, string? primaryAction = null, HorizontalAlignment? actionsHorizontalAlignment = null)
+    public async Task<IDialogReference> ShowWarningAsync(string message, string? title = null, string? primaryAction = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -199,7 +184,6 @@ public partial class DialogService
             DialogType = DialogType.MessageBox,
             PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
             SecondaryAction = string.Empty,
-            ActionsHorizontalAlignment = actionsHorizontalAlignment
         });
 
     /// <summary>
@@ -208,8 +192,7 @@ public partial class DialogService
     /// <param name="message">The message to display.</param>
     /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    /// <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-    public async Task<IDialogReference> ShowErrorAsync(string message, string? title = null, string? primaryAction = null, HorizontalAlignment? actionsHorizontalAlignment = null)
+    public async Task<IDialogReference> ShowErrorAsync(string message, string? title = null, string? primaryAction = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -223,7 +206,6 @@ public partial class DialogService
             DialogType = DialogType.MessageBox,
             PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "Close" : primaryAction,
             SecondaryAction = string.Empty,
-            ActionsHorizontalAlignment = actionsHorizontalAlignment
         });
 
     /// <summary>
@@ -232,8 +214,7 @@ public partial class DialogService
     /// <param name="message">The message to display.</param>
     /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    /// <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-    public async Task<IDialogReference> ShowInfoAsync(string message, string? title = null, string? primaryAction = null, HorizontalAlignment? actionsHorizontalAlignment = null)
+    public async Task<IDialogReference> ShowInfoAsync(string message, string? title = null, string? primaryAction = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -247,7 +228,6 @@ public partial class DialogService
             DialogType = DialogType.MessageBox,
             PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
             SecondaryAction = string.Empty,
-            ActionsHorizontalAlignment = actionsHorizontalAlignment
         });
 
     /// <summary>
@@ -260,9 +240,7 @@ public partial class DialogService
     /// <param name="primaryText">The text to display on the primary button.</param>
     /// <param name="secondaryText">The text to display on the secondary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    /// <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-    /// <param name="actionsReversed">The value indicating whether the actions position is reversed.</param>
-    public async Task<IDialogReference> ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string? primaryText = "Yes", string? secondaryText = "No", string? title = null, HorizontalAlignment? actionsHorizontalAlignment = null, bool actionsReversed = false)
+    public async Task<IDialogReference> ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string? primaryText = "Yes", string? secondaryText = "No", string? title = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -276,9 +254,7 @@ public partial class DialogService
             DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText,
             SecondaryAction = secondaryText,
-            OnDialogResult = EventCallback.Factory.Create(receiver, callback),
-            ActionsHorizontalAlignment = actionsHorizontalAlignment,
-            ActionsReversed = actionsReversed
+            OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });
 
     /// <summary>
@@ -289,9 +265,7 @@ public partial class DialogService
     /// <param name="primaryText">The text to display on the primary button.</param>
     /// <param name="secondaryText">The text to display on the secondary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    /// <param name="actionsHorizontalAlignment">The horizontal alignment of the actions on the dialog.</param>
-    /// <param name="actionsReversed">The value indicating whether the actions position is reversed.</param>
-    public async Task<IDialogReference> ShowConfirmationAsync(string message, string? primaryText = "Yes", string? secondaryText = "No", string? title = null, HorizontalAlignment? actionsHorizontalAlignment = null, bool actionsReversed = false)
+    public async Task<IDialogReference> ShowConfirmationAsync(string message, string? primaryText = "Yes", string? secondaryText = "No", string? title = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -305,8 +279,6 @@ public partial class DialogService
             DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText,
             SecondaryAction = secondaryText,
-            ActionsHorizontalAlignment = actionsHorizontalAlignment,
-            ActionsReversed = actionsReversed
         });
 
     /// <summary>
@@ -329,8 +301,6 @@ public partial class DialogService
             Height = parameters.Height,
             AriaLabel = $"{parameters.Content.Title}",
             OnDialogResult = parameters.OnDialogResult,
-            ActionsHorizontalAlignment = parameters.ActionsHorizontalAlignment,
-            ActionsReversed = parameters.ActionsReversed
         };
 
         return await ShowDialogAsync(typeof(MessageBox), parameters.Content, dialogParameters);

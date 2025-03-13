@@ -6,27 +6,23 @@
         Horizontal<FluentListbox Items=@(Enum.GetValues<HorizontalAlignment>()) @bind-SelectedOption="@Horizontal" />
     </div>
     <div style="width: 150px;">
-        Vertical<FluentListbox Items=@(Enum.GetValues<VerticalAlignment>()) @bind-SelectedOption="@Vertical" />
-    </div>
-    <div style="width: 150px;">
-        <FluentSwitch @bind-Value=Reversed Label=" Reversed" />
+        Vertical<FluentListbox Items=@(Enum.GetValues<VerticalAlignment>()) @bind-SelectedOption="@Vertical"  />
     </div>
 </FluentStack>
 
 <p>Result:</p>
 <FluentStack Orientation="Orientation.Vertical"
-             HorizontalAlignment="@Horizontal"
-             VerticalAlignment="@Vertical"
-             VerticalGap="20"
-             Style="height: 200px; border: 1px dotted var(--accent-fill-rest)">
+                 HorizontalAlignment="@Horizontal"
+                 VerticalAlignment="@Vertical"
+                 VerticalGap="20"
+                 Style="height: 200px; border: 1px dotted var(--accent-fill-rest)">
     <div class="demopanel">Vertical item 1</div>
     <div class="demopanel">Vertical item 2</div>
     <FluentStack Orientation="Orientation.Horizontal"
-                 HorizontalAlignment="@Horizontal"
-                 Reversed="@Reversed"
-                 VerticalAlignment="@Vertical"
-                 HorizontalGap="4"
-                 Style="border: 1px dotted var(--accent-fill-rest)">
+                     HorizontalAlignment="@Horizontal"
+                     VerticalAlignment="@Vertical"
+                     HorizontalGap="4"
+                     Style="border: 1px dotted var(--accent-fill-rest)">
         <div class="demopanel" style="width: 150px">Horizontal <br />item 1</div>
         <div class="demopanel">Horizontal item 2</div>
     </FluentStack>
@@ -36,5 +32,4 @@
 {
     HorizontalAlignment Horizontal;
     VerticalAlignment Vertical;
-    bool Reversed;
 }

@@ -29,8 +29,6 @@ public interface IDialogParameters
     EventCallback<DialogResult> OnDialogResult { get; set; }
     EventCallback<DialogInstance> OnDialogClosing { get; set; }
     EventCallback<DialogInstance> OnDialogOpened { get; set; }
-    HorizontalAlignment? ActionsHorizontalAlignment { get; set; }
-    bool ActionsReversed { get; set; }
 }
 
 public interface IDialogParameters<TContent> : IDialogParameters
