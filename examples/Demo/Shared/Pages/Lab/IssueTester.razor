@@ -1,1 +1,72 @@
-﻿
+﻿@using Microsoft.FluentUI.AspNetCore.Components.DesignTokens
+
+<FluentButton @ref="ref1">A button</FluentButton>
+<FluentButton @ref="ref2" Appearance="Appearance.Accent">Another button</FluentButton>
+<FluentButton @ref="ref3">And one more</FluentButton>
+<FluentButton @ref="ref4" @onclick=OnClick>Last button</FluentButton>
+
+
+@code {
+
+
+    [Inject]
+    private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
+
+    [Inject]
+    private AccentBaseColor AccentBaseColor { get; set; } = default!;
+
+    [Inject]
+    private NeutralBaseColor NeutralBaseColor { get; set; } = default!;
+
+    [Inject]
+    private BodyFont BodyFont { get; set; } = default!;
+
+    [Inject]
+    private StrokeWidth StrokeWidth { get; set; } = default!;
+
+    [Inject]
+    private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
+
+    private FluentButton? ref1;
+    private FluentButton? ref2;
+    private FluentButton? ref3;
+    private FluentButton? ref4;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //Set to dark mode
+            await BaseLayerLuminance.SetValueFor(ref1!.Element, (float)0.15);
+
+            //Set to Excel color
+            //await AccentBaseColor.SetValueFor(ref2!.Element, "#217346".ToSwatch());
+
+            //Set the font
+            await BodyFont.SetValueFor(ref3!.Element, "Comic Sans MS");
+
+            //Set 'border' width for ref4
+            await StrokeWidth.SetValueFor(ref4!.Element, 7);
+            //And change conrner radius as well
+            await ControlCornerRadius.SetValueFor(ref4!.Element, 15);
+
+            // If you would like to change the BaseLayerLuminance  value for the whole site, you can use the WithDefault method
+            //await BaseLayerLuminance.WithDefault((float)0.15);
+
+            await AccentBaseColor.WithDefault("#217346");
+            await NeutralBaseColor.WithDefault("#c75656");
+
+
+
+
+            StateHasChanged();
+        }
+    }
+
+    public async Task OnClick()
+    {
+        //Remove the wide border
+        await StrokeWidth.DeleteValueFor(ref4!.Element);
+    }
+
+}

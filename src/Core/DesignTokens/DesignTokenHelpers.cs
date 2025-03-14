@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Drawing;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
