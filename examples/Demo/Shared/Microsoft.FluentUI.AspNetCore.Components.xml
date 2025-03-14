@@ -2042,6 +2042,15 @@
             Automatically fit the number of items per page to the available height.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.DisplayMode">
+            <summary>
+            Gets or set the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode"/> of the grid.
+            Default is 'Grid'.
+            When set to Grid, <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns" /> can be used to specify column widths.
+            When set to Table, widths need to be specified at the column level.
+            When using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Virtualize"/>, it is recommended to use Table.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowSize">
             <summary>
             Gets or sets the size of each row in the grid based on the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize"/> enum.
