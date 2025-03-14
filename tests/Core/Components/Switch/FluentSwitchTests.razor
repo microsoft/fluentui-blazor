@@ -1,0 +1,154 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.ComponentModel.DataAnnotations
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentSwitchTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSwitch_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(LabelPosition.Above)]
+    [InlineData(LabelPosition.After)]
+    [InlineData(LabelPosition.Before)]
+    [InlineData(null)]
+    [InlineData((LabelPosition)999)]
+    public void FluentSwitch_LabelPosition(LabelPosition? value)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch LabelPosition="@value" />);
+
+        // Assert
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
+    }
+
+    [Fact]
+    public void FluentCheckbox_LabelTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch>
+    <LabelTemplate>Label</LabelTemplate>
+</FluentSwitch>
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCheckbox_ReadOnly()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch ReadOnly="true" />
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCheckbox_Required()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch Required="true" />
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    public void FluentSwitch_OnClick(bool initialValue, bool expectedValue)
+    {
+        // Arrange
+        var value = initialValue;
+        var cut = Render(@<FluentSwitch @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-switch").Change("");
+
+        // Assert
+        Assert.Equal(expectedValue, value);
+    }
+
+    [Fact]
+    public void FluentSwitch_TryParseValueFromString()
+    {
+        // Arrange
+        var fluentSwitch = new FluentSwitch();
+
+        // Act & Assert
+        Assert.Throws<NotSupportedException>(() => fluentSwitch.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
+    }
+
+#pragma warning disable CS0618
+    [Fact]
+    public void FluentSwitch_ChildContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch><ChildContent>Label</ChildContent></FluentSwitch>);
+
+        // Assert
+        var actual = cut.Find("fluent-field").GetElementsByTagName("label").FirstOrDefault();
+        Assert.Null(actual);
+    }
+
+    [Fact]
+    public void FluentSwitch_CheckedMessage()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch CheckedMessage="Checked" />
+            );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSwitch_UncheckedMessage()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSwitch UncheckedMessage="Unchecked" />
+            );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData("Checked", "Unchecked", false, "Unchecked")]
+    [InlineData("Checked", "Unchecked", true, "Checked")]
+    public void FluentSwitch_Message(string checkedMessage, string uncheckedMessage, bool value, string expectedLabel)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch CheckedMessage="@checkedMessage" UncheckedMessage="@uncheckedMessage" @bind-Value="@value" />);
+
+        // Assert
+        var actual = cut.Find("fluent-field").GetElementsByTagName("label").FirstOrDefault();
+        Assert.Equal(expectedLabel, actual.GetInnerText());
+    }
+
+#pragma warning restore
+}
