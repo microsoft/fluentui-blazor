@@ -32,17 +32,25 @@ By default, the slider is a horizontal slider with a range of `0` to `100` and a
 
 {{ SliderDefault }}
 
-## Step
+## Min, Max and Step
 
-You can define the `Step` value of a slider so that the value will always be a mutiple of that step
+You can define the `Step` value of a slider so that the value will always be a mutiple of that step.
 
-{{ SliderStep }}
+{{ SliderMinMaxStep }}
 
 ## ReadOnly and Disabled
 
 The slider can be set to `ReadOnly` or `Disabled` mode.
 
 {{ SliderReadOnlyDisabled }}
+
+> The **FluentSlider** component does not support the `ReadOnly` attribute (using the keyboard),
+> like the default [input type="range"](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range) HTML element.
+> The `ReadOnly` attribute is not applicable to the slider because it is designed for text-based inputs,
+> and sliders are primarily used for selecting a value within a range
+>
+> The `Disabled` attribute is used to prevent user interaction with the slider, while `ReadOnly` would imply
+> that the slider can still be interacted with but not modified, which doesn't align with the intended use of a slider.
 
 ## Orientation
 
