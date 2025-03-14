@@ -26,19 +26,33 @@ The **FluentSlider** component is an input where the user selects a value from w
 
 View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/slider/usage).
 
+## Default
+
+By default, the slider is a horizontal slider with a range of `0` to `100` and a step of `1`.
+
 {{ SliderDefault }}
 
-## Label
+## Step
 
-{{ SliderLabel }}
+You can define the `Step` value of a slider so that the value will always be a mutiple of that step
+
+{{ SliderStep }}
+
+## ReadOnly and Disabled
+
+The slider can be set to `ReadOnly` or `Disabled` mode.
+
+{{ SliderReadOnlyDisabled }}
 
 ## Orientation
 
-The minimum height of the slider is `120px`.
+The minimum height of the slider is `120px` (defined by the web underlying component).
 
 {{ SliderOrientation }}
 
 ## Size
+
+A slider comes in both medium and small size. Medium is the default.
 
 {{ SliderSizes }}
 
@@ -52,17 +66,10 @@ If you add content that is **not part** of `Slot="thumb"`, it will be ignored.
 
 {{ SliderThumbs }}
 
-## ReadOnly
-
-{{ SliderReadOnly }}
-
-## EventCallback
-
-{{ SliderEventCallbacks }}
-
 ## Know restrictions
 
-At this point, the `FluentSliderLabel` elements cannot be applied.
+At this moment, the `FluentSliderLabel` elements, included in the v4 library, are not yet supported.
+The `FluentSliderLabel` elements are used to display the value of the slider steps, below the slider.
 
 > These features are under investigation.
 
