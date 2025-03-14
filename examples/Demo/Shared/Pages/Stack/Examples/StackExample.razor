@@ -9,7 +9,7 @@
         Vertical<FluentListbox Items=@(Enum.GetValues<VerticalAlignment>()) @bind-SelectedOption="@Vertical"  />
     </div>
     <div style="width: 150px;">
-        <FluentSwitch @bind-Value=Reversed Label=" Reversed" />
+<FluentSwitch @bind-Value="@Reversed" Label="Reversed" />
     </div>
 </FluentStack>
 
