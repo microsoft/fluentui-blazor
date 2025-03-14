@@ -1,0 +1,160 @@
+﻿@using System.Globalization
+@using Xunit;
+@inherits TestContext
+@code
+{
+    public FluentSliderTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSlider_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSlider Value="10" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSlider_Min_Max()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSlider Min="2" Max="10" Value="5" />);
+
+        // Assert
+        var min = cut.Find("fluent-slider").GetAttribute("min");
+        var max = cut.Find("fluent-slider").GetAttribute("max");
+        var value = cut.Find("fluent-slider").GetAttribute("value");
+
+        Assert.Equal("2", min);
+        Assert.Equal("10", max);
+        Assert.Equal("5", value);
+    }
+
+    [Theory]
+    [InlineData(SliderSize.Medium, "medium")]
+    [InlineData(SliderSize.Small, "small")]
+    [InlineData((SliderSize)999, "")]
+    [InlineData(null, null)]
+    public void FluentSlider_Size(SliderSize? sliderSize, string? expected)
+    {
+        // Arrange && Act
+        using var cut = Render(@<FluentSlider Value="10" Size="@sliderSize" />);
+
+        // Assert
+        var size = cut.Find("fluent-slider").GetAttribute("size");
+        Assert.Equal(expected, size);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void FluentSlider_DisabledAttribute(bool disabled)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSlider Value="10" Disabled="@disabled" />);
+
+        // Assert
+        var actual = cut.Find("fluent-slider").HasAttribute("disabled");
+        Assert.Equal(disabled, actual);
+    }
+
+    [Fact]
+    public void FluentSlider_Step()
+    {
+        // Arrange
+        var cut = Render(@<FluentSlider Value="10" TValue="double" Step="1.5" />);
+
+        // Assert
+        var step = cut.Find("fluent-slider").GetAttribute("step");
+        Assert.Equal("1.5", step);
+    }
+
+    [Fact]
+    public void FluentSlider_ReadOnly()
+    {
+        // Arrange
+        var cut = Render(@<FluentSlider Value="10" ReadOnly="true" />);
+
+        // Assert
+        var tabIndex = cut.Find("fluent-slider").GetAttribute("tabindex");
+        Assert.Equal("-1", tabIndex);
+    }
+
+    [Theory]
+    [InlineData(Orientation.Horizontal, null)]
+    [InlineData(Orientation.Vertical, "vertical")]
+	[InlineData((Orientation)999, "")]
+    public void FluentSlider_Orientation(Orientation orientation, string? expectedOrientation)
+    {
+        // Arrange
+        using var cut = Render(@<FluentSlider Value="10" Orientation="@orientation" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-slider").GetAttribute("orientation");
+        Assert.Equal(expectedOrientation, attribute);
+    }
+
+    [Fact]
+    public void FluentSlider_Slot_Thumb()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSlider Value=10><FluentIcon Slot="thumb" Value="@Samples.Icons.Info" /></FluentSlider>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    // Used with FluentSlider_TypeOfValue
+    public static IEnumerable<object[]> TypeOfValues =>
+        [
+            [ (byte)1 ],
+            [ (sbyte)1 ],
+            [ (short)1 ],
+            [ (ushort)1 ],
+            [ (int)1 ],
+            [ (uint)1 ],
+            [ (long)1 ],
+            [ (ulong)1 ],
+            [ (float)1.1 ],
+            [ (double)1.1 ],
+            [ (decimal)1.1 ],
+    ];
+
+    [Theory]
+    [MemberData(nameof(TypeOfValues))]
+    public void FluentSlider_TypeOfValue<T>(T value) where T : struct, IComparable<T>
+    {
+        // Arrange
+        var step = (T)Convert.ChangeType(1, typeof(T));
+        var cut = Render(@<FluentSlider TValue="T" @bind-Value="@value" Step="@step" />);
+
+        var slider = cut.Find("fluent-slider");
+        var valueAttribute = slider.GetAttribute("value");
+
+        // Assert
+        Assert.Equal(Convert.ToString(value, CultureInfo.InvariantCulture), valueAttribute);
+
+        // Act        
+        slider.TriggerEvent("onchange", new ChangeEventArgs { Value = 99 });
+        var valueUpdated = slider.GetAttribute("value");
+
+        // Assert
+        Assert.Equal("99", valueUpdated);
+    }
+
+    [Fact]
+    public void FluentSlider_InvalidTypeOfValue()
+    {
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            // Arrange
+            var value = 'a';
+            var cut = Render(@<FluentSlider TValue="char" Value="@value" />);
+        });
+    }
+}

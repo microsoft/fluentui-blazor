@@ -1,0 +1,9 @@
+fluent-slider {
+  width: 100%;
+  height: 100%;
+}
+
+  fluent-slider[readonly] {
+    pointer-events: none;
+    user-select: none;
+  }

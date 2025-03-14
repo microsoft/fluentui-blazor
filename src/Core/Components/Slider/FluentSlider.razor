@@ -1,0 +1,28 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputBase<TValue>
+@typeparam TValue
+
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+	<fluent-slider @ref="@Element"
+	               slot="input"
+                   id="@Id"
+                   disabled="@Disabled"
+                   min="@FormatValueAsStringOrNull(Min)"
+                   max="@FormatValueAsStringOrNull(Max)"
+                   value="@FormatValueAsString(Value)"
+                   step="@FormatValueAsStringOrNull(Step)"
+                   size="@Size.ToAttributeValue()"
+                   orientation="@(Orientation == Orientation.Horizontal ? null : Orientation.ToAttributeValue())"
+                   name="@Name"
+                   readonly="@ReadOnly"
+                   aria-label="@AriaLabel"
+                   autofocus="@Autofocus"
+                   required="@Required"
+                   tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1" , when: () => ReadOnly)"
+                   @onfocusout="@FocusOutHandlerAsync"
+                   @onchange="@ChangeHandlerAsync"
+                   @attributes="@AdditionalAttributes">
+        @ChildContent
+    </fluent-slider>
+</FluentField>
