@@ -1,0 +1,70 @@
+﻿@namespace FluentUI.Demo.Shared.Components.Cookies
+@implements IDialogContentComponent<CookieState>
+
+<FluentDialogBody Style="height: 446px; overflow: auto;">
+    <p class="explainer">
+        Most Microsoft websites use cookies. Cookies are small text files placed on your device to store data so web servers can use it later. Microsoft and our third-party partners use cookies to remember your preferences and settings, help you sign in, show you personalized ads, and analyze how well our websites are working. For more info, see the Cookies and similar technologies section of the <a target="_blank" href="https://go.microsoft.com/fwlink/?linkid=845480">Privacy Statement</a>.
+    </p>
+
+    <dl>
+        <dt>
+            <h4>Required</h4>
+            <p class="explainer">We use required cookies to perform essential website functions. For example, they're used to log you in, save your language preferences, provide a shopping cart experience, improve performance, route traffic between web servers, detect the size of your screen, determine page load times, improve user experience, and for audience measurement. These cookies are necessary for our websites to work.</p>
+        </dt>
+
+        <dt aria-label="Analytics">
+            <h4>Analytics</h4>
+            <p class="explainer">We allow third parties to use analytics cookies to understand how you use our websites so we can make them better and the third parties can develop and improve their products, which they may use on websites that are not owned or operated by Microsoft. For example, they're used to gather information about the pages you visit and how many clicks you need to accomplish a task. We use some analytics cookies for advertising.</p>
+            <FluentRadioGroup Class="choices" Name="AcceptAnalytics" @bind-Value="@Content.AcceptAnalytics">
+                <FluentRadio Value="true">Accept</FluentRadio>
+                <FluentRadio Value="false">Reject</FluentRadio>
+            </FluentRadioGroup>
+        </dt>
+
+        <dt aria-label="Social Media">
+            <h4>Social Media</h4>
+            <p class="explainer">We and third parties use social media cookies to show you ads and content based on your social media profiles and activity on our websites. They’re used to connect your activity on our websites to your social media profiles so the ads and content you see on our websites and on social media will better reflect your interests.</p>
+            <FluentRadioGroup Class="choices" Name="AcceptAnalytics" @bind-Value="@Content.AcceptSocialMedia">
+                <FluentRadio Value="true">Accept</FluentRadio>
+                <FluentRadio Value="false">Reject</FluentRadio>
+            </FluentRadioGroup>
+        </dt>
+
+        <dt aria-label="Advertising">
+            <h4>Advertising</h4>
+            <p class="explainer">We and third parties use advertising cookies to show you new ads by recording which ads you've already seen. They're also used to track which ads you click on or purchases you make after clicking on an ad for payment purposes, and to show you ads that are more relevant to you. For example, they're used to detect when you click on an ad and show you ads based on your social media interests and website browsing history.</p>
+            <FluentRadioGroup Class="choices" Name="AcceptAnalytics" @bind-Value="@Content.AcceptAdvertising">
+                <FluentRadio Value="true">Accept</FluentRadio>
+                <FluentRadio Value="false">Reject</FluentRadio>
+            </FluentRadioGroup>
+        </dt>
+    </dl>
+</FluentDialogBody>
+<FluentDialogFooter>
+    <FluentButton Style="min-width: 150px;" Disabled="@_buttonsDisabled" @onclick="HandleSaveAsync" Appearance="Appearance.Accent">Save changes</FluentButton>
+    <FluentButton Style="min-width: 150px;" Disabled="@_buttonsDisabled" @onclick="HandleCancelAsync">Cancel</FluentButton>
+</FluentDialogFooter>
+
+@code {
+    private bool _buttonsDisabled => Content.AcceptAnalytics is null && Content.AcceptSocialMedia is null && Content.AcceptAdvertising is null;
+
+    [Parameter]
+    public CookieState Content { get; set; } = default!;
+
+    [CascadingParameter]
+    public FluentDialog? Dialog { get; set; } = default!;
+
+
+    private async Task HandleSaveAsync()
+    {
+        await Dialog.CloseAsync(Content);
+    }
+
+    private async Task HandleCancelAsync()
+    {
+        Content.AcceptAnalytics = null;
+        Content.AcceptSocialMedia = null;
+        Content.AcceptAdvertising = null;
+        await Dialog.CancelAsync();
+    }
+}

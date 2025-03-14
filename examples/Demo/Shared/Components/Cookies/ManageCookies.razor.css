@@ -1,0 +1,47 @@
+dl {
+    margin-top: 36px;
+    margin-bottom: 0;
+    padding: 0;
+    list-style: none;
+    text-transform: none;
+}
+
+dt {
+    margin-top: 20px;
+    float: none;
+    font-family: Segoe UI, SegoeUI, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    list-style: none;
+}
+
+dt > h4 {
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    height: 446px;
+    overflow: auto;
+}
+
+.explainer, .choices {
+    margin-bottom: 13px;
+}
+
+.buttons {
+    display: inline-block;
+    margin-left: 5%;
+    margin-right: 5%;
+    min-width: 40%;
+    min-width: calc((150px + 3 * 4px) * 2 + 150px);
+    min-width: fit-content;
+    align-self: center;
+    position: relative;
+}
+
+.button {
+    min-width: 150px;
+}

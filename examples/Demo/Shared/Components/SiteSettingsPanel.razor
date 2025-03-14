@@ -1,5 +1,7 @@
-﻿@implements IDialogContentComponent
+﻿@using FluentUI.Demo.Shared.Components.Cookies
+@implements IDialogContentComponent
 
+<CookieConsent @ref="@_cookie"/>
 <div>
     <FluentDesignTheme @ref=_theme
                        @bind-Mode="@Mode"
@@ -7,7 +9,7 @@
                        Direction="@Direction"
                        StorageName="theme" />
 
-    <FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
+    <FluentStack Orientation="Orientation.Vertical" VerticalGap="5">
         <FluentSelect Label="Theme"
                       Width="100%"
                       Style="margin-bottom: 30px;"
@@ -65,10 +67,10 @@
         </FluentPopover>
 
         <FluentStack VerticalAlignment="VerticalAlignment.Center">
-            <FluentButton OnClick="@ResetSiteAsync">Reset settings</FluentButton>
+            <FluentButton Style="width: 125px;" OnClick="@ResetSiteAsync">Reset settings</FluentButton>
             <FluentIcon Id="info" Value="@(new Icons.Regular.Size24.Info())" OnClick="@(() => _popVisible = !_popVisible)" />
         </FluentStack>
-
+        <FluentButton Style="width: 125px;" OnClick="@ManageCookieSettingsAsync">Manage cookies</FluentButton>
         <p style="margin-top: 1rem;">
             <em><strong>@_status</strong></em>
         </p>

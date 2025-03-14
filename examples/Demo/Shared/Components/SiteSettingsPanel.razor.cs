@@ -1,3 +1,8 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
+using FluentUI.Demo.Shared.Components.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
@@ -7,6 +12,7 @@ namespace FluentUI.Demo.Shared.Components;
 
 public partial class SiteSettingsPanel
 {
+    private CookieConsent? _cookie;
     private string? _status;
     private bool _popVisible;
     private bool _ltr = true;
@@ -65,6 +71,14 @@ public partial class SiteSettingsPanel
 
         OfficeColor = OfficeColorUtilities.GetRandom();
         Mode = DesignThemeModes.System;
+    }
+
+    private async Task ManageCookieSettingsAsync()
+    {
+        if (_cookie != null)
+        {
+            await _cookie.ManageCookiesAsync();
+        }
     }
 
     private static string? GetCustomColor(OfficeColor? color)

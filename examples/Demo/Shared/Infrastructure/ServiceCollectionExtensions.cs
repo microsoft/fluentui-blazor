@@ -2,7 +2,9 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using FluentUI.Demo.Shared.Components.Cookies;
 using FluentUI.Demo.Shared.Infrastructure;
+using FluentUI.Demo.Shared.SampleData;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FluentUI.Demo.Shared;
@@ -15,8 +17,10 @@ public static class ServiceCollectionExtensions
     /// <param name="services">Service collection</param>
     public static IServiceCollection AddFluentUIDemoClientServices(this IServiceCollection services)
     {
+        services.AddScoped<DataSource>();
         services.AddSingleton<IAppVersionService, AppVersionService>();
-        services.AddSingleton<CacheStorageAccessor>();
+        services.AddScoped<CacheStorageAccessor>();
+        services.AddScoped<CookieConsentService>();
         services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
         services.AddSingleton<DemoNavProvider>();
 
@@ -29,8 +33,10 @@ public static class ServiceCollectionExtensions
     /// <param name="services">Service collection</param>
     public static IServiceCollection AddFluentUIDemoServerServices(this IServiceCollection services)
     {
+        services.AddScoped<DataSource>();
         services.AddScoped<IAppVersionService, AppVersionService>();
         services.AddScoped<CacheStorageAccessor>();
+        services.AddScoped<CookieConsentService>();
         services.AddHttpClient<IStaticAssetService, ServerStaticAssetService>();
         services.AddSingleton<DemoNavProvider>();
 
