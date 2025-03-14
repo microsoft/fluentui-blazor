@@ -18,34 +18,34 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentSwitch />);
+
         // Assert
         cut.Verify();
     }
 
     [Theory]
-    [InlineData(LabelPosition.Above)]
-    [InlineData(LabelPosition.After)]
-    [InlineData(LabelPosition.Before)]
-    [InlineData(null)]
-    [InlineData((LabelPosition)999)]
-    public void FluentSwitch_LabelPosition(LabelPosition? value)
+    [InlineData(LabelPosition.Above, "above")]
+    [InlineData(LabelPosition.After, "after")]
+    [InlineData(LabelPosition.Before, "before")]
+    [InlineData(null, "above")]
+    [InlineData((LabelPosition)999, "")]
+    public void FluentSwitch_LabelPosition(LabelPosition? value, string expected)
     {
-        // Arrange && Act
-        var cut = Render(@<FluentSwitch LabelPosition="@value" />);
+        // Arrange
+        var cut = Render(@<FluentSwitch Label="My label" LabelPosition="@value" />);
+
+        // Act
+        var position = cut.Find("fluent-field").GetAttribute("label-position");
 
         // Assert
-        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
+        Assert.Equal(expected, position);
     }
 
     [Fact]
     public void FluentCheckbox_LabelTemplate()
     {
         // Arrange && Act
-        var cut = Render(
-            @<FluentSwitch>
-    <LabelTemplate>Label</LabelTemplate>
-</FluentSwitch>
-        );
+        var cut = Render(@<FluentSwitch><LabelTemplate>Label with <b>bold</b> text</LabelTemplate></FluentSwitch>);
 
         // Assert
         cut.Verify();
@@ -55,9 +55,7 @@
     public void FluentCheckbox_ReadOnly()
     {
         // Arrange && Act
-        var cut = Render(
-            @<FluentSwitch ReadOnly="true" />
-        );
+        var cut = Render(@<FluentSwitch ReadOnly="true" />);
 
         // Assert
         cut.Verify();
@@ -67,9 +65,7 @@
     public void FluentCheckbox_Required()
     {
         // Arrange && Act
-        var cut = Render(
-            @<FluentSwitch Required="true" />
-        );
+        var cut = Render(@<FluentSwitch Required="true" />);
 
         // Assert
         cut.Verify();
@@ -102,52 +98,34 @@
     }
 
 #pragma warning disable CS0618
+
     [Fact]
     public void FluentSwitch_ChildContent()
     {
-        // Arrange && Act
-        var cut = Render(@<FluentSwitch><ChildContent>Label</ChildContent></FluentSwitch>);
+        // Arrange
+        var cut = Render(@<FluentSwitch>My Label</FluentSwitch>);
+
+        // Act
+        var label = cut.FindAll("fluent-field > label");
 
         // Assert
-        var actual = cut.Find("fluent-field").GetElementsByTagName("label").FirstOrDefault();
-        Assert.Null(actual);
-    }
-
-    [Fact]
-    public void FluentSwitch_CheckedMessage()
-    {
-        // Arrange && Act
-        var cut = Render(
-            @<FluentSwitch CheckedMessage="Checked" />
-            );
-
-        // Assert
-        cut.Verify();
-    }
-
-    [Fact]
-    public void FluentSwitch_UncheckedMessage()
-    {
-        // Arrange && Act
-        var cut = Render(
-            @<FluentSwitch UncheckedMessage="Unchecked" />
-            );
-
-        // Assert
-        cut.Verify();
+        Assert.Empty(label);
+        Assert.DoesNotContain("My Label", cut.Markup);
     }
 
     [Theory]
-    [InlineData("Checked", "Unchecked", false, "Unchecked")]
-    [InlineData("Checked", "Unchecked", true, "Checked")]
-    public void FluentSwitch_Message(string checkedMessage, string uncheckedMessage, bool value, string expectedLabel)
+    [InlineData(false, "Is unchecked")]
+    [InlineData(true, "Is checked")]
+    public void FluentSwitch_Message(bool value, string expectedLabel)
     {
         // Arrange && Act
-        var cut = Render(@<FluentSwitch CheckedMessage="@checkedMessage" UncheckedMessage="@uncheckedMessage" @bind-Value="@value" />);
+        var cut = Render(@<FluentSwitch CheckedMessage="Is checked" UncheckedMessage="Is unchecked" Value="@value" />);
+
+        // Act
+        var label = cut.Find("fluent-field > label").InnerHtml.Trim(' ', '\n', '\r');
 
         // Assert
-        var actual = cut.Find("fluent-field").GetElementsByTagName("label").FirstOrDefault();
-        Assert.Equal(expectedLabel, actual.GetInnerText());
+        Assert.Equal(expectedLabel, label);
     }
 
 #pragma warning restore

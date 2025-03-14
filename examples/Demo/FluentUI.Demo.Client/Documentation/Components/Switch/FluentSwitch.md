@@ -21,27 +21,25 @@ Keep descriptive text short and concise—two to four words; preferably nouns. F
 
 {{ SwitchDefault }}
 
-## Disabled
-
-A Switch can be disabled.
-
-{{ SwitchDisabled }}
-
 ## Label position
 
 {{ SwitchLabelPosition }}
 
-## Message
+## Checked and Unchecked Messages
+
+For compatibility reasons with the previous version, the two attributes
+`CheckedMessage` and `UncheckedMessage` are still available. However, they are **deprecated**
+and will no longer be available in a future release.
+
+It is recommended that you use the `Label` attribute from now on.
 
 {{ SwitchMessage }}
 
-## ReadOnly
+## ReadOnly and Disabled
 
-{{ SwitchReadOnly }}
+A Switch can be disabled and read only.
 
-## Required
-
-{{ SwitchRequired }}
+{{ SwitchReadOnlyDisabled }}
 
 ## API FluentSwitch
 
