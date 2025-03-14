@@ -52,12 +52,12 @@
     public CookieState Content { get; set; } = default!;
 
     [CascadingParameter]
-    public FluentDialog? Dialog { get; set; }
+    public FluentDialog? Dialog { get; set; } = default!;
 
 
     private async Task HandleSaveAsync()
     {
-        await Dialog!.CloseAsync(Content);
+        await Dialog.CloseAsync(Content);
     }
 
     private async Task HandleCancelAsync()
@@ -65,6 +65,6 @@
         Content.AcceptAnalytics = null;
         Content.AcceptSocialMedia = null;
         Content.AcceptAdvertising = null;
-        await Dialog!.CancelAsync();
+        await Dialog.CancelAsync();
     }
 }
