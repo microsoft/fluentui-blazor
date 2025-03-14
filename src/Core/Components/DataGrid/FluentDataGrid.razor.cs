@@ -275,6 +275,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoItemsPerPage { get; set; }
 
+    /// <summary>
+    /// Gets or set the <see cref="DataGridDisplayMode"/> of the grid.
+    /// Default is 'Grid'.
+    /// When set to Grid, <see cref="GridTemplateColumns" /> can be used to specify column widths.
+    /// When set to Table, widths need to be specified at the column level.
+    /// When using <see cref="Virtualize"/>, it is recommended to use Table.
+    /// </summary>
     [Parameter]
     public DataGridDisplayMode DisplayMode { get; set; } = DataGridDisplayMode.Grid;
 
@@ -759,6 +766,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // TODO: Consider making this configurable, or smarter (e.g., doesn't delay on first call in a batch, then the amount
         // of delay increases if you rapidly issue repeated requests, such as when scrolling a long way)
         await Task.Delay(100);
+
         if (request.CancellationToken.IsCancellationRequested)
         {
             return default;
@@ -801,10 +809,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // the virtualized start _index. It might be more performant just to have some _latestQueryRowStartIndex field, but we'd have
             // to make sure it doesn't get out of sync with the rows being rendered.
             return new ItemsProviderResult<(int, TGridItem)>(
-                 items: providerResult.Items.Select((x, i) => ValueTuple.Create(i + request.StartIndex + 2, x)),
-                 totalItemCount: _internalGridContext.TotalViewItemCount);
+                    items: providerResult.Items.Select((x, i) => ValueTuple.Create(i + request.StartIndex + 2, x)),
+                    totalItemCount: _internalGridContext.TotalViewItemCount);
         }
-
         return default;
     }
 
@@ -858,10 +865,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? StyleValue => new StyleBuilder(Style)
         .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && DisplayMode == DataGridDisplayMode.Grid)
-        .AddStyle("grid-template-rows", "auto 1fr", _internalGridContext.Items.Count == 0 || Items is null)
-        .AddStyle("height", $"calc(100% - {(int)RowSize}px)", _internalGridContext.TotalItemCount == 0 || EffectiveLoadingValue)
+        .AddStyle("grid-template-rows", "auto 1fr", (_internalGridContext.Items.Count == 0 || Items is null || EffectiveLoadingValue) && DisplayMode == DataGridDisplayMode.Grid)
+        .AddStyle("height", "100%", _internalGridContext.TotalItemCount == 0 || EffectiveLoadingValue)
         .AddStyle("border-collapse", "separate", GenerateHeader == GenerateHeaderOption.Sticky)
         .AddStyle("border-spacing", "0", GenerateHeader == GenerateHeaderOption.Sticky)
+        .AddStyle("width", "100%", DisplayMode == DataGridDisplayMode.Table)
         .Build();
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
