@@ -1,10 +1,33 @@
 ﻿@page "/DesignTokens"
+@using FluentUI.Demo.Shared.Pages.Design.Examples
 
 <PageTitle>@App.PageTitle("Design Tokens")</PageTitle>
 
 <h1>Design Tokens</h1>
 
 <MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/DesignTokens.md" OnContentConverted="RefreshTableOfContents" />
+
+<DemoSection Component="@typeof(DesignTokensDefault)" Title="Example of working with DesignTokens programmatically">
+    <Description>
+        <p>Use the first button go swith bewteen dark and light mode. Click the second button to toggle the accent and neutral colors. The third button has a custom font, and the last one has a custom border width and corner radius.</p>
+        <p>
+            As can be seen in the code tab (with the `ref4.Element`), it is possible to apply multiple tokens to the same component.
+        </p>
+
+        <p>
+            For Design Tokens that work with a color value, you must call the <code>ToSwatch()</code> extension method* on a string value or use one of the Swatch constructors. This
+            makes sure the color is using a format that Design Tokens can handle. A Swatch has a lot of commonality with the <code>System.Drawing.Color</code> struct. Instead of
+            the values of the components being between 0 and 255, in a Swatch the components are expressed as a value between 0 and 1
+        </p>
+        <p><em>* except for the AccentBaseColor and NeutralBaseColor. These just take a hex value as a string for the color.</em></p>
+    </Description>
+</DemoSection>
+
+<h3>Colors for integration with specific Microsoft products</h3>
+<p>
+    If you are configuring the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use.
+    <strong>The specific accent colors for many Office applications are offered in the `OfficeColor` enumeration.</strong>
+</p>
 
 @if (refreshCount > 0)
 {
