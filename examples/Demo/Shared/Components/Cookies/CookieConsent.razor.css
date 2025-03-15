@@ -1,0 +1,43 @@
+#cookieconsent {
+    position: relative;
+    display: flex;
+    z-index: 998;
+    width: 100%;
+    justify-content: space-between;
+    text-align: left;
+    background-color: var(--neutral-layer-2);
+}
+
+.info {
+    margin: 0;
+    padding-left: 5%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.infoicon {
+    display: table-cell;
+    padding: 12px;
+    width: 24px;
+    height: 24px;
+}
+
+.infomessage {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.buttons {
+    display: inline-block;
+    margin-left: 5%;
+    margin-right: 5%;
+    min-width: 40%;
+    min-width: calc((150px + 3 * 4px) * 2 + 150px);
+    min-width: fit-content;
+    align-self: center;
+    position: relative;
+}
+
+.button {
+    min-width: 150px;
+}

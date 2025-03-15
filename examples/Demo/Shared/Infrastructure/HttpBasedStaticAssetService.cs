@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared;
@@ -18,7 +22,7 @@ public class HttpBasedStaticAssetService : IStaticAssetService
     {
         string? result = null;
 
-        HttpRequestMessage? message = CreateMessage(assetUrl);
+        var message = CreateMessage(assetUrl);
 
         if (useCache)
         {
@@ -29,7 +33,7 @@ public class HttpBasedStaticAssetService : IStaticAssetService
         if (string.IsNullOrEmpty(result))
         {
             //It not in the cache (or cache not used), download the asset
-            HttpResponseMessage? response = await _httpClient.SendAsync(message);
+            var response = await _httpClient.SendAsync(message);
 
             // If successful, store the response in the cache and get the result
             if (response.IsSuccessStatusCode)
