@@ -54,11 +54,13 @@ class DesignTheme extends HTMLElement {
       // Dark mode - Luminance = 0.15
       case "dark":
         baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
+        document.body.dataset.theme = "dark";
         break;
 
       // Light mode - Luminance = 0.98
       case "light":
         baseLayerLuminance.withDefault(StandardLuminance.LightMode);
+        document.body.dataset.theme = "light";
         break;
 
       // System mode
@@ -66,9 +68,11 @@ class DesignTheme extends HTMLElement {
         const isDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
         if (isDark) {
           baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
+          document.body.dataset.theme = "dark";
         }
         else {
           baseLayerLuminance.withDefault(StandardLuminance.LightMode);
+          document.body.dataset.theme = "light";
         }
         break;
     }

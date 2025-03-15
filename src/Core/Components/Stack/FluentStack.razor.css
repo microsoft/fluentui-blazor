@@ -1,4 +1,4 @@
-﻿.stack-vertical {
+.stack-vertical {
     display: flex;
     flex-direction: column;
 }
@@ -6,4 +6,14 @@
 .stack-horizontal {
     display: flex;
     flex-direction: row;
+}
+
+.stack-vertical[reverse] {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.stack-horizontal[reverse] {
+    display: flex;
+    flex-direction: row-reverse;
 }
