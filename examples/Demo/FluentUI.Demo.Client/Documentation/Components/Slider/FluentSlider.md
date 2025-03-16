@@ -44,13 +44,12 @@ The slider can be set to `ReadOnly` or `Disabled` mode.
 
 {{ SliderReadOnlyDisabled }}
 
-> The **FluentSlider** component does not support the `ReadOnly` attribute (using the keyboard),
-> like the default [input type="range"](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range) HTML element.
-> The `ReadOnly` attribute is not applicable to the slider because it is designed for text-based inputs,
-> and sliders are primarily used for selecting a value within a range
+> The **FluentSlider** component does not support the `ReadOnly` attribute.
+> This is in line with the HTML standard that prescribes only inputs that accept
+> text entry may be read-only. See the [HTML spec](https://html.spec.whatwg.org/multipage/input.html#the-readonly-attribute)
+> and the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range) for more information.
 >
-> The `Disabled` attribute is used to prevent user interaction with the slider, while `ReadOnly` would imply
-> that the slider can still be interacted with but not modified, which doesn't align with the intended use of a slider.
+> The `Disabled` attribute is used to prevent user interaction with the slider.
 
 ## Orientation
 
@@ -76,8 +75,8 @@ If you add content that is **not part** of `Slot="thumb"`, it will be ignored.
 
 ## Know restrictions
 
-At this moment, the `FluentSliderLabel` elements, included in the v4 library, are not yet supported.
-The `FluentSliderLabel` elements are used to display the value of the slider steps, below the slider.
+The `FluentSliderLabel` component (used to display the value of the slider steps)
+from version 4 is no longer supported.
 
 > These features are under investigation.
 

@@ -62,7 +62,8 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue> where TValue
     public TValue? Step { get; set; }
 
     /// <summary>
-    /// Gets or sets the orientation of the stacked components. Default is <see cref="Orientation.Horizontal"/>.
+    /// Gets or sets the orientation of the component.
+    /// Default is <see cref="Orientation.Horizontal"/>.
     /// </summary>
     [Parameter]
     public Orientation Orientation { get; set; }
