@@ -1,13 +1,16 @@
 ﻿@namespace FluentUI.Demo.Shared
 
 <p>Alignment of the Stack content elements:</p>
-<FluentStack>
+<FluentStack HorizontalGap="12px">
     <FluentSelect Label="Horizontal"
                   Items="@(Enum.GetValues<HorizontalAlignment>())"
                   @bind-Value="@Horizontal" />
     <FluentSelect Label="Vertical"
                   Items="@(Enum.GetValues<VerticalAlignment>())"
                   @bind-Value="@Vertical" />
+    <FluentSwitch Label="Reversed"
+                  LabelPosition="LabelPosition.Above"
+                  @bind-Value="@Reversed" />
 </FluentStack>
 
 <p>Result:</p>
@@ -15,6 +18,7 @@
              HorizontalAlignment="@Horizontal"
              VerticalAlignment="@Vertical"
              VerticalGap="20"
+             Reversed="@Reversed"
              Style="height: 200px"
              Class="container">
     <div class="box">Vertical item 1</div>
@@ -23,7 +27,8 @@
                  HorizontalAlignment="@Horizontal"
                  VerticalAlignment="@Vertical"
                  HorizontalGap="4"
-                 class="container">
+                 Reversed="@Reversed"
+                 Class="container">
         <div class="box" style="width: 150px">Horizontal <br />item 1</div>
         <div class="box">Horizontal item 2</div>
     </FluentStack>
@@ -33,6 +38,7 @@
 {
     HorizontalAlignment Horizontal;
     VerticalAlignment Vertical;
+    bool Reversed;
 }
 
 <style>

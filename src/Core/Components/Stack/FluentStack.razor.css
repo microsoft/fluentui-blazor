@@ -7,3 +7,13 @@
   display: flex;
   flex-direction: row;
 }
+
+.fluent-stack-vertical[reverse] {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.fluent-stack-horizontal[reverse] {
+  display: flex;
+  flex-direction: row-reverse;
+}

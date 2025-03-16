@@ -117,4 +117,20 @@
         // Assert
         Assert.Contains(expectedStyle, styles);
     }
+
+    [Theory]
+    [InlineData(true, true)]
+    [InlineData(false, false)]
+    [InlineData(null, false)]
+    public void FluentStack_Reverse(bool? reversed, bool hasExpectedAttribute)
+    {
+        // Arrange
+        var cut = Render(@<FluentStack Reversed="@reversed" />);
+
+        // Act
+        var hasAttribute = cut.Find("div").Attributes.Any(i => i.Name == "reverse");
+
+        // Assert
+        Assert.Equal(hasExpectedAttribute, hasAttribute);
+    }
 }
