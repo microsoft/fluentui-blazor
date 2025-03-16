@@ -46,12 +46,6 @@
     <Optimize>True</Optimize>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-  <ItemGroup>
-    <TypeScriptCompile Remove="Components\Slider\FluentSlider.razor.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Components\Slider\FluentSlider.razor.ts" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />

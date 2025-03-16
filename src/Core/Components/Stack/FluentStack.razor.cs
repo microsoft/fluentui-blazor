@@ -92,6 +92,12 @@ public partial class FluentStack : FluentComponentBase
     public string? VerticalGap { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the stack is reversed.
+    /// </summary>
+    [Parameter]
+    public bool? Reversed { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
