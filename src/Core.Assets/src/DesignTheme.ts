@@ -3,6 +3,7 @@
 // ********************
 
 import { ColorsUtils } from "./Design/ColorsUtils";
+import { parseColorHexRGB } from '@microsoft/fast-colors'
 import {
   baseLayerLuminance,
   StandardLuminance,
@@ -81,8 +82,8 @@ class DesignTheme extends HTMLElement {
 
   /**
   * Gets the current color or office name attribute value.
-  * Access, Booking, Exchange, Excel, GroupMe, Office, OneDrive, OneNote, Outlook, 
-  * Planner, PowerApps, PowerBI, PowerPoint, Project, Publisher, SharePoint, Skype, 
+  * Access, Booking, Exchange, Excel, GroupMe, Office, OneDrive, OneNote, Outlook,
+  * Planner, PowerApps, PowerBI, PowerPoint, Project, Publisher, SharePoint, Skype,
   * Stream, Sway, Teams, Visio, Windows, Word, Yammer
   */
   get primaryColor(): string | null {
@@ -101,7 +102,7 @@ class DesignTheme extends HTMLElement {
       : value;
 
     // Apply the color
-    const rgb = ColorsUtils.parseColorHexRGB(color);
+    const rgb = parseColorHexRGB(color);
     if (rgb != null) {
       const swatch = SwatchRGB.from(rgb);
       accentBaseColor.withDefault(swatch);
@@ -250,7 +251,7 @@ class DesignTheme extends HTMLElement {
     // If not, the dev already "forced" the mode to "dark" or "light"
     if (currentMode == null) {
 
-      // console.log(` ** colorSchemeListener = "${currentMode}"`) 
+      // console.log(` ** colorSchemeListener = "${currentMode}"`)
 
       // Dark
       if (e.matches) {

@@ -237,78 +237,7 @@ There are a couple of methods available **per design token** to get or set its v
 - `{DesignTokenName}.WithDefault(T value)` - Sets the default value for the whole design system use.
 - `{DesignTokenName}.GetValueFor(ElementReference element)` - Gets the value for the given element.- `
 
-#### Example
-Given the following `.razor` page fragment:
 
-```cshtml
-<FluentButton @ref="ref1">A button</FluentButton>
-<FluentButton @ref="ref2" Appearance="Appearance.Accent">Another button</FluentButton>
-<FluentButton @ref="ref3">And one more</FluentButton>
-<FluentButton @ref="ref4" @onclick=OnClick>Last button</FluentButton>
-```
-
-You can use Design Tokens to manipulate the styles from C# code as follows:
-
-```csharp
-@using Microsoft.FluentUI.AspNetCore.Components.DesignTokens
-
-[Inject]
-private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
-
-[Inject]
-private AccentBaseColor AccentBaseColor { get; set; } = default!;
-
-[Inject]
-private BodyFont BodyFont { get; set; } = default!;
-
-[Inject]
-private StrokeWidth StrokeWidth { get; set; } = default!;
-
-[Inject]
-private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
-
-private FluentButton? ref1;
-private FluentButton? ref2;
-private FluentButton? ref3;
-private FluentButton? ref4;
-
-protected override async Task OnAfterRenderAsync(bool firstRender)
-{
-	if (firstRender)
-	{
-		//Set to dark mode
-		await BaseLayerLuminance.SetValueFor(ref1!.Element, (float)0.15);
-
-		//Set to Excel color
-		await AccentBaseColor.SetValueFor(ref2!.Element, "#217346".ToSwatch());
-
-		//Set the font
-		await BodyFont.SetValueFor(ref3!.Element, "Comic Sans MS");
-
-		//Set 'border' width for ref4
-		await StrokeWidth.SetValueFor(ref4!.Element, 7);
-		//And change conrner radius as well
-		await ControlCornerRadius.SetValueFor(ref4!.Element, 15);
-
-		// If you would like to change the BaseLayerLuminance  value for the whole site, you can use the WithDefault method
-		await BaseLayerLuminance.WithDefault((float)0.15);
-
-		StateHasChanged();
-	}
-}
-
-public async Task OnClick()
-{
-	//Remove the wide border
-	await StrokeWidth.DeleteValueFor(ref4!.Element);
-}
-```
-
-As can be seen in the code above (with the `ref4.Element`), it is possible to apply multiple tokens to the same component.
- 
-For Design Tokens that work with a color value, you must call the `ToSwatch()` extension method on a string value or use one of the Swatch constructors. This 
-makes sure the color is using a format that Design Tokens can handle. A Swatch has a lot of commonality with the `System.Drawing.Color` struct. Instead of 
-the values of the components being between 0 and 255, in a Swatch the components are expressed as a value between 0 and 1.
 
 ### Using Design Tokens as components
 The Design Tokens can also be used as components in a `.razor` page directely. It looks like this:
@@ -334,6 +263,3 @@ To make this work, a link needs to be created between the Design Token component
 > Only one Design Token component at a time can be used this way. If you need to set more tokens, use the code approach as described in Option 1 above.
 
 
-## Colors for integration with specific Microsoft products
-If you are configuring the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use. 
-*The specific accent colors for many Office applications are offered in the `OfficeColor` enumeration.*

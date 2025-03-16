@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Globalization;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components;
@@ -175,7 +179,7 @@ public partial class FluentDesignTheme : ComponentBase
         }
     }
 
-    protected async override Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
