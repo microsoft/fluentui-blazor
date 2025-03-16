@@ -26,19 +26,40 @@ The **FluentSlider** component is an input where the user selects a value from w
 
 View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/slider/usage).
 
+## Default
+
+By default, the slider is a horizontal slider with a range of `0` to `100` and a step of `1`.
+
 {{ SliderDefault }}
 
-## Label
+## Min, Max and Step
 
-{{ SliderLabel }}
+You can define the `Step` value of a slider so that the value will always be a mutiple of that step.
+
+{{ SliderMinMaxStep }}
+
+## ReadOnly and Disabled
+
+The slider can be set to `ReadOnly` or `Disabled` mode.
+
+{{ SliderReadOnlyDisabled }}
+
+> The **FluentSlider** component does not support the `ReadOnly` attribute.
+> This is in line with the HTML standard that prescribes only inputs that accept
+> text entry may be read-only. See the [HTML spec](https://html.spec.whatwg.org/multipage/input.html#the-readonly-attribute)
+> and the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range) for more information.
+>
+> The `Disabled` attribute is used to prevent user interaction with the slider.
 
 ## Orientation
 
-The minimum height of the slider is `120px`.
+The minimum height of the slider is `120px` (defined by the web underlying component).
 
 {{ SliderOrientation }}
 
 ## Size
+
+A slider comes in both medium and small size. Medium is the default.
 
 {{ SliderSizes }}
 
@@ -52,17 +73,10 @@ If you add content that is **not part** of `Slot="thumb"`, it will be ignored.
 
 {{ SliderThumbs }}
 
-## ReadOnly
-
-{{ SliderReadOnly }}
-
-## EventCallback
-
-{{ SliderEventCallbacks }}
-
 ## Know restrictions
 
-At this point, the `FluentSliderLabel` elements cannot be applied.
+The `FluentSliderLabel` component (used to display the value of the slider steps)
+from version 4 is no longer supported.
 
 > These features are under investigation.
 

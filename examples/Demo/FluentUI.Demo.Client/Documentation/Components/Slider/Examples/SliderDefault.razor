@@ -1,7 +1,4 @@
-﻿<FluentStack Orientation="Orientation.Vertical">
-    <FluentSlider @bind-Value="@value">Hello</FluentSlider>
-    <FluentLabel>Value: @value</FluentLabel>
-</FluentStack>
+﻿<FluentSlider @bind-Value="@value" Label="@($"Value: {value}")" />
 
 @code
 {
