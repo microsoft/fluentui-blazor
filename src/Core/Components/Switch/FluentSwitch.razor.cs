@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components.Web;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The FluentSwitch component is used to render a Switch
+/// A FluentSwitch component represents a physical switch that allows a choice between two mutually exclusive options.
 /// </summary>
 public partial class FluentSwitch : FluentInputBase<bool>
 {
