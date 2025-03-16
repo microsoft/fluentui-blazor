@@ -273,4 +273,14 @@
         // Assert
         Assert.Equal(expectedValue, clicked);
     }
+
+    [Fact]
+    public void FluentAvatar_Slot()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentAvatar Slot="start" Size="AvatarSize.Size24" />);
+
+        // Assert
+        cut.Verify();
+    }
 }

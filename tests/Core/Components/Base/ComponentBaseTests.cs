@@ -1,14 +1,10 @@
 // ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
-
-using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Xunit;
 using Xunit.Abstractions;
@@ -20,11 +16,11 @@ public class ComponentBaseTests : TestContext
     /// <summary>
     /// List of components to exclude from the test.
     /// </summary>
-    private static readonly Type[] Excluded = new[]
-    {
+    private static readonly Type[] Excluded =
+    [
         typeof(AspNetCore.Components._Imports),
         typeof(DialogOptions),
-    };
+    ];
 
     /// <summary>
     /// List of customized actions to initialize the component with a specific type.
@@ -68,7 +64,7 @@ public class ComponentBaseTests : TestContext
     public void ComponentBase_DefaultProperties(string blazor, string html)
     {
         var errors = new StringBuilder();
-        var blazorAttribute = ParseHtmlAttribute(blazor);
+        var (Name, Value) = ParseHtmlAttribute(blazor);
         var htmlAttribute = ParseHtmlAttribute(html);
 
         JSInterop.Mode = JSRuntimeMode.Loose;
@@ -76,8 +72,8 @@ public class ComponentBaseTests : TestContext
         foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded))
         {
             // Convert to generic type if needed
-            var type = ComponentInitializer.ContainsKey(componentType)
-                     ? ComponentInitializer[componentType](componentType)
+            var type = ComponentInitializer.TryGetValue(componentType, out var value)
+                     ? value(componentType)
                      : componentType;
 
             // Arrange and Act
@@ -86,7 +82,7 @@ public class ComponentBaseTests : TestContext
                 parameters.Add(p => p.Type, type);
                 parameters.Add(p => p.Parameters, new Dictionary<string, object>
                 {
-                    { blazorAttribute.Name, blazorAttribute.Value }
+                    { Name, Value }
                 });
             });
 
@@ -97,7 +93,7 @@ public class ComponentBaseTests : TestContext
 
             if (!isMatch)
             {
-                var error = $"\"{componentType.Name}\" does not use the \"{blazorAttribute.Name}\" property/attribute (missing HTML attribute {htmlAttribute.Name}=\"{htmlAttribute.Value}\").";
+                var error = $"\"{componentType.Name}\" does not use the \"{Name}\" property/attribute (missing HTML attribute {htmlAttribute.Name}=\"{htmlAttribute.Value}\").";
                 errors.AppendLine(error);
             }
         }
