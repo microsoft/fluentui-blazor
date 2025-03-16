@@ -29,6 +29,7 @@ public partial class FluentTooltip : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("max-width", MaxWidth, when: () => !string.IsNullOrWhiteSpace(MaxWidth))
         .Build();
 
     /// <summary>
@@ -49,6 +50,12 @@ public partial class FluentTooltip : FluentComponentBase
     /// </summary>
     [Parameter]
     public Positioning? Positioning { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum width of tooltip panel. Default is 240px.
+    /// </summary>
+    [Parameter]
+    public string? MaxWidth { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
