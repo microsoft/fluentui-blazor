@@ -1,0 +1,18 @@
+﻿<FluentStack HorizontalAlignment="HorizontalAlignment.Center">
+    <FluentButton Id="MyCustomizedButton" IconStart="@(new Icons.Regular.Size20.Globe())">Hover me</FluentButton>
+
+    <FluentTooltip Anchor="MyCustomizedButton"
+                   Delay="700"
+                   Positioning="@Positioning.BelowStart"
+                   Style="background-color: var(--colorBrandBackground); color: var(--colorNeutralForegroundInverted)">
+        <FluentGrid>
+            <FluentGridItem>
+                <FluentIcon Value="@(new Icons.Regular.Size20.Info().WithColor(Color.FillInverse))" />
+            </FluentGridItem>
+            <FluentGridItem>
+                Really long <b>tooltip</b> content goes here.
+                Lorem ipsum dolor sit amet.
+            </FluentGridItem>
+        </FluentGrid>
+    </FluentTooltip>
+</FluentStack>

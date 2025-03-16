@@ -39,7 +39,7 @@ public partial class FluentTooltip : FluentComponentBase
     public string Anchor { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the delay (in milliseconds). 
+    /// Gets or sets number of milliseconds to delay the tooltip from showing/hiding on hover. Default is 250ms.
     /// </summary>
     [Parameter]
     public int? Delay { get; set; }

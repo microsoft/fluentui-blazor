@@ -11,6 +11,12 @@ A `FluentTooltip` displays additional information about another component. The i
 
 Hover or focus the buttons in the examples to see their tooltips.
 
-## Appearance
+## Default
 
 {{ TooltipDefault }}
+
+## Customized
+The tooltip can be customized with a custom template,
+adapting the delay to `700 ms`, the position of the tooltip to `BelowStart` and the style "Inverted".
+
+{{ TooltipCustomized }}
