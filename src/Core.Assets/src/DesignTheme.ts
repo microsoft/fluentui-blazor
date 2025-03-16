@@ -116,14 +116,14 @@ class DesignTheme extends HTMLElement {
   * Gets the current neutral base color attribute value.
   */
   get neutralColor(): string | null {
-    return this.getAttribute("neutral-base-color");
+    return this.getAttribute("neutral-color");
   }
 
   /**
   *  Sets the current neutral base color attribute value.
   */
   set neutralColor(value: string | null) {
-    this.updateAttribute("neutral-base-color", value);
+    this.updateAttribute("neutral-color", value);
 
     // Apply the color
     if (value != null) {
@@ -173,7 +173,7 @@ class DesignTheme extends HTMLElement {
     if (existingComponent != null) {
       const mode = ThemeStorage.getValueOrNull(existingComponent.getAttribute("mode"));
       const color = ThemeStorage.getValueOrNull(existingComponent.getAttribute("primary-color"))
-      const neutralColor = ThemeStorage.getValueOrNull(existingComponent.getAttribute("neutral-base-color"));
+      const neutralColor = ThemeStorage.getValueOrNull(existingComponent.getAttribute("neutral-color"));
 
       // Mode can be null in other components
       this.attributeChangedCallback("mode", this.mode, mode);
@@ -185,7 +185,7 @@ class DesignTheme extends HTMLElement {
 
       // Neutral color cannot be null in other components
       if (neutralColor != null) {
-        this.attributeChangedCallback("neutral-base-color", this.neutralColor, neutralColor);
+        this.attributeChangedCallback("neutral-color", this.neutralColor, neutralColor);
       }
     }
 
@@ -196,7 +196,7 @@ class DesignTheme extends HTMLElement {
       if (theme != null) {
         this.attributeChangedCallback("mode", this.mode, theme.mode);
         this.attributeChangedCallback("primary-color", this.primaryColor, theme.primaryColor);
-        this.attributeChangedCallback("neutral-base-color", this.neutralColor, theme.neutralBaseColor);
+        this.attributeChangedCallback("neutral-color", this.neutralColor, theme.neutralColor);
       }
     }
 
@@ -235,7 +235,7 @@ class DesignTheme extends HTMLElement {
 
   // Attributes to observe
   static get observedAttributes() {
-    return ["mode", "primary-color", "neutral-base-color", "storage-name"];
+    return ["mode", "primary-color", "neutral-color", "storage-name"];
   }
 
   // Attributes has changed.
@@ -267,7 +267,7 @@ class DesignTheme extends HTMLElement {
         this.primaryColor = newValue;
         break;
 
-      case "neutral-base-color":
+      case "neutral-color":
         this.dispatchAttributeChanged(name, oldValue, newValue);
         this.neutralColor = newValue;
         break;

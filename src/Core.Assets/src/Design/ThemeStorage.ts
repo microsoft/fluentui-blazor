@@ -20,7 +20,7 @@ class ThemeStorage {
   }
 
 
-  public updateLocalStorage(mode: string | null, primaryColor: string | null, neutralBaseColor: string | null): void {
+  public updateLocalStorage(mode: string | null, primaryColor: string | null, neutralColor: string | null): void {
 
     // If LocalStorage is not available, do nothing.
     if (localStorage == null) {
@@ -41,11 +41,11 @@ class ThemeStorage {
     localStorage.setItem(this.storageName, JSON.stringify({
       mode: ThemeStorage.getValueOrNull(mode),
       primaryColor: ThemeStorage.getValueOrNull(primaryColor),
-      neutralBaseColor: ThemeStorage.getValueOrNull(neutralBaseColor),
+      neutralColor: ThemeStorage.getValueOrNull(neutralColor),
     }));
   }
 
-  public readLocalStorage(): { mode: string | null, primaryColor: string | null, neutralBaseColor: string | null } | null {
+  public readLocalStorage(): { mode: string | null, primaryColor: string | null, neutralColor: string | null } | null {
 
     // If LocalStorage is not available, do nothing.
     if (localStorage == null) {
@@ -70,7 +70,7 @@ class ThemeStorage {
     return {
       mode: ThemeStorage.getValueOrNull(storageItems?.mode),
       primaryColor: ThemeStorage.getValueOrNull(storageItems?.primaryColor),
-      neutralBaseColor: ThemeStorage.getValueOrNull(storageItems?.neutralBaseColor),
+      neutralColor: ThemeStorage.getValueOrNull(storageItems?.neutralColor),
     }
   }
 

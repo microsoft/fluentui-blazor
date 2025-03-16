@@ -182,7 +182,7 @@ public partial class FluentDesignTheme : ComponentBase
                 }
 
                 break;
-            case "neutral-base-color":
+            case "neutral-color":
                 if (value.StartsWith('#'))
                 {
                     GlobalDesign.SetNeutralColor(value);
