@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Globalization;
-using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -30,8 +29,11 @@ public partial class FluentTooltipProvider : FluentComponentBase
     /// <summary>
     /// Gets or sets the injected service provider.
     /// </summary>
-    [Inject]
-    private ITooltipService? TooltipService { get; set; }
+    /// <remarks>
+    /// We cannot inject `ITooltipService` directly, as an exception will be thrown if the service is not injected.
+    /// https://github.com/dotnet/aspnetcore/issues/24193
+    /// </remarks>
+    private ITooltipService? TooltipService => GetCachedServiceOrNull<ITooltipService>();
 
     /// <summary />
     protected override void OnInitialized()

@@ -15,9 +15,7 @@ public partial class FluentTooltip : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Tooltip/FluentTooltip.razor.js";
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary />    
     public FluentTooltip()
     {
         Id = Identifier.NewId();
@@ -34,9 +32,14 @@ public partial class FluentTooltip : FluentComponentBase
         .AddStyle("margin-block", SpacingVertical, when: () => !string.IsNullOrWhiteSpace(SpacingVertical))
         .Build();
 
-    /// <summary />
-    [Inject]
-    protected virtual ITooltipService? TooltipService { get; set; }
+    /// <summary>
+    /// Gets or sets the injected service provider.
+    /// </summary>
+    /// <remarks>
+    /// We cannot inject `ITooltipService` directly, as an exception will be thrown if the service is not injected.
+    /// https://github.com/dotnet/aspnetcore/issues/24193
+    /// </remarks>
+    private ITooltipService? TooltipService => GetCachedServiceOrNull<ITooltipService>();
 
     /// <summary>
     /// Use ITooltipService to create the tooltip, if this service was injected.

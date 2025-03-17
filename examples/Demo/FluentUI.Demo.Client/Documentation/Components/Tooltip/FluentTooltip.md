@@ -47,6 +47,13 @@ If you are using "per page" interactivity, make sure to add a `@rendermode` to e
 
 In some use cases, you may want to render a tooltip without the provider. For example when the child content is dynamic.
 This is possible setting the `UseTooltipService` parameter to `false` in the component.
+You can also configure it globally in the `Program.cs` file:
+```csharp
+builder.Services.AddFluentUIComponents(options =>
+{
+    options.Tooltip.UseTooltipService = false;
+});
+```
 
 ## API FluentTooltip
 

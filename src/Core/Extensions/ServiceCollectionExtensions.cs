@@ -30,8 +30,12 @@ public static class ServiceCollectionExtensions
         // Add services
         services.Add<LibraryConfiguration>(provider => options ?? new(), serviceLifetime);
         services.Add<IDialogService, DialogService>(serviceLifetime);
-        services.Add<ITooltipService, TooltipService>(serviceLifetime);
         services.Add<IFluentLocalizer>(provider => options?.Localizer ?? FluentLocalizerInternal.Default, serviceLifetime);
+
+        if (configuration == null || configuration.UseTooltipServiceProvider)
+        {
+            services.Add<ITooltipService, TooltipService>(serviceLifetime);
+        }
 
         return services;
     }
