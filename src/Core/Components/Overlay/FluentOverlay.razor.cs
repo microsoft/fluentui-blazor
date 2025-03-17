@@ -285,7 +285,4 @@ public partial class FluentOverlay : IAsyncDisposable
 
     [GeneratedRegex("^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))")]
     private static partial Regex CheckRGBString();
-
-    [GeneratedRegex("^(?:var\\(--[a-zA-Z0-9-_]+\\))")]
-    private static partial Regex CheckCSSVariableName();
 }
