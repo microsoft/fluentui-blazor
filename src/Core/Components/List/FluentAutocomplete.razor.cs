@@ -430,14 +430,15 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             }
 
             // Remove last char
-            if (!string.IsNullOrEmpty(ValueText))
-            {
-                await InputHandlerAsync(new ChangeEventArgs()
-                {
-                    Value = ValueText[..^1],
-                });
-                return;
-            }
+            // -> Commented to fix #3359
+            // if (!string.IsNullOrEmpty(ValueText))
+            // {
+            //     await InputHandlerAsync(new ChangeEventArgs()
+            //     {
+            //         Value = ValueText[..^1],
+            //     });
+            //     return;
+            // }
         }
 
         // ArrowUp

@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -191,7 +195,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
     /// <inheritdoc />
     [Parameter]
-    public override GridSort<TGridItem>? SortBy { get; set; }
+    public override IGridSort<TGridItem>? SortBy { get; set; }
 
     /// <summary>
     /// Allows to clear the selection.
@@ -528,7 +532,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         _selectedItems.Clear();
         if (SelectAll == true)
         {
-            _selectedItems.AddRange(InternalGridContext.Grid.Items?.ToArray() ?? InternalGridContext.Items);
+            // Only add selectable items
+            _selectedItems.AddRange((InternalGridContext.Grid.Items?.ToList() ?? InternalGridContext.Items)
+                .Where(item => Selectable?.Invoke(item) ?? true)
+            );
         }
 
         if (SelectedItemsChanged.HasDelegate)

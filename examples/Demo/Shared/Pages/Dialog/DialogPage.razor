@@ -117,7 +117,9 @@
 <DemoSection Title="Editable Dialog" Component="@typeof(DialogEditableExample)" AdditionalFiles="@(new[] { "SimpleEditDialog.razor" })">
     <Description>
         <p>
-            This example shows how to open a Dialog containing editable fields.
+            This example shows how to open a Dialog containing editable fields. The first button uses the till now standard way of
+            doing that. The second button uses alternative code which offers a type safe way of using <code>IDialogContentComponent&lt;TContent&gt;</code><br />
+            This has been added in 4.11.4 and uses the new <code>DialogHelper</code> class. See the Razor tab and the <FluentAnchor Appearance="Appearance.Hypertext" Href="#dialoghelper-class">documentation</FluentAnchor> below on how this new method can be used.
         </p>
     </Description>
 </DemoSection>
@@ -208,3 +210,5 @@
 <ApiDocumentation Component="typeof(FluentDialogFooter)" />
 
 <ApiDocumentation Component="typeof(FluentDialogBody)" />
+
+<ApiDocumentation Component="typeof(DialogHelper)" />

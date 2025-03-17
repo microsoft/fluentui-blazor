@@ -54,6 +54,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public IQueryable<TGridItem>? Items { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback which will be called if there is a change in pagination, ordering or if a RefreshDataAsync is forced.
+    ///
+    /// You must supply <see cref="Items"/> if you use this callback.
+    /// </summary>
+    [Parameter]
+    public Func<GridItemsProviderRequest<TGridItem>, Task>? RefreshItems { get; set; }
+
+    /// <summary>
     /// Gets or sets a callback that supplies data for the rid.
     ///
     /// You should supply either <see cref="Items"/> or <see cref="ItemsProvider"/>, but not both.
@@ -267,6 +275,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoItemsPerPage { get; set; }
 
+    /// <summary>
+    /// Gets or set the <see cref="DataGridDisplayMode"/> of the grid.
+    /// Default is 'Grid'.
+    /// When set to Grid, <see cref="GridTemplateColumns" /> can be used to specify column widths.
+    /// When set to Table, widths need to be specified at the column level.
+    /// When using <see cref="Virtualize"/>, it is recommended to use Table.
+    /// </summary>
     [Parameter]
     public DataGridDisplayMode DisplayMode { get; set; } = DataGridDisplayMode.Grid;
 
@@ -352,6 +367,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
 
+    private GridItemsProviderRequest<TGridItem>? _lastRequest;
+    private bool _forceRefreshData;
+
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
     public bool? SortByAscending => _sortByAscending;
@@ -393,11 +411,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <inheritdoc />
     protected override Task OnParametersSetAsync()
     {
-        if (GridTemplateColumns is not null)
-        {
-            _internalGridTemplateColumns = GridTemplateColumns;
-        }
-
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
 
@@ -507,12 +520,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             if (!AutoFit)
             {
-                _internalGridTemplateColumns = string.Join(" ", Enumerable.Repeat("1fr", _columns.Count));
+                _internalGridTemplateColumns = GridTemplateColumns ?? string.Join(" ", Enumerable.Repeat("1fr", _columns.Count));
             }
 
             if (_columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
             {
-                _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "auto"));
+                _internalGridTemplateColumns = GridTemplateColumns ?? string.Join(" ", _columns.Select(x => x.Width ?? "auto"));
             }
         }
 
@@ -630,6 +643,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
+    /// Closes the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI that was previously displayed.
+    /// </summary>
+    public Task CloseColumnOptionsAsync()
+    {
+        _displayOptionsForColumn = null;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     /// Displays the column resize UI for the specified column, closing any other column
     /// resize UI that was previously displayed.
     /// </summary>
@@ -676,8 +699,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// (either <see cref="Items"/> or <see cref="ItemsProvider"/>).
     /// </summary>
     /// <returns>A <see cref="Task"/> that represents the completion of the operation.</returns>
-    public async Task RefreshDataAsync()
+    public async Task RefreshDataAsync(bool force = false)
     {
+        _forceRefreshData = force;
         await RefreshDataCoreAsync();
     }
 
@@ -696,24 +720,39 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // (2) We won't know what slice of data to query for
             await _virtualizeComponent.RefreshDataAsync();
             _pendingDataLoadCancellationTokenSource = null;
+
+            StateHasChanged();
+            return;
         }
-        else
+
+        // If we're not using Virtualize, we build and execute a request against the items provider directly
+        var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
+        GridItemsProviderRequest<TGridItem> request = new(
+            startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
+        _lastRefreshedPaginationState = Pagination;
+
+        if (RefreshItems is not null)
         {
-            // If we're not using Virtualize, we build and execute a request against the items provider directly
-            var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
-            GridItemsProviderRequest<TGridItem> request = new(
-                startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
-            _lastRefreshedPaginationState = Pagination;
-            var result = await ResolveItemsRequestAsync(request);
-            if (!thisLoadCts.IsCancellationRequested)
+            if (_forceRefreshData || _lastRequest == null || !_lastRequest.Value.IsSameRequest(request))
             {
-                _internalGridContext.Items = result.Items;
-                _internalGridContext.TotalItemCount = result.TotalItemCount;
-                Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
-                _pendingDataLoadCancellationTokenSource = null;
+                _forceRefreshData = false;
+                _lastRequest = request;
+                await RefreshItems.Invoke(request);
             }
-            _internalGridContext.ResetRowIndexes(startIndex);
         }
+
+        var result = await ResolveItemsRequestAsync(request);
+        if (!thisLoadCts.IsCancellationRequested)
+        {
+            _internalGridContext.Items = result.Items;
+            _internalGridContext.TotalItemCount = result.TotalItemCount;
+            if (RefreshItems is null)
+            {
+                Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
+            }
+            _pendingDataLoadCancellationTokenSource = null;
+        }
+        _internalGridContext.ResetRowIndexes(startIndex);
 
         StateHasChanged();
     }
@@ -727,6 +766,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // TODO: Consider making this configurable, or smarter (e.g., doesn't delay on first call in a batch, then the amount
         // of delay increases if you rapidly issue repeated requests, such as when scrolling a long way)
         await Task.Delay(100);
+
         if (request.CancellationToken.IsCancellationRequested)
         {
             return default;
@@ -755,7 +795,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _internalGridContext.TotalItemCount = providerResult.TotalItemCount;
             _internalGridContext.TotalViewItemCount = Pagination?.ItemsPerPage ?? providerResult.TotalItemCount;
 
-            Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
+            if (RefreshItems is null)
+            {
+                Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
+            }
             if (_internalGridContext.TotalItemCount > 0 && Loading is null)
             {
                 Loading = false;
@@ -766,10 +809,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // the virtualized start _index. It might be more performant just to have some _latestQueryRowStartIndex field, but we'd have
             // to make sure it doesn't get out of sync with the rows being rendered.
             return new ItemsProviderResult<(int, TGridItem)>(
-                 items: providerResult.Items.Select((x, i) => ValueTuple.Create(i + request.StartIndex + 2, x)),
-                 totalItemCount: _internalGridContext.TotalViewItemCount);
+                    items: providerResult.Items.Select((x, i) => ValueTuple.Create(i + request.StartIndex + 2, x)),
+                    totalItemCount: _internalGridContext.TotalViewItemCount);
         }
-
         return default;
     }
 
@@ -792,10 +834,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
                 _internalGridContext.TotalItemCount = totalItemCount;
-                var result = request.ApplySorting(Items).Skip(request.StartIndex);
-                if (request.Count.HasValue)
+                IQueryable<TGridItem>? result;
+                if (RefreshItems is null)
                 {
-                    result = result.Take(request.Count.Value);
+                    result = request.ApplySorting(Items).Skip(request.StartIndex);
+                    if (request.Count.HasValue)
+                    {
+                        result = result.Take(request.Count.Value);
+                    }
+                }
+                else
+                {
+                    result = Items;
                 }
                 var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
                 return GridItemsProviderResult.From(resultArray, totalItemCount);
@@ -815,10 +865,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? StyleValue => new StyleBuilder(Style)
         .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && DisplayMode == DataGridDisplayMode.Grid)
-        .AddStyle("grid-template-rows", "auto 1fr", _internalGridContext.Items.Count == 0 || Items is null)
-        .AddStyle("height", $"calc(100% - {(int)RowSize}px)", _internalGridContext.TotalItemCount == 0 || EffectiveLoadingValue)
+        .AddStyle("grid-template-rows", "auto 1fr", (_internalGridContext.Items.Count == 0 || Items is null || EffectiveLoadingValue) && DisplayMode == DataGridDisplayMode.Grid)
+        .AddStyle("height", "100%", _internalGridContext.TotalItemCount == 0 || EffectiveLoadingValue)
         .AddStyle("border-collapse", "separate", GenerateHeader == GenerateHeaderOption.Sticky)
         .AddStyle("border-spacing", "0", GenerateHeader == GenerateHeaderOption.Sticky)
+        .AddStyle("width", "100%", DisplayMode == DataGridDisplayMode.Table)
         .Build();
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)

@@ -33,3 +33,16 @@
         </p>
     </Description>
 </DemoSection>
+<DemoSection Title="Remote data with RefreshItems" Component="@typeof(DataGridRemoteData2)">
+    <Description>
+        <p>
+            If the external endpoint controls filtering, paging and sorting you can use <code>Items</code> combined with <code>RefreshItems</code>.
+        </p>
+        <p>
+            The method defined in <code>RefreshItems</code> will be called once, and only once, if there is a change in the pagination or ordering.
+        </p>
+        <p>
+            Meanwhile, you can control the filtering with elements present on the page itself and force a call to <code>RefreshItems</code> with the force option in the RefreshDataAsync.
+        </p>
+    </Description>
+</DemoSection>

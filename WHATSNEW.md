@@ -1,4 +1,251 @@
+## V4.11.7
+- No changes yet
+
+## V4.11.6
+
+### Components
+- \[Autocomplete\] Apply invalid css to autocomplete ([#3417](https://github.com/microsoft/fluentui-blazor/pull/3417))
+- \[DataGrid\] Add IGridSort interface, fixes sorting when using ItemsProvider ([#3460](https://github.com/microsoft/fluentui-blazor/pull/3460))
+- \[DataGrid\] Fix error in handling GridTemplateColumns ([#3413](https://github.com/microsoft/fluentui-blazor/pull/3413))
+- \[DataGrid\] Only add Selectable items when using Select All ([#3453](https://github.com/microsoft/fluentui-blazor/pull/3453))
+- \[DataGrid\] Provide alternate way to refresh when working with remote data ([#3423](https://github.com/microsoft/fluentui-blazor/pull/3423))
+- \[Search\] FluentSearch fix deletion if Disabled/Readonly ([#3433](https://github.com/microsoft/fluentui-blazor/pull/3433))
+- \[InputFile\] Add @attributes ([#3441](https://github.com/microsoft/fluentui-blazor/pull/3441))
+- \[Lists\] Fix Form validation happening too late ([#3468](https://github.com/microsoft/fluentui-blazor/pull/3468))
+- \[Lists\] Fix Form validation issue ([#3466](https://github.com/microsoft/fluentui-blazor/pull/3466))
+- \[Lists\] Do not have parameters only be set once ([#3457](https://github.com/microsoft/fluentui-blazor/pull/3457))
+- \[Menu\] Add CheckedChanged EventCallback (fix 3390) ([#3414](https://github.com/microsoft/fluentui-blazor/pull/3414))
+- \[Select\] Fix style when Multiple set/not set ([#3442](https://github.com/microsoft/fluentui-blazor/pull/3442))
+- \[Toolbar\] Dispose of JS module properly ([#3470](https://github.com/microsoft/fluentui-blazor/pull/3470))
+
+### Demo site and documentation
+- \[Docs\] Anchor docs ([#3428](https://github.com/microsoft/fluentui-blazor/pull/3428))
+
+### Icons and Emoji
+- Update to Fluent UI System Icons 1.1.278 (changes since 1.1.273)
+
+  **What's new (Name / Size(s) / Variant(s))**
+  - Agents / 16, 28, 32, 48 / Filled & Regular
+  - Alert Badge / 32 / Filled & Regular
+  - Apps List / 32 / Filled & Regular
+  - Apps List Detail / 32 / Filled & Regular
+  - Arrow Circle Up Sparkle / 20, 24 / Filled & Regular
+  - Arrow Counterclockwise Info / 20, 24, 28, 32, 48 / Filled & Regular
+  - Arrow Square / 32 / Filled & Regular
+  - Branch Request Closed / 16, 20 / Filled & Regular
+  - Branch Request Draft / 16, 20 / Filled & Regular
+  - Building Home / 32 / Filled & Regular
+  - Calendar Clock / 32 / Filled & Regular
+  - Call Rectangle Landscape / 16, 20, 24, 28 / Filled & Regular
+  - Call Square / 16, 20, 24, 28 / Filled & Regular
+  - Crown Subtract / 20 / Filled & Regular
+  - Data Area / 20, 24, 32 / Filled & Regular
+  - Data Line / 32 / Filled & Regular
+  - Data Pie / 20, 24, 32 / Filled & Regular
+  - Data Scatter / 20, 24, 32 / Filled & Regular
+  - Data Trending / 20, 32 / Filled & Regular
+  - Data Usage Sparkle / 20, 24 / Filled & Regular
+  - Database Arrow Right / 16 / Filled & Regular
+  - Document Arrow Right / 16 / Filled & Regular
+  - Info Sparkle / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Lightbulb Checkmark / 24, 32 / Filled & Regular
+  - List Bar / 24, 32 / Filled & Regular
+  - Mail Clock / 32 / Filled & Regular
+  - Mail Data Bar / 16, 20, 24 / Filled & Regular
+  - Number Symbol Square / 32 / Filled
+  - Number Symbol Square / 32 / Regular
+  - People Sync / 24, 32 / Filled & Regular
+  - Person Arrow Back / 16 / Filled & Regular
+  - Person Heart / 32 / Filled & Regular
+  - Person Key / 24, 32 / Filled & Regular
+  - Person Sync / 24, 32 / Filled & Regular
+  - Person Tentative / 32 / Filled & Regular
+  - Ribbon Star / 32 / Filled & Regular
+  - Send Clock / 32 / Filled & Regular
+  - Skip Back 15 / 20, 24 / Filled & Regular
+  - Skip Forward 15 / 20, 24 / Filled & Regular
+  - Square Text Arrow Repeat All / 32 / Filled & Regular
+  - Star Settings / 32 / Filled & Regular
+  - Table Alt Text / 20, 24, 32 / Filled & Light & Regular
+  - Table Cell Add / 16, 20, 24 / Filled & Regular
+  - Temperature Degree Celsius / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Temperature Degree Fahrenheit / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Text Bullet List Square Sparkle / 32 / Filled & Regular
+  - Text Paragraph Direction Left / 24 / Filled & Regular
+  - Text Paragraph Direction Right / 24 / Filled & Regular
+  - Video Multiple / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Window Text / 16, 24, 28 / Filled & Regular
+
+
+  **What's updated (Name / Size(s) / Variant(s))**
+  - Arrow Forward / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Arrow Reply All / 16, 20, 24, 28, 32, 48 / Filled
+  - Chart Multiple / 16, 20, 24, 32 / Filled & Regular
+  - Diversity / 16, 20, 24, 28, 48 / Filled & Regular
+  - Guest / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Info / 24, 28 / Filled & Regular
+  - Lock Closed Ribbon / 16, 20, 24, 28, 48 / Filled & Regular
+  - Person Sync / 16, 20, 24, 28, 32, 48 / Filled & Regular
+
+  **What's got color now (Name / Size(s) / Variant(s))**
+  - Alert Badge / 16, 20, 24, 32 / Color
+  - Alert Urgent / 16, 20, 24 / Color
+  - Animal Paw Print / 16, 20, 24, 28, 32, 48 / Color
+  - Apps List Detail / 20, 24, 32 / Color
+  - Apps List / 20, 24, 32 / Color
+  - Arrow Clockwise Dashes Settings / 16, 20, 24, 28, 32, 48 / Color
+  - Arrow Clockwise Dashes / 16, 20, 24, 32 / Color
+  - Arrow Square / 20, 24, 32 / Color
+  - Arrow Sync / 16, 20, 24 / Color
+  - Board / 16, 20, 24, 28 / Color
+  - Book Database / 16, 20, 24, 32 / Color
+  - Book Open / 16, 20, 24, 28, 32, 48 / Color
+  - Book Star / 20, 24 / Color
+  - Book / 16, 20, 24, 28, 32, 48 / Color
+  - Bookmark / 16, 20, 24, 28, 32 / Color
+  - Bot Sparkle / 16, 20, 24 / Color
+  - Bot / 16, 20, 24 / Color
+  - Building Government Search / 16, 20, 24, 32 / Color
+  - Building Government / 16, 20, 24, 32 / Color
+  - Building Home / 16, 20, 24, 32 / Color
+  - Calendar Data Bar / 16, 20, 24, 28 / Color
+  - Calendar Edit / 16, 20, 24, 32 / Color
+  - Calendar Sync / 16, 20, 24 / Color
+  - Certificate / 16, 20, 24, 32 / Color
+  - Chart Multiple / 16, 20, 24, 32 / Color
+  - Clipboard Task / 16, 20, 24 / Color
+  - Clock / 16, 20, 24, 28, 32, 48 / Color
+  - Cloud Words / 16, 20, 24, 28, 32, 48 / Color
+  - Code / 16, 20, 24 / Color
+  - Coin Multiple / 16, 20, 24, 28, 32, 48 / Color
+  - Comment Multiple / 16, 20, 24, 28, 32 / Color
+  - Comment / 16, 20, 24, 28, 32, 48 / Color
+  - Contact Card / 16, 20, 24, 28, 32, 48 / Color
+  - Content View / 16, 20, 24, 28, 32 / Color
+  - Data Area / 20, 24, 32 / Color
+  - Data Line / 20, 24, 32 / Color
+  - Data Pie / 20, 24, 32 / Color
+  - Data Scatter / 20, 24, 32 / Color
+  - Data Trending / 16, 20, 24, 28, 32, 48 / Color
+  - Database / 16, 20, 24, 32, 48 / Color
+  - Diversity / 16, 20, 24, 28, 48 / Color
+  - Document Edit / 16, 20, 24 / Color
+  - Document Lock / 32 / Color
+  - Document Text / 16, 20, 24, 28, 32, 48 / Color
+  - Drafts / 16, 20, 24 / Color
+  - Flag / 16, 20, 24, 28, 32, 48 / Color
+  - Form / 20, 24, 28, 48 / Color
+  - Gauge / 20, 24, 32 / Color
+  - Gift Card / 16, 20, 24 / Color
+  - Gift / 16, 20, 24 / Color
+  - Guest / 16, 20, 24, 28, 32, 48 / Color
+  - Heart / 16, 20, 24, 28, 32, 48 / Color
+  - Image Off / 20, 24, 28, 32, 48 / Color
+  - Image / 16, 20, 24, 28, 32, 48 / Color
+  - Laptop / 16, 20, 24, 28, 32, 48 / Color
+  - Layer Diagonal Person / 16, 20, 24 / Color
+  - Lightbulb Checkmark / 20, 24, 32 / Color
+  - Lightbulb / 16, 20, 24, 28, 32, 48 / Color
+  - Link Multiple / 16, 20, 24 / Color
+  - List Bar / 16, 20, 24, 32 / Color
+  - Location Ripple / 16, 20, 24 / Color
+  - Lock Closed / 16, 20, 24, 28, 32, 48 / Color
+  - Lock Shield / 16, 20, 24, 28, 32, 48 / Color
+  - Mail Alert / 16, 20, 24, 28, 32 / Color
+  - Mail Clock / 16, 20, 24, 32 / Color
+  - Megaphone Loud / 16, 20, 24, 28, 32 / Color
+  - Molecule / 16, 20, 24, 28, 32, 48 / Color
+  - News / 16, 20, 24, 28 / Color
+  - Notebook Question Mark / 20, 24 / Color
+  - Notebook / 16, 20, 24, 32 / Color
+  - Number Symbol Square / 20, 24, 32 / Color
+  - Options / 16, 20, 24, 28, 32, 48 / Color
+  - Paint Brush / 16, 20, 24, 28, 32 / Color
+  - Patient / 20, 24, 32 / Color
+  - People List / 16, 20, 24, 28, 32 / Color
+  - People Sync / 16, 20, 24, 28, 32 / Color
+  - Person Feedback / 16, 20, 24, 28, 32, 48 / Color
+  - Person Heart / 20, 24, 32 / Color
+  - Person Key / 20, 24, 32 / Color
+  - Person Tentative / 16, 20, 24, 32 / Color
+  - Person Warning / 16, 20, 24, 28, 32, 48 / Color
+  - Phone Laptop / 16, 20, 24, 32 / Color
+  - Phone / 16, 20, 24, 28, 32, 48 / Color
+  - Premium / 16, 20, 24, 28, 32 / Color
+  - Puzzle Piece / 16, 20, 24, 28, 32, 48 / Color
+  - Ribbon Star / 20, 24, 32 / Color
+  - Ribbon / 16, 20, 24, 32 / Color
+  - Send Clock / 20, 24, 32 / Color
+  - Send / 16, 20, 24, 28, 32, 48 / Color
+  - Settings / 16, 20, 24, 28, 32, 48 / Color
+  - Share Android / 16, 20, 24, 32 / Color
+  - Sport / 16, 20, 24 / Color
+  - Star Settings / 20, 24, 32 / Color
+  - Star / 16, 20, 24, 28, 32, 48 / Color
+  - Table / 16, 20, 24, 28, 32, 48 / Color
+  - Text Bullet List Square Sparkle / 16, 20, 24, 32 / Color
+  - Text Bullet List Square / 16, 20, 24, 28, 32, 48 / Color
+  - Toolbox / 16, 20, 24, 28, 32 / Color
+  - Trophy / 16, 20, 24, 28, 32, 48 / Color
+  - Weather Snowflake / 20, 24, 32, 48 / Color
+  - Weather Sunny Low / 20, 24, 48 / Color
+  - WiFi Warning / 20, 24 / Color
+  - WiFi / 20, 24 / Color
+  - Wrench Screwdriver / 20, 24, 32 / Color
+
+## V4.11.5
+
+### General
+- \[General] Some miscellaneous changes ([#3353](https://github.com/microsoft/fluentui-blazor/pull/3353))
+
+### Components
+
+- \[Autocomplete] Fix the second unnecessary call ([#3367](https://github.com/microsoft/fluentui-blazor/pull/3367))
+- \[Calendar] Add DisabledCheckAllDaysOfMonthYear ([#3351](https://github.com/microsoft/fluentui-blazor/pull/3351))
+- \[DataGrid] Fix regression with `GridTemplateColumns` ([#3357](https://github.com/microsoft/fluentui-blazor/pull/3357))
+- \[NumberField] Unsigned integer values and fixes ([#3373](https://github.com/microsoft/fluentui-blazor/pull/3373))
+- \[Search] Fix non working datalist ([#3354](https://github.com/microsoft/fluentui-blazor/pull/3354))
+- \[Select] Fix positioning when multiple is true ([#3380](https://github.com/microsoft/fluentui-blazor/pull/3380))
+
+### Demo site and documentation
+- \[Demo] Fix (most) printing issues when trying to print the page ([#3370](https://github.com/microsoft/fluentui-blazor/pull/3370))
+
 ## V4.11.4
+
+### General
+- Use latest .NET SDKs (8.0.406 / 9.0.200)
+- Update NuGet packages
+- Set `FluentComponentBase.Element` to a correct value for several elements ([#3222](https://github.com/microsoft/fluentui-blazor/pull/3222))
+
+### Components
+- \[Combobox\] Add EnableClickToClose ([#3186](https://github.com/microsoft/fluentui-blazor/pull/3186))
+- \[Combobox\] Fix detachIndicatorClickHandler not found ([#3239](https://github.com/microsoft/fluentui-blazor/pull/3239))
+- \[Combobox\] Fix loop when changing value ([#3300](https://github.com/microsoft/fluentui-blazor/pull/3300))
+- \[DataGrid\] Add AutoItemsPerPage parameter and handling ([#3220](https://github.com/microsoft/fluentui-blazor/pull/3220))
+- \[DataGrid\] Allow EntityFrameworkAsyncQueryExecutor configuration ([#3272](https://github.com/microsoft/fluentui-blazor/pull/3272))
+- \[DataGrid\] Always re-evaluate GridTemplateColumns after collecting columns ([#3189](https://github.com/microsoft/fluentui-blazor/pull/3189))
+- \[DataGrid\] Fix height not being set in specific situation ([#3182](https://github.com/microsoft/fluentui-blazor/pull/3182))
+- \[DataGrid\] Fix issues related to Sortable not being set on a column ([#3310](https://github.com/microsoft/fluentui-blazor/pull/3310))
+- \[DataGrid\] Fix more header edge cases ([#3316](https://github.com/microsoft/fluentui-blazor/pull/3316))
+- \[DataGrid\] Fix popups being displays beneath header cells ([#3221](https://github.com/microsoft/fluentui-blazor/pull/3221))
+- \[DataGrid\] Move down column action popup ([#3319](https://github.com/microsoft/fluentui-blazor/pull/3319))
+- \[DataGrid\] Not displaying EmptyContent/LoadingContent at correct position when in multiline mode. ([#3188](https://github.com/microsoft/fluentui-blazor/pull/3188))
+- \[DataGrid\] Remove padding for first column header ([#3286](https://github.com/microsoft/fluentui-blazor/pull/3286))
+- \[DataGrid\] Small optimization to the number of times data needs to be refreshed ([#3265](https://github.com/microsoft/fluentui-blazor/pull/3265))
+- \[DesignTokens\] Change generated constructors ([#3229](https://github.com/microsoft/fluentui-blazor/pull/3229))
+- \[Dialog\] Add type safe way of working with IDialogContentComponent ([#3339](https://github.com/microsoft/fluentui-blazor/pull/3339))
+- \[Dialog\] Fix the Customized Dialog tooltip ([#3241](https://github.com/microsoft/fluentui-blazor/pull/3241))
+- \[InputFile\] Add OnFileCountExceeded callback ([#3205](https://github.com/microsoft/fluentui-blazor/pull/3205))
+- \[Lists\] Add `ChangeOnEnterOnly` parameter to allow option focus change without selection ([#3263](https://github.com/microsoft/fluentui-blazor/pull/3263))
+- \[Lists\] Trigger field changed when in multiple mode ([#3294](https://github.com/microsoft/fluentui-blazor/pull/3294))
+- \[Tabs\] Fix missing bold highlighting in Firefox #3276 ([#3280](https://github.com/microsoft/fluentui-blazor/pull/3280))
+- \[Tabs\] Fix Overflow getting out of sync with tab collection ([#3284](https://github.com/microsoft/fluentui-blazor/pull/3284))
+- \[Tabs\] Use correct enum values when comparing size ([#3326](https://github.com/microsoft/fluentui-blazor/pull/3326))
+- \[Toolbar\] Allow arrow keys to move cursor inside input fields ([#3200](https://github.com/microsoft/fluentui-blazor/pull/3200))
+
+### Demo site and documentation
+- \[Docs\] Asset Explorer - Change message before search ([#3291](https://github.com/microsoft/fluentui-blazor/pull/3291))
+- \[Docs\] Some site changes ([#3236](https://github.com/microsoft/fluentui-blazor/pull/3236))
 
 ### Icons and Emoji
 - Update to Fluent UI System Icons 1.1.273 (changes since 1.1.270)

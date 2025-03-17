@@ -10,6 +10,7 @@ public class FluentMenuButtonTests : TestBase
     public FluentMenuButtonTests()
     {
         TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+        TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
     }
 
     [Fact]

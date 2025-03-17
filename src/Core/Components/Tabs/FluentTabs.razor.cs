@@ -28,8 +28,8 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("padding", "6px", () => Size == TabSize.Small)
-        .AddStyle("padding", "12px 10px", () => Size == TabSize.Small)
-        .AddStyle("padding", "16px 10px", () => Size == TabSize.Small)
+        .AddStyle("padding", "12px 10px", () => Size == TabSize.Medium)
+        .AddStyle("padding", "16px 10px", () => Size == TabSize.Large)
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .Build();

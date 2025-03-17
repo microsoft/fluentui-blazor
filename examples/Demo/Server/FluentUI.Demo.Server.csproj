@@ -9,7 +9,7 @@
     <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
 	</PropertyGroup>
 
-	<ItemGroup>
+    <ItemGroup>
 	  <ProjectReference Include="..\Shared\FluentUI.Demo.Shared.csproj" />
 	</ItemGroup>
 

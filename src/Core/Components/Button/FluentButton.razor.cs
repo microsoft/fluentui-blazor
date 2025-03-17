@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -33,6 +37,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 
     /// <summary>
     /// Gets or sets the id of a form to associate the element to.
+    /// Both the <see cref="FluentComponentBase.Id"/> and the FormId must be set if the button is placed outside of a form.
     /// </summary>
     [Parameter]
     public string? FormId { get; set; }

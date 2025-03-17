@@ -2,10 +2,16 @@
 
 <FluentButton Appearance="Appearance.Accent" OnClick="@EditAsync">Edit</FluentButton>
 
+
+
+<FluentButton Appearance="Appearance.Accent" OnClick="@EditSafeAsync">Edit (type safe)</FluentButton>
+
+
 <p>Name: @DialogData.Name - Age: @DialogData.Age</p>
 
 @code
 {
+
     SimpleEditDialog.RegisterContent DialogData { get; set; } = new() { Id = 1, Name = "Denis", Age = 24 };
 
     private async Task EditAsync()
@@ -15,12 +21,12 @@
         var data = DialogData with { Id = 0 } ?? new();
 
         var dialog = await DialogService.ShowDialogAsync<SimpleEditDialog>(data, new DialogParameters()
-            {
-                Height = "400px",
-                Title = $"Updating the {DialogData.Name} sheet",
-                PreventDismissOnOverlayClick = true,
-                PreventScroll = true,
-            });
+        {
+            Height = "400px",
+            Title = $"Updating the {DialogData.Name} sheet",
+            PreventDismissOnOverlayClick = true,
+            PreventScroll = true,
+        });
 
         var result = await dialog.Result;
         if (!result.Cancelled && result.Data != null)
@@ -28,5 +34,25 @@
             DialogData = (SimpleEditDialog.RegisterContent)result.Data;
         }
 
+    }
+
+    private async Task EditSafeAsync()
+    {
+        //string TestData = "Test Data";
+        //var dialog = await DialogService.ShowDialogAsync(DialogHelper.From<SimpleEditDialog>(), TestData, new DialogParameters()
+        // When replacing the line below with the commented ones above, the code will not compile
+        var dialog = await DialogService.ShowDialogAsync(DialogHelper.From<SimpleEditDialog>(), DialogData, new DialogParameters()
+        {
+            Height = "400px",
+            Title = $"Updating the {DialogData.Name} sheet",
+            PreventDismissOnOverlayClick = true,
+            PreventScroll = true,
+        });
+
+        var result = await dialog.Result;
+        if (!result.Cancelled && result.Data != null)
+        {
+            DialogData = (SimpleEditDialog.RegisterContent)result.Data;
+        }
     }
 }

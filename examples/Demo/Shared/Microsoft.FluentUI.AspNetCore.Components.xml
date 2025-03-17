@@ -753,6 +753,18 @@
             <param name="e"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.InputHelpers`1.GetMaxValue">
+            <summary>
+            Because of the limitation of the web component, the maximum value is set to 9999999999 for really large numbers.
+            </summary>
+            <returns>The maximum value for the underlying type</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.InputHelpers`1.GetMinValue">
+            <summary>
+            Because of the limitation of the web component, the minimum value is set to -9999999999 for really large negative numbers.
+            </summary>
+            <returns>The minimum value for the underlying type</returns>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentBodyContent.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -833,6 +845,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.FormId">
             <summary>
             Gets or sets the id of a form to associate the element to.
+            Both the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentComponentBase.Id"/> and the FormId must be set if the button is placed outside of a form.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Action">
@@ -1837,6 +1850,13 @@
              You should supply either <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider"/>, but not both.
              </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RefreshItems">
+             <summary>
+             Gets or sets a callback which will be called if there is a change in pagination, ordering or if a RefreshDataAsync is forced.
+            
+             You must supply <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Items"/> if you use this callback.
+             </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider">
              <summary>
              Gets or sets a callback that supplies data for the rid.
@@ -2022,6 +2042,15 @@
             Automatically fit the number of items per page to the available height.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.DisplayMode">
+            <summary>
+            Gets or set the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode"/> of the grid.
+            Default is 'Grid'.
+            When set to Grid, <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns" /> can be used to specify column widths.
+            When set to Table, widths need to be specified at the column level.
+            When using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Virtualize"/>, it is recommended to use Table.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowSize">
             <summary>
             Gets or sets the size of each row in the grid based on the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize"/> enum.
@@ -2121,6 +2150,11 @@
             <param name="index">The column index whose options UI is to be displayed.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.CloseColumnOptionsAsync">
+            <summary>
+            Closes the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.ColumnOptions"/> UI that was previously displayed.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnResizeAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
             <summary>
             Displays the column resize UI for the specified column, closing any other column
@@ -2145,7 +2179,7 @@
             <param name="index">The column index whose resize UI is to be displayed.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RefreshDataAsync">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RefreshDataAsync(System.Boolean)">
             <summary>
             Instructs the grid to re-fetch and render the current data from the supplied data source
             (either <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider"/>).
@@ -2731,6 +2765,14 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectDayMouseOverAsync(System.DateTime,System.Boolean)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AllDaysAreDisabled(System.DateTime,System.DateTime)">
+            <summary>
+            Check if all days between two dates are disabled.
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Culture">
             <summary>
             Gets or sets the culture of the component.
@@ -2740,6 +2782,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DisabledDateFunc">
             <summary>
             Function to know if a specific day must be disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DisabledCheckAllDaysOfMonthYear">
+            <summary>
+            By default, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DisabledDateFunc" /> check only the first day of the month and the first day of the year for the Month and Year views.
+            Set this property to `true` to check if all days of the month and year are disabled (more time consuming).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DisabledSelectable">
@@ -3841,6 +3889,46 @@
             Action with StateHasChanged assigned in FluentSplashScreen.razor.cs
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DialogHelper">
+            <summary>
+            Helper class for showing dialogs with typesafe parameters
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogHelper.From``1">
+            <summary>
+            Create a dialog helper for the specified dialog type
+            </summary>
+            <typeparam name="TDialog">Type of component to display.</typeparam>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogHelper.ShowDialogAsync``2(Microsoft.FluentUI.AspNetCore.Components.IDialogService,Microsoft.FluentUI.AspNetCore.Components.DialogHelper{``0},``1,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
+            <summary>
+            Shows a dialog with the component type as the body,
+            passing the specified <paramref name="data"/>
+            </summary>
+            <typeparam name="TDialog">Type of component to display.</typeparam>
+            <typeparam name="TData">Type of content to pass to component being displayed.</typeparam>
+            <param name="svc">The Dialog service.</param>
+            <param name="dialogHelper">The dialog helper from which we can infer the TData.</param>
+            <param name="data">Content to pass to component being displayed.</param>
+            <param name="parameters">Parameters to configure the dialog component.</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogHelper.ShowDialogAsync``2(Microsoft.FluentUI.AspNetCore.Components.DialogHelper{``0},``1,Microsoft.FluentUI.AspNetCore.Components.IDialogService,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
+            <summary>
+            Shows a dialog with the component type as the body,
+            passing the specified <paramref name="data"/>
+            </summary>
+            <typeparam name="TDialog">Type of component to display.</typeparam>
+            <typeparam name="TData">Type of content to pass to component being displayed.</typeparam>
+            <param name="dialogHelper">The dialog helper from which we can infer the TData.</param>
+            <param name="svc">The Dialog service.</param>
+            <param name="data">Content to pass to component being displayed.</param>
+            <param name="parameters">Parameters to configure the dialog component.</param>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DialogHelper`1">
+            <summary>
+            Helper struct that lets us infer the type of the dialog content
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DialogResult">
             <summary />
         </member>
@@ -3867,6 +3955,9 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowDialogAsync``1(Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowDialogAsync``1(Microsoft.FluentUI.AspNetCore.Components.DialogParameters)"/>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowDialogAsync``2(``1,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.DialogHelper.ShowDialogAsync``2(Microsoft.FluentUI.AspNetCore.Components.IDialogService,Microsoft.FluentUI.AspNetCore.Components.DialogHelper{``0},``1,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)"/>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.UpdateDialogAsync``1(System.String,Microsoft.FluentUI.AspNetCore.Components.DialogParameters{``0})">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.UpdateDialogAsync``1(System.String,Microsoft.FluentUI.AspNetCore.Components.DialogParameters{``0})"/>/>
@@ -4108,7 +4199,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
             <summary>
             Shows a dialog with the component type as the body,
-            passing the specified <paramref name="data"/> 
+            passing the specified <paramref name="data"/>
             </summary>
             <typeparam name="TData">Type of content to pass to component being displayed.</typeparam>
             <param name="dialogComponent">Type of component to display.</param>
@@ -4118,7 +4209,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowDialogAsync``1(System.Object,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
             <summary>
             Shows a dialog with the component type as the body,
-            passing the specified <paramref name="data"/> 
+            passing the specified <paramref name="data"/>
             </summary>
             <typeparam name="TDialog">Type of component to display.</typeparam>
             <param name="data">Content to pass to component being displayed.</param>
@@ -4129,6 +4220,16 @@
             Shows a dialog with the component type as the body.
             </summary>
             <typeparam name="TDialog">Type of component to display.</typeparam>
+            <param name="parameters">Parameters to configure the dialog component.</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowDialogAsync``2(``1,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
+            <summary>
+            Shows a dialog with the component type as the body,
+            passing the specified <paramref name="data"/>
+            </summary>
+            <typeparam name="TDialog">Type of component to display.</typeparam>
+            <typeparam name="TData">Type of content to pass to component being displayed.</typeparam>
+            <param name="data">Content to pass to component being displayed.</param>
             <param name="parameters">Parameters to configure the dialog component.</param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.UpdateDialogAsync``1(System.String,Microsoft.FluentUI.AspNetCore.Components.DialogParameters{``0})">
@@ -6505,6 +6606,11 @@
             Gets or sets the horizontal scaling mode.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OnCheckedChanged">
+            <summary>
+            Raised when FluentMenuItem Checked changed.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
@@ -6589,8 +6695,10 @@
             Event raised when the user click on this item.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
-            <summary />
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.CheckedChanged">
+            <summary>
+            Event raised for checkbox and radio menuitems
+            </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.#ctor">
             <summary />
@@ -7600,6 +7708,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.UseTypeConstraints">
+            <summary>
+            If true, the min and max values will be automatically set based on the type of TValue,
+            unless an explicit value for Min or Max is provided.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.FormatValueAsString(`0)">
@@ -9136,6 +9250,11 @@
             <summary>
             Gets or sets the orientation of the stacked components.
             Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Reversed">
+            <summary>
+            Gets or sets a value indicating whether the stack is reversed.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Width">
@@ -14542,6 +14661,14 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfYear(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the first day of the year
+            </summary>
+            <param name="self"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.EndOfYear(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the last day of the year.
             </summary>
             <param name="self"></param>
             <param name="culture"></param>

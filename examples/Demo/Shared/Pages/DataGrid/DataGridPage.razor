@@ -67,6 +67,18 @@
     When using <code>Virtualize</code>, the <code>ItemSize</code> value isused is still used to indicate the row height.
 </p>
 
+<h2 id="displaymode">DisplayMode</h2>
+<p>
+    The DataGrid supports 2 different display modes through the <code>DisplayMode</code> parameter: <code>DataGridDisplayMode.Grid</code> (default) and
+    <code>DataGridDisplayMode.Table</code>. When set to <code>Grid</code>, the <code>GridTableColumns</code> parameter cam be used set specify column
+    widths in fractions. It basically provides an HTML table element with a <code>display: grid;</code> style. The <code>Table</code> mode uses standard
+    HTML table elements and rendering. Column widths in that mode are best specified through the <code>Width</code> parameter of the columns.
+</p>
+<p>
+    Specifically when using <code>Virtualize</code>, it is <strong>higly recommended</strong> to use the <code>Table</code> display mode as the <code>Grid</code> mode
+    can exhibit some odd behaviour when scrolling.
+</p>
+
 
 <h2 id="changeuistrings">Change strings used in the UI</h2>
 <p>

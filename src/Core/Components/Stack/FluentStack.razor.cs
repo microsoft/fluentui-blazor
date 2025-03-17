@@ -46,6 +46,12 @@ public partial class FluentStack : FluentComponentBase
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
     /// <summary>
+    /// Gets or sets a value indicating whether the stack is reversed.
+    /// </summary>
+    [Parameter]
+    public bool? Reversed { get; set; }
+
+    /// <summary>
     /// Gets or sets the width of the stack as a percentage string (default = 100%).
     /// </summary>
     [Parameter]

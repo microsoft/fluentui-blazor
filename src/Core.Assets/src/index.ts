@@ -1,5 +1,9 @@
 export * from '@fluentui/web-components/dist/web-components'
 export { parseColorHexRGB } from '@microsoft/fast-colors'
+
+import { accentBaseColor, neutralBaseColor, SwatchRGB, } from '@fluentui/web-components/dist/web-components'
+import { parseColorHexRGB } from '@microsoft/fast-colors'
+import { ColorsUtils } from './Design/ColorsUtils'
 import { SplitPanels } from './SplitPanels'
 import { DesignTheme } from './DesignTheme'
 import { FluentPageScript, onEnhancedLoad } from './FluentPageScript'
@@ -28,7 +32,6 @@ interface FluentUIEventType {
   type: string;
 }
 
-
 var styleSheet = new CSSStyleSheet();
 
 const styles = `
@@ -51,12 +54,13 @@ body:has(.prevent-scroll) {
     --highlight-bg: #fff3cd;
 }
 
-fluent-number-field.invalid,
+fluent-number-field.invalid::part(root),
 [role='checkbox'].invalid::part(control),
 [role='combobox'].invalid::part(control),
 fluent-combobox.invalid::part(control),
 fluent-text-area.invalid::part(control),
-fluent-text-field.invalid::part(root)
+fluent-text-field.invalid::part(root),
+.fluent-autocomplete-multiselect.invalid > fluent-text-field::part(root)
 {
     outline: calc(var(--stroke-width) * 1px)  solid var(--error);
 }
@@ -300,7 +304,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
     browserEventName: 'change',
     createEventArgs: event => {
       return {
-        value: event.target._selectedOptions[0] ? event.target._selectedOptions[0].value : event.target.value 
+        value: event.target._selectedOptions[0] ? event.target._selectedOptions[0].value : event.target.value
       }
     }
   });
@@ -329,4 +333,22 @@ export function beforeStart(options: any) {
   customElements.define("split-panels", SplitPanels);
 
   beforeStartCalled = true;
+}
+
+export function updateAccentBaseColor(value: string | null) {
+  const color = value == null || !value.startsWith("#") ? ColorsUtils.getHexColor(value) : value;
+  const rgb = parseColorHexRGB(color);
+  if (rgb != null) {
+    const swatch = SwatchRGB.from(rgb);
+    accentBaseColor.withDefault(swatch);
+  }
+}
+
+export function updateNeutralBaseColor(value: string | null) {
+  const color = value == null || !value.startsWith("#") ? ColorsUtils.getHexColor(value) : value;
+  const rgb = parseColorHexRGB(color);
+  if (rgb != null) {
+    const swatch = SwatchRGB.from(rgb);
+    neutralBaseColor.withDefault(swatch);
+  }
 }

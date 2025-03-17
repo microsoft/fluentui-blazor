@@ -1,4 +1,5 @@
-﻿@using FluentUI.Demo.Shared.Shared
+﻿@using FluentUI.Demo.Shared.Components.Cookies
+@using FluentUI.Demo.Shared.Shared
 @using FluentUI.Demo.Shared.Pages.MessageBar.Examples
 @using Microsoft.AspNetCore.Components
 @using System.Runtime.InteropServices
@@ -6,6 +7,7 @@
 
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
 
+<CookieConsent />
 <div>
     <FluentLayout>
         <FluentHeader Class="siteheader">
@@ -91,7 +93,7 @@
             </div>
             <FluentSpacer />
             <div class="copy">
-                Microsoft © 2024. All rights reserved.
+                Microsoft © 2025. All rights reserved.
             </div>
         </FluentFooter>
     </FluentLayout>
