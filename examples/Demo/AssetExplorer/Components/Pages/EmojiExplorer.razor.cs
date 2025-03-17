@@ -56,6 +56,8 @@ public partial class EmojiExplorer
 ,
         ];
 
+        await PaginationState.SetCurrentPageIndexAsync(0);
+
         await PaginationState.SetTotalItemCountAsync(EmojisFound.Length);
 
         _searchResultMessage = EmojisFound.Length == 0 ? "No emoji found." : string.Empty;
