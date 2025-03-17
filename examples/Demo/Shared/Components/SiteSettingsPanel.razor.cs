@@ -12,9 +12,11 @@ namespace FluentUI.Demo.Shared.Components;
 
 public partial class SiteSettingsPanel
 {
+    private const string DEFAULT_NEUTRAL_COLOR = "#808080";
+
     private CookieConsent? _cookie;
     private string? _status;
-    private bool _popVisible;
+    private bool _popVisible, _popNIVisible;
     private bool _ltr = true;
     private FluentDesignTheme? _theme;
 
@@ -30,6 +32,8 @@ public partial class SiteSettingsPanel
     public DesignThemeModes Mode { get; set; }
 
     public OfficeColor? OfficeColor { get; set; }
+
+    public string? NeutralColor { get; set; }
 
     public LocalizationDirection? Direction { get; set; }
 
@@ -49,7 +53,12 @@ public partial class SiteSettingsPanel
         {
             Direction = GlobalState.Dir;
             _ltr = !Direction.HasValue || Direction.Value == LocalizationDirection.LeftToRight;
+
+            NeutralColor = GlobalState.NeutralColor;
+            // Same default values is used for light and dark theme
+            NeutralColor ??= DEFAULT_NEUTRAL_COLOR;
         }
+
     }
 
     protected void HandleDirectionChanged(bool isLeftToRight)
@@ -71,6 +80,7 @@ public partial class SiteSettingsPanel
 
         OfficeColor = OfficeColorUtilities.GetRandom();
         Mode = DesignThemeModes.System;
+        NeutralColor = DEFAULT_NEUTRAL_COLOR;
     }
 
     private async Task ManageCookieSettingsAsync()

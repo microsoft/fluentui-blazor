@@ -77,6 +77,12 @@ public partial class FluentDesignTheme : ComponentBase
     [Parameter]
     public EventCallback<OfficeColor?> OfficeColorChanged { get; set; }
 
+    [Parameter]
+    public string? NeutralBaseColor { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> NeutralBaseColorChanged { get; set; }
+
     /// <summary>
     /// Gets or sets the local storage name to save and retrieve the <see cref="Mode"/> and the <see cref="OfficeColor"/> / <see cref="CustomColor"/>.
     /// </summary> 
@@ -176,6 +182,12 @@ public partial class FluentDesignTheme : ComponentBase
                 }
 
                 break;
+            case "neutral-color":
+                if (value.StartsWith('#'))
+                {
+                    GlobalDesign.SetNeutralColor(value);
+                }
+                break;
         }
     }
 
@@ -256,6 +268,16 @@ public partial class FluentDesignTheme : ComponentBase
                 await OnChangeRaisedAsync("primary-color", theme.PrimaryColor);
             }
         }
+
+        // Neutral base color
+        if (!string.IsNullOrEmpty(theme?.NeutralBaseColor))
+        {
+            if (theme.NeutralBaseColor.StartsWith('#'))
+            {
+                GlobalDesign.SetNeutralColor(theme.NeutralBaseColor);
+            }
+            await OnChangeRaisedAsync("neutral-base-color", theme.NeutralBaseColor);
+        }
     }
 
     /// <summary />
@@ -263,6 +285,7 @@ public partial class FluentDesignTheme : ComponentBase
     {
         public string? Mode { get; set; }
         public string? PrimaryColor { get; set; }
+        public string? NeutralBaseColor { get; set; }
     }
 
     /// <summary />

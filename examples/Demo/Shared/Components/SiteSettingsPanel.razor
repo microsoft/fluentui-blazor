@@ -6,6 +6,7 @@
     <FluentDesignTheme @ref=_theme
                        @bind-Mode="@Mode"
                        @bind-OfficeColor="@OfficeColor"
+                       @bind-NeutralBaseColor="@NeutralColor"
                        Direction="@Direction"
                        StorageName="theme" />
 
@@ -31,6 +32,20 @@
                 </FluentStack>
             </OptionTemplate>
         </FluentSelect>
+        <FluentLabel>Neutral base color</FluentLabel>
+        <FluentStack VerticalAlignment="VerticalAlignment.Center">
+            <FluentTextField TextFieldType="TextFieldType.Color" @bind-Value="@NeutralColor" Style="width:150px; margin-bottom: 10px;" />
+            <FluentIcon Id="neutralinfo" Value="@(new Icons.Regular.Size24.Info())" OnClick="@(() => _popNIVisible = !_popNIVisible)" />
+            <FluentPopover Style="width: 350px;" AnchorId="neutralinfo" FixedPlacement="true" @bind-Open="@_popNIVisible">
+                <Header>Neutral base color</Header>
+                <Body>
+                    <p>
+                        The <code>NeutralBaseColor</code> design token is used to determine the color for layers and other neutral components. It uses a recipe to make sure a high enough value for the contrast is maintained.
+                    </p>
+                </Body>
+            </FluentPopover>
+        </FluentStack>
+
 
         <FluentSwitch Label="Direction"
                       Style="margin-bottom: 30px;"
