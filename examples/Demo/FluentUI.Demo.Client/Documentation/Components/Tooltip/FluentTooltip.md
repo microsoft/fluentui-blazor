@@ -23,3 +23,8 @@ and the style "Inverted".
 Each time the tooltip is shown or hidden, a message is logged in the console. Click on the top/right button to open the **Console**.
 
 {{ TooltipCustomized }}
+
+## API FluentTooltip
+
+{{ API Type=FluentTooltip }}
+

@@ -2,13 +2,16 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<fluent-tooltip id="@Id"
-                class="@ClassValue"
-                style="@StyleValue"
-                anchor="@Anchor"
-                delay="@Delay"
-                positioning="@Positioning.ToAttributeValue()"
-                @ondialogtoggle="@OnToggleAsync"
-                @attributes="AdditionalAttributes">
-    @ChildContent
-</fluent-tooltip>
+@if (DrawTooltipWithoutService)
+{
+    <fluent-tooltip id="@Id"
+                    class="@ClassValue"
+                    style="@StyleValue"
+                    anchor="@Anchor"
+                    delay="@Delay"
+                    positioning="@Positioning.ToAttributeValue()"
+                    @ondialogtoggle="@OnToggleAsync"
+                    @attributes="AdditionalAttributes">
+        @ChildContent
+    </fluent-tooltip>
+}

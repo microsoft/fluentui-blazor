@@ -24,15 +24,26 @@ public partial class FluentTooltip : FluentComponentBase
     }
 
     /// <summary />
-    protected string? ClassValue => DefaultClassBuilder
+    internal string? ClassValue => DefaultClassBuilder
         .Build();
 
     /// <summary />
-    protected string? StyleValue => DefaultStyleBuilder
+    internal string? StyleValue => DefaultStyleBuilder
         .AddStyle("max-width", MaxWidth, when: () => !string.IsNullOrWhiteSpace(MaxWidth))
         .AddStyle("margin-inline", SpacingHorizontal, when: () => !string.IsNullOrWhiteSpace(SpacingHorizontal))
         .AddStyle("margin-block", SpacingVertical, when: () => !string.IsNullOrWhiteSpace(SpacingVertical))
         .Build();
+
+    /// <summary />
+    [Inject]
+    protected virtual ITooltipService? TooltipService { get; set; }
+
+    /// <summary>
+    /// Use ITooltipService to create the tooltip, if this service was injected.
+    /// If the <see cref="ChildContent"/> is dynamic, set this to false. Default, true.
+    /// </summary>
+    [Parameter]
+    public bool UseTooltipService { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the component identifier associated with the tooltip (Required).
@@ -90,8 +101,36 @@ public partial class FluentTooltip : FluentComponentBase
     public EventCallback<TooltipEventArgs> OnToggle { get; set; }
 
     /// <summary />
+    private bool DrawTooltipWithService => TooltipService is not null && UseTooltipService;
+
+    /// <summary />
+    private bool DrawTooltipWithoutService => !DrawTooltipWithService;
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        ArgumentNullException.ThrowIfNullOrEmpty(Id);
+
+        if (DrawTooltipWithService && TooltipService != null)
+        {
+            if (string.IsNullOrEmpty(TooltipService.ProviderId))
+            {
+                throw new ArgumentNullException(nameof(UseTooltipService), "<FluentTooltipProvider /> needs to be added to the main layout of your application/site.");
+            }
+
+            TooltipService.Items.TryAdd(Id, this);
+            await TooltipService.OnUpdatedAsync.Invoke(this);
+        }
+
+        await base.OnInitializedAsync();
+    }
+
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        ArgumentNullException.ThrowIfNullOrEmpty(Id);
+        ArgumentNullException.ThrowIfNullOrEmpty(Anchor);
+
         if (firstRender)
         {
             // Import the JavaScript module

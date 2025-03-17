@@ -18,4 +18,10 @@ public static class ZIndex
     /// ZIndex for the <see cref="FluentBadge" /> and <see cref="FluentCounterBadge"/> components.
     /// </summary>
     public static int Badge { get; set; } = 999;
+
+    /// <summary>
+    /// ZIndex for the <see cref="FluentTooltip" /> component.
+    /// </summary>
+    public static int Tooltip { get; set; } = 9999;
+
 }
