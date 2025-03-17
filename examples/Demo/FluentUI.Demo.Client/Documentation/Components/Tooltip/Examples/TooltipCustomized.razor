@@ -10,15 +10,15 @@
                    SpacingHorizontal="20px"
                    SpacingVertical="10px"
                    Style="background-color: var(--colorBrandBackground); color: var(--colorNeutralForegroundInverted)">
-        <FluentGrid>
-            <FluentGridItem>
-                <FluentIcon Value="@(new Icons.Regular.Size20.Info().WithColor(Color.Lightweight))" />
-            </FluentGridItem>
-            <FluentGridItem>
+        <FluentStack>
+            <FluentIcon Value="@(new Icons.Regular.Size20.Info().WithColor(Color.Lightweight))"
+                        Width="32px"
+                        Margin="@(Margin.Vertical2 + Margin.Right2)" />
+            <div>
                 Really long <b>tooltip</b> content goes here.
                 Lorem ipsum dolor sit a met.
-            </FluentGridItem>
-        </FluentGrid>
+            </div>
+        </FluentStack>
     </FluentTooltip>
 </FluentStack>
 
