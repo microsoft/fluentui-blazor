@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
@@ -16,7 +20,13 @@ public partial class FluentOverlay : IAsyncDisposable
     private int _r, _g, _b;
 
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overlay/FluentOverlay.razor.js";
+    private const string DEFAULT_NEUTRAL_COLOR = "#808080";
+
     private DotNetObjectReference<FluentOverlay>? _dotNetHelper = null;
+
+    /// <summary />
+    [Inject]
+    private GlobalState GlobalState { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -38,6 +48,7 @@ public partial class FluentOverlay : IAsyncDisposable
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("cursor", "auto", () => Transparent)
         .AddStyle("background-color", $"rgba({_r}, {_g}, {_b}, {Opacity.ToString()!.Replace(',', '.')})", () => !Transparent)
+        //.AddStyle("opacity", Opacity.ToString()!.Replace(',', '.'), CheckCSSVariableName().IsMatch(BackgroundColor))
         .AddStyle("cursor", "default", () => !Transparent)
         .AddStyle("position", FullScreen ? "fixed" : "absolute")
         .AddStyle("display", "flex")
@@ -84,6 +95,7 @@ public partial class FluentOverlay : IAsyncDisposable
 
     /// <summary>
     /// Gets or sets the opacity of the overlay.
+    /// Default is 0.4.
     /// </summary>
     [Parameter]
     public double? Opacity { get; set; }
@@ -130,12 +142,12 @@ public partial class FluentOverlay : IAsyncDisposable
     public bool Dismissable { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the background color. 
-    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb).
-    /// Default is '#ffffff'.
+    /// Gets or sets the background color.
+    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
+    /// Default NeutralBaseColor token value (#808080).
     /// </summary>
     [Parameter]
-    public string BackgroundColor { get; set; } = "#ffffff";
+    public string? BackgroundColor { get; set; }
 
     [Parameter]
     public bool PreventScroll { get; set; } = false;
@@ -152,20 +164,19 @@ public partial class FluentOverlay : IAsyncDisposable
                 Id = _defaultId;
             }
 
-            // Add a document.addEventListener when Visible is true
             if (Visible)
             {
+                // Add a document.addEventListener when Visible is true
                 await InvokeOverlayInitializeAsync();
             }
-
-            // Remove a document.addEventListener when Visible is false
             else
             {
+                // Remove a document.addEventListener when Visible is false
                 await InvokeOverlayDisposeAsync();
             }
         }
 
-        if (!Transparent && Opacity == 0)
+        if (!Transparent && Opacity is null)
         {
             Opacity = 0.4;
         }
@@ -175,32 +186,26 @@ public partial class FluentOverlay : IAsyncDisposable
             Transparent = false;
         }
 
-        if (!string.IsNullOrWhiteSpace(BackgroundColor))
+        BackgroundColor ??= GlobalState.NeutralColor ?? DEFAULT_NEUTRAL_COLOR;
+
+        if (!CheckRGBString().IsMatch(BackgroundColor))
         {
+            throw new ArgumentException("BackgroundColor must be a valid HTML hex color string (#rrggbb or #rgb)");
+        }
 
-#if NET7_0_OR_GREATER
-            if (!CheckRGBString().IsMatch(BackgroundColor))
-#else
-            if (!Regex.IsMatch(BackgroundColor, "^(?:#([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))"))
-#endif
-                throw new ArgumentException("BackgroundColor must be a valid HTML hex color string (#rrggbb or #rgb).");
-            else
-            {
-                _color = BackgroundColor[1..];
-            }
+        _color = BackgroundColor[1..];
 
-            if (_color.Length == 6)
-            {
-                _r = int.Parse(_color[..2], NumberStyles.HexNumber);
-                _g = int.Parse(_color[2..4], NumberStyles.HexNumber);
-                _b = int.Parse(_color[4..], NumberStyles.HexNumber);
-            }
-            else
-            {
-                _r = int.Parse(_color[0..1], NumberStyles.HexNumber);
-                _g = int.Parse(_color[1..2], NumberStyles.HexNumber);
-                _b = int.Parse(_color[2..], NumberStyles.HexNumber);
-            }
+        if (_color.Length == 6)
+        {
+            _r = int.Parse(_color[..2], NumberStyles.HexNumber);
+            _g = int.Parse(_color[2..4], NumberStyles.HexNumber);
+            _b = int.Parse(_color[4..], NumberStyles.HexNumber);
+        }
+        else
+        {
+            _r = int.Parse(_color[0..1], NumberStyles.HexNumber);
+            _g = int.Parse(_color[1..2], NumberStyles.HexNumber);
+            _b = int.Parse(_color[2..], NumberStyles.HexNumber);
         }
     }
 
@@ -231,7 +236,7 @@ public partial class FluentOverlay : IAsyncDisposable
     }
 
     private async Task OnCloseInternalHandlerAsync(MouseEventArgs e)
-    {        
+    {
         Visible = false;
 
         if (VisibleChanged.HasDelegate)
@@ -278,9 +283,9 @@ public partial class FluentOverlay : IAsyncDisposable
         }
     }
 
-#if NET7_0_OR_GREATER
     [GeneratedRegex("^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))")]
     private static partial Regex CheckRGBString();
-#endif
 
+    [GeneratedRegex("^(?:var\\(--[a-zA-Z0-9-_]+\\))")]
+    private static partial Regex CheckCSSVariableName();
 }
