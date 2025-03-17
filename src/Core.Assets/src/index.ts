@@ -54,7 +54,7 @@ body:has(.prevent-scroll) {
     --highlight-bg: #fff3cd;
 }
 
-fluent-number-field.invalid,
+fluent-number-field.invalid::part(root),
 [role='checkbox'].invalid::part(control),
 [role='combobox'].invalid::part(control),
 fluent-combobox.invalid::part(control),
