@@ -30,6 +30,8 @@ public partial class FluentTooltip : FluentComponentBase
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("max-width", MaxWidth, when: () => !string.IsNullOrWhiteSpace(MaxWidth))
+        .AddStyle("margin-inline", SpacingHorizontal, when: () => !string.IsNullOrWhiteSpace(SpacingHorizontal))
+        .AddStyle("margin-block", SpacingVertical, when: () => !string.IsNullOrWhiteSpace(SpacingVertical))
         .Build();
 
     /// <summary>
@@ -56,6 +58,18 @@ public partial class FluentTooltip : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? MaxWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets the tooltip's horizontal spacing. Default is 4px;
+    /// </summary>
+    [Parameter]
+    public string? SpacingHorizontal { get; set; }
+
+    /// <summary>
+    /// Gets or sets the tooltip's horizontal spacing. Default is 4px;
+    /// </summary>
+    [Parameter]
+    public string? SpacingVertical { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

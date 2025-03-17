@@ -17,6 +17,7 @@ Hover or focus the buttons in the examples to see their tooltips.
 
 ## Customized
 The tooltip can be customized with a custom template,
-adapting the delay to `700 ms`, the position of the tooltip to `BelowStart` and the style "Inverted".
+adapting the delay to `700 ms`, the position of the tooltip to `BelowStart` (including spacings to `20px` and `10px`)
+and the style "Inverted".
 
 {{ TooltipCustomized }}
