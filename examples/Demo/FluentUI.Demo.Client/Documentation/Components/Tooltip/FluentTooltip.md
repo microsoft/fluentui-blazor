@@ -51,7 +51,7 @@ You can also configure it globally in the `Program.cs` file:
 ```csharp
 builder.Services.AddFluentUIComponents(options =>
 {
-    options.Tooltip.UseTooltipService = false;
+    options.Tooltip.UseServiceProvider = false;
 });
 ```
 
