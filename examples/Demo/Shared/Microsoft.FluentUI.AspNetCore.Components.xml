@@ -3318,7 +3318,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Id">
             <summary>
             Gets or sets the identifier for the component.
-            </summary> 
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode">
             <summary>
@@ -3353,12 +3353,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.StorageName">
             <summary>
             Gets or sets the local storage name to save and retrieve the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode"/> and the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColor"/> / <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor"/>.
-            </summary> 
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Direction">
             <summary>
             Gets or sets the body.dir value.
-            </summary> 
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OnLuminanceChanged">
             <summary>
@@ -7967,19 +7967,6 @@
             ○ Match with 2 alternative expressions, atomically.<br/>
                 ○ Match a character in the set [0-9A-Fa-f] exactly 6 times.<br/>
                 ○ Match a character in the set [0-9A-Fa-f] exactly 3 times.<br/>
-            </code>
-            </remarks>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.CheckCSSVariableName">
-            <remarks>
-            Pattern:<br/>
-            <code>^(?:var\\(--[a-zA-Z0-9-_]+\\))</code><br/>
-            Explanation:<br/>
-            <code>
-            ○ Match if at the beginning of the string.<br/>
-            ○ Match the string "var(--".<br/>
-            ○ Match a character in the set [-0-9A-Z_a-z] atomically at least once.<br/>
-            ○ Match ')'.<br/>
             </code>
             </remarks>
         </member>
@@ -15581,66 +15568,34 @@
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckCSSVariableName_1">
-            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckCSSVariableName method.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.CheckCSSVariableName_1.Instance">
-            <summary>Cached, thread-safe singleton instance.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckCSSVariableName_1.#ctor">
-            <summary>Initializes the instance.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckCSSVariableName_1.RunnerFactory">
-            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckCSSVariableName_1.RunnerFactory.CreateInstance">
-            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckCSSVariableName_1.RunnerFactory.Runner">
-            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckCSSVariableName_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
-            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckCSSVariableName_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
-            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-            <returns>true if a possible match was found; false if no more matches are possible.</returns>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckCSSVariableName_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
-            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_2">
+        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GenerateValidClassNameRegex method.</summary>
         </member>
-        <member name="F:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_2.Instance">
+        <member name="F:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.Instance">
             <summary>Cached, thread-safe singleton instance.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_2.#ctor">
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.#ctor">
             <summary>Initializes the instance.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_2.RunnerFactory">
+        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory">
             <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_2.RunnerFactory.CreateInstance">
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.CreateInstance">
             <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_2.RunnerFactory.Runner">
+        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner">
             <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_2.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
             <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_2.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
             <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if a possible match was found; false if no more matches are possible.</returns>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_2.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
             <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>

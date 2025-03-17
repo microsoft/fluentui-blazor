@@ -208,6 +208,16 @@ public partial class FluentOverlay : IAsyncDisposable
             _b = int.Parse(_color[2..], NumberStyles.HexNumber);
         }
     }
+    protected override void OnInitialized()
+    {
+        GlobalState.OnChange += UpdateNeutralColor;
+    }
+
+    private void UpdateNeutralColor()
+    {
+        BackgroundColor = GlobalState.NeutralColor;
+        StateHasChanged();
+    }
 
     [JSInvokable]
     public async Task OnCloseInteractiveAsync(MouseEventArgs e)
@@ -262,6 +272,8 @@ public partial class FluentOverlay : IAsyncDisposable
         {
             await _jsModule.DisposeAsync();
         }
+
+        GlobalState.OnChange -= UpdateNeutralColor;
     }
 
     /// <summary />

@@ -37,7 +37,7 @@ public partial class FluentDesignTheme : ComponentBase
 
     /// <summary>
     /// Gets or sets the identifier for the component.
-    /// </summary> 
+    /// </summary>
     [Parameter]
     public string Id { get; set; }
 
@@ -85,13 +85,13 @@ public partial class FluentDesignTheme : ComponentBase
 
     /// <summary>
     /// Gets or sets the local storage name to save and retrieve the <see cref="Mode"/> and the <see cref="OfficeColor"/> / <see cref="CustomColor"/>.
-    /// </summary> 
+    /// </summary>
     [Parameter]
     public string? StorageName { get; set; }
 
     /// <summary>
     /// Gets or sets the body.dir value.
-    /// </summary> 
+    /// </summary>
     [Parameter]
     public LocalizationDirection? Direction
     {
@@ -183,10 +183,7 @@ public partial class FluentDesignTheme : ComponentBase
 
                 break;
             case "neutral-color":
-                if (value.StartsWith('#'))
-                {
-                    GlobalDesign.SetNeutralColor(value);
-                }
+                GlobalDesign.SetNeutralColor(value);
                 break;
         }
     }
@@ -270,13 +267,10 @@ public partial class FluentDesignTheme : ComponentBase
         }
 
         // Neutral base color
-        if (!string.IsNullOrEmpty(theme?.NeutralBaseColor))
+        if (!string.IsNullOrEmpty(theme?.NeutralColor))
         {
-            if (theme.NeutralBaseColor.StartsWith('#'))
-            {
-                GlobalDesign.SetNeutralColor(theme.NeutralBaseColor);
-            }
-            await OnChangeRaisedAsync("neutral-base-color", theme.NeutralBaseColor);
+            GlobalDesign.SetNeutralColor(theme.NeutralColor);
+            await OnChangeRaisedAsync("neutral-color", theme.NeutralColor);
         }
     }
 
@@ -285,7 +279,7 @@ public partial class FluentDesignTheme : ComponentBase
     {
         public string? Mode { get; set; }
         public string? PrimaryColor { get; set; }
-        public string? NeutralBaseColor { get; set; }
+        public string? NeutralColor { get; set; }
     }
 
     /// <summary />
