@@ -83,6 +83,12 @@ public partial class FluentTooltip : FluentComponentBase
     [Parameter]
     public EventCallback<EventArgs> OnDismissed { get; set; }
 
+    /// <summary>
+    /// Callback for when the tooltip is opened or closed.
+    /// </summary>  
+    [Parameter]
+    public EventCallback<TooltipEventArgs> OnToggle { get; set; }
+
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -93,6 +99,27 @@ public partial class FluentTooltip : FluentComponentBase
 
             // Call a function from the JavaScript module
             await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Tooltip.FluentTooltipInitialize", Id);
+        }
+    }
+
+    /// <summary />
+    internal async Task OnToggleAsync(DialogToggleEventArgs args)
+    {
+        if (string.CompareOrdinal(args.Id, Id) != 0 || string.IsNullOrEmpty(Id))
+        {
+            return;
+        }
+
+        var opened = string.CompareOrdinal(args.NewState, "open") == 0;
+
+        if (OnToggle.HasDelegate)
+        {
+            await OnToggle.InvokeAsync(new TooltipEventArgs(Id, opened));
+        }
+
+        if (OnDismissed.HasDelegate && !opened)
+        {
+            await OnDismissed.InvokeAsync(EventArgs.Empty);
         }
     }
 }

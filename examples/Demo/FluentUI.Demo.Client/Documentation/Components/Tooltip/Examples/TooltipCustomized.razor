@@ -2,6 +2,8 @@
     <FluentButton Id="MyCustomizedButton" IconStart="@(new Icons.Regular.Size20.Globe())">Hover me</FluentButton>
 
     <FluentTooltip Anchor="MyCustomizedButton"
+                   OnToggle="@OnToggleAsync"
+                   OnDismissed="@OnDismissAsync"
                    Delay="700"
                    Positioning="@Positioning.BelowStart"
                    MaxWidth="300px"
@@ -14,8 +16,21 @@
             </FluentGridItem>
             <FluentGridItem>
                 Really long <b>tooltip</b> content goes here.
-                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit a met.
             </FluentGridItem>
         </FluentGrid>
     </FluentTooltip>
 </FluentStack>
+
+@code
+{
+    void OnToggleAsync(TooltipEventArgs args)
+    {
+        Console.WriteLine($"Tooltip is open: {args.Opened}.");
+    }
+
+    void OnDismissAsync(EventArgs args)
+    {
+        Console.WriteLine($"Tooltip is dismissed.");
+    }
+}

@@ -20,4 +20,6 @@ The tooltip can be customized with a custom template,
 adapting the delay to `700 ms`, the position of the tooltip to `BelowStart` (including spacings to `20px` and `10px`)
 and the style "Inverted".
 
+Each time the tooltip is shown or hidden, a message is logged in the console. Click on the top/right button to open the **Console**.
+
 {{ TooltipCustomized }}
