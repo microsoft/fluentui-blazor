@@ -59,3 +59,6 @@ builder.Services.AddFluentUIComponents(options =>
 
 {{ API Type=FluentTooltip }}
 
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentTooltip }}

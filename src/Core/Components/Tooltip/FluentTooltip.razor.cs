@@ -9,7 +9,8 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// 
+/// A FluentTooltip displays additional information about another component.
+/// The information is displayed above and near the target component.
 /// </summary>
 public partial class FluentTooltip : FluentComponentBase
 {
