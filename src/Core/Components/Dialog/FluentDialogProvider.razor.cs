@@ -4,7 +4,6 @@
 
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -12,8 +11,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentDialogProvider : FluentComponentBase
 {
-    private IDialogService? _dialogService;
-
     /// <summary />
     public FluentDialogProvider()
     {
@@ -37,7 +34,7 @@ public partial class FluentDialogProvider : FluentComponentBase
     public IServiceProvider? ServiceProvider { get; set; }
 
     /// <summary />
-    protected virtual IDialogService? DialogService => _dialogService ??= ServiceProvider?.GetService<IDialogService>();
+    protected virtual IDialogService? DialogService => GetCachedServiceOrNull<IDialogService>();
 
     /// <summary />
     protected override void OnInitialized()
