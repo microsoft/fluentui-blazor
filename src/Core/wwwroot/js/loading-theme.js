@@ -1,4 +1,4 @@
-﻿// To avoid Flash of Unstyled Content, the body is hidden.
+// To avoid Flash of Unstyled Content, the body is hidden.
 // Here we'll find the first web component and wait for it to be upgraded.
 // When it is, we'll remove this invisibility from the body.
 
@@ -24,9 +24,10 @@ class LoadingTheme extends HTMLElement {
         }
 
         // Attributes
-        const storageName = this.getAttribute("storage-name");
+        const storageName = this.getAttribute("storage-name"); 
         const mode = this.getAttribute("mode");
         const primaryColor = this.getAttribute("primary-color");
+        const neutralColor = this.getAttribute("neutral-color");
 
         const isDark = (modeSaved, isSystemDark) => {
             switch (modeSaved) {
@@ -42,6 +43,7 @@ class LoadingTheme extends HTMLElement {
         // Compute the saved or the system theme (dark/light).
         const modeSaved = mode ?? JSON.parse(localStorage.getItem(storageName))?.mode;
         const primaryColorSaved = primaryColor ?? JSON.parse(localStorage.getItem(storageName))?.primaryColor;
+        const neutralColorSaved = neutralColor ?? JSON.parse(localStorage.getItem(storageName))?.neutralColor;
         const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         const bgColor = isDark(modeSaved, isSystemDark) ? this.defaultDarkColor : this.defaultLightColor;
 
@@ -66,6 +68,7 @@ class LoadingTheme extends HTMLElement {
         const designTheme = document.createElement("fluent-design-theme");
         designTheme.setAttribute("mode", modeSaved);
         designTheme.setAttribute("primary-color", primaryColorSaved);
+        designTheme.setAttribute("neutral-color", neutralColorSaved);
         this.appendChild(designTheme);
 
         // Wait for the fluentui web components to be loaded

@@ -2,10 +2,10 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
-using System.Globalization;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
@@ -14,6 +14,9 @@ public class FluentDatePickerTests : TestBase
 {
     [Inject]
     private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    [Inject]
+    public GlobalState GlobalState { get; set; } = new GlobalState();
 
     [Fact]
     public void FluentDatePicker_Closed()
@@ -46,6 +49,7 @@ public class FluentDatePickerTests : TestBase
         using var ctx = new TestContext();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddSingleton(LibraryConfiguration);
+        ctx.Services.AddSingleton(GlobalState);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>();
@@ -72,6 +76,7 @@ public class FluentDatePickerTests : TestBase
         using var ctx = new TestContext();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddSingleton(LibraryConfiguration);
+        ctx.Services.AddSingleton(GlobalState);
         var today = System.DateTime.Today;
 
         // Act
@@ -182,6 +187,7 @@ public class FluentDatePickerTests : TestBase
         using var ctx = new TestContext();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddSingleton(LibraryConfiguration);
+        ctx.Services.AddSingleton(GlobalState);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>

@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
@@ -7,9 +11,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.MenuButton;
 
 public class FluentMenuButtonTests : TestBase
 {
+
+    public GlobalState GlobalState { get; set; } = new GlobalState();
+
     public FluentMenuButtonTests()
     {
         TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+        TestContext.Services.AddSingleton(GlobalState);
         TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
     }
 
