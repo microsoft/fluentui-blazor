@@ -146,7 +146,9 @@ public partial class FluentTooltip : FluentComponentBase
     /// <summary />
     internal async Task OnToggleAsync(DialogToggleEventArgs args)
     {
-        if (string.CompareOrdinal(args.Id, Id) != 0 || string.IsNullOrEmpty(Id))
+        ArgumentNullException.ThrowIfNullOrEmpty(Id);
+
+        if (string.CompareOrdinal(args.Id, Id) != 0)
         {
             return;
         }

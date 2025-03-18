@@ -27,13 +27,14 @@ public class ComponentBaseTests : TestContext
     };
 
     /// <summary>
-    /// List of customized actions to initialize the component with a specific type.
+    /// List of customized actions to initialize the component with a specific type and optional required parameters.
     /// </summary>
-    private static readonly Dictionary<Type, Func<Type, Type>> ComponentInitializer = new()
+    private static readonly Dictionary<Type, Loader> ComponentInitializer = new()
     {
-        { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) },
-        { typeof(FluentSelect<>), type => type.MakeGenericType(typeof(int)) },
-        { typeof(FluentSlider<>), type => type.MakeGenericType(typeof(int)) },
+        { typeof(FluentIcon<>), Loader.MakeGenericType(typeof(Samples.Icons.Samples.Info))},
+        { typeof(FluentSelect<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentTooltip), Loader.Default.WithRequiredParameter("Anchor", "MyButton").WithRequiredParameter("UseTooltipService", false)},
     };
 
     /// <summary />
@@ -77,17 +78,20 @@ public class ComponentBaseTests : TestContext
         {
             // Convert to generic type if needed
             var type = ComponentInitializer.ContainsKey(componentType)
-                     ? ComponentInitializer[componentType](componentType)
+                     ? ComponentInitializer[componentType].ComponentType(componentType)
                      : componentType;
 
             // Arrange and Act
             var renderedComponent = RenderComponent<DynamicComponent>(parameters =>
             {
                 parameters.Add(p => p.Type, type);
-                parameters.Add(p => p.Parameters, new Dictionary<string, object>
-                {
-                    { blazorAttribute.Name, blazorAttribute.Value }
-                });
+                parameters.Add(p => p.Parameters, DictionaryExtensions.Union(
+                    new Dictionary<string, object>
+                    {
+                        { blazorAttribute.Name, blazorAttribute.Value }
+                    },
+                    ComponentInitializer.ContainsKey(componentType) ? ComponentInitializer[componentType].RequiredParameters : null
+                ));
             });
 
             // Assert
@@ -167,5 +171,42 @@ public class ComponentBaseTests : TestContext
     {
         public const string JAVASCRIPT_FILENAME = "FluentGrid.razor.js";
         public IJSObjectReference GetJSModule() => base.JSModule.ObjectReference;
+    }
+
+    private class Loader
+    {
+        public static Loader MakeGenericType(Type type) => new()
+        {
+            ComponentType = t => t.MakeGenericType(type)
+        };
+
+        public static Loader Default => new();
+
+        private Loader() { }
+
+        public Func<Type, Type> ComponentType { get; private set; } = t => t;
+
+        public Dictionary<string, object> RequiredParameters { get; } = [];
+
+        public Loader WithRequiredParameter(string key, object value)
+        {
+            RequiredParameters.Add(key, value);
+            return this;
+        }
+    }
+
+    private static class DictionaryExtensions
+    {
+        public static Dictionary<string, object> Union(Dictionary<string, object> first, Dictionary<string, object>? second)
+        {
+            if (second == null)
+            {
+                return first;
+            }
+
+            return first.Concat(second)
+                .GroupBy(kvp => kvp.Key)
+                .ToDictionary(g => g.Key, g => g.Last().Value);
+        }
     }
 }
