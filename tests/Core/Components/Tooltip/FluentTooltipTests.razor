@@ -2,6 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@using Microsoft.FluentUI.AspNetCore.Components.Migration;
 @inherits TestContext
 @code
 {
@@ -167,28 +168,30 @@
             // Arrange & Act
             var cut = Render(@<div>
                 <FluentTooltip Anchor="MyButton">My content</FluentTooltip>
-            </div>);
+            </div>
+    );
         });
 
         Assert.Equal("<FluentTooltipProvider /> needs to be added to the main layout of your application/site. (Parameter 'UseTooltipService')", ex.Message);
     }
 
     [Theory]
-    [InlineData("MyTooltip", "open", true, false)]
-    [InlineData("MyTooltip", "close", false, true)]
-    [InlineData("MyTooltip", "", false, true)]
-    [InlineData("unknownId", "open", false, false)]
-    [InlineData("unknownId", "close", false, false)]
-    public async Task FluentTooltip_OnToggle_OnDismissed(string id, string newState, bool expectedOpened, bool expectedDismissed)
+    [InlineData("MyTooltip", "open", true, false, "MyTooltip")]
+    [InlineData("MyTooltip", "close", false, true, "MyTooltip")]
+    [InlineData("MyTooltip", "", false, true, "MyTooltip")]
+    [InlineData("UnknownId", "open", false, false, "")]
+    [InlineData("UnknownId", "close", false, false, "")]
+    public async Task FluentTooltip_OnToggle_OnDismissed(string id, string newState, bool expectedOpened, bool expectedDismissed, string expectedEventId)
     {
         var opened = false;
+        var eventId = string.Empty;
         var dismissed = false;
 
         // Arrange
         var cut = Render(@<div>
             <FluentTooltipProvider />
             <FluentTooltip Id="MyTooltip" Anchor="MyButton" SpacingVertical="20px"
-                           OnToggle="@(e => opened = e.Opened)"
+                           OnToggle="@(e => { opened = e.Opened; eventId = e.Id; })"
                            OnDismissed="@(e => dismissed = true)">My content</FluentTooltip>
         </div>);
 
@@ -201,6 +204,26 @@
 
         // Assert
         Assert.Equal(expectedOpened, opened);
+        Assert.Equal(expectedEventId, eventId);
         Assert.Equal(expectedDismissed, dismissed);
     }
+
+#pragma warning disable CS0618 // Type or member is obsolete
+
+    [Theory]
+    [InlineData(TooltipPosition.Top, Positioning.Above)]
+    [InlineData(TooltipPosition.Bottom, Positioning.Below)]
+    [InlineData(TooltipPosition.Left, Positioning.Before)]
+    [InlineData(TooltipPosition.Right, Positioning.After)]
+    [InlineData(TooltipPosition.Start, Positioning.AboveStart)]
+    [InlineData(TooltipPosition.End, Positioning.AboveEnd)]
+    [InlineData(null, Positioning.Above)]
+    [InlineData((TooltipPosition)999, Positioning.Above)]
+    public void FluentTooltip_TooltipPositionToPositioning(TooltipPosition? position, Positioning? expectedPositioning)
+    {
+        // Assert
+        Assert.Equal(expectedPositioning, position.ToPositioning());
+    }
+
+#pragma warning restore CS0618 // Type or member is obsolete
 }

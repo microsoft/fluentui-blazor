@@ -12,7 +12,7 @@ public static class TooltipPositionExtension
     /// </summary>
     /// <param name="position"></param>
     /// <returns></returns>
-    public static Positioning? ToPositioning(this TooltipPosition position)
+    public static Positioning? ToPositioning(this TooltipPosition? position)
     {
 #pragma warning disable CS0618 // Type or member is obsolete
         return position switch
