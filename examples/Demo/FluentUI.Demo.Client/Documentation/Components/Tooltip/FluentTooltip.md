@@ -1,3 +1,4 @@
+
 ---
 title: Tooltip
 route: /Tooltip
@@ -5,7 +6,8 @@ route: /Tooltip
 
 # Tooltip
 
-A `FluentTooltip` displays additional information about another component. The information is displayed above and near the target component.
+A `FluentTooltip` displays additional information about another component.
+The information is displayed near the target component by using `Positioning` it can also be placed **Above**, **Below**, etc.
 
 **Tooltip** is not expected to handle interactive content. If this is necessary behavior, an expand/collapse button + popover should be used instead.
 
@@ -30,7 +32,7 @@ We advise you to always use this service when working with tooltips so all defin
 and will be written **at the end** of the HTML page to support different z-index levels.
 
 In the `Program.cs`, inject the Tooltip service with global options.
-You can also use the `Services.AddFluentUIComponents` method to register **all** required FluentUI services, including this one.
+For more convenience, you should use the `Services.AddFluentUIComponents()` method to register all required Fluent UI services (including this one).
 
 ```csharp
 builder.Services.AddScoped<ITooltipService, TooltipService>();

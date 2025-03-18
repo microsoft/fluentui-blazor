@@ -14,5 +14,6 @@ public partial class FluentProviders : FluentComponentBase
 
     /// <summary />
     internal string? StyleValue => DefaultStyleBuilder
+        .AddStyle("display", "contents")
         .Build();
 }
