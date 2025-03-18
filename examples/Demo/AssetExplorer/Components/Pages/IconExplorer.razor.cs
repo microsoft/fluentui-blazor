@@ -63,6 +63,8 @@ public partial class IconExplorer
 ,
         ];
 
+        await PaginationState.SetCurrentPageIndexAsync(0);
+
         await PaginationState.SetTotalItemCountAsync(IconsFound.Length);
 
         _searchResultMessage = IconsFound.Length == 0 ? "No icons found." : string.Empty;
