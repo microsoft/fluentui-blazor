@@ -118,6 +118,11 @@ These providers are used by associated services to display Toasts, Dialog boxes,
 ```
 > **note:** You can remove providers that are not used in your application.
 
+You can also add all available providers in your `MainLayout.razor` file by using the `FluentProviders` component:
+```xml
+<FluentProviders />
+```
+
 ## 🔹Working with Icons and Emoji
 We have additional packages available that include the complete **Fluent UI System icons** and **Fluent UI Emoji** collections. 
 Please refer to the [Icons and Emoji](https://www.fluentui-blazor.net/IconsAndEmoji) page for more information.

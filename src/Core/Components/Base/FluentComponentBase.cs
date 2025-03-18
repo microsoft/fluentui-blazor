@@ -2,8 +2,10 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -15,6 +17,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFluentComponentBase
 {
     private FluentJSModule? _jsModule;
+    private readonly ConcurrentDictionary<Type, object> _services = new();
+
+    [Inject]
+    private IServiceProvider ServiceProvider { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -80,6 +86,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
+        _services.Clear();
         await JSModule.DisposeAsync();
     }
 
@@ -91,6 +98,31 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     protected virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
+        _services.Clear();
         await JSModule.DisposeAsync(jsModule);
+    }
+
+    /// <summary>
+    /// Get service of type <typeparamref name="T"/> from the <see cref="IServiceProvider"/> or null if not found.
+    /// Keep in mind that this method will cache the service in the component memory for future use.
+    /// </summary>
+    /// <typeparam name="T">The type of service object to get.</typeparam>
+    /// <returns></returns>
+    protected virtual T? GetCachedServiceOrNull<T>()
+    {
+        if (_services.ContainsKey(typeof(T)))
+        {
+            return (T)_services[typeof(T)];
+        }
+
+        var service = ServiceProvider.GetService<T>();
+
+        if (service is null)
+        {
+            return default;
+        }
+
+        _services.TryAdd(typeof(T), service);
+        return service;
     }
 }

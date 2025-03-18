@@ -12,24 +12,24 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
 
     blazor.registerCustomEventType('dialogbeforetoggle', {
       browserEventName: 'beforetoggle',
-      createEventArgs: event => {
+      createEventArgs: (event: any) => {
         return {
           id: event.target.id,
           type: event.type,
-          oldState: event.detail.oldState,
-          newState: event.detail.newState,
+          oldState: event.detail?.oldState ?? event.oldState,
+          newState: event.detail?.newState ?? event.newState,
         };
       }
     });
 
     blazor.registerCustomEventType('dialogtoggle', {
       browserEventName: 'toggle',
-      createEventArgs: event => {
+      createEventArgs: (event: any) => {
         return {
           id: event.target.id,
           type: event.type,
-          oldState: event.detail.oldState,
-          newState: event.detail.newState,
+          oldState: event.detail?.oldState ?? event.oldState,
+          newState: event.detail?.newState ?? event.newState,
         };
       }
     });

@@ -32,6 +32,11 @@ public static class ServiceCollectionExtensions
         services.Add<IDialogService, DialogService>(serviceLifetime);
         services.Add<IFluentLocalizer>(provider => options?.Localizer ?? FluentLocalizerInternal.Default, serviceLifetime);
 
+        if (configuration == null || configuration.Tooltip.UseServiceProvider)
+        {
+            services.Add<ITooltipService, TooltipService>(serviceLifetime);
+        }
+
         return services;
     }
 

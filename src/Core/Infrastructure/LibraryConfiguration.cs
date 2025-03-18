@@ -18,12 +18,6 @@ public class LibraryConfiguration
     public static readonly string? AssemblyVersion = typeof(LibraryConfiguration).Assembly.GetName().Version?.ToString();
 
     /// <summary>
-    /// Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
-    /// If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
-    /// </summary>
-    public bool UseTooltipServiceProvider { get; set; } = true;
-
-    /// <summary>
     /// Gets or sets the service lifetime for the library services, when using Fluent UI in WebAssembly, it can make sense to use <see cref="ServiceLifetime.Singleton"/>.
     /// Default is <see cref="ServiceLifetime.Scoped"/>.
     /// <para>Only <see cref="ServiceLifetime.Scoped"/> and <see cref="ServiceLifetime.Singleton"/> are supported.</para>
@@ -36,9 +30,14 @@ public class LibraryConfiguration
     public IFluentLocalizer? Localizer { get; set; }
 
     /// <summary>
-    /// Gets or sets the default CSS class and styles for the library components.
+    /// Gets the default CSS class and styles for the library components.
     /// </summary>
     public DefaultStyles DefaultStyles { get; } = new DefaultStyles();
+
+    /// <summary>
+    /// Gets the options for the library tooltip.
+    /// </summary>
+    public LibraryTooltipOptions Tooltip { get; } = new LibraryTooltipOptions();
 
     /* TODO: Implement these properties
      

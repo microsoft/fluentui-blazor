@@ -89,5 +89,4 @@ public enum Positioning
     /// </summary>
     [Description("center-center")]
     CenterCenter,
-
 }
