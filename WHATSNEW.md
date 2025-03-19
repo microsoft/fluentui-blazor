@@ -18,6 +18,12 @@
 - \[Docs\] IconExplorer: Reset current page to 0 when searching ([#3536](https://github.com/microsoft/fluentui-blazor/pull/3536))
 - \[Docs]\ Typo in Templates.md file. ([#3503](https://github.com/microsoft/fluentui-blazor/pull/3503))
 
+### Icons and Emoji
+- Update to Fluent UI System Icons 1.1.292 (changes since 1.1.278).
+
+  We do not have an update on the individual new/changed icons at this time
+
+
 ## V4.11.6
 
 ### Components
