@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -11,7 +15,6 @@ public class FluentSearchTests : TestContext
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
-
 
     [Fact]
     public void FluentSearch_Default()
@@ -29,7 +32,7 @@ public class FluentSearchTests : TestContext
     public void FluentSearch_WithLabel()
     {
         //Arrange
-        string label = "With a label";
+        var label = "With a label";
         var cut = RenderComponent<FluentSearch>(parameters =>
         {
             parameters.Add(s => s.Label, label);
@@ -120,7 +123,6 @@ public class FluentSearchTests : TestContext
         // Assert
         cut.Verify();
     }
-
 
     [Fact]
     public void FluentSearch_DataListAttribute()

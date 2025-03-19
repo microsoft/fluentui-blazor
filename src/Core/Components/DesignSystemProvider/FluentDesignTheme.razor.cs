@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Globalization;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components;
@@ -33,7 +37,7 @@ public partial class FluentDesignTheme : ComponentBase
 
     /// <summary>
     /// Gets or sets the identifier for the component.
-    /// </summary> 
+    /// </summary>
     [Parameter]
     public string Id { get; set; }
 
@@ -73,15 +77,21 @@ public partial class FluentDesignTheme : ComponentBase
     [Parameter]
     public EventCallback<OfficeColor?> OfficeColorChanged { get; set; }
 
+    [Parameter]
+    public string? NeutralBaseColor { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> NeutralBaseColorChanged { get; set; }
+
     /// <summary>
     /// Gets or sets the local storage name to save and retrieve the <see cref="Mode"/> and the <see cref="OfficeColor"/> / <see cref="CustomColor"/>.
-    /// </summary> 
+    /// </summary>
     [Parameter]
     public string? StorageName { get; set; }
 
     /// <summary>
     /// Gets or sets the body.dir value.
-    /// </summary> 
+    /// </summary>
     [Parameter]
     public LocalizationDirection? Direction
     {
@@ -172,10 +182,13 @@ public partial class FluentDesignTheme : ComponentBase
                 }
 
                 break;
+            case "neutral-color":
+                GlobalDesign.SetNeutralColor(value);
+                break;
         }
     }
 
-    protected async override Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
@@ -252,6 +265,13 @@ public partial class FluentDesignTheme : ComponentBase
                 await OnChangeRaisedAsync("primary-color", theme.PrimaryColor);
             }
         }
+
+        // Neutral base color
+        if (!string.IsNullOrEmpty(theme?.NeutralColor))
+        {
+            GlobalDesign.SetNeutralColor(theme.NeutralColor);
+            await OnChangeRaisedAsync("neutral-color", theme.NeutralColor);
+        }
     }
 
     /// <summary />
@@ -259,6 +279,7 @@ public partial class FluentDesignTheme : ComponentBase
     {
         public string? Mode { get; set; }
         public string? PrimaryColor { get; set; }
+        public string? NeutralColor { get; set; }
     }
 
     /// <summary />

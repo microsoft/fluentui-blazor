@@ -3,6 +3,7 @@
 // ********************
 
 import { ColorsUtils } from "./Design/ColorsUtils";
+import { parseColorHexRGB } from '@microsoft/fast-colors'
 import {
   baseLayerLuminance,
   StandardLuminance,
@@ -53,11 +54,13 @@ class DesignTheme extends HTMLElement {
       // Dark mode - Luminance = 0.15
       case "dark":
         baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
+        document.body.dataset.theme = "dark";
         break;
 
       // Light mode - Luminance = 0.98
       case "light":
         baseLayerLuminance.withDefault(StandardLuminance.LightMode);
+        document.body.dataset.theme = "light";
         break;
 
       // System mode
@@ -65,9 +68,11 @@ class DesignTheme extends HTMLElement {
         const isDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
         if (isDark) {
           baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
+          document.body.dataset.theme = "dark";
         }
         else {
           baseLayerLuminance.withDefault(StandardLuminance.LightMode);
+          document.body.dataset.theme = "light";
         }
         break;
     }
@@ -77,8 +82,8 @@ class DesignTheme extends HTMLElement {
 
   /**
   * Gets the current color or office name attribute value.
-  * Access, Booking, Exchange, Excel, GroupMe, Office, OneDrive, OneNote, Outlook, 
-  * Planner, PowerApps, PowerBI, PowerPoint, Project, Publisher, SharePoint, Skype, 
+  * Access, Booking, Exchange, Excel, GroupMe, Office, OneDrive, OneNote, Outlook,
+  * Planner, PowerApps, PowerBI, PowerPoint, Project, Publisher, SharePoint, Skype,
   * Stream, Sway, Teams, Visio, Windows, Word, Yammer
   */
   get primaryColor(): string | null {
@@ -97,7 +102,7 @@ class DesignTheme extends HTMLElement {
       : value;
 
     // Apply the color
-    const rgb = ColorsUtils.parseColorHexRGB(color);
+    const rgb = parseColorHexRGB(color);
     if (rgb != null) {
       const swatch = SwatchRGB.from(rgb);
       accentBaseColor.withDefault(swatch);
@@ -105,6 +110,32 @@ class DesignTheme extends HTMLElement {
 
     // Synchronization
     this._synchronization.synchronizeOtherComponents("primary-color", value);
+  }
+
+  /**
+  * Gets the current neutral base color attribute value.
+  */
+  get neutralColor(): string | null {
+    return this.getAttribute("neutral-color");
+  }
+
+  /**
+  *  Sets the current neutral base color attribute value.
+  */
+  set neutralColor(value: string | null) {
+    this.updateAttribute("neutral-color", value);
+
+    // Apply the color
+    if (value != null) {
+      const rgb = parseColorHexRGB(value);
+      if (rgb != null) {
+        const swatch = SwatchRGB.from(rgb);
+        neutralBaseColor.withDefault(swatch);
+      }
+
+      // Synchronization
+      this._synchronization.synchronizeOtherComponents("neutral-color", value);
+    }
   }
 
   /**
@@ -142,6 +173,7 @@ class DesignTheme extends HTMLElement {
     if (existingComponent != null) {
       const mode = ThemeStorage.getValueOrNull(existingComponent.getAttribute("mode"));
       const color = ThemeStorage.getValueOrNull(existingComponent.getAttribute("primary-color"))
+      const neutralColor = ThemeStorage.getValueOrNull(existingComponent.getAttribute("neutral-color"));
 
       // Mode can be null in other components
       this.attributeChangedCallback("mode", this.mode, mode);
@@ -149,6 +181,11 @@ class DesignTheme extends HTMLElement {
       // Color cannot be null in other components
       if (color != null) {
         this.attributeChangedCallback("primary-color", this.primaryColor, color);
+      }
+
+      // Neutral color cannot be null in other components
+      if (neutralColor != null) {
+        this.attributeChangedCallback("neutral-color", this.neutralColor, neutralColor);
       }
     }
 
@@ -159,6 +196,7 @@ class DesignTheme extends HTMLElement {
       if (theme != null) {
         this.attributeChangedCallback("mode", this.mode, theme.mode);
         this.attributeChangedCallback("primary-color", this.primaryColor, theme.primaryColor);
+        this.attributeChangedCallback("neutral-color", this.neutralColor, theme.neutralColor);
       }
     }
 
@@ -197,7 +235,7 @@ class DesignTheme extends HTMLElement {
 
   // Attributes to observe
   static get observedAttributes() {
-    return ["mode", "primary-color", "storage-name"];
+    return ["mode", "primary-color", "neutral-color", "storage-name"];
   }
 
   // Attributes has changed.
@@ -229,6 +267,11 @@ class DesignTheme extends HTMLElement {
         this.primaryColor = newValue;
         break;
 
+      case "neutral-color":
+        this.dispatchAttributeChanged(name, oldValue, newValue);
+        this.neutralColor = newValue;
+        break;
+
       case "storage-name":
         this.storageName = newValue;
         break;
@@ -246,7 +289,7 @@ class DesignTheme extends HTMLElement {
     // If not, the dev already "forced" the mode to "dark" or "light"
     if (currentMode == null) {
 
-      // console.log(` ** colorSchemeListener = "${currentMode}"`) 
+      // console.log(` ** colorSchemeListener = "${currentMode}"`)
 
       // Dark
       if (e.matches) {
@@ -293,7 +336,7 @@ class DesignTheme extends HTMLElement {
       }
     }
     if (this.storageName != null) {
-      this._themeStorage.updateLocalStorage(this.mode, this.primaryColor);
+      this._themeStorage.updateLocalStorage(this.mode, this.primaryColor, this.neutralColor);
     }
 
     this._isInternalChange = false;

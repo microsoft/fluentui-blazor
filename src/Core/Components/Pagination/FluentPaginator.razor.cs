@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
@@ -9,6 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentPaginator : FluentComponentBase, IDisposable
 {
     private readonly EventCallbackSubscriber<PaginationState> _totalItemCountChanged;
+    private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
 
     [Parameter]
     public EventCallback<int> CurrentPageIndexChanged { get; set; }
@@ -49,6 +54,7 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     {
         // The "total item count" handler doesn't need to do anything except cause this component to re-render
         _totalItemCountChanged = new(new EventCallback<PaginationState>(this, null));
+        _currentPageItemsChanged = new(new EventCallback<PaginationState>(this, null));
     }
 
     private Task GoFirstAsync() => GoToPageAsync(0);
@@ -70,9 +76,15 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
 
     /// <inheritdoc />
     protected override void OnParametersSet()
-        => _totalItemCountChanged.SubscribeOrMove(State.TotalItemCountChangedSubscribable);
+    {
+        _totalItemCountChanged.SubscribeOrMove(State.TotalItemCountChangedSubscribable);
+        _currentPageItemsChanged.SubscribeOrMove(State.CurrentPageItemsChanged);
+    }
 
     /// <inheritdoc />
     public void Dispose()
-        => _totalItemCountChanged.Dispose();
+    {
+        _totalItemCountChanged.Dispose();
+        _currentPageItemsChanged.Dispose();
+    }
 }

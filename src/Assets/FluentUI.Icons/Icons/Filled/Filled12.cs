@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Icons.Filled;
 [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public static partial class Size12
 {
-    public class Add : Icon { public Add() : base("Add", IconVariant.Filled, IconSize.Size12, "<path d=\"M6.5 1.75a.75.75 0 0 0-1.5 0V5H1.75a.75.75 0 0 0 0 1.5H5v3.25a.75.75 0 0 0 1.5 0V6.5h3.25a.75.75 0 0 0 0-1.5H6.5V1.75Z\"/>") { } }
+    public class Add : Icon { public Add() : base("Add", IconVariant.Filled, IconSize.Size12, "<path d=\"M6 1.75c.41 0 .75.34.75.75v2.75H9.5a.75.75 0 0 1 0 1.5H6.75V9.5a.75.75 0 0 1-1.5 0V6.75H2.5a.75.75 0 0 1 0-1.5h2.75V2.5c0-.41.34-.75.75-.75Z\"/>") { } }
     public class AddCircle : Icon { public AddCircle() : base("AddCircle", IconVariant.Filled, IconSize.Size12, "<path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm5-2.5a.42.42 0 0 0-.42.42v1.66H3.92a.42.42 0 0 0 0 .84h1.66v1.66a.42.42 0 0 0 .84 0V6.42h1.66a.42.42 0 0 0 0-.84H6.42V3.92A.42.42 0 0 0 6 3.5Z\"/>") { } }
     public class Alert : Icon { public Alert() : base("Alert", IconVariant.Filled, IconSize.Size12, "<path d=\"M6 1a4 4 0 0 0-4 4v1.38l-.95 1.9A.5.5 0 0 0 1.5 9h9a.5.5 0 0 0 .45-.72L10 6.38V5a4 4 0 0 0-4-4Zm0 10.5A2 2 0 0 1 4.06 10h3.88A2 2 0 0 1 6 11.5Z\"/>") { } }
     public class AlertSnooze : Icon { public AlertSnooze() : base("AlertSnooze", IconVariant.Filled, IconSize.Size12, "<path d=\"M6.09 1A1.5 1.5 0 0 0 7.5 3L6.3 4.6A1.5 1.5 0 0 0 7.5 7h2.8l.65 1.28a.5.5 0 0 1-.45.72h-9a.5.5 0 0 1-.45-.72L2 6.38V5a4 4 0 0 1 4.09-4Zm-2.03 9a2 2 0 0 0 3.88 0H4.06ZM7.5 1a.5.5 0 0 0 0 1h2L7.1 5.2a.5.5 0 0 0 .4.8h3a.5.5 0 0 0 0-1h-2l2.4-3.2a.5.5 0 0 0-.4-.8h-3Z\"/>") { } }

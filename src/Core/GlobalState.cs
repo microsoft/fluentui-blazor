@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -15,6 +19,8 @@ public class GlobalState
     public ElementReference Container { get; set; } = default!;
 
     public string? Color { get; set; }
+
+    public string? NeutralColor { get; set; }
 
     public event Action? OnChange;
 
@@ -39,6 +45,12 @@ public class GlobalState
     public void SetColor(string? color)
     {
         Color = color;
+        NotifyStateHasChanged();
+    }
+
+    public void SetNeutralColor(string? neutralColor)
+    {
+        NeutralColor = neutralColor;
         NotifyStateHasChanged();
     }
 

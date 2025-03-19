@@ -2042,6 +2042,15 @@
             Automatically fit the number of items per page to the available height.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.DisplayMode">
+            <summary>
+            Gets or set the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode"/> of the grid.
+            Default is 'Grid'.
+            When set to Grid, <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns" /> can be used to specify column widths.
+            When set to Table, widths need to be specified at the column level.
+            When using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Virtualize"/>, it is recommended to use Table.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowSize">
             <summary>
             Gets or sets the size of each row in the grid based on the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize"/> enum.
@@ -2140,6 +2149,11 @@
             </summary>
             <param name="index">The column index whose options UI is to be displayed.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.CloseColumnOptionsAsync">
+            <summary>
+            Closes the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.ColumnOptions"/> UI that was previously displayed.
+            </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnResizeAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
             <summary>
@@ -3304,7 +3318,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Id">
             <summary>
             Gets or sets the identifier for the component.
-            </summary> 
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode">
             <summary>
@@ -3339,12 +3353,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.StorageName">
             <summary>
             Gets or sets the local storage name to save and retrieve the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode"/> and the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColor"/> / <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor"/>.
-            </summary> 
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Direction">
             <summary>
             Gets or sets the body.dir value.
-            </summary> 
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OnLuminanceChanged">
             <summary>
@@ -7836,6 +7850,9 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.GlobalState">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.LibraryConfiguration">
             <summary />
         </member>
@@ -7882,6 +7899,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.Opacity">
             <summary>
             Gets or sets the opacity of the overlay.
+            Default is 0.4.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.Alignment">
@@ -7921,9 +7939,9 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.BackgroundColor">
             <summary>
-            Gets or sets the background color. 
-            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb).
-            Default is '#ffffff'.
+            Gets or sets the background color.
+            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
+            Default NeutralBaseColor token value (#808080).
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.DisposeAsync">
@@ -9236,6 +9254,11 @@
             <summary>
             Gets or sets the orientation of the stacked components.
             Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Reversed">
+            <summary>
+            Gets or sets a value indicating whether the stack is reversed.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Width">
