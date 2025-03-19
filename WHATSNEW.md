@@ -1,5 +1,10 @@
 ## V4.11.7
-- No changes yet
+
+### Icons and Emoji
+- Update to Fluent UI System Icons 1.1.292 (changes since 1.1.278).
+
+  We do not have an update on the individual new/changed icons at this time
+
 
 ## V4.11.6
 
