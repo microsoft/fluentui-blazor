@@ -1,0 +1,35 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Rendering;
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-compound-button id="@Id"
+                        class="@ClassValue"
+                        style="@StyleValue"
+                        autofocus="@AutoFocus"
+                        appearance="@Appearance.ToAttributeValue()"
+                        shape="@Shape.ToAttributeValue()"
+                        size="@Size.ToAttributeValue()"
+                        name="@Name"
+                        aria-label="@Title"
+                        disabled="@Disabled"
+                        disabled-focusable="@DisabledFocusable"
+                        icon-only="@(IconOnly || (ChildContent is null && Label is null))"
+                        @onclick="@OnClickHandlerAsync"
+                        @onclick:stopPropagation="@StopPropagation"
+                        @attributes="@AdditionalAttributes">
+    @if (IconStart != null)
+    {
+        <FluentIcon Value="@IconStart" Slot="@((ChildContent is null && Label is null) ? null : "start")" />
+    }
+    @Label
+    @ChildContent
+    @if (!IconOnly)
+    {
+        <span slot="description">@Description</span>
+    }
+    @if (IconEnd != null)
+    {
+        <FluentIcon Value="@IconEnd" Slot="@((ChildContent is null && Label is null) ? null : "end")" />
+    }
+</fluent-compound-button>
