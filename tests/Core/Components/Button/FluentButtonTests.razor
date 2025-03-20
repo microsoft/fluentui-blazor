@@ -484,5 +484,23 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentButton_Label()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Label="Label" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_LabelChildContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Label="Label">Child content</FluentButton>);
+        // Assert
+        cut.Verify();
+    }
 }
 
