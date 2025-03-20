@@ -1,0 +1,323 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+    public FluentCompoundButtonTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_Default()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentCompoundButton Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_AutofocusAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton AutoFocus="true">fluent-compound-button</FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(ButtonShape.Rounded, "rounded")]
+    [InlineData(ButtonShape.Circular, "circular")]
+    [InlineData(ButtonShape.Square, "square")]
+    [InlineData(null, "")]
+    [InlineData((ButtonShape)99, "")]
+    public void FluentCompoundButton_ShapeAttribute(ButtonShape? shape, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Shape="@shape" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+        // Assert
+        var attribute = cut.Find("fluent-compound-button").GetAttribute("shape") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(ButtonSize.Large, "large")]
+    [InlineData(ButtonSize.Medium, "medium")]
+    [InlineData(ButtonSize.Small, "small")]
+    [InlineData(null, "")]
+    [InlineData((ButtonSize)99, "")]
+    public void FluentCompoundButton_SizeAttribute(ButtonSize? size, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Size="@size" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+        // Assert
+        var attribute = cut.Find("fluent-compound-button").GetAttribute("size") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentCompoundButton_NameAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Name="name-value" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(ButtonAppearance.Default, "")]
+    [InlineData(ButtonAppearance.Primary, "primary")]
+    [InlineData(ButtonAppearance.Outline, "outline")]
+    [InlineData(ButtonAppearance.Transparent, "transparent")]
+    [InlineData(ButtonAppearance.Subtle, "subtle")]
+    [InlineData(null, "")]
+    [InlineData((ButtonAppearance)99, "")]
+    public void FluentCompoundButton_AppearanceAttribute(ButtonAppearance? appearance, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Appearance="@appearance" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Assert
+        var attribute = cut.Find("fluent-compound-button").GetAttribute("appearance") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentCompoundButton_BackgroundColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Id="MyButton" BackgroundColor="#ff0000" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_Color()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Id="MyButton" Color="#00ff00" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_BackgroundColorColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Id="MyButton" BackgroundColor="#ff0000" Color="#00ff00" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_IconStart()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton IconStart="@Samples.Icons.Info" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_IconEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton IconEnd="@Samples.Icons.Info" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_IconStartNoContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton IconStart="@Samples.Icons.Info" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_IconEndNoContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton IconEnd="@Samples.Icons.Info" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_Title()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Title="My Title" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_DisabledAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Disabled="true" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_DisabledFocusableAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton DisabledFocusable="true" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_OnClick_Disabled()
+    {
+        var clicked = false;
+
+        // Arrange
+        var cut = Render<FluentCompoundButton>(@<FluentCompoundButton OnClick="@(e => { clicked = true; })" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Act - `InvokeAsync` to avoid "The current thread is not associated with the Dispatcher" error.
+        cut.InvokeAsync(() => cut.Instance.SetDisabled(true));
+        cut.Find("fluent-compound-button").Click();
+
+        // Assert
+        Assert.False(clicked);
+    }
+
+    [Fact]
+    public void FluentCompoundButton_StopPropagationFalse()
+    {
+        bool clickedondiv = false;
+        bool clicked = false;
+
+        // Arrange
+        // Not adding StopPropagation here explicitly because it is false by default
+        var cut = Render(@<div @onclick="@(e => {clickedondiv = true; })">
+            <FluentCompoundButton OnClick="@(e => { clicked = true; })" Label="Label">
+            <Description>Description content</Description>
+            </FluentCompoundButton>
+        </div>);
+
+        // Act
+        cut.Find("fluent-compound-button").Click();
+
+        // Assert
+        Assert.True(clickedondiv);
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void FluentCompoundButton_StopPropagationTrue()
+    {
+        bool clickedondiv = false;
+        bool clicked = false;
+
+        // Arrange
+        var cut = Render(@<div @onclick="@(e => {clickedondiv = true; })">
+            <FluentCompoundButton StopPropagation="true" OnClick="@(e => { clicked = true; })"
+                Label="Label"><Description>Description content</Description></FluentCompoundButton>
+        </div>);
+
+        // Act
+        cut.Find("fluent-compound-button").Click();
+
+        // Assert
+        Assert.False(clickedondiv);
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void FluentCompoundButton_IconOnly()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton IconOnly="true">
+            <svg viewBox="0 0 20 20">
+                <path fill="currentColor" d="M7.851 3.146a.5.5 0 0 1 0 .707L4.706 7H10c2.932 0 5.593 1.64 6.936 4.043a.5.5 0 1 1-.872.488C14.894 9.439 12.564 8 10 8H4.707l3.144 3.145a.5.5 0 0 1-.707.707L3.161 7.867a.5.5 0 0 1-.014-.721l3.997-4a.5.5 0 0 1 .707 0M8 15a2 2 0 1 1 4 0a2 2 0 0 1-4 0m2-1a1 1 0 1 0 0 2a1 1 0 0 0 0-2"></path>
+            </svg>
+        </FluentCompoundButton>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_Label()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Label="Button Label"></FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_ChildContentDescription()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton>
+            <ChildContent>Child content</ChildContent>
+            <Description>Description content</Description>
+        </FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_LabelAndDescription()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Label="Button Label">
+            <Description>Description content</Description>
+        </FluentCompoundButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_ChildContentLabelDescription()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Label="Both">
+            <ChildContent>Both</ChildContent>
+            <Description>Description content</Description>
+        </FluentCompoundButton>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCompoundButton_OnClick()
+    {
+        bool clicked = false;
+
+        // Arrange
+        var cut = Render(@<FluentCompoundButton OnClick="@(e => { clicked = true; })" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Act
+        cut.Find("fluent-compound-button").Click();
+
+        // Assert
+        Assert.True(clicked);
+    }
+}

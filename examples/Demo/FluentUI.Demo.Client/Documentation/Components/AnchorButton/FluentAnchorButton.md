@@ -20,3 +20,7 @@ route: /AchorButton
 
 ## Long text
 {{ AnchorButtonLongText }}
+
+## API FluentAnchorButton
+
+{{ API Type=FluentAnchorButton }}
