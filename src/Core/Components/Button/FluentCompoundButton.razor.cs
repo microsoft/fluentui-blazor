@@ -124,7 +124,7 @@ public partial class FluentCompoundButton : FluentComponentBase
     /// <summary>
     /// Gets or sets the content to be rendered inside description area of the button.
     /// </summary>
-    [Parameter, EditorRequired]
+    [Parameter]
     public RenderFragment? Description { get; set; }
 
     /// <summary>
