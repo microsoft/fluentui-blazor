@@ -1,35 +1,35 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <RuntimeVersion9>9.0.0</RuntimeVersion9>
-    <AspNetCoreVersion9>9.0.0</AspNetCoreVersion9>
-    <EfCoreVersion9>9.0.0</EfCoreVersion9>
+    <RuntimeVersion9>9.0.3</RuntimeVersion9>
+    <AspNetCoreVersion9>9.0.3</AspNetCoreVersion9>
+    <EfCoreVersion9>9.0.3</EfCoreVersion9>
   </PropertyGroup>
   <!-- Independent from TargetFrameWorks-->
   <ItemGroup>
     <!-- For Sample Apps -->
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.9.3" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.10.4" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.6.0" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.11.7" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.11.7" />
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.8.0" />
     <!-- Test dependencies -->
-    <PackageVersion Include="bunit" Version="1.33.3" />
+    <PackageVersion Include="bunit" Version="1.38.5" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-    <PackageVersion Include="xunit" Version="2.9.2" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.2" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.0" />
-    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
-    <PackageVersion Include="Microsoft.Playwright" Version="1.48.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.0" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="Microsoft.Playwright" Version="1.51.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.3" />
     <!-- Shared dependencies -->
     <PackageVersion Include="Markdig.Signed" Version="0.34.0" />
     <PackageVersion Include="Meziantou.Analyzer" Version="2.0.162" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0-1.final" />
-    <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.12.19" />
+    <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.13.61" />
     <PackageVersion Include="Microsoft.VisualStudioEng.MicroBuild.Core" Version="1.0.0" />
-    <PackageVersion Include="Microsoft.TypeScript.MSBuild" Version="5.7.3" />
+    <PackageVersion Include="Microsoft.TypeScript.MSBuild" Version="5.8.1" />
     <PackageVersion Include="Microsoft.CodeAnalysis.ResxSourceGenerator" Version="3.11.0-beta1.24527.2" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
@@ -40,8 +40,8 @@
   <ItemGroup Condition="'$(TargetFramework)'=='net9.0'">
     <!-- Build dependencies -->
     <PackageVersion Include="Microsoft.AspNetCore.Components.Analyzers" Version="$(AspNetCoreVersion9)" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion9)" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion9)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.3" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(AspNetCoreVersion9)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion9)" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion9)" />
@@ -49,9 +49,9 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfCoreVersion9)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion9)" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion9)" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion9)" />
-    <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion9)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="9.0.3" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="System.IO.Pipelines" Version="$(RuntimeVersion9)" />
