@@ -181,6 +181,14 @@ public partial class FluentButton : FluentComponentBase
     public string? Title { get; set; }
 
     /// <summary>
+    ///  Gets or sets the content to be rendered inside the button.
+    ///  This can be used as an alternative to specifying the content as a child component of the button.
+    ///  If both are specified, both will be rendered.
+    ///  </summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>
     /// Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
     /// </summary>
     [Parameter]
