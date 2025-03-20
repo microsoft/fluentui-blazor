@@ -12,7 +12,7 @@
                       target="@Target.ToAttributeValue()"
                       referrerpolicy="@ReferrerPolicy"
                       type="@Type"
-                      appearance="@Appearance.ToAttributeValue()"
+                      appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
                       shape="@Shape.ToAttributeValue()"
                       size="@Size.ToAttributeValue()"
                       icon-only="@IconOnly"
@@ -23,6 +23,7 @@
     {
         <FluentIcon Value="@IconStart" Slot="@(ChildContent is null ? null : "start")" />
     }
+    @Label
     @ChildContent
     @if (IconEnd != null)
     {
