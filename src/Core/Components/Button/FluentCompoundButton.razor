@@ -7,7 +7,7 @@
                         class="@ClassValue"
                         style="@StyleValue"
                         autofocus="@AutoFocus"
-                        appearance="@Appearance.ToAttributeValue()"
+                        appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
                         shape="@Shape.ToAttributeValue()"
                         size="@Size.ToAttributeValue()"
                         name="@Name"
