@@ -5,9 +5,7 @@ route: /CompoundButton
 
 # CompoundButton
 
-## Default
-
-{{ CompoundButtonDefault }}
+You can use `LabelContent` and/or `ChildContent` to specify the main text on the button. When you supply both, both will be rendered.
 
 ## Appearances
 {{ CompoundButtonAppearances }}

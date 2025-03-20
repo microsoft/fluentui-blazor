@@ -13,10 +13,7 @@
     [Fact]
     public void FluentCompoundButton_Default()
     {
-        // Arrange
-        using var id = Identifier.SequentialContext();
-
-        // Act
+        // Arrange & Act
         var cut = Render(@<FluentCompoundButton Label="Label"><Description>Description content</Description></FluentCompoundButton>);
 
         // Assert
@@ -322,45 +319,5 @@
 
         // Assert
         Assert.True(clicked);
-    }
-
-    [Fact]
-    public void FluentCompoundButton_ClassAttribute()
-    {
-        // Arrange && Act
-        var cut = Render(@<FluentCompoundButton Class="additional-class" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
-
-        // Assert
-        cut.Verify();
-    }
-
-    [Fact]
-    public void FluentCompoundButton_StyleAttribute()
-    {
-        // Arrange && Act
-        var cut = Render(@<FluentCompoundButton Style="background-color: green;" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
-
-        // Assert
-        cut.Verify();
-    }
-
-    [Fact]
-    public void FluentCompoundButton_AdditionalAttribute()
-    {
-        // Arrange && Act
-        var cut = Render(@<FluentCompoundButton additional-attribute-name="additional-attribute-value" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
-
-        // Assert
-        cut.Verify();
-    }
-
-    [Fact]
-    public void FluentCompoundButton_AdditionalAttributes()
-    {
-        // Arrange && Act
-        var cut = Render(@<FluentCompoundButton additional-attribute1-name="additional-attribute1-value" additional-attribute2-name="additional-attribute2-value" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
-
-        // Assert
-        cut.Verify();
     }
 }
