@@ -40,8 +40,8 @@
   <ItemGroup Condition="'$(TargetFramework)'=='net9.0'">
     <!-- Build dependencies -->
     <PackageVersion Include="Microsoft.AspNetCore.Components.Analyzers" Version="$(AspNetCoreVersion9)" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion9)" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion9)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.3" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(AspNetCoreVersion9)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion9)" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion9)" />
@@ -49,9 +49,9 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfCoreVersion9)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion9)" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion9)" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion9)" />
-    <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion9)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="9.0.3" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="System.IO.Pipelines" Version="$(RuntimeVersion9)" />
