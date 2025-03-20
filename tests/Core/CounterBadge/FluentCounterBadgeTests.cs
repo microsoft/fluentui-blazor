@@ -14,11 +14,15 @@ public class FluentCounterBadgeTests : TestBase
     [Inject]
     public GlobalState GlobalState { get; set; } = new GlobalState();
 
+    public FluentCounterBadgeTests()
+    {
+        TestContext.Services.AddSingleton(GlobalState);
+    }
+
     [Fact]
     public void FluentCounterBadge_AttributesDefaultValues()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.Count, 1);
@@ -36,7 +40,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_AppearanceAttribute(Appearance appearance)
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.Appearance, appearance);
@@ -53,8 +56,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_AppearanceAttributeInvalid(Appearance appearance)
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         Assert.Throws<ArgumentException>(() => TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.Appearance, appearance);
@@ -71,7 +72,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_WithAdditionalCssClass()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.Class, "additional_class");
@@ -87,7 +87,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_WithAdditionalStyle()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.Style, "background-color: red");
@@ -103,8 +102,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_ShowOverflowAttribute()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.ShowOverflow, true);
@@ -121,7 +118,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BackgroundColorAndColorAttribute()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.BackgroundColor, Color.Accent);
@@ -138,7 +134,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BackgroundLightWeightAndDarkMode()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
         GlobalState.SetLuminance(StandardLuminance.DarkMode);
 
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
@@ -157,7 +152,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BackgroundLightWeightAndLightMode()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
         GlobalState.SetLuminance(StandardLuminance.LightMode);
 
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
@@ -176,7 +170,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BackgroundColorNullAndColorSet()
     {
         // Arrange, Act && Assert
-        TestContext.Services.AddSingleton(GlobalState);
         Assert.Throws<ArgumentException>(() => TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.BackgroundColor, null);
@@ -190,7 +183,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BackgroundColorSetAndColorNull()
     {
         // Arrange, Act && Assert
-        TestContext.Services.AddSingleton(GlobalState);
         Assert.Throws<ArgumentException>(() => TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.BackgroundColor, Color.Accent);
@@ -204,7 +196,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BackgroundColorCustom()
     {
         // Arrange, Act && Assert
-        TestContext.Services.AddSingleton(GlobalState);
         Assert.Throws<ArgumentException>(() => TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.BackgroundColor, Color.Custom);
@@ -218,7 +209,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_AppearanceOutline()
     {
         // Arrange, Act && Assert
-        TestContext.Services.AddSingleton(GlobalState);
         Assert.Throws<ArgumentException>(() => TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.Appearance, Appearance.Outline);
@@ -231,7 +221,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_ShowZeroAttributeWithCount0()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -249,7 +238,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_ShowZeroAttributeCountNot0()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -268,7 +256,6 @@ public class FluentCounterBadgeTests : TestBase
     {
         // Arrange && Act
         GlobalState.Luminance = StandardLuminance.DarkMode;
-        TestContext.Services.AddSingleton(GlobalState);
 
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
@@ -286,8 +273,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BackgroundColorLightweightLuminanceLight()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.BackgroundColor, Color.Lightweight);
@@ -304,8 +289,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BackgroundColorErrorLuminanceDark()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.BackgroundColor, Color.Error);
@@ -322,8 +305,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_Dispose()
     {
         // Arrange & Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.Count, 1);
@@ -340,8 +321,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_NoCount()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.AddChildContent("childcontent");
@@ -355,8 +334,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BadgeContent()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -373,8 +350,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BadgeContentWithMax()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -392,8 +367,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BadgeContentNoCount()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -410,8 +383,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BadgeContentNullWithCount()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -428,8 +399,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_Dot()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.Dot, true);
@@ -443,8 +412,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_DotWithCount()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.Dot, true);
@@ -459,8 +426,6 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_DotWithPositioning()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.Dot, true);
@@ -477,13 +442,28 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_WithPositioning()
     {
         // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.Count, 1);
             parameters.Add(parameters => parameters.HorizontalPosition, -25);
             parameters.Add(parameters => parameters.VerticalPosition, -25);
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_WithAdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
+        {
+            parameters.Add(p => p.Count, 1);
+            parameters.Add(p => p.AdditionalAttributes, new Dictionary<string, object>
+            {
+                { "data-test", "test" },
+            });
         });
 
         // Assert

@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Drawing;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
@@ -80,6 +84,14 @@ public class Swatch
         }
 
         return value / (max - min);
+    }
+
+    public System.Drawing.Color GetColor()
+    {
+        return System.Drawing.Color.FromArgb(
+            (byte)Denormalize(R, 0, 255),
+            (byte)Denormalize(G, 0, 255),
+            (byte)Denormalize(B, 0, 255));
     }
 
     private static float Denormalize(float value, int min, int max) => min + (value * (max - min));

@@ -7,10 +7,14 @@
     [Inject]
     private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
 
+    [Inject]
+    public GlobalState GlobalState { get; set; } = new GlobalState();
+
     public FluentAutocompleteTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddSingleton(LibraryConfiguration);
+        Services.AddSingleton(GlobalState);
     }
 
     [Fact]
