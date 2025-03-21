@@ -1,0 +1,35 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+<fluent-menu-item id="@Id"
+                  class="@ClassValue"
+                  style="@StyleValue"
+                  role="@Role.ToAttributeValue()"
+                  checked="@Checked"
+                  disabled="@Disabled"
+                  @attributes="AdditionalAttributes">
+    @if (IconIndicator != null)
+    {
+        <FluentIcon Value="@IconIndicator" Slot="@((ChildContent is null && Label is null) ? null : "indicator")" />
+    }
+    @if (IconStart != null)
+    {
+        <FluentIcon Value="@IconStart" Slot="@((ChildContent is null && Label is null) ? null : "start")" />
+    }
+    @Label
+    @ChildContent
+    @if (MenuItems != null)
+    {
+        <FluentMenuList slot="submenu">
+            @MenuItems
+        </FluentMenuList>
+    }
+    @if (IconEnd != null)
+    {
+        <FluentIcon Value="@IconEnd" Slot="@((ChildContent is null && Label is null) ? null : "end")" />
+    }
+    @if (IconSubmenu != null)
+    {
+        <FluentIcon Value="@IconSubmenu" Slot="@((ChildContent is null && Label is null) ? null : "submenu-glyph")" />
+    }
+</fluent-menu-item>
