@@ -15,18 +15,18 @@
                       appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
                       shape="@Shape.ToAttributeValue()"
                       size="@Size.ToAttributeValue()"
-                      icon-only="@IconOnly"
+                      icon-only="@(IconOnly || (ChildContent is null && Label is null))"
                       name="@Name"
                       aria-label="@Title"
                       @attributes="@AdditionalAttributes">
     @if (IconStart != null)
     {
-        <FluentIcon Value="@IconStart" Slot="@(ChildContent is null ? null : "start")" />
+        <FluentIcon Value="@IconStart" Slot="@((ChildContent is null && Label is null) ? null : "start")" />
     }
     @Label
     @ChildContent
     @if (IconEnd != null)
     {
-        <FluentIcon Value="@IconEnd" Slot="@(ChildContent is null ? null : "end")" />
+        <FluentIcon Value="@IconEnd" Slot="@((ChildContent is null && Label is null) ? null : "end")" />
     }
 </fluent-anchor-button>
