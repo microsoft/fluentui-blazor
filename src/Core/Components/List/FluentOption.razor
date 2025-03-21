@@ -3,14 +3,13 @@
 
 @* This file must be updated when the `fluent-select` web-component will be available  *@
 
-<option id="@Id"
-        class="@DefaultClassBuilder.Build()"
-        style="@DefaultStyleBuilder.Build()"
-        disabled="@Disabled"
-        value="@Value"
-        selected="@Selected"
-        aria-selected="@(Selected ? "true" : null)"
-        @onclick="@OnSelectHandlerAsync"
-        @attributes="@AdditionalAttributes">
+<fluent-option id="@Id"
+               class="@DefaultClassBuilder.Build()"
+               style="@DefaultStyleBuilder.Build()"
+               disabled="@Disabled"
+               name="@Name"
+               value="@Value"
+               selected="@Selected"
+               @attributes="@AdditionalAttributes">
     @ChildContent
-</option>
+</fluent-option>

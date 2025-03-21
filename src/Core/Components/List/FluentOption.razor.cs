@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -15,7 +16,7 @@ public partial class FluentOption : FluentComponentBase
     /// Gets or sets the context of the list.
     /// </summary>
     [CascadingParameter(Name = "ListContext")]
-    internal InternalListContext<object>? InternalListContext { get; set; }
+    private IInternalListContextOptions? InternalListContext { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the element is disabled.
@@ -30,6 +31,18 @@ public partial class FluentOption : FluentComponentBase
     public string? Value { get; set; }
 
     /// <summary>
+    /// Gets or sets the name of this option.
+    /// </summary>
+    [Parameter]
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the text to display in the dropdown when the option is selected
+    /// </summary>
+    [Parameter]
+    public string? Text { get; set; }
+
+    /// <summary>
     /// Gets or sets the value indicating whether the element is selected.
     /// This should be used with two-way binding.
     /// </summary>
@@ -40,30 +53,24 @@ public partial class FluentOption : FluentComponentBase
     public bool Selected { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback that updates the bound value.
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> SelectedChanged { get; set; }
-
-    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
-    private async Task OnSelectHandlerAsync()
+    protected override Task OnInitializedAsync()
     {
-        if (Disabled)
+        if (InternalListContext is not null)
         {
-            return;
+            if (string.IsNullOrEmpty(Id))
+            {
+                Id = Identifier.NewId();
+            }
+
+            InternalListContext.AddOption(this);
         }
 
-        Selected = !Selected;
-
-        if (SelectedChanged.HasDelegate)
-        {
-            await SelectedChanged.InvokeAsync(Selected);
-        }
+        return Task.CompletedTask;
     }
 }

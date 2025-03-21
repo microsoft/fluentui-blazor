@@ -11,8 +11,11 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
+public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>, IFluentComponentElementBase
 {
+    // List of items rendered with an ID to retrieve the element by ID.
+    internal Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentListBase{TOption}"/> class.
     /// </summary>
@@ -20,6 +23,10 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     {
         Id = Identifier.NewId();
     }
+
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    [Parameter]
+    public ElementReference Element { get; set; }
 
     /// <summary>
     /// Gets or sets the width of the component.
@@ -45,6 +52,24 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// </summary>
     [Parameter]
     public virtual IEnumerable<TOption>? Items { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the list allows multiple selections.
+    /// </summary>
+    [Parameter]
+    public bool Multiple { get; set; }
+
+    /// <summary>
+    /// Gets or sets the items that are selected in the list.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<TOption> SelectedItems { get; set; } = [];
+
+    /// <summary>
+    /// Event callback that is invoked when the selected items change.
+    /// </summary>
+    [Parameter]
+    public EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the template for the <see cref="FluentListBase{TOption}.Items"/> items.
@@ -77,6 +102,18 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     public virtual Func<TOption?, bool>? OptionDisabled { get; set; }
 
     /// <summary />
+    internal string? AddOption(FluentOption option)
+    {
+        if (option.Data is TOption item)
+        {
+            InternalOptions.Add(option.Id ?? "", item);
+            return option.Id;
+        }
+
+        return null;
+    }
+
+    /// <summary />
     protected virtual bool GetOptionSelected(TOption? item)
     {
         return OptionSelected?.Invoke(item) ?? Equals(item, CurrentValue);
@@ -100,23 +137,6 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         return OptionDisabled?.Invoke(item) ?? false;
     }
 
-    /// <summary />
-    protected virtual async Task OnSelectedItemChangedHandlerAsync(TOption? item)
-    {
-        if (Disabled ?? false || item == null)
-        {
-            return;
-        }
-
-        if (!Equals(item, CurrentValue))
-        {
-            // Assign the current value and raise the change event
-            CurrentValue = item;
-        }
-
-        await Task.CompletedTask;
-    }
-
     /// <summary>
     /// Renders the list options.
     /// </summary>
@@ -132,6 +152,25 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     {
         FocusLost = true;
         return Task.CompletedTask;
+    }
+
+    internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
+    {
+        // List of IDs received from the web component.
+        var selectedIds = e.SelectedOptions?.Split(';') ?? Array.Empty<string>();
+        SelectedItems = selectedIds.Length > 0
+                      ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value)
+                      : Array.Empty<TOption>();
+
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(SelectedItems);
+        }
+
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(SelectedItems.FirstOrDefault());
+        }
     }
 
     /// <summary />

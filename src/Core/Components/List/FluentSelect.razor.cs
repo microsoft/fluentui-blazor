@@ -17,4 +17,9 @@ public partial class FluentSelect<TOption> : FluentListBase<TOption>
         .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, when: !string.IsNullOrEmpty(Height))
         .Build();
+
+    /// <summary>
+    /// Gets or sets the placeholder text to display when no item is selected.
+    /// </summary>
+    public string? Placeholder { get; set; }
 }
