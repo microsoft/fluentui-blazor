@@ -18,7 +18,7 @@
                    size="@Size.ToAttributeValue()"
                    id="@Id"
                    value="@Value"
-                   icon-only="@(IconOnly || ChildContent is null)"
+                   icon-only="@(IconOnly || (ChildContent is null && Label is null))"
                    disabled="@(Disabled || Loading)"
                    disabled-focusable="@(DisabledFocusable || Loading)"
                    name="@Name"
@@ -33,17 +33,13 @@
         {
             if (Loading)
             {
-                <fluent-spinner size="tiny" slot="@(ChildContent is not null ? "start" : null)" style="@RingStyle(IconStart)" />
+                <fluent-spinner size="tiny" slot="@((ChildContent is not null || Label is not null) ? "start" : null)" style="@RingStyle(IconStart)" />
             }
             else
             {
-                if (ChildContent is null)
+                @if (IconStart != null)
                 {
-                    <FluentIcon Value="@IconStart" />
-                }
-                else
-                {
-                    <FluentIcon Value="@IconStart" Slot="start" />
+                    <FluentIcon Value="@IconStart" Slot="@((ChildContent is null && Label is null) ? null : "start")" />
                 }
             }
         }
@@ -53,17 +49,13 @@
         {
             if (Loading && IconStart == null)
             {
-                <fluent-spinner size="tiny" slot="@(ChildContent != null ? "end" : null)" style="@RingStyle(IconEnd)" />
+                <fluent-spinner size="tiny" slot="@((ChildContent is not null || Label is not null) ? "end" : null)" style="@RingStyle(IconEnd)" />
             }
             else
             {
-                if (ChildContent is null)
+                @if (IconEnd != null)
                 {
-                    <FluentIcon Value="@IconEnd" />
-                }
-                else
-                {
-                    <FluentIcon Value="@IconEnd" Slot="end" />
+                    <FluentIcon Value="@IconEnd" Slot="@((ChildContent is null && Label is null) ? null : "end")" />
                 }
             }
         }

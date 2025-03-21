@@ -45,11 +45,21 @@ By setting the `IconOnly` parameter to true, you can use an icon as the button's
 
 {{ ButtonIcon }}
 
-## Shapes
+## Shape
 
 Buttons can be square, rounded, or circular.
 
 {{ ButtonShapes }}
+
+## Size
+
+{{ ButtonSizes }}
+
+## Disabled
+{{ ButtonDisabled }}
+
+## With long text
+{{ ButtonLongText }}
 
 ## API FluentButton
 
