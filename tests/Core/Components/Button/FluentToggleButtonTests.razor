@@ -1,0 +1,219 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+    public FluentToggleButtonTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentToggleButton_Default()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentToggleButton>fluent-toggle-button</FluentToggleButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentToggleButton_Pressed()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentToggleButton Pressed="true">fluent-toggle-button</FluentToggleButton>);
+
+        // Assert
+        cut.Verify();
+        var attribute = cut.Find("fluent-toggle-button").GetAttribute("pressed");
+        Assert.Equal("", attribute);
+    }
+
+    [Fact]
+    public void FluentToggleButton_Mixed()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentToggleButton Mixed="true">fluent-toggle-button</FluentToggleButton>);
+
+        // Assert
+        cut.Verify();
+        var attribute = cut.Find("fluent-toggle-button").GetAttribute("mixed");
+        Assert.Equal("", attribute);
+    }
+
+    [Fact]
+    public void FluentToggleButton_PressedAndMixed()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentToggleButton Pressed="true" Mixed="true">fluent-toggle-button</FluentToggleButton>);
+
+        // Assert
+        cut.Verify();
+        var pressedAttribute = cut.Find("fluent-toggle-button").GetAttribute("pressed");
+        var mixedAttribute = cut.Find("fluent-toggle-button").GetAttribute("mixed");
+        Assert.Equal("", pressedAttribute);
+        Assert.Equal("", mixedAttribute);
+    }
+
+    [Fact]
+    public void FluentToggleButton_TogglesPressedStateOnClick()
+    {
+        // Arrange
+        var cut = Render<FluentToggleButton>(@<FluentToggleButton>fluent-toggle-button</FluentToggleButton>);
+
+        // Initial state should be not pressed
+        Assert.False(cut.Instance.Pressed);
+
+        // Act - Click the button
+        cut.Find("fluent-toggle-button").Click();
+
+        // Assert - Should now be pressed
+        Assert.True(cut.Instance.Pressed);
+
+        // Act - Click the button again
+        cut.Find("fluent-toggle-button").Click();
+
+        // Assert - Should now be not pressed again
+        Assert.False(cut.Instance.Pressed);
+    }
+
+    [Fact]
+    public void FluentToggleButton_OnClickAndTogglePressedState()
+    {
+        bool clicked = false;
+
+        // Arrange
+        var cut = Render<FluentToggleButton>(@<FluentToggleButton OnClick="@(e => { clicked = true; })">fluent-toggle-button</FluentToggleButton>);
+
+        // Act
+        cut.Find("fluent-toggle-button").Click();
+
+        // Assert - Both the clicked flag and the Pressed state should be updated
+        Assert.True(clicked);
+        Assert.True(cut.Instance.Pressed);
+    }
+
+    [Fact]
+    public void FluentToggleButton_InitialPressedState()
+    {
+        // Arrange & Act
+        var cut = Render<FluentToggleButton>(@<FluentToggleButton Pressed="true">fluent-toggle-button</FluentToggleButton>);
+
+        // Assert - Initial state should match the parameter
+        Assert.True(cut.Instance.Pressed);
+
+        // Act - Click to toggle
+        cut.Find("fluent-toggle-button").Click();
+
+        // Assert - Should toggle to false
+        Assert.False(cut.Instance.Pressed);
+    }
+
+    [Fact]
+    public void FluentToggleButton_MixedWithPressedState()
+    {
+        // Arrange & Act
+        var cut = Render<FluentToggleButton>(@<FluentToggleButton Mixed="true" Pressed="true">fluent-toggle-button</FluentToggleButton>);
+
+        // Assert
+        Assert.True(cut.Instance.Mixed);
+        Assert.True(cut.Instance.Pressed);
+
+        // Act - Click should only affect the Pressed state, not Mixed
+        cut.Find("fluent-toggle-button").Click();
+
+        // Assert
+        Assert.True(cut.Instance.Mixed);
+        Assert.False(cut.Instance.Pressed);
+    }
+
+    [Fact]
+    public void FluentToggleButton_WithIconAndPressedState()
+    {
+        // Arrange & Act
+        var cut = Render<FluentToggleButton>(@<FluentToggleButton
+            IconStart="@Samples.Icons.Info"
+            Pressed="true">Toggle with icon</FluentToggleButton>);
+
+        // Assert
+        cut.Verify();
+        Assert.True(cut.Instance.Pressed);
+
+        // Verify the icon is present
+        var iconElement = cut.Find("svg");
+        Assert.NotNull(iconElement);
+    }
+
+    [Fact]
+    public void FluentToggleButton_WithAppearanceAndPressedState()
+    {
+        // Arrange & Act
+        var cut = Render<FluentToggleButton>(@<FluentToggleButton
+            Appearance="ButtonAppearance.Primary"
+            Pressed="true">Primary toggle button</FluentToggleButton>);
+
+        // Assert
+        cut.Verify();
+        Assert.True(cut.Instance.Pressed);
+
+        // Verify the appearance attribute
+        var appearance = cut.Find("fluent-toggle-button").GetAttribute("appearance") ?? string.Empty;
+        Assert.Equal("primary", appearance);
+    }
+
+    [Fact]
+    public void FluentToggleButton_IconStart()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentToggleButton IconStart="@Samples.Icons.Info">My button</FluentToggleButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentToggleButton_IconEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentToggleButton IconEnd="@Samples.Icons.Info">My button</FluentToggleButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentToggleButton_IconStartNoContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentToggleButton IconStart="@Samples.Icons.Info" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentToggleButton_IconEndNoContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentToggleButton IconEnd="@Samples.Icons.Info" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentToggleButton_IconOnly()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentToggleButton IconOnly="true">
+            <svg viewBox="0 0 20 20">
+                <path fill="currentColor" d="M7.851 3.146a.5.5 0 0 1 0 .707L4.706 7H10c2.932 0 5.593 1.64 6.936 4.043a.5.5 0 1 1-.872.488C14.894 9.439 12.564 8 10 8H4.707l3.144 3.145a.5.5 0 0 1-.707.707L3.161 7.867a.5.5 0 0 1-.014-.721l3.997-4a.5.5 0 0 1 .707 0M8 15a2 2 0 1 1 4 0a2 2 0 0 1-4 0m2-1a1 1 0 1 0 0 2a1 1 0 0 0 0-2"></path>
+            </svg>
+        </FluentToggleButton>);
+        // Assert
+        cut.Verify();
+    }
+}

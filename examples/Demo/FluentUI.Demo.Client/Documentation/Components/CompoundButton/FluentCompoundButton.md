@@ -7,19 +7,19 @@ route: /CompoundButton
 
 You can use `LabelContent` and/or `ChildContent` to specify the main text on the button. When you supply both, both will be rendered.
 
-## Appearances
+## Appearance
 {{ CompoundButtonAppearances }}
 
-## Shapes
+## Shape
 {{ CompoundButtonShapes }}
 
-## Sizes
+## Size
 {{ CompoundButtonSizes }}
 
 ## Disabled
 {{ CompoundButtonDisabled }}
 
-## Long text
+## With long text
 {{ CompoundButtonLongText }}
 
 ## API FluentCompoundButton

@@ -209,6 +209,11 @@ public partial class FluentButton : FluentComponentBase
     /// <summary />
     protected override void OnParametersSet()
     {
+        if (this is FluentToggleButton && Loading is true)
+        {
+            throw new ArgumentException("FluentToggleButton does not support Loading");
+        }
+
         string[] values = ["_self", "_blank", "_parent", "_top"];
 
         if (!string.IsNullOrEmpty(FormTarget) && !values.Contains(FormTarget, StringComparer.OrdinalIgnoreCase))
