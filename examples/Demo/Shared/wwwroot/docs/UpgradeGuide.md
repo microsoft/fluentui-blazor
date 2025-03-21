@@ -11,7 +11,7 @@ To use the new versions in your (upgraded) projects, you need add the following 
 ```
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 @* add line below only if you are using the Emoji package *@
-@using Emoji = Microsoft.FluentUI.AspNetCore.Components.Emoji
+@using Emojis = Microsoft.FluentUI.AspNetCore.Components.Emojis
 ```
         
 Alternatively, you can use the full namespace(s) in your code or define the alias(es) for the namespace(s) at the top of your file(s).
