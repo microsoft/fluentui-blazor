@@ -103,8 +103,7 @@
     @<FluentSelect Items="@Digits"
               OptionDisabled="@(item => item == "Two")"
               OptionText="@(item => item?.ToUpper())"
-              OptionValue="@(item => $"value-{item}")"
-              OptionSelected="@(item => item == "One")" />);
+              OptionValue="@(item => $"value-{item}")" />);
 
         // Assert
         cut.Verify();

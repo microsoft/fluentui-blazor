@@ -72,6 +72,12 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     public EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets the placeholder text to display when no item is selected.
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    /// <summary>
     /// Gets or sets the template for the <see cref="FluentListBase{TOption}.Items"/> items.
     /// </summary>
     [Parameter]
@@ -88,12 +94,6 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// </summary>
     [Parameter]
     public virtual Func<TOption?, string>? OptionText { get; set; }
-
-    /// <summary>
-    /// Gets or sets the function used to determine if an option is initially selected.
-    /// </summary>
-    [Parameter]
-    public virtual Func<TOption?, bool>? OptionSelected { get; set; }
 
     /// <summary>
     /// Gets or sets the function used to determine if an option is disabled.
@@ -116,7 +116,19 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// <summary />
     protected virtual bool GetOptionSelected(TOption? item)
     {
-        return OptionSelected?.Invoke(item) ?? Equals(item, CurrentValue);
+        if (item == null)
+        {
+            return false;
+        }
+
+        // Multiple items
+        if (Multiple)
+        {
+            return SelectedItems?.Contains(item) ?? false;
+        }
+
+        // Single item
+        return Equals(item, CurrentValue);
     }
 
     /// <summary />
@@ -159,7 +171,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         // List of IDs received from the web component.
         var selectedIds = e.SelectedOptions?.Split(';') ?? Array.Empty<string>();
         SelectedItems = selectedIds.Length > 0
-                      ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value)
+                      ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
                       : Array.Empty<TOption>();
 
         if (SelectedItemsChanged.HasDelegate)
