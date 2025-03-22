@@ -1,17 +1,21 @@
 ﻿@using Samples = SampleData.People;
 
-<FluentSelect Label="Coworkers"
+<FluentSelect Label="Coworker"
+              Placeholder="Select a coworker"
               Items="@Coworkers"
               @bind-Value="@Value"
-              OptionText="@(item => item.FirstName)"
-              OptionValue="@(item => item.Id)"
+              OptionText="@(item => item?.FirstName)"
+              OptionValue="@(item => item?.Id)"
               OptionDisabled="@(item => item == Coworkers.ElementAt(3))" />
 
 <div>
-    Selected: @Value.Id - @Value.FirstName
+    Selected: @Value?.Id - @Value?.FirstName
 </div>
 
 @code {
-    static Samples.Person[] Coworkers = Samples.Persons.Take(5).ToArray();
-    Samples.Person Value = Coworkers.ElementAt(2);
+    static Samples.Person?[] OneNullPerson = new Samples.Person?[] { null };
+    static Samples.Person?[] Coworkers =>
+          OneNullPerson.Union(Samples.Persons.Take(5).ToArray()).ToArray();
+
+    Samples.Person? Value = Coworkers.ElementAt(2);
 }
