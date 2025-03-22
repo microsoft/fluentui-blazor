@@ -1,0 +1,15 @@
+﻿<FluentSelect Label="RGB Color"
+              Placeholder="Select a color"
+              @bind-Value="@Value">
+    <FluentOption Value="#ff0000">Red</FluentOption>
+    <FluentOption Value="#00ff00">Green</FluentOption>
+    <FluentOption Value="#0000ff">Blue</FluentOption>
+</FluentSelect>
+
+<div>
+    Selected: @Value
+</div>
+
+@code {
+    string? Value;
+}

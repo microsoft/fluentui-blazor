@@ -6,27 +6,14 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>, IFluentComponentElementBase
+public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
 {
     // List of items rendered with an ID to retrieve the element by ID.
-    internal Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="FluentListBase{TOption}"/> class.
-    /// </summary>
-    protected FluentListBase()
-    {
-        Id = Identifier.NewId();
-    }
-
-    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
-    [Parameter]
-    public ElementReference Element { get; set; }
+    private Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
 
     /// <summary>
     /// Gets or sets the width of the component.
@@ -104,10 +91,38 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// <summary />
     internal string? AddOption(FluentOption option)
     {
+        var id = option.Id ?? "";
+
+        // Bound list
         if (option.Data is TOption item)
         {
-            InternalOptions.Add(option.Id ?? "", item);
+            InternalOptions.Add(id, item);
             return option.Id;
+        }
+
+        // Manual list using FluentOption
+        if (typeof(TOption) == typeof(string) && option.Value is TOption value)
+        {
+            InternalOptions.Add(id, value);
+            return option.Id;
+        }
+
+        return null;
+    }
+
+    /// <summary />
+    internal string? RemoveOption(FluentOption option)
+    {
+        var id = option.Id ?? "";
+
+        if (InternalOptions.ContainsKey(id))
+        {
+            if (option.Data is TOption _ ||
+                typeof(TOption) == typeof(string) && option.Value is TOption _)
+            {
+                InternalOptions.Remove(id);
+                return option.Id;
+            }
         }
 
         return null;
@@ -140,7 +155,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// <summary />
     protected virtual string? GetOptionText(TOption? item)
     {
-        return OptionText?.Invoke(item) ?? item?.ToString() ?? string.Empty;
+        return OptionText?.Invoke(item) ?? item?.ToString() ?? null;
     }
 
     /// <summary />
@@ -168,11 +183,15 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
 
     internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
     {
+        Console.WriteLine($"InternalOptions: {string.Join(", ", InternalOptions)}");
+
         // List of IDs received from the web component.
         var selectedIds = e.SelectedOptions?.Split(';') ?? Array.Empty<string>();
         SelectedItems = selectedIds.Length > 0
                       ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
                       : Array.Empty<TOption>();
+
+        Console.WriteLine($"OnDropdownChangeHandlerAsync: {string.Join(", ", SelectedItems)}");
 
         if (SelectedItemsChanged.HasDelegate)
         {

@@ -33,4 +33,14 @@ internal class InternalListContext<TOption> : IInternalListContextOptions
     {
         return ListComponent.AddOption(option);
     }
+
+    /// <summary>
+    /// Call the list component to remove an option.
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
+    string? IInternalListContextOptions.RemoveOption(FluentOption option)
+    {
+        return ListComponent.RemoveOption(option);
+    }
 }

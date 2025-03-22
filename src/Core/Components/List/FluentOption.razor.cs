@@ -44,11 +44,7 @@ public partial class FluentOption : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the value indicating whether the element is selected.
-    /// This should be used with two-way binding.
     /// </summary>
-    /// <example>
-    /// @bind-Value="model.PropertyName"
-    /// </example>
     [Parameter]
     public bool Selected { get; set; }
 
@@ -72,5 +68,13 @@ public partial class FluentOption : FluentComponentBase
         }
 
         return Task.CompletedTask;
+    }
+
+    /// <summary />
+    public override async ValueTask DisposeAsync()
+    {
+        InternalListContext?.AddOption(this);
+
+        await base.DisposeAsync();
     }
 }

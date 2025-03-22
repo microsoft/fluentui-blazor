@@ -11,6 +11,9 @@ View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/
 
 ## Default
 
+When no item is selected, a **Placeholder** can be used to describe
+what should be done. If an item is selected, the user cannot deselect it.
+
 {{ SelectDefault }}
 
 ## Customize the items
@@ -24,14 +27,23 @@ The following example shows how to customize the items:
 - `OptionDisabled`: This function is used to define the disabled options. <br />
    In the following example, the third element is disabled.
 
-The preselected items are defined by the **Value** parameter. <br />
-In the following example, the second element is preseleced.
+In the following example, the preselected item is defined by the **Value** parameter,
+(third item in this example).
 
 {{ SelectCustomized }}
 
 ## Multiple
 
+Use the **Multiple** parameter to enable multiple selections.
+Selected items are bound to the **SelectedItems** property.
+
 {{ SelectMultiple }}
+
+## Manual FluentOption
+
+You can use a list of **FluentOption** to create a manual list.
+
+{{ SelectManual }}
 
 ## API FluentSelect
 
