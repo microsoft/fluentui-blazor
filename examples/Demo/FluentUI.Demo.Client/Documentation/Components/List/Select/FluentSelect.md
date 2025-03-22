@@ -32,6 +32,15 @@ In the following example, the preselected item is defined by the **Value** param
 
 {{ SelectCustomized }}
 
+## Enum values
+
+You can use an **Enum** to create a list of options.
+In this example, we are using an **OptionTemplate** to display a colored block
+in front of each item. Due to the **OptionTemplate**, the user must click
+on the checkbox to select an item.
+
+{{ SelectEnum }}
+
 ## Multiple
 
 Use the **Multiple** parameter to enable multiple selections.
