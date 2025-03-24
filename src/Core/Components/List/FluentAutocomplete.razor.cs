@@ -296,13 +296,22 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         if (MaximumSelectedOptions > 0 && SelectedOptions?.Count() >= MaximumSelectedOptions)
         {
             IsReachedMaxItems = true;
-            RenderComponent();
+            await RenderComponentAsync();
             return;
         }
 
         IsReachedMaxItems = false;
         IsMultiSelectOpened = true;
 
+        await this.InvokeOptionsSearchAsync();
+    }
+
+    /// <summary>
+    /// Performs the search option and displays the available values.
+    /// </summary>
+    /// <returns></returns>
+    public async Task InvokeOptionsSearchAsync()
+    {
         var args = new OptionsSearchEventArgs<TOption>()
         {
             Items = Items ?? Array.Empty<TOption>(),
@@ -329,14 +338,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             await VirtualizationContainer.RefreshDataAsync();
         }
 
-        RenderComponent();
+        await RenderComponentAsync();
+    }
 
-        // Activate the rendering
-        void RenderComponent()
-        {
-            _shouldRender = true;
-            StateHasChanged();
-        }
+    private async Task RenderComponentAsync()
+    {
+        _shouldRender = true;
+        await InvokeAsync(StateHasChanged);
     }
 
     private ValueTask<ItemsProviderResult<TOption>> LoadFilteredItemsAsync(ItemsProviderRequest request)
