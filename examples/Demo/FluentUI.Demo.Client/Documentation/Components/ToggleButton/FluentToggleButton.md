@@ -10,6 +10,8 @@ or tap and is often found inside forms, dialogs, drawers (panels) and/or pages.
 
 View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/button/behavior).
 
+> Although the `FluentToggleButton` inherits from `FluentButton`, it does not support the `Loading` state.
+
 ## Appearance
 
 Only use one **primary** button in a layout for the most important action.
