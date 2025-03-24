@@ -18,6 +18,12 @@ like in the Customized example (see below).
 
 {{ SelectDefault }}
 
+## Appearance
+
+You can change the appearance of the **FluentSelect** component by using the **appearance** or **Size** parameters.
+
+{{ SelectAppearance }}
+
 ## Customize the items
 
 You can customize the items in the **FluentSelect** component by using Lambda expressions.
@@ -49,6 +55,13 @@ Use the **Multiple** parameter to enable multiple selections.
 Selected items are bound to the **SelectedItems** property.
 
 {{ SelectMultiple }}
+
+## Disabled and ReadOnly
+
+{{ SelectDisabledReadOnly }}
+
+> The **FluentSelect** component does not support the `ReadOnly` attribute.
+> The `Disabled` attribute is used to prevent user interaction with the list.
 
 ## Manual FluentOption
 

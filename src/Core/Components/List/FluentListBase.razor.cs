@@ -28,6 +28,20 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     public string? Height { get; set; }
 
     /// <summary>
+    /// Gets or sets the appearance of the list.
+    /// Default is `null`. Internally the component uses <see cref="ListAppearance.Outline"/> as default.
+    /// </summary>
+    [Parameter]
+    public ListAppearance? Appearance { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size of the list.
+    /// Default is `null`. Internally the component uses <see cref="ListSize.Medium"/> as default.
+    /// </summary>
+    [Parameter]
+    public ListSize? Size { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
@@ -96,14 +110,22 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         // Bound list
         if (option.Data is TOption item)
         {
-            InternalOptions.Add(id, item);
+            if (!InternalOptions.ContainsKey(id))
+            {
+                InternalOptions.Add(id, item);
+            }
+
             return option.Id;
         }
 
         // Manual list using FluentOption
         if (typeof(TOption) == typeof(string) && option.Value is TOption value)
         {
-            InternalOptions.Add(id, value);
+            if (!InternalOptions.ContainsKey(id))
+            {
+                InternalOptions.Add(id, value);
+            }
+
             return option.Id;
         }
 
@@ -183,15 +205,11 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
 
     internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
     {
-        Console.WriteLine($"InternalOptions: {string.Join(", ", InternalOptions)}");
-
         // List of IDs received from the web component.
         var selectedIds = e.SelectedOptions?.Split(';') ?? Array.Empty<string>();
         SelectedItems = selectedIds.Length > 0
                       ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
                       : Array.Empty<TOption>();
-
-        Console.WriteLine($"OnDropdownChangeHandlerAsync: {string.Join(", ", SelectedItems)}");
 
         if (SelectedItemsChanged.HasDelegate)
         {

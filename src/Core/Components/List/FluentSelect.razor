@@ -1,4 +1,5 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentListBase<TOption>
 @typeparam TOption
 
@@ -7,6 +8,7 @@
 <CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
     <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
         <fluent-dropdown id="@Id"
+                         appearance="@(Appearance.ToAttributeValue(isNull: ListAppearance.Outline))"
                          placeholder="@Placeholder"
                          slot="input"
                          aria-label="@AriaLabel"
@@ -16,6 +18,7 @@
                          name="@Name"
                          readonly="@ReadOnly"
                          required="@Required"
+                         size="@(Size.ToAttributeValue(isNull: ListSize.Medium))"
                          type="select"
                          @ondropdownchange="@OnDropdownChangeHandlerAsync"
                          @onfocusout="@FocusOutHandlerAsync"
