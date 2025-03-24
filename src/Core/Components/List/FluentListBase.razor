@@ -21,7 +21,6 @@
             @foreach (var item in Items)
             {
                 <FluentOption Data="@item"
-                              Value="@GetOptionValue(item)"
                               Text="@GetOptionText(item)"
                               Selected="@(GetOptionSelected(item))"
                               Disabled="@(GetOptionDisabled(item))">

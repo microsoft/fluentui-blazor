@@ -40,7 +40,7 @@ In the following example, the preselected item is defined by the **Value** param
 
 {{ SelectCustomized }}
 
-## Enum values
+## OptionTemplate and Enum values
 
 You can use an **Enum** to create a list of options.
 In this example, we are using an **OptionTemplate** to display a colored block
@@ -63,6 +63,10 @@ Selected items are bound to the **SelectedItems** property.
 > The **FluentSelect** component does not support the `ReadOnly` attribute.
 > The `Disabled` attribute is used to prevent user interaction with the list.
 
+## Virtualized
+
+{{ SelectVirtualized }}
+
 ## Manual FluentOption
 
 You can use a list of **FluentOption** to create a manual list.
@@ -72,6 +76,8 @@ You can use a list of **FluentOption** to create a manual list.
 ## API FluentSelect
 
 {{ API Type=FluentSelect }}
+
+## API FluentOption
 
 {{ API Type=FluentOption }}
 
