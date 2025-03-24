@@ -17,9 +17,9 @@
                       size="@Size.ToAttributeValue()"
                       id="@Id"
                       value="@Value"
-                      icon-only="@(IconOnly || (ChildContent is null && Label is null))"
-                      disabled="@(Disabled || Loading)"
-                      disabled-focusable="@(DisabledFocusable || Loading)"
+                      icon-only="@(IconOnly || _emptyContent)"
+                      disabled="@(Disabled)"
+                      disabled-focusable="@(DisabledFocusable)"
                       name="@Name"
                       required="@Required"
                       aria-label="@Title"
@@ -32,12 +32,12 @@
                       @attributes="@AdditionalAttributes">
     @if (IconStart != null)
     {
-        <FluentIcon Value="@IconStart" Slot="@((ChildContent is null && Label is null) ? null : "start")" />
+        <FluentIcon Value="@IconStart" Slot="@((_emptyContent) ? null : "start")" />
     }
     @Label
     @ChildContent
     @if (IconEnd != null)
     {
-        <FluentIcon Value="@IconEnd" Slot="@((ChildContent is null && Label is null) ? null : "end")" />
+        <FluentIcon Value="@IconEnd" Slot="@((_emptyContent) ? null : "end")" />
     }
 </fluent-toggle-button>
