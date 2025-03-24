@@ -4915,7 +4915,7 @@
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon">
             <summary>
-            Custom icon loaded from <see cref="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo)"/>
+            Custom icon loaded from <see cref="!:IconsExtensions.GetInstance(IconInfo)"/>
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomIcon.#ctor">
@@ -5125,11 +5125,12 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo,System.Nullable{System.Boolean})">
             <summary>
             Returns a new instance of the icon.
             </summary>
             <param name="icon">The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IconInfo"/> to instantiate.</param>
+            <param name="throwOnError">true to throw an exception if the type is not found (default); false to return null.</param>
             <remarks>
             This method requires dynamic access to code. This code may be removed by the trimmer.
             If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
@@ -5137,6 +5138,19 @@
             </remarks>
             <returns></returns>
             <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/> is not found in predefined icons.</exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.TryGetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo,Microsoft.FluentUI.AspNetCore.Components.CustomIcon@)">
+            <summary>
+            Tries to return a new instance of the icon.
+            </summary>
+            <param name="icon">The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IconInfo"/> to instantiate.</param>
+            <param name="result">When this method returns, contains the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon"/> value if the conversion succeeded, or null if the conversion failed. This parameter is passed uninitialized; any value originally supplied in result will be overwritten.</param>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
+            To avoid any issues, the assembly must be loaded before calling this method (e.g. adding an icon in your code).
+            </remarks>
+            <returns>True if the icon was found and created; otherwise, false.</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetAllIcons">
             <summary>
