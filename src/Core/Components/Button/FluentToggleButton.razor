@@ -1,0 +1,43 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Rendering;
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentButton
+
+<fluent-toggle-button class="@ClassValue"
+                      style="@StyleValue"
+                      autofocus="@AutoFocus"
+                      form="@FormId"
+                      formaction="@FormAction"
+                      formenctype="@FormEncType"
+                      formmethod="@FormMethod"
+                      formnovalidate="@FormNoValidate"
+                      formtarget="@FormTarget"
+                      type="@Type.ToAttributeValue()"
+                      shape="@Shape.ToAttributeValue()"
+                      size="@Size.ToAttributeValue()"
+                      id="@Id"
+                      value="@Value"
+                      icon-only="@(IconOnly || _emptyContent)"
+                      disabled="@(Disabled)"
+                      disabled-focusable="@(DisabledFocusable)"
+                      name="@Name"
+                      required="@Required"
+                      aria-label="@Title"
+                      title="@Title"
+                      appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
+                      mixed="@Mixed"
+                      pressed="@Pressed"
+                      @onclick="@OnClickHandlerAsync"
+                      @onclick:stopPropagation="@StopPropagation"
+                      @attributes="@AdditionalAttributes">
+    @if (IconStart != null)
+    {
+        <FluentIcon Value="@IconStart" Slot="@((_emptyContent) ? null : "start")" />
+    }
+    @Label
+    @ChildContent
+    @if (IconEnd != null)
+    {
+        <FluentIcon Value="@IconEnd" Slot="@((_emptyContent) ? null : "end")" />
+    }
+</fluent-toggle-button>
