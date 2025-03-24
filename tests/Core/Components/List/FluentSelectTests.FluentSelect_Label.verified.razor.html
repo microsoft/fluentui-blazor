@@ -1,14 +1,16 @@
 
 <fluent-field id="xxx" label-position="above" class="my-3">
-  <label id="xxx" required="" slot="label" for="xxx">
+  <label id="xxx" slot="label" for="xxx" required="">
     List of digits
     <span class="asterisk" aria-hidden="true"></span>
   </label>
-  <select id="xxx" required="" slot="input" blazor:onchange="1">
-    <option selected="" blazor:onclick="x" aria-selected="true"></option>
-    <option value="One" blazor:onclick="x">One</option>
-    <option value="Two" blazor:onclick="x">Two</option>
-    <option value="Three" blazor:onclick="x">Three</option>
-  </select>
+  <fluent-dropdown id="xxx" slot="input" required="" type="select" blazor:ondropdownchange="1" blazor:onfocusout="2">
+    <fluent-listbox slot="input">
+      <fluent-option id="xxx"></fluent-option>
+      <fluent-option id="xxx" value="One">One</fluent-option>
+      <fluent-option id="xxx" value="Two">Two</fluent-option>
+      <fluent-option id="xxx" value="Three">Three</fluent-option>
+    </fluent-listbox>
+  </fluent-dropdown>
   <fluent-text as="span" size="200" slot="message"></fluent-text>
 </fluent-field>

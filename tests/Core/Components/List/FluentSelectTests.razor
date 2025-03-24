@@ -43,12 +43,11 @@
     public void FluentSelect_Manual()
     {
         // Arrange and Act
-        var cut = Render(
-    @<FluentSelect TOption="string">
-        <FluentOption Value="One">One</FluentOption>
-        <FluentOption Value="Two">Two</FluentOption>
-        <FluentOption Value="Three">Three</FluentOption>
-    </FluentSelect>
+        var cut = Render(@<FluentSelect TOption="string">
+            <FluentOption Value="One">One</FluentOption>
+            <FluentOption Value="Two">Two</FluentOption>
+            <FluentOption Value="Three">Three</FluentOption>
+            </FluentSelect>
     );
 
         // Assert
@@ -59,21 +58,20 @@
     public void FluentSelect_Template()
     {
         // Arrange and Act
-        var cut = Render(
-    @<FluentSelect Items="@Digits">
-        <OptionTemplate>
-            @if (!String.IsNullOrEmpty(context))
-        {
-            <span>[</span>
-            @context
-            <span>]</span>
-        }
-        </OptionTemplate>
-    </FluentSelect>);
+        var cut = Render(@<FluentSelect Items="@Digits">
+            <OptionTemplate>
+                @if (!String.IsNullOrEmpty(context))
+                {
+                    <span>[</span>
+                    @context
+                    <span>]</span>
+                }
+            </OptionTemplate>
+        </FluentSelect>);
 
         // Assert
-        var two = cut.Find("option[value='Two']");
-        Assert.Equal("[Two]", two.InnerHtml);
+        var two = cut.Find("fluent-option[value='Two']");
+        Assert.Equal("[Two]", two.GetInnerText());
     }
 
     [Fact]
@@ -99,11 +97,10 @@
         //  - Uppercase the text
         //  - Add a prefix to the value
         //  - Select the "One" option
-        var cut = Render(
-    @<FluentSelect Items="@Digits"
-              OptionDisabled="@(item => item == "Two")"
-              OptionText="@(item => item?.ToUpper())"
-              OptionValue="@(item => $"value-{item}")" />);
+        var cut = Render(@<FluentSelect Items="@Digits"
+                                        OptionDisabled="@(item => item == "Two")"
+                                        OptionText="@(item => item?.ToUpper())"
+                                        OptionValue="@(item => $"value-{item}")" />);
 
         // Assert
         cut.Verify();
@@ -116,11 +113,10 @@
 
         // Arrange and Act
         var cut = Render(@<FluentSelect Items="@Digits" Value="@value" />);
-        var two = cut.Find("option[value='Two']");
+        var two = cut.Find("fluent-option[value='Two']");
 
         // Assert
         Assert.True(two.HasAttribute("selected"));
-        Assert.Equal("true", two.GetAttribute("aria-selected"));
     }
 
     [Fact]
@@ -130,11 +126,10 @@
 
         // Arrange and Act
         var cut = Render(@<FluentSelect Items="@Digits" @bind-Value="@value" />);
-        var two = cut.Find("option[value='Two']");
+        var two = cut.Find("fluent-option[value='Two']");
 
         // Assert
         Assert.True(two.HasAttribute("selected"));
-        Assert.Equal("true", two.GetAttribute("aria-selected"));
     }
 
     [Fact]
@@ -147,11 +142,10 @@
 
         // Act and re-render
         cut.FindComponent<FluentSelect<string>>().SetParametersAndRender(parameters => parameters.Add(p => p.Value, "One"));
-        var one = cut.Find("option[value='One']");
+        var one = cut.Find("fluent-option[value='One']");
 
         // Assert
         Assert.True(one.HasAttribute("selected"));
-        Assert.Equal("true", one.GetAttribute("aria-selected"));
     }
 
     [Fact]
@@ -173,14 +167,13 @@
 
         // Arrange
         var cut = Render(@<FluentSelect Items="@Digits" Value="@value" />);
-        var two = cut.Find("option[value='Two']");
+        var two = cut.Find("fluent-option[value='Two']");
 
         // Act
         two.Click();
 
         // Assert
         Assert.True(two.HasAttribute("selected"));
-        Assert.Equal("true", two.GetAttribute("aria-selected"));
     }
 
     [Fact]
@@ -190,10 +183,10 @@
 
         // Arrange
         var cut = Render(@<FluentSelect Items="@Digits" Value="@value" OptionDisabled="@(e => e == "Two")" />);
-        var two = cut.Find("option[value='Two']");
+        var two = cut.Find("fluent-option[value='Two']");
 
         // Act
-        two.Click();
+        two.Select();
 
         // Assert
         Assert.False(two.HasAttribute("selected"));
