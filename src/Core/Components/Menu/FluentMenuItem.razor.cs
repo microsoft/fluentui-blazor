@@ -32,10 +32,10 @@ public partial class FluentMenuItem : FluentComponentBase
     public bool? Checked { get; set; }
 
     /// <summary>
-    /// Gets or sets the menuu item's disabled state.
+    /// Gets or sets the menu item's disabled state.
     /// </summary>
     [Parameter]
-    public bool Disabled { get; set; } = false;
+    public bool? Disabled { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="Icon"/> displayed at the start of button content.

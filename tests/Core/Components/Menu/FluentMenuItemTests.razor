@@ -1,0 +1,192 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples
+@inherits TestContext
+
+@code {
+    public FluentMenuItemTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentMenuItem_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem>menu-item</FluentMenuItem>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(MenuItemRole.MenuItem, "menuitem")]
+    [InlineData(MenuItemRole.Checkbox, "menuitemcheckbox")]
+    [InlineData(MenuItemRole.Radio, "menuitemradio")]
+    [InlineData(null, "")]
+    [InlineData((MenuItemRole)999, "")]
+    public void FluentMenuItem_Role(MenuItemRole? value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem Role="@value">menu-item</FluentMenuItem>);
+
+        // Assert
+        var attribute = cut.Find("fluent-menu-item").GetAttribute("role") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(null)]
+    public void FluentMenuItem_Checked(bool? value)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem Checked="@value">menu-item</FluentMenuItem>);
+
+        // Assert
+        cut.Verify(suffix: value?.ToString().ToLower());
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(null)]
+    public void FluentMenuItem_Disabled(bool? value)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem Disabled="@value">menu-item</FluentMenuItem>);
+
+        // Assert
+        cut.Verify(suffix: value?.ToString().ToLower());
+    }
+
+    [Fact]
+    public void FluentMenuItem_IconStart()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem IconStart="@Samples.Icons.Info">menu-item</FluentMenuItem>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuItem_IconEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem IconEnd="@Samples.Icons.Info">menu-item</FluentMenuItem>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuItem_IconSubmenu()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem IconSubmenu="@Samples.Icons.Info">menu-item</FluentMenuItem>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuItem_IconIndicator()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem IconIndicator="@Samples.Icons.Info">menu-item</FluentMenuItem>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuItem_Label()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem Label="Menu Label" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuItem_ChildContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem>
+            <div>Child Content</div>
+        </FluentMenuItem>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuItem_MenuItems()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem>
+            <ChildContent>
+            Parent Item
+            </ChildContent>
+            <MenuItems>
+                <FluentMenuItem>Submenu Item 1</FluentMenuItem>
+                <FluentMenuItem>Submenu Item 2</FluentMenuItem>
+            </MenuItems>
+        </FluentMenuItem>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuItem_LabelAndChildContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem Label="Menu Label">
+            <div>Additional Content</div>
+        </FluentMenuItem>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuItem_AllIcons()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem
+            IconStart="@Samples.Icons.Info"
+            IconEnd="@Samples.Icons.Info"
+            IconSubmenu="@Samples.Icons.Warning"
+            IconIndicator="@Samples.Icons.Warning">
+            Menu Item with All Icons
+        </FluentMenuItem>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuItem_CompleteExample()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuItem
+            Role="MenuItemRole.Checkbox"
+            Checked="true"
+            IconStart="@Samples.Icons.Info"
+            IconIndicator="@Samples.Icons.Warning"
+            Label="Complete Menu Item">
+            <MenuItems>
+                <FluentMenuItem>Submenu Item</FluentMenuItem>
+            </MenuItems>
+        </FluentMenuItem>);
+
+        // Assert
+        cut.Verify();
+    }
+}

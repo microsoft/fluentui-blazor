@@ -1,0 +1,34 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit
+@inherits TestContext
+
+@code {
+    public FluentMenuListTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentMenuList_Default()
+    {
+        // Arrange && Act
+        
+        var cut = Render(@<FluentMenuList>fluent-menu-list</FluentMenuList>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuList_ChildContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuList>
+                            <div>Child Content</div>
+                         </FluentMenuList>);
+
+        // Assert
+        cut.Verify();
+    }
+}

@@ -1,3 +1,14 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
+<fluent-menu id="@Id"
+             class="@ClassValue"
+             style="@StyleValue"
+             open-on-hover="@OpenOnHover"
+             open-on-context="@OpenOnContext"
+             close-on-scroll="@CloseOnScroll"
+             persist-on-item-click="@PersistOnItemClick"
+             @attributes="AdditionalAttributes">
+    @Trigger
+    @ChildContent
+</fluent-menu>
