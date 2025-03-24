@@ -307,7 +307,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary>
-    /// Performs the search option and displays the available values.
+    /// Performs the search operation and displays the available values.
     /// </summary>
     /// <returns></returns>
     public async Task InvokeOptionsSearchAsync()

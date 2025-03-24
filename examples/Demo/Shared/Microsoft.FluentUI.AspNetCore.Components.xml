@@ -6015,7 +6015,7 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.InvokeOptionsSearchAsync">
             <summary>
-            Performs the search option and displays the available values.
+            Performs the search operation and displays the available values.
             </summary>
             <returns></returns>
         </member>
