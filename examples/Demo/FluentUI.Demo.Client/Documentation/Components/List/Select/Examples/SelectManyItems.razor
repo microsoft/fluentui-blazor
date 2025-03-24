@@ -1,0 +1,13 @@
+﻿<FluentSelect Label="Country"
+              Placeholder="Select a country"
+              Items="@Countries"
+              @bind-Value="@Value" />
+
+<div>
+    Selected: @Value
+</div>
+
+@code {
+    static string[] Countries = SampleData.People.Countries.ToArray();
+    string? Value;
+}

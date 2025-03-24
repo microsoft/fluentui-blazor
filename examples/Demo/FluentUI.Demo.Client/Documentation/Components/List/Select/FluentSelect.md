@@ -63,15 +63,19 @@ Selected items are bound to the **SelectedItems** property.
 > The **FluentSelect** component does not support the `ReadOnly` attribute.
 > The `Disabled` attribute is used to prevent user interaction with the list.
 
-## Virtualized
-
-{{ SelectVirtualized }}
-
 ## Manual FluentOption
 
 You can use a list of **FluentOption** to create a manual list.
 
 {{ SelectManual }}
+
+## Many items
+
+You can use this component with a large number of items.
+But all items are rendered in the HTML code and loaded at once.
+If you have a very large number of items, you should use the **FluentAutocomplete** component.
+
+{{ SelectManyItems }}
 
 ## API FluentSelect
 
