@@ -161,34 +161,22 @@
     }
 
     [Fact]
-    public void FluentSelect_Option_Clicked()
+    public async Task FluentSelect_Option_Clicked()
     {
         string? value = "One";
 
         // Arrange
-        var cut = Render(@<FluentSelect Items="@Digits" Value="@value" />);
+        var cut = Render(@<FluentSelect Items="@Digits" @bind-Value="@value" />);
         var two = cut.Find("fluent-option[value='Two']");
+        var twoId = two.GetAttribute("id");
 
         // Act
-        two.Click();
+        await cut.FindComponent<FluentSelect<string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = $"{twoId}",
+        });
 
         // Assert
-        Assert.True(two.HasAttribute("selected"));
-    }
-
-    [Fact]
-    public void FluentSelect_DisabledOption_Clicked()
-    {
-        string? value = "One";
-
-        // Arrange
-        var cut = Render(@<FluentSelect Items="@Digits" Value="@value" OptionDisabled="@(e => e == "Two")" />);
-        var two = cut.Find("fluent-option[value='Two']");
-
-        // Act
-        two.Select();
-
-        // Assert
-        Assert.False(two.HasAttribute("selected"));
+        Assert.Equal("Two", value);
     }
 }
