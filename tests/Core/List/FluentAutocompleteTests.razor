@@ -64,6 +64,36 @@
         cut.Verify();
     }
 
+    [Fact]
+    public async Task FluentAutocomplete_InvokeSearchOptions()
+    {
+        // Arrange
+        FluentAutocomplete<Customer> fluentAutoComplete = default!;
+
+        var externalSearchString = string.Empty;
+        var customers = Customers.Get();
+
+        async Task OnSearchValueChanged(OptionsSearchEventArgs<Customer> e)
+        {
+            e.Items = customers;
+            if (!string.IsNullOrWhiteSpace(externalSearchString))
+                e.Items = customers.Where(x => x.Name.Contains(externalSearchString));
+        }
+
+        var cut = Render(@<FluentAutocomplete Id="myComponent" @ref=fluentAutoComplete OnOptionsSearch="OnSearchValueChanged" TOption="Customer" />);
+
+        // Act
+        var input = cut.Find("fluent-text-field");
+        input.Click();
+
+        externalSearchString = "Denis";
+
+        await fluentAutoComplete.InvokeOptionsSearchAsync();
+
+        // Assert
+        cut.Verify();
+    }
+
     [Theory()]
     [InlineData("Escape")]
     [InlineData("Backspace")]
@@ -447,8 +477,4 @@
                                 .OrderBy(i => i.Name);
         return Task.CompletedTask;
     }
-
-
-
-
 }
