@@ -3,7 +3,7 @@
 @typeparam TOption
 
 <CascadingValue Value="@_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
-    <div class="@ClassValue fluent-autocomplete @(MaximumSelectedOptions == 1 ? "single" : "multiple") @((SelectedOptions?.Count() > 0) ? "item-selected" : "")"
+    <div class="@ClassValue fluent-autocomplete @PartialClassValue"
          style="@StyleValue"
          @attributes="AdditionalAttributes"
          auto-height="@(!string.IsNullOrEmpty(MaxAutoHeight))">

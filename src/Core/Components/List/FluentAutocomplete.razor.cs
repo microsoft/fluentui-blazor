@@ -239,6 +239,9 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         .AddStyle("display", "none", when: (Items == null || !Items.Any()) && (HeaderContent != null || FooterContent != null))
         .Build();
 
+    private string PartialClassValue => (MaximumSelectedOptions == 1 ? "singleselect" : "multiselect")
+        + (SelectedOptions?.Count() > 0 ? " item-selected" : "");
+
     /// <summary />
     private string ComponentWidth
     {
