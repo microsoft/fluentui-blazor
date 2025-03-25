@@ -359,7 +359,7 @@
         // Assert
         Assert.Equal("auto-height", cut.Find("div[slot='start']").ClassName);
         Assert.Equal("max-height: 200px;", cut.Find("div[slot='start']").Attributes["style"]?.Value);
-        Assert.True(cut.Find(".fluent-autocomplete").HasAttribute("auto-height"));
+        Assert.True(cut.Find(".fluent-autocomplete-multiselect").HasAttribute("auto-height"));
         cut.Verify();
     }
 

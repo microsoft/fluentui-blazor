@@ -1,4 +1,4 @@
-.fluent-autocomplete div[role=listbox] {
+.fluent-autocomplete-multiselect div[role=listbox] {
     overflow-y: auto;
     max-height: 300px;
     outline: none;
@@ -7,33 +7,33 @@
     flex-direction: column;
 }
 
-    .fluent-autocomplete div[role=listbox] ::deep fluent-option {
+    .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option {
         min-height: 32px;
     }
 
         /* This first fluent-option will be selected when user presses Enter */
-        .fluent-autocomplete div[role=listbox] ::deep fluent-option:not([disabled])[selectable] {
+        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled])[selectable] {
             border: var(--neutral-fill-strong-hover) solid 1px;
         }
 
-        .fluent-autocomplete div[role=listbox] ::deep fluent-option:not([disabled]):not([selected])[selectable]::before {
+        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled]):not([selected])[selectable]::before {
             background: unset !important;
         }
 
-.fluent-autocomplete ::deep fluent-text-field::part(start) {
+.fluent-autocomplete-multiselect ::deep fluent-text-field::part(start) {
     max-width: calc(100% - 80px);
 }
 
-.fluent-autocomplete-next {
+.fluent-autocomplete-multiselect-next {
     height: 25px;
 }
 
-.fluent-autocomplete-previous {
+.fluent-autocomplete-multiselect-previous {
     height: 25px;
 }
 
 /* Auto-height */
-.fluent-autocomplete[auto-height] ::deep .auto-height {
+.fluent-autocomplete-multiselect[auto-height] ::deep .auto-height {
     width: max-content;
     display: flex;
     flex-direction: row;
@@ -43,26 +43,26 @@
     overflow-y: auto;
 }
 
-.fluent-autocomplete[auto-height] ::deep fluent-text-field::part(root) {
+.fluent-autocomplete-multiselect[auto-height] ::deep fluent-text-field::part(root) {
     height: 100%;
     padding: 6px 0px 4px 0px;
 }
 
-.fluent-autocomplete[auto-height] ::deep fluent-text-field::part(control) {
+.fluent-autocomplete-multiselect[auto-height] ::deep fluent-text-field::part(control) {
     margin-bottom: 2px;
 }
 
-.fluent-autocomplete.singleselect.item-selected ::deep fluent-text-field::part(control) {
+.fluent-autocomplete-multiselect.singleselect.item-selected ::deep fluent-text-field::part(control) {
     display: none;
 }
 
 @media (forced-colors: active) {
 
-    .fluent-autocomplete div[role=listbox] {
+    .fluent-autocomplete-multiselect div[role=listbox] {
         border: calc(var(--stroke-width)* 1px) solid transparent;
     }
 
-        .fluent-autocomplete div[role=listbox] ::deep fluent-option:not([disabled]):not([selected])[selectable] {
+        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled]):not([selected])[selectable] {
             forced-color-adjust: none;
             background: highlight;
             color: highlighttext;
