@@ -303,11 +303,19 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         IsReachedMaxItems = false;
         IsMultiSelectOpened = true;
 
-        await this.InvokeOptionsSearchAsync();
+        if (ImmediateDelay > 0)
+        {
+            await _debounce.RunAsync(ImmediateDelay, () => InvokeAsync(() => InvokeOptionsSearchAsync()));
+        }
+        else
+        {
+            await this.InvokeOptionsSearchAsync();
+        }
     }
 
     /// <summary>
-    /// Performs the search operation and displays the available values.
+    /// Performs the search operation and displays the available values. The search takes into account any previously
+    /// entered text which has updated the <see cref="ValueText"/>.
     /// </summary>
     /// <returns></returns>
     public async Task InvokeOptionsSearchAsync()
@@ -318,14 +326,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             Text = ValueText,
         };
 
-        if (ImmediateDelay > 0)
-        {
-            await _debounce.RunAsync(ImmediateDelay, () => InvokeAsync(() => OnOptionsSearch.InvokeAsync(args)));
-        }
-        else
-        {
-            await OnOptionsSearch.InvokeAsync(args);
-        }
+        await OnOptionsSearch.InvokeAsync(args);
 
         Items = args.Items?.Take(MaximumOptionsSearch);
 
