@@ -438,8 +438,10 @@
 
         // Arrange
         var cut = Render<FluentAutocomplete<Customer>>(
-            @<FluentAutocomplete Id="myComponent" TOption="Customer"
+            @<FluentAutocomplete Id="myComponent"
+                    TOption="Customer"
                     SelectValueOnTab="true"
+                    MaximumSelectedOptions="1"
                     @bind-SelectedOptions="@SelectedItems"
                     OnOptionsSearch="@OnSearchAsync" />
     );
