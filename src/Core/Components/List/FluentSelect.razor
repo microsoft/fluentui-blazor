@@ -19,6 +19,7 @@
                          readonly="@ReadOnly"
                          required="@Required"
                          size="@(Size.ToAttributeValue(isNull: ListSize.Medium, returnEmptyAsNull: true))"
+                         style="@DropdownStyle"
                          type="select"
                          @ondropdownchange="@OnDropdownChangeHandlerAsync"
                          @onfocusout="@FocusOutHandlerAsync"
