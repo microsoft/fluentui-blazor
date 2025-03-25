@@ -79,7 +79,7 @@
                                     Width="12px"
                                     Style="cursor: pointer;"
                                     Slot="end"
-                                    Title="@AccessibilityIconDismiss"
+                                    Title="@(MaximumSelectedOptions == 1 ? string.Format(AccessibilityRemoveItem, GetOptionText(SelectedOption)) : AccessibilityIconDismiss)"
                                     Focusable="true"
                                     @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
                                     OnClick="@OnClearAsync" />
@@ -206,7 +206,7 @@
 
                     if (MaximumSelectedOptions == 1)
                     {
-                        <FluentLabel>@text</FluentLabel>
+                        <FluentLabel aria-label="@GetOptionText(item)" role="checkbox" aria-checked="true">@text</FluentLabel>
                     }
                     else if (ReadOnly || Disabled)
                     {
