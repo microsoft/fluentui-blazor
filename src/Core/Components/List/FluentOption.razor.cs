@@ -73,7 +73,7 @@ public partial class FluentOption : FluentComponentBase
     /// <summary />
     public override async ValueTask DisposeAsync()
     {
-        InternalListContext?.AddOption(this);
+        InternalListContext?.RemoveOption(this);
 
         await base.DisposeAsync();
     }

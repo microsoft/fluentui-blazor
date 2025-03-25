@@ -108,24 +108,25 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         var id = option.Id ?? "";
 
         // Bound list
-        if (option.Data is TOption item)
+        if (Items != null)
         {
-            if (!InternalOptions.ContainsKey(id))
+            if (option.Data is null)
             {
-                InternalOptions.Add(id, item);
+                InternalOptions.TryAdd(id, default!);
+                return option.Id;
             }
 
-            return option.Id;
+            if (option.Data is TOption item)
+            {
+                InternalOptions.TryAdd(id, item);
+                return option.Id;
+            }
         }
 
         // Manual list using FluentOption
         if (typeof(TOption) == typeof(string) && option.Value is TOption value)
         {
-            if (!InternalOptions.ContainsKey(id))
-            {
-                InternalOptions.Add(id, value);
-            }
-
+            InternalOptions.TryAdd(id, value);
             return option.Id;
         }
 
@@ -206,7 +207,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
     {
         // List of IDs received from the web component.
-        var selectedIds = e.SelectedOptions?.Split(';') ?? Array.Empty<string>();
+        var selectedIds = e.SelectedOptions?.Split(';', StringSplitOptions.TrimEntries) ?? Array.Empty<string>();
         SelectedItems = selectedIds.Length > 0
                       ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
                       : Array.Empty<TOption>();
@@ -226,6 +227,14 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TOption result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         return this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
+    }
+
+    /// <summary>
+    /// For unit testing purposes only.
+    /// </summary>
+    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out TOption result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        return TryParseValueFromString(value, out result, out validationErrorMessage);
     }
 
     /// <summary />

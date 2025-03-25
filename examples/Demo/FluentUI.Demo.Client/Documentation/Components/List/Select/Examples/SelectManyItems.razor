@@ -1,6 +1,6 @@
-﻿<FluentSelect Label="Country"
-              Placeholder="Select a country"
-              Items="@Countries"
+﻿<FluentSelect Label="500 Names"
+              Placeholder="Select a name"
+              Items="@Names"
               @bind-Value="@Value" />
 
 <div>
@@ -8,6 +8,6 @@
 </div>
 
 @code {
-    static string[] Countries = SampleData.People.Countries.ToArray();
+    static string[] Names = SampleData.People.GeneratePersons(500).Select(i => $"{i.FirstName} {i.LastName}").ToArray();
     string? Value;
 }

@@ -23,7 +23,7 @@
     public void FluentSelect_Default()
     {
         // Arrange and Act
-        var cut = Render(@<FluentSelect Items="@Digits" />);
+        var cut = Render(@<FluentSelect Placeholder="Select a digit" Items="@Digits" />);
 
         // Assert
         cut.Verify();
@@ -44,10 +44,10 @@
     {
         // Arrange and Act
         var cut = Render(@<FluentSelect TOption="string">
-            <FluentOption Value="One">One</FluentOption>
-            <FluentOption Value="Two">Two</FluentOption>
-            <FluentOption Value="Three">Three</FluentOption>
-            </FluentSelect>
+    <FluentOption Value="One">One</FluentOption>
+    <FluentOption Value="Two">Two</FluentOption>
+    <FluentOption Value="Three">Three</FluentOption>
+</FluentSelect>
     );
 
         // Assert
@@ -98,9 +98,9 @@
         //  - Add a prefix to the value
         //  - Select the "One" option
         var cut = Render(@<FluentSelect Items="@Digits"
-                                        OptionDisabled="@(item => item == "Two")"
-                                        OptionText="@(item => item?.ToUpper())"
-                                        OptionValue="@(item => $"value-{item}")" />);
+                      OptionDisabled="@(item => item == "Two")"
+                      OptionText="@(item => item?.ToUpper())"
+                      OptionValue="@(item => $"value-{item}")" />);
 
         // Assert
         cut.Verify();
@@ -149,6 +149,56 @@
     }
 
     [Fact]
+    public async Task FluentSelect_Multiple()
+    {
+        string value = "One";
+        IEnumerable<string> selectedItems = ["One",];
+
+        // Arrange
+        var cut = Render(@<FluentSelect Multiple="true" Items="@Digits" @bind-Value="@value" @bind-SelectedItems="@selectedItems" />);
+        var ids = cut.FindAll("fluent-option")
+                     .Where(i => i.GetAttribute("value") == "One" || i.GetAttribute("value") == "Two")
+                     .Select(i => i.GetAttribute("id"));
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = string.Join(';', ids),
+        });
+
+        // Assert
+        Assert.Equal("One", value);
+        Assert.Equal(new[] { "One", "Two" }, selectedItems);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData("InvalidId1;InvalidId2")]
+    [InlineData("InvalidId1;    InvalidId2")]
+    [InlineData("InvalidId1")]
+    public async Task FluentSelect_Multiple_Unselect(string? selectedOptions)
+    {
+        string? value = "One";
+        IEnumerable<string>? selectedItems = ["One",];
+
+        // Arrange
+        var cut = Render(@<FluentSelect Id="MyList" Multiple="true" Items="@Digits" @bind-Value="@value" @bind-SelectedItems="@selectedItems" />);
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            Id = "MyList",
+            Type = "",
+            SelectedOptions = selectedOptions,
+        });
+
+        // Assert
+        Assert.Null(value);
+        Assert.Empty(selectedItems);
+    }
+
+    [Fact]
     public void FluentSelect_Data()
     {
         // Arrange
@@ -167,16 +217,98 @@
 
         // Arrange
         var cut = Render(@<FluentSelect Items="@Digits" @bind-Value="@value" />);
-        var two = cut.Find("fluent-option[value='Two']");
-        var twoId = two.GetAttribute("id");
+        var ids = cut.FindAll("fluent-option")
+                     .Where(i => i.GetAttribute("value") == "Two")
+                     .Select(i => i.GetAttribute("id"));
 
         // Act
         await cut.FindComponent<FluentSelect<string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
         {
-            SelectedOptions = $"{twoId}",
+            SelectedOptions = string.Join(';', ids),
         });
 
         // Assert
         Assert.Equal("Two", value);
+    }
+
+    [Theory]
+    [InlineData(ListAppearance.Outline, null)]
+    [InlineData(ListAppearance.FilledLighter, "filled-lighter")]
+    [InlineData(ListAppearance.FilledDarker, "filled-darker")]
+    [InlineData(ListAppearance.Transparent, "transparent")]
+    [InlineData((ListAppearance)999, null)]
+    [InlineData(null, null)]
+    public void FluentSelect_Appearance(ListAppearance? appearance, string? expected)
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Appearance="@appearance" Items="@Digits" />);
+        var attribute = cut.Find("fluent-dropdown").GetAttribute("appearance");
+
+        // Assert
+        Assert.Equal(expected, attribute);
+    }
+
+    [Theory]
+    [InlineData(ListSize.Medium, null)]
+    [InlineData(ListSize.Large, "large")]
+    [InlineData(ListSize.Small, "small")]
+    [InlineData((ListSize)999, null)]
+    [InlineData(null, null)]
+    public void FluentSelect_Size(ListSize? size, string? expected)
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Size="@size" Items="@Digits" />);
+        var attribute = cut.Find("fluent-dropdown").GetAttribute("size");
+
+        // Assert
+        Assert.Equal(expected, attribute);
+    }
+
+    [Theory]
+    [InlineData("1", 1, null)]
+    [InlineData("abc", 0, "The 'Unknown Bound Field' field is not valid.")]
+    public void FluentSelect_TryParseValueFromString(string? value, int? expectedParsedValue, string? expectedValidationErrorMessage)
+    {
+        // Arrange
+        var fluentSelect = new FluentSelect<int>();
+
+        // Act
+        fluentSelect.InternalTryParseValueFromString(value, out var parsedValue, out var validationErrorMessage);
+
+        // Assert
+        Assert.Equal(expectedParsedValue, parsedValue);
+        Assert.Equal(expectedValidationErrorMessage, validationErrorMessage);
+    }
+
+    [Theory]
+    [InlineData("InvalidId")]
+    [InlineData(null)]
+    [InlineData("FIRST_EXISTING_ID")]
+    public void FluentSelect_RemoveUnknownOption(string? id)
+    {
+#pragma warning disable BL0005
+
+        // Arrange
+        var cut = Render(@<FluentSelect Items="@Digits" />);
+        var ids = cut.FindAll("fluent-option").Select(i => i.GetAttribute("id"));
+        var data = (object?)null;
+
+        if (id == "FIRST_EXISTING_ID")
+        {
+            id = ids.First();
+            data = Guid.NewGuid();
+        }
+
+        // Act
+        var removedId = cut.FindComponent<FluentSelect<string?>>().Instance.RemoveOption(new()
+        {
+            Id = id,
+            Data = data,
+        });
+
+        // Assert
+        Assert.Null(removedId);
+
+#pragma warning restore BL0005
     }
 }
