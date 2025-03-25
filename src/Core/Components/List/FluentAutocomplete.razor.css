@@ -24,11 +24,11 @@
     max-width: calc(100% - 80px);
 }
 
-.fluent-autocomplete-multiselect-next {
+.fluent-autocomplete-next {
     height: 25px;
 }
 
-.fluent-autocomplete-multiselect-previous {
+.fluent-autocomplete-previous {
     height: 25px;
 }
 
