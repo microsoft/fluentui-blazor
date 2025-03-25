@@ -52,7 +52,7 @@
     margin-bottom: 2px;
 }
 
-.fluent-autocomplete-multiselect.singleselect.item-selected ::deep fluent-text-field::part(control) {
+.fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field::part(control) {
     display: none;
 }
 
