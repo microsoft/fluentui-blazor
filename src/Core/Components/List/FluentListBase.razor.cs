@@ -35,13 +35,6 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     public ListAppearance? Appearance { get; set; }
 
     /// <summary>
-    /// Gets or sets the size of the list.
-    /// Default is `null`. Internally the component uses <see cref="ListSize.Medium"/> as default.
-    /// </summary>
-    [Parameter]
-    public ListSize? Size { get; set; }
-
-    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
@@ -71,12 +64,6 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// </summary>
     [Parameter]
     public EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
-
-    /// <summary>
-    /// Gets or sets the placeholder text to display when no item is selected.
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
 
     /// <summary>
     /// Gets or sets the template for the <see cref="FluentListBase{TOption}.Items"/> items.

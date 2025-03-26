@@ -2,12 +2,13 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// 
+/// A FluentSelect allows one option to be selected from multiple items.
 /// </summary>
 /// <typeparam name="TOption"></typeparam>
 public partial class FluentSelect<TOption> : FluentListBase<TOption>
@@ -22,4 +23,17 @@ public partial class FluentSelect<TOption> : FluentListBase<TOption>
         .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, when: !string.IsNullOrEmpty(Height))
         .Build();
+
+    /// <summary>
+    /// Gets or sets the placeholder text to display when no item is selected.
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size of the list.
+    /// Default is `null`. Internally the component uses <see cref="ListSize.Medium"/> as default.
+    /// </summary>
+    [Parameter]
+    public ListSize? Size { get; set; }
 }
