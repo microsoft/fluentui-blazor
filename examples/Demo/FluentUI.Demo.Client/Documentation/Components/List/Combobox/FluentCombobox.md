@@ -23,6 +23,10 @@ Because combobox inputs always allow people to enter information, the selections
 the placeholder text by default. For best usability, build in other ways to show people the selections they’ve made
 without opening the menu, like showing their choices as tags in the input (NOT YET IMPLEMENTED).
 
+{{ ComboboxDefault }}
+
+## FreeOption
+
 Comboboxes allow people to filter the list of options as they type.
 If the someone types a string that doesn’t match any option in the list,
 you can allow submission of their free form entry by using the `FreeOption` section and the `FreeOptionOutput` element
@@ -33,8 +37,6 @@ to display the user text.
     Search for '<FreeOptionOutput />'
 </FreeOption>
 ```
-
-{{ ComboboxDefault }}
 
 ## Appearance
 

@@ -18,6 +18,7 @@ public class FreeOptionOutput : FluentComponentBase
         builder.AddAttribute(1, "id", Id);
         builder.AddAttribute(2, "class", DefaultClassBuilder.Build());
         builder.AddAttribute(3, "style", DefaultStyleBuilder.Build());
+        builder.AddMultipleAttributes(4, AdditionalAttributes);
         builder.CloseElement();
     }
 }
