@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Menu list item which is displayed in a MenuList component. 
+/// Menu list item which is displayed in a MenuList component.
 /// </summary>
 public partial class FluentMenuItem : FluentComponentBase
 {
@@ -20,8 +20,20 @@ public partial class FluentMenuItem : FluentComponentBase
         .Build();
 
     /// <summary>
+    /// Gets or sets the owning FluentMenu.
+    /// </summary>
+    [CascadingParameter]
+    public FluentMenu Menu { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets the owning FluentMenuList.
+    /// </summary>
+    [CascadingParameter]
+    public FluentMenuList MenuList { get; set; } = default!;
+
+    /// <summary>
     /// Gets or sets the role of the menu item.
-    /// </summary> 
+    /// </summary>
     [Parameter]
     public MenuItemRole? Role { get; set; }
 
@@ -80,4 +92,56 @@ public partial class FluentMenuItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? MenuItems { get; set; }
+
+    /// <summary>
+    /// Event raised when the user click on this item.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MenuItemEventArgs> OnClick { get; set; }
+
+    /// <summary>
+    /// Event raised for checkbox and radio menuitems
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool?> CheckedChanged { get; set; }
+
+    /// <summary />
+    internal async Task OnChangeHandlerAsync(MenuItemEventArgs args)
+    {
+        args.Item = this;
+
+        if (args.Checked is null)
+        {
+            // It is just a click on a menu item
+            if (OnClick.HasDelegate)
+            {
+                await OnClick.InvokeAsync(args);
+            }
+
+            if (Menu is not null)
+            {
+                await Menu.NotifyClickedAsync(args);
+            }
+        }
+        else
+        {
+            // The checked state of menu item with a checkbox or radio role has changed.
+            // In case of a radio item, the event will fired twice. One time for the unchecked item and
+            // once for the checked item
+            if (CheckedChanged.HasDelegate)
+            {
+                await CheckedChanged.InvokeAsync(args.Checked.Value);
+            }
+
+            if (MenuList is not null)
+            {
+                await MenuList.NotifyCheckedChangedAsync(args);
+            }
+
+            if (Menu is not null)
+            {
+                await Menu.NotifyCheckedChangedAsync(args);
+            }
+        }
+    }
 }

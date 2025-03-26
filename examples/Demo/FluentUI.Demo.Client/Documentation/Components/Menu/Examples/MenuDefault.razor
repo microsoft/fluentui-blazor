@@ -1,13 +1,52 @@
-﻿<FluentMenu style="--menu-max-height: auto;">
-    <Trigger>
-        <fluent-menu-button appearance="primary" slot="trigger">Toggle Menu</fluent-menu-button>
-    </Trigger>
-    <ChildContent>
+﻿<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10">
+    <FluentButton Appearance="ButtonAppearance.Primary" Id="triggerid1">Toggle Menu</FluentButton>
+    <FluentMenu @ref=@Menu Trigger="triggerid1" OnClick="@OnMenuClick">
         <FluentMenuList>
             <FluentMenuItem>Menu item 1</FluentMenuItem>
             <FluentMenuItem>Menu item 2</FluentMenuItem>
             <FluentMenuItem>Menu item 3</FluentMenuItem>
             <FluentMenuItem>Menu item 4</FluentMenuItem>
         </FluentMenuList>
-    </ChildContent>
-</FluentMenu>
+    </FluentMenu>
+
+    <FluentLabel Style="border: var(--colorBrandForegroundInverted) 1px dashed;" Id="trigger-id2">Toggle Menu</FluentLabel>
+    <FluentMenu Trigger="trigger-id2" Height="100px">
+        <FluentMenuList>
+            <FluentMenuItem>Menu item 1</FluentMenuItem>
+            <FluentMenuItem>Menu item 2</FluentMenuItem>
+            <FluentMenuItem>Menu item 3</FluentMenuItem>
+            <FluentMenuItem>Menu item 4</FluentMenuItem>
+        </FluentMenuList>
+    </FluentMenu>
+    <FluentButton OnClick="OpenMenuAsync">Open menu</FluentButton>
+    <FluentButton OnClick="CloseMenuAsync">Close menu</FluentButton>
+</FluentStack>
+
+<p>@status</p>
+
+@code {
+    private FluentMenu? Menu { get; set; }
+    private string status = "";
+
+    private async Task OpenMenuAsync()
+    {
+        if (Menu != null)
+        {
+            await Menu.OpenMenuAsync();
+        }
+    }
+
+    private async Task CloseMenuAsync()
+    {
+        if (Menu != null)
+        {
+            await Menu.CloseMenuAsync();
+        }
+    }
+
+    private void OnMenuClick(MenuItemEventArgs args)
+    {
+        Console.WriteLine($"Menu item clicked: {args.Text}");
+
+    }
+}

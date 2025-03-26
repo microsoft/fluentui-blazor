@@ -7,7 +7,8 @@
                   role="@Role.ToAttributeValue()"
                   checked="@Checked"
                   disabled="@Disabled"
-                  @attributes="AdditionalAttributes">
+                  @attributes="AdditionalAttributes"
+                  @onmenuitemchange="@OnChangeHandlerAsync">
     @if (IconIndicator != null)
     {
         <FluentIcon Value="@IconIndicator" Slot="@((ChildContent is null && Label is null) ? null : "indicator")" />

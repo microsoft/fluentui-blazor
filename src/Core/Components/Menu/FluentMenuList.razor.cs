@@ -24,4 +24,18 @@ public partial class FluentMenuList : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Raised when a FluentMenuItem's Checked state changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MenuItemEventArgs> OnCheckedChanged { get; set; }
+
+    internal async Task NotifyCheckedChangedAsync(MenuItemEventArgs args)
+    {
+        if (OnCheckedChanged.HasDelegate)
+        {
+            await OnCheckedChanged.InvokeAsync(args);
+        }
+    }
 }

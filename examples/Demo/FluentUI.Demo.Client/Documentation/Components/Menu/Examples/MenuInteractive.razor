@@ -1,0 +1,36 @@
+﻿<FluentButton Appearance="ButtonAppearance.Primary" Id="triggerinteractive">Toggle Menu</FluentButton>
+<FluentMenu Trigger="triggerinteractive" OnCheckedChanged="HandleCheckedChanged">
+    <FluentMenuList>
+        <FluentMenuItem>
+            Item 1
+            <FluentMenuList slot="submenu">
+                <FluentMenuItem>Subitem 1</FluentMenuItem>
+                <FluentMenuItem>Subitem 2</FluentMenuItem>
+            </FluentMenuList>
+        </FluentMenuItem>
+
+        <FluentMenuItem Role="MenuItemRole.Checkbox">Item 2</FluentMenuItem>
+        <FluentMenuItem Role="MenuItemRole.Checkbox">Item 3</FluentMenuItem>
+        @* using a FluentDivider makes the menu items act as a radio group *@
+        <FluentDivider />
+
+        <FluentMenuItem Role="MenuItemRole.Radio">Menu item 4</FluentMenuItem>
+        <FluentMenuItem Role="MenuItemRole.Radio">Menu item 5</FluentMenuItem>
+        <FluentMenuItem Role="MenuItemRole.Radio">Menu item 6</FluentMenuItem>
+
+        <FluentDivider />
+
+        <FluentMenuItem Role="MenuItemRole.Radio">Menu item 7</FluentMenuItem>
+        <FluentMenuItem Role="MenuItemRole.Radio">Menu item 8</FluentMenuItem>
+    </FluentMenuList>
+</FluentMenu>
+
+@code {
+    private void HandleCheckedChanged(MenuItemEventArgs args)
+    {
+        if (args.Checked.HasValue)
+        {
+            Console.WriteLine($"Menu item {(args.Checked.Value ? "checked" : "unchecked")}: {args.Text}");
+        }
+    }
+}

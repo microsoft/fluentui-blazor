@@ -34,7 +34,17 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       }
     });
   }
-
+  export function MenuItem(blazor: Blazor) {
+    blazor.registerCustomEventType('menuitemchange', {
+      browserEventName: 'change',
+      createEventArgs: event => {
+        return {
+          text: event.target.innerText,
+          checked: event.target._role == 'menuitem' ? null : event.target._checked,
+        };
+      }
+    });
+  }
 
   // [^^^ Add your other custom events before this line ^^^]
 
