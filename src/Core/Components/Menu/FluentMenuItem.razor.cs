@@ -128,19 +128,23 @@ public partial class FluentMenuItem : FluentComponentBase
             // The checked state of menu item with a checkbox or radio role has changed.
             // In case of a radio item, the event will fired twice. One time for the unchecked item and
             // once for the checked item
-            if (CheckedChanged.HasDelegate)
+            if (Role == MenuItemRole.Checkbox || Role == MenuItemRole.Radio)
             {
-                await CheckedChanged.InvokeAsync(args.Checked.Value);
-            }
 
-            if (MenuList is not null)
-            {
-                await MenuList.NotifyCheckedChangedAsync(args);
-            }
+                if (CheckedChanged.HasDelegate)
+                {
+                    await CheckedChanged.InvokeAsync(args.Checked.Value);
+                }
 
-            if (Menu is not null)
-            {
-                await Menu.NotifyCheckedChangedAsync(args);
+                if (MenuList is not null)
+                {
+                    await MenuList.NotifyCheckedChangedAsync(args);
+                }
+
+                if (Menu is not null)
+                {
+                    await Menu.NotifyCheckedChangedAsync(args);
+                }
             }
         }
     }
