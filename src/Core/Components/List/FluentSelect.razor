@@ -3,8 +3,6 @@
 @inherits FluentListBase<TOption>
 @typeparam TOption
 
-@* This file must be updated when the `fluent-select` web-component will be available  *@
-
 <CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
     <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
         <fluent-dropdown id="@Id"
@@ -20,7 +18,7 @@
                          required="@Required"
                          size="@(Size.ToAttributeValue(isNull: ListSize.Medium, returnEmptyAsNull: true))"
                          style="@DropdownStyle"
-                         type="dropdown"
+                         type="@DropdownType"
                          @ondropdownchange="@OnDropdownChangeHandlerAsync"
                          @onfocusout="@FocusOutHandlerAsync"
                          @attributes=AdditionalAttributes>
