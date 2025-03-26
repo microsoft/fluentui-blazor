@@ -1,7 +1,8 @@
 ﻿<FluentSelect Label="500 Names"
               Placeholder="Select a name"
               Items="@Persons"
-              OptionText="@(i => $"{i?.FirstName} {i?.LastName}")"
+              Multiple="true"
+              OptionText="@(i => $"[{i?.Id:0000}] {i?.FirstName} {i?.LastName}")"
               OptionValue="@(i => $"{i?.Id}")"
               Height="200px"
               Width="300px"
@@ -12,6 +13,6 @@
 </div>
 
 @code {
-    static SampleData.People.Person[] Persons = SampleData.People.GeneratePersons(500).ToArray();
+    static SampleData.People.Person[] Persons = SampleData.People.GeneratePersons(500, sequentialId: true).ToArray();
     SampleData.People.Person? Selected;
 }

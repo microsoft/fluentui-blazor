@@ -6,12 +6,15 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
 {
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "List/FluentListBase.razor.js";
+
     // List of items rendered with an ID to retrieve the element by ID.
     private Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
 
@@ -204,8 +207,32 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         return Task.CompletedTask;
     }
 
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) // && Multiple)
+        {
+            // Import the JavaScript module
+            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+
+            // Call a function from the JavaScript module
+            var dotNetHelper = DotNetObjectReference.Create(this);
+            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.List.Initialize", Id, dotNetHelper);
+        }
+    }
+
+    /// <summary />
+    [JSInvokable]
+    public async Task FluentList_OptionChangedAsync(string id, bool selected)
+    {
+        Console.WriteLine("FluentList_OptionChanged " + id + " " + selected);
+        await Task.CompletedTask;
+    }
+
     internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
     {
+        Console.WriteLine("OnDropdownChangeHandlerAsync " + e.SelectedOptions);
+
         // List of IDs received from the web component.
         var selectedIds = e.SelectedOptions?.Split(';', StringSplitOptions.TrimEntries) ?? Array.Empty<string>();
         SelectedItems = selectedIds.Length > 0

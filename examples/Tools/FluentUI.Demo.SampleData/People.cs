@@ -82,14 +82,15 @@ public partial class People
     /// Generates a list of persons with random data.
     /// </summary>
     /// <param name="count"></param>
+    /// <param name="sequentialId"></param>
     /// <returns></returns>
-    public static IEnumerable<Person> GeneratePersons(int count)
+    public static IEnumerable<Person> GeneratePersons(int count, bool sequentialId = false)
     {
         var people = new List<Person>(count);
 
         for (var i = 0; i < count; i++)
         {
-            var id = RandomNumber(10000, 99999).ToString(CultureInfo.InvariantCulture);
+            var id = sequentialId ? $"{i}" : RandomNumber(10000, 99999).ToString(CultureInfo.InvariantCulture);
             var firstName = FirstNames[Random.Next(FirstNames.Length)];
             var lastName = LastNames[Random.Next(LastNames.Length)];
             var male = Random.Next(2) == 0;
