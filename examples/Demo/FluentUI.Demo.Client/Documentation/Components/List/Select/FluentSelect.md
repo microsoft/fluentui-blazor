@@ -1,5 +1,5 @@
 ---
-title: Select
+title: List / Select
 route: /List/Select
 ---
 

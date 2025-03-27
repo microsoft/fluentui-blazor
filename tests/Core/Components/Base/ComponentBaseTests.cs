@@ -33,6 +33,7 @@ public class ComponentBaseTests : TestContext
     {
         { typeof(FluentIcon<>), Loader.MakeGenericType(typeof(Samples.Icons.Samples.Info))},
         { typeof(FluentSelect<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentCombobox<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentTooltip), Loader.Default.WithRequiredParameter("Anchor", "MyButton").WithRequiredParameter("UseTooltipService", false)},
     };
