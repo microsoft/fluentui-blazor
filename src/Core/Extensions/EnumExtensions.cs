@@ -37,6 +37,28 @@ public static class EnumExtensions
 
     /// <summary>
     /// Returns the Description attribute of an enum value if present.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="isNull">The enum value that represents null.</param>
+    /// <param name="returnEmptyAsNull">If True, returns null if the description is empty.</param>
+    /// <returns></returns>
+    public static string? ToAttributeValue(this Enum? value, Enum isNull, bool? returnEmptyAsNull = false)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+
+        if (value.Equals(isNull))
+        {
+            return null;
+        }
+
+        return ToAttributeValue(value, returnEmptyAsNull);
+    }
+
+    /// <summary>
+    /// Returns the Description attribute of an enum value if present.
     /// Returns the enum name if the attribute is not found (in lower-case).
     /// </summary>
     /// <param name="value"></param>

@@ -1,10 +1,12 @@
 
 <fluent-field id="xxx" label-position="above">
-  <select id="xxx" slot="input" blazor:onchange="1">
-    <option value="value-" blazor:onclick="x"></option>
-    <option value="value-One" selected="" blazor:onclick="x" aria-selected="true">ONE</option>
-    <option disabled="" value="value-Two" blazor:onclick="x">TWO</option>
-    <option value="value-Three" blazor:onclick="x">THREE</option>
-  </select>
+  <fluent-dropdown id="xxx" slot="input" type="dropdown" blazor:ondropdownchange="1" blazor:onfocusout="2">
+    <fluent-listbox>
+      <fluent-option id="xxx" value="value-"></fluent-option>
+      <fluent-option id="xxx" text="ONE" value="value-One">ONE</fluent-option>
+      <fluent-option id="xxx" disabled="" text="TWO" value="value-Two">TWO</fluent-option>
+      <fluent-option id="xxx" text="THREE" value="value-Three">THREE</fluent-option>
+    </fluent-listbox>
+  </fluent-dropdown>
   <fluent-text as="span" size="200" slot="message"></fluent-text>
 </fluent-field>

@@ -18,13 +18,13 @@
         }
         else
         {
-            @foreach (TOption item in Items)
+            @foreach (var item in Items)
             {
-                <FluentOption Value="@GetOptionValue(item)"
-                              Disabled="@(GetOptionDisabled(item))"
-                              Selected="@GetOptionSelected(item)"
-                              SelectedChanged="@(e => OnSelectedItemChangedHandlerAsync(item))"
-                              aria-selected="@(GetOptionSelected(item) ? "true" : null)">
+                <FluentOption Data="@item"
+                              Text="@GetOptionText(item)"
+                              Value="@GetOptionValue(item)"
+                              Selected="@(GetOptionSelected(item))"
+                              Disabled="@(GetOptionDisabled(item))">
                     @if (OptionTemplate is not null)
                     {
                         @OptionTemplate(item)

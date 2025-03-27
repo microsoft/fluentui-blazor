@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -10,6 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 /// The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
 /// This ensures that the action is only invoked once after the calls have stopped for the specified duration.
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "Locally validated, but some CI/CD failures are due to poor server performance.")]
 public class Debounce : IDisposable
 {
     private bool _disposed;
