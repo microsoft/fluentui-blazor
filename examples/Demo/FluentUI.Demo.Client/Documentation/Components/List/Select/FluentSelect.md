@@ -5,7 +5,7 @@ route: /List/Select
 
 # Select
 
-The **FluentSelect** component allows one option to be selected from multiple options.
+The **FluentSelect** component allows one option to be selected from a list of options.
 
 View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/select/usage).
 
@@ -20,7 +20,7 @@ like in the Customized example (see below).
 
 ## Appearance
 
-You can change the appearance of the **FluentSelect** component by using the **appearance** or **Size** parameters.
+You can change the appearance of the **FluentSelect** component by using the **appearance** and/or **Size** parameters.
 
 {{ SelectAppearance }}
 
