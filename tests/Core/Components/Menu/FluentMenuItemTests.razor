@@ -175,17 +175,18 @@
     public void FluentMenuItem_CompleteExample()
     {
         // Arrange && Act
-        var cut = Render(@<FluentMenuItem
-            Role="MenuItemRole.Checkbox"
-            Checked="true"
-            IconStart="@Samples.Icons.Info"
-            IconIndicator="@Samples.Icons.Warning"
-            Label="Complete Menu Item">
-            <MenuItems>
-                <FluentMenuItem>Submenu Item</FluentMenuItem>
-            </MenuItems>
-        </FluentMenuItem>
-    );
+        var cut = Render(@<FluentMenuList><FluentMenuItem
+                Role="MenuItemRole.Checkbox"
+                Checked="true"
+                IconStart="@Samples.Icons.Info"
+                IconIndicator="@Samples.Icons.Warning"
+                Label="Complete Menu Item">
+                <MenuItems>
+                    <FluentMenuItem>Submenu Item</FluentMenuItem>
+                </MenuItems>
+            </FluentMenuItem>
+        </FluentMenuList>
+        );
 
         // Assert
         cut.Verify();
