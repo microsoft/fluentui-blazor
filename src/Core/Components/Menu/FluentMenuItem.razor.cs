@@ -57,13 +57,13 @@ public partial class FluentMenuItem : FluentComponentBase
     public bool? Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="Icon"/> displayed at the start of button content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of menu item content.
     /// </summary>
     [Parameter]
     public Icon? IconStart { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="Icon"/> displayed at the end of button content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the end of menu item content.
     /// </summary>
     [Parameter]
     public Icon? IconEnd { get; set; }
