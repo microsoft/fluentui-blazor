@@ -26,7 +26,7 @@ dotnet add package Microsoft.FluentUI.AspNetCore.Components.Icons
 To use the **Fluent UI Emoji** in your application, you need to install the [Microsoft.FluentUI.AspNetCore.Components.Emojis](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Emoji/) NuGet package in the project which is using the main library.
 
 ```shell
-dotnet add package Microsoft.FluentUI.AspNetCore.Components.Emojis
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.Emoji
 ```
 
  
