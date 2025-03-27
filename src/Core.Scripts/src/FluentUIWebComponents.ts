@@ -27,10 +27,13 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
     FluentUIComponents.DividerDefinition.define(registry);
     FluentUIComponents.DrawerBodyDefinition.define(registry);
     FluentUIComponents.DrawerDefinition.define(registry);
+    FluentUIComponents.DropdownDefinition.define(registry);
+    FluentUIComponents.DropdownOptionDefinition.define(registry);
     FluentUIComponents.FieldDefinition.define(registry);
     FluentUIComponents.ImageDefinition.define(registry);
     FluentUIComponents.LabelDefinition.define(registry);
     FluentUIComponents.LinkDefinition.define(registry);
+    FluentUIComponents.ListboxDefinition.define(registry);
     FluentUIComponents.MenuButtonDefinition.define(registry);
     FluentUIComponents.MenuDefinition.define(registry);
     FluentUIComponents.MenuItemDefinition.define(registry);

@@ -30,7 +30,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [EventHandler("ondialogbeforetoggle", typeof(DialogToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ondialogtoggle", typeof(DialogToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onmenuitemchange", typeof(MenuItemEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-
+[EventHandler("ondropdownchange", typeof(DropdownEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 public static class EventHandlers
 {
 }
