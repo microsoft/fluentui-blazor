@@ -56,6 +56,13 @@
     display: none;
 }
 
+.fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field::part(start) {
+    max-width: calc(100% - 40px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 @media (forced-colors: active) {
 
     .fluent-autocomplete-multiselect div[role=listbox] {
