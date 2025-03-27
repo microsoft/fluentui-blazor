@@ -1,0 +1,32 @@
+﻿<FluentTabs ActiveTabId="tab2" @bind-ActiveTab="@ActiveTab" @bind-ActiveTab:after="@OnTabChanged" Height="300px" Width="400px" Style="border: 1px solid red;">
+    <FluentTab Id="tab1" Header="Tab 1">
+        Example of content 1
+    </FluentTab>
+
+    <FluentTab Id="tab2" Header="Tab 2" Disabled>
+        Example of content 2
+    </FluentTab>
+
+    <FluentTab Id="tab3">
+        <HeaderTemplate>
+            Tab <b>3</b>
+        </HeaderTemplate>
+        <ChildContent>
+            Example of content 3
+        </ChildContent>
+    </FluentTab>
+</FluentTabs>
+
+<p>
+    ActiveTab: @(ActiveTab?.Header)
+</p>
+
+@code
+{
+    FluentTab? ActiveTab;
+
+    void OnTabChanged()
+    {
+        Console.WriteLine($"Tab changed to '{ActiveTab?.Header}'."); 
+    }
+}

@@ -1,0 +1,15 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<fluent-tab id="@Id"
+            class="@ClassValue"
+            style="@StyleValue"
+            disabled="@Disabled">
+    <AddTag Name="span" TagWhen="@(() => HeaderTemplate is not null)">
+        @Header
+        @HeaderTemplate
+    </AddTag>
+</fluent-tab>
+<fluent-tab-panel>
+    @ChildContent
+</fluent-tab-panel>

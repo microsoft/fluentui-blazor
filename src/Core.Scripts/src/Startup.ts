@@ -50,6 +50,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
 
     // Register all custom events
     FluentUICustomEvents.DialogToggle(blazor);
+    FluentUICustomEvents.Tabs(blazor);
     // [^^^ Add your other custom events before this line ^^^]
 
     // Finishing
