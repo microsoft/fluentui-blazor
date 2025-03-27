@@ -1,0 +1,74 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.DesignTokens
+
+<FluentButton @ref="ref1" @onclick="OnClickFirst">Dark/Light</FluentButton>
+<FluentButton @ref="ref2" @onclick="OnClickSecond" Appearance ="Appearance.Accent">Accent button</FluentButton>
+<FluentButton @ref="ref3">And one more</FluentButton>
+<FluentButton @ref="ref4" @onclick=OnClickLast>Last button</FluentButton>
+
+
+@code {
+    [Inject]
+    private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
+
+    [Inject]
+    private AccentBaseColor AccentBaseColor { get; set; } = default!;
+
+    [Inject]
+    private NeutralBaseColor NeutralBaseColor { get; set; } = default!;
+
+    [Inject]
+    private BodyFont BodyFont { get; set; } = default!;
+
+    [Inject]
+    private StrokeWidth StrokeWidth { get; set; } = default!;
+
+    [Inject]
+    private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
+
+    private FluentButton? ref1;
+    private FluentButton? ref2;
+    private FluentButton? ref3;
+    private FluentButton? ref4;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //Set to dark mode
+            //await BaseLayerLuminance.SetValueFor(ref1!.Element, (float)0.15);
+
+            //Set the font
+            await BodyFont.SetValueFor(ref3!.Element, "Comic Sans MS");
+
+            //Set 'border' width for ref4
+            await StrokeWidth.SetValueFor(ref4!.Element, 7);
+            //And change conrner radius as well
+            await ControlCornerRadius.SetValueFor(ref4!.Element, 15);
+
+            StateHasChanged();
+        }
+    }
+
+    public async Task OnClickFirst()
+    {
+        float? value = await BaseLayerLuminance.GetValueFor(ref1!.Element);
+        //Set to light mode
+        await BaseLayerLuminance.WithDefault(value == 0.15f ? (float)1.0 : (float)0.15);
+    }
+
+    public async Task OnClickSecond()
+    {
+        Swatch accent = await AccentBaseColor.GetValueFor(ref2!.Element);
+        Swatch neutral = await NeutralBaseColor.GetValueFor(ref2!.Element);
+
+        await AccentBaseColor.WithDefault(accent.B == (float)0.274509817 ? "#0078D4" : "#217346");
+        await NeutralBaseColor.WithDefault(neutral.B == (float)0.3372549 ? "#808080" : "#c75656");
+    }
+
+    public async Task OnClickLast()
+    {
+        //Remove the wide border
+        await StrokeWidth.DeleteValueFor(ref4!.Element);
+    }
+
+}

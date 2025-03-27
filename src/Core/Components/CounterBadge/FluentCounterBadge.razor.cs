@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -18,9 +22,9 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("left", $"{HorizontalPosition.ToString(CultureInfo.InvariantCulture)}%", () => GlobalState.Dir == LocalizationDirection.LeftToRight)
-        .AddStyle("right", $"{HorizontalPosition.ToString(CultureInfo.InvariantCulture)}%", () => GlobalState.Dir == LocalizationDirection.RightToLeft)
-        .AddStyle("bottom", $"{VerticalPosition.ToString(CultureInfo.InvariantCulture)}%")
+        .AddStyle("left", $"{HorizontalPosition?.ToString(CultureInfo.InvariantCulture)}%", () => GlobalState.Dir == LocalizationDirection.LeftToRight)
+        .AddStyle("right", $"{HorizontalPosition?.ToString(CultureInfo.InvariantCulture)}%", () => GlobalState.Dir == LocalizationDirection.RightToLeft)
+        .AddStyle("bottom", $"{VerticalPosition?.ToString(CultureInfo.InvariantCulture)}%")
         .AddStyle("background-color", GetBackgroundColor().ToAttributeValue())
         .AddStyle("color", GetFontColor().ToAttributeValue())
         .AddStyle("border", $"1px solid {GetBorderColor().ToAttributeValue()}")
@@ -50,7 +54,7 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     /// Gets or sets the content you want inside the badge, to customize the badge content.
     /// </summary>
     [Parameter]
-    public RenderFragment<int?>? BadgeTemplate{ get; set; }
+    public RenderFragment<int?>? BadgeTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum number that can be displayed inside the badge.
@@ -64,7 +68,7 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     /// Default value is 60 (80 when Dot=true).
     /// </summary>
     [Parameter]
-    public int HorizontalPosition { get; set; }
+    public int? HorizontalPosition { get; set; }
 
     /// <summary>
     /// Gets or sets the bottom position of the badge in percentage.
@@ -75,7 +79,7 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     [Parameter]
     public int BottomPosition
     {
-        get => VerticalPosition;
+        get => VerticalPosition ?? 60;
         set => VerticalPosition = value;
     }
 
@@ -84,7 +88,7 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     /// Default value is 60 (80 when Dot=true).
     /// </summary>
     [Parameter]
-    public int VerticalPosition { get; set; }
+    public int? VerticalPosition { get; set; }
 
     /// <summary>
     /// Gets or sets the default design of this badge using colors from theme.
@@ -160,8 +164,9 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
 
     protected override void OnInitialized()
     {
-        HorizontalPosition = Dot ? 80 : 60;
-        VerticalPosition = Dot ? 80 : 60;
+        HorizontalPosition ??= Dot ? 80 : 60;
+        VerticalPosition ??= Dot ? 80 : 60;
+
         GlobalState.OnChange += StateHasChanged;
     }
 

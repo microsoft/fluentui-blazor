@@ -2,7 +2,7 @@ To make it easier to start a project that uses the Fluent UI Web Components for 
 - Fluent Blazor Web App
 - Fluent Blazor WebAssembly Standalone App
 - Fluent .NET MAUI Blazor Hybrid and Web App
-- Fluent .NAT Aspire Starter app
+- Fluent .NET Aspire Starter app
 
 
 All of these templates mimic their standard Blazor template counterpart but have the Fluent UI Blazor components already fully set up. If you choose to add sample pages when creating a project, all components have been replaced with Fluent UI components (and a few extra have been added). All Bootstrap styling is removed of course as well.

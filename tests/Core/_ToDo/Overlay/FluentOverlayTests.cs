@@ -1,14 +1,22 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Bunit;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Overlay;
 public class FluentOverlayTests : TestBase
 {
+    [Inject]
+    public GlobalState GlobalState { get; set; } = new GlobalState();
     public FluentOverlayTests()
     {
         TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
         TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+        TestContext.Services.AddSingleton(GlobalState);
 
     }
 

@@ -27,12 +27,12 @@
     </FluentAccordionItem>
 </FluentAccordion>
 <br />
-<div style="height: 370px; overflow:auto;" tabindex="-1">
+<div style="height: 484px; overflow:auto;" tabindex="-1">
     <FluentDataGrid @ref="dataGrid"
                     Items="foodRecallItems"
                     RefreshItems="RefreshItemsAsync"
                     OnRowDoubleClick="@(()=>DemoLogger.WriteLine("Row double clicked!"))"
-                    ItemSize="46"
+                    RowSize="DataGridRowSize.Small"
                     GenerateHeader="GenerateHeaderOption.Sticky"
                     TGridItem="FoodRecall"
                     Loading="loading"
@@ -88,6 +88,7 @@
 
         loading = false;
         await InvokeAsync(StateHasChanged);
+
     }
 
     public void ClearFilters()
