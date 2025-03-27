@@ -8,7 +8,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// A FluentSelect allows one option to be selected from multiple items.
+/// A FluentSelect allows for selecting one or more options from a list of options.
 /// </summary>
 /// <typeparam name="TOption"></typeparam>
 public partial class FluentSelect<TOption> : FluentListBase<TOption>
