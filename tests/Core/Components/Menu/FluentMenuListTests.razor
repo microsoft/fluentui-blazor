@@ -13,7 +13,7 @@
     public void FluentMenuList_Default()
     {
         // Arrange && Act
-        
+
         var cut = Render(@<FluentMenuList>fluent-menu-list</FluentMenuList>);
 
         // Assert
@@ -31,4 +31,32 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentMenuList_MeniItemCheckboxChecked()
+    {
+
+        var check = false;
+        var label = "My item";
+        var item = new FluentMenuItem();
+        var a = new MenuItemEventArgs { Text = label, Checked = true };
+
+        // Arrange
+        var cut = Render(@<FluentMenuList OnCheckedChanged="@(() => { check = true;})">
+                <FluentMenuItem @ref=item Role="MenuItemRole.Checkbox" @onmenuitemchange="@((args) => { a = args; })" CheckedChanged="@(() => { })">
+                    @label
+                </FluentMenuItem>
+            </FluentMenuList>);
+
+        // Act
+        //cut.Find("fluent-menu-item").Click();
+        cut.Find("fluent-menu-item").TriggerEvent("onmenuitemchange", a);
+
+        // Assert
+        Assert.True(check);
+        Assert.Equal(label, a.Text);
+        Assert.Equal(item, a.Item);
+        Assert.True(a.Checked);
+    }
+
 }
