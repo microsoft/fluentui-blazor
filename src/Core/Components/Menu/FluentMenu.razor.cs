@@ -14,9 +14,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentMenu : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Menu/FluentMenu.razor.js";
-    //private bool _open;
-
-    private IJSObjectReference? _jsModule;
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -97,11 +94,11 @@ public partial class FluentMenu : FluentComponentBase
         if (firstRender)
         {
             // Import the JavaScript module
-            _jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
             if (Trigger != null)
             {
-                await _jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Menu.Initialize", Id, Trigger);
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Menu.Initialize", Id, Trigger);
             }
         }
     }
@@ -111,10 +108,7 @@ public partial class FluentMenu : FluentComponentBase
     /// </summary>
     public async Task CloseMenuAsync()
     {
-        if (_jsModule is not null)
-        {
-            await _jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Menu.CloseMenu", Id);
-        }
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Menu.CloseMenu", Id);
     }
 
     /// <summary>
@@ -122,10 +116,7 @@ public partial class FluentMenu : FluentComponentBase
     /// </summary>
     public async Task OpenMenuAsync()
     {
-        if (_jsModule is not null)
-        {
-            await _jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Menu.OpenMenu", Id);
-        }
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Menu.OpenMenu", Id);
     }
 
     internal async Task NotifyCheckedChangedAsync(MenuItemEventArgs args)

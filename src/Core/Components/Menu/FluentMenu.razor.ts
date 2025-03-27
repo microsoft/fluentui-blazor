@@ -16,11 +16,15 @@ export namespace Microsoft.FluentUI.Blazor.Menu {
 
   export function CloseMenu(id: string) {
     const menu = document.getElementById(id) as any;
-    menu.closeMenu();
+    if (menu) {
+      menu.closeMenu();
+    }
    }
 
   export function OpenMenu(id: string) {
     const menu = document.getElementById(id) as any;
-    menu.openMenu();
+    if (menu) {
+      menu.openMenu();
+    }
   }
 }

@@ -1,0 +1,15 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+<FluentMenuList>
+    <FluentMenuItem Role="MenuItemRole.Checkbox">
+        <ChildContent>
+            Item 1
+            <span slot="indicator">☑️</span>
+            <span slot="start">💙</span>
+            <span slot="end">Ctrl+S</span>
+            <span slot="submenu-glyph">→</span>
+        </ChildContent>
+        <MenuItems>
+            <FluentMenuItem>Submenu 1</FluentMenuItem>
+        </MenuItems>
+    </FluentMenuItem>
+</FluentMenuList>

@@ -11,6 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentMenuItem : FluentComponentBase
 {
+    private bool _emptyContent => ChildContent is null && Label is null;
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
@@ -23,13 +24,13 @@ public partial class FluentMenuItem : FluentComponentBase
     /// Gets or sets the owning FluentMenu.
     /// </summary>
     [CascadingParameter]
-    public FluentMenu Menu { get; set; } = default!;
+    public FluentMenu? Menu { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the owning FluentMenuList.
     /// </summary>
     [CascadingParameter]
-    public FluentMenuList MenuList { get; set; } = default!;
+    public FluentMenuList? MenuList { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the role of the menu item.
@@ -42,6 +43,12 @@ public partial class FluentMenuItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool? Checked { get; set; }
+
+    /// <summary>
+    /// Event raised for checkbox and radio menuitems
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool?> CheckedChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the menu item's disabled state.
@@ -98,12 +105,6 @@ public partial class FluentMenuItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<MenuItemEventArgs> OnClick { get; set; }
-
-    /// <summary>
-    /// Event raised for checkbox and radio menuitems
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool?> CheckedChanged { get; set; }
 
     /// <summary />
     internal async Task OnChangeHandlerAsync(MenuItemEventArgs args)
