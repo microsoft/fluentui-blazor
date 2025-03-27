@@ -11,10 +11,10 @@ View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/
 
 ## Default
 
-When no item is selected, a **Placeholder** can be used to describe
-what should be done. If an item is selected, the user cannot deselect it.
+A **Placeholder** can be used to give the user a hint of what can be selected.
+If an item is selected, the user cannot deselect it.
 If you want to allow the user to deselect the item, you can add an empty item
-like in the Customized example (see below).
+as shown in the Customized example below.
 
 {{ SelectDefault }}
 
