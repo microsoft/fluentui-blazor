@@ -55,7 +55,14 @@ A menu can be opened and closed programmatically by using the `OpenMenuAsync` an
 
 ## API FluentMenu
 
-{{ API Type=FluentLabel }}
+{{ API Type=FluentMenu }}
+
+## API FluentMenuList
+{{ API Type=FluentMenuList }}
+
+## API FluentMenuItem
+
+{{ API Type=FluentMenuItem }}Add more API docs
 
 ## Migrating from v4
 
