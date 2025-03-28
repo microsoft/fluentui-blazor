@@ -1,0 +1,33 @@
+﻿<FluentTabs @bind-ActiveTabId="@ActiveTabId" Height="100px" Width="300px">
+    <FluentTab Id="tab1" Header="Chat">
+        Here's some information about the chat.
+    </FluentTab>
+
+    <FluentTab Id="tab2" Header="Files" DeferredLoading="true">
+        @GetContentTab2
+    </FluentTab>
+
+    <FluentTab Id="tab3" Header="Recap">
+        Here's some information about the recap.
+    </FluentTab>
+
+</FluentTabs>
+
+<p>
+    ActiveTab: @ActiveTabId
+</p>
+
+@code
+{
+    string? ActiveTabId;
+
+    RenderFragment? GetContentTab2 => builder =>
+    {
+        // To simulate a long running process
+        Thread.Sleep(3000);
+
+        builder.OpenElement(0, "span");
+        builder.AddContent(1, "Here's the list of all files.");
+        builder.CloseElement();
+    };
+}

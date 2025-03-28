@@ -48,6 +48,18 @@ public partial class FluentTab : FluentComponentBase
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the tab content is rendered only when the tab is selected.
+    /// </summary>
+    [Parameter]
+    public bool DeferredLoading { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the customized loading content message when using deferred loading.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? LoadingTemplate { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]

@@ -11,5 +11,19 @@
     </AddTag>
 </fluent-tab>
 <fluent-tab-panel>
-    @ChildContent
+    @if (Owner?.ActiveTabId == Id || !DeferredLoading)
+    {
+        @ChildContent
+    }
+    else
+    {
+        if (LoadingTemplate is null)
+        {
+            <FluentProgressBar />
+        }
+        else
+        {
+            @LoadingTemplate
+        }
+    }
 </fluent-tab-panel>
