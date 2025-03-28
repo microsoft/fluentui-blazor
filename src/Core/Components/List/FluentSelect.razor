@@ -18,7 +18,7 @@
                          required="@Required"
                          size="@(Size.ToAttributeValue(isNull: ListSize.Medium, returnEmptyAsNull: true))"
                          style="@DropdownStyle"
-                         type="dropdown"
+                         type="@DropdownType"
                          @ondropdownchange="@OnDropdownChangeHandlerAsync"
                          @onfocusout="@FocusOutHandlerAsync"
                          @attributes=AdditionalAttributes>

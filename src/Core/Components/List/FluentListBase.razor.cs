@@ -175,6 +175,12 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     }
 
     /// <summary>
+    /// Renders the FreeOption option.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual RenderFragment? RenderFreeFormOption() => null;
+
+    /// <summary>
     /// Renders the list options.
     /// </summary>
     /// <returns></returns>
