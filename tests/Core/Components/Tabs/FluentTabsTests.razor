@@ -26,6 +26,24 @@
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentTabs_Icon()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="tab1" Header="Chat" IconStart="@Samples.Icons.Info" IconColor="@Color.Primary">
+                Here's some information about the chat.
+            </FluentTab>
+
+            <FluentTab Id="tab2" Header="Files" IconStart="@Samples.Icons.Info" IconColor="@Color.Success">
+                Here's the list of all files.
+            </FluentTab>
+        </FluentTabs>);
+
+        // Assert
+        cut.Verify();
+    }
+
     [Theory]
     [InlineData("MyTabsId", "tab1", "tab1")]            // Normal case
     [InlineData("INVALID_TABS_ID", "tab1", "tab2")]     // Main TabsID is unknown => no change (stay on tab2)
@@ -84,6 +102,29 @@
 
         // Assert
         Assert.Equal(expectedActiveId, activeTab?.Id);
+    }
+
+
+    [Theory]
+    [InlineData(null, false)]
+    [InlineData(null, true)]
+    [InlineData("Tab2", false)]
+    [InlineData("Tab2", true)]
+    public void FluentTabs_LoadingOrder(string? initialActiveId, bool initialTab2)
+    {
+        RenderFragment Tab1 = @<FluentTab Id="Tab1" Header="Chat" />;
+        RenderFragment Tab2 = @<FluentTab Id="Tab2" Header="Files" />;
+
+        string? activeId = initialActiveId;
+        FluentTab? activeTab = initialTab2 ? Render(Tab2).FindComponent<FluentTab>().Instance : null;
+
+        // Arrange && Act
+        var cut = Render(@<FluentTabs @bind-ActiveTabId="@activeId" @bind-ActiveTab="@activeTab">
+            @Tab1
+            @Tab2
+        </FluentTabs>);
+
+        // Assert
     }
 
     [Fact]
@@ -190,10 +231,10 @@
     {
         // Arrange
         var cut = Render(@<FluentTabs ActiveTabId="Tab1">
-            <FluentTab Id="Tab1" Header="Tab 1" DeferredLoading="false">Content 1</FluentTab>
-            <FluentTab Id="Tab2" Header="Tab 2" DeferredLoading="true">Content 2</FluentTab>
-            <FluentTab Id="Tab3" Header="Tab 3" DeferredLoading="true"><LoadingTemplate>Loading...</LoadingTemplate></FluentTab>
-        </FluentTabs>
+    <FluentTab Id="Tab1" Header="Tab 1" DeferredLoading="false">Content 1</FluentTab>
+    <FluentTab Id="Tab2" Header="Tab 2" DeferredLoading="true">Content 2</FluentTab>
+    <FluentTab Id="Tab3" Header="Tab 3" DeferredLoading="true"><LoadingTemplate>Loading...</LoadingTemplate></FluentTab>
+</FluentTabs>
     );
 
         // Assert before Click

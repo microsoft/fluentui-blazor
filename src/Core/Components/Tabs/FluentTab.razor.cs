@@ -8,6 +8,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
+/// A FluentTabs allows people to switch between categories of related information without going to different pages
 /// </summary>
 public partial class FluentTab : FluentComponentBase
 {
@@ -48,7 +49,20 @@ public partial class FluentTab : FluentComponentBase
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets the icon to be displayed at the start of the tab.
+    /// </summary>
+    [Parameter]
+    public Icon? IconStart { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon color.
+    /// </summary>
+    [Parameter]
+    public Color? IconColor { get; set; }
+
+    /// <summary>
     /// Gets or sets whether the tab content is rendered only when the tab is selected.
+    /// To reduce the HTML page size, the tab content is cleared when the tab is unselected.
     /// </summary>
     [Parameter]
     public bool DeferredLoading { get; set; } = false;

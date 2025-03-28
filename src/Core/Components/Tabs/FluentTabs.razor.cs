@@ -9,6 +9,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
+/// Each tab typically contains a text header and often includes an icon.
 /// </summary>
 public partial class FluentTabs: FluentComponentBase
 {
@@ -115,7 +116,7 @@ public partial class FluentTabs: FluentComponentBase
             }
 
             // Set the default ActiveTabId
-            else if (ActiveTabId is null  && ActiveTab == tab)
+            else if (ActiveTabId is null  && string.Equals(ActiveTab?.Id, tab.Id, StringComparison.Ordinal))
             {
                 ActiveTabId = tab.Id;
 

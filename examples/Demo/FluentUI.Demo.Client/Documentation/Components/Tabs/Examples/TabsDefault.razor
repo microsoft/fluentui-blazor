@@ -1,13 +1,13 @@
-﻿<FluentTabs ActiveTabId="tab2" @bind-ActiveTab="@ActiveTab" @bind-ActiveTab:after="@OnTabChanged">
-    <FluentTab Id="tab1" Header="Chat">
+﻿<FluentTabs ActiveTabId="tab3" @bind-ActiveTab="@ActiveTab" @bind-ActiveTab:after="@OnTabChanged">
+    <FluentTab Id="tab1" Header="Chat" IconStart="@(new Icons.Regular.Size16.Chat())">
         Here's some information about the chat.
     </FluentTab>
 
-    <FluentTab Id="tab2" Header="Files" Disabled="true">
+    <FluentTab Id="tab2" Header="Files" Disabled="true" IconStart="@(new Icons.Regular.Size16.Folder())">
         Here's the list of all files.
     </FluentTab>
 
-    <FluentTab Id="tab3" Header="Recap">
+    <FluentTab Id="tab3" Header="Recap" IconStart="@(new Icons.Regular.Size16.List())" IconColor="@Color.Primary">
         Here's some information about the recap.
     </FluentTab>
 </FluentTabs>

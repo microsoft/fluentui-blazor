@@ -41,3 +41,15 @@ In the following example, the `Deferred` parameter is set to `true` for Tab two.
 This tab will be loaded after 3 seconds of processing (to simulate a long running process).
 
 {{ TabsDeferred }}
+
+## API FluentTabs
+
+{{ API Type=FluentTabs }}
+
+## API FluentTab
+
+{{ API Type=FluentTab }}
+
+## Migrating to v5
+
+TODO
