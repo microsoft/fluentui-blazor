@@ -67,6 +67,8 @@ If more customization is needed, it is possible to use the slots directly. The e
 
 {{ MenuItemSlots }}
 
+Although not advised, It is possible to use a `FluentMenuList` standalone (so not inside a `FluentMenu`).
+
 ## API FluentMenu
 
 {{ API Type=FluentMenu }}
