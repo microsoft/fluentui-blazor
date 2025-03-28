@@ -63,9 +63,19 @@ Selected items are bound to the **SelectedItems** property.
 > The **FluentSelect** component does not support the `ReadOnly` attribute.
 > The `Disabled` attribute is used to prevent user interaction with the list.
 
-## Manual FluentOption
+## Manually supply options
 
-You can use a list of **FluentOption** to create a manual list.
+The `Items` you supply to the `Select` ultimately are rendered as `FluentOption` components.
+It is possible to manually supply options in the `Select`'s `ChildContent`.
+
+When using this, you can display content at the start like an Icon or an Avatar. This is done by placing the content
+in the `FluentOption` child content and assigning it to the `start` slot.
+
+An option can also use the `Description` parameter to display additional information about the option.
+
+{{ OptionStartContent }}
+
+An example of using the `FluentOption` components directly in the `Select` is shown below.
 
 {{ SelectManual }}
 
