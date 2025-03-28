@@ -13,7 +13,7 @@
             @HeaderTemplate
         </AddTag>
     </fluent-tab>
-    <fluent-tab-panel>
+    <fluent-tab-panel id="@(Id + "-panel")">
         @if (Owner?.ActiveTabId == Id || !DeferredLoading)
         {
             @ChildContent

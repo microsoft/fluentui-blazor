@@ -140,4 +140,81 @@
         // Assert
         Assert.Equal(expectedAttribute, attribute);
     }
+
+    [Fact]
+    public void FluentTabs_WidthHeight()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs Width="100px" Height="200px"></FluentTabs>);
+
+        // Assert
+        Assert.Equal("width: 100px; height: 200px;", cut.Find("fluent-tabs").GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentTabs_HeaderTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab>
+                <HeaderTemplate>Tab <b>Name</b></HeaderTemplate>
+                <ChildContent>
+                    Tab Content
+                </ChildContent>
+            </FluentTab>
+        </FluentTabs>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTabs_Disabled()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="Tab1" Header="Tab 1" Disabled="false" />
+            <FluentTab Id="Tab2" Header="Tab 2" Disabled="true" />
+        </FluentTabs>);
+
+        var tab1Disabled = cut.Find("#Tab1").GetAttribute("disabled");
+        var tab2Disabled = cut.Find("#Tab2").GetAttribute("disabled");
+
+        // Assert
+        Assert.Null(tab1Disabled);
+        Assert.NotNull(tab2Disabled);
+    }
+
+    [Fact]
+    public void FluentTabs_DeferredLoading()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs ActiveTabId="Tab1">
+            <FluentTab Id="Tab1" Header="Tab 1" DeferredLoading="false">Content 1</FluentTab>
+            <FluentTab Id="Tab2" Header="Tab 2" DeferredLoading="true">Content 2</FluentTab>
+            <FluentTab Id="Tab3" Header="Tab 3" DeferredLoading="true"><LoadingTemplate>Loading...</LoadingTemplate></FluentTab>
+        </FluentTabs>
+    );
+
+        // Assert before Click
+        cut.Verify(suffix: "Before");
+
+        // Open Tab2 and re-render
+        cut.FindComponent<FluentTabs>().SetParametersAndRender(parameters => parameters.Add(p => p.ActiveTabId, "Tab2"));
+        var content2After = cut.Find("#Tab2-panel").InnerHtml;
+
+        // Assert
+        cut.Verify(suffix: "After");
+    }
+
+    private RenderFragment? GetDeferredContent => builder =>
+       {
+           // To simulate a long running process
+           Thread.Sleep(1000);
+
+           // Add <span>Here's the list of all files.</span>
+           builder.OpenElement(0, "span");
+           builder.AddContent(1, "Content 2");
+           builder.CloseElement();
+       };
 }
