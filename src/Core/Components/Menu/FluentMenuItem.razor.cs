@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentMenuItem : FluentComponentBase
 {
-    private bool _emptyContent => ChildContent is null && Label is null;
+    private bool EmptyContent => ChildContent is null && Label is null;
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();

@@ -21,7 +21,7 @@ public partial class FluentMenu : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
-        .AddStyle("--menu-max-height", Height, Height != null)
+        .AddStyle("--menu-max-height", Height, when: !string.IsNullOrEmpty(Height))
         .Build();
 
     /// <summary>

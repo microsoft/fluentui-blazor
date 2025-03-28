@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>

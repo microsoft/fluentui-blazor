@@ -11,11 +11,11 @@
                   @onmenuitemchange="@OnChangeHandlerAsync">
     @if (IconIndicator != null)
     {
-        <FluentIcon Value="@IconIndicator" Slot="@(_emptyContent ? null : "indicator")" />
+        <FluentIcon Value="@IconIndicator" Slot="@(EmptyContent ? null : "indicator")" />
     }
     @if (IconStart != null)
     {
-        <FluentIcon Value="@IconStart" Slot="@((_emptyContent) ? null : "start")" />
+        <FluentIcon Value="@IconStart" Slot="@((EmptyContent) ? null : "start")" />
     }
     @Label
     @ChildContent
@@ -27,10 +27,10 @@
     }
     @if (IconEnd != null)
     {
-        <FluentIcon Value="@IconEnd" Slot="@((_emptyContent) ? null : "end")" />
+        <FluentIcon Value="@IconEnd" Slot="@((EmptyContent) ? null : "end")" />
     }
     @if (IconSubmenu != null)
     {
-        <FluentIcon Value="@IconSubmenu" Slot="@((_emptyContent) ? null : "submenu-glyph")" />
+        <FluentIcon Value="@IconSubmenu" Slot="@((EmptyContent) ? null : "submenu-glyph")" />
     }
 </fluent-menu-item>
