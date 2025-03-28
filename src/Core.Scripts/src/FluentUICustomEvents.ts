@@ -35,6 +35,21 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     });
   }
 
+  export function DropdownList(blazor: Blazor) {
+
+    // Event when an element is selected or deselected
+    // from the dropdown list: listbox, select, combobox, ...
+    blazor.registerCustomEventType('dropdownchange', {
+      browserEventName: 'change',
+      createEventArgs: (event: any) => {
+        return {
+          id: event.target.id,
+          type: event.type,
+          selectedOptions: event.target.selectedOptions.map((item: any) => item.id).join(';'),
+        };
+      }
+    });
+  }
   export function Tabs(blazor: Blazor) {
 
     // Event when a tab is selected

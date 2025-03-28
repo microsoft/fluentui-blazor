@@ -1,24 +1,30 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentListBase<TOption>
 @typeparam TOption
 
-@* This file must be updated when the `fluent-select` web-component will be available  *@
-
 <CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
     <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
-        <select aria-label="@AriaLabel"
-                autofocus="@Autofocus"
-                disabled="@Disabled"
-                id="@Id"
-                name="@Name"
-                readonly="@ReadOnly"
-                required="@Required"
-                style="@ListStyle"
-                slot="input"
-                @onfocusout="@FocusOutHandlerAsync"
-                @onchange="ChangeHandlerAsync"
-                @attributes=AdditionalAttributes>
-            @RenderOptions()
-        </select>
+        <fluent-dropdown id="@Id"
+                         appearance="@(Appearance.ToAttributeValue(isNull: ListAppearance.Outline, returnEmptyAsNull: true))"
+                         placeholder="@Placeholder"
+                         slot="input"
+                         aria-label="@AriaLabel"
+                         autofocus="@Autofocus"
+                         disabled="@Disabled"
+                         multiple="@Multiple"
+                         name="@Name"
+                         readonly="@ReadOnly"
+                         required="@Required"
+                         size="@(Size.ToAttributeValue(isNull: ListSize.Medium, returnEmptyAsNull: true))"
+                         style="@DropdownStyle"
+                         type="@DropdownType"
+                         @ondropdownchange="@OnDropdownChangeHandlerAsync"
+                         @onfocusout="@FocusOutHandlerAsync"
+                         @attributes=AdditionalAttributes>
+            <fluent-listbox style="@ListStyle">
+                @RenderOptions()
+            </fluent-listbox>
+        </fluent-dropdown>
     </FluentField>
 </CascadingValue>

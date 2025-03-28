@@ -1,10 +1,6 @@
 
-<fluent-field id="xxx" label-position="above" class="my-3">
-  <label id="xxx" slot="label" for="xxx" required="">
-    List of digits
-    <span class="asterisk" aria-hidden="true"></span>
-  </label>
-  <fluent-dropdown id="xxx" slot="input" required="" type="dropdown" blazor:ondropdownchange="1" blazor:onfocusout="2">
+<fluent-field id="xxx" label-position="above">
+  <fluent-dropdown id="xxx" placeholder="Select a digit" slot="input" type="combobox" blazor:ondropdownchange="1" blazor:onfocusout="2">
     <fluent-listbox>
       <fluent-option id="xxx"></fluent-option>
       <fluent-option id="xxx" text="One" value="One">One</fluent-option>
