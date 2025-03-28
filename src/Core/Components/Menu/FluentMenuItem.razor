@@ -21,7 +21,7 @@
     @ChildContent
     @if (MenuItems != null && MenuList != null)
     {
-        <FluentMenuList OnCheckedChanged="@MenuList.OnCheckedChanged" slot="submenu">
+        <FluentMenuList OnCheckedChanged="@MenuList.OnCheckedChanged" OnClick="@MenuList.OnClick" slot="submenu">
             @MenuItems
         </FluentMenuList>
     }

@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -107,8 +108,19 @@ public partial class FluentMenuItem : FluentComponentBase
     public EventCallback<MenuItemEventArgs> OnClick { get; set; }
 
     /// <summary />
+    public FluentMenuItem()
+    {
+        Id = Identifier.NewId();
+    }
+
+    /// <summary />
     internal async Task OnChangeHandlerAsync(MenuItemEventArgs args)
     {
+        if (!string.Equals(args.Id, Id, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
         args.Item = this;
 
         if (args.Checked is null)
@@ -122,6 +134,11 @@ public partial class FluentMenuItem : FluentComponentBase
             if (Menu is not null)
             {
                 await Menu.NotifyClickedAsync(args);
+            }
+
+            if (MenuList is not null)
+            {
+                await MenuList.NotifyClickedAsync(args);
             }
         }
         else

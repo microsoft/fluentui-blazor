@@ -26,6 +26,12 @@ public partial class FluentMenuList : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Raised when a FluentMenuItem is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MenuItemEventArgs> OnClick { get; set; }
+
+    /// <summary>
     /// Raised when a FluentMenuItem's Checked state changes.
     /// </summary>
     [Parameter]
@@ -36,6 +42,14 @@ public partial class FluentMenuList : FluentComponentBase
         if (OnCheckedChanged.HasDelegate)
         {
             await OnCheckedChanged.InvokeAsync(args);
+        }
+    }
+
+    internal async Task NotifyClickedAsync(MenuItemEventArgs args)
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(args);
         }
     }
 }

@@ -49,7 +49,6 @@
             </FluentMenuList>);
 
         // Act
-        //cut.Find("fluent-menu-item").Click();
         cut.Find("fluent-menu-item").TriggerEvent("onmenuitemchange", a);
 
         // Assert
@@ -57,6 +56,32 @@
         Assert.Equal(label, a.Text);
         Assert.Equal(item, a.Item);
         Assert.True(a.Checked);
+    }
+
+    [Fact]
+    public void FluentMenuList_MenuItemClick()
+    {
+
+        var click = false;
+        var label = "My item";
+        var item = new FluentMenuItem();
+        var a = new MenuItemEventArgs { Text = label, Checked = null };
+
+        // Arrange
+        var cut = Render(@<FluentMenuList OnClick="@(() => { click = true; })">
+            <FluentMenuItem @ref=item @onmenuitemchange="@((args) => { a = args; })" OnClick="@(() => { })">
+                @label
+            </FluentMenuItem>
+        </FluentMenuList>);
+
+        // Act
+        cut.Find("fluent-menu-item").TriggerEvent("onmenuitemchange", a);
+
+        // Assert
+        Assert.True(click);
+        Assert.Equal(label, a.Text);
+        Assert.Equal(item, a.Item);
+        Assert.Null(a.Checked);
     }
 
 }

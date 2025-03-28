@@ -40,6 +40,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       browserEventName: 'change',
       createEventArgs: event => {
         return {
+          id: event.target.id,
           text: event.target.innerText,
           checked: event.target._role == 'menuitem' ? null : event.target._checked,
         };

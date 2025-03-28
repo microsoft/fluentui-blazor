@@ -10,6 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class MenuItemEventArgs : EventArgs
 {
     /// <summary>
+    /// The id of the menu item that was changed.
+    /// </summary>  
+    public string? Id { get; init; }
+
+    /// <summary>
     /// Gets the item that was changed.
     /// </summary>
     public FluentMenuItem? Item { get; internal set; }

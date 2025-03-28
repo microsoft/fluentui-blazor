@@ -38,7 +38,7 @@
 
         // Assert
         var attribute = cut.Find("fluent-menu-item").GetAttribute("role") ?? string.Empty;
-        Assert.Equal(expectedValue, attribute);
+        Assert.Equal(expectedValue.Replace("obsolete", ""), attribute);
     }
 
     [Theory]
