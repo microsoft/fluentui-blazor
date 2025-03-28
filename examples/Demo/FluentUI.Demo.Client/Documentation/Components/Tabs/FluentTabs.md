@@ -30,8 +30,8 @@ The header of each tab can be customized using the `HeaderTemplate` parameter.
 
 ## Deferred
 
-In some situations, the content of a tab may be expensive to load.
-In these cases, you can use the `Deferred` parameter to load the content only when the tab is selected.
+In some situations, loading and rendering the content of a tab may take a lot of time.
+In these cases, you can use the `Deferred` parameter to load the content after a tab has been selected.
 This can improve performance and reduce the initial load time of your application.
 
 By default, a progress indicator is shown while the content is being loaded.
