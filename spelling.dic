@@ -19,3 +19,12 @@ textarea
 sourcecode
 summarydata
 currentcolor
+menuitem
+menuitems
+rightclick
+menuitemcheckbox
+menuitem
+menuitemradio
+menuitemcheckboxobsolete
+menuitemradioobsolete
+onmenuitemchange
