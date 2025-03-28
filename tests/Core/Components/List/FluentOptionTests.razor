@@ -5,17 +5,20 @@
 @code
 {
     private readonly IEnumerable<string?> Digits = new[] { null, "One", "Two", "Three" };
+
     private enum MyDigitsEnum
     {
         One,
         Two,
         Three
     }
+
     public FluentOptionTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
     }
+
     [Fact]
     public void FluentOption_Default()
     {
@@ -24,6 +27,7 @@
         // Assert
         cut.Verify();
     }
+
     [Fact]
     public void FluentOption_Disabled()
     {
@@ -32,6 +36,7 @@
         // Assert
         cut.Verify();
     }
+
     [Fact]
     public void FluentOption_Selected()
     {
@@ -40,6 +45,7 @@
         // Assert
         cut.Verify();
     }
+
     [Fact]
     public void FluentOption_Description()
     {
