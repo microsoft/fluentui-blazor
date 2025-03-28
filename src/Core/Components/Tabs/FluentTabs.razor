@@ -6,12 +6,13 @@
     <fluent-tabs id="@Id"
                  class="@ClassValue"
                  style="@StyleValue"
-                 appearance="@Appearance.ToAttributeValue()"
+                 appearance="@Appearance.ToAttributeValue(isNull: TabsAppearance.Default, returnEmptyAsNull: true)"
                  disabled="@Disabled"
-                 size="@Size.ToAttributeValue()"
+                 size="@Size.ToAttributeValue(isNull: TabsSize.Medium, returnEmptyAsNull: true)"
                  orientation="@Orientation.ToAttributeValue()"
                  activeid="@(ActiveTabId ?? ActiveTab?.Id)"
-                 ontabchange="@TabChangeHandlerAsync">
+                 ontabchange="@TabChangeHandlerAsync"
+                 @attributes="@AdditionalAttributes">
         @ChildContent
     </fluent-tabs>
 </CascadingValue>

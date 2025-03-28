@@ -72,4 +72,8 @@
       <DependentUpon>FluentLocalizer.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\Tabs\" />
+  </ItemGroup>
 </Project>

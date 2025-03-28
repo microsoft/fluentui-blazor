@@ -1,29 +1,33 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<fluent-tab id="@Id"
-            class="@ClassValue"
-            style="@StyleValue"
-            disabled="@Disabled">
-    <AddTag Name="span" TagWhen="@(() => HeaderTemplate is not null)">
-        @Header
-        @HeaderTemplate
-    </AddTag>
-</fluent-tab>
-<fluent-tab-panel>
-    @if (Owner?.ActiveTabId == Id || !DeferredLoading)
-    {
-        @ChildContent
-    }
-    else
-    {
-        if (LoadingTemplate is null)
+@if (Visible)
+{
+    <fluent-tab id="@Id"
+                class="@ClassValue"
+                style="@StyleValue"
+                disabled="@Disabled"
+                @attributes="@AdditionalAttributes">
+        <AddTag Name="span" TagWhen="@(() => HeaderTemplate is not null)">
+            @Header
+            @HeaderTemplate
+        </AddTag>
+    </fluent-tab>
+    <fluent-tab-panel>
+        @if (Owner?.ActiveTabId == Id || !DeferredLoading)
         {
-            <FluentProgressBar />
+            @ChildContent
         }
         else
         {
-            @LoadingTemplate
+            if (LoadingTemplate is null)
+            {
+                <FluentProgressBar />
+            }
+            else
+            {
+                @LoadingTemplate
+            }
         }
-    }
-</fluent-tab-panel>
+    </fluent-tab-panel>
+}

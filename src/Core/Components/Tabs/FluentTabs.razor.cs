@@ -128,8 +128,8 @@ public partial class FluentTabs: FluentComponentBase
     }
 
     /// <summary />
-    private async Task TabChangeHandlerAsync(TabChangeEventArgs args)
-    {        
+    internal async Task TabChangeHandlerAsync(TabChangeEventArgs args)
+    {
         // Only for the current FluentTabs
         if (!string.Equals(args.Id, Id, StringComparison.Ordinal))
         {

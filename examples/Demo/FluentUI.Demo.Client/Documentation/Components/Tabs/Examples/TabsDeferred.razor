@@ -13,7 +13,7 @@
 </FluentTabs>
 
 <p>
-    ActiveTab: @ActiveTabId
+    ActiveTab: <b>@ActiveTabId</b>
 </p>
 
 @code
@@ -25,6 +25,7 @@
         // To simulate a long running process
         Thread.Sleep(3000);
 
+        // Add <span>Here's the list of all files.</span>
         builder.OpenElement(0, "span");
         builder.AddContent(1, "Here's the list of all files.");
         builder.CloseElement();

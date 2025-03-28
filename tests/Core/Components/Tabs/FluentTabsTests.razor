@@ -1,0 +1,143 @@
+﻿@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentTabsTests()
+    {
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentTabs_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="tab1" Header="Chat">
+                Here's some information about the chat.
+            </FluentTab>
+
+            <FluentTab Id="tab2" Header="Files">
+                Here's the list of all files.
+            </FluentTab>
+        </FluentTabs>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData("MyTabsId", "tab1", "tab1")]            // Normal case
+    [InlineData("INVALID_TABS_ID", "tab1", "tab2")]     // Main TabsID is unknown => no change (stay on tab2)
+    [InlineData("MyTabsId", "INVALID_TAB", "tab2")]     // Try to go to an unknow Tab => no change (stay on tab2)
+    public async Task FluentTabs_ActiveTabId(string eventTabsId, string eventActiveId, string? expectedActiveId)
+    {
+        string? activeTabId = "tab2";
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
+            <FluentTab Id="tab1" Header="Chat">
+                Here's some information about the chat.
+            </FluentTab>
+
+            <FluentTab Id="tab2" Header="Files">
+                Here's the list of all files.
+            </FluentTab>
+        </FluentTabs>);
+
+        // Act
+        await cut.FindComponent<FluentTabs>().Instance.TabChangeHandlerAsync(new()
+        {
+            Id = eventTabsId,
+            ActiveId = eventActiveId,
+        });
+
+        // Assert
+        Assert.Equal(expectedActiveId, activeTabId);
+    }
+
+    [Theory]
+    [InlineData("MyTabsId", "tab2", "tab2")]          // Normal case
+    [InlineData("INVALID_TABS_ID", "tab2", null)]     // Main TabsID is unknown => no change (stay on tab1)
+    [InlineData("MyTabsId", "INVALID_TAB", null)]     // Try to go to an unknow Tab => no change (stay on tab1)
+    public async Task FluentTabs_ActiveTab(string eventTabsId, string eventActiveId, string? expectedActiveId)
+    {
+        FluentTab? activeTab = null;
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTab="@activeTab">
+            <FluentTab Id="tab1" Header="Chat">
+                Here's some information about the chat.
+            </FluentTab>
+
+            <FluentTab Id="tab2" Header="Files">
+                Here's the list of all files.
+            </FluentTab>
+        </FluentTabs>);
+
+        // Act
+        await cut.FindComponent<FluentTabs>().Instance.TabChangeHandlerAsync(new()
+        {
+            Id = eventTabsId,
+            ActiveId = eventActiveId,
+        });
+
+        // Assert
+        Assert.Equal(expectedActiveId, activeTab?.Id);
+    }
+
+    [Fact]
+    public void FluentTabs_Visible()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="tab1" Header="Chat" Visible="true">
+                Here's some information about the chat.
+            </FluentTab>
+
+            <FluentTab Id="tab2" Header="Files" Visible="false">
+                Here's the list of all files.
+            </FluentTab>
+        </FluentTabs>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(TabsAppearance.Default, null)]
+    [InlineData(TabsAppearance.Transparent, "transparent")]
+    [InlineData(null, null)]
+    [InlineData((TabsAppearance)999, null)]
+    public void FluentTabs_Appearance(TabsAppearance? appearance, string? expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs Appearance="@appearance">
+            <FluentTab Header="MyTab"></FluentTab>
+        </FluentTabs>);
+
+        var attribute = cut.Find("fluent-tabs").GetAttribute("appearance");
+
+        // Assert
+        Assert.Equal(expectedAttribute, attribute);
+    }
+
+    [Theory]
+    [InlineData(TabsSize.Small, "small")]
+    [InlineData(TabsSize.Medium, null)]
+    [InlineData(TabsSize.Large, "large")]
+    [InlineData(null, null)]
+    [InlineData((TabsSize)999, null)]
+    public void FluentTabs_Size(TabsSize? size, string? expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs Size="@size">
+            <FluentTab Header="MyTab"></FluentTab>
+        </FluentTabs>);
+
+        var attribute = cut.Find("fluent-tabs").GetAttribute("size");
+
+        // Assert
+        Assert.Equal(expectedAttribute, attribute);
+    }
+}

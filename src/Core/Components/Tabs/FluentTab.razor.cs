@@ -65,6 +65,12 @@ public partial class FluentTab : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the tab is displayed. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
