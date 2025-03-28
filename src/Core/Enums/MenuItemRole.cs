@@ -29,4 +29,18 @@ public enum MenuItemRole
     /// </summary>
     [Description("menuitemradio")]
     Radio,
+
+    /// <summary>
+    /// Checkbox item
+    /// </summary>
+    [Obsolete("This value is no longer used and will be removed in a future version. Use Checkbox value instead")]
+    [Description("menuitemcheckboxobsolete")]
+    MenuItemCheckbox = Checkbox,
+
+    /// <summary>
+    /// Checkbox item
+    /// </summary>
+    [Obsolete("This value is no longer used and will be removed in a future version. Use Radio value instead")]
+    [Description("menuitemradioobsolete")]
+    MenuItemRadio = Radio,
 }

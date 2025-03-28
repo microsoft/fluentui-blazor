@@ -27,6 +27,10 @@
     [InlineData(MenuItemRole.Radio, "menuitemradio")]
     [InlineData(null, "")]
     [InlineData((MenuItemRole)999, "")]
+#pragma warning disable CS0618 // Suppress the warning for obsolete attribute
+    [InlineData(MenuItemRole.MenuItemCheckbox, "menuitemcheckboxobsolete")]
+    [InlineData(MenuItemRole.MenuItemRadio, "menuitemradioobsolete")]
+#pragma warning restore CS0618 // Suppress the warning for obsolete attribute
     public void FluentMenuItem_Role(MenuItemRole? value, string expectedValue)
     {
         // Arrange && Act

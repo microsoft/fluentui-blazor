@@ -21,3 +21,8 @@ currentcolor
 menuitem
 menuitems
 rightclick
+menuitemcheckbox
+menuitem
+menuitemradio
+menuitemcheckboxobsolete
+menuitemradioobsolete
