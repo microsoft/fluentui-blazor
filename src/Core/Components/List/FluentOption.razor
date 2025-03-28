@@ -11,4 +11,8 @@
                selected="@Selected"
                @attributes="@AdditionalAttributes">
     @ChildContent
+    @if (!string.IsNullOrWhiteSpace(Description))
+    {
+        <span slot="description">@Description</span>
+    }
 </fluent-option>
