@@ -52,15 +52,26 @@
     margin-bottom: 2px;
 }
 
+.fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field::part(control) {
+    display: none;
+}
+
+.fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field::part(start) {
+    max-width: calc(100% - 40px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 @media (forced-colors: active) {
 
     .fluent-autocomplete-multiselect div[role=listbox] {
         border: calc(var(--stroke-width)* 1px) solid transparent;
     }
 
-    .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled]):not([selected])[selectable] {
-        forced-color-adjust: none;
-        background: highlight;
-        color: highlighttext;
-    }
+        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled]):not([selected])[selectable] {
+            forced-color-adjust: none;
+            background: highlight;
+            color: highlighttext;
+        }
 }

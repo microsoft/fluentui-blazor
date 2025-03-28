@@ -514,6 +514,34 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary />
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (MaximumSelectedOptions == 1
+            && SelectedOptions?.Count() > 0
+            && !(AdditionalAttributes?.TryGetValue("single-select", out var isSingleSelect) ?? false))
+        {
+            var additionalAttributes = (AdditionalAttributes is not null)
+                ? new Dictionary<string, object>(AdditionalAttributes)
+                : new Dictionary<string, object>();
+
+            additionalAttributes.Add("single-select", true);
+            AdditionalAttributes = additionalAttributes;
+            this.StateHasChanged();
+        }
+        else if (MaximumSelectedOptions == 1
+            && !(SelectedOptions?.Count() > 0)
+            && (AdditionalAttributes?.TryGetValue("single-select", out var _) ?? false))
+        {
+            var additionalAttributes = new Dictionary<string, object>(AdditionalAttributes);
+            additionalAttributes.Remove("single-select");
+            AdditionalAttributes = additionalAttributes;
+            this.StateHasChanged();
+        }
+    }
+
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
