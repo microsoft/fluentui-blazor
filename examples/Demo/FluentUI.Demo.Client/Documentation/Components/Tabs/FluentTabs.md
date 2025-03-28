@@ -15,6 +15,11 @@ To initiate an action, use a [FluentButton](/button) instead.
 
 ## Default
 
+To know which tab is selected, you can bind the `ActiveTabId` or `ActiveTab` parameter to a variable.
+Setting the `ActiveTabId` parameter to an initial value will set the selected tab when the component is first rendered.
+
+A tab can be disabled by setting the `Disabled` parameter to `true`.
+
 {{ TabsDefault }}
 
 ## Customized
