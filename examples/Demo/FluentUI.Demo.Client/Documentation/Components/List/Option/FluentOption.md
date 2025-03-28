@@ -1,5 +1,5 @@
 ---
-title: Option
+title: List / Option
 route: /List/Option
 ---
 
