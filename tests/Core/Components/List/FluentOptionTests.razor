@@ -1,0 +1,69 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+    private readonly IEnumerable<string?> Digits = new[] { null, "One", "Two", "Three" };
+
+    private enum MyDigitsEnum
+    {
+        One,
+        Two,
+        Three
+    }
+
+    public FluentOptionTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentOption_Default()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentOption Text="One" Value="One" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentOption_Disabled()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentOption Text="One" Value="One" Disabled="true" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentOption_Selected()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentOption Text="One" Value="One" Selected="true" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentOption_Description()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentOption Text="One" Value="One" Description="Description" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentOption_StartSlot()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentOption Text="One" Value="One">
+            <FluentAvatar Size="AvatarSize.Size16" Color="AvatarColor.Blue" Slot="start">16</FluentAvatar>
+        </FluentOption>);
+
+        // Assert
+        cut.Verify();
+    }
+}

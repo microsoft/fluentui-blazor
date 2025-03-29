@@ -49,6 +49,13 @@ public partial class FluentOption : FluentComponentBase
     public bool Selected { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to display below the main option text.
+    /// This can be used to add additional textual information (no markup) about the option.
+    /// </summary>
+    [Parameter]
+    public string? Description { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
