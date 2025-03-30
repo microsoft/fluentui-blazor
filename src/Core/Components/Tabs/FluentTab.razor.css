@@ -1,0 +1,4 @@
+fluent-tab > span {
+    display: flex;
+    column-gap: 2px;
+}

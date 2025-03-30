@@ -1,0 +1,18 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<CascadingValue Value="this" IsFixed="true">
+    <fluent-tabs id="@Id"
+                 class="@ClassValue"
+                 style="@StyleValue"
+                 appearance="@Appearance.ToAttributeValue(isNull: TabsAppearance.Default, returnEmptyAsNull: true)"
+                 disabled="@Disabled"
+                 size="@Size.ToAttributeValue(isNull: TabsSize.Medium, returnEmptyAsNull: true)"
+                 orientation="@Orientation.ToAttributeValue()"
+                 activeid="@(ActiveTabId ?? ActiveTab?.Id)"
+                 ontabchange="@TabChangeHandlerAsync"
+                 @attributes="@AdditionalAttributes">
+        @ChildContent
+    </fluent-tabs>
+</CascadingValue>
