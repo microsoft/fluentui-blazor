@@ -18,8 +18,13 @@
         }
         else
         {
-            @foreach (var item in Items)
+            if (RenderFreeFormOption() is not null)
             {
+                <fluent-option freeform>@RenderFreeFormOption()</fluent-option>
+            }
+
+            foreach (var item in Items)
+            {                
                 <FluentOption Data="@item"
                               Text="@GetOptionText(item)"
                               Value="@GetOptionValue(item)"

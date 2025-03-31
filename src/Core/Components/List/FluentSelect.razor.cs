@@ -14,12 +14,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSelect<TOption> : FluentListBase<TOption>
 {
     /// <summary />
-    private string? DropdownStyle => new StyleBuilder()
+    protected virtual string DropdownType => "dropdown";
+
+    /// <summary />
+    protected virtual string? DropdownStyle => new StyleBuilder()
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
         .Build();
 
     /// <summary />
-    private string? ListStyle => new StyleBuilder()
+    protected virtual string? ListStyle => new StyleBuilder()
         .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, when: !string.IsNullOrEmpty(Height))
         .Build();

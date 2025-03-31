@@ -1,0 +1,314 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+    private readonly IEnumerable<string?> Digits = new[] { null, "One", "Two", "Three" };
+
+    private enum MyDigitsEnum
+    {
+        One,
+        Two,
+        Three
+    }
+
+    public FluentComboboxTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentCombobox_Default()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentCombobox Placeholder="Select a digit" Items="@Digits" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCombobox_Label()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentCombobox Label="List of digits" Required="true" Items="@Digits" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCombobox_Manual()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentCombobox TOption="string">
+    <FluentOption Value="One">One</FluentOption>
+    <FluentOption Value="Two">Two</FluentOption>
+    <FluentOption Value="Three">Three</FluentOption>
+</FluentCombobox>
+    );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCombobox_Template()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentCombobox Items="@Digits">
+            <OptionTemplate>
+                @if (!String.IsNullOrEmpty(context))
+                {
+                    <span>[</span>
+                    @context
+                    <span>]</span>
+                }
+            </OptionTemplate>
+        </FluentCombobox>);
+
+        // Assert
+        var two = cut.Find("fluent-option[value='Two']");
+        Assert.Equal("[Two]", two.GetInnerText());
+    }
+
+    [Fact]
+    public void FluentCombobox_Enum()
+    {
+        MyDigitsEnum selectedColor = MyDigitsEnum.One;
+
+        // Arrange and Act
+        var cut = Render(@<FluentCombobox Items="@GetEnumValues()" @bind-Value="@selectedColor" />);
+
+        // Assert
+        cut.Verify();
+
+        // Local function
+        IEnumerable<MyDigitsEnum> GetEnumValues() => Enum.GetValues(typeof(MyDigitsEnum)).Cast<MyDigitsEnum>();
+    }
+
+    [Fact]
+    public void FluentCombobox_OptionFunctions()
+    {
+        // Arrange && Act
+        //  - Disable the "Two" option
+        //  - Uppercase the text
+        //  - Add a prefix to the value
+        //  - Select the "One" option
+        var cut = Render(@<FluentCombobox Items="@Digits"
+                      OptionDisabled="@(item => item == "Two")"
+                      OptionText="@(item => item?.ToUpper())"
+                      OptionValue="@(item => $"value-{item}")" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCombobox_Default_InitialSelection()
+    {
+        string? value = "Two";
+
+        // Arrange and Act
+        var cut = Render(@<FluentCombobox Items="@Digits" Value="@value" />);
+        var two = cut.Find("fluent-option[value='Two']");
+
+        // Assert
+        Assert.True(two.HasAttribute("selected"));
+    }
+
+    [Fact]
+    public void FluentCombobox_Binding_InitialSelection()
+    {
+        string? value = "Two";
+
+        // Arrange and Act
+        var cut = Render(@<FluentCombobox Items="@Digits" @bind-Value="@value" />);
+        var two = cut.Find("fluent-option[value='Two']");
+
+        // Assert
+        Assert.True(two.HasAttribute("selected"));
+    }
+
+    [Fact]
+    public void FluentCombobox_Binding_Updated()
+    {
+        string? value = "Two";
+
+        // Arrange
+        var cut = Render(@<FluentCombobox Items="@Digits" @bind-Value="@value" />);
+
+        // Act and re-render
+        cut.FindComponent<FluentCombobox<string>>().SetParametersAndRender(parameters => parameters.Add(p => p.Value, "One"));
+        var one = cut.Find("fluent-option[value='One']");
+
+        // Assert
+        Assert.True(one.HasAttribute("selected"));
+    }
+
+    [Fact]
+    public async Task FluentCombobox_Multiple()
+    {
+        string value = "One";
+        IEnumerable<string> selectedItems = ["One",];
+
+        // Arrange
+        var cut = Render(@<FluentCombobox Multiple="true" Items="@Digits" @bind-Value="@value" @bind-SelectedItems="@selectedItems" />);
+        var ids = cut.FindAll("fluent-option")
+                     .Where(i => i.GetAttribute("value") == "One" || i.GetAttribute("value") == "Two")
+                     .Select(i => i.GetAttribute("id"));
+
+        // Act
+        await cut.FindComponent<FluentCombobox<string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = string.Join(';', ids),
+        });
+
+        // Assert
+        Assert.Equal("One", value);
+        Assert.Equal(new[] { "One", "Two" }, selectedItems);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData("InvalidId1;InvalidId2")]
+    [InlineData("InvalidId1;    InvalidId2")]
+    [InlineData("InvalidId1")]
+    public async Task FluentCombobox_Multiple_Unselect(string? selectedOptions)
+    {
+        string? value = "One";
+        IEnumerable<string>? selectedItems = ["One",];
+
+        // Arrange
+        var cut = Render(@<FluentCombobox Id="MyList" Multiple="true" Items="@Digits" @bind-Value="@value" @bind-SelectedItems="@selectedItems" />);
+
+        // Act
+        await cut.FindComponent<FluentCombobox<string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            Id = "MyList",
+            Type = "",
+            SelectedOptions = selectedOptions,
+        });
+
+        // Assert
+        Assert.Null(value);
+        Assert.Empty(selectedItems);
+    }
+
+    [Fact]
+    public void FluentCombobox_Data()
+    {
+        // Arrange
+        var myData = "MyData";
+        var cut = Render(@<FluentCombobox Items="@Digits" Data="@myData" />);
+
+        // Assert
+        var component = cut.FindComponent<FluentCombobox<string>>();
+        Assert.Equal("MyData", component.Instance.Data);
+    }
+
+    [Fact]
+    public async Task FluentCombobox_Option_Clicked()
+    {
+        string? value = "One";
+
+        // Arrange
+        var cut = Render(@<FluentCombobox Items="@Digits" @bind-Value="@value" />);
+        var ids = cut.FindAll("fluent-option")
+                     .Where(i => i.GetAttribute("value") == "Two")
+                     .Select(i => i.GetAttribute("id"));
+
+        // Act
+        await cut.FindComponent<FluentCombobox<string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = string.Join(';', ids),
+        });
+
+        // Assert
+        Assert.Equal("Two", value);
+    }
+
+    [Theory]
+    [InlineData(ListAppearance.Outline, null)]
+    [InlineData(ListAppearance.FilledLighter, "filled-lighter")]
+    [InlineData(ListAppearance.FilledDarker, "filled-darker")]
+    [InlineData(ListAppearance.Transparent, "transparent")]
+    [InlineData((ListAppearance)999, null)]
+    [InlineData(null, null)]
+    public void FluentCombobox_Appearance(ListAppearance? appearance, string? expected)
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentCombobox Appearance="@appearance" Items="@Digits" />);
+        var attribute = cut.Find("fluent-dropdown").GetAttribute("appearance");
+
+        // Assert
+        Assert.Equal(expected, attribute);
+    }
+
+    [Theory]
+    [InlineData(ListSize.Medium, null)]
+    [InlineData(ListSize.Large, "large")]
+    [InlineData(ListSize.Small, "small")]
+    [InlineData((ListSize)999, null)]
+    [InlineData(null, null)]
+    public void FluentCombobox_Size(ListSize? size, string? expected)
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentCombobox Size="@size" Items="@Digits" />);
+        var attribute = cut.Find("fluent-dropdown").GetAttribute("size");
+
+        // Assert
+        Assert.Equal(expected, attribute);
+    }
+
+    [Theory]
+    [InlineData("1", 1, null)]
+    [InlineData("abc", 0, "The 'Unknown Bound Field' field is not valid.")]
+    public void FluentCombobox_TryParseValueFromString(string? value, int? expectedParsedValue, string? expectedValidationErrorMessage)
+    {
+        // Arrange
+        var FluentCombobox = new FluentCombobox<int>();
+
+        // Act
+        FluentCombobox.InternalTryParseValueFromString(value, out var parsedValue, out var validationErrorMessage);
+
+        // Assert
+        Assert.Equal(expectedParsedValue, parsedValue);
+        Assert.Equal(expectedValidationErrorMessage, validationErrorMessage);
+    }
+
+    [Theory]
+    [InlineData("InvalidId")]
+    [InlineData(null)]
+    [InlineData("FIRST_EXISTING_ID")]
+    public void FluentCombobox_RemoveUnknownOption(string? id)
+    {
+#pragma warning disable BL0005
+
+        // Arrange
+        var cut = Render(@<FluentCombobox Items="@Digits" />);
+        var ids = cut.FindAll("fluent-option").Select(i => i.GetAttribute("id"));
+        var data = (object?)null;
+
+        if (id == "FIRST_EXISTING_ID")
+        {
+            id = ids.First();
+            data = Guid.NewGuid();
+        }
+
+        // Act
+        var removedId = cut.FindComponent<FluentCombobox<string?>>().Instance.RemoveOption(new()
+        {
+            Id = id,
+            Data = data,
+        });
+
+        // Assert
+        Assert.Null(removedId);
+
+#pragma warning restore BL0005
+    }
+}

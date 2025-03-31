@@ -17,7 +17,7 @@ public class FluentButtonTests : FluentPlaywrightBaseTest
     {
     }
 
-    //[Fact]    - Uncomment this line to run the test
+    [Fact(Skip = "Playwright is optional for the moment")]
     public async Task FluentButton_IncrementCounter()
     {
         // Arrange
