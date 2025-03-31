@@ -104,7 +104,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    
+
     <EmbeddedResource Update="Localization\LanguageResource.resx">
       <Public>false</Public>
       <OmitGetResourceString>true</OmitGetResourceString>
@@ -112,5 +112,4 @@
       <NoWarn>CS1591</NoWarn>
     </EmbeddedResource>
   </ItemGroup>
-  
 </Project>

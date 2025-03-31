@@ -35,6 +35,19 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     });
   }
 
+  export function MenuItem(blazor: Blazor) {
+    blazor.registerCustomEventType('menuitemchange', {
+      browserEventName: 'change',
+      createEventArgs: event => {
+        return {
+          id: event.target.id,
+          text: event.target.innerText,
+          checked: event.target._role == 'menuitem' ? null : event.target._checked,
+        };
+      }
+    });
+  }
+  
   export function DropdownList(blazor: Blazor) {
 
     // Event when an element is selected or deselected
