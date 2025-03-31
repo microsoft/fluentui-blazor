@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentToggleButton : FluentButton
 {
-    private bool _emptyContent => ChildContent is null && Label is null;
+    private bool EmptyContent => ChildContent is null && Label is null;
 
     /// <summary>
     /// Gets or sets the mixed state of the component.

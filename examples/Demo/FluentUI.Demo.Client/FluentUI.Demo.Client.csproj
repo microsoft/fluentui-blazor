@@ -72,5 +72,8 @@
       <LastGenOutput>%(ParentFile).Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Documentation\Components\Buttons\SplitButton\" />
+  </ItemGroup>
 
 </Project>
