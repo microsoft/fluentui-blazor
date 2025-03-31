@@ -19,9 +19,9 @@ will be displayed to the end user). You can create submenus by using the `MenuIt
 
 See the API documentation below for a complete overview of the parameters and event handlers.
 
-### Best Practices
+## Best Practices
 
-#### Don't
+### Don't
 - Don't render focusable or clickable items inside menu items.
 - Don't use more than 2 levels of nested menus.
 - Don't use verbose secondary content for menuitems.

@@ -21,17 +21,23 @@ public partial class FluentMenuItem : FluentComponentBase
     protected string? StyleValue => DefaultStyleBuilder
         .Build();
 
+    /// <summary />
+    public FluentMenuItem()
+    {
+        Id = Identifier.NewId();
+    }
+
     /// <summary>
     /// Gets or sets the owning FluentMenu.
     /// </summary>
     [CascadingParameter]
-    public FluentMenu? Menu { get; set; } = default!;
+    private FluentMenu? Menu { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the owning FluentMenuList.
     /// </summary>
     [CascadingParameter]
-    public FluentMenuList? MenuList { get; set; } = default!;
+    private FluentMenuList? MenuList { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the role of the menu item.
@@ -106,12 +112,6 @@ public partial class FluentMenuItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<MenuItemEventArgs> OnClick { get; set; }
-
-    /// <summary />
-    public FluentMenuItem()
-    {
-        Id = Identifier.NewId();
-    }
 
     /// <summary />
     internal async Task OnChangeHandlerAsync(MenuItemEventArgs args)
