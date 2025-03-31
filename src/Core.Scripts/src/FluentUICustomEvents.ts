@@ -63,6 +63,19 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       }
     });
   }
+  export function Tabs(blazor: Blazor) {
+
+    // Event when a tab is selected
+    blazor.registerCustomEventType('tabchange', {
+      browserEventName: 'change',
+      createEventArgs: (event: any) => {
+        return {
+          id: event.target.id,
+          activeid: event.detail?.id,
+        };
+      }
+    });
+  }
 
   // [^^^ Add your other custom events before this line ^^^]
 

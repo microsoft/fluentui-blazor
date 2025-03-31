@@ -1,0 +1,261 @@
+﻿@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentTabsTests()
+    {
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentTabs_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="tab1" Header="Chat">
+                Here's some information about the chat.
+            </FluentTab>
+
+            <FluentTab Id="tab2" Header="Files">
+                Here's the list of all files.
+            </FluentTab>
+        </FluentTabs>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTabs_Icon()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="tab1" Header="Chat" IconStart="@Samples.Icons.Info" IconColor="@Color.Primary">
+                Here's some information about the chat.
+            </FluentTab>
+
+            <FluentTab Id="tab2" Header="Files" IconStart="@Samples.Icons.Info" IconColor="@Color.Success">
+                Here's the list of all files.
+            </FluentTab>
+        </FluentTabs>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData("MyTabsId", "tab1", "tab1")]            // Normal case
+    [InlineData("INVALID_TABS_ID", "tab1", "tab2")]     // Main TabsID is unknown => no change (stay on tab2)
+    [InlineData("MyTabsId", "INVALID_TAB", "tab2")]     // Try to go to an unknow Tab => no change (stay on tab2)
+    public async Task FluentTabs_ActiveTabId(string eventTabsId, string eventActiveId, string? expectedActiveId)
+    {
+        string? activeTabId = "tab2";
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
+            <FluentTab Id="tab1" Header="Chat">
+                Here's some information about the chat.
+            </FluentTab>
+
+            <FluentTab Id="tab2" Header="Files">
+                Here's the list of all files.
+            </FluentTab>
+        </FluentTabs>);
+
+        // Act
+        await cut.FindComponent<FluentTabs>().Instance.TabChangeHandlerAsync(new()
+        {
+            Id = eventTabsId,
+            ActiveId = eventActiveId,
+        });
+
+        // Assert
+        Assert.Equal(expectedActiveId, activeTabId);
+    }
+
+    [Theory]
+    [InlineData("MyTabsId", "tab2", "tab2")]          // Normal case
+    [InlineData("INVALID_TABS_ID", "tab2", null)]     // Main TabsID is unknown => no change (stay on tab1)
+    [InlineData("MyTabsId", "INVALID_TAB", null)]     // Try to go to an unknow Tab => no change (stay on tab1)
+    public async Task FluentTabs_ActiveTab(string eventTabsId, string eventActiveId, string? expectedActiveId)
+    {
+        FluentTab? activeTab = null;
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTab="@activeTab">
+            <FluentTab Id="tab1" Header="Chat">
+                Here's some information about the chat.
+            </FluentTab>
+
+            <FluentTab Id="tab2" Header="Files">
+                Here's the list of all files.
+            </FluentTab>
+        </FluentTabs>);
+
+        // Act
+        await cut.FindComponent<FluentTabs>().Instance.TabChangeHandlerAsync(new()
+        {
+            Id = eventTabsId,
+            ActiveId = eventActiveId,
+        });
+
+        // Assert
+        Assert.Equal(expectedActiveId, activeTab?.Id);
+    }
+
+
+    [Theory]
+    [InlineData(null, false)]
+    [InlineData(null, true)]
+    [InlineData("Tab2", false)]
+    [InlineData("Tab2", true)]
+    public void FluentTabs_LoadingOrder(string? initialActiveId, bool initialTab2)
+    {
+        RenderFragment Tab1 = @<FluentTab Id="Tab1" Header="Chat" />;
+        RenderFragment Tab2 = @<FluentTab Id="Tab2" Header="Files" />;
+
+        string? activeId = initialActiveId;
+        FluentTab? activeTab = initialTab2 ? Render(Tab2).FindComponent<FluentTab>().Instance : null;
+
+        // Arrange && Act
+        var cut = Render(@<FluentTabs @bind-ActiveTabId="@activeId" @bind-ActiveTab="@activeTab">
+            @Tab1
+            @Tab2
+        </FluentTabs>);
+
+        // Assert
+    }
+
+    [Fact]
+    public void FluentTabs_Visible()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="tab1" Header="Chat" Visible="true">
+                Here's some information about the chat.
+            </FluentTab>
+
+            <FluentTab Id="tab2" Header="Files" Visible="false">
+                Here's the list of all files.
+            </FluentTab>
+        </FluentTabs>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(TabsAppearance.Default, null)]
+    [InlineData(TabsAppearance.Transparent, "transparent")]
+    [InlineData(null, null)]
+    [InlineData((TabsAppearance)999, null)]
+    public void FluentTabs_Appearance(TabsAppearance? appearance, string? expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs Appearance="@appearance">
+            <FluentTab Header="MyTab"></FluentTab>
+        </FluentTabs>);
+
+        var attribute = cut.Find("fluent-tabs").GetAttribute("appearance");
+
+        // Assert
+        Assert.Equal(expectedAttribute, attribute);
+    }
+
+    [Theory]
+    [InlineData(TabsSize.Small, "small")]
+    [InlineData(TabsSize.Medium, null)]
+    [InlineData(TabsSize.Large, "large")]
+    [InlineData(null, null)]
+    [InlineData((TabsSize)999, null)]
+    public void FluentTabs_Size(TabsSize? size, string? expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs Size="@size">
+            <FluentTab Header="MyTab"></FluentTab>
+        </FluentTabs>);
+
+        var attribute = cut.Find("fluent-tabs").GetAttribute("size");
+
+        // Assert
+        Assert.Equal(expectedAttribute, attribute);
+    }
+
+    [Fact]
+    public void FluentTabs_WidthHeight()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs Width="100px" Height="200px"></FluentTabs>);
+
+        // Assert
+        Assert.Equal("width: 100px; height: 200px;", cut.Find("fluent-tabs").GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentTabs_HeaderTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab>
+                <HeaderTemplate>Tab <b>Name</b></HeaderTemplate>
+                <ChildContent>
+                    Tab Content
+                </ChildContent>
+            </FluentTab>
+        </FluentTabs>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTabs_Disabled()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="Tab1" Header="Tab 1" Disabled="false" />
+            <FluentTab Id="Tab2" Header="Tab 2" Disabled="true" />
+        </FluentTabs>);
+
+        var tab1Disabled = cut.Find("#Tab1").GetAttribute("disabled");
+        var tab2Disabled = cut.Find("#Tab2").GetAttribute("disabled");
+
+        // Assert
+        Assert.Null(tab1Disabled);
+        Assert.NotNull(tab2Disabled);
+    }
+
+    [Fact]
+    public void FluentTabs_DeferredLoading()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs ActiveTabId="Tab1">
+    <FluentTab Id="Tab1" Header="Tab 1" DeferredLoading="false">Content 1</FluentTab>
+    <FluentTab Id="Tab2" Header="Tab 2" DeferredLoading="true">Content 2</FluentTab>
+    <FluentTab Id="Tab3" Header="Tab 3" DeferredLoading="true"><LoadingTemplate>Loading...</LoadingTemplate></FluentTab>
+</FluentTabs>
+    );
+
+        // Assert before Click
+        cut.Verify(suffix: "Before");
+
+        // Open Tab2 and re-render
+        cut.FindComponent<FluentTabs>().SetParametersAndRender(parameters => parameters.Add(p => p.ActiveTabId, "Tab2"));
+        var content2After = cut.Find("#Tab2-panel").InnerHtml;
+
+        // Assert
+        cut.Verify(suffix: "After");
+    }
+
+    private RenderFragment? GetDeferredContent => builder =>
+       {
+           // To simulate a long running process
+           Thread.Sleep(1000);
+
+           // Add <span>Here's the list of all files.</span>
+           builder.OpenElement(0, "span");
+           builder.AddContent(1, "Content 2");
+           builder.CloseElement();
+       };
+}

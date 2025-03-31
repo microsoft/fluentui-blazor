@@ -1,0 +1,37 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+@if (Visible)
+{
+    <fluent-tab id="@Id"
+                class="@ClassValue"
+                style="@StyleValue"
+                disabled="@Disabled"
+                @attributes="@AdditionalAttributes">
+        <AddTag Name="span" TagWhen="@(() => HeaderTemplate is not null || IconStart is not null)">
+            @if (IconStart is not null)
+            {
+                <FluentIcon Value="@IconStart" Color="@IconColor" />
+            }
+            @Header
+            @HeaderTemplate
+        </AddTag>
+    </fluent-tab>
+    <fluent-tab-panel id="@(Id + "-panel")">
+        @if (DeferredLoading && Owner?.ActiveTabId != Id)
+        {
+            if (LoadingTemplate is null)
+            {
+                <FluentProgressBar />
+            }
+            else
+            {
+                @LoadingTemplate
+            }
+        }
+        else
+        {
+            @ChildContent
+        }
+    </fluent-tab-panel>
+}
