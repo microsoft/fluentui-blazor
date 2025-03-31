@@ -12,11 +12,9 @@ All practices for the `FluentButton` apply to the `FluentMenuButton` as well.
 
 ## Appearance
 
-Only use one **primary** button in a layout for the most important action.
-If there are more than two buttons with equal priority, all buttons should have neutral backgrounds.
+When a MenuButton is placed inside a `FluentMenu` component, it will automatically be used as the
+trigger to open/close the menu. See the code tab below.
 
-When there are many available minor actions, use the **outline**, **subtle**, or **transparent** appearances
-on all buttons to avoid a busy layout.
 
 {{ MenuButtonDefault }}
 
@@ -37,7 +35,7 @@ By putting an icon in the content, it is possible to specify a `Color` for the i
 
 ## Shape
 
-Buttons can be square, rounded, or circular.
+Menu buttons can be square, rounded, or circular.
 
 {{ MenuButtonShapes }}
 

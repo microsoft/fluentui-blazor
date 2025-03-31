@@ -1,0 +1,55 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+    public FluentMenuButtonTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+
+    [Fact]
+    public void FluentMenuButton_UseInMenu()
+    {
+        // Arrange
+        var clicked = false;
+        var cut = Render(@<FluentMenu>
+            <FluentMenuButton OnClick="@(e => { clicked = true; })">fluent-menu-button</FluentMenuButton>
+            <FluentMenuList>
+                <FluentMenuItem>
+                    My menu Item
+                </FluentMenuItem>
+            </FluentMenuList>
+        </FluentMenu>
+    );
+
+        // Act
+        cut.Find("fluent-menu-button").Click();
+
+        // Assert
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void FluentMenuButton_IconStart()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuButton IconStart="@Samples.Icons.Info">My button</FluentMenuButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuButton_IconEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuButton IconEnd="@Samples.Icons.Info">My button</FluentMenuButton>);
+
+        // Assert
+        cut.Verify();
+    }
+}

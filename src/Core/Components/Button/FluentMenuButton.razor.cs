@@ -5,6 +5,8 @@
 //using Microsoft.AspNetCore.Components;
 //using Microsoft.AspNetCore.Components.Web;
 
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -13,5 +15,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentMenuButton : FluentButton
 {
-    private bool EmptyContent => ChildContent is null && Label is null;
+    /// <summary>
+    /// Gets or sets the owning FluentMenu.
+    /// </summary>
+    [CascadingParameter]
+    private FluentMenu? Menu { get; set; } = default!;
 }

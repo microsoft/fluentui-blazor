@@ -11,6 +11,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentAnchorButton : FluentComponentBase
 {
+    private bool EmptyContent => ChildContent is null && Label is null;
+
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();

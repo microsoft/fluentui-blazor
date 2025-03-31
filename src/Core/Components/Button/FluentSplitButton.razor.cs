@@ -5,13 +5,19 @@
 //using Microsoft.AspNetCore.Components;
 //using Microsoft.AspNetCore.Components.Web;
 
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The FluentToggleButton component allows users to commit a change or trigger a toggle action via a single click or tap and
+/// The FluentSplitButton component allows users to combine a button with a menu where the left part triggers a primary action and the right part opens a menu with secondary actions.
 /// is often found inside forms, dialogs, drawers (panels) and/or pages.
 /// </summary>
 public partial class FluentSplitButton : FluentButton
 {
-    private bool EmptyContent => ChildContent is null && Label is null;
+    /// <summary>
+    /// Gets or sets the owning FluentMenu.
+    /// </summary>
+    [CascadingParameter]
+    private FluentMenu? Menu { get; set; } = default!;
 }

@@ -25,6 +25,7 @@
                       aria-label="@Title"
                       title="@Title"
                       appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
+                      slot="@(Menu != null ? "trigger" : null)"
                       @onclick="@OnClickHandlerAsync"
                       @onclick:stopPropagation="@StopPropagation"
                       @attributes="@AdditionalAttributes">
