@@ -18,6 +18,9 @@ public partial class FluentButton : FluentComponentBase
     private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
     /// <summary />
+    protected bool EmptyContent => ChildContent is null && Label is null;
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .AddClass("loading-button", when: () => LoadingOverlay)
         .Build();

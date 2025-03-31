@@ -1,16 +1,14 @@
 ---
-title: ToggleButton
-route: /ToggleButton
+title: Button
+route: /Button/Button
 ---
 
-# ToggleButton
+# Button
 
-The `ToggleButton` component allows users to commit a change or trigger a toggle action via a single click
+The `Button` component allows users to commit a change or trigger an action via a single click
 or tap and is often found inside forms, dialogs, drawers (panels) and/or pages.
 
-View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/button/behavior).
-
-> Although the `FluentToggleButton` inherits from `FluentButton`, it does not support the `Loading` state.
+View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/button/usage).
 
 ## Appearance
 
@@ -20,11 +18,18 @@ If there are more than two buttons with equal priority, all buttons should have 
 When there are many available minor actions, use the **outline**, **subtle**, or **transparent** appearances
 on all buttons to avoid a busy layout.
 
-{{ ToggleButtonDefault }}
+{{ ButtonDefault }}
 
-## Pressed
+## Loading
 
-{{ ToggleButtonPressed }}
+When a button is in a loading state, it should be disabled and show a spinner to indicate
+that the action is in progress.
+
+Click on one of these buttons to switch to the `Loading` state.
+The button will be disabled and a spinner will be shown.
+The button will be enabled again after 2 seconds.
+
+{{ ButtonLoading }}
 
 ## Icons
 
@@ -38,28 +43,28 @@ a `Color` for the icon.
 
 By setting the `IconOnly` parameter to true, you can use an icon as the button's content but still have it display in a smaller form. 
 
-{{ ToggleButtonIcon }}
+{{ ButtonIcon }}
 
 ## Shape
 
-Toggle buttons can be square, rounded, or circular.
+Buttons can be square, rounded, or circular.
 
-{{ ToggleButtonShapes }}
+{{ ButtonShapes }}
 
 ## Size
 
-{{ ToggleButtonSizes }}
+{{ ButtonSizes }}
 
 ## Disabled
-
-{{ ToggleButtonDisabled }}
+{{ ButtonDisabled }}
 
 ## With long text
-
-{{ ToggleButtonLongText }}
+{{ ButtonLongText }}
 
 ## API FluentButton
 
-{{ API Type=FluentToggleButton }}
+{{ API Type=FluentButton }}
 
+## Migrating to v5
 
+{{ INCLUDE File=MigrationFluentButton }}

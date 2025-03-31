@@ -3,7 +3,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentButton
 
-<fluent-toggle-button class="@ClassValue"
+<fluent-menu-button class="@ClassValue"
                       style="@StyleValue"
                       autofocus="@AutoFocus"
                       form="@FormId"
@@ -25,19 +25,18 @@
                       aria-label="@Title"
                       title="@Title"
                       appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
-                      mixed="@Mixed"
-                      pressed="@Pressed"
+                      slot="@(Menu != null ? "trigger" : null)"
                       @onclick="@OnClickHandlerAsync"
                       @onclick:stopPropagation="@StopPropagation"
                       @attributes="@AdditionalAttributes">
     @if (IconStart != null)
     {
-        <FluentIcon Value="@IconStart" Slot="@(EmptyContent ? null : "start")" />
+        <FluentIcon Value="@IconStart" Slot="@((EmptyContent) ? null : "start")" />
     }
     @Label
     @ChildContent
     @if (IconEnd != null)
     {
-        <FluentIcon Value="@IconEnd" Slot="@(EmptyContent ? null : "end")" />
+        <FluentIcon Value="@IconEnd" Slot="@((EmptyContent) ? null : "end")" />
     }
-</fluent-toggle-button>
+</fluent-menu-button>
