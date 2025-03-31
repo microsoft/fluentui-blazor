@@ -32,12 +32,12 @@
                       @attributes="@AdditionalAttributes">
     @if (IconStart != null)
     {
-        <FluentIcon Value="@IconStart" Slot="@((EmptyContent) ? null : "start")" />
+        <FluentIcon Value="@IconStart" Slot="@(EmptyContent ? null : "start")" />
     }
     @Label
     @ChildContent
     @if (IconEnd != null)
     {
-        <FluentIcon Value="@IconEnd" Slot="@((EmptyContent) ? null : "end")" />
+        <FluentIcon Value="@IconEnd" Slot="@(EmptyContent ? null : "end")" />
     }
 </fluent-toggle-button>
