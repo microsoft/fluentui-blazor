@@ -202,12 +202,12 @@
         var clicked = false;
         var label = "My item";
         var item = new FluentMenuItem();
-        var a = new MenuItemEventArgs { Text = label };
+        var a = new MenuItemEventArgs { Id="myid", Text = label };
 
         // Arrange
         var cut = Render(@<FluentMenu>
                 <FluentMenuList>
-                    <FluentMenuItem @ref=item @onmenuitemchange="@((args) => { a = args; })" OnClick="@(() => { clicked = true;})" CheckedChanged="@(() => {})">
+                    <FluentMenuItem Id="myid" @ref=item @onmenuitemchange="@((args) => { a = args; })" OnClick="@(() => { clicked = true;})" CheckedChanged="@(() => {})">
                         @label
                     </FluentMenuItem>
                 </FluentMenuList>
@@ -228,12 +228,12 @@
     {
         var label = "My item";
         var item = new FluentMenuItem();
-        var a = new MenuItemEventArgs { Text = label, Checked = true };
+        var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = true };
 
         // Arrange
         var cut = Render(@<FluentMenu>
                 <FluentMenuList>
-                    <FluentMenuItem @ref=item Role="MenuItemRole.Checkbox" @onmenuitemchange="@((args) => { a = args; })" CheckedChanged="@(() => {})">
+                    <FluentMenuItem Id="myid" @ref=item Role="MenuItemRole.Checkbox" @onmenuitemchange="@((args) => { a = args; })" CheckedChanged="@(() => {})">
                         @label
                     </FluentMenuItem>
             </FluentMenuList>
@@ -254,10 +254,10 @@
     {
         var label = "My item";
         var item = new FluentMenuItem();
-        var a = new MenuItemEventArgs { Text = label, Checked = false };
+        var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = false };
 
         // Arrange
-        var cut = Render(@<FluentMenuItem @ref=item Role="MenuItemRole.Checkbox" @onmenuitemchange="@((args) => { a = args; })" CheckedChanged="@(() => {})">@label</FluentMenuItem>);
+        var cut = Render(@<FluentMenuItem Id="myid" @ref=item Role="MenuItemRole.Checkbox" @onmenuitemchange="@((args) => { a = args; })" CheckedChanged="@(() => {})">@label</FluentMenuItem>);
 
         // Act
         //cut.Find("fluent-menu-item").Click();
@@ -274,10 +274,10 @@
     {
         var label = "My item";
         var item = new FluentMenuItem();
-        var a = new MenuItemEventArgs { Text = label, Checked = true };
+        var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = true };
 
         // Arrange
-        var cut = Render(@<FluentMenuItem @ref=item Role="MenuItemRole.Radio" @onmenuitemchange="@((args) => { a = args; })" CheckedChanged="@(() => {})">@label</FluentMenuItem>);
+        var cut = Render(@<FluentMenuItem Id="myid" @ref=item Role="MenuItemRole.Radio" @onmenuitemchange="@((args) => { a = args; })" CheckedChanged="@(() => {})">@label</FluentMenuItem>);
 
         // Act
         //cut.Find("fluent-menu-item").Click();
@@ -294,10 +294,10 @@
     {
         var label = "My item";
         var item = new FluentMenuItem();
-        var a = new MenuItemEventArgs { Text = label, Checked = false };
+        var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = false };
 
         // Arrange
-        var cut = Render(@<FluentMenuItem @ref=item Role="MenuItemRole.Radio" @onmenuitemchange="@((args) => { a = args; })" CheckedChanged="@(() => {})">@label</FluentMenuItem>);
+        var cut = Render(@<FluentMenuItem Id="myid" @ref=item Role="MenuItemRole.Radio" @onmenuitemchange="@((args) => { a = args; })" CheckedChanged="@(() => {})">@label</FluentMenuItem>);
 
         // Act
         //cut.Find("fluent-menu-item").Click();

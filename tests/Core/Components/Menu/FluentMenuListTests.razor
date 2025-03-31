@@ -39,11 +39,11 @@
         var check = false;
         var label = "My item";
         var item = new FluentMenuItem();
-        var a = new MenuItemEventArgs { Text = label, Checked = true };
+        var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = true };
 
         // Arrange
         var cut = Render(@<FluentMenuList OnCheckedChanged="@(() => { check = true;})">
-                <FluentMenuItem @ref=item Role="MenuItemRole.Checkbox" @onmenuitemchange="@((args) => { a = args; })" CheckedChanged="@(() => { })">
+            <FluentMenuItem Id="myid" @ref=item Role="MenuItemRole.Checkbox" @onmenuitemchange="@((args) => { a = args; })" CheckedChanged="@(() => { })">
                     @label
                 </FluentMenuItem>
             </FluentMenuList>);
@@ -65,11 +65,11 @@
         var click = false;
         var label = "My item";
         var item = new FluentMenuItem();
-        var a = new MenuItemEventArgs { Text = label, Checked = null };
+        var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = null };
 
         // Arrange
         var cut = Render(@<FluentMenuList OnClick="@(() => { click = true; })">
-            <FluentMenuItem @ref=item @onmenuitemchange="@((args) => { a = args; })" OnClick="@(() => { })">
+            <FluentMenuItem Id="myid" @ref=item @onmenuitemchange="@((args) => { a = args; })" OnClick="@(() => { })">
                 @label
             </FluentMenuItem>
         </FluentMenuList>);
