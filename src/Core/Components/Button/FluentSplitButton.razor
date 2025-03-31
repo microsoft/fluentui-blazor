@@ -1,42 +1,28 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Rendering;
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@inherits FluentButton
+@inherits FluentComponentBase
 
-<fluent-split-button class="@ClassValue"
-                     style="@StyleValue"
-                     autofocus="@AutoFocus"
-                     form="@FormId"
-                     formaction="@FormAction"
-                     formenctype="@FormEncType"
-                     formmethod="@FormMethod"
-                     formnovalidate="@FormNoValidate"
-                     formtarget="@FormTarget"
-                     type="@Type.ToAttributeValue()"
-                     shape="@Shape.ToAttributeValue()"
-                     size="@Size.ToAttributeValue()"
-                     id="@Id"
-                     value="@Value"
-                     icon-only="@(IconOnly || EmptyContent)"
-                     disabled="@(Disabled)"
-                     disabled-focusable="@(DisabledFocusable)"
-                     name="@Name"
-                     required="@Required"
-                     aria-label="@Title"
-                     title="@Title"
-                     appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
-                     slot="@(Menu != null ? "trigger" : null)"
-                     @onclick="@OnClickHandlerAsync"
-                     @onclick:stopPropagation="@StopPropagation"
-                     @attributes="@AdditionalAttributes">
+<fluent-button id="@Id"
+               class="@ClassValue"
+               style="@StyleValue"
+               shape="@Shape.ToAttributeValue()"
+               size="@Size.ToAttributeValue()"
+               icon-only="@(IconOnly || EmptyContent)"
+               name="@Name"
+               aria-label="@Title"
+               title="@Title"
+               appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
+               slot="@(Menu != null ? "primary-action" : null)"
+               @attributes="@AdditionalAttributes">
     @if (IconStart != null)
     {
-        <FluentIcon Value="@IconStart" Slot="@((EmptyContent) ? null : "start")" />
+        <FluentIcon Value="@IconStart" Slot="@(EmptyContent ? null : "start")" />
     }
     @Label
     @ChildContent
     @if (IconEnd != null)
     {
-        <FluentIcon Value="@IconEnd" Slot="@((EmptyContent) ? null : "end")" />
+        <FluentIcon Value="@IconEnd" Slot="@(EmptyContent ? null : "end")" />
     }
-</fluent-split-button>
+</fluent-button>
