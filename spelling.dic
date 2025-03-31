@@ -28,3 +28,7 @@ menuitemradio
 menuitemcheckboxobsolete
 menuitemradioobsolete
 onmenuitemchange
+ontabchange
+ondropdownchange
+ondialogtoggle
+ondialogbeforetoggle
