@@ -1,0 +1,60 @@
+﻿@page "/services"
+@inject IDialogService DialogService
+
+<!-- Dialog -->
+
+<FluentButton OnClick="OpenMessageBox" Appearance="ButtonAppearance.Primary">Open MessageBox</FluentButton>
+<FluentButton OnClick="OpenCustomDialog" Appearance="ButtonAppearance.Outline">Open SimpleDialog</FluentButton>
+
+@code {
+    async Task OpenMessageBox()
+    {
+        await DialogService.ShowInfoAsync("This is a message box", "MessageBox");
+    }
+
+    async Task OpenCustomDialog()
+    {
+        var result = await DialogService.ShowDialogAsync<Dialog.SimpleDialog>(options =>
+        {
+            options.OnStateChange = e => Console.WriteLine(e.State);
+        });
+
+        if (result.Cancelled == false)
+        {
+            
+        }
+
+    }
+}
+
+<!-- Tooltip -->
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.Center">
+    <FluentButton Id="MyCustomizedButton">Hover me</FluentButton>
+
+    <FluentTooltip Anchor="MyCustomizedButton"
+                   Delay="700"
+                   Positioning="@Positioning.BelowStart"
+                   MaxWidth="300px"
+                   SpacingHorizontal="20px"
+                   SpacingVertical="10px"
+                   Style="background-color: var(--colorBrandBackground); color: var(--colorNeutralForegroundInverted)">
+        <FluentStack>
+            Really long <b>tooltip</b> content goes here.
+            Lorem ipsum dolor sit a met.
+        </FluentStack>
+    </FluentTooltip>
+</FluentStack>
+
+@code
+{
+    void OnToggleAsync(TooltipEventArgs args)
+    {
+        Console.WriteLine($"Tooltip is open: {args.Opened}.");
+    }
+
+    void OnDismissAsync(EventArgs args)
+    {
+        Console.WriteLine($"Tooltip is dismissed.");
+    }
+}
