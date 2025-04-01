@@ -13,7 +13,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 /// </summary>
 internal static class FluentInputExtensions
 {
-    public static bool TryParseSelectableValueFromString<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue>(
+    [SuppressMessage("Trimming", "IL2091:Target generic argument does not satisfy 'DynamicallyAccessedMembersAttribute' in target method or type. The generic parameter of the source method or type does not have matching annotations.",
+                 Justification = "In the context, the 'TValue' will not be trimmed.")]
+    public static bool TryParseSelectableValueFromString<TValue>(
       this FluentInputBase<TValue> input,
       string? value,
       [MaybeNullWhen(false)] out TValue result,

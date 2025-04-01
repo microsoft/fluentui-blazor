@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -17,6 +18,8 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">Service collection</param>
     /// <param name="configuration">Library configuration</param>
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IDialogService))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogService))]
     public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, LibraryConfiguration? configuration = null)
     {
         var options = configuration ?? new();
@@ -66,7 +69,7 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary />
-    private static IServiceCollection Add<TService, TImplementation>(this IServiceCollection services, ServiceLifetime lifetime)
+    private static IServiceCollection Add<TService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TImplementation>(this IServiceCollection services, ServiceLifetime lifetime)
         where TService : class
         where TImplementation : class, TService
     {

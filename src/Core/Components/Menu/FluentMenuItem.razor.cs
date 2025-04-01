@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -22,6 +23,8 @@ public partial class FluentMenuItem : FluentComponentBase
         .Build();
 
     /// <summary />
+    [DynamicDependency(nameof(OnChangeHandlerAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MenuItemEventArgs))]
     public FluentMenuItem()
     {
         Id = Identifier.NewId();
