@@ -12,7 +12,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     private ElementReference? _containerElement;
     private InputFile? _inputFile;
     private IJSObjectReference? _containerInstance;
-    
+
     public static string ResourceLoadingBefore = "Loading...";
     public static string ResourceLoadingCompleted = "Completed";
     public static string ResourceLoadingCanceled = "Canceled";
@@ -427,23 +427,22 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     // Unregister the drop zone events
     public async ValueTask DisposeAsync()
     {
-        if (_containerInstance != null)
+        try
         {
-            try
+            if (_containerInstance != null)
             {
                 await _containerInstance.InvokeVoidAsync("dispose");
+                await _containerInstance.DisposeAsync();
             }
-            catch (JSDisconnectedException)
+
+            if (Module != null)
             {
-                // Swallow. See: https://stackoverflow.com/questions/72488563/blazor-server-side-application-throwing-system-invalidoperationexception-javas
+                await Module.DisposeAsync();
             }
-
-            await _containerInstance.DisposeAsync();
         }
-
-        if (Module != null)
+        catch (JSDisconnectedException)
         {
-            await Module.DisposeAsync();
+            // Swallow. See: https://stackoverflow.com/questions/72488563/blazor-server-side-application-throwing-system-invalidoperationexception-javas
         }
     }
 }
