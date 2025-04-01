@@ -15,6 +15,14 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     // List of items rendered with an ID to retrieve the element by ID.
     private Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
 
+    /// <summary />
+    [DynamicDependency(nameof(OnDropdownChangeHandlerAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DropdownEventArgs))]
+    protected FluentListBase()
+    {
+        
+    }
+
     /// <summary>
     /// Gets or sets the width of the component.
     /// </summary>
