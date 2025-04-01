@@ -429,20 +429,22 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     {
         try
         {
-            if (_containerInstance != null)
+            if (_containerInstance is not null)
             {
                 await _containerInstance.InvokeVoidAsync("dispose");
-                await _containerInstance.DisposeAsync();
+                await _containerInstance.DisposeAsync().ConfigureAwait(false);
             }
 
             if (Module != null)
             {
-                await Module.DisposeAsync();
+                await Module.DisposeAsync().ConfigureAwait(false);
             }
         }
-        catch (JSDisconnectedException)
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
         {
-            // Swallow. See: https://stackoverflow.com/questions/72488563/blazor-server-side-application-throwing-system-invalidoperationexception-javas
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
     }
 }
