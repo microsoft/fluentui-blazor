@@ -2,6 +2,18 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentLabel Size="LabelSize.Large">Counter page</FluentLabel>
+    <FluentButton Appearance="ButtonAppearance.Primary"OnClick="@Increment">Increment</FluentButton>
+    <FluentLabel>Value = @Value</FluentLabel>
+</FluentStack>
 
-Welcome to your new app.
+@code
+{
+    int Value = 0;
+
+    void Increment()
+    {
+        Value++;
+    }
+}
