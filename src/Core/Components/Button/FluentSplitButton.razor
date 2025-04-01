@@ -3,26 +3,26 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<fluent-button id="@Id"
-               class="@ClassValue"
-               style="@StyleValue"
-               shape="@Shape.ToAttributeValue()"
-               size="@Size.ToAttributeValue()"
-               icon-only="@(IconOnly || EmptyContent)"
-               name="@Name"
-               aria-label="@Title"
-               title="@Title"
-               appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
-               slot="@(Menu != null ? "primary-action" : null)"
-               @attributes="@AdditionalAttributes">
-    @if (IconStart != null)
-    {
-        <FluentIcon Value="@IconStart" Slot="@(EmptyContent ? null : "start")" />
-    }
-    @Label
+<FluentMenu Class="@ClassValue" Style="@StyleValue" OnClick="@OnMenuClick" OnCheckedChanged="@OnMenuCheckedChanged" split="true">
+    <FluentButton IconStart="@IconStart"
+                  IconOnly="@IconOnly"
+                  Appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance)"
+                  Shape="@Shape"
+                  Size="@Size"
+                  BackgroundColor="@BackgroundColor"
+                  Color="@Color"
+                  OnClick="@OnClick"
+                  slot="primary-action">
+        @Label
+    </FluentButton>
+    <FluentMenuButton IconEnd="@IconToggle"
+                      IconOnly="@(IconToggle is null ? true : true)"
+                      Appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance)"
+                      Shape="@Shape"
+                      Size="@Size"
+                      BackgroundColor="@BackgroundColor"
+                      Color="@Color"
+                      aria-label="@Title" />
     @ChildContent
-    @if (IconEnd != null)
-    {
-        <FluentIcon Value="@IconEnd" Slot="@(EmptyContent ? null : "end")" />
-    }
-</fluent-button>
+</FluentMenu>
+

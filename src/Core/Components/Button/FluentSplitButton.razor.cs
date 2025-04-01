@@ -6,6 +6,7 @@
 //using Microsoft.AspNetCore.Components.Web;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -15,8 +16,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentSplitButton : FluentComponentBase
 {
-    private bool EmptyContent => ChildContent is null && Label is null;
-
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
@@ -26,12 +25,6 @@ public partial class FluentSplitButton : FluentComponentBase
         .AddStyle("background-color", BackgroundColor, when: () => !string.IsNullOrEmpty(BackgroundColor))
         .AddStyle("color", Color, when: () => !string.IsNullOrEmpty(Color))
         .Build();
-
-    /// <summary>
-    /// Gets or sets the owning FluentMenu.
-    /// </summary>
-    [CascadingParameter]
-    private FluentMenu? Menu { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the shape of the button.
@@ -91,7 +84,7 @@ public partial class FluentSplitButton : FluentComponentBase
     /// Gets or sets the <see cref="Icon"/> displayed at the end of button content.
     /// </summary>
     [Parameter]
-    public Icon? IconEnd { get; set; }
+    public Icon? IconToggle { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the button.
@@ -109,8 +102,49 @@ public partial class FluentSplitButton : FluentComponentBase
     public string? Label { get; set; }
 
     /// <summary>
+    /// Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+    /// </summary>
+    [Parameter]
+    public bool StopPropagation { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the max height of the menu, e.g. 300px
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Command executed when the user clicks on the button.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    /// <summary>
+    /// Raised when a FluentMenuItem is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MenuItemEventArgs> OnMenuClick { get; set; }
+
+    /// <summary>
+    /// Raised when a FluentMenuItem's Checked state changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MenuItemEventArgs> OnMenuCheckedChanged { get; set; }
+
+    /// <summary />
+    protected async Task OnClickHandlerAsync(MouseEventArgs e)
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(e);
+        }
+
+        await Task.CompletedTask;
+    }
 }
