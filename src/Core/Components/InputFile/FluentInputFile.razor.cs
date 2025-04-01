@@ -429,7 +429,15 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     {
         if (_containerInstance != null)
         {
-            await _containerInstance.InvokeVoidAsync("dispose");
+            try
+            {
+                await _containerInstance.InvokeVoidAsync("dispose");
+            }
+            catch (JSDisconnectedException)
+            {
+                // Swallow. See: https://stackoverflow.com/questions/72488563/blazor-server-side-application-throwing-system-invalidoperationexception-javas
+            }
+
             await _containerInstance.DisposeAsync();
         }
 
