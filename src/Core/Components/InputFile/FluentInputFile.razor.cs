@@ -12,7 +12,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     private ElementReference? _containerElement;
     private InputFile? _inputFile;
     private IJSObjectReference? _containerInstance;
-    
+
     public static string ResourceLoadingBefore = "Loading...";
     public static string ResourceLoadingCompleted = "Completed";
     public static string ResourceLoadingCanceled = "Canceled";
@@ -427,15 +427,24 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     // Unregister the drop zone events
     public async ValueTask DisposeAsync()
     {
-        if (_containerInstance != null)
+        try
         {
-            await _containerInstance.InvokeVoidAsync("dispose");
-            await _containerInstance.DisposeAsync();
-        }
+            if (_containerInstance is not null)
+            {
+                await _containerInstance.InvokeVoidAsync("dispose");
+                await _containerInstance.DisposeAsync().ConfigureAwait(false);
+            }
 
-        if (Module != null)
+            if (Module != null)
+            {
+                await Module.DisposeAsync().ConfigureAwait(false);
+            }
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
         {
-            await Module.DisposeAsync();
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
     }
 }
