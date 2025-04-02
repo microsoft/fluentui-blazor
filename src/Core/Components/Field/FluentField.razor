@@ -12,7 +12,7 @@
     @if (HasLabel)
     {
         <label id="@GetId("label")"
-               slot="label"
+               slot="@FluentSlot.FieldLabel"
                for="@GetId("input")"
                required="@(Parameters.Required ?? false)"
                disabled="@(Parameters.Disabled ?? false)"
@@ -34,7 +34,7 @@
         }
         else
         {
-            <div slot="input" id="@GetId("input")">
+            <div slot="@FluentSlot.FieldInput" id="@GetId("input")">
                 @ChildContent
             </div>
         }
@@ -42,7 +42,7 @@
 
     @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
     {
-        <FluentText slot="message" size="@TextSize.Size200">
+        <FluentText slot="@FluentSlot.FieldMessage" size="@TextSize.Size200">
 
             @CreateIcon(Parameters.MessageIcon)
 

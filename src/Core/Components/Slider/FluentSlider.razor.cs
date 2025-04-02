@@ -71,7 +71,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, ITooltipCom
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
-    /// If you add content that is NOT part of `slot="thumb"` section, it will be ignored.
+    /// If you add content that is NOT part of `slot="@FluentSlot.Thumb"` section, it will be ignored.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

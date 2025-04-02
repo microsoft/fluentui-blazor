@@ -19,7 +19,7 @@
                        placeholder="@Placeholder"
                        readonly="@ReadOnly"
                        required="@Required"
-                       slot="input"
+                       slot="@FluentSlot.FieldInput"
                        spellcheck="@Spellcheck"
                        control-size="@Size.ToAttributeValue()"
                        type="@TextFieldType.ToAttributeValue()"
@@ -31,14 +31,14 @@
 
         @if (StartTemplate != null)
         {
-            <div slot="start">
+            <div slot="@FluentSlot.Start">
                 @StartTemplate
             </div>
         }
 
         @if (EndTemplate != null)
         {
-            <div slot="end">
+            <div slot="@FluentSlot.End">
                 @EndTemplate
             </div>
         }

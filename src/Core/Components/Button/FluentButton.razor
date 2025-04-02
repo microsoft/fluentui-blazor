@@ -33,13 +33,13 @@
         {
             if (Loading)
             {
-                <fluent-spinner size="tiny" slot="@((ChildContent is not null || Label is not null) ? "start" : null)" style="@RingStyle(IconStart)" />
+                <fluent-spinner size="tiny" slot="@((ChildContent is not null || Label is not null) ? FluentSlot.Start : null)" style="@RingStyle(IconStart)" />
             }
             else
             {
                 @if (IconStart != null)
                 {
-                    <FluentIcon Value="@IconStart" Slot="@((ChildContent is null && Label is null) ? null : "start")" />
+                    <FluentIcon Value="@IconStart" Slot="@((ChildContent is null && Label is null) ? null : FluentSlot.Start)" />
                 }
             }
         }
@@ -49,13 +49,13 @@
         {
             if (Loading && IconStart == null)
             {
-                <fluent-spinner size="tiny" slot="@((ChildContent is not null || Label is not null) ? "end" : null)" style="@RingStyle(IconEnd)" />
+                <fluent-spinner size="tiny" slot="@((ChildContent is not null || Label is not null) ? FluentSlot.End : null)" style="@RingStyle(IconEnd)" />
             }
             else
             {
                 @if (IconEnd != null)
                 {
-                    <FluentIcon Value="@IconEnd" Slot="@((ChildContent is null && Label is null) ? null : "end")" />
+                    <FluentIcon Value="@IconEnd" Slot="@((ChildContent is null && Label is null) ? null : FluentSlot.End)" />
                 }
             }
         }

@@ -31,7 +31,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
         .Build();
 
     /// <summary>
-    /// Gets or sets an existing Input component to use in the field.
+    /// Gets or sets an existing FieldInput component to use in the field.
     /// Setting this parameter will define the parameters
     /// Label, LabelTemplate, LabelPosition, LabelWidth,
     /// Required, Disabled,
@@ -41,7 +41,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     public IFluentField? InputComponent { get; set; }
 
     /// <summary>
-    /// Gets or sets the ID of the Input component to associate with the field.
+    /// Gets or sets the ID of the FieldInput component to associate with the field.
     /// </summary>
     [Parameter]
     public string? ForId { get; set; }
@@ -109,7 +109,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     internal string? GetId(string slot)
     {
-        // Wrapper of an Input component
+        // Wrapper of an FieldInput component
         if (Parameters.HasInputComponent)
         {
             var id = (string.IsNullOrEmpty(ForId) ? Id : ForId) ?? _defaultId;

@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Helper class for selecting parameters for a FluentField,
-/// from the component itself or from an existing Input component.
+/// from the component itself or from an existing FieldInput component.
 /// </summary>
 internal class FluentFieldParameterSelector : IFluentField
 {
