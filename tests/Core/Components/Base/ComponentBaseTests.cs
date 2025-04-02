@@ -114,7 +114,7 @@ public class ComponentBaseTests : TestContext
     [Theory]
     [InlineData(null)]
     [InlineData("my-id")]
-    public void FluentTooltipInterface_CorrectRendering(string? id)
+    public void ComponentBase_TooltipInterface_CorrectRendering(string? id)
     {
         var errors = new StringBuilder();
 
@@ -155,6 +155,45 @@ public class ComponentBaseTests : TestContext
             {
                 var error = $"\"{componentType.Name}\" does not correctly implement the \"Tooltip\" parameter.";
                 errors.AppendLine(error);
+            }
+        }
+
+        Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    [Fact]
+    public void ComponentBase_TooltipInterface_NotImplemented()
+    {
+        var errors = new StringBuilder();
+
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded))
+        {
+            // Check if the component contains a Tooltip property but without implementing the ITooltipComponent interface
+            var hasTooltipProperty = componentType.GetProperty("Tooltip", BindingFlags.Public | BindingFlags.Instance) != null;
+            var isImplementingTooltipComponent = typeof(ITooltipComponent).IsAssignableFrom(componentType);
+            var hasTooltipParameterAttribute = componentType.GetProperty("Tooltip", BindingFlags.Public | BindingFlags.Instance)?.GetCustomAttribute<ParameterAttribute>() != null;
+
+            if (hasTooltipProperty && !isImplementingTooltipComponent)
+            {
+                Output.WriteLine($"❌ {componentType.Name}");
+
+                var error = $"\"{componentType.Name}\" contains the \"Tooltip\" property but does not implement the \"ITooltipComponent\" interface.";
+                errors.AppendLine(error);
+            }
+
+            else if (hasTooltipProperty && !hasTooltipParameterAttribute)
+            {
+                Output.WriteLine($"❌ {componentType.Name}");
+
+                var error = $"\"{componentType.Name}.Tooltip\" property is not a Blazor [Parameter].";
+                errors.AppendLine(error);
+            }
+
+            else if (hasTooltipProperty)
+            {
+                Output.WriteLine($"✅ {componentType.Name}");
             }
         }
 
