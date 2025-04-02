@@ -37,6 +37,6 @@
     @ChildContent
     @if (IconEnd != null)
     {
-        <FluentIcon Value="@IconEnd" Slot="@(EmptyContent ? null : "end")" />
+        <FluentIcon Value="@IconEnd" Slot="@(!IconOnly && EmptyContent ? null : "end")" />
     }
 </fluent-menu-button>

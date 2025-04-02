@@ -79,11 +79,12 @@ public partial class FluentSplitButton : FluentComponentBase
     [Parameter]
     public Icon? IconStart { get; set; }
 
-    /// <summary>
-    /// Gets or sets the <see cref="Icon"/> displayed at the end of button content.
-    /// </summary>
-    [Parameter]
-    public Icon? IconToggle { get; set; }
+    ///// <summary>
+    ///// Gets or sets the <see cref="Icon"/> displayed at the end of button content.
+    ///// </summary>
+    // This can be enabled once the web components have been fixed
+    //[Parameter]
+    //public Icon? IconToggle { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the button.

@@ -59,15 +59,16 @@
         cut.Verify();
     }
 
-    [Fact]
-    public void FluentSplitButton_IconToggle()
-    {
-        // Arrange && Act
-        var cut = Render(@<FluentSplitButton IconToggle="@Samples.Icons.Info">My button</FluentSplitButton>);
+    // This should be enabled after the changes related to the menu-button web component are done
+    // [Fact]
+    // public void FluentSplitButton_IconToggle()
+    // {
+    //     // Arrange && Act
+    //     var cut = Render(@<FluentSplitButton IconToggle="@Samples.Icons.Info">My button</FluentSplitButton>);
 
-        // Assert
-        cut.Verify();
-    }
+    //     // Assert
+    //     cut.Verify();
+    // }
 
     [Theory]
     [InlineData(ButtonAppearance.Default, "")]
