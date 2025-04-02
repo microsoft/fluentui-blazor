@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -17,9 +18,21 @@ public partial class FluentTooltip : FluentComponentBase
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Tooltip/FluentTooltip.razor.js";
 
     /// <summary />    
+    [DynamicDependency(nameof(OnToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
     public FluentTooltip()
     {
         Id = Identifier.NewId();
+    }
+
+    /// <summary />
+    internal FluentTooltip(string anchor, string? label) : this()
+    {
+        Anchor = anchor;
+        ChildContent = builder =>
+        {
+            builder.AddMarkupContent(0, label);
+        };
     }
 
     /// <summary />

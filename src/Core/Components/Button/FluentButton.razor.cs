@@ -12,10 +12,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// The FluentButton component allows users to commit a change or trigger an action via a single click or tap and
 /// is often found inside forms, dialogs, drawers (panels) and/or pages.
 /// </summary>
-public partial class FluentButton : FluentComponentBase
+public partial class FluentButton : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
     private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
+
+    /// <summary />
+    protected bool EmptyContent => ChildContent is null && Label is null;
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -205,6 +208,16 @@ public partial class FluentButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     /// <summary />
     protected override void OnParametersSet()

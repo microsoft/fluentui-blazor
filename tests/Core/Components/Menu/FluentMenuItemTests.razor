@@ -269,7 +269,7 @@
         Assert.False(a.Checked);
     }
 
-     [Fact]
+    [Fact]
     public void FluentMenuItem_RoleRadioChecked()
     {
         var label = "My item";
@@ -309,5 +309,30 @@
         Assert.False(a.Checked);
     }
 
+    [Fact]
+    public void FluentMenuItem_ChangeHandlerNoId()
+    {
+        var clicked = false;
+        var label = "My item";
+        var item = new FluentMenuItem();
+        var a = new MenuItemEventArgs { Id = "123", Text = label };
 
+        // Arrange
+        var cut = Render(@<FluentMenu>
+            <FluentMenuList>
+                <FluentMenuItem Id="myid" @ref=item @onmenuitemchange="@((args) => { a = args; })" OnClick="@(() => { clicked = true; })" CheckedChanged="@(() => { })">
+                    @label
+                </FluentMenuItem>
+            </FluentMenuList>
+        </FluentMenu>);
+
+        // Act
+        cut.Find("fluent-menu-item").TriggerEvent("onmenuitemchange", a);
+
+        // Assert
+        Assert.False(clicked);
+        Assert.Equal(label, a.Text);
+        Assert.Null(a.Item);
+        Assert.Null(a.Checked);
+    }
 }

@@ -11,26 +11,26 @@
                   @onmenuitemchange="@OnChangeHandlerAsync">
     @if (IconIndicator != null)
     {
-        <FluentIcon Value="@IconIndicator" Slot="@(EmptyContent ? null : "indicator")" />
+        <FluentIcon Value="@IconIndicator" Slot="@(EmptyContent ? null : FluentSlot.Indicator)" />
     }
     @if (IconStart != null)
     {
-        <FluentIcon Value="@IconStart" Slot="@((EmptyContent) ? null : "start")" />
+        <FluentIcon Value="@IconStart" Slot="@((EmptyContent) ? null : FluentSlot.Start)" />
     }
     @Label
     @ChildContent
     @if (MenuItems != null && MenuList != null)
     {
-        <FluentMenuList OnCheckedChanged="@MenuList.OnCheckedChanged" OnClick="@MenuList.OnClick" slot="submenu">
+        <FluentMenuList OnCheckedChanged="@MenuList.OnCheckedChanged" OnClick="@MenuList.OnClick" slot="@FluentSlot.SubMenu">
             @MenuItems
         </FluentMenuList>
     }
     @if (IconEnd != null)
     {
-        <FluentIcon Value="@IconEnd" Slot="@((EmptyContent) ? null : "end")" />
+        <FluentIcon Value="@IconEnd" Slot="@((EmptyContent) ? null : FluentSlot.End)" />
     }
     @if (IconSubmenu != null)
     {
-        <FluentIcon Value="@IconSubmenu" Slot="@((EmptyContent) ? null : "submenu-glyph")" />
+        <FluentIcon Value="@IconSubmenu" Slot="@((EmptyContent) ? null : FluentSlot.SubMenuGlyph)" />
     }
 </fluent-menu-item>

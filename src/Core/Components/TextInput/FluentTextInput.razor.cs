@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A text input component that allows users to enter and edit a single line of text.
 /// </summary>
-public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase
+public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
@@ -118,6 +118,16 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     /// </summary>
     [Parameter]
     public TextInputMode? InputMode { get; set; }   // TODO: To verify if this is supported by the component
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
     protected override async Task OnAfterRenderAsync(bool firstRender)

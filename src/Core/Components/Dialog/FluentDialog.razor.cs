@@ -17,6 +17,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDialog : FluentComponentBase
 {
     /// <summary />
+    [DynamicDependency(nameof(OnToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
     public FluentDialog()
     {
         Id = Identifier.NewId();
@@ -221,8 +223,8 @@ public partial class FluentDialog : FluentComponentBase
 
             return alignment switch
             {
-                DialogAlignment.Start => "start",
-                DialogAlignment.End => "end",
+                DialogAlignment.Start => FluentSlot.Start,
+                DialogAlignment.End => FluentSlot.End,
                 _ => null
             };
         }

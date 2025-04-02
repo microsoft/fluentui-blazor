@@ -13,7 +13,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// FluentSlider component, a slider control that allows users to select from a range of values.    
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public partial class FluentSlider<TValue> : FluentInputBase<TValue> where TValue : struct, IComparable<TValue>
+public partial class FluentSlider<TValue> : FluentInputBase<TValue>, ITooltipComponent
+    where TValue : struct, IComparable<TValue>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentSlider{TValue}"/> class.
@@ -70,10 +71,20 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue> where TValue
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
-    /// If you add content that is NOT part of `slot="thumb"` section, it will be ignored.
+    /// If you add content that is NOT part of `slot="@FluentSlot.Thumb"` section, it will be ignored.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     /// <summary>
     /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.

@@ -17,6 +17,16 @@ Hover or focus the buttons in the examples to see their tooltips.
 
 {{ TooltipDefault }}
 
+## Tooltip parameter
+
+To simplify the use of the tooltip, you can set the `Tooltip` parameter on any component that supports it.
+
+{{ TooltipParameter }}
+
+The components which support the `Tooltip` parameter are: 
+
+{{ TooltipParameterListOfComponents  SourceCode=false }}
+
 ## Customized
 The tooltip can be customized with a custom template,
 adapting the delay to `700 ms`, the position of the tooltip to `BelowStart` (including spacings to `20px` and `10px`)

@@ -4,6 +4,7 @@
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -63,6 +64,8 @@ public static class EnumExtensions
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
+    [SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
+                     Justification = "In the context of the Enum, the 'Display' attribute will not be trimmed.")]
     public static string GetDescription(this Enum value)
     {
         var memberInfo = value.GetType().GetMember(value.ToString());
@@ -84,6 +87,8 @@ public static class EnumExtensions
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
+    [SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
+                     Justification = "In the context of the Enum, the 'Display' attribute will not be trimmed.")]
     public static string GetDisplay(this Enum value)
     {
         var memberInfo = value.GetType().GetMember(value.ToString());
@@ -109,6 +114,7 @@ public static class EnumExtensions
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
+    [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public static bool IsObsolete(this Enum value)
     {
         var memberInfo = value.GetType().GetMember(value.ToString());

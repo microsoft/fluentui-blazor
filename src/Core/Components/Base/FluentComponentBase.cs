@@ -2,10 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -17,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFluentComponentBase
 {
     private FluentJSModule? _jsModule;
-    private readonly ConcurrentDictionary<Type, object> _services = new();
+    private CachedServices? _cachedServices;
 
     [Inject]
     private IServiceProvider ServiceProvider { get; set; } = default!;
@@ -86,7 +84,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
-        _services.Clear();
+        _cachedServices?.Dispose();
         await JSModule.DisposeAsync();
     }
 
@@ -98,7 +96,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     protected virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
-        _services.Clear();
+        _cachedServices?.Dispose();
         await JSModule.DisposeAsync(jsModule);
     }
 
@@ -108,21 +106,12 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// </summary>
     /// <typeparam name="T">The type of service object to get.</typeparam>
     /// <returns></returns>
-    protected virtual T? GetCachedServiceOrNull<T>()
-    {
-        if (_services.ContainsKey(typeof(T)))
-        {
-            return (T)_services[typeof(T)];
-        }
+    protected virtual T? GetCachedServiceOrNull<T>() => (_cachedServices ??= new CachedServices(ServiceProvider)).GetCachedServiceOrNull<T>();
 
-        var service = ServiceProvider.GetService<T>();
-
-        if (service is null)
-        {
-            return default;
-        }
-
-        _services.TryAdd(typeof(T), service);
-        return service;
-    }
+    /// <summary>
+    /// Renders the label in a FluentTooltipProvider.
+    /// </summary>
+    /// <param name="label"></param>
+    /// <returns></returns>
+    protected Task RenderTooltipAsync(string? label) => (_cachedServices ??= new CachedServices(ServiceProvider)).RenderTooltipAsync(this, label);
 }

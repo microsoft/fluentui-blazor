@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -18,6 +19,9 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     /// </summary>
     /// <param name="serviceProvider">List of services available in the application.</param>
     /// <param name="localizer">Localizer for the application.</param>
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogInstance))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IDialogInstance))]
     public DialogService(IServiceProvider serviceProvider, IFluentLocalizer? localizer)
     {
         _serviceProvider = serviceProvider;
@@ -46,7 +50,7 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogOptions)"/>
-    public virtual async Task<DialogResult> ShowDialogAsync(Type componentType, DialogOptions options)
+    public virtual async Task<DialogResult> ShowDialogAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, DialogOptions options)
     {
         if (!componentType.IsSubclassOf(typeof(ComponentBase)))
         {
@@ -68,26 +72,26 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync{TDialog}(DialogOptions)"/>
-    public Task<DialogResult> ShowDialogAsync<TDialog>(DialogOptions options) where TDialog : ComponentBase
+    public Task<DialogResult> ShowDialogAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(DialogOptions options) where TDialog : ComponentBase
     {
         return ShowDialogAsync(typeof(TDialog), options);
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync{TDialog}(Action{DialogOptions})"/>
-    public Task<DialogResult> ShowDialogAsync<TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
+    public Task<DialogResult> ShowDialogAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
     {
         return ShowDialogAsync(typeof(TDialog), new DialogOptions(options));
     }
 
     /// <inheritdoc cref="IDialogService.ShowDrawerAsync{TDialog}(DialogOptions)"/>
-    public Task<DialogResult> ShowDrawerAsync<TDialog>(DialogOptions options) where TDialog : ComponentBase
+    public Task<DialogResult> ShowDrawerAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(DialogOptions options) where TDialog : ComponentBase
     {
         options.Alignment ??= DialogAlignment.End;
         return ShowDialogAsync(typeof(TDialog), options);
     }
 
     /// <inheritdoc cref="IDialogService.ShowDrawerAsync{TDialog}(Action{DialogOptions})"/>
-    public Task<DialogResult> ShowDrawerAsync<TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
+    public Task<DialogResult> ShowDrawerAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
     {
         var dialogOptions = new DialogOptions(options);
         dialogOptions.Alignment ??= DialogAlignment.End;

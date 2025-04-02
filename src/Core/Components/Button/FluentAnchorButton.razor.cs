@@ -9,8 +9,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A FluentUI AnchorButton component.
 /// </summary>
-public partial class FluentAnchorButton : FluentComponentBase
+public partial class FluentAnchorButton : FluentComponentBase, ITooltipComponent
 {
+    private bool EmptyContent => ChildContent is null && Label is null;
+
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
@@ -137,4 +139,14 @@ public partial class FluentAnchorButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 }

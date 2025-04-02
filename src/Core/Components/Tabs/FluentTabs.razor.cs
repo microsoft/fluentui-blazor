@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -16,6 +17,8 @@ public partial class FluentTabs: FluentComponentBase
     private ConcurrentDictionary<string, FluentTab> Tabs { get; } = new(StringComparer.Ordinal);
 
     /// <summary />
+    [DynamicDependency(nameof(TabChangeHandlerAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TabChangeEventArgs))]
     public FluentTabs()
     {
         Id = Identifier.NewId();
