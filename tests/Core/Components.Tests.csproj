@@ -59,9 +59,6 @@
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).razor</DependentUpon>
     </None>
-    <None Update="Components\Spacer\FluentSpacerTests.FluentSpacer_Width.verified.razor.html">
-      <DependentUpon>FluentSpacerTests.razor</DependentUpon>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
