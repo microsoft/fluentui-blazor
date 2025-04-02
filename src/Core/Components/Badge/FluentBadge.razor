@@ -18,13 +18,13 @@
                   @attributes="@AdditionalAttributes">
         @if (IconStart != null)
         {
-            <FluentIcon Value="@IconStart" Slot="@(Content is null ? null : "start")" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+            <FluentIcon Value="@IconStart" Slot="@(Content is null ? null : FluentSlot.Start)" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
 
         }
         @Content
         @if (IconEnd != null)
         {
-            <FluentIcon Value="@IconEnd" Slot="@(Content is null ? null : "end")" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+            <FluentIcon Value="@IconEnd" Slot="@(Content is null ? null : FluentSlot.End)" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
         }
     </fluent-badge>
 </AddTag>

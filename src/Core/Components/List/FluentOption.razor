@@ -13,6 +13,6 @@
     @ChildContent
     @if (!string.IsNullOrWhiteSpace(Description))
     {
-        <span slot="description">@Description</span>
+        <span slot="@FluentSlot.Description">@Description</span>
     }
 </fluent-option>

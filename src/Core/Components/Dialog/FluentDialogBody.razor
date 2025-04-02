@@ -12,17 +12,17 @@
     @* Header Title *@
     @if (TitleTemplate is not null)
     {
-        <div slot="title">@TitleTemplate</div>
+        <div slot="@FluentSlot.DialogTitle">@TitleTemplate</div>
     }
     else if (!string.IsNullOrEmpty(Instance?.Options.Header.Title))
     {
-        <div slot="title">@((MarkupString)(Instance.Options.Header.Title))</div>
+        <div slot="@FluentSlot.DialogTitle">@((MarkupString)(Instance.Options.Header.Title))</div>
     }
 
     @* Header Action *@
     @if (TitleActionTemplate is not null)
     {
-        <div slot="@(IsDrawer() ? "close" : "title-action")">@TitleActionTemplate</div>
+        <div slot="@(IsDrawer() ? FluentSlot.DialogClose : FluentSlot.DialogTitleAction)">@TitleActionTemplate</div>
     }
 
     @* Content *@
@@ -34,11 +34,11 @@
     @* Footer *@
     @if (ActionTemplate is not null)
     {
-        <div slot="@(IsDrawer() ? "footer" : "action")">@ActionTemplate</div>
+        <div slot="@(IsDrawer() ? FluentSlot.DialogFooter : FluentSlot.DialogAction)">@ActionTemplate</div>
     }
     else if (Instance?.Options.Footer.HasActions == true)
     {
-        <div slot="@(IsDrawer() ? "footer" : "action")">
+        <div slot="@(IsDrawer() ? FluentSlot.DialogFooter : FluentSlot.DialogAction)">
 
             @foreach (var action in Instance.Options.Footer.GetActions())
             {

@@ -25,18 +25,18 @@
                       aria-label="@Title"
                       title="@Title"
                       appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
-                      slot="@(Menu != null ? "trigger" : null)"
+                      slot="@(Menu != null ? @FluentSlot.Trigger : null)"
                       @onclick="@OnClickHandlerAsync"
                       @onclick:stopPropagation="@StopPropagation"
                       @attributes="@AdditionalAttributes">
     @if (IconStart != null)
     {
-        <FluentIcon Value="@IconStart" Slot="@((EmptyContent) ? null : "start")" />
+        <FluentIcon Value="@IconStart" Slot="@((EmptyContent) ? null : FluentSlot.Start)" />
     }
     @Label
     @ChildContent
     @if (IconEnd != null)
     {
-        <FluentIcon Value="@IconEnd" Slot="@((EmptyContent) ? null : "end")" />
+        <FluentIcon Value="@IconEnd" Slot="@((EmptyContent) ? null : FluentSlot.End)" />
     }
 </fluent-menu-button>

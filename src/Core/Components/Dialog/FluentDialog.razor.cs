@@ -223,8 +223,8 @@ public partial class FluentDialog : FluentComponentBase
 
             return alignment switch
             {
-                DialogAlignment.Start => "start",
-                DialogAlignment.End => "end",
+                DialogAlignment.Start => FluentSlot.Start,
+                DialogAlignment.End => FluentSlot.End,
                 _ => null
             };
         }

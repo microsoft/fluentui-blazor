@@ -46,7 +46,7 @@
     {
         // Arrange & Act
         var icon = new Icons.Samples.Info();
-        var cut = Render(@<FluentIcon Value="@icon" Slot="start" Title="My title" />);
+        var cut = Render(@<FluentIcon Value="@icon" Slot="@FluentSlot.Start" Title="My title" />);
 
         // Assert
         cut.Verify();
