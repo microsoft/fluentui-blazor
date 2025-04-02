@@ -111,10 +111,8 @@ public class ComponentBaseTests : TestContext
         Assert.True(errors.Length == 0, errors.ToString());
     }
 
-    [Theory]
-    [InlineData(null)]
-    [InlineData("my-id")]
-    public void ComponentBase_TooltipInterface_CorrectRendering(string? id)
+    [Fact]
+    public void ComponentBase_TooltipInterface_CorrectRendering()
     {
         var errors = new StringBuilder();
 
@@ -136,8 +134,8 @@ public class ComponentBaseTests : TestContext
                     parameters.Add(p => p.Parameters, DictionaryExtensions.Union(
                         new Dictionary<string, object>
                         {
-                            { "Id", id ?? "" },
-                            { "Tooltip", "My tooltip" },
+                            { "Id", $"id-{type.Name}" },
+                            { "Tooltip", $"My tooltip {type.Name}" },
                         },
                         ComponentInitializer.ContainsKey(componentType) ? ComponentInitializer[componentType].RequiredParameters : null
                     ));
@@ -147,7 +145,7 @@ public class ComponentBaseTests : TestContext
 
             // Assert
             
-            var isMatch = Regex.IsMatch(renderedComponent.Markup, "<fluent-tooltip .+><text>My tooltip<\\/text><\\/fluent-tooltip>");
+            var isMatch = Regex.IsMatch(renderedComponent.Markup, $"<fluent-tooltip .+><text>My tooltip {type.Name}<\\/text><\\/fluent-tooltip>");
 
             Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
 

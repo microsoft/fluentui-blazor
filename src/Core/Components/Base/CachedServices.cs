@@ -51,11 +51,11 @@ internal class CachedServices : IDisposable
         return service;
     }
 
+    public ITooltipService? TooltipService => GetCachedServiceOrNull<ITooltipService>();
+
     /// <summary />
     public async Task RenderTooltipAsync(IFluentComponentBase component, string? label)
     {
-        var TooltipService = GetCachedServiceOrNull<ITooltipService>();
-
         if (TooltipService is null || string.IsNullOrEmpty(label))
         {
             return;
