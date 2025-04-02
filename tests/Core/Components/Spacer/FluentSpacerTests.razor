@@ -1,0 +1,27 @@
+﻿@using AngleSharp.Css.Dom
+@using Xunit;
+@inherits TestContext
+
+@code {
+    [Fact]
+    public void FluentSpacer_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSpacer />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSpacer_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSpacer Width="50" />);
+
+        // Assert
+        cut.Verify();
+        var width = cut.Find("span").GetStyle()["margin-inline-start"];
+        Assert.Equal("50px", width);
+    }
+}

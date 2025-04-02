@@ -1,0 +1,14 @@
+﻿<div style="display: flex; width=100%">
+    <FluentIcon Value="@(new Icons.Filled.Size48.Alert())" Color="@Color.Neutral" />
+    <FluentSpacer Width="@Width" />
+    <FluentIcon Value="@(new Icons.Filled.Size48.Alert())" />
+    <FluentSpacer Width="@Width" />
+    <FluentIcon Value="@(new Icons.Filled.Size48.Alert())" Color="@Color.Warning" />
+    <FluentSpacer Width="@Width" />
+    <FluentIcon Value="@(new Icons.Filled.Size48.Alert())" Color="@Color.Info" />
+</div>
+
+
+@code{
+    int Width { get; set; } = 50;
+}
