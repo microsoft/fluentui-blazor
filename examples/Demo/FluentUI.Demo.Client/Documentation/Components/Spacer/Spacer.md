@@ -17,3 +17,6 @@ If specifying the width parameters in pixels, the spacer will be a <span> elemen
 
 {{ SpacerWidth }}
 
+##  API FluentSpacer
+
+{{ API Type=FluentSpacer }}
