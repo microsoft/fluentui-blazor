@@ -39,6 +39,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Components.IntegrationTests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Demo.DocApiGen", "examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj", "{D52F6265-A983-46E0-8831-67FA80D95FBE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Samples.WasmStandalone", "examples\Samples\FluentUI.Samples.WasmStandalone\FluentUI.Samples.WasmStandalone.csproj", "{EB38AC75-966B-41BB-A1C5-0CAFE17FE3D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +94,10 @@ Global
 		{D52F6265-A983-46E0-8831-67FA80D95FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D52F6265-A983-46E0-8831-67FA80D95FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D52F6265-A983-46E0-8831-67FA80D95FBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB38AC75-966B-41BB-A1C5-0CAFE17FE3D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB38AC75-966B-41BB-A1C5-0CAFE17FE3D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB38AC75-966B-41BB-A1C5-0CAFE17FE3D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB38AC75-966B-41BB-A1C5-0CAFE17FE3D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +117,8 @@ Global
 		{E67B08B6-AEE4-4281-8700-1C87A5A3C11E} = {B98A7516-E9B2-4301-B6A3-33656BF4F4D9}
 		{F380FA22-53D8-4381-B89B-4047AF544D53} = {A7EC98D2-21E3-4967-8C5A-D62E640305EB}
 		{D52F6265-A983-46E0-8831-67FA80D95FBE} = {B98A7516-E9B2-4301-B6A3-33656BF4F4D9}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {F273876F-7528-42B3-BFE8-7CFF8ED1E2A2}
+		{EB38AC75-966B-41BB-A1C5-0CAFE17FE3D5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {44D95FF7-AEBE-41FB-9D40-CF1E09ADC6BC}

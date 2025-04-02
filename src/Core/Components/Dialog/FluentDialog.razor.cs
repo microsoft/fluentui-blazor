@@ -17,6 +17,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDialog : FluentComponentBase
 {
     /// <summary />
+    [DynamicDependency(nameof(OnToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
     public FluentDialog()
     {
         Id = Identifier.NewId();

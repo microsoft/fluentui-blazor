@@ -10,10 +10,18 @@ using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
+public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>, ITooltipComponent
 {
     // List of items rendered with an ID to retrieve the element by ID.
     private Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
+
+    /// <summary />
+    [DynamicDependency(nameof(OnDropdownChangeHandlerAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DropdownEventArgs))]
+    protected FluentListBase()
+    {
+        
+    }
 
     /// <summary>
     /// Gets or sets the width of the component.
@@ -88,6 +96,16 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// </summary>
     [Parameter]
     public virtual Func<TOption?, bool>? OptionDisabled { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     /// <summary />
     internal string? AddOption(FluentOption option)

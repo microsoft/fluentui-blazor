@@ -11,9 +11,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A Menu component for handling menus and menu items in a user interface.
 /// </summary>
-public partial class FluentMenu : FluentComponentBase
+public partial class FluentMenu : FluentComponentBase, ITooltipComponent
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Menu/FluentMenu.razor.js";
+
+    /// <summary>
+    /// Constructs a new instance of <see cref="FluentMenu"/>.
+    /// Sets the Id to a new random value
+    /// </summary>
+    public FluentMenu()
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -79,13 +88,14 @@ public partial class FluentMenu : FluentComponentBase
     [Parameter]
     public EventCallback<MenuItemEventArgs> OnCheckedChanged { get; set; }
 
-    /// <summary>
-    /// Constructs a new instance of <see cref="FluentMenu"/>.
-    /// Sets the Id to a new random value
-    /// </summary>
-    public FluentMenu()
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
     {
-        Id = Identifier.NewId();
+        await base.RenderTooltipAsync(Tooltip);
     }
 
     /// <summary />

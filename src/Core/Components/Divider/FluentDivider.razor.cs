@@ -8,7 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// FluentDivider component
 /// </summary>
-public partial class FluentDivider : FluentComponentBase
+public partial class FluentDivider : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -47,6 +47,16 @@ public partial class FluentDivider : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     private string? Orientation
         => Vertical.HasValue

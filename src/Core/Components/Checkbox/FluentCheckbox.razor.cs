@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// The FluentCheckbox component is used to render a checkbox input
 /// </summary>
-public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentElementBase
+public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentElementBase, ITooltipComponent
 {
     /// <summary>
     ///
@@ -76,6 +76,10 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     [Parameter]
     public EventCallback<bool?> CheckStateChanged { get; set; }
 
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
     /// <summary>
     /// Handler for the OnFocus event.
     /// </summary>
@@ -91,6 +95,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        await base.RenderTooltipAsync(Tooltip);
 
         if (ThreeState && CheckState.HasValue)
         {

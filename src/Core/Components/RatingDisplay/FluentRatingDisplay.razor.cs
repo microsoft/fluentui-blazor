@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Visual representation of content being loaded or processed.
 /// </summary>
-public partial class FluentRatingDisplay : FluentComponentBase
+public partial class FluentRatingDisplay : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -63,4 +63,14 @@ public partial class FluentRatingDisplay : FluentComponentBase
     /// </summary>
     [Parameter]
     public double? Value { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 }

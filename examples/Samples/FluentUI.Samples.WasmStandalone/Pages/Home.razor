@@ -1,0 +1,19 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentLabel Size="LabelSize.Large">Counter page</FluentLabel>
+    <FluentButton Appearance="ButtonAppearance.Primary"OnClick="@Increment">Increment</FluentButton>
+    <FluentLabel>Value = @Value</FluentLabel>
+</FluentStack>
+
+@code
+{
+    int Value = 0;
+
+    void Increment()
+    {
+        Value++;
+    }
+}

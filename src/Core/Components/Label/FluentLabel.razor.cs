@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// The FluentLabel component is used to display a label for an input component. Normally it is positioned above the component
 /// </summary>
-public partial class FluentLabel
+public partial class FluentLabel : FluentComponentBase, ITooltipComponent
 {
 
     /// <summary />
@@ -49,4 +49,14 @@ public partial class FluentLabel
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 }

@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// FluentText component, codifies Fluent's opinions on typography to make them easy to use and standardize across products.
 /// </summary>
-public partial class FluentText : FluentComponentBase
+public partial class FluentText : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -106,6 +106,16 @@ public partial class FluentText : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     /// <summary />
     protected override void OnParametersSet()

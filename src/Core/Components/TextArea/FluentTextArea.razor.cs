@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A textarea component that allows users to enter and edit a single line of text.
 /// </summary>
-public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluentComponentElementBase
+public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent
 {
 
     /// <summary>
@@ -92,6 +92,16 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     /// </summary>
     [Parameter]
     public bool? Spellcheck { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
     protected override async Task OnAfterRenderAsync(bool firstRender)
