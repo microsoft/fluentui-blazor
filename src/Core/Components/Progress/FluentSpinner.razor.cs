@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A spinner alerts a user that content is being loaded or processed and they should wait for the activity to complete.
 /// </summary>
-public partial class FluentSpinner : FluentComponentBase
+public partial class FluentSpinner : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -36,6 +36,16 @@ public partial class FluentSpinner : FluentComponentBase
     /// </summary>
     [Parameter]
     public SpinnerSize? Size { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     /// <summary>
     /// Gets or sets the stroke width of the progress bar.

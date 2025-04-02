@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A FluentTabs allows people to switch between categories of related information without going to different pages
 /// </summary>
-public partial class FluentTab : FluentComponentBase
+public partial class FluentTab : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
     public FluentTab()
@@ -85,9 +85,15 @@ public partial class FluentTab : FluentComponentBase
     [Parameter]
     public bool Visible { get; set; } = true;
 
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
+        await base.RenderTooltipAsync(Tooltip);
+
         if (Owner is not null)
         {
             await Owner.AddTabAsync(this);
