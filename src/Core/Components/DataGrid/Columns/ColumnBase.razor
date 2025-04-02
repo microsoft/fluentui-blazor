@@ -17,7 +17,7 @@
         {
             string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
 
-            <FluentKeyCode Only="new [] { KeyCode.Ctrl, KeyCode.Enter}" OnKeyDown="HandleKeyDown" class="keycapture" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+            <FluentKeyCode Only="new[] { KeyCode.Ctrl, KeyCode.Enter }" OnKeyDown="HandleKeyDown" class="keycapture" style="width: 100%;"  StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
 
                 @if (AnyColumnActionEnabled)
                 {
