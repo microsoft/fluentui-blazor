@@ -125,4 +125,32 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
         _services.TryAdd(typeof(T), service);
         return service;
     }
+
+    /// <summary>
+    /// Gets or sets the injected service provider.
+    /// </summary>
+    /// <remarks>
+    /// We cannot inject `ITooltipService` directly, as an exception will be thrown if the service is not injected.
+    /// https://github.com/dotnet/aspnetcore/issues/24193
+    /// </remarks>
+    private ITooltipService? TooltipService => GetCachedServiceOrNull<ITooltipService>();
+    
+    /// <summary />
+    protected async Task RenderTooltipAsync(string? label)
+    {
+        if (TooltipService is null || string.IsNullOrEmpty(label))
+        {
+            return;
+        }
+
+        if (string.IsNullOrEmpty(Id))
+        {
+            Id = Identifier.NewId();
+        }
+
+        var tooltip = new FluentTooltip(anchor: Id, $"<text>{label}</text>");
+
+        TooltipService.Items.TryAdd(Id, tooltip);
+        await TooltipService.OnUpdatedAsync.Invoke(tooltip);
+    }
 }
