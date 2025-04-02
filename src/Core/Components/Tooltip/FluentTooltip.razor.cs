@@ -26,6 +26,16 @@ public partial class FluentTooltip : FluentComponentBase
     }
 
     /// <summary />
+    internal FluentTooltip(string anchor, string? label) : this()
+    {
+        Anchor = anchor;
+        ChildContent = builder =>
+        {
+            builder.AddMarkupContent(0, label);
+        };
+    }
+
+    /// <summary />
     internal string? ClassValue => DefaultClassBuilder
         .Build();
 

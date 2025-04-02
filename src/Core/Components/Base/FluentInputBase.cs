@@ -2,11 +2,11 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using System.Diagnostics.CodeAnalysis;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,9 +16,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// as a cascading parameter.
 /// </summary>
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
-public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField
+public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField, IAsyncDisposable
 {
     private FluentJSModule? _jsModule;
+    private CachedServices? _cachedServices;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentInputBase{TValue}"/> class.
@@ -27,6 +28,9 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     {
         ValueExpression = () => CurrentValueOrDefault;
     }
+
+    [Inject]
+    private IServiceProvider ServiceProvider { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -209,6 +213,45 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
         return (AriaLabel ?? Label ?? string.Empty) +
                (Required == true ? $", {Localizer["FluentInputBase_Required"]}" : string.Empty);
     }
+
+    /// <summary>
+    /// Dispose the <see cref="JSModule"/> object.
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    [ExcludeFromCodeCoverage]
+    public virtual async ValueTask DisposeAsync()
+    {
+        _cachedServices?.Dispose();
+        await JSModule.DisposeAsync();
+    }
+
+    /// <summary>
+    /// Dispose the <paramref name="jsModule"/> object.
+    /// </summary>
+    /// <param name="jsModule"></param>
+    /// <returns></returns>
+    [ExcludeFromCodeCoverage]
+    protected virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
+    {
+        _cachedServices?.Dispose();
+        await JSModule.DisposeAsync(jsModule);
+    }
+
+    /// <summary>
+    /// Get service of type <typeparamref name="T"/> from the <see cref="IServiceProvider"/> or null if not found.
+    /// Keep in mind that this method will cache the service in the component memory for future use.
+    /// </summary>
+    /// <typeparam name="T">The type of service object to get.</typeparam>
+    /// <returns></returns>
+    protected virtual T? GetCachedServiceOrNull<T>() => (_cachedServices ??= new CachedServices(ServiceProvider)).GetCachedServiceOrNull<T>();
+
+    /// <summary>
+    /// Renders the label in a FluentTooltipProvider.
+    /// </summary>
+    /// <param name="label"></param>
+    /// <returns></returns>
+    protected Task RenderTooltipAsync(string? label) => (_cachedServices ??= new CachedServices(ServiceProvider)).RenderTooltipAsync(this, label);
 
     #endregion
 }

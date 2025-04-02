@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Visual representation of content being loaded or processed.
 /// </summary>
-public partial class FluentProgressBar : FluentComponentBase
+public partial class FluentProgressBar : FluentComponentBase, ITooltipComponent
 {
     private readonly string _defaultId = Identifier.NewId();
 
@@ -95,6 +95,16 @@ public partial class FluentProgressBar : FluentComponentBase
     /// </summary>
     [Parameter]
     public ProgressThickness? Thickness { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     /// <summary />
     private string? GetThicknessAttribute()

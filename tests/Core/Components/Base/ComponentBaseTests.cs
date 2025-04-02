@@ -5,6 +5,7 @@
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
@@ -104,6 +105,93 @@ public class ComponentBaseTests : TestContext
             {
                 var error = $"\"{componentType.Name}\" does not use the \"{blazorAttribute.Name}\" property/attribute (missing HTML attribute {htmlAttribute.Name}=\"{htmlAttribute.Value}\").";
                 errors.AppendLine(error);
+            }
+        }
+
+        Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    [Fact]
+    public void ComponentBase_TooltipInterface_CorrectRendering()
+    {
+        var errors = new StringBuilder();
+
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<ITooltipComponent>(except: Excluded))
+        {
+            // Convert to generic type if needed
+            var type = ComponentInitializer.ContainsKey(componentType)
+                     ? ComponentInitializer[componentType].ComponentType(componentType)
+                     : componentType;
+
+            // Arrange and Act
+            var renderedComponent = RenderComponent<FluentStack>(stack =>
+            {
+                stack.AddChildContent<DynamicComponent>(parameters =>
+                {
+                    parameters.Add(p => p.Type, type);
+                    parameters.Add(p => p.Parameters, DictionaryExtensions.Union(
+                        new Dictionary<string, object>
+                        {
+                            { "Id", $"id-{type.Name}" },
+                            { "Tooltip", $"My tooltip {type.Name}" },
+                        },
+                        ComponentInitializer.ContainsKey(componentType) ? ComponentInitializer[componentType].RequiredParameters : null
+                    ));
+                });
+                stack.AddChildContent<FluentTooltipProvider>();
+            });
+
+            // Assert
+            
+            var isMatch = Regex.IsMatch(renderedComponent.Markup, $"<fluent-tooltip .+><text>My tooltip {type.Name}<\\/text><\\/fluent-tooltip>");
+
+            Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
+
+            if (!isMatch)
+            {
+                var error = $"\"{componentType.Name}\" does not correctly implement the \"Tooltip\" parameter.";
+                errors.AppendLine(error);
+            }
+        }
+
+        Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    [Fact]
+    public void ComponentBase_TooltipInterface_NotImplemented()
+    {
+        var errors = new StringBuilder();
+
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded))
+        {
+            // Check if the component contains a Tooltip property but without implementing the ITooltipComponent interface
+            var hasTooltipProperty = componentType.GetProperty("Tooltip", BindingFlags.Public | BindingFlags.Instance) != null;
+            var isImplementingTooltipComponent = typeof(ITooltipComponent).IsAssignableFrom(componentType);
+            var hasTooltipParameterAttribute = componentType.GetProperty("Tooltip", BindingFlags.Public | BindingFlags.Instance)?.GetCustomAttribute<ParameterAttribute>() != null;
+
+            if (hasTooltipProperty && !isImplementingTooltipComponent)
+            {
+                Output.WriteLine($"❌ {componentType.Name}");
+
+                var error = $"\"{componentType.Name}\" contains the \"Tooltip\" property but does not implement the \"ITooltipComponent\" interface.";
+                errors.AppendLine(error);
+            }
+
+            else if (hasTooltipProperty && !hasTooltipParameterAttribute)
+            {
+                Output.WriteLine($"❌ {componentType.Name}");
+
+                var error = $"\"{componentType.Name}.Tooltip\" property is not a Blazor [Parameter].";
+                errors.AppendLine(error);
+            }
+
+            else if (hasTooltipProperty)
+            {
+                Output.WriteLine($"✅ {componentType.Name}");
             }
         }
 

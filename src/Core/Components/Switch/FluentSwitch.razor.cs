@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A FluentSwitch component represents a physical switch that allows a choice between two mutually exclusive options.
 /// </summary>
-public partial class FluentSwitch : FluentInputBase<bool>
+public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentSwitch"/> class.
@@ -19,6 +19,16 @@ public partial class FluentSwitch : FluentInputBase<bool>
     public FluentSwitch()
     {
         LabelPosition = Components.LabelPosition.After;
+    }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
     }
 
     /// <summary>
