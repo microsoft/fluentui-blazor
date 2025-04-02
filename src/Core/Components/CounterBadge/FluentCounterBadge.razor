@@ -22,11 +22,11 @@
                           @attributes="@AdditionalAttributes">
         @if (IconStart != null)
         {
-            <FluentIcon Value="@IconStart" Slot="start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+            <FluentIcon Value="@IconStart" Slot="@FluentSlot.Start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
         }
         @if (IconEnd != null)
         {
-            <FluentIcon Value="@IconEnd" Slot="end" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+            <FluentIcon Value="@IconEnd" Slot="@FluentSlot.End" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
         }
     </fluent-counter-badge>
 

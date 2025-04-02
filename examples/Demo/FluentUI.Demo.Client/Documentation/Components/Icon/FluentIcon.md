@@ -38,7 +38,7 @@ in the color set with the `Color` parameter.
 
 A lot of the web components have named **slots** that declare locations in which content can be rendered.
 `FluentIcon` leverages this capability through its `Slot` parameter. With this you can for
-example render the icon **in front** (`Slot="start"`) or **after** (`Slot="end"`) a label in a `FluentButton` component.
+example render the icon **in front** (`Slot="@FluentSlot.Start"`) or **after** (`Slot="@FluentSlot.End"`) a label in a `FluentButton` component.
 
 {{ IconDefault }}
 

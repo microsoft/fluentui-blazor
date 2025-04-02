@@ -67,9 +67,9 @@ A slider comes in both medium and small size. Medium is the default.
 
 The slider's thumb can be customized with any HTML element (e.g. an icon).
 Simply add your element as a child of the **FluentSlider** component with the
-`Slot="thumb"` attribute.
+`Slot="@FluentSlot.Thumb"` attribute.
 
-If you add content that is **not part** of `Slot="thumb"`, it will be ignored.
+If you add content that is **not part** of `Slot="@FluentSlot.Thumb"`, it will be ignored.
 
 {{ SliderThumbs }}
 

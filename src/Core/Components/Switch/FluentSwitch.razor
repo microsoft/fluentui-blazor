@@ -15,6 +15,6 @@
                    @onfocusout="@FocusOutHandlerAsync"
                    @attributes="AdditionalAttributes"
                    @onchange="@OnSwitchChangedHandler"
-                   slot="input"
+                   slot="@FluentSlot.FieldInput"
                    tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)" />
 </FluentField>

@@ -278,7 +278,7 @@
     public void FluentAvatar_Slot()
     {
         // Arrange & Act
-        var cut = Render(@<FluentAvatar Slot="start" Size="AvatarSize.Size24" />);
+        var cut = Render(@<FluentAvatar Slot="@FluentSlot.Start" Size="AvatarSize.Size24" />);
 
         // Assert
         cut.Verify();

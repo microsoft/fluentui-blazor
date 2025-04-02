@@ -20,16 +20,16 @@
                         @attributes="@AdditionalAttributes">
     @if (IconStart != null)
     {
-        <FluentIcon Value="@IconStart" Slot="@((ChildContent is null && Label is null) ? null : "start")" />
+        <FluentIcon Value="@IconStart" Slot="@((ChildContent is null && Label is null) ? null : FluentSlot.Start)" />
     }
     @Label
     @ChildContent
     @if (!IconOnly)
     {
-        <span slot="description">@Description</span>
+        <span slot="@FluentSlot.Description">@Description</span>
     }
     @if (IconEnd != null)
     {
-        <FluentIcon Value="@IconEnd" Slot="@((ChildContent is null && Label is null) ? null : "end")" />
+        <FluentIcon Value="@IconEnd" Slot="@((ChildContent is null && Label is null) ? null : FluentSlot.End)" />
     }
 </fluent-compound-button>
