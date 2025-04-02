@@ -22,9 +22,8 @@ public partial class FluentSplitButton : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
-        .AddStyle("background-color", BackgroundColor, when: () => !string.IsNullOrEmpty(BackgroundColor))
-        .AddStyle("color", Color, when: () => !string.IsNullOrEmpty(Color))
-        .Build();
+       .AddStyle("--menu-max-height", Height, when: !string.IsNullOrEmpty(Height))
+       .Build();
 
     /// <summary>
     /// Gets or sets the shape of the button.
@@ -102,12 +101,6 @@ public partial class FluentSplitButton : FluentComponentBase
     public string? Label { get; set; }
 
     /// <summary>
-    /// Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
-    /// </summary>
-    [Parameter]
-    public bool StopPropagation { get; set; } = false;
-
-    /// <summary>
     /// Gets or sets the max height of the menu, e.g. 300px
     /// </summary>
     [Parameter]
@@ -136,15 +129,4 @@ public partial class FluentSplitButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<MenuItemEventArgs> OnMenuCheckedChanged { get; set; }
-
-    /// <summary />
-    protected async Task OnClickHandlerAsync(MouseEventArgs e)
-    {
-        if (OnClick.HasDelegate)
-        {
-            await OnClick.InvokeAsync(e);
-        }
-
-        await Task.CompletedTask;
-    }
 }

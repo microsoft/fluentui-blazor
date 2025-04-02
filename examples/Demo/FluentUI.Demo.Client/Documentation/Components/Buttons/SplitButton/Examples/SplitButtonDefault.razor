@@ -6,31 +6,41 @@
     @RenderMenuItems()
 </FluentSplitButton>
 
-<FluentSplitButton Appearance="ButtonAppearance.Primary"
+<FluentSplitButton OnClick="@ButtonClick"
+                   OnMenuClick="@MenuClick"
+                   Appearance="ButtonAppearance.Primary"
                    Title="Open menu"
                    Label="Primary">
     @RenderMenuItems()
 </FluentSplitButton>
 
-<FluentSplitButton Appearance="ButtonAppearance.Outline"
+<FluentSplitButton OnClick="@ButtonClick"
+                   OnMenuClick="@MenuClick"
+                   Appearance="ButtonAppearance.Outline"
                    Title="Open menu"
                    Label="Outline">
     @RenderMenuItems()
 </FluentSplitButton>
 
-<FluentSplitButton Appearance="ButtonAppearance.Subtle"
+<FluentSplitButton OnClick="@ButtonClick"
+                   OnMenuClick="@MenuClick"
+                   Appearance="ButtonAppearance.Subtle"
                    Title="Open menu"
                    Label="Subtle">
     @RenderMenuItems()
 </FluentSplitButton>
 
-<FluentSplitButton Appearance="ButtonAppearance.Transparent"
+<FluentSplitButton OnClick="@ButtonClick"
+                   OnMenuClick="@MenuClick"
+                   Appearance="ButtonAppearance.Transparent"
                    Title="Open menu"
                    Label="Transparent">
     @RenderMenuItems()
 </FluentSplitButton>
 
-<FluentSplitButton Title="Open menu"
+<FluentSplitButton OnClick="@ButtonClick"
+                   OnMenuClick="@MenuClick"
+                   Title="Open menu"
                    Label="Colored"
                    BackgroundColor="var(--highlight-bg)"
                    Color="var(--presence-busy)">

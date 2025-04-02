@@ -3,7 +3,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<FluentMenu Class="@ClassValue" Style="@StyleValue" OnClick="@OnMenuClick" OnCheckedChanged="@OnMenuCheckedChanged" split="true">
+<FluentMenu Id="@Id" Class="@ClassValue" Style="@StyleValue" OnClick="@OnMenuClick" OnCheckedChanged="@OnMenuCheckedChanged" split="true" @attributes=@AdditionalAttributes>
     <FluentButton IconStart="@IconStart"
                   IconOnly="@IconOnly"
                   Appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance)"
@@ -11,6 +11,7 @@
                   Size="@Size"
                   BackgroundColor="@BackgroundColor"
                   Color="@Color"
+                  Name="@Name"
                   OnClick="@OnClick"
                   slot="primary-action">
         @Label

@@ -33,3 +33,5 @@ ondropdownchange
 ondialogtoggle
 ondialogbeforetoggle
 myid
+menuclicked
+menuchecked
