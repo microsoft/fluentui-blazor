@@ -1,10 +1,11 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
 
-@if(Width is null)
-{
-    <div style="flex-grow: 1;" />
-}
-else
-{
-    <span style="margin-inline-start: @(Width)px;" />
-}
+<div style="@StyleValue"
+     class="@Class"
+     id="@Id"
+     @attributes="AdditionalAttributes"/>
+
+
+
+

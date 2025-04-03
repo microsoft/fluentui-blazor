@@ -1,14 +1,9 @@
-﻿<div style="display: flex; width=100%">
+﻿<FluentStack Width="100%">
     <FluentIcon Value="@(new Icons.Filled.Size48.Alert())" Color="@Color.Neutral" />
-    <FluentSpacer Width="@Width" />
+    <FluentSpacer Size="50px" />
     <FluentIcon Value="@(new Icons.Filled.Size48.Alert())" />
-    <FluentSpacer Width="@Width" />
+    <FluentSpacer Size="50px" />
     <FluentIcon Value="@(new Icons.Filled.Size48.Alert())" Color="@Color.Warning" />
-    <FluentSpacer Width="@Width" />
+    <FluentSpacer Size="50px" />
     <FluentIcon Value="@(new Icons.Filled.Size48.Alert())" Color="@Color.Info" />
-</div>
-
-
-@code{
-    int Width { get; set; } = 50;
-}
+</FluentStack>

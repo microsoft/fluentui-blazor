@@ -10,18 +10,30 @@
         var cut = Render(@<FluentSpacer />);
 
         // Assert
-        cut.Verify();
+        var flexGrow = cut.Find("div").GetStyle()["flex-grow"];
+        Assert.Equal("1", flexGrow);
     }
 
     [Fact]
-    public void FluentSpacer_Width()
+    public void FluentSpacer_Size()
     {
         // Arrange && Act
-        var cut = Render(@<FluentSpacer Width="50" />);
+        var cut = Render(@<FluentSpacer Size="50" />);
 
         // Assert
-        cut.Verify();
-        var width = cut.Find("span").GetStyle()["margin-inline-start"];
+        var width = cut.Find("div").GetStyle()["width"];
+        Assert.Equal("50px", width);
+    }
+
+    [Fact]
+    public void FluentSpacer_Vertical_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSpacer Size="50" Orientation="Orientation.Vertical"/>);
+
+        // Assert
+        // Assert
+        var width = cut.Find("div").GetStyle()["height"];
         Assert.Equal("50px", width);
     }
 }
