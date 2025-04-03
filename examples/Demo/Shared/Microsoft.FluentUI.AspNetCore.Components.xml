@@ -6030,9 +6030,6 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.KeyDownHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.OnParametersSet">
-            <summary />
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>

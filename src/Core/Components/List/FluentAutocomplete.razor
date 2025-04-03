@@ -6,6 +6,7 @@
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue"
          @attributes="AdditionalAttributes"
+         single-select="@GetSingleSelect()"
          auto-height="@(!string.IsNullOrEmpty(MaxAutoHeight))">
         <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" PreventDefaultOnly="@PreventOnly" />
 
