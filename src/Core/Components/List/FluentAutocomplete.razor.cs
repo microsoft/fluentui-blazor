@@ -519,7 +519,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         base.OnParametersSet();
 
         if (MaximumSelectedOptions == 1
-            && SelectedOptions?.Count() > 0
+            && (SelectedOptions?.Any() ?? false)
             && !(AdditionalAttributes?.TryGetValue("single-select", out var isSingleSelect) ?? false))
         {
             var additionalAttributes = (AdditionalAttributes is not null)
