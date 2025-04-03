@@ -153,7 +153,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
             }
             else
             {
-                await OnSelectedItemChangedHandlerAsync(item);
+                await InvokeAsync(async () => await OnSelectedItemChangedHandlerAsync(item));
             }
 
             if (Value != value)

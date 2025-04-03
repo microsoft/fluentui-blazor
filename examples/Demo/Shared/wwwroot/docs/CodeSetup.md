@@ -53,7 +53,7 @@ If you would later add interactivity, the Blazor script will kick in and try to 
 
 The styles used by FluentUI are included in the package. You normally don't need to do anything to include them in your project.
 
-If needed, you can add the following line to the `<head>`> section of your `index.html`, `_Layout.cshtml` or `App.razor` file in the
+If needed, you can add the following line to the `<head>` section of your `index.html`, `_Layout.cshtml` or `App.razor` file in the
 project you installed the package in:
 
 ```html

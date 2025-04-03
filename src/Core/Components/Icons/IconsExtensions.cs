@@ -17,6 +17,7 @@ public static partial class IconsExtensions
     /// Returns a new instance of the icon.
     /// </summary>
     /// <param name="icon">The <see cref="IconInfo"/> to instantiate.</param>
+    /// <param name="throwOnError">true to throw an exception if the type is not found (default); false to return null.</param>
     /// <remarks>
     /// This method requires dynamic access to code. This code may be removed by the trimmer.
     /// If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
@@ -25,7 +26,7 @@ public static partial class IconsExtensions
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="IconInfo.Name"/> is not found in predefined icons.</exception>
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
-    public static CustomIcon GetInstance(this IconInfo icon)
+    public static CustomIcon GetInstance(this IconInfo icon, bool? throwOnError = true)
     {
         var assemblyName = string.Format(LibraryName, icon.Variant);
         var assembly = GetAssembly(assemblyName);
@@ -49,7 +50,30 @@ public static partial class IconsExtensions
             }
         }
 
-        throw new ArgumentException($"Icon 'Icons.{icon.Variant}.Size{(int)icon.Size}.{icon.Name}' not found.");
+        if (throwOnError == true || throwOnError == null)
+        {
+            throw new ArgumentException($"Icon 'Icons.{icon.Variant}.Size{(int)icon.Size}.{icon.Name}' not found.");
+        }
+
+        return default!;
+    }
+
+    /// <summary>
+    /// Tries to return a new instance of the icon.
+    /// </summary>
+    /// <param name="icon">The <see cref="IconInfo"/> to instantiate.</param>
+    /// <param name="result">When this method returns, contains the <see cref="CustomIcon"/> value if the conversion succeeded, or null if the conversion failed. This parameter is passed uninitialized; any value originally supplied in result will be overwritten.</param>
+    /// <remarks>
+    /// This method requires dynamic access to code. This code may be removed by the trimmer.
+    /// If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
+    /// To avoid any issues, the assembly must be loaded before calling this method (e.g. adding an icon in your code).
+    /// </remarks>
+    /// <returns>True if the icon was found and created; otherwise, false.</returns>
+    [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
+    public static bool TryGetInstance(this IconInfo icon, out CustomIcon? result)
+    {
+        result = GetInstance(icon, throwOnError: false);
+        return result != null;
     }
 
     /// <summary>
