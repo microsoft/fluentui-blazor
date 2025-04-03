@@ -44,6 +44,10 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 
 {{ INCLUDE MigrationFluentLayout }}
 
+## FluentSpacer
+
+{{ INCLUDE MigrationFluentSpacer }}
+
 ## Migrate to v5 with help from GitHub Copilot chat
 
 {{ INCLUDE CopilotInstructionsContent }}
