@@ -1,0 +1,133 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+    public FluentSplitButtonTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSplitButton_Complete()
+    {
+        // Arrange
+        var clicked = false;
+        var menuclicked = false;
+        var menuchecked = false;
+        var label1 = "My normal menu Item";
+        var label2 = "My checked menu Item";
+        var item1 = new FluentMenuItem();
+        var item2 = new FluentMenuItem();
+        var a = new MenuItemEventArgs { Id = "myid1", Text = label1 };
+        var b = new MenuItemEventArgs { Id = "myid2", Text = label2, Checked = true };
+
+        var cut = Render(@<FluentSplitButton OnClick="@(e => { clicked = true; })" OnMenuClick="@(() => { menuclicked = true; })" OnMenuCheckedChanged="@(() => { menuchecked = true; })" Label="fluent-split-button">
+                <FluentMenuList>
+                    <FluentMenuItem Id="myid1" @ref=item1 @onmenuitemchange="@((args) => { a = args; })" OnClick="@(() => { })">
+                        @label1
+                    </FluentMenuItem>
+                    <FluentMenuItem Id="myid2" @ref=item2 Role="MenuItemRole.Checkbox" @onmenuitemchange="@((args) => { b = args; })" CheckedChanged="@(() => { })">
+                        @label2
+                    </FluentMenuItem>
+                </FluentMenuList>
+            </FluentSplitButton>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.True(clicked);
+
+        cut.Find("fluent-menu-item#myid1").TriggerEvent("onmenuitemchange", a);
+        Assert.True(menuclicked);
+
+        cut.Find("fluent-menu-item#myid2").TriggerEvent("onmenuitemchange", b);
+        Assert.True(menuchecked);
+
+    }
+
+    [Fact]
+    public void FluentSplitButton_IconStart()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitButton IconStart="@Samples.Icons.Info">My button</FluentSplitButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    // This should be enabled after the changes related to the menu-button web component are done
+    // [Fact]
+    // public void FluentSplitButton_IconToggle()
+    // {
+    //     // Arrange && Act
+    //     var cut = Render(@<FluentSplitButton IconToggle="@Samples.Icons.Info">My button</FluentSplitButton>);
+
+    //     // Assert
+    //     cut.Verify();
+    // }
+
+    [Theory]
+    [InlineData(ButtonAppearance.Default, "")]
+    [InlineData(ButtonAppearance.Primary, "primary")]
+    [InlineData(ButtonAppearance.Outline, "outline")]
+    [InlineData(ButtonAppearance.Transparent, "transparent")]
+    [InlineData(ButtonAppearance.Subtle, "subtle")]
+    [InlineData(null, "")]
+    [InlineData((ButtonAppearance)99, "")]
+    public void FluentSplitButton_Appearance(ButtonAppearance? appearance, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitButton Appearance="@appearance">fluent-button</FluentSplitButton>);
+
+        // Assert
+        var attribute = cut.Find("fluent-button").GetAttribute("appearance") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+
+    [Fact]
+    public void FluentSplitButton_OnClick()
+    {
+        // Arrange
+        var clicked = false;
+        var cut = Render(@<FluentSplitButton OnClick="@(e => { clicked = true; })">My button</FluentSplitButton>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.True(clicked);
+    }
+
+    [Theory]
+    [InlineData(ButtonSize.Small, "small")]
+    [InlineData(ButtonSize.Medium, "medium")]
+    [InlineData(ButtonSize.Large, "large")]
+    [InlineData(null, "")]
+    [InlineData((ButtonSize)99, "")]
+    public void FluentSplitButton_Size(ButtonSize? size, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitButton Size="@size">fluent-split-button</FluentSplitButton>);
+
+        // Assert
+        var attribute = cut.Find("fluent-button").GetAttribute("size") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentSplitButton_Name()
+    {
+        // Arrange && Act
+        var name = "buttonName";
+        var cut = Render(@<FluentSplitButton Name="@name">My button</FluentSplitButton>);
+
+        // Assert
+        var attribute = cut.Find("fluent-button").GetAttribute("name") ?? string.Empty;
+        Assert.Equal(name, attribute);
+    }
+}

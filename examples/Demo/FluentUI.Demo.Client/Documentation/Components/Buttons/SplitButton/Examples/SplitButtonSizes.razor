@@ -1,0 +1,30 @@
+﻿<FluentSplitButton Size="ButtonSize.Small"
+                   Title="Open menu"
+                   Label="Small">
+    @RenderMenuItems()
+</FluentSplitButton>
+
+<FluentSplitButton Size="ButtonSize.Medium"
+                   Title="Open menu"
+                   Label="Medium">
+    @RenderMenuItems()
+</FluentSplitButton>
+
+
+<FluentSplitButton Size="ButtonSize.Large"
+                   Title="Open menu"
+                   Label="Large">
+    @RenderMenuItems()
+</FluentSplitButton>
+
+@code
+{
+    RenderFragment RenderMenuItems() =>
+        @<FluentMenuList>
+        <FluentMenuItem>Menu item 1</FluentMenuItem>
+        <FluentMenuItem>Menu item 2</FluentMenuItem>
+        <FluentMenuItem>Menu item 3</FluentMenuItem>
+        <FluentMenuItem>Menu item 4</FluentMenuItem>
+    </FluentMenuList>;
+
+}
