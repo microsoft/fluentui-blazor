@@ -3,6 +3,13 @@
 @inherits TestContext
 
 @code {
+
+    public FluentSpacerTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
     [Fact]
     public void FluentSpacer_Default()
     {
@@ -18,7 +25,7 @@
     public void FluentSpacer_Size()
     {
         // Arrange && Act
-        var cut = Render(@<FluentSpacer Size="50" />);
+        var cut = Render(@<FluentSpacer Size="50px" />);
 
         // Assert
         var width = cut.Find("div").GetStyle()["width"];
@@ -29,7 +36,7 @@
     public void FluentSpacer_Vertical_Height()
     {
         // Arrange && Act
-        var cut = Render(@<FluentSpacer Size="50" Orientation="Orientation.Vertical"/>);
+        var cut = Render(@<FluentSpacer Size="50px" Orientation="Orientation.Vertical"/>);
 
         // Assert
         // Assert

@@ -17,9 +17,15 @@ public partial class FluentSpacer : FluentComponentBase
     [Parameter]
     public string? Size { get; set; }
 
-    /// <summary/>
+    /// <summary>
+    /// Specify the orientation of the parent container, which can be either horizontal or vertical.
+    /// </summary>
     [Parameter]
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
+
+    /// <summary/>
+    public string? ClassValue => DefaultClassBuilder
+        .Build();
 
     /// <summary/>
     protected string? StyleValue => DefaultStyleBuilder
@@ -27,5 +33,5 @@ public partial class FluentSpacer : FluentComponentBase
         .AddStyle("width", Size, when: () => !string.IsNullOrEmpty(Size) && Orientation == Orientation.Horizontal)
         .AddStyle("height", Size, when: () => !string.IsNullOrEmpty(Size) && Orientation == Orientation.Vertical)
         .Build();
-}
 
+}
