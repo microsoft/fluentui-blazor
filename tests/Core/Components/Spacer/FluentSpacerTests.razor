@@ -39,7 +39,6 @@
         var cut = Render(@<FluentSpacer Size="50px" Orientation="Orientation.Vertical"/>);
 
         // Assert
-        // Assert
         var width = cut.Find("div").GetStyle()["height"];
         Assert.Equal("50px", width);
     }
