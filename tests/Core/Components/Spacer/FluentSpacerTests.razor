@@ -18,7 +18,12 @@
 
         // Assert
         var flexGrow = cut.Find("div").GetStyle()["flex-grow"];
+        var width = cut.Find("div").GetStyle()["width"];
+        var height = cut.Find("div").GetStyle()["height"];
+
         Assert.Equal("1", flexGrow);
+        Assert.Empty(width);
+        Assert.Empty(height);
     }
 
     [Fact]
@@ -29,7 +34,12 @@
 
         // Assert
         var width = cut.Find("div").GetStyle()["width"];
+        var height = cut.Find("div").GetStyle()["height"];
+        var flexGrow = cut.Find("div").GetStyle()["flex-grow"];
+
         Assert.Equal("50px", width);
+        Assert.Empty(height);
+        Assert.Empty(flexGrow);
     }
 
     [Fact]
@@ -39,8 +49,13 @@
         var cut = Render(@<FluentSpacer Height="50px" Orientation="Orientation.Vertical"/>);
 
         // Assert
-        var width = cut.Find("div").GetStyle()["height"];
-        Assert.Equal("50px", width);
+        var height = cut.Find("div").GetStyle()["height"];
+        var flexGrow = cut.Find("div").GetStyle()["flex-grow"];
+        var width = cut.Find("div").GetStyle()["width"];
+
+        Assert.Equal("50px", height);
+        Assert.Empty(flexGrow);
+        Assert.Empty(width);
     }
 
     [Fact]
@@ -51,7 +66,12 @@
 
         // Assert
         var width = cut.Find("div").GetStyle()["width"];
+        var flexGrow = cut.Find("div").GetStyle()["flex-grow"];
+        var height = cut.Find("div").GetStyle()["height"];
+
         Assert.Empty(width);
+        Assert.Empty(height);
+        Assert.Equal("1", flexGrow);
     }
 
     [Fact]
@@ -61,7 +81,12 @@
         var cut = Render(@<FluentSpacer Height="50px" />);
 
         // Assert
-        var width = cut.Find("div").GetStyle()["height"];
+        var height = cut.Find("div").GetStyle()["height"];
+        var flexGrow = cut.Find("div").GetStyle()["flex-grow"];
+        var width = cut.Find("div").GetStyle()["width"];
+
+        Assert.Empty(height);
         Assert.Empty(width);
+        Assert.Equal("1", flexGrow);
     }
 }
