@@ -173,6 +173,25 @@
 
 <ApiDocumentation Component="typeof(SelectColumn<>)" GenericLabel="TGridItem" />
 
+<h3>Column menu labels and icons</h3>
+<p>
+    For customizing/translating the labels and icons used in the column menus, the following <code>records</code> are available. They can be applied
+    to a grid by setting the respective parameters to an instance of these records. If you do not want to use an icon for a menu item, supply a null
+    value to the Icon property in a record:
+    <CodeSnippet>
+        ColumnResizeLabels resizeLabels = ColumnResizeLabels.Default with
+        {
+            DiscreteLabel = "Abcd efg",
+            ResetAriaLabel = "hij klm",
+            Icon = null
+        };
+    </CodeSnippet>
+</p>
+<ApiDocumentation Component="typeof(ColumnSortLabels)" />
+<ApiDocumentation Component="typeof(ColumnOptionsLabels)" />
+<ApiDocumentation Component="typeof(ColumnResizeLabels)" />
+
+
 <div class="demopanel">
     <p>
         <strong>The <code>FluentDataGridRow</code> and <code>FluentDataGridCell</code> API's are usually not used directly </strong>

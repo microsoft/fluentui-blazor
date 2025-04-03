@@ -1370,6 +1370,17 @@
             Gets or sets the text shown in the column menu
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnOptionsLabels.Icon">
+            <summary>
+            Gets or sets the icon to show in the column menu
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnOptionsLabels.Slot">
+            <summary>
+            Gets or sets the position the icon can be showed in.
+            Possible options are 'start' (default) or 'end'
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnOptionsLabels.Default">
             <summary>
             Gets the default labels for the options UI.
@@ -1377,7 +1388,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.ResizeMenu">
             <summary>
-            Gets or sets the text shown in the column menu 
+            Gets or sets the text shown in the column menu
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.DiscreteLabel">
@@ -1408,6 +1419,17 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.SubmitAriaLabel">
             <summary>
             Gets or sets the aria label for the submit button in the resize UI
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.Icon">
+            <summary>
+            Gets or sets the icon to show in the column menu
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.Slot">
+            <summary>
+            Gets or sets the position the icon can be showed in.
+            Possible options are 'start' (default) or 'end'
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.Default">
@@ -1446,6 +1468,17 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.SortMenuDescendingLabel">
             <summary>
             Gets or sets the text shown in the column menu when in descending order
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.Icon">
+            <summary>
+            Gets or sets the icon to show in the column menu
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.Slot">
+            <summary>
+            Gets or sets the position the icon can be showed in.
+            Possible options are 'start' (default) or 'end'
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.Default">
@@ -2059,6 +2092,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.MultiLine">
             <summary>
             Gets or sets a value indicating whether the grid should allow multiple lines of text in cells.
+            Cannot be used together with Virtualize.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl">

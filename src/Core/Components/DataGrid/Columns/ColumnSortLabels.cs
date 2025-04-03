@@ -21,6 +21,17 @@ public record ColumnSortLabels
     public string SortMenuDescendingLabel { get; set; } = "Sort (descending)";
 
     /// <summary>
+    /// Gets or sets the icon to show in the column menu
+    /// </summary>
+    public Icon? Icon { get; set; } = new CoreIcons.Regular.Size16.ArrowSort();
+
+    /// <summary>
+    /// Gets or sets the position the icon can be showed in.
+    /// Possible options are 'start' (default) or 'end'
+    /// </summary>
+    public string Slot { get; set; } = "start";
+
+    /// <summary>
     /// Gets the default labels for the sort UI.
     /// </summary>
     public static ColumnSortLabels Default => new();

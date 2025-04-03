@@ -293,6 +293,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Gets or sets a value indicating whether the grid should allow multiple lines of text in cells.
+    /// Cannot be used together with Virtualize.
     /// </summary>
     [Parameter]
     public bool MultiLine { get; set; } = false;
@@ -417,6 +418,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (Items is not null && ItemsProvider is not null)
         {
             throw new InvalidOperationException($"FluentDataGrid requires one of {nameof(Items)} or {nameof(ItemsProvider)}, but both were specified.");
+        }
+
+        if (Virtualize && MultiLine)
+        {
+            throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(MultiLine)} at the same time.");
         }
 
         // Perform a re-query only if the data source or something else has changed
