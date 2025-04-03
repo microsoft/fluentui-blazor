@@ -207,7 +207,7 @@
 
                     if (MaximumSelectedOptions == 1)
                     {
-                        <FluentLabel aria-label="@GetOptionText(item)" role="checkbox" aria-checked="true">@text</FluentLabel>
+                        <FluentLabel tabindex="0" aria-label="@GetOptionText(item)" role="checkbox" aria-checked="true">@text</FluentLabel>
                     }
                     else if (ReadOnly || Disabled)
                     {
