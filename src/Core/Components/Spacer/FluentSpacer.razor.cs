@@ -12,10 +12,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSpacer : FluentComponentBase
 {
     /// <summary>
-    /// Gets or sets the size of the spacer, depending on the orientation.
+    /// Gets or sets the height of the spacer when the orientation is vertical.
     /// </summary>
     [Parameter]
-    public string? Size { get; set; }
+    public string? Height { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size of the spacer when the orientation is horizontal.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
 
     /// <summary>
     /// Specify the orientation of the parent container, which can be either horizontal or vertical.
@@ -29,9 +35,10 @@ public partial class FluentSpacer : FluentComponentBase
 
     /// <summary/>
     protected string? StyleValue => DefaultStyleBuilder
-        .AddStyle("flex-grow", "1", when: () => string.IsNullOrEmpty(Size))
-        .AddStyle("width", Size, when: () => !string.IsNullOrEmpty(Size) && Orientation == Orientation.Horizontal)
-        .AddStyle("height", Size, when: () => !string.IsNullOrEmpty(Size) && Orientation == Orientation.Vertical)
+        .AddStyle("flex-grow", "1", when: () => (string.IsNullOrEmpty(Height) && Orientation == Orientation.Vertical) ||
+                                                (string.IsNullOrEmpty(Width) && Orientation == Orientation.Horizontal))
+        .AddStyle("width", Width, when: () => !string.IsNullOrEmpty(Width) && Orientation == Orientation.Horizontal)
+        .AddStyle("height", Height, when: () => !string.IsNullOrEmpty(Height) && Orientation == Orientation.Vertical)
         .Build();
 
 }

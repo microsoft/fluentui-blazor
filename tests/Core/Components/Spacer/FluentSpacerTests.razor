@@ -22,10 +22,10 @@
     }
 
     [Fact]
-    public void FluentSpacer_Size()
+    public void FluentSpacer_Horizontal_Width_Pixels()
     {
         // Arrange && Act
-        var cut = Render(@<FluentSpacer Size="50px" />);
+        var cut = Render(@<FluentSpacer Width="50px" />);
 
         // Assert
         var width = cut.Find("div").GetStyle()["width"];
@@ -33,13 +33,35 @@
     }
 
     [Fact]
-    public void FluentSpacer_Vertical_Height()
+    public void FluentSpacer_Vertical_Height_Pixels()
     {
         // Arrange && Act
-        var cut = Render(@<FluentSpacer Size="50px" Orientation="Orientation.Vertical"/>);
+        var cut = Render(@<FluentSpacer Height="50px" Orientation="Orientation.Vertical"/>);
 
         // Assert
         var width = cut.Find("div").GetStyle()["height"];
         Assert.Equal("50px", width);
+    }
+
+    [Fact]
+    public void FluentSpacer_Vertical_WidthDoesNotSetStyle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSpacer Width="50px" Orientation="Orientation.Vertical"/>);
+
+        // Assert
+        var width = cut.Find("div").GetStyle()["width"];
+        Assert.Empty(width);
+    }
+
+    [Fact]
+    public void FluentSpacer_Horizontal_HeightDoesNotSetStyle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSpacer Height="50px" />);
+
+        // Assert
+        var width = cut.Find("div").GetStyle()["height"];
+        Assert.Empty(width);
     }
 }
