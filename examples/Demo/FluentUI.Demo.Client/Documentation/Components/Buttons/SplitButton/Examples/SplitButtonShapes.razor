@@ -1,0 +1,29 @@
+﻿<FluentSplitButton Shape="ButtonShape.Rounded"
+                   Title="Open menu"
+                   Label="Rounded">
+    @RenderMenuItems()
+</FluentSplitButton>
+
+<FluentSplitButton Shape="ButtonShape.Circular"
+                   Title="Open menu"
+                   Label="Circular">
+    @RenderMenuItems()
+</FluentSplitButton>
+
+<FluentSplitButton Shape="ButtonShape.Square"
+                   Title="Open menu"
+                   Label="Square">
+    @RenderMenuItems()
+</FluentSplitButton>
+
+@code
+{
+    RenderFragment RenderMenuItems() =>
+        @<FluentMenuList>
+        <FluentMenuItem>Menu item 1</FluentMenuItem>
+        <FluentMenuItem>Menu item 2</FluentMenuItem>
+        <FluentMenuItem>Menu item 3</FluentMenuItem>
+        <FluentMenuItem>Menu item 4</FluentMenuItem>
+    </FluentMenuList>;
+
+}
