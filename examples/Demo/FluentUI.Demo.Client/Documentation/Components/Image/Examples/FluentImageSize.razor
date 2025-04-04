@@ -1,5 +1,4 @@
-﻿
-<FluentSelect TOption="ImageSize" Items="@(Enum.GetValues<ImageSize>())" @bind-Value="@_selectedSize"/>
+﻿<FluentSelect TOption="ImageSize" Items="@(Enum.GetValues<ImageSize>())" @bind-Value="@_selectedSize"/>
 <div style="width: auto; height: 400px">
     <FluentImage Size="@_selectedSize">
         <img src="https://picsum.photos/200" alt="Placeholder Image"/>

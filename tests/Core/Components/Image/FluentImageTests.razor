@@ -1,0 +1,125 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Xunit
+@inherits TestContext
+
+@code {
+
+    public FluentImageTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentImage_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage><img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(ImageSize.None)]
+    [InlineData(ImageSize.Center)]
+    [InlineData(ImageSize.Contain)]
+    [InlineData(ImageSize.Cover)]
+    public void FluentImage_Size(ImageSize size)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Size="@size"><img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+
+        // Assert
+        var sizeParameter = cut.Find("fluent-image").GetAttribute("fit");
+        Assert.Equal(size.ToAttributeValue(), sizeParameter);
+    }
+
+    [Theory]
+    [InlineData(ImageShape.Square)]
+    [InlineData(ImageShape.Circle)]
+    [InlineData(ImageShape.Rounded)]
+    public void FluentImage_Shape(ImageShape shape)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Shape="@shape"><img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+
+        // Assert
+        var shapeParameter = cut.Find("fluent-image").GetAttribute("shape");
+        Assert.Equal(shape.ToAttributeValue(), shapeParameter);
+    }
+
+
+    [Fact]
+    public void FluentImage_Multiple()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage>
+            <img src="https://picsum.photos/200" alt="Placeholder Image"/>
+            <img src="https://picsum.photos/200" alt="Placeholder Image"/>
+        </FluentImage>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentImage_Bordered()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Bordered="true"><img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentImage_Shadow()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Shadow="true"><img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentImage_Block()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Block="true"><img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentImage_Style()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Style="border: 1px blue dashed"><img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentImage_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Class="test-class"><img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentImage_AdditionalProperties()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage data-test="test-data"><img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+
+        // Assert
+        cut.Verify();
+    }
+}
