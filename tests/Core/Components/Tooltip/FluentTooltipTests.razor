@@ -1,4 +1,5 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+﻿@using AngleSharp.Css.Dom
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
@@ -96,10 +97,10 @@
         </div>);
 
         // Act
-        var att = cut.Find("fluent-tooltip").GetAttribute("style");
+        var att = cut.Find("fluent-tooltip").GetStyle()["max-width"];
 
         // Assert
-        Assert.Equal("max-width: 200px;", att);
+        Assert.Equal("200px", att);
     }
 
     [Fact]
@@ -112,10 +113,10 @@
         </div>);
 
         // Act
-        var att = cut.Find("fluent-tooltip").GetAttribute("style");
+        var att = cut.Find("fluent-tooltip").GetStyle()["margin-inline"];
 
         // Assert
-        Assert.Equal("margin-inline: 20px;", att);
+        Assert.Equal("20px", att);
     }
 
     [Fact]
@@ -128,10 +129,10 @@
         </div>);
 
         // Act
-        var att = cut.Find("fluent-tooltip").GetAttribute("style");
+        var att = cut.Find("fluent-tooltip").GetStyle()["margin-block"];
 
         // Assert
-        Assert.Equal("margin-block: 20px;", att);
+        Assert.Equal("20px", att);
     }
 
     [Fact]
@@ -206,6 +207,34 @@
         Assert.Equal(expectedOpened, opened);
         Assert.Equal(expectedEventId, eventId);
         Assert.Equal(expectedDismissed, dismissed);
+    }
+
+    [Fact]
+    public void FluentTooltip_ParameterValue()
+    {
+        bool isVisible = true;
+
+        // Arrange
+        var cut = Render(@<FluentStack>
+            <FluentTooltipProvider />
+            @if (isVisible)
+            {
+                <FluentButton Id="MyButton" Tooltip="My Tooltip" Label="Button" />
+            }
+        </FluentStack>
+    );
+
+        // Pre-assert
+        var tooltips = Services.GetRequiredService<ITooltipService>().Items;
+        Assert.Single(tooltips);
+
+        // Act => Dispose and DisposeTooltipAsync methods will be called to remove the tooltip from the Provider.
+        isVisible = false;
+        cut.FindComponent<FluentStack>().Render();
+
+        // Assert
+        tooltips = Services.GetRequiredService<ITooltipService>().Items;
+        Assert.Empty(tooltips);
     }
 
 #pragma warning disable CS0618 // Type or member is obsolete
