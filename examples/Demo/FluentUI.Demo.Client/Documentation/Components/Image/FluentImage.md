@@ -28,3 +28,7 @@ The `Size` parameter can be set to change the size of the image.
 ## Shadow
 The `Shadow` parameter can be set to add a shadow around the image.
 {{FluentImageShadow}}
+
+## Shape
+The `Shape` parameter can be set to change the shape of the image.
+{{FluentImageShape}}

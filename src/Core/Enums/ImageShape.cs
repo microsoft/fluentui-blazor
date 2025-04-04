@@ -12,7 +12,7 @@ public enum ImageShape
     /// <summary>
     /// The image will be displayed as a circle.
     /// </summary>
-    Circle,
+    Circular,
 
     /// <summary>
     /// The image will be displayed as a rounded rectangle.
