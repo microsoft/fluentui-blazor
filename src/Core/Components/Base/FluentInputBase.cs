@@ -222,6 +222,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
+        _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
         await JSModule.DisposeAsync();
     }
@@ -234,6 +235,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [ExcludeFromCodeCoverage]
     protected virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
+        _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
         await JSModule.DisposeAsync(jsModule);
     }

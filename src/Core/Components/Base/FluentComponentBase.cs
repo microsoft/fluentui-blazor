@@ -84,6 +84,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
+        _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
         await JSModule.DisposeAsync();
     }
@@ -96,6 +97,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     protected virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
+        _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
         await JSModule.DisposeAsync(jsModule);
     }
@@ -113,5 +115,5 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// </summary>
     /// <param name="label"></param>
     /// <returns></returns>
-    protected Task RenderTooltipAsync(string? label) => (_cachedServices ??= new CachedServices(ServiceProvider)).RenderTooltipAsync(this, label);
+    protected Task RenderTooltipAsync(string? label) => (_cachedServices ??= new CachedServices(ServiceProvider)).RenderTooltipAsync(this, label);    
 }
