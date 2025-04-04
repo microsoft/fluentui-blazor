@@ -8,6 +8,22 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
   *    E.g. `FluentUICustomEvents.RadioGroup(blazor);`
   */
 
+  export function Accordion(blazor: Blazor) {
+    blazor.registerCustomEventType('accordionchange', {
+      browserEventName: 'change',
+      createEventArgs: event => {
+        let item: any;
+        item = event.target.accordionItems[event.target.activeItemIndex];
+        const header = item.querySelector(`[slot="heading"]`).innerText;
+        return {
+          id: item.id,
+          expanded: item._expanded,
+          headerText: header
+        };
+      }
+    });
+  }
+
   export function DialogToggle(blazor: Blazor) {
 
     blazor.registerCustomEventType('dialogbeforetoggle', {
@@ -47,7 +63,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       }
     });
   }
-  
+
   export function DropdownList(blazor: Blazor) {
 
     // Event when an element is selected or deselected

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components.Web;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The FluentButton component allows users to commit a change or trigger an action via a single click or tap and is often found inside forms, dialogs, drawers (panels) and/or pages.
+/// The FluentAvatar component is used to represent a user or entity. It can display an image, initials, or an icon.
 /// </summary>
 public partial class FluentAvatar : FluentComponentBase, ITooltipComponent
 {
