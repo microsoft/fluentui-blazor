@@ -68,7 +68,6 @@ internal class CachedServices : IDisposable
 
         var tooltip = new FluentTooltip(anchor: component.Id, $"<text>{label}</text>");
 
-        Console.WriteLine($"Add Tooltip {component.Id}");
         TooltipService.Items.TryAdd(component.Id, tooltip);
         await TooltipService.OnUpdatedAsync.Invoke(tooltip);
     }
@@ -81,7 +80,6 @@ internal class CachedServices : IDisposable
             return;
         }
 
-        Console.WriteLine($"Remove Tooltip {component.Id}");
         var isRemoved = TooltipService.Items.TryRemove(component.Id, out var tooltip);
 
         if (isRemoved && tooltip is not null)
