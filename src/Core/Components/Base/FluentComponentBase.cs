@@ -84,6 +84,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
+        _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
         await JSModule.DisposeAsync();
     }
@@ -96,6 +97,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     protected virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
+        _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
         await JSModule.DisposeAsync(jsModule);
     }
