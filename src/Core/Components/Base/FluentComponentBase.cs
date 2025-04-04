@@ -115,5 +115,5 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// </summary>
     /// <param name="label"></param>
     /// <returns></returns>
-    protected Task RenderTooltipAsync(string? label) => (_cachedServices ??= new CachedServices(ServiceProvider)).RenderTooltipAsync(this, label);    
+    protected Task RenderTooltipAsync(string? label) => (_cachedServices ??= new CachedServices(ServiceProvider)).RenderTooltipAsync(this, label);
 }
