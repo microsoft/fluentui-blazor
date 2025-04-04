@@ -56,7 +56,7 @@ internal class CachedServices : IDisposable
     /// <summary />
     public async Task RenderTooltipAsync(IFluentComponentBase component, string? label)
     {
-        if (TooltipService is null || string.IsNullOrEmpty(label))
+        if (TooltipService is null || string.IsNullOrEmpty(label) || component is FluentTooltip)
         {
             return;
         }
@@ -70,6 +70,22 @@ internal class CachedServices : IDisposable
 
         TooltipService.Items.TryAdd(component.Id, tooltip);
         await TooltipService.OnUpdatedAsync.Invoke(tooltip);
+    }
+
+    /// <summary />
+    public async Task DisposeTooltipAsync(IFluentComponentBase component)
+    {
+        if (TooltipService is null || string.IsNullOrEmpty(component.Id) || component is FluentTooltip)
+        {
+            return;
+        }
+
+        var isRemoved = TooltipService.Items.TryRemove(component.Id, out var tooltip);
+
+        if (isRemoved && tooltip is not null)
+        {
+            await TooltipService.OnUpdatedAsync.Invoke(tooltip);
+        }
     }
 
     /// <summary />

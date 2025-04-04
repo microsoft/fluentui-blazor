@@ -44,6 +44,7 @@ public partial class FluentTooltip : FluentComponentBase
         .AddStyle("max-width", MaxWidth, when: () => !string.IsNullOrWhiteSpace(MaxWidth))
         .AddStyle("margin-inline", SpacingHorizontal, when: () => !string.IsNullOrWhiteSpace(SpacingHorizontal))
         .AddStyle("margin-block", SpacingVertical, when: () => !string.IsNullOrWhiteSpace(SpacingVertical))
+        .AddStyle("position-anchor", $"--{Anchor}")
         .Build();
 
     /// <summary>
