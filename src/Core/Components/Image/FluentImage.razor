@@ -3,6 +3,8 @@
 @inherits FluentComponentBase
 
 <fluent-image id="@Id"
+              class="@ClassValue"
+              style="@StyleValue"
               fit="@Fit.ToAttributeValue()"
               shape="@Shape.ToAttributeValue()"
               block="@Block"
@@ -11,7 +13,7 @@
               @attributes="AdditionalAttributes">
     @if (!string.IsNullOrEmpty(Source))
     {
-        <img style="@StyleValue" class="@ClassValue" src="@Source" alt="@AlternateText"/>
+        <img style="@ImageStyleValue" class="@ImageClassValue" src="@Source" alt="@AlternateText"/>
     }
     @ChildContent
 </fluent-image>

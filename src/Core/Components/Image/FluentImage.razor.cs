@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -17,6 +18,14 @@ public partial class FluentImage : FluentComponentBase
 
     /// <summary/>
     protected string? StyleValue => DefaultStyleBuilder
+        .Build();
+
+    /// <summary/>
+    protected string? ImageClassValue => new CssBuilder(ImageClass)
+        .Build();
+
+    /// <summary/>
+    protected string? ImageStyleValue => new StyleBuilder(ImageStyle)
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .Build();
@@ -26,6 +35,18 @@ public partial class FluentImage : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
+
+    /// <summary>
+    /// Provides additional CSS styles to the internal image.
+    /// </summary>
+    [Parameter]
+    public string? ImageStyle { get; set; }
+
+    /// <summary>
+    /// Provides additional CSS class to the internal image.
+    /// </summary>
+    [Parameter]
+    public string? ImageClass { get; set; }
 
     /// <summary>
     /// The width of the image.
