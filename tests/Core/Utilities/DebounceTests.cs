@@ -94,7 +94,7 @@ public class DebounceTests
             {
                 await Debounce.RunAsync(50, async () =>
                 {
-                    await Task.Delay(1000); // Let time for the second task to start, and to cancel this one
+                    await Task.Delay(1000, Xunit.TestContext.Current.CancellationToken); // Let time for the second task to start, and to cancel this one
 
                     Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step1");
                     actionCalled = "Step1";
@@ -255,7 +255,7 @@ public class DebounceTests
             step1Started = true;
             Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step1 Started");
 
-            await Task.Delay(100);
+            await Task.Delay(100, Xunit.TestContext.Current.CancellationToken);
             actionCalledCount++;
 
             Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step1 Completed");
