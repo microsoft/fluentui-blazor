@@ -5,7 +5,6 @@
 using System.Diagnostics;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
@@ -122,12 +121,12 @@ public class DebounceTests
             {
                 Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Task1 OperationCanceled");
             }
-        });
+        }, Xunit.TestContext.Current.CancellationToken);
 
         // Wait for Step1 to start.
         while (!step1Started)
         {
-            await Task.Delay(10);
+            await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
         }
 
         var t2 = Task.Run(async () =>
@@ -144,7 +143,7 @@ public class DebounceTests
             Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Next2");
             actionNextCalled = "Next2";
             actionNextCount++;
-        });
+        }, Xunit.TestContext.Current.CancellationToken);
 
         await Task.WhenAll(t1, t2);
 
@@ -265,7 +264,7 @@ public class DebounceTests
         // Wait for Step1 to start.
         while (!step1Started)
         {
-            await Task.Delay(10);
+            await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
         }
 
         Debounce.Run(10, async () =>
@@ -280,7 +279,7 @@ public class DebounceTests
 
         // Wait for the debounce to complete
         await Debounce.CurrentTask;
-        await Task.Delay(200);
+        await Task.Delay(200, Xunit.TestContext.Current.CancellationToken);
 
         // Assert
         Assert.Equal(2, actionCalledCount);

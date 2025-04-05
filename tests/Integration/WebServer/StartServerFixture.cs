@@ -2,13 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Playwright;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.WebServer;
@@ -38,7 +32,7 @@ public class StartServerFixture : IAsyncLifetime
     /// Starts the server process.
     /// </summary>
     /// <returns></returns>
-    public Task InitializeAsync()
+    public ValueTask InitializeAsync()
     {
         // Kill the existing server process (if the previous DisposeAsync was not called)
         KillExistingServerProcess();
@@ -58,14 +52,14 @@ public class StartServerFixture : IAsyncLifetime
 
         var started = _serverProcess.Start();
 
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     /// <summary>
     /// Stops the server process.
     /// </summary>
     /// <returns></returns>
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         // Kill the process
         if (_serverProcess != null && !_serverProcess.HasExited)
@@ -74,7 +68,7 @@ public class StartServerFixture : IAsyncLifetime
             _serverProcess.WaitForExit(KILL_TIMEOUT_MILLISECONDS);
         }
 
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     private void KillExistingServerProcess()
