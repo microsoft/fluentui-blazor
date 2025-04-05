@@ -152,7 +152,7 @@
     public async Task FluentCombobox_Multiple()
     {
         string value = "One";
-        IEnumerable<string> selectedItems = ["One",];
+        IEnumerable<string> selectedItems = ["One"];
 
         // Arrange
         var cut = Render(@<FluentCombobox Multiple="true" Items="@Digits" @bind-Value="@value" @bind-SelectedItems="@selectedItems" />);
@@ -167,6 +167,7 @@
         });
 
         // Assert
+        Assert.True(ids.Count() == 2, "List of IDs must be contain 2 items");
         Assert.Equal("One", value);
         Assert.Equal(new[] { "One", "Two" }, selectedItems);
     }
@@ -228,6 +229,7 @@
         });
 
         // Assert
+        Assert.True(ids.Count() == 1, "List of IDs must be contain 1 items");
         Assert.Equal("Two", value);
     }
 
