@@ -1,5 +1,9 @@
 # Integration tests using Playwright for .NET
 
+⚠️ THESE TESTS ARE DISABLED FOR NOW
+
+⚠️  NEED TO BE ADAPTED TO THE XUNIT.V3
+
 ## Running the tests
 
 First, make sure you have the Playwright for .NET package installed. If you don't, follow the instructions in the next section.
