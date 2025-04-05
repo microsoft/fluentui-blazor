@@ -21,18 +21,18 @@
     }
 
     [Theory]
-    [InlineData(ImageSize.None)]
-    [InlineData(ImageSize.Center)]
-    [InlineData(ImageSize.Contain)]
-    [InlineData(ImageSize.Cover)]
-    public void FluentImage_Size(ImageSize size)
+    [InlineData(ImageFit.None)]
+    [InlineData(ImageFit.Center)]
+    [InlineData(ImageFit.Contain)]
+    [InlineData(ImageFit.Cover)]
+    public void FluentImage_Size(ImageFit fit)
     {
         // Arrange && Act
-        var cut = Render(@<FluentImage Size="@size"><img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+        var cut = Render(@<FluentImage Fit="@fit"><img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
 
         // Assert
         var sizeParameter = cut.Find("fluent-image").GetAttribute("fit");
-        Assert.Equal(size.ToAttributeValue(), sizeParameter);
+        Assert.Equal(fit.ToAttributeValue(), sizeParameter);
     }
 
     [Theory]

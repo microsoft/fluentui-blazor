@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Determines how the image will be scaled and positioned within its parent container.
 /// </summary>
-public enum ImageSize
+public enum ImageFit
 {
     /// <summary>
     /// The image will not be resized or repositioned.

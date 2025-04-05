@@ -17,7 +17,33 @@ public partial class FluentImage : FluentComponentBase
 
     /// <summary/>
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .Build();
+
+    /// <summary>
+    /// The height of the image.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
+    /// <summary>
+    /// The width of the image.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// The source link for the image.
+    /// </summary>
+    [Parameter]
+    public string? Source { get; set; }
+
+    /// <summary>
+    /// The alternate text for the image.
+    /// </summary>
+    [Parameter]
+    public string? AlternateText { get; set; }
 
     /// <summary>
     /// The image html component
@@ -53,6 +79,6 @@ public partial class FluentImage : FluentComponentBase
     /// Determines how the image will be scaled and positioned within its parent container.
     /// </summary>
     [Parameter]
-    public ImageSize? Size { get; set; }
+    public ImageFit? Fit { get; set; }
 }
 
