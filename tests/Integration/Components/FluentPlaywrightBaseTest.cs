@@ -5,6 +5,7 @@
 using Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.WebServer;
 using Microsoft.Playwright;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.Components;
 

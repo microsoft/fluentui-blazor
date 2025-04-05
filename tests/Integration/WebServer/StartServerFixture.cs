@@ -32,7 +32,7 @@ public class StartServerFixture : IAsyncLifetime
     /// Starts the server process.
     /// </summary>
     /// <returns></returns>
-    public ValueTask InitializeAsync()
+    public Task InitializeAsync()
     {
         // Kill the existing server process (if the previous DisposeAsync was not called)
         KillExistingServerProcess();
@@ -52,14 +52,14 @@ public class StartServerFixture : IAsyncLifetime
 
         var started = _serverProcess.Start();
 
-        return ValueTask.CompletedTask;
+        return Task.CompletedTask;
     }
 
     /// <summary>
     /// Stops the server process.
     /// </summary>
     /// <returns></returns>
-    public ValueTask DisposeAsync()
+    public Task DisposeAsync()
     {
         // Kill the process
         if (_serverProcess != null && !_serverProcess.HasExited)
@@ -68,7 +68,7 @@ public class StartServerFixture : IAsyncLifetime
             _serverProcess.WaitForExit(KILL_TIMEOUT_MILLISECONDS);
         }
 
-        return ValueTask.CompletedTask;
+        return Task.CompletedTask;
     }
 
     private void KillExistingServerProcess()
