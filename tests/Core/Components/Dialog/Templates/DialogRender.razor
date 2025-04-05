@@ -18,14 +18,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
         Options.OnInitializedCount++;
+        await Task.Delay(100, Xunit.TestContext.Current.CancellationToken);
     }
 
     protected override async Task OnParametersSetAsync()
     {
-        await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
         Options.OnParametersSetCount++;
+        await Task.Delay(100, Xunit.TestContext.Current.CancellationToken);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
