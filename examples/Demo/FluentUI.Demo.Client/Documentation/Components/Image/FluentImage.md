@@ -10,7 +10,7 @@ A **FluentImage** is a component that displays an image. It can be used to displ
 {{FluentImageDefault}}
 
 ## Width and Height
-The `Width` and `Height` parameters can be set to change the size of the image.
+The `Width` and `Height` parameters can be set to change the size of the internal image tag used when the source parameter is set.
 {{FluentImageWidthHeight}}
 
 ## Block
@@ -35,8 +35,13 @@ The `Shadow` parameter can be set to add a shadow around the image.
 The `Shape` parameter can be set to change the shape of the image.
 {{FluentImageShape}}
 
+## Customize styling on the image
+FluentImage is a wrapper around an image tag if the source parameter is set. To customize the styling of the internal image,
+you can use the `fluent-image-item` class.
+{{FluentImageCustomStyling Files=Razor:FluentImageCustomStyling.razor;CSS:FluentImageCustomStyling.razor.css}}
+
 ## Custom content
 You can provide any content inside the Fluent image as long as it is a image or a list of images. Any image inside the FluentImage will have the parameters of the component,
-except for the styling and class parameters. This can for example be used with multiple images.
+except for the `Style`, `Class`, `Width` and `Height` parameters. This can, for example, be used with multiple images.
 
 {{FluentImageMultiple}}

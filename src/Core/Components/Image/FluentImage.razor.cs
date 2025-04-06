@@ -21,11 +21,11 @@ public partial class FluentImage : FluentComponentBase
         .Build();
 
     /// <summary/>
-    protected string? ImageClassValue => new CssBuilder(ImageClass)
+    private static string? ImageClassValue => new CssBuilder("fluent-image-item")
         .Build();
 
     /// <summary/>
-    protected string? ImageStyleValue => new StyleBuilder(ImageStyle)
+    private string? ImageStyleValue => new StyleBuilder()
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .Build();
@@ -35,18 +35,6 @@ public partial class FluentImage : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
-
-    /// <summary>
-    /// Provides additional CSS styles to the internal image.
-    /// </summary>
-    [Parameter]
-    public string? ImageStyle { get; set; }
-
-    /// <summary>
-    /// Provides additional CSS class to the internal image.
-    /// </summary>
-    [Parameter]
-    public string? ImageClass { get; set; }
 
     /// <summary>
     /// The width of the image.

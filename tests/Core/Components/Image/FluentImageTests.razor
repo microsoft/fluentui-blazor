@@ -36,9 +36,11 @@
         // Assert
         var imageSource = cut.Find("img").GetAttribute("src");
         var imageAltText = cut.Find("img").GetAttribute("alt");
+        var imageClass = cut.Find("img").GetAttribute("class");
 
         Assert.Equal(_imageSource, imageSource);
         Assert.Equal(_imageAltText, imageAltText);
+        Assert.Equal("fluent-image-item", imageClass);
     }
 
     [Fact]
@@ -123,7 +125,7 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentImage Source="@_imageSource" AlternateText="@_imageAltText">
-                             <img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+            <img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
 
         // Assert
         cut.Verify();
@@ -157,53 +159,5 @@
 
         // Assert
         cut.Verify();
-    }
-
-    [Fact]
-    public void FluentImage_Style()
-    {
-        // Arrange && Act
-        var cut = Render(@<FluentImage Style="width: 200px; height: 200px;" Source="@_imageSource" AlternateText="@_imageAltText"/>);
-
-        // Assert
-        var styleParameter = cut.Find("fluent-image").GetAttribute("style");
-
-        Assert.Equal("width: 200px; height: 200px;", styleParameter);
-    }
-
-    [Fact]
-    public void FluentImage_Class()
-    {
-        // Arrange && Act
-        var cut = Render(@<FluentImage Class="test-class" Source="@_imageSource" AlternateText="@_imageAltText"/>);
-
-        // Assert
-        var classParameter = cut.Find("fluent-image").GetAttribute("class");
-
-        Assert.Equal("test-class", classParameter);
-    }
-
-    [Fact]
-    public void FluentImage_ImageStyle()
-    {
-        // Arrange && Act
-        var cut = Render(@<FluentImage ImageStyle="width: 200px; height: 200px;" Source="@_imageSource" AlternateText="@_imageAltText"/>);
-
-        // Assert
-        var styleParameter = cut.Find("img").GetAttribute("style");
-
-        Assert.Equal("width: 200px; height: 200px;", styleParameter);
-    }
-
-    [Fact]
-    public void FluentImage_ImageClass()
-    {
-        // Arrange && Act
-        var cut = Render(@<FluentImage ImageClass="test-image-class" Source="@_imageSource" AlternateText="@_imageAltText"/>);
-
-        // Assert
-        var classParameter = cut.Find("img").GetAttribute("class");
-
-        Assert.Equal("test-image-class", classParameter);
     }
 }
