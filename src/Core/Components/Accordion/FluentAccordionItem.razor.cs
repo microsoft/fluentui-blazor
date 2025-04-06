@@ -52,7 +52,7 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     /// Possible values: 1 | 2 | 3 | 4 | 5 | 6
     /// </summary>
     [Parameter]
-    public string? HeadingLevel { get; set; }
+    public int? HeadingLevel { get; set; }
 
     /// <summary>
     /// Gets or sets whether the accordion item is disabled.
@@ -123,7 +123,6 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     {
         if (disposing)
         {
-
             Owner?.Unregister(this);
         }
     }

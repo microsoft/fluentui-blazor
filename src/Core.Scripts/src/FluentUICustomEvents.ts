@@ -12,12 +12,11 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     blazor.registerCustomEventType('accordionchange', {
       browserEventName: 'change',
       createEventArgs: event => {
-        let item: any;
-        item = event.target.accordionItems[event.target.activeItemIndex];
-        const header = item.querySelector(`[slot="heading"]`).innerText;
+        const item: any = event.target.accordionItems[event.target.activeItemIndex];
+        const header = item?.querySelector(`[slot="heading"]`).innerText ?? null;
         return {
-          id: item.id,
-          expanded: item._expanded,
+          id: item?.id ?? "",
+          expanded: item?._expanded ?? null,
           headerText: header
         };
       }

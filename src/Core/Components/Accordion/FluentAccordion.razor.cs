@@ -14,19 +14,26 @@ public partial class FluentAccordion : FluentComponentBase
 {
     private readonly Dictionary<string, FluentAccordionItem> items = [];
 
+    /// <summary />
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(AccordionItemEventArgs))]
+    public FluentAccordion()
+    {
+
+    }
+
     /// <summary>
     /// Controls the expand mode of the Accordion, either allowing
     /// single or multiple item expansion. <seealso cref="AccordionExpandMode" />.
     /// </summary>
     [Parameter]
-    public AccordionExpandMode? ExpandMode { get; set; } = AccordionExpandMode.Multi;
+    public AccordionExpandMode? ExpandMode { get; set; }
 
     /// <summary>
     /// Gets or sets the <see href="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the heading element.
     /// Possible values: 1 | 2 | 3 | 4 | 5 | 6
     /// </summary>
     [Parameter]
-    public string? HeadingLevel { get; set; }
+    public int? HeadingLevel { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the accordion item.
@@ -73,13 +80,6 @@ public partial class FluentAccordion : FluentComponentBase
     /// Gets or sets a callback when the expand mode is changed.
     /// </summary>
     public EventCallback<AccordionExpandMode> OnExpandModeChanged { get; set; }
-
-    /// <summary />
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(AccordionItemEventArgs))]
-    public FluentAccordion()
-    {
-
-    }
 
     private async Task HandleOnAccordionChangedAsync(AccordionItemEventArgs args)
     {
@@ -129,11 +129,21 @@ public partial class FluentAccordion : FluentComponentBase
 
     internal void Register(FluentAccordionItem item)
     {
-        items.Add(item.Id!, item);
+
+        if (!string.IsNullOrEmpty(item.Id))
+        {
+            if (!items.TryAdd(item.Id, item))
+            {
+                items[item.Id] = item;
+            }
+        }
     }
 
     internal void Unregister(FluentAccordionItem item)
     {
-        items.Remove(item.Id!);
+        if (!string.IsNullOrEmpty(item.Id))
+        {
+            items.Remove(item.Id);
+        }
     }
 }

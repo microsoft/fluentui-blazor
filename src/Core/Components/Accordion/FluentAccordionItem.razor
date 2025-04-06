@@ -11,15 +11,12 @@
                        marker-position="@MarkerPosition.ToAttributeValue()"
                        block="@Block"
                        @attributes="AdditionalAttributes">
-    @if (Header is not null)
+    @if (Header is not null || HeaderTemplate is not null)
     {
-        <span slot="heading">@Header</span>
-    }
-    else
-    {
-        <div slot="heading">
+        <span slot="heading">
+            @Header
             @HeaderTemplate
-        </div>
+        </span>
     }
     @ChildContent
 </fluent-accordion-item>
