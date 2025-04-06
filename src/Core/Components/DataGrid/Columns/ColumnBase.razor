@@ -54,8 +54,8 @@
                             @GetSortOptionText()
                             @if (Grid.ColumnSortLabels.Icon is not null)
                             {
-                                <span style="display:flex; align-items: center;" slot="@Grid.ColumnSortLabels.Slot">
-                                    <FluentIcon Value="@(Grid.ColumnSortLabels.Icon)" Slot="@Grid.ColumnSortLabels.Slot" />
+                                <span style="display:flex; align-items: center;" slot="@(Grid.ColumnSortLabels.IconPositionStart ? "start" : "end")">
+                                    <FluentIcon Value="@(Grid.ColumnSortLabels.Icon)" Slot="@(Grid.ColumnSortLabels.IconPositionStart ? "start" : "end")" />
                                 </span>
                             }
                         </FluentMenuItem>
@@ -66,8 +66,8 @@
                             @Grid.ColumnResizeLabels.ResizeMenu
                             @if (Grid.ColumnResizeLabels.Icon is not null)
                             {
-                                <span style="display:flex; align-items: center;" slot="@Grid.ColumnResizeLabels.Slot">
-                                    <FluentIcon Value="@(Grid.ColumnResizeLabels.Icon)" Slot="@Grid.ColumnResizeLabels.Slot" />
+                                <span style="display:flex; align-items: center;" slot="@(Grid.ColumnResizeLabels.IconPositionStart ? "start" : "end")">
+                                    <FluentIcon Value="@(Grid.ColumnResizeLabels.Icon)" Slot="@(Grid.ColumnResizeLabels.IconPositionStart ? "start" : "end")" />
                                 </span>
                             }
                         </FluentMenuItem>
@@ -78,8 +78,8 @@
                             @Grid.ColumnOptionsLabels.OptionsMenu
                             @if (Grid.ColumnOptionsLabels.Icon is not null)
                             {
-                                <span style="display:flex; align-items: center;" slot="@Grid.ColumnOptionsLabels.Slot">
-                                    <FluentIcon Value="@(Grid.ColumnOptionsLabels.Icon)" Slot="@Grid.ColumnOptionsLabels.Slot" />
+                                <span style="display:flex; align-items: center;" slot="@(Grid.ColumnOptionsLabels.IconPositionStart ? "start" : "end")">
+                                    <FluentIcon Value="@(Grid.ColumnOptionsLabels.Icon)" Slot="@(Grid.ColumnOptionsLabels.IconPositionStart ? "start" : "end")" />
                                 </span>
                             }
                         </FluentMenuItem>

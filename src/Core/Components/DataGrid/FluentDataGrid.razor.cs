@@ -1003,7 +1003,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Guards the CurrentPageIndex from getting greater than the LastPageIndex
     ///
     /// </summary>
-    /// <param name="visibleRows">The maixmum number of rows that fits the available space</param>
+    /// <param name="visibleRows">The maximum number of rows that fits the available space</param>
     /// <returns></returns>
     [JSInvokable]
     public async Task UpdateItemsPerPageAsync(int visibleRows)

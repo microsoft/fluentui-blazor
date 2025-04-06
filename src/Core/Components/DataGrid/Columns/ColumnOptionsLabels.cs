@@ -16,10 +16,10 @@ public record ColumnOptionsLabels
     public Icon? Icon { get; set; } = new CoreIcons.Regular.Size16.Filter();
 
     /// <summary>
-    /// Gets or sets the position the icon can be showed in.
-    /// Possible options are 'start' (default) or 'end'
+    /// Gets or sets whether the icon is positioned at the start (true) or
+    /// at the end (false) of the menu item
     /// </summary>
-    public string Slot { get; set; } = "start";
+    public bool IconPositionStart { get; set; } = true;
 
     /// <summary>
     /// Gets the default labels for the options UI.
