@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -28,10 +29,12 @@ public partial class FluentGrid : FluentComponentBase
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-grid")
         .Build();
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("justify-content", Justify.ToAttributeValue())
         .Build();
 
     /// <summary />
@@ -42,7 +45,7 @@ public partial class FluentGrid : FluentComponentBase
     /// Only values from 0 to 10 are possible.
     /// </summary>
     [Parameter]
-    public int Spacing { get; set; } = 3;
+    public int Spacing { get; set; }
 
     /// <summary>
     /// Defines how the browser distributes space between and around content items.
