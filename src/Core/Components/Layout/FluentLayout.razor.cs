@@ -12,6 +12,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentLayout
 {
+    private const string DEFAULT_HEADER_HEIGHT = "44px";
+    private const string DEFAULT_FOOTER_HEIGHT = "36px";
+    private const string DEFAULT_CONTENT_HEIGHT = "calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height))";
+
     internal FluentLayoutHamburger? Hamburger { get; private set; }
 
     /// <summary>
@@ -90,7 +94,7 @@ public partial class FluentLayout
     internal bool HasHeader => Items.Exists(i => i.Area == LayoutArea.Header);
 
     /// <summary />
-    internal string HeaderHeight => Items.Find(i => i.Area == LayoutArea.Header)?.Height ?? "44px";
+    internal string HeaderHeight => Items.Find(i => i.Area == LayoutArea.Header)?.Height ?? DEFAULT_HEADER_HEIGHT;
 
     /// <summary />
     internal bool HeaderSticky => Items.Find(i => i.Area == LayoutArea.Header)?.Sticky ?? false;
@@ -99,11 +103,11 @@ public partial class FluentLayout
     internal bool HasFooter => Items.Exists(i => i.Area == LayoutArea.Footer);
 
     /// <summary />
-    internal string FooterHeight => Items.Find(i => i.Area == LayoutArea.Footer)?.Height ?? "36px";
+    internal string FooterHeight => Items.Find(i => i.Area == LayoutArea.Footer)?.Height ?? DEFAULT_FOOTER_HEIGHT;
 
     /// <summary />
     internal bool FooterSticky => Items.Find(i => i.Area == LayoutArea.Footer)?.Sticky ?? false;
 
     /// <summary />
-    internal string ContentHeight => Items.Find(i => i.Area == LayoutArea.Content)?.Height ?? "calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height))";
+    internal string ContentHeight => Items.Find(i => i.Area == LayoutArea.Content)?.Height ?? DEFAULT_CONTENT_HEIGHT;
 }

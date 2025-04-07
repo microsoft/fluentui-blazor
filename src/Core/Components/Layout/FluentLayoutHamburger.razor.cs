@@ -70,7 +70,8 @@ public partial class FluentLayoutHamburger
 
     /// <summary>
     /// Gets or sets whether the hamburger icon is shown.
-    /// Default is `true`
+    /// Default is `true`.
+    /// Not yet used.
     /// </summary>
     internal bool ShowMobileOnly { get; set; } = true;
 
