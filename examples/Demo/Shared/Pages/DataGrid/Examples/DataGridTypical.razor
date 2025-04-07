@@ -13,7 +13,7 @@
                     RowClass="@rowClass"
                     RowStyle="@rowStyle"
                     HeaderCellAsButtonWithMenu="true"
-                    ColumnResizeLabels="@customLabels">
+                    ColumnResizeLabels="@resizeLabels">
         <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
             <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
         </TemplateColumn>
@@ -66,7 +66,11 @@
     int minMedals;
     int maxMedals = 130;
 
-    ColumnResizeLabels customLabels = ColumnResizeLabels.Default with { DiscreteLabel = "Width (+/- 10px)", ResetAriaLabel = "Restore" };
+    ColumnResizeLabels resizeLabels = ColumnResizeLabels.Default with
+    {
+        DiscreteLabel = "Width (+/- 10px)",
+        ResetAriaLabel = "Restore"
+    };
 
     GridSort<Country> rankSort = GridSort<Country>
         .ByDescending(x => x.Medals.Gold)

@@ -452,4 +452,21 @@ public class FluentCounterBadgeTests : TestBase
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentCounterBadge_WithAdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
+        {
+            parameters.Add(p => p.Count, 1);
+            parameters.Add(p => p.AdditionalAttributes, new Dictionary<string, object>
+            {
+                { "data-test", "test" },
+            });
+        });
+
+        // Assert
+        cut.Verify();
+    }
 }

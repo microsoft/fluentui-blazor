@@ -1,5 +1,64 @@
+## V4.11.8
+
+### Icons and Emoji
+- Update to Fluent UI System Icons 1.1.293 (changes since 1.1.292).
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Chat Multiple Checkmark / 16, 20, 24, 28 / Filled & Regular
+    - Chat Multiple Minus / 16, 20, 24, 28 / Filled & Regular
+    - Circle Multiple Hint Checkmark / 16, 32 / Filled & Regular
+    - Code Block Edit / 16, 20, 24 / Filled & Regular
+    - Cube Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Cube / 28 / Filled & Regular
+    - Database Switch / 24 / Filled & Regular
+    - Flow Sparkle / 16, 20 / Filled & Regular 
+    - Mail Fish Hook / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Shopping Bag Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Sparkle Info / 20, 24 / Filled & Regular
+    - Table Column Top Bottom Edit / 16, 20, 24, 28 / Filled & Regular
+    - Table Column Top Bottom / 16, 28 / Filled & Regular
+    - Task List Square Database / 24 / Filled & Regular
+    - Vehicle Truck Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Vehicle Truck Profile / 28, 32, 48 / Filled & Regular
+    - Vote / 16 / Filled & Regular
+
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Dismiss Circle / 16 / Filled & Regular
+
+    **What's got color now (Name / Size(s) / Variant(s))**
+    - Chat Add / 16, 20, 24, 28, 32, 48 / Color
+    - Chat / 28, 32, 48 / Color
+    - People Chat / 24 / Color
+    - Person Add / 24 / Color
+    - Share iOS / 24 / Color 
+
+
 ## V4.11.7
-- No changes yet
+
+### Components
+- \[General\] Enable having multiple paginators ([#3487](https://github.com/microsoft/fluentui-blazor/pull/3487))
+- \[CounterBadge\] Add support for additional attributes ([#3542](https://github.com/microsoft/fluentui-blazor/pull/3542))
+- \[CounterBadge\] Fix `HorizontalPosition`/`VerticalPosition` not being used ([#3490](https://github.com/microsoft/fluentui-blazor/pull/3490))
+- \[DataGrid\] Add method to close column options programmatically ([#3501](https://github.com/microsoft/fluentui-blazor/pull/3501))
+- \[DataGrid\] Fix styling when using `Virtualize` with `DataGridDisplayMode.Table` ([#3497](https://github.com/microsoft/fluentui-blazor/pull/3497))
+- \[DesignTheme\] Add support for setting/getting NuetralBaseColor ([#3530](https://github.com/microsoft/fluentui-blazor/pull/3530))
+- \[DesignTheme\] Fix the accompanying web component ([#3516](https://github.com/microsoft/fluentui-blazor/pull/3516))
+- \[DesignTokens\] Make `AccentBaseColor` and `NeutralBaseColor` work with WithDefault ([#3517](https://github.com/microsoft/fluentui-blazor/pull/3517))
+- \[NumberField\] Fix invalid class styling ([#3531](https://github.com/microsoft/fluentui-blazor/pull/3531))
+- \[Overlay\] Make default background color follow neutral base color ([#3537](https://github.com/microsoft/fluentui-blazor/pull/3537))
+- \[Stack\] Add `Reversed` parameter ([#3505](https://github.com/microsoft/fluentui-blazor/pull/3505))
+
+### Demo site and documentation
+- \[Docs\] Add cookie consent ([#3507](https://github.com/microsoft/fluentui-blazor/pull/3507))
+- \[Docs\] IconExplorer: Reset current page to 0 when searching ([#3536](https://github.com/microsoft/fluentui-blazor/pull/3536))
+- \[Docs]\ Typo in Templates.md file. ([#3503](https://github.com/microsoft/fluentui-blazor/pull/3503))
+
+
+### Icons and Emoji
+- Update to Fluent UI System Icons 1.1.292 (changes since 1.1.278).
+
+  We do not have an update on the individual new/changed icons at this time
+
 
 ## V4.11.6
 
