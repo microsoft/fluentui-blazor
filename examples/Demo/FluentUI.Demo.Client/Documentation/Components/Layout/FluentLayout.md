@@ -38,7 +38,7 @@ The layout adapts automatically if you decide not to use or hide any of the pane
 
 ## Sticky Panels
 
-  All panels (except `Content`) can be fixed using the `Sticky` property.
+  All panels (except `Content`) can be fixed using the `Sticky` parameter.  
   In this case, the panel remains fixed when the page is scrolled.
 
 ## Hamburger Menu
@@ -62,7 +62,7 @@ The layout adapts automatically if you decide not to use or hide any of the pane
 
   The menu is displayed inside the **Content** and **Aside** panels of the `FluentLayout` in which it is placed.
   If you've placed the `FluentLayoutHamburger` component in a different location, you need to specify the
-  the `FluentLayout` to be used, using the `Layout` property.
+  the `FluentLayout` to be used, using the `Layout` parameter.
 
   ```razor
   <FluentLayoutItem Area="@LayoutArea.Header">
@@ -82,14 +82,13 @@ The layout adapts automatically if you decide not to use or hide any of the pane
 
 ## Example
 
+Using the `GlobalScrollbar="true"` parameter, you can set the scrollbar to be global for the entire page.  
+Using the `Sticky` paremeter to fix the header and footer.
+
 {{ LayoutDefault }}
 
-## Fixed Header and Footer
-
-You can set the **Header** and **Footer** using the `Sticky` property,
-property, but you can also "move" these elements outside the `FluentLayout` to keep a scrollbar for content only.
-
-{{ LayoutFixed }}
+You can set the **Header** and **Footer** using the `Sticky` parameter,
+but you can also "move" these elements outside the `FluentLayout` to keep a scrollbar for content only.
 
 ## API FluentLayout
 

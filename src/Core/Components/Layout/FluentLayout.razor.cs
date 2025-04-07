@@ -29,13 +29,33 @@ public partial class FluentLayout
     /// <summary>
     /// <inheritdoc cref="FluentComponentBase.Style"/>
     /// </summary>
-    protected string? StyleValue => DefaultStyleBuilder.Build();
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
+        .AddStyle("height", "var(--layout-height)")
+        .AddStyle("--layout-height", string.IsNullOrEmpty(Height) ? "100vh" : Height)
+        .AddStyle("--layout-header-height", HeaderHeight)
+        .AddStyle("--layout-footer-height", FooterHeight)
+        .AddStyle("--layout-body-height", ContentHeight)
+        .Build();
 
     /// <summary>
-    /// Gets or sets the vertical scrollbar position: global to the entire Layout, or inside the content area.
+    /// Gets or sets the vertical scrollbar position:
+    /// global to the entire Layout (true), or inside the content area (false).
     /// </summary>
     [Parameter]
-    public bool GlobalScrollbar { get; set; } = true;
+    public bool GlobalScrollbar { get; set; }
+
+    /// <summary>
+    /// Gets ot sets the width of the Layout.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the height of the Layout.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -70,7 +90,7 @@ public partial class FluentLayout
     internal bool HasHeader => Items.Exists(i => i.Area == LayoutArea.Header);
 
     /// <summary />
-    internal string HeaderHeight => Items.Find(i => i.Area == LayoutArea.Header)?.Height ?? "24px";
+    internal string HeaderHeight => Items.Find(i => i.Area == LayoutArea.Header)?.Height ?? "44px";
 
     /// <summary />
     internal bool HeaderSticky => Items.Find(i => i.Area == LayoutArea.Header)?.Sticky ?? false;
@@ -79,8 +99,11 @@ public partial class FluentLayout
     internal bool HasFooter => Items.Exists(i => i.Area == LayoutArea.Footer);
 
     /// <summary />
-    internal string FooterHeight => Items.Find(i => i.Area == LayoutArea.Footer)?.Height ?? "24px";
+    internal string FooterHeight => Items.Find(i => i.Area == LayoutArea.Footer)?.Height ?? "36px";
 
     /// <summary />
     internal bool FooterSticky => Items.Find(i => i.Area == LayoutArea.Footer)?.Sticky ?? false;
+
+    /// <summary />
+    internal string ContentHeight => Items.Find(i => i.Area == LayoutArea.Content)?.Height ?? "calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height))";
 }

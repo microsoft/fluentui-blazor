@@ -79,7 +79,6 @@ public partial class FluentLayoutItem
 
     /// <summary>
     /// Gets or sets the height of the item.
-    /// Default is 24px for Header and Footer, and null for others
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
@@ -127,7 +126,7 @@ public partial class FluentLayoutItem
                 asideArea.AddExtraStyles("margin-right", "0");
             }
 
-            contentArea?.AddExtraStyles("padding-right", string.IsNullOrEmpty(asideArea.Width) || !asideArea.Sticky ? "0" : asideArea.Width);
+            contentArea?.AddExtraStyles("padding-right", string.IsNullOrEmpty(asideArea.Width) || !asideArea.Sticky ? "0" : asideArea.Width + " !important");
         }
 
         // Grid Area
@@ -151,8 +150,9 @@ public partial class FluentLayoutItem
         // Height
         var height = Area switch
         {
-            LayoutArea.Header => Layout?.HeaderHeight ?? "fit-content",
-            LayoutArea.Footer => Layout?.FooterHeight ?? "fit-content",
+            LayoutArea.Header => "var(--layout-header-height)",
+            LayoutArea.Footer => "var(--layout-footer-height)",
+            LayoutArea.Content => "var(--layout-body-height)",
             _ => Height
         };
 
