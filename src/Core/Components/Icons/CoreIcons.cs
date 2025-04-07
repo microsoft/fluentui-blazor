@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal static partial class CoreIcons
@@ -80,6 +84,7 @@ internal static partial class CoreIcons
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         internal static partial class Size16
         {
+            public class ArrowSort : Icon { public ArrowSort() : base("ArrowSort", IconVariant.Regular, IconSize.Size16, "<path d=\"M4.85 2.15a.5.5 0 0 0-.7 0l-3 3a.5.5 0 1 0 .7.7L4 3.71v9.79a.5.5 0 0 0 1 0V3.7l2.15 2.15a.5.5 0 1 0 .7-.7l-3-3Zm6.3 11.71c.2.19.5.19.7 0l3-2.9a.5.5 0 1 0-.7-.72L12 12.32V2.5a.5.5 0 0 0-1 0v9.82l-2.15-2.08a.5.5 0 1 0-.7.72l3 2.9Z\"/>") { } }
             public class ArrowSortDown : Icon { public ArrowSortDown() : base("ArrowSortDown", IconVariant.Regular, IconSize.Size16, "<path d=\"M7.15 13.85c.2.2.5.2.7 0l3-3a.5.5 0 0 0-.7-.7L8 12.29V2.5a.5.5 0 0 0-1 0v9.8l-2.15-2.15a.5.5 0 0 0-.7.7l3 3Z\"/>") { } }
             public class ArrowSortUp : Icon { public ArrowSortUp() : base("ArrowSortUp", IconVariant.Regular, IconSize.Size16, "<path d=\"M7.15 2.15c.2-.2.5-.2.7 0l3 3a.5.5 0 0 1-.7.7L8 3.71v9.79a.5.5 0 0 1-1 0V3.7L4.85 5.86a.5.5 0 1 1-.7-.7l3-3Z\"/>") { } }
             public class CheckmarkCircle : Icon { public CheckmarkCircle() : base("CheckmarkCircle", IconVariant.Regular, IconSize.Size16, "<path d=\"M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3Zm-.75 6.04 2.87-2.88a.5.5 0 0 1 .77.64l-.06.07L7.6 10.1a.5.5 0 0 1-.63.06l-.07-.06-1.75-1.75a.5.5 0 0 1 .63-.76l.07.06 1.4 1.4 2.87-2.89-2.87 2.88Z\"/>") { } }
@@ -88,6 +93,7 @@ internal static partial class CoreIcons
             public class Filter : Icon { public Filter() : base("Filter", IconVariant.Regular, IconSize.Size16, "<path d=\"M2 3.5c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm2 4c0-.28.22-.5.5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm2 4c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z\"/>") { } }
             public class Info : Icon { public Info() : base("Info", IconVariant.Regular, IconSize.Size16, "<path d=\"M8 7c.28 0 .5.22.5.5v3a.5.5 0 0 1-1 0v-3c0-.28.22-.5.5-.5Zm0-.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Zm6-5a5 5 0 1 0 0 10A5 5 0 0 0 8 3Z\"/>") { } }
             public class MoreVertical : Icon { public MoreVertical() : base("MoreVertical", IconVariant.Regular, IconSize.Size16, "<path d=\"M8 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm-1 3a1 1 0 1 0 2 0 1 1 0 0 0-2 0Z\"/>") { } }
+            public class TableResizeColumn : Icon { public TableResizeColumn() : base("TableResizeColumn", IconVariant.Regular, IconSize.Size16, "<path d=\"M6.35 6.15c.2.2.2.5 0 .7l-.64.65h4.58l-.64-.65a.5.5 0 1 1 .7-.7l1.5 1.5c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7-.7l.64-.65H5.71l.64.65a.5.5 0 1 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5c.2-.2.5-.2.7 0ZM11.5 2A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm.5 1.09v3.29l-.94-.94a1.6 1.6 0 0 0-.06-.06V3H5v2.38l-.06.06-.94.94v-3.3c-.58.21-1 .77-1 1.42v7c0 .65.42 1.2 1 1.41V9.62l.94.94.06.06V13h6v-2.38l.06-.06.94-.94v3.3c.58-.21 1-.77 1-1.42v-7c0-.65-.42-1.2-1-1.41Zm-.94 7.47L11 10.5Z\"/>") { } }
             public class Warning : Icon { public Warning() : base("Warning", IconVariant.Regular, IconSize.Size16, "<path d=\"M8.75 10.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 8a.5.5 0 0 0 1 0V5.5a.5.5 0 0 0-1 0V8Zm-.6-5.36c.49-.86 1.71-.86 2.2 0l4.74 8.5c.47.83-.14 1.86-1.09 1.86h-9.5a1.25 1.25 0 0 1-1.1-1.86l4.76-8.5Zm1.32.49a.25.25 0 0 0-.44 0l-4.75 8.5c-.1.16.03.37.22.37h9.5c.2 0 .31-.2.22-.37l-4.75-8.5Z\"/>") { } }
             public class Search : Icon { public Search() : base("Search", IconVariant.Regular, IconSize.Size16, "<path d=\"M9.1 10.17a4.5 4.5 0 1 1 1.06-1.06l3.62 3.61a.75.75 0 1 1-1.06 1.06l-3.61-3.61Zm.4-3.67a3 3 0 1 0-6 0 3 3 0 0 0 6 0Z\"/>") { } }
         }
