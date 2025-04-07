@@ -1,7 +1,7 @@
-﻿<FluentSwitch @bind-Value="@UseGlobalScrollbar" Label="GlobalScrollbar" Margin="@Margin.All2" />
-<FluentSwitch @bind-Value="@UseHeaderSticky" Label="Header Sticky" Margin="@Margin.All2" />
-<FluentSwitch @bind-Value="@UseMenuSticky" Label="Menu Sticky" Margin="@Margin.All2" />
-<FluentSwitch @bind-Value="@UseFooterSticky" Label="Footer Sticky" Margin="@Margin.All2" />
+﻿<FluentSwitch @bind-Value="@UseGlobalScrollbar" Label=" GlobalScrollbar" Margin="@Margin.All2" />
+<FluentSwitch @bind-Value="@UseHeaderSticky" Label="Header Sticky" Margin="@Margin.All2" Disabled="@(!UseGlobalScrollbar)" />
+<FluentSwitch @bind-Value="@UseMenuSticky" Label="Menu Sticky" Margin="@Margin.All2" Disabled="@(!UseGlobalScrollbar)" />
+<FluentSwitch @bind-Value="@UseFooterSticky" Label="Footer Sticky" Margin="@Margin.All2" Disabled="@(!UseGlobalScrollbar)" />
 
 <div style="border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
 
