@@ -11,6 +11,17 @@ public record ColumnOptionsLabels
     public string OptionsMenu { get; set; } = "Filter";
 
     /// <summary>
+    /// Gets or sets the icon to show in the column menu
+    /// </summary>
+    public Icon? Icon { get; set; } = new CoreIcons.Regular.Size16.Filter();
+
+    /// <summary>
+    /// Gets or sets whether the icon is positioned at the start (true) or
+    /// at the end (false) of the menu item
+    /// </summary>
+    public bool IconPositionStart { get; set; } = true;
+
+    /// <summary>
     /// Gets the default labels for the options UI.
     /// </summary>
     public static ColumnOptionsLabels Default => new();

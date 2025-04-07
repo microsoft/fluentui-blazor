@@ -52,15 +52,37 @@
                     {
                         <FluentMenuItem OnClick="@(async () => await Grid.SortByColumnAsync(this))" @onkeydown="HandleSortMenuKeyDownAsync">
                             @GetSortOptionText()
+                            @if (Grid.ColumnSortLabels.Icon is not null)
+                            {
+                                <span style="display:flex; align-items: center;" slot="@(Grid.ColumnSortLabels.IconPositionStart ? "start" : "end")">
+                                    <FluentIcon Value="@(Grid.ColumnSortLabels.Icon)" Slot="@(Grid.ColumnSortLabels.IconPositionStart ? "start" : "end")" />
+                                </span>
+                            }
                         </FluentMenuItem>
                     }
                     @if (Grid.ResizeType is not null && Grid.ResizableColumns)
                     {
-                        <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnResizeAsync(this))" @onkeydown="HandleResizeMenuKeyDownAsync">@Grid.ColumnResizeLabels.ResizeMenu</FluentMenuItem>
+                        <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnResizeAsync(this))" @onkeydown="HandleResizeMenuKeyDownAsync">
+                            @Grid.ColumnResizeLabels.ResizeMenu
+                            @if (Grid.ColumnResizeLabels.Icon is not null)
+                            {
+                                <span style="display:flex; align-items: center;" slot="@(Grid.ColumnResizeLabels.IconPositionStart ? "start" : "end")">
+                                    <FluentIcon Value="@(Grid.ColumnResizeLabels.Icon)" Slot="@(Grid.ColumnResizeLabels.IconPositionStart ? "start" : "end")" />
+                                </span>
+                            }
+                        </FluentMenuItem>
                     }
                     @if (ColumnOptions is not null)
                     {
-                        <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnOptionsAsync(this))" @onkeydown="HandleOptionsMenuKeyDownAsync">@Grid.ColumnOptionsLabels.OptionsMenu</FluentMenuItem>
+                        <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnOptionsAsync(this))" @onkeydown="HandleOptionsMenuKeyDownAsync">
+                            @Grid.ColumnOptionsLabels.OptionsMenu
+                            @if (Grid.ColumnOptionsLabels.Icon is not null)
+                            {
+                                <span style="display:flex; align-items: center;" slot="@(Grid.ColumnOptionsLabels.IconPositionStart ? "start" : "end")">
+                                    <FluentIcon Value="@(Grid.ColumnOptionsLabels.Icon)" Slot="@(Grid.ColumnOptionsLabels.IconPositionStart ? "start" : "end")" />
+                                </span>
+                            }
+                        </FluentMenuItem>
                     }
                 </FluentMenu>
             </FluentKeyCode>
