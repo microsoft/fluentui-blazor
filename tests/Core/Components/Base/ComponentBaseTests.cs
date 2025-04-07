@@ -12,11 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
-public class ComponentBaseTests : TestContext
+public class ComponentBaseTests : Bunit.TestContext
 {
     /// <summary>
     /// List of components to exclude from the test.
