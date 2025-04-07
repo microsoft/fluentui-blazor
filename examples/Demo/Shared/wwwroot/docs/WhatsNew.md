@@ -41,7 +41,7 @@
 - \[CounterBadge\] Fix `HorizontalPosition`/`VerticalPosition` not being used ([#3490](https://github.com/microsoft/fluentui-blazor/pull/3490))
 - \[DataGrid\] Add method to close column options programmatically ([#3501](https://github.com/microsoft/fluentui-blazor/pull/3501))
 - \[DataGrid\] Fix styling when using `Virtualize` with `DataGridDisplayMode.Table` ([#3497](https://github.com/microsoft/fluentui-blazor/pull/3497))
-- \[DesignTheme\] Add support for setting/getting NuetralBaseColor ([#3530](https://github.com/microsoft/fluentui-blazor/pull/3530))
+- \[DesignTheme\] Add support for setting/getting NeutralBaseColor ([#3530](https://github.com/microsoft/fluentui-blazor/pull/3530))
 - \[DesignTheme\] Fix the accompanying web component ([#3516](https://github.com/microsoft/fluentui-blazor/pull/3516))
 - \[DesignTokens\] Make `AccentBaseColor` and `NeutralBaseColor` work with WithDefault ([#3517](https://github.com/microsoft/fluentui-blazor/pull/3517))
 - \[NumberField\] Fix invalid class styling ([#3531](https://github.com/microsoft/fluentui-blazor/pull/3531))
@@ -385,7 +385,7 @@
 - \[Button\] Fix showing hover on disabled button ([#2968](https://github.com/microsoft/fluentui-blazor/pull/2968))
 - \[DataGrid\] Add OData Adaptor package ([#2938](https://github.com/microsoft/fluentui-blazor/pull/2938))
 - \[DataGrid\] Alter rendering to use table elements ([#2664](https://github.com/microsoft/fluentui-blazor/pull/2664))
-- \[Datagrid\] Page reload issue when using `SaveStateInUrl` ([#2987](https://github.com/microsoft/fluentui-blazor/pull/2987))
+- \[DataGrid\] Page reload issue when using `SaveStateInUrl` ([#2987](https://github.com/microsoft/fluentui-blazor/pull/2987))
 - \[DataGrid\] Respecting control state of Loading parameter ([#3064](https://github.com/microsoft/fluentui-blazor/pull/3064))
 - \[DataGrid\] Save paging state in URL ([#2972](https://github.com/microsoft/fluentui-blazor/pull/2972))
 - \[DatePicker\] Add `PopupHorizontalPosition` property ([#3001](https://github.com/microsoft/fluentui-blazor/pull/3001))
@@ -491,7 +491,7 @@ Starting with v4.11.0 you need to add the following `@using` statement to your `
   - TextBox Settings / 20 / Filled
 
 
-- Emoij packages have been updated to the latest version of the Fluent Emoji collection.
+- Emoji packages have been updated to the latest version of the Fluent Emoji collection.
 
 ## V4.10.4
 
@@ -589,7 +589,7 @@ Starting with v4.11.0 you need to add the following `@using` statement to your `
 - \[Docs\] Make MenuProvider message more prominent ([#2792](https://github.com/microsoft/fluentui-blazor/pull/2792))
 
 ### Icons
-- Update to Fluent UI System Icons 1.1.261 (changes since 1.1.260) plus a fix for not usingthe right colors in the new 'Color icons.
+- Update to Fluent UI System Icons 1.1.261 (changes since 1.1.260) plus a fix for not using the right colors in the new 'Color icons.
 
  **What's new (Name / Size(s) / Variant(s))**
  - Arrow Down Right / 16, 20, 24, 32, 48 / Filled & Regular
@@ -635,7 +635,7 @@ Starting with v4.11.0 you need to add the following `@using` statement to your `
 - \[Providers\] To prevent the menu and tooltip from displaying a scrollbar in body ([#2744](https://github.com/microsoft/fluentui-blazor/pull/2744))
 - \[Tooltip\] Add role so screen reader can announce tooltip text ([#2724](https://github.com/microsoft/fluentui-blazor/pull/2724))
 - \[TreeView\] Improve RTL support ([#2770](https://github.com/microsoft/fluentui-blazor/pull/2770))
-- \[TreeView\] prevent runtime errors in change handeling ([#2776](https://github.com/microsoft/fluentui-blazor/pull/2776))
+- \[TreeView\] prevent runtime errors in change handling ([#2776](https://github.com/microsoft/fluentui-blazor/pull/2776))
 
 ### Demo site and documentation
 - \[Docs\] Components inheriting ListComponentBase missing member descriptions  ([#2735](https://github.com/microsoft/fluentui-blazor/pull/2735))
@@ -751,9 +751,9 @@ For a complete list of changes in this release, also see the [4.10.1](https://gi
 
 ### General
 - \[General\] Update to .NET 9 RC1 SDK ([#2639](https://github.com/microsoft/fluentui-blazor/pull/2639))
-- \[Github\] Update the actions/upload-artifact to v4 ([#2650](https://github.com/microsoft/fluentui-blazor/pull/2650))
+- \[GitHub\] Update the actions/upload-artifact to v4 ([#2650](https://github.com/microsoft/fluentui-blazor/pull/2650))
 
-## Accessiblity
+## Accessibility
 - \[DateTime\] Add `role`, `tabindex` and catch Enter/Space ([#2688](https://github.com/microsoft/fluentui-blazor/pull/2688))
 - \[Select\] Fix the unannounced `Required` keyword with FluentSelect ([#2706](https://github.com/microsoft/fluentui-blazor/pull/2706))
 
@@ -824,7 +824,7 @@ page of the documentation for more information.
 
 ### Components
 - \[General\] Add .net9.0 as targeted framework ([#2590](https://github.com/microsoft/fluentui-blazor/pull/2590))
-- \[Javascript Caching\] Do not add version number to lib.module.js file ([#2572](https://github.com/microsoft/fluentui-blazor/pull/2572))
+- \[JavaScript Caching\] Do not add version number to lib.module.js file ([#2572](https://github.com/microsoft/fluentui-blazor/pull/2572))
 
 - \[Anchor\] Fix hypertext appearance with icon in start/end slot ([#2624](https://github.com/microsoft/fluentui-blazor/pull/2624))
 - \[Autocomplete\] Add missing AdditionalAttributes ([#2522](https://github.com/microsoft/fluentui-blazor/pull/2522))
@@ -860,7 +860,7 @@ page of the documentation for more information.
 - \[Docs\] Fix a typo ([#2518](https://github.com/microsoft/fluentui-blazor/pull/2518))
 - \[Docs\] Fix typo in TemplatesPage.razor ([#2452](https://github.com/microsoft/fluentui-blazor/pull/2452))
 - \[Docs\] Improve warning for required interactivity ([#2469](https://github.com/microsoft/fluentui-blazor/pull/2469))
-- \[Examples\] Add 2024 Olymics data and let examples use that
+- \[Examples\] Add 2024 Olympics data and let examples use that
 
 ### Icons
 - Update to Fluent UI System Icons 1.1.256 (since 1.1.249)
