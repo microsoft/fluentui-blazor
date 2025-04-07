@@ -1,3 +1,37 @@
+## V4.11.8
+
+### Icons and Emoji
+- Update to Fluent UI System Icons 1.1.293 (changes since 1.1.292).
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Chat Multiple Checkmark / 16, 20, 24, 28 / Filled & Regular
+    - Chat Multiple Minus / 16, 20, 24, 28 / Filled & Regular
+    - Circle Multiple Hint Checkmark / 16, 32 / Filled & Regular
+    - Code Block Edit / 16, 20, 24 / Filled & Regular
+    - Cube Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Cube / 28 / Filled & Regular
+    - Database Switch / 24 / Filled & Regular
+    - Flow Sparkle / 16, 20 / Filled & Regular 
+    - Mail Fish Hook / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Shopping Bag Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Sparkle Info / 20, 24 / Filled & Regular
+    - Table Column Top Bottom Edit / 16, 20, 24, 28 / Filled & Regular
+    - Table Column Top Bottom / 16, 28 / Filled & Regular
+    - Task List Square Database / 24 / Filled & Regular
+    - Vehicle Truck Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Vehicle Truck Profile / 28, 32, 48 / Filled & Regular
+    - Vote / 16 / Filled & Regular
+
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Dismiss Circle / 16 / Filled & Regular
+
+    **What's got color now (Name / Size(s) / Variant(s))**
+    - Chat Add / 16, 20, 24, 28, 32, 48 / Color
+    - Chat / 28, 32, 48 / Color
+    - People Chat / 24 / Color
+    - Person Add / 24 / Color
+    - Share iOS / 24 / Color
+   
 ## V4.11.7
 
 ### Components
