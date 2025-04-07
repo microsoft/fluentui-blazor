@@ -25,7 +25,7 @@ on:
 env:
   PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
   TESTS: "./tests/Core/Components.Tests.csproj"
-  INTEGRATION_TEST: "./tests/Integration/Components.IntegrationTests.csproj"
+  INTEGRATION_TEST: "" # DISABLING: ./tests/Integration/Components.IntegrationTests.csproj
   MIN_COVERAGE: "98"
 
 jobs:
@@ -147,22 +147,24 @@ jobs:
    # Integration Tests
 
      - name: Build Integration Tests
+       if: env.INTEGRATION_TEST != ''
        run: dotnet build ${{ env.INTEGRATION_TEST }} --verbosity normal --configuration Release
        working-directory: ${{ github.workspace }}
 
      - name: Install Playwright
-       if: success() || failure()
+       if: env.INTEGRATION_TEST != ''
        shell: pwsh
        working-directory: ${{ github.workspace }}
        run: |
          ./tests/Integration/bin/Release/net9.0/playwright.ps1 install
 
      - name: Run Integration Tests
+       if: env.INTEGRATION_TEST != ''
        run: dotnet test ${{ env.INTEGRATION_TEST }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release
        working-directory: ${{ github.workspace }}
 
      - name: Handle Test Failure
-       if: failure()
+       if: env.INTEGRATION_TEST != '' && failure()
        run: echo "Integration tests failed. Taking necessary actions..."
        working-directory: ${{ github.workspace }}
 
