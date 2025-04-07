@@ -39,6 +39,11 @@ public static class FluentSlot
     /// </summary>
     public const string Thumb = "thumb";
 
+    /// <summary>
+    /// Slot for the FluentTreeView item icon element.
+    /// </summary>
+    public const string Aside = "aside";
+
     /* ***************************************** */
     /* Only for FluentUI Blazor Lib internal use */
     /* ***************************************** */
