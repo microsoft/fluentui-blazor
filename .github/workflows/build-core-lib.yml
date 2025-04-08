@@ -155,7 +155,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Demo site
     env:
-      DOTNET_VERSION: "net9.0"
+      DOTNET_VERSION: "net10.0"
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
       DOTNET_NOLOGO: true
