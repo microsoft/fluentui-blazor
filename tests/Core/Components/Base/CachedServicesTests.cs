@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
-public class CachedServicesTests : TestContext
+public class CachedServicesTests : Bunit.TestContext
 {
     [Fact]
     public void CachedServices_GetCachedServiceOrNull()

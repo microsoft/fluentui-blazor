@@ -3,7 +3,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using System.ComponentModel.DataAnnotations
 @using Xunit;
-@inherits TestContext
+@inherits Bunit.TestContext
 
 @code
 {
@@ -165,7 +165,7 @@
            .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedImmediateValue}\" />");
 
         // Assert: After a small delay
-        await Task.Delay(200);
+        await Task.Delay(200, Xunit.TestContext.Current.CancellationToken);
         Assert.Equal(expectedDelayedValue, value);
         cut.Find("fluent-text-input")
            .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedDelayedValue}\" />");

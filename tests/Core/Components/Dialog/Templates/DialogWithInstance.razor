@@ -21,14 +21,14 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await Task.Delay(10);
+        await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
         Options.OnInitializedCount++;
     }
 
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-        await Task.Delay(10);
+        await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
         Options.OnParametersSetCount++;
     }
 
@@ -70,7 +70,7 @@
 
         if (Options.AutoClose && Options.AutoCloseDelay <= 0)
         {
-            await Task.Delay(10);
+            await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
             await Dialog.CloseAsync(Options.AutoCloseResult);
         }
     }

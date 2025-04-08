@@ -5,7 +5,6 @@
 using System.Diagnostics;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
@@ -95,7 +94,7 @@ public class DebounceTests
             {
                 await Debounce.RunAsync(50, async () =>
                 {
-                    await Task.Delay(1000); // Let time for the second task to start, and to cancel this one
+                    await Task.Delay(1000, Xunit.TestContext.Current.CancellationToken); // Let time for the second task to start, and to cancel this one
 
                     Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step1");
                     actionCalled = "Step1";
@@ -122,12 +121,12 @@ public class DebounceTests
             {
                 Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Task1 OperationCanceled");
             }
-        });
+        }, Xunit.TestContext.Current.CancellationToken);
 
         // Wait for Step1 to start.
         while (!step1Started)
         {
-            await Task.Delay(10);
+            await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
         }
 
         var t2 = Task.Run(async () =>
@@ -144,7 +143,7 @@ public class DebounceTests
             Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Next2");
             actionNextCalled = "Next2";
             actionNextCount++;
-        });
+        }, Xunit.TestContext.Current.CancellationToken);
 
         await Task.WhenAll(t1, t2);
 
@@ -256,7 +255,7 @@ public class DebounceTests
             step1Started = true;
             Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step1 Started");
 
-            await Task.Delay(100);
+            await Task.Delay(100, Xunit.TestContext.Current.CancellationToken);
             actionCalledCount++;
 
             Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step1 Completed");
@@ -265,7 +264,7 @@ public class DebounceTests
         // Wait for Step1 to start.
         while (!step1Started)
         {
-            await Task.Delay(10);
+            await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
         }
 
         Debounce.Run(10, async () =>
@@ -280,7 +279,7 @@ public class DebounceTests
 
         // Wait for the debounce to complete
         await Debounce.CurrentTask;
-        await Task.Delay(200);
+        await Task.Delay(200, Xunit.TestContext.Current.CancellationToken);
 
         // Assert
         Assert.Equal(2, actionCalledCount);

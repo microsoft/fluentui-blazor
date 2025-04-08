@@ -18,11 +18,10 @@ using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
-public class InputBaseTests : TestContext
+public class InputBaseTests : Bunit.TestContext
 {
     /// <summary>
     /// List of components to exclude from the test.
