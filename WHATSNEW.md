@@ -1,5 +1,25 @@
 ## V4.11.8
 
+### General
+- \[General\] Add .NET 10 Preview 2 support ([#3641](https://github.com/microsoft/fluentui-blazor/pull/3641))
+- \[General\] Fix trimming error ([#3578](https://github.com/microsoft/fluentui-blazor/pull/3578))  
+
+### Components
+- \[Combobox\] Fix issue when used in Dialog ([#3603](https://github.com/microsoft/fluentui-blazor/pull/3603))  
+- \[DataGrid\] Add icons to column menus ([#3621](https://github.com/microsoft/fluentui-blazor/pull/3621))  
+- \[DataGrid\] Fix rendering issue in Table mode ([#3615](https://github.com/microsoft/fluentui-blazor/pull/3615))  
+- \[DataGrid\] Fix Width when `ResizableColumns` and `Sortable` ([#3593](https://github.com/microsoft/fluentui-blazor/pull/3593))  
+- \[Icons\] AddIconsExtensions.TryGetInstance ([#3569](https://github.com/microsoft/fluentui-blazor/pull/3569))  
+- \[InputFile\] Better handling of dispose error ([#3605](https://github.com/microsoft/fluentui-blazor/pull/3605))  
+- \[NavMenu\] Add code to only respond to certain key codes ([#3595](https://github.com/microsoft/fluentui-blazor/pull/3595))  
+- \[TreeView\] Add MultiSelect example ([#3602](https://github.com/microsoft/fluentui-blazor/pull/3602))  
+
+### Demo site and documentation
+- \[Docs\] Remove an unnecessary line in FluentDialog ([#3550](https://github.com/microsoft/fluentui-blazor/pull/3550))  
+- \[Docs\] Make cookie consent responsive ([#3555](https://github.com/microsoft/fluentui-blazor/pull/3555))  
+- \[Docs\] Remove extra '>' ([#3572](https://github.com/microsoft/fluentui-blazor/pull/3572))  
+- \[Docs\] Fix typo ([#3589](https://github.com/microsoft/fluentui-blazor/pull/3589))  
+
 ### Icons and Emoji
 - Update to Fluent UI System Icons 1.1.293 (changes since 1.1.292).
 
