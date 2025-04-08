@@ -76,10 +76,10 @@ public partial class FluentAccordion : FluentComponentBase
     [Parameter]
     public EventCallback<AccordionItemEventArgs> OnAccordionItemChange { get; set; }
 
-    /// <summary>
-    /// Gets or sets a callback when the expand mode is changed.
-    /// </summary>
-    public EventCallback<AccordionExpandMode> OnExpandModeChanged { get; set; }
+    ///// <summary>
+    ///// Gets or sets a callback when the expand mode is changed.
+    ///// </summary>
+    //public EventCallback<AccordionExpandMode> OnExpandModeChanged { get; set; }
 
     private async Task HandleOnAccordionChangedAsync(AccordionItemEventArgs args)
     {
@@ -124,6 +124,7 @@ public partial class FluentAccordion : FluentComponentBase
                 Expanded = expanded,
                 HeaderText = item.Header,
             });
+            await ActiveIdChanged.InvokeAsync(id);
         }
     }
 

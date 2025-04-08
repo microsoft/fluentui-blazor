@@ -3,7 +3,7 @@
         <FluentButton OnClick="ExpandItem2Async">Expand item 2</FluentButton>
         <FluentButton OnClick="CollapseItem4Async">Collapse item 4</FluentButton>
     </FluentStack>
-    <FluentAccordion @ref="accordion" OnAccordionItemChange="HandleOnAccordionItemChange">
+    <FluentAccordion @ref="accordion" @bind-ActiveId="@activeId" OnAccordionItemChange="HandleOnAccordionItemChange">
         <FluentAccordionItem Id="item1" Header="Panel one">
             Panel one content
         </FluentAccordionItem>
@@ -20,7 +20,8 @@
 </FluentStack>
 <p>
     Last changed accordion item: @headerText<br />
-    Expanded: @changed?.Expanded
+    Expanded: @changed?.Expanded<br />
+    Active Id: @activeId
 </p>
 
 
@@ -28,6 +29,7 @@
     FluentAccordion? accordion;
     FluentAccordionItem? changed;
     string? headerText;
+    string? activeId;
 
     bool expanded = true;
 
