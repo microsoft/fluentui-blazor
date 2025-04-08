@@ -15,6 +15,12 @@ public partial class FluentAccordion : FluentComponentBase
     private readonly Dictionary<string, FluentAccordionItem> items = [];
 
     /// <summary />
+    protected string? ClassValue => DefaultClassBuilder.Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder.Build();
+
+    /// <summary />
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(AccordionItemEventArgs))]
     public FluentAccordion()
     {
@@ -27,6 +33,12 @@ public partial class FluentAccordion : FluentComponentBase
     /// </summary>
     [Parameter]
     public AccordionExpandMode? ExpandMode { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback when the expand mode is changed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<AccordionExpandMode?> ExpandModeChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the <see href="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the heading element.
@@ -62,6 +74,7 @@ public partial class FluentAccordion : FluentComponentBase
     /// <summary>
     /// Gets or sets a callback when the active id is changed.
     /// </summary>
+    [Parameter]
     public EventCallback<string?> ActiveIdChanged { get; set; }
 
     /// <summary>
@@ -71,22 +84,20 @@ public partial class FluentAccordion : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback when a accordion item is changed.
+    /// Gets or sets a callback when an accordion item is changed.
     /// </summary>
     [Parameter]
     public EventCallback<AccordionItemEventArgs> OnAccordionItemChange { get; set; }
-
-    ///// <summary>
-    ///// Gets or sets a callback when the expand mode is changed.
-    ///// </summary>
-    //public EventCallback<AccordionExpandMode> OnExpandModeChanged { get; set; }
 
     private async Task HandleOnAccordionChangedAsync(AccordionItemEventArgs args)
     {
         if (args is not null)
         {
             ActiveId = args.Id;
-            await ActiveIdChanged.InvokeAsync(ActiveId);
+            if (ActiveIdChanged.HasDelegate)
+            {
+                await ActiveIdChanged.InvokeAsync(ActiveId);
+            }
 
             if (ActiveId is not null && items.TryGetValue(ActiveId, out var item))
             {
@@ -146,5 +157,10 @@ public partial class FluentAccordion : FluentComponentBase
         {
             items.Remove(item.Id);
         }
+    }
+
+    internal Dictionary<string, FluentAccordionItem> GetItems()
+    {
+        return items;
     }
 }

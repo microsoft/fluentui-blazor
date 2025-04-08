@@ -1,15 +1,15 @@
 ﻿
 <FluentAccordion @bind-ActiveId="@activeId" OnAccordionItemChange="HandleOnAccordionItemChange">
-    <FluentAccordionItem Header="Panel one">
+    <FluentAccordionItem Id="item1" Header="Panel one">
         Panel one content
     </FluentAccordionItem>
-    <FluentAccordionItem Header="Panel two">
+    <FluentAccordionItem Id="item2" Header="Panel two">
         Panel two content
     </FluentAccordionItem>
-    <FluentAccordionItem Expanded="true" Header="Panel three" Disabled="true">
+    <FluentAccordionItem Id="item3" Expanded="true" Header="Panel three" Disabled="true">
         Panel three content
     </FluentAccordionItem>
-    <FluentAccordionItem Expanded="true">
+    <FluentAccordionItem Id="item4" Expanded="true">
         <HeaderTemplate>
             Panel <span style="color:red">Four</span>
         </HeaderTemplate>
@@ -34,7 +34,6 @@
 
     private void HandleOnAccordionItemChange(AccordionItemEventArgs args)
     {
-        activeId = args.Id;
         changed = args.Item;
         header = args.HeaderText;
     }

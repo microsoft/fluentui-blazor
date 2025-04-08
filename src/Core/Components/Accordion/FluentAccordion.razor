@@ -3,8 +3,8 @@
 @inherits FluentComponentBase
 <CascadingValue Value="this" IsFixed="true">
     <fluent-accordion id="@Id"
-                      class="@Class"
-                      style="@Style"
+                      class="@ClassValue"
+                      style="@StyleValue"
                       expand-mode="@ExpandMode.ToAttributeValue()"
                       @onaccordionchange="HandleOnAccordionChangedAsync"
                       @attributes="AdditionalAttributes">

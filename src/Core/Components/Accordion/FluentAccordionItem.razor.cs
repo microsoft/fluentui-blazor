@@ -13,6 +13,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentAccordionItem : FluentComponentBase, IDisposable
 {
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder.Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder.Build();
+
     /// <summary>
     /// Gets or sets the owning FluentTreeView.
     /// </summary>

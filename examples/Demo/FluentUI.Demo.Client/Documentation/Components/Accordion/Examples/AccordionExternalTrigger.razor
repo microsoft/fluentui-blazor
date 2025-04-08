@@ -3,7 +3,7 @@
         <FluentButton OnClick="ExpandItem2Async">Expand item 2</FluentButton>
         <FluentButton OnClick="CollapseItem4Async">Collapse item 4</FluentButton>
     </FluentStack>
-    <FluentAccordion @ref="accordion" @bind-ActiveId="@activeId" OnAccordionItemChange="HandleOnAccordionItemChange">
+    <FluentAccordion @ref="accordion" OnAccordionItemChange="HandleOnAccordionItemChange">
         <FluentAccordionItem Id="item1" Header="Panel one">
             Panel one content
         </FluentAccordionItem>
@@ -20,8 +20,7 @@
 </FluentStack>
 <p>
     Last changed accordion item: @headerText<br />
-    Expanded: @changed?.Expanded<br />
-    Active Id: @activeId
+    Expanded: @changed?.Expanded
 </p>
 
 
@@ -29,10 +28,7 @@
     FluentAccordion? accordion;
     FluentAccordionItem? changed;
     string? headerText;
-    string? activeId;
-
     bool expanded = true;
-
 
     private async Task ExpandItem2Async()
     {
@@ -41,6 +37,7 @@
             await accordion.ExpandItemAsync("item2");
         }
     }
+
     private async Task CollapseItem4Async()
     {
         if (accordion is not null)
