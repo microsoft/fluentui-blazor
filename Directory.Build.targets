@@ -1,5 +1,4 @@
 <Project>
-
   <PropertyGroup>
     <!-- Set DisableSourceLinkUrlTranslation to true when building a tool for internal use where sources only come from internal URIs -->
     <DisableSourceLinkUrlTranslation Condition="'$(DisableSourceLinkUrlTranslation)' == ''">false</DisableSourceLinkUrlTranslation>
@@ -14,5 +13,4 @@
       </SourceRoot>
     </ItemGroup>
   </Target>
-
 </Project>

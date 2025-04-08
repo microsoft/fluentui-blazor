@@ -4949,7 +4949,7 @@
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon">
             <summary>
-            Custom icon loaded from <see cref="!:IconsExtensions.GetInstance(IconInfo)"/>
+            Custom icon loaded from <see cref="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo,System.Nullable{System.Boolean})"/>
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomIcon.#ctor">
