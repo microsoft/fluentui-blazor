@@ -6,11 +6,13 @@ icon: Regular.ArrowBetweenUp
 route: /MigrationV5
 ---
 
-# Changes introduced in this version 5
+# Changes introduced in this version
 
 The following changes have been included in version 5.
-Some of these are coding changes,
-component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
+The categories these changes fall in are:
+- Coding changes
+- Component changes (marked with 🔃)
+- Breaking Changes (marked with 💥)
 
 ## General
 
