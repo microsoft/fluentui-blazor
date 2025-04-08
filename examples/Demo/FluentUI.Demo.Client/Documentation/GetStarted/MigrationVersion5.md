@@ -20,6 +20,9 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 
 {{ INCLUDE MigrationColor }}
 
+## FluentAccordion
+{{ INCLUDE MigrationFluentAccordion }}
+
 ## FluentButton
 
 {{ INCLUDE MigrationFluentButton }}
