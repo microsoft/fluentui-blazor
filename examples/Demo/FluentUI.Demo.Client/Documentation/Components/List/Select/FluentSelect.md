@@ -24,6 +24,7 @@ You can change the appearance of the **FluentSelect** component by using the **a
 
 {{ SelectAppearance }}
 
+
 ## Customize the items
 
 You can customize the items in the **FluentSelect** component by using Lambda expressions.
@@ -56,6 +57,12 @@ Selected items are bound to the **SelectedItems** property.
 
 {{ SelectMultiple }}
 
+## Select object
+
+You can use any **Object** to create a list of options.
+
+{{ SelectObject }}
+
 ## Disabled and ReadOnly
 
 {{ SelectDisabledReadOnly }}
@@ -86,6 +93,7 @@ But all items are rendered in the HTML code and loaded at once.
 If you have a very large number of items, you should use the **FluentAutocomplete** component.
 
 {{ SelectManyItems }}
+
 
 ## API FluentSelect
 

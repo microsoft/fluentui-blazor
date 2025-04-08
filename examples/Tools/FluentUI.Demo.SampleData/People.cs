@@ -148,5 +148,10 @@ public partial class People
         /// Gets the age of the person
         /// </summary>
         public int Age => DateTime.Today.Year - BirthDay.Year;
+
+        /// <summary>
+        /// Gets the full name by combining <see cref="FirstName"/> and <see cref="LastName"/>
+        /// </summary>
+        public string Name => $"{FirstName} {LastName}";
     }
 }

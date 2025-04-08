@@ -1,0 +1,16 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+
+<FluentSelect Label="Person"
+              Items="Persons"
+              @bind-Value="@Value"
+              OptionText="(item) => item?.Name" />
+
+<div>
+    Selected: @Value?.Name
+</div>
+
+
+@code {
+    static SampleData.People.Person[] Persons = SampleData.People.GeneratePersons(10).ToArray();
+    SampleData.People.Person? Value;
+}
