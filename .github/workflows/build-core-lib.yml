@@ -57,7 +57,7 @@ jobs:
        uses: actions/setup-dotnet@v4
        with:
         dotnet-version: 10.0.x
-        dotnet-quality: preview 
+        dotnet-quality: preview
 
      # Build
 
@@ -173,8 +173,8 @@ jobs:
       - name: .NET Setup SDKs
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
-          dotnet-quality: ga
+          dotnet-version: 10.0.x
+          dotnet-quality: preview
 
       - name: .NET Builld
         run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
