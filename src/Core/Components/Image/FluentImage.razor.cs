@@ -21,71 +21,71 @@ public partial class FluentImage : FluentComponentBase
         .Build();
 
     /// <summary/>
-    private static string? ImageClassValue => new CssBuilder("fluent-image-item")
+    protected string? ImageClassValue => new CssBuilder("fluent-image-item")
         .Build();
 
     /// <summary/>
-    private string? ImageStyleValue => new StyleBuilder()
+    protected string? ImageStyleValue => new StyleBuilder()
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .Build();
 
     /// <summary>
-    /// The height of the image.
+    /// Gets or sets the height of the image, applies only to the parameter.
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
 
     /// <summary>
-    /// The width of the image.
+    /// Gets or sets the width of the image, applies only to the parameter.
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
-    /// The source link for the image.
+    /// Gets or sets the source link for the image, applies only to the parameter.
     /// </summary>
     [Parameter]
     public string? Source { get; set; }
 
     /// <summary>
-    /// The alternate text for the image.
+    /// Gets or sets the alternate text for the image.
     /// </summary>
     [Parameter]
     public string? AlternateText { get; set; }
 
     /// <summary>
-    /// The image html component
+    /// Gets or sets the image html component.
     /// </summary>
     [Parameter]
     public RenderFragment ChildContent { get; set; } = null!;
 
     /// <summary>
-    /// Border surrounding image
+    /// Gets or sets the border surrounding image.
     /// </summary>
     [Parameter]
     public bool Bordered { get; set; }
 
     /// <summary>
-    /// An image can use the argument ‘block’ so that it’s width will expand to fill the available container space.
+    /// Gets or sets the argument ‘block’ so that the image's width will expand to fill the available container space.
     /// </summary>
     [Parameter]
     public bool Block { get; set; }
 
     /// <summary>
-    /// Apply an optional box shadow to further separate the image from the background.
+    /// Gets or sets a box shadow to further separate the image from the background.
     /// </summary>
     [Parameter]
     public bool Shadow { get; set; }
 
     /// <summary>
-    /// The image shape <see cref="ImageShape"/>
+    /// Gets or sets the image shape <see cref="ImageShape"/>
     /// </summary>
     [Parameter]
     public ImageShape? Shape { get; set; }
 
     /// <summary>
-    /// Determines how the image will be scaled and positioned within its parent container.
+    /// Gets or sets the fit of the image, determines how it will be scaled and positioned within its parent container.
     /// </summary>
     [Parameter]
     public ImageFit? Fit { get; set; }

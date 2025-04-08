@@ -1,6 +1,6 @@
-﻿<FluentSelect TOption="ImageFit" Items="@(Enum.GetValues<ImageFit>())" @bind-Value="@_selectedFit"/>
+﻿<FluentSelect TOption="ImageFit" Items="@(Enum.GetValues<ImageFit>())" @bind-Value="@_selectedFit" />
 <div style="width: auto; height: 400px; margin-top: 10px">
-    <FluentImage Fit="@_selectedFit" Source="https://picsum.photos/200" AlternateText="Placeholder Image"/>
+    <FluentImage Fit="@_selectedFit" Source="/big-heart.jpg" AlternateText="Placeholder Image" />
 </div>
 
 @code{

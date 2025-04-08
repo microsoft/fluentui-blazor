@@ -1,6 +1,6 @@
-﻿<FluentSelect TOption="ImageShape" Items="@(Enum.GetValues<ImageShape>())" @bind-Value="@_selectedShape"/>
-<div style="width: auto; height: 400px; margin-top: 10px">
-    <FluentImage Shape="@_selectedShape" Source="https://picsum.photos/200" AlternateText="Placeholder Image"/>
+﻿<FluentSelect TOption="ImageShape" Items="@(Enum.GetValues<ImageShape>())" @bind-Value="@_selectedShape" />
+<div style="width: auto; height: 300px; margin-top: 10px">
+    <FluentImage Shape="@_selectedShape" Source="/big-heart.jpg" AlternateText="Placeholder Image" />
 </div>
 
 @code{
