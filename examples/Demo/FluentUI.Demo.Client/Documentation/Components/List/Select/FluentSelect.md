@@ -24,7 +24,6 @@ You can change the appearance of the **FluentSelect** component by using the **a
 
 {{ SelectAppearance }}
 
-
 ## Customize the items
 
 You can customize the items in the **FluentSelect** component by using Lambda expressions.
