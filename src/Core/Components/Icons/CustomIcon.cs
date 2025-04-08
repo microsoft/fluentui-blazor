@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Custom icon loaded from <see cref="IconsExtensions.GetInstance(IconInfo)"/>
+/// Custom icon loaded from <see cref="IconsExtensions.GetInstance(IconInfo, bool?)"/>
 /// </summary>
 public class CustomIcon : Icon
 {
