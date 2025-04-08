@@ -234,13 +234,37 @@ public partial class FluentWizard : FluentComponentBase
     /// <summary />
     protected virtual async Task OnFinishHandlerAsync(MouseEventArgs e)
     {
-        // Validate any form edit contexts
-        var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
-        if (!allEditContextsAreValid)
+        await this.FinishAsync(true);
+    }
+
+    /// <summary>
+    /// Navigate to the specified step, with or without validate the current EditContexts.
+    /// </summary>
+    /// <param name="step">Index number of the step to display</param>
+    /// <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
+    /// <returns></returns>
+    public Task GoToStepAsync(int step, bool validateEditContexts = false)
+    {
+        return ValidateAndGoToStepAsync(step, validateEditContexts);
+    }
+
+    /// <summary>
+    /// Optionally validate and invoke the <see cref="OnFinish"/> handler.
+    /// </summary>
+    /// <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
+    /// <returns></returns>
+    public async Task FinishAsync(bool validateEditContexts = false)
+    {
+        if (validateEditContexts)
         {
-            // Invoke the 'OnInvalidSubmit' handlers for the edit forms.
-            await _steps[Value].InvokeOnInValidSubmitForEditFormsAsync();
-            return;
+            // Validate any form edit contexts
+            var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
+            if (!allEditContextsAreValid)
+            {
+                // Invoke the 'OnInvalidSubmit' handlers for the edit forms.
+                await _steps[Value].InvokeOnInValidSubmitForEditFormsAsync();
+                return;
+            }
         }
 
         // Invoke the 'OnValidSubmit' handlers for the edit forms.
@@ -253,17 +277,6 @@ public partial class FluentWizard : FluentComponentBase
         {
             await OnFinish.InvokeAsync();
         }
-    }
-
-    /// <summary>
-    /// Navigate to the specified step, with or without validate the current EditContexts.
-    /// </summary>
-    /// <param name="step">Index number of the step to display</param>
-    /// <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
-    /// <returns></returns>
-    public Task GoToStepAsync(int step, bool validateEditContexts = false)
-    {
-        return ValidateAndGoToStepAsync(step, validateEditContexts);
     }
 
     internal async Task ValidateAndGoToStepAsync(int targetIndex, bool validateEditContexts)
