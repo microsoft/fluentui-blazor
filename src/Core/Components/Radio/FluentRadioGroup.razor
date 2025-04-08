@@ -1,0 +1,15 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputBase<TValue>
+@typeparam TValue
+<CascadingValue TValue="FluentRadioContext" Value="_context">
+    <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+        <fluent-radio-group slot="@FluentSlot.FieldInput"
+                            aria-labelledby="radio-group-default--label"
+                            name="favorite-fruit"
+                            value="banana"
+                            required="@Required">
+            @ChildContent
+        </fluent-radio-group>
+    </FluentField>
+</CascadingValue>

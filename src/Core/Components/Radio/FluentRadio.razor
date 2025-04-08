@@ -1,0 +1,16 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+@typeparam TValue
+
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" LabelPosition="@Components.LabelPosition.After">
+    <fluent-radio checked="@Checked"
+                  disabled="@Disabled"
+                  slot="@FluentSlot.FieldInput"
+                  value="@Value"
+                  @attributes="AdditionalAttributes">
+        @Label
+        @LabelTemplate
+        @ChildContent
+    </fluent-radio>
+</FluentField>
