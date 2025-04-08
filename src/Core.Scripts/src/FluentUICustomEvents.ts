@@ -13,7 +13,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       browserEventName: 'change',
       createEventArgs: event => {
         const item: any = event.target.accordionItems[event.target.activeItemIndex];
-        const header = item?.querySelector(`[slot="heading"]`).innerText ?? null;
+        const header = item?.querySelector(`[slot="heading"]`)?.innerText ?? null;
         return {
           id: item?.id ?? "",
           expanded: item?._expanded ?? null,

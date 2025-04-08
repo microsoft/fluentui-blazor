@@ -39,3 +39,16 @@ For this to work, a reference to the accordion is needed and the `@ref` attribut
 This can be useful when you want to control the state of the accordion items based other events than user interaction.
 
 {{ AccordionExternalTrigger }}
+
+## API FluentAccordion
+
+{{ API Type=FluentAccordion }}
+
+## API FluentAccordionItem
+
+{{ API Type=FluentAccordionItem }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentAccordion }}
+
