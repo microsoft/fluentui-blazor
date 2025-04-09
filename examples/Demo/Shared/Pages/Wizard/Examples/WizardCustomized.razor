@@ -12,11 +12,11 @@
 </style>
 
 <FluentWizard @ref="@MyWizard"
-Id="customized-wizard"
-@bind-Value="@Value"
-StepTitleHiddenWhen="@GridItemHidden.XsAndDown"
-OnFinish="OnFinish"
-Height="300px">
+              Id="customized-wizard"
+              @bind-Value="@Value"
+              StepTitleHiddenWhen="@GridItemHidden.XsAndDown"
+              OnFinish="OnFinish"
+              Height="300px">
     <Steps>
         <FluentWizardStep OnChange="@OnStepChange">
             <StepTemplate>
