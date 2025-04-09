@@ -1,0 +1,163 @@
+﻿@using AngleSharp.Css.Dom
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Xunit
+@inherits Bunit.TestContext
+
+@code {
+
+    private readonly string _imageSource = "https://picsum.photos/200";
+    private readonly string _imageAltText = "Placeholder Image";
+
+    public FluentImageTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentImage_NoParameters()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage/>);
+
+        // Assert
+        var fluentImage = cut.Find("fluent-image");
+
+        Assert.Throws<ElementNotFoundException>(() => cut.Find("img"));
+        Assert.NotNull(fluentImage);
+    }
+
+    [Fact]
+    public void FluentImage_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Source="@_imageSource" AlternateText="@_imageAltText"/>);
+
+        // Assert
+        var imageSource = cut.Find("img").GetAttribute("src");
+        var imageAltText = cut.Find("img").GetAttribute("alt");
+        var imageClass = cut.Find("img").GetAttribute("class");
+
+        Assert.Equal(_imageSource, imageSource);
+        Assert.Equal(_imageAltText, imageAltText);
+        Assert.Equal("fluent-image-item", imageClass);
+    }
+
+    [Fact]
+    public void FluentImage_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Width="200px" Source="@_imageSource" AlternateText="@_imageAltText"/>);
+
+        // Assert
+        var widthParameter = cut.Find("img").GetStyle()["width"];
+
+        Assert.Equal("200px", widthParameter);
+    }
+
+    [Fact]
+    public void FluentImage_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Height="200px" Source="@_imageSource" AlternateText="@_imageAltText"/>);
+
+        // Assert
+        var heightParameter = cut.Find("img").GetStyle()["height"];
+
+        Assert.Equal("200px", heightParameter);
+    }
+
+    [Theory]
+    [InlineData(ImageFit.None)]
+    [InlineData(ImageFit.Center)]
+    [InlineData(ImageFit.Contain)]
+    [InlineData(ImageFit.Cover)]
+    public void FluentImage_Fit(ImageFit fit)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Fit="@fit" Source="@_imageSource" AlternateText="@_imageAltText"/>);
+
+        // Assert
+        var fitParameter = cut.Find("fluent-image").GetAttribute("fit");
+        var imageSource = cut.Find("img").GetAttribute("src");
+        var imageAltText = cut.Find("img").GetAttribute("alt");
+
+        Assert.Equal(fit.ToAttributeValue(), fitParameter);
+        Assert.Equal(_imageSource, imageSource);
+        Assert.Equal(_imageAltText, imageAltText);
+    }
+
+    [Theory]
+    [InlineData(ImageShape.Square)]
+    [InlineData(ImageShape.Circular)]
+    [InlineData(ImageShape.Rounded)]
+    public void FluentImage_Shape(ImageShape shape)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Shape="@shape" Source="@_imageSource" AlternateText="@_imageAltText"/>);
+
+        // Assert
+        var shapeParameter = cut.Find("fluent-image").GetAttribute("shape");
+        var imageSource = cut.Find("img").GetAttribute("src");
+        var imageAltText = cut.Find("img").GetAttribute("alt");
+
+        Assert.Equal(shape.ToAttributeValue(), shapeParameter);
+        Assert.Equal(_imageSource, imageSource);
+        Assert.Equal(_imageAltText, imageAltText);
+    }
+
+
+    [Fact]
+    public void FluentImage_ChildContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage>
+            <img src="@_imageSource" alt="@_imageAltText"/>
+            <img src="@_imageSource" alt="@_imageAltText"/>
+        </FluentImage>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentImage_Source_And_ChildContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Source="@_imageSource" AlternateText="@_imageAltText">
+            <img src="https://picsum.photos/200" alt="Placeholder Image"/></FluentImage>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentImage_Bordered()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Bordered="true" Source="@_imageSource" AlternateText="@_imageAltText"/>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentImage_Shadow()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Shadow="true" Source="@_imageSource" AlternateText="@_imageAltText"/>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentImage_Block()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentImage Block="true" Source="@_imageSource" AlternateText="@_imageAltText"/>);
+
+        // Assert
+        cut.Verify();
+    }
+}

@@ -6,8 +6,8 @@
       <path d="M2 4.5c0-.28.22-.5.5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5Zm0 5c0-.28.22-.5.5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5Zm.5 4.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-15Z"></path>
     </svg>
   </div>
-  <div class="fluent-layout" global-scrollbar="">
-    <div class="fluent-layout-item" style="grid-area: header; height: 24px;" area="header" inside-layout="">Header</div>
-    <div class="fluent-layout-item" style="grid-area: content;" area="content" inside-layout="">Content</div>
+  <div class="fluent-layout" style="height: var(--layout-height); --layout-height: 100vh; --layout-header-height: 44px; --layout-footer-height: 36px; --layout-body-height: calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height));">
+    <div class="fluent-layout-item" style="grid-area: header; height: var(--layout-header-height);" area="header" inside-layout="">Header</div>
+    <div class="fluent-layout-item" style="grid-area: content; height: var(--layout-body-height);" area="content" inside-layout="">Content</div>
   </div>
 </div>
