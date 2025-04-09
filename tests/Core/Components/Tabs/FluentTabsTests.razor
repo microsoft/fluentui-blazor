@@ -259,4 +259,21 @@
            builder.AddContent(1, "Content 2");
            builder.CloseElement();
        };
+
+    [Fact]
+    public async Task FluentTabs_AddTabAsync_InvalidTab()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>
+    );
+
+        // Act
+        var index = await cut.FindComponent<FluentTabs>().Instance.AddTabAsync(null);
+
+        // Assert
+        Assert.Equal(0, index);
+    }
 }

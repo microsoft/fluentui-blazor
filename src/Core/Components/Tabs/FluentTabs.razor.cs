@@ -112,7 +112,7 @@ public partial class FluentTabs: FluentComponentBase
     }
 
     /// <summary />
-    internal async Task<int> AddTabAsync(FluentTab tab)
+    internal async Task<int> AddTabAsync(FluentTab? tab)
     {
         if (tab is not null && !string.IsNullOrEmpty(tab.Id))
         {
@@ -140,7 +140,7 @@ public partial class FluentTabs: FluentComponentBase
                 }
             }
 
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
 
             return Tabs.Count;
         }
