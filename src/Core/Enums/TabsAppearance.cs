@@ -21,5 +21,5 @@ public enum TabsAppearance
     /// Minimizes emphasis to blend into the background until hovered or focused.
     /// </summary>
     [Description("subtle")]
-    Default,
+    Subtle,
 }

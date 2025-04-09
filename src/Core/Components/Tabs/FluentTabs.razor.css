@@ -2,6 +2,12 @@
   width: 100%;
 }
 
+  .fluent-tabs:has(fluent-tablist[orientation="vertical"]) {
+    display: flex;
+    flex-direction: row;
+  }
+
 .fluent-tab-panel {
   padding: var(--spacingVerticalS) var(--spacingHorizontalS);
+  width: 100%;
 }
