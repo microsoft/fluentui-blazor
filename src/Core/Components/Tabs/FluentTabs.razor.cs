@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -66,7 +67,7 @@ public partial class FluentTabs: FluentComponentBase
     public string? Height { get; set; }
 
     /// <summary>
-    /// Gets or sets the wudth of the tabs.
+    /// Gets or sets the width of the tabs.
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
@@ -100,6 +101,15 @@ public partial class FluentTabs: FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.ObserveTabsChanged", Id);
+        }
+    }
 
     /// <summary />
     internal async Task<int> AddTabAsync(FluentTab tab)
@@ -160,9 +170,6 @@ public partial class FluentTabs: FluentComponentBase
             {
                 await ActiveTabChanged.InvokeAsync(ActiveTab);
             }
-
-            // Refresh the active tab content
-            await ActiveTab.RefreshAsync();
         }
     }
 

@@ -103,22 +103,6 @@ public partial class FluentTab : FluentComponentBase, ITooltipComponent
         }
     }
 
-    /// <summary>
-    /// Refreshes the tab content.
-    /// </summary>
-    /// <returns></returns>
-    public Task RefreshAsync()
-    {
-        RefreshKey++;
-        return Task.CompletedTask;
-    }
-
-    /// <summary />
-    internal int RefreshKey { get; set; } = -Random.Shared.Next();
-
     /// <summary />
     internal string TabPanelId => $"{Id}-panel";
-
-    /// <summary />
-    internal bool IsInactiveActive => !string.Equals(Owner?.ActiveTabId, Id, StringComparison.Ordinal);
 }

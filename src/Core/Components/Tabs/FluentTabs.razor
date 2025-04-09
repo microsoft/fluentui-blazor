@@ -21,7 +21,7 @@
         {
             if (tab.Visible)
             {
-                <div id="@tab.TabPanelId" index="@tab.Index" role="tabpanel" hidden="@tab.IsInactiveActive" class="fluent-tab-panel">
+                <div id="@tab.TabPanelId" index="@tab.Index" class="fluent-tab-panel">
                     @if (tab.DeferredLoading && ActiveTabId != tab.Id)
                     {
                         if (tab.LoadingTemplate is null)

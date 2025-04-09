@@ -1,4 +1,4 @@
-﻿<FluentTabs @bind-ActiveTabId="@ActiveTabId" Height="100px" Width="400px">
+﻿<FluentTabs @bind-ActiveTab="@ActiveTab" Height="100px" Width="400px">
     <FluentTab Header="Chat">
         Here's some information about the chat.
     </FluentTab>
@@ -13,17 +13,17 @@
 </FluentTabs>
 
 <p>
-    ActiveTab: <b>@ActiveTabId</b>
+    ActiveTab: <b>@ActiveTab?.Header</b>
 </p>
 
 @code
 {
-    string? ActiveTabId;
+    FluentTab? ActiveTab;
 
     RenderFragment? GetContentTab2 => builder =>
     {
         // To simulate a long running process
-        Thread.Sleep(3000);
+        Thread.Sleep(2000);
 
         // Add <span>Here's the list of all files.</span>
         builder.OpenElement(0, "span");
