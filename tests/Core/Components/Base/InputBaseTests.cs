@@ -7,16 +7,10 @@
  * ********************************************************
  */
 
-using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using Bunit;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.JSInterop;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
@@ -28,7 +22,8 @@ public class InputBaseTests : Bunit.TestContext
     /// </summary>
     private static readonly Type[] Excluded = new[]
     {
-        typeof(AspNetCore.Components._Imports)
+        typeof(AspNetCore.Components._Imports),
+        typeof(FluentRadio<>),
     };
 
     /// <summary>
@@ -40,6 +35,7 @@ public class InputBaseTests : Bunit.TestContext
         { typeof(FluentSelect<>), type => type.MakeGenericType(typeof(string)) },
         { typeof(FluentCombobox<>), type => type.MakeGenericType(typeof(string)) },
         { typeof(FluentSlider<>), type => type.MakeGenericType(typeof(int)) },
+        { typeof(FluentRadioGroup<>), type => type.MakeGenericType(typeof(string)) },
     };
 
     /// <summary />

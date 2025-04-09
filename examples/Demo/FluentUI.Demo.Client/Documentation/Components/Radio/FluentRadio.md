@@ -34,16 +34,27 @@ Use sentence style capitalization—only capitalize the first word. For more inf
 
 ### Radio button appearances
 
-A radio button is either unchecked or checked. Usually, once a selection has been made to check an item, it cannot be unchecked again.
-An item can also be disabled and can use show a label to indicate the value.  
+A radio button is either unchecked or checked. Usually, once an item in a group has been checked, the result of the group as a whole cannot be unchecked again.
+An item can also be disabled and can show a label to indicate the value. Although it is technically possible to show a single Radio button (as can be seen below), it needs to be in a RadioGroup to become functioning.
 
 {{ RadioDefault }}
 
 ## RadioGroup
 
 Radios are typically placed in a group. Only one of the items in a group can have a checked state.
+You can bind to the `Value` of the group to the get the value of the checked item.
 
 {{ RadioGroupDefault }}
+
+## Strongly typed items and using Label template
+Radio items allow for strongly binding to types. Because of this, string values need to be defined in the following way: 
+`Value="@("one")"`
+
+As an alternative to of using the `Label` parameter (string value only),
+it is possible to use the `LabelTemplate` parameter to specify a template for the label.
+In case both are specified, the `Label` parameter is used.
+
+{{ RadioGroupLabelTemplate }}
 
 ## RadioGroup with vertical orientation
 When the radio group has a vertical orientation, the items are stacked on top of each other.
@@ -55,7 +66,11 @@ A radio group can be disabled. This means that the user cannot select any of the
 {{ RadioGroupDisabledGroup }}
 
 ## RadioGroup with disabled items
+Besides disabling the whole group, it is also possible to disable specific items in a group.
 {{ RadioGroupDisabledItems }}
 
 ## RadioGroup required
 {{ RadioGroupRequired }}
+
+## Migration
+Using the `ChildContent` parameter to specify the content/label of a Radio item i no longer supported. Use the `Label` or `LabelTemplate` parameters instead

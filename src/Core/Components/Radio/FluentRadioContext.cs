@@ -7,28 +7,36 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Describes context for an <see cref="FluentRadio{TValue}"/> component. 
+/// Describes context for an <see cref="FluentRadio{TValue}"/> component.
 /// </summary>
 internal sealed class FluentRadioContext
 {
+    private readonly IFluentRadioValueProvider _valueProvider;
+
     public FluentRadioContext? ParentContext { get; }
     public EventCallback<ChangeEventArgs> ChangeEventCallback { get; }
+    public object? CurrentValue => _valueProvider.CurrentValue;
 
     // Mutable properties that may change any time an FluentRadioGroup is rendered
     public string? GroupName { get; set; }
-    public object? CurrentValue { get; set; }
 
     public string? FieldClass { get; set; }
+
+    public Orientation? Orientation { get; set; }
 
     /// <summary>
     /// Instantiates a new <see cref="FluentRadioContext" />.
     /// </summary>
     /// <param name="parentContext">The parent context, if any.</param>
     /// <param name="changeEventCallback">The event callback to be invoked when the selected value is changed.</param>
-    public FluentRadioContext(FluentRadioContext? parentContext, EventCallback<ChangeEventArgs> changeEventCallback)
+    /// <param name="valueProvider">The value provider for the radio context.</param>
+    /// <param name="orientation">The orientation of the radio group.</param>
+    public FluentRadioContext(IFluentRadioValueProvider valueProvider, FluentRadioContext? parentContext, EventCallback<ChangeEventArgs> changeEventCallback, Orientation? orientation)
     {
+        _valueProvider = valueProvider;
         ParentContext = parentContext;
         ChangeEventCallback = changeEventCallback;
+        Orientation = orientation;
     }
 
     /// <summary>

@@ -1,16 +1,21 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@inherits FluentComponentBase
+@using System.Diagnostics
+@inherits FluentInputBase<TValue>
 @typeparam TValue
-
+@{
+    Debug.Assert(Context != null);
+}
 <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" LabelPosition="@Components.LabelPosition.After">
-    <fluent-radio checked="@Checked"
+    <fluent-radio id="@Id"
+                  checked="@(Checked ?? Context.CurrentValue?.Equals(Value) == true ? GetToggledTrueValue() : null)"
                   disabled="@Disabled"
                   slot="@FluentSlot.FieldInput"
-                  value="@Value"
+                  value="@(Value?.ToString() ?? Label ?? null)"
+                  name="@Context.GroupName"
+                  @onfocusout="@FocusOutHandlerAsync"
+                  @onchange="@Context.ChangeEventCallback"
                   @attributes="AdditionalAttributes">
-        @Label
-        @LabelTemplate
-        @ChildContent
+
     </fluent-radio>
 </FluentField>
