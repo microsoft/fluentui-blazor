@@ -1,13 +1,13 @@
-﻿<FluentTabs @bind-ActiveTabId="@ActiveTabId" Height="100px" Width="300px">
-    <FluentTab Id="tab1" Header="Chat">
+﻿<FluentTabs @bind-ActiveTabId="@ActiveTabId" Height="100px" Width="400px">
+    <FluentTab Header="Chat">
         Here's some information about the chat.
     </FluentTab>
 
-    <FluentTab Id="tab2" Header="Files" DeferredLoading="true">
+    <FluentTab Header="Files" DeferredLoading="true">
         @GetContentTab2
     </FluentTab>
 
-    <FluentTab Id="tab3" Header="Recap">
+    <FluentTab Header="Recap">
         Here's some information about the recap.
     </FluentTab>
 </FluentTabs>

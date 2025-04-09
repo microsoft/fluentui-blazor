@@ -30,6 +30,9 @@ public partial class FluentTab : FluentComponentBase, ITooltipComponent
     [CascadingParameter]
     private FluentTabs? Owner { get; set; }
 
+    /// <summary />
+    internal int Index { get; set; }
+
     /// <summary>
     /// Gets or sets whether the tab is disabled.
     /// </summary>
@@ -96,7 +99,26 @@ public partial class FluentTab : FluentComponentBase, ITooltipComponent
 
         if (Owner is not null)
         {
-            await Owner.AddTabAsync(this);
+            Index = await Owner.AddTabAsync(this);
         }
     }
+
+    /// <summary>
+    /// Refreshes the tab content.
+    /// </summary>
+    /// <returns></returns>
+    public Task RefreshAsync()
+    {
+        RefreshKey++;
+        return Task.CompletedTask;
+    }
+
+    /// <summary />
+    internal int RefreshKey { get; set; } = -Random.Shared.Next();
+
+    /// <summary />
+    internal string TabPanelId => $"{Id}-panel";
+
+    /// <summary />
+    internal bool IsInactiveActive => !string.Equals(Owner?.ActiveTabId, Id, StringComparison.Ordinal);
 }

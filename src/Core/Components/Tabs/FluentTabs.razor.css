@@ -1,0 +1,7 @@
+.fluent-tabs {
+  width: 100%;
+}
+
+.fluent-tab-panel {
+  padding: var(--spacingVerticalS) var(--spacingHorizontalS);
+}

@@ -26,6 +26,7 @@ public partial class FluentTabs: FluentComponentBase
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-tabs")
         .Build();
 
     /// <summary />
@@ -101,7 +102,7 @@ public partial class FluentTabs: FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
-    internal async Task AddTabAsync(FluentTab tab)
+    internal async Task<int> AddTabAsync(FluentTab tab)
     {
         if (tab is not null && !string.IsNullOrEmpty(tab.Id))
         {
@@ -128,14 +129,18 @@ public partial class FluentTabs: FluentComponentBase
                     await ActiveTabIdChanged.InvokeAsync(ActiveTabId);
                 }
             }
+
+            return Tabs.Count;
         }
+
+        return 0;
     }
 
     /// <summary />
     internal async Task TabChangeHandlerAsync(TabChangeEventArgs args)
     {
         // Only for the current FluentTabs
-        if (!string.Equals(args.Id, Id, StringComparison.Ordinal))
+        if (!string.Equals(args.Id, TabListId, StringComparison.Ordinal))
         {
             return;
         }
@@ -155,6 +160,12 @@ public partial class FluentTabs: FluentComponentBase
             {
                 await ActiveTabChanged.InvokeAsync(ActiveTab);
             }
+
+            // Refresh the active tab content
+            await ActiveTab.RefreshAsync();
         }
     }
+
+    /// <summary />
+    internal string TabListId => $"{Id}-tablist";
 }
