@@ -140,6 +140,8 @@ public partial class FluentTabs: FluentComponentBase
                 }
             }
 
+            StateHasChanged();
+
             return Tabs.Count;
         }
 

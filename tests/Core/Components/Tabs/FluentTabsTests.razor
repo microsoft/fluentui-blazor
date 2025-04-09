@@ -5,6 +5,7 @@
 {
     public FluentTabsTests()
     {
+        JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
     }
 
@@ -66,7 +67,7 @@
         // Act
         await cut.FindComponent<FluentTabs>().Instance.TabChangeHandlerAsync(new()
         {
-            Id = eventTabsId,
+            Id = eventTabsId + "-tablist",
             ActiveId = eventActiveId,
         });
 
@@ -96,7 +97,7 @@
         // Act
         await cut.FindComponent<FluentTabs>().Instance.TabChangeHandlerAsync(new()
         {
-            Id = eventTabsId,
+            Id = eventTabsId + "-tablist",
             ActiveId = eventActiveId,
         });
 
@@ -146,8 +147,8 @@
     }
 
     [Theory]
-    [InlineData(TabsAppearance.Default, null)]
-    [InlineData(TabsAppearance.Transparent, "transparent")]
+    [InlineData(TabsAppearance.Subtle, "subtle")]
+    [InlineData(TabsAppearance.Transparent, null)]
     [InlineData(null, null)]
     [InlineData((TabsAppearance)999, null)]
     public void FluentTabs_Appearance(TabsAppearance? appearance, string? expectedAttribute)
@@ -157,7 +158,7 @@
             <FluentTab Header="MyTab"></FluentTab>
         </FluentTabs>);
 
-        var attribute = cut.Find("fluent-tabs").GetAttribute("appearance");
+        var attribute = cut.Find("fluent-tablist").GetAttribute("appearance");
 
         // Assert
         Assert.Equal(expectedAttribute, attribute);
@@ -176,7 +177,7 @@
             <FluentTab Header="MyTab"></FluentTab>
         </FluentTabs>);
 
-        var attribute = cut.Find("fluent-tabs").GetAttribute("size");
+        var attribute = cut.Find("fluent-tablist").GetAttribute("size");
 
         // Assert
         Assert.Equal(expectedAttribute, attribute);
@@ -189,7 +190,7 @@
         var cut = Render(@<FluentTabs Width="100px" Height="200px"></FluentTabs>);
 
         // Assert
-        Assert.Equal("width: 100px; height: 200px;", cut.Find("fluent-tabs").GetAttribute("style"));
+        Assert.Equal("width: 100px; height: 200px;", cut.Find(".fluent-tabs").GetAttribute("style"));
     }
 
     [Fact]
@@ -197,7 +198,7 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentTabs>
-            <FluentTab>
+            <FluentTab Id="MyTab">
                 <HeaderTemplate>Tab <b>Name</b></HeaderTemplate>
                 <ChildContent>
                     Tab Content
