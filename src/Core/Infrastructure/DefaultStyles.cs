@@ -18,7 +18,7 @@ public class DefaultStyles
 
     /// <summary>
     /// Gets or sets the default CSS class for the FluentField component, used with all the input components.
-    /// The default value is "my-3-o", an overridable "my-3" class. Spacing between text fields and other components is 24 pixels.
+    /// The default value is "my-3-o", an overridable "my-3" class. Spacing between text fields and other components is 12 pixels.
     /// </summary>
     public string? FluentFieldClass { get; set; } = "my-3-o";
 
