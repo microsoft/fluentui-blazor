@@ -1,8 +1,11 @@
 
-<fluent-tabs id="xxx" blazor:ontabchange="1">
-  <fluent-tab id="xxx">Chat
-  </fluent-tab>
-  <fluent-tab-panel id="xxx">
+<div id="xxx" class="fluent-tabs">
+  <fluent-tablist id="xxx" blazor:ontabchange="1">
+    <fluent-tab id="xxx" aria-controls="tab1-panel">
+      Chat
+    </fluent-tab>
+  </fluent-tablist>
+  <div id="xxx" index="1" class="fluent-tab-panel">
     Here's some information about the chat.
-  </fluent-tab-panel>
-</fluent-tabs>
+  </div>
+</div>

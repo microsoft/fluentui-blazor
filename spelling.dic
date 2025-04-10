@@ -1,3 +1,8 @@
+# ***************************
+# List of misspelled words
+# Please, sort the list alphabetically
+# ***************************
+
 ansi
 appsettings
 blazor
@@ -5,33 +10,35 @@ brotli
 combobox
 cref
 csproj
+currentcolor
 datalist
 elementreference
 evenodd
 gzip
 javascript
+menuchecked
+menuclicked
+menuitem
+menuitem
+menuitemcheckbox
+menuitemcheckboxobsolete
+menuitemradio
+menuitemradioobsolete
+menuitems
 microsoft
+myid
 noattribute
 nonfile
-rrggbb
-tabindex
-textarea
-sourcecode
-summarydata
-currentcolor
-menuitem
-menuitems
-rightclick
-menuitemcheckbox
-menuitem
-menuitemradio
-menuitemcheckboxobsolete
-menuitemradioobsolete
+ondialogbeforetoggle
+ondialogtoggle
+ondropdownchange
 onmenuitemchange
 ontabchange
-ondropdownchange
-ondialogtoggle
-ondialogbeforetoggle
-myid
-menuclicked
-menuchecked
+rightclick
+rrggbb
+sourcecode
+summarydata
+tabindex
+tablist
+tabpanel
+textarea

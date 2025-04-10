@@ -3,16 +3,42 @@
 @inherits FluentComponentBase
 
 <CascadingValue Value="this" IsFixed="true">
-    <fluent-tabs id="@Id"
-                 class="@ClassValue"
-                 style="@StyleValue"
-                 appearance="@Appearance.ToAttributeValue(isNull: TabsAppearance.Default, returnEmptyAsNull: true)"
-                 disabled="@Disabled"
-                 size="@Size.ToAttributeValue(isNull: TabsSize.Medium, returnEmptyAsNull: true)"
-                 orientation="@Orientation.ToAttributeValue()"
-                 activeid="@(ActiveTabId ?? ActiveTab?.Id)"
-                 ontabchange="@TabChangeHandlerAsync"
-                 @attributes="@AdditionalAttributes">
-        @ChildContent
-    </fluent-tabs>
+    <div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes">
+
+        @* List of tab headers *@
+        <fluent-tablist id="@TabListId"
+                        appearance="@Appearance.ToAttributeValue(isNull: TabsAppearance.Transparent, returnEmptyAsNull: true)"
+                        disabled="@Disabled"
+                        size="@Size.ToAttributeValue(isNull: TabsSize.Medium, returnEmptyAsNull: true)"
+                        orientation="@Orientation.ToAttributeValue()"
+                        activeid="@(ActiveTabId ?? ActiveTab?.Id)"
+                        ontabchange="@TabChangeHandlerAsync">
+            @ChildContent
+        </fluent-tablist>
+
+        @* List of tab contents (need to be added outside of the fluent-tablist *@
+        @foreach (var tab in Tabs.Values.OrderBy(i => i.Index))
+        {
+            if (tab.Visible)
+            {
+                <div id="@tab.TabPanelId" index="@tab.Index" class="fluent-tab-panel">
+                    @if (tab.DeferredLoading && ActiveTabId != tab.Id)
+                    {
+                        if (tab.LoadingTemplate is null)
+                        {
+                            <FluentProgressBar />
+                        }
+                        else
+                        {
+                            @tab.LoadingTemplate
+                        }
+                    }
+                    else
+                    {
+                        @tab.ChildContent
+                    }
+                </div>
+            }
+        }
+    </div>
 </CascadingValue>
