@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentAccordion : FluentComponentBase
 {
-    private readonly Dictionary<string, FluentAccordionItem> items = [];
+    private readonly Dictionary<string, FluentAccordionItem> _items = [];
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder.Build();
@@ -99,11 +99,14 @@ public partial class FluentAccordion : FluentComponentBase
                 await ActiveIdChanged.InvokeAsync(ActiveId);
             }
 
-            if (ActiveId is not null && items.TryGetValue(ActiveId, out var item))
+            if (ActiveId is not null && _items.TryGetValue(ActiveId, out var item))
             {
                 args.Item = item;
                 await args.Item.SetExpandedAsync(args.Expanded);
-                await OnAccordionItemChange.InvokeAsync(args);
+                if (OnAccordionItemChange.HasDelegate)
+                {
+                    await OnAccordionItemChange.InvokeAsync(args);
+                }
             }
         }
     }
@@ -126,7 +129,7 @@ public partial class FluentAccordion : FluentComponentBase
 
     internal async Task HandleStateAsync(string id, bool expanded)
     {
-        if (items.TryGetValue(id, out var item))
+        if (_items.TryGetValue(id, out var item))
         {
             await HandleOnAccordionChangedAsync(new AccordionItemEventArgs()
             {
@@ -144,9 +147,9 @@ public partial class FluentAccordion : FluentComponentBase
 
         if (!string.IsNullOrEmpty(item.Id))
         {
-            if (!items.TryAdd(item.Id, item))
+            if (!_items.TryAdd(item.Id, item))
             {
-                items[item.Id] = item;
+                _items[item.Id] = item;
             }
         }
     }
@@ -155,12 +158,12 @@ public partial class FluentAccordion : FluentComponentBase
     {
         if (!string.IsNullOrEmpty(item.Id))
         {
-            items.Remove(item.Id);
+            _items.Remove(item.Id);
         }
     }
 
     internal Dictionary<string, FluentAccordionItem> GetItems()
     {
-        return items;
+        return _items;
     }
 }
