@@ -34,7 +34,7 @@ This label can be fully customized (bold, italic, icons, ...) using `LabelTempla
 
 {{ FieldLabelExample }}
 
-> By default, the `my-3` class is added to all `FluentField`
+> By default, the `my-3-o`, an overridable "my-3" class, is added to all `FluentField`
 > that contain at least one `Label` or `Message`,
 > to add `12px` before (top) and after (bottom) the field.
 > This will automatically make all your form fields **24px** apart,
