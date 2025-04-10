@@ -13,7 +13,6 @@
                   slot="@FluentSlot.FieldInput"
                   value="@(Value?.ToString() ?? Label ?? null)"
                   name="@Context.GroupName"
-                  @onfocusout="@FocusOutHandlerAsync"
                   @onchange="@Context.ChangeEventCallback"
                   @attributes="AdditionalAttributes">
 

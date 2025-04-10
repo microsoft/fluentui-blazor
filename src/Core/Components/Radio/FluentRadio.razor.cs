@@ -4,8 +4,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -19,14 +17,6 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     bool _trueValueToggle;
 
     internal FluentRadioContext? Context { get; private set; }
-
-    /// <summary />
-    protected override string? ClassValue => new CssBuilder()
-        .AddClass(Class, when: Context?.Orientation == Orientation.Horizontal)
-        .Build();
-
-    ///// <summary />
-    //protected string? StyleValue => DefaultStyleBuilder.Build();
 
     /// <summary />
     public FluentRadio()
@@ -43,73 +33,6 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     [Parameter]
     public bool? Checked { get; set; }
 
-    ///// <summary>
-    ///// Gets or sets the name of the parent fluent radio group.
-    ///// </summary>
-    //[Parameter]
-    //public string? Name { get; set; }
-
-    ///// <summary>
-    ///// Gets or sets the value of the element.
-    ///// </summary>
-    //[Parameter]
-    //public TValue? Value { get; set; }
-
-    ///// <summary />
-    //[Parameter]
-    //public EventCallback<TValue?> ValueChanged { get; set; }
-
-    //#region IFluentField
-
-    ///// <inheritdoc cref="IFluentField.FocusLost" />
-    //public virtual bool FocusLost { get; protected set; }
-
-    ///// <inheritdoc cref="IFluentField.Disabled" />
-    //[Parameter]
-    //public virtual bool? Disabled { get; set; }
-
-    ///// <inheritdoc cref="IFluentField.Label" />
-    //[Parameter]
-    //public virtual string? Label { get; set; }
-
-    ///// <inheritdoc cref="IFluentField.LabelTemplate" />
-    //[Parameter]
-    //public virtual RenderFragment? LabelTemplate { get; set; }
-
-    ///// <inheritdoc cref="IFluentField.LabelPosition" />
-    //[Parameter]
-    //public virtual LabelPosition? LabelPosition { get; set; }
-
-    ///// <inheritdoc cref="IFluentField.LabelWidth" />
-    //[Parameter]
-    //public virtual string? LabelWidth { get; set; }
-
-    ///// <inheritdoc cref="IFluentField.Required" />
-    //[Parameter]
-    //public virtual bool? Required { get; set; }
-
-    ///// <inheritdoc cref="IFluentField.Message" />
-    //[Parameter]
-    //public virtual string? Message { get; set; }
-
-    ///// <inheritdoc cref="IFluentField.MessageIcon" />
-    //[Parameter]
-    //public virtual Icon? MessageIcon { get; set; }
-
-    ///// <inheritdoc cref="IFluentField.MessageTemplate" />
-    //[Parameter]
-    //public virtual RenderFragment? MessageTemplate { get; set; }
-
-    ///// <inheritdoc cref="IFluentField.MessageCondition" />
-    //[Parameter]
-    //public virtual Func<IFluentField, bool>? MessageCondition { get; set; }
-
-    ///// <inheritdoc cref="IFluentField.MessageState" />
-    //[Parameter]
-    //public virtual MessageState? MessageState { get; set; }
-
-    //#endregion
-
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
@@ -122,20 +45,14 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
         }
     }
 
-    /// <summary>
-    /// Handler for the OnFocus event.
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
-    {
-        FocusLost = true;
-        return Task.CompletedTask;
-    }
-
     /// <inheritdoc />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
-    => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
+    => throw new NotSupportedException();
+
+    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        return TryParseValueFromString(value, out result, out validationErrorMessage);
+    }
 
     // This is an unfortunate hack, but is needed for the scenario described by test InputRadioGroupWorksWithMutatingSetter.
     // Radio groups are special in that modifying one <input type=radio> instantly and implicitly also modifies the previously

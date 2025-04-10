@@ -230,4 +230,14 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentRadio_TryParseValueFromString()
+    {
+        // Arrange
+        var fluentRadio = new FluentRadio<string>();
+
+        // Act & Assert
+        Assert.Throws<NotSupportedException>(() => fluentRadio.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
+    }
 }

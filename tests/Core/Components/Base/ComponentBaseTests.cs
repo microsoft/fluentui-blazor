@@ -22,6 +22,7 @@ public class ComponentBaseTests : Bunit.TestContext
     {
         typeof(AspNetCore.Components._Imports),
         typeof(DialogOptions),
+        typeof(FluentRadio<>),
     };
 
     /// <summary>
@@ -34,6 +35,7 @@ public class ComponentBaseTests : Bunit.TestContext
         { typeof(FluentCombobox<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentRadioGroup<>), Loader.MakeGenericType(typeof(string)) },
+        //{ typeof(FluentRadio<>), Loader.MakeGenericType(typeof(string)) },
         { typeof(FluentTooltip), Loader.Default.WithRequiredParameter("Anchor", "MyButton").WithRequiredParameter("UseTooltipService", false)},
     };
 
