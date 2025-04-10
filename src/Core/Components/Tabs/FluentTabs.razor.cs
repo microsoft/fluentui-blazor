@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -26,6 +27,7 @@ public partial class FluentTabs: FluentComponentBase
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-tabs")
         .Build();
 
     /// <summary />
@@ -65,7 +67,7 @@ public partial class FluentTabs: FluentComponentBase
     public string? Height { get; set; }
 
     /// <summary>
-    /// Gets or sets the wudth of the tabs.
+    /// Gets or sets the width of the tabs.
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
@@ -101,7 +103,16 @@ public partial class FluentTabs: FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
-    internal async Task AddTabAsync(FluentTab tab)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.ObserveTabsChanged", Id);
+        }
+    }
+
+    /// <summary />
+    internal async Task<int> AddTabAsync(FluentTab? tab)
     {
         if (tab is not null && !string.IsNullOrEmpty(tab.Id))
         {
@@ -128,14 +139,20 @@ public partial class FluentTabs: FluentComponentBase
                     await ActiveTabIdChanged.InvokeAsync(ActiveTabId);
                 }
             }
+
+            await InvokeAsync(StateHasChanged);
+
+            return Tabs.Count;
         }
+
+        return 0;
     }
 
     /// <summary />
     internal async Task TabChangeHandlerAsync(TabChangeEventArgs args)
     {
         // Only for the current FluentTabs
-        if (!string.Equals(args.Id, Id, StringComparison.Ordinal))
+        if (!string.Equals(args.Id, TabListId, StringComparison.Ordinal))
         {
             return;
         }
@@ -157,4 +174,7 @@ public partial class FluentTabs: FluentComponentBase
             }
         }
     }
+
+    /// <summary />
+    internal string TabListId => $"{Id}-tablist";
 }

@@ -4,13 +4,13 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Client.Layout;
 
 public partial class DemoMainLayout
 {
-    private string? _version;
     private FluentLayout? _layout;
     private bool _menuOpened;
     private bool _consoleLogOpened;
@@ -28,7 +28,6 @@ public partial class DemoMainLayout
 
     protected override void OnInitialized()
     {
-        _version = AppVersion.Version;
         _useReboot = new Uri(Navigation.Uri).Query.Contains("reboot", StringComparison.InvariantCultureIgnoreCase);
 
         // Reset the menu when the location changes
@@ -38,6 +37,11 @@ public partial class DemoMainLayout
             return ValueTask.CompletedTask;
         });
     }
+
+    private string? LayoutStyleHeight => new StyleBuilder()
+        .AddStyle("--layout-footer-height", "calc(150px + 36px)", when: _consoleLogOpened == true)
+        .AddStyle("--layout-footer-height", "36px", when: _consoleLogOpened == false)
+        .Build();
 
     private async Task SwitchThemeAsync()
     {
@@ -65,15 +69,9 @@ public partial class DemoMainLayout
         }
     }
 
-    private bool IsHomePage()
-    {
-        if (Navigation.Uri == Navigation.BaseUri)
-        {
-            return true;
-        }
+    /// <summary />
+    private bool IsHomePage() => Navigation.Uri == Navigation.BaseUri;
 
-        return false;
-    }
-
-    private string GetLayoutKey() => IsHomePage() ? "Home" : string.Empty;
+    /// <summary />
+    private string GetLayoutKey() => IsHomePage() ? "Home" : string.Empty;    
 }

@@ -1,23 +1,25 @@
 
-<fluent-tabs id="xxx" blazor:ontabchange="1">
-  <fluent-tab id="xxx">
-    <span>
-      <svg style="width: 24px; fill: var(--colorBrandForeground1);" focusable="false" viewBox="0 0 24 24" aria-hidden="true" blazor:onkeydown="x" blazor:onclick="x">
-        <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 8.25a1 1 0 0 0-1 .88v5.74a1 1 0 0 0 2 0v-5.62l-.01-.12a1 1 0 0 0-1-.88Zm0-3.75A1.25 1.25 0 1 0 12 9a1.25 1.25 0 0 0 0-2.5Z"></path>
-      </svg>Chat
-    </span>
-  </fluent-tab>
-  <fluent-tab-panel id="xxx">
+<div id="xxx" class="fluent-tabs">
+  <fluent-tablist id="xxx" blazor:ontabchange="1">
+    <fluent-tab id="xxx" aria-controls="tab1-panel">
+      <span>
+        <svg style="width: 24px; fill: var(--colorBrandForeground1);" focusable="false" viewBox="0 0 24 24" aria-hidden="true" blazor:onkeydown="x" blazor:onclick="x">
+          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 8.25a1 1 0 0 0-1 .88v5.74a1 1 0 0 0 2 0v-5.62l-.01-.12a1 1 0 0 0-1-.88Zm0-3.75A1.25 1.25 0 1 0 12 9a1.25 1.25 0 0 0 0-2.5Z"></path>
+        </svg>Chat
+      </span>
+    </fluent-tab>
+    <fluent-tab id="xxx" aria-controls="tab2-panel">
+      <span>
+        <svg style="width: 24px; fill: var(--success);" focusable="false" viewBox="0 0 24 24" aria-hidden="true" blazor:onkeydown="x" blazor:onclick="x">
+          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 8.25a1 1 0 0 0-1 .88v5.74a1 1 0 0 0 2 0v-5.62l-.01-.12a1 1 0 0 0-1-.88Zm0-3.75A1.25 1.25 0 1 0 12 9a1.25 1.25 0 0 0 0-2.5Z"></path>
+        </svg>Files
+      </span>
+    </fluent-tab>
+  </fluent-tablist>
+  <div id="xxx" index="1" class="fluent-tab-panel">
     Here's some information about the chat.
-  </fluent-tab-panel>
-  <fluent-tab id="xxx">
-    <span>
-      <svg style="width: 24px; fill: var(--success);" focusable="false" viewBox="0 0 24 24" aria-hidden="true" blazor:onkeydown="x" blazor:onclick="x">
-        <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 8.25a1 1 0 0 0-1 .88v5.74a1 1 0 0 0 2 0v-5.62l-.01-.12a1 1 0 0 0-1-.88Zm0-3.75A1.25 1.25 0 1 0 12 9a1.25 1.25 0 0 0 0-2.5Z"></path>
-      </svg>Files
-    </span>
-  </fluent-tab>
-  <fluent-tab-panel id="xxx">
+  </div>
+  <div id="xxx" index="2" class="fluent-tab-panel">
     Here's the list of all files.
-  </fluent-tab-panel>
-</fluent-tabs>
+  </div>
+</div>
