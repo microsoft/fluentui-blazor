@@ -1,32 +1,60 @@
-﻿<div style="height: 400px; border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
+﻿<FluentSwitch @bind-Value="@UseGlobalScrollbar" Label=" GlobalScrollbar" Margin="@Margin.All2" />
+<FluentSwitch @bind-Value="@UseHeaderSticky" Label="Header Sticky" Margin="@Margin.All2" Disabled="@(!UseGlobalScrollbar)" />
+<FluentSwitch @bind-Value="@UseMenuSticky" Label="Menu Sticky" Margin="@Margin.All2" Disabled="@(!UseGlobalScrollbar)" />
+<FluentSwitch @bind-Value="@UseFooterSticky" Label="Footer Sticky" Margin="@Margin.All2" Disabled="@(!UseGlobalScrollbar)" />
 
-    <FluentLayout>
+<div style="border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
 
-        <FluentLayoutItem Area="@LayoutArea.Header" Style="font-size: larger; font-weight: bold; display: flex; ">
-            <FluentLayoutHamburger />
-            Microsoft Demo
+    <FluentLayout GlobalScrollbar="@UseGlobalScrollbar" Height="400px">
+
+        <!-- Header -->
+        <FluentLayoutItem Area="@LayoutArea.Header" Sticky="@UseHeaderSticky">
+            <FluentStack VerticalAlignment="VerticalAlignment.Center">
+                <FluentLayoutHamburger />
+                <FluentText Weight="TextWeight.Bold" Size="TextSize.Size400">
+                    Microsoft Demo
+                </FluentText>
+            </FluentStack>
         </FluentLayoutItem>
 
-        <FluentLayoutItem Area="@LayoutArea.Menu" Width="150px" Style="padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
-            <div style="font-weight: bold;">Navigation</div>
-            @SampleData.Text.Titles.Take(10).ToMarkupList("li")
+        <!-- Menu -->
+        <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@UseMenuSticky"
+                          Width="150px" Padding="@Padding.All2" 
+                          Style="border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
+
+            <FluentText Weight="TextWeight.Bold">Navigation</FluentText>
+            @NavigationContent
         </FluentLayoutItem>
 
-        <FluentLayoutItem Area="@LayoutArea.Content">
-            <div style="margin: 12px">
-                <div style="font-weight: bold;">Content</div>
-                @SampleData.Text.LoremIpsum.Take(10).ToMarkupList("p")
-            </div>
+        <!-- Content -->
+        <FluentLayoutItem Area="@LayoutArea.Content" Padding="@Padding.All3">
+            <FluentText Weight="TextWeight.Bold">Content</FluentText>
+            @BodyContent
         </FluentLayoutItem>
 
-        <FluentLayoutItem Area="@LayoutArea.Aside" Width="120px" Style="padding: 8px; background-color: var(--colorBrandBackground2);" Sticky="true">
-            <div style="font-weight: bold;">News</div>
-            @SampleData.Text.LoremIpsum.ElementAt(2)[..200]
+        <!-- Aside -->
+        <FluentLayoutItem Area="@LayoutArea.Aside" Width="120px" Sticky="true"
+                          Style="padding: 8px; background-color: var(--colorBrandBackground2);">
+            <FluentText Weight="TextWeight.Bold">News</FluentText>
+            @AsideContent
         </FluentLayoutItem>
 
-        <FluentLayoutItem Area="@LayoutArea.Footer">
+        <!-- Footer -->
+        <FluentLayoutItem Area="@LayoutArea.Footer" Sticky="@UseFooterSticky">
             &copy; Microsoft @DateTime.Now.Year
         </FluentLayoutItem>
 
     </FluentLayout>
 </div>
+
+@code
+{
+    bool UseGlobalScrollbar = false;
+    bool UseHeaderSticky = false;
+    bool UseMenuSticky = false;
+    bool UseFooterSticky = false;
+
+    static MarkupString NavigationContent = SampleData.Text.Titles.Take(20).ToMarkupList("li");
+    static MarkupString BodyContent = SampleData.Text.LoremIpsum.Take(10).ToMarkupList("p");
+    static MarkupString AsideContent = (MarkupString)SampleData.Text.LoremIpsum.ElementAt(2)[..200];
+}
