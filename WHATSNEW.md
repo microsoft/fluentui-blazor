@@ -1,7 +1,7 @@
 ## V4.11.8
 
 ### General
-- \[General\] Add .NET 10 Preview 2 support ([#3641](https://github.com/microsoft/fluentui-blazor/pull/3641))
+- \[General\] Add .NET 10 Preview ~~2~~ 3 support ([#3641](https://github.com/microsoft/fluentui-blazor/pull/3641))
 - \[General\] Fix trimming error ([#3578](https://github.com/microsoft/fluentui-blazor/pull/3578))  
 
 ### Components
