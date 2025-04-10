@@ -13,6 +13,9 @@ and require less scrolling.
 For navigation beyond closely related categories, use a [FluentLink](/link) instead.
 To initiate an action, use a [FluentButton](/button) instead.
 
+> **note**: For the moment, there are no 'scrolling' functions when the number of tabs is too large
+> in relation to the size of the container or screen.
+
 ## Default
 
 To know which tab is selected, you can bind the `ActiveTabId` or `ActiveTab` parameter to a variable.
@@ -21,6 +24,12 @@ Setting the `ActiveTabId` parameter to an initial value will set the selected ta
 A tab can be disabled by setting the `Disabled` parameter to `true`.
 
 {{ TabsDefault }}
+
+## Appearance
+
+Multiple parameters are available to customize the appearance of the tabs.
+
+{{ TabsVisual }}
 
 ## Customized
 
@@ -38,7 +47,7 @@ By default, a progress indicator is shown while the content is being loaded.
 You can customize the progress indicator by using the `LoadingTemplate` parameter.
 
 In the following example, the `Deferred` parameter is set to `true` for Tab two.
-This tab will be loaded after 3 seconds of processing (to simulate a long running process).
+This tab will be loaded after 2 seconds of processing (to simulate a long running process).
 
 {{ TabsDeferred }}
 

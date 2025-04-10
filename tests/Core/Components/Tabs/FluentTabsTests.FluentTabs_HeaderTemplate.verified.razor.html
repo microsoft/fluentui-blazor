@@ -1,12 +1,14 @@
 
-<fluent-tabs id="xxx" blazor:ontabchange="1">
-  <fluent-tab id="xxx">
-    <span>
-      Tab
-      <b>Name</b>
-    </span>
-  </fluent-tab>
-  <fluent-tab-panel id="xxx">
+<div id="xxx" class="fluent-tabs">
+  <fluent-tablist id="xxx" blazor:ontabchange="1">
+    <fluent-tab id="xxx" aria-controls="MyTab-panel">
+      <span>
+        Tab
+        <b>Name</b>
+      </span>
+    </fluent-tab>
+  </fluent-tablist>
+  <div id="xxx" index="1" class="fluent-tab-panel">
     Tab Content
-  </fluent-tab-panel>
-</fluent-tabs>
+  </div>
+</div>
