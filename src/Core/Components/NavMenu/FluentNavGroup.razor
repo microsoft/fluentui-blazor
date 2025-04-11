@@ -5,7 +5,7 @@
 
 @if (Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNavigation || SubMenu == null)))
 {
-    <FluentKeyCode Anchor="@Id" PreventDefaultOnly="new[] { KeyCode.Enter, KeyCode.Left, KeyCode.Right }" StopPropagation="@true" OnKeyDown="@HandleExpanderKeyDownAsync" />
+    <FluentKeyCode Anchor="@Id" Only="new[] { KeyCode.Enter, KeyCode.Left, KeyCode.Right }" PreventDefaultOnly="new[] { KeyCode.Enter, KeyCode.Left, KeyCode.Right }" StopPropagation="@true" OnKeyDown="@HandleExpanderKeyDownAsync" />
     <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
 
         @if (!string.IsNullOrEmpty(Href))
