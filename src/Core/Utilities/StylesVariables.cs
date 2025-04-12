@@ -13,7 +13,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public class StylesVariables
+public partial class StylesVariables
 {
     /// <summary />
     public partial class Curves

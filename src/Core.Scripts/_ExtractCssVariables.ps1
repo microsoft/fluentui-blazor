@@ -58,11 +58,11 @@ Write-Output "//     Changes to this file may cause incorrect behavior and will 
 Write-Output "//     the code is regenerated."
 Write-Output "// </auto-generated>"
 Write-Output "//------------------------------------------------------------------------------"
-
+Write-Output ""
 Write-Output "namespace Microsoft.FluentUI.AspNetCore.Components;"
 Write-Output ""
 Write-Output "/// <summary />"
-Write-Output "public class StylesVariables"
+Write-Output "public partial class StylesVariables"
 Write-Output "{"
 
 foreach ($g1 in $result.Keys) {
