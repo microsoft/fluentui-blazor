@@ -7,6 +7,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// 
 /// </summary>
-public class SystemColors : Styles.Colors
+public class SystemColors : StylesVariables.Colors
 {
 }
