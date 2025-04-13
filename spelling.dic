@@ -34,6 +34,15 @@ ondialogtoggle
 ondropdownchange
 onmenuitemchange
 ontabchange
+ondropdownchange
+ondialogtoggle
+ondialogbeforetoggle
+myid
+menuclicked
+menuchecked
+onaccordionchange
+demopanel
+dialogtoggle
 rightclick
 rrggbb
 sourcecode
