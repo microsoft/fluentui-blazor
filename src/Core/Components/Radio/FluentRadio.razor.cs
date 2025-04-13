@@ -5,7 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+//using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -18,12 +18,6 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     bool _trueValueToggle;
 
     internal FluentRadioContext? Context { get; private set; }
-
-    /// <summary />
-    public FluentRadio()
-    {
-        Id = Identifier.NewId();
-    }
 
     [CascadingParameter]
     private FluentRadioContext? CascadedContext { get; set; }
