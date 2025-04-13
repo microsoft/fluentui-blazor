@@ -1,0 +1,64 @@
+﻿<FluentStack Orientation="Orientation.Vertical">
+    <FluentStack VerticalAlignment="@VerticalAlignment.Center" Height="70px">
+        <FluentMenu>
+            <FluentMenuButton Appearance="ButtonAppearance.Transparent"
+                              IconStart="@(new Icons.Regular.Size20.Filter())">
+                Filter&nbsp;
+            </FluentMenuButton>
+            <FluentMenuList>
+                @foreach (var filter in Filters)
+                {
+                    <FluentMenuItem OnClick="@FilterClickHander">@filter</FluentMenuItem>
+                }
+            </FluentMenuList>
+        </FluentMenu>
+
+        <FluentTextInput @bind-Value="Search" placeholder="Search..." Immediate="true" />
+
+    </FluentStack>
+
+    <table data-type="system-color">
+        <thead>
+            <tr>
+                <th>Color constant</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var color in SystemColorsTable.GetAllColorConstants())
+            {
+                if (string.IsNullOrEmpty(Search) ||
+                color.Category.Contains(Search, StringComparison.OrdinalIgnoreCase) ||
+                color.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                {
+                    <tr>
+                        <td data-type="name">
+                            <b>@color.Category</b>.@color.Name
+                        </td>
+                        <td color="block" style="@($"background-color: {color.Value};")">
+                            &nbsp;
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</FluentStack>
+
+<style>
+    table[data-type='system-color'] {
+        width: unset !important;
+        margin-left: 24px;
+    }
+
+        table[data-type='system-color'] td[data-type='name'] {
+            align-content: center;
+            width: 300px;
+            padding: 0 10px;
+        }
+
+        table[data-type='system-color'] td[color='block'] {
+            border: 1px solid @SystemColors.Neutral.Stroke1;
+            width: 100px;
+        }
+</style>
