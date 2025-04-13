@@ -1,5 +1,5 @@
 ---
-title: Spacing
+title: Theme / Spacing
 route: /Spacing
 ---
 
