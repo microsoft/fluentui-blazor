@@ -55,7 +55,6 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
     FluentUIComponents.TextInputDefinition.define(registry);
     FluentUIComponents.ToggleButtonDefinition.define(registry);
     FluentUIComponents.TooltipDefinition.define(registry);
-    FluentUIComponents.TreeItemDefinition.define(registry);
   }
 
   /**
