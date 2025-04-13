@@ -1,9 +1,9 @@
 ---
-title: Radio
+title: RadioGroup and Radio
 route: /Radio
 ---
 
-# Radio
+# RadioGroup and Radio
 
 Radio groups let people select a single item from a short list. Use them in layouts that offer enough space to list up to five options or if it's important to view all options at once.
 
@@ -11,11 +11,13 @@ If there isn't enough space, try a dropdown instead. If you need to let people s
 
 ## Behavior
 
+Although it is technically possible to show a single Radio button (as can be seen below), it *must* be placed inside a RadioGroup to have any function.
+
 ### Default selection
 Present a selected option in radio groups by default. The default selection should be placed first and should be the most logical response. Remaining options should be listed in a logical order. For more information, see the Content section.
 
 ## Layout
-Radio groups can be aligned vertically (preferred) or horizontally. When horizontally aligned, the label can appear next to or under the input.
+Radio groups can be aligned vertically or horizontally (default). When horizontally aligned, the label can appear next to or under the radio input.
 
 ## Accessibility
 Include intuitive labels with radio groups.
@@ -35,13 +37,13 @@ Use sentence style capitalization—only capitalize the first word. For more inf
 ### Radio button appearances
 
 A radio button is either unchecked or checked. Usually, once an item in a group has been checked, the result of the group as a whole cannot be unchecked again.
-An item can also be disabled and can show a label to indicate the value. Although it is technically possible to show a single Radio button (as can be seen below), it needs to be in a RadioGroup to become functioning.
+An item can also be disabled and can show a label to indicate the value. 
 
 {{ RadioDefault }}
 
 ## RadioGroup
 
-Radios are typically placed in a group. Only one of the items in a group can have a checked state.
+Radios are placed and used inside a radio group. Only one of the items in a group can have a checked state.
 You can bind to the `Value` of the group to the get the value of the checked item.
 
 {{ RadioGroupDefault }}
@@ -62,7 +64,7 @@ When the radio group has a vertical orientation, the items are stacked on top of
 {{ RadioGroupVertical }}
 
 ## Disabled RadioGroup
-A radio group can be disabled. This means that the user cannot select any of the items in the group.
+A radio group can be disabled as a whole. This means that the user cannot select any of the items in the group.
 {{ RadioGroupDisabledGroup }}
 
 ## RadioGroup with disabled items
@@ -72,5 +74,12 @@ Besides disabling the whole group, it is also possible to disable specific items
 ## RadioGroup required
 {{ RadioGroupRequired }}
 
-## Migration
-Using the `ChildContent` parameter to specify the content/label of a Radio item i no longer supported. Use the `Label` or `LabelTemplate` parameters instead
+## API FluentRadioGroup
+{{ API Type=FluentRadioGroup }}
+
+## API FluentRadio
+{{ API Type=FluentRadio }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentRadio }}
