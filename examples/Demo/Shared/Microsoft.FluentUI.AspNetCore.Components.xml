@@ -1370,6 +1370,17 @@
             Gets or sets the text shown in the column menu
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnOptionsLabels.Icon">
+            <summary>
+            Gets or sets the icon to show in the column menu
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnOptionsLabels.IconPositionStart">
+            <summary>
+            Gets or sets whether the icon is positioned at the start (true) or
+            at the end (false) of the menu item
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnOptionsLabels.Default">
             <summary>
             Gets the default labels for the options UI.
@@ -1377,7 +1388,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.ResizeMenu">
             <summary>
-            Gets or sets the text shown in the column menu 
+            Gets or sets the text shown in the column menu
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.DiscreteLabel">
@@ -1410,6 +1421,17 @@
             Gets or sets the aria label for the submit button in the resize UI
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.Icon">
+            <summary>
+            Gets or sets the icon to show in the column menu
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.IconPositionStart">
+            <summary>
+            Gets or sets whether the icon is positioned at the start (true) or
+            at the end (false) of the menu item
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.Default">
             <summary>
             Gets the default labels for the resize UI.
@@ -1435,7 +1457,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.SortMenu">
             <summary>
-            Gets or sets the text shown in the column menu 
+            Gets or sets the text shown in the column menu
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.SortMenuAscendingLabel">
@@ -1446,6 +1468,17 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.SortMenuDescendingLabel">
             <summary>
             Gets or sets the text shown in the column menu when in descending order
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.Icon">
+            <summary>
+            Gets or sets the icon to show in the column menu
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.IconPositionStart">
+            <summary>
+            Gets or sets whether the icon is positioned at the start (true) or
+            at the end (false) of the menu item
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.Default">
@@ -2059,6 +2092,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.MultiLine">
             <summary>
             Gets or sets a value indicating whether the grid should allow multiple lines of text in cells.
+            Cannot be used together with Virtualize.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl">
@@ -2195,7 +2229,7 @@
              Guards the CurrentPageIndex from getting greater than the LastPageIndex
             
              </summary>
-             <param name="visibleRows">The maixmum number of rows that fits the available space</param>
+             <param name="visibleRows">The maximum number of rows that fits the available space</param>
              <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SetColumnWidthDiscreteAsync(System.Nullable{System.Int32},System.Single)">
@@ -4915,7 +4949,7 @@
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon">
             <summary>
-            Custom icon loaded from <see cref="!:IconsExtensions.GetInstance(IconInfo)"/>
+            Custom icon loaded from <see cref="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo,System.Nullable{System.Boolean})"/>
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomIcon.#ctor">
@@ -10530,6 +10564,13 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnFinishHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.FinishAsync(System.Boolean)">
+            <summary>
+            Optionally validate and invoke the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnFinish"/> handler.
+            </summary>
+            <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.GoToStepAsync(System.Int32,System.Boolean)">
             <summary>
