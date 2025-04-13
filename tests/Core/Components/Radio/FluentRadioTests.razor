@@ -1,7 +1,14 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+﻿@using Bunit.Rendering
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Microsoft.AspNetCore.Components.Forms
 @using Xunit
+
+@using System.Linq.Expressions;
+@using Microsoft.AspNetCore.Components.Rendering;
+@using Microsoft.AspNetCore.Components.RenderTree;
+
+
 @inherits Bunit.TestContext
 
 @code {
@@ -55,7 +62,9 @@
 
         // Assert
         var radio = cut.Find("fluent-radio");
-        Assert.NotNull(radio.GetAttribute("checked"));
+        var result = radio.GetAttribute("checked");
+        Assert.NotNull(result);
+        Assert.Equal("a", result); // Added assertion to check if the radio is checked
     }
 
     [Theory]
@@ -225,19 +234,26 @@
                 <FluentRadio Value="1" Label="Option 1"></FluentRadio>
                 <FluentRadio Value="2" Label="Option 2"></FluentRadio>
             </FluentRadioGroup>
-        );
+    );
 
         // Assert
         cut.Verify();
     }
 
-    [Fact]
-    public void FluentRadio_TryParseValueFromString()
+    [Theory]
+    [InlineData("1", 1, null)]
+    [InlineData("abc", 0, "The 'Unknown Bound Field' field is not valid.")]
+    public void FluentRadio_TryParseValueFromString(string? value, int? expectedParsedValue, string? expectedValidationErrorMessage)
     {
         // Arrange
-        var fluentRadio = new FluentRadio<string>();
+        var fluentRadio = new FluentRadio<int>();
 
         // Act & Assert
-        Assert.Throws<NotSupportedException>(() => fluentRadio.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
+        fluentRadio.InternalTryParseValueFromString(value, out var parsedValue, out var validationErrorMessage);
+ 
+        // Assert
+        Assert.Equal(expectedParsedValue, parsedValue);
+        Assert.Equal(expectedValidationErrorMessage, validationErrorMessage);
+
     }
 }
