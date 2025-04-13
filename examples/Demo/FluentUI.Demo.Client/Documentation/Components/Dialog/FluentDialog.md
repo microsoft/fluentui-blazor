@@ -62,7 +62,12 @@ It is then retrieved in the `DialogResult` like in the example below.
 </FluentDialogBody>
 ```
 
-> **Note:** The `FluentDialogBody` component is required to display the dialog window correctly.
+> **Note:**  
+> 1. The `FluentDialogBody` component is required to display the dialog window correctly.
+> 2. ⚠️ If you override the `OnInitializedAsync` method, **you must call** the `base.OnInitializedAsync()` method,
+>    in addition to your personalized code.
+>    because it configures the Header, Footer and all Action buttons.
+>    E.g.: `protected override async Task OnInitializedAsync() { await base.OnInitializedAsync(); // And your code }`
 
 By default, the `FluentDialogInstance` class will offer two buttons, one to validate and one to cancel (**OK** and **Cancel**).
 You can override the actions of these buttons by overriding the `OnActionClickedAsync` method.
