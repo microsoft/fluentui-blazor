@@ -1,3 +1,7 @@
+fluent-tab {
+  white-space: nowrap;
+}
+
 fluent-tab > span {
     display: flex;
     column-gap: 2px;

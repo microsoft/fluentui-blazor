@@ -1,4 +1,4 @@
-﻿<FluentTabs @bind-ActiveTab="@ActiveTab" Height="100px" Width="400px" Style="border: 1px solid var(colorNeutralStroke1);">
+﻿<FluentTabs @bind-ActiveTab="@ActiveTab" Height="100px" Width="400px" Style="border: 1px dashed var(--colorNeutralStroke1);">
     <FluentTab>
         <HeaderTemplate>
             Chat
@@ -21,7 +21,7 @@
 </FluentTabs>
 
 <p>
-    ActiveTab: <b>@(ActiveTab?.Header)</b>
+    ActiveTab: <b>@(ActiveTab?.HeaderTemplate)</b>
 </p>
 
 @code

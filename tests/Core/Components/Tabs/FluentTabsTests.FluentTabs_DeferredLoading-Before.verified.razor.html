@@ -1,17 +1,19 @@
 
-<fluent-tabs id="xxx" activeid="Tab1" blazor:ontabchange="1">
-  <fluent-tab id="xxx">
-    Tab 1
-  </fluent-tab>
-  <fluent-tab-panel id="xxx">Content 1</fluent-tab-panel>
-  <fluent-tab id="xxx">
-    Tab 2
-  </fluent-tab>
-  <fluent-tab-panel id="xxx">
+<div id="xxx" class="fluent-tabs">
+  <fluent-tablist id="xxx" activeid="Tab1" blazor:ontabchange="1">
+    <fluent-tab id="xxx" aria-controls="Tab1-panel">
+      Tab 1
+    </fluent-tab>
+    <fluent-tab id="xxx" aria-controls="Tab2-panel">
+      Tab 2
+    </fluent-tab>
+    <fluent-tab id="xxx" aria-controls="Tab3-panel">
+      Tab 3
+    </fluent-tab>
+  </fluent-tablist>
+  <div id="xxx" index="1" class="fluent-tab-panel">Content 1</div>
+  <div id="xxx" index="2" class="fluent-tab-panel">
     <fluent-progress-bar></fluent-progress-bar>
-  </fluent-tab-panel>
-  <fluent-tab id="xxx">
-    Tab 3
-  </fluent-tab>
-  <fluent-tab-panel id="xxx">Loading...</fluent-tab-panel>
-</fluent-tabs>
+  </div>
+  <div id="xxx" index="3" class="fluent-tab-panel">Loading...</div>
+</div>
