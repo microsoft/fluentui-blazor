@@ -8,6 +8,34 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
   *    E.g. `FluentUICustomEvents.RadioGroup(blazor);`
   */
 
+  export function Tree(blazor: Blazor) {
+    blazor.registerCustomEventType('selectedchange', {
+      browserEventName: 'change',
+      createEventArgs: event => {
+        if (event.target!.localName == 'fluent-tree-item') {
+          return {
+            affectedId: event.detail.attributes['id'].value,
+            selected: event.detail._selected,
+            expanded: event.detail._expanded
+          }
+        }
+
+        return null;
+      }
+    });
+
+    blazor.registerCustomEventType('expandedchange', {
+      browserEventName: 'expanded-change',
+      createEventArgs: event => {
+        return {
+          affectedId: event.detail.attributes['id'].value,
+          selected: event.detail._selected,
+          expanded: event.detail._expanded
+        };
+      }
+    });
+  }
+
   export function DialogToggle(blazor: Blazor) {
 
     blazor.registerCustomEventType('dialogbeforetoggle', {
@@ -47,7 +75,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       }
     });
   }
-  
+
   export function DropdownList(blazor: Blazor) {
 
     // Event when an element is selected or deselected

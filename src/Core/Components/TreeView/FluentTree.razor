@@ -1,0 +1,24 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<CascadingValue Value="this" IsFixed="true">
+    @* ReSharper disable once CSharpWarnings::CS8974 *@
+    <fluent-tree id="@Id"
+                      size="@Size.ToAttributeValue()"
+                      appearance="@Appearance.ToAttributeValue()"
+                      class="@ClassValue"
+                      style="@StyleValue"
+                      @onselectedchange="@HandleCurrentSelectedChange"
+                      @attributes="AdditionalAttributes">
+        @ChildContent
+
+        @if (Items != null)
+        {
+            foreach (var item in Items)
+            {
+                @FluentTreeItem.GetFluentTreeItem(this, item)
+            }
+        }
+    </fluent-tree>
+</CascadingValue>
