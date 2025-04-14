@@ -106,22 +106,6 @@
         cut.Verify();
     }
 
-    [Theory]
-    [InlineData(LabelPosition.After)]
-    [InlineData(LabelPosition.Before)]
-    public void FluentRadio_LabelPosition(LabelPosition position)
-    {
-        // Arrange & Act
-        var cut = Render(
-            @<FluentRadioGroup TValue="string">
-                <FluentRadio TValue="string" Label="Test Label" LabelPosition="@position"></FluentRadio>
-            </FluentRadioGroup>
-        );
-
-        // Assert
-        cut.Verify(suffix: position.ToString().ToLower());
-    }
-
     [Fact]
     public void FluentRadio_LabelWidth()
     {
@@ -203,27 +187,6 @@
         var radio = cut.Find("fluent-radio");
         Assert.Equal("test-radio", radio.GetAttribute("data-testid"));
     }
-    
-    [Fact]
-    public void FluentRadio_ValueChanged()
-    {
-        // Arrange
-        string? selectedValue = null;
-        var radioValue = "test-value";
-        
-        var cut = Render(
-            @<FluentRadioGroup TValue="string" @bind-Value="selectedValue">
-                <FluentRadio TValue="string" Value="@radioValue" ValueChanged="@((val) => selectedValue = val)"></FluentRadio>
-            </FluentRadioGroup>
-        );
-
-        // Act
-        var radio = cut.Find("fluent-radio");
-        radio.Change(radioValue);
-
-        // Assert
-        Assert.Equal(radioValue, selectedValue);
-    }
 
     [Fact]
     public void FluentRadio_HorizontalOrientation()
@@ -238,22 +201,5 @@
 
         // Assert
         cut.Verify();
-    }
-
-    [Theory]
-    [InlineData("1", 1, null)]
-    [InlineData("abc", 0, "The 'Unknown Bound Field' field is not valid.")]
-    public void FluentRadio_TryParseValueFromString(string? value, int? expectedParsedValue, string? expectedValidationErrorMessage)
-    {
-        // Arrange
-        var fluentRadio = new FluentRadio<int>();
-
-        // Act & Assert
-        fluentRadio.InternalTryParseValueFromString(value, out var parsedValue, out var validationErrorMessage);
- 
-        // Assert
-        Assert.Equal(expectedParsedValue, parsedValue);
-        Assert.Equal(expectedValidationErrorMessage, validationErrorMessage);
-
     }
 }

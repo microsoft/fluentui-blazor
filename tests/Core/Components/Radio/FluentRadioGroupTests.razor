@@ -236,8 +236,8 @@
     public void FluentRadioGroup_RadioChecked()
     {
         // Arrange & Act
-        var cut = Render(@<FluentRadioGroup TValue="string">
-                <FluentRadio TValue="string" Label="option1" Checked="true"></FluentRadio>
+        var cut = Render(@<FluentRadioGroup TValue="string" Value="@("option1")">
+                <FluentRadio TValue="string" Value="@("option1")"></FluentRadio>
             </FluentRadioGroup>);
 
         // Assert

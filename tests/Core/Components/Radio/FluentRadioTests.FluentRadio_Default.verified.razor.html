@@ -1,8 +1,10 @@
 
 <fluent-field id="xxx" label-position="above">
-  <fluent-radio-group id="xxx" slot="input" aria-labelledby="radio-group-default--label">
-    <fluent-field id="xxx" label-position="after">
-      <fluent-radio id="xxx" slot="input" name="xxx" blazor:onchange="1"></fluent-radio>
+  <fluent-radio-group id="xxx" slot="input" aria-labelledby="radio-group-default--label" blazor:onfocusout="1">
+    <fluent-field label-position="after" class="my-3-o">
+      <label slot="label" for="xxx">
+      </label>
+      <fluent-radio id="xxx" slot="input" name="xxx" blazor:onchange="2"></fluent-radio>
       <fluent-text as="span" size="200" slot="message"></fluent-text>
     </fluent-field>
   </fluent-radio-group>

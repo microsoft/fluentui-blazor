@@ -4,7 +4,8 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+//using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 //using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -13,20 +14,61 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A Fluent Radio button component.
 /// </summary>
 /// <typeparam name="TValue">The type for the value of the radio button</typeparam>
-public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>, IFluentField
+public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentComponentBase
 {
     bool _trueValueToggle;
 
     internal FluentRadioContext? Context { get; private set; }
 
-    [CascadingParameter]
-    private FluentRadioContext? CascadedContext { get; set; }
+    /// <summary />
+    public FluentRadio()
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the element is checked.
+    /// Gets the optional CSS class. If given, this will be included in the class attribute of the component.
+    /// </summary>
+    protected virtual string? ClassValue => DefaultClassBuilder.Build();
+
+    /// <summary>
+    /// Gets the optional in-line styles. If given, these will be included in the style attribute of the component.
+    /// </summary>
+    protected virtual string? StyleValue => DefaultStyleBuilder
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the name of the element.
+    /// Allows access by name from the associated form.
+    /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
     /// </summary>
     [Parameter]
-    public bool? Checked { get; set; }
+    public virtual string? Name { get; set; }
+
+    /// <inheritdoc cref="IFluentField.Disabled" />
+    [Parameter]
+    public virtual bool? Disabled { get; set; }
+
+    /// <inheritdoc cref="IFluentField.Label" />
+    [Parameter]
+    public virtual string? Label { get; set; }
+
+    /// <inheritdoc cref="IFluentField.LabelTemplate" />
+    [Parameter]
+    public virtual RenderFragment? LabelTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.LabelWidth" />
+    [Parameter]
+    public virtual string? LabelWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets the value of the element.
+    /// </summary>
+    [Parameter]
+    public TValue? Value { get; set; }
+
+    [CascadingParameter]
+    private FluentRadioContext? CascadedContext { get; set; }
 
     /// <inheritdoc />
     protected override void OnParametersSet()
@@ -38,15 +80,6 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
             throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(FluentRadioGroup<TValue>)} " +
                 $"with a matching 'Name' property, if specified.");
         }
-    }
-
-    /// <inheritdoc />
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
-    => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
-
-    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
-    {
-        return TryParseValueFromString(value, out result, out validationErrorMessage);
     }
 
     // This is an unfortunate hack, but is needed for the scenario described by test InputRadioGroupWorksWithMutatingSetter.
