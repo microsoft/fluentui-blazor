@@ -5,16 +5,16 @@
 <FluentField ForId="@Id"
              Class="@ClassValue"
              Style="@StyleValue"
-             Label="@Label"
+             Label="@GetLabel()"
              LabelTemplate="@LabelTemplate"
              LabelWidth="@LabelWidth"
-             Disabled="@Disabled"
+             Disabled="@GetDisabled()"
              LabelPosition="@Components.LabelPosition.After">
     <fluent-radio id="@Id"
-                  disabled="@Disabled"
+                  disabled="@GetDisabled()"
                   slot="@FluentSlot.FieldInput"
                   name="@Owner?.GetGroupName()"
-                  value="@(Value?.ToString() ?? Label ?? null)"
+                  value="@GetValue()"
                   @attributes="AdditionalAttributes">
     </fluent-radio>
 </FluentField>

@@ -16,10 +16,17 @@
                             readonly="@ReadOnly"
                             aria-label="@AriaLabel"
                             autofocus="@Autofocus"
-                            value="@CurrentValueAsString"
+                            value="@(RadioValue?.Invoke(Value) ?? Value?.ToString())"
                             @onradiochange="@RadioChangeHandlerAsync"
                             @onfocusout="@FocusOutHandlerAsync"
                             @attributes="@AdditionalAttributes">
+            @if (Items is not null)
+            {
+                foreach (var item in Items)
+                {
+                    <FluentRadio2 Value="@item" />
+                }
+            }
             @ChildContent
         </fluent-radio-group>
     </FluentField>

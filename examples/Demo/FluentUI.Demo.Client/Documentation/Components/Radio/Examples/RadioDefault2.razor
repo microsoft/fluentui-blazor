@@ -1,4 +1,4 @@
-﻿<FluentRadioGroup2 @bind-Value="@Value1" Label="Favorite Fruit" Orientation="Orientation.Vertical">
+﻿<FluentRadioGroup2 @bind-Value="@ValueString" Label="Favorite Fruit" Orientation="Orientation.Vertical">
     <FluentRadio2 Label="Apple" />
     <FluentRadio2 Label="Pear" />
     <FluentRadio2 Label="Banana" />
@@ -6,14 +6,28 @@
 </FluentRadioGroup2>
 
 <div>
-    Selected: @Value1
+    Selected: @ValueString
 </div>
 
-<FluentDivider />
+<FluentDivider Appearance="DividerAppearance.Brand" Margin="@Margin.All2" >Next</FluentDivider>
+
+<FluentRadioGroup2 @bind-Value="@ValueInt" Label="Favorite Day">
+    <FluentRadio2 Label="Monday" Value="1" TValue="int?" />
+    <FluentRadio2 Label="Tuesday" Value="2" TValue="int?" />
+    <FluentRadio2 Label="Wednesday" Value="3" TValue="int?" />
+</FluentRadioGroup2>
+
+<div>
+    Selected: @ValueInt
+</div>
+
+<FluentDivider Appearance="DividerAppearance.Brand" Margin="@Margin.All2">Next</FluentDivider>
+
 
 <FluentRadioGroup2 Label="The winner is"
                    @bind-Value="@Value2"
                    RadioLabel="@(i => i?.FirstName)"
+                   RadioDisabled="@(i => i?.Male == true)"
                    RadioValue="@(i => i?.Id)">
     @foreach (var employee in Employees)
     {
@@ -22,12 +36,27 @@
 </FluentRadioGroup2>
 
 <div>
-    Selected: @Value2?.FirstName;
+    Selected: @Value2?.FirstName
 </div>
 
+<FluentDivider Appearance="DividerAppearance.Brand" Margin="@Margin.All2">Next</FluentDivider>
+
+<FluentRadioGroup2 Label="The winner is"
+                   Items="@Employees"
+                   @bind-Value="@Value2"
+                   RadioLabel="@(i => i?.FirstName)"
+                   RadioDisabled="@(i => i?.Male == true)"
+                   RadioValue="@(i => i?.Id)">
+</FluentRadioGroup2>
+
+<div>
+    Selected: @Value2?.FirstName
+</div>
+ 
 @code
 {
-    string? Value1;
+    string? ValueString = "Pear";
+    int? ValueInt;
 
     static SampleData.People.Person[] Employees = SampleData.People.GeneratePersons(5).ToArray();
     SampleData.People.Person? Value2;

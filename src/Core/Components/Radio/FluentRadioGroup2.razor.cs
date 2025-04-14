@@ -33,16 +33,22 @@ public partial class FluentRadioGroup2<TValue> : FluentInputBase<TValue>, IFluen
     public Orientation? Orientation { get; set; }
 
     /// <summary>
+    ///     
+    /// </summary>
+    [Parameter]
+    public IEnumerable<TValue?>? Items { get; set; }
+
+    /// <summary>
     /// Gets or sets the function used to determine which value to apply to the radio value attribute.
     /// </summary>
     [Parameter]
-    public virtual Func<TValue?, string>? RadioValue { get; set; }
+    public virtual Func<TValue?, string?>? RadioValue { get; set; }
 
     /// <summary>
-    /// Gets or sets the function used to determine which text to display for each radio item.
+    /// Gets or sets the function used to determine which text to display for each radio checkedItem.
     /// </summary>
     [Parameter]
-    public virtual Func<TValue?, string>? RadioLabel { get; set; }
+    public virtual Func<TValue?, string?>? RadioLabel { get; set; }
 
     /// <summary>
     /// Gets or sets the function used to determine if an radio is disabled.
@@ -72,12 +78,24 @@ public partial class FluentRadioGroup2<TValue> : FluentInputBase<TValue>, IFluen
     }
 
     /// <summary />
-    private Task RadioChangeHandlerAsync(RadioEventArgs e)
+    private async Task RadioChangeHandlerAsync(RadioEventArgs e)
     {
-        if (InternalRadios.Contains)
-            Console.WriteLine($"RadioChangeHandlerAsync: {e.Value} {Id}");
-        return Task.CompletedTask;
-        //return ChangeHandlerAsync(new ChangeEventArgs() { Value = e.Value });
+        if (InternalRadios.TryGetValue(e.Id ?? "", out var checkedItem))
+        {
+            var newValue = Items is null && checkedItem.Value is null
+                         ? TryParseValueFromString(checkedItem.GetValue(), out var result, out var _) ? result : default
+                         : checkedItem.Value;
+
+            if (!object.ReferenceEquals(Value, newValue))
+            {
+                Value = newValue;
+
+                if (ValueChanged.HasDelegate)
+                {
+                    await ValueChanged.InvokeAsync(newValue);
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -91,29 +109,33 @@ public partial class FluentRadioGroup2<TValue> : FluentInputBase<TValue>, IFluen
         return Task.CompletedTask;
     }
 
+    /// <summary />
     internal string GetGroupName()
     {
         return string.IsNullOrEmpty(Name) ? $"{Id}-group" : Name;
     }
 
-    internal Task<string?> AddRadioAsync(FluentRadio2<TValue> radio)
+    /// <summary />
+    internal string? AddRadio(FluentRadio2<TValue> radio)
     {
         if (!string.IsNullOrEmpty(radio.Id) &&
             InternalRadios.TryAdd(radio.Id, radio))
         {
-            return Task.FromResult<string?>(radio.Id);
+            return radio.Id;
         }
 
-        return Task.FromResult<string?>(null);
+        return null;
     }
 
-    internal Task RemoveRadioAsync(FluentRadio2<TValue> radio)
+    /// <summary />
+    internal string? RemoveRadio(FluentRadio2<TValue> radio)
     {
-        if (InternalRadios.Contains(radio))
+        if (!string.IsNullOrEmpty(radio.Id) &&
+            InternalRadios.TryRemove(radio.Id, out var _))
         {
-            InternalRadios.Remove(radio);
+            return radio.Id;
         }
 
-        return Task.CompletedTask;
+        return null;
     }
 }
