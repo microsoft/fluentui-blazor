@@ -18,18 +18,18 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentWizard>
-        <Steps>
-            <FluentWizardStep Label="Step1" Summary="Summary 1">
-                Content 1
-            </FluentWizardStep>
-            <FluentWizardStep Label="Step2" Summary="Summary 2">
-                Content 2
-            </FluentWizardStep>
-            <FluentWizardStep Label="Step3" Summary="Summary 3">
-                Content 3
-            </FluentWizardStep>
-        </Steps>
-    </FluentWizard>);
+            <Steps>
+                <FluentWizardStep Label="Step1" Summary="Summary 1">
+                    Content 1
+                </FluentWizardStep>
+                <FluentWizardStep Label="Step2" Summary="Summary 2">
+                    Content 2
+                </FluentWizardStep>
+                <FluentWizardStep Label="Step3" Summary="Summary 3">
+                    Content 3
+                </FluentWizardStep>
+            </Steps>
+        </FluentWizard>);
 
         // Assert
         cut.Markup.Contains("position=\"left\"");
@@ -41,18 +41,18 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentWizard StepperPosition="StepperPosition.Top">
-        <Steps>
-            <FluentWizardStep Label="Step1" Summary="Summary 1">
-                Content 1
-            </FluentWizardStep>
-            <FluentWizardStep Label="Step2" Summary="Summary 2">
-                Content 2
-            </FluentWizardStep>
-            <FluentWizardStep Label="Step3" Summary="Summary 3">
-                Content 3
-            </FluentWizardStep>
-        </Steps>
-    </FluentWizard>);
+            <Steps>
+                <FluentWizardStep Label="Step1" Summary="Summary 1">
+                    Content 1
+                </FluentWizardStep>
+                <FluentWizardStep Label="Step2" Summary="Summary 2">
+                    Content 2
+                </FluentWizardStep>
+                <FluentWizardStep Label="Step3" Summary="Summary 3">
+                    Content 3
+                </FluentWizardStep>
+            </Steps>
+        </FluentWizard>);
 
         // Assert
         cut.Markup.Contains("position=\"top\"");
@@ -183,18 +183,18 @@
     {
         // Arrange
         var cut = Render(@<FluentWizard>
-        <Steps>
-            <FluentWizardStep Label="Step1" Summary="Summary 1">
-                Content 1
-            </FluentWizardStep>
-            <FluentWizardStep Disabled Label="Step2" Summary="Summary 2">
-                Content 2
-            </FluentWizardStep>
-            <FluentWizardStep Label="Step3" Summary="Summary 3">
-                Content 3
-            </FluentWizardStep>
-        </Steps>
-    </FluentWizard>);
+            <Steps>
+                <FluentWizardStep Label="Step1" Summary="Summary 1">
+                    Content 1
+                </FluentWizardStep>
+                <FluentWizardStep Disabled Label="Step2" Summary="Summary 2">
+                    Content 2
+                </FluentWizardStep>
+                <FluentWizardStep Label="Step3" Summary="Summary 3">
+                    Content 3
+                </FluentWizardStep>
+            </Steps>
+        </FluentWizard>);
 
         var nextButton = cut.Find("fluent-button[appearance='accent']");
         nextButton.Click();
@@ -211,18 +211,18 @@
     {
         // Arrange
         var cut = Render(@<FluentWizard>
-        <Steps>
-            <FluentWizardStep Label="Step1" Summary="Summary 1">
-                Content 1
-            </FluentWizardStep>
-            <FluentWizardStep DeferredLoading Label="Step2" Summary="Summary 2">
-                Content 2
-            </FluentWizardStep>
-            <FluentWizardStep DeferredLoading Label="Step3" Summary="Summary 3">
-                Content 3
-            </FluentWizardStep>
-        </Steps>
-    </FluentWizard>);
+            <Steps>
+                <FluentWizardStep Label="Step1" Summary="Summary 1">
+                    Content 1
+                </FluentWizardStep>
+                <FluentWizardStep DeferredLoading Label="Step2" Summary="Summary 2">
+                    Content 2
+                </FluentWizardStep>
+                <FluentWizardStep DeferredLoading Label="Step3" Summary="Summary 3">
+                    Content 3
+                </FluentWizardStep>
+            </Steps>
+        </FluentWizard>);
 
         for (int i = 0; i < nextCount; i++)
         {
@@ -273,14 +273,14 @@
     public void FluentWizard_EditForm_EditContextIsValid()
     {
         var testRecord1 = new TestRecord
-            {
-                NumberBetween1and10 = 5,
-            };
+        {
+            NumberBetween1and10 = 5,
+        };
 
         var testRecord2 = new TestRecord
-            {
-                NumberBetween1and10 = 7,
-            };
+        {
+            NumberBetween1and10 = 7,
+        };
 
         var cut = Render(@<FluentWizard OnFinish="OnFinishHandler">
         <Steps>
@@ -327,14 +327,14 @@
         int stepIndex = 0;
 
         var testRecord1 = new TestRecord
-            {
-                NumberBetween1and10 = 15,
-            };
+        {
+            NumberBetween1and10 = 15,
+        };
 
         var testRecord2 = new TestRecord
-            {
-                NumberBetween1and10 = 15,
-            };
+        {
+            NumberBetween1and10 = 15,
+        };
 
         var cut = Render(@<FluentWizard OnFinish="OnFinishHandler" @bind-Value="@stepIndex">
         <Steps>
@@ -380,14 +380,14 @@
     public void FluentWizard_EditForm_EditContextIsInValid_OnFinish()
     {
         var testRecord1 = new TestRecord
-            {
-                NumberBetween1and10 = 5,
-            };
+        {
+            NumberBetween1and10 = 5,
+        };
 
         var testRecord2 = new TestRecord
-            {
-                NumberBetween1and10 = 15,
-            };
+        {
+            NumberBetween1and10 = 15,
+        };
 
         var cut = Render(@<FluentWizard OnFinish="OnFinishHandler">
         <Steps>
@@ -504,6 +504,194 @@
 
         // Assert
         Assert.Contains("Done", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentWizard_CustomizedButtonTemplate_EditForm_EditContextIsInValid_OnNext()
+    {
+        int stepIndex = 0;
+
+        var testRecord1 = new TestRecord
+        {
+            NumberBetween1and10 = 15,
+        };
+
+        var testRecord2 = new TestRecord
+        {
+            NumberBetween1and10 = 15,
+        };
+
+        FluentWizard fluentWizard = default!;
+
+        var cut = Render(@<FluentWizard @ref=fluentWizard OnFinish="OnFinishHandler" @bind-Value="@stepIndex">
+    <Steps>
+        <FluentWizardStep>
+            <FluentEditForm Model="testRecord1">
+                <DataAnnotationsValidator />
+                <FluentValidationSummary />
+                <FluentNumberField @bind-Value=testRecord1.NumberBetween1and10 />
+            </FluentEditForm>
+        </FluentWizardStep>
+        <FluentWizardStep>
+            <FluentEditForm Model="testRecord2">
+                <DataAnnotationsValidator />
+                <FluentValidationSummary />
+                <FluentNumberField @bind-Value=testRecord2.NumberBetween1and10 />
+            </FluentEditForm>
+        </FluentWizardStep>
+    </Steps>
+    <ButtonTemplate>
+        <FluentButton OnClick="@(() => fluentWizard.GoToStepAsync(1, true))" Appearance="Appearance.Accent">Next</FluentButton>
+    </ButtonTemplate>
+</FluentWizard>
+    );
+
+        bool finishHandled = false;
+
+        for (var i = 0; i < 2; i++)
+        {
+            var nextButton = cut.Find("fluent-button[appearance='accent']");
+            nextButton.Click();
+        }
+
+        // Assert
+        cut.Verify();
+
+        void OnFinishHandler()
+        {
+            finishHandled = true;
+        }
+
+        Assert.False(finishHandled);
+        Assert.Equal(0, stepIndex);
+    }
+
+    [Fact]
+    public void FluentWizard_CustomizedButtonTemplate_EditForm_EditContextIsInValid_OnFinish()
+    {
+        var testRecord1 = new TestRecord
+        {
+            NumberBetween1and10 = 5,
+        };
+
+        var testRecord2 = new TestRecord
+        {
+            NumberBetween1and10 = 15,
+        };
+
+        FluentWizard fluentWizard = default!;
+
+        var cut = Render(@<FluentWizard @ref=fluentWizard OnFinish="OnFinishHandler">
+            <Steps>
+                <FluentWizardStep>
+                    <FluentEditForm Model="testRecord1">
+                        <DataAnnotationsValidator />
+                        <FluentValidationSummary />
+                        <FluentNumberField @bind-Value=testRecord1.NumberBetween1and10 />
+                    </FluentEditForm>
+                </FluentWizardStep>
+                <FluentWizardStep>
+                    <FluentEditForm Model="testRecord2">
+                        <DataAnnotationsValidator />
+                        <FluentValidationSummary />
+                        <FluentNumberField @bind-Value=testRecord2.NumberBetween1and10 />
+                    </FluentEditForm>
+                </FluentWizardStep>
+            </Steps>
+            <ButtonTemplate>
+                @if (fluentWizard!.Value == 0)
+                {
+                    <FluentButton OnClick="@(() => fluentWizard.GoToStepAsync(1))" Appearance="Appearance.Accent">Next</FluentButton>
+                }
+                else
+                {
+                    <FluentButton OnClick="@(() => fluentWizard.FinishAsync(true))" Appearance="Appearance.Accent">Finish</FluentButton>
+                }
+        </ButtonTemplate>
+    </FluentWizard>
+    );
+
+        bool finishHandled = false;
+
+        for (var i = 0; i < 2; i++)
+        {
+            var nextButton = cut.Find("fluent-button[appearance='accent']");
+            nextButton.Click();
+        }
+
+        // Assert
+        cut.Verify();
+
+        void OnFinishHandler()
+        {
+            finishHandled = true;
+        }
+
+        Assert.False(finishHandled);
+    }
+
+    [Fact]
+    public void FluentWizard_CustomizedButtonTemplate_EditForm_EditContextIsValid()
+    {
+        var testRecord1 = new TestRecord
+        {
+            NumberBetween1and10 = 5,
+        };
+
+        var testRecord2 = new TestRecord
+        {
+            NumberBetween1and10 = 7,
+        };
+
+        FluentWizard fluentWizard = default!;
+
+        var cut = Render(@<FluentWizard @ref=fluentWizard OnFinish="OnFinishHandler">
+            <Steps>
+                <FluentWizardStep>
+                    <FluentEditForm Model="testRecord1">
+                        <DataAnnotationsValidator />
+                        <FluentValidationSummary />
+                        <FluentNumberField @bind-Value=testRecord1.NumberBetween1and10 />
+                    </FluentEditForm>
+                </FluentWizardStep>
+                <FluentWizardStep>
+                    <FluentEditForm Model="testRecord2">
+                        <DataAnnotationsValidator />
+                        <FluentValidationSummary />
+                        <FluentNumberField @bind-Value=testRecord2.NumberBetween1and10 />
+                    </FluentEditForm>
+                </FluentWizardStep>
+            </Steps>
+            <ButtonTemplate>
+                @if (fluentWizard!.Value == 0)
+                {
+                    <FluentButton OnClick="@(() => fluentWizard.GoToStepAsync(1))" Appearance="Appearance.Accent">Next</FluentButton>
+                }
+                else
+                {
+                    <FluentButton OnClick="@(() => fluentWizard.FinishAsync(true))" Appearance="Appearance.Accent">Finish</FluentButton>
+                }
+    </ButtonTemplate>
+</FluentWizard>
+    );
+
+        bool finishHandled = false;
+
+        for (var i = 0; i < 2; i++)
+        {
+            var nextButton = cut.Find("fluent-button[appearance='accent']");
+            nextButton.Click();
+        }
+
+        // Assert
+        cut.Verify();
+
+        void OnFinishHandler()
+        {
+            finishHandled = true;
+        }
+
+        Assert.True(finishHandled);
     }
 
     private record TestRecord

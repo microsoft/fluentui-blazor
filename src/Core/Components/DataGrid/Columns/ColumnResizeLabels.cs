@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public record ColumnResizeLabels
 {
     /// <summary>
-    /// Gets or sets the text shown in the column menu 
+    /// Gets or sets the text shown in the column menu
     /// </summary>
     public string ResizeMenu { get; set; } = "Resize";
 
@@ -40,6 +40,17 @@ public record ColumnResizeLabels
     /// Gets or sets the aria label for the submit button in the resize UI
     /// </summary>
     public string? SubmitAriaLabel { get; set; } = "Set column widths";
+
+    /// <summary>
+    /// Gets or sets the icon to show in the column menu
+    /// </summary>
+    public Icon? Icon { get; set; } = new CoreIcons.Regular.Size16.TableResizeColumn();
+
+    /// <summary>
+    /// Gets or sets whether the icon is positioned at the start (true) or
+    /// at the end (false) of the menu item
+    /// </summary>
+    public bool IconPositionStart { get; set; } = true;
 
     /// <summary>
     /// Gets the default labels for the resize UI.
