@@ -1,33 +1,29 @@
-// --------------------------------------------------------------
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-// --------------------------------------------------------------
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
 
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentMultiSplitter : FluentComponentBase
+/// <summary>
+/// Represents a multi-pane splitter component that allows resizing, collapsing, and expanding of its panes. It supports
+/// callbacks for pane events.
+/// </summary>
+public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponentElementBase
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Splitter/FluentMultiSplitter.razor.js";
-    private DotNetObjectReference<FluentMultiSplitter>? _objRef = null;
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Splitter/FluentMultiSplitter.razor.js";
+    private DotNetObjectReference<FluentMultiSplitter>? _dotNetSplitterHelper;
 
-    /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+    internal List<FluentMultiSplitterPane> Panes { get; } = [];
 
-    /// <summary />
-    [Inject]
-    private IJSRuntime JS { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference Module { get; set; } = default!;
-
-    internal List<FluentMultiSplitterPane> Panes { get; } = new();
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    [Parameter]
+    public ElementReference Element { get; set; }
 
     /// <summary>
     /// Gets or sets the child content.
@@ -111,7 +107,7 @@ public partial class FluentMultiSplitter : FluentComponentBase
             {
                 if (item.SizeAuto)
                 {
-                    item.SizeRuntime = (100 / nbSizeAutoPanes) + "%";
+                    item.SizeRuntime = $"{Convert.ToString(100 / nbSizeAutoPanes, CultureInfo.InvariantCulture)}%";
                 }
             }
         }
@@ -193,15 +189,12 @@ public partial class FluentMultiSplitter : FluentComponentBase
     /// <param name="pane">The pane.</param>
     public void RemovePane(FluentMultiSplitterPane pane)
     {
-        if (Panes.Contains(pane))
-        {
-            Panes.Remove(pane);
-            StateHasChanged();
-        }
+        Panes.Remove(pane);
+        StateHasChanged();
     }
 
     /// <summary />
-    internal async Task CollapseExecAsync(object args, int paneIndex)
+    internal async Task CollapseExecAsync(int paneIndex)
     {
         var pane = Panes[paneIndex];
         var paneNext = pane.Next();
@@ -227,7 +220,7 @@ public partial class FluentMultiSplitter : FluentComponentBase
                 }
             }
 
-            paneNext.SetCollapsed(false);
+            paneNext.SetCollapsed(collapsed: false);
         }
         else
         {
@@ -247,14 +240,14 @@ public partial class FluentMultiSplitter : FluentComponentBase
                 }
             }
 
-            pane.SetCollapsed(true);
+            pane.SetCollapsed(collapsed: true);
         }
 
         StateHasChanged();
     }
 
     /// <summary />
-    internal async Task ExpandExecAsync(MouseEventArgs args, int paneIndex)
+    internal async Task ExpandExecAsync(int paneIndex)
     {
         var pane = Panes[paneIndex];
         var paneNext = pane.Next();
@@ -280,7 +273,7 @@ public partial class FluentMultiSplitter : FluentComponentBase
                 }
             }
 
-            paneNext.SetCollapsed(true);
+            paneNext.SetCollapsed(collapsed: true);
         }
         else
         {
@@ -300,7 +293,7 @@ public partial class FluentMultiSplitter : FluentComponentBase
                 }
             }
 
-            pane.SetCollapsed(false);
+            pane.SetCollapsed(collapsed: false);
         }
 
         StateHasChanged();
@@ -315,12 +308,12 @@ public partial class FluentMultiSplitter : FluentComponentBase
             var paneNextResizable = Panes.Skip(paneIndex + 1)
                                          .FirstOrDefault(o => o.Resizable && !o.Collapsed);
 
-            if (Module != null)
+            if (JSModule != null)
             {
-                await Module.InvokeVoidAsync(
+                await JSModule.ObjectReference.InvokeVoidAsync(
                     "startSplitterResize",
                     Element,
-                    _objRef,
+                    _dotNetSplitterHelper,
                     pane.Id,
                     paneNextResizable?.Id,
                     Orientation.ToString(),
@@ -336,19 +329,12 @@ public partial class FluentMultiSplitter : FluentComponentBase
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        try
+        ArgumentNullException.ThrowIfNullOrEmpty(Id);
+
+        if (firstRender)
         {
-            if (firstRender)
-            {
-                Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-                _objRef = DotNetObjectReference.Create(this);
-            }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                           ex is OperationCanceledException)
-        {
-            // This exception is expected when the user navigates away from the page
-            // and the component is disposed. We can ignore it.
+            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            _dotNetSplitterHelper = DotNetObjectReference.Create(this);
         }
     }
 }

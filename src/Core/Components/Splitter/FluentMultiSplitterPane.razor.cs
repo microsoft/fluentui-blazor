@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Represents a pane in a multi-splitter layout, allowing for child content, resizing, and collapsing behavior.
 /// It manages its size and state within a splitter.
 /// </summary>
-public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
+public partial class FluentMultiSplitterPane : FluentComponentBase
 {
     private FluentMultiSplitter _splitter = default!;
 
@@ -24,56 +24,48 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
     /// <summary>
     /// Gets or sets the child content.
     /// </summary>
-    /// <value>The child content.</value>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="FluentMultiSplitterPane"/> is collapsed.
+    /// Gets or sets a collapsed indicating whether this <see cref="FluentMultiSplitterPane"/> is collapsed.
     /// </summary>
-    /// <value><c>true</c> if collapsed; otherwise, <c>false</c>.</value>
     [Parameter]
     public bool Collapsed { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="FluentMultiSplitterPane"/> is collapsible.
+    /// Gets or sets a collapsed indicating whether this <see cref="FluentMultiSplitterPane"/> is collapsible.
     /// </summary>
-    /// <value><c>true</c> if collapsible; otherwise, <c>false</c>.</value>
     [Parameter]
     public bool Collapsible { get; set; } = false;
 
     /// <summary>
-    /// Determines the maximum value.
+    /// Determines the maximum collapsed.
     /// </summary>
-    /// <value>The maximum value.</value>
     [Parameter]
     public string Max { get; set; } = string.Empty;
 
     /// <summary>
-    /// Determines the minimum value.
+    /// Determines the minimum collapsed.
     /// </summary>
-    /// <value>The minimum value.</value>
     [Parameter]
     public string Min { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="FluentMultiSplitterPane"/> is resizable.
+    /// Gets or sets a collapsed indicating whether this <see cref="FluentMultiSplitterPane"/> is resizable.
     /// </summary>
-    /// <value><c>true</c> if resizable; otherwise, <c>false</c>.</value>
     [Parameter]
     public bool Resizable { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the size.
     /// </summary>
-    /// <value>The size.</value>
     [Parameter]
     public string? Size { get; set; }
 
     /// <summary>
     /// Gets or sets the splitter.
     /// </summary>
-    /// <value>The splitter.</value>
     [CascadingParameter]
     public FluentMultiSplitter Splitter
     {
@@ -174,10 +166,14 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
         .AddStyle("flex-basis", string.IsNullOrWhiteSpace(SizeRuntime) ? Size : SizeRuntime)
         .Build();
 
-    /// <summary />
-    public void Dispose()
+    /// <summary>
+    /// Disposes the component and removes it from the splitter.
+    /// </summary>
+    /// <returns></returns>
+    public override ValueTask DisposeAsync()
     {
         Splitter?.RemovePane(this);
+        return base.DisposeAsync();
     }
 
     /// <summary />
@@ -195,9 +191,9 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
     }
 
     /// <summary />
-    internal void SetCollapsed(bool value)
+    internal void SetCollapsed(bool collapsed)
     {
-        Collapsed = value;
+        Collapsed = collapsed;
     }
 
     /// <summary />
@@ -210,7 +206,7 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
 
         if (IsLastResizable)
         {
-            return "lastresizable";
+            return "last-resizable";
         }
 
         if (IsResizable)

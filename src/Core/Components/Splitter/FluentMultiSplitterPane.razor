@@ -22,7 +22,7 @@
         @if (IsCollapsible)
         {
             <span part="collapse"
-                  @onmousedown="@(e => Splitter.CollapseExecAsync(e, Index))"
+                  @onmousedown="@(e => Splitter.CollapseExecAsync(Index))"
                   @onmousedown:preventDefault="true" 
                   @onmousedown:stopPropagation="true" />
         }
@@ -35,7 +35,7 @@
         @if (IsExpandable)
         {
             <span part="expand"
-                  @onmousedown="@(e => Splitter.ExpandExecAsync(e, Index))"
+                  @onmousedown="@(e => Splitter.ExpandExecAsync(Index))"
                   @onmousedown:preventDefault="true" 
                   @onmousedown:stopPropagation="true" />
         }

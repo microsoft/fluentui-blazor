@@ -169,7 +169,7 @@
         display: block !important;
     }
 
-    .fluent-multi-splitter ::deep > .fluent-multi-splitter-pane[status="lastresizable"] {
+    .fluent-multi-splitter ::deep > .fluent-multi-splitter-pane[status="last-resizable"] {
         flex: 1 1 auto;
     }
 
