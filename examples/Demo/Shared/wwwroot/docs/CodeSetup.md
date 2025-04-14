@@ -90,7 +90,7 @@ If you want to use **Reboot**, you'll need to add to your `app.razor`, `index.ht
 It is entirely possible to build a site without using **Reboot**. If you do not want to use Reboot and you used the templates as a starting point, just remove the following line from the app.css file (it is the first line in the file):
 
 ```
-@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+@import '_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
 ```
 
 ### Register Services
