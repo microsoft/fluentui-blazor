@@ -6,7 +6,13 @@
 @{
     Debug.Assert(Context != null);
 }
-<FluentField ForId="@Id" Class="@ClassValue" Style="@StyleValue" Label="@Label" LabelPosition="@Components.LabelPosition.After" LabelWidth="@LabelWidth">
+<FluentField ForId="@Id"
+             Class="@ClassValue"
+             Style="@StyleValue"
+             Label="@Label"
+             LabelPosition="@Components.LabelPosition.After"
+             LabelWidth="@LabelWidth"
+             IncludeInputSlot="false">
     <LabelTemplate>@LabelTemplate</LabelTemplate>
     <ChildContent>
         <fluent-radio id="@Id"
