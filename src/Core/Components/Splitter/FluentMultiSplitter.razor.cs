@@ -5,6 +5,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -311,12 +312,12 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
             if (JSModule != null)
             {
                 await JSModule.ObjectReference.InvokeVoidAsync(
-                    "startSplitterResize",
+                    "Microsoft.FluentUI.Blazor.Components.MultiSplitter.StartResize",
                     Element,
                     _dotNetSplitterHelper,
                     pane.Id,
                     paneNextResizable?.Id,
-                    Orientation.ToString(),
+                    Orientation.ToAttributeValue(),
                     Orientation == Orientation.Horizontal ? args.ClientX : args.ClientY,
                     pane.Min,
                     pane.Max,
