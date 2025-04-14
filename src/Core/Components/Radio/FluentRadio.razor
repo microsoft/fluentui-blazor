@@ -22,7 +22,7 @@
                       value="@(Value?.ToString() ?? Label ?? null)"
                       name="@Context.GroupName"
                       @onchange="@Context.ChangeEventCallback"
-                      @attributes="AdditionalAttributes">
+                      @attributes="@AdditionalAttributes">
         </fluent-radio>
     </ChildContent>
 </FluentField>
