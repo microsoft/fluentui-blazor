@@ -4,7 +4,7 @@
 @typeparam TValue
 
 <CascadingValue Value="this" IsFixed="true">
-    <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+    <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" IncludeInputSlot="false">
         <fluent-radio-group @ref="@Element"
                             id="@Id"
                             disabled="@Disabled"
