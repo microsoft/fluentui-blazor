@@ -82,12 +82,12 @@ If you add interactivity later, the Blazor script will kick in and try to load t
 If you want to use **Reboot**, you'll need to add to your `app.razor`, `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
 
 ```html    
-<link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
+<link href="/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
 ```
 
 When using the templates to create your application, **Reboot** is already set-up for you.
 
-
+_When creating a site that is hosted in a different base path,it might be necessary to remove the leading '/' from the stylesheet link._
 
 ### Register Services
 Add the following in `Program.cs`
