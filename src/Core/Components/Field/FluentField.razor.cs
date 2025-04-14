@@ -74,7 +74,14 @@ public partial class FluentField : FluentComponentBase, IFluentField
     public bool? Disabled { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the <see cref="ChildContent" /> should be rendered in an extra `div slot="input"`.
+    /// </summary>
+    [Parameter]
+    public bool IncludeInputSlot { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the child content of the field.
+    /// ⚠️ If the <see cref="InputComponent"/> is not set, you must set the `id="@Id"` and `slot="@FluentSlot.FieldInput"` parameters in YOUR input component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
