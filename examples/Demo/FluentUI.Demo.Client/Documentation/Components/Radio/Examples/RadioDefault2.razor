@@ -11,10 +11,13 @@
 
 <FluentDivider />
 
-<FluentRadioGroup2 @bind-Value="@Value2" Label="The winner is">
+<FluentRadioGroup2 Label="The winner is"
+                   @bind-Value="@Value2"
+                   RadioLabel="@(i => i?.FirstName)"
+                   RadioValue="@(i => i?.Id)">
     @foreach (var employee in Employees)
     {
-        <FluentRadio2 Label="@employee.FirstName" />
+        <FluentRadio2 Value="@employee" />
     }
 </FluentRadioGroup2>
 

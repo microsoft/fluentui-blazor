@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -18,6 +19,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TValue))]
 public partial class FluentRadioGroup2<TValue> : FluentInputBase<TValue>, IFluentComponentElementBase
 {
+    private ConcurrentDictionary<string, FluentRadio2<TValue>> InternalRadios { get; } = new(StringComparer.Ordinal);
+
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
     public ElementReference Element { get; set; }
@@ -28,6 +31,24 @@ public partial class FluentRadioGroup2<TValue> : FluentInputBase<TValue>, IFluen
     /// </summary>
     [Parameter]
     public Orientation? Orientation { get; set; }
+
+    /// <summary>
+    /// Gets or sets the function used to determine which value to apply to the radio value attribute.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TValue?, string>? RadioValue { get; set; }
+
+    /// <summary>
+    /// Gets or sets the function used to determine which text to display for each radio item.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TValue?, string>? RadioLabel { get; set; }
+
+    /// <summary>
+    /// Gets or sets the function used to determine if an radio is disabled.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TValue?, bool>? RadioDisabled { get; set; }
 
     /// <summary>
     /// Gets or sets the child content to be rendering inside the <see cref="FluentRadioGroup{TValue}"/>.
@@ -53,7 +74,10 @@ public partial class FluentRadioGroup2<TValue> : FluentInputBase<TValue>, IFluen
     /// <summary />
     private Task RadioChangeHandlerAsync(RadioEventArgs e)
     {
-        return ChangeHandlerAsync(new ChangeEventArgs() { Value = e.Value });
+        if (InternalRadios.Contains)
+            Console.WriteLine($"RadioChangeHandlerAsync: {e.Value} {Id}");
+        return Task.CompletedTask;
+        //return ChangeHandlerAsync(new ChangeEventArgs() { Value = e.Value });
     }
 
     /// <summary>
@@ -70,5 +94,26 @@ public partial class FluentRadioGroup2<TValue> : FluentInputBase<TValue>, IFluen
     internal string GetGroupName()
     {
         return string.IsNullOrEmpty(Name) ? $"{Id}-group" : Name;
+    }
+
+    internal Task<string?> AddRadioAsync(FluentRadio2<TValue> radio)
+    {
+        if (!string.IsNullOrEmpty(radio.Id) &&
+            InternalRadios.TryAdd(radio.Id, radio))
+        {
+            return Task.FromResult<string?>(radio.Id);
+        }
+
+        return Task.FromResult<string?>(null);
+    }
+
+    internal Task RemoveRadioAsync(FluentRadio2<TValue> radio)
+    {
+        if (InternalRadios.Contains(radio))
+        {
+            InternalRadios.Remove(radio);
+        }
+
+        return Task.CompletedTask;
     }
 }

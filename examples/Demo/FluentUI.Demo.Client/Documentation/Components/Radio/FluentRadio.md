@@ -5,7 +5,11 @@ route: /Radio
 
 # RadioGroup and Radio
 
+{{ RadioDefault2 }}
+
 Radio groups let people select a single item from a short list. Use them in layouts that offer enough space to list up to five options or if it's important to view all options at once.
+
+<!--
 
 If there isn't enough space, try a dropdown instead. If you need to let people select more than one option, use checkboxes. To let them immediately turn a setting on or off, try a switch.
 
@@ -83,3 +87,4 @@ Besides disabling the whole group, it is also possible to disable specific items
 ## Migrating to v5
 
 {{ INCLUDE File=MigrationFluentRadio }}
+-->
