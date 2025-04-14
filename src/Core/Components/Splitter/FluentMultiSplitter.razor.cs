@@ -17,8 +17,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponentElementBase
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Splitter/FluentMultiSplitter.razor.js";
     private DotNetObjectReference<FluentMultiSplitter>? _dotNetSplitterHelper;
+
+    /// <summary />
+    public FluentMultiSplitter()
+    {
+        Id = Identifier.NewId();
+    }
 
     internal List<FluentMultiSplitterPane> Panes { get; } = [];
 
@@ -309,21 +314,18 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
             var paneNextResizable = Panes.Skip(paneIndex + 1)
                                          .FirstOrDefault(o => o.Resizable && !o.Collapsed);
 
-            if (JSModule != null)
-            {
-                await JSModule.ObjectReference.InvokeVoidAsync(
-                    "Microsoft.FluentUI.Blazor.Components.MultiSplitter.StartResize",
-                    Element,
-                    _dotNetSplitterHelper,
-                    pane.Id,
-                    paneNextResizable?.Id,
-                    Orientation.ToAttributeValue(),
-                    Orientation == Orientation.Horizontal ? args.ClientX : args.ClientY,
-                    pane.Min,
-                    pane.Max,
-                    paneNextResizable?.Min,
-                    paneNextResizable?.Max);
-            }
+            await JSRuntime.InvokeVoidAsync(
+                "Microsoft.FluentUI.Blazor.Components.MultiSplitter.StartResize",
+                Element,
+                _dotNetSplitterHelper,
+                pane.Id,
+                paneNextResizable?.Id,
+                Orientation.ToAttributeValue(),
+                Orientation == Orientation.Horizontal ? args.ClientX : args.ClientY,
+                pane.Min,
+                pane.Max,
+                paneNextResizable?.Min,
+                paneNextResizable?.Max);
         }
     }
 
@@ -334,8 +336,9 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
 
         if (firstRender)
         {
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
             _dotNetSplitterHelper = DotNetObjectReference.Create(this);
         }
+
+        await Task.CompletedTask;
     }
 }
