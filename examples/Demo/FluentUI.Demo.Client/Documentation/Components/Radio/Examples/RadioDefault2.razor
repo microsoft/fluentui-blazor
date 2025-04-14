@@ -1,0 +1,31 @@
+﻿<FluentRadioGroup2 @bind-Value="@Value1" Label="Favorite Fruit" Orientation="Orientation.Vertical">
+    <FluentRadio2 Label="Apple" />
+    <FluentRadio2 Label="Pear" />
+    <FluentRadio2 Label="Banana" />
+    <FluentRadio2 Label="Orange" />
+</FluentRadioGroup2>
+
+<div>
+    Selected: @Value1
+</div>
+
+<FluentDivider />
+
+<FluentRadioGroup2 @bind-Value="@Value2" Label="The winner is">
+    @foreach (var employee in Employees)
+    {
+        <FluentRadio2 Label="@employee.FirstName" />
+    }
+</FluentRadioGroup2>
+
+<div>
+    Selected: @Value2?.FirstName;
+</div>
+
+@code
+{
+    string? Value1;
+
+    static SampleData.People.Person[] Employees = SampleData.People.GeneratePersons(5).ToArray();
+    SampleData.People.Person? Value2;
+}

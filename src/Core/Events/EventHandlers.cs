@@ -32,6 +32,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [EventHandler("onmenuitemchange", typeof(MenuItemEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ontabchange", typeof(TabChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ondropdownchange", typeof(DropdownEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onradiochange", typeof(RadioEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 public static class EventHandlers
 {
 }

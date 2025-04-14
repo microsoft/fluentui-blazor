@@ -75,6 +75,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     /// <summary>
     /// Gets or sets the child content of the field.
+    /// If the <see cref="InputComponent"/> is not set, you must set the `id="@Id"` and `slot="@FluentSlot.FieldInput"` parameters in your input component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
