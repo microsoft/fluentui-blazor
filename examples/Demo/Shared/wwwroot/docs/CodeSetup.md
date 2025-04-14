@@ -79,19 +79,17 @@ builder.Services.AddFluentUIComponents(options =>
 
 #### Reboot 
 **Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.
-The library automatically includes reboot through the 
+The library automatically includes reboot through the templates.
 
-If you want to use **Reboot**, you'll need to add to your `app.razor`, `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
+If you want to use **Reboot**, and your site is not created by using our templates, you'll need to add to your `app.razor`, `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
 
 ```html    
-<link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
+<link href="/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
 ```
 
-It is entirely possible to build a site without using **Reboot**. If you do not want to use Reboot and you used the templates as a starting point, just remove the following line from the app.css file (it is the first line in the file):
+It is entirely possible to build a site without using **Reboot**. Either remove or do not add to file and it will not be used by the components.
 
-```
-@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
-```
+_When creating a site that is hosted in a different base path,it might be necessary to remove the leading '/' from the stylesheet link._
 
 ### Register Services
 Add the following in `Program.cs`
