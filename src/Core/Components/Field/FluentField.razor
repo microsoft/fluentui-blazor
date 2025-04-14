@@ -28,7 +28,7 @@
 
     @if (ChildContent is not null)
     {
-        @if (Parameters.HasInputComponent)
+        @if (Parameters.HasInputComponent || !IncludeInputSlot)
         {
             @ChildContent
         }

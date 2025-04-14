@@ -49,6 +49,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     // [^^^ Add your other custom components before this line ^^^]
 
     // Register all custom events
+    FluentUICustomEvents.Accordion(blazor);
     FluentUICustomEvents.DialogToggle(blazor);
     FluentUICustomEvents.MenuItem(blazor);
     FluentUICustomEvents.DropdownList(blazor);
