@@ -1,0 +1,22 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+<fluent-accordion-item id="@Id"
+                       class="@ClassValue"
+                       style="@StyleValue"
+                       heading-level=@HeadingLevel
+                       expanded="@Expanded"
+                       disabled="@Disabled"
+                       size="@Size.ToAttributeValue()"
+                       marker-position="@MarkerPosition.ToAttributeValue()"
+                       block="@Block"
+                       @attributes="AdditionalAttributes">
+    @if (Header is not null || HeaderTemplate is not null)
+    {
+        <span slot="heading">
+            @Header
+            @HeaderTemplate
+        </span>
+    }
+    @ChildContent
+</fluent-accordion-item>

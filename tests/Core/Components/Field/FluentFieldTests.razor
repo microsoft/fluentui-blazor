@@ -201,4 +201,21 @@
 
 
     }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void FluentField_IncludeInputSlot(bool withInputSlot)
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentField Id="MyField" IncludeInputSlot="@withInputSlot">Field content</FluentField>);
+
+        // Act
+        var hasContent = cut.Markup.Contains(">Field content<");
+        var hasSlot = cut.Markup.Contains("<div slot=\"input\" id=\"MyField-input\">Field content</div>");
+
+        // Assert
+        Assert.True(hasContent);
+        Assert.Equal(withInputSlot, hasSlot);
+    }
 }

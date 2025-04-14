@@ -1,0 +1,259 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit
+@inherits Bunit.TestContext
+
+@code {
+    public FluentAccordionTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentAccordion_Default()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentAccordion />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAccordion_ChildContent()
+    {
+        // Arrange
+        var childContent = (RenderFragment)(builder =>
+        {
+            builder.AddContent(0, "Accordion Content");
+        });
+
+        // Act
+        var cut = Render(@<FluentAccordion ChildContent="@childContent" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(AccordionExpandMode.Single, "single")]
+    [InlineData(AccordionExpandMode.Multi, "multi")]
+    [InlineData(null, "")]
+    public void FluentAccordion_ExpandMode(AccordionExpandMode? value, string expectedValue)
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentAccordion ExpandMode="@value" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-accordion").GetAttribute("expand-mode") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public async Task FluentAccordion_ExpandModeChangedCallback()
+    {
+        // Arrange
+        bool callbackInvoked = false;
+        var cut = Render<FluentAccordion>(@<FluentAccordion ExpandModeChanged="@(EventCallback.Factory.Create<AccordionExpandMode?>(this, value => callbackInvoked = true))" />);
+
+        // Act
+        await cut.Instance.ExpandModeChanged.InvokeAsync(AccordionExpandMode.Single);
+
+        // Assert
+        Assert.True(callbackInvoked);
+    }
+
+    [Theory]
+    [InlineData(1, "1")]
+    [InlineData(2, "2")]
+    [InlineData(3, "3")]
+    [InlineData(4, "4")]
+    [InlineData(5, "5")]
+    [InlineData(6, "6")]
+    [InlineData(99, "99")]
+    [InlineData(null, "")]
+    public void FluentAccordion_HeadingLevel(int? value, string expectedValue)
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentAccordion HeadingLevel="@value">
+            <FluentAccordionItem Header="My accordion header">
+                My accordion content
+            </FluentAccordionItem>
+        </FluentAccordion>);
+
+        // Assert
+        var attribute = cut.Find("fluent-accordion-item").GetAttribute("heading-level") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(AccordionItemSize.Small, "small")]
+    [InlineData(AccordionItemSize.Medium, "medium")]
+    [InlineData(AccordionItemSize.Large, "large")]
+    [InlineData(AccordionItemSize.ExtraLarge, "extra-large")]
+    [InlineData(null, "")]
+    public void FluentAccordion_Size(AccordionItemSize? value, string expectedValue)
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentAccordion Size="@value">
+            <FluentAccordionItem Header="My accordion header">
+                My accordion content
+            </FluentAccordionItem>
+        </FluentAccordion> );
+
+        // Assert
+        var attribute = cut.Find("fluent-accordion-item").GetAttribute("size") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(AccordionItemMarkerPosition.Start, "start")]
+    [InlineData(AccordionItemMarkerPosition.End, "end")]
+    [InlineData(null, "")]
+    public void FluentAccordion_MarkerPosition(AccordionItemMarkerPosition? value, string expectedValue)
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentAccordion MarkerPosition="@value">
+            <FluentAccordionItem Header="My accordion header">
+                My accordion content
+            </FluentAccordionItem>
+        </FluentAccordion>);
+
+        // Assert
+        var attribute = cut.Find("fluent-accordion-item").GetAttribute("marker-position") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentAccordion_Block()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentAccordion Block="true">
+            <FluentAccordionItem Header="My accordion header">
+                My accordion content
+            </FluentAccordionItem>
+        </FluentAccordion>);
+
+        // Assert
+        var block = cut.Find("fluent-accordion-item").GetAttribute("block") ?? null;
+        Assert.Equal("", block);
+    }
+
+    [Fact]
+    public async Task FluentAccordion_ActiveId()
+    {
+        var accordion = new FluentAccordion();
+        var a = new AccordionItemEventArgs { Id = "item1", Expanded = true };
+        var activeId = "";
+        // Arrange
+        var cut = Render(@<FluentAccordion @ref="@accordion" @bind-ActiveId="@activeId" @onaccordionchange="@((args) => { a = args; })" OnAccordionItemChange="@(() => { })">
+            <FluentAccordionItem Id="item1" Header="Panel one">
+                Panel one content
+            </FluentAccordionItem>
+            <FluentAccordionItem Id="item2" Header="Panel two" Expanded="true">
+                Panel two content
+            </FluentAccordionItem>
+        </FluentAccordion>);
+
+
+        // Act
+        await accordion.ExpandItemAsync("item1");
+
+        Assert.Equal("item1", activeId);
+
+        await accordion.CollapseItemAsync("item2");
+
+        Assert.Equal("item2", activeId);
+    }
+
+    [Fact]
+    public async Task FluentAccordion_ActiveIdNull()
+    {
+        var accordion = new FluentAccordion();
+        var a = new AccordionItemEventArgs { Expanded = true };
+        var activeId = "";
+        // Arrange
+        var cut = Render(@<FluentAccordion @ref="@accordion" @bind-ActiveId="@activeId" @onaccordionchange="@((args) => { a = args; })" OnAccordionItemChange="@(() => { })">
+            <FluentAccordionItem Id="item1" Header="Panel one">
+                Panel one content
+            </FluentAccordionItem>
+            <FluentAccordionItem Id="item2" Header="Panel two" Expanded="true">
+                Panel two content
+            </FluentAccordionItem>
+        </FluentAccordion>);
+
+
+        // Act
+        await accordion.ExpandItemAsync("item1");
+
+        Assert.Equal("item1", activeId);
+
+        await accordion.CollapseItemAsync("item2");
+
+        Assert.Equal("item2", activeId);
+    }
+
+
+
+    [Fact]
+    public async Task FluentAccordion_ActiveIdChangedCallback()
+    {
+        // Arrange
+        bool callbackInvoked = false;
+        var cut = Render<FluentAccordion>(@<FluentAccordion ActiveIdChanged="@(EventCallback.Factory.Create<string?>(this, value => callbackInvoked = true))" />);
+
+        // Act
+        await cut.Instance.ActiveIdChanged.InvokeAsync("item1");
+
+        // Assert
+        Assert.True(callbackInvoked);
+    }
+
+
+
+
+    [Fact]
+    public void FluentAccordion_Register()
+    {
+        // Arrange
+        var accordion = new FluentAccordion();
+
+#pragma warning disable
+        var item = new FluentAccordionItem() { Id = "item1" };
+#pragma warning enable
+
+        // Act
+        var cut = Render<FluentAccordion>(@<FluentAccordion @ref="@accordion">
+            <FluentAccordionItem Id="item1" Header="My accordion header">
+                My accordion content
+            </FluentAccordionItem>
+        </FluentAccordion>
+    );
+
+        accordion.Register(item);
+
+        // Assert
+
+        Assert.Equal(item, accordion.GetItems()["item1"]);
+    }
+
+   
+
+    [Fact]
+    public void FluentAccordion_Unregister()
+    {
+        // Arrange
+        var accordion = new FluentAccordion();
+        var item = new FluentAccordionItem { Id = "item1" };
+        accordion.Register(item);
+
+        // Act
+        accordion.Unregister(item);
+
+        // Assert
+        Assert.False(accordion.GetItems().ContainsKey("item1"));
+    }
+
+}
