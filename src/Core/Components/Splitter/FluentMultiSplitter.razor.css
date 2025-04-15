@@ -1,11 +1,11 @@
 .fluent-multi-splitter {
-  /* Resize Icon colors */
-  --fluent-multi-splitter-color: var(--colorSubtleBackgroundInvertedSelected);
-  --fluent-multi-splitter-color-active: var(--colorSubtleBackgroundInvertedPressed);
   /* Bar colors */
-  --fluent-multi-splitter-background-color: var(--colorNeutralBackground5);
-  --fluent-multi-splitter-background-color-active: var(--colorNeutralBackground6);
+  --fluent-multi-splitter-background-color: var(--colorNeutralStroke2);
+  --fluent-multi-splitter-background-color-active: var(--colorNeutralStroke1Selected);
   --fluent-multi-splitter-hover-opacity: 0.8;
+  /* Resize Icon colors */
+  --fluent-multi-splitter-color: var(--colorNeutralStrokeAccessible);
+  --fluent-multi-splitter-color-active: var(--colorNeutralStrokeAccessiblePressed);
   /* Bar size */
   --fluent-multi-splitter-bar-size: var(--spacingVerticalS);
   /* Styles */

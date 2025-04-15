@@ -1,6 +1,4 @@
-﻿@page "/splitterSample"
-
-<FluentMultiSplitter OnResize="@OnResizeHandler" Width="500px" Height="150px" Style="border: 1px dashed red;">
+﻿<FluentMultiSplitter OnResize="@OnResizeHandler" Height="150px" Style="border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
 
     <FluentMultiSplitterPane Size="20%" Min="50px" Max="70%">
         Left Menu
@@ -30,7 +28,7 @@
 {
     void OnResizeHandler(FluentMultiSplitterResizeEventArgs e)
     {
-        Console.WriteLine($"Pane {e.PaneIndex} Resize (New size {e.NewSize})");
+        Console.WriteLine($"Pane {e.PaneIndex} Resize (New size {e.NewSize:0}%)");
     }
 
     void OnCollapseExpand(FluentMultiSplitterEventArgs e)
