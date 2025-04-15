@@ -85,7 +85,7 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
     public string? Height { get; set; }
 
     /// <summary />
-    protected string? ClassValue =>DefaultClassBuilder
+    protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-multi-splitter")
         .Build();
 

@@ -23,7 +23,7 @@ In this example, each time a pane is resized, a trace is written to the console.
 ## Restrictions
 
 This component must be able to communicate between the DOM (browser) and the .NET runtime.
-Consequently, this component **requires an Interactive mode** (interactive SSR, interactive WASM).
+Consequently, this component **requires an Interactive** mode: Interactive Server, Interactive WebAssembly or Auto.
 Consequently, it does not function correctly in static rendering mode.
 
 By design, the pane can only be resized and collapsed/expanded when `Resizable="true"`.
