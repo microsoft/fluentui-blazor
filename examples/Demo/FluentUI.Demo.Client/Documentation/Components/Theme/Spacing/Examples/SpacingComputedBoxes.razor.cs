@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace FluentUI.Demo.Client.Documentation.Components.Spacing.Examples;
+namespace FluentUI.Demo.Client.Documentation.Components.Theme.Spacing.Examples;
 
 public partial class SpacingComputedBoxes
 {
