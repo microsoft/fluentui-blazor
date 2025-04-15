@@ -85,12 +85,12 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
     public string? Height { get; set; }
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue =>DefaultClassBuilder
         .AddClass("fluent-multi-splitter")
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("--fluent-multi-splitter-bar-size", BarSize, () => !string.IsNullOrEmpty(BarSize))

@@ -13,13 +13,27 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentMultiSplitterPane : FluentComponentBase
 {
-    private FluentMultiSplitter _splitter = default!;
-
     /// <summary />
     public FluentMultiSplitterPane()
     {
         Id = Identifier.NewId();
     }
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-multi-splitter-pane")
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("flex-basis", string.IsNullOrWhiteSpace(SizeRuntime) ? Size : SizeRuntime)
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the splitter.
+    /// </summary>
+    [CascadingParameter]
+    internal FluentMultiSplitter? Splitter { get; set; }
 
     /// <summary>
     /// Gets or sets the child content.
@@ -62,23 +76,6 @@ public partial class FluentMultiSplitterPane : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Size { get; set; }
-
-    /// <summary>
-    /// Gets or sets the splitter.
-    /// </summary>
-    [CascadingParameter]
-    public FluentMultiSplitter Splitter
-    {
-        get => _splitter;
-        set
-        {
-            if (_splitter != value)
-            {
-                _splitter = value;
-                _splitter.AddPane(this);
-            }
-        }
-    }
 
     /// <summary />
     internal int Index { get; set; }
@@ -124,12 +121,12 @@ public partial class FluentMultiSplitterPane : FluentComponentBase
     }
 
     /// <summary />
-    internal bool IsLast => Splitter.Panes.Count - 1 == Index;
+    internal bool IsLast => Splitter?.Panes.Count - 1 == Index;
 
     /// <summary />
     internal bool IsLastResizable
     {
-        get => Splitter.Panes.LastOrDefault(o => o.Resizable && !o.Collapsed) == this;
+        get => Splitter?.Panes.LastOrDefault(o => o.Resizable && !o.Collapsed) == this;
     }
 
     /// <summary />
@@ -140,7 +137,7 @@ public partial class FluentMultiSplitterPane : FluentComponentBase
             var paneNext = Next();
 
             if (Collapsed ||
-                (Index == Splitter.Panes.Count - 2 && paneNext?.IsResizable == false) ||
+                (Index == Splitter?.Panes.Count - 2 && paneNext?.IsResizable == false) ||
                 (IsLastResizable && paneNext?.Collapsed == true))
             {
                 return false;
@@ -157,14 +154,11 @@ public partial class FluentMultiSplitterPane : FluentComponentBase
     internal string SizeRuntime { get; set; } = string.Empty;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-multi-splitter-pane")
-        .Build();
-
-    /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("flex-basis", string.IsNullOrWhiteSpace(SizeRuntime) ? Size : SizeRuntime)
-        .Build();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Splitter?.AddPane(this);
+    }
 
     /// <summary>
     /// Disposes the component and removes it from the splitter.
@@ -179,8 +173,8 @@ public partial class FluentMultiSplitterPane : FluentComponentBase
     /// <summary />
     internal FluentMultiSplitterPane? Next()
     {
-        return Index <= Splitter.Panes.Count - 2
-            ? Splitter.Panes[Index + 1]
+        return Index <= Splitter?.Panes.Count - 2
+            ? Splitter?.Panes[Index + 1]
             : null;
     }
 

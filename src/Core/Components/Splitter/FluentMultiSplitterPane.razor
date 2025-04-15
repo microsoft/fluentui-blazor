@@ -15,14 +15,14 @@
 {
     <div class="fluent-multi-splitter-bar"
          status="@GetClassStatus()"
-         @onmousedown="@(e => Splitter.ResizeExecAsync(e, Index))"
+         @onmousedown="@(e => Splitter?.ResizeExecAsync(e, Index) ?? Task.CompletedTask)"
          @onclick:preventDefault="true"
          @onclick:stopPropagation="true">
 
         @if (IsCollapsible)
         {
             <span part="collapse"
-                  @onmousedown="@(e => Splitter.CollapseExecAsync(Index))"
+                  @onmousedown="@(e => Splitter?.CollapseExecAsync(Index) ?? Task.CompletedTask)"
                   @onmousedown:preventDefault="true" 
                   @onmousedown:stopPropagation="true" />
         }
@@ -35,7 +35,7 @@
         @if (IsExpandable)
         {
             <span part="expand"
-                  @onmousedown="@(e => Splitter.ExpandExecAsync(Index))"
+                  @onmousedown="@(e => Splitter?.ExpandExecAsync(Index) ?? Task.CompletedTask)"
                   @onmousedown:preventDefault="true" 
                   @onmousedown:stopPropagation="true" />
         }
