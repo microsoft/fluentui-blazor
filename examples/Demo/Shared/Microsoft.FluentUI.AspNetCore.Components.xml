@@ -6131,6 +6131,13 @@
             Gets or sets the maximum number of options that should be visible in the listbox scroll area.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.SelectedOptionsChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Only available when Multiple = true.
+            ⚠️ When using manual options, the internal data structure cannot be updated reliably, because of this, the SelectedOptionsChanged event will not be triggered.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.BorderStyle">
             <summary />
         </member>
@@ -6269,6 +6276,13 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSelect`1.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSelect`1.SelectedOptionsChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Only available when Multiple = true.
+            ⚠️ When using manual options, the internal data structure cannot be updated reliably, because of this, the SelectedOptionsChanged event will not be triggered.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.InternalListContext`1.Options">

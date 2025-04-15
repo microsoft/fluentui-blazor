@@ -50,6 +50,14 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption> where TO
     [Parameter]
     public Appearance? Appearance { get; set; }
 
+    /// <summary>
+    /// Called whenever the selection changed.
+    /// ⚠️ Only available when Multiple = true.
+    /// ⚠️ When using manual options, the internal data structure cannot be updated reliably, because of this, the SelectedOptionsChanged event will not be triggered.
+    /// </summary>
+    [Parameter]
+    public override EventCallback<IEnumerable<TOption>?> SelectedOptionsChanged { get; set; }
+
     private string? GetAriaLabelWithRequired()
     {
 #pragma warning disable CS0618 // Type or member is obsolete
