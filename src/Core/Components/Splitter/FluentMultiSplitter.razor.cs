@@ -100,7 +100,7 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
     /// Adds the pane.
     /// </summary>
     /// <param name="pane">The pane.</param>
-    public void AddPane(FluentMultiSplitterPane pane)
+    internal void AddPane(FluentMultiSplitterPane pane)
     {
         // Add this pane if not already done
         if (Panes.IndexOf(pane) < 0)
@@ -134,14 +134,12 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
 
         if (OnResize.HasDelegate)
         {
-            var arg = new FluentMultiSplitterResizeEventArgs()
-            {
-                PaneIndex = pane.Index,
-                Pane = pane,
-                NewSize = sizeNew,
-            };
+            var arg = new FluentMultiSplitterResizeEventArgs(pane.Index, pane, sizeNew);
 
-            await OnResize.InvokeAsync(arg);
+            if (OnResize.HasDelegate)
+            {
+                await OnResize.InvokeAsync(arg);
+            }
 
             if (arg.Cancel)
             {
@@ -165,13 +163,11 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
 
             if (OnResize.HasDelegate)
             {
-                var arg = new FluentMultiSplitterResizeEventArgs()
+                var arg = new FluentMultiSplitterResizeEventArgs(paneNext.Index, paneNext, sizeNextNew ?? 0);
+                if (OnResize.HasDelegate)
                 {
-                    PaneIndex = paneNext.Index,
-                    Pane = paneNext,
-                    NewSize = sizeNextNew ?? 0,
-                };
-                await OnResize.InvokeAsync(arg);
+                    await OnResize.InvokeAsync(arg);
+                }
 
                 // cancel omitted because it is managed by the parent panel
             }
@@ -193,7 +189,7 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
     /// Removes the pane.
     /// </summary>
     /// <param name="pane">The pane.</param>
-    public void RemovePane(FluentMultiSplitterPane pane)
+    internal void RemovePane(FluentMultiSplitterPane pane)
     {
         Panes.Remove(pane);
         StateHasChanged();
@@ -212,13 +208,11 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
         {
             if (OnExpand.HasDelegate)
             {
-                var arg = new FluentMultiSplitterEventArgs()
+                var arg = new FluentMultiSplitterEventArgs(paneNext.Index, paneNext);
+                if (OnExpand.HasDelegate)
                 {
-                    PaneIndex = paneNext.Index,
-                    Pane = paneNext,
-                };
-
-                await OnExpand.InvokeAsync(arg);
+                    await OnExpand.InvokeAsync(arg);
+                }
 
                 if (arg.Cancel)
                 {
@@ -232,13 +226,11 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
         {
             if (OnCollapse.HasDelegate)
             {
-                var arg = new FluentMultiSplitterEventArgs()
+                var arg = new FluentMultiSplitterEventArgs(pane.Index, pane);
+                if (OnCollapse.HasDelegate)
                 {
-                    PaneIndex = pane.Index,
-                    Pane = pane,
-                };
-
-                await OnCollapse.InvokeAsync(arg);
+                    await OnCollapse.InvokeAsync(arg);
+                }
 
                 if (arg.Cancel)
                 {
@@ -265,13 +257,12 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
         {
             if (OnCollapse.HasDelegate)
             {
-                var arg = new FluentMultiSplitterEventArgs()
-                {
-                    PaneIndex = paneNext.Index,
-                    Pane = paneNext,
-                };
+                var arg = new FluentMultiSplitterEventArgs(paneNext.Index, paneNext);
 
-                await OnCollapse.InvokeAsync(arg);
+                if (OnCollapse.HasDelegate)
+                {
+                    await OnCollapse.InvokeAsync(arg);
+                }
 
                 if (arg.Cancel)
                 {
@@ -285,13 +276,12 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
         {
             if (OnExpand.HasDelegate)
             {
-                var arg = new FluentMultiSplitterEventArgs()
-                {
-                    PaneIndex = pane.Index,
-                    Pane = pane,
-                };
+                var arg = new FluentMultiSplitterEventArgs(pane.Index, pane);
 
-                await OnExpand.InvokeAsync(arg);
+                if (OnExpand.HasDelegate)
+                {
+                    await OnExpand.InvokeAsync(arg);
+                }
 
                 if (arg.Cancel)
                 {

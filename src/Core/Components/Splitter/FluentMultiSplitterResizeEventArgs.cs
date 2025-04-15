@@ -9,8 +9,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class FluentMultiSplitterResizeEventArgs : FluentMultiSplitterEventArgs
 {
+    /// <summary />
+    internal FluentMultiSplitterResizeEventArgs(int paneIndex, FluentMultiSplitterPane pane, double newSize)
+        : base(paneIndex, pane)
+    {
+        NewSize = newSize;
+    }
+
     /// <summary>
-    /// The new size of the pane.
+    /// Gets the new size of the pane.
     /// </summary>
-    public double NewSize { get; set; }
+    public double NewSize { get; }
 }
