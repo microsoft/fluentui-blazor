@@ -176,7 +176,7 @@
     public void FluentMultiSplitter_Expand()
     {
         // Act
-        var result = RenderExpandCollapse(firstClickOn: "expand", secondClickOn: null, cancel: false);
+        var result = RenderExpandCollapse(firstClickOn: "expand");
 
         // Assert
         Assert.True(result.EventCalled);
@@ -187,7 +187,7 @@
     public void FluentMultiSplitter_Expand_Canceled()
     {
         // Act
-        var result = RenderExpandCollapse(firstClickOn: "expand", secondClickOn: null, cancel: true);
+        var result = RenderExpandCollapse(firstClickOn: "expand", secondClickOn: null, firstCancel: true);
 
         // Assert
         Assert.True(result.EventCalled);
@@ -198,7 +198,7 @@
     public void FluentMultiSplitter_CollapseAndExpand()
     {
         // Act
-        var result = RenderExpandCollapse(firstClickOn: "collapse", secondClickOn: "expand", cancel: false);
+        var result = RenderExpandCollapse(firstClickOn: "collapse", secondClickOn: "expand");
 
         // Assert
         Assert.True(result.EventCalled);
@@ -209,7 +209,7 @@
     public void FluentMultiSplitter_Collapse()
     {
         // Act
-        var result = RenderExpandCollapse(firstClickOn: "collapse", secondClickOn: null, cancel: false);
+        var result = RenderExpandCollapse(firstClickOn: "collapse");
 
         // Assert
         Assert.True(result.EventCalled);
@@ -220,7 +220,7 @@
     public void FluentMultiSplitter_Collapse_Canceled()
     {
         // Act
-        var result = RenderExpandCollapse(firstClickOn: "collapse", secondClickOn: null, cancel: true);
+        var result = RenderExpandCollapse(firstClickOn: "collapse", secondClickOn: null, firstCancel: true);
 
         // Assert
         Assert.True(result.EventCalled);
@@ -231,25 +231,26 @@
     public void FluentMultiSplitter_ExpandAndCollapse()
     {
         // Act
-        var result = RenderExpandCollapse(firstClickOn: "expand", secondClickOn: "collapse", cancel: false);
+        var result = RenderExpandCollapse(firstClickOn: "expand", secondClickOn: "collapse");
 
         // Assert
         Assert.True(result.EventCalled);
         Assert.Equal(result.Markups[0].ScrubBlazorAttributes(), result.Cut.Markup.ScrubBlazorAttributes());
     }
 
-    private (bool EventCalled, string[] Markups, IRenderedFragment Cut) RenderExpandCollapse(string firstClickOn, string? secondClickOn, bool cancel)
+    private (bool EventCalled, string[] Markups, IRenderedFragment Cut) RenderExpandCollapse(string firstClickOn, string? secondClickOn = null, bool firstCancel = false, bool secondCancel = false)
     {
-        bool eventCalled = false;
+        var eventCalled = 0;
         var markups = new List<string>();
-
+        
         // Arrange
         var cut = Render(
-            @<FluentMultiSplitter OnExpand="@(e => { eventCalled = true; e.Cancel = cancel; })"
-                                  OnCollapse="@(e => { eventCalled = true; e.Cancel = cancel; })">
+            @<FluentMultiSplitter OnExpand="@OnExpandCollapse"
+                                  OnCollapse="@OnExpandCollapse">
                 <FluentMultiSplitterPane Collapsible="true">Pane A</FluentMultiSplitterPane>
                 <FluentMultiSplitterPane Collapsible="true">Pane B</FluentMultiSplitterPane>
-            </FluentMultiSplitter>);
+            </FluentMultiSplitter>
+    );
 
         markups.Add(cut.Markup);
 
@@ -267,6 +268,20 @@
             markups.Add(cut.Markup);
         }
 
-        return (eventCalled, markups.ToArray(), cut);
+        return (eventCalled > 0, markups.ToArray(), cut);
+
+        void OnExpandCollapse(FluentMultiSplitterEventArgs e)
+        {
+            eventCalled++;
+
+            if (eventCalled == 1 && firstCancel)
+            {
+                e.Cancel = true;
+            }
+            else if (eventCalled == 2 && secondCancel)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }
