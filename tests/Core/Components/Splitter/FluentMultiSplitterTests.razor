@@ -1,4 +1,5 @@
 ﻿@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Verify
 @inherits Bunit.TestContext
 
 @code
@@ -164,7 +165,8 @@
             @<FluentMultiSplitter>
                 <FluentMultiSplitterPane>Pane A</FluentMultiSplitterPane>
                 <FluentMultiSplitterPane Resizable="false" Size="300px">Pane B</FluentMultiSplitterPane>
-            </FluentMultiSplitter>);
+            </FluentMultiSplitter>
+    );
 
         // Assert
         cut.Verify();
@@ -174,7 +176,7 @@
     public void FluentMultiSplitter_Expand()
     {
         // Act
-        var result = RenderExpandCollapse("expand", cancel: false);
+        var result = RenderExpandCollapse(firstClickOn: "expand", secondClickOn: null, cancel: false);
 
         // Assert
         Assert.True(result.EventCalled);
@@ -185,18 +187,29 @@
     public void FluentMultiSplitter_Expand_Canceled()
     {
         // Act
-        var result = RenderExpandCollapse("expand", cancel: true);
+        var result = RenderExpandCollapse(firstClickOn: "expand", secondClickOn: null, cancel: true);
 
         // Assert
         Assert.True(result.EventCalled);
-        Assert.Equal(result.InitialMarkup, result.Cut.Markup);
+        Assert.Equal(result.Markups[0], result.Cut.Markup);
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_CollapseAndExpand()
+    {
+        // Act
+        var result = RenderExpandCollapse(firstClickOn: "collapse", secondClickOn: "expand", cancel: false);
+
+        // Assert
+        Assert.True(result.EventCalled);
+        Assert.Equal(result.Markups[0].ScrubBlazorAttributes(), result.Cut.Markup.ScrubBlazorAttributes());
     }
 
     [Fact]
     public void FluentMultiSplitter_Collapse()
     {
         // Act
-        var result = RenderExpandCollapse("collapse", cancel: false);
+        var result = RenderExpandCollapse(firstClickOn: "collapse", secondClickOn: null, cancel: false);
 
         // Assert
         Assert.True(result.EventCalled);
@@ -207,16 +220,28 @@
     public void FluentMultiSplitter_Collapse_Canceled()
     {
         // Act
-        var result = RenderExpandCollapse("collapse", cancel: true);
+        var result = RenderExpandCollapse(firstClickOn: "collapse", secondClickOn: null, cancel: true);
 
         // Assert
         Assert.True(result.EventCalled);
-        Assert.Equal(result.InitialMarkup, result.Cut.Markup);
+        Assert.Equal(result.Markups[0], result.Cut.Markup);
     }
 
-    private (bool EventCalled, string? InitialMarkup, IRenderedFragment Cut) RenderExpandCollapse(string part, bool cancel)
+    [Fact]
+    public void FluentMultiSplitter_ExpandAndCollapse()
+    {
+        // Act
+        var result = RenderExpandCollapse(firstClickOn: "expand", secondClickOn: "collapse", cancel: false);
+
+        // Assert
+        Assert.True(result.EventCalled);
+        Assert.Equal(result.Markups[0].ScrubBlazorAttributes(), result.Cut.Markup.ScrubBlazorAttributes());
+    }
+
+    private (bool EventCalled, string[] Markups, IRenderedFragment Cut) RenderExpandCollapse(string firstClickOn, string? secondClickOn, bool cancel)
     {
         bool eventCalled = false;
+        var markups = new List<string>();
 
         // Arrange
         var cut = Render(
@@ -224,15 +249,24 @@
                                   OnCollapse="@(e => { eventCalled = true; e.Cancel = cancel; })">
                 <FluentMultiSplitterPane Collapsible="true">Pane A</FluentMultiSplitterPane>
                 <FluentMultiSplitterPane Collapsible="true">Pane B</FluentMultiSplitterPane>
-                <FluentMultiSplitterPane Collapsible="true">Pane C</FluentMultiSplitterPane>
             </FluentMultiSplitter>);
 
-        var initMarkup = cut.Markup;
+        markups.Add(cut.Markup);
 
-        // Action
-        var button = cut.Find($"span[part='{part}']");
-        button.MouseDown();
+        // First click
+        var button1 = cut.Find($"span[part='{firstClickOn}']");
+        button1.MouseDown();
 
-        return (eventCalled, initMarkup, cut);
+        markups.Add(cut.Markup);
+
+        // Second click
+        if (secondClickOn != null)
+        {
+            var button2 = cut.Find($"span[part='{secondClickOn}']");
+            button2.MouseDown();
+            markups.Add(cut.Markup);
+        }
+
+        return (eventCalled, markups.ToArray(), cut);
     }
 }
