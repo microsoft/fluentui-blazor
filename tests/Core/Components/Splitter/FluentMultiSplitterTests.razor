@@ -182,6 +182,17 @@
     }
 
     [Fact]
+    public void FluentMultiSplitter_Expand_Canceled()
+    {
+        // Act
+        var result = RenderExpandCollapse("expand", cancel: true);
+
+        // Assert
+        Assert.True(result.EventCalled);
+        Assert.Equal(result.InitialMarkup, result.Cut.Markup);
+    }
+
+    [Fact]
     public void FluentMultiSplitter_Collapse()
     {
         // Act
@@ -192,12 +203,23 @@
         result.Cut.Verify();
     }
 
-    private (bool EventCalled, IRenderedFragment Cut) RenderExpandCollapse(string part, bool cancel)
+    [Fact]
+    public void FluentMultiSplitter_Collapse_Canceled()
+    {
+        // Act
+        var result = RenderExpandCollapse("collapse", cancel: true);
+
+        // Assert
+        Assert.True(result.EventCalled);
+        Assert.Equal(result.InitialMarkup, result.Cut.Markup);
+    }
+
+    private (bool EventCalled, string? InitialMarkup, IRenderedFragment Cut) RenderExpandCollapse(string part, bool cancel)
     {
         bool eventCalled = false;
 
         // Arrange
-          var cut = Render(
+        var cut = Render(
             @<FluentMultiSplitter OnExpand="@(e => { eventCalled = true; e.Cancel = cancel; })"
                                   OnCollapse="@(e => { eventCalled = true; e.Cancel = cancel; })">
                 <FluentMultiSplitterPane Collapsible="true">Pane A</FluentMultiSplitterPane>
@@ -205,10 +227,12 @@
                 <FluentMultiSplitterPane Collapsible="true">Pane C</FluentMultiSplitterPane>
             </FluentMultiSplitter>);
 
+        var initMarkup = cut.Markup;
+
         // Action
         var button = cut.Find($"span[part='{part}']");
         button.MouseDown();
 
-        return (eventCalled, cut);
+        return (eventCalled, initMarkup, cut);
     }
 }
