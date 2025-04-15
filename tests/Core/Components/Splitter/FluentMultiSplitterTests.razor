@@ -1,0 +1,316 @@
+﻿@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Verify
+@inherits Bunit.TestContext
+
+@code
+{
+    public FluentMultiSplitterTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Horizontal_Basic()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentMultiSplitter>(parameters =>
+        {
+            parameters.Add(p => p.Orientation, Orientation.Horizontal);
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Vertical_Basic()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentMultiSplitter>(parameters =>
+        {
+            parameters.Add(p => p.Orientation, Orientation.Vertical);
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_PaneCollapsible()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentMultiSplitter>(parameters =>
+        {
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Collapsible, true);
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Collapsible, true);
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentMultiSplitter_PaneResizedRaised()
+    {
+        bool eventCalled = false;
+        double newSize = 0;
+
+        // Arrange
+        var cut = RenderComponent<FluentMultiSplitter>(parameters =>
+        {
+            parameters.Add(p => p.OnResize, (e) => { eventCalled = true; newSize = e.NewSize; });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // MouseUp
+        await cut.InvokeAsync(async () => await cut.Instance.OnPaneResizedAsync(0, 20, 1, 80));
+
+        // Assert
+        Assert.True(eventCalled);
+        Assert.Equal(80, newSize);
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_PaneResizedReceived()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentMultiSplitter>(parameters =>
+        {
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Min, "50px");
+                pane.Add(p => p.Max, "70%");
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Action
+        var bar = cut.Find($".fluent-multi-splitter-bar");
+        bar.MouseDown();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentMultiSplitter_PaneResizeCanceled()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentMultiSplitter>(parameters =>
+        {
+            parameters.Add(p => p.OnResize, (e) => e.Cancel = true);
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Size, "40%");
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Size, "60%");
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // MouseUp
+        await cut.InvokeAsync(async () => await cut.Instance.OnPaneResizedAsync(0, 20, 1, 80));
+
+        // New values (20% and 80%) are rollbacked to initial values (40% and 60%)
+        Assert.Contains("flex-basis: 40%;", cut.Markup);
+        Assert.Contains("flex-basis: 60%;", cut.Markup);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentMultiSplitter_Size_Fixed()
+    {
+        // Arrange
+        var cut = Render(
+            @<FluentMultiSplitter>
+                <FluentMultiSplitterPane>Pane A</FluentMultiSplitterPane>
+                <FluentMultiSplitterPane Resizable="false" Size="300px">Pane B</FluentMultiSplitterPane>
+            </FluentMultiSplitter>
+    );
+
+        await cut.FindComponent<FluentMultiSplitter>().Instance.RefreshAsync();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Expand()
+    {
+        // Act
+        var result = RenderExpandCollapse(firstClickOn: "expand");
+
+        // Assert
+        Assert.True(result.EventCalled);
+        result.Cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Expand_Canceled()
+    {
+        // Act
+        var result = RenderExpandCollapse(firstClickOn: "expand", secondClickOn: null, firstCancel: true);
+
+        // Assert
+        Assert.True(result.EventCalled);
+        Assert.Equal(result.Markups[0], result.Cut.Markup);
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_CollapseAndExpand()
+    {
+        // Act
+        var result = RenderExpandCollapse(firstClickOn: "collapse", secondClickOn: "expand");
+
+        // Assert
+        Assert.True(result.EventCalled);
+        Assert.Equal(result.Markups[0].ScrubBlazorAttributes(), result.Cut.Markup.ScrubBlazorAttributes());
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_CollapseAndExpand_ButCanceled()
+    {
+        // Act
+        var result = RenderExpandCollapse(firstClickOn: "collapse", secondClickOn: "expand", secondCancel: true);
+
+        // Assert
+        Assert.True(result.EventCalled);
+        Assert.Equal(result.Markups[1].ScrubBlazorAttributes(), result.Cut.Markup.ScrubBlazorAttributes());
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Collapse()
+    {
+        // Act
+        var result = RenderExpandCollapse(firstClickOn: "collapse");
+
+        // Assert
+        Assert.True(result.EventCalled);
+        result.Cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Collapse_Canceled()
+    {
+        // Act
+        var result = RenderExpandCollapse(firstClickOn: "collapse", secondClickOn: null, firstCancel: true);
+
+        // Assert
+        Assert.True(result.EventCalled);
+        Assert.Equal(result.Markups[0], result.Cut.Markup);
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_ExpandAndCollapse()
+    {
+        // Act
+        var result = RenderExpandCollapse(firstClickOn: "expand", secondClickOn: "collapse");
+
+        // Assert
+        Assert.True(result.EventCalled);
+        Assert.Equal(result.Markups[0].ScrubBlazorAttributes(), result.Cut.Markup.ScrubBlazorAttributes());
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_ExpandAndCollapse_ButCanceled()
+    {
+        // Act
+        var result = RenderExpandCollapse(firstClickOn: "expand", secondClickOn: "collapse", secondCancel: true);
+
+        // Assert
+        Assert.True(result.EventCalled);
+        Assert.Equal(result.Markups[1].ScrubBlazorAttributes(), result.Cut.Markup.ScrubBlazorAttributes());
+    }
+
+    private (bool EventCalled, string[] Markups, IRenderedFragment Cut) RenderExpandCollapse(string firstClickOn, string? secondClickOn = null, bool firstCancel = false, bool secondCancel = false)
+    {
+        var eventCalled = 0;
+        var markups = new List<string>();
+        
+        // Arrange
+        var cut = Render(
+            @<FluentMultiSplitter OnExpand="@OnExpandCollapse"
+                                  OnCollapse="@OnExpandCollapse">
+                <FluentMultiSplitterPane Collapsible="true">Pane A</FluentMultiSplitterPane>
+                <FluentMultiSplitterPane Collapsible="true">Pane B</FluentMultiSplitterPane>
+            </FluentMultiSplitter>
+    );
+
+        markups.Add(cut.Markup);
+
+        // First click
+        var button1 = cut.Find($"span[part='{firstClickOn}']");
+        button1.MouseDown();
+
+        markups.Add(cut.Markup);
+
+        // Second click
+        if (secondClickOn != null)
+        {
+            var button2 = cut.Find($"span[part='{secondClickOn}']");
+            button2.MouseDown();
+            markups.Add(cut.Markup);
+        }
+
+        return (eventCalled > 0, markups.ToArray(), cut);
+
+        void OnExpandCollapse(FluentMultiSplitterEventArgs e)
+        {
+            eventCalled++;
+
+            if (eventCalled == 1 && firstCancel)
+            {
+                e.Cancel = true;
+            }
+            else if (eventCalled == 2 && secondCancel)
+            {
+                e.Cancel = true;
+            }
+
+            Assert.NotEqual(-1, e.PaneIndex);
+            Assert.NotNull(e.Pane);
+        }
+    }
+}

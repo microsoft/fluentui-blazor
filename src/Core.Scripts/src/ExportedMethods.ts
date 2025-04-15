@@ -2,6 +2,7 @@ import { Microsoft as LoggerFile } from './Utilities/Logger';
 import { Microsoft as AttributesFile } from './Utilities/Attributes';
 import { Microsoft as FluentDialogFile } from './Components/Dialog/FluentDialog';
 import { Microsoft as FluentTabsFile } from './Components/Tabs/FluentTabs';
+import { Microsoft as FluentMultiSplitterFile } from './Components/Splitter/FluentMultiSplitter';
 
 export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
 
@@ -24,6 +25,7 @@ export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
     (window as any).Microsoft.FluentUI.Blazor.Components = (window as any).Microsoft.FluentUI.Blazor.Components || {};
     (window as any).Microsoft.FluentUI.Blazor.Components.Dialog = FluentDialogFile.FluentUI.Blazor.Components.Dialog;
     (window as any).Microsoft.FluentUI.Blazor.Components.Tabs = FluentTabsFile.FluentUI.Blazor.Components.Tabs;
+    (window as any).Microsoft.FluentUI.Blazor.Components.MultiSplitter = FluentMultiSplitterFile.FluentUI.Blazor.Components.MultiSplitter;
 
     // [^^^ Add your other exported methods before this line ^^^]
   }
