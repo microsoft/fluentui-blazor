@@ -6682,12 +6682,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OpenAsync(System.Int32,System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OpenAsync(System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
-            Method called from JavaScript to get the current mouse ccordinates.
+            Method called from JavaScript to get the current mouse coordinates.
             </summary>
-            <param name="x"></param>
-            <param name="y"></param>
+            <param name="x">x-coordinate of point clicked on</param>
+            <param name="y">y-coordinate of point clicked on</param>
+            <param name="screenWidth">width of the screen</param>
+            <param name="screenHeight">height of the screen</param>
             <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.DrawMenuWithoutService">
