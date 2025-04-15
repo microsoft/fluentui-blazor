@@ -17,32 +17,34 @@
 
     </FluentStack>
 
-    <table data-type="system-color">
-        <thead>
-            <tr>
-                <th>Color constant</th>
-                <th>Result</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var color in SystemColorsTable.GetAllColorConstants())
-            {
-                if (string.IsNullOrEmpty(Search) ||
-                color.Category.Contains(Search, StringComparison.OrdinalIgnoreCase) ||
-                color.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
+    <div style="min-height: 1000px">
+        <table data-type="system-color">
+            <thead>
+                <tr>
+                    <th>Color constant</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var color in SystemColorsTable.GetAllColorConstants().OrderBy(i => $"{i.Category}.{i.Name}"))
                 {
-                    <tr>
-                        <td data-type="name">
-                            <b>@color.Category</b>.@color.Name
-                        </td>
-                        <td color="block" style="@($"background-color: {color.Value};")">
-                            &nbsp;
-                        </td>
-                    </tr>
+                    if (string.IsNullOrEmpty(Search) ||
+                    color.Category.Contains(Search, StringComparison.OrdinalIgnoreCase) ||
+                    color.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                    {
+                        <tr>
+                            <td data-type="name">
+                                <b>@color.Category</b>.@color.Name
+                            </td>
+                            <td color="block" style="@($"background-color: {color.Value};")">
+                                <span>@color.Value</span>
+                            </td>
+                        </tr>
+                    }
                 }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </FluentStack>
 
 <style>
@@ -61,4 +63,12 @@
             border: 1px solid @SystemColors.Neutral.Stroke1;
             width: 100px;
         }
+
+            table[data-type='system-color'] td[color='block'] span {
+                font-size: small;
+                color: rgb(255, 255, 255);
+                mix-blend-mode: difference;
+                padding: 0 4px;
+                white-space: nowrap;
+            }
 </style>
