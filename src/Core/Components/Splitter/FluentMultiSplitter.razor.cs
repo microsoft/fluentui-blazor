@@ -180,9 +180,9 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
     /// <summary>
     /// Refreshes this instance.
     /// </summary>
-    public void Refresh()
+    public Task RefreshAsync()
     {
-        StateHasChanged();
+        return InvokeAsync(StateHasChanged);
     }
 
     /// <summary>
