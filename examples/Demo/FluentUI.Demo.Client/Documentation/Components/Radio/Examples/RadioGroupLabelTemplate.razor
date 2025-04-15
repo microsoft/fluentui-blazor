@@ -1,0 +1,24 @@
+﻿<FluentRadioGroup Name="numbers" @bind-Value="@numberValue" Label="Numbers">
+    <FluentRadio Value="1">
+        <LabelTemplate><strong>One</strong></LabelTemplate>
+    </FluentRadio>
+    <FluentRadio Value="2">
+        <LabelTemplate><em>Two</em></LabelTemplate>
+    </FluentRadio>
+</FluentRadioGroup>
+<p>
+    Selected: @(numberValue is null ? "-" : $"{numberValue} (Type: {numberValue?.GetType()})" )
+</p>
+
+<FluentRadioGroup Name="strings" @bind-Value="@stringValue" Label="Strings">
+    <FluentRadio Value="@("one")"><LabelTemplate><em>One</em></LabelTemplate></FluentRadio>
+    <FluentRadio Value="@("two")"><LabelTemplate><strong>Two</strong></LabelTemplate></FluentRadio>
+</FluentRadioGroup>
+<p>
+    Selected: @(stringValue is null ? "-" : $"{stringValue} (Type: {stringValue?.GetType()})")
+</p>
+
+@code {
+    int? numberValue;
+    string? stringValue;
+}
