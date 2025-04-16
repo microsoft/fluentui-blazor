@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
@@ -31,24 +35,25 @@ public class TooltipOptions
     /// Gets or sets the delay (in milliseconds). 
     /// Default is 300.
     /// </summary>
-    [Parameter]
     public int? Delay { get; set; } = TooltipGlobalOptions.DefaultDelay;
 
     /// <summary>
     /// Gets or sets the tooltip's position. See <see cref="TooltipPosition"/>.
     /// </summary>
-    [Parameter]
     public TooltipPosition? Position { get; set; }
 
     /// <summary>
     /// Callback for when the tooltip is dismissed.
     /// </summary>  
-    [Parameter]
     public EventCallback<EventArgs> OnDismissed { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the tooltip is visible.
     /// </summary>
-    [Parameter]
     public bool Visible { get; set; }
+
+    /// <summary>
+    /// Gets or sets a collection of additional attributes that will be applied to the created element.
+    /// </summary>
+    public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 }
