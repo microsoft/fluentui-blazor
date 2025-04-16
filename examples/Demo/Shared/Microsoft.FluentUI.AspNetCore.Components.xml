@@ -3198,6 +3198,11 @@
             Gets or sets a value indicating whether the tooltip is visible.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.AdditionalAttributes">
+            <summary>
+            Gets or sets a collection of additional attributes that will be applied to the created element.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService">
             <inheritdoc cref="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService"/>
         </member>
