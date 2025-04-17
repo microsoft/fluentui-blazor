@@ -24,7 +24,7 @@
     <PackageVersion Include="coverlet.msbuild" Version="6.0.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <!-- Shared dependencies -->
-    <PackageVersion Include="Markdig.Signed" Version="0.34.0" />
+    <PackageVersion Include="Markdig.Signed" Version="0.41.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />
     <PackageVersion Include="Microsoft.OData.Client" Version="8.2.3" />
