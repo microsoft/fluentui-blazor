@@ -67,7 +67,8 @@ fluent-text-field.invalid::part(root),
 
 fluent-button::part(control),
 fluent-text-area::part(control),
-fluent-text-field::part(control)
+fluent-text-field::part(control),
+fluent-search::part(control)
 {
     letter-spacing: inherit;
 }
