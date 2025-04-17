@@ -276,4 +276,20 @@
         // Assert
         Assert.Equal(0, index);
     }
+
+    [Fact]
+    public async Task FluentTabs_RemoveTabAsync_InvalidTab()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+
+        // Act
+        var index = await cut.FindComponent<FluentTabs>().Instance.RemoveTabAsync(null);
+
+        // Assert
+        Assert.Equal(0, index);
+    }
 }
