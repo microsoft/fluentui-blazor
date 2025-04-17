@@ -10128,7 +10128,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.Delay">
             <summary>
-            Gets or sets the delay (in milliseconds). 
+            Gets or sets the delay (in milliseconds).
             Default is 300.
             </summary>
         </member>
@@ -10168,7 +10168,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.OnDismissed">
             <summary>
             Callback for when the tooltip is dismissed.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.DrawTooltip">
             <summary />

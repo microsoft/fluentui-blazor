@@ -1,4 +1,4 @@
-using FluentAssertions;
+
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DataGrid;
@@ -22,9 +22,7 @@ public class GridSortTests : TestBase
         var sort = GridSort<GridRow>.ByAscending(x => x.Number);
         var ordered = sort.Apply(_gridData.AsQueryable(), ascending);
 
-        ordered.Select(x => x.Number)
-            .SequenceEqual(expected)
-            .Should().BeTrue();
+        Assert.True(ordered.Select(x => x.Number).SequenceEqual(expected));
     }
 
     [Theory]
@@ -38,9 +36,7 @@ public class GridSortTests : TestBase
 
         var ordered = sort.Apply(_gridData.AsQueryable(), ascending);
 
-        ordered.Select(x => x.Number)
-            .SequenceEqual(expected)
-            .Should().BeTrue();
+        Assert.True(ordered.Select(x => x.Number).SequenceEqual(expected));
     }
 
     [Theory]
@@ -54,9 +50,7 @@ public class GridSortTests : TestBase
 
         var ordered = sort.Apply(_gridData.AsQueryable(), ascending);
 
-        ordered.Select(x => x.Number)
-            .SequenceEqual(expected)
-            .Should().BeTrue();
+        Assert.True(ordered.Select(x => x.Number).SequenceEqual(expected));
     }
 
     [Theory]
@@ -70,9 +64,7 @@ public class GridSortTests : TestBase
 
         var ordered = sort.Apply(_gridData.AsQueryable(), ascending);
 
-        ordered.Select(x => x.Number)
-            .SequenceEqual(expected)
-            .Should().BeTrue();
+        Assert.True(ordered.Select(x => x.Number).SequenceEqual(expected));
     }
 
     [Theory]
@@ -86,9 +78,7 @@ public class GridSortTests : TestBase
 
         var ordered = sort.Apply(_gridData.AsQueryable(), ascending);
 
-        ordered.Select(x => x.Number)
-            .SequenceEqual(expected)
-            .Should().BeTrue();
+        Assert.True(ordered.Select(x => x.Number).SequenceEqual(expected));
     }
 
 #pragma warning restore CA1861 // Avoid constant arrays as arguments
