@@ -4,7 +4,7 @@
 		<Authors>Microsoft</Authors>
 		<ContentTargetFolders>Content</ContentTargetFolders>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-		<Description>Project templates for creating a Fluent UI Blazor Web app, Blazor WebAssembly Standalone app, Blazor Hybrid and Web App or .NET Aspire Starter app. These templates are pure copies of the original templates but use the Fluent UI Blazor Components ibrary for building the user interface (UI).</Description>
+		<Description>Project templates for creating a Fluent UI Blazor Web app, Blazor WebAssembly Standalone app, Blazor Hybrid and Web App or .NET Aspire Starter app. These templates are pure copies of the original templates but use the Fluent UI Blazor library for building the user interface (UI).</Description>
 		<IncludeContentInPack>true</IncludeContentInPack>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<License>MIT</License>
