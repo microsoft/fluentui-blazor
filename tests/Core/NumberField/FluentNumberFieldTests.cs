@@ -1,5 +1,5 @@
 using Bunit;
-using FluentAssertions;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -325,7 +325,7 @@ public class FluentNumberFieldTests : TestBase
         };
 
         // Assert
-        action.Should().Throw<ArgumentException>();
+        Assert.Throws<ArgumentException>(action);
     }
 
     [Theory]
@@ -348,7 +348,7 @@ public class FluentNumberFieldTests : TestBase
         };
 
         // Assert
-        action.Should().Throw<Exception>();
+        Assert.Throws<Exception>(action);
     }
 
     [Fact]
@@ -369,7 +369,7 @@ public class FluentNumberFieldTests : TestBase
         };
 
         // Assert
-        action.Should().Throw<ArgumentException>();
+        Assert.Throws<ArgumentException>(action);
     }
 
     [Fact]
@@ -390,7 +390,7 @@ public class FluentNumberFieldTests : TestBase
         };
 
         // Assert
-        action.Should().Throw<ArgumentException>();
+        Assert.Throws<ArgumentException>(action);
     }
 
     [Fact]
@@ -411,7 +411,7 @@ public class FluentNumberFieldTests : TestBase
         };
 
         // Assert
-        action.Should().Throw<ArgumentException>();
+        Assert.Throws<ArgumentException>(action);
     }
 
     [Fact]
@@ -431,7 +431,7 @@ public class FluentNumberFieldTests : TestBase
         };
 
         // Assert
-        action.Should().Throw<ArgumentException>();
+        Assert.Throws<ArgumentException>(action);
     }
 
     [Fact]
@@ -451,7 +451,7 @@ public class FluentNumberFieldTests : TestBase
         };
 
         // Assert
-        action.Should().Throw<ArgumentException>();
+        Assert.Throws<ArgumentException>(action);
     }
 
     [Fact]
@@ -471,7 +471,7 @@ public class FluentNumberFieldTests : TestBase
         };
 
         // Assert
-        action.Should().Throw<ArgumentException>();
+        Assert.Throws<ArgumentException>(action);
     }
 
     [Fact]
@@ -545,7 +545,7 @@ public class FluentNumberFieldTests : TestBase
         };
 
         // Assert
-        action.Should().Throw<ArgumentException>();
+        Assert.Throws<ArgumentException>(action);
     }
 
     [Fact]
@@ -566,7 +566,7 @@ public class FluentNumberFieldTests : TestBase
         };
 
         // Assert
-        action.Should().Throw<ArgumentException>();
+        Assert.Throws<ArgumentException>(action);
     }
 
     [Fact]
