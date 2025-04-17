@@ -5,7 +5,7 @@ To make it easier to start a project that uses the Fluent UI Web Components for 
 - Fluent .NET Aspire Starter app
 
 
-All of these templates mimic their standard Blazor template counterpart but have the Fluent UI Blazor components already fully set up. If you choose to add sample pages when creating a project, all components have been replaced with Fluent UI components (and a few extra have been added). All Bootstrap styling is removed of course as well.
+All of these templates mimic their standard Blazor template counterpart but have the Fluent UI Blazor library already fully set up. If you choose to add sample pages when creating a project, all components have been replaced with Fluent UI components (and a few extra have been added). All Bootstrap styling is removed of course as well.
 
 If you want to use the Icon component with applications based on the templates, we have already included and set up the Icon package for you. The full collection of approximately 12 thousand icons in different variants and sizes can be browsed and searched from the [Icon](https://www.fluentui-blazor.net/Icon) page.
 

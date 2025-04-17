@@ -1,6 +1,6 @@
 # Setup your project to use Fluent UI Icons and/or Emoji assets
 
-The Fluent UI Icons and Emoji's are available as a separate Nuget package. This is done to keep the size of the main library as small as possible.
+The Fluent UI Icons and Emoji's are available as a separate NuGet package. This is done to keep the size of the main library as small as possible.
 If you do not want to use icons and/or emoji in your project, you do not need to install these packages.
 
 >**If you are upgrading from a previous version of the library, please see the [Upgrade Guide](https://www.fluentui-blazor.net/UpgradeGuide) for more information.**
@@ -8,7 +8,7 @@ If you do not want to use icons and/or emoji in your project, you do not need to
 ## Getting Started with icons
 
 To start using the **Fluent UI System Icons**, you will need 
-to install the official [Nuget package](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Icons/)
+to install the official [NuGet package](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Icons/)
 in the project you would like to use the library and components. You can use the following command:
 
 ```shell
@@ -23,7 +23,7 @@ To use the icons, you will need to add the following using statement to your `_I
 @using Microsoft.Fast.Components.FluentUI
 ```
 
-Then you can use the icons in your Blazor components like this:
+Then you can use the icons in your Blazor application like this:
 
 > **Note:** Names are structured as follows: `Icons.[IconVariant].[IconSize].[IconName]`.
 
@@ -55,7 +55,7 @@ To use the emoji's, you will need to add the following using statement to your `
 @using Microsoft.Fast.Components.FluentUI
 ```
 
-Then you can use the emoji's in your Blazor components like this:
+Then you can use the emoji's in your Blazor application like this:
 
 > **Note:** Names are structured as follows: `Emojis.[EmojiGroup].[EmojiStyle].[EmojiSkintone].[EmojiName]`.
 

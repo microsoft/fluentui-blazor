@@ -23,7 +23,7 @@ dotnet new fluentblazorwasm --name MyApplication
 When using Visual Studio, you can also use the **New Project** dialog to create a new project. The templates will be available under the **Blazor** category.
 
 ### Manual Install
-To start using the **Fluent UI Blazor components** from scratch, you first need to install the main [Nuget package](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/) in the project you want to use the library and its components.
+To start using the **Fluent UI** library and Razor components from scratch, you first need to install the main [NuGet package](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/) in the project you want to use the library and its components.
 You can use the NuGet package manager in your IDE or use the following command when using a CLI:
 
 ```shell
@@ -123,7 +123,7 @@ We have additional packages available that include the complete **Fluent UI Syst
 Please refer to the [Icons and Emoji](https://www.fluentui-blazor.net/IconsAndEmoji) page for more information.
 
 ## Usage
-With the package installed, you can begin using the **Fluent UI Blazor components** in the same way as any other Blazor component. 
+With the package installed, you can begin using the **Fluent UI** Razor components in the same way as any other Razor component. 
 
 ### Add Imports
 
@@ -134,7 +134,7 @@ After the package is added, you need to add the following in your  `_Imports.raz
 ```
 
 ### Quick Start
-This is literally all you need in your views to use Fluent UI Blazor components.
+This is literally all you need in your views to use Fluent UI library components in your Blazor application.
 
 ```xml
 <FluentCard>
@@ -144,7 +144,7 @@ This is literally all you need in your views to use Fluent UI Blazor components.
 ```
 
 ## Configuring the Design System
-The **Fluent UI Blazor** components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
+The **Fluent UI** library components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
 maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ### For Right-To-Left languages
