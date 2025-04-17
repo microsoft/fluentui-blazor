@@ -458,7 +458,3 @@ progress {
 [hidden] {
     display: none !important;
 }
-
-fluent-button::part(control) {
-    letter-spacing: inherit;
-}

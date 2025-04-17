@@ -65,6 +65,10 @@ fluent-text-field.invalid::part(root),
     outline: calc(var(--stroke-width) * 1px)  solid var(--error);
 }
 
+fluent-button::part(control)
+{
+    letter-spacing: inherit;
+}
 `;
 
 styleSheet.replaceSync(styles);
