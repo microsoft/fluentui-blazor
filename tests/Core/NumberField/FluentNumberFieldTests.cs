@@ -348,7 +348,7 @@ public class FluentNumberFieldTests : TestBase
         };
 
         // Assert
-        Assert.Throws<Exception>(action);
+        Assert.Throws<FormatException>(action);
     }
 
     [Fact]
