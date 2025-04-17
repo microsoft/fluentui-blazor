@@ -13,9 +13,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.11.0" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.11.7" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.11.7" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.11.8" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.11.8" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.11.8" />
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="1.38.5" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
