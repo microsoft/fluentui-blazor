@@ -69,7 +69,8 @@ fluent-button::part(control),
 fluent-text-area::part(control),
 fluent-text-field::part(control),
 fluent-search::part(control),
-fluent-combobox::part(selected-value)
+fluent-combobox::part(selected-value),
+fluent-number-field::part(control)
 {
     letter-spacing: inherit;
 }
