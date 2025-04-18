@@ -1,11 +1,11 @@
-﻿<FluentStack Orientation="Orientation.Vertical">
-    <FluentTextInput @bind-Value="@Highlight" Immediate="true" />
-    <FluentSwitch @bind-Value="@UntilNextBoundary" Label="UntilNextBoundary" />
-</FluentStack>
+﻿<FluentTextInput @bind-Value="@Highlight" Immediate="true" /><br/>
+<FluentSwitch @bind-Value="@UntilNextBoundary" Label="UntilNextBoundary" />
+<FluentSwitch @bind-Value="@Styled" Label="Apply a Style" />
 
 <div style="@CommonStyles.NeutralBorderShadow4" class="@Padding.All2 @Margin.All2">
     <FluentHighlighter HighlightedText="@Highlight"
                        UntilNextBoundary="@UntilNextBoundary"
+                       Style="@(Styled ? CommonStyles.BrandBackground : null)"
                        Delimiters=" ,;"
                        Text="@Text" />
 </div>
@@ -14,5 +14,6 @@
 {
     static string Text = SampleData.Text.GenerateLoremIpsum();
     string Highlight = "Lore, ips";
+    bool Styled = false;
     bool UntilNextBoundary = false;
 }

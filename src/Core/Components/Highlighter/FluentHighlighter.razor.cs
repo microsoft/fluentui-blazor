@@ -9,10 +9,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A component which highlights words or phrases within text.
 /// </summary>
-public partial class FluentHighlighter
+public partial class FluentHighlighter : FluentComponentBase
 {
     private Memory<string> _fragments;
     private string _regex = string.Empty;
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .Build();
 
     /// <summary>
     /// Gets or sets a value indicating whether the highlighted text is case sensitive.

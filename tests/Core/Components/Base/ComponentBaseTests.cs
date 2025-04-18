@@ -38,6 +38,7 @@ public class ComponentBaseTests : Bunit.TestContext
         { typeof(FluentRadioGroup<>), Loader.MakeGenericType(typeof(string)) },
         //{ typeof(FluentRadio<>), Loader.MakeGenericType(typeof(string)) },
         { typeof(FluentTooltip), Loader.Default.WithRequiredParameter("Anchor", "MyButton").WithRequiredParameter("UseTooltipService", false)},
+        { typeof(FluentHighlighter), Loader.Default.WithRequiredParameter("HighlightedText", "AB").WithRequiredParameter("Text", "ABCDEF")},
     };
 
     /// <summary />
