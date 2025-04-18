@@ -1,0 +1,142 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+@if (Visible)
+{
+    @* Default *@
+
+    @if (Type == MessageType.MessageBar)
+    {
+        <fluent-message-bar id="@Id"
+                            intent="@Message.Options.Intent.ToAttributeValue()"
+                            class="@ClassValue"
+                            style="@StyleValue"
+                            animation="@(FadeIn ? "fadein" : null)"
+                            @onfocusin="@PauseTimeout"
+                            @onfocusout="@ResumeTimeout">
+            <FluentIcon Value="@Icon" Title="@(Message?.Options.Intent.ToAttributeValue())" Color="@_color" Slot="icon" />
+
+            @if (!String.IsNullOrEmpty(Message?.Options.Title))
+            {
+                <span class="title">@((MarkupString)(Message.Options.Title))</span>
+            }
+            @if (ChildContent is not null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                @((MarkupString)Message!.Options.Body!)
+            }
+            @if (Link is not null)
+            {
+                <FluentLink Href="@(String.IsNullOrEmpty(Link?.Href) ? "#" : Link?.Href)"
+                            Appearance="LinkAppearance.Default"
+                            Target="@(Link?.Target ?? Components.LinkTarget.Blank)"
+                            OnClick="@LinkClickedAsync"
+                            title="Link">
+                    @Link?.Text
+                </FluentLink>
+            }
+            @if (ShowPrimaryAction)
+            {
+                <FluentButton Appearance="@ButtonAppearance.Default"
+                              OnClick="@PrimaryActionClickedAsync"
+                              Title="Alert action"
+                              slot="actions">
+                    @PrimaryAction?.Text
+                </FluentButton>
+            }
+            @if (ShowSecondaryAction)
+            {
+                <FluentButton Appearance="@ButtonAppearance.Default"
+                              OnClick="@SecondaryActionClickedAsync"
+                              Title="Alert action"
+                              slot="actions">
+                    @SecondaryAction?.Text
+                </FluentButton>
+            }
+            <FluentButton slot="actions" Size="ButtonSize.Small">Action</FluentButton>
+            @if (AllowDismiss)
+            {
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Dismiss())"
+                            Color=@Color.Default
+                            slot="dismiss"
+                            OnClick="DismissClicked" />
+            }
+
+        </fluent-message-bar>
+    }
+
+    @* Notification *@
+    @if (Type == MessageType.Notification)
+    {
+        <div id="@Id" class="@ClassValue" style="@StyleValue" @onfocusin="@PauseTimeout" @onfocusout="@ResumeTimeout">
+
+            @* Icon *@
+            <div class="fluent-messagebar-notification-icon">
+                <FluentIcon Value="@Icon"
+                            Color="@_color"
+                            Title="@(Message?.Options.Intent?.ToAttributeValue())" />
+            </div>
+
+            @* Message *@
+            @if (!String.IsNullOrEmpty(Title))
+            {
+                <div class="fluent-messagebar-notification-message" title="@Title">
+                    @((MarkupString)(Title))
+                </div>
+            }
+
+            @* Close *@
+
+            @if (AllowDismiss)
+            {
+                <div class="fluent-messagebar-notification-close">
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.Dismiss())"
+                                Color=@Color.Default
+                                Class="fluent-messagebar-notification-close"
+                                OnClick="DismissClicked" />
+                </div>
+            }
+
+            @* Detailed content *@
+            <div class="fluent-messagebar-notification-content">
+                @ChildContent
+                @if (!String.IsNullOrEmpty(Message?.Options.Body))
+                {
+                    @((MarkupString)Message.Options.Body)
+                }
+                @if (Link is not null)
+                {
+                    <FluentLink Href="@(String.IsNullOrEmpty(Link?.Href) ? "#" : Link?.Href)"
+                                Appearance="LinkAppearance.Default"
+                                Target="@(Link?.Target ?? Components.LinkTarget.Blank)"
+                                OnClick="@LinkClickedAsync"
+                                title="Link">
+                        @Link?.Text
+                    </FluentLink>
+                }
+                @if (ShowPrimaryAction)
+                {
+                    <FluentButton Appearance="ButtonAppearance.Default"
+                                  OnClick="@PrimaryActionClickedAsync"
+                                  title="Notification action"
+                                  Class="fluent-messagebar-action">
+                        @PrimaryAction?.Text
+                    </FluentButton>
+                }
+
+            </div>
+
+            @* Recorded time *@
+            @if (Timestamp != null)
+            {
+                <div class="fluent-messagebar-notification-time">
+                    @((DateTime.Now - Timestamp)) @* ?.ToTimeAgo()) *@
+                </div>
+            }
+
+        </div>
+    }
+}

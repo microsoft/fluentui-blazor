@@ -51,6 +51,14 @@ tabindex
 tablist
 tabpanel
 textarea
+singleline
+messagebar
+NuGet
+blazor
+fadein
+fluentui
+lightgray
+
 sourcecode
 summarydata
 currentcolor

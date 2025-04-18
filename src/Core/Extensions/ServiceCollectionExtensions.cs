@@ -33,6 +33,7 @@ public static class ServiceCollectionExtensions
         // Add services
         services.Add<LibraryConfiguration>(provider => options ?? new(), serviceLifetime);
         services.Add<IDialogService, DialogService>(serviceLifetime);
+        services.Add<IMessageService, MessageService>(serviceLifetime);
         services.Add<IFluentLocalizer>(provider => options?.Localizer ?? FluentLocalizerInternal.Default, serviceLifetime);
 
         if (configuration == null || configuration.Tooltip.UseServiceProvider)
