@@ -33,6 +33,6 @@ using an equivalent .NET constants.
 
 <br /><br /><br />
 
-## `SystemColors` Constants
+## SystemColors Constants
 
 {{ SystemColorsTable SourceCode=false }}

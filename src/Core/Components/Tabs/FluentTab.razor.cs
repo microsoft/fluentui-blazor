@@ -19,11 +19,12 @@ public partial class FluentTab : FluentComponentBase, ITooltipComponent
     }
 
     /// <summary />
-    protected string? ClassValue => DefaultClassBuilder
+    internal string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-tab-panel")
         .Build();
 
     /// <summary />
-    protected string? StyleValue => DefaultStyleBuilder
+    internal string? StyleValue => DefaultStyleBuilder
         .Build();
 
     /// <summary />
@@ -50,6 +51,18 @@ public partial class FluentTab : FluentComponentBase, ITooltipComponent
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS class name applied to the tab label.
+    /// </summary>
+    [Parameter]
+    public string? HeaderClass { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS styles applied to the tab label.
+    /// </summary>
+    [Parameter]
+    public string? HeaderStyle { get; set; }
 
     /// <summary>
     /// Gets or sets the icon to be displayed at the start of the tab.
@@ -101,6 +114,18 @@ public partial class FluentTab : FluentComponentBase, ITooltipComponent
         {
             Index = await Owner.AddTabAsync(this);
         }
+    }
+
+    /// <summary />
+    public override async ValueTask DisposeAsync()
+    {
+        if (Owner is not null)
+        {
+            await Owner.RemoveTabAsync(this);
+        }
+
+        await base.DisposeAsync();
+
     }
 
     /// <summary />

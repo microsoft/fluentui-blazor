@@ -17,11 +17,11 @@
         </fluent-tablist>
 
         @* List of tab contents (need to be added outside of the fluent-tablist *@
-        @foreach (var tab in Tabs.Values.OrderBy(i => i.Index))
+        @foreach (var tab in Tabs.OrderBy(i => i.Index))
         {
-            if (tab.Visible)
+            @if (tab.Visible)
             {
-                <div id="@tab.TabPanelId" index="@tab.Index" class="fluent-tab-panel">
+                <div id="@tab.TabPanelId" index="@tab.Index" style="@tab.StyleValue" class="@tab.ClassValue" @attributes="@tab.AdditionalAttributes">
                     @if (tab.DeferredLoading && ActiveTabId != tab.Id)
                     {
                         if (tab.LoadingTemplate is null)

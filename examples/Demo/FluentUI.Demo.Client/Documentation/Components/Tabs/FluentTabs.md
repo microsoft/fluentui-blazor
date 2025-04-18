@@ -51,6 +51,13 @@ This tab will be loaded after 2 seconds of processing (to simulate a long runnin
 
 {{ TabsDeferred }}
 
+## Dynamic
+
+You can add or remove tabs dynamically by using a list of tabs.
+This allows for greater flexibility in managing the tab content and user interactions.
+
+{{ TabsDynamic }}
+
 ## API FluentTabs
 
 {{ API Type=FluentTabs }}

@@ -2,7 +2,6 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -13,9 +12,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Each tab typically contains a text header and often includes an icon.
 /// </summary>
-public partial class FluentTabs: FluentComponentBase
+public partial class FluentTabs : FluentComponentBase
 {
-    private ConcurrentDictionary<string, FluentTab> Tabs { get; } = new(StringComparer.Ordinal);
+    private List<FluentTab> Tabs { get; } = [];
 
     /// <summary />
     [DynamicDependency(nameof(TabChangeHandlerAsync))]
@@ -116,7 +115,7 @@ public partial class FluentTabs: FluentComponentBase
     {
         if (tab is not null && !string.IsNullOrEmpty(tab.Id))
         {
-            Tabs.TryAdd(tab.Id, tab);
+            Tabs.Add(tab);
 
             // Set the default ActiveTab
             if (!string.IsNullOrEmpty(ActiveTabId) && string.Equals(ActiveTabId, tab.Id, StringComparison.Ordinal))
@@ -130,7 +129,7 @@ public partial class FluentTabs: FluentComponentBase
             }
 
             // Set the default ActiveTabId
-            else if (ActiveTabId is null  && string.Equals(ActiveTab?.Id, tab.Id, StringComparison.Ordinal))
+            else if (ActiveTabId is null && string.Equals(ActiveTab?.Id, tab.Id, StringComparison.Ordinal))
             {
                 ActiveTabId = tab.Id;
 
@@ -149,6 +148,42 @@ public partial class FluentTabs: FluentComponentBase
     }
 
     /// <summary />
+    internal async Task<int> RemoveTabAsync(FluentTab? tab)
+    {
+        if (tab is not null && !string.IsNullOrEmpty(tab.Id))
+        {
+            if (Tabs.Remove(tab))
+            {
+                var firstTab = Tabs.FirstOrDefault();
+                var firstTabId = firstTab?.Id;
+
+                // Set the first ActiveTab and ActiveTabId
+                if (!string.Equals(firstTabId, tab.Id, StringComparison.Ordinal))
+                {
+                    ActiveTab = firstTab;
+                    ActiveTabId = firstTabId;
+
+                    if (ActiveTabChanged.HasDelegate)
+                    {
+                        await ActiveTabChanged.InvokeAsync(firstTab);
+                    }
+
+                    if (ActiveTabIdChanged.HasDelegate)
+                    {
+                        await ActiveTabIdChanged.InvokeAsync(firstTabId);
+                    }
+                }
+
+                await InvokeAsync(StateHasChanged);
+
+                return Tabs.Count;
+            }
+        }
+
+        return 0;
+    }
+
+    /// <summary />
     internal async Task TabChangeHandlerAsync(TabChangeEventArgs args)
     {
         // Only for the current FluentTabs
@@ -158,7 +193,8 @@ public partial class FluentTabs: FluentComponentBase
         }
 
         // Search for the tab
-        if (Tabs.TryGetValue(args.ActiveId ?? "", out var tab))
+        var tab = Tabs.FirstOrDefault(t => string.Equals(t.Id, args.ActiveId, StringComparison.Ordinal));
+        if (tab is not null)
         {
             ActiveTabId = args.ActiveId;
             ActiveTab = tab;

@@ -5,11 +5,9 @@
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Xunit;
 
@@ -24,6 +22,8 @@ public class ComponentBaseTests : Bunit.TestContext
     {
         typeof(AspNetCore.Components._Imports),
         typeof(DialogOptions),
+        typeof(FluentRadio<>),  // TODO: To update
+        typeof(FluentTab),      // Excluded because the Tab content in rendered in the parent FluentTabs component
     };
 
     /// <summary>
@@ -35,7 +35,10 @@ public class ComponentBaseTests : Bunit.TestContext
         { typeof(FluentSelect<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentCombobox<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentRadioGroup<>), Loader.MakeGenericType(typeof(string)) },
+        //{ typeof(FluentRadio<>), Loader.MakeGenericType(typeof(string)) },
         { typeof(FluentTooltip), Loader.Default.WithRequiredParameter("Anchor", "MyButton").WithRequiredParameter("UseTooltipService", false)},
+        { typeof(FluentHighlighter), Loader.Default.WithRequiredParameter("HighlightedText", "AB").WithRequiredParameter("Text", "ABCDEF")},
     };
 
     /// <summary />
@@ -143,7 +146,7 @@ public class ComponentBaseTests : Bunit.TestContext
             });
 
             // Assert
-            
+
             var isMatch = Regex.IsMatch(renderedComponent.Markup, $"<fluent-tooltip .+><text>My tooltip {type.Name}<\\/text><\\/fluent-tooltip>");
 
             Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");

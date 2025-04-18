@@ -2,9 +2,9 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 

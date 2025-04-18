@@ -1,6 +1,6 @@
 ---
 title: Theme / Spacing
-route: /Spacing
+route: /theme/Spacing
 ---
 
 # Spacing
