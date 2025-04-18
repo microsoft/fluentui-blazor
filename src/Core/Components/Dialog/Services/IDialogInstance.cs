@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Interface for DialogReference
+/// Interface for DialogInstance
 /// </summary>
 public interface IDialogInstance
 {

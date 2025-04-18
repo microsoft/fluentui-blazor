@@ -54,7 +54,7 @@ When using [Visual Studio](https://visualstudio.microsoft.com/), you can also us
 The templates will be available under the **Blazor** category.
 
 ### - Manual Install
-To start using the **Fluent UI Blazor components** from scratch, you first need to install the main [Nuget package](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/) in the project you want to use the library and its components.
+To start using the **Fluent UI Blazor components** from scratch, you first need to install the main [NuGet package](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/) in the project you want to use the library and its components.
 You can use the NuGet package manager in your IDE or use the following command when using a CLI:
 
 ```shell
@@ -200,13 +200,13 @@ We also have a document that explains and shows how to [write and develop unit t
 
 ## 🔹Joining the Community
 
-Looking to get answers to questions or engage with us in real-time? Our community is  active on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im) and [Discord](https://discord.gg/FcSNfg4). Submit requests 
+Looking to get answers to questions or engage with us in real-time? Our community is  active on [Discord](https://discord.gg/FcSNfg4). Submit requests 
 and issues on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
 
 We look forward to building an amazing open source community with you!
 
 ## 🔹Contact
 
-* Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2). You can also find us on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im).
+* Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2).
 * Submit requests and issues (only) on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
 * Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
