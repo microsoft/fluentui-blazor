@@ -19,7 +19,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
-        .AddClass(Configuration.DefaultStyles.FluentFieldClass, when: HasLabel || HasMessage)
+        .AddClass(Configuration.DefaultStyles.FluentFieldClass, when: HasLabel)
         .Build();
 
     /// <summary />
