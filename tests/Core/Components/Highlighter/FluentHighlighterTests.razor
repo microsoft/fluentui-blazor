@@ -1,0 +1,103 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits Bunit.TestContext
+
+@code
+{  
+    public FluentHighlighterTests()  
+    {  
+        JSInterop.Mode = JSRuntimeMode.Loose;  
+        Services.AddFluentUIComponents();  
+    }  
+
+    [Fact]  
+    public void FluentHighlighter_Default()  
+    {  
+        // Arrange  
+        var cut = Render(@<FluentHighlighter HighlightedText="ipsum" Text="Lorem ipsum dolor sit amity. Lorem ipsum dolor sit amity. Lorem ipsum dolor sit amity." />);  
+
+        // Act  
+        var highlightedText = cut.FindAll("mark");  
+
+        // Assert  
+        Assert.Equal(3, highlightedText.Count);  
+        Assert.Equal("ipsum", highlightedText[0].InnerHtml);  
+    }  
+
+    [Fact]  
+    public void FluentHighlighter_CaseSensitive()  
+    {  
+        // Arrange  
+        var cut = Render(@<FluentHighlighter HighlightedText="Ipsum" Text="Lorem ipsum dolor sit amity. Lorem Ipsum dolor sit amity." CaseSensitive="true" />);  
+
+        // Act  
+        var highlightedText = cut.FindAll("mark");  
+
+        // Assert  
+        Assert.Single(highlightedText);  
+        Assert.Equal("Ipsum", highlightedText[0].InnerHtml);  
+    }  
+
+    [Fact]  
+    public void FluentHighlighter_WithDelimiters()  
+    {  
+        // Arrange  
+        var cut = Render(@<FluentHighlighter HighlightedText="ipsum,lorem" Text="Lorem ipsum, dolor sit amity. Lorem ipsum. dolor sit amity." Delimiters=".," />);  
+
+        // Act  
+        var highlightedText = cut.FindAll("mark");  
+
+        // Assert  
+        Assert.Equal(4, highlightedText.Count);  
+        Assert.Equal("Lorem", highlightedText[0].InnerHtml);  
+        Assert.Equal("ipsum", highlightedText[1].InnerHtml);  
+        Assert.Equal("Lorem", highlightedText[2].InnerHtml);
+        Assert.Equal("ipsum", highlightedText[3].InnerHtml);
+    }
+
+    [Fact]
+    public void FluentHighlighter_UntilNextBoundary()
+    {
+        // Arrange
+        var cut = Render(@<FluentHighlighter HighlightedText="Lore, ips" Text="Lorem ipsum, dolor sit amity. Lorem ipsum. dolor sit amity." Delimiters=".," UntilNextBoundary="true" />);
+
+        // Act
+        var highlightedText = cut.FindAll("mark");
+
+        // Assert
+        Assert.Equal(4, highlightedText.Count);
+        Assert.Equal("Lorem", highlightedText[0].InnerHtml);
+        Assert.Equal(" ipsum", highlightedText[1].InnerHtml);
+        Assert.Equal("Lorem", highlightedText[2].InnerHtml);
+        Assert.Equal(" ipsum", highlightedText[3].InnerHtml);
+    }
+
+    [Fact]
+    public void FluentHighlighter_HighlightedText_Empty()
+    {
+        // Arrange
+        var cut = Render(@<FluentHighlighter Text="Lorem ipsum dolor sit amity." />);
+
+        // Act
+        var highlightedText = cut.FindAll("mark");
+
+        // Assert
+        Assert.Empty(highlightedText);
+        Assert.Equal("Lorem ipsum dolor sit amity.", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentHighlighter_Text_Empty()
+    {
+        // Arrange
+        var cut = Render(@<FluentHighlighter HighlightedText="Lorem" />);
+
+        // Act
+        var highlightedText = cut.FindAll("mark");
+
+        // Assert
+        Assert.Empty(highlightedText);
+        Assert.Empty(cut.Markup);
+    }
+}
