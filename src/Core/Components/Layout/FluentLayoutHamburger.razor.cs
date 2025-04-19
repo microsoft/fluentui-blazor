@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Localization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -78,7 +79,7 @@ public partial class FluentLayoutHamburger
     /// <summary />
     protected override void OnInitialized()
     {
-        Title = Localizer["FluentLayoutHamburger_Title"];
+        Title = Localizer[Localization.LanguageResource.FluentLayoutHamburger_Title];
 
         var layout = Layout ?? LayoutContainer;
         layout?.AddHamburger(this);
