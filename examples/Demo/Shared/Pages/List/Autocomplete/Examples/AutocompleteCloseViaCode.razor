@@ -1,0 +1,51 @@
+﻿@inject DataSource Data
+
+@inject IDialogService DialogService
+
+<FluentAutocomplete @ref=_autocomplete
+                    TOption="Country"
+                    AutoComplete="off"
+                    Autofocus="true"
+                    Label="Select a country"
+                    Width="250px"
+                    MaxAutoHeight="@(AutoHeight ? "200px" : null)"
+                    Placeholder="Select countries"
+                    OnOptionsSearch="@OnSearchAsync"
+                    OptionDisabled="@(e => e.Code == "au")"
+                    MaximumSelectedOptions="5"
+                    OptionText="@(item => item.Name)"
+                    @bind-SelectedOptions="@SelectedItems">
+    <FooterContent>
+        <FluentStack Orientation="Orientation.Horizontal"
+                     HorizontalAlignment="HorizontalAlignment.Right"
+                     Style="padding: 3px;">
+            <FluentButton OnClick="OpenDialog">
+                Show Dialog
+            </FluentButton>
+        </FluentStack>
+    </FooterContent>
+</FluentAutocomplete>
+
+<p>
+    <b>Selected</b>: @(String.Join(" - ", SelectedItems.Select(i => i.Name)))
+</p>
+
+@code
+{
+    FluentAutocomplete<Country> _autocomplete = default!;
+    bool AutoHeight = false;
+    IEnumerable<Country> SelectedItems = Array.Empty<Country>();
+
+    private async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
+    {
+        var allCountries = await Data.GetCountriesAsync();
+        e.Items = allCountries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                              .OrderBy(i => i.Name);
+    }
+
+    private async Task OpenDialog()
+    {
+        await _autocomplete.CloseDropdownAsync();
+        await DialogService.ShowInfoAsync("You pressed a button to open a dialog and close the dropdown.");
+    }
+}

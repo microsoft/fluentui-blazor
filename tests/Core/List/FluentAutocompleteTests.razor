@@ -431,6 +431,35 @@
     }
 
     [Fact]
+    public async Task FluentAutocomplete_CloseManually()
+    {
+        IEnumerable<Customer> SelectedItems = Array.Empty<Customer>();
+        FluentAutocomplete<Customer> autocomplete = default!;
+
+        // Arrange
+        var cut = Render<FluentAutocomplete<Customer>>(
+            @<FluentAutocomplete Id="myAutocomplete" TOption="Customer"
+                    @ref=autocomplete
+                    SelectValueOnTab="true"
+                    @bind-SelectedOptions="@SelectedItems"
+                    OnOptionsSearch="@OnSearchAsync" />
+    );
+
+        // Act: click to open -> KeyDow + Enter to select
+        var input = cut.Find("fluent-text-field");
+        input.Click();
+
+        // Verify that the dropdown is open
+        cut.Verify(suffix: "DropdownOpened");
+
+        // Close the dropdown
+        await autocomplete.CloseDropdownAsync();
+
+        // Verify that the dropdown is closed
+        cut.Verify();
+    }
+
+    [Fact]
     public async Task FluentAutocomplete_MaxSelectedOptionsEqualTo1()
     {
         IEnumerable<Customer> SelectedItems = Customers.Get().Take(1);
