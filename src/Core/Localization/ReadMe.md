@@ -4,7 +4,7 @@ Localization allows the text in some components to be translated.
 
 ## Explanation
 
-**Fluent UI Blazor** itself provides English language strings for texts found in.
+**Fluent UI Blazor** itself provides English language strings for texts found in  its components.
 To customize translations in **Fluent UI Blazor**, the developer can register a
 custom `IFluentLocalizer` implementation as a service, and register this custom localizer
 in the `Program.cs` file, during the service registration.
