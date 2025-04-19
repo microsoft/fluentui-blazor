@@ -8,17 +8,17 @@
                     Placeholder="Select a country"
                     OnOptionsSearch="@OnSearchAsync"
                     OptionDisabled="@(e => e.Code == "au")"
-                    MaximumSelectedOptions="1"
+                    Multiple=false
                     OptionText="@(item => item.Name)"
-                    @bind-SelectedOptions="@SelectedItems" />
+                    @bind-SelectedOption=SelectedItem />
 
 <p>
-    <b>Selected</b>: @(String.Join(" - ", SelectedItems.Select(i => i.Name)))
+    <b>Selected</b>: @(SelectedItem?.Name)
 </p>
 
 @code
 {
-    IEnumerable<Country> SelectedItems = Array.Empty<Country>();
+    Country? SelectedItem = null;
 
     private async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
     {

@@ -5913,12 +5913,6 @@
             For the FluentAutocomplete component, use the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText"/> property instead.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Multiple">
-            <summary>
-            For <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1"/>, this property must be True.
-            Set the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MaximumSelectedOptions"/> property to 1 to select just one item.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>

@@ -32,7 +32,7 @@
                          autofocus="@Autofocus"
                          Style="@ComponentWidth">
             @* Selected Items *@
-            @if (this.SelectedOptions?.Any() == true)
+            @if (this.SelectedOptions?.Any() == true || this.SelectedOption is not null)
             {
                 @* Normal (single) line height *@
                 if (string.IsNullOrEmpty(MaxAutoHeight))
@@ -72,7 +72,7 @@
             }
             @if (!Disabled && !ReadOnly)
             {
-                if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText))
+                if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText) || this.SelectedOption is not null)
                 {
                     if (IconDismiss != null)
                     {
@@ -80,7 +80,7 @@
                                     Width="12px"
                                     Style="cursor: pointer;"
                                     Slot="end"
-                                    Title="@(MaximumSelectedOptions == 1 ? string.Format(AccessibilityRemoveItem, GetOptionText(SelectedOption)) : AccessibilityIconDismiss)"
+                                    Title="@(Multiple == false ? string.Format(AccessibilityRemoveItem, GetOptionText(SelectedOption)) : AccessibilityIconDismiss)"
                                     Focusable="true"
                                     @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
                                     OnClick="@OnClearAsync" />
@@ -197,15 +197,21 @@
 
     private RenderFragment RenderSelectedOptions => __builder =>
     {
-        if (SelectedOptions != null)
+        var selectedOptions = new List<TOption>();
+        if(Multiple && SelectedOptions.Any())
+            selectedOptions.AddRange(SelectedOptions);
+        if (!Multiple && SelectedOption is not null)
+            selectedOptions.Add(SelectedOption);
+
+        if (selectedOptions.Any())
         {
-            foreach (var item in SelectedOptions)
+            foreach (var item in selectedOptions)
             {
                 if (SelectedOptionTemplate == null)
                 {
                     var text = @GetOptionText(item);
 
-                    if (MaximumSelectedOptions == 1)
+                    if (Multiple == false)
                     {
                         <FluentLabel tabindex="0" aria-label="@GetOptionText(item)" role="checkbox" aria-checked="true">@text</FluentLabel>
                     }
