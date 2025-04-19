@@ -4949,7 +4949,7 @@
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon">
             <summary>
-            Custom icon loaded from <see cref="!:IconsExtensions.GetInstance(IconInfo)"/>
+            Custom icon loaded from <see cref="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo,System.Nullable{System.Boolean})"/>
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomIcon.#ctor">
@@ -10564,6 +10564,13 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnFinishHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.FinishAsync(System.Boolean)">
+            <summary>
+            Optionally validate and invoke the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnFinish"/> handler.
+            </summary>
+            <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.GoToStepAsync(System.Int32,System.Boolean)">
             <summary>
