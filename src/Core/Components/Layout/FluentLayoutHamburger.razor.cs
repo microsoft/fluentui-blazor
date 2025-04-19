@@ -78,7 +78,7 @@ public partial class FluentLayoutHamburger
     /// <summary />
     protected override void OnInitialized()
     {
-        Title = Localizer["FluentLayoutHamburger_Title"];
+        Title = Localizer[Localization.LanguageResource.FluentLayoutHamburger_Title];
 
         var layout = Layout ?? LayoutContainer;
         layout?.AddHamburger(this);
