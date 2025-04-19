@@ -1,5 +1,4 @@
 using Bunit;
-using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -148,11 +147,10 @@ public partial class FluentAnchorTests : TestContext
         // Assert
         if (target == "invalid")
         {
-            action.Should().Throw<ArgumentException>();
+            Assert.Throws< ArgumentException>(action);
         }
         else
         {
-            action.Should().NotThrow();
             cut!.Verify(suffix: target);
         }
     }

@@ -15,7 +15,7 @@
                     vertical-viewport-lock="@VerticalViewportLock"
                     role="tooltip"
                     @ontooltipdismiss="HandleDismissed"
-                    @attributes="AdditionalAttributes">
+                    @attributes="@AdditionalAttributes">
         @if (string.IsNullOrWhiteSpace(MaxWidth ?? GlobalOptions?.MaxWidth))
         {
             @ChildContent

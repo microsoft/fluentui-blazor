@@ -137,6 +137,7 @@ public partial class FluentTabs : FluentComponentBase
     /// </summary>
     public IEnumerable<FluentTab> TabsOverflow => _tabs.Where(i => i.Overflow == true);
 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(OverflowItem))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TabChangeEventArgs))]
 
     public FluentTabs()

@@ -3,7 +3,7 @@ export function addEventLeftClick(id, dotNetHelper) {
     var item = document.getElementById(id);
     if (!!item) {
         item.addEventListener("click", function(e) {
-            dotNetHelper.invokeMethodAsync('OpenAsync', e.clientX, e.clientY);
+            dotNetHelper.invokeMethodAsync('OpenAsync', window.innerWidth, window.innerHeight, e.clientX, e.clientY);
         });
     }
 }
@@ -14,7 +14,7 @@ export function addEventRightClick(id, dotNetHelper) {
     if (!!item) {
         item.addEventListener('contextmenu', function (e) {
             e.preventDefault();
-            dotNetHelper.invokeMethodAsync('OpenAsync', e.clientX, e.clientY);
+            dotNetHelper.invokeMethodAsync('OpenAsync', window.innerWidth, window.innerHeight, e.clientX, e.clientY);
             return false;
         }, false);
     }

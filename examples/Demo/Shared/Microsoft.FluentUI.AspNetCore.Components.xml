@@ -3198,6 +3198,11 @@
             Gets or sets a value indicating whether the tooltip is visible.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.AdditionalAttributes">
+            <summary>
+            Gets or sets a collection of additional attributes that will be applied to the created element.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService">
             <inheritdoc cref="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService"/>
         </member>
@@ -6138,6 +6143,13 @@
             Gets or sets the maximum number of options that should be visible in the listbox scroll area.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.SelectedOptionsChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Only available when Multiple = true.
+            ⚠️ When using manual options, the internal data structure cannot be updated reliably, because of this, the SelectedOptionsChanged event will not be triggered.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.BorderStyle">
             <summary />
         </member>
@@ -6276,6 +6288,13 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSelect`1.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSelect`1.SelectedOptionsChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Only available when Multiple = true.
+            ⚠️ When using manual options, the internal data structure cannot be updated reliably, because of this, the SelectedOptionsChanged event will not be triggered.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.InternalListContext`1.Options">
@@ -6675,12 +6694,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OpenAsync(System.Int32,System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OpenAsync(System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
-            Method called from JavaScript to get the current mouse ccordinates.
+            Method called from JavaScript to get the current mouse coordinates.
             </summary>
-            <param name="x"></param>
-            <param name="y"></param>
+            <param name="x">x-coordinate of point clicked on</param>
+            <param name="y">y-coordinate of point clicked on</param>
+            <param name="screenWidth">width of the screen</param>
+            <param name="screenHeight">height of the screen</param>
             <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.DrawMenuWithoutService">
@@ -10114,7 +10135,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.Delay">
             <summary>
-            Gets or sets the delay (in milliseconds). 
+            Gets or sets the delay (in milliseconds).
             Default is 300.
             </summary>
         </member>
@@ -10154,7 +10175,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.OnDismissed">
             <summary>
             Callback for when the tooltip is dismissed.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.DrawTooltip">
             <summary />

@@ -1,6 +1,6 @@
 ## Design Token support
  
-The Fluent UI Blazor Components enable design customization and personalization, while automatically maintaining accessibility. This is
+The Fluent UI library's components enable design customization and personalization, while automatically maintaining accessibility. This is
 accomplished through setting various "Design Tokens". In total there are over 160 distinct design tokens defined in the library and you can
 use all of these from Blazor, both from C# code as in a declarative way in your `.razor` pages.
 
@@ -9,7 +9,7 @@ information on how Design Tokens are implemented in the web components script.
 
 ## Styling web components with Design Tokens
 
-Many of the Fluent UI Blazor components wrap the web components which are designed to be stylistically flexible, allowing dramatic changes to visual design with minimal code changes. This is possible through the extensive use of Design Tokens and an [adaptive color system](#adaptive-color-system).
+Many of the Fluent UI library components wrap the web components which are designed to be stylistically flexible, allowing dramatic changes to visual design with minimal code changes. This is possible through the extensive use of Design Tokens and an [adaptive color system](#adaptive-color-system).
 
 ### Fluent UI Web Components Design Tokens
 
