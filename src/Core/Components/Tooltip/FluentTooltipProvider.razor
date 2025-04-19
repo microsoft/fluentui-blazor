@@ -12,7 +12,10 @@
                            Delay="@item.Delay"
                            Position="@item.Position"
                            OnDismissed="@item.OnDismissed"
-                           UseTooltipService="false">@item.ChildContent</FluentTooltip>
+                           UseTooltipService="false"
+                           AdditionalAttributes="@item.AdditionalAttributes">
+                @item.ChildContent
+            </FluentTooltip>
         }
     }
 </div>

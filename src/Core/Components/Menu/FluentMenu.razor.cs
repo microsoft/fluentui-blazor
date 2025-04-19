@@ -1,5 +1,8 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -14,11 +17,13 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
 
     private bool _opened = false;
     private DotNetObjectReference<FluentMenu>? _dotNetHelper = null;
-    private Point _clickedPoint = default;
+
     private bool _contextMenu = false;
     private readonly Dictionary<string, FluentMenuItem> items = [];
     private IMenuService? _menuService = null;
     private IJSObjectReference _jsModule = default!;
+
+    private (int top, int right, int bottom, int left) _stylePositions;
 
     /// <summary />
     internal string? ClassValue => new CssBuilder(Class)
@@ -35,8 +40,11 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
         .AddStyle("position", "fixed", () => !Anchored && !string.IsNullOrEmpty(Anchor))
         .AddStyle("width", "unset", () => !Anchored)
         .AddStyle("height", "unset", () => !Anchored)
-        .AddStyle("left", $"{_clickedPoint.X}px", () => !Anchored && _clickedPoint.X != 0)
-        .AddStyle("top", $"{_clickedPoint.Y}px", () => !Anchored && _clickedPoint.Y != 0)
+
+        .AddStyle("top", $"{_stylePositions.top}px", () => !Anchored && _stylePositions.top != 0)
+        .AddStyle("right", $"{_stylePositions.right}px", () => !Anchored && _stylePositions.right != 0)
+        .AddStyle("bottom", $"{_stylePositions.bottom}px", () => !Anchored && _stylePositions.bottom != 0)
+        .AddStyle("left", $"{_stylePositions.left}px", () => !Anchored && _stylePositions.left != 0)
         .Build();
 
     /// <summary />
@@ -153,7 +161,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     /// Gets or sets how short the space allocated to the default position has to be before the tallest area is selected for layout.
     /// </summary>
     [Parameter]
-    public int VerticalThreshold { get; set; } = 0;
+    public int VerticalThreshold { get; set; } = 200;
 
     /// <summary>
     /// Gets or sets how narrow the space allocated to the default position has to be before the widest area is selected for layout.
@@ -252,23 +260,53 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Method called from JavaScript to get the current mouse ccordinates.
+    /// Method called from JavaScript to get the current mouse coordinates.
     /// </summary>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
+    /// <param name="x">x-coordinate of point clicked on</param>
+    /// <param name="y">y-coordinate of point clicked on</param>
+    /// <param name="screenWidth">width of the screen</param>
+    /// <param name="screenHeight">height of the screen</param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OpenAsync(int x, int y)
+    public async Task OpenAsync(int screenWidth, int screenHeight, int x, int y)
     {
-        _clickedPoint = new Point(x, y);
-        Open = true;
 
+        // Calculate the position to display the context menu using the cursor position (x, y)
+        // together with the screen width and height.
+        // The menu may need to be displayed above or left of the cursor to fit in the screen.
+        var left = 0;
+        var right = 0;
+        var top = 0;
+        var bottom = 0;
+
+        if (x + HorizontalThreshold > screenWidth)
+        {
+            right = screenWidth - x;
+        }
+        else
+        {
+            left = x;
+        }
+
+        if (y + VerticalThreshold > screenHeight)
+        {
+            bottom = screenHeight - y;
+        }
+        else
+        {
+            top = y;
+        }
+
+        _stylePositions = (top, right, bottom, left);
+
+        Open = true;
         if (OpenChanged.HasDelegate)
         {
             await OpenChanged.InvokeAsync(Open);
         }
 
         StateHasChanged();
+
     }
 
     internal void Register(FluentMenuItem item)
@@ -286,9 +324,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     {
         get
         {
-            return MenuService is not null && UseMenuService == true && !string.IsNullOrEmpty(Id) && !string.IsNullOrEmpty(Anchor) && Anchored == true
-                ? false     // Use the MenuService to draw the menu
-                : true;     // Use the default way to draw the menu
+            return MenuService is null || UseMenuService != true || string.IsNullOrEmpty(Id) || string.IsNullOrEmpty(Anchor) || Anchored != true;     // Use the default way to draw the menu
         }
     }
 
@@ -328,7 +364,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
         await OnCheckedChanged.InvokeAsync(fluentMenuItem);
     }
 
-    internal async Task<bool> IsCheckedAsync (FluentMenuItem item)
+    internal async Task<bool> IsCheckedAsync(FluentMenuItem item)
     {
         return await _jsModule.InvokeAsync<bool>("isChecked", item.Id);
     }

@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 namespace Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 
 /// <inheritdoc cref="ITooltipService"/>
@@ -44,7 +48,7 @@ public class TooltipService : ITooltipService, IDisposable
     }
 
     /// <summary />
-    private IList<TooltipOptions> TooltipList { get; } = new List<TooltipOptions>();
+    private List<TooltipOptions> TooltipList { get; } = [];
 
     /// <summary />
     private ReaderWriterLockSlim TooltipLock { get; } = new ReaderWriterLockSlim();

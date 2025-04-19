@@ -1,5 +1,4 @@
-﻿@using FluentAssertions
-@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
 @using Xunit;
 @inherits TestContext
 @code
@@ -260,11 +259,11 @@
         var valueAttribute = textField.Attributes["value"];
         var currentValueAttribute = textField.Attributes["current-value"];
 
-        valueAttribute.Should().NotBeNull();
-        valueAttribute!.Value.Should().Be("Preselected value");
+        Assert.NotNull(valueAttribute);
+        Assert.Equal("Preselected value", valueAttribute!.Value);
 
-        currentValueAttribute.Should().NotBeNull();
-        currentValueAttribute!.Value.Should().Be("Preselected value");
+        Assert.NotNull(currentValueAttribute);
+        Assert.Equal("Preselected value", currentValueAttribute!.Value);
 
         cut.Verify();
     }
@@ -280,13 +279,13 @@
             parameters.Bind(p => p.ValueText, valueText, x => valueText = x);
         });
 
-        valueText.Should().NotBeNullOrEmpty();
+        Assert.False(string.IsNullOrEmpty(valueText));
 
         // Act
         cut.Find("svg").Click(); // Clear button
 
         // Assert
-        valueText.Should().BeNullOrEmpty();
+        Assert.True(string.IsNullOrEmpty(valueText));
 
         cut.Verify();
     }
@@ -305,7 +304,7 @@
         cut.Find("svg").Click(); // Clear button
 
         // Assert
-        cut.Find("fluent-anchored-region").Should().NotBeNull();
+        Assert.NotNull(cut.Find("fluent-anchored-region"));
         cut.Verify();
     }
 
@@ -324,7 +323,7 @@
         cut.Find("svg").Click(); // Clear button
 
         // Assert
-        cut.FindAll("fluent-anchored-region").Should().BeNullOrEmpty();
+        Assert.Empty(cut.FindAll("fluent-anchored-region"));
         cut.Verify();
     }
 

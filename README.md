@@ -1,4 +1,4 @@
-# Microsoft Fluent UI Blazor components
+# Microsoft Fluent UI Blazor library
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![.NET C#](https://img.shields.io/badge/.NET-C%23-blue)](https://docs.microsoft.com/en-us/dotnet/csharp/)
@@ -14,7 +14,7 @@ This package is for use in .NET 8 and 9 Blazor projects. If you are using **now 
 
 ## Introduction
 
-The `Microsoft.FluentUI.AspNetCore` family of packages provides a set of [Blazor](https://blazor.net) components, tools and utilities which are used to build applications that have a Fluent design (i.e. have the look and feel of modern Microsoft applications). 
+The `Microsoft.FluentUI.AspNetCore` family of packages provides a set of Razor components for [Blazor](https://blazor.net) applications, tools and utilities which are used to build applications that have a Fluent design (i.e. have the look and feel of modern Microsoft applications). 
 
 Some of the components in the library are wrappers around Microsoft's official Fluent UI Web Components. Others are components that leverage the Fluent Design System or make it easier to work with Fluent. To get up and running with the library, see the **Getting Started** section below.
 
@@ -82,12 +82,12 @@ If you add interactivity later, the Blazor script will kick in and try to load t
 If you want to use **Reboot**, you'll need to add to your `app.razor`, `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
 
 ```html    
-<link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
+<link href="/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
 ```
 
 When using the templates to create your application, **Reboot** is already set-up for you.
 
-
+_When creating a site that is hosted in a different base path,it might be necessary to remove the leading '/' from the stylesheet link._
 
 ### Register Services
 Add the following in `Program.cs`
@@ -120,7 +120,7 @@ We have additional packages available that include the complete Fluent UI System
 Please refer to the [Icons and Emoji](https://www.fluentui-blazor.net/IconsAndEmoji) page for more information.
 
 ## Usage
-With the package installed, you can begin using the Fluent UI Blazor components in the same way as any other Blazor component. 
+With the package installed, you can begin using the Fluent UI Blazor library components in the same way as any other Razor component. 
 
 ### Add Imports
 
@@ -131,7 +131,7 @@ After the package is added, you need to add the following in your  `_Imports.raz
 ```
 
 ### Quick Start
-This is literally all you need in your views to use Fluent UI Blazor components.
+This is literally all you need in your views to use Fluent UI Blazor library in your application.
 
 ```xml
 <FluentCard>
@@ -141,7 +141,7 @@ This is literally all you need in your views to use Fluent UI Blazor components.
 ```
 
 ## Configuring the Design System
-The Fluent UI Blazor components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
+The Fluent UI Razor components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
 maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
@@ -171,7 +171,7 @@ Please see the [DataGrid](https://www.fluentui-blazor.net/DataGrid) page for mor
 
 
 ## Additional resources
-* The Microsoft Fluent UI Blazor components [documentation and demo site](https://www.fluentui-blazor.net)
+* The Microsoft Fluent UI Blazor library [documentation and demo site](https://www.fluentui-blazor.net)
 
 ## Support
 The Microsoft Fluent UI Blazor library is an open source project and is **not** an official part of ASP.NET Core, which means it’s **not** officially

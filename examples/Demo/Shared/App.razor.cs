@@ -1,9 +1,13 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 namespace FluentUI.Demo.Shared;
 public partial class App
 {
     public static string PageTitle(string page)
     {
-        return $"{page} - FluentUI Blazor Components";
+        return $"{page} - Fluent UI Blazor library";
     }
 
     public const string MESSAGES_NOTIFICATION_CENTER = "NOTIFICATION_CENTER";
