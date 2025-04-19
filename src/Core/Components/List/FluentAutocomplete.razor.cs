@@ -280,6 +280,16 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     protected override bool ShouldRender() => _shouldRender;
 
+    /// <summary>
+    /// Closes the multiselect dropdown.
+    /// </summary>
+    /// <returns></returns>
+    public async Task CloseDropdownAsync()
+    {
+        IsMultiSelectOpened = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
     /// <summary />
     protected override async Task InputHandlerAsync(ChangeEventArgs e)
     {

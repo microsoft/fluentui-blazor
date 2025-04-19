@@ -6063,6 +6063,12 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ShouldRender">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.CloseDropdownAsync">
+            <summary>
+            Closes the multiselect dropdown.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary />
         </member>
