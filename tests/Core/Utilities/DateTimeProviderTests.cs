@@ -151,6 +151,19 @@ public class DateTimeProviderTests
 
         Assert.Throws<InvalidOperationException>(() => DateTimeProvider.Today); // No more dates are available
     }
+    [Fact]
+    public void DateTimeProviderContext_RecordTypeTest()
+    {
+        // Arrange
+        var date = new DateTime(2020, 5, 26);
+
+        // Act
+        using var context = new DateTimeProviderContext(date);
+
+        // Assert
+        Assert.NotNull(context);
+        Assert.IsType<DateTimeProviderContext>(context);
+    }
 
     private class MyUserClass
     {
