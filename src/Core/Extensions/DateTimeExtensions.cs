@@ -171,12 +171,12 @@ public static class DateTimeExtensions
 
         if (delay.Seconds > MAX_SECONDS_FOR_JUST_NOW)
         {
-            return string.Format(CultureInfo.InvariantCulture, localizer[LangResx.TimeAgo_SecondAgo], delay.Seconds);
+            return string.Format(CultureInfo.InvariantCulture, localizer[LangResx.TimeAgo_SecondsAgo], delay.Seconds);
         }
 
         if (delay.Seconds <= MAX_SECONDS_FOR_JUST_NOW)
         {
-            return string.Format(CultureInfo.InvariantCulture, localizer[LangResx.TimeAgo_SecondsAgo], delay.Seconds);
+            return string.Format(CultureInfo.InvariantCulture, localizer[LangResx.TimeAgo_SecondAgo], delay.Seconds);
         }
 
         throw new NotSupportedException("The DateTime object does not have a supported value.");

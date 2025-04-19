@@ -34,10 +34,10 @@ Here's a step-by-step guide:
                 return key switch
                 {
                     "SomeKey" => "Your Custom Translation",
-                    "AnotherKey" => String.Format("Another Custom Translation {0}",
+                    "AnotherKey" => String.Format("Another Custom Translation {0}"),
 
                     // Fallback to the Default/English if no translation is found
-                    _ => IFluentLocalizer.GetDefault(key, arguments)
+                    _ => IFluentLocalizer.GetDefault(key, arguments),
                 };
             }
         }
