@@ -15,7 +15,11 @@ datalist
 elementreference
 evenodd
 gzip
+heure
+heures
 javascript
+jours
+maintenant
 menuchecked
 menuclicked
 menuitem
@@ -26,6 +30,7 @@ menuitemradio
 menuitemradioobsolete
 menuitems
 microsoft
+mois
 myid
 noattribute
 nonfile
@@ -45,6 +50,7 @@ demopanel
 dialogtoggle
 rightclick
 rrggbb
+secondes
 sourcecode
 summarydata
 tabindex
