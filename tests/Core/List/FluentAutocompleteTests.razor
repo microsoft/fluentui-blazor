@@ -123,23 +123,6 @@
     }
 
     [Fact]
-    public void FluentAutocomplete_MultipleFalse_Exception()
-    {
-        // Arrange & Act
-        var ex = Assert.Throws<InvalidOperationException>(() =>
-        {
-            var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
-                {
-                    parameters.Add(p => p.Id, "myComponent");
-                    parameters.Add(p => p.Multiple, false);
-                });
-        });
-
-        // Assert
-        Assert.Equal("For FluentAutocomplete, this property must be True. Set the MaximumSelectedOptions property to 1 to select just one item.", ex.InnerException?.Message);
-    }
-
-    [Fact]
     public void FluentAutocomplete_Templates()
     {
         // Arrange
@@ -460,23 +443,23 @@
     }
 
     [Fact]
-    public async Task FluentAutocomplete_MaxSelectedOptionsEqualTo1()
+    public async Task FluentAutocomplete_MultipleEqualsFalse()
     {
-        IEnumerable<Customer> SelectedItems = Customers.Get().Take(1);
+        Customer? SelectedItem = Customers.Get().First();
 
         // Arrange
         var cut = Render<FluentAutocomplete<Customer>>(
             @<FluentAutocomplete Id="myComponent"
                     TOption="Customer"
                     SelectValueOnTab="true"
-                    MaximumSelectedOptions="1"
-                    @bind-SelectedOptions="@SelectedItems"
+                    Multiple=false
+                    @bind-SelectedOption="@SelectedItem"
                     OnOptionsSearch="@OnSearchAsync" />
     );
 
         // Assert (One item selected)
-        Assert.Single(SelectedItems);
-        Assert.Equal(1, SelectedItems.First().Id);
+        Assert.NotNull(SelectedItem);
+        Assert.Equal(1, SelectedItem.Id);
 
         // Assert
         cut.Verify();
@@ -498,8 +481,4 @@
                                 .OrderBy(i => i.Name);
         return Task.CompletedTask;
     }
-
-
-
-
 }
