@@ -80,6 +80,32 @@ public class DateTimeExtensionsTests
     }
 
     [Fact]
+    public void DateTimeExtensions_StartOfWeek_Min()
+    {
+        var date = DateTime.MinValue; // January 1, 0001
+        var result = date.StartOfWeek(DayOfWeek.Wednesday);
+        Assert.Equal(new DateTime(1, 1, 1), result);
+    }
+
+    [Fact]
+    public void DateTimeExtensions_StartOfWeek_WithCulture_Min()
+    {
+        var date = DateTime.MinValue; // January 1, 0001
+        var culture = CultureInfo.InvariantCulture;
+        var result = date.StartOfWeek(culture);
+        Assert.Equal(new DateTime(1, 1, 1), result);
+    }
+
+    [Fact]
+    public void DateTimeExtensions_StartOfWeek_NoParameters_ReturnsFirstDayOfWeek()
+    {
+        var date = new DateTime(2025, 4, 19); // Saturday
+        var result = date.StartOfWeek();
+        var expected = date.StartOfWeek(CultureInfo.CurrentUICulture);
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
     public void DateTimeExtensions_ToTimeAgo_ValidTimeSpan_ReturnsCorrectString()
     {
         var delay = TimeSpan.FromMinutes(5);
@@ -188,6 +214,90 @@ public class DateTimeExtensionsTests
         var culture = CultureInfo.InvariantCulture;
         var result = date.GetMonthName(culture);
         Assert.Equal("April", result);
+    }
+
+    [Fact]
+    public void DateTimeExtensions_ToDateTime_NullTimeOnly_ReturnsMinValue()
+    {
+        TimeOnly? timeOnly = null;
+        var result = timeOnly.ToDateTime();
+        Assert.Equal(DateTime.MinValue, result);
+    }
+
+    [Fact]
+    public void DateTimeExtensions_ToDateTime_NullableDateOnly_ReturnsCorrectDateTime()
+    {
+        // Test with null DateOnly  
+        DateOnly? nullDateOnly = null;
+        var result = nullDateOnly.ToDateTime();
+        Assert.Equal(DateTime.MinValue, result);
+
+        // Test with valid DateOnly  
+        DateOnly? validDateOnly = new DateOnly(2025, 4, 19);
+        result = validDateOnly.ToDateTime();
+        Assert.Equal(new DateTime(2025, 4, 19), result);
+    }
+
+    [Fact]
+    public void DateTimeExtensions_ToDateTimeNullable_ValidTimeOnly_ReturnsDateTime()
+    {
+        TimeOnly? timeOnly = new TimeOnly(14, 30);
+        var result = timeOnly.ToDateTimeNullable();
+        Assert.Equal(new DateTime(1, 1, 1, 14, 30, 0), result);
+    }
+
+    [Fact]
+    public void DateTimeExtensions_ToDateTimeNullable_NullTimeOnly_ReturnsNull()
+    {
+        TimeOnly? timeOnly = null;
+        var result = timeOnly.ToDateTimeNullable();
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void DateTimeExtensions_ToDateTime_NullableDateTime_ReturnsCorrectDateTime()
+    {
+        // Test with null DateTime
+        DateTime? nullDateTime = null;
+        var result = nullDateTime.ToDateTime();
+        Assert.Equal(DateTime.MinValue, result);
+
+        // Test with valid DateTime
+        DateTime? validDateTime = new DateTime(2025, 4, 19);
+        result = validDateTime.ToDateTime();
+        Assert.Equal(new DateTime(2025, 4, 19), result);
+    }
+
+    [Fact]
+    public void DateTimeExtensions_ToDateOnlyNullable_NullDateTime_ReturnsNull()
+    {
+        DateTime? dateTime = null;
+        var result = dateTime.ToDateOnlyNullable();
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void DateTimeExtensions_ToDateOnlyNullable_ValidDateTime_ReturnsDateOnly()
+    {
+        DateTime? dateTime = new DateTime(2025, 4, 19);
+        var result = dateTime.ToDateOnlyNullable();
+        Assert.Equal(new DateOnly(2025, 4, 19), result);
+    }
+
+    [Fact]
+    public void DateTimeExtensions_ToTimeOnlyNullable_NullDateTime_ReturnsNull()
+    {
+        DateTime? dateTime = null;
+        var result = dateTime.ToTimeOnlyNullable();
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void DateTimeExtensions_ToTimeOnlyNullable_ValidDateTime_ReturnsTimeOnly()
+    {
+        DateTime? dateTime = new DateTime(2025, 4, 19, 14, 30, 0);
+        var result = dateTime.ToTimeOnlyNullable();
+        Assert.Equal(new TimeOnly(14, 30), result);
     }
 }
 

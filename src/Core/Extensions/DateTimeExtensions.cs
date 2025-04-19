@@ -174,12 +174,7 @@ public static class DateTimeExtensions
             return string.Format(CultureInfo.InvariantCulture, localizer[LangResx.TimeAgo_SecondsAgo], delay.Seconds);
         }
 
-        if (delay.Seconds <= MAX_SECONDS_FOR_JUST_NOW)
-        {
-            return string.Format(CultureInfo.InvariantCulture, localizer[LangResx.TimeAgo_SecondAgo], delay.Seconds);
-        }
-
-        throw new NotSupportedException("The DateTime object does not have a supported value.");
+        return string.Format(CultureInfo.InvariantCulture, localizer[LangResx.TimeAgo_SecondAgo], delay.Seconds);
 
         string Pluralize(decimal count, string singular, string plural)
         {
