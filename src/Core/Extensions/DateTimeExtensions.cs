@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Globalization;
+using LangResx = Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
@@ -122,27 +123,24 @@ public static class DateTimeExtensions
         return StartOfWeek(self, CultureInfo.CurrentUICulture);
     }
 
-    /*
     /// <summary>
     /// Get a string showing how long ago a DateTime was, for example '4 minutes ago'.
     /// </summary>
     /// <param name="delay"></param>
-    /// <param name="resources"></param>
+    /// <param name="localizer"></param>
     /// <returns></returns>
     /// <remarks>Inspired from https://github.com/NickStrupat/TimeAgo.</remarks>
-    public static string ToTimeAgo(this TimeSpan delay, TimeAgoOptions? resources = null)
+    public static string ToTimeAgo(this TimeSpan delay, IFluentLocalizer? localizer = null)
     {
         const int MAX_SECONDS_FOR_JUST_NOW = 10;
 
-        if (resources == null)
-        {
-            resources = new TimeAgoOptions();
-        }
+        // Use the default localizer if none is provided
+        localizer = localizer ?? FluentLocalizerInternal.Default;
 
         if (delay.Days > 365)
         {
             var years = Math.Round(decimal.Divide(delay.Days, 365));
-            return string.Format(years == 1 ? resources.YearAgo : resources.YearsAgo, years);
+            return Pluralize(years, LangResx.TimeAgo_YearAgo, LangResx.TimeAgo_YearsAgo);
         }
 
         if (delay.Days > 30)
@@ -153,37 +151,41 @@ public static class DateTimeExtensions
                 months += 1;
             }
 
-            return string.Format(months == 1 ? resources.MonthAgo : resources.MonthsAgo, months);
+            return Pluralize(months, LangResx.TimeAgo_MonthAgo, LangResx.TimeAgo_MonthsAgo);
         }
 
         if (delay.Days > 0)
         {
-            return string.Format(delay.Days == 1 ? resources.DayAgo : resources.DaysAgo, delay.Days);
+            return Pluralize(delay.Days, LangResx.TimeAgo_DayAgo, LangResx.TimeAgo_DaysAgo);
         }
 
         if (delay.Hours > 0)
         {
-            return string.Format(delay.Hours == 1 ? resources.HourAgo : resources.HoursAgo, delay.Hours);
+            return Pluralize(delay.Hours, LangResx.TimeAgo_HourAgo, LangResx.TimeAgo_HoursAgo);
         }
 
         if (delay.Minutes > 0)
         {
-            return string.Format(delay.Minutes == 1 ? resources.MinuteAgo : resources.MinutesAgo, delay.Minutes);
+            return Pluralize(delay.Minutes, LangResx.TimeAgo_MinuteAgo, LangResx.TimeAgo_MinutesAgo);
         }
 
         if (delay.Seconds > MAX_SECONDS_FOR_JUST_NOW)
         {
-            return string.Format(resources.SecondsAgo, delay.Seconds);
+            return string.Format(CultureInfo.InvariantCulture, localizer[LangResx.TimeAgo_SecondAgo], delay.Seconds);
         }
 
         if (delay.Seconds <= MAX_SECONDS_FOR_JUST_NOW)
         {
-            return string.Format(resources.SecondAgo, delay.Seconds);
+            return string.Format(CultureInfo.InvariantCulture, localizer[LangResx.TimeAgo_SecondsAgo], delay.Seconds);
         }
 
         throw new NotSupportedException("The DateTime object does not have a supported value.");
+
+        string Pluralize(decimal count, string singular, string plural)
+        {
+            return string.Format(CultureInfo.InvariantCulture, count == 1 ? localizer[singular] : localizer[plural], count);
+        }
     }
-    */
 
     /// <summary>
     /// Converts the DateOnly to an equivalent DateTime.

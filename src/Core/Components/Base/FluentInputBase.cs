@@ -211,7 +211,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     protected virtual string? GetAriaLabelWithRequired()
     {
         return (AriaLabel ?? Label ?? string.Empty) +
-               (Required == true ? $", {Localizer["FluentInputBase_Required"]}" : string.Empty);
+               (Required == true ? $", {Localizer[Localization.LanguageResource.FluentInputBase_Required]}" : string.Empty);
     }
 
     /// <summary>
