@@ -5909,7 +5909,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Position">
             <summary>
-            Gets or sets the vertical default position of the options popup.
+            Gets or sets the position of the options popup.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Value">
@@ -6103,6 +6103,12 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.RaiseValueTextChangedAsync(System.String)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.GetVerticalPosition">
+            <summary>
+            Gets the position of the popup.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MustBeClosed">
             <summary />
