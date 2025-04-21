@@ -57,6 +57,12 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public EventCallback<string> ValueTextChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets the vertical default position of the options popup.
+    /// </summary>
+    [Parameter]
+    public VerticalPosition Position { get; set; } = VerticalPosition.Unset;
+
+    /// <summary>
     /// Gets or sets the value of the input. This should be used with two-way binding.
     /// For the FluentAutocomplete component, use the <see cref="ValueText"/> property instead.
     /// </summary>
