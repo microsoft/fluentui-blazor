@@ -77,28 +77,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary>
-    /// For <see cref="FluentAutocomplete{TOption}"/>, this property must be True.
-    /// Set the <see cref="MaximumSelectedOptions"/> property to 1 to select just one item.
-    /// </summary>
-    public override bool Multiple
-    {
-        get
-        {
-            return base.Multiple;
-        }
-
-        set
-        {
-            if (value == false)
-            {
-                throw new ArgumentException("For FluentAutocomplete, this property must be True. Set the MaximumSelectedOptions property to 1 to select just one item.");
-            }
-
-            base.Multiple = true;
-        }
-    }
-
-    /// <summary>
     /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
     /// </summary>
     [Parameter]
@@ -244,6 +222,8 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
         .AddStyle("display", "none", when: (Items == null || !Items.Any()) && (HeaderContent != null || FooterContent != null))
         .Build();
+
+    private bool GetSingleSelect() => Multiple == false && SelectedOption is not null;
 
     /// <summary />
     private string ComponentWidth
@@ -552,6 +532,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     {
         RemoveAllSelectedItems();
         ValueText = string.Empty;
+        SelectedOption = default;
         await RaiseValueTextChangedAsync(ValueText);
         await RaiseChangedEventsAsync();
 
