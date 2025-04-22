@@ -5907,6 +5907,11 @@
             Gets or sets the callback that is invoked when the text field value changes.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Position">
+            <summary>
+            Gets or sets the position of the options popup.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Value">
             <summary>
             Gets or sets the value of the input. This should be used with two-way binding.
@@ -6092,6 +6097,12 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.RaiseValueTextChangedAsync(System.String)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.GetVerticalPosition">
+            <summary>
+            Gets the position of the popup.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MustBeClosed">
             <summary />

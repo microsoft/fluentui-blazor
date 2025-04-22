@@ -57,6 +57,12 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public EventCallback<string> ValueTextChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets the position of the options popup.
+    /// </summary>
+    [Parameter]
+    public SelectPosition? Position { get; set; }
+
+    /// <summary>
     /// Gets or sets the value of the input. This should be used with two-way binding.
     /// For the FluentAutocomplete component, use the <see cref="ValueText"/> property instead.
     /// </summary>
@@ -631,6 +637,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
 
     }
+
+    /// <summary>
+    /// Gets the position of the popup.
+    /// </summary>
+    /// <returns></returns>
+    private VerticalPosition? GetVerticalPosition()
+            => Position switch
+            {
+                SelectPosition.Above => VerticalPosition.Top,
+                SelectPosition.Below => VerticalPosition.Bottom,
+                _ => VerticalPosition.Unset,
+            };
 
     /// <summary />
     private bool MustBeClosed()

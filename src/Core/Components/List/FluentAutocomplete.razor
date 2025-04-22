@@ -115,11 +115,11 @@
 
             <FluentOverlay OnClose="@(e => IsMultiSelectOpened = false)" Visible="true" Transparent="true" FullScreen="true" />
             <FluentAnchoredRegion Anchor="@Id"
-                                    HorizontalDefaultPosition="HorizontalPosition.Right"
-                                    HorizontalInset="true"
-                                    VerticalDefaultPosition="@VerticalPosition.Unset"
-                                    Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating);"
-                                    Shadow="ElevationShadow.Flyout">
+                                  HorizontalDefaultPosition="HorizontalPosition.Right"
+                                  HorizontalInset="true"
+                                  VerticalDefaultPosition="GetVerticalPosition()"
+                                  Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating);"
+                                  Shadow="ElevationShadow.Flyout">
                 @if (HeaderContent != null)
                 {
                         @HeaderContent(Items ?? Array.Empty<TOption>())
@@ -158,11 +158,11 @@
         {
             <FluentOverlay OnClose="@(e => IsReachedMaxItems = false)" Visible="true" Transparent="true" FullScreen="true" />
             <FluentAnchoredRegion Anchor="@Id"
-                                    HorizontalDefaultPosition="HorizontalPosition.Right"
-                                    HorizontalInset="true"
-                                    VerticalDefaultPosition="@VerticalPosition.Unset"
-                                    Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating); padding: 10px;"
-                                    Shadow="ElevationShadow.Flyout">
+                                  HorizontalDefaultPosition="HorizontalPosition.Right"
+                                  HorizontalInset="true"
+                                  VerticalDefaultPosition="GetVerticalPosition()"
+                                  Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating); padding: 10px;"
+                                  Shadow="ElevationShadow.Flyout">
                 @MaximumSelectedOptionsMessage
             </FluentAnchoredRegion>
         }
