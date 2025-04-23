@@ -1,0 +1,29 @@
+﻿@inject DataSource Data
+
+<FluentAutocomplete TOption="Country"
+                    AutoComplete="off"
+                    Autofocus="true"
+                    Label="Select a country"
+                    Width="250px"
+                    Placeholder="Select a country"
+                    OnOptionsSearch="@OnSearchAsync"
+                    OptionDisabled="@(e => e.Code == "au")"
+                    Multiple=false
+                    OptionText="@(item => item.Name)"
+                    @bind-SelectedOption=SelectedItem />
+
+<p>
+    <b>Selected</b>: @(SelectedItem?.Name)
+</p>
+
+@code
+{
+    Country? SelectedItem = null;
+
+    private async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
+    {
+        var allCountries = await Data.GetCountriesAsync();
+        e.Items = allCountries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                              .OrderBy(i => i.Name);
+    }
+}

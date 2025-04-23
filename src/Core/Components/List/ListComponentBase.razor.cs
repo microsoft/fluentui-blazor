@@ -490,7 +490,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     {
         if (item != null)
         {
-            return OptionValue.Invoke(item) ?? OptionText.Invoke(item) ?? item.ToString();
+            return OptionValue?.Invoke(item) ?? OptionText?.Invoke(item) ?? item?.ToString();
         }
         else
         {
