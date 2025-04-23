@@ -403,7 +403,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
 
     private Task UpdateProgressAsync(long current, long size, string title)
     {
-        return UpdateProgressAsync(Convert.ToInt32(decimal.Divide(current, size) * 100), title);
+        return UpdateProgressAsync(Convert.ToInt32(decimal.Divide(current, size <= 0 ? 1 : size) * 100), title);
     }
 
     private async Task UpdateProgressAsync(int percent, string title)
