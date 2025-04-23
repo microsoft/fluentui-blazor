@@ -17,6 +17,11 @@
         justify-self: center;
     }
 
+    .fluent-inputfile-container:has(input[type='file']:focus-visible) {
+        outline: calc(var(--focus-stroke-width) * 1px) solid var(--focus-stroke-outer);
+        outline-offset: calc(var(--focus-stroke-width) * -1px);
+    }
+
     .fluent-inputfile-container ::deep input[type='file'] {
         width: 100%;
         height: 100%;
