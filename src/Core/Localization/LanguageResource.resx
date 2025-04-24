@@ -201,4 +201,16 @@
   <data name="TimeAgo_YearsAgo" xml:space="preserve">
     <value>{0} years ago</value>
   </data>
+  <data name="FluentInputFile_LoadingBefore" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="FluentInputFile_LoadingCompleted" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="FluentInputFile_LoadingCanceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="FluentInputFile_LoadingInProgress" xml:space="preserve">
+    <value>Loading {0}/{1} - {2}</value>
+  </data>
 </root>
