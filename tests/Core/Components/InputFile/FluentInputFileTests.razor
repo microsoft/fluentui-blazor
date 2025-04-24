@@ -300,17 +300,27 @@
         // Arrange
         var cut = Render(@<FluentInputFile
             OnProgressChange="@(e => { if (e.Name == "File2.txt") e.IsCancelled = true; })"
-            OnCompleted="@(e => files.AddRange(e))"/>);
+            OnCompleted="@(e => files.AddRange(e))"/>
+    );
 
         // Act
         var inputFile = cut.FindComponent<InputFile>();
         inputFile.UploadFiles(
-            InputFileContent.CreateFromText("Text content", "File1.txt"),
-            InputFileContent.CreateFromText("Text content", "File2.txt"),
-            InputFileContent.CreateFromText("Text content", "File3.txt")
+            InputFileContent.CreateFromText("Text content", "File1.txt", contentType: "plain/text"),
+            InputFileContent.CreateFromText("Text content", "File2.txt", contentType: "plain/text"),
+            InputFileContent.CreateFromText("Text content", "File3.txt", contentType: "plain/text")
         );
 
         // Assert
         Assert.Equal(2, files.Count);
+
+        // All files
+        var allFiles = files[0].AllFiles.ToArray();
+        Assert.Equal("File1.txt", allFiles[0].Name);
+        Assert.Equal("File2.txt", allFiles[1].Name);
+        Assert.Equal("File3.txt", allFiles[2].Name);
+
+        Assert.Equal(12, allFiles[0].Size);
+        Assert.Equal("plain/text", allFiles[0].ContentType);
     }
 }
