@@ -323,4 +323,40 @@
         Assert.Equal(12, allFiles[0].Size);
         Assert.Equal("plain/text", allFiles[0].ContentType);
     }
+
+    [Theory]
+    [InlineData(30 * 1024, 30)]
+    [InlineData(-30 * 1024, -30)]
+    [InlineData(0, 0)]
+    public void FluentInputFile_FileSizeConverter_ToKiloBytes(long value, decimal result)
+    {
+        Assert.Equal(result, FileSizeConverter.ToKiloBytes(value));
+    }
+
+    [Theory]
+    [InlineData(30 * 1024 * 1024, 30)]
+    [InlineData(-30 * 1024 * 1024, -30)]
+    [InlineData(0, 0)]
+    public void FluentInputFile_FileSizeConverter_ToMegaBytes(long value, decimal result)
+    {
+        Assert.Equal(result, FileSizeConverter.ToMegaBytes(value));
+    }
+
+    [Theory]
+    [InlineData(30, 30 * 1024)]
+    [InlineData(-30, -30 * 1024)]
+    [InlineData(0, 0)]
+    public void FluentInputFile_FileSizeConverter_FromKiloBytes(long value, decimal result)
+    {
+        Assert.Equal(result, FileSizeConverter.FromKiloBytes(value));
+    }
+
+    [Theory]
+    [InlineData(30, 30 * 1024 * 1024)]
+    [InlineData(-30, -30 * 1024 * 1024)]
+    [InlineData(0, 0)]
+    public void FluentInputFile_FileSizeConverter_FromMegaBytes(long value, decimal result)
+    {
+        Assert.Equal(result, FileSizeConverter.FromMegaBytes(value));
+    }
 }
