@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -149,17 +150,10 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     public EventCallback<FluentInputFileEventArgs> OnProgressChange { get; set; }
 
     /// <summary>
-    /// Raise when a file raised an error. Not yet used.
+    /// Raise when a file raised an error.
     /// </summary>
     [Parameter]
-    public EventCallback<FluentInputFileEventArgs> OnFileError { get; set; }
-
-    /// <summary>
-    /// Raised when the <see cref="MaximumFileCount"/> is exceeded.
-    /// The return parameter specifies the total number of files that were attempted for upload.
-    /// </summary>
-    [Parameter]
-    public EventCallback<int> OnFileCountExceeded { get; set; }
+    public EventCallback<FluentInputFileErrorEventArgs> OnFileError { get; set; }
 
     /// <summary>
     /// Raise when all files are completely uploaded.
@@ -228,13 +222,10 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0051:Method is too long", Justification = "<Pending>")]
     protected async Task OnUploadFilesHandlerAsync(InputFileChangeEventArgs e)
     {
-        if (e.FileCount > MaximumFileCount)
+        if (e.FileCount > MaximumFileCount && OnFileError.HasDelegate)
         {
-            if (OnFileCountExceeded.HasDelegate)
-            {
-                await OnFileCountExceeded.InvokeAsync(e.FileCount);
-            }
-
+            var err = FluentInputFileErrorEventArgs.FileCountExceeded;
+            await OnFileError.InvokeAsync(new(err.Code, err.Message, fileCount: e.FileCount));
             return;
         }
 
@@ -275,6 +266,13 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
             if (file.Size > MaximumFileSize)
             {
                 fileDetails.ErrorMessage = "The maximum size allowed is reached";
+
+                if (OnFileError.HasDelegate)
+                {
+                    var err = FluentInputFileErrorEventArgs.MaximumSizeReached;
+                    await OnFileError.InvokeAsync(new(err.Code, err.Message, fileName: file.Name));
+                }
+
                 continue;
             }
 
@@ -441,6 +439,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     /// </summary>
     /// <param name="jsModule"></param>
     /// <returns></returns>
+    [ExcludeFromCodeCoverage]
     protected override async ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
         try

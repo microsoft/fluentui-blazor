@@ -73,4 +73,4 @@ builder.Services
 
 ## Migrating to v5
 
-No changes
+- The `OnFileCountExceeded` event was replaced by the `OnFileError` event.

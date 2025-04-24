@@ -1,0 +1,316 @@
+﻿@using Xunit;
+@inherits Bunit.TestContext
+@code
+{
+    public FluentInputFileTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentInputFile_Default()
+    {
+        int ProgressPercent = 0;
+
+        // Arrange && Act
+        var cut = Render(@<FluentInputFile Id="my-file-uploader"
+                                           Mode="InputFileMode.SaveToTemporaryFolder"
+                                           Multiple="true"
+                                           MaximumFileCount="4"
+                                           MaximumFileSize="@(10*1024*1024)"
+                                           Accept="image/*"
+                                           @bind-ProgressPercent="@ProgressPercent"
+                                           OnCompleted="@(e => { } )">Sample description</FluentInputFile>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentInputFile_AnchorId()
+    {
+        // Arrange && Act
+        var cut = Render(@<div><FluentInputFile AnchorId="my-trigger" /><div id="my-trigger">Click here</div></div>);
+
+        // Assert
+        // Nothing to assert here, just checking if it doesn't throw an exception
+    }
+
+    [Fact]
+    public void FluentInputFile_UploadCompleted()
+    {
+        int ProgressPercent = 0;
+        var fileToUpload = InputFileContent.CreateFromText("Text content", "Filename.txt");
+
+        // Arrange
+        var cut = Render(@<FluentInputFile Id="my-file-uploader"
+                                               Mode="InputFileMode.SaveToTemporaryFolder"
+                                               Multiple="true"
+                                               MaximumFileCount="4"
+                                               MaximumFileSize="@(10*1024*1024)"
+                                               Accept="image/*"
+                                               @bind-ProgressPercent="@ProgressPercent">Sample description</FluentInputFile>
+    );
+
+        // Act
+        var inputFile = cut.FindComponent<InputFile>();
+        inputFile.UploadFiles(fileToUpload);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(InputFileMode.SaveToTemporaryFolder)]
+    [InlineData(InputFileMode.Buffer)]
+    [InlineData(InputFileMode.Stream)]
+    public void FluentInputFile_InputFileMode(InputFileMode mode)
+    {
+        bool completed = false;
+        var fileToUpload = InputFileContent.CreateFromText("Text content", "Filename.txt");
+
+        // Arrange
+        var cut = Render(@<FluentInputFile OnCompleted="@(e => completed = true )" OnFileUploaded="@(e => { })" Mode="@mode">Sample description</FluentInputFile> );
+
+        // Act
+        var inputFile = cut.FindComponent<InputFile>();
+        inputFile.UploadFiles(fileToUpload);
+
+        // Assert
+        Assert.True(completed);
+    }
+
+    [Fact]
+    public void FluentInputFile_InputFileBuffer()
+    {
+        bool completed = false;
+        FluentInputFileBuffer? buffer = null;
+        var fileToUpload = InputFileContent.CreateFromText("Text content", "Filename.txt");
+
+        // Arrange
+        var cut = Render(@<FluentInputFile OnCompleted="@(e => completed = true )" OnProgressChange="@(e => { buffer = e.Buffer; })" Mode="InputFileMode.Buffer">Sample description</FluentInputFile> );
+
+        // Act
+        var inputFile = cut.FindComponent<InputFile>();
+        inputFile.UploadFiles(fileToUpload);
+
+        // Save to a temporary file
+        var tempFile = new FileInfo(System.IO.Path.GetTempFileName());
+        buffer?.AppendToFileAsync(tempFile);
+
+        // Assert
+        Assert.True(completed);
+        Assert.Equal(12, buffer?.BytesRead);
+        Assert.True(buffer?.Data.Length > 0);
+        Assert.True(tempFile.Exists);
+
+        // Clean
+        tempFile.Delete();
+    }
+    
+    [Fact]
+    public void FluentInputFile_ProgressTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentInputFile>
+        <ChildContent>Sample description</ChildContent>
+        <ProgressTemplate>@context</ProgressTemplate>
+    </FluentInputFile>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentInputFile_Disabled()
+    {
+        int ProgressPercent = 0;
+
+        // Arrange && Act
+        var cut = Render(@<FluentInputFile Id="my-file-uploader"
+                                           Mode="InputFileMode.SaveToTemporaryFolder"
+                                           Multiple="true"
+                                           MaximumFileCount="4"
+                                           MaximumFileSize="@(10*1024*1024)"
+                                           Accept="image/*"
+                                           @bind-ProgressPercent="@ProgressPercent"
+                                           Disabled="true"
+                                           OnCompleted="@(e => { } )">Sample description</FluentInputFile>);
+
+        // Assert
+        cut.Verify();
+    }
+    
+    [Fact]
+    public void FluentInputFile_ProgressEventsRaised()
+    {
+        bool completed = false;
+        bool fileUploaded = false;
+        bool progressChange = false;
+
+        var fileToUpload = InputFileContent.CreateFromText("Text content", "Filename.txt");
+
+        // Arrange
+        var cut = Render(@<FluentInputFile OnCompleted="@(e => { completed = true; })"
+                                           OnFileUploaded="@(e => { fileUploaded = true; })"
+                                           OnProgressChange="@(e => { progressChange = true; })"></FluentInputFile>
+    );
+
+        // Act
+        var inputFile = cut.FindComponent<InputFile>();
+        inputFile.UploadFiles(fileToUpload);
+
+        // Assert
+        Assert.True(completed, "OnCompleted");
+        Assert.True(fileUploaded, "OnFileUploaded");
+        Assert.True(progressChange, "OnProgressChange");
+    }
+
+    [Fact]
+    public void FluentInputFile_OnInputFileChange()
+    {
+        bool completed = false;
+        bool fileUploaded = false;
+        bool progressChange = false;
+        bool inputFileChange = false;
+
+        var fileToUpload = InputFileContent.CreateFromText("Text content", "Filename.txt");
+
+        // Arrange
+        var cut = Render(@<FluentInputFile OnCompleted="@(e => { completed = true; })"
+                                               OnInputFileChange="@(e => { inputFileChange = true; })"
+                                               OnFileUploaded="@(e => { fileUploaded = true; })"
+                                               OnProgressChange="@(e => { progressChange = true; })"></FluentInputFile>
+    );
+
+        // Act
+        var inputFile = cut.FindComponent<InputFile>();
+        inputFile.UploadFiles(fileToUpload);
+
+        // Assert
+        Assert.True(inputFileChange, "OnInputFileChange");
+        Assert.False(completed, "OnCompleted");
+        Assert.False(fileUploaded, "OnFileUploaded");
+        Assert.False(progressChange, "OnProgressChange");
+    }
+
+	[Fact]
+	public void FluentInputFile_LastModifiedDateSet()
+	{
+		var lastChanged = new DateTimeOffset(2024, 12, 14, 15, 30, 0, TimeSpan.Zero);
+		var fileToUpload = InputFileContent.CreateFromText("Text content", "Filename.txt", lastChanged);
+		bool lastModifiedSet = false;
+
+		// Arrange
+		var cut = Render(@<FluentInputFile OnCompleted="@(e => {
+			var fileEvent = e.Single();
+			lastModifiedSet = fileEvent.LastModified == lastChanged;})">
+	</FluentInputFile>
+    );
+
+        // Act
+        var inputFile = cut.FindComponent<InputFile>();
+        inputFile.UploadFiles(fileToUpload);
+
+        // Assert
+        Assert.True(lastModifiedSet, "LastModifiedSet");
+    }
+
+    [Fact]
+    public void FluentInputFile_OnFileError_FileCountExceeded()
+    {
+        FluentInputFileErrorEventArgs? error = null;
+
+        // Arrange
+        var cut = Render(@<FluentInputFile MaximumFileCount="2" OnFileError="@(e => error = e)" />);
+
+        // Act
+        var inputFile = cut.FindComponent<InputFile>();
+        inputFile.UploadFiles(
+            InputFileContent.CreateFromText("Text content", "File1.txt"),
+            InputFileContent.CreateFromText("Text content", "File2.txt"),
+            InputFileContent.CreateFromText("Text content", "File3.txt")
+        );
+
+        // Assert
+        Assert.Equal("FileCountExceeded", error?.ErrorCode);
+        Assert.Equal("The maximum number of files has been exceeded. The `FileCount` property specifies the total number of files that were attempted for upload.", error?.ErrorMessage);
+        Assert.Equal(3, error?.FileCount);
+    }
+
+    [Fact]
+    public void FluentInputFile_OnFileError_MaximumSizeReached()
+    {
+        FluentInputFileErrorEventArgs? error = null;
+
+        // Arrange
+        var cut = Render(@<FluentInputFile MaximumFileSize="(2 * 1024)" OnFileError="@(e => error = e)" />);
+
+        // Act
+        var inputFile = cut.FindComponent<InputFile>();
+        inputFile.UploadFiles(
+            InputFileContent.CreateFromText("Text content", "File1.txt"),
+            InputFileContent.CreateFromText(new string(' ', 5 * 1024), "File2.txt")   // 5 KB is too large
+        );
+
+        // Assert
+        Assert.Equal("MaximumSizeReached", error?.ErrorCode);
+        Assert.Equal("The maximum size allowed is reached. The `FileName` property specifies the concerned file.", error?.ErrorMessage);
+        Assert.Equal("File2.txt", error?.FileName);
+    }
+
+    [Fact]
+    public void FluentInputFile_InvalidMode()
+    {
+        // Arrange
+        var cut = Render(@<FluentInputFile Mode="@((InputFileMode)999)" />);
+
+        // Act
+        var inputFile = cut.FindComponent<InputFile>();
+
+        try
+        {
+            inputFile.UploadFiles(InputFileContent.CreateFromText("Text content", "File1.txt"));
+        }
+        catch (ArgumentException)
+        {
+        }
+    }
+
+    [Fact]
+    public async Task FluentInputFile_ShowFilesDialogAsync()
+    {
+        // Arrange
+        var cut = Render(@<FluentInputFile />);
+
+        // Act
+        var inputFile = cut.FindComponent<FluentInputFile>();
+        await inputFile.Instance.ShowFilesDialogAsync();
+
+        // Assert
+        // Nothing to assert here, just checking if it doesn't throw an exception
+    }
+
+    [Fact]
+    public void FluentInputFile_Cancel()
+    {
+        var files = new List<FluentInputFileEventArgs>();
+
+        // Arrange
+        var cut = Render(@<FluentInputFile
+            OnProgressChange="@(e => { if (e.Name == "File2.txt") e.IsCancelled = true; })"
+            OnCompleted="@(e => files.AddRange(e))"/>);
+
+        // Act
+        var inputFile = cut.FindComponent<InputFile>();
+        inputFile.UploadFiles(
+            InputFileContent.CreateFromText("Text content", "File1.txt"),
+            InputFileContent.CreateFromText("Text content", "File2.txt"),
+            InputFileContent.CreateFromText("Text content", "File3.txt")
+        );
+
+        // Assert
+        Assert.Equal(2, files.Count);
+    }
+}
