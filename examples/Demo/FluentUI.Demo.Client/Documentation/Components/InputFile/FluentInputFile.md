@@ -15,15 +15,13 @@ the embedded [Localization](https://fluentui-blazor-v5.azurewebsites.net/localiz
 
 ## Example
 
+
+
 {{ InputFileDefault }}
 
 ## Manual upload
 
 {{ InputFileByCode }}
-
-## Manual upload with loading indicator
-
-{{ InputFileLoading }}
 
 ## Mode = InputFileMode.Buffer
 

@@ -24,7 +24,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "InputFile/FluentInputFile.razor.js";
-
     private ElementReference? _containerElement;
     private InputFile? _inputFile;
     private IJSObjectReference? _containerInstance;

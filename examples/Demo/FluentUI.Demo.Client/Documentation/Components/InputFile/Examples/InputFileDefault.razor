@@ -2,26 +2,25 @@
                  Mode="InputFileMode.SaveToTemporaryFolder"
                  Multiple="true"
                  MaximumFileCount="4"
-                 MaximumFileSize="@(10*1024*1024)"
+                 MaximumFileSize="@FileSizeConverter.FromMegaBytes(10)"
                  Accept="image/*"
                  @bind-ProgressPercent="@ProgressPercent"
                  OnCompleted="@OnCompletedAsync"
                  Height="300px">
     <ChildContent>
         <label for="my-file-uploader">
-            <FluentIcon Value="@(new @Icons.Regular.Size24.ArrowUpload())" />
+            <FluentIcon Value="@(new @Icons.Regular.Size24.ArrowUpload())" Color="@Color.Primary" />
         </label>
 
-        <div>
+        <div class="@Margin.All2">
             Drag files here you wish to upload,
             or <label for="my-file-uploader">browse</label>
-            for them<span style="color: red;">*</span>.
+            for them <span style="color: red;">*</span>.
             <br />
             <em>Maximum of 4 files allowed.</em>
         </div>
 
         <div>
-            <br />
             <a href="#">Read more about our supported file formats.</a>
         </div>
     </ChildContent>
@@ -35,7 +34,7 @@
         {
             <li>
                 <b>@file.Name</b> 🔹
-                @($"{Decimal.Divide(file.Size, 1024):N} KB") 🔹
+                @($"{FileSizeConverter.ToKiloBytes(file.Size):N} KB") 🔹
                 @file.ContentType 🔹
                 @file.LocalFile?.FullName
                 @file.ErrorMessage
@@ -51,7 +50,7 @@
 
     private async Task OnCompletedAsync(IEnumerable<FluentInputFileEventArgs> files)
     {
-        Files = files.ToArray();
+        Files = files.Where(i => !i.IsCancelled).ToArray();
 
         // For the demo, delete these files.
         foreach (var file in Files)

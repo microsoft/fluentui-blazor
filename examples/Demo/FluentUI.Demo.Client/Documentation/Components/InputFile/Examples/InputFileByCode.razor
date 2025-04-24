@@ -1,24 +1,21 @@
-﻿<FluentInputFile @ref="@myFileUploader" 
-                 DragDropZoneVisible="false"
+﻿<FluentInputFile DragDropZoneVisible="false"
                  Mode="InputFileMode.SaveToTemporaryFolder"
                  Multiple="true"
                  AnchorId="MyUploadButton"
-                 MaximumFileSize="@(100 * 1024 * 1024)"
+                 MaximumFileSize="@FileSizeConverter.FromMegaBytes(100)"
                  Accept=".mp4, .mov, .avi"
-                 OnProgressChange="@(e =>
-                     {
-                         progressPercent = e.ProgressPercent; 
-                         progressTitle = e.ProgressTitle;
-                     })"
+                 OnProgressChange="@OnProgressChange"
                  OnCompleted="@OnCompleted" />
 
-<FluentProgress Min="0" Max="100" Visible="@(progressPercent > 0)" Value="@progressPercent" />
-<FluentLabel Alignment="HorizontalAlignment.Center">
-    @progressTitle
-</FluentLabel>
+<FluentProgressBar Min="0" Max="100" Visible="@(ProgressPercent > 0)" Value="@ProgressPercent" />
+<FluentDivider>@ProgressTitle</FluentDivider>
 
-<FluentButton Id="MyUploadButton" Appearance="ButtonAppearance.Primary">
+<FluentButton Id="MyUploadButton" OnClick="@(e => IsCanceled = false)" Loading="@(ProgressPercent > 0)" Appearance="ButtonAppearance.Primary">
     Upload files
+</FluentButton>
+
+<FluentButton @onclick="@(e => IsCanceled = true)">
+    Cancel
 </FluentButton>
 
 @if (Files.Any())
@@ -29,7 +26,7 @@
         {
             <li>
                 <b>@file.Name</b> 🔹
-                @($"{Decimal.Divide(file.Size, 1024):N} KB") 🔹
+                @($"{FileSizeConverter.ToKiloBytes(file.Size):N} KB") 🔹
                 @file.ContentType 🔹
                 @file.LocalFile?.FullName
                 @file.ErrorMessage
@@ -40,17 +37,27 @@
 
 @code
 {
-    FluentInputFile? myFileUploader = default!;
-    int? progressPercent;
-    string? progressTitle;
+    int ProgressPercent;
+    string? ProgressTitle;
+    bool IsCanceled;
 
     FluentInputFileEventArgs[] Files = Array.Empty<FluentInputFileEventArgs>();
 
+    void OnProgressChange(FluentInputFileEventArgs file)
+    {
+        // To cancel?
+        file.IsCancelled = IsCanceled;
+
+        ProgressTitle = file.ProgressTitle;
+        ProgressPercent = file.ProgressPercent;
+    }
+
     void OnCompleted(IEnumerable<FluentInputFileEventArgs> files)
     {
-        Files = files.ToArray();
-        progressPercent = myFileUploader!.ProgressPercent;
-        progressTitle = myFileUploader!.ProgressTitle;
+        Files = files.Where(i => !i.IsCancelled).ToArray();
+
+        ProgressTitle = "Completed";
+        ProgressPercent = 0;
 
         // For the demo, delete these files.
         foreach (var file in Files)
