@@ -8,6 +8,7 @@
                     ItemsProvider="foodRecallProvider"
                     OnRowDoubleClick="@(()=>DemoLogger.WriteLine("Row double clicked!"))"
                     Virtualize="true"
+                    DisplayMode="DataGridDisplayMode.Table"
                     ItemSize="46"
                     GenerateHeader="GenerateHeaderOption.Sticky"
                     TGridItem="FoodRecall" >
