@@ -1,9 +1,8 @@
-﻿@using System.Linq;
-
-<FluentStack HorizontalGap="12px"
+﻿<FluentStack HorizontalGap="12px"
              Style="margin-bottom:15px;"
              VerticalAlignment="VerticalAlignment.Bottom"
-             Orientation="Orientation.Horizontal">
+             Orientation="Orientation.Horizontal"
+             Wrap="true">
 
     <FluentSelect Label="Color"
                   Items="@(Enum.GetValues<AvatarColor>())"

@@ -1,7 +1,7 @@
 ﻿@namespace FluentUI.Demo.Shared
 
 <p>Alignment of the Stack content elements:</p>
-<FluentStack HorizontalGap="12px">
+<FluentStack HorizontalGap="12px" Wrap="true">
     <FluentSelect Label="Horizontal"
                   Items="@(Enum.GetValues<HorizontalAlignment>())"
                   @bind-Value="@Horizontal" />
