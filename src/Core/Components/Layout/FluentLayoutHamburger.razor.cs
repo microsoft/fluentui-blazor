@@ -68,13 +68,6 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     [Parameter]
     public EventCallback<bool> OnClick { get; set; }
 
-    /// <summary>
-    /// Gets or sets whether the hamburger icon is shown.
-    /// Default is `true`.
-    /// Not yet used.
-    /// </summary>
-    internal bool ShowMobileOnly { get; set; } = true;
-
     /// <summary />
     protected override void OnInitialized()
     {

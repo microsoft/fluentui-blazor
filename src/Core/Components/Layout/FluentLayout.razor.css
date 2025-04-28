@@ -20,22 +20,3 @@
   .fluent-layout[global-scrollbar] {
     overflow-y: auto;
   }
-
-  .fluent-layout *[hide-on-desktop] {
-    display: none;
-  }
-
-  /* For the Mobile view */
-  .fluent-layout[mobile] {
-    grid-template-areas:
-      "header"
-      "content"
-      "footer";
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
-    overflow-x: auto;
-  }
-
-    .fluent-layout[mobile] *[hide-on-desktop] {
-      display: unset;
-    }

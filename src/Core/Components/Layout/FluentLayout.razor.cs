@@ -160,7 +160,7 @@ public partial class FluentLayout : FluentComponentBase
     internal string ContentHeight => Items.Find(i => i.Area == LayoutArea.Content)?.Height ?? DEFAULT_CONTENT_HEIGHT;
 
     /// <summary />
-    internal string GetFlickyStyle()
+    internal string GetContainerMobileStyles()
     {
         return @$"
             .fluent-layout-container {{
@@ -174,6 +174,9 @@ public partial class FluentLayout : FluentComponentBase
                         ""header""
                         ""content""
                         ""footer"";
+                    grid-template-columns: 1fr;
+                    grid-template-rows: auto 1fr auto;
+                    overflow-x: auto;
                 }}
 
                 .fluent-layout-item[area=""menu""],

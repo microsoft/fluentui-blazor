@@ -6,10 +6,7 @@
     position: sticky;
   }
 
-  /* "outside" means "not in the css grid-area" */
-
-  .fluent-layout-item[area="header"],
-  .fluent-layout-item[area="header-outside"] {
+  .fluent-layout-item[area="header"] {
     background-color: var(--colorBrandBackgroundHover);
     color: var(--colorNeutralForegroundOnBrand);
     overflow: hidden;
@@ -18,8 +15,7 @@
     z-index: var(--zindex-layout-header);
   }
 
-  .fluent-layout-item[area="footer"],
-  .fluent-layout-item[area="footer-outside"] {
+  .fluent-layout-item[area="footer"] {
     background-color: var(--colorNeutralBackgroundDisabled);
     bottom: 0;
     color: var(--colorNeutralForeground1);
@@ -60,24 +56,14 @@
   overflow-y: unset;
 }
 
-.fluent-layout-item *[hide-on-desktop] {
-  display: none;
-}
-
-
 /* For the Mobile view */
 .fluent-layout[mobile] .fluent-layout-item[area="content"] {
   grid-area: content !important;
   padding-right: unset !important;
 }
 
-.fluent-layout[mobile] .fluent-layout-item[area="footer"],
-.fluent-layout[mobile] .fluent-layout-item[area="footer-outside"] {
+.fluent-layout[mobile] .fluent-layout-item[area="footer"] {
     line-height: var(--lineHeightBase100);
-}
-
-.fluent-layout[mobile] .fluent-layout-item *[hide-on-desktop] {
-    display: unset;
 }
 
   /* Menu Opened */
