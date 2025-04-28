@@ -1,11 +1,13 @@
+import { DotNet } from "../../d-ts/Microsoft.JSInterop";
+
 export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
   /**
    * Add an attribute to the layout element if the width is less than the maximum mobile width
    * @param id
    * @param maxMobileWidth
-   */
-  export function Initialize(id: string, maxMobileWidth: number) {
+  */
+  export function Initialize(dotNetHelper: DotNet.DotNetObject, id: string, maxMobileWidth: number) {
 
     const layoutElement = document.getElementById(id);
 
@@ -15,15 +17,19 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
       // if the width is less than the maximum mobile width
       const resizeObserver = new ResizeObserver(entries => {
         const hasMobileAttribute = layoutElement.hasAttribute('mobile');
-        const isMobileSize = entries.some(entry => entry.contentRect.width <= maxMobileWidth);
+        const isMobileSize = entries.some(entry => {
+          return entry.borderBoxSize.length > 0
+            ? entry.borderBoxSize[0].inlineSize <= maxMobileWidth
+            : false;
+        });
 
-        if (!hasMobileAttribute && isMobileSize) {
-          console.log(isMobileSize);
+        if (!hasMobileAttribute && isMobileSize) {          
           layoutElement.setAttribute('mobile', '');
+          dotNetHelper.invokeMethodAsync('FluentLayout_MediaChangedAsync', "mobile");
         }
         else if (hasMobileAttribute && !isMobileSize) {
-          console.log(isMobileSize);
           layoutElement.removeAttribute('mobile');
+          dotNetHelper.invokeMethodAsync('FluentLayout_MediaChangedAsync', "desktop");
         }
       });
 

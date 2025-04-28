@@ -1,65 +1,75 @@
 ﻿@page "/Layout/Debug"
 @using Microsoft.AspNetCore.Components.Rendering
 
+<h1>Layout Debug Page</h1>
+
 <div style="margin: 24px;">
 
     @_renderOptions
 
-    <FluentLayout GlobalScrollbar="@GlobalScrollbar" Height="400px" Style="resize: both">
+    <div>
+        Mobile view: @MobileView
+    </div>
 
-        @if (Header.Visible)
-        {
-            <!-- Header -->
-            <FluentLayoutItem Area="@LayoutArea.Header" Sticky="@Header.Sticky">
-                <FluentStack VerticalAlignment="VerticalAlignment.Center">
+    <div style="resize: horizontal; overflow: hidden;">
+        <FluentLayout GlobalScrollbar="@GlobalScrollbar" Height="400px" Style="@CommonStyles.NeutralBorder1" OnBreakpointEnter="@(e => MobileView = e)">
+
+            @if (Header.Visible)
+            {
+                <!-- Header -->
+                <FluentLayoutItem Area="@LayoutArea.Header" Sticky="@Header.Sticky">
                     <FluentLayoutHamburger />
                     <FluentText Weight="TextWeight.Bold" Size="TextSize.Size400">
                         Microsoft Demo
                     </FluentText>
-                </FluentStack>
-            </FluentLayoutItem>
-        }
+                    <FluentSpacer />
+                    <FluentButton Appearance="ButtonAppearance.Primary" Shape="ButtonShape.Rounded">
+                        Sign in
+                    </FluentButton>
+                </FluentLayoutItem>
+            }
 
-        @if (Menu.Visible)
-        {
-            <!-- Menu -->
-            <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky"
-                              Width="150px" Padding="@Padding.All2"
-                              Style="border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
+            @if (Menu.Visible)
+            {
+                <!-- Menu -->
+                <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky"
+                                  Width="150px" Padding="@Padding.All2"
+                                  Style="border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
 
-                <FluentText Weight="TextWeight.Bold">Navigation</FluentText>
-                @NavigationContent
-            </FluentLayoutItem>
-        }
+                    <FluentText Weight="TextWeight.Bold">Navigation</FluentText>
+                    @NavigationContent
+                </FluentLayoutItem>
+            }
 
-        @if (Content.Visible)
-        {
-            <!-- Content -->
-            <FluentLayoutItem Area="@LayoutArea.Content" Padding="@Padding.All3">
-                <FluentText Weight="TextWeight.Bold">Content</FluentText>
-                @BodyContent
-            </FluentLayoutItem>
-        }
+            @if (Content.Visible)
+            {
+                <!-- Content -->
+                <FluentLayoutItem Area="@LayoutArea.Content" Padding="@Padding.All3">
+                    <FluentText Weight="TextWeight.Bold">Content</FluentText>
+                    @BodyContent
+                </FluentLayoutItem>
+            }
 
-        @if (Aside.Visible)
-        {
-            <!-- Aside -->
-            <FluentLayoutItem Area="@LayoutArea.Aside" Width="120px" Sticky="Aside.Sticky"
-                              Style="padding: 8px; background-color: var(--colorBrandBackground2);">
-                <FluentText Weight="TextWeight.Bold">News</FluentText>
-                @AsideContent
-            </FluentLayoutItem>
-        }
+            @if (Aside.Visible)
+            {
+                <!-- Aside -->
+                <FluentLayoutItem Area="@LayoutArea.Aside" Width="120px" Sticky="Aside.Sticky"
+                                  Style="padding: 8px; background-color: var(--colorBrandBackground2);">
+                    <FluentText Weight="TextWeight.Bold">News</FluentText>
+                    @AsideContent
+                </FluentLayoutItem>
+            }
 
-        @if (Footer.Visible)
-        {
-            <!-- Footer -->
-            <FluentLayoutItem Area="@LayoutArea.Footer" Sticky="@Footer.Sticky">
-                &copy; Microsoft @DateTime.Now.Year
-            </FluentLayoutItem>
-        }
+            @if (Footer.Visible)
+            {
+                <!-- Footer -->
+                <FluentLayoutItem Area="@LayoutArea.Footer" Sticky="@Footer.Sticky">
+                    &copy; Microsoft @DateTime.Now.Year
+                </FluentLayoutItem>
+            }
 
-    </FluentLayout>
+        </FluentLayout>
+    </div>
 </div>
 
 @code

@@ -82,12 +82,29 @@ public partial class FluentLayout : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Event raised when layout changes to a Mobile layout (true) or Desktop layout (false).
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> OnBreakpointEnter { get; set; }
+
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Layout.Initialize", Id, MobileBreakdownWidth);
+            var dotNetHelper = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Layout.Initialize", dotNetHelper, Id, MobileBreakdownWidth);
+        }
+    }
+
+    /// <summary />
+    [JSInvokable]
+    public async Task FluentLayout_MediaChangedAsync(string size)
+    {
+        if (OnBreakpointEnter.HasDelegate)
+        {
+            await OnBreakpointEnter.InvokeAsync(string.Equals(size, "mobile", StringComparison.Ordinal));
         }
     }
 
@@ -163,7 +180,7 @@ public partial class FluentLayout : FluentComponentBase
     internal string GetContainerMobileStyles()
     {
         return @$"
-            .fluent-layout-container {{
+            #{Id}-container {{
                 container-type: inline-size;
                 container-name: layout-{Id};
             }}
@@ -179,8 +196,8 @@ public partial class FluentLayout : FluentComponentBase
                     overflow-x: auto;
                 }}
 
-                .fluent-layout-item[area=""menu""],
-                .fluent-layout-item[area=""aside""] {{
+                .fluent-layout .fluent-layout-item[area=""menu""],
+                .fluent-layout .fluent-layout-item[area=""aside""] {{
                   display: none;
                 }}
             }}

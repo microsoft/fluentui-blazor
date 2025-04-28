@@ -5,7 +5,7 @@
 <style>@GetContainerMobileStyles()</style>
 
 <CascadingValue Value="this" IsFixed="true">
-    <div class="fluent-layout-container">
+    <div id="@($"{Id}-container")">
         <div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes"
              global-scrollbar="@GlobalScrollbar"
              menu-opened="@(Hamburger?.Opened ?? false)">
