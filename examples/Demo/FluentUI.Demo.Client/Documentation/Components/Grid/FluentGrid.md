@@ -58,7 +58,7 @@ This allows for fine-grained control over when HTML is generated or not, for exa
 the grid item takes a lot of time or leads to a lot of data being transferred.
 
 
-<div class="grid-item-hidden">
+<div class="grid-item-hidden" style="overflow-x: auto;">
 
 |GridItemHidden|X Small<br/><sup>< 600px</sup>|Small<br/><sup>600px - 959px</sup>|Medium<br/><sup>960px - 1279px</sup>|Large<br/><sup>1280px - 1919px</sup>|X Large<br/><sup>1920px - 2559px</sup>|XX Large<br/><sup>≥ 2560px</sup>|
 |--------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|

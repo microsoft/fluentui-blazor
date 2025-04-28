@@ -76,6 +76,11 @@
     padding-right: unset !important;
   }
 
+  .fluent-layout-item[area="footer"],
+  .fluent-layout-item[area="footer-outside"] {
+    line-height: var(--lineHeightBase100);
+  }
+
   .fluent-layout-item *[hide-on-desktop] {
     display: unset;
   }

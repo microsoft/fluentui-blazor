@@ -126,7 +126,7 @@ public partial class FluentLayoutItem
                 asideArea.AddExtraStyles("margin-right", "0");
             }
 
-            contentArea?.AddExtraStyles("padding-right", string.IsNullOrEmpty(asideArea.Width) || !asideArea.Sticky ? "0" : asideArea.Width + " !important");
+            contentArea?.AddExtraStyles("padding-right", string.IsNullOrEmpty(asideArea.Width) || !asideArea.Sticky ? "0" : asideArea.Width);
         }
 
         // Grid Area
