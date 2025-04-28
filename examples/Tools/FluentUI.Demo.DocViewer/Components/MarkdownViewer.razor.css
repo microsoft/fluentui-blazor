@@ -55,6 +55,7 @@
     font-weight: 500;
     background-color: var(--colorNeutralBackground5);
     padding: 0px 4px;
+    overflow-wrap: anywhere
   }
 
   .doc-viewer ::deep pre {
