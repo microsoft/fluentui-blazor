@@ -65,34 +65,28 @@
 }
 
 
-@media (max-width: 768px) {
-  .fluent-layout-item[area="menu"],
-  .fluent-layout-item[area="aside"] {
-    display: none;
-  }
+/* For the Mobile view */
+.fluent-layout[mobile] .fluent-layout-item[area="content"] {
+  grid-area: content !important;
+  padding-right: unset !important;
+}
 
-  .fluent-layout-item[area="content"] {
-    grid-area: content !important;
-    padding-right: unset !important;
-  }
-
-  .fluent-layout-item *[hide-on-desktop] {
-    display: unset;
-  }
-
+.fluent-layout[mobile] .fluent-layout-item *[hide-on-desktop] {
+  display: unset;
+}
   /* Menu Opened */
-  .fluent-layout[menu-opened] {
-      overflow-x: hidden;
-  }
+.fluent-layout[mobile] .fluent-layout[menu-opened] {
+  overflow-x: hidden;
+}
 
-  .fluent-layout[menu-opened] .fluent-layout-item[area="menu"] {
+  .fluent-layout[mobile] .fluent-layout[menu-opened] .fluent-layout-item[area="menu"] {
     display: block;
     width: 100% !important;
     grid-area: content / content / aside / aside !important;
     z-index: var(--zindex-layout-menu);
   }
 
-  .fluent-layout[menu-opened] .fluent-layout-item[area="content"] {
+  .fluent-layout[mobile] .fluent-layout[menu-opened] .fluent-layout-item[area="content"] {
     display: none;
   }
-}
+

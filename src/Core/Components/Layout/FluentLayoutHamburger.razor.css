@@ -18,9 +18,8 @@
       display: block;
     }
 
-@media (max-width: 768px) {
-  .fluent-layout-item[area="header"] .fluent-layout-hamburger[display*="mobile"],
-  .fluent-layout-item[area="header-outside"] .fluent-layout-hamburger[display*="mobile"] {
-    display: block;
-  }
+/* For the Mobile view */
+.fluent-layout[mobile] .fluent-layout-item[area="header"] .fluent-layout-hamburger[display*="mobile"],
+.fluent-layout[mobile] .fluent-layout-item[area="header-outside"] .fluent-layout-hamburger[display*="mobile"] {
+  display: block;
 }

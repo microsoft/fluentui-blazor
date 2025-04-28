@@ -4,7 +4,7 @@
   --zindex-layout-menu: 80;
   --zindex-layout-header: 85;
   --zindex-layout-footer: 85;
-  display: grid;
+  display: grid;  
   grid-template-areas:
     "header header header"
     "menu content aside"
@@ -25,8 +25,8 @@
     display: none;
   }
 
-@media (max-width: 768px) {
-  .fluent-layout {
+  /* For the Mobile view */
+  .fluent-layout[mobile] {
     grid-template-areas:
       "header"
       "content"
@@ -36,7 +36,6 @@
     overflow-x: auto;
   }
 
-    .fluent-layout *[hide-on-desktop] {
+    .fluent-layout[mobile] *[hide-on-desktop] {
       display: unset;
     }
-}

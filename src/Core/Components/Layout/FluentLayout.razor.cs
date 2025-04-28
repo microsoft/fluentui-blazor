@@ -3,6 +3,8 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -10,11 +12,17 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Component that defines a layout for a page, using a grid composed of a Header, a Footer and 3 columns: Menu, Value and Aside Pane.
 /// For mobile devices (&lt; 768px), the layout is a single column with the Menu, Value and Footer panes stacked vertically.
 /// </summary>
-public partial class FluentLayout
+public partial class FluentLayout : FluentComponentBase
 {
     private const string DEFAULT_HEADER_HEIGHT = "44px";
     private const string DEFAULT_FOOTER_HEIGHT = "36px";
     private const string DEFAULT_CONTENT_HEIGHT = "calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height))";
+
+    /// <summary />
+    public FluentLayout()
+    {
+        Id = Identifier.NewId();
+    }
 
     internal FluentLayoutHamburger? Hamburger { get; private set; }
 
@@ -62,10 +70,25 @@ public partial class FluentLayout
     public string? Height { get; set; }
 
     /// <summary>
+    /// Gets or sets the width, in pixels, at which the container switches to a mobile layout.
+    /// </summary>
+    [Parameter]
+    public int MobileBreakdownWidth { get; set; } = 768;
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Layout.Initialize", Id, MobileBreakdownWidth);
+        }
+    }
 
     /// <summary />
     internal void AddHamburger(FluentLayoutHamburger hamburger)
@@ -110,4 +133,28 @@ public partial class FluentLayout
 
     /// <summary />
     internal string ContentHeight => Items.Find(i => i.Area == LayoutArea.Content)?.Height ?? DEFAULT_CONTENT_HEIGHT;
+
+    /// <summary />
+    internal string GetFlickyStyle()
+    {
+        return @$"
+            .fluent-layout-container {{
+                container-type: inline-size;
+                container-name: layout-{Id};
+            }}
+
+            @container layout-{Id} (max-width: 768px) {{
+                .fluent-layout {{
+                    grid-template-areas:
+                        ""header""
+                        ""content""
+                        ""footer"";
+                }}
+
+                .fluent-layout-item[area=""menu""], .fluent-layout-item[area=""aside""] {{
+                  display: none;
+                }}
+            }}
+        ";
+    }
 }
