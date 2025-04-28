@@ -4,17 +4,17 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace FluentUI.Demo.Client.Documentation.Components.Layout.Debug;
+namespace FluentUI.Demo.Client.Documentation.Components.Layout.DebugPages;
 
 public partial class DebugLayout
 {
     private bool GlobalScrollbar = true;
     private readonly RenderFragment _renderOptions;
-    private readonly Option Header = new Option() { Visible = true, Sticky = false };
-    private readonly Option Menu = new Option() { Visible = true, Sticky = false };
-    private readonly Option Content = new Option() { Visible = true, Sticky = false };
-    private readonly Option Aside = new Option() { Visible = true, Sticky = false };
-    private readonly Option Footer = new Option() { Visible = true, Sticky = false };
+    private readonly Option Header = new() { Visible = true, Sticky = false };
+    private readonly Option Menu = new() { Visible = true, Sticky = false };
+    private readonly Option Content = new() { Visible = true, Sticky = false };
+    private readonly Option Aside = new() { Visible = true, Sticky = false };
+    private readonly Option Footer = new() { Visible = true, Sticky = false };
 
     private class Option
     {
@@ -26,4 +26,8 @@ public partial class DebugLayout
     {
         _renderOptions = RenderOptions;
     }
+
+    private static readonly MarkupString NavigationContent = SampleData.Text.Titles.Take(20).ToMarkupList("li");
+    private static readonly MarkupString BodyContent = SampleData.Text.LoremIpsum.Take(10).ToMarkupList("p");
+    private static readonly MarkupString AsideContent = (MarkupString)SampleData.Text.LoremIpsum.ElementAt(2)[..200];
 }

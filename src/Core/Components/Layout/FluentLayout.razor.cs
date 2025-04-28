@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -90,17 +91,6 @@ public partial class FluentLayout : FluentComponentBase
         }
     }
 
-    /// <summary />
-    internal void AddHamburger(FluentLayoutHamburger hamburger)
-    {
-        if (Hamburger != null)
-        {
-            throw new InvalidOperationException("Only one Hamburger can be added to a FluentLayout.");
-        }
-
-        Hamburger = hamburger;
-    }
-
     internal Task RefreshAsync()
     {
         StateHasChanged();
@@ -108,9 +98,44 @@ public partial class FluentLayout : FluentComponentBase
     }
 
     /// <summary />
-    internal void AddItem(FluentLayoutItem item)
+    internal void AddItem(FluentComponentBase item)
     {
-        Items.Add(item);
+        switch (item)
+        {
+            case FluentLayoutItem layoutItem:
+                Items.Add(layoutItem);
+                break;
+
+            case FluentLayoutHamburger layoutHamburger:
+                if (Hamburger != null)
+                {
+                    throw new InvalidOperationException("Only one Hamburger can be added to a FluentLayout.");
+                }
+
+                Hamburger = layoutHamburger;
+                break;
+
+            default:
+                throw new ArgumentException("Item must be of type FluentLayoutItem or FluentLayoutHamburger.", nameof(item));
+        }
+    }
+
+    /// <summary />
+    internal void RemoveItem(FluentComponentBase item)
+    {
+        switch (item)
+        {
+            case FluentLayoutItem layoutItem:
+                Items.Remove(layoutItem);
+                break;
+
+            case FluentLayoutHamburger:
+                Hamburger = null;
+                break;
+
+            default:
+                throw new ArgumentException("Item must be of type FluentLayoutItem or FluentLayoutHamburger.", nameof(item));
+        }
     }
 
     /// <summary />
@@ -143,7 +168,7 @@ public partial class FluentLayout : FluentComponentBase
                 container-name: layout-{Id};
             }}
 
-            @container layout-{Id} (max-width: 768px) {{
+            @container layout-{Id} (max-width: {Convert.ToString(MobileBreakdownWidth, CultureInfo.InvariantCulture)}px) {{
                 .fluent-layout {{
                     grid-template-areas:
                         ""header""
@@ -151,7 +176,8 @@ public partial class FluentLayout : FluentComponentBase
                         ""footer"";
                 }}
 
-                .fluent-layout-item[area=""menu""], .fluent-layout-item[area=""aside""] {{
+                .fluent-layout-item[area=""menu""],
+                .fluent-layout-item[area=""aside""] {{
                   display: none;
                 }}
             }}

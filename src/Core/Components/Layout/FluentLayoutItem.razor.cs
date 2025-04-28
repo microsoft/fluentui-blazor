@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Area of the layout where the item is placed.
 /// </summary>
-public partial class FluentLayoutItem
+public partial class FluentLayoutItem : FluentComponentBase
 {
     private readonly Dictionary<string, string> _extraStyles = new(StringComparer.Ordinal);
 
@@ -63,7 +63,7 @@ public partial class FluentLayoutItem
     /// Gets or sets the parent layout component.
     /// </summary>
     [CascadingParameter]
-    protected FluentLayout? Layout { get; set; }
+    private FluentLayout? Layout { get; set; }
 
     /// <summary>
     /// Gets or sets the type of area where the item is placed.
@@ -126,7 +126,7 @@ public partial class FluentLayoutItem
                 asideArea.AddExtraStyles("margin-right", "0");
             }
 
-            contentArea?.AddExtraStyles("padding-right", string.IsNullOrEmpty(asideArea.Width) || !asideArea.Sticky ? "0" : asideArea.Width + " !important");
+            contentArea?.AddExtraStyles("padding-right", string.IsNullOrEmpty(asideArea.Width) || !asideArea.Sticky ? "0" : asideArea.Width);
         }
 
         // Grid Area
@@ -170,5 +170,12 @@ public partial class FluentLayoutItem
         {
             styles.AddStyle("top", Layout?.HeaderHeight ?? "0");
         }
+    }
+
+    /// <inheritdoc />
+    public override ValueTask DisposeAsync()
+    {
+        Layout?.RemoveItem(this);
+        return base.DisposeAsync();
     }
 }

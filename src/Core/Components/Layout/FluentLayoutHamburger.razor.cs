@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Component to display a hamburger icon that can be used to open and close a menu, on mobile device only.
 /// </summary>
-public partial class FluentLayoutHamburger
+public partial class FluentLayoutHamburger : FluentComponentBase
 {
     /// <summary>
     /// <inheritdoc cref="FluentComponentBase.Class"/>
@@ -28,7 +28,7 @@ public partial class FluentLayoutHamburger
     /// Gets or sets the parent layout component.
     /// </summary>
     [CascadingParameter]
-    protected FluentLayout? LayoutContainer { get; set; }
+    private FluentLayout? LayoutContainer { get; set; }
 
     /// <summary>
     /// Gets or sets the layout to which this hamburger belongs.
@@ -81,7 +81,7 @@ public partial class FluentLayoutHamburger
         Title = Localizer[Localization.LanguageResource.FluentLayoutHamburger_Title];
 
         var layout = Layout ?? LayoutContainer;
-        layout?.AddHamburger(this);
+        layout?.AddItem(this);
     }
 
     /// <summary />
@@ -105,5 +105,14 @@ public partial class FluentLayoutHamburger
         {
             await layout.RefreshAsync();
         }
+    }
+
+    /// <inheritdoc />
+    public override ValueTask DisposeAsync()
+    {
+        var layout = Layout ?? LayoutContainer;
+        layout?.RemoveItem(this);
+
+        return base.DisposeAsync();
     }
 }
