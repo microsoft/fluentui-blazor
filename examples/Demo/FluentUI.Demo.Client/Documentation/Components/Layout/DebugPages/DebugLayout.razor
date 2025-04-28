@@ -1,0 +1,114 @@
+﻿@page "/Layout/Debug"
+@using Microsoft.AspNetCore.Components.Rendering
+
+<div style="margin: 24px;">
+
+    @_renderOptions
+
+    <div style="border: 1px solid red; overflow: hidden; resize: both; height: 500px; display: flex;flex-direction: column;">
+
+        @if (Header.Visible && Header.Sticky)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Header" Style="display: flex; flex-direction: row;">
+                <FluentLayoutHamburger />
+                Header Area
+            </FluentLayoutItem>
+        }
+
+        <FluentLayout GlobalScrollbar="@GlobalScrollbar">
+
+            @if (Header.Visible && !Header.Sticky)
+            {
+                <FluentLayoutItem Area="@LayoutArea.Header" Style="display: flex; flex-direction: row;">
+                    <FluentLayoutHamburger />
+                    Header Area
+                </FluentLayoutItem>
+            }
+
+            @if (Menu.Visible)
+            {
+                <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky" Width="150px" Style="background-color: lightgoldenrodyellow;">
+                    <strong>Menu Area</strong>
+                    @SampleData.Text.Titles.Take(10).ToMarkupList("li")
+                </FluentLayoutItem>
+            }
+
+            @if (Content.Visible)
+            {
+                <FluentLayoutItem Area="@LayoutArea.Content" Sticky="@Content.Sticky" Style="background-color: aliceblue;">
+                    <strong>Content Area</strong>
+                    @SampleData.Text.LoremIpsum.Take(10).ToMarkupList("p")
+                </FluentLayoutItem>
+            }
+
+            @if (Aside.Visible)
+            {
+                <FluentLayoutItem Area="@LayoutArea.Aside" Sticky="@Aside.Sticky" Width="100px" Style="background-color: lightblue;">
+                    <strong>Aside Area</strong>
+                    @SampleData.Text.Titles.OrderDescending().Take(8).ToMarkupList("p")
+                </FluentLayoutItem>
+            }
+
+            @if (Footer.Visible && !Footer.Sticky)
+            {
+                <FluentLayoutItem Area="@LayoutArea.Footer" Sticky="@Footer.Sticky">
+                    Footer Area
+                </FluentLayoutItem>
+            }
+        </FluentLayout>
+
+        @if (Footer.Visible && Footer.Sticky)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Footer" Sticky="@Footer.Sticky">
+                Footer Area
+            </FluentLayoutItem>
+        }
+    </div>
+</div>
+
+@code
+{
+    protected void RenderOptions(RenderTreeBuilder __builder)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Area</th>
+                    <th>Visible</th>
+                    <th>Sticky</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Global Scrollbar</td>
+                    <td><InputCheckbox @bind-Value="@(GlobalScrollbar)" /></td>
+                </tr>
+                <tr>
+                    <td>Header</td>
+                    <td><InputCheckbox @bind-Value="@(Header.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Header.Sticky)" /></td>
+                </tr>
+                <tr>
+                    <td>Menu</td>
+                    <td><InputCheckbox @bind-Value="@(Menu.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Menu.Sticky)" /></td>
+                </tr>
+                <tr>
+                    <td>Content</td>
+                    <td><InputCheckbox @bind-Value="@(Content.Visible)" /></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Aside</td>
+                    <td><InputCheckbox @bind-Value="@(Aside.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Aside.Sticky)" /></td>
+                </tr>
+                <tr>
+                    <td>Footer</td>
+                    <td><InputCheckbox @bind-Value="@(Footer.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Footer.Sticky)" /></td>
+                </tr>
+            </tbody>
+        </table>
+    }
+}
