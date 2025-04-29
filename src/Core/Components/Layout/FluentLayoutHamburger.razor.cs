@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -39,13 +38,6 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     private FluentLayout? LayoutContainer { get; set; }
 
     /// <summary>
-    /// Gets or sets the layout to which this hamburger belongs.
-    /// If not set, the parent layout is used.
-    /// </summary>
-    [Parameter]
-    public FluentLayout? Layout { get; set; }
-
-    /// <summary>
     /// Gets or sets the title to display when the user hovers over the hamburger icon.
     /// </summary>
     [Parameter]
@@ -65,12 +57,14 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     public EventCallback<LayoutHamburgerEventArgs> OnOpened { get; set; }
 
     /// <summary />
+    private RenderFragment? MenuContent => LayoutContainer?.Items.FirstOrDefault(i => i.Area == LayoutArea.Menu)?.ChildContent;
+
+    /// <summary />
     protected override void OnInitialized()
     {
         Title = Localizer[Localization.LanguageResource.FluentLayoutHamburger_Title];
 
-        var layout = Layout ?? LayoutContainer;
-        layout?.AddItem(this);
+        LayoutContainer?.AddItem(this);
     }
 
     /// <summary />
@@ -97,21 +91,10 @@ public partial class FluentLayoutHamburger : FluentComponentBase
         await Task.CompletedTask;
     }
 
-    /// <summary />
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "This method is required to have a clickable button")]
-    private Task HamburgerClickAsync(MouseEventArgs e)
-    {
-        // This method is required to have a clickable button
-        // But the click event is handled by the JavaScript function in `Microsoft.FluentUI.Blazor.Components.Layout`.
-        return Task.CompletedTask;
-    }
-
     /// <inheritdoc />
     public override ValueTask DisposeAsync()
     {
-        var layout = Layout ?? LayoutContainer;
-        layout?.RemoveItem(this);
-
+        LayoutContainer?.RemoveItem(this);
         return base.DisposeAsync();
     }
 }

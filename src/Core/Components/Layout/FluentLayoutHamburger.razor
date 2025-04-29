@@ -2,5 +2,25 @@
 @inherits FluentComponentBase
 
 <div class="@ClassValue" style="@StyleValue" id="@Id" @attributes="@AdditionalAttributes">
-    <FluentIcon Value="@Icon" Title="@Title" Focusable="true" OnClick="@HamburgerClickAsync" />
+    <FluentButton Appearance="@ButtonAppearance.Transparent"
+                  Color="var(--colorNeutralForegroundOnBrand)"
+                  IconStart="@Icon"
+                  Title="@Title"
+                  IconOnly="true" />
 </div>
+
+<fluent-drawer id="@($"{Id}-drawer")" position="start" size="medium" type="modal">
+    <fluent-drawer-body>
+        <span slot="title">Drawer Header</span>
+        <FluentButton Appearance="@ButtonAppearance.Transparent"
+                      IconStart="@(new CoreIcons.Regular.Size20.Dismiss())"
+                      IconOnly="true"
+                      slot="close"
+                      Title="Close" />
+
+        <div>
+            @MenuContent
+        </div>
+
+    </fluent-drawer-body>
+</fluent-drawer>

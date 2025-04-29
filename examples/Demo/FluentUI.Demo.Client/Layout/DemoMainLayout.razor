@@ -2,7 +2,7 @@
 
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
 
-<FluentLayout @ref="@_layout" @key="@GetLayoutKey()" Style="@LayoutStyleHeight">
+<FluentLayout @key="@GetLayoutKey()" Style="@LayoutStyleHeight">
 
     @* ------------------- *@
     @*       Header        *@
@@ -10,7 +10,7 @@
     <FluentLayoutItem Area="@LayoutArea.Header" Height="44px">
         <FluentStack VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="4px" Height="100%">
             @* Hamburger on Mobile *@
-            <FluentLayoutHamburger Layout="@_layout" @bind-Opened="@_menuOpened" Style="margin: 2px 12px;" />
+            <FluentLayoutHamburger Style="margin: 2px 12px;" />
 
             @* Microsoft Logo *@
             <MicrosoftLogo />
