@@ -38,17 +38,22 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     private FluentLayout? LayoutContainer { get; set; }
 
     /// <summary>
-    /// Gets or sets the title to display when the user hovers over the hamburger icon.
-    /// </summary>
-    [Parameter]
-    public string? Title { get; set; }
-
-    /// <summary>
     /// Gets or sets the icon to display.
     /// By default, this icon is a hamburger icon.
     /// </summary>
     [Parameter]
     public Icon Icon { get; set; } = new CoreIcons.Regular.Size20.LineHorizontal3();
+
+    /// <summary>
+    /// Gets or sets the title to display when the user hovers over the hamburger icon.
+    /// </summary>
+    [Parameter]
+    public string? IconTitle { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public string? Header { get; set; }
 
     /// <summary>
     /// 
@@ -62,7 +67,7 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     /// <summary />
     protected override void OnInitialized()
     {
-        Title = Localizer[Localization.LanguageResource.FluentLayoutHamburger_Title];
+        IconTitle = Localizer[Localization.LanguageResource.FluentLayoutHamburger_Title];
 
         LayoutContainer?.AddItem(this);
     }
@@ -81,14 +86,10 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     [JSInvokable]
     public async Task FluentLayout_HamburgerClickAsync(bool isExpanded)
     {
-        Console.WriteLine(isExpanded);
-
         if (OnOpened.HasDelegate)
         {
             await OnOpened.InvokeAsync(new LayoutHamburgerEventArgs(Id ?? "", isExpanded));
         }
-
-        await Task.CompletedTask;
     }
 
     /// <inheritdoc />

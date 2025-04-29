@@ -5,14 +5,18 @@
     <FluentButton Appearance="@ButtonAppearance.Transparent"
                   Color="var(--colorNeutralForegroundOnBrand)"
                   IconStart="@Icon"
-                  Title="@Title"
+                  Title="@IconTitle"
                   IconOnly="true" />
 </div>
 
 <fluent-drawer id="@($"{Id}-drawer")" position="start" size="medium" type="modal">
     <fluent-drawer-body>
-        <span slot="title">Drawer Header</span>
-        <FluentButton Appearance="@ButtonAppearance.Transparent"
+        @if (string.IsNullOrEmpty(Header))
+        {
+            <span slot="title">@Header</span>
+        }
+        <FluentButton Id="@($"{Id}-drawer-close-button")"
+                      Appearance="@ButtonAppearance.Transparent"
                       IconStart="@(new CoreIcons.Regular.Size20.Dismiss())"
                       IconOnly="true"
                       slot="close"

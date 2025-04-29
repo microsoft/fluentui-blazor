@@ -54,6 +54,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
    */
   export function HamburgerInitialize(dotNetHelper: DotNet.DotNetObject, id: string) {
     const element = document.getElementById(id);
+    const dialog = document.getElementById(id + '-drawer') as any;
+    const closeButton = document.getElementById(id + '-drawer-close-button');
 
     if (element) {
 
@@ -62,7 +64,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
         const newValue = !isExpanded;
 
         // Show or hide the fluent-drawer
-        const dialog = document.getElementById(id + '-drawer') as any;
         if (dialog) {
 
           // Add a Toggle event
@@ -101,6 +102,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
         }
       });
 
+      // Hide the drawer when the close button is clicked
+      if (closeButton) {
+        closeButton.addEventListener('click', (event: MouseEvent) => {
+          dialog.hide();
+        });
+      }
     }
   }
 
