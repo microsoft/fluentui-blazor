@@ -2,10 +2,18 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components;
+
 namespace FluentUI.Demo.Client.Layout;
 
 public partial class DemoNavMenu
 {
+    [Inject]
+    public required NavigationManager NavigationManager { get; set; }
+
+    [Parameter]
+    public FluentLayoutHamburger? Hamburger { get; set; }
 
     protected override void OnInitialized()
     {
@@ -33,4 +41,14 @@ public partial class DemoNavMenu
     public IEnumerable<NavItem> NavItems { get; private set; } = Enumerable.Empty<NavItem>();
 
     public record NavItem(string Title, string Route, string Icon, string Order, IEnumerable<NavItem> Items);
+
+    private async Task ItemClickAsync(NavItem item)
+    {
+        NavigationManager.NavigateTo(item.Route);
+
+        if (Hamburger is not null)
+        {
+            await Hamburger.HideAsync();
+        }
+    }
 }

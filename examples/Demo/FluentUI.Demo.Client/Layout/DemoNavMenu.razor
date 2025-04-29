@@ -13,7 +13,7 @@
                     @foreach (var page in category.Items)
                     {
                         <li>
-                            <a href="#" onclick="GoTo('@(page.Route)')">@(page.Title)</a>
+                            <a href="#" @onclick="@(e => ItemClickAsync(page))">@(page.Title)</a>
                         </li>
                     }
                 </ul>
@@ -21,10 +21,3 @@
         }
     </ul>
 </div>
-
-<script>
-    function GoTo(url)
-    {
-        window.location.href = url;
-    }
-</script>

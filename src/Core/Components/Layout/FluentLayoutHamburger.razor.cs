@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -90,6 +91,24 @@ public partial class FluentLayoutHamburger : FluentComponentBase
         {
             await OnOpened.InvokeAsync(new LayoutHamburgerEventArgs(Id ?? "", isExpanded));
         }
+    }
+
+    /// <summary>
+    /// Displays the dialog.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public async Task ShowAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Show", $"{Id}-drawer");
+    }
+
+    /// <summary>
+    /// Hide the dialog.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public async Task HideAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Hide", $"{Id}-drawer");
     }
 
     /// <inheritdoc />

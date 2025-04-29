@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -10,6 +11,7 @@ namespace FluentUI.Demo.Client.Layout;
 
 public partial class DemoMainLayout
 {
+    private FluentLayoutHamburger _hamburger = default!;
     private bool _consoleLogOpened;
     private bool _useReboot;
     private bool _darkTheme;
