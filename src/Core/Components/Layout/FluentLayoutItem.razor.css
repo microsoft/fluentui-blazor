@@ -20,7 +20,6 @@
   }
 
   .fluent-layout-item[area="footer"] {
-    display: flex;
     background-color: var(--colorNeutralBackgroundDisabled);
     bottom: 0;
     color: var(--colorNeutralForeground1);
@@ -73,19 +72,3 @@
 .fluent-layout[mobile] .fluent-layout-item[area="footer"] {
   line-height: var(--lineHeightBase100);
 }
-
-/* Menu Opened */
-.fluent-layout[mobile] .fluent-layout[menu-opened] {
-  overflow-x: hidden;
-}
-
-  .fluent-layout[mobile] .fluent-layout[menu-opened] .fluent-layout-item[area="menu"] {
-    display: block;
-    width: 100% !important;
-    grid-area: content / content / aside / aside !important;
-    z-index: var(--zindex-layout-menu);
-  }
-
-  .fluent-layout[mobile] .fluent-layout[menu-opened] .fluent-layout-item[area="content"] {
-    display: none;
-  }

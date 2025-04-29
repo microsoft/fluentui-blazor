@@ -5,7 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
-//using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -62,19 +62,7 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     /// 
     /// </summary>
     [Parameter]
-    public bool Opened { get; set; } = false;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> OpenedChanged { get; set; }
-
-    /// <summary>
-    /// Allows for capturing a mouse click on an icon.
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> OnClick { get; set; }
+    public EventCallback<LayoutHamburgerEventArgs> OnOpened { get; set; }
 
     /// <summary />
     protected override void OnInitialized()
@@ -100,33 +88,23 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     public async Task FluentLayout_HamburgerClickAsync(bool isExpanded)
     {
         Console.WriteLine(isExpanded);
+
+        if (OnOpened.HasDelegate)
+        {
+            await OnOpened.InvokeAsync(new LayoutHamburgerEventArgs(Id ?? "", isExpanded));
+        }
+
         await Task.CompletedTask;
     }
 
-    /*
     /// <summary />
-    private async Task HamburgerClickAsync(MouseEventArgs e)
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "This method is required to have a clickable button")]
+    private Task HamburgerClickAsync(MouseEventArgs e)
     {
-        var layout = Layout ?? LayoutContainer;
-
-        Opened = !Opened;
-
-        if (OpenedChanged.HasDelegate)
-        {
-            await OpenedChanged.InvokeAsync(Opened);
-        }
-
-        if (OnClick.HasDelegate)
-        {
-            await OnClick.InvokeAsync(Opened);
-        }
-
-        if (layout != null)
-        {
-            await layout.RefreshAsync();
-        }
+        // This method is required to have a clickable button
+        // But the click event is handled by the JavaScript function in `Microsoft.FluentUI.Blazor.Components.Layout`.
+        return Task.CompletedTask;
     }
-    */
 
     /// <inheritdoc />
     public override ValueTask DisposeAsync()

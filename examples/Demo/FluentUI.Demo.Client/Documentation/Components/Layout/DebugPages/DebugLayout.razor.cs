@@ -17,6 +17,7 @@ public partial class DebugLayout
     private readonly Option Footer = new() { Visible = true, Sticky = false };
 
     public bool MobileView { get; set; }
+    public bool Opened { get; set; }
 
     private class Option
     {

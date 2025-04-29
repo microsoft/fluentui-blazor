@@ -57,7 +57,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
     if (element) {
 
-      element.onclick = () => {
+      element.addEventListener('click', (event: MouseEvent) => {
         const isExpanded = element.getAttribute('aria-expanded') === 'true';
         const newValue = !isExpanded;
 
@@ -91,7 +91,15 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
             dialog.hide();
           }
         }
-      }
+      });
+
+      // Add a keydown event to handle Enter and Space keys
+      element.addEventListener('keydown', (event: KeyboardEvent) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault(); // Prevent the default action for space key
+          element.click();
+        }
+      });
 
     }
   }

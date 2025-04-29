@@ -154,7 +154,7 @@
         // Arrange
         var cut = Render(@<FluentLayout>
         <FluentLayoutItem Area="LayoutArea.Header">
-            <FluentLayoutHamburger @bind-Opened="@isOpened" OnClick="@(e => isClicked = true )" />
+            <FluentLayoutHamburger @bind-Opened="@isOpened" />
             Header
         </FluentLayoutItem>
         <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>

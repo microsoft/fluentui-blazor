@@ -2,5 +2,5 @@
 @inherits FluentComponentBase
 
 <div class="@ClassValue" style="@StyleValue" id="@Id" @attributes="@AdditionalAttributes">
-    <FluentIcon Value="@Icon" Title="@Title" Focusable="true" ondblclick="@($"Microsoft.FluentUI.Blazor.Components.Dialog.Show('{Id}-drawer')")" />
+    <FluentIcon Value="@Icon" Title="@Title" Focusable="true" OnClick="@HamburgerClickAsync" />
 </div>

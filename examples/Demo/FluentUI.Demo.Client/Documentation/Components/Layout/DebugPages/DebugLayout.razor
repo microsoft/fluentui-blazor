@@ -7,9 +7,11 @@
 
     @_renderOptions
 
-    <div>
+    <FluentStack>
         Mobile view: @MobileView
-    </div>
+        <FluentSpacer />
+        Opened: @Opened
+    </FluentStack>
 
     <div style="resize: horizontal; overflow: hidden;">
         <FluentLayout GlobalScrollbar="@GlobalScrollbar" Height="400px" Style="@CommonStyles.NeutralBorder1" OnBreakpointEnter="@(e => MobileView = e)">
@@ -18,7 +20,7 @@
             {
                 <!-- Header -->
                 <FluentLayoutItem Area="@LayoutArea.Header" Sticky="@Header.Sticky">
-                    <FluentLayoutHamburger />
+                    <FluentLayoutHamburger OnOpened="@(e => Opened = e.Opened)" />
                     <FluentText Weight="TextWeight.Bold" Size="TextSize.Size400">
                         Microsoft Demo
                     </FluentText>
