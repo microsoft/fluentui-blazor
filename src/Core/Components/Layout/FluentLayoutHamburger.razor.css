@@ -11,3 +11,7 @@
       background-color: var(--colorBrandBackgroundPressed);
     }
 
+
+fluent-drawer[hamburger]::part(dialog) {
+  max-width: 100svw;
+}
