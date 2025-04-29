@@ -3,7 +3,9 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
+//using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -12,6 +14,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentLayoutHamburger : FluentComponentBase
 {
+    /// <summary />
+    public FluentLayoutHamburger()
+    {
+        Id = Identifier.NewId();
+    }
+
     /// <summary>
     /// <inheritdoc cref="FluentComponentBase.Class"/>
     /// </summary>
@@ -78,6 +86,25 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     }
 
     /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var dotNetHelper = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Layout.HamburgerInitialize", dotNetHelper, Id);
+        }
+    }
+
+    /// <summary />
+    [JSInvokable]
+    public async Task FluentLayout_HamburgerClickAsync(bool isExpanded)
+    {
+        Console.WriteLine(isExpanded);
+        await Task.CompletedTask;
+    }
+
+    /*
+    /// <summary />
     private async Task HamburgerClickAsync(MouseEventArgs e)
     {
         var layout = Layout ?? LayoutContainer;
@@ -99,6 +126,7 @@ public partial class FluentLayoutHamburger : FluentComponentBase
             await layout.RefreshAsync();
         }
     }
+    */
 
     /// <inheritdoc />
     public override ValueTask DisposeAsync()

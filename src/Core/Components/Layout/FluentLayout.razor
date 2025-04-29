@@ -11,5 +11,23 @@
              menu-opened="@(Hamburger?.Opened ?? false)">
             @ChildContent
         </div>
+
+        @if (Hamburger is not null)
+        {
+            <fluent-drawer id="@($"{Hamburger.Id}-drawer")" position="start" size="medium" type="modal">
+                <fluent-drawer-body>
+                    <span slot="title">Drawer Header</span>
+                    <fluent-text>
+                        The drawer gives users a quick entry point to configuration and
+                        information. It should be used when retaining context is beneficial to
+                        users. An overlay is optional depending on whether or not interacting
+                        with the background content is beneficial to the user's
+                        context/scenario. An overlay makes the drawer blocking and signifies
+                        that the users full attention is required when making configurations.
+                    </fluent-text>
+                </fluent-drawer-body>
+            </fluent-drawer>
+        }
     </div>
 </CascadingValue>
+

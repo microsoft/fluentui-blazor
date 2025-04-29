@@ -4,8 +4,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
   /**
    * Add an attribute to the layout element if the width is less than the maximum mobile width
-   * @param id
-   * @param maxMobileWidth
+   * @param dotNetHelper DotNet helper to call back to the Blazor component
+   * @param id Identifier of the layout element
+   * @param maxMobileWidth Maximum width for mobile layout (pixels)
   */
   export function Initialize(dotNetHelper: DotNet.DotNetObject, id: string, maxMobileWidth: number) {
 
@@ -23,17 +24,76 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
             : false;
         });
 
-        if (!hasMobileAttribute && isMobileSize) {          
+        if (!hasMobileAttribute && isMobileSize) {
           layoutElement.setAttribute('mobile', '');
-          dotNetHelper.invokeMethodAsync('FluentLayout_MediaChangedAsync', "mobile");
+          try {
+            dotNetHelper.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'mobile');
+          }
+          catch (error) {
+          }
         }
+
         else if (hasMobileAttribute && !isMobileSize) {
           layoutElement.removeAttribute('mobile');
-          dotNetHelper.invokeMethodAsync('FluentLayout_MediaChangedAsync', "desktop");
+          try {
+            dotNetHelper.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'desktop');
+          }
+          catch (error) {
+          }
         }
       });
 
       resizeObserver.observe(layoutElement);
     }
   }
+
+  /**
+   * Initialize the hamburger menu, to show or hide the fluent-drawer
+   * @param dotNetHelper DotNet helper to call back to the Blazor component
+   * @param id Identifier of the hamburger menu
+   */
+  export function HamburgerInitialize(dotNetHelper: DotNet.DotNetObject, id: string) {
+    const element = document.getElementById(id);
+
+    if (element) {
+
+      element.onclick = () => {
+        const isExpanded = element.getAttribute('aria-expanded') === 'true';
+        const newValue = !isExpanded;
+
+        // Show or hide the fluent-drawer
+        const dialog = document.getElementById(id + '-drawer') as any;
+        if (dialog) {
+
+          // Add a Toggle event
+          if (!dialog.toggleRegistered) {
+            dialog.toggleRegistered = true;
+            dialog.addEventListener('toggle', (e: any) => {
+              // Toggle the aria-expanded attribute
+
+              const newState = (e.detail?.newState ?? e.newState) === `open`;
+
+              element.setAttribute('aria-expanded', newState ? 'true' : 'false');
+              try {
+                dotNetHelper.invokeMethodAsync('FluentLayout_HamburgerClickAsync', newState);
+              }
+              catch (error) {
+              }
+
+            });
+          }
+
+          // Show or hide
+          if (newValue) {
+            dialog.show();
+          }
+          else {
+            dialog.hide();
+          }
+        }
+      }
+
+    }
+  }
+
 }

@@ -200,6 +200,10 @@ public partial class FluentLayout : FluentComponentBase
                 .fluent-layout .fluent-layout-item[area=""aside""] {{
                   display: none;
                 }}
+
+                .fluent-layout .fluent-layout-item[area=""header""] .fluent-layout-hamburger {{
+                    display: flex;
+                }}
             }}
         ";
     }
