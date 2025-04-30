@@ -163,18 +163,6 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
         }
     }
 
-    protected override string? GetOptionValue(TOption? item)
-    {
-        if (item != null)
-        {
-            return OptionText.Invoke(item) ?? OptionValue.Invoke(item) ?? item.ToString();
-        }
-        else
-        {
-            return null;
-        }
-    }
-
     public new async ValueTask DisposeAsync()
     {
         try
