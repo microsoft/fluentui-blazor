@@ -52,24 +52,52 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     public string? IconTitle { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the header to display when the hamburger menu is open.
     /// </summary>
-    public string? Header { get; set; }
+    [Parameter]
+    public string? PanelHeader { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the header template to display when the hamburger menu is open.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? PanelHeaderTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the panel position to display when the hamburger menu is open.
+    /// Only <see cref="DialogAlignment.Start"/> and <see cref="DialogAlignment.End"/> are supported."/>.
+    /// The default value is <see cref="DialogAlignment.Start"/>.
+    /// </summary>
+    [Parameter]
+    public DialogAlignment PanelPosition { get; set; } = DialogAlignment.Start;
+
+    /// <summary>
+    /// Gets or sets the size of the panel to display when the hamburger menu is open.
+    /// Default value is <see cref="DialogSize.Medium"/>.
+    /// </summary>
+    [Parameter]
+    public DialogSize PanelSize { get; set; } = DialogSize.Medium;
+
+    /// <summary>
+    /// Gets or sets the content to display when the hamburger menu is open.
+    /// if not set, the content of the menu area is used.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Event that is triggered when the hamburger menu is opened or closed.
     /// </summary>
     [Parameter]
     public EventCallback<LayoutHamburgerEventArgs> OnOpened { get; set; }
 
     /// <summary />
-    private RenderFragment? MenuContent => LayoutContainer?.Items.FirstOrDefault(i => i.Area == LayoutArea.Menu)?.ChildContent;
+    private RenderFragment? MenuContent => ChildContent ?? LayoutContainer?.Items.Find(i => i.Area == LayoutArea.Menu)?.ChildContent;
 
     /// <summary />
     protected override void OnInitialized()
     {
-        IconTitle = Localizer[Localization.LanguageResource.FluentLayoutHamburger_Title];
-
+        IconTitle = Localizer[Localization.LanguageResource.LayoutHamburger_Title];
         LayoutContainer?.AddItem(this);
     }
 
@@ -103,12 +131,37 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     }
 
     /// <summary>
+    /// Asynchronously refreshes the current state of the component.
+    /// </summary>
+    public Task RefreshAsync()
+    {
+        return InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
     /// Hide the dialog.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public async Task HideAsync()
     {
         await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Hide", $"{Id}-drawer");
+    }
+
+    /// <summary />
+    private bool RenderDrawer()
+    {
+        if (LayoutContainer == null)
+        {
+            return true;
+        }
+
+        // If the Desktop view is active
+        if (LayoutContainer.MenuDeferredLoading && !LayoutContainer.IsMobile)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     /// <inheritdoc />

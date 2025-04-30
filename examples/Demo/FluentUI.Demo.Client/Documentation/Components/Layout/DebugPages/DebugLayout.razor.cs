@@ -9,6 +9,7 @@ namespace FluentUI.Demo.Client.Documentation.Components.Layout.DebugPages;
 public partial class DebugLayout
 {
     private bool GlobalScrollbar = true;
+    private bool MenuDeferredLoading;
     private readonly RenderFragment _renderOptions;
     private readonly Option Header = new() { Visible = true, Sticky = false };
     private readonly Option Menu = new() { Visible = true, Sticky = false };

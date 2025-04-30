@@ -7,14 +7,14 @@
 
     @_renderOptions
 
-    <FluentStack>
-        Mobile view: @MobileView
+    <FluentStack Margin="@Margin.Vertical2">
+        View: @(MobileView ? "📱 Mobile" : "💻 Desktop")
         <FluentSpacer />
         Opened: @Opened
     </FluentStack>
 
     <div style="resize: horizontal; overflow: hidden;">
-        <FluentLayout GlobalScrollbar="@GlobalScrollbar" Height="400px" Style="@CommonStyles.NeutralBorder1" OnBreakpointEnter="@(e => MobileView = e)">
+        <FluentLayout GlobalScrollbar="@GlobalScrollbar" Height="400px" Style="@CommonStyles.NeutralBorder1" OnBreakpointEnter="@(e => MobileView = e)" MenuDeferredLoading="@MenuDeferredLoading">
 
             @if (Header.Visible)
             {
@@ -90,6 +90,10 @@
                 <tr>
                     <td>Global Scrollbar</td>
                     <td><InputCheckbox @bind-Value="@(GlobalScrollbar)" /></td>
+                </tr>
+                <tr>
+                    <td>Menu Deferred Loading</td>
+                    <td><InputCheckbox @bind-Value="@(MenuDeferredLoading)" /></td>
                 </tr>
                 <tr>
                     <td>Header</td>

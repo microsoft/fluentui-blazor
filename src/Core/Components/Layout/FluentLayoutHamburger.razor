@@ -1,4 +1,5 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
 <div class="@ClassValue" style="@StyleValue" id="@Id" @attributes="@AdditionalAttributes">
@@ -9,22 +10,30 @@
                   IconOnly="true" />
 </div>
 
-<fluent-drawer hamburger id="@($"{Id}-drawer")" position="start" size="medium" type="modal">
+<fluent-drawer hamburger
+               id="@($"{Id}-drawer")"
+               position="@PanelPosition.ToAttributeValue()"
+               size="@PanelSize.ToAttributeValue()"
+               type="modal">
     <fluent-drawer-body>
-        @if (string.IsNullOrEmpty(Header))
-        {
-            <span slot="title">@Header</span>
-        }
         <FluentButton Id="@($"{Id}-drawer-close-button")"
                       Appearance="@ButtonAppearance.Transparent"
                       IconStart="@(new CoreIcons.Regular.Size20.Dismiss())"
                       IconOnly="true"
                       slot="close"
-                      Title="Close" />
+                      Title="@Localizer[Localization.LanguageResource.LayoutHamburger_Close]" />
 
-        <div>
-            @MenuContent
-        </div>
+        @if (RenderDrawer())
+        {
+            <span slot="title">
+                @PanelHeader
+                @PanelHeaderTemplate
+            </span>
 
+            <div>
+                @MenuContent
+            </div>
+        }
     </fluent-drawer-body>
 </fluent-drawer>
+

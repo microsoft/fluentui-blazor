@@ -10,7 +10,7 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Component that defines a layout for a page, using a grid composed of a Header, a Footer and 3 columns: Menu, Value and Aside Pane.
+/// Component that defines a layout for a page, using a grid composed of a PanelHeader, a Footer and 3 columns: Menu, Value and Aside Pane.
 /// For mobile devices (&lt; 768px), the layout is a single column with the Menu, Value and Footer panes stacked vertically.
 /// </summary>
 public partial class FluentLayout : FluentComponentBase
@@ -18,6 +18,8 @@ public partial class FluentLayout : FluentComponentBase
     private const string DEFAULT_HEADER_HEIGHT = "44px";
     private const string DEFAULT_FOOTER_HEIGHT = "36px";
     private const string DEFAULT_CONTENT_HEIGHT = "calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height))";
+
+    internal bool IsMobile { get; private set; }
 
     /// <summary />
     public FluentLayout()
@@ -53,19 +55,19 @@ public partial class FluentLayout : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the vertical scrollbar position:
-    /// global to the entire Layout (true), or inside the content area (false).
+    /// global to the entire LayoutContainer (true), or inside the content area (false).
     /// </summary>
     [Parameter]
     public bool GlobalScrollbar { get; set; }
 
     /// <summary>
-    /// Gets ot sets the width of the Layout.
+    /// Gets ot sets the width of the LayoutContainer.
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets the height of the Layout.
+    /// Gets or sets the height of the LayoutContainer.
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
@@ -88,6 +90,14 @@ public partial class FluentLayout : FluentComponentBase
     [Parameter]
     public EventCallback<bool> OnBreakpointEnter { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the <see cref="LayoutArea.Menu"/> content is rendered only when this area is visible.
+    /// To reduce the HTML page size, the <see cref="FluentLayoutHamburger" /> is not rendered when the layout is in desktop mode.
+    /// To use this feature, make sure to enable the Blazor interactive mode.
+    /// </summary>
+    [Parameter]
+    public bool MenuDeferredLoading { get; set; } = false;
+
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -102,16 +112,26 @@ public partial class FluentLayout : FluentComponentBase
     [JSInvokable]
     public async Task FluentLayout_MediaChangedAsync(string size)
     {
+        var mobile = string.Equals(size, "mobile", StringComparison.Ordinal);
+        if (IsMobile == mobile)
+        {
+            return;
+        }
+
+        IsMobile = mobile;
+
+        // Raise the event
         if (OnBreakpointEnter.HasDelegate)
         {
-            await OnBreakpointEnter.InvokeAsync(string.Equals(size, "mobile", StringComparison.Ordinal));
+            await OnBreakpointEnter.InvokeAsync(IsMobile);
         }
-    }
 
-    internal Task RefreshAsync()
-    {
-        StateHasChanged();
-        return Task.CompletedTask;
+        // Update the layout (Menu and Hamburger)
+        if (MenuDeferredLoading)
+        {
+            Hamburger?.RefreshAsync();
+            Items.Find(i => i.Area == LayoutArea.Menu)?.RefreshAsync();
+        }
     }
 
     /// <summary />
