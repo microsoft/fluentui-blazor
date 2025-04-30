@@ -1,10 +1,10 @@
 .fluent-layout {
-  --layout-height: 100vh;
+  --layout-height: 100dvh;
   --zindex-layout-aside: 80;
   --zindex-layout-menu: 80;
   --zindex-layout-header: 85;
   --zindex-layout-footer: 85;
-  display: grid;  
+  display: grid;
   grid-template-areas:
     "header header header"
     "menu content aside"

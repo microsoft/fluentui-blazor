@@ -47,7 +47,7 @@ public partial class FluentLayout : FluentComponentBase
     protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
         .AddStyle("height", "var(--layout-height)")
-        .AddStyle("--layout-height", string.IsNullOrEmpty(Height) ? "100vh" : Height)
+        .AddStyle("--layout-height", string.IsNullOrEmpty(Height) ? "100dvh" : Height)
         .AddStyle("--layout-header-height", HeaderHeight)
         .AddStyle("--layout-footer-height", FooterHeight)
         .AddStyle("--layout-body-height", ContentHeight)
