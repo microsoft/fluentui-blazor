@@ -237,6 +237,6 @@ public partial class CssBuilderTests
         var minified = CssBuilder.MinifyCss(originalCss);
 
         // Assert
-        Assert.Equal("body{margin:0;padding:0;}h1{color:blue;}", minified);
+        Assert.Equal("body{margin:0;padding:0}h1{color:blue}", minified);
     }
 }

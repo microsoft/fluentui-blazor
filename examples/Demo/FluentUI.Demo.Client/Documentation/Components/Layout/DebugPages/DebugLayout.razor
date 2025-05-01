@@ -34,6 +34,11 @@
                     <FluentButton Appearance="ButtonAppearance.Primary" Shape="ButtonShape.Rounded">
                         Sign in
                     </FluentButton>
+
+                    <!-- Second Hamburger menu -->
+                    <FluentLayoutHamburger OnOpened="@(e => Opened = e.Opened)"
+                                           ChildContent="@(string.IsNullOrWhiteSpace(HamburgerContent) ? null : builder => { builder.AddMarkupContent(0, HamburgerContent); })" />
+
                 </FluentLayoutItem>
             }
 

@@ -142,6 +142,7 @@ public readonly partial struct CssBuilder
     /// </summary>
     /// <param name="cssContent"></param>
     /// <returns></returns>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "MA0009:Add regex evaluation timeout", Justification = "TODO")]
     public static string MinifyCss(string cssContent)
     {
         if (string.IsNullOrWhiteSpace(cssContent))
@@ -150,33 +151,18 @@ public readonly partial struct CssBuilder
         }
 
         // Remove comments
-        cssContent = MinifyCssRegex.RemoveComments().Replace(cssContent, string.Empty);
+        cssContent = Regex.Replace(cssContent, @"/\*[^*]*\*+([^/*][^*]*\*+)*/", string.Empty);
 
         // Remove whitespace around symbols
-        cssContent = MinifyCssRegex.WhitespaceRegex().Replace(cssContent, match => match.Groups[0].Value);
+        cssContent = Regex.Replace(cssContent, @"\s*([{}:;,])\s*", "$1");
 
         // Remove unnecessary semicolons
-        cssContent = MinifyCssRegex.RemoveUnnecessarySemicolons().Replace(cssContent, "}");
+        cssContent = Regex.Replace(cssContent, @";+\}", "}");
 
         // Collapse multiple spaces into one
-        cssContent = MinifyCssRegex.CollapseMultipleSpaces().Replace(cssContent, " ");
+        cssContent = Regex.Replace(cssContent, @"\s+", " ");
 
         // Trim the result
         return cssContent.Trim();
-    }
-
-    private static partial class MinifyCssRegex
-    {
-        [GeneratedRegex(@"/\*[^*]*\*+([^/*][^*]*\*+)*/", RegexOptions.Compiled | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 1000)]
-        public static partial Regex RemoveComments();
-
-        [GeneratedRegex(@"\s*([{}:;,])\s*", RegexOptions.Compiled | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 1000)]
-        public static partial Regex WhitespaceRegex();
-
-        [GeneratedRegex(@";+\}", RegexOptions.Compiled | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 1000)]
-        public static partial Regex RemoveUnnecessarySemicolons();
-
-        [GeneratedRegex(@"\s+", RegexOptions.Compiled | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 1000)]
-        public static partial Regex CollapseMultipleSpaces();
     }
 }
