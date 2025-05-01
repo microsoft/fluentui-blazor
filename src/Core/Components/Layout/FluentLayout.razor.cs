@@ -19,7 +19,7 @@ public partial class FluentLayout : FluentComponentBase
     private const string DEFAULT_FOOTER_HEIGHT = "36px";
     private const string DEFAULT_CONTENT_HEIGHT = "calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height))";
 
-    internal bool IsMobile { get; private set; }
+    internal bool IsMobile { get; set; }
 
     /// <summary />
     public FluentLayout()

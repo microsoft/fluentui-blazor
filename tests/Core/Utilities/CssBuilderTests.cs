@@ -239,4 +239,17 @@ public partial class CssBuilderTests
         // Assert
         Assert.Equal("body{margin:0;padding:0}h1{color:blue}", minified);
     }
+
+    [Fact]
+    public void CssBuilder_MinifyCss_Empty()
+    {
+        // Arrange
+        var originalCss = "   ";
+
+        // Act
+        var minified = CssBuilder.MinifyCss(originalCss);
+
+        // Assert
+        Assert.Equal("", minified);
+    }
 }

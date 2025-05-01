@@ -179,4 +179,64 @@
         Assert.Contains("style=\"height: 36px;\" area=\"\"", cut.Markup);
         Assert.Contains("style=\"height: 42px;\" area=\"\"", cut.Markup);
     }
+
+    [Fact]
+    public void FluentLayout_AddInvalidArea()
+    {
+        // Arrange
+        var cut = Render(@<FluentLayout Id="my-id" />);
+
+        // Act
+        var instance = cut.FindComponent<FluentLayout>().Instance;
+        Assert.Throws<ArgumentException>(() =>
+        {
+            instance.AddItem(new FluentButton());
+        });
+    }
+
+    [Fact]
+    public void FluentLayout_RemoveInvalidArea()
+    {
+        // Arrange
+        var cut = Render(@<FluentLayout Id="my-id" />);
+
+        // Act
+        var instance = cut.FindComponent<FluentLayout>().Instance;
+        Assert.Throws<ArgumentException>(() =>
+        {
+            instance.RemoveItem(new FluentButton());
+        });
+    }
+
+    [Theory]
+    [InlineData(false, "mobile", true)]
+    [InlineData(true, "mobile", null)]
+    [InlineData(false, "desktop", null)]
+    [InlineData(true, "desktop", false)]
+    public async Task FluentLayout_MediaChangedAsync(bool initialMobileView, string size, bool? expectedMobileView)
+    {
+        bool? isMobileView = null;
+
+        // Arrange
+        var cut = Render(@<FluentLayout Id="my-id"
+                                        MenuDeferredLoading="true"
+                                        OnBreakpointEnter="@(e => isMobileView = e)">
+            <FluentLayoutItem Area="LayoutArea.Header">
+                <FluentLayoutHamburger />
+                Header
+            </FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Menu">
+                Menu content
+            </FluentLayoutItem>
+        </FluentLayout>
+    );
+
+        // Act
+        var instance = cut.FindComponent<FluentLayout>().Instance;
+        instance.IsMobile = initialMobileView;
+        await instance.FluentLayout_MediaChangedAsync(size);
+
+        // Assert
+        Assert.Equal(expectedMobileView, isMobileView);
+    }
 }
