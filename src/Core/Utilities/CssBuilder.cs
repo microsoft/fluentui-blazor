@@ -136,4 +136,47 @@ public readonly partial struct CssBuilder
     /// <returns>A compiled regex for validating CSS class names</returns>
     [GeneratedRegex(@"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled, matchTimeoutMilliseconds: 1000)]
     private static partial Regex GenerateValidClassNameRegex();
+
+    /// <summary>
+    /// Minifies the provided CSS content by removing comments, whitespace, and unnecessary semicolons.
+    /// </summary>
+    /// <param name="cssContent"></param>
+    /// <returns></returns>
+    public static string MinifyCss(string cssContent)
+    {
+        if (string.IsNullOrWhiteSpace(cssContent))
+        {
+            return string.Empty;
+        }
+
+        // Remove comments
+        cssContent = MinifyCssRegex.RemoveComments().Replace(cssContent, string.Empty);
+
+        // Remove whitespace around symbols
+        cssContent = MinifyCssRegex.WhitespaceRegex().Replace(cssContent, match => match.Groups[0].Value);
+
+        // Remove unnecessary semicolons
+        cssContent = MinifyCssRegex.RemoveUnnecessarySemicolons().Replace(cssContent, "}");
+
+        // Collapse multiple spaces into one
+        cssContent = MinifyCssRegex.CollapseMultipleSpaces().Replace(cssContent, " ");
+
+        // Trim the result
+        return cssContent.Trim();
+    }
+
+    private static partial class MinifyCssRegex
+    {
+        [GeneratedRegex(@"/\*[^*]*\*+([^/*][^*]*\*+)*/", RegexOptions.Compiled | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 1000)]
+        public static partial Regex RemoveComments();
+
+        [GeneratedRegex(@"\s*([{}:;,])\s*", RegexOptions.Compiled | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 1000)]
+        public static partial Regex WhitespaceRegex();
+
+        [GeneratedRegex(@";+\}", RegexOptions.Compiled | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 1000)]
+        public static partial Regex RemoveUnnecessarySemicolons();
+
+        [GeneratedRegex(@"\s+", RegexOptions.Compiled | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 1000)]
+        public static partial Regex CollapseMultipleSpaces();
+    }
 }

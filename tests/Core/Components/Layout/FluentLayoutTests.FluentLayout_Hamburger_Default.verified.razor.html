@@ -1,13 +1,51 @@
 
-<div class="fluent-layout" style="height: var(--layout-height); --layout-height: 100vh; --layout-header-height: 44px; --layout-footer-height: 36px; --layout-body-height: calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height));">
-  <div class="fluent-layout-item" style="grid-area: header; height: var(--layout-header-height);" area="header" inside-layout="">
-    <div class="fluent-layout-hamburger" display="mobile">
-      <svg style="width: 20px; cursor: pointer;" focusable="true" tabindex="0" role="button" viewBox="0 0 20 20" blazor:onkeydown="x" blazor:onclick="x">
-        <title>Menu</title>
-        <path d="M2 4.5c0-.28.22-.5.5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5Zm0 5c0-.28.22-.5.5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5Zm.5 4.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-15Z"></path>
-      </svg>
+<style>
+    #my-id-container {
+        container-type: inline-size;
+        container-name: layout-my-id;
+    }
+
+    @container layout-my-id (max-width: 768px) {
+        .fluent-layout {
+            grid-template-areas: "header" "content" "footer";
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr auto;
+            overflow-x: auto;
+        }
+
+            .fluent-layout .fluent-layout-item[area="menu"], .fluent-layout .fluent-layout-item[area="aside"] {
+                display: none;
+            }
+
+            .fluent-layout .fluent-layout-item[area="header"] .fluent-layout-hamburger {
+                display: flex;
+            }
+    }
+</style>
+<div id="xxx">
+    <div id="xxx" class="fluent-layout" style="height: var(--layout-height); --layout-height: 100dvh; --layout-header-height: 44px; --layout-footer-height: 36px; --layout-body-height: calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height));">
+        <div class="fluent-layout-item" style="grid-area: header; height: var(--layout-header-height);" area="header" inside-layout="">
+            <div class="fluent-layout-hamburger" id="xxx">
+                <fluent-button style="color: var(--colorNeutralForegroundOnBrand);" icon-only="" aria-label="Menu" title="Menu" appearance="transparent" blazor:onclick="x">
+                    <svg style="width: 20px;" focusable="false" viewBox="0 0 20 20" aria-hidden="true" blazor:onkeydown="x" blazor:onclick="x">
+                        <path d="M2 4.5c0-.28.22-.5.5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5Zm0 5c0-.28.22-.5.5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5Zm.5 4.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-15Z"></path>
+                    </svg>
+                </fluent-button>
+            </div>
+            <fluent-drawer hamburger="" id="xxx" position="start" size="medium" type="modal">
+                <fluent-drawer-body>
+                    <fluent-button id="xxx" icon-only="" aria-label="Close" title="Close" appearance="transparent" blazor:onclick="x" slot="close">
+                        <svg style="width: 20px;" focusable="false" viewBox="0 0 20 20" aria-hidden="true" blazor:onkeydown="x" blazor:onclick="x">
+                            <path d="m4.09 4.22.06-.07a.5.5 0 0 1 .63-.06l.07.06L10 9.29l5.15-5.14a.5.5 0 0 1 .63-.06l.07.06c.18.17.2.44.06.63l-.06.07L10.71 10l5.14 5.15c.18.17.2.44.06.63l-.06.07a.5.5 0 0 1-.63.06l-.07-.06L10 10.71l-5.15 5.14a.5.5 0 0 1-.63.06l-.07-.06a.5.5 0 0 1-.06-.63l.06-.07L9.29 10 4.15 4.85a.5.5 0 0 1-.06-.63l.06-.07-.06.07Z"></path>
+                        </svg>
+                    </fluent-button>
+                    <span slot="title">
+                    </span>
+                    <div></div>
+                </fluent-drawer-body>
+            </fluent-drawer>
+            Header
+        </div>
+        <div class="fluent-layout-item" style="grid-area: content; height: var(--layout-body-height);" area="content" inside-layout="">Content</div>
     </div>
-    Header
-  </div>
-  <div class="fluent-layout-item" style="grid-area: content; height: var(--layout-body-height);" area="content" inside-layout="">Content</div>
 </div>

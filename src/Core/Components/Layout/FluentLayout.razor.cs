@@ -199,7 +199,7 @@ public partial class FluentLayout : FluentComponentBase
     /// <summary />
     internal string GetContainerMobileStyles()
     {
-        return @$"
+        return CssBuilder.MinifyCss(@$"
             #{Id}-container {{
                 container-type: inline-size;
                 container-name: layout-{Id};
@@ -225,6 +225,6 @@ public partial class FluentLayout : FluentComponentBase
                     display: flex;
                 }}
             }}
-        ";
+        ");
     }
 }
