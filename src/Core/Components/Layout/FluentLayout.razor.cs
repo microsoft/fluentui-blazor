@@ -27,12 +27,12 @@ public partial class FluentLayout : FluentComponentBase
         Id = Identifier.NewId();
     }
 
-    internal FluentLayoutHamburger? Hamburger { get; private set; }
+    internal List<FluentLayoutHamburger> Hamburgers { get; } = [];
 
     /// <summary>
     /// Gets the list of items that are part of the layout.
     /// </summary>
-    internal List<FluentLayoutItem> Items { get; } = [];
+    internal List<FluentLayoutItem> Areas { get; } = [];
 
     /// <summary>
     /// <inheritdoc cref="FluentComponentBase.Class"/>
@@ -129,8 +129,15 @@ public partial class FluentLayout : FluentComponentBase
         // Update the layout (Menu and Hamburger)
         if (MenuDeferredLoading)
         {
-            Hamburger?.RefreshAsync();
-            Items.Find(i => i.Area == LayoutArea.Menu)?.RefreshAsync();
+            foreach (var item in Hamburgers)
+            {
+                await item.RefreshAsync();
+            }
+
+            foreach (var item in Areas.Where(i => i.Area == LayoutArea.Menu))
+            {
+                await item.RefreshAsync();
+            }
         }
     }
 
@@ -140,16 +147,11 @@ public partial class FluentLayout : FluentComponentBase
         switch (item)
         {
             case FluentLayoutItem layoutItem:
-                Items.Add(layoutItem);
+                Areas.Add(layoutItem);
                 break;
 
             case FluentLayoutHamburger layoutHamburger:
-                if (Hamburger != null)
-                {
-                    throw new InvalidOperationException("Only one Hamburger can be added to a FluentLayout.");
-                }
-
-                Hamburger = layoutHamburger;
+                Hamburgers.Add(layoutHamburger);
                 break;
 
             default:
@@ -163,11 +165,11 @@ public partial class FluentLayout : FluentComponentBase
         switch (item)
         {
             case FluentLayoutItem layoutItem:
-                Items.Remove(layoutItem);
+                Areas.Remove(layoutItem);
                 break;
 
-            case FluentLayoutHamburger:
-                Hamburger = null;
+            case FluentLayoutHamburger layoutHamburger:
+                Hamburgers.Remove(layoutHamburger);
                 break;
 
             default:
@@ -176,25 +178,25 @@ public partial class FluentLayout : FluentComponentBase
     }
 
     /// <summary />
-    internal bool HasHeader => Items.Exists(i => i.Area == LayoutArea.Header);
+    internal bool HasHeader => Areas.Exists(i => i.Area == LayoutArea.Header);
 
     /// <summary />
-    internal string HeaderHeight => Items.Find(i => i.Area == LayoutArea.Header)?.Height ?? DEFAULT_HEADER_HEIGHT;
+    internal string HeaderHeight => Areas.Find(i => i.Area == LayoutArea.Header)?.Height ?? DEFAULT_HEADER_HEIGHT;
 
     /// <summary />
-    internal bool HeaderSticky => Items.Find(i => i.Area == LayoutArea.Header)?.Sticky ?? false;
+    internal bool HeaderSticky => Areas.Find(i => i.Area == LayoutArea.Header)?.Sticky ?? false;
 
     /// <summary />
-    internal bool HasFooter => Items.Exists(i => i.Area == LayoutArea.Footer);
+    internal bool HasFooter => Areas.Exists(i => i.Area == LayoutArea.Footer);
 
     /// <summary />
-    internal string FooterHeight => Items.Find(i => i.Area == LayoutArea.Footer)?.Height ?? DEFAULT_FOOTER_HEIGHT;
+    internal string FooterHeight => Areas.Find(i => i.Area == LayoutArea.Footer)?.Height ?? DEFAULT_FOOTER_HEIGHT;
 
     /// <summary />
-    internal bool FooterSticky => Items.Find(i => i.Area == LayoutArea.Footer)?.Sticky ?? false;
+    internal bool FooterSticky => Areas.Find(i => i.Area == LayoutArea.Footer)?.Sticky ?? false;
 
     /// <summary />
-    internal string ContentHeight => Items.Find(i => i.Area == LayoutArea.Content)?.Height ?? DEFAULT_CONTENT_HEIGHT;
+    internal string ContentHeight => Areas.Find(i => i.Area == LayoutArea.Content)?.Height ?? DEFAULT_CONTENT_HEIGHT;
 
     /// <summary />
     internal string GetContainerMobileStyles()

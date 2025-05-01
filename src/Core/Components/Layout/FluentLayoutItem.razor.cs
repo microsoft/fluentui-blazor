@@ -117,8 +117,8 @@ public partial class FluentLayoutItem : FluentComponentBase
     {
         var startAreaName = Area.ToAttributeValue();
         var endAreaName = Area.ToAttributeValue();
-        var contentArea = LayoutContainer?.Items.FirstOrDefault(i => i.Area == LayoutArea.Content);
-        var asideArea = LayoutContainer?.Items.FirstOrDefault(i => i.Area == LayoutArea.Aside);
+        var contentArea = LayoutContainer?.Areas.FirstOrDefault(i => i.Area == LayoutArea.Content);
+        var asideArea = LayoutContainer?.Areas.FirstOrDefault(i => i.Area == LayoutArea.Aside);
 
         // Aside
         if (asideArea != null && Area == LayoutArea.Content)

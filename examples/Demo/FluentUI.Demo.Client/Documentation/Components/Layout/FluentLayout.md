@@ -53,15 +53,16 @@ The hamburger menu is available in all modes, but the event `OnBreakpointEnter` 
 ## Hamburger Menu
 
   **On mobile device only** (<768 px) the **Menu** pane will be collapsed into a hamburger menu.
-  The hamburger menu is displayed when the screen width is less than 768px.
+  The hamburger button is displayed when the screen width is less than 768px.
+
+  💡 You can "force" the visibility of the hamburger button using
+  the `FluentLayoutHamburger.Visible="true"` parameter.
 
   By default, on mobile, the menu is hidden and a hamburger button is displayed to make it appear or disappear.
   or make it disappear. Once displayed, this menu takes a large part of the screen width.
   This is configurable using the `FluentLayoutHamburger.PanelSize` parameter.
 
   To use this Hamburger icon, you need to add the `FluentLayoutHamburger` component to the **Header**.
-
-  > &#9432; You can set only one `FluentLayoutHamburger` component per `FluentLayout`.
 
   ```razor
   <FluentLayoutItem Area="@LayoutArea.Header">

@@ -30,7 +30,10 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     /// <summary>
     /// <inheritdoc cref="FluentComponentBase.Style"/>
     /// </summary>
-    protected string? StyleValue => DefaultStyleBuilder.Build();
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("display", "flex", when: Visible == true)
+        .AddStyle("display", "none", when: Visible == false)
+        .Build();
 
     /// <summary>
     /// Gets or sets the parent layout component.
@@ -91,8 +94,15 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     [Parameter]
     public EventCallback<LayoutHamburgerEventArgs> OnOpened { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the hamburger menu is visible or not.
+    /// Default is null to display the hamburger icon only when the layout is in mobile mode.
+    /// </summary>
+    [Parameter]
+    public bool? Visible { get; set; }
+
     /// <summary />
-    private RenderFragment? MenuContent => ChildContent ?? LayoutContainer?.Items.Find(i => i.Area == LayoutArea.Menu)?.ChildContent;
+    private RenderFragment? MenuContent => ChildContent ?? LayoutContainer?.Areas.Find(i => i.Area == LayoutArea.Menu)?.ChildContent;
 
     /// <summary />
     protected override void OnInitialized()
@@ -150,7 +160,7 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     /// <summary />
     private bool RenderDrawer()
     {
-        if (LayoutContainer == null)
+        if (LayoutContainer == null || Visible == true)
         {
             return true;
         }

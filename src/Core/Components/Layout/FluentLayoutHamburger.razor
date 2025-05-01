@@ -2,38 +2,40 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<div class="@ClassValue" style="@StyleValue" id="@Id" @attributes="@AdditionalAttributes">
-    <FluentButton Appearance="@ButtonAppearance.Transparent"
-                  Color="var(--colorNeutralForegroundOnBrand)"
-                  IconStart="@Icon"
-                  Title="@IconTitle"
-                  IconOnly="true" />
-</div>
+@if (Visible ?? true)
+{
+    <div class="@ClassValue" style="@StyleValue" id="@Id" @attributes="@AdditionalAttributes">
+        <FluentButton Appearance="@ButtonAppearance.Transparent"
+                      Color="var(--colorNeutralForegroundOnBrand)"
+                      IconStart="@Icon"
+                      Title="@IconTitle"
+                      IconOnly="true" />
+    </div>
 
-<fluent-drawer hamburger
-               id="@($"{Id}-drawer")"
-               position="@PanelPosition.ToAttributeValue()"
-               size="@PanelSize.ToAttributeValue()"
-               type="modal">
-    <fluent-drawer-body>
-        <FluentButton Id="@($"{Id}-drawer-close-button")"
-                      Appearance="@ButtonAppearance.Transparent"
-                      IconStart="@(new CoreIcons.Regular.Size20.Dismiss())"
-                      IconOnly="true"
-                      slot="close"
-                      Title="@Localizer[Localization.LanguageResource.LayoutHamburger_Close]" />
+    <fluent-drawer hamburger
+                   id="@($"{Id}-drawer")"
+                   position="@PanelPosition.ToAttributeValue()"
+                   size="@PanelSize.ToAttributeValue()"
+                   type="modal">
+        <fluent-drawer-body>
+            <FluentButton Id="@($"{Id}-drawer-close-button")"
+                          Appearance="@ButtonAppearance.Transparent"
+                          IconStart="@(new CoreIcons.Regular.Size20.Dismiss())"
+                          IconOnly="true"
+                          slot="close"
+                          Title="@Localizer[Localization.LanguageResource.LayoutHamburger_Close]" />
 
-        @if (RenderDrawer())
-        {
-            <span slot="title">
-                @PanelHeader
-                @PanelHeaderTemplate
-            </span>
+            @if (RenderDrawer())
+            {
+                <span slot="title">
+                    @PanelHeader
+                    @PanelHeaderTemplate
+                </span>
 
-            <div>
-                @MenuContent
-            </div>
-        }
-    </fluent-drawer-body>
-</fluent-drawer>
-
+                <div>
+                    @MenuContent
+                </div>
+            }
+        </fluent-drawer-body>
+    </fluent-drawer>
+}
