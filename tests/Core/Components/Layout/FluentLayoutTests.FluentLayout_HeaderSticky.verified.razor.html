@@ -1,30 +1,8 @@
 
-<style>
-    #my-id-container {
-        container-type: inline-size;
-        container-name: layout-my-id;
-    }
-
-    @container layout-my-id (max-width: 768px) {
-        .fluent-layout {
-            grid-template-areas: "header" "content" "footer";
-            grid-template-columns: 1fr;
-            grid-template-rows: auto 1fr auto;
-            overflow-x: auto;
-        }
-
-            .fluent-layout .fluent-layout-item[area="menu"], .fluent-layout .fluent-layout-item[area="aside"] {
-                display: none;
-            }
-
-            .fluent-layout .fluent-layout-item[area="header"] .fluent-layout-hamburger {
-                display: flex;
-            }
-    }
-</style>
+<style>#my-id-container{container-type:inline-size;container-name:layout-my-id}@container layout-my-id (max-width:768px){.fluent-layout{grid-template-areas:"header" "content" "footer";grid-template-columns:1fr;grid-template-rows:auto 1fr auto;overflow-x:auto}.fluent-layout .fluent-layout-item[area="menu"],.fluent-layout .fluent-layout-item[area="aside"]{display:none}.fluent-layout .fluent-layout-item[area="header"] .fluent-layout-hamburger{display:flex}}</style>
 <div id="xxx">
-    <div id="xxx" class="fluent-layout" style="height: var(--layout-height); --layout-height: 100dvh; --layout-header-height: 44px; --layout-footer-height: 36px; --layout-body-height: calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height));">
-        <div class="fluent-layout-item" style="grid-area: header; height: var(--layout-header-height);" area="header" sticky="" inside-layout="">Header</div>
-        <div class="fluent-layout-item" style="grid-area: content; height: var(--layout-body-height); top: 44px;" area="content" inside-layout="">Content</div>
-    </div>
+  <div id="xxx" class="fluent-layout" style="height: var(--layout-height); --layout-height: 100dvh; --layout-header-height: 44px; --layout-footer-height: 36px; --layout-body-height: calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height));">
+    <div class="fluent-layout-item" style="grid-area: header; height: var(--layout-header-height);" area="header" sticky="" inside-layout="">Header</div>
+    <div class="fluent-layout-item" style="grid-area: content; top: 44px;" area="content" inside-layout="">Content</div>
+  </div>
 </div>
