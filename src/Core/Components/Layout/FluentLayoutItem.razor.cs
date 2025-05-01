@@ -117,15 +117,15 @@ public partial class FluentLayoutItem : FluentComponentBase
     {
         var startAreaName = Area.ToAttributeValue();
         var endAreaName = Area.ToAttributeValue();
-        var contentArea = LayoutContainer?.Areas.FirstOrDefault(i => i.Area == LayoutArea.Content);
-        var asideArea = LayoutContainer?.Areas.FirstOrDefault(i => i.Area == LayoutArea.Aside);
+        var contentArea = LayoutContainer?.Areas.Find(i => i.Area == LayoutArea.Content);
+        var asideArea = LayoutContainer?.Areas.Find(i => i.Area == LayoutArea.Aside);
 
         // Aside
         if (asideArea != null && Area == LayoutArea.Content)
         {
             if (asideArea.Sticky)
             {
-                endAreaName = "aside";
+                endAreaName = null;
                 asideArea.AddExtraStyles("margin-right", LayoutContainer?.GlobalScrollbar == true ? "0" : SCROLLBAR_WIDTH);
             }
             else
@@ -133,8 +133,6 @@ public partial class FluentLayoutItem : FluentComponentBase
                 endAreaName = null;
                 asideArea.AddExtraStyles("margin-right", "0");
             }
-
-            contentArea?.AddExtraStyles("padding-right", string.IsNullOrEmpty(asideArea.Width) || !asideArea.Sticky ? "0" : asideArea.Width);
         }
 
         // Grid Area
