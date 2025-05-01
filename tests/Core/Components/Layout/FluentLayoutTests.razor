@@ -146,11 +146,12 @@
     public async Task FluentLayout_Hamburger_Opened()
     {
         bool isOpened = false;
+        string hamburgerId = "";
 
         // Arrange
         var cut = Render(@<FluentLayout Id="my-id">
     <FluentLayoutItem Area="LayoutArea.Header">
-        <FluentLayoutHamburger Id="my-hamburger" OnOpened="@(e => isOpened = e.Opened)" />
+        <FluentLayoutHamburger Id="my-hamburger" OnOpened="@(e => { isOpened = e.Opened; hamburgerId = e.Id; })" />
         Header
     </FluentLayoutItem>
     <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
@@ -164,6 +165,7 @@
 
         // Assert
         Assert.True(isOpened);
+        Assert.Equal("my-hamburger", hamburgerId);
     }
 
     [Fact]

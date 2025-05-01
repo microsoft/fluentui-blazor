@@ -156,11 +156,10 @@ public partial class FluentLayoutItem : FluentComponentBase
         styles.AddStyle("width", Width, when: !string.IsNullOrEmpty(Width));
 
         // Height
-        var height = Area switch
+        var height = Height ?? Area switch
         {
             LayoutArea.Header => "var(--layout-header-height)",
             LayoutArea.Footer => "var(--layout-footer-height)",
-            LayoutArea.Content => "var(--layout-body-height)",
             _ => Height
         };
 
