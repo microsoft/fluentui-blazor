@@ -163,6 +163,18 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
         }
     }
 
+    private string? GetComboboxContent()
+    {
+        if (SelectedOption != null)
+        {
+            return OptionText.Invoke(SelectedOption) ?? OptionValue.Invoke(SelectedOption) ?? SelectedOption.ToString();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public new async ValueTask DisposeAsync()
     {
         try
