@@ -136,4 +136,33 @@ public readonly partial struct CssBuilder
     /// <returns>A compiled regex for validating CSS class names</returns>
     [GeneratedRegex(@"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled, matchTimeoutMilliseconds: 1000)]
     private static partial Regex GenerateValidClassNameRegex();
+
+    /// <summary>
+    /// Minifies the provided CSS content by removing comments, whitespace, and unnecessary semicolons.
+    /// </summary>
+    /// <param name="cssContent"></param>
+    /// <returns></returns>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "MA0009:Add regex evaluation timeout", Justification = "TODO")]
+    public static string MinifyCss(string cssContent)
+    {
+        if (string.IsNullOrWhiteSpace(cssContent))
+        {
+            return string.Empty;
+        }
+
+        // Remove comments
+        cssContent = Regex.Replace(cssContent, @"/\*[^*]*\*+([^/*][^*]*\*+)*/", string.Empty);
+
+        // Remove whitespace around symbols
+        cssContent = Regex.Replace(cssContent, @"\s*([{}:;,])\s*", "$1");
+
+        // Remove unnecessary semicolons
+        cssContent = Regex.Replace(cssContent, @";+\}", "}");
+
+        // Collapse multiple spaces into one
+        cssContent = Regex.Replace(cssContent, @"\s+", " ");
+
+        // Trim the result
+        return cssContent.Trim();
+    }
 }

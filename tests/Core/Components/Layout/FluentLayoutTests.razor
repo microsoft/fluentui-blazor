@@ -16,14 +16,14 @@
     {
         // Arrange && Act
         var cut = Render(@<div>
-        <FluentLayout>
-            <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
-            <FluentLayoutItem Area="LayoutArea.Menu">Menu</FluentLayoutItem>
-            <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
-            <FluentLayoutItem Area="LayoutArea.Aside">Aside</FluentLayoutItem>
-            <FluentLayoutItem Area="LayoutArea.Footer">Footer</FluentLayoutItem>
-        </FluentLayout>
-    </div>);
+            <FluentLayout Id="my-id">
+                <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
+                <FluentLayoutItem Area="LayoutArea.Menu">Menu</FluentLayoutItem>
+                <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+                <FluentLayoutItem Area="LayoutArea.Aside">Aside</FluentLayoutItem>
+                <FluentLayoutItem Area="LayoutArea.Footer">Footer</FluentLayoutItem>
+            </FluentLayout>
+        </div>);
 
         // Assert
         cut.Verify();
@@ -34,14 +34,14 @@
     {
         // Arrange && Act
         var cut = Render(@<div>
-        <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
-        <FluentLayout>
-            <FluentLayoutItem Area="LayoutArea.Menu">Menu</FluentLayoutItem>
-            <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
-            <FluentLayoutItem Area="LayoutArea.Aside">Aside</FluentLayoutItem>
-        </FluentLayout>
-        <FluentLayoutItem Area="LayoutArea.Footer">Footer</FluentLayoutItem>
-    </div>);
+            <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
+            <FluentLayout Id="my-id">
+                <FluentLayoutItem Area="LayoutArea.Menu">Menu</FluentLayoutItem>
+                <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+                <FluentLayoutItem Area="LayoutArea.Aside">Aside</FluentLayoutItem>
+            </FluentLayout>
+            <FluentLayoutItem Area="LayoutArea.Footer">Footer</FluentLayoutItem>
+        </div>);
 
         // Assert
         cut.Verify();
@@ -51,7 +51,7 @@
     public void FluentLayout_Sticky()
     {
         // Arrange && Act
-        var cut = Render(@<FluentLayout><FluentLayoutItem Area="LayoutArea.Content" Sticky="true">Content</FluentLayoutItem></FluentLayout>);
+        var cut = Render(@<FluentLayout Id="my-id"><FluentLayoutItem Area="LayoutArea.Content" Sticky="true">Content</FluentLayoutItem></FluentLayout>);
 
         // Assert
         Assert.Contains("sticky", cut.Markup);
@@ -62,10 +62,10 @@
     public void FluentLayout_AsideSticky_Scrollbar()
     {
         // Arrange && Act
-        var cut = Render(@<FluentLayout GlobalScrollbar="false">
-        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
-        <FluentLayoutItem Area="LayoutArea.Aside" Sticky="true">Aside</FluentLayoutItem>
-    </FluentLayout>);
+        var cut = Render(@<FluentLayout Id="my-id" GlobalScrollbar="false">
+            <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Aside" Sticky="true">Aside</FluentLayoutItem>
+        </FluentLayout>);
 
         // Assert
         Assert.Contains($"margin-right: {FluentLayoutItem.SCROLLBAR_WIDTH}", cut.Markup);
@@ -76,10 +76,10 @@
     public void FluentLayout_HeaderSticky()
     {
         // Arrange && Act
-        var cut = Render(@<FluentLayout>
-        <FluentLayoutItem Area="LayoutArea.Header" Sticky="true">Header</FluentLayoutItem>
-        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
-    </FluentLayout>);
+        var cut = Render(@<FluentLayout Id="my-id">
+            <FluentLayoutItem Area="LayoutArea.Header" Sticky="true">Header</FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+        </FluentLayout>);
 
         // Assert
         Assert.Contains("top: 44px", cut.Markup);
@@ -90,11 +90,11 @@
     public void FluentLayout_HeaderFooterInternalProperties()
     {
         // Arrange && Act
-        var cut = Render(@<FluentLayout>
-        <FluentLayoutItem Area="LayoutArea.Header" Height="40px" Sticky="true">Header</FluentLayoutItem>
-        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
-        <FluentLayoutItem Area="LayoutArea.Footer" Height="30px" Sticky="true">Footer</FluentLayoutItem>
-    </FluentLayout>);
+        var cut = Render(@<FluentLayout Id="my-id">
+            <FluentLayoutItem Area="LayoutArea.Header" Height="40px" Sticky="true">Header</FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Footer" Height="30px" Sticky="true">Footer</FluentLayoutItem>
+        </FluentLayout>);
 
         var layout = cut.FindComponent<FluentLayout>();
 
@@ -112,13 +112,13 @@
     public void FluentLayout_Hamburger_Default()
     {
         // Arrange && Act
-        var cut = Render(@<FluentLayout>
-        <FluentLayoutItem Area="LayoutArea.Header">
-            <FluentLayoutHamburger />
-            Header
-        </FluentLayoutItem>
-        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
-    </FluentLayout>
+        var cut = Render(@<FluentLayout Id="my-id">
+    <FluentLayoutItem Area="LayoutArea.Header">
+        <FluentLayoutHamburger />
+        Header
+    </FluentLayoutItem>
+    <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+</FluentLayout>
     );
 
         // Assert
@@ -128,76 +128,117 @@
     [Fact]
     public void FluentLayout_Hamburger_OutsideLayout()
     {
-        FluentLayout? myLayout = null;
-
         // Arrange && Act
         var cut = Render(@<div>
-        <FluentLayoutHamburger Layout="@myLayout" />
-        <FluentLayout @ref="@myLayout">
-            <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
-            <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
-        </FluentLayout>
-    </div>
+    <FluentLayoutHamburger Id="my-hamburger" />
+    <FluentLayout Id="my-id">
+        <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
+        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+    </FluentLayout>
+</div>
     );
 
         // Assert
-        Assert.NotNull(myLayout);
         cut.Verify();
     }
 
     [Fact]
-    public void FluentLayout_Hamburger_Opened()
+    public async Task FluentLayout_Hamburger_Opened()
     {
         bool isOpened = false;
-        bool isClicked = false;
+        string hamburgerId = "";
 
         // Arrange
-        var cut = Render(@<FluentLayout>
-        <FluentLayoutItem Area="LayoutArea.Header">
-            <FluentLayoutHamburger @bind-Opened="@isOpened" OnClick="@(e => isClicked = true )" />
-            Header
-        </FluentLayoutItem>
-        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
-    </FluentLayout>
+        var cut = Render(@<FluentLayout Id="my-id">
+    <FluentLayoutItem Area="LayoutArea.Header">
+        <FluentLayoutHamburger Id="my-hamburger" OnOpened="@(e => { isOpened = e.Opened; hamburgerId = e.Id; })" />
+        Header
+    </FluentLayoutItem>
+    <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+</FluentLayout>
     );
 
         // Act
-        cut.Find("svg").Click();
+        await cut.FindComponent<FluentLayoutHamburger>()
+                 .Instance
+                 .FluentLayout_HamburgerClickAsync(isExpanded: true);
 
         // Assert
         Assert.True(isOpened);
-        Assert.True(isClicked);
-    }
-
-    [Fact]
-    public void FluentLayout_Hamburger_OnlyOnePerLayout()
-    {
-        // Arrange && Act && Assert
-        Assert.Throws<InvalidOperationException>(() =>
-        {
-            var cut = Render(@<FluentLayout>
-        <FluentLayoutItem Area="LayoutArea.Header">
-            <FluentLayoutHamburger />
-            <FluentLayoutHamburger />   <!-- Second Hamburger -->
-            Header
-        </FluentLayoutItem>
-        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
-    </FluentLayout>);
-        });
-
+        Assert.Equal("my-hamburger", hamburgerId);
     }
 
     [Fact]
     public void FluentLayout_InvalidArea()
     {
         // Arrange && Act
-        var cut = Render(@<FluentLayout GlobalScrollbar="false">
-        <FluentLayoutItem Area="(LayoutArea)999" Height="36px">Content</FluentLayoutItem>
-        <FluentLayoutItem Area="(LayoutArea)888" Height="42px" Sticky="true">Aside</FluentLayoutItem>
-    </FluentLayout>);
+        var cut = Render(@<FluentLayout Id="my-id" GlobalScrollbar="false">
+            <FluentLayoutItem Area="(LayoutArea)999" Height="36px">Content</FluentLayoutItem>
+            <FluentLayoutItem Area="(LayoutArea)888" Height="42px" Sticky="true">Aside</FluentLayoutItem>
+        </FluentLayout>);
 
         // Assert
         Assert.Contains("style=\"height: 36px;\" area=\"\"", cut.Markup);
         Assert.Contains("style=\"height: 42px;\" area=\"\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentLayout_AddInvalidArea()
+    {
+        // Arrange
+        var cut = Render(@<FluentLayout Id="my-id" />);
+
+        // Act
+        var instance = cut.FindComponent<FluentLayout>().Instance;
+        Assert.Throws<ArgumentException>(() =>
+        {
+            instance.AddItem(new FluentButton());
+        });
+    }
+
+    [Fact]
+    public void FluentLayout_RemoveInvalidArea()
+    {
+        // Arrange
+        var cut = Render(@<FluentLayout Id="my-id" />);
+
+        // Act
+        var instance = cut.FindComponent<FluentLayout>().Instance;
+        Assert.Throws<ArgumentException>(() =>
+        {
+            instance.RemoveItem(new FluentButton());
+        });
+    }
+
+    [Theory]
+    [InlineData(false, "mobile", true)]
+    [InlineData(true, "mobile", null)]
+    [InlineData(false, "desktop", null)]
+    [InlineData(true, "desktop", false)]
+    public async Task FluentLayout_MediaChangedAsync(bool initialMobileView, string size, bool? expectedMobileView)
+    {
+        bool? isMobileView = null;
+
+        // Arrange
+        var cut = Render(@<FluentLayout Id="my-id"
+                                        MenuDeferredLoading="true"
+                                        OnBreakpointEnter="@(e => isMobileView = e)">
+            <FluentLayoutItem Area="LayoutArea.Header">
+                <FluentLayoutHamburger />
+                Header
+            </FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Menu">
+                Menu content
+            </FluentLayoutItem>
+        </FluentLayout>
+    );
+
+        // Act
+        var instance = cut.FindComponent<FluentLayout>().Instance;
+        instance.IsMobile = initialMobileView;
+        await instance.FluentLayout_MediaChangedAsync(size);
+
+        // Assert
+        Assert.Equal(expectedMobileView, isMobileView);
     }
 }

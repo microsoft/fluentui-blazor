@@ -120,7 +120,7 @@
   <data name="Fake_Hello" xml:space="preserve">
     <value>Hello {0}</value>
   </data>
-  <data name="FluentLayoutHamburger_Title" xml:space="preserve">
+  <data name="LayoutHamburger_Title" xml:space="preserve">
     <value>Menu</value>
   </data>
   <data name="FluentInputBase_Required" xml:space="preserve">
@@ -212,5 +212,8 @@
   </data>
   <data name="FluentInputFile_LoadingInProgress" xml:space="preserve">
     <value>Loading {0}/{1} - {2}</value>
+  </data>
+  <data name="LayoutHamburger_Close" xml:space="preserve">
+    <value>Close</value>
   </data>
 </root>

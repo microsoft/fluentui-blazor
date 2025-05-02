@@ -81,7 +81,7 @@ The `<html>` and `<body>` elements are updated to provide better page-wide defau
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
