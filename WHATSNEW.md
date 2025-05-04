@@ -1,3 +1,17 @@
+## V4.11.9
+
+### General
+
+
+### Components
+
+### Demo site and documentation
+
+### Icons and Emoji
+  - Update to Fluent UI System Icons 1.1.298.
+    > As of this version we will no longer highlight individual icon additions/changes. You can find the full list of changes in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/).
+
+  - 
 ## V4.11.8
 
 ### General
