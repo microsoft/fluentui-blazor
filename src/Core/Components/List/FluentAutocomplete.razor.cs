@@ -57,6 +57,12 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public EventCallback<string> ValueTextChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets the position of the options popup.
+    /// </summary>
+    [Parameter]
+    public SelectPosition? Position { get; set; }
+
+    /// <summary>
     /// Gets or sets the value of the input. This should be used with two-way binding.
     /// For the FluentAutocomplete component, use the <see cref="ValueText"/> property instead.
     /// </summary>
@@ -68,28 +74,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     {
         get => ValueText;
         set => base.Value = ValueText;
-    }
-
-    /// <summary>
-    /// For <see cref="FluentAutocomplete{TOption}"/>, this property must be True.
-    /// Set the <see cref="MaximumSelectedOptions"/> property to 1 to select just one item.
-    /// </summary>
-    public override bool Multiple
-    {
-        get
-        {
-            return base.Multiple;
-        }
-
-        set
-        {
-            if (value == false)
-            {
-                throw new ArgumentException("For FluentAutocomplete, this property must be True. Set the MaximumSelectedOptions property to 1 to select just one item.");
-            }
-
-            base.Multiple = true;
-        }
     }
 
     /// <summary>
@@ -239,6 +223,8 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         .AddStyle("display", "none", when: (Items == null || !Items.Any()) && (HeaderContent != null || FooterContent != null))
         .Build();
 
+    private bool GetSingleSelect() => Multiple == false && SelectedOption is not null;
+
     /// <summary />
     private string ComponentWidth
     {
@@ -279,6 +265,16 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
     /// <summary />
     protected override bool ShouldRender() => _shouldRender;
+
+    /// <summary>
+    /// Closes the multiselect dropdown.
+    /// </summary>
+    /// <returns></returns>
+    public async Task CloseDropdownAsync()
+    {
+        IsMultiSelectOpened = false;
+        await InvokeAsync(StateHasChanged);
+    }
 
     /// <summary />
     protected override async Task InputHandlerAsync(ChangeEventArgs e)
@@ -545,6 +541,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     {
         RemoveAllSelectedItems();
         ValueText = string.Empty;
+        SelectedOption = default;
         await RaiseValueTextChangedAsync(ValueText);
         await RaiseChangedEventsAsync();
 
@@ -649,6 +646,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
 
     }
+
+    /// <summary>
+    /// Gets the position of the popup.
+    /// </summary>
+    /// <returns></returns>
+    private VerticalPosition? GetVerticalPosition()
+            => Position switch
+            {
+                SelectPosition.Above => VerticalPosition.Top,
+                SelectPosition.Below => VerticalPosition.Bottom,
+                _ => VerticalPosition.Unset,
+            };
 
     /// <summary />
     private bool MustBeClosed()

@@ -163,11 +163,11 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
         }
     }
 
-    protected override string? GetOptionValue(TOption? item)
+    private string? GetComboboxContent()
     {
-        if (item != null)
+        if (SelectedOption != null)
         {
-            return OptionText.Invoke(item) ?? OptionValue.Invoke(item) ?? item.ToString();
+            return OptionText.Invoke(SelectedOption) ?? OptionValue.Invoke(SelectedOption) ?? SelectedOption.ToString();
         }
         else
         {
