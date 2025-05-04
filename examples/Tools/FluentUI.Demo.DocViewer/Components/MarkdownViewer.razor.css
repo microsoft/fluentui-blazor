@@ -43,8 +43,9 @@
   /* blockquote */
 
   .doc-viewer ::deep blockquote {
-    padding: 1px 0px 1px 12px;
+    padding: 1px 12px 1px 12px;
     margin-inline-end: 0px;
+    margin-inline-start: 15px;
     background-color: var(--colorBrandBackground2);
     border-left: 6px solid var(--colorBrandBackground);
   }
