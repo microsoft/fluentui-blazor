@@ -192,23 +192,9 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
     }
 
     /// <inheritdoc />
-    protected override async ValueTask DisposeAsync(IJSObjectReference? jsModule)
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        try
-        {
-            if (jsModule != null && !string.IsNullOrEmpty(_javaScriptEventId))
-            {
-                await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.KeyCode.UnregisterKeyCode", _javaScriptEventId);
-            }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
-        }
-
-        await base.DisposeAsync(jsModule);
+        await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.KeyCode.UnregisterKeyCode", _javaScriptEventId);
     }
 }
 

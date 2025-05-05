@@ -36,8 +36,8 @@ export namespace Microsoft.FluentUI.Blazor.KeyCode {
       ? document
       : elementRef == null ? document.getElementById(id) : elementRef;
 
-    if ((document as any).fluentKeyCodeEvents == null) {
-      (document as any).fluentKeyCodeEvents = {};
+    if ((document as any)._fluentKeyCodeEvents == null) {
+      (document as any)._fluentKeyCodeEvents = {};
     }
 
     if (!!element) {
@@ -102,7 +102,7 @@ export namespace Microsoft.FluentUI.Blazor.KeyCode {
       if (preventMultipleKeydown || (!!eventNames && eventNames.includes("KeyUp"))) {
         element.addEventListener('keyup', handlerKeyup)
       }
-      (document as any).fluentKeyCodeEvents[eventId] = { source: element, handlerKeydown, handlerKeyup };
+      (document as any)._fluentKeyCodeEvents[eventId] = { source: element, handlerKeydown, handlerKeyup };
 
       return eventId;
     }
@@ -116,8 +116,8 @@ export namespace Microsoft.FluentUI.Blazor.KeyCode {
    */
   export function UnregisterKeyCode(eventId: string) {
 
-    if ((document as any).fluentKeyCodeEvents != null) {
-      const keyEvent = (document as any).fluentKeyCodeEvents[eventId];
+    if ((document as any)._fluentKeyCodeEvents != null) {
+      const keyEvent = (document as any)._fluentKeyCodeEvents[eventId];
       const element = keyEvent.source;
 
       if (!!keyEvent.handlerKeydown) {
@@ -128,7 +128,7 @@ export namespace Microsoft.FluentUI.Blazor.KeyCode {
         element.removeEventListener("keyup", keyEvent.handlerKeyup);
       }
 
-      delete (document as any).fluentKeyCodeEvents[eventId];
+      delete (document as any)._fluentKeyCodeEvents[eventId];
     }
   }
 }
