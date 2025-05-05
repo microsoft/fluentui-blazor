@@ -64,7 +64,7 @@ export function init(gridElement, autoFocus) {
         }
 
         // check if start is a child of gridElement
-        if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start) {
+        if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start && document.activeElement.tagName.toLowerCase() !== 'fluent-text-field') {
             const idx = start.cellIndex;
 
             if (event.key === "ArrowUp") {
