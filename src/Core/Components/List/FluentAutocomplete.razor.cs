@@ -292,27 +292,37 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         if (MaximumSelectedOptions > 0 && SelectedOptions?.Count() >= MaximumSelectedOptions)
         {
             IsReachedMaxItems = true;
-            RenderComponent();
+            await RenderComponentAsync();
             return;
         }
 
         IsReachedMaxItems = false;
         IsMultiSelectOpened = true;
 
+        if (ImmediateDelay > 0)
+        {
+            await _debounce.RunAsync(ImmediateDelay, () => InvokeAsync(() => InvokeOptionsSearchAsync()));
+        }
+        else
+        {
+            await this.InvokeOptionsSearchAsync();
+        }
+    }
+
+    /// <summary>
+    /// Performs the search operation and displays the available values. The search takes into account any previously
+    /// entered text which has updated the <see cref="ValueText"/>.
+    /// </summary>
+    /// <returns></returns>
+    public async Task InvokeOptionsSearchAsync()
+    {
         var args = new OptionsSearchEventArgs<TOption>()
         {
             Items = Items ?? Array.Empty<TOption>(),
             Text = ValueText,
         };
 
-        if (ImmediateDelay > 0)
-        {
-            await _debounce.RunAsync(ImmediateDelay, () => InvokeAsync(() => OnOptionsSearch.InvokeAsync(args)));
-        }
-        else
-        {
-            await OnOptionsSearch.InvokeAsync(args);
-        }
+        await OnOptionsSearch.InvokeAsync(args);
 
         Items = args.Items?.Take(MaximumOptionsSearch);
 
@@ -325,14 +335,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             await VirtualizationContainer.RefreshDataAsync();
         }
 
-        RenderComponent();
+        await RenderComponentAsync();
+    }
 
-        // Activate the rendering
-        void RenderComponent()
-        {
-            _shouldRender = true;
-            StateHasChanged();
-        }
+    private async Task RenderComponentAsync()
+    {
+        _shouldRender = true;
+        await InvokeAsync(StateHasChanged);
     }
 
     private ValueTask<ItemsProviderResult<TOption>> LoadFilteredItemsAsync(ItemsProviderRequest request)
