@@ -131,7 +131,7 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
             var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
             // Call a function from the JavaScript module
-            _javaScriptEventId = await jsModule.InvokeAsync<string>("RegisterKeyCode",
+            _javaScriptEventId = await jsModule.InvokeAsync<string>("Microsoft.FluentUI.Blazor.KeyCode.RegisterKeyCode",
                 GlobalDocument,
                 eventNames.Length > 1 ? eventNames : "KeyDown",
                 Anchor,
@@ -198,7 +198,7 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
         {
             if (jsModule != null && !string.IsNullOrEmpty(_javaScriptEventId))
             {
-                await jsModule.InvokeVoidAsync("UnregisterKeyCode", _javaScriptEventId);
+                await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.KeyCode.UnregisterKeyCode", _javaScriptEventId);
             }
         }
         catch (Exception ex) when (ex is JSDisconnectedException ||

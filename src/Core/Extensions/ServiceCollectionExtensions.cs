@@ -34,6 +34,7 @@ public static class ServiceCollectionExtensions
         services.Add<LibraryConfiguration>(provider => options ?? new(), serviceLifetime);
         services.Add<IDialogService, DialogService>(serviceLifetime);
         services.Add<IFluentLocalizer>(provider => options?.Localizer ?? FluentLocalizerInternal.Default, serviceLifetime);
+        services.Add<IKeyCodeService, KeyCodeService>(serviceLifetime);
 
         if (configuration == null || configuration.Tooltip.UseServiceProvider)
         {
