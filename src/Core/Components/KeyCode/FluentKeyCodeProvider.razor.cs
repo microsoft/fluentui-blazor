@@ -21,7 +21,7 @@ public partial class FluentKeyCodeProvider : IDisposable
     public bool PreventDefault { get; set; } = false;
 
     /// <summary />
-    private async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs args)
+    internal async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs args)
     {
         foreach (var listener in KeyCodeService.Listeners)
         {
@@ -30,7 +30,7 @@ public partial class FluentKeyCodeProvider : IDisposable
     }
 
     /// <summary />
-    private async Task KeyUpHandlerAsync(FluentKeyCodeEventArgs args)
+    internal async Task KeyUpHandlerAsync(FluentKeyCodeEventArgs args)
     {
         foreach (var listener in KeyCodeService.Listeners)
         {

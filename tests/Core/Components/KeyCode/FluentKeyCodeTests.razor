@@ -109,6 +109,7 @@
     public async Task FluentKeyCode_Provider_Function()
     {
         FluentKeyCodeEventArgs pressed = new();
+        FluentKeyCodeEventArgs myKey = new() { Key = KeyCode.KeyA, KeyCode = 65, Value = "A" };
 
         // Register Service
         var keycodeService = new KeyCodeService();
@@ -119,7 +120,7 @@
         keycodeService.RegisterListener(OnKeyHandlerAsync);
 
         // Act
-        await keycodeService.Listeners.First().OnKeyDownAsync(new FluentKeyCodeEventArgs() { Key = KeyCode.KeyA, KeyCode = 65, Value = "A" });
+        await keycodeService.Listeners.First().OnKeyDownAsync(myKey);
 
         // Assert
         Assert.Equal(65, pressed.KeyCode);
@@ -129,6 +130,7 @@
         // Dispose
         keycodeService.UnregisterListener(OnKeyHandlerAsync);
         Assert.Empty(keycodeService.Listeners);
+        keycodeService.Dispose();
 
         // Local Handler
         Task OnKeyHandlerAsync(FluentKeyCodeEventArgs args)
@@ -139,9 +141,122 @@
     }
 
     [Fact]
+    public async Task FluentKeyCode_Provider_KeyDown_KeyUp()
+    {
+        FluentKeyCodeEventArgs keyDownPressed = new();
+        FluentKeyCodeEventArgs keyUpPressed = new();
+        FluentKeyCodeEventArgs myKey = new() { Key = KeyCode.KeyA, KeyCode = 65, Value = "A" };
+
+        // Register Service
+        var keycodeService = new KeyCodeService();
+        Services.AddScoped<IKeyCodeService>(factory => keycodeService);
+
+        // Arrange
+        var cut = Render(@<div id="myZone"><FluentKeyCodeProvider /></div>);
+        keycodeService.RegisterListener(OnKeyDownHandlerAsync, OnKeyUpHandlerAsync);
+
+        // Key down
+        await keycodeService.Listeners.First().OnKeyDownAsync(myKey);
+
+        // Assert
+        Assert.Equal(65, keyDownPressed.KeyCode);
+        Assert.Equal(KeyCode.KeyA, keyDownPressed.Key);
+        Assert.Equal("A", keyDownPressed.Value);
+
+        // Key up
+        await keycodeService.Listeners.First().OnKeyUpAsync(myKey);
+
+        // Assert
+        Assert.Equal(65, keyDownPressed.KeyCode);
+        Assert.Equal(KeyCode.KeyA, keyDownPressed.Key);
+        Assert.Equal("A", keyDownPressed.Value);
+
+        // Dispose
+        keycodeService.UnregisterListener(OnKeyDownHandlerAsync, OnKeyUpHandlerAsync);
+        Assert.Empty(keycodeService.Listeners);
+        keycodeService.Dispose();
+
+        // Local Handler
+        Task OnKeyDownHandlerAsync(FluentKeyCodeEventArgs args)
+        {
+            keyDownPressed = args;
+            return Task.CompletedTask;
+        }
+
+        Task OnKeyUpHandlerAsync(FluentKeyCodeEventArgs args)
+        {
+            keyUpPressed = args;
+            return Task.CompletedTask;
+        }
+    }
+
+    [Fact]
+    public async Task FluentKeyCode_Provider_NoFunction()
+    {
+        FluentKeyCodeEventArgs myKey = new() { Key = KeyCode.KeyA, KeyCode = 65, Value = "A" };
+
+        // Register Service
+        var keycodeService = new KeyCodeService();
+        Services.AddScoped<IKeyCodeService>(factory => keycodeService);
+
+#nullable disable   // To force null references
+        keycodeService.RegisterListener(null, null);
+#nullable enable
+
+        // Arrange
+        var cut = Render(@<div id="myZone"><FluentKeyCodeProvider /></div>);
+
+        // Act
+        await keycodeService.Listeners.First().OnKeyDownAsync(myKey);
+        await keycodeService.Listeners.First().OnKeyUpAsync(myKey);
+
+        // Dispose
+        keycodeService.Dispose();
+    }
+
+    [Fact]
+    public async Task FluentKeyCode_Provider_KeyDownHandler_KeyUpHandler()
+    {
+        FluentKeyCodeEventArgs keyDownPressed = new();
+        FluentKeyCodeEventArgs keyUpPressed = new();
+        FluentKeyCodeEventArgs myKey = new() { Key = KeyCode.KeyA, KeyCode = 65, Value = "A" };
+
+        // Register Service
+        var keycodeService = new KeyCodeService();
+        Services.AddScoped<IKeyCodeService>(factory => keycodeService);
+        keycodeService.RegisterListener(OnKeyDownHandlerAsync, OnKeyUpHandlerAsync);
+
+        // Arrange
+        var cut = Render(@<div id="myZone"><FluentKeyCodeProvider /></div>);
+
+        // Act
+        var provider = cut.FindComponent<FluentKeyCodeProvider>().Instance;
+        await provider.KeyDownHandlerAsync(myKey);
+        await provider.KeyUpHandlerAsync(myKey);
+
+        // Assert
+        Assert.Equal(65, keyDownPressed.KeyCode);
+        Assert.Equal(65, keyUpPressed.KeyCode);
+
+        // Local Handler
+        Task OnKeyDownHandlerAsync(FluentKeyCodeEventArgs args)
+        {
+            keyDownPressed = args;
+            return Task.CompletedTask;
+        }
+
+        Task OnKeyUpHandlerAsync(FluentKeyCodeEventArgs args)
+        {
+            keyUpPressed = args;
+            return Task.CompletedTask;
+        }
+    }
+
+    [Fact]
     public async Task FluentKeyCode_Provider_Interface()
     {
         FluentKeyCodeEventArgs pressed = new();
+        FluentKeyCodeEventArgs myKey = new() { Key = KeyCode.KeyA, KeyCode = 65, Value = "A" };
 
         // Register Service
         var keycodeService = new KeyCodeService();
@@ -155,7 +270,7 @@
         keycodeService.RegisterListener(listener);
 
         // Act
-        await keycodeService.Listeners.First().OnKeyDownAsync(new FluentKeyCodeEventArgs() { Key = KeyCode.KeyA, KeyCode = 65, Value = "A" });
+        await keycodeService.Listeners.First().OnKeyDownAsync(myKey);
 
         // Assert
         Assert.Equal(65, pressed.KeyCode);
@@ -163,8 +278,10 @@
         Assert.Equal("A", pressed.Value);
 
         // Dispose
+        keycodeService.UnregisterListener(listener);
         keycodeService.Clear();
         Assert.Empty(keycodeService.Listeners);
+        keycodeService.Dispose();
 
     }
 
