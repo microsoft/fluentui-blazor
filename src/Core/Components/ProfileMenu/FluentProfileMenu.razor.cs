@@ -175,14 +175,12 @@ public partial class FluentProfileMenu : FluentComponentBase
     private async Task ProfileMenuClickedAsync()
     {
         Open = !Open;
-
         await OpenChangedHandlerAsync();
     }
 
     /// <summary />
     private async Task OpenChangedHandlerAsync()
     {
-        Console.WriteLine("OpenChangedHandlerAsync " + Open);
         if (OpenChanged.HasDelegate)
         {
             await OpenChanged.InvokeAsync(Open);
