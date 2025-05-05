@@ -28,6 +28,12 @@ public partial class FluentProfileMenu : FluentComponentBase
     public bool Open { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets the callback that is invoked when the open state changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> OpenChanged { get; set; }
+
+    /// <summary>
     /// Gets or sets whether popover should be forced to top right or top left (RTL).
     /// </summary>
     [Parameter]
@@ -165,4 +171,21 @@ public partial class FluentProfileMenu : FluentComponentBase
 
     /// <summary />
     private string PersonaId => $"{Id}-persona";
+
+    private async Task ProfileMenuClickedAsync()
+    {
+        Open = !Open;
+
+        await OpenChangedHandlerAsync();
+    }
+
+    /// <summary />
+    private async Task OpenChangedHandlerAsync()
+    {
+        Console.WriteLine("OpenChangedHandlerAsync " + Open);
+        if (OpenChanged.HasDelegate)
+        {
+            await OpenChanged.InvokeAsync(Open);
+        }
+    }
 }
