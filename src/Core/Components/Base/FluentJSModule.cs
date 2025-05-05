@@ -59,23 +59,7 @@ internal class FluentJSModule : IAsyncDisposable
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
-
         await DisposeAsync(_jsModule);
-
-        if (_jsModule != null)
-        {
-            try
-            {
-                await _jsModule.DisposeAsync();
-            }
-            catch (Exception ex) when (ex is JSDisconnectedException ||
-                                       ex is OperationCanceledException)
-            {
-                // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-                // the client disconnected. This is not an error.
-            }
-        }
-
         GC.SuppressFinalize(this);
     }
 
@@ -85,8 +69,20 @@ internal class FluentJSModule : IAsyncDisposable
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
     [ExcludeFromCodeCoverage]
-    internal virtual ValueTask DisposeAsync(IJSObjectReference? jsModule)
+    internal virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
-        return ValueTask.CompletedTask;
+        if (jsModule != null)
+        {
+            try
+            {
+                await jsModule.DisposeAsync();
+            }
+            catch (Exception ex) when (ex is JSDisconnectedException ||
+                                       ex is OperationCanceledException)
+            {
+                // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+                // the client disconnected. This is not an error.
+            }
+        }
     }
 }
