@@ -8,23 +8,23 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.KeyPress {
       return;
     }
 
-    element.addEventListener("keyup", (event: KeyboardEvent) => {
-      const ev = event as any;
-      const keyCode: number = ev.which || ev.keyCode || ev.charCode;
+    // PreventDefault
+    element.addEventListener("keydown", (event: KeyboardEvent) => {
 
-      const matchedKeyPress = keyPress.find(kp =>
-        keyCode === kp.key &&
-        event.altKey == kp.altKey &&
-        event.ctrlKey == kp.ctrlKey &&
-        event.metaKey == kp.metaKey &&
-        event.shiftKey == kp.shiftKey
-      );
+      const matchedKeyPress = getMatchedKeyPress(event, keyPress);
+
+      if (matchedKeyPress && matchedKeyPress.preventDefault === true) {
+        event.preventDefault();
+      }
+
+    });
+
+    // ChangeAfterKeyPress
+    element.addEventListener("keyup", (event: KeyboardEvent) => {
+
+      const matchedKeyPress = getMatchedKeyPress(event, keyPress);
 
       if (matchedKeyPress) {
-
-        if (matchedKeyPress.preventDefault === true) {
-          event.preventDefault();
-        }
 
         let value = "";
         switch (true) {
@@ -43,6 +43,19 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.KeyPress {
         dotnet.invokeMethodAsync("ChangeAfterKeyPressHandlerAsync", value, matchedKeyPress);
       }
     });
+  }
+
+  function getMatchedKeyPress(event: KeyboardEvent, keyPress: IKeyPress[]): IKeyPress | undefined {
+    const ev = event as any;
+    const keyCode: number = ev.which || ev.keyCode || ev.charCode;
+
+    return keyPress.find(kp =>
+      keyCode === kp.key &&
+      event.altKey == kp.altKey &&
+      event.ctrlKey == kp.ctrlKey &&
+      event.metaKey == kp.metaKey &&
+      event.shiftKey == kp.shiftKey
+    );
   }
 
   interface IKeyPress {

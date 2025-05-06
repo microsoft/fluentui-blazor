@@ -57,7 +57,7 @@ public record KeyPress
 
     /// <summary>
     /// Gets or sets a boolean value that indicates if the JS client event should be cancelled.
-    /// Default is true.
+    /// Default is true, this means that the key will not be propagated and added to the component value.
     /// </summary>
     public bool PreventDefault { get; init; } = true;
 
