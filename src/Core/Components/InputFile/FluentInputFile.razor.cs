@@ -440,24 +440,12 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     /// <param name="jsModule"></param>
     /// <returns></returns>
     [ExcludeFromCodeCoverage]
-    protected override async ValueTask DisposeAsync(IJSObjectReference? jsModule)
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        try
+        if (_containerInstance is not null)
         {
-            if (_containerInstance is not null)
-            {
-                await _containerInstance.InvokeVoidAsync("dispose");
-                await _containerInstance.DisposeAsync().ConfigureAwait(false);
-            }
+            await _containerInstance.InvokeVoidAsync("dispose");
+            await _containerInstance.DisposeAsync().ConfigureAwait(false);
         }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
-        }
-
-        // Dispose the JsModule
-        await base.DisposeAsync(jsModule);
     }
 }

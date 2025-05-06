@@ -15,11 +15,14 @@ datalist
 elementreference
 evenodd
 gzip
+henkan
 heure
 heures
 inputfile
 javascript
 jours
+keydown
+keyup
 maintenant
 menuchecked
 menuclicked
@@ -32,6 +35,7 @@ menuitemradioobsolete
 menuitems
 microsoft
 mois
+muhenkan
 myid
 noattribute
 nonfile
