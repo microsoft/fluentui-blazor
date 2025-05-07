@@ -13,4 +13,9 @@ public class FluentKeyPressEventArgs : EventArgs
     /// Gets the key press event data associated with the current operation.
     /// </summary>
     public required KeyPress KeyPress { get; init; }
+
+    /// <summary>
+    /// Gets the value associated with this instance.
+    /// </summary>
+    public required string Value { get; init; }
 }

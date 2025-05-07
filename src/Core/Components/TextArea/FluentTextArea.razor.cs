@@ -109,11 +109,18 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     [JSInvokable]
     public async Task ChangeAfterKeyPressHandlerAsync(string value, KeyPress key)
     {
-        await ChangeHandlerAsync(new ChangeEventArgs() { Value = value });
+        await ChangeHandlerAsync(new ChangeEventArgs()
+        {
+            Value = value,
+        });
 
         if (OnChangeAfterKeyPress.HasDelegate)
         {
-            await OnChangeAfterKeyPress.InvokeAsync(new FluentKeyPressEventArgs() { KeyPress = key });
+            await OnChangeAfterKeyPress.InvokeAsync(new FluentKeyPressEventArgs()
+            {
+                Value = value,
+                KeyPress = key,
+            });
         }
     }
 
