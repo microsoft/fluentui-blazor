@@ -23,6 +23,11 @@
 <div>
     <DemoSection Title="Default" Component="@typeof(InputFileDefault)">
         <Description>
+            <p>By default this component will use the <code>SaveToTemporaryFolder</code> mode which creates a local file.</p>
+
+            <FluentMessageBar Title="Warning:" Intent="@MessageIntent.Warning" AllowDismiss="false" FadeIn="false">
+                This might not always be possible depending on the user rights on the host. You may need to change the <code>InputFileMode</code> depending on your use case.
+            </FluentMessageBar>
 
         </Description>
     </DemoSection>
@@ -41,13 +46,22 @@
 
     <DemoSection Title="Mode = InputFileMode.Buffer" Component="@typeof(InputFileBufferMode)">
         <Description>
+            <p>Using the <code>Buffer</code> mode will load the entire file into memory during uploading.</p>
+
+            <p>This mode is recommended when you cannot store local files and you are working small files and have enough memory.</p>
 
         </Description>
     </DemoSection>
 
     <DemoSection Title="Mode = InputFileMode.Stream" Component="@typeof(InputFileStream)">
         <Description>
+            <p>The <code>Stream</code> mode gives you more control of the uploading process to save memory. In order for it to work you will need to implement the handling for the stream on your own.</p>
 
+            <p>This mode is recommended when you want to upload large files which you do not want to hold entirely in memory.</p>
+
+            <FluentMessageBar Title="Warning:" Intent="@MessageIntent.Warning" AllowDismiss="false" FadeIn="false">
+                Remember to always dispose each stream to prevent memory leaks!
+            </FluentMessageBar>
         </Description>
     </DemoSection>
 

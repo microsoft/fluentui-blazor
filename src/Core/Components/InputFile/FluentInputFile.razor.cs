@@ -97,6 +97,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     /// Gets or sets the type of file reading.
     /// For SaveToTemporaryFolder, use <see cref="FluentInputFileEventArgs.LocalFile" /> to retrieve the file.
     /// For Buffer, use <see cref="FluentInputFileEventArgs.Buffer" /> to retrieve bytes.
+    /// For Stream, use <see cref="FluentInputFileEventArgs.Stream"/> to have full control over retrieving the file.
     /// </summary>
     [Parameter]
     public InputFileMode Mode { get; set; } = InputFileMode.SaveToTemporaryFolder;

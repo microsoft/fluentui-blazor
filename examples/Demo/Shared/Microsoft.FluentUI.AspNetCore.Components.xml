@@ -5273,6 +5273,7 @@
             Gets or sets the type of file reading.
             For SaveToTemporaryFolder, use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.LocalFile" /> to retrieve the file.
             For Buffer, use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.Buffer" /> to retrieve bytes.
+            For Stream, use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.Stream"/> to have full control over retrieving the file.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.DragDropZoneVisible">
@@ -8299,6 +8300,11 @@
             Gets or sets the Menu status.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.OpenChanged">
+            <summary>
+            Gets or sets the callback that is invoked when the open state changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.TopCorner">
             <summary>
             Gets or sets whether popover should be forced to top right or top left (RTL).
@@ -8414,6 +8420,9 @@
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.PersonaId">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.OpenChangedHandlerAsync">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Min">
