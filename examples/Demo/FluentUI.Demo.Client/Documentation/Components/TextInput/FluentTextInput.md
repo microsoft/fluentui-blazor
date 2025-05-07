@@ -37,6 +37,22 @@ This can be achieved by setting the `Immediate` and the optional `ImmediateDelay
 
 {{ TextInputImmediate }}
 
+## Search Text Input
+
+In the example of a search text area, you can use the `ChangeAfterKeyPress` parameter to trigger the `OnChange` event
+after a specific key or keys are pressed. E.g. `Enter`, `Tab`, `Ctrl+Enter`, etc.
+You can capture the content of the text area from the `Value` parameter.
+
+An `OnChangeAfterKeyPress` event is also triggered when the user presses these key combinations.
+This also gives you the key used to trigger the event (this can be useful when you allow multiple key combinations).
+
+```razor
+<FluentTextInput ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])"
+                 OnChangeAfterKeyPress="@(e => ...)" />
+```
+
+{{ TextInputChangeAfterKeyPress }}
+
 ## States
 
 A text input can be in different states, such as `Disabled`, `ReadOnly`, and `Required`.
