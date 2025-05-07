@@ -1,12 +1,12 @@
 let grids = [];
 const minWidth = 100;
 
-export function init(gridElement, autoFocus) {
+export function init(gridElement, autoFocus, showResizeIndicator) {
     if (gridElement === undefined || gridElement === null) {
         return;
     };
 
-    enableColumnResizing(gridElement);
+    enableColumnResizing(gridElement, showResizeIndicator);
 
     let start = gridElement.querySelector('td:first-child');
 
@@ -158,7 +158,7 @@ export function checkColumnPopupPosition(gridElement, selector) {
     }
 }
 
-export function enableColumnResizing(gridElement) {
+export function enableColumnResizing(gridElement, showResizeIndicator) {
     const columns = [];
     let min = 75;
     let headerBeingResized;
@@ -214,6 +214,16 @@ export function enableColumnResizing(gridElement) {
             window.removeEventListener('pointerleave', onPointerUp);
 
             headerBeingResized.classList.remove('header-being-resized');
+
+            if (showResizeIndicator) {
+                // Add the resize handle back
+                headerBeingResized.querySelector('.resize-handle').style.display = 'block';
+
+                // Remove the indicator class after resizing
+                const cells = gridElement.querySelectorAll('.resize-indicator');
+                cells.forEach(cell => cell.classList.remove('resize-indicator'));
+            }
+
             headerBeingResized = null;
 
             if (e.target.hasPointerCapture(e.pointerId)) {
@@ -225,6 +235,15 @@ export function enableColumnResizing(gridElement) {
             headerBeingResized = target.parentNode;
             headerBeingResized.classList.add('header-being-resized');
 
+            if (showResizeIndicator) {
+                // Hide the resize handle while resizing
+                headerBeingResized.querySelector('.resize-handle').style.display = 'none';
+
+                // Add indicator class to all cells in the column being resized
+                const columnIndex = Array.from(headers).indexOf(headerBeingResized) + 1;
+                const cells = gridElement.querySelectorAll(`[col-index="${columnIndex}"]`);
+                cells.forEach(cell => cell.classList.add('resize-indicator'));
+            }
 
             window.addEventListener('pointermove', onPointerMove);
             window.addEventListener('pointerup', onPointerUp);

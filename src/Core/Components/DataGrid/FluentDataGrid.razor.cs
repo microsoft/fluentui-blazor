@@ -115,11 +115,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public bool ResizableColumns { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the grid should show a resize indicator on all column cells when resizing a column.
+    /// </summary>
+    [Parameter]
+    public bool ShowResizeIndicator { get; set; } = false;
+
+    /// <summary>
     /// To comply with WCAG 2.2, a one-click option should be offered to change column widths. We provide such an option through the
     /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
     /// Discrete: resize by a 10 pixels at a time
     /// Exact: resize to the exact width specified (in pixels)
-    /// Note: This does not affect resizing by mouse dragging, just the keyboard driven resize.
+    /// Note: This does not affect resizing by mouse dragging, only applies to keyboard driven resize.
     /// </summary>
     [Parameter]
     public DataGridResizeType? ResizeType { get; set; }
@@ -456,7 +462,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             try
             {
-                _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference, AutoFocus);
+                _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference, AutoFocus, ShowResizeIndicator);
                 if (AutoItemsPerPage)
                 {
                     await Module.InvokeVoidAsync("dynamicItemsPerPage", _gridReference, DotNetObjectReference.Create(this), (int)RowSize);
@@ -793,7 +799,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (!request.CancellationToken.IsCancellationRequested)
         {
-            // ARIA's rowcount is part of the UI, so it should reflect what the human user regards as the number of rows in the table,
+            // ARIA's row count is part of the UI, so it should reflect what the human user regards as the number of rows in the table,
             // not the number of physical <tr> elements. For virtualization this means what's in the entire scrollable range, not just
             // the current viewport. In the case where you're also paginating then it means what's conceptually on the current page.
             // TODO: This currently assumes we always want to expand the last page to have ItemsPerPage rows, but the experience might

@@ -18,6 +18,21 @@
             to true, the current row will be highlighted. By default the system will use the designated hover color for this but you can specify an alternative
             color by setting the <code>--datagrid-hover-color</code> CSS variable. See the Razor tab for how this is done in this example.
         </p>
-        <p><em>Note: once a value has been selected for the Resize type, it cannot by set to null again. You need to refresh the page to start with a null value again.</em></p>
+        <p>
+            The 'Resize type' radio buttons show how to use the <code>ResizeType</code> parameter. This parameter can be used to specify how the columns should be resized. The options are:
+            <ul>
+                <li><code>DataGridResizeType.Discrete</code>: the column will be resized to the nearest discrete value (default)</li>
+                <li><code>DataGridResizeType.Exact</code>: the column will be resized to the exact value</li>
+            </ul>
+            <em>Note: once a value has been selected for the Resize type, it cannot be set to null again. You need to refresh the page to start with a null value again.</em>
+        </p>
+        <p>
+            The 'Use menu for column actions' checkbox shows how to use the <code>HeaderCellAsButtonWithMenu</code> parameter. When set to true, the headers are rendered as buttons with an associated menu. When clicked,
+            the menu options allow for sorting, filtering and/or resizing columns (depending on how the DataGrid and columns have been configured). From an accessibility standpoint this is the preferred way of working with DataGrid headers.
+        </p>
+        <p>
+            The 'Show Resize Indicator' checkbox shows how to use the <code>ShowResizeIndicator</code> parameter. This parameter can be used to show a resize indicator when a column is being resized.
+            If set to false (default), a resize indicator will not be shown.
+        </p>
     </Description>
 </DemoSection>

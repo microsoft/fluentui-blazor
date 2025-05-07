@@ -18,6 +18,7 @@
     </FluentRadioGroup>
     <FluentSpacer Width="25" />
     <FluentCheckbox @bind-Value="@_showActionsMenu" Label="Use menu for column actions" />
+    <FluentCheckbox @bind-Value="@_showResizeIndicator" Label="Show resize indicator" />
 </FluentToolbar>
 <div style="height: 400px; overflow-x:auto; display:flex;">
     <FluentDataGrid Items="@FilteredItems"
@@ -28,7 +29,8 @@
                     TGridItem="Country"
                     OnRowFocus="HandleRowFocus"
                     GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr"
-                    ShowHover="true">
+                    ShowHover="true"
+                    ShowResizeIndicator="@_showResizeIndicator">
         <TemplateColumn Title="Rank" Sortable="true"  SortBy="@rankSort" Align="Align.Center">
             <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
         </TemplateColumn>
@@ -75,6 +77,7 @@
     string nameFilter = string.Empty;
     DataGridResizeType? _resizeType = null;
     bool _showActionsMenu;
+    bool _showResizeIndicator = true;
 
     GridSort<Country> rankSort = GridSort<Country>
         .ByDescending(x => x.Medals.Gold)
