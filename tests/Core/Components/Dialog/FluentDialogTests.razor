@@ -92,6 +92,8 @@
         // Act
         var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
                {
+                   options.Id = "my-id";
+
                    options.OnStateChange = (args) =>
                    {
                        dialogEventArgs = args;
