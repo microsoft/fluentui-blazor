@@ -66,14 +66,14 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
 
     /// <summary>
     /// Gets or sets the maximum size of a file to be uploaded (in bytes).
-    /// Default value is 10 MB.
+    /// Default value is 10 MiB.
     /// </summary>
     [Parameter]
     public long MaximumFileSize { get; set; } = 10 * 1024 * 1024;
 
     /// <summary>
     /// Gets or sets the sze of buffer to read bytes from uploaded file (in bytes).
-    /// Default value is 10 KB.
+    /// Default value is 10 KiB.
     /// </summary>
     [Parameter]
     public uint BufferSize { get; set; } = 10 * 1024;
