@@ -6076,6 +6076,13 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.InvokeOptionsSearchAsync">
+            <summary>
+            Performs the search operation and displays the available values. The search takes into account any previously
+            entered text which has updated the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText"/>.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.KeyDownHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs)">
             <summary />
         </member>

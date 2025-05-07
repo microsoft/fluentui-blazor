@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 
 <div id="@Id" class="@ClassValue" style="@StyleValue" top-corner="@TopCorner"
-     @onclick="@(e => Open = !Open)">
+     @onclick="@ProfileMenuClickedAsync">
     @StartTemplate
     <FluentPersona Id="@PersonaId"
                    Image="@Image"
@@ -20,6 +20,7 @@
                Style="@PopoverStyle"
                HorizontalPosition="@HorizontalPosition.Start"
                @bind-Open="@Open"
+               @bind-Open:after="@OpenChangedHandlerAsync"
                @attributes="@AdditionalAttributes">
     <Header>
         @if (HeaderTemplate is null && (!string.IsNullOrEmpty(HeaderLabel) || !string.IsNullOrEmpty(HeaderButton)))

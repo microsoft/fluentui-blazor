@@ -14,24 +14,31 @@
     [Fact]
     public void FluentProfileMenu_Default()
     {
+        bool opened = false;
+
         // Arrange && Act
         var cut = Render(
             @<FluentProfileMenu Image="@SamplePicture"
                    ButtonSize="20px"
                    ImageSize="48px"
+                   @bind-Open="@opened"
                    Status="@PresenceStatus.Available"
                    StatusTitle="I'm available"
                    HeaderLabel="Microsoft"
                    FooterLabel="v 3.14"
                    Initials="BG"
                    FullName="Bill Gates"
-                   EMail="bill.gates@microsoft.com" />);
+                   EMail="bill.gates@microsoft.com" />
+    );
+
+        Assert.False(opened);
 
         // Open the Popover
         var button = cut.Find(".initials");
         button.Click();
 
         // Assert
+        Assert.True(opened);
         cut.Verify();
     }
 
