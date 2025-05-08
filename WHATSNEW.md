@@ -1,17 +1,39 @@
-## V4.11.9
+## V4.11.9  
 
-### General
-
+### General  
+- \[General\] A11y - Fix certain controls not adapting text spacing ([#3706](https://github.com/microsoft/fluentui-blazor/pull/3706))  
+- \[General\] Add missing try..catch in DisposeAsync ([#3699](https://github.com/microsoft/fluentui-blazor/pull/3699))  
+- \[General\] Remove the FluentAssertions dependency ([#3701](https://github.com/microsoft/fluentui-blazor/pull/3701))  
+- \[General\] Use newer Markdig package ([#3703](https://github.com/microsoft/fluentui-blazor/pull/3703))  
 
 ### Components
+- \[AutoComplete\] Introduce Position parameter. ([#3718](https://github.com/microsoft/fluentui-blazor/pull/3718))  
+- \[AutoComplete\] Allow the ability to trigger the search options via code. ([#3570](https://github.com/microsoft/fluentui-blazor/pull/3570))  
+- \[AutoComplete\] Close the dropdown via code ([#3715](https://github.com/microsoft/fluentui-blazor/pull/3715))  
+- \[AutoComplete\] Enable "Multiple = false" when selecting a single item is desired ([#3571](https://github.com/microsoft/fluentui-blazor/pull/3571))  
+- \[Combobox\] Fix GetOptionValue ([#3739](https://github.com/microsoft/fluentui-blazor/pull/3739))  
+- \[DataGrid\] Do not handle keypress if active element is text field ([#3749](https://github.com/microsoft/fluentui-blazor/pull/3749))  
+- \[DataGrid\] Do not use 'display: flex' on table header cells ([#3760](https://github.com/microsoft/fluentui-blazor/pull/3760))  
+- \[InputFile\] a11y - Fix missing focus indicator in FluentInputFile ([#3722](https://github.com/microsoft/fluentui-blazor/pull/3722))  
+- \[InputFile\] Fix DivideByZeroException in FluentInputFile when uploading 0 byte files ([#3719](https://github.com/microsoft/fluentui-blazor/pull/3719))  
+- \[Menu\] Account for screen width and height when positioning menu ([#3682](https://github.com/microsoft/fluentui-blazor/pull/3682))  
+- \[ProfileMenu\] Add OpenChanged event ([#3750](https://github.com/microsoft/fluentui-blazor/pull/3750))  
+- \[Tabs\] Fix issue with publication/trimming ([#3677](https://github.com/microsoft/fluentui-blazor/pull/3677))  
+- \[Templates\] Fix overwriting standard Blazor Hybrid template ([#3673](https://github.com/microsoft/fluentui-blazor/pull/3673))  
+- \[Tooltip\] Add AdditionalProperties when using TooltipService ([#3691](https://github.com/microsoft/fluentui-blazor/pull/3691))  
+- \[Wizard\] Add the ability to invoke `OnFinish` ([#3648](https://github.com/microsoft/fluentui-blazor/pull/3648))  
 
 ### Demo site and documentation
+- \[Docs\] Add message for when using reboot with different BasePath ([#3678](https://github.com/microsoft/fluentui-blazor/pull/3678))  
+- \[Docs\] Clarify FluentSelect SelectedOptionsChanged not triggered with manual options ([#3680](https://github.com/microsoft/fluentui-blazor/pull/3680))  
+- \[Docs\] Fix missing `DisplayMode` attribute in `DataGridRemoteData.razor` ([#3729](https://github.com/microsoft/fluentui-blazor/pull/3729))  
+- \[Docs\] Try to use more correct terminology ([#3705](https://github.com/microsoft/fluentui-blazor/pull/3705))  
+- \[Docs\] Update InputFile docs to explain usage of different InputFileModes ([#3757](https://github.com/microsoft/fluentui-blazor/pull/3757))
 
 ### Icons and Emoji
   - Update to Fluent UI System Icons 1.1.298.
     > As of this version we will no longer highlight individual icon additions/changes. You can find the full list of changes in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/).
 
-  - 
 ## V4.11.8
 
 ### General
