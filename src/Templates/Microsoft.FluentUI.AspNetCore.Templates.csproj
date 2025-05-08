@@ -11,8 +11,8 @@
 		<PackageId>Microsoft.FluentUI.AspNetCore.Templates</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
-		<PackageTags>templates;blazor;fluentui;web-assembly</PackageTags>
-		<PackageType>Template</PackageType>
+        <PackageTags>Templates, Fluent UI, Blazor, Web Components</PackageTags>
+        <PackageType>Template</PackageType>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Title>Microsoft Fluent UI Blazor Templates</Title>
 		<PackageIcon>icon.png</PackageIcon>
