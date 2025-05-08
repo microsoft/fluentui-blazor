@@ -266,11 +266,21 @@ public partial class FluentOverlay : IAsyncDisposable
     /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
-        await InvokeOverlayDisposeAsync();
-
-        if (_jsModule != null)
+        try
         {
-            await _jsModule.DisposeAsync();
+            await InvokeOverlayDisposeAsync();
+
+            if (_jsModule != null)
+            {
+                await _jsModule.DisposeAsync();
+            }
+
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
 
         GlobalState.OnChange -= UpdateNeutralColor;

@@ -9,7 +9,7 @@
     <FluentGridItem xs="12" sm="12" md="6">
         <h1>Welcome!</h1>
         <p>
-            The Fluent UI Blazor library provides a robust and extensive set of <a href="https://blazor.net">Blazor</a> components. Some of those
+            The Fluent UI Blazor library provides a robust and extensive set of Razor components for <a href="https://blazor.net">Blazor</a> applications. Some of those
             components are  wrappers around Microsoft's official Fluent UI Web Components. Others are components that leverage the <a href="https://fluent2.microsoft.design/">Fluent Design System</a>
             or just make it easier to work with Fluent in general.
         </p>
@@ -44,10 +44,10 @@
 
         <h2>Latest releases</h2>
         <ul class="news">
+            <li><NewsDate Day="8" Month="May" Year="25" /><a href="/WhatsNew#v4.11.9">v4.11.9 released</a></li>
             <li><NewsDate Day="11" Month="Apr" Year="25" /><a href="/WhatsNew#v4.11.8">v4.11.8 released</a></li>
             <li><NewsDate Day="19" Month="Mar" Year="25" /><a href="/WhatsNew#v4.11.7">v4.11.7 released</a></li>
             <li><NewsDate Day="5" Month="Mar" Year="25" /><a href="/WhatsNew#v4.11.6">v4.11.6 released</a></li>
-            <li><NewsDate Day="18" Month="Feb" Year="25" /><a href="/WhatsNew#v4.11.5">v4.11.5 released</a></li>
             <!--<li><NewsDate Day="" Month="" Year="" /><a href=""></a></li>-->
         </ul>
 
@@ -69,7 +69,7 @@
         </p>
         <h3>Manual setup</h3>
         <p>
-            To start using the Fluent UI Blazor components from scratch, you first need to install the main <a href="https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/">Nuget package</a>
+            To start using the Fluent UI Blazor library from scratch, you first need to install the main <a href="https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/">NuGet package</a>
             in the project you want to use the components. You can use the NuGet package manager in your IDE for that or use the following command when using a CLI:
         </p>
         <CodeSnippet>dotnet add package Microsoft.FluentUI.AspNetCore.Components</CodeSnippet>
@@ -83,7 +83,7 @@
     <FluentGridItem xs="12" sm="12" md="6">
         <h3>Scripts</h3>
         <p>
-            As mentioned, we wrap the Fluent UI Web Components for some of our compnents. The needed script is included in the library and will
+            As mentioned, we wrap the Fluent UI Web Components for some of our components. The needed script is included in the library and will
             be loaded for you automatically by using Blazor's built-in capabilities. You do not need to download or pull the script from a CDN manually.
         </p>
        <p>
@@ -107,8 +107,8 @@
     </FluentGridItem>
 
     <FluentGridItem xs="12" sm="12" md="8" >
-        <h2 id="using-the-fluentui-web-components">Using the Fluent UI Blazor components</h2>
-        <p>With the package installed, you can begin using the Fluent UI Blazor components in the same way as any other Blazor component. Just be sure to add the following using statement to your views:</p>
+        <h2 id="using-the-fluentui-web-components">Using the Fluent UI Blazor library</h2>
+        <p>With the package installed, you can begin using the components from the Fluent UI Blazor library in the same way as any other Razor component. Just be sure to add the following using statement to your views:</p>
         <CodeSnippet>@@using Microsoft.FluentUI.AspNetCore.Components</CodeSnippet>
 
 
@@ -149,7 +149,7 @@
         </p>
         <h2 id="configuring-the-design-system">Configuring the Design System</h2>
         <p>
-            The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while
+            The Fluent UI Razor components are using FAST's Adaptive UI technology, which enables design customization and personalization, while
             automatically maintaining accessibility. This is accomplished through setting various &quot;Design Tokens&quot;.
         </p>
         <p>

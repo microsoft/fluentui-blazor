@@ -3198,6 +3198,11 @@
             Gets or sets a value indicating whether the tooltip is visible.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.AdditionalAttributes">
+            <summary>
+            Gets or sets a collection of additional attributes that will be applied to the created element.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService">
             <inheritdoc cref="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService"/>
         </member>
@@ -5241,13 +5246,13 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.MaximumFileSize">
             <summary>
             Gets or sets the maximum size of a file to be uploaded (in bytes).
-            Default value is 10 MB.
+            Default value is 10 MiB.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.BufferSize">
             <summary>
             Gets or sets the sze of buffer to read bytes from uploaded file (in bytes).
-            Default value is 10 KB.
+            Default value is 10 KiB.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.Accept">
@@ -5268,6 +5273,7 @@
             Gets or sets the type of file reading.
             For SaveToTemporaryFolder, use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.LocalFile" /> to retrieve the file.
             For Buffer, use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.Buffer" /> to retrieve bytes.
+            For Stream, use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.Stream"/> to have full control over retrieving the file.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.DragDropZoneVisible">
@@ -5902,16 +5908,15 @@
             Gets or sets the callback that is invoked when the text field value changes.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Position">
+            <summary>
+            Gets or sets the position of the options popup.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Value">
             <summary>
             Gets or sets the value of the input. This should be used with two-way binding.
             For the FluentAutocomplete component, use the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText"/> property instead.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Multiple">
-            <summary>
-            For <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1"/>, this property must be True.
-            Set the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MaximumSelectedOptions"/> property to 1 to select just one item.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Appearance">
@@ -6058,8 +6063,21 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ShouldRender">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.CloseDropdownAsync">
+            <summary>
+            Closes the multiselect dropdown.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.InvokeOptionsSearchAsync">
+            <summary>
+            Performs the search operation and displays the available values. The search takes into account any previously
+            entered text which has updated the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText"/>.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.KeyDownHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs)">
             <summary />
@@ -6087,6 +6105,12 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.RaiseValueTextChangedAsync(System.String)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.GetVerticalPosition">
+            <summary>
+            Gets the position of the popup.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MustBeClosed">
             <summary />
@@ -6129,6 +6153,13 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.Size">
             <summary>
             Gets or sets the maximum number of options that should be visible in the listbox scroll area.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.SelectedOptionsChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Only available when Multiple = true.
+            ⚠️ When using manual options, the internal data structure cannot be updated reliably, because of this, the SelectedOptionsChanged event will not be triggered.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.BorderStyle">
@@ -6269,6 +6300,13 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSelect`1.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSelect`1.SelectedOptionsChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Only available when Multiple = true.
+            ⚠️ When using manual options, the internal data structure cannot be updated reliably, because of this, the SelectedOptionsChanged event will not be triggered.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.InternalListContext`1.Options">
@@ -6668,12 +6706,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OpenAsync(System.Int32,System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OpenAsync(System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
-            Method called from JavaScript to get the current mouse ccordinates.
+            Method called from JavaScript to get the current mouse coordinates.
             </summary>
-            <param name="x"></param>
-            <param name="y"></param>
+            <param name="x">x-coordinate of point clicked on</param>
+            <param name="y">y-coordinate of point clicked on</param>
+            <param name="screenWidth">width of the screen</param>
+            <param name="screenHeight">height of the screen</param>
             <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.DrawMenuWithoutService">
@@ -8260,6 +8300,11 @@
             Gets or sets the Menu status.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.OpenChanged">
+            <summary>
+            Gets or sets the callback that is invoked when the open state changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.TopCorner">
             <summary>
             Gets or sets whether popover should be forced to top right or top left (RTL).
@@ -8375,6 +8420,9 @@
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.PersonaId">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.OpenChangedHandlerAsync">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Min">
@@ -10107,7 +10155,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.Delay">
             <summary>
-            Gets or sets the delay (in milliseconds). 
+            Gets or sets the delay (in milliseconds).
             Default is 300.
             </summary>
         </member>
@@ -10147,7 +10195,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.OnDismissed">
             <summary>
             Callback for when the tooltip is dismissed.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.DrawTooltip">
             <summary />
@@ -10564,6 +10612,13 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnFinishHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.FinishAsync(System.Boolean)">
+            <summary>
+            Optionally validate and invoke the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnFinish"/> handler.
+            </summary>
+            <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.GoToStepAsync(System.Int32,System.Boolean)">
             <summary>

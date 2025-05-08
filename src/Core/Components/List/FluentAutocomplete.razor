@@ -6,6 +6,7 @@
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue"
          @attributes="AdditionalAttributes"
+         single-select="@GetSingleSelect()"
          auto-height="@(!string.IsNullOrEmpty(MaxAutoHeight))">
         <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" PreventDefaultOnly="@PreventOnly" />
 
@@ -31,7 +32,7 @@
                          autofocus="@Autofocus"
                          Style="@ComponentWidth">
             @* Selected Items *@
-            @if (this.SelectedOptions?.Any() == true)
+            @if (this.SelectedOptions?.Any() == true || this.SelectedOption is not null)
             {
                 @* Normal (single) line height *@
                 if (string.IsNullOrEmpty(MaxAutoHeight))
@@ -67,36 +68,35 @@
                         @RenderSelectedOptions
                     </div>
                 }
-
             }
             @if (!Disabled && !ReadOnly)
             {
-                if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText))
+                if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText) || this.SelectedOption is not null)
                 {
                     if (IconDismiss != null)
                     {
-                        <FluentIcon Value="@IconDismiss"
-                                    Width="12px"
-                                    Style="cursor: pointer;"
-                                    Slot="end"
-                                    Title="@AccessibilityIconDismiss"
-                                    Focusable="true"
-                                    @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
-                                    OnClick="@OnClearAsync" />
+                            <FluentIcon Value="@IconDismiss"
+                                        Width="12px"
+                                        Style="cursor: pointer;"
+                                        Slot="end"
+                                        Title="@(Multiple == false ? string.Format(AccessibilityRemoveItem, GetOptionText(SelectedOption)) : AccessibilityIconDismiss)"
+                                        Focusable="true"
+                                        @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
+                                        OnClick="@OnClearAsync" />
                     }
                 }
                 else
                 {
                     if (IconSearch != null)
                     {
-                        <FluentIcon Value="@IconSearch"
-                                    Width="16px"
-                                    Style="cursor: pointer;"
-                                    Slot="end"
-                                    Title="@AccessibilityIconSearch"
-                                    Focusable="true"
-                                    @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
-                                    OnClick="@OnDropDownExpandedAsync" />
+                            <FluentIcon Value="@IconSearch"
+                                        Width="16px"
+                                        Style="cursor: pointer;"
+                                        Slot="end"
+                                        Title="@AccessibilityIconSearch"
+                                        Focusable="true"
+                                        @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
+                                        OnClick="@OnDropDownExpandedAsync" />
                     }
                 }
             }
@@ -107,48 +107,48 @@
         {
             @if (SelectValueOnTab)
             {
-                <FluentKeyCode Anchor="@Id"
-                               OnKeyDown="@KeyDownHandlerAsync"
-                               Only="@SelectValueOnTabOnly"
-                               PreventDefaultOnly="@SelectValueOnTabOnly" />
+                    <FluentKeyCode Anchor="@Id"
+                                    OnKeyDown="@KeyDownHandlerAsync"
+                                    Only="@SelectValueOnTabOnly"
+                                    PreventDefaultOnly="@SelectValueOnTabOnly" />
             }
 
             <FluentOverlay OnClose="@(e => IsMultiSelectOpened = false)" Visible="true" Transparent="true" FullScreen="true" />
             <FluentAnchoredRegion Anchor="@Id"
                                   HorizontalDefaultPosition="HorizontalPosition.Right"
                                   HorizontalInset="true"
-                                  VerticalDefaultPosition="@VerticalPosition.Unset"
+                                  VerticalDefaultPosition="GetVerticalPosition()"
                                   Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating);"
                                   Shadow="ElevationShadow.Flyout">
                 @if (HeaderContent != null)
                 {
-                    @HeaderContent(Items ?? Array.Empty<TOption>())
+                        @HeaderContent(Items ?? Array.Empty<TOption>())
                 }
 
                 <div id="@IdPopup" role="listbox" style="@ListStyleValue" tabindex="0">
                     @if (Items != null)
                     {
-                        var selectableItem = GetOptionValue(SelectableItem);
+                            var selectableItem = GetOptionValue(SelectableItem);
 
-                        @if (Virtualize)
-                        {
-                            <Virtualize ItemsProvider="LoadFilteredItemsAsync" @ref="VirtualizationContainer" ItemSize="ItemSize">
-                                @RenderOption((context, selectableItem))
-                            </Virtualize>
-                        }
-                        else
-                        {
-                            foreach (TOption item in Items)
+                            @if (Virtualize)
                             {
-                                @RenderOption((item, selectableItem))
+                                    <Virtualize ItemsProvider="LoadFilteredItemsAsync" @ref="VirtualizationContainer" ItemSize="ItemSize">
+                                        @RenderOption((context, selectableItem))
+                                    </Virtualize>
                             }
-                        }
+                            else
+                            {
+                                    foreach (TOption item in Items)
+                                    {
+                                            @RenderOption((item, selectableItem))
+                                    }
+                            }
                     }
                 </div>
 
                 @if (FooterContent != null)
                 {
-                    @FooterContent(Items ?? Array.Empty<TOption>())
+                        @FooterContent(Items ?? Array.Empty<TOption>())
                 }
             </FluentAnchoredRegion>
         }
@@ -160,7 +160,7 @@
             <FluentAnchoredRegion Anchor="@Id"
                                   HorizontalDefaultPosition="HorizontalPosition.Right"
                                   HorizontalInset="true"
-                                  VerticalDefaultPosition="@VerticalPosition.Unset"
+                                  VerticalDefaultPosition="GetVerticalPosition()"
                                   Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating); padding: 10px;"
                                   Shadow="ElevationShadow.Flyout">
                 @MaximumSelectedOptionsMessage
@@ -174,15 +174,15 @@
     {
         var optionValue = GetOptionValue(context.Item);
         <FluentOption TOption="TOption"
-                      @key="@context.Item"
-                      Value="@optionValue"
-                      Style="@OptionStyle"
-                      Class="@OptionClass"
-                      Selected="@GetOptionSelected(context.Item)"
-                      Disabled="@(GetOptionDisabled(context.Item) ?? false)"
-                      OnSelect="@OnSelectCallback(context.Item)"
-                      aria-selected="@(GetOptionSelected(context.Item) || optionValue == context.SelectableItem ? "true" : "false")"
-                      selectable="@(optionValue == context.SelectableItem)">
+                        @key="@context.Item"
+                        Value="@optionValue"
+                        Style="@OptionStyle"
+                        Class="@OptionClass"
+                        Selected="@GetOptionSelected(context.Item)"
+                        Disabled="@(GetOptionDisabled(context.Item) ?? false)"
+                        OnSelect="@OnSelectCallback(context.Item)"
+                        aria-selected="@(GetOptionSelected(context.Item) || optionValue == context.SelectableItem ? "true" : "false")"
+                        selectable="@(optionValue == context.SelectableItem)">
             @if (OptionTemplate == null)
             {
                 @GetOptionText(context.Item)
@@ -196,27 +196,41 @@
 
     private RenderFragment RenderSelectedOptions => __builder =>
     {
-        if (SelectedOptions != null)
+        var selectedOptions = new List<TOption>();
+        if (Multiple && (SelectedOptions?.Any() ?? false))
         {
-            foreach (var item in SelectedOptions)
+            selectedOptions.AddRange(SelectedOptions);
+        }
+        if (!Multiple && SelectedOption is not null)
+        {
+            selectedOptions.Add(SelectedOption);
+        }
+
+        if (selectedOptions.Any())
+        {
+            foreach (var item in selectedOptions)
             {
                 if (SelectedOptionTemplate == null)
                 {
                     var text = @GetOptionText(item);
 
-                    if (ReadOnly || Disabled)
+                    if (Multiple == false)
+                    {
+                        <FluentLabel tabindex="0" aria-label="@GetOptionText(item)" role="checkbox" aria-checked="true">@text</FluentLabel>
+                    }
+                    else if (ReadOnly || Disabled)
                     {
                         <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
-                                     aria-label="@GetOptionText(item)">
+                                        aria-label="@GetOptionText(item)">
                             @text
                         </FluentBadge>
                     }
                     else
                     {
                         <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
-                                     OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
-                                     DismissTitle="@(string.Format(AccessibilityRemoveItem, text))"
-                                     aria-label="@GetOptionText(item)">
+                                        OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
+                                        DismissTitle="@(string.Format(AccessibilityRemoveItem, text))"
+                                        aria-label="@GetOptionText(item)">
                             @text
                         </FluentBadge>
                     }

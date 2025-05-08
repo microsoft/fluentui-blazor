@@ -163,11 +163,11 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
         }
     }
 
-    protected override string? GetOptionValue(TOption? item)
+    private string? GetComboboxContent()
     {
-        if (item != null)
+        if (SelectedOption != null)
         {
-            return OptionText.Invoke(item) ?? OptionValue.Invoke(item) ?? item.ToString();
+            return OptionText.Invoke(SelectedOption) ?? OptionValue.Invoke(SelectedOption) ?? SelectedOption.ToString();
         }
         else
         {
@@ -177,11 +177,20 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
 
     public new async ValueTask DisposeAsync()
     {
-        if (Module is not null && !string.IsNullOrEmpty(Id))
+        try
         {
-            await Module.InvokeVoidAsync("detachIndicatorClickHandler", Id);
-            await Module.DisposeAsync();
+            if (Module is not null && !string.IsNullOrEmpty(Id))
+            {
+                await Module.InvokeVoidAsync("detachIndicatorClickHandler", Id);
+                await Module.DisposeAsync();
+            }
+            await base.DisposeAsync();
         }
-        await base.DisposeAsync();
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }

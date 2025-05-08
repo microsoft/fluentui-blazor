@@ -1,4 +1,4 @@
-﻿## V3.2.2
+## V3.2.2
 - Fix [#859](https://github.com/microsoft/fluentui-blazor/issues/859) and [#884](https://github.com/microsoft/fluentui-blazor/issues/859): Fix NavMenu for real by moving `<a>` tag up in the rendering tree
 
 ### Update Fluent UI System icons to 1.1.221
@@ -535,7 +535,7 @@ unpredictable results.
 
 > **If you are upgrading from an earlier version please remove the script from your `index.html` or `_Layout.cshtml` file.**
 
-We made this change to make certain you'll always get the version of the script that works best with the Blazor components. It also eliminates the risk of having
+We made this change to make certain you'll always get the version of the script that works best with our components. It also eliminates the risk of having
 multiple versions of the script being used on a page. On top of all this, it also makes installation of the package in your new projects easier.
 
 ## Readme and docs updates

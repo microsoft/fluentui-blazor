@@ -17,7 +17,7 @@
         {
             string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
 
-            <FluentKeyCode Only="new[] { KeyCode.Ctrl, KeyCode.Enter }" OnKeyDown="HandleKeyDown" class="keycapture" style="width: 100%;"  StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+            <FluentKeyCode Only="new[] { KeyCode.Ctrl, KeyCode.Enter }" OnKeyDown="HandleKeyDown" class="keycapture" style="width: 100%;" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
 
                 @if (AnyColumnActionEnabled)
                 {
@@ -96,74 +96,76 @@
             {
                 wdelta = "56px";
             }
-
-            @if (Align == Align.Start || Align == Align.Center)
-            {
-                @if (Grid.ResizeType is not null)
+            <div style="display: flex;">
+                @if (Align == Align.Start || Align == Align.Center)
                 {
-                    @OptionsButton()
-                }
-                else
-                {
-                    @if (ColumnOptions is not null)
+                    @if (Grid.ResizeType is not null)
                     {
-                        @FilterButton()
+                        @OptionsButton()
+                    }
+                    else
+                    {
+                        @if (ColumnOptions is not null)
+                        {
+                            @FilterButton()
+                        }
                     }
                 }
-            }
 
-            @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
-            {
-                <FluentKeyCode Only="new [] { KeyCode.Ctrl, KeyCode.Enter}" OnKeyDown="HandleKeyDown" class="keycapture" style="width: 100%;" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
-                    <FluentButton Appearance="Appearance.Stealth" Class="col-sort-button" Style="@($"width: calc(100% - {wdelta});")" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip">
+                @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
+                {
+                    <FluentKeyCode Only="new[] { KeyCode.Ctrl, KeyCode.Enter }" OnKeyDown="HandleKeyDown" class="keycapture" style="width: 100%;" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+                        <FluentButton Appearance="Appearance.Stealth" Class="col-sort-button" Style="@($"width: calc(100% - {wdelta});")" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip">
                             <div class="col-title-text" title="@tooltip">@Title</div>
 
-                        @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
-                        {
-                            if (Grid.SortByAscending == true)
+                            @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
                             {
-                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="end" Style="opacity: 0.5;" />
+                                if (Grid.SortByAscending == true)
+                                {
+                                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="end" Style="opacity: 0.5;" />
+                                }
+                                else
+                                {
+                                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="end" Style="opacity: 0.5;" />
+                                }
                             }
-                            else
+                            @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType is not null)
                             {
-                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="end" Style="opacity: 0.5;" />
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="end" Style="opacity: 0.5;" />
                             }
-                        }
-                        @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType is not null)
-                        {
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="end" Style="opacity: 0.5;" />
-                        }
                         </FluentButton>
-                </FluentKeyCode>
-            }
-            else
-            {
-                <div class="col-title" style="@($"width: calc(100% - {wdelta});")">
-                    <div class="col-title-text" title="@tooltip" >@Title
-                        @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType.HasValue )
-                        {
-                            <span style="padding: 0 5px;">
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="end" Style="opacity: 0.5;" />
-                            </span>
-                        }
-                    </div>
-                </div>
-            }
-
-            @if (Align == Align.End)
-            {
-                @if (Grid.ResizeType is not null)
-                {
-                   @OptionsButton()
+                    </FluentKeyCode>
                 }
                 else
                 {
-                    @if (ColumnOptions is not null)
+                    <div class="col-title" style="@($"width: calc(100% - {wdelta});")">
+                        <div class="col-title-text" title="@tooltip">
+                            @Title
+                            @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType.HasValue)
+                            {
+                                <span style="padding: 0 5px;">
+                                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="end" Style="opacity: 0.5;" />
+                                </span>
+                            }
+                        </div>
+                    </div>
+                }
+
+                @if (Align == Align.End)
+                {
+                    @if (Grid.ResizeType is not null)
                     {
-                        @FilterButton()
+                        @OptionsButton()
+                    }
+                    else
+                    {
+                        @if (ColumnOptions is not null)
+                        {
+                            @FilterButton()
+                        }
                     }
                 }
-            }
+            </div>
 
         }
     }
@@ -181,23 +183,23 @@
     {
         return
             @<FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" Color="Color.Neutral" Width="20px" Style="opacity: 0.5;" />
-            </FluentButton>;
+            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" Color="Color.Neutral" Width="20px" Style="opacity: 0.5;" />
+        </FluentButton>;
     }
 
     private RenderFragment FilterButton()
     {
         return
             @<FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                @if (Filtered.GetValueOrDefault())
-            {
+        @if (Filtered.GetValueOrDefault())
+        {
                 <FluentIcon Value="@(new CoreIcons.Regular.Size20.FilterDismiss())" />
-            }
-            else
-            {
+        }
+        else
+        {
                 <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" />
-            }
+        }
 
-            </FluentButton>;
+        </FluentButton>;
     }
 }

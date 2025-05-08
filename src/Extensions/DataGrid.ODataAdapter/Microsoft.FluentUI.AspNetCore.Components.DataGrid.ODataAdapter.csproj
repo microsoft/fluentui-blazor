@@ -9,7 +9,7 @@
     <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Summary>An adapter for using the Fluent UI Blazor DataGrid with OData Client.</Summary>
-    <PackageTags>Fluent UI, Blazor, DataGrid, .NET8</PackageTags>
+    <PackageTags>Fluent UI, Blazor, DataGrid</PackageTags>
     <Title>Microsoft Fluent UI DataGrid adapter for Entity Framework</Title>
     <Description>An adapter for using the Fluent UI Blazor DataGrid with OData Client.</Description>
     <SignAssembly>false</SignAssembly>

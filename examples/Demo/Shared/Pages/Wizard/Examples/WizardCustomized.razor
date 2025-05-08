@@ -15,6 +15,7 @@
               Id="customized-wizard"
               @bind-Value="@Value"
               StepTitleHiddenWhen="@GridItemHidden.XsAndDown"
+              OnFinish="OnFinish"
               Height="300px">
     <Steps>
         <FluentWizardStep OnChange="@OnStepChange">
@@ -86,6 +87,10 @@
                     <FluentButton OnClick="@(() => MyWizard.GoToStepAsync(Value + 1))" Appearance="Appearance.Accent">Next</FluentButton>
                     <FluentButton OnClick="@(() => MyWizard.GoToStepAsync(lastStepIndex))" Appearance="Appearance.Accent">Go to last page</FluentButton>
                 }
+                else
+                {
+                    <FluentButton OnClick="@(() => MyWizard.FinishAsync())" Appearance="Appearance.Accent">Finish</FluentButton>
+                }
             </div>
         }
     </ButtonTemplate>
@@ -99,5 +104,11 @@
     void OnStepChange(FluentWizardStepChangeEventArgs e)
     {
         DemoLogger.WriteLine($"Go to step {e.TargetLabel} (#{e.TargetIndex})");
+    }
+
+    async Task OnFinish()
+    {
+        DemoLogger.WriteLine($"Customized wizard finish clicked.");
+        await DialogService.ShowInfoAsync("The wizard has finished.", "Finished Clicked");
     }
 }
