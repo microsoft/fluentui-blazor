@@ -64,19 +64,15 @@
 
 ::deep .resize-handle {
     position: absolute;
-    top: 5px;
-    right: 0;
+    top: 6px;
+    right: -1px;
     left: unset;
     bottom: 0;
-    height: 32px;
+    height: 30px;
     cursor: col-resize;
-    margin-left: calc(var(--design-unit) * 2px);
-    width: calc(var(--design-unit) * 1px + 2px);
-}
-
-[dir=rtl] * ::deep .resize-handle {
-    left: 0;
-    right: unset;
+    width: 6px;
+    border-inline-end: 1px solid var(--neutral-stroke-divider-rest);
+    ;
 }
 
 .header {
