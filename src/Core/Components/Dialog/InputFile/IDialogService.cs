@@ -14,5 +14,5 @@ public partial interface IDialogService
     /// <param name="onCompletedAsync">Callback to be invoked when the file upload is completed. Call `StateHasChanged` in your method to refresh your UI.</param>
     /// <param name="options">Options for the <see cref="FluentInputFile">element</see>.</param>
     /// <returns></returns>
-    Task RegisterInputFileAsync(string elementId, Func<IEnumerable<FluentInputFileEventArgs>, Task> onCompletedAsync, Action<InputFileOptions>? options = null);
+    Task<InputFileInstance> RegisterInputFileAsync(string elementId, Func<IEnumerable<FluentInputFileEventArgs>, Task> onCompletedAsync, Action<InputFileOptions>? options = null);
 }

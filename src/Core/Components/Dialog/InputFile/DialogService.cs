@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class DialogService : IDialogService
 {
     /// <see cref="IDialogService.RegisterInputFileAsync(string, Func{IEnumerable{FluentInputFileEventArgs}, Task}, Action{InputFileOptions}?)"/>
-    public virtual async Task RegisterInputFileAsync(string elementId, Func<IEnumerable<FluentInputFileEventArgs>, Task> onCompletedAsync, Action<InputFileOptions>? options = null)
+    public virtual async Task<InputFileInstance> RegisterInputFileAsync(string elementId, Func<IEnumerable<FluentInputFileEventArgs>, Task> onCompletedAsync, Action<InputFileOptions>? options = null)
     {
         if (this.ProviderNotAvailable())
         {
@@ -23,6 +23,7 @@ public partial class DialogService : IDialogService
         // Register the dialog
         var instance = new DialogInstance(this, typeof(InputFile), new DialogOptions()
         {
+            // These parameters are passed to the `FluentDialogProvider` component
             Parameters = new Dictionary<string, object?>(StringComparer.Ordinal)
             {
                 { "ElementId", elementId },
@@ -34,8 +35,12 @@ public partial class DialogService : IDialogService
             },
         });
 
+        var fileInstance = new InputFileInstance(ServiceProvider, instance, elementId);
+
         // Add the dialog to the service, and render it.
-        ServiceProvider.Items.TryAdd(instance?.Id ?? "", instance ?? throw new InvalidOperationException("Failed to register an InputFile."));
+        ServiceProvider.Items.TryAdd(fileInstance.Id, instance ?? throw new InvalidOperationException("Failed to register an InputFile."));
         await ServiceProvider.OnUpdatedAsync.Invoke(instance);
+
+        return fileInstance;
     }
 }
