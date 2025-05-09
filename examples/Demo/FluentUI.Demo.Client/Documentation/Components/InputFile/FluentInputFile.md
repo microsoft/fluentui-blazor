@@ -19,6 +19,8 @@ The component can be customized by adapting the `ChildContent`.
 The areas that need to be associated with the opening of the file selection dialog
 must be included in a `label for` that references the component `Id`: E.g. `<label for=“my-file-uploader”>browse...</label>`.
 
+> ℹ️ By default, this component uses the `SaveToTemporaryFolder` mode, which creates a local file. However, this might not always be possible depending on the user's permissions on the host system. You may need to change the `InputFileMode` based on your specific use case.
+
 {{ InputFileDefault }}
 
 ## Manual upload
@@ -34,12 +36,16 @@ By default, the component has a parameter `Mode=“InputFileMode.SaveToTemporary
 Change this parameter to `InputFileMode.Buffer` to control the reception of files directly into memory.
 When the `OnCompleted` event is triggered, the entire file content is present in the `file.Buffer` property.
 
+This mode is recommended if you can't store files locally, are working with small files, and have enough memory.
+
 {{ InputFileBufferMode }}
 
 ## Mode = InputFileMode.Stream
 
 If you want to transfer very large files and do not want to save your files locally (in a temporary folder, for example),
-you can retrieve the file stream from the `OnFileUploaded` event and the `file.Stream` property.
+you can retrieve the file stream from the `OnFileUploaded` event and the `file.Stream` property. Keep in mind that you will need to implement stream handling yourself.
+
+> ⚠️ Remember to always dispose each stream to prevent memory leaks!
 
 {{ InputFileStream }}
 

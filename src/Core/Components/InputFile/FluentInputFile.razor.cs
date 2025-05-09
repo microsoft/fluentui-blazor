@@ -75,14 +75,14 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
 
     /// <summary>
     /// Gets or sets the maximum size of a file to be uploaded (in bytes).
-    /// Default value is 10 MB.
+    /// Default value is 10 MiB.
     /// </summary>
     [Parameter]
     public long MaximumFileSize { get; set; } = 10 * 1024 * 1024;
 
     /// <summary>
     /// Gets or sets the sze of buffer to read bytes from uploaded file (in bytes).
-    /// Default value is 10 KB.
+    /// Default value is 10 KiB.
     /// </summary>
     [Parameter]
     public uint BufferSize { get; set; } = 10 * 1024;
@@ -106,6 +106,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     /// Gets or sets the type of file reading.
     /// For SaveToTemporaryFolder, use <see cref="FluentInputFileEventArgs.LocalFile" /> to retrieve the file.
     /// For Buffer, use <see cref="FluentInputFileEventArgs.Buffer" /> to retrieve bytes.
+    /// For Stream, use <see cref="FluentInputFileEventArgs.Stream"/> to have full control over retrieving the file.
     /// </summary>
     [Parameter]
     public InputFileMode Mode { get; set; } = InputFileMode.SaveToTemporaryFolder;
