@@ -42,7 +42,7 @@ using the [@container](https://developer.mozilla.org/en-US/docs/Web/CSS/@contain
 
 Each time the breakpoint is reached, the layout will be updated to reflect the new layout, and the event `OnBreakpointEnter` will be triggered.
 
-**💡 Note**: The `FluentLayout` component can be used with a Blazor static web app or a Blazor interactive app.
+[!TIP] The `FluentLayout` component can be used with a Blazor static web app or a Blazor interactive app.
 The hamburger menu is available in all modes, but the event `OnBreakpointEnter` and the `MenuDeferredLoading` parameter are only available in "interactive mode".
 
 ## Sticky Panels

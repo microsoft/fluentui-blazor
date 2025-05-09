@@ -13,7 +13,7 @@ and require less scrolling.
 For navigation beyond closely related categories, use a [FluentLink](/link) instead.
 To initiate an action, use a [FluentButton](/button) instead.
 
-> **note**: For the moment, there are no 'scrolling' functions when the number of tabs is too large
+> [!NOTE] For the moment, there are no 'scrolling' functions when the number of tabs is too large
 > in relation to the size of the container or screen.
 
 ## Default

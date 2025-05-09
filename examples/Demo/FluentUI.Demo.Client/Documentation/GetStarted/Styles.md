@@ -54,7 +54,7 @@ If you are creating a site by using our [Templates package](https://www.fluentui
 this is already set up for you.
 You can <a href="/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" target="_blank">download the file</a> to see what's inside.
 
-> **Note**: It is entirely possible to build a site **without using Reboot** but you will have to do more styling yourself.
+> [!NOTE] It is entirely possible to build a site **without using Reboot** but you will have to do more styling yourself.
 
 ## Approach
 
