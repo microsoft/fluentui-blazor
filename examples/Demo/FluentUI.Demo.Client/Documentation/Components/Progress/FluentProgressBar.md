@@ -40,6 +40,16 @@ The background color of the progress bar can be set using the `BackgroundColor` 
 
 {{ ProgressBarState }}
 
+## Visible
+
+The `Visible` parameter can be used to show or hide the progress bar.
+This parameter is nullable:
+- If `true` (default), the component is visible.
+- If `false`, the component is hidden.
+- If `null`, the component is hidden and not rendered.
+
+{{ ProgressBarVisible }}
+
 ## API FluentProgressBar
 
 {{ API Type=FluentProgressBar }}

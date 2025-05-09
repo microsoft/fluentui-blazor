@@ -17,13 +17,17 @@ public partial class FluentSpinner : FluentComponentBase, ITooltipComponent
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("visibility", "hidden", () => Visible == false)
         .Build();
 
     /// <summary>
-    /// Gets or sets the visibility of the component
+    /// Gets or sets the visibility of the component.
+    /// If `true` (default), the component is visible.
+    /// If `false`, the component is hidden.
+    /// If `null`, the component is hidden and not rendered.
     /// </summary>
     [Parameter]
-    public bool Visible { get; set; } = true;
+    public bool? Visible { get; set; } = true;
 
     /// <summary>
     /// Gets or sets whether the spinner should be shown in an inverted color scheme (i.e. light spinner on dark background)
