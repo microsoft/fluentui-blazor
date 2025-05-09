@@ -22,7 +22,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// cref="Mode"/> property to specify the file reading mode, such as buffering, saving to a temporary folder, or
 /// streaming. The <see cref="OnFileUploaded"/> and <see cref="OnCompleted"/> events can be used to handle file upload
 /// completion.</remarks>
-public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
+public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, IInputFileOptions
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "InputFile/FluentInputFile.razor.js";
     private ElementReference? _containerElement;

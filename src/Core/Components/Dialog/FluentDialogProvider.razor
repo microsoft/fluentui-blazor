@@ -6,13 +6,28 @@
     {
         @foreach (var dialog in DialogService.Items.Values.OrderBy(i => i.Index))
         {
-            <FluentDialog Id="@dialog.Id"
-                          Class="@dialog.Options?.ClassValue"
-                          Style="@dialog.Options?.StyleValue"
-                          Data="@dialog.Options?.Data"
-                          Instance="@dialog"
-                          OnStateChange="@(dialog.Options?.OnStateChange ?? EmptyOnStateChange)"
-                          @attributes="@AdditionalAttributes" />
+            if (dialog.ComponentType == typeof(Microsoft.AspNetCore.Components.Forms.InputFile))
+            {
+                var anchorId = dialog.Options?.Parameters[Microsoft.FluentUI.AspNetCore.Components.DialogService.InputFileElementId] as string;
+                var onCompleted = dialog.Options?.Parameters[Microsoft.FluentUI.AspNetCore.Components.DialogService.InputFileOnCompleted] as Func<IEnumerable<FluentInputFileEventArgs>, Task>;
+                var options = dialog.Options?.Parameters[Microsoft.FluentUI.AspNetCore.Components.DialogService.InputFileOptions] as InputFileOptions;
+
+                <FluentInputFile Id="@dialog.Id"
+                                 DragDropZoneVisible="false"
+                                 AnchorId="@anchorId"
+                                 OnCompleted="@(e => onCompleted is null ? Task.CompletedTask : onCompleted.Invoke(e))"
+                                 Accept="@options?.Accept" />
+            }
+            else
+            {
+                <FluentDialog Id="@dialog.Id"
+                              Class="@dialog.Options?.ClassValue"
+                              Style="@dialog.Options?.StyleValue"
+                              Data="@dialog.Options?.Data"
+                              Instance="@dialog"
+                              OnStateChange="@(dialog.Options?.OnStateChange ?? EmptyOnStateChange)"
+                              @attributes="@AdditionalAttributes" />
+            }
         }
     }
 </div>
