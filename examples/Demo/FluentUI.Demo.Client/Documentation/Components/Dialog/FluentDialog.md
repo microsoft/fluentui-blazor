@@ -72,7 +72,7 @@ It is then retrieved in the `DialogResult` like in the example below.
 }
 ```
 
-> **Note:**  
+> [!NOTE]
 > 1. The `FluentDialogBody` component is required to display the dialog window correctly.
 > 2. ⚠️ If you override the `OnInitializedAsync` method, **you must call** the `base.OnInitializedAsync()` method,
 >    in addition to your personalized code.

@@ -44,8 +44,7 @@ Here's a step-by-step guide:
     }
     ```
 
-   > **Note:**
-   >
+   > [!NOTE]   
    > The list of keys can be found in the `Core\Microsoft.FluentUI.AspNetCore.Components\Localization\LanguageResource.resx` file.  
    > Or you can use a constant from the `Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource` class.
    > Example: `Localization.LanguageResource.MessageBox_ButtonOk`.
