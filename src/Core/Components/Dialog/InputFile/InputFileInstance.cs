@@ -10,16 +10,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class InputFileInstance : IAsyncDisposable
 {
     private readonly IFluentServiceBase<IDialogInstance> _serviceProvider;
-    private readonly IDialogInstance _dialogInstance;
 
     /// <summary />
     internal InputFileInstance(IFluentServiceBase<IDialogInstance> serviceProvider, IDialogInstance instance, string anchorId)
     {
         _serviceProvider = serviceProvider;
-        _dialogInstance = instance;
         AnchorId = anchorId;
 
-        Id = _dialogInstance.Id;
+        Id = instance.Id;
     }
 
     /// <summary>
@@ -37,8 +35,10 @@ public class InputFileInstance : IAsyncDisposable
     /// </summary>
     public async ValueTask UnregisterAsync()
     {
-        _serviceProvider.Items.TryRemove(Id, out _);
-        await _serviceProvider.OnUpdatedAsync.Invoke(_dialogInstance);
+        if (_serviceProvider.Items.TryRemove(Id, out var dialogInstance))
+        {
+            await _serviceProvider.OnUpdatedAsync.Invoke(dialogInstance);
+        }
     }
 
     /// <summary>

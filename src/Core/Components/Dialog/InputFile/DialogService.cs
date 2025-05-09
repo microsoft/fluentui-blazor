@@ -43,4 +43,21 @@ public partial class DialogService : IDialogService
 
         return fileInstance;
     }
+
+    /// <see cref="IDialogService.UnregisterInputFileAsync(string)"/>
+    public virtual async Task UnregisterInputFileAsync(string elementId)
+    {
+        var instances = ServiceProvider.Items
+                                       .Where(x => x.Value.Options.Parameters.ContainsKey("ElementId") &&
+                                                   string.Equals(x.Value.Options.Parameters["ElementId"]?.ToString(), elementId, StringComparison.Ordinal))
+                                       .ToList();
+
+        foreach (var instance in instances)
+        {
+            if (ServiceProvider.Items.TryRemove(instance.Value.Id, out var dialogInstance))
+            {
+                await ServiceProvider.OnUpdatedAsync.Invoke(dialogInstance);
+            }
+        }
+    }
 }
