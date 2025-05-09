@@ -2,8 +2,6 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using Microsoft.AspNetCore.Components;
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -26,18 +24,21 @@ public class InputFileOptions : IInputFileOptions
     /// <inheritdoc cref="IInputFileOptions.Accept" />
     public string Accept { get; set; } = string.Empty;
 
-    /// <inheritdoc cref="IInputFileOptions.Disabled" />
-    public bool Disabled { get; set; }
-
     /// <inheritdoc cref="IInputFileOptions.Mode" />
     public InputFileMode Mode { get; set; }
 
-    /// <inheritdoc cref="IInputFileOptions.OnFileUploaded" />
-    public EventCallback<FluentInputFileEventArgs> OnFileUploaded { get; set; }
+    /// <summary>
+    /// Raise when a file is completely uploaded.
+    /// </summary>
+    public Func<FluentInputFileEventArgs, Task>? OnFileUploadedAsync { get; set; }
 
-    /// <inheritdoc cref="IInputFileOptions.OnProgressChange" />
-    public EventCallback<FluentInputFileEventArgs> OnProgressChange { get; set; }
+    /// <summary>
+    /// Raise when a progression step is updated.
+    /// </summary>
+    public Func<FluentInputFileEventArgs, Task>? OnProgressChangeAsync { get; set; }
 
-    /// <inheritdoc cref="IInputFileOptions.OnFileError" />
-    public EventCallback<FluentInputFileErrorEventArgs> OnFileError { get; set; }
+    /// <summary>
+    /// Raise when a file raised an error.
+    /// </summary>
+    public Func<FluentInputFileErrorEventArgs, Task>? OnFileErrorAsync { get; set; }
 }

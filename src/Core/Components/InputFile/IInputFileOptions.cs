@@ -2,8 +2,6 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using Microsoft.AspNetCore.Components;
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal interface IInputFileOptions
@@ -41,30 +39,10 @@ internal interface IInputFileOptions
     string Accept { get; set; }
 
     /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission.
-    /// </summary>
-    bool Disabled { get; set; }
-
-    /// <summary>
     /// Gets or sets the type of file reading.
     /// For SaveToTemporaryFolder, use <see cref="FluentInputFileEventArgs.LocalFile" /> to retrieve the file.
     /// For Buffer, use <see cref="FluentInputFileEventArgs.Buffer" /> to retrieve bytes.
     /// For Stream, use <see cref="FluentInputFileEventArgs.Stream"/> to have full control over retrieving the file.
     /// </summary>
     InputFileMode Mode { get; set; }
-
-    /// <summary>
-    /// Raise when a file is completely uploaded.
-    /// </summary>
-    EventCallback<FluentInputFileEventArgs> OnFileUploaded { get; set; }
-
-    /// <summary>
-    /// Raise when a progression step is updated.
-    /// </summary>
-    EventCallback<FluentInputFileEventArgs> OnProgressChange { get; set; }
-
-    /// <summary>
-    /// Raise when a file raised an error.
-    /// </summary>
-    public EventCallback<FluentInputFileErrorEventArgs> OnFileError { get; set; }
 }

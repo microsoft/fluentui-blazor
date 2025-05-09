@@ -8,10 +8,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class DialogService : IDialogService
 {
-    internal const string InputFileElementId = "ElementId";
-    internal const string InputFileOnCompleted = "OnCompleted";
-    internal const string InputFileOptions = "Options";
-
     /// <see cref="IDialogService.RegisterInputFileAsync(string, Func{IEnumerable{FluentInputFileEventArgs}, Task}, Action{InputFileOptions}?)"/>
     public virtual async Task RegisterInputFileAsync(string elementId, Func<IEnumerable<FluentInputFileEventArgs>, Task> onCompletedAsync, Action<InputFileOptions>? options = null)
     {
@@ -29,9 +25,12 @@ public partial class DialogService : IDialogService
         {
             Parameters = new Dictionary<string, object?>(StringComparer.Ordinal)
             {
-                { InputFileElementId, elementId },
-                { InputFileOnCompleted, onCompletedAsync },
-                { InputFileOptions, config},
+                { "ElementId", elementId },
+                { "OnCompletedAsync", onCompletedAsync },
+                { "OnFileUploadedAsync", config.OnFileUploadedAsync },
+                { "OnProgressChangeAsync", config.OnProgressChangeAsync },
+                { "OnFileErrorAsync", config.OnFileErrorAsync },
+                { "Options", config},
             },
         });
 
