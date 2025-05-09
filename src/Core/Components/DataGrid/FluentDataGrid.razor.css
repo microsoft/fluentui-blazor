@@ -90,3 +90,9 @@
     background-color: var(--neutral-fill-stealth-rest);
     z-index: 2;
 }
+
+
+::deep .indicator > .resize-indicator {
+    border-inline-end: calc(var(--stroke-width) * 2px) solid var(--neutral-stroke-rest);
+    transition: border-inline-end 0.2s ease-in-out;
+}
