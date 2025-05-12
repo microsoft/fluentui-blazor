@@ -77,29 +77,41 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     /// <summary>
-    /// Dispose the <see cref="JSModule"/> object.
+    /// Dispose the current object.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
+        if (_jsModule != null)
+        {
+            try
+            {
+                await DisposeAsync(_jsModule.ObjectReference);
+            }
+            catch (Exception ex) when (ex is JSDisconnectedException ||
+                                       ex is OperationCanceledException)
+            {
+                // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+                // the client disconnected. This is not an error.
+            }
+        }
+
         _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
         await JSModule.DisposeAsync();
     }
 
     /// <summary>
-    /// Dispose the <paramref name="jsModule"/> object.
+    /// Override this method to call your custom dispose logic, using the <see cref="IJSObjectReference"/> object.
     /// </summary>
     /// <param name="jsModule"></param>
     /// <returns></returns>
     [ExcludeFromCodeCoverage]
-    protected virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
+    protected virtual ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        _cachedServices?.DisposeTooltipAsync(this);
-        _cachedServices?.Dispose();
-        await JSModule.DisposeAsync(jsModule);
+        return ValueTask.CompletedTask;
     }
 
     /// <summary>

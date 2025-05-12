@@ -54,15 +54,25 @@ all parameters defined when calling `ShowDialogAsync`, as well as the `CloseAsyn
 Using `CloseAsync` you can pass a return object to the parent component.
 It is then retrieved in the `DialogResult` like in the example below.
 
-```xml
+```razor
 @inherits FluentDialogInstance
 
 <FluentDialogBody>
     Content dialog
 </FluentDialogBody>
+
+@code
+{
+    protected override Task OnActionClickedAsync(bool primary)
+    {
+        return primary
+        ? DialogInstance.CloseAsync()
+        : DialogInstance.CancelAsync();
+    }
+}
 ```
 
-> **Note:**  
+> [!NOTE]
 > 1. The `FluentDialogBody` component is required to display the dialog window correctly.
 > 2. ⚠️ If you override the `OnInitializedAsync` method, **you must call** the `base.OnInitializedAsync()` method,
 >    in addition to your personalized code.

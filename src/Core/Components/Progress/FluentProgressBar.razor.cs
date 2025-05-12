@@ -21,6 +21,7 @@ public partial class FluentProgressBar : FluentComponentBase, ITooltipComponent
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("visibility", "hidden", () => Visible == false)
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("background-color", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
         .Build();
@@ -52,10 +53,13 @@ public partial class FluentProgressBar : FluentComponentBase, ITooltipComponent
     public int? Value { get; set; }
 
     /// <summary>
-    /// Gets or sets the visibility of the component
+    /// Gets or sets the visibility of the component.
+    /// If `true` (default), the component is visible.
+    /// If `false`, the component is hidden.
+    /// If `null`, the component is hidden and not rendered.
     /// </summary>
     [Parameter]
-    public bool Visible { get; set; } = true;
+    public bool? Visible { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the component width.

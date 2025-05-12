@@ -181,8 +181,8 @@ public static class FluentAssert
     public static string ReplaceAttribute(this string value, string attribute, string? newValue = "")
     {
         var newAttributeValue = string.IsNullOrEmpty(newValue) ? string.Empty : $" {attribute}=\"{newValue}\"";
-        value = Regex.Replace(value, $" {attribute}='[\\w-]+'", newAttributeValue, RegexOptions.IgnoreCase);
-        value = Regex.Replace(value, $" {attribute}=\"[\\w-]+\"", newAttributeValue, RegexOptions.IgnoreCase);
+        value = Regex.Replace(value, $" {attribute}='[\\w-]*'", newAttributeValue, RegexOptions.IgnoreCase);
+        value = Regex.Replace(value, $" {attribute}=\"[\\w-]*\"", newAttributeValue, RegexOptions.IgnoreCase);
         return value;
     }
 }

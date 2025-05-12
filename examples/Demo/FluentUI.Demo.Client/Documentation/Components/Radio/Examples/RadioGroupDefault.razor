@@ -1,0 +1,13 @@
+﻿<FluentRadioGroup @bind-Value="@fruit" Label="Favorite fruit" Name="favorite-fruit">
+    <FluentRadio Value="@("apple")" Label="Apple"></FluentRadio>
+    <FluentRadio Value="@("banana")" Label="Banana"></FluentRadio>
+    <FluentRadio Value="@("orange")" Label="Orange"></FluentRadio>
+    <FluentRadio Value="@("grape")" Label="Grape"></FluentRadio>
+    <FluentRadio Value="@("kiwi")" Label="Kiwi"></FluentRadio>
+</FluentRadioGroup>
+
+<p>Favorite fruit: @fruit</p>
+
+@code {
+    string? fruit = "banana";
+}

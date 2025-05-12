@@ -1,0 +1,15 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using System.Text.RegularExpressions
+@inherits FluentComponentBase
+
+@foreach (var fragment in _fragments.Span)
+{
+    if (!string.IsNullOrWhiteSpace(_regex) && Regex.IsMatch(fragment, _regex, CaseSensitive ? RegexOptions.None : RegexOptions.IgnoreCase))
+    {
+        <mark id="@Id" class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes">@fragment</mark>
+    }
+    else
+    {
+        @fragment
+    }
+}

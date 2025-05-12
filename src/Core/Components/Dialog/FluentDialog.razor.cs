@@ -99,6 +99,11 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     internal async Task OnToggleAsync(DialogToggleEventArgs args)
     {
+        if (string.CompareOrdinal(args.Id, Instance?.Id) != 0)
+        {
+            return;
+        }
+
         // Raise the event received from the Web Component
         var dialogEventArgs = await RaiseOnStateChangeAsync(args);
 

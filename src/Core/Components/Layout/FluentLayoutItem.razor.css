@@ -6,25 +6,28 @@
     position: sticky;
   }
 
-  /* "outside" means "not in the css grid-area" */
-
-  .fluent-layout-item[area="header"],
-  .fluent-layout-item[area="header-outside"] {
+  .fluent-layout-item[area="header"] {
+    display: flex;
     background-color: var(--colorBrandBackgroundHover);
     color: var(--colorNeutralForegroundOnBrand);
     overflow: hidden;
     padding: 8px;
     top: 0;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
     z-index: var(--zindex-layout-header);
   }
 
-  .fluent-layout-item[area="footer"],
-  .fluent-layout-item[area="footer-outside"] {
+  .fluent-layout-item[area="footer"] {
     background-color: var(--colorNeutralBackgroundDisabled);
     bottom: 0;
     color: var(--colorNeutralForeground1);
     overflow: hidden;
     padding: 8px;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
     z-index: var(--zindex-layout-footer);
   }
 
@@ -56,43 +59,16 @@
       height: fit-content;
     }
 
-.fluent-layout[global-scrollbar] .fluent-layout-item {
+.fluent-layout[global-scrollbar] .fluent-layout-item:not([area="header"]):not([area="footer"]) {
   overflow-y: unset;
 }
 
-.fluent-layout-item *[hide-on-desktop] {
-  display: none;
+/* For the Mobile view */
+.fluent-layout[mobile] .fluent-layout-item[area="content"] {
+  grid-area: content !important;
+  padding-right: unset !important;
 }
 
-
-@media (max-width: 768px) {
-  .fluent-layout-item[area="menu"],
-  .fluent-layout-item[area="aside"] {
-    display: none;
-  }
-
-  .fluent-layout-item[area="content"] {
-    grid-area: content !important;
-    padding-right: unset !important;
-  }
-
-  .fluent-layout-item *[hide-on-desktop] {
-    display: unset;
-  }
-
-  /* Menu Opened */
-  .fluent-layout[menu-opened] {
-      overflow-x: hidden;
-  }
-
-  .fluent-layout[menu-opened] .fluent-layout-item[area="menu"] {
-    display: block;
-    width: 100% !important;
-    grid-area: content / content / aside / aside !important;
-    z-index: var(--zindex-layout-menu);
-  }
-
-  .fluent-layout[menu-opened] .fluent-layout-item[area="content"] {
-    display: none;
-  }
+.fluent-layout[mobile] .fluent-layout-item[area="footer"] {
+  line-height: var(--lineHeightBase100);
 }

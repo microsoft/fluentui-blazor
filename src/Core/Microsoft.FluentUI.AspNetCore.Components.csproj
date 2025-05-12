@@ -54,6 +54,7 @@
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
     <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
+    <None Include="**\*.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -110,7 +111,7 @@
     </PackageReference>
 
     <EmbeddedResource Update="Localization\LanguageResource.resx">
-      <Public>false</Public>
+      <Public>true</Public>
       <OmitGetResourceString>true</OmitGetResourceString>
       <AsConstants>true</AsConstants>
       <NoWarn>CS1591</NoWarn>

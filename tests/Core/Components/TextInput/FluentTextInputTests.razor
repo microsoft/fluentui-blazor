@@ -181,4 +181,24 @@
 
         Assert.Equal(expected, value);
     }
+
+    [Fact]
+    public async Task FluentInputText_ChangeAfterKeyPress()
+    {
+        var value = string.Empty;
+        var lastEventArgs = new FluentKeyPressEventArgs() { KeyPress = new KeyPress(), Value = "" };
+
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput @bind-Value="@value"
+                ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])"
+                OnChangeAfterKeyPress="@(e => lastEventArgs = e)" />
+        );
+
+        // Act
+        await cut.FindComponent<FluentTextInput>().Instance.ChangeAfterKeyPressHandlerAsync("MyValue", KeyPress.For(KeyCode.Enter));
+
+        // Assert
+        Assert.Equal(KeyCode.Enter, lastEventArgs.KeyPress.Key);
+        Assert.Equal("MyValue", lastEventArgs.Value);
+    }
 }

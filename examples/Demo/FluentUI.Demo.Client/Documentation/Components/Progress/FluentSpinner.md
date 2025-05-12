@@ -38,6 +38,16 @@ In some situations, you may need to display a spinner on a dark background.
 
 {{ SpinnerInverted }}
 
+## Visible
+
+The `Visible` parameter can be used to show or hide the progress bar.
+This parameter is nullable:
+- If `true` (default), the component is visible.
+- If `false`, the component is hidden.
+- If `null`, the component is hidden and not rendered.
+
+{{ SpinnerVisible }}
+
 ## API FluentSpinner
 
 {{ API Type=FluentSpinner }}

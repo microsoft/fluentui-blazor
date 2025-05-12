@@ -107,11 +107,8 @@ public partial class FluentGrid : FluentComponentBase
     /// </summary>
     /// <returns></returns>
     [ExcludeFromCodeCoverage(Justification = "Tested via integration tests.")]
-    protected override async ValueTask DisposeAsync(IJSObjectReference? jsModule)
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        if (jsModule != null)
-        {
-            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Grid.FluentGridCleanup", Id);
-        }
+        await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Grid.FluentGridCleanup", Id);
     }
 }

@@ -13,7 +13,7 @@ and require less scrolling.
 For navigation beyond closely related categories, use a [FluentLink](/link) instead.
 To initiate an action, use a [FluentButton](/button) instead.
 
-> **note**: For the moment, there are no 'scrolling' functions when the number of tabs is too large
+> [!NOTE] For the moment, there are no 'scrolling' functions when the number of tabs is too large
 > in relation to the size of the container or screen.
 
 ## Default
@@ -50,6 +50,13 @@ In the following example, the `Deferred` parameter is set to `true` for Tab two.
 This tab will be loaded after 2 seconds of processing (to simulate a long running process).
 
 {{ TabsDeferred }}
+
+## Dynamic
+
+You can add or remove tabs dynamically by using a list of tabs.
+This allows for greater flexibility in managing the tab content and user interactions.
+
+{{ TabsDynamic }}
 
 ## API FluentTabs
 

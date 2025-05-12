@@ -1,12 +1,6 @@
-﻿<style>
-    .max-width {
-        width: 280px;
-    }
-</style>
-
-<FluentStack HorizontalGap="10">
+﻿<FluentStack HorizontalGap="10" Wrap="true">
     <FluentButton Label="Short text"></FluentButton>
-    <FluentButton Class="max-width">
+    <FluentButton Style="max-width: 280px;">
         <ChildContent>
             Long text wraps after it hits the max width of the component
         </ChildContent>

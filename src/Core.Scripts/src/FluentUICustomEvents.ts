@@ -8,29 +8,16 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
   *    E.g. `FluentUICustomEvents.RadioGroup(blazor);`
   */
 
-  export function Tree(blazor: Blazor) {
-    blazor.registerCustomEventType('selectedchange', {
+  export function Accordion(blazor: Blazor) {
+    blazor.registerCustomEventType('accordionchange', {
       browserEventName: 'change',
       createEventArgs: event => {
-        if (event.target!.localName == 'fluent-tree-item') {
-          return {
-            affectedId: event.detail.attributes['id'].value,
-            selected: event.detail._selected,
-            expanded: event.detail._expanded
-          }
-        }
-
-        return null;
-      }
-    });
-
-    blazor.registerCustomEventType('expandedchange', {
-      browserEventName: 'expanded-change',
-      createEventArgs: event => {
+        const item: any = event.target.accordionItems[event.target.activeItemIndex];
+        const header = item?.querySelector(`[slot="heading"]`)?.innerText ?? null;
         return {
-          affectedId: event.detail.attributes['id'].value,
-          selected: event.detail._selected,
-          expanded: event.detail._expanded
+          id: item?.id ?? "",
+          expanded: item?._expanded ?? null,
+          headerText: header
         };
       }
     });

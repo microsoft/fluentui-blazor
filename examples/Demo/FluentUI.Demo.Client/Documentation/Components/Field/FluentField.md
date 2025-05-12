@@ -64,7 +64,7 @@ the default text and icon (or add an icon in the case of `MessageState = null`).
 
 {{ FieldStatesExample }}
 
-⚠️ **Note** that the `MessageCondition` attribute must be set to
+[!NOTE] that the `MessageCondition` attribute must be set to
 `(i) => true` or identical to `FluentFieldCondition.Always`.
 This enables the message to be displayed, which is not the case by default.
 

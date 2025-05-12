@@ -1,0 +1,13 @@
+﻿@page "/radiovertical"
+<FluentRadioGroup @bind-Value="@fruit" Label="Favorite fruit" Orientation="@Orientation.Vertical">
+    <FluentRadio Label="Apple"></FluentRadio>
+    <FluentRadio Label="Banana"></FluentRadio>
+    <FluentRadio Label="Orange"></FluentRadio>
+    <FluentRadio Label="Grape"></FluentRadio>
+    <FluentRadio Label="Kiwi"></FluentRadio>
+</FluentRadioGroup>
+
+<p>Favorite fruit: @fruit</p>
+@code {
+    private string fruit = "banana";
+}

@@ -52,6 +52,8 @@ public class FluentAssertOptions
                       .ReplaceAttribute("blazor:elementreference", "xxx")
                       .ReplaceAttribute("blazor:onclick", "x")
                       .ReplaceAttribute("blazor:onkeydown", "x")
+                      .ReplaceAttribute("blazor:onmousedown", "x")
+                      .ReplaceAttribute("blazor:onmouseup", "x")
                       .ReplaceAttribute("anchor", "xxx");
     }
 
