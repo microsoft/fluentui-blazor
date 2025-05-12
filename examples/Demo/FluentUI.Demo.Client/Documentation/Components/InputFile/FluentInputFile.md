@@ -19,7 +19,9 @@ The component can be customized by adapting the `ChildContent`.
 The areas that need to be associated with the opening of the file selection dialog
 must be included in a `label for` that references the component `Id`: E.g. `<label for=“my-file-uploader”>browse...</label>`.
 
-> ℹ️ By default, this component uses the `SaveToTemporaryFolder` mode, which creates a local file. However, this might not always be possible depending on the user's permissions on the host system. You may need to change the `InputFileMode` based on your specific use case.
+> [!NOTE] By default, this component uses the `SaveToTemporaryFolder` mode, which creates a local file. However,
+> this might not always be possible depending on the user's permissions on the host system.
+> You may need to change the `InputFileMode` based on your specific use case.
 
 {{ InputFileDefault }}
 
@@ -29,6 +31,37 @@ By using the parameter `DragDropZoneVisible=“false”`, the component is compl
 specify the component that will trigger the opening of the file selection dialog.
 
 {{ InputFileByCode }}
+
+## DialogService
+
+A easy way to open the file selection dialog is to use the injected **DialogService** service.
+1. During the `OnInitialized` method, **register** your trigger HTML element 
+   using the method `MyFileInstance = DialogService.RegisterInputFileAsync(id)`.
+1. Set the `OnCompletedAsync` method to handle the files uploaded.
+1. Don't forget to **unregister** the trigger element in the `Dispose` method 
+   using `MyFileInstance.UnregisterAsync();` or `DialogService.UnregisterInputFileAsync(id)`.
+
+```csharp
+[Inject]
+public IDialogService DialogService { get; set; }
+
+protected override async Task OnInitializedAsync()
+{
+    await DialogService.RegisterInputFileAsync("MyButton", OnCompletedAsync, options => { /* ... */ });    
+}
+
+private Task OnCompletedAsync(IEnumerable<FluentInputFileEventArgs> files)
+{
+    // `files` contains the uploaded files
+}
+
+public async ValueTask DisposeAsync()
+{
+    await DialogService.UnregisterInputFileAsync("MyButton");
+}
+```
+
+{{ InputFileDialogService }}
 
 ## Mode = InputFileMode.Buffer
 
@@ -45,7 +78,7 @@ This mode is recommended if you can't store files locally, are working with smal
 If you want to transfer very large files and do not want to save your files locally (in a temporary folder, for example),
 you can retrieve the file stream from the `OnFileUploaded` event and the `file.Stream` property. Keep in mind that you will need to implement stream handling yourself.
 
-> ⚠️ Remember to always dispose each stream to prevent memory leaks!
+> [!WARNING] Remember to always dispose each stream to prevent memory leaks!
 
 {{ InputFileStream }}
 

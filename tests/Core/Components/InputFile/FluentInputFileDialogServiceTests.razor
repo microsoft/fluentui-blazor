@@ -1,0 +1,174 @@
+﻿@using Xunit;
+@inherits Bunit.TestContext
+@code
+{
+    public FluentInputFileDialogServiceTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+
+        DialogService = Services.GetRequiredService<IDialogService>();
+        DialogProvider = RenderComponent<FluentDialogProvider>();
+    }
+
+    /// <summary>
+    /// Gets the dialog service.
+    /// </summary>
+    public IDialogService DialogService { get; }
+
+    /// <summary>
+    /// Gets the dialog provider.
+    /// </summary>
+    public IRenderedComponent<FluentDialogProvider> DialogProvider { get; }
+
+    [Fact]
+    public async Task FluentInputFile_DialogService_Register()
+    {
+        // Arrange
+        await DialogService.RegisterInputFileAsync("MyButton", (args) => Task.CompletedTask);
+
+        // Assert
+        DialogProvider.Verify();
+    }
+
+    [Fact]
+    public async Task FluentInputFile_DialogService_Options()
+    {
+        // Arrange
+        await DialogService.RegisterInputFileAsync("MyButton", (args) => Task.CompletedTask, options =>
+        {
+            options.Accept = "image/*";
+            options.Multiple = true;
+            options.MaximumFileSize = 12_345;
+            options.MaximumFileCount = 5;
+            options.BufferSize = 1_234;
+            options.Mode = InputFileMode.Stream;
+            options.OnFileErrorAsync = (args) => Task.CompletedTask;
+            options.OnFileUploadedAsync = (args) => Task.CompletedTask;
+            options.OnProgressChangeAsync = (args) => Task.CompletedTask;
+        });
+
+        // Assert
+        var inputFile = DialogProvider.FindComponent<FluentInputFile>();
+
+        Assert.Equal("image/*", inputFile.Instance.Accept);
+        Assert.True(inputFile.Instance.Multiple);
+        Assert.Equal(12_345, inputFile.Instance.MaximumFileSize);
+        Assert.Equal(5, inputFile.Instance.MaximumFileCount);
+        Assert.Equal(1_234u, inputFile.Instance.BufferSize);
+        Assert.Equal(InputFileMode.Stream, inputFile.Instance.Mode);
+    }
+
+    [Fact]
+    public async Task FluentInputFile_DialogService_UploadCompleted()
+    {
+        //int ProgressPercent = 0;
+        var fileToUpload = InputFileContent.CreateFromText("Text content", "Filename.txt");
+        var filesDownloaded = new List<FluentInputFileEventArgs>();
+
+        // Arrange
+        await DialogService.RegisterInputFileAsync("MyButton", CompletedAsync, options => { options.Multiple = true; });
+
+        // Act
+        var inputFile = DialogProvider.FindComponent<InputFile>();
+        inputFile.UploadFiles(fileToUpload);
+
+        // Assert
+        Assert.Single(filesDownloaded);
+        Assert.Equal(0, filesDownloaded[0].Index);
+        Assert.False(filesDownloaded[0].IsCancelled);
+        Assert.Equal("Filename.txt", filesDownloaded[0].Name);
+
+        async Task CompletedAsync(IEnumerable<FluentInputFileEventArgs> args)
+        {
+            filesDownloaded = args.ToList();
+            await Task.CompletedTask;
+        }
+    }
+
+    [Fact]
+    public async Task FluentInputFile_DialogService_FileError()
+    {
+        var errorDetected = false;
+        var fileToUpload = InputFileContent.CreateFromText("Text content", "Filename.txt");
+        var filesDownloaded = new List<FluentInputFileEventArgs>();
+
+        // Arrange
+        await DialogService.RegisterInputFileAsync("MyButton", CompletedAsync, options =>
+        {
+            options.MaximumFileSize = 3;    // Set a small size to trigger an error
+            options.OnFileErrorAsync = (e) => ErrorAsync(e);
+        });
+
+        // Act
+        var inputFile = DialogProvider.FindComponent<InputFile>();
+        inputFile.UploadFiles(fileToUpload);
+
+        // Assert
+        Assert.Single(filesDownloaded);
+        Assert.Equal("The maximum size allowed is reached", filesDownloaded[0].ErrorMessage);
+        Assert.True(errorDetected);
+
+        async Task CompletedAsync(IEnumerable<FluentInputFileEventArgs> args)
+        {
+            filesDownloaded = args.ToList();
+            await Task.CompletedTask;
+        }
+
+        async Task ErrorAsync(FluentInputFileErrorEventArgs args)
+        {
+            errorDetected = true;
+            await Task.CompletedTask;
+        }
+    }
+
+    [Fact]
+    public async Task FluentInputFile_DialogService_Unregister()
+    {
+        // Arrange
+        await DialogService.RegisterInputFileAsync("MyButton", (args) => Task.CompletedTask);
+
+        // Assert
+        DialogProvider.Markup.Contains("<input");
+
+        // Act
+        await DialogService.UnregisterInputFileAsync("MyButton");
+
+        // Assert
+        Assert.Empty(DialogProvider.Find(".fluent-dialog-provider").InnerHtml);
+    }
+
+    [Fact]
+    public async Task FluentInputFile_DialogService_Instance()
+    {
+        // Arrange
+        var instance = await DialogService.RegisterInputFileAsync("MyButton", (args) => Task.CompletedTask);
+
+        // Assert
+        Assert.Equal("MyButton", instance.AnchorId);
+        Assert.NotEmpty(instance.Id);
+
+        // Act
+        await instance.UnregisterAsync();
+
+        // Assert
+        Assert.Empty(DialogProvider.Find(".fluent-dialog-provider").InnerHtml);
+
+        await instance.DisposeAsync();
+    }
+
+    [Fact]
+    public async Task FluentInputFile_DialogService_RegisterWithoutProvider()
+    {
+        // Arrange
+        DialogProvider.Instance.UpdateId(null);
+
+        // Act
+        await Assert.ThrowsAsync<FluentServiceProviderException<FluentDialogProvider>>(async () =>
+        {
+            await DialogService.RegisterInputFileAsync("MyButton", (args) => Task.CompletedTask);
+        });
+
+        await ((DialogService)DialogService).RemoveDialogFromProviderAsync(null);
+    }
+}
