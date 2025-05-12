@@ -80,12 +80,12 @@
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();
         var toggleArgs = new DialogToggleEventArgs()
-            {
-                Id = "my-id",
-                Type = eventType,
-                OldState = oldState,
-                NewState = newState,
-            };
+        {
+            Id = "my-id",
+            Type = eventType,
+            OldState = oldState,
+            NewState = newState,
+        };
 
         DialogEventArgs? dialogEventArgs = null;
 
@@ -108,7 +108,8 @@
 
         // Find the dialog and close it
         var dialog = DialogProvider.FindComponent<FluentDialog>();
-        await dialog.Instance.OnToggleAsync(toggleArgs);
+        await dialog.Instance.OnToggleAsync(new() { Id = "NotCorrectId" });    // Incorrect dialog instance
+        await dialog.Instance.OnToggleAsync(toggleArgs);                       // Correct dialog instance
 
         // Assert
         Assert.NotNull(dialogEventArgs?.Instance);
@@ -121,9 +122,9 @@
     {
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions()
-            {
-                AutoClose = true,
-            };
+        {
+            AutoClose = true,
+        };
 
         // Act
         var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
@@ -209,11 +210,11 @@
     {
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions()
-            {
-                AutoClose = true,
-                AutoCloseDelay = 200,
-                AutoCloseResult = DialogResult.Ok("AUTO_CLOSED"),
-            };
+        {
+            AutoClose = true,
+            AutoCloseDelay = 200,
+            AutoCloseResult = DialogResult.Ok("AUTO_CLOSED"),
+        };
 
         // Act
         var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
@@ -478,12 +479,12 @@
         var renderOptions = new Templates.DialogRenderOptions();
 
         var dialogOptions = new DialogOptions()
-            {
-                Class = "my-class",
-                Style = "border: 1px solid red;",
-                Margin = "10px",
-                Padding = "20px",
-            };
+        {
+            Class = "my-class",
+            Style = "border: 1px solid red;",
+            Margin = "10px",
+            Padding = "20px",
+        };
         dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
         dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
 
