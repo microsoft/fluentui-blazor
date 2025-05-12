@@ -5,12 +5,12 @@
 <CascadingValue Value="this" IsFixed="true">
     @* ReSharper disable once CSharpWarnings::CS8974 *@
     <fluent-tree id="@Id"
-                      size="@Size.ToAttributeValue()"
-                      appearance="@Appearance.ToAttributeValue()"
-                      class="@ClassValue"
-                      style="@StyleValue"
-                      @onselectedchange="@HandleCurrentSelectedChange"
-                      @attributes="AdditionalAttributes">
+                 size="@Size.ToAttributeValue()"
+                 appearance="@Appearance.ToAttributeValue()"
+                 class="@ClassValue"
+                 style="@StyleValue"
+                 @onselectedchange="@HandleCurrentSelectedChange"
+                 @attributes="AdditionalAttributes">
         @ChildContent
 
         @if (Items != null)

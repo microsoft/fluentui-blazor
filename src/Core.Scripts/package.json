@@ -16,7 +16,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
-    "esbuild": "^0.20.2",
+    "esbuild": "^0.25.4",
     "esbuild-plugin-inline-css": "^0.0.1",
     "eslint": "8.57.0",
     "glob": "^11.0.0",
@@ -25,6 +25,6 @@
     "typescript": "^5.4.4"
   },
   "dependencies": {
-    "@fluentui/web-components": "3.0.0-beta.89"
+    "@fluentui/web-components": "3.0.0-beta.98"
   }
 }
