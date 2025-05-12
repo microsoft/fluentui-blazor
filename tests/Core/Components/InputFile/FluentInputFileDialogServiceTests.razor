@@ -87,6 +87,42 @@
     }
 
     [Fact]
+    public async Task FluentInputFile_DialogService_FileError()
+    {
+        var errorDetected = false;
+        var fileToUpload = InputFileContent.CreateFromText("Text content", "Filename.txt");
+        var filesDownloaded = new List<FluentInputFileEventArgs>();
+
+        // Arrange
+        await DialogService.RegisterInputFileAsync("MyButton", CompletedAsync, options =>
+        {
+            options.MaximumFileSize = 3;    // Set a small size to trigger an error
+            options.OnFileErrorAsync = (e) => ErrorAsync(e);
+        });
+
+        // Act
+        var inputFile = DialogProvider.FindComponent<InputFile>();
+        inputFile.UploadFiles(fileToUpload);
+
+        // Assert
+        Assert.Single(filesDownloaded);
+        Assert.Equal("The maximum size allowed is reached", filesDownloaded[0].ErrorMessage);
+        Assert.True(errorDetected);
+
+        async Task CompletedAsync(IEnumerable<FluentInputFileEventArgs> args)
+        {
+            filesDownloaded = args.ToList();
+            await Task.CompletedTask;
+        }
+
+        async Task ErrorAsync(FluentInputFileErrorEventArgs args)
+        {
+            errorDetected = true;
+            await Task.CompletedTask;
+        }
+    }
+
+    [Fact]
     public async Task FluentInputFile_DialogService_Unregister()
     {
         // Arrange
