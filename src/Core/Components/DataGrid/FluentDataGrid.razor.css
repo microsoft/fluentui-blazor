@@ -65,7 +65,7 @@
 ::deep .resize-handle {
     position: absolute;
     top: 6px;
-    right: -1px;
+    right: 0;
     left: unset;
     bottom: 0;
     height: 30px;

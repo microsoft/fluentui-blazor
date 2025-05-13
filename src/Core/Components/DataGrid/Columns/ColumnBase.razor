@@ -90,13 +90,24 @@
         else
         {
             string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
-            string? wdelta = "20px";
+            string? wdelta = "10px";
+            string? align;
 
             if (Grid.ResizeType is not null || ColumnOptions is not null)
             {
                 wdelta = "56px";
             }
-            <div style="display: flex;">
+
+            // determine align string based on Align value
+            align = Align switch
+            {
+                Align.Start => "flex-start",
+                Align.Center => "center",
+                Align.End => "flex-end",
+                _ => "flex-start"
+            };
+
+            <div style="display: flex; justify-content: @align;">
                 @if (Align == Align.Start || Align == Align.Center)
                 {
                     @if (Grid.ResizeType is not null)

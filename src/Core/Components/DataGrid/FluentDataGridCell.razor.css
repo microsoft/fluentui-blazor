@@ -3,7 +3,7 @@ th, td {
 }
 
 td {
-    padding: calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px) calc(((var(--design-unit) * 5) + var(--focus-stroke-width) - var(--stroke-width))* 1px);
+    padding: 6px 16px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -20,10 +20,15 @@ td {
         text-align: end;
     }
 
-    td.grid-cell-placeholder:after {
-        content: '\2026'; /*horizontal ellipsis*/
-        opacity: 0.75;
-    }
+th.col-justify-end > div {
+    justify-content: flex-end;
+}
+
+
+td.grid-cell-placeholder:after {
+    content: '\2026'; /*horizontal ellipsis*/
+    opacity: 0.75;
+}
 
 
 .empty-content-cell,
@@ -86,11 +91,14 @@ td {
     margin-inline-start: 2px;
 }
 
+.col-justify-start ::deep .col-title {
+    text-align: left;
+}
+
 .col-justify-center ::deep .col-title {
     text-align: center;
 }
 
 .col-justify-end ::deep .col-title {
     text-align: end;
-    margin-inline-end: calc(var(--design-unit) * 4px);
 }
