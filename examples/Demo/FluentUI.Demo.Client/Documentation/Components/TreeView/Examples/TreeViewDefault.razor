@@ -1,0 +1,47 @@
+﻿TreeView
+
+@* <fluent-tree-item id="test-123">
+    <span slot="start">START</span>
+    <span slot="end">END</span>
+    <span slot="aside">ASIDE</span>
+    Item Text
+
+    <fluent-tree-item>Sub Item</fluent-tree-item>
+</fluent-tree-item> *@
+
+<button onclick="Expanded(true)">Open</button>
+<button onclick="Expanded(false)">Close</button>
+
+<FluentTreeItem Id="test-1" Style="height: 60px;">
+    My item <fluent-tree-item>Sub Item</fluent-tree-item>
+</FluentTreeItem>
+
+<FluentTreeItem Id="test-2" IconCollapsed="@(new Icons.Regular.Size16.ArrowCircleRight())" Style="height: 60px;">
+    CollapseOnly <fluent-tree-item>Sub Item</fluent-tree-item>
+</FluentTreeItem>
+
+<FluentTreeItem Id="test-3" IconExpanded="@(new Icons.Regular.Size16.CopyArrowRight())" Style="height: 60px;">
+    ExpandOnly <fluent-tree-item>Sub Item</fluent-tree-item>
+</FluentTreeItem>
+
+<FluentTreeItem Id="test-4" IconCollapsed="@(new Icons.Regular.Size16.ArrowCircleRight())" IconExpanded="@(new Icons.Regular.Size16.CopyArrowRight())" Style="height: 60px;">
+    CollapseExpand <fluent-tree-item>Sub Item</fluent-tree-item>
+</FluentTreeItem>
+
+@* <FluentTreeView>
+    <FluentTreeItem Id="item1">Item1</FluentTreeItem>
+    <FluentTreeItem Id="item2">Item2
+        <FluentTreeItem Id="item21">Item2.1</FluentTreeItem>
+        <FluentTreeItem Id="item22">Item2.2</FluentTreeItem>
+    </FluentTreeItem>
+</FluentTreeView> *@
+
+<script>
+
+    function Expanded(value) {
+        document.getElementById('test-1').expanded = value;
+        document.getElementById('test-2').expanded = value;
+        document.getElementById('test-3').expanded = value;
+        document.getElementById('test-4').expanded = value;
+    }
+</script>

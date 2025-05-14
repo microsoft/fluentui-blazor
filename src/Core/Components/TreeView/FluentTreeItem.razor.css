@@ -1,0 +1,7 @@
+fluent-tree-item[expanded] > svg[slot="chevron"][collapsed] {
+  display: none;
+}
+
+fluent-tree-item:not([expanded]) > svg[slot="chevron"][expanded] {
+  display: none;
+}

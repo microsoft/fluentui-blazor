@@ -1,0 +1,34 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-tree-item id="@Id"
+                  class="@ClassValue"
+                  style="@StyleValue"
+                  appearance="@Appearance.ToAttributeValue(isNull: TreeAppearance.Subtle)"
+                  size="@Size.ToAttributeValue(isNull: TreeSize.Medium)"
+                  expanded="@Expanded"
+                  @treeSelectedChanged="@SelectedChangedHandler"
+                  @treeExpandedChanged="@ExpandedChangedHandler"
+                  @attributes="AdditionalAttributes">
+
+    @if (IconCollapsed is not null)
+    {
+        <FluentIcon collapsed Value="@IconCollapsed" Slot="@FluentSlot.Chevron" />
+        @AddOptionalDefaultExpandCollapseIcon(expanded: true)
+    }
+
+    @if (IconExpanded is not null)
+    {
+        <FluentIcon expanded Value="@IconExpanded" Slot="@FluentSlot.Chevron" />
+        @AddOptionalDefaultExpandCollapseIcon(expanded: false)
+    }
+
+    @*
+        <span slot="start">START<br /> START</span>
+        <span slot="end">END<br />END</span>
+        <span slot="aside">ASIDE<br />ASIDE<br />ASIDE</span>
+    *@
+
+    @ChildContent
+</fluent-tree-item>
