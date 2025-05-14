@@ -170,8 +170,9 @@ export function enableColumnResizing(gridElement) {
     const isGrid = gridElement.classList.contains('grid')
 
     let tableHeight = gridElement.offsetHeight;
+    // rows have not been loaded yet, so we need to calculate the height
     if (tableHeight < 70) {
-        //get the aria rowcount attribute
+        // by getting the aria rowcount attribute
         const rowCount = gridElement.getAttribute('aria-rowcount');
         if (rowCount) {
             const rowHeight = gridElement.querySelector('thead tr th').offsetHeight;
