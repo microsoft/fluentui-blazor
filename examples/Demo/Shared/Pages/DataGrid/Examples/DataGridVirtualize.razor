@@ -1,5 +1,5 @@
 ﻿<div style="height: 400px; max-width: 800px; overflow-y: scroll;">
-    <FluentDataGrid @ref="grid" Items=@items Virtualize="true" ResizableColumns="true" DisplayMode="DataGridDisplayMode.Table" Style="width: 100%;" ItemSize="54" GenerateHeader="@GenerateHeaderOption.Sticky">
+    <FluentDataGrid @ref="grid" Items=@items Virtualize="true" DisplayMode="DataGridDisplayMode.Table" Style="width: 100%;" ItemSize="54" GenerateHeader="@GenerateHeaderOption.Sticky">
         <ChildContent>
             <PropertyColumn Width="25%" Property="@(c => c.Item1)" Sortable="true" />
             <PropertyColumn Width="25%" Property="@(c => c.Item2)" />
@@ -25,26 +25,6 @@
               CheckedMessage="Restore all results">
 </FluentSwitch>
 <FluentButton OnClick="SimulateDataLoading">Simulate data loading</FluentButton>
-
-<div style="height: 400px; max-width: 800px; overflow-y: scroll;">
-    <FluentDataGrid Items=@items Virtualize="true" ResizableColumns="true" DisplayMode="DataGridDisplayMode.Grid" Style="width: 100%;" ItemSize="54" GenerateHeader="@GenerateHeaderOption.Sticky">
-        <ChildContent>
-            <PropertyColumn Width="25%" Property="@(c => c.Item1)" Sortable="true" />
-            <PropertyColumn Width="25%" Property="@(c => c.Item2)" />
-            <PropertyColumn Width="25%" Property="@(c => c.Item3)" Align="Align.Center" />
-            <PropertyColumn Width="25%" Property="@(c => c.Item4)" Align="Align.End" />
-        </ChildContent>
-        <EmptyContent>
-            <FluentIcon Value="@(new Icons.Filled.Size24.Crown())" Color="@Color.Accent" />&nbsp; Nothing to see here. Carry on!
-        </EmptyContent>
-        <LoadingContent>
-            <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center">
-                Loading...<br />
-                <FluentProgress Width="240px" />
-            </FluentStack>
-        </LoadingContent>
-    </FluentDataGrid>
-</div>
 
 @code {
     FluentDataGrid<SampleGridData>? grid;
