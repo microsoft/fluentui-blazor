@@ -94,22 +94,24 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
 
   export function TreeView(blazor: Blazor) {
 
-    blazor.registerCustomEventType('treeSelectedChanged', {
-      browserEventName: 'selectedChanged',
+    blazor.registerCustomEventType('treechanged', {
+      browserEventName: 'change',
       createEventArgs: (event: EventType) => {
-        console.log('selectedChanged', event);
         return {
           id: event.target.id,
+          selected: event.target.selected,
         };
       }
     });
 
-    blazor.registerCustomEventType('treeExpandedChanged', {
-      browserEventName: 'expandedChanged',
-      createEventArgs: (event: EventType) => {
-        console.log('expandedChanged', event);
+    blazor.registerCustomEventType('treetoggle', {
+      browserEventName: 'toggle',
+      createEventArgs: (event: any) => {
         return {
           id: event.target.id,
+          type: event.type,
+          oldState: event.detail?.oldState ?? event.oldState,
+          newState: event.detail?.newState ?? event.newState,
         };
       }
     });

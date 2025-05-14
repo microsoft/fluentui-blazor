@@ -7,10 +7,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Event arguments for the FluentTabs ActiveId changed event.
 /// </summary>
-internal class TreeItemChanged : EventArgs
+internal class TreeItemChangedEventArgs : EventArgs
 {
     /// <summary>
     /// Gets or sets the ID of the tree item.
     /// </summary>
     public string? Id { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the item is selected.
+    /// </summary>
+    public bool Selected { get; set; }
 }

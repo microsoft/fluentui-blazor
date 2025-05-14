@@ -8,8 +8,8 @@
                   appearance="@Appearance.ToAttributeValue(isNull: TreeAppearance.Subtle)"
                   size="@Size.ToAttributeValue(isNull: TreeSize.Medium)"
                   expanded="@Expanded"
-                  @treeSelectedChanged="@SelectedChangedHandler"
-                  @treeExpandedChanged="@ExpandedChangedHandler"
+                  @ontreechanged="@OnTreeChangedAsync"
+                  @ontreetoggle="@OnTreeToggleAsync"
                   @attributes="AdditionalAttributes">
 
     @if (IconCollapsed is not null)

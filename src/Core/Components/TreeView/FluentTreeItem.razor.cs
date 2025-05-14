@@ -98,17 +98,17 @@ public partial class FluentTreeItem : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
-    private void SelectedChangedHandler(TreeItemChanged e)
+    private async Task OnTreeChangedAsync(TreeItemChangedEventArgs args)
     {
-        Console.WriteLine(e.Id);
+        Console.WriteLine($"Item: {args.Id} - {args.Selected}");
+        await Task.CompletedTask;
     }
 
-    /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
-    private void ExpandedChangedHandler(TreeItemChanged e)
+    private async Task OnTreeToggleAsync(TreeItemToggleEventArgs args)
     {
-        Console.WriteLine(e.Id);
+        Console.WriteLine($"Item: {args.Id} - {args.OldState} - {args.NewState}");
+        await Task.CompletedTask;
     }
 }
