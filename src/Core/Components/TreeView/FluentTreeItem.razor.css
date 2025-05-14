@@ -1,7 +1,12 @@
-fluent-tree-item[expanded] > svg[slot="chevron"][collapsed] {
+fluent-tree-item > span[slot="chevron"],
+fluent-tree-item > span[slot="chevron"] > svg {
+    max-height: 16px;
+}
+
+fluent-tree-item[expanded] > span[slot="chevron"] > svg[collapsed] {
   display: none;
 }
 
-fluent-tree-item:not([expanded]) > svg[slot="chevron"][expanded] {
+fluent-tree-item:not([expanded]) > span[slot="chevron"] > svg[expanded] {
   display: none;
 }

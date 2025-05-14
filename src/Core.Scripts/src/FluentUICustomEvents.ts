@@ -1,3 +1,5 @@
+import { TreeItem } from "@fluentui/web-components";
+
 export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
 
   /**
@@ -115,6 +117,18 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
         };
       }
     });
+
+    (window as any)._toggleTreeItem = (element: SVGElement | HTMLSpanElement | null) => {
+
+      if (!element) {
+        return;
+      }
+
+      const treeItem = element.closest('fluent-tree-item') as TreeItem;
+      if (treeItem) {
+        treeItem.expanded = !treeItem.expanded;
+      }
+    }
   }
 
   // [^^^ Add your other custom events before this line ^^^]

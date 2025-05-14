@@ -12,16 +12,22 @@
                   @ontreetoggle="@OnTreeToggleAsync"
                   @attributes="AdditionalAttributes">
 
-    @if (IconCollapsed is not null)
+    @* Expandable icons: _toggleTreeItem(this) manages expand/collapse, which does not work by default in the webcomponent *@
+    @if (IconCollapsed is not null || IconExpanded is not null)
     {
-        <FluentIcon collapsed Value="@IconCollapsed" Slot="@FluentSlot.Chevron" />
-        @AddOptionalDefaultExpandCollapseIcon(expanded: true)
-    }
+        <span slot="@FluentSlot.Chevron" onclick="_toggleTreeItem(this)">
+            @if (IconCollapsed is not null)
+            {
+                <FluentIcon collapsed Value="@IconCollapsed" Color="Color.Custom" CustomColor="currentColor" />
+                @(IconExpanded is null ? DefaultIcon_Expanded : null)
+            }
 
-    @if (IconExpanded is not null)
-    {
-        <FluentIcon expanded Value="@IconExpanded" Slot="@FluentSlot.Chevron" />
-        @AddOptionalDefaultExpandCollapseIcon(expanded: false)
+            @if (IconExpanded is not null)
+            {
+                <FluentIcon expanded Value="@IconExpanded" Color="Color.Custom" CustomColor="currentColor" />
+                @(IconCollapsed is null ? DefaultIcon_Collapsed : null)
+            }
+        </span>
     }
 
     @*
@@ -30,5 +36,6 @@
         <span slot="aside">ASIDE<br />ASIDE<br />ASIDE</span>
     *@
 
+    @Text
     @ChildContent
 </fluent-tree-item>
