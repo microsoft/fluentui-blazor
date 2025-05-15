@@ -2,20 +2,20 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <RuntimeVersion8>8.0.0</RuntimeVersion8>
-    <AspNetCoreVersion8>8.0.15</AspNetCoreVersion8>
-    <EfCoreVersion8>8.0.15</EfCoreVersion8>
-    <RuntimeVersion9>9.0.4</RuntimeVersion9>
-    <AspNetCoreVersion9>9.0.4</AspNetCoreVersion9>
-    <EfCoreVersion9>9.0.4</EfCoreVersion9>
-    <RuntimeVersion10>10.0.0-preview.3.25171.5</RuntimeVersion10>
-    <AspNetCoreVersion10>10.0.0-preview.3.25172.1</AspNetCoreVersion10>
-    <EfCoreVersion10>10.0.0-preview.3.25171.6</EfCoreVersion10>
+    <AspNetCoreVersion8>8.0.16</AspNetCoreVersion8>
+    <EfCoreVersion8>8.0.16</EfCoreVersion8>
+    <RuntimeVersion9>9.0.5</RuntimeVersion9>
+    <AspNetCoreVersion9>9.0.5</AspNetCoreVersion9>
+    <EfCoreVersion9>9.0.5</EfCoreVersion9>
+    <RuntimeVersion10>10.0.0-preview.4.25258.110</RuntimeVersion10>
+    <AspNetCoreVersion10>10.0.0-preview.4.25258.110</AspNetCoreVersion10>
+    <EfCoreVersion10>10.0.0-preview.4.25258.110</EfCoreVersion10>
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.11.8" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.11.8" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.11.8" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.11.9" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.11.9" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.11.9" />
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="1.38.5" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
