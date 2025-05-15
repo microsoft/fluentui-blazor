@@ -1,5 +1,4 @@
 import * as FluentUIComponents from '@fluentui/web-components'
-import * as TreeUIComponents from "@fluentui/web-components/tree/index.js"
 import { webLightTheme, webDarkTheme, BrandVariants, Theme, createDarkTheme, createLightTheme } from '@fluentui/tokens';
 import { setTheme } from '@fluentui/web-components';
 
@@ -55,9 +54,8 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
     FluentUIComponents.TextInputDefinition.define(registry);
     FluentUIComponents.ToggleButtonDefinition.define(registry);
     FluentUIComponents.TooltipDefinition.define(registry);
+    FluentUIComponents.TreeDefinition.define(registry);
     FluentUIComponents.TreeItemDefinition.define(registry);
-
-    TreeUIComponents.TreeDefinition.define(registry);  // TODO: To update by using the "classic" way, when the Tree component is updated
   }
 
   /**
