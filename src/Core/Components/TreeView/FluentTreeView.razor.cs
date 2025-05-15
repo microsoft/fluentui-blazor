@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Collections.Concurrent;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -11,6 +12,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTreeView : FluentComponentBase
 {
+    internal ConcurrentDictionary<string, FluentTreeItem> InternalItems { get; } = new(StringComparer.Ordinal);
+
     /// <summary/>
     protected string? ClassValue => DefaultClassBuilder
         .Build();
@@ -42,4 +45,18 @@ public partial class FluentTreeView : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Called whenever <see cref="FluentTreeItem.Expanded"/> changes on an item within the tree.
+    /// You cannot update FluentTreeItem properties.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentTreeItem> OnExpandedChanged { get; set; }
+
+    /// <summary>
+    /// Called whenever the selected item changes.
+    /// You cannot update FluentTreeItem properties.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentTreeItem> OnSelectedChanged { get; set; }
 }

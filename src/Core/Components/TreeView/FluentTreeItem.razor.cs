@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -11,8 +12,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTreeItem : FluentComponentBase
 {
-    private static readonly MarkupString DefaultIcon_Expanded = new(" <svg expanded  width=\"12\" height=\"12\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" slot=\"chevron\"><path d=\"M4.65 2.15a.5.5 0 000 .7L7.79 6 4.65 9.15a.5.5 0 10.7.7l3.5-3.5a.5.5 0 000-.7l-3.5-3.5a.5.5 0 00-.7 0z\"></path></svg>");
-    private static readonly MarkupString DefaultIcon_Collapsed = new("<svg collapsed width=\"12\" height=\"12\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" slot=\"chevron\"><path d=\"M4.65 2.15a.5.5 0 000 .7L7.79 6 4.65 9.15a.5.5 0 10.7.7l3.5-3.5a.5.5 0 000-.7l-3.5-3.5a.5.5 0 00-.7 0z\"></path></svg>");
+    private const string DefaultIcon_CommonSvgAttributes = "width=\"12\" height=\"12\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" slot=\"chevron\"";
+    private const string DefaultIcon_CommonSvgPath = "<path d=\"M4.65 2.15a.5.5 0 000 .7L7.79 6 4.65 9.15a.5.5 0 10.7.7l3.5-3.5a.5.5 0 000-.7l-3.5-3.5a.5.5 0 00-.7 0z\" />";
+    private static readonly MarkupString DefaultIcon_Expanded = new($" <svg expanded {DefaultIcon_CommonSvgAttributes}>{DefaultIcon_CommonSvgPath}</svg>");
+    private static readonly MarkupString DefaultIcon_Collapsed = new($"<svg collapsed {DefaultIcon_CommonSvgAttributes}>{DefaultIcon_CommonSvgPath}</svg>");
+
+    /// <summary/>
+    public FluentTreeItem()
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary/>
     protected string? ClassValue => DefaultClassBuilder
@@ -21,6 +30,10 @@ public partial class FluentTreeItem : FluentComponentBase
     /// <summary/>
     protected string? StyleValue => DefaultStyleBuilder
         .Build();
+
+    /// <summary/>
+    [CascadingParameter]
+    internal FluentTreeView? TreeView { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the tree item.
@@ -77,29 +90,91 @@ public partial class FluentTreeItem : FluentComponentBase
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
 
-    ///// <summary>
-    ///// When true, the control will appear selected by user interaction.
-    ///// </summary>
-    //[Parameter]
-    //public bool Selected { get; set; }
+    /// <summary>
+    /// Called whenever the selected item changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> SelectedChanged { get; set; }
 
-    ///// <summary>
-    ///// Called whenever <see cref="Selected"/> changes.
-    ///// </summary>
-    //[Parameter]
-    //public EventCallback<bool> SelectedChanged { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
-    private async Task OnTreeChangedAsync(TreeItemChangedEventArgs args)
+    /// <summary />
+    protected override void OnInitialized()
     {
-        Console.WriteLine($"Item: {args.Id} - {args.Selected}");
-        await Task.CompletedTask;
+        if (TreeView is not null && !string.IsNullOrEmpty(Id))
+        {
+            TreeView.InternalItems.TryAdd(Id, this);
+        }
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+    /// <summary />
+    private async Task OnTreeChangedAsync(TreeItemChangedEventArgs args)
+    {
+        if (!string.Equals(Id, args.Id, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        // Selected?
+        var isSelected = args.Selected;
+
+        // Update the state
+        if (SelectedChanged.HasDelegate)
+        {
+            await SelectedChanged.InvokeAsync(isSelected);
+        }
+
+        // Update the FluentTree owner (only to inform the new selected item)
+        if (isSelected && TreeView is not null && TreeView.OnSelectedChanged.HasDelegate)
+        {
+            await TreeView.OnSelectedChanged.InvokeAsync(this);
+        }
+    }
+
+    /// <summary />
     private async Task OnTreeToggleAsync(TreeItemToggleEventArgs args)
     {
-        Console.WriteLine($"Item: {args.Id} - {args.OldState} - {args.NewState}");
-        await Task.CompletedTask;
+        const string StateClosed = "closed";
+        const string StateOpened = "open";
+
+        // Only for the correct TreeItem
+        if (!string.Equals(Id, args.Id, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        // Expanded?
+        var isExpanded = args.NewState switch
+        {
+            StateClosed => false,
+            StateOpened => true,
+            _ => false,
+        };
+
+        // Update the state
+        if (isExpanded != Expanded)
+        {
+            Expanded = isExpanded;
+
+            if (ExpandedChanged.HasDelegate)
+            {
+                await ExpandedChanged.InvokeAsync(isExpanded);
+            }
+        }
+
+        // Update the FluentTree owner
+        if (TreeView is not null && TreeView.OnExpandedChanged.HasDelegate)
+        {
+            await TreeView.OnExpandedChanged.InvokeAsync(this);
+        }
+    }
+
+    /// <summary />
+    public override ValueTask DisposeAsync()
+    {
+        if (TreeView is not null && !string.IsNullOrEmpty(Id))
+        {
+            TreeView.InternalItems.TryRemove(Id, out _);
+        }
+
+        return base.DisposeAsync();
     }
 }
