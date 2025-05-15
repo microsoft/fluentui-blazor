@@ -1,4 +1,16 @@
-## V4.12.0  
+## V4.12.0
+
+### General
+- \[General\] Use latest .NET SDKs (including .NET 10 preview 4)([#3789](https://github.com/microsoft/fluentui-blazor/pull/3789))  
+
+### Components
+
+### Demo site and documentation
+
+### Icons and Emoji
+  - Update to Fluent UI System Icons 1.1.300.
+    See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
+
 
 ## V4.11.9  
 
