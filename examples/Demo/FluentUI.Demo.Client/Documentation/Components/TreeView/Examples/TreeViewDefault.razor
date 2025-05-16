@@ -1,1 +1,29 @@
-﻿No content
+﻿<p>Current selected tree item is <b>@SelectedItem?.Text</b></p>
+<p>Most recently expanded/collapsed tree item is <b>@ExpandedItem?.Text</b></p>
+
+<FluentTreeView OnSelectedChanged="@(item => SelectedItem = item)"
+                OnExpandedChanged="@(item => ExpandedItem = item)">
+    <FluentTreeItem Text="Root item 1">
+        <FluentTreeItem Text="Flowers" IconStart="@(new Icons.Regular.Size16.LeafOne())">
+            <FluentTreeItem Text="Daisy" />
+            <FluentTreeItem Text="Sunflower" />
+            <FluentTreeItem Text="Rose" />
+        </FluentTreeItem>
+        <FluentTreeItem Text="Nested item 2" />
+        <FluentTreeItem Text="Nested item 3" />
+    </FluentTreeItem>
+    <FluentTreeItem Text="Root item 2">
+        <FluentTreeItem Text="Flowers" IconStart="@(new Icons.Regular.Size16.LeafTwo())">
+            <FluentTreeItem Text="Daisy" />
+            <FluentTreeItem Text="Sunflower" />
+            <FluentTreeItem Text="Rose" />
+        </FluentTreeItem>
+        <FluentTreeItem Text="Nested item 2" />
+        <FluentTreeItem Text="Nested item 3" />
+    </FluentTreeItem>
+</FluentTreeView>
+
+@code {
+    FluentTreeItem? SelectedItem;
+    FluentTreeItem? ExpandedItem;
+}
