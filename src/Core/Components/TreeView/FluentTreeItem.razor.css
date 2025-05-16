@@ -1,6 +1,6 @@
 fluent-tree-item > span[slot="chevron"],
 fluent-tree-item > span[slot="chevron"] > svg {
-    max-height: 16px;
+  max-height: 16px;
 }
 
 fluent-tree-item[expanded] > span[slot="chevron"] > svg[collapsed] {
@@ -9,4 +9,12 @@ fluent-tree-item[expanded] > span[slot="chevron"] > svg[collapsed] {
 
 fluent-tree-item:not([expanded]) > span[slot="chevron"] > svg[expanded] {
   display: none;
+}
+
+fluent-tree-item span[part="text"] {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

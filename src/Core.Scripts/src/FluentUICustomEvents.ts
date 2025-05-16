@@ -1,4 +1,4 @@
-import { TreeItem } from "@fluentui/web-components";
+import { Microsoft as FluentTreeView } from './Components/TreeView/FluentTreeView';
 
 export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
 
@@ -118,17 +118,11 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       }
     });
 
-    (window as any)._toggleTreeItem = (element: SVGElement | HTMLSpanElement | null) => {
-
-      if (!element) {
-        return;
-      }
-
-      const treeItem = element.closest('fluent-tree-item') as TreeItem;
-      if (treeItem) {
-        treeItem.expanded = !treeItem.expanded;
-      }
-    }
+    /**
+     * Toggle the expand/collapse tree item.
+     * And selecte the item.
+     */
+    ((window as any).Blazor as any).__toggleTreeItem = FluentTreeView.FluentUI.Blazor.Components.TreeView.ToggleItem
   }
 
   // [^^^ Add your other custom events before this line ^^^]

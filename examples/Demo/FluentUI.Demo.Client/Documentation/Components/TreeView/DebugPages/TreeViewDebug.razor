@@ -25,27 +25,32 @@
                     Text="My item"
                     @bind-Expanded="@Expanded1"
                     SelectedChanged="@(e => Console.WriteLine($". Selected: test-1: {e}"))">
-        <AsideTemplate>
+        <ItemAsideTemplate>
             <FluentIcon Value="@(new Icons.Regular.Size20.ArrowCircleRight())" />
-        </AsideTemplate>
+        </ItemAsideTemplate>
         <ChildContent>
             <FluentTreeItem>Sub Item</FluentTreeItem>
         </ChildContent>
     </FluentTreeItem>
 
     <FluentTreeItem Id="test-2"
-                    Text="CollapseOnly"
+                    Text="CollapseOnly with really long tree-item content goes here. Lorem ipsum dolor sit amet."
                     IconCollapsed="@(new Icons.Regular.Size20.ArrowCircleRight())"
                     @bind-Expanded="@Expanded2"
                     SelectedChanged="@(e => Console.WriteLine($". Selected: test-2: {e}"))">
-        <FluentTreeItem>Sub Item</FluentTreeItem>
+        <ItemAsideTemplate>
+            <FluentIcon Value="@(new Icons.Regular.Size20.ArrowCircleRight())" />
+        </ItemAsideTemplate>
+        <ChildContent>
+            <FluentTreeItem>Sub Item</FluentTreeItem>
+        </ChildContent>
     </FluentTreeItem>
 
     <FluentTreeItem Id="test-3"
-                    Text="ExpandOnly"
                     IconExpanded="@(new Icons.Regular.Size20.CopyArrowRight())"
-                    Iind-Expanded="@Expanded3"
+                    @bind-Expanded="@Expanded3"
                     SelectedChanged="@(e => Console.WriteLine($". Selected: test-3: {e}"))">
+        ExpandOnly
         <FluentTreeItem>Sub Item</FluentTreeItem>
     </FluentTreeItem>
 
@@ -60,15 +65,6 @@
 </FluentTreeView>
 
 <FluentDivider>Other section</FluentDivider>
-
-<FluentTreeView>
-    <FluentTreeItem Id="item1">Item1</FluentTreeItem>
-    <FluentTreeItem Id="item2">
-        Item2
-        <FluentTreeItem Id="item21">Item2.1</FluentTreeItem>
-        <FluentTreeItem Id="item22">Item2.2</FluentTreeItem>
-    </FluentTreeItem>
-</FluentTreeView>
 
 <script>
 

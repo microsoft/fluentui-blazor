@@ -65,7 +65,7 @@ public partial class FluentTreeItem : FluentComponentBase
     /// Gets or sets the content to be rendered on the right side of the tree item.
     /// </summary>
     [Parameter]
-    public RenderFragment? AsideTemplate { get; set; }
+    public RenderFragment? ItemAsideTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="Icon"/> displayed at the start of tree item,

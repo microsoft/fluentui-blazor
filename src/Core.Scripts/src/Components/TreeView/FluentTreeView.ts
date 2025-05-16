@@ -3,19 +3,24 @@ import { TreeItem } from "@fluentui/web-components";
 export namespace Microsoft.FluentUI.Blazor.Components.TreeView {
 
   /**
-   * Switches the expanded state of a tree item.
-   * @param event
-   * @returns
-   */
-  export function ToggleItem(svg: SVGElement | null) {
+    * Toggle the expand/collapse tree item.
+    * And selecte the item.
+    */
+  export function ToggleItem(element: HTMLElement | null) {
 
-    if (!svg) {
+    if (!element) {
       return;
     }
 
-    const treeItem = svg.closest('fluent-tree-item') as TreeItem;
+    const treeItem = element.tagName.toLowerCase() === 'fluent-tree-item'
+      ? element as TreeItem
+      : element.closest('fluent-tree-item') as TreeItem;
+
+    console.log('ToggleItem', element, treeItem);
+
     if (treeItem) {
       treeItem.expanded = !treeItem.expanded;
+      treeItem.selected = true;
     }
   }
 }
