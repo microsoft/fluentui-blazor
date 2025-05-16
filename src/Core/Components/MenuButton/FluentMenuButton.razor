@@ -2,8 +2,8 @@
 @using Microsoft.FluentUI.AspNetCore.Components.DesignTokens
 @inherits FluentComponentBase
 
-<div class="fluent-menubutton-container" style=@Style @attributes=@AdditionalAttributes>
-    <FluentButton Id="@_buttonId" @ref="Button" Appearance="@ButtonAppearance" Style=@ButtonStyle IconStart="@IconStart" aria-haspopup="true" aria-expanded="@_visible" @onclick=ToggleMenu @onkeydown=OnKeyDown>
+<div class="fluent-menubutton-container" style="@Style" @attributes="@AdditionalAttributes">
+    <FluentButton Id="@_buttonId" @ref="Button" Appearance="@ButtonAppearance" Style="@ButtonStyle" IconStart="@IconStart" aria-haspopup="true" aria-expanded="@_visible" @onclick=ToggleMenu @onkeydown=OnKeyDown>
         @Text
         <FluentIcon Value="@(new CoreIcons.Regular.Size12.ChevronDown())" Slot="end" Color="@_iconColor" />
     </FluentButton>
