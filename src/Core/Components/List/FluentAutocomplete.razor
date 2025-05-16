@@ -32,7 +32,7 @@
                          autofocus="@Autofocus"
                          Style="@ComponentWidth">
             @* Selected Items *@
-            @if (this.SelectedOptions?.Any() == true || this.SelectedOption is not null)
+            @if ((Multiple && this.SelectedOptions?.Any() == true) || (!Multiple && this.SelectedOption is not null))
             {
                 @* Normal (single) line height *@
                 if (string.IsNullOrEmpty(MaxAutoHeight))

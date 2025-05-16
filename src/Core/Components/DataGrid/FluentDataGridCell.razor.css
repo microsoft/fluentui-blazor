@@ -3,7 +3,7 @@ th, td {
 }
 
 td {
-    padding: calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width))* 1px) calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px);
+    padding: 6px 16px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -13,19 +13,22 @@ td {
 
     td.col-justify-center {
         text-align: center;
-        padding-inline-start: 0;
     }
 
     td.col-justify-end,
     td.col-justify-right {
         text-align: end;
-        padding-inline-end: calc(var(--design-unit) * 7px);
     }
 
-    td.grid-cell-placeholder:after {
-        content: '\2026'; /*horizontal ellipsis*/
-        opacity: 0.75;
-    }
+th.col-justify-end > div {
+    justify-content: flex-end;
+}
+
+
+td.grid-cell-placeholder:after {
+    content: '\2026'; /*horizontal ellipsis*/
+    opacity: 0.75;
+}
 
 
 .empty-content-cell,
@@ -45,6 +48,7 @@ td {
 
 .column-header {
     font-weight: 600;
+    text-align: center;
     position: relative;
     padding: calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px) 1px calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px);
 }
@@ -87,11 +91,14 @@ td {
     margin-inline-start: 2px;
 }
 
+.col-justify-start ::deep .col-title {
+    text-align: left;
+}
+
 .col-justify-center ::deep .col-title {
     text-align: center;
 }
 
 .col-justify-end ::deep .col-title {
     text-align: end;
-    margin-inline-end: calc(var(--design-unit) * 4px);
 }
