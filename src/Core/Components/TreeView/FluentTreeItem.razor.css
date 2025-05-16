@@ -1,6 +1,8 @@
 fluent-tree-item > span[slot="chevron"],
-fluent-tree-item > span[slot="chevron"] > svg {
-  max-height: 16px;
+fluent-tree-item > span[slot="start"]:has(svg),
+fluent-tree-item > span[slot="end"]:has(svg),
+fluent-tree-item > span[slot="aside"]:has(svg) {
+  display: flex;
 }
 
 fluent-tree-item[expanded] > span[slot="chevron"] > svg[collapsed] {

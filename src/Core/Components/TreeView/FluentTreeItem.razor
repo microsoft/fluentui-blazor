@@ -42,11 +42,27 @@
     @* Custom content and sub-items *@
     @ChildContent
 
+    @* Start *@
+    @if (IconStart is not null)
+    {
+        <span slot="@FluentSlot.Start" onclick="Blazor.__toggleTreeItem(this)">
+            <FluentIcon Value="@IconStart" />
+        </span>
+    }
+
+    @* End *@
+    @if (IconEnd is not null)
+    {
+        <span slot="@FluentSlot.End" onclick="Blazor.__toggleTreeItem(this)">
+            <FluentIcon Value="@IconEnd" />
+        </span>
+    }
+
     @* Aside *@
-    @if (ItemAsideTemplate is not null)
+    @if (IconAside is not null)
     {
         <span slot="@FluentSlot.Aside" onclick="Blazor.__toggleTreeItem(this)">
-            @ItemAsideTemplate
+            <FluentIcon Value="@IconAside" />
         </span>
     }
 </fluent-tree-item>

@@ -25,31 +25,26 @@
                     Text="My item"
                     Height="70px"
                     @bind-Expanded="@Expanded1"
+                    IconStart="@(new Icons.Regular.Size16.ShareScreenStart())"
+                    IconEnd="@(new Icons.Regular.Size16.CallEnd())"
+                    IconAside="@(new Icons.Regular.Size16.AddCircle())"
                     SelectedChanged="@(e => Console.WriteLine($". Selected: test-1: {e}"))">
-        <ItemAsideTemplate>
-            <FluentIcon Value="@(new Icons.Regular.Size20.ArrowCircleRight())" />
-            <br />Hello
-        </ItemAsideTemplate>
-        <ChildContent>
-            <FluentTreeItem Height="unset">Sub Item</FluentTreeItem>
-        </ChildContent>
+        <FluentTreeItem Height="unset">Sub Item</FluentTreeItem>
     </FluentTreeItem>
 
     <FluentTreeItem Id="test-2"
                     Text="CollapseOnly with really long tree-item content goes here. Lorem ipsum dolor sit amet."
-                    IconCollapsed="@(new Icons.Regular.Size20.ArrowCircleRight())"
+                    IconStart="@(new Icons.Regular.Size16.ShareScreenStart())"
+                    IconEnd="@(new Icons.Regular.Size16.CallEnd())"
+                    IconAside="@(new Icons.Regular.Size16.AddCircle())"
+                    IconCollapsed="@(new Icons.Regular.Size16.ArrowCircleRight())"
                     @bind-Expanded="@Expanded2"
                     SelectedChanged="@(e => Console.WriteLine($". Selected: test-2: {e}"))">
-        <ItemAsideTemplate>
-            <FluentIcon Value="@(new Icons.Regular.Size20.ArrowCircleRight())" />
-        </ItemAsideTemplate>
-        <ChildContent>
             <FluentTreeItem>Sub Item</FluentTreeItem>
-        </ChildContent>
     </FluentTreeItem>
 
     <FluentTreeItem Id="test-3"
-                    IconExpanded="@(new Icons.Regular.Size20.CopyArrowRight())"
+                    IconExpanded="@(new Icons.Regular.Size16.CopyArrowRight())"
                     @bind-Expanded="@Expanded3"
                     SelectedChanged="@(e => Console.WriteLine($". Selected: test-3: {e}"))">
         ExpandOnly
@@ -58,7 +53,7 @@
 
     <FluentTreeItem Id="test-4"
                     Text="CollapseExpand"
-                    IconCollapsed="@(new Icons.Regular.Size20.ArrowCircleRight())"
+                    IconCollapsed="@(new Icons.Regular.Size16.ArrowCircleRight())"
                     IconExpanded="@(new Icons.Regular.Size16.CopyArrowRight())"
                     @bind-Expanded="@Expanded4"
                     SelectedChanged="@(e => Console.WriteLine($". Selected: test-4: {e}"))">
