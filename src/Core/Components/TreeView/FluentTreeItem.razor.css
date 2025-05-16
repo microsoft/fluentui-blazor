@@ -18,3 +18,11 @@ fluent-tree-item span[part="text"] {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+fluent-tree-item::part(positioning-region) {
+  height: var(--tree-item-height, var(--spacingVerticalXXXL));
+}
+
+fluent-tree-item[size="small"]::part(positioning-region) {
+  height: var(--tree-item-height, var(--spacingVerticalXXL));
+}

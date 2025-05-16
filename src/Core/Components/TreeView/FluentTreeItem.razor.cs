@@ -29,6 +29,7 @@ public partial class FluentTreeItem : FluentComponentBase
 
     /// <summary/>
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("--tree-item-height", Height, when: () => !string.IsNullOrEmpty(Height))
         .Build();
 
     /// <summary/>
@@ -41,6 +42,12 @@ public partial class FluentTreeItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public TreeSize? Size { get; set; }
+
+    /// <summary>
+    /// Gets or sets the height of the tree item.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
 
     /// <summary>
     /// Gets or sets the appearance of the tree item.

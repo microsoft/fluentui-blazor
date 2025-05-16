@@ -23,13 +23,15 @@
 
     <FluentTreeItem Id="test-1"
                     Text="My item"
+                    Height="70px"
                     @bind-Expanded="@Expanded1"
                     SelectedChanged="@(e => Console.WriteLine($". Selected: test-1: {e}"))">
         <ItemAsideTemplate>
             <FluentIcon Value="@(new Icons.Regular.Size20.ArrowCircleRight())" />
+            <br />Hello
         </ItemAsideTemplate>
         <ChildContent>
-            <FluentTreeItem>Sub Item</FluentTreeItem>
+            <FluentTreeItem Height="unset">Sub Item</FluentTreeItem>
         </ChildContent>
     </FluentTreeItem>
 
