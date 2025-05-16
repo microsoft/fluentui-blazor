@@ -34,7 +34,7 @@ public partial class FluentTreeItem : FluentComponentBase
 
     /// <summary/>
     [CascadingParameter]
-    internal FluentTreeView? TreeView { get; set; }
+    internal FluentTreeView? OwnerTreeView { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the tree item.
@@ -55,6 +55,12 @@ public partial class FluentTreeItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public TreeAppearance? Appearance { get; set; }
+
+    /// <summary>
+    /// Gets or sets the list of sub-items to bind to the tree item
+    /// </summary>
+    [Parameter]
+    public IEnumerable<ITreeViewItem>? Items { get; set; }
 
     /// <summary>
     /// Gets or sets the text of the tree item.
@@ -130,9 +136,9 @@ public partial class FluentTreeItem : FluentComponentBase
     /// <summary />
     protected override void OnInitialized()
     {
-        if (TreeView is not null && !string.IsNullOrEmpty(Id))
+        if (OwnerTreeView is not null && !string.IsNullOrEmpty(Id))
         {
-            TreeView.InternalItems.TryAdd(Id, this);
+            OwnerTreeView.InternalItems.TryAdd(Id, this);
         }
     }
 
@@ -154,21 +160,23 @@ public partial class FluentTreeItem : FluentComponentBase
         }
 
         // Update the FluentTree owner (only to inform the new selected item)
-        if (isSelected && TreeView is not null && TreeView.OnSelectedChanged.HasDelegate)
+        if (isSelected && OwnerTreeView is not null && OwnerTreeView.OnSelectedChanged.HasDelegate)
         {
-            await TreeView.OnSelectedChanged.InvokeAsync(this);
+            await OwnerTreeView.OnSelectedChanged.InvokeAsync(this);
         }
 
         // Update the FluentTree owner for the SelectedId property
-        if (isSelected && TreeView is not null && TreeView.SelectedIdChanged.HasDelegate)
+        if (isSelected && OwnerTreeView is not null && OwnerTreeView.SelectedIdChanged.HasDelegate)
         {
-            await TreeView.SelectedIdChanged.InvokeAsync(Id);
+            await OwnerTreeView.SelectedIdChanged.InvokeAsync(Id);
         }
     }
 
     /// <summary />
     private async Task OnTreeToggleAsync(TreeItemToggleEventArgs args)
     {
+        Console.WriteLine($"OnTreeToggleAsync: {Id} - {args.OldState} - {args.NewState}");
+
         const string StateClosed = "closed";
         const string StateOpened = "open";
 
@@ -198,18 +206,59 @@ public partial class FluentTreeItem : FluentComponentBase
         }
 
         // Update the FluentTree owner
-        if (TreeView is not null && TreeView.OnExpandedChanged.HasDelegate)
+        if (OwnerTreeView is not null && OwnerTreeView.OnExpandedChanged.HasDelegate)
         {
-            await TreeView.OnExpandedChanged.InvokeAsync(this);
+            await OwnerTreeView.OnExpandedChanged.InvokeAsync(this);
         }
+    }
+
+    /// <summary>
+    /// Renders a FluentTreeItem component, using a <see cref="ITreeViewItem" />
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    internal static RenderFragment GetFluentTreeItem(FluentTreeView owner, ITreeViewItem item)
+    {
+        RenderFragment fluentTreeItem = builder =>
+        {
+            builder.OpenComponent<FluentTreeItem>(0);
+            builder.AddAttribute(1, nameof(Id), item.Id);
+            builder.AddAttribute(2, nameof(Items), item.Items);
+            builder.AddAttribute(3, nameof(Text), item.Text);
+            builder.AddAttribute(4, nameof(Expanded), item.Expanded);
+            builder.AddAttribute(5, nameof(IconStart), item.IconStart);
+            builder.AddAttribute(6, nameof(IconEnd), item.IconEnd);
+            builder.AddAttribute(7, nameof(IconAside), item.IconAside);
+            builder.AddAttribute(8, nameof(IconCollapsed), item.IconCollapsed);
+            builder.AddAttribute(9, nameof(IconExpanded), item.IconExpanded);
+            builder.SetKey(item.Id);
+
+            if (owner.ItemTemplate != null)
+            {
+                builder.AddAttribute(10, nameof(ChildContent), owner.ItemTemplate(item));
+            }
+
+            builder.AddAttribute(11, nameof(ExpandedChanged), EventCallback.Factory.Create<bool>(owner, async expanded =>
+            {
+                if (item.OnExpandedAsync != null)
+                {
+                    await item.OnExpandedAsync(new TreeViewItemExpandedEventArgs(item, expanded));
+                }
+            }));
+
+            builder.CloseComponent();
+        };
+
+        return fluentTreeItem;
     }
 
     /// <summary />
     public override ValueTask DisposeAsync()
     {
-        if (TreeView is not null && !string.IsNullOrEmpty(Id))
+        if (OwnerTreeView is not null && !string.IsNullOrEmpty(Id))
         {
-            TreeView.InternalItems.TryRemove(Id, out _);
+            OwnerTreeView.InternalItems.TryRemove(Id, out _);
         }
 
         return base.DisposeAsync();

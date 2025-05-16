@@ -14,8 +14,12 @@
 
         @if (Items != null)
         {
-
+            foreach (var item in Items)
+            {
+                @FluentTreeItem.GetFluentTreeItem(this, item)
+            }
         }
+
     </fluent-tree>
 </CascadingValue>
 

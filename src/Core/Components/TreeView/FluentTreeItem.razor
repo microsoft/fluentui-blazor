@@ -7,7 +7,7 @@
                   style="@StyleValue"
                   appearance="@Appearance.ToAttributeValue(isNull: TreeAppearance.Subtle)"
                   size="@Size.ToAttributeValue(isNull: TreeSize.Medium)"
-                  selected="@(string.CompareOrdinal(TreeView?.SelectedId, Id) == 0 ? true : null)"
+                  selected="@(string.CompareOrdinal(OwnerTreeView?.SelectedId, Id) == 0 ? true : null)"
                   expanded="@Expanded"
                   @ontreechanged="@OnTreeChangedAsync"
                   @ontreetoggle="@OnTreeToggleAsync"
@@ -41,6 +41,23 @@
 
     @* Custom content and sub-items *@
     @ChildContent
+
+    @* Items *@
+    @if (OwnerTreeView is not null && Items is not null)
+    {
+        if (OwnerTreeView.LazyLoadItems && Items.Any() && !Expanded)
+        {
+            @* Lazy loading required a "fake" sub-item to simulate the [+] *@
+            <fluent-tree-item>@Localizer[Localization.LanguageResource.TreeItem_LoadingMessage]</fluent-tree-item>
+        }
+        else
+        {
+            foreach (var item in Items)
+            {
+                @FluentTreeItem.GetFluentTreeItem(OwnerTreeView, item)
+            }
+        }
+    }
 
     @* Start *@
     @if (IconStart is not null)

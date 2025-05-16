@@ -11,17 +11,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class TreeViewItem : ITreeViewItem
 {
-    /*
-    /// <summary>
-    /// Returns a <see cref="TreeViewItem"/> that represents a loading state.
-    /// </summary>
-    public static TreeViewItem LoadingTreeViewItem => new TreeViewItem() { Text = FluentTreeView.LoadingMessage, Disabled = true };
-
     /// <summary>
     /// Returns an array with a single <see cref="TreeViewItem"/> that represents a loading state.
     /// </summary>
-    public static IEnumerable<TreeViewItem> LoadingTreeViewItems => new[] { new TreeViewItem() { Text = FluentTreeView.LoadingMessage, Disabled = true } };
-    */
+    /// <param name="loadingMessage">The loading message</param>
+    public static IEnumerable<TreeViewItem> LoadingTreeViewItems(string loadingMessage) => [new TreeViewItem() { Text = loadingMessage }];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TreeViewItem"/> class.
@@ -54,43 +48,33 @@ public class TreeViewItem : ITreeViewItem
         Items = items;
     }
 
-    /// <summary>
-    /// <inheritdoc cref="ITreeViewItem.Id" />
-    /// </summary>
+    /// <inheritdoc cref="ITreeViewItem.Id"/>
     public string Id { get; set; } = Identifier.NewId();
 
-    /// <summary>
-    /// <inheritdoc cref="ITreeViewItem.Text" />
-    /// </summary>
+    /// <inheritdoc cref="ITreeViewItem.Text"/>
     public string Text { get; set; } = string.Empty;
 
-    /// <summary>
-    /// <inheritdoc cref="ITreeViewItem.Items" />
-    /// </summary>
+    /// <inheritdoc cref="ITreeViewItem.Items"/>
     public IEnumerable<ITreeViewItem>? Items { get; set; }
 
-    /// <summary>
-    /// <inheritdoc cref="ITreeViewItem.IconCollapsed" />
-    /// </summary>
+    /// <inheritdoc cref="ITreeViewItem.IconStart"/>
+    public Icon? IconStart { get; set; }
+
+    /// <inheritdoc cref="ITreeViewItem.IconEnd"/>
+    public Icon? IconEnd { get; set; }
+
+    /// <inheritdoc cref="ITreeViewItem.IconAside"/>
+    public Icon? IconAside { get; set; }
+
+    /// <inheritdoc cref="ITreeViewItem.IconCollapsed"/>
     public Icon? IconCollapsed { get; set; }
 
-    /// <summary>
-    /// <inheritdoc cref="ITreeViewItem.IconExpanded" />
-    /// </summary>
+    /// <inheritdoc cref="ITreeViewItem.IconExpanded"/>
     public Icon? IconExpanded { get; set; }
 
-    /// <summary>
-    /// <inheritdoc cref="ITreeViewItem.Disabled" />
-    /// </summary>
-    public bool Disabled { get; set; }
-
-    /// <summary>
     /// <inheritdoc cref="ITreeViewItem.Expanded"/>
-    /// </summary>
     public bool Expanded { get; set; }
 
-    /// <summary>
-    /// <inheritdoc cref="ITreeViewItem.OnExpandedAsync" />
-    /// </summary>
+    /// <inheritdoc cref="ITreeViewItem.OnExpandedAsync"/>
     public Func<TreeViewItemExpandedEventArgs, Task>? OnExpandedAsync { get; set; }
 }

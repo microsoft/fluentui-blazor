@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -13,6 +14,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTreeView : FluentComponentBase
 {
     internal ConcurrentDictionary<string, FluentTreeItem> InternalItems { get; } = new(StringComparer.Ordinal);
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentTreeView"/> class.
+    /// </summary>
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeItemChangedEventArgs))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeItemToggleEventArgs))]
+    public FluentTreeView()
+    {
+    }
 
     /// <summary/>
     protected string? ClassValue => DefaultClassBuilder
@@ -39,6 +49,20 @@ public partial class FluentTreeView : FluentComponentBase
     /// </summary>
     [Parameter]
     public IEnumerable<ITreeViewItem>? Items { get; set; }
+
+    /// <summary>
+    /// Gets or sets the template for rendering tree items.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<ITreeViewItem>? ItemTemplate { get; set; }
+
+    /// <summary>
+    /// Can only be used when the <see cref="Items"/> is defined.
+    /// Gets or sets whether the tree should use lazy loading when expanding nodes.
+    /// If True, the tree will only render the children of a node when it is expanded and will remove them when it is collapsed.
+    /// </summary>
+    [Parameter]
+    public bool LazyLoadItems { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
