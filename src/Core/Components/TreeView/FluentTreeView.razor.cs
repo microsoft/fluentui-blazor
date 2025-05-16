@@ -47,6 +47,18 @@ public partial class FluentTreeView : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the selected item id.
+    /// </summary>
+    [Parameter]
+    public string? SelectedId { get; set; }
+
+    /// <summary>
+    /// Called whenever the selected item changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<string?> SelectedIdChanged { get; set; }
+
+    /// <summary>
     /// Called whenever <see cref="FluentTreeItem.Expanded"/> changes on an item within the tree.
     /// You cannot update FluentTreeItem properties.
     /// </summary>

@@ -62,6 +62,12 @@ public partial class FluentTreeItem : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered on the right side of the tree item.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? AsideTemplate { get; set; }
+
+    /// <summary>
     /// Gets or sets the <see cref="Icon"/> displayed at the start of tree item,
     /// when the node is collapsed.
     /// If this icon is not set, the <see cref="IconExpanded"/> will be used.
@@ -126,6 +132,12 @@ public partial class FluentTreeItem : FluentComponentBase
         if (isSelected && TreeView is not null && TreeView.OnSelectedChanged.HasDelegate)
         {
             await TreeView.OnSelectedChanged.InvokeAsync(this);
+        }
+
+        // Update the FluentTree owner for the SelectedId property
+        if (isSelected && TreeView is not null && TreeView.SelectedIdChanged.HasDelegate)
+        {
+            await TreeView.SelectedIdChanged.InvokeAsync(Id);
         }
     }
 

@@ -7,6 +7,7 @@
                   style="@StyleValue"
                   appearance="@Appearance.ToAttributeValue(isNull: TreeAppearance.Subtle)"
                   size="@Size.ToAttributeValue(isNull: TreeSize.Medium)"
+                  selected="@(string.CompareOrdinal(TreeView?.SelectedId, Id) == 0 ? true : null)"
                   expanded="@Expanded"
                   @ontreechanged="@OnTreeChangedAsync"
                   @ontreetoggle="@OnTreeToggleAsync"
@@ -38,4 +39,11 @@
 
     @Text
     @ChildContent
+
+    @if (AsideTemplate is not null)
+    {
+        <span slot="@FluentSlot.Aside">
+            @AsideTemplate
+        </span>
+    }
 </fluent-tree-item>

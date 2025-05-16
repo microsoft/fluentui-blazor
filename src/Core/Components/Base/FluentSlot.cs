@@ -102,4 +102,9 @@ public static class FluentSlot
     /// Slot for the expanded/collapsed element of a fluent-tree-item.
     /// </summary>
     internal const string Chevron = "chevron";
+
+    /// <summary>
+    /// Slot for the right-side element of a fluent-tree-item.
+    /// </summary>
+    internal const string Aside = "aside";
 }
