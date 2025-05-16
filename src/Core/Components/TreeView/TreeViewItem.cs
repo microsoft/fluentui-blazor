@@ -11,8 +11,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class TreeViewItem : ITreeViewItem
 {
-    private bool _expanded;
-
     /// <summary>
     /// Returns an array with a single <see cref="TreeViewItem"/> that represents a loading state.
     /// </summary>
@@ -75,21 +73,16 @@ public class TreeViewItem : ITreeViewItem
     public Icon? IconExpanded { get; set; }
 
     /// <inheritdoc cref="ITreeViewItem.Expanded"/>
-    public bool Expanded
-    {
-        get => _expanded;
-        set
-        {
-            _expanded = value;
+    public bool Expanded { get; set; }
 
-            // Invoke the event asynchronously
-            _ = Task.Run(async () =>
-            {
-                if (OnExpandedAsync is not null)
-                {
-                    await OnExpandedAsync.Invoke(new TreeViewItemExpandedEventArgs(this, _expanded));
-                }
-            });
+    /// <inheritdoc cref="ITreeViewItem.SetExpandedAsync(bool)"/>
+    public async Task SetExpandedAsync(bool expanded)
+    {
+        Expanded = expanded;
+
+        if (OnExpandedAsync is not null)
+        {
+            await OnExpandedAsync.Invoke(new TreeViewItemExpandedEventArgs(this, expanded));
         }
     }
 

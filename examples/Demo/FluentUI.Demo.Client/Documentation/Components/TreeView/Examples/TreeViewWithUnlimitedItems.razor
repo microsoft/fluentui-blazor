@@ -4,7 +4,7 @@
     Selected Item: @SelectedItem?.Text
 </div>
 
-<FluentButton OnClick="@(e => { if (Items is not null) { Items.ElementAt(1).Expanded = true; }})">Expand</FluentButton>
+<FluentButton OnClick="@(async e => { if (Items is not null) { Items.ElementAt(1).Text = "Hello"; await Items.ElementAt(1).SetExpandedAsync(true); } })">Expand</FluentButton>
 
 @code
 {
