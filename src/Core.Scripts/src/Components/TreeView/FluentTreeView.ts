@@ -16,8 +16,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.TreeView {
       ? element as TreeItem
       : element.closest('fluent-tree-item') as TreeItem;
 
-    console.log('ToggleItem', element, treeItem);
-
     if (treeItem) {
       treeItem.expanded = !treeItem.expanded;
       treeItem.selected = true;

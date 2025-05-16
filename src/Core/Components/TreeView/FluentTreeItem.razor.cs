@@ -175,8 +175,6 @@ public partial class FluentTreeItem : FluentComponentBase
     /// <summary />
     private async Task OnTreeToggleAsync(TreeItemToggleEventArgs args)
     {
-        Console.WriteLine($"OnTreeToggleAsync: {Id} - {args.OldState} - {args.NewState}");
-
         const string StateClosed = "closed";
         const string StateOpened = "open";
 
@@ -241,6 +239,7 @@ public partial class FluentTreeItem : FluentComponentBase
 
             builder.AddAttribute(11, nameof(ExpandedChanged), EventCallback.Factory.Create<bool>(owner, async expanded =>
             {
+                item.Expanded = expanded;
                 if (item.OnExpandedAsync != null)
                 {
                     await item.OnExpandedAsync(new TreeViewItemExpandedEventArgs(item, expanded));

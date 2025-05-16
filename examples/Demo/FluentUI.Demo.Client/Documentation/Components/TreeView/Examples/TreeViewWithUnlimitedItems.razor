@@ -4,36 +4,34 @@
     Selected Item: @SelectedItem?.Text
 </div>
 
+<FluentButton OnClick="@(e => { if (Items is not null) { Items.ElementAt(1).Expanded = true; }})">Expand</FluentButton>
+
 @code
 {
     private ITreeViewItem? SelectedItem;
     private IEnumerable<ITreeViewItem>? Items = new List<ITreeViewItem>();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        Items = GetItems();
+        Items = await GetItemsAsync();
     }
 
-    private Task OnExpandedAsync(TreeViewItemExpandedEventArgs e)
+    private async Task OnExpandedAsync(TreeViewItemExpandedEventArgs e)
     {
-        Console.WriteLine($"OnExpandedAsync: {e.CurrentItem.Text} - {e.Expanded}");
-
         if (e.Expanded)
         {
-            e.CurrentItem.Items = GetItems();
+            e.CurrentItem.Items = await GetItemsAsync();
         }
         else
         {
             // Remove sub-items and add a "Fake" item to simulate the [+]
             e.CurrentItem.Items = TreeViewItem.LoadingTreeViewItems("Loading...");
         }
-
-        return Task.CompletedTask;
     }
 
-    private IEnumerable<ITreeViewItem> GetItems()
+    private async Task<IEnumerable<ITreeViewItem>> GetItemsAsync()
     {
-        Task.Delay(1000).Wait(); // Simulate a delay
+        await Task.Delay(300); // Simulate a delay for loading items
 
         var nbItems = Random.Shared.Next(3, 9);
 

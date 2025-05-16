@@ -22,13 +22,3 @@
 
     </fluent-tree>
 </CascadingValue>
-
-<script>
-    window.switchTreeView = (event) => {
-        console.log('switchTreeView', event);
-        const treeItem = event.target.closest('fluent-tree-item');
-        if (treeItem) {
-            treeItem.expanded = !treeItem.expanded;
-        }
-    }
-</script>
