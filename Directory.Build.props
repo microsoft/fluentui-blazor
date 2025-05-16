@@ -12,8 +12,8 @@
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 
-    <VersionFile>4.11.9</VersionFile>
-    <VersionPrefix>4.11.9</VersionPrefix>
+    <VersionFile>4.12.0</VersionFile>
+    <VersionPrefix>4.12.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <AssemblyVersion>$(VersionFile)</AssemblyVersion>
     <FileVersion>$(VersionFile)</FileVersion>
