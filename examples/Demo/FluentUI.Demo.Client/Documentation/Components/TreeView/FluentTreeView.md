@@ -29,9 +29,24 @@ Each element also has the properties `IconStart`, `IconEnd`, and `IconAside` to 
 
 ## Manual TreeView
 
+In this example, we create a tree manually by nesting `FluentTreeItem` components.
+
+Using `SelectedId` parameter, we can select an item by passing its `Id` to the `FluentTreeView` component.
+When this parameter is bound to a variable, the selected item will be highlighted for other usages.
+
+Using `CurrentSelected` parameter, we can select an item by passing its `FluentTreeItem` to the `FluentTreeView` component.
+When this parameter is bound to a variable, the selected item will be highlighted for other usages.
+
+The event `OnExpandedChanged` is triggered when the user expands or collapses an item.
+
 {{ TreeViewDefault }}
 
 ## Dynamic tree generation via Items
+
+In this example, we create a tree dynamically by using the `Items` property of `FluentTreeView`.
+The `Items` parameter is a list of **TreeViewItem** that represent the items in the tree.
+
+When a user selects an item, the `SelectedItem` parameter is updated with the `TreeViewItem` of the selected item.
 
 {{ TreeViewWithItems }}
 

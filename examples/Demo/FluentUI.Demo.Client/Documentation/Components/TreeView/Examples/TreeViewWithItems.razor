@@ -1,54 +1,46 @@
-﻿<FluentTreeView Items="@Items" @bind-SelectedItem="@SelectedItem" LazyLoadItems="true">
-    <ItemTemplate>
-        @context.Text
-        <span style="color: var(--accent-fill-rest); margin: 0 4px;">
-            @(context.Items == null ? "" : $"[{context.Items.Count()}]")
-        </span>
-    </ItemTemplate>
-</FluentTreeView>
-
-<div>
-    <b>Total items:</b> @Count
-</div>
-<div>
+﻿<div>
     <b>Selected item:</b> @SelectedItem?.Text
 </div>
+
+<FluentTreeView Items="@Items" @bind-SelectedItem="@SelectedItem" LazyLoadItems="true">
+    <ItemTemplate>
+        @context.Text
+    </ItemTemplate>
+</FluentTreeView>
 
 @code
 {
     private ITreeViewItem? SelectedItem;
-
-    private Icon IconCollapsed = new Icons.Regular.Size20.Folder();
-    private Icon IconExpanded = new Icons.Regular.Size20.FolderOpen();
-
-    private int Count = -1;
     private IEnumerable<ITreeViewItem>? Items = new List<ITreeViewItem>();
 
     protected override void OnInitialized()
     {
-        Items = CreateTree(maxLevel: 5, maxItemsPerLevel: 12).Items;
+        Items = GetCompanyOrganization();
         SelectedItem = Items?.ElementAt(3);
     }
 
-    // Recursive method to create tree
-    private TreeViewItem CreateTree(int maxLevel, int maxItemsPerLevel, int level = 0)
+    // Example of a tree with a company organization
+    private TreeViewItem[] GetCompanyOrganization()
     {
-        Count++;
+        var myOrganization = SampleData.People.GetOrganization(companyCount: 5, departmentCount: 4, employeeCount: 20);
 
-        int nbItems = Random.Shared.Next(maxItemsPerLevel - 3, maxItemsPerLevel);
-
-        var treeItem = new TreeViewItem
+        return myOrganization.Select(company => new TreeViewItem
         {
-            Text = $"Item {Count}",
-            IconCollapsed = IconCollapsed,
-            IconExpanded = IconExpanded,
-            Expanded = level >= 2 && Count % 5 == 0,
-            Items = level == maxLevel
-                  ? null
-                  : new List<TreeViewItem>(Enumerable.Range(1, nbItems)
-                                                     .Select(i => CreateTree(maxLevel, maxItemsPerLevel, level + 1))),
-        };
-
-        return treeItem;
+            IconStart = new Icons.Regular.Size16.Building().WithColor(Color.Primary),
+            Id = company.Id,
+            Text = company.Name,
+            Items = company.Departments.Select(dept => new TreeViewItem
+            {
+                IconStart = new Icons.Regular.Size16.ContactCardGroup().WithColor(SystemColors.Palette.DarkOrangeForeground1),
+                Id = dept.Id,
+                Text = dept.Name,
+                Items = dept.Employees.Select(emp => new TreeViewItem
+                {
+                    IconStart = new Icons.Regular.Size16.People().WithColor(SystemColors.Palette.ForestBorderActive),
+                    Id = emp.Id,
+                    Text = $"{emp.FirstName} {emp.LastName}",
+                }).ToArray()
+            }).ToArray()
+        }).ToArray();
     }
 }
