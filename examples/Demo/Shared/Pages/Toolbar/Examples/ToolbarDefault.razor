@@ -36,6 +36,13 @@
         <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
         <FluentButton Appearance="Appearance.Accent">Refresh</FluentButton>
         <FluentBadge>21 items</FluentBadge>
+
+        <FluentMenuButton @ref=menubutton
+                          Text="Select brand color"
+                          Items="@items"
+                          OnMenuChanged="HandleOnMenuChanged"
+                          style="margin: auto 16px;"
+                          slot="end"></FluentMenuButton>
         <FluentRadioGroup @bind-Value=value3 slot="end">
             <FluentRadio>Filter</FluentRadio>
             <FluentRadio>
