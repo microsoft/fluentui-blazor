@@ -83,6 +83,30 @@ public partial class FluentTreeView : FluentComponentBase
     public EventCallback<string?> SelectedIdChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets the selected <see cref="FluentTreeItem" /> item.
+    /// </summary>
+    [Parameter]
+    public FluentTreeItem? CurrentSelected { get; set; }
+
+    /// <summary>
+    /// Called whenever the selected <see cref="FluentTreeItem" /> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentTreeItem?> CurrentSelectedChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the selected <see cref="ITreeViewItem" /> item.
+    /// </summary>
+    [Parameter]
+    public ITreeViewItem? SelectedItem { get; set; }
+
+    /// <summary>
+    /// Called whenever the selected <see cref="ITreeViewItem" /> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<ITreeViewItem?> SelectedItemChanged { get; set; }
+
+    /// <summary>
     /// Called whenever <see cref="FluentTreeItem.Expanded"/> changes on an item within the tree.
     /// You cannot update FluentTreeItem properties.
     /// </summary>

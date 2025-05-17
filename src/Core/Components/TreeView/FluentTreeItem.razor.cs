@@ -159,16 +159,38 @@ public partial class FluentTreeItem : FluentComponentBase
             await SelectedChanged.InvokeAsync(isSelected);
         }
 
-        // Update the FluentTree owner (only to inform the new selected item)
-        if (isSelected && OwnerTreeView is not null && OwnerTreeView.OnSelectedChanged.HasDelegate)
+        // Update the FluentTree owner (only to inform the new selected item
+        if (OwnerTreeView is not null && isSelected)
         {
-            await OwnerTreeView.OnSelectedChanged.InvokeAsync(this);
-        }
+            // SelectedIdChanged
+            if (OwnerTreeView.SelectedIdChanged.HasDelegate &&
+                !string.Equals(OwnerTreeView.SelectedId, Id, StringComparison.Ordinal))
+            {
+                await OwnerTreeView.SelectedIdChanged.InvokeAsync(Id);
+            }
 
-        // Update the FluentTree owner for the SelectedId property
-        if (isSelected && OwnerTreeView is not null && OwnerTreeView.SelectedIdChanged.HasDelegate)
-        {
-            await OwnerTreeView.SelectedIdChanged.InvokeAsync(Id);
+            // CurrentSelectedItem
+            if (OwnerTreeView.CurrentSelectedChanged.HasDelegate &&
+                OwnerTreeView.CurrentSelected != this)
+            {
+                await OwnerTreeView.CurrentSelectedChanged.InvokeAsync(this);
+            }
+
+            if (OwnerTreeView.Items is not null &&
+                OwnerTreeView.SelectedItemChanged.HasDelegate)
+            {
+                var selectedItem = OwnerTreeView.Items.FirstOrDefault(i => string.Equals(i.Id, Id, StringComparison.Ordinal));
+                if (OwnerTreeView.SelectedItem != selectedItem)
+                {
+                    await OwnerTreeView.SelectedItemChanged.InvokeAsync(selectedItem);
+                }
+            }
+
+            // OnSelectedChanged
+            if (OwnerTreeView.OnSelectedChanged.HasDelegate)
+            {
+                await OwnerTreeView.OnSelectedChanged.InvokeAsync(this);
+            }
         }
     }
 
