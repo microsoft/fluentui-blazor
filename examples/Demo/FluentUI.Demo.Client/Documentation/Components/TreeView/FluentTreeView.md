@@ -44,7 +44,9 @@ The event `OnExpandedChanged` is triggered when the user expands or collapses an
 ## Dynamic tree generation via Items
 
 In this example, we create a tree dynamically by using the `Items` property of `FluentTreeView`.
-The `Items` parameter is a list of **TreeViewItem** that represent the items in the tree.
+The `Items` parameter is a list of [**TreeViewItem**](/TreeView#class-treeviewitem) that represent the items in the tree.
+
+Using an ItemTemplate, we can specify how each item should be displayed.
 
 When a user selects an item, the `SelectedItem` parameter is updated with the `TreeViewItem` of the selected item.
 

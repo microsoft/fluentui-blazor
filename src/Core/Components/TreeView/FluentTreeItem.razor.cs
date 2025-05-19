@@ -134,6 +134,10 @@ public partial class FluentTreeItem : FluentComponentBase
     public EventCallback<bool> SelectedChanged { get; set; }
 
     /// <summary />
+    private bool IsSelected => string.CompareOrdinal(OwnerTreeView?.SelectedId, Id) == 0 ||
+                               string.CompareOrdinal(OwnerTreeView?.SelectedItem?.Id, Id) == 0;
+
+    /// <summary />
     protected override void OnInitialized()
     {
         if (OwnerTreeView is not null && !string.IsNullOrEmpty(Id))
@@ -176,10 +180,12 @@ public partial class FluentTreeItem : FluentComponentBase
                 await OwnerTreeView.CurrentSelectedChanged.InvokeAsync(this);
             }
 
+            // SelectedItem
             if (OwnerTreeView.Items is not null &&
                 OwnerTreeView.SelectedItemChanged.HasDelegate)
             {
-                var selectedItem = OwnerTreeView.Items.FirstOrDefault(i => string.Equals(i.Id, Id, StringComparison.Ordinal));
+                var selectedItem = TreeViewItem.FindItemById(OwnerTreeView.Items, Id);
+
                 if (OwnerTreeView.SelectedItem != selectedItem)
                 {
                     await OwnerTreeView.SelectedItemChanged.InvokeAsync(selectedItem);
@@ -245,7 +251,7 @@ public partial class FluentTreeItem : FluentComponentBase
             builder.OpenComponent<FluentTreeItem>(0);
             builder.AddAttribute(1, nameof(Id), item.Id);
             builder.AddAttribute(2, nameof(Items), item.Items);
-            builder.AddAttribute(3, nameof(Text), item.Text);
+            builder.AddAttribute(3, nameof(Text), owner.ItemTemplate is null ? item.Text : null);
             builder.AddAttribute(4, nameof(Expanded), item.Expanded);
             builder.AddAttribute(5, nameof(IconStart), item.IconStart);
             builder.AddAttribute(6, nameof(IconEnd), item.IconEnd);

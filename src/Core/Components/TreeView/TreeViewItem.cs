@@ -88,4 +88,34 @@ public class TreeViewItem : ITreeViewItem
 
     /// <inheritdoc cref="ITreeViewItem.OnExpandedAsync"/>
     public Func<TreeViewItemExpandedEventArgs, Task>? OnExpandedAsync { get; set; }
+
+    /// <summary>
+    /// Search for an item by its id in the tree
+    /// </summary>
+    /// <param name="items"></param>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    internal static ITreeViewItem? FindItemById(IEnumerable<ITreeViewItem>? items, string? id)
+    {
+        if (items == null)
+        {
+            return null;
+        }
+
+        foreach (var item in items)
+        {
+            if (string.Equals(item.Id, id, StringComparison.Ordinal))
+            {
+                return item;
+            }
+
+            var nestedItem = FindItemById(item.Items, id);
+            if (nestedItem != null)
+            {
+                return nestedItem;
+            }
+        }
+
+        return null;
+    }
 }

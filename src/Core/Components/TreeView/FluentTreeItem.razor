@@ -7,7 +7,7 @@
                   style="@StyleValue"
                   appearance="@Appearance.ToAttributeValue(isNull: TreeAppearance.Subtle)"
                   size="@Size.ToAttributeValue(isNull: TreeSize.Medium)"
-                  selected="@(string.CompareOrdinal(OwnerTreeView?.SelectedId, Id) == 0 ? true : null)"
+                  selected="@IsSelected"
                   expanded="@Expanded"
                   @ontreechanged="@OnTreeChangedAsync"
                   @ontreetoggle="@OnTreeToggleAsync"
