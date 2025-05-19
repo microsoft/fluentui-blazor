@@ -5,10 +5,17 @@
 <FluentTreeView Items="@Items"
                 @bind-SelectedItem="@SelectedItem">
     <ItemTemplate>
-        <FluentBadge Color="BadgeColor.Informative" Content="@context.Id" />
+        <FluentBadge Color="BadgeColor.Informative" Content="@context.Id" onclick="toggle(this)" />
         @context.Text
     </ItemTemplate>
 </FluentTreeView>
+
+<script>
+    function toggle(element)
+    {
+        return Microsoft.FluentUI.Blazor.Components.TreeView.ToggleItem(element);
+    }
+</script>
 
 @code
 {

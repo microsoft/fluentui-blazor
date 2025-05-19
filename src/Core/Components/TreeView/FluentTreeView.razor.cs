@@ -119,9 +119,11 @@ public partial class FluentTreeView : FluentComponentBase
 
     /// <summary>
     /// Gets or sets whether the tree allows multiple selections.
+    /// This Multiple Selection feature is only available when the <see cref="Items"/> parameter is used to generate the tree.
+    /// By default, the tree allows only single selection.
     /// </summary>
     [Parameter]
-    public bool Multiple { get; set; }
+    public TreeSelectionMode SelectionMode { get; set; } = TreeSelectionMode.Single;
 
     /// <summary>
     /// Gets or sets the multi-selected <see cref="ITreeViewItem" /> items.
@@ -152,13 +154,13 @@ public partial class FluentTreeView : FluentComponentBase
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && Multiple)
+        if (firstRender && SelectionMode != TreeSelectionMode.Single)
         {
             // Import the JavaScript module
             var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
             // Call a function from the JavaScript module
-            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TreeView.Initialize", Id, Multiple);
+            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TreeView.Initialize", Id, true);
         }
     }
 }

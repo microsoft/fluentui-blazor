@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -273,17 +274,14 @@ public partial class FluentTreeItem : FluentComponentBase
     /// <param name="owner"></param>
     /// <param name="item"></param>
     /// <returns></returns>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0051:Method is too long", Justification = "<Pending>")]
     internal static RenderFragment GetFluentTreeItem(FluentTreeView owner, ITreeViewItem item)
     {
-        var multiple = owner.Multiple;
-
         RenderFragment fluentTreeItem = builder =>
         {
             builder.OpenComponent<FluentTreeItem>(0);
             builder.AddAttribute(1, nameof(Id), item.Id);
             builder.AddAttribute(2, nameof(Items), item.Items);
-            builder.AddAttribute(3, nameof(Text), owner.ItemTemplate is null && !multiple ? item.Text : null);
+            builder.AddAttribute(3, nameof(Text), owner.ItemTemplate is null && owner.SelectionMode == TreeSelectionMode.Single ? item.Text : null);
             builder.AddAttribute(4, nameof(Expanded), item.Expanded);
             builder.AddAttribute(5, nameof(IconStart), item.IconStart);
             builder.AddAttribute(6, nameof(IconEnd), item.IconEnd);
@@ -291,36 +289,7 @@ public partial class FluentTreeItem : FluentComponentBase
             builder.AddAttribute(8, nameof(IconCollapsed), item.IconCollapsed);
             builder.AddAttribute(9, nameof(IconExpanded), item.IconExpanded);
 
-            // Multiple = true
-            if (multiple)
-            {
-                builder.AddAttribute(10, nameof(ChildContent), (RenderFragment)(childBuilder =>
-                {
-                    childBuilder.OpenElement(0, "fluent-checkbox");
-                    childBuilder.AddAttribute(1, "checked", owner.SelectedItems?.Contains(item) == true ? "true" : null);
-                    childBuilder.AddAttribute(2, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(owner, async e =>
-                    {
-                        // Call the handler on the FluentTreeItem instance
-                        var fluentTreeItem = owner.InternalItems.TryGetValue(item.Id, out var ti) ? ti : null;
-                        if (fluentTreeItem != null)
-                        {
-                            await fluentTreeItem.OnCheckChangedHandlerAsync();
-                        }
-                    }));
-                    childBuilder.AddAttribute(3, "tabindex", -1);
-                    childBuilder.CloseElement();
-                    childBuilder.AddContent(1, owner.ItemTemplate?.Invoke(item) ?? (RenderFragment)(builder2 => builder2.AddContent(0, item.Text)));
-                }));
-            }
-
-            // Multiple = false
-            else
-            {
-                if (owner.ItemTemplate != null)
-                {
-                    builder.AddAttribute(10, nameof(ChildContent), owner.ItemTemplate.Invoke(item));
-                }
-            }
+            AddChildContent(builder, owner, item);
 
             builder.AddAttribute(11, nameof(ExpandedChanged), EventCallback.Factory.Create<bool>(owner, async expanded =>
             {
@@ -338,6 +307,42 @@ public partial class FluentTreeItem : FluentComponentBase
         };
 
         return fluentTreeItem;
+    }
+
+    /// <summary />
+    private static void AddChildContent(RenderTreeBuilder builder, FluentTreeView owner, ITreeViewItem item)
+    {
+        switch (owner.SelectionMode)
+        {
+            case TreeSelectionMode.Single:
+                if (owner.ItemTemplate != null)
+                {
+                    builder.AddAttribute(10, nameof(ChildContent), owner.ItemTemplate.Invoke(item));
+                }
+
+                break;
+
+            case TreeSelectionMode.Multiple:
+                builder.AddAttribute(10, nameof(ChildContent), (RenderFragment)(childBuilder =>
+                {
+                    childBuilder.OpenElement(0, "fluent-checkbox");
+                    childBuilder.AddAttribute(1, "checked", owner.SelectedItems?.Contains(item) == true ? "true" : null);
+                    childBuilder.AddAttribute(2, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(owner, async e =>
+                    {
+                        // Call the handler on the FluentTreeItem instance
+                        var fluentTreeItem = owner.InternalItems.TryGetValue(item.Id, out var ti) ? ti : null;
+                        if (fluentTreeItem != null)
+                        {
+                            await fluentTreeItem.OnCheckChangedHandlerAsync();
+                        }
+                    }));
+                    childBuilder.AddAttribute(3, "tabindex", -1);
+                    childBuilder.CloseElement();
+                    childBuilder.AddContent(1, owner.ItemTemplate?.Invoke(item) ?? (RenderFragment)(builder2 => builder2.AddContent(0, item.Text)));
+                }));
+
+                break;
+        }
     }
 
     /// <summary />

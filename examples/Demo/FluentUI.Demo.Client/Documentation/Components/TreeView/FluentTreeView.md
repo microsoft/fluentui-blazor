@@ -25,7 +25,8 @@ Each element also has the properties `IconStart`, `IconEnd`, and `IconAside` to 
 
 > [!NOTE]
 > When a user clicks on an item, it is selected and expanded/collapsed if children are present.
-> It is not possible to open an item without selecting it (except by using the keyboard, pressing the `Enter` or `Space` key.).
+> It is not possible to open an item without selecting it (except by using the keyboard, pressing the `Enter` or `Space` key)
+> or using the `Mutiple` selection feature (see below).
 
 ## Manual TreeView
 
@@ -41,7 +42,7 @@ The event `OnExpandedChanged` is triggered when the user expands or collapses an
 
 {{ TreeViewDefault }}
 
-## Dynamic tree generation via Items
+## Items parameter
 
 In this example, we create a tree dynamically by using the `Items` property of `FluentTreeView`.
 The `Items` parameter is a list of [**TreeViewItem**](/TreeView#class-treeviewitem) that represent the items in the tree.
@@ -52,7 +53,21 @@ When a user selects an item, the `SelectedItem` parameter is updated with the `T
 
 {{ TreeViewWithItems }}
 
-## With Unlimited Items
+**Note**:
+In some situation, the tree item element may not catch the click event.
+If need, you can call the **JavaScript** function `ToggleItem(this)` to toggle the item.
+This function is available in the `Microsoft.FluentUI.Blazor.Components.TreeView` namespace.
+Without this function, the item will not be selected when the user clicks on it.
+This is not required for simple text items, but is required for complex items.
+
+```razor
+<ItemTemplate>
+   <FluentBadge Color="BadgeColor.Informative" Content="@context.Id"
+                onclick="Microsoft.FluentUI.Blazor.Components.TreeView.ToggleItem(this)" />
+</ItemTemplate>
+```
+
+## Unlimited Items
 
 If you have a very large number of items, you can use the `LazyLoadItems` parameter.
 This parameter tells the component to load items only when the node is expanded.
@@ -75,6 +90,11 @@ parameter is set to `true`.
 > This **Multiple Selection** feature is only available when the `Items` parameter is used to generate the tree.
 
 {{ TreeViewMultiSelect }}
+
+> [!WARNING]
+> For the moment, it is only possible to define a "simple" multiple selection mode `SelectionMode=“TreeSelectionMode.Multiple”`.
+> For example, it is not currently possible to select only the elements of the last level
+> or to display a "mixed" box when not all sub-elements are selected.
 
 ## API FluentTreeView
 
