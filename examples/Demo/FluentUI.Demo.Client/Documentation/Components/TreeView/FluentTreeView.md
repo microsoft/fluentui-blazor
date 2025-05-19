@@ -60,6 +60,15 @@ Once the node is closed, the items are removed from the DOM and are not displaye
 
 {{ TreeViewWithUnlimitedItems }}
 
+## Mutliple Selection
+
+The `FluentTreeView` component does not support multiple selection by default.
+But you can create a custom implementation of the `FluentTreeView` component to allow multiple selection.
+
+The `FluentTreeView.onkeydown` event is triggered when the user presses a <kbd>Space</kbd> key to be Accessible.
+
+{{ TreeViewMultiSelect }}
+
 ## API FluentTreeView
 
 {{ API Type=FluentTreeView }}

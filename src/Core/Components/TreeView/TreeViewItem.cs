@@ -90,12 +90,12 @@ public class TreeViewItem : ITreeViewItem
     public Func<TreeViewItemExpandedEventArgs, Task>? OnExpandedAsync { get; set; }
 
     /// <summary>
-    /// Search for an item by its id in the tree
+    /// Returns the first item with the specified id in the tree view items.
     /// </summary>
-    /// <param name="items"></param>
-    /// <param name="id"></param>
+    /// <param name="items">The tree view items to search in.</param>
+    /// <param name="id">Identifier of the item to find.</param>
     /// <returns></returns>
-    internal static ITreeViewItem? FindItemById(IEnumerable<ITreeViewItem>? items, string? id)
+    public static ITreeViewItem? FindItemById(IEnumerable<ITreeViewItem>? items, string? id)
     {
         if (items == null)
         {

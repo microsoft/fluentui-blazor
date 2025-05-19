@@ -45,6 +45,12 @@ public partial class FluentTreeView : FluentComponentBase
     public TreeAppearance? Appearance { get; set; } = TreeAppearance.Subtle;
 
     /// <summary>
+    /// Gets or sets whether the tree view element is not highlighted to indicate that it is selected.
+    /// </summary>
+    [Parameter]
+    public bool HideSelection { get; set; }
+
+    /// <summary>
     /// Gets or sets the list of items to bind to the tree.
     /// </summary>
     [Parameter]

@@ -28,3 +28,8 @@ fluent-tree-item::part(positioning-region) {
 fluent-tree-item[size="small"]::part(positioning-region) {
   height: var(--tree-item-height, var(--spacingVerticalXXL));
 }
+
+fluent-tree[hide-selection] fluent-tree-item[selected]::part(positioning-region) {
+  background-color: var(--colorSubtleBackground);
+  color: var(--colorNeutralForeground2);
+}

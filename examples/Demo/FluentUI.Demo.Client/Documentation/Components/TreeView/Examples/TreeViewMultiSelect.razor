@@ -1,0 +1,69 @@
+﻿<div class="my-2">
+    <b>Selected item:</b> @(string.Join("; ", SelectedItems.Select(i => i.Text)))
+</div>
+
+@* Set the 'onkeydown'' to be Accessible: when the user press the Space bar, the checkbox is clicked *@
+<FluentTreeView Items="@Items"
+                HideSelection="true"
+                onkeydown="if (event.code === 'Space') event.target.querySelector('fluent-checkbox')?.click();"
+                LazyLoadItems="true">
+    <ItemTemplate>
+        <FluentCheckbox @key="@($"{context.Id}-{SelectedItems.Contains(context)}")" Label="@context.Text"
+                        Style="display: grid;"
+                        Value="@(SelectedItems.Contains(context))"
+                        ValueChanged="@(value => CheckboxHandler(value, context))" />
+    </ItemTemplate>
+</FluentTreeView>
+
+@code
+{
+    private int Count = -1;
+    private List<ITreeViewItem> SelectedItems = new List<ITreeViewItem>();
+    private IEnumerable<ITreeViewItem>? Items = new List<ITreeViewItem>();
+
+    // Read the Tree content
+    protected override void OnInitialized()
+    {
+        Items = CreateTree(maxLevel: 3, nbItemsPerLevel: 5).Items ?? [];
+    }
+
+    private void SelectedChangedHandler(FluentTreeItem item)
+    {
+        var selected = TreeViewItem.FindItemById(Items, item.Id);
+        if (selected != null)
+        {
+            CheckboxHandler(true, selected);
+            StateHasChanged();
+        }
+    }
+
+    // Add or remove item from the selected items list
+    private void CheckboxHandler(bool selected, ITreeViewItem item)
+    {
+        if (selected && !SelectedItems.Contains(item))
+        {
+            SelectedItems.Add(item);
+        }
+        else if (!selected && SelectedItems.Contains(item))
+        {
+            SelectedItems.Remove(item);
+        }
+    }
+
+    // Recursive method to create tree
+    private TreeViewItem CreateTree(int maxLevel, int nbItemsPerLevel, int level = 0)
+    {
+        Count++;
+
+        var treeItem = new TreeViewItem
+        {
+            Text = $"Item {Count}",
+            Items = level == maxLevel
+                              ? null
+                              : new List<TreeViewItem>(Enumerable.Range(1, nbItemsPerLevel)
+                                                                 .Select(i => CreateTree(maxLevel, nbItemsPerLevel, level + 1))),
+        };
+
+        return treeItem;
+    }
+}
