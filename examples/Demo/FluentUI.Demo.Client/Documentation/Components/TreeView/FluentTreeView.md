@@ -54,6 +54,10 @@ When a user selects an item, the `SelectedItem` parameter is updated with the `T
 
 ## With Unlimited Items
 
+If you have a very large number of items, you can use the `LazyLoadItems` parameter.
+This parameter tells the component to load items only when the node is expanded.
+Once the node is closed, the items are removed from the DOM and are not displayed.
+
 {{ TreeViewWithUnlimitedItems }}
 
 ## API FluentTreeView
