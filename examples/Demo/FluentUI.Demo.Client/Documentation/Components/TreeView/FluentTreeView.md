@@ -62,10 +62,17 @@ Once the node is closed, the items are removed from the DOM and are not displaye
 
 ## Mutliple Selection
 
-The `FluentTreeView` component does not support multiple selection by default.
-But you can create a custom implementation of the `FluentTreeView` component to allow multiple selection.
+The `FluentTreeView` component supports the multiple selection of items using the `MultiSelect` parameter.
+When this parameter is set to `true`, a checkbox is displayed next to each item.
 
-The `FluentTreeView.onkeydown` event is triggered when the user presses a <kbd>Space</kbd> key to be Accessible.
+Each time the user clicks on an item, the checkbox is checked or unchecked, and the parameter `SelectedItems`
+is updated with the list of selected items.
+
+We recommand to set the `HideSelection` parameter to `true` to hide the selection of the item when the `MultiSelect`
+parameter is set to `true`.
+
+> [!NOTE]
+> This **Multiple Selection** feature is only available when the `Items` parameter is used to generate the tree.
 
 {{ TreeViewMultiSelect }}
 
