@@ -188,7 +188,7 @@ public partial class FluentTreeItem : FluentComponentBase
             if (OwnerTreeView.Items is not null &&
                 OwnerTreeView.SelectedItemChanged.HasDelegate)
             {
-                var selectedItem = InternalItem ?? TreeViewItem.FindItemById(OwnerTreeView.Items, Id);
+                var selectedItem = TreeViewItem.FindItemById(OwnerTreeView.Items, Id);
 
                 if (OwnerTreeView.SelectedItem != selectedItem)
                 {
@@ -245,21 +245,23 @@ public partial class FluentTreeItem : FluentComponentBase
     /// <summary />
     private async Task OnCheckChangedHandlerAsync()
     {
-        if (OwnerTreeView is null || InternalItem is null)
+        var checkedItem = TreeViewItem.FindItemById(OwnerTreeView?.Items, Id);
+
+        if (OwnerTreeView is null || checkedItem is null)
         {
             return;
         }
 
         var selectedItems = OwnerTreeView.SelectedItems?.ToList() ?? [];
-        var isSelected = selectedItems.Contains(InternalItem);
+        var isSelected = selectedItems.Contains(checkedItem);
 
         if (isSelected)
         {
-            selectedItems.Remove(InternalItem);
+            selectedItems.Remove(checkedItem);
         }
         else
         {
-            selectedItems.Add(InternalItem);
+            selectedItems.Add(checkedItem);
         }
 
         if (OwnerTreeView.SelectedItemsChanged.HasDelegate)
@@ -299,9 +301,6 @@ public partial class FluentTreeItem : FluentComponentBase
                     await item.OnExpandedAsync(new TreeViewItemExpandedEventArgs(item, expanded));
                 }
             }));
-
-            // Keep a reference to the item
-            builder.AddComponentReferenceCapture(100, instance => ((FluentTreeItem)instance).InternalItem = item);
 
             builder.CloseComponent();
         };

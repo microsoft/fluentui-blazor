@@ -111,7 +111,6 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     blazor.registerCustomEventType('treetoggle', {
       browserEventName: 'toggle',
       createEventArgs: (event: any) => {
-        console.log("toggle", event);
         return {
           id: event.target.id,
           type: event.type,
