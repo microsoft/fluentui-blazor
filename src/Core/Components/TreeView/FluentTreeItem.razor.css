@@ -33,3 +33,7 @@ fluent-tree[hide-selection] fluent-tree-item[selected]::part(positioning-region)
   background-color: var(--colorSubtleBackground);
   color: var(--colorNeutralForeground2);
 }
+
+fluent-tree-item fluent-checkbox {
+  margin-right: var(--spacingHorizontalXS);
+}

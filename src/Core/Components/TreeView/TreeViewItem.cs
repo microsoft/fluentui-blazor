@@ -95,7 +95,7 @@ public class TreeViewItem : ITreeViewItem
     /// <param name="items">The tree view items to search in.</param>
     /// <param name="id">Identifier of the item to find.</param>
     /// <returns></returns>
-    public static ITreeViewItem? FindItemById(IEnumerable<ITreeViewItem>? items, string? id)
+    internal static ITreeViewItem? FindItemById(IEnumerable<ITreeViewItem>? items, string? id)
     {
         if (items == null)
         {

@@ -5,6 +5,8 @@
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -13,6 +15,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTreeView : FluentComponentBase
 {
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "TreeView/FluentTreeView.razor.js";
+
     internal ConcurrentDictionary<string, FluentTreeItem> InternalItems { get; } = new(StringComparer.Ordinal);
 
     /// <summary>
@@ -22,6 +26,7 @@ public partial class FluentTreeView : FluentComponentBase
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeItemToggleEventArgs))]
     public FluentTreeView()
     {
+        Id = Identifier.NewId();
     }
 
     /// <summary/>
@@ -113,6 +118,24 @@ public partial class FluentTreeView : FluentComponentBase
     public EventCallback<ITreeViewItem?> SelectedItemChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the tree allows multiple selections.
+    /// </summary>
+    [Parameter]
+    public bool Multiple { get; set; }
+
+    /// <summary>
+    /// Gets or sets the multi-selected <see cref="ITreeViewItem" /> items.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<ITreeViewItem>? SelectedItems { get; set; }
+
+    /// <summary>
+    /// Called whenever the multi-selected <see cref="ITreeViewItem" /> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<IEnumerable<ITreeViewItem>?> SelectedItemsChanged { get; set; }
+
+    /// <summary>
     /// Called whenever <see cref="FluentTreeItem.Expanded"/> changes on an item within the tree.
     /// You cannot update FluentTreeItem properties.
     /// </summary>
@@ -125,4 +148,17 @@ public partial class FluentTreeView : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<FluentTreeItem> OnSelectedChanged { get; set; }
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Multiple)
+        {
+            // Import the JavaScript module
+            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+
+            // Call a function from the JavaScript module
+            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TreeView.Initialize", Id, Multiple);
+        }
+    }
 }
