@@ -52,10 +52,11 @@ public class FluentMenuTests : TestBase
             .Add(p => p.Anchored, true)
             .Add(p => p.Id, "menu1")
             .Add(p => p.Anchor, "menuAnchor")
-            
+
         );
-        menuProviderCut.Render();
+
         //Act
+        menuProviderCut.Render();
 
         //Assert
         var menuInProvider = menuProviderCut.FindComponent<FluentMenu>();
