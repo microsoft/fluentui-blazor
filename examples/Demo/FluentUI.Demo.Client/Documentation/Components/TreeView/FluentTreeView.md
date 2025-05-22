@@ -135,3 +135,7 @@ For example, if you want to use a mixed checkbox, you can use the `ItemTemplate`
 ## Class TreeViewItem
 
 {{ API Type=TreeViewItem Properties=All }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentTreeView }}
