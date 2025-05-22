@@ -47,11 +47,23 @@ The event `OnExpandedChanged` is triggered when the user expands or collapses an
 In this example, we create a tree dynamically by using the `Items` property of `FluentTreeView`.
 The `Items` parameter is a list of [**TreeViewItem**](/TreeView#class-treeviewitem) that represent the items in the tree.
 
+When a user selects an item, the `SelectedItem` parameter is updated with the `ITreeViewItem` of the selected item.
+
+{{ TreeViewItems }}
+
+## ItemTemplate
+
 Using an ItemTemplate, we can specify how each item should be displayed.
+`context` is the current item `ITreeViewItem` in the loop, and we can use its properties to display the item.
 
-When a user selects an item, the `SelectedItem` parameter is updated with the `TreeViewItem` of the selected item.
+```razor
+<ItemTemplate>
+    <FluentBadge Color="BadgeColor.Informative" Content="@context.Id" />
+    @context.Text
+</ItemTemplate>
+```
 
-{{ TreeViewWithItems }}
+{{ TreeViewItemTemplate }}
 
 **Note**:
 In some situation, the tree item element may not catch the click event.
@@ -66,6 +78,8 @@ This is not required for simple text items, but is required for complex items.
                 onclick="Microsoft.FluentUI.Blazor.Components.TreeView.ToggleItem(this)" />
 </ItemTemplate>
 ```
+
+Remark the usage of the `onclick` event (JavaScript event) and not the `@onclick` or `OnClick` event (Blazor event).
 
 ## Unlimited Items
 
