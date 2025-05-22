@@ -118,13 +118,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
           newState: event.detail?.newState ?? event.newState,
         };
       }
-    });
-
-    /**
-     * Toggle the expand/collapse tree item.
-     * And selecte the item.
-     */
-    ((window as any).Blazor as any).__toggleTreeItem = FluentTreeView.FluentUI.Blazor.Components.TreeView.ToggleItem
+    }); 
   }
 
   // [^^^ Add your other custom events before this line ^^^]

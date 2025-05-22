@@ -34,7 +34,11 @@ fluent-tree[hide-selection] fluent-tree-item[selected]::part(positioning-region)
   color: var(--colorNeutralForeground2);
 }
 
-fluent-tree-item > span[slot="chevron"] {
+fluent-tree-item > span[slot="chevron"],
+fluent-tree-item > span[slot="start"],
+fluent-tree-item > span[slot="end"],
+fluent-tree-item > span[slot="aside"],
+fluent-tree-item > span[part="text"] {
   pointer-events: none;
 }
 

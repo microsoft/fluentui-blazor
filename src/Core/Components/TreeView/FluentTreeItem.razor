@@ -16,7 +16,7 @@
     @* Expandable icons: _toggleTreeItem(this) manages expand/collapse, which does not work by default in the webcomponent *@
     @if (IconCollapsed is not null || IconExpanded is not null)
     {
-        <span slot="@FluentSlot.Chevron" onclick="Blazor.__toggleTreeItem(this)">
+        <span slot="@FluentSlot.Chevron">
             @if (IconCollapsed is not null)
             {
                 <FluentIcon collapsed Value="@IconCollapsed" Color="Color.Custom" CustomColor="currentColor" />
@@ -34,7 +34,7 @@
     @* Text *@
     @if (!string.IsNullOrEmpty(Text))
     {
-        <span onclick="Blazor.__toggleTreeItem(this)" part="text">
+        <span part="text">
             @Text
         </span>
     }
@@ -62,7 +62,7 @@
     @* Start *@
     @if (IconStart is not null)
     {
-        <span slot="@FluentSlot.Start" onclick="Blazor.__toggleTreeItem(this)">
+        <span slot="@FluentSlot.Start">
             <FluentIcon Value="@IconStart" />
         </span>
     }
@@ -70,7 +70,7 @@
     @* End *@
     @if (IconEnd is not null)
     {
-        <span slot="@FluentSlot.End" onclick="Blazor.__toggleTreeItem(this)">
+        <span slot="@FluentSlot.End">
             <FluentIcon Value="@IconEnd" />
         </span>
     }
@@ -78,7 +78,7 @@
     @* Aside *@
     @if (IconAside is not null)
     {
-        <span slot="@FluentSlot.Aside" onclick="Blazor.__toggleTreeItem(this)">
+        <span slot="@FluentSlot.Aside">
             <FluentIcon Value="@IconAside" />
         </span>
     }

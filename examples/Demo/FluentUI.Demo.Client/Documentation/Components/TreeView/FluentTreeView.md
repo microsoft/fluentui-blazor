@@ -58,7 +58,7 @@ Using an ItemTemplate, we can specify how each item should be displayed.
 
 ```razor
 <ItemTemplate>
-    <FluentBadge Color="BadgeColor.Informative" Content="@context.Id" />
+    <FluentBadge Color="BadgeColor.Informative" Content="@context.Id" Style="pointer-events: none;" />
     @context.Text
 </ItemTemplate>
 ```
@@ -66,20 +66,9 @@ Using an ItemTemplate, we can specify how each item should be displayed.
 {{ TreeViewItemTemplate }}
 
 **Note**:
-In some situation, the tree item element may not catch the click event.
-If need, you can call the **JavaScript** function `ToggleItem(this)` to toggle the item.
-This function is available in the `Microsoft.FluentUI.Blazor.Components.TreeView` namespace.
-Without this function, the item will not be selected when the user clicks on it.
-This is not required for simple text items, but is required for complex items.
-
-```razor
-<ItemTemplate>
-   <FluentBadge Color="BadgeColor.Informative" Content="@context.Id"
-                onclick="Microsoft.FluentUI.Blazor.Components.TreeView.ToggleItem(this)" />
-</ItemTemplate>
-```
-
-Remark the usage of the `onclick` event (JavaScript event) and not the `@onclick` or `OnClick` event (Blazor event).
+In some situation, the tree item elements may not catch the click event to select the item.
+To avoid this, you can use the `Style="pointer-events: none;"` property to disable the pointer events on the element
+and let the click event pass through to the parent element.
 
 ## Unlimited Items
 
