@@ -34,6 +34,16 @@ fluent-tree[hide-selection] fluent-tree-item[selected]::part(positioning-region)
   color: var(--colorNeutralForeground2);
 }
 
+fluent-tree-item > span[slot="chevron"] {
+  pointer-events: none;
+}
+
 fluent-tree-item fluent-checkbox {
+  margin-right: var(--spacingHorizontalXS);
+}
+
+fluent-tree-item .hidden-checkbox {
+  width: 16px;  /* Default checkbox size */
+  height: 16px;
   margin-right: var(--spacingHorizontalXS);
 }

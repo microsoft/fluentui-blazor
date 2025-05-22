@@ -324,20 +324,38 @@ public partial class FluentTreeItem : FluentComponentBase
             case TreeSelectionMode.Multiple:
                 builder.AddAttribute(10, nameof(ChildContent), (RenderFragment)(childBuilder =>
                 {
-                    childBuilder.OpenElement(0, "fluent-checkbox");
-                    childBuilder.AddAttribute(1, "checked", owner.SelectedItems?.Contains(item) == true ? "true" : null);
-                    childBuilder.AddAttribute(2, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(owner, async e =>
+                    var visibility = owner.MultipleSelectionVisibility?.Invoke(item) ?? TreeSelectionVisibility.Visible;
+
+                    // Checkbox
+                    switch (visibility)
                     {
-                        // Call the handler on the FluentTreeItem instance
-                        var fluentTreeItem = owner.InternalItems.TryGetValue(item.Id, out var ti) ? ti : null;
-                        if (fluentTreeItem != null)
-                        {
-                            await fluentTreeItem.OnCheckChangedHandlerAsync();
-                        }
-                    }));
-                    childBuilder.AddAttribute(3, "tabindex", -1);
-                    childBuilder.CloseElement();
-                    childBuilder.AddContent(1, owner.ItemTemplate?.Invoke(item) ?? (RenderFragment)(builder2 => builder2.AddContent(0, item.Text)));
+                        // Visible
+                        case TreeSelectionVisibility.Visible:
+                            childBuilder.OpenElement(0, "fluent-checkbox");
+                            childBuilder.AddAttribute(1, "checked", owner.SelectedItems?.Contains(item) == true ? "true" : null);
+                            childBuilder.AddAttribute(2, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(owner, async e =>
+                            {
+                                // Call the handler on the FluentTreeItem instance
+                                var fluentTreeItem = owner.InternalItems.TryGetValue(item.Id, out var ti) ? ti : null;
+                                if (fluentTreeItem != null)
+                                {
+                                    await fluentTreeItem.OnCheckChangedHandlerAsync();
+                                }
+                            }));
+                            childBuilder.AddAttribute(3, "tabindex", -1);
+                            childBuilder.CloseElement();
+                            break;
+
+                        // Hidden
+                        case TreeSelectionVisibility.Hidden:
+                            childBuilder.OpenElement(0, "div");
+                            childBuilder.AddAttribute(1, "class", "hidden-checkbox");
+                            childBuilder.CloseElement();
+                            break;
+                    }
+
+                    // Content
+                    childBuilder.AddContent(4, owner.ItemTemplate?.Invoke(item) ?? (RenderFragment)(builder2 => builder2.AddContent(0, item.Text)));
                 }));
 
                 break;

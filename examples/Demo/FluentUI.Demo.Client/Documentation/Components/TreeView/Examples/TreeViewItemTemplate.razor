@@ -5,8 +5,7 @@
 <FluentTreeView Items="@Items"
                 @bind-SelectedItem="@SelectedItem">
     <ItemTemplate>
-        <FluentBadge Color="BadgeColor.Informative" Content="@context.Id"
-                     onclick="Microsoft.FluentUI.Blazor.Components.TreeView.ToggleItem(this)" />
+        <FluentBadge Color="BadgeColor.Informative" Content="@context.Id" Style="pointer-events: none;" />
         @context.Text
     </ItemTemplate>
 </FluentTreeView>

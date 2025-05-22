@@ -97,18 +97,43 @@ When this parameter is set to `true`, a checkbox is displayed next to each item.
 Each time the user clicks on an item, the checkbox is checked or unchecked, and the parameter `SelectedItems`
 is updated with the list of selected items.
 
-We recommand to set the `HideSelection` parameter to `true` to hide the selection of the item when the `MultiSelect`
-parameter is set to `true`.
+We recommand to set the `HideSelection` parameter to `true` to hide the default selection of the item when the `MultiSelect`
+parameter is set. This is more user-friendly and allows the user to see the selected items more clearly.
 
 > [!NOTE]
 > This **Multiple Selection** feature is only available when the `Items` parameter is used to generate the tree.
 
 {{ TreeViewMultiSelect }}
 
-> [!WARNING]
-> For the moment, it is only possible to define a "simple" multiple selection mode `SelectionMode=“TreeSelectionMode.Multiple”`.
-> For example, it is not currently possible to select only the elements of the last level
-> or to display a "mixed" box when not all sub-elements are selected.
+
+## Mutliple Selection with customized checkbox visibility
+
+You can customize the visibility of the checkbox using the `MultipleSelectionVisibility` parameter.
+This function allows you to show, hide (keeping the space) or hide and remove the checkbox, based on each `ITreeViewItem` objects.
+
+In this example, we use the `GetTreeSelectionVisibility` function to determine the visibility of the checkbox based
+on the first letter of the `Id` of the item. The result is a TreeView with a checkbox only for the `Employee` items (level 3).
+
+```csharp
+TreeSelectionVisibility GetTreeSelectionVisibility(ITreeViewItem item)
+{
+    return item.Id.First() switch
+    {
+        // Company or Department => collapsed checkbox
+        'C' => TreeSelectionVisibility.Collapse,
+        'D' => TreeSelectionVisibility.Hidden,
+
+        // Employee or others => visible checkbox
+        'E' => TreeSelectionVisibility.Visible,
+        _ => TreeSelectionVisibility.Visible
+    };
+}
+```
+
+{{ TreeViewMultipleSelectionVisibility }}
+
+We don't have a possibility to customize the type of checkbox used in the `FluentTreeView` component.
+For example, if you want to use a mixed checkbox, you can use the `ItemTemplate` part to create your own checkbox logic.
 
 ## API FluentTreeView
 

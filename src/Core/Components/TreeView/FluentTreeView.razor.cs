@@ -126,6 +126,13 @@ public partial class FluentTreeView : FluentComponentBase
     public TreeSelectionMode SelectionMode { get; set; } = TreeSelectionMode.Single;
 
     /// <summary>
+    /// Gets or sets the visibility of the multi-selection checkbox.
+    /// By default all items are visible.
+    /// </summary>
+    [Parameter]
+    public Func<ITreeViewItem, TreeSelectionVisibility>? MultipleSelectionVisibility { get; set; }
+
+    /// <summary>
     /// Gets or sets the multi-selected <see cref="ITreeViewItem" /> items.
     /// </summary>
     [Parameter]

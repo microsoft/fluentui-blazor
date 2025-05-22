@@ -5,6 +5,7 @@
 <FluentTreeView Items="@Items"
                 HideSelection="true"
                 SelectionMode="TreeSelectionMode.Multiple"
+                MultipleSelectionVisibility="@GetTreeSelectionVisibility"
                 @bind-SelectedItems="@SelectedItems">
 </FluentTreeView>
 
@@ -17,7 +18,21 @@
     protected override void OnInitialized()
     {
         Items = GetCompanyOrganization();
-        SelectedItems = Items.Take(2);
+    }
+
+    // Example of a custom visibility function
+    private TreeSelectionVisibility GetTreeSelectionVisibility(ITreeViewItem item)
+    {
+        return item.Id.First() switch
+        {
+            // Company or Department => collapsed checkbox
+            'C' => TreeSelectionVisibility.Collapse,
+            'D' => TreeSelectionVisibility.Hidden,
+
+            // Employee or others => visible checkbox
+            'E' => TreeSelectionVisibility.Visible,
+            _ => TreeSelectionVisibility.Visible
+        };
     }
 
     // Example of a tree with a company organization
