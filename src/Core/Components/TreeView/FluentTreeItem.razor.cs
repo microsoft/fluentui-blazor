@@ -151,7 +151,7 @@ public partial class FluentTreeItem : FluentComponentBase
     }
 
     /// <summary />
-    private async Task OnTreeChangedAsync(TreeItemChangedEventArgs args)
+    internal async Task OnTreeChangedAsync(TreeItemChangedEventArgs args)
     {
         if (!string.Equals(Id, args.Id, StringComparison.Ordinal))
         {
@@ -205,7 +205,7 @@ public partial class FluentTreeItem : FluentComponentBase
     }
 
     /// <summary />
-    private async Task OnTreeToggleAsync(TreeItemToggleEventArgs args)
+    internal async Task OnTreeToggleAsync(TreeItemToggleEventArgs args)
     {
         const string StateClosed = "closed";
         const string StateOpened = "open";

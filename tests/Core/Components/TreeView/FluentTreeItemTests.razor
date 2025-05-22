@@ -1,0 +1,130 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits Bunit.TestContext
+
+@code
+{
+    public FluentTreeItemTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentTreeItem_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeItem Text="My text" Expanded="true"></FluentTreeItem>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(TreeAppearance.Subtle)]
+    [InlineData(TreeAppearance.SubtleAlpha)]
+    [InlineData(TreeAppearance.Transparent)]
+    [InlineData((TreeAppearance)999)]
+    public void FluentTreeItem_Appearance(TreeAppearance appearance)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeItem Appearance="@appearance" />);
+
+        var tree = cut.Find("fluent-tree-item");
+
+        // Assert
+        Assert.Equal(appearance.ToAttributeValue(isNull: TreeAppearance.Subtle), tree.GetAttribute("appearance"));
+    }
+
+    [Theory]
+    [InlineData(TreeSize.Medium)]
+    [InlineData(TreeSize.Small)]
+    [InlineData((TreeSize)999)]
+    public void FluentTreeItem_Size(TreeSize size)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeItem Size="@size" />);
+
+        var treeItem = cut.Find("fluent-tree-item");
+
+        // Assert
+        Assert.Equal(size.ToAttributeValue(isNull: TreeSize.Medium), treeItem.GetAttribute("size"));
+    }
+
+    [Fact]
+    public void FluentTreeItem_Selected()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView SelectedId="item21">
+            <FluentTreeItem Id="item1" Text="Item 1"></FluentTreeItem>
+            <FluentTreeItem Id="item2" Text="Item 2">
+                <FluentTreeItem Id="item21">Item 2.1</FluentTreeItem>
+                <FluentTreeItem Id="item22">Item 2.2</FluentTreeItem>
+            </FluentTreeItem>
+        </FluentTreeView>);
+
+        var treeItem = cut.Find("fluent-tree-item[selected]");
+
+        // Assert
+        Assert.Equal("item21", treeItem.GetAttribute("id"));
+    }
+
+    [Fact]
+    public void FluentTreeItem_Expanded()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView>
+            <FluentTreeItem Id="item1" Expanded="true" Text="Item 1"></FluentTreeItem>
+            <FluentTreeItem Id="item2" Expanded="true" Text="Item 2">
+                <FluentTreeItem Id="item21">Item 2.1</FluentTreeItem>
+                <FluentTreeItem Id="item22">Item 2.2</FluentTreeItem>
+            </FluentTreeItem>
+        </FluentTreeView>);
+
+        var treeItems = cut.FindAll("fluent-tree-item[expanded]");
+
+        // Assert
+        Assert.Equal(2, treeItems.Count);
+        Assert.Equal("item1", treeItems[0].GetAttribute("id"));
+        Assert.Equal("item2", treeItems[1].GetAttribute("id"));
+    }
+
+    [Fact]
+    public void FluentTreeItem_Icons()
+    {
+        var iconStart = new Icons.Samples.Info();
+        var iconEnd = new Icons.Samples.MyCircle();
+        var iconAside = new Icons.Samples.PresenceAvailable();
+
+
+        // Arrange && Act
+        var cut = Render(@<FluentTreeItem Text="My text"
+                        IconStart="@iconStart"
+                        IconEnd="@iconEnd"
+                        IconAside="@iconAside" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(true, true)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(false, false)]
+    public void FluentTreeItem_IconsExpand(bool withExpandIcon, bool withCollaspeIcon)
+    {
+        var iconStart = withExpandIcon ? new Icons.Samples.Info() : null;
+        var iconEnd = withCollaspeIcon ? new Icons.Samples.MyCircle() : null;
+
+
+        // Arrange && Act
+        var cut = Render(@<FluentTreeItem Text="My text"
+                        IconExpanded="@iconStart"
+                        IconCollapsed="@iconEnd" />);
+
+        // Assert
+        cut.Verify(suffix: $"{(withExpandIcon ? "custom" : "default")}-{(withCollaspeIcon ? "custom" : "default")}");
+    }
+}
