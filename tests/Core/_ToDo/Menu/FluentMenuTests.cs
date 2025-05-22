@@ -9,6 +9,7 @@ public class FluentMenuTests : TestBase
     {
         TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
         TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+        TestContext.Services.AddSingleton<IMenuService, MenuService>();
     }
 
     [Fact]
@@ -37,6 +38,29 @@ public class FluentMenuTests : TestBase
 
         //Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuProvider_ShouldUseFluentMenuClass()
+    {
+        //Arrange
+        var className = "some-class";
+        var menuProviderCut = TestContext.RenderComponent<FluentMenuProvider>();
+        var menuCut = TestContext.RenderComponent<FluentMenu>(parameters => parameters
+            .Add(p => p.UseMenuService, true)
+            .Add(p => p.Class, className)
+            .Add(p => p.Anchored, true)
+            .Add(p => p.Id, "menu1")
+            .Add(p => p.Anchor, "menuAnchor")
+
+        );
+
+        //Act
+        menuProviderCut.Render();
+
+        //Assert
+        var menuInProvider = menuProviderCut.FindComponent<FluentMenu>();
+        Assert.Equal(className, menuInProvider.Instance.Class, StringComparer.Ordinal);
     }
 }
 
