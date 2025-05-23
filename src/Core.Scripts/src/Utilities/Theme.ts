@@ -76,14 +76,14 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     (window as any).__fluentuiBlazorMediaQueriesListener = true;
 
     // List of media queries to listen to
-    const getMediaQueries = (): { max: string, id: string, query: string }[] => {
+    const getMediaQueries = (): { id: string, query: string }[] => {
       return [
-        { max: '600', id: 'xs', query: '(max-width: 599.98px)' },
-        { max: '960', id: 'sm', query: '(min-width: 600px) and (max-width: 959.98px)' },
-        { max: '1280', id: 'md', query: '(min-width: 960px) and (max-width: 1279.98px)' },
-        { max: '1920', id: 'lg', query: '(min-width: 1280px) and (max-width: 1919.98px)' },
-        { max: '2560', id: 'xl', query: '(min-width: 1920px) and (max-width: 2559.98px)' },
-        { max: '9999', id: 'xxl', query: '(min-width: 2560px)' },
+        { id: 'xs', query: '(max-width: 599.98px)' },
+        { id: 'sm', query: '(min-width: 600px) and (max-width: 959.98px)' },
+        { id: 'md', query: '(min-width: 960px) and (max-width: 1279.98px)' },
+        { id: 'lg', query: '(min-width: 1280px) and (max-width: 1919.98px)' },
+        { id: 'xl', query: '(min-width: 1920px) and (max-width: 2559.98px)' },
+        { id: 'xxl', query: '(min-width: 2560px)' },
       ];
     }
 
@@ -93,7 +93,6 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
       const matched = getMediaQueries().find(mq => window.matchMedia(mq.query).matches);
       if (matched) {
         bodyTag.setAttribute('data-media', matched.id);
-        bodyTag.setAttribute('data-media-max', matched.max);
       }
     }
 
@@ -104,7 +103,6 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
             const bodyTag: HTMLElement = document?.body;
             if (bodyTag && bodyTag.getAttribute('data-media') !== mediaQuery.id) {
               bodyTag.setAttribute('data-media', mediaQuery.id);
-              bodyTag.setAttribute('data-media-max', mediaQuery.max);
             }
           }
         });
