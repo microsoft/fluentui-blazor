@@ -149,4 +149,71 @@ public partial class People
         /// </summary>
         public int Age => DateTime.Today.Year - BirthDay.Year;
     }
+
+    /// <summary>
+    /// Definition of an Employee
+    /// </summary>
+    /// <param name="Id">Id</param>
+    /// <param name="FirstName">First name</param>
+    /// <param name="LastName">Last name</param>
+    /// <param name="JobTitle">Job title</param>
+    public record Employee(string Id, string FirstName, string LastName, string JobTitle) { }
+
+    /// <summary>
+    /// Definition of a Department
+    /// </summary>
+    /// <param name="Id">Department Id</param>
+    /// <param name="Name">Department name</param>
+    /// <param name="Employees">List of employees</param>
+    public record Department(string Id, string Name, IEnumerable<Employee> Employees) { }
+
+    /// <summary>
+    /// Definition of a Company
+    /// </summary>
+    /// <param name="Id">Id</param>
+    /// <param name="Name">Company name</param>
+    /// <param name="Departments">List of departments</param>
+    public record Company(string Id, string Name, IEnumerable<Department> Departments) { };
+
+    /// <summary>
+    /// Generates a list of companies with random data.
+    /// </summary>
+    /// <param name="companyCount">Number of companies</param>
+    /// <param name="departmentCount">Number of departments</param>
+    /// <param name="employeeCount">Number of employees</param>
+    /// <returns></returns>
+    public static IEnumerable<Company> GetOrganization(int companyCount, int departmentCount, int employeeCount)
+    {
+        var companies = new List<Company>(companyCount);
+
+        for (var i = 0; i < companyCount; i++)
+        {
+            var companyId = "C" + RandomNumber(1000, 9999).ToString(CultureInfo.InvariantCulture);
+            var companyName = Companies[Random.Next(Companies.Length)];
+
+            var departments = new List<Department>(departmentCount);
+            for (var j = 0; j < departmentCount; j++)
+            {
+                var departmentId = "D" + RandomNumber(100, 999).ToString(CultureInfo.InvariantCulture);
+                var departmentName = Departments[Random.Next(Departments.Length)];
+
+                var employees = new List<Employee>(employeeCount);
+                for (var k = 0; k < employeeCount; k++)
+                {
+                    var employeeId = "E" + RandomNumber(10000, 99999).ToString(CultureInfo.InvariantCulture);
+                    var firstName = FirstNames[Random.Next(FirstNames.Length)];
+                    var lastName = LastNames[Random.Next(LastNames.Length)];
+                    var jobTitle = JobTitles[Random.Next(JobTitles.Length)];
+
+                    employees.Add(new Employee(employeeId, firstName, lastName, jobTitle));
+                }
+
+                departments.Add(new Department(departmentId, departmentName, employees));
+            }
+
+            companies.Add(new Company(companyId, companyName, departments));
+        }
+
+        return companies;
+    }
 }

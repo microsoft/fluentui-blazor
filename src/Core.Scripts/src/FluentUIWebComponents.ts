@@ -12,7 +12,6 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
 
     // To generate these definitions, run the `_ExtractWebComponents.ps1` file
     // and paste the output here.
-
     FluentUIComponents.accordionDefinition.define(registry);
     FluentUIComponents.accordionItemDefinition.define(registry);
     FluentUIComponents.AnchorButtonDefinition.define(registry);
@@ -55,6 +54,8 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
     FluentUIComponents.TextInputDefinition.define(registry);
     FluentUIComponents.ToggleButtonDefinition.define(registry);
     FluentUIComponents.TooltipDefinition.define(registry);
+    FluentUIComponents.TreeDefinition.define(registry);
+    FluentUIComponents.TreeItemDefinition.define(registry);
   }
 
   /**

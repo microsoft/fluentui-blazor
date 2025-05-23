@@ -1,3 +1,5 @@
+import { Microsoft as FluentTreeView } from './Components/TreeView/FluentTreeView';
+
 export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
 
   /**
@@ -90,6 +92,33 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
         };
       }
     });
+  }
+
+  export function TreeView(blazor: Blazor) {
+
+    // Event when an element is selected or deselected
+    blazor.registerCustomEventType('treechanged', {
+      browserEventName: 'change',
+      createEventArgs: (event: EventType) => {
+        return {
+          id: event.target.id,
+          selected: event.target.selected,
+        };
+      }
+    });
+
+    // Event when an element is expanded or collapsed
+    blazor.registerCustomEventType('treetoggle', {
+      browserEventName: 'toggle',
+      createEventArgs: (event: any) => {
+        return {
+          id: event.target.id,
+          type: event.type,
+          oldState: event.detail?.oldState ?? event.oldState,
+          newState: event.detail?.newState ?? event.newState,
+        };
+      }
+    }); 
   }
 
   // [^^^ Add your other custom events before this line ^^^]
