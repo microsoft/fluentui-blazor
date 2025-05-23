@@ -37,7 +37,7 @@
     }
 
     [Fact]
-    public void FluentTreeMultiple_SelectedItems()
+    public void FluentTreeMultiple_SelectedItems_Add()
     {
         var selectedItems = Items.Where(i => i.Id == "id2").Cast<ITreeViewItem>();
 
@@ -52,11 +52,57 @@
 
         // Act
         var checkbox = cut.FindComponents<FluentTreeItem>().Where(i => i.Instance.Id == "id1").First().Find("fluent-checkbox");
-        checkbox.Change(new ChangeEventArgs() { Value = "checked" });
+        checkbox.Change(new ChangeEventArgs());
 
         // After updates
         Assert.Equal(2, selectedItems.Count());
         Assert.Equal("id2", selectedItems.ElementAt(0).Id);
         Assert.Equal("id1", selectedItems.ElementAt(1).Id);
+    }
+
+    [Fact]
+    public void FluentTreeMultiple_SelectedItems_Remove()
+    {
+        var selectedItems = Items.Where(i => i.Id == "id2").Cast<ITreeViewItem>();
+
+        // Arrange
+        var cut = Render(@<FluentTreeView Items="@Items" SelectionMode="@TreeSelectionMode.Multiple" @bind-SelectedItems="@selectedItems" />);
+
+        // Act
+        var checkbox = cut.FindComponents<FluentTreeItem>().Where(i => i.Instance.Id == "id2").First().Find("fluent-checkbox");
+        checkbox.Change(new ChangeEventArgs());
+
+        // Assert
+        Assert.Empty(selectedItems);
+    }
+
+    [Fact]
+    public async Task TaskFluentTreeMultiple_SelectedItems_WhenOwnerTreeViewOrCheckedItemIsNull()
+    {
+        // OwnerTreeView is null
+        var cut = Render(@<FluentTreeItem Id="id1" />);
+        var item1 = cut.FindComponent<FluentTreeItem>().Instance;
+
+        await item1.OnCheckChangedHandlerAsync();
+
+        // CheckedItem is null
+        cut = Render(@<FluentTreeView><FluentTreeItem Id="id1" /></FluentTreeView>);
+        var item2 = cut.FindComponent<FluentTreeItem>().Instance;
+
+        await item2.OnCheckChangedHandlerAsync();
+    }
+
+    [Theory]
+    [InlineData(TreeSelectionVisibility.Collapse)]
+    [InlineData(TreeSelectionVisibility.Hidden)]
+    public void FluentTreeMultiple_Visibility_CollapseHidden(TreeSelectionVisibility visibility)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.Multiple"
+                        MultipleSelectionVisibility="@(e => e.Id == "id1" || e.Id == "id2" ? visibility : TreeSelectionVisibility.Visible)" />);
+
+        // Assert
+        cut.Verify(suffix: visibility.ToString());
     }
 }

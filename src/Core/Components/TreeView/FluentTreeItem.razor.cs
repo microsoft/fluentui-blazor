@@ -239,7 +239,7 @@ public partial class FluentTreeItem : FluentComponentBase
     }
 
     /// <summary />
-    private async Task OnCheckChangedHandlerAsync()
+    internal async Task OnCheckChangedHandlerAsync()
     {
         var checkedItem = TreeViewItem.FindItemById(OwnerTreeView?.Items, Id);
 
