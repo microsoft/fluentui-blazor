@@ -81,6 +81,27 @@
         Assert.True(item12.HasAttribute("selected"));
     }
 
+    [Fact]
+    public async Task FluentTreeViewItems_CurrentSelected()
+    {
+        // Arrange
+        var selectedItem = null as FluentTreeItem;
+        var cut = Render(@<FluentTreeView Items="@Items" @bind-CurrentSelected="@selectedItem" />);
+
+        // Act
+        var item = cut.FindComponents<FluentTreeItem>().Where(i => i.Instance.Id == "id12").First().Instance;
+        await item.OnTreeChangedAsync(new()
+        {
+            Id = "id12",
+            Selected = true,
+        });
+
+        // Assert
+        Assert.Equal("id12", selectedItem?.Id);
+        Assert.Equal("Item 1.2", selectedItem?.Text);
+        Assert.Equal("id12", selectedItem?.Item?.Id);
+    }
+
     [Theory]
     [InlineData("id1")]
     [InlineData("id12")]
@@ -201,5 +222,29 @@
 
         Assert.Equal("Item 1", item2.Text);
         Assert.Equal("Item 1.1", item2.Items?.First().Text);
+    }
+
+    [Fact]
+    public void FluentTreeViewItems_DebugDisplay()
+    {
+        // Arrange
+        var item1 = new TreeViewItem("id1", "Item 1");
+        var item2 = new TreeViewItem("id2", "Item 2", new[] { new TreeViewItem("Item 2.1") });
+        var item3 = new TreeViewItem("id3", "Item 3", Array.Empty<TreeViewItem>());
+
+        // Assert
+        Assert.Equal("[id1] Item 1", item1.DebuggerDisplay);
+        Assert.Equal("[id2] Item 2 (+ 1 sub-items)", item2.DebuggerDisplay);
+        Assert.Equal("[id3] Item 3", item3.DebuggerDisplay);
+    }
+
+    [Fact]
+    public void FluentTreeViewItems_FindItemById()
+    {
+        // Assert
+        Assert.Null(TreeViewItem.FindItemById(null, "id11"));
+        Assert.Equal("id1", TreeViewItem.FindItemById(Items, "id1")?.Id);
+        Assert.Equal("id11", TreeViewItem.FindItemById(Items, "id11")?.Id);
+        Assert.Null(TreeViewItem.FindItemById(Items, "INVALID"));
     }
 }

@@ -134,8 +134,12 @@ public partial class FluentTreeItem : FluentComponentBase
     [Parameter]
     public EventCallback<bool> SelectedChanged { get; set; }
 
-    /// <summary />
-    internal ITreeViewItem? InternalItem { get; set; }
+    /// <summary>
+    /// Gets the item associated with the current element, based on its Id.
+    /// </summary>
+    public ITreeViewItem? Item => OwnerTreeView is null || OwnerTreeView.Items is null
+                                ? null
+                                : TreeViewItem.FindItemById(OwnerTreeView.Items, Id);
 
     /// <summary />
     private bool IsSelected => string.CompareOrdinal(OwnerTreeView?.SelectedId, Id) == 0 ||
@@ -207,9 +211,6 @@ public partial class FluentTreeItem : FluentComponentBase
     /// <summary />
     internal async Task OnTreeToggleAsync(TreeItemToggleEventArgs args)
     {
-        const string StateClosed = "closed";
-        const string StateOpened = "open";
-
         // Only for the correct TreeItem
         if (!string.Equals(Id, args.Id, StringComparison.Ordinal))
         {
@@ -217,12 +218,7 @@ public partial class FluentTreeItem : FluentComponentBase
         }
 
         // Expanded?
-        var isExpanded = args.NewState switch
-        {
-            StateClosed => false,
-            StateOpened => true,
-            _ => false,
-        };
+        var isExpanded = string.Equals(args.NewState, "open", StringComparison.Ordinal);
 
         // Update the state
         if (isExpanded != Expanded)

@@ -79,17 +79,6 @@ public class TreeViewItem : ITreeViewItem
     /// <inheritdoc cref="ITreeViewItem.Expanded"/>
     public bool Expanded { get; set; }
 
-    /// <inheritdoc cref="ITreeViewItem.SetExpandedAsync(bool)"/>
-    public async Task SetExpandedAsync(bool expanded)
-    {
-        Expanded = expanded;
-
-        if (OnExpandedAsync is not null)
-        {
-            await OnExpandedAsync.Invoke(new TreeViewItemExpandedEventArgs(this, expanded));
-        }
-    }
-
     /// <inheritdoc cref="ITreeViewItem.OnExpandedAsync"/>
     public Func<TreeViewItemExpandedEventArgs, Task>? OnExpandedAsync { get; set; }
 
@@ -123,7 +112,7 @@ public class TreeViewItem : ITreeViewItem
         return null;
     }
 
-    private string DebuggerDisplay
+    internal string DebuggerDisplay
     {
         get
         {

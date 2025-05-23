@@ -159,6 +159,7 @@ public partial class FluentTreeView : FluentComponentBase
     public EventCallback<FluentTreeItem> OnSelectedChanged { get; set; }
 
     /// <summary />
+    [ExcludeFromCodeCoverage(Justification = "JavaScript is not covered by unit tests")]
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && SelectionMode != TreeSelectionMode.Single)

@@ -70,6 +70,37 @@
         Assert.Equal("item21", treeItem.GetAttribute("id"));
     }
 
+    [Theory]
+    [InlineData("item1", true, "item1")]
+    [InlineData(null, null, null)]
+    public async Task FluentTreeItem_SelectedChanged(string? selectId, bool? expectedSelected, string? expectedSelectedId)
+    {
+        var selectedItem = null as FluentTreeItem;
+        var item1Selected = null as bool?;
+
+        // Arrange
+        var cut = Render(@<FluentTreeView SelectedId="item21" OnSelectedChanged="@(e => selectedItem = e)">
+            <FluentTreeItem Id="item1" Text="Item 1" SelectedChanged="@(e => item1Selected = e)" />
+            <FluentTreeItem Id="item2" Text="Item 2">
+                <FluentTreeItem Id="item21">Item 2.1</FluentTreeItem>
+                <FluentTreeItem Id="item22">Item 2.2</FluentTreeItem>
+            </FluentTreeItem>
+        </FluentTreeView>
+    );
+
+        // Act
+        var item = cut.FindComponents<FluentTreeItem>().Where(i => i.Instance.Id == "item1").First().Instance;
+        await item.OnTreeChangedAsync(new()
+        {
+            Id = selectId,
+            Selected = true,
+        });
+
+        // Assert
+        Assert.Equal(expectedSelected, item1Selected);
+        Assert.Equal(expectedSelectedId, selectedItem?.Id);
+    }
+
     [Fact]
     public void FluentTreeItem_Expanded()
     {

@@ -65,13 +65,6 @@ public interface ITreeViewItem
     bool Expanded { get; set; }
 
     /// <summary>
-    /// Sets the expanded state of the current item, and triggers the <see cref="OnExpandedAsync"/> event.
-    /// </summary>
-    /// <param name="expanded">A value indicating whether the item should be expanded.</param>
-    /// <returns>A task that represents the asynchronous operation.</returns>
-    Task SetExpandedAsync(bool expanded);
-
-    /// <summary>
     /// Gets or sets the action to be performed when the tree item is expanded or collapsed
     /// </summary>
     Func<TreeViewItemExpandedEventArgs, Task>? OnExpandedAsync { get; set; }
