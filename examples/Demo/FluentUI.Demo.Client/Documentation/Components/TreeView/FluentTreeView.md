@@ -80,8 +80,8 @@ Once the node is closed, the items are removed from the DOM and are not displaye
 
 ## Mutliple Selection
 
-The `FluentTreeView` component supports the multiple selection of items using the `MultiSelect` parameter.
-When this parameter is set to `true`, a checkbox is displayed next to each item.
+The `FluentTreeView` component supports the multiple selection of items using the `SelectionMode` parameter.
+When this parameter is set to `TreeSelectionMode.Multiple`, a checkbox is displayed next to each item.
 
 Each time the user clicks on an item, the checkbox is checked or unchecked, and the parameter `SelectedItems`
 is updated with the list of selected items.
