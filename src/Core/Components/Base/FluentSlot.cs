@@ -97,4 +97,14 @@ public static class FluentSlot
     /// Slot for the title action elements (e.g. Close button). When the dialog type is set to non-modal and no title action is provided, a default title action button is rendered.
     /// </summary>
     internal const string DialogTitleAction = "title-action";
+
+    /// <summary>
+    /// Slot for the expanded/collapsed element of a fluent-tree-item.
+    /// </summary>
+    internal const string Chevron = "chevron";
+
+    /// <summary>
+    /// Slot for the right-side element of a fluent-tree-item.
+    /// </summary>
+    internal const string Aside = "aside";
 }

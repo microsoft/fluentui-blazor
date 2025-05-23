@@ -216,4 +216,7 @@
   <data name="LayoutHamburger_Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="TreeItem_LoadingMessage" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
 </root>

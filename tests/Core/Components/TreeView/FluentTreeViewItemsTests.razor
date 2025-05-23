@@ -1,0 +1,250 @@
+﻿@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits Bunit.TestContext
+
+@code
+{
+    public FluentTreeViewItemsTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    // Data source
+    private readonly TreeViewItem[] Items =
+    {
+        new TreeViewItem("id1", "Item 1",
+        [
+            new TreeViewItem("id11", "Item 1.1"),
+            new TreeViewItem("id12", "Item 1.2"),
+            new TreeViewItem("id13", "Item 1.3"),
+        ]),
+        new TreeViewItem("id2", "Item 2",
+        [
+            new TreeViewItem("id21", "Item 2.1"),
+            new TreeViewItem("id22", "Item 2.2"),
+            new TreeViewItem("id23", "Item 2.3"),
+        ]),
+    };
+
+    private readonly Icon IconCollapsed = new Icons.Samples.Info();
+    private readonly Icon IconExpanded = new Icons.Samples.Warning();
+
+    [Fact]
+    public void FluentTreeViewItems_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTreeViewItems_LazyLoading()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items" LazyLoadItems="true" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentTreeViewItems_LazyLoading_Expanded()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items" LazyLoadItems="true" />);
+
+        // Act
+        var item = cut.FindComponents<FluentTreeItem>().Where(i => i.Instance.Id == "id1").First().Instance;
+        await item.OnTreeToggleAsync(new()
+        {
+            Id = "id1",
+            NewState = "open",
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTreeViewItems_SelectedItem()
+    {
+        // Arrange && Act
+        var selectedItem = Items.ElementAt(0).Items?.ElementAt(1);  // Item 1.2
+        var cut = Render(@<FluentTreeView Items="@Items" SelectedItem="@selectedItem" />);
+
+        var item12 = cut.Find("fluent-tree-item[id='id12']");
+
+        // Assert
+        Assert.True(item12.HasAttribute("selected"));
+    }
+
+    [Fact]
+    public async Task FluentTreeViewItems_CurrentSelected()
+    {
+        // Arrange
+        var selectedItem = null as FluentTreeItem;
+        var cut = Render(@<FluentTreeView Items="@Items" @bind-CurrentSelected="@selectedItem" />);
+
+        // Act
+        var item = cut.FindComponents<FluentTreeItem>().Where(i => i.Instance.Id == "id12").First().Instance;
+        await item.OnTreeChangedAsync(new()
+        {
+            Id = "id12",
+            Selected = true,
+        });
+
+        // Assert
+        Assert.Equal("id12", selectedItem?.Id);
+        Assert.Equal("Item 1.2", selectedItem?.Text);
+        Assert.Equal("id12", selectedItem?.Item?.Id);
+    }
+
+    [Theory]
+    [InlineData("id1")]
+    [InlineData("id12")]
+    [InlineData(null)]
+    public async Task FluentTreeViewItems_SelectedItem_Change(string? initialItemId)
+    {
+        // Arrange
+        var selectedItem = initialItemId switch
+        {
+            "id1" => Items.ElementAt(0) as ITreeViewItem,      // Item 1
+            "id12" => Items.ElementAt(1).Items?.ElementAt(1),  // Item 2.2
+            _ => null,
+        };
+
+        var cut = Render(@<FluentTreeView Items="@Items" @bind-SelectedItem="@selectedItem" />);
+
+        // Act
+        var item = cut.FindComponents<FluentTreeItem>().Where(i => i.Instance.Id == "id12").First().Instance;
+        await item.OnTreeChangedAsync(new()
+        {
+            Id = "id12",
+            Selected = true,
+        });
+
+        // Assert
+        Assert.Equal("id12", selectedItem?.Id);
+    }
+
+    [Fact]
+    public void FluentTreeViewItems_Icons()
+    {
+        Items[0].IconExpanded = IconExpanded;
+        Items[0].IconCollapsed = IconCollapsed;
+
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items" LazyLoadItems="true" />);
+
+        // Assert
+        Assert.Single(cut.FindAll("svg[collapsed]"));
+        Assert.Single(cut.FindAll("svg[expanded]"));
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentTreeViewItems_ItemTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items">
+            <ItemTemplate>
+                <b>@context.Text</b>
+            </ItemTemplate>
+        </FluentTreeView>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentTreeViewItems_OnExpanded()
+    {
+        // Arrange
+        TreeViewItemExpandedEventArgs expandedArgs = default!;
+        Items[0].OnExpandedAsync = (e) =>
+        {
+            expandedArgs = e;
+            return Task.CompletedTask;
+        };
+
+        var cut = Render(@<FluentTreeView Items="@Items" />);
+
+        // Act
+        var first = cut.FindComponent<FluentTreeItem>().Instance;
+        await first.OnTreeToggleAsync(new()
+        {
+            Id = "id1",
+            NewState = "open",
+        });
+
+        // Assert
+        Assert.Equal("Item 1", expandedArgs.CurrentItem.Text);
+        Assert.True(expandedArgs.Expanded);
+    }
+
+    [Fact]
+    public async Task FluentTreeViewItems_Selected()
+    {
+        var selectedId = string.Empty;
+
+        // Arrange
+        var cut = Render(@<FluentTreeView Items="@Items" @bind-SelectedId="@selectedId" />);
+
+        // Act
+        var first = cut.FindComponent<FluentTreeItem>().Instance;
+        await first.OnTreeChangedAsync(new()
+        {
+            Id = "id1",
+            Selected = true,
+        });
+
+        // Assert
+        Assert.Equal("id1", selectedId);
+    }
+
+    [Fact]
+    public void FluentTreeViewItems_LoadingObjects()
+    {
+        // Arrange && Act
+        var loadingItems = TreeViewItem.LoadingTreeViewItems("Loading...");
+        var item1 = new TreeViewItem();
+        var item2 = new TreeViewItem("Item 1", new[] { new TreeViewItem("Item 1.1") });
+
+        // Assert
+        Assert.Single(loadingItems);
+        Assert.Equal("Loading...", loadingItems.First().Text);
+
+        Assert.Empty(item1.Text);
+
+        Assert.Equal("Item 1", item2.Text);
+        Assert.Equal("Item 1.1", item2.Items?.First().Text);
+    }
+
+    [Fact]
+    public void FluentTreeViewItems_DebugDisplay()
+    {
+        // Arrange
+        var item1 = new TreeViewItem("id1", "Item 1");
+        var item2 = new TreeViewItem("id2", "Item 2", new[] { new TreeViewItem("Item 2.1") });
+        var item3 = new TreeViewItem("id3", "Item 3", Array.Empty<TreeViewItem>());
+
+        // Assert
+        Assert.Equal("[id1] Item 1", item1.DebuggerDisplay);
+        Assert.Equal("[id2] Item 2 (+ 1 sub-items)", item2.DebuggerDisplay);
+        Assert.Equal("[id3] Item 3", item3.DebuggerDisplay);
+    }
+
+    [Fact]
+    public void FluentTreeViewItems_FindItemById()
+    {
+        // Assert
+        Assert.Null(TreeViewItem.FindItemById(null, "id11"));
+        Assert.Equal("id1", TreeViewItem.FindItemById(Items, "id1")?.Id);
+        Assert.Equal("id11", TreeViewItem.FindItemById(Items, "id11")?.Id);
+        Assert.Null(TreeViewItem.FindItemById(Items, "INVALID"));
+    }
+}

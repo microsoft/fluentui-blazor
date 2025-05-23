@@ -1,0 +1,85 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-tree-item id="@Id"
+                  class="@ClassValue"
+                  style="@StyleValue"
+                  appearance="@Appearance.ToAttributeValue(isNull: TreeAppearance.Subtle)"
+                  size="@Size.ToAttributeValue(isNull: TreeSize.Medium)"
+                  selected="@IsSelected"
+                  expanded="@Expanded"
+                  @ontreechanged="@OnTreeChangedAsync"
+                  @ontreetoggle="@OnTreeToggleAsync"
+                  @attributes="AdditionalAttributes">
+
+    @* Expandable icons: _toggleTreeItem(this) manages expand/collapse, which does not work by default in the webcomponent *@
+    @if (IconCollapsed is not null || IconExpanded is not null)
+    {
+        <span slot="@FluentSlot.Chevron">
+            @if (IconCollapsed is not null)
+            {
+                <FluentIcon collapsed Value="@IconCollapsed" Color="Color.Custom" CustomColor="currentColor" />
+                @(IconExpanded is null ? DefaultIcon_Expanded : null)
+            }
+
+            @if (IconExpanded is not null)
+            {
+                <FluentIcon expanded Value="@IconExpanded" Color="Color.Custom" CustomColor="currentColor" />
+                @(IconCollapsed is null ? DefaultIcon_Collapsed : null)
+            }
+        </span>
+    }
+
+    @* Text *@
+    @if (!string.IsNullOrEmpty(Text))
+    {
+        <span part="text">
+            @Text
+        </span>
+    }
+
+    @* Custom content and sub-items *@
+    @ChildContent
+
+    @* Items *@
+    @if (OwnerTreeView is not null && Items is not null)
+    {
+        if (OwnerTreeView.LazyLoadItems && Items.Any() && !Expanded)
+        {
+            @* Lazy loading required a "fake" sub-item to simulate the [+] *@
+            <fluent-tree-item>@Localizer[Localization.LanguageResource.TreeItem_LoadingMessage]</fluent-tree-item>
+        }
+        else
+        {
+            foreach (var item in Items)
+            {
+                @FluentTreeItem.GetFluentTreeItem(OwnerTreeView, item)
+            }
+        }
+    }
+
+    @* Start *@
+    @if (IconStart is not null)
+    {
+        <span slot="@FluentSlot.Start">
+            <FluentIcon Value="@IconStart" />
+        </span>
+    }
+
+    @* End *@
+    @if (IconEnd is not null)
+    {
+        <span slot="@FluentSlot.End">
+            <FluentIcon Value="@IconEnd" />
+        </span>
+    }
+
+    @* Aside *@
+    @if (IconAside is not null)
+    {
+        <span slot="@FluentSlot.Aside">
+            <FluentIcon Value="@IconAside" />
+        </span>
+    }
+</fluent-tree-item>
