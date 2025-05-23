@@ -1,0 +1,62 @@
+﻿@using Xunit;
+@inherits Bunit.TestContext
+
+@code
+{
+    public FluentTreeMultipleTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    // Data source
+    private readonly TreeViewItem[] Items =
+    {
+        new TreeViewItem("id1", "Item 1",
+        [
+            new TreeViewItem("id11", "Item 1.1"),
+            new TreeViewItem("id12", "Item 1.2"),
+            new TreeViewItem("id13", "Item 1.3"),
+        ]),
+        new TreeViewItem("id2", "Item 2",
+        [
+            new TreeViewItem("id21", "Item 2.1"),
+            new TreeViewItem("id22", "Item 2.2"),
+            new TreeViewItem("id23", "Item 2.3"),
+        ]),
+    };
+
+    [Fact]
+    public void FluentTreeMultiple_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items" SelectionMode="@TreeSelectionMode.Multiple" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTreeMultiple_SelectedItems()
+    {
+        var selectedItems = Items.Where(i => i.Id == "id2").Cast<ITreeViewItem>();
+
+        // Arrange
+        var cut = Render(@<FluentTreeView Items="@Items" SelectionMode="@TreeSelectionMode.Multiple" @bind-SelectedItems="@selectedItems" />);
+
+        // Before updates
+        var checkedItems = cut.FindAll("fluent-tree-item:has(fluent-checkbox[checked='true'])");
+        Assert.Single(selectedItems);
+        Assert.Single(checkedItems);
+        Assert.Equal("id2", checkedItems.First().GetAttribute("id"));
+
+        // Act
+        var checkbox = cut.FindComponents<FluentTreeItem>().Where(i => i.Instance.Id == "id1").First().Find("fluent-checkbox");
+        checkbox.Change(new ChangeEventArgs() { Value = "checked" });
+
+        // After updates
+        Assert.Equal(2, selectedItems.Count());
+        Assert.Equal("id2", selectedItems.ElementAt(0).Id);
+        Assert.Equal("id1", selectedItems.ElementAt(1).Id);
+    }
+}
