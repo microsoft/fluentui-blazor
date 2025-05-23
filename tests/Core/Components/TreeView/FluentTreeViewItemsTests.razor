@@ -138,4 +138,68 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public async Task FluentTreeViewItems_OnExpanded()
+    {
+        // Arrange
+        TreeViewItemExpandedEventArgs expandedArgs = default!;
+        Items[0].OnExpandedAsync = (e) =>
+        {
+            expandedArgs = e;
+            return Task.CompletedTask;
+        };
+
+        var cut = Render(@<FluentTreeView Items="@Items" />);
+
+        // Act
+        var first = cut.FindComponent<FluentTreeItem>().Instance;
+        await first.OnTreeToggleAsync(new()
+        {
+            Id = "id1",
+            NewState = "open",
+        });
+
+        // Assert
+        Assert.Equal("Item 1", expandedArgs.CurrentItem.Text);
+        Assert.True(expandedArgs.Expanded);
+    }
+
+    [Fact]
+    public async Task FluentTreeViewItems_Selected()
+    {
+        var selectedId = string.Empty;
+
+        // Arrange
+        var cut = Render(@<FluentTreeView Items="@Items" @bind-SelectedId="@selectedId" />);
+
+        // Act
+        var first = cut.FindComponent<FluentTreeItem>().Instance;
+        await first.OnTreeChangedAsync(new()
+        {
+            Id = "id1",
+            Selected = true,
+        });
+
+        // Assert
+        Assert.Equal("id1", selectedId);
+    }
+
+    [Fact]
+    public void FluentTreeViewItems_LoadingObjects()
+    {
+        // Arrange && Act
+        var loadingItems = TreeViewItem.LoadingTreeViewItems("Loading...");
+        var item1 = new TreeViewItem();
+        var item2 = new TreeViewItem("Item 1", new[] { new TreeViewItem("Item 1.1") });
+
+        // Assert
+        Assert.Single(loadingItems);
+        Assert.Equal("Loading...", loadingItems.First().Text);
+
+        Assert.Empty(item1.Text);
+
+        Assert.Equal("Item 1", item2.Text);
+        Assert.Equal("Item 1.1", item2.Items?.First().Text);
+    }
 }
