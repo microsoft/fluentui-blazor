@@ -231,14 +231,14 @@ public partial class FluentTreeItem : FluentComponentBase
 
             if (ExpandedChanged.HasDelegate)
             {
-                await ExpandedChanged.InvokeAsync(isExpanded);
+                await InvokeAsync(async () => await ExpandedChanged.InvokeAsync(isExpanded));
             }
         }
 
         // Update the FluentTree owner
         if (OwnerTreeView is not null && OwnerTreeView.OnExpandedChanged.HasDelegate)
         {
-            await OwnerTreeView.OnExpandedChanged.InvokeAsync(this);
+            await InvokeAsync(async () => await OwnerTreeView.OnExpandedChanged.InvokeAsync(this));
         }
     }
 
@@ -291,7 +291,7 @@ public partial class FluentTreeItem : FluentComponentBase
             builder.AddAttribute(8, nameof(IconCollapsed), item.IconCollapsed);
             builder.AddAttribute(9, nameof(IconExpanded), item.IconExpanded);
 
-            AddChildContent(builder, owner, item);
+            AddFluentTreeItemChildContent(builder, owner, item);
 
             builder.AddAttribute(11, nameof(ExpandedChanged), EventCallback.Factory.Create<bool>(owner, async expanded =>
             {
@@ -309,7 +309,7 @@ public partial class FluentTreeItem : FluentComponentBase
     }
 
     /// <summary />
-    private static void AddChildContent(RenderTreeBuilder builder, FluentTreeView owner, ITreeViewItem item)
+    private static void AddFluentTreeItemChildContent(RenderTreeBuilder builder, FluentTreeView owner, ITreeViewItem item)
     {
         switch (owner.SelectionMode)
         {

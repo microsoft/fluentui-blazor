@@ -120,8 +120,7 @@
                 <FluentTreeItem Id="item11">Item 2.1</FluentTreeItem>
                 <FluentTreeItem Id="item12">Item 2.2</FluentTreeItem>
             </FluentTreeItem>
-        </FluentTreeView>
-    );
+        </FluentTreeView>);
 
         // Act
         var item = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "item1").Instance;

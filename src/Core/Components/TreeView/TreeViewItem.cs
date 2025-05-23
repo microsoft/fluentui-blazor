@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -9,6 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Implementation of <see cref="ITreeViewItem"/>
 /// </summary>
+[DebuggerDisplay("{DebuggerDisplay}")]
 public class TreeViewItem : ITreeViewItem
 {
     /// <summary>
@@ -22,6 +24,7 @@ public class TreeViewItem : ITreeViewItem
     /// </summary>
     public TreeViewItem()
     {
+        Id = Identifier.NewId();
     }
 
     /// <summary>
@@ -31,6 +34,7 @@ public class TreeViewItem : ITreeViewItem
     /// <param name="items">Sub-items of the tree item.</param>
     public TreeViewItem(string text, IEnumerable<ITreeViewItem>? items = null)
     {
+        Id = Identifier.NewId();
         Text = text;
         Items = items;
     }
@@ -49,7 +53,7 @@ public class TreeViewItem : ITreeViewItem
     }
 
     /// <inheritdoc cref="ITreeViewItem.Id"/>
-    public string Id { get; set; } = Identifier.NewId();
+    public string Id { get; set; }
 
     /// <inheritdoc cref="ITreeViewItem.Text"/>
     public string Text { get; set; } = string.Empty;
@@ -117,5 +121,16 @@ public class TreeViewItem : ITreeViewItem
         }
 
         return null;
+    }
+
+    private string DebuggerDisplay
+    {
+        get
+        {
+            var count = Items?.Count() ?? 0;
+            return count > 0
+                ? $"[{Id}] {Text} (+ {count} sub-items)"
+                : $"[{Id}] {Text}";
+        }
     }
 }
