@@ -71,6 +71,33 @@ The hamburger menu is available in all modes, but the event `OnBreakpointEnter` 
   </FluentLayoutItem>
   ```
 
+When you have navigation elements that can be used from the **FluentLayoutHamburger**, you must intercept
+these elements to close/hide the **Hamburger** menu when you want to. For example
+
+```razor
+@inject NavigationManager NavigationManager
+
+<FluentLayoutHamburger @ref="_hamburger">
+    <FluentLink OnClick="@(e => GoToPageAsync("/page1"))">Page 1</FluentLink>
+    <FluentLink OnClick="@(e => GoToPageAsync("/page2"))">Page 2</FluentLink>
+</FluentLayoutHamburger>
+
+@code
+{
+    private FluentLayoutHamburger? _hamburger;
+
+    private async Task GoToPageAsync(string page)
+    {
+        NavigationManager.NavigateTo(page);
+
+        if (Hamburger is not null)
+        {
+            await Hamburger.HideAsync();
+        }
+    }
+}
+```
+
 ## Customized Hamburger Menu
 
 By default, the hamburger menu contains the **Menu** FluentLayoutItem.
