@@ -167,6 +167,7 @@ public partial class FluentDesignTheme : ComponentBase
                     {
                         await CustomColorChanged.InvokeAsync(value);
                     }
+                    GlobalDesign.SetColor(value);
                 }
                 else
                 {
@@ -179,8 +180,8 @@ public partial class FluentDesignTheme : ComponentBase
                     {
                         await OfficeColorChanged.InvokeAsync(color);
                     }
+                    GlobalDesign.SetColor(color.ToAttributeValue());
                 }
-
                 break;
             case "neutral-color":
                 GlobalDesign.SetNeutralColor(value);
@@ -262,6 +263,7 @@ public partial class FluentDesignTheme : ComponentBase
                     color = AspNetCore.Components.OfficeColor.Default;
                 }
                 OfficeColor = color;
+                GlobalDesign.SetColor(color.ToAttributeValue());
                 await OnChangeRaisedAsync("primary-color", theme.PrimaryColor);
             }
         }
