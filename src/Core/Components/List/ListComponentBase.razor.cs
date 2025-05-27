@@ -369,7 +369,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
             }
         }
 
-        if (!string.IsNullOrWhiteSpace(Value) && (InternalValue is null || InternalValue != Value))
+        if (!Multiple && !string.IsNullOrWhiteSpace(Value) && (InternalValue is null || InternalValue != Value))
         {
             InternalValue = Value;
         }
