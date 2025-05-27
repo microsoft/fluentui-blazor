@@ -5,8 +5,8 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /*
- *  To generate the `Spacing.razor.css` utilities, run the following code in a C# Console Application,
- *  and copy the output to the `Spacing.razor.css`, "Margin.cs" or "Padding.cs" files.
+ *  To generate the `Spacing.css` utilities, run the following code in a C# Console Application,
+ *  and copy the output to the `Spacing.css`, "Margin.cs" or "Padding.cs" files.
  *  
  *    System.Console.WriteLine(SpacingGenerator.Script);
  *    System.Console.WriteLine(SpacingGenerator.CSharpMargin);

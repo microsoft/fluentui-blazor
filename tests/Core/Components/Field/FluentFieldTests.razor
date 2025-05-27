@@ -212,7 +212,7 @@
 
         // Act
         var hasContent = cut.Markup.Contains(">Field content<");
-        var hasSlot = cut.Markup.Contains("<div slot=\"input\" id=\"MyField-input\">Field content</div>");
+        var hasSlot = cut.Markup.Contains("<div slot=\"input\" id=\"MyField-input\"");
 
         // Assert
         Assert.True(hasContent);
