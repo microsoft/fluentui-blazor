@@ -29,7 +29,7 @@
 
     <!-- Disable the auto-generated CSS Bundle, to use the Components.Scripts project -->
     <DisableScopedCssBundling>true</DisableScopedCssBundling>
-    <ScopedCssEnabled>true</ScopedCssEnabled>
+    <ScopedCssEnabled>false</ScopedCssEnabled>
   </PropertyGroup>
 
   <PropertyGroup>
