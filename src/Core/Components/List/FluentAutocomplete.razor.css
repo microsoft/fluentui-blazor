@@ -44,16 +44,18 @@
 }
 
 .fluent-autocomplete-multiselect[auto-height] ::deep fluent-text-field::part(root) {
-    height: 100%;
-    padding: 6px 0px 4px 0px;
+    min-height: calc((var(--base-height-multiplier) + var(--density)) * var(--design-unit) * 1px);
+    height: auto;
+    padding: 4px 0;
 }
 
-.fluent-autocomplete-multiselect[auto-height] ::deep fluent-text-field::part(control) {
-    margin-bottom: 2px;
-}
 
 .fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field::part(control) {
     display: none;
+}
+
+.fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field:not([disabled]):active::after {
+    width: 100%;
 }
 
 .fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field::part(start) {

@@ -63,6 +63,10 @@ td.grid-cell-placeholder:after {
         overflow: hidden;
     }
 
+::deep .col-options-button {
+    padding-inline-start: 4px;
+}
+
 .col-justify-start ::deep .col-sort-button::part(control) {
     justify-content: start;
     overflow: hidden;
