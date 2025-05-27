@@ -15,7 +15,15 @@ datalist
 elementreference
 evenodd
 gzip
+henkan
+heure
+heures
+inputfile
 javascript
+jours
+keydown
+keyup
+maintenant
 menuchecked
 menuclicked
 menuitem
@@ -26,9 +34,12 @@ menuitemradio
 menuitemradioobsolete
 menuitems
 microsoft
+mois
+muhenkan
 myid
 noattribute
 nonfile
+onchange
 ondialogbeforetoggle
 ondialogtoggle
 ondropdownchange
@@ -45,6 +56,7 @@ demopanel
 dialogtoggle
 rightclick
 rrggbb
+secondes
 sourcecode
 summarydata
 tabindex

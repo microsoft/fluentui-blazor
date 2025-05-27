@@ -46,7 +46,7 @@ jobs:
      - name: Setup .NET 9.0
        uses: actions/setup-dotnet@v4
        with:
-        dotnet-version: 9.0.x
+        dotnet-version: 9.0.203     # Waiting a fix in the 9.0.300: https://github.com/dotnet/sdk/issues/49038
         dotnet-quality: ga
 
      # Build
@@ -190,7 +190,7 @@ jobs:
     - name: Setup .NET 9.0
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 9.0.203     # Waiting a fix in the 9.0.300: https://github.com/dotnet/sdk/issues/49038
         dotnet-quality: ga
 
     - name: Initialize CodeQL

@@ -34,19 +34,28 @@
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public void FluentProgressBar_Visible(bool visible)
+    [InlineData(null)]
+    public void FluentProgressBar_Visible(bool? visible)
     {
         // Act
         var cut = Render(@<FluentProgressBar Visible="@visible" />);
 
         // Assert
-        if (visible)
+        switch (visible)
         {
-            Assert.NotEmpty(cut.Markup);
-        }
-        else
-        {
-            Assert.Empty(cut.Markup);
+            case true:
+                Assert.NotEmpty(cut.Markup);
+                Assert.DoesNotContain("visibility: hidden", cut.Markup);
+                break;
+
+            case false:
+                Assert.NotEmpty(cut.Markup);
+                Assert.Contains("visibility: hidden", cut.Markup);
+                break;
+
+            default:
+                Assert.Empty(cut.Markup);
+                break;
         }
     }
 

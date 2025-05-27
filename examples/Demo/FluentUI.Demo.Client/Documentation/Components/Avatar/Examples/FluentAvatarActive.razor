@@ -1,9 +1,8 @@
-﻿@using System.Linq;
-
-<FluentStack HorizontalGap="12px"
+﻿<FluentStack HorizontalGap="12px"
              Style="margin-bottom:15px;"
              VerticalAlignment="VerticalAlignment.Bottom"
-             Orientation="Orientation.Horizontal">
+             Orientation="Orientation.Horizontal"
+             Wrap="true">
 
     <FluentSelect Label="Active"
                   Items="@activeModes"
@@ -19,11 +18,7 @@
 
 @code
 {
-    List<bool?> activeModes = new List<bool?> {
-        null,
-        true,
-        false
-    };
+    List<bool?> activeModes = new List<bool?> { null, true, false };
     bool? active;
     AvatarActiveAppearance activeAppearance = AvatarActiveAppearance.Ring;
 }

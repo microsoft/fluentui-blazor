@@ -43,18 +43,47 @@
   /* blockquote */
 
   .doc-viewer ::deep blockquote {
-    padding: 1px 0px 1px 12px;
+    padding: 1px 12px 1px 12px;
     margin-inline-end: 0px;
+    margin-inline-start: 15px;
     background-color: var(--colorBrandBackground2);
     border-left: 6px solid var(--colorBrandBackground);
   }
 
-  /* Code */
+  /* Keywords */
+  .doc-viewer ::deep span[keyword] {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+  }
 
+  .doc-viewer ::deep blockquote:has(span[keyword="note"]) {
+    background-color: var(--colorBrandBackground2);
+    border-left: 6px solid var(--colorBrandBackground);
+  }
+
+  .doc-viewer ::deep blockquote:has(span[keyword="tip"]) {
+    background-color: var(--colorPaletteDarkGreenBackground2);
+    border-left: 6px solid var(--colorPaletteDarkGreenBorderActive);
+  }
+
+  .doc-viewer ::deep blockquote:has(span[keyword="warn"]) {
+    background-color: var(--colorPaletteGoldBackground2);
+    border-left: 6px solid var(--colorPaletteGoldBorderActive);
+  }
+
+    .doc-viewer ::deep span[keyword] svg {
+      fill: var(--colorNeutralForeground1);
+      width: 20px;
+      height: 20px;
+    }
+  /* Code */
   .doc-viewer ::deep code {
     font-weight: 500;
     background-color: var(--colorNeutralBackground5);
     padding: 0px 4px;
+    overflow-wrap: anywhere
   }
 
   .doc-viewer ::deep pre {
@@ -85,9 +114,7 @@
         .doc-viewer ::deep pre code[source][class*="hljs"] {
           display: block;
         }
-
   /* Demo Section */
-
   .doc-viewer ::deep .demo-tabs {
     min-height: 100px;
   }
@@ -98,9 +125,7 @@
     padding: 16px 16px;
     margin: 8px 0px;
   }
-
   /* API Summary */
-
   .doc-viewer ::deep .api-summary {
     background-color: var(--colorNeutralBackground4);
     max-width: calc(100vw - 32px);
@@ -110,9 +135,7 @@
     .doc-viewer ::deep .api-summary * {
       margin: 0px;
     }
-
   /* API table */
-
   .doc-viewer ::deep .api-table {
     width: 100%;
     max-width: calc(100vw - 32px);
@@ -168,7 +191,6 @@
         width: 20px;
         height: 20px;
       }
-
     /* No Columns, for Methods view (same styles as Mobile */
     .doc-viewer ::deep .api-table[no-col] tr {
       display: flex;
@@ -177,8 +199,7 @@
       margin-bottom: 10px;
     }
 
-    .doc-viewer ::deep .api-table[no-col] td,
-    .doc-viewer ::deep .api-table[no-col] th {
+    .doc-viewer ::deep .api-table[no-col] td, .doc-viewer ::deep .api-table[no-col] th {
       display: none;
       flex-wrap: wrap;
       white-space: normal;
@@ -202,9 +223,7 @@
         display: block;
         margin-left: 24px;
       }
-
 /* Mobile */
-
 @media(max-width: 768px) {
 
   .doc-viewer ::deep .api-table tr {

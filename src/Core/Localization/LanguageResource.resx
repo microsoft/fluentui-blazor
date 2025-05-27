@@ -120,7 +120,7 @@
   <data name="Fake_Hello" xml:space="preserve">
     <value>Hello {0}</value>
   </data>
-  <data name="FluentLayoutHamburger_Title" xml:space="preserve">
+  <data name="LayoutHamburger_Title" xml:space="preserve">
     <value>Menu</value>
   </data>
   <data name="FluentInputBase_Required" xml:space="preserve">
@@ -164,5 +164,59 @@
   </data>
   <data name="Field_WarningMessage" xml:space="preserve">
     <value>Please, check this value</value>
+  </data>
+  <data name="TimeAgo_DayAgo" xml:space="preserve">
+    <value>{0} day ago</value>
+  </data>
+  <data name="TimeAgo_DaysAgo" xml:space="preserve">
+    <value>{0} days ago</value>
+  </data>
+  <data name="TimeAgo_HourAgo" xml:space="preserve">
+    <value>{0} hour ago</value>
+  </data>
+  <data name="TimeAgo_HoursAgo" xml:space="preserve">
+    <value>{0} hours ago</value>
+  </data>
+  <data name="TimeAgo_MinuteAgo" xml:space="preserve">
+    <value>{0} minute ago</value>
+  </data>
+  <data name="TimeAgo_MinutesAgo" xml:space="preserve">
+    <value>{0} minutes ago</value>
+  </data>
+  <data name="TimeAgo_MonthAgo" xml:space="preserve">
+    <value>{0} month ago</value>
+  </data>
+  <data name="TimeAgo_MonthsAgo" xml:space="preserve">
+    <value>{0} months ago</value>
+  </data>
+  <data name="TimeAgo_SecondAgo" xml:space="preserve">
+    <value>Just now</value>
+  </data>
+  <data name="TimeAgo_SecondsAgo" xml:space="preserve">
+    <value>{0} seconds ago</value>
+  </data>
+  <data name="TimeAgo_YearAgo" xml:space="preserve">
+    <value>{0} year ago</value>
+  </data>
+  <data name="TimeAgo_YearsAgo" xml:space="preserve">
+    <value>{0} years ago</value>
+  </data>
+  <data name="FluentInputFile_LoadingBefore" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="FluentInputFile_LoadingCompleted" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="FluentInputFile_LoadingCanceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="FluentInputFile_LoadingInProgress" xml:space="preserve">
+    <value>Loading {0}/{1} - {2}</value>
+  </data>
+  <data name="LayoutHamburger_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="TreeItem_LoadingMessage" xml:space="preserve">
+    <value>Loading...</value>
   </data>
 </root>

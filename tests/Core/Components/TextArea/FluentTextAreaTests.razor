@@ -18,12 +18,12 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentTextArea Appearance="@TextAreaAppearance.Outline"
-                 Autofocus="true"
-                 AriaLabel="My aria label"
-                 Label="My Label"
-                 Name="MyName"
-                 Placeholder="My help"
-                 Value="My Value" />
+                Autofocus="true"
+                AriaLabel="My aria label"
+                Label="My Label"
+                Name="MyName"
+                Placeholder="My help"
+                Value="My Value" />
         );
 
         // Assert
@@ -96,8 +96,8 @@
         // Arrange && Act
         var cut = Render(
             @<FluentTextArea>
-                <LabelTemplate><div style="font-weight: bold;">My label</div></LabelTemplate>
-            </FluentTextArea>
+    <LabelTemplate><div style="font-weight: bold;">My label</div></LabelTemplate>
+</FluentTextArea>
         );
 
         // Assert
@@ -168,5 +168,25 @@
         var value = AspNetCore.Components.Migration.FluentInputAppearanceExtensions.ToTextAreaAppearance(appearance);
 
         Assert.Equal(expected, value);
+    }
+
+    [Fact]
+    public async Task FluentTextArea_ChangeAfterKeyPress()
+    {
+        var value = string.Empty;
+        var lastEventArgs = new FluentKeyPressEventArgs() { KeyPress = new KeyPress(), Value = "" };
+
+        // Arrange && Act
+        var cut = Render(@<FluentTextArea @bind-Value="@value"
+                ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])"
+                OnChangeAfterKeyPress="@(e => lastEventArgs = e)" />
+        );
+
+        // Act
+        await cut.FindComponent<FluentTextArea>().Instance.ChangeAfterKeyPressHandlerAsync("MyValue", KeyPress.For(KeyCode.Enter));
+
+        // Assert
+        Assert.Equal(KeyCode.Enter, lastEventArgs.KeyPress.Key);
+        Assert.Equal("MyValue", lastEventArgs.Value);
     }
 }

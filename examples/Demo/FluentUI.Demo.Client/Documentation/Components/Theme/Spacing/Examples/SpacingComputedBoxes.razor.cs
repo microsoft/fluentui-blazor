@@ -25,7 +25,7 @@ public partial class SpacingComputedBoxes
     {
         if (firstRender)
         {
-            JSModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Documentation/Components/Spacing/Examples/SpacingComputedBoxes.razor.js");
+            JSModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Documentation/Components/Theme/Spacing/Examples/SpacingComputedBoxes.razor.js");
         }
 
         if (JSModule != null)

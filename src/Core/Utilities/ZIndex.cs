@@ -24,4 +24,8 @@ public static class ZIndex
     /// </summary>
     public static int Tooltip { get; set; } = 9999;
 
+    /// <summary>
+    /// ZIndex for the <see cref="FluentInputFile" /> component.
+    /// </summary>
+    public static int InputFileDropZone { get; set; } = 990;
 }

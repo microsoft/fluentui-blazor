@@ -23,7 +23,8 @@ Once the user closes the dialog window, the `ShowDrawerAsync` method returns a `
 
 👉 See the [Dialog](/Dialog) documentation for more information.
 
-> **Note:** The `ShowDrawerAsync` method is identical to the `ShowDialogAsync` method.
+> [!NOTE]
+> The `ShowDrawerAsync` method is identical to the `ShowDialogAsync` method.
 > With the exception of the **default value** of the `options.Alignment` property, which is `DialogAlignment.End`.
 > And the resulting HTML code is slightly different, using a `fluent-drawer` instead of a `fluent-dialog`.
 > The visual rendering and animation of opening and closing is also different.

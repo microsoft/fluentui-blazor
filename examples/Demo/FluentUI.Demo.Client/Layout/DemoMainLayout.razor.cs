@@ -11,8 +11,7 @@ namespace FluentUI.Demo.Client.Layout;
 
 public partial class DemoMainLayout
 {
-    private FluentLayout? _layout;
-    private bool _menuOpened;
+    private FluentLayoutHamburger _hamburger = default!;
     private bool _consoleLogOpened;
     private bool _useReboot;
     private bool _darkTheme;
@@ -29,13 +28,6 @@ public partial class DemoMainLayout
     protected override void OnInitialized()
     {
         _useReboot = new Uri(Navigation.Uri).Query.Contains("reboot", StringComparison.InvariantCultureIgnoreCase);
-
-        // Reset the menu when the location changes
-        Navigation.RegisterLocationChangingHandler((e) =>
-        {
-            _menuOpened = false;
-            return ValueTask.CompletedTask;
-        });
     }
 
     private string? LayoutStyleHeight => new StyleBuilder()
@@ -73,5 +65,5 @@ public partial class DemoMainLayout
     private bool IsHomePage() => Navigation.Uri == Navigation.BaseUri;
 
     /// <summary />
-    private string GetLayoutKey() => IsHomePage() ? "Home" : string.Empty;    
+    private string GetLayoutKey() => IsHomePage() ? "Home" : string.Empty;
 }

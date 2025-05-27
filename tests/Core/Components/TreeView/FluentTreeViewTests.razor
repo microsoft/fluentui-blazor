@@ -1,0 +1,146 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits Bunit.TestContext
+
+@code
+{
+    public FluentTreeViewTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentTreeView_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView>
+            <FluentTreeItem Text="Item 1"></FluentTreeItem>
+            <FluentTreeItem Text="Item 2">
+                <FluentTreeItem>Item 2.1</FluentTreeItem>
+                <FluentTreeItem>Item 2.2</FluentTreeItem>
+            </FluentTreeItem>
+        </FluentTreeView>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(TreeAppearance.Subtle)]
+    [InlineData(TreeAppearance.SubtleAlpha)]
+    [InlineData(TreeAppearance.Transparent)]
+    [InlineData((TreeAppearance)999)]
+    public void FluentTreeView_Appearance(TreeAppearance appearance)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Appearance="@appearance">
+            <FluentTreeItem Text="Item 1"></FluentTreeItem>
+        </FluentTreeView>);
+
+        var tree = cut.Find("fluent-tree");
+
+        // Assert
+        Assert.Equal(appearance.ToAttributeValue(isNull: TreeAppearance.Subtle), tree.GetAttribute("appearance"));
+    }
+
+    [Theory]
+    [InlineData(TreeSize.Medium)]
+    [InlineData(TreeSize.Small)]
+    [InlineData((TreeSize)999)]
+    public void FluentTreeView_Size(TreeSize size)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Size="@size">
+            <FluentTreeItem Text="Item 1"></FluentTreeItem>
+        </FluentTreeView>);
+
+        var tree = cut.Find("fluent-tree");
+
+        // Assert
+        Assert.Equal(size.ToAttributeValue(isNull: TreeSize.Medium), tree.GetAttribute("size"));
+    }
+
+    [Fact]
+    public void FluentTreeView_HideSelection()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView HideSelection="true">
+            <FluentTreeItem Text="Item 1"></FluentTreeItem>
+        </FluentTreeView>);
+
+        var tree = cut.Find("fluent-tree");
+
+        // Assert
+        Assert.True(tree.HasAttribute("hide-selection"));
+    }
+
+    [Fact]
+    public async Task FluentTreeView_CurrentSelected()
+    {
+        FluentTreeItem? currentSelected = null;
+
+        // Arrange
+        var cut = Render(@<FluentTreeView @bind-CurrentSelected="@currentSelected">
+            <FluentTreeItem Id="item1" Text="Item 1"></FluentTreeItem>
+            <FluentTreeItem Id="item2" Text="Item 2">
+                <FluentTreeItem Id="item21">Item 2.1</FluentTreeItem>
+                <FluentTreeItem Id="item22">Item 2.2</FluentTreeItem>
+            </FluentTreeItem>
+        </FluentTreeView>);
+
+        // Act
+        var item = cut.FindComponents<FluentTreeItem>().ElementAt(2).Instance;
+        await item.OnTreeChangedAsync(new()
+        {
+            Id = "item21",
+            Selected = true,
+        });
+
+        // Assert
+        Assert.Equal("item21", currentSelected?.Id);
+    }
+
+    [Theory]
+    [InlineData(false, "item1", "closed", "open", true)]    // Normal: collapsed -> expanded
+    [InlineData(true, "item1", "closed", "open", true)]     // Normal: expanded  -> expanded
+    [InlineData(true, "item1", "open", "closed", false)]    // Normal: expanded  -> collapsed
+    [InlineData(false, "item1", "open", "closed", false)]   // Normal: collapsed -> collapsed
+    [InlineData(false, "item9", "closed", "open", false)]   // Not the same item: no change
+    [InlineData(false, "item1", "INVALID", "open", true)]   // Only NewState is used
+    public async Task FluentTreeView_Expand(bool before, string itemId, string itemOldState, string itemNewState, bool expectedAfter)
+    {
+        var expandedId = string.Empty;
+        var isExpanded = before;
+
+        // Arrange
+        var cut = Render(@<FluentTreeView OnExpandedChanged="@(e => expandedId = e.Id)">
+            <FluentTreeItem Id="item1" Text="Item 1" @bind-Expanded="@isExpanded">
+                <FluentTreeItem Id="item11">Item 2.1</FluentTreeItem>
+                <FluentTreeItem Id="item12">Item 2.2</FluentTreeItem>
+            </FluentTreeItem>
+        </FluentTreeView>);
+
+        // Act
+        var item = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "item1").Instance;
+        await item.OnTreeToggleAsync(new()
+        {
+            Id = itemId,
+            OldState = itemOldState,
+            NewState = itemNewState,
+        });
+
+        // Assert
+        if (expectedAfter)
+        {
+            Assert.True(item.Expanded);
+            Assert.Equal("item1", expandedId);
+            Assert.Equal(expectedAfter, isExpanded);
+        }
+        else
+        {
+            Assert.False(item.Expanded);
+        }
+    }
+}

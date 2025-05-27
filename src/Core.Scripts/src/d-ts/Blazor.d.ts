@@ -11,5 +11,4 @@ interface Blazor {
     setLightTheme(): void,
     setDarkTheme(): void,
   }
- 
 }

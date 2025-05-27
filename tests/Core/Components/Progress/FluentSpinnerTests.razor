@@ -59,6 +59,34 @@
         }
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(null)]
+    public void FluentSpinner_Visible(bool? visible)
+    {
+        // Act
+        var cut = Render(@<FluentSpinner Visible="@visible" />);
+
+        // Assert
+        switch (visible)
+        {
+            case true:
+                Assert.NotEmpty(cut.Markup);
+                Assert.DoesNotContain("visibility: hidden", cut.Markup);
+                break;
+
+            case false:
+                Assert.NotEmpty(cut.Markup);
+                Assert.Contains("visibility: hidden", cut.Markup);
+                break;
+
+            default:
+                Assert.Empty(cut.Markup);
+                break;
+        }
+    }
+
 #pragma warning disable CS0618
     [Theory]
     [InlineData(ProgressStroke.Small, "small")]

@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A text input component that allows users to enter and edit a single line of text.
 /// </summary>
-public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent
+public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
@@ -123,6 +123,33 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     [Parameter]
     public string? Tooltip { get; set; }
 
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.ChangeAfterKeyPress" />
+    [Parameter]
+    public KeyPress[]? ChangeAfterKeyPress { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.OnChangeAfterKeyPress" />
+    [Parameter]
+    public EventCallback<FluentKeyPressEventArgs> OnChangeAfterKeyPress { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.ChangeAfterKeyPressHandlerAsync(string, KeyPress)" />
+    [JSInvokable]
+    public async Task ChangeAfterKeyPressHandlerAsync(string value, KeyPress key)
+    {
+        await ChangeHandlerAsync(new ChangeEventArgs()
+        {
+            Value = value,
+        });
+
+        if (OnChangeAfterKeyPress.HasDelegate)
+        {
+            await OnChangeAfterKeyPress.InvokeAsync(new FluentKeyPressEventArgs()
+            {
+                Value = value,
+                KeyPress = key,
+            });
+        }
+    }
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
@@ -135,6 +162,9 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "value");
+
+            // Initialize the change after key press event
+            await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
         }
     }
 

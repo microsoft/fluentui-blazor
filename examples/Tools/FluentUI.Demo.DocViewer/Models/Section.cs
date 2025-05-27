@@ -133,7 +133,7 @@ public record Section
         // Text / HTML section
         else
         {
-            Value = content;
+            Value = ReplaceMarkupKeyWord(content);
             Type = SectionType.Html;
             Arguments = new Dictionary<string, string>();
         }
@@ -172,5 +172,24 @@ public record Section
         }
 
         return (componentName, dict);
+    }
+
+    /// <summary />
+    private static string ReplaceMarkupKeyWord(string content)
+    {
+        const string NOTE_ICON = "<svg viewBox=\"0 0 16 16\"><path d=\"M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3Zm0 7a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Zm0-5.5a.5.5 0 0 1 .5.41V8.5a.5.5 0 0 1-1 .09V5c0-.28.22-.5.5-.5Z\" /></svg>";
+        const string WARN_ICON = NOTE_ICON;
+        const string TIP_ICON = "<svg viewBox=\"0 0 16 16\"><path d=\"M4.5 6.5A3.5 3.5 0 1 1 10.45 9c-.19.19-.36.43-.44.73L9.66 11H6.34l-.35-1.27c-.08-.3-.25-.54-.44-.73A3.49 3.49 0 0 1 4.5 6.5ZM6.6 12h2.8l-.18.63a.5.5 0 0 1-.48.37H7.26a.5.5 0 0 1-.48-.37L6.61 12ZM8 2a4.5 4.5 0 0 0-3.16 7.7c.1.1.16.2.19.3l.79 2.9c.17.65.77 1.1 1.44 1.1h1.48a1.5 1.5 0 0 0 1.44-1.1l.8-2.9c.02-.1.08-.2.18-.3A4.49 4.49 0 0 0 8 2Z\" /></svg>";
+
+        content = Regex.Replace(content, @"\[!NOTE\]", $"<span keyword=\"note\">{NOTE_ICON}Note</span>", RegexOptions.IgnoreCase);
+        content = Regex.Replace(content, @"\[!NOTE_ICON\]", $"<span keyword=\"note\">{NOTE_ICON}</span>", RegexOptions.IgnoreCase);
+
+        content = Regex.Replace(content, @"\[!WARNING\]", $"<span keyword=\"warn\">{WARN_ICON}Warning</span>", RegexOptions.IgnoreCase);
+        content = Regex.Replace(content, @"\[!WARNING_ICON\]", $"<span keyword=\"warn\">{WARN_ICON}</span>", RegexOptions.IgnoreCase);
+
+        content = Regex.Replace(content, @"\[!TIP\]", $"<span keyword=\"tip\">{TIP_ICON}Tip</span>", RegexOptions.IgnoreCase);
+        content = Regex.Replace(content, @"\[!TIP_ICON\]", $"<span keyword=\"tip\">{TIP_ICON}</span>", RegexOptions.IgnoreCase);
+
+        return content;
     }
 }

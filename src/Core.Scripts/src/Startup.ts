@@ -1,4 +1,5 @@
 import { Microsoft as LoggerFile } from './Utilities/Logger';
+import { Microsoft as ThemeFile } from './Utilities/Theme';
 import { Microsoft as FluentUIComponentsFile } from './FluentUIWebComponents';
 import { Microsoft as FluentPageScriptFile } from './Components/PageScript/FluentPageScript';
 import { Microsoft as FluentUIStylesFile } from './FluentUIStyles';
@@ -42,7 +43,14 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     FluentUIStyles.applyStyles();
 
     // Initialize Fluent UI theme
-    FluentUIComponents.initializeTheme(blazor);
+    blazor.theme = ThemeFile.FluentUI.Blazor.Utilities.Theme;
+    ThemeFile.FluentUI.Blazor.Utilities.Theme.addMediaQueriesListener();
+    if (blazor.theme.isSystemDark()) {
+      blazor.theme.setDarkTheme();
+    }
+    else {
+      blazor.theme.setLightTheme();
+    }
 
     // Initialize all custom components
     FluentPageScript.registerComponent(blazor, mode);
@@ -54,6 +62,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     FluentUICustomEvents.MenuItem(blazor);
     FluentUICustomEvents.DropdownList(blazor);
     FluentUICustomEvents.Tabs(blazor);
+    FluentUICustomEvents.TreeView(blazor);
     // [^^^ Add your other custom events before this line ^^^]
 
     // Finishing

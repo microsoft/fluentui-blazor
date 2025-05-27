@@ -54,7 +54,7 @@ If you are creating a site by using our [Templates package](https://www.fluentui
 this is already set up for you.
 You can <a href="/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" target="_blank">download the file</a> to see what's inside.
 
-> **Note**: It is entirely possible to build a site **without using Reboot** but you will have to do more styling yourself.
+> [!NOTE] It is entirely possible to build a site **without using Reboot** but you will have to do more styling yourself.
 
 ## Approach
 
@@ -81,7 +81,7 @@ The `<html>` and `<body>` elements are updated to provide better page-wide defau
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
