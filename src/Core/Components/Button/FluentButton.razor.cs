@@ -178,7 +178,7 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent
 
     /// <summary>
     /// Gets or sets the title of the button.
-    /// The text usually displayed in a `tooltip` popup when the mouse is over the button.
+    /// The text usually displayed in a `tooltip` popup on mouse hovering or keyboard focus.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
