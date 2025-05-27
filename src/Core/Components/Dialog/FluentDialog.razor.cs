@@ -1,10 +1,18 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentDialog : FluentComponentBase
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Dialog/FluentDialog.razor.js";
+
     private const string DEFAULT_DIALOG_WIDTH = "500px";
     private const string DEFAULT_PANEL_WIDTH = "340px";
     private const string DEFAULT_HEIGHT = "unset";
@@ -12,6 +20,17 @@ public partial class FluentDialog : FluentComponentBase
     private bool _hidden;
     private FluentDialogHeader? _dialogHeader;
     private FluentDialogFooter? _dialogFooter;
+
+    /// <summary />
+    private IJSObjectReference? _jsModule { get; set; }
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
     [CascadingParameter]
@@ -156,6 +175,9 @@ public partial class FluentDialog : FluentComponentBase
                     await Instance.Parameters.OnDialogOpened.InvokeAsync(Instance);
                 }
             }
+
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            //await _jsModule.InvokeVoidAsync("stopKeyPropagation");
         }
     }
 
@@ -172,6 +194,16 @@ public partial class FluentDialog : FluentComponentBase
         RefreshHeaderFooter();
     }
 
+    public async Task ShowAsync()
+    {
+        Show();
+
+        if (_jsModule != null)
+        {
+            await _jsModule.InvokeVoidAsync("stopKeyPropagation");
+        }
+    }
+
     /// <summary>
     /// Hides the dialog
     /// </summary>
@@ -181,6 +213,15 @@ public partial class FluentDialog : FluentComponentBase
         if (Instance is not null)
         {
             Instance.Parameters.Visible = false;
+        }
+    }
+
+    public async Task HideAsync()
+    {
+        Hide();
+        if (_jsModule != null)
+        {
+            await _jsModule.InvokeVoidAsync("enableKeyPropagation");
         }
     }
 

@@ -16,7 +16,11 @@
         {
             if (dialog.Instance.Parameters.Visible)
             {
-                <FluentDialog @key="@dialog.GetKey()" Id="@dialog.Id" Instance="@dialog.Instance" Data="@dialog.Instance.Content" @ondialogdismiss=OnDismissAsync />
+                <FluentDialog @key="@dialog.GetKey()" Id="@dialog.Id" Instance="@dialog.Instance" Data="@dialog.Instance.Content" @ondialogdismiss=OnDismissAsync
+                @onkeypress:stopPropagation="true"
+                   @onkeydown:stopPropagation="true"
+                   @onkeyup:stopPropagation="true"
+                               />
             }
         }
     }
