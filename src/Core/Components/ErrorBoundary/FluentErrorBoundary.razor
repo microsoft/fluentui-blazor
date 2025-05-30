@@ -1,0 +1,69 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Rendering;
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<ErrorBoundary @ref="ErrorBoundary">
+    <ChildContent>
+        <div id="@Id" class="@DefaultClassBuilder.Build()" style="@DefaultStyleBuilder.Build()" @attributes="@AdditionalAttributes">
+            @ChildContent
+        </div>
+    </ChildContent>
+    <ErrorContent>
+        @if (!HideChildContentOnError)
+        {
+            <div id="@Id" class="@DefaultClassBuilder.Build()" style="@DefaultStyleBuilder.Build()" @attributes="@AdditionalAttributes">
+                @ChildContent
+            </div>
+        }
+
+        <fluent-dialog type="alert" @ondialogtoggle="@OnToggleAsync">
+            <fluent-dialog-body>
+                <div slot="title" style="display: flex; column-gap: 4px; align-items: center;">
+                    @if (ErrorHeader is null)
+                    {
+                        @TitleIcon.ToMarkup() @Localizer["ErrorBoundary_Title"]
+                    }
+                    else
+                    {
+                        @ErrorHeader
+                    }
+                </div>
+                <div>
+                    @if (ErrorContent is null)
+                    {
+                        switch (DisplayErrorDetails)
+                        {
+                            case ErrorBoundaryDetails.ErrorMessage:
+                                @context.Message
+                                break;
+
+                            case ErrorBoundaryDetails.ErrorStack:
+                                <div style="font-weight: bold;">@context.Message (@context.Source)</div>
+                                <pre style="overflow: auto; max-width: min(550px, calc(100vw - 50px)); max-height: 210px;">@(context.StackTrace)</pre>
+                            
+                                break;
+
+                            case ErrorBoundaryDetails.None:
+                            default:
+                                @Localizer["ErrorBoundary_Message"]
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        @ErrorContent
+                    }
+                </div>
+                <fluent-button slot="action" appearance="primary" onclick="this.parentElement.parentElement.hide()">
+                    @Localizer["ErrorBoundary_Close"]
+                </fluent-button>
+            </fluent-dialog-body>
+        </fluent-dialog>
+
+        <script>
+            document.currentScript.previousElementSibling.show();
+        </script>
+
+    </ErrorContent>
+</ErrorBoundary>

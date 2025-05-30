@@ -219,4 +219,13 @@
   <data name="TreeItem_LoadingMessage" xml:space="preserve">
     <value>Loading...</value>
   </data>
+  <data name="ErrorBoundary_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ErrorBoundary_Title" xml:space="preserve">
+    <value>An error occured</value>
+  </data>
+  <data name="ErrorBoundary_Message" xml:space="preserve">
+    <value>An unhandled error has occurred. Please, contact your IT support.</value>
+  </data>
 </root>

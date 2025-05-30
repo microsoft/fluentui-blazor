@@ -2,7 +2,8 @@
 
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
 
-<FluentLayout @key="@GetLayoutKey()" Style="@LayoutStyleHeight" MenuDeferredLoading="true">
+<FluentErrorBoundary>
+    <FluentLayout @key="@GetLayoutKey()" Style="@LayoutStyleHeight" MenuDeferredLoading="true">
 
     @* ------------------- *@
     @*       Header        *@
@@ -106,6 +107,7 @@
     </FluentLayoutItem>
 
 </FluentLayout>
+</FluentErrorBoundary>
 
 <!-- FluentUI Service Providers -->
 <FluentProviders />
