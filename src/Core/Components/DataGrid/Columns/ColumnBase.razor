@@ -22,7 +22,16 @@
                 @if (AnyColumnActionEnabled)
                 {
                     <FluentButton Disabled="@(!AnyColumnActionEnabled)" Id="@_columnId" Appearance="Appearance.Stealth" Class="col-sort-button" Style="width: calc(100% - 10px);" @onclick="@HandleColumnHeaderClickedAsync" aria-label="@tooltip" title="@tooltip">
-                        <div class="col-title-text" title="@tooltip">@Title</div>
+                        <div class="col-title-text" title="@tooltip">
+                            @if (HeaderCellTitleTemplate is not null)
+                            {
+                                @HeaderCellTitleTemplate(this)
+                            }
+                            else
+                            {
+                                @Title
+                            }
+                        </div>
 
                         @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
                         {
@@ -44,7 +53,16 @@
                 else
                 {
                     <div class="col-title">
-                        <div class="col-title-text" title="@tooltip">@Title</div>
+                        <div class="col-title-text" title="@tooltip">
+                            @if (HeaderCellTitleTemplate is not null)
+                            {
+                                @HeaderCellTitleTemplate(this)
+                            }
+                            else
+                            {
+                                @Title
+                            }
+                        </div>
                     </div>
                 }
                 <FluentMenu Anchor="@_columnId" @bind-Open="@_isMenuOpen" HorizontalViewportLock="false" HorizontalPosition="HorizontalPosition.End">
@@ -122,7 +140,16 @@
                 {
                     <FluentKeyCode Only="new[] { KeyCode.Ctrl, KeyCode.Enter }" OnKeyDown="HandleKeyDown" class="keycapture" style="width: 100%;" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
                         <FluentButton Appearance="Appearance.Stealth" Class="col-sort-button" Style="@($"width: calc(100% - {wdelta});")" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip">
-                            <div class="col-title-text" title="@tooltip">@Title</div>
+                            <div class="col-title-text" title="@tooltip">
+                                @if (HeaderCellTitleTemplate is not null)
+                                {
+                                    @HeaderCellTitleTemplate(this)
+                                }
+                                else
+                                {
+                                    @Title
+                                }
+                            </div>
 
                             @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
                             {

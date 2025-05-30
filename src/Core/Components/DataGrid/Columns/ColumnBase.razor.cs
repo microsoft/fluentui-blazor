@@ -84,6 +84,13 @@ public abstract partial class ColumnBase<TGridItem>
     public RenderFragment<ColumnBase<TGridItem>>? HeaderCellItemTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets a template for the title content of this column's header cell.
+    /// If not specified, the default header template includes the <see cref="Title" />.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<ColumnBase<TGridItem>>? HeaderCellTitleTemplate { get; set; }
+
+    /// <summary>
     /// If specified, indicates that this column has this associated options UI. A button to display this
     /// UI will be included in the header cell by default.
     ///
