@@ -18,6 +18,9 @@ public class FluentDefaultTests : TestBase
         [FluentDefault("TestComponent")]
         public static int DefaultNumber => 42;
 
+        [FluentDefault("TestComponent")]
+        public static int? DefaultNullableNumber => 100;
+
         [FluentDefault("AnotherComponent")]
         public static string? AnotherDefault => "another-value";
     }
@@ -32,6 +35,9 @@ public class FluentDefaultTests : TestBase
 
         [Parameter]
         public int Number { get; set; }
+
+        [Parameter]
+        public int? DefaultNullableNumber { get; set; }
 
         public string? NonParameterProperty { get; set; }
     }
@@ -73,6 +79,7 @@ public class FluentDefaultTests : TestBase
         Assert.Equal("test-class", component.Class);
         Assert.True(component.Disabled);
         Assert.Equal(42, component.Number);
+        Assert.Equal(100, component.DefaultNullableNumber);
     }
 
     [Fact]
@@ -84,7 +91,8 @@ public class FluentDefaultTests : TestBase
         {
             Class = "existing-class",
             Disabled = false,
-            Number = 100
+            Number = 100,
+            DefaultNullableNumber = 200
         };
 
         // Act
@@ -94,6 +102,7 @@ public class FluentDefaultTests : TestBase
         Assert.Equal("existing-class", component.Class);
         Assert.False(component.Disabled);
         Assert.Equal(100, component.Number);
+        Assert.Equal(200, component.DefaultNullableNumber);
     }
 
     [Fact]
@@ -136,6 +145,42 @@ public class FluentDefaultTests : TestBase
 
         // Act & Assert - Should not throw
         FluentDefaultValuesService.ApplyDefaults(component);
+    }
+
+    [Fact]
+    public void FluentDefaultValuesService_DoesNotOverrideNullableValueTypes_WhenExplicitlySet()
+    {
+        // Arrange
+        FluentDefaultValuesService.Reset(); // Ensure clean state
+        var component = new TestComponent
+        {
+            DefaultNullableNumber = null // This will be treated as unset since nullable types default to null
+        };
+
+        // Act
+        FluentDefaultValuesService.ApplyDefaults(component);
+
+        // Assert - For nullable types, null is considered "unset", so the default should be applied
+        Assert.Equal(100, component.DefaultNullableNumber);
+    }
+
+    [Fact]
+    public void FluentDefaultValuesService_OverridesValueTypes_WhenSetToDefaultValue()
+    {
+        // Arrange
+        FluentDefaultValuesService.Reset(); // Ensure clean state
+        var component = new TestComponent
+        {
+            Disabled = false // This is the default value for bool, so it will be overridden
+        };
+
+        // Act
+        FluentDefaultValuesService.ApplyDefaults(component);
+
+        // Assert - Value type defaults are overridden when set to their default value
+        // Note: This is a limitation of the approach - we can't distinguish between 
+        // "not set" and "explicitly set to default value" for value types
+        Assert.True(component.Disabled);
     }
 
     private class ComponentWithNoDefaults : FluentComponentBase

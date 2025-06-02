@@ -129,8 +129,16 @@ public sealed class FluentDefaultValuesService
         if (value == null)
             return true;
 
+        // Handle nullable value types
+        var underlyingType = Nullable.GetUnderlyingType(propertyType);
+        if (underlyingType != null)
+        {
+            // For nullable types, null is considered the default
+            return false; // If we got here, value is not null, so it's been explicitly set
+        }
+
         if (!propertyType.IsValueType)
-            return false;
+            return false; // Reference types (non-null) are considered explicitly set
 
         var defaultValue = Activator.CreateInstance(propertyType);
         return Equals(value, defaultValue);

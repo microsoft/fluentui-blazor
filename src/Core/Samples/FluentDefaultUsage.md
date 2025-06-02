@@ -52,3 +52,9 @@ public static class MyAppDefaults
 - Property names in the defaults class must exactly match the component's parameter names
 - Only properties marked with `[Parameter]` will receive default values
 - Default values are applied before `OnInitialized()` and `OnParametersSet()` lifecycle methods
+
+## Limitations
+
+- **Value Types**: If a value type parameter is explicitly set to its language default value (e.g., `false` for `bool`, `0` for `int`), it will be overridden by the external default. This is because the system cannot distinguish between "not set" and "explicitly set to default value".
+- **Nullable Value Types**: Nullable types set to `null` are treated as "not set" and will receive the external default.
+- **Reference Types**: Reference types set to `null` are treated as "not set" and will receive the external default.
