@@ -1,0 +1,129 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Components.ErrorBoundary.Components
+@using Xunit;
+@inherits Bunit.TestContext
+@code
+{
+    public FluentErrorBoundaryTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentErrorBoundary_WithoutException()
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary>
+            <ChildContent>
+                <ThrowingExceptionComponent Throw="false">My content</ThrowingExceptionComponent>
+            </ChildContent>
+            <ErrorContent>My Error</ErrorContent>
+        </FluentErrorBoundary>);
+
+        // Assert
+        cut.MarkupMatches("<div>My content</div>");
+    }
+
+    [Fact]
+    public void FluentErrorBoundary_WithException()
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary MaximumErrorCount="10">
+            <ChildContent>
+                <ThrowingExceptionComponent Throw="true">My content</ThrowingExceptionComponent>
+            </ChildContent>
+            <ErrorContent>My Error</ErrorContent>
+        </FluentErrorBoundary>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentErrorBoundary_ErrorHeader()
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary>
+            <ChildContent>
+                <ThrowingExceptionComponent>My content</ThrowingExceptionComponent>
+            </ChildContent>
+            <ErrorHeader>My Header</ErrorHeader>
+            <ErrorContent>My Error</ErrorContent>
+        </FluentErrorBoundary>);
+
+        // Assert
+        Assert.Contains("<div slot=\"title\" style=\"display: flex; column-gap: 4px; align-items: center;\">My Header</div>", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentErrorBoundary_HideChildContentOnError_True()
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary HideChildContentOnError="true">
+            <ChildContent>
+                <ThrowingExceptionComponent>My content</ThrowingExceptionComponent>
+            </ChildContent>
+            <ErrorContent>My Error</ErrorContent>
+        </FluentErrorBoundary>);
+
+        // Assert
+        var hasContent = cut.Markup.Contains("My content");
+        Assert.False(hasContent);
+    }
+
+    [Fact]
+    public void FluentErrorBoundary_HideChildContentOnError_False()
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary HideChildContentOnError="false">
+            <ChildContent>
+                <ThrowingExceptionComponent>My content</ThrowingExceptionComponent>
+            </ChildContent>
+            <ErrorContent>My Error</ErrorContent>
+        </FluentErrorBoundary>);
+
+        cut.FindComponent<FluentErrorBoundary>().Render();
+
+        // Assert
+        var hasContent = cut.Markup.Contains("My content");
+        Assert.True(hasContent);
+
+        // "error" attribute should be present
+        Assert.Contains("<div error>", cut.Markup);
+    }
+
+    [Theory]
+    [InlineData(ErrorBoundaryDetails.None, @"An unhandled error has occurred. Please, contact your IT support.")]
+    [InlineData(ErrorBoundaryDetails.ErrorMessage, @"Test exception")]
+    [InlineData(ErrorBoundaryDetails.ErrorStack, @"ThrowingExceptionComponent.razor")]
+    [InlineData((ErrorBoundaryDetails)999, @"An unhandled error has occurred. Please, contact your IT support.")]
+    public void FluentErrorBoundary_DisplayErrorDetails_ErrorStack(ErrorBoundaryDetails errorDetails, string expectedHTML)
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary DisplayErrorDetails="@errorDetails">
+            <ThrowingExceptionComponent>My content</ThrowingExceptionComponent>
+        </FluentErrorBoundary>);
+
+        // Assert
+        Assert.Contains(expectedHTML, cut.Markup);
+    }
+
+    [Theory]
+    [InlineData("open")]
+    [InlineData("closed")]
+    public void FluentErrorBoundary_OnToggleAsync(string newState)
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary>
+            <ThrowingExceptionComponent>My content</ThrowingExceptionComponent>
+        </FluentErrorBoundary>);
+
+        // Act
+        cut.FindComponent<FluentErrorBoundary>().Instance.OnToggleAsync(new()
+            {
+                NewState = newState,
+            });
+
+        // No value to test, just ensure it doesn't throw an exception
+    }
+}
