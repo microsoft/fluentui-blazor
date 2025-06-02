@@ -29,3 +29,9 @@ Cards can have shadows to create a sense of depth and separation from the backgr
 Adding a `OnClick` handler to a card will make it clickable, which is useful for navigation or actions.
 
 {{ CardClickable }}
+
+## Examples
+
+Cards can be composed with other components to build rich elements for a page.
+
+{{ CardTemplatePowerpoint }}
