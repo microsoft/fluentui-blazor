@@ -228,6 +228,12 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     protected internal RenderFragment HeaderContent { get; protected set; }
 
+    /// <summary>
+    /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header title.
+    /// This allows derived components to change the header title output. However, derived components are then
+    /// responsible for using <see cref="HeaderCellTitleTemplate" /> within that new output if they want to continue
+    /// respecting that option.
+    /// </summary>
     protected internal RenderFragment HeaderTitleContent { get; protected set; }
 
     /// <summary>
