@@ -8,33 +8,106 @@
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
     }
+
     [Fact]
     public void FluentErrorBoundary_WithoutException()
     {
         // Arrange
-        var cut = Render(@<ErrorBoundary>
+        var cut = Render(@<FluentErrorBoundary>
             <ChildContent>
                 <ThrowingExceptionComponent Throw="false">My content</ThrowingExceptionComponent>
             </ChildContent>
             <ErrorContent>My Error</ErrorContent>
-        </ErrorBoundary>);
+        </FluentErrorBoundary>);
 
         // Assert
-        cut.MarkupMatches("My content");
+        cut.MarkupMatches("<div>My content</div>");
     }
 
     [Fact]
     public void FluentErrorBoundary_WithException()
     {
         // Arrange
-        var cut = Render(@<ErrorBoundary>
+        var cut = Render(@<FluentErrorBoundary>
             <ChildContent>
-                <ThrowingExceptionComponent Throw="true" />
+                <ThrowingExceptionComponent Throw="true">My content</ThrowingExceptionComponent>
             </ChildContent>
             <ErrorContent>My Error</ErrorContent>
-        </ErrorBoundary>);
+        </FluentErrorBoundary>);
 
         // Assert
-        cut.MarkupMatches("My Error");
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentErrorBoundary_HideChildContentOnError_True()
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary HideChildContentOnError="true">
+            <ChildContent>
+                <ThrowingExceptionComponent>My content</ThrowingExceptionComponent>
+            </ChildContent>
+            <ErrorContent>My Error</ErrorContent>
+        </FluentErrorBoundary>);
+
+        // Assert
+        var hasContent = cut.Markup.Contains("My content");
+        Assert.False(hasContent);
+    }
+
+    [Fact]
+    public void FluentErrorBoundary_HideChildContentOnError_False()
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary HideChildContentOnError="false">
+            <ChildContent>
+                <ThrowingExceptionComponent>My content</ThrowingExceptionComponent>
+            </ChildContent>
+            <ErrorContent>My Error</ErrorContent>
+        </FluentErrorBoundary>);
+
+        cut.FindComponent<FluentErrorBoundary>().Render();
+
+        // Assert
+        var hasContent = cut.Markup.Contains("My content");
+        Assert.True(hasContent);
+
+        // "error" attribute should be present
+        Assert.Contains("<div error>", cut.Markup);
+    }
+
+    [Theory]
+    [InlineData(ErrorBoundaryDetails.None, @"An unhandled error has occurred. Please, contact your IT support.")]
+    [InlineData(ErrorBoundaryDetails.ErrorMessage, @"Test exception")]
+    [InlineData(ErrorBoundaryDetails.ErrorStack, @"\ErrorBoundary\Components\ThrowingExceptionComponent.razor")]
+    [InlineData((ErrorBoundaryDetails)999, @"An unhandled error has occurred. Please, contact your IT support.")]
+    public void FluentErrorBoundary_DisplayErrorDetails_ErrorStack(ErrorBoundaryDetails errorDetails, string expectedHTML)
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary DisplayErrorDetails="@errorDetails">
+            <ThrowingExceptionComponent>My content</ThrowingExceptionComponent>
+        </FluentErrorBoundary>);
+
+        // Assert
+        Assert.Contains(expectedHTML, cut.Markup);
+    }
+
+    [Theory]
+    [InlineData("open")]
+    [InlineData("closed")]
+    public void FluentErrorBoundary_OnToggleAsync(string newState)
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary>
+            <ThrowingExceptionComponent>My content</ThrowingExceptionComponent>
+        </FluentErrorBoundary>);
+
+        // Act
+        cut.FindComponent<FluentErrorBoundary>().Instance.OnToggleAsync(new()
+            {
+                NewState = newState,
+            });
+
+        // No value to test, just ensure it doesn't throw an exception
     }
 }

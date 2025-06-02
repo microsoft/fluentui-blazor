@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Provides a mechanism for handling errors in a fluent manner within a specific context.
 /// </summary>
-public partial class FluentErrorBoundary
+public partial class FluentErrorBoundary : FluentComponentBase
 {
     private ErrorBoundary? ErrorBoundary;
 
@@ -27,6 +27,8 @@ public partial class FluentErrorBoundary
 
     /// <summary>
     /// Gets or sets a value indicating whether child content should be hidden when an error occurs.
+    /// Using False is not recommended, as it may cause performance and security issues:
+    /// If the detected error is triggered when the content is displayed, there is a risk of an infinite loop.
     /// </summary>
     [Parameter]
     public bool HideChildContentOnError { get; set; } = true;
@@ -52,11 +54,17 @@ public partial class FluentErrorBoundary
     public ErrorBoundaryDetails DisplayErrorDetails { get; set; } = ErrorBoundaryDetails.None;
 
     /// <summary />
-    private Task OnToggleAsync(DialogToggleEventArgs e)
+    internal Task OnToggleAsync(DialogToggleEventArgs e)
     {
         if (string.Equals(e.NewState, "closed", StringComparison.Ordinal))
         {
-            ErrorBoundary?.Recover();
+            try
+            {
+                ErrorBoundary?.Recover();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         return Task.CompletedTask;
