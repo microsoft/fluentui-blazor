@@ -15,7 +15,7 @@ public static class SampleComponentDefaults
     /// Default appearance for FluentButton components.
     /// </summary>
     [FluentDefault("FluentButton")]
-    public static Appearance? DefaultButtonAppearance => Appearance.Outline;
+    public static Appearance? Appearance => Components.Appearance.Outline;
 
     /// <summary>
     /// Default disabled state for FluentButton components.

@@ -13,7 +13,7 @@ public static class MyAppDefaults
 {
     // Default appearance for all FluentButton components
     [FluentDefault("FluentButton")]
-    public static Appearance DefaultButtonAppearance => Appearance.Outline;
+    public static Appearance Appearance => Appearance.Outline;
 
     // Default CSS class for all FluentButton components  
     [FluentDefault("FluentButton")]

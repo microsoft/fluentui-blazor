@@ -16,17 +16,17 @@ public static class AppDefaults
 {
     // Button defaults
     [FluentDefault("FluentButton")]
-    public static Appearance? ButtonAppearance => Appearance.Outline;
+    public static Appearance? Appearance => Appearance.Outline;
 
     [FluentDefault("FluentButton")]
-    public static string? ButtonClass => "app-btn";
+    public static string? Class => "app-btn";
 
     // Text field defaults
     [FluentDefault("FluentTextField")]
-    public static string? TextFieldClass => "app-input";
+    public static string? Class => "app-input";
 
     [FluentDefault("FluentTextField")]
-    public static FluentInputAppearance? TextFieldAppearance => FluentInputAppearance.Outline;
+    public static FluentInputAppearance? Appearance => FluentInputAppearance.Outline;
 
     // Design system defaults
     [FluentDefault("FluentDesignSystemProvider")]
@@ -40,7 +40,7 @@ public static class AppDefaults
     public static bool? Modal => true;
 
     [FluentDefault("FluentDialog")]
-    public static string? DialogClass => "app-dialog";
+    public static string? Class => "app-dialog";
 }
 ```
 
@@ -106,7 +106,7 @@ You can even create environment-specific defaults:
 public static class DevelopmentDefaults
 {
     [FluentDefault("FluentButton")]
-    public static string? ButtonClass => "app-btn debug-outline";
+    public static string? Class => "app-btn debug-outline";
 
     [FluentDefault("FluentDialog")]
     public static bool? Modal => false; // Non-modal in development for easier debugging
