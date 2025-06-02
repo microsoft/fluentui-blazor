@@ -228,6 +228,8 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     protected internal RenderFragment HeaderContent { get; protected set; }
 
+    protected internal RenderFragment HeaderTitleContent { get; protected set; }
+
     /// <summary>
     /// Gets a value indicating whether this column should act as sortable if no value was set for the
     /// <see cref="ColumnBase{TGridItem}.Sortable" /> parameter. The default behavior is not to be
@@ -254,6 +256,7 @@ public abstract partial class ColumnBase<TGridItem>
     public ColumnBase()
     {
         HeaderContent = RenderDefaultHeaderContent;
+        HeaderTitleContent = RenderDefaultHeaderTitle;
     }
 
     private async Task HandleColumnHeaderClickedAsync()

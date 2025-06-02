@@ -7,6 +7,18 @@
 }
 @code
 {
+    private void RenderDefaultHeaderTitle(RenderTreeBuilder __builder)
+    {
+        @if (HeaderCellTitleTemplate is not null)
+        {
+            @HeaderCellTitleTemplate(this)
+        }
+        else
+        {
+            @Title
+        }
+    }
+
     private void RenderDefaultHeaderContent(RenderTreeBuilder __builder)
     {
         @if (HeaderCellItemTemplate is not null)
@@ -23,14 +35,7 @@
                 {
                     <FluentButton Disabled="@(!AnyColumnActionEnabled)" Id="@_columnId" Appearance="Appearance.Stealth" Class="col-sort-button" Style="width: calc(100% - 10px);" @onclick="@HandleColumnHeaderClickedAsync" aria-label="@tooltip" title="@tooltip">
                         <div class="col-title-text" title="@tooltip">
-                            @if (HeaderCellTitleTemplate is not null)
-                            {
-                                @HeaderCellTitleTemplate(this)
-                            }
-                            else
-                            {
-                                @Title
-                            }
+                            @HeaderTitleContent
                         </div>
 
                         @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
@@ -54,14 +59,7 @@
                 {
                     <div class="col-title">
                         <div class="col-title-text" title="@tooltip">
-                            @if (HeaderCellTitleTemplate is not null)
-                            {
-                                @HeaderCellTitleTemplate(this)
-                            }
-                            else
-                            {
-                                @Title
-                            }
+                            @HeaderTitleContent
                         </div>
                     </div>
                 }
@@ -141,14 +139,7 @@
                     <FluentKeyCode Only="new[] { KeyCode.Ctrl, KeyCode.Enter }" OnKeyDown="HandleKeyDown" class="keycapture" style="width: 100%;" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
                         <FluentButton Appearance="Appearance.Stealth" Class="col-sort-button" Style="@($"width: calc(100% - {wdelta});")" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip">
                             <div class="col-title-text" title="@tooltip">
-                                @if (HeaderCellTitleTemplate is not null)
-                                {
-                                    @HeaderCellTitleTemplate(this)
-                                }
-                                else
-                                {
-                                    @Title
-                                }
+                                @HeaderTitleContent
                             </div>
 
                             @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
@@ -173,7 +164,7 @@
                 {
                     <div class="col-title" style="@($"width: calc(100% - {wdelta});")">
                         <div class="col-title-text" title="@tooltip">
-                            @Title
+                            @HeaderTitleContent
                             @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType.HasValue)
                             {
                                 <span style="padding: 0 5px;">
