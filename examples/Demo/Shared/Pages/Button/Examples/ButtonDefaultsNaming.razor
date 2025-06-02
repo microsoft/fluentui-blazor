@@ -1,0 +1,47 @@
+@page "/examples/button/defaults-naming"
+
+<PageTitle>Button Defaults Naming Example</PageTitle>
+
+<h1>FluentButton Defaults Naming Convention</h1>
+
+<h2>Correct Usage</h2>
+<p>When creating externalized defaults for FluentButton, property names must match parameter names exactly:</p>
+
+<FluentCodeBlock Language="csharp">
+[FluentDefault("FluentButton")]
+public static class FluentButtonDefaults
+{
+    // ✅ CORRECT: Property name "Appearance" matches FluentButton parameter name
+    public static Appearance Appearance { get; set; } = Appearance.Neutral;
+    
+    // ✅ CORRECT: Property name "Disabled" matches FluentButton parameter name  
+    public static bool Disabled { get; set; } = false;
+}
+</FluentCodeBlock>
+
+<h2>Incorrect Usage (DO NOT USE)</h2>
+<FluentCodeBlock Language="csharp">
+[FluentDefault("FluentButton")]
+public static class FluentButtonDefaults
+{
+    // ❌ WRONG: Property name "DefaultButtonAppearance" does not match parameter name
+    public static Appearance DefaultButtonAppearance { get; set; } = Appearance.Neutral;
+    
+    // ❌ WRONG: Property name "ButtonAppearance" does not match parameter name  
+    public static Appearance ButtonAppearance { get; set; } = Appearance.Neutral;
+}
+</FluentCodeBlock>
+
+<h2>Example Buttons</h2>
+<FluentStack HorizontalGap="10">
+    <FluentButton>Default Button</FluentButton>
+    <FluentButton Appearance="Appearance.Accent">Accent Button</FluentButton>
+    <FluentButton Appearance="Appearance.Outline">Outline Button</FluentButton>
+</FluentStack>
+
+<h2>Why This Matters</h2>
+<ul>
+    <li>The externalized defaults system uses reflection to match property names to component parameters</li>
+    <li>If names don't match exactly, defaults won't be applied correctly</li>
+    <li>This ensures consistent behavior across all FluentUI components</li>
+</ul>

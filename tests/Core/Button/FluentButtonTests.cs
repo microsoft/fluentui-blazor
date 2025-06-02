@@ -2,6 +2,8 @@ using Bunit;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
+using System.Reflection;
+using System.Linq;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Button;
@@ -419,5 +421,54 @@ public partial class FluentButtonTests : TestContext
 
         // Assert
         Assert.False(clicked);
+    }
+
+    [Fact]
+    public void FluentButtonDefaults_PropertyNames_ShouldMatchComponentParameters()
+    {
+        // Arrange
+        var defaultsType = typeof(FluentButtonDefaults);
+        var componentType = typeof(FluentButton);
+        
+        // Get FluentDefault attribute
+        var fluentDefaultAttr = defaultsType.GetCustomAttribute<FluentDefaultAttribute>();
+        Assert.NotNull(fluentDefaultAttr);
+        Assert.Equal("FluentButton", fluentDefaultAttr.ComponentType);
+        
+        // Get component parameters
+        var componentParameters = componentType.GetProperties()
+            .Where(p => p.GetCustomAttribute<ParameterAttribute>() != null)
+            .ToDictionary(p => p.Name, p => p.PropertyType);
+        
+        // Get defaults class properties
+        var defaultsProperties = defaultsType.GetProperties(BindingFlags.Public | BindingFlags.Static)
+            .ToDictionary(p => p.Name, p => p.PropertyType);
+        
+        // Assert that each defaults property has a matching component parameter
+        foreach (var defaultsProp in defaultsProperties)
+        {
+            Assert.True(componentParameters.ContainsKey(defaultsProp.Key),
+                $"FluentButtonDefaults property '{defaultsProp.Key}' does not match any FluentButton parameter. " +
+                $"Property names in defaults classes must exactly match component parameter names.");
+        }
+    }
+    
+    [Fact]
+    public void FluentButtonDefaults_ShouldNotUse_IncorrectPropertyNames()
+    {
+        // Arrange
+        var defaultsType = typeof(FluentButtonDefaults);
+        var defaultsProperties = defaultsType.GetProperties(BindingFlags.Public | BindingFlags.Static);
+        
+        // Assert - verify no incorrect property names exist
+        var incorrectNames = new[] { "DefaultButtonAppearance", "ButtonAppearance", "DefaultAppearance" };
+        
+        foreach (var incorrectName in incorrectNames)
+        {
+            var foundProperty = defaultsProperties.FirstOrDefault(p => p.Name == incorrectName);
+            Assert.Null(foundProperty, 
+                $"FluentButtonDefaults should not have property '{incorrectName}'. " +
+                $"Use 'Appearance' to match the FluentButton parameter name exactly.");
+        }
     }
 }
