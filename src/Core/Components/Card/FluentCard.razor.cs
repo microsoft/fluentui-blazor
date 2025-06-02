@@ -43,4 +43,14 @@ public partial class FluentCard
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+
+        if (!parameters.TryGetValue(nameof(AreaRestricted), out bool areaRestricted))
+        {
+            AreaRestricted = FluentUIDefaults.FluentCard.AreaRestricted;
+        }
+    }
 }
