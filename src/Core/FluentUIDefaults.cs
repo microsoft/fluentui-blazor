@@ -7,6 +7,6 @@ public static class FluentUIDefaults
 {
     public static class FluentCard
     {
-        public static bool AreaRestricted { get; set; } = false;
+        public static bool AreaRestricted { get; set; } = true;
     }
 }
