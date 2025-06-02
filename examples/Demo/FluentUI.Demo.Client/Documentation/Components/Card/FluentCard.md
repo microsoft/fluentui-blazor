@@ -18,6 +18,11 @@ Cards can have different styles depending on the situation and where it is place
 
 {{ CardAppearanceExample }}
 
+## Shadow
+
+Cards can have shadows to create a sense of depth and separation from the background.
+
+{{ CardShadowExample }}
 
 ## Clickable
 

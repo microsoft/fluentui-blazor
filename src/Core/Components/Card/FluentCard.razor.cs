@@ -33,7 +33,13 @@ public partial class FluentCard : FluentComponentBase
     /// Gets or sets the appearance of the component.
     /// </summary>
     [Parameter]
-    public CardAppearance Appearance { get; set; }
+    public CardAppearance? Appearance { get; set; }
+
+    /// <summary>
+    /// Gets or sets the shadow of the component.
+    /// </summary>
+    [Parameter]
+    public CardShadow? Shadow { get; set; }
 
     /// <summary>
     /// Gets or sets the width of the component. 
