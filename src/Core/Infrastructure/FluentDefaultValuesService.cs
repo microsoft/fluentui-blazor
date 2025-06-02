@@ -14,8 +14,19 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 public sealed class FluentDefaultValuesService
 {
     private static readonly ConcurrentDictionary<string, Dictionary<string, object?>> _defaultValues = new();
+    private static readonly ConcurrentDictionary<string, ComponentDefaultsInfo> _componentCache = new();
+    private static readonly HashSet<string> _componentTypesWithoutDefaults = new();
     private static volatile bool _initialized = false;
     private static readonly object _lock = new();
+
+    /// <summary>
+    /// Cached information about a component's default-applicable properties.
+    /// </summary>
+    private sealed class ComponentDefaultsInfo
+    {
+        public required Dictionary<string, PropertyInfo> ParameterProperties { get; init; }
+        public required Dictionary<string, object?> DefaultValues { get; init; }
+    }
 
     /// <summary>
     /// Initializes the default values service by scanning for FluentDefault attributes.
@@ -37,6 +48,7 @@ public sealed class FluentDefaultValuesService
 
     /// <summary>
     /// Applies default values to the specified component if any matching defaults are found.
+    /// Optimized to minimize reflection overhead.
     /// </summary>
     /// <param name="component">The component to apply defaults to.</param>
     public static void ApplyDefaults(ComponentBase component)
@@ -44,20 +56,29 @@ public sealed class FluentDefaultValuesService
         if (!_initialized)
             Initialize();
 
-        var componentType = component.GetType();
-        var componentTypeName = componentType.Name;
+        var componentTypeName = component.GetType().Name;
 
-        if (!_defaultValues.TryGetValue(componentTypeName, out var defaults))
+        // Fast path: if we know this component type has no defaults, skip entirely
+        if (_componentTypesWithoutDefaults.Contains(componentTypeName))
             return;
 
-        foreach (var (propertyName, defaultValue) in defaults)
+        // Check if we have cached info for this component type
+        if (!_componentCache.TryGetValue(componentTypeName, out var componentInfo))
         {
-            var property = componentType.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
-            if (property == null || !property.CanWrite)
-                continue;
+            // Build cache for this component type
+            componentInfo = BuildComponentCache(component.GetType(), componentTypeName);
+            if (componentInfo == null)
+            {
+                // No defaults for this component type
+                _componentTypesWithoutDefaults.Add(componentTypeName);
+                return;
+            }
+        }
 
-            // Check if the property has the [Parameter] attribute
-            if (!property.GetCustomAttributes<ParameterAttribute>().Any())
+        // Apply defaults using cached reflection info
+        foreach (var (propertyName, defaultValue) in componentInfo.DefaultValues)
+        {
+            if (!componentInfo.ParameterProperties.TryGetValue(propertyName, out var property))
                 continue;
 
             // Only set default if the current value is null or the default value for the type
@@ -74,6 +95,34 @@ public sealed class FluentDefaultValuesService
                 }
             }
         }
+    }
+
+    private static ComponentDefaultsInfo? BuildComponentCache(Type componentType, string componentTypeName)
+    {
+        // Check if we have any defaults for this component type
+        if (!_defaultValues.TryGetValue(componentTypeName, out var defaults) || defaults.Count == 0)
+            return null;
+
+        // Build cache of parameter properties for this component type
+        var parameterProperties = new Dictionary<string, PropertyInfo>();
+        var properties = componentType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        
+        foreach (var property in properties)
+        {
+            if (property.CanWrite && property.GetCustomAttributes<ParameterAttribute>().Any())
+            {
+                parameterProperties[property.Name] = property;
+            }
+        }
+
+        var componentInfo = new ComponentDefaultsInfo
+        {
+            ParameterProperties = parameterProperties,
+            DefaultValues = defaults
+        };
+
+        _componentCache.TryAdd(componentTypeName, componentInfo);
+        return componentInfo;
     }
 
     private static void ScanForDefaultValues()
@@ -163,6 +212,8 @@ public sealed class FluentDefaultValuesService
         lock (_lock)
         {
             _defaultValues.Clear();
+            _componentCache.Clear();
+            _componentTypesWithoutDefaults.Clear();
             _initialized = false;
         }
     }
