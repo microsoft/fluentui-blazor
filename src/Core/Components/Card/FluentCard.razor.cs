@@ -19,8 +19,8 @@ public partial class FluentCard : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
-        .AddStyle("width", string.IsNullOrEmpty(Width) ? "100%" : Width)
-        .AddStyle("height", string.IsNullOrEmpty(Height) ? "fit-content" : Height)
+        .AddStyle("width", Width)
+        .AddStyle("height", Height)
         .Build();
 
     /// <summary>

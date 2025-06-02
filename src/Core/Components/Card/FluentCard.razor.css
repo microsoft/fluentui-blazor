@@ -2,6 +2,8 @@
   color: var(--colorNeutralForeground1);
   padding: var(--spacingVerticalM) var(--spacingHorizontalM);
   box-shadow: var(--shadow4);
+  width: 100%;
+  height: fit-content;
 }
 
   .fluent-card:not([appearance]),
