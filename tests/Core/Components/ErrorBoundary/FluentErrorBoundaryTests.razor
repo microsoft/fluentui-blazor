@@ -1,0 +1,40 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Components.ErrorBoundary.Components
+@using Xunit;
+@inherits Bunit.TestContext
+@code
+{
+    public FluentErrorBoundaryTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+    [Fact]
+    public void FluentErrorBoundary_WithoutException()
+    {
+        // Arrange
+        var cut = Render(@<ErrorBoundary>
+            <ChildContent>
+                <ThrowingExceptionComponent Throw="false">My content</ThrowingExceptionComponent>
+            </ChildContent>
+            <ErrorContent>My Error</ErrorContent>
+        </ErrorBoundary>);
+
+        // Assert
+        cut.MarkupMatches("My content");
+    }
+
+    [Fact]
+    public void FluentErrorBoundary_WithException()
+    {
+        // Arrange
+        var cut = Render(@<ErrorBoundary>
+            <ChildContent>
+                <ThrowingExceptionComponent Throw="true" />
+            </ChildContent>
+            <ErrorContent>My Error</ErrorContent>
+        </ErrorBoundary>);
+
+        // Assert
+        cut.MarkupMatches("My Error");
+    }
+}

@@ -1,0 +1,18 @@
+﻿@ChildContent
+
+@code
+{
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public bool Throw { get; set; } = true;
+
+    protected override void OnInitialized()
+    {
+        if (Throw)
+        {
+            throw new InvalidOperationException("Test exception");
+        }
+    }
+}
