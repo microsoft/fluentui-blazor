@@ -95,7 +95,7 @@
     [Theory]
     [InlineData(ErrorBoundaryDetails.None, @"An unhandled error has occurred. Please, contact your IT support.")]
     [InlineData(ErrorBoundaryDetails.ErrorMessage, @"Test exception")]
-    [InlineData(ErrorBoundaryDetails.ErrorStack, @"\ErrorBoundary\Components\ThrowingExceptionComponent.razor")]
+    [InlineData(ErrorBoundaryDetails.ErrorStack, @"ThrowingExceptionComponent.razor")]
     [InlineData((ErrorBoundaryDetails)999, @"An unhandled error has occurred. Please, contact your IT support.")]
     public void FluentErrorBoundary_DisplayErrorDetails_ErrorStack(ErrorBoundaryDetails errorDetails, string expectedHTML)
     {
