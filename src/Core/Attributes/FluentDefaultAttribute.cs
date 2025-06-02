@@ -25,4 +25,11 @@ public sealed class FluentDefaultAttribute : Attribute
     /// Gets the name of the component type that this default value applies to.
     /// </summary>
     public string ComponentTypeName { get; }
+
+    /// <summary>
+    /// Gets or sets the name of the component parameter this default value applies to.
+    /// If not specified, the property name is used as the parameter name.
+    /// This allows multiple properties to map to the same parameter name for different components.
+    /// </summary>
+    public string? ParameterName { get; set; }
 }

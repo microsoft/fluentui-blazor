@@ -108,7 +108,7 @@ public sealed class FluentDefaultValuesService
                     continue;
 
                 var componentTypeName = attribute.ComponentTypeName;
-                var propertyName = property.Name;
+                var propertyName = attribute.ParameterName ?? property.Name;
                 var defaultValue = property.GetValue(null);
 
                 _defaultValues.AddOrUpdate(

@@ -25,11 +25,33 @@ public static class MyAppDefaults
 }
 ```
 
-### 2. Use Components Normally
+### 2. Multiple Components with Same Parameter
+
+When you need to set the same parameter (like `Class`) for different components with different values, use the `ParameterName` property:
+
+```csharp
+public static class MyAppDefaults
+{
+    // Different default classes for different components
+    [FluentDefault("FluentButton", ParameterName = "Class")]
+    public static string? ButtonClass => "my-app-button";
+
+    [FluentDefault("FluentTextInput", ParameterName = "Class")]
+    public static string? InputClass => "my-app-input";
+
+    [FluentDefault("FluentCard", ParameterName = "Class")]
+    public static string? CardClass => "my-app-card";
+}
+```
+
+### 3. Use Components Normally
 
 ```razor
 @* This button will automatically get Appearance.Outline and Class="my-app-button" *@
 <FluentButton>Click Me</FluentButton>
+
+@* This input will automatically get Class="my-app-input" *@
+<FluentTextInput />
 
 @* This button will override the default appearance but keep the default class *@
 <FluentButton Appearance="Appearance.Accent">Special Button</FluentButton>
@@ -42,14 +64,16 @@ public static class MyAppDefaults
 
 1. The `FluentDefaultAttribute` is applied to static properties in static classes
 2. The attribute specifies which component type the default applies to (by name)
-3. During component initialization, `FluentComponentBase.OnInitialized()` calls `FluentDefaultValuesService.ApplyDefaults()`
-4. The service scans for matching defaults and applies them only if the property is currently unset
-5. Explicitly provided parameter values always take precedence over defaults
+3. Optionally, the `ParameterName` property can specify which component parameter to map to
+4. During component initialization, `FluentComponentBase.OnInitialized()` calls `FluentDefaultValuesService.ApplyDefaults()`
+5. The service scans for matching defaults and applies them only if the property is currently unset
+6. Explicitly provided parameter values always take precedence over defaults
 
 ## Best Practices
 
 - Use a single static class per application or feature area for defaults
-- Property names in the defaults class must exactly match the component's parameter names
+- Use descriptive property names with `ParameterName` when mapping multiple properties to the same parameter
+- When `ParameterName` is not specified, the property name must exactly match the component's parameter name
 - Only properties marked with `[Parameter]` will receive default values
 - Default values are applied before `OnInitialized()` and `OnParametersSet()` lifecycle methods
 

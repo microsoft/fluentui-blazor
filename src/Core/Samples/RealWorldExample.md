@@ -18,15 +18,19 @@ public static class AppDefaults
     [FluentDefault("FluentButton")]
     public static Appearance? Appearance => Appearance.Outline;
 
-    [FluentDefault("FluentButton")]
-    public static string? Class => "app-btn";
+    [FluentDefault("FluentButton", ParameterName = "Class")]
+    public static string? ButtonClass => "app-btn";
 
-    // Text field defaults
-    [FluentDefault("FluentTextField")]
-    public static string? Class => "app-input";
+    // Text field defaults - using ParameterName to map different property to same parameter
+    [FluentDefault("FluentTextField", ParameterName = "Class")]
+    public static string? TextFieldClass => "app-input";
 
     [FluentDefault("FluentTextField")]
     public static FluentInputAppearance? Appearance => FluentInputAppearance.Outline;
+
+    // Card defaults
+    [FluentDefault("FluentCard", ParameterName = "Class")]
+    public static string? CardClass => "app-card";
 
     // Design system defaults
     [FluentDefault("FluentDesignSystemProvider")]
@@ -39,8 +43,8 @@ public static class AppDefaults
     [FluentDefault("FluentDialog")]
     public static bool? Modal => true;
 
-    [FluentDefault("FluentDialog")]
-    public static string? Class => "app-dialog";
+    [FluentDefault("FluentDialog", ParameterName = "Class")]
+    public static string? DialogClass => "app-dialog";
 }
 ```
 
@@ -58,8 +62,13 @@ In your Razor components, use FluentUI components as normal. The defaults will b
 @* This button overrides the appearance but keeps the default class *@
 <FluentButton Appearance="Appearance.Accent">Submit</FluentButton>
 
-@* This text field gets the default appearance and class *@
+@* This text field gets the default appearance and class "app-input" *@
 <FluentTextField @bind-Value="@userName" Placeholder="Enter your name" />
+
+@* This card gets the default class "app-card" *@
+<FluentCard>
+    <p>Some card content</p>
+</FluentCard>
 
 @* This text field overrides the defaults *@
 <FluentTextField @bind-Value="@email" 
@@ -105,8 +114,8 @@ You can even create environment-specific defaults:
 #if DEBUG
 public static class DevelopmentDefaults
 {
-    [FluentDefault("FluentButton")]
-    public static string? Class => "app-btn debug-outline";
+    [FluentDefault("FluentButton", ParameterName = "Class")]
+    public static string? ButtonClass => "app-btn debug-outline";
 
     [FluentDefault("FluentDialog")]
     public static bool? Modal => false; // Non-modal in development for easier debugging
@@ -121,3 +130,4 @@ public static class DevelopmentDefaults
 3. **No Code Changes**: Existing component usage doesn't need to be modified
 4. **Flexibility**: Individual components can still override defaults when needed
 5. **Type Safety**: Compile-time checking ensures default values match parameter types
+6. **Multiple Mappings**: Different components can have different defaults for the same parameter name

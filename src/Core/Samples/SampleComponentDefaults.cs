@@ -25,9 +25,17 @@ public static class SampleComponentDefaults
 
     /// <summary>
     /// Default class for FluentButton components.
+    /// Uses descriptive property name with ParameterName to map to the "Class" parameter.
     /// </summary>
-    [FluentDefault("FluentButton")]
-    public static string? Class => "default-button-style";
+    [FluentDefault("FluentButton", ParameterName = "Class")]
+    public static string? ButtonClass => "default-button-style";
+
+    /// <summary>
+    /// Default class for FluentTextInput components.
+    /// Demonstrates how multiple properties can map to the same parameter name for different components.
+    /// </summary>
+    [FluentDefault("FluentTextInput", ParameterName = "Class")]
+    public static string? TextInputClass => "default-input-style";
 
     /// <summary>
     /// Default direction for FluentDesignSystemProvider components.

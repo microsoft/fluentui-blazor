@@ -25,6 +25,16 @@ public class FluentDefaultTests : TestBase
         public static string? AnotherDefault => "another-value";
     }
 
+    public static class ParameterNameTestDefaults
+    {
+        // Test ParameterName functionality - multiple properties mapping to same parameter
+        [FluentDefault("TestComponent", ParameterName = "Class")]
+        public static string? TestComponentClass => "param-name-class";
+
+        [FluentDefault("AnotherComponent", ParameterName = "Class")]
+        public static string? AnotherComponentClass => "another-param-class";
+    }
+
     public class TestComponent : FluentComponentBase
     {
         [Parameter]
@@ -46,6 +56,9 @@ public class FluentDefaultTests : TestBase
     {
         [Parameter]
         public string? AnotherDefault { get; set; }
+
+        [Parameter]
+        public string? Class { get; set; }
     }
 
     [Fact]
@@ -181,6 +194,24 @@ public class FluentDefaultTests : TestBase
         // Note: This is a limitation of the approach - we can't distinguish between 
         // "not set" and "explicitly set to default value" for value types
         Assert.True(component.Disabled);
+    }
+
+    [Fact]
+    public void FluentDefaultValuesService_SupportsParameterNameMapping()
+    {
+        // Arrange
+        FluentDefaultValuesService.Reset(); // Ensure clean state
+        var testComponent = new TestComponent();
+        var anotherComponent = new AnotherComponent();
+
+        // Act
+        FluentDefaultValuesService.ApplyDefaults(testComponent);
+        FluentDefaultValuesService.ApplyDefaults(anotherComponent);
+
+        // Assert - Both components should get different default values for their Class parameter
+        // even though they use different property names in the defaults class
+        Assert.Equal("param-name-class", testComponent.Class);
+        Assert.Equal("another-param-class", anotherComponent.Class);
     }
 
     private class ComponentWithNoDefaults : FluentComponentBase
