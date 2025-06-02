@@ -5,11 +5,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentCard
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("--card-width", Width, !string.IsNullOrEmpty(Width))
         .AddStyle("--card-height", Height, !string.IsNullOrEmpty(Height))
-        .AddStyle("content-visibility", "visible", !AreaRestricted)
-        .AddStyle("contain", "none", !AreaRestricted)
+        .AddStyle("content-visibility", "visible", !(AreaRestricted ?? LibraryConfiguration.DefaultFluentCardAreaRestricted))
+        .AddStyle("contain", "none", !(AreaRestricted ?? LibraryConfiguration.DefaultFluentCardAreaRestricted))
         .Build();
 
     protected string? ClassValue => new CssBuilder(Class)
@@ -21,7 +23,7 @@ public partial class FluentCard
     /// If you want content to be able to overflow the card, set this property to false.
     /// </summary>
     [Parameter]
-    public bool AreaRestricted { get; set; } = true;
+    public bool? AreaRestricted { get; set; }
 
     /// <summary>
     /// Gets or sets the width of the card. Must be a valid CSS measurement.
@@ -44,13 +46,4 @@ public partial class FluentCard
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    public override async Task SetParametersAsync(ParameterView parameters)
-    {
-        await base.SetParametersAsync(parameters);
-
-        if (!parameters.TryGetValue(nameof(AreaRestricted), out bool areaRestricted))
-        {
-            AreaRestricted = FluentUIDefaults.FluentCard.AreaRestricted;
-        }
-    }
 }

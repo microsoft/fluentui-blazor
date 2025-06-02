@@ -15121,6 +15121,11 @@
             By default, the function adds a query string parameter with the version of the assembly: `v=[AssemblyVersion]`.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.DefaultFluentCardAreaRestricted">
+            <summary>
+            Gets or sets the default value for the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.AreaRestricted"/> property.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ForUnitTests">
             <summary />
         </member>
