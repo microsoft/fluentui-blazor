@@ -41,7 +41,7 @@ public partial class FluentErrorBoundary : FluentComponentBase
     public RenderFragment? ErrorHeader { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be displayed when there is an error.
+    /// Gets or sets the content to be displayed when there is an error. This content will be rendered in a dialog box.
     /// This content will be rendered in place of the default error message when an error occurs within the boundary.
     /// </summary>
     [Parameter]
@@ -53,18 +53,34 @@ public partial class FluentErrorBoundary : FluentComponentBase
     [Parameter]
     public ErrorBoundaryDetails DisplayErrorDetails { get; set; } = ErrorBoundaryDetails.None;
 
+    /// <summary>
+    /// Gets or sets the maximum number of errors that can be handled. If more errors are received,
+    /// they will be treated as fatal. Calling <see cref="Recover"/> resets the count.
+    /// </summary>
+    [Parameter]
+    public int MaximumErrorCount { get; set; } = 100;
+
+    /// <summary>
+    /// Resets the error boundary to a non-errored state. If the error boundary is not
+    /// already in an errored state, the call has no effect.
+    /// </summary>
+    public void Recover()
+    {
+        try
+        {
+            ErrorBoundary?.Recover();
+        }
+        catch (Exception)
+        {
+        }
+    }
+
     /// <summary />
     internal Task OnToggleAsync(DialogToggleEventArgs e)
     {
         if (string.Equals(e.NewState, "closed", StringComparison.Ordinal))
         {
-            try
-            {
-                ErrorBoundary?.Recover();
-            }
-            catch (Exception)
-            {
-            }
+            Recover();
         }
 
         return Task.CompletedTask;

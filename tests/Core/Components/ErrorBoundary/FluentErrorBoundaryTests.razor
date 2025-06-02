@@ -28,7 +28,7 @@
     public void FluentErrorBoundary_WithException()
     {
         // Arrange
-        var cut = Render(@<FluentErrorBoundary>
+        var cut = Render(@<FluentErrorBoundary MaximumErrorCount="10">
             <ChildContent>
                 <ThrowingExceptionComponent Throw="true">My content</ThrowingExceptionComponent>
             </ChildContent>
@@ -37,6 +37,22 @@
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentErrorBoundary_ErrorHeader()
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary>
+            <ChildContent>
+                <ThrowingExceptionComponent>My content</ThrowingExceptionComponent>
+            </ChildContent>
+            <ErrorHeader>My Header</ErrorHeader>
+            <ErrorContent>My Error</ErrorContent>
+        </FluentErrorBoundary>);
+
+        // Assert
+        Assert.Contains("<div slot=\"title\" style=\"display: flex; column-gap: 4px; align-items: center;\">My Header</div>", cut.Markup);
     }
 
     [Fact]

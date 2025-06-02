@@ -4,7 +4,7 @@
 @inherits FluentComponentBase
 
 <CascadingValue Value="this" IsFixed>
-    <ErrorBoundary @ref="ErrorBoundary">
+    <ErrorBoundary @ref="ErrorBoundary" MaximumErrorCount="@MaximumErrorCount">
         <ChildContent>
             <div id="@Id" class="@DefaultClassBuilder.Build()" style="@DefaultStyleBuilder.Build()" @attributes="@AdditionalAttributes">
                 @ChildContent
