@@ -1,0 +1,43 @@
+.fluent-card {
+  color: var(--colorNeutralForeground1);
+  padding: var(--spacingVerticalM) var(--spacingHorizontalM);
+}
+
+  .fluent-card:not([appearance]),
+  .fluent-card[appearance="default"] {
+    background-color: var(--colorNeutralBackground1);
+    border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+    border-radius: var(--borderRadiusMedium);
+    box-shadow: var(--shadow4);
+  }
+
+  .fluent-card[appearance="filled"] {
+    background-color: var(--colorNeutralBackground2);
+    border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+    border-radius: var(--borderRadiusMedium);
+    box-shadow: var(--shadow4);
+  }
+
+  .fluent-card[appearance="outline"] {
+    background-color: var(--colorTransparentBackground);
+    border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+    border-radius: var(--borderRadiusMedium);
+  }
+
+  .fluent-card[appearance="subtle"] {
+  }
+
+/* Hover */
+
+  .fluent-card[selectable]:hover {
+    background-color: var(--colorNeutralBackground1Hover);
+    color: var(--colorNeutralForeground1Hover);
+    border-color: var(--colorNeutralStroke1Hover);
+    cursor: pointer;
+  }
+
+  .fluent-card[selectable]:not([appearance]):hover,
+  .fluent-card[selectable][appearance="default"]:hover,
+  .fluent-card[selectable][appearance="filled"]:hover {
+    box-shadow: var(--shadow8);
+  }
