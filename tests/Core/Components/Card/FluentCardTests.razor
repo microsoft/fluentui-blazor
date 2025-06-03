@@ -1,0 +1,123 @@
+﻿@using Xunit;
+@inherits Bunit.TestContext
+@code
+{
+    public FluentCardTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentCard_Default()
+    {
+        // Arrange
+        var cut = Render(@<FluentCard>Content</FluentCard>);
+
+        // Assert
+        cut.MarkupMatches("<div class=\"fluent-card\" role=\"group\">Content</div>");
+    }
+
+    [Theory]
+    [InlineData(CardAppearance.Default, "")]
+    [InlineData(CardAppearance.Filled, "appearance='filled'")]
+    [InlineData(CardAppearance.Outline, "appearance='outline'")]
+    [InlineData(CardAppearance.Subtle, "appearance='subtle'")]
+    [InlineData((CardAppearance)999, "")]
+    public void FluentCard_Appearance(CardAppearance appearance, string expectedAttribute)
+    {
+        // Arrange
+        var cut = Render(@<FluentCard Appearance="@appearance">Content</FluentCard>);
+
+        // Assert
+        cut.MarkupMatches($"<div class=\"fluent-card\" {expectedAttribute} role=\"group\">Content</div>");
+    }
+
+    [Theory]
+    [InlineData(CardShadow.Default, "")]
+    [InlineData(CardShadow.Small, "shadow='small'")]
+    [InlineData(CardShadow.Medium, "shadow='medium'")]
+    [InlineData(CardShadow.Large, "shadow='large'")]
+    [InlineData((CardShadow)999, "")]
+    public void FluentCard_Shadow(CardShadow shadow, string expectedAttribute)
+    {
+        // Arrange
+        var cut = Render(@<FluentCard Shadow="@shadow">Content</FluentCard>);
+
+        // Assert
+        cut.MarkupMatches($"<div class=\"fluent-card\" {expectedAttribute} role=\"group\">Content</div>");
+    }
+
+    [Fact]
+    public async Task FluentCard_Click()
+    {
+        bool isClicked = false;
+
+        // Arrange
+        var cut = Render(@<FluentCard OnClick="@(e => { isClicked = true; })">Content</FluentCard>);
+
+        // Act
+        await cut.FindComponent<FluentCard>().Instance.ClickHandlerAsync(new MouseEventArgs());
+
+        // Assert
+        cut.MarkupMatches("<div class=\"fluent-card\" role=\"group\" selectable tabindex=\"0\">Content</div>");
+        Assert.True(isClicked);
+    }
+
+    [Theory]
+    [InlineData(true, "Enter")]
+    [InlineData(true, " ")]
+    [InlineData(false, "X")]
+    public async Task FluentCard_KeyDown(bool validKey, string key)
+    {
+        bool isClicked = false;
+
+        // Arrange
+        var cut = Render(@<FluentCard OnClick="@(e => { isClicked = true; })">Content</FluentCard>);
+
+        // Act
+        await cut.FindComponent<FluentCard>().Instance.KeyDownHandlerAsync(new KeyboardEventArgs() { Key = key });
+
+        // Assert
+        cut.MarkupMatches("<div class=\"fluent-card\" role=\"group\" selectable tabindex=\"0\">Content</div>");
+
+        if (validKey)
+        {
+            Assert.True(isClicked);
+        }
+        else
+        {
+            Assert.False(isClicked);
+        }
+    }
+
+    [Fact]
+    public void FluentCard_Role()
+    {
+        // Arrange
+        var cut = Render(@<FluentCard Role="New Role">Content</FluentCard>);
+
+        // Assert
+        cut.MarkupMatches("<div class=\"fluent-card\" role=\"New Role\">Content</div>");
+    }
+
+    [Fact]
+    public void FluentCard_Width()
+    {
+        // Arrange
+        var cut = Render(@<FluentCard Width="100px">Content</FluentCard>);
+
+        // Assert
+        cut.MarkupMatches("<div class=\"fluent-card\" role=\"group\" style=\"width: 100px;\">Content</div>");
+    }
+
+    [Fact]
+    public void FluentCard_Height()
+    {
+        // Arrange
+        var cut = Render(@<FluentCard Height="100px">Content</FluentCard>);
+
+        // Assert
+        cut.MarkupMatches("<div class=\"fluent-card\" role=\"group\" style=\"height: 100px;\">Content</div>");
+    }
+}
