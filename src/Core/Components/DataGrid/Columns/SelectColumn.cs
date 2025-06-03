@@ -528,9 +528,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             await SelectAllChanged.InvokeAsync(SelectAll);
         }
 
+        var count = SelectedItems.Count();
         // SelectedItems
         _selectedItems.Clear();
-        if (SelectAll == true)
+        if (SelectAll == true && count != InternalGridContext.TotalItemCount)
         {
             // Only add selectable items
             _selectedItems.AddRange((InternalGridContext.Grid.Items?.ToList() ?? InternalGridContext.Items)
