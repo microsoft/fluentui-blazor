@@ -19,6 +19,7 @@ public abstract partial class ColumnBase<TGridItem>
     private bool _isMenuOpen;
     private static readonly string[] KEYBOARD_MENU_SELECT_KEYS = ["Enter", "NumpadEnter"];
     private readonly string _columnId = Identifier.NewId();
+    private FluentMenu? _menu;
 
     [CascadingParameter]
     internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
@@ -248,7 +249,7 @@ public abstract partial class ColumnBase<TGridItem>
 
     protected void HandleKeyDown(FluentKeyCodeEventArgs e)
     {
-        if (e.CtrlKey && e.Key == KeyCode.Enter)
+        if (e.ShiftKey && e.Key == KeyCode.KeyR)
         {
             Grid.RemoveSortByColumnAsync(this);
         }

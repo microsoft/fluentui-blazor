@@ -24,6 +24,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js";
     public const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
     public const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
+    public List<FluentMenu> _menuReferences = [];
 
     /// <summary />
     [Inject]
@@ -147,6 +148,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter]
     public bool HeaderCellAsButtonWithMenu { get; set; }
+
+    /// <summary>
+    /// Use IMenuService to create the menu, if this service was injected.
+    /// This value must be defined before the component is rendered (you can't change it during the component lifecycle).
+    /// Default, true.
+    /// </summary>
+    [Parameter]
+    public bool UseMenuService { get; set; } = true;
 
     /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a

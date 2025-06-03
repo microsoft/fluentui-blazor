@@ -79,7 +79,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && !Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null))
         .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
-        .AddStyle("z-index", ZIndex.DataGridHeaderPopup.ToString(), CellType == DataGridCellType.ColumnHeader && Grid._columns.Count > 0)
+        .AddStyle("z-index", ZIndex.DataGridHeaderPopup.ToString(), CellType == DataGridCellType.ColumnHeader && Grid._columns.Count > 0 && Grid.UseMenuService)
         .AddStyle(Owner.Style)
         .Build();
 
