@@ -32,6 +32,9 @@ export function init(gridElement, autoFocus) {
         }
     }
     const keyDownHandler = event => {
+        if (document.activeElement.tagName.toLowerCase() != 'table' && document.activeElement.tagName.toLowerCase() != 'td' && document.activeElement.tagName.toLowerCase() != 'th') {
+            return;
+        }
         const columnOptionsElement = gridElement?.querySelector('.col-options');
         if (columnOptionsElement) {
             if (event.key === "Escape") {
@@ -64,7 +67,7 @@ export function init(gridElement, autoFocus) {
         }
 
         // check if start is a child of gridElement
-        if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start && document.activeElement.tagName.toLowerCase() !== 'fluent-text-field') {
+        if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start && document.activeElement.tagName.toLowerCase() !== 'fluent-text-field' && document.activeElement.tagName.toLowerCase() !== 'fluent-menu-item') {
             const idx = start.cellIndex;
 
             if (event.key === "ArrowUp") {
@@ -124,13 +127,13 @@ export function init(gridElement, autoFocus) {
 
     document.body.addEventListener('click', bodyClickHandler);
     document.body.addEventListener('mousedown', bodyClickHandler); // Otherwise it seems strange that it doesn't go away until you release the mouse button
-    document.body.addEventListener('keydown', keyDownHandler);
+    gridElement.addEventListener('keydown', keyDownHandler);
 
     return {
         stop: () => {
             document.body.removeEventListener('click', bodyClickHandler);
             document.body.removeEventListener('mousedown', bodyClickHandler);
-            document.body.removeEventListener('keydown', keyDownHandler);
+            gridElement.removeEventListener('keydown', keyDownHandler);
             delete grids[gridElement];
         }
     };
