@@ -18,12 +18,14 @@
     </FluentRadioGroup>
     <FluentSpacer Width="25" />
     <FluentCheckbox @bind-Value="@_showActionsMenu" Label="Use menu for column actions" />
+    <FluentCheckbox @bind-Value="@_useMenuService" Label="Use service for rendering menu" Disabled="!_showActionsMenu" />
 </FluentToolbar>
 <div style="height: 400px; overflow-x:auto; display:flex;">
     <FluentDataGrid Items="@FilteredItems"
                     ResizableColumns=true
                     ResizeType="@_resizeType"
                     HeaderCellAsButtonWithMenu="_showActionsMenu"
+                    UseMenuService="_useMenuService"
                     Pagination="@pagination"
                     TGridItem="Country"
                     OnRowFocus="HandleRowFocus"
@@ -75,6 +77,7 @@
     string nameFilter = string.Empty;
     DataGridResizeType? _resizeType = null;
     bool _showActionsMenu;
+    bool _useMenuService = true;
 
     GridSort<Country> rankSort = GridSort<Country>
         .ByDescending(x => x.Medals.Gold)

@@ -29,7 +29,7 @@
         {
             string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
 
-            <FluentKeyCode Only="new[] { KeyCode.Ctrl, KeyCode.Enter }" OnKeyDown="HandleKeyDown" class="keycapture" style="width: 100%;" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+            <FluentKeyCode  Only="@(new[] { KeyCode.KeyR })"  OnKeyDown="HandleKeyDown" class="keycapture" style="width: 100%;" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
 
                 @if (AnyColumnActionEnabled)
                 {
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 }
-                <FluentMenu Anchor="@_columnId" @bind-Open="@_isMenuOpen" HorizontalViewportLock="false" HorizontalPosition="HorizontalPosition.End">
+                <FluentMenu @ref="@_menu" UseMenuService="@Grid.UseMenuService" Anchor="@_columnId" @bind-Open="@_isMenuOpen" HorizontalViewportLock="false" HorizontalPosition="HorizontalPosition.End">
                     @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
                     {
                         <FluentMenuItem OnClick="@(async () => await Grid.SortByColumnAsync(this))" @onkeydown="HandleSortMenuKeyDownAsync">
@@ -153,9 +153,9 @@
                                     <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                                 }
                             }
-                            @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType is not null)
+                            @if (ColumnOptions is not null && Filtered.GetValueOrDefault())
                             {
-                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                                <FluentIcon Value="@(Grid.ColumnOptionsLabels.Icon)" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                             }
                         </FluentButton>
                     </FluentKeyCode>
@@ -168,7 +168,7 @@
                             @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType.HasValue)
                             {
                                 <span style="padding: 0 5px;">
-                                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                                    <FluentIcon Value="@(Grid.ColumnOptionsLabels.Icon)" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                                 </span>
                             }
                         </div>
@@ -215,15 +215,7 @@
     {
         return
             @<FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-        @if (Filtered.GetValueOrDefault())
-        {
-                <FluentIcon Value="@(new CoreIcons.Regular.Size20.FilterDismiss())" />
-        }
-        else
-        {
-                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" />
-        }
-
-        </FluentButton>;
+                 <FluentIcon Value="@(Grid.ColumnOptionsLabels.Icon)" />
+            </FluentButton>;
     }
 }

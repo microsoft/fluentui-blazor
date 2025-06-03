@@ -1980,6 +1980,13 @@
              If true, enables the new style of header cell that includes a button to display all column options through a menu.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.UseMenuService">
+            <summary>
+            Use IMenuService to create the menu, if this service was injected.
+            This value must be defined before the component is rendered (you can't change it during the component lifecycle).
+            Default, true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemKey">
              <summary>
              Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
@@ -2268,6 +2275,12 @@
             If no value is specified, the default value is "1fr" for each column.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ComputeItemsHash(System.Collections.Generic.IEnumerable{`0},System.Int32)">
+            <summary>
+            Computes a hash code for the given items.
+            To limit the effect on performance, only the given maximum number (default 250) of items will be considered.
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Item">
             <summary>
