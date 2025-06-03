@@ -374,6 +374,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // things have changed, and to discard earlier load attempts that were superseded.
     private PaginationState? _lastRefreshedPaginationState;
     private IQueryable<TGridItem>? _lastAssignedItems;
+    private int _lastAssignedItemsHashCode;
     private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
 
@@ -434,14 +435,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(MultiLine)} at the same time.");
         }
 
+        var currentItemsHash = FluentDataGrid<TGridItem>.ComputeItemsHash(Items);
+        var itemsChanged = currentItemsHash != _lastAssignedItemsHashCode;
+
         // Perform a re-query only if the data source or something else has changed
-        var dataSourceHasChanged = !Equals(Items, _lastAssignedItems) || !Equals(ItemsProvider, _lastAssignedItemsProvider);
+        var dataSourceHasChanged = itemsChanged || !Equals(ItemsProvider, _lastAssignedItemsProvider);
         if (dataSourceHasChanged)
         {
             _scope?.Dispose();
             _scope = ScopeFactory.CreateAsyncScope();
             _lastAssignedItemsProvider = ItemsProvider;
             _lastAssignedItems = Items;
+            _lastAssignedItemsHashCode = currentItemsHash;
             _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(_scope.Value.ServiceProvider, Items);
         }
 
@@ -1102,4 +1107,31 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
         }
     }
+
+    /// <summary>
+    /// Computes a hash code for the given items.
+    /// To limit the effect on performance, only the given maximum number (default 250) of items will be considered.
+    /// </summary>
+    private static int ComputeItemsHash(IEnumerable<TGridItem>? items, int maxItems = 250)
+    {
+        if (items == null)
+        {
+            return 0;
+        }
+        unchecked
+        {
+            var hash = 19;
+            var count = 0;
+            foreach (var item in items)
+            {
+                if (++count > maxItems)
+                {
+                    break;
+                }
+                hash = (hash * 31) + (item?.GetHashCode() ?? 0);
+            }
+            return hash;
+        }
+    }
 }
+

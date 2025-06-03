@@ -1241,6 +1241,12 @@
             If not specified, the default header template includes the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Title" /> along with any applicable sort indicators and options buttons.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellTitleTemplate">
+            <summary>
+            Gets or sets a template for the title content of this column's header cell.
+            If not specified, the default header template includes the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Title" />.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.ColumnOptions">
              <summary>
              If specified, indicates that this column has this associated options UI. A button to display this
@@ -1347,6 +1353,14 @@
             Gets or sets a <see cref="T:Microsoft.AspNetCore.Components.RenderFragment" /> that will be rendered for this column's header cell.
             This allows derived components to change the header output. However, derived components are then
             responsible for using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate" /> within that new output if they want to continue
+            respecting that option.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderTitleContent">
+            <summary>
+            Gets or sets a <see cref="T:Microsoft.AspNetCore.Components.RenderFragment" /> that will be rendered for this column's header title.
+            This allows derived components to change the header title output. However, derived components are then
+            responsible for using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellTitleTemplate" /> within that new output if they want to continue
             respecting that option.
             </summary>
         </member>
@@ -2261,6 +2275,12 @@
             If no value is specified, the default value is "1fr" for each column.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ComputeItemsHash(System.Collections.Generic.IEnumerable{`0},System.Int32)">
+            <summary>
+            Computes a hash code for the given items.
+            To limit the effect on performance, only the given maximum number (default 250) of items will be considered.
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Item">
             <summary>
