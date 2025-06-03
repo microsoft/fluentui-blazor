@@ -84,14 +84,15 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
-        if (_jsModule != null)
+        if (_jsModule != null && _jsModule.Imported)
         {
             try
             {
                 await DisposeAsync(_jsModule.ObjectReference);
             }
             catch (Exception ex) when (ex is JSDisconnectedException ||
-                                       ex is OperationCanceledException)
+                                       ex is OperationCanceledException ||
+                                       ex is InvalidOperationException)
             {
                 // The JSRuntime side may routinely be gone already if the reason we're disposing is that
                 // the client disconnected. This is not an error.
