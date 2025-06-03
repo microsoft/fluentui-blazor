@@ -69,13 +69,95 @@ public static class MyAppDefaults
 5. The service scans for matching defaults and applies them only if the property is currently unset
 6. Explicitly provided parameter values always take precedence over defaults
 
+## Performance Optimization
+
+### Targeted Assembly Scanning
+For better startup performance, especially in large applications, configure the system to scan only specific assemblies:
+
+```csharp
+// In Program.cs or startup configuration
+using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
+
+// Only scan your application assembly instead of all loaded assemblies
+FluentDefaultValuesService.ScanConfiguration
+    .WithTargetAssemblies(typeof(MyAppDefaults).Assembly)
+    .WithTargetNamespaces("MyApp.Defaults", "MyApp.Components");
+```
+
+### Multi-Tenancy Support
+For applications that need different defaults per tenant, use instance providers:
+
+```csharp
+public class TenantDefaultProvider : FluentDefaultValuesService.IFluentDefaultProvider
+{
+    private readonly ITenantService _tenantService;
+
+    public TenantDefaultProvider(ITenantService tenantService)
+    {
+        _tenantService = tenantService;
+    }
+
+    public object? GetDefaultValue(string componentTypeName, string parameterName)
+    {
+        var tenantId = _tenantService.GetCurrentTenantId();
+        
+        return (tenantId, componentTypeName, parameterName) switch
+        {
+            ("tenant1", "FluentButton", "Class") => "tenant1-button",
+            ("tenant2", "FluentButton", "Class") => "tenant2-button",
+            _ => null
+        };
+    }
+
+    public bool HasDefaultValue(string componentTypeName, string parameterName)
+    {
+        var tenantId = _tenantService.GetCurrentTenantId();
+        return tenantId is "tenant1" or "tenant2" && 
+               componentTypeName == "FluentButton" && 
+               parameterName == "Class";
+    }
+}
+
+// Configure instance provider
+FluentDefaultValuesService.ScanConfiguration
+    .WithInstanceProvider(new TenantDefaultProvider(tenantService));
+```
+
+### Blazor WASM Trimming Support
+For Blazor WebAssembly with trimming enabled, use these approaches:
+
+#### Option 1: Targeted Scanning (Recommended)
+```csharp
+FluentDefaultValuesService.ScanConfiguration
+    .WithTargetAssemblies(typeof(MyAppDefaults).Assembly)
+    .WithTargetNamespaces("MyApp.Defaults");
+```
+
+#### Option 2: Instance Providers (Trimming-Safe)
+```csharp
+FluentDefaultValuesService.ScanConfiguration
+    .WithoutStaticDefaults()
+    .WithInstanceProvider(new CompileTimeDefaultProvider());
+```
+
+#### Option 3: Preserve Static Classes
+```csharp
+[DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MyAppDefaults))]
+public static class PreserveDefaults { }
+```
+
 ## Best Practices
 
+- **Use targeted scanning** - Always configure `WithTargetAssemblies()` for better performance
+- **Organize defaults** - Group defaults in dedicated namespaces for easy configuration  
+- **Instance providers for dynamic scenarios** - Use for multi-tenancy, user preferences, etc.
+- **Static defaults for base styling** - Use for consistent application-wide defaults
 - Use a single static class per application or feature area for defaults
 - Use descriptive property names with `ParameterName` when mapping multiple properties to the same parameter
 - When `ParameterName` is not specified, the property name must exactly match the component's parameter name
 - Only properties marked with `[Parameter]` will receive default values
 - Default values are applied before `OnInitialized()` and `OnParametersSet()` lifecycle methods
+- **Test with trimming** - If using Blazor WASM, test thoroughly with trimming enabled
 
 ## Limitations
 

@@ -214,9 +214,120 @@ public class FluentDefaultTests : TestBase
         Assert.Equal("another-param-class", anotherComponent.Class);
     }
 
+    [Fact]
+    public void FluentDefaultValuesService_SupportsInstanceProviders()
+    {
+        // Arrange
+        FluentDefaultValuesService.Reset();
+        var provider = new TestInstanceProvider();
+        FluentDefaultValuesService.ScanConfiguration.InstanceProviders.Add(provider);
+        
+        var component = new TestComponent();
+
+        // Act
+        FluentDefaultValuesService.ApplyDefaults(component);
+
+        // Assert
+        Assert.Equal("instance-class", component.Class);
+        Assert.True(component.Disabled);
+    }
+
+    [Fact]
+    public void FluentDefaultValuesService_InstanceProviders_OverrideStaticDefaults()
+    {
+        // Arrange
+        FluentDefaultValuesService.Reset();
+        var provider = new TestInstanceProvider();
+        FluentDefaultValuesService.ScanConfiguration.InstanceProviders.Add(provider);
+        
+        var component = new TestComponent();
+
+        // Act
+        FluentDefaultValuesService.ApplyDefaults(component);
+
+        // Assert - Instance provider should override static defaults
+        Assert.Equal("instance-class", component.Class); // From instance provider, not "test-class" from static
+        Assert.True(component.Disabled); // From static defaults
+    }
+
+    [Fact]
+    public void FluentDefaultValuesService_Configuration_WithTargetAssemblies()
+    {
+        // Arrange
+        FluentDefaultValuesService.Reset();
+        var currentAssembly = typeof(FluentDefaultTests).Assembly;
+        
+        // Act
+        FluentDefaultValuesService.ScanConfiguration.WithTargetAssemblies(currentAssembly);
+        FluentDefaultValuesService.Initialize();
+        
+        // Assert - Should find defaults in the target assembly
+        var defaults = FluentDefaultValuesService.GetAllDefaults();
+        Assert.True(defaults.ContainsKey("TestComponent"));
+    }
+
+    [Fact]
+    public void FluentDefaultValuesService_Configuration_WithTargetNamespaces()
+    {
+        // Arrange
+        FluentDefaultValuesService.Reset();
+        
+        // Act
+        FluentDefaultValuesService.ScanConfiguration.WithTargetNamespaces("Microsoft.FluentUI.AspNetCore.Components.Tests");
+        FluentDefaultValuesService.Initialize();
+        
+        // Assert - Should find defaults in the target namespace
+        var defaults = FluentDefaultValuesService.GetAllDefaults();
+        Assert.True(defaults.ContainsKey("TestComponent"));
+    }
+
+    [Fact]
+    public void FluentDefaultValuesService_Configuration_WithoutStaticDefaults()
+    {
+        // Arrange
+        FluentDefaultValuesService.Reset();
+        FluentDefaultValuesService.ScanConfiguration.WithoutStaticDefaults();
+        
+        // Act
+        FluentDefaultValuesService.Initialize();
+        
+        // Assert - Should not find any static defaults
+        var defaults = FluentDefaultValuesService.GetAllDefaults();
+        Assert.Empty(defaults);
+    }
+
+    private class TestInstanceProvider : FluentDefaultValuesService.IFluentDefaultProvider
+    {
+        public object? GetDefaultValue(string componentTypeName, string parameterName)
+        {
+            return (componentTypeName, parameterName) switch
+            {
+                ("TestComponent", "Class") => "instance-class",
+                ("TestComponent", "Number") => 999,
+                _ => null
+            };
+        }
+
+        public bool HasDefaultValue(string componentTypeName, string parameterName)
+        {
+            return (componentTypeName, parameterName) switch
+            {
+                ("TestComponent", "Class") => true,
+                ("TestComponent", "Number") => true,
+                _ => false
+            };
+        }
+    }
+
     private class ComponentWithNoDefaults : FluentComponentBase
     {
         [Parameter]
         public string? SomeProperty { get; set; }
+    }
+
+    public class AnotherComponent : FluentComponentBase
+    {
+        [Parameter] 
+        public string? Class { get; set; }
     }
 }
