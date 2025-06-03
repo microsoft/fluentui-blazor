@@ -227,7 +227,8 @@ export function enableColumnResizing(gridElement) {
         });
 
         div.addEventListener('pointerover', function (e) {
-            e.target.style.borderInlineEnd = '2px solid var(--neutral-stroke-focus)';
+            e.target.style.borderInlineEnd = 'var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color)';
+            e.target.previousElementSibling.style.visibility = 'hidden';
         });
 
         div.addEventListener('pointerup', removeBorder);
@@ -276,7 +277,8 @@ export function enableColumnResizing(gridElement) {
         div.style.cursor = 'col-resize';
         div.style.userSelect = 'none';
         div.style.height = height + 'px';
-        div.style.width = '5px';
+        div.style.width = '6px';
+        div.style.opacity = 'var(--fluent-data-grid-header-opacity)'
 
         if (isRTL) {
             div.style.left = '0px';
@@ -304,6 +306,7 @@ export function enableColumnResizing(gridElement) {
 
     function removeBorder(e) {
         e.target.style.borderInlineEnd = '';
+        e.target.previousElementSibling.style.visibility = 'visible';
     }
 }
 
