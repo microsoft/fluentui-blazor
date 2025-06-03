@@ -19,6 +19,7 @@ public abstract partial class ColumnBase<TGridItem>
     private bool _isMenuOpen;
     private static readonly string[] KEYBOARD_MENU_SELECT_KEYS = ["Enter", "NumpadEnter"];
     private readonly string _columnId = Identifier.NewId();
+    private FluentMenu? _menu;
 
     [CascadingParameter]
     internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
@@ -82,6 +83,13 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     [Parameter]
     public RenderFragment<ColumnBase<TGridItem>>? HeaderCellItemTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets a template for the title content of this column's header cell.
+    /// If not specified, the default header template includes the <see cref="Title" />.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<ColumnBase<TGridItem>>? HeaderCellTitleTemplate { get; set; }
 
     /// <summary>
     /// If specified, indicates that this column has this associated options UI. A button to display this
@@ -222,6 +230,14 @@ public abstract partial class ColumnBase<TGridItem>
     protected internal RenderFragment HeaderContent { get; protected set; }
 
     /// <summary>
+    /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header title.
+    /// This allows derived components to change the header title output. However, derived components are then
+    /// responsible for using <see cref="HeaderCellTitleTemplate" /> within that new output if they want to continue
+    /// respecting that option.
+    /// </summary>
+    protected internal RenderFragment HeaderTitleContent { get; protected set; }
+
+    /// <summary>
     /// Gets a value indicating whether this column should act as sortable if no value was set for the
     /// <see cref="ColumnBase{TGridItem}.Sortable" /> parameter. The default behavior is not to be
     /// sortable unless <see cref="ColumnBase{TGridItem}.Sortable" /> is true.
@@ -233,7 +249,7 @@ public abstract partial class ColumnBase<TGridItem>
 
     protected void HandleKeyDown(FluentKeyCodeEventArgs e)
     {
-        if (e.CtrlKey && e.Key == KeyCode.Enter)
+        if (e.ShiftKey && e.Key == KeyCode.KeyR)
         {
             Grid.RemoveSortByColumnAsync(this);
         }
@@ -247,6 +263,7 @@ public abstract partial class ColumnBase<TGridItem>
     public ColumnBase()
     {
         HeaderContent = RenderDefaultHeaderContent;
+        HeaderTitleContent = RenderDefaultHeaderTitle;
     }
 
     private async Task HandleColumnHeaderClickedAsync()
