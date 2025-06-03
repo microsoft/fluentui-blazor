@@ -2276,6 +2276,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ComputeItemsHash(System.Collections.Generic.IEnumerable{`0},System.Int32)">
+            <summary>
+            Computes a hash code for the given items.
+            To limit the effect on performance, only the given maximum number (default 250) of items will be considered.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Item">
             <summary>
             Gets or sets the reference to the item that holds this cell's values.
