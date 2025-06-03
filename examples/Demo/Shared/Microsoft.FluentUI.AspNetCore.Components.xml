@@ -1966,6 +1966,13 @@
              If true, enables the new style of header cell that includes a button to display all column options through a menu.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.UseMenuService">
+            <summary>
+            Use IMenuService to create the menu, if this service was injected.
+            This value must be defined before the component is rendered (you can't change it during the component lifecycle).
+            Default, true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemKey">
              <summary>
              Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
