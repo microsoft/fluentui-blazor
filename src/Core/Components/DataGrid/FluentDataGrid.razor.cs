@@ -24,6 +24,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js";
     public const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
     public const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
+    public List<FluentMenu> _menuReferences = [];
 
     /// <summary />
     [Inject]
@@ -147,6 +148,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter]
     public bool HeaderCellAsButtonWithMenu { get; set; }
+
+    /// <summary>
+    /// Use IMenuService to create the menu, if this service was injected.
+    /// This value must be defined before the component is rendered (you can't change it during the component lifecycle).
+    /// Default, true.
+    /// </summary>
+    [Parameter]
+    public bool UseMenuService { get; set; } = true;
 
     /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
@@ -425,8 +434,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(MultiLine)} at the same time.");
         }
 
+        var currentItemsHash = ComputeItemsHash(Items);
+        var lastItemsHash = ComputeItemsHash(_lastAssignedItems);
+
+        bool itemsChanged = currentItemsHash != lastItemsHash;
         // Perform a re-query only if the data source or something else has changed
-        var dataSourceHasChanged = !Equals(Items, _lastAssignedItems) || !Equals(ItemsProvider, _lastAssignedItemsProvider);
+        var dataSourceHasChanged = itemsChanged || !Equals(ItemsProvider, _lastAssignedItemsProvider);
         if (dataSourceHasChanged)
         {
             _scope?.Dispose();
@@ -1091,6 +1104,24 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (_gridReference is not null && Module is not null)
         {
             await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
+        }
+    }
+
+    private int ComputeItemsHash(IEnumerable<TGridItem>? items)
+    {
+        if (items == null)
+        {
+            return 0;
+        }
+
+        unchecked
+        {
+            int hash = 19;
+            foreach (var item in items)
+            {
+                hash = (hash * 31) + (item?.GetHashCode() ?? 0);
+            }
+            return hash;
         }
     }
 }
