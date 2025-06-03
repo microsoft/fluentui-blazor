@@ -35,6 +35,12 @@ internal class FluentJSModule : IAsyncDisposable
     protected virtual IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
+    /// Gets a value indicating whether the JavaScript module has been imported,
+    /// using the <see cref="ImportJavaScriptModuleAsync"/> method.
+    /// </summary>
+    public bool Imported => _jsModule is not null;
+
+    /// <summary>
     /// Gets the JavaScript module imported with the <see cref="ImportJavaScriptModuleAsync"/> method.
     /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
     /// </summary>
