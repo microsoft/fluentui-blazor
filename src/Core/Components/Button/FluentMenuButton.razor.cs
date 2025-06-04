@@ -15,6 +15,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentMenuButton : FluentButton
 {
+    /// <summary />
+    public FluentMenuButton(LibraryConfiguration configuration) : base(configuration) { }
+
     /// <summary>
     /// Gets or sets the owning FluentMenu.
     /// </summary>

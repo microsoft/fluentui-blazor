@@ -60,11 +60,3 @@ Buttons can be square, rounded, or circular.
 
 ## With long text
 {{ ButtonLongText }}
-
-## API FluentButton
-
-{{ API Type=FluentButton }}
-
-## Migrating to v5
-
-{{ INCLUDE File=MigrationFluentButton }}

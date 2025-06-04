@@ -17,6 +17,22 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     private FluentJSModule? _jsModule;
     private CachedServices? _cachedServices;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    protected FluentComponentBase()
+    {
+        
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected FluentComponentBase(LibraryConfiguration configuration)
+    {
+        configuration.DefaultValues.ApplyDefaults(this);
+    }
+
     [Inject]
     private IServiceProvider ServiceProvider { get; set; } = default!;
 
@@ -27,6 +43,10 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// <summary />
     [Inject]
     protected IFluentLocalizer Localizer { get; set; } = FluentLocalizerInternal.Default;
+
+    /// <summary />
+    [Inject]
+    protected LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary>
     /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
@@ -75,6 +95,18 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// <inheritdoc cref="IFluentComponentBase.AdditionalAttributes" />
     [Parameter(CaptureUnmatchedValues = true)]
     public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    /*
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        LibraryConfiguration.DefaultValues.ApplyDefaults(this);
+    }
+    */
 
     /// <summary>
     /// Dispose the current object.

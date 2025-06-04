@@ -15,6 +15,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentButton : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
+    public FluentButton(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
     /// <summary />
