@@ -44,10 +44,6 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [Inject]
     protected IFluentLocalizer Localizer { get; set; } = FluentLocalizerInternal.Default;
 
-    /// <summary />
-    [Inject]
-    protected LibraryConfiguration LibraryConfiguration { get; set; } = default!;
-
     /// <summary>
     /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
     /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
@@ -95,18 +91,6 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// <inheritdoc cref="IFluentComponentBase.AdditionalAttributes" />
     [Parameter(CaptureUnmatchedValues = true)]
     public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
-
-    /*
-    /// <summary>
-    /// 
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        LibraryConfiguration.DefaultValues.ApplyDefaults(this);
-    }
-    */
 
     /// <summary>
     /// Dispose the current object.
