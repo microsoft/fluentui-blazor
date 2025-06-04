@@ -24,6 +24,7 @@ builder.Services.AddFluentUIComponents(config =>
     // Set default values for FluentButton component
     config.DefaultValues.For<FluentButton>().Set(p => p.Appearance, ButtonAppearance.Primary);
     config.DefaultValues.For<FluentButton>().Set(p => p.Shape, ButtonShape.Circular);
+    config.DefaultValues.For<FluentButton>().Set(p => p.Label, null);
 
     // Use a custom localizer
     config.Localizer = new FluentUI.Demo.MyLocalizer();
