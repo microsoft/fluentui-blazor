@@ -16,7 +16,7 @@
                             Class="w-100"
                             Placeholder="Name"
                             OnOptionsSearch="@OnSearchUserAsync"
-                            OptionComparer="IsOptionAdded"
+                            OptionComparer="MyComparer.Instance"
                             OptionText="@(item => $"{item.Firstname} {item.Lastname}" )"
                             @bind-SelectedOptions="Users2" />
     </div> 
@@ -25,12 +25,6 @@
 
     public IEnumerable<SimplePerson> Users1 { get; set; } = [new SimplePerson { Firstname = "Marvin", Lastname = "Klein", Age = 28 }];
     public IEnumerable<SimplePerson> Users2 { get; set; } = [new SimplePerson { Firstname = "Marvin", Lastname = "Klein", Age = 28 }];
-
-    private bool IsOptionAdded(SimplePerson listItem, SimplePerson selectedItem)
-    {
-        // Compare both objects with each other to determine if they are equal
-        return listItem.Firstname == selectedItem.Firstname && listItem.Lastname == selectedItem.Lastname;
-    }
 
     private Task OnSearchUserAsync(OptionsSearchEventArgs<SimplePerson> e)
     {
@@ -45,5 +39,29 @@
         e.Items = results;
 
         return Task.CompletedTask;
+    }
+
+    public class MyComparer : IEqualityComparer<SimplePerson>
+    {
+        public static readonly MyComparer Instance = new();
+
+        public bool Equals(SimplePerson? x, SimplePerson? y)
+        {
+            if (ReferenceEquals(x, y))
+            {
+                return true;
+            }
+
+            if (x is null || y is null)
+            {
+                return false;
+            }
+
+            return x.Firstname == y.Firstname &&
+                   x.Lastname == y.Lastname &&
+                   x.Age == y.Age;
+        }
+
+        public int GetHashCode(SimplePerson obj) => HashCode.Combine(obj.Firstname, obj.Lastname, obj.Age);
     }
 }
