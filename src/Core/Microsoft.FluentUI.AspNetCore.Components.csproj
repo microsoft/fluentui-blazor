@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0<!--;net10.0--></TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0></TargetFrameworks>
     <PackageId>Microsoft.FluentUI.AspNetCore.Components</PackageId>
 
     <Summary>A Blazor component library leveraging Microsoft’s Fluent Design System UI. Use the look of modern Microsoft products in your Blazor applications</Summary>
