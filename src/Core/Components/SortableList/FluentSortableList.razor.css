@@ -8,9 +8,17 @@
     --fluent-sortable-list-background-color: var(--neutral-layer-2);
     --fluent-sortable-list-item-height: calc(var(--design-unit) * 8px);
     --fluent-sortable-list-filtered: var(--warning);
-    border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-input-active);
+    --fluent-sortable-list-border-width: calc(var(--stroke-width) * 1px);
+    --fluent-sortable-list-border-color: var(--neutral-stroke-input-active);
+    --fluent-sortable-list-padding: calc(var(--design-unit) * 1px);
+    --fluent-sortable-list-item-border-width: calc(var(--stroke-width) * 1px);
+    --fluent-sortable-list-item-border-color: var(--neutral-stroke-input-active);
+    --fluent-sortable-list-item-drop-border-color: var(--accent-fill-rest);
+    --fluent-sortable-list-item-drop-color: var(--neutral-layer-1);
+    --fluent-sortable-list-item-padding: 0 calc(var(--design-unit) * 2px);
+    border: var(--fluent-sortable-list-border-width) solid var(--fluent-sortable-list-border-color);
     border-radius: calc(var(--control-corner-radius) * 1px);
-    padding: calc(var(--design-unit) * 1px);
+    padding: var(--fluent-sortable-list-padding);
     min-height: var(--fluent-sortable-list-item-height);
 }
 
@@ -43,13 +51,13 @@
     align-items: center;
     height: var(--fluent-sortable-list-item-height) !important;
     background-color: var(--fluent-sortable-list-background-color);
-    border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-input-active);
+    border: var(--fluent-sortable-list-item-border-width) solid var(--fluent-sortable-list-item-border-color);
     border-radius: calc(var(--control-corner-radius) * 1px);
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    padding: 0 calc(var(--design-unit) * 2px);
+    padding: var(--fluent-sortable-list-item-padding);
     margin-bottom: 2px;
 }
 
@@ -58,12 +66,12 @@
     }
 
 .fluent-sortable-list ::deep .sortable-ghost > .sortable-item-content {
-    background-color: var(--neutral-layer-1) !important;
+    background-color: var(--fluent-sortable-list-item-drop-color) !important;
 }
 
 .fluent-sortable-list ::deep .sortable-ghost {
-    background: var(--neutral-layer-1) !important;
-    border: calc(var(--stroke-width) * 1px) dotted var(--accent-fill-rest) !important;
+    background: var(--fluent-sortable-list-item-drop-color) !important;
+    border: calc(var(--stroke-width) * 1px) dotted var(--fluent-sortable-list-item-drop-border-color) !important;
 }
 
 .fluent-sortable-list > .sortable-item:is(.filtered) {
