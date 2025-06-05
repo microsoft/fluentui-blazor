@@ -6405,6 +6405,11 @@
             Gets or sets the function used to determine if an option is initially selected.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.OptionComparer">
+            <summary>
+            Gets or sets the function used to determine if an option is already added to the internal list.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Items">
             <summary>
             Gets or sets the content source of all items to display in this list.

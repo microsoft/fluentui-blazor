@@ -1,1 +1,39 @@
-﻿
+﻿<FluentAutocomplete TOption="MyUser"
+                    Label="Users"
+                    Class="w-100"
+                    Placeholder="Name"
+                    OnOptionsSearch="@OnSearchUserAsync"
+                    OptionComparer="IsOptionAdded"
+                    OptionText="@(item => $"{item.Username}" )"
+                    @bind-SelectedOptions="Input.Users" />
+
+@code {
+    public MyInput Input { get; set; } = new();   
+    public class MyInput
+    {
+        public IEnumerable<MyUser> Users { get; set; } = [new MyUser { UserId = 1, Username = "Alice Wonder" }];
+    }
+
+    public class MyUser
+    {
+        public int UserId { get; set; }
+        public string Username { get; set; }
+    }
+
+    private bool IsOptionAdded(MyUser listItem, MyUser selectedItem)
+    {
+        return listItem.UserId == selectedItem.UserId;
+    }
+
+    private async Task OnSearchUserAsync(OptionsSearchEventArgs<MyUser> e)
+    {
+        var users = new List<MyUser>
+        {
+            new MyUser { UserId = 1, Username = "Alice Wonder" },
+            new MyUser { UserId = 2, Username = "Marvin Klein" },
+            new MyUser { UserId = 3, Username = "Vincent Baaji" },
+        };
+
+        e.Items = users;
+    }
+}

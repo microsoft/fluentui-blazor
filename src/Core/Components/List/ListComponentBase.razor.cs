@@ -128,6 +128,12 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     /// </summary>
     [Parameter]
     public virtual Func<TOption, bool>? OptionSelected { get; set; }
+    /// <summary>
+    /// Gets or sets the function used to determine if an option is already added to the internal list.
+    /// The first parameter is the item from the internal list to check and the second parameter is the actual selected item from the menu.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TOption, TOption, bool>? OptionComparer { get; set; }
 
     /// <summary>
     /// Gets or sets the content source of all items to display in this list.
@@ -536,6 +542,11 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
             if (_selectedOptions.Contains(item))
             {
                 RemoveSelectedItem(item);
+                await RaiseChangedEventsAsync();
+            }
+            else if (OptionComparer is not null && _selectedOptions.FirstOrDefault(x => OptionComparer(x, item)) is TOption addedItem)
+            {
+                RemoveSelectedItem(addedItem);
                 await RaiseChangedEventsAsync();
             }
             else
