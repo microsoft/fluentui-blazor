@@ -41,6 +41,7 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
             throw new ArgumentException($"The parameter selector '{parameterSelector}' does not resolve to a public property on the component '{typeof(TComponent)}'.", nameof(parameterSelector));
         }
 
+        // Property name
         var propertyInfo = propInfoCandidate.DeclaringType != TComponentType
                          ? TComponentType.GetProperty(propInfoCandidate.Name, propInfoCandidate.PropertyType)
                          : propInfoCandidate;

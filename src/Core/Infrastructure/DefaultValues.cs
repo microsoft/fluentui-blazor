@@ -27,7 +27,8 @@ public class DefaultValues
     }
 
     /// <summary />
-    [SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.", Justification = "<Pending>")]
+    [SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
+                     Justification = "TComponent properties are preserved via DynamicDependency attributes. The usage of TComponent.GetType() generates this IL2075 warning.")]
     internal void ApplyDefaults<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TComponent>(TComponent component) where TComponent : IFluentComponentBase
     {
         if (!_isInitialized)
