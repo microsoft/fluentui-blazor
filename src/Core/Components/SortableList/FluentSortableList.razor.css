@@ -8,9 +8,12 @@
     --fluent-sortable-list-background-color: var(--neutral-layer-2);
     --fluent-sortable-list-item-height: calc(var(--design-unit) * 8px);
     --fluent-sortable-list-filtered: var(--warning);
-    border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-input-active);
+    --fluent-sortable-list-border-width: calc(var(--stroke-width) * 1px);
+    --fluent-sortable-list-border-color: var(--neutral-stroke-input-active);
+    --fluent-sortable-list-padding: calc(var(--design-unit) * 1px);
+    border: var(--fluent-sortable-list-border-width) solid var(--fluent-sortable-list-border-color);
     border-radius: calc(var(--control-corner-radius) * 1px);
-    padding: calc(var(--design-unit) * 1px);
+    padding: var(--fluent-sortable-list-padding);
     min-height: var(--fluent-sortable-list-item-height);
 }
 
