@@ -495,6 +495,32 @@
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentAutocomplete_SelectValueFromDifferentObjectInstances()
+    {
+        IEnumerable<Customer> SelectedItems = [new Customer(1, "Marvin Klein")];
+
+        // Arrange
+        var cut = Render<FluentAutocomplete<Customer>>(
+            @<FluentAutocomplete TOption="Customer"
+                    SelectValueOnTab="true"
+                    OptionComparer="IsItemAdded"
+                    @bind-SelectedOptions="@SelectedItems"
+                    OnOptionsSearch="@OnSearchNewInstance" />
+            );
+
+        // Act: click to open -> KeyDow + Enter to select
+        var input = cut.Find("fluent-text-field");
+        input.Click();
+
+        // Click on the second FluentOption
+        var marvin = SelectedItems.First(i => i.Id == 1);
+        cut.Find($"fluent-option[value='{marvin}']").Click();
+
+        // Assert (no item selected)
+        Assert.Empty(SelectedItems);
+    }
+
     // Send a key code
     private async Task PressKeyAsync(IRenderedComponent<FluentAutocomplete<Customer>> cut, KeyCode key, bool popoverOpened = false)
     {
@@ -510,5 +536,23 @@
         e.Items = Customers.Get().Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
                                 .OrderBy(i => i.Name);
         return Task.CompletedTask;
+    }
+
+    private Task OnSearchNewInstance(OptionsSearchEventArgs<Customer> e)
+    {
+        var results = new List<Customer>
+        {
+            new Customer(1, "Marvin Klein"),
+            new Customer(2, "Alice Wonder"),
+            new Customer(3, "Vincent Baaji")
+        };
+
+        e.Items = results;
+        return Task.CompletedTask;
+    }
+
+    private bool IsItemAdded(Customer listItem, Customer selectedItem)
+    {
+        return listItem.Id == selectedItem.Id;
     }
 }
