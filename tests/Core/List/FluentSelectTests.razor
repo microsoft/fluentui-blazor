@@ -114,19 +114,19 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentSelect TOption="string">
-        <FluentOption Value="1">
-            Search
-            <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
-        </FluentOption>
-        <FluentOption Value="2" Selected="true">
-            Show
-            <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
-        </FluentOption>
-        <FluentOption Value="3">
-            Generate
-            <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
-        </FluentOption>
-    </FluentSelect>);
+            <FluentOption Value="1">
+                Search
+                <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
+            </FluentOption>
+            <FluentOption Value="2" Selected="true">
+                Show
+                <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
+            </FluentOption>
+            <FluentOption Value="3">
+                Generate
+                <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
+            </FluentOption>
+        </FluentSelect>);
 
         // Assert
         cut.Verify();
@@ -138,9 +138,9 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentSelect Position="SelectPosition.Above" TOption="string">
-                <FluentOption>Position forced above</FluentOption>
-                <FluentOption>Option Two</FluentOption>
-            </FluentSelect>);
+            <FluentOption>Position forced above</FluentOption>
+            <FluentOption>Option Two</FluentOption>
+        </FluentSelect>);
 
         // Assert
         cut.Verify();
@@ -151,9 +151,9 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentSelect Position="SelectPosition.Below" TOption="string">
-        <FluentOption>Position forced above</FluentOption>
-        <FluentOption>Option Two</FluentOption>
-    </FluentSelect>);
+            <FluentOption>Position forced above</FluentOption>
+            <FluentOption>Option Two</FluentOption>
+        </FluentSelect>);
 
         // Assert
         cut.Verify();
@@ -165,11 +165,11 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentSelect Items="@(Customers.Get())" OptionValue="@(context => context.Id.ToString())">
-                <OptionTemplate>
-                    <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Slot="end" />
-                    @(context.Name)
-                </OptionTemplate>
-            </FluentSelect>
+    <OptionTemplate>
+        <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Slot="end" />
+        @(context.Name)
+    </OptionTemplate>
+</FluentSelect>
     );
 
         // Assert
@@ -190,5 +190,33 @@
         // Assert
         Assert.Equal("Make a selection...", cut.Find("fluent-option").InnerHtml);
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_SelectValueFromDifferentObjectInstances()
+    {
+        IEnumerable<Customer> SelectedItems = [new Customer(1, "Marvin Klein")];
+
+        List<Customer> Items = new List<Customer>
+        {
+            new Customer(1, "Marvin Klein"),
+            new Customer(2, "Alice Wonder"),
+            new Customer(3, "Vincent Baaji")
+        };
+
+        // Arrange
+        var cut = Render<FluentSelect<Customer>>(
+            @<FluentSelect @bind-SelectedOptions="SelectedItems"
+              Multiple="true"
+              Items="Items"
+              OptionComparer="CustomerComparer.Instance" />
+            );
+
+        // Click on the second FluentOption
+        var marvin = SelectedItems.First(i => i.Id == 1);
+        cut.Find($"fluent-option[value='{marvin}']").Click();
+
+        // Assert (no item selected)
+        Assert.Empty(SelectedItems);
     }
 }
