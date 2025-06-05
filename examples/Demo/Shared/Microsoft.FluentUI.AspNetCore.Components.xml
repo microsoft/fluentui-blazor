@@ -6408,6 +6408,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.OptionComparer">
             <summary>
             Gets or sets the function used to determine if an option is already added to the internal list.
+            The first parameter is the item from the internal list to check and the second parameter is the actual selected item from the menu.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Items">
