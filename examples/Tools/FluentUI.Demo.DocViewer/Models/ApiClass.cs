@@ -243,8 +243,6 @@ internal class ApiClass
             var parameters = ctor.GetParameters();
             var ctorArguments = parameters.Select(p => p.ParameterType.Name).ToArray();
 
-            Console.WriteLine($"[ApiDocumentation] Checking constructor: {ctor.Name} with parameters: {string.Join(", ", ctorArguments)}");
-
             if (ctorArguments.Length == arguments.Length)
             {
                 for (var i = 0; i < ctorArguments.Length; i++)
