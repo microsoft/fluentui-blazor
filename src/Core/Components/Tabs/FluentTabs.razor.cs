@@ -156,6 +156,11 @@ public partial class FluentTabs : FluentComponentBase
 
             var horizontal = Orientation == Orientation.Horizontal;
             await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG, 25);
+
+            if (ActiveTabId is not null)
+            {
+                await HandleOnTabChangedAsync(new TabChangeEventArgs() { ActiveId = ActiveTabId });
+            }
         }
     }
 
