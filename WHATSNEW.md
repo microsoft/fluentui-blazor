@@ -8,7 +8,7 @@
 ### Demo site and documentation
 
 ### Icons and Emoji
-  - Update to Fluent UI System Icons 1.1.300.
+  - Update to Fluent UI System Icons 1.1.302.
     See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
 
 
