@@ -1,0 +1,49 @@
+﻿<FluentStack>
+    <div>
+        Without <code>OptionComparer</code>:
+        <FluentAutocomplete TOption="SimplePerson"
+                            Label="Users"
+                            Class="w-100"
+                            Placeholder="Name"
+                            OnOptionsSearch="@OnSearchUserAsync"
+                            OptionText="@(item => $"{item.Firstname} {item.Lastname}" )"
+                            @bind-SelectedOptions="Users1" />
+    </div>
+    <div>
+        With <code>OptionComparer</code>:
+        <FluentAutocomplete TOption="SimplePerson"
+                            Label="Users"
+                            Class="w-100"
+                            Placeholder="Name"
+                            OnOptionsSearch="@OnSearchUserAsync"
+                            OptionComparer="IsOptionAdded"
+                            OptionText="@(item => $"{item.Firstname} {item.Lastname}" )"
+                            @bind-SelectedOptions="Users2" />
+    </div> 
+</FluentStack>
+@code {
+
+    public IEnumerable<SimplePerson> Users1 { get; set; } = [new SimplePerson { Firstname = "Marvin", Lastname = "Klein", Age = 28 }];
+    public IEnumerable<SimplePerson> Users2 { get; set; } = [new SimplePerson { Firstname = "Marvin", Lastname = "Klein", Age = 28 }];
+
+    private bool IsOptionAdded(SimplePerson listItem, SimplePerson selectedItem)
+    {
+        // Compare both objects with each other to determine if they are equal
+        return listItem.Firstname == selectedItem.Firstname && listItem.Lastname == selectedItem.Lastname;
+    }
+
+    private Task OnSearchUserAsync(OptionsSearchEventArgs<SimplePerson> e)
+    {
+        // Simulate new instances for every search. Typically you would retrieve these from a database or an API.
+        var results = new List<SimplePerson>
+        {
+            new SimplePerson { Firstname = "Alice", Lastname = "Wonder", Age = 31 },
+            new SimplePerson { Firstname = "Marvin", Lastname = "Klein", Age = 28 },
+            new SimplePerson { Firstname = "Vincent", Lastname = "Baaji", Age = 38 },
+        };
+
+        e.Items = results;
+
+        return Task.CompletedTask;
+    }
+}
