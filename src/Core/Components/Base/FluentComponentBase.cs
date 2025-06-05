@@ -17,6 +17,22 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     private FluentJSModule? _jsModule;
     private CachedServices? _cachedServices;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    protected FluentComponentBase()
+    {
+        // TODO: To remove when all components will use the LibraryConfiguration constructor   
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected FluentComponentBase(LibraryConfiguration configuration)
+    {
+        configuration?.DefaultValues.ApplyDefaults(this);
+    }
+
     [Inject]
     private IServiceProvider ServiceProvider { get; set; } = default!;
 

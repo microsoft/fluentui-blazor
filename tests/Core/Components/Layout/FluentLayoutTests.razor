@@ -192,7 +192,7 @@
         var instance = cut.FindComponent<FluentLayout>().Instance;
         Assert.Throws<ArgumentException>(() =>
         {
-            instance.AddItem(new FluentButton());
+            instance.AddItem(new FluentButton(Services.GetRequiredService<LibraryConfiguration>()));
         });
     }
 
@@ -206,7 +206,7 @@
         var instance = cut.FindComponent<FluentLayout>().Instance;
         Assert.Throws<ArgumentException>(() =>
         {
-            instance.RemoveItem(new FluentButton());
+            instance.RemoveItem(new FluentButton(Services.GetRequiredService<LibraryConfiguration>()));
         });
     }
 

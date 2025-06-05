@@ -13,6 +13,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentToggleButton : FluentButton
 {
+    /// <summary />
+    public FluentToggleButton(LibraryConfiguration configuration) : base(configuration) { }
+
     /// <summary>
     /// Gets or sets the mixed state of the component.
     /// </summary>

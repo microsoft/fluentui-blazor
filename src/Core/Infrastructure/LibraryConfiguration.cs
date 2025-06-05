@@ -35,6 +35,11 @@ public class LibraryConfiguration
     public DefaultStyles DefaultStyles { get; } = new DefaultStyles();
 
     /// <summary>
+    /// Gets the default CSS class and styles for the library components.
+    /// </summary>
+    public DefaultValues DefaultValues { get; } = new DefaultValues();
+
+    /// <summary>
     /// Gets the options for the library tooltip.
     /// </summary>
     public LibraryTooltipOptions Tooltip { get; } = new LibraryTooltipOptions();
