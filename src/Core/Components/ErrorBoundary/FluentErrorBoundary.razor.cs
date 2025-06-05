@@ -26,6 +26,13 @@ public partial class FluentErrorBoundary : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the system should automatically attempt to recover from errors.
+    /// Default is true. You can use the <see cref="Recover"/> method to manually recover from an error.
+    /// </summary>
+    [Parameter]
+    public bool AutoRecover { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets a value indicating whether child content should be hidden when an error occurs.
     /// Using False is not recommended, as it may cause performance and security issues:
     /// If the detected error is triggered when the content is displayed, there is a risk of an infinite loop.
@@ -78,7 +85,7 @@ public partial class FluentErrorBoundary : FluentComponentBase
     /// <summary />
     internal Task OnToggleAsync(DialogToggleEventArgs e)
     {
-        if (string.Equals(e.NewState, "closed", StringComparison.Ordinal))
+        if (AutoRecover && string.Equals(e.NewState, "closed", StringComparison.Ordinal))
         {
             Recover();
         }

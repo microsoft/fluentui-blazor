@@ -30,7 +30,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// </summary>
     protected FluentComponentBase(LibraryConfiguration configuration)
     {
-        configuration.DefaultValues.ApplyDefaults(this);
+        configuration?.DefaultValues.ApplyDefaults(this);
     }
 
     [Inject]
