@@ -129,7 +129,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     [Parameter]
     public virtual Func<TOption, bool>? OptionSelected { get; set; }
     /// <summary>
-    /// Gets or sets the function used to determine if an option is already added to the internal list.
+    /// Gets or sets the <see cref="IEqualityComparer{T}"/> used to determine if an option is already added to the internal list.
     /// </summary>
     [Parameter]
     public virtual IEqualityComparer<TOption>? OptionComparer { get; set; }
