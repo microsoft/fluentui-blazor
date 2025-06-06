@@ -55,7 +55,6 @@
     @* ------------------- *@
     @*       Body          *@
     @* ------------------- *@
-
     @if (IsHomePage())
     {
         <FluentLayoutItem Area="@LayoutArea.Content" Class="demo-home">
@@ -68,6 +67,7 @@
     else
     {
         <FluentLayoutItem Area="@LayoutArea.Content">
+            <FluentMessageBarProvider Section="@App.MESSAGES_TOP" ClearAfterNavigation="true" />
             @Body
         </FluentLayoutItem>
 
