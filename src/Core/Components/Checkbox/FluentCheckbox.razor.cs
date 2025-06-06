@@ -18,7 +18,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     /// <summary>
     ///
     /// </summary>
-    public FluentCheckbox()
+    public FluentCheckbox(LibraryConfiguration configuration) : base(configuration)
     {
         LabelPosition = Components.LabelPosition.After;
     }

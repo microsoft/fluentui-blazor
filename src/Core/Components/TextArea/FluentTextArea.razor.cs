@@ -18,7 +18,7 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
     /// </summary>
-    public FluentTextArea()
+    public FluentTextArea(LibraryConfiguration configuration) : base(configuration)
     {
         // Default conditions for the message
         MessageCondition = (field) =>

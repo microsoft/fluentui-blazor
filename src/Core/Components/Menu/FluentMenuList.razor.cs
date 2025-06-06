@@ -12,6 +12,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentMenuList : FluentComponentBase
 {
     /// <summary />
+    public FluentMenuList(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

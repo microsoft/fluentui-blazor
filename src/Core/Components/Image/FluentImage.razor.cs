@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
@@ -12,6 +12,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentImage : FluentComponentBase
 {
+    /// <summary />
+    public FluentImage(LibraryConfiguration configuration) : base(configuration) { }
+
     /// <summary/>
     protected string? ClassValue => DefaultClassBuilder
         .Build();

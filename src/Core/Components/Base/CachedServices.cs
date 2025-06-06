@@ -10,6 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal class CachedServices : IDisposable
 {
+    private readonly LibraryConfiguration _libraryConfiguration;
     private readonly ConcurrentDictionary<Type, object> _services = new();
     private bool _disposedValue;
 
@@ -19,6 +20,7 @@ internal class CachedServices : IDisposable
     /// <param name="serviceProvider">Provides access to application services and resources.</param>
     public CachedServices(IServiceProvider serviceProvider)
     {
+        _libraryConfiguration = serviceProvider.GetRequiredService<LibraryConfiguration>();
         ServiceProvider = serviceProvider;
     }
 
@@ -66,7 +68,7 @@ internal class CachedServices : IDisposable
             component.Id = Identifier.NewId();
         }
 
-        var tooltip = new FluentTooltip(anchor: component.Id, $"<text>{label}</text>");
+        var tooltip = new FluentTooltip(_libraryConfiguration, anchor: component.Id, $"<text>{label}</text>");
 
         TooltipService.Items.TryAdd(component.Id, tooltip);
         await TooltipService.OnUpdatedAsync.Invoke(tooltip);

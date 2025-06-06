@@ -14,6 +14,9 @@ public partial class FluentErrorBoundary : FluentComponentBase
 {
     private ErrorBoundary? ErrorBoundary;
 
+    /// <summary />
+    public FluentErrorBoundary(LibraryConfiguration configuration) : base(configuration) { }
+
     /// <summary>
     /// Gets or sets the icon displayed in the title bar to indicate an error state.
     /// </summary>

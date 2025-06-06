@@ -8,6 +8,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentProviders : FluentComponentBase
 {
     /// <summary />
+    public FluentProviders(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     internal string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-providers")
         .Build();

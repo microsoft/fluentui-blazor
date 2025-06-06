@@ -18,16 +18,9 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     private CachedServices? _cachedServices;
 
     /// <summary>
-    /// 
+    /// Initializes a new instance of the <see cref="FluentComponentBase"/> class with the specified configuration.
     /// </summary>
-    protected FluentComponentBase()
-    {
-        // TODO: To remove when all components will use the LibraryConfiguration constructor   
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <param name="configuration">The configuration object used to apply default values to the component.</param>
     protected FluentComponentBase(LibraryConfiguration configuration)
     {
         configuration?.DefaultValues.ApplyDefaults(this);

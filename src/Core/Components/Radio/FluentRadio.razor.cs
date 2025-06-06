@@ -19,7 +19,7 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     internal FluentRadioContext? Context { get; private set; }
 
     /// <summary />
-    public FluentRadio()
+    public FluentRadio(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

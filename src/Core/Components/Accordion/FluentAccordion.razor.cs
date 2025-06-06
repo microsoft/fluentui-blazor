@@ -22,7 +22,7 @@ public partial class FluentAccordion : FluentComponentBase
 
     /// <summary />
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(AccordionItemEventArgs))]
-    public FluentAccordion()
+    public FluentAccordion(LibraryConfiguration configuration) : base(configuration)
     {
 
     }

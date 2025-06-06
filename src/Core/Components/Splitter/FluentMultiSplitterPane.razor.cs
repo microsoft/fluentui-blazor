@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentMultiSplitterPane : FluentComponentBase
 {
     /// <summary />
-    public FluentMultiSplitterPane()
+    public FluentMultiSplitterPane(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

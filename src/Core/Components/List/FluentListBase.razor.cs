@@ -18,7 +18,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// <summary />
     [DynamicDependency(nameof(OnDropdownChangeHandlerAsync))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DropdownEventArgs))]
-    protected FluentListBase()
+    protected FluentListBase(LibraryConfiguration configuration) : base(configuration)
     {
         
     }

@@ -17,6 +17,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSplitButton : FluentComponentBase
 {
     /// <summary />
+    public FluentSplitButton(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 
