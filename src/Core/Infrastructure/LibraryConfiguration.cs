@@ -61,6 +61,11 @@ public class LibraryConfiguration
     public Func<string, string>? CollocatedJavaScriptQueryString { get; set; } = (url)
         => string.IsNullOrEmpty(AssemblyVersion) ? string.Empty : $"v={AssemblyVersion}";
 
+    /// <summary>
+    /// Gets or sets the default value for the <see cref="FluentCard.AreaRestricted"/> property.
+    /// </summary>
+    public bool DefaultFluentCardAreaRestricted { get; set; } = true;
+
     public LibraryConfiguration()
     {
     }
