@@ -6408,6 +6408,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.OptionComparer">
             <summary>
             Gets or sets the <see cref="T:System.Collections.Generic.IEqualityComparer`1"/> used to determine if an option is already added to the internal list.
+            ⚠️ Only available when Multiple = true.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Items">
