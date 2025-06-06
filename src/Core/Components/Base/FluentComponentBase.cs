@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -60,6 +61,17 @@ public abstract class FluentComponentBase : ComponentBase
     protected string? GetId()
     {
         return string.IsNullOrEmpty(Id) ? null : Id;
+    }
+
+    /// <summary>
+    /// Called when the component is initialized. Applies any externalized default values if they exist.
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        // Apply externalized default values first
+        FluentDefaultValuesService.ApplyDefaults(this);
+        
+        base.OnInitialized();
     }
 }
 
