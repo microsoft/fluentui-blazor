@@ -14,7 +14,7 @@ This package is for use in .NET 8 and 9 Blazor projects. If you are using **now 
 
 ## Introduction
 
-The `Microsoft.FluentUI.AspNetCore` family of packages provides a set of Razor components for [Blazor](https://blazor.net) applications, tools and utilities which are used to build applications that have a Fluent design (i.e. have the look and feel of modern Microsoft applications). 
+The `Microsoft.FluentUI.AspNetCore.*` family of packages provides a set of Razor components for building [Blazor](https://blazor.net) applications that leverage the Fluent Design System (i.e. have the look and feel of modern Microsoft applications). 
 
 Some of the components in the library are wrappers around Microsoft's official Fluent UI Web Components. Others are components that leverage the Fluent Design System or make it easier to work with Fluent. To get up and running with the library, see the **Getting Started** section below.
 
