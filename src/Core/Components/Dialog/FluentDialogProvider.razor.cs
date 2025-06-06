@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDialogProvider : FluentComponentBase
 {
     /// <summary />
-    public FluentDialogProvider()
+    public FluentDialogProvider(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

@@ -10,6 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
 public class CachedServicesTests : Bunit.TestContext
 {
+    public CachedServicesTests()
+    {
+        Services.AddScoped<LibraryConfiguration>();
+    }
+
     [Fact]
     public void CachedServices_GetCachedServiceOrNull()
     {

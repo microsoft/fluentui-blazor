@@ -22,7 +22,7 @@ public partial class FluentGrid : FluentComponentBase
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentGrid"/> class.
     /// </summary>
-    public FluentGrid()
+    public FluentGrid(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

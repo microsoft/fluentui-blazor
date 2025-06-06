@@ -13,6 +13,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCard : FluentComponentBase
 {
     /// <summary />
+    public FluentCard(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-card")
         .Build();

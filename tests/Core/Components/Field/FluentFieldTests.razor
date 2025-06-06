@@ -165,7 +165,7 @@
     public void FluentField_InvalidSlot()
     {
         // Call GetId for a standalone FluentField
-        var field1 = new FluentField();
+        var field1 = new FluentField(LibraryConfiguration.Empty);
         Assert.Throws<ArgumentException>(() =>
         {
             field1.GetId("Unknown");
@@ -173,7 +173,7 @@
 
         // Call GetId for a mixed FluentField
 #pragma warning disable BL0005  // Component parameter should not be set outside of its component.
-        var field2 = new FluentField()
+        var field2 = new FluentField(LibraryConfiguration.Empty)
         {
                 InputComponent = new FluentFieldParameterSelectorTests.MockFluentField()
         };

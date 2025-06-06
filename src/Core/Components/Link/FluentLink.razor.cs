@@ -13,6 +13,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentLink : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
+    public FluentLink(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

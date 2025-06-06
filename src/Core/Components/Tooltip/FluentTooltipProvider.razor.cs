@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTooltipProvider : FluentComponentBase
 {
     /// <summary />
-    public FluentTooltipProvider()
+    public FluentTooltipProvider(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

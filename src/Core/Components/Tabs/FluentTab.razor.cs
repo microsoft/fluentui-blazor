@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTab : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
-    public FluentTab()
+    public FluentTab(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

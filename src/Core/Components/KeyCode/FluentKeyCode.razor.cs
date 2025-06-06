@@ -18,6 +18,9 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
     private readonly KeyCode[] _Modifiers = [KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta];
 
     /// <summary />
+    public FluentKeyCode(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

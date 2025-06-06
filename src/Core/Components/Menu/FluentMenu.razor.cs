@@ -19,7 +19,7 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     /// Constructs a new instance of <see cref="FluentMenu"/>.
     /// Sets the Id to a new random value
     /// </summary>
-    public FluentMenu()
+    public FluentMenu(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

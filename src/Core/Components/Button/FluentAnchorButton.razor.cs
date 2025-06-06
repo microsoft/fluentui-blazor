@@ -14,6 +14,9 @@ public partial class FluentAnchorButton : FluentComponentBase, ITooltipComponent
     private bool EmptyContent => ChildContent is null && Label is null;
 
     /// <summary />
+    public FluentAnchorButton(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

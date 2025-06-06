@@ -15,6 +15,9 @@ public partial class FluentHighlighter : FluentComponentBase
     private string _regex = string.Empty;
 
     /// <summary />
+    public FluentHighlighter(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

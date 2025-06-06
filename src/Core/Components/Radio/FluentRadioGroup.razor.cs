@@ -25,7 +25,7 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
     object? IFluentRadioValueProvider.CurrentValue => CurrentValue;
 
     /// <summary />
-    public FluentRadioGroup()
+    public FluentRadioGroup(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

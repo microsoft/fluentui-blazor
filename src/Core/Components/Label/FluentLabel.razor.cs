@@ -11,6 +11,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentLabel : FluentComponentBase, ITooltipComponent
 {
+    /// <summary />
+    public FluentLabel(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
