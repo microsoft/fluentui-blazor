@@ -1,4 +1,7 @@
 .fluent-data-grid {
+    --fluent-data-grid-resize-handle-color: var(--accent-fill-rest);
+    --fluent-data-grid-resize-handle-width: 1px;
+    --fluent-data-grid-header-opacity: 0.5;
     width: auto;
     flex: 1;
     border-collapse: collapse;
@@ -68,15 +71,11 @@
     right: 0;
     left: unset;
     bottom: 0;
-    height: 32px;
+    height: 30px;
     cursor: col-resize;
-    margin-left: calc(var(--design-unit) * 2px);
-    width: calc(var(--design-unit) * 1px + 2px);
-}
-
-[dir=rtl] * ::deep .resize-handle {
-    left: 0;
-    right: unset;
+    width: 6px;
+    border-inline-end: var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color);
+    opacity: var(--fluent-data-grid-header-opacity);
 }
 
 .header {

@@ -7,17 +7,20 @@
         @Header
     </FluentHeader>
 
-    @SubHeader
+    <FluentStack Orientation="Orientation.Vertical" VerticalGap="0" Style="height: 100%;">
 
-    <FluentStack Orientation="Orientation.Horizontal" style="height:calc(100% - var(--header-height))" HorizontalGap="0">
-        @if (NavMenuContent != null)
-        {
-            <FluentNavMenu Width="@NavMenuWidth" Collapsible="true" Class="main-layout-navmenu" Title="@NavMenuTitle">
-                @NavMenuContent
-            </FluentNavMenu>
-        }
-        <FluentBodyContent>
-            @Body
-        </FluentBodyContent>
+        @SubHeader
+
+        <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="0" Style="height: 100%;">
+            @if (NavMenuContent != null)
+            {
+                <FluentNavMenu Width="@NavMenuWidth" Collapsible="true" Class="main-layout-navmenu" Title="@NavMenuTitle">
+                    @NavMenuContent
+                </FluentNavMenu>
+            }
+            <FluentBodyContent>
+                @Body
+            </FluentBodyContent>
+        </FluentStack>
     </FluentStack>
 </FluentLayout>

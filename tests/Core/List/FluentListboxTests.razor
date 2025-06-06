@@ -108,4 +108,32 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentListbox_SelectValueFromDifferentObjectInstances()
+    {
+        IEnumerable<Customer> SelectedItems = [new Customer(1, "Marvin Klein")];
+
+        List<Customer> Items = new List<Customer>
+        {
+            new Customer(1, "Marvin Klein"),
+            new Customer(2, "Alice Wonder"),
+            new Customer(3, "Vincent Baaji")
+        };
+
+        // Arrange
+        var cut = Render<FluentListbox<Customer>>(
+            @<FluentListbox @bind-SelectedOptions="SelectedItems"
+              Multiple="true"
+              Items="Items"
+              OptionComparer="CustomerComparer.Instance" />
+            );
+
+        // Click on the second FluentOption
+        var marvin = SelectedItems.First(i => i.Id == 1);
+        cut.Find($"fluent-option[value='{marvin}']").Click();
+
+        // Assert (no item selected)
+        Assert.Empty(SelectedItems);
+    }
 }

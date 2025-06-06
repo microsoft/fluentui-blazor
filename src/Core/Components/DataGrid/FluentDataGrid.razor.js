@@ -32,6 +32,9 @@ export function init(gridElement, autoFocus) {
         }
     }
     const keyDownHandler = event => {
+        if (document.activeElement.tagName.toLowerCase() != 'table' && document.activeElement.tagName.toLowerCase() != 'td' && document.activeElement.tagName.toLowerCase() != 'th') {
+            return;
+        }
         const columnOptionsElement = gridElement?.querySelector('.col-options');
         if (columnOptionsElement) {
             if (event.key === "Escape") {
@@ -64,7 +67,7 @@ export function init(gridElement, autoFocus) {
         }
 
         // check if start is a child of gridElement
-        if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start && document.activeElement.tagName.toLowerCase() !== 'fluent-text-field') {
+        if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start && document.activeElement.tagName.toLowerCase() !== 'fluent-text-field' && document.activeElement.tagName.toLowerCase() !== 'fluent-menu-item') {
             const idx = start.cellIndex;
 
             if (event.key === "ArrowUp") {
@@ -124,13 +127,13 @@ export function init(gridElement, autoFocus) {
 
     document.body.addEventListener('click', bodyClickHandler);
     document.body.addEventListener('mousedown', bodyClickHandler); // Otherwise it seems strange that it doesn't go away until you release the mouse button
-    document.body.addEventListener('keydown', keyDownHandler);
+    gridElement.addEventListener('keydown', keyDownHandler);
 
     return {
         stop: () => {
             document.body.removeEventListener('click', bodyClickHandler);
             document.body.removeEventListener('mousedown', bodyClickHandler);
-            document.body.removeEventListener('keydown', keyDownHandler);
+            gridElement.removeEventListener('keydown', keyDownHandler);
             delete grids[gridElement];
         }
     };
@@ -160,108 +163,157 @@ export function checkColumnPopupPosition(gridElement, selector) {
 
 export function enableColumnResizing(gridElement) {
     const columns = [];
-    let min = 75;
-    let headerBeingResized;
-    let resizeHandle;
-
     const headers = gridElement.querySelectorAll('.column-header.resizable');
 
     if (headers.length === 0) {
         return;
     }
 
-    headers.forEach(header => {
+    const isRTL = getComputedStyle(gridElement).direction === 'rtl';
+    const isGrid = gridElement.classList.contains('grid')
+
+    let tableHeight = gridElement.offsetHeight;
+    // rows have not been loaded yet, so we need to calculate the height
+    if (tableHeight < 70) {
+        // by getting the aria rowcount attribute
+        const rowCount = gridElement.getAttribute('aria-rowcount');
+        if (rowCount) {
+            const rowHeight = gridElement.querySelector('thead tr th').offsetHeight;
+            // and multiply by the itemsize (== height of the header cells)
+            tableHeight = rowCount * rowHeight;
+        }
+    }
+
+    headers.forEach((header) => {
         columns.push({
             header,
-            size: `minmax(${minWidth}px,auto)`,
+            size: `${header.clientWidth}px`,
         });
 
-        const onPointerMove = (e) => requestAnimationFrame(() => {
-            if (!headerBeingResized) {
-                return;
-            }
-            gridElement.style.tableLayout = "fixed";
-
-            const horizontalScrollOffset = document.documentElement.scrollLeft;
-            let width;
-
-            if (document.body.dir === '' || document.body.dir === 'ltr') {
-                width = (horizontalScrollOffset + e.clientX) - headerBeingResized.getClientRects()[0].x;
-            }
-            else {
-                width = headerBeingResized.getClientRects()[0].x + headerBeingResized.clientWidth - (horizontalScrollOffset + e.clientX);
-            }
-
-            const column = columns.find(({ header }) => header === headerBeingResized);
-            column.size = Math.max(minWidth, width) + 'px';
-
-            columns.forEach((column) => {
-                if (column.size.startsWith('minmax')) {
-                    column.size = parseInt(column.header.clientWidth, 10) + 'px';
-                }
-            });
-
-            gridElement.style.gridTemplateColumns = columns
-                .map(({ size }) => size)
-                .join(' ');
-        });
-
-        const onPointerUp = (e) => {
-
-            window.removeEventListener('pointermove', onPointerMove);
-            window.removeEventListener('pointerup', onPointerUp);
-            window.removeEventListener('pointercancel', onPointerUp);
-            window.removeEventListener('pointerleave', onPointerUp);
-
-            headerBeingResized.classList.remove('header-being-resized');
-            headerBeingResized = null;
-
-            if (e.target.hasPointerCapture(e.pointerId)) {
-                e.target.releasePointerCapture(e.pointerId);
-            }
-        };
-
-        const initResize = ({ target, pointerId }) => {
-            headerBeingResized = target.parentNode;
-            headerBeingResized.classList.add('header-being-resized');
-
-
-            window.addEventListener('pointermove', onPointerMove);
-            window.addEventListener('pointerup', onPointerUp);
-            window.addEventListener('pointercancel', onPointerUp);
-            window.addEventListener('pointerleave', onPointerUp);
-
-            if (resizeHandle) {
-                resizeHandle.setPointerCapture(pointerId);
-            }
-        };
-
-        header.querySelector('.resize-handle').addEventListener('pointerdown', initResize);
-
+        const div = createDiv(tableHeight, isRTL);
+        header.appendChild(div);
+        header.style.position = 'relative';
+        setListeners(div, isRTL);
     });
 
     let initialWidths;
     if (gridElement.style.gridTemplateColumns) {
         initialWidths = gridElement.style.gridTemplateColumns;
-    }
-    else {
-        initialWidths = columns
-            .map(({ header, size }) => size)
-            .join(' ');
+    } else {
+        initialWidths = columns.map(({ size }) => size).join(' ');
 
-        gridElement.style.gridTemplateColumns = initialWidths;
+        if (isGrid) {
+            gridElement.style.gridTemplateColumns = initialWidths;
+        }
     }
 
-    let id = gridElement.id;
+    const id = gridElement.id;
     grids.push({
         id,
         columns,
-        initialWidths
+        initialWidths,
     });
+
+    function setListeners(div, isRTL) {
+        let pageX, curCol, curColWidth;
+
+        div.addEventListener('pointerdown', function (e) {
+            curCol = e.target.parentElement;
+            pageX = e.pageX;
+
+            const padding = paddingDiff(curCol);
+
+            curColWidth = curCol.offsetWidth - padding;
+        });
+
+        div.addEventListener('pointerover', function (e) {
+            e.target.style.borderInlineEnd = 'var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color)';
+            e.target.previousElementSibling.style.visibility = 'hidden';
+        });
+
+        div.addEventListener('pointerup', removeBorder);
+        div.addEventListener('pointercancel', removeBorder);
+        div.addEventListener('pointerleave', removeBorder);
+
+        document.addEventListener('pointermove', (e) =>
+            requestAnimationFrame(() => {
+                gridElement.style.tableLayout = 'fixed';
+
+                if (curCol) {
+                    const diffX = isRTL ? pageX - e.pageX : e.pageX - pageX;
+                    const column = columns.find(({ header }) => header === curCol);
+
+                    column.size = parseInt(Math.max(minWidth, curColWidth + diffX), 10) + 'px';
+
+                    columns.forEach((col) => {
+                        if (col.size.startsWith('minmax')) {
+                            col.size = parseInt(col.header.clientWidth, 10) + 'px';
+                        }
+                    });
+
+                    if (isGrid) {
+                        gridElement.style.gridTemplateColumns = columns
+                            .map(({ size }) => size)
+                            .join(' ');
+                    }
+                    else {
+                        curCol.style.width = column.size;
+                    }
+                }
+            })
+        );
+
+        document.addEventListener('pointerup', function () {
+            curCol = undefined;
+            curColWidth = undefined;
+            pageX = undefined;
+        });
+    }
+
+    function createDiv(height, isRTL) {
+        const div = document.createElement('div');
+        div.style.top = '5px';
+        div.style.position = 'absolute';
+        div.style.cursor = 'col-resize';
+        div.style.userSelect = 'none';
+        div.style.height = height + 'px';
+        div.style.width = '6px';
+        div.style.opacity = 'var(--fluent-data-grid-header-opacity)'
+
+        if (isRTL) {
+            div.style.left = '0px';
+            div.style.right = 'unset';
+        } else {
+            div.style.left = 'unset';
+            div.style.right = '0px';
+        }
+        return div;
+    }
+
+    function paddingDiff(col) {
+        if (getStyleVal(col, 'box-sizing') === 'border-box') {
+            return 0;
+        }
+
+        const padLeft = getStyleVal(col, 'padding-left');
+        const padRight = getStyleVal(col, 'padding-right');
+        return parseInt(padLeft) + parseInt(padRight);
+    }
+
+    function getStyleVal(elm, css) {
+        return window.getComputedStyle(elm, null).getPropertyValue(css);
+    }
+
+    function removeBorder(e) {
+        e.target.style.borderInlineEnd = '';
+        e.target.previousElementSibling.style.visibility = 'visible';
+    }
 }
 
-export function resetColumnWidths(gridElement) {
 
+
+export function resetColumnWidths(gridElement) {
+    const isGrid = gridElement.classList.contains('grid');
     const grid = grids.find(({ id }) => id === gridElement.id);
     if (!grid) {
         return;
@@ -270,11 +322,19 @@ export function resetColumnWidths(gridElement) {
     const columnsWidths = grid.initialWidths.split(' ');
 
     grid.columns.forEach((column, index) => {
-        column.size = columnsWidths[index];
+        if (isGrid) {
+            column.size = columnsWidths[index];
+        } else {
+            column.header.style.width = columnsWidths[index];
+        }
     });
 
-    gridElement.style.gridTemplateColumns = grid.initialWidths;
-    gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
+    if (isGrid) {
+        gridElement.style.gridTemplateColumns = grid.initialWidths;
+    }
+    gridElement.dispatchEvent(
+        new CustomEvent('closecolumnresize', { bubbles: true })
+    );
     gridElement.focus();
 }
 
@@ -308,7 +368,7 @@ export function resizeColumnDiscrete(gridElement, column, change) {
         }
         else {
             if (column.size.startsWith('minmax')) {
-                    column.size = parseInt(column.header.clientWidth, 10) + 'px';
+                column.size = parseInt(column.header.clientWidth, 10) + 'px';
             }
         }
         columns.push(column.size);

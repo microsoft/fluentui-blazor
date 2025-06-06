@@ -81,15 +81,31 @@ builder.Services.AddFluentUIComponents(options =>
 **Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.
 The library automatically includes reboot through the templates.
 
-If you want to use **Reboot**, and your site is not created by using our templates, you'll need to add to your `app.razor`, `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
+If you want to use **Reboot**, and your site is not created by using our templates, you'll need to add to your `App.razor`, `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
 
 ```html    
-<link href="/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
+<link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
 ```
 
 It is entirely possible to build a site without using **Reboot**. Either remove or do not add to file and it will not be used by the components.
 
-_When creating a site that is hosted in a different base path,it might be necessary to remove the leading '/' from the stylesheet link._
+##### Reboot for IIS
+If you want to host your site on **IIS** and it is using a different base path, it is necessary to add manually the reboot css to your `App.razor`, `index.html` or `_Layout.cshtml` file.
+
+For .NET 9:
+```razor
+<link href="@Assets["_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css"]" rel="stylesheet" />
+```
+
+For .NET 8:
+```razor
+<link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
+```
+
+Also make sure to remove this line from `app.css`
+```css
+@import '_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+```
 
 ### Register Services
 Add the following in `Program.cs`

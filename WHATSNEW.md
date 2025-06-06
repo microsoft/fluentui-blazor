@@ -1,3 +1,39 @@
+## V4.12.0
+
+### General
+- \[General\] Use latest .NET SDKs (including .NET 10 preview 4)([#3789](https://github.com/microsoft/fluentui-blazor/pull/3789))
+
+### Components
+- \[AutoComplete\] Do not show previous/next when no option is selected ([#3780](https://github.com/microsoft/fluentui-blazor/pull/3780))
+- \[Autocomplete\] Fix active highlight size for single-select mode ([#3819](https://github.com/microsoft/fluentui-blazor/pull/3819))
+- \[AutoComplete\] Fix using different height for MaxAutoHeight (#3793) ([#3796](https://github.com/microsoft/fluentui-blazor/pull/3796))
+- \[DataGrid\] Add UseMenuService parameter to override menu behavior ([#3862](https://github.com/microsoft/fluentui-blazor/pull/3862))
+- \[DataGrid\] Make Select/Deselect all more robust ([#3866](https://github.com/microsoft/fluentui-blazor/pull/3866))
+- \[DataGrid\] Refine logic that determines if the DataGrid data needs to be reloaded ([#3864](https://github.com/microsoft/fluentui-blazor/pull/3864))
+- \[DataGrid\] Resize enhancements ([#3767](https://github.com/microsoft/fluentui-blazor/pull/3767))
+- \[DataGrid\] Tweak new resize behavior ([#3787](https://github.com/microsoft/fluentui-blazor/pull/3787))
+- \[DataGrid\] Use ColumnOptionsLabels.Icon in more places ([#3865](https://github.com/microsoft/fluentui-blazor/pull/3865))
+- \[DataGrid\] Add `HeaderCellTitleTemplate` to `ColumnBase` ([#3860](https://github.com/microsoft/fluentui-blazor/pull/3860))
+- \[DesignTheme\] Store selected color in GlobalState ([#3833](https://github.com/microsoft/fluentui-blazor/pull/3833))
+- \[Lists\] Do not set internal value when using multiple ([#3835](https://github.com/microsoft/fluentui-blazor/pull/3835))
+- \[MainLayout\] Remove double header reduction ([#3841](https://github.com/microsoft/fluentui-blazor/pull/3841))
+- \[MenuButton\] Pass through AdditionalAttributes ([#3798](https://github.com/microsoft/fluentui-blazor/pull/3798))
+- \[MenuProvider\] Pass through class and style from menu's. ([#3809](https://github.com/microsoft/fluentui-blazor/pull/3809))
+- \[MultiSplitter\] Remove position from panel CSS ([#3870](https://github.com/microsoft/fluentui-blazor/pull/3870))
+- \[SortableList\] Extend the CSS class with more predefined variables([#3877](https://github.com/microsoft/fluentui-blazor/pull/3877))
+- \[Tabs\] Make initialization logic more robust ([#3878](https://github.com/microsoft/fluentui-blazor/pull/3878))
+
+### Demo site and documentation
+- \[Docs\] Add docs about `FluentEditForm` ([#3832](https://github.com/microsoft/fluentui-blazor/pull/3832))
+- \[Docs\] Fix typo in InputFile documentation ([#3769](https://github.com/microsoft/fluentui-blazor/pull/3769))
+- \[Docs\] Fix typo in Card documentation ([#3839](https://github.com/microsoft/fluentui-blazor/pull/3839))
+- \[Docs\] Remove Autofocus to prevent scrolling in the docs (#3826) ([#3828](https://github.com/microsoft/fluentui-blazor/pull/3828))
+- \[Docs\] Update reboot section for IIS hosting workaround ([#3788](https://github.com/microsoft/fluentui-blazor/pull/3788))
+
+### Icons and Emoji
+  - Update to Fluent UI System Icons 1.1.302.
+    See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
+
 ## V4.11.9  
 
 ### General  
