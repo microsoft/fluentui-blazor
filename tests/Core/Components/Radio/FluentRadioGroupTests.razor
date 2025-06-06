@@ -249,7 +249,7 @@
     public void FluentRadioGroup_FindContext()
     {
         // Arrange
-        FluentRadioGroup<string> group = new FluentRadioGroup<string>();
+        FluentRadioGroup<string> group = new FluentRadioGroup<string>(LibraryConfiguration.Empty);
         var args = new ChangeEventArgs
         {
             Value = "option1"

@@ -261,6 +261,8 @@ public class ComponentBaseTests : Bunit.TestContext
     // Class used by the "ComponentBase_JsModule" test
     private class MyComponent : FluentGrid
     {
+        public MyComponent() : base(LibraryConfiguration.Empty) { }
+
         public const string JAVASCRIPT_FILENAME = "FluentGrid.razor.js";
         public IJSObjectReference GetJSModule() => base.JSModule.ObjectReference;
     }

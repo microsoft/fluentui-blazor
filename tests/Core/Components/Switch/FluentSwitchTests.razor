@@ -91,7 +91,7 @@
     public void FluentSwitch_TryParseValueFromString()
     {
         // Arrange
-        var fluentSwitch = new FluentSwitch();
+        var fluentSwitch = new FluentSwitch(LibraryConfiguration.Empty);
 
         // Act & Assert
         Assert.Throws<NotSupportedException>(() => fluentSwitch.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
