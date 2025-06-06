@@ -1,0 +1,67 @@
+﻿<FluentStack>
+    <div>
+        Without <code>OptionComparer</code>:
+        <FluentAutocomplete TOption="SimplePerson"
+                            Label="Users"
+                            Class="w-100"
+                            Placeholder="Name"
+                            OnOptionsSearch="@OnSearchUserAsync"
+                            OptionText="@(item => $"{item.Firstname} {item.Lastname}" )"
+                            @bind-SelectedOptions="Users1" />
+    </div>
+    <div>
+        With <code>OptionComparer</code>:
+        <FluentAutocomplete TOption="SimplePerson"
+                            Label="Users"
+                            Class="w-100"
+                            Placeholder="Name"
+                            OnOptionsSearch="@OnSearchUserAsync"
+                            OptionComparer="MyComparer.Instance"
+                            OptionText="@(item => $"{item.Firstname} {item.Lastname}" )"
+                            @bind-SelectedOptions="Users2" />
+    </div> 
+</FluentStack>
+@code {
+
+    public IEnumerable<SimplePerson> Users1 { get; set; } = [new SimplePerson { Firstname = "Marvin", Lastname = "Klein", Age = 28 }];
+    public IEnumerable<SimplePerson> Users2 { get; set; } = [new SimplePerson { Firstname = "Marvin", Lastname = "Klein", Age = 28 }];
+
+    private Task OnSearchUserAsync(OptionsSearchEventArgs<SimplePerson> e)
+    {
+        // Simulate new instances for every search. Typically you would retrieve these from a database or an API.
+        var results = new List<SimplePerson>
+        {
+            new SimplePerson { Firstname = "Alice", Lastname = "Wonder", Age = 31 },
+            new SimplePerson { Firstname = "Marvin", Lastname = "Klein", Age = 28 },
+            new SimplePerson { Firstname = "Vincent", Lastname = "Baaji", Age = 38 },
+        };
+
+        e.Items = results;
+
+        return Task.CompletedTask;
+    }
+
+    public class MyComparer : IEqualityComparer<SimplePerson>
+    {
+        public static readonly MyComparer Instance = new();
+
+        public bool Equals(SimplePerson? x, SimplePerson? y)
+        {
+            if (ReferenceEquals(x, y))
+            {
+                return true;
+            }
+
+            if (x is null || y is null)
+            {
+                return false;
+            }
+
+            return x.Firstname == y.Firstname &&
+                   x.Lastname == y.Lastname &&
+                   x.Age == y.Age;
+        }
+
+        public int GetHashCode(SimplePerson obj) => HashCode.Combine(obj.Firstname, obj.Lastname, obj.Age);
+    }
+}
