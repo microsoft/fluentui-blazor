@@ -3,106 +3,190 @@ import { StartedMode } from "../../d-ts/StartedMode";
 export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
   class FluentPopover extends HTMLElement {
+    private dialog: HTMLDialogElement;
+    private anchorEl: HTMLElement | null = null;
+    private triggerEl: HTMLElement | null = null;
+    private handleTriggerClick = this.showPopover.bind(this);
+    private handleOutsideClick = this.onOutsideClick.bind(this);
+    private lastAnchorRect: DOMRect | null = null;
+    private positionObserverInterval: number | null = null;
 
     static get observedAttributes() {
-      return ['anchor-id'];
-    }
-
-    //private _onResize: () => void;
-    private _anchorElement: HTMLElement | null = null;
-    private _triggerElement: HTMLElement | null = null;
-
-    /**
-     * Gets the dialog element within the shadow DOM.
-     */
-    private get dialog(): HTMLDialogElement | null {
-      if (!this.shadowRoot) {
-        console.error('FluentPopover: Shadow root is not initialized.');
-        return null;
-      }
-
-      return this.shadowRoot.querySelector('dialog');
+      return ['anchor-id', 'trigger-id'];
     }
 
     constructor() {
       super();
-      //this._onResize = this.handleResize.bind(this);
-      this.attachShadow({ mode: 'open' });
+      const shadow = this.attachShadow({ mode: 'open' });
+
+      const style = document.createElement('style');
+      style.textContent = `
+            .fluent-popover {
+                position: fixed;
+                padding: 0;
+                margin: 0;
+                border-radius: 8px;
+                border: 1px solid red;
+                background: transparent;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3)
+            }
+        `;
+      shadow.appendChild(style);
+
+      this.dialog = document.createElement('dialog');
+      this.dialog.classList.add('fluent-popover');
+
+      // Slot for user content
+      const slot = document.createElement('slot');
+      this.dialog.appendChild(slot);
+      shadow.appendChild(this.dialog);
     }
 
-    /**
-     * Initialize the popover component
-     */
     connectedCallback() {
-
-      const triggerButton = this._triggerElement ?? this._anchorElement;
-      console.log(`FluentPopover: connectedCallback called. Trigger element: ${triggerButton?.id ?? 'none'}`);
-      triggerButton?.addEventListener('click', this.handleAnchorClick);
-
-      //window.addEventListener('resize', this._onResize);
-      this.render();
+      this.updateReferences();
+      this.addTriggerListener();
+      window.addEventListener('scroll', this.handleWindowChange, true);
+      window.addEventListener('resize', this.handleWindowChange, true);
     }
 
-    /**
-     * Dispose of the popover component
-     */
     disconnectedCallback() {
-      const triggerButton = this._triggerElement ?? this._anchorElement;
-      triggerButton?.removeEventListener('click', this.handleAnchorClick);
-
-      //window.removeEventListener('resize', this._onResize);
+      this.removeTriggerListener();
+      this.removeOutsideClickListener();
+      window.removeEventListener('scroll', this.handleWindowChange, true);
+      window.removeEventListener('resize', this.handleWindowChange, true);
+      this.stopAnchorPositionObserver();
     }
 
-    /**
-     * Detect when an attribute changes
-     * @param attrName
-     * @param oldVal
-     * @param newVal
-     */
-    attributeChangedCallback(attrName: string, oldVal: string | null, newVal: string | null) {
-
-      console.log(`FluentPopover: attributeChangedCallback called for ${attrName} from ${oldVal} to ${newVal}`);
-
-      if (attrName === 'anchor-id' && newVal !== oldVal) {
-        this._anchorElement = document.getElementById(newVal ?? '');
-        console.log(document.getElementById(newVal ?? ''));
-        this.render();
-      }
-
-      if (attrName === 'trigger-id' && newVal !== oldVal) {
-        this._triggerElement = document.getElementById(newVal ?? '');
-        this.render();
-      }
-
-      console.log(`attributeChangedCallback ${this._anchorElement} - ${this._triggerElement}`);
-
-    }
-
-    private handleAnchorClick(event: MouseEvent): void {
-      if (this.dialog) {
-        console.log('FluentPopover: Anchor clicked. Showing dialog...');
-        this.dialog.show();
+    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+      if (oldValue !== newValue) {
+        this.updateReferences();
+        this.removeTriggerListener();
+        this.addTriggerListener();
       }
     }
 
-    private handleResize(): void {
-      console.log('Window resized. Updating anchor position...');
-      //this.updateAnchorPosition();
+    private updateReferences() {
+      const anchorId = this.getAttribute('anchor-id');
+      const triggerId = this.getAttribute('trigger-id');
+      this.anchorEl = anchorId ? document.getElementById(anchorId) : null;
+      this.triggerEl = triggerId ? document.getElementById(triggerId) : null;
     }
 
-    /**
-     * Render the popover component
-     * @returns
-     */
-    private render() {
-      if (!this.shadowRoot) return;
-
-      this.shadowRoot.innerHTML = `
-      <dialog >
-        ${this.innerHTML}
-      </dialog>
-    `;
+    private addTriggerListener() {
+      if (this.triggerEl) {
+        this.triggerEl.addEventListener('click', this.handleTriggerClick);
+      }
     }
+
+    private removeTriggerListener() {
+      if (this.triggerEl) {
+        this.triggerEl.removeEventListener('click', this.handleTriggerClick);
+      }
+    }
+
+    private handleWindowChange = () => {
+      if (this.dialog.open) {
+        this.adjustDialogPosition();
+      }
+    };
+
+    private startAnchorPositionObserver() {
+      this.stopAnchorPositionObserver();
+      this.positionObserverInterval = window.setInterval(() => {
+        if (this.dialog.open && this.anchorEl) {
+          const rect = this.anchorEl.getBoundingClientRect();
+          if (
+            !this.lastAnchorRect ||
+            rect.left !== this.lastAnchorRect.left ||
+            rect.top !== this.lastAnchorRect.top ||
+            rect.width !== this.lastAnchorRect.width ||
+            rect.height !== this.lastAnchorRect.height
+          ) {
+            this.adjustDialogPosition();
+            this.lastAnchorRect = rect;
+          }
+        }
+      }, 100);
+    }
+
+    private stopAnchorPositionObserver() {
+      if (this.positionObserverInterval !== null) {
+        clearInterval(this.positionObserverInterval);
+        this.positionObserverInterval = null;
+      }
+    }
+
+    public showPopover() {
+      if (!this.dialog || !this.anchorEl) return;
+
+      if (this.dialog.open) {
+        this.closePopover();
+      }
+
+      this.startAnchorPositionObserver();
+      this.adjustDialogPosition();
+      this.dialog.show();
+      setTimeout(() => this.addOutsideClickListener(), 0);
+    }
+
+    public closePopover() {
+      if (this.dialog.open) {
+        this.dialog.close();
+        this.stopAnchorPositionObserver();
+        this.removeOutsideClickListener();
+      }
+    }
+
+    private addOutsideClickListener() {
+      document.addEventListener('mousedown', this.handleOutsideClick);
+      document.addEventListener('touchstart', this.handleOutsideClick);
+    }
+
+    private removeOutsideClickListener() {
+      document.removeEventListener('mousedown', this.handleOutsideClick);
+      document.removeEventListener('touchstart', this.handleOutsideClick);
+    }
+
+    private onOutsideClick(event: MouseEvent | TouchEvent) {
+      if (this.dialog.open && !this.dialog.contains(event.target as Node) && event.target !== this.triggerEl) {
+        this.closePopover();
+      }
+    }
+
+    private adjustDialogPosition() {
+
+      if (this.anchorEl === null || this.dialog === null) return;
+
+      // Position dialog above the target
+      const positionDialogAbove = () => {
+        this.dialog.style.left = `${rect.left}px `;
+        this.dialog.style.top = `${rect.top - dialogHeight}px`;
+      }
+
+      // Position dialog below the target
+      const positionDialogBelow = () => {
+        this.dialog.style.left = `${rect.left}px`;
+        this.dialog.style.top = `${rect.bottom + 10}px`;
+      }
+
+      const rect = this.anchorEl.getBoundingClientRect();
+      const dialogHeight = this.dialog.offsetHeight + 10;
+      const spaceAbove = rect.top;
+      const spaceBelow = window.innerHeight - rect.bottom;
+
+      // Set the correct position
+      if (spaceBelow >= dialogHeight) {
+        positionDialogBelow();
+      }
+      else if (spaceAbove >= dialogHeight) {
+        positionDialogAbove();
+      }
+      else {
+        positionDialogBelow();  // Default
+      }
+
+    };
+
   }
 
   /**
