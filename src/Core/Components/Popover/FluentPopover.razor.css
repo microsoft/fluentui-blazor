@@ -1,0 +1,7 @@
+.fluent-popover {
+  position: fixed;
+  border-radius: 8px;
+  padding: 1em;
+  margin: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
