@@ -192,7 +192,6 @@ export function enableColumnResizing(gridElement) {
 
         const div = createDiv(tableHeight, isRTL);
         header.appendChild(div);
-        header.style.position = 'relative';
         setListeners(div, isRTL);
     });
 
