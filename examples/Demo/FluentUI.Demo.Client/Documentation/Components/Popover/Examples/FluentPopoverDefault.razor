@@ -1,3 +1,8 @@
 ﻿<div style="height: 300px"></div>
-<FluentButton Id="myButton">Click</FluentButton>
-<FluentPopover AnchorId="myButton">Example of content</FluentPopover>
+<FluentButton Id="myButton" OnClick="@(e => PopupOpened = true)">Click</FluentButton>
+<FluentPopover AnchorId="myButton" @bind-Opened="@PopupOpened">Example of content</FluentPopover>
+
+@code
+{
+    bool PopupOpened = false;
+}

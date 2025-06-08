@@ -32,5 +32,13 @@ public partial class FluentPopover : FluentComponentBase
 
     /// <summary />
     [Parameter]
+    public bool Opened { get; set; }
+
+    /// <summary />
+    [Parameter]
+    public EventCallback<bool> OpenedChanged { get; set; }
+
+    /// <summary />
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 }

@@ -13,6 +13,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     private lastAnchorRect: DOMRect | null = null;
     private positionObserverInterval: number | null = null;
 
+    // Add backing field for opened property
+    private _opened: boolean = false;
+
     static get observedAttributes() {
       return [
         'anchor-id',
@@ -20,7 +23,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         'offset-vertical',
         'offset-horizontal',
         'style',
-        'class'
+        'class',
+        'opened' // Add 'opened' to observed attributes
       ];
     }
 
@@ -40,6 +44,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
             :host dialog {
                 position: fixed;
                 margin: 0;
+                color: var(--colorNeutralForeground1);
                 background-color: var(--colorNeutralBackground1);
                 border: 1px solid var(--colorTransparentStroke);
                 border-radius: var(--borderRadiusMedium);
@@ -74,6 +79,28 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       window.removeEventListener('resize', this.handleWindowChange, true);
     }
 
+    // Getter and setter for the opened property
+    public get opened(): boolean {
+      return this._opened;
+    }
+
+    public set opened(value: boolean) {
+      if (this._opened !== value) {
+        this._opened = value;
+        this.setAttribute('opened', String(value));
+      }
+
+      if (value && !this.dialog.open) {
+        this.showPopover();
+        return;
+      }
+
+      if (!value && this.dialog.open) {
+        this.closePopover();
+        return;
+      }
+    }
+
     /* ****************/
     /* Attributes     */
     /* ****************/
@@ -95,6 +122,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
           if (this.dialog && this.hasAttribute('class')) {
             this.dialog.setAttribute('class', this.getAttribute('class')!);
           }
+        }
+
+        // Sync property if 'opened' attribute changes externally
+        if (name === 'opened') {
+          this.opened = newValue === 'true';
         }
       }
     }
@@ -133,10 +165,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       this.adjustDialogPosition();
       setTimeout(() => this.addEventsAfterOpening(), 0);
 
-      // Reflect opened attribute
-      if (!this.hasAttribute('opened')) {
-        this.setAttribute('opened', '');
-      }
+      // Reflect opened property and attribute
+      this.opened = true;
 
       // Dispatch event when shown
       this.dispatchOpenedEvent(true);
@@ -148,10 +178,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         this.stopAnchorPositionObserver();
         this.removeEventsAfterClosing();
 
-        // Remove opened attribute
-        if (this.hasAttribute('opened')) {
-          this.removeAttribute('opened');
-        }
+        // Reflect opened property and attribute
+        this.opened = false;
 
         // Dispatch event when closed
         this.dispatchOpenedEvent(false);
@@ -299,6 +327,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         positionDialogLeft();  // Default
       }
     };
+
   }
 
   /**

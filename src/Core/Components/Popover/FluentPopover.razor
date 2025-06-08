@@ -5,6 +5,7 @@
                   class="@ClassValue"
                   style="@StyleValue"
                   anchor-id="@AnchorId"
-                  trigger-id="@(TriggerId ?? AnchorId)">
+                  trigger-id="@(TriggerId ?? AnchorId)"
+                  opened="@(Opened ? "true" : "false")">
     @ChildContent
 </fluent-popover-b>
