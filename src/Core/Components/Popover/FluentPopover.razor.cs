@@ -2,8 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -11,10 +11,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentPopover : FluentComponentBase
 {
     /// <summary />
-    public FluentPopover(LibraryConfiguration configuration) : base(configuration)
-    {
-        Id = Identifier.NewId();
-    }
+    public FluentPopover(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("z-index", ZIndex.Popover.ToString(CultureInfo.InvariantCulture))
+        .Build();
 
     /// <summary />
     [Parameter]
@@ -24,21 +30,7 @@ public partial class FluentPopover : FluentComponentBase
     [Parameter]
     public string? TriggerId { get; set; }
 
-    ///// <summary />
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    if (firstRender)
-    //    {
-    //        var options = new
-    //        {
-    //            Id = Id,
-    //            AnchorId = AnchorId,
-    //            TriggerId = TriggerId ?? AnchorId,
-    //            DialogId = Id,
-    //            OffsetVertical = 10,
-    //        };
-
-    //        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Popover.Initialize", options);
-    //    }
-    //}
+    /// <summary />
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 }
