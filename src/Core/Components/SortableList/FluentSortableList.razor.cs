@@ -104,7 +104,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     public string? ListBorderWidth { get; set; }
 
     /// <summary>
-    /// Gets or sets the color of the border on the list items.
+    /// Gets or sets the color of the border on the list.
     /// </summary>
     [Parameter]
     public string? ListBorderColor { get; set; }
