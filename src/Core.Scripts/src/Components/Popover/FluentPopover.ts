@@ -179,7 +179,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     // Handles clicks outside the dialog to close it
     private onOutsideClick(event: MouseEvent | TouchEvent) {
-      if (this.dialog.open && !this.contains(event.target as Node)) {
+      if (this.dialog.open && !this.contains(event.target as Node) && !this.anchorEl?.contains(event.target as Node)) {
         this.closePopover();
       }
     }

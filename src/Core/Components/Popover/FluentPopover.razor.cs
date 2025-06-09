@@ -7,7 +7,9 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
+/// <summary>
+/// The FluentPopover component is used to displays content on top of other content.
+/// </summary>
 public partial class FluentPopover : FluentComponentBase
 {
     /// <summary />
