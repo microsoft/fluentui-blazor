@@ -8,6 +8,5 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="dist\" />
-    <Folder Include="src\Components\Popover\" />
   </ItemGroup>
 </Project>
