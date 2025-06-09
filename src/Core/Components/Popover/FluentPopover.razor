@@ -5,7 +5,9 @@
                   class="@ClassValue"
                   style="@StyleValue"
                   anchor-id="@AnchorId"
-                  trigger-id="@(TriggerId ?? AnchorId)"
-                  opened="@(Opened ? "true" : "false")">
+                  offset-vertical="@OffsetVertical"
+                  offset-horizontal="@OffsetHorizontal"
+                  opened="@(Opened ? "true" : "false")"
+                  @ondialogtoggle="@OnToggleAsync">
     @ChildContent
 </fluent-popover-b>

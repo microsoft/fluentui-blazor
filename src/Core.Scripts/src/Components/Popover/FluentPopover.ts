@@ -5,9 +5,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
   class FluentPopover extends HTMLElement {
     private anchorPositionObserverInterval: number = 100; // ms
     private dialog: HTMLDialogElement;
-    private anchorEl: HTMLElement | null = null;
-    private triggerEl: HTMLElement | null = null;
-    private handleTriggerClick = this.showPopover.bind(this);
     private handleOutsideClick = this.onOutsideClick.bind(this);
     private handleCloseKeydown = this.onCloseKeydown.bind(this);
     private lastAnchorRect: DOMRect | null = null;
@@ -15,18 +12,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     // Add backing field for opened property
     private _opened: boolean = false;
-
-    static get observedAttributes() {
-      return [
-        'anchor-id',
-        'trigger-id',
-        'offset-vertical',
-        'offset-horizontal',
-        'style',
-        'class',
-        'opened' // Add 'opened' to observed attributes
-      ];
-    }
 
     // Creates a new FluentPopover element.
     constructor() {
@@ -44,6 +29,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
             :host dialog {
                 position: fixed;
                 margin: 0;
+                z-index: 2000;
                 color: var(--colorNeutralForeground1);
                 background-color: var(--colorNeutralBackground1);
                 border: 1px solid var(--colorTransparentStroke);
@@ -64,15 +50,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     // Initializes the popover by setting up event listeners and updating references.
     connectedCallback() {
-      this.updateAttributeReferences();
-      this.addTriggerListener();
       window.addEventListener('scroll', this.handleWindowChange, true);
       window.addEventListener('resize', this.handleWindowChange, true);
     }
 
     // Disposes the popover by removing event listeners and stopping observers.
     disconnectedCallback() {
-      this.removeTriggerListener();
       this.removeEventsAfterClosing();
       this.stopAnchorPositionObserver();
       window.removeEventListener('scroll', this.handleWindowChange, true);
@@ -105,12 +88,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     /* Attributes     */
     /* ****************/
 
+    static get observedAttributes() { return ['style', 'class', 'opened']; }
+
     // Handles attribute changes to update references and listeners.
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
       if (oldValue !== newValue) {
-        this.updateAttributeReferences();
-        this.removeTriggerListener();
-        this.addTriggerListener();
 
         if (name === 'style') {
           if (this.dialog && this.hasAttribute('style')) {
@@ -131,12 +113,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       }
     }
 
-    // Updates the references to the anchor and trigger elements based on their IDs.
-    private updateAttributeReferences() {
+    private get anchorEl(): HTMLElement | null {
       const anchorId = this.getAttribute('anchor-id');
-      const triggerId = this.getAttribute('trigger-id');
-      this.anchorEl = anchorId ? document.getElementById(anchorId) : null;
-      this.triggerEl = triggerId ? document.getElementById(triggerId) : null;
+      return anchorId ? document.getElementById(anchorId) : null;
     }
 
     private get offsetVertical(): number {
@@ -188,8 +167,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     // Dispatch event when opened or closed
     private dispatchOpenedEvent(opened: boolean) {
-      this.dispatchEvent(new CustomEvent('ontoggle', {
-        detail: { open: opened },
+      this.dispatchEvent(new CustomEvent('toggle', {
+        detail: {
+          oldState: opened ? 'closed' : 'open',
+          newState: opened ? 'open' : 'closed',
+        },
         bubbles: true,
         composed: true
       }));
@@ -197,7 +179,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     // Handles clicks outside the dialog to close it
     private onOutsideClick(event: MouseEvent | TouchEvent) {
-      if (this.dialog.open && !this.dialog.contains(event.target as Node) && event.target !== this.triggerEl) {
+      if (this.dialog.open && !this.contains(event.target as Node)) {
         this.closePopover();
       }
     }
@@ -212,18 +194,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     /* ****************/
     /* Event Handlers */
     /* ****************/
-
-    private addTriggerListener() {
-      if (this.triggerEl) {
-        this.triggerEl.addEventListener('click', this.handleTriggerClick);
-      }
-    }
-
-    private removeTriggerListener() {
-      if (this.triggerEl) {
-        this.triggerEl.removeEventListener('click', this.handleTriggerClick);
-      }
-    }
 
     private addEventsAfterOpening() {
       document.addEventListener('mousedown', this.handleOutsideClick);
@@ -327,7 +297,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         positionDialogLeft();  // Default
       }
     };
-
   }
 
   /**

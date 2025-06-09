@@ -28,9 +28,4 @@ public static class ZIndex
     /// ZIndex for the <see cref="FluentInputFile" /> component.
     /// </summary>
     public static int InputFileDropZone { get; set; } = 990;
-
-    /// <summary>
-    /// ZIndex for the <see cref="FluentPopover" /> component.
-    /// </summary>
-    public static int Popover { get; set; } = 2000;
 }
