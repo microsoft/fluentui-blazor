@@ -8,6 +8,7 @@
                   offset-vertical="@OffsetVertical"
                   offset-horizontal="@OffsetHorizontal"
                   opened="@(Opened ? "true" : "false")"
+                  @attributes="@AdditionalAttributes"
                   @ondialogtoggle="@OnToggleAsync">
     @ChildContent
 </fluent-popover-b>
