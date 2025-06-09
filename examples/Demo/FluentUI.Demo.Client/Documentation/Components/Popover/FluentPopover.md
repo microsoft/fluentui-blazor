@@ -29,6 +29,8 @@ This parameter is bindable, so you can control the visibility of the **FluentPop
 
 You can add extra spaces between the **FluentPopover** and the **Anchor** component using the `OffsetVertical` and `OffsetHorizontal` parameters.
 
+Pressing the `Escape` key will close the **FluentPopover** if it is open.
+
 ## Example
 
 {{ FluentPopoverDefault }}
@@ -41,6 +43,10 @@ But keep in mind that nesting popovers can lead to a confusing user experience i
  - Don't use Popovers to display too much content, consider if that content should be on the main page.
 
 {{ FluentPopoverNested }}
+
+## Limitations
+
+⚠️ The **FluentPopover** component does not yet support the `RTL` (Right-To-Left) layout.
 
 ## API FluentDivider
 
