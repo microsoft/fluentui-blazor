@@ -17,7 +17,7 @@ This parameter is bindable, so you can control the visibility of the **FluentPop
 ```razor
 <FluentButton Id="MyButton" OnClick="@(e => IsOpened = !IsOpened)">Click</FluentButton>
 
-<FluentPopover AnchorId="MyButton" @bind-Opened="@LeftOpened">
+<FluentPopover AnchorId="MyButton" @bind-Opened="@IsOpened">
     Content of the Popover
 </FluentPopover>
 
