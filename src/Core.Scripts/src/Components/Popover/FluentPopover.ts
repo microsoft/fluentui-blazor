@@ -52,7 +52,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     // Initializes the popover by setting up event listeners and updating references.
     connectedCallback() {
-      console.log('connectedCallback', this);
       window.addEventListener('scroll', this.handleWindowChange, true);
       window.addEventListener('resize', this.handleWindowChange, true);
     }
@@ -66,7 +65,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     }
 
     private get dialogIsOpen(): boolean {
-      console.log('dialogIsOpen', this.dialog.matches(':popover-open'));
       return this.dialog.matches(':popover-open');
     }
 
