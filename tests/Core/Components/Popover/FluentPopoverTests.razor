@@ -14,12 +14,85 @@
     public void FluentPopover_Default()
     {
         // Arrange
-        var cut = Render(@<div>
+        var cut = Render(@<FluentStack>
             <FluentButton Id="MyButton">Click</FluentButton>
             <FluentPopover AnchorId="MyButton">Popover Content</FluentPopover>
-        </div>);
+        </FluentStack>
+    );
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPopover_Open()
+    {
+        bool Opened = false;
+
+        // Arrange
+        var cut = Render(@<FluentStack>
+            <FluentButton Id="MyButton" OnClick="@(e => Opened = !Opened)">Click</FluentButton>
+            <FluentPopover AnchorId="MyButton" @bind-Opened="@Opened">Popover Content</FluentPopover>
+        </FluentStack>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+        cut.FindComponent<FluentStack>().Render();
+
+        // Assert
+        Assert.Contains("opened=\"true\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentPopover_Offset()
+    {
+        // Arrange
+        var cut = Render(@<FluentPopover AnchorId="MyButton" OffsetHorizontal="5" OffsetVertical="10">Popover Content</FluentPopover>);
+
+        // Assert
+        Assert.Contains("offset-horizontal=\"5\"", cut.Markup);
+        Assert.Contains("offset-vertical=\"10\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentPopover_Width()
+    {
+        // Arrange
+        var cut = Render(@<FluentPopover AnchorId="MyButton" Width="200px">Popover Content</FluentPopover>);
+
+        // Assert
+        Assert.Contains("style=\"width: 200px;\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentPopover_Height()
+    {
+        // Arrange
+        var cut = Render(@<FluentPopover AnchorId="MyButton" Height="100px">Popover Content</FluentPopover>);
+
+        // Assert
+        Assert.Contains("style=\"height: 100px;\"", cut.Markup);
+    }
+
+    [Theory]
+    [InlineData("MyPopover", "open", true)]
+    [InlineData("MyPopover", "closed", false)]
+    [InlineData("InvalidPopover", "open", false)]
+    public async Task FluentPopover_Toggle(string id, string newState, bool expectedOpened)
+    {
+        bool Opened = false;
+
+        // Arrange
+        var cut = Render(@<FluentPopover Id="MyPopover" AnchorId="MyButton" @bind-Opened="@Opened">Popover Content</FluentPopover>);
+
+        // Act
+        await cut.FindComponent<FluentPopover>().Instance.OnToggleAsync(new DialogToggleEventArgs()
+        {
+            Id = id,
+            NewState = newState
+        });
+
+        // Assert
+        Assert.Equal(expectedOpened, Opened);
     }
 }

@@ -47,13 +47,13 @@ public partial class FluentPopover : FluentComponentBase
     public string? Height { get; set; }
 
     /// <summary>
-    /// Gets or sets the vertical offset value between the popover and the anchor element.
+    /// Gets or sets the vertical offset value (pixels) between the popover and the anchor element.
     /// </summary>
     [Parameter]
     public int OffsetVertical { get; set; }
 
     /// <summary>
-    /// Gets or sets the horizontal offset value between the popover and the anchor element.
+    /// Gets or sets the horizontal offset value (pixels) between the popover and the anchor element.
     /// </summary>
     [Parameter]
     public int OffsetHorizontal { get; set; }

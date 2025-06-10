@@ -5,8 +5,8 @@
                   class="@ClassValue"
                   style="@StyleValue"
                   anchor-id="@AnchorId"
-                  offset-vertical="@OffsetVertical"
-                  offset-horizontal="@OffsetHorizontal"
+                  offset-vertical="@(OffsetVertical != 0 ? OffsetVertical : null)"
+                  offset-horizontal="@(OffsetHorizontal != 0 ? OffsetHorizontal : null)"
                   opened="@(Opened ? "true" : "false")"
                   @attributes="@AdditionalAttributes"
                   @ondialogtoggle="@OnToggleAsync">
