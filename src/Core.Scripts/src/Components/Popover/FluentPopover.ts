@@ -4,7 +4,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
   class FluentPopover extends HTMLElement {
     private anchorPositionObserverInterval: number = 100; // ms
-    private dialog: HTMLDialogElement;
+    private dialog: PopoverElement;
     private handleOutsideClick = this.onOutsideClick.bind(this);
     private handleCloseKeydown = this.onCloseKeydown.bind(this);
     private lastAnchorRect: DOMRect | null = null;
@@ -20,13 +20,15 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       const shadow = this.attachShadow({ mode: 'open' });
 
       // Create the dialog element
-      this.dialog = document.createElement('dialog');
-      this.dialog.part = 'dialog';    // To allow styling using `fluent-popover-b::part(dialog)`
+      this.dialog = document.createElement('div') as PopoverElement;
+      this.dialog.setAttribute('fuib', '');
+      this.dialog.setAttribute('popover', '');
+      this.dialog.setAttribute('part', 'dialog');    // To allow styling using `fluent-popover-b::part(dialog)`
 
       // Set initial styles for the dialog
       const sheet = new CSSStyleSheet();
       sheet.replaceSync(`
-            :host dialog {
+            :host div[fuib][popover] {
                 position: fixed;
                 margin: 0;
                 z-index: 2000;
@@ -50,6 +52,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     // Initializes the popover by setting up event listeners and updating references.
     connectedCallback() {
+      console.log('connectedCallback', this);
       window.addEventListener('scroll', this.handleWindowChange, true);
       window.addEventListener('resize', this.handleWindowChange, true);
     }
@@ -60,6 +63,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       this.stopAnchorPositionObserver();
       window.removeEventListener('scroll', this.handleWindowChange, true);
       window.removeEventListener('resize', this.handleWindowChange, true);
+    }
+
+    private get dialogIsOpen(): boolean {
+      console.log('dialogIsOpen', this.dialog.matches(':popover-open'));
+      return this.dialog.matches(':popover-open');
     }
 
     // Getter and setter for the opened property
@@ -73,12 +81,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         this.setAttribute('opened', String(value));
       }
 
-      if (value && !this.dialog.open) {
+      if (value && !this.dialogIsOpen) {
         this.showPopover();
         return;
       }
 
-      if (!value && this.dialog.open) {
+      if (!value && this.dialogIsOpen) {
         this.closePopover();
         return;
       }
@@ -135,12 +143,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     public showPopover() {
       if (!this.dialog || !this.anchorEl) return;
 
-      if (this.dialog.open) {
+      if (this.dialogIsOpen) {
         this.closePopover();
       }
 
       this.startAnchorPositionObserver();
-      this.dialog.show();
+      this.dialog.showPopover();
       this.adjustDialogPosition();
       setTimeout(() => this.addEventsAfterOpening(), 0);
 
@@ -152,8 +160,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     }
 
     public closePopover() {
-      if (this.dialog.open) {
-        this.dialog.close();
+      if (this.dialogIsOpen) {
+        this.dialog.hidePopover();
         this.stopAnchorPositionObserver();
         this.removeEventsAfterClosing();
 
@@ -179,16 +187,19 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     // Handles clicks outside the dialog to close it
     private onOutsideClick(event: MouseEvent | TouchEvent) {
-      if (this.dialog.open && !this.contains(event.target as Node) && !this.anchorEl?.contains(event.target as Node)) {
+      if (this.dialogIsOpen && !this.contains(event.target as Node) && !this.anchorEl?.contains(event.target as Node)) {
         this.closePopover();
       }
     }
 
     // Handles the keydown to close it
     private onCloseKeydown(event: KeyboardEvent) {
-      if (event.key === 'Escape' && this.dialog.open) {
-        this.closePopover();
-      }
+      // ESCAPE is already handled by the Popover component
+      // Add other key handling logic here if needed
+
+      // if (event.key === 'Escape' && this.dialogIsOpen) {
+      //     this.closePopover();
+      // }
     }
 
     /* ****************/
@@ -212,7 +223,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     /* ****************************************************** */
 
     private handleWindowChange = () => {
-      if (this.dialog.open) {
+      if (this.dialogIsOpen) {
         this.adjustDialogPosition();
       }
     };
@@ -220,7 +231,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     private startAnchorPositionObserver() {
       this.stopAnchorPositionObserver();
       this.positionObserverInterval = window.setInterval(() => {
-        if (this.dialog.open && this.anchorEl) {
+        if (this.dialogIsOpen && this.anchorEl) {
           const rect = this.anchorEl.getBoundingClientRect();
           if (
             !this.lastAnchorRect ||
@@ -297,6 +308,14 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         positionDialogLeft();  // Default
       }
     };
+  }
+
+  // TypeScript doesn't recognize showPopover() as a valid method on a standard HTMLDivElement.
+  // This method is part of the https://developer.mozilla.org/en-US/docs/Web/API/Popover_API, which is relatively new
+  // and not yet included in all TypeScript DOM type definitions.
+  interface PopoverElement extends HTMLDivElement {
+    showPopover: () => void;
+    hidePopover: () => void;
   }
 
   /**

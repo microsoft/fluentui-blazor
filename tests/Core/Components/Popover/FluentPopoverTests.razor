@@ -1,0 +1,25 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits Bunit.TestContext
+@code
+{
+    public FluentPopoverTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentPopover_Default()
+    {
+        // Arrange
+        var cut = Render(@<div>
+            <FluentButton Id="MyButton">Click</FluentButton>
+            <FluentPopover AnchorId="MyButton">Popover Content</FluentPopover>
+        </div>);
+
+        // Assert
+        cut.Verify();
+    }
+}
