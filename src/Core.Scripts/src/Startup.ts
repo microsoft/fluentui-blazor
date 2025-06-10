@@ -2,6 +2,7 @@ import { Microsoft as LoggerFile } from './Utilities/Logger';
 import { Microsoft as ThemeFile } from './Utilities/Theme';
 import { Microsoft as FluentUIComponentsFile } from './FluentUIWebComponents';
 import { Microsoft as FluentPageScriptFile } from './Components/PageScript/FluentPageScript';
+import { Microsoft as FluentPopoverFile } from './Components/Popover/FluentPopover';
 import { Microsoft as FluentUIStylesFile } from './FluentUIStyles';
 import { Microsoft as FluentUICustomEventsFile } from './FluentUICustomEvents';
 import { StartedMode } from './d-ts/StartedMode';
@@ -12,6 +13,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
   import Logger = LoggerFile.FluentUI.Blazor.Utilities.Logger;
   import FluentUIComponents = FluentUIComponentsFile.FluentUI.Blazor.FluentUIWebComponents;
   import FluentPageScript = FluentPageScriptFile.FluentUI.Blazor.Components.PageScript;
+  import FluentPopover = FluentPopoverFile.FluentUI.Blazor.Components.Popover;
   import FluentUIStyles = FluentUIStylesFile.FluentUI.Blazor.FluentUIStyles;
   import FluentUICustomEvents = FluentUICustomEventsFile.FluentUI.Blazor.FluentUICustomEvents;
 
@@ -54,6 +56,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
 
     // Initialize all custom components
     FluentPageScript.registerComponent(blazor, mode);
+    FluentPopover.registerComponent(blazor, mode);
     // [^^^ Add your other custom components before this line ^^^]
 
     // Register all custom events
