@@ -9039,7 +9039,67 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Fallback">
             <summary>
-            Gets or sets wether ro ignore the HTML5 DnD behaviour and force the fallback to kick in
+            Gets or sets wether to ignore the HTML5 DnD behaviour and force the fallback to kick in
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListItemFilteredColor">
+            <summary>
+            Gets or sets the color of filtered list items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListBorderWidth">
+            <summary>
+            Gets or sets the border width on the list. Must be a valid CSS measurement.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListBorderColor">
+            <summary>
+            Gets or sets the color of the border on the list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListPadding">
+            <summary>
+            Gets or sets the padding on the list. Must be a valid CSS measurement.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListItemBackgroundColor">
+            <summary>
+            Gets or sets the background color of the list items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListItemHeight">
+            <summary>
+            Gets or sets the height of the list items. Must be a valid CSS measurement.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListItemBorderWidth">
+            <summary>
+            Gets or sets the border width on the list items. Must be a valid CSS measurement.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListItemBorderColor">
+            <summary>
+            Gets or sets the border color of the list items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListItemDropBorderColor">
+            <summary>
+            Gets or sets the border color of the list items during repositioning.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListItemDropColor">
+            <summary>
+            Gets or sets the background color of the list items during repositioning.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListItemPadding">
+            <summary>
+            Gets or sets the padding on the list items. Must be a valid CSS measurement.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ListItemSpacing">
+            <summary>
+            Gets or sets the spacing between list items. Must be a valid CSS measurement.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableListEventArgs.OldIndex">

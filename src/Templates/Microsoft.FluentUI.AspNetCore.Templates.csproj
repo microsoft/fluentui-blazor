@@ -24,10 +24,10 @@
 
 	<PropertyGroup>
 		<!-- for templates -->
-		<AspirePackageVersion>9.0.0</AspirePackageVersion>
-		<MicrosoftExtensionsHttpResiliencePackageVersion>9.0.3</MicrosoftExtensionsHttpResiliencePackageVersion>
+		<AspirePackageVersion>9.3.0</AspirePackageVersion>
+		<MicrosoftExtensionsHttpResiliencePackageVersion>9.0.5</MicrosoftExtensionsHttpResiliencePackageVersion>
 		<MicrosoftAspNetCorePackageVersionForNet8>8.0.14</MicrosoftAspNetCorePackageVersionForNet8>
-		<MicrosoftAspNetCorePackageVersionForNet9>9.0.3</MicrosoftAspNetCorePackageVersionForNet9>
+		<MicrosoftAspNetCorePackageVersionForNet9>9.0.5</MicrosoftAspNetCorePackageVersionForNet9>
 
 	</PropertyGroup>
 
