@@ -189,7 +189,7 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
     if (!resizeColumnOnAllRows) {
         // Only use the header height when resizeColumnOnAllRows is false
         // Use the first header's height if available
-        resizeHandleHeight = headers.length > 0 ? headers[0].offsetHeight : 40; // fallback to 40px if no headers
+        resizeHandleHeight = headers.length > 0 ? (headers[0].offsetHeight - 14 ): 30; // fallback to 30px if no headers
     }
 
     headers.forEach((header) => {
@@ -198,6 +198,11 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
             size: `${header.clientWidth}px`,
         });
 
+        // remove any previously created divs
+        const resizedivs  = header.querySelectorAll(".actual-resize-handle");
+        resizedivs.forEach(div => div.remove());
+
+        // add a new resize div
         const div = createDiv(resizeHandleHeight, isRTL);
         header.appendChild(div);
         setListeners(div, isRTL);
@@ -279,6 +284,7 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
 
     function createDiv(height, isRTL) {
         const div = document.createElement('div');
+        div.className = "actual-resize-handle";
         div.style.top = '5px';
         div.style.position = 'absolute';
         div.style.cursor = 'col-resize';
