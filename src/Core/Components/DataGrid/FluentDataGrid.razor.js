@@ -188,8 +188,8 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
     let resizeHandleHeight = tableHeight;
     if (!resizeColumnOnAllRows) {
         // Only use the header height when resizeColumnOnAllRows is false
-        const headerRow = gridElement.querySelector('thead tr th');
-        resizeHandleHeight = headerRow ? headerRow.offsetHeight : 40; // fallback to 40px if header not found
+        // Use the first header's height if available
+        resizeHandleHeight = headers.length > 0 ? headers[0].offsetHeight : 40; // fallback to 40px if no headers
     }
 
     headers.forEach((header) => {
