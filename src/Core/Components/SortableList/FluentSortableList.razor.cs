@@ -86,17 +86,101 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     public Func<TItem, bool>? ItemFilter { get; set; }
 
     /// <summary>
-    /// Gets or sets wether ro ignore the HTML5 DnD behaviour and force the fallback to kick in
+    /// Gets or sets wether to ignore the HTML5 DnD behaviour and force the fallback to kick in
     /// </summary>
     [Parameter]
     public bool Fallback { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the color of filtered list items.
+    /// </summary>
+    [Parameter]
+    public string? ListItemFilteredColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the border width on the list. Must be a valid CSS measurement.
+    /// </summary>
+    [Parameter]
+    public string? ListBorderWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets the color of the border on the list.
+    /// </summary>
+    [Parameter]
+    public string? ListBorderColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the padding on the list. Must be a valid CSS measurement.
+    /// </summary>
+    [Parameter]
+    public string? ListPadding { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color of the list items.
+    /// </summary>
+    [Parameter]
+    public string? ListItemBackgroundColor {get; set;}
+
+    /// <summary>
+    /// Gets or sets the height of the list items. Must be a valid CSS measurement.
+    /// </summary>
+    [Parameter]
+    public string? ListItemHeight { get; set; }
+
+    /// <summary>
+    /// Gets or sets the border width on the list items. Must be a valid CSS measurement.
+    /// </summary>
+    [Parameter]
+    public string? ListItemBorderWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets the border color of the list items.
+    /// </summary>
+    [Parameter]
+    public string? ListItemBorderColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the border color of the list items during repositioning.
+    /// </summary>
+    [Parameter]
+    public string? ListItemDropBorderColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color of the list items during repositioning.
+    /// </summary>
+    [Parameter]
+    public string? ListItemDropColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the padding on the list items. Must be a valid CSS measurement.
+    /// </summary>
+    [Parameter]
+    public string? ListItemPadding { get; set; }
+
+    /// <summary>
+    /// Gets or sets the spacing between list items. Must be a valid CSS measurement.
+    /// </summary>
+    [Parameter]
+    public string? ListItemSpacing { get; set; }
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-sortable-list")
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
-        .Build();
+    .AddStyle("--fluent-sortable-list-filtered", ListItemFilteredColor, !string.IsNullOrEmpty(ListItemFilteredColor))
+    .AddStyle("--fluent-sortable-list-border-width", ListBorderWidth, !string.IsNullOrEmpty(ListBorderWidth))
+    .AddStyle("--fluent-sortable-list-border-color", ListBorderColor, !string.IsNullOrEmpty(ListBorderColor))
+    .AddStyle("--fluent-sortable-list-padding", ListPadding, !string.IsNullOrEmpty(ListPadding))
+    .AddStyle("--fluent-sortable-list-background-color", ListItemBackgroundColor, !string.IsNullOrEmpty(ListItemBackgroundColor))
+    .AddStyle("--fluent-sortable-list-item-height", ListItemHeight, !string.IsNullOrEmpty(ListItemHeight))
+    .AddStyle("--fluent-sortable-list-item-border-width", ListItemBorderWidth, !string.IsNullOrEmpty(ListItemBorderWidth))
+    .AddStyle("--fluent-sortable-list-item-border-color", ListItemBorderColor, !string.IsNullOrEmpty(ListItemBorderColor))
+    .AddStyle("--fluent-sortable-list-item-drop-border-color", ListItemDropBorderColor, !string.IsNullOrEmpty(ListItemDropBorderColor))
+    .AddStyle("--fluent-sortable-list-item-drop-color", ListItemDropColor, !string.IsNullOrEmpty(ListItemDropColor))
+    .AddStyle("--fluent-sortable-list-item-padding", ListItemPadding, !string.IsNullOrEmpty(ListItemPadding))
+    .AddStyle("--fluent-sortable-list-item-spacing", ListItemSpacing, !string.IsNullOrEmpty(ListItemSpacing))
+    .Build();
 
     private string Filter => Items.Any(GetItemFiltered) ? ".filtered" : string.Empty;
 
