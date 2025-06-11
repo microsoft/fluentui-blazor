@@ -2,33 +2,33 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <RuntimeVersion8>8.0.0</RuntimeVersion8>
-    <AspNetCoreVersion8>8.0.16</AspNetCoreVersion8>
-    <EfCoreVersion8>8.0.16</EfCoreVersion8>
-    <RuntimeVersion9>9.0.5</RuntimeVersion9>
-    <AspNetCoreVersion9>9.0.5</AspNetCoreVersion9>
-    <EfCoreVersion9>9.0.5</EfCoreVersion9>
-    <RuntimeVersion10>10.0.0-preview.4.25258.110</RuntimeVersion10>
-    <AspNetCoreVersion10>10.0.0-preview.4.25258.110</AspNetCoreVersion10>
-    <EfCoreVersion10>10.0.0-preview.4.25258.110</EfCoreVersion10>
+    <AspNetCoreVersion8>8.0.17</AspNetCoreVersion8>
+    <EfCoreVersion8>8.0.17</EfCoreVersion8>
+    <RuntimeVersion9>9.0.6</RuntimeVersion9>
+    <AspNetCoreVersion9>9.0.6</AspNetCoreVersion9>
+    <EfCoreVersion9>9.0.6</EfCoreVersion9>
+    <RuntimeVersion10>10.0.0-preview.5.25277.114</RuntimeVersion10>
+    <AspNetCoreVersion10>10.0.0-preview.5.25277.114</AspNetCoreVersion10>
+    <EfCoreVersion10>10.0.0-preview.5.25277.114</EfCoreVersion10>
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.11.9" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.11.9" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.12.0" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.11.9" />
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="1.38.5" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.0" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <!-- Shared dependencies -->
     <PackageVersion Include="Markdig.Signed" Version="0.41.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
     <PackageVersion Include="Microsoft.OData.Client" Version="8.2.3" />
-    <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.13.61" />
+    <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15" />
     <PackageVersion Include="Microsoft.VisualStudioEng.MicroBuild.Core" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
