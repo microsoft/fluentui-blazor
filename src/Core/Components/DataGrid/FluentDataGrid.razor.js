@@ -161,7 +161,7 @@ export function checkColumnPopupPosition(gridElement, selector) {
     }
 }
 
-export function enableColumnResizing(gridElement) {
+export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) {
     const columns = [];
     const headers = gridElement.querySelectorAll('.column-header.resizable');
 
@@ -184,13 +184,21 @@ export function enableColumnResizing(gridElement) {
         }
     }
 
+    // Determine the height based on the resizeColumnOnAllRows parameter
+    let resizeHandleHeight = tableHeight;
+    if (!resizeColumnOnAllRows) {
+        // Only use the header height when resizeColumnOnAllRows is false
+        const headerRow = gridElement.querySelector('thead tr th');
+        resizeHandleHeight = headerRow ? headerRow.offsetHeight : 40; // fallback to 40px if header not found
+    }
+
     headers.forEach((header) => {
         columns.push({
             header,
             size: `${header.clientWidth}px`,
         });
 
-        const div = createDiv(tableHeight, isRTL);
+        const div = createDiv(resizeHandleHeight, isRTL);
         header.appendChild(div);
         setListeners(div, isRTL);
     });
