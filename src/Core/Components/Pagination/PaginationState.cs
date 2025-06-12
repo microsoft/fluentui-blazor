@@ -72,6 +72,7 @@ public class PaginationState
         {
             await SetTotalItemCountAsync(TotalItemCount.Value, true);
         }
+
         return;
     }
 

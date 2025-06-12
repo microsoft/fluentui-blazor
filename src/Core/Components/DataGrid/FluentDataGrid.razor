@@ -1,0 +1,263 @@
+﻿@using Microsoft.AspNetCore.Components.Rendering
+@using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
+@using System.Globalization
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+@typeparam TGridItem
+<CascadingValue TValue="InternalGridContext<TGridItem>" IsFixed="true" Value="@_internalGridContext">
+    @{
+        StartCollectingColumns();
+    }
+    @if (!_manualGrid)
+    {
+        @ChildContent
+    }
+    <Defer>
+        @{
+            FinishCollectingColumns();
+        }
+        <ColumnsCollectedNotifier TGridItem="TGridItem" />
+
+        <table @ref=_gridReference
+               id="@Id"
+               class="@GridClass()"
+               style="@StyleValue"
+               aria-rowcount="@(_internalGridContext.TotalItemCount + 1)"
+               @onclosecolumnoptions="CloseColumnOptions"
+               @onclosecolumnresize="CloseColumnResize"
+               @attributes="AdditionalAttributes">
+            @if (GenerateHeader != GenerateHeaderOption.None)
+            {
+                DataGridRowType headerType = DataGridRowType.Header;
+                if (GenerateHeader == GenerateHeaderOption.Sticky)
+                {
+                    headerType = DataGridRowType.StickyHeader;
+                }
+                <thead>
+                    <FluentDataGridRow RowType="@headerType" TGridItem="TGridItem" >
+                        @_renderColumnHeaders
+                    </FluentDataGridRow>
+                </thead>
+            }
+            <tbody>
+                @if (EffectiveLoadingValue)
+                {
+                    @_renderLoadingContent
+                }
+                else
+                {
+                    @if (Virtualize)
+                    {
+                        if (_internalGridContext.TotalItemCount == 0)
+                        {
+                            @_renderEmptyContent
+                        }
+                        else
+                        {
+                            <Virtualize @ref="@_virtualizeComponent"
+                                        TItem="(int RowIndex, TGridItem Data)"
+                                        ItemSize="@ItemSize"
+                                        OverscanCount="@OverscanCount"
+                                        ItemsProvider="@ProvideVirtualizedItemsAsync"
+                                        ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
+                                        Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))"
+                                        SpacerElement="tr"/>
+                        }
+                    }
+                    else
+                    {
+                        @_renderNonVirtualizedRows
+                    }
+                }
+                @if (_manualGrid)
+                {
+                    @ChildContent
+                }
+            </tbody>
+        </table>
+    </Defer>
+</CascadingValue>
+
+@code {
+    private void RenderNonVirtualizedRows(RenderTreeBuilder __builder)
+    {
+        var initialRowIndex = (GenerateHeader != GenerateHeaderOption.None) ? 2 : 1; // aria-rowindex is 1-based, plus 1 if there is a header
+        var rowIndex = initialRowIndex;
+        if (_internalGridContext.Items.Any())
+        {
+            foreach (var item in _internalGridContext.Items)
+            {
+                RenderRow(__builder, rowIndex++, item);
+            }
+        }
+        else
+        {
+            RenderEmptyContent(__builder);
+        }
+    }
+
+    private void RenderRow(RenderTreeBuilder __builder, int rowIndex, TGridItem item)
+    {
+        var rowClass = RowClass?.Invoke(item) ?? null;
+        var rowStyle = RowStyle?.Invoke(item) ?? null;
+
+        <FluentDataGridRow @key="@(ItemKey(item))" aria-rowindex="@rowIndex" Class="@rowClass" Style="@rowStyle" TGridItem="TGridItem" Item="@item">
+            @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
+            {
+                var col = _columns[colIndex];
+
+                string? tooltip = col.Tooltip ? @col.RawCellContent(item) : null;
+
+                <FluentDataGridCell GridColumn=@(colIndex+1) Class="@ColumnJustifyClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" title="@tooltip" aria-label="@tooltip">
+                    @((RenderFragment)(__builder => col.CellContent(__builder, item)))
+                </FluentDataGridCell>
+            }
+        </FluentDataGridRow>
+    }
+
+    private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
+    {
+        string? _rowsDataSize = $"height: {ItemSize}px";
+
+        <FluentDataGridRow aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
+            @for (var i = 0; i < _columns.Count; i++)
+            {
+                var col = _columns[i];
+
+                <FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnJustifyClass(col))" Style="@col.Style" @key="@col" GridColumn=@col.Index TGridItem="TGridItem">
+                    @((RenderFragment)(__builder => col.RenderPlaceholderContent(__builder, placeholderContext)))
+                </FluentDataGridCell>
+            }
+        </FluentDataGridRow>
+    }
+
+    private void RenderColumnHeaders(RenderTreeBuilder __builder)
+    {
+        @for (var i = 0; i < _columns.Count; i++)
+        {
+            var col = _columns[i];
+
+            if (_sortByColumn == col)
+                col.IsActiveSortColumn = true;
+            else
+                col.IsActiveSortColumn = false;
+
+            <FluentDataGridCell @key="@col"
+                                TGridItem="TGridItem"
+                                GridColumn="@col.Index"
+                                CellType="@DataGridCellType.ColumnHeader"
+                                Class="@(@ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))"
+                                scope="col"
+                                aria-sort="@AriaSortValue(col)">
+                @col.HeaderContent
+                @if (HeaderCellAsButtonWithMenu)
+                {
+                    @if (col == _displayOptionsForColumn)
+                    {
+                        <div class="col-options">
+                            @col.ColumnOptions
+                        </div>
+                    }
+                    @if (ResizableColumns && col == _displayResizeForColumn)
+                    {
+                        <div class="col-resize">
+
+                            @if (ResizeType is not null)
+                            {
+                                <ColumnResizeOptions Column="@col.Index" ResizeType=@ResizeType TGridItem="TGridItem" />
+                            }
+
+                        </div>
+                    }
+                }
+                else
+                {
+                    @if (col == _displayOptionsForColumn)
+                    {
+                        <div class="col-options">
+                            <FluentStack Orientation="Orientation.Vertical">
+                                @if (ResizeType is not null)
+                                {
+                                    <ColumnResizeOptions Column="@col.Index" ResizeType=@ResizeType TGridItem="TGridItem" />
+                                    @if (@col.ColumnOptions is not null)
+                                    {
+                                        <FluentDivider Role="DividerRole.Separator" Style="width: 100%;" />
+                                    }
+                                }
+                                @col.ColumnOptions
+                            </FluentStack>
+                        </div>
+                    }
+                }
+
+
+                @if (ResizableColumns)
+                {
+                    <div class="resize-handle"></div>
+                }
+            </FluentDataGridCell>
+        }
+    }
+
+    private void RenderEmptyContent(RenderTreeBuilder __builder)
+    {
+        if (_manualGrid)
+        {
+            return;
+        }
+
+        string? style = null;
+        string? colspan = null;
+        if (DisplayMode == DataGridDisplayMode.Grid)
+        {
+            style = $"grid-column: 1 / {_columns.Count + 1}";
+        }
+        else
+        {
+            colspan = _columns.Count.ToString();
+        }
+
+        <FluentDataGridRow Class="@EMPTY_CONTENT_ROW_CLASS" TGridItem="TGridItem">
+            <FluentDataGridCell Class="empty-content-cell" Style="@style" colspan="@colspan">
+                @if (EmptyContent is null)
+                {
+                    @("No data to show!")
+                }
+                else
+                {
+                    @EmptyContent
+                }
+            </FluentDataGridCell>
+        </FluentDataGridRow>
+
+    }
+
+    private void RenderLoadingContent(RenderTreeBuilder __builder)
+    {
+        string? style = null;
+        string? colspan = null;
+        if (DisplayMode == DataGridDisplayMode.Grid)
+        {
+            style = $"grid-column: 1 / {_columns.Count + 1}";
+        }
+        else
+        {
+            colspan = _columns.Count.ToString(CultureInfo.InvariantCulture);
+        }
+
+        <FluentDataGridRow Class="@LOADING_CONTENT_ROW_CLASS" TGridItem="TGridItem">
+            <FluentDataGridCell Class="loading-content-cell" Style="@style" colspan="@colspan">
+                @if (LoadingContent is null)
+                {
+                    <FluentStack HorizontalGap="3" HorizontalAlignment="@HorizontalAlignment.Center">
+                        <FluentProgressRing Width="24px" /> <div>Loading...</div>
+                    </FluentStack>
+                }
+                else
+                {
+                    @LoadingContent
+                }
+            </FluentDataGridCell>
+        </FluentDataGridRow>
+    }
+}
