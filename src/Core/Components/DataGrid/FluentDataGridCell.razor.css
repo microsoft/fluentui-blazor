@@ -53,56 +53,56 @@ td.grid-cell-placeholder:after {
     padding: calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px) 1px calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px);
 }
 
-::deep .col-sort-button {
+.col-sort-button {
     width: calc(100% - 20px);
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-    ::deep .col-sort-button::part(content) {
+    .col-sort-button::part(content) {
         overflow: hidden;
     }
 
-::deep .col-options-button {
+.col-options-button {
     padding-inline-start: 4px;
 }
 
-.col-justify-start ::deep .col-sort-button::part(control) {
+.col-justify-start .col-sort-button::part(control) {
     justify-content: start;
     overflow: hidden;
     opacity: 1
 }
 
-.col-justify-center ::deep .col-sort-button::part(control) {
+.col-justify-center .col-sort-button::part(control) {
     justify-content: center;
     overflow: hidden;
     opacity: 1
 }
 
-.col-justify-end ::deep .col-sort-button::part(control) {
+.col-justify-end .col-sort-button::part(control) {
     justify-content: end;
     overflow: hidden;
     opacity: 1
 }
 
 
-.col-justify-end ::deep .col-sort-button::part(start) {
+.col-justify-end .col-sort-button::part(start) {
     margin-inline-end: 2px;
 }
 
-.col-justify-start ::deep .col-sort-button::part(end),
-.col-justify-center ::deep .col-sort-button::part(end) {
+.col-justify-start .col-sort-button::part(end),
+.col-justify-center .col-sort-button::part(end) {
     margin-inline-start: 2px;
 }
 
-.col-justify-start ::deep .col-title {
+.col-justify-start .col-title {
     text-align: left;
 }
 
-.col-justify-center ::deep .col-title {
+.col-justify-center .col-title {
     text-align: center;
 }
 
-.col-justify-end ::deep .col-title {
+.col-justify-end .col-title {
     text-align: end;
 }

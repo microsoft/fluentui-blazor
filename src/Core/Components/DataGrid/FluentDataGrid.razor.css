@@ -19,7 +19,7 @@
     display: contents;
 }
 
-.grid ::deep tr {
+.grid tr {
     display: contents;
 }
 
@@ -65,7 +65,7 @@
     align-items: center;
 }
 
-::deep .resize-handle {
+.resize-handle {
     position: absolute;
     top: 5px;
     right: 0;
@@ -83,7 +83,7 @@
     z-index: 3;
 }
 
-::deep tr[row-type='sticky-header'] > th {
+tr[row-type='sticky-header'] > th {
     position: sticky;
     top: 0;
     background-color: var(--neutral-fill-stealth-rest);
