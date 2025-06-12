@@ -22,7 +22,7 @@ public partial class FluentLayout : FluentComponentBase
     internal bool IsMobile { get; set; }
 
     /// <summary />
-    public FluentLayout()
+    public FluentLayout(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

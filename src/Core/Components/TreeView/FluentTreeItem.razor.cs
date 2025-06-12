@@ -19,7 +19,7 @@ public partial class FluentTreeItem : FluentComponentBase
     private static readonly MarkupString DefaultIcon_Collapsed = new($"<svg collapsed {DefaultIcon_CommonSvgAttributes}>{DefaultIcon_CommonSvgPath}</svg>");
 
     /// <summary/>
-    public FluentTreeItem()
+    public FluentTreeItem(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

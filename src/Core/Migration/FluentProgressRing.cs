@@ -11,5 +11,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [Obsolete("This component is renamed to FluentSpinner and will be removed in a future release.")]
 public class FluentProgressRing : FluentSpinner
 {
-
+    /// <summary />
+    public FluentProgressRing(LibraryConfiguration configuration) : base(configuration) { }
 }

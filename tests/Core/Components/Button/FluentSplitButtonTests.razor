@@ -19,8 +19,8 @@
         var menuchecked = false;
         var label1 = "My normal menu Item";
         var label2 = "My checked menu Item";
-        var item1 = new FluentMenuItem();
-        var item2 = new FluentMenuItem();
+        var item1 = new FluentMenuItem(LibraryConfiguration.Empty);
+        var item2 = new FluentMenuItem(LibraryConfiguration.Empty);
         var a = new MenuItemEventArgs { Id = "myid1", Text = label1 };
         var b = new MenuItemEventArgs { Id = "myid2", Text = label2, Checked = true };
 

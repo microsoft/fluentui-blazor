@@ -11,5 +11,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [Obsolete("This component is renamed to FluentProgressBar and will be removed in a future release.")]
 public class FluentProgress : FluentProgressBar
 {
-
+    /// <summary />
+    public FluentProgress(LibraryConfiguration configuration) : base(configuration) { }
 }

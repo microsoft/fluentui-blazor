@@ -15,6 +15,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentButton : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
+    public FluentButton(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
     /// <summary />
@@ -178,7 +181,7 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent
 
     /// <summary>
     /// Gets or sets the title of the button.
-    /// The text usually displayed in a `tooltip` popup when the mouse is over the button.
+    /// The text usually displayed in a `tooltip` popup on mouse hovering or keyboard focus.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }

@@ -18,7 +18,7 @@
     public void FluentFieldCondition_Message(int a, int b, bool expectedBuild, string? expectedMessage)
     {
         // Arrange
-        var field = new FluentField();
+        var field = new FluentField(LibraryConfiguration.Empty);
 
         bool MyCondition(IFluentField field)
         {
@@ -43,7 +43,7 @@
     public void FluentFieldCondition_State(int a, int b, bool expectedBuild, MessageState? expectedState)
     {
         // Arrange
-        var field = new FluentField();
+        var field = new FluentField(LibraryConfiguration.Empty);
 
         bool MyCondition(IFluentField field)
         {
@@ -68,7 +68,7 @@
     public void FluentFieldCondition_Icon(int a, int b, bool expectedBuild, string? expectedIconName)
     {
         // Arrange
-        var field = new FluentField();
+        var field = new FluentField(LibraryConfiguration.Empty);
 
         bool MyCondition(IFluentField field)
         {
@@ -94,7 +94,7 @@
         bool expectedBuild, string? expectedMessage, MessageState? expectedState, string? expectedIconName)
     {
         // Arrange
-        var field = new FluentField();
+        var field = new FluentField(LibraryConfiguration.Empty);
 
         bool MyCondition(IFluentField field)
         {
@@ -117,7 +117,7 @@
     public void FluentFieldCondition_Always()
     {
         // Arrange
-        var field = new FluentField();
+        var field = new FluentField(LibraryConfiguration.Empty);
 
         // Act
         var ok = FluentFieldCondition.Always(field);
@@ -130,7 +130,7 @@
     public void FluentFieldCondition_Never()
     {
         // Arrange
-        var field = new FluentField();
+        var field = new FluentField(LibraryConfiguration.Empty);
 
         // Act
         var ok = FluentFieldCondition.Never(field);

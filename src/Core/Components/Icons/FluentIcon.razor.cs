@@ -18,6 +18,9 @@ public partial class FluentIcon<Icon> : FluentComponentBase, ITooltipComponent
     private Icon _icon = default!;
 
     /// <summary />
+    public FluentIcon(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

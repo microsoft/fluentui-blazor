@@ -12,6 +12,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentText : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
+    public FluentText(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

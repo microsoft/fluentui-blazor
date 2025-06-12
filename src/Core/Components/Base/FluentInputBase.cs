@@ -24,9 +24,11 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentInputBase{TValue}"/> class.
     /// </summary>
-    protected FluentInputBase()
+    /// <param name="configuration">The configuration object used to apply default values to the component.</param>
+    protected FluentInputBase(LibraryConfiguration configuration)
     {
         ValueExpression = () => CurrentValueOrDefault;
+        configuration?.DefaultValues.ApplyDefaults(this);
     }
 
     [Inject]

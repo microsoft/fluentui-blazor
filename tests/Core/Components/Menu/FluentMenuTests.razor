@@ -14,7 +14,7 @@
     {
         var check = false;
         var label = "My item";
-        var item = new FluentMenuItem();
+        var item = new FluentMenuItem(LibraryConfiguration.Empty);
         var a = new MenuItemEventArgs { Id = "myid",Text = label, Checked = true };
 
         // Arrange
@@ -42,7 +42,7 @@
         // Arrange
         var click = false;
         var label = "My item";
-        var item = new FluentMenuItem();
+        var item = new FluentMenuItem(LibraryConfiguration.Empty);
         var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = null };
 
         var cut = Render(@<FluentMenu OnClick="@(() => { click = true; })">
@@ -97,7 +97,7 @@
         // Arrange
 
         var label = "My item";
-        var menu = new FluentMenu();
+        var menu = new FluentMenu(LibraryConfiguration.Empty);
 
         var cut = Render(@<div>
                 <FluentButton OnClick="@(()=> menu.OpenMenuAsync())">Open menu</FluentButton>
@@ -124,7 +124,7 @@
         // Arrange
 
         var label = "My item";
-        var menu = new FluentMenu();
+        var menu = new FluentMenu(LibraryConfiguration.Empty);
 
         var cut = Render(@<div>
                 <FluentButton OnClick="@(() => menu.CloseMenuAsync())">Open menu</FluentButton>

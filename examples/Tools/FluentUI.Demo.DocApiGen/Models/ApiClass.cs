@@ -104,6 +104,10 @@ public class ApiClass
             object? obj = null;
             var created = false;
 
+            var ctorArguments = HasCtorWithArguments(_component, ["LibraryConfiguration"])
+                  ? new object?[] { null }
+                  : Array.Empty<object>();
+
             // Create an instance of the component to get the default values
             object? GetObjectValue(string propertyName)
             {
@@ -120,11 +124,11 @@ public class ApiClass
                             }
 
                             // Supply the type to create the generic instance with (needs to be an array)
-                            obj = Activator.CreateInstance(_component.MakeGenericType(InstanceTypes));
+                            obj = Activator.CreateInstance(_component.MakeGenericType(InstanceTypes), args: ctorArguments);
                         }
                         else
                         {
-                            obj = Activator.CreateInstance(_component);
+                            obj = Activator.CreateInstance(_component, args: ctorArguments);
                         }
 
                         created = true;
@@ -265,5 +269,33 @@ public class ApiClass
         return member == null
              ? _options.DocXmlReader.GetComponentSummary(component)
              : _options.DocXmlReader.GetMemberSummary(member);
+    }
+
+    /// <summary>
+    /// Determines whether the specified type has a constructor that matches the given argument types.
+    /// </summary>
+    public static bool HasCtorWithArguments(Type component, string[] arguments)
+    {
+        var constructors = component.GetConstructors();
+        foreach (var ctor in constructors)
+        {
+            var parameters = ctor.GetParameters();
+            var ctorArguments = parameters.Select(p => p.ParameterType.Name).ToArray();
+
+            if (ctorArguments.Length == arguments.Length)
+            {
+                for (var i = 0; i < ctorArguments.Length; i++)
+                {
+                    if (ctorArguments[i] != arguments[i])
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }

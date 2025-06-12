@@ -11,6 +11,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDivider : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
+    public FluentDivider(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

@@ -13,6 +13,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDialogBody : FluentComponentBase
 {
     /// <summary />
+    public FluentDialogBody(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

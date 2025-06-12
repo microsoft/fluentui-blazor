@@ -38,7 +38,7 @@
 
         var check = false;
         var label = "My item";
-        var item = new FluentMenuItem();
+        var item = new FluentMenuItem(LibraryConfiguration.Empty);
         var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = true };
 
         // Arrange
@@ -64,7 +64,7 @@
 
         var click = false;
         var label = "My item";
-        var item = new FluentMenuItem();
+        var item = new FluentMenuItem(LibraryConfiguration.Empty);
         var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = null };
 
         // Arrange

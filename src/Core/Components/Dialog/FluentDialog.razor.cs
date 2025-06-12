@@ -19,7 +19,7 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     [DynamicDependency(nameof(OnToggleAsync))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
-    public FluentDialog()
+    public FluentDialog(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

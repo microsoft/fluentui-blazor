@@ -20,7 +20,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, ITooltipCom
     /// Initializes a new instance of the <see cref="FluentSlider{TValue}"/> class.
     /// </summary>
     /// <exception cref="InvalidOperationException"></exception>
-    public FluentSlider()
+    public FluentSlider(LibraryConfiguration configuration) : base(configuration)
     {
         if (typeof(TValue) != typeof(byte) &&
             typeof(TValue) != typeof(sbyte) &&

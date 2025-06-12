@@ -20,13 +20,13 @@ public partial class FluentTooltip : FluentComponentBase
     /// <summary />    
     [DynamicDependency(nameof(OnToggleAsync))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
-    public FluentTooltip()
+    public FluentTooltip(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
 
     /// <summary />
-    internal FluentTooltip(string anchor, string? label) : this()
+    internal FluentTooltip(LibraryConfiguration configuration, string anchor, string? label) : this(configuration)
     {
         Anchor = anchor;
         ChildContent = builder =>

@@ -24,7 +24,7 @@ public partial class FluentTreeView : FluentComponentBase
     /// </summary>
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeItemChangedEventArgs))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeItemToggleEventArgs))]
-    public FluentTreeView()
+    public FluentTreeView(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

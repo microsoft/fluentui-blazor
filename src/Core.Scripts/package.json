@@ -3,7 +3,7 @@
   "name": "microsoft.fluentui.aspnetcore.components.assets",
   "source": "src/index.ts",
   "main": "dist/Microsoft.FluentUI.AspNetCore.Components.lib.module.js",
-  "cssFiles": "../Core/**/*.razor.css",
+  "cssFiles": "../Core/Components/**/*.css",
   "cssBundle": "dist/Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css",
   "scripts": {
     "build": "node ./esbuild.config.mjs",
