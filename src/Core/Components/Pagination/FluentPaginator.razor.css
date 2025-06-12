@@ -1,0 +1,25 @@
+.paginator {
+    display: flex;
+    /*border-top: 1px solid var(--neutral-stroke-divider-rest);*/
+    margin-top: 0.5rem;
+    padding: 0.25rem 0;
+    align-items: center;
+}
+
+.pagination-text {
+    margin: 0 0.5rem;
+}
+
+.paginator-nav {
+    padding: 0; 
+    display: flex;
+    margin-inline-start: auto;
+    margin-inline-end: 0;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+    
+[dir="rtl"] * ::deep fluent-button > svg {
+    transform: rotate(180deg);
+}

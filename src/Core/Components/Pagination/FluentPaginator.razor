@@ -1,0 +1,42 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+<div class="paginator" style="@Style">
+    @if (State.TotalItemCount.HasValue)
+    {
+        <div class="summary">
+            @if (SummaryTemplate is not null)
+            {
+                @SummaryTemplate
+            }
+            else
+            {
+                <text><strong>@State.TotalItemCount</strong> items</text>
+            }
+        </div>
+        <nav role="navigation" class="paginator-nav">
+            <FluentButton @onclick="GoFirstAsync" Disabled="@(!CanGoBack || Disabled)" title="Go to first page" aria-label="Go to first page">
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDoubleLeft())" Width="20px" />
+            </FluentButton>
+            <FluentButton @onclick="GoPreviousAsync" Disabled="@(!CanGoBack || Disabled)" title="Go to previous page" aria-label="Go to previous page">
+                <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronLeft())" Width="20px" />
+            </FluentButton>
+            <div class="pagination-text">
+                @if (PaginationTextTemplate is not null)
+                {
+                    @PaginationTextTemplate
+                }
+                else
+                {
+                    <text>Page <strong>@(State.CurrentPageIndex + 1)</strong> of <strong>@(State.LastPageIndex + 1)</strong></text>
+                }
+
+            </div>
+            <FluentButton @onclick="GoNextAsync" Disabled="@(!CanGoForwards || Disabled)" title="Go to next page" aria-label="Go to next page">
+                <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronRight())" Width="20px" />
+            </FluentButton>
+            <FluentButton @onclick="GoLastAsync" Disabled="@(!CanGoForwards || Disabled)" title="Go to last page" aria-label="Go to last page">
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDoubleRight())" Width="20px" />
+            </FluentButton>
+        </nav>
+    }
+</div>
