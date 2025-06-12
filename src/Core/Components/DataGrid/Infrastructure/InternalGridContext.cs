@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
@@ -6,9 +10,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 // so that it doesn't show up by mistake in unrelated components.
 internal sealed class InternalGridContext<TGridItem>
 {
-    private int _index = 0;
-    private int _rowId = 0;
-    private int _cellId = 0;
+    private int _index;
+    private int _rowId;
+    private int _cellId;
 
     public (ColumnBase<TGridItem>? Column, DataGridSortDirection? Direction) DefaultSortColumn { get; set; }
     //public SortDirection? DefaultSortDirection { get; set; }
@@ -49,7 +53,7 @@ internal sealed class InternalGridContext<TGridItem>
         Rows.Add(row.RowId, row);
         if (!Grid.Virtualize)
         {
-            row.RowIndex = _index++;
+            row.SetRowIndex(_index++);
         }
     }
 

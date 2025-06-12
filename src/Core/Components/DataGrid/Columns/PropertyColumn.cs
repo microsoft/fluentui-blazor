@@ -2,12 +2,12 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
+using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using System.Linq.Expressions;
-using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -22,9 +22,10 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     private Expression<Func<TGridItem, TProp>>? _lastAssignedProperty;
     private Func<TGridItem, string?>? _cellTextFunc;
     private Func<TGridItem, string?>? _cellTooltipTextFunc;
-    private IGridSort<TGridItem>? _sortBuilder;
-    private IGridSort<TGridItem>? _customSortBy;
 
+    /// <summary>
+    /// Gets the property info for the property this column binds to.
+    /// </summary>
     public PropertyInfo? PropertyInfo { get; private set; }
 
     /// <summary>
@@ -46,14 +47,14 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     /// </summary>
     [Parameter] public IComparer<TProp>? Comparer { get; set; } = null;
 
+    /// <summary>
+    /// Gets or sets the sorting behavior for this column.
+    ///</summary>
     [Parameter]
-    public override IGridSort<TGridItem>? SortBy
-    {
-        get => _customSortBy ?? _sortBuilder;
-        set => _customSortBy = value;
-    }
+    public override IGridSort<TGridItem>? SortBy { get; set; }
 
     /// <inheritdoc />
+#pragma warning disable IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
     protected override void OnParametersSet()
     {
         // We have to do a bit of pre-processing on the lambda expression. Only do that if it's new or changed.
@@ -85,17 +86,16 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
                     if (typeof(TProp).IsEnum || typeof(TProp).IsNullableEnum())
                     {
-                        return (value as Enum)?.GetDisplayName();
+                        return (value as Enum)?.GetDisplay();
                     }
-                    else
-                    {
-                        return value?.ToString();
-                    }
+
+                    return value?.ToString();
                 };
             }
+
             if (Sortable.HasValue)
             {
-                _sortBuilder = Comparer is not null ? GridSort<TGridItem>.ByAscending(Property, Comparer) : GridSort<TGridItem>.ByAscending(Property);
+                SortBy = Comparer is not null ? GridSort<TGridItem>.ByAscending(Property, Comparer) : GridSort<TGridItem>.ByAscending(Property);
             }
         }
 
@@ -117,14 +117,17 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
             }
         }
     }
+#pragma warning restore IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
 
     /// <inheritdoc />
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
         => builder.AddContent(0, _cellTextFunc?.Invoke(item));
 
+    /// <inheritdoc />
     protected internal override string? RawCellContent(TGridItem item)
         => _cellTooltipTextFunc?.Invoke(item);
 
+    /// <inheritdoc />
     protected override bool IsSortableByDefault()
-        => _customSortBy is not null;
+        => SortBy is not null;
 }

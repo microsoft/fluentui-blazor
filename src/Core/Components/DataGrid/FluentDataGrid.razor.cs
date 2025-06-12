@@ -2,12 +2,11 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -21,23 +20,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js";
-    public const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
-    public const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
-    public List<FluentMenu> _menuReferences = [];
-
-    /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DataGrid/FluentDataGrid.razor.js";
+    internal const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
+    internal const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
+    //public List<FluentMenu> _menuReferences = [];
 
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
     [Inject]
     private IServiceScopeFactory ScopeFactory { get; set; } = default!;
-
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
 
     [Inject]
     private IKeyCodeService KeyCodeService { get; set; } = default!;
@@ -189,10 +181,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Gets or sets a value indicating whether the grid should automatically generate a header row and its type.
-    /// See <see cref="GenerateHeaderOption"/>
+    /// See <see cref="DataGridGeneratedHeaderType"/>
     /// </summary>
     [Parameter]
-    public GenerateHeaderOption? GenerateHeader { get; set; } = GenerateHeaderOption.Default;
+    public DataGridGeneratedHeaderType? GenerateHeader { get; set; } = DataGridGeneratedHeaderType.Default;
 
     /// <summary>
     /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows.
@@ -383,13 +375,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
+    /// <summary>
+    /// Indicates whether the grid is currently sorted ascending.
+    /// </summary>
     public bool? SortByAscending => _sortByAscending;
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentDataGrid{TGridItem}"/>.
     /// </summary>
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DataGridCellFocusEventArgs))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DataGridRowFocusEventArgs))]
     public FluentDataGrid()
     {
         Id = Identifier.NewId();
@@ -420,7 +413,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <inheritdoc />
-    protected override Task OnParametersSetAsync()
+    protected override async Task OnParametersSetAsync()
     {
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
@@ -442,7 +435,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var dataSourceHasChanged = itemsChanged || !Equals(ItemsProvider, _lastAssignedItemsProvider);
         if (dataSourceHasChanged)
         {
-            _scope?.Dispose();
+            if (_scope.HasValue)
+            {
+                await _scope.Value.DisposeAsync();
+            }
+
             _scope = ScopeFactory.CreateAsyncScope();
             _lastAssignedItemsProvider = ItemsProvider;
             _lastAssignedItems = Items;
@@ -459,15 +456,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
         // to have to re-query immediately
-        return (_columns.Count > 0 && mustRefreshData) ? RefreshDataCoreAsync() : Task.CompletedTask;
+        _ = (_columns.Count > 0 && mustRefreshData) ? RefreshDataCoreAsync() : Task.CompletedTask;
     }
 
+    /// <inheritdoc />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && _gridReference is not null)
         {
-            Element = _gridReference.Value;
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            // Import the JavaScript module
+            Module ??= await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+
             try
             {
                 _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference, AutoFocus);
@@ -507,7 +506,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (_collectingColumns)
         {
-            column.Index = _columns.Count + 1;
+            column.SetColumnIndex(_columns.Count + 1);
             _columns.Add(column);
 
             if (isDefaultSortColumn && _sortByColumn is null && initialSortDirection.HasValue)
@@ -532,7 +531,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Where(x => x is not SelectColumn<TGridItem>).Any(x => !string.IsNullOrWhiteSpace(x.Width)))
         {
-            throw new Exception("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
+            throw new ArgumentException("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
         // Always re-evaluate after collecting columns when using displaymode grid. A column might be added or hidden and the _internalGridTemplateColumns needs to reflect that.
@@ -616,6 +615,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
             return RefreshDataCoreAsync();
         }
+
         return Task.CompletedTask;
     }
 
@@ -708,7 +708,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         return (index >= 0 && index < _columns.Count) ? ShowColumnResizeAsync(_columns[index]) : Task.CompletedTask;
     }
-
+    /// <summary>
+    /// Sets the grid's loading state to the specified value.
+    /// </summary>
+    /// <param name="loading"></param>
     public void SetLoadingState(bool? loading)
     {
         Loading = loading;
@@ -730,7 +733,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private async Task RefreshDataCoreAsync()
     {
         // Move into a "loading" state, cancelling any earlier-but-still-pending load
-        _pendingDataLoadCancellationTokenSource?.Cancel();
+        _pendingDataLoadCancellationTokenSource?.CancelAsync();
         var thisLoadCts = _pendingDataLoadCancellationTokenSource = new CancellationTokenSource();
 
         if (_virtualizeComponent is not null)
@@ -770,8 +773,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
             }
+
             _pendingDataLoadCancellationTokenSource = null;
         }
+
         _internalGridContext.ResetRowIndexes(startIndex);
 
         StateHasChanged();
@@ -819,6 +824,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
             }
+
             if (_internalGridContext.TotalItemCount > 0 && Loading is null)
             {
                 Loading = false;
@@ -832,6 +838,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                     items: providerResult.Items.Select((x, i) => ValueTuple.Create(i + request.StartIndex + 2, x)),
                     totalItemCount: _internalGridContext.TotalViewItemCount);
         }
+
         return default;
     }
 
@@ -848,9 +855,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                     Loading = false;
                     StateHasChanged();
                 }
+
                 return gipr;
             }
-            else if (Items is not null)
+
+            if (Items is not null)
             {
                 var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
                 _internalGridContext.TotalItemCount = totalItemCount;
@@ -867,6 +876,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 {
                     result = Items;
                 }
+
                 var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
                 return GridItemsProviderResult.From(resultArray, totalItemCount);
             }
@@ -875,6 +885,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             // No-op; we canceled the operation, so it's fine to suppress this exception.
         }
+
         return GridItemsProviderResult.From(Array.Empty<TGridItem>(), 0);
     }
 
@@ -887,8 +898,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && DisplayMode == DataGridDisplayMode.Grid)
         .AddStyle("grid-template-rows", "auto 1fr", (_internalGridContext.Items.Count == 0 || Items is null || EffectiveLoadingValue) && DisplayMode == DataGridDisplayMode.Grid)
         .AddStyle("height", "100%", _internalGridContext.TotalItemCount == 0 || EffectiveLoadingValue)
-        .AddStyle("border-collapse", "separate", GenerateHeader == GenerateHeaderOption.Sticky)
-        .AddStyle("border-spacing", "0", GenerateHeader == GenerateHeaderOption.Sticky)
+        .AddStyle("border-collapse", "separate", GenerateHeader == DataGridGeneratedHeaderType.Sticky)
+        .AddStyle("border-spacing", "0", GenerateHeader == DataGridGeneratedHeaderType.Sticky)
         .AddStyle("width", "100%", DisplayMode == DataGridDisplayMode.Table)
         .Build();
 
@@ -914,14 +925,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private static string? ColumnJustifyClass(ColumnBase<TGridItem> column)
     {
         return new CssBuilder(column.Class)
-            .AddClass("col-justify-start", column.Align == Align.Start)
-            .AddClass("col-justify-center", column.Align == Align.Center)
-            .AddClass("col-justify-end", column.Align == Align.End)
+            .AddClass("col-justify-start", column.Align == HorizontalAlignment.Start)
+            .AddClass("col-justify-center", column.Align == HorizontalAlignment.Center)
+            .AddClass("col-justify-end", column.Align == HorizontalAlignment.End)
             .Build();
     }
 
     /// <inheritdoc />
-    public async ValueTask DisposeAsync()
+    public override async ValueTask DisposeAsync()
     {
         _currentPageItemsChanged.Dispose();
         _scope?.Dispose();
@@ -967,27 +978,27 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         var query = System.Web.HttpUtility.ParseQueryString(queryString);
-        if (query.AllKeys.Contains($"{SaveStatePrefix}orderby"))
+        if (query.AllKeys.Contains($"{SaveStatePrefix}orderby", StringComparer.Ordinal))
         {
             var orderBy = query[$"{SaveStatePrefix}orderby"]!.Split(' ', 2);
             var title = orderBy[0];
 
-            var column = _columns.FirstOrDefault(c => c.Title == title);
+            var column = _columns.FirstOrDefault(c => string.Equals(c.Title, title, StringComparison.Ordinal));
             if (column is not null)
             {
                 _sortByColumn = column;
-                _sortByAscending = orderBy.Length == 2 && orderBy[1] == "asc";
+                _sortByAscending = orderBy.Length == 2 && string.Equals(orderBy[1], "asc", StringComparison.Ordinal);
             }
         }
 
         if (Pagination is not null)
         {
-            if (query.AllKeys.Contains($"{SaveStatePrefix}page") && int.TryParse(query[$"{SaveStatePrefix}page"]!, out var page))
+            if (query.AllKeys.Contains($"{SaveStatePrefix}page", StringComparer.Ordinal) && int.TryParse(query[$"{SaveStatePrefix}page"]!, NumberStyles.Integer, CultureInfo.InvariantCulture, out var page))
             {
-                Pagination.SetCurrentPageIndexAsync(page - 1);
+                _ = Pagination.SetCurrentPageIndexAsync(page - 1);
             }
 
-            if (query.AllKeys.Contains($"{SaveStatePrefix}top") && int.TryParse(query[$"{SaveStatePrefix}top"]!, out var itemsPerPage))
+            if (query.AllKeys.Contains($"{SaveStatePrefix}top", StringComparer.Ordinal) && int.TryParse(query[$"{SaveStatePrefix}top"]!, NumberStyles.Integer, CultureInfo.InvariantCulture, out var itemsPerPage))
             {
                 Pagination.ItemsPerPage = itemsPerPage;
             }
@@ -1001,12 +1012,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             return;
         }
 
-        var stateParams = new Dictionary<string, object?>();
+        var stateParams = new Dictionary<string, object?>(StringComparer.Ordinal);
         if (_sortByColumn is not null)
         {
             var order = _sortByAscending ? "asc" : "desc";
             stateParams.Add($"{SaveStatePrefix}orderby", $"{_sortByColumn.Title} {order}");
         }
+
         stateParams.Add($"{SaveStatePrefix}page", Pagination?.CurrentPageIndex + 1 ?? null);
         stateParams.Add($"{SaveStatePrefix}top", Pagination?.ItemsPerPage ?? null);
         NavigationManager.NavigateTo(NavigationManager.GetUriWithQueryParameters(stateParams), replace: true);
@@ -1048,6 +1060,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     //    _dotNetObjectReference = DotNetObjectReference.Create(page);
     //}
 
+    /// <summary>
+    /// Checks if key pressed should be handled
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
     public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
     {
         if (args.ShiftKey == true && args.Key == KeyCode.KeyR)
@@ -1055,16 +1072,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await ResetColumnWidthsAsync();
         }
 
-        if (args.Value == "-")
+        if (string.Equals(args.Value, "-", StringComparison.Ordinal))
         {
             await SetColumnWidthDiscreteAsync(null, -10);
         }
-        if (args.Value == "+")
+
+        if (string.Equals(args.Value, "+", StringComparison.Ordinal))
         {
-            //  Resize column up
             await SetColumnWidthDiscreteAsync(null, 10);
         }
-        //return Task.CompletedTask;
     }
 
     /// <summary>
@@ -1118,6 +1134,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             return 0;
         }
+
         unchecked
         {
             var hash = 19;
@@ -1128,8 +1145,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 {
                     break;
                 }
+
                 hash = (hash * 31) + (item?.GetHashCode() ?? 0);
             }
+
             return hash;
         }
     }

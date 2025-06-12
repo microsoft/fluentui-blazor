@@ -42,16 +42,16 @@
                         {
                             if (Grid.SortByAscending == true)
                             {
-                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="@(Align == HorizontalAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                             }
                             else
                             {
-                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="@(Align == HorizontalAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                             }
                         }
                         @if (ColumnOptions is not null && Filtered.GetValueOrDefault())
                         {
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="@(Align == HorizontalAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                         }
                     </FluentButton>
                 }
@@ -112,14 +112,14 @@
             // determine align string based on Align value
             align = Align switch
             {
-                Align.Start => "flex-start",
-                Align.Center => "center",
-                Align.End => "flex-end",
+                HorizontalAlignment.Start => "flex-start",
+                HorizontalAlignment.Center => "center",
+                HorizontalAlignment.End => "flex-end",
                 _ => "flex-start"
             };
 
             <div style="display: flex; justify-content: @align;">
-                @if (Align == Align.Start || Align == Align.Center)
+                @if (Align == HorizontalAlignment.Start || Align == HorizontalAlignment.Center)
                 {
                     @if (Grid.ResizeType is not null)
                     {
@@ -175,7 +175,7 @@
                     </div>
                 }
 
-                @if (Align == Align.End)
+                @if (Align == HorizontalAlignment.End)
                 {
                     @if (Grid.ResizeType is not null)
                     {

@@ -26,10 +26,10 @@
                @onclosecolumnoptions="CloseColumnOptions"
                @onclosecolumnresize="CloseColumnResize"
                @attributes="AdditionalAttributes">
-            @if (GenerateHeader != GenerateHeaderOption.None)
+            @if (GenerateHeader != DataGridGeneratedHeaderType.None)
             {
                 DataGridRowType headerType = DataGridRowType.Header;
-                if (GenerateHeader == GenerateHeaderOption.Sticky)
+                if (GenerateHeader == DataGridGeneratedHeaderType.Sticky)
                 {
                     headerType = DataGridRowType.StickyHeader;
                 }
@@ -81,7 +81,7 @@
 @code {
     private void RenderNonVirtualizedRows(RenderTreeBuilder __builder)
     {
-        var initialRowIndex = (GenerateHeader != GenerateHeaderOption.None) ? 2 : 1; // aria-rowindex is 1-based, plus 1 if there is a header
+        var initialRowIndex = (GenerateHeader != DataGridGeneratedHeaderType.None) ? 2 : 1; // aria-rowindex is 1-based, plus 1 if there is a header
         var rowIndex = initialRowIndex;
         if (_internalGridContext.Items.Any())
         {
@@ -181,7 +181,7 @@
                                     <ColumnResizeOptions Column="@col.Index" ResizeType=@ResizeType TGridItem="TGridItem" />
                                     @if (@col.ColumnOptions is not null)
                                     {
-                                        <FluentDivider Role="DividerRole.Separator" Style="width: 100%;" />
+                                        <FluentDivider Style="width: 100%;" />
                                     }
                                 }
                                 @col.ColumnOptions
@@ -250,7 +250,7 @@
                 @if (LoadingContent is null)
                 {
                     <FluentStack HorizontalGap="3" HorizontalAlignment="@HorizontalAlignment.Center">
-                        <FluentProgressRing Width="24px" /> <div>Loading...</div>
+                        <FluentSpinner Size="SpinnerSize.Medium" /> <div>Loading...</div>
                     </FluentStack>
                 }
                 else

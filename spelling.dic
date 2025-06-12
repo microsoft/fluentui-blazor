@@ -92,3 +92,12 @@ wdelta
 sortabillity
 Subscribable
 eventargs
+displaymode
+rowcount
+ontreechanged
+ontreetoggle
+onclosecolumnoptions
+onclosecolumnresize
+rowindex
+colspan
+onkeydown

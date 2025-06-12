@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
 
@@ -52,9 +56,7 @@ public sealed class ColumnsCollectedNotifier<TGridItem> : Microsoft.AspNetCore.C
             parameters.SetParameterProperties(this);
             return InternalGridContext.ColumnsFirstCollected.InvokeCallbacksAsync(null);
         }
-        else
-        {
-            return Task.CompletedTask;
-        }
+
+        return Task.CompletedTask;
     }
 }

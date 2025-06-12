@@ -347,4 +347,12 @@ public abstract partial class ColumnBase<TGridItem>
 
         return Grid.ColumnSortLabels.SortMenu;
     }
+
+    /// <summary>
+    /// Sets the column index for the current instance.
+    /// </summary>
+    internal void SetColumnIndex(int index)
+    {
+        Index = index;
+    }
 }

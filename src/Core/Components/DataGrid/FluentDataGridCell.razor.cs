@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
@@ -9,6 +10,9 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Represents a cell in a <see cref="FluentDataGrid{TGridItem}"/>.
+/// </summary>
 public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
 {
     internal string CellId { get; set; } = string.Empty;
@@ -60,6 +64,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
+    /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
         .AddClass("select-all", when: CellType == DataGridCellType.ColumnHeader && Column is SelectColumn<TGridItem>)
@@ -67,22 +72,24 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddClass(Owner.Class)
         .Build();
 
+    /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("grid-column", GridColumn.ToString(), () => !Grid.EffectiveLoadingValue && (Grid.Items is not null || Grid.ItemsProvider is not null) && Grid.DisplayMode == DataGridDisplayMode.Grid)
-        .AddStyle("text-align", "center", Column is SelectColumn<TGridItem>)
-        .AddStyle("align-content", "center", Column is SelectColumn<TGridItem>)
-        .AddStyle("padding-inline-start", "calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px)", Column is SelectColumn<TGridItem> && Owner.RowType == DataGridRowType.Default)
-        .AddStyle("padding-top", "calc(var(--design-unit) * 2.5px)", Column is SelectColumn<TGridItem> && (Grid.RowSize == DataGridRowSize.Medium || Owner.RowType == DataGridRowType.Header))
-        .AddStyle("padding-top", "calc(var(--design-unit) * 1.5px)", Column is SelectColumn<TGridItem> && Grid.RowSize == DataGridRowSize.Small && Owner.RowType == DataGridRowType.Default)
-        .AddStyle("width", Column?.Width, !string.IsNullOrEmpty(Column?.Width) && Grid.DisplayMode == DataGridDisplayMode.Table)
-        .AddStyle("height", $"{Grid.ItemSize:0}px", () => !Grid.EffectiveLoadingValue && Grid.Virtualize)
-        .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && !Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null))
-        .AddStyle("height", "100%", Grid.MultiLine)
-        .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
-        .AddStyle("z-index", ZIndex.DataGridHeaderPopup.ToString(), CellType == DataGridCellType.ColumnHeader && Grid._columns.Count > 0 && Grid.UseMenuService)
-        .AddStyle(Owner.Style)
-        .Build();
+    .AddStyle("grid-column", GridColumn.ToString(CultureInfo.InvariantCulture), () => !Grid.EffectiveLoadingValue && (Grid.Items is not null || Grid.ItemsProvider is not null) && Grid.DisplayMode == DataGridDisplayMode.Grid)
+    .AddStyle("text-align", "center", Column is SelectColumn<TGridItem>)
+    .AddStyle("align-content", "center", Column is SelectColumn<TGridItem>)
+    .AddStyle("padding-inline-start", "calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px)", Column is SelectColumn<TGridItem> && Owner.RowType == DataGridRowType.Default)
+    .AddStyle("padding-top", "calc(var(--design-unit) * 2.5px)", Column is SelectColumn<TGridItem> && (Grid.RowSize == DataGridRowSize.Medium || Owner.RowType == DataGridRowType.Header))
+    .AddStyle("padding-top", "calc(var(--design-unit) * 1.5px)", Column is SelectColumn<TGridItem> && Grid.RowSize == DataGridRowSize.Small && Owner.RowType == DataGridRowType.Default)
+    .AddStyle("width", Column?.Width, !string.IsNullOrEmpty(Column?.Width) && Grid.DisplayMode == DataGridDisplayMode.Table)
+    .AddStyle("height", $"{Grid.ItemSize:0}px", () => !Grid.EffectiveLoadingValue && Grid.Virtualize)
+    .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && !Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null))
+    .AddStyle("height", "100%", Grid.MultiLine)
+    .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
+    .AddStyle("z-index", ZIndex.DataGridHeaderPopup.ToString(CultureInfo.InvariantCulture), CellType == DataGridCellType.ColumnHeader && Grid._columns.Count > 0 && Grid.UseMenuService)
+    .AddStyle(Owner.Style)
+    .Build();
 
+    /// <summary />
     protected override void OnInitialized()
     {
         Owner.Register(this);
@@ -112,7 +119,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
 
     internal async Task HandleOnCellKeyDownAsync(KeyboardEventArgs e)
     {
-        if (!SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code))
+        if (!SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code, StringComparer.OrdinalIgnoreCase))
         {
             return;
         }
@@ -123,6 +130,6 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         }
     }
 
+    /// <inheritdoc />
     public void Dispose() => Owner.Unregister(this);
-
 }

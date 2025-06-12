@@ -15,11 +15,11 @@
     {
         <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.End" VerticalAlignment="VerticalAlignment.Bottom">
             <div style="display: flex; flex-direction: column; ">
-                <FluentTextField Id="width"
+                <FluentTextInput Id="width"
                                  @bind-Value="@_width"
                                  Style="width: 100%;"
-                                 TextFieldType="TextFieldType.Text"
-                                 InputMode="InputMode.Numeric"
+                                 TextFieldType="TextInputType.Text"
+                                 InputMode="TextInputMode.Numeric"
                                  Immediate="true"
                                  ImmediateDelay="200"
                                  Label="@Grid.ColumnResizeLabels.ExactLabel"
@@ -27,8 +27,8 @@
                                  Autofocus="true"
                                  @onkeydown="@HandleColumnWidthKeyDownAsync" />
             </div>
-            <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" Appearance="@Appearance.Accent" aria-label="@(Grid.ColumnResizeLabels.SubmitAriaLabel)">
-                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Checkmark())" Color="@Color.Fill" />
+            <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" Appearance="@ButtonAppearance.Primary" aria-label="@(Grid.ColumnResizeLabels.SubmitAriaLabel)">
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Checkmark())" Color="@Color.Default" />
             </FluentButton>
             <FluentButton Style="height: 30px;" OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@(Grid.ColumnResizeLabels.ResetAriaLabel)" />
         </FluentStack>

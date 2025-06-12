@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -63,6 +67,12 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     public IReadOnlyCollection<SortedProperty> GetSortByProperties() =>
         SortByColumn?.SortBy?.ToPropertyList(SortByAscending) ?? Array.Empty<SortedProperty>();
 
+    /// <summary>
+    /// Determines whether the specified request is equivalent to the current request.
+    /// </summary>
+    /// <param name="req">The <see cref="GridItemsProviderRequest{TGridItem}"/> to compare with the current request.</param>
+    /// <returns><see langword="true"/> if the specified request has the same start index, count, sort column, and sort order as
+    /// the current request; otherwise, <see langword="false"/>.</returns>
     public bool IsSameRequest(GridItemsProviderRequest<TGridItem> req)
     {
         if (StartIndex != req.StartIndex)

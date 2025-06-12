@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -23,6 +27,7 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
         => builder.AddContent(0, ChildContent(item));
 
+    /// <inheritdoc />
     protected internal override string? RawCellContent(TGridItem item)
     {
         return TooltipText?.Invoke(item);

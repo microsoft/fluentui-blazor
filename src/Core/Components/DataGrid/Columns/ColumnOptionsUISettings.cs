@@ -18,7 +18,7 @@ public record ColumnOptionsUISettings
     /// <summary>
     /// Gets or sets the icon to show in the column menu
     /// </summary>
-    public Icon? Icon { get; set; } = new CoreIcons.Regular.Size16.Filter();
+    public Icon? Icon { get; set; } = new CoreIcons.Regular.Size20.Filter();
 
     /// <summary>
     /// Gets or sets whether the icon is positioned at the start (true) or

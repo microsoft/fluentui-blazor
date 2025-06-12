@@ -9,6 +9,14 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Represents a row in a <see cref="FluentDataGrid{TGridItem}"/> component, providing functionality for rendering,
+/// interaction, and data binding.
+/// </summary>
+/// <remarks>This class is used internally by the <see cref="FluentDataGrid{TGridItem}"/> to manage rows and their
+/// associated data. It provides support for row-specific behaviors such as focus, click, and keyboard interactions, as
+/// well as managing the layout and content of the row.</remarks>
+/// <typeparam name="TGridItem">The type of the data item associated with the row.</typeparam>
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable
 {
@@ -38,8 +46,11 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// Gets or sets the type of row. See <see cref="DataGridRowType"/>.
     /// </summary>
     [Parameter]
-    public DataGridRowType? RowType { get; set; } = DataGridRowType.Default;
+    public DataGridRowType RowType { get; set; } = DataGridRowType.Default;
 
+    /// <summary>
+    /// Gets or sets the vertical alignment of a row
+    /// </summary>
     [Parameter]
     public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Center;
 
@@ -49,6 +60,9 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets a callback for when a cell is focused.
+    /// </summary>
     [Parameter]
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
@@ -63,22 +77,32 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
+    /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-data-grid-row")
         .AddClass("hover", when: Grid.ShowHover)
         .Build();
 
+    /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
-       //.AddStyle("height", $"{Grid.ItemSize:0}px", () => Grid.Virtualize && RowType == DataGridRowType.Default)
-       //.AddStyle("height", "100%", () => (!Grid.Virtualize || InternalGridContext.Rows.Count == 0) && Grid.Loading && RowType == DataGridRowType.Default)
        .Build();
 
+    /// <summary />
     protected override void OnInitialized()
     {
         RowId = $"r{InternalGridContext.GetNextRowId()}";
         InternalGridContext.Register(this);
     }
 
+    /// <summary>
+    /// Sets the RowIndex for this row.
+    /// </summary>
+    public void SetRowIndex(int rowIndex)
+    {
+        RowIndex = rowIndex;
+    }
+
+    /// <summary />
     public void Dispose() => InternalGridContext.Unregister(this);
 
     internal void Register(FluentDataGridCell<TGridItem> cell)
@@ -106,7 +130,9 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     {
         var row = GetRow(rowId);
 
-        if (row is not null && !string.IsNullOrWhiteSpace(row.Class) && (row.Class.Contains(FluentDataGrid<TGridItem>.EMPTY_CONTENT_ROW_CLASS) || row.Class.Contains(FluentDataGrid<TGridItem>.LOADING_CONTENT_ROW_CLASS)))
+        if (row is not null && !string.IsNullOrWhiteSpace(row.Class) &&
+            (row.Class.Contains(FluentDataGrid<TGridItem>.EMPTY_CONTENT_ROW_CLASS, StringComparison.Ordinal) ||
+             row.Class.Contains(FluentDataGrid<TGridItem>.LOADING_CONTENT_ROW_CLASS, StringComparison.Ordinal)))
         {
             return;
         }
@@ -138,7 +164,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// <summary />
     internal async Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e)
     {
-        if (!SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code))
+        if (!SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code, StringComparer.Ordinal))
         {
             return;
         }
