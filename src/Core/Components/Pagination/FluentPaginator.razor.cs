@@ -25,6 +25,15 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
         _currentPageItemsChanged = new(new EventCallback<PaginationState>(this, @delegate: null));
     }
 
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-paginator")
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .Build();
+
     /// <summary>
     /// Gets or sets the callback that is invoked when the current page index changes.
     /// </summary>

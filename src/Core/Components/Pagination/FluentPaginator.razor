@@ -1,7 +1,10 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using System.Globalization
 @inherits FluentComponentBase
-<div class="fluent-paginator" style="@Style">
+<div id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     @attributes="@AdditionalAttributes">
     @if (State.TotalItemCount.HasValue)
     {
         <div class="summary">
@@ -32,7 +35,7 @@
                 }
                 else
                 {
-                    string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_Status], $"<strong>{State.CurrentPageIndex + 1}</strong>", $"<strong>{State.LastPageIndex + 1}</strong>");
+                    @(string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_Status], $"<strong>{State.CurrentPageIndex + 1}</strong>", $"<strong>{State.LastPageIndex + 1}</strong>"))
                 }
 
             </div>
