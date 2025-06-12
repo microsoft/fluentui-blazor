@@ -1,0 +1,164 @@
+﻿@using Xunit
+@inherits TestContext
+
+@code {
+
+    public FluentCardTests()
+    {
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+    }
+
+    [Fact]
+    public void FluentCard_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard>childcontent</FluentCard>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_NotAreaRestricted()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard AreaRestricted="false">
+                            childcontent
+                        </FluentCard>); 
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_NotAreaRestricted_AdditionalStyle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard AreaRestricted="false" Style="background-color: red">
+                            childcontent
+                        </FluentCard>);
+     
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_AdditionalCssClass()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard Class="css-class">
+                            childcontent
+                        </FluentCard>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_AdditionalStyle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard Style="background-color: red">
+                            childcontent
+                        </FluentCard>);
+        
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_AdditionalParameter()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard additional-parameter-name="additional-parameter-value">
+                            childcontent
+                        </FluentCard>);
+        
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_AdditionalParameters()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard additional-parameter1-name="additional-parameter1-value" additional-parameter2-name="additional-parameter2-value">
+                            childcontent
+                        </FluentCard>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard Width="400px">
+                            childcontent
+                        </FluentCard>);
+       
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard Height="400px">
+                            childcontent
+                        </FluentCard>);
+       
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_WidthAndHeight()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard Height="400px" Width="400px">
+                            childcontent
+                        </FluentCard>);
+       
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_Id()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard Id="customid">
+                            childcontent
+                        </FluentCard>);
+       
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_MinimalStyle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard MinimalStyle="true" Id="customId" Width="400px" Height="400px">
+                            ChildContent
+                        </FluentCard>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_MinimalStyle_NotAreaRestricted()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCard MinimalStyle="true" Id="customId" Width="400px" Height="400px" AreaRestricted="false">
+                            ChildContent
+                        </FluentCard>);
+        
+        // Assert
+        cut.Verify();
+    }
+}
