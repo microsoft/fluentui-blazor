@@ -1,6 +1,6 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-<div class="paginator" style="@Style">
+<div class="fluent-paginator" style="@Style">
     @if (State.TotalItemCount.HasValue)
     {
         <div class="summary">
@@ -14,12 +14,16 @@
             }
         </div>
         <nav role="navigation" class="paginator-nav">
-            <FluentButton @onclick="GoFirstAsync" Disabled="@(!CanGoBack || Disabled)" title="Go to first page" aria-label="Go to first page">
-                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDoubleLeft())" Width="20px" />
-            </FluentButton>
-            <FluentButton @onclick="GoPreviousAsync" Disabled="@(!CanGoBack || Disabled)" title="Go to previous page" aria-label="Go to previous page">
-                <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronLeft())" Width="20px" />
-            </FluentButton>
+            <FluentButton OnClick="GoFirstAsync"
+                          Disabled="@(!CanGoBack || Disabled)"
+                          Title="Go to first page"
+                          aria-label="Go to first page"
+                          IconStart="@(new CoreIcons.Regular.Size20.ChevronDoubleLeft())" />
+            <FluentButton OnClick="GoPreviousAsync"
+                          Disabled="@(!CanGoBack || Disabled)"
+                          Title="Go to previous page"
+                          aria-label="Go to previous page"
+                          IconStart="@(new CoreIcons.Regular.Size24.ChevronLeft())" />
             <div class="pagination-text">
                 @if (PaginationTextTemplate is not null)
                 {
@@ -31,12 +35,16 @@
                 }
 
             </div>
-            <FluentButton @onclick="GoNextAsync" Disabled="@(!CanGoForwards || Disabled)" title="Go to next page" aria-label="Go to next page">
-                <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronRight())" Width="20px" />
-            </FluentButton>
-            <FluentButton @onclick="GoLastAsync" Disabled="@(!CanGoForwards || Disabled)" title="Go to last page" aria-label="Go to last page">
-                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDoubleRight())" Width="20px" />
-            </FluentButton>
+            <FluentButton OnClick="GoNextAsync"
+                          Disabled="@(!CanGoForwards || Disabled)"
+                          Title="Go to next page"
+                          aria-label="Go to next page"
+                          IconStart="@(new CoreIcons.Regular.Size24.ChevronRight())" />
+            <FluentButton Onclick="GoLastAsync"
+                          Disabled="@(!CanGoForwards || Disabled)"
+                          Title="Go to last page"
+                          aria-label="Go to last page"
+                          IconStart="@(new CoreIcons.Regular.Size20.ChevronDoubleRight())" />
         </nav>
     }
 </div>

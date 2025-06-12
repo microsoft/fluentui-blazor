@@ -18,11 +18,11 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     /// <summary>
     /// Constructs an instance of <see cref="FluentPaginator" />.
     /// </summary>
-    public FluentPaginator()
+    public FluentPaginator(LibraryConfiguration configuration) : base(configuration)
     {
         // The "total item count" handler doesn't need to do anything except cause this component to re-render
-        _totalItemCountChanged = new(new EventCallback<PaginationState>(this, null));
-        _currentPageItemsChanged = new(new EventCallback<PaginationState>(this, null));
+        _totalItemCountChanged = new(new EventCallback<PaginationState>(this, @delegate: null));
+        _currentPageItemsChanged = new(new EventCallback<PaginationState>(this, @delegate: null));
     }
 
     /// <summary>

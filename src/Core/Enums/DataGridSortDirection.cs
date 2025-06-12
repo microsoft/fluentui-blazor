@@ -4,6 +4,8 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+// ToDo: remove pragma after next PR
+#pragma warning disable CS1574 // XML comment has cref attribute that could not be resolved
 /// <summary>
 /// Describes the direction in which a <see cref="FluentDataGrid{TGridItem}"/> column is sorted.
 /// </summary>
@@ -26,3 +28,4 @@ public enum DataGridSortDirection
     /// </summary>
     Descending,
 }
+#pragma warning restore CS1574 // XML comment has cref attribute that could not be resolved

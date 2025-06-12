@@ -6,6 +6,8 @@ using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+// ToDo: remove pragma after next PR
+#pragma warning disable CS1574 // XML comment has cref attribute that could not be resolved
 /// <summary>
 /// Holds state to represent pagination in a <see cref="FluentDataGrid{TGridItem}"/>.
 /// </summary>
@@ -70,8 +72,9 @@ public class PaginationState
         await CurrentPageItemsChanged.InvokeCallbacksAsync(this);
         if (TotalItemCount.HasValue)
         {
-            await SetTotalItemCountAsync(TotalItemCount.Value, true);
+            await SetTotalItemCountAsync(TotalItemCount.Value, force: true);
         }
+
         return;
     }
 
@@ -81,11 +84,11 @@ public class PaginationState
     /// <param name="totalItemCount">The total number of items</param>
     /// <param name="force">If true, the total item count will be updated even if it is the same as the current value.</param>
     /// <returns></returns>
-    public Task SetTotalItemCountAsync(int totalItemCount, bool force = false)
+    public async Task SetTotalItemCountAsync(int totalItemCount, bool force = false)
     {
         if (totalItemCount == TotalItemCount && !force)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         TotalItemCount = totalItemCount;
@@ -94,11 +97,12 @@ public class PaginationState
         {
             // If the number of items has reduced such that the current page index is no longer valid, move
             // automatically to the final valid page index and trigger a further data load.
-            _ = SetCurrentPageIndexAsync(LastPageIndex.Value);
+            await SetCurrentPageIndexAsync(LastPageIndex.Value);
         }
 
         // Under normal circumstances, we just want any associated pagination UI to update
         TotalItemCountChanged?.Invoke(this, new TotalItemCountChangedEventArgs(TotalItemCount));
-        return TotalItemCountChangedSubscribable.InvokeCallbacksAsync(this);
+        await TotalItemCountChangedSubscribable.InvokeCallbacksAsync(this);
     }
 }
+#pragma warning restore CS1574 // XML comment has cref attribute that could not be resolved
