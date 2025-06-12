@@ -105,6 +105,63 @@ hr {
   display: none !important;
 }
 
+/* Table */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+  table td,
+  table th {
+    padding: var(--spacingVerticalS) var(--spacingHorizontalM);
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  table[data-selectable] {
+    --selectedCheckWidth: 28px;
+    --selectedCheckContent: '✔';
+  }
+
+    table[data-selectable]:not([data-selectable="no-check"]) th:first-child::before {
+      content: "";
+      display: inline-block;
+      min-width: var(--selectedCheckWidth);
+    }
+
+    table[data-selectable] tr:hover:not(:has(th)) {
+      background-color: var(--colorNeutralBackground1Hover);
+      color: var(--colorNeutralForeground2Hover);
+      cursor: pointer;
+    }
+
+    table[data-selectable] tr:active:not(:has(th)) {
+      background-color: var(--colorNeutralBackground1Pressed);
+    }
+
+    table[data-selectable] tr[data-selected],
+    table[data-selectable] td[data-selected] {
+      background-color: var(--colorNeutralBackground1Selected);
+      color: var(--colorNeutralForeground2Hover);
+    }
+
+    table[data-selectable]:not([data-selectable="no-check"]) td:first-child::before,
+    table[data-selectable]:not([data-selectable="no-check"]) th:first-child::before {
+      content: "";
+      display: inline-block;
+      min-width: var(--selectedCheckWidth);
+      padding: 0 var(--spacingHorizontalS) 0 0;
+    }
+
+    table[data-selectable]:not([data-selectable="no-check"]) tr[data-selected] td:first-child::before {
+      content: var(--selectedCheckContent);
+      margin: 0 0 0 var(--spacingHorizontalS);
+      min-width: calc(var(--selectedCheckWidth) - var(--spacingHorizontalS));
+      padding: 0 var(--spacingHorizontalS) 0 0;
+    }
+
 /* Border outside the focused element */
 fluent-field:focus-within {
   outline: none;
