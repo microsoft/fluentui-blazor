@@ -11,6 +11,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
 {
+    /// <summary />
+    public FluentCounterBadge(LibraryConfiguration configuration) : base(configuration) { }
 
     private bool _isAttached => ChildContent is not null;
 

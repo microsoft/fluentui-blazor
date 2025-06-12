@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
@@ -11,6 +11,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentSpacer : FluentComponentBase
 {
+    /// <summary />
+    public FluentSpacer(LibraryConfiguration configuration) : base(configuration) { }
+
     /// <summary/>
     public string? ClassValue => DefaultClassBuilder
         .Build();

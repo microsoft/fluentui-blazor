@@ -201,7 +201,7 @@
     {
         var clicked = false;
         var label = "My item";
-        var item = new FluentMenuItem();
+        var item = new FluentMenuItem(LibraryConfiguration.Empty);
         var a = new MenuItemEventArgs { Id="myid", Text = label };
 
         // Arrange
@@ -227,7 +227,7 @@
     public void FluentMenuItem_RoleCheckboxChecked()
     {
         var label = "My item";
-        var item = new FluentMenuItem();
+        var item = new FluentMenuItem(LibraryConfiguration.Empty);
         var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = true };
 
         // Arrange
@@ -253,7 +253,7 @@
     public void FluentMenuItem_RoleCheckboxUnchecked()
     {
         var label = "My item";
-        var item = new FluentMenuItem();
+        var item = new FluentMenuItem(LibraryConfiguration.Empty);
         var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = false };
 
         // Arrange
@@ -273,7 +273,7 @@
     public void FluentMenuItem_RoleRadioChecked()
     {
         var label = "My item";
-        var item = new FluentMenuItem();
+        var item = new FluentMenuItem(LibraryConfiguration.Empty);
         var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = true };
 
         // Arrange
@@ -293,7 +293,7 @@
     public void FluentMenuItem_RoleRadioUnchecked()
     {
         var label = "My item";
-        var item = new FluentMenuItem();
+        var item = new FluentMenuItem(LibraryConfiguration.Empty);
         var a = new MenuItemEventArgs { Id="myid", Text = label, Checked = false };
 
         // Arrange
@@ -314,7 +314,7 @@
     {
         var clicked = false;
         var label = "My item";
-        var item = new FluentMenuItem();
+        var item = new FluentMenuItem(LibraryConfiguration.Empty);
         var a = new MenuItemEventArgs { Id = "123", Text = label };
 
         // Arrange

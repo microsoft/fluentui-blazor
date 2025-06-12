@@ -14,6 +14,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSelect<TOption> : FluentListBase<TOption>
 {
     /// <summary />
+    public FluentSelect(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected virtual string DropdownType => "dropdown";
 
     /// <summary />

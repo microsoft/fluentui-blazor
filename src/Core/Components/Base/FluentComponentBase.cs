@@ -17,6 +17,15 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     private FluentJSModule? _jsModule;
     private CachedServices? _cachedServices;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentComponentBase"/> class with the specified configuration.
+    /// </summary>
+    /// <param name="configuration">The configuration object used to apply default values to the component.</param>
+    protected FluentComponentBase(LibraryConfiguration configuration)
+    {
+        configuration?.DefaultValues.ApplyDefaults(this);
+    }
+
     [Inject]
     private IServiceProvider ServiceProvider { get; set; } = default!;
 
@@ -84,14 +93,15 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
-        if (_jsModule != null)
+        if (_jsModule != null && _jsModule.Imported)
         {
             try
             {
                 await DisposeAsync(_jsModule.ObjectReference);
             }
             catch (Exception ex) when (ex is JSDisconnectedException ||
-                                       ex is OperationCanceledException)
+                                       ex is OperationCanceledException ||
+                                       ex is InvalidOperationException)
             {
                 // The JSRuntime side may routinely be gone already if the reason we're disposing is that
                 // the client disconnected. This is not an error.

@@ -19,7 +19,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     [DynamicDependency(nameof(TabChangeHandlerAsync))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TabChangeEventArgs))]
-    public FluentTabs()
+    public FluentTabs(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

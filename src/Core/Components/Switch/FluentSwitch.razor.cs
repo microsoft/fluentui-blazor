@@ -16,7 +16,7 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentSwitch"/> class.
     /// </summary>
-    public FluentSwitch()
+    public FluentSwitch(LibraryConfiguration configuration) : base(configuration)
     {
         LabelPosition = Components.LabelPosition.After;
     }

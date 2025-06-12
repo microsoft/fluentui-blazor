@@ -16,6 +16,9 @@ public partial class FluentProgressBar : FluentComponentBase, ITooltipComponent
     private readonly string _defaultId = Identifier.NewId();
 
     /// <summary />
+    public FluentProgressBar(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

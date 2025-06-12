@@ -144,7 +144,7 @@
     [Fact]
     public async Task FluentAccordion_ActiveId()
     {
-        var accordion = new FluentAccordion();
+        var accordion = new FluentAccordion(LibraryConfiguration.Empty);
         var a = new AccordionItemEventArgs { Id = "item1", Expanded = true };
         var activeId = "";
         // Arrange
@@ -171,7 +171,7 @@
     [Fact]
     public async Task FluentAccordion_ActiveIdNull()
     {
-        var accordion = new FluentAccordion();
+        var accordion = new FluentAccordion(LibraryConfiguration.Empty);
         var a = new AccordionItemEventArgs { Expanded = true };
         var activeId = "";
         // Arrange
@@ -218,10 +218,10 @@
     public void FluentAccordion_Register()
     {
         // Arrange
-        var accordion = new FluentAccordion();
+        var accordion = new FluentAccordion(LibraryConfiguration.Empty);
 
 #pragma warning disable
-        var item = new FluentAccordionItem() { Id = "item1" };
+        var item = new FluentAccordionItem(LibraryConfiguration.Empty) { Id = "item1" };
 #pragma warning enable
 
         // Act
@@ -245,8 +245,8 @@
     public void FluentAccordion_Unregister()
     {
         // Arrange
-        var accordion = new FluentAccordion();
-        var item = new FluentAccordionItem { Id = "item1" };
+        var accordion = new FluentAccordion(LibraryConfiguration.Empty);
+        var item = new FluentAccordionItem(LibraryConfiguration.Empty) { Id = "item1" };
         accordion.Register(item);
 
         // Act

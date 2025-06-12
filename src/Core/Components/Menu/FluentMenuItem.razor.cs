@@ -25,7 +25,7 @@ public partial class FluentMenuItem : FluentComponentBase
     /// <summary />
     [DynamicDependency(nameof(OnChangeHandlerAsync))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MenuItemEventArgs))]
-    public FluentMenuItem()
+    public FluentMenuItem(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

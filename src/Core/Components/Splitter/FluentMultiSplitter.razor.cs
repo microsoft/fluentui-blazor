@@ -20,7 +20,7 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
     private DotNetObjectReference<FluentMultiSplitter>? _dotNetSplitterHelper;
 
     /// <summary />
-    public FluentMultiSplitter()
+    public FluentMultiSplitter(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

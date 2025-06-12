@@ -1,0 +1,25 @@
+﻿@ChildContent
+
+@code
+{
+    private static readonly object ERROR_ALREADY_OCCURED = new();
+
+    [CascadingParameter]
+    public required FluentErrorBoundary FluentErrorBoundary { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public bool Throw { get; set; } = true;
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "BL0005:Component parameter should not be set outside of its component.", Justification = "Test component intentionally sets parameter for testing error boundary.")]
+    protected override void OnInitialized()
+    {
+        if (Throw && FluentErrorBoundary.Data != ERROR_ALREADY_OCCURED)
+        {
+            FluentErrorBoundary.Data = ERROR_ALREADY_OCCURED;
+            throw new InvalidOperationException("Test exception");
+        }
+    }
+}

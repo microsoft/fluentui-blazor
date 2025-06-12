@@ -10,6 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
 public class CachedServicesTests : Bunit.TestContext
 {
+    public CachedServicesTests()
+    {
+        Services.AddScoped<LibraryConfiguration>();
+    }
+
     [Fact]
     public void CachedServices_GetCachedServiceOrNull()
     {
@@ -31,7 +36,7 @@ public class CachedServicesTests : Bunit.TestContext
         var service3 = cachedServices.GetCachedServiceOrNull<IFluentLocalizer>();
         Assert.Null(service3);
     }
-
+     
     [Fact]
     public async Task CachedServices_RenderTooltipAsync_LabelNull()
     {
@@ -39,7 +44,7 @@ public class CachedServicesTests : Bunit.TestContext
 
         // Arrange
         var cachedServices = new CachedServices(Services);
-        var button = new FluentButton();
+        var button = new FluentButton(default!);
 
         // Act
         await cachedServices.RenderTooltipAsync(button, label: null);
@@ -55,7 +60,7 @@ public class CachedServicesTests : Bunit.TestContext
 
         // Arrange
         var cachedServices = new CachedServices(Services);
-        var button = new FluentButton();
+        var button = new FluentButton(default!);
 
         // Act
         await cachedServices.RenderTooltipAsync(button, label: "abc");
@@ -69,7 +74,7 @@ public class CachedServicesTests : Bunit.TestContext
     {
         // Arrange
         var cachedServices = new CachedServices(Services);
-        var button = new FluentButton();
+        var button = new FluentButton(default!);
 
         // Act
         await cachedServices.RenderTooltipAsync(button, label: "abc");

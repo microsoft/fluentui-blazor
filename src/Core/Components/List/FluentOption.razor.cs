@@ -12,6 +12,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentOption : FluentComponentBase
 {
+    /// <summary />
+    public FluentOption(LibraryConfiguration configuration) : base(configuration) { }
+
     /// <summary>
     /// Gets or sets the context of the list.
     /// </summary>

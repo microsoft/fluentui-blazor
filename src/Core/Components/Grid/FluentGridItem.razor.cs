@@ -13,6 +13,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentGridItem : FluentComponentBase
 {
     /// <summary />
+    public FluentGridItem(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder.Build();
 
     /// <summary />

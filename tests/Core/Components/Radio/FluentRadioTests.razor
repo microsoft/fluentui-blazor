@@ -22,7 +22,7 @@
     public void FluentRadio_Default()
     {
         // Arrange & Act
-        var radioGroup = new FluentRadioGroup<string>();
+        var radioGroup = new FluentRadioGroup<string>(LibraryConfiguration.Empty);
         var cut = Render(
             @<FluentRadioGroup TValue="string" @ref="radioGroup">
                 <FluentRadio TValue="string"></FluentRadio>
@@ -37,7 +37,7 @@
     public void FluentRadio_Value()
     {
         // Arrange & Act
-        var radioGroup = new FluentRadioGroup<string>();
+        var radioGroup = new FluentRadioGroup<string>(LibraryConfiguration.Empty);
         var value = "test-value";
         var cut = Render(
             @<FluentRadioGroup TValue="string" @ref="radioGroup">

@@ -13,6 +13,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCompoundButton : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
+    public FluentCompoundButton(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 
