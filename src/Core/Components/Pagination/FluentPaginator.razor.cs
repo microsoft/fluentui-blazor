@@ -16,6 +16,16 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
 
     /// <summary>
+    /// Constructs an instance of <see cref="FluentPaginator" />.
+    /// </summary>
+    public FluentPaginator()
+    {
+        // The "total item count" handler doesn't need to do anything except cause this component to re-render
+        _totalItemCountChanged = new(new EventCallback<PaginationState>(this, null));
+        _currentPageItemsChanged = new(new EventCallback<PaginationState>(this, null));
+    }
+
+    /// <summary>
     /// Gets or sets the callback that is invoked when the current page index changes.
     /// </summary>
     /// <remarks>The callback receives the new page index as an <see cref="int"/> parameter. Use this property
@@ -33,7 +43,7 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     /// Gets or sets the associated <see cref="PaginationState"/>. This parameter is required.
     /// </summary>
     [Parameter, EditorRequired]
-    public PaginationState State { get; set; } = default!;
+    public required PaginationState State { get; set; }
 
     /// <summary>
     /// Optionally supplies a template for rendering the page count summary.
@@ -52,33 +62,6 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     [Parameter]
     public RenderFragment? PaginationTextTemplate { get; set; }
 
-    /// <summary>
-    /// Constructs an instance of <see cref="FluentPaginator" />.
-    /// </summary>
-    public FluentPaginator()
-    {
-        // The "total item count" handler doesn't need to do anything except cause this component to re-render
-        _totalItemCountChanged = new(new EventCallback<PaginationState>(this, null));
-        _currentPageItemsChanged = new(new EventCallback<PaginationState>(this, null));
-    }
-
-    private Task GoFirstAsync() => GoToPageAsync(0);
-    private Task GoPreviousAsync() => GoToPageAsync(State.CurrentPageIndex - 1);
-    private Task GoNextAsync() => GoToPageAsync(State.CurrentPageIndex + 1);
-    private Task GoLastAsync() => GoToPageAsync(State.LastPageIndex.GetValueOrDefault(0));
-
-    private bool CanGoBack => State.CurrentPageIndex > 0;
-    private bool CanGoForwards => State.CurrentPageIndex < State.LastPageIndex;
-
-    private async Task GoToPageAsync(int pageIndex)
-    {
-        await State.SetCurrentPageIndexAsync(pageIndex);
-        if (CurrentPageIndexChanged.HasDelegate)
-        {
-            await CurrentPageIndexChanged.InvokeAsync(State.CurrentPageIndex);
-        }
-    }
-
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
@@ -91,5 +74,26 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     {
         _totalItemCountChanged.Dispose();
         _currentPageItemsChanged.Dispose();
+    }
+
+    private bool CanGoBack => State.CurrentPageIndex > 0;
+
+    private bool CanGoForwards => State.CurrentPageIndex < State.LastPageIndex;
+
+    private Task GoFirstAsync() => GoToPageAsync(0);
+
+    private Task GoPreviousAsync() => GoToPageAsync(State.CurrentPageIndex - 1);
+
+    private Task GoNextAsync() => GoToPageAsync(State.CurrentPageIndex + 1);
+
+    private Task GoLastAsync() => GoToPageAsync(State.LastPageIndex.GetValueOrDefault(0));
+
+    private async Task GoToPageAsync(int pageIndex)
+    {
+        await State.SetCurrentPageIndexAsync(pageIndex);
+        if (CurrentPageIndexChanged.HasDelegate)
+        {
+            await CurrentPageIndexChanged.InvokeAsync(State.CurrentPageIndex);
+        }
     }
 }

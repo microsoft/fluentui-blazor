@@ -1,4 +1,4 @@
-.paginator {
+.fluent-paginator {
     display: flex;
     /*border-top: 1px solid var(--neutral-stroke-divider-rest);*/
     margin-top: 0.5rem;
@@ -6,20 +6,20 @@
     align-items: center;
 }
 
-.pagination-text {
-    margin: 0 0.5rem;
+.fluent-paginator .pagination-text {
+  margin: 0 0.5rem;
 }
 
-.paginator-nav {
-    padding: 0; 
-    display: flex;
-    margin-inline-start: auto;
-    margin-inline-end: 0;
-    gap: 0.5rem;
-    align-items: center;
+.fluent-paginator .paginator-nav {
+  padding: 0;
+  display: flex;
+  margin-inline-start: auto;
+  margin-inline-end: 0;
+  gap: 0.5rem;
+  align-items: center;
 }
 
     
-[dir="rtl"] * ::deep fluent-button > svg {
+[dir="rtl"] .fluent-paginator fluent-button > svg {
     transform: rotate(180deg);
 }
