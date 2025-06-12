@@ -5,6 +5,11 @@
     <style>
         :root {
             --datagrid-hover-color: lightyellow;
+
+        }
+
+        .fluent-data-grid {
+            --fluent-data-grid-resize-handle-color: var(--neutral-stroke-rest) !important;
         }
     </style>
 
@@ -19,11 +24,13 @@
     <FluentSpacer Width="25" />
     <FluentCheckbox @bind-Value="@_showActionsMenu" Label="Use menu for column actions" />
     <FluentCheckbox @bind-Value="@_useMenuService" Label="Use service for rendering menu" Disabled="!_showActionsMenu" />
+    <FluentCheckbox @bind-Value="@_resizeColumnOnAllRows" Label="Resize column on all rows" />
 </FluentToolbar>
 <div style="height: 400px; overflow-x:auto; display:flex;">
     <FluentDataGrid Items="@FilteredItems"
                     ResizableColumns=true
                     ResizeType="@_resizeType"
+                    ResizeColumnOnAllRows="@_resizeColumnOnAllRows"
                     HeaderCellAsButtonWithMenu="_showActionsMenu"
                     UseMenuService="_useMenuService"
                     Pagination="@pagination"
@@ -78,6 +85,7 @@
     DataGridResizeType? _resizeType = null;
     bool _showActionsMenu;
     bool _useMenuService = true;
+    bool _resizeColumnOnAllRows = true;
 
     GridSort<Country> rankSort = GridSort<Country>
         .ByDescending(x => x.Medals.Gold)
