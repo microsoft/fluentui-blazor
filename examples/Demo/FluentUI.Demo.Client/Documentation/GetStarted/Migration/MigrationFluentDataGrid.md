@@ -4,5 +4,6 @@
 - `ColumnSortLabels` has been renamed to `ColumnSortUISettings`
 
 ### Enum changes
-- `SortDirection` has been renamed to `DataGridSortDirection`
 - `Align` has been renamed to `HorizontalAlignment`
+- `GenerateHeaderOption` has been renamed to `DataGridGeneratedHeaderType`
+- `SortDirection` has been renamed to `DataGridSortDirection`
