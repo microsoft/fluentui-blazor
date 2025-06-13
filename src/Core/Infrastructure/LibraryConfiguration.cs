@@ -13,6 +13,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class LibraryConfiguration
 {
     /// <summary>
+    /// Gets an empty instance of the <see cref="LibraryConfiguration"/> class.
+    /// Mainly used for testing purposes or when no configuration is needed.
+    /// </summary>
+    internal static LibraryConfiguration Empty { get; } = new LibraryConfiguration();
+
+    /// <summary>
     /// Gets the assembly version formatted as a string.
     /// </summary>
     public static readonly string? AssemblyVersion = typeof(LibraryConfiguration).Assembly.GetName().Version?.ToString();
@@ -33,6 +39,11 @@ public class LibraryConfiguration
     /// Gets the default CSS class and styles for the library components.
     /// </summary>
     public DefaultStyles DefaultStyles { get; } = new DefaultStyles();
+
+    /// <summary>
+    /// Gets the default CSS class and styles for the library components.
+    /// </summary>
+    public DefaultValues DefaultValues { get; } = new DefaultValues();
 
     /// <summary>
     /// Gets the options for the library tooltip.

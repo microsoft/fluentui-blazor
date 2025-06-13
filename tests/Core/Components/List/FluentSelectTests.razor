@@ -270,7 +270,7 @@
     public void FluentSelect_TryParseValueFromString(string? value, int? expectedParsedValue, string? expectedValidationErrorMessage)
     {
         // Arrange
-        var fluentSelect = new FluentSelect<int>();
+        var fluentSelect = new FluentSelect<int>(LibraryConfiguration.Empty);
 
         // Act
         fluentSelect.InternalTryParseValueFromString(value, out var parsedValue, out var validationErrorMessage);
@@ -300,7 +300,7 @@
         }
 
         // Act
-        var removedId = cut.FindComponent<FluentSelect<string?>>().Instance.RemoveOption(new()
+        var removedId = cut.FindComponent<FluentSelect<string?>>().Instance.RemoveOption(new(LibraryConfiguration.Empty)
         {
             Id = id,
             Data = data,

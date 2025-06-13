@@ -13,6 +13,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCombobox<TOption> : FluentSelect<TOption>
 {
     /// <summary />
+    public FluentCombobox(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected override string DropdownType => "combobox";
 
     /// <summary>

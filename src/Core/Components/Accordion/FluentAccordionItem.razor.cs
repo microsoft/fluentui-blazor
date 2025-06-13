@@ -91,7 +91,7 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
-    public FluentAccordionItem()
+    public FluentAccordionItem(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

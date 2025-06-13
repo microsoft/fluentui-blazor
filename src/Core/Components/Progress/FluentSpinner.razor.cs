@@ -12,6 +12,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSpinner : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
+    public FluentSpinner(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

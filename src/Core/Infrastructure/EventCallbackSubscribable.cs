@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Collections.Concurrent;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
@@ -14,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 /// <typeparam name="T">A type for the eventargs.</typeparam>
 internal sealed class EventCallbackSubscribable<T>
 {
-    private readonly Dictionary<EventCallbackSubscriber<T>, EventCallback<T>> _callbacks = [];
+    private readonly ConcurrentDictionary<EventCallbackSubscriber<T>, EventCallback<T>> _callbacks = [];
 
     /// <summary>
     /// Invokes all the registered callbacks sequentially, in an undefined order.
@@ -29,9 +30,9 @@ internal sealed class EventCallbackSubscribable<T>
 
     // Don't call this directly - it gets called by EventCallbackSubscription
     public void Subscribe(EventCallbackSubscriber<T> owner, EventCallback<T> callback)
-        => _callbacks.Add(owner, callback);
+        => _callbacks.TryAdd(owner, callback);
 
     // Don't call this directly - it gets called by EventCallbackSubscription
     public void Unsubscribe(EventCallbackSubscriber<T> owner)
-        => _callbacks.Remove(owner);
+        => _callbacks.TryRemove(owner, out _);
 }

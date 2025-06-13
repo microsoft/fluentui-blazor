@@ -219,4 +219,28 @@
   <data name="TreeItem_LoadingMessage" xml:space="preserve">
     <value>Loading...</value>
   </data>
+  <data name="ErrorBoundary_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ErrorBoundary_Title" xml:space="preserve">
+    <value>An error occured</value>
+  </data>
+  <data name="ErrorBoundary_Message" xml:space="preserve">
+    <value>An unhandled error has occurred. Please, contact your IT support.</value>
+  </data>
+  <data name="Paginator_GoFirstPage" xml:space="preserve">
+    <value>Go to first page</value>
+  </data>
+  <data name="Paginator_GoPreviousPage" xml:space="preserve">
+    <value>Go to previous page</value>
+  </data>
+  <data name="Paginator_GoNextPage" xml:space="preserve">
+    <value>Go to next page</value>
+  </data>
+  <data name="Paginator_GoLastPage" xml:space="preserve">
+    <value>Go to last page</value>
+  </data>
+  <data name="Paginator_Status" xml:space="preserve">
+    <value>Page {0} of {1}</value>
+  </data>
 </root>

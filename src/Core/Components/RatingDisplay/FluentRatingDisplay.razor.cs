@@ -12,6 +12,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentRatingDisplay : FluentComponentBase, ITooltipComponent
 {
     /// <summary />
+    public FluentRatingDisplay(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
 

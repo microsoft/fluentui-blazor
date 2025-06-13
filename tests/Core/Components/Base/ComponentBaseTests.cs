@@ -40,6 +40,7 @@ public class ComponentBaseTests : Bunit.TestContext
         { typeof(FluentTooltip), Loader.Default.WithRequiredParameter("Anchor", "MyButton").WithRequiredParameter("UseTooltipService", false)},
         { typeof(FluentHighlighter), Loader.Default.WithRequiredParameter("HighlightedText", "AB").WithRequiredParameter("Text", "ABCDEF")},
         { typeof(FluentKeyCode), Loader.Default.WithRequiredParameter("ChildContent", (RenderFragment)(builder => builder.AddContent(0, "MyContent"))) },
+        { typeof(FluentPaginator), Loader.Default.WithRequiredParameter("State", new PaginationState()) }
     };
 
     /// <summary />
@@ -261,6 +262,8 @@ public class ComponentBaseTests : Bunit.TestContext
     // Class used by the "ComponentBase_JsModule" test
     private class MyComponent : FluentGrid
     {
+        public MyComponent() : base(LibraryConfiguration.Empty) { }
+
         public const string JAVASCRIPT_FILENAME = "FluentGrid.razor.js";
         public IJSObjectReference GetJSModule() => base.JSModule.ObjectReference;
     }

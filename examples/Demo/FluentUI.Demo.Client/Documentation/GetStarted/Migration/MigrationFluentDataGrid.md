@@ -1,5 +1,5 @@
 ### Renamed parameters
-- `ColumnOptionsLabels` has been renamed to `ColumnOptionUISettings`
+- `ColumnOptionsLabels` has been renamed to `ColumnOptionsUISettings`
 - `ColumnResizeLabels` has been renamed to `ColumnResizeUISettings`
 - `ColumnSortLabels` has been renamed to `ColumnSortUISettings`
 

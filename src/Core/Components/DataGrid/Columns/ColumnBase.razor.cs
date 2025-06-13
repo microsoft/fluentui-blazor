@@ -26,6 +26,37 @@ public abstract partial class ColumnBase<TGridItem>
     internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
     /// <summary>
+    /// Indicates whether the current column is the active sort column.
+    /// </summary>
+    public bool IsActiveSortColumn;
+
+    /// <summary>
+    /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header cell.
+    /// This allows derived components to change the header output. However, derived components are then
+    /// responsible for using <see cref="HeaderCellItemTemplate" /> within that new output if they want to continue
+    /// respecting that option.
+    /// </summary>
+    protected internal RenderFragment HeaderContent { get; protected set; }
+
+    /// <summary>
+    /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header title.
+    /// This allows derived components to change the header title output. However, derived components are then
+    /// responsible for using <see cref="HeaderCellTitleTemplate" /> within that new output if they want to continue
+    /// respecting that option.
+    /// </summary>
+    protected internal RenderFragment HeaderTitleContent { get; protected set; }
+
+    /// <summary>
+    /// Gets a value indicating whether any column-related action is enabled.
+    /// </summary>
+    protected bool AnyColumnActionEnabled => Sortable is true || ColumnOptions != null || Grid.ResizableColumns;
+
+    /// <summary>
+    /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
+    /// </summary>
+    protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
+
+    /// <summary>
     /// Gets or sets the title text for the column.
     /// This is rendered automatically if <see cref="HeaderCellItemTemplate" /> is not used.
     /// </summary>
@@ -153,14 +184,19 @@ public abstract partial class ColumnBase<TGridItem>
     public string? Width { get; set; }
 
     /// <summary>
-    /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
+    /// Sets the column index for the current instance.
     /// </summary>
-    protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
+    internal void SetColumnIndex(int index)
+    {
+        Index = index;
+    }
 
-    /// <summary>
-    /// Gets a value indicating whether any column-related action is enabled.
-    /// </summary>
-    protected bool AnyColumnActionEnabled => Sortable is true || ColumnOptions != null || Grid.ResizableColumns;
+    /// <summary />
+    protected ColumnBase()
+    {
+        HeaderContent = RenderDefaultHeaderContent;
+        HeaderTitleContent = RenderDefaultHeaderTitle;
+    }
 
     /// <summary />
     protected override void OnInitialized()
@@ -227,22 +263,6 @@ public abstract partial class ColumnBase<TGridItem>
     protected internal virtual string? RawCellContent(TGridItem item) => null;
 
     /// <summary>
-    /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header cell.
-    /// This allows derived components to change the header output. However, derived components are then
-    /// responsible for using <see cref="HeaderCellItemTemplate" /> within that new output if they want to continue
-    /// respecting that option.
-    /// </summary>
-    protected internal RenderFragment HeaderContent { get; protected set; }
-
-    /// <summary>
-    /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header title.
-    /// This allows derived components to change the header title output. However, derived components are then
-    /// responsible for using <see cref="HeaderCellTitleTemplate" /> within that new output if they want to continue
-    /// respecting that option.
-    /// </summary>
-    protected internal RenderFragment HeaderTitleContent { get; protected set; }
-
-    /// <summary>
     /// Gets a value indicating whether this column should act as sortable if no value was set for the
     /// <see cref="ColumnBase{TGridItem}.Sortable" /> parameter. The default behavior is not to be
     /// sortable unless <see cref="ColumnBase{TGridItem}.Sortable" /> is true.
@@ -265,18 +285,6 @@ public abstract partial class ColumnBase<TGridItem>
         {
             await Grid.RemoveSortByColumnAsync(this);
         }
-    }
-
-    /// <summary>
-    /// Indicates whether the current column is the active sort column.
-    /// </summary>
-    public bool IsActiveSortColumn;
-
-    /// <summary />
-    protected ColumnBase()
-    {
-        HeaderContent = RenderDefaultHeaderContent;
-        HeaderTitleContent = RenderDefaultHeaderTitle;
     }
 
     private async Task HandleColumnHeaderClickedAsync()
@@ -339,20 +347,12 @@ public abstract partial class ColumnBase<TGridItem>
         {
             if (Grid.SortByAscending is true)
             {
-                return Grid.ColumnSortLabels.SortMenuAscendingLabel;
+                return Grid.ColumnSortUISettings.SortMenuAscendingLabel;
             }
 
-            return Grid.ColumnSortLabels.SortMenuDescendingLabel;
+            return Grid.ColumnSortUISettings.SortMenuDescendingLabel;
         }
 
-        return Grid.ColumnSortLabels.SortMenu;
-    }
-
-    /// <summary>
-    /// Sets the column index for the current instance.
-    /// </summary>
-    internal void SetColumnIndex(int index)
-    {
-        Index = index;
+        return Grid.ColumnSortUISettings.SortMenu;
     }
 }

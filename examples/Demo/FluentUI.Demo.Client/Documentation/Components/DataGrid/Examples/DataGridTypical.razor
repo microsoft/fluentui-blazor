@@ -14,7 +14,7 @@
                     RowClass="@rowClass"
                     RowStyle="@rowStyle"
                     HeaderCellAsButtonWithMenu="true"
-                    ColumnResizeLabels="@resizeLabels">
+                    ColumnResizeUISettings="@resizeLabels">
         <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="HorizontalAlignment.Center" InitialSortDirection="DataGridSortDirection.Ascending" IsDefaultSortColumn=true>
             <img class="flag" src="/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
         </TemplateColumn>

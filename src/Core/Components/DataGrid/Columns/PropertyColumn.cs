@@ -76,7 +76,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
                     throw new InvalidOperationException($"A '{nameof(Format)}' parameter was supplied, but the type '{typeof(TProp)}' does not implement '{typeof(IFormattable)}'.");
                 }
 
-                _cellTextFunc = item => ((IFormattable?)compiledPropertyExpression!(item))?.ToString(Format, null);
+                _cellTextFunc = item => ((IFormattable?)compiledPropertyExpression!(item))?.ToString(Format, formatProvider: null);
             }
             else
             {

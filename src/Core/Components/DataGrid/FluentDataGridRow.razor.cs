@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
@@ -20,8 +21,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable
 {
-    internal string RowId { get; set; } = string.Empty;
     private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [];
+    internal string RowId { get; set; } = string.Empty;
+
+    /// <summary />
+    public FluentDataGridRow(LibraryConfiguration configuration) : base(configuration)
+    {
+    }
 
     /// <summary>
     /// Gets or sets the reference to the item that holds this row's values.
@@ -87,13 +93,6 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     protected string? StyleValue => new StyleBuilder(Style)
        .Build();
 
-    /// <summary />
-    protected override void OnInitialized()
-    {
-        RowId = $"r{InternalGridContext.GetNextRowId()}";
-        InternalGridContext.Register(this);
-    }
-
     /// <summary>
     /// Sets the RowIndex for this row.
     /// </summary>
@@ -103,12 +102,26 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     }
 
     /// <summary />
-    public void Dispose() => InternalGridContext.Unregister(this);
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
+        InternalGridContext.Unregister(this);
+    }
+
+    /// <summary />
+    Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+        => callback.InvokeAsync(arg);
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        RowId = $"r{InternalGridContext.GetNextRowId().ToString(CultureInfo.InvariantCulture)}";
+        InternalGridContext.Register(this);
+    }
 
     internal void Register(FluentDataGridCell<TGridItem> cell)
     {
-
-        cell.CellId = $"c{InternalGridContext.GetNextCellId()}";
+        cell.CellId = $"c{InternalGridContext.GetNextCellId().ToString(CultureInfo.InvariantCulture)}";
         cells.Add(cell.CellId, cell);
     }
 
@@ -196,8 +209,4 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
         return null;
     }
-
-    /// <summary />
-    Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
-        => callback.InvokeAsync(arg);
 }

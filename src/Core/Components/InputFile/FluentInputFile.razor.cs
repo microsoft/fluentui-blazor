@@ -30,7 +30,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, II
     private IJSObjectReference? _containerInstance;
 
     /// <summary />
-    public FluentInputFile()
+    public FluentInputFile(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

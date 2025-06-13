@@ -272,7 +272,7 @@
     public void FluentCombobox_TryParseValueFromString(string? value, int? expectedParsedValue, string? expectedValidationErrorMessage)
     {
         // Arrange
-        var FluentCombobox = new FluentCombobox<int>();
+        var FluentCombobox = new FluentCombobox<int>(LibraryConfiguration.Empty);
 
         // Act
         FluentCombobox.InternalTryParseValueFromString(value, out var parsedValue, out var validationErrorMessage);
@@ -302,7 +302,7 @@
         }
 
         // Act
-        var removedId = cut.FindComponent<FluentCombobox<string?>>().Instance.RemoveOption(new()
+        var removedId = cut.FindComponent<FluentCombobox<string?>>().Instance.RemoveOption(new(LibraryConfiguration.Empty)
         {
             Id = id,
             Data = data,

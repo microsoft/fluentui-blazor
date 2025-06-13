@@ -4,12 +4,12 @@
 <FluentStack Class="resize-options" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="4">
     @if (ResizeType == DataGridResizeType.Discrete)
     {
-        <FluentLabel>@Grid.ColumnResizeLabels.DiscreteLabel</FluentLabel>
+        <FluentLabel>@Grid.ColumnResizeUISettings.DiscreteLabel</FluentLabel>
 
         <FluentSpacer />
-        <FluentButton OnClick="@HandleShrinkAsync" IconStart="@(new CoreIcons.Regular.Size20.Subtract())" aria-label="@(Grid.ColumnResizeLabels.ShrinkAriaLabel)" />
-        <FluentButton OnClick="@HandleGrowAsync" IconStart="@(new CoreIcons.Regular.Size20.Add())" aria-label="@(Grid.ColumnResizeLabels.GrowAriaLabel)" />
-        <FluentButton OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@(Grid.ColumnResizeLabels.ResetAriaLabel)" />
+        <FluentButton OnClick="@HandleShrinkAsync" IconStart="@(new CoreIcons.Regular.Size20.Subtract())" aria-label="@(Grid.ColumnResizeUISettings.ShrinkAriaLabel)" />
+        <FluentButton OnClick="@HandleGrowAsync" IconStart="@(new CoreIcons.Regular.Size20.Add())" aria-label="@(Grid.ColumnResizeUISettings.GrowAriaLabel)" />
+        <FluentButton OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@(Grid.ColumnResizeUISettings.ResetAriaLabel)" />
     }
     else
     {
@@ -22,15 +22,15 @@
                                  InputMode="TextInputMode.Numeric"
                                  Immediate="true"
                                  ImmediateDelay="200"
-                                 Label="@Grid.ColumnResizeLabels.ExactLabel"
+                                 Label="@Grid.ColumnResizeUISettings.ExactLabel"
                                  AutoComplete="off"
                                  Autofocus="true"
                                  @onkeydown="@HandleColumnWidthKeyDownAsync" />
             </div>
-            <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" Appearance="@ButtonAppearance.Primary" aria-label="@(Grid.ColumnResizeLabels.SubmitAriaLabel)">
+            <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" Appearance="@ButtonAppearance.Primary" aria-label="@(Grid.ColumnResizeUISettings.SubmitAriaLabel)">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size20.Checkmark())" Color="@Color.Default" />
             </FluentButton>
-            <FluentButton Style="height: 30px;" OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@(Grid.ColumnResizeLabels.ResetAriaLabel)" />
+            <FluentButton Style="height: 30px;" OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@(Grid.ColumnResizeUISettings.ResetAriaLabel)" />
         </FluentStack>
     }
 </FluentStack>

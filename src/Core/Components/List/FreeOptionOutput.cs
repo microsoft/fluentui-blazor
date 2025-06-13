@@ -12,6 +12,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class FreeOptionOutput : FluentComponentBase
 {
     /// <summary />
+    public FreeOptionOutput(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "output");

@@ -66,38 +66,27 @@
                 <FluentMenu @ref="@_menu" Trigger="@_columnId">
                     @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
                     {
-                        <FluentMenuItem OnClick="@(async () => await Grid.SortByColumnAsync(this))" @onkeydown="HandleSortMenuKeyDownAsync">
+                        <FluentMenuItem OnClick="@(async () => await Grid.SortByColumnAsync(this))" @onkeydown="HandleSortMenuKeyDownAsync"
+                                        IconStart="@(Grid.ColumnSortUISettings.Icon is not null && Grid.ColumnSortUISettings.IconPositionStart ? Grid.ColumnSortUISettings.Icon : null)"
+                                        IconEnd="@(Grid.ColumnSortUISettings.Icon is not null && !Grid.ColumnSortUISettings.IconPositionStart? Grid.ColumnSortUISettings.Icon : null)">
                             @GetSortOptionText()
-                            @if (Grid.ColumnSortLabels.Icon is not null)
-                            {
-                                <span style="display:flex; align-items: center;" slot="@(Grid.ColumnSortLabels.IconPositionStart ? "start" : "end")">
-                                    <FluentIcon Value="@(Grid.ColumnSortLabels.Icon)" Slot="@(Grid.ColumnSortLabels.IconPositionStart ? "start" : "end")" />
-                                </span>
-                            }
+
                         </FluentMenuItem>
                     }
                     @if (Grid.ResizeType is not null && Grid.ResizableColumns)
                     {
-                        <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnResizeAsync(this))" @onkeydown="HandleResizeMenuKeyDownAsync">
-                            @Grid.ColumnResizeLabels.ResizeMenu
-                            @if (Grid.ColumnResizeLabels.Icon is not null)
-                            {
-                                <span style="display:flex; align-items: center;" slot="@(Grid.ColumnResizeLabels.IconPositionStart ? "start" : "end")">
-                                    <FluentIcon Value="@(Grid.ColumnResizeLabels.Icon)" Slot="@(Grid.ColumnResizeLabels.IconPositionStart ? "start" : "end")" />
-                                </span>
-                            }
+                        <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnResizeAsync(this))" @onkeydown="HandleResizeMenuKeyDownAsync"
+                                        IconStart="@(Grid.ColumnResizeUISettings.Icon is not null && Grid.ColumnResizeUISettings.IconPositionStart ? Grid.ColumnResizeUISettings.Icon : null)"
+                                        IconEnd="@(Grid.ColumnResizeUISettings.Icon is not null && !Grid.ColumnResizeUISettings.IconPositionStart? Grid.ColumnResizeUISettings.Icon : null)">
+                            @Grid.ColumnResizeUISettings.ResizeMenu
                         </FluentMenuItem>
                     }
                     @if (ColumnOptions is not null)
                     {
-                        <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnOptionsAsync(this))" @onkeydown="HandleOptionsMenuKeyDownAsync">
-                            @Grid.ColumnOptionsLabels.OptionsMenu
-                            @if (Grid.ColumnOptionsLabels.Icon is not null)
-                            {
-                                <span style="display:flex; align-items: center;" slot="@(Grid.ColumnOptionsLabels.IconPositionStart ? "start" : "end")">
-                                    <FluentIcon Value="@(Grid.ColumnOptionsLabels.Icon)" Slot="@(Grid.ColumnOptionsLabels.IconPositionStart ? "start" : "end")" />
-                                </span>
-                            }
+                        <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnOptionsAsync(this))" @onkeydown="HandleOptionsMenuKeyDownAsync"
+                                        IconStart="@(Grid.ColumnOptionsUISettings.Icon is not null && Grid.ColumnOptionsUISettings.IconPositionStart ? Grid.ColumnOptionsUISettings.Icon : null)"
+                                        IconEnd="@(Grid.ColumnOptionsUISettings.Icon is not null && !Grid.ColumnOptionsUISettings.IconPositionStart? Grid.ColumnOptionsUISettings.Icon : null)">
+                            @Grid.ColumnOptionsUISettings.OptionsMenu
                         </FluentMenuItem>
                     }
                 </FluentMenu>
@@ -155,7 +144,7 @@
                             }
                             @if (ColumnOptions is not null && Filtered.GetValueOrDefault())
                             {
-                                <FluentIcon Value="@(Grid.ColumnOptionsLabels.Icon)" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                                <FluentIcon Value="@(Grid.ColumnOptionsUISettings.Icon)" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                             }
                         </FluentButton>
                     </FluentKeyCode>
@@ -168,7 +157,7 @@
                             @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType.HasValue)
                             {
                                 <span style="padding: 0 5px;">
-                                    <FluentIcon Value="@(Grid.ColumnOptionsLabels.Icon)" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                                    <FluentIcon Value="@(Grid.ColumnOptionsUISettings.Icon)" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                                 </span>
                             }
                         </div>
@@ -215,7 +204,7 @@
     {
         return
             @<FluentButton Appearance="ButtonAppearance.Subtle" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                 <FluentIcon Value="@(Grid.ColumnOptionsLabels.Icon)" />
+                 <FluentIcon Value="@(Grid.ColumnOptionsUISettings.Icon)" />
             </FluentButton>;
     }
 }

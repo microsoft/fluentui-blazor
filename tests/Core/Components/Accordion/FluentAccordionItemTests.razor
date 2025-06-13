@@ -194,7 +194,7 @@
     {
         // Arrange
 
-        var accordion = new FluentAccordion(); // Create an instance of the parent component
+        var accordion = new FluentAccordion(LibraryConfiguration.Empty); // Create an instance of the parent component
 
         // Act
         var cut = Render<FluentAccordionItem>(@<CascadingValue Value="@accordion">

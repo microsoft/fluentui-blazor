@@ -14,6 +14,9 @@ public partial class FluentField : FluentComponentBase, IFluentField
 {
     private readonly string _defaultId = Identifier.NewId();
 
+    /// <summary />
+    public FluentField(LibraryConfiguration configuration) : base(configuration) { }
+
     [Inject]
     private LibraryConfiguration Configuration { get; set; } = default!;
 

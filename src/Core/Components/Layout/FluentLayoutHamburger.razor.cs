@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentLayoutHamburger : FluentComponentBase
 {
     /// <summary />
-    public FluentLayoutHamburger()
+    public FluentLayoutHamburger(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }

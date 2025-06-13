@@ -17,7 +17,9 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <summary>
     /// List of keys to press, to select/unselect a row.
     /// </summary>
+#pragma warning disable MA0018 // Do not declare static members on generic types (deprecated; use CA1000 instead)
     public static readonly string[] KEYBOARD_SELECT_KEYS = ["Enter", "NumpadEnter"];
+#pragma warning restore MA0018 // Do not declare static members on generic types (deprecated; use CA1000 instead)
 
     private readonly Icon IconUnselectedMultiple = new CoreIcons.Regular.Size20.CheckboxUnchecked().WithColor(Color.Lightweight);
     private readonly Icon IconSelectedMultiple = new CoreIcons.Filled.Size20.CheckboxChecked();
@@ -182,7 +184,9 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// </summary>
     public async Task ClearSelectionAsync()
     {
+#pragma warning disable MA0042 // Do not use blocking calls in an async method
         ClearSelection();
+#pragma warning restore MA0042 // Do not use blocking calls in an async method
         await Task.CompletedTask;
     }
 
@@ -193,7 +197,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <returns></returns>
     protected internal override Task OnRowClickAsync(FluentDataGridRow<TGridItem> row)
     {
-        if (SelectFromEntireRow == true && row.RowType == DataGridRowType.Default)
+        if (SelectFromEntireRow && row.RowType == DataGridRowType.Default)
         {
             return AddOrRemoveSelectedItemAsync(row.Item);
         }
@@ -209,7 +213,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <returns></returns>
     protected internal override Task OnRowKeyDownAsync(FluentDataGridRow<TGridItem> row, KeyboardEventArgs args)
     {
-        if (SelectFromEntireRow == true && row.RowType == DataGridRowType.Default)
+        if (SelectFromEntireRow && row.RowType == DataGridRowType.Default)
         {
             return AddOrRemoveSelectedItemAsync(row.Item);
         }
@@ -225,7 +229,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     protected internal override Task OnCellClickAsync(FluentDataGridCell<TGridItem> cell)
     {
         // If the cell is a checkbox cell, add or remove the item from the selected items list.
-        if (SelectFromEntireRow == false && cell.CellType == DataGridCellType.Default)
+        if (!SelectFromEntireRow && cell.CellType == DataGridCellType.Default)
         {
             return AddOrRemoveSelectedItemAsync(cell.Item);
         }
@@ -242,7 +246,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     protected internal override Task OnCellKeyDownAsync(FluentDataGridCell<TGridItem> cell, KeyboardEventArgs args)
     {
         // If the cell is a checkbox cell, add or remove the item from the selected items list.
-        if (SelectFromEntireRow == false && cell.CellType == DataGridCellType.Default)
+        if (!SelectFromEntireRow && cell.CellType == DataGridCellType.Default)
         {
             return AddOrRemoveSelectedItemAsync(cell.Item);
         }
@@ -260,11 +264,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                 return;
             }
 
-            if (SelectedItems.Contains(item))
+            if (SelectedItems.Remove(item))
             {
-                SelectedItems.Remove(item);
                 SelectAll = false;
-                await CallOnSelectAsync(item, false);
+                await CallOnSelectAsync(item, isSelected: false);
             }
             else
             {
@@ -272,14 +275,14 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                 {
                     foreach (var previous in SelectedItems)
                     {
-                        await CallOnSelectAsync(previous, false);
+                        await CallOnSelectAsync(previous, isSelected: false);
                     }
 
                     SelectedItems.Clear();
                 }
 
                 SelectedItems.Add(item);
-                await CallOnSelectAsync(item, true);
+                await CallOnSelectAsync(item, isSelected: true);
             }
 
             if (SelectedItemsChanged.HasDelegate)
@@ -352,7 +355,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     {
         return (item) => new RenderFragment((builder) =>
         {
-            if (Selectable != null && Selectable.Invoke(item) == false)
+            if (Selectable != null && !Selectable.Invoke(item))
             {
                 return;
             }
@@ -414,7 +417,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
                     builder.AddAttribute(5, "Title", iconAllChecked == IconIndeterminate
                                                         ? TitleAllIndeterminate
-                                                        : (iconAllChecked == GetIcon(true) ? TitleAllChecked : TitleAllUnchecked));
+                                                        : (iconAllChecked == GetIcon(selected: true) ? TitleAllChecked : TitleAllUnchecked));
                     builder.CloseComponent();
                 });
 
@@ -504,7 +507,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         if (SelectAll == true && count != InternalGridContext.TotalItemCount)
         {
             // Only add selectable items
-            SelectedItems.Concat((InternalGridContext.Grid.Items?.ToList() ?? InternalGridContext.Items)
+            _ = SelectedItems.Concat((InternalGridContext.Grid.Items?.ToList() ?? InternalGridContext.Items)
                 .Where(item => Selectable?.Invoke(item) ?? true)
             );
         }

@@ -19,6 +19,9 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
 {
     private readonly Debounce _debounce = new();
 
+    /// <summary />
+    protected FluentInputImmediateBase(LibraryConfiguration configuration) : base(configuration) { }
+
     /// <summary>
     /// Change the content of this input field when the user write text (based on 'OnInput' HTML event).
     /// </summary>

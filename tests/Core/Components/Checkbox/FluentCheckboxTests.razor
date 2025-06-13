@@ -68,7 +68,7 @@
     public void FluentCheckbox_TryParseValueFromString()
     {
         // Arrange
-        var fluentCheckbox = new FluentCheckbox();
+        var fluentCheckbox = new FluentCheckbox(LibraryConfiguration.Empty);
 
         // Act & Assert
         Assert.Throws<NotSupportedException>(() => fluentCheckbox.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));

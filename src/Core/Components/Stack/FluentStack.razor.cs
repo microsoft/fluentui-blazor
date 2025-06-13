@@ -11,6 +11,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentStack : FluentComponentBase
 {
+    /// <summary />
+    public FluentStack(LibraryConfiguration configuration) : base(configuration) { }
+
     [Inject]
     private LibraryConfiguration Configuration { get; set; } = default!;
 
