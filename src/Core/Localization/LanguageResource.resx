@@ -228,4 +228,19 @@
   <data name="ErrorBoundary_Message" xml:space="preserve">
     <value>An unhandled error has occurred. Please, contact your IT support.</value>
   </data>
+  <data name="Paginator_GoFirstPage" xml:space="preserve">
+    <value>Go to first page</value>
+  </data>
+  <data name="Paginator_GoPreviousPage" xml:space="preserve">
+    <value>Go to previous page</value>
+  </data>
+  <data name="Paginator_GoNextPage" xml:space="preserve">
+    <value>Go to next page</value>
+  </data>
+  <data name="Paginator_GoLastPage" xml:space="preserve">
+    <value>Go to last page</value>
+  </data>
+  <data name="Paginator_Status" xml:space="preserve">
+    <value>Page {0} of {1}</value>
+  </data>
 </root>
