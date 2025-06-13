@@ -73,8 +73,4 @@
       <DependentUpon>FluentLocalizer.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Components\Paginator\" />
-  </ItemGroup>
 </Project>

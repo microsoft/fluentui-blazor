@@ -27,7 +27,7 @@
                           Disabled="@(!CanGoBack || Disabled)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoPreviousPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoPreviousPage]"
-                          IconStart="@(new CoreIcons.Regular.Size24.ChevronLeft())" />
+                          IconStart="@(new CoreIcons.Regular.Size20.ChevronLeft())" />
             <div class="pagination-text">
                 @if (PaginationTextTemplate is not null)
                 {
@@ -35,7 +35,7 @@
                 }
                 else
                 {
-                    @(string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_Status], $"<strong>{State.CurrentPageIndex + 1}</strong>", $"<strong>{State.LastPageIndex + 1}</strong>"))
+                    @(string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_Status], State.CurrentPageIndex + 1, State.LastPageIndex + 1))
                 }
 
             </div>
@@ -43,7 +43,7 @@
                           Disabled="@(!CanGoForwards || Disabled)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoNextPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoNextPage]"
-                          IconStart="@(new CoreIcons.Regular.Size24.ChevronRight())" />
+                          IconStart="@(new CoreIcons.Regular.Size20.ChevronRight())" />
             <FluentButton Onclick="GoLastAsync"
                           Disabled="@(!CanGoForwards || Disabled)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoLastPage]"
