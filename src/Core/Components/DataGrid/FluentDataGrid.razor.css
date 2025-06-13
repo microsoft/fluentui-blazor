@@ -1,13 +1,13 @@
 .fluent-data-grid {
-    --fluent-data-grid-resize-handle-color: var(--accent-fill-rest);
-    --fluent-data-grid-resize-handle-width: 1px;
-    --fluent-data-grid-header-opacity: 0.5;
-    width: auto;
-    flex: 1;
-    border-collapse: collapse;
-    align-items: center;
-    height: max-content;
-    margin-bottom: 0px;
+  --fluent-data-grid-resize-handle-color: var(--colorBrandForeground1);
+  --fluent-data-grid-resize-handle-width: 1px;
+  --fluent-data-grid-header-opacity: 0.5;
+  width: auto;
+  flex: 1;
+  border-collapse: collapse;
+  align-items: center;
+  height: max-content;
+  margin-bottom: 0px;
 }
 
     .fluent-data-grid.grid {
@@ -24,20 +24,20 @@
 }
 
 .fluent-data-grid tbody tr .hover {
-    background: var(--neutral-fill-stealth-hover);
+  background: var(--colorNeutralBackground1Hover);
 }
 
 .col-options, .col-resize {
-    position: absolute;
-    min-width: 250px;
-    top: 2.7rem;
-    background: var(--neutral-layer-2);
-    border: 1px solid var(--neutral-layer-3);
-    border-radius: 0.3rem;
-    box-shadow: 0 3px 8px 1px var(--neutral-layer-4);
-    padding: 1rem;
-    visibility: hidden;
-    z-index: 1;
+  position: absolute;
+  min-width: 250px;
+  top: 2.7rem;
+  background: var(--colorNeutralStroke1);
+  border: 1px solid var(--colorNeutralStroke2);
+  border-radius: 0.3rem;
+  box-shadow: var(--shadow8);
+  padding: 1rem;
+  visibility: hidden;
+  z-index: 1;
 }
 
 [dir=rtl] .col-options {
@@ -84,8 +84,8 @@
 }
 
 tr[row-type='sticky-header'] > th {
-    position: sticky;
-    top: 0;
-    background-color: var(--neutral-fill-stealth-rest);
-    z-index: 2;
+  position: sticky;
+  top: 0;
+  background-color: var(--colorNeutralBackground4);
+  z-index: 2;
 }
