@@ -22,7 +22,7 @@
                          ReadOnly="@ReadOnly"
                          Label="@Label"
                          LabelTemplate="@LabelTemplate"
-                         Placeholder="@(SelectedOptions?.Any() is false ? Placeholder : string.Empty)"
+                         Placeholder="@(SelectedOptions is null || SelectedOptions?.Any() is false ? Placeholder : null)"
                          aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
                          aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
                          aria-label="@GetAutocompleteAriaLabel()"
