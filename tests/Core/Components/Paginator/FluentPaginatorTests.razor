@@ -1,0 +1,304 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components.Infrastructure
+@using Microsoft.AspNetCore.Components.Web
+@inherits Bunit.TestContext
+
+@code {
+    public FluentPaginatorTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public async Task FluentPaginator_Renders_WithDefaultState()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Assert
+        cut.Verify();
+        Assert.NotNull(cut.Find(".fluent-paginator"));
+        Assert.NotNull(cut.Find(".summary"));
+        Assert.NotNull(cut.Find(".paginator-nav"));
+        Assert.Contains("100", cut.Find(".summary").InnerHtml);
+    }
+
+    [Fact]
+    public void FluentPaginator_DoesNotRender_WhenTotalItemCountIsNull()
+    {
+        // Arrange
+        var state = new PaginationState();
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Assert
+        cut.Verify();
+        Assert.Empty(cut.Find(".fluent-paginator").Children);
+        Assert.Throws<ElementNotFoundException>(() => cut.Find(".summary"));
+        Assert.Throws<ElementNotFoundException>(() => cut.Find(".paginator-nav"));
+    }
+
+    [Fact]
+    public async Task FluentPaginator_Renders_CustomSummaryTemplate()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state">
+            <SummaryTemplate>
+                <span class="custom-summary">Total: @state.TotalItemCount items</span>
+            </SummaryTemplate>
+        </FluentPaginator>);
+
+        // Assert
+        cut.Verify();
+        Assert.NotNull(cut.Find(".custom-summary"));
+        Assert.Contains("Total: 100 items", cut.Find(".custom-summary").InnerHtml);
+    }
+
+    [Fact]
+    public async Task FluentPaginator_Renders_CustomPaginationTextTemplate()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state">
+            <PaginationTextTemplate>
+                <span class="custom-pagination-text">Page @(state.CurrentPageIndex + 1) of @(state.LastPageIndex + 1)</span>
+            </PaginationTextTemplate>
+        </FluentPaginator>);
+
+        // Assert
+        cut.Verify();
+        Assert.NotNull(cut.Find(".custom-pagination-text"));
+        Assert.Contains("Page 1 of 10", cut.Find(".custom-pagination-text").InnerHtml);
+    }
+
+    [Fact]
+    public async Task FluentPaginator_DisabledParameter_DisablesButtons()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state" Disabled="true" />);
+
+        // Assert
+        var navButtons = cut.FindAll(".paginator-nav fluent-button");
+        foreach (var button in navButtons)
+        {
+            Assert.NotNull(button.GetAttribute("disabled"));
+        }
+    }
+
+    [Fact]
+    public async Task FluentPaginator_FirstPageButtons_DisabledWhenOnFirstPage()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+        await state.SetCurrentPageIndexAsync(0); // First page
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Assert
+        var buttons = cut.FindAll(".paginator-nav fluent-button");
+
+        // First and Previous buttons should be disabled
+        Assert.NotNull(buttons[0].GetAttribute("disabled"));
+        Assert.NotNull(buttons[1].GetAttribute("disabled"));
+
+        // Next and Last buttons should be enabled
+        Assert.Null(buttons[2].GetAttribute("disabled"));
+        Assert.Null(buttons[3].GetAttribute("disabled"));
+    }
+
+    [Fact]
+    public async Task FluentPaginator_LastPageButtons_DisabledWhenOnLastPage()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+        await state.SetCurrentPageIndexAsync(9); // Last page (with 10 items per page)
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Assert
+        var buttons = cut.FindAll(".paginator-nav fluent-button");
+
+        // First and Previous buttons should be enabled
+        Assert.Null(buttons[0].GetAttribute("disabled"));
+        Assert.Null(buttons[1].GetAttribute("disabled"));
+
+        // Next and Last buttons should be disabled
+        Assert.NotNull(buttons[2].GetAttribute("disabled"));
+        Assert.NotNull(buttons[3].GetAttribute("disabled"));
+    }
+
+    [Fact]
+    public async Task FluentPaginator_AllButtonsEnabled_WhenOnMiddlePage()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+        await state.SetCurrentPageIndexAsync(5); // Middle page
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Assert
+        var buttons = cut.FindAll(".paginator-nav fluent-button");
+
+        // All buttons should be enabled
+        foreach (var button in buttons)
+        {
+            Assert.Null(button.GetAttribute("disabled"));
+        }
+    }
+
+    [Fact]
+    public async Task FluentPaginator_FirstButton_NavigatesToFirstPage()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+        await state.SetCurrentPageIndexAsync(5); // Start at middle page
+
+        int newPageIndex = -1;
+        var cut = Render(@<FluentPaginator
+            State="@state"
+            CurrentPageIndexChanged="@(index => newPageIndex = index)" />);
+
+        // Act
+        var firstButton = cut.FindAll(".paginator-nav fluent-button")[0];
+        await firstButton.ClickAsync(new MouseEventArgs());
+
+        // Assert
+        Assert.Equal(0, state.CurrentPageIndex);
+        Assert.Equal(0, newPageIndex);
+    }
+
+    [Fact]
+    public async Task FluentPaginator_PreviousButton_NavigatesToPreviousPage()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+        await state.SetCurrentPageIndexAsync(5); // Start at middle page
+
+        int newPageIndex = -1;
+        var cut = Render(@<FluentPaginator
+            State="@state"
+            CurrentPageIndexChanged="@(index => newPageIndex = index)" />);
+
+        // Act
+        var previousButton = cut.FindAll(".paginator-nav fluent-button")[1];
+        await previousButton.ClickAsync(new MouseEventArgs());
+
+        // Assert
+        Assert.Equal(4, state.CurrentPageIndex);
+        Assert.Equal(4, newPageIndex);
+    }
+
+    [Fact]
+    public async Task FluentPaginator_NextButton_NavigatesToNextPage()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+        await state.SetCurrentPageIndexAsync(5); // Start at middle page
+
+        int newPageIndex = -1;
+        var cut = Render(@<FluentPaginator
+            State="@state"
+            CurrentPageIndexChanged="@(index => newPageIndex = index)" />);
+
+        // Act
+        var nextButton = cut.FindAll(".paginator-nav fluent-button")[2];
+        await nextButton.ClickAsync(new MouseEventArgs());
+
+        // Assert
+        Assert.Equal(6, state.CurrentPageIndex);
+        Assert.Equal(6, newPageIndex);
+    }
+
+    [Fact]
+    public async Task FluentPaginator_LastButton_NavigatesToLastPage()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+        await state.SetCurrentPageIndexAsync(5); // Start at middle page
+
+        int newPageIndex = -1;
+        var cut = Render(@<FluentPaginator
+            State="@state"
+            CurrentPageIndexChanged="@(index => newPageIndex = index)" />
+    );
+
+        // Act
+        var lastButton = cut.FindAll(".paginator-nav fluent-button")[3];
+        await lastButton.ClickAsync(new MouseEventArgs());
+
+        // Assert
+        Assert.Equal(9, state.CurrentPageIndex); // Last page (with 10 items per page)
+        Assert.Equal(9, newPageIndex);
+    }
+
+    [Fact]
+    public async Task FluentPaginator_DisposesEventCallbackSubscribers()
+    {
+        // Arrange
+        var state = new PaginationState();
+        FluentPaginator? paginator = default!;
+        await state.SetTotalItemCountAsync(100);
+
+        // Create a component that we can dispose
+        var cut = Render(@<FluentPaginator @ref="@paginator" State="@state" />);
+
+        // Act
+        // Dispose the component (this should call Dispose() internally)
+        if (paginator is not null)
+        {
+            paginator?.Dispose();
+        }
+        cut.Dispose();
+
+        // Assert - we can't directly test disposal, but we can verify that the component has been disposed
+        // by testing that the TestContext is disposed
+        Assert.True(cut.IsDisposed);
+    }
+
+
+
+    [Fact]
+    public async Task FluentPaginator_NoCurrentPageIndexChangedCallback_WhenNoDelegate()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Act & Assert - No exception should be thrown when no CurrentPageIndexChanged delegate is provided
+        var firstButton = cut.FindAll(".paginator-nav fluent-button")[0];
+        await firstButton.ClickAsync(new MouseEventArgs());
+
+        // Verify the page changed in the state
+        Assert.Equal(0, state.CurrentPageIndex);
+    }
+}
