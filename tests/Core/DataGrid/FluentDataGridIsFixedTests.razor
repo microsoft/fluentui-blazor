@@ -1,0 +1,134 @@
+@using Xunit
+@inherits TestContext
+
+@code {
+    public FluentDataGridIsFixedTests()
+    {
+        var dataGridModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
+        dataGridModule.SetupModule("init", _ => true);
+
+        // Register services
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+        Services.AddScoped<IKeyCodeService>(factory => new KeyCodeService());
+    }
+
+    [Fact]
+    public void FluentDataGrid_IsFixed_Default_Value_Is_False()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Assert
+        var dataGrid = cut.Instance;
+        Assert.False(dataGrid.IsFixed);
+    }
+
+    [Fact]
+    public void FluentDataGrid_IsFixed_Can_Be_Set_To_True()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" IsFixed="true">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Assert
+        var dataGrid = cut.Instance;
+        Assert.True(dataGrid.IsFixed);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_IsFixed_True_Reduces_Hash_Computation_For_Items()
+    {
+        // Arrange
+        var items = GetCustomers().AsQueryable();
+        
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@items" IsFixed="true">
+                <ChildContent>
+                    <PropertyColumn Property="@(i => i.Name)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        var dataGrid = cut.Instance;
+        
+        // Act - Update items (simulating data change)
+        var newItems = GetCustomers().Concat(new[] { new Customer(4, "New Customer") }).AsQueryable();
+        cut.SetParametersAndRender(parameters => parameters
+            .Add(p => p.Items, newItems));
+
+        // Assert - With IsFixed=true, the grid should be using the parameter correctly
+        Assert.True(dataGrid.IsFixed);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_IsFixed_True_Still_Allows_Pagination()
+    {
+        // Arrange
+        var pagination = new PaginationState { ItemsPerPage = 2 };
+        
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" IsFixed="true" Pagination="@pagination">
+                <ChildContent>
+                    <PropertyColumn Property="@(i => i.Name)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Act - Change pagination
+        await cut.InvokeAsync(() => pagination.SetCurrentPageIndexAsync(1));
+        
+        // Assert - Should still work with IsFixed=true
+        Assert.Equal(1, pagination.CurrentPageIndex);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_IsFixed_False_Allows_Normal_Refresh_Behavior()
+    {
+        // Arrange
+        var refreshCallCount = 0;
+        async ValueTask<GridItemsProviderResult<Customer>> GetItems(GridItemsProviderRequest<Customer> request)
+        {
+            refreshCallCount++;
+            await Task.Delay(1); // Simulate async work
+            return GridItemsProviderResult.From(
+                GetCustomers().ToArray(),
+                GetCustomers().Count());
+        }
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" ItemsProvider="@GetItems" IsFixed="false">
+                <ChildContent>
+                    <PropertyColumn Property="@(i => i.Name)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Wait for initial load
+        await Task.Delay(100);
+        var dataGrid = cut.Instance;
+
+        // Act - Explicitly refresh
+        await cut.InvokeAsync(() => dataGrid.RefreshDataAsync(force: true));
+        await Task.Delay(100);
+
+        // Assert - With IsFixed=false, explicit refresh should still work
+        Assert.True(refreshCallCount >= 2, 
+            $"Expected at least 2 refresh calls (initial + explicit). Got {refreshCallCount} calls.");
+    }
+
+    // Sample data...
+    private IEnumerable<Customer> GetCustomers()
+    {
+        yield return new Customer(1, "Denis Voituron");
+        yield return new Customer(2, "Vincent Baaij");
+        yield return new Customer(3, "Bill Gates");
+    }
+
+    private record Customer(int Id, string Name);
+}

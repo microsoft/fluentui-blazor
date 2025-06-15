@@ -327,6 +327,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoFocus { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the grid's dataset is not expected to change during its lifetime.
+    /// When set to true, reduces automatic refresh checks for better performance with static datasets.
+    /// Default is false to maintain backward compatibility.
+    /// </summary>
+    [Parameter]
+    public bool IsFixed { get; set; } = false;
+
     // Returns Loading if set (controlled). If not controlled,
     // we assume the grid is loading until the next data load completes
     internal bool EffectiveLoadingValue => Loading ?? ItemsProvider is not null;
@@ -436,7 +444,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         var currentItemsHash = FluentDataGrid<TGridItem>.ComputeItemsHash(Items);
-        var itemsChanged = currentItemsHash != _lastAssignedItemsHashCode;
+        var itemsChanged = !IsFixed && currentItemsHash != _lastAssignedItemsHashCode;
 
         // Perform a re-query only if the data source or something else has changed
         var dataSourceHasChanged = itemsChanged || !Equals(ItemsProvider, _lastAssignedItemsProvider);
@@ -753,11 +761,24 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (RefreshItems is not null)
         {
-            if (_forceRefreshData || _lastRequest == null || !_lastRequest.Value.IsSameRequest(request))
+            // When IsFixed=true, only refresh if explicitly forced or if this is the initial request
+            if (IsFixed)
             {
-                _forceRefreshData = false;
-                _lastRequest = request;
-                await RefreshItems.Invoke(request);
+                if (_forceRefreshData || _lastRequest == null)
+                {
+                    _forceRefreshData = false;
+                    _lastRequest = request;
+                    await RefreshItems.Invoke(request);
+                }
+            }
+            else
+            {
+                if (_forceRefreshData || _lastRequest == null || !_lastRequest.Value.IsSameRequest(request))
+                {
+                    _forceRefreshData = false;
+                    _lastRequest = request;
+                    await RefreshItems.Invoke(request);
+                }
             }
         }
 
