@@ -64,8 +64,22 @@
 <h2 id="styling">Row size</h2>
 <p>
     As of v4.11.0, the Datagrid offers a <code>RowSize</code> parameter which allows you to use different preset row heights. The value uses the <code>DataGridRowSize</code> enumeration for its type.
-    When using <code>Virtualize</code>, the <code>ItemSize</code> value isused is still used to indicate the row height.
+    When using <code>Virtualize</code>, the <code>ItemSize</code> value is used is still used to indicate the row height.
 </p>
+
+<h2 id="styling">Resizing columns</h2>
+<p>
+    The DataGrid supports resizing columns by both dragging and through column option popups in exact or discrete mode. As of v4.12.0,
+    the default behavior is to initiate a resize action by dragging the column edge on every row. In earlier versions this could only be done
+    on the header column edge. To go back to the previous behavior, the new (as of v4.12.1) <code>ResizeColumnOnAllRows</code> parameter can be set to false.
+
+</p>
+<p>The following parameters can be used to tweak the resize handle appearance:</p>
+    <CodeSnippet Language="css">.fluent-data-grid {
+        --fluent-data-grid-resize-handle-color: var(--accent-fill-rest);
+        --fluent-data-grid-resize-handle-width: 1px;
+        --fluent-data-grid-header-opacity: 0.5;
+        </CodeSnippet>
 
 <h2 id="displaymode">DisplayMode</h2>
 <p>

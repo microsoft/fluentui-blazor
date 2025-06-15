@@ -1951,6 +1951,13 @@
             This allows the user to resize columns manually. Size changes are not persisted.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeColumnOnAllRows">
+            <summary>
+            Gets or sets a value indicating whether column resize handles should extend the full height of the grid.
+            When true, columns can be resized by dragging from any row. When false, columns can only be resized 
+            by dragging from the column header. Default is true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeType">
             <summary>
             To comply with WCAG 2.2, a one-click option should be offered to change column widths. We provide such an option through the

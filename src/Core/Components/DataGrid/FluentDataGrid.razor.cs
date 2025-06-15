@@ -116,6 +116,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public bool ResizableColumns { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether column resize handles should extend the full height of the grid.
+    /// When true, columns can be resized by dragging from any row. When false, columns can only be resized 
+    /// by dragging from the column header. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool ResizeColumnOnAllRows { get; set; } = true;
+
+    /// <summary>
     /// To comply with WCAG 2.2, a one-click option should be offered to change column widths. We provide such an option through the
     /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
     /// Discrete: resize by a 10 pixels at a time
@@ -551,7 +559,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (ResizableColumns)
         {
-            _ = Module?.InvokeVoidAsync("enableColumnResizing", _gridReference).AsTask();
+            _ = Module?.InvokeVoidAsync("enableColumnResizing", _gridReference, ResizeColumnOnAllRows).AsTask();
         }
     }
 
