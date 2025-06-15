@@ -443,8 +443,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(MultiLine)} at the same time.");
         }
 
-        var currentItemsHash = FluentDataGrid<TGridItem>.ComputeItemsHash(Items);
-        var itemsChanged = !IsFixed && currentItemsHash != _lastAssignedItemsHashCode;
+        // Only compute hash when IsFixed=false to avoid unnecessary computation for static datasets
+        var itemsChanged = false;
+        var currentItemsHash = 0;
+        if (!IsFixed)
+        {
+            currentItemsHash = FluentDataGrid<TGridItem>.ComputeItemsHash(Items);
+            itemsChanged = currentItemsHash != _lastAssignedItemsHashCode;
+        }
 
         // Perform a re-query only if the data source or something else has changed
         var dataSourceHasChanged = itemsChanged || !Equals(ItemsProvider, _lastAssignedItemsProvider);
@@ -454,7 +460,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _scope = ScopeFactory.CreateAsyncScope();
             _lastAssignedItemsProvider = ItemsProvider;
             _lastAssignedItems = Items;
-            _lastAssignedItemsHashCode = currentItemsHash;
+            if (!IsFixed)
+            {
+                _lastAssignedItemsHashCode = currentItemsHash;
+            }
             _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(_scope.Value.ServiceProvider, Items);
         }
 
