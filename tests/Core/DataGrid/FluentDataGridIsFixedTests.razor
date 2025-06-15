@@ -45,7 +45,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_IsFixed_True_Reduces_Hash_Computation_For_Items()
+    public async Task FluentDataGrid_IsFixed_True_Allows_Data_Changes_Without_Automatic_Refresh()
     {
         // Arrange
         var items = GetCustomers().AsQueryable();
@@ -64,7 +64,7 @@
         cut.SetParametersAndRender(parameters => parameters
             .Add(p => p.Items, newItems));
 
-        // Assert - With IsFixed=true, the grid should be using the parameter correctly
+        // Assert - With IsFixed=true, the grid should still work correctly
         Assert.True(dataGrid.IsFixed);
     }
 
