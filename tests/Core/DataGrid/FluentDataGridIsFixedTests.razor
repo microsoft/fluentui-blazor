@@ -122,6 +122,40 @@
             $"Expected at least 2 refresh calls (initial + explicit). Got {refreshCallCount} calls.");
     }
 
+    [Fact]
+    public async Task FluentDataGrid_IsFixed_True_Still_Allows_Explicit_Refresh()
+    {
+        // Arrange
+        var refreshCallCount = 0;
+        async ValueTask<GridItemsProviderResult<Customer>> GetItems(GridItemsProviderRequest<Customer> request)
+        {
+            refreshCallCount++;
+            await Task.Delay(1); // Simulate async work
+            return GridItemsProviderResult.From(
+                GetCustomers().ToArray(),
+                GetCustomers().Count());
+        }
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" ItemsProvider="@GetItems" IsFixed="true">
+                <ChildContent>
+                    <PropertyColumn Property="@(i => i.Name)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Wait for initial load
+        await Task.Delay(100);
+        var dataGrid = cut.Instance;
+
+        // Act - Explicitly refresh even with IsFixed=true
+        await cut.InvokeAsync(() => dataGrid.RefreshDataAsync(force: true));
+        await Task.Delay(100);
+
+        // Assert - Explicit refresh should still work with IsFixed=true
+        Assert.True(refreshCallCount >= 2, 
+            $"Expected at least 2 refresh calls (initial + explicit). Got {refreshCallCount} calls.");
+    }
+
     // Sample data...
     private IEnumerable<Customer> GetCustomers()
     {
