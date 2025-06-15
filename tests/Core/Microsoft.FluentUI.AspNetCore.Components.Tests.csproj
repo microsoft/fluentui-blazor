@@ -63,4 +63,46 @@
   <ItemGroup>
     <Folder Include="_ToDo\Label\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Card\FluentCardTests.FluentCard_AdditionalCssClass.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_AdditionalParameter.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_AdditionalParameters.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_AdditionalStyle.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_Default.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_Height.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_Id.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_MinimalStyle.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_MinimalStyle_NotAreaRestricted.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_NotAreaRestricted.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_NotAreaRestricted_AdditionalStyle.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_Width.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+    <None Update="Card\FluentCardTests.FluentCard_WidthAndHeight.verified.html">
+      <DependentUpon>FluentCardTests.razor</DependentUpon>
+    </None>
+  </ItemGroup>
 </Project>
