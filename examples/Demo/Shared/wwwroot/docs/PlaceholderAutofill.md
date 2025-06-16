@@ -3,7 +3,7 @@ The `Placeholder` parameter is used to set the placeholder text for the input fi
 It is displayed when the input field is empty and not focused. 
 
 The placeholder value affects the autofill suggestion feature in Microsoft Edge and Google Chrome.
-Even if you set the `Autofill` parameter to `off`, the browser may still display autofill suggestions based on the placeholder value.
+Even if you set the `AutoComplete` parameter to `off`, the browser may still display autofill suggestions based on the placeholder value.
 
 There are certain placeholder values which you should avoid to prevent the browser from showing autofill suggestions.
 
