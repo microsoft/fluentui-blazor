@@ -333,7 +333,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Default is false to maintain backward compatibility.
     /// </summary>
     [Parameter]
-    public bool IsFixed { get; set; } = false;
+    public bool IsFixed { get; set; }
 
     // Returns Loading if set (controlled). If not controlled,
     // we assume the grid is loading until the next data load completes
