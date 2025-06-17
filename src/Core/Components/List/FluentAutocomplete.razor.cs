@@ -558,6 +558,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         await RaiseValueTextChangedAsync(ValueText);
 
         await base.OnSelectedItemChangedHandlerAsync(item);
+
+        // In Single mode, set the focus on the input field
+        if (!Multiple && Module != null)
+        {
+            await Module.InvokeVoidAsync("focusOn", $"{Id}-single");
+        }
+
         await DisplayLastSelectedItemAsync();
 
         if (MustBeClosed())
