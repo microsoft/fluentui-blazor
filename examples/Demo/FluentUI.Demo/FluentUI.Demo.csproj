@@ -9,14 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\flags\README.md" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="wwwroot\flags\README.md" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
     <ProjectReference Include="..\FluentUI.Demo.Client\FluentUI.Demo.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
