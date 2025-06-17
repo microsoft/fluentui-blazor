@@ -1,11 +1,11 @@
 <Solution>
   <Folder Name="/eng/" />
   <Folder Name="/examples/" />
-  <Folder Name="/examples/demo/" Id="fca485bc-53a3-f4b0-d375-3cf04a41be4a">
+  <Folder Name="/examples/demo/">
     <Project Path="examples/Demo/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj" />
     <Project Path="examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" />
   </Folder>
-  <Folder Name="/examples/tools/" Id="d8771a47-1b79-15aa-c855-04308e79c1ac">
+  <Folder Name="/examples/tools/">
     <Project Path="examples/Tools/FluentUI.Demo.DocApiGen/FluentUI.Demo.DocApiGen.csproj" />
     <Project Path="examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj" />
     <Project Path="examples/Tools/FluentUI.Demo.DocViewer/FluentUI.Demo.DocViewer.csproj" />
@@ -13,7 +13,7 @@
     <Project Path="examples/Tools/FluentUI.Demo.SampleData/FluentUI.Demo.SampleData.csproj" />
   </Folder>
   <Folder Name="/src/" />
-  <Folder Name="/src/Core/" Id="8d626ea8-cb54-bc41-363a-217881beba6e">
+  <Folder Name="/src/Core/">
     <Project Path="src/Core.Scripts/Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj">
       <Build />
       <Deploy />

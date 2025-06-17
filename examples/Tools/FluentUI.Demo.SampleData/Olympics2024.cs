@@ -2,6 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using FluentUI.Demo.SampleData.Resources;
+
 namespace FluentUI.Demo.SampleData;
 
 /// <summary>
@@ -12,6 +14,7 @@ namespace FluentUI.Demo.SampleData;
 /// </remarks>
 public partial class Olympics2024
 {
+    private const string IMG_PREFIX_SVG = "data:image/png;base64,";
     /// <summary>
     /// Gets a list of Countries and their medals
     /// </summary>
@@ -119,7 +122,13 @@ public partial class Olympics2024
     /// <param name="Code">The country's code.</param>
     /// <param name="Name">The country's name.</param>
     /// <param name="Medals">The medals won by the country.</param>
-    public record Country(string Code, string Name, Medals Medals);
+    public record Country(string Code, string Name, Medals Medals)
+    {
+        /// <summary>
+        /// Gets a the embedded flag for a country
+        /// </summary>
+        public string Flag() => IMG_PREFIX_SVG + ResourceReader.EmbeddedPicture($"Flags.{Code}.png").ToBase64();
+    }
 
     /// <summary>
     /// Represents a record of medals.
