@@ -327,7 +327,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         Items = args.Items?.Take(MaximumOptionsSearch);
 
         SelectableItem = Items != null
-            ? Items.FirstOrDefault()
+            ? Items.FirstOrDefault(i => OptionDisabled is null ? true : OptionDisabled.Invoke(i) == false)
             : default;
 
         if (VirtualizationContainer != null)
