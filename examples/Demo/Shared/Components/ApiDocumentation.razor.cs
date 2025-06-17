@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
@@ -34,7 +38,7 @@ public partial class ApiDocumentation
 
     /// <summary>
     /// It Component is a generic type, a generic type argument needs to be provided
-    /// so an instance of the type can be created. 
+    /// so an instance of the type can be created.
     /// This is needed to get and display any default values
     /// Default for this parameter is 'typeof(string)'
     /// </summary>
@@ -95,7 +99,8 @@ public partial class ApiDocumentation
                 }
 
                 return obj?.GetType().GetProperty(propertyName)?.GetValue(obj);
-            };
+            }
+            ;
 
             var allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
             var allMethods = Component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);

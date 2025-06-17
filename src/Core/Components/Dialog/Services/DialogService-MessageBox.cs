@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -89,7 +93,7 @@ public partial class DialogService
     });
 
     /// <summary>
-    /// Shows a confirmation message box. Has a callback function which returns boolean 
+    /// Shows a confirmation message box. Has a callback function which returns boolean
     /// (true=PrimaryAction clicked, false=SecondaryAction clicked).
     /// </summary>
     /// <param name="receiver">The component that receives the callback function.</param>
@@ -231,7 +235,7 @@ public partial class DialogService
         });
 
     /// <summary>
-    /// Shows a confirmation message box. Has a callback function which returns boolean 
+    /// Shows a confirmation message box. Has a callback function which returns boolean
     /// (true=PrimaryAction clicked, false=SecondaryAction clicked).
     /// </summary>
     /// <param name="receiver">The component that receives the callback function.</param>

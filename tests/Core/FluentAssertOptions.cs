@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using AngleSharp.Diffing.Core;
 using AngleSharp.Dom;
 

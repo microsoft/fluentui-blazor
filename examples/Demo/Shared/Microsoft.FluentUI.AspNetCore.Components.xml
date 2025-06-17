@@ -138,7 +138,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.HorizontalInset">
             <summary>
-            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis.
             Default is false which places the region adjacent to the anchor element.
             </summary>
         </member>
@@ -200,8 +200,8 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.AutoUpdateMode">
             <summary>
             Defines what triggers the anchored region to revaluate positioning.
-            Default is "Anchor". 
-            In 'anchor' mode only anchor resizes and attribute changes will provoke an update. 
+            Default is "Anchor".
+            In 'anchor' mode only anchor resizes and attribute changes will provoke an update.
             In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.AutoUpdateMode"/>
             </summary>
         </member>
@@ -517,7 +517,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentComponentBase.Element">
             <summary>
-            Gets or sets the associated web component. 
+            Gets or sets the associated web component.
             May be <see langword="null"/> if accessed before the component is rendered.
             </summary>
         </member>
@@ -808,7 +808,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentBreadcrumbItem.Target">
             <summary>
-            Gets or sets the target attribute that specifies where to open the link, if Href is specified. 
+            Gets or sets the target attribute that specifies where to open the link, if Href is specified.
             See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
             Possible values: _blank | _self | _parent | _top.
             </summary>
@@ -1516,7 +1516,7 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ByAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
             <summary>
-            Produces a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/> 
+            Produces a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/>
             using the specified <paramref name="comparer"/>, ascending.
             </summary>
             <typeparam name="U">The type of the expression's value.</typeparam>
@@ -1534,7 +1534,7 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ByDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
             <summary>
-            Produces a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/> 
+            Produces a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/>
             using the specified <paramref name="comparer"/>, descending.
             </summary>
             <typeparam name="U">The type of the expression's value.</typeparam>
@@ -3936,7 +3936,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SplashScreenContent.Message">
             <summary>
-            Gets or sets an extra message. Can contain HTML. 
+            Gets or sets an extra message. Can contain HTML.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SplashScreenContent.Logo">
@@ -4106,7 +4106,7 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmation(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
             <summary>
-            Shows a confirmation message box. Has a callback function which returns boolean 
+            Shows a confirmation message box. Has a callback function which returns boolean
             (true=PrimaryAction clicked, false=SecondaryAction clicked).
             </summary>
             <param name="receiver">The component that receives the callback function.</param>
@@ -4157,7 +4157,7 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmationAsync(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
             <summary>
-            Shows a confirmation message box. Has a callback function which returns boolean 
+            Shows a confirmation message box. Has a callback function which returns boolean
             (true=PrimaryAction clicked, false=SecondaryAction clicked).
             </summary>
             <param name="receiver">The component that receives the callback function.</param>
@@ -4855,7 +4855,7 @@
             <summary>
             The number of columns the item should span in the 12-column grid system.
             Large (lg) devices (desktops, less than 1920px wide)
-            </summary> 
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.xl">
             <summary>
@@ -5026,7 +5026,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.Color">
             <summary>
-            Gets or sets the icon drawing and fill color. 
+            Gets or sets the icon drawing and fill color.
             Value comes from the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
             </summary>
         </member>
@@ -7213,7 +7213,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.Link">
             <summary>
-            Gets or sets the link to be shown in the message bar after the title/message. 
+            Gets or sets the link to be shown in the message bar after the title/message.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.OnClose">
@@ -7233,7 +7233,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.Intent">
             <summary>
-            Gets or sets the intent of the message bar. 
+            Gets or sets the intent of the message bar.
             Default is MessageIntent.Info.
             </summary>
         </member>
@@ -7425,7 +7425,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenuItemBase.Icon">
             <summary>
             Gets or sets the icon to display with the link
-            Use a constant value from the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1" /> class 
+            Use a constant value from the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1" /> class
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenuItemBase.OnAction">
@@ -7477,7 +7477,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenuTree.ExpanderContent">
             <summary>
-            Gets or sets the content to be rendered for the expander icon when the menu is collapsible. 
+            Gets or sets the content to be rendered for the expander icon when the menu is collapsible.
             The default icon will be used if this is not specified.
             </summary>
         </member>
@@ -8295,7 +8295,7 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentPresenceBadge">
             <summary>
             A presence badge is a badge that displays a status indicator such as available, away, or busy.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPresenceBadge.ClassValue">
             <summary />
@@ -8326,7 +8326,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPresenceBadge.OutOfOffice">
             <summary>
-            Modifies the display to indicate that the user is out of office. 
+            Modifies the display to indicate that the user is out of office.
             This can be combined with any status to display an out-of-office version of that status.
             </summary>
         </member>
@@ -8518,12 +8518,12 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgressRing.Min">
             <summary>
-            Gets or sets the minimum value 
+            Gets or sets the minimum value
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgressRing.Max">
             <summary>
-            Gets or sets the maximum value 
+            Gets or sets the maximum value
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgressRing.Value">
@@ -8706,7 +8706,7 @@
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadioContext">
             <summary>
-            Describes context for an <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/> component. 
+            Describes context for an <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/> component.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadioContext.#ctor(Microsoft.FluentUI.AspNetCore.Components.FluentRadioContext,Microsoft.AspNetCore.Components.EventCallback{Microsoft.AspNetCore.Components.ChangeEventArgs})">
@@ -9393,16 +9393,16 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.Panel1Size">
             <summary>
-            Gets or sets the size for the left/top panel. 
+            Gets or sets the size for the left/top panel.
             Needs to be a valid css size like '50%' or '250px'.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.Panel2Size">
             <summary>
-            Gets or sets the size for the right/bottom panel. 
+            Gets or sets the size for the right/bottom panel.
             Needs to be a valid css size like '50%' or '250px'.
-            Uses grid-template-rows/columns with max-content to determine end width. 
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns">mdn web docs</see> for more information 
+            Uses grid-template-rows/columns with max-content to determine end width.
+            See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns">mdn web docs</see> for more information
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.Panel1MinSize">
@@ -9415,7 +9415,7 @@
             <summary>
             Gets or sets the minimum size for the right/bottom panel.
             Needs to be a valid css size like '50%' or '250px'.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.BarSize">
             <summary>
@@ -10054,7 +10054,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ToastService.ShowToast``1(System.Type,Microsoft.FluentUI.AspNetCore.Components.ToastParameters,``0)">
             <summary>
             Shows a toast with the component type as the body,
-            passing the specified <paramref name="parameters "/> 
+            passing the specified <paramref name="parameters "/>
             </summary>
             <param name="component">Type of component to display.</param>
             <param name="content">Content to be displayed in the toast.</param>
@@ -10062,7 +10062,7 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ToastService.UpdateToast``1(System.String,Microsoft.FluentUI.AspNetCore.Components.ToastParameters{``0})">
             <summary>
-            Updates a toast 
+            Updates a toast
             </summary>
             <param name="id">Id of the toast to update.</param>
             <param name="parameters">Parameters to configure the toast component.</param>
@@ -10128,9 +10128,9 @@
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ToastService.ClearQueue">
-            <summary>
-            Removes all queued toasts
-            </summary>
+             <summary>
+             Removes all queued toasts
+             </summary>
             
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ToastService.ClearQueueToasts(Microsoft.FluentUI.AspNetCore.Components.ToastIntent)">
@@ -12874,7 +12874,7 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Align.Stretch">
             <summary>
-            Aligns content to strech to the container.
+            Aligns content to stretch to the container.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Align.Baseline">
@@ -14569,14 +14569,14 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.ToastIntent.Warning">
             <summary>
-            Indicates possible or upcoming issues that need to be addressed. It’s a signal that 
-            something isn’t quite right.The person can continue without addressing it, but warnings 
+            Indicates possible or upcoming issues that need to be addressed. It’s a signal that
+            something isn’t quite right.The person can continue without addressing it, but warnings
             can become errors.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.ToastIntent.Error">
             <summary>
-            Negative status due to an incomplete process or a failed task.The person can continue 
+            Negative status due to an incomplete process or a failed task.The person can continue
             using the app, but the item with the error will need to be addressed.
             </summary>
         </member>
@@ -14605,18 +14605,18 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.ToastIntent.Event">
             <summary>
-            Informs about an operation concerning an event. 
+            Informs about an operation concerning an event.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.ToastIntent.Mention">
             <summary>
             Mention is used when another person performs an action related to the user or their account.
-            For example, the user receives a meeting invitation or is mentioned in a chat. 
+            For example, the user receives a meeting invitation or is mentioned in a chat.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.ToastIntent.Custom">
             <summary>
-            Informs about a custom event or operation. 
+            Informs about a custom event or operation.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ToastPosition">
@@ -14675,7 +14675,7 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ToastTopCTAType">
             <summary>
             Call To Action type for the top action of the toast.
-            </summary>  
+            </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.ToastTopCTAType.Dismiss">
             <summary>

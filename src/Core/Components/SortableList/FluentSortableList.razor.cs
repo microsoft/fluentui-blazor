@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -119,7 +123,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     /// Gets or sets the background color of the list items.
     /// </summary>
     [Parameter]
-    public string? ListItemBackgroundColor {get; set;}
+    public string? ListItemBackgroundColor { get; set; }
 
     /// <summary>
     /// Gets or sets the height of the list items. Must be a valid CSS measurement.

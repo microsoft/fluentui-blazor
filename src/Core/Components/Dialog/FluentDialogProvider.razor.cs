@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
@@ -69,7 +73,8 @@ public partial class FluentDialogProvider : IDisposable
             dialogInstance.Parameters = parameters;
 
             InvokeAsync(StateHasChanged);
-        };
+        }
+        ;
     }
 
     private async Task<IDialogReference?> UpdateDialogAsync(string? dialogId, DialogParameters parameters)

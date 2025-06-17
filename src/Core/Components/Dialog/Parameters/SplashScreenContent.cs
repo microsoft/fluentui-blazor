@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -25,7 +29,7 @@ public class SplashScreenContent
     public string? LoadingText { get; set; }
 
     /// <summary>
-    /// Gets or sets an extra message. Can contain HTML. 
+    /// Gets or sets an extra message. Can contain HTML.
     /// </summary>
     public MarkupString? Message { get; set; }
 
