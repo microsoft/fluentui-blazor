@@ -14,7 +14,7 @@ namespace FluentUI.Demo.SampleData;
 /// </remarks>
 public partial class Olympics2024
 {
-    private const string IMG_PREFIX_SVG = "data:image/svg+xml;base64,";
+    private const string IMG_PREFIX_SVG = "data:image/png;base64,";
     /// <summary>
     /// Gets a list of Countries and their medals
     /// </summary>
@@ -127,7 +127,7 @@ public partial class Olympics2024
         /// <summary>
         /// Gets a the embedded flag for a country
         /// </summary>
-        public string Flag() => IMG_PREFIX_SVG + ResourceReader.EmbeddedPicture($"Flags.{Code}.svg").ToBase64();
+        public string Flag() => IMG_PREFIX_SVG + ResourceReader.EmbeddedPicture($"Flags.{Code}.png").ToBase64();
     }
 
     /// <summary>

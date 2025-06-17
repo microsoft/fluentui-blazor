@@ -19,6 +19,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\**\*.jpg" />
     <EmbeddedResource Include="Resources\**\*.txt" />
-    <EmbeddedResource Include="Resources\**\*.svg" />
+    <EmbeddedResource Include="Resources\**\*.png" />
   </ItemGroup>
 </Project>
