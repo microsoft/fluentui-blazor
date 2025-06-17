@@ -24,18 +24,18 @@
 }
 
 .fluent-data-grid tbody tr .hover {
-  background: var(--colorNeutralBackground1Hover);
+  background: var(--colorNeutralBackground5);
 }
 
 .col-options, .col-resize {
   position: absolute;
   min-width: 250px;
   top: 2.7rem;
-  background: var(--colorNeutralStroke1);
-  border: 1px solid var(--colorNeutralStroke2);
+  background: var(--colorNeutralBackground1Hover);
+  border: 1px solid var(--colorNeutralBackground1Pressed);
   border-radius: 0.3rem;
   box-shadow: var(--shadow8);
-  padding: 1rem;
+  padding: 12px;
   visibility: hidden;
   z-index: 1;
 }

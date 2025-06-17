@@ -13,10 +13,11 @@
                     Pagination="@pagination"
                     RowClass="@rowClass"
                     RowStyle="@rowStyle"
+                    ShowHover="true"
                     HeaderCellAsButtonWithMenu="true"
                     ColumnResizeUISettings="@resizeLabels">
         <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="HorizontalAlignment.Center" InitialSortDirection="DataGridSortDirection.Ascending" IsDefaultSortColumn=true>
-            <img class="flag" src="/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
+            <img class="flag" src="@(context.Flag())" alt="Flag of @(context.Code)" />
         </TemplateColumn>
         <PropertyColumn Property="@(c => c.Name)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Name of the country">
             <ColumnOptions>
@@ -31,13 +32,8 @@
         <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Filtered="@(minMedals != 0 || maxMedals != 130)" Align="HorizontalAlignment.End" Tooltip="true">
             <ColumnOptions>
                 <div style="width: 100%; height: 150px;">
-                    <FluentSlider Label="@($"Min ({minMedals})")" Min="0" Max="150" Step="10" Orientation="Orientation.Horizontal" @bind-Value=minMedals Immediate="true" Style="width: 100%;">
-
-                    </FluentSlider>
-                    <br /><br />
-                    <FluentSlider Label="@($"Max ({maxMedals})")" Min="0" Max="150" Step="10" Orientation="Orientation.Horizontal" @bind-Value=maxMedals Immediate="true" Style="width: 100%;">
-
-                    </FluentSlider>
+                    <FluentSlider Label="@($"Min ({minMedals})")" Min="0" Max="150" Step="10" Orientation="Orientation.Horizontal" @bind-Value=minMedals Immediate="true" Style="width: 100%;" />
+                    <FluentSlider Label="@($"Max ({maxMedals})")" Min="0" Max="150" Step="10" Orientation="Orientation.Horizontal" @bind-Value=maxMedals Immediate="true" Style="width: 100%;" />
                 </div>
             </ColumnOptions>
         </PropertyColumn>

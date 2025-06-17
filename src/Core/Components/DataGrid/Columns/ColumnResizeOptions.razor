@@ -25,11 +25,10 @@
                                  Label="@Grid.ColumnResizeUISettings.ExactLabel"
                                  AutoComplete="off"
                                  Autofocus="true"
-                                 @onkeydown="@HandleColumnWidthKeyDownAsync" />
+                                 @onkeydown="@HandleColumnWidthKeyDownAsync"
+                                 />
             </div>
-            <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" Appearance="@ButtonAppearance.Primary" aria-label="@(Grid.ColumnResizeUISettings.SubmitAriaLabel)">
-                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Checkmark())" Color="@Color.Default" />
-            </FluentButton>
+            <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" IconStart="@(new CoreIcons.Regular.Size20.Checkmark())" Appearance="@ButtonAppearance.Primary" aria-label="@(Grid.ColumnResizeUISettings.SubmitAriaLabel)" />
             <FluentButton Style="height: 30px;" OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@(Grid.ColumnResizeUISettings.ResetAriaLabel)" />
         </FluentStack>
     }
