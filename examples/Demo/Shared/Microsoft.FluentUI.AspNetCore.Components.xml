@@ -1954,7 +1954,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeColumnOnAllRows">
             <summary>
             Gets or sets a value indicating whether column resize handles should extend the full height of the grid.
-            When true, columns can be resized by dragging from any row. When false, columns can only be resized 
+            When true, columns can be resized by dragging from any row. When false, columns can only be resized
             by dragging from the column header. Default is true.
             </summary>
         </member>
@@ -2140,6 +2140,13 @@
             Gets or sets a value indicating whether the grids' first cell should be focused.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.IsFixed">
+            <summary>
+            Gets or sets a value indicating whether the grid's dataset is not expected to change during its lifetime.
+            When set to true, reduces automatic refresh checks for better performance with static datasets.
+            Default is false to maintain backward compatibility.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
@@ -2282,12 +2289,6 @@
             If no value is specified, the default value is "1fr" for each column.
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ComputeItemsHash(System.Collections.Generic.IEnumerable{`0},System.Int32)">
-            <summary>
-            Computes a hash code for the given items.
-            To limit the effect on performance, only the given maximum number (default 250) of items will be considered.
-            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Item">
             <summary>
