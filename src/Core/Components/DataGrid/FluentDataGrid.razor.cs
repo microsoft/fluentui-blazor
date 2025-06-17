@@ -783,13 +783,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                     await RefreshItems.Invoke(request);
                 }
             }
-
-            if (_forceRefreshData || _lastRequest == null || !_lastRequest.Value.IsSameRequest(request))
-            {
-                _forceRefreshData = false;
-                _lastRequest = request;
-                await RefreshItems.Invoke(request);
-            }
         }
 
         var result = await ResolveItemsRequestAsync(request);
