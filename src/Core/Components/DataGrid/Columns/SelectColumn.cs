@@ -70,7 +70,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// Gets or sets a callback when list of selected items changed.
     /// </summary>
     [Parameter]
-    public EventCallback<IEnumerable<TGridItem>> SelectedItemsChanged { get; set; }
+    public EventCallback<IList<TGridItem>> SelectedItemsChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the selection mode (Single, SingleSticky or Multiple).

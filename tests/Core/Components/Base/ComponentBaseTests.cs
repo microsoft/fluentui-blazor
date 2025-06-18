@@ -40,7 +40,10 @@ public class ComponentBaseTests : Bunit.TestContext
         { typeof(FluentTooltip), Loader.Default.WithRequiredParameter("Anchor", "MyButton").WithRequiredParameter("UseTooltipService", false)},
         { typeof(FluentHighlighter), Loader.Default.WithRequiredParameter("HighlightedText", "AB").WithRequiredParameter("Text", "ABCDEF")},
         { typeof(FluentKeyCode), Loader.Default.WithRequiredParameter("ChildContent", (RenderFragment)(builder => builder.AddContent(0, "MyContent"))) },
-        { typeof(FluentPaginator), Loader.Default.WithRequiredParameter("State", new PaginationState()) }
+        { typeof(FluentPaginator), Loader.Default.WithRequiredParameter("State", new PaginationState()) },
+        { typeof(FluentDataGrid<>), Loader.MakeGenericType(typeof(string)) },
+        { typeof(FluentDataGridRow<>), Loader.MakeGenericType(typeof(string)) },
+        { typeof(FluentDataGridCell<>), Loader.Default.WithRequiredParameter("Owner", new FluentDataGridRow<string>(LibraryConfiguration.Empty)) },
     };
 
     /// <summary />
