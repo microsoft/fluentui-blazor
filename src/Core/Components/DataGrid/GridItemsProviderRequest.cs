@@ -29,7 +29,7 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     public ColumnBase<TGridItem>? SortByColumn { get; init; }
 
     /// <summary>
-    /// Gets or sets thecurrent sort direction.
+    /// Gets or sets the current sort direction.
     ///
     /// Rather than inferring the sort rules manually, you should normally call either <see cref="ApplySorting(IQueryable{TGridItem})"/>
     /// or <see cref="GetSortByProperties"/>, since they also account for <see cref="SortByColumn" /> and <see cref="SortByAscending" /> automatically.
@@ -65,7 +65,7 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     /// </summary>
     /// <returns>A collection of (property name, direction) pairs representing the sorting rules</returns>
     public IReadOnlyCollection<SortedProperty> GetSortByProperties() =>
-        SortByColumn?.SortBy?.ToPropertyList(SortByAscending) ?? Array.Empty<SortedProperty>();
+        SortByColumn?.SortBy?.ToPropertyList(SortByAscending) ?? [];
 
     /// <summary>
     /// Determines whether the specified request is equivalent to the current request.

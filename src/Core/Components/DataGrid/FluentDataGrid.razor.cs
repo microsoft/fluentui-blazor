@@ -18,6 +18,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 [CascadingTypeParameter(nameof(TGridItem))]
+
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0040:Forward the CancellationToken parameter to methods that take one", Justification = "The available cancellation token are not appropriate to pass along.")]
 public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DataGrid/FluentDataGrid.razor.js";
@@ -446,6 +448,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <inheritdoc />
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && _gridReference is not null)
@@ -458,6 +461,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _jsEventDisposable = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("init", _gridReference, AutoFocus);
                 if (AutoItemsPerPage)
                 {
+
                     await JSModule.ObjectReference.InvokeVoidAsync("dynamicItemsPerPage", _gridReference, DotNetObjectReference.Create(this), (int)RowSize);
                 }
             }

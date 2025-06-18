@@ -3,7 +3,7 @@
 // ------------------------------------------------------------------------
 using Xunit;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DataGrid;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DataGrid;
 
 public class GridSortTests : Bunit.TestContext
 {
