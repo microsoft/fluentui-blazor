@@ -176,19 +176,22 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public DataGridResizeType? ResizeType { get; set; }
 
     /// <summary>
-    /// (Aria) Labels used in the column resize UI.
+    /// Settings (icon, icon position) used in the column resize UI.
+    /// (aria) labels are controlled through <see cref="IFluentLocalizer"/>
     /// </summary>
     [Parameter]
     public ColumnResizeUISettings ColumnResizeUISettings { get; set; } = ColumnResizeUISettings.Default;
 
     /// <summary>
-    /// Labels used in the column sort UI.
+    /// Settings (icon, icon position) used in the column sorting UI.
+    /// (aria) labels are controlled through <see cref="IFluentLocalizer"/>
     /// </summary>
     [Parameter]
     public ColumnSortUISettings ColumnSortUISettings { get; set; } = ColumnSortUISettings.Default;
 
     /// <summary>
-    /// Labels used in the column options UI.
+    /// Settings (icon, icon position) used in the column options UI.
+    /// (aria) labels are controlled through <see cref="IFluentLocalizer"/>
     /// </summary>
     [Parameter]
     public ColumnOptionsUISettings ColumnOptionsUISettings { get; set; } = ColumnOptionsUISettings.Default;

@@ -19,6 +19,10 @@ public partial class ColumnResizeOptions<TGridItem>
 {
     private string? _width;
 
+    /// <summary />
+    [Inject]
+    public IFluentLocalizer Localizer { get; set; } = default!;
+
     [CascadingParameter]
     internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 

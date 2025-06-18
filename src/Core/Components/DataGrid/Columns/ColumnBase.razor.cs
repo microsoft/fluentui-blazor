@@ -22,6 +22,9 @@ public abstract partial class ColumnBase<TGridItem>
     private readonly string _columnId = Identifier.NewId();
     private FluentMenu? _menu;
 
+    [Inject]
+    private IFluentLocalizer Localizer { get; set; } = default!;
+
     [CascadingParameter]
     internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
@@ -347,12 +350,12 @@ public abstract partial class ColumnBase<TGridItem>
         {
             if (Grid.SortByAscending is true)
             {
-                return Grid.ColumnSortUISettings.SortMenuAscendingLabel;
+                return Localizer[Localization.LanguageResource.DataGrid_SortMenuAscending];
             }
 
-            return Grid.ColumnSortUISettings.SortMenuDescendingLabel;
+            return Localizer[Localization.LanguageResource.DataGrid_SortMenuDescending];
         }
 
-        return Grid.ColumnSortUISettings.SortMenu;
+        return Localizer[Localization.LanguageResource.DataGrid_SortMenu];
     }
 }

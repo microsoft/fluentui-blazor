@@ -243,4 +243,37 @@
   <data name="Paginator_Status" xml:space="preserve">
     <value>Page {0} of {1}</value>
   </data>
+  <data name="DataGrid_SortMenuAscending" xml:space="preserve">
+    <value>Sort (ascending)</value>
+  </data>
+  <data name="DataGrid_SortMenuDescending" xml:space="preserve">
+    <value>Sort (descending)</value>
+  </data>
+  <data name="DataGrid_SortMenu" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="DataGrid_ResizeMenu" xml:space="preserve">
+    <value>Resize</value>
+  </data>
+  <data name="DataGrid_OptionsMenu" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="DataGrid_ResizeDiscrete" xml:space="preserve">
+    <value>Column width</value>
+  </data>
+  <data name="DataGrid_ResizeExact" xml:space="preserve">
+    <value>Column width (in pixels)</value>
+  </data>
+  <data name="DataGrid_ResizeGrow" xml:space="preserve">
+    <value>Grow column width</value>
+  </data>
+  <data name="DataGrid_ResizeShrink" xml:space="preserve">
+    <value>Shrink column width</value>
+  </data>
+  <data name="DataGrid_ResizeReset" xml:space="preserve">
+    <value>Reset column widths</value>
+  </data>
+  <data name="DataGrid_ResizeSubmit" xml:space="preserve">
+    <value>Set column widths</value>
+  </data>
 </root>

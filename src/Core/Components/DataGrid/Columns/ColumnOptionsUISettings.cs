@@ -4,17 +4,12 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Represents the UI settings for column options (usually filtering), including labels, aria attributes, and menu options in the <see cref="FluentDataGrid{TGridItem}"/>.
+/// Represents the UI settings for column options (usually filtering).
 /// </summary>
-/// <remarks>This type provides customizable settings for the column options menu, including the menu text,  icon,
+/// <remarks>This type provides customizable settings for the column options menu icon,
 /// and icon positioning. It also includes a default configuration that can be used as a baseline.</remarks>
-public record ColumnOptionsUISettings
+public record ColumnOptionsUISettings()
 {
-    /// <summary>
-    /// Gets or sets the text shown in the column menu
-    /// </summary>
-    public string OptionsMenu { get; set; } = "Filter";
-
     /// <summary>
     /// Gets or sets the icon to show in the column menu
     /// </summary>
