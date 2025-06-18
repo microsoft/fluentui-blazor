@@ -898,7 +898,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
              ? (_sortByAscending ? "ascending" : "descending")
              : "none";
 
-    private string? StyleValue => new StyleBuilder(Style)
+    private string? StyleValue => DefaultStyleBuilder
         .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && DisplayMode == DataGridDisplayMode.Grid)
         .AddStyle("grid-template-rows", "auto 1fr", (_internalGridContext.Items.Count == 0 || Items is null || EffectiveLoadingValue) && DisplayMode == DataGridDisplayMode.Grid)
         .AddStyle("height", "100%", _internalGridContext.TotalItemCount == 0 || EffectiveLoadingValue)
@@ -918,7 +918,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? GridClass()
     {
-        return new CssBuilder(Class)
+        return DefaultClassBuilder
             .AddClass("fluent-data-grid")
             .AddClass("grid", DisplayMode == DataGridDisplayMode.Grid)
             .AddClass("auto-fit", AutoFit)

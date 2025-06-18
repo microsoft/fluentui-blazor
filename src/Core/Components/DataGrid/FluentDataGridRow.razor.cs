@@ -6,7 +6,6 @@ using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -84,13 +83,13 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-data-grid-row")
         .AddClass("hover", when: Grid.ShowHover)
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
        .Build();
 
     /// <summary>

@@ -6,7 +6,6 @@ using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -70,7 +69,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
         .AddClass("select-all", when: CellType == DataGridCellType.ColumnHeader && Column is SelectColumn<TGridItem>)
         .AddClass("multiline-text", when: Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null) && CellType != DataGridCellType.ColumnHeader)
@@ -78,7 +77,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("grid-column", GridColumn.ToString(CultureInfo.InvariantCulture), () => !Grid.EffectiveLoadingValue && (Grid.Items is not null || Grid.ItemsProvider is not null) && Grid.DisplayMode == DataGridDisplayMode.Grid)
         .AddStyle("text-align", "center", Column is SelectColumn<TGridItem>)
         .AddStyle("align-content", "center", Column is SelectColumn<TGridItem>)

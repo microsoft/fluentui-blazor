@@ -26,6 +26,8 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     private readonly Icon IconUnselectedSingle = new CoreIcons.Regular.Size20.RadioButton().WithColor(Color.Lightweight);
     private readonly Icon IconSelectedSingle = new CoreIcons.Filled.Size20.RadioButton();
 
+    private readonly List<TGridItem> _selectedItems = [];
+
     /// <summary>
     /// Initializes a new instance of <see cref="SelectColumn{TGridItem}"/>.
     /// </summary>
@@ -64,13 +66,13 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// Gets or sets the list of selected items.
     /// </summary>
     [Parameter]
-    public IList<TGridItem> SelectedItems { get; set; } = [];
+    public IEnumerable<TGridItem> SelectedItems { get; set; } = [];
 
     /// <summary>
     /// Gets or sets a callback when list of selected items changed.
     /// </summary>
     [Parameter]
-    public EventCallback<IList<TGridItem>> SelectedItemsChanged { get; set; }
+    public EventCallback<IEnumerable<TGridItem>> SelectedItemsChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the selection mode (Single, SingleSticky or Multiple).
@@ -175,7 +177,9 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// </summary>
     public void ClearSelection()
     {
-        SelectedItems?.Clear();
+        _selectedItems.Clear();
+        SelectedItems = _selectedItems;
+
         RefreshHeaderContent();
     }
 
@@ -254,6 +258,18 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         return Task.CompletedTask;
     }
 
+    //private void UpdateSelectedItems(IEnumerable<TGridItem> value)
+    //{
+    //    if (_selectedItems != value)
+    //    {
+    //        _selectedItems.Clear();
+    //        _selectedItems.AddRange(value);
+    //        SelectAll = false;
+
+    //        SelectedItems = _selectedItems;
+    //    }
+    //}
+
     /// <summary />
     private async Task AddOrRemoveSelectedItemAsync(TGridItem? item)
     {
@@ -264,7 +280,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                 return;
             }
 
-            if (SelectedItems.Remove(item))
+            if (_selectedItems.Remove(item))
             {
                 SelectAll = false;
                 await CallOnSelectAsync(item, isSelected: false);
@@ -278,13 +294,14 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                         await CallOnSelectAsync(previous, isSelected: false);
                     }
 
-                    SelectedItems.Clear();
+                    _selectedItems.Clear();
                 }
 
-                SelectedItems.Add(item);
+                _selectedItems.Add(item);
                 await CallOnSelectAsync(item, isSelected: true);
             }
 
+            SelectedItems = _selectedItems;
             if (SelectedItemsChanged.HasDelegate)
             {
                 await SelectedItemsChanged.InvokeAsync(SelectedItems);
@@ -363,14 +380,20 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             var selected = SelectedItems.Contains(item) || Property.Invoke(item);
 
             // Sync with SelectedItems list
-            if (selected && !SelectedItems.Contains(item))
+            if (selected && !_selectedItems.Contains(item))
             {
-                SelectedItems.Add(item);
+                _selectedItems.Add(item);
                 RefreshHeaderContent();
             }
-            else if (!selected && SelectedItems.Contains(item))
+            else if (!selected && _selectedItems.Contains(item))
             {
-                SelectedItems.Remove(item);
+                _selectedItems.Remove(item);
+            }
+
+            SelectedItems = _selectedItems;
+            if (SelectedItemsChanged.HasDelegate)
+            {
+                _ = SelectedItemsChanged.InvokeAsync(SelectedItems);
             }
 
             builder.OpenComponent<FluentIcon<Icon>>(0);
@@ -462,7 +485,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                 return false;
             }
 
-            if (SelectedItems.Count == InternalGridContext.TotalItemCount || SelectAll == true)
+            if (SelectedItems.Take(InternalGridContext.TotalItemCount + 1).Count() == InternalGridContext.TotalItemCount || SelectAll == true)
             {
                 return true;
             }
@@ -501,20 +524,21 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             await SelectAllChanged.InvokeAsync(SelectAll);
         }
 
-        var count = SelectedItems.Count;
+        var count = SelectedItems.Count();
         // SelectedItems
-        SelectedItems.Clear();
+        _selectedItems.Clear();
         if (SelectAll == true && count != InternalGridContext.TotalItemCount)
         {
             // Only add selectable items
-            _ = SelectedItems.Concat((InternalGridContext.Grid.Items?.ToList() ?? InternalGridContext.Items)
+            _selectedItems.AddRange((InternalGridContext.Grid.Items?.ToList() ?? InternalGridContext.Items)
                 .Where(item => Selectable?.Invoke(item) ?? true)
             );
         }
 
+        SelectedItems = _selectedItems;
         if (SelectedItemsChanged.HasDelegate)
         {
-            await SelectedItemsChanged.InvokeAsync(SelectedItems);
+            await SelectedItemsChanged.InvokeAsync(_selectedItems);
         }
 
         RefreshHeaderContent();

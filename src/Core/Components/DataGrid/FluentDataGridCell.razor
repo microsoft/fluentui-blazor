@@ -4,7 +4,8 @@
 
 @if (CellType == DataGridCellType.Default)
 {
-    <td col-index=@GridColumn
+    <td id="@Id"
+        col-index=@GridColumn
         class="@ClassValue"
         style="@StyleValue"
         role="gridcell"
@@ -18,7 +19,8 @@
 }
 else
 {
-    <th col-index=@GridColumn
+    <th id="@Id"
+        col-index=@GridColumn
         class="@ClassValue"
         style="@StyleValue"
         @oncontextmenu:preventDefault="true"

@@ -3,10 +3,32 @@
 
 @code
 {
+    private record Person(int PersonId, string Name, DateOnly BirthDate)
+    {
+        public bool Selected { get; set; }
+    };
+
+    private readonly IQueryable<Person> People = new[]
+    {
+        new Person(1, "Jean Martin", new DateOnly(1985, 3, 16)),
+        new Person(2, "Kenji Sato", new DateOnly(2004, 1, 9)),
+        new Person(3, "Julie Smith", new DateOnly(1958, 10, 10)),
+    }.AsQueryable();
+
+    public FluentDataGridColumSelectTests()
+    {
+        var dataGridModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
+        dataGridModule.SetupModule("init", _ => true);
+
+        // Register services
+        Services.AddFluentUIComponents();
+        Services.AddScoped<IKeyCodeService>(factory => new KeyCodeService());
+    }
+
     [Fact]
     public void FluentDataGrid_ColumSelect_SingleSelect_Rendering()
     {
-        IList<Person> SelectedItems = new List<Person> { People.ElementAt(1) };
+        IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1) };
 
         // Arrange
         var cut = Render(
@@ -24,7 +46,7 @@
     [Fact]
     public async Task FluentDataGrid_ColumSelect_SingleSelect_SelectedItems()
     {
-        IList<Person> SelectedItems = new List<Person>();
+        IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
@@ -51,12 +73,12 @@
         Assert.Single(SelectedItems);
     }
 
-    
+
 
     [Fact]
     public async Task FluentDataGrid_ColumSelect_Selectable_SingleSelect_SelectedItems()
     {
-        IList<Person> SelectedItems = new List<Person>();
+        IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
@@ -152,7 +174,7 @@
     [Fact]
     public void FluentDataGrid_ColumSelect_SingleStickySelect_Rendering()
     {
-        IList<Person> SelectedItems = new List<Person> { People.ElementAt(1) };
+        IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1) };
 
         // Arrange
         var cut = Render(
@@ -170,7 +192,7 @@
     [Fact]
     public async Task FluentDataGrid_ColumSelect_SingleStickySelect_SelectedItems()
     {
-        IList<Person> SelectedItems = new List<Person>();
+        IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
@@ -200,7 +222,7 @@
     [Fact]
     public async Task FluentDataGrid_ColumSelect_SingleStickySameItemSelect_SelectedItems()
     {
-        IList<Person> SelectedItems = new List<Person>();
+        IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
@@ -230,7 +252,7 @@
     [Fact]
     public async Task FluentDataGrid_ColumSelect_Selectable_SingleStickySelect_SelectedItems()
     {
-        IList<Person> SelectedItems = new List<Person>();
+        IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
@@ -326,7 +348,7 @@
     [Fact]
     public void FluentDataGrid_ColumSelect_MultiSelect_Rendering()
     {
-        IList<Person> SelectedItems = new List<Person> { People.ElementAt(1), People.ElementAt(2) };
+        IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1), People.ElementAt(2) };
 
         // Arrange
         var cut = Render(
@@ -344,7 +366,7 @@
     [Fact]
     public async Task FluentDataGrid_ColumSelect_MultiSelect_SelectedItems()
     {
-        IList<Person> SelectedItems = new List<Person>();
+        IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
@@ -379,7 +401,7 @@
     [Fact]
     public async Task FluentDataGrid_ColumSelect_Selectable_MultiSelect_SelectedItems()
     {
-        IList<Person> SelectedItems = new List<Person>();
+        IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
@@ -456,15 +478,15 @@
 
         // Arrange
         var cut = Render(
-    @<FluentDataGrid Items="@items" TGridItem="Person">
-        <SelectColumn TGridItem="Person"
-                      SelectMode="@DataGridSelectMode.Multiple"
-                      Selectable="@(e => e.BirthDate.Year >= 2000)"
-                      Property="@(e => e.Selected)"
-                      OnSelect="@(e => e.Item.Selected = e.Selected)" />
-        <PropertyColumn Property="@(p => p.Name)" />
-    </FluentDataGrid>
-    );
+            @<FluentDataGrid Items="@items" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Multiple"
+                              Selectable="@(e => e.BirthDate.Year >= 2000)"
+                              Property="@(e => e.Selected)"
+                              OnSelect="@(e => e.Item.Selected = e.Selected)" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+            );
 
         // Pre-Assert
         Assert.Equal(2, cut.FindAll("svg").Count);
@@ -490,7 +512,7 @@
     [Fact]
     public async Task FluentDataGrid_ColumSelect_MultiSelect_SelectAll_SelectedItems()
     {
-        IList<Person> SelectedItems = new List<Person>();
+        IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
@@ -553,7 +575,7 @@
     // [Fact]
     // public void FluentDataGrid_ColumSelect_SwitchMultiToSingleSelect()
     // {
-    //     IList<Person> selectedItems = new List<Person> { People.ElementAt(1), People.ElementAt(2) };
+    //     IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1), People.ElementAt(2) };
 
     //     // Arrange
     //     var cut = Render(
@@ -583,7 +605,7 @@
     [Fact]
     public async Task FluentDataGrid_ColumSelect_SelectAll_Disabled()
     {
-        IList<Person> SelectedItems = new List<Person>();
+        IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
@@ -609,7 +631,7 @@
     [Fact]
     public void FluentDataGrid_ColumSelect_MultiSelect_Customized_Rendering()
     {
-        IList<Person> SelectedItems = new List<Person>() { People.ElementAt(1), People.ElementAt(2) };
+        IEnumerable<Person> SelectedItems = new List<Person>() { People.ElementAt(1), People.ElementAt(2) };
 
         // Arrange
         var cut = Render(
@@ -634,7 +656,7 @@
     [Fact]
     public async Task FluentDataGrid_ColumSelect_SingleSelect_NotSelectFromEntireRow()
     {
-        IList<Person> SelectedItems = new List<Person>();
+        IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
@@ -665,7 +687,7 @@
     [Fact]
     public async Task FluentDataGrid_ColumSelect_MultiSelect_NotSelectFromEntireRow()
     {
-        IList<Person> SelectedItems = new List<Person>();
+        IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(

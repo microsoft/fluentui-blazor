@@ -26,3 +26,5 @@ The resize options UI is using a customized string for the label ('Width (+/- 10
 the custom localizer which is registered in the Server project's `Program.cs` file.
 
 {{ DataGridTypical }}
+
+{{ DataGridMultiSelect }}

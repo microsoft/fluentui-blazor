@@ -8,7 +8,7 @@
         dataGridModule.SetupModule("init", _ => true);
 
         // Register services
-        Services.AddSingleton(LibraryConfiguration.Empty);
+        Services.AddFluentUIComponents();
         Services.AddScoped<IKeyCodeService>(factory => new KeyCodeService());
     }
 

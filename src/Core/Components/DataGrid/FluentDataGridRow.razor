@@ -4,7 +4,8 @@
 @typeparam TGridItem
 @attribute [CascadingTypeParameter(nameof(TGridItem))]
 <CascadingValue Value="this" Name="OwningRow">
-    <tr class="@ClassValue"
+    <tr id="@Id"
+        class="@ClassValue"
         style="@StyleValue"
         data-row-index=@RowIndex
         role="row"
