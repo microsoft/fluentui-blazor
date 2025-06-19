@@ -66,12 +66,6 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback for when a cell is focused.
-    /// </summary>
-    [Parameter]
-    public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
-
-    /// <summary>
     /// Gets or sets the owning <see cref="FluentDataGrid{TItem}"/> component
     /// </summary>
     [CascadingParameter]
@@ -108,6 +102,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     }
 
     /// <summary />
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage(Justification = "Tested in aspnetcore code")]
     Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
         => callback.InvokeAsync(arg);
 
@@ -142,19 +137,24 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     {
         var row = GetRow(rowId);
 
-        if (row is not null && !string.IsNullOrWhiteSpace(row.Class) &&
+        if (row is null)
+        {
+            return;
+        }
+
+        if (!string.IsNullOrWhiteSpace(row.Class) &&
             (row.Class.Contains(FluentDataGrid<TGridItem>.EMPTY_CONTENT_ROW_CLASS, StringComparison.Ordinal) ||
              row.Class.Contains(FluentDataGrid<TGridItem>.LOADING_CONTENT_ROW_CLASS, StringComparison.Ordinal)))
         {
             return;
         }
 
-        if (row != null && Grid.OnRowClick.HasDelegate)
+        if (Grid.OnRowClick.HasDelegate)
         {
             await Grid.OnRowClick.InvokeAsync(row);
         }
 
-        if (row != null && row.RowType == DataGridRowType.Default)
+        if (row.RowType == DataGridRowType.Default)
         {
             foreach (var column in Grid._columns)
             {
@@ -167,7 +167,12 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     internal async Task HandleOnRowDoubleClickAsync(string rowId)
     {
         var row = GetRow(rowId);
-        if (row != null && Grid.OnRowDoubleClick.HasDelegate)
+        if (row is null)
+        {
+            return;
+        }
+
+        if (Grid.OnRowDoubleClick.HasDelegate)
         {
             await Grid.OnRowDoubleClick.InvokeAsync(row);
         }
@@ -176,19 +181,24 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// <summary />
     internal async Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e)
     {
+        var row = GetRow(rowId);
+
+        if (row is null)
+        {
+            return;
+        }
+
         if (!SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code, StringComparer.Ordinal))
         {
             return;
         }
 
-        var row = GetRow(rowId);
-
-        if (row != null && Grid.OnRowClick.HasDelegate)
+        if (Grid.OnRowClick.HasDelegate)
         {
             await Grid.OnRowClick.InvokeAsync(row);
         }
 
-        if (row != null && row.RowType == DataGridRowType.Default)
+        if (row.RowType == DataGridRowType.Default)
         {
             foreach (var column in Grid._columns)
             {
@@ -197,13 +207,11 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         }
     }
 
-    private FluentDataGridRow<TGridItem>? GetRow(string rowId, Func<FluentDataGridRow<TGridItem>, bool>? where = null)
+    private FluentDataGridRow<TGridItem>? GetRow(string rowId)
     {
         if (!string.IsNullOrEmpty(rowId) && InternalGridContext.Rows.TryGetValue(rowId, out var row))
         {
-            return where == null
-                 ? row
-                 : row is not null && where(row) ? row : null;
+            return row;
         }
 
         return null;
