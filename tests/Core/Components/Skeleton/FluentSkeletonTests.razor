@@ -99,6 +99,18 @@
     }
 
     [Fact]
+    public void FluentSkeleton_LoadingClass_WhenNull()
+    {
+
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+#pragma warning disable CS8625
+            FluentSkeleton.LoadingClass(when: null, 0, false);
+#pragma warning restore CS8625
+        });
+    }
+
+    [Fact]
     public void FluentSkeleton_LoadingClass_InvalidSize()
     {
         Assert.Throws<ArgumentOutOfRangeException>(() =>
@@ -120,4 +132,27 @@
         // Assert
         cut.Verify(suffix: pattern.ToString());
     }
+
+    [Fact]
+    public void FluentSkeleton_StaticClassProperties_HaveExpectedValues()
+    {
+        Assert.Equal("fluent-skeleton-1", FluentSkeleton.ClassRectangle1);
+        Assert.Equal("fluent-skeleton-2", FluentSkeleton.ClassRectangle2);
+        Assert.Equal("fluent-skeleton-3", FluentSkeleton.ClassRectangle3);
+        Assert.Equal("fluent-skeleton-4", FluentSkeleton.ClassRectangle4);
+        Assert.Equal("fluent-skeleton-5", FluentSkeleton.ClassRectangle5);
+        Assert.Equal("fluent-skeleton-6", FluentSkeleton.ClassRectangle6);
+        Assert.Equal("fluent-skeleton-7", FluentSkeleton.ClassRectangle7);
+        Assert.Equal("fluent-skeleton-8", FluentSkeleton.ClassRectangle8);
+
+        Assert.Equal("fluent-skeleton-circular-1", FluentSkeleton.ClassCircular1);
+        Assert.Equal("fluent-skeleton-circular-2", FluentSkeleton.ClassCircular2);
+        Assert.Equal("fluent-skeleton-circular-3", FluentSkeleton.ClassCircular3);
+        Assert.Equal("fluent-skeleton-circular-4", FluentSkeleton.ClassCircular4);
+        Assert.Equal("fluent-skeleton-circular-5", FluentSkeleton.ClassCircular5);
+        Assert.Equal("fluent-skeleton-circular-6", FluentSkeleton.ClassCircular6);
+        Assert.Equal("fluent-skeleton-circular-7", FluentSkeleton.ClassCircular7);
+        Assert.Equal("fluent-skeleton-circular-8", FluentSkeleton.ClassCircular8);
+    }
+
 }
