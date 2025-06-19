@@ -1,6 +1,6 @@
-﻿<FluentStack VerticalAlignment="VerticalAlignment.Center">
+﻿<FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalGap="5">
     <FluentSelect Items="@(Enum.GetValues<DataGridSelectMode>())"
-                  @bind-SelectedOption="@Mode" />
+                  @bind-Value="@Mode" />
     <FluentCheckbox @bind-Value="@UseSelectedItems"
                     @bind-Value:after="@(() => ResetSelectItems())"
                     Label="Use `SelectedItems` property" />
@@ -28,7 +28,7 @@
         <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
     </FluentDataGrid>
 
-    <div style="margin-top: 0.5rem;">
+    <div style="margin-top: 1rem;">
         <b>SelectedItems:</b>
         @String.Join("; ", SelectedItems.Select(p => p.Name))
     </div>
@@ -52,8 +52,8 @@ else
         <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
     </FluentDataGrid>
 
-    <div>
-        <b>Peoples:</b>
+    <div style="margin-top: 1rem;">
+        <b>Persons:</b>
         @String.Join("; ", People.Where(p => p.Selected).Select(p => p.Name))
     </div>
 }

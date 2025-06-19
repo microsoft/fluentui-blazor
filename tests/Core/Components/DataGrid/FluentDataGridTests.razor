@@ -177,6 +177,24 @@
         Assert.Throws<ElementNotFoundException>(() => cut.Find("#loading-content"));
     }
 
+    // // Add a test to call DisposeAsync on the component
+    // [Fact]
+    // public async Task FluentDataGrid_DisposeAsync_Calls_Dispose()
+    // {
+    //     // Arrange
+    //     var cut = Render<FluentDataGrid<Customer>>(
+    //         @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+    //             <ChildContent>
+    //                 <PropertyColumn Property="@(x => x.Name)" />
+    //             </ChildContent>
+    //         </FluentDataGrid>);
+    //     // Act
+    //     await cut.Instance.DisposeAsync();
+    //     // Assert
+    //     // No exceptions should be thrown, and the component should be disposed correctly
+    //     Assert.True(cut.IsDisposed);
+    // }
+
     // Sample data...
     private IEnumerable<Customer> GetCustomers()
     {

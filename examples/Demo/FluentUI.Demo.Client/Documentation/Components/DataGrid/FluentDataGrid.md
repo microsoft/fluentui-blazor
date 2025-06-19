@@ -25,6 +25,6 @@ Pressing enter finishes the filter action by the current input to filter on and 
 The resize options UI is using a customized string for the label ('Width (+/- 10px)' instead of the normal 'Column width'). This is done through
 the custom localizer which is registered in the Server project's `Program.cs` file.
 
-{{ DataGridTypical }}
+
 
 {{ DataGridMultiSelect }}

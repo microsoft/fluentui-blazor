@@ -3,7 +3,7 @@
 
 @code
 {
-    private record Person(int PersonId, string Name, DateOnly BirthDate)
+    public record Person(int PersonId, string Name, DateOnly BirthDate)
     {
         public bool Selected { get; set; }
     };

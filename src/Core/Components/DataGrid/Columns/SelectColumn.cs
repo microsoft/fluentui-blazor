@@ -17,15 +17,15 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <summary>
     /// List of keys to press, to select/unselect a row.
     /// </summary>
-#pragma warning disable MA0018 // Do not declare static members on generic types (deprecated; use CA1000 instead)
-    public static readonly string[] KEYBOARD_SELECT_KEYS = ["Enter", "NumpadEnter"];
-#pragma warning restore MA0018 // Do not declare static members on generic types (deprecated; use CA1000 instead)
 
-    private readonly Icon IconUnselectedMultiple = new CoreIcons.Regular.Size20.CheckboxUnchecked().WithColor(Color.Lightweight);
-    private readonly Icon IconSelectedMultiple = new CoreIcons.Filled.Size20.CheckboxChecked();
-    private readonly Icon IconUnselectedSingle = new CoreIcons.Regular.Size20.RadioButton().WithColor(Color.Lightweight);
-    private readonly Icon IconSelectedSingle = new CoreIcons.Filled.Size20.RadioButton();
+    internal static readonly string[] KEYBOARD_SELECT_KEYS = ["Enter", "NumpadEnter"];
 
+    private readonly Icon IconUnselectedMultiple = new CoreIcons.Regular.Size20.CheckboxUnchecked();
+    private readonly Icon IconSelectedMultiple = new CoreIcons.Filled.Size20.CheckboxChecked().WithColor(Color.Primary);
+    private readonly Icon IconUnselectedSingle = new CoreIcons.Regular.Size20.RadioButton();
+    private readonly Icon IconSelectedSingle = new CoreIcons.Filled.Size20.RadioButton().WithColor(Color.Primary);
+
+    private DataGridSelectMode _selectMode = DataGridSelectMode.Single;
     private readonly List<TGridItem> _selectedItems = [];
 
     /// <summary>
@@ -66,7 +66,21 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// Gets or sets the list of selected items.
     /// </summary>
     [Parameter]
-    public IEnumerable<TGridItem> SelectedItems { get; set; } = [];
+#pragma warning disable BL0007 // Component parameters should be auto properties
+    public IEnumerable<TGridItem> SelectedItems
+#pragma warning restore BL0007 // Component parameters should be auto properties
+    {
+        get => _selectedItems;
+        set
+        {
+            if (_selectedItems != value)
+            {
+                _selectedItems.Clear();
+                _selectedItems.AddRange(value);
+                SelectAll = false;
+            }
+        }
+    }
 
     /// <summary>
     /// Gets or sets a callback when list of selected items changed.
@@ -78,7 +92,23 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// Gets or sets the selection mode (Single, SingleSticky or Multiple).
     /// </summary>
     [Parameter]
-    public DataGridSelectMode SelectMode { get; set; } = DataGridSelectMode.Single;
+#pragma warning disable BL0007 // Component parameters should be auto properties
+    public DataGridSelectMode SelectMode
+#pragma warning restore BL0007 // Component parameters should be auto properties
+    {
+        get => _selectMode;
+        set
+        {
+            _selectMode = value;
+
+            if (value is DataGridSelectMode.Single or DataGridSelectMode.SingleSticky)
+            {
+                _ = KeepOnlyFirstSelectedItemAsync();
+            }
+
+            RefreshHeaderContent();
+        }
+    }
 
     /// <summary>
     /// Gets or sets the Icon to be rendered when the row is non selected.
@@ -111,7 +141,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// Only when <see cref="SelectMode"/> is Multiple.
     /// </summary>
     [Parameter]
-    public Icon? IconIndeterminate { get; set; } = new CoreIcons.Filled.Size20.CheckboxIndeterminate();
+    public Icon? IconIndeterminate { get; set; } = new CoreIcons.Filled.Size20.CheckboxIndeterminate().WithColor(Color.Primary);
 
     /// <summary>
     /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
@@ -178,8 +208,6 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public void ClearSelection()
     {
         _selectedItems.Clear();
-        SelectedItems = _selectedItems;
-
         RefreshHeaderContent();
     }
 
@@ -258,30 +286,19 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         return Task.CompletedTask;
     }
 
-    //private void UpdateSelectedItems(IEnumerable<TGridItem> value)
-    //{
-    //    if (_selectedItems != value)
-    //    {
-    //        _selectedItems.Clear();
-    //        _selectedItems.AddRange(value);
-    //        SelectAll = false;
-
-    //        SelectedItems = _selectedItems;
-    //    }
-    //}
-
     /// <summary />
     private async Task AddOrRemoveSelectedItemAsync(TGridItem? item)
     {
         if (item != null && (Selectable == null || Selectable.Invoke(item)))
         {
-            if (SelectMode is DataGridSelectMode.SingleSticky && SelectedItems.Contains(item))
+            if (SelectMode is DataGridSelectMode.SingleSticky && _selectedItems.Contains(item))
             {
                 return;
             }
 
-            if (_selectedItems.Remove(item))
+            if (SelectedItems.Contains(item))
             {
+                _selectedItems.Remove(item);
                 SelectAll = false;
                 await CallOnSelectAsync(item, isSelected: false);
             }
@@ -289,7 +306,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             {
                 if (SelectMode is DataGridSelectMode.Single or DataGridSelectMode.SingleSticky)
                 {
-                    foreach (var previous in SelectedItems)
+                    foreach (var previous in _selectedItems)
                     {
                         await CallOnSelectAsync(previous, isSelected: false);
                     }
@@ -301,7 +318,6 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                 await CallOnSelectAsync(item, isSelected: true);
             }
 
-            SelectedItems = _selectedItems;
             if (SelectedItemsChanged.HasDelegate)
             {
                 await SelectedItemsChanged.InvokeAsync(SelectedItems);
@@ -338,34 +354,34 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         };
     }
 
-    //private async Task KeepOnlyFirstSelectedItemAsync()
-    //{
-    //    if (SelectedItems.Count <= 1)
-    //    {
-    //        return;
-    //    }
+    private async Task KeepOnlyFirstSelectedItemAsync()
+    {
+        if (_selectedItems.Count <= 1)
+        {
+            return;
+        }
 
-    //    // Unselect all except the first
-    //    foreach (var item in SelectedItems.Skip(1))
-    //    {
-    //        await OnSelect.InvokeAsync((item, false));
-    //    }
+        // Unselect all except the first
+        foreach (var item in _selectedItems.Skip(1))
+        {
+            await OnSelect.InvokeAsync((item, false));
+        }
 
-    //    // Keep the first selected item
-    //    SelectedItems.RemoveRange(1, SelectedItems.Count - 1);
+        // Keep the first selected item
+        _selectedItems.RemoveRange(1, _selectedItems.Count - 1);
 
-    //    if (SelectedItemsChanged.HasDelegate)
-    //    {
-    //        await SelectedItemsChanged.InvokeAsync(SelectedItems);
-    //    }
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(_selectedItems);
+        }
 
-    //    // Indeterminate
-    //    SelectAll = null;
-    //    if (SelectAllChanged.HasDelegate)
-    //    {
-    //        await SelectAllChanged.InvokeAsync(SelectAll);
-    //    }
-    //}
+        // Indeterminate
+        SelectAll = null;
+        if (SelectAllChanged.HasDelegate)
+        {
+            await SelectAllChanged.InvokeAsync(SelectAll);
+        }
+    }
 
     /// <summary />
     private RenderFragment<TGridItem> GetDefaultChildContent()
@@ -377,7 +393,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                 return;
             }
 
-            var selected = SelectedItems.Contains(item) || Property.Invoke(item);
+            var selected = _selectedItems.Contains(item) || Property.Invoke(item);
 
             // Sync with SelectedItems list
             if (selected && !_selectedItems.Contains(item))
@@ -388,12 +404,6 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             else if (!selected && _selectedItems.Contains(item))
             {
                 _selectedItems.Remove(item);
-            }
-
-            SelectedItems = _selectedItems;
-            if (SelectedItemsChanged.HasDelegate)
-            {
-                _ = SelectedItemsChanged.InvokeAsync(SelectedItems);
             }
 
             builder.OpenComponent<FluentIcon<Icon>>(0);
@@ -535,10 +545,9 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             );
         }
 
-        SelectedItems = _selectedItems;
         if (SelectedItemsChanged.HasDelegate)
         {
-            await SelectedItemsChanged.InvokeAsync(_selectedItems);
+            await SelectedItemsChanged.InvokeAsync(SelectedItems);
         }
 
         RefreshHeaderContent();
@@ -555,9 +564,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 }
 
 /// <summary>
-/// Represents the arguments for the SelectAll template.
+/// Represents the arguments for selecting all items in a template.
 /// </summary>
-/// <param name="AllSelected"></param>
+/// <param name="AllSelected">A nullable boolean indicating whether all items are selected.  <see langword="true"/> if all items are selected;
+/// <see langword="false"/> if not;  <see langword="null"/> if the selection state is undefined.</param>
 #pragma warning disable MA0048 // File name must match type name
 public record SelectAllTemplateArgs(bool? AllSelected) { }
 #pragma warning restore MA0048 // File name must match type name

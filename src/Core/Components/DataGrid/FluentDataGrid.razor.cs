@@ -1048,14 +1048,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         await Pagination.SetItemsPerPageAsync(visibleRows - 1); // subtract 1 for the table header
-
-        //if (Pagination.CurrentPageIndex > Pagination.LastPageIndex && Pagination.LastPageIndex.HasValue && Pagination.LastPageIndex.Value > 0)
-        //{
-        //    await Pagination.SetCurrentPageIndexAsync(Pagination.LastPageIndex.Value);
-        //}
-
-        //await RefreshDataAsync();
-        //StateHasChanged();
     }
 
     //public void SetPageReference(Type page)
