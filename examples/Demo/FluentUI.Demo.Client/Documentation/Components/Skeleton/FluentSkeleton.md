@@ -72,3 +72,7 @@ This allows you to apply a loading style to any component simply by enabling the
 ```
 
 {{ SkeletonCss }}
+
+## API FluentSkeleton
+
+{{ API Type=FluentSkeleton }}
