@@ -1,0 +1,158 @@
+body {
+  --fluentSkeletonBackground: var(--colorNeutralBackground6);
+}
+
+.fluent-skeleton,
+.fluent-skeleton-0,
+.fluent-skeleton-1,
+.fluent-skeleton-2,
+.fluent-skeleton-3,
+.fluent-skeleton-4,
+.fluent-skeleton-5,
+.fluent-skeleton-6,
+.fluent-skeleton-7,
+.fluent-skeleton-8,
+.fluent-skeleton-circular-0,
+.fluent-skeleton-circular-1,
+.fluent-skeleton-circular-2,
+.fluent-skeleton-circular-3,
+.fluent-skeleton-circular-4,
+.fluent-skeleton-circular-5,
+.fluent-skeleton-circular-6,
+.fluent-skeleton-circular-7,
+.fluent-skeleton-circular-8 {
+  display: inline-block;
+  background-color: var(--fluentSkeletonBackground);
+  border-radius: var(--borderRadiusMedium);
+  position: relative;
+  overflow: hidden;
+}
+
+.fluent-skeleton-1 {
+  width: 100%;
+  min-height: var(--spacingVerticalXS);
+}
+
+.fluent-skeleton-2 {
+  width: 100%;
+  min-height: var(--spacingHorizontalS);
+}
+
+.fluent-skeleton-3 {
+  width: 100%;
+  min-height: var(--spacingVerticalM);
+}
+
+.fluent-skeleton-4 {
+  width: 100%;
+  min-height: var(--spacingVerticalL);
+}
+
+.fluent-skeleton-5 {
+  width: 100%;
+  min-height: var(--spacingVerticalXL);
+}
+
+.fluent-skeleton-6 {
+  width: 100%;
+  min-height: var(--spacingVerticalXXL);
+}
+
+.fluent-skeleton-7 {
+  width: 100%;
+  min-height: var(--spacingVerticalXXXL);
+}
+
+.fluent-skeleton-8 {
+  width: 100%;
+  min-height: var(--spacingVerticalXXXXL);
+}
+
+.fluent-skeleton-circular-1 {
+  min-width: var(--spacingHorizontalXS);
+  min-height: var(--spacingVerticalXS);
+}
+
+.fluent-skeleton-circular-2 {
+  min-width: var(--spacingHorizontalS);
+  min-height: var(--spacingHorizontalS);
+}
+
+.fluent-skeleton-circular-3 {
+  min-width: var(--spacingHorizontalM);
+  min-height: var(--spacingVerticalM);
+}
+
+.fluent-skeleton-circular-4 {
+  min-width: var(--spacingHorizontalL);
+  min-height: var(--spacingVerticalL);
+}
+
+.fluent-skeleton-circular-5 {
+  min-width: var(--spacingHorizontalXL);
+  min-height: var(--spacingVerticalXL);
+}
+
+.fluent-skeleton-circular-6 {
+  min-width: var(--spacingHorizontalXXL);
+  min-height: var(--spacingVerticalXXL);
+}
+
+.fluent-skeleton-circular-7 {
+  min-width: var(--spacingHorizontalXXXL);
+  min-height: var(--spacingVerticalXXXL);
+}
+
+.fluent-skeleton-circular-8 {
+  min-width: var(--spacingHorizontalXXXXL);
+  min-height: var(--spacingVerticalXXXXL);
+}
+
+.fluent-skeleton[shape='circle'],
+.fluent-skeleton-circular-0,
+.fluent-skeleton-circular-1,
+.fluent-skeleton-circular-2,
+.fluent-skeleton-circular-3,
+.fluent-skeleton-circular-4,
+.fluent-skeleton-circular-5,
+.fluent-skeleton-circular-6,
+.fluent-skeleton-circular-7,
+.fluent-skeleton-circular-8 {
+  border-radius: 50%;
+}
+
+  .fluent-skeleton[shimmer]::after,
+  .fluent-skeleton-0::after,
+  .fluent-skeleton-1::after,
+  .fluent-skeleton-2::after,
+  .fluent-skeleton-3::after,
+  .fluent-skeleton-4::after,
+  .fluent-skeleton-5::after,
+  .fluent-skeleton-6::after,
+  .fluent-skeleton-7::after,
+  .fluent-skeleton-8::after,
+  .fluent-skeleton-circular-0::after,
+  .fluent-skeleton-circular-1::after,
+  .fluent-skeleton-circular-2::after,
+  .fluent-skeleton-circular-3::after,
+  .fluent-skeleton-circular-4::after,
+  .fluent-skeleton-circular-5::after,
+  .fluent-skeleton-circular-6::after,
+  .fluent-skeleton-circular-7::after,
+  .fluent-skeleton-circular-8::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, var(--colorNeutralBackground1), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 1.5s infinite;
+  }
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
