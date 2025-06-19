@@ -4,7 +4,7 @@
 
 @code {
 
-     private readonly IQueryable<Person> People = new[]
+    private readonly IQueryable<Person> People = new[]
     {
         new Person(1, "Jean Martin", new DateOnly(1985, 3, 16)),
         new Person(2, "Kenji Sato", new DateOnly(2004, 1, 9)),
@@ -13,8 +13,7 @@
 
     public FluentDataGridCellTests()
     {
-        var dataGridModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
-        dataGridModule.SetupModule("init", _ => true);
+        JSInterop.Mode = JSRuntimeMode.Loose;
 
         // Register services
         Services.AddFluentUIComponents();

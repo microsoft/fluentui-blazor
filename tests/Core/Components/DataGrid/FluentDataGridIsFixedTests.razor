@@ -4,8 +4,7 @@
 @code {
     public FluentDataGridIsFixedTests()
     {
-        var dataGridModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
-        dataGridModule.SetupModule("init", _ => true);
+        JSInterop.Mode = JSRuntimeMode.Loose;
 
         // Register services
         Services.AddFluentUIComponents();

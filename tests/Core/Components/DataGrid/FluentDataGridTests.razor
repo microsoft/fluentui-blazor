@@ -4,8 +4,7 @@
 @code {
     public FluentDataGridTests()
     {
-        var dataGridModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
-        dataGridModule.SetupModule("init", _ => true);
+        JSInterop.Mode = JSRuntimeMode.Loose;
 
         // Register services
         Services.AddFluentUIComponents();
@@ -19,7 +18,7 @@
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <ChildContent>
-                    <PropertyColumn Property="@(x => x.Name)" />
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true"/>
                 </ChildContent>
                 <EmptyContent><p>empty content</p></EmptyContent>
             </FluentDataGrid>);
@@ -49,8 +48,8 @@
     {
         // Arrange && Act
         var cut = Render<FluentDataGrid<Customer>>(
-            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" 
-                           ResizableColumns="true" 
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()"
+                           ResizableColumns="true"
                            ResizeColumnOnAllRows="false">
                 <ChildContent>
                     <PropertyColumn Property="@(x => x.Name)" />

@@ -2,10 +2,10 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -29,7 +29,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
     private IAsyncQueryExecutor? _asyncQueryExecutor;
-    private AsyncServiceScope? _scope;
     private readonly InternalGridContext<TGridItem> _internalGridContext;
     internal readonly List<ColumnBase<TGridItem>> _columns;
     private bool _collectingColumns;
@@ -79,7 +78,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private NavigationManager NavigationManager { get; set; } = default!;
 
     [Inject]
-    private IServiceScopeFactory ScopeFactory { get; set; } = default!;
+    private IServiceProvider Services { get; set; } = default!;
 
     [Inject]
     private IKeyCodeService KeyCodeService { get; set; } = default!;
@@ -408,7 +407,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <inheritdoc />
-    protected override async Task OnParametersSetAsync()
+    protected override Task OnParametersSetAsync()
     {
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
@@ -427,15 +426,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var dataSourceHasChanged = !Equals(ItemsProvider, _lastAssignedItemsProvider) || !ReferenceEquals(Items, _lastAssignedItems);
         if (dataSourceHasChanged)
         {
-            if (_scope.HasValue)
-            {
-                await _scope.Value.DisposeAsync();
-            }
-
-            _scope = ScopeFactory.CreateAsyncScope();
             _lastAssignedItemsProvider = ItemsProvider;
             _lastAssignedItems = Items;
-            _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(_scope.Value.ServiceProvider, Items);
+            _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(Services, Items);
         }
 
         var paginationStateHasChanged =
@@ -447,7 +440,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
         // to have to re-query immediately
-        _ = (_columns.Count > 0 && mustRefreshData) ? RefreshDataCoreAsync() : Task.CompletedTask;
+        return (_columns.Count > 0 && mustRefreshData) ? RefreshDataCoreAsync() : Task.CompletedTask;
     }
 
     /// <inheritdoc />
@@ -935,29 +928,20 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             .Build();
     }
 
-    /// <inheritdoc />
-    public override async ValueTask DisposeAsync()
+    /// <summary>
+    /// Unregister the grid events
+    /// </summary>
+    /// <param name="jsModule"></param>
+    /// <returns></returns>
+    [ExcludeFromCodeCoverage]
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        GC.SuppressFinalize(this);
-
         _currentPageItemsChanged.Dispose();
-#pragma warning disable MA0042 // Do not use blocking calls in an async method
-        _scope?.Dispose();
-#pragma warning restore MA0042 // Do not use blocking calls in an async method
 
-        try
+        if (_jsEventDisposable is not null)
         {
-            if (_jsEventDisposable is not null)
-            {
-                await _jsEventDisposable.InvokeVoidAsync("stop");
-                await _jsEventDisposable.DisposeAsync().ConfigureAwait(false);
-            }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
+            await _jsEventDisposable.InvokeVoidAsync("dispose");
+            await _jsEventDisposable.DisposeAsync().ConfigureAwait(false);
         }
     }
 

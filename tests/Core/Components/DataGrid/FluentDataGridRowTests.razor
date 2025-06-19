@@ -4,7 +4,7 @@
 
 @code {
 
-     private readonly IQueryable<Person> People = new[]
+    private readonly IQueryable<Person> People = new[]
     {
         new Person(1, "Jean Martin", new DateOnly(1985, 3, 16)),
         new Person(2, "Kenji Sato", new DateOnly(2004, 1, 9)),
@@ -13,8 +13,7 @@
 
     public FluentDataGridRowTests()
     {
-        var dataGridModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
-        dataGridModule.SetupModule("init", _ => true);
+        JSInterop.Mode = JSRuntimeMode.Loose;
 
         // Register services
         Services.AddFluentUIComponents();
@@ -39,6 +38,31 @@
         Assert.NotNull(grid);
         Assert.NotNull(row);
         Assert.Equal(DataGridRowType.Default, row.Instance.RowType);
+        Assert.NotNull(row.Instance.ChildContent);
+    }
+
+
+    [Fact]
+    public void FluentDataGridRow_TestNativeHandlers()
+    {
+        // Arrange
+        var grid = Render<FluentDataGrid<object>>(
+            @<FluentDataGrid TGridItem="object" GenerateHeader="DataGridGeneratedHeaderType.None">
+            <FluentDataGridRow>
+                <FluentDataGridCell />
+            </FluentDataGridRow>
+        </FluentDataGrid>);
+
+        // Act
+        var row = grid.FindComponent<FluentDataGridRow<object>>();
+
+        // Assert
+        Assert.NotNull(grid);
+        Assert.NotNull(row);
+        Assert.Equal(DataGridRowType.Default, row.Instance.RowType);
+        row.Find("tr").Click();
+        row.Find("tr").DoubleClick();
+        row.Find("tr").KeyDown(new KeyboardEventArgs { Code = "Enter" });
         Assert.NotNull(row.Instance.ChildContent);
     }
 
@@ -83,27 +107,124 @@
         Assert.False(OnRowClickInvoked);
     }
 
+    [Fact]
+    public async Task FluentDataGridRow_HandleOnRowClickAsync_Class()
+    {
+        // Arrange
+
+        var cut = Render<FluentDataGrid<Person>>(
+            @<FluentDataGrid TGridItem="Person" Items="People" OnRowClick="HandleRowClick" RowClass="@(x => x.PersonId > 0 ? "test" : "")" GenerateHeader="DataGridGeneratedHeaderType.None">
+                <PropertyColumn Property="@(x => x.Name)" />
+        </FluentDataGrid>);
+
+        // Act
+        var row = cut.FindComponent<FluentDataGridRow<Person>>();
+        await row.Instance.HandleOnRowClickAsync(row.Instance.RowId);
+
+        // Assert
+        Assert.True(OnRowClickInvoked);
+    }
 
     [Fact]
-    public async Task FluentDataGridRow_HandleOnCellFocusAsync_InvokesCallbacks()
+    public async Task FluentDataGridRow_HandleOnRowClickAsync_NoRowPassedIn()
     {
         // Arrange
         var cut = Render<FluentDataGrid<object>>(
-            @<FluentDataGrid TGridItem="object" OnCellFocus="HandleRowFocus">
+            @<FluentDataGrid TGridItem="object" OnRowClick="HandleRowClick">
+                <FluentDataGridRow>
+                    <FluentDataGridCell />
+                </FluentDataGridRow>
+            </FluentDataGrid>);
+        // Act
+        var row = cut.FindComponent<FluentDataGridRow<object>>();
+        await row.Instance.HandleOnRowClickAsync(string.Empty);
+
+        // Assert
+        Assert.False(OnRowClickInvoked);
+    }
+
+    [Fact]
+    public async Task FluentDataGridRow_HandleOnRowDoubleClickAsync()
+    {
+        // Arrange
+        var People = new List<Person>() { }.AsQueryable();
+
+        var cut = Render<FluentDataGrid<Person>>(
+            @<FluentDataGrid TGridItem="Person" Items="People" OnRowDoubleClick="HandleRowDoubleClick" GenerateHeader="DataGridGeneratedHeaderType.None">
+            <ChildContent>
+                <PropertyColumn Property="@(x => x.Name)" />
+            </ChildContent>
+            <EmptyContent>No Data</EmptyContent>
+        </FluentDataGrid>);
+
+        // Act
+        var row = cut.FindComponent<FluentDataGridRow<Person>>();
+        await row.Instance.HandleOnRowDoubleClickAsync(row.Instance.RowId);
+
+        // Assert
+        Assert.True(OnRowDoubleClickInvoked);
+    }
+
+    [Fact]
+    public async Task FluentDataGridRow_HandleOnRowDoubleClickAsync_EmptyRow()
+    {
+        // Arrange
+        var People = new List<Person>() { }.AsQueryable();
+
+        var cut = Render<FluentDataGrid<Person>>(
+            @<FluentDataGrid TGridItem="Person" Items="People" OnRowDoubleClick="HandleRowClick" GenerateHeader="DataGridGeneratedHeaderType.None">
+            <ChildContent>
+                <PropertyColumn Property="@(x => x.Name)" />
+            </ChildContent>
+            <EmptyContent>No Data</EmptyContent>
+        </FluentDataGrid>);
+
+        // Act
+        var row = cut.FindComponent<FluentDataGridRow<Person>>();
+        await row.Instance.HandleOnRowClickAsync(row.Instance.RowId);
+
+        // Assert
+        Assert.False(OnRowClickInvoked);
+    }
+
+    [Fact]
+    public async Task FluentDataGridRow_HandleOnRowDoubleClickAsync_NoRowPassedIn()
+    {
+        // Arrange
+        var cut = Render<FluentDataGrid<object>>(
+            @<FluentDataGrid TGridItem="object" OnRowDoubleClick="HandleRowDoubleClick">
+            <FluentDataGridRow>
+                <FluentDataGridCell />
+            </FluentDataGridRow>
+        </FluentDataGrid>);
+        // Act
+        var row = cut.FindComponent<FluentDataGridRow<object>>();
+        await row.Instance.HandleOnRowDoubleClickAsync(string.Empty);
+
+        // Assert
+        Assert.False(OnRowDoubleClickInvoked);
+    }
+
+    [Fact]
+    public async Task FluentDataGridRow_HandleOnRowFocusAsync()
+    {
+        // Arrange
+        var cut = Render<FluentDataGrid<object>>(
+            @<FluentDataGrid TGridItem="object" OnRowFocus="HandleRowFocus">
                 <FluentDataGridRow>
                     <FluentDataGridCell />
                 </FluentDataGridRow>
             </FluentDataGrid>);
 
         // Act
-        var cell = cut.FindComponent<FluentDataGridCell<object>>();
-        await cell.Instance.HandleOnCellFocusAsync();
+        var cell = cut.FindComponent<FluentDataGridRow<object>>();
+        await cell.Instance.HandleOnRowFocusAsync();
         // Assert
         Assert.True(OnRowFocusInvoked);
     }
 
     [Fact]
-    public async Task FluentDataGridRow_HandleOnCellKeyDownAsync_HandlesKeyEnter()
+    public async Task FluentDataGridRow_HandleOnRowKeyDownAsync_HandlesKeyEnter()
     {
         // Arrange
         var items = new List<Person>(People).AsQueryable();
@@ -113,15 +234,15 @@
             <SelectColumn TGridItem="Person"
                           SelectMode="DataGridSelectMode.Multiple"
                           Selectable="@(x => x.PersonId > 0)"
-                          SelectFromEntireRow="false"
+                          SelectFromEntireRow="true"
                           OnSelect="HandleRowKeyDown" />
                 <PropertyColumn Property="@(x => x)" Title="Value" />
             </FluentDataGrid>);
 
         // Act
         var keyboardEvent = new KeyboardEventArgs { Code = "Enter" };
-        var cell = cut.FindComponent<FluentDataGridCell<Person>>();
-        await cell.Instance.HandleOnCellKeyDownAsync(keyboardEvent);
+        var row = cut.FindComponent<FluentDataGridRow<Person>>();
+        await row.Instance.HandleOnRowKeyDownAsync(row.Instance.RowId, keyboardEvent);
 
         // Assert
         Assert.True(OnRowKeyDownInvoked);
@@ -129,7 +250,7 @@
 
 
     [Fact]
-    public async Task FluentDataGridRow_HandleOnCellKeyDownAsync_HandlesKeyOther()
+    public async Task FluentDataGridRow_HandleOnRowKeyDownAsync_HandlesKeyOther()
     {
         // Arrange
         var items = new List<Person>(People).AsQueryable();
@@ -139,15 +260,95 @@
             <SelectColumn TGridItem="Person"
                           SelectMode="DataGridSelectMode.Multiple"
                           Selectable="@(x => x.PersonId > 1)"
-                          SelectFromEntireRow="false"
+                          SelectFromEntireRow="true"
                           OnSelect="HandleRowKeyDown" />
             <PropertyColumn Property="@(x => x)" Title="Value" />
         </FluentDataGrid>);
 
         // Act
         var keyboardEvent = new KeyboardEventArgs { Code = "A" };
-        var cell = cut.FindComponent<FluentDataGridCell<Person>>();
-        await cell.Instance.HandleOnCellKeyDownAsync(keyboardEvent);
+        var row = cut.FindComponent<FluentDataGridRow<Person>>();
+        await row.Instance.HandleOnRowKeyDownAsync(row.Instance.RowId, keyboardEvent);
+
+        // Assert
+        Assert.False(OnRowKeyDownInvoked);
+    }
+
+    [Fact]
+    public async Task FluentDataGridRow_HandleOnRowKeyDownAsync_WithoutSelectColumn()
+    {
+        // Arrange
+        var items = new List<Person>(People).AsQueryable();
+
+        var cut = Render<FluentDataGrid<Person>>(
+            @<FluentDataGrid TGridItem="Person" Items="@People" GenerateHeader="DataGridGeneratedHeaderType.None" OnRowClick="HandleRowClick">
+                <PropertyColumn Property="@(x => x)" Title="Value" />
+            </FluentDataGrid>);
+
+        // Act
+        var keyboardEvent = new KeyboardEventArgs { Code = "Enter" };
+        var row = cut.FindComponent<FluentDataGridRow<Person>>();
+        await row.Instance.HandleOnRowKeyDownAsync(row.Instance.RowId, keyboardEvent);
+
+        // Assert
+        Assert.False(OnRowKeyDownInvoked);
+    }
+
+    [Fact]
+    public async Task FluentDataGridRow_HandleOnRowKeyDownAsync_WithoutSelectColumn_NoDelegate()
+    {
+        // Arrange
+        var items = new List<Person>(People).AsQueryable();
+
+        var cut = Render<FluentDataGrid<Person>>(
+            @<FluentDataGrid TGridItem="Person" Items="@People" GenerateHeader="DataGridGeneratedHeaderType.None">
+                <PropertyColumn Property="@(x => x)" Title="Value" />
+            </FluentDataGrid>);
+
+        // Act
+        var keyboardEvent = new KeyboardEventArgs { Code = "Enter" };
+        var row = cut.FindComponent<FluentDataGridRow<Person>>();
+        await row.Instance.HandleOnRowKeyDownAsync(row.Instance.RowId, keyboardEvent);
+
+        // Assert
+        Assert.False(OnRowKeyDownInvoked);
+    }
+
+    [Fact]
+    public async Task FluentDataGridRow_HandleOnRowKeyDownAsync_WithoutSelectColumn_WithHeader()
+    {
+        // Arrange
+        var items = new List<Person>(People).AsQueryable();
+
+        var cut = Render<FluentDataGrid<Person>>(
+            @<FluentDataGrid TGridItem="Person" Items="@People" GenerateHeader="DataGridGeneratedHeaderType.Default">
+                <PropertyColumn Property="@(x => x)" Title="Value" />
+            </FluentDataGrid>);
+
+        // Act
+        var keyboardEvent = new KeyboardEventArgs { Code = "Enter" };
+        var row = cut.FindComponent<FluentDataGridRow<Person>>();
+        await row.Instance.HandleOnRowKeyDownAsync(row.Instance.RowId, keyboardEvent);
+
+        // Assert
+        Assert.False(OnRowKeyDownInvoked);
+    }
+
+    [Fact]
+    public async Task FluentDataGridRow_HandleOnRowKeyDownAsync_NoRowPassedIn()
+    {
+        // Arrange
+        var items = new List<Person>(People).AsQueryable();
+
+        var cut = Render<FluentDataGrid<Person>>(
+            @<FluentDataGrid TGridItem="Person" Items="@People" GenerateHeader="DataGridGeneratedHeaderType.Default">
+            <PropertyColumn Property="@(x => x)" Title="Value" />
+        </FluentDataGrid>);
+
+        // Act
+        var keyboardEvent = new KeyboardEventArgs { Code = "Enter" };
+        var row = cut.FindComponent<FluentDataGridRow<Person>>();
+        await row.Instance.HandleOnRowKeyDownAsync(string.Empty, keyboardEvent);
 
         // Assert
         Assert.False(OnRowKeyDownInvoked);
@@ -166,16 +367,16 @@
     );
 
         // Act
-        var cell = grid.FindComponent<FluentDataGridCell<object>>();
+        var cell = grid.FindComponent<FluentDataGridRow<object>>();
         cell.Instance.Dispose();
         cell.Dispose();
 
         // Assert
         Assert.True(cell.IsDisposed);
-        
     }
 
     public bool OnRowClickInvoked { get; set; }
+    public bool OnRowDoubleClickInvoked { get; set; }
     public bool OnRowFocusInvoked { get; set; }
     public bool OnRowKeyDownInvoked { get; set; }
 
@@ -186,6 +387,14 @@
         // In a real scenario, this would be defined in the FluentDataGrid component
         // and passed to the FluentDataGridCell.
         OnRowClickInvoked = true;
+    }
+
+    private void HandleRowDoubleClick()
+    {
+        // This method simulates the callback that would be invoked on cell click
+        // In a real scenario, this would be defined in the FluentDataGrid component
+        // and passed to the FluentDataGridCell.
+        OnRowDoubleClickInvoked = true;
     }
 
     private void HandleRowFocus()
