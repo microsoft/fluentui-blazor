@@ -30,6 +30,44 @@
     }
 
     [Fact]
+    public async Task FluentPaginator_SetItemsPerPage()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(20);
+        await state.SetItemsPerPageAsync(5);
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Assert
+        cut.Verify();
+        Assert.NotNull(cut.Find(".fluent-paginator"));
+        Assert.NotNull(cut.Find(".summary"));
+        Assert.NotNull(cut.Find(".paginator-nav"));
+        Assert.Contains("20", cut.Find(".summary").InnerHtml);
+    }
+
+    [Fact]
+    public async Task FluentPaginator_CurrentPageBeyondLastPage()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetCurrentPageIndexAsync(12);
+        await state.SetTotalItemCountAsync(100);
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Assert
+        
+        Assert.NotNull(cut.Find(".fluent-paginator"));
+        Assert.NotNull(cut.Find(".summary"));
+        Assert.NotNull(cut.Find(".paginator-nav"));
+        Assert.Contains("100", cut.Find(".summary").InnerHtml);
+    }
+
+    [Fact]
     public void FluentPaginator_DoesNotRender_WhenTotalItemCountIsNull()
     {
         // Arrange
