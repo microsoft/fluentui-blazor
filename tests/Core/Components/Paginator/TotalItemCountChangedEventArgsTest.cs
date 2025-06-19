@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Paginator;
 
-public class TotalItemCountChangedEventArgsTest
+public class TotalItemCountChangedEventArgsTests
 {
     [Fact]
     public void Constructor_SetsTotalItemCount()

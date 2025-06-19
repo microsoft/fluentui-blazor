@@ -1,0 +1,158 @@
+﻿@using Xunit;
+@inherits Bunit.TestContext
+@code
+{
+    public FluentSkeletonTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSkeleton_Default()
+    {
+        // Arrange
+        var cut = Render(@<FluentSkeleton Width="200px" Height="48px" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSkeleton_NoShimmer()
+    {
+        // Arrange
+        var cut = Render(@<FluentSkeleton Shimmer="false" />);
+
+        var skeleton = cut.Find("div.fluent-skeleton");
+
+        // Assert
+        Assert.False(skeleton.HasAttribute("shimmer"));
+    }
+
+    [Theory]
+    [InlineData(null, null, "width: 48px; height: 48px;")]
+    [InlineData("100px", null, "width: 100px; height: 100px;")]
+    [InlineData(null, "100px", "width: 100px; height: 100px;")]
+    [InlineData("200px", "100px", "width: min(200px, 100px); height: min(200px, 100px);")]
+    public void FluentSkeleton_Circular(string? width, string? height, string expectedStyle)
+    {
+        // Arrange
+        var cut = Render(@<FluentSkeleton Circular="true" Width="@width" Height="@height" />);
+
+        var skeleton = cut.Find("div.fluent-skeleton");
+
+        // Assert
+        Assert.Equal("circle", skeleton.GetAttribute("shape"));
+        Assert.Contains(expectedStyle, skeleton.GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentSkeleton_DrawCircle()
+    {
+        // Arrange
+        var cut = Render(@<FluentSkeleton Width="200px" Height="48px">@context.DrawCircle("24px")</FluentSkeleton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSkeleton_DrawRectangle()
+    {
+        // Arrange
+        var cut = Render(@<FluentSkeleton Width="200px" Height="48px">@context.DrawRectangle("100px", "50px")</FluentSkeleton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(false, 0, false, null)] // Condition false
+    [InlineData(true, 0, false, "fluent-skeleton-0")]
+    [InlineData(true, 1, false, "fluent-skeleton-1")]
+    [InlineData(true, 2, false, "fluent-skeleton-2")]
+    [InlineData(true, 3, false, "fluent-skeleton-3")]
+    [InlineData(true, 4, false, "fluent-skeleton-4")]
+    [InlineData(true, 5, false, "fluent-skeleton-5")]
+    [InlineData(true, 6, false, "fluent-skeleton-6")]
+    [InlineData(true, 7, false, "fluent-skeleton-7")]
+    [InlineData(true, 8, false, "fluent-skeleton-8")]
+    [InlineData(true, 0, true, "fluent-skeleton-circular-0")]
+    [InlineData(true, 1, true, "fluent-skeleton-circular-1")]
+    [InlineData(true, 2, true, "fluent-skeleton-circular-2")]
+    [InlineData(true, 3, true, "fluent-skeleton-circular-3")]
+    [InlineData(true, 4, true, "fluent-skeleton-circular-4")]
+    [InlineData(true, 5, true, "fluent-skeleton-circular-5")]
+    [InlineData(true, 6, true, "fluent-skeleton-circular-6")]
+    [InlineData(true, 7, true, "fluent-skeleton-circular-7")]
+    [InlineData(true, 8, true, "fluent-skeleton-circular-8")]
+    public void FluentSkeleton_LoadingClass(bool condition, uint size, bool circular, string? expectedStyle)
+    {
+        // Arrange
+        var styleCondition = FluentSkeleton.LoadingClass(condition, size, circular);
+        var styleWhen = FluentSkeleton.LoadingClass(when: () => condition, size, circular);
+
+        // Assert
+        Assert.Equal(expectedStyle, styleCondition);
+        Assert.Equal(expectedStyle, styleWhen);
+    }
+
+    [Fact]
+    public void FluentSkeleton_LoadingClass_WhenNull()
+    {
+
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+#pragma warning disable CS8625
+            FluentSkeleton.LoadingClass(when: null, 0, false);
+#pragma warning restore CS8625
+        });
+    }
+
+    [Fact]
+    public void FluentSkeleton_LoadingClass_InvalidSize()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+        {
+            FluentSkeleton.LoadingClass(true, 10, false);
+        });
+    }
+
+    [Theory]
+    [InlineData(SkeletonPattern.IconTitleContent)]
+    [InlineData(SkeletonPattern.IconTitle)]
+    [InlineData(SkeletonPattern.Icon)]
+    [InlineData((SkeletonPattern)999)]
+    public void FluentSkeleton_Patterns(SkeletonPattern pattern)
+    {
+        // Arrange
+        var cut = Render(@<FluentSkeleton Pattern="@pattern"></FluentSkeleton>);
+
+        // Assert
+        cut.Verify(suffix: pattern.ToString());
+    }
+
+    [Fact]
+    public void FluentSkeleton_StaticClassProperties_HaveExpectedValues()
+    {
+        Assert.Equal("fluent-skeleton-1", FluentSkeleton.ClassRectangle1);
+        Assert.Equal("fluent-skeleton-2", FluentSkeleton.ClassRectangle2);
+        Assert.Equal("fluent-skeleton-3", FluentSkeleton.ClassRectangle3);
+        Assert.Equal("fluent-skeleton-4", FluentSkeleton.ClassRectangle4);
+        Assert.Equal("fluent-skeleton-5", FluentSkeleton.ClassRectangle5);
+        Assert.Equal("fluent-skeleton-6", FluentSkeleton.ClassRectangle6);
+        Assert.Equal("fluent-skeleton-7", FluentSkeleton.ClassRectangle7);
+        Assert.Equal("fluent-skeleton-8", FluentSkeleton.ClassRectangle8);
+
+        Assert.Equal("fluent-skeleton-circular-1", FluentSkeleton.ClassCircular1);
+        Assert.Equal("fluent-skeleton-circular-2", FluentSkeleton.ClassCircular2);
+        Assert.Equal("fluent-skeleton-circular-3", FluentSkeleton.ClassCircular3);
+        Assert.Equal("fluent-skeleton-circular-4", FluentSkeleton.ClassCircular4);
+        Assert.Equal("fluent-skeleton-circular-5", FluentSkeleton.ClassCircular5);
+        Assert.Equal("fluent-skeleton-circular-6", FluentSkeleton.ClassCircular6);
+        Assert.Equal("fluent-skeleton-circular-7", FluentSkeleton.ClassCircular7);
+        Assert.Equal("fluent-skeleton-circular-8", FluentSkeleton.ClassCircular8);
+    }
+
+}

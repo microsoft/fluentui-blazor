@@ -5,7 +5,7 @@
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Paginator;
-public class PaginationStateTest : Bunit.TestContext
+public class PaginationStateTests : Bunit.TestContext
 {
     [Fact]
     public async Task PaginationState_GetHashCode_ReturnsExpectedAsync()
