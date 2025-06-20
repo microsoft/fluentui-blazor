@@ -1,5 +1,6 @@
 
 # ***************************
+# ***************************
 # List of misspelled words
 # Please, sort the list alphabetically
 # ***************************
@@ -7,6 +8,7 @@ ansi
 appsettings
 blazor
 brotli
+colspan
 columnheader
 combobox
 cref
@@ -17,8 +19,10 @@ datagrid
 datalist
 demopanel
 dialogtoggle
+displaymode
 elementreference
 evenodd
+eventargs
 eventargs
 gzip
 henkan
@@ -47,17 +51,26 @@ noattribute
 nonfile
 onaccordionchange
 onchange
+onclosecolumnoptions
+onclosecolumnresize
 ondialogbeforetoggle
 ondropdownchange
+onkeydown
 onmenuitemchange
 ontabchange
+ontreechanged
+ontreetoggle
 rendertree
 rightclick
+rowcount
 rowheader
+rowindex
 rrggbb
 secondes
 sortabillity
+sortabillity
 sourcecode
+Subscribable
 Subscribable
 summarydata
 tabindex
@@ -66,3 +79,19 @@ tabpanel
 testid
 textarea
 wdelta
+displaymode
+Overscan
+gipr
+gridcell
+Voituron
+beforetoggle
+resx
+yyyy
+Langa
+Overscan
+gipr
+rowindex
+rowcount
+displaymode
+Voituron
+inputfile

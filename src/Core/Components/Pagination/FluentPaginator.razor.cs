@@ -15,9 +15,7 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     private readonly EventCallbackSubscriber<PaginationState> _totalItemCountChanged;
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
 
-    /// <summary>
-    /// Constructs an instance of <see cref="FluentPaginator" />.
-    /// </summary>
+    /// <summary />
     public FluentPaginator(LibraryConfiguration configuration) : base(configuration)
     {
         // The "total item count" handler doesn't need to do anything except cause this component to re-render
@@ -81,6 +79,8 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     /// <inheritdoc />
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
+
         _totalItemCountChanged.Dispose();
         _currentPageItemsChanged.Dispose();
     }

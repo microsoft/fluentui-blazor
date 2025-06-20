@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.JSInterop;
 using Xunit;
 
@@ -40,6 +41,11 @@ public class ComponentBaseTests : Bunit.TestContext
         { typeof(FluentHighlighter), Loader.Default.WithRequiredParameter("HighlightedText", "AB").WithRequiredParameter("Text", "ABCDEF")},
         { typeof(FluentKeyCode), Loader.Default.WithRequiredParameter("ChildContent", (RenderFragment)(builder => builder.AddContent(0, "MyContent"))) },
         { typeof(FluentPaginator), Loader.Default.WithRequiredParameter("State", new PaginationState()) },
+        { typeof(FluentDataGrid<>), Loader.MakeGenericType(typeof(string)) },
+        { typeof(FluentDataGridRow<>), Loader.MakeGenericType(typeof(string)).WithCascadingValue(new InternalGridContext<string>(new FluentDataGrid<string>(new LibraryConfiguration()))) },
+        { typeof(FluentDataGridCell<>), Loader.MakeGenericType(typeof(string))
+                                       .WithCascadingValue(new InternalGridContext<string>(new FluentDataGrid<string>(new LibraryConfiguration())))
+                                       .WithCascadingValue("OwningRow", new FluentDataGridRow<string>(new LibraryConfiguration()) { InternalGridContext = new InternalGridContext<string>(new FluentDataGrid<string>(new LibraryConfiguration())) }) },
     };
 
     /// <summary />

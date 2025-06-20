@@ -31,9 +31,14 @@ internal class MyLocalizer : IFluentLocalizer
                     _ => IFluentLocalizer.GetDefault(key, arguments),
                 };
             }
+            // Provide custom translations based on the key
+            return key switch
+            {
+                "DataGrid_ResizeDiscrete" => "Width (+/- 10px)",
 
-            // By default, returns the English version of the string
-            return IFluentLocalizer.GetDefault(key, arguments);
+                // Fallback to the Default/English if no translation is found
+                _ => IFluentLocalizer.GetDefault(key, arguments),
+            };
         }
     }
 }

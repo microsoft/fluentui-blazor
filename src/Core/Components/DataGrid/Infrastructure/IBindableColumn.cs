@@ -1,0 +1,29 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
+using System.Linq.Expressions;
+using System.Reflection;
+
+namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
+
+/// <summary>
+/// A column that can bind to a property of model
+/// </summary>
+public interface IBindableColumn
+{
+    /// <summary>
+    /// The info for the property that this column binds to.
+    /// </summary>
+    PropertyInfo? PropertyInfo { get; }
+}
+/// <summary>
+/// A column that can bind to a property of model
+/// </summary>
+/// <typeparam name="TItem">Model item type</typeparam>
+/// <typeparam name="TProp">Type of property</typeparam>
+internal interface IBindableColumn<TItem, TProp> : IBindableColumn
+{
+
+    public Expression<Func<TItem, TProp>> Property { get; set; }
+}
