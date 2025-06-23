@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -41,7 +45,7 @@ public partial class FluentBreadcrumbItem : FluentComponentBase
     public string? Rel { get; set; }
 
     /// <summary>
-    /// Gets or sets the target attribute that specifies where to open the link, if Href is specified. 
+    /// Gets or sets the target attribute that specifies where to open the link, if Href is specified.
     /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// Possible values: _blank | _self | _parent | _top.
     /// </summary>

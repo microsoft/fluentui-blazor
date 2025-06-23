@@ -1,3 +1,6 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Xunit;

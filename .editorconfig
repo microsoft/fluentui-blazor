@@ -45,7 +45,7 @@ end_of_line = crlf
 # Organize usings
 dotnet_separate_import_directive_groups = false:error
 dotnet_sort_system_directives_first = true:error
-file_header_template = ------------------------------------------------------------------------\nMIT License - Copyright (c) Microsoft Corporation. All rights reserved.\n------------------------------------------------------------------------
+file_header_template = ------------------------------------------------------------------------\nThis file is licensed to you under the MIT License.\n------------------------------------------------------------------------
 
 # Don't use this. qualifier
 dotnet_style_qualification_for_event = false:error

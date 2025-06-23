@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
@@ -30,7 +34,7 @@ public partial class DemoSection : ComponentBase
     public RenderFragment? Description { get; set; }
 
     /// <summary>
-    /// Gets or sets the component for which the example will be shown. Enter the type (typeof(...)) _name 
+    /// Gets or sets the component for which the example will be shown. Enter the type (typeof(...)) _name
     /// </summary>
     [Parameter, EditorRequired]
     public Type Component { get; set; } = default!;
@@ -42,14 +46,14 @@ public partial class DemoSection : ComponentBase
     public Dictionary<string, object>? ComponentParameters { get; set; }
 
     /// <summary>
-    /// Any collocated isolated .cs, .css or .js files (enter the extensions only) that need to be shown in a tab and as a download. 
+    /// Any collocated isolated .cs, .css or .js files (enter the extensions only) that need to be shown in a tab and as a download.
     /// Example: @(new[] { "css", "js", "abc.cs" })
     /// </summary>
     [Parameter]
     public string[]? CollocatedFiles { get; set; }
 
     /// <summary>
-    /// Any additional files that need to be shown in a tab and as a download. 
+    /// Any additional files that need to be shown in a tab and as a download.
     /// Example: @(new[] { "abc.cs", "def.js" })
     /// </summary>
     [Parameter]

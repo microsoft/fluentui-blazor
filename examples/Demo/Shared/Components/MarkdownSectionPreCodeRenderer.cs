@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Markdig.Extensions.GenericAttributes;
@@ -27,7 +27,7 @@ internal class MarkdownSectionPreCodeRenderer : HtmlObjectRenderer<CodeBlock>
     public bool OutputAttributesOnPre { get; set; }
 
     /// <summary>
-    /// Gets a map of fenced code block infos that should be rendered as div blocks instead of pre/code blocks.
+    /// Gets a map of fenced code block info that should be rendered as div blocks instead of pre/code blocks.
     /// </summary>
     public HashSet<string> BlocksAsDiv => _blocksAsDiv ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 

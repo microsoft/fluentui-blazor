@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Linq.Expressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -38,7 +42,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
             (expression, true));
 
     /// <summary>
-    /// Produces a <see cref="GridSort{T}"/> instance that sorts according to the specified <paramref name="expression"/> 
+    /// Produces a <see cref="GridSort{T}"/> instance that sorts according to the specified <paramref name="expression"/>
     /// using the specified <paramref name="comparer"/>, ascending.
     /// </summary>
     /// <typeparam name="U">The type of the expression's value.</typeparam>
@@ -60,7 +64,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
             (expression, false));
 
     /// <summary>
-    /// Produces a <see cref="GridSort{T}"/> instance that sorts according to the specified <paramref name="expression"/> 
+    /// Produces a <see cref="GridSort{T}"/> instance that sorts according to the specified <paramref name="expression"/>
     /// using the specified <paramref name="comparer"/>, descending.
     /// </summary>
     /// <typeparam name="U">The type of the expression's value.</typeparam>
