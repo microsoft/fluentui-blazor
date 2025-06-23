@@ -23,8 +23,8 @@
                class="@GridClass()"
                style="@StyleValue"
                aria-rowcount="@(_internalGridContext.TotalItemCount + 1)"
-               @onclosecolumnoptions="CloseColumnOptions"
-               @onclosecolumnresize="CloseColumnResize"
+               @onclosecolumnoptions="CloseColumnOptionsAsync"
+               @onclosecolumnresize="CloseColumnResizeAsync"
                @attributes="AdditionalAttributes">
             @if (GenerateHeader != DataGridGeneratedHeaderType.None)
             {

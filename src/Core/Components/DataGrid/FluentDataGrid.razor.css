@@ -31,7 +31,7 @@
   position: absolute;
   min-width: 250px;
   top: 2.7rem;
-  background: var(--colorNeutralBackground1Hover);
+  background: var(--colorNeutralBackground1);
   border: 1px solid var(--colorNeutralBackground1Pressed);
   border-radius: 0.3rem;
   box-shadow: var(--shadow8);

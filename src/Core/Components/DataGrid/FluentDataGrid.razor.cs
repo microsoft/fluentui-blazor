@@ -33,7 +33,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     internal readonly List<ColumnBase<TGridItem>> _columns;
     private bool _collectingColumns;
     private ColumnBase<TGridItem>? _displayOptionsForColumn;
-    private ColumnBase<TGridItem>? _displayResizeForColumn;
+    internal ColumnBase<TGridItem>? _displayResizeForColumn;
     private ColumnBase<TGridItem>? _sortByColumn;
     private bool _sortByAscending;
     private bool _checkColumnOptionsPosition;
@@ -452,18 +452,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // Import the JavaScript module
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
-            try
+            _jsEventDisposable = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("init", _gridReference, AutoFocus);
+            if (AutoItemsPerPage)
             {
-                _jsEventDisposable = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("init", _gridReference, AutoFocus);
-                if (AutoItemsPerPage)
-                {
 
-                    await JSModule.ObjectReference.InvokeVoidAsync("dynamicItemsPerPage", _gridReference, DotNetObjectReference.Create(this), (int)RowSize);
-                }
-            }
-            catch (JSException ex)
-            {
-                Console.WriteLine("[FluentDataGrid] " + ex.Message);
+                await JSModule.ObjectReference.InvokeVoidAsync("dynamicItemsPerPage", _gridReference, DotNetObjectReference.Create(this), (int)RowSize);
             }
         }
 
@@ -553,12 +546,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             DataGridSortDirection.Ascending => true,
             DataGridSortDirection.Descending => false,
             DataGridSortDirection.Auto => _sortByColumn != column || !_sortByAscending,
-            _ => throw new NotSupportedException($"Unknown sort direction {direction}"),
+            _ => true,
         };
 
         _sortByColumn = column;
 
-        StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
+        _ = InvokeAsync(StateHasChanged); // We want to see the updated sort order in the header, even before the data query is completed
         return RefreshDataAsync();
     }
 
@@ -598,7 +591,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _sortByColumn = _internalGridContext.DefaultSortColumn.Column ?? null;
             _sortByAscending = _internalGridContext.DefaultSortColumn.Direction != DataGridSortDirection.Descending;
 
-            StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
+            _ = InvokeAsync(StateHasChanged); // We want to see the updated sort order in the header, even before the data query is completed
             return RefreshDataCoreAsync();
         }
 
@@ -621,7 +614,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _displayOptionsForColumn = column;
         _checkColumnOptionsPosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
-        StateHasChanged();
+        _ = InvokeAsync(StateHasChanged);
         return Task.CompletedTask;
     }
 
@@ -654,8 +647,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public Task CloseColumnOptionsAsync()
     {
         _displayOptionsForColumn = null;
-        StateHasChanged();
+        _ = InvokeAsync(StateHasChanged);
         return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Closes the column resize UI that was previously displayed.
+    /// </summary>
+    public Task CloseColumnResizeAsync()
+    {
+        _displayResizeForColumn = null;
+        _ = InvokeAsync(StateHasChanged);
+        return Task.CompletedTask;
+
     }
 
     /// <summary>
@@ -668,7 +672,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _displayResizeForColumn = column;
         _checkColumnResizePosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
-        StateHasChanged();
+        _ = InvokeAsync(StateHasChanged);
         return Task.CompletedTask;
     }
 
@@ -787,7 +791,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // Debounce the requests. This eliminates a lot of redundant queries at the cost of slight lag after interactions.
         // TODO: Consider making this configurable, or smarter (e.g., doesn't delay on first call in a batch, then the amount
         // of delay increases if you rapidly issue repeated requests, such as when scrolling a long way)
-        await Task.Delay(100, request.CancellationToken);
+        await Task.Delay(100);
 
         if (request.CancellationToken.IsCancellationRequested)
         {
@@ -945,19 +949,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
-    private void CloseColumnOptions()
-    {
-        _displayOptionsForColumn = null;
-        StateHasChanged();
-    }
-
-    private void CloseColumnResize()
-    {
-        _displayResizeForColumn = null;
-        StateHasChanged();
-    }
-
-    private void LoadStateFromQueryString(string queryString)
+    internal void LoadStateFromQueryString(string queryString)
     {
         if (!SaveStateInUrl)
         {
