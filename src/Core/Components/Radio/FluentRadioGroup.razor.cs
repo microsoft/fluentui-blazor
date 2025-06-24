@@ -39,6 +39,14 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
     public Orientation? Orientation { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether <see cref="FluentRadio{TValue}"/> wrapping is enabled.
+    /// This is applied when the <see cref="Orientation"/> is set to <see cref="Orientation.Horizontal"/>
+    /// and there are no effect on the <see cref="Orientation.Vertical"/> orientation.
+    /// </summary>
+    [Parameter]
+    public bool Wrap { get; set; }
+
+    /// <summary>
     ///     
     /// </summary>
     [Parameter]

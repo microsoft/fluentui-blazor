@@ -14,3 +14,8 @@ fluent-radio-group > fluent-field:has(fluent-radio:focus-visible) {
   outline: -webkit-focus-ring-color auto 1px;
 }
 
+
+fluent-radio-group[wrap] {
+  display: flex;
+  flex-wrap: wrap;
+}

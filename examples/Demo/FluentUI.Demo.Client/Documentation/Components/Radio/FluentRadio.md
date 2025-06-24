@@ -40,6 +40,10 @@ An item can also be disabled and can show a label to indicate the value.
 
 {{ RadioDefault }}
 
+> [!NOTE] You can use the `Value` parameter to provide a specific option value.
+> Example: `<FluentRadio Value="@("AppleCategory")" Label="Apple" />`  
+> By default, the `Value` is the same as the `Label`.
+
 ## Label template
 
 Instead of using the `Label` parameter (string value only), you can use the `LabelTemplate` parameter to specify a template for the label.
@@ -49,8 +53,8 @@ Because of this, string values need to be defined in the following way: `Value="
 
 [!NOTE] We recommend using strong "non-null" types.
 If you use a nullable type, you must ensure that the values of all FluentRadio are converted to nullables,
-for example using an explit casting `Value="@((int?)1)"`.
-Si ce n'est pas le cas, vous obtiendrez une erreur d'exécution
+for example using an explit casting `Value="@((int?)1)"` or using the `TValue` parameter: `TValue="int?"`.  
+If this is not the case, you will get a *runtime* error.
 `InvalidOperationException: The FluentRadio must be included in a FluentRadioGroup component and must be of the same type.`.
 
 {{ RadioGroupLabelTemplate }}
@@ -60,3 +64,12 @@ Si ce n'est pas le cas, vous obtiendrez une erreur d'exécution
 When the radio group has a vertical orientation, the items are stacked on top of each other.
 
 {{ RadioGroupVertical }}
+
+## Items
+
+You can use the `Items` parameter to provide a list of items to the radio group.
+
+In this case, the `RadioLabel`, `RadioValue` and `RadioDisabled` parameters are used to specify the properties of the items displayed.
+These parameters are functions that take an item of the type specified by `TValue` and return the corresponding value to use.
+
+{{ RadioItems }}

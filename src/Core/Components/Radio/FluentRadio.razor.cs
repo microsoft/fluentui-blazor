@@ -25,7 +25,7 @@ public partial class FluentRadio<TValue> : FluentComponentBase, IDisposable
 
     /// <summary />
     [CascadingParameter(Name = "RadioGroup")]
-    public FluentRadioGroup<TValue>? Owner { get; set; }
+    internal FluentRadioGroup<TValue>? Owner { get; set; }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder.Build();
@@ -54,7 +54,7 @@ public partial class FluentRadio<TValue> : FluentComponentBase, IDisposable
     public virtual string? LabelWidth { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the value of the radio element.
     /// </summary>
     [Parameter]
     public TValue? Value { get; set; }

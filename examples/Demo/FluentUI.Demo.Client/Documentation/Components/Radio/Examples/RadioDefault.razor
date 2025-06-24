@@ -1,9 +1,8 @@
-﻿<FluentRadioGroup @bind-Value="@Fruit" Label="Favorite fruit" Name="favorite-fruit">
-    <FluentRadio Value="@("Apple")" Label="Apple" />
-    <FluentRadio Value="@("Banana")" Label="Banana" />
-    <FluentRadio Value="@("Orange")" Label="Orange" Disabled="true" />
-    <FluentRadio Value="@("Grape")" Label="Grape" />
-    <FluentRadio Value="@("Kiwi")" Label="Kiwi" />
+﻿<FluentRadioGroup @bind-Value="@Fruit" Label="Favorite fruit" Wrap="true">
+    <FluentRadio Label="Apple" />
+    <FluentRadio Label="Banana" />
+    <FluentRadio Label="Orange" Disabled="true" />
+    <FluentRadio Label="Kiwi" />
 </FluentRadioGroup>
 
 <FluentDivider Margin="@Margin.Vertical2" />
