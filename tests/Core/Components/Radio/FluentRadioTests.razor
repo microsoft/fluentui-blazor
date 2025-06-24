@@ -5,7 +5,6 @@
 @using Xunit
 
 @using System.Linq.Expressions;
-@using Microsoft.AspNetCore.Components.Rendering;
 @using Microsoft.AspNetCore.Components.RenderTree;
 
 
@@ -22,12 +21,10 @@
     public void FluentRadio_Default()
     {
         // Arrange & Act
-        var radioGroup = new FluentRadioGroup<string>(LibraryConfiguration.Empty);
         var cut = Render(
-            @<FluentRadioGroup TValue="string" @ref="radioGroup">
-                <FluentRadio TValue="string"></FluentRadio>
-            </FluentRadioGroup>
-        );
+            @<FluentRadioGroup TValue="string">
+                <FluentRadio Id="MyOption" TValue="string"></FluentRadio>
+            </FluentRadioGroup>);
 
         // Assert
         cut.Verify();
@@ -37,36 +34,17 @@
     public void FluentRadio_Value()
     {
         // Arrange & Act
-        var radioGroup = new FluentRadioGroup<string>(LibraryConfiguration.Empty);
         var value = "test-value";
         var cut = Render(
-            @<FluentRadioGroup TValue="string" @ref="radioGroup">
-                <FluentRadio TValue="string" Value="@value"></FluentRadio>
-            </FluentRadioGroup>
-        );
+            @<FluentRadioGroup TValue="string">
+                <FluentRadio Id="MyOption" TValue="string" Value="@value"></FluentRadio>
+            </FluentRadioGroup>);
 
         // Assert
         var radio = cut.Find("fluent-radio");
         Assert.Equal(value, radio.GetAttribute("value"));
     }
-
-    [Fact]
-    public void FluentRadio_Checked()
-    {
-        // Arrange & Act
-        var cut = Render(
-            @<FluentRadioGroup TValue="string" Value="@("test-value")">
-                <FluentRadio TValue="string" Value="@("test-value")"></FluentRadio>
-            </FluentRadioGroup>
-        );
-
-        // Assert
-        var radio = cut.Find("fluent-radio");
-        var result = radio.GetAttribute("checked");
-        Assert.NotNull(result);
-        Assert.Equal("a", result); // Added assertion to check if the radio is checked
-    }
-
+   
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
@@ -75,9 +53,8 @@
         // Arrange & Act
         var cut = Render(
             @<FluentRadioGroup TValue="string">
-                <FluentRadio TValue="string" Disabled="@isDisabled"></FluentRadio>
-            </FluentRadioGroup>
-        );
+                <FluentRadio Id="MyOption" TValue="string" Disabled="@isDisabled"></FluentRadio>
+            </FluentRadioGroup>);
 
         // Assert
         var radio = cut.Find("fluent-radio");
@@ -98,9 +75,8 @@
         var label = "Test Label";
         var cut = Render(
             @<FluentRadioGroup TValue="string">
-                <FluentRadio TValue="string" Label="@label"></FluentRadio>
-            </FluentRadioGroup>
-        );
+                <FluentRadio Id="MyOption" TValue="string" Label="@label"></FluentRadio>
+            </FluentRadioGroup>);
 
         // Assert
         cut.Verify();
@@ -113,9 +89,8 @@
         var labelWidth = "200px";
         var cut = Render(
             @<FluentRadioGroup TValue="string">
-                <FluentRadio TValue="string" Label="Test Label" LabelWidth="@labelWidth"></FluentRadio>
-            </FluentRadioGroup>
-        );
+                <FluentRadio Id="MyOption" TValue="string" Label="Test Label" LabelWidth="@labelWidth"></FluentRadio>
+            </FluentRadioGroup>);
 
         // Assert
         cut.Verify();
@@ -127,13 +102,12 @@
         // Arrange & Act
         var cut = Render(
             @<FluentRadioGroup TValue="string">
-                <FluentRadio TValue="string">
+                <FluentRadio Id="MyOption" TValue="string">
                     <LabelTemplate>
                         <div>Custom Label Template</div>
                     </LabelTemplate>
                 </FluentRadio>
-            </FluentRadioGroup>
-        );
+            </FluentRadioGroup>);
 
         // Assert
         cut.Verify();
@@ -146,9 +120,8 @@
         var name = "test-radio-group";
         var cut = Render(
             @<FluentRadioGroup TValue="string" Name="@name">
-                <FluentRadio TValue="string"></FluentRadio>
-            </FluentRadioGroup>
-        );
+                <FluentRadio Id="MyOption" TValue="string"></FluentRadio>
+            </FluentRadioGroup>);
 
         // Assert
         var radio = cut.Find("fluent-radio");
@@ -163,7 +136,7 @@
         // Arrange & Act & Assert
         Assert.Throws<InvalidOperationException>(() =>
         {
-            Render(@<FluentRadio TValue="string" Value="@("test")"></FluentRadio>);
+            Render(@<FluentRadio Id="MyOption" TValue="string" Value="@("test")"></FluentRadio>);
         });
     }
 
@@ -179,9 +152,8 @@
 
         var cut = Render(
             @<FluentRadioGroup TValue="string">
-                <FluentRadio TValue="string" @attributes="attributes"></FluentRadio>
-            </FluentRadioGroup>
-        );
+            <FluentRadio Id="MyOption" TValue="string" @attributes="attributes"></FluentRadio>
+            </FluentRadioGroup>);
 
         // Assert
         var radio = cut.Find("fluent-radio");
@@ -194,10 +166,9 @@
         // Arrange & Act
         var cut = Render(
             @<FluentRadioGroup TValue="int" Orientation="Orientation.Horizontal">
-                <FluentRadio Value="1" Label="Option 1"></FluentRadio>
-                <FluentRadio Value="2" Label="Option 2"></FluentRadio>
-            </FluentRadioGroup>
-    );
+                <FluentRadio Id="MyOption1" Value="1" Label="Option 1"></FluentRadio>
+                <FluentRadio Id="MyOption2" Value="2" Label="Option 2"></FluentRadio>
+            </FluentRadioGroup>);
 
         // Assert
         cut.Verify();

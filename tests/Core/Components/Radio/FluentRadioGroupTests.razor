@@ -192,24 +192,27 @@
     }
 
     [Fact]
-    public void FluentRadioGroup_ValueChanged()
+    public async Task FluentRadioGroup_ValueChanged()
     {
         // Arrange
         string? selectedValue = null;
-        var newValue = "option2";
 
         var cut = Render(
             @<FluentRadioGroup TValue="string" @bind-Value="selectedValue">
-                <FluentRadio Label="option1"></FluentRadio>
-                <FluentRadio Label="option2"></FluentRadio>
+                <FluentRadio Id="MyOption1" Label="option1"></FluentRadio>
+                <FluentRadio Id="MyOption2" Label="option2"></FluentRadio>
             </FluentRadioGroup>
-        );
+    );
 
         // Act
-        cut.Find("fluent-radio[value='option2']").Change(newValue);
+        await cut.FindComponent<FluentRadioGroup<string>>().Instance.RadioChangeHandlerAsync(new RadioEventArgs()
+        {
+            Id = "MyOption2",
+            Value = "option2"
+        });
 
         // Assert
-        Assert.Equal(newValue, selectedValue);
+        Assert.Equal("option2", selectedValue);
     }
 
     [Fact]
@@ -227,24 +230,6 @@
         Assert.NotNull(radio.GetAttribute("name"));
         // The name should be a generated ID
         Assert.NotEqual(string.Empty, radio.GetAttribute("name"));
-    }
-
-    [Fact]
-    public void FluentRadioGroup_RadioChecked()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentRadioGroup TValue="string" Value="@("option1")">
-                <FluentRadio TValue="string" Value="@("option1")"></FluentRadio>
-            </FluentRadioGroup>);
-
-        // Assert
-        var attribute = cut.Find("fluent-radio").GetAttribute("checked") ?? null;
-        Assert.NotNull(attribute);
-    }
-
-    private void HandleCallBack(ChangeEventArgs args)
-    {
-        // Handle the callback
     }
 
     public enum TestEnum

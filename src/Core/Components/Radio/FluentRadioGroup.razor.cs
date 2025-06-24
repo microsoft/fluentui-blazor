@@ -92,7 +92,7 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
     }
 
     /// <summary />
-    private async Task RadioChangeHandlerAsync(RadioEventArgs e)
+    internal async Task RadioChangeHandlerAsync(RadioEventArgs e)
     {
         if (InternalRadios.TryGetValue(e.Id ?? "", out var checkedItem))
         {
