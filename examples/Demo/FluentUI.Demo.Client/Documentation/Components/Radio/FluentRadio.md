@@ -73,3 +73,23 @@ In this case, the `RadioLabel`, `RadioValue` and `RadioDisabled` parameters are 
 These parameters are functions that take an item of the type specified by `TValue` and return the corresponding value to use.
 
 {{ RadioItems }}
+
+## Required
+
+When the `Required` parameter is set to `true`, the radio group will display a validation error if no item is checked.
+
+{{ RadioGroupRequired }}
+
+
+
+## API FluentRadioGroup
+
+{{ API Type=FluentRadioGroup }}
+
+## API FluentRadio
+
+{{ API Type=FluentRadio }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentRadio }}

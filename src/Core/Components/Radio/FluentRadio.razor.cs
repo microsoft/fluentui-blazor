@@ -99,7 +99,14 @@ public partial class FluentRadio<TValue> : FluentComponentBase, IDisposable
     /// <summary />
     internal string? GetLabel()
     {
-        return Label ?? Owner.RadioLabel?.Invoke(Value);
+        if (LabelTemplate is not null)
+        {
+            return null; // LabelTemplate will be rendered separately
+        }
+
+        return Label
+            ?? Owner.RadioLabel?.Invoke(Value)
+            ?? Value?.ToString();
     }
 
     /// <summary />
