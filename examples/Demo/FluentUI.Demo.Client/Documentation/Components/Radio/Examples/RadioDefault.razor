@@ -1,16 +1,16 @@
-﻿<FluentStack Orientation="Orientation.Vertical">
-    <FluentRadioGroup @bind-Value="@Fruit" Label="Favorite fruit" Name="favorite-fruit">
-        <FluentRadio Value="@("Apple")" Label="Apple" />
-        <FluentRadio Value="@("Banana")" Label="Banana" />
-        <FluentRadio Value="@("Orange")" Label="Orange" Disabled="true" />
-        <FluentRadio Value="@("Grape")" Label="Grape" />
-        <FluentRadio Value="@("Kiwi")" Label="Kiwi" />
-    </FluentRadioGroup>
+﻿<FluentRadioGroup @bind-Value="@Fruit" Label="Favorite fruit" Name="favorite-fruit">
+    <FluentRadio Value="@("Apple")" Label="Apple" />
+    <FluentRadio Value="@("Banana")" Label="Banana" />
+    <FluentRadio Value="@("Orange")" Label="Orange" Disabled="true" />
+    <FluentRadio Value="@("Grape")" Label="Grape" />
+    <FluentRadio Value="@("Kiwi")" Label="Kiwi" />
+</FluentRadioGroup>
 
-    <FluentLabel>Selected radio: @Fruit</FluentLabel>
-</FluentStack>
+<FluentDivider Margin="@Margin.Vertical2" />
+
+<FluentLabel>Selected radio: @Fruit</FluentLabel>
 
 @code
 {
-    string Fruit = "Checked";
+    string Fruit = "Banana";
 }

@@ -1,12 +1,16 @@
-﻿<FluentRadioGroup @bind-Value="@fruit" Label="Favorite fruit" Orientation="@Orientation.Vertical">
-    <FluentRadio Label="Apple"></FluentRadio>
-    <FluentRadio Label="Banana"></FluentRadio>
-    <FluentRadio Label="Orange"></FluentRadio>
-    <FluentRadio Label="Grape"></FluentRadio>
-    <FluentRadio Label="Kiwi"></FluentRadio>
+﻿<FluentRadioGroup @bind-Value="@Fruit" Orientation="Orientation.Vertical">
+    <FluentRadio Value="@("Apple")" Label="Apple" />
+    <FluentRadio Value="@("Banana")" Label="Banana" />
+    <FluentRadio Value="@("Orange")" Label="Orange" />
+    <FluentRadio Value="@("Grape")" Label="Grape" />
+    <FluentRadio Value="@("Kiwi")" Label="Kiwi" />
 </FluentRadioGroup>
 
-<p>Favorite fruit: @fruit</p>
-@code {
-    private string fruit = "banana";
+<FluentDivider Margin="@Margin.Vertical2" />
+
+<FluentLabel>Selected fruit: @Fruit</FluentLabel>
+
+@code
+{
+    string Fruit = "Banana";
 }

@@ -1,12 +1,12 @@
 ﻿<FluentStack Orientation="Orientation.Vertical">
 
     <FluentRadioGroup Label="Numbers" @bind-Value="@NumberValue">
-        <FluentRadio Value="1">
+        <FluentRadio Value="@((int?)1)">
             <LabelTemplate>
                 <strong>One</strong>
             </LabelTemplate>
         </FluentRadio>
-        <FluentRadio Value="2">
+        <FluentRadio Value="@((int?)2)">
             <LabelTemplate>
                 <em>Two</em>
             </LabelTemplate>
@@ -33,6 +33,6 @@
 
 @code
 {
-    int NumberValue;
+    int? NumberValue;
     string StringValue = "";
 }
