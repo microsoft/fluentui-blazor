@@ -1,0 +1,16 @@
+fluent-radio-group > .my-3-o {
+  margin: unset;
+}
+
+  fluent-radio-group > .my-3-o:first-child {
+    margin-top: var(--spacingVerticalM);
+  }
+
+fluent-radio-group:not([orientation="vertical"]) > .my-3-o {
+  margin-top: var(--spacingVerticalM);
+}
+
+fluent-radio-group > fluent-field:has(fluent-radio:focus-visible) {
+  outline: -webkit-focus-ring-color auto 1px;
+}
+

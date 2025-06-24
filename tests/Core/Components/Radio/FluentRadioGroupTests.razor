@@ -4,10 +4,7 @@
 @using System.ComponentModel.DataAnnotations
 @using Xunit;
 @inherits Bunit.TestContext
-@implements IFluentRadioValueProvider
 @code {
-
-    object IFluentRadioValueProvider.CurrentValue => new();
 
     public FluentRadioGroupTests()
     {
@@ -243,38 +240,6 @@
         // Assert
         var attribute = cut.Find("fluent-radio").GetAttribute("checked") ?? null;
         Assert.NotNull(attribute);
-    }
-
-    [Fact]
-    public void FluentRadioGroup_FindContext()
-    {
-        // Arrange
-        FluentRadioGroup<string> group = new FluentRadioGroup<string>(LibraryConfiguration.Empty);
-        var args = new ChangeEventArgs
-        {
-            Value = "option1"
-        };
-
-        var callback = EventCallback.Factory.Create<ChangeEventArgs>(this, HandleCallBack);
-
-        FluentRadioContext? fluentRadioContextParent = new FluentRadioContext(this, null, callback, null);
-        fluentRadioContextParent.GroupName = "test-group";
-        FluentRadioContext fluentRadioContext = new FluentRadioContext(this, fluentRadioContextParent, callback, null);
-        var cut = Render(@<CascadingValue TValue = "FluentRadioContext" Value="@fluentRadioContext">
-            <FluentRadioGroup @ref="@group" TValue="string">
-                <FluentRadio TValue="string" Label="option1"></FluentRadio>
-            </FluentRadioGroup>
-            </CascadingValue>
-        );
-
-        // Act
-        var context = group.Context;
-
-        // Assert
-        Assert.NotNull(context);
-        Assert.Equal(fluentRadioContextParent, context.FindContextInAncestors("test-group"));
-
-
     }
 
     private void HandleCallBack(ChangeEventArgs args)

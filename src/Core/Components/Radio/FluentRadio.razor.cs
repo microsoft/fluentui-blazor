@@ -2,7 +2,6 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -11,37 +10,28 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A Fluent Radio button component.
 /// </summary>
-/// <typeparam name="TValue">The type for the value of the radio button</typeparam>
-public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentComponentBase
+public partial class FluentRadio<TValue> : FluentComponentBase, IDisposable
 {
-    bool _trueValueToggle;
+    private bool _disposedValue;
 
-    internal FluentRadioContext? Context { get; private set; }
-
-    /// <summary />
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentRadio{TRadioValue}"/> class with the specified library configuration.
+    /// </summary>
+    /// <param name="configuration">The configuration settings for the library. Cannot be null.</param>
     public FluentRadio(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
 
-    /// <summary>
-    /// Gets the optional CSS class. If given, this will be included in the class attribute of the component.
-    /// </summary>
-    protected virtual string? ClassValue => DefaultClassBuilder.Build();
+    /// <summary />
+    [CascadingParameter(Name = "RadioGroup")]
+    public FluentRadioGroup<TValue>? Owner { get; set; }
 
-    /// <summary>
-    /// Gets the optional in-line styles. If given, these will be included in the style attribute of the component.
-    /// </summary>
-    protected virtual string? StyleValue => DefaultStyleBuilder
-        .Build();
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder.Build();
 
-    /// <summary>
-    /// Gets or sets the name of the element.
-    /// Allows access by name from the associated form.
-    /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
-    /// </summary>
-    [Parameter]
-    public virtual string? Name { get; set; }
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder.Build();
 
     /// <inheritdoc cref="IFluentField.Disabled" />
     [Parameter]
@@ -55,52 +45,74 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     [Parameter]
     public virtual RenderFragment? LabelTemplate { get; set; }
 
+    /// <inheritdoc cref="IFluentField.LabelTemplate" />
+    [Parameter]
+    public virtual RenderFragment? ChildContent { get; set; }
+
     /// <inheritdoc cref="IFluentField.LabelWidth" />
     [Parameter]
     public virtual string? LabelWidth { get; set; }
 
     /// <summary>
-    /// Gets or sets the value of the element.
+    /// 
     /// </summary>
     [Parameter]
     public TValue? Value { get; set; }
 
-    [CascadingParameter]
-    private FluentRadioContext? CascadedContext { get; set; }
-
-    /// <inheritdoc />
-    protected override void OnParametersSet()
+    /// <summary />
+    protected override void OnInitialized()
     {
-        Context = string.IsNullOrEmpty(Name) ? CascadedContext : CascadedContext?.FindContextInAncestors(Name);
-
-        if (Context == null)
+        if (Owner is null)
         {
-            throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(FluentRadioGroup<TValue>)} " +
-                $"with a matching 'Name' property, if specified.");
+            throw new InvalidOperationException($"The {nameof(FluentRadio<TValue>)} must be included in a {nameof(FluentRadioGroup<TValue>)} component and must be of the same type.");
+        }
+
+        Owner?.AddRadio(this);
+    }
+
+    /// <summary />
+    internal string? GetValue()
+    {
+        return Owner?.RadioValue?.Invoke(Value)
+            ?? Value?.ToString()
+            ?? Label
+            ?? Id;
+    }
+
+    /// <summary />
+    internal bool GetDisabled()
+    {
+        return Disabled is not null
+            ? Disabled == true
+            : Owner?.RadioDisabled?.Invoke(Value) ?? false;
+    }
+
+    /// <summary />
+    internal string? GetLabel()
+    {
+        return Label ?? Owner?.RadioLabel?.Invoke(Value);
+    }
+
+    /// <summary />
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposedValue)
+        {
+            if (disposing)
+            {
+                // Dispose managed state (managed objects)
+                Owner?.RemoveRadio(this);
+            }
+
+            _disposedValue = true;
         }
     }
 
-    // This is an unfortunate hack, but is needed for the scenario described by test InputRadioGroupWorksWithMutatingSetter.
-    // Radio groups are special in that modifying one <input type=radio> instantly and implicitly also modifies the previously
-    // selected one in the same group. As such, our SetUpdatesAttributeName mechanism isn't sufficient to stay in sync with the
-    // DOM, because the 'change' event will fire on the new <input type=radio> you just selected, not the previously-selected
-    // one, and so the previously-selected one doesn't get notified to update its state in the old rendertree. So, if the setter
-    // reverts the incoming value, the previously-selected one would produce an empty diff (because its .NET value hasn't changed)
-    // and hence it would be left unselected in the DOM. If you don't understand why this is a problem, try commenting out the
-    // line that toggles _trueValueToggle and see the E2E test fail.
-    //
-    // This hack works around that by causing InputRadio *always* to force its own 'checked' state to be true in the DOM if it's
-    // true in .NET, whether or not it was true before, by continually changing the value that represents 'true'. This doesn't
-    // really cause any significant increase in traffic because if we're rendering this InputRadio at all, sending one more small
-    // attribute value is inconsequential.
-    //
-    // Ultimately, a better solution would be to make SetUpdatesAttributeName smarter still so that it knows about the special
-    // semantics of radio buttons so that, when one <input type="radio"> changes, it treats any previously-selected sibling
-    // as needing DOM sync as well. That's a more sophisticated change and might not even be useful if the radio buttons
-    // aren't truly siblings and are in different DOM subtrees (and especially if they were rendered by different components!)
-    private string GetToggledTrueValue()
+    /// <summary />
+    public void Dispose()
     {
-        _trueValueToggle = !_trueValueToggle;
-        return _trueValueToggle ? "a" : "b";
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

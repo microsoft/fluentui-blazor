@@ -1,5 +1,3 @@
-import { Microsoft as FluentTreeView } from './Components/TreeView/FluentTreeView';
-
 export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
 
   /**
@@ -89,6 +87,20 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
         return {
           id: event.target.id,
           activeid: event.detail?.id,
+        };
+      }
+    });
+  }
+
+  export function RadioGroup(blazor: Blazor) {
+
+    // Event when a tab is selected
+    blazor.registerCustomEventType('radiochange', {
+      browserEventName: 'change',
+      createEventArgs: (event: any) => {
+        return {
+          id: event.target.id,
+          value: event.target.value,
         };
       }
     });

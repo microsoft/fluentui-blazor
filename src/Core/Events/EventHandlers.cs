@@ -35,6 +35,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [EventHandler("ondropdownchange", typeof(DropdownEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ontreechanged", typeof(TreeItemChangedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ontreetoggle", typeof(TreeItemToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onradiochange", typeof(RadioEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 public static class EventHandlers
 {
 }
