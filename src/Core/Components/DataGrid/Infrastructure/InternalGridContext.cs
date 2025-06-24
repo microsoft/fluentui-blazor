@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
@@ -21,6 +25,7 @@ internal sealed class InternalGridContext<TGridItem>
 
     public FluentDataGrid<TGridItem> Grid { get; }
     public EventCallbackSubscribable<object?> ColumnsFirstCollected { get; } = new();
+    public EventCallbackSubscribable<object?> ItemsChanged { get; } = new();
 
     public InternalGridContext(FluentDataGrid<TGridItem> grid)
     {
