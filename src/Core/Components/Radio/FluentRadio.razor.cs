@@ -23,9 +23,18 @@ public partial class FluentRadio<TValue> : FluentComponentBase, IDisposable
         Id = Identifier.NewId();
     }
 
+    /// <summary>
+    /// For unit testing purposes only.
+    /// </summary>
+    /// <param name="id"></param>
+    internal FluentRadio(string? id) : this(LibraryConfiguration.Empty)
+    {
+        Id = id;
+    }
+
     /// <summary />
     [CascadingParameter(Name = "RadioGroup")]
-    internal FluentRadioGroup<TValue>? Owner { get; set; }
+    internal FluentRadioGroup<TValue> Owner { get; set; } = default!;
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder.Build();
@@ -67,13 +76,13 @@ public partial class FluentRadio<TValue> : FluentComponentBase, IDisposable
             throw new InvalidOperationException($"The {nameof(FluentRadio<TValue>)} must be included in a {nameof(FluentRadioGroup<TValue>)} component and must be of the same type.");
         }
 
-        Owner?.AddRadio(this);
+        Owner.AddRadio(this);
     }
 
     /// <summary />
     internal string? GetValue()
     {
-        return Owner?.RadioValue?.Invoke(Value)
+        return Owner.RadioValue?.Invoke(Value)
             ?? Value?.ToString()
             ?? Label
             ?? Id;
@@ -84,13 +93,13 @@ public partial class FluentRadio<TValue> : FluentComponentBase, IDisposable
     {
         return Disabled is not null
             ? Disabled == true
-            : Owner?.RadioDisabled?.Invoke(Value) ?? false;
+            : Owner.RadioDisabled?.Invoke(Value) ?? false;
     }
 
     /// <summary />
     internal string? GetLabel()
     {
-        return Label ?? Owner?.RadioLabel?.Invoke(Value);
+        return Label ?? Owner.RadioLabel?.Invoke(Value);
     }
 
     /// <summary />
@@ -101,7 +110,7 @@ public partial class FluentRadio<TValue> : FluentComponentBase, IDisposable
             if (disposing)
             {
                 // Dispose managed state (managed objects)
-                Owner?.RemoveRadio(this);
+                Owner.RemoveRadio(this);
             }
 
             _disposedValue = true;

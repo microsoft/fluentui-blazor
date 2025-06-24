@@ -152,7 +152,7 @@
 
         var cut = Render(
             @<FluentRadioGroup TValue="string">
-            <FluentRadio Id="MyOption" TValue="string" @attributes="attributes"></FluentRadio>
+                <FluentRadio Id="MyOption" TValue="string" @attributes="attributes"></FluentRadio>
             </FluentRadioGroup>);
 
         // Assert
@@ -172,5 +172,19 @@
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentRadio_Dispose()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentRadioGroup TValue="string">
+                             <FluentRadio Id="MyOption" TValue="string"></FluentRadio>
+                          </FluentRadioGroup>);
+
+        // Assert
+        cut.FindComponent<FluentRadio<string>>().Instance.Dispose();
+
+        Assert.Empty(cut.FindComponent<FluentRadioGroup<string>>().Instance.InternalRadios);
     }
 }
