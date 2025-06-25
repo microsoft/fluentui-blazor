@@ -94,7 +94,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
 
   export function RadioGroup(blazor: Blazor) {
 
-    // Event when a tab is selected
+    // Event when a radio element is changed
     blazor.registerCustomEventType('radiochange', {
       browserEventName: 'change',
       createEventArgs: (event: any) => {

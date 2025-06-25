@@ -5,8 +5,8 @@ route: /Radio
 
 # RadioGroup and Radio
 
-**FluentRadioGroup** lets people select a single option from two or more **FluentRadio** items.
-Use **FluentRadioGroup** to present all available choices if there's enough space.
+`FluentRadioGroup` lets people select a single option from two or more `FluentRadio` items.
+Use `FluentRadioGroup` to present all available choices if there's enough space.
 For more than 5 choices, consider using a different component such as Dropdown.
 
 ## Best practices
@@ -24,7 +24,7 @@ For more than 5 choices, consider using a different component such as Dropdown.
 
 **Don't**
 
-  - **Include more than 5 options**. Use FluentRadioGroup when there are 2-5 options,
+  - **Include more than 5 options**. Use `FluentRadioGroup` when there are 2-5 options,
     and you have enough screen space and the options are important enough to be a good use of that screen space.
     Otherwise, use Dropdown.
 
@@ -52,10 +52,10 @@ Radio items allow for **strongly binding to types**.
 Because of this, string values need to be defined in the following way: `Value="@("one")"`.
 
 [!NOTE] We recommend using strong "non-null" types.
-If you use a nullable type, you must ensure that the values of all FluentRadio are converted to nullables,
+If you use a nullable type, you must ensure that the values of all `FluentRadio` are converted to nullables,
 for example using an explit casting `Value="@((int?)1)"` or using the `TValue` parameter: `TValue="int?"`.  
 If this is not the case, you will get a *runtime* error.
-`InvalidOperationException: The FluentRadio must be included in a FluentRadioGroup component and must be of the same type.`.
+`InvalidOperationException: The `FluentRadio` must be included in a `FluentRadioGroup` component and must be of the same type.`.
 
 {{ RadioGroupLabelTemplate }}
 
