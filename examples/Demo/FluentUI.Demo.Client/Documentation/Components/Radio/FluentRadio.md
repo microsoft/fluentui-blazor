@@ -1,83 +1,93 @@
 ---
-title: RadioGroup and Radio
+title: Radio
 route: /Radio
 ---
 
 # RadioGroup and Radio
 
-Radio groups let people select a single item from a short list. Use them in layouts that offer enough space to list up to five options or if it's important to view all options at once.
+`FluentRadioGroup` lets people select a single option from two or more `FluentRadio` items.
+Use `FluentRadioGroup` to present all available choices if there's enough space.
+For more than 5 choices, consider using a different component such as Dropdown.
 
-If there isn't enough space, try a dropdown instead. If you need to let people select more than one option, use checkboxes. To let them immediately turn a setting on or off, try a switch.
+## Best practices
+**Do**
 
-## Behavior
+  - **Give people a choice**. Make sure to give people the option to not make a choice.
+    For example, include a "None" option if no answer is required.
+  - **Choose a default**. Select the safest, most secure, and private option as the default.
+    If safety and security aren't factors, select the most likely or convenient option.
+  - **Keep labels short and action-oriented**. Use a phrase for the label, rather than a full sentence.
+  - **Use sentence case**. Capitalize only the first word as you would in a sentence.
+  - **Place most likely choices first**. List the options in a logical order, such as most likely to be selected to least,
+    simplest operation to most complex, or least risk to most. Listing options in alphabetical
+    order isn't recommended because the order will change when the text is localized.
 
-Although it is technically possible to show a single Radio button (as can be seen below), it *must* be placed inside a RadioGroup to have any function.
+**Don't**
 
-### Default selection
-Present a selected option in radio groups by default. The default selection should be placed first and should be the most logical response. Remaining options should be listed in a logical order. For more information, see the Content section.
+  - **Include more than 5 options**. Use `FluentRadioGroup` when there are 2-5 options,
+    and you have enough screen space and the options are important enough to be a good use of that screen space.
+    Otherwise, use Dropdown.
 
-## Layout
-Radio groups can be aligned vertically or horizontally (default). When horizontally aligned, the label can appear next to or under the radio input.
+## Appearance
 
-## Accessibility
-Include intuitive labels with radio groups.
+Radios are placed and used inside a radio group.
+Only one of the items in a group can have a checked state.
+You can bind to the `Value` of the group to the get the value of the checked item.
 
-When tabbing, focus will fall on the first option if no options are selected. If there is a selection, focus will fall on that option first.
-
-## Content
-Keep labels short and clear
-Keep individual radio labels as concise and descriptive as possible. Use fragments instead of full sentences. If long labels can’t be avoided, text will wrap onto the next line. Never truncate radio text with an ellipsis. Use sentence case with no end punctuation.
-
-Skip the period in radio labels. For the label that introduces the radio group, don’t end with a colon. For more info, go to Periods in the Microsoft Writing Style Guide.
-
-Use sentence style capitalization—only capitalize the first word. For more info, go to Capitalization in the Microsoft Writing Style Guide.
-
-## Examples
-
-### Radio button appearances
-
-A radio button is either unchecked or checked. Usually, once an item in a group has been checked, the result of the group as a whole cannot be unchecked again.
+A radio is either unchecked or checked. Usually, once an item in a group has been checked,
+the result of the group as a whole cannot be unchecked again.
 An item can also be disabled and can show a label to indicate the value. 
 
 {{ RadioDefault }}
 
-## RadioGroup
+> [!NOTE] You can use the `Value` parameter to provide a specific option value.
+> Example: `<FluentRadio Value="@("AppleCategory")" Label="Apple" />`  
+> By default, the `Value` is the same as the `Label`.
 
-Radios are placed and used inside a radio group. Only one of the items in a group can have a checked state.
-You can bind to the `Value` of the group to the get the value of the checked item.
+## Label template
 
-{{ RadioGroupDefault }}
+Instead of using the `Label` parameter (string value only), you can use the `LabelTemplate` parameter to specify a template for the label.
 
-## Strongly typed items and using Label template
-Radio items allow for strongly binding to types. Because of this, string values need to be defined in the following way: 
-`Value="@("one")"`
+Radio items allow for **strongly binding to types**.
+Because of this, string values need to be defined in the following way: `Value="@("one")"`.
 
-As an alternative to of using the `Label` parameter (string value only),
-it is possible to use the `LabelTemplate` parameter to specify a template for the label.
-In case both are specified, the `Label` parameter is used.
+[!NOTE] We recommend using strong "non-null" types.
+If you use a nullable type, you must ensure that the values of all `FluentRadio` are converted to nullables,
+for example using an explit casting `Value="@((int?)1)"` or using the `TValue` parameter: `TValue="int?"`.  
+If this is not the case, you will get a *runtime* error.
+`InvalidOperationException: The `FluentRadio` must be included in a `FluentRadioGroup` component and must be of the same type.`.
 
 {{ RadioGroupLabelTemplate }}
 
-## RadioGroup with vertical orientation
+## Vertical layout
+
 When the radio group has a vertical orientation, the items are stacked on top of each other.
 
 {{ RadioGroupVertical }}
 
-## Disabled RadioGroup
-A radio group can be disabled as a whole. This means that the user cannot select any of the items in the group.
-{{ RadioGroupDisabledGroup }}
+## Items
 
-## RadioGroup with disabled items
-Besides disabling the whole group, it is also possible to disable specific items in a group.
-{{ RadioGroupDisabledItems }}
+You can use the `Items` parameter to provide a list of items to the radio group.
 
-## RadioGroup required
+In this case, the `RadioLabel`, `RadioValue` and `RadioDisabled` parameters are used to specify the properties of the items displayed.
+These parameters are functions that take an item of the type specified by `TValue` and return the corresponding value to use.
+
+{{ RadioItems }}
+
+## Required
+
+When the `Required` parameter is set to `true`, the radio group will display a validation error if no item is checked.
+
 {{ RadioGroupRequired }}
 
+
+
 ## API FluentRadioGroup
+
 {{ API Type=FluentRadioGroup }}
 
 ## API FluentRadio
+
 {{ API Type=FluentRadio }}
 
 ## Migrating to v5
