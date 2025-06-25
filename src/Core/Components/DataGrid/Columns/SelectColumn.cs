@@ -44,6 +44,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     protected override void OnInitialized()
     {
         _itemsChanged.SubscribeOrMove(InternalGridContext.ItemsChanged);
+        base.OnInitialized();
     }
 
     /// <summary>

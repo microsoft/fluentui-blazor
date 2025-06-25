@@ -8,7 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 // The grid cascades this so that descendant columns can talk back to it. It's an internal type
 // so that it doesn't show up by mistake in unrelated components.
-internal sealed class InternalGridContext<TGridItem>
+internal sealed class InternalGridContext<TGridItem>(FluentDataGrid<TGridItem> grid)
 {
     private int _index = 0;
     private int _rowId = 0;
@@ -23,14 +23,9 @@ internal sealed class InternalGridContext<TGridItem>
     public int TotalItemCount { get; set; }
     public int TotalViewItemCount { get; set; }
 
-    public FluentDataGrid<TGridItem> Grid { get; }
+    public FluentDataGrid<TGridItem> Grid { get; } = grid;
     public EventCallbackSubscribable<object?> ColumnsFirstCollected { get; } = new();
     public EventCallbackSubscribable<object?> ItemsChanged { get; } = new();
-
-    public InternalGridContext(FluentDataGrid<TGridItem> grid)
-    {
-        Grid = grid;
-    }
 
     public int GetNextRowId()
     {
