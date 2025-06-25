@@ -789,6 +789,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (!thisLoadCts.IsCancellationRequested)
         {
             _internalGridContext.Items = result.Items;
+            await _internalGridContext.ItemsChanged.InvokeCallbacksAsync(null);
+
             _internalGridContext.TotalItemCount = result.TotalItemCount;
             if (RefreshItems is null)
             {
@@ -831,7 +833,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (!request.CancellationToken.IsCancellationRequested)
         {
-            // ARIA's rowcount is part of the UI, so it should reflect what the human user regards as the number of rows in the table,
+            // ARIA's row count is part of the UI, so it should reflect what the human user regards as the number of rows in the table,
             // not the number of physical <tr> elements. For virtualization this means what's in the entire scrollable range, not just
             // the current viewport. In the case where you're also paginating then it means what's conceptually on the current page.
             // TODO: This currently assumes we always want to expand the last page to have ItemsPerPage rows, but the experience might

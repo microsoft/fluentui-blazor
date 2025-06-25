@@ -1842,6 +1842,9 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnKeyAllAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.Dispose">
+            <inheritdoc />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.SortedProperty">
             <summary>
             Holds the name of a property and the direction to sort by.
