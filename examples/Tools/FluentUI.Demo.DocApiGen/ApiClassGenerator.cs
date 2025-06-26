@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using FluentUI.Demo.DocApiGen.Extensions;
@@ -62,7 +62,7 @@ public class ApiClassGenerator
         var assemblyInfo = GetAssemblyInfo(Assembly);
 
         code.AppendLine("// ------------------------------------------------------------------------");
-        code.AppendLine("// MIT License - Copyright (c) Microsoft Corporation. All rights reserved. ");
+        code.AppendLine("// This file is licensed to you under the MIT License. ");
         code.AppendLine("// ------------------------------------------------------------------------");
         code.AppendLine();
         code.AppendLine("//------------------------------------------------------------------------------");
