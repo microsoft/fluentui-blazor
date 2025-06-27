@@ -58,7 +58,7 @@ This allows for fine-grained control over when HTML is generated or not, for exa
 the grid item takes a lot of time or leads to a lot of data being transferred.
 
 
-<div class="grid-item-hidden" style="overflow-x: auto;">
+<div class="grid-item-hidden" style="overflow-x: auto; margin-bottom: 24px;">
 
 |GridItemHidden|X Small<br/><sup>< 600px</sup>|Small<br/><sup>600px - 959px</sup>|Medium<br/><sup>960px - 1279px</sup>|Large<br/><sup>1280px - 1919px</sup>|X Large<br/><sup>1920px - 2559px</sup>|XX Large<br/><sup>≥ 2560px</sup>|
 |--------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
@@ -83,6 +83,41 @@ the grid item takes a lot of time or leads to a lot of data being transferred.
 | `XxlAndUp`   |                 | <div />         | <div />         | <div />         | <div />         | <div checked /> |
 
 </div>
+
+## body data-media
+
+The `<body data-media>` attribute is used to specify the current media query state of the browser.
+This attribute is automatically updated to reflect the current screen size, each time the browser is resized.
+
+For example, open the browser DevTools and resize the browser window.
+You will see the `data-media` attribute change as you resize the window.
+
+**Client side**
+
+A JavaScript `mediaChanged` event is triggered each time the `data-media` attribute changes.
+
+```html
+<script>
+    document.body.addEventListener('mediaChanged', function (e) {
+        console.log('Media changed:', e.detail.media);
+    });
+</script>
+```
+
+**Blazor side**
+
+You can use the `FluentGrid.OnBreakpointEnter` event to handle media changes in Blazor.
+
+```razor
+<FluentGrid OnBreakpointEnter="@OnBreakpointEnterHandler" />
+
+@code {
+    void OnBreakpointEnterHandler(GridItemSize size)
+    {
+        Console.WriteLine($"Page Size: {size}");
+    }
+}
+```
 
 ## API FluentGrid
 

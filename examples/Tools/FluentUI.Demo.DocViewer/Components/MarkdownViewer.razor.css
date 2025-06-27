@@ -57,7 +57,7 @@
   /* Code */
   .doc-viewer ::deep code {
     font-weight: 500;
-    background-color: var(--colorNeutralBackground5);
+    background-color: var(--colorNeutralBackground3);
     padding: 0px 4px;
     overflow-wrap: anywhere
   }
@@ -71,7 +71,7 @@
       overflow-x: auto;
       display: block;
       padding: 1em;
-      background-color: rgb(243, 243, 243);
+      background-color: var(--colorNeutralBackground3);
       border: 1px solid silver;
       font-size: 13px;
       font-weight: bold;

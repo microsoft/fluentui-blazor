@@ -87,12 +87,25 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
       ];
     }
 
+    const dispatchMediaChanged = (bodyTag: HTMLElement) => {
+      // Dispatch a custom event when the media query changes
+      if (bodyTag) {
+        const event = new CustomEvent('mediaChanged', {
+          detail: {
+            media: bodyTag.getAttribute('data-media')
+          }
+        });
+        bodyTag.dispatchEvent(event);
+      }
+    }
+
     // Set the initial data-media attribute based on the current matching media query
     const bodyTag: HTMLElement = document?.body;
     if (bodyTag) {
       const matched = getMediaQueries().find(mq => window.matchMedia(mq.query).matches);
       if (matched) {
         bodyTag.setAttribute('data-media', matched.id);
+        dispatchMediaChanged(bodyTag);
       }
     }
 
@@ -103,6 +116,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
             const bodyTag: HTMLElement = document?.body;
             if (bodyTag && bodyTag.getAttribute('data-media') !== mediaQuery.id) {
               bodyTag.setAttribute('data-media', mediaQuery.id);
+              dispatchMediaChanged(bodyTag);
             }
           }
         });
@@ -119,6 +133,14 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
       } else {
         bodyTag.removeAttribute('data-theme');
       }
+
+      // Dispatch the custom event
+      const event = new CustomEvent('themeChanged', {
+        detail: {
+          isDark
+        }
+      });
+      bodyTag.dispatchEvent(event);
     }
   }
 }
