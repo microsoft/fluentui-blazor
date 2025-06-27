@@ -669,37 +669,37 @@
 /* Hidden */
 
 @media (max-width: 599.98px) {
-    .fluent-grid > div[hidden-when~="xs"] {
+    [hidden-when~="xs"] {
         display: none;
     }
 }
 
 @media (min-width: 600px) and (max-width: 959.98px) {
-    .fluent-grid > div[hidden-when~="sm"] {
+    [hidden-when~="sm"] {
         display: none;
     }
 }
 
 @media (min-width: 960px) and (max-width: 1279.98px) {
-    .fluent-grid > div[hidden-when~="md"] {
+    [hidden-when~="md"] {
         display: none;
     }
 }
 
 @media (min-width: 1280px) and (max-width: 1919.98px) {
-    .fluent-grid > div[hidden-when~="lg"] {
+    [hidden-when~="lg"] {
         display: none;
     }
 }
 
 @media (min-width: 1920px) and (max-width: 2559.98px) {
-    .fluent-grid > div[hidden-when~="xl"] {
+    [hidden-when~="xl"] {
         display: none;
     }
 }
 
 @media (min-width: 2560px) {
-    .fluent-grid > div[hidden-when~="xxl"] {
+    [hidden-when~="xxl"] {
         display: none;
     }
 }

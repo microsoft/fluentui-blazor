@@ -51,12 +51,9 @@ To display an element only on a given range of screen sizes, you can combine a t
 e.g. `GridItemHidden.Md | GridItemHidden.Lg` will display the element for all screen sizes,
 except on medium and large devices.
 
-`AdaptiveRendering` allows for not generating HTML code in a `FluentGridItem` based on the value of the `HiddenWhen` parameter.
-In other words, when `AdaptiveRendering=false` (default), the content of the `FluentGridItem` is simply hidden by CSS styles,
-whereas if `AdaptiveRendering=true`, the content of the `FluentGridItem` is not rendered by Blazor.
-This allows for fine-grained control over when HTML is generated or not, for example in a case where rendering
-the grid item takes a lot of time or leads to a lot of data being transferred.
-
+> [!TIP] You can also use the HTML `hidden-when` attribute to hide **any elements** when the screen size matches the specified breakpoints.  
+> Example: `<div hidden-when="sm md">...</div>` will hide the element on small and medium devices.
+> Only the values `xs sm, md, lg, xl, xxl` are supported, but you can combine them.
 
 <div class="grid-item-hidden" style="overflow-x: auto; margin-bottom: 24px;">
 
@@ -83,6 +80,15 @@ the grid item takes a lot of time or leads to a lot of data being transferred.
 | `XxlAndUp`   |                 | <div />         | <div />         | <div />         | <div />         | <div checked /> |
 
 </div>
+
+## AdaptiveRendering
+
+`AdaptiveRendering` allows for **not generating** HTML code in a `FluentGridItem` based on the value of the `HiddenWhen` parameter.
+In other words, when `AdaptiveRendering=false` (default), the content of the `FluentGridItem` is simply hidden by CSS styles `display: none;`,
+whereas if `AdaptiveRendering=true`, the content of the `FluentGridItem` is not rendered by Blazor.
+
+This allows for fine-grained control over when HTML is generated or not, for example in a case where rendering
+the grid item takes a lot of time or leads to a lot of data being transferred.
 
 ## body data-media
 
