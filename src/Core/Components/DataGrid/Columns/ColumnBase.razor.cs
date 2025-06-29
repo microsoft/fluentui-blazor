@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -247,6 +248,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// <param name="cell"></param>
     /// <param name="args"></param>
     /// <returns></returns>
+    [ExcludeFromCodeCoverage(Justification = "This method is virtual. It is not called directly on this type.")]
     protected internal virtual Task OnCellKeyDownAsync(FluentDataGridCell<TGridItem> cell, KeyboardEventArgs args)
     {
         return Task.CompletedTask;
@@ -257,12 +259,14 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     /// <param name="builder">The current <see cref="RenderTreeBuilder" />.</param>
     /// <param name="item">The data for the row being rendered.</param>
+
     protected internal abstract void CellContent(RenderTreeBuilder builder, TGridItem item);
 
     /// <summary>
     /// Overridden by derived components to provide the raw content for the column's cells.
     /// </summary>
     /// <param name="item">The data for the row being rendered.</param>
+    [ExcludeFromCodeCoverage(Justification = "This method is virtual. It is not called directly on this type.")]
     protected internal virtual string? RawCellContent(TGridItem item) => null;
 
     /// <summary>
@@ -273,22 +277,8 @@ public abstract partial class ColumnBase<TGridItem>
     /// Derived components may override this to implement alternative default sortabillity rules.
     /// </summary>
     /// <returns>True if the column should be sortable by default, otherwise false.</returns>
+    [ExcludeFromCodeCoverage(Justification = "This method is virtual. It is not called directly on this type.")]
     protected virtual bool IsSortableByDefault() => false;
-
-    /// <summary>
-    /// Handles the key down event and performs actions based on the key combination pressed.
-    /// </summary>
-    /// <remarks>If the <see cref="FluentKeyCodeEventArgs.ShiftKey"/> is pressed and the key is <see
-    /// cref="KeyCode.KeyR"/>,  this method triggers the removal of sorting for the associated grid column
-    /// asynchronously.</remarks>
-    /// <param name="e">The event arguments containing details about the key press, including the key code and modifier keys.</param>
-    protected async Task HandleKeyDownAsync(FluentKeyCodeEventArgs e)
-    {
-        if (e.ShiftKey && e.Key == KeyCode.KeyR)
-        {
-            await Grid.RemoveSortByColumnAsync(this);
-        }
-    }
 
     private async Task HandleColumnHeaderClickedAsync()
     {

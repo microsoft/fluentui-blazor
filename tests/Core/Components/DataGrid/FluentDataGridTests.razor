@@ -1,4 +1,5 @@
 ﻿@using Bunit.TestDoubles
+@using System.ComponentModel.DataAnnotations
 @using Xunit
 @inherits Bunit.TestContext
 
@@ -237,6 +238,11 @@
         });
     }
 
+    public static RenderFragment StringToRenderFragment(string text) => builder =>
+    {
+        builder.AddContent(0, text);
+    };
+
     [Fact]
     public async Task FluentDataGrid_Virtualize()
     {
@@ -251,7 +257,7 @@
         var cut = Render<FluentDataGrid<Customer>>(
             @<div style="height: 400px; max-width: 800px; overflow-y: scroll;">
             <FluentDataGrid @ref="grid" TGridItem="Customer" Items="items" ItemSize=32 Virtualize="true" DisplayMode="DataGridDisplayMode.Table" Pagination="state" >
-                <PropertyColumn Property="@(x => x.Name)" />
+                <PropertyColumn Property="@(x => x.Name)" PlaceholderTemplate="@((context) => StringToRenderFragment("---"))" />
             </FluentDataGrid>
             </div>
     );
@@ -353,7 +359,7 @@
         FluentDataGrid<Customer>? grid = default!;
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()" SaveStateInUrl="false" GenerateHeader="DataGridGeneratedHeaderType.None" @ref="@grid">
-                <PropertyColumn Property="@(x => x.Name)" Sortable="true" IsDefaultSortColumn="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" IsDefaultSortColumn="true"  />
             </FluentDataGrid>
         );
         grid.LoadStateFromQueryString("?orderby=Name%20asc");
@@ -445,7 +451,7 @@
                 <EmptyContent><p id="empty-content">empty content</p></EmptyContent>
                 <LoadingContent><p id="loading-content">loading content</p></LoadingContent>
                 <ChildContent>
-                    <TemplateColumn Title="Name">
+                    <TemplateColumn Title="Name" Tooltip="true" TooltipText="@(context => context.Name)">
                         <p class="customer-name">@context.Name</p>
                     </TemplateColumn>
                 </ChildContent>
@@ -557,6 +563,141 @@
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()" @ref="@grid">
                 <ChildContent>
                     <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true">
+                    <ColumnOptions>
+                        <div class="options">Hello!</div>
+                    </ColumnOptions>
+                    </PropertyColumn>
+                </ChildContent>
+            </FluentDataGrid>
+        );
+
+        await grid.ShowColumnOptionsAsync(0);
+
+        var columnOptions = cut.Find(".options").TextContent;
+
+        // Assert
+        Assert.Equal("Hello!", columnOptions);
+
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ShowColumnOptionAsync_AlignEnd()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" @ref="@grid">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="AspNetCore.Components.HorizontalAlignment.End">
+                    <ColumnOptions>
+                        <div class="options">Hello!</div>
+                    </ColumnOptions>
+                    </PropertyColumn>
+                </ChildContent>
+            </FluentDataGrid>
+        );
+
+        await grid.ShowColumnOptionsAsync(0);
+
+        var columnOptions = cut.Find(".options").TextContent;
+
+        // Assert
+        Assert.Equal("Hello!", columnOptions);
+
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ShowColumnOptionAsync_WithResizeTypeNull()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" @ref="@grid" HeaderCellAsButtonWithMenu="false" ResizeType="null">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Filtered="true" Align="AspNetCore.Components.HorizontalAlignment.Start" >
+                        <ColumnOptions>
+                            <div class="options">Hello!</div>
+                        </ColumnOptions>
+                    </PropertyColumn>
+                </ChildContent>
+            </FluentDataGrid>
+        );
+
+        await grid.ShowColumnOptionsAsync(0);
+
+        var columnOptions = cut.Find(".options").TextContent;
+
+        // Assert
+        Assert.Equal("Hello!", columnOptions);
+
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ShowColumnOptionAsync_AlignEnd_WithResizeTypeNotNull()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" @ref="@grid" ResizeType="DataGridResizeType.Discrete">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="AspNetCore.Components.HorizontalAlignment.End">
+                    <ColumnOptions>
+                        <div class="options">Hello!</div>
+                    </ColumnOptions>
+                    </PropertyColumn>
+                </ChildContent>
+            </FluentDataGrid>
+        );
+
+        await grid.ShowColumnOptionsAsync(0);
+
+        var columnOptions = cut.Find(".options").TextContent;
+
+        // Assert
+        Assert.Equal("Hello!", columnOptions);
+
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_FilterButtonAsync()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" @ref="@grid" ResizableColumns="true" ResizeType="null">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true">
+                    <ColumnOptions>
+                        <div class="options">Hello!</div>
+                    </ColumnOptions>
+                    </PropertyColumn>
+                </ChildContent>
+            </FluentDataGrid>
+        );
+
+        await grid.ShowColumnOptionsAsync(0);
+
+        var columnOptions = cut.Find(".options").TextContent;
+
+        // Assert
+        Assert.Equal("Hello!", columnOptions);
+
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_AnyColumnAction()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" @ref="@grid" ResizableColumns="true" ResizeType="null">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Sortable="true" Tooltip="true" HeaderTooltip="Header tooltip">
                     <ColumnOptions>
                         <div class="options">Hello!</div>
                     </ColumnOptions>
@@ -786,7 +927,7 @@
 
         var x = cut.FindComponent<ColumnResizeOptions<Customer>>();
 
-        x.Find("fluent-text-input").KeyDown(new KeyboardEventArgs {Key = "Enter"}); 
+        x.Find("fluent-text-input").KeyDown(new KeyboardEventArgs {Key = "Enter"});
 
 
         // Assert
@@ -859,9 +1000,6 @@
                 <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.HorizontalAlignment.Start"/>
             </FluentDataGrid>
         );
-
-        //var row = cut.FindComponent<FluentDataGridRow<Customer>>();
-        //row.Find(".col-options-button").Click();
 
         await grid.ShowColumnResizeAsync(-1);
 
@@ -981,7 +1119,7 @@
 
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()" GenerateHeader="DataGridGeneratedHeaderType.None" @ref="@grid">
-                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" InitialSortDirection="DataGridSortDirection.Descending" />
             </FluentDataGrid>
     );
 
@@ -1003,6 +1141,8 @@
                 <PropertyColumn Property="@(x => x.Name)" Sortable="true"  />
             </FluentDataGrid>
         );
+        grid._sortByColumn = null;
+        grid.RemoveSortByColumnAsync();
 
         grid.SortByColumnAsync("Name", DataGridSortDirection.Descending);
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
@@ -1043,7 +1183,6 @@
         Assert.Equal(3, row.Instance.InternalGridContext.Items.First().Id);
 
     }
-
 
     [Fact]
     public async Task FluentDataGrid_UpdateItemsPerPageAsync()
@@ -1137,7 +1276,6 @@
         Assert.True(true);
     }
 
-
     [Fact]
     public async Task FluentDataGrid_SetColumnWidthExact()
     {
@@ -1156,70 +1294,6 @@
         // Assert
         // Nothing to do here. We want these called for making sure lines are covered
         Assert.True(true);
-    }
-
-    // // Add a test to call DisposeAsync on the component
-    // [Fact]
-    // public async Task FluentDataGrid_DisposeAsync_Calls_Dispose()
-    // {
-    //     // Arrange
-    //     var cut = Render<FluentDataGrid<Customer>>(
-    //         @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
-    //             <ChildContent>
-    //                 <PropertyColumn Property="@(x => x.Name)" />
-    //             </ChildContent>
-    //         </FluentDataGrid>);
-    //     // Act
-    //     await cut.Instance.DisposeAsync();
-    //     // Assert
-    //     // No exceptions should be thrown, and the component should be disposed correctly
-    //     Assert.True(cut.IsDisposed);
-    // }
-
-    // Sample data...
-    private IEnumerable<Customer> GetCustomers()
-    {
-        yield return new Customer(1, "Denis Voituron");
-        yield return new Customer(2, "Vincent Baaij");
-        yield return new Customer(3, "Bill Gates");
-    }
-
-    private record Customer(int Id, string Name);
-
-    private IQueryable<Customer> GetRandomCustomers(int size = 500)
-    {
-        Customer[] data = new Customer[size];
-
-        for (int i = 0; i < size; i++)
-        {
-
-            data[i] = new Customer(i, $"Customer {i} - {Guid.NewGuid().ToString("N").Substring(0, 8)}" );
-        }
-        return data.AsQueryable();
-    }
-
-    private class MyKeyCodeListener : IKeyCodeListener
-    {
-        private Action<FluentKeyCodeEventArgs> _actionKeyDown;
-        private Action<FluentKeyCodeEventArgs>? _actionKeyUp;
-
-        public MyKeyCodeListener(Action<FluentKeyCodeEventArgs> actionKeyDown, Action<FluentKeyCodeEventArgs>? actionKeyUp = null)
-        {
-            _actionKeyDown = actionKeyDown;
-            _actionKeyUp = actionKeyUp;
-        }
-
-        public Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
-        {
-            _actionKeyDown.Invoke(args);
-            return Task.CompletedTask;
-        }
-
-        public Task OnKeyUpAsync(FluentKeyCodeEventArgs args)
-        {
-            _actionKeyUp?.Invoke(args);
-            return Task.CompletedTask;
-        }
     }
 
     [Fact]
@@ -1279,10 +1353,643 @@
                     <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true"/>
                 </ChildContent>
                 <EmptyContent><p>empty content</p></EmptyContent>
-            </FluentDataGrid>);
+            </FluentDataGrid>
+    );
 
         // Assert
         cut.Verify();
     }
 
+
+    [Fact]
+    public void FluentDataGrid_ColumnKeyGridSort()
+    {
+        // Arrange && Act
+        FluentDataGrid<GridRow>? grid = default!;
+
+        var _firstNameSort = new ColumnKeyGridSort<GridRow>(
+        "firstname",
+        (queryable, sortAscending) =>
+        {
+            if (sortAscending)
+            {
+                return queryable.OrderBy(x => x.Properties["firstname"]);
+            }
+            else
+            {
+                return queryable.OrderByDescending(x => x.Properties["firstname"]);
+            }
+        });
+
+
+        var  _lastNameSort = new ColumnKeyGridSort<GridRow>(
+            "lastname",
+            (queryable, sortAscending) =>
+            {
+                if (sortAscending)
+                {
+                    return queryable.OrderBy(x => x.Properties["lastname"]);
+                }
+                else
+                {
+                    return queryable.OrderByDescending(x => x.Properties["lastname"]);
+                }
+            }
+        );
+
+       var _gridData = new GridRow[] {
+            new(new Dictionary<string, string>{ { "firstname", "Tom" }, { "lastname", "Cruise" } }),
+            new(new Dictionary<string, string>{ { "firstname", "Dolly" }, { "lastname", "Parton" } }),
+            new(new Dictionary<string, string>{ { "firstname", "Nicole" }, { "lastname", "Kidman" } }),
+            new(new Dictionary<string, string>{ { "firstname", "James" }, { "lastname", "Bond" } }),
+        }.AsQueryable();
+
+
+
+        var cut = Render<FluentDataGrid<GridRow>>(
+            @<FluentDataGrid @ref="@grid" Items="@_gridData" GenerateHeader="DataGridGeneratedHeaderType.None">
+                <TemplateColumn Sortable="true" Title="First Name" IsDefaultSortColumn="true" SortBy="_firstNameSort">
+                    @context.Properties["firstname"]
+                </TemplateColumn>
+
+                <TemplateColumn Sortable="true" Title="Last Name" SortBy="_lastNameSort">
+                    @context.Properties["lastname"]
+                </TemplateColumn>
+             </FluentDataGrid>
+        );
+
+        var row = cut.FindComponent<FluentDataGridRow<GridRow>>();
+        // Assert
+
+        Assert.Equal("Dolly", row.Instance.InternalGridContext.Items.First().Properties["firstname"]);
+
+    }
+
+    [Fact]
+    public void FluentDataGrid_ColumnKeyGridSort_NoSortFunction()
+    {
+        // Arrange && Act
+        FluentDataGrid<GridRow>? grid = default!;
+        ColumnKeyGridSort<GridRow>? _firstNameSort = null;
+
+
+        var  _lastNameSort = new ColumnKeyGridSort<GridRow>(
+            "lastname",
+            (queryable, sortAscending) =>
+            {
+                if (sortAscending)
+                {
+                    return queryable.OrderBy(x => x.Properties["lastname"]);
+                }
+                else
+                {
+                    return queryable.OrderByDescending(x => x.Properties["lastname"]);
+                }
+            }
+        );
+
+       var _gridData = new GridRow[] {
+            new(new Dictionary<string, string>{ { "firstname", "Tom" }, { "lastname", "Cruise" } }),
+            new(new Dictionary<string, string>{ { "firstname", "Dolly" }, { "lastname", "Parton" } }),
+            new(new Dictionary<string, string>{ { "firstname", "Nicole" }, { "lastname", "Kidman" } }),
+            new(new Dictionary<string, string>{ { "firstname", "James" }, { "lastname", "Bond" } }),
+        }.AsQueryable();
+
+        var cut = Render<FluentDataGrid<GridRow>>(
+            @<FluentDataGrid @ref="@grid" Items="@_gridData" GenerateHeader="DataGridGeneratedHeaderType.None">
+                <TemplateColumn Sortable="true" Title="First Name" IsDefaultSortColumn="true" SortBy="_firstNameSort">
+                    @context.Properties["firstname"]
+                </TemplateColumn>
+
+                <TemplateColumn Sortable="true" Title="Last Name" SortBy="_lastNameSort">
+                    @context.Properties["lastname"]
+                </TemplateColumn>
+             </FluentDataGrid>);
+
+        var row = cut.FindComponent<FluentDataGridRow<GridRow>>();
+        // Assert
+
+        Assert.Equal("Tom", row.Instance.InternalGridContext.Items.First().Properties["firstname"]);
+    }
+
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Sortable="true"/>
+                </ChildContent>
+                <EmptyContent><p>empty content</p></EmptyContent>
+            </FluentDataGrid>);
+
+        var rows = cut.FindComponents<FluentDataGridRow<Customer>>();
+
+        // Assert
+        Assert.NotEmpty(rows); // Asserting that there are rows present
+        Assert.Equal(4, rows.Count);  //3 DataRows + 1 header row
+    }
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu_MenuKeyDown()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true" ResizableColumns="true" ResizeType="DataGridResizeType.Discrete">
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Sortable="true">
+                    <ColumnOptions>
+                        <div class="options">Hello!</div>
+                    </ColumnOptions>
+                </PropertyColumn>
+            </FluentDataGrid>
+        );
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        // Simulate a click on the header cell button
+        row.Find(".col-sort-button").Click();
+
+        var items = cut.FindAll("fluent-menu-item",true);
+
+        items[0].KeyDown(new KeyboardEventArgs() { Key = "Enter" }); // Click the first item in the menu - Sort
+        items[1].KeyDown(new KeyboardEventArgs() { Key = "Enter" }); // Click the second item in the menu - Resize
+        items[2].KeyDown(new KeyboardEventArgs() { Key = "Enter" }); // Click the third item in the menu - Options
+
+        // Assert
+        Assert.NotEmpty(items); // Asserting that there are menu items present
+        Assert.Equal(3, items.Count); // Only one item in the menu
+    }
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu_OnlySort()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true" >
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Sortable="true" Tooltip="true" />
+            </FluentDataGrid>
+        );
+        grid.SortByColumnAsync("Name", DataGridSortDirection.Descending);
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        // Simulate a click on the header cell button
+        row.Find(".col-sort-button").Click();
+
+        var items = cut.FindAll("fluent-menu-item",true);
+
+        // Assert
+        Assert.NotEmpty(items); // Asserting that there are menu items present
+        Assert.Single(items); // Only one item in the menu
+    }
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu_Filtered_NoOptions()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true" >
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Sortable="true" Filtered="true" />
+            </FluentDataGrid>
+        );
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        // Simulate a click on the header cell button
+        row.Find(".col-sort-button").Click();
+
+        var items = cut.FindAll("fluent-menu-item",true);
+
+        // Assert
+        Assert.NotEmpty(items); // Asserting that there are menu items present
+        Assert.Single(items); // Only one item in the menu
+    }
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu_Filtered_WithOptions()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true" >
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Sortable="true" Filtered="true">
+                    <ColumnOptions>
+                        <div class="options">Hello!</div>
+                    </ColumnOptions>
+                </PropertyColumn>
+            </FluentDataGrid>
+        );
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        // Simulate a click on the header cell button
+        row.Find(".col-sort-button").Click();
+
+        var items = cut.FindAll("fluent-menu-item",true);
+
+        // Assert
+        Assert.NotEmpty(items); // Asserting that there are menu items present
+        Assert.Equal(2, items.Count); // Only one item in the menu
+    }
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu_OnlyResize()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true" ResizableColumns="true" ResizeType="DataGridResizeType.Discrete">
+                <PropertyColumn Property="@(x => x.Name)">
+                </PropertyColumn>
+            </FluentDataGrid>
+        );
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        // Simulate a click on the header cell button
+        row.Find(".col-sort-button").Click();
+
+        var items = cut.FindAll("fluent-menu-item",true);
+
+        // Assert
+        Assert.NotEmpty(items); // Asserting that there are menu items present
+        Assert.Single(items); // Only one item in the menu
+    }
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu_OnlyOptions()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true" >
+                <PropertyColumn Property="@(x => x.Name)">
+                    <ColumnOptions>
+                        <div class="options">Hello!</div>
+                    </ColumnOptions>
+                </PropertyColumn>
+            </FluentDataGrid>
+        );
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        // Simulate a click on the header cell button
+        row.Find(".col-sort-button").Click();
+
+        var items = cut.FindAll("fluent-menu-item",true);
+
+        // Assert
+        Assert.NotEmpty(items); // Asserting that there are menu items present
+        Assert.Single(items); // Only one item in the menu
+    }
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu_NoColumnActions()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true" >
+                <PropertyColumn Property="@(x => x.Name)" Sortable="false">
+                </PropertyColumn>
+            </FluentDataGrid>
+        );
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        // Assert
+        Assert.Equal("Name", row.Find(".col-title-text").TextContent); // Only one item in the menu
+    }
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu_ButtonClick()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true" >
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true">
+                </PropertyColumn>
+            </FluentDataGrid>
+    );
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        row.Find(".col-sort-button").Click(); // Sort ascending by default
+        row.Find(".col-sort-button").Click(); // Sort descending
+
+        var button = cut.FindComponent<FluentButton>();
+        cut.InvokeAsync(button.Instance.OnClick.InvokeAsync);
+
+
+        // Assert
+        Assert.Equal("Name", row.Find(".col-title-text").TextContent); // Only one item in the menu
+    }
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellItemTemplate()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer"
+                @ref="@grid"
+                Items="@GetCustomers().AsQueryable()">
+                <PropertyColumn Property="@(x => x.Name)">
+                    <HeaderCellItemTemplate>Hello!</HeaderCellItemTemplate>
+                </PropertyColumn>
+            </FluentDataGrid>
+        );
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        // Simulate a click on the header cell button
+        var cell = row.Find("th");
+
+        // Assert
+        Assert.NotNull(cell); // Asserting that there are menu items present
+        Assert.Equal("Hello!", cell.InnerHtml); // Only one item in the menu
+    }
+
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellTitleTemplate()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer"
+                @ref="@grid"
+                Items="@GetCustomers().AsQueryable()">
+                <PropertyColumn Property="@(x => x.Name)">
+                    <HeaderCellTitleTemplate>Hello!</HeaderCellTitleTemplate>
+                </PropertyColumn>
+            </FluentDataGrid>
+        );
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        // Simulate a click on the header cell button
+        var cell = row.Find(".col-title-text");
+
+        // Assert
+        Assert.NotNull(cell); // Asserting that there are menu items present
+        Assert.Equal("Hello!", cell.InnerHtml); // Only one item in the menu
+    }
+
+    [Fact]
+    public void FluentDataGrid_TemplateColumn_WithTooltip()
+    {
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@GetCustomers().AsQueryable()" >
+                    <TemplateColumn Title="Name" Tooltip="true" TooltipText="@(context => context.Name)">
+                        <p class="customer-name">@context.Name</p>
+                    </TemplateColumn>
+            </FluentDataGrid>);
+
+        // Assert
+        Assert.NotNull(cut.Find("tr"));
+    }
+
+        [Fact]
+    public void FluentDataGrid_PropertyColumn_WithFormat()
+    {
+        // Arrange && Act
+        var customers = GetCustomers();
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@customers.AsQueryable()">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Id)" Format="D5" Title="ID"/>
+                    <PropertyColumn Property="@(x => x.Name)" Title="Name"/>
+                    <PropertyColumn Property="@(x => x.CreatedDate)" Format="yyyy-MM-dd" Title="Created"/>
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Assert
+        var rows = cut.FindComponents<FluentDataGridRow<Customer>>();
+
+        // Verify header row exists
+        Assert.NotEmpty(rows);
+
+        // Find data rows (excluding header)
+        var dataRows = rows.Where(r => r.Instance.RowType == DataGridRowType.Default).ToList();
+        Assert.NotEmpty(dataRows);
+
+        // Verify formatted content is rendered
+        var gridContent = cut.Markup;
+
+        // Check formatted ID (should be padded with zeros)
+        Assert.Contains("00001", gridContent); // ID 1 formatted as D5
+        Assert.Contains("00002", gridContent); // ID 2 formatted as D5
+
+        // Check formatted date (should be yyyy-MM-dd format)
+        Assert.Contains("2023-01-15", gridContent); // Date formatted as yyyy-MM-dd
+        Assert.Contains("2023-02-20", gridContent); // Date formatted as yyyy-MM-dd
+    }
+
+    [Fact]
+    public void FluentDataGrid_PropertyColumn_WithCustomFormat()
+    {
+        // Arrange && Act
+        var customers = GetCustomers();
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@customers.AsQueryable()" GenerateHeader="DataGridGeneratedHeaderType.None" >
+                <PropertyColumn Property="@(x => x.CreatedDate)" Format="MM-dd-yyyy" Title="Date"/>
+            </FluentDataGrid>);
+
+        // Assert
+        var rows = cut.FindComponents<FluentDataGridRow<Customer>>();
+
+
+        var cell = rows[0].Find("td");
+        Assert.Contains("01-15-2023", cell.InnerHtml); // Check custom date format
+
+        cell = rows[1].Find("td");
+        Assert.Contains("02-20-2023", cell.InnerHtml); // Check custom date format
+    }
+
+    [Fact]
+    public void FluentDataGrid_PropertyColumn_WithEnumData()
+    {
+        // Arrange && Act
+        var customersWithStatus = GetCustomers();
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@customersWithStatus.AsQueryable()">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" Title="Name"/>
+                    <PropertyColumn Property="@(x => x.Status)" Title="Status"/>
+                </ChildContent>
+            </FluentDataGrid>
+    );
+
+        // Assert
+        var rows = cut.FindComponents<FluentDataGridRow<Customer>>();
+
+        // Verify header row exists
+        Assert.NotEmpty(rows);
+
+        // Find data rows (excluding header)
+        var dataRows = rows.Where(r => r.Instance.RowType == DataGridRowType.Default).ToList();
+        Assert.NotEmpty(dataRows);
+
+        // Verify enum content is rendered as string
+        var gridContent = cut.Markup;
+
+        // Check enum values are displayed as strings
+        Assert.Contains("active", gridContent);
+        Assert.Contains("inactive", gridContent);
+        Assert.Contains("pending", gridContent);
+    }
+
+    [Fact]
+    public void FluentDataGrid_PropertyColumn_WithFormat_InvalidType()
+    {
+        // Arrange & Act & Assert
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            var customers = GetCustomers();
+            var cut = Render<FluentDataGrid<Customer>>(
+                @<FluentDataGrid Items="@customers.AsQueryable()">
+                    <ChildContent>
+                        <PropertyColumn Property="@(x => x.Name)" Format="D5" Title="Name"/>
+                    </ChildContent>
+                </FluentDataGrid>);
+        });
+    }
+
+        [Fact]
+    public void FluentDataGrid_PropertyColumn_UsesDisplayAttribute()
+    {
+        // Arrange && Act
+        var customers = GetCustomersWithDisplayAttributes();
+        var cut = Render<FluentDataGrid<CustomerWithDisplayAttributes>>(
+            @<FluentDataGrid Items="@customers.AsQueryable()">
+                    <PropertyColumn Property="@(x => x.Id)" />
+                    <PropertyColumn Property="@(x => x.FullName)" />
+            </FluentDataGrid>);
+
+        // Assert
+        var headerRow = cut.FindComponents<FluentDataGridRow<CustomerWithDisplayAttributes>>()
+            .FirstOrDefault(r => r.Instance.RowType == DataGridRowType.Header);
+
+        Assert.NotNull(headerRow);
+
+        // Verify that Display attribute values are used as column titles
+        var headerContent = headerRow.Markup;
+        Assert.Contains("Customer ID", headerContent); // From Display attribute
+        Assert.Contains("Customer Name", headerContent); // From Display attribute
+    }
+
+    [Fact]
+    public void FluentDataGrid_PropertyColumn_ExplicitTitle_OverridesDisplayAttribute()
+    {
+        // Arrange && Act
+        var customers = GetCustomersWithDisplayAttributes();
+        var cut = Render<FluentDataGrid<CustomerWithDisplayAttributes>>(
+            @<FluentDataGrid Items="@customers.AsQueryable()">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.FullName)" Title="Override Title" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Assert
+        var headerRow = cut.FindComponents<FluentDataGridRow<CustomerWithDisplayAttributes>>()
+            .FirstOrDefault(r => r.Instance.RowType == DataGridRowType.Header);
+
+        Assert.NotNull(headerRow);
+
+        // Verify that explicit Title parameter overrides Display attribute
+        var headerContent = headerRow.Markup;
+        Assert.Contains("Override Title", headerContent);
+        Assert.DoesNotContain("Customer Name", headerContent); // Display attribute should be ignored
+    }
+
+    // Sample data with Display attributes
+
+
+    // Sample data...
+    private IEnumerable<Customer> GetCustomers()
+    {
+        yield return new Customer(1, "Denis Voituron", new DateTime(2023, 1, 15), CustomerStatus.Active );
+        yield return new Customer(2, "Vincent Baaij", new DateTime(2023, 2, 20), CustomerStatus.Inactive);
+        yield return new Customer(3, "Bill Gates", new DateTime(2023, 3, 31), CustomerStatus.Pending);
+    }
+
+    private record GridRow(Dictionary<string, string> Properties);
+    private record Customer(int Id, string Name, DateTime CreatedDate, CustomerStatus Status);
+
+
+    private IQueryable<Customer> GetRandomCustomers(int size = 500)
+    {
+        Customer[] data = new Customer[size];
+
+        for (int i = 0; i < size; i++)
+        {
+
+            data[i] = new Customer(i, $"Customer {i} - {Guid.NewGuid().ToString("N").Substring(0, 8)}", new DateTime(2025,  (i % 12) + 1, 2), CustomerStatus.Suspended );
+        }
+        return data.AsQueryable();
+    }
+
+    private class MyKeyCodeListener : IKeyCodeListener
+    {
+        private Action<FluentKeyCodeEventArgs> _actionKeyDown;
+        private Action<FluentKeyCodeEventArgs>? _actionKeyUp;
+
+        public MyKeyCodeListener(Action<FluentKeyCodeEventArgs> actionKeyDown, Action<FluentKeyCodeEventArgs>? actionKeyUp = null)
+        {
+            _actionKeyDown = actionKeyDown;
+            _actionKeyUp = actionKeyUp;
+        }
+
+        public Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+        {
+            _actionKeyDown.Invoke(args);
+            return Task.CompletedTask;
+        }
+
+        public Task OnKeyUpAsync(FluentKeyCodeEventArgs args)
+        {
+            _actionKeyUp?.Invoke(args);
+            return Task.CompletedTask;
+        }
+    }
+
+    // Sample enum types for testing
+    private enum CustomerStatus
+    {
+        Active,
+        Inactive,
+        Pending,
+        Suspended
+    }
+
+    private IEnumerable<CustomerWithDisplayAttributes> GetCustomersWithDisplayAttributes()
+    {
+        yield return new CustomerWithDisplayAttributes(1, "Denis Voituron");
+        yield return new CustomerWithDisplayAttributes(2, "Vincent Baaij");
+        yield return new CustomerWithDisplayAttributes(3, "Bill Gates");
+    }
+
+    private class CustomerWithDisplayAttributes
+    {
+        public CustomerWithDisplayAttributes(int id, string name) // Changed string id back to int
+        {
+            Id = id;
+            FullName = name;
+        }
+
+        [Display(Name = "Customer ID")]
+        public int Id { get; set; }
+
+        [Display(Name = "Customer Name")]
+        public string FullName { get; set; }
+
+    }
 }

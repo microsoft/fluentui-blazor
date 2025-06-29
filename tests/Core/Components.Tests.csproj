@@ -73,19 +73,4 @@
       <DependentUpon>FluentLocalizer.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Components\DataGrid\FluentDataGridSortByTests.DataGridSortByTests_SortByColumnTitle_Descending.verified.razor.html">
-      <DependentUpon>FluentDataGridSortByTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\DataGrid\FluentDataGridSortByTests.DataGridSortByTests_SortByColumnTitle_Ascending.verified.razor.html">
-      <DependentUpon>FluentDataGridSortByTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\DataGrid\FluentDataGridSortByTests.DataGridSortByTests_SortByColumnIndex_Descending.verified.razor.html">
-      <DependentUpon>FluentDataGridSortByTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\DataGrid\FluentDataGridSortByTests.DataGridSortByTests_SortByColumnIndex_Ascending.verified.razor.html">
-      <DependentUpon>FluentDataGridSortByTests.razor</DependentUpon>
-    </None>
-  </ItemGroup>
 </Project>

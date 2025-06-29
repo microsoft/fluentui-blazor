@@ -200,7 +200,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
     /// <inheritdoc />
     [Parameter]
-    public override IGridSort<TGridItem>? SortBy { get; set; }
+    public override IGridSort<TGridItem>? SortBy { get; set; } = null;
 
     /// <summary>
     /// Allows to clear the selection.
@@ -516,8 +516,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         return TooltipText?.Invoke(item);
     }
 
-    /// <inheritdoc />
-    protected override bool IsSortableByDefault() => SortBy is not null;
+    /// <summary >
+    /// A <see cref="FluentDataGrid{TGridItem}"/> cannot be sorted on a <see cref="SelectColumn{TGridItem}"/>.
+    /// </summary>
+    protected override bool IsSortableByDefault() => false;
 
     /// <summary />
     internal async Task OnClickAllAsync(MouseEventArgs e)

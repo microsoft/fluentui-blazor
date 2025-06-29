@@ -115,6 +115,7 @@
         </FluentDataGridRow>
     }
 
+    [ExcludeFromCodeCoverage(Justification = "This method is used virtualized mode and cannot be tested with bUnit currently.")]
     private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
     {
         string? _rowsDataSize = $"height: {ItemSize}px";

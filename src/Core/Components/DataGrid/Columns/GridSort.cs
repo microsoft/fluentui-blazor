@@ -261,7 +261,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
 
     // Not sure we really want this level of complexity, but it converts expressions like @(c => c.Medals.Gold) to "Medals.Gold"
     // Makes it too complex to test, so we exclude from coverage
-    [ExcludeFromCodeCoverage(Justification = "Too complex to write test for.")]
+    [ExcludeFromCodeCoverage(Justification = "Find a way to test this at a later date.")]
 #pragma warning disable MA0015 // Specify the parameter name in ArgumentException
     private static string ToPropertyName(LambdaExpression expression)
     {
@@ -297,22 +297,25 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
             }
         }
 
-        // Now construct the string
-        return string.Create(length, body, (chars, body) =>
-        {
-            var nextPos = chars.Length;
-            while (body is not null)
-            {
-                nextPos -= body.Member.Name.Length;
-                body.Member.Name.CopyTo(chars[nextPos..]);
-                if (nextPos > 0)
-                {
-                    chars[--nextPos] = '.';
-                }
+        return string.Create(length, body, action);
+    }
 
-                body = (body.Expression as MemberExpression)!;
+    [ExcludeFromCodeCoverage(Justification = "Find a way to test this at a later date.")]
+    private static void action(Span<char> chars, MemberExpression body)
+    {
+
+        var nextPos = chars.Length;
+        while (body is not null)
+        {
+            nextPos -= body.Member.Name.Length;
+            body.Member.Name.CopyTo(chars[nextPos..]);
+            if (nextPos > 0)
+            {
+                chars[--nextPos] = '.';
             }
-        });
+
+            body = (body.Expression as MemberExpression)!;
+        }
     }
 }
 #pragma warning restore MA0015 // Specify the parameter name in ArgumentException

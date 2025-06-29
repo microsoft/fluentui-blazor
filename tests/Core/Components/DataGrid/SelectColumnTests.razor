@@ -1,4 +1,6 @@
 ﻿@using Xunit;
+@using Microsoft.AspNetCore.Components;
+
 @inherits Bunit.TestContext
 
 @code
@@ -15,7 +17,7 @@
         new Person(3, "Julie Smith", new DateOnly(1958, 10, 10)),
     }.AsQueryable();
 
-    public FluentDataGridColumSelectTests()
+    public SelectColumnTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
 
@@ -25,25 +27,25 @@
     }
 
     [Fact]
-    public void FluentDataGrid_ColumSelect_SingleSelect_Rendering()
+    public void SelectColumnTests_SingleSelect_Rendering()
     {
         IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1) };
 
         // Arrange
         var cut = Render(
-    @<FluentDataGrid Items="@People" TGridItem="Person">
-        <SelectColumn TGridItem="Person"
-                      SelectMode="@DataGridSelectMode.Single"
-                      @bind-SelectedItems="@SelectedItems" />
-        <PropertyColumn Property="@(p => p.Name)" />
-    </FluentDataGrid>
-    );
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Single"
+                              @bind-SelectedItems="@SelectedItems" Tooltip="true" TooltipText="@(p => "Select " + p.Name)" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+            );
 
         cut.Verify();
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_SingleSelect_SelectedItems()
+    public async Task SelectColumnTests_SingleSelect_SelectedItems()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
 
@@ -52,7 +54,8 @@
     @<FluentDataGrid Items="@People" TGridItem="Person">
         <SelectColumn TGridItem="Person"
                       SelectMode="@DataGridSelectMode.Single"
-                      @bind-SelectedItems="@SelectedItems" />
+                      @bind-SelectedItems="@SelectedItems"
+                      Tooltip="true"/>
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
         );
@@ -75,7 +78,7 @@
 
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_Selectable_SingleSelect_SelectedItems()
+    public async Task SelectColumnTests_Selectable_SingleSelect_SelectedItems()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
 
@@ -107,7 +110,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_SingleSelect_Property()
+    public async Task SelectColumnTests_SingleSelect_Property()
     {
         var items = new List<Person>(People).AsQueryable();
 
@@ -138,7 +141,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_Selectable_SingleSelect_Property()
+    public async Task SelectColumnTests_Selectable_SingleSelect_Property()
     {
         var items = new List<Person>(People).AsQueryable();
 
@@ -171,7 +174,7 @@
     }
 
     [Fact]
-    public void FluentDataGrid_ColumSelect_SingleStickySelect_Rendering()
+    public void SelectColumnTests_SingleStickySelect_Rendering()
     {
         IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1) };
 
@@ -189,7 +192,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_SingleStickySelect_SelectedItems()
+    public async Task SelectColumnTests_SingleStickySelect_SelectedItems()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
 
@@ -219,7 +222,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_SingleStickySameItemSelect_SelectedItems()
+    public async Task SelectColumnTests_SingleStickySameItemSelect_SelectedItems()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
 
@@ -249,7 +252,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_Selectable_SingleStickySelect_SelectedItems()
+    public async Task SelectColumnTests_Selectable_SingleStickySelect_SelectedItems()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
 
@@ -281,7 +284,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_SingleStickySelect_Property()
+    public async Task SelectColumnTests_SingleStickySelect_Property()
     {
         var items = new List<Person>(People).AsQueryable();
 
@@ -312,7 +315,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_Selectable_SingleStickySelect_Property()
+    public async Task SelectColumnTests_Selectable_SingleStickySelect_Property()
     {
         var items = new List<Person>(People).AsQueryable();
 
@@ -345,7 +348,7 @@
     }
 
     [Fact]
-    public void FluentDataGrid_ColumSelect_MultiSelect_Rendering()
+    public void SelectColumnTests_MultiSelect_Rendering()
     {
         IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1), People.ElementAt(2) };
 
@@ -363,7 +366,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_MultiSelect_SelectedItems()
+    public async Task SelectColumnTests_MultiSelect_SelectedItems()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
 
@@ -398,7 +401,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_Selectable_MultiSelect_SelectedItems()
+    public async Task SelectColumnTests_Selectable_MultiSelect_SelectedItems()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
 
@@ -435,7 +438,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_MultiSelect_Property()
+    public async Task SelectColumnTests_MultiSelect_Property()
     {
         var items = new List<Person>(People).AsQueryable();
 
@@ -471,7 +474,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_Selectable_MultiSelect_Property()
+    public async Task SelectColumnTests_Selectable_MultiSelect_Property()
     {
         var items = new List<Person>(People).AsQueryable();
 
@@ -509,7 +512,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_MultiSelect_SelectAll_SelectedItems()
+    public async Task SelectColumnTests_MultiSelect_SelectAll_SelectedItems()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
 
@@ -539,7 +542,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_MultiSelect_SelectAll_Property()
+    public async Task SelectColumnTests_MultiSelect_SelectAll_Property()
     {
         var items = new List<Person>(People).AsQueryable();
 
@@ -572,7 +575,7 @@
     }
 
     // [Fact]
-    // public void FluentDataGrid_ColumSelect_SwitchMultiToSingleSelect()
+    // public void SelectColumnTests_SwitchMultiToSingleSelect()
     // {
     //     IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1), People.ElementAt(2) };
 
@@ -602,7 +605,7 @@
     // }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_SelectAll_Disabled()
+    public async Task SelectColumnTests_SelectAll_Disabled()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
 
@@ -628,45 +631,45 @@
     }
 
     [Fact]
-    public void FluentDataGrid_ColumSelect_MultiSelect_Customized_Rendering()
+    public void SelectColumnTests_MultiSelect_Customized_Rendering()
     {
         IEnumerable<Person> SelectedItems = new List<Person>() { People.ElementAt(1), People.ElementAt(2) };
 
         // Arrange
         var cut = Render(
-    @<FluentDataGrid Items="@People" TGridItem="Person">
-        <SelectColumn TGridItem="Person"
-                      SelectMode="@DataGridSelectMode.Multiple"
-                      @bind-SelectedItems="@SelectedItems">
-            <SelectAllTemplate>
-                @(context.AllSelected == true ? "✅" : context.AllSelected == null ? "➖" : "⬜")
-            </SelectAllTemplate>
-            <ChildContent>
-                @(SelectedItems.Contains(context) ? "✅" : " ")
-            </ChildContent>
-        </SelectColumn>
-        <PropertyColumn Property="@(p => p.Name)" />
-    </FluentDataGrid>
-    );
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Multiple"
+                              @bind-SelectedItems="@SelectedItems">
+                    <SelectAllTemplate>
+                        @(context.AllSelected == true ? "✅" : context.AllSelected == null ? "➖" : "⬜")
+                    </SelectAllTemplate>
+                    <ChildContent>
+                        @(SelectedItems.Contains(context) ? "✅" : " ")
+                    </ChildContent>
+                </SelectColumn>
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+        );
 
         cut.Verify();
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_SingleSelect_NotSelectFromEntireRow()
+    public async Task SelectColumnTests_SingleSelect_NotSelectFromEntireRow()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
-    @<FluentDataGrid Items="@People" TGridItem="Person">
-        <SelectColumn TGridItem="Person"
-                      SelectFromEntireRow="false"
-                      SelectMode="@DataGridSelectMode.Single"
-                      @bind-SelectedItems="@SelectedItems" />
-        <PropertyColumn Property="@(p => p.Name)" />
-    </FluentDataGrid>
-    );
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectFromEntireRow="false"
+                              SelectMode="@DataGridSelectMode.Single"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+        );
 
         // Act - Click on the second cell => no selection
         await ClickOnRowAsync(cut, row: 0, col: 1);
@@ -684,20 +687,20 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_MultiSelect_NotSelectFromEntireRow()
+    public async Task SelectColumnTests_MultiSelect_NotSelectFromEntireRow()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
 
         // Arrange
         var cut = Render(
-    @<FluentDataGrid Items="@People" TGridItem="Person">
-        <SelectColumn TGridItem="Person"
-                      SelectFromEntireRow="false"
-                      SelectMode="@DataGridSelectMode.Multiple"
-                      @bind-SelectedItems="@SelectedItems" />
-        <PropertyColumn Property="@(p => p.Name)" />
-    </FluentDataGrid>
-    );
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectFromEntireRow="false"
+                              SelectMode="@DataGridSelectMode.Multiple"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+            );
 
         // Act - Click on the second cell => no selection
         await ClickOnRowAsync(cut, row: 0, col: 1);
@@ -718,6 +721,393 @@
         Assert.Equal(2, SelectedItems.Count());
         Assert.Equal(1, SelectedItems.ElementAt(0).PersonId);
         Assert.Equal(2, SelectedItems.ElementAt(1).PersonId);
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_ClearSelection_SingleSelect()
+    {
+        IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1) };
+
+        // Arrange
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Single"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+    );
+
+        // Pre-Assert - Item is selected
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+
+        // Act - Clear selection
+        var selectColumn = cut.FindComponent<SelectColumn<Person>>();
+
+        await ClickOnRowAsync(cut, row: 0, col: 0);
+        selectColumn.Instance.ClearSelection();
+
+        // Assert - Selection is cleared
+        Assert.False(SelectedItems.First().Selected);
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_ClearSelection_MultiSelect()
+    {
+        IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1), People.ElementAt(2) };
+
+        // Arrange
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Multiple"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+        );
+
+        // Pre-Assert - Items are selected
+        Assert.Equal(2, cut.FindAll("svg[row-selected]").Count);
+        Assert.Equal(2, SelectedItems.Count());
+
+        // Act - Clear selection
+        var selectColumn = cut.FindComponent<SelectColumn<Person>>();
+
+        await ClickOnAllAsync(cut);
+
+        selectColumn.Instance.ClearSelection();
+
+        // Assert - Selection is cleared
+        Assert.Empty(SelectedItems);
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_ClearSelectionAsync_SingleSelect()
+    {
+        IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1) };
+
+        // Arrange
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Single"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+        );
+
+        // Pre-Assert - Item is selected
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+
+        // Act - Clear selection
+        var selectColumn = cut.FindComponent<SelectColumn<Person>>();
+
+        await ClickOnRowAsync(cut, row: 0, col: 0);
+        await selectColumn.Instance.ClearSelectionAsync();
+
+        // Assert - Selection is cleared
+        Assert.False(SelectedItems.First().Selected);
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_ClearSelectionAsync_MultiSelect()
+    {
+        IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1), People.ElementAt(2) };
+
+        // Arrange
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Multiple"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+        );
+
+        // Pre-Assert - Items are selected
+        Assert.Equal(2, cut.FindAll("svg[row-selected]").Count);
+        Assert.Equal(2, SelectedItems.Count());
+
+        // Act - Clear selection
+        var selectColumn = cut.FindComponent<SelectColumn<Person>>();
+
+        await ClickOnAllAsync(cut);
+
+        await selectColumn.Instance.ClearSelectionAsync();
+
+        // Assert - Selection is cleared
+        Assert.Empty(SelectedItems);
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_SingleSelect_KeyboardSelection()
+    {
+        IEnumerable<Person> SelectedItems = new List<Person>();
+
+        // Arrange
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Single"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Press Enter key on Row 0
+        await KeyDownOnRowAsync(cut, row: 0, "Enter");
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+        Assert.Equal(1, SelectedItems.First().PersonId);
+
+        // Act - Press NumpadEnter key on Row 1
+        await KeyDownOnRowAsync(cut, row: 1, "NumpadEnter");
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+        Assert.Equal(2, SelectedItems.First().PersonId);
+
+        // Act - Press other key on Row 2 (should not select)
+        await KeyDownOnRowAsync(cut, row: 2, "Space");
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+        Assert.Equal(2, SelectedItems.First().PersonId); // Should still be row 1
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_MultiSelect_KeyboardSelection()
+    {
+        IEnumerable<Person> SelectedItems = new List<Person>();
+
+        // Arrange
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Multiple"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Press Enter key on Row 0
+        await KeyDownOnRowAsync(cut, row: 0, "Enter");
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+
+        // Act - Press NumpadEnter key on Row 1
+        await KeyDownOnRowAsync(cut, row: 1, "NumpadEnter");
+        Assert.Equal(2, cut.FindAll("svg[row-selected]").Count);
+        Assert.Equal(2, SelectedItems.Count());
+
+        // Act - Press Enter key on Row 0 again (should unselect)
+        await KeyDownOnRowAsync(cut, row: 0, "Enter");
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+        Assert.Equal(2, SelectedItems.First().PersonId);
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_KeyboardSelection_NotSelectFromEntireRow()
+    {
+        IEnumerable<Person> SelectedItems = new List<Person>();
+
+        // Arrange
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectFromEntireRow="false"
+                              SelectMode="@DataGridSelectMode.Single"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Empty(SelectedItems);
+
+        // Act - Press Enter key on Row 0 (should not select when SelectFromEntireRow is false)
+        await KeyDownOnRowAsync(cut, row: 0, "Enter");
+        Assert.Empty(SelectedItems);
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_KeyboardSelection_Selectable()
+    {
+        IEnumerable<Person> SelectedItems = new List<Person>();
+
+        // Arrange
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Single"
+                              Selectable="@(e => e.BirthDate.Year >= 2000)"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+    );
+
+        // Pre-Assert
+        Assert.Empty(SelectedItems);
+
+        // Act - Press Enter key on Row 0 (should not select - born in 1985)
+        await KeyDownOnRowAsync(cut, row: 0, "Enter");
+        Assert.Empty(SelectedItems);
+
+        // Act - Press Enter key on Row 1 (should select - born in 2004)
+        await KeyDownOnRowAsync(cut, row: 1, "Enter");
+        Assert.Single(SelectedItems);
+        Assert.Equal(2, SelectedItems.First().PersonId);
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_OnRowClick_NotSelectEntireRow()
+    {
+        // Arrange
+        IEnumerable<Person> SelectedItems = new List<Person>();
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectFromEntireRow="false"
+                              SelectMode="@DataGridSelectMode.Single"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+        );
+
+        // Act - Click on Row 0
+        await ClickOnRowAsync(cut, row: 0);
+
+        // Assert - Verify row selection
+        Assert.Empty(SelectedItems);
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_OnRowKeyDown_NotSelectEntireRow()
+    {
+        // Arrange
+        IEnumerable<Person> SelectedItems = new List<Person>();
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectFromEntireRow="false"
+                              SelectMode="@DataGridSelectMode.Single"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+    );
+
+        // Act - key down on Row 0
+        await KeyDownOnRowAsync(cut, row: 0, "Enter");
+
+        // Assert - Verify row selection
+        Assert.Empty(SelectedItems);
+    }
+#pragma warning disable BL0005
+    [Fact]
+    public async Task SelectColumnTests_KeepOnlyFirstSelectedItemAsync_WithNoSelectedItems_DoesNothing()
+    {
+        // Arrange
+        var selectColumn = new SelectColumn<Person>
+        {
+            SelectMode = DataGridSelectMode.Single,
+            SelectedItems = new List<Person>()
+        };
+        // Act
+        var method = selectColumn.GetType().GetMethod("KeepOnlyFirstSelectedItemAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var result = method.Invoke(selectColumn, null);
+        if (result is Task task) await task;
+        // Assert
+        Assert.Empty(selectColumn.SelectedItems);
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_KeepOnlyFirstSelectedItemAsync_WithOneSelectedItem_DoesNothing()
+    {
+        // Arrange
+        var person = People.ElementAt(0);
+        var selectColumn = new SelectColumn<Person>
+        {
+            SelectMode = DataGridSelectMode.Single,
+            SelectedItems = new List<Person> { person },
+        };
+        // Act
+        var method = selectColumn.GetType().GetMethod("KeepOnlyFirstSelectedItemAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var result = method.Invoke(selectColumn, null);
+        if (result is Task task) await task;
+        // Assert
+        Assert.Single(selectColumn.SelectedItems);
+        Assert.Equal(person, selectColumn.SelectedItems.First());
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_KeepOnlyFirstSelectedItemAsync_WithMultipleSelectedItems_KeepsFirstOnly_Single()
+    {
+        // Arrange
+        bool selectAllCalled = false;
+        var people = People.ToList();
+        
+        var selectColumn = new SelectColumn<Person>
+        {
+            SelectMode = DataGridSelectMode.Single,
+            SelectedItems = new List<Person> { people[0], people[1], people[2] },
+            SelectedItemsChanged = EventCallback.Factory.Create<IEnumerable<Person>>(this, () => { }),
+            SelectAllChanged = EventCallback.Factory.Create<bool?>(this, () => { selectAllCalled = true; }),
+        };
+        // Act
+        var method = selectColumn.GetType().GetMethod("KeepOnlyFirstSelectedItemAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var result = method.Invoke(selectColumn, null);
+        if (result is Task task) await task;
+        // Assert
+        Assert.Single(selectColumn.SelectedItems);
+        Assert.Equal(people[0], selectColumn.SelectedItems.First());
+        Assert.True(selectAllCalled);
+    }
+
+    [Fact]
+    public async Task SelectColumnTests_KeepOnlyFirstSelectedItemAsync_WithMultipleSelectedItems_KeepsFirstOnly_SingleSticky()
+    {
+        // Arrange
+        var people = People.ToList();
+        var selectColumn = new SelectColumn<Person>
+        {
+            SelectMode = DataGridSelectMode.SingleSticky,
+            SelectedItems = new List<Person> { people[0], people[1], people[2] }
+        };
+        // Act
+        var method = selectColumn.GetType().GetMethod("KeepOnlyFirstSelectedItemAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var result = method.Invoke(selectColumn, null);
+        if (result is Task task) await task;
+        // Assert
+        Assert.Single(selectColumn.SelectedItems);
+        Assert.Equal(people[0], selectColumn.SelectedItems.First());
+    }
+#pragma warning restore BL0005
+    /// <summary>
+    /// Simulate a key down event on the DataGrid row number <paramref name="row"/>.
+    /// </summary>
+    /// <param name="cut"></param>
+    /// <param name="row"></param>
+    /// <param name="keyCode"></param>
+    /// <returns></returns>
+    private async Task KeyDownOnRowAsync(IRenderedFragment cut, int row, string keyCode)
+    {
+        var item = cut.FindComponents<FluentDataGridRow<Person>>().ElementAt(row + 1);
+        var keyboardEventArgs = new KeyboardEventArgs
+        {
+            Code = keyCode,
+            Key = keyCode
+        };
+        await item.Instance.HandleOnRowKeyDownAsync(item.Instance.RowId, keyboardEventArgs);
+        cut.FindComponent<FluentDataGrid<Person>>().Render();
     }
 
     /// <summary>
