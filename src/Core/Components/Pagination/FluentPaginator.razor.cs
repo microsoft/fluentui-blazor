@@ -102,7 +102,7 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
         await State.SetCurrentPageIndexAsync(pageIndex);
         if (CurrentPageIndexChanged.HasDelegate)
         {
-            await CurrentPageIndexChanged.InvokeAsync(State.CurrentPageIndex);
+            await InvokeAsync(() => CurrentPageIndexChanged.InvokeAsync(State.CurrentPageIndex));
         }
     }
 }

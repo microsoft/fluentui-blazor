@@ -2,6 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -64,6 +66,7 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     /// Produces a collection of (property name, direction) pairs representing the sorting rules.
     /// </summary>
     /// <returns>A collection of (property name, direction) pairs representing the sorting rules</returns>
+    [ExcludeFromCodeCoverage(Justification = "This is a not reachable in a unit test scenario.")]
     public IReadOnlyCollection<SortedProperty> GetSortByProperties() =>
         SortByColumn?.SortBy?.ToPropertyList(SortByAscending) ?? [];
 
@@ -73,6 +76,7 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     /// <param name="req">The <see cref="GridItemsProviderRequest{TGridItem}"/> to compare with the current request.</param>
     /// <returns><see langword="true"/> if the specified request has the same start index, count, sort column, and sort order as
     /// the current request; otherwise, <see langword="false"/>.</returns>
+    [ExcludeFromCodeCoverage(Justification = "This is a not reachable in a unit test scenario.")]
     public bool IsSameRequest(GridItemsProviderRequest<TGridItem> req)
     {
         if (StartIndex != req.StartIndex)

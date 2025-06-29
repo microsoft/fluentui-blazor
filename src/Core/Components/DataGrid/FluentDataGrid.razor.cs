@@ -34,7 +34,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _collectingColumns;
     private ColumnBase<TGridItem>? _displayOptionsForColumn;
     internal ColumnBase<TGridItem>? _displayResizeForColumn;
-    private ColumnBase<TGridItem>? _sortByColumn;
+    internal ColumnBase<TGridItem>? _sortByColumn;
     private bool _sortByAscending;
     private bool _checkColumnOptionsPosition;
     private bool _checkColumnResizePosition;
@@ -780,7 +780,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         _internalGridContext.ResetRowIndexes(startIndex);
-        StateHasChanged();
+        _ = InvokeAsync(StateHasChanged);
     }
 
     // Gets called both by RefreshDataCoreAsync and directly by the Virtualize child component during scrolling
@@ -791,8 +791,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // Debounce the requests. This eliminates a lot of redundant queries at the cost of slight lag after interactions.
         // TODO: Consider making this configurable, or smarter (e.g., doesn't delay on first call in a batch, then the amount
         // of delay increases if you rapidly issue repeated requests, such as when scrolling a long way)
-        await Task.Delay(100);
-
+        await Task.Delay(20);
         if (request.CancellationToken.IsCancellationRequested)
         {
             return default;
@@ -829,7 +828,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             if (_internalGridContext.TotalItemCount > 0 && Loading is null)
             {
                 Loading = false;
-                StateHasChanged();
+                _ = InvokeAsync(StateHasChanged);
             }
 
             // We're supplying the row _index along with each row's data because we need it for aria-rowindex, and we have to account for

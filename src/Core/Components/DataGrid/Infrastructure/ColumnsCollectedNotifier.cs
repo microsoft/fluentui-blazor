@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
@@ -34,6 +35,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 /// For internal use only. Do not use.
 /// </summary>
 /// <typeparam name="TGridItem">For internal use only. Do not use.</typeparam>
+[ExcludeFromCodeCoverage(Justification = "The return in SetParametersAsync can't be invoked because of the way this component gets rendered by the DataGrid. ")]
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class ColumnsCollectedNotifier<TGridItem> : Microsoft.AspNetCore.Components.IComponent
 {

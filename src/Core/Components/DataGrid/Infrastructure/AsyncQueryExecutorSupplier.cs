@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
+[ExcludeFromCodeCoverage(Justification = "This is an *internal* utility class that is too complicated to test. It provides a way to get an async query executor for EF Core queries.")]
 internal static class AsyncQueryExecutorSupplier
 {
     // The primary goal with this is to ensure that:

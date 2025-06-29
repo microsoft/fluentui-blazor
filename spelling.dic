@@ -95,3 +95,7 @@ rowcount
 displaymode
 Voituron
 inputfile
+eventargs
+Subscribable
+colspan
+Voituron

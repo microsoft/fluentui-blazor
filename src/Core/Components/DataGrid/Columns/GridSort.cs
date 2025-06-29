@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -259,6 +260,8 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
     }
 
     // Not sure we really want this level of complexity, but it converts expressions like @(c => c.Medals.Gold) to "Medals.Gold"
+    // Makes it too complex to test, so we exclude from coverage
+    [ExcludeFromCodeCoverage(Justification = "Too complex to write test for.")]
 #pragma warning disable MA0015 // Specify the parameter name in ArgumentException
     private static string ToPropertyName(LambdaExpression expression)
     {

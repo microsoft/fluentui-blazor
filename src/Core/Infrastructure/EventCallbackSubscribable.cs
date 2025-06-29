@@ -24,7 +24,14 @@ internal sealed class EventCallbackSubscribable<T>
     {
         foreach (var callback in _callbacks.Values)
         {
-            await callback.InvokeAsync(eventArg);
+            try
+            {
+                await callback.InvokeAsync(eventArg);
+            }
+            catch (InvalidOperationException)
+            {
+                // Continue invoking the rest of the callbacks even if one fails.
+            }
         }
     }
 

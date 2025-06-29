@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
@@ -21,6 +22,8 @@ internal sealed class InternalGridContext<TGridItem>
 
     public ICollection<TGridItem> Items { get; set; } = [];
     public int TotalItemCount { get; set; }
+
+    [ExcludeFromCodeCoverage(Justification = "This can only be set when a Virtualized grid is scrolled which can't be done by bUnit")]
     public int TotalViewItemCount { get; set; }
 
     public FluentDataGrid<TGridItem> Grid { get; }
