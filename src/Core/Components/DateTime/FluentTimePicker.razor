@@ -7,7 +7,7 @@
                    autofocus="@Autofocus"
                    appearance="@Appearance.ToAttributeValue()"
                    type="time"
-                   current-value="@Value?.ToString("HH:mm")"
+                   current-value="@CurrentValueAsString"
                    @onchange="@ChangeHandlerAsync"
                    @oninput="@InputHandlerAsync"
                    readonly="@ReadOnly"
