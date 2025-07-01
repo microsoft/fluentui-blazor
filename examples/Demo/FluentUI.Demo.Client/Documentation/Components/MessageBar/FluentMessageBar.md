@@ -34,6 +34,10 @@ The `Layout` parameter allows you to choose the position of the actions:
   - **MultiLine**: On a new line, allowing for more space for the message content.
   - **Notification**: The title, message, and actions are displayed on separate lines, providing a clear and structured layout.
 
+When no action is defined, you can set the `TimeStamp` parameter to display the time when the message was created.
+This parameter is ignored if at least one action is defined.
+If you want to display an Action and a TimeStamp, you can use the `ActionsTemplate` parameter and customize the content.
+
 {{ MessageBarLayouts }}
 
 ## Message Service
@@ -44,7 +48,6 @@ TODO in the next PR.
 > `FluentMessageBars` are rendered by the `<FluentProviders />`.  
 > This component needs to be added to the layout of your application.
 > See the [Installation page](/installation) for more information.
-
 
 ## API FluentMessageBar
 
