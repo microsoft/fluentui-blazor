@@ -1,7 +1,6 @@
 // ------------------------------------------------------------------------
-// This file is licensed to you under the MIT License.
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>

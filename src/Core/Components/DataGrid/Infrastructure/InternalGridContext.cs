@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 // The grid cascades this so that descendant columns can talk back to it. It's an internal type
 // so that it doesn't show up by mistake in unrelated components.
-internal sealed class InternalGridContext<TGridItem>
+internal sealed class InternalGridContext<TGridItem>(FluentDataGrid<TGridItem> grid)
 {
     private int _index;
     private int _rowId;
@@ -26,13 +26,9 @@ internal sealed class InternalGridContext<TGridItem>
     [ExcludeFromCodeCoverage(Justification = "This can only be set when a Virtualized grid is scrolled which can't be done by bUnit")]
     public int TotalViewItemCount { get; set; }
 
-    public FluentDataGrid<TGridItem> Grid { get; }
+    public FluentDataGrid<TGridItem> Grid { get; } = grid;
     public EventCallbackSubscribable<object?> ColumnsFirstCollected { get; } = new();
-
-    public InternalGridContext(FluentDataGrid<TGridItem> grid)
-    {
-        Grid = grid;
-    }
+    public EventCallbackSubscribable<object?> ItemsChanged { get; } = new();
 
     public int GetNextRowId()
     {
