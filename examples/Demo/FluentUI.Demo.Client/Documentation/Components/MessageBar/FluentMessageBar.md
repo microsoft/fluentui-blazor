@@ -26,3 +26,21 @@ The `Layout` parameter allows you to choose the position of the actions:
   - **MultiLine**: On a new line, allowing for more space for the message content.
 
 {{ MessageBarActions }}
+
+## Message Service
+
+TODO in the next PR.
+
+> [!WARNING]
+> `FluentMessageBars` are rendered by the `<FluentProviders />`.  
+> This component needs to be added to the layout of your application.
+> See the [Installation page](/installation) for more information.
+
+
+## API FluentMessageBar
+
+{{ API Type=FluentMessageBar }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentMessageBar }}
