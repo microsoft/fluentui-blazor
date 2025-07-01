@@ -89,6 +89,7 @@ body {
   font-weight: var(--fontWeightRegular);
   color: var(--colorNeutralForeground1);
   background-color: var(--colorNeutralBackground1);
+  scrollbar-color: var(--colorNeutralForeground4) var(--colorNeutralBackground2);
 }
 ```
 
