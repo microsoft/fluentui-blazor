@@ -65,6 +65,12 @@ public partial class FluentMessageBar : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be displayed inline after the main content.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ActionsTemplate { get; set; }
+
     /// <summary />
     protected virtual Task DismissClickAsync()
     {

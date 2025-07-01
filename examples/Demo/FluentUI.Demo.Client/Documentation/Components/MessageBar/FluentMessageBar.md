@@ -15,3 +15,9 @@ the user performs one of the required actions.
 **FluentMessageBar** components come built-in with preset intents that determine the design and aria live announcement.
 
 {{ MessageBarAppearance }}
+
+## Actions
+
+The **FluentMessageBar** can have different actions.
+
+{{ MessageBarActions }}

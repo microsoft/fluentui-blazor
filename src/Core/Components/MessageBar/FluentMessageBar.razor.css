@@ -2,3 +2,10 @@ fluent-message-bar .title {
   font-weight: 600;
   padding: 0 4px 0 0;
 }
+
+fluent-message-bar .content {
+}
+
+fluent-message-bar .actions {
+}
+
