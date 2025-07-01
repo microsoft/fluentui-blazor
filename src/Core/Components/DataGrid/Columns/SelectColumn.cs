@@ -212,7 +212,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
 
     /// <inheritdoc />
     [Parameter]
-    public override IGridSort<TGridItem>? SortBy { get; set; }
+    public override IGridSort<TGridItem>? SortBy { get; set; } = null;
 
     /// <summary>
     /// Allows to clear the selection.
