@@ -1,24 +1,37 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<fluent-message-bar id="@Id"
-                    class="@ClassValue"
-                    style="@StyleValue"
-                    intent="@GetIntentString()">
+@if (Visible)
+{
+    <fluent-message-bar id="@Id"
+                        class="@ClassValue"
+                        style="@StyleValue"
+                        intent="@GetIntentString()">
 
-    <FluentIcon Value="@GetIcon()" Slot="@FluentSlot.Icon" />
+        <FluentIcon Value="@GetIcon()" Slot="@FluentSlot.Icon" />
 
-    @if (!string.IsNullOrEmpty(Title))
-    {
-        <span class="title">@((MarkupString)Title)</span>
-    }
+        @if (!string.IsNullOrEmpty(Title))
+        {
+            <span class="title">@((MarkupString)Title)</span>
+        }
 
-    @if (@ChildContent is not null)
-    {
-        <span class="content">@ChildContent</span>
-    }
+        @if (@ChildContent is not null)
+        {
+            <span class="content">@ChildContent</span>
+        }
 
-    @*     <fluent-button slot="actions" size="small">Action</fluent-button>
+        @if (AllowDismiss)
+        {
+            <FluentButton Appearance="ButtonAppearance.Transparent"
+                          IconStart="@(new CoreIcons.Regular.Size20.Dismiss().WithColor("currentColor"))"
+                          IconOnly="true"
+                          Title="@Localizer[Localization.LanguageResource.MessageBar_Dismiss]"
+                          Size="ButtonSize.Small"
+                          slot="@FluentSlot.Dismiss"
+                          OnClick="DismissClickAsync" />
+        }
+
+        @*     <fluent-button slot="actions" size="small">Action</fluent-button>
     <fluent-button slot="dismiss" size="small" appearance="transparent" icon-only>
         <svg xmlns="http://www.w3.org/2000/svg"
              class="fluent--dismiss-20-regular"
@@ -31,4 +44,5 @@
         </svg>
     </fluent-button> *@
 
-</fluent-message-bar>
+    </fluent-message-bar>
+}

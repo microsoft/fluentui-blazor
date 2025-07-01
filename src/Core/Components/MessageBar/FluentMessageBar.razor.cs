@@ -48,10 +48,29 @@ public partial class FluentMessageBar : FluentComponentBase
     public string? Title { get; set; }
 
     /// <summary>
+    /// Gets or sets the visibility of the message bar. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the ability to dismiss the message bar. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool AllowDismiss { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the message to be shown when not using the MessageService methods.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary />
+    protected virtual Task DismissClickAsync()
+    {
+        Visible = false;
+        return Task.CompletedTask;
+    }
 
     /// <summary />
     private string? GetIntentString()
