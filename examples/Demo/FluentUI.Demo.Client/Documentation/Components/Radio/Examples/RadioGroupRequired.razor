@@ -1,18 +1,20 @@
 ﻿<form>
-    <FluentRadioGroup Name="options" Id="radio-group-required" Label="Choose an option" Required="true" @bind-Value="@value" Message="Please select a fruit." >
-        <FluentRadio Id="option1" Name="options" Value="@("Option 1")" Label="Option 1"></FluentRadio>
-        <FluentRadio Id="option2" Name="options" Value="@("Option 2")" Label="Option 2"></FluentRadio>
-        <FluentRadio Id="option3" Name="options" Value="@("Option 3")" Label="Option 3"></FluentRadio>
-    </FluentRadioGroup>
-    <br />
-    <div>
-        <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Submit</FluentButton>
-        <FluentButton Id="reset-button" Type="ButtonType.Reset">Reset</FluentButton>
-    </div>
-    <span id="success-message" hidden>Form submitted successfully!</span>
+    <FluentRadioGroup Name="options"
+                      Items="@Fruits"
+                      Label="Choose a fruit"
+                      Required="true"
+                      @bind-Value="@Value"
+                      Message="Please select a fruit." />
+
+    <FluentDivider Margin="@Margin.Vertical3" />
+
+    <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Submit</FluentButton>
+    <FluentButton Type="ButtonType.Reset">Reset</FluentButton>
 </form>
 
 
 @code {
-    private string? value;
+
+    private static readonly string[] Fruits = new[] { "Apple", "Banana", "Orange" };
+    private string? Value;
 }

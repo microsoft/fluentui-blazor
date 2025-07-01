@@ -65,6 +65,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     FluentUICustomEvents.MenuItem(blazor);
     FluentUICustomEvents.DropdownList(blazor);
     FluentUICustomEvents.Tabs(blazor);
+    FluentUICustomEvents.RadioGroup(blazor);
     FluentUICustomEvents.TreeView(blazor);
     // [^^^ Add your other custom events before this line ^^^]
 

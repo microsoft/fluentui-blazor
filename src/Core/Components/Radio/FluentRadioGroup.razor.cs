@@ -1,13 +1,13 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -17,60 +17,100 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TValue">The type of the value</typeparam>
 [CascadingTypeParameter(nameof(TValue))]
-public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluentRadioValueProvider
+public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluentComponentElementBase
 {
-    private readonly string _defaultGroupName = Identifier.NewId();
-    internal FluentRadioContext? Context { get; private set; }
-
-    object? IFluentRadioValueProvider.CurrentValue => CurrentValue;
-
-    /// <summary />
-    public FluentRadioGroup(LibraryConfiguration configuration) : base(configuration)
-    {
-        Id = Identifier.NewId();
-    }
+    internal ConcurrentDictionary<string, FluentRadio<TValue>> InternalRadios { get; } = new(StringComparer.Ordinal);
 
     /// <summary>
-    /// Gets or sets the orientation of the group. See <see cref="AspNetCore.Components.Orientation"/>
+    /// Initializes a new instance of the <see cref="FluentRadioGroup{TRadioValue}"/> class.
+    /// </summary>
+    /// <param name="configuration">The configuration settings used to initialize the radio group. This parameter cannot be null.</param>
+    public FluentRadioGroup(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    [Parameter]
+    public ElementReference Element { get; set; }
+
+    /// <summary>
+    /// Gets or sets the orientation of the group. See <see cref="Orientation"/>.
+    /// The default is <see cref="Orientation.Horizontal"/>.
     /// </summary>
     [Parameter]
     public Orientation? Orientation { get; set; }
 
     /// <summary>
-    /// Gets or sets the child content to be rendering inside the <see cref="FluentRadioGroup{TValue}"/>.
+    /// Gets or sets a value indicating whether <see cref="FluentRadio{TValue}"/> wrapping is enabled.
+    /// This is applied when the <see cref="Orientation"/> is set to <see cref="Orientation.Horizontal"/>
+    /// and there are no effect on the <see cref="Orientation.Vertical"/> orientation.
+    /// </summary>
+    [Parameter]
+    public bool Wrap { get; set; }
+
+    /// <summary>
+    ///     
+    /// </summary>
+    [Parameter]
+    public IEnumerable<TValue?>? Items { get; set; }
+
+    /// <summary>
+    /// Gets or sets the function used to determine which value to apply to the radio value attribute.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TValue?, string?>? RadioValue { get; set; }
+
+    /// <summary>
+    /// Gets or sets the function used to determine which text to display for each radio checkedItem.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TValue?, string?>? RadioLabel { get; set; }
+
+    /// <summary>
+    /// Gets or sets the function used to determine if an radio is disabled.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TValue?, bool>? RadioDisabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets the child content to be rendering inside the <see cref="FluentRadioGroup{TRadioValue}"/>.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    [CascadingParameter]
-    private FluentRadioContext? CascadedContext { get; set; }
-
-    /// <inheritdoc />
-    [ExcludeFromCodeCoverage(Justification = "As part of the code cannot be executed in any known usage pattern, it can't be tested.")]
-    protected override void OnParametersSet()
+    /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // On the first render, we can instantiate the FluentRadioContext
-        if (Context is null)
+        if (firstRender)
         {
-            var changeEventCallback = EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString);
-            Context = new FluentRadioContext(this, CascadedContext, changeEventCallback, Orientation);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "value");
         }
-        else if (Context.ParentContext != CascadedContext)
-        {
-            // This should never be possible in any known usage pattern, but if it happens, we want to know
-            throw new InvalidOperationException("A FluentRadioGroup cannot change context after creation");
-        }
-
-        // Mutate the FluentRadioContext instance in place. Since this is a non-fixed cascading parameter, the descendant
-        // FluentRadio/FluentRadioGroup components will get notified to re-render and will see the new values.
-        Context.GroupName = !string.IsNullOrEmpty(Name) ? Name : _defaultGroupName;
-
-        Context.FieldClass = EditContext?.FieldCssClass(FieldIdentifier);
     }
 
     /// <inheritdoc />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
-    => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
+    {
+        return this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
+    }
+
+    /// <summary />
+    internal async Task RadioChangeHandlerAsync(RadioEventArgs e)
+    {
+        if (InternalRadios.TryGetValue(e.Id ?? "", out var checkedItem))
+        {
+            var newValue = Items is null && checkedItem.Value is null
+                         ? TryParseValueFromString(checkedItem.GetValue(), out var result, out var _) ? result : default
+                         : checkedItem.Value;
+
+            if (!object.ReferenceEquals(Value, newValue))
+            {
+                Value = newValue;
+
+                if (ValueChanged.HasDelegate)
+                {
+                    await ValueChanged.InvokeAsync(newValue);
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Handler for the OnFocus event.
@@ -81,5 +121,35 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
     {
         FocusLost = true;
         return Task.CompletedTask;
+    }
+
+    /// <summary />
+    internal string GetGroupName()
+    {
+        return string.IsNullOrEmpty(Name) ? $"{Id}-group" : Name;
+    }
+
+    /// <summary />
+    internal string? AddRadio(FluentRadio<TValue> radio)
+    {
+        if (!string.IsNullOrEmpty(radio.Id) &&
+            InternalRadios.TryAdd(radio.Id, radio))
+        {
+            return radio.Id;
+        }
+
+        return null;
+    }
+
+    /// <summary />
+    internal string? RemoveRadio(FluentRadio<TValue> radio)
+    {
+        if (!string.IsNullOrEmpty(radio.Id) &&
+            InternalRadios.TryRemove(radio.Id, out var _))
+        {
+            return radio.Id;
+        }
+
+        return null;
     }
 }

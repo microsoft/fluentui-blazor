@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -105,7 +105,7 @@ internal class SpacingGenerator
     private static void AddClassName(System.Text.StringBuilder builder, string name)
     {
         builder.AppendLine("// ------------------------------------------------------------------------");
-        builder.AppendLine("// MIT License - Copyright (c) Microsoft Corporation. All rights reserved. ");
+        builder.AppendLine("// This file is licensed to you under the MIT License. ");
         builder.AppendLine("// ------------------------------------------------------------------------");
         builder.AppendLine();
         builder.AppendLine("namespace Microsoft.FluentUI.AspNetCore.Components;");

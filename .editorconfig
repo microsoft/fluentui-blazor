@@ -346,7 +346,7 @@ dotnet_diagnostic.IDE0065.severity = warning
 
 # IDE0073: File header
 dotnet_diagnostic.IDE0073.severity = warning
-file_header_template = ------------------------------------------------------------------------\nMIT License - Copyright (c) Microsoft Corporation. All rights reserved.\n------------------------------------------------------------------------
+file_header_template = ------------------------------------------------------------------------\nThis file is licensed to you under the MIT License.\n------------------------------------------------------------------------
 
 # IDE1006: Required naming style
 dotnet_diagnostic.IDE1006.severity = none

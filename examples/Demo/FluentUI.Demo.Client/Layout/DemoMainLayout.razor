@@ -71,7 +71,7 @@
             @Body
         </FluentLayoutItem>
 
-        <FluentLayoutItem Area="@LayoutArea.Aside" Width="240px" Sticky="true">
+        <FluentLayoutItem Area="@LayoutArea.Aside" Width="240px" Sticky="true" hidden-when="sm">
             <DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" />
         </FluentLayoutItem>
     }

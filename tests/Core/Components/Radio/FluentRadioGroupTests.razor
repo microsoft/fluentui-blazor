@@ -4,10 +4,10 @@
 @using System.ComponentModel.DataAnnotations
 @using Xunit;
 @inherits Bunit.TestContext
-@implements IFluentRadioValueProvider
 @code {
 
-    object IFluentRadioValueProvider.CurrentValue => new();
+    private readonly IEnumerable<string?> Digits = new[] { null, "One", "Two", "Four", };
+    private enum TestEnum { Option1, Option2, Option3, }
 
     public FluentRadioGroupTests()
     {
@@ -35,8 +35,7 @@
                 <FluentRadio Value="@("option1")" Label="Option 1"></FluentRadio>
                 <FluentRadio Value="@("option2")" Label="Option 2"></FluentRadio>
                 <FluentRadio Value="@("option3")" Label="Option 3"></FluentRadio>
-            </FluentRadioGroup>
-        );
+            </FluentRadioGroup>);
 
         // Assert
         cut.Verify();
@@ -54,8 +53,7 @@
                 <FluentRadio Value="@("option1")" Label="Option 1"></FluentRadio>
                 <FluentRadio Value="@("option2")" Label="Option 2"></FluentRadio>
                 <FluentRadio Value="@("option3")" Label="Option 3"></FluentRadio>
-            </FluentRadioGroup>
-        );
+            </FluentRadioGroup>);
 
         // Assert
         var radioGroup = cut.Find("fluent-radio-group");
@@ -74,8 +72,7 @@
                 <FluentRadio TValue="int" Value="1">Option 1</FluentRadio>
                 <FluentRadio TValue="int" Value="2">Option 2</FluentRadio>
                 <FluentRadio TValue="int" Value="3">Option 3</FluentRadio>
-            </FluentRadioGroup>
-        );
+            </FluentRadioGroup>);
 
         // Assert
         var radioGroup = cut.Find("fluent-radio-group");
@@ -94,8 +91,7 @@
                 <FluentRadio Value="TestEnum.Option1" Label="Option 1"></FluentRadio>
                 <FluentRadio Value="TestEnum.Option2" Label="Option 2"></FluentRadio>
                 <FluentRadio Value="TestEnum.Option3" Label="Option 3"></FluentRadio>
-            </FluentRadioGroup>
-        );
+            </FluentRadioGroup>);
 
         // Assert
         var radioGroup = cut.Find("fluent-radio-group");
@@ -113,8 +109,7 @@
             @<FluentRadioGroup TValue="string" Orientation="@orientation">
                 <FluentRadio Label="option1"></FluentRadio>
                 <FluentRadio Label="option2"></FluentRadio>
-            </FluentRadioGroup>
-        );
+            </FluentRadioGroup>);
 
         // Assert
         var radioGroup = cut.Find("fluent-radio-group");
@@ -195,24 +190,26 @@
     }
 
     [Fact]
-    public void FluentRadioGroup_ValueChanged()
+    public async Task FluentRadioGroup_ValueChanged()
     {
         // Arrange
         string? selectedValue = null;
-        var newValue = "option2";
 
         var cut = Render(
             @<FluentRadioGroup TValue="string" @bind-Value="selectedValue">
-                <FluentRadio Label="option1"></FluentRadio>
-                <FluentRadio Label="option2"></FluentRadio>
-            </FluentRadioGroup>
-        );
+                <FluentRadio Id="MyOption1" Label="option1"></FluentRadio>
+                <FluentRadio Id="MyOption2" Label="option2"></FluentRadio>
+            </FluentRadioGroup>);
 
         // Act
-        cut.Find("fluent-radio[value='option2']").Change(newValue);
+        await cut.FindComponent<FluentRadioGroup<string>>().Instance.RadioChangeHandlerAsync(new RadioEventArgs()
+        {
+            Id = "MyOption2",
+            Value = "option2"
+        });
 
         // Assert
-        Assert.Equal(newValue, selectedValue);
+        Assert.Equal("option2", selectedValue);
     }
 
     [Fact]
@@ -222,8 +219,7 @@
         var cut = Render(
             @<FluentRadioGroup TValue="string">
                 <FluentRadio TValue="string" Label="option1"></FluentRadio>
-            </FluentRadioGroup>
-    );
+            </FluentRadioGroup>);
 
         // Assert
         var radio = cut.Find("fluent-radio");
@@ -233,60 +229,46 @@
     }
 
     [Fact]
-    public void FluentRadioGroup_RadioChecked()
+    public void FluentRadioGroup_Items()
     {
         // Arrange & Act
-        var cut = Render(@<FluentRadioGroup TValue="string" Value="@("option1")">
-                <FluentRadio TValue="string" Value="@("option1")"></FluentRadio>
-            </FluentRadioGroup>);
+        var cut = Render(@<FluentRadioGroup Items="@Digits"
+                                            RadioLabel="@(i => i?.ToUpper())"
+                                            RadioValue="@(i => $"{i?.FirstOrDefault()}")"
+                                            RadioDisabled="@(i => i?.Length > 3)"/>);
 
         // Assert
-        var attribute = cut.Find("fluent-radio").GetAttribute("checked") ?? null;
-        Assert.NotNull(attribute);
+        cut.Verify();
+
+        // Extra
+        Assert.Contains("ONE", cut.Markup, StringComparison.Ordinal);               // Digits["One"]  has content "ONE"
+        Assert.NotNull(cut.Find("fluent-radio[value='O']"));                        // Digits["One"]  has value "O"
+        Assert.True(cut.Find("fluent-radio[value='F']").HasAttribute("disabled"));  // Digits["Four"] is disabled
     }
 
     [Fact]
-    public void FluentRadioGroup_FindContext()
+    public void FluentRadioGroup_AddRadio_NullId()
     {
-        // Arrange
-        FluentRadioGroup<string> group = new FluentRadioGroup<string>(LibraryConfiguration.Empty);
-        var args = new ChangeEventArgs
-        {
-            Value = "option1"
-        };
-
-        var callback = EventCallback.Factory.Create<ChangeEventArgs>(this, HandleCallBack);
-
-        FluentRadioContext? fluentRadioContextParent = new FluentRadioContext(this, null, callback, null);
-        fluentRadioContextParent.GroupName = "test-group";
-        FluentRadioContext fluentRadioContext = new FluentRadioContext(this, fluentRadioContextParent, callback, null);
-        var cut = Render(@<CascadingValue TValue = "FluentRadioContext" Value="@fluentRadioContext">
-            <FluentRadioGroup @ref="@group" TValue="string">
-                <FluentRadio TValue="string" Label="option1"></FluentRadio>
-            </FluentRadioGroup>
-            </CascadingValue>
-        );
+        // Arrange & Act
+        var cut = Render(@<FluentRadioGroup TValue="string" />);
 
         // Act
-        var context = group.Context;
+        var result = cut.FindComponent<FluentRadioGroup<string>>().Instance.AddRadio(new FluentRadio<string>(id: null));
 
         // Assert
-        Assert.NotNull(context);
-        Assert.Equal(fluentRadioContextParent, context.FindContextInAncestors("test-group"));
-
-
+        Assert.Null(result);
     }
 
-    private void HandleCallBack(ChangeEventArgs args)
+    [Fact]
+    public void FluentRadioGroup_RemoveRadio_NullId()
     {
-        // Handle the callback
-    }
+        // Arrange & Act
+        var cut = Render(@<FluentRadioGroup TValue="string" />);
 
-    public enum TestEnum
-    {
-        Option1,
-        Option2,
-        Option3
-    }
+        // Act
+        var result = cut.FindComponent<FluentRadioGroup<string>>().Instance.RemoveRadio(new FluentRadio<string>(id: null));
 
+        // Assert
+        Assert.Null(result);
+    }
 }

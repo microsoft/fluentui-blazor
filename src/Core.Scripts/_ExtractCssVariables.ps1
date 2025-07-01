@@ -47,7 +47,7 @@ foreach ($match in $matches) {
 
 # Display the result
 Write-Output "// ------------------------------------------------------------------------"
-Write-Output "// MIT License - Copyright (c) Microsoft Corporation. All rights reserved."
+Write-Output "// This file is licensed to you under the MIT License."
 Write-Output "// ------------------------------------------------------------------------"
 Write-Output ""
 Write-Output "//------------------------------------------------------------------------------"

@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
@@ -37,6 +37,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [EventHandler("ontreetoggle", typeof(TreeItemToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onclosecolumnoptions", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onclosecolumnresize", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onradiochange", typeof(RadioEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 
 public static class EventHandlers
 {
