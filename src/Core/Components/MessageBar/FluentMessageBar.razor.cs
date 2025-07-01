@@ -12,10 +12,21 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentMessageBar : FluentComponentBase
 {
-    private static readonly Icon IconError = new CoreIcons.Regular.Size20.QuestionCircle();
+    private static readonly Icon IconInfo = new CoreIcons.Regular.Size20.Info().WithColor("var(--info)");
+    private static readonly Icon IconWarning= new CoreIcons.Filled.Size20.Warning().WithColor("var(--warning)");
+    private static readonly Icon IconSuccess = new CoreIcons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
+    private static readonly Icon IconError = new CoreIcons.Filled.Size20.DismissCircle().WithColor("var(--error)");
 
     /// <summary />
     public FluentMessageBar(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
+    protected virtual string? ClassValue => DefaultClassBuilder
+         .Build();
+
+    /// <summary />
+    protected virtual string? StyleValue => DefaultStyleBuilder
+        .Build();
 
     /// <summary>
     /// Gets or sets the intent of the message bar. 
@@ -29,6 +40,12 @@ public partial class FluentMessageBar : FluentComponentBase
     /// </summary>
     [Parameter]
     public Icon? Icon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the most important info to be shown in the message bar.
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
 
     /// <summary>
     /// Gets or sets the message to be shown when not using the MessageService methods.
@@ -47,7 +64,8 @@ public partial class FluentMessageBar : FluentComponentBase
         return Intent.ToAttributeValue();
     }
 
-    private Icon? GetIcon()
+    /// <summary />
+    private Icon GetIcon()
     {
         if (Icon is null)
         {
@@ -55,10 +73,12 @@ public partial class FluentMessageBar : FluentComponentBase
             {
                 MessageIntent.Error => IconError,
                 MessageIntent.Warning => IconWarning,
-                MessageIntent.Success => IconCheckmarkCircle,
+                MessageIntent.Success => IconSuccess,
                 MessageIntent.Info => IconInfo,
-                _ => null
+                _ => IconInfo,
             };
         }
+
+        return Icon;
     }
 }

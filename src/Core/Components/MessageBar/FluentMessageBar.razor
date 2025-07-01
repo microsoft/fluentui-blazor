@@ -1,16 +1,22 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<fluent-message-bar layout="singleline" intent="@GetIntentString()">
+<fluent-message-bar id="@Id"
+                    class="@ClassValue"
+                    style="@StyleValue"
+                    intent="@GetIntentString()">
 
-    @if (GetIcon() is not null)
+    <FluentIcon Value="@GetIcon()" Slot="@FluentSlot.Icon" />
+
+    @if (!string.IsNullOrEmpty(Title))
     {
-        <span slot="icon">
-            @GetIcon()
-        </span>
+        <span class="title">@((MarkupString)Title)</span>
     }
 
-    @ChildContent
+    @if (@ChildContent is not null)
+    {
+        <span class="content">@ChildContent</span>
+    }
 
     @*     <fluent-button slot="actions" size="small">Action</fluent-button>
     <fluent-button slot="dismiss" size="small" appearance="transparent" icon-only>
