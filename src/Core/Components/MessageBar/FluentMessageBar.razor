@@ -1,4 +1,5 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
 @if (Visible)
@@ -6,7 +7,11 @@
     <fluent-message-bar id="@Id"
                         class="@ClassValue"
                         style="@StyleValue"
-                        intent="@GetIntentString()">
+                        shape="@Shape.ToAttributeValue()"
+                        layout="@Layout.ToAttributeValue()"
+                        intent="@GetIntentString()"
+                        aria-live="@AriaLive.ToAttributeValue()"
+                        @attributes="@AdditionalAttributes">
 
         <FluentIcon Value="@GetIcon()" Slot="@FluentSlot.Icon" />
 

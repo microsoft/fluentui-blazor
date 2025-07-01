@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public enum MessageIntent
+public enum MessageBarIntent
 {
     /// <summary />
     [Description("success")]

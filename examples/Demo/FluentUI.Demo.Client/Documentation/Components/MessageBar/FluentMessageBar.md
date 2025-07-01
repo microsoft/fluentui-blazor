@@ -16,8 +16,13 @@ the user performs one of the required actions.
 
 {{ MessageBarAppearance }}
 
+You can also use the `Shape` parameter to change the shape of the corners of the message bar: square or rounded.
+
 ## Actions
 
 The **FluentMessageBar** can have different actions.
+The `Layout` parameter allows you to choose the position of the actions:
+  - **SingleLine**: Next to the message content, allowing for a compact layout.
+  - **MultiLine**: On a new line, allowing for more space for the message content.
 
 {{ MessageBarActions }}

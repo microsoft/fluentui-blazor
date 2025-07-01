@@ -30,10 +30,30 @@ public partial class FluentMessageBar : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the intent of the message bar. 
-    /// Default is <see cref="MessageIntent.Info"/>.
+    /// Default is <see cref="MessageBarIntent.Info"/>.
     /// </summary>
     [Parameter]
-    public MessageIntent? Intent { get; set; }
+    public MessageBarIntent? Intent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the layout of the message bar. 
+    /// Default is <see cref="MessageBarLayout.SingleLine"/>.
+    /// </summary>
+    [Parameter]
+    public MessageBarLayout? Layout { get; set; }
+
+    /// <summary>
+    /// Gets or sets the shape of the message bar.
+    /// Default is <see cref="MessageBarShape.Rounded"/>.
+    /// </summary>
+    [Parameter]
+    public MessageBarShape? Shape { get; set; }
+
+    /// <summary>
+    /// Gets or sets the `aria-live` attribute, to inform assistive technologies (like screen readers) about updates to dynamic content.
+    /// </summary>
+    [Parameter]
+    public AriaLive? AriaLive { get; set; }
 
     /// <summary>
     /// Gets or sets the icon to show in the message bar based on the intent of the message.
@@ -81,7 +101,7 @@ public partial class FluentMessageBar : FluentComponentBase
     /// <summary />
     private string? GetIntentString()
     {
-        if (Intent == null || Intent == MessageIntent.Custom)
+        if (Intent == null || Intent == MessageBarIntent.Custom)
         {
             return null;
         }
@@ -96,10 +116,10 @@ public partial class FluentMessageBar : FluentComponentBase
         {
             return Intent switch
             {
-                MessageIntent.Error => IconError,
-                MessageIntent.Warning => IconWarning,
-                MessageIntent.Success => IconSuccess,
-                MessageIntent.Info => IconInfo,
+                MessageBarIntent.Error => IconError,
+                MessageBarIntent.Warning => IconWarning,
+                MessageBarIntent.Success => IconSuccess,
+                MessageBarIntent.Info => IconInfo,
                 _ => IconInfo,
             };
         }

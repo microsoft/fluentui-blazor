@@ -1,4 +1,8 @@
-﻿<FluentMessageBar>
+﻿<FluentSelect Label="Layout"
+              Items="@(Enum.GetValues<MessageBarLayout>())"
+              @bind-Value="@Layout" />
+
+<FluentMessageBar Layout="@Layout">
     <ChildContent>
         Message providing information to the user with actionable insights.
     </ChildContent>
@@ -7,3 +11,8 @@
         <FluentButton Size="ButtonSize.Small">Action</FluentButton>
     </ActionsTemplate>
 </FluentMessageBar>
+
+@code
+{
+    MessageBarLayout Layout = MessageBarLayout.SingleLine;
+}

@@ -7,5 +7,7 @@ fluent-message-bar .content {
 }
 
 fluent-message-bar .actions {
+  display: flex;
+  column-gap: var(--spacingHorizontalM);
 }
 
