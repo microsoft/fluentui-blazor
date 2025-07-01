@@ -50,6 +50,13 @@ public partial class FluentMessageBar : FluentComponentBase
     public MessageBarShape? Shape { get; set; }
 
     /// <summary>
+    /// Gets or sets the fade in animation when the message bar is shown.
+    /// Default is none.
+    /// </summary>
+    [Parameter]
+    public MessageBarAnimation? Animation { get; set; }
+
+    /// <summary>
     /// Gets or sets the `aria-live` attribute, to inform assistive technologies (like screen readers) about updates to dynamic content.
     /// </summary>
     [Parameter]
@@ -125,5 +132,14 @@ public partial class FluentMessageBar : FluentComponentBase
         }
 
         return Icon;
+    }
+
+    private string? GetAnimation()
+    {
+        return Animation switch
+        {
+            MessageBarAnimation.FadeIn => "fade-in",
+            _ => null,
+        };
     }
 }

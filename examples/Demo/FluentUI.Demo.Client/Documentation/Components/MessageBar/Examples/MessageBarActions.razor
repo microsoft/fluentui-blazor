@@ -2,7 +2,7 @@
               Items="@(Enum.GetValues<MessageBarLayout>())"
               @bind-Value="@Layout" />
 
-<FluentMessageBar Layout="@Layout">
+<FluentMessageBar Layout="@Layout" Animation="MessageBarAnimation.FadeIn">
     <ChildContent>
         Message providing information to the user with actionable insights.
     </ChildContent>

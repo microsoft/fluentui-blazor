@@ -11,3 +11,16 @@ fluent-message-bar .actions {
   column-gap: var(--spacingHorizontalM);
 }
 
+fluent-message-bar[animation="fade-in"] {
+  animation: message-bar-fadein 1.5s;
+}
+
+@keyframes message-bar-fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
