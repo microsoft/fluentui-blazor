@@ -1,9 +1,29 @@
+fluent-message-bar[layout="notification"] {
+  display: grid;
+  grid-template-areas:
+    "icon title dismiss"
+    "body body body"
+    "actions actions actions"
+    "footer footer footer";
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto;
+  padding-block: var(--spacingVerticalMNudge);
+  padding-inline: var(--spacingHorizontalM);
+}
+
+fluent-message-bar .notification-title {
+  display: flex;
+  flex-direction: row;
+  column-gap: var(--spacingHorizontalM);
+}
+
 fluent-message-bar .title {
   font-weight: 600;
   padding: 0 4px 0 0;
 }
 
 fluent-message-bar .content {
+  max-width: unset;
 }
 
 fluent-message-bar .actions {

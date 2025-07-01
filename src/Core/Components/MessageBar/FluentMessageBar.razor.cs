@@ -98,6 +98,13 @@ public partial class FluentMessageBar : FluentComponentBase
     [Parameter]
     public RenderFragment? ActionsTemplate { get; set; }
 
+    /// <summary>
+    /// Gets or sets the time on which the message was created.
+    /// Only used when <see cref="ActionsTemplate"/> is not used: `null` (if not, this parameter is ignored).
+    /// </summary>
+    [Parameter]
+    public DateTime? TimeStamp { get; set; }
+
     /// <summary />
     protected virtual Task DismissClickAsync()
     {
@@ -134,6 +141,7 @@ public partial class FluentMessageBar : FluentComponentBase
         return Icon;
     }
 
+    /// <summary />
     private string? GetAnimation()
     {
         return Animation switch
@@ -141,5 +149,17 @@ public partial class FluentMessageBar : FluentComponentBase
             MessageBarAnimation.FadeIn => "fade-in",
             _ => null,
         };
+    }
+
+    /// <summary />
+    private string? GetTimeStamp()
+    {
+        if (TimeStamp is null)
+        {
+            return null;
+        }
+
+        var delay = DateTimeProvider.Now - TimeStamp.Value;
+        return delay.ToTimeAgo(Localizer);
     }
 }

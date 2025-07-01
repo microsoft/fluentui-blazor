@@ -112,4 +112,9 @@ public static class FluentSlot
     /// Slot for the Dismiss element of a fluent-message-bar
     /// </summary>
     internal const string Dismiss = "dismiss";
+
+    /// <summary>
+    /// Slot for the Action element of a fluent-message-bar
+    /// </summary>
+    internal const string Actions = "actions";
 }

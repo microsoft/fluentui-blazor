@@ -14,12 +14,14 @@
                         aria-live="@AriaLive.ToAttributeValue()"
                         @attributes="@AdditionalAttributes">
 
-        <FluentIcon Value="@GetIcon()" Slot="@FluentSlot.Icon" />
+        <AddTag Name="span" slot="@FluentSlot.Icon" TagWhen="@(() => Layout == MessageBarLayout.Notification)" class="notification-title">
+            <FluentIcon Value="@GetIcon()" Slot="@FluentSlot.Icon" />
 
-        @if (!string.IsNullOrEmpty(Title))
-        {
-            <span class="title">@((MarkupString)Title)</span>
-        }
+            @if (!string.IsNullOrEmpty(Title))
+            {
+                <span class="title">@((MarkupString)Title)</span>
+            }
+        </AddTag>
 
         @if (@ChildContent is not null)
         {
@@ -39,7 +41,15 @@
 
         @if (ActionsTemplate is not null)
         {
-            <span class="actions" slot="actions">@ActionsTemplate</span>
+            <span class="actions" slot="@FluentSlot.Actions">
+                @ActionsTemplate
+            </span>
+        }
+        else if (TimeStamp is not null)
+        {
+            <span class="actions" slot="@FluentSlot.Actions">
+                @GetTimeStamp()
+            </span>
         }
 
     </fluent-message-bar>

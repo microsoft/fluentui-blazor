@@ -20,12 +20,21 @@ You can also use the `Shape` parameter to change the shape of the corners of the
 
 ## Actions
 
-The **FluentMessageBar** can have different actions.
+The **FluentMessageBar** can have links and different actions.
+
+Add your buttons actions using the `ActionsTemplate` parameter.
+To keep a coherent design, use the `FluentButton` component with the `Size` parameter set to `ButtonSize.Small`.
+
+{{ MessageBarActions }}
+
+## Layout
+
 The `Layout` parameter allows you to choose the position of the actions:
   - **SingleLine**: Next to the message content, allowing for a compact layout.
   - **MultiLine**: On a new line, allowing for more space for the message content.
+  - **Notification**: The title, message, and actions are displayed on separate lines, providing a clear and structured layout.
 
-{{ MessageBarActions }}
+{{ MessageBarLayouts }}
 
 ## Message Service
 
