@@ -1,0 +1,28 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<fluent-message-bar layout="singleline" intent="@GetIntentString()">
+
+    @if (GetIcon() is not null)
+    {
+        <span slot="icon">
+            @GetIcon()
+        </span>
+    }
+
+    @ChildContent
+
+    @*     <fluent-button slot="actions" size="small">Action</fluent-button>
+    <fluent-button slot="dismiss" size="small" appearance="transparent" icon-only>
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="fluent--dismiss-20-regular"
+             viewBox="0 0 20 20"
+             aria-hidden="true"
+             width="20"
+             height="20">
+            <path fill="currentColor"
+                  d="m4.089 4.216l.057-.07a.5.5 0 0 1 .638-.057l.07.057L10 9.293l5.146-5.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 .057.638l-.057.07L10.707 10l5.147 5.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.638.057l-.07-.057L10 10.707l-5.146 5.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1-.057-.638l.057-.07L9.293 10L4.146 4.854a.5.5 0 0 1-.057-.638l.057-.07z"></path>
+        </svg>
+    </fluent-button> *@
+
+</fluent-message-bar>
