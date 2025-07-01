@@ -307,7 +307,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       div.style.position = 'absolute';
       div.style.cursor = 'col-resize';
       div.style.userSelect = 'none';
-      div.style.height = height + 'px';
+      div.style.height = (height - 5) + 'px'; // adjust for the top offset
       div.style.width = '6px';
       div.style.opacity = 'var(--fluent-data-grid-header-opacity)';
 
