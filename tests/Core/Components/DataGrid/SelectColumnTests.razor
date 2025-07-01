@@ -1,4 +1,5 @@
-﻿@using Xunit;
+﻿@using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
+@using Xunit;
 @using Microsoft.AspNetCore.Components;
 
 @inherits Bunit.TestContext
@@ -916,6 +917,50 @@
     }
 
     [Fact]
+    public void SelectColumnTests_MultiSelect_KeyboardSelection_All()
+    {
+        IEnumerable<Person> SelectedItems = new List<Person>();
+
+        // Arrange
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Multiple"
+                              @bind-SelectedItems="@SelectedItems" />
+                <PropertyColumn Property="@(p => p.Name)" />
+            </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Press Enter key on Row 0 - Selects all items
+        var item = cut.FindComponents<FluentIcon<Icon>>().ElementAt(0);
+        var keyboardEventArgs = new KeyboardEventArgs
+        {
+            Code = "Enter",
+            Key = "Enter"
+        };
+
+        item.Find("svg").KeyDown(keyboardEventArgs);
+
+        Assert.Equal(3, SelectedItems.Count());
+
+        // Act - Press NumpadEnter key on Row 0 - Deselects all items
+        keyboardEventArgs = new KeyboardEventArgs
+        {
+            Code = "NumpadEnter",
+            Key = "NumpadEnter"
+        };
+
+        item.Find("svg").KeyDown(keyboardEventArgs);
+
+        Assert.Empty(SelectedItems);
+
+    }
+
+    [Fact]
     public async Task SelectColumnTests_KeyboardSelection_NotSelectFromEntireRow()
     {
         IEnumerable<Person> SelectedItems = new List<Person>();
@@ -1090,6 +1135,116 @@
         Assert.Single(selectColumn.SelectedItems);
         Assert.Equal(people[0], selectColumn.SelectedItems.First());
     }
+
+    [Fact]
+    public async Task UpdateSelectedItemsAsync_RemovesDeselectedItems()
+    {
+        // Arrange
+        var people = People.ToList();
+        var selectColumn = new SelectColumn<Person>
+        {
+            SelectedItems = new List<Person> { people[0], people[1], people[2] }
+        };
+
+        // Simulate InternalGridContext with only people[0] and people[2]
+        var context = new InternalGridContext<Person>(null!);
+        typeof(SelectColumn<Person>)
+            .GetProperty("InternalGridContext", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public)
+            ?.SetValue(selectColumn, context);
+        typeof(InternalGridContext<Person>)
+            .GetProperty("Items", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public)
+            ?.SetValue(context, new List<Person> { people[0], people[2] });
+
+        // Act
+        var method = typeof(SelectColumn<Person>).GetMethod("UpdateSelectedItemsAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var result = method.Invoke(selectColumn, null);
+        if (result is Task task) await task;
+
+        // Assert
+        Assert.Equal(2, selectColumn.SelectedItems.Count());
+        Assert.Contains(people[0], selectColumn.SelectedItems);
+        Assert.Contains(people[2], selectColumn.SelectedItems);
+        Assert.DoesNotContain(people[1], selectColumn.SelectedItems);
+    }
+
+    [Fact]
+    public async Task UpdateSelectedItemsAsync_DoesNothing_WhenNoSelectedItems()
+    {
+        // Arrange
+        var selectColumn = new SelectColumn<Person>
+        {
+            SelectedItems = new List<Person>()
+        };
+
+        // Simulate InternalGridContext with some items
+        var context = new InternalGridContext<Person>(null!);
+        typeof(SelectColumn<Person>)
+            .GetProperty("InternalGridContext", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public)
+            ?.SetValue(selectColumn, context);
+        typeof(InternalGridContext<Person>)
+            .GetProperty("Items", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public)
+            ?.SetValue(context, People.ToList());
+
+        // Act
+        var method = typeof(SelectColumn<Person>).GetMethod("UpdateSelectedItemsAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var result = method.Invoke(selectColumn, null);
+        if (result is Task task) await task;
+
+        // Assert
+        Assert.Empty(selectColumn.SelectedItems);
+    }
+
+    [Fact]
+    public async Task UpdateSelectedItemsAsync_DoesNothing_WhenInternalGridContextIsNull()
+    {
+        // Arrange
+        var people = People.ToList();
+        var selectColumn = new SelectColumn<Person>
+        {
+            SelectedItems = new List<Person> { people[0] }
+        };
+
+        // InternalGridContext is null by default
+
+        // Act
+        var method = typeof(SelectColumn<Person>).GetMethod("UpdateSelectedItemsAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var result = method.Invoke(selectColumn, null);
+        if (result is Task task) await task;
+
+        // Assert
+        Assert.Single(selectColumn.SelectedItems);
+        Assert.Equal(people[0], selectColumn.SelectedItems.First());
+    }
+
+    [Fact]
+    public async Task UpdateSelectedItemsAsync_DoesNothing_WhenInternalGridContextItemsIsNull()
+    {
+        // Arrange
+        var people = People.ToList();
+        var selectColumn = new SelectColumn<Person>
+        {
+            SelectedItems = new List<Person> { people[0] }
+        };
+
+        // Simulate InternalGridContext with null Items
+        var context = new InternalGridContext<Person>(null!);
+        typeof(SelectColumn<Person>)
+            .GetProperty("InternalGridContext", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public)
+            ?.SetValue(selectColumn, context);
+        typeof(InternalGridContext<Person>)
+            .GetProperty("Items", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public)
+            ?.SetValue(context, null);
+
+        // Act
+        var method = typeof(SelectColumn<Person>).GetMethod("UpdateSelectedItemsAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var result = method.Invoke(selectColumn, null);
+        if (result is Task task) await task;
+
+        // Assert
+        Assert.Single(selectColumn.SelectedItems);
+        Assert.Equal(people[0], selectColumn.SelectedItems.First());
+    }
+
 #pragma warning restore BL0005
     /// <summary>
     /// Simulate a key down event on the DataGrid row number <paramref name="row"/>.

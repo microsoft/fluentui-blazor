@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -12,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Represents a <see cref="FluentDataGrid{TGridItem}"/> column whose cells render a selected checkbox updated when the user click on a row.
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
-public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
+public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
 {
     /// <summary>
     /// List of keys to press, to select/unselect a row.
@@ -28,6 +29,8 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     private DataGridSelectMode _selectMode = DataGridSelectMode.Single;
     private readonly List<TGridItem> _selectedItems = [];
 
+    private readonly EventCallbackSubscriber<object?> _itemsChanged;
+
     /// <summary>
     /// Initializes a new instance of <see cref="SelectColumn{TGridItem}"/>.
     /// </summary>
@@ -35,6 +38,15 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     {
         Width = "50px";
         ChildContent = GetDefaultChildContent();
+
+        _itemsChanged = new(EventCallback.Factory.Create<object?>(this, UpdateSelectedItemsAsync));
+    }
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        _itemsChanged.SubscribeOrMove(InternalGridContext.ItemsChanged);
+        base.OnInitialized();
     }
 
     /// <summary>
@@ -334,6 +346,21 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         }
     }
 
+    private async Task UpdateSelectedItemsAsync()
+    {
+
+        if (!SelectedItems.Any() || InternalGridContext == null || InternalGridContext.Items == null)
+        {
+            return;
+        }
+
+        var itemsToRemove = _selectedItems.Where(item => !InternalGridContext.Items.Contains(item)).ToList();
+        foreach (var item in itemsToRemove)
+        {
+            await AddOrRemoveSelectedItemAsync(item);
+        }
+    }
+
     private Icon GetIcon(bool? selected)
     {
         if (selected == true)
@@ -562,6 +589,13 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         {
             await OnClickAllAsync(new MouseEventArgs());
         }
+    }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        _itemsChanged.Dispose();
+
     }
 }
 
