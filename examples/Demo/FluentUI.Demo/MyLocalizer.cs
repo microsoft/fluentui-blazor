@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Localization;
 using System.Globalization;
 
 namespace FluentUI.Demo;
@@ -34,7 +35,7 @@ internal class MyLocalizer : IFluentLocalizer
             // Provide custom translations based on the key
             return key switch
             {
-                "DataGrid_ResizeDiscrete" => "Width (+/- 10px)",
+                LanguageResource.DataGrid_ResizeDiscrete => "Width (+/- 10px)",
 
                 // Fallback to the Default/English if no translation is found
                 _ => IFluentLocalizer.GetDefault(key, arguments),
