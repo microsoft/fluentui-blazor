@@ -52,6 +52,23 @@
         Assert.Equal("1 hour ago", cut.Find("span.actions").TextContent);
     }
 
+    [Theory]
+    [InlineData(-60, "1 hour ago")]
+    [InlineData(null, null)]
+    public void FluentMessageBar_GetTimeStamp(int? removeMinutes, string? expectedResult)
+    {
+        var now = new DateTime(2025, 7, 26, 10, 25, 00);    // 2025-07-26 10:25:00
+        using var context = new DateTimeProviderContext(now);
+
+        var timeStamp = removeMinutes.HasValue ? now.AddMinutes(removeMinutes.Value) : (DateTime?)null;
+
+        // Arrange && Act
+        var cut = Render(@<FluentMessageBar TimeStamp="@timeStamp">Message</FluentMessageBar>);
+
+        // Assert
+        Assert.Equal(expectedResult, cut.FindComponent<FluentMessageBar>().Instance.GetTimeStamp());
+    }
+
     [Fact]
     public void FluentMessageBar_Dismiss_Click()
     {

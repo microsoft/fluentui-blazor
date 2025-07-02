@@ -152,7 +152,7 @@ public partial class FluentMessageBar : FluentComponentBase
     }
 
     /// <summary />
-    private string? GetTimeStamp()
+    internal string? GetTimeStamp()
     {
         if (TimeStamp is null)
         {
