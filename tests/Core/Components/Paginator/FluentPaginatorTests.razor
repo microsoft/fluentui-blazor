@@ -312,7 +312,7 @@
         // Dispose the component (this should call Dispose() internally)
         if (paginator is not null)
         {
-            paginator?.Dispose();
+            paginator?.DisposeAsync();
         }
         cut.Dispose();
 

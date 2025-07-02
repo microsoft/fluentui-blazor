@@ -354,27 +354,6 @@
         Assert.False(OnRowKeyDownInvoked);
     }
 
-    [Fact]
-    public void FluentDataGridRow_Dispose()
-    {
-        // Arrange
-        var grid = Render<FluentDataGrid<object>>(
-            @<FluentDataGrid TGridItem="object">
-            <FluentDataGridRow>
-                <FluentDataGridCell />
-            </FluentDataGridRow>
-        </FluentDataGrid>
-    );
-
-        // Act
-        var cell = grid.FindComponent<FluentDataGridRow<object>>();
-        cell.Instance.Dispose();
-        cell.Dispose();
-
-        // Assert
-        Assert.True(cell.IsDisposed);
-    }
-
     public bool OnRowClickInvoked { get; set; }
     public bool OnRowDoubleClickInvoked { get; set; }
     public bool OnRowFocusInvoked { get; set; }

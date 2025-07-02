@@ -19,8 +19,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 [CascadingTypeParameter(nameof(TGridItem))]
 
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0040:Forward the CancellationToken parameter to methods that take one", Justification = "The available cancellation token are not appropriate to pass along.")]
-public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable
+[SuppressMessage("Usage", "MA0040:Forward the CancellationToken parameter to methods that take one", Justification = "The available cancellation token are not appropriate to pass along.")]
+public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DataGrid/FluentDataGrid.razor.js";
     internal const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
@@ -925,27 +925,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private static string? ColumnJustifyClass(ColumnBase<TGridItem> column)
     {
         return new CssBuilder(column.Class)
-            .AddClass("col-justify-start", column.Align == HorizontalAlignment.Start)
-            .AddClass("col-justify-center", column.Align == HorizontalAlignment.Center)
-            .AddClass("col-justify-end", column.Align == HorizontalAlignment.End)
+            .AddClass("col-justify-start", column.Align == DataGridCellAlignment.Start)
+            .AddClass("col-justify-center", column.Align == DataGridCellAlignment.Center)
+            .AddClass("col-justify-end", column.Align == DataGridCellAlignment.End)
             .Build();
     }
 
-    /// <summary>
-    /// Unregister the grid events
-    /// </summary>
-    /// <param name="jsModule"></param>
-    /// <returns></returns>
-    [ExcludeFromCodeCoverage]
-    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
+    /// <inheritdoc/>
+    [ExcludeFromCodeCoverage(Justification = "Tested via integration tests.")]
+    public override ValueTask DisposeAsync()
     {
         _currentPageItemsChanged.Dispose();
-
-        if (_jsEventDisposable is not null)
-        {
-            await _jsEventDisposable.InvokeVoidAsync("dispose");
-            await _jsEventDisposable.DisposeAsync().ConfigureAwait(false);
-        }
+        return base.DisposeAsync();
     }
 
     internal void LoadStateFromQueryString(string queryString)
