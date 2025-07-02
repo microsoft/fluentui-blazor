@@ -500,7 +500,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
                 builder.OpenElement(0, "div");
                 if (!SelectAllDisabled)
                 {
-                    builder.AddAttribute(1, "style", "cursor: pointer; margin-left: 12px;");
+                    builder.AddAttribute(1, "style", "cursor: pointer;");
                     builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
                     builder.AddAttribute(3, "onkeydown", EventCallback.Factory.Create<KeyboardEventArgs>(this, OnKeyAllAsync));
                 }

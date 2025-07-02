@@ -589,7 +589,7 @@
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()" @ref="@grid">
                 <ChildContent>
-                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="AspNetCore.Components.HorizontalAlignment.End">
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="AspNetCore.Components.DataGridCellAlignment.End">
                     <ColumnOptions>
                         <div class="options">Hello!</div>
                     </ColumnOptions>
@@ -616,7 +616,7 @@
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()" @ref="@grid" HeaderCellAsButtonWithMenu="false" ResizeType="null">
                 <ChildContent>
-                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Filtered="true" Align="AspNetCore.Components.HorizontalAlignment.Start" >
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Filtered="true" Align="AspNetCore.Components.DataGridCellAlignment.Start" >
                         <ColumnOptions>
                             <div class="options">Hello!</div>
                         </ColumnOptions>
@@ -643,7 +643,7 @@
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()" @ref="@grid" ResizeType="DataGridResizeType.Discrete">
                 <ChildContent>
-                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="AspNetCore.Components.HorizontalAlignment.End">
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="AspNetCore.Components.DataGridCellAlignment.End">
                     <ColumnOptions>
                         <div class="options">Hello!</div>
                     </ColumnOptions>
@@ -785,7 +785,7 @@
                             ResizableColumns="true"
                             ResizeType="DataGridResizeType.Discrete"
                             HeaderCellAsButtonWithMenu="false">
-                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.HorizontalAlignment.Start"/>
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.DataGridCellAlignment.Start"/>
             </FluentDataGrid>
         );
 
@@ -813,7 +813,7 @@
                             ResizableColumns="true"
                             ResizeType="DataGridResizeType.Discrete"
                             HeaderCellAsButtonWithMenu="false">
-                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.HorizontalAlignment.Start"/>
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.DataGridCellAlignment.Start"/>
             </FluentDataGrid>
     );
 
@@ -848,7 +848,7 @@
                             ResizableColumns="true"
                             ResizeType="DataGridResizeType.Exact"
                             HeaderCellAsButtonWithMenu="false">
-                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.HorizontalAlignment.Start"/>
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.DataGridCellAlignment.Start"/>
             </FluentDataGrid>
         );
 
@@ -876,7 +876,7 @@
                             ResizableColumns="true"
                             ResizeType="DataGridResizeType.Exact"
                             HeaderCellAsButtonWithMenu="false">
-                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.HorizontalAlignment.Start"/>
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.DataGridCellAlignment.Start"/>
             </FluentDataGrid>
     );
 
@@ -913,7 +913,7 @@
                             ResizableColumns="true"
                             ResizeType="DataGridResizeType.Exact"
                             HeaderCellAsButtonWithMenu="false">
-                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.HorizontalAlignment.Start"/>
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.DataGridCellAlignment.Start"/>
             </FluentDataGrid>
     );
 
@@ -947,7 +947,7 @@
                             ResizableColumns="true"
                             ResizeType="DataGridResizeType.Discrete"
                             HeaderCellAsButtonWithMenu="false">
-                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.HorizontalAlignment.Start"/>
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.DataGridCellAlignment.Start"/>
             </FluentDataGrid>
         );
 
@@ -969,7 +969,7 @@
                             ResizableColumns="true"
                             ResizeType="DataGridResizeType.Discrete"
                             HeaderCellAsButtonWithMenu="false">
-                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.HorizontalAlignment.Start"/>
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.DataGridCellAlignment.Start"/>
             </FluentDataGrid>
         );
 
@@ -997,7 +997,7 @@
                             ResizableColumns="true"
                             ResizeType="DataGridResizeType.Discrete"
                             HeaderCellAsButtonWithMenu="false">
-                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.HorizontalAlignment.Start"/>
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.DataGridCellAlignment.Start"/>
             </FluentDataGrid>
         );
 
@@ -1024,7 +1024,7 @@
                             ResizableColumns="true"
                             ResizeType="DataGridResizeType.Discrete"
                             HeaderCellAsButtonWithMenu="false">
-                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.HorizontalAlignment.Start"/>
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="@AspNetCore.Components.DataGridCellAlignment.Start"/>
             </FluentDataGrid>
     );
 
@@ -1257,8 +1257,8 @@
         var cut = Render<FluentDataGrid<Customer>>(
             @<div>
                 <FluentDataGrid Items="@GetCustomers().AsQueryable()" ResizableColumns="true" ResizeType="DataGridResizeType.Discrete" HeaderCellAsButtonWithMenu="false">
-                    <PropertyColumn Property="@(x => x.Id)" Sortable="true" IsDefaultSortColumn="true" Align="AspNetCore.Components.HorizontalAlignment.Start"/>
-                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="AspNetCore.Components.HorizontalAlignment.Center"/>
+                    <PropertyColumn Property="@(x => x.Id)" Sortable="true" IsDefaultSortColumn="true" Align="AspNetCore.Components.DataGridCellAlignment.Start"/>
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="AspNetCore.Components.DataGridCellAlignment.Center"/>
                 </FluentDataGrid>
                 <FluentKeyCodeProvider/>
             </div>
@@ -1284,8 +1284,8 @@
 
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ResizableColumns="true" ResizeType="DataGridResizeType.Discrete" HeaderCellAsButtonWithMenu="false" @ref="@grid">
-                    <PropertyColumn Property="@(x => x.Id)" Sortable="true" IsDefaultSortColumn="true" Align="AspNetCore.Components.HorizontalAlignment.Start"/>
-                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="AspNetCore.Components.HorizontalAlignment.Center"/>
+                    <PropertyColumn Property="@(x => x.Id)" Sortable="true" IsDefaultSortColumn="true" Align="AspNetCore.Components.DataGridCellAlignment.Start"/>
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Align="AspNetCore.Components.DataGridCellAlignment.Center"/>
                 </FluentDataGrid>
     );
 

@@ -8,6 +8,6 @@ have now been replaced with our standard Localization capabilities. You can use 
 An example of this can be found in the `Server` project of the demo application, where a custom localizer is registered in the `Program.cs` file.
 
 ### Enum changes
-- `Align` has been renamed to `HorizontalAlignment`
+- `Align` has been renamed to `DataGridCellAlignment`
 - `GenerateHeaderOption` has been renamed to `DataGridGeneratedHeaderType`
 - `SortDirection` has been renamed to `DataGridSortDirection`

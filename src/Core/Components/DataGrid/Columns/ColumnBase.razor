@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @typeparam TGridItem
 @{
@@ -40,16 +41,16 @@
                     {
                         if (Grid.SortByAscending == true)
                         {
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="@(Align == HorizontalAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="@(Align == DataGridCellAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                         }
                         else
                         {
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="@(Align == HorizontalAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="@(Align == DataGridCellAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                         }
                     }
                     @if (ColumnOptions is not null && Filtered.GetValueOrDefault())
                     {
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="@(Align == HorizontalAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="@(Align == DataGridCellAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                     }
                 </FluentButton>
             }
@@ -99,16 +100,10 @@
             string? align;
 
             // determine align string based on Align value
-            align = Align switch
-            {
-                HorizontalAlignment.Start => "flex-start",
-                HorizontalAlignment.Center => "center",
-                HorizontalAlignment.End => "flex-end",
-                _ => "flex-start"
-            };
+            align = Align.ToAttributeValue();
 
             <div style="display: flex; justify-content: @align;">
-                @if (Align == HorizontalAlignment.Start || Align == HorizontalAlignment.Center)
+                @if (Align == DataGridCellAlignment.Start || Align == DataGridCellAlignment.Center)
                 {
                     @if (Grid.ResizeType is not null)
                     {
@@ -164,7 +159,7 @@
                     </div>
                 }
 
-                @if (Align == HorizontalAlignment.End)
+                @if (Align == DataGridCellAlignment.End)
                 {
                     @if (Grid.ResizeType is not null)
                     {

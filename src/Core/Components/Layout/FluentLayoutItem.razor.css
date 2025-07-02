@@ -56,7 +56,8 @@
   }
 
     .fluent-layout-item[area="aside"][sticky] {
-      height: fit-content;
+      height: 100%;
+      max-height: fit-content;
     }
 
 .fluent-layout[global-scrollbar] .fluent-layout-item:not([area="header"]):not([area="footer"]) {
