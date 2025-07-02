@@ -243,4 +243,7 @@
   <data name="Paginator_Status" xml:space="preserve">
     <value>Page {0} of {1}</value>
   </data>
+  <data name="MessageBar_Dismiss" xml:space="preserve">
+    <value>Hide this message</value>
+  </data>
 </root>

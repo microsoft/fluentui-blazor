@@ -1,0 +1,166 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Xunit
+@inherits Bunit.TestContext
+
+@code {
+    public FluentMessageBarTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Theory]
+    [InlineData(MessageBarIntent.Success)]
+    [InlineData(MessageBarIntent.Info)]
+    [InlineData(MessageBarIntent.Warning)]
+    [InlineData(MessageBarIntent.Error)]
+    [InlineData(MessageBarIntent.Custom)]
+    public void FluentMessageBar_Intent(MessageBarIntent intent)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMessageBar Intent="@intent">Message</FluentMessageBar>);
+
+        // Assert
+        cut.Verify(suffix: intent.ToString());
+    }
+
+    [Theory]
+    [InlineData(MessageBarLayout.SingleLine)]
+    [InlineData(MessageBarLayout.MultiLine)]
+    public void FluentMessageBar_Layout_Line(MessageBarLayout value)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMessageBar Layout="@value">Message</FluentMessageBar>);
+
+        // Assert
+        cut.Verify(suffix: value.ToString());
+        Assert.Equal(value.ToAttributeValue(), cut.Find("fluent-message-bar").GetAttribute("layout"));
+    }
+
+    [Fact]
+    public void FluentMessageBar_Layout_Notification()
+    {
+        var now = new DateTime(2025, 7, 26, 10, 25, 00);    // 2025-07-26 10:25:00
+        using var context = new DateTimeProviderContext(now);
+
+        // Arrange && Act
+        var cut = Render(@<FluentMessageBar Title="My title" TimeStamp="@now.AddHours(-1)" Layout="MessageBarLayout.Notification">Message</FluentMessageBar>);
+
+        // Assert
+        cut.Verify();
+        Assert.Equal("notification", cut.Find("fluent-message-bar").GetAttribute("layout"));
+        Assert.Equal("1 hour ago", cut.Find("span.actions").TextContent);
+    }
+
+    [Theory]
+    [InlineData(-60, "1 hour ago")]
+    [InlineData(null, null)]
+    public void FluentMessageBar_GetTimeStamp(int? removeMinutes, string? expectedResult)
+    {
+        var now = new DateTime(2025, 7, 26, 10, 25, 00);    // 2025-07-26 10:25:00
+        using var context = new DateTimeProviderContext(now);
+
+        var timeStamp = removeMinutes.HasValue ? now.AddMinutes(removeMinutes.Value) : (DateTime?)null;
+
+        // Arrange && Act
+        var cut = Render(@<FluentMessageBar TimeStamp="@timeStamp">Message</FluentMessageBar>);
+
+        // Assert
+        Assert.Equal(expectedResult, cut.FindComponent<FluentMessageBar>().Instance.GetTimeStamp());
+    }
+
+    [Fact]
+    public void FluentMessageBar_Dismiss_Click()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBar AllowDismiss="true">Message</FluentMessageBar>);
+
+        // Act
+        cut.Find("fluent-button[slot='dismiss']").Click();
+
+        // Assert
+        Assert.Empty(cut.Markup.Trim());
+    }
+
+    [Fact]
+    public void FluentMessageBar_Dismiss_False()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBar AllowDismiss="false">Message</FluentMessageBar>);
+
+        // Assert
+        Assert.Empty(cut.FindAll("fluent-button"));
+    }
+
+    [Fact]
+    public void FluentMessageBar_Visible_False()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBar Visible="false">Message</FluentMessageBar>);
+
+        // Assert
+        Assert.Empty(cut.Markup.Trim());
+    }
+
+    [Fact]
+    public void FluentMessageBar_Icon()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBar Icon="@Samples.Icons.PresenceAvailable">Message</FluentMessageBar>);
+
+        // Assert
+        Assert.Contains("M12 24a12 12 0 1 0 0-24 12 12 0 0 0 0", cut.Markup);   // Part of the SVG path for the icon
+    }
+
+    [Fact]
+    public void FluentMessageBar_ActionsTemplate()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBar>
+            <ChildContent>Message</ChildContent>
+            <ActionsTemplate>List of actions</ActionsTemplate>
+        </FluentMessageBar>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(MessageBarShape.Rounded, "rounded")]
+    [InlineData(MessageBarShape.Square, "square")]
+    [InlineData((MessageBarShape)999, "")]
+    public void FluentMessageBar_Shape(MessageBarShape shape, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMessageBar Shape="@shape">Message</FluentMessageBar>);
+
+        // Assert
+        Assert.Equal(expectedAttribute, cut.Find("fluent-message-bar").GetAttribute("shape"));
+    }
+
+    [Theory]
+    [InlineData(MessageBarAnimation.FadeIn, "fade-in")]
+    [InlineData((MessageBarAnimation)999, null)]
+    public void FluentMessageBar_Animation(MessageBarAnimation animation, string? expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMessageBar Animation="@animation">Message</FluentMessageBar>);
+
+        // Assert
+        Assert.Equal(expectedAttribute, cut.Find("fluent-message-bar").GetAttribute("animation"));
+    }
+
+    [Theory]
+    [InlineData(AriaLive.Off, "off")]
+    [InlineData(AriaLive.Assertive, "assertive")]
+    [InlineData(AriaLive.Polite, "polite")]
+    [InlineData((AriaLive)999, "")]
+    public void FluentMessageBar_AriaLive(AriaLive ariaLive, string? expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMessageBar AriaLive="@ariaLive">Message</FluentMessageBar>);
+
+        // Assert
+        Assert.Equal(expectedAttribute, cut.Find("fluent-message-bar").GetAttribute("aria-live"));
+    }
+}
