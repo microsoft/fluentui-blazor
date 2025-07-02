@@ -276,4 +276,7 @@
   <data name="DataGrid_ResizeSubmit" xml:space="preserve">
     <value>Set column widths</value>
   </data>
+  <data name="MessageBar_Dismiss" xml:space="preserve">
+    <value>Hide this message</value>
+  </data>
 </root>
