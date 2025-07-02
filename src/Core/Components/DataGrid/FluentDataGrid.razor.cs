@@ -1043,6 +1043,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await ResetColumnWidthsAsync();
         }
 
+        if (args.ShiftKey && args.Key == KeyCode.KeyS)
+        {
+            await RemoveSortByColumnAsync();
+        }
+
         if (string.Equals(args.Value, "-", StringComparison.Ordinal))
         {
             await SetColumnWidthDiscreteAsync(columnIndex: null, -10);

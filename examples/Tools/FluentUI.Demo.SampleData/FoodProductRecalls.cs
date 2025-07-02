@@ -115,3 +115,51 @@ public class RemoteFoodProductRecalls
         public int Total { get; set; }
     }
 }
+
+#nullable disable
+/// <summary>
+/// Represents the data returned by https://open.fda.gov/apis/food/enforcement/
+/// This is a subset of the fields available on that API
+/// </summary>
+public class FoodRecall
+{
+    /// <summary />
+    public string Event_Id { get; set; }
+    /// <summary />
+    public string Status { get; set; }
+    /// <summary />
+    public string City { get; set; }
+    /// <summary />
+    public string State { get; set; }
+    /// <summary />
+    public string Recalling_Firm { get; set; }
+    /// <summary />
+    public string Termination_Date { get; set; }
+}
+
+/// <summary>
+/// Represents the result of a food recall query from the FDA API.
+/// </summary>
+public class FoodRecallQueryResult
+{
+    /// <summary />
+    public Metadata Meta { get; set; }
+    /// <summary />
+    public FoodRecall[] Results { get; set; }
+
+    /// <summary />
+    public class Metadata
+    {
+        /// <summary />
+        public ResultsInfo Results { get; set; }
+    }
+
+    /// <summary />
+    public class ResultsInfo
+    {
+        /// <summary />
+        public int Total { get; set; }
+    }
+}
+
+#nullable enable
