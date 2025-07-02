@@ -18,7 +18,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// well as managing the layout and content of the row.</remarks>
 /// <typeparam name="TGridItem">The type of the data item associated with the row.</typeparam>
 [CascadingTypeParameter(nameof(TGridItem))]
-public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable
+public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent
 {
     private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [];
     internal string RowId { get; set; } = string.Empty;
@@ -94,11 +94,11 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         RowIndex = rowIndex;
     }
 
-    /// <summary />
-    public void Dispose()
+    /// <inheritdoc />
+    public override ValueTask DisposeAsync()
     {
-        GC.SuppressFinalize(this);
         InternalGridContext.Unregister(this);
+        return base.DisposeAsync();
     }
 
     /// <summary />

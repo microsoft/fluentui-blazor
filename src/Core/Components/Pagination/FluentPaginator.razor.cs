@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A component that provides a user interface for <see cref="PaginationState"/>.
 /// </summary>
-public partial class FluentPaginator : FluentComponentBase, IDisposable
+public partial class FluentPaginator : FluentComponentBase
 {
     private readonly EventCallbackSubscriber<PaginationState> _totalItemCountChanged;
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
@@ -77,12 +77,11 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     }
 
     /// <inheritdoc />
-    public void Dispose()
+    public override ValueTask DisposeAsync()
     {
-        GC.SuppressFinalize(this);
-
         _totalItemCountChanged.Dispose();
         _currentPageItemsChanged.Dispose();
+        return base.DisposeAsync();
     }
 
     private bool CanGoBack => State.CurrentPageIndex > 0;

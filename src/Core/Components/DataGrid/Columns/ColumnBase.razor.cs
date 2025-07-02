@@ -93,7 +93,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// If specified, controls the justification of header and grid cells for this column.
     /// </summary>
     [Parameter]
-    public HorizontalAlignment Align { get; set; }
+    public DataGridCellAlignment Align { get; set; }
 
     /// <summary>
     /// If true, generates a title and aria-label attribute for the cell contents
@@ -207,7 +207,7 @@ public abstract partial class ColumnBase<TGridItem>
     {
         if (GetType() == typeof(SelectColumn<TGridItem>))
         {
-            Align = HorizontalAlignment.Center;
+            Align = DataGridCellAlignment.Center;
         }
     }
 
