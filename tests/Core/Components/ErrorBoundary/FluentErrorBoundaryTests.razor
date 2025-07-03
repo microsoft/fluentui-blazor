@@ -126,4 +126,19 @@
 
         // No value to test, just ensure it doesn't throw an exception
     }
+
+    [Fact]
+    public void FluentErrorBoundary_OnCloseRedirectUrl()
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary OnCloseRedirectUrl="/">
+            <ChildContent>
+                <ThrowingExceptionComponent Throw="true">My content</ThrowingExceptionComponent>
+            </ChildContent>
+            <ErrorContent>My Error</ErrorContent>
+        </FluentErrorBoundary>);
+
+        // Assert
+        Assert.Contains("window.location.href='/'", cut.Markup);
+    }
 }

@@ -67,7 +67,9 @@
 else
 {
     <FluentLayoutItem Area="@LayoutArea.Content">
-        @Body
+        <FluentErrorBoundary DisplayErrorDetails="ErrorBoundaryDetails.ErrorMessage" OnCloseRedirectUrl="/">
+            @Body
+        </FluentErrorBoundary>
     </FluentLayoutItem>
 
     <FluentLayoutItem Area="@LayoutArea.Aside" Width="240px" Sticky="true" hidden-when="sm">
