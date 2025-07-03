@@ -7,12 +7,6 @@
  * You can disable this style by setting the attribute `no-fuib-style` on the `body` element, in your source code.
  */
 
-@media (prefers-reduced-motion: no-preference) {
-  :root {
-    scroll-behavior: smooth;
-  }
-}
-
 body {
   margin: 0;
   padding: 0;

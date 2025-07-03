@@ -41,7 +41,8 @@ public sealed class ColumnsCollectedNotifier<TGridItem> : Microsoft.AspNetCore.C
 {
     private bool _isFirstRender = true;
 
-    [CascadingParameter] internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
+    [CascadingParameter]
+    internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
     /// <inheritdoc/>
     public void Attach(RenderHandle renderHandle)
@@ -56,7 +57,7 @@ public sealed class ColumnsCollectedNotifier<TGridItem> : Microsoft.AspNetCore.C
         {
             _isFirstRender = false;
             parameters.SetParameterProperties(this);
-            return InternalGridContext.ColumnsFirstCollected.InvokeCallbacksAsync(null);
+            return InternalGridContext.ColumnsFirstCollected.InvokeCallbacksAsync(eventArg: null);
         }
 
         return Task.CompletedTask;

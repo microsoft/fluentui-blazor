@@ -279,4 +279,19 @@
   <data name="MessageBar_Dismiss" xml:space="preserve">
     <value>Hide this message</value>
   </data>
+  <data name="DataGrid_SelectColumn_AllChecked" xml:space="preserve">
+    <value>All rows are selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_AllUnchecked" xml:space="preserve">
+    <value>No rows areselected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_AllIndeterminate" xml:space="preserve">
+    <value>Some rows are selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_RowChecked" xml:space="preserve">
+    <value>Row selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_RowUnchecked" xml:space="preserve">
+    <value>Row not selected</value>
+  </data>
 </root>
