@@ -1,0 +1,35 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@typeparam TGridItem
+
+<FluentStack Class="resize-options" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="4">
+    @if (ResizeType == DataGridResizeType.Discrete)
+    {
+        <FluentLabel>@Localizer[Localization.LanguageResource.DataGrid_ResizeDiscrete]</FluentLabel>
+
+        <FluentSpacer />
+        <FluentButton OnClick="@HandleShrinkAsync" IconStart="@(new CoreIcons.Regular.Size20.Subtract())" aria-label="@Localizer[Localization.LanguageResource.DataGrid_ResizeShrink]" />
+        <FluentButton OnClick="@HandleGrowAsync" IconStart="@(new CoreIcons.Regular.Size20.Add())" aria-label="@Localizer[Localization.LanguageResource.DataGrid_ResizeGrow]" />
+        <FluentButton OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@Localizer[Localization.LanguageResource.DataGrid_ResizeReset]" />
+    }
+    else
+    {
+        <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.End" VerticalAlignment="VerticalAlignment.Bottom">
+            <div style="display: flex; flex-direction: column; ">
+                <FluentTextInput Id="width"
+                                 @bind-Value="@_width"
+                                 Style="width: 100%;"
+                                 TextFieldType="TextInputType.Text"
+                                 InputMode="TextInputMode.Numeric"
+                                 Immediate="true"
+                                 ImmediateDelay="200"
+                                 Label="@Localizer[Localization.LanguageResource.DataGrid_ResizeDiscrete]"
+                                 AutoComplete="off"
+                                 Autofocus="true"
+                                 @onkeydown="@HandleColumnWidthKeyDownAsync" />
+            </div>
+            <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" IconStart="@(new CoreIcons.Regular.Size20.Checkmark())" Appearance="@ButtonAppearance.Primary" aria-label="@Localizer[Localization.LanguageResource.DataGrid_ResizeSubmit]" />
+            <FluentButton Style="height: 30px;" OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@Localizer[Localization.LanguageResource.DataGrid_ResizeReset]" />
+        </FluentStack>
+    }
+</FluentStack>
+

@@ -1,0 +1,109 @@
+.fluent-data-grid th,
+.fluent-data-grid td {
+  border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStencil1);
+}
+
+.fluent-data-grid td:not(.col-select) {
+  padding: 6px 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  align-content: center;
+}
+
+
+  .fluent-data-grid td.col-justify-center {
+    text-align: center;
+  }
+
+  .fluent-data-grid td.col-justify-end,
+  .fluent-data-grid td.col-justify-right {
+    text-align: end;
+  }
+
+.fluent-data-grid th.col-justify-end > div {
+  justify-content: flex-end;
+}
+
+
+.fluent-data-grid td.grid-cell-placeholder:after {
+  content: '\2026'; /*horizontal ellipsis*/
+  opacity: 0.75;
+}
+
+
+.fluent-data-grid .empty-content-cell,
+.fluent-data-grid .loading-content-cell {
+  font-weight: 600;
+  text-align: center;
+  height: 100%;
+  user-select: none;
+}
+
+.fluent-data-grid .multiline-text {
+  white-space: inherit;
+  overflow: auto;
+  word-break: break-word;
+  align-content: start;
+}
+
+.fluent-data-grid .column-header {
+  font-weight: 600;
+  text-align: center;
+  position: relative;
+  padding: 5px 1px;
+}
+
+.fluent-data-grid .col-sort-button {
+  width: calc(100% - 20px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fluent-data-grid .col-sort-button {
+  overflow: hidden;
+}
+
+.fluent-data-grid .col-options-button {
+  padding-inline-start: 4px;
+}
+
+.fluent-data-grid .col-justify-start .col-sort-button {
+  justify-content: start;
+  overflow: hidden;
+  opacity: 1
+}
+
+.fluent-data-grid .col-justify-center .col-sort-button {
+  justify-content: center;
+  overflow: hidden;
+  opacity: 1
+}
+
+.fluent-data-grid .col-justify-end .col-sort-button  {
+  justify-content: end;
+  overflow: hidden;
+  opacity: 1
+}
+
+
+.fluent-data-grid .col-justify-end .col-sort-button::part(start) {
+  margin-inline-end: 2px;
+}
+
+.fluent-data-grid .col-justify-start .col-sort-button::part(end),
+.fluent-data-grid .col-justify-center .col-sort-button::part(end) {
+  margin-inline-start: 2px;
+}
+
+.fluent-data-grid .col-title {
+  text-align: left;
+}
+
+.fluent-data-grid .col-justify-center .col-title {
+  text-align: center;
+}
+
+.fluent-data-grid .col-justify-end .col-title {
+  text-align: end;
+}

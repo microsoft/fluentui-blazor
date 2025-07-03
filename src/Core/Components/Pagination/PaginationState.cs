@@ -6,8 +6,6 @@ using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-// ToDo: remove pragma after next PR
-#pragma warning disable CS1574 // XML comment has cref attribute that could not be resolved
 /// <summary>
 /// Holds state to represent pagination in a <see cref="FluentDataGrid{TGridItem}"/>.
 /// </summary>
@@ -105,4 +103,3 @@ public class PaginationState
         await TotalItemCountChangedSubscribable.InvokeCallbacksAsync(this);
     }
 }
-#pragma warning restore CS1574 // XML comment has cref attribute that could not be resolved

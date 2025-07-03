@@ -105,7 +105,7 @@ public partial class Olympics2024
             yield return new Country("ch", "Switzerland", new Medals(Gold: 1, Silver: 2, Bronze: 5));
             yield return new Country("th", "Thailand", new Medals(Gold: 1, Silver: 3, Bronze: 2));
             yield return new Country("tj", "Tajikistan", new Medals(Gold: 0, Silver: 0, Bronze: 3));
-            yield return new Country("tpe", "Chinese Taipei", new Medals(Gold: 2, Silver: 0, Bronze: 5));
+            yield return new Country("tw", "Chinese Taipei", new Medals(Gold: 2, Silver: 0, Bronze: 5));
             yield return new Country("tn", "Tunisia", new Medals(Gold: 1, Silver: 1, Bronze: 1));
             yield return new Country("tr", "Turkey", new Medals(Gold: 0, Silver: 3, Bronze: 5));
             yield return new Country("ug", "Uganda", new Medals(Gold: 1, Silver: 1, Bronze: 0));

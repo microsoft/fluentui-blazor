@@ -28,4 +28,10 @@ public static class ZIndex
     /// ZIndex for the <see cref="FluentInputFile" /> component.
     /// </summary>
     public static int InputFileDropZone { get; set; } = 990;
+
+    /// <summary>
+    ///
+    /// ZIndex for the popup components in the <see cref="FluentDataGrid{TGridItem}"/>.
+    /// </summary>
+    public static int DataGridHeaderPopup { get; set; } = 5;
 }

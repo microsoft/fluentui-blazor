@@ -1,0 +1,207 @@
+﻿@using Microsoft.AspNetCore.Components.Rendering
+@using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@typeparam TGridItem
+@{
+    Grid.AddColumn(this, InitialSortDirection, IsDefaultSortColumn);
+}
+@code
+{
+    private void RenderDefaultHeaderTitle(RenderTreeBuilder __builder)
+    {
+        @if (HeaderCellTitleTemplate is not null)
+        {
+            @HeaderCellTitleTemplate(this)
+        }
+        else
+        {
+            @Title
+        }
+    }
+
+    private void RenderDefaultHeaderContent(RenderTreeBuilder __builder)
+    {
+        @if (HeaderCellItemTemplate is not null)
+        {
+            @HeaderCellItemTemplate(this)
+        }
+        else if (Grid.HeaderCellAsButtonWithMenu)
+        {
+            string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
+
+            @if (AnyColumnActionEnabled)
+            {
+                <FluentButton Id="@_columnId" Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="width: calc(100% - 10px);" @onclick="@HandleColumnHeaderClickedAsync" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+                    <div class="col-title-text" title="@tooltip">
+                        @HeaderTitleContent
+                    </div>
+
+                    @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
+                    {
+                        if (Grid.SortByAscending == true)
+                        {
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="@(Align == DataGridCellAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                        }
+                        else
+                        {
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="@(Align == DataGridCellAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                        }
+                    }
+                    @if (ColumnOptions is not null && Filtered.GetValueOrDefault())
+                    {
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="@(Align == DataGridCellAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                    }
+                </FluentButton>
+            }
+            else
+            {
+                <div class="col-title">
+                    <div class="col-title-text" title="@tooltip">
+                        @HeaderTitleContent
+                    </div>
+                </div>
+            }
+            <FluentMenu @ref="@_menu" Trigger="@_columnId">
+                <FluentMenuList>
+                    @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
+                    {
+                        <FluentMenuItem OnClick="@(async () => await Grid.SortByColumnAsync(this))" @onkeydown="HandleSortMenuKeyDownAsync"
+                                        IconStart="@(Grid.ColumnSortUISettings.Icon is not null && Grid.ColumnSortUISettings.IconPositionStart ? Grid.ColumnSortUISettings.Icon : null)"
+                                        IconEnd="@(Grid.ColumnSortUISettings.Icon is not null && !Grid.ColumnSortUISettings.IconPositionStart ? Grid.ColumnSortUISettings.Icon : null)">
+                            @GetSortOptionText()
+
+                        </FluentMenuItem>
+                    }
+                    @if (Grid.ResizeType is not null && Grid.ResizableColumns)
+                    {
+                        <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnResizeAsync(this))" @onkeydown="HandleResizeMenuKeyDownAsync"
+                                        IconStart="@(Grid.ColumnResizeUISettings.Icon is not null && Grid.ColumnResizeUISettings.IconPositionStart ? Grid.ColumnResizeUISettings.Icon : null)"
+                                        IconEnd="@(Grid.ColumnResizeUISettings.Icon is not null && !Grid.ColumnResizeUISettings.IconPositionStart ? Grid.ColumnResizeUISettings.Icon : null)">
+                            @Localizer[Localization.LanguageResource.DataGrid_ResizeMenu]
+                        </FluentMenuItem>
+                    }
+                    @if (ColumnOptions is not null)
+                    {
+                        <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnOptionsAsync(this))" @onkeydown="HandleOptionsMenuKeyDownAsync"
+                                        IconStart="@(Grid.ColumnOptionsUISettings.Icon is not null && Grid.ColumnOptionsUISettings.IconPositionStart ? Grid.ColumnOptionsUISettings.Icon : null)"
+                                        IconEnd="@(Grid.ColumnOptionsUISettings.Icon is not null && !Grid.ColumnOptionsUISettings.IconPositionStart ? Grid.ColumnOptionsUISettings.Icon : null)">
+                            @Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]
+                        </FluentMenuItem>
+                    }
+                </FluentMenuList>
+            </FluentMenu>
+
+        }
+        else
+        {
+            string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
+            string? wdelta = "10px";
+            string? align;
+
+            // determine align string based on Align value
+            align = Align.ToAttributeValue();
+
+            <div style="display: flex; justify-content: @align;">
+                @if (Align == DataGridCellAlignment.Start || Align == DataGridCellAlignment.Center)
+                {
+                    @if (Grid.ResizeType is not null)
+                    {
+                        @OptionsButton()
+                    }
+                    else
+                    {
+                        @if (ColumnOptions is not null)
+                        {
+                            @FilterButton()
+                        }
+                    }
+                }
+
+                @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
+                {
+
+                    <FluentButton Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="@($"width: calc(100% - {wdelta});")" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+                        <div class="col-title-text" title="@tooltip">
+                            @HeaderTitleContent
+                        </div>
+
+                        @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
+                        {
+                            if (Grid.SortByAscending == true)
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                            }
+                            else
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                            }
+                        }
+                        @if (ColumnOptions is not null && Filtered.GetValueOrDefault())
+                        {
+                            <FluentIcon Value="@(Grid.ColumnOptionsUISettings.Icon)" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                        }
+                    </FluentButton>
+
+                }
+                else
+                {
+                    <div class="col-title" style="@($"width: calc(100% - {wdelta});")">
+                        <div class="col-title-text" title="@tooltip">
+                            @HeaderTitleContent
+                            @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType.HasValue)
+                            {
+                                <span style="padding: 0 5px;">
+                                    <FluentIcon Value="@(Grid.ColumnOptionsUISettings.Icon)" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                                </span>
+                            }
+                        </div>
+                    </div>
+                }
+
+                @if (Align == DataGridCellAlignment.End)
+                {
+                    @if (Grid.ResizeType is not null)
+                    {
+                        @OptionsButton()
+                    }
+                    else
+                    {
+                        @if (ColumnOptions is not null)
+                        {
+                            @FilterButton()
+                        }
+                    }
+                }
+            </div>
+
+        }
+    }
+
+    [ExcludeFromCodeCoverage(Justification = "This method can't be tested because of Virtualization (which does not render completely under bUnit).")]
+
+    internal void RenderPlaceholderContent(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
+    {
+        // Blank if no placeholder template was supplied, as it's enough to style with CSS by default
+        if (PlaceholderTemplate is not null)
+        {
+            @PlaceholderTemplate(placeholderContext)
+        }
+    }
+
+    private RenderFragment OptionsButton()
+    {
+        return
+            @<FluentButton Appearance="ButtonAppearance.Subtle" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
+            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" Color="Color.Default" Width="20px" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+        </FluentButton>;
+    }
+
+    private RenderFragment FilterButton()
+    {
+        return
+            @<FluentButton Appearance="ButtonAppearance.Subtle" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
+            <FluentIcon Value="@(Grid.ColumnOptionsUISettings.Icon)" />
+        </FluentButton>;
+    }
+}
