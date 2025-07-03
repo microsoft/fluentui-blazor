@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -33,6 +34,13 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
         };
 
     }
+
+    /// <summary>
+    /// Gets the CSS class to apply to the internal web-component.
+    /// </summary>
+    protected virtual string? ComponentStyleValue => new StyleBuilder()
+        .AddStyle("width", Width)
+        .Build();
 
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
@@ -93,6 +101,12 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     /// </summary>
     [Parameter]
     public string? AutoComplete { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width of the input field.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
 
     /// <summary>
     /// Gets or sets the text filed type. See <see cref="Components.TextInputType"/>

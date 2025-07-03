@@ -32,7 +32,7 @@ public sealed class ColumnKeyGridSort<TGridItem> : IGridSort<TGridItem>
     {
         if (_sortFunction != null)
         {
-            return _sortFunction(queryable, ascending);
+        return _sortFunction(queryable, ascending);
         }
 
         // If no sort is provided, apply a sort that has no affect in order to be able to return an IOrderedQueryable
