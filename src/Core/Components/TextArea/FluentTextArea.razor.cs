@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -33,6 +34,14 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
                    && string.IsNullOrEmpty(CurrentValueAsString);
         };
     }
+
+    /// <summary>
+    /// Gets the CSS class to apply to the internal web-component.
+    /// </summary>
+    protected virtual string? ComponentStyleValue => new StyleBuilder()
+        .AddStyle("width", Width)
+        .AddStyle("height", Height)
+        .Build();
 
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
@@ -80,6 +89,18 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     /// </summary>
     [Parameter]
     public TextAreaSize? Size { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width of the input field.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the height of the input field.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
 
     /// <summary>
     /// Gets or sets the how resize the element. See <see cref="Components.TextAreaResize"/>
