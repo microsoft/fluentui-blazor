@@ -451,7 +451,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // Import the JavaScript module
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
-            await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("init", _gridReference, AutoFocus);
+            await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus);
             if (AutoItemsPerPage)
             {
 
