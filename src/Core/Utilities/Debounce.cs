@@ -8,6 +8,33 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 /// The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
 /// This ensures that the action is only invoked once after the calls have stopped for the specified duration.
 /// </summary>
+/// <example>
+/// <code>
+/// Debounce Debounce = new Debounce();
+/// 
+/// private async Task OnTextInput(ChangeEventArgs e)
+/// {
+///     await Debounce.RunAsync(400, async ct =>
+///     {
+///         InputValue = e.Value?.ToString() ?? string.Empty;
+///
+///         // Long processing task
+///         // ...
+///         
+///         if (ct.IsCancellationRequested)
+///         {
+///             // ...
+///         }
+///     });
+///
+///     // The action has been completed successfully
+///     if (Debounce.IsCompleted)
+///     {
+///         // ...
+///     }
+/// }
+/// </code>
+/// </example>
 public class Debounce : IDisposable
 {
     private bool _isCompleted;
