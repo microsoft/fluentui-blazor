@@ -2,112 +2,110 @@
 
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
 
-<FluentErrorBoundary>
-    <FluentLayout @key="@GetLayoutKey()" Style="@LayoutStyleHeight" MenuDeferredLoading="true">
+<FluentLayout @key="@GetLayoutKey()" Style="@LayoutStyleHeight" MenuDeferredLoading="true">
 
-    @* ------------------- *@
-    @*       Header        *@
-    @* ------------------- *@
-    <FluentLayoutItem Area="@LayoutArea.Header" Height="44px">
-        <FluentStack VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="4px" Height="100%" >
-            @* Hamburger on Mobile *@
-            <FluentLayoutHamburger @ref="@_hamburger" Style="margin: 2px 12px;" PanelHeader="Fluent UI Blazor" />
+@* ------------------- *@
+@*       Header        *@
+@* ------------------- *@
+<FluentLayoutItem Area="@LayoutArea.Header" Height="44px">
+    <FluentStack VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="4px" Height="100%" >
+        @* Hamburger on Mobile *@
+        <FluentLayoutHamburger @ref="@_hamburger" Style="margin: 2px 12px;" PanelHeader="Fluent UI Blazor" />
 
-            @* Microsoft Logo *@
-            <MicrosoftLogo />
+        @* Microsoft Logo *@
+        <MicrosoftLogo />
 
-            <FluentSpacer />
+        <FluentSpacer />
 
-            @* DarkTheme *@
-            <FluentButton IconStart="@(new Icons.Regular.Size20.DarkTheme().WithColor("var(--colorNeutralForegroundOnBrand)"))"
-                          OnClick="@SwitchThemeAsync"
-                          Appearance="ButtonAppearance.Subtle"
-                          BackgroundColor="@(_darkTheme ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
-                          Title="Switch to Dark theme (Under development)" />
+        @* DarkTheme *@
+        <FluentButton IconStart="@(new Icons.Regular.Size20.DarkTheme().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                        OnClick="@SwitchThemeAsync"
+                        Appearance="ButtonAppearance.Subtle"
+                        BackgroundColor="@(_darkTheme ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                        Title="Switch to Dark theme (Under development)" />
 
-            @* Reboot *@
-            <FluentButton IconStart="@(new Icons.Regular.Size20.DrawText().WithColor("var(--colorNeutralForegroundOnBrand)"))"
-                          OnClick="@ReloadReboot"
-                          Appearance="ButtonAppearance.Subtle"
-                          BackgroundColor="@(_useReboot ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
-                          Style="display: none;"
-                          Title="Use the Reboot.css styles" />
+        @* Reboot *@
+        <FluentButton IconStart="@(new Icons.Regular.Size20.DrawText().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                        OnClick="@ReloadReboot"
+                        Appearance="ButtonAppearance.Subtle"
+                        BackgroundColor="@(_useReboot ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                        Style="display: none;"
+                        Title="Use the Reboot.css styles" />
 
-            @* Open Console *@
-            <FluentButton IconStart="@(new Icons.Regular.Size20.WindowConsole().WithColor("var(--colorNeutralForegroundOnBrand)"))"
-                          OnClick="@(() => _consoleLogOpened = !_consoleLogOpened)"
-                          Appearance="ButtonAppearance.Subtle"
-                          BackgroundColor="@(_consoleLogOpened ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
-                          Title="Open or hide the console" />
+        @* Open Console *@
+        <FluentButton IconStart="@(new Icons.Regular.Size20.WindowConsole().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                        OnClick="@(() => _consoleLogOpened = !_consoleLogOpened)"
+                        Appearance="ButtonAppearance.Subtle"
+                        BackgroundColor="@(_consoleLogOpened ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                        Title="Open or hide the console" />
 
-        </FluentStack>
+    </FluentStack>
+</FluentLayoutItem>
+
+@* ------------------- *@
+@*     Left menu       *@
+@* ------------------- *@
+
+<FluentLayoutItem Area="@LayoutArea.Menu" Width="300px" Sticky="true" Height="var(--layout-body-height)"
+                    Style="overflow-y: auto; padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
+    <DemoNavMenu Hamburger="@_hamburger" />
+</FluentLayoutItem>
+
+@* ------------------- *@
+@*       Body          *@
+@* ------------------- *@
+
+@if (IsHomePage())
+{
+    <FluentLayoutItem Area="@LayoutArea.Content" Class="demo-home">
+        <div class="demo-home">
+            <div>@Body</div>
+            <div><DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" /></div>
+        </div>
+    </FluentLayoutItem>
+}
+else
+{
+    <FluentLayoutItem Area="@LayoutArea.Content">
+        @Body
     </FluentLayoutItem>
 
-    @* ------------------- *@
-    @*     Left menu       *@
-    @* ------------------- *@
-
-    <FluentLayoutItem Area="@LayoutArea.Menu" Width="300px" Sticky="true" Height="var(--layout-body-height)"
-                      Style="overflow-y: auto; padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
-        <DemoNavMenu Hamburger="@_hamburger" />
+    <FluentLayoutItem Area="@LayoutArea.Aside" Width="240px" Sticky="true" hidden-when="sm">
+        <DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" />
     </FluentLayoutItem>
+}
 
-    @* ------------------- *@
-    @*       Body          *@
-    @* ------------------- *@
+@* ------------------- *@
+@*       Footer        *@
+@* ------------------- *@
 
-    @if (IsHomePage())
+<FluentLayoutItem Area="LayoutArea.Footer" Padding="@Padding.All0">
+
+    <!-- Console -->
+    @if (_consoleLogOpened)
     {
-        <FluentLayoutItem Area="@LayoutArea.Content" Class="demo-home">
-            <div class="demo-home">
-                <div>@Body</div>
-                <div><DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" /></div>
-            </div>
-        </FluentLayoutItem>
-    }
-    else
-    {
-        <FluentLayoutItem Area="@LayoutArea.Content">
-            @Body
-        </FluentLayoutItem>
-
-        <FluentLayoutItem Area="@LayoutArea.Aside" Width="240px" Sticky="true" hidden-when="sm">
-            <DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" />
-        </FluentLayoutItem>
+        <ConsoleLogProvider Style="height: 150px;" OnClose="@(() => _consoleLogOpened = false)" />
     }
 
-    @* ------------------- *@
-    @*       Footer        *@
-    @* ------------------- *@
+    <!-- Version and copyright -->
+    <FluentStack VerticalAlignment="@VerticalAlignment.Center"
+                    Padding="@Padding.All2"
+                    HorizontalGap="12px"
+                    Style="font-size: smaller;">
 
-    <FluentLayoutItem Area="LayoutArea.Footer" Padding="@Padding.All0">
+        Version: @AppVersion.Version
 
-        <!-- Console -->
-        @if (_consoleLogOpened)
-        {
-            <ConsoleLogProvider Style="height: 150px;" OnClose="@(() => _consoleLogOpened = false)" />
-        }
+        <FluentSpacer />
+        <a href="https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core" target="_blank">
+            Powered by @AppVersion.FrameworkDescription
+        </a>
+        <FluentSpacer />
 
-        <!-- Version and copyright -->
-        <FluentStack VerticalAlignment="@VerticalAlignment.Center"
-                     Padding="@Padding.All2"
-                     HorizontalGap="12px"
-                     Style="font-size: smaller;">
-
-            Version: @AppVersion.Version
-
-            <FluentSpacer />
-            <a href="https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core" target="_blank">
-                Powered by @AppVersion.FrameworkDescription
-            </a>
-            <FluentSpacer />
-
-            &copy; Microsoft @AppVersion.CurrentYear. All rights reserved.
-        </FluentStack>
-    </FluentLayoutItem>
+        &copy; Microsoft @AppVersion.CurrentYear. All rights reserved.
+    </FluentStack>
+</FluentLayoutItem>
 
 </FluentLayout>
-</FluentErrorBoundary>
 
 <!-- FluentUI Service Providers -->
 <FluentProviders />
