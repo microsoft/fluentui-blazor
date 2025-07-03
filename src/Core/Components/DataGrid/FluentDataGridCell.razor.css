@@ -3,7 +3,7 @@
   border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStencil1);
 }
 
-.fluent-data-grid td {
+.fluent-data-grid td:not(.col-select) {
   padding: 6px 16px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -60,7 +60,7 @@
   text-overflow: ellipsis;
 }
 
-.fluent-data-grid .col-sort-button::part(content) {
+.fluent-data-grid .col-sort-button {
   overflow: hidden;
 }
 
@@ -68,19 +68,19 @@
   padding-inline-start: 4px;
 }
 
-.fluent-data-grid .col-justify-start .col-sort-button::part(control) {
+.fluent-data-grid .col-justify-start .col-sort-button {
   justify-content: start;
   overflow: hidden;
   opacity: 1
 }
 
-.fluent-data-grid .col-justify-center .col-sort-button::part(control) {
+.fluent-data-grid .col-justify-center .col-sort-button {
   justify-content: center;
   overflow: hidden;
   opacity: 1
 }
 
-.fluent-data-grid .col-justify-end .col-sort-button::part(control) {
+.fluent-data-grid .col-justify-end .col-sort-button  {
   justify-content: end;
   overflow: hidden;
   opacity: 1

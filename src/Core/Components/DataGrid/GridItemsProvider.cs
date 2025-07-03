@@ -10,5 +10,5 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 /// <param name="request">Parameters describing the data being requested.</param>
 /// <returns>A <see cref="T:ValueTask{GridItemsProviderResult{TGridItem}}" /> that gives the data to be displayed.</returns>
-internal delegate ValueTask<GridItemsProviderResult<TGridItem>> GridItemsProvider<TGridItem>(
+public delegate ValueTask<GridItemsProviderResult<TGridItem>> GridItemsProvider<TGridItem>(
     GridItemsProviderRequest<TGridItem> request);

@@ -923,6 +923,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             .AddClass("col-justify-start", column.Align == DataGridCellAlignment.Start)
             .AddClass("col-justify-center", column.Align == DataGridCellAlignment.Center)
             .AddClass("col-justify-end", column.Align == DataGridCellAlignment.End)
+            .AddClass("col-select", column.GetType() == typeof(SelectColumn<TGridItem>))
             .Build();
     }
 

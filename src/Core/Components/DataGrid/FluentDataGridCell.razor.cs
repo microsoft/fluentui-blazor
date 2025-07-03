@@ -92,8 +92,6 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
-
-
     /// <inheritdoc />
     public override ValueTask DisposeAsync()
     {

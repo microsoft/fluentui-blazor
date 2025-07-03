@@ -8,7 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Holds data being supplied to a <see cref="FluentDataGrid{TGridItem}"/>'s <see cref="FluentDataGrid{TGridItem}.ItemsProvider"/>.
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
-internal readonly struct GridItemsProviderResult<TGridItem>
+public readonly struct GridItemsProviderResult<TGridItem>
 {
     /// <summary>
     /// Gets or sets the items being supplied.

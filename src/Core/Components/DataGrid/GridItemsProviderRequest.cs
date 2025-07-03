@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Parameters for data to be supplied by a <see cref="FluentDataGrid{TGridItem}"/>'s <see cref="FluentDataGrid{TGridItem}.ItemsProvider"/>.
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
-internal readonly struct GridItemsProviderRequest<TGridItem>
+public readonly struct GridItemsProviderRequest<TGridItem>
 {
     /// <summary>
     /// Gets or sets the zero-based index of the first item to be supplied.
