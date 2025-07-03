@@ -56,7 +56,7 @@
                             @ErrorContent
                         }
                     </div>
-                    <fluent-button slot="action" appearance="primary" onclick="this.parentElement.parentElement.hide()">
+                    <fluent-button slot="action" appearance="primary" onclick="@GetOnclickJavaScript()">
                         @Localizer["ErrorBoundary_Close"]
                     </fluent-button>
                 </fluent-dialog-body>
