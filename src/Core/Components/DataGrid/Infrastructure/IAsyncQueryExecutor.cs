@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 /// <summary>
 /// Provides methods for asynchronous evaluation of queries against an <see cref="IQueryable{T}" />.
 /// </summary>
-public interface IAsyncQueryExecutor
+internal interface IAsyncQueryExecutor
 {
     /// <summary>
     /// Determines whether the <see cref="IQueryable{T}" /> is supported by this <see cref="IAsyncQueryExecutor"/> type.

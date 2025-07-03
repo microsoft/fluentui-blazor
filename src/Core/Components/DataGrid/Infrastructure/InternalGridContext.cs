@@ -16,7 +16,6 @@ internal sealed class InternalGridContext<TGridItem>(FluentDataGrid<TGridItem> g
     private int _cellId;
 
     public (ColumnBase<TGridItem>? Column, DataGridSortDirection? Direction) DefaultSortColumn { get; set; }
-    //public SortDirection? DefaultSortDirection { get; set; }
 
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = [];
 

@@ -32,7 +32,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// <summary>
     /// Indicates whether the current column is the active sort column.
     /// </summary>
-    public bool IsActiveSortColumn;
+    internal bool IsActiveSortColumn;
 
     /// <summary>
     /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header cell.
