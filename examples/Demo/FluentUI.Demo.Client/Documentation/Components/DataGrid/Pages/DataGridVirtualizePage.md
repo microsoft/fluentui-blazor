@@ -14,8 +14,6 @@ built-in [Virtualize component](https://docs.microsoft.com/en-us/aspnet/core/bla
 so it shares the same capabilities, requirements, and limitations.
 
 Enabling virtualization is just a matter of passing `Virtualize="true"`. For it to work
-properly and reliably, every row rendered must have the same known height.
-
-**This is handled by the `FluentDataGrid` code**
+properly and reliably, every row rendered must have the same known height. **This is handled by the `FluentDataGrid` code**
 
 {{ DataGridVirtualize }}
