@@ -15,12 +15,12 @@ namespace FluentUI.Demo.SampleData;
 public class RemoteFoodProductRecalls
 {
     private const string FDA_API = "https://api.fda.gov/food/enforcement.json";
-    private static readonly HttpClient _client = new HttpClient();
+    private static readonly HttpClient _client = new();
 
     /// <summary>
     /// Options for JSON serialization and deserialization.
     /// </summary>
-    private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
+    private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
@@ -47,7 +47,7 @@ public class RemoteFoodProductRecalls
         public Meta Meta { get; set; } = new();
 
         /// <summary />
-        public IEnumerable<FoodProduct> Results { get; set; } = Array.Empty<FoodProduct>();
+        public IEnumerable<FoodProduct> Results { get; set; } = [];
     }
 
     /// <summary />

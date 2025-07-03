@@ -43,7 +43,7 @@
         <PropertyColumn Title="Company" Property="@(c => c!.Recalling_Firm)" Tooltip="true" />
         <PropertyColumn Property="@(c => c!.Status)" />
         <PropertyColumn Title="Termination Date" Property="@(c => c!.Termination_Date)" SortBy="@(new ColumnKeyGridSort<FoodRecall>("termination_date"))" Sortable="true" />
-        <TemplateColumn Title="Actions" Align="@HorizontalAlignment.End">
+        <TemplateColumn Title="Actions" Align="@DataGridCellAlignment.End">
             <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => Console.WriteLine("Edit clicked"))" />
             <FluentButton aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => Console.WriteLine("Delete clicked"))" />
         </TemplateColumn>

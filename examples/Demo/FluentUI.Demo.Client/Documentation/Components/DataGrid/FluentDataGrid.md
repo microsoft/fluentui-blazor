@@ -55,7 +55,7 @@ enumeration for its type. When using `Virtualize`, the `ItemSize` value **must**
 The DataGrid has a number of strings that are used in the UI. These can be changed by leveraging the built-in [localization](/localization) functionality.
 The following values can be localized:
 
-- - DataGrid_OptionsMenu
+- DataGrid_OptionsMenu
 - DataGrid_ResizeDiscrete
 - DataGrid_ResizeExact
 - DataGrid_ResizeGrow
@@ -63,9 +63,16 @@ The following values can be localized:
 - DataGrid_ResizeReset
 - DataGrid_ResizeShrink
 - DataGrid_ResizeSubmit
+- DataGrid_SelectColumn_AllChecked
+- DataGrid_SelectColumn_AllIndeterminate
+- DataGrid_SelectColumn_AllUnchecked
+- DataGrid_SelectColumn_RowChecked
+- DataGrid_SelectColumn_RowUnchecked
 - DataGrid_SortMenu
 - DataGrid_SortMenuAscending
 - DataGrid_SortMenuDescending
+
+
 
 ## Using the DataGrid component with EF Core
 
@@ -142,8 +149,34 @@ Pressing enter finishes the filter action by the current input to filter on and 
 The resize options UI is using a customized string for the label ('Width (+/- 10px)' instead of the normal 'Column width'). This is done through
 the custom localizer which is registered in the Server project's `Program.cs` file.
 
-{{ DataGridVirtualization }}
+## Examples
+The following examples show how to use the DataGrid component in different scenarios:
 
-{{ DataGridTypical }}
+### Basics
+- [Getting started](/DataGrid/GettingStarted)
+- [Typical grid usage](/DataGrid/Typical)
+    
+### Layout
+- [Loading and empty content](/DataGrid/LoadingAndEmptyContent)
+- [Auto fit columns](/DataGrid/AutoFit)
+- [Auto items per page](/DataGrid/AutoItemsPerPage)
+- [Custom paging](/DataGrid/CustomPaging)
+- [Multi line text in cells](/DataGrid/MultiLine)
+- [Table with scrollbars](/DataGrid/Scrollbars)
 
-{{ DataGridMultiSelect }}
+### Sorting
+- [Sorting](/DataGrid/Sorting)
+- [Custom comparer for sorting](/DataGrid/CustomComparerSort)
+    
+### Columns
+- [Single/Multi select](/DataGrid/SingleMultiSelect)
+- [Dynamic columns](/DataGrid/DynamicColumns)]
+- [Header generation](/DataGrid/HeaderGeneration)
+- [Template columns](/DataGrid/TemplateColumns)
+- [Template columns 2](/DataGrid/TemplateColumns2)
+
+### Advanced
+- [Custom comparer](/DataGrid/CustomComparerSort)
+- [Virtualized grid](/DataGrid/Virtualize)
+- [Remote data](/DataGrid/RemoteData)
+- [Manual grid](/DataGrid/Manual)

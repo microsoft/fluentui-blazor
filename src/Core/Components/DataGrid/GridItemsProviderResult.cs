@@ -27,7 +27,7 @@ public readonly struct GridItemsProviderResult<TGridItem>
 /// <summary>
 /// Provides convenience methods for constructing <see cref="GridItemsProviderResult{TGridItem}"/> instances.
 /// </summary>
-internal static class GridItemsProviderResult
+public static class GridItemsProviderResult
 {
     // This is just to provide generic type inference, so you don't have to specify TGridItem yet again.
 

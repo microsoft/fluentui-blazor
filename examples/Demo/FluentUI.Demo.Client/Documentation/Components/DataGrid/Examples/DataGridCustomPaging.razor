@@ -3,9 +3,9 @@
 <div class="grid" style="width: 100%; overflow-x:auto;">
     <FluentDataGrid Items="@items" Pagination="@pagination"  Style="width: 1000px;">
         <PropertyColumn Property="@(c => c.Name)" Sortable="true" Class="country-name" />
-        <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="HorizontalAlignment.End" />
-        <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="HorizontalAlignment.End" />
-        <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="HorizontalAlignment.End" />
+        <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="DataGridCellAlignment.End" />
+        <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="DataGridCellAlignment.End" />
+        <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="DataGridCellAlignment.End" />
     </FluentDataGrid>
 </div>
 

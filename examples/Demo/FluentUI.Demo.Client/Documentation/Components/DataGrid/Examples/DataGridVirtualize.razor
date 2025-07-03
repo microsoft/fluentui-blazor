@@ -9,8 +9,8 @@
         <ChildContent>
             <PropertyColumn Width="25%" Property="@(c => c.Item1)" Sortable="true" />
             <PropertyColumn Width="25%" Property="@(c => c.Item2)" />
-            <PropertyColumn Width="25%" Property="@(c => c.Item3)" Align="HorizontalAlignment.Center" />
-            <PropertyColumn Width="25%" Property="@(c => c.Item4)" Align="HorizontalAlignment.End" />
+            <PropertyColumn Width="25%" Property="@(c => c.Item3)" Align="DataGridCellAlignment.Center" />
+            <PropertyColumn Width="25%" Property="@(c => c.Item4)" Align="DataGridCellAlignment.End" />
         </ChildContent>
         <EmptyContent>
             <FluentIcon Value="@(new Icons.Filled.Size24.Crown())" Color="@Color.Accent" />&nbsp; Nothing to see here. Carry on!

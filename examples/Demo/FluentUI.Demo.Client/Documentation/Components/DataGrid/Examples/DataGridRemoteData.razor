@@ -16,7 +16,7 @@
         <PropertyColumn Property="@(c => c!.City)" />
         <PropertyColumn Title="Company" Property="@(c => c!.Recalling_Firm)" Tooltip="true"/>
         <PropertyColumn Property="@(c => c!.Status)" />
-        <TemplateColumn Title="Actions" Align="@HorizontalAlignment.End">
+        <TemplateColumn Title="Actions" Align="@DataGridCellAlignment.End">
             <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => Console.WriteLine("Edit clicked"))" />
             <FluentButton aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => Console.WriteLine("Delete clicked"))" />
         </TemplateColumn>
@@ -32,7 +32,7 @@
     protected override async Task OnInitializedAsync()
     {
         // Define the GridRowsDataProvider. Its job is to convert QuickGrid's GridRowsDataProviderRequest into a query against
-        // an arbitrary data soure. In this example, we need to translate query parameters into the particular URL format
+        // an arbitrary data source. In this example, we need to translate query parameters into the particular URL format
         // supported by the external JSON API. It's only possible to perform whatever sorting/filtering/etc is supported
         // by the external API.
         foodRecallProvider = async req =>
