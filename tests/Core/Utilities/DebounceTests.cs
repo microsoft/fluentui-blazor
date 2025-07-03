@@ -187,7 +187,7 @@ public class DebounceTests
             // Check if cancellation was requested
             if (checkCancellationRequested && ct.IsCancellationRequested)
             {
-                Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step1 Cancelled");
+                Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step1 CANCELLED");
                 return;
             }
 
