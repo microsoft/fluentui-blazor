@@ -189,4 +189,14 @@
         Assert.Equal(KeyCode.Enter, lastEventArgs.KeyPress.Key);
         Assert.Equal("MyValue", lastEventArgs.Value);
     }
+
+    [Fact]
+    public void FluentTextArea_WidthHeight()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextArea Width="150px" Height="100px" />);
+
+        // Assert
+        Assert.Equal("width: 150px; height: 100px;", cut.Find("fluent-textarea").GetAttribute("style"));
+    }
 }

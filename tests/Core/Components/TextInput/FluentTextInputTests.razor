@@ -201,4 +201,14 @@
         Assert.Equal(KeyCode.Enter, lastEventArgs.KeyPress.Key);
         Assert.Equal("MyValue", lastEventArgs.Value);
     }
+
+    [Fact]
+    public void FluentInputText_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput Width="100px" />);
+
+        // Assert
+        Assert.Equal("width: 100px;", cut.Find("fluent-text-input").GetAttribute("style"));
+    }
 }

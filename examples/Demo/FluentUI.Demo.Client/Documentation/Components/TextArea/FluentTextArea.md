@@ -20,7 +20,8 @@ We recommend to use a spacing of 24px between text fields and other components.
 {{ TextAreaAppearances }}
 
 ## Size
-A textarea supports `Small`, `Medium` (default) and `Large` size.
+A textarea supports `Small`, `Medium` (default) and `Large` size.  
+You can set the `Width` and `Height` properties to control the size of the textarea.
 
 {{ TextAreaSizeExample }}
 
