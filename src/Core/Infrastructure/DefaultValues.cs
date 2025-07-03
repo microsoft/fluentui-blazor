@@ -9,6 +9,7 @@ using System.Reflection;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
+[ExcludeFromCodeCoverage(Justification = "Test will be added later")]
 public class DefaultValues
 {
     // List of components and their Property/Default values.

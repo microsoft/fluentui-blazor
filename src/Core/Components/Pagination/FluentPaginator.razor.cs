@@ -10,14 +10,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A component that provides a user interface for <see cref="PaginationState"/>.
 /// </summary>
-public partial class FluentPaginator : FluentComponentBase, IDisposable
+public partial class FluentPaginator : FluentComponentBase
 {
     private readonly EventCallbackSubscriber<PaginationState> _totalItemCountChanged;
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
 
-    /// <summary>
-    /// Constructs an instance of <see cref="FluentPaginator" />.
-    /// </summary>
+    /// <summary />
     public FluentPaginator(LibraryConfiguration configuration) : base(configuration)
     {
         // The "total item count" handler doesn't need to do anything except cause this component to re-render
@@ -79,10 +77,11 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     }
 
     /// <inheritdoc />
-    public void Dispose()
+    public override ValueTask DisposeAsync()
     {
         _totalItemCountChanged.Dispose();
         _currentPageItemsChanged.Dispose();
+        return base.DisposeAsync();
     }
 
     private bool CanGoBack => State.CurrentPageIndex > 0;
@@ -102,7 +101,7 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
         await State.SetCurrentPageIndexAsync(pageIndex);
         if (CurrentPageIndexChanged.HasDelegate)
         {
-            await CurrentPageIndexChanged.InvokeAsync(State.CurrentPageIndex);
+            await InvokeAsync(() => CurrentPageIndexChanged.InvokeAsync(State.CurrentPageIndex));
         }
     }
 }

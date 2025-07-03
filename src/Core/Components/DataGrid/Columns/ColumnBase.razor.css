@@ -1,0 +1,16 @@
+.fluent-data-grid .col-title {
+    padding: 6px 16px;
+    user-select: none;
+}
+
+.fluent-data-grid .col-title-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.fluent-data-grid th.col-justify-center svg {
+  align-content: center;
+  text-align: center;
+}

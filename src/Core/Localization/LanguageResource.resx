@@ -243,7 +243,55 @@
   <data name="Paginator_Status" xml:space="preserve">
     <value>Page {0} of {1}</value>
   </data>
+  <data name="DataGrid_SortMenuAscending" xml:space="preserve">
+    <value>Sort (ascending)</value>
+  </data>
+  <data name="DataGrid_SortMenuDescending" xml:space="preserve">
+    <value>Sort (descending)</value>
+  </data>
+  <data name="DataGrid_SortMenu" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="DataGrid_ResizeMenu" xml:space="preserve">
+    <value>Resize</value>
+  </data>
+  <data name="DataGrid_OptionsMenu" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="DataGrid_ResizeDiscrete" xml:space="preserve">
+    <value>Column width</value>
+  </data>
+  <data name="DataGrid_ResizeExact" xml:space="preserve">
+    <value>Column width (in pixels)</value>
+  </data>
+  <data name="DataGrid_ResizeGrow" xml:space="preserve">
+    <value>Grow column width</value>
+  </data>
+  <data name="DataGrid_ResizeShrink" xml:space="preserve">
+    <value>Shrink column width</value>
+  </data>
+  <data name="DataGrid_ResizeReset" xml:space="preserve">
+    <value>Reset column widths</value>
+  </data>
+  <data name="DataGrid_ResizeSubmit" xml:space="preserve">
+    <value>Set column widths</value>
+  </data>
   <data name="MessageBar_Dismiss" xml:space="preserve">
     <value>Hide this message</value>
+  </data>
+  <data name="DataGrid_SelectColumn_AllChecked" xml:space="preserve">
+    <value>All rows are selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_AllUnchecked" xml:space="preserve">
+    <value>No rows areselected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_AllIndeterminate" xml:space="preserve">
+    <value>Some rows are selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_RowChecked" xml:space="preserve">
+    <value>Row selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_RowUnchecked" xml:space="preserve">
+    <value>Row not selected</value>
   </data>
 </root>

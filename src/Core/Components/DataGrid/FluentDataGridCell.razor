@@ -1,0 +1,33 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+@typeparam TGridItem
+
+@if (CellType == DataGridCellType.Default)
+{
+    <td id="@Id"
+        col-index=@GridColumn
+        class="@ClassValue"
+        style="@StyleValue"
+        role="gridcell"
+        tabindex="0"
+        @onkeydown="@HandleOnCellKeyDownAsync"
+        @onclick="@HandleOnCellClickAsync"
+        @onfocus="@HandleOnCellFocusAsync"
+        @attributes="AdditionalAttributes">
+        @ChildContent
+    </td>
+}
+else
+{
+    <th id="@Id"
+        col-index=@GridColumn
+        class="@ClassValue"
+        style="@StyleValue"
+        @oncontextmenu:preventDefault="true"
+        @onkeydown="@HandleOnCellKeyDownAsync"
+        @onclick="@HandleOnCellClickAsync"
+        @onfocus="@HandleOnCellFocusAsync"
+        @attributes="AdditionalAttributes">
+        @ChildContent
+    </th>
+}

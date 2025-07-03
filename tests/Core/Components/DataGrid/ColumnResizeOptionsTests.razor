@@ -1,0 +1,23 @@
+﻿@using Bunit.TestDoubles
+@using Xunit
+@inherits Bunit.TestContext
+
+@code {
+    public ColumnResizeOptionsTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        // Register services
+        Services.AddFluentUIComponents();
+        Services.AddScoped<IKeyCodeService>(factory => new KeyCodeService());
+    }
+
+    [Fact]
+    public void ColumnResizeOptions_InvalidColumn()
+    {
+        // Arrange && Act && Assert
+        Assert.Throws<ArgumentException>(() => Render<ColumnResizeOptions<string>>(
+            @<ColumnResizeOptions TGridItem="string" Column="0" />
+        ));
+    }
+}

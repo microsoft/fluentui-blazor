@@ -12,6 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Provides functionality to configure default values for component parameters of type <typeparamref name="TComponent" />.
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "Test will be added later")]
 public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TComponent>
 {
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]

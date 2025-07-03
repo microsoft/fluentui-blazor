@@ -24,15 +24,29 @@ internal sealed class EventCallbackSubscribable<T>
     {
         foreach (var callback in _callbacks.Values)
         {
-            await callback.InvokeAsync(eventArg);
+            try
+            {
+                await callback.InvokeAsync(eventArg);
+            }
+            catch (InvalidOperationException)
+            {
+                // Continue invoking the rest of the callbacks even if one fails.
+            }
         }
     }
 
-    // Don't call this directly - it gets called by EventCallbackSubscription
+    /// <summary>
+    /// Don't call this directly - it gets called by EventCallbackSubscription
+    /// </summary>
+    /// <param name="owner">The subscriber that owns this callback.</param>
+    /// <param name="callback">The callback to invoke.</param>
     public void Subscribe(EventCallbackSubscriber<T> owner, EventCallback<T> callback)
         => _callbacks.TryAdd(owner, callback);
 
-    // Don't call this directly - it gets called by EventCallbackSubscription
+    /// <summary>
+    /// Don't call this directly - it gets called by EventCallbackSubscription
+    /// <param name="owner">The subscriber that owns this callback.</param>
+    /// </summary>
     public void Unsubscribe(EventCallbackSubscriber<T> owner)
         => _callbacks.TryRemove(owner, out _);
 }

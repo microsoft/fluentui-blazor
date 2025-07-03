@@ -1,0 +1,91 @@
+.fluent-data-grid {
+  --fluent-data-grid-resize-handle-color: var(--colorBrandForeground1);
+  --fluent-data-grid-resize-handle-width: 1px;
+  --fluent-data-grid-header-opacity: 0.5;
+  width: auto;
+  flex: 1;
+  border-collapse: collapse;
+  align-items: center;
+  height: max-content;
+  margin-bottom: 0px;
+}
+
+    .fluent-data-grid.grid {
+        display: grid;
+    }
+
+      .fluent-data-grid.grid thead,
+      .grid tbody {
+        display: contents;
+      }
+
+      .fluent-data-grid.grid tr {
+        display: contents;
+      }
+
+.fluent-data-grid tbody tr .hover {
+  background: var(--colorNeutralBackground5);
+}
+
+  .fluent-data-grid .col-options, .fluent-data-grid .col-resize {
+    position: absolute;
+    min-width: 250px;
+    top: 2.7rem;
+    background: var(--colorNeutralBackground1);
+    border: 1px solid var(--colorNeutralBackground1Pressed);
+    border-radius: 0.3rem;
+    box-shadow: var(--shadow8);
+    padding: 12px;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+[dir=rtl] .fluent-data-grid .col-options {
+  left: unset;
+}
+
+.fluent-data-grid .col-justify-end .col-options,
+.fluent-data-grid .col-justify-right .col-options {
+  left: unset;
+  margin-right: 0.6rem;
+}
+
+[dir=rtl] .fluent-data-grid .col-justify-end .col-options,
+[dir=rtl] .fluent-data-grid .col-justify-right .col-options {
+    right: unset;
+    margin-left: 0.6rem;
+}
+
+
+
+.fluent-data-grid .resize-options {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.fluent-data-grid .resize-handle {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    left: unset;
+    bottom: 0;
+    height: 30px;
+    cursor: col-resize;
+    width: 6px;
+    border-inline-end: var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color);
+    opacity: var(--fluent-data-grid-header-opacity);
+}
+
+.fluent-data-grid .header {
+  padding: 0;
+  z-index: 3;
+}
+
+.fluent-data-grid tr[row-type='sticky-header'] > th {
+  position: sticky;
+  top: 0;
+  background-color: var(--colorNeutralBackground4);
+  z-index: 2;
+}
