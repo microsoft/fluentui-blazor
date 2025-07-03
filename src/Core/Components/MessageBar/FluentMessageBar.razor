@@ -1,0 +1,56 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+@if (Visible)
+{
+    <fluent-message-bar id="@Id"
+                        class="@ClassValue"
+                        style="@StyleValue"
+                        shape="@Shape.ToAttributeValue()"
+                        layout="@Layout.ToAttributeValue()"
+                        intent="@GetIntentString()"
+                        animation="@GetAnimation()"
+                        aria-live="@AriaLive.ToAttributeValue()"
+                        @attributes="@AdditionalAttributes">
+
+        <AddTag Name="span" slot="@FluentSlot.Icon" TagWhen="@(() => Layout == MessageBarLayout.Notification)" class="notification-title">
+            <FluentIcon Value="@GetIcon()" Slot="@FluentSlot.Icon" />
+
+            @if (!string.IsNullOrEmpty(Title))
+            {
+                <span class="title">@((MarkupString)Title)</span>
+            }
+        </AddTag>
+
+        @if (@ChildContent is not null)
+        {
+            <span class="content">@ChildContent</span>
+        }
+
+        @if (AllowDismiss)
+        {
+            <FluentButton Appearance="ButtonAppearance.Transparent"
+                          IconStart="@(new CoreIcons.Regular.Size20.Dismiss().WithColor("currentColor"))"
+                          IconOnly="true"
+                          Title="@Localizer[Localization.LanguageResource.MessageBar_Dismiss]"
+                          Size="ButtonSize.Small"
+                          slot="@FluentSlot.Dismiss"
+                          OnClick="DismissClickAsync" />
+        }
+
+        @if (ActionsTemplate is not null)
+        {
+            <span class="actions" slot="@FluentSlot.Actions">
+                @ActionsTemplate
+            </span>
+        }
+        else if (TimeStamp is not null)
+        {
+            <span class="actions" slot="@FluentSlot.Actions">
+                @GetTimeStamp()
+            </span>
+        }
+
+    </fluent-message-bar>
+}
