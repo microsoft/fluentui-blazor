@@ -27,7 +27,7 @@ public readonly struct GridItemsProviderResult<TGridItem>
 /// <summary>
 /// Provides convenience methods for constructing <see cref="GridItemsProviderResult{TGridItem}"/> instances.
 /// </summary>
-public static class GridItemsProviderResult
+internal static class GridItemsProviderResult
 {
     // This is just to provide generic type inference, so you don't have to specify TGridItem yet again.
 
@@ -36,7 +36,7 @@ public static class GridItemsProviderResult
     /// </summary>
     /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
     /// <param name="items">The items being supplied.</param>
-    /// <param name="totalItemCount">The total numer of items that exist. See <see cref="GridItemsProviderResult{TGridItem}.TotalItemCount"/> for details.</param>
+    /// <param name="totalItemCount">The total number of items that exist. See <see cref="GridItemsProviderResult{TGridItem}.TotalItemCount"/> for details.</param>
     /// <returns>An instance of <see cref="GridItemsProviderResult{TGridItem}"/>.</returns>
     public static GridItemsProviderResult<TGridItem> From<TGridItem>(ICollection<TGridItem> items, int totalItemCount)
         => new() { Items = items, TotalItemCount = totalItemCount };

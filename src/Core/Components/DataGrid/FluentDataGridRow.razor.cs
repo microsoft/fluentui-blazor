@@ -28,6 +28,16 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     {
     }
 
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-data-grid-row")
+        .AddClass("hover", when: Grid.ShowHover)
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+       .Build();
+
     /// <summary>
     /// Gets or sets the reference to the item that holds this row's values.
     /// </summary>
@@ -75,16 +85,6 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
-
-    /// <summary />
-    protected string? ClassValue => DefaultClassBuilder
-        .AddClass("fluent-data-grid-row")
-        .AddClass("hover", when: Grid.ShowHover)
-        .Build();
-
-    /// <summary />
-    protected string? StyleValue => DefaultStyleBuilder
-       .Build();
 
     /// <summary>
     /// Sets the RowIndex for this row.

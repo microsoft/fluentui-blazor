@@ -14,58 +14,58 @@
         display: grid;
     }
 
-.grid thead,
-.grid tbody {
-    display: contents;
-}
+      .fluent-data-grid.grid thead,
+      .grid tbody {
+        display: contents;
+      }
 
-.grid tr {
-    display: contents;
-}
+      .fluent-data-grid.grid tr {
+        display: contents;
+      }
 
 .fluent-data-grid tbody tr .hover {
   background: var(--colorNeutralBackground5);
 }
 
-.col-options, .col-resize {
-  position: absolute;
-  min-width: 250px;
-  top: 2.7rem;
-  background: var(--colorNeutralBackground1);
-  border: 1px solid var(--colorNeutralBackground1Pressed);
-  border-radius: 0.3rem;
-  box-shadow: var(--shadow8);
-  padding: 12px;
-  visibility: hidden;
-  z-index: 1;
+  .fluent-data-grid .col-options, .fluent-data-grid .col-resize {
+    position: absolute;
+    min-width: 250px;
+    top: 2.7rem;
+    background: var(--colorNeutralBackground1);
+    border: 1px solid var(--colorNeutralBackground1Pressed);
+    border-radius: 0.3rem;
+    box-shadow: var(--shadow8);
+    padding: 12px;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+[dir=rtl] .fluent-data-grid .col-options {
+  left: unset;
 }
 
-[dir=rtl] .col-options {
-    left: unset;
+.fluent-data-grid .col-justify-end .col-options,
+.fluent-data-grid .col-justify-right .col-options {
+  left: unset;
+  margin-right: 0.6rem;
 }
 
-.col-justify-end .col-options,
-.col-justify-right .col-options {
-    left: unset;
-    margin-right: 0.6rem;
-}
-
-[dir=rtl] .col-justify-end .col-options,
-[dir=rtl] .col-justify-right .col-options {
+[dir=rtl] .fluent-data-grid .col-justify-end .col-options,
+[dir=rtl] .fluent-data-grid .col-justify-right .col-options {
     right: unset;
     margin-left: 0.6rem;
 }
 
 
 
-.resize-options {
+.fluent-data-grid .resize-options {
     display: flex;
     width: 100%;
     justify-content: center;
     align-items: center;
 }
 
-.resize-handle {
+.fluent-data-grid .resize-handle {
     position: absolute;
     top: 5px;
     right: 0;
@@ -78,12 +78,12 @@
     opacity: var(--fluent-data-grid-header-opacity);
 }
 
-.header {
-    padding: 0;
-    z-index: 3;
+.fluent-data-grid .header {
+  padding: 0;
+  z-index: 3;
 }
 
-tr[row-type='sticky-header'] > th {
+.fluent-data-grid tr[row-type='sticky-header'] > th {
   position: sticky;
   top: 0;
   background-color: var(--colorNeutralBackground4);

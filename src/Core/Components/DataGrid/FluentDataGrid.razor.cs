@@ -40,8 +40,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _checkColumnOptionsPosition;
     private bool _checkColumnResizePosition;
     private bool _manualGrid;
-    //private IJSObjectReference? Module;
-    private IJSObjectReference? _jsEventDisposable;
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
     private readonly RenderFragment _renderEmptyContent;
@@ -453,7 +451,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // Import the JavaScript module
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
-            _jsEventDisposable = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus);
+            await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("init", _gridReference, AutoFocus);
             if (AutoItemsPerPage)
             {
 
@@ -904,6 +902,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         .AddStyle("width", "100%", DisplayMode == DataGridDisplayMode.Table)
         .Build();
 
+    private string? GridClass => DefaultClassBuilder
+            .AddClass("fluent-data-grid")
+            .AddClass("grid", DisplayMode == DataGridDisplayMode.Grid)
+            .AddClass("auto-fit", AutoFit)
+            .AddClass("loading", _pendingDataLoadCancellationTokenSource is not null)
+            .Build();
+
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
     {
         return new CssBuilder(Class)
@@ -913,22 +918,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
            .Build();
     }
 
-    private string? GridClass()
-    {
-        return DefaultClassBuilder
-            .AddClass("fluent-data-grid")
-            .AddClass("grid", DisplayMode == DataGridDisplayMode.Grid)
-            .AddClass("auto-fit", AutoFit)
-            .AddClass("loading", _pendingDataLoadCancellationTokenSource is not null)
-            .Build();
-    }
-
     private static string? ColumnJustifyClass(ColumnBase<TGridItem> column)
     {
         return new CssBuilder(column.Class)
             .AddClass("col-justify-start", column.Align == DataGridCellAlignment.Start)
             .AddClass("col-justify-center", column.Align == DataGridCellAlignment.Center)
             .AddClass("col-justify-end", column.Align == DataGridCellAlignment.End)
+            .AddClass("col-select", column.GetType() == typeof(SelectColumn<TGridItem>))
             .Build();
     }
 
@@ -1016,11 +1012,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         await Pagination.SetItemsPerPageAsync(visibleRows - 1); // subtract 1 for the table header
     }
-
-    //public void SetPageReference(Type page)
-    //{
-    //    _dotNetObjectReference = DotNetObjectReference.Create(page);
-    //}
 
     /// <summary>
     /// Checks if key pressed should be handled

@@ -20,7 +20,8 @@ public sealed class Defer : ComponentBase
     /// <summary>
     /// For internal use only. Do not use.
     /// </summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// For internal use only. Do not use.

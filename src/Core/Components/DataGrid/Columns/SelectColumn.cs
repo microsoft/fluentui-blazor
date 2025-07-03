@@ -46,6 +46,13 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     protected override void OnInitialized()
     {
         _itemsChanged.SubscribeOrMove(InternalGridContext.ItemsChanged);
+
+        TitleAllChecked = Localizer[Localization.LanguageResource.DataGrid_SelectColumn_AllChecked];
+        TitleAllUnchecked = Localizer[Localization.LanguageResource.DataGrid_SelectColumn_AllUnchecked];
+        TitleAllIndeterminate = Localizer[Localization.LanguageResource.DataGrid_SelectColumn_AllIndeterminate];
+        TitleChecked = Localizer[Localization.LanguageResource.DataGrid_SelectColumn_RowChecked];
+        TitleUnchecked = Localizer[Localization.LanguageResource.DataGrid_SelectColumn_RowUnchecked];
+
         base.OnInitialized();
     }
 
@@ -123,30 +130,16 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     }
 
     /// <summary>
-    /// Gets or sets the Icon to be rendered when the row is non selected.
-    /// </summary>
-    [Parameter]
-    public Icon? IconUnchecked { get; set; }
-
-    /// <summary>
-    /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
-    /// The default text is "Row unselected".
-    /// </summary>
-    [Parameter]
-    public string TitleUnchecked { get; set; } = "Row unselected";
-
-    /// <summary>
     /// Gets or sets the Icon to be rendered when the row is selected.
     /// </summary>
     [Parameter]
     public Icon? IconChecked { get; set; }
 
     /// <summary>
-    /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
-    /// The default text is "Row selected".
+    /// Gets or sets the Icon to be rendered when the row is non selected.
     /// </summary>
     [Parameter]
-    public string TitleChecked { get; set; } = "Row selected.";
+    public Icon? IconUnchecked { get; set; }
 
     /// <summary>
     /// Gets or sets the Icon to be rendered when some but not all rows are selected.
@@ -157,24 +150,37 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
 
     /// <summary>
     /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
+    /// The default text is "Row selected".
+    /// </summary>
+    [Parameter]
+    public string? TitleChecked { get; set; }
+    /// <summary>
+    /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
+    /// The default text is "Row unselected".
+    /// </summary>
+    [Parameter]
+    public string? TitleUnchecked { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
     /// The default text is "All rows are selected.".
     /// </summary>
     [Parameter]
-    public string TitleAllChecked { get; set; } = "All rows are selected.";
+    public string? TitleAllChecked { get; set; }
 
     /// <summary>
     /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
     /// The default text is "No rows are selected.".
     /// </summary>
     [Parameter]
-    public string TitleAllUnchecked { get; set; } = "No rows are selected.";
+    public string? TitleAllUnchecked { get; set; }
 
     /// <summary>
     /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
     /// The default text is "Some rows are selected.".
     /// </summary>
     [Parameter]
-    public string TitleAllIndeterminate { get; set; } = "Some rows are selected.";
+    public string? TitleAllIndeterminate { get; set; }
 
     /// <summary>
     /// Gets or sets the action to be executed when the row is selected or unselected.
