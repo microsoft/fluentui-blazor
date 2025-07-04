@@ -1,0 +1,250 @@
+{
+    // Ctrl+Shift+P → "Tasks: Run Task" to run any specific task
+    // Ctrl+Shift+B → To run the default build task (build-solution)
+    "version": "2.0.0",
+    "tasks": [
+        // Build Microsoft.FluentUI-v5.sln.
+        // Default build task
+        {
+            "label": "build-solution",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "Microsoft.FluentUI-v5.sln",
+                "--configuration",
+                "Debug"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        
+        // Build Components project only
+        {
+            "label": "build-core-components",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj",
+                "--configuration",
+                "Debug"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+
+        // Build Demo project
+        {
+            "label": "build-demo",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj",
+                "--configuration",
+                "Debug"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+
+        // Build Demo project in Release mode
+        {
+            "label": "build-demo-release",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj",
+                "--configuration",
+                "Release"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+
+        // Clean solution
+        {
+            "label": "clean-solution",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "clean",
+                "Microsoft.FluentUI-v5.sln"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+
+        // Restore solution
+        {
+            "label": "restore-solution",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "restore",
+                "Microsoft.FluentUI-v5.sln"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+
+        // Run the demo application
+        {
+            "label": "run-demo",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj"
+            ],
+            "group": "test",
+            "isBackground": true,
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+
+        // Run unit tests for Core Components
+        {
+            "label": "test-core",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "test",
+                "tests/Core/Components.Tests.csproj",
+                "--configuration",
+                "Debug"
+            ],
+            "group": "test",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+
+        // Watch for changes in Demo project and rebuild automatically
+        {
+            "label": "watch-demo",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj"
+            ],
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": [
+                {
+                    "base": "$msCompile",
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "^\\s*Watching for file changes",
+                        "endsPattern": "^\\s*Application started\\.|^\\s*dotnet watch : Exited"
+                    }
+                }
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },       
+    ]
+}
