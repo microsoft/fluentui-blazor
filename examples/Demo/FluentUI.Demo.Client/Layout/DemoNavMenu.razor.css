@@ -8,6 +8,10 @@ li {
   font-weight: 600;
 }
 
+  li:not(:has(> a)) {
+    padding: 8px 10px;
+  }
+
   li li {
     font-weight: 400;
     padding-left: 24px;
