@@ -6,7 +6,6 @@ ul {
 
 li {
   font-weight: 600;
-  padding: 8px 10px;
 }
 
   li li {
@@ -22,4 +21,6 @@ li {
 a {
   text-decoration: none;
   color: var(--colorNeutralForeground2);
+  display: block;
+  padding: 8px 10px;
 }
