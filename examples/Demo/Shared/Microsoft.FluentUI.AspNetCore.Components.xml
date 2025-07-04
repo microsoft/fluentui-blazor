@@ -3073,6 +3073,15 @@
             By default, this value is Left or Right, depending of the 'CurrentUICulture.TextInfo.IsRightToLeft' value.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">
             <summary />
         </member>
@@ -3081,7 +3090,21 @@
             Gets or sets the design of this input.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.TimeDisplay">
+            <summary>
+            Gets or sets the time format.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.FormatValueAsString(System.Nullable{System.DateTime})">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.TryParseValueFromString(System.String,System.Nullable{System.DateTime}@,System.String@)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{Microsoft.AspNetCore.Components.Web.MouseEventArgs,System.Threading.Tasks.Task})">
@@ -14560,6 +14583,22 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextPosition.Start">
             <summary>
             The text is positioned before avatar/presence.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.TimeDisplay">
+            <summary>
+            Specifies the format for displaying time in input elements with time component.
+            This is a hint to the browser, so results may vary.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TimeDisplay.HourMinute">
+            <summary>
+            Show hours and minutes
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TimeDisplay.HourMinuteSeconds">
+            <summary>
+            Show hours, minutes and seconds
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ToastIntent">
