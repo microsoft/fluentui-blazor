@@ -131,7 +131,7 @@
     {
         // Arrange
         var step = (T)Convert.ChangeType(1, typeof(T));
-        var cut = Render(@<FluentSlider TValue="T" @bind-Value="@value" Step="@step" />);
+        var cut = Render(@<FluentSlider TValue="T" @bind-Value="@value" Step="@step" ImmediateDelay="0" />);
 
         var slider = cut.Find("fluent-slider");
         var valueAttribute = slider.GetAttribute("value");
