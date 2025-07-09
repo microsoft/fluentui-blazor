@@ -2,13 +2,14 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class ProgressToast : IToastContentComponent<ProgressToastContent>
+[method: DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors, typeof(ProgressToast))]
+public partial class ProgressToast() : IToastContentComponent<ProgressToastContent>
 {
-
     [Parameter]
     public ProgressToastContent Content { get; set; } = default!;
 
