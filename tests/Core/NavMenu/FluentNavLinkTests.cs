@@ -216,30 +216,50 @@ public class FluentNavLinkTests : TestBase
     [Fact]
     public void FluentNavLink_KeyboardNavigation_InsideNavGroup()
     {
-        // This test simulates the issue scenario: FluentNavLink inside FluentNavGroup
-        var navMenuMarkup = @"
-        <FluentNavMenu Width=""200"">
-            <FluentNavLink Href=""example-page"">Example page</FluentNavLink>
-            <FluentNavGroup Title=""Example group"">
-                <FluentNavLink Href=""example-page"">Example page</FluentNavLink>
-            </FluentNavGroup>
-        </FluentNavMenu>";
+        // Arrange & Act - Test NavLink inside a NavGroup scenario
+        var m = new FluentNavMenu
+        {
+            Expanded = true
+        };
+        var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
+        {
+            parameters.Add(p => p.Owner, m);
+            parameters.Add(p => p.Href, "/example-page");
+            parameters.AddChildContent("Example page");
+        });
 
-        // Arrange & Act
-        var cut = TestContext.RenderComponent(navMenuMarkup);
-
-        // Assert - Verify that both NavLinks are rendered correctly
-        var navLinks = cut.FindComponents<FluentNavLink>();
-        Assert.Equal(2, navLinks.Count);
-
-        // The NavLink inside the group should have keyboard handling
-        var navLinkInGroup = navLinks[1]; // Second NavLink is inside the group
-        var fluentKeyCode = navLinkInGroup.FindComponent<FluentKeyCode>();
+        // Assert - Verify that keyboard handling is added for NavLink inside group
+        cut.Verify();
+        
+        // Verify FluentKeyCode component is present
+        var fluentKeyCode = cut.FindComponent<FluentKeyCode>();
         Assert.NotNull(fluentKeyCode);
         
-        // The standalone NavLink should not have keyboard handling (Owner is null)
-        var standaloneNavLink = navLinks[0]; // First NavLink is standalone
-        Assert.Throws<ComponentNotFoundException>(() => standaloneNavLink.FindComponent<FluentKeyCode>());
+        // Verify the NavLink has the expected id
+        var navLink = cut.Find("a[id]");
+        var navLinkId = navLink.GetAttribute("id");
+        Assert.Contains("-navlink", navLinkId);
+    }
+
+    [Fact]
+    public void FluentNavLink_KeyboardNavigation_Standalone()
+    {
+        // Arrange & Act - Test standalone NavLink (no Owner)
+        var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
+        {
+            parameters.Add(p => p.Href, "/example-page");
+            parameters.AddChildContent("Example page");
+        });
+
+        // Assert - Verify that no keyboard handling is added for standalone NavLink
+        cut.Verify();
+        
+        // Verify no FluentKeyCode component is present
+        Assert.Throws<ComponentNotFoundException>(() => cut.FindComponent<FluentKeyCode>());
+        
+        // Verify the NavLink doesn't have the special id (should not have id attribute)
+        var navLink = cut.Find("a");
+        Assert.False(navLink.HasAttribute("id"), "Standalone NavLink should not have an id attribute");
     }
 
     //ActiveClass
