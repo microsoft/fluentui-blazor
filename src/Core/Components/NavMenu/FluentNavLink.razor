@@ -12,7 +12,7 @@
             @* Add keyboard handling for navigation when inside a NavGroup *@
             @if (Owner != null)
             {
-                <FluentKeyCode Anchor="@($"{Id}-navlink")" Only="new[] { KeyCode.Enter }" StopPropagation="@true" PreventDefault="@true" OnKeyDown="@HandleNavLinkKeyDownAsync" />
+                <FluentKeyCode Anchor="@($"{Id}-navlink")" Only="new[] { KeyCode.Enter, KeyCode.Space }" StopPropagation="@true" PreventDefault="@true" OnKeyDown="@HandleNavLinkKeyDownAsync" />
             }
             <NavLink id="@($"{Id}-navlink")"
                      class="@LinkClassValue"

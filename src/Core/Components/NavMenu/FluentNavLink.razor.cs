@@ -37,7 +37,7 @@ public partial class FluentNavLink : FluentNavBase
 
     private async Task HandleNavLinkKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-        if (args.Key == KeyCode.Enter && !string.IsNullOrEmpty(Href) && !Disabled)
+        if ((args.Key == KeyCode.Enter || args.Key == KeyCode.Space) && !string.IsNullOrEmpty(Href) && !Disabled)
         {
             await OnClickHandlerAsync(new MouseEventArgs());
         }
