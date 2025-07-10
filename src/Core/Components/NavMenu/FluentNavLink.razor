@@ -6,6 +6,7 @@
 
 @if (Owner == null || Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNavigation || SubMenu == null)))
 {
+
     <div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
         @if (!OnClick.HasDelegate && Href is not null)
         {
@@ -24,13 +25,15 @@
         }
         else
         {
-            <div class="positioning-region" title="@Tooltip">
-                <div class="content-region">
-                    <div class="@LinkClassValue" @onclick="OnClickHandlerAsync">
-                        @_renderContent
+            <span class="@_class">
+                <div class="positioning-region" title="@Tooltip">
+                    <div class="content-region">
+                        <div class="@LinkClassValue" @onclick="OnClickHandlerAsync">
+                            @_renderContent
+                        </div>
                     </div>
                 </div>
-            </div>
+            </span>
         }
     </div>
 }

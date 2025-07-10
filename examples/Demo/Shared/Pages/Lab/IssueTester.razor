@@ -1,1 +1,21 @@
-﻿
+﻿<FluentStack Orientation="Orientation.Horizontal">
+    <!-- Menu item without callback -->
+    <FluentNavMenu>
+        <FluentNavLink Href="/issue-tester">Item 1</FluentNavLink>
+    </FluentNavMenu>
+
+    <!-- Menu item with event callback -->
+    <FluentNavMenu>
+        <FluentNavLink Href="/issue-tester" OnClick="OnClick">Item 1</FluentNavLink>
+    </FluentNavMenu>
+    <FluentNavMenu>
+        <FluentNavLink Href="/issue-tester2" OnClick="OnClick">Item 2</FluentNavLink>
+    </FluentNavMenu>
+
+</FluentStack>
+@code {
+    private void OnClick()
+    {
+
+    }
+}
