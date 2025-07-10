@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -32,5 +33,13 @@ public partial class FluentNavLink : FluentNavBase
     public FluentNavLink()
     {
         _renderContent = RenderContent;
+    }
+
+    private async Task HandleNavLinkKeyDownAsync(FluentKeyCodeEventArgs args)
+    {
+        if (args.Key == KeyCode.Enter && !string.IsNullOrEmpty(Href) && !Disabled)
+        {
+            await OnClickHandlerAsync(new MouseEventArgs());
+        }
     }
 }
