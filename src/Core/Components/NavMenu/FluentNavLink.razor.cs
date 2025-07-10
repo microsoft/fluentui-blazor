@@ -32,6 +32,7 @@ public partial class FluentNavLink : FluentNavBase
 
     public FluentNavLink()
     {
+        Id = Identifier.NewId();
         _renderContent = RenderContent;
     }
 
