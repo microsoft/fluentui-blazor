@@ -44,12 +44,13 @@ fluent-tabs fluent-tab-panel {
     --density: 0;
 }
 
-fluent-tabs:has(.medium) fluent-tab {
+
+fluent-tabs.medium fluent-tab {
     font-size: var(--type-ramp-base-font-size);
     padding: 0 10px;
 }
 
-fluent-tabs:has(.large) fluent-tab {
+fluent-tabs.large fluent-tab {
     font-size: var(--type-ramp-plus-1-font-size);
     padding: 0 16px;
 }

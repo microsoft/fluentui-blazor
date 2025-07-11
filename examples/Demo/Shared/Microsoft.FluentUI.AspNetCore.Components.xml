@@ -7744,19 +7744,6 @@
             Gets or sets a callback that is triggered whenever <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Expanded"/> changes.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink.OnParametersSet">
-            <inheritdoc />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink.ShouldMatch(System.String)">
-            <summary>
-            Determines whether the current URI should match the link.
-            </summary>
-            <param name="uriAbsolute">The absolute URI of the current location.</param>
-            <returns>True if the link should be highlighted as active; otherwise, false.</returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink.Dispose">
-            <inheritdoc />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.ExpanderContent">
             <summary>
             Gets or sets the content to be rendered for the collapse icon when the menu is collapsible.
