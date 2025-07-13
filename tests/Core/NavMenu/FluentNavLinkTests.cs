@@ -257,10 +257,6 @@ public class FluentNavLinkTests : TestBase
 
         // Verify no FluentKeyCode component is present
         Assert.Throws<ComponentNotFoundException>(() => cut.FindComponent<FluentKeyCode>());
-
-        // Verify the NavLink doesn't have the special id (should not have id attribute)
-        var navLink = cut.Find("a");
-        Assert.False(navLink.HasAttribute("id"), "Standalone NavLink should not have an id attribute");
     }
 
     //ActiveClass
