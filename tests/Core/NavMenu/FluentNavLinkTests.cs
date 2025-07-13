@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 using Bunit;
+using Bunit.Rendering;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
@@ -203,11 +204,11 @@ public class FluentNavLinkTests : TestBase
 
         // Assert
         cut.Verify();
-        
+
         // Verify that FluentKeyCode is added when Owner is not null and Href is set
         var fluentKeyCode = cut.FindComponent<FluentKeyCode>();
         Assert.NotNull(fluentKeyCode);
-        
+
         // Verify the anchor points to the NavLink element
         var navLinkId = cut.Find("a[id]").GetAttribute("id");
         Assert.Contains("navlink", navLinkId);
@@ -230,11 +231,11 @@ public class FluentNavLinkTests : TestBase
 
         // Assert - Verify that keyboard handling is added for NavLink inside group
         cut.Verify();
-        
+
         // Verify FluentKeyCode component is present
         var fluentKeyCode = cut.FindComponent<FluentKeyCode>();
         Assert.NotNull(fluentKeyCode);
-        
+
         // Verify the NavLink has the expected id
         var navLink = cut.Find("a[id]");
         var navLinkId = navLink.GetAttribute("id");
@@ -253,10 +254,10 @@ public class FluentNavLinkTests : TestBase
 
         // Assert - Verify that no keyboard handling is added for standalone NavLink
         cut.Verify();
-        
+
         // Verify no FluentKeyCode component is present
         Assert.Throws<ComponentNotFoundException>(() => cut.FindComponent<FluentKeyCode>());
-        
+
         // Verify the NavLink doesn't have the special id (should not have id attribute)
         var navLink = cut.Find("a");
         Assert.False(navLink.HasAttribute("id"), "Standalone NavLink should not have an id attribute");
