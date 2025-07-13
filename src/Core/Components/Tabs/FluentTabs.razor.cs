@@ -23,13 +23,14 @@ public partial class FluentTabs : FluentComponentBase
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
+        .AddClass(Size.ToAttributeValue(), Size != TabSize.Small)
+        .AddClass(Orientation.ToAttributeValue(), Orientation == Orientation.Vertical)
         .Build();
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("padding", "6px", () => Size == TabSize.Small)
-        .AddStyle("padding", "12px 10px", () => Size == TabSize.Medium)
-        .AddStyle("padding", "16px 10px", () => Size == TabSize.Large)
+        .AddStyle("--density", "2", () => Size == TabSize.Medium)
+        .AddStyle("--density", "4", () => Size == TabSize.Large)
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .Build();
@@ -79,7 +80,7 @@ public partial class FluentTabs : FluentComponentBase
     /// Gets or sets the width of the tab items.
     /// </summary>
     [Parameter]
-    public TabSize? Size { get; set; } = TabSize.Medium;
+    public TabSize? Size { get; set; } = TabSize.Small;
 
     /// <summary>
     /// Gets or sets the width of the tabs component.

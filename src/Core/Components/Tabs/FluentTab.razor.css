@@ -39,3 +39,18 @@ fluent-tab {
 ::deep fluent-tab[aria-selected="true"] {
     font-variation-settings: normal;
 }
+
+fluent-tabs fluent-tab-panel {
+    --density: 0;
+}
+
+
+fluent-tabs.medium fluent-tab {
+    font-size: var(--type-ramp-base-font-size);
+    padding: 0 10px;
+}
+
+fluent-tabs.large fluent-tab {
+    font-size: var(--type-ramp-plus-1-font-size);
+    padding: 0 16px;
+}
