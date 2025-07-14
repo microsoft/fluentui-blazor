@@ -21,3 +21,7 @@ fluent-button svg[slot="end"],
 fluent-button fluent-spinner[slot="end"] {
   margin-inline-start: 8px;
 }
+
+fluent-button[disabled] svg {
+    opacity: 0.4;
+}

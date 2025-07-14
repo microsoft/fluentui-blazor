@@ -1,0 +1,29 @@
+#datagrid-container {
+    height: calc(100% - 3rem);
+    min-height: 8rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+article {
+    min-height: 32rem;
+    max-height: 80dvh;
+}
+
+.demo-section-content {
+    height: calc(100% - 10rem);
+}
+
+.demo-section-example {
+    min-height: 135px !important;
+    height: 100%;
+}
+
+fluent-tabs {
+    height: 100%;
+}
+
+#tab-example-autoitemsperpage-panel {
+    height: 100% !important;
+    max-height: calc(100% - 2rem) !important;
+}

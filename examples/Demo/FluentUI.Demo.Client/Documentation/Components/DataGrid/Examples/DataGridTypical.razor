@@ -21,7 +21,20 @@
         <PropertyColumn Property="@(c => c.Name)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Name of the country">
             <ColumnOptions>
                 <div class="search-box">
-                    <FluentTextInput Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @onkeydown="HandleCloseFilterAsync" @bind-Value:after="HandleClear" Placeholder="Country name..." Style="width: 100%;" Label="Filter" />
+                    <FluentTextInput Autofocus=true
+                                     @bind-Value=nameFilter
+                                     @oninput="HandleCountryFilter"
+                                     @onkeydown="HandleCloseFilterAsync"
+                                     @bind-Value:after="HandleClear"
+                                     Placeholder="Country name..."
+                                     Width="100%"
+                                     Style="width: 100%;"
+                                     Label="Filter"
+                                     Spellcheck="false">
+                        <StartTemplate>
+                            <FluentIcon Value="@(new Icons.Regular.Size16.Filter())" Color="Color.Primary" />
+                        </StartTemplate>
+                    </FluentTextInput>
                 </div>
             </ColumnOptions>
         </PropertyColumn>
@@ -109,11 +122,20 @@
 
     private async Task HandleCloseFilterAsync(KeyboardEventArgs args)
     {
+        if (grid is null)
+        {
+            return;
+        }
+
         if (args.Key == "Escape")
         {
+            if (string.IsNullOrEmpty(nameFilter))
+            {
+                await grid.CloseColumnOptionsAsync();
+            }
             nameFilter = string.Empty;
         }
-        if (args.Key == "Enter" && grid is not null)
+        if (args.Key == "Enter")
         {
             await grid.CloseColumnOptionsAsync();
         }

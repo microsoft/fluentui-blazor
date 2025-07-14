@@ -22,12 +22,12 @@
                           Disabled="@(!CanGoBack || Disabled)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoFirstPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoFirstPage]"
-                          IconStart="@(new CoreIcons.Regular.Size20.ChevronDoubleLeft())" />
+                          IconStart="@(new CoreIcons.Regular.Size20.ChevronDoubleLeft().WithColor(Color.Primary))" />
             <FluentButton OnClick="GoPreviousAsync"
                           Disabled="@(!CanGoBack || Disabled)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoPreviousPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoPreviousPage]"
-                          IconStart="@(new CoreIcons.Regular.Size20.ChevronLeft())" />
+                          IconStart="@(new CoreIcons.Regular.Size20.ChevronLeft().WithColor(Color.Primary))" />
             <div class="pagination-text">
                 @if (PaginationTextTemplate is not null)
                 {
@@ -43,12 +43,12 @@
                           Disabled="@(!CanGoForwards || Disabled)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoNextPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoNextPage]"
-                          IconStart="@(new CoreIcons.Regular.Size20.ChevronRight())" />
+                          IconStart="@(new CoreIcons.Regular.Size20.ChevronRight().WithColor(Color.Primary))" />
             <FluentButton Onclick="GoLastAsync"
                           Disabled="@(!CanGoForwards || Disabled)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoLastPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoLastPage]"
-                          IconStart="@(new CoreIcons.Regular.Size20.ChevronDoubleRight())" />
+                          IconStart="@(new CoreIcons.Regular.Size20.ChevronDoubleRight().WithColor(Color.Primary))" />
         </nav>
     }
 </div>
