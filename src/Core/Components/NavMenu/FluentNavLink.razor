@@ -9,7 +9,13 @@
     <div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
         @if (!OnClick.HasDelegate && Href is not null)
         {
-            <NavLink class="@LinkClassValue"
+            @* Add keyboard handling for navigation when inside a NavGroup *@
+            @if (Owner != null)
+            {
+                <FluentKeyCode Anchor="@($"{Id}-navlink")" Only="new[] { KeyCode.Enter, KeyCode.Space }" StopPropagation="@true" PreventDefault="@true" OnKeyDown="@HandleNavLinkKeyDownAsync" />
+            }
+            <NavLink id="@($"{Id}-navlink")"
+                     class="@LinkClassValue"
                      @attributes="@Attributes"
                      Match="@Match"
                      ActiveClass="@ActiveClass"
