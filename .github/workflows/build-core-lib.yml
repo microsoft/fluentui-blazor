@@ -50,7 +50,7 @@ jobs:
      - name: Setup .NET 9.0
        uses: actions/setup-dotnet@v4
        with:
-        dotnet-version: 9.0.x
+        dotnet-version: 9.0.204
         dotnet-quality: ga
 
      # - name: Setup .NET 10.0
@@ -173,7 +173,7 @@ jobs:
       - name: .NET Setup SDKs
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 9.0.204
           dotnet-quality: ga
 
       - name: .NET Builld
