@@ -148,7 +148,6 @@ public partial class FluentNavLink : FluentNavBase, IDisposable
         return uri.Slice(0, minPos);
     }
 
-
     private static readonly CaseInsensitiveCharComparer CaseInsensitiveComparer = new CaseInsensitiveCharComparer();
 
     private static bool EqualsHrefExactlyOrIfTrailingSlashAdded(ReadOnlySpan<char> currentUriAbsolute, ReadOnlySpan<char> hrefAbsolute)
