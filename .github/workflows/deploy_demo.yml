@@ -54,14 +54,14 @@ jobs:
 
       - run: npm install "src/Core.Assets/"
 
-      - name: .NET Builld
-        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+      # - name: .NET Builld
+      #   run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
       - name: .NET Publish
         run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
-      - name: Deploy demo site to new Azure Static Web App
-        id: builddeployFTE
+      - name: Deploy demo site to Azure Static Web App (old subscription)
+        id: builddeployold
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_CALM_SEA_053FA6A03 }}
@@ -74,8 +74,8 @@ jobs:
           skip_app_build: true
           production_branch: 'main'
 
-      - name: Deploy demo site to new Azure Static Web App
-        id: builddeployMCT
+      - name: Deploy demo site to Azure Static Web App (new subscription)
+        id: builddeploynew
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLUE_DESERT_0286DCF03 }}
@@ -93,15 +93,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:
-      - name: Close Pull Request on new Azure Static Web App
-        id: closepullrequestFTE
+      - name: Close Pull Request on Azure Static Web App (old subscription)
+        id: closepullrequestold
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_CALM_SEA_053FA6A03 }}
           action: "close"
 
-      - name: Close Pull Request on new Azure Static Web App
-        id: closepullrequestMCT
+      - name: Close Pull Request on Azure Static Web App (new subscription)
+        id: closepullrequestnew
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLUE_DESERT_0286DCF03 }}
