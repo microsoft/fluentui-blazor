@@ -65,5 +65,6 @@
 			<Sources Include="$(ProjectDir)\SampleData\*" />
 		</ItemGroup>
 		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="false" />
+		<Message Text="Copied sources to wwwroot\sources folder." Importance="high" />
 	</Target>
 </Project>
