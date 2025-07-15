@@ -35,14 +35,8 @@ jobs:
       - name: .NET Setup SDKs
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 9.0.204
           dotnet-quality: ga
-
-      # - name: .NET Setup SDKs
-      #   uses: actions/setup-dotnet@v4
-      #   with:
-      #     dotnet-version: 10.0.x
-      #     dotnet-quality: preview
 
       # - name: .NET Builld
       #   run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
@@ -50,11 +44,25 @@ jobs:
       - name: .NET Publish
         run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
-      - name: Deploy demo site to new Azure Static Web App
-        id: builddeploy
+      - name: Deploy demo site to Azure Static Web App (old subscription_)
+        id: builddeployold
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_PEBBLE_0DC79CB03 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "publish/wwwroot"
+          api_location: "Api"
+          output_location: "publish/wwwroot"
+          skip_api_build: true
+          skip_app_build: true
+          production_branch: 'dev'
+
+      - name: Deploy demo site to Azure Static Web App (newsubscription)
+        id: builddeploynew
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_ISLAND_005801E03 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: "publish/wwwroot"
@@ -69,9 +77,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:
-      - name: Close Pull Request on new Azure Static Web App
-        id: closepullrequest
+      - name: Close Pull Request on Azure Static Web App (old subscription)
+        id: closepullrequestold
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_PEBBLE_0DC79CB03 }}
+          action: "close"
+      - name: Close Pull Request on Azure Static Web App (new subscription)
+        id: closepullrequestnew
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_ISLAND_005801E03 }}
           action: "close"
