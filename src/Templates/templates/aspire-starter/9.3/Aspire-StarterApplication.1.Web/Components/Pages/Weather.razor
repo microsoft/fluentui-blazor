@@ -1,0 +1,34 @@
+﻿@page "/weather"
+@rendermode InteractiveServer
+@attribute [OutputCache(Duration = 5)]
+
+@inject WeatherApiClient WeatherApi
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<p>This component demonstrates showing data loaded from a backend API service.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <FluentDataGrid Id="weathergrid" Items="@forecasts" GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem="WeatherForecast">
+        <PropertyColumn Title="Date" Property="@(c => c!.Date)" Sortable="true" Align="Align.Start"/>
+        <PropertyColumn Title="Temp. (C)" Property="@(c => c!.TemperatureC)" Sortable="true" Align="Align.Center"/>
+        <PropertyColumn Title="Temp. (F)" Property="@(c => c!.TemperatureF)" Sortable="true" Align="Align.Center"/>
+        <PropertyColumn Title="Summary" Property="@(c => c!.Summary)" Sortable="true" Align="Align.End"/>
+    </FluentDataGrid>
+}
+
+@code {
+    private IQueryable<WeatherForecast>? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await WeatherApi.GetWeatherAsync();
+    }
+}

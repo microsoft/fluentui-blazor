@@ -16,8 +16,11 @@ Search open/closed issues before submitting. Someone may have reported the same 
 <!--- Provide a general summary of the issue here -->
 
 ## 💻 Repro or Code Sample
-
-<!-- Please provide steps to reproduce the issue and/or a code repository, gist, code snippet or sample files -->
+<!-- We expect you to provide steps to reproduce the issue and/or a code repository, gist, code snippet or sample files -->
+<!-- THIS MUST BE 'READY-TO-RUN' code -->
+<!-- Can be something we can copy/paste on a page, a repository with a minimal project or a zipped project we can download-->
+<!-- As long as we do not need to change anything to reproduce the problem, anything is fine -->
+<!-- If no code is provided or we cannot run the code without any alterations, the issue will get closed-->
 
 ## 🤔 Expected Behavior
 

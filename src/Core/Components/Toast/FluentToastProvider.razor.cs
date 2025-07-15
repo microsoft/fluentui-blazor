@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
@@ -112,7 +116,8 @@ public partial class FluentToastProvider
         {
             toastInstance.Parameters = parameters;
             InvokeAsync(StateHasChanged);
-        };
+        }
+        ;
 
     }
 

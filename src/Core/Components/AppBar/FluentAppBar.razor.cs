@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
@@ -46,7 +46,8 @@ public partial class FluentAppBar : FluentComponentBase
     public Orientation Orientation
     {
         get => _orientation;
-        set {
+        set
+        {
             _orientation = value;
             InvokeAsync(InitializeOverflowAsync);
         }
@@ -140,7 +141,7 @@ public partial class FluentAppBar : FluentComponentBase
         if (_jsModuleOverflow is not null)
         {
             await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, _orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
-            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper,Id, _orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper, Id, _orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
         }
     }
 

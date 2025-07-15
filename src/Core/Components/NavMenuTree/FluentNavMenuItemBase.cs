@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -29,7 +33,7 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
 
     /// <summary>
     /// Gets or sets the icon to display with the link
-    /// Use a constant value from the <see cref="FluentIcon{Icon}" /> class 
+    /// Use a constant value from the <see cref="FluentIcon{Icon}" /> class
     /// </summary>
     [Parameter]
     public Icon? Icon { get; set; }
@@ -171,9 +175,9 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
                 return false;
             }
 
-            // If the local path starts with this Href (with an added "/"), don't navigate 
-            // Example local path: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"  
-            // Extra "/" is needed to avoid a match on http://.../Panel for https://.../Panels 
+            // If the local path starts with this Href (with an added "/"), don't navigate
+            // Example local path: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"
+            // Extra "/" is needed to avoid a match on http://.../Panel for https://.../Panels
             if (new Uri(NavigationManager.Uri).LocalPath.StartsWith(Href + "/", StringComparison.InvariantCultureIgnoreCase))
             {
                 return false;

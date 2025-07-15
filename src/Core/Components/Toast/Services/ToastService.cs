@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -206,7 +210,7 @@ public class ToastService : IToastService
 
     /// <summary>
     /// Shows a toast with the component type as the body,
-    /// passing the specified <paramref name="parameters "/> 
+    /// passing the specified <paramref name="parameters "/>
     /// </summary>
     /// <param name="component">Type of component to display.</param>
     /// <param name="content">Content to be displayed in the toast.</param>
@@ -240,7 +244,7 @@ public class ToastService : IToastService
     }
 
     /// <summary>
-    /// Updates a toast 
+    /// Updates a toast
     /// </summary>
     /// <param name="id">Id of the toast to update.</param>
     /// <param name="parameters">Parameters to configure the toast component.</param>
@@ -329,7 +333,7 @@ public class ToastService : IToastService
     /// <summary>
     /// Removes all queued toasts
     /// </summary>
-    /// 
+    ///
     public void ClearQueue()
         => OnClearQueue?.Invoke();
 

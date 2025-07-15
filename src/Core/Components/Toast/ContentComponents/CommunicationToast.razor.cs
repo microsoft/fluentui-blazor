@@ -1,7 +1,14 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
-public partial class CommunicationToast : IToastContentComponent<CommunicationToastContent>
+
+[method: DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors, typeof(CommunicationToast))]
+public partial class CommunicationToast() : IToastContentComponent<CommunicationToastContent>
 {
 
     [Parameter]

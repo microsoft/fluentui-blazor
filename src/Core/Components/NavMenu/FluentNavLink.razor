@@ -6,10 +6,17 @@
 
 @if (Owner == null || Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNavigation || SubMenu == null)))
 {
+
     <div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
         @if (!OnClick.HasDelegate && Href is not null)
         {
-            <NavLink class="@LinkClassValue"
+            @* Add keyboard handling for navigation when inside a NavGroup *@
+            @if (Owner != null)
+            {
+                <FluentKeyCode Anchor="@($"{Id}-navlink")" Only="new[] { KeyCode.Enter, KeyCode.Space }" StopPropagation="@true" PreventDefault="@true" OnKeyDown="@HandleNavLinkKeyDownAsync" />
+            }
+            <NavLink id="@($"{Id}-navlink")"
+                     class="@LinkClassValue"
                      @attributes="@Attributes"
                      Match="@Match"
                      ActiveClass="@ActiveClass"
@@ -24,13 +31,15 @@
         }
         else
         {
-            <div class="positioning-region" title="@Tooltip">
-                <div class="content-region">
-                    <div class="@LinkClassValue" @onclick="OnClickHandlerAsync">
-                        @_renderContent
+            <span class="@_class">
+                <div class="positioning-region" title="@Tooltip">
+                    <div class="content-region">
+                        <div class="@LinkClassValue" @onclick="OnClickHandlerAsync">
+                            @_renderContent
+                        </div>
                     </div>
                 </div>
-            </div>
+            </span>
         }
     </div>
 }

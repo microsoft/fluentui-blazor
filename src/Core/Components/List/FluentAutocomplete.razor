@@ -22,7 +22,7 @@
                          ReadOnly="@ReadOnly"
                          Label="@Label"
                          LabelTemplate="@LabelTemplate"
-                         Placeholder="@(SelectedOptions?.Any() is false ? Placeholder : string.Empty)"
+                         Placeholder="@(SelectedOptions is null || SelectedOptions?.Any() is false ? Placeholder : null)"
                          aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
                          aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
                          aria-label="@GetAutocompleteAriaLabel()"
@@ -216,7 +216,14 @@
 
                     if (Multiple == false)
                     {
-                        <FluentLabel tabindex="0" aria-label="@GetOptionText(item)" role="checkbox" aria-checked="true">@text</FluentLabel>
+                        <FluentLabel Id="@($"{Id}-single")"
+                                     tabindex="0"
+                                     aria-label="@GetOptionText(item)"
+                                     role="checkbox"
+                                     aria-checked="true"
+                                     @onkeydown="@(e => e.Code == "Delete" || e.Code == "Backspace" ? RemoveSelectedItemAsync(item) : Task.CompletedTask)">
+                            @text
+                        </FluentLabel>
                     }
                     else if (ReadOnly || Disabled)
                     {

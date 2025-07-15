@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using System.Diagnostics.CodeAnalysis;
@@ -43,17 +47,17 @@ public partial class FluentSplitter : FluentComponentBase
     public RenderFragment? Panel2 { get; set; }
 
     /// <summary>
-    /// Gets or sets the size for the left/top panel. 
+    /// Gets or sets the size for the left/top panel.
     /// Needs to be a valid css size like '50%' or '250px'.
     /// </summary>
     [Parameter]
     public string? Panel1Size { get; set; }
 
     /// <summary>
-    /// Gets or sets the size for the right/bottom panel. 
+    /// Gets or sets the size for the right/bottom panel.
     /// Needs to be a valid css size like '50%' or '250px'.
-    /// Uses grid-template-rows/columns with max-content to determine end width. 
-    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns">mdn web docs</see> for more information 
+    /// Uses grid-template-rows/columns with max-content to determine end width.
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns">mdn web docs</see> for more information
     /// </summary>
     [Parameter]
     public string? Panel2Size { get; set; }
@@ -68,7 +72,7 @@ public partial class FluentSplitter : FluentComponentBase
     /// <summary>
     /// Gets or sets the minimum size for the right/bottom panel.
     /// Needs to be a valid css size like '50%' or '250px'.
-    /// </summary>  
+    /// </summary>
     [Parameter]
     public string? Panel2MinSize { get; set; }
 
@@ -101,7 +105,7 @@ public partial class FluentSplitter : FluentComponentBase
 
     [Parameter]
     public EventCallback<SplitterResizedEventArgs> OnResized { get; set; }
-    
+
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(SplitterResizedEventArgs))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(SplitterCollapsedEventArgs))]
     public FluentSplitter()
