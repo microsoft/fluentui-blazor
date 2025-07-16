@@ -25,6 +25,7 @@ on:
 env:
   PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
   TESTS: "./tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
+  DOTNET_VERSION: "net9.0"
 
 jobs:
   Build:
@@ -62,16 +63,16 @@ jobs:
      # Build
 
      - name: Restore
-       run: dotnet restore -p:TargetFramework=net9.0
+       run: dotnet restore -p:TargetFramework=${{ env.DOTNET_VERSION }}
 
      - name: Build
-       run: dotnet build ${{ env.PROJECTS }} --configuration Release
+       run: dotnet build ${{ env.PROJECTS }} --configuration Release -f ${{ env.DOTNET_VERSION }}
        working-directory: ${{ github.workspace }}
 
      # Unit Tests
 
      - name: Tests
-       run: dotnet test ${{ env.TESTS }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
+       run: dotnet test ${{ env.TESTS }} -f ${{ env.DOTNET_VERSION }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
        working-directory: ${{ github.workspace }}
 
      - name: Publish Unit Tests
