@@ -21,7 +21,7 @@
     }
 
         /* Active item indicator */
-        ::deep .fluent-nav-item a.active .positioning-region::before {
+        ::deep .fluent-nav-item .active .positioning-region::before {
             content: "";
             display: block;
             position: absolute;

@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -147,7 +151,7 @@ public partial class FluentAnchorTests : TestContext
         // Assert
         if (target == "invalid")
         {
-            Assert.Throws< ArgumentException>(action);
+            Assert.Throws<ArgumentException>(action);
         }
         else
         {

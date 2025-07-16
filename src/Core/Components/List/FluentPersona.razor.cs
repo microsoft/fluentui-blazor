@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -95,7 +99,7 @@ public partial class FluentPersona : FluentComponentBase
 
     /// <summary />
     private string GetDefaultInitials() => GetDefaultInitials(Name);
-    
+
     /// <summary />
     internal static string GetDefaultInitials(string? name)
     {

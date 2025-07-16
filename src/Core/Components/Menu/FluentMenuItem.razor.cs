@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -101,7 +105,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     {
         // fluent-menu-item v2 does not pass the checked state as a parameter when emitting
         // the change event so we need to capture the state from the html element using javascript.
-        // The value is passed in v3 so javscript lookup won't be necessary. 
+        // The value is passed in v3 so javscript lookup won't be necessary.
         if (Owner != null && Role is MenuItemRole.MenuItemCheckbox or MenuItemRole.MenuItemRadio)
         {
             var isChecked = await Owner.IsCheckedAsync(this);

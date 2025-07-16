@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Xunit;
 
@@ -83,7 +87,7 @@ public class InlineStyleBuilderTests : TestBase
         styleBuilder.AddStyle("div", "color", "red", true);
         styleBuilder.AddStyle("div", "color", "green", false);
 
-        // Assert 
+        // Assert
         Assert.Equal("<style>\r\ndiv { color: red; }\r\n</style>", styleBuilder.BuildMarkupString().Value);
         Assert.Equal(@"<style> div { color: red; } </style>", styleBuilder.Build(newLineSeparator: false));
     }
@@ -98,7 +102,7 @@ public class InlineStyleBuilderTests : TestBase
         styleBuilder.AddStyle("test1", "test", "", true);
         styleBuilder.AddStyle("test2", "", "", false);
 
-        // Assert 
+        // Assert
         Assert.Null(styleBuilder.Build());
     }
 }

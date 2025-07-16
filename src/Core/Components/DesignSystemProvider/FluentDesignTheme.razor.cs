@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Globalization;
@@ -55,6 +55,7 @@ public partial class FluentDesignTheme : ComponentBase
 
     /// <summary>
     /// Gets or sets the Accent base color.
+    /// Needs to be in a valid CSS color format (e.g., "#FF0000" for red).
     /// </summary>
     [Parameter]
     public string? CustomColor { get; set; }

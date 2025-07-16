@@ -1,9 +1,13 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Describes context for an <see cref="FluentRadio{TValue}"/> component. 
+/// Describes context for an <see cref="FluentRadio{TValue}"/> component.
 /// </summary>
 internal sealed class FluentRadioContext
 {

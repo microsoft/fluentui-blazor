@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
@@ -31,7 +35,7 @@ public class MessageOptions
     public string? Body { get; set; }
 
     /// <summary>
-    /// Gets or sets the link to be shown in the message bar after the title/message. 
+    /// Gets or sets the link to be shown in the message bar after the title/message.
     /// </summary>
     public ActionLink<Message>? Link { get; set; }
 
@@ -51,7 +55,7 @@ public class MessageOptions
     public ActionButton<Message>? SecondaryAction { get; set; } = new();
 
     /// <summary>
-    /// Gets or sets the intent of the message bar. 
+    /// Gets or sets the intent of the message bar.
     /// Default is MessageIntent.Info.
     /// </summary>
     public MessageIntent? Intent { get; set; }

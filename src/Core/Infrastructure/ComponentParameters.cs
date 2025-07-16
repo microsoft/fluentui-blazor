@@ -1,3 +1,6 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
 using System.Collections;
 using System.Reflection;
 

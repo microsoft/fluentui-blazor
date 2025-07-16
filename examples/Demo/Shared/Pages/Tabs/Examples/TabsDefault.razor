@@ -1,9 +1,15 @@
-﻿<FluentSwitch @bind-Value="@DeferredLoading">Use deferred loading</FluentSwitch>
+﻿<FluentSelect Label="Size"
+              Items="@(Enum.GetValues<TabSize>())"
+              @bind-SelectedOption="@size" />
+
+<FluentSwitch @bind-Value="@DeferredLoading">Use deferred loading</FluentSwitch>
 <p>
 If checked, the contents of Tab two and three will be loaded after 1 second of processing (to simulate a long running process). <br />
 </p>
 
-<FluentTabs @bind-ActiveTabId="@activeid" OnTabChange="HandleOnTabChange" >
+<FluentDivider />
+
+<FluentTabs @bind-ActiveTabId="@activeid" OnTabChange="HandleOnTabChange" Size="@size" >
     <FluentTab Label="Tab one" Icon="@(new Icons.Regular.Size24.LeafOne())" Id="tab-1">
         Tab one content. This is for testing.
     </FluentTab>
@@ -36,7 +42,7 @@ If checked, the contents of Tab two and three will be loaded after 1 second of p
 <p>Active tab changed to: @changedto?.Label</p>
 
 <h4>Vertical</h4>
-<FluentTabs Orientation="Orientation.Vertical" ActiveTabId="tab-v1" Style="height: 200px;">
+<FluentTabs Orientation="Orientation.Vertical" Style="height: 200px;" Size="@size">
     <FluentTab Label="Tab one" Id="tab-v1">
         Tab one content. This is for testing.
     </FluentTab>
@@ -50,6 +56,8 @@ If checked, the contents of Tab two and three will be loaded after 1 second of p
 
 @code {
     bool DeferredLoading = false;
+
+    TabSize size;
 
     string? activeid = "tab-3";
     FluentTab? changedto;

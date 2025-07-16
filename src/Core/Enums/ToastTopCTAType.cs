@@ -1,8 +1,12 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Call To Action type for the top action of the toast.
-/// </summary>  
+/// </summary>
 public enum ToastTopCTAType
 {
     /// <summary>

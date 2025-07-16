@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
@@ -61,7 +65,7 @@ public class FluentTimePickerTests : TestBase
         // Arrange
         var picker = new TestTimePicker()
         {
-            Value = System.DateTime.Today,   // Default date 
+            Value = System.DateTime.Today,   // Default date
         };
 
         // Set a value

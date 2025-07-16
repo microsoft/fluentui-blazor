@@ -1,6 +1,6 @@
-// --------------------------------------------------------------
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-// --------------------------------------------------------------
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -37,7 +37,7 @@ public partial class FluentGridItem : FluentComponentBase
     /// <summary>
     /// The number of columns the item should span in the 12-column grid system.
     /// Large (lg) devices (desktops, less than 1920px wide)
-    /// </summary> 
+    /// </summary>
     [Parameter]
     public int? lg { get; set; }
 

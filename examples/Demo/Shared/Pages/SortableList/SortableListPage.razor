@@ -9,26 +9,6 @@
 <p>A <a href="https://sortablejs.github.io/Sortable/">SortableJS library</a> adaptation for Blazor Fluent UI. Allows for reordering elements within a list using drag and drop. Inspired by and based on <a href="https://devblogs.microsoft.com/dotnet/introducing-blazor-sortable/">Burke Holland's article and code</a>. Re-used with permission.</p>
 <p>The <code>FluentSortableList</code> is a generic component that takes a list of items and a <code>ItemTemplate</code> that defines how to render each item in the sortable list.</p>
 
-<p>The following CSS variables have been predefined. These can be overruled by using the component's <code>Style</code> parameter. See the <a href="/SortableList#filtering">filtering</a> example for how to do this.</p>
-
-<code>
-    <pre>
-    .fluent-sortable-list {
-        --fluent-sortable-list-background-color: var(--neutral-layer-2);
-        --fluent-sortable-list-item-height: calc(var(--design-unit) * 8px);
-        --fluent-sortable-list-filtered: var(--warning);
-        --fluent-sortable-list-border-width: calc(var(--stroke-width) * 1px);
-        --fluent-sortable-list-border-color: var(--neutral-stroke-input-active);
-        --fluent-sortable-list-padding: calc(var(--design-unit) * 1px);
-        --fluent-sortable-list-item-border-width: calc(var(--stroke-width) * 1px);
-        --fluent-sortable-list-item-border-color: var(--neutral-stroke-input-active);
-        --fluent-sortable-list-item-drop-border-color: var(--accent-fill-rest);
-        --fluent-sortable-list-item-drop-color: var(--neutral-layer-1);
-        --fluent-sortable-list-item-padding: 0 calc(var(--design-unit) * 2px);
-    }
-    </pre>
-</code>
-
 <h2 id="how-to-use-it-in-your-own-project">How to use this in your own project</h2>
 <p>
     If you want to use the <code>FluentSortableList</code> component, you will need to include the script to your <code>index.html</code>/<code>_Layout.cshtml</code>/<code>App.razor</code> file. You can either download from the <a href="https://sortablejs.github.io/Sortable/">SortableJS website</a> or use a CDN:

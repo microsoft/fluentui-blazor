@@ -4,7 +4,7 @@
 
 <h1>Fluent UI Components overview</h1>
 <p>
-    Most components in the Fluent UI Blazor library derive from <code>FluentComponentBase</code>. This page gives an overview of the parameters, 
+    Most components in the Fluent UI Blazor library derive from <code>FluentComponentBase</code>. This page gives an overview of the parameters,
     that are available on all components that inherit from this abstract base class.
 </p>
 
@@ -17,7 +17,7 @@
 </p>
 
 <h3>Parameters</h3>
-<FluentDataGrid Items="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+<FluentDataGrid Items="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr" MultiLine="true">
     <TemplateColumn Title="Name">
         <code>@context.Name</code>
     </TemplateColumn>
@@ -33,7 +33,7 @@
 
 @code {
     private record paramDef(string Name, string Type, string? Default, string Description);
-    
+
     private List<paramDef> Properties = new List<paramDef>
     {
         new paramDef("AdditionalAttributes"," IReadOnlyDictionary<string, object>?","null","Gets or sets a collection of additional attributes that will be applied to the created element."),

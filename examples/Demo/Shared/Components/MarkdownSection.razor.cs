@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Markdig;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
@@ -19,7 +23,7 @@ public partial class MarkdownSection : FluentComponentBase
     private IStaticAssetService StaticAssetService { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the Markdown content 
+    /// Gets or sets the Markdown content
     /// </summary>
     [Parameter]
     public string? Content
@@ -82,7 +86,7 @@ public partial class MarkdownSection : FluentComponentBase
             HtmlContent = await MarkdownToMarkupStringAsync();
             StateHasChanged();
 
-            // notify that content converted from markdown 
+            // notify that content converted from markdown
             if (OnContentConverted.HasDelegate)
             {
                 await OnContentConverted.InvokeAsync();

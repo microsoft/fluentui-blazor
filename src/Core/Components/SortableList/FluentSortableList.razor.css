@@ -16,6 +16,7 @@
     --fluent-sortable-list-item-drop-border-color: var(--accent-fill-rest);
     --fluent-sortable-list-item-drop-color: var(--neutral-layer-1);
     --fluent-sortable-list-item-padding: 0 calc(var(--design-unit) * 2px);
+    --fluent-sortable-list-item-spacing: 2px;
     border: var(--fluent-sortable-list-border-width) solid var(--fluent-sortable-list-border-color);
     border-radius: calc(var(--control-corner-radius) * 1px);
     padding: var(--fluent-sortable-list-padding);
@@ -58,7 +59,7 @@
     -webkit-user-select: none;
     user-select: none;
     padding: var(--fluent-sortable-list-item-padding);
-    margin-bottom: 2px;
+    margin-bottom: var(--fluent-sortable-list-item-spacing);
 }
 
     .fluent-sortable-list ::deep .sortable-item:last-of-type {

@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.ComponentModel;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -26,7 +30,7 @@ public enum Align
     End,
 
     /// <summary>
-    /// Aligns content to strech to the container.
+    /// Aligns content to stretch to the container.
     /// </summary>
     [Description("stretch")]
     Stretch,

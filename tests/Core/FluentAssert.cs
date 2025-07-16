@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using AngleSharp.Dom;

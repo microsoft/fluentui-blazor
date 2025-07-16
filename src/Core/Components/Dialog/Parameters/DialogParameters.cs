@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -29,7 +33,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
             return _alignment;
         }
     }
-    
+
     /// <summary>
     /// Gets or sets the title of the dialog.
     /// </summary>

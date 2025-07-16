@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
@@ -568,6 +568,14 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                 InternalValue = GetOptionValue(item);
                 await RaiseChangedEventsAsync();
             }
+
+            // For Autocomplete, allow to unselect the item if it is already selected
+            else if (this is FluentAutocomplete<TOption>)
+            {
+                SelectedOption = default;
+                InternalValue = GetOptionValue(default);
+                await RaiseChangedEventsAsync();
+            }
         }
     }
 
@@ -630,6 +638,12 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         if (item == null)
         {
             return false;
+        }
+
+        if (this is FluentAutocomplete<TOption> && SelectedOption is not null)
+        {
+            SelectedOption = default;
+            InternalValue = GetOptionValue(default);
         }
 
         return _selectedOptions.Remove(item);
