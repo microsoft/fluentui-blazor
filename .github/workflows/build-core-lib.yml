@@ -66,7 +66,7 @@ jobs:
        run: dotnet restore -p:TargetFramework=${{ env.DOTNET_VERSION }}
 
      - name: Build
-       run: dotnet build ${{ env.PROJECTS }} --configuration Release -f ${{ env.DOTNET_VERSION }}
+       run: dotnet build ${{ env.PROJECTS }} -c Release -f ${{ env.DOTNET_VERSION }}
        working-directory: ${{ github.workspace }}
 
      # Unit Tests
