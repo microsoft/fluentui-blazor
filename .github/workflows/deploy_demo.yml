@@ -37,8 +37,8 @@ jobs:
       - name: Setup .NET 9.0
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.204
-          dotnet-quality: ga
+          dotnet-version: 9.0.205
+          # dotnet-quality: ga
 
       # - name: Setup .NET 10.0
       #   uses: actions/setup-dotnet@v4
@@ -54,8 +54,8 @@ jobs:
 
       - run: npm install "src/Core.Assets/"
 
-      # - name: .NET Builld
-      #   run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+      - name: .NET Builld
+        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
       - name: .NET Publish
         run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
