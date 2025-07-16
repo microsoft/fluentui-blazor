@@ -7,9 +7,9 @@
     <RuntimeVersion9>9.0.7</RuntimeVersion9>
     <AspNetCoreVersion9>9.0.7</AspNetCoreVersion9>
     <EfCoreVersion9>9.0.7</EfCoreVersion9>
-    <RuntimeVersion10>10.0.0-preview.5.25277.114</RuntimeVersion10>
-    <AspNetCoreVersion10>10.0.0-preview.5.25277.114</AspNetCoreVersion10>
-    <EfCoreVersion10>10.0.0-preview.5.25277.114</EfCoreVersion10>
+    <RuntimeVersion10>10.0.0-preview.6.25358.103</RuntimeVersion10>
+    <AspNetCoreVersion10>10.0.0-preview.6.25358.103</AspNetCoreVersion10>
+    <EfCoreVersion10>10.0.0-preview.6.25358.103</EfCoreVersion10>
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
