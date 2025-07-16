@@ -26,18 +26,18 @@
 - Subtract Circle / 16, 32 / Filled & Regular
 
 ## V3.2.1
-- Design Tokens WithDefault method implemented to allow setting a default value for a token. This is technically a breaking chage, but it is unlikely to affect anyone as the previous implementation did not do anything. See the `SiteSettingsPanel.razor.cs` in the demo site for an implementation example.
+- Design Tokens WithDefault method implemented to allow setting a default value for a token. This is technically a breaking change, but it is unlikely to affect anyone as the previous implementation did not do anything. See the `SiteSettingsPanel.razor.cs` in the demo site for an implementation example.
 - Fix [#872](https://github.com/microsoft/fluentui-blazor/issues/872): A11y issue in FluentDivider
 - Fix [#864](https://github.com/microsoft/fluentui-blazor/issues/864): A11y issue in FluentAutoComplete
 - Fix [#861](https://github.com/microsoft/fluentui-blazor/issues/861): A11y issue in FluentDataGrid EmptyContent
 - Fix [#848](https://github.com/microsoft/fluentui-blazor/issues/848): A11y issue in FluentDialogHeader
 - Fix [#847](https://github.com/microsoft/fluentui-blazor/issues/847): A11y issues in FluentNavMenu
 - Fix [#861](https://github.com/microsoft/fluentui-blazor/issues/861): A11y issue in FluentDataGrid EmptyContent
-- Fix [#859](https://github.com/microsoft/fluentui-blazor/issues/859): Fix FluentNavMenuGroup not clickable ouside of <a> tag
+- Fix [#859](https://github.com/microsoft/fluentui-blazor/issues/859): Fix FluentNavMenuGroup not clickable outside of <a> tag
 - Fix [#857](https://github.com/microsoft/fluentui-blazor/issues/857): Fix copy Emoji code in search page
 - Fix [#841](https://github.com/microsoft/fluentui-blazor/issues/841): Overflow causes loss of background with Panel
 - Fix [#833](https://github.com/microsoft/fluentui-blazor/issues/833): Use correct abbreviation for day name in FluentCalendar (Chinese)
-- Miscelaneous documentation and typo fixes
+- Miscellaneous documentation and typo fixes
 - Add more unit tests
 - Update to FluentUI System Icons 1.1.220
 
@@ -91,7 +91,7 @@
 - Fix [#828](https://github.com/microsoft/fluentui-blazor/pull/828): FluentSelect: Fix ValueChanged fired twice
 - Fix [#801](https://github.com/microsoft/fluentui-blazor/pull/801): Remove direct call to Items.Count()
 - Fix [#834](https://github.com/microsoft/fluentui-blazor/pull/834): Chinese abbreviated day name in FluentCalendar
-- Fix [#836](https://github.com/microsoft/fluentui-blazor/pull/836): Setting SelectedOptions does not update FluentSelct
+- Fix [#836](https://github.com/microsoft/fluentui-blazor/pull/836): Setting SelectedOptions does not update FluentSelect
 
 ## V3.1.1
 - Fix [#776](https://github.com/microsoft/fluentui-blazor/issues/776): Icon throws exception when deployed to Azure
@@ -124,12 +124,12 @@ Also addresses some other padding and layout issues with FluentDialog variants i
 * [FluentDataGridRow] Update for sticky header and example by @vnbaaij in https://github.com/microsoft/fluentui-blazor/pull/747
 * [FluentDatePicker and FluentTimePicker] Keep existing time/date by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/726
 * [FluentDatePicker] Update the popup position by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/724
-* [FluentDialog] Dialog enhancements (add dialog type, fix panel width setable), 
+* [FluentDialog] Dialog enhancements (add dialog type, fix panel width set able), 
 * [FluentDialog] Enhancements by @vnbaaij in https://github.com/microsoft/fluentui-blazor/pull/717
 * [FluentDialog] Include components to customize the Dialog-box by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/764
 * [FluentDialog] Make all DialogService.Show..Async methods return IDialogReference by @vnbaaij in https://github.com/microsoft/fluentui-blazor/pull/694
 * [FluentMenu/FluentPopover/FluentOverlay] Close menu/popover automatically when user clicks outside of it (by using overlay) by @vnbaaij in https://github.com/microsoft/fluentui-blazor/pull/729
-* [FluentNavMenu] Fix route/subroute not selecting correct item by @vnbaaij in https://github.com/microsoft/fluentui-blazor/pull/755
+* [FluentNavMenu] Fix route/sub-route not selecting correct item by @vnbaaij in https://github.com/microsoft/fluentui-blazor/pull/755
 * [FluentOptionPeople] Add ChildContent by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/728
 * [FluentOverflow] Fix the Tooltip used by the FluentOverflow by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/678
 * [FluentPresenceBadge  & FluentOptionPeople] - Update the Status badge to be compliant FluentUI 2 by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/732
@@ -149,7 +149,7 @@ Also addresses some other padding and layout issues with FluentDialog variants i
 * Fix Icons and Emojis trimmed during the WASM publishing by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/666
 * fix typos by @LuohuaRain in https://github.com/microsoft/fluentui-blazor/pull/751
 * Re-add scripts to index.html/_Layout.cshtml, Update docs by @vnbaaij in https://github.com/microsoft/fluentui-blazor/pull/697
-* Rewrite the Icons.AllIcons property using relfection by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/685
+* Rewrite the Icons.AllIcons property using reflection by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/685
 * Update CodeSetup.md by @LuohuaRain in https://github.com/microsoft/fluentui-blazor/pull/730
 * Update Fluent UI System Icons to 1.1.217  by @vnbaaij in https://github.com/microsoft/fluentui-blazor/pull/765
 
@@ -221,7 +221,7 @@ Thanks to all contributors!
 
 ## 2.4.3
 - Fix [#645](https://github.com/microsoft/fluentui-blazor/issues/645): FluentIcon sometimes  fails to render
-- Fix [#644](https://github.com/microsoft/fluentui-blazor/issues/644): FluentDataGrid column resize isseu (thanks @konvolution)
+- Fix [#644](https://github.com/microsoft/fluentui-blazor/issues/644): FluentDataGrid column resize issue (thanks @konvolution)
 - Update Fluent UI System Icons to 1.1.211 (from 1.1.204)
 
 **What's new (Name / Size(s) / Variant(s))**
@@ -421,7 +421,7 @@ values. An example for this has been added to the demo site
 - Fix [#424](https://github.com/microsoft/fluentui-blazor/issues/422): Demo site not working on iPhone
 - Fix [#424](https://github.com/microsoft/fluentui-blazor/issues/424): [Demo apps] Infinite rendering loop in TableOfContents
 - Fix [#370](https://github.com/microsoft/fluentui-blazor/pull/439): FluentIcon performance improvements by @andreisaperski 
-- Make arrow keys work in FluentDataGrid colum options
+- Make arrow keys work in FluentDataGrid column options
 - Add required icon assets for all sizes
 - Add all Presence icons as required
 - Update Fluent UI System Icons to version 1.1.203
@@ -463,7 +463,7 @@ V2.3.2 will be hidden from NuGet packages because of icon issue
 
 - [Unit Tests] Refactoring and fixing of unit tests
 - Rework of generators after code review
-- Update Fluent UI Sysem Icons to version 1.1.202
+- Update Fluent UI System Icons to version 1.1.202
 - Fix [#402](https://github.com/microsoft/fluentui-blazor/issues/402): FluentUI Combobox in Blazor still showing value, not text 
 
 **What's new (Name / Size(s) / Variant(s))**
@@ -555,7 +555,7 @@ An issue has been addressed where the FluentIcon/FluentEmoji components would no
 
 Updated readme to use new domain name (www.fluentui-blazor.net)
 
-Updated Fluent UI Sysem Icons to version 1.1.201
+Updated Fluent UI System Icons to version 1.1.201
     
 **What's new (Name / Size(s) / Variant(s))**
 - App Generic / 48 / Filled & Regular
@@ -631,7 +631,7 @@ QuickGrid is a high performance grid component for displaying data in tabular fo
 still providing powerful features like sorting, filtering, paging, and virtualization. 
 
 QuickGrid was originally introduced as an experimental package based on .NET 7 and we copied its code over to the Fluent UI library to re-use its 
-features (and some more) but render it with the Fluent UI Web Components instead of its orignal rendering based on HTML table, tr and td elements. As part 
+features (and some more) but render it with the Fluent UI Web Components instead of its original rendering based on HTML table, tr and td elements. As part 
 of bringing QuickGrid into .NET 8 the ASP.NET Core team made some changes and improvements to the API. We brought these changes over to the `<FluentDataGrid>` as well. To update an app that uses `<FluentDataGrid>`, 
 you may need to make the following adjustments:
 
@@ -655,7 +655,7 @@ A more detailed description of all the changes and everything new can be found i
 
 **Important change:**
 
-**If you are currently *not using* icons and are *not planning* on using icons and/or moji in your application moving forward, 
+**If you are currently *not using* icons and are *not planning* on using icons and/or emoji in your application moving forward, 
 you do *not* have to make any changes to your project. If you *are* currently using icons, please read on.**
 
 With earlier versions of the library, all (then only icon) assets would always get published. Starting with this version, when not specifying settings

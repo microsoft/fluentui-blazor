@@ -3433,6 +3433,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor">
             <summary>
             Gets or sets the Accent base color.
+            Needs to be in a valid CSS color format (e.g., "#FF0000" for red).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColorChanged">
