@@ -113,7 +113,7 @@ These providers are used by associated services to display Toasts, Dialog boxes,
 <FluentMessageBarProvider />
 <FluentMenuProvider />
 ```
-> **note:** You can remove providers which you are using in your application.
+> **note:** You can remove providers which you are not using in your application.
 
 ## Working with Icons and Emoji
 We have additional packages available that include the complete Fluent UI System icons and Fluent UI Emoji collections. 
