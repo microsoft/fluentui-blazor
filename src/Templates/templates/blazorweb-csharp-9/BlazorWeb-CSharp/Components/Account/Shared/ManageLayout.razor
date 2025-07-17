@@ -1,0 +1,22 @@
+﻿@inherits LayoutComponentBase
+@*#if (UseWebAssembly && InteractiveAtRoot)
+@layout BlazorWeb_CSharp.Client.Layout.MainLayout
+##else
+@layout BlazorWeb_CSharp.Components.Layout.MainLayout
+##endif*@
+
+<h1>Manage your account</h1>
+
+<div>
+    <h2>Change your account settings</h2>
+    <hr />
+    <FluentGrid>
+        <FluentGridItem sm="3">
+            <ManageNavMenu />
+        </FluentGridItem>
+
+        <FluentGridItem sm="9">
+            @Body
+        </FluentGridItem>
+    </FluentGrid>
+</div>
