@@ -96,7 +96,7 @@ td.grid-cell-placeholder:after {
 }
 
 .col-justify-start ::deep .col-title {
-    text-align: left;
+    text-align: start;
 }
 
 .col-justify-center ::deep .col-title {
