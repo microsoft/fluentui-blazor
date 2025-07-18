@@ -58,8 +58,20 @@ footer {
 .alert {
     border: 1px dashed var(--accent-fill-rest);
     padding: 5px;
+    margin: 10px 0;
 }
 
+.alert-danger {
+    border: 1px dashed var(--error);
+}
+
+.alert-success {
+    border: 1px dashed var(--success);
+}
+
+.alert-warning {
+    border: 1px dashed var(--warning);
+}
 
 #blazor-error-ui {
     background: lightyellow;
@@ -189,3 +201,19 @@ code {
         right: unset;
     }
 }
+
+/* Table */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+    table td,
+    table th {
+        padding: var(--spacingVerticalS) var(--spacingHorizontalM);
+        text-align: left;
+        vertical-align: middle;
+        border-bottom: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-divider-rest);
+    }

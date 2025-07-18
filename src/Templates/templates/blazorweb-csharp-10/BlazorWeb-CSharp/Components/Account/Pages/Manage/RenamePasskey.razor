@@ -1,6 +1,6 @@
 ﻿@page "/Account/Manage/RenamePasskey/{Id}"
 
-@using BlazorWeb_CSharp.Data
+@using TemplateWithPasskey.Data
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Identity
 @using System.Buffers.Text
@@ -8,27 +8,30 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject IdentityRedirectManager RedirectManager
 
-<EditForm Model="Input" OnValidSubmit="Rename" FormName="rename-passkey" method="post">
-    <DataAnnotationsValidator />
-    @if (passkey?.Name is { } name)
-    {
-        <h4>Enter a new name for your "@name" passkey</h4>
-    }
-    else
-    {
-        <h4>Enter a name for your passkey</h4>
-    }
-    <hr />
-    <ValidationSummary class="text-danger" role="alert" />
-    <div class="form-floating mb-3">
-        <InputText @bind-Value="Input.Name" id="Input.Name" class="form-control" aria-required="true" placeholder="My passkey" />
-        <label for="Input.Name" class="form-label">Passkey name</label>
-        <ValidationMessage For="() => Input.Name" class="text-danger" />
-    </div>
-    <div>
-        <button type="submit" class="w-100 btn btn-lg btn-primary">Continue</button>
-    </div>
-</EditForm>
+<FluentGrid>
+    <FluentGridItem xs="12" sm="6">
+        <EditForm Model="Input" OnValidSubmit="Rename" FormName="rename-passkey" method="post" style="padding: 10px 0; width: 100%;">
+            <DataAnnotationsValidator />
+            @if (passkey?.Name is { } name)
+            {
+                <h4>Enter a new name for your "@name" passkey</h4>
+            }
+            else
+            {
+                <h4>Enter a name for your passkey</h4>
+            }
+            <hr />
+            <ValidationSummary class="text-danger" role="alert" />
+
+            <FluentInputLabel ForId="Input.Name">Passkey name</FluentInputLabel>
+            <FluentTextField Style="width: 100%;" @bind-Value="Input.Name" Id="Input.Name" Name="Input.Name" Required="true" Placeholder="My passkey" />
+            <ValidationMessage For="() => Input.Name" class="text-danger" />
+            <p style="margin-top: 10px; text-align: end;">
+                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Continue</FluentButton>
+            </p>
+        </EditForm>
+    </FluentGridItem>
+</FluentGrid>
 
 @code {
     private ApplicationUser? user;

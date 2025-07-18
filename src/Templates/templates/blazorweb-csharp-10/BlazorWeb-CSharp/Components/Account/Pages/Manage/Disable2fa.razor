@@ -25,7 +25,9 @@
 <div>
     <form @formname="disable-2fa" @onsubmit="OnSubmitAsync" method="post">
         <AntiforgeryToken />
-        <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Disable 2FA</FluentButton>
+        <p style="margin-top: 10px; text-align: end;">
+            <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Disable 2FA</FluentButton>
+        </p>
     </form>
 </div>
 

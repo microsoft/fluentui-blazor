@@ -1,6 +1,6 @@
 ﻿@page "/Account/Manage/Passkeys"
 
-@using BlazorWeb_CSharp.Data
+@using TemplateWithPasskey.Data
 @using Microsoft.AspNetCore.Identity
 @using System.ComponentModel.DataAnnotations
 @using System.Buffers.Text
@@ -13,43 +13,61 @@
 
 <h3>Manage your passkeys</h3>
 
-<StatusMessage />
 
-@if (currentPasskeys is { Count: > 0 })
-{
-    <table class="table">
-        <tbody>
-            @foreach (var passkey in currentPasskeys)
-            {
-                <tr>
-                    <td>@(passkey.Name ?? "Unnamed passkey")</td>
-                    <td>
-                        @{
-                            var credentialId = Base64Url.EncodeToString(passkey.CredentialId);
-                        }
-                        <form @formname="@($"update-passkey-{credentialId}")" @onsubmit="UpdatePasskey" method="post">
-                            <AntiforgeryToken />
-                            <div>
-                                <input type="hidden" name="CredentialId" value="@credentialId" />
-                                <button type="submit" name="Action" value="rename" class="btn btn-primary" title="Rename this passkey">Rename</button>
-                                <button type="submit" name="Action" value="delete" class="btn btn-danger" title="Remove this passkey from your account">Delete</button>
-                            </div>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No passkeys are registered.</p>
-}
+<FluentGrid>
+    <FluentGridItem xs="12" sm="6">
+        <StatusMessage />
 
-<form @formname="add-passkey" @onsubmit="AddPasskey" method="post">
-    <AntiforgeryToken />
-    <PasskeySubmit Operation="PasskeyOperation.Create" Name="Input" class="btn btn-primary">Add a new passkey</PasskeySubmit>
-</form>
+        @if (currentPasskeys is { Count: > 0 })
+        {
+            <table style="margin-top: 10px;">
+                <thead>
+                    <tr>
+                        <th width="60%">Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var passkey in currentPasskeys)
+                    {
+                        <tr style="height: 44px;">
+                            <td>@(passkey.Name ?? "Unnamed passkey")</td>
+                            <td style="display: flex;align-items: center;height: 44px;justify-content: flex-end; gap: 5px;">
+                                @{
+                                    var credentialId = Base64Url.EncodeToString(passkey.CredentialId);
+                                }
+                                <form @formname="@($"update-passkey-rename-{credentialId}")" @onsubmit="UpdatePasskey" method="post">
+                                    <AntiforgeryToken />
+                                    <div>
+                                        <input type="hidden" name="CredentialId" value="@credentialId" />
+                                        <FluentButton Type="ButtonType.Submit" Name="Action" Value="rename" Appearance="Appearance.Accent" Title="Rename this passkey">Rename</FluentButton>
+                                    </div>
+                                </form>
+                                <form @formname="@($"update-passkey-delete-{credentialId}")" @onsubmit="UpdatePasskey" method="post">
+                                    <AntiforgeryToken />
+                                    <div>
+                                        <input type="hidden" name="CredentialId" value="@credentialId" />
+                                        <FluentButton Type="ButtonType.Submit" Name="Action" Value="delete" BackgroundColor="var(--error)" Color="var(--foreground-on-accent-rest)" Title="Remove this passkey from your account">Delete</FluentButton>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No passkeys are registered.</p>
+        }
+            <form @formname="add-passkey" @onsubmit="AddPasskey" method="post">
+                <AntiforgeryToken />
+        <p style="margin-top: 10px; text-align: end;">
+                <PasskeySubmit Operation="PasskeyOperation.Create" Name="Input" class="btn btn-primary">Add a new passkey</PasskeySubmit>
+        </p>
+            </form>
+    </FluentGridItem>
+</FluentGrid>
 
 @code {
     private ApplicationUser? user;

@@ -2,7 +2,7 @@
 
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Identity
-@using BlazorWeb_CSharp.Data
+@using TemplateWithPasskey.Data
 
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
@@ -21,7 +21,9 @@
             <FluentTextField Value="@username" Placeholder="Please choose your username." Disabled Label="Username" Appearance=FluentInputAppearance.Filled Style="width: 100%" />
             <FluentTextField Name="Input.PhoneNumber" @bind-Value="Input.PhoneNumber" Placeholder="Please enter your phone number." Label="Phone number" Style="width: 100%" />
             <FluentValidationMessage For="() => Input.PhoneNumber" class="text-danger" />
-            <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Save</FluentButton>
+            <p style="margin-top: 10px; text-align: end;">
+                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Save</FluentButton>
+            </p>
         </EditForm>
     </FluentGridItem>
 </FluentGrid>

@@ -2,7 +2,7 @@
 
 @using Microsoft.AspNetCore.Http.Features
 @using Microsoft.AspNetCore.Identity
-@using BlazorWeb_CSharp.Data
+@using TemplateWithPasskey.Data
 
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
@@ -53,12 +53,12 @@
     <h4>Authenticator app</h4>
     @if (!hasAuthenticator)
     {
-        <FluentAnchor Href="Account/Manage/EnableAuthenticator">Add authenticator app</FluentAnchor>
+        <FluentAnchor Href="Account/Manage/EnableAuthenticator" Appearance="Appearance.Accent">Add authenticator app</FluentAnchor>
     }
     else
     {
-        <FluentAnchor Href="Account/Manage/EnableAuthenticator" >Set up authenticator app</FluentAnchor>
-        <FluentAnchor Href="Account/Manage/ResetAuthenticator" >Reset authenticator app</FluentAnchor>
+        <FluentAnchor Href="Account/Manage/EnableAuthenticator">Set up authenticator app</FluentAnchor>
+        <FluentAnchor Href="Account/Manage/ResetAuthenticator">Reset authenticator app</FluentAnchor>
     }
 }
 else

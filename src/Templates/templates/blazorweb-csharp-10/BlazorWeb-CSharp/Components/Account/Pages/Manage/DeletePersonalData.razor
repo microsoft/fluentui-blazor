@@ -2,7 +2,7 @@
 
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Identity
-@using BlazorWeb_CSharp.Data
+@using TemplateWithPasskey.Data
 
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
@@ -18,9 +18,9 @@
 <FluentGrid>
     <FluentGridItem sm="6">
         <div class="alert alert-warning" role="alert">
-            <p>
+
                 <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-            </p>
+
         </div>
         <EditForm Model="Input" FormName="delete-user" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
@@ -30,7 +30,9 @@
                 <FluentTextField type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="new-password" Required="true" Placeholder="Please enter your password." Label="Password" Style="width: 100%" />
                 <FluentValidationMessage For="() => Input.Password" class="text-danger" />
             }
-            <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Delete data and close my account</FluentButton>
+            <p style="margin-top: 10px; text-align: end;">
+                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Delete data and close my account</FluentButton>
+            </p>
         </EditForm>
     </FluentGridItem>
 </FluentGrid>

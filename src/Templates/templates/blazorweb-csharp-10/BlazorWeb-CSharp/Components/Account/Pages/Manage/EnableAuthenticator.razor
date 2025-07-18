@@ -52,7 +52,9 @@ else
                         <DataAnnotationsValidator />
                         <FluentTextField Name="Input.Code" @bind-Value="Input.Code" AutoComplete="off" Placeholder="Please enter the code." Style="width: 100%;" />
                         <FluentValidationMessage For="() => Input.Code" class="text-danger" />
-                        <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Verify</FluentButton>
+                        <p style="margin-top: 10px; text-align: end;">
+                            <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Verify</FluentButton>
+                        </p>
                         <ValidationSummary class="text-danger" role="alert" />
                     </EditForm>
                 </li>
