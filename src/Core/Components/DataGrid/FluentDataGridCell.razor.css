@@ -97,7 +97,7 @@
 }
 
 .fluent-data-grid .col-title {
-  text-align: left;
+  text-align: start;
 }
 
 .fluent-data-grid .col-justify-center .col-title {

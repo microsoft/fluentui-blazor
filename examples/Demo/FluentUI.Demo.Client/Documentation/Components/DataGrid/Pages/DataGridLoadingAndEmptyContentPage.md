@@ -1,6 +1,6 @@
 ---
 title: Using LoadingContent and EmptyContent
-route: /DataGrid/NotVirtualizedLoadingAndEmpty
+route: /DataGrid/LoadingAndEmptyContent
 ---
 
 # Using LoadingContent and EmptyContent
@@ -9,4 +9,4 @@ This example shows the usage of the templated <code>EmptyContent</code> and <cod
 
 Use the switch and the button at the bottom to toggle between loading and empty content.
 
-{{ DataGridNotVirtualizedLoadingAndEmpty } }}
+{{ DataGridLoadingAndEmptyContent } }}

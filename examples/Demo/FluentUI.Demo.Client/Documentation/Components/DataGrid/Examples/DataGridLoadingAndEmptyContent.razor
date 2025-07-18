@@ -14,14 +14,15 @@
         </EmptyContent>
     </FluentDataGrid>
 </div>
-
-<FluentSwitch @ref="_clearToggle"
-              @bind-Value="@_clearItems"
-              @bind-Value:after="ToggleItems"
-              UncheckedMessage="Clear all results"
-              CheckedMessage="Restore all results">
-</FluentSwitch>
-<FluentButton OnClick="SimulateDataLoading">Simulate data loading</FluentButton>
+<FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="10">
+    <FluentSwitch @ref="_clearToggle"
+                  @bind-Value="@_clearItems"
+                  @bind-Value:after="ToggleItems"
+                  UncheckedMessage="Clear all results"
+                  CheckedMessage="Restore all results">
+    </FluentSwitch>
+    <FluentButton OnClick="SimulateDataLoading">Simulate data loading</FluentButton>
+</FluentStack>
 
 
 @code {
