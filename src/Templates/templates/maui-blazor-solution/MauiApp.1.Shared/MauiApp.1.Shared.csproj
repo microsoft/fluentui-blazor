@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="!!REPLACE_WITH_ASPNETCORE_9_VERSION!!" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="!!REPLACE_WITH_LATEST_VERSION!!" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="!!REPLACE_WITH_LATEST_VERSION!!" />
   </ItemGroup>
