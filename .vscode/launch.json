@@ -1,7 +1,54 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    // Now when you press F5, VS Code will:
+    //   - Build the FluentUI Demo project in Debug mode
+    //   - Launch the application with the debugger attached
+    //   - Automatically open your browser to the application URL
+    //
+    // You can manually select which configuration to use by going 
+    // to the Run and Debug panel (Ctrl+Shift+D) and choosing from the dropdown.
     "version": "0.2.0",
-    "configurations": []
+    "configurations": [
+        // Watch the FluentUI Demo project for changes and launch with hot reload
+        {
+            "name": "Watch FluentUI Demo",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "dotnet",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        // Launch the FluentUI Demo project in Debug mode
+        {
+            "name": "Debug FluentUI Demo",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-demo",
+            "program": "${workspaceFolder}/examples/Demo/FluentUI.Demo/bin/Debug/net9.0/FluentUI.Demo.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/examples/Demo/FluentUI.Demo",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        }  
+    ]
 }

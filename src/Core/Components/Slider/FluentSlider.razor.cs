@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,6 +17,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>, ITooltipComponent
     where TValue : struct, IComparable<TValue>
 {
+    private readonly Debounce _debounce = new();
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentSlider{TValue}"/> class.
     /// </summary>
@@ -80,6 +83,12 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, ITooltipCom
     [Parameter]
     public string? Tooltip { get; set; }
 
+    /// <summary>
+    /// Gets or sets the delay, in milliseconds, before to raise the change event.
+    /// </summary>
+    [Parameter]
+    public ushort ImmediateDelay { get; set; } = 60;
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
@@ -105,6 +114,15 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, ITooltipCom
     {
         FocusLost = true;
         return Task.CompletedTask;
+    }
+
+    /// <summary />
+    protected override Task ChangeHandlerAsync(ChangeEventArgs e)
+    {
+        return _debounce.RunAsync(ImmediateDelay, () =>
+        {
+            return base.ChangeHandlerAsync(e);
+        });
     }
 
     /// <summary>
