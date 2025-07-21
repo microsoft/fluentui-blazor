@@ -64,6 +64,12 @@ public partial class FluentErrorBoundary : FluentComponentBase
     public int MaximumErrorCount { get; set; } = 100;
 
     /// <summary>
+    /// Gets or sets the URL to navigate to after an error occurs.
+    /// </summary>
+    [Parameter]
+    public string? OnCloseRedirectUrl { get; set; }
+
+    /// <summary>
     /// Resets the error boundary to a non-errored state. If the error boundary is not
     /// already in an errored state, the call has no effect.
     /// </summary>
@@ -87,5 +93,17 @@ public partial class FluentErrorBoundary : FluentComponentBase
         }
 
         return Task.CompletedTask;
+    }
+
+    /// <summary />
+    private string GetOnclickJavaScript()
+    {
+        if (string.IsNullOrEmpty(OnCloseRedirectUrl))
+        {
+            return "this.parentElement.parentElement.hide()";
+        }
+
+        var encodedUrl = System.Web.HttpUtility.JavaScriptStringEncode(OnCloseRedirectUrl);
+        return $"window.location.href='{encodedUrl}'";
     }
 }
