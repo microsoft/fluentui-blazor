@@ -131,5 +131,18 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
         return null;
     }
 
+    private async Task OnKeyDownHandlerAsync(KeyboardEventArgs e)
+    {
+        if (e.ShiftKey || e.AltKey || e.CtrlKey)
+        {
+            return;
+        }
+
+        if (e.Code is nameof(KeyCode.Enter))
+        {
+            await OnClickHandlerAsync(new MouseEventArgs());
+        }
+    }
+
     public void Dispose() => Owner?.Unregister(this);
 }
