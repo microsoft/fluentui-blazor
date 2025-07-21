@@ -124,17 +124,17 @@ The following examples show how to use the DataGrid component in different scena
 - [Auto fit columns](/DataGrid/AutoFit)
 - [Auto items per page](/DataGrid/AutoItemsPerPage)
 - [Custom paging](/DataGrid/CustomPaging)
-- [Multi line text in cells](/DataGrid/MultiLine)
-- [Table with scrollbars](/DataGrid/Scrollbars)
+- [Multi line text in cells](/DataGrid/MultiLineText)
+- [Table with scrollbars](/DataGrid/TableScrollbars)
 
 ### Sorting
-- [Sorting](/DataGrid/Sorting)
 - [Custom comparer for sorting](/DataGrid/CustomComparerSort)
+- [Custom sorting](/DataGrid/CustomSort)
     
 ### Columns
-- [Single/Multi select](/DataGrid/SingleMultiSelect)
-- [Dynamic columns](/DataGrid/DynamicColumns)]
-- [Header generation](/DataGrid/HeaderGeneration)
+- [Single/Multi select](/DataGrid/MultiSelect)
+- [Dynamic columns](/DataGrid/DynamicColumns)
+- [Column headers](/DataGrid/HeaderGeneration)
 - [Template columns](/DataGrid/TemplateColumns)
 - [Template columns 2](/DataGrid/TemplateColumns2)
 
@@ -142,4 +142,4 @@ The following examples show how to use the DataGrid component in different scena
 - [Custom comparer](/DataGrid/CustomComparerSort)
 - [Virtualized grid](/DataGrid/Virtualize)
 - [Remote data](/DataGrid/RemoteData)
-- [Manual grid](/DataGrid/Manual)
+- [Manual grid](/DataGrid/ManualDataGrid)

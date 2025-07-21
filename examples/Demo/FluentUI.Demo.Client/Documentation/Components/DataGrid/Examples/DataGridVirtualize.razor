@@ -18,7 +18,7 @@
         <LoadingContent>
             <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center">
                 Loading...<br />
-                <FluentProgress Width="240px" />
+                <FluentProgressBar Width="240px" />
             </FluentStack>
         </LoadingContent>
     </FluentDataGrid>
@@ -27,14 +27,14 @@
 <FluentSwitch @ref="_clearToggle"
               @bind-Value="@_clearItems"
               @bind-Value:after="ToggleItems"
-              UncheckedMessage="Clear all results"
-              CheckedMessage="Restore all results">
+              Label="@switchLabel">
 </FluentSwitch>
 <FluentButton OnClick="SimulateDataLoading">Simulate data loading</FluentButton>
 
 @code {
     FluentDataGrid<SampleGridData>? grid;
     FluentSwitch? _clearToggle;
+    string switchLabel = "Clear data";
 
     bool _clearItems = false;
     public record SampleGridData(string Item1, string Item2, string Item3, string Item4);
@@ -61,10 +61,12 @@
         if (_clearItems)
         {
             items = null;
+            switchLabel = "Restore data";
         }
         else
         {
             items = GenerateSampleGridData(5000);
+            switchLabel = "Clear data";
         }
     }
 

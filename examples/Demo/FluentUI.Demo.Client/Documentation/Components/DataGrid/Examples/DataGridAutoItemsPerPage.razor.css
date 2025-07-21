@@ -1,24 +1,7 @@
 #datagrid-container {
-  height: calc(100% - 3rem);
+  height: calc(45vh - 3rem);
   min-height: 8rem;
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-::deep .doc-viewer {
-  height: calc(100% - 14rem);
-}
-
-.demo-section-example {
-  min-height: 135px !important;
-  height: 100%;
-}
-
-fluent-tabs {
-  height: 100%;
-}
-
-#panel-3 {
-  height: 100% !important;
-  max-height: calc(100% - 2rem) !important;
-}

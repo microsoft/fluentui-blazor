@@ -3,15 +3,14 @@
 @inject HttpClient Http
 @inject NavigationManager NavManager
 
-<FluentAccordion>
-    <FluentAccordionItem Heading="Filter(s)" Expanded="true">
-        <FluentIcon Value="@(new Icons.Regular.Size20.FilterAdd())" Color="@Color.Neutral" Slot="start" />
+<FluentAccordion ExpandMode="AccordionExpandMode.Single" MarkerPosition="AccordionItemMarkerPosition.End" Block="true"  Style="width: 100%;">
+    <FluentAccordionItem Header="Filter(s)" Expanded="true"  >
         <FluentGrid Spacing="1" Justify="JustifyContent.FlexStart" Style="padding: 5px;">
             <FluentGridItem xs="12" sm="6" md="4">
-                <FluentTextInput @bind-Value=_stateFilter Label="State Filter"></FluentTextInput>
+                <FluentTextInput @bind-Value=_stateFilter Label="State Filter" Width="450px"></FluentTextInput>
             </FluentGridItem>
         </FluentGrid>
-        <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.End">
+        <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.End" HorizontalGap="5">
             <FluentButton IconStart="@(new Icons.Regular.Size16.Broom())"
                           Disabled="loading"
                           OnClick="ClearFilters">
@@ -32,7 +31,7 @@
                     Items="foodRecallItems"
                     RefreshItems="RefreshItemsAsync"
                     OnRowDoubleClick="@(()=>Console.WriteLine("Row double clicked!"))"
-                    RowSize="DataGridRowSize.Small"
+                    RowSize="DataGridRowSize.Medium"
                     GenerateHeader="DataGridGeneratedHeaderType.Sticky"
                     TGridItem="FoodRecall"
                     Loading="loading"
@@ -44,8 +43,8 @@
         <PropertyColumn Property="@(c => c!.Status)" />
         <PropertyColumn Title="Termination Date" Property="@(c => c!.Termination_Date)" SortBy="@(new ColumnKeyGridSort<FoodRecall>("termination_date"))" Sortable="true" />
         <TemplateColumn Title="Actions" Align="@DataGridCellAlignment.End">
-            <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => Console.WriteLine("Edit clicked"))" />
-            <FluentButton aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => Console.WriteLine("Delete clicked"))" />
+            <FluentButton Size="ButtonSize.Small" aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => Console.WriteLine("Edit clicked"))" />
+            <FluentButton Size="ButtonSize.Small" aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => Console.WriteLine("Delete clicked"))" />
         </TemplateColumn>
     </FluentDataGrid>
 </div>

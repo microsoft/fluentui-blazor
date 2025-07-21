@@ -12,14 +12,12 @@
             --fluent-data-grid-resize-handle-color: var(--neutral-stroke-rest) !important;
         }
     </style>
-
 }
 
-
-<FluentStack>
-    <FluentRadioGroup Name="rt" @bind-Value="@_resizeType" Label="Resize type">
-        <FluentRadio Value="@DataGridResizeType.Discrete">Discrete</FluentRadio>
-        <FluentRadio Value="@DataGridResizeType.Exact">Exact</FluentRadio>
+<FluentStack HorizontalGap="15">
+    <FluentRadioGroup Name="rt" @bind-Value="@_resizeType" Label="Resize type" TValue="DataGridResizeType?">
+        <FluentRadio Value="@((DataGridResizeType?)DataGridResizeType.Discrete)" Label="Discrete" />
+        <FluentRadio Value="@((DataGridResizeType?)DataGridResizeType.Exact)" Label="Exact" />
     </FluentRadioGroup>
     <FluentSpacer Width="25" />
     <FluentCheckbox @bind-Value="@_showActionsMenu" Label="Use menu for column actions" />
@@ -40,12 +38,12 @@
                     GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr"
                     ShowHover="true">
         <TemplateColumn Title="Rank" Sortable="true"  SortBy="@rankSort" Align="DataGridCellAlignment.Center">
-            <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
+            <img class="flag" src="@(context.Flag())" alt="Flag of @(context.Code)" />
         </TemplateColumn>
         <PropertyColumn Property="@(c => c.Name)" InitialSortDirection=DataGridSortDirection.Descending Sortable="true" IsDefaultSortColumn=true Comparer="@StringLengthComparer.Instance" Filtered="!string.IsNullOrWhiteSpace(nameFilter)">
             <ColumnOptions>
-                <div class="search-box">
-                    <FluentTextInput type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @bind-Value:after="HandleClear" Placeholder="Country name..." />
+                <div class="search-box" style="width: 100%;">
+                    <FluentTextInput Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @bind-Value:after="HandleClear" Placeholder="Country name..." Style="width: 100%;" Width="100%"/>
                 </div>
             </ColumnOptions>
         </PropertyColumn>

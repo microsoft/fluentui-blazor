@@ -17,6 +17,7 @@ In this instance, you can supply a <code>ColumnKeyGridSort</code> that allows yo
 {{ DataGridColumnKeyGridSort } }}
 
 ## Documentation
+`GridSort<TGridItem>` Class methods
 
 {{ API Type=GridSort }}
 

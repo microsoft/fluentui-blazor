@@ -176,7 +176,7 @@
                     @if (col == _displayOptionsForColumn)
                     {
                         <div class="col-options">
-                            <FluentStack Orientation="Orientation.Vertical">
+                            <FluentStack Orientation="Orientation.Vertical" VerticalGap="4">
                                 @if (ResizeType is not null)
                                 {
                                     <ColumnResizeOptions Column="@col.Index" ResizeType=@ResizeType TGridItem="TGridItem" />

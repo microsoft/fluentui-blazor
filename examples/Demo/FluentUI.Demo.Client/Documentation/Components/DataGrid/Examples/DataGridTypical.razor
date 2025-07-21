@@ -56,8 +56,7 @@
 
 <FluentSwitch @bind-Value="@_clearItems"
               @bind-Value:after="ToggleItemsAsync"
-              UncheckedMessage="Clear all results"
-              CheckedMessage="Restore all results">
+              Label="@switchLabel">
 </FluentSwitch>
 
 @code {
@@ -68,6 +67,7 @@
     string nameFilter = string.Empty;
     int minMedals;
     int maxMedals = 130;
+    string switchLabel = "Clear data";
 
     GridSort<Country> rankSort = GridSort<Country>
         .ByDescending(x => x.Medals.Gold)
@@ -146,10 +146,12 @@
         if (_clearItems)
         {
             items = null;
+            switchLabel = "Restore data";
         }
         else
         {
             items = SampleData.Olympics2024.Countries.AsQueryable();
+            switchLabel = "Clear data";
         }
         await Task.CompletedTask;
     }

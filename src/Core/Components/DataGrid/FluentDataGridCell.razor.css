@@ -40,7 +40,7 @@
   user-select: none;
 }
 
-.fluent-data-grid .multiline-text {
+.fluent-data-grid td.multiline-text {
   white-space: inherit;
   overflow: auto;
   word-break: break-word;

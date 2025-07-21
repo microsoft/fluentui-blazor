@@ -22,4 +22,4 @@ To show how the resize handle can be altered, when choosing to use the alternate
 [!Note]: once a value has been selected for the Resize type, it cannot be set to null again. You need to refresh the page to start with a null value again.</em></p>
         
 
-{{ DataGridCustomComparer Files=Code:DataGridCustomComparer.razor;CSS:DataGridCustomComparer.razor.css }} }}
+{{ DataGridCustomComparer Files=Code:DataGridCustomComparer.razor;CSS:DataGridCustomComparer.razor.css }}
