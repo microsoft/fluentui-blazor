@@ -1,5 +1,5 @@
 ---
-title: Table scrollbars
+title: DataGrid / Table scrollbars
 route: /DataGrid/TableScrollbars
 ---
 

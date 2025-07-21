@@ -1,5 +1,5 @@
 ---
-title: Custom sort
+title: DataGrid / Custom sort
 route: /DataGrid/CustomSort
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Header generation
+title: DataGrid / Header generation
 route: /DataGrid/HeaderGeneration
 ---
 

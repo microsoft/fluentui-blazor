@@ -457,6 +457,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
                 await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.DynamicItemsPerPage", _gridReference, DotNetObjectReference.Create(this), (int)RowSize);
             }
+
+            if (AutoFit && JSModule.Imported)
+            {
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.AutoFitGridColumns", _gridReference, _columns.Count);
+            }
         }
 
         SaveStateToQueryString();
@@ -471,11 +476,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             _checkColumnResizePosition = false;
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference, ".col-resize");
-        }
-
-        if (AutoFit && _gridReference is not null)
-        {
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.AutoFitGridColumns", _gridReference, _columns.Count);
         }
     }
 

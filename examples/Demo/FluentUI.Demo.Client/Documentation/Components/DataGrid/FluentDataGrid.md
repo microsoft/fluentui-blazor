@@ -5,9 +5,9 @@ route: /DataGrid
 
 # DataGrid
 
-The DataGrid actually comprises several components and used to display tabular data. The `<FluentDataGrid>` component is the most important
+The DataGrid is actually comprised of several components and used to display tabular data. The `<FluentDataGrid>` component is the most important
 component and is the one normally put onto a page. Internally it uses the`<FluentDataGridRow>` and `<FluentDataGridCell>` components to build up
-the grid. Technically it is possible to use these components manually, but that is not the recommended way of working with the DataGrid.
+the grid. It is possible (technically speaking) to use these components manually, but that is **not** the recommended way of working with the DataGrid.
 
 ## Rendering
 The DataGrid uses standard HTML table elements for rendering the grid. It supports 2 different display modes through the `DisplayMode`
@@ -111,25 +111,6 @@ In your `Program.cs` file you need to add the following after the `builder.Servi
 ```csharp
 builder.Services.AddDataGridODataAdapter();
 ```
-
-
-## Typical usage
-Here is an example of a data grid that uses in-memory data and enables features including pagination, sorting, filtering, column options, row highlighting and column resizing.
-
-All columns, except 'Bronze', have a `Tooltip` parameter value of `true`.
-
-- When using this for a `TemplateColumn` (like 'Rank' here), you need to also supply a value for the `TooltipText` parameter. **No value given equals no tooltip shown**.
-- When using this for a `PropertyColumn`, a value for the `TooltipText` is **not** required. By default, the value given for `Property`
-will be re-used for the tooltip. If you do supply a value for `TooltipText` its outcome will be used instead.
-
-`TooltipText` is a lambda function that takes the current item as input and returns the text to show in the tooltip (and `aria-label`).
-Look at the Razor tab to see how this is done and how it can be customized.
-
-The Country filter option can be used to quickly filter the list of countries shown. Pressing the ESC key just closes the option popup without changing the filtering currently being used.
-Pressing enter finishes the filter action by the current input to filter on and closes the option popup.
-
-The resize options UI is using a customized string for the label ('Width (+/- 10px)' instead of the normal 'Column width'). This is done through
-the custom localizer which is registered in the Server project's `Program.cs` file.
 
 ## Examples
 The following examples show how to use the DataGrid component in different scenarios:

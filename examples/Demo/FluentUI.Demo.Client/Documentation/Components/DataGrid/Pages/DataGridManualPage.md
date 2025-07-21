@@ -1,5 +1,5 @@
 ---
-title: Manual grid
+title: DataGrid / Manual grid
 route: /DataGrid/ManualDataGrid
 ---
 

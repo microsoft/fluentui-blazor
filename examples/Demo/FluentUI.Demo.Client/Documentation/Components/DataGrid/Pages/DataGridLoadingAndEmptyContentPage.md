@@ -1,5 +1,5 @@
 ---
-title: Using LoadingContent and EmptyContent
+title: DataGrid / Using LoadingContent and EmptyContent
 route: /DataGrid/LoadingAndEmptyContent
 ---
 

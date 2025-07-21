@@ -1,5 +1,5 @@
 ---
-title: Dynamic columns  
+title: DataGrid / Dynamic columns  
 route: /DataGrid/DynamicColumns
 ---
 

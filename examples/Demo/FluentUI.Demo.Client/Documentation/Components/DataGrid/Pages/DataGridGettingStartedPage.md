@@ -1,5 +1,5 @@
 ---
-title: Getting started
+title: DataGrid / Getting started
 route: /DataGrid/GettingStarted
 ---
 

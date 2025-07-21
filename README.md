@@ -10,7 +10,7 @@
 
 :star:  We appreciate your star, it helps!
 
-**This package is for use in .NET 8 Blazor projects. If you are using .NET 6 or 7, please use the v3 version of the package which is named `Microsoft.Fast.Components.FluentUI`**
+**This package is for use in .NET 8 (and up) Blazor projects. If you are using .NET 6 or 7, please use the v3 version of the package which is named `Microsoft.Fast.Components.FluentUI`**
 
 ## 🔹Introduction
 

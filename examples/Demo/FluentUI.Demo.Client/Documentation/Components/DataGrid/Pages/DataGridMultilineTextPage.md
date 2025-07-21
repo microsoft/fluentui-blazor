@@ -1,5 +1,5 @@
 ---
-title: Multi line text
+title: DataGrid / Multi line text
 route: /DataGrid/MultilineText
 ---
 

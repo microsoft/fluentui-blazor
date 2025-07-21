@@ -1,5 +1,5 @@
 ---
-title: Remote data
+title: DataGrid / Remote data
 route: /DataGrid/RemoteData
 ---
 
