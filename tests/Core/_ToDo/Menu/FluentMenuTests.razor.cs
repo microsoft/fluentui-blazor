@@ -6,13 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Menu;
-public class FluentMenuTests : TestBase
+public partial class FluentMenuTests : TestContext
 {
     public FluentMenuTests()
     {
-        TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
-        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
-        TestContext.Services.AddSingleton<IMenuService, MenuService>();
+        JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+        Services.AddSingleton<IMenuService, MenuService>();
     }
 
     [Fact]
@@ -27,7 +27,7 @@ public class FluentMenuTests : TestBase
         string width = default!;
         Action<bool> openChanged = _ => { };
         bool anchored = default!;
-        var cut = TestContext.RenderComponent<FluentMenu>(parameters => parameters
+        var cut = RenderComponent<FluentMenu>(parameters => parameters
             .Add(p => p.Anchor, anchor)
             .Add(p => p.Trigger, trigger)
             .Add(p => p.Open, open)
@@ -48,8 +48,8 @@ public class FluentMenuTests : TestBase
     {
         //Arrange
         var className = "some-class";
-        var menuProviderCut = TestContext.RenderComponent<FluentMenuProvider>();
-        var menuCut = TestContext.RenderComponent<FluentMenu>(parameters => parameters
+        var menuProviderCut = RenderComponent<FluentMenuProvider>();
+        var menuCut = RenderComponent<FluentMenu>(parameters => parameters
             .Add(p => p.UseMenuService, true)
             .Add(p => p.Class, className)
             .Add(p => p.Anchored, true)
