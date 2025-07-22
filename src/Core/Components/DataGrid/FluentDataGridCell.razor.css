@@ -40,7 +40,7 @@
   user-select: none;
 }
 
-.fluent-data-grid .multiline-text {
+.fluent-data-grid td.multiline-text {
   white-space: inherit;
   overflow: auto;
   word-break: break-word;
@@ -97,7 +97,7 @@
 }
 
 .fluent-data-grid .col-title {
-  text-align: left;
+  text-align: start;
 }
 
 .fluent-data-grid .col-justify-center .col-title {

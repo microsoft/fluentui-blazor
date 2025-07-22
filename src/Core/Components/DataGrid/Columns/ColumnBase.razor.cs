@@ -18,7 +18,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public abstract partial class ColumnBase<TGridItem>
 {
-    private bool _isMenuOpen;
     private static readonly string[] KEYBOARD_MENU_SELECT_KEYS = ["Enter", "NumpadEnter"];
     private readonly string _columnId = Identifier.NewId();
     private FluentMenu? _menu;
@@ -286,14 +285,21 @@ public abstract partial class ColumnBase<TGridItem>
         var hasSorting = Sortable is true || IsDefaultSortColumn;
         var hasResize = Grid.ResizableColumns;
         var hasOptions = ColumnOptions is not null;
-        var hasMultiple = (hasSorting && hasResize) || (hasSorting && hasOptions) || (hasResize && hasOptions);
+        var hasMultiple = (Convert.ToInt32(hasSorting) + Convert.ToInt32(hasResize) + Convert.ToInt32(hasOptions)) > 1;
+        var hideMenu = (hasSorting ^ hasResize ^ hasOptions) && !(hasSorting && hasResize && hasOptions);
+
+        if (_menu is not null && hideMenu)
+        {
+            await _menu.CloseMenuAsync();
+        }
 
         if (hasMultiple)
         {
-            _isMenuOpen = !_isMenuOpen;
-            StateHasChanged();
+            return;
+            //StateHasChanged();
         }
-        else if (hasSorting)
+
+        if (hasSorting)
         {
             await Grid.SortByColumnAsync(this);
         }
@@ -312,8 +318,10 @@ public abstract partial class ColumnBase<TGridItem>
         if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key, StringComparer.OrdinalIgnoreCase))
         {
             await Grid.SortByColumnAsync(this);
-            StateHasChanged();
-            _isMenuOpen = false;
+            if (_menu is not null)
+            {
+                await _menu.CloseMenuAsync();
+            }
         }
     }
 
@@ -322,7 +330,10 @@ public abstract partial class ColumnBase<TGridItem>
         if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key, StringComparer.OrdinalIgnoreCase))
         {
             await Grid.ShowColumnResizeAsync(this);
-            _isMenuOpen = false;
+            if (_menu is not null)
+            {
+                await _menu.CloseMenuAsync();
+            }
         }
     }
 
@@ -331,7 +342,10 @@ public abstract partial class ColumnBase<TGridItem>
         if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key, StringComparer.OrdinalIgnoreCase))
         {
             await Grid.ShowColumnOptionsAsync(this);
-            _isMenuOpen = false;
+            if (_menu is not null)
+            {
+                await _menu.CloseMenuAsync();
+            }
         }
     }
 

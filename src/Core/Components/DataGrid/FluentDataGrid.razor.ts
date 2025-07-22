@@ -448,7 +448,9 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     gridElement.style.gridTemplateColumns = gridTemplateColumns;
     gridElement.classList.remove('auto-fit');
 
-    grids[gridElement.id].initialWidths = gridTemplateColumns;
+    if (grids[gridElement.id]) {
+      grids[gridElement.id].initialWidths = gridTemplateColumns;
+    }
   }
 
   export function DynamicItemsPerPage(gridElement: HTMLElement, dotNetObject: any, rowSize: number) {

@@ -457,6 +457,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
                 await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.DynamicItemsPerPage", _gridReference, DotNetObjectReference.Create(this), (int)RowSize);
             }
+
+            if (AutoFit)
+            {
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.AutoFitGridColumns", _gridReference, _columns.Count);
+            }
         }
 
         SaveStateToQueryString();
@@ -471,11 +476,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             _checkColumnResizePosition = false;
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference, ".col-resize");
-        }
-
-        if (AutoFit && _gridReference is not null)
-        {
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.AutoFitGridColumns", _gridReference, _columns.Count);
         }
     }
 
@@ -526,10 +526,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
         }
 
-        //if (ResizableColumns)
-        //{
-        //    _ = JSModule.ObjectReference.InvokeVoidAsync("enableColumnResizing", _gridReference, ResizeColumnOnAllRows).AsTask();
-        //}
+        if (JSModule.Imported && ResizableColumns)
+        {
+            _ = JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing", _gridReference, ResizeColumnOnAllRows).AsTask();
+        }
     }
 
     /// <summary>
@@ -1023,6 +1023,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (args.ShiftKey && args.Key == KeyCode.KeyR)
         {
             await ResetColumnWidthsAsync();
+        }
+
+        if (args.ShiftKey && args.Key == KeyCode.KeyS)
+        {
+            await RemoveSortByColumnAsync();
         }
 
         if (string.Equals(args.Value, "-", StringComparison.Ordinal))
