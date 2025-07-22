@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 
 namespace FluentUI.Demo.Shared.SampleData;
@@ -44,7 +48,8 @@ public class DataSource
         {
             timer.Dispose();
             action.Invoke();
-        };
+        }
+        ;
     }
 
     public static string[] ImageFaces =

@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
@@ -128,6 +128,13 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     /// </summary>
     [Parameter]
     public virtual Func<TOption, bool>? OptionSelected { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="IEqualityComparer{T}"/> used to determine if an option is already added to the internal list.
+    /// ⚠️ Only available when Multiple = true.
+    /// </summary>
+    [Parameter]
+    public virtual IEqualityComparer<TOption>? OptionComparer { get; set; }
 
     /// <summary>
     /// Gets or sets the content source of all items to display in this list.
@@ -369,7 +376,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
             }
         }
 
-        if (!string.IsNullOrWhiteSpace(Value) && (InternalValue is null || InternalValue != Value))
+        if (!Multiple && !string.IsNullOrWhiteSpace(Value) && (InternalValue is null || InternalValue != Value))
         {
             InternalValue = Value;
         }
@@ -533,9 +540,14 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
 
         if (Multiple)
         {
-            if (_selectedOptions.Contains(item))
+            if (OptionComparer is null && _selectedOptions.Contains(item))
             {
                 RemoveSelectedItem(item);
+                await RaiseChangedEventsAsync();
+            }
+            else if (OptionComparer is not null && _selectedOptions.Find(x => OptionComparer.Equals(x, item)) is TOption addedItem)
+            {
+                RemoveSelectedItem(addedItem);
                 await RaiseChangedEventsAsync();
             }
             else
@@ -554,6 +566,14 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
             {
                 SelectedOption = item;
                 InternalValue = GetOptionValue(item);
+                await RaiseChangedEventsAsync();
+            }
+
+            // For Autocomplete, allow to unselect the item if it is already selected
+            else if (this is FluentAutocomplete<TOption>)
+            {
+                SelectedOption = default;
+                InternalValue = GetOptionValue(default);
                 await RaiseChangedEventsAsync();
             }
         }
@@ -618,6 +638,12 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         if (item == null)
         {
             return false;
+        }
+
+        if (this is FluentAutocomplete<TOption> && SelectedOption is not null)
+        {
+            SelectedOption = default;
+            InternalValue = GetOptionValue(default);
         }
 
         return _selectedOptions.Remove(item);

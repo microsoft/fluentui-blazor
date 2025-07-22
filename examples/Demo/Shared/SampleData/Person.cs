@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 namespace FluentUI.Demo.Shared.SampleData;
 
 public record Person(int PersonId, string CountryCode, string FirstName, string LastName, DateOnly BirthDate, string Picture)

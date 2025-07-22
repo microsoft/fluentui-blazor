@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -34,7 +38,7 @@ public class Emoji : EmojiInfo
         Skintone = skintone;
         Group = group;
         Style = style;
-        Data = data; // Zipped SVG content 
+        Data = data; // Zipped SVG content
     }
 
     private byte[] Data { get; }

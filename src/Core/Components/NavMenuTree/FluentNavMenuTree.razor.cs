@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
@@ -36,7 +40,7 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered for the expander icon when the menu is collapsible. 
+    /// Gets or sets the content to be rendered for the expander icon when the menu is collapsible.
     /// The default icon will be used if this is not specified.
     /// </summary>
     [Parameter]
@@ -218,8 +222,8 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
                 .Where(x => !string.IsNullOrEmpty(x.Href))
                 .FirstOrDefault(x => x.Href != "/" && localPath.Equals(x.Href!, StringComparison.InvariantCultureIgnoreCase));
 
-            // If not found, try to match the first item that has a Href (ending in a "/") that starts with the current URL 
-            // URL: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"  
+            // If not found, try to match the first item that has a Href (ending in a "/") that starts with the current URL
+            // URL: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"
             // Extra "/" is needed to avoid matching https://.../Panels with https://.../Panel
             menuItem ??= _allItems.Values
                 .Where(x => !string.IsNullOrEmpty(x.Href))

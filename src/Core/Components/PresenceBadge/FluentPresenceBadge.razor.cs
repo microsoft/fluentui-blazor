@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -5,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// A presence badge is a badge that displays a status indicator such as available, away, or busy.
-/// </summary>  
+/// </summary>
 public partial class FluentPresenceBadge : FluentComponentBase, IDisposable
 {
     [Inject]
@@ -46,7 +50,7 @@ public partial class FluentPresenceBadge : FluentComponentBase, IDisposable
     public string? StatusTitle { get; set; }
 
     /// <summary>
-    /// Modifies the display to indicate that the user is out of office. 
+    /// Modifies the display to indicate that the user is out of office.
     /// This can be combined with any status to display an out-of-office version of that status.
     /// </summary>
     [Parameter]

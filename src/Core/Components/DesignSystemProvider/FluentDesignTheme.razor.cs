@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Globalization;
@@ -55,6 +55,7 @@ public partial class FluentDesignTheme : ComponentBase
 
     /// <summary>
     /// Gets or sets the Accent base color.
+    /// Needs to be in a valid CSS color format (e.g., "#FF0000" for red).
     /// </summary>
     [Parameter]
     public string? CustomColor { get; set; }
@@ -167,6 +168,7 @@ public partial class FluentDesignTheme : ComponentBase
                     {
                         await CustomColorChanged.InvokeAsync(value);
                     }
+                    GlobalDesign.SetColor(value);
                 }
                 else
                 {
@@ -179,8 +181,8 @@ public partial class FluentDesignTheme : ComponentBase
                     {
                         await OfficeColorChanged.InvokeAsync(color);
                     }
+                    GlobalDesign.SetColor(color.ToAttributeValue());
                 }
-
                 break;
             case "neutral-color":
                 GlobalDesign.SetNeutralColor(value);
@@ -262,6 +264,7 @@ public partial class FluentDesignTheme : ComponentBase
                     color = AspNetCore.Components.OfficeColor.Default;
                 }
                 OfficeColor = color;
+                GlobalDesign.SetColor(color.ToAttributeValue());
                 await OnChangeRaisedAsync("primary-color", theme.PrimaryColor);
             }
         }

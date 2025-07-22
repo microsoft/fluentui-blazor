@@ -54,6 +54,10 @@
     display: none;
 }
 
+.fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field:not([disabled]):active::after {
+    width: 100%;
+}
+
 .fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field::part(start) {
     max-width: calc(100% - 40px);
     text-overflow: ellipsis;

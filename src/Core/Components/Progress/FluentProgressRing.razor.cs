@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -19,13 +23,13 @@ public partial class FluentProgressRing : FluentComponentBase
     }
 
     /// <summary>
-    /// Gets or sets the minimum value 
+    /// Gets or sets the minimum value
     /// </summary>
     [Parameter]
     public int? Min { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum value 
+    /// Gets or sets the maximum value
     /// </summary>
     [Parameter]
     public int? Max { get; set; }

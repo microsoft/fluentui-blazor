@@ -29,6 +29,40 @@
     }
 
     [Fact]
+    public void FluentDataGrid_ResizeColumnOnAllRows_Default()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ResizableColumns="true">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Assert
+        var component = cut.Instance;
+        Assert.True(component.ResizeColumnOnAllRows); // Default should be true
+    }
+
+    [Fact]
+    public void FluentDataGrid_ResizeColumnOnAllRows_False()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" 
+                           ResizableColumns="true" 
+                           ResizeColumnOnAllRows="false">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Assert
+        var component = cut.Instance;
+        Assert.False(component.ResizeColumnOnAllRows);
+    }
+
+    [Fact]
     public void FluentDataGrid_With_Empty_Items_Stays_Loading_Until_Changed()
     {
         // Arrange && Act

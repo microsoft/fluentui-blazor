@@ -38,11 +38,17 @@ dotnet build
 
 ### Submitting a pull request
 
-If you'd like to contribute by fixing a bug, implementing a feature, or even correcting typos in our documentation, you'll want to submit a pull request. Before submitting a pull request, be sure to [rebase](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) your branch from master. Do not use ``git merge`` or the *merge* button provided by GitHub.
+If you'd like to contribute by fixing a bug, implementing a feature, or even correcting typos in our documentation, you'll need to submit a pull request.
+Before submitting a pull request, be sure to [rebase](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) your branch from master. Do not use ``git merge`` or the *merge* button provided by GitHub.
 
-### Merging a pull request
+For PR naming use the following convention: `[component name] Description` (note no period at the end)
 
-If you are merging a pull request, be sure to use the pull request title as the commit title. The title should follow the [conventional commit guidelines](https://www.conventionalcommits.org/). It is recommended that if you are merging in pull requests regularly that you add a browser extension that will auto-correct the title for you. A few that should do this are [Refined GitHub](https://github.com/sindresorhus/refined-github) and [Squashed Merge Message](https://github.com/zachwhaley/squashed-merge-message).
+- For the component name, leave out the Fluent part.
+- For the description, do not reference an issue number in there. Just a clear, short summary of what change entails is enough. There is enough room to elaborate in the description  .
+
+When a PR is related to an issue, use the 'fix #issuenumber' syntax to automatically link the issue to the PR. That way the issue gets closed when the PR is merged.
+
+For PR description use before and after images /screenshot when possible to make more clear what has changed. We link to the PRs from the what's new page so it helps to provide better context.
 
 ## Contribution policy
 

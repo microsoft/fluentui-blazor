@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 #nullable disable
 namespace FluentUI.Demo.Shared.SampleData;
 

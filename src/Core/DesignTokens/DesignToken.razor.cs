@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
@@ -45,7 +45,6 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// Constructs an instance of a DesignToken.
     /// </summary>
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(Swatch))]
-
     public DesignToken()
     {
 
@@ -54,6 +53,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <summary>
     /// Constructs an instance of a DesignToken.
     /// </summary>
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(Swatch))]
     public DesignToken(IJSRuntime jsRuntime, LibraryConfiguration libraryConfiguration)
     {
         JSRuntime = jsRuntime;

@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -68,7 +72,7 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     public bool HorizontalViewportLock { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+    /// Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis.
     /// Default is false which places the region adjacent to the anchor element.
     /// </summary>
     [Parameter]
@@ -140,8 +144,8 @@ public partial class FluentAnchoredRegion : FluentComponentBase
 
     /// <summary>
     /// Defines what triggers the anchored region to revaluate positioning.
-    /// Default is "Anchor". 
-    /// In 'anchor' mode only anchor resizes and attribute changes will provoke an update. 
+    /// Default is "Anchor".
+    /// In 'anchor' mode only anchor resizes and attribute changes will provoke an update.
     /// In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="AutoUpdateMode"/>
     /// </summary>
     [Parameter]

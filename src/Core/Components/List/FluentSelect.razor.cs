@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
@@ -24,7 +24,7 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption> where TO
         .AddStyle($"#{Id}::part(selected-value)", "white-space", "nowrap")
         .AddStyle($"#{Id}::part(selected-value)", "overflow", "hidden")
         .AddStyle($"#{Id}::part(selected-value)", "text-overflow", "ellipsis")
-        .AddStyle($"#{Id}::part(selected-value)", "color", "var(--neutral-base-color)", when: !string.IsNullOrEmpty(Placeholder) && SelectedOption is null)
+        .AddStyle($"#{Id}::part(selected-value)", "color", "var(--input-placeholder-rest)", when: !string.IsNullOrEmpty(Placeholder) && SelectedOption is null)
         .BuildMarkupString();
 
     protected override string? StyleValue => new StyleBuilder(base.StyleValue)

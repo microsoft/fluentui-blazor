@@ -12,7 +12,7 @@
 <blockquote>
     <p>
         <strong>Note:</strong> When using the input components in SSR mode, be sure to assing a value to the <code>Name</code> property otherwise the
-        enhanced form functionalty will <strong>not</strong> work. In contrast to the standard Blazor input components a name is not automatically being 
+        enhanced form functionalty will <strong>not</strong> work. In contrast to the standard Blazor input components a name is not automatically being
         generated. <strong>Also, the <code>Name</code> needs to be prefixed with the model name (i.e. `Model.Username`).</strong>
     </p>
 </blockquote>
@@ -96,7 +96,7 @@
     For a checkbox it is displayed after the input field, for a switch it is displayed in front of it.
 </p>
 <p>
-    If you would like to apply more complex markup for the label, you can use the <code>LabelTemplate</code> parameter. As this has a type of 
+    If you would like to apply more complex markup for the label, you can use the <code>LabelTemplate</code> parameter. As this has a type of
     <code>RenderFragment?</code>, it can contain virtuall anything.
 </p>
 <p>
@@ -137,12 +137,17 @@
     </ul>
 </p>
 
+<h2>FluentEditForm</h2>
+<p> The <code>FluentEditForm</code> inherits from the standard <code>EditForm</code>. The only thing it does is that it add a cascading parameter that contains a <code>FluentWizardStep</code> we use to register a form inside a <code>FluentWizard</code>.
+    </p>
+    <p>If you are not using a <code>FluentWizard</code> in your form, there is no need/use to use the <code>FluentEditForm</code></p>
+
 <h2>Example</h2>
 
 <DemoSection Title="Basic Fluent UI form" Component="typeof(BasicFormFluentUIComponents)" AdditionalFiles="@(new [] {"Starship.cs"})">
     <Description>
         This is an example from the standard <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/input-components?view=aspnetcore-8.0#example-form">Blazor input components documentation</a> implemented with the Fluent UI Blazor input
-        components. It uses the <code>FluentValidationSummary</code> and <code>FluentValidationMessage</code> to give feedback on the state of the form. It 
+        components. It uses the <code>FluentValidationSummary</code> and <code>FluentValidationMessage</code> to give feedback on the state of the form. It
         uses the same <code>Starship</code> model as the standard docs and a DataAnnotationsValidator to use the data annotations set in the model.
         Not all of the library's input components are used in this form. No data is actually being stored or saved.
     </Description>

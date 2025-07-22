@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -10,7 +14,6 @@ public partial class FluentMainLayout : FluentComponentBase
 
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("--header-height", $"{HeaderHeight}px", () => HeaderHeight.HasValue)
-        .AddStyle("height", $"calc(100% - {HeaderHeight}px)")
         .Build();
 
     /// <summary>

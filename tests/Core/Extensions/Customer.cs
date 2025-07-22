@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
@@ -21,3 +21,25 @@ public static class Customers
     }
 }
 
+public class CustomerComparer : IEqualityComparer<Customer>
+{
+    public static readonly CustomerComparer Instance = new();
+
+    public bool Equals(Customer? x, Customer? y)
+    {
+        if (ReferenceEquals(x, y))
+        {
+            return true;
+        }
+
+        if (x is null || y is null)
+        {
+            return false;
+        }
+
+        return x.Id == y.Id &&
+               x.Name == y.Name;
+    }
+
+    public int GetHashCode(Customer obj) => HashCode.Combine(obj.Id, obj.Name);
+}

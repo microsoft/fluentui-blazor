@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Bunit;
 using Xunit;
 
@@ -19,7 +23,7 @@ public class FluentToastProviderTests : TestBase
             .Add(p => p.Timeout, timeout)
             .Add(p => p.MaxToastCount, maxToastCount)
             .Add(p => p.RemoveToastsOnNavigation, removeToastsOnNavigation)
-            //.Add(p => p.ShowCloseButton, showCloseButton)
+        //.Add(p => p.ShowCloseButton, showCloseButton)
         );
         //Act
 

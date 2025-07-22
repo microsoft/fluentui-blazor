@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
@@ -10,7 +14,7 @@ public partial class DialogService : IDialogService
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBoxContent))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBox))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(SplashScreenContent))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(FluentSplashScreen))] 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(FluentSplashScreen))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogParameters))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogParameters<object>))]
     public DialogService()

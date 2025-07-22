@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -38,7 +42,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     public string? Title { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the icon drawing and fill color. 
+    /// Gets or sets the icon drawing and fill color.
     /// Value comes from the <see cref="AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
     /// </summary>
     [Parameter]

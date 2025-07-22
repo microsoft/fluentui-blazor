@@ -6,7 +6,7 @@
      </FluentGridItem>
 
     <FluentGridItem xs="12" sm="6">
-        <FluentSortableList Id="filter2" ItemFilter="@(i => i.Id > 6)" Items="items2" OnUpdate="@SortListTwo" Context="item" Style="--fluent-sortable-list-filtered: var(--accent-base-color);">
+        <FluentSortableList Id="filter2" ItemFilter="@(i => i.Id > 6)" Items="items2" OnUpdate="@SortListTwo" Context="item">
             <ItemTemplate>@item.Name</ItemTemplate>
         </FluentSortableList>
     </FluentGridItem>

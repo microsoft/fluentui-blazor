@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Reflection;
 
 namespace FluentUI.Demo.Shared.Pages.Home;

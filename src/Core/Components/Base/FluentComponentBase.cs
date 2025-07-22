@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -7,7 +11,7 @@ public abstract class FluentComponentBase : ComponentBase
     private ElementReference _ref;
 
     /// <summary>
-    /// Gets or sets the associated web component. 
+    /// Gets or sets the associated web component.
     /// May be <see langword="null"/> if accessed before the component is rendered.
     /// </summary>
     public ElementReference Element

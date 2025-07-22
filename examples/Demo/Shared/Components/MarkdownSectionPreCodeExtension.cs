@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Markdig.Renderers;
 using Markdig;
 using Markdig.Renderers.Html;

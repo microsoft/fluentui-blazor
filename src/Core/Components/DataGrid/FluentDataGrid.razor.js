@@ -32,6 +32,9 @@ export function init(gridElement, autoFocus) {
         }
     }
     const keyDownHandler = event => {
+        if (document.activeElement.tagName.toLowerCase() != 'table' && document.activeElement.tagName.toLowerCase() != 'td' && document.activeElement.tagName.toLowerCase() != 'th') {
+            return;
+        }
         const columnOptionsElement = gridElement?.querySelector('.col-options');
         if (columnOptionsElement) {
             if (event.key === "Escape") {
@@ -64,7 +67,7 @@ export function init(gridElement, autoFocus) {
         }
 
         // check if start is a child of gridElement
-        if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start && document.activeElement.tagName.toLowerCase() !== 'fluent-text-field') {
+        if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start && document.activeElement.tagName.toLowerCase() !== 'fluent-text-field' && document.activeElement.tagName.toLowerCase() !== 'fluent-menu-item') {
             const idx = start.cellIndex;
 
             if (event.key === "ArrowUp") {
@@ -124,13 +127,13 @@ export function init(gridElement, autoFocus) {
 
     document.body.addEventListener('click', bodyClickHandler);
     document.body.addEventListener('mousedown', bodyClickHandler); // Otherwise it seems strange that it doesn't go away until you release the mouse button
-    document.body.addEventListener('keydown', keyDownHandler);
+    gridElement.addEventListener('keydown', keyDownHandler);
 
     return {
         stop: () => {
             document.body.removeEventListener('click', bodyClickHandler);
             document.body.removeEventListener('mousedown', bodyClickHandler);
-            document.body.removeEventListener('keydown', keyDownHandler);
+            gridElement.removeEventListener('keydown', keyDownHandler);
             delete grids[gridElement];
         }
     };
@@ -158,7 +161,7 @@ export function checkColumnPopupPosition(gridElement, selector) {
     }
 }
 
-export function enableColumnResizing(gridElement) {
+export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) {
     const columns = [];
     const headers = gridElement.querySelectorAll('.column-header.resizable');
 
@@ -181,15 +184,27 @@ export function enableColumnResizing(gridElement) {
         }
     }
 
+    // Determine the height based on the resizeColumnOnAllRows parameter
+    let resizeHandleHeight = tableHeight;
+    if (!resizeColumnOnAllRows) {
+        // Only use the header height when resizeColumnOnAllRows is false
+        // Use the first header's height if available
+        resizeHandleHeight = headers.length > 0 ? (headers[0].offsetHeight - 14 ): 30; // fallback to 30px if no headers
+    }
+
     headers.forEach((header) => {
         columns.push({
             header,
             size: `${header.clientWidth}px`,
         });
 
-        const div = createDiv(tableHeight, isRTL);
+        // remove any previously created divs
+        const resizedivs  = header.querySelectorAll(".actual-resize-handle");
+        resizedivs.forEach(div => div.remove());
+
+        // add a new resize div
+        const div = createDiv(resizeHandleHeight, isRTL);
         header.appendChild(div);
-        header.style.position = 'relative';
         setListeners(div, isRTL);
     });
 
@@ -269,11 +284,12 @@ export function enableColumnResizing(gridElement) {
 
     function createDiv(height, isRTL) {
         const div = document.createElement('div');
+        div.className = "actual-resize-handle";
         div.style.top = '5px';
         div.style.position = 'absolute';
         div.style.cursor = 'col-resize';
         div.style.userSelect = 'none';
-        div.style.height = height + 'px';
+        div.style.height = (height - 5) + 'px';
         div.style.width = '6px';
         div.style.opacity = 'var(--fluent-data-grid-header-opacity)'
 

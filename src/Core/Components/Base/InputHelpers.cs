@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Globalization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -193,7 +197,7 @@ internal static class InputHelpers<TValue>
             ValidateULongInputs(max, min);
         }
 
-        if(typeof(TValue) == typeof(byte))
+        if (typeof(TValue) == typeof(byte))
         {
             ValidateUShortInputs(max, min);
         }

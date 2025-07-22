@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -327,7 +331,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         Items = args.Items?.Take(MaximumOptionsSearch);
 
         SelectableItem = Items != null
-            ? Items.FirstOrDefault()
+            ? Items.FirstOrDefault(i => OptionDisabled is null ? true : OptionDisabled.Invoke(i) == false)
             : default;
 
         if (VirtualizationContainer != null)
@@ -558,6 +562,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         await RaiseValueTextChangedAsync(ValueText);
 
         await base.OnSelectedItemChangedHandlerAsync(item);
+
+        // In Single mode, set the focus on the input field
+        if (!Multiple && Module != null)
+        {
+            await Module.InvokeVoidAsync("focusOn", $"{Id}-single");
+        }
+
         await DisplayLastSelectedItemAsync();
 
         if (MustBeClosed())

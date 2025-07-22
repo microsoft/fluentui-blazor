@@ -7,7 +7,7 @@
     --fluent-multi-splitter-background-color: var(--neutral-stroke-rest);
     --fluent-multi-splitter-background-color-active: var(--neutral-stroke-hover);
     --fluent-multi-splitter-hover-opacity: 0.8;
-    
+
     /* Bar size */
     --fluent-multi-splitter-bar-size: 8px;
 
@@ -103,7 +103,7 @@
     }
 
         .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="collapse"]:before {
-            content: '\025C0';            
+            content: '\025C0';
         }
 
         [dir="rtl"] .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="collapse"]:before {
@@ -157,7 +157,6 @@
 /* Pane */
 .fluent-multi-splitter ::deep > .fluent-multi-splitter-pane {
     overflow: hidden;
-    position: relative;
     flex: 0 1 auto;
     flex-grow: 0;
     flex-shrink: 0;
