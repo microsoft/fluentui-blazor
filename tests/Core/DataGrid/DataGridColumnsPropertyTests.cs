@@ -66,9 +66,9 @@ public class DataGridColumnsPropertyTests : TestBase
     }
 
     [Fact]
-    public void DataGridCell_Columns_Property_IsAccessible()
+    public void DataGridCell_Column_Property_IsAccessible()
     {
-        // This test validates that the Columns property was added successfully
+        // This test validates that the Column property was made public successfully
         // and compiles correctly. Runtime testing would require complex setup
         // involving grid context and cell instantiation within a rendered grid.
         

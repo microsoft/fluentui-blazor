@@ -54,7 +54,7 @@
     }
 
     [Fact]
-    public void DataGridCell_Columns_Property_AccessibleAndContainsExpectedColumns()
+    public void DataGridCell_Column_Property_AccessibleAndContainsExpectedColumn()
     {
         // Arrange & Act
         var cut = Render(
@@ -72,21 +72,22 @@
         
         Assert.True(dataCells.Count >= 9, "Should have at least 9 data cells (3 items × 3 columns)");
 
-        // Test the Columns property on the first data cell
-        var firstCell = dataCells.First();
-        var columns = firstCell.Instance.Columns;
+        // Test the Column property on cells in the first row
+        var firstRowCells = dataCells.Take(3).ToList(); // First 3 cells belong to first row
         
-        Assert.NotNull(columns);
-        Assert.Equal(3, columns.Count);
+        // Verify each cell has access to its specific column
+        Assert.NotNull(firstRowCells[0].Instance.Column);
+        Assert.Equal("ID", firstRowCells[0].Instance.Column?.Title);
         
-        // Verify column titles are accessible
-        Assert.Equal("ID", columns[0].Title);
-        Assert.Equal("Name", columns[1].Title);
-        Assert.Equal("Category", columns[2].Title);
+        Assert.NotNull(firstRowCells[1].Instance.Column);
+        Assert.Equal("Name", firstRowCells[1].Instance.Column?.Title);
+        
+        Assert.NotNull(firstRowCells[2].Instance.Column);
+        Assert.Equal("Category", firstRowCells[2].Instance.Column?.Title);
     }
 
     [Fact]
-    public void DataGridRow_And_DataGridCell_Columns_PropertyReturnsConsistentData()
+    public void DataGridRow_Columns_And_DataGridCell_Column_PropertyReturnsConsistentData()
     {
         // Arrange & Act
         var cut = Render(
@@ -103,15 +104,16 @@
         var firstCell = cut.FindComponents<FluentDataGridCell<TestItem>>()
                            .First(cell => cell.Instance.CellType == DataGridCellType.Default);
 
-        // Assert both return the same columns data
+        // Assert row has all columns and cell has access to its specific column
         var rowColumns = firstRow.Instance.Columns;
-        var cellColumns = firstCell.Instance.Columns;
+        var cellColumn = firstCell.Instance.Column;
         
-        Assert.Equal(rowColumns.Count, cellColumns.Count);
+        Assert.NotNull(rowColumns);
+        Assert.Equal(2, rowColumns.Count);
         
-        for (int i = 0; i < rowColumns.Count; i++)
-        {
-            Assert.Equal(rowColumns[i].Title, cellColumns[i].Title);
-        }
+        Assert.NotNull(cellColumn);
+        
+        // The first cell should correspond to the first column in the row
+        Assert.Equal(rowColumns[0].Title, cellColumn.Title);
     }
 }

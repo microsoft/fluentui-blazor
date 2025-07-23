@@ -53,17 +53,12 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// <summary>
     /// Gets a reference to the column that this cell belongs to.
     /// </summary>
-    private ColumnBase<TGridItem>? Column => Grid._columns.ElementAtOrDefault(GridColumn - 1);
+    public ColumnBase<TGridItem>? Column => Grid._columns.ElementAtOrDefault(GridColumn - 1);
 
     /// <summary>
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
-
-    /// <summary>
-    /// Gets the columns associated with this data grid cell.
-    /// </summary>
-    public IReadOnlyList<ColumnBase<TGridItem>> Columns => Grid._columns;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
