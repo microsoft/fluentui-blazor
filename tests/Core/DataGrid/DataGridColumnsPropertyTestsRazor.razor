@@ -1,0 +1,117 @@
+@using Xunit;
+@inherits TestContext
+@code
+{
+    public DataGridColumnsPropertyTestsRazor()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+
+        // Register Service
+        var keycodeService = new KeyCodeService();
+        Services.AddScoped<IKeyCodeService>(factory => keycodeService);
+    }
+
+    private record TestItem(int Id, string Name, string Category);
+
+    private readonly IQueryable<TestItem> TestData = new[]
+    {
+        new TestItem(1, "First Item", "Category A"),
+        new TestItem(2, "Second Item", "Category B"),
+        new TestItem(3, "Third Item", "Category A"),
+    }.AsQueryable();
+
+    [Fact]
+    public void DataGridRow_Columns_Property_AccessibleAndContainsExpectedColumns()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<FluentDataGrid Items="@TestData" TGridItem="TestItem">
+                <PropertyColumn Property="@(item => item.Id)" Title="ID" />
+                <PropertyColumn Property="@(item => item.Name)" Title="Name" />
+                <PropertyColumn Property="@(item => item.Category)" Title="Category" />
+            </FluentDataGrid>
+        );
+
+        // Assert that grid was rendered with data rows
+        var dataRows = cut.FindComponents<FluentDataGridRow<TestItem>>()
+                         .Where(row => row.Instance.Item != null) // Filter to data rows, not header rows
+                         .ToList();
+        
+        Assert.True(dataRows.Count >= 3, "Should have at least 3 data rows");
+
+        // Test the Columns property on the first data row
+        var firstRow = dataRows.First();
+        var columns = firstRow.Instance.Columns;
+        
+        Assert.NotNull(columns);
+        Assert.Equal(3, columns.Count);
+        
+        // Verify column titles are accessible
+        Assert.Equal("ID", columns[0].Title);
+        Assert.Equal("Name", columns[1].Title);
+        Assert.Equal("Category", columns[2].Title);
+    }
+
+    [Fact]
+    public void DataGridCell_Columns_Property_AccessibleAndContainsExpectedColumns()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<FluentDataGrid Items="@TestData" TGridItem="TestItem">
+                <PropertyColumn Property="@(item => item.Id)" Title="ID" />
+                <PropertyColumn Property="@(item => item.Name)" Title="Name" />
+                <PropertyColumn Property="@(item => item.Category)" Title="Category" />
+            </FluentDataGrid>
+        );
+
+        // Assert that grid was rendered with cells
+        var dataCells = cut.FindComponents<FluentDataGridCell<TestItem>>()
+                           .Where(cell => cell.Instance.CellType == DataGridCellType.Default) // Filter to data cells, not header cells
+                           .ToList();
+        
+        Assert.True(dataCells.Count >= 9, "Should have at least 9 data cells (3 items × 3 columns)");
+
+        // Test the Columns property on the first data cell
+        var firstCell = dataCells.First();
+        var columns = firstCell.Instance.Columns;
+        
+        Assert.NotNull(columns);
+        Assert.Equal(3, columns.Count);
+        
+        // Verify column titles are accessible
+        Assert.Equal("ID", columns[0].Title);
+        Assert.Equal("Name", columns[1].Title);
+        Assert.Equal("Category", columns[2].Title);
+    }
+
+    [Fact]
+    public void DataGridRow_And_DataGridCell_Columns_PropertyReturnsConsistentData()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<FluentDataGrid Items="@TestData" TGridItem="TestItem">
+                <PropertyColumn Property="@(item => item.Id)" Title="ID" />
+                <PropertyColumn Property="@(item => item.Name)" Title="Name" />
+            </FluentDataGrid>
+        );
+
+        // Get the first data row and first data cell
+        var firstRow = cut.FindComponents<FluentDataGridRow<TestItem>>()
+                          .First(row => row.Instance.Item != null);
+        
+        var firstCell = cut.FindComponents<FluentDataGridCell<TestItem>>()
+                           .First(cell => cell.Instance.CellType == DataGridCellType.Default);
+
+        // Assert both return the same columns data
+        var rowColumns = firstRow.Instance.Columns;
+        var cellColumns = firstCell.Instance.Columns;
+        
+        Assert.Equal(rowColumns.Count, cellColumns.Count);
+        
+        for (int i = 0; i < rowColumns.Count; i++)
+        {
+            Assert.Equal(rowColumns[i].Title, cellColumns[i].Title);
+        }
+    }
+}
