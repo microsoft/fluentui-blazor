@@ -66,7 +66,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// <summary>
     /// Gets the columns associated with this data grid row.
     /// </summary>
-    public IReadOnlyList<ColumnBase<TGridItem>> Columns => Grid._columns;
+    public IReadOnlyList<ColumnBase<TGridItem>> Columns => Grid?._columns ?? new List<ColumnBase<TGridItem>>();
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-data-grid-row")
