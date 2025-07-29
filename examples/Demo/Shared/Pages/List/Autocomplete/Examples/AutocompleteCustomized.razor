@@ -6,6 +6,7 @@
                     Width="100%"
                     Placeholder="search"
                     OnOptionsSearch="@OnSearchAsync"
+                    ShowProgressIndicator="@ShowProgressIndicator"
                     MaximumSelectedOptions="3"
                     KeepOpen="true"
                     OptionText="@(item => item.FirstName)"
@@ -66,14 +67,22 @@
     <b>Selected</b>: @(String.Join(" - ", SelectedItems.Select(i => i.LastName)))
 </p>
 
+<p>
+    <FluentSwitch @bind-Value="@ShowProgressIndicator" Label="ShowProgressIndicator" />
+</p>
+
 @code
 {
+    bool ShowProgressIndicator = false;
     FluentAutocomplete<Person> ContactList = default!;
     IEnumerable<Person> SelectedItems = Array.Empty<Person>();
 
     private async Task OnSearchAsync(OptionsSearchEventArgs<Person> e)
     {
-        await Task.Delay(500); // Simulate a delay for the search operation
+        if (ShowProgressIndicator)
+        {
+            await Task.Delay(500); // Simulate a delay for the search operation
+        }
 
         e.Items = Data.People.Where(i => i.LastName.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase) ||
                                          i.FirstName.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))

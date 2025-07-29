@@ -182,6 +182,14 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public bool ShowOverlayOnEmptyResults { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets whether the component will display a progress indicator while fetching data.
+    /// A progress ring will be shown ad the end of the component, when the <see cref="OnOptionsSearch"/> is invoked.
+    /// You can customize the progress indicator by using the <see cref="HeaderContent"/> or <see cref="FooterContent"/> parameters: see <see cref="HeaderFooterContent{TOption}.InProgress"/>.
+    /// </summary>
+    [Parameter]
+    public bool ShowProgressIndicator { get; set; }
+
+    /// <summary>
     /// If true, the options list will be rendered with virtualization. This is normally used in conjunction with
     /// scrolling and causes the option list to fetch and render only the data around the current scroll viewport.
     /// This can greatly improve the performance when scrolling through large data sets.

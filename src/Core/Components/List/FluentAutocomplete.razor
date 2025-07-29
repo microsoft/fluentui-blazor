@@ -71,11 +71,12 @@
             }
             @if (!Disabled && !ReadOnly)
             {
-                if (_inProgress)
+                if (ShowProgressIndicator && _inProgress)
                 {
                      <FluentProgressRing style="width: 16px; height: 16px;" Slot="end" />
                 }
-                else if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText) || this.SelectedOption is not null)
+                
+                if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText) || this.SelectedOption is not null)
                 {
                     if (IconDismiss != null)
                     {

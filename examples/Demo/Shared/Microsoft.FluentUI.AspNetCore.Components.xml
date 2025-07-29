@@ -6065,6 +6065,13 @@
             Gets or sets whether the dropdown is shown when there are no items.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ShowProgressIndicator">
+            <summary>
+            Gets or sets whether the component will display a progress indicator while fetching data.
+            A progress ring will be shown ad the end of the component, when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.OnOptionsSearch"/> is invoked.
+            You can customize the progress indicator by using the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.HeaderContent"/> or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.FooterContent"/> parameters: see <see cref="P:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1.InProgress"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize">
              <summary>
              If true, the options list will be rendered with virtualization. This is normally used in conjunction with
@@ -6182,12 +6189,12 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1.InProgress">
             <summary>
-            Gets or sets a value indicating whether the operation is currently in progress.
+            Gets a value indicating whether the operation is currently in progress.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1.Items">
             <summary>
-            Gets or sets the items to display in the header or footer.
+            Gets the items to display in the header or footer.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.LibraryConfiguration">
