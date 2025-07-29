@@ -6177,6 +6177,19 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MustBeClosed">
             <summary />
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1.InProgress">
+            <summary>
+            Gets or sets a value indicating whether the operation is currently in progress.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1.Items">
+            <summary>
+            Gets or sets the items to display in the header or footer.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.LibraryConfiguration">
             <summary />
         </member>

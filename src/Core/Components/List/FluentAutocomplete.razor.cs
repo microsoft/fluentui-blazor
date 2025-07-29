@@ -26,6 +26,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private Virtualize<TOption>? VirtualizationContainer { get; set; }
     private readonly Debounce _debounce = new();
     private bool _shouldRender = true;
+    private bool _inProgress;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentAutocomplete{TOption}"/> class.
@@ -142,13 +143,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// Gets or sets the header content, placed at the top of the popup panel.
     /// </summary>
     [Parameter]
-    public RenderFragment<IEnumerable<TOption>>? HeaderContent { get; set; }
+    public RenderFragment<HeaderFooterContent<TOption>>? HeaderContent { get; set; }
 
     /// <summary>
     /// Gets or sets the footer content, placed at the bottom of the popup panel.
     /// </summary>
     [Parameter]
-    public RenderFragment<IEnumerable<TOption>>? FooterContent { get; set; }
+    public RenderFragment<HeaderFooterContent<TOption>>? FooterContent { get; set; }
 
     /// <summary>
     /// Gets or sets the title and Aria-Label for the Scroll to previous button.
@@ -288,6 +289,9 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             return;
         }
 
+        _inProgress = true;
+        StateHasChanged();
+
         _shouldRender = false;
 
         ValueText = e.Value?.ToString() ?? string.Empty;
@@ -309,7 +313,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
         else
         {
-            await this.InvokeOptionsSearchAsync();
+            await InvokeOptionsSearchAsync();
         }
     }
 
@@ -320,6 +324,8 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <returns></returns>
     public async Task InvokeOptionsSearchAsync()
     {
+        _inProgress = true;
+
         var args = new OptionsSearchEventArgs<TOption>()
         {
             Items = Items ?? Array.Empty<TOption>(),
@@ -339,6 +345,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             await VirtualizationContainer.RefreshDataAsync();
         }
 
+        _inProgress = false;
         await RenderComponentAsync();
     }
 
@@ -690,4 +697,24 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         return false;
     }
+}
+
+/// <summary />
+public class HeaderFooterContent<TOption>
+{
+    internal HeaderFooterContent(IEnumerable<TOption>? items, bool inProgress)
+    {
+        Items = items ?? Array.Empty<TOption>();
+        InProgress = inProgress;
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether the operation is currently in progress.
+    /// </summary>
+    public bool InProgress { get; init; }
+
+    /// <summary>
+    /// Gets the items to display in the header or footer.
+    /// </summary>
+    public IEnumerable<TOption> Items { get; init; }
 }
