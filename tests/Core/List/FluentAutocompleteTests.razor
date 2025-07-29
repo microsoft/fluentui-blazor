@@ -74,6 +74,7 @@
 
         async Task OnSearchValueChanged(OptionsSearchEventArgs<Customer> e)
         {
+            await Task.CompletedTask;
             e.Items = customers;
             if (!string.IsNullOrWhiteSpace(externalSearchString))
                 e.Items = customers.Where(x => x.Name.Contains(externalSearchString));
@@ -164,7 +165,7 @@
             // Add a HeaderContent template
             parameters.Add(p => p.HeaderContent, context =>
                 {
-            return $"<header>Please, select an item</header>";
+                    return $"<header>Please, select an item</header>";
                 });
 
             // Add an Item template
@@ -176,7 +177,7 @@
             // Add a FooterContent template
             parameters.Add(p => p.FooterContent, context =>
                 {
-            return $"<footer>{context.Count()} items found</footer>";
+                    return $"<footer>{context.Items.Count()} items found</footer>";
                 });
 
             parameters.Add(p => p.Items, Customers.Get());
@@ -475,6 +476,7 @@
     [Fact]
     public async Task FluentAutocomplete_MultipleEqualsFalse()
     {
+        await Task.CompletedTask;
         Customer? SelectedItem = Customers.Get().First();
 
         // Arrange
