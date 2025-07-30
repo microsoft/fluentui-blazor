@@ -1,0 +1,33 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Menu
+
+@using Xunit
+@inherits TestContext
+
+@code {
+    [Fact]
+    public void FluentMenu_ChildMenuItem_OnKeyboardEnter_Works()
+    {
+        // Arrange && Act
+        var clickCount = 0;
+        var lockObj = new object();
+        var cut = Render(@<FluentMenu Open="true">
+                <FluentMenuItem Id="to-select" OnClick="@OnClick">test</FluentMenuItem>
+            </FluentMenu>);
+
+        cut.Find("#to-select").KeyDown("Enter", "Enter");
+        cut.Find("#to-select").Click();
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.Equal(2, clickCount));
+        return;
+
+        void OnClick()
+        {
+            lock (lockObj)
+            {
+                clickCount++;
+            }
+        }
+    }
+
+}
