@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <PackageJsonPrivate Condition="$(PackageJsonPrivate) == ''">true</PackageJsonPrivate>
+    <PackageJsonName Condition="$(PackageJsonName) == ''">microsoft.fluentui.aspnetcore.components.assets</PackageJsonName>
+    <PackageJsonSource Condition="$(PackageJsonSource) == ''">src/index.ts</PackageJsonSource>
+    <PackageJsonMain Condition="$(PackageJsonMain) == ''">dist/Microsoft.FluentUI.AspNetCore.Components.lib.module.js</PackageJsonMain>
+    <PackageJsonScriptsBuild Condition="$(PackageJsonScriptsBuild) == ''">node ./esbuild.config.mjs</PackageJsonScriptsBuild>
+    <PackageJsonScriptsClean Condition="$(PackageJsonScriptsClean) == ''">rimraf ./dist</PackageJsonScriptsClean>
+    <PackageJsonKeywords Condition="$(PackageJsonKeywords) == ''">[]</PackageJsonKeywords>
+    <PackageJsonAuthor Condition="$(PackageJsonAuthor) == ''"></PackageJsonAuthor>
+    <PackageJsonLicense Condition="$(PackageJsonLicense) == ''">ISC</PackageJsonLicense>
+    <PackageJsonType Condition="$(PackageJsonType) == ''">module</PackageJsonType>
+    <PackageJsonDevdependenciesMicrosoftFastElement Condition="$(PackageJsonDevdependenciesMicrosoftFastElement) == ''">1.13.0</PackageJsonDevdependenciesMicrosoftFastElement>
+    <PackageJsonDevdependenciesMicrosoftFastFoundation Condition="$(PackageJsonDevdependenciesMicrosoftFastFoundation) == ''">2.49.6</PackageJsonDevdependenciesMicrosoftFastFoundation>
+    <PackageJsonDevdependenciesTypescriptEslintEslintPlugin Condition="$(PackageJsonDevdependenciesTypescriptEslintEslintPlugin) == ''">^7.6.0</PackageJsonDevdependenciesTypescriptEslintEslintPlugin>
+    <PackageJsonDevdependenciesTypescriptEslintParser Condition="$(PackageJsonDevdependenciesTypescriptEslintParser) == ''">^7.6.0</PackageJsonDevdependenciesTypescriptEslintParser>
+    <PackageJsonDevdependenciesEsbuild Condition="$(PackageJsonDevdependenciesEsbuild) == ''">0.25.0</PackageJsonDevdependenciesEsbuild>
+    <PackageJsonDevdependenciesEsbuildPluginInlineCss Condition="$(PackageJsonDevdependenciesEsbuildPluginInlineCss) == ''">^0.0.1</PackageJsonDevdependenciesEsbuildPluginInlineCss>
+    <PackageJsonDevdependenciesEslint Condition="$(PackageJsonDevdependenciesEslint) == ''">8.57.0</PackageJsonDevdependenciesEslint>
+    <PackageJsonDevdependenciesRimraf Condition="$(PackageJsonDevdependenciesRimraf) == ''">^5.0.5</PackageJsonDevdependenciesRimraf>
+    <PackageJsonDevdependenciesTypescript Condition="$(PackageJsonDevdependenciesTypescript) == ''">^5.4.4</PackageJsonDevdependenciesTypescript>
+    <PackageJsonDependenciesFluentuiWebComponents Condition="$(PackageJsonDependenciesFluentuiWebComponents) == ''">2.6.1</PackageJsonDependenciesFluentuiWebComponents>
+  </PropertyGroup>
+</Project>
