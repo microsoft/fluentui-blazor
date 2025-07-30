@@ -71,6 +71,11 @@
             }
             @if (!Disabled && !ReadOnly)
             {
+                if (ShowProgressIndicator && _inProgress)
+                {
+                     <FluentProgressRing style="width: 16px; height: 16px;" Slot="end" />
+                }
+                
                 if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText) || this.SelectedOption is not null)
                 {
                     if (IconDismiss != null)
@@ -122,7 +127,7 @@
                                   Shadow="ElevationShadow.Flyout">
                 @if (HeaderContent != null)
                 {
-                        @HeaderContent(Items ?? Array.Empty<TOption>())
+                    @HeaderContent(new HeaderFooterContent<TOption>(Items, _inProgress))
                 }
 
                 <div id="@IdPopup" role="listbox" style="@ListStyleValue" tabindex="0">
@@ -148,7 +153,7 @@
 
                 @if (FooterContent != null)
                 {
-                        @FooterContent(Items ?? Array.Empty<TOption>())
+                    @FooterContent(new HeaderFooterContent<TOption>(Items, _inProgress))
                 }
             </FluentAnchoredRegion>
         }
