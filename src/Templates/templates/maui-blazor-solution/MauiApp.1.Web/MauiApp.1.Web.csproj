@@ -18,12 +18,12 @@
   <ItemGroup>
     <ProjectReference Include="..\XmlEncodedAppName.Web.Client\XmlEncodedAppName.Web.Client.csproj" Condition="'$(UseWebAssembly)' == 'True'" />
     <ProjectReference Include="..\XmlEncodedAppName.Shared\XmlEncodedAppName.Shared.csproj" Condition="'$(UseWebAssembly)' != 'True'" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" Condition="'$(UseWebAssembly)' == 'True'" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.0" Condition="'$(IndividualLocalAuth)' == 'True'" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" Condition="'$(IndividualLocalAuth)' == 'True'" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" Condition="'$(IndividualLocalAuth)' == 'True' AND '$(UseLocalDB)' != 'True'" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" Condition="'$(IndividualLocalAuth)' == 'True' AND '$(UseLocalDB)' == 'True'" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0" Condition="'$(IndividualLocalAuth)' == 'True'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="!!REPLACE_WITH_ASPNETCORE_9_VERSION!!" Condition="'$(UseWebAssembly)' == 'True'" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="!!REPLACE_WITH_ASPNETCORE_9_VERSION!!" Condition="'$(IndividualLocalAuth)' == 'True'" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="!!REPLACE_WITH_ASPNETCORE_9_VERSION!!" Condition="'$(IndividualLocalAuth)' == 'True'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="!!REPLACE_WITH_ASPNETCORE_9_VERSION!!" Condition="'$(IndividualLocalAuth)' == 'True' AND '$(UseLocalDB)' != 'True'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="!!REPLACE_WITH_ASPNETCORE_9_VERSION!!" Condition="'$(IndividualLocalAuth)' == 'True' AND '$(UseLocalDB)' == 'True'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="!!REPLACE_WITH_ASPNETCORE_9_VERSION!!" Condition="'$(IndividualLocalAuth)' == 'True'" />
   </ItemGroup>
   <!--#else -->
   <ItemGroup>

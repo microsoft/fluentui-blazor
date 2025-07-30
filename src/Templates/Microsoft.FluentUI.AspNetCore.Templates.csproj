@@ -24,10 +24,11 @@
 
 	<PropertyGroup>
 		<!-- for templates -->
-		<AspirePackageVersion>9.3.1</AspirePackageVersion>
-		<MicrosoftExtensionsHttpResiliencePackageVersion>9.6.0</MicrosoftExtensionsHttpResiliencePackageVersion>
-		<MicrosoftAspNetCorePackageVersionForNet8>8.0.17</MicrosoftAspNetCorePackageVersionForNet8>
-		<MicrosoftAspNetCorePackageVersionForNet9>9.0.6</MicrosoftAspNetCorePackageVersionForNet9>
+		<AspirePackageVersion>9.3.2</AspirePackageVersion>
+		<MicrosoftExtensionsHttpResiliencePackageVersion>9.7.0</MicrosoftExtensionsHttpResiliencePackageVersion>
+		<MicrosoftAspNetCorePackageVersionForNet8>8.0.18</MicrosoftAspNetCorePackageVersionForNet8>
+		<MicrosoftAspNetCorePackageVersionForNet9>9.0.7</MicrosoftAspNetCorePackageVersionForNet9>
+        <MicrosoftAspNetCorePackageVersionForNet10>10.0.0-preview.6.25358.103</MicrosoftAspNetCorePackageVersionForNet10>
         <OpenTelemetryLTSVersion>1.9.0</OpenTelemetryLTSVersion>
         <OpenTelemetryInstrumentationAspNetCoreVersion>1.12.0</OpenTelemetryInstrumentationAspNetCoreVersion>
         <OpenTelemetryInstrumentationHttpVersion>1.12.0</OpenTelemetryInstrumentationHttpVersion>
@@ -77,7 +78,7 @@
 			<_TemplatesForPackage Include="$(IntermediateOutputPath)\content\templates\**\*" />
 		</ItemGroup>
 		<ItemGroup>
-			<Content Include="%(_TemplatesForPackage.Identity)" PackagePath="content/content/%(_TemplatesForPackage.RecursiveDir)" />
+			<Content Include="%(_TemplatesForPackage.Identity)" PackagePath="content/%(_TemplatesForPackage.RecursiveDir)" />
 		</ItemGroup>
 	</Target>
 
@@ -97,6 +98,7 @@
                                     .Replace('!!REPLACE_WITH_LATEST_ASPIRE_VERSION!!', '$(AspirePackageVersion)')
 									.Replace('!!REPLACE_WITH_ASPNETCORE_8_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet8)')
 								    .Replace('!!REPLACE_WITH_ASPNETCORE_9_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet9)')
+                                    .Replace('!!REPLACE_WITH_ASPNETCORE_10_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet10)')
 									.Replace('!!REPLACE_WITH_DOTNET_EXTENSIONS_VERSION!!', '$(MicrosoftExtensionsHttpResiliencePackageVersion)')
                                     .Replace('!!REPLACE_WITH_OTEL_LTS_VERSION!!', '$(OpenTelemetryLTSVersion)')
                                     .Replace('!!REPLACE_WITH_OTEL_EXPORTER_VERSION!!', '$(OpenTelemetryExporterOpenTelemetryProtocolVersion)')
@@ -104,7 +106,6 @@
                                     .Replace('!!REPLACE_WITH_OTEL_ASPNETCORE_VERSION!!', '$(OpenTelemetryInstrumentationAspNetCoreVersion)')
                                     .Replace('!!REPLACE_WITH_OTEL_HTTP_VERSION!!', '$(OpenTelemetryInstrumentationHttpVersion)')
                                     .Replace('!!REPLACE_WITH_OTEL_RUNTIME_VERSION!!', '$(OpenTelemetryInstrumentationRuntimeVersion)') )"
-
 						  Overwrite="true" />
 	</Target>
 

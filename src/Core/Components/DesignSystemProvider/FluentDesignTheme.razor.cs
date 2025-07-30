@@ -55,6 +55,7 @@ public partial class FluentDesignTheme : ComponentBase
 
     /// <summary>
     /// Gets or sets the Accent base color.
+    /// Needs to be in a valid CSS color format (e.g., "#FF0000" for red).
     /// </summary>
     [Parameter]
     public string? CustomColor { get; set; }

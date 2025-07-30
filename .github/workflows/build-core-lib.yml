@@ -25,6 +25,7 @@ on:
 env:
   PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
   TESTS: "./tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
+  DOTNET_VERSION: "net9.0"
 
 jobs:
   Build:
@@ -53,25 +54,25 @@ jobs:
         dotnet-version: 9.0.205
         # dotnet-quality: ga
 
-     # - name: Setup .NET 10.0
-     #   uses: actions/setup-dotnet@v4
-     #   with:
-     #    dotnet-version: 10.0.x
-     #    dotnet-quality: preview
+     - name: Setup .NET 10.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 10.0.x
+        dotnet-quality: preview
 
      # Build
 
      - name: Restore
-       run: dotnet restore
+       run: dotnet restore -p:TargetFramework=${{ env.DOTNET_VERSION }}
 
      - name: Build
-       run: dotnet build ${{ env.PROJECTS }} --configuration Release
+       run: dotnet build ${{ env.PROJECTS }} -c Release -f ${{ env.DOTNET_VERSION }}
        working-directory: ${{ github.workspace }}
 
      # Unit Tests
 
      - name: Tests
-       run: dotnet test ${{ env.TESTS }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
+       run: dotnet test ${{ env.TESTS }} -f ${{ env.DOTNET_VERSION }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
        working-directory: ${{ github.workspace }}
 
      - name: Publish Unit Tests
@@ -175,6 +176,12 @@ jobs:
         with:
           dotnet-version: 9.0.205
           # dotnet-quality: ga
+
+      - name: Setup .NET 10.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+          dotnet-quality: preview
 
       - name: .NET Builld
         run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true

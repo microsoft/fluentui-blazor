@@ -626,7 +626,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         {
             return;
         }
-        if (!ChangeOnEnterOnly || (ChangeOnEnterOnly && e.Code == "Enter"))
+        if (!ChangeOnEnterOnly || (ChangeOnEnterOnly && e.Code == nameof(KeyCode.Enter)))
         {
             await item.OnClickHandlerAsync();
         }
