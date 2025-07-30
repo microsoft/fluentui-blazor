@@ -1,6 +1,11 @@
-/*
-    Blazor Styles
-*/
+/* Demo application styles */
+
+.demopanel {
+  border: 1px dashed var(--colorBrandForeground1);
+  padding: 5px;
+}
+
+/* Blazor Styles */
 
 #blazor-error-ui {
   color-scheme: light only;
