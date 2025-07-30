@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -12,6 +13,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDialogProvider : FluentComponentBase
 {
     /// <summary />
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogOptionsFooter))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogOptionsFooterAction))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogOptionsHeader))]
     public FluentDialogProvider(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();

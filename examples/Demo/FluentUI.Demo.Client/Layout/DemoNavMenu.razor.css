@@ -27,4 +27,5 @@ a {
   color: var(--colorNeutralForeground2);
   display: block;
   padding: 8px 10px;
+  cursor: pointer;
 }
