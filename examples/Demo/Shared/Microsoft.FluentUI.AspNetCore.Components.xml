@@ -4535,6 +4535,11 @@
             This event is fired when an element is dropped on a valid drop target.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.StopPropagation">
+            <summary>
+            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.IsOver">
             <summary />
         </member>

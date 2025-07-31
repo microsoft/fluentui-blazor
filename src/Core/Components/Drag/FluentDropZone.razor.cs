@@ -82,6 +82,12 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     [Parameter]
     public Action<FluentDragEventArgs<TItem>>? OnDropEnd { get; set; }
 
+    /// <summary>
+    /// Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+    /// </summary>
+    [Parameter]
+    public bool StopPropagation { get; set; }
+
     /// <summary />
     private bool IsOver { get; set; } = false;
 
