@@ -1,13 +1,15 @@
-﻿<FluentGrid Spacing="2">
-    <FluentGridItem>
+﻿<FluentStack Wrap="true" HorizontalGap="16px">
+
+    <div>
         <FluentCalendar DisabledDateFunc="@DisabledDay"
                         @bind-Value="@SelectedDay"
                         @bind-PickerMonth="@PickerDay"
                         Style="height: 250px;" />
         <p>Selected @(SelectedDay?.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerDay.ToString("yyyy-MM-dd"))</p>
-    </FluentGridItem>
-    <FluentGridItem>
+    </div>
+
+    <div>
         <FluentCalendar DisabledDateFunc="@DisableMonth"
                         View="CalendarViews.Months"
                         @bind-Value="@SelectedMonth"
@@ -15,8 +17,9 @@
                         Style="height: 250px;" />
         <p>Selected @(SelectedMonth?.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerMonth.ToString("yyyy-MM-dd"))</p>
-    </FluentGridItem>
-    <FluentGridItem>
+    </div>
+
+    <div>
         <FluentCalendar DisabledDateFunc="@DisableYear"
                         View="CalendarViews.Years"
                         @bind-Value="@SelectedYear"
@@ -24,8 +27,8 @@
                         Style="height: 250px;" />
         <p>Selected @(SelectedYear?.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerYear.ToString("yyyy-MM-dd"))</p>
-    </FluentGridItem>
-</FluentGrid>
+    </div>
+</FluentStack>
 
 @code
 {

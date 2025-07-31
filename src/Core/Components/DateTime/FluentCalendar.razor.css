@@ -124,7 +124,7 @@
       content: "";
       display: inline-block;
       width: calc(var(--calendar-cell-size) * .8);
-      height: calc(var(--borderRadiusMedium) * 1px);
+      height: var(--strokeWidthThin);
       background: currentcolor;
       position: absolute;
       margin-top: calc(var(--calendar-cell-size) / 2);
