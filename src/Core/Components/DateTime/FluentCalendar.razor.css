@@ -1,0 +1,466 @@
+
+
+
+/*
+    "Days" View
+*/
+.fluent-calendar {
+  --calendar-cell-size: 28px;
+  --calendar-gap: 2px;
+  --calendar-multi-select-opacity: 0.2;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  color: var(--colorNeutralForeground1);
+  width: calc((var(--calendar-cell-size) + 2 * var(--calendar-gap)) * 7);
+  height: calc((var(--calendar-cell-size) + 3 * var(--calendar-gap)) * 8);
+  user-select: none;
+}
+
+  /* Header: month name and month navigation */
+  .fluent-calendar .title {
+    display: flex;
+    padding: var(--spacingVerticalS) var(--spacingHorizontalS);
+    font-weight: 600;
+    width: 100%;
+    height: calc(var(--calendar-cell-size) + 4 * var(--calendar-gap));
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+    .fluent-calendar .title > .label {
+      vertical-align: middle;
+      cursor: pointer;
+      width: 100%;
+    }
+
+      .fluent-calendar .title > .label[readonly] {
+        cursor: default;
+      }
+
+  .fluent-calendar .change-period {
+    float: right;
+    display: flex;
+    margin-right: -6px;
+  }
+
+    .fluent-calendar .change-period > .previous,
+    .fluent-calendar .change-period > .next {
+      width: var(--calendar-cell-size);
+      height: var(--calendar-cell-size);
+      margin-left: calc(2 * var(--calendar-gap));
+      text-align: center;
+      cursor: pointer;
+    }
+
+      .fluent-calendar .change-period > .previous:not([disabled]):hover,
+      .fluent-calendar .change-period > .next:not([disabled]):hover {
+        background: var(--colorSubtleBackgroundHover);
+      }
+
+      .fluent-calendar .change-period > .previous svg,
+      .fluent-calendar .change-period > .next svg {
+        width: 16px;
+        fill: var(--colorNeutralForeground1);
+      }
+
+  /* List of days */
+  .fluent-calendar .days {
+    text-align: center;
+  }
+
+  .fluent-calendar .week-days,
+  .fluent-calendar .week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: var(--calendar-gap);
+    border: 0px;
+    padding: 0px;
+  }
+
+  .fluent-calendar .day,
+  .fluent-calendar .week-day {
+    border: var(--strokeWidthThin) solid transparent;
+    width: var(--calendar-cell-size);
+    height: var(--calendar-cell-size);
+    line-height: var(--calendar-cell-size);
+    padding: 0px;
+    box-sizing: initial;
+  }
+
+  /* Week names */
+  .fluent-calendar .week-day {
+    font-weight: 600;
+  }
+
+  /* Days */
+  .fluent-calendar .day {
+    border: var(--strokeWidthThin) solid transparent;
+    border-radius: var(--borderRadiusSmall);
+    cursor: pointer;
+  }
+
+  .fluent-calendar[readonly] .day {
+    cursor: default;
+  }
+
+  .fluent-calendar:not([readonly]) .day:not([disabled]):not([inactive]):not([today]):hover {
+    background: var(--colorSubtleBackgroundHover);
+  }
+
+  /* Inactive and Disabled */
+  .fluent-calendar .day[inactive] {
+    color: var(--colorNeutralForegroundDisabled);
+    cursor: default;
+  }
+
+  .fluent-calendar .day[disabled] {
+    color: var(--colorNeutralForegroundDisabled);
+    cursor: default;
+  }
+
+    .fluent-calendar .day[disabled]::before { /* strikethrough */
+      transform: translate(-4px, 0px) rotate(45deg);
+      content: "";
+      display: inline-block;
+      width: calc(var(--calendar-cell-size) * .8);
+      height: calc(var(--borderRadiusMedium) * 1px);
+      background: currentcolor;
+      position: absolute;
+      margin-top: calc(var(--calendar-cell-size) / 2);
+      transform-origin: center center;
+      z-index: 1;
+    }
+
+  /* Today */
+  .fluent-calendar .day:not([selected]):not([multi-day])[today] {
+    color: var(--colorNeutralForegroundOnBrand);
+    background: var(--colorBrandBackground);
+    border-radius: 50%;
+    position: relative;
+  }
+
+  /* Selected */
+  .fluent-calendar .day[selected] {
+    color: var(--colorBrandBackground);
+    border: var(--strokeWidthThin) solid var(--colorBrandBackground);
+    background: var(--colorNeutralBackground1);
+  }
+
+  /* Selected Multiple Days */
+  .fluent-calendar .day[multi-day],
+  .fluent-calendar .day[multi-start],
+  .fluent-calendar .day[multi-end] {
+    position: relative;
+  }
+
+    .fluent-calendar .day[multi-day]::before,
+    .fluent-calendar .day[multi-start]::before,
+    .fluent-calendar .day[multi-end]::before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      background: var(--colorBrandBackground);
+      opacity: var(--calendar-multi-select-opacity);
+    }
+
+    .fluent-calendar .day[multi-start]::before {
+      border-top-left-radius: 50%;
+      border-bottom-left-radius: 50%;
+    }
+
+    .fluent-calendar .day[multi-end]::before {
+      border-top-right-radius: 50%;
+      border-bottom-right-radius: 50%;
+    }
+
+  .fluent-calendar .day[multi-day-over] {
+    background: var(--colorSubtleBackgroundHover);
+  }
+
+  /* Animations */
+  .fluent-calendar .animation-running-down {
+    animation: 0.2s fluent-text-animation-down ease-out;
+  }
+
+  .fluent-calendar .animation-running-up {
+    animation: 0.2s fluent-text-animation-up ease-out;
+  }
+
+  .fluent-calendar .animation-none {
+    animation: none;
+  }
+
+[dir="rtl"] .fluent-calendar .day[disabled]::before {
+  transform: translate(4px, 0px) rotate(45deg);
+}
+
+/*
+    "Months" View
+*/
+.fluent-month {
+  --month-cell-size: 28px;
+  --month-cell-height: 48px;
+  --month-gap: 2px;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  color: var(--colorNeutralForeground1);
+  min-width: 220px;
+  max-width: calc((var(--month-cell-size) + 2 * var(--month-gap)) * 7);
+  user-select: none;
+}
+
+  /* Header: Year name and navigation arrows */
+  .fluent-month .title {
+    display: flex;
+    padding: var(--spacingVerticalS) var(--spacingHorizontalS);
+    font-weight: 600;
+    width: 100%;
+    height: calc(var(--month-cell-size) + 4 * var(--month-gap));
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+    .fluent-month .title > .label {
+      vertical-align: middle;
+      cursor: pointer;
+      width: 100%;
+    }
+
+      .fluent-month .title > .label[readonly] {
+        cursor: default;
+      }
+
+  .fluent-month .change-period {
+    float: right;
+    display: flex;
+    margin-right: -6px;
+  }
+
+    .fluent-month .change-period > .previous,
+    .fluent-month .change-period > .next {
+      width: var(--month-cell-size);
+      height: var(--month-cell-size);
+      margin-left: calc(2 * var(--month-gap));
+      text-align: center;
+      cursor: pointer;
+    }
+
+      .fluent-month .change-period > .previous:not([disabled]):hover,
+      .fluent-month .change-period > .next:not([disabled]):hover {
+        background: var(--colorSubtleBackgroundHover);
+      }
+
+      .fluent-month .change-period > .previous svg,
+      .fluent-month .change-period > .next svg {
+        width: 16px;
+        fill: var(--colorNeutralForeground1);
+      }
+
+  /* List of months */
+  .fluent-month .months {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: var(--month-gap);
+    width: 100%;
+  }
+
+  .fluent-month .month {
+    display: flex;
+    height: var(--month-cell-height);
+    border: var(--strokeWidthThin) solid transparent;
+    border-radius: var(--borderRadiusSmall);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .fluent-month[readonly] .month {
+    cursor: default;
+  }
+
+  .fluent-month:not([readonly]) .month:not([disabled]):hover {
+    background: var(--colorSubtleBackgroundHover);
+  }
+
+  .fluent-month .month[selected] {
+    color: var(--colorBrandBackground);
+    border: var(--strokeWidthThin) solid var(--colorBrandBackground);
+    background: var(--colorNeutralBackground1);
+  }
+
+  .fluent-month .month[disabled] {
+    color: var(--colorNeutralForegroundDisabled);
+    cursor: default;
+  }
+
+  /* Animations */
+  .fluent-month .animation-running-down {
+    animation: 0.2s fluent-text-animation-down ease-out;
+  }
+
+  .fluent-month .animation-running-up {
+    animation: 0.2s fluent-text-animation-up ease-out;
+  }
+
+  .fluent-month .animation-none {
+    animation: none;
+  }
+
+/*
+    "Years" View
+*/
+.fluent-year {
+  --year-cell-size: 28px;
+  --year-cell-height: 48px;
+  --year-gap: 2px;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  color: var(--colorNeutralForeground1);
+  min-width: 220px;
+  max-width: calc((var(--year-cell-size) + 2 * var(--year-gap)) * 7);
+  user-select: none;
+}
+
+  /* Header: Multiple years and navigation arrows */
+  .fluent-year .title {
+    display: flex;
+    padding: var(--spacingVerticalS) var(--spacingHorizontalS);
+    font-weight: 600;
+    width: 100%;
+    height: calc(var(--year-cell-size) + 4 * var(--year-gap));
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+    .fluent-year .title > .label {
+      vertical-align: middle;
+    }
+
+      .fluent-year .title > .label[readonly] {
+        cursor: default;
+      }
+
+  .fluent-year .change-period {
+    float: right;
+    display: flex;
+    margin-right: -6px;
+  }
+
+    .fluent-year .change-period > .previous,
+    .fluent-year .change-period > .next {
+      width: var(--year-cell-size);
+      height: var(--year-cell-size);
+      margin-left: calc(2 * var(--year-gap));
+      text-align: center;
+      cursor: pointer;
+    }
+
+      .fluent-year .change-period > .previous:not([disabled]):hover,
+      .fluent-year .change-period > .next:not([disabled]):hover {
+        background: var(--colorSubtleBackgroundHover);
+      }
+
+      .fluent-year .change-period > .previous svg,
+      .fluent-year .change-period > .next svg {
+        width: 16px;
+        fill: var(--colorNeutralForeground1);
+      }
+
+  /* List of years */
+  .fluent-year .years {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: var(--year-gap);
+    width: 100%;
+  }
+
+  .fluent-year .year {
+    display: flex;
+    height: var(--year-cell-height);
+    border: var(--strokeWidthThin) solid transparent;
+    border-radius: var(--borderRadiusSmall);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .fluent-year[readonly] .year {
+    cursor: default;
+  }
+
+  .fluent-year:not([readonly]) .year:not([disabled]):hover {
+    background: var(--colorSubtleBackgroundHover);
+  }
+
+  .fluent-year .year[selected] {
+    color: var(--colorBrandBackground);
+    border: var(--strokeWidthThin) solid var(--colorBrandBackground);
+    background: var(--colorNeutralBackground1);
+  }
+
+  .fluent-year .year[disabled] {
+    color: var(--colorNeutralForegroundDisabled);
+    cursor: default;
+  }
+
+  /* Animations */
+  .fluent-year .animation-running-down {
+    animation: 0.2s fluent-text-animation-down ease-out;
+  }
+
+  .fluent-year .animation-running-up {
+    animation: 0.2s fluent-text-animation-up ease-out;
+  }
+
+  .fluent-year .animation-none {
+    animation: none;
+  }
+
+@keyframes fluent-text-animation-up {
+  0% {
+    opacity: 0;
+    transform: translateY(80%);
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes fluent-text-animation-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-80%);
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
