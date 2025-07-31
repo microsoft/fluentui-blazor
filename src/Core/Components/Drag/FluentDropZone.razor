@@ -7,6 +7,12 @@
      class=@ClassValue
      style=@StyleValue
      dragged-over=@IsOver
+     @ondrop:stopPropagation="@StopPropagation"
+     @ondragenter:stopPropagation="@StopPropagation"
+     @ondragend:stopPropagation="@StopPropagation"
+     @ondragover:stopPropagation="@StopPropagation"
+     @ondragleave:stopPropagation="@StopPropagation"
+     @ondragstart:stopPropagation="@StopPropagation"
      @ondragstart=@OnDragStartHandler
      @ondragover=@OnDragOverHandler
      @ondragover:preventDefault="@Droppable"

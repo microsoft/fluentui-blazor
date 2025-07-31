@@ -53,7 +53,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// <summary>
     /// Gets a reference to the column that this cell belongs to.
     /// </summary>
-    private ColumnBase<TGridItem>? Column => Grid._columns.ElementAtOrDefault(GridColumn - 1);
+    public ColumnBase<TGridItem>? Column => Grid._columns.ElementAtOrDefault(GridColumn - 1);
 
     /// <summary>
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.

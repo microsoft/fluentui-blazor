@@ -2373,6 +2373,11 @@
             Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Columns">
+            <summary>
+            Gets the columns associated with this data grid row.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.HandleOnRowClickAsync(System.String)">
             <summary />
         </member>
@@ -4533,6 +4538,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDropEnd">
             <summary>
             This event is fired when an element is dropped on a valid drop target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.StopPropagation">
+            <summary>
+            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.IsOver">
