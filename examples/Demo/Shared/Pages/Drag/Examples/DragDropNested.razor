@@ -58,19 +58,19 @@
                                 <FluentDropZone StopPropagation="true" Item="column" Data="@row" Class="form-column form-editor-flex" Draggable="true" Droppable="true">
                                     <span>Column: @column.ColumnId</span>
                                     @if (column.Elements.Count == 0)
-                            {
-                                <FluentDropZone StopPropagation="true" Data="@column" TItem="FormElement" Class="empty-zone" Draggable="false" Droppable="true" />
-                            }
-                            else
-                            {
-                                @foreach (var element in column.Elements)
-                                {
-                                    <FluentDropZone StopPropagation="true" Item="element" Data="@column" Class="form-element" Draggable="true" Droppable="true">
-                                        <span>Element: @element.ElementId</span>
-                                    </FluentDropZone>
-                                }
-                            }
-                        </FluentDropZone>
+                                    {
+                                        <FluentDropZone StopPropagation="true" Data="@column" TItem="FormElement" Class="empty-zone" Draggable="false" Droppable="true" />
+                                    }
+                                    else
+                                    {
+                                        @foreach (var element in column.Elements)
+                                        {
+                                            <FluentDropZone StopPropagation="true" Item="element" Data="@column" Class="form-element" Draggable="true" Droppable="true">
+                                                <span>Element: @element.ElementId</span>
+                                            </FluentDropZone>
+                                        }
+                                    }
+                                </FluentDropZone>
                             }
                         }
                     </FluentDropZone>
