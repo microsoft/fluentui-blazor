@@ -39,9 +39,10 @@ public partial class FluentCalendar : FluentCalendarBase
         get
         {
             return new CssBuilder(base.ClassValue)
-                .AddClass("fluent-calendar", () => View == CalendarViews.Days)
-                .AddClass("fluent-month", () => View == CalendarViews.Months)
-                .AddClass("fluent-year", () => View == CalendarViews.Years)
+                .AddClass("fluent-calendar")
+                .AddClass("fluent-day-view", () => View == CalendarViews.Days)
+                .AddClass("fluent-month-view", () => View == CalendarViews.Months)
+                .AddClass("fluent-year-view", () => View == CalendarViews.Years)
                 .Build();
         }
     }

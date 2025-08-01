@@ -7,9 +7,13 @@ route: /DateTime
 
 XXX
 
-## Examples
+## Example
 
-{{ FluentCalendarDefaultExample }}
+{{ FluentCalendarDefault }}
+
+## Selections
+
+{{ FluentCalendarSelection }}
 
 ## API FluentCalendar
 

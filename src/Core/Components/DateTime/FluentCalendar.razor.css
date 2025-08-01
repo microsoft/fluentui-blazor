@@ -1,13 +1,20 @@
-
-
+.fluent-calendar {
+  --calendar-today-color: var(--colorNeutralForegroundOnBrand);
+  --calendar-today-background: var(--colorBrandBackground);
+  --calendar-today-border-radius: 50%;
+  --calendar-hover-background: var(--colorSubtleBackgroundHover);
+  --calendar-selected-color: var(--colorBrandForegroundLinkSelected);
+  --calendar-selected-border: var(--strokeWidthThin) solid var(--colorBrandStroke1);
+  --calendar-selected-border-radius: var(--borderRadiusMedium);
+  --calendar-selected-background: var(--colorBrandBackgroundInvertedSelected);
+}
 
 /*
     "Days" View
 */
-.fluent-calendar {
+.fluent-day-view {
   --calendar-cell-size: 28px;
   --calendar-gap: 2px;
-  --calendar-multi-select-opacity: 0.2;
   font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   line-height: var(--lineHeightBase300);
@@ -18,7 +25,7 @@
 }
 
   /* Header: month name and month navigation */
-  .fluent-calendar .title {
+  .fluent-day-view .title {
     display: flex;
     padding: var(--spacingVerticalS) var(--spacingHorizontalS);
     font-weight: 600;
@@ -28,24 +35,24 @@
     justify-content: space-between;
   }
 
-    .fluent-calendar .title > .label {
+    .fluent-day-view .title > .label {
       vertical-align: middle;
       cursor: pointer;
       width: 100%;
     }
 
-      .fluent-calendar .title > .label[readonly] {
+      .fluent-day-view .title > .label[readonly] {
         cursor: default;
       }
 
-  .fluent-calendar .change-period {
+  .fluent-day-view .change-period {
     float: right;
     display: flex;
     margin-right: -6px;
   }
 
-    .fluent-calendar .change-period > .previous,
-    .fluent-calendar .change-period > .next {
+    .fluent-day-view .change-period > .previous,
+    .fluent-day-view .change-period > .next {
       width: var(--calendar-cell-size);
       height: var(--calendar-cell-size);
       margin-left: calc(2 * var(--calendar-gap));
@@ -53,24 +60,24 @@
       cursor: pointer;
     }
 
-      .fluent-calendar .change-period > .previous:not([disabled]):hover,
-      .fluent-calendar .change-period > .next:not([disabled]):hover {
-        background: var(--colorSubtleBackgroundHover);
+      .fluent-day-view .change-period > .previous:not([disabled]):hover,
+      .fluent-day-view .change-period > .next:not([disabled]):hover {
+        background: var(--calendar-hover-background);
       }
 
-      .fluent-calendar .change-period > .previous svg,
-      .fluent-calendar .change-period > .next svg {
+      .fluent-day-view .change-period > .previous svg,
+      .fluent-day-view .change-period > .next svg {
         width: 16px;
         fill: var(--colorNeutralForeground1);
       }
 
   /* List of days */
-  .fluent-calendar .days {
+  .fluent-day-view .days {
     text-align: center;
   }
 
-  .fluent-calendar .week-days,
-  .fluent-calendar .week {
+  .fluent-day-view .week-days,
+  .fluent-day-view .week {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-gap: var(--calendar-gap);
@@ -78,8 +85,8 @@
     padding: 0px;
   }
 
-  .fluent-calendar .day,
-  .fluent-calendar .week-day {
+  .fluent-day-view .day,
+  .fluent-day-view .week-day {
     border: var(--strokeWidthThin) solid transparent;
     width: var(--calendar-cell-size);
     height: var(--calendar-cell-size);
@@ -89,38 +96,38 @@
   }
 
   /* Week names */
-  .fluent-calendar .week-day {
+  .fluent-day-view .week-day {
     font-weight: 600;
   }
 
   /* Days */
-  .fluent-calendar .day {
+  .fluent-day-view .day {
     border: var(--strokeWidthThin) solid transparent;
     border-radius: var(--borderRadiusSmall);
     cursor: pointer;
   }
 
-  .fluent-calendar[readonly] .day {
+  .fluent-day-view[readonly] .day {
     cursor: default;
   }
 
-  .fluent-calendar:not([readonly]) .day:not([disabled]):not([inactive]):not([today]):hover {
-    background: var(--colorSubtleBackgroundHover);
+  .fluent-day-view:not([readonly]) .day:not([disabled]):not([inactive]):not([today]):hover {
+    background: var(--calendar-hover-background);
   }
 
   /* Inactive and Disabled */
-  .fluent-calendar .day[inactive] {
+  .fluent-day-view .day[inactive] {
     color: var(--colorNeutralForegroundDisabled);
     cursor: default;
   }
 
-  .fluent-calendar .day[disabled] {
+  .fluent-day-view .day[disabled] {
     color: var(--colorNeutralForegroundDisabled);
     cursor: default;
     position: relative;
   }
 
-    .fluent-calendar .day[disabled]::before { /* strikethrough */
+    .fluent-day-view .day[disabled]::before { /* strikethrough */
       content: "";
       display: inline-block;
       position: absolute;
@@ -134,74 +141,66 @@
     }
 
   /* Today */
-  .fluent-calendar .day:not([selected]):not([multi-day])[today] {
-    color: var(--colorNeutralForegroundOnBrand);
-    background: var(--colorBrandBackground);
-    border-radius: 50%;
+  .fluent-day-view .day:not([selected]):not([multi-day])[today] {
+    color: var(--calendar-today-color);
+    background: var(--calendar-today-background);
+    border-radius: var(--calendar-today-border-radius);
     position: relative;
   }
 
   /* Selected */
-  .fluent-calendar .day[selected] {
-    color: var(--colorBrandBackground);
-    border: var(--strokeWidthThin) solid var(--colorBrandBackground);
-    background: var(--colorNeutralBackground1);
+  .fluent-day-view .day[selected] {
+    color: var(--calendar-selected-color);
+    border: var(--calendar-selected-border);
+    border-radius: var(--calendar-selected-border-radius);
+    background: var(--calendar-selected-background);
   }
 
   /* Selected Multiple Days */
-  .fluent-calendar .day[multi-day],
-  .fluent-calendar .day[multi-start],
-  .fluent-calendar .day[multi-end] {
-    position: relative;
+
+  .fluent-day-view .day[multi-day],
+  .fluent-day-view .day[multi-start],
+  .fluent-day-view .day[multi-end] {
+    color: var(--calendar-selected-color);
+    border: var(--calendar-selected-border);
+    border-radius: var(--calendar-selected-border-radius);
+    background: var(--calendar-selected-background);
   }
-
-    .fluent-calendar .day[multi-day]::before,
-    .fluent-calendar .day[multi-start]::before,
-    .fluent-calendar .day[multi-end]::before {
-      content: "";
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      background: var(--colorBrandBackground);
-      opacity: var(--calendar-multi-select-opacity);
-    }
-
-    .fluent-calendar .day[multi-start]::before {
+    .fluent-day-view .day[multi-start] {
       border-top-left-radius: 50%;
       border-bottom-left-radius: 50%;
     }
 
-    .fluent-calendar .day[multi-end]::before {
+    .fluent-day-view .day[multi-end] {
       border-top-right-radius: 50%;
       border-bottom-right-radius: 50%;
     }
 
-  .fluent-calendar .day[multi-day-over] {
+  .fluent-day-view .day[multi-day-over]:not([multi-day]) {
     background: var(--colorSubtleBackgroundHover);
   }
 
   /* Animations */
-  .fluent-calendar .animation-running-down {
+  .fluent-day-view .animation-running-down {
     animation: 0.2s fluent-text-animation-down ease-out;
   }
 
-  .fluent-calendar .animation-running-up {
+  .fluent-day-view .animation-running-up {
     animation: 0.2s fluent-text-animation-up ease-out;
   }
 
-  .fluent-calendar .animation-none {
+  .fluent-day-view .animation-none {
     animation: none;
   }
 
-[dir="rtl"] .fluent-calendar .day[disabled]::before {
+[dir="rtl"] .fluent-day-view .day[disabled]::before {
   transform: translate(4px, 0px) rotate(45deg);
 }
 
 /*
     "Months" View
 */
-.fluent-month {
+.fluent-month-view {
   --month-cell-size: 28px;
   --month-cell-height: 48px;
   --month-gap: 2px;
@@ -215,7 +214,7 @@
 }
 
   /* Header: Year name and navigation arrows */
-  .fluent-month .title {
+  .fluent-month-view .title {
     display: flex;
     padding: var(--spacingVerticalS) var(--spacingHorizontalS);
     font-weight: 600;
@@ -225,24 +224,24 @@
     justify-content: space-between;
   }
 
-    .fluent-month .title > .label {
+    .fluent-month-view .title > .label {
       vertical-align: middle;
       cursor: pointer;
       width: 100%;
     }
 
-      .fluent-month .title > .label[readonly] {
+      .fluent-month-view .title > .label[readonly] {
         cursor: default;
       }
 
-  .fluent-month .change-period {
+  .fluent-month-view .change-period {
     float: right;
     display: flex;
     margin-right: -6px;
   }
 
-    .fluent-month .change-period > .previous,
-    .fluent-month .change-period > .next {
+    .fluent-month-view .change-period > .previous,
+    .fluent-month-view .change-period > .next {
       width: var(--month-cell-size);
       height: var(--month-cell-size);
       margin-left: calc(2 * var(--month-gap));
@@ -250,19 +249,19 @@
       cursor: pointer;
     }
 
-      .fluent-month .change-period > .previous:not([disabled]):hover,
-      .fluent-month .change-period > .next:not([disabled]):hover {
-        background: var(--colorSubtleBackgroundHover);
+      .fluent-month-view .change-period > .previous:not([disabled]):hover,
+      .fluent-month-view .change-period > .next:not([disabled]):hover {
+        background: var(--calendar-hover-background);
       }
 
-      .fluent-month .change-period > .previous svg,
-      .fluent-month .change-period > .next svg {
+      .fluent-month-view .change-period > .previous svg,
+      .fluent-month-view .change-period > .next svg {
         width: 16px;
         fill: var(--colorNeutralForeground1);
       }
 
   /* List of months */
-  .fluent-month .months {
+  .fluent-month-view .months {
     text-align: center;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -270,7 +269,7 @@
     width: 100%;
   }
 
-  .fluent-month .month {
+  .fluent-month-view .month {
     display: flex;
     height: var(--month-cell-height);
     border: var(--strokeWidthThin) solid transparent;
@@ -280,42 +279,43 @@
     cursor: pointer;
   }
 
-  .fluent-month[readonly] .month {
+  .fluent-month-view[readonly] .month {
     cursor: default;
   }
 
-  .fluent-month:not([readonly]) .month:not([disabled]):hover {
-    background: var(--colorSubtleBackgroundHover);
+  .fluent-month-view:not([readonly]) .month:not([disabled]):hover {
+    background: var(--calendar-hover-background);
   }
 
-  .fluent-month .month[selected] {
-    color: var(--colorBrandBackground);
-    border: var(--strokeWidthThin) solid var(--colorBrandBackground);
-    background: var(--colorNeutralBackground1);
+  .fluent-month-view .month[selected] {
+    color: var(--calendar-selected-color);
+    border: var(--calendar-selected-border);
+    border-radius: var(--calendar-selected-border-radius);
+    background: var(--calendar-selected-background);
   }
 
-  .fluent-month .month[disabled] {
+  .fluent-month-view .month[disabled] {
     color: var(--colorNeutralForegroundDisabled);
     cursor: default;
   }
 
   /* Animations */
-  .fluent-month .animation-running-down {
+  .fluent-month-view .animation-running-down {
     animation: 0.2s fluent-text-animation-down ease-out;
   }
 
-  .fluent-month .animation-running-up {
+  .fluent-month-view .animation-running-up {
     animation: 0.2s fluent-text-animation-up ease-out;
   }
 
-  .fluent-month .animation-none {
+  .fluent-month-view .animation-none {
     animation: none;
   }
 
 /*
     "Years" View
 */
-.fluent-year {
+.fluent-year-view {
   --year-cell-size: 28px;
   --year-cell-height: 48px;
   --year-gap: 2px;
@@ -329,7 +329,7 @@
 }
 
   /* Header: Multiple years and navigation arrows */
-  .fluent-year .title {
+  .fluent-year-view .title {
     display: flex;
     padding: var(--spacingVerticalS) var(--spacingHorizontalS);
     font-weight: 600;
@@ -339,22 +339,22 @@
     justify-content: space-between;
   }
 
-    .fluent-year .title > .label {
+    .fluent-year-view .title > .label {
       vertical-align: middle;
     }
 
-      .fluent-year .title > .label[readonly] {
+      .fluent-year-view .title > .label[readonly] {
         cursor: default;
       }
 
-  .fluent-year .change-period {
+  .fluent-year-view .change-period {
     float: right;
     display: flex;
     margin-right: -6px;
   }
 
-    .fluent-year .change-period > .previous,
-    .fluent-year .change-period > .next {
+    .fluent-year-view .change-period > .previous,
+    .fluent-year-view .change-period > .next {
       width: var(--year-cell-size);
       height: var(--year-cell-size);
       margin-left: calc(2 * var(--year-gap));
@@ -362,19 +362,19 @@
       cursor: pointer;
     }
 
-      .fluent-year .change-period > .previous:not([disabled]):hover,
-      .fluent-year .change-period > .next:not([disabled]):hover {
-        background: var(--colorSubtleBackgroundHover);
+      .fluent-year-view .change-period > .previous:not([disabled]):hover,
+      .fluent-year-view .change-period > .next:not([disabled]):hover {
+        background: var(--calendar-hover-background);
       }
 
-      .fluent-year .change-period > .previous svg,
-      .fluent-year .change-period > .next svg {
+      .fluent-year-view .change-period > .previous svg,
+      .fluent-year-view .change-period > .next svg {
         width: 16px;
         fill: var(--colorNeutralForeground1);
       }
 
   /* List of years */
-  .fluent-year .years {
+  .fluent-year-view .years {
     text-align: center;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -382,7 +382,7 @@
     width: 100%;
   }
 
-  .fluent-year .year {
+  .fluent-year-view .year {
     display: flex;
     height: var(--year-cell-height);
     border: var(--strokeWidthThin) solid transparent;
@@ -392,35 +392,36 @@
     cursor: pointer;
   }
 
-  .fluent-year[readonly] .year {
+  .fluent-year-view[readonly] .year {
     cursor: default;
   }
 
-  .fluent-year:not([readonly]) .year:not([disabled]):hover {
-    background: var(--colorSubtleBackgroundHover);
+  .fluent-year-view:not([readonly]) .year:not([disabled]):hover {
+    background: var(--calendar-hover-background);
   }
 
-  .fluent-year .year[selected] {
-    color: var(--colorBrandBackground);
-    border: var(--strokeWidthThin) solid var(--colorBrandBackground);
-    background: var(--colorNeutralBackground1);
+  .fluent-year-view .year[selected] {
+    color: var(--calendar-selected-color);
+    border: var(--calendar-selected-border);
+    border-radius: var(--calendar-selected-border-radius);
+    background: var(--calendar-selected-background);
   }
 
-  .fluent-year .year[disabled] {
+  .fluent-year-view .year[disabled] {
     color: var(--colorNeutralForegroundDisabled);
     cursor: default;
   }
 
   /* Animations */
-  .fluent-year .animation-running-down {
+  .fluent-year-view .animation-running-down {
     animation: 0.2s fluent-text-animation-down ease-out;
   }
 
-  .fluent-year .animation-running-up {
+  .fluent-year-view .animation-running-up {
     animation: 0.2s fluent-text-animation-up ease-out;
   }
 
-  .fluent-year .animation-none {
+  .fluent-year-view .animation-none {
     animation: none;
   }
 
