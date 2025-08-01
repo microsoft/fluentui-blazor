@@ -2,22 +2,24 @@
 @inject FluentUI.Demo.DocViewer.Services.DocViewerService DocViewerService
 
 <div>
-    <ul>
+    <FluentTreeView>
         @* TODO: Need to manage multiple levels (not only 2) *@
         @foreach (var category in NavItems)
         {
-            <li>
-                @category.Title
-
-                <ul>
-                    @foreach (var page in category.Items)
-                    {
-                        <li>
-                            <a @onclick="@(e => ItemClickAsync(page))">@(page.Title)</a>
-                        </li>
-                    }
-                </ul>
-            </li>
+            <FluentTreeItem Expanded="true"
+                            Text="@category.Title"
+                            Height="40px"
+                            Style="font-weight: bold;">
+                @foreach (var page in category.Items)
+                {
+                    <FluentTreeItem Expanded="true"
+                                    Text="@(page.Title)"
+                                    SelectedChanged="@(e => e ? ItemClickAsync(page) : Task.CompletedTask)"
+                                    Height="40px"
+                                    Style="font-weight: normal;">
+                    </FluentTreeItem>
+                }
+            </FluentTreeItem>
         }
-    </ul>
+    </FluentTreeView>
 </div>

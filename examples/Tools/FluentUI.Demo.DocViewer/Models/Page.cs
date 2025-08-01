@@ -86,6 +86,12 @@ public record Page
     public string Title { get; } = string.Empty;
 
     /// <summary>
+    /// Gets the page title group, which is the first part of the title before a slash ("/").
+    /// If the title does not contain a slash, it returns an empty string.
+    /// </summary>
+    public string TitleGroup => Title.Contains('/') ? Title.Split('/')[0].Trim() : "";
+
+    /// <summary>
     /// Gets the page order defined in the <see cref="Headers"/>
     /// </summary>
     public string Order { get; } = string.Empty;
