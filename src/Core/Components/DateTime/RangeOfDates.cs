@@ -38,6 +38,6 @@ public class RangeOfDates : RangeOf<System.DateTime>
     /// <returns></returns>
     public override string ToString()
     {
-        return $"From {Start?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)} to {End?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}.";
+        return $"From {Start?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? "<null>"} to {End?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? "<null>"}.";
     }
 }
