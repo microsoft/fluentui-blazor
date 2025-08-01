@@ -63,6 +63,10 @@ public record Page
                 Category = (string.Empty, category.Trim());
             }
         }
+        else
+        {
+            Category = ("50", "Components");    // Default category
+        }
 
         // PageGroup
         var route = Route.Trim().Trim('/');
