@@ -8,3 +8,7 @@
     [Parameter]
     public string Path { get; set; } = string.Empty;
 }
+
+<script @key="@($"scroll-top-{Path}")">
+    document.querySelector(".fluent-layout")?.scroll(0,0);
+</script>
