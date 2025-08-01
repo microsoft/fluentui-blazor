@@ -1,1 +1,234 @@
-﻿
+﻿<style>
+    .form-editor {
+        display: flex;
+        flex-direction: column;
+        height: 100dvh;
+        color: #000 !important;
+    }
+
+    .form-editor-content {
+        flex: 1;
+        background-color: pink;
+    }
+
+    .form-row {
+        border: 1px dashed red;
+        border-radius: .5em;
+        background-color: #fff;
+        padding: 1em;
+        display: flex;
+        gap: 1em;
+    }
+
+    .form-column {
+        flex: 1;
+        border: 2px dashed orange;
+        border-radius: .5em;
+        min-height: 5em;
+    }
+
+    .empty-zone {
+        width: 100%;
+        height: 50px;
+        background-color: yellow;
+    }
+
+    .form-element {
+        border: 1px solid green;
+        border-radius: .5em;
+        padding: 1rem;
+    }
+</style>
+<div class="form-editor">
+    <div class="form-editor-content">
+        <FluentDragContainer TItem="FormRow"
+                             OnDropEnd="OnRowDropEnd">
+            <FluentDragContainer TItem="FormColumn"
+                                 OnDropEnd="OnColumnDropEnd">
+                <FluentDragContainer TItem="FormElement"
+                                     OnDropEnd="OnDropElement">
+                    @foreach (var row in _testForm.Rows)
+                    {
+                        <FluentDropZone Item="row" Class="form-row" Draggable="true" Droppable="true">
+                            <span>Row: @row.RowId</span>
+                            @if (row.Columns.Count == 0)
+                            {
+                                <FluentDropZone Data="@row" TItem="FormColumn" Class="empty-zone" Draggable="false" Droppable="true" />
+                            }
+                            else
+                            {
+                                @foreach (var column in row.Columns)
+                                {
+                                    <FluentDropZone Item="column" Data="@row" Class="form-column" Draggable="true" Droppable="true">
+                                        <span>Column: @column.ColumnId</span>
+                                        @if (column.Elements.Count == 0)
+                                {
+                                    <FluentDropZone Data="@column" TItem="FormElement" Class="empty-zone" Draggable="false" Droppable="true" />
+                                }
+                                else
+                                {
+                                    @foreach (var element in column.Elements)
+                                    {
+                                        <FluentDropZone Item="element" Data="@column" Class="form-element" Draggable="true" Droppable="true">
+                                            <span>Element: @element.ElementId</span>
+                                        </FluentDropZone>
+                                    }
+                                }
+                            </FluentDropZone>
+                                }
+                            }
+                        </FluentDropZone>
+                    }
+                </FluentDragContainer>
+            </FluentDragContainer>
+        </FluentDragContainer>
+    </div>
+</div>
+
+@code {
+    private Form _testForm;
+    private static readonly Random _random = new();
+
+    public IssueTester()
+    {
+        _testForm = new Form();
+
+        var rows = Enumerable.Range(1, 5)
+                             .Select(id => new FormRow { RowId = id })
+                             .ToList();
+
+        var columns = Enumerable.Range(1, 8)
+                                .Select(id => new FormColumn { ColumnId = id })
+                                .ToList();
+
+        rows[0].Columns.AddRange(new[] { columns[0], columns[1] });         // Row 1: Column 1, 2
+        rows[1].Columns.Add(columns[2]);                                    // Row 2: Column 3
+        rows[2].Columns.Add(columns[3]);                                    // Row 3: Column 4
+        rows[3].Columns.AddRange(new[] { columns[4], columns[5] });         // Row 4: Column 5, 6
+        rows[4].Columns.AddRange(new[] { columns[6], columns[7] });         // Row 5: Column 7, 8
+
+
+        int elementIdCounter = 1;
+        foreach (var column in columns)
+        {
+            int numElements = _random.Next(1, 4); // 1 to 3 inclusive
+            for (int i = 0; i < numElements; i++)
+            {
+                column.Elements.Add(new FormElement
+                    {
+                        ElementId = elementIdCounter++
+                    });
+            }
+        }
+
+
+        _testForm.Rows.AddRange(rows);
+    }
+
+    private void OnRowDropEnd(FluentDragEventArgs<FormRow> e)
+    {
+        var target = e.Target.Item;
+        var source = e.Source.Item;
+
+        int targetIndex = _testForm.Rows.IndexOf(target);
+
+        _testForm.Rows.Remove(source);
+        _testForm.Rows.Insert(targetIndex, source);
+    }
+
+    private void OnColumnDropEnd(FluentDragEventArgs<FormColumn> e)
+    {
+        var sourceRow = e.Source.Data as FormRow;
+        var targetRow = e.Target.Data as FormRow;
+
+        if (sourceRow is null || targetRow is null)
+        {
+            return;
+        }
+
+        var target = e.Target.Item;
+        var source = e.Source.Item;
+        int targetIndex = targetRow.Columns.IndexOf(target);
+
+        if (sourceRow == targetRow)
+        {
+            sourceRow.Columns.Remove(source);
+            sourceRow.Columns.Insert(targetIndex, source);
+        }
+        else
+        {
+            sourceRow.Columns.Remove(source);
+            if (targetIndex != -1)
+            {
+                targetRow.Columns.Insert(targetIndex, source);
+            }
+            else
+            {
+                targetRow.Columns.Add(source);
+            }
+        }
+
+        StateHasChanged();
+    }
+
+    private void OnDropElement(FluentDragEventArgs<FormElement> e)
+    {
+        var sourceColumn = e.Source.Data as FormColumn;
+        var targetColumn = e.Target.Data as FormColumn;
+
+        if (sourceColumn is null || targetColumn is null)
+        {
+            return;
+        }
+
+        var source = e.Source.Item;
+        var target = e.Target.Item;
+
+
+        int targetIndex = targetColumn.Elements.IndexOf(target);
+
+
+        if (sourceColumn == targetColumn)
+        {
+            sourceColumn.Elements.Remove(source);
+            sourceColumn.Elements.Insert(targetIndex, source);
+        }
+        else
+        {
+            sourceColumn.Elements.Remove(source);
+            if (targetIndex != -1)
+            {
+                targetColumn.Elements.Insert(targetIndex, source);
+            }
+            else
+            {
+                targetColumn.Elements.Add(source);
+            }
+        }
+
+        StateHasChanged();
+    }
+
+    public class Form
+    {
+        public int FormId { get; set; }
+        public List<FormRow> Rows { get; set; } = [];
+    }
+
+    public class FormRow
+    {
+        public int RowId { get; set; }
+        public List<FormColumn> Columns { get; set; } = [];
+    }
+
+    public class FormColumn
+    {
+        public int ColumnId { get; set; }
+        public List<FormElement> Elements { get; set; } = [];
+    }
+
+    public class FormElement
+    {
+        public int ElementId { get; set; }
+    }
+}
