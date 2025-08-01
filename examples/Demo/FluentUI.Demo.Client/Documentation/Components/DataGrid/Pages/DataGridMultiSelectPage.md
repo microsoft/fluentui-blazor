@@ -1,5 +1,5 @@
 ---
-title: DataGrid / Multi select
+title: Multi select
 route: /DataGrid/MultiSelect
 ---
 

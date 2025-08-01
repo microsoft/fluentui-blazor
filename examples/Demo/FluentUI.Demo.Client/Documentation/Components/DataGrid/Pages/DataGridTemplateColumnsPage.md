@@ -1,5 +1,5 @@
 ---
-title: DataGrid / Template columns
+title: Template columns
 route: /DataGrid/TemplateColumns
 ---
 

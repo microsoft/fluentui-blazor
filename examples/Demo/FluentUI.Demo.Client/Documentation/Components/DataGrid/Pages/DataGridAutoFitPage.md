@@ -1,5 +1,5 @@
 ---
-title: DataGrid / Auto fit columns
+title: Auto fit columns
 route: /DataGrid/AutoFit
 ---
 

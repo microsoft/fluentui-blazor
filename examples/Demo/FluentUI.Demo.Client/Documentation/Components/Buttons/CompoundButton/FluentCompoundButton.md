@@ -1,5 +1,5 @@
 ---
-title: Button / CompoundButton
+title: CompoundButton
 route: /Button/CompoundButton 
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: DataGrid
-route: /DataGrid
+route: /DataGrid/[Default]
 ---
 
 # DataGrid
