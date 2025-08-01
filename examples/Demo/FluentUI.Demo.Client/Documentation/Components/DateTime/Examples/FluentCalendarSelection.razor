@@ -1,38 +1,42 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 
-<FluentGrid>
+<FluentStack Wrap="true" HorizontalGap="24px">
     @* SelectMode: Single *@
-    <FluentGridItem>
+    <div>
         <FluentLabel>Single</FluentLabel>
         <FluentCalendar DisabledDateFunc="@DisabledDay"
+                        DisplayToday="false"
                         @bind-Value="@SelectedDay"
                         SelectMode="CalendarSelectMode.Single" />
         <p>Selected days: @SelectedDay?.ToShortDateString()</p>
-    </FluentGridItem>
+    </div>
 
     @* SelectMode: Range *@
-    <FluentGridItem>
+    <div>
         <FluentLabel>Range</FluentLabel>
         <FluentCalendar DisabledDateFunc="@DisabledDay"
+                        DisplayToday="false"
                         @bind-SelectedDates="@SelectedRange"
                         SelectMode="CalendarSelectMode.Range" />
         <p>Selected days: @DisplaySelectedDays(SelectedRange)</p>
-    </FluentGridItem>
+    </div>
 
     @* SelectMode: Range + SelectDatesHover *@
-    <FluentGridItem>
+    <div>
         <FluentLabel>Range with "SelectOneWeek"</FluentLabel>
         <FluentCalendar DisabledDateFunc="@DisabledDay"
+                        DisplayToday="false"
                         @bind-SelectedDates="@SelectedRangeCustomized"
                         SelectDatesHover="@SelectOneWeek"
                         SelectMode="CalendarSelectMode.Range" />
         <p>Selected days: @DisplaySelectedDays(SelectedRangeCustomized)</p>
-    </FluentGridItem>
+    </div>
 
     @* SelectMode: Multiple + Validation *@
-    <FluentGridItem>
+    <div>
         <FluentLabel>Multiple (max 5 days)</FluentLabel>
         <FluentCalendar DisabledDateFunc="@DisabledDay"
+                        DisplayToday="false"
                         @bind-SelectedDates="@SelectedDays"
                         @bind-SelectedDates:after="@ValidateSelectedDays"
                         SelectMode="CalendarSelectMode.Multiple" />
@@ -40,18 +44,19 @@
             You can select a maximum of 5 days. Delete a day to select a new one.
         </FluentMessageBar>
         <p>Selected days: @DisplaySelectedDays(SelectedDays)</p>
-    </FluentGridItem>
+    </div>
 
     @* SelectMode: Multiple + SelectDatesHover *@
-    <FluentGridItem>
+    <div>
         <FluentLabel>Multiple with "Select3Days"</FluentLabel>
         <FluentCalendar DisabledDateFunc="@DisabledDay"
+                        DisplayToday="false"
                         @bind-SelectedDates="@SelectedDaysCustomized"
                         SelectDatesHover="@Select3Days"
                         SelectMode="CalendarSelectMode.Multiple" />
         <p>Selected days: @DisplaySelectedDays(SelectedDaysCustomized)</p>
-    </FluentGridItem>
-</FluentGrid>
+    </div>
+</FluentStack>
 
 @code
 {

@@ -77,7 +77,7 @@
                                          tabindex="@(dayProperties.IsDisabled || dayProperties.IsInactive ? null : 0)"
                                          disabled="@dayProperties.IsDisabled"
                                          inactive="@dayProperties.IsInactive"
-                                         today="@dayProperties.IsToday"
+                                         today="@(DisplayToday && dayProperties.IsToday)"
                                          selected="@(dayProperties.IsSelected)"
                                          multi-day="@(dayProperties.IsMultiDaySelected)"
                                          multi-day-over="@(multipleSelection.InProgress && _selectedDatesMouseOver.Contains(day))"

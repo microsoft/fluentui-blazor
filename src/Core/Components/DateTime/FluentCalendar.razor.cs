@@ -90,6 +90,12 @@ public partial class FluentCalendar : FluentCalendarBase
     public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether today's date should be highlighted in the calendar.
+    /// </summary>
+    [Parameter]
+    public bool DisplayToday { get; set; } = true;
+
+    /// <summary>
     /// Gets ot sets if the calendar items are animated during a period change.
     /// By default, the animation is enabled for Months views, but disabled for Days and Years view.
     /// </summary>
