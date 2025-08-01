@@ -184,4 +184,264 @@ public class RangeOfDatesTests
         // Assert
         Assert.Equal("From <null> to <null>.", result);
     }
+
+    // Base class method tests
+
+    [Fact]
+    public void IsEmpty_WithBothNull_ShouldReturnTrue()
+    {
+        // Arrange
+        var range = new RangeOfDates(null, null);
+
+        // Act
+        var result = range.IsEmpty();
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void IsEmpty_WithStartOnly_ShouldReturnFalse()
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 1), null);
+
+        // Act
+        var result = range.IsEmpty();
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void IsEmpty_WithEndOnly_ShouldReturnFalse()
+    {
+        // Arrange
+        var range = new RangeOfDates(null, new DateTime(2024, 1, 31));
+
+        // Act
+        var result = range.IsEmpty();
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void IsEmpty_WithBothValues_ShouldReturnFalse()
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 1), new DateTime(2024, 1, 31));
+
+        // Act
+        var result = range.IsEmpty();
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void IsValid_WithDifferentStartAndEnd_ShouldReturnTrue()
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 1), new DateTime(2024, 1, 31));
+
+        // Act
+        var result = range.IsValid();
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void IsValid_WithSameStartAndEnd_ShouldReturnFalse()
+    {
+        // Arrange
+        var date = new DateTime(2024, 1, 15);
+        var range = new RangeOfDates(date, date);
+
+        // Act
+        var result = range.IsValid();
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void IsValid_WithNullStart_ShouldReturnFalse()
+    {
+        // Arrange
+        var range = new RangeOfDates(null, new DateTime(2024, 1, 31));
+
+        // Act
+        var result = range.IsValid();
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void IsValid_WithNullEnd_ShouldReturnFalse()
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 1), null);
+
+        // Act
+        var result = range.IsValid();
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void IsSingle_WithSameStartAndEnd_ShouldReturnTrue()
+    {
+        // Arrange
+        var date = new DateTime(2024, 1, 15);
+        var range = new RangeOfDates(date, date);
+
+        // Act
+        var result = range.IsSingle();
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void IsSingle_WithDifferentStartAndEnd_ShouldReturnFalse()
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 1), new DateTime(2024, 1, 31));
+
+        // Act
+        var result = range.IsSingle();
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void IsSingle_WithNullValues_ShouldReturnFalse()
+    {
+        // Arrange
+        var range = new RangeOfDates(null, null);
+
+        // Act
+        var result = range.IsSingle();
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void Clear_ShouldSetBothValuesToNull()
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 1), new DateTime(2024, 1, 31));
+
+        // Act
+        range.Clear();
+
+        // Assert
+        Assert.Null(range.Start);
+        Assert.Null(range.End);
+        Assert.True(range.IsEmpty());
+    }
+
+    [Fact]
+    public void Includes_WithDateInRange_ShouldReturnTrue()
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 1), new DateTime(2024, 1, 31));
+        var date = new DateTime(2024, 1, 15);
+
+        // Act
+        var result = range.Includes(date);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void Includes_WithStartDate_ShouldReturnTrue()
+    {
+        // Arrange
+        var start = new DateTime(2024, 1, 1);
+        var range = new RangeOfDates(start, new DateTime(2024, 1, 31));
+
+        // Act
+        var result = range.Includes(start);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void Includes_WithEndDate_ShouldReturnTrue()
+    {
+        // Arrange
+        var end = new DateTime(2024, 1, 31);
+        var range = new RangeOfDates(new DateTime(2024, 1, 1), end);
+
+        // Act
+        var result = range.Includes(end);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void Includes_WithDateBeforeRange_ShouldReturnFalse()
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 15), new DateTime(2024, 1, 31));
+        var date = new DateTime(2024, 1, 1);
+
+        // Act
+        var result = range.Includes(date);
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void Includes_WithDateAfterRange_ShouldReturnFalse()
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 1), new DateTime(2024, 1, 15));
+        var date = new DateTime(2024, 1, 31);
+
+        // Act
+        var result = range.Includes(date);
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void Includes_WithEmptyRange_ShouldReturnFalse()
+    {
+        // Arrange
+        var range = new RangeOfDates(null, null);
+        var date = new DateTime(2024, 1, 15);
+
+        // Act
+        var result = range.Includes(date);
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void Includes_WithReversedRange_ShouldStillWork()
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 31), new DateTime(2024, 1, 1));
+        var date = new DateTime(2024, 1, 15);
+
+        // Act
+        var result = range.Includes(date);
+
+        // Assert
+        Assert.True(result);
+    }
 }
