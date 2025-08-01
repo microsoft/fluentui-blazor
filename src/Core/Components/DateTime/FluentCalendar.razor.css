@@ -117,18 +117,19 @@
   .fluent-calendar .day[disabled] {
     color: var(--colorNeutralForegroundDisabled);
     cursor: default;
+    position: relative;
   }
 
     .fluent-calendar .day[disabled]::before { /* strikethrough */
-      transform: translate(-4px, 0px) rotate(45deg);
       content: "";
       display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
       width: calc(var(--calendar-cell-size) * .8);
       height: var(--strokeWidthThin);
-      background: currentcolor;
-      position: absolute;
-      margin-top: calc(var(--calendar-cell-size) / 2);
-      transform-origin: center center;
+      background-color: currentcolor;
+      transform: translate(-50%, -50%) rotate(45deg);
       z-index: 1;
     }
 
