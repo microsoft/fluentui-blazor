@@ -1,5 +1,5 @@
 ---
-title: DataGrid / Custom comparer for sorting
+title: Custom comparer for sorting
 route: /DataGrid/CustomComparerSort
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Button / ToggleButton
+title: ToggleButton
 route: /Button/ToggleButton
 ---
 

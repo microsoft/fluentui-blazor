@@ -13,6 +13,7 @@ namespace FluentUI.Demo.DocViewer.Models;
 /// </summary>
 public record Page
 {
+    private const string DefaultPageGroupIdentifier = "[Default]";
     private readonly DocViewerService _docViewerService;
     private IEnumerable<PageHtmlHeader>? _pageHtmlHeaders;
 
@@ -62,6 +63,17 @@ public record Page
                 Category = (string.Empty, category.Trim());
             }
         }
+
+        // PageGroup
+        var route = Route.Trim().Trim('/');
+        PageGroup = route.Contains('/') ? route.Split('/')[0] : "";
+
+        // Default PageGroup
+        if (Route.EndsWith(DefaultPageGroupIdentifier, StringComparison.CurrentCultureIgnoreCase))
+        {
+            Route = Route[..^DefaultPageGroupIdentifier.Length].TrimEnd('/');
+            IsDefaultPageGroup = true;
+        }
     }
 
     /// <summary>
@@ -94,20 +106,12 @@ public record Page
     /// Gets the page group, which is the first part of the route before a slash ("/").
     /// If the route does not contain a slash, it returns an empty string.
     /// </summary>
-    public string PageGroup
-    {
-        get
-        {
-            var route = Route.Trim().Trim('/');
+    public string PageGroup { get; }
 
-            if (route.Contains('/'))
-            {
-                return route.Split('/')[0];
-            }
-
-            return string.Empty;
-        }
-    }
+    /// <summary>
+    /// Gets a value indicating whether the current route represents the default page group.
+    /// </summary>
+    public bool IsDefaultPageGroup { get; }
 
     /// <summary>
     /// Gets the page order defined in the <see cref="Headers"/>

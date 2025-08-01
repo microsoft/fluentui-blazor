@@ -1,5 +1,5 @@
 ---
-title: DataGrid / Virtualize
+title: Virtualize
 route: /DataGrid/Virtualize
 ---
 # Virtualize

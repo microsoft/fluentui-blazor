@@ -1,5 +1,5 @@
 ---
-title: DataGrid / Custom Paging
+title: Custom Paging
 route: /DataGrid/CustomPaging
 ---
 

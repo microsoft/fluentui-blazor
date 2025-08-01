@@ -1,5 +1,6 @@
 ---
-title: DataGrid / Typical usage
+title: Typical usage
+order: 0011
 route: /DataGrid/Typical
 ---
 

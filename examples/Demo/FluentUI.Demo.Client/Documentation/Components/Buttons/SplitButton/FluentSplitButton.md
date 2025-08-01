@@ -1,5 +1,5 @@
 ---
-title: Button / SplitButton
+title: SplitButton
 route: /Button/SplitButton
 ---
 

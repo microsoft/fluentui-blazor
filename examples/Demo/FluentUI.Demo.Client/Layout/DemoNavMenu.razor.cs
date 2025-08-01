@@ -38,21 +38,24 @@ public partial class DemoNavMenu
                                     Order: p.Order,
                                     Items: Enumerable.Empty<NavItem>()));
                             }
+
                             // If PageGroup has value, create a sub-category
                             else
                             {
                                 return new[] { new NavItem(
                                     Title: subGroup.Key,
-                                    Route: subGroup.OrderBy(p => p.Order).First().Route,
+                                    Route: subGroup.FirstOrDefault(p => p.IsDefaultPageGroup)?.Route ?? subGroup.OrderBy(p => p.Order).First().Route,
                                     Icon: string.Empty,
                                     Order: subGroup.First().Order,
-                                    Items: subGroup.Select(p => new NavItem(
-                                        Title: p.Title,
-                                        Route: p.Route,
-                                        Icon: p.Icon,
-                                        Order: string.IsNullOrEmpty(p.Order) ? "9999" : p.Order,
-                                        Items: Enumerable.Empty<NavItem>()))
-                                    .OrderBy(i => i.Order))
+                                    Items: subGroup.Where(p => !p.IsDefaultPageGroup)
+                                                   .Select(p => new NavItem(
+                                                        Title: p.Title,
+                                                        Route: p.Route,
+                                                        Icon: p.Icon,
+                                                        Order: p.Order,
+                                                        Items: Enumerable.Empty<NavItem>()))
+                                    .OrderBy(i => i.Order)
+                                    .ThenBy(i => i.Title))
                                 };
                             }
                         })
