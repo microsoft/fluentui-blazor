@@ -12,11 +12,17 @@
                             Style="font-weight: bold;">
                 @foreach (var page in category.Items)
                 {
-                    <FluentTreeItem Expanded="true"
-                                    Text="@(page.Title)"
+                    <FluentTreeItem Text="@(page.Title)"
                                     SelectedChanged="@(e => e ? ItemClickAsync(page) : Task.CompletedTask)"
                                     Height="40px"
                                     Style="font-weight: normal;">
+                        @foreach (var subPage in page.Items)
+                        {
+                            <FluentTreeItem Text="@(subPage.Title)"
+                                            SelectedChanged="@(e => e ? ItemClickAsync(subPage) : Task.CompletedTask)"
+                                            Height="40px"
+                                            Style="font-weight: normal;" />
+                        }
                     </FluentTreeItem>
                 }
             </FluentTreeItem>

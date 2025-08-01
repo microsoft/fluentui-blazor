@@ -44,6 +44,11 @@ public record Page
         Route = GetItem(items, "route");
         Hidden = GetItem(items, "hidden") == "true";
 
+        if (string.IsNullOrEmpty(Order))
+        {
+            Order = "99999";
+        }
+
         var category = GetItem(items, "category");
         if (!string.IsNullOrEmpty(category))
         {
@@ -86,10 +91,23 @@ public record Page
     public string Title { get; } = string.Empty;
 
     /// <summary>
-    /// Gets the page title group, which is the first part of the title before a slash ("/").
-    /// If the title does not contain a slash, it returns an empty string.
+    /// Gets the page group, which is the first part of the route before a slash ("/").
+    /// If the route does not contain a slash, it returns an empty string.
     /// </summary>
-    public string TitleGroup => Title.Contains('/') ? Title.Split('/')[0].Trim() : "";
+    public string PageGroup
+    {
+        get
+        {
+            var route = Route.Trim().Trim('/');
+
+            if (route.Contains('/'))
+            {
+                return route.Split('/')[0];
+            }
+
+            return string.Empty;
+        }
+    }
 
     /// <summary>
     /// Gets the page order defined in the <see cref="Headers"/>
