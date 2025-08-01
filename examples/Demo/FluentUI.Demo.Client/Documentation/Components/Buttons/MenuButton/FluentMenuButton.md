@@ -1,5 +1,5 @@
 ---
-title: Button / MenuButton
+title: MenuButton
 route: /Button/MenuButton
 ---
 

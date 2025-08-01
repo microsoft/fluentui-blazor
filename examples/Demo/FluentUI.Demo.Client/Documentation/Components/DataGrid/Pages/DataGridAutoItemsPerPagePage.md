@@ -1,5 +1,5 @@
 ---
-title: DataGrid / Auto items per page
+title: Auto items per page
 route: /DataGrid/AutoItemsPerPage
 ---
 
