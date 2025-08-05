@@ -1,5 +1,5 @@
 # ⚠️ Notice: We are experiencing possible certificate renewal issues for the demo website https://www.fluentui-blazor.net/.
-If you encounter any problems, you can use the backup site: http://fluentui-blazor.azurewebsites.net/
+If you encounter any problems, you can use the backup site: https://fluentui-blazor.azurewebsites.net/
 
 # Microsoft Fluent UI Blazor library
 
