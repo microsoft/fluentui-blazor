@@ -1,15 +1,20 @@
-# ⚠️ Notice: We are experiencing possible certificate renewal issues for the demo website https://www.fluentui-blazor.net/.
-If you encounter any problems, you can use the backup site: https://fluentui-blazor.azurewebsites.net/
-
 # Microsoft Fluent UI Blazor library
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![.NET C#](https://img.shields.io/badge/.NET-C%23-blue)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![NuGet](https://img.shields.io/nuget/v/Microsoft.FluentUI.AspNetCore.Components?label=NuGet%20Component%20Library)](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components)
 [![NuGet](https://img.shields.io/nuget/v/Microsoft.FluentUI.AspNetCore.Templates?label=NuGet%20Templates)](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates)
-
-[![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
 [![Discord](https://img.shields.io/badge/chat%20on-discord-7289da.svg)](https://discord.gg/M5cBTfp6J2)
+
+<!--
+[![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
+-->
+
+## Demo
+Explore the Demo: visit https://www.fluentui-blazor.net to kickstart your first project, browse the documentation, and test all components live.  
+If you encounter any problems, you can use the [backup site](https://fluentui-blazor.azurewebsites.net). 
+
+---
 
 :star:  We appreciate your star, it helps!
 
