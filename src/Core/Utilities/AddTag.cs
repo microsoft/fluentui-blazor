@@ -19,6 +19,12 @@ public class AddTag : ComponentBase
     public virtual required string Name { get; set; }
 
     /// <summary>
+    /// Gets or sets the reference to the underlying DOM element associated with this component.
+    /// </summary>
+    [Parameter]
+    public ElementReference? Ref { get; set; }
+
+    /// <summary>
     /// Gets or sets the condition to add the tag <see cref="Name"/>.
     /// </summary>
     [Parameter]
@@ -57,17 +63,23 @@ public class AddTag : ComponentBase
         {
             builder.OpenElement(0, Name);
             builder.AddMultipleAttributes(1, AdditionalAttributes);
-            builder.AddContent(2, ChildContent);
+
+            if (Ref.HasValue)
+            {
+                builder.AddElementReferenceCapture(2, capturedRef => Ref = capturedRef);
+            }
+
+            builder.AddContent(3, ChildContent);
             builder.CloseElement();
         }
         else if (addContent)
         {
-            builder.AddContent(3, ChildContent);
+            builder.AddContent(4, ChildContent);
         }
         else if (addTag)
         {
-            builder.OpenElement(4, Name);
-            builder.AddMultipleAttributes(5, AdditionalAttributes);
+            builder.OpenElement(5, Name);
+            builder.AddMultipleAttributes(6, AdditionalAttributes);
             builder.CloseElement();
         }
     }

@@ -39,6 +39,13 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
     public bool GlobalDocument { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets the HTML tag name to use when rendering the component.
+    /// The default value is "span".
+    /// </summary>
+    [Parameter]
+    public string TagName { get; set; } = "span";
+
+    /// <summary>
     /// Gets or sets the control identifier associated with the KeyCode engine.
     /// If not set, the KeyCode will be applied to the FluentKeyCode content: see <see cref="ChildContent"/>.
     /// This attribute is ignored when the <see cref="ChildContent" /> is used..

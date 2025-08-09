@@ -302,6 +302,21 @@
         await Task.CompletedTask;
     }
 
+    [Fact]
+    public async Task FluentKeyCode_TagNameDiv()
+    {
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Arrange && Act
+        var cut = Render(@<FluentKeyCode TagName="div" OnKeyDown="@(e => pressed = e)">Hello World</FluentKeyCode>);
+
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myZone", false);
+
+        // Assert
+        Assert.Equal(65, pressed.KeyCode);
+        Assert.Contains("Hello World", cut.Find("div").InnerHtml);
+    }
+
     private class MyKeyCodeListener : IKeyCodeListener
     {
         private Action<FluentKeyCodeEventArgs> _actionKeyDown;

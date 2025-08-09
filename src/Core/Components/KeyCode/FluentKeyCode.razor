@@ -3,7 +3,7 @@
 
 @if (ChildContent is not null)
 {
-    <span id="@Id" class="@ClassValue" style="@StyleValue" @ref="@Element" @attributes="@AdditionalAttributes">
+    <AddTag Name="@TagName" id="@Id" class="@ClassValue" style="@StyleValue" Ref="@Element" @attributes="@AdditionalAttributes">
         @ChildContent
-    </span>
+    </AddTag>
 }
