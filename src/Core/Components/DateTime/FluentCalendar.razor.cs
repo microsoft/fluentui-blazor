@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,6 +17,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentCalendar : FluentCalendarBase
 {
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DateTime/FluentCalendar.razor.js";
+
     internal static string ArrowUp = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.2 10.73a.75.75 0 001.1 1.04l5.95-6.25v14.73a.75.75 0 001.5 0V5.52l5.95 6.25a.75.75 0 001.1-1.04l-7.08-7.42a1 1 0 00-1.44 0L4.2 10.73z\"/></svg>";
     internal static string ArrowDown = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19.8 13.27a.75.75 0 00-1.1-1.04l-5.95 6.25V3.75a.75.75 0 10-1.5 0v14.73L5.3 12.23a.75.75 0 10-1.1 1.04l7.08 7.42a1 1 0 001.44 0l7.07-7.42z\"/></svg>";
 
@@ -138,6 +141,20 @@ public partial class FluentCalendar : FluentCalendarBase
     /// All days of this current month.
     /// </summary>
     internal CalendarExtended CalendarExtended => new(Culture, PickerMonth);
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Import the JavaScript module
+            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+
+            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Calendar.SetAccessibilityKeyboard", Id);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
 
     /// <summary>
     /// Gets titles to use in the calendar.

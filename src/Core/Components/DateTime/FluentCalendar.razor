@@ -14,8 +14,7 @@
             <div class="title" part="title" aria-label="@titles.Label">
                 <div part="label" class="@GetAnimationClass("label")" readonly="@ReadOnly"
                      role="button" tabindex="0"
-                     @onclick="@(e => TitleClickHandlerAsync(titles))"
-                     @onkeydown="(e => CalendarKeyDown.SimulateClickAsync(e, TitleClickHandlerAsync, titles))">
+                     @onclick="@(e => TitleClickHandlerAsync(titles))">
                     @titles.Label
                 </div>
                 <div part="move" class="change-period">
@@ -26,7 +25,7 @@
                     else
                     {
                         <div class="previous" title="@titles.PreviousTitle" @onclick="@OnPreviousButtonHandlerAsync"
-                             role="button" tabindex="0" @onkeydown="(e => CalendarKeyDown.SimulateClickAsync(e, OnPreviousButtonHandlerAsync))">
+                             role="button" tabindex="0">
                             @((MarkupString)ArrowUp)
                         </div>
                     }
@@ -37,7 +36,7 @@
                     else
                     {
                         <div class="next" title="@titles.NextTitle" @onclick="@OnNextButtonHandlerAsync"
-                             role="button" tabindex="0" @onkeydown="(e => CalendarKeyDown.SimulateClickAsync(e, OnNextButtonHandlerAsync))">
+                             role="button" tabindex="0">
                             @((MarkupString)ArrowDown)
                         </div>
                     }
