@@ -3,7 +3,18 @@
 
 @if (ChildContent is not null)
 {
-    <span id="@Id" class="@ClassValue" style="@StyleValue" @ref="@Element" @attributes="@AdditionalAttributes">
-        @ChildContent
-    </span>
+    @switch (TagName)
+    {
+        case FluentKeyCodeTag.Span:
+            <span id="@Id" class="@ClassValue" style="@StyleValue" @ref="@Element" @attributes="@AdditionalAttributes">
+                @ChildContent
+            </span>
+            break;
+
+        case FluentKeyCodeTag.Div:
+            <div id="@Id" class="@ClassValue" style="@StyleValue" @ref="@Element" @attributes="@AdditionalAttributes">
+                @ChildContent
+            </div>
+            break;
+    }
 }

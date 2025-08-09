@@ -191,7 +191,7 @@ public class PageTests
 
         var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
 
-        Assert.Equal(string.Empty, page.Order);
+        Assert.Equal("99999", page.Order);
     }
 
     [Fact]
