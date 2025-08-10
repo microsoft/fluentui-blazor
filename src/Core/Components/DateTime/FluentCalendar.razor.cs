@@ -24,6 +24,7 @@ public partial class FluentCalendar : FluentCalendarBase
     internal static string ArrowDown = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19.8 13.27a.75.75 0 00-1.1-1.04l-5.95 6.25V3.75a.75.75 0 10-1.5 0v14.73L5.3 12.23a.75.75 0 10-1.1 1.04l7.08 7.42a1 1 0 001.44 0l7.07-7.42z\"/></svg>";
 
     private CalendarViews _pickerView = CalendarViews.Days;
+    private bool _refreshAccessibilityPending;
     private AnimationRunning _animationRunning = AnimationRunning.None;
     private DateTime? _pickerMonth;
     private readonly RangeOfDates _rangeSelector = new();
@@ -48,6 +49,19 @@ public partial class FluentCalendar : FluentCalendarBase
                 .AddClass("fluent-month-view", () => View == CalendarViews.Months)
                 .AddClass("fluent-year-view", () => View == CalendarViews.Years)
                 .Build();
+        }
+    }
+
+    private CalendarViews PickerView
+    {
+        get
+        {
+            return _pickerView;
+        }
+        set
+        {
+            _pickerView = value;
+            _refreshAccessibilityPending = true;
         }
     }
 
@@ -150,8 +164,12 @@ public partial class FluentCalendar : FluentCalendarBase
         {
             // Import the JavaScript module
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
             await RefreshAccessibilityKeyboardAsync();
+        }
+        else if (_refreshAccessibilityPending)
+        {
+            await RefreshAccessibilityKeyboardAsync();
+            _refreshAccessibilityPending = false;
         }
 
         await base.OnAfterRenderAsync(firstRender);
@@ -159,7 +177,15 @@ public partial class FluentCalendar : FluentCalendarBase
 
     private async Task RefreshAccessibilityKeyboardAsync()
     {
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Calendar.SetAccessibilityKeyboard", _calendarReference);
+        var defaultSelector = _pickerView switch
+        {
+            CalendarViews.Days => ".day",
+            CalendarViews.Months => ".month",
+            CalendarViews.Years => ".year",
+            _ => null,
+        };
+
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Calendar.SetAccessibilityKeyboard", _calendarReference, defaultSelector);
     }
 
     /// <summary>
@@ -289,12 +315,12 @@ public partial class FluentCalendar : FluentCalendarBase
         {
             // Days -> Months
             case CalendarViews.Days:
-                _pickerView = CalendarViews.Months;
+                PickerView = CalendarViews.Months;
                 break;
 
             // Months -> Years
             case CalendarViews.Months:
-                _pickerView = CalendarViews.Years;
+                PickerView = CalendarViews.Years;
                 break;
         }
 
@@ -309,7 +335,7 @@ public partial class FluentCalendar : FluentCalendarBase
     private async Task PickerMonthSelectAsync(DateTime? month)
     {
         PickerMonth = month ?? DateTime.Today;
-        _pickerView = CalendarViews.Days;
+        PickerView = CalendarViews.Days;
         await Task.CompletedTask;
     }
 
@@ -321,7 +347,7 @@ public partial class FluentCalendar : FluentCalendarBase
     private async Task PickerYearSelectAsync(DateTime? year)
     {
         PickerMonth = year ?? DateTime.Today;
-        _pickerView = CalendarViews.Days;
+        PickerView = CalendarViews.Days;
         await Task.CompletedTask;
     }
 

@@ -4,7 +4,7 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
    * Set accessibility keyboard navigation for the calendar.
    * @param calendar - The calendar element to enhance accessibility.
   */
-  export function SetAccessibilityKeyboard(calendar: HTMLElement) {
+  export function SetAccessibilityKeyboard(calendar: HTMLElement, defaultFocusSelector: string | null = null) {
 
     if (!calendar) {
       return;
@@ -23,6 +23,11 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
     AddNavigateListener(calendar, `.day`);
     AddNavigateListener(calendar, `.month`);
     AddNavigateListener(calendar, `.year`);
+
+    // Default focus selector
+    if (defaultFocusSelector) {
+      SetFocus(calendar, defaultFocusSelector);
+    }
   }
 
 
@@ -155,7 +160,7 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
    * @param querySelectorOrItem - The CSS selector to find the element or an HTMLElement to focus on.
    * @param timeOut - The maximum time in milliseconds to wait for the element to appear (default is 400 ms).
    */
-  function SetFocus(calendar: HTMLElement, querySelectorOrItem: string | HTMLElement, timeOut: number = 400) {
+  function SetFocus(calendar: HTMLElement, querySelectorOrItem: string | HTMLElement, timeOut: number = 500) {
     const intervalTime = 20; // Interval time between attempts in milliseconds
     let elapsedTime = 0; // Elapsed time in milliseconds
 

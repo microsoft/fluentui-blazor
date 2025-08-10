@@ -3,7 +3,7 @@
 @inherits FluentCalendarBase
 
 <div id="@Id" class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)" @ref="@_calendarReference">
-    @if (_pickerView == CalendarViews.Days)
+    @if (PickerView == CalendarViews.Days)
     {
         <div>
             @{
@@ -151,7 +151,7 @@
     }
 
     <CascadingValue Value="false" Name="CheckIfSelectedValueHasChanged" IsFixed="true">
-        @if (_pickerView == CalendarViews.Months)
+        @if (PickerView == CalendarViews.Months)
         {
             <FluentCalendar View="CalendarViews.Months"
                             Value="@PickerMonth"
@@ -165,7 +165,7 @@
         }
 
 
-        @if (_pickerView == CalendarViews.Years)
+        @if (PickerView == CalendarViews.Years)
         {
             <FluentCalendar View="CalendarViews.Years"
                             Value="@PickerMonth"
