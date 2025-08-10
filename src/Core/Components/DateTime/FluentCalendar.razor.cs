@@ -179,9 +179,9 @@ public partial class FluentCalendar : FluentCalendarBase
     {
         var defaultSelector = _pickerView switch
         {
-            CalendarViews.Days => ".day",
-            CalendarViews.Months => ".month",
-            CalendarViews.Years => ".year",
+            CalendarViews.Days => ".day:not([disabled]):not([inactive])",
+            CalendarViews.Months => ".month:not([disabled]):not([inactive])",
+            CalendarViews.Years => ".year:not([disabled]):not([inactive])",
             _ => null,
         };
 
@@ -201,6 +201,7 @@ public partial class FluentCalendar : FluentCalendarBase
     private async Task OnPreviousButtonHandlerAsync(MouseEventArgs e)
     {
         await StartNewAnimationAsync(AnimationRunning.Down);
+        _refreshAccessibilityPending = true;
 
         switch (View)
         {
@@ -222,6 +223,7 @@ public partial class FluentCalendar : FluentCalendarBase
     private async Task OnNextButtonHandlerAsync(MouseEventArgs e)
     {
         await StartNewAnimationAsync(AnimationRunning.Up);
+        _refreshAccessibilityPending = true;
 
         switch (View)
         {

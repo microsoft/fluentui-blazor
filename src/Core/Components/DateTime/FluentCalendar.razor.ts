@@ -49,7 +49,22 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
               const nextItem = GetNextItem(items, item, event.code);
 
               // If a next item is found, set focus on it
-              SetFocus(calendar, nextItem ?? item);
+              if (nextItem) {
+                SetFocus(calendar, nextItem);
+              }
+              else {
+                // Go to the next month/year
+                if (event.code === "ArrowRight" || event.code === "ArrowDown") {
+                  const nextButton = calendar.querySelector(".next") as HTMLElement;
+                  nextButton?.click();
+                }
+
+                // Go to the previous month/year
+                if (event.code === "ArrowLeft" || event.code === "ArrowUp") {
+                  const nextButton = calendar.querySelector(".previous") as HTMLElement;
+                  nextButton?.click();
+                }
+              }
             }
           });
         }
