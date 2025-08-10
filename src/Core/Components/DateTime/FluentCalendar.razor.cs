@@ -164,18 +164,18 @@ public partial class FluentCalendar : FluentCalendarBase
         {
             // Import the JavaScript module
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-            await RefreshAccessibilityKeyboardAsync();
+            await RefreshAccessibilityKeyboardAsync(firstRender);
         }
         else if (_refreshAccessibilityPending)
         {
-            await RefreshAccessibilityKeyboardAsync();
+            await RefreshAccessibilityKeyboardAsync(firstRender);
             _refreshAccessibilityPending = false;
         }
 
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    private async Task RefreshAccessibilityKeyboardAsync()
+    private async Task RefreshAccessibilityKeyboardAsync(bool firstRender)
     {
         var defaultSelector = _pickerView switch
         {
@@ -185,7 +185,7 @@ public partial class FluentCalendar : FluentCalendarBase
             _ => null,
         };
 
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Calendar.SetAccessibilityKeyboard", _calendarReference, defaultSelector);
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Calendar.SetAccessibilityKeyboard", _calendarReference, firstRender ? null : defaultSelector);
     }
 
     /// <summary>
