@@ -4,7 +4,6 @@
 
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -14,10 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
 {
     /// <summary />
-    protected FluentCalendarBase(LibraryConfiguration configuration) : base(configuration)
-    {
-        Id = Identifier.NewId();
-    }
+    protected FluentCalendarBase(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary>
     /// Gets or sets the verification to do when the selected value has changed.

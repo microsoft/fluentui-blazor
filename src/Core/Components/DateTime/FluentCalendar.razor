@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentCalendarBase
 
-<div id="@Id" class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)">
+<div id="@Id" class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)" @ref="@_calendarReference">
     @if (_pickerView == CalendarViews.Days)
     {
         <div>

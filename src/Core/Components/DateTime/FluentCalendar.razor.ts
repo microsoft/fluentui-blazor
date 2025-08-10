@@ -2,10 +2,13 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
 
   /**
    * Set accessibility keyboard navigation for the calendar.
-   * @param id - The ID of the calendar element to enhance accessibility.
-   */
-  export function SetAccessibilityKeyboard(id: string) {
-    const calendar = document.getElementById(id);
+   * @param calendar - The calendar element to enhance accessibility.
+  */
+  export function SetAccessibilityKeyboard(calendar: HTMLElement) {
+
+    if (!calendar) {
+      return;
+    }
 
     // Add keydown event listeners
     AddKeyAcceptListener(calendar, `.title div`, `div[part='months'] div[tabindex='0']`);
@@ -38,7 +41,10 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
               event.preventDefault();
               event.stopPropagation();
 
-              SetFocus(calendar, GetNextItem(items, item, event.code) ?? item);
+              const nextItem = GetNextItem(items, item, event.code);
+
+              // If a next item is found, set focus on it
+              SetFocus(calendar, nextItem ?? item);
             }
           });
         }
@@ -65,6 +71,7 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
             return itemArray[i];
           }
         }
+        break;
 
       // Left
       case "ArrowLeft":
@@ -73,6 +80,7 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
             return itemArray[i];
           }
         }
+        break;
 
       // Down
       case "ArrowDown":
@@ -81,6 +89,7 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
             return itemArray[i];
           }
         }
+        break;
 
       // Up
       case "ArrowUp":
@@ -89,15 +98,16 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
             return itemArray[i];
           }
         }
+        break;
     }
+
+    // Not found
+    return null;
 
     // Returns True if the item is enabled (not disabled or inactive)
     function isEnableItem(element: HTMLElement): boolean {
       return !element.hasAttribute("disabled") && !element.hasAttribute("inactive");
     }
-
-    // Not found
-    return null;
   }
 
 
