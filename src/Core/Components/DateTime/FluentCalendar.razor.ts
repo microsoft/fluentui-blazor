@@ -38,14 +38,7 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
               event.preventDefault();
               event.stopPropagation();
 
-              const nextItem = GetNextItem(items, item, event.code);
-
-              if (nextItem) {
-                SetFocus(calendar, nextItem);
-              }
-              else {
-                SetFocus(calendar, item);
-              }
+              SetFocus(calendar, GetNextItem(items, item, event.code) ?? item);
             }
           });
         }
@@ -62,12 +55,13 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
   function GetNextItem(items: NodeListOf<HTMLElement>, item: HTMLElement, keyCode: string): HTMLElement | null {
     const itemArray = Array.from(items);
     const currentIndex = itemArray.indexOf(item);
+    const nextLineIncrement: number = item.classList.contains("day") ? 7 : item.classList.contains("month") ? 4 : 4;
 
     switch (keyCode) {
       // Right
       case "ArrowRight":
         for (let i = currentIndex + 1; i < itemArray.length; i++) {
-          if (!itemArray[i].hasAttribute("disabled") && !itemArray[i].hasAttribute("inactive")) {
+          if (isEnableItem(itemArray[i])) {
             return itemArray[i];
           }
         }
@@ -75,12 +69,34 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
       // Left
       case "ArrowLeft":
         for (let i = currentIndex - 1; i >= 0; i--) {
-          if (!itemArray[i].hasAttribute("disabled") && !itemArray[i].hasAttribute("inactive")) {
+          if (isEnableItem(itemArray[i])) {
+            return itemArray[i];
+          }
+        }
+
+      // Down
+      case "ArrowDown":
+        for (let i = currentIndex + nextLineIncrement; i < itemArray.length; i += nextLineIncrement) {
+          if (isEnableItem(itemArray[i])) {
+            return itemArray[i];
+          }
+        }
+
+      // Up
+      case "ArrowUp":
+        for (let i = currentIndex - nextLineIncrement; i >= 0; i -= nextLineIncrement) {
+          if (isEnableItem(itemArray[i])) {
             return itemArray[i];
           }
         }
     }
 
+    // Returns True if the item is enabled (not disabled or inactive)
+    function isEnableItem(element: HTMLElement): boolean {
+      return !element.hasAttribute("disabled") && !element.hasAttribute("inactive");
+    }
+
+    // Not found
     return null;
   }
 
