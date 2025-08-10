@@ -8,15 +8,81 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
     const calendar = document.getElementById(id);
 
     // Add keydown event listeners
-    AddKeydownListener(calendar, `.title div`, `div[part='months'] div[tabindex='0']`);
-    AddKeydownListener(calendar, `.previous`);
-    AddKeydownListener(calendar, `.next`);
+    AddKeyAcceptListener(calendar, `.title div`, `div[part='months'] div[tabindex='0']`);
+    AddKeyAcceptListener(calendar, `.previous`, `.previous`);
+    AddKeyAcceptListener(calendar, `.next`, `.next`);
+
+    AddKeyAcceptListener(calendar, `.day`);
+    AddKeyAcceptListener(calendar, `.month`);
+    AddKeyAcceptListener(calendar, `.year`);
+
+    // Add navigation event listeners
+    AddNavigateListener(calendar, `.day`);
+    AddNavigateListener(calendar, `.month`);
+    AddNavigateListener(calendar, `.year`);
   }
 
 
+  function AddNavigateListener(calendar: HTMLElement | null, itemSelector: string) {
+    if (calendar) {
+      const items = calendar.querySelectorAll(itemSelector) as NodeListOf<HTMLElement>;
 
+      for (const item of items) {
+        if (item && !(item as any).__navigationRegistered) {
 
+          // Add keydown event listener to the item
+          item.addEventListener("keydown", (event: KeyboardEvent) => {
+            // Check if the pressed key is ArrowLeft, ArrowRight, ArrowUp, or ArrowDown
+            if (event.code === "ArrowLeft" || event.code === "ArrowRight" ||
+              event.code === "ArrowUp" || event.code === "ArrowDown") {
+              event.preventDefault();
+              event.stopPropagation();
 
+              const nextItem = GetNextItem(items, item, event.code);
+
+              if (nextItem) {
+                SetFocus(calendar, nextItem);
+              }
+              else {
+                SetFocus(calendar, item);
+              }
+            }
+          });
+        }
+
+        // Mark the item as having the keydown listener registered
+        (item as any).__navigationRegistered = "true";
+      }
+    }
+  }
+
+  /**
+   * Determines the next focusable item based on the current item and the pressed key (Left, Right, ...).
+   */
+  function GetNextItem(items: NodeListOf<HTMLElement>, item: HTMLElement, keyCode: string): HTMLElement | null {
+    const itemArray = Array.from(items);
+    const currentIndex = itemArray.indexOf(item);
+
+    switch (keyCode) {
+      // Right
+      case "ArrowRight":
+        for (let i = currentIndex + 1; i < itemArray.length; i++) {
+          if (!itemArray[i].hasAttribute("disabled") && !itemArray[i].hasAttribute("inactive")) {
+            return itemArray[i];
+          }
+        }
+
+      // Left
+      case "ArrowLeft":
+        for (let i = currentIndex - 1; i >= 0; i--) {
+          if (!itemArray[i].hasAttribute("disabled") && !itemArray[i].hasAttribute("inactive")) {
+            return itemArray[i];
+          }
+        }
+    }
+
+    return null;
+  }
 
 
   /**
@@ -26,30 +92,33 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
    * and moves the focus to the next focusable element within the calendar.
    * @param calendar - The calendar element to search within.
    * @param itemSelector - The CSS selector to find the item to attach the keydown listener to.
-   * @param focusSelector - The CSS selector to find the next focusable element after the item is clicked. If null, the itemSelector will be used.
+   * @param focusSelector - The CSS selector to find the next focusable element after the item is clicked. If null, the current item will be used.
    */
-  function AddKeydownListener(calendar: HTMLElement | null, itemSelector: string, focusSelector: string | null = null) {
+  function AddKeyAcceptListener(calendar: HTMLElement | null, itemSelector: string, focusSelector: string | null = null) {
     if (calendar) {
-      const item = calendar.querySelector(itemSelector) as HTMLElement;
+      const items = calendar.querySelectorAll(itemSelector) as NodeListOf<HTMLElement>;
 
-      if (item && !item.dataset.keydownRegistered) {
+      for (const item of items) {
+        if (item && !(item as any).__keyAcceptRegistered) {
 
-        // Add keydown event listener to the item
-        item.addEventListener("keydown", (event: KeyboardEvent) => {
+          // Add keydown event listener to the item
+          item.addEventListener("keydown", (event: KeyboardEvent) => {
 
-          // Check if the pressed key is Space or Enter
-          if (event.code === "Space" || event.code === "Enter") {
-            event.preventDefault();
-            event.stopPropagation();
-            item.click();
+            // Check if the pressed key is Space or Enter
+            if (event.code === "Space" || event.code === "Enter") {
+              event.preventDefault();
+              event.stopPropagation();
+              item.click();
 
-            // Find the first focusable element within the specified selector
-            SetFocus(calendar, focusSelector ?? itemSelector);
-          }
-        });
-        item.dataset.keydownRegistered = "true";
+              // Find the first focusable element within the specified selector
+              SetFocus(calendar, focusSelector ?? item);
+            }
+          });
+
+          // Mark the item as having the keydown listener registered
+          (item as any).__keyAcceptRegistered = "true";
+        }
       }
-
     }
   }
 
@@ -57,10 +126,10 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
    * Sets focus on the first element matching the provided query selector.
    * If the element is not found, it will retry every 20 milliseconds until the timeout is reached.
    * @param calendar - The calendar element to search within.
-   * @param querySelector - The CSS selector to find the element.
+   * @param querySelectorOrItem - The CSS selector to find the element or an HTMLElement to focus on.
    * @param timeOut - The maximum time in milliseconds to wait for the element to appear (default is 400 ms).
    */
-  function SetFocus(calendar: HTMLElement, querySelector: string, timeOut: number = 400) {
+  function SetFocus(calendar: HTMLElement, querySelectorOrItem: string | HTMLElement, timeOut: number = 400) {
     const intervalTime = 20; // Interval time between attempts in milliseconds
     let elapsedTime = 0; // Elapsed time in milliseconds
 
@@ -68,7 +137,9 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
       elapsedTime += intervalTime;
 
       // Select the first element matching the query selector
-      const element = calendar.querySelector(querySelector) as HTMLElement;
+      const element = (querySelectorOrItem instanceof HTMLElement)
+        ? querySelectorOrItem
+        : calendar.querySelector(querySelectorOrItem) as HTMLElement;
 
       // If the element is found, move focus to it and clear the interval
       if (element) {

@@ -84,7 +84,6 @@
                                          multi-end="@(multipleSelection.IsMultiple && SelectMode == CalendarSelectMode.Range && multipleSelection.Max == day)"
                                          aria-label="@dayProperties.Title"
                                          value="@dayProperties.DayIdentifier"
-                                         @onkeydown="(e => CalendarKeyDown.SimulateClickAsync(e, OnSelectDayHandlerAsync, day, dayProperties.IsDisabled || dayProperties.IsInactive || ReadOnly))"
                                          @onclick="@(e => OnSelectDayHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive || ReadOnly))"
                                          @onmouseover="@(e => OnSelectDayMouseOverAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive || ReadOnly))">
                                         @if (DaysTemplate == null)
@@ -119,7 +118,6 @@
                                  value="@monthProperties.MonthIdentifier"
                                  role="button"
                                  tabindex="@(monthProperties.IsDisabled || monthProperties.IsReadOnly ? null : 0)"
-                                 @onkeydown="(e => CalendarKeyDown.SimulateClickAsync(e, OnSelectMonthHandlerAsync, year, month.Index, monthProperties.IsReadOnly))"
                                  @onclick="@(e => OnSelectMonthHandlerAsync(year, month.Index, monthProperties.IsReadOnly))">
                                 @month.Abbreviated
                             </div>
@@ -142,7 +140,6 @@
                                  title="@year.Year"
                                  value="@yearProperties.YearIdentifier"
                                  tabindex="@(yearProperties.IsDisabled || yearProperties.IsReadOnly ? null : 0)"
-                                 @onkeydown="(e => CalendarKeyDown.SimulateClickAsync(e, OnSelectYearHandlerAsync, year.Year, yearProperties.IsReadOnly))"
                                  @onclick="@(e => OnSelectYearHandlerAsync(year.Year, yearProperties.IsReadOnly))">
                                 @year.Year
                             </div>
