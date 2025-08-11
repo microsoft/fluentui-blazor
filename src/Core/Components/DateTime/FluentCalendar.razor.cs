@@ -88,7 +88,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// If not set, the current month is displayed.
     /// </summary>
     [Parameter]
-    [SuppressMessage("Usage", "BL0007:Component parameters should be auto properties", Justification = "TO DO")]
+    [SuppressMessage("Usage", "BL0007:Component parameters should be auto properties", Justification = "Need to refactor in future release")]
     public virtual DateTime PickerMonth
     {
         get
@@ -408,7 +408,6 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    [SuppressMessage("Design", "MA0051:Method is too long", Justification = "TO DO")]
     protected virtual async Task OnSelectDayHandlerAsync(DateTime value, bool dayDisabled)
     {
         if (!dayDisabled)
@@ -422,82 +421,90 @@ public partial class FluentCalendar : FluentCalendarBase
 
                 // Multiple selection
                 case CalendarSelectMode.Multiple:
-
-                    if (SelectDatesHover is null)
-                    {
-                        if (SelectedDates.Contains(value))
-                        {
-                            SelectedDates = SelectedDates.Where(i => i != value);
-                        }
-                        else
-                        {
-                            SelectedDates = SelectedDates.Append(value);
-                        }
-
-                        if (SelectedDatesChanged.HasDelegate)
-                        {
-                            await SelectedDatesChanged.InvokeAsync(SelectedDates);
-                        }
-                    }
-                    else
-                    {
-                        var range = SelectDatesHover.Invoke(value);
-
-                        SelectedDates = range.Where(day => DisabledDateFunc == null || !DisabledDateFunc(day));
-
-                        if (SelectedDatesChanged.HasDelegate)
-                        {
-                            await SelectedDatesChanged.InvokeAsync(SelectedDates);
-                        }
-                    }
-
+                    await OnSelectMultipleDatesAsync(value);
                     break;
 
                 // Range of dates
                 case CalendarSelectMode.Range:
-
-                    var resetRange = (_rangeSelector.IsValid() || _rangeSelector.IsSingle()) && _rangeSelector.Includes(value);
-
-                    // Reset the selection
-                    if (resetRange)
-                    {
-                        _rangeSelector.Clear();
-                        _rangeSelectorMouseOver.Clear();
-                    }
-
-                    // End the selection
-                    else if (_rangeSelector.Start is not null && _rangeSelector.End is null)
-                    {
-                        _rangeSelector.End = value;
-                    }
-
-                    // Start and close a pre-selection
-                    else if (SelectDatesHover is not null)
-                    {
-                        var range = SelectDatesHover.Invoke(value);
-
-                        _rangeSelector.Start = range.Min();
-                        _rangeSelector.End = range.Max();
-                    }
-
-                    // Start the selection
-                    else
-                    {
-                        _rangeSelector.Start = value;
-                        _rangeSelector.End = null;
-
-                        await OnSelectDayMouseOverAsync(value, dayDisabled: false);
-                    }
-
-                    SelectedDates = _rangeSelector.GetAllDates().Where(day => DisabledDateFunc == null || !DisabledDateFunc(day));
-
-                    if (SelectedDatesChanged.HasDelegate)
-                    {
-                        await SelectedDatesChanged.InvokeAsync(SelectedDates);
-                    }
-
+                    await OnSelectRangeDatesAsync(value);
                     break;
             }
+        }
+    }
+
+    /// <summary />
+    private async Task OnSelectMultipleDatesAsync(DateTime value)
+    {
+        if (SelectDatesHover is null)
+        {
+            if (SelectedDates.Contains(value))
+            {
+                SelectedDates = SelectedDates.Where(i => i != value);
+            }
+            else
+            {
+                SelectedDates = SelectedDates.Append(value);
+            }
+
+            if (SelectedDatesChanged.HasDelegate)
+            {
+                await SelectedDatesChanged.InvokeAsync(SelectedDates);
+            }
+        }
+        else
+        {
+            var range = SelectDatesHover.Invoke(value);
+
+            SelectedDates = range.Where(day => DisabledDateFunc == null || !DisabledDateFunc(day));
+
+            if (SelectedDatesChanged.HasDelegate)
+            {
+                await SelectedDatesChanged.InvokeAsync(SelectedDates);
+            }
+        }
+    }
+
+    /// <summary />
+    private async Task OnSelectRangeDatesAsync(DateTime value)
+    {
+        var resetRange = (_rangeSelector.IsValid() || _rangeSelector.IsSingle()) && _rangeSelector.Includes(value);
+
+        // Reset the selection
+        if (resetRange)
+        {
+            _rangeSelector.Clear();
+            _rangeSelectorMouseOver.Clear();
+        }
+
+        // End the selection
+        else if (_rangeSelector.Start is not null && _rangeSelector.End is null)
+        {
+            _rangeSelector.End = value;
+        }
+
+        // Start and close a pre-selection
+        else if (SelectDatesHover is not null)
+        {
+            var range = SelectDatesHover.Invoke(value);
+
+            _rangeSelector.Start = range.Min();
+            _rangeSelector.End = range.Max();
+        }
+
+        // Start the selection
+        else
+        {
+            _rangeSelector.Start = value;
+            _rangeSelector.End = null;
+
+            await OnSelectDayMouseOverAsync(value, dayDisabled: false);
+        }
+
+        SelectedDates = _rangeSelector.GetAllDates().Where(day => DisabledDateFunc == null || !DisabledDateFunc(day));
+
+        if (SelectedDatesChanged.HasDelegate)
+        {
+            await SelectedDatesChanged.InvokeAsync(SelectedDates);
         }
     }
 
