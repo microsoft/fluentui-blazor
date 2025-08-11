@@ -1,0 +1,550 @@
+﻿@using System.Globalization
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Xunit
+@inherits Bunit.TestContext
+
+@code
+{
+    public FluentCalendarTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentCalendar_Default()
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
+            parameters.Add(p => p.DisabledDateFunc, (date) => date.Day == 14);
+        });
+
+        // Assert
+        calendar.Verify();
+    }
+
+    [Fact]
+    public void FluentCalendar_Title()
+    {
+        // Act
+        var cut = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
+        });
+        var title = cut.Find(".title");
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(2022, 02, 15, "en-US")]
+    [InlineData(2022, 02, 15, "fa-IR")]
+    public void FluentCalendar_Title_ByCulture(int year, int month, int day, string cultureName)
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo(cultureName));
+            parameters.Add(p => p.Value, new System.DateTime(year, month, day));
+        });
+        var title = calendar.Find(".title");
+
+        // Assert
+        calendar.Verify(suffix: cultureName);
+    }
+
+    [Fact]
+    public void FluentCalendar_WeekDaysTitle()
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
+        });
+
+        calendar.Verify();
+    }
+
+    [Fact]
+    public void FluentCalendar_WeekDays_French()
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("fr-FR"));
+        });
+
+        calendar.Verify();
+    }
+
+    [Fact]
+    public void FluentCalendar_OneDayFormat()
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
+        });
+        var day = calendar.Find("[value='2022-02-20']");
+
+        // Assert
+        day.MarkupMatches(@"<div part=""day""
+                                 class=""day""
+                                 role=""button""
+                                 tabindex=""0""
+                                 aria-label=""February 20""
+                                 value=""2022-02-20"">20</div>");
+    }
+
+    [Fact]
+    public void FluentCalendar_DayValues()
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
+        });
+        var allDays = calendar.FindAll(".date");
+
+        // Assert
+        var firstDate = System.DateTime.Parse("2022-01-30");
+
+        for (var i = 0; i < allDays.Count; i++)
+        {
+            var expectedDay = firstDate.AddDays(i).Day;
+            var actualDay = Convert.ToInt32(allDays[i].InnerHtml);
+
+            Assert.Equal(expectedDay, actualDay);
+        }
+    }
+
+    [Fact]
+    public void FluentCalendar_SetPickerMonth()
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
+            parameters.Add(p => p.PickerMonth, new System.DateTime(2022, 06, 15));
+        });
+        var monthName = calendar.Find(".label").InnerHtml;
+        var juneFirst = System.DateTime.Parse("2022-06-01");
+
+        // Assert
+        Assert.Equal("June 2022", monthName);
+        Assert.Equal(juneFirst, calendar.Instance.PickerMonth);
+    }
+
+    [Theory]
+    [InlineData("en-US", "June 2022", "2022-06-01")]
+    [InlineData("fa-IR", "خرداد 1401", "2022-05-22")]
+    public void FluentCalendar_SetPickerMonth_ByCulture(string cultureName, string expectedMonthName, string expectedPickerMonthFirst)
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo(cultureName));
+            parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
+            parameters.Add(p => p.PickerMonth, new System.DateTime(2022, 06, 15));
+        });
+        var monthName = calendar.Find(".label").InnerHtml;
+        var pickerMonthFirst = System.DateTime.Parse(expectedPickerMonthFirst);
+
+        // Assert
+        Assert.Equal(expectedMonthName, monthName);
+        Assert.Equal(pickerMonthFirst, calendar.Instance.PickerMonth);
+    }
+
+    [Fact]
+    public void FluentCalendar_ClickAndSelectDate()
+    {
+        const string DAY = "2022-06-15";
+
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse(DAY));
+        });
+
+        // Click to select 2022-06-24
+        var day = calendar.Find($"div[value='{DAY}']");
+        day?.Click();
+
+        // Assert
+        var selectedDay = calendar.Find($"div[value='{DAY}']");
+        selectedDay.HasAttribute("selected");
+        Assert.True(selectedDay.HasAttribute("selected"));
+    }
+
+    [Fact]
+    public void FluentCalendar_ClickPreviousMonth()
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse("2022-06-15"));
+        });
+
+        // Click on Previous Month button
+        var buttonMove = calendar.Find(".previous");
+        buttonMove.Click();
+
+        // Assert
+        var monthName = calendar.Find(".label").InnerHtml;
+        Assert.Equal("May 2022", monthName);
+    }
+
+    [Theory]
+    [InlineData("en-US", "May 2022")]
+    [InlineData("fa-IR", "اردیبهشت 1401")]
+    public void FluentCalendar_ClickPreviousMonth_ByCulture(string cultureName, string expectedMonthName)
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo(cultureName));
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse("2022-06-15"));
+        });
+
+        // Click on Previous Month button
+        var buttonMove = calendar.Find(".previous");
+        buttonMove.Click();
+
+        // Assert
+        var monthName = calendar.Find(".label").InnerHtml;
+        Assert.Equal(expectedMonthName, monthName);
+    }
+
+    [Fact]
+    public void FluentCalendar_ClickNextMonth()
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse("2022-06-15"));
+        });
+
+        // Click on Previous Month button
+        var buttonMove = calendar.Find(".next");
+        buttonMove.Click();
+
+        // Assert
+        var monthName = calendar.Find(".label").InnerHtml;
+        Assert.Equal("July 2022", monthName);
+    }
+
+    [Theory]
+    [InlineData("en-US", "July 2022")]
+    [InlineData("fa-IR", "تیر 1401")]
+    public void FluentCalendar_ClickNextMonth_ByCulture(string cultureName, string expectedMonthName)
+    {
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo(cultureName));
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse("2022-06-15"));
+        });
+
+        // Click on Previous Month button
+        var buttonMove = calendar.Find(".next");
+        buttonMove.Click();
+
+        // Assert
+        var monthName = calendar.Find(".label").InnerHtml;
+        Assert.Equal(expectedMonthName, monthName);
+    }
+
+    [Fact]
+    public void FluentCalendar_GetDayOfMonthTwoDigit()
+    {
+        const string DAY = "2022-06-01";
+
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse(DAY));
+            parameters.Add(p => p.DayFormat, CalendarDayFormat.TwoDigit);
+        });
+
+        // Click to select 2022-06-24
+        var day = calendar.Find($"div[value='{DAY}']");
+        day?.Click();
+
+        // Assert
+        var selectedDay = calendar.Find($"div[value='{DAY}']");
+
+        Assert.Equal("01", selectedDay.TextContent);
+    }
+
+    [Fact]
+    public void FluentCalendar_GetDayOfMonthNumeric()
+    {
+        const string DAY = "2022-06-01";
+
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse(DAY));
+            parameters.Add(p => p.DayFormat, CalendarDayFormat.Numeric);
+        });
+
+        // Click to select 2022-06-01
+        var day = calendar.Find($"div[value='{DAY}']");
+        day?.Click();
+
+        // Assert
+        var selectedDay = calendar.Find($"div[value='{DAY}']");
+
+        Assert.Equal("1", selectedDay.TextContent);
+    }
+
+    [Theory]
+    [InlineData("en-US", "1")]
+    [InlineData("fa-IR", "11")]
+    public void FluentCalendar_GetDayOfMonthNumeric_ByCulture(string cultureName, string expectedDayNumber)
+    {
+        const string DAY = "2022-06-01";
+
+        // Act
+        var calendar = RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo(cultureName));
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse(DAY));
+            parameters.Add(p => p.DayFormat, CalendarDayFormat.Numeric);
+        });
+
+        // Click to select 2022-06-01
+        var day = calendar.Find($"div[value='{DAY}']");
+        day?.Click();
+
+        // Assert
+        var selectedDay = calendar.Find($"div[value='{DAY}']");
+
+        Assert.Equal(expectedDayNumber, selectedDay.TextContent);
+    }
+
+    /* **************************************** */
+
+    [Fact]
+    public void FluentCalendar_ValueChanged()
+    {
+        const string DAY = "2022-06-01";
+        DateTime? value = DateTime.UtcNow;
+        Action<DateTime?> ChangedCallback = (e) => { value = e!.Value; };
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Value="@value" ValueChanged="ChangedCallback" PickerMonth="@DateTime.Parse(DAY)">Pick a date</FluentCalendar>);
+
+        // Act
+        var day = calendar.Find($"div[value='{DAY}']");
+        day?.Click();
+
+        var selectedDay = calendar.Find($"div[value='{DAY}']");
+
+        // Assert
+        Assert.Equal<DateTime?>(value, DateTime.Parse($"2022-06-{selectedDay.TextContent}"));
+    }
+
+    [Theory]
+    [InlineData(CalendarViews.Days, "en-us", "15")]
+    [InlineData(CalendarViews.Days, "fr-fr", "15")]
+    [InlineData(CalendarViews.Months, "en-us", "Apr")]
+    [InlineData(CalendarViews.Months, "fr-fr", "Avr.")]
+    [InlineData(CalendarViews.Years, "en-us", "2022")]
+    [InlineData(CalendarViews.Years, "fr-fr", "2022")]
+    public void FluentCalendar_Culture_View_ValueChanged(CalendarViews view, string cultureName, string assertContent)
+    {
+        DateTime Picker = DateTime.Parse("2022-04-15");
+        DateTime? value = DateTime.UtcNow;
+        Action<DateTime?> ChangedCallback = (e) => { value = e!.Value; };
+        var culture = CultureInfo.GetCultureInfo(cultureName);
+
+        var clickOnValue = view switch
+        {
+            CalendarViews.Days => Picker.ToString("yyyy-MM-dd"),
+            CalendarViews.Months => Picker.ToString("yyyy-MM"),
+            CalendarViews.Years => Picker.ToString("yyyy"),
+            _ => throw new ArgumentException("Not supported view")
+        };
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@culture" View="@view" Value="@value" ValueChanged="ChangedCallback" PickerMonth="@Picker">Pick a date</FluentCalendar>);
+
+        // Act
+        var month = calendar.Find($"div[value='{clickOnValue}']");
+        month?.Click();
+
+        var selectedMonth = calendar.Find($"div[value='{clickOnValue}']");
+
+        // Assert
+        Assert.Equal(assertContent, selectedMonth.TextContent);
+    }
+
+    [Theory]
+    [InlineData(CalendarViews.Days)]
+    [InlineData(CalendarViews.Months)]
+    [InlineData(CalendarViews.Years)]
+    public void FluentCalendar_Minimum_View(CalendarViews view)
+    {
+        DateTime? value = DateTime.MinValue;
+
+        // Arrange & Act
+        var calendar = Render(@<FluentCalendar Value="@value" View="@view" Culture="@CultureInfo.GetCultureInfo("en-us")" />);
+        var previous = calendar.Find($".previous");
+
+        // Assert
+        Assert.True(previous.HasAttribute("disabled"));
+        calendar.Verify(suffix: view.GetDescription());
+    }
+
+    [Theory]
+    [InlineData(CalendarViews.Days)]
+    [InlineData(CalendarViews.Months)]
+    [InlineData(CalendarViews.Years)]
+    public void FluentCalendar_Maximum_View(CalendarViews view)
+    {
+        DateTime? value = DateTime.MaxValue;
+
+        // Arrange & Act
+        var calendar = Render(@<FluentCalendar Value="@value" View="@view" Culture="@CultureInfo.GetCultureInfo("en-us")" />);
+        var previous = calendar.Find($".next");
+
+        // Assert
+        Assert.True(previous.HasAttribute("disabled"));
+        calendar.Verify(suffix: view.GetDescription());
+    }
+
+    [Theory]
+    [InlineData(CalendarViews.Days)]
+    [InlineData(CalendarViews.Months)]
+    [InlineData(CalendarViews.Years)]
+    public void FluentCalendar_ReadOnly_View(CalendarViews view)
+    {
+        DateTime? value = DateTime.Parse("2022-04-15");
+
+        // Arrange & Act
+        var calendar = Render(@<FluentCalendar Value="@value" ReadOnly="true" View="@view" />);
+        var component = calendar.Find($"div");
+        var label = calendar.Find($".label");
+
+        // Assert
+        Assert.True(component.HasAttribute("readonly"));
+        Assert.True(label.HasAttribute("readonly"));
+    }
+
+
+    [Theory]
+    [InlineData(CalendarViews.Days, "May 2022")]
+    [InlineData(CalendarViews.Months, "2023")]
+    [InlineData(CalendarViews.Years, "2034 - 2045")]
+    public void FluentCalendar_NextButton(CalendarViews view, string nextTitle)
+    {
+        DateTime? value = DateTime.Parse("2022-04-15");
+        var culture = CultureInfo.GetCultureInfo("en-us");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@culture" View="@view" Value="@value" AnimatePeriodChanges="false" />);
+
+        // Act
+        var nextButton = calendar.Find(".next");
+        nextButton?.Click();
+
+        var label = calendar.Find(".label");
+
+        // Assert
+        Assert.Equal(nextTitle, label.TextContent);
+    }
+
+    [Theory]
+    [InlineData(CalendarViews.Days, "March 2022")]
+    [InlineData(CalendarViews.Months, "2021")]
+    [InlineData(CalendarViews.Years, "2010 - 2021")]
+    public void FluentCalendar_PreviousButton(CalendarViews view, string nextTitle)
+    {
+        DateTime? value = DateTime.Parse("2022-04-15");
+        var culture = CultureInfo.GetCultureInfo("en-us");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@culture" View="@view" Value="@value" AnimatePeriodChanges="false" />);
+
+        // Act
+        var nextButton = calendar.Find(".previous");
+        nextButton?.Click();
+
+        var label = calendar.Find(".label");
+
+        // Assert
+        Assert.Equal(nextTitle, label.TextContent);
+    }
+
+    [Theory]
+    [InlineData(CalendarViews.Days)]
+    [InlineData(CalendarViews.Months)]
+    [InlineData(CalendarViews.Years)]
+    public void FluentCalendar_TitleClick(CalendarViews view)
+    {
+        DateTime? value = DateTime.Parse("2022-04-15");
+        var culture = CultureInfo.GetCultureInfo("en-us");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@culture" View="@view" Value="@value" AnimatePeriodChanges="false" />);
+
+        // Act
+        var title = calendar.Find(".label");
+        title?.Click();
+
+        // Assert
+        calendar.Verify(suffix: view.GetDescription());
+    }
+
+    [Fact]
+    public void FluentCalendar_TitleClick_SameMonthSelected()
+    {
+        DateTime? value = DateTime.Parse("2022-04-15");
+        var culture = CultureInfo.GetCultureInfo("en-us");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@culture" View="CalendarViews.Days" Value="@value" AnimatePeriodChanges="false" />);
+
+        // Act
+        var title = calendar.Find(".label");
+        title!.Click();
+
+        var april = calendar.Find($"div[value='2022-04']");
+        april!.Click();
+
+        // Assert
+        Assert.Equal("2022", calendar.Find(".label").TextContent);
+    }
+
+    [Fact]
+    public void FluentCalendar_TitleClick_SameYearSelected()
+    {
+        DateTime? value = DateTime.Parse("2022-04-15");
+        var culture = CultureInfo.GetCultureInfo("en-us");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@culture" View="CalendarViews.Months" Value="@value" AnimatePeriodChanges="false" />);
+
+        // Act
+        var title = calendar.Find(".label");
+        title!.Click();
+
+        var year2022 = calendar.Find($"div[value='2022']");
+        year2022!.Click();
+
+        // Assert
+        Assert.Equal("2022", calendar.Find(".label").TextContent);
+    }
+}
