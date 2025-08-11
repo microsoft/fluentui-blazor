@@ -93,7 +93,7 @@ public partial class FluentCalendar : FluentCalendarBase
     {
         get
         {
-            return (_pickerMonth ?? Value ?? DateTime.Today).StartOfMonth(Culture);
+            return (_pickerMonth ?? Value ?? DateTimeProvider.Today).StartOfMonth(Culture);
         }
 
         set
@@ -354,7 +354,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <returns></returns>
     private async Task PickerMonthSelectAsync(DateTime? month)
     {
-        PickerMonth = month ?? DateTime.Today;
+        PickerMonth = month ?? DateTimeProvider.Today;
         PickerView = CalendarViews.Days;
         await Task.CompletedTask;
     }
@@ -366,7 +366,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <returns></returns>
     private async Task PickerYearSelectAsync(DateTime? year)
     {
-        PickerMonth = year ?? DateTime.Today;
+        PickerMonth = year ?? DateTimeProvider.Today;
         PickerView = CalendarViews.Days;
         await Task.CompletedTask;
     }

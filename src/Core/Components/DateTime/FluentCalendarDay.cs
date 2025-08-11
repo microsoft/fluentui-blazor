@@ -47,7 +47,7 @@ public class FluentCalendarDay
     /// <summary>
     /// Gets a value indicating whether the day is set to Today.
     /// </summary>
-    public bool IsToday => Date == DateTime.Today && !_isOutsideCurrentMonth;
+    public bool IsToday => Date == DateTimeProvider.Today && !_isOutsideCurrentMonth;
 
     /// <summary>
     /// Gets a value indicating whether the day is selected by the user.
