@@ -15,6 +15,10 @@
     color: var(--colorNeutralForegroundDisabled);
   }
 
+  .fluent-calendar input[hidden] {
+    display: none;
+  }
+
 /*
   "Days" View
 */

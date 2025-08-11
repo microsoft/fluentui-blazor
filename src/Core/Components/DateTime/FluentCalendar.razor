@@ -10,8 +10,12 @@
          autofocus="@Autofocus"
          aria-label="@AriaLabel"
          disabled="@(Disabled ?? false ? true : null)"
+         required="@(Required ?? false ? true : null)"
          @ref="@_calendarReference"
          @attributes="@AdditionalAttributes">
+
+        <input type="datetime" value="@GetFormValue()" hidden name="@Name" />
+
         @if (PickerView == CalendarViews.Days)
         {
             <div>

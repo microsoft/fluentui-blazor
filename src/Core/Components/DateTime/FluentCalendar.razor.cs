@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -36,7 +37,21 @@ public partial class FluentCalendar : FluentCalendarBase
     /// Initializes a new instance of the <see cref="FluentCalendar"/> class with the specified library configuration.
     /// </summary>
     /// <param name="configuration">The configuration settings used to initialize the calendar. Cannot be null.</param>
-    public FluentCalendar(LibraryConfiguration configuration) : base(configuration) { }
+    public FluentCalendar(LibraryConfiguration configuration) : base(configuration)
+    {
+        // Default conditions for the message
+        MessageCondition = (field) =>
+        {
+            field.MessageIcon = FluentStatus.ErrorIcon;
+            field.Message = Localizer[Localization.LanguageResource.Calendar_RequiredMessage];
+
+            return FocusLost &&
+                   (Required ?? false)
+                   && !(Disabled ?? false)
+                   && !ReadOnly
+                   && CurrentValue is null;
+        };
+    }
 
     /// <summary />
     protected string? CalendarClass
@@ -540,6 +555,23 @@ public partial class FluentCalendar : FluentCalendarBase
         }
 
         return true;
+    }
+
+    /// <summary />
+    private string GetFormValue()
+    {
+        switch (SelectMode)
+        {
+            case CalendarSelectMode.Single:
+                return Value?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty;
+
+            case CalendarSelectMode.Range:
+            case CalendarSelectMode.Multiple:
+                return string.Join(",", SelectedDates.Select(d => d.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)));
+
+            default:
+                return string.Empty;
+        }
     }
 
     private enum AnimationRunning
