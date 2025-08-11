@@ -44,6 +44,7 @@ public class InputBaseTests : Bunit.TestContext
     {
         Output = testOutputHelper;
         Services.AddFluentUIComponents();
+        DateTimeProvider.RequiredActiveContext = false;
     }
 
     /// <summary>

@@ -9,6 +9,7 @@
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
+        DateTimeProvider.RequiredActiveContext = false;
     }
 
     [Fact]
