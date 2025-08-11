@@ -145,6 +145,9 @@ public partial class FluentCalendar : FluentCalendarBase
     public Func<DateTime, IEnumerable<DateTime>>? SelectDatesHover { get; set; }
 
     /// <summary />
+    internal bool IsReadOnlyOrDisabled => ReadOnly || Disabled == true;
+
+    /// <summary />
     private string GetAnimationClass(string existingClass) => CanBeAnimated ? _animationRunning switch
     {
         AnimationRunning.Up => $"{existingClass} animation-running-up",

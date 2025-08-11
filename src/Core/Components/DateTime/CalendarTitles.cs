@@ -46,7 +46,7 @@ internal class CalendarTitles
     {
         get
         {
-            if (_calendar.ReadOnly)
+            if (_calendar.IsReadOnlyOrDisabled)
             {
                 return true;
             }

@@ -42,7 +42,7 @@ internal class FluentCalendarYear
     /// <summary>
     /// Whether the year is readonly.
     /// </summary>
-    public bool IsReadOnly => _isInDisabledList || _calendar.ReadOnly;
+    public bool IsReadOnly => _isInDisabledList || _calendar.IsReadOnlyOrDisabled;
 
     /// <summary>
     /// Whether the year is disabled.

@@ -64,7 +64,7 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     /// <summary />
     protected virtual Task OnSelectedDateHandlerAsync(DateTime? value)
     {
-        if (ReadOnly)
+        if (ReadOnly || Disabled == true)
         {
             return Task.CompletedTask;
         }

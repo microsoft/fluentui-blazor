@@ -77,7 +77,7 @@
       .fluent-day-view .change-period > .previous svg,
       .fluent-day-view .change-period > .next svg {
         width: 16px;
-        fill: var(--colorNeutralForeground1);
+        fill: var(--colorNeutralForeground3);
       }
 
   /* List of days */
@@ -270,7 +270,7 @@
       .fluent-month-view .change-period > .previous svg,
       .fluent-month-view .change-period > .next svg {
         width: 16px;
-        fill: var(--colorNeutralForeground1);
+        fill: var(--colorNeutralForeground3);
       }
 
   /* List of months */
@@ -386,7 +386,7 @@
       .fluent-year-view .change-period > .previous svg,
       .fluent-year-view .change-period > .next svg {
         width: 16px;
-        fill: var(--colorNeutralForeground1);
+        fill: var(--colorNeutralForeground3);
       }
 
   /* List of years */

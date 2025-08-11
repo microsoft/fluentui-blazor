@@ -42,7 +42,7 @@ internal class FluentCalendarMonth
     /// <summary>
     /// Whether the month is readonly.
     /// </summary>
-    public bool IsReadOnly => _isInDisabledList || _calendar.ReadOnly;
+    public bool IsReadOnly => _isInDisabledList || _calendar.IsReadOnlyOrDisabled;
 
     /// <summary>
     /// Whether the month is disabled.
