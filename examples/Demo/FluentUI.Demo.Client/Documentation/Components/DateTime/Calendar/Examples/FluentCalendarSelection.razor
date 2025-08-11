@@ -3,8 +3,8 @@
 <FluentStack Wrap="true" HorizontalGap="24px">
     @* SelectMode: Single *@
     <div>
-        <FluentLabel>Single</FluentLabel>
-        <FluentCalendar DisabledDateFunc="@DisabledDay"
+        <FluentCalendar Label="Single"
+                        DisabledDateFunc="@DisabledDay"
                         DisplayToday="false"
                         @bind-Value="@SelectedDay"
                         SelectMode="CalendarSelectMode.Single" />
@@ -13,8 +13,8 @@
 
     @* SelectMode: Range *@
     <div>
-        <FluentLabel>Range</FluentLabel>
-        <FluentCalendar DisabledDateFunc="@DisabledDay"
+        <FluentCalendar Label="Range"
+                        DisabledDateFunc="@DisabledDay"
                         DisplayToday="false"
                         @bind-SelectedDates="@SelectedRange"
                         SelectMode="CalendarSelectMode.Range" />
@@ -23,8 +23,8 @@
 
     @* SelectMode: Range + SelectDatesHover *@
     <div>
-        <FluentLabel>Range with "SelectOneWeek"</FluentLabel>
-        <FluentCalendar DisabledDateFunc="@DisabledDay"
+        <FluentCalendar Label="Range with 'SelectOneWeek'"
+                        DisabledDateFunc="@DisabledDay"
                         DisplayToday="false"
                         @bind-SelectedDates="@SelectedRangeCustomized"
                         SelectDatesHover="@SelectOneWeek"
@@ -34,12 +34,12 @@
 
     @* SelectMode: Multiple + Validation *@
     <div>
-        <FluentLabel>Multiple (max 5 days)</FluentLabel>
-        <FluentCalendar DisabledDateFunc="@DisabledDay"
+        <FluentCalendar Label="Multiple (max 5 days)"
+                        DisabledDateFunc="@DisabledDay"
                         DisplayToday="false"
                         @bind-SelectedDates="@SelectedDays"
-                        @bind-SelectedDates:after="@ValidateSelectedDays"
-                        SelectMode="CalendarSelectMode.Multiple" />
+                        SelectMode="CalendarSelectMode.Multiple"
+                        MessageCondition="@(i => i.When(() => SelectedDays.Count() > 5).Display("You can select a maximum of 5 days. Delete a day to select a new one.", MessageState.Error).Build())" />
         <FluentMessageBar Visible="@DisplayError" Intent="MessageBarIntent.Error" Style="width: 230px;">
             You can select a maximum of 5 days. Delete a day to select a new one.
         </FluentMessageBar>
@@ -48,8 +48,8 @@
 
     @* SelectMode: Multiple + SelectDatesHover *@
     <div>
-        <FluentLabel>Multiple with "Select3Days"</FluentLabel>
-        <FluentCalendar DisabledDateFunc="@DisabledDay"
+        <FluentCalendar Label="Multiple with 'Select3Days'"
+                        DisabledDateFunc="@DisabledDay"
                         DisplayToday="false"
                         @bind-SelectedDates="@SelectedDaysCustomized"
                         SelectDatesHover="@Select3Days"
@@ -69,20 +69,6 @@
 
     // Disable all days with the day number 3, 8, and 20.
     private bool DisabledDay(DateTime date) => date.Day == 3 || date.Day == 8 || date.Day == 20;
-
-    // Display an error when the number of selected days is more than 5.
-    private void ValidateSelectedDays()
-    {
-        if (SelectedDays.Count() > 5)
-        {
-            SelectedDays = SelectedDays.Except(new[] { SelectedDays.Last() });
-            DisplayError = true;
-        }
-        else
-        {
-            DisplayError = false;
-        }
-    }
 
     // Always select the full week, containing the "clicked" day.
     private IEnumerable<DateTime> SelectOneWeek(DateTime date)

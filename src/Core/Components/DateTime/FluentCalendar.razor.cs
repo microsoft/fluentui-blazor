@@ -39,11 +39,11 @@ public partial class FluentCalendar : FluentCalendarBase
     public FluentCalendar(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary />
-    protected override string? ClassValue
+    protected string? CalendarClass
     {
         get
         {
-            return new CssBuilder(base.ClassValue)
+            return new CssBuilder()
                 .AddClass("fluent-calendar")
                 .AddClass("fluent-day-view", () => View == CalendarViews.Days)
                 .AddClass("fluent-month-view", () => View == CalendarViews.Months)

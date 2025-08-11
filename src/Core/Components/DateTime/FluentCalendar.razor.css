@@ -1,4 +1,5 @@
 .fluent-calendar {
+  --calendar-width: 220px;
   --calendar-today-color: var(--colorNeutralForegroundOnBrand);
   --calendar-today-background: var(--colorBrandBackground);
   --calendar-today-border-radius: 50%;
@@ -20,7 +21,8 @@
   font-size: var(--fontSizeBase300);
   line-height: var(--lineHeightBase300);
   color: var(--colorNeutralForeground1);
-  width: calc((var(--calendar-cell-size) + 2 * var(--calendar-gap)) * 7);
+  width: var(--calendar-width);
+  max-width: calc((var(--calendar-cell-size) + 2 * var(--calendar-gap)) * 7);
   height: calc((var(--calendar-cell-size) + 3 * var(--calendar-gap)) * 8);
   user-select: none;
 }
@@ -211,7 +213,7 @@
   font-size: var(--fontSizeBase300);
   line-height: var(--lineHeightBase300);
   color: var(--colorNeutralForeground1);
-  min-width: 220px;
+  width: var(--calendar-width);
   max-width: calc((var(--month-cell-size) + 2 * var(--month-gap)) * 7);
   user-select: none;
 }
@@ -328,7 +330,7 @@
   font-size: var(--fontSizeBase300);
   line-height: var(--lineHeightBase300);
   color: var(--colorNeutralForeground1);
-  min-width: 220px;
+  width: var(--calendar-width);
   max-width: calc((var(--year-cell-size) + 2 * var(--year-gap)) * 7);
   user-select: none;
 }

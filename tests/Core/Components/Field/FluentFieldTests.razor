@@ -218,4 +218,14 @@
         Assert.True(hasContent);
         Assert.Equal(withInputSlot, hasSlot);
     }
+
+    [Fact]
+    public void FluentField_HideFluentField()
+    {
+        // Arrange & Act
+        var cut = Render(@<CascadingValue Value="true" Name="HideFluentField"><FluentField>Field content</FluentField></CascadingValue>);
+
+        // Assert
+        Assert.Equal("Field content", cut.Markup);
+    }
 }
