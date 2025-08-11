@@ -1,6 +1,6 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 
-<FluentStack Wrap="true" HorizontalGap="24px">
+<FluentStack Wrap="true" HorizontalGap="32px">
     @* SelectMode: Single *@
     <div>
         <FluentCalendar Label="Single"
@@ -34,12 +34,12 @@
 
     @* SelectMode: Multiple + Validation *@
     <div>
-        <FluentCalendar Label="Multiple (max 5 days)"
+        <FluentCalendar Label="Multiple (max 4 days)"
                         DisabledDateFunc="@DisabledDay"
                         DisplayToday="false"
                         @bind-SelectedDates="@SelectedDays"
                         SelectMode="CalendarSelectMode.Multiple"
-                        MessageCondition="@(i => i.When(() => SelectedDays.Count() > 5).Display("You can select a maximum of 5 days. Delete a day to select a new one.", MessageState.Error).Build())" />
+                        MessageCondition="@(i => i.When(() => SelectedDays.Count() > 4).Display("You can select a maximum of 4 days.", MessageState.Error).Build())" />
         <FluentMessageBar Visible="@DisplayError" Intent="MessageBarIntent.Error" Style="width: 230px;">
             You can select a maximum of 5 days. Delete a day to select a new one.
         </FluentMessageBar>
