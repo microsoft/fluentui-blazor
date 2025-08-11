@@ -9,14 +9,26 @@ route: /DateTime/Calendar
 The calendar control lets people select and view a single date or a range of dates in their calendar.
 It's made up of 3 separate views: the "day" view, "month" view, and "year" view.
 
-## Example
+## Views
+
+The calendar can be displayed in different views: day, month, and year.  
+The user can switch between these views using the title item: the month name or the year number.
 
 {{ FluentCalendarDefault }}
 
 ## Selections
 
-{{ FluentCalendarSelection }}
+You can activate the selection mode by setting the `SelectMode` parameter
+to `CalendarSelectMode.Single`, `CalendarSelectMode.Range` or `CalendarSelectMode.Multiple`.
 
+In these example, the `DisplayToday` parameter is set to `false` to hide the "Today" button.
+This simplifies the example by focusing on the selection functionality.
+
+When the `SelectMode` is set to `Range`, the user can select a range of dates by clicking on the start and end dates.
+In this mode, you can also set the `SelectDatesHover` parameter to a method that will be called when the user hovers over a date in the calendar.
+For example, you can use this method to highlight and select the dates of an entire week with a single click.
+
+{{ FluentCalendarSelection }}
 
 ## Customization
 
