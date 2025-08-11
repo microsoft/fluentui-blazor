@@ -534,6 +534,16 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary>
+    /// Handler for the OnFocus event.
+    /// </summary>
+    /// <returns></returns>
+    public virtual Task FocusOutHandlerAsync(FocusEventArgs? e)
+    {
+        FocusLost = true;
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     /// Check if all days between two dates are disabled.
     /// </summary>
     /// <param name="start"></param>

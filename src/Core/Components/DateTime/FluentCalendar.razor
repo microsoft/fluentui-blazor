@@ -12,6 +12,7 @@
          disabled="@(Disabled ?? false ? true : null)"
          required="@(Required ?? false ? true : null)"
          @ref="@_calendarReference"
+         @onfocusout="@FocusOutHandlerAsync"
          @attributes="@AdditionalAttributes">
 
         <input type="datetime" value="@GetFormValue()" hidden name="@Name" />
