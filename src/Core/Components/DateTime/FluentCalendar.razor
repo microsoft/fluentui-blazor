@@ -7,6 +7,9 @@
          class="@CalendarClass"
          slot="@FluentSlot.FieldInput"
          readonly="@(ReadOnly ? true : null)"
+         autofocus="@Autofocus"
+         aria-label="@AriaLabel"
+         disabled="@(Disabled ?? false ? true : null)"
          @ref="@_calendarReference"
          @attributes="@AdditionalAttributes">
         @if (PickerView == CalendarViews.Days)
@@ -165,6 +168,7 @@
                                     Value="@PickerMonth"
                                     ValueChanged="@PickerMonthSelectAsync"
                                     ReadOnly="@ReadOnly"
+                                    Disabled="@Disabled"
                                     Culture="@Culture"
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"
@@ -179,6 +183,7 @@
                                     Value="@PickerMonth"
                                     ValueChanged="@PickerYearSelectAsync"
                                     ReadOnly="@ReadOnly"
+                                    Disabled="@Disabled"
                                     Culture="@Culture"
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"

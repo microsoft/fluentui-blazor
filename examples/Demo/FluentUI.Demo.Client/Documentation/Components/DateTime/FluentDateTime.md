@@ -20,4 +20,4 @@ The `FluentTimePicker` allows for picking a specific time of day by selecting ho
 
 Navigate to this [page](/DateTime/Calendar) for more details.
 
-{{ FluentCalendarDefault }}
+{{ CalendarDefault }}

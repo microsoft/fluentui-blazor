@@ -11,8 +11,12 @@
   --calendar-selected-background: var(--colorBrandBackgroundInvertedSelected);
 }
 
+  .fluent-calendar[disabled] {
+    color: var(--colorNeutralForegroundDisabled);
+  }
+
 /*
-    "Days" View
+  "Days" View
 */
 .fluent-day-view {
   --calendar-cell-size: 28px;
@@ -172,15 +176,16 @@
     border-radius: var(--calendar-selected-border-radius);
     background: var(--calendar-selected-background);
   }
-    .fluent-day-view .day[multi-start] {
-      border-top-left-radius: 50%;
-      border-bottom-left-radius: 50%;
-    }
 
-    .fluent-day-view .day[multi-end] {
-      border-top-right-radius: 50%;
-      border-bottom-right-radius: 50%;
-    }
+  .fluent-day-view .day[multi-start] {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+  }
+
+  .fluent-day-view .day[multi-end] {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+  }
 
   .fluent-day-view .day[multi-day-over]:not([multi-day]) {
     background: var(--colorSubtleBackgroundHover);

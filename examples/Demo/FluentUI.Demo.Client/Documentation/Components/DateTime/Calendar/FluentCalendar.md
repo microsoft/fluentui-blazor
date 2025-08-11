@@ -14,7 +14,7 @@ It's made up of 3 separate views: the "day" view, "month" view, and "year" view.
 The calendar can be displayed in different views: day, month, and year.  
 The user can switch between these views using the title item: the month name or the year number.
 
-{{ FluentCalendarDefault }}
+{{ CalendarDefault }}
 
 ## Selections
 
@@ -28,7 +28,7 @@ When the `SelectMode` is set to `Range`, the user can select a range of dates by
 In this mode, you can also set the `SelectDatesHover` parameter to a method that will be called when the user hovers over a date in the calendar.
 For example, you can use this method to highlight and select the dates of an entire week with a single click.
 
-{{ FluentCalendarSelection }}
+{{ CalendarSelection }}
 
 ## Customization
 
