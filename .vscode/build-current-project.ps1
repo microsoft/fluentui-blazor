@@ -4,9 +4,6 @@ param(
     [string]$WorkspaceFolder = $env:WORKSPACE_FOLDER
 )
 
-# Global constants
-$DEFAULT_SOLUTION_NAME = "Microsoft.FluentUI-v5.sln"
-
 # Function to find the nearest .csproj file
 function Find-NearestProject {
     param([string]$StartPath)
@@ -32,8 +29,9 @@ function Find-NearestProject {
 # Main execution
 try {
     if (-not $CurrentFile) {
-        Write-Host "No active file detected. Building default solution..." -ForegroundColor Yellow
-        $projectPath = Join-Path $WorkspaceFolder $DEFAULT_SOLUTION_NAME
+        Write-Host "No active file detected." -ForegroundColor Red
+        Write-Host "Error: No .csproj file found" -ForegroundColor Red
+        exit 1
     } else {
         Write-Host "Active file: $CurrentFile" -ForegroundColor Green
         
@@ -43,8 +41,8 @@ try {
             $projectPath = $nearestProject
             Write-Host "Found nearest project: $projectPath" -ForegroundColor Green
         } else {
-            Write-Host "No .csproj file found in parent directories. Building default solution..." -ForegroundColor Yellow
-            $projectPath = Join-Path $WorkspaceFolder $DEFAULT_SOLUTION_NAME
+            Write-Host "Error: No .csproj file found" -ForegroundColor Red
+            exit 1
         }
     }
     

@@ -574,4 +574,26 @@
         Assert.Equal(DAYS[1], SelectedDays.ElementAt(1).ToString("yyyy-MM-dd"));
         Assert.Equal(DAYS[2], SelectedDays.ElementAt(2).ToString("yyyy-MM-dd"));
     }
+
+    [Fact]
+    public void FluentCalendar_SelectMode_Range()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        IEnumerable<DateTime> SelectedDays = [];
+        string FIRST_DAY = "2022-06-15";
+        string LAST_DAY = "2022-06-25";
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar PickerMonth="@System.DateTime.Parse(FIRST_DAY)" SelectMode="CalendarSelectMode.Range" @bind-SelectedDates="@SelectedDays" />);
+
+        // Act: select the first and last days
+        var start = calendar.Find($"div[value='{FIRST_DAY}']");
+        start?.Click();
+
+        var end = calendar.Find($"div[value='{LAST_DAY}']");
+        end?.Click();
+
+        // Assert
+        Assert.Equal(11, SelectedDays.Count());
+    }
 }
