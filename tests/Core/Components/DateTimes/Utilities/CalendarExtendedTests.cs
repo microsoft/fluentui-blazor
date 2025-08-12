@@ -5,7 +5,7 @@
 using System.Globalization;
 using Xunit;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DateTimes;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DateTimes.Utilities;
 
 public class CalendarExtendedTests
 {

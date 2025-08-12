@@ -1,0 +1,200 @@
+@using System.Globalization
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components
+@inherits Bunit.TestContext
+
+@code
+{
+    private static readonly CultureInfo Culture_enUS = new("en-US");
+
+    public FluentCalendarDayTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void Date_Property_IsCorrect()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendarComponent = RenderComponent<FluentCalendar>();
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2024, 7, 31);
+
+        // Act
+        var calendarDay = new FluentCalendarDay(calendar, date);
+
+        // Assert
+        Assert.Equal(date, calendarDay.Date);
+    }
+
+    [Theory]
+    [InlineData(true, true, false)]  // Disabled and selectable
+    [InlineData(true, false, false)] // Disabled and not selectable
+    [InlineData(false, true, false)] // Not disabled
+    public void IsDisabled_Property_IsCorrect(bool isInDisabledList, bool disabledSelectable, bool expected)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var date = new DateTime(2024, 7, 31);
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.DisabledDateFunc, (d) => d == date && isInDisabledList)
+            .Add(p => p.DisabledSelectable, disabledSelectable));
+        var calendar = calendarComponent.Instance;
+
+        // Act
+        var calendarDay = new FluentCalendarDay(calendar, date);
+
+        // Assert
+        Assert.Equal(expected, calendarDay.IsDisabled);
+    }
+
+    [Theory]
+    [InlineData(true, true, true)]  // Outside month
+    [InlineData(false, true, true)]  // In disabled list, not selectable
+    [InlineData(false, false, false)]// In disabled list, selectable
+    public void IsInactive_Property_IsCorrect(bool isOutsideMonth, bool isInDisabledList, bool expected)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var date = isOutsideMonth ? new DateTime(2024, 8, 1) : new DateTime(2024, 7, 15);
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Value, new DateTime(2024, 7, 10))
+            .Add(p => p.DisabledDateFunc, (d) => d == date && isInDisabledList)
+            .Add(p => p.DisabledSelectable, false));
+        var calendar = calendarComponent.Instance;
+
+        // Act
+        var calendarDay = new FluentCalendarDay(calendar, date);
+
+        // Assert
+        Assert.Equal(expected, calendarDay.IsInactive);
+    }
+
+    [Fact]
+    public void IsToday_Property_IsCorrect()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var today = DateTime.Today;
+        var notToday = today.AddDays(1);
+        var calendarComponent = RenderComponent<FluentCalendar>();
+        var calendar = calendarComponent.Instance;
+
+        // Act
+        var calendarDayToday = new FluentCalendarDay(calendar, today);
+        var calendarDayNotToday = new FluentCalendarDay(calendar, notToday);
+
+        // Assert
+        Assert.True(calendarDayToday.IsToday);
+        Assert.False(calendarDayNotToday.IsToday);
+    }
+
+    [Fact]
+    public void IsSelected_Property_IsCorrect()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var selectedDate = new DateTime(2024, 7, 31);
+        var notSelectedDate = new DateTime(2024, 7, 30);
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Value, selectedDate));
+        var calendar = calendarComponent.Instance;
+
+        // Act
+        var calendarDaySelected = new FluentCalendarDay(calendar, selectedDate);
+        var calendarDayNotSelected = new FluentCalendarDay(calendar, notSelectedDate);
+
+        // Assert
+        Assert.True(calendarDaySelected.IsSelected);
+        Assert.False(calendarDayNotSelected.IsSelected);
+    }
+
+    [Fact]
+    public void IsMultiDaySelected_Property_IsCorrect()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var selectedDate1 = new DateTime(2024, 7, 20);
+        var selectedDate2 = new DateTime(2024, 7, 22);
+        var notSelectedDate = new DateTime(2024, 7, 21);
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.SelectMode, CalendarSelectMode.Multiple)
+            .Add(p => p.SelectedDates, new List<DateTime> { selectedDate1, selectedDate2 }));
+        var calendar = calendarComponent.Instance;
+
+        // Act
+        var calendarDaySelected1 = new FluentCalendarDay(calendar, selectedDate1);
+        var calendarDaySelected2 = new FluentCalendarDay(calendar, selectedDate2);
+        var calendarDayNotSelected = new FluentCalendarDay(calendar, notSelectedDate);
+
+        // Assert
+        Assert.True(calendarDaySelected1.IsMultiDaySelected);
+        Assert.True(calendarDaySelected2.IsMultiDaySelected);
+        Assert.False(calendarDayNotSelected.IsMultiDaySelected);
+    }
+
+    [Fact]
+    public void Title_Property_IsCorrect()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var date = new DateTime(2024, 7, 31);
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS));
+        var calendar = calendarComponent.Instance;
+
+        // Act
+        var calendarDay = new FluentCalendarDay(calendar, date);
+
+        // Assert
+        Assert.Equal("July 31", calendarDay.Title);
+    }
+
+    [Theory]
+    [InlineData(CalendarDayFormat.Numeric, "7")]
+    [InlineData(CalendarDayFormat.TwoDigit, "07")]
+    public void DayNumber_Property_IsCorrect(CalendarDayFormat format, string expected)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var date = new DateTime(2024, 7, 7);
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.DayFormat, format)
+            .Add(p => p.Culture, Culture_enUS));
+        var calendar = calendarComponent.Instance;
+
+        // Act
+        var calendarDay = new FluentCalendarDay(calendar, date);
+
+        // Assert
+        Assert.Equal(expected, calendarDay.DayNumber);
+    }
+
+    [Fact]
+    public void DayIdentifier_Property_IsCorrect()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var date = new DateTime(2024, 7, 31);
+        var calendarComponent = RenderComponent<FluentCalendar>();
+        var calendar = calendarComponent.Instance;
+
+        // Act
+        var calendarDay = new FluentCalendarDay(calendar, date);
+
+        // Assert
+        Assert.Equal("2024-07-31", calendarDay.DayIdentifier);
+    }
+}

@@ -49,15 +49,11 @@ internal class FluentCalendarYear
     /// </summary>
 
     public bool IsDisabled => _isInDisabledList;
+
     /// <summary>
     /// Whether the year is selected by the user
     /// </summary>
     public bool IsSelected => Year.GetYear(_calendar.Culture) == _calendar.Value?.GetYear(_calendar.Culture);
-
-    /// <summary>
-    /// Gets the title of the year in the format [year].
-    /// </summary>
-    public string Title => Year.ToString(_calendar.Culture);
 
     /// <summary>
     /// Gets the identifier of the year in the format yyyy.

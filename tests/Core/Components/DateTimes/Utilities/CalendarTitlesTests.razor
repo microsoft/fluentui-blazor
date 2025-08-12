@@ -22,6 +22,8 @@
     [InlineData((CalendarViews)99, true)] // Default case
     public void CalendarTitles_ReadOnly_ReturnsCorrectValue(CalendarViews view, bool expected)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Arrange
         var calendar = RenderComponent<FluentCalendar>(parameters => parameters
             .Add(p => p.View, view)
@@ -38,6 +40,8 @@
     [Fact]
     public void CalendarTitles_ReadOnly_WhenDisabled_ReturnsTrue()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Arrange
         var calendar = RenderComponent<FluentCalendar>(parameters => parameters
             .Add(p => p.View, CalendarViews.Days)
@@ -60,6 +64,8 @@
     [InlineData((CalendarViews)99, "")] // Default case
     public void CalendarTitles_Label_ReturnsCorrectValue(CalendarViews view, string expected)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Arrange
         var calendar = RenderComponent<FluentCalendar>(parameters => parameters
             .Add(p => p.View, view)
@@ -81,6 +87,8 @@
     [InlineData((CalendarViews)99, "")] // Default case
     public void CalendarTitles_PreviousTitle_ReturnsCorrectValue(CalendarViews view, string expected)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Arrange
         var calendar = RenderComponent<FluentCalendar>(parameters => parameters
             .Add(p => p.View, view)
@@ -102,6 +110,8 @@
     [InlineData((CalendarViews)99, false)] // Default case
     public void CalendarTitles_PreviousDisabled_WhenAtMinDate_ReturnsCorrectValue(CalendarViews view, bool expected)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Arrange
         var minDate = Culture_enUS.Calendar.MinSupportedDateTime;
         var calendar = RenderComponent<FluentCalendar>(parameters => parameters
@@ -124,6 +134,8 @@
     [InlineData((CalendarViews)99, "")] // Default case
     public void CalendarTitles_NextTitle_ReturnsCorrectValue(CalendarViews view, string expected)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Arrange
         var calendar = RenderComponent<FluentCalendar>(parameters => parameters
             .Add(p => p.View, view)
@@ -145,6 +157,8 @@
     [InlineData((CalendarViews)99, false)] // Default case
     public void CalendarTitles_NextDisabled_WhenAtMaxDate_ReturnsCorrectValue(CalendarViews view, bool expected)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Arrange
         var maxDate = Culture_enUS.Calendar.MaxSupportedDateTime;
         var calendar = RenderComponent<FluentCalendar>(parameters => parameters

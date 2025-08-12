@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Xunit;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DateTimes;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DateTimes.Utilities;
 
 public class RangeOfDatesTests
 {
