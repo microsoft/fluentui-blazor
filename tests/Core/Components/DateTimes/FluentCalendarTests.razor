@@ -9,12 +9,13 @@
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
-        DateTimeProvider.RequiredActiveContext = false;
     }
 
     [Fact]
     public void FluentCalendar_Default()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -30,6 +31,8 @@
     [Fact]
     public void FluentCalendar_Title()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var cut = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -47,6 +50,8 @@
     [InlineData(2022, 02, 15, "fa-IR")]
     public void FluentCalendar_Title_ByCulture(int year, int month, int day, string cultureName)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -62,6 +67,8 @@
     [Fact]
     public void FluentCalendar_WeekDaysTitle()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -75,6 +82,8 @@
     [Fact]
     public void FluentCalendar_WeekDays_French()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -88,6 +97,8 @@
     [Fact]
     public void FluentCalendar_OneDayFormat()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -108,6 +119,8 @@
     [Fact]
     public void FluentCalendar_DayValues()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -130,6 +143,8 @@
     [Fact]
     public void FluentCalendar_SetPickerMonth()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -150,6 +165,8 @@
     [InlineData("fa-IR", "خرداد 1401", "2022-05-22")]
     public void FluentCalendar_SetPickerMonth_ByCulture(string cultureName, string expectedMonthName, string expectedPickerMonthFirst)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -168,6 +185,8 @@
     [Fact]
     public void FluentCalendar_ClickAndSelectDate()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         const string DAY = "2022-06-15";
 
         // Act
@@ -189,6 +208,8 @@
     [Fact]
     public void FluentCalendar_ClickPreviousMonth()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -210,6 +231,8 @@
     [InlineData("fa-IR", "اردیبهشت 1401")]
     public void FluentCalendar_ClickPreviousMonth_ByCulture(string cultureName, string expectedMonthName)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -229,6 +252,8 @@
     [Fact]
     public void FluentCalendar_ClickNextMonth()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -250,6 +275,8 @@
     [InlineData("fa-IR", "تیر 1401")]
     public void FluentCalendar_ClickNextMonth_ByCulture(string cultureName, string expectedMonthName)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         // Act
         var calendar = RenderComponent<FluentCalendar>(parameters =>
         {
@@ -269,6 +296,8 @@
     [Fact]
     public void FluentCalendar_GetDayOfMonthTwoDigit()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         const string DAY = "2022-06-01";
 
         // Act
@@ -291,6 +320,8 @@
     [Fact]
     public void FluentCalendar_GetDayOfMonthNumeric()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         const string DAY = "2022-06-01";
 
         // Act
@@ -315,6 +346,8 @@
     [InlineData("fa-IR", "11")]
     public void FluentCalendar_GetDayOfMonthNumeric_ByCulture(string cultureName, string expectedDayNumber)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         const string DAY = "2022-06-01";
 
         // Act
@@ -335,11 +368,11 @@
         Assert.Equal(expectedDayNumber, selectedDay.TextContent);
     }
 
-    /* **************************************** */
-
     [Fact]
     public void FluentCalendar_ValueChanged()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         const string DAY = "2022-06-01";
         DateTime? value = DateTime.UtcNow;
         Action<DateTime?> ChangedCallback = (e) => { value = e!.Value; };
@@ -366,6 +399,8 @@
     [InlineData(CalendarViews.Years, "fr-fr", "2022")]
     public void FluentCalendar_Culture_View_ValueChanged(CalendarViews view, string cultureName, string assertContent)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         DateTime Picker = DateTime.Parse("2022-04-15");
         DateTime? value = DateTime.UtcNow;
         Action<DateTime?> ChangedCallback = (e) => { value = e!.Value; };
@@ -398,6 +433,8 @@
     [InlineData(CalendarViews.Years)]
     public void FluentCalendar_Minimum_View(CalendarViews view)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         DateTime? value = DateTime.MinValue;
 
         // Arrange & Act
@@ -415,6 +452,8 @@
     [InlineData(CalendarViews.Years)]
     public void FluentCalendar_Maximum_View(CalendarViews view)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         DateTime? value = DateTime.MaxValue;
 
         // Arrange & Act
@@ -432,6 +471,8 @@
     [InlineData(CalendarViews.Years)]
     public void FluentCalendar_ReadOnly_View(CalendarViews view)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         DateTime? value = DateTime.Parse("2022-04-15");
 
         // Arrange & Act
@@ -451,6 +492,8 @@
     [InlineData(CalendarViews.Years, "2034 - 2045")]
     public void FluentCalendar_NextButton(CalendarViews view, string nextTitle)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         DateTime? value = DateTime.Parse("2022-04-15");
         var culture = CultureInfo.GetCultureInfo("en-us");
 
@@ -473,6 +516,8 @@
     [InlineData(CalendarViews.Years, "2010 - 2021")]
     public void FluentCalendar_PreviousButton(CalendarViews view, string nextTitle)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         DateTime? value = DateTime.Parse("2022-04-15");
         var culture = CultureInfo.GetCultureInfo("en-us");
 
@@ -495,6 +540,8 @@
     [InlineData(CalendarViews.Years)]
     public void FluentCalendar_TitleClick(CalendarViews view)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         DateTime? value = DateTime.Parse("2022-04-15");
         var culture = CultureInfo.GetCultureInfo("en-us");
 
@@ -512,6 +559,8 @@
     [Fact]
     public void FluentCalendar_TitleClick_SameMonthSelected()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         DateTime? value = DateTime.Parse("2022-04-15");
         var culture = CultureInfo.GetCultureInfo("en-us");
 
@@ -532,6 +581,8 @@
     [Fact]
     public void FluentCalendar_TitleClick_SameYearSelected()
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         DateTime? value = DateTime.Parse("2022-04-15");
         var culture = CultureInfo.GetCultureInfo("en-us");
 

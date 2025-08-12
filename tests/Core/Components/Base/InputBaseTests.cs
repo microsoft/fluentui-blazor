@@ -43,8 +43,7 @@ public class InputBaseTests : Bunit.TestContext
     public InputBaseTests(ITestOutputHelper testOutputHelper)
     {
         Output = testOutputHelper;
-        Services.AddFluentUIComponents();
-        DateTimeProvider.RequiredActiveContext = false;
+        Services.AddFluentUIComponents();        
     }
 
     /// <summary>
@@ -79,6 +78,8 @@ public class InputBaseTests : Bunit.TestContext
     [InlineData("LostFocus", "input", null, null, "Check_LostFocus")]
     public void InputBase_DefaultProperties(string attributeName, object attributeValue, string? htmlAttribute = null, object? htmlValue = null, string? extraCondition = null)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         var errors = new StringBuilder();
         var localizer = Services.GetRequiredService<IFluentLocalizer>();
 
