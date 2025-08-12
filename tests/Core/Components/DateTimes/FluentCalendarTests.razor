@@ -550,4 +550,28 @@
         // Assert
         Assert.Equal("2022", calendar.Find(".label").TextContent);
     }
+
+    [Fact]
+    public void FluentCalendar_SelectMode_Multiple()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        IEnumerable<DateTime> SelectedDays = [];
+        string[] DAYS = ["2022-06-15", "2022-06-18", "2022-06-25"];
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar PickerMonth="@System.DateTime.Parse(DAYS[0])" SelectMode="CalendarSelectMode.Multiple" @bind-SelectedDates="@SelectedDays" />);
+
+        // Act: select 3 days
+        foreach (var value in DAYS)
+        {
+            var day = calendar.Find($"div[value='{value}']");
+            day?.Click();
+        }
+
+        // Assert
+        Assert.Equal(3, SelectedDays.Count());
+        Assert.Equal(DAYS[0], SelectedDays.ElementAt(0).ToString("yyyy-MM-dd"));
+        Assert.Equal(DAYS[1], SelectedDays.ElementAt(1).ToString("yyyy-MM-dd"));
+        Assert.Equal(DAYS[2], SelectedDays.ElementAt(2).ToString("yyyy-MM-dd"));
+    }
 }
