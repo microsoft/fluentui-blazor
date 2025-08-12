@@ -1,0 +1,161 @@
+@using System.Globalization
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components
+@inherits Bunit.TestContext
+
+@code
+{
+    private static readonly CultureInfo Culture_enUS = new("en-US");
+
+    public CalendarTitlesTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    // Test ReadOnly property
+    [Theory]
+    [InlineData(CalendarViews.Days, false)]
+    [InlineData(CalendarViews.Months, false)]
+    [InlineData(CalendarViews.Years, true)]
+    [InlineData((CalendarViews)99, true)] // Default case
+    public void CalendarTitles_ReadOnly_ReturnsCorrectValue(CalendarViews view, bool expected)
+    {
+        // Arrange
+        var calendar = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.View, view)
+            .Add(p => p.PickerMonth, new DateTime(2024, 7, 1))
+            .Add(p => p.Culture, Culture_enUS)
+        );
+
+        var titles = new CalendarTitles(calendar.Instance);
+
+        // Act & Assert
+        Assert.Equal(expected, titles.ReadOnly);
+    }
+
+    [Fact]
+    public void CalendarTitles_ReadOnly_WhenDisabled_ReturnsTrue()
+    {
+        // Arrange
+        var calendar = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.View, CalendarViews.Days)
+            .Add(p => p.PickerMonth, new DateTime(2024, 7, 1))
+            .Add(p => p.Culture, Culture_enUS)
+            .Add(p => p.Disabled, true)
+        );
+
+        var titles = new CalendarTitles(calendar.Instance);
+
+        // Act & Assert
+        Assert.True(titles.ReadOnly);
+    }
+
+    // Test Label property
+    [Theory]
+    [InlineData(CalendarViews.Days, "July 2024")]
+    [InlineData(CalendarViews.Months, "2024")]
+    [InlineData(CalendarViews.Years, "2024 - 2035")]
+    [InlineData((CalendarViews)99, "")] // Default case
+    public void CalendarTitles_Label_ReturnsCorrectValue(CalendarViews view, string expected)
+    {
+        // Arrange
+        var calendar = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.View, view)
+            .Add(p => p.PickerMonth, new DateTime(2024, 7, 1))
+            .Add(p => p.Culture, Culture_enUS)
+        );
+
+        var titles = new CalendarTitles(calendar.Instance);
+
+        // Act & Assert
+        Assert.Equal(expected, titles.Label);
+    }
+
+    // Test PreviousTitle property
+    [Theory]
+    [InlineData(CalendarViews.Days, "June")]
+    [InlineData(CalendarViews.Months, "2023")]
+    [InlineData(CalendarViews.Years, "2012 - 2023")]
+    [InlineData((CalendarViews)99, "")] // Default case
+    public void CalendarTitles_PreviousTitle_ReturnsCorrectValue(CalendarViews view, string expected)
+    {
+        // Arrange
+        var calendar = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.View, view)
+            .Add(p => p.PickerMonth, new DateTime(2024, 7, 1))
+            .Add(p => p.Culture, Culture_enUS)
+        );
+
+        var titles = new CalendarTitles(calendar.Instance);
+
+        // Act & Assert
+        Assert.Equal(expected, titles.PreviousTitle);
+    }
+
+    // Test PreviousDisabled property
+    [Theory]
+    [InlineData(CalendarViews.Days, true)]
+    [InlineData(CalendarViews.Months, true)]
+    [InlineData(CalendarViews.Years, true)]
+    [InlineData((CalendarViews)99, false)] // Default case
+    public void CalendarTitles_PreviousDisabled_WhenAtMinDate_ReturnsCorrectValue(CalendarViews view, bool expected)
+    {
+        // Arrange
+        var minDate = Culture_enUS.Calendar.MinSupportedDateTime;
+        var calendar = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.View, view)
+            .Add(p => p.PickerMonth, minDate)
+            .Add(p => p.Culture, Culture_enUS)
+        );
+
+        var titles = new CalendarTitles(calendar.Instance);
+
+        // Act & Assert
+        Assert.Equal(expected, titles.PreviousDisabled);
+    }
+
+    // Test NextTitle property
+    [Theory]
+    [InlineData(CalendarViews.Days, "August")]
+    [InlineData(CalendarViews.Months, "2025")]
+    [InlineData(CalendarViews.Years, "2036 - 2047")]
+    [InlineData((CalendarViews)99, "")] // Default case
+    public void CalendarTitles_NextTitle_ReturnsCorrectValue(CalendarViews view, string expected)
+    {
+        // Arrange
+        var calendar = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.View, view)
+            .Add(p => p.PickerMonth, new DateTime(2024, 7, 1))
+            .Add(p => p.Culture, Culture_enUS)
+        );
+
+        var titles = new CalendarTitles(calendar.Instance);
+
+        // Act & Assert
+        Assert.Equal(expected, titles.NextTitle);
+    }
+
+    // Test NextDisabled property
+    [Theory]
+    [InlineData(CalendarViews.Days, true)]
+    [InlineData(CalendarViews.Months, true)]
+    [InlineData(CalendarViews.Years, true)]
+    [InlineData((CalendarViews)99, false)] // Default case
+    public void CalendarTitles_NextDisabled_WhenAtMaxDate_ReturnsCorrectValue(CalendarViews view, bool expected)
+    {
+        // Arrange
+        var maxDate = Culture_enUS.Calendar.MaxSupportedDateTime;
+        var calendar = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.View, view)
+            .Add(p => p.PickerMonth, maxDate)
+            .Add(p => p.Culture, Culture_enUS)
+        );
+
+        var titles = new CalendarTitles(calendar.Instance);
+
+        // Act & Assert
+        Assert.Equal(expected, titles.NextDisabled);
+    }
+}
