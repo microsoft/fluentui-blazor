@@ -17,9 +17,8 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")"
-                        Value="@(new System.DateTime(2022, 02, 15))"
-                        DisabledDateFunc="@((date) => date.Day == 14)" />);
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" Value="@(new System.DateTime(2022, 02, 15))"
+            DisabledDateFunc="@((date) => date.Day == 14)" />);
 
         // Assert
         calendar.Verify();
@@ -31,8 +30,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var cut = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")"
-                        Value="@(new System.DateTime(2022, 02, 15))" />);
+        var cut = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" Value="@(new System.DateTime(2022, 02, 15))" />);
         var title = cut.Find(".title");
 
         // Assert
@@ -47,8 +45,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo(cultureName)"
-                        Value="@(new System.DateTime(year, month, day))" />);
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo(cultureName)" Value="@(new System.DateTime(year, month, day))" />);
         var title = calendar.Find(".title");
 
         // Assert
@@ -61,8 +58,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")"
-                        Value="@(new System.DateTime(2022, 02, 15))" />);
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" Value="@(new System.DateTime(2022, 02, 15))" />);
 
         calendar.Verify();
     }
@@ -73,8 +69,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Value="@(new System.DateTime(2022, 02, 15))"
-                        Culture="@CultureInfo.GetCultureInfo("fr-FR")" />);
+        var calendar = Render(@<FluentCalendar Value="@(new System.DateTime(2022, 02, 15))" Culture="@CultureInfo.GetCultureInfo("fr-FR")" />);
 
         calendar.Verify();
     }
@@ -85,17 +80,16 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")"
-                        Value="@(new System.DateTime(2022, 02, 15))" />);
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" Value="@(new System.DateTime(2022, 02, 15))" />);
         var day = calendar.Find("[value='2022-02-20']");
 
         // Assert
         day.MarkupMatches(@"<div part=""day""
-                                 class=""day""
-                                 role=""button""
-                                 tabindex=""0""
-                                 aria-label=""February 20""
-                                 value=""2022-02-20"">20</div>");
+class=""day""
+role=""button""
+tabindex=""0""
+aria-label=""February 20""
+value=""2022-02-20"">20</div>");
     }
 
     [Fact]
@@ -125,9 +119,8 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")"
-                        Value="@(new System.DateTime(2022, 02, 15))"
-                        PickerMonth="@(new System.DateTime(2022, 06, 15))" />);
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" Value="@(new System.DateTime(2022, 02, 15))"
+            PickerMonth="@(new System.DateTime(2022, 06, 15))" />);
         var monthName = calendar.Find(".label").InnerHtml;
         var juneFirst = System.DateTime.Parse("2022-06-01");
         var component = calendar.FindComponent<FluentCalendar>();
@@ -140,14 +133,14 @@
     [Theory]
     [InlineData("en-US", "June 2022", "2022-06-01")]
     [InlineData("fa-IR", "خرداد 1401", "2022-05-22")]
-    public void FluentCalendar_SetPickerMonth_ByCulture(string cultureName, string expectedMonthName, string expectedPickerMonthFirst)
+    public void FluentCalendar_SetPickerMonth_ByCulture(string cultureName, string expectedMonthName, string
+    expectedPickerMonthFirst)
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo(cultureName)"
-                        Value="@(new System.DateTime(2022, 02, 15))"
-                        PickerMonth="@(new System.DateTime(2022, 06, 15))" />);
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo(cultureName)" Value="@(new System.DateTime(2022, 02, 15))"
+            PickerMonth="@(new System.DateTime(2022, 06, 15))" />);
         var monthName = calendar.Find(".label").InnerHtml;
         var pickerMonthFirst = System.DateTime.Parse(expectedPickerMonthFirst);
         var component = calendar.FindComponent<FluentCalendar>();
@@ -183,8 +176,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")"
-                        PickerMonth="@System.DateTime.Parse("2022-06-15")" />);
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" PickerMonth="@System.DateTime.Parse("2022-06-15")" />);
 
         // Click on Previous Month button
         var buttonMove = calendar.Find(".previous");
@@ -203,8 +195,8 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo(cultureName)"
-                        PickerMonth="@System.DateTime.Parse("2022-06-15")" />);
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo(cultureName)" PickerMonth="@System.DateTime.Parse("2022-06-15")" />
+);
 
         // Click on Previous Month button
         var buttonMove = calendar.Find(".previous");
@@ -221,8 +213,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")"
-                        PickerMonth="@System.DateTime.Parse("2022-06-15")" />);
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" PickerMonth="@System.DateTime.Parse("2022-06-15")" />);
 
         // Click on Previous Month button
         var buttonMove = calendar.Find(".next");
@@ -241,8 +232,8 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo(cultureName)"
-                        PickerMonth="@System.DateTime.Parse("2022-06-15")" />);
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo(cultureName)" PickerMonth="@System.DateTime.Parse("2022-06-15")" />
+);
 
         // Click on Previous Month button
         var buttonMove = calendar.Find(".next");
@@ -261,8 +252,7 @@
         const string DAY = "2022-06-01";
 
         // Act
-        var calendar = Render(@<FluentCalendar PickerMonth="@System.DateTime.Parse(DAY)"
-                        DayFormat="@CalendarDayFormat.TwoDigit" />);
+        var calendar = Render(@<FluentCalendar PickerMonth="@System.DateTime.Parse(DAY)" DayFormat="@CalendarDayFormat.TwoDigit" />);
 
         // Click to select 2022-06-24
         var day = calendar.Find($"div[value='{DAY}']");
@@ -282,8 +272,7 @@
         const string DAY = "2022-06-01";
 
         // Act
-        var calendar = Render(@<FluentCalendar PickerMonth="@System.DateTime.Parse(DAY)"
-                        DayFormat="@CalendarDayFormat.Numeric" />);
+        var calendar = Render(@<FluentCalendar PickerMonth="@System.DateTime.Parse(DAY)" DayFormat="@CalendarDayFormat.Numeric" />);
 
         // Click to select 2022-06-01
         var day = calendar.Find($"div[value='{DAY}']");
@@ -305,9 +294,8 @@
         const string DAY = "2022-06-01";
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo(cultureName)"
-                        PickerMonth="@System.DateTime.Parse(DAY)"
-                        DayFormat="@CalendarDayFormat.Numeric" />);
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo(cultureName)" PickerMonth="@System.DateTime.Parse(DAY)"
+            DayFormat="@CalendarDayFormat.Numeric" />);
 
         // Click to select 2022-06-01
         var day = calendar.Find($"div[value='{DAY}']");
@@ -329,7 +317,9 @@
         Action<DateTime?> ChangedCallback = (e) => { value = e!.Value; };
 
         // Arrange
-        var calendar = Render(@<FluentCalendar Value="@value" ValueChanged="ChangedCallback" PickerMonth="@DateTime.Parse(DAY)">Pick a date</FluentCalendar>);
+        var calendar = Render(@<FluentCalendar Value="@value" ValueChanged="ChangedCallback" PickerMonth="@DateTime.Parse(DAY)">
+            Pick a date
+        </FluentCalendar>);
 
         // Act
         var day = calendar.Find($"div[value='{DAY}']");
@@ -366,7 +356,8 @@
         };
 
         // Arrange
-        var calendar = Render(@<FluentCalendar Culture="@culture" View="@view" Value="@value" ValueChanged="ChangedCallback" PickerMonth="@Picker">Pick a date</FluentCalendar>);
+        var calendar = Render(@<FluentCalendar Culture="@culture" View="@view" Value="@value" ValueChanged="ChangedCallback"
+            PickerMonth="@Picker">Pick a date</FluentCalendar>);
 
         // Act
         var month = calendar.Find($"div[value='{clickOnValue}']");
@@ -559,7 +550,8 @@
         string[] DAYS = ["2022-06-15", "2022-06-18", "2022-06-25"];
 
         // Arrange
-        var calendar = Render(@<FluentCalendar PickerMonth="@System.DateTime.Parse(DAYS[0])" SelectMode="CalendarSelectMode.Multiple" @bind-SelectedDates="@SelectedDays" />);
+        var calendar = Render(@<FluentCalendar PickerMonth="@System.DateTime.Parse(DAYS[0])" SelectMode="CalendarSelectMode.Multiple"
+        @bind-SelectedDates="@SelectedDays" />);
 
         // Act: select 3 days
         foreach (var value in DAYS)
@@ -576,6 +568,30 @@
     }
 
     [Fact]
+    public void FluentCalendar_SelectMode_Multiple_SelectDatesHover()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        IEnumerable<DateTime> SelectedDays = [];
+        string DAY = "2022-06-15";
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar PickerMonth="@System.DateTime.Parse(DAY)" SelectMode="CalendarSelectMode.Multiple"
+            SelectDatesHover="@Select3Days" @bind-SelectedDates="@SelectedDays" />);
+
+        // Act: select 3 days using SelectDatesHover
+        var day = calendar.Find($"div[value='{DAY}']");
+        day?.Click();
+
+        // Assert
+        Assert.Equal(3, SelectedDays.Count());
+
+        IEnumerable<DateTime> Select3Days(DateTime date)
+        {
+            return Enumerable.Range(0, 3).Select(i => date.AddDays(i));
+        }
+    }
+
+    [Fact]
     public void FluentCalendar_SelectMode_Range()
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
@@ -584,7 +600,8 @@
         string LAST_DAY = "2022-06-25";
 
         // Arrange
-        var calendar = Render(@<FluentCalendar PickerMonth="@System.DateTime.Parse(FIRST_DAY)" SelectMode="CalendarSelectMode.Range" @bind-SelectedDates="@SelectedDays" />);
+        var calendar = Render(@<FluentCalendar PickerMonth="@System.DateTime.Parse(FIRST_DAY)" SelectMode="CalendarSelectMode.Range"
+        @bind-SelectedDates="@SelectedDays" />);
 
         // Act: select the first and last days
         var start = calendar.Find($"div[value='{FIRST_DAY}']");
