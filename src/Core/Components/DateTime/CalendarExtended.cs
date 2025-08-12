@@ -149,15 +149,15 @@ internal struct CalendarExtended
     public string GetYearsRangeLabel(int fromYear)
     {
         var min = fromYear;
-        var max = fromYear + 11;
-
         var minSupportedYear = Culture.Calendar.MinSupportedDateTime.GetYear(Culture);
-        var maxSupportedYear = Culture.Calendar.MaxSupportedDateTime.GetYear(Culture);
 
         if (min < minSupportedYear)
         {
             min = minSupportedYear;
         }
+
+        var max = min + 11;
+        var maxSupportedYear = Culture.Calendar.MaxSupportedDateTime.GetYear(Culture);
 
         if (max > maxSupportedYear)
         {
