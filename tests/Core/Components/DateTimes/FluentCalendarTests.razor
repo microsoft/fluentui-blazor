@@ -929,4 +929,258 @@ value=""2022-02-20"">20</div>");
         Assert.Contains("path", FluentCalendar.ArrowUp);
         Assert.Contains("path", FluentCalendar.ArrowDown);
     }
+
+    #region OnSelectedDateHandlerAsync Behavior Tests
+
+    [Fact]
+    public void FluentCalendar_ReadOnly_DateSelection_DoesNotChangeValue()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var initialValue = new DateTime(2022, 6, 15);
+        DateTime? actualValue = initialValue;
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Value="@actualValue" 
+                                              ValueChanged="@((DateTime? v) => actualValue = v)"
+                                              ReadOnly="true" 
+                                              PickerMonth="@initialValue" />);
+
+        // Act - Try to click on a different date
+        var targetDay = calendar.Find($"div[value='2022-06-20']");
+        targetDay?.Click();
+
+        // Assert - Value should not change because calendar is ReadOnly
+        Assert.Equal(initialValue, actualValue);
+    }
+
+    [Fact]
+    public void FluentCalendar_Disabled_DateSelection_DoesNotChangeValue()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var initialValue = new DateTime(2022, 6, 15);
+        DateTime? actualValue = initialValue;
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Value="@actualValue" 
+                                              ValueChanged="@((DateTime? v) => actualValue = v)"
+                                              Disabled="true" 
+                                              PickerMonth="@initialValue" />);
+
+        // Act - Try to click on a different date
+        var targetDay = calendar.Find($"div[value='2022-06-20']");
+        targetDay?.Click();
+
+        // Assert - Value should not change because calendar is Disabled
+        Assert.Equal(initialValue, actualValue);
+    }
+
+    [Fact]
+    public void FluentCalendar_CheckIfSelectedValueHasChanged_True_SameValue_DoesNotTriggerCallback()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var selectedValue = new DateTime(2022, 6, 15);
+        DateTime? actualValue = selectedValue;
+        var callbackTriggered = false;
+
+        // Arrange
+        var calendar = Render(
+            @<CascadingValue Name="CheckIfSelectedValueHasChanged" Value="true">
+                <FluentCalendar Value="@actualValue" 
+                                ValueChanged="@((DateTime? v) => { actualValue = v; callbackTriggered = true; })"
+                                PickerMonth="@selectedValue" />
+            </CascadingValue>
+        );
+
+        // Act - Click on the same already selected date
+        var sameDay = calendar.Find($"div[value='{selectedValue:yyyy-MM-dd}']");
+        sameDay?.Click();
+
+        // Assert - Callback should not be triggered for same value when CheckIfSelectedValueHasChanged is true
+        Assert.False(callbackTriggered);
+        Assert.Equal(selectedValue, actualValue);
+    }
+
+    [Fact]
+    public void FluentCalendar_CheckIfSelectedValueHasChanged_False_SameValue_TriggersCallback()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var selectedValue = new DateTime(2022, 6, 15);
+        var actualValue = new DateTime(2022, 6, 10);
+        var callbackTriggered = false;
+
+        // Arrange
+        var calendar = Render(
+            @<CascadingValue Name="CheckIfSelectedValueHasChanged" Value="false">
+                <FluentCalendar Value="@actualValue" 
+                                ValueChanged="@((DateTime? v) => { actualValue = v ?? DateTime.Today; callbackTriggered = true; })"
+                                PickerMonth="@selectedValue" />
+            </CascadingValue>
+        );
+
+        // Act - Click on the same already selected date
+        var sameDay = calendar.Find($"div[value='{selectedValue:yyyy-MM-dd}']");
+        sameDay?.Click();
+
+        // Assert - Callback should be triggered even for same value when CheckIfSelectedValueHasChanged is false
+        Assert.True(callbackTriggered);
+        Assert.Equal(selectedValue, actualValue);
+    }
+
+    [Fact]
+    public void FluentCalendar_CheckIfSelectedValueHasChanged_Null_DefaultBehavior_SameValue_DoesNotTriggerCallback()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var selectedValue = new DateTime(2022, 6, 15);
+        DateTime? actualValue = selectedValue;
+        var callbackTriggered = false;
+
+        // Arrange - CheckIfSelectedValueHasChanged defaults to true when null
+        var calendar = Render(@<FluentCalendar Value="@actualValue" 
+                                              ValueChanged="@((DateTime? v) => { actualValue = v; callbackTriggered = true; })"
+                                              PickerMonth="@selectedValue" />);
+
+        // Act - Click on the same already selected date
+        var sameDay = calendar.Find($"div[value='{selectedValue:yyyy-MM-dd}']");
+        sameDay?.Click();
+
+        // Assert - Default behavior should not trigger callback for same value
+        Assert.False(callbackTriggered);
+        Assert.Equal(selectedValue, actualValue);
+    }
+
+    [Fact]
+    public void FluentCalendar_DifferentValue_TriggersValueChanged()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var initialValue = new DateTime(2022, 6, 15);
+        var targetValue = new DateTime(2022, 6, 20);
+        DateTime? actualValue = initialValue;
+        var callbackTriggered = false;
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Value="@actualValue" 
+                                              ValueChanged="@((DateTime? v) => { actualValue = v; callbackTriggered = true; })"
+                                              PickerMonth="@initialValue" />);
+
+        // Act - Click on a different date
+        var targetDay = calendar.Find($"div[value='{targetValue:yyyy-MM-dd}']");
+        targetDay?.Click();
+
+        // Assert - Value should change and callback should be triggered
+        Assert.True(callbackTriggered);
+        Assert.Equal(targetValue, actualValue);
+    }
+
+    [Fact]
+    public void FluentCalendar_ReadOnlyAndDisabled_DateSelection_DoesNotChangeValue()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var initialValue = new DateTime(2022, 6, 15);
+        DateTime? actualValue = initialValue;
+        var callbackTriggered = false;
+
+        // Arrange - Both ReadOnly and Disabled are true
+        var calendar = Render(@<FluentCalendar Value="@actualValue" 
+                                              ValueChanged="@((DateTime? v) => { actualValue = v; callbackTriggered = true; })"
+                                              ReadOnly="true" 
+                                              Disabled="true" 
+                                              PickerMonth="@initialValue" />);
+
+        // Act - Try to click on a different date
+        var targetDay = calendar.Find($"div[value='2022-06-20']");
+        targetDay?.Click();
+
+        // Assert - Value should not change because calendar is both ReadOnly and Disabled
+        Assert.False(callbackTriggered);
+        Assert.Equal(initialValue, actualValue);
+    }
+
+    [Fact]
+    public void FluentCalendar_CheckIfSelectedValueHasChanged_False_DifferentValue_TriggersCallback()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var initialValue = new DateTime(2022, 6, 15);
+        var targetValue = new DateTime(2022, 6, 20);
+        DateTime? actualValue = initialValue;
+        var callbackTriggered = false;
+
+        // Arrange
+        var calendar = Render(
+            @<CascadingValue Name="CheckIfSelectedValueHasChanged" Value="false">
+                <FluentCalendar Value="@actualValue" 
+                                ValueChanged="@((DateTime? v) => { actualValue = v; callbackTriggered = true; })"
+                                PickerMonth="@initialValue" />
+            </CascadingValue>
+        );
+
+        // Act - Click on a different date
+        var targetDay = calendar.Find($"div[value='{targetValue:yyyy-MM-dd}']");
+        targetDay?.Click();
+
+        // Assert - Value should change and callback should be triggered
+        Assert.True(callbackTriggered);
+        Assert.Equal(targetValue, actualValue);
+    }
+
+    [Fact]
+    public void FluentCalendar_ValueChanged_Callback_Triggered_WithCorrectValue()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var initialValue = new DateTime(2022, 6, 15);
+        var targetValue = new DateTime(2022, 6, 20);
+        DateTime? callbackValue = null;
+        var callbackTriggered = false;
+
+        void ValueChangedCallback(DateTime? value)
+        {
+            callbackValue = value;
+            callbackTriggered = true;
+        }
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Value="@initialValue" 
+                                              ValueChanged="ValueChangedCallback" 
+                                              PickerMonth="@initialValue" />);
+
+        // Act - Click on a different date
+        var targetDay = calendar.Find($"div[value='{targetValue:yyyy-MM-dd}']");
+        targetDay?.Click();
+
+        // Assert - Callback should be triggered with correct value
+        Assert.True(callbackTriggered);
+        Assert.Equal(targetValue, callbackValue);
+    }
+
+    [Fact]
+    public void FluentCalendar_NormalDateSelection_UpdatesValue()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var initialValue = new DateTime(2022, 6, 15);
+        var targetValue = new DateTime(2022, 6, 22);
+        DateTime? actualValue = initialValue;
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Value="@actualValue" 
+                                              ValueChanged="@((DateTime? v) => actualValue = v)"
+                                              PickerMonth="@initialValue" />);
+
+        // Act - Click on a different date
+        var targetDay = calendar.Find($"div[value='{targetValue:yyyy-MM-dd}']");
+        targetDay?.Click();
+
+        // Assert - Value should be updated to the new selected date
+        Assert.Equal(targetValue, actualValue);
+    }
+
+    #endregion
 }
