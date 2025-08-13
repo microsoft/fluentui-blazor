@@ -163,7 +163,7 @@ public partial class FluentCalendar : FluentCalendarBase
     internal bool IsReadOnlyOrDisabled => ReadOnly || Disabled == true;
 
     /// <summary />
-    private string GetAnimationClass(string existingClass) => CanBeAnimated ? _animationRunning switch
+    internal string GetAnimationClass(string existingClass) => CanBeAnimated ? _animationRunning switch
     {
         AnimationRunning.Up => $"{existingClass} animation-running-up",
         AnimationRunning.Down => $"{existingClass} animation-running-down",
@@ -216,7 +216,7 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    private async Task OnPreviousButtonHandlerAsync(MouseEventArgs e)
+    internal async Task OnPreviousButtonHandlerAsync(MouseEventArgs e)
     {
         await StartNewAnimationAsync(AnimationRunning.Down);
         _refreshAccessibilityPending = true;
@@ -238,7 +238,7 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    private async Task OnNextButtonHandlerAsync(MouseEventArgs e)
+    internal async Task OnNextButtonHandlerAsync(MouseEventArgs e)
     {
         await StartNewAnimationAsync(AnimationRunning.Up);
         _refreshAccessibilityPending = true;
@@ -305,7 +305,7 @@ public partial class FluentCalendar : FluentCalendarBase
     private bool CanBeAnimated => AnimatePeriodChanges ?? (View != CalendarViews.Days && View != CalendarViews.Years);
 
     /// <summary />
-    private async Task StartNewAnimationAsync(AnimationRunning position)
+    internal async Task StartNewAnimationAsync(AnimationRunning position)
     {
         if (CanBeAnimated)
         {
@@ -352,7 +352,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     /// <param name="month"></param>
     /// <returns></returns>
-    private async Task PickerMonthSelectAsync(DateTime? month)
+    internal async Task PickerMonthSelectAsync(DateTime? month)
     {
         PickerMonth = month ?? DateTimeProvider.Today;
         PickerView = CalendarViews.Days;
@@ -509,7 +509,7 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    private Task OnSelectDayMouseOverAsync(DateTime value, bool dayDisabled)
+    internal Task OnSelectDayMouseOverAsync(DateTime value, bool dayDisabled)
     {
         if (dayDisabled ||
             SelectMode == CalendarSelectMode.Single ||
@@ -591,7 +591,7 @@ public partial class FluentCalendar : FluentCalendarBase
         }
     }
 
-    private enum AnimationRunning
+    internal enum AnimationRunning
     {
         None,
         Up,

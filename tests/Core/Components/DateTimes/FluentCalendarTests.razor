@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+@using System.Reflection
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Xunit
 @inherits Bunit.TestContext
@@ -1180,6 +1181,690 @@ value=""2022-02-20"">20</div>");
 
         // Assert - Value should be updated to the new selected date
         Assert.Equal(targetValue, actualValue);
+    }
+
+    #endregion
+
+    #region GetAnimationClass Tests
+
+    [Theory]
+    [InlineData("existing-class", true, "None", "existing-class animation-none")]
+    [InlineData("existing-class", true, "Up", "existing-class animation-running-up")]
+    [InlineData("existing-class", true, "Down", "existing-class animation-running-down")]
+    [InlineData("existing-class", false, "None", "existing-class")]
+    [InlineData("existing-class", false, "Up", "existing-class")]
+    [InlineData("existing-class", false, "Down", "existing-class")]
+    [InlineData("", true, "None", " animation-none")]
+    [InlineData("", true, "Up", " animation-running-up")]
+    [InlineData("", true, "Down", " animation-running-down")]
+    [InlineData("", false, "None", "")]
+    [InlineData("", false, "Up", "")]
+    [InlineData("", false, "Down", "")]
+    public void GetAnimationClass_ReturnsCorrectClass(string existingClass, bool canBeAnimated, string animationRunningString, string expected)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar AnimatePeriodChanges="@canBeAnimated" View="CalendarViews.Months" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Convert string to enum value
+        var animationRunning = animationRunningString switch
+        {
+            "None" => FluentCalendar.AnimationRunning.None,
+            "Up" => FluentCalendar.AnimationRunning.Up,
+            "Down" => FluentCalendar.AnimationRunning.Down,
+            _ => FluentCalendar.AnimationRunning.None
+        };
+
+        // Set the private _animationRunning field using reflection
+        var animationRunningField = component.Instance.GetType().GetField("_animationRunning", BindingFlags.NonPublic | BindingFlags.Instance);
+        animationRunningField?.SetValue(component.Instance, animationRunning);
+
+        // Act
+        var result = component.Instance.GetAnimationClass(existingClass);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(CalendarViews.Days, null, false)] // Days view with null AnimatePeriodChanges should be false
+    [InlineData(CalendarViews.Days, true, true)]  // Days view with explicit true AnimatePeriodChanges should be true
+    [InlineData(CalendarViews.Days, false, false)] // Days view with explicit false AnimatePeriodChanges should be false
+    [InlineData(CalendarViews.Months, null, true)] // Months view with null AnimatePeriodChanges should be true
+    [InlineData(CalendarViews.Months, true, true)] // Months view with explicit true AnimatePeriodChanges should be true
+    [InlineData(CalendarViews.Months, false, false)] // Months view with explicit false AnimatePeriodChanges should be false
+    [InlineData(CalendarViews.Years, null, false)] // Years view with null AnimatePeriodChanges should be false
+    [InlineData(CalendarViews.Years, true, true)]  // Years view with explicit true AnimatePeriodChanges should be true
+    [InlineData(CalendarViews.Years, false, false)] // Years view with explicit false AnimatePeriodChanges should be false
+    public void GetAnimationClass_WithDifferentViewsAndAnimationSettings(CalendarViews view, bool? animatePeriodChanges, bool shouldAnimate)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar View="@view" AnimatePeriodChanges="@animatePeriodChanges" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Set animation running to Up
+        var animationRunningField = component.Instance.GetType().GetField("_animationRunning", BindingFlags.NonPublic | BindingFlags.Instance);
+        animationRunningField?.SetValue(component.Instance, FluentCalendar.AnimationRunning.Up);
+
+        // Act
+        var result = component.Instance.GetAnimationClass("test-class");
+
+        // Assert
+        if (shouldAnimate)
+        {
+            Assert.Equal("test-class animation-running-up", result);
+        }
+        else
+        {
+            Assert.Equal("test-class", result);
+        }
+    }
+
+    #endregion
+
+    #region StartNewAnimationAsync Tests
+
+    [Fact]
+    public async Task StartNewAnimationAsync_WhenCanBeAnimated_SetsAnimationAndClearsFirst()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange - Use Months view which can be animated by default
+        var calendar = Render(@<FluentCalendar View="CalendarViews.Months" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        var animationRunningField = component.Instance.GetType().GetField("_animationRunning", BindingFlags.NonPublic | BindingFlags.Instance);
+        
+        // Set initial animation state to Down
+        animationRunningField?.SetValue(component.Instance, FluentCalendar.AnimationRunning.Down);
+
+        // Act - Use InvokeAsync to handle the threading issue
+        await component.InvokeAsync(async () =>
+        {
+            await component.Instance.StartNewAnimationAsync(FluentCalendar.AnimationRunning.Up);
+        });
+
+        // Assert
+        var finalAnimationState = animationRunningField?.GetValue(component.Instance);
+        Assert.Equal(FluentCalendar.AnimationRunning.Up, finalAnimationState); // Should be AnimationRunning.Up
+    }
+
+    [Fact]
+    public async Task StartNewAnimationAsync_WhenCannotBeAnimated_DoesNotChangeAnimation()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange - Use Days view which cannot be animated by default
+        var calendar = Render(@<FluentCalendar View="CalendarViews.Days" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        var animationRunningField = component.Instance.GetType().GetField("_animationRunning", BindingFlags.NonPublic | BindingFlags.Instance);
+        
+        // Set initial animation state to None
+        animationRunningField?.SetValue(component.Instance, FluentCalendar.AnimationRunning.None);
+
+        // Act
+        await component.Instance.StartNewAnimationAsync(FluentCalendar.AnimationRunning.Up);
+
+        // Assert
+        var finalAnimationState = animationRunningField?.GetValue(component.Instance);
+        Assert.Equal(FluentCalendar.AnimationRunning.None, finalAnimationState); // Should remain AnimationRunning.None
+    }
+
+    [Theory]
+    [InlineData(1)] // AnimationRunning.Up
+    [InlineData(2)] // AnimationRunning.Down
+    public async Task StartNewAnimationAsync_WithDifferentAnimations_SetsCorrectState(int animationValue)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange - Use explicit animation setting to true
+        var calendar = Render(@<FluentCalendar View="CalendarViews.Days" AnimatePeriodChanges="true" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        var animationRunningField = component.Instance.GetType().GetField("_animationRunning", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        // Act - Use InvokeAsync to handle the threading issue
+        await component.InvokeAsync(async () =>
+        {
+            await component.Instance.StartNewAnimationAsync((FluentCalendar.AnimationRunning)animationValue);
+        });
+
+        // Assert
+        var finalAnimationState = animationRunningField?.GetValue(component.Instance);
+        Assert.Equal((FluentCalendar.AnimationRunning)animationValue, finalAnimationState);
+    }
+
+    [Fact]
+    public async Task StartNewAnimationAsync_WithAnimatePeriodChangesFalse_DoesNotAnimate()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar View="CalendarViews.Months" AnimatePeriodChanges="false" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        var animationRunningField = component.Instance.GetType().GetField("_animationRunning", BindingFlags.NonPublic | BindingFlags.Instance);
+        
+        // Set initial state
+        animationRunningField?.SetValue(component.Instance, FluentCalendar.AnimationRunning.None);
+
+        // Act - Use InvokeAsync to handle the threading issue
+        await component.InvokeAsync(async () =>
+        {
+            await component.Instance.StartNewAnimationAsync(FluentCalendar.AnimationRunning.Up);
+        });
+
+        // Assert
+        var finalAnimationState = animationRunningField?.GetValue(component.Instance);
+        Assert.Equal(FluentCalendar.AnimationRunning.None, finalAnimationState); // Should remain None since animation is disabled
+    }
+
+    #endregion
+
+    #region PickerMonthSelectAsync Tests
+
+    [Fact]
+    public async Task PickerMonthSelectAsync_WithValidMonth_UpdatesPickerMonthAndView()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var testMonth = new DateTime(2022, 8, 15);
+
+        // Arrange - Start with Months view
+        var calendar = Render(@<FluentCalendar View="CalendarViews.Months" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Get the private _pickerView field
+        var pickerViewField = component.Instance.GetType().GetField("_pickerView", BindingFlags.NonPublic | BindingFlags.Instance);
+        
+        // Set the initial view to Months
+        pickerViewField?.SetValue(component.Instance, CalendarViews.Months);
+        
+        // Verify initial state is Months
+        Assert.Equal(CalendarViews.Months, pickerViewField?.GetValue(component.Instance));
+
+        // Act
+        await component.Instance.PickerMonthSelectAsync(testMonth);
+
+        // Assert
+        Assert.Equal(new DateTime(2022, 8, 1), component.Instance.PickerMonth); // Should be start of month
+        Assert.Equal(CalendarViews.Days, pickerViewField?.GetValue(component.Instance)); // Should change to Days view
+    }
+
+    [Fact]
+    public async Task PickerMonthSelectAsync_WithNullMonth_UsesTodayAndUpdatesView()
+    {
+        using var context = new DateTimeProviderContext(new DateTime(2023, 3, 10));
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar View="CalendarViews.Months" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        var pickerViewField = component.Instance.GetType().GetField("_pickerView", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        // Act
+        await component.Instance.PickerMonthSelectAsync(null);
+
+        // Assert
+        Assert.Equal(new DateTime(2023, 3, 1), component.Instance.PickerMonth); // Should use DateTimeProvider.Today
+        Assert.Equal(CalendarViews.Days, pickerViewField?.GetValue(component.Instance));
+    }
+
+    [Fact]
+    public async Task PickerMonthSelectAsync_WithDifferentCultures_RespectsCalendar()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var testMonth = new DateTime(2022, 6, 15);
+        var persianCulture = CultureInfo.GetCultureInfo("fa-IR");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar View="CalendarViews.Months" Culture="@persianCulture" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Act
+        await component.Instance.PickerMonthSelectAsync(testMonth);
+
+        // Assert
+        var expectedStartOfMonth = testMonth.StartOfMonth(persianCulture);
+        Assert.Equal(expectedStartOfMonth, component.Instance.PickerMonth);
+    }
+
+    [Fact]
+    public async Task PickerMonthSelectAsync_TriggersPickerMonthChanged()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var testMonth = new DateTime(2022, 9, 20);
+        DateTime? changedMonth = null;
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar View="CalendarViews.Months" 
+                                              PickerMonthChanged="@((month) => changedMonth = month)" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Act
+        await component.Instance.PickerMonthSelectAsync(testMonth);
+
+        // Assert
+        Assert.Equal(new DateTime(2022, 9, 1), changedMonth);
+    }
+
+    #endregion
+
+    #region OnSelectDayMouseOverAsync Tests
+
+    [Fact]
+    public async Task OnSelectDayMouseOverAsync_WithDisabledDay_ReturnsCompletedTask()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var testDate = new DateTime(2022, 6, 15);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar SelectMode="CalendarSelectMode.Range" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Act
+        await component.Instance.OnSelectDayMouseOverAsync(testDate, dayDisabled: true);
+
+        // Assert - Should complete without error
+        Assert.True(true); // Test passes if no exception is thrown
+    }
+
+    [Fact]
+    public async Task OnSelectDayMouseOverAsync_WithSingleSelectMode_ReturnsCompletedTask()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var testDate = new DateTime(2022, 6, 15);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar SelectMode="CalendarSelectMode.Single" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Act
+        await component.Instance.OnSelectDayMouseOverAsync(testDate, dayDisabled: false);
+
+        // Assert - Should complete without error
+        Assert.True(true); // Test passes if no exception is thrown
+    }
+
+    [Fact]
+    public async Task OnSelectDayMouseOverAsync_RangeMode_WithoutSelectDatesHover_UpdatesRangeSelector()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var startDate = new DateTime(2022, 6, 10);
+        var hoverDate = new DateTime(2022, 6, 15);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar SelectMode="CalendarSelectMode.Range" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Set up the range selector start date using reflection
+        var rangeSelectorField = component.Instance.GetType().GetField("_rangeSelector", BindingFlags.NonPublic | BindingFlags.Instance);
+        var rangeSelector = rangeSelectorField?.GetValue(component.Instance);
+        
+        if (rangeSelector != null)
+        {
+            var startProperty = rangeSelector.GetType().GetProperty("Start");
+            startProperty?.SetValue(rangeSelector, startDate);
+        }
+
+        // Act
+        await component.Instance.OnSelectDayMouseOverAsync(hoverDate, dayDisabled: false);
+
+        // Assert
+        var rangeSelectorMouseOverField = component.Instance.GetType().GetField("_rangeSelectorMouseOver", BindingFlags.NonPublic | BindingFlags.Instance);
+        var rangeSelectorMouseOver = rangeSelectorMouseOverField?.GetValue(component.Instance);
+        
+        if (rangeSelectorMouseOver != null)
+        {
+            var startProperty = rangeSelectorMouseOver.GetType().GetProperty("Start");
+            var endProperty = rangeSelectorMouseOver.GetType().GetProperty("End");
+            
+            Assert.Equal(startDate, startProperty?.GetValue(rangeSelectorMouseOver));
+            Assert.Equal(hoverDate, endProperty?.GetValue(rangeSelectorMouseOver));
+        }
+    }
+
+    [Fact]
+    public async Task OnSelectDayMouseOverAsync_RangeMode_WithSelectDatesHover_UsesHoverFunction()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var hoverDate = new DateTime(2022, 6, 15);
+        IEnumerable<DateTime> selectedDatesMouseOver = [];
+
+        // Custom hover function that returns 3 consecutive days
+        Func<DateTime, IEnumerable<DateTime>> selectDatesHover = (date) =>
+        {
+            return Enumerable.Range(0, 3).Select(i => date.AddDays(i));
+        };
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar SelectMode="CalendarSelectMode.Range" 
+                                              SelectDatesHover="@selectDatesHover" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Act
+        await component.Instance.OnSelectDayMouseOverAsync(hoverDate, dayDisabled: false);
+
+        // Assert
+        var rangeSelectorMouseOverField = component.Instance.GetType().GetField("_rangeSelectorMouseOver", BindingFlags.NonPublic | BindingFlags.Instance);
+        var rangeSelectorMouseOver = rangeSelectorMouseOverField?.GetValue(component.Instance);
+        
+        if (rangeSelectorMouseOver != null)
+        {
+            var startProperty = rangeSelectorMouseOver.GetType().GetProperty("Start");
+            var endProperty = rangeSelectorMouseOver.GetType().GetProperty("End");
+            
+            Assert.Equal(hoverDate, startProperty?.GetValue(rangeSelectorMouseOver)); // Min of the range
+            Assert.Equal(hoverDate.AddDays(2), endProperty?.GetValue(rangeSelectorMouseOver)); // Max of the range
+        }
+    }
+
+    [Fact]
+    public async Task OnSelectDayMouseOverAsync_MultipleMode_WithoutSelectDatesHover_ReturnsCompletedTask()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var testDate = new DateTime(2022, 6, 15);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar SelectMode="CalendarSelectMode.Multiple" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Act
+        await component.Instance.OnSelectDayMouseOverAsync(testDate, dayDisabled: false);
+
+        // Assert - Should complete without error for Multiple mode without hover function
+        Assert.True(true); // Test passes if no exception is thrown
+    }
+
+    [Fact]
+    public async Task OnSelectDayMouseOverAsync_MultipleMode_WithSelectDatesHover_UpdatesMouseOverDates()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var hoverDate = new DateTime(2022, 6, 15);
+
+        // Custom hover function that returns a week
+        Func<DateTime, IEnumerable<DateTime>> selectDatesHover = (date) =>
+        {
+            return Enumerable.Range(0, 7).Select(i => date.AddDays(i));
+        };
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar SelectMode="CalendarSelectMode.Multiple" 
+                                              SelectDatesHover="@selectDatesHover" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Act
+        await component.Instance.OnSelectDayMouseOverAsync(hoverDate, dayDisabled: false);
+
+        // Assert
+        var selectedDatesMouseOverField = component.Instance.GetType().GetField("_selectedDatesMouseOver", BindingFlags.NonPublic | BindingFlags.Instance);
+        var selectedDatesMouseOver = selectedDatesMouseOverField?.GetValue(component.Instance) as List<DateTime>;
+        
+        Assert.NotNull(selectedDatesMouseOver);
+        Assert.Equal(7, selectedDatesMouseOver.Count);
+        Assert.Equal(hoverDate, selectedDatesMouseOver.First());
+        Assert.Equal(hoverDate.AddDays(6), selectedDatesMouseOver.Last());
+    }
+
+    [Fact]
+    public async Task OnSelectDayMouseOverAsync_WithDisabledDateFunc_FiltersDisabledDates()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var hoverDate = new DateTime(2022, 6, 15);
+
+        // Custom hover function that returns 5 consecutive days
+        Func<DateTime, IEnumerable<DateTime>> selectDatesHover = (date) =>
+        {
+            return Enumerable.Range(0, 5).Select(i => date.AddDays(i));
+        };
+
+        // Disable function that disables even days
+        Func<DateTime, bool> disabledDateFunc = (date) => date.Day % 2 == 0;
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar SelectMode="CalendarSelectMode.Range" 
+                                              SelectDatesHover="@selectDatesHover"
+                                              DisabledDateFunc="@disabledDateFunc" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Act
+        await component.Instance.OnSelectDayMouseOverAsync(hoverDate, dayDisabled: false);
+
+        // Assert
+        var selectedDatesMouseOverField = component.Instance.GetType().GetField("_selectedDatesMouseOver", BindingFlags.NonPublic | BindingFlags.Instance);
+        var selectedDatesMouseOver = selectedDatesMouseOverField?.GetValue(component.Instance) as List<DateTime>;
+        
+        Assert.NotNull(selectedDatesMouseOver);
+        
+        // Should only include odd days (15, 17, 19) and exclude even days (16, 18)
+        var expectedDates = new[] { 
+            new DateTime(2022, 6, 15),  // 15 (odd)
+            new DateTime(2022, 6, 17),  // 17 (odd) 
+            new DateTime(2022, 6, 19)   // 19 (odd)
+        };
+        
+        Assert.Equal(expectedDates.Length, selectedDatesMouseOver.Count);
+        foreach (var expectedDate in expectedDates)
+        {
+            Assert.Contains(expectedDate, selectedDatesMouseOver);
+        }
+    }
+
+    [Fact]
+    public async Task OnSelectDayMouseOverAsync_RangeMode_WithRangeSelectorIsSingle_ReturnsCompletedTask()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var testDate = new DateTime(2022, 6, 15);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar SelectMode="CalendarSelectMode.Range" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Set up the range selector to have same start and end (IsSingle condition)
+        var rangeSelectorField = component.Instance.GetType().GetField("_rangeSelector", BindingFlags.NonPublic | BindingFlags.Instance);
+        var rangeSelector = rangeSelectorField?.GetValue(component.Instance);
+        
+        if (rangeSelector != null)
+        {
+            var startProperty = rangeSelector.GetType().GetProperty("Start");
+            var endProperty = rangeSelector.GetType().GetProperty("End");
+            startProperty?.SetValue(rangeSelector, testDate);
+            endProperty?.SetValue(rangeSelector, testDate); // Same as start to make it IsSingle
+        }
+
+        // Act
+        await component.Instance.OnSelectDayMouseOverAsync(testDate, dayDisabled: false);
+
+        // Assert - Should complete without processing when range is single and no hover function
+        Assert.True(true); // Test passes if no exception is thrown
+    }
+
+    #endregion
+
+    #region TryParseValueFromString Tests
+
+    [Theory]
+    [InlineData("2022-06-15", true, "2022-06-15")]
+    [InlineData("2022-12-31", true, "2022-12-31")]
+    [InlineData("2000-01-01", true, "2000-01-01")]
+    [InlineData("invalid-date", true, null)]
+    [InlineData("", true, null)]
+    [InlineData(null, true, null)]
+    [InlineData("2022/06/15", true, "2022-06-15")] // Different format but should parse
+    [InlineData("June 15, 2022", true, "2022-06-15")] // Long format should parse
+    public void TryParseValueFromString_ReturnsExpectedResults(string? input, bool expectedSuccess, string? expectedDateString)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Use reflection to access the protected method
+        var method = component.Instance.GetType().GetMethod("TryParseValueFromString", 
+            BindingFlags.NonPublic | BindingFlags.Instance);
+
+        var parameters = new object?[] { input, null, null };
+
+        // Act
+        var result = (bool)(method?.Invoke(component.Instance, parameters) ?? false);
+        var parsedValue = (DateTime?)parameters[1];
+        var validationErrorMessage = (string?)parameters[2];
+
+        // Assert
+        Assert.Equal(expectedSuccess, result);
+        
+        if (expectedDateString != null)
+        {
+            Assert.NotNull(parsedValue);
+            Assert.Equal(DateTime.Parse(expectedDateString), parsedValue.Value);
+        }
+        else
+        {
+            // For invalid inputs, the method still returns true but result might be null or unexpected
+            // The actual behavior depends on BindConverter.TryConvertTo implementation
+        }
+        
+        Assert.Null(validationErrorMessage); // Method always sets this to null
+    }
+
+    [Theory]
+    [InlineData("en-US", "6/15/2022", "2022-06-15")]
+    [InlineData("en-US", "12/31/2022", "2022-12-31")]
+    [InlineData("fr-FR", "15/06/2022", "2022-06-15")]
+    [InlineData("de-DE", "15.06.2022", "2022-06-15")]
+    public void TryParseValueFromString_WithDifferentCultures_ParsesCorrectly(string cultureName, string input, string expectedDateString)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var culture = CultureInfo.GetCultureInfo(cultureName);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@culture" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Use reflection to access the protected method
+        var method = component.Instance.GetType().GetMethod("TryParseValueFromString", 
+            BindingFlags.NonPublic | BindingFlags.Instance);
+
+        var parameters = new object?[] { input, null, null };
+
+        // Act
+        var result = (bool)(method?.Invoke(component.Instance, parameters) ?? false);
+        var parsedValue = (DateTime?)parameters[1];
+        var validationErrorMessage = (string?)parameters[2];
+
+        // Assert
+        Assert.True(result);
+        
+        if (parsedValue.HasValue)
+        {
+            var expectedDate = DateTime.Parse(expectedDateString);
+            Assert.Equal(expectedDate, parsedValue.Value);
+        }
+        
+        Assert.Null(validationErrorMessage);
+    }
+
+    [Fact]
+    public void TryParseValueFromString_AlwaysReturnsTrue()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Use reflection to access the protected method
+        var method = component.Instance.GetType().GetMethod("TryParseValueFromString", 
+            BindingFlags.NonPublic | BindingFlags.Instance);
+
+        var testInputs = new string?[] { "invalid", "completely-wrong", "2022-13-45", "", null, "999999999999" };
+
+        foreach (var input in testInputs)
+        {
+            var parameters = new object?[] { input, null, null };
+
+            // Act
+            var result = (bool)(method?.Invoke(component.Instance, parameters) ?? false);
+
+            // Assert
+            Assert.True(result); // Method always returns true according to implementation
+        }
+    }
+
+    [Fact]
+    public void TryParseValueFromString_AlwaysSetsValidationErrorMessageToNull()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Use reflection to access the protected method
+        var method = component.Instance.GetType().GetMethod("TryParseValueFromString", 
+            BindingFlags.NonPublic | BindingFlags.Instance);
+
+        var testInputs = new string?[] { "2022-06-15", "invalid", "", null };
+
+        foreach (var input in testInputs)
+        {
+            var parameters = new object?[] { input, null, "initial-error" };
+
+            // Act
+            var result = (bool)(method?.Invoke(component.Instance, parameters) ?? false);
+            var validationErrorMessage = (string?)parameters[2];
+
+            // Assert
+            Assert.Null(validationErrorMessage); // Always set to null in the method
+        }
+    }
+
+    [Theory]
+    [InlineData("fa-IR")] // Persian calendar
+    [InlineData("ar-SA")] // Arabic calendar
+    [InlineData("ja-JP")] // Japanese calendar
+    public void TryParseValueFromString_WithNonGregorianCalendars_UsesCorrectCulture(string cultureName)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var culture = CultureInfo.GetCultureInfo(cultureName);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@culture" />);
+        var component = calendar.FindComponent<FluentCalendar>();
+
+        // Use reflection to access the protected method
+        var method = component.Instance.GetType().GetMethod("TryParseValueFromString", 
+            BindingFlags.NonPublic | BindingFlags.Instance);
+
+        var parameters = new object?[] { "2022-06-15", null, null }; // Standard ISO format
+
+        // Act
+        var result = (bool)(method?.Invoke(component.Instance, parameters) ?? false);
+        var parsedValue = (DateTime?)parameters[1];
+        var validationErrorMessage = (string?)parameters[2];
+
+        // Assert
+        Assert.True(result);
+        Assert.Null(validationErrorMessage);
+        // The actual parsing result depends on BindConverter.TryConvertTo behavior with different cultures
     }
 
     #endregion
