@@ -251,8 +251,9 @@
         {
             "label": "build-current-project",
             "type": "shell",
-            "command": "pwsh",
+            "command": "powershell.exe",
             "args": [
+                "-NoProfile",
                 "-ExecutionPolicy",
                 "Bypass",
                 "-File",
@@ -273,6 +274,10 @@
                 "env": {
                     "VSCODE_ACTIVE_FILE": "${file}",
                     "WORKSPACE_FOLDER": "${workspaceFolder}"
+                },
+                "shell": {
+                    "executable": "powershell.exe",
+                    "args": ["-NoProfile"]
                 }
             }
         }
