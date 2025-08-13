@@ -38,7 +38,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var cut = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" Value="@(new System.DateTime(2022, 02, 15))" />);
+        var cut = Render(@<FluentCalendar Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))" />);
         var title = cut.Find(".title");
 
         // Assert
@@ -66,7 +66,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" Value="@(new System.DateTime(2022, 02, 15))" />);
+        var calendar = Render(@<FluentCalendar Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))" />);
 
         calendar.Verify();
     }
@@ -88,7 +88,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" Value="@(new System.DateTime(2022, 02, 15))" />);
+        var calendar = Render(@<FluentCalendar Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))" />);
         var day = calendar.Find("[value='2022-02-20']");
 
         // Assert
@@ -127,7 +127,7 @@ value=""2022-02-20"">20</div>");
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" Value="@(new System.DateTime(2022, 02, 15))"
+        var calendar = Render(@<FluentCalendar Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
             PickerMonth="@(new System.DateTime(2022, 06, 15))" />);
         var monthName = calendar.Find(".label").InnerHtml;
         var juneFirst = System.DateTime.Parse("2022-06-01");
@@ -184,7 +184,7 @@ value=""2022-02-20"">20</div>");
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" PickerMonth="@System.DateTime.Parse("2022-06-15")" />);
+        var calendar = Render(@<FluentCalendar Culture="@InvariantCulture" PickerMonth="@System.DateTime.Parse("2022-06-15")" />);
 
         // Click on Previous Month button
         var buttonMove = calendar.Find(".previous");
@@ -221,7 +221,7 @@ value=""2022-02-20"">20</div>");
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" PickerMonth="@System.DateTime.Parse("2022-06-15")" />);
+        var calendar = Render(@<FluentCalendar Culture="@InvariantCulture" PickerMonth="@System.DateTime.Parse("2022-06-15")" />);
 
         // Click on Previous Month button
         var buttonMove = calendar.Find(".next");
@@ -388,7 +388,7 @@ value=""2022-02-20"">20</div>");
         DateTime? value = DateTime.MinValue;
 
         // Arrange & Act
-        var calendar = Render(@<FluentCalendar Value="@value" View="@view" Culture="@CultureInfo.GetCultureInfo("en-us")" />);
+        var calendar = Render(@<FluentCalendar Value="@value" View="@view" Culture="@InvariantCulture" />);
         var previous = calendar.Find($".previous");
 
         // Assert
@@ -407,7 +407,7 @@ value=""2022-02-20"">20</div>");
         DateTime? value = DateTime.MaxValue;
 
         // Arrange & Act
-        var calendar = Render(@<FluentCalendar Value="@value" View="@view" Culture="@CultureInfo.GetCultureInfo("en-us")" />);
+        var calendar = Render(@<FluentCalendar Value="@value" View="@view" Culture="@InvariantCulture" />);
         var previous = calendar.Find($".next");
 
         // Assert
@@ -873,7 +873,7 @@ value=""2022-02-20"">20</div>");
         var testDate = new DateTime(2022, 6, 15);
 
         // Arrange
-        var calendar = Render(@<FluentCalendar PickerMonth="@testDate" Culture="@CultureInfo.GetCultureInfo("en-US")" />);
+        var calendar = Render(@<FluentCalendar PickerMonth="@testDate" Culture="@InvariantCulture" />);
         var component = calendar.FindComponent<FluentCalendar>();
 
         // Act
@@ -1719,7 +1719,7 @@ value=""2022-02-20"">20</div>");
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" />);
+        var calendar = Render(@<FluentCalendar Culture="@InvariantCulture" />);
         var component = calendar.FindComponent<FluentCalendar>();
 
         // Use reflection to access the protected method
