@@ -8,6 +8,11 @@
 {
     public FluentCalendarTests()
     {
+        // Set the culture for the tests
+        var culture = new CultureInfo("en-US");
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = culture;
+
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
     }
