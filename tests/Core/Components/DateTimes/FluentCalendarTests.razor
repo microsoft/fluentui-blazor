@@ -8,6 +8,13 @@
 {
     public FluentCalendarTests()
     {
+
+        // Force the same ShortestDayNames on Windows and Linux
+        var customCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+        customCulture.DateTimeFormat.ShortestDayNames = new string[] { "S", "M", "T", "W", "T", "F", "S" };
+        Thread.CurrentThread.CurrentCulture = customCulture;
+        Thread.CurrentThread.CurrentUICulture = customCulture;
+
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
     }
@@ -17,11 +24,6 @@
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
 
-        // Set the culture for the tests
-        var culture = new CultureInfo("en-US");
-        Thread.CurrentThread.CurrentCulture = culture;
-        Thread.CurrentThread.CurrentUICulture = culture;
-        
         // Act
         var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" Value="@(new System.DateTime(2022, 02, 15))"
             DisabledDateFunc="@((date) => date.Day == 14)" />);
