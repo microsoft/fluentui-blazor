@@ -8,11 +8,6 @@
 {
     public FluentCalendarTests()
     {
-        // Set the culture for the tests
-        var culture = new CultureInfo("en-US");
-        Thread.CurrentThread.CurrentCulture = culture;
-        Thread.CurrentThread.CurrentUICulture = culture;
-
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
     }
@@ -22,6 +17,11 @@
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
 
+        // Set the culture for the tests
+        var culture = new CultureInfo("en-US");
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = culture;
+        
         // Act
         var calendar = Render(@<FluentCalendar Culture="@CultureInfo.GetCultureInfo("en-US")" Value="@(new System.DateTime(2022, 02, 15))"
             DisabledDateFunc="@((date) => date.Day == 14)" />);
