@@ -131,10 +131,8 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
                     .MakeGenericMethod(typeof(TProp));
                 return (Func<TGridItem, string?>)method.Invoke(null, [getter, format])!;
             }
-            else
-            {
-                return CreateReferenceTypeFormatter((Func<TGridItem, IFormattable?>)(object)getter, format);
-            }
+
+            return CreateReferenceTypeFormatter((Func<TGridItem, IFormattable?>)(object)getter, format);
         }
 
         throw new InvalidOperationException($"A '{nameof(Format)}' parameter was supplied, but the type '{typeof(TProp)}' does not implement '{typeof(IFormattable)}'.");
