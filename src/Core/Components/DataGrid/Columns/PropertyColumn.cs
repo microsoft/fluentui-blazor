@@ -131,6 +131,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
                 return (Func<TGridItem, string?>)method.Invoke(null, [getter, format])!;
             }
 
+            //Double cast required because CreateReferenceTypeFormatter required the TProp to be a reference type which implements IFormattable.
             return CreateReferenceTypeFormatter((Func<TGridItem, IFormattable?>)(object)getter, format);
         }
 
