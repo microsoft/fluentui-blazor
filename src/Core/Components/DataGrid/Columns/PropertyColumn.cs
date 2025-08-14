@@ -64,7 +64,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
             if (!string.IsNullOrEmpty(Format))
             {
-                _cellTextFunc =  CreateFormatter(compiledPropertyExpression, Format);
+                _cellTextFunc = CreateFormatter(compiledPropertyExpression, Format);
             }
             else
             {
@@ -138,22 +138,19 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
         throw new InvalidOperationException($"A '{nameof(Format)}' parameter was supplied, but the type '{typeof(TProp)}' does not implement '{typeof(IFormattable)}'.");
     }
 
-    private static Func<TGridItem, string?> CreateReferenceTypeFormatter<T>(
-    Func<TGridItem, T?> getter, string format)
-    where T : class, IFormattable
+    private static Func<TGridItem, string?> CreateReferenceTypeFormatter<T>(Func<TGridItem, T?> getter, string format)
+        where T : class, IFormattable
     {
         return item => getter(item)?.ToString(format, null);
     }
 
-    private static Func<TGridItem, string?> CreateValueTypeFormatter<T>(
-        Func<TGridItem, T> getter, string format)
+    private static Func<TGridItem, string?> CreateValueTypeFormatter<T>(Func<TGridItem, T> getter, string format)
         where T : struct, IFormattable
     {
         return item => getter(item).ToString(format, null);
     }
 
-    private static Func<TGridItem, string?> CreateNullableValueTypeFormatter<T>(
-        Func<TGridItem, T?> getter, string format)
+    private static Func<TGridItem, string?> CreateNullableValueTypeFormatter<T>(Func<TGridItem, T?> getter, string format)
         where T : struct, IFormattable
     {
         return item => getter(item)?.ToString(format, null);
