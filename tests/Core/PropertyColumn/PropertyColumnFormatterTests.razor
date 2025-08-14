@@ -1,0 +1,57 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void PropertyGrid_Should_Format_ValueTypes()
+    {
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <PropertyColumn Property="@(p => p.PersonId)" Format="D4" />
+            </FluentDataGrid>
+        );
+
+        var firstCellText = cut.Find("td").TextContent;
+        Assert.Equal("0001", firstCellText);
+    }
+
+    [Fact]
+    public void PropertyGrid_Should_Format_NullableValueTypes()
+    {
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <PropertyColumn Property="@(p => p.BirthDate)" Format="m" />
+            </FluentDataGrid>
+        );
+
+        var firstCellText = cut.Find("td").TextContent;
+        Assert.Equal(_people[0].BirthDate!.Value.ToString("m"), firstCellText);
+    }
+
+    [Fact]
+    public void PropertyGrid_Should_Format_ReferenceTypes()
+    {
+        var cut = Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <PropertyColumn Property="@(p => p.Name)" Format="{0} test" />
+            </FluentDataGrid>
+        );
+
+        var firstCellText = cut.Find("td").TextContent;
+        Assert.Equal(string.Format("{0} test", _people[0].Name), firstCellText);
+    }
+
+
+    [Fact]
+    public void PropertyGrid_Should_Throw_When_FormatUsedOnNonFormattableProperty()
+    {
+        Assert.Throws<InvalidOperationException>(() => Render(
+            @<FluentDataGrid Items="@People" TGridItem="Person">
+                <PropertyColumn Property="@(p => p.NickName)" Format="{0} test" />
+            </FluentDataGrid>
+        ));
+    }
+
+    
+}
+
