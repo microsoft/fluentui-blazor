@@ -105,8 +105,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
         }
     }
 
-    private static Func<TGridItem, string?> CreateFormatter(
-     Func<TGridItem, TProp> getter, string format)
+    private static Func<TGridItem, string?> CreateFormatter(Func<TGridItem, TProp> getter, string format)
     {
         var closedType = typeof(PropertyColumn<,>).MakeGenericType(typeof(TGridItem), typeof(TProp));
 
