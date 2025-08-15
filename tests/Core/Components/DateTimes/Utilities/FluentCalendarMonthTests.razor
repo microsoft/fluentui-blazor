@@ -1,0 +1,225 @@
+@using System.Globalization
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components
+@inherits Bunit.TestContext
+
+@code
+{
+    private static readonly CultureInfo Culture_enUS = new("en-US");
+
+    public FluentCalendarMonthTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentCalendarMonth_Constructor_SetsFirstDayOfMonth()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS));
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2025, 8, 15);
+
+        // Act
+        var calendarMonth = new FluentCalendarMonth(calendar, date);
+
+        // Assert
+        Assert.Equal(new DateTime(2025, 8, 1), calendarMonth.Month);
+    }
+
+    [Fact]
+    public void FluentCalendarMonth_IsReadOnly_WhenCalendarIsReadOnly()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS)
+            .Add(p => p.ReadOnly, true));
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2025, 8, 1);
+
+        // Act
+        var calendarMonth = new FluentCalendarMonth(calendar, date);
+
+        // Assert
+        Assert.True(calendarMonth.IsReadOnly);
+    }
+
+    [Fact]
+    public void FluentCalendarMonth_IsReadOnly_WhenMonthIsDisabled()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS)
+            .Add(p => p.DisabledDateFunc, (dt) => dt.Month == 8));
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2025, 8, 1);
+
+        // Act
+        var calendarMonth = new FluentCalendarMonth(calendar, date);
+
+        // Assert
+        Assert.True(calendarMonth.IsReadOnly);
+    }
+
+    [Fact]
+    public void FluentCalendarMonth_IsDisabled_WhenMonthIsDisabled()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS)
+            .Add(p => p.DisabledDateFunc, (dt) => dt.Month == 8));
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2025, 8, 1);
+
+        // Act
+        var calendarMonth = new FluentCalendarMonth(calendar, date);
+
+        // Assert
+        Assert.True(calendarMonth.IsDisabled);
+    }
+
+    [Fact]
+    public void FluentCalendarMonth_IsDisabled_WhenAllDaysOfMonthAreDisabled()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS)
+            .Add(p => p.DisabledCheckAllDaysOfMonthYear, true)
+            .Add(p => p.DisabledDateFunc, (dt) => dt.Month == 8));
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2025, 8, 1);
+
+        // Act
+        var calendarMonth = new FluentCalendarMonth(calendar, date);
+
+        // Assert
+        Assert.True(calendarMonth.IsDisabled);
+    }
+
+    [Fact]
+    public void FluentCalendarMonth_IsNotDisabled_WhenMonthIsNotDisabled()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS)
+            .Add(p => p.DisabledDateFunc, (dt) => dt.Month == 9));
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2025, 8, 1);
+
+        // Act
+        var calendarMonth = new FluentCalendarMonth(calendar, date);
+
+        // Assert
+        Assert.False(calendarMonth.IsDisabled);
+    }
+
+    [Fact]
+    public void FluentCalendarMonth_IsSelected_WhenMonthIsSelected()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var selectedDate = new DateTime(2025, 8, 10);
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS)
+            .Add(p => p.Value, selectedDate));
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2025, 8, 1);
+
+        // Act
+        var calendarMonth = new FluentCalendarMonth(calendar, date);
+
+        // Assert
+        Assert.True(calendarMonth.IsSelected);
+    }
+
+    [Fact]
+    public void FluentCalendarMonth_IsNotSelected_WhenMonthIsNotSelected()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var selectedDate = new DateTime(2025, 9, 10);
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS)
+            .Add(p => p.Value, selectedDate));
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2025, 8, 1);
+
+        // Act
+        var calendarMonth = new FluentCalendarMonth(calendar, date);
+
+        // Assert
+        Assert.False(calendarMonth.IsSelected);
+    }
+
+    [Fact]
+    public void FluentCalendarMonth_IsNotSelected_WhenValueIsNull()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS)
+            .Add(p => p.Value, null));
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2025, 8, 1);
+
+        // Act
+        var calendarMonth = new FluentCalendarMonth(calendar, date);
+
+        // Assert
+        Assert.False(calendarMonth.IsSelected);
+    }
+
+    [Fact]
+    public void FluentCalendarMonth_Title_ReturnsCorrectFormat()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS));
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2025, 8, 1);
+
+        // Act
+        var calendarMonth = new FluentCalendarMonth(calendar, date);
+
+        // Assert
+        Assert.Equal("August 2025", calendarMonth.Title);
+    }
+
+    [Fact]
+    public void FluentCalendarMonth_MonthIdentifier_ReturnsCorrectFormat()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+            .Add(p => p.Culture, Culture_enUS));
+        var calendar = calendarComponent.Instance;
+        var date = new DateTime(2025, 8, 1);
+
+        // Act
+        var calendarMonth = new FluentCalendarMonth(calendar, date);
+
+        // Assert
+        Assert.Equal("2025-08", calendarMonth.MonthIdentifier);
+    }
+}

@@ -83,6 +83,7 @@ public class ComponentBaseTests : Bunit.TestContext
         var blazorAttribute = ParseHtmlAttribute(blazor);
         var htmlAttribute = ParseHtmlAttribute(html);
 
+        using var context = new DateTimeProviderContext(DateTime.Now);
         JSInterop.Mode = JSRuntimeMode.Loose;
 
         foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded))
@@ -151,6 +152,7 @@ public class ComponentBaseTests : Bunit.TestContext
     {
         var errors = new StringBuilder();
 
+        using var context = new DateTimeProviderContext(DateTime.Now);
         JSInterop.Mode = JSRuntimeMode.Loose;
 
         foreach (var componentType in BaseHelpers.GetDerivedTypes<ITooltipComponent>(except: Excluded))
@@ -199,6 +201,7 @@ public class ComponentBaseTests : Bunit.TestContext
     {
         var errors = new StringBuilder();
 
+        using var context = new DateTimeProviderContext(DateTime.Now);
         JSInterop.Mode = JSRuntimeMode.Loose;
 
         foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded))
@@ -237,6 +240,7 @@ public class ComponentBaseTests : Bunit.TestContext
     public void ComponentBase_JsModule()
     {
         // Arrange
+        using var context = new DateTimeProviderContext(DateTime.Now);
         JSInterop.Mode = JSRuntimeMode.Strict;
         Services.AddSingleton<LibraryConfiguration>();
 
@@ -257,6 +261,7 @@ public class ComponentBaseTests : Bunit.TestContext
     public void ComponentBase_JsModule_Undefined()
     {
         // Arrange
+        using var context = new DateTimeProviderContext(DateTime.Now);
         JSInterop.Mode = JSRuntimeMode.Strict;
         Services.AddSingleton<LibraryConfiguration>();
 

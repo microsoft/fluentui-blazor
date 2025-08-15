@@ -34,6 +34,12 @@ public partial class FluentField : FluentComponentBase, IFluentField
         .Build();
 
     /// <summary>
+    /// Gets or sets a value indicating whether the Fluent field should be hidden. For internal use only.
+    /// </summary>
+    [CascadingParameter(Name = "HideFluentField")]
+    internal bool HideFluentField { get; set; }
+
+    /// <summary>
     /// Gets or sets an existing FieldInput component to use in the field.
     /// Setting this parameter will define the parameters
     /// Label, LabelTemplate, LabelPosition, LabelWidth,

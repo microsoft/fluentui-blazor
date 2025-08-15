@@ -294,4 +294,7 @@
   <data name="DataGrid_SelectColumn_RowUnchecked" xml:space="preserve">
     <value>Row not selected</value>
   </data>
+  <data name="Calendar_RequiredMessage" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
 </root>
