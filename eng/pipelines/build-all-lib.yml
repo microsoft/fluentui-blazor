@@ -206,11 +206,15 @@ extends:
             reportDirectory: CoverageFolder
 
         # Index sources and publish symbols
-
-        #- task: PublishSymbols@2
-        #  inputs:
-        #    SearchPattern: '**/bin/**/*.pdb' # string. Required. Search pattern. Default: **/bin/**/*.pdb.
-        #    SymbolServerType: 'TeamServices'
+        - task: PublishSymbols@2
+          displayName: 'Publish Symbols to Artifact Services'
+          inputs:
+            SearchPattern: '**/bin/**/*.pdb' # string. Required. Search pattern. Default: **/bin/**/*.pdb.
+            SymbolServerType: 'TeamServices'
+          SymbolExpirationInDays: '180'
+          TreatNotIndexedAsWarning: true
+          continueOnError: true
+          timeoutInMinutes: 20
 
         # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
         - task: CopyFiles@2
