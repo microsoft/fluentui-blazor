@@ -246,4 +246,11 @@ public partial class FluentDatePicker : FluentCalendarBase
         _ => null
     };
 
+    /// <summary />
+    private TextInputMode? GetInputMode() => IsFluentUIMode ? null : View switch
+    {
+        CalendarViews.Years => TextInputMode.Numeric,
+        _ => null
+
+    };
 }
