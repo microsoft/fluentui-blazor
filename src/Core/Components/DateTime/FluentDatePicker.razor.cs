@@ -43,6 +43,11 @@ public partial class FluentDatePicker : FluentCalendarBase
         .AddClass("fluent-datepicker")
         .Build();
 
+    /// <summary />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width, when: () => !string.IsNullOrEmpty(Width))
+        .Build();
+
     /// <summary>
     /// Gets or sets the visual appearance.
     /// </summary>
@@ -54,6 +59,12 @@ public partial class FluentDatePicker : FluentCalendarBase
     /// </summary>
     [Parameter]
     public TextInputAppearance Appearance { get; set; } = TextInputAppearance.Outline;
+
+    /// <summary>
+    /// Gets or sets the width of the component. 
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
 
     /// <summary>
     /// Gets or sets the short hint displayed in the input before the user enters a value.

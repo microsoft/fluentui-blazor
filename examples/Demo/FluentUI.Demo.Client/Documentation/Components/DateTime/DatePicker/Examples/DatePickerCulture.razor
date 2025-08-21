@@ -9,13 +9,12 @@
                       @bind-Value="@SelectedCulture" />
     </div>
 
-    <FluentCalendar Culture="SelectedCulture" @bind-Value="@SelectedValue" />
+    <FluentDatePicker Label="@($"Culture {SelectedCulture.DisplayName}")"
+                      Culture="SelectedCulture"
+                      @bind-Value="@SelectedValue" />
 
-    <FluentCalendar @bind-Value="@SelectedValue" />
-
-    <div style="width: 100%;">
-        Selected date: <b>@(SelectedValue?.ToString("yyyy-MM-dd"))</b>
-    </div>
+    <FluentDatePicker Label="Current culture"
+                      @bind-Value="@SelectedValue" />  
 </FluentStack>
 
 @code

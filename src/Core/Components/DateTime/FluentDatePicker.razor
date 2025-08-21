@@ -26,7 +26,12 @@
                  Name="@Name"
                  @attributes="@AdditionalAttributes">
     <EndTemplate>
-        <FluentIcon Value="@Icon" Focusable="true" @onkeydown="@OnIconKeydownAsync" @ref="_icon" />
+        <FluentIcon @ref="_icon"
+                    Value="@Icon"
+                    Focusable="true"
+                    @onkeydown="@OnIconKeydownAsync"
+                    aria-label="@Localizer[Localization.LanguageResource.DatePicker_ButtonTitle]" 
+                    Title="@Localizer[Localization.LanguageResource.DatePicker_ButtonTitle]" />
     </EndTemplate>
 </FluentTextInput>
 

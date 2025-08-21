@@ -24,6 +24,15 @@ In this example, the parameter is set to "Today": `DoubleClickToDate="@DateTime.
 
 {{ DatePickerDoubleClickToDate }}
 
+## Culture
+
+You can set the culture of the calendar to display the month and day names in different languages.
+Use the `Culture` parameter to set the culture.
+
+Example: `Culture="@(new CultureInfo("fr"))"` will display the calendar in French.
+
+{{ DatePickerCulture }}
+
 ## API FluentCalendar
 
 {{ API Type=FluentCalendar }}
