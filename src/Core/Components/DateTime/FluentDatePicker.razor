@@ -1,0 +1,24 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentCalendarBase
+
+<FluentTextInput Id="@Id"
+                 Class="@ClassValue"
+                 Style="@StyleValue"
+                 AutoComplete="off"
+                 Autofocus="@Autofocus"
+                 Appearance="@Appearance"
+                 @bind-Value="@CurrentValueAsString"
+                 @onclick="@OnCalendarOpenHandlerAsync"
+                 @ondblclick="@OnDoubleClickHandlerAsync"
+                 ReadOnly="@ReadOnly"
+                 Disabled="@Disabled"
+                 Required="@Required"
+                 Placeholder="@(Placeholder ?? PlaceholderAccordingToView())"
+                 Name="@Name"
+                 @attributes="@AdditionalAttributes">
+    <EndTemplate>
+        <FluentIcon Value="@Icon" />
+    </EndTemplate>
+</FluentTextInput>
+
+@* @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnCalendarOpenHandlerAsync))" *@
