@@ -5,6 +5,7 @@
 @if (_icon.Size != IconSize.Custom && _icon.ContainsSVG)
 {
     <svg id="@Id" slot="@Slot"
+         @ref="@Element"
          class="@ClassValue"
          style="@StyleValue"
          focusable="@(Focusable ? "true" : "false")"
@@ -25,6 +26,7 @@
 else
 {
     <div id="@Id"
+         @ref="@Element"
          slot="@Slot"
          class="@ClassValue"
          style="@StyleValue"

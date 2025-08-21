@@ -11,8 +11,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents a date picker control that enables users to select a date using a fluent user interface.
 /// </summary>
-public partial class FluentDatePicker
+public partial class FluentDatePicker : FluentCalendarBase
 {
+    private bool _popupOpenedByKeyboard;
+    private FluentCalendar _calendar = default!;
+    private FluentIcon<Icon> _icon = default!;
+
     /// <summary>
     /// Initializes a new instance of the FluentDatePicker class using the specified library configuration.
     /// </summary>
@@ -32,6 +36,12 @@ public partial class FluentDatePicker
                    && string.IsNullOrEmpty(CurrentValueAsString);
         };
     }
+
+    /// <summary />
+    protected override string? ClassValue => DefaultClassBuilder
+        .AddClass(base.CssClass)
+        .AddClass("fluent-datepicker")
+        .Build();
 
     /// <summary>
     /// Gets or sets the visual appearance.
@@ -64,6 +74,21 @@ public partial class FluentDatePicker
     public DateTime? DoubleClickToDate { get; set; }
 
     /// <summary>
+    /// Gets or sets the template used to render each day in the calendar.
+    /// </summary>
+    /// <remarks>Use this parameter to customize the appearance and content of individual days. The template
+    /// receives a <see cref="FluentCalendarDay"/> parameter representing the day to render.
+    /// </remarks>
+    [Parameter]
+    public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the selected month in the picker changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<DateTime> PickerMonthChanged { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the date picker is currently open.
     /// </summary>
     public bool Opened { get; set; }
@@ -75,9 +100,10 @@ public partial class FluentDatePicker
     public EventCallback<bool> OnCalendarOpen { get; set; }
 
     /// <summary />
-    protected async Task OnCalendarOpenHandlerAsync(MouseEventArgs e)
+    protected virtual async Task OnTextInputClickAsync(MouseEventArgs e)
     {
-        if (!ReadOnly)
+        // Simple click
+        if (e.Detail == 1 && !ReadOnly)
         {
             Opened = !Opened;
 
@@ -85,6 +111,32 @@ public partial class FluentDatePicker
             {
                 await OnCalendarOpen.InvokeAsync(Opened);
             }
+        }
+
+        // Double click
+        if (e.Detail >= 2 && !ReadOnly)
+        {
+            if (DoubleClickToDate.HasValue)
+            {
+                await OnSelectedDateAsync(DoubleClickToDate.Value);
+            }
+
+            if (OnDoubleClick.HasDelegate)
+            {
+                await OnDoubleClick.InvokeAsync(e);
+            }
+        }
+    }
+
+    /// <summary />
+    protected virtual async Task OnIconKeydownAsync(KeyboardEventArgs e)
+    {
+        if (string.Equals(e.Code, "Enter", StringComparison.Ordinal) ||
+            string.Equals(e.Code, "Space", StringComparison.Ordinal))
+        {
+            _popupOpenedByKeyboard = true;
+            await OnTextInputClickAsync(new MouseEventArgs() { Detail = 1 });
+            await _calendar.SetFirstFocusableAsync();
         }
     }
 
@@ -101,24 +153,25 @@ public partial class FluentDatePicker
         }
 
         Opened = false;
+
+        if (_popupOpenedByKeyboard)
+        {
+            await _icon.Element.FocusAsync();
+            _popupOpenedByKeyboard = false;
+        }
+
         await OnSelectedDateHandlerAsync(updatedValue);
     }
 
     /// <summary />
-    protected async Task OnDoubleClickHandlerAsync(MouseEventArgs e)
+    protected override string? FormatValueAsString(DateTime? value)
     {
-        if (!ReadOnly)
+        return View switch
         {
-            if (DoubleClickToDate.HasValue)
-            {
-                await OnSelectedDateAsync(DoubleClickToDate.Value);
-            }
-
-            if (OnDoubleClick.HasDelegate)
-            {
-                await OnDoubleClick.InvokeAsync(e);
-            }
-        }
+            CalendarViews.Years => value?.ToString("yyyy", Culture),
+            CalendarViews.Months => value?.ToString(Culture.DateTimeFormat.YearMonthPattern, Culture),
+            _ => value?.ToString(Culture.DateTimeFormat.ShortDatePattern, Culture),
+        };
     }
 
     /// <summary />
@@ -131,13 +184,20 @@ public partial class FluentDatePicker
 
         BindConverter.TryConvertTo(value, Culture, out result);
 
+        Console.WriteLine($"TryParseValueFromString: result={result}");
+
         validationErrorMessage = null;
         return true;
     }
 
     /// <summary />
-    private string PlaceholderAccordingToView()
+    private string GetPlaceholderAccordingToView()
     {
+        if (!string.IsNullOrEmpty(Placeholder))
+        {
+            return Placeholder;
+        }
+
         return View switch
         {
             CalendarViews.Years => "yyyy",

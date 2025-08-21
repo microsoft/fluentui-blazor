@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// FluentIcon is a component that renders an icon from the Fluent System icon set.
 /// </summary>
-public partial class FluentIcon<Icon> : FluentComponentBase, ITooltipComponent
+public partial class FluentIcon<Icon> : FluentComponentBase, ITooltipComponent, IFluentComponentElementBase
     where Icon : AspNetCore.Components.Icon, new()
 {
     private Icon _icon = default!;
@@ -31,6 +31,10 @@ public partial class FluentIcon<Icon> : FluentComponentBase, ITooltipComponent
         .AddStyle("cursor", "pointer", when: () => OnClick.HasDelegate)
         .AddStyle("display", "inline-block", () => !_icon.ContainsSVG)
         .Build();
+
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    [Parameter]
+    public ElementReference Element { get; set; }
 
     /// <summary>
     /// Gets or sets the slot where the icon is displayed in.

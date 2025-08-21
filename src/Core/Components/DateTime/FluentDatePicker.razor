@@ -4,21 +4,43 @@
 <FluentTextInput Id="@Id"
                  Class="@ClassValue"
                  Style="@StyleValue"
+                 Label="@Label"
+                 LabelTemplate="@LabelTemplate"
+                 LabelPosition="@LabelPosition"
+                 LabelWidth="@LabelWidth"
+                 AriaLabel="@AriaLabel"
                  AutoComplete="off"
                  Autofocus="@Autofocus"
                  Appearance="@Appearance"
                  @bind-Value="@CurrentValueAsString"
-                 @onclick="@OnCalendarOpenHandlerAsync"
-                 @ondblclick="@OnDoubleClickHandlerAsync"
+                 @onclick="@OnTextInputClickAsync"
                  ReadOnly="@ReadOnly"
                  Disabled="@Disabled"
                  Required="@Required"
-                 Placeholder="@(Placeholder ?? PlaceholderAccordingToView())"
+                 Message="@Message"
+                 MessageIcon="@MessageIcon"
+                 MessageCondition="@MessageCondition"
+                 MessageState="@MessageState"
+                 MessageTemplate="@MessageTemplate"
+                 Placeholder="@GetPlaceholderAccordingToView()"
                  Name="@Name"
                  @attributes="@AdditionalAttributes">
     <EndTemplate>
-        <FluentIcon Value="@Icon" />
+        <FluentIcon Value="@Icon" Focusable="true" @onkeydown="@OnIconKeydownAsync" @ref="_icon" />
     </EndTemplate>
 </FluentTextInput>
 
-@* @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnCalendarOpenHandlerAsync))" *@
+<FluentPopover AnchorId="@Id" @bind-Opened="@Opened">
+    <FluentCalendar @ref="_calendar"
+                    Culture="@Culture"
+                    View="@View"
+                    DayFormat="@DayFormat"
+                    DisabledDateFunc="@DisabledDateFunc"
+                    DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
+                    DisabledSelectable="@DisabledSelectable"
+                    Value="@Value"
+                    ValueChanged="@OnSelectedDateAsync"
+                    DaysTemplate="@DaysTemplate"
+                    PickerMonthChanged="@PickerMonthChanged" />
+</FluentPopover>
+

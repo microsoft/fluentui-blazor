@@ -30,6 +30,46 @@ export namespace Microsoft.FluentUI.Blazor.Calendar {
     }
   }
 
+  /*
+   * Sets focus on the first focusable element in the calendar.
+   * If no focusable element is found, it sets focus on the calendar itself.
+   * @param calendar - The calendar element or a selector string to find the calendar.
+   */
+  export function SetFirstFocusable(calendar: HTMLElement | string) {
+
+    if (typeof calendar === "string") {
+      calendar = document.querySelector(calendar) as HTMLElement;
+    }
+
+    // Set focus on the first focusable element in the calendar
+    if (calendar) {
+
+      // First day/month/year already selected
+      const firstSelected = calendar.querySelector("[tabindex='0'][selected]") as HTMLElement;
+      if (firstSelected) {
+        SetFocus(calendar, firstSelected);
+        return;
+      }
+
+      // Today
+      const today = calendar.querySelector("[tabindex='0'][today]") as HTMLElement;
+      if (today) {
+        SetFocus(calendar, today);
+        return;
+      }
+
+      // Today
+      const firstItem = calendar.querySelector("*[tabindex='0'].day, *[tabindex='0'].month, *[tabindex='0'].year") as HTMLElement;
+      if (firstItem) {
+        SetFocus(calendar, firstItem);
+        return;
+      }
+
+      // If no focusable element found, set focus on the calendar itself
+      SetFocus(calendar, "[tabindex='0']");
+    }
+  }
+
 
   function AddNavigateListener(calendar: HTMLElement | null, itemSelector: string) {
     if (calendar) {
