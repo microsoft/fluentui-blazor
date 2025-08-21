@@ -1,38 +1,23 @@
-﻿<FluentCheckbox Label="Double-click the text field to set Today's date"
-                @bind-value="@DoubleClickToToday" />
+﻿<div>
+    <b>Selected Date:</b> @(SelectedValue?.ToString("yyyy-MM-dd"))
+</div>
 
 <FluentStack Orientation="Orientation.Vertical">
 
     <FluentDatePicker Label="Days view"
-                      AriaLabel="To"
-                      @bind-Value="@SelectedValue"
-                      DoubleClickToDate="@DoubleClickToDate" />
+                      @bind-Value="@SelectedValue" />
 
     <FluentDatePicker Label="Months view"
-                      AriaLabel="To"
                       @bind-Value="@SelectedValue"
-                      View="CalendarViews.Months"
-                      DoubleClickToDate="@DoubleClickToDate" />
+                      View="CalendarViews.Months" />
 
     <FluentDatePicker Label="Years view"
-                      AriaLabel="To"
                       @bind-Value="@SelectedValue"
-                      View="CalendarViews.Years"
-                      DoubleClickToDate="@DoubleClickToDate" />
+                      View="CalendarViews.Years" />
 </FluentStack>
 
-<div>
-    <b>Selected Date:</b> @(SelectedValue?.ToString("yyyy-MM-dd"))
-</div>
 
 @code
 {
-    private DateTime? SelectedValue = DateTime.Today.AddDays(-2);
-    private DateTime? DoubleClickToDate = null;
-
-    private bool DoubleClickToToday
-    {
-        get => DoubleClickToDate.HasValue;
-        set => DoubleClickToDate = value ? DateTime.Today : null;
-    }
+    DateTime? SelectedValue = DateTime.Today.AddDays(-2);
 }

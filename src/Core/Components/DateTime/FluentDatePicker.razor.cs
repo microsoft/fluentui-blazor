@@ -89,15 +89,15 @@ public partial class FluentDatePicker : FluentCalendarBase
     public EventCallback<DateTime> PickerMonthChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the date picker is currently open.
-    /// </summary>
-    public bool Opened { get; set; }
-
-    /// <summary>
     /// Gets or sets the callback that is invoked when the calendar is opened or closed.
     /// </summary>
     [Parameter]
     public EventCallback<bool> OnCalendarOpen { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the date picker is currently open.
+    /// </summary>
+    public bool Opened { get; set; }
 
     /// <summary />
     protected virtual async Task OnTextInputClickAsync(MouseEventArgs e)
