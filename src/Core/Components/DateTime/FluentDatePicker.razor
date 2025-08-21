@@ -17,6 +17,7 @@
                  ReadOnly="@ReadOnly"
                  Disabled="@Disabled"
                  Required="@Required"
+                 type="@GetInputType()"
                  Message="@Message"
                  MessageIcon="@MessageIcon"
                  MessageCondition="@MessageCondition"
@@ -26,26 +27,31 @@
                  Name="@Name"
                  @attributes="@AdditionalAttributes">
     <EndTemplate>
-        <FluentIcon @ref="_icon"
-                    Value="@Icon"
-                    Focusable="true"
-                    @onkeydown="@OnIconKeydownAsync"
-                    aria-label="@Localizer[Localization.LanguageResource.DatePicker_ButtonTitle]" 
-                    Title="@Localizer[Localization.LanguageResource.DatePicker_ButtonTitle]" />
+        @if (IsFluentUIMode)
+        {
+            <FluentIcon @ref="_icon"
+                        Value="@Icon"
+                        Focusable="true"
+                        @onkeydown="@OnIconKeydownAsync"
+                        aria-label="@Localizer[Localization.LanguageResource.DatePicker_ButtonTitle]"
+                        Title="@Localizer[Localization.LanguageResource.DatePicker_ButtonTitle]" />
+        }
     </EndTemplate>
 </FluentTextInput>
 
-<FluentPopover AnchorId="@Id" @bind-Opened="@Opened">
-    <FluentCalendar @ref="_calendar"
-                    Culture="@Culture"
-                    View="@View"
-                    DayFormat="@DayFormat"
-                    DisabledDateFunc="@DisabledDateFunc"
-                    DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
-                    DisabledSelectable="@DisabledSelectable"
-                    Value="@Value"
-                    ValueChanged="@OnSelectedDateAsync"
-                    DaysTemplate="@DaysTemplate"
-                    PickerMonthChanged="@PickerMonthChanged" />
-</FluentPopover>
-
+@if (IsFluentUIMode)
+{
+    <FluentPopover AnchorId="@Id" @bind-Opened="@Opened">
+        <FluentCalendar @ref="_calendar"
+                        Culture="@Culture"
+                        View="@View"
+                        DayFormat="@DayFormat"
+                        DisabledDateFunc="@DisabledDateFunc"
+                        DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
+                        DisabledSelectable="@DisabledSelectable"
+                        Value="@Value"
+                        ValueChanged="@OnSelectedDateAsync"
+                        DaysTemplate="@DaysTemplate"
+                        PickerMonthChanged="@PickerMonthChanged" />
+    </FluentPopover>
+}

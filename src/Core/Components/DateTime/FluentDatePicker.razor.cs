@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -60,6 +61,10 @@ public partial class FluentDatePicker : FluentCalendarBase
     [Parameter]
     public TextInputAppearance Appearance { get; set; } = TextInputAppearance.Outline;
 
+    /// <summary />
+    [Parameter]
+    public DatePickerRenderingMode RenderingMode { get; set; } = DatePickerRenderingMode.FluentUI;
+
     /// <summary>
     /// Gets or sets the width of the component. 
     /// </summary>
@@ -114,7 +119,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     protected virtual async Task OnTextInputClickAsync(MouseEventArgs e)
     {
         // Simple click
-        if (e.Detail == 1 && !ReadOnly)
+        if (IsFluentUIMode && e.Detail == 1 && !ReadOnly)
         {
             Opened = !Opened;
 
@@ -165,7 +170,7 @@ public partial class FluentDatePicker : FluentCalendarBase
 
         Opened = false;
 
-        if (_popupOpenedByKeyboard)
+        if (IsFluentUIMode && _popupOpenedByKeyboard)
         {
             await _icon.Element.FocusAsync();
             _popupOpenedByKeyboard = false;
@@ -177,11 +182,23 @@ public partial class FluentDatePicker : FluentCalendarBase
     /// <summary />
     protected override string? FormatValueAsString(DateTime? value)
     {
+        // FluentUI mode
+        if (IsFluentUIMode)
+        {
+            return View switch
+            {
+                CalendarViews.Years => value?.ToString("yyyy", Culture),
+                CalendarViews.Months => value?.ToString(Culture.DateTimeFormat.YearMonthPattern, Culture),
+                _ => value?.ToString(Culture.DateTimeFormat.ShortDatePattern, Culture),
+            };
+        }
+
+        // Browser mode
         return View switch
         {
-            CalendarViews.Years => value?.ToString("yyyy", Culture),
-            CalendarViews.Months => value?.ToString(Culture.DateTimeFormat.YearMonthPattern, Culture),
-            _ => value?.ToString(Culture.DateTimeFormat.ShortDatePattern, Culture),
+            CalendarViews.Years => value?.ToString("yyyy", CultureInfo.InvariantCulture),
+            CalendarViews.Months => value?.ToString("yyyy-MM", CultureInfo.InvariantCulture),
+            _ => value?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
         };
     }
 
@@ -194,8 +211,6 @@ public partial class FluentDatePicker : FluentCalendarBase
         }
 
         BindConverter.TryConvertTo(value, Culture, out result);
-
-        Console.WriteLine($"TryParseValueFromString: result={result}");
 
         validationErrorMessage = null;
         return true;
@@ -216,4 +231,19 @@ public partial class FluentDatePicker : FluentCalendarBase
             _ => Culture.DateTimeFormat.ShortDatePattern
         };
     }
+
+    /// <summary>
+    /// Gets a value indicating whether the date picker is using the Fluent UI mode.
+    /// </summary>
+    private bool IsFluentUIMode => RenderingMode == DatePickerRenderingMode.FluentUI;
+
+    /// <summary />
+    private string? GetInputType() => IsFluentUIMode ? null : View switch
+    {
+        CalendarViews.Days => "date",
+        CalendarViews.Months => "month",
+        CalendarViews.Years => "number",
+        _ => null
+    };
+
 }

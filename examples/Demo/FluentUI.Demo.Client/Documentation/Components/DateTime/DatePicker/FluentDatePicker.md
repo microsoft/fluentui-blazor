@@ -33,6 +33,26 @@ Example: `Culture="@(new CultureInfo("fr"))"` will display the calendar in Frenc
 
 {{ DatePickerCulture }}
 
-## API FluentCalendar
+## RenderingMode
 
-{{ API Type=FluentCalendar }}
+The DatePicker can be rendered in different modes: `FluentUI`, `Browser`.
+
+The `FluentUI` rendering mode uses the Fluent UI styles and components.
+This mode provides a consistent look and feel with other Fluent UI components.
+This mode provides all the features of the component.
+
+The `Browser` rendering mode uses the default browser styles.
+This mode is useful when you want to use a very simple DatePicker with a **mobile device**.
+In this case, the mobile picker will be used. This could be useful to use the native Android or iOS date picker.
+
+> [!WARNING]
+> 
+> This mode is very limited in features and does not support the UI customization (`DisabledDateFunc`, `DaysTemplate`, ...).
+> The following parameters are ignored: `Culture`, `DayFormat`, `DisabledDateFunc`, `DisabledCheckAllDaysOfMonthYear`,
+> `DisabledSelectable`, `DaysTemplate`, `PickerMonthChanged`.
+
+{{ DatePickerRendering }}
+
+## API FluentDatePicker
+
+{{ API Type=FluentDatePicker }}

@@ -188,7 +188,7 @@ public partial class FluentLayoutItem : FluentComponentBase
             return true;
         }
 
-        // For the Menu area, if the Mobile view is active
+        // For the Menu area, if the Browser view is active
         if (Area == LayoutArea.Menu && LayoutContainer.MenuDeferredLoading && LayoutContainer.IsMobile)
         {
             return false;
