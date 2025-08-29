@@ -8,6 +8,7 @@
 {
     // Force the same ShortestDayNames on Windows and Linux
     private CultureInfo InvariantCulture = Utilities.CultureShortestDay.InvariantCulture;
+    private CultureInfo UnitedStatesCulture = Utilities.CultureShortestDay.UnitedStatesCulture;
 
     public FluentDatePickerTests()
     {
@@ -18,13 +19,203 @@
     [Fact]
     public void FluentDatePicker_Default()
     {
+        // Arrange
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentDatePicker Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
-            DisabledDateFunc="@((date) => date.Day == 14)" />);
+        var calendar = Render(@<FluentDatePicker Id="myPicker" Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
+                          DisabledDateFunc="@((date) => date.Day == 14)" />);
 
         // Assert
         calendar.Verify();
+    }
+
+    [Fact]
+    public void FluentDatePicker_ClickToOpenCalendar()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Act
+        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Click
+        text.Click();
+
+        // Assert
+        var calendar = picker.FindComponent<FluentCalendar>();
+
+        Assert.True(picker.FindComponent<FluentDatePicker>().Instance.Opened);
+        Assert.Null(calendar.Instance.Value);
+
+        Assert.Equal(System.DateTime.Today.Year, calendar.Instance.PickerMonth.Year);
+        Assert.Equal(System.DateTime.Today.Month, calendar.Instance.PickerMonth.Month);
+        Assert.Equal(1, calendar.Instance.PickerMonth.Day);
+    }
+
+    [Fact]
+    public void FluentDatePicker_SetToday_CalendarSelectedDay()
+    {
+        // Arrange
+        var today = System.DateTime.Today;
+        using var context = new DateTimeProviderContext(today);
+
+        // Act
+        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" Value="@today" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Click
+        text.Click();
+
+        // Assert
+        var calendar = picker.FindComponent<FluentCalendar>();
+        Assert.Equal(today, calendar.Instance.Value);
+    }
+
+    [Fact]
+    public void FluentDatePicker_WriteValidDateInTextField()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+
+        // Act
+        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Set a new date value
+        text.Change("3/12/2022");
+
+        // Assert
+        Assert.Equal(System.DateTime.Parse("2022-03-12"), picker.FindComponent<FluentDatePicker>().Instance.Value);
+    }
+
+    [Fact]
+    public void FluentDatePicker_WriteInvalidDateInTextField()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+
+        // Act
+        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Set a new date value
+        text.Change("3/32/2022");
+
+        // Assert
+        Assert.Null(picker.FindComponent<FluentDatePicker>().Instance.Value);
+    }
+
+    [Fact]
+    public void FluentDatePicker_MonthsViewGetCorrectPlaceholder()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+
+        // Act
+        var picker = Render(@<FluentDatePicker Culture="@UnitedStatesCulture" View="CalendarViews.Months" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Assert
+        Assert.Equal("MMMM yyyy", text.Attributes["placeholder"]?.Value);
+    }
+
+    [Fact]
+    public void FluentDatePicker_YearsViewGetCorrectPlaceholder()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+
+        // Act
+        var picker = Render(@<FluentDatePicker Culture="@UnitedStatesCulture" View="CalendarViews.Years" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Assert
+        Assert.Equal("yyyy", text.Attributes["placeholder"]?.Value);
+    }
+
+    [Fact]
+    public void FluentCalendar_DisabledDate()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+
+        // Act
+        var picker = Render(@<FluentDatePicker Culture="@UnitedStatesCulture" Value="@(new System.DateTime(2022, 02, 15))"
+                          DisabledDateFunc="@(date => date.Day == 14)" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Click
+        text.Click();
+
+        // Assert
+        Assert.Equal("14", picker.Find(".day[disabled]").InnerHtml);
+    }
+
+    [Fact]
+    public void FluentDatePicker_ChangeValueWhenDefaultIsNull()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+
+        // Act
+        var picker = Render(@<FluentDatePicker Culture="@UnitedStatesCulture" Value="@(null)" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Set a new date value
+        text.Change("2022-03-12");
+
+        // Assert
+        Assert.Equal(System.DateTime.Parse("2022-03-12"), picker.FindComponent<FluentDatePicker>().Instance.Value);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("2024-06-05")]
+    public void FluentDatePicker_DoubleClickToSetDateInTextField(string? plainDateTime)
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var date = string.IsNullOrEmpty(plainDateTime) ? (DateTime?)null : System.DateTime.Parse(plainDateTime);
+
+        // Act
+        var picker = Render(@<FluentDatePicker Culture="@UnitedStatesCulture" DoubleClickToDate="@date" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Double-Click
+        text.Click(detail: 2);
+        var pickerInstance = picker.FindComponent<FluentDatePicker>().Instance;
+
+        // Assert
+        Assert.False(pickerInstance.Opened);
+
+        if (date.HasValue)
+        {
+            Assert.Equal(date.Value, pickerInstance.Value);
+        }
+        else
+        {
+            Assert.Null(pickerInstance.Value);
+        }
+    }
+
+    [Fact]
+    public void FluentDatePicker_OnDoubleClickEventTriggers()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var expected = "EventWorks";
+
+        // Act
+        var actual = string.Empty;
+        var picker = Render(@<FluentDatePicker Culture="@UnitedStatesCulture" OnDoubleClick="@(e => actual = expected)" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Double-Click
+        text.Click(detail: 2);
+
+        // Assert
+        Assert.Equal(expected, actual);
     }
 }

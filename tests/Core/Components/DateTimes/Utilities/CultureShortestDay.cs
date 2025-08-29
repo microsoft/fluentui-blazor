@@ -14,6 +14,8 @@ internal class CultureShortestDay
 {
     public static readonly CultureInfo InvariantCulture = GetCultureWithShortestNames(CultureInfo.InvariantCulture, ["S", "M", "T", "W", "T", "F", "S"]);
 
+    public static readonly CultureInfo UnitedStatesCulture = GetCultureWithShortestNames(CultureInfo.GetCultureInfo("en-US"), ["S", "M", "T", "W", "T", "F", "S"]);
+
     public static readonly CultureInfo FrenchCulture = GetCultureWithShortestNames(CultureInfo.GetCultureInfo("fr-FR"), ["D", "L", "M", "M", "J", "V", "S"]);
 
     public static readonly CultureInfo IranianCulture = GetCultureWithShortestNames(CultureInfo.GetCultureInfo("fa-IR"), ["ش", "ی", "د", "س", "چ", "پ", "ج"]);
