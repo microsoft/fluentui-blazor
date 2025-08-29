@@ -73,9 +73,14 @@ export class FocusableElement {
         const focusableElements = [];
 
         // If an element is a fluent web component and is not focusable, replace with its inner focusable element
+        // if one exists.
         queriedElements.forEach((el, index) => {
             if (el.tagName.toLowerCase().startsWith("fluent-") && el.tabIndex === -1 && !!el.shadowRoot) {
-                Array.from(el.shadowRoot.children).forEach(child => focusableElements.push(child));
+                Array.from(el.shadowRoot.children).forEach(child => {
+                    if (child.tabIndex !== -1 && child.checkVisibility()) {
+                        focusableElements.push(child);
+                    }
+                });
             }
             else {
                 focusableElements.push(el);
