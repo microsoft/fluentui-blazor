@@ -16,12 +16,16 @@ export async function fluentMenuButtonOnRender(buttonId, menuId, anchoredRegionM
         ? anchoredRegionModule.FocusableElement
         : null;
     if (!FocusableElement) {
-        console.warn("FocusableElement not available from AnchoredRegion module");
-        return;
+        throw new Error("FocusableElement not available from AnchoredRegion module");
     }
 
     menuElement = document.getElementById(menuId);
     buttonElement = document.getElementById(buttonId);
+
+    // Return if either the menu or button element have not rendered.
+    if (!menuElement || !buttonElement) {
+        return;
+    }
 
     // We need to handle three cases to be fully accessible:
     // 1. When Tab is pressed on the button, focus must be moved to the first focusable element in the menu

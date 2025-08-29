@@ -42,7 +42,7 @@ public partial class FluentMenuButton : FluentComponentBase, IAsyncDisposable
     public FluentMenu? Menu { get; set; }
 
     /// <summary>
-    /// Gets or sets the texts shown on the button. Only one of <see cref="Text"/> or <see cref="ButtonContent"/> should be provided.
+    /// Gets or sets the texts shown on the button. This property will be ignored if <see cref="ButtonContent"/> is provided.
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -106,7 +106,7 @@ public partial class FluentMenuButton : FluentComponentBase, IAsyncDisposable
     protected override void OnInitialized()
     {
         _buttonId = Identifier.NewId();
-        _menuId = Identifier.NewId();
+        _menuId = $"{_buttonId}-menu";
     }
 
     protected override void OnParametersSet()
