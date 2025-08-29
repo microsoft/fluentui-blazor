@@ -66,16 +66,14 @@ public partial class FluentDialogProvider : IAsyncDisposable
             throw new InvalidOperationException("JS module is not loaded.");
         }
 
-        DialogInstance dialog = new(dialogComponent, parameters, content);
-        dialogReference.Instance = dialog;
-
         InvokeAsync(async () =>
         {
             var previouslyFocusedElement = await _module.InvokeAsync<IJSObjectReference>("getActiveElement");
-            dialog.PreviouslyFocusedElement = previouslyFocusedElement;
-        });
+            DialogInstance dialog = new(dialogComponent, parameters, content, previouslyFocusedElement);
+            dialogReference.Instance = dialog;
 
-        _internalDialogContext.References.Add(dialogReference);
+            _internalDialogContext.References.Add(dialogReference);
+        });
     }
 
     private async Task<IDialogReference> ShowDialogAsync(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
@@ -85,21 +83,16 @@ public partial class FluentDialogProvider : IAsyncDisposable
             throw new InvalidOperationException("JS module is not loaded.");
         }
 
-        var previouslyFocusedElementTask = _module.InvokeAsync<IJSObjectReference>("getActiveElement");
 
         return await Task.Run(async () =>
         {
-            DialogInstance dialog = new(dialogComponent, parameters, content);
+            var previouslyFocusedElement = await _module.InvokeAsync<IJSObjectReference>("getActiveElement");
+
+            DialogInstance dialog = new(dialogComponent, parameters, content, previouslyFocusedElement);
             dialogReference.Instance = dialog;
 
             _internalDialogContext.References.Add(dialogReference);
             await InvokeAsync(StateHasChanged);
-
-            Task.Run(async () =>
-            {
-                var previouslyFocusedElement = await previouslyFocusedElementTask;
-                dialog.PreviouslyFocusedElement = previouslyFocusedElement;
-            });
 
             return dialogReference;
         });
