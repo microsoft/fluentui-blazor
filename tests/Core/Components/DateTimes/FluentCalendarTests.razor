@@ -6,21 +6,11 @@
 
 @code
 {
-    private CultureInfo InvariantCulture;
-    private CultureInfo InvariantCulture_French;
-    private CultureInfo InvariantCulture_Iranian;
+    // Force the same ShortestDayNames on Windows and Linux
+    private CultureInfo InvariantCulture = Utilities.CultureShortestDay.InvariantCulture;
 
     public FluentCalendarTests()
     {
-
-        // Force the same ShortestDayNames on Windows and Linux
-        InvariantCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
-        InvariantCulture.DateTimeFormat.ShortestDayNames = new string[] { "S", "M", "T", "W", "T", "F", "S" };
-        InvariantCulture_French = (CultureInfo)CultureInfo.GetCultureInfo("fr-FR").Clone();
-        InvariantCulture_French.DateTimeFormat.ShortestDayNames = new string[] { "D", "L", "M", "M", "J", "V", "S" };
-        InvariantCulture_Iranian = (CultureInfo)CultureInfo.GetCultureInfo("fa-IR").Clone();
-        InvariantCulture_Iranian.DateTimeFormat.ShortestDayNames = new string[] { "ش", "ی", "د", "س", "چ", "پ", "ج" };
-
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
     }
@@ -61,7 +51,7 @@
         var culture = cultureName switch
         {
             "en-US" => InvariantCulture,
-            "fa-IR" => InvariantCulture_Iranian,
+            "fa-IR" => Utilities.CultureShortestDay.IranianCulture,
             _ => throw new ArgumentException("Unsupported culture")
         };
 
@@ -90,7 +80,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Act
-        var calendar = Render(@<FluentCalendar Value="@(new System.DateTime(2022, 02, 15))" Culture="@InvariantCulture_French" />);
+        var calendar = Render(@<FluentCalendar Value="@(new System.DateTime(2022, 02, 15))" Culture="@Utilities.CultureShortestDay.FrenchCulture" />);
 
         calendar.Verify();
     }

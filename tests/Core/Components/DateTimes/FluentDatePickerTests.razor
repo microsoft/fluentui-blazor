@@ -1,0 +1,30 @@
+﻿@using System.Globalization
+@using System.Reflection
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Xunit
+@inherits Bunit.TestContext
+
+@code
+{
+    // Force the same ShortestDayNames on Windows and Linux
+    private CultureInfo InvariantCulture = Utilities.CultureShortestDay.InvariantCulture;
+
+    public FluentDatePickerTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentDatePicker_Default()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Act
+        var calendar = Render(@<FluentDatePicker Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
+            DisabledDateFunc="@((date) => date.Day == 14)" />);
+
+        // Assert
+        calendar.Verify();
+    }
+}
