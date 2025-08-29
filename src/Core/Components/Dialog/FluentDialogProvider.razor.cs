@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -55,7 +54,7 @@ public partial class FluentDialogProvider : IAsyncDisposable
     {
         if (firstRender)
         {
-            _module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            _module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
         }
     }
 
