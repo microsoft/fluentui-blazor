@@ -6,7 +6,12 @@ route: /DateTime/DatePicker
 
 # DatePicker
 
-XXX
+Picking a date can be tough without context. A date picker (DatePicker) offers a popup
+control that's optimized for picking a single date from a calendar view where
+contextual information like a disabled day or fullness of the calendar is important.
+
+You can use the `Culture` parameter to display the month and day names in different languages;
+and to set the date format displayed in the input field.
 
 ## Views
 

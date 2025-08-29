@@ -1,0 +1,6 @@
+.fluent-datepicker {
+}
+
+[data-theme="dark"] .fluent-datepicker {
+  color-scheme: dark;
+}
