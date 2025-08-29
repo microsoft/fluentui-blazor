@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Bunit;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 using Xunit;
@@ -77,6 +78,44 @@ public class FluentMenuButtonTests : TestBase
         //Act
 
         //Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMenuButton_Throws_IfBothTextAndButtonContentAreSet()
+    {
+        Assert.Throws<ArgumentException>(() =>
+        {
+            TestContext.RenderComponent<FluentMenuButton>(parameters => parameters
+                .Add(p => p.Text, "Button Text")
+                .Add<RenderFragment>(p => p.ButtonContent, builder =>
+                {
+                    builder.OpenComponent<FluentMenuItem>(0);
+                    builder.AddAttribute(1, "Text", "Menu Item 1");
+                    builder.CloseComponent();
+                })
+            );
+        });
+    }
+
+    [Fact]
+    public void FluentMenuButton_Renders_ButtonContent()
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentMenuButton>(parameters => parameters
+            .Add<RenderFragment>(p => p.ButtonContent, builder =>
+            {
+                builder.OpenComponent<FluentLabel>(0);
+                builder.AddAttribute(1, "Typo", Typography.H4);
+                builder.AddAttribute(1, "ChildContent", (RenderFragment)(b =>
+                {
+                    b.AddContent(2, "Custom Button Content");
+                }));
+                builder.CloseComponent();
+            })
+        );
+
+        // Assert
         cut.Verify();
     }
 }

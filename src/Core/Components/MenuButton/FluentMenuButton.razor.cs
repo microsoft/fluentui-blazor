@@ -42,7 +42,7 @@ public partial class FluentMenuButton : FluentComponentBase, IAsyncDisposable
     public FluentMenu? Menu { get; set; }
 
     /// <summary>
-    /// Gets or sets the texts shown on th button.
+    /// Gets or sets the texts shown on the button. Only one of <see cref="Text"/> or <see cref="ButtonContent"/> should be provided.
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -85,6 +85,13 @@ public partial class FluentMenuButton : FluentComponentBase, IAsyncDisposable
     [Parameter]
     public EventCallback<MenuChangeEventArgs> OnMenuChanged { get; set; }
 
+    /// <summary>
+    /// The content to be rendered inside the button. This parameter should be supplied if you do not want to render a chevron
+    /// on the menu button. Only one of <see cref="Text"/> or <see cref="ButtonContent"/> may be provided.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ButtonContent { get; set; }
+
     private IJSObjectReference? _jsModule { get; set; }
     private IJSObjectReference? _anchoredRegionModule { get; set; }
     private DotNetObjectReference<FluentMenuButton>? _dotNetHelper;
@@ -104,6 +111,11 @@ public partial class FluentMenuButton : FluentComponentBase, IAsyncDisposable
 
     protected override void OnParametersSet()
     {
+        if (Text is not null && ButtonContent is not null)
+        {
+            throw new ArgumentException($"Only one of the parameters {nameof(Text)} or {nameof(ButtonContent)} can be provided.");
+        }
+
         _iconColor = ButtonAppearance == Appearance.Accent ? Color.Fill : Color.FillInverse;
     }
 
