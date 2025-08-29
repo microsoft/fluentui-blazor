@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using Microsoft.JSInterop;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public sealed class DialogInstance
@@ -19,6 +21,8 @@ public sealed class DialogInstance
     public Type? ContentType { get; }
 
     public object Content { get; internal set; } = default!;
+
+    public IJSObjectReference? PreviouslyFocusedElement { get; set; }
 
     public DialogParameters Parameters { get; internal set; }
 

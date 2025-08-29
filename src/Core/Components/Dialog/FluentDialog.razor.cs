@@ -263,6 +263,14 @@ public partial class FluentDialog : FluentComponentBase
             {
                 await Instance.Parameters.OnDialogResult.InvokeAsync(dialogResult);
             }
+
+            if (DialogContext is not null && Instance.PreviouslyFocusedElement is not null)
+            {
+                // Dialog does not close instantly, wait a little while to ensure that it has closed
+                // before trying to set focus. If dialog is not closed, focus cannot be set.
+                await Task.Delay(50);
+                await DialogContext.DialogContainer.ReturnFocusAsync(Instance.PreviouslyFocusedElement);
+            }
         }
         else
         {
