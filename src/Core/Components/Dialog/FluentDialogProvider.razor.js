@@ -3,5 +3,7 @@ export function getActiveElement() {
 }
 
 export function focusElement(element) {
-    element.focus();
+    if (!!element) {
+        element.focus();
+    }
 }

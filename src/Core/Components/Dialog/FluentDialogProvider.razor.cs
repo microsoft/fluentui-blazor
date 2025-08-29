@@ -4,13 +4,14 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentDialogProvider : IAsyncDisposable
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/js/dialog-utils.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Dialog/FluentDialogProvider.razor.js";
 
     private readonly InternalDialogContext _internalDialogContext;
     private readonly RenderFragment _renderDialogs;
@@ -54,7 +55,7 @@ public partial class FluentDialogProvider : IAsyncDisposable
     {
         if (firstRender)
         {
-            _module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
         }
     }
 
@@ -90,7 +91,7 @@ public partial class FluentDialogProvider : IAsyncDisposable
             dialogReference.Instance = dialog;
 
             _internalDialogContext.References.Add(dialogReference);
-            await InvokeAsync(StateHasChanged);
+            InvokeAsync(StateHasChanged);
 
             return dialogReference;
         });

@@ -23,9 +23,9 @@ public sealed class DialogInstance
 
     public object Content { get; internal set; } = default!;
 
-    public IJSObjectReference PreviouslyFocusedElement { get; }
-
     public DialogParameters Parameters { get; internal set; }
+
+    internal IJSObjectReference PreviouslyFocusedElement { get; }
 
     internal Dictionary<string, object>? GetParameterDictionary()
     {
