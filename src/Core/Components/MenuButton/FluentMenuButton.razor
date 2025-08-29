@@ -1,15 +1,14 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
-@using Microsoft.FluentUI.AspNetCore.Components.DesignTokens
 @inherits FluentComponentBase
 
 <div class="fluent-menubutton-container" style="@Style" @attributes="@AdditionalAttributes">
-    <FluentButton Id="@_buttonId" @ref="Button" Appearance="@ButtonAppearance" Class="@Class" Style="@ButtonStyle" IconStart="@IconStart" aria-haspopup="true" aria-expanded="@_visible" @onclick=ToggleMenu @onkeydown=OnKeyDown>
+    <FluentButton Id="@_buttonId" @ref="Button" Appearance="@ButtonAppearance" Class="@Class" Style="@ButtonStyle" IconStart="@IconStart" aria-haspopup="true" aria-expanded="@_visible" @onclick=ToggleMenuAsync>
         @Text
         <FluentIcon Value="@(new CoreIcons.Regular.Size12.ChevronDown())" Slot="end" Color="@_iconColor" />
     </FluentButton>
     <FluentOverlay @bind-Visible="@_visible" Transparent="true" FullScreen="true" />
-    <FluentMenu @ref="Menu" Anchor="@_buttonId" aria-labelledby="button" Style="@MenuStyleValue" @bind-Open=@_visible @onmenuchange=OnMenuChangeAsync>
-        @foreach (KeyValuePair<string, string> item in Items)
+    <FluentMenu Id="@_menuId" @ref="Menu" Anchor="@_buttonId" aria-labelledby="button" Style="@MenuStyleValue" @bind-Open=@_visible @onmenuchange=OnMenuChangeAsync>
+        @foreach (var item in Items)
         {
             <FluentMenuItem Id="@item.Key">@item.Value</FluentMenuItem>
         }

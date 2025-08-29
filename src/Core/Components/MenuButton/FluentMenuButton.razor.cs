@@ -3,16 +3,21 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentMenuButton : FluentComponentBase
+public partial class FluentMenuButton : FluentComponentBase, IAsyncDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/MenuButton/FluentMenuButton.razor.js";
+    private const string ANCHORED_REGION_JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js";
+
     private bool _visible;
     private Color _iconColor = Color.Fill;
     private string? _buttonId;
+    private string? _menuId;
 
     protected string? MenuStyleValue => new StyleBuilder(MenuStyle)
         .AddStyle("position", "relative")
@@ -80,9 +85,21 @@ public partial class FluentMenuButton : FluentComponentBase
     [Parameter]
     public EventCallback<MenuChangeEventArgs> OnMenuChanged { get; set; }
 
+    private IJSObjectReference? _jsModule { get; set; }
+    private IJSObjectReference? _anchoredRegionModule { get; set; }
+    private DotNetObjectReference<FluentMenuButton>? _dotNetHelper;
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
     protected override void OnInitialized()
     {
         _buttonId = Identifier.NewId();
+        _menuId = Identifier.NewId();
     }
 
     protected override void OnParametersSet()
@@ -90,9 +107,23 @@ public partial class FluentMenuButton : FluentComponentBase
         _iconColor = ButtonAppearance == Appearance.Accent ? Color.Fill : Color.FillInverse;
     }
 
-    private void ToggleMenu()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            _anchoredRegionModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", ANCHORED_REGION_JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            _dotNetHelper = DotNetObjectReference.Create(this);
+        }
+
+        await _jsModule!.InvokeVoidAsync("fluentMenuButtonOnRender", _buttonId, _visible ? _menuId : null, _anchoredRegionModule, _dotNetHelper);
+    }
+
+    [JSInvokable]
+    public Task ToggleMenuAsync()
     {
         _visible = !_visible;
+        return InvokeAsync(StateHasChanged);
     }
 
     private async Task OnMenuChangeAsync(MenuChangeEventArgs args)
@@ -110,11 +141,28 @@ public partial class FluentMenuButton : FluentComponentBase
         _visible = false;
     }
 
-    private void OnKeyDown(KeyboardEventArgs args)
+    public async ValueTask DisposeAsync()
     {
-        if (args is not null && args.Key == "Escape")
+        try
         {
-            _visible = false;
+            if (_jsModule is not null)
+            {
+                await _jsModule.InvokeVoidAsync("fluentMenuButtonDispose");
+                await _jsModule.DisposeAsync();
+            }
+
+            if (_anchoredRegionModule is not null)
+            {
+                await _anchoredRegionModule.DisposeAsync();
+            }
+
+            _dotNetHelper?.Dispose();
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
     }
 }
