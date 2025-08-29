@@ -82,7 +82,6 @@ public partial class FluentDialogProvider : IAsyncDisposable
             throw new InvalidOperationException("JS module is not loaded.");
         }
 
-
         return await Task.Run(async () =>
         {
             var previouslyFocusedElement = await _module.InvokeAsync<IJSObjectReference>("getActiveElement");
