@@ -8,6 +8,7 @@
 
     public FluentDialogServiceTests()
     {
+        JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddSingleton(LibraryConfiguration);
         var dialogUtilsModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Dialog/FluentDialogProvider.razor.js");
         dialogUtilsModule.SetupModule("getActiveElement", _ => true);
