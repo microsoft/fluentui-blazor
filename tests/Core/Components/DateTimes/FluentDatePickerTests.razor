@@ -611,4 +611,113 @@
         Assert.Equal(expectedInputType, inputType);
         Assert.Equal(expectedInputMode, inputMode);
     }
+
+    [Theory]
+    [InlineData("2023", true, "1/1/2023")]
+    [InlineData("2024", true, "1/1/2024")]
+    [InlineData("1999", true, "1/1/1999")]
+    [InlineData("1", true, "1/1/0001")]
+    [InlineData("9999", true, "1/1/9999")]
+    [InlineData("invalid", true, null)]
+    [InlineData("", true, null)]
+    [InlineData(null, true, null)]
+    [InlineData("2023.5", true, "5/1/2023")] // int.TryParse will parse this as 2023, then new DateTime(2023, 1, 1) gets converted to string and back
+    public void FluentDatePicker_TryParseValueFromString_YearsView(string? input, bool expectedResult, string? expectedDateString)
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" View="CalendarViews.Years" />);
+        var pickerInstance = picker.FindComponent<FluentDatePicker>().Instance;
+
+        // Use reflection to access the protected TryParseValueFromString method
+        var method = typeof(FluentDatePicker).GetMethod("TryParseValueFromString", 
+            BindingFlags.NonPublic | BindingFlags.Instance);
+        Assert.NotNull(method);
+
+        // Act
+        var parameters = new object?[] { input, null, null };
+        var result = (bool)method.Invoke(pickerInstance, parameters)!;
+        var parsedValue = (DateTime?)parameters[1];
+        var validationErrorMessage = (string?)parameters[2];
+
+        // Assert
+        Assert.Equal(expectedResult, result);
+        
+        if (expectedDateString != null)
+        {
+            var expectedDate = DateTime.Parse(expectedDateString, InvariantCulture);
+            Assert.Equal(expectedDate, parsedValue);
+        }
+        else
+        {
+            Assert.Null(parsedValue);
+        }
+        
+        // TryParseValueFromString always returns true and sets validationErrorMessage to null
+        Assert.Null(validationErrorMessage);
+    }
+
+    [Theory]
+    [InlineData("0")]
+    [InlineData("-1")]
+    [InlineData("10000")]
+    public void FluentDatePicker_TryParseValueFromString_YearsView_InvalidYears(string input)
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" View="CalendarViews.Years" />);
+        var pickerInstance = picker.FindComponent<FluentDatePicker>().Instance;
+
+        // Use reflection to access the protected TryParseValueFromString method
+        var method = typeof(FluentDatePicker).GetMethod("TryParseValueFromString", 
+            BindingFlags.NonPublic | BindingFlags.Instance);
+        Assert.NotNull(method);
+
+        // Act & Assert
+        var parameters = new object?[] { input, null, null };
+        
+        // These invalid years should throw TargetInvocationException (containing ArgumentOutOfRangeException) when using reflection
+        var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(pickerInstance, parameters));
+        Assert.IsType<ArgumentOutOfRangeException>(ex.InnerException);
+    }
+
+    [Theory]
+    [InlineData("3/15/2022", true, "3/15/2022")]
+    [InlineData("invalid date", true, null)]
+    [InlineData("", true, null)]
+    [InlineData(null, true, null)]
+    public void FluentDatePicker_TryParseValueFromString_DaysView(string? input, bool expectedResult, string? expectedDateString)
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" View="CalendarViews.Days" />);
+        var pickerInstance = picker.FindComponent<FluentDatePicker>().Instance;
+
+        // Use reflection to access the protected TryParseValueFromString method
+        var method = typeof(FluentDatePicker).GetMethod("TryParseValueFromString", 
+            BindingFlags.NonPublic | BindingFlags.Instance);
+        Assert.NotNull(method);
+
+        // Act
+        var parameters = new object?[] { input, null, null };
+        var result = (bool)method.Invoke(pickerInstance, parameters)!;
+        var parsedValue = (DateTime?)parameters[1];
+        var validationErrorMessage = (string?)parameters[2];
+
+        // Assert
+        Assert.Equal(expectedResult, result);
+        
+        if (expectedDateString != null)
+        {
+            var expectedDate = DateTime.Parse(expectedDateString, InvariantCulture);
+            Assert.Equal(expectedDate, parsedValue);
+        }
+        else
+        {
+            Assert.Null(parsedValue);
+        }
+        
+        // TryParseValueFromString always returns true and sets validationErrorMessage to null
+        Assert.Null(validationErrorMessage);
+    }
 }
