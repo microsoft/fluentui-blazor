@@ -251,6 +251,5 @@ public partial class FluentDatePicker : FluentCalendarBase
     {
         CalendarViews.Years => TextInputMode.Numeric,
         _ => null
-
     };
 }
