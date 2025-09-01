@@ -5,18 +5,18 @@
 <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="24px" Wrap="true">
 
     <FluentDatePicker Label="Days view"
-                      RenderingMode="DatePickerRenderingMode.Browser"
+                      RenderStyle="DatePickerRenderStyle.Native"
                       DoubleClickToDate="@DateTime.Today"
                       @bind-Value="@SelectedValue" />
 
     <FluentDatePicker Label="Months view"
-                      RenderingMode="DatePickerRenderingMode.Browser"
+                      RenderStyle="DatePickerRenderStyle.Native"
                       @bind-Value="@SelectedValue"
                       Width="150px"
                       View="CalendarViews.Months" />
 
     <FluentDatePicker Label="Years view"
-                      RenderingMode="DatePickerRenderingMode.Browser"
+                      RenderStyle="DatePickerRenderStyle.Native"
                       @bind-Value="@SelectedValue"
                       Width="100px"
                       View="CalendarViews.Years" />

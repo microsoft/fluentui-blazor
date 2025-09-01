@@ -28,7 +28,7 @@
                  Name="@Name"
                  @attributes="@AdditionalAttributes">
     <EndTemplate>
-        @if (IsFluentUIMode)
+        @if (IsFluentUIStyle)
         {
             <FluentIcon @ref="_icon"
                         Value="@Icon"
@@ -40,7 +40,7 @@
     </EndTemplate>
 </FluentTextInput>
 
-@if (IsFluentUIMode)
+@if (IsFluentUIStyle)
 {
     <FluentPopover AnchorId="@Id" @bind-Opened="@Opened">
         <FluentCalendar @ref="_calendar"

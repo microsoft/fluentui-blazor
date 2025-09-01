@@ -38,15 +38,15 @@ Example: `Culture="@(new CultureInfo("fr"))"` will display the calendar in Frenc
 
 {{ DatePickerCulture }}
 
-## RenderingMode
+## RenderStyle
 
-The DatePicker can be rendered in different modes: `FluentUI`, `Browser`.
+The DatePicker can be rendered in different modes: `FluentUI`, `Native`.
 
-The `FluentUI` rendering mode uses the Fluent UI styles and components.
+The `FluentUI` rendering style uses the Fluent UI styles and components.
 This mode provides a consistent look and feel with other Fluent UI components.
 This mode provides all the features of the component.
 
-The `Browser` rendering mode uses the default browser styles.
+The `native` rendering style uses the default browser styles.
 This mode is useful when you want to use a very simple DatePicker with a **mobile device**.
 In this case, the mobile picker will be used. This could be useful to use the native Android or iOS date picker.
 

@@ -304,19 +304,19 @@
     }
 
     [Theory]
-    [InlineData(DatePickerRenderingMode.FluentUI)]
-    [InlineData(DatePickerRenderingMode.Browser)]
-    public void FluentDatePicker_RenderingMode_SetsCorrectValue(DatePickerRenderingMode renderingMode)
+    [InlineData(DatePickerRenderStyle.FluentUI)]
+    [InlineData(DatePickerRenderStyle.Native)]
+    public void FluentDatePicker_RenderStyle_SetsCorrectValue(DatePickerRenderStyle renderingStyle)
     {
         // Arrange
         using var context = new DateTimeProviderContext(System.DateTime.Now);
 
         // Act
-        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" RenderingMode="@renderingMode" />);
+        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" RenderStyle="@renderingStyle" />);
         var pickerInstance = picker.FindComponent<FluentDatePicker>().Instance;
 
         // Assert
-        Assert.Equal(renderingMode, pickerInstance.RenderingMode);
+        Assert.Equal(renderingStyle, pickerInstance.RenderStyle);
     }
 
     [Fact]
@@ -462,14 +462,14 @@
     [InlineData(CalendarViews.Days)]
     [InlineData(CalendarViews.Months)]
     [InlineData(CalendarViews.Years)]
-    public void FluentDatePicker_FormatValueAsString_FluentUIMode(CalendarViews view)
+    public void FluentDatePicker_FormatValueAsString_FluentUIStyle(CalendarViews view)
     {
         // Arrange
         using var context = new DateTimeProviderContext(System.DateTime.Now);
         var testDate = new DateTime(2022, 3, 15);
 
         // Act
-        var picker = Render(@<FluentDatePicker Culture="@UnitedStatesCulture" RenderingMode="DatePickerRenderingMode.FluentUI" View="@view"
+        var picker = Render(@<FluentDatePicker Culture="@UnitedStatesCulture" RenderStyle="DatePickerRenderStyle.FluentUI" View="@view"
             Value="@testDate" />);
         var pickerInstance = picker.FindComponent<FluentDatePicker>().Instance;
         var textInput = picker.Find("fluent-text-input");
@@ -497,19 +497,19 @@
     [InlineData(CalendarViews.Days)]
     [InlineData(CalendarViews.Months)]
     [InlineData(CalendarViews.Years)]
-    public void FluentDatePicker_FormatValueAsString_BrowserMode(CalendarViews view)
+    public void FluentDatePicker_FormatValueAsString_NativeStyle(CalendarViews view)
     {
         // Arrange
         using var context = new DateTimeProviderContext(System.DateTime.Now);
         var testDate = new DateTime(2022, 3, 15);
 
         // Act
-        var picker = Render(@<FluentDatePicker Culture="@UnitedStatesCulture" RenderingMode="DatePickerRenderingMode.Browser" View="@view"
+        var picker = Render(@<FluentDatePicker Culture="@UnitedStatesCulture" RenderStyle="DatePickerRenderStyle.Native" View="@view"
             Value="@testDate" />);
         var pickerInstance = picker.FindComponent<FluentDatePicker>().Instance;
         var textInput = picker.Find("fluent-text-input");
 
-        // Assert - Check that the input field has the correct value format for browser mode
+        // Assert - Check that the input field has the correct value format for native style
         var inputValue = textInput.Attributes["value"]?.Value;
         Assert.NotNull(inputValue);
 
@@ -528,13 +528,13 @@
     }
 
     [Fact]
-    public void FluentDatePicker_BrowserMode_DoesNotShowFluentUIElements()
+    public void FluentDatePicker_NativeStyle_DoesNotShowFluentUIElements()
     {
         // Arrange
         using var context = new DateTimeProviderContext(System.DateTime.Now);
 
         // Act
-        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" RenderingMode="DatePickerRenderingMode.Browser" />);
+        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" RenderStyle="DatePickerRenderStyle.Native" />);
 
         // Assert
         var icons = picker.FindAll("fluent-icon");
@@ -545,23 +545,23 @@
     }
 
     [Fact]
-    public void FluentDatePicker_FluentUIMode_ShowsFluentUIElements()
+    public void FluentDatePicker_FluentUIStyle_ShowsFluentUIElements()
     {
         // Arrange
         using var context = new DateTimeProviderContext(System.DateTime.Now);
 
         // Act
-        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" RenderingMode="DatePickerRenderingMode.FluentUI" />);
+        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" RenderStyle="DatePickerRenderStyle.FluentUI" />);
 
         // Assert - Check for FluentUI specific elements
         var textInput = picker.Find("fluent-text-input");
         Assert.NotNull(textInput);
 
-        // Check that the component is in FluentUI mode
+        // Check that the component is in FluentUI style
         var pickerInstance = picker.FindComponent<FluentDatePicker>().Instance;
-        Assert.Equal(DatePickerRenderingMode.FluentUI, pickerInstance.RenderingMode);
+        Assert.Equal(DatePickerRenderStyle.FluentUI, pickerInstance.RenderStyle);
 
-        // In FluentUI mode, the component should have the fluent-text-input element
+        // In FluentUI style, the component should have the fluent-text-input element
         // The popover and icon might not be rendered until interaction or might be conditional
         Assert.Contains("fluent-text-input", picker.Markup);
     }
@@ -588,19 +588,19 @@
     }
 
     [Theory]
-    [InlineData(DatePickerRenderingMode.Browser, CalendarViews.Days, "date", null)]
-    [InlineData(DatePickerRenderingMode.Browser, CalendarViews.Months, "month", null)]
-    [InlineData(DatePickerRenderingMode.Browser, CalendarViews.Years, "number", TextInputMode.Numeric)]
-    [InlineData(DatePickerRenderingMode.Browser, (CalendarViews)999, null, null)]
-    [InlineData(DatePickerRenderingMode.FluentUI, CalendarViews.Days, null, null)]
-    [InlineData(DatePickerRenderingMode.FluentUI, CalendarViews.Months, null, null)]
-    [InlineData(DatePickerRenderingMode.FluentUI, CalendarViews.Years, null, null)]  
-    [InlineData(DatePickerRenderingMode.FluentUI, (CalendarViews)999, null, null)]  
-    public void FluentDatePicker_GetInputType(DatePickerRenderingMode renderingMode, CalendarViews view, string? expectedInputType, TextInputMode? expectedInputMode)
+    [InlineData(DatePickerRenderStyle.Native, CalendarViews.Days, "date", null)]
+    [InlineData(DatePickerRenderStyle.Native, CalendarViews.Months, "month", null)]
+    [InlineData(DatePickerRenderStyle.Native, CalendarViews.Years, "number", TextInputMode.Numeric)]
+    [InlineData(DatePickerRenderStyle.Native, (CalendarViews)999, null, null)]
+    [InlineData(DatePickerRenderStyle.FluentUI, CalendarViews.Days, null, null)]
+    [InlineData(DatePickerRenderStyle.FluentUI, CalendarViews.Months, null, null)]
+    [InlineData(DatePickerRenderStyle.FluentUI, CalendarViews.Years, null, null)]  
+    [InlineData(DatePickerRenderStyle.FluentUI, (CalendarViews)999, null, null)]  
+    public void FluentDatePicker_GetInputType(DatePickerRenderStyle renderingStyle, CalendarViews view, string? expectedInputType, TextInputMode? expectedInputMode)
     {
         // Arrange
         using var context = new DateTimeProviderContext(System.DateTime.Now);
-        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" RenderingMode="@renderingMode" View="@view" />);
+        var picker = Render(@<FluentDatePicker Culture="@InvariantCulture" RenderStyle="@renderingStyle" View="@view" />);
 
         // Act
         var pickerInstance = picker.FindComponent<FluentDatePicker>().Instance;

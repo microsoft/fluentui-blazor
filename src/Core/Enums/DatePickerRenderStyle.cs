@@ -5,11 +5,11 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public enum DatePickerRenderingMode
+public enum DatePickerRenderStyle
 {
     /// <summary />
     FluentUI,
 
     /// <summary />
-    Browser,
+    Native,
 }

@@ -63,8 +63,8 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     /// <summary />
     [Parameter]
-    public DatePickerRenderingMode RenderingMode { get; set; } = DatePickerRenderingMode.FluentUI;
-
+    public DatePickerRenderStyle RenderStyle { get; set; } = DatePickerRenderStyle.FluentUI;
+    
     /// <summary>
     /// Gets or sets the width of the component. 
     /// </summary>
@@ -119,7 +119,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     protected virtual async Task OnTextInputClickAsync(MouseEventArgs e)
     {
         // Simple click
-        if (IsFluentUIMode && e.Detail == 1 && !ReadOnly)
+        if (IsFluentUIStyle && e.Detail == 1 && !ReadOnly)
         {
             Opened = !Opened;
 
@@ -170,7 +170,7 @@ public partial class FluentDatePicker : FluentCalendarBase
 
         Opened = false;
 
-        if (IsFluentUIMode && _popupOpenedByKeyboard)
+        if (IsFluentUIStyle && _popupOpenedByKeyboard)
         {
             await _icon.Element.FocusAsync();
             _popupOpenedByKeyboard = false;
@@ -182,8 +182,8 @@ public partial class FluentDatePicker : FluentCalendarBase
     /// <summary />
     protected override string? FormatValueAsString(DateTime? value)
     {
-        // FluentUI mode
-        if (IsFluentUIMode)
+        // FluentUI style
+        if (IsFluentUIStyle)
         {
             return View switch
             {
@@ -193,7 +193,7 @@ public partial class FluentDatePicker : FluentCalendarBase
             };
         }
 
-        // Browser mode
+        // Native style
         return View switch
         {
             CalendarViews.Years => value?.ToString("yyyy", CultureInfo.InvariantCulture),
@@ -233,12 +233,12 @@ public partial class FluentDatePicker : FluentCalendarBase
     }
 
     /// <summary>
-    /// Gets a value indicating whether the date picker is using the Fluent UI mode.
+    /// Gets a value indicating whether the date picker is using the Fluent UI style.
     /// </summary>
-    private bool IsFluentUIMode => RenderingMode == DatePickerRenderingMode.FluentUI;
+    private bool IsFluentUIStyle => RenderStyle == DatePickerRenderStyle.FluentUI;
 
     /// <summary />
-    internal string? GetInputType() => IsFluentUIMode ? null : View switch
+    internal string? GetInputType() => IsFluentUIStyle ? null : View switch
     {
         CalendarViews.Days => "date",
         CalendarViews.Months => "month",
@@ -247,7 +247,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     };
 
     /// <summary />
-    internal TextInputMode? GetInputMode() => IsFluentUIMode ? null : View switch
+    internal TextInputMode? GetInputMode() => IsFluentUIStyle ? null : View switch
     {
         CalendarViews.Years => TextInputMode.Numeric,
         _ => null
