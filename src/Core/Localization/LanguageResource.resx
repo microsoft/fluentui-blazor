@@ -297,4 +297,7 @@
   <data name="Calendar_RequiredMessage" xml:space="preserve">
     <value>This field is required</value>
   </data>
+  <data name="DatePicker_ButtonTitle" xml:space="preserve">
+    <value>Show date picker</value>
+  </data>
 </root>

@@ -193,6 +193,7 @@ public partial class FluentCalendar : FluentCalendarBase
         await base.OnAfterRenderAsync(firstRender);
     }
 
+    /// <summary />
     private async Task RefreshAccessibilityKeyboardAsync(bool firstRender)
     {
         var defaultSelector = _pickerView switch
@@ -204,6 +205,12 @@ public partial class FluentCalendar : FluentCalendarBase
         };
 
         await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Calendar.SetAccessibilityKeyboard", _calendarReference, firstRender ? null : defaultSelector);
+    }
+
+    /// <summary />
+    internal async Task SetFirstFocusableAsync()
+    {
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Calendar.SetFirstFocusable", _calendarReference);
     }
 
     /// <summary>

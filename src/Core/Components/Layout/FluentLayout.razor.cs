@@ -85,7 +85,7 @@ public partial class FluentLayout : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Event raised when layout changes to a Mobile layout (true) or Desktop layout (false).
+    /// Event raised when layout changes to a Native layout (true) or Desktop layout (false).
     /// </summary>
     [Parameter]
     public EventCallback<bool> OnBreakpointEnter { get; set; }

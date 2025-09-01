@@ -1,0 +1,6 @@
+﻿<FluentDatePicker @bind-Value="@SelectedValue"
+                  DoubleClickToDate="@DateTime.Today" />
+@code
+{
+    DateTime? SelectedValue = DateTime.Today.AddDays(-2);
+}
