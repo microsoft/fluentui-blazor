@@ -2,12 +2,12 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
+using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using System.Linq.Expressions;
-using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -118,7 +118,6 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
                 .MakeGenericMethod(underlying);
             return (Func<TGridItem, string?>)method.Invoke(null, [getter, format])!;
         }
-
 
         if (typeof(IFormattable).IsAssignableFrom(typeof(TProp)))
         {
