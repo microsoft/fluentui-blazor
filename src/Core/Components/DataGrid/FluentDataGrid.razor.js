@@ -1,5 +1,4 @@
 let grids = [];
-const minWidth = 100;
 
 export function init(gridElement, autoFocus) {
     if (gridElement === undefined || gridElement === null) {
@@ -255,7 +254,7 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
                     const diffX = isRTL ? pageX - e.pageX : e.pageX - pageX;
                     const column = columns.find(({ header }) => header === curCol);
 
-                    column.size = parseInt(Math.max(minWidth, curColWidth + diffX), 10) + 'px';
+                    column.size = parseInt(Math.max(parseInt(column.header.style.minWidth), curColWidth + diffX), 10) + 'px';
 
                     columns.forEach((col) => {
                         if (col.size.startsWith('minmax')) {
@@ -373,7 +372,7 @@ export function resizeColumnDiscrete(gridElement, column, change) {
             const width = headerBeingResized.getBoundingClientRect().width + change;
 
             if (change < 0) {
-                column.size = Math.max(minWidth, width) + 'px';
+                column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
             }
             else {
                 column.size = width + 'px';
@@ -400,7 +399,7 @@ export function resizeColumnExact(gridElement, column, width) {
 
     grids.find(({ id }) => id === gridElement.id).columns.forEach(column => {
         if (column.header === headerBeingResized) {
-            column.size = Math.max(minWidth, width) + 'px';
+            column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
         }
         else {
             if (column.size.startsWith('minmax')) {
