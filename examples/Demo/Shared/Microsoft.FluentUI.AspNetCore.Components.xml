@@ -1300,6 +1300,14 @@
             Needs to be a valid CSS width value like '100px', '10%' or '0.5fr'.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.MinWidth">
+            <summary>
+            Gets or sets the minimal width of the column.
+            Defaults to 100px for a regular column and 50px for a select column.
+            When resizing a column, the user will not be able to make it smaller than this value.
+            Needs to be a valid CSS width value like '100px', '10%' or '0.5fr'.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Grid">
             <summary>
             Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
