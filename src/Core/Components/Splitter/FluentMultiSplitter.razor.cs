@@ -1,6 +1,6 @@
-// --------------------------------------------------------------
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-// --------------------------------------------------------------
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
 
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
@@ -174,7 +174,7 @@ public partial class FluentMultiSplitter : FluentComponentBase
                 // cancel omitted because it is managed by the parent panel
             }
 
-            paneNext.SizeRuntime = sizeNextNew?.ToString("0.00", CultureInfo.InvariantCulture) + "%" ?? string.Empty;
+            paneNext.SizeRuntime = (sizeNextNew?.ToString("0.00", CultureInfo.InvariantCulture) + "%") ?? string.Empty;
             paneNext.Refresh();
         }
     }
