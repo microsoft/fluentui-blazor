@@ -1033,7 +1033,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             var order = _sortByAscending ? "asc" : "desc";
             stateParams.Add($"{SaveStatePrefix}orderby", $"{_sortByColumn.Title} {order}");
         }
-        stateParams.Add($"{SaveStatePrefix}page", Pagination?.CurrentPageIndex + 1 ?? null);
+        stateParams.Add($"{SaveStatePrefix}page", (Pagination?.CurrentPageIndex + 1) ?? null);
         stateParams.Add($"{SaveStatePrefix}top", Pagination?.ItemsPerPage ?? null);
         NavigationManager.NavigateTo(NavigationManager.GetUriWithQueryParameters(stateParams), replace: true);
     }

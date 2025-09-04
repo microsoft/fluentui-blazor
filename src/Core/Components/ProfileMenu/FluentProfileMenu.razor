@@ -1,8 +1,8 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<div id="@Id" class="@ClassValue" style="@StyleValue" top-corner="@TopCorner"
-     @onclick="@ProfileMenuClickedAsync">
+<div id="@Id" class="@ClassValue" style="@StyleValue" top-corner="@TopCorner" tabindex="1"
+     @onclick="@ProfileMenuClickedAsync" @onkeydown="@ProfileMenuKeyDownAsync" >
     @StartTemplate
     <FluentPersona Id="@PersonaId"
                    Image="@Image"
