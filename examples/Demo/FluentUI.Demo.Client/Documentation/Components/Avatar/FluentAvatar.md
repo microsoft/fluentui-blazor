@@ -3,7 +3,7 @@ title: Avatar
 route: /Avatar
 ---
 
-# Avatar 
+# Avatar
 
 The `Avatar` component is used to represent a user or entity. It can display an image, initials, or an icon.
 
@@ -71,6 +71,6 @@ You can provide an `Icon` to replace the default icon in the `FluentAvatar` when
 
 {{ FluentAvatarIcon }}
 
-## API FluentButton
+## API FluentAvatar
 
 {{ API Type=FluentAvatar }}
