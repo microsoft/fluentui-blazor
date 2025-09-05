@@ -1,0 +1,13 @@
+[
+  {
+    "key": "ctrl+b",
+    "command": "workbench.action.tasks.runTask",
+    "args": "build-current-project",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+b",
+    "command": "workbench.action.tasks.runTask",
+    "args": "build-solution"
+  }
+]
