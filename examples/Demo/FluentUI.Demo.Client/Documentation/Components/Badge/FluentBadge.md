@@ -37,10 +37,10 @@ There are two actions authors should consider taking when using Badge to improve
             Inbox
         </FluentButton>
     </FluentBadge>
-    ```     
+    ```
 
 ### Badge shouldn't rely only on color information
-Include meaningful descriptions when using color to represent meaning in a badge. If relying on color only, ensure that non-visual information is included in the parent's label or description. 
+Include meaningful descriptions when using color to represent meaning in a badge. If relying on color only, ensure that non-visual information is included in the parent's label or description.
 
 ### Text on Badge
 Badges are intented to have short text, small numerical values or status information. Long text is not supported and should not be used within a Badge.
@@ -84,7 +84,7 @@ The badge size be set to a value from  the `BadgeSize` enumeration.
 
 {{ BadgeSizes }}
 
-## API FluentButton
+## API FluentBadge
 
 {{ API Type=FluentBadge }}
 
