@@ -543,6 +543,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         if (firstRender)
         {
             Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            await Module.InvokeVoidAsync("initialize", Id);
         }
     }
 
