@@ -1,12 +1,10 @@
 {
-    "areaPath": "DevDiv\\ASP.NET Core\\Blazor\\FluentUI Blazor Components",
+    "areaPath": "CCI\\PVA\\FluentUI Blazor Experience",
     "codebaseName": "fluentui-blazor",
-    "instanceUrl": "https://devdiv.visualstudio.com/",
-    "iterationPath": "DevDiv",
+    "instanceUrl": "https://msazure.visualstudio.com/",
     "notificationAliases": [
       "fluentui-blazor@microsoft.com"
     ],
-    "projectName": "DEVDIV",
-    "repositoryName": "fluentui-blazor",
-    "template": "TFSDEVDIV"
+    "projectName": "CCI",
+    "repositoryName": "fluentui-blazor"
   }
