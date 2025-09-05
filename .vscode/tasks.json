@@ -1,0 +1,63 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // Ctrl+Shift+B → To run the default build task (build-solution)
+    {
+      "label": "build-solution",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "Microsoft.FluentUI.sln", // 👈 Update this line with your default solution file name
+        "--configuration",
+        "Debug"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$msCompile",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    // Ctrl+B → Build current project based on active file
+    {
+      "label": "build-current-project",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/.vscode/scripts/build-current-project.ps1"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "VSCODE_ACTIVE_FILE": "${file}",
+          "WORKSPACE_FOLDER": "${workspaceFolder}"
+        }
+      }
+    }
+  ]
+}

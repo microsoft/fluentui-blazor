@@ -1,0 +1,32 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Watch Demo Server (Edge Dev)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "",
+      "program": "dotnet",
+      "args": [
+        "watch",
+        "run",
+        "--project",
+        "Examples/Demo/Server/FluentUI.Demo.Server.csproj",
+        "--framework",
+        "net9.0",
+        "--launch-profile",
+        "FluentUI.Demo.Server",
+        "-v:detailed"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "launchBrowser": {
+        "enabled": true
+      },
+      "stopAtEntry": false
+    }
+  ]
+}
