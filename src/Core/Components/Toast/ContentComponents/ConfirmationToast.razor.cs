@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-[method: DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors, typeof(ConfirmationToast))]
+[method: DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ConfirmationToast))]
 public partial class ConfirmationToast()
 {
 
