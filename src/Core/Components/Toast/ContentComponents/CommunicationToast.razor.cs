@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-[method: DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors, typeof(CommunicationToast))]
+[method: DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(CommunicationToast))]
 public partial class CommunicationToast() : IToastContentComponent<CommunicationToastContent>
 {
 

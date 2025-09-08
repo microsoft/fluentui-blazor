@@ -1,5 +1,4 @@
 let grids = [];
-const minWidth = 100;
 
 export function init(gridElement, autoFocus) {
     if (gridElement === undefined || gridElement === null) {
@@ -220,11 +219,13 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
     }
 
     const id = gridElement.id;
-    grids.push({
-        id,
-        columns,
-        initialWidths,
-    });
+    if (!grids.find(grid => grid.id === id)) {
+        grids.push({
+            id,
+            columns,
+            initialWidths,
+        });
+    }
 
     function setListeners(div, isRTL) {
         let pageX, curCol, curColWidth;
@@ -255,7 +256,7 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
                     const diffX = isRTL ? pageX - e.pageX : e.pageX - pageX;
                     const column = columns.find(({ header }) => header === curCol);
 
-                    column.size = parseInt(Math.max(minWidth, curColWidth + diffX), 10) + 'px';
+                    column.size = parseInt(Math.max(parseInt(column.header.style.minWidth), curColWidth + diffX), 10) + 'px';
 
                     columns.forEach((col) => {
                         if (col.size.startsWith('minmax')) {
@@ -352,7 +353,7 @@ export function resetColumnWidths(gridElement) {
 }
 
 export function resizeColumnDiscrete(gridElement, column, change) {
-
+    const isGrid = gridElement.classList.contains('grid');
     const columns = [];
     let headerBeingResized;
 
@@ -370,27 +371,32 @@ export function resizeColumnDiscrete(gridElement, column, change) {
 
     grids.find(({ id }) => id === gridElement.id).columns.forEach(column => {
         if (column.header === headerBeingResized) {
-            const width = headerBeingResized.getBoundingClientRect().width + change;
+            const width = headerBeingResized.offsetWidth + change; //.getBoundingClientRect().width + change;
 
             if (change < 0) {
-                column.size = Math.max(minWidth, width) + 'px';
+                column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
             }
             else {
                 column.size = width + 'px';
             }
+            column.header.style.width = column.size;
         }
-        else {
+        if (isGrid) {
+            // for grid we need to recalculate all columns that are minmax
             if (column.size.startsWith('minmax')) {
                 column.size = parseInt(column.header.clientWidth, 10) + 'px';
             }
+            columns.push(column.size);
         }
-        columns.push(column.size);
     });
 
-    gridElement.style.gridTemplateColumns = columns.join(' ');
+    if (isGrid) {
+        gridElement.style.gridTemplateColumns = columns.join(' ');
+    }
 }
 
 export function resizeColumnExact(gridElement, column, width) {
+    const isGrid = gridElement.classList.contains('grid');
     const columns = [];
     let headerBeingResized = gridElement.querySelector('.column-header[col-index="' + column + '"]');
 
@@ -400,17 +406,22 @@ export function resizeColumnExact(gridElement, column, width) {
 
     grids.find(({ id }) => id === gridElement.id).columns.forEach(column => {
         if (column.header === headerBeingResized) {
-            column.size = Math.max(minWidth, width) + 'px';
+            column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
+            column.header.style.width = column.size;
         }
-        else {
+        if (isGrid) {
+            // for grid we need to recalculate all columns that are minmax
             if (column.size.startsWith('minmax')) {
                 column.size = parseInt(column.header.clientWidth, 10) + 'px';
             }
+            column.header.style.width = column.size;
+            columns.push(column.size);
         }
-        columns.push(column.size);
     });
 
-    gridElement.style.gridTemplateColumns = columns.join(' ');
+    if (isGrid) {
+        gridElement.style.gridTemplateColumns = columns.join(' ');
+    }
 
     gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
     gridElement.focus();

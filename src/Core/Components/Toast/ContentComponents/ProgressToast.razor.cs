@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-[method: DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors, typeof(ProgressToast))]
+[method: DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ProgressToast))]
 public partial class ProgressToast() : IToastContentComponent<ProgressToastContent>
 {
     [Parameter]

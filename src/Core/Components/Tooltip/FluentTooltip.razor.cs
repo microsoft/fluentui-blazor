@@ -43,6 +43,13 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     /// </summary>
     protected virtual TooltipGlobalOptions? GlobalOptions => TooltipService?.GlobalOptions;
 
+
+    /// <summary>
+    /// Gets or sets the text used on aria-label attribute.
+    /// </summary>
+    [Parameter]
+    public virtual string? AriaLabel { get; set; }
+
     /// <summary>
     /// Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
     /// By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.

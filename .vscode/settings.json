@@ -1,4 +1,3 @@
 {
-  "dotnet.defaultSolution": "Microsoft.FluentUI.sln",
-  "azure-pipelines.1ESPipelineTemplatesSchemaFile": true
+  "dotnet.defaultSolution": "Microsoft.FluentUI.sln"
 }
