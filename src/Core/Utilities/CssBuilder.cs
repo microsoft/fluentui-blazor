@@ -123,6 +123,6 @@ public readonly partial struct CssBuilder
     /// Generates the regex used to validate CSS class names.
     /// </summary>
     /// <returns>A compiled regex for validating CSS class names</returns>
-    [GeneratedRegex(@"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled)]
+    [GeneratedRegex(@"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled, matchTimeoutMilliseconds: 1000)] //Add timeout to prevent ReDoS
     private static partial Regex GenerateValidClassNameRegex();
 }

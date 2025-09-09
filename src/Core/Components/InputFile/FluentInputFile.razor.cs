@@ -42,9 +42,6 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     private IJSObjectReference? Module { get; set; }
 
     /// <summary />
-    private bool DropOver { get; set; } = false;
-
-    /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-inputfile-container")
         .Build();
