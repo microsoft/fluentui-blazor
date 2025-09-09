@@ -43,7 +43,6 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     /// </summary>
     protected virtual TooltipGlobalOptions? GlobalOptions => TooltipService?.GlobalOptions;
 
-
     /// <summary>
     /// Gets or sets the text used on aria-label attribute.
     /// </summary>

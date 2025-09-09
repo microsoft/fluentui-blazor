@@ -86,7 +86,8 @@ internal class Splitter
         builder.Clear();
         _stringBuilderCached = builder;
 
-        var splits = Regex.Split(text, regex, caseSensitive ? RegexOptions.None : RegexOptions.IgnoreCase);
+        //Add timeout to prevent ReDoS
+        var splits = Regex.Split(text, regex, caseSensitive ? RegexOptions.None : RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
 
         var length = 0;
         for (var i = 0; i < splits.Length; i++)

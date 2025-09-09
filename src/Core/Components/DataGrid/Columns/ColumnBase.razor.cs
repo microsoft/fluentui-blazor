@@ -269,7 +269,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// <summary>
     /// Constructs an instance of <see cref="ColumnBase{TGridItem}" />.
     /// </summary>
-    public ColumnBase()
+    protected ColumnBase()
     {
         HeaderContent = RenderDefaultHeaderContent;
         HeaderTitleContent = RenderDefaultHeaderTitle;

@@ -5302,9 +5302,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.Module">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.DropOver">
-            <summary />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ClassValue">
             <summary />
         </member>
@@ -10306,6 +10303,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.GlobalOptions">
             <summary>
             Gets the default tooltip options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.AriaLabel">
+            <summary>
+            Gets or sets the text used on aria-label attribute.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.HideTooltipOnCursorLeave">
@@ -15900,12 +15902,6 @@
         </member>
         <member name="T:System.Text.RegularExpressions.Generated.Utilities">
             <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
-            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
-            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
         </member>
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_20FF03FEFFFF87FEFFFF07">
             <summary>Supports searching for characters in or not in "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".</summary>

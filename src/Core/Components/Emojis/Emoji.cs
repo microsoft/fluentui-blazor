@@ -17,7 +17,7 @@ public class Emoji : EmojiInfo
     /// Please use the constructor including parameters.
     /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
-    public Emoji() : this(string.Empty, EmojiSize.Size16, EmojiGroup.Flags, EmojiSkintone.Default, EmojiStyle.Flat, new byte[] { })
+    public Emoji() : this(string.Empty, EmojiSize.Size16, EmojiGroup.Flags, EmojiSkintone.Default, EmojiStyle.Flat, Array.Empty<byte>())
     {
         throw new ArgumentNullException("Please use the constructor including parameters.");
     }
