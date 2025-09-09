@@ -53,12 +53,12 @@ public partial class FluentAccordion : FluentComponentBase
     {
         if (args is not null)
         {
-            var Id = args.ActiveId;
-            if (Id is not null && items.TryGetValue(Id!, out FluentAccordionItem? item))
+            var id = args.ActiveId;
+            if (id is not null && items.TryGetValue(id!, out FluentAccordionItem? item))
             {
                 item.Expanded = args.Expanded;
                 await OnAccordionItemChange.InvokeAsync(item);
-                await ActiveIdChanged.InvokeAsync(Id);
+                await ActiveIdChanged.InvokeAsync(id);
             }
         }
     }

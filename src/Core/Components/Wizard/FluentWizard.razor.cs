@@ -238,7 +238,7 @@ public partial class FluentWizard : FluentComponentBase
     /// <summary />
     protected virtual async Task OnFinishHandlerAsync(MouseEventArgs e)
     {
-        await this.FinishAsync(true);
+        await FinishAsync(true);
     }
 
     /// <summary>
@@ -331,10 +331,6 @@ public partial class FluentWizard : FluentComponentBase
                 else if (i == stepIndex)
                 {
                     _steps[i].Status = WizardStepStatus.Current;
-                }
-                else if (i > stepIndex)
-                {
-                    _steps[i].Status = WizardStepStatus.Next;
                 }
                 else
                 {
