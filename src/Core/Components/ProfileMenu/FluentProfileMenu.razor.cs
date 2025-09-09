@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -176,6 +177,15 @@ public partial class FluentProfileMenu : FluentComponentBase
     {
         Open = !Open;
         await OpenChangedHandlerAsync();
+    }
+
+    private async Task ProfileMenuKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter" || args.Key == "NumpadEnter" || args.Key == " " || args.Key == "Spacebar")
+        {
+            Open = !Open;
+            await OpenChangedHandlerAsync();
+        }
     }
 
     /// <summary />

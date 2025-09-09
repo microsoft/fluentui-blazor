@@ -42,6 +42,42 @@
         cut.Verify();
     }
 
+    [Theory]
+    [InlineData("Enter")]
+    [InlineData(" ")]
+    [InlineData("Spacebar")]
+    [InlineData("NumpadEnter")]
+    public void FluentProfileMenu_OpenWithKeyboard(string key)
+    {
+        bool opened = false;
+
+        // Arrange && Act
+        var cut = Render(
+            @<FluentProfileMenu Image="@SamplePicture"
+                   ButtonSize="20px"
+                   ImageSize="48px"
+                   @bind-Open="@opened"
+                   Status="@PresenceStatus.Available"
+                   StatusTitle="I'm available"
+                   HeaderLabel="Microsoft"
+                   FooterLabel="v 3.14"
+                   Initials="BG"
+                   FullName="Bill Gates"
+                   EMail="bill.gates@microsoft.com" />
+    );
+
+        Assert.False(opened);
+
+        // Open the Popover
+        //var button = cut.Find(".initials");
+        //button.Click();
+        cut.Find(".fluent-profile-menu").KeyDown(key);
+
+        // Assert
+        Assert.True(opened);
+
+    }
+
     [Fact]
     public void FluentProfileMenu_Buttons()
     {
