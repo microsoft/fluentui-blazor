@@ -61,14 +61,14 @@ export async function initialize(anchorId, menuId, anchoredRegionModule, dotNetH
     // 1. When Tab is pressed on the anchor, focus must be moved to the first focusable element in the menu
     // 2. When Shift+Tab is pressed on any focusable element in the menu, focus must be moved back to the anchor. This will also close the menu.
     // 3. When Tab is pressed on any focusable element in the menu, focus should continue to the next focusable element in the element's root. This will also close the menu.
-
+    // 4. When Escape is pressed on any focusable element in the menu, focus must be moved back to the anchor. This will also close the menu.
     const menuItemKeydownListener = function (ev) {
-        if (ev.key === "Tab") {
+        if (ev.key === "Tab" || ev.key === "Escape") {
             try {
                 ev.preventDefault && ev.preventDefault();
                 ev.stopPropagation && ev.stopPropagation();
 
-                if (!ev.shiftKey) {
+                if (!ev.shiftKey && ev.key === "Tab") {
                     // When Tab is pressed on a focusable element, we should continue to the next focusable element
                     // If this element is a fluent element, we should try to find the next focusable element within the shadow DOM of the fluent element if one exists,
                     // as that is the focusable element.
