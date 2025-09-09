@@ -480,6 +480,11 @@ public class DemoNavProvider
                                 icon: new Icons.Regular.Size20.Grid(),
                                 title: "Manual grid"
                             ),
+                            new NavLink (
+                                href:"/datagrid-menu-header",
+                                icon: new Icons.Regular.Size20.Grid(),
+                                title: "Menu header"
+                            ),
                         ]
                     ),
                     new NavLink(
