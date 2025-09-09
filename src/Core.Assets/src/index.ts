@@ -1,4 +1,4 @@
-export * from '@fluentui/web-components/dist/web-components'
+﻿export * from '@fluentui/web-components/dist/web-components'
 export { parseColorHexRGB } from '@microsoft/fast-colors'
 
 import { accentBaseColor, neutralBaseColor, SwatchRGB, } from '@fluentui/web-components/dist/web-components'
@@ -73,6 +73,15 @@ fluent-combobox::part(selected-value),
 fluent-number-field::part(control)
 {
     letter-spacing: inherit;
+}
+
+fluent-text-area:not([disabled]):active::after,
+fluent-text-field:not([disabled]):active::after,
+fluent-search:not([disabled]):active::after,
+fluent-combobox:not([disabled]):active::after,
+fluent-number-field:not([disabled]):active::after
+{
+	width: 100%; /* Fixes :active misplacement for touch devices */
 }
 `;
 
