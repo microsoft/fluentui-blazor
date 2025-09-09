@@ -14,7 +14,7 @@
         }
     </FluentButton>
     <FluentOverlay @bind-Visible="@_visible" Transparent="true" FullScreen="true" />
-    <FluentMenu Id="@_menuId" @ref="Menu" Anchor="@_buttonId" aria-labelledby="button" Style="@MenuStyleValue" @bind-Open=@_visible @onmenuchange=OnMenuChangeAsync>
+    <FluentMenu @ref="Menu" Anchor="@_buttonId" aria-labelledby="button" Style="@MenuStyleValue" @bind-Open=@_visible @onmenuchange=OnMenuChangeAsync>
         @foreach (var item in Items)
         {
             <FluentMenuItem Id="@item.Key">@item.Value</FluentMenuItem>

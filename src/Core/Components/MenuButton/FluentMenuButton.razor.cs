@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -13,7 +12,6 @@ public partial class FluentMenuButton : FluentComponentBase
     private bool _visible;
     private Color _iconColor = Color.Fill;
     private string? _buttonId;
-    private string? _menuId;
 
     protected string? MenuStyleValue => new StyleBuilder(MenuStyle)
         .AddStyle("position", "relative")
@@ -88,17 +86,9 @@ public partial class FluentMenuButton : FluentComponentBase
     [Parameter]
     public RenderFragment? ButtonContent { get; set; }
 
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
-    /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
-
     protected override void OnInitialized()
     {
         _buttonId = Identifier.NewId();
-        _menuId = $"{_buttonId}-menu";
     }
 
     protected override void OnParametersSet()
