@@ -4,9 +4,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
    * Display the fluent-dialog with the given id
    * @param id The id of the fluent-dialog to display
    */
-  export function Show(id: string): void {
+  export function Show(id: string): HTMLElement | null {
+    const previousElement = document.activeElement as HTMLElement;
     const dialog = document.getElementById(id) as any;
     dialog?.show();
+    return previousElement;
   }
 
   /**
@@ -16,5 +18,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
   export function Hide(id: string): void {
     const dialog = document.getElementById(id) as any;
     dialog?.hide();
+  }
+
+  export function FocusPreviousElement(element: HTMLElement): void {
+    if (element) {
+      element.focus();
+    }
   }
 }

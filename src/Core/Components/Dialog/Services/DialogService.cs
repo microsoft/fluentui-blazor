@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -47,6 +48,9 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
 
         // Raise the DialogState.Closed event
         dialogInstance?.FluentDialog?.RaiseOnStateChangeAsync(dialog, DialogState.Closed);
+
+        //Focus the previously focused element (if any)
+        dialogInstance?.FluentDialog?.FocusPreviousElementAsync();
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogOptions)"/>

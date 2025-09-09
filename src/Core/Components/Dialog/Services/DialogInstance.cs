@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -39,6 +40,9 @@ public class DialogInstance : IDialogInstance
 
     /// <inheritdoc cref="IDialogInstance.Result"/>
     public Task<DialogResult> Result => ResultCompletion.Task;
+
+    /// <inheritdoc cref="IDialogInstance.PreviouslyFocusedElement"/>"
+    public IJSObjectReference? PreviouslyFocusedElement { get; set; }
 
     /// <inheritdoc cref="IDialogInstance.Id"/>"
     public string Id { get; }

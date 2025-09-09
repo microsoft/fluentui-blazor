@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The dialog component is a window overlaid on either the primary window or another dialog window.
-/// Windows under a modal dialog are inert. 
+/// Windows under a modal dialog are inert.
 /// </summary>
 public partial class FluentDialog : FluentComponentBase
 {
@@ -76,11 +76,11 @@ public partial class FluentDialog : FluentComponentBase
     public EventCallback<DialogEventArgs> OnStateChange { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && LaunchedFromService)
         {
@@ -90,10 +90,15 @@ public partial class FluentDialog : FluentComponentBase
                 instance.FluentDialog = this;
             }
 
-            return ShowAsync();
+            var pfe = await ShowAsync();
+
+            if (instance is not null)
+            {
+                instance.PreviouslyFocusedElement = pfe;
+            }
         }
 
-        return Task.CompletedTask;
+        return;
     }
 
     /// <summary />
@@ -145,9 +150,9 @@ public partial class FluentDialog : FluentComponentBase
     /// Displays the dialog.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public async Task ShowAsync()
+    public async Task<IJSObjectReference> ShowAsync()
     {
-        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Show", Id);
+        return await JSRuntime.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.Components.Dialog.Show", Id);
     }
 
     /// <summary>
@@ -157,6 +162,20 @@ public partial class FluentDialog : FluentComponentBase
     public async Task HideAsync()
     {
         await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Hide", Id);
+    }
+
+    /// <summary>
+    /// Set the focus back to the element that had focus before the dialog was opened.
+    /// </summary>
+    /// <returns></returns>
+    [ExcludeFromCodeCoverage]
+    public async Task FocusPreviousElementAsync()
+    {
+        if (Instance?.PreviouslyFocusedElement is not null)
+        {
+            await Task.Delay(50);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.FocusPreviousElement", Instance.PreviouslyFocusedElement);
+        }
     }
 
     /// <summary />
