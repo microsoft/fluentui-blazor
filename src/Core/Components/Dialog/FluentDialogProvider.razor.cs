@@ -4,19 +4,30 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentDialogProvider : IDisposable
+public partial class FluentDialogProvider : IAsyncDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Dialog/FluentDialogProvider.razor.js";
+
     private readonly InternalDialogContext _internalDialogContext;
     private readonly RenderFragment _renderDialogs;
+    private IJSObjectReference? _module;
 
     [Inject]
     private IDialogService DialogService { get; set; } = default!;
 
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentToastProvider"/>.
@@ -40,20 +51,43 @@ public partial class FluentDialogProvider : IDisposable
         DialogService.OnDialogCloseRequested += DismissInstance;
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+        }
+    }
+
     private void ShowDialog(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
     {
-        DialogInstance dialog = new(dialogComponent, parameters, content);
-        dialogReference.Instance = dialog;
+        if (_module is null)
+        {
+            throw new InvalidOperationException("JS module is not loaded.");
+        }
 
-        _internalDialogContext.References.Add(dialogReference);
-        InvokeAsync(StateHasChanged);
+        InvokeAsync(async () =>
+        {
+            var previouslyFocusedElement = await _module.InvokeAsync<IJSObjectReference>("getActiveElement");
+            DialogInstance dialog = new(dialogComponent, parameters, content, previouslyFocusedElement);
+            dialogReference.Instance = dialog;
+
+            _internalDialogContext.References.Add(dialogReference);
+        });
     }
 
     private async Task<IDialogReference> ShowDialogAsync(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
     {
-        return await Task.Run(() =>
+        if (_module is null)
         {
-            DialogInstance dialog = new(dialogComponent, parameters, content);
+            throw new InvalidOperationException("JS module is not loaded.");
+        }
+
+        return await Task.Run(async () =>
+        {
+            var previouslyFocusedElement = await _module.InvokeAsync<IJSObjectReference>("getActiveElement");
+
+            DialogInstance dialog = new(dialogComponent, parameters, content, previouslyFocusedElement);
             dialogReference.Instance = dialog;
 
             _internalDialogContext.References.Add(dialogReference);
@@ -130,6 +164,17 @@ public partial class FluentDialogProvider : IDisposable
         }
     }
 
+    internal async Task ReturnFocusAsync(IJSObjectReference element)
+    {
+        if (_module is null)
+        {
+            throw new InvalidOperationException("JS module is not loaded.");
+        }
+
+        await _module.InvokeVoidAsync("focusElement", element);
+        await element.DisposeAsync();
+    }
+
     internal IDialogReference? GetDialogReference(string id)
     {
         return _internalDialogContext.References.SingleOrDefault(x => x.Id == id);
@@ -183,11 +228,25 @@ public partial class FluentDialogProvider : IDisposable
         }
     }
 
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
         if (NavigationManager != null)
         {
             NavigationManager.LocationChanged -= LocationChanged;
+        }
+
+        try
+        {
+            if (_module is not null)
+            {
+                await _module.DisposeAsync();
+            }
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
     }
 }
