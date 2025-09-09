@@ -210,21 +210,22 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     {
         RenderFragment fluentTreeItem = builder =>
         {
-            int i = 0;
-            builder.OpenComponent<FluentTreeItem>(i++);
-            builder.AddAttribute(i++, "Id", item.Id);
-            builder.AddAttribute(i++, "Items", item.Items);
-            builder.AddAttribute(i++, "Text", item.Text);
-            builder.AddAttribute(i++, "InitiallySelected", owner.SelectedItem == item);
-            builder.AddAttribute(i++, "Expanded", item.Expanded);
-            builder.AddAttribute(i++, "Disabled", item.Disabled);
-            builder.AddAttribute(i++, "IconCollapsed", item.IconCollapsed);
-            builder.AddAttribute(i++, "IconExpanded", item.IconExpanded);
+            //Don't use calculation or counter for building sequence numbers
+            //See: https://learn.microsoft.com/en-us/aspnet/core/blazor/advanced-scenarios?view=aspnetcore-9.0&utm_source=chatgpt.com#manually-build-a-render-tree-rendertreebuilder
+            builder.OpenComponent<FluentTreeItem>(0);
+            builder.AddAttribute(1, "Id", item.Id);
+            builder.AddAttribute(2, "Items", item.Items);
+            builder.AddAttribute(3, "Text", item.Text);
+            builder.AddAttribute(4, "InitiallySelected", owner.SelectedItem == item);
+            builder.AddAttribute(5, "Expanded", item.Expanded);
+            builder.AddAttribute(6, "Disabled", item.Disabled);
+            builder.AddAttribute(7, "IconCollapsed", item.IconCollapsed);
+            builder.AddAttribute(8, "IconExpanded", item.IconExpanded);
             builder.SetKey(item.Id);
 
             if (owner.ItemTemplate != null)
             {
-                builder.AddAttribute(i++, "ChildContent", owner.ItemTemplate(item));
+                builder.AddAttribute(9, "ChildContent", owner.ItemTemplate(item));
             }
 
             builder.CloseComponent();

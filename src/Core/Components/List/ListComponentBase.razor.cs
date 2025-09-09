@@ -206,7 +206,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     public Expression<Func<IEnumerable<TOption>>>? SelectedOptionsExpression { get; set; }
 
     /// <summary />
-    public ListComponentBase()
+    protected ListComponentBase()
     {
         _internalListContext = new(this);
 
