@@ -8,7 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public sealed class DialogInstance
 {
-    public DialogInstance(Type? type, DialogParameters parameters, object content, IJSObjectReference previouslyFocusedElement)
+    public DialogInstance(Type? type, DialogParameters parameters, object content, IJSObjectReference? previouslyFocusedElement)
     {
         ContentType = type;
         Parameters = parameters;
@@ -25,7 +25,7 @@ public sealed class DialogInstance
 
     public DialogParameters Parameters { get; internal set; }
 
-    internal IJSObjectReference PreviouslyFocusedElement { get; }
+    internal IJSObjectReference? PreviouslyFocusedElement { get; }
 
     internal Dictionary<string, object>? GetParameterDictionary()
     {
