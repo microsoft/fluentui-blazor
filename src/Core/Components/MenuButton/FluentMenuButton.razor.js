@@ -1,12 +1,8 @@
-let menuItemKeydownListener = null;
-let menuElement = null;
-
-let onButtonKeyDownListener = null;
-let buttonElement = null;
+const menuButtonState = new Map();
 
 export async function fluentMenuButtonOnRender(buttonId, menuId, anchoredRegionModule, dotNetHelper) {
     // Dispose existing listeners if any
-    fluentMenuButtonDispose(buttonId, menuId);
+    fluentMenuButtonDispose(buttonId);
 
     if (!menuId) {
         return;
@@ -19,8 +15,8 @@ export async function fluentMenuButtonOnRender(buttonId, menuId, anchoredRegionM
         throw new Error("FocusableElement not available from AnchoredRegion module");
     }
 
-    menuElement = document.getElementById(menuId);
-    buttonElement = document.getElementById(buttonId);
+    const menuElement = document.getElementById(menuId);
+    const buttonElement = document.getElementById(buttonId);
 
     // Return if either the menu or button element have not rendered.
     if (!menuElement || !buttonElement) {
@@ -32,7 +28,7 @@ export async function fluentMenuButtonOnRender(buttonId, menuId, anchoredRegionM
     // 2. When Shift+Tab is pressed on any focusable element in the menu, focus must be moved back to the button. This will also close the menu.
     // 3. When Tab is pressed on any focusable element in the menu, focus should continue to the next focusable element in the element's root. This will also close the menu.
 
-    menuItemKeydownListener = function (ev) {
+    const menuItemKeydownListener = function (ev) {
         if (ev.key === "Tab") {
             try {
                 ev.preventDefault && ev.preventDefault();
@@ -58,7 +54,7 @@ export async function fluentMenuButtonOnRender(buttonId, menuId, anchoredRegionM
     menuElement.addEventListener("keydown", menuItemKeydownListener);
 
     // Add keydown listener to the button for Tab (no shift) to focus first element
-    onButtonKeyDownListener = function (ev) {
+    const onButtonKeyDownListener = function (ev) {
         if (ev.key === "Tab") {
             if (ev.shiftKey) {
                 dotNetHelper.invokeMethodAsync('ToggleMenuAsync');
@@ -84,17 +80,25 @@ export async function fluentMenuButtonOnRender(buttonId, menuId, anchoredRegionM
     };
 
     buttonElement.addEventListener("keydown", onButtonKeyDownListener);
+
+    menuButtonState.set(buttonId, {
+        menuItemKeydownListener,
+        onButtonKeyDownListener,
+        menuElement,
+        buttonElement
+    });
 }
 
 // Called to cleanup listeners when component is disposed
-export function fluentMenuButtonDispose() {
-    if (menuItemKeydownListener) {
-        menuElement?.removeEventListener("keydown", menuItemKeydownListener);
-        menuItemKeydownListener = null;
+export function fluentMenuButtonDispose(buttonId) {
+    const state = menuButtonState.get(buttonId);
+    if (!state) {
+        return;
     }
 
-    if (onButtonKeyDownListener) {
-        buttonElement?.removeEventListener("keydown", onButtonKeyDownListener);
-        onButtonKeyDownListener = null;
-    }
+    const { menuItemKeydownListener, onButtonKeyDownListener, menuElement, buttonElement } = state;
+    menuElement.removeEventListener("keydown", menuItemKeydownListener);
+    buttonElement.removeEventListener("keydown", onButtonKeyDownListener);
+
+    menuButtonState.delete(buttonId);
 }

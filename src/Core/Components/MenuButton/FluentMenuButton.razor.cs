@@ -128,7 +128,10 @@ public partial class FluentMenuButton : FluentComponentBase, IAsyncDisposable
             _dotNetHelper = DotNetObjectReference.Create(this);
         }
 
-        await _jsModule!.InvokeVoidAsync("fluentMenuButtonOnRender", _buttonId, _visible ? _menuId : null, _anchoredRegionModule, _dotNetHelper);
+        if (_jsModule is not null)
+        {
+            await _jsModule.InvokeVoidAsync("fluentMenuButtonOnRender", _buttonId, _visible ? _menuId : null, _anchoredRegionModule, _dotNetHelper);
+        }
     }
 
     [JSInvokable]
@@ -159,7 +162,7 @@ public partial class FluentMenuButton : FluentComponentBase, IAsyncDisposable
         {
             if (_jsModule is not null)
             {
-                await _jsModule.InvokeVoidAsync("fluentMenuButtonDispose");
+                await _jsModule.InvokeVoidAsync("fluentMenuButtonDispose", _buttonId);
                 await _jsModule.DisposeAsync();
             }
 
