@@ -166,6 +166,6 @@ public partial class FluentIcon<Icon> : FluentComponentBase, ITooltipComponent, 
             return _icon.Color;
         }
 
-        return null;
+        return Components.Icon.DefaultColor;
     }
 }
