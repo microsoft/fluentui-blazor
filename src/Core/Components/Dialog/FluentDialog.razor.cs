@@ -80,25 +80,17 @@ public partial class FluentDialog : FluentComponentBase
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && LaunchedFromService)
         {
             var instance = Instance as DialogInstance;
-            if (instance is not null)
-            {
-                instance.FluentDialog = this;
-            }
+            instance?.FluentDialog = this;
 
-            var pfe = await ShowAsync();
-
-            if (instance is not null)
-            {
-                instance.PreviouslyFocusedElement = pfe;
-            }
+            return ShowAsync();
         }
 
-        return;
+        return Task.CompletedTask;
     }
 
     /// <summary />
@@ -162,20 +154,6 @@ public partial class FluentDialog : FluentComponentBase
     public async Task HideAsync()
     {
         await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Hide", Id);
-    }
-
-    /// <summary>
-    /// Set the focus back to the element that had focus before the dialog was opened.
-    /// </summary>
-    /// <returns></returns>
-    [ExcludeFromCodeCoverage]
-    public async Task FocusPreviousElementAsync()
-    {
-        if (Instance?.PreviouslyFocusedElement is not null)
-        {
-            await Task.Delay(50);
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.FocusPreviousElement", Instance.PreviouslyFocusedElement);
-        }
     }
 
     /// <summary />

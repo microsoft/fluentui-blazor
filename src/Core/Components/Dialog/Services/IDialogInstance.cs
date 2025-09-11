@@ -2,8 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.JSInterop;
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -15,11 +13,6 @@ public interface IDialogInstance
     /// Gets the component type of the dialog.
     /// </summary>
     internal Type ComponentType { get; }
-
-    /// <summary>
-    /// Holds a reference to the previously focused element (before the dialog was opened).
-    /// </summary>
-    IJSObjectReference? PreviouslyFocusedElement { get; set; }
 
     /// <summary>
     /// Gets the unique identifier for the dialog.
