@@ -75,17 +75,16 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public EventCallback<DialogEventArgs> OnStateChange { get; set; }
 
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
+    /// <summary />
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && LaunchedFromService)
         {
             var instance = Instance as DialogInstance;
-            instance?.FluentDialog = this;
+            if (instance is not null)
+            {
+                instance.FluentDialog = this;
+            }
 
             return ShowAsync();
         }
@@ -142,9 +141,9 @@ public partial class FluentDialog : FluentComponentBase
     /// Displays the dialog.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public async Task<IJSObjectReference> ShowAsync()
+    public async Task ShowAsync()
     {
-        return await JSRuntime.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.Components.Dialog.Show", Id);
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Show", Id);
     }
 
     /// <summary>

@@ -66,6 +66,9 @@ public partial class FluentDialogProvider : FluentComponentBase
     {
         Id = id;
 
-        DialogService?.ProviderId = id;
+        if (DialogService is not null)
+        {
+            DialogService.ProviderId = id;
+        }
     }
 }
