@@ -1,3 +1,5 @@
+import { Microsoft as FluentDialogFile } from "./Components/Dialog/FluentDialog";
+
 export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
 
   /**
@@ -28,6 +30,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     blazor.registerCustomEventType('dialogbeforetoggle', {
       browserEventName: 'beforetoggle',
       createEventArgs: (event: any) => {
+        FluentDialogFile.FluentUI.Blazor.Components.Dialog.DialogToggle_PreviousActiveElement(event.target.id, event.detail?.newState ?? event.newState);
         return {
           id: event.target.id,
           type: event.type,
@@ -130,7 +133,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
           newState: event.detail?.newState ?? event.newState,
         };
       }
-    }); 
+    });
   }
 
   // [^^^ Add your other custom events before this line ^^^]

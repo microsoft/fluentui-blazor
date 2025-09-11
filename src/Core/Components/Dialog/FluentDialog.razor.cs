@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The dialog component is a window overlaid on either the primary window or another dialog window.
-/// Windows under a modal dialog are inert. 
+/// Windows under a modal dialog are inert.
 /// </summary>
 public partial class FluentDialog : FluentComponentBase
 {
@@ -75,11 +75,7 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public EventCallback<DialogEventArgs> OnStateChange { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
+    /// <summary />
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && LaunchedFromService)

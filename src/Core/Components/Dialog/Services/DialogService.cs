@@ -4,6 +4,8 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -13,6 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialogService
 {
     private readonly IServiceProvider _serviceProvider;
+    private readonly IJSRuntime _jsRuntime;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DialogService"/> class.
@@ -25,6 +28,7 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     public DialogService(IServiceProvider serviceProvider, IFluentLocalizer? localizer)
     {
         _serviceProvider = serviceProvider;
+        _jsRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
         Localizer = localizer ?? FluentLocalizerInternal.Default;
     }
 
@@ -104,11 +108,11 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     /// <param name="dialog"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    internal Task RemoveDialogFromProviderAsync(IDialogInstance? dialog)
+    internal async Task RemoveDialogFromProviderAsync(IDialogInstance? dialog)
     {
         if (dialog is null)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         // Remove the HTML code from the DialogProvider
@@ -117,6 +121,7 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
             throw new InvalidOperationException($"Failed to remove dialog from DialogProvider: the ID '{dialog.Id}' doesn't exist in the DialogServiceProvider.");
         }
 
-        return ServiceProvider.OnUpdatedAsync.Invoke(dialog);
+        await ServiceProvider.OnUpdatedAsync.Invoke(dialog);
+        await _jsRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.FocusOnPreviousActiveElement", dialog.Id);
     }
 }
