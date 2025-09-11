@@ -361,7 +361,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
 
         if (OnCompleted.HasDelegate)
         {
-            await OnCompleted.InvokeAsync(uploadedFiles.ToArray());
+            await OnCompleted.InvokeAsync(uploadedFiles);
         }
     }
 
