@@ -14,6 +14,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class Icon : IconInfo
 {
+
+    /// <summary>
+    /// Represents the default color value used when no specific color is provided.
+    /// This value is required to ensure that the icon inherits the current text color from its parent element.
+    /// And will be correct for dark and light mode.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword
+    /// </summary>
+    internal const string DefaultColor = "currentColor";
+
     /// <summary>
     /// Please use the constructor including parameters.
     /// </summary>
@@ -99,7 +108,7 @@ public class Icon : IconInfo
         {
             var sizeAsString = ((int)Size).ToString(CultureInfo.InvariantCulture);
             var styleWidth = size ?? $"{sizeAsString}px";
-            var styleColor = color ?? Color ?? Components.Color.Primary.ToAttributeValue();
+            var styleColor = color ?? Color ?? DefaultColor;
             var styleBackgroundColor = backgroundColor ?? "var(--colorNeutralBackground1)";
             var slotAttribute = string.IsNullOrEmpty(slotName) ? string.Empty : $" slot=\"{slotName}\"";
             return new MarkupString($"<svg viewBox=\"0 0 {sizeAsString} {sizeAsString}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: {styleBackgroundColor}; width: {styleWidth};\" aria-hidden=\"true\" {slotAttribute}>{Content}</svg>");

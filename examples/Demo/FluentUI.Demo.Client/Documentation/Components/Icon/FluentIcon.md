@@ -58,6 +58,9 @@ With the code above you can use the following options at the `<···>`:
 With `Color.Custom`, supply your own color value through the `CustomColor` parameter. <br/>
 Needs to be formatted as an HTML hex color string (`#rrggbb` or `#rgb`) or a CSS variable (`var(--...)`).
 
+> The default color is [currentColor](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword), 
+> which means that the icon will inherit the color from its parent element.
+
 ## Customization
 
 You can create your own icons by adding a class like this one:
