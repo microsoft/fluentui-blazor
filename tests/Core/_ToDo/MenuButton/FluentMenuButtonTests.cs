@@ -19,11 +19,10 @@ public class FluentMenuButtonTests : TestBase
     {
         TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
         TestContext.Services.AddSingleton(GlobalState);
-        TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
         TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js");
 
-        var menuButtonModule = TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/MenuButton/FluentMenuButton.razor.js");
-        menuButtonModule.SetupVoid("initialize", _ => true);
+        var menuModule = TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
+        menuModule.SetupVoid("initialize", _ => true);
     }
 
     [Fact]

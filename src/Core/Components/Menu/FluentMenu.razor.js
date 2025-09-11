@@ -57,7 +57,7 @@ export async function initialize(anchorId, menuId, anchoredRegionModule, dotNetH
         return;
     }
 
-    // We need to handle three cases to be fully accessible:
+    // We need to handle four cases to be fully accessible:
     // 1. When Tab is pressed on the anchor, focus must be moved to the first focusable element in the menu
     // 2. When Shift+Tab is pressed on any focusable element in the menu, focus must be moved back to the anchor. This will also close the menu.
     // 3. When Tab is pressed on any focusable element in the menu, focus should continue to the next focusable element in the element's root. This will also close the menu.

@@ -210,11 +210,6 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
         base.OnInitialized();
     }
 
-    protected override void OnParametersSet()
-    {
-        Id ??= Identifier.NewId();
-    }
-
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

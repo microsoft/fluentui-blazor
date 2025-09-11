@@ -15,8 +15,8 @@ public partial class FluentMenuTests : TestContext
         Services.AddSingleton<IMenuService, MenuService>();
         JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js");
 
-        var menuButtonModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/MenuButton/FluentMenuButton.razor.js");
-        menuButtonModule.SetupVoid("initialize", _ => true);
+        var menuModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
+        menuModule.SetupVoid("initialize", _ => true);
     }
 
     [Fact]
