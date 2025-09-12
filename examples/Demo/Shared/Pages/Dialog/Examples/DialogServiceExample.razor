@@ -41,18 +41,18 @@
         DialogParameters parameters = new()
         {
             Title = $"Hello {simplePerson.Firstname}",
+			TitleTypo = Typography.H2,
             PrimaryAction = "Yes",
             PrimaryActionEnabled = false,
             SecondaryAction = "No",
             Width = "500px",
             TrapFocus = _trapFocus,
             Modal = _modal,
-            PreventScroll = true 
+            PreventScroll = true
         };
 
         IDialogReference dialog = await DialogService.ShowDialogAsync<SimpleDialog>(simplePerson, parameters);
         DialogResult? result = await dialog.Result;
-        
         
         if (result.Data is not null)
         {

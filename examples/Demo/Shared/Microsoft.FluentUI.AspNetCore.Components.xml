@@ -3769,6 +3769,12 @@
             Gets or sets the title of the dialog.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.TitleTypo">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Typography"/> style for the title text.
+            Defaults to <see cref="F:Microsoft.FluentUI.AspNetCore.Components.Typography.PaneHeader"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Modal">
             <summary>
             Determines if the dialog is modal. Defaults to true.
