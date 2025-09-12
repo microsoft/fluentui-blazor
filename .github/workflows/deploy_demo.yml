@@ -1,5 +1,8 @@
 name: Deploy docs and demo site
 on:
+  # Allow manually running the workflow
+  workflow_dispatch:
+
   push:
     branches:
       - main
@@ -34,7 +37,7 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Setup .NET 9.0
+      - name: .NET Setup SDKs
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.205
@@ -58,7 +61,7 @@ jobs:
         run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
       - name: .NET Publish
-        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true --no-build
 
       - name: Deploy demo site to Azure Static Web App 
         id: builddeploy
@@ -79,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:
-      - name: Close Pull Request on Azure Static Web App (new subscription)
+      - name: Close Pull Request on Azure Static Web App 
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
