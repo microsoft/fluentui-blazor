@@ -11,6 +11,7 @@ public interface IDialogParameters
     string Id { get; set; }
     HorizontalAlignment Alignment { get; set; }
     string? Title { get; set; }
+    Typography TitleTypo { get; set; }
     bool? Modal { get; set; }
     bool? TrapFocus { get; set; }
     bool ShowTitle { get; set; }

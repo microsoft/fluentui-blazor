@@ -91,7 +91,7 @@ public partial class FluentDialogProvider : IAsyncDisposable
             dialogReference.Instance = dialog;
 
             _internalDialogContext.References.Add(dialogReference);
-            InvokeAsync(StateHasChanged);
+            await InvokeAsync(StateHasChanged);
 
             return dialogReference;
         });
