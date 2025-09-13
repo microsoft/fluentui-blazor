@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -212,8 +213,8 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
 
         Id = Identifier.NewId();
 
-        OptionText = (item) => item?.ToString() ?? null;
-        OptionValue = (item) => OptionText.Invoke(item) ?? item?.ToString() ?? null;
+        OptionText = (item) => item?.GetHashCode().ToString(CultureInfo.InvariantCulture) ?? null;
+        OptionValue = (item) => OptionText.Invoke(item) ?? item?.GetHashCode().ToString(CultureInfo.InvariantCulture) ?? null;
 
         _renderOptions = RenderOptions;
     }
@@ -497,7 +498,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     {
         if (item != null)
         {
-            return OptionValue?.Invoke(item) ?? OptionText?.Invoke(item) ?? item?.ToString();
+            return OptionValue?.Invoke(item) ?? OptionText?.Invoke(item) ?? item?.GetHashCode().ToString(CultureInfo.InvariantCulture);
         }
         else
         {
