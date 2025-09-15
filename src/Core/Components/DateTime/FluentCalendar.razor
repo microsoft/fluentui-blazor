@@ -1,6 +1,7 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@inherits FluentCalendarBase
+@inherits FluentCalendarBase<TValue>
+@typeparam TValue
 
 <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
     <div id="@Id"
@@ -169,7 +170,7 @@
 
                 @if (PickerView == CalendarViews.Months)
                 {
-                    <FluentCalendar View="CalendarViews.Months"
+                    <FluentCalendar TValue="DateTime?" View="CalendarViews.Months"
                                     Value="@PickerMonth"
                                     ValueChanged="@PickerMonthSelectAsync"
                                     ReadOnly="@ReadOnly"
@@ -184,7 +185,7 @@
 
                 @if (PickerView == CalendarViews.Years)
                 {
-                    <FluentCalendar View="CalendarViews.Years"
+                    <FluentCalendar TValue="DateTime?" View="CalendarViews.Years"
                                     Value="@PickerMonth"
                                     ValueChanged="@PickerYearSelectAsync"
                                     ReadOnly="@ReadOnly"

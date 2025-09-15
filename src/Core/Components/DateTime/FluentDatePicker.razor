@@ -1,5 +1,6 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
-@inherits FluentCalendarBase
+@inherits FluentCalendarBase<TValue>
+@typeparam TValue
 
 <FluentTextInput Id="@Id"
                  Class="@ClassValue"
@@ -43,7 +44,7 @@
 @if (IsFluentUIStyle)
 {
     <FluentPopover AnchorId="@Id" @bind-Opened="@Opened">
-        <FluentCalendar @ref="_calendar"
+        <FluentCalendar TValue="TValue" @ref="_calendar"
                         Culture="@Culture"
                         View="@View"
                         DayFormat="@DayFormat"

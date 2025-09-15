@@ -9,17 +9,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Computes the properties of a year in the calendar.
 /// </summary>
-internal class FluentCalendarYear
+/// <typeparam name="TValue">The type of value handled by the calendar.</typeparam>
+internal class FluentCalendarYear<TValue>
 {
-    private readonly FluentCalendar _calendar;
+    private readonly FluentCalendar<TValue> _calendar;
     private readonly bool _isInDisabledList;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FluentCalendarYear"/> class.
+    /// Initializes a new instance of the <see cref="FluentCalendarYear{TValue}"/> class.
     /// </summary>
     /// <param name="calendar"></param>
     /// <param name="year"></param>
-    internal FluentCalendarYear(FluentCalendar calendar, DateTime year)
+    internal FluentCalendarYear(FluentCalendar<TValue> calendar, DateTime year)
     {
         _calendar = calendar;
         Year = year.GetDay(_calendar.Culture) == 1 && year.GetMonth(_calendar.Culture) == 1 ? year : year.StartOfYear(_calendar.Culture);
@@ -53,7 +54,7 @@ internal class FluentCalendarYear
     /// <summary>
     /// Whether the year is selected by the user
     /// </summary>
-    public bool IsSelected => Year.GetYear(_calendar.Culture) == _calendar.Value?.GetYear(_calendar.Culture);
+    public bool IsSelected => Year.GetYear(_calendar.Culture) == _calendar.GetInternalValue()?.GetYear(_calendar.Culture);
 
     /// <summary>
     /// Gets the identifier of the year in the format yyyy.

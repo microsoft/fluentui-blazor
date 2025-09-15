@@ -9,18 +9,19 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Computes the properties of a day in the calendar, depending on the current culture.
 /// </summary>
-public class FluentCalendarDay
+/// <typeparam name="TValue">The type of value handled by the calendar.</typeparam>
+public class FluentCalendarDay<TValue>
 {
-    private readonly FluentCalendar _calendar;
+    private readonly FluentCalendar<TValue> _calendar;
     private readonly bool _isInDisabledList;
     private readonly bool _isOutsideCurrentMonth;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FluentCalendarDay"/> class.
+    /// Initializes a new instance of the <see cref="FluentCalendarDay{TValue}"/> class.
     /// </summary>
     /// <param name="calendar"></param>
     /// <param name="day"></param>
-    internal FluentCalendarDay(FluentCalendar calendar, DateTime day)
+    internal FluentCalendarDay(FluentCalendar<TValue> calendar, DateTime day)
     {
         _calendar = calendar;
         Date = day;
@@ -52,10 +53,10 @@ public class FluentCalendarDay
     /// <summary>
     /// Gets a value indicating whether the day is selected by the user.
     /// </summary>
-    public bool IsSelected => Date.Date == _calendar.Value?.Date;
+    public bool IsSelected => Date.Date == _calendar.GetInternalValue()?.Date;
 
     /// <summary>
-    /// Gets a value indicating whether the day is selected by the user, using <see cref="FluentCalendar.SelectMode"/>.
+    /// Gets a value indicating whether the day is selected by the user, using <see cref="FluentCalendar{TValue}.SelectMode"/>.
     /// </summary>
     public bool IsMultiDaySelected => _calendar.SelectMode != CalendarSelectMode.Single && _calendar.SelectedDates.Contains(Date) && !IsDisabled;
 

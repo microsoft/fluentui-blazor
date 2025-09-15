@@ -10,7 +10,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Provides a base class for building calendar components.
 /// </summary>
-public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
+/// <typeparam name="TValue">The type of value handled by the calendar. Must be one of: DateTime?, DateTime, DateOnly, or DateOnly?.</typeparam>
+public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
 {
     /// <summary />
     protected FluentCalendarBase(LibraryConfiguration configuration) : base(configuration) { }
@@ -56,25 +57,11 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     public CalendarDayFormat? DayFormat { get; set; } = CalendarDayFormat.Numeric;
 
     /// <summary>
-    /// Defines the appearance of the <see cref="FluentCalendar"/> component.
+    /// Defines the appearance of the <see cref="FluentCalendar{TValue}"/> component.
     /// </summary>
     [Parameter]
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
     /// <summary />
-    protected virtual Task OnSelectedDateHandlerAsync(DateTime? value)
-    {
-        if (ReadOnly || Disabled == true)
-        {
-            return Task.CompletedTask;
-        }
-
-        if ((CheckIfSelectedValueHasChanged ?? true) && CurrentValue == value)
-        {
-            return Task.CompletedTask;
-        }
-
-        CurrentValue = value;
-        return Task.CompletedTask;
-    }
+    protected abstract Task OnSelectedDateHandlerAsync(DateTime? value);
 }

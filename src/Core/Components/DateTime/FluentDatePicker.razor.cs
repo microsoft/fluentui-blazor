@@ -12,10 +12,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents a date picker control that enables users to select a date using a fluent user interface.
 /// </summary>
-public partial class FluentDatePicker : FluentCalendarBase
+/// <typeparam name="TValue">The type of value handled by the date picker. Must be one of: DateTime?, DateTime, DateOnly, or DateOnly?.</typeparam>
+public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
 {
     private bool _popupOpenedByKeyboard;
-    private FluentCalendar _calendar = default!;
+    private FluentCalendar<TValue> _calendar = default!;
     private FluentIcon<Icon> _icon = default!;
 
     /// <summary>
@@ -64,9 +65,9 @@ public partial class FluentDatePicker : FluentCalendarBase
     /// <summary />
     [Parameter]
     public DatePickerRenderStyle RenderStyle { get; set; } = DatePickerRenderStyle.FluentUI;
-    
+
     /// <summary>
-    /// Gets or sets the width of the component. 
+    /// Gets or sets the width of the component.
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
@@ -93,10 +94,10 @@ public partial class FluentDatePicker : FluentCalendarBase
     /// Gets or sets the template used to render each day in the calendar.
     /// </summary>
     /// <remarks>Use this parameter to customize the appearance and content of individual days. The template
-    /// receives a <see cref="FluentCalendarDay"/> parameter representing the day to render.
+    /// receives a <see cref="FluentCalendarDay{TValue}"/> parameter representing the day to render.
     /// </remarks>
     [Parameter]
-    public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
+    public RenderFragment<FluentCalendarDay<TValue>>? DaysTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the callback that is invoked when the selected month in the picker changes.
@@ -134,7 +135,7 @@ public partial class FluentDatePicker : FluentCalendarBase
         {
             if (DoubleClickToDate.HasValue)
             {
-                await OnSelectedDateAsync(DoubleClickToDate.Value);
+                await OnSelectedDateAsync(ConvertFromDateTime(DoubleClickToDate.Value));
             }
 
             if (OnDoubleClick.HasDelegate)
@@ -157,15 +158,17 @@ public partial class FluentDatePicker : FluentCalendarBase
     }
 
     /// <summary />
-    protected async Task OnSelectedDateAsync(DateTime? value)
+    protected async Task OnSelectedDateAsync(TValue value)
     {
-        var updatedValue = value;
+        var dateTimeValue = ConvertToDateTime(value);
+        var updatedValue = dateTimeValue;
 
-        if (Value is not null && value is not null)
+        if (CurrentValue != null && dateTimeValue is not null)
         {
-            updatedValue = Value?.TimeOfDay != TimeSpan.Zero
-            ? value?.Date + Value?.TimeOfDay
-            : value;
+            var currentDateTime = GetInternalValue();
+            updatedValue = currentDateTime?.TimeOfDay != TimeSpan.Zero
+            ? dateTimeValue?.Date + currentDateTime?.TimeOfDay
+            : dateTimeValue;
         }
 
         Opened = false;
@@ -180,40 +183,51 @@ public partial class FluentDatePicker : FluentCalendarBase
     }
 
     /// <summary />
-    protected override string? FormatValueAsString(DateTime? value)
+    protected override string? FormatValueAsString(TValue? value)
     {
+        var dateValue = ConvertToDateTime(value);
+
         // FluentUI style
         if (IsFluentUIStyle)
         {
             return View switch
             {
-                CalendarViews.Years => value?.ToString("yyyy", Culture),
-                CalendarViews.Months => value?.ToString(Culture.DateTimeFormat.YearMonthPattern, Culture),
-                _ => value?.ToString(Culture.DateTimeFormat.ShortDatePattern, Culture),
+                CalendarViews.Years => dateValue?.ToString("yyyy", Culture),
+                CalendarViews.Months => dateValue?.ToString(Culture.DateTimeFormat.YearMonthPattern, Culture),
+                _ => dateValue?.ToString(Culture.DateTimeFormat.ShortDatePattern, Culture),
             };
         }
 
         // Native style
         return View switch
         {
-            CalendarViews.Years => value?.ToString("yyyy", CultureInfo.InvariantCulture),
-            CalendarViews.Months => value?.ToString("yyyy-MM", CultureInfo.InvariantCulture),
-            _ => value?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+            CalendarViews.Years => dateValue?.ToString("yyyy", CultureInfo.InvariantCulture),
+            CalendarViews.Months => dateValue?.ToString("yyyy-MM", CultureInfo.InvariantCulture),
+            _ => dateValue?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
         };
     }
 
     /// <summary />
-    protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         if (View == CalendarViews.Years && int.TryParse(value, Culture, out var year))
         {
-            value = new DateTime(year, 1, 1).ToString(Culture.DateTimeFormat.ShortDatePattern, Culture);
+            var dateTime = new DateTime(year, 1, 1);
+            result = ConvertFromDateTime(dateTime);
+            validationErrorMessage = null;
+            return true;
         }
 
-        BindConverter.TryConvertTo(value, Culture, out result);
+        if (DateTime.TryParse(value, Culture, out var parsedDateTime))
+        {
+            result = ConvertFromDateTime(parsedDateTime);
+            validationErrorMessage = null;
+            return true;
+        }
 
-        validationErrorMessage = null;
-        return true;
+        result = default!;
+        validationErrorMessage = $"The {DisplayName ?? FieldIdentifier.FieldName} field must be a date.";
+        return false;
     }
 
     /// <summary />
@@ -252,4 +266,68 @@ public partial class FluentDatePicker : FluentCalendarBase
         CalendarViews.Years => TextInputMode.Numeric,
         _ => null
     };
+
+    /// <summary>
+    /// Implementation of the abstract method from FluentCalendarBase
+    /// </summary>
+    protected override Task OnSelectedDateHandlerAsync(DateTime? value)
+    {
+        // Convert DateTime? to TValue and set the current value
+        CurrentValue = ConvertFromDateTime(value);
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Convert TValue to DateTime? for internal use
+    /// </summary>
+    private static DateTime? ConvertToDateTime(TValue? value)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+
+        return value switch
+        {
+            DateTime dt => dt,
+            DateOnly d => d.ToDateTime(TimeOnly.MinValue),
+            _ => null
+        };
+    }
+
+    /// <summary>
+    /// Convert DateTime? to TValue for external use
+    /// </summary>
+    private static TValue ConvertFromDateTime(DateTime? value)
+    {
+        if (typeof(TValue) == typeof(DateTime))
+        {
+            return (TValue)(object)(value ?? DateTime.MinValue);
+        }
+
+        if (typeof(TValue) == typeof(DateTime?))
+        {
+            return (TValue)(object)value!;
+        }
+
+        if (typeof(TValue) == typeof(DateOnly))
+        {
+            return (TValue)(object)(value.HasValue ? DateOnly.FromDateTime(value.Value) : DateOnly.MinValue);
+        }
+
+        if (typeof(TValue) == typeof(DateOnly?))
+        {
+            return (TValue)(object)(value.HasValue ? (DateOnly?)DateOnly.FromDateTime(value.Value) : null)!;
+        }
+
+        return default(TValue)!;
+    }
+
+    /// <summary>
+    /// Get the internal DateTime? value from CurrentValue
+    /// </summary>
+    private DateTime? GetInternalValue()
+    {
+        return ConvertToDateTime(CurrentValue);
+    }
 }

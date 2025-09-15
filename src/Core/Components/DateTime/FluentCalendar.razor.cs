@@ -16,10 +16,93 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Represents a customizable and interactive calendar component that supports various views, date selection modes,
 /// and animations for period changes.
 /// </summary>
-public partial class FluentCalendar : FluentCalendarBase
+/// <typeparam name="TValue">The type of value handled by the calendar. Must be one of: DateTime?, DateTime, DateOnly, or DateOnly?.</typeparam>
+public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
 {
     private ElementReference _calendarReference = default!;
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DateTime/FluentCalendar.razor.js";
+
+    // Internal DateTime? variable to store the value internally
+    private DateTime? _internalValue;
+
+    /// <summary>
+    /// Convert TValue to DateTime? for internal use
+    /// </summary>
+    private static DateTime? ConvertToDateTime(TValue value)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+
+        return value switch
+        {
+            DateTime dt => dt,
+            DateOnly d => d.ToDateTime(),
+            _ => null
+        };
+    }
+
+    /// <summary>
+    /// Convert DateTime? to TValue for external use
+    /// </summary>
+    private static TValue ConvertFromDateTime(DateTime? value)
+    {
+        if (typeof(TValue) == typeof(DateTime))
+        {
+            return (TValue)(object)(value ?? DateTime.MinValue);
+        }
+
+        if (typeof(TValue) == typeof(DateTime?))
+        {
+            return (TValue)(object)value!;
+        }
+
+        if (typeof(TValue) == typeof(DateOnly))
+        {
+            return (TValue)(object)(value.HasValue ? DateOnly.FromDateTime(value.Value) : DateOnly.MinValue);
+        }
+
+        if (typeof(TValue) == typeof(DateOnly?))
+        {
+            return (TValue)(object)(value.HasValue ? (DateOnly?)DateOnly.FromDateTime(value.Value) : null)!;
+        }
+
+        return default(TValue)!;
+    }
+
+    /// <summary>
+    /// Get the internal DateTime? value, synchronizing with CurrentValue if needed
+    /// </summary>
+    internal DateTime? GetInternalValue()
+    {
+        if (_internalValue == null && CurrentValue != null)
+        {
+            _internalValue = ConvertToDateTime(CurrentValue);
+        }
+
+        return _internalValue;
+    }
+
+    /// <summary>
+    /// Implementation of the abstract method from FluentCalendarBase
+    /// </summary>
+    protected override Task OnSelectedDateHandlerAsync(DateTime? value)
+    {
+        if (ReadOnly || Disabled == true)
+        {
+            return Task.CompletedTask;
+        }
+
+        if ((CheckIfSelectedValueHasChanged ?? true) && GetInternalValue() == value)
+        {
+            return Task.CompletedTask;
+        }
+
+        _internalValue = value;
+        CurrentValue = ConvertFromDateTime(value);
+        return Task.CompletedTask;
+    }
 
     internal static string ArrowUp = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.2 10.73a.75.75 0 001.1 1.04l5.95-6.25v14.73a.75.75 0 001.5 0V5.52l5.95 6.25a.75.75 0 001.1-1.04l-7.08-7.42a1 1 0 00-1.44 0L4.2 10.73z\"/></svg>";
     internal static string ArrowDown = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19.8 13.27a.75.75 0 00-1.1-1.04l-5.95 6.25V3.75a.75.75 0 10-1.5 0v14.73L5.3 12.23a.75.75 0 10-1.1 1.04l7.08 7.42a1 1 0 001.44 0l7.07-7.42z\"/></svg>";
@@ -34,7 +117,7 @@ public partial class FluentCalendar : FluentCalendarBase
     private readonly List<DateTime> _selectedDatesMouseOver = [];
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FluentCalendar"/> class with the specified library configuration.
+    /// Initializes a new instance of the <see cref="FluentCalendar{TValue}"/> class with the specified library configuration.
     /// </summary>
     /// <param name="configuration">The configuration settings used to initialize the calendar. Cannot be null.</param>
     public FluentCalendar(LibraryConfiguration configuration) : base(configuration)
@@ -93,7 +176,7 @@ public partial class FluentCalendar : FluentCalendarBase
     {
         get
         {
-            return (_pickerMonth ?? Value ?? DateTimeProvider.Today).StartOfMonth(Culture);
+            return (_pickerMonth ?? GetInternalValue() ?? DateTimeProvider.Today).StartOfMonth(Culture);
         }
 
         set
@@ -120,7 +203,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// Defines the appearance of a Day cell.
     /// </summary>
     [Parameter]
-    public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
+    public RenderFragment<FluentCalendarDay<TValue>>? DaysTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether today's date should be highlighted in the calendar.
@@ -217,13 +300,13 @@ public partial class FluentCalendar : FluentCalendarBase
     /// Gets titles to use in the calendar.
     /// </summary>
     /// <returns></returns>
-    internal CalendarTitles GetTitles()
+    internal CalendarTitles<TValue> GetTitles()
     {
-        return new CalendarTitles(this);
+        return new CalendarTitles<TValue>(this);
     }
 
     /// <summary />
-    internal async Task OnPreviousButtonHandlerAsync(MouseEventArgs e)
+    internal async Task OnPreviousButtonHandlerAsync(MouseEventArgs _)
     {
         await StartNewAnimationAsync(AnimationRunning.Down);
         _refreshAccessibilityPending = true;
@@ -245,7 +328,7 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    internal async Task OnNextButtonHandlerAsync(MouseEventArgs e)
+    internal async Task OnNextButtonHandlerAsync(MouseEventArgs _)
     {
         await StartNewAnimationAsync(AnimationRunning.Up);
         _refreshAccessibilityPending = true;
@@ -291,7 +374,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     /// <param name="day"></param>
     /// <returns></returns>
-    private FluentCalendarDay GetDayProperties(DateTime day) => new(this, day);
+    private FluentCalendarDay<TValue> GetDayProperties(DateTime day) => new(this, day);
 
     /// <summary>
     /// Returns the class name to display a month (month, inactive, disable).
@@ -299,14 +382,14 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <param name="year"></param>
     /// <param name="month"></param>
     /// <returns></returns>
-    private FluentCalendarMonth GetMonthProperties(int? year, int? month) => new(this, Culture.Calendar.ToDateTime(year ?? PickerMonth.GetYear(Culture), month ?? PickerMonth.GetMonth(Culture), 1, 0, 0, 0, 0));
+    private FluentCalendarMonth<TValue> GetMonthProperties(int? year, int? month) => new(this, Culture.Calendar.ToDateTime(year ?? PickerMonth.GetYear(Culture), month ?? PickerMonth.GetMonth(Culture), 1, 0, 0, 0, 0));
 
     /// <summary>
     /// Returns the class name to display a year (year, inactive, disable).
     /// </summary>
     /// <param name="year"></param>
     /// <returns></returns>
-    private FluentCalendarYear GetYearProperties(int? year) => new(this, Culture.Calendar.ToDateTime(year ?? PickerMonth.GetYear(Culture), 1, 1, 0, 0, 0, 0));
+    private FluentCalendarYear<TValue> GetYearProperties(int? year) => new(this, Culture.Calendar.ToDateTime(year ?? PickerMonth.GetYear(Culture), 1, 1, 0, 0, 0, 0));
 
     /// <summary />
     private bool CanBeAnimated => AnimatePeriodChanges ?? (View != CalendarViews.Days && View != CalendarViews.Years);
@@ -331,7 +414,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     /// <param name="title"></param>
     /// <returns></returns>
-    private async Task TitleClickHandlerAsync(CalendarTitles title)
+    private async Task TitleClickHandlerAsync(CalendarTitles<TValue> title)
     {
         if (title.ReadOnly)
         {
@@ -379,11 +462,19 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        BindConverter.TryConvertTo(value, Culture, out result);
-        validationErrorMessage = null;
-        return true;
+        if (DateTime.TryParse(value, Culture, out var dateTime))
+        {
+            _internalValue = dateTime;
+            result = ConvertFromDateTime(dateTime);
+            validationErrorMessage = null;
+            return true;
+        }
+
+        result = default!;
+        validationErrorMessage = $"The {DisplayName ?? FieldIdentifier.FieldName} field must be a date.";
+        return false;
     }
 
     /// <summary />
@@ -587,7 +678,7 @@ public partial class FluentCalendar : FluentCalendarBase
         switch (SelectMode)
         {
             case CalendarSelectMode.Single:
-                return Value?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty;
+                return GetInternalValue()?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty;
 
             case CalendarSelectMode.Range:
             case CalendarSelectMode.Multiple:
