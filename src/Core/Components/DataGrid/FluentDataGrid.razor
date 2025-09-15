@@ -222,7 +222,7 @@
             <FluentDataGridCell Class="empty-content-cell" Style="@style" colspan="@colspan">
                 @if (EmptyContent is null)
                 {
-                    @("No data to show!")
+					@Localizer[Localization.LanguageResource.DataGrid_EmptyContent]
                 }
                 else
                 {
