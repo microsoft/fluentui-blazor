@@ -213,7 +213,6 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         Id = Identifier.NewId();
 
         OptionText = (item) => item?.ToString() ?? null;
-        OptionValue = (item) => OptionText.Invoke(item) ?? item?.ToString() ?? null;
 
         _renderOptions = RenderOptions;
     }
