@@ -2,14 +2,14 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <RuntimeVersion8>8.0.0</RuntimeVersion8>
-    <AspNetCoreVersion8>8.0.18</AspNetCoreVersion8>
-    <EfCoreVersion8>8.0.18</EfCoreVersion8>
-    <RuntimeVersion9>9.0.7</RuntimeVersion9>
-    <AspNetCoreVersion9>9.0.7</AspNetCoreVersion9>
-    <EfCoreVersion9>9.0.7</EfCoreVersion9>
-    <RuntimeVersion10>10.0.0-preview.6.25358.103</RuntimeVersion10>
-    <AspNetCoreVersion10>10.0.0-preview.6.25358.103</AspNetCoreVersion10>
-    <EfCoreVersion10>10.0.0-preview.6.25358.103</EfCoreVersion10>
+    <AspNetCoreVersion8>8.0.20</AspNetCoreVersion8>
+    <EfCoreVersion8>8.0.20</EfCoreVersion8>
+    <RuntimeVersion9>9.0.9</RuntimeVersion9>
+    <AspNetCoreVersion9>9.0.9</AspNetCoreVersion9>
+    <EfCoreVersion9>9.0.9</EfCoreVersion9>
+    <RuntimeVersion10>10.0.0-rc.1.25451.107</RuntimeVersion10>
+    <AspNetCoreVersion10>10.0.0-rc.1.25451.107</AspNetCoreVersion10>
+    <EfCoreVersion10>10.0.0-rc.1.25451.107</EfCoreVersion10>
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
