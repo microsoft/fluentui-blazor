@@ -25,7 +25,7 @@ on:
 env:
   PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
   TESTS: "./tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
-  DOTNET_VERSION: "net9.0"
+  DOTNET_VERSION: "net10.0"
 
 jobs:
   Build:
