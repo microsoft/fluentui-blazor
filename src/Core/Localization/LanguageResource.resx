@@ -300,4 +300,7 @@
   <data name="DatePicker_ButtonTitle" xml:space="preserve">
     <value>Show date picker</value>
   </data>
+  <data name="DataGrid_EmptyContent" xml:space="preserve">
+    <value>No data to show.</value>
+  </data>
 </root>
