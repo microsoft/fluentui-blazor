@@ -55,6 +55,7 @@ enumeration for its type. When using `Virtualize`, the `ItemSize` value **must**
 The DataGrid has a number of strings that are used in the UI. These can be changed by leveraging the built-in [localization](/localization) functionality.
 The following values can be localized:
 
+- DataGrid_EmptyContent
 - DataGrid_OptionsMenu
 - DataGrid_ResizeDiscrete
 - DataGrid_ResizeExact
@@ -71,7 +72,6 @@ The following values can be localized:
 - DataGrid_SortMenu
 - DataGrid_SortMenuAscending
 - DataGrid_SortMenuDescending
-
 
 
 ## Using the DataGrid component with EF Core
