@@ -126,10 +126,12 @@ public partial class FluentAppBar : FluentComponentBase
 
         foreach (var item in items)
         {
-            if (item.Id is not null)
+            if (item.Id is not null && _internalAppBarContext.Apps.ContainsKey(item.Id))
             {
-                var app = _internalAppBarContext.Apps[item.Id];
-                app.Overflow = item.Overflow;
+                if (_internalAppBarContext.Apps.TryGetValue(item.Id, out var app))
+                {
+                    app.Overflow = item.Overflow;
+                }
             }
         }
 
