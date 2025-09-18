@@ -28,6 +28,7 @@
             {
                 <FluentOption TOption="TOption"
                               Value="@GetOptionValue(item)"
+                              Title="@GetOptionTitle(item)"
                               Selected="@GetOptionSelected(item)"
                               Disabled="@(GetOptionDisabled(item) ?? false)"
                               OnSelect="@OnSelectCallback(item)"
