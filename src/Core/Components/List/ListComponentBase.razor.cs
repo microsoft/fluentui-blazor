@@ -130,6 +130,13 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     public virtual Func<TOption, bool>? OptionSelected { get; set; }
 
     /// <summary>
+    /// Gets or sets the function used to determine the option tooltip (title).
+    /// If null is returned, then no title is displayed.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TOption, string?>? OptionTitle { get; set; }
+
+    /// <summary>
     /// Gets or sets the <see cref="IEqualityComparer{T}"/> used to determine if an option is already added to the internal list.
     /// ⚠️ Only available when Multiple = true.
     /// </summary>
@@ -498,6 +505,19 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         if (item != null)
         {
             return OptionValue?.Invoke(item) ?? OptionText?.Invoke(item) ?? item?.ToString();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /// <summary />
+    protected virtual string? GetOptionTitle(TOption? item)
+    {
+        if (item != null && OptionTitle != null)
+        {
+            return OptionTitle.Invoke(item);
         }
         else
         {
