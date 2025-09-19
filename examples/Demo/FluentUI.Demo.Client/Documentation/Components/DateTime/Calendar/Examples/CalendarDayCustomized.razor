@@ -20,10 +20,10 @@
 {
     private DateTime? SelectedValue = null;
 
-    private bool DisabledDate(DateTime date)
+    private bool DisabledDate(DateTime? date)
     {
-        return (date.Day == 3 ||
-                date.Day == 8 ||
-                date.Day == 20);
+        return (date?.Day == 3 ||
+                date?.Day == 8 ||
+                date?.Day == 20);
     }
 }

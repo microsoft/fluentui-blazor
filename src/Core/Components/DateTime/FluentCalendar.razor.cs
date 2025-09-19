@@ -227,20 +227,21 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <summary>
     /// Implementation of the abstract method from FluentCalendarBase
     /// </summary>
-    protected override Task OnSelectedDateHandlerAsync(DateTime? value)
+    protected override Task OnSelectedDateHandlerAsync(TValue value)
     {
         if (ReadOnly || Disabled == true)
         {
             return Task.CompletedTask;
         }
 
-        if ((CheckIfSelectedValueHasChanged ?? true) && GetInternalValue() == value)
+        var dateTimeValue = value?.ConvertToDateTime();
+        if ((CheckIfSelectedValueHasChanged ?? true) && GetInternalValue() == dateTimeValue)
         {
             return Task.CompletedTask;
         }
 
-        _internalValue = value;
-        CurrentValue = value.ConvertFromDateTime<TValue>();
+        _internalValue = dateTimeValue;
+        CurrentValue = value;
         return Task.CompletedTask;
     }
 
@@ -313,7 +314,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
-            await OnSelectedDateHandlerAsync(value);
+            await OnSelectedDateHandlerAsync(value.ConvertToTValue<TValue>());
         }
     }
 
@@ -323,7 +324,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
-            await OnSelectedDateHandlerAsync(value);
+            await OnSelectedDateHandlerAsync(value.ConvertToTValue<TValue>());
         }
     }
 
@@ -482,7 +483,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             {
                 // Single selection
                 case CalendarSelectMode.Single:
-                    await OnSelectedDateHandlerAsync(value);
+                    await OnSelectedDateHandlerAsync(value.ConvertToTValue<TValue>());
                     break;
 
                 // Multiple selection
@@ -525,7 +526,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
 
             SelectedDates = range.Where(day => {
                 var dateTime = day.ConvertToDateTime();
-                return dateTime.HasValue && (DisabledDateFunc == null || !DisabledDateFunc(dateTime.Value));
+                return dateTime.HasValue && (DisabledDateFunc == null || !DisabledDateFunc(day));
             });
 
             if (SelectedDatesChanged.HasDelegate)
@@ -577,7 +578,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         }
 
         SelectedDates = _rangeSelector.GetAllDates()
-            .Where(day => DisabledDateFunc == null || !DisabledDateFunc(day))
+            .Where(day => DisabledDateFunc == null || !DisabledDateFunc(day.ConvertToTValue<TValue>()))
             .Select(day => day.ConvertToTValue<TValue>());
 
         if (SelectedDatesChanged.HasDelegate)
@@ -617,7 +618,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
 
         var days = DisabledDateFunc is null
                  ? _rangeSelectorMouseOver.GetAllDates()
-                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateFunc(day));
+                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateFunc(day.ConvertToTValue<TValue>()));
 
         _selectedDatesMouseOver.Clear();
         _selectedDatesMouseOver.AddRange(days);
@@ -650,7 +651,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
 
         for (var day = start; day <= end; day = day.AddDays(1))
         {
-            if (!DisabledDateFunc.Invoke(day))
+            if (!DisabledDateFunc.Invoke(day.ConvertToTValue<TValue>()))
             {
                 return false;
             }

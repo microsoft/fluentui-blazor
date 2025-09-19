@@ -54,6 +54,6 @@
                         Value="@Value"
                         ValueChanged="@OnSelectedDateAsync"
                         DaysTemplate="@DaysTemplate"
-                        PickerMonthChanged="@(month => PickerMonthChanged.InvokeAsync(month.ConvertToDateTime() ?? DateTimeProvider.Today))" />
+                        PickerMonthChanged="@(month => PickerMonthChanged.InvokeAsync(month?.ConvertToDateTime() ?? DateTimeProvider.Today))" />
     </FluentPopover>
 }

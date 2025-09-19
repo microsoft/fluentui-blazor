@@ -31,7 +31,7 @@ internal class FluentCalendarYear<TValue>
         }
         else
         {
-            _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Year) ?? false;
+            _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Year.ConvertToTValue<TValue>()) ?? false;
         }
     }
 

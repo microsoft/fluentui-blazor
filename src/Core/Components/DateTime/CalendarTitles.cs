@@ -21,7 +21,7 @@ internal class CalendarTitles<TValue>
     public CalendarTitles(FluentCalendar<TValue> calendar)
     {
         _calendar = calendar;
-        CalendarExtended = new CalendarExtended(calendar.Culture, calendar.PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today);
+        CalendarExtended = new CalendarExtended(calendar.Culture, calendar.PickerMonth?.ConvertToDateTime() ?? DateTimeProvider.Today);
         View = calendar.View;
     }
 

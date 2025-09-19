@@ -39,7 +39,7 @@
     private DateTime? SelectedYear = null;
     private DateTime? PickerYear = DateTime.Today;
 
-    private bool DisabledDay(DateTime date) => date.Day == 3 || date.Day == 8 || date.Day == 20;
-    private bool DisableMonth(DateTime date) => date.Month == 3 || date.Month == 8;
-    private bool DisableYear(DateTime date) => date.Year == 2026 || date.Year == 2027;
+    private bool DisabledDay(DateTime? date) => date?.Day == 3 || date?.Day == 8 || date?.Day == 20;
+    private bool DisableMonth(DateTime? date) => date?.Month == 3 || date?.Month == 8;
+    private bool DisableYear(DateTime? date) => date?.Year == 2026 || date?.Year == 2027;
 }

@@ -34,7 +34,7 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     /// Function to know if a specific day must be disabled.
     /// </summary>
     [Parameter]
-    public virtual Func<DateTime, bool>? DisabledDateFunc { get; set; }
+    public virtual Func<TValue, bool>? DisabledDateFunc { get; set; }
 
     /// <summary>
     /// By default, the <see cref="DisabledDateFunc" /> check only the first day of the month and the first day of the year for the Month and Year views.
@@ -63,5 +63,5 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
     /// <summary />
-    protected abstract Task OnSelectedDateHandlerAsync(DateTime? value);
+    protected abstract Task OnSelectedDateHandlerAsync(TValue value);
 }

@@ -179,7 +179,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
             _popupOpenedByKeyboard = false;
         }
 
-        await OnSelectedDateHandlerAsync(updatedValue);
+        await OnSelectedDateHandlerAsync(ConvertFromDateTime(updatedValue));
     }
 
     /// <summary />
@@ -270,10 +270,10 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
     /// <summary>
     /// Implementation of the abstract method from FluentCalendarBase
     /// </summary>
-    protected override Task OnSelectedDateHandlerAsync(DateTime? value)
+    protected override Task OnSelectedDateHandlerAsync(TValue value)
     {
-        // Convert DateTime? to TValue and set the current value
-        CurrentValue = ConvertFromDateTime(value);
+        // Set the current value directly
+        CurrentValue = value;
         return Task.CompletedTask;
     }
 

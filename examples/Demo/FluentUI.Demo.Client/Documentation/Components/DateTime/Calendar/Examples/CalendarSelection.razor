@@ -8,7 +8,7 @@
                         DisplayToday="false"
                         @bind-Value="@SelectedDay"
                         SelectMode="CalendarSelectMode.Single" />
-        <p>Selected days: @SelectedDay?.ToShortDateString()</p>
+        <p>Selected days: @SelectedDay.ToShortDateString()</p>
     </div>
 
     @* SelectMode: Range *@
@@ -60,7 +60,7 @@
 
 @code
 {
-    private DateTime? SelectedDay = null;
+    private DateTime SelectedDay = DateTime.Today;
     private IEnumerable<DateTime> SelectedRange = new List<DateTime>();
     private IEnumerable<DateTime> SelectedRangeCustomized = new List<DateTime>();
     private IEnumerable<DateTime> SelectedDays = new List<DateTime>();

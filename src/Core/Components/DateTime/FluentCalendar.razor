@@ -121,7 +121,7 @@
                         <div class="months" part="months">
                             @foreach (var month in CalendarExtended.GetMonthNames())
                             {
-                                var year = (PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today).GetYear(Culture);
+                                var year = (PickerMonth?.ConvertToDateTime() ?? DateTimeProvider.Today).GetYear(Culture);
                                 var monthProperties = GetMonthProperties(year, month.Index);
 
                                 <div class="@GetAnimationClass("month")"
@@ -172,7 +172,7 @@
                 {
                     <FluentCalendar TValue="DateTime?"
                                     View="CalendarViews.Months"
-                                    Value="@PickerMonth.ConvertToDateTime()"
+                                    Value="@PickerMonth?.ConvertToDateTime()"
                                     ValueChanged="@PickerMonthSelectAsync"
                                     ReadOnly="@ReadOnly"
                                     Disabled="@Disabled"
@@ -180,7 +180,7 @@
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"
                                     DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
-                                    DisabledDateFunc="@(e => DisabledDateFunc != null ? DisabledDateFunc(e) : false)" />
+                                    DisabledDateFunc="@(e => DisabledDateFunc != null && e.HasValue ? DisabledDateFunc(e.Value.ConvertToTValue<TValue>()) : false)" />
                 }
 
 
@@ -188,7 +188,7 @@
                 {
                     <FluentCalendar TValue="DateTime?"
                                     View="CalendarViews.Years"
-                                    Value="@PickerMonth.ConvertToDateTime()"
+                                    Value="@PickerMonth?.ConvertToDateTime()"
                                     ValueChanged="@PickerYearSelectAsync"
                                     ReadOnly="@ReadOnly"
                                     Disabled="@Disabled"
@@ -196,7 +196,7 @@
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"
                                     DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
-                                    DisabledDateFunc="@(e => DisabledDateFunc != null ? DisabledDateFunc(e) : false)" />
+                                    DisabledDateFunc="@(e => DisabledDateFunc != null && e.HasValue ? DisabledDateFunc(e.Value.ConvertToTValue<TValue>()) : false)" />
                 }
             </CascadingValue>
         </CascadingValue>
