@@ -1,7 +1,7 @@
 ﻿<FluentCalendar DisabledDateFunc="@DisabledDate" @bind-Value="@SelectedValue">
     <DaysTemplate>
         @if (!context.IsInactive &&
-                (context.Date.Day == 5 || context.Date.Day == 15))
+                (context.Date?.Day == 5 || context.Date?.Day == 15))
         {
             <div style="color: red; font-weight: bold;">
                 @context.DayNumber
