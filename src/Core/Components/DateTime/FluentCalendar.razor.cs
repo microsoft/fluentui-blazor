@@ -20,89 +20,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
 {
     private ElementReference _calendarReference = default!;
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DateTime/FluentCalendar.razor.js";
-
-    // Internal DateTime? variable to store the value internally
-    private DateTime? _internalValue;
-
-    /// <summary>
-    /// Convert TValue to DateTime? for internal use
-    /// </summary>
-    private static DateTime? ConvertToDateTime(TValue value)
-    {
-        if (value == null)
-        {
-            return null;
-        }
-
-        return value switch
-        {
-            DateTime dt => dt,
-            DateOnly d => d.ToDateTime(),
-            _ => null
-        };
-    }
-
-    /// <summary>
-    /// Convert DateTime? to TValue for external use
-    /// </summary>
-    private static TValue ConvertFromDateTime(DateTime? value)
-    {
-        if (typeof(TValue) == typeof(DateTime))
-        {
-            return (TValue)(object)(value ?? DateTime.MinValue);
-        }
-
-        if (typeof(TValue) == typeof(DateTime?))
-        {
-            return (TValue)(object)value!;
-        }
-
-        if (typeof(TValue) == typeof(DateOnly))
-        {
-            return (TValue)(object)(value.HasValue ? DateOnly.FromDateTime(value.Value) : DateOnly.MinValue);
-        }
-
-        if (typeof(TValue) == typeof(DateOnly?))
-        {
-            return (TValue)(object)(value.HasValue ? (DateOnly?)DateOnly.FromDateTime(value.Value) : null)!;
-        }
-
-        return default(TValue)!;
-    }
-
-    /// <summary>
-    /// Get the internal DateTime? value, synchronizing with CurrentValue if needed
-    /// </summary>
-    internal DateTime? GetInternalValue()
-    {
-        if (_internalValue == null && CurrentValue != null)
-        {
-            _internalValue = ConvertToDateTime(CurrentValue);
-        }
-
-        return _internalValue;
-    }
-
-    /// <summary>
-    /// Implementation of the abstract method from FluentCalendarBase
-    /// </summary>
-    protected override Task OnSelectedDateHandlerAsync(DateTime? value)
-    {
-        if (ReadOnly || Disabled == true)
-        {
-            return Task.CompletedTask;
-        }
-
-        if ((CheckIfSelectedValueHasChanged ?? true) && GetInternalValue() == value)
-        {
-            return Task.CompletedTask;
-        }
-
-        _internalValue = value;
-        CurrentValue = ConvertFromDateTime(value);
-        return Task.CompletedTask;
-    }
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DateTime/FluentCalendar.razor.js";    
+    private DateTime? _internalValue;   // Internal DateTime? variable to store the value internally
 
     internal static string ArrowUp = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.2 10.73a.75.75 0 001.1 1.04l5.95-6.25v14.73a.75.75 0 001.5 0V5.52l5.95 6.25a.75.75 0 001.1-1.04l-7.08-7.42a1 1 0 00-1.44 0L4.2 10.73z\"/></svg>";
     internal static string ArrowDown = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19.8 13.27a.75.75 0 00-1.1-1.04l-5.95 6.25V3.75a.75.75 0 10-1.5 0v14.73L5.3 12.23a.75.75 0 10-1.1 1.04l7.08 7.42a1 1 0 001.44 0l7.07-7.42z\"/></svg>";
@@ -290,6 +209,39 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Calendar.SetAccessibilityKeyboard", _calendarReference, firstRender ? null : defaultSelector);
     }
 
+    /// <summary>
+    /// Get the internal DateTime? value, synchronizing with CurrentValue if needed
+    /// </summary>
+    internal DateTime? GetInternalValue()
+    {
+        if (_internalValue == null && CurrentValue != null)
+        {
+            _internalValue = CalendarTValue.ConvertToDateTime(CurrentValue);
+        }
+
+        return _internalValue;
+    }
+
+    /// <summary>
+    /// Implementation of the abstract method from FluentCalendarBase
+    /// </summary>
+    protected override Task OnSelectedDateHandlerAsync(DateTime? value)
+    {
+        if (ReadOnly || Disabled == true)
+        {
+            return Task.CompletedTask;
+        }
+
+        if ((CheckIfSelectedValueHasChanged ?? true) && GetInternalValue() == value)
+        {
+            return Task.CompletedTask;
+        }
+
+        _internalValue = value;
+        CurrentValue = CalendarTValue.ConvertFromDateTime<TValue>(value);
+        return Task.CompletedTask;
+    }
+
     /// <summary />
     internal async Task SetFirstFocusableAsync()
     {
@@ -467,7 +419,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         if (DateTime.TryParse(value, Culture, out var dateTime))
         {
             _internalValue = dateTime;
-            result = ConvertFromDateTime(dateTime);
+            result = CalendarTValue.ConvertFromDateTime<TValue>(dateTime);
             validationErrorMessage = null;
             return true;
         }
