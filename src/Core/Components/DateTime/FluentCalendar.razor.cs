@@ -216,7 +216,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     {
         if (_internalValue == null && CurrentValue != null)
         {
-            _internalValue = CalendarTValue.ConvertToDateTime(CurrentValue);
+            _internalValue = CurrentValue.ConvertToDateTime();
         }
 
         return _internalValue;
@@ -238,7 +238,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         }
 
         _internalValue = value;
-        CurrentValue = CalendarTValue.ConvertFromDateTime<TValue>(value);
+        CurrentValue = value.ConvertFromDateTime<TValue>();
         return Task.CompletedTask;
     }
 
@@ -419,7 +419,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         if (DateTime.TryParse(value, Culture, out var dateTime))
         {
             _internalValue = dateTime;
-            result = CalendarTValue.ConvertFromDateTime<TValue>(dateTime);
+            result = dateTime.ConvertToTValue<TValue>(); // CalendarTValue.ConvertToTValue<TValue>(dateTime);
             validationErrorMessage = null;
             return true;
         }

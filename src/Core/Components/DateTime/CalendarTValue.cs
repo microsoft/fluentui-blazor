@@ -28,7 +28,7 @@ internal static class CalendarTValue
     /// <summary>
     /// Convert TValue to DateTime? for internal use
     /// </summary>
-    internal static DateTime? ConvertToDateTime<TValue>(TValue value)
+    internal static DateTime? ConvertToDateTime<TValue>(this TValue value)
     {
         if (value == null)
         {
@@ -46,28 +46,36 @@ internal static class CalendarTValue
     /// <summary>
     /// Convert DateTime? to TValue for external use
     /// </summary>
-    internal static TValue ConvertFromDateTime<TValue>(DateTime? value)
+    internal static TValue ConvertToTValue<TValue>(this DateTime value)
     {
         if (typeof(TValue) == typeof(DateTime))
         {
-            return (TValue)(object)(value ?? DateTime.MinValue);
+            return (TValue)(object)value;
         }
 
         if (typeof(TValue) == typeof(DateTime?))
         {
-            return (TValue)(object)value!;
+            return (TValue)(object)(DateTime?)value;
         }
 
         if (typeof(TValue) == typeof(DateOnly))
         {
-            return (TValue)(object)(value.HasValue ? DateOnly.FromDateTime(value.Value) : DateOnly.MinValue);
+            return (TValue)(object)DateOnly.FromDateTime(value);
         }
 
         if (typeof(TValue) == typeof(DateOnly?))
         {
-            return (TValue)(object)(value.HasValue ? (DateOnly?)DateOnly.FromDateTime(value.Value) : null)!;
+            return (TValue)(object)(DateOnly?)DateOnly.FromDateTime(value);
         }
 
         throw new ArgumentException($"Unsupported type: {typeof(TValue)}", nameof(value));
+    }
+
+    /// <summary>
+    /// Convert DateTime? to TValue for external use
+    /// </summary>
+    internal static TValue? ConvertFromDateTime<TValue>(this DateTime? value)
+    {
+        return value.HasValue ? ConvertToTValue<TValue>(value.Value) : default;
     }
 }
