@@ -167,7 +167,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
     {
         if (SelectedOption != null)
         {
-            return OptionText.Invoke(SelectedOption) ?? OptionValue.Invoke(SelectedOption) ?? SelectedOption.ToString();
+            return OptionText.Invoke(SelectedOption) ?? OptionValue?.Invoke(SelectedOption) ?? SelectedOption.ToString();
         }
         else
         {
