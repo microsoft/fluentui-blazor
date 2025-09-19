@@ -29,7 +29,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     private CalendarViews _pickerView = CalendarViews.Days;
     private bool _refreshAccessibilityPending;
     private AnimationRunning _animationRunning = AnimationRunning.None;
-    private DateTime? _pickerMonth;
+    private TValue? _pickerMonth;
     private readonly RangeOfDates _rangeSelector = new();
 
     private readonly RangeOfDates _rangeSelectorMouseOver = new();
@@ -85,30 +85,32 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <summary>
     /// Gets or sets the current month of the date picker (two-way bindable).
     /// This changes when the user browses through the calendar.
-    /// The month is represented as a DateTime which is always the first day of that month.
+    /// The month is represented as a TValue which is always the first day of that month.
     /// You can also set this to determine which month is displayed first.
     /// If not set, the current month is displayed.
     /// </summary>
     [Parameter]
     [SuppressMessage("Usage", "BL0007:Component parameters should be auto properties", Justification = "Need to refactor in future release")]
-    public virtual DateTime PickerMonth
+    public virtual TValue PickerMonth
     {
         get
         {
-            return (_pickerMonth ?? GetInternalValue() ?? DateTimeProvider.Today).StartOfMonth(Culture);
+            var pickerMonthDateTime = _pickerMonth?.ConvertToDateTime() ?? GetInternalValue() ?? DateTimeProvider.Today;
+            return pickerMonthDateTime.StartOfMonth(Culture).ConvertToTValue<TValue>();
         }
 
         set
         {
-            var month = value.StartOfMonth(Culture);
+            var monthDateTime = value?.ConvertToDateTime()?.StartOfMonth(Culture);
+            var currentPickerMonthDateTime = _pickerMonth?.ConvertToDateTime();
 
-            if (month == _pickerMonth)
+            if (monthDateTime == currentPickerMonthDateTime)
             {
                 return;
             }
 
-            _pickerMonth = month;
-            _ = PickerMonthChanged.InvokeAsync(month);
+            _pickerMonth = monthDateTime.HasValue ? monthDateTime.Value.ConvertToTValue<TValue>() : default(TValue);
+            _ = PickerMonthChanged.InvokeAsync(value);
         }
     }
 
@@ -116,7 +118,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// Fired when the display month changes.
     /// </summary>
     [Parameter]
-    public virtual EventCallback<DateTime> PickerMonthChanged { get; set; }
+    public virtual EventCallback<TValue> PickerMonthChanged { get; set; }
 
     /// <summary>
     /// Defines the appearance of a Day cell.
@@ -175,7 +177,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <summary>
     /// All days of this current month.
     /// </summary>
-    internal CalendarExtended CalendarExtended => new(Culture, PickerMonth);
+    internal CalendarExtended CalendarExtended => new(Culture, PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today);
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -263,18 +265,20 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         await StartNewAnimationAsync(AnimationRunning.Down);
         _refreshAccessibilityPending = true;
 
+        var currentDateTime = PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today;
+
         switch (View)
         {
             case CalendarViews.Days:
-                PickerMonth = PickerMonth.AddMonths(-1, Culture);
+                PickerMonth = currentDateTime.AddMonths(-1, Culture).ConvertToTValue<TValue>();
                 break;
 
             case CalendarViews.Months:
-                PickerMonth = PickerMonth.AddYears(-1, Culture);
+                PickerMonth = currentDateTime.AddYears(-1, Culture).ConvertToTValue<TValue>();
                 break;
 
             case CalendarViews.Years:
-                PickerMonth = PickerMonth.AddYears(-12, Culture);
+                PickerMonth = currentDateTime.AddYears(-12, Culture).ConvertToTValue<TValue>();
                 break;
         }
     }
@@ -285,18 +289,20 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         await StartNewAnimationAsync(AnimationRunning.Up);
         _refreshAccessibilityPending = true;
 
+        var currentDateTime = PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today;
+
         switch (View)
         {
             case CalendarViews.Days:
-                PickerMonth = PickerMonth.AddMonths(+1, Culture);
+                PickerMonth = currentDateTime.AddMonths(+1, Culture).ConvertToTValue<TValue>();
                 break;
 
             case CalendarViews.Months:
-                PickerMonth = PickerMonth.AddYears(+1, Culture);
+                PickerMonth = currentDateTime.AddYears(+1, Culture).ConvertToTValue<TValue>();
                 break;
 
             case CalendarViews.Years:
-                PickerMonth = PickerMonth.AddYears(+12, Culture);
+                PickerMonth = currentDateTime.AddYears(+12, Culture).ConvertToTValue<TValue>();
                 break;
         }
     }
@@ -334,14 +340,22 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <param name="year"></param>
     /// <param name="month"></param>
     /// <returns></returns>
-    private FluentCalendarMonth<TValue> GetMonthProperties(int? year, int? month) => new(this, Culture.Calendar.ToDateTime(year ?? PickerMonth.GetYear(Culture), month ?? PickerMonth.GetMonth(Culture), 1, 0, 0, 0, 0));
+    private FluentCalendarMonth<TValue> GetMonthProperties(int? year, int? month)
+    {
+        var pickerDateTime = PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today;
+        return new(this, Culture.Calendar.ToDateTime(year ?? pickerDateTime.GetYear(Culture), month ?? pickerDateTime.GetMonth(Culture), 1, 0, 0, 0, 0));
+    }
 
     /// <summary>
     /// Returns the class name to display a year (year, inactive, disable).
     /// </summary>
     /// <param name="year"></param>
     /// <returns></returns>
-    private FluentCalendarYear<TValue> GetYearProperties(int? year) => new(this, Culture.Calendar.ToDateTime(year ?? PickerMonth.GetYear(Culture), 1, 1, 0, 0, 0, 0));
+    private FluentCalendarYear<TValue> GetYearProperties(int? year)
+    {
+        var pickerDateTime = PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today;
+        return new(this, Culture.Calendar.ToDateTime(year ?? pickerDateTime.GetYear(Culture), 1, 1, 0, 0, 0, 0));
+    }
 
     /// <summary />
     private bool CanBeAnimated => AnimatePeriodChanges ?? (View != CalendarViews.Days && View != CalendarViews.Years);
@@ -396,7 +410,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <returns></returns>
     internal async Task PickerMonthSelectAsync(DateTime? month)
     {
-        PickerMonth = month ?? DateTimeProvider.Today;
+        PickerMonth = (month ?? DateTimeProvider.Today).ConvertToTValue<TValue>();
         PickerView = CalendarViews.Days;
         await Task.CompletedTask;
     }
@@ -408,7 +422,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <returns></returns>
     private async Task PickerYearSelectAsync(DateTime? year)
     {
-        PickerMonth = year ?? DateTimeProvider.Today;
+        PickerMonth = (year ?? DateTimeProvider.Today).ConvertToTValue<TValue>();
         PickerView = CalendarViews.Days;
         await Task.CompletedTask;
     }

@@ -121,7 +121,7 @@
                         <div class="months" part="months">
                             @foreach (var month in CalendarExtended.GetMonthNames())
                             {
-                                var year = PickerMonth.GetYear(Culture);
+                                var year = (PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today).GetYear(Culture);
                                 var monthProperties = GetMonthProperties(year, month.Index);
 
                                 <div class="@GetAnimationClass("month")"
@@ -170,8 +170,9 @@
 
                 @if (PickerView == CalendarViews.Months)
                 {
-                    <FluentCalendar TValue="DateTime?" View="CalendarViews.Months"
-                                    Value="@PickerMonth"
+                    <FluentCalendar TValue="DateTime?"
+                                    View="CalendarViews.Months"
+                                    Value="@PickerMonth.ConvertToDateTime()"
                                     ValueChanged="@PickerMonthSelectAsync"
                                     ReadOnly="@ReadOnly"
                                     Disabled="@Disabled"
@@ -185,8 +186,9 @@
 
                 @if (PickerView == CalendarViews.Years)
                 {
-                    <FluentCalendar TValue="DateTime?" View="CalendarViews.Years"
-                                    Value="@PickerMonth"
+                    <FluentCalendar TValue="DateTime?"
+                                    View="CalendarViews.Years"
+                                    Value="@PickerMonth.ConvertToDateTime()"
                                     ValueChanged="@PickerYearSelectAsync"
                                     ReadOnly="@ReadOnly"
                                     Disabled="@Disabled"

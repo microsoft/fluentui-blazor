@@ -6,7 +6,7 @@
                         @bind-PickerMonth="@PickerDay"
                         Style="height: 250px; align-content: start;" />
         <p>Selected @(SelectedDay?.ToString("yyyy-MM-dd"))</p>
-        <p>Panel @(PickerDay.ToString("yyyy-MM-dd"))</p>
+        <p>Panel @(PickerDay?.ToString("yyyy-MM-dd"))</p>
     </div>
 
     <div>
@@ -16,7 +16,7 @@
                         @bind-PickerMonth="@PickerMonth"
                         Style="height: 250px; align-content: start;" />
         <p>Selected @(SelectedMonth?.ToString("yyyy-MM-dd"))</p>
-        <p>Panel @(PickerMonth.ToString("yyyy-MM-dd"))</p>
+        <p>Panel @(PickerMonth?.ToString("yyyy-MM-dd"))</p>
     </div>
 
     <div>
@@ -26,18 +26,18 @@
                         @bind-PickerMonth="@PickerYear"
                         Style="height: 250px; align-content: start;" />
         <p>Selected @(SelectedYear?.ToString("yyyy-MM-dd"))</p>
-        <p>Panel @(PickerYear.ToString("yyyy-MM-dd"))</p>
+        <p>Panel @(PickerYear?.ToString("yyyy-MM-dd"))</p>
     </div>
 </FluentStack>
 
 @code
 {
     private DateTime? SelectedDay = null;
-    private DateTime PickerDay = DateTime.Today;
+    private DateTime? PickerDay = DateTime.Today;
     private DateTime? SelectedMonth = null;
-    private DateTime PickerMonth = DateTime.Today;
+    private DateTime? PickerMonth = DateTime.Today;
     private DateTime? SelectedYear = null;
-    private DateTime PickerYear = DateTime.Today;
+    private DateTime? PickerYear = DateTime.Today;
 
     private bool DisabledDay(DateTime date) => date.Day == 3 || date.Day == 8 || date.Day == 20;
     private bool DisableMonth(DateTime date) => date.Month == 3 || date.Month == 8;
