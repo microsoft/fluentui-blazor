@@ -95,7 +95,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     {
         get
         {
-            var pickerMonthDateTime = _pickerMonth?.ConvertToDateTime() ?? GetInternalValue() ?? DateTimeProvider.Today;
+            var pickerMonthDateTime = _pickerMonth?.ConvertToDateTime() ?? ValueAsDateTime ?? DateTimeProvider.Today;
             return pickerMonthDateTime.StartOfMonth(Culture).ConvertToTValue<TValue>();
         }
 
@@ -214,14 +214,17 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <summary>
     /// Get the internal DateTime? value, synchronizing with CurrentValue if needed
     /// </summary>
-    internal DateTime? GetInternalValue()
+    internal DateTime? ValueAsDateTime
     {
-        if (_internalValue == null && CurrentValue.IsNotNull())
+        get
         {
-            _internalValue = CurrentValue.ConvertToDateTime();
-        }
+            if (_internalValue == null && CurrentValue.IsNotNull())
+            {
+                _internalValue = CurrentValue.ConvertToDateTime();
+            }
 
-        return _internalValue;
+            return _internalValue;
+        }
     }
 
     /// <summary>
@@ -234,13 +237,13 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             return Task.CompletedTask;
         }
 
-        var dateTimeValue = value.ConvertToDateTime();
-        if ((CheckIfSelectedValueHasChanged ?? true) && GetInternalValue() == dateTimeValue)
+        var dateTime = value.ConvertToDateTime();
+        if ((CheckIfSelectedValueHasChanged ?? true) && ValueAsDateTime == dateTime)
         {
             return Task.CompletedTask;
         }
 
-        _internalValue = dateTimeValue;
+        _internalValue = dateTime;
         CurrentValue = value;
         return Task.CompletedTask;
     }
@@ -667,7 +670,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         switch (SelectMode)
         {
             case CalendarSelectMode.Single:
-                return GetInternalValue()?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty;
+                return ValueAsDateTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty;
 
             case CalendarSelectMode.Range:
             case CalendarSelectMode.Multiple:

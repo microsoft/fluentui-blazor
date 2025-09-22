@@ -53,7 +53,7 @@ internal class FluentCalendarMonth<TValue>
     /// <summary>
     /// Whether the month is selected by the user
     /// </summary>
-    public bool IsSelected => Month.GetYear(_calendar.Culture) == _calendar.GetInternalValue()?.GetYear(_calendar.Culture) && Month.GetMonth(_calendar.Culture) == _calendar.GetInternalValue()?.GetMonth(_calendar.Culture);
+    public bool IsSelected => Month.GetYear(_calendar.Culture) == _calendar.ValueAsDateTime?.GetYear(_calendar.Culture) && Month.GetMonth(_calendar.Culture) == _calendar.ValueAsDateTime?.GetMonth(_calendar.Culture);
 
     /// <summary>
     /// Gets the title of the month in the format [month] [year].

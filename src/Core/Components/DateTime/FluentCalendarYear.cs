@@ -54,7 +54,7 @@ internal class FluentCalendarYear<TValue>
     /// <summary>
     /// Whether the year is selected by the user
     /// </summary>
-    public bool IsSelected => Year.GetYear(_calendar.Culture) == _calendar.GetInternalValue()?.GetYear(_calendar.Culture);
+    public bool IsSelected => Year.GetYear(_calendar.Culture) == _calendar.ValueAsDateTime?.GetYear(_calendar.Culture);
 
     /// <summary>
     /// Gets the identifier of the year in the format yyyy.
