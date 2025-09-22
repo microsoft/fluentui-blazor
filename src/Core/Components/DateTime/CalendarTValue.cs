@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -44,6 +45,24 @@ internal static class CalendarTValue
     }
 
     /// <summary>
+    /// Convert TValue to DateTime for internal use
+    /// </summary>
+    internal static DateTime ConvertToRequiredDateTime<TValue>(this TValue value)
+    {
+        if (value == null)
+        {
+            return DateTimeProvider.Today;
+        }
+
+        return value switch
+        {
+            DateTime dt => dt,
+            DateOnly d => d.ToDateTime(),
+            _ => DateTimeProvider.Today
+        };
+    }
+
+    /// <summary>
     /// Convert DateTime? to TValue for external use
     /// </summary>
     internal static TValue ConvertToTValue<TValue>(this DateTime value)
@@ -72,10 +91,11 @@ internal static class CalendarTValue
     }
 
     /// <summary>
-    /// Convert DateTime? to TValue for external use
+    /// Determines whether the specified date represents today's date.
     /// </summary>
-    internal static TValue? ConvertFromDateTime<TValue>(this DateTime? value)
+    public static int GetYear<TValue>(this TValue date, CultureInfo culture)
     {
-        return value.HasValue ? ConvertToTValue<TValue>(value.Value) : default;
+        var dateValue = ConvertToDateTime(date);
+        return DateTimeExtensions.GetYear(dateValue ?? DateTime.MinValue, culture);
     }
 }

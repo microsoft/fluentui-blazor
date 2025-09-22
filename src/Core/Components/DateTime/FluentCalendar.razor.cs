@@ -524,7 +524,8 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         {
             var range = SelectDatesHover.Invoke(tValue);
 
-            SelectedDates = range.Where(day => {
+            SelectedDates = range.Where(day =>
+            {
                 var dateTime = day.ConvertToDateTime();
                 return dateTime.HasValue && (DisabledDateFunc == null || !DisabledDateFunc(day));
             });
@@ -670,7 +671,8 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
 
             case CalendarSelectMode.Range:
             case CalendarSelectMode.Multiple:
-                return string.Join(",", SelectedDates.Select(d => {
+                return string.Join(",", SelectedDates.Select(d =>
+                {
                     var dateTime = d.ConvertToDateTime();
                     return dateTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty;
                 }).Where(s => !string.IsNullOrEmpty(s)));
