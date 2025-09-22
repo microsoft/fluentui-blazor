@@ -11,6 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TValue">The type of value handled by the calendar.</typeparam>
 internal class CalendarTitles<TValue>
+    where TValue : struct, IComparable
 {
     private readonly FluentCalendar<TValue> _calendar;
 

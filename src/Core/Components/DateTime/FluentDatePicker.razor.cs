@@ -14,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TValue">The type of value handled by the date picker. Must be one of: DateTime?, DateTime, DateOnly, or DateOnly?.</typeparam>
 public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
+    where TValue : struct, IComparable
 {
     private bool _popupOpenedByKeyboard;
     private FluentCalendar<TValue> _calendar = default!;
@@ -163,7 +164,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
         var dateTimeValue = ConvertToDateTime(value);
         var updatedValue = dateTimeValue;
 
-        if (CurrentValue != null && dateTimeValue is not null)
+        if (CurrentValue.IsNotNull() && dateTimeValue is not null)
         {
             var currentDateTime = GetInternalValue();
             updatedValue = currentDateTime?.TimeOfDay != TimeSpan.Zero
@@ -183,7 +184,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
     }
 
     /// <summary />
-    protected override string? FormatValueAsString(TValue? value)
+    protected override string? FormatValueAsString(TValue value)
     {
         var dateValue = ConvertToDateTime(value);
 

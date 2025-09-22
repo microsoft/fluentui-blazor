@@ -12,6 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TValue">The type of value handled by the calendar. Must be one of: DateTime?, DateTime, DateOnly, or DateOnly?.</typeparam>
 public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
+    where TValue : struct, IComparable
 {
     /// <summary />
     protected FluentCalendarBase(LibraryConfiguration configuration) : base(configuration) { }

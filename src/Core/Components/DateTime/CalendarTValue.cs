@@ -94,8 +94,48 @@ internal static class CalendarTValue
     /// Determines whether the specified date represents today's date.
     /// </summary>
     public static int GetYear<TValue>(this TValue date, CultureInfo culture)
+         where TValue : struct, IComparable
     {
         var dateValue = ConvertToDateTime(date);
         return DateTimeExtensions.GetYear(dateValue ?? DateTime.MinValue, culture);
+    }
+
+    /// <summary>
+    /// Determines whether the specified value is null or the default value for its type.
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static bool IsNull<TValue>(this TValue? value)
+    {
+        return EqualityComparer<TValue>.Default.Equals(value, default);
+    }
+
+    /// <summary>
+    /// Determines whether the specified value is not null or not the default value for its type.
+    /// </summary>
+    public static bool IsNotNull<TValue>(this TValue? value) => !IsNull(value);
+
+    /// <summary>
+    /// Determines whether two specified values are equal.
+    /// </summary>
+    /// <typeparam name="T">The type of the values to compare.</typeparam>
+    /// <param name="value1">The first value to compare.</param>
+    /// <param name="value2">The second value to compare.</param>
+    /// <returns><see langword="true"/> if the specified values are equal; otherwise, <see langword="false"/>.</returns>
+    public static bool AreEqual<T>(this T value1, T value2)
+    {
+        return EqualityComparer<T>.Default.Equals(value1, value2);
+    }
+
+    /// <summary>
+    /// Determines whether the specified date represents today's date.
+    /// </summary>
+    public static bool IsToday<T>(this T date)
+        where T : struct, IComparable
+    {
+        var today = DateTimeProvider.Today;
+        var dateValue = ConvertToDateTime(date);
+        return dateValue == today;
     }
 }

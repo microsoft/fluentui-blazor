@@ -18,6 +18,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TValue">The type of value handled by the calendar. Must be one of: DateTime?, DateTime, DateOnly, or DateOnly?.</typeparam>
 public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
+    where TValue : struct, IComparable
 {
     private ElementReference _calendarReference = default!;
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DateTime/FluentCalendar.razor.js";
@@ -51,7 +52,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
                    (Required ?? false)
                    && !(Disabled ?? false)
                    && !ReadOnly
-                   && CurrentValue is null;
+                   && CurrentValue.IsNull();
         };
     }
 
@@ -101,7 +102,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
 
         set
         {
-            var monthDateTime = value?.ConvertToDateTime()?.StartOfMonth(Culture);
+            var monthDateTime = value.ConvertToDateTime()?.StartOfMonth(Culture);
             var currentPickerMonthDateTime = _pickerMonth?.ConvertToDateTime();
 
             if (monthDateTime == currentPickerMonthDateTime)
@@ -216,7 +217,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// </summary>
     internal DateTime? GetInternalValue()
     {
-        if (_internalValue == null && CurrentValue != null)
+        if (_internalValue == null && CurrentValue.IsNotNull())
         {
             _internalValue = CurrentValue.ConvertToDateTime();
         }
@@ -234,7 +235,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             return Task.CompletedTask;
         }
 
-        var dateTimeValue = value?.ConvertToDateTime();
+        var dateTimeValue = value.ConvertToDateTime();
         if ((CheckIfSelectedValueHasChanged ?? true) && GetInternalValue() == dateTimeValue)
         {
             return Task.CompletedTask;
@@ -409,9 +410,9 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// </summary>
     /// <param name="month"></param>
     /// <returns></returns>
-    internal async Task PickerMonthSelectAsync(DateTime? month)
+    internal async Task PickerMonthSelectAsync(DateTime month)
     {
-        PickerMonth = (month ?? DateTimeProvider.Today).ConvertToTValue<TValue>();
+        PickerMonth = month.ConvertToTValue<TValue>();
         PickerView = CalendarViews.Days;
         await Task.CompletedTask;
     }
@@ -421,9 +422,9 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// </summary>
     /// <param name="year"></param>
     /// <returns></returns>
-    private async Task PickerYearSelectAsync(DateTime? year)
+    private async Task PickerYearSelectAsync(DateTime year)
     {
-        PickerMonth = (year ?? DateTimeProvider.Today).ConvertToTValue<TValue>();
+        PickerMonth = year.ConvertToTValue<TValue>();
         PickerView = CalendarViews.Days;
         await Task.CompletedTask;
     }
@@ -506,9 +507,9 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
 
         if (SelectDatesHover is null)
         {
-            if (SelectedDates.Any(d => d?.ConvertToDateTime() == value))
+            if (SelectedDates.Any(d => d.ConvertToDateTime() == value))
             {
-                SelectedDates = SelectedDates.Where(i => i?.ConvertToDateTime() != value);
+                SelectedDates = SelectedDates.Where(i => i.ConvertToDateTime() != value);
             }
             else
             {
