@@ -50,4 +50,3 @@ Example: `Culture="@(new CultureInfo("fr"))"` will display the calendar in Frenc
 
 ## API FluentCalendar
 
-{{ API Type=FluentCalendar }}

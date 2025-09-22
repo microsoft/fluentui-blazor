@@ -12,8 +12,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TValue">The type of value handled by the calendar. Must be one of: DateTime?, DateTime, DateOnly, or DateOnly?.</typeparam>
 public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
-    where TValue : struct, IComparable
 {
+    /* ******************************************************************************
+     * Dev Note: The TValue cannot be constrained to `struct` because it can be either a nullable or non-nullable value type.
+     * ******************************************************************************/
+
     /// <summary />
     protected FluentCalendarBase(LibraryConfiguration configuration) : base(configuration) { }
 
@@ -35,7 +38,7 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     /// Function to know if a specific day must be disabled.
     /// </summary>
     [Parameter]
-    public virtual Func<TValue, bool>? DisabledDateFunc { get; set; }
+    public virtual Func<TValue?, bool>? DisabledDateFunc { get; set; }
 
     /// <summary>
     /// By default, the <see cref="DisabledDateFunc" /> check only the first day of the month and the first day of the year for the Month and Year views.

@@ -94,7 +94,6 @@ internal static class CalendarTValue
     /// Determines whether the specified date represents today's date.
     /// </summary>
     public static int GetYear<TValue>(this TValue date, CultureInfo culture)
-         where TValue : struct, IComparable
     {
         var dateValue = ConvertToDateTime(date);
         return DateTimeExtensions.GetYear(dateValue ?? DateTime.MinValue, culture);

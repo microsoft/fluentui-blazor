@@ -18,7 +18,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TValue">The type of value handled by the calendar. Must be one of: DateTime?, DateTime, DateOnly, or DateOnly?.</typeparam>
 public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
-    where TValue : struct, IComparable
 {
     private ElementReference _calendarReference = default!;
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DateTime/FluentCalendar.razor.js";
@@ -92,7 +91,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// </summary>
     [Parameter]
     [SuppressMessage("Usage", "BL0007:Component parameters should be auto properties", Justification = "Need to refactor in future release")]
-    public virtual TValue PickerMonth
+    public virtual TValue? PickerMonth
     {
         get
         {
@@ -119,7 +118,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// Fired when the display month changes.
     /// </summary>
     [Parameter]
-    public virtual EventCallback<TValue> PickerMonthChanged { get; set; }
+    public virtual EventCallback<TValue?> PickerMonthChanged { get; set; }
 
     /// <summary>
     /// Defines the appearance of a Day cell.
