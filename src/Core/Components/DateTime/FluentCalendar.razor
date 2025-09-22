@@ -180,7 +180,7 @@
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"
                                     DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
-                                    DisabledDateFunc="@(e => DisabledDateFunc != null && DisabledDateFunc(e.ConvertToTValue<TValue>()))" />
+                                    DisabledDateFunc="@(e => DisabledDateFunc != null ? DisabledDateFunc(e.ConvertToTValue<TValue>()) : false)" />
                 }
 
 
@@ -196,7 +196,7 @@
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"
                                     DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
-                                    DisabledDateFunc="@(e => DisabledDateFunc != null && DisabledDateFunc(e.ConvertToTValue<TValue>()))" />
+                                    DisabledDateFunc="@(e => DisabledDateFunc != null ? DisabledDateFunc(e.ConvertToTValue<TValue>()) : false)" />
                 }
             </CascadingValue>
         </CascadingValue>

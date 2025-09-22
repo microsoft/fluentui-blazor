@@ -21,8 +21,9 @@ internal static class CalendarTValue
             typeof(DateTime),
             typeof(DateTime?),
             typeof(DateOnly),
-            typeof(DateOnly?)
+            typeof(DateOnly?),
         };
+
         return !supportedTypes.Contains(type);
     }
 

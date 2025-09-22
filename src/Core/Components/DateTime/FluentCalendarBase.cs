@@ -19,7 +19,13 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
      * ************************************************************************************/
 
     /// <summary />
-    protected FluentCalendarBase(LibraryConfiguration configuration) : base(configuration) { }
+    protected FluentCalendarBase(LibraryConfiguration configuration) : base(configuration)
+    {
+        if (typeof(TValue).IsNotDateType())
+        {
+            throw new InvalidOperationException($"The type parameter {typeof(TValue)} is not supported. Supported types are DateTime, DateTime?, DateOnly, and DateOnly?.");
+        }
+    }
 
     /// <summary>
     /// Gets or sets the verification to do when the selected value has changed.
