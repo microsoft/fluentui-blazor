@@ -4,11 +4,11 @@
     @* SelectMode: Single *@
     <div>
         <FluentCalendar Label="Single"
-                        DisabledDateFunc="@DisabledDay"
+                        DisabledDateFunc="@DisabledNullableDay"
                         DisplayToday="false"
                         @bind-Value="@SelectedDay"
                         SelectMode="CalendarSelectMode.Single" />
-        <p>Selected days: @SelectedDay.ToShortDateString()</p>
+        <p>Selected days: @SelectedDay?.ToShortDateString()</p>
     </div>
 
     @* SelectMode: Range *@
@@ -60,7 +60,7 @@
 
 @code
 {
-    private DateTime SelectedDay = DateTime.Today;
+    private DateTime? SelectedDay = null;
     private IEnumerable<DateTime> SelectedRange = new List<DateTime>();
     private IEnumerable<DateTime> SelectedRangeCustomized = new List<DateTime>();
     private IEnumerable<DateTime> SelectedDays = new List<DateTime>();
@@ -69,6 +69,7 @@
 
     // Disable all days with the day number 3, 8, and 20.
     private bool DisabledDay(DateTime date) => date.Day == 3 || date.Day == 8 || date.Day == 20;
+    private bool DisabledNullableDay(DateTime? date) => date.HasValue && DisabledDay(date.Value);
 
     // Always select the full week, containing the "clicked" day.
     private IEnumerable<DateTime> SelectOneWeek(DateTime date)
