@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Globalization;
+using Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 

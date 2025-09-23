@@ -2,7 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
 /// <summary>
 /// Provides titles and navigation-related properties for a calendar,  based on the current view and culture settings.

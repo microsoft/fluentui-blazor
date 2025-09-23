@@ -5,7 +5,7 @@
 using System.Globalization;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
 internal static class CalendarTValue
 {
@@ -32,7 +32,7 @@ internal static class CalendarTValue
     /// </summary>
     internal static DateTime? ConvertToDateTime<TValue>(this TValue value)
     {
-        if (value == null)
+        if (value == null || value.IsNull())
         {
             return null;
         }

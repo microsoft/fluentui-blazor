@@ -5,7 +5,7 @@
 using System.Globalization;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
 /// <summary>
 /// Gets few calendar details in the right culture.
