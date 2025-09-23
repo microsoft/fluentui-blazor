@@ -35,7 +35,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
                    (Required ?? false)
                    && !(Disabled ?? false)
                    && !ReadOnly
-                   && string.IsNullOrEmpty(CurrentValueAsString);
+                   && CurrentValue.IsNull();
         };
     }
 
@@ -88,7 +88,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
     /// Gets or sets a value which will be set when double-clicking on the text field of date picker.
     /// </summary>
     [Parameter]
-    public DateTime? DoubleClickToDate { get; set; }
+    public TValue? DoubleClickToDate { get; set; }
 
     /// <summary>
     /// Gets or sets the template used to render each day in the calendar.
@@ -103,7 +103,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
     /// Gets or sets the callback that is invoked when the selected month in the picker changes.
     /// </summary>
     [Parameter]
-    public EventCallback<DateTime> PickerMonthChanged { get; set; }
+    public EventCallback<TValue> PickerMonthChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the callback that is invoked when the calendar is opened or closed.
@@ -133,9 +133,9 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
         // Double click
         if (e.Detail >= 2 && !ReadOnly)
         {
-            if (DoubleClickToDate.HasValue)
+            if (DoubleClickToDate.IsNotNull())
             {
-                await OnSelectedDateAsync(ConvertFromDateTime(DoubleClickToDate.Value));
+                await OnSelectedDateAsync(DoubleClickToDate ?? default!);
             }
 
             if (OnDoubleClick.HasDelegate)
@@ -160,15 +160,15 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
     /// <summary />
     protected async Task OnSelectedDateAsync(TValue value)
     {
-        var dateTimeValue = ConvertToDateTime(value);
+        var dateTimeValue = value.ConvertToDateTime();
         var updatedValue = dateTimeValue;
 
         if (CurrentValue.IsNotNull() && dateTimeValue is not null)
         {
-            var currentDateTime = GetInternalValue();
+            var currentDateTime = CurrentValue.ConvertToDateTime();
             updatedValue = currentDateTime?.TimeOfDay != TimeSpan.Zero
-            ? dateTimeValue?.Date + currentDateTime?.TimeOfDay
-            : dateTimeValue;
+                         ? dateTimeValue?.Date + currentDateTime?.TimeOfDay
+                         : dateTimeValue;
         }
 
         Opened = false;
@@ -179,13 +179,13 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
             _popupOpenedByKeyboard = false;
         }
 
-        await OnSelectedDateHandlerAsync(ConvertFromDateTime(updatedValue));
+        await OnSelectedDateHandlerAsync(updatedValue is null ? default : updatedValue.Value.ConvertToTValue<TValue>()); 
     }
 
     /// <summary />
     protected override string? FormatValueAsString(TValue? value)
     {
-        var dateValue = ConvertToDateTime(value);
+        var dateValue = value.ConvertToDateTime();
 
         // FluentUI style
         if (IsFluentUIStyle)
@@ -208,26 +208,16 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
     }
 
     /// <summary />
-    protected override bool TryParseValueFromString(string? value, out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         if (View == CalendarViews.Years && int.TryParse(value, Culture, out var year))
         {
-            var dateTime = new DateTime(year, 1, 1);
-            result = ConvertFromDateTime(dateTime);
+            result = new DateTime(year, 1, 1).ConvertToTValue<TValue>();
             validationErrorMessage = null;
             return true;
         }
 
-        if (DateTime.TryParse(value, Culture, out var parsedDateTime))
-        {
-            result = ConvertFromDateTime(parsedDateTime);
-            validationErrorMessage = null;
-            return true;
-        }
-
-        result = default!;
-        validationErrorMessage = $"The {DisplayName ?? FieldIdentifier.FieldName} field must be a date.";
-        return false;
+        return base.TryParseValueFromString(value, out result, out validationErrorMessage);
     }
 
     /// <summary />
@@ -267,67 +257,14 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
         _ => null
     };
 
-    /// <summary>
-    /// Implementation of the abstract method from FluentCalendarBase
-    /// </summary>
-    protected override Task OnSelectedDateHandlerAsync(TValue value)
+    /// <summary />
+    private Task PickerMonthChangedHandlerAsync(TValue? month)
     {
-        // Set the current value directly
-        CurrentValue = value;
+        if (PickerMonthChanged.HasDelegate)
+        {
+            return PickerMonthChanged.InvokeAsync(month ?? default!);
+        }
+
         return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Convert TValue to DateTime? for internal use
-    /// </summary>
-    private static DateTime? ConvertToDateTime(TValue? value)
-    {
-        if (value == null)
-        {
-            return null;
-        }
-
-        return value switch
-        {
-            DateTime dt => dt,
-            DateOnly d => d.ToDateTime(TimeOnly.MinValue),
-            _ => null
-        };
-    }
-
-    /// <summary>
-    /// Convert DateTime? to TValue for external use
-    /// </summary>
-    private static TValue ConvertFromDateTime(DateTime? value)
-    {
-        if (typeof(TValue) == typeof(DateTime))
-        {
-            return (TValue)(object)(value ?? DateTime.MinValue);
-        }
-
-        if (typeof(TValue) == typeof(DateTime?))
-        {
-            return (TValue)(object)value!;
-        }
-
-        if (typeof(TValue) == typeof(DateOnly))
-        {
-            return (TValue)(object)(value.HasValue ? DateOnly.FromDateTime(value.Value) : DateOnly.MinValue);
-        }
-
-        if (typeof(TValue) == typeof(DateOnly?))
-        {
-            return (TValue)(object)(value.HasValue ? (DateOnly?)DateOnly.FromDateTime(value.Value) : null)!;
-        }
-
-        return default(TValue)!;
-    }
-
-    /// <summary>
-    /// Get the internal DateTime? value from CurrentValue
-    /// </summary>
-    private DateTime? GetInternalValue()
-    {
-        return ConvertToDateTime(CurrentValue);
     }
 }

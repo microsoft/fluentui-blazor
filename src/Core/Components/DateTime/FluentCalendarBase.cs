@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
@@ -74,5 +75,35 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
     /// <summary />
-    protected abstract Task OnSelectedDateHandlerAsync(TValue value);
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        if (DateTime.TryParse(value, Culture, out var dateTime))
+        {
+            result = dateTime.ConvertToTValue<TValue>();
+            validationErrorMessage = null;
+            return true;
+        }
+
+        result = default!;
+        validationErrorMessage = string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Calendar_FieldMustBeADate], DisplayName ?? FieldIdentifier.FieldName);
+        return false;
+    }
+
+    /// <summary />
+    protected virtual Task OnSelectedDateHandlerAsync(TValue? value)
+    {
+        if (ReadOnly || Disabled == true)
+        {
+            return Task.CompletedTask;
+        }
+
+        var dateTime = value.ConvertToDateTime();
+        if ((CheckIfSelectedValueHasChanged ?? true) && CurrentValue.ConvertToDateTime() == dateTime)
+        {
+            return Task.CompletedTask;
+        }
+
+        CurrentValue = value;
+        return Task.CompletedTask;
+    }
 }

@@ -218,26 +218,6 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <summary>
     /// Implementation of the abstract method from FluentCalendarBase
     /// </summary>
-    protected override Task OnSelectedDateHandlerAsync(TValue value)
-    {
-        if (ReadOnly || Disabled == true)
-        {
-            return Task.CompletedTask;
-        }
-
-        var dateTime = value.ConvertToDateTime();
-        if ((CheckIfSelectedValueHasChanged ?? true) && ValueAsDateTime == dateTime)
-        {
-            return Task.CompletedTask;
-        }
-
-        CurrentValue = value;
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Implementation of the abstract method from FluentCalendarBase
-    /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
     protected Task OnSelectedDateHandlerAsync(DateTime value)
@@ -420,21 +400,6 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         PickerMonth = year.ConvertToTValue<TValue>();
         PickerView = CalendarViews.Days;
         await Task.CompletedTask;
-    }
-
-    /// <summary />
-    protected override bool TryParseValueFromString(string? value, out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
-    {
-        if (DateTime.TryParse(value, Culture, out var dateTime))
-        {
-            result = dateTime.ConvertToTValue<TValue>();
-            validationErrorMessage = null;
-            return true;
-        }
-
-        result = default!;
-        validationErrorMessage = $"The {DisplayName ?? FieldIdentifier.FieldName} field must be a date.";   // TODO: Use the Localizer
-        return false;
     }
 
     /// <summary />
