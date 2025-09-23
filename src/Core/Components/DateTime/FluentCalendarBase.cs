@@ -18,6 +18,7 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     /* ************************************************************************************
      * Dev Note: The TValue cannot be constrained to `where TValue : struct, IComparable`
      * because it can be either a nullable or non-nullable value type.
+     * So, the CalendarTValue.IsNull() extension method returns true if the value is null or equal to the default value (Date.Min).
      * ************************************************************************************/
 
     /// <summary />
