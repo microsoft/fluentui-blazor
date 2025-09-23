@@ -60,4 +60,3 @@ In this case, the mobile picker will be used. This could be useful to use the na
 
 ## API FluentDatePicker
 
-{{ API Type=FluentDatePicker }}
