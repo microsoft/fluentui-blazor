@@ -46,6 +46,8 @@ public class ComponentBaseTests : Bunit.TestContext
         { typeof(FluentDataGridCell<>), Loader.MakeGenericType(typeof(string))
                                        .WithCascadingValue(new InternalGridContext<string>(new FluentDataGrid<string>(new LibraryConfiguration())))
                                        .WithCascadingValue("OwningRow", new FluentDataGridRow<string>(new LibraryConfiguration()) { InternalGridContext = new InternalGridContext<string>(new FluentDataGrid<string>(new LibraryConfiguration())) }) },
+        { typeof(FluentCalendar<>), Loader.MakeGenericType(typeof(DateTime))},
+        { typeof(FluentDatePicker<>), Loader.MakeGenericType(typeof(DateTime))},
     };
 
     /// <summary />
