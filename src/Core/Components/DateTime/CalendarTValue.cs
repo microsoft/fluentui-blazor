@@ -92,15 +92,6 @@ internal static class CalendarTValue
     }
 
     /// <summary>
-    /// Determines whether the specified date represents today's date.
-    /// </summary>
-    public static int GetYear<TValue>(this TValue date, CultureInfo culture)
-    {
-        var dateValue = ConvertToDateTime(date);
-        return DateTimeExtensions.GetYear(dateValue ?? DateTime.MinValue, culture);
-    }
-
-    /// <summary>
     /// Determines whether the specified value is null or the default value for its type.
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
@@ -115,29 +106,6 @@ internal static class CalendarTValue
     /// Determines whether the specified value is not null or not the default value for its type.
     /// </summary>
     public static bool IsNotNull<TValue>(this TValue? value) => !IsNull(value);
-
-    /// <summary>
-    /// Determines whether two specified values are equal.
-    /// </summary>
-    /// <typeparam name="TValue">The type of the values to compare.</typeparam>
-    /// <param name="value1">The first value to compare.</param>
-    /// <param name="value2">The second value to compare.</param>
-    /// <returns><see langword="true"/> if the specified values are equal; otherwise, <see langword="false"/>.</returns>
-    public static bool AreEqual<TValue>(this TValue value1, TValue value2)
-    {
-        return EqualityComparer<TValue>.Default.Equals(value1, value2);
-    }
-
-    /// <summary>
-    /// Determines whether the specified date represents today's date.
-    /// </summary>
-    public static bool IsToday<TValue>(this TValue date)
-        where TValue : struct, IComparable
-    {
-        var today = DateTimeProvider.Today;
-        var dateValue = ConvertToDateTime(date);
-        return dateValue == today;
-    }
 
     /// <summary>
     /// Returns the DateTime resulting from adding the given number of
@@ -173,6 +141,15 @@ internal static class CalendarTValue
         }
 
         return DateTimeExtensions.AddYears(value.ConvertToRequiredDateTime(), years, culture).ConvertToTValue<TValue>();
+    }
+
+    /// <summary>
+    /// Determines whether the specified date represents today's date.
+    /// </summary>
+    public static int GetYear<TValue>(this TValue date, CultureInfo culture)
+    {
+        var dateValue = ConvertToDateTime(date);
+        return DateTimeExtensions.GetYear(dateValue ?? DateTime.MinValue, culture);
     }
 
     /// <summary>
