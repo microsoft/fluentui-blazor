@@ -68,27 +68,14 @@ internal static class CalendarTValue
     /// </summary>
     internal static TValue ConvertToTValue<TValue>(this DateTime value)
     {
-        if (typeof(TValue) == typeof(DateTime))
+        return typeof(TValue) switch
         {
-            return (TValue)(object)value;
-        }
-
-        if (typeof(TValue) == typeof(DateTime?))
-        {
-            return (TValue)(object)(DateTime?)value;
-        }
-
-        if (typeof(TValue) == typeof(DateOnly))
-        {
-            return (TValue)(object)DateOnly.FromDateTime(value);
-        }
-
-        if (typeof(TValue) == typeof(DateOnly?))
-        {
-            return (TValue)(object)(DateOnly?)DateOnly.FromDateTime(value);
-        }
-
-        throw new ArgumentException($"Unsupported type: {typeof(TValue)}", nameof(value));
+            Type t when t == typeof(DateTime) => (TValue)(object)value,
+            Type t when t == typeof(DateTime?) => (TValue)(object)(DateTime?)value,
+            Type t when t == typeof(DateOnly) => (TValue)(object)DateOnly.FromDateTime(value),
+            Type t when t == typeof(DateOnly?) => (TValue)(object)(DateOnly?)DateOnly.FromDateTime(value),
+            _ => throw new ArgumentException($"Unsupported type: {typeof(TValue)}", nameof(value))
+        };
     }
 
     /// <summary>
