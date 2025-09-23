@@ -109,7 +109,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
                 return;
             }
 
-            _pickerMonth = monthDateTime.HasValue ? monthDateTime.Value.ConvertToTValue<TValue>() : default(TValue);
+            _pickerMonth = monthDateTime.HasValue ? monthDateTime.Value.ConvertToTValue<TValue>() : default;
             _ = PickerMonthChanged.InvokeAsync(value);
         }
     }
@@ -177,7 +177,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <summary>
     /// All days of this current month.
     /// </summary>
-    internal CalendarExtended CalendarExtended => new(Culture, PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today);
+    internal CalendarExtended CalendarExtended => new(Culture, PickerMonth.ConvertToRequiredDateTime());
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -248,6 +248,14 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Implementation of the abstract method from FluentCalendarBase
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    protected Task OnSelectedDateHandlerAsync(DateTime value)
+        => OnSelectedDateHandlerAsync(value.ConvertToTValue<TValue>());
+
     /// <summary />
     internal async Task SetFirstFocusableAsync()
     {
@@ -269,20 +277,18 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         await StartNewAnimationAsync(AnimationRunning.Down);
         _refreshAccessibilityPending = true;
 
-        var currentDateTime = PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today;
-
         switch (View)
         {
             case CalendarViews.Days:
-                PickerMonth = currentDateTime.AddMonths(-1, Culture).ConvertToTValue<TValue>();
+                PickerMonth = PickerMonth.AddMonths(-1, Culture);
                 break;
 
             case CalendarViews.Months:
-                PickerMonth = currentDateTime.AddYears(-1, Culture).ConvertToTValue<TValue>();
+                PickerMonth = PickerMonth.AddYears(-1, Culture);
                 break;
 
             case CalendarViews.Years:
-                PickerMonth = currentDateTime.AddYears(-12, Culture).ConvertToTValue<TValue>();
+                PickerMonth = PickerMonth.AddYears(-12, Culture);
                 break;
         }
     }
@@ -293,20 +299,18 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         await StartNewAnimationAsync(AnimationRunning.Up);
         _refreshAccessibilityPending = true;
 
-        var currentDateTime = PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today;
-
         switch (View)
         {
             case CalendarViews.Days:
-                PickerMonth = currentDateTime.AddMonths(+1, Culture).ConvertToTValue<TValue>();
+                PickerMonth = PickerMonth.AddMonths(+1, Culture);
                 break;
 
             case CalendarViews.Months:
-                PickerMonth = currentDateTime.AddYears(+1, Culture).ConvertToTValue<TValue>();
+                PickerMonth = PickerMonth.AddYears(+1, Culture);
                 break;
 
             case CalendarViews.Years:
-                PickerMonth = currentDateTime.AddYears(+12, Culture).ConvertToTValue<TValue>();
+                PickerMonth = PickerMonth.AddYears(+12, Culture);
                 break;
         }
     }
@@ -317,7 +321,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
-            await OnSelectedDateHandlerAsync(value.ConvertToTValue<TValue>());
+            await OnSelectedDateHandlerAsync(value);
         }
     }
 
@@ -327,7 +331,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
-            await OnSelectedDateHandlerAsync(value.ConvertToTValue<TValue>());
+            await OnSelectedDateHandlerAsync(value);
         }
     }
 
@@ -346,7 +350,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <returns></returns>
     private FluentCalendarMonth<TValue> GetMonthProperties(int? year, int? month)
     {
-        var pickerDateTime = PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today;
+        var pickerDateTime = PickerMonth.ConvertToRequiredDateTime();
         return new(this, Culture.Calendar.ToDateTime(year ?? pickerDateTime.GetYear(Culture), month ?? pickerDateTime.GetMonth(Culture), 1, 0, 0, 0, 0));
     }
 
@@ -357,7 +361,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <returns></returns>
     private FluentCalendarYear<TValue> GetYearProperties(int? year)
     {
-        var pickerDateTime = PickerMonth.ConvertToDateTime() ?? DateTimeProvider.Today;
+        var pickerDateTime = PickerMonth.ConvertToRequiredDateTime();
         return new(this, Culture.Calendar.ToDateTime(year ?? pickerDateTime.GetYear(Culture), 1, 1, 0, 0, 0, 0));
     }
 
@@ -443,6 +447,8 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         }
 
         result = default!;
+
+        // TODO: Use the Localizer
         validationErrorMessage = $"The {DisplayName ?? FieldIdentifier.FieldName} field must be a date.";
         return false;
     }
@@ -466,13 +472,11 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             inProgress = _rangeSelectorMouseOver.IsValid();
         }
 
-        var dateTimeValues = SelectedDates.Select(d => d.ConvertToDateTime()).Where(d => d.HasValue).Select(d => d!.Value);
-
         return
         (
             (SelectMode == CalendarSelectMode.Multiple || SelectMode == CalendarSelectMode.Range) && SelectedDates.Skip(1).Any(),
-            dateTimeValues.Any() ? dateTimeValues.Min() : DateTime.MinValue,
-            dateTimeValues.Any() ? dateTimeValues.Max() : DateTime.MinValue,
+            SelectedDates.MinDateTime(),
+            SelectedDates.MaxDateTime(),
             inProgress
         );
     }
@@ -486,7 +490,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             {
                 // Single selection
                 case CalendarSelectMode.Single:
-                    await OnSelectedDateHandlerAsync(value.ConvertToTValue<TValue>());
+                    await OnSelectedDateHandlerAsync(value);
                     break;
 
                 // Multiple selection
@@ -515,7 +519,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             }
             else
             {
-                SelectedDates = SelectedDates.Concat(new[] { tValue });
+                SelectedDates = SelectedDates.Concat([tValue]);
             }
 
             if (SelectedDatesChanged.HasDelegate)
@@ -543,7 +547,6 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <summary />
     private async Task OnSelectRangeDatesAsync(DateTime value)
     {
-        var tValue = value.ConvertToTValue<TValue>();
         var resetRange = (_rangeSelector.IsValid() || _rangeSelector.IsSingle()) && _rangeSelector.Includes(value);
 
         // Reset the selection
@@ -562,14 +565,9 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         // Start and close a pre-selection
         else if (SelectDatesHover is not null)
         {
-            var range = SelectDatesHover.Invoke(tValue);
-            var dateTimeValues = range.Select(r => r.ConvertToDateTime()).Where(d => d.HasValue).Select(d => d!.Value);
-
-            if (dateTimeValues.Any())
-            {
-                _rangeSelector.Start = dateTimeValues.Min();
-                _rangeSelector.End = dateTimeValues.Max();
-            }
+            var range = SelectDatesHover.Invoke(value.ConvertToTValue<TValue>());
+            _rangeSelector.Start = range.MinDateTime();
+            _rangeSelector.End = range.MaxDateTime();
         }
 
         // Start the selection
@@ -611,13 +609,8 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         else
         {
             var range = SelectDatesHover.Invoke(tValue);
-            var dateTimeValues = range.Select(r => r.ConvertToDateTime()).Where(d => d.HasValue).Select(d => d!.Value);
-
-            if (dateTimeValues.Any())
-            {
-                _rangeSelectorMouseOver.Start = dateTimeValues.Min();
-                _rangeSelectorMouseOver.End = dateTimeValues.Max();
-            }
+            _rangeSelectorMouseOver.Start = range.MinDateTime();
+            _rangeSelectorMouseOver.End = range.MaxDateTime();
         }
 
         var days = DisabledDateFunc is null
@@ -667,22 +660,20 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <summary />
     private string GetFormValue()
     {
-        switch (SelectMode)
+        return SelectMode switch
         {
-            case CalendarSelectMode.Single:
-                return ValueAsDateTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty;
+            CalendarSelectMode.Single
+                => ValueAsDateTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty,
 
-            case CalendarSelectMode.Range:
-            case CalendarSelectMode.Multiple:
-                return string.Join(",", SelectedDates.Select(d =>
-                {
-                    var dateTime = d.ConvertToDateTime();
-                    return dateTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty;
-                }).Where(s => !string.IsNullOrEmpty(s)));
+            CalendarSelectMode.Range or CalendarSelectMode.Multiple
+                => string.Join(',', SelectedDates.Select(d =>
+                            {
+                                var dateTime = d.ConvertToDateTime();
+                                return dateTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty;
+                            }).Where(s => !string.IsNullOrEmpty(s))),
 
-            default:
-                return string.Empty;
-        }
+            _ => string.Empty,
+        };
     }
 
     internal enum AnimationRunning

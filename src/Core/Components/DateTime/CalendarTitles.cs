@@ -2,8 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>

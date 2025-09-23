@@ -52,7 +52,7 @@ internal static class CalendarTValue
     {
         if (value == null)
         {
-            return DateTimeProvider.Today;
+            throw new ArgumentNullException(nameof(value));
         }
 
         return value switch
@@ -119,23 +119,81 @@ internal static class CalendarTValue
     /// <summary>
     /// Determines whether two specified values are equal.
     /// </summary>
-    /// <typeparam name="T">The type of the values to compare.</typeparam>
+    /// <typeparam name="TValue">The type of the values to compare.</typeparam>
     /// <param name="value1">The first value to compare.</param>
     /// <param name="value2">The second value to compare.</param>
     /// <returns><see langword="true"/> if the specified values are equal; otherwise, <see langword="false"/>.</returns>
-    public static bool AreEqual<T>(this T value1, T value2)
+    public static bool AreEqual<TValue>(this TValue value1, TValue value2)
     {
-        return EqualityComparer<T>.Default.Equals(value1, value2);
+        return EqualityComparer<TValue>.Default.Equals(value1, value2);
     }
 
     /// <summary>
     /// Determines whether the specified date represents today's date.
     /// </summary>
-    public static bool IsToday<T>(this T date)
-        where T : struct, IComparable
+    public static bool IsToday<TValue>(this TValue date)
+        where TValue : struct, IComparable
     {
         var today = DateTimeProvider.Today;
         var dateValue = ConvertToDateTime(date);
         return dateValue == today;
+    }
+
+    /// <summary>
+    /// Returns the DateTime resulting from adding the given number of
+    /// months to the specified DateTime.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="months"></param>
+    /// <param name="culture"></param>
+    /// <returns></returns>
+    public static TValue AddMonths<TValue>(this TValue? value, int months, CultureInfo culture)
+    {
+        if (value == null)
+        {
+            return default!;
+        }
+
+        return DateTimeExtensions.AddMonths(value.ConvertToRequiredDateTime(), months, culture).ConvertToTValue<TValue>();
+    }
+
+    /// <summary>
+    /// Returns the DateTime resulting from adding the given number of
+    /// years to the specified DateTime.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="years"></param>
+    /// <param name="culture"></param>
+    /// <returns></returns>
+    public static TValue AddYears<TValue>(this TValue? value, int years, CultureInfo culture)
+    {
+        if (value == null)
+        {
+            return default!;
+        }
+
+        return DateTimeExtensions.AddYears(value.ConvertToRequiredDateTime(), years, culture).ConvertToTValue<TValue>();
+    }
+
+    /// <summary>
+    /// Returns the minimum of Date in <paramref name="values"/>
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="values"></param>
+    /// <returns></returns>
+    public static DateTime MinDateTime<TValue>(this IEnumerable<TValue> values)
+    {
+        return values.Select(i => i.ConvertToRequiredDateTime()).Min();
+    }
+
+    /// <summary>
+    /// Returns the maximum of Date in <paramref name="values"/>
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="values"></param>
+    /// <returns></returns>
+    public static DateTime MaxDateTime<TValue>(this IEnumerable<TValue> values)
+    {
+        return values.Select(i => i.ConvertToRequiredDateTime()).Max();
     }
 }
