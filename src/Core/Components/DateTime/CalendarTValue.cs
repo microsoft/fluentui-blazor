@@ -22,6 +22,8 @@ internal static class CalendarTValue
             typeof(DateTime?),
             typeof(DateOnly),
             typeof(DateOnly?),
+            typeof(DateTimeOffset),
+            typeof(DateTimeOffset?),
         };
 
         return !supportedTypes.Contains(type);
@@ -41,6 +43,7 @@ internal static class CalendarTValue
         {
             DateTime dt => dt,
             DateOnly d => d.ToDateTime(),
+            DateTimeOffset dto => dto.DateTime,
             _ => null
         };
     }
@@ -55,12 +58,7 @@ internal static class CalendarTValue
             throw new ArgumentNullException(nameof(value));
         }
 
-        return value switch
-        {
-            DateTime dt => dt,
-            DateOnly d => d.ToDateTime(),
-            _ => DateTimeProvider.Today
-        };
+        return ConvertToDateTime(value) ?? DateTimeProvider.Today;
     }
 
     /// <summary>

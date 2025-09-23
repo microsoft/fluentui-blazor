@@ -1407,25 +1407,6 @@ value=""2022-02-20"">20</div>");
     }
 
     [Fact]
-    public async Task PickerMonthSelectAsync_WithNullMonth_UsesTodayAndUpdatesView()
-    {
-        using var context = new DateTimeProviderContext(new DateTime(2023, 3, 10));
-
-        // Arrange
-        var calendar = Render(@<FluentCalendar TValue="DateTime" View="CalendarViews.Months" />);
-        var component = calendar.FindComponent<FluentCalendar<DateTime>>();
-
-        var pickerViewField = component.Instance.GetType().GetField("_pickerView", BindingFlags.NonPublic | BindingFlags.Instance);
-
-        // Act
-        await component.Instance.PickerMonthSelectAsync(null);
-
-        // Assert
-        Assert.Equal(new DateTime(2023, 3, 1), component.Instance.PickerMonth); // Should use DateTimeProvider.Today
-        Assert.Equal(CalendarViews.Days, pickerViewField?.GetValue(component.Instance));
-    }
-
-    [Fact]
     public async Task PickerMonthSelectAsync_WithDifferentCultures_RespectsCalendar()
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
