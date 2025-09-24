@@ -90,6 +90,10 @@
                 RenderRow(__builder, rowIndex++, item);
             }
         }
+        else if (_lastError != null)
+        {
+            RenderErrorContent(__builder);
+        }
         else
         {
             RenderEmptyContent(__builder);
@@ -256,6 +260,38 @@
                 else
                 {
                     @LoadingContent
+                }
+            </FluentDataGridCell>
+        </FluentDataGridRow>
+    }
+    
+    private void RenderErrorContent(RenderTreeBuilder __builder)
+    {
+        if (_lastError == null)
+        {
+            return;
+        }
+
+        string? style = null;
+        string? colspan = null;
+        if (DisplayMode == DataGridDisplayMode.Grid)
+        {
+            style = $"grid-column: 1 / {_columns.Count + 1}";
+        }
+        else
+        {
+            colspan = _columns.Count.ToString();
+        }
+
+        <FluentDataGridRow Class="@ERROR_CONTENT_ROW_CLASS" TGridItem="TGridItem">
+            <FluentDataGridCell Class="empty-content-cell" Style="@style" colspan="@colspan">
+                @if (ErrorContent is null)
+                {
+                    @(_lastError.Message)
+                }
+                else
+                {
+                    @ErrorContent(_lastError)
                 }
             </FluentDataGridCell>
         </FluentDataGridRow>

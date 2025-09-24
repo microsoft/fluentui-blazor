@@ -24,6 +24,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js";
     public const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
     public const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
+    public const string ERROR_CONTENT_ROW_CLASS = "error-content-row";
     public List<FluentMenu> _menuReferences = [];
 
     /// <summary />
@@ -280,6 +281,27 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public RenderFragment? LoadingContent { get; set; }
 
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the asynchronous loading state of items changes.
+    /// </summary>
+    /// <remarks>The callback receives a <see langword="true"/> value when items start loading
+    /// and a <see langword="false"/> value when the loading process completes.</remarks>
+    [Parameter]
+    public EventCallback<bool> OnItemsLoading { get; set; }
+
+    /// <summary>
+    /// Gets or sets a delegate that determines whether a given exception should be handled.
+    /// </summary>
+    [Parameter]
+    public Func<Exception, bool>? HandleLoadingError { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to render when an error occurs.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Exception>? ErrorContent { get; set; }
+
     /// <summary>
     /// Sets <see cref="GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
     /// </summary>
@@ -394,6 +416,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
 
+    private Exception? _lastError;
     private GridItemsProviderRequest<TGridItem>? _lastRequest;
     private bool _forceRefreshData;
 
@@ -868,6 +891,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             if (ItemsProvider is not null)
             {
+                if (_lastError != null)
+                {
+                    _lastError = null;
+                    StateHasChanged();
+                }
                 var gipr = await ItemsProvider(request);
                 if (gipr.Items is not null && Loading is null)
                 {
@@ -878,6 +906,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
             else if (Items is not null)
             {
+
+                if (_internalGridContext.Items.Count == 0 || _lastError != null)
+                {
+                    _lastError = null;
+                    Loading = _internalGridContext.Items.Count == 0;
+                    StateHasChanged();
+                }
+                if (_asyncQueryExecutor is not null)
+                {
+                    await OnItemsLoading.InvokeAsync(true);
+                }
                 var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
                 _internalGridContext.TotalItemCount = totalItemCount;
                 IQueryable<TGridItem>? result;
@@ -900,6 +939,21 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         catch (OperationCanceledException oce) when (oce.CancellationToken == request.CancellationToken)
         {
             // No-op; we canceled the operation, so it's fine to suppress this exception.
+        }
+        catch (Exception ex) when (HandleLoadingError?.Invoke(ex) == true)
+        {
+            _lastError = ex.GetBaseException();
+        }
+        finally
+        {
+            if (Items is not null)
+            {
+                Loading = false;
+                if (_asyncQueryExecutor is not null)
+                {
+                    await OnItemsLoading.InvokeAsync(false);
+                }
+            }
         }
         return GridItemsProviderResult.From(Array.Empty<TGridItem>(), 0);
     }
