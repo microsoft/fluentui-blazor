@@ -22,4 +22,4 @@ This does not work when `Virtualization` is turned on. The `GridTemplateColumns`
 This is untested in MAUI.
         
 
-{{ DataGridAutoFit }} }}
+{{ DataGridAutoFit }}

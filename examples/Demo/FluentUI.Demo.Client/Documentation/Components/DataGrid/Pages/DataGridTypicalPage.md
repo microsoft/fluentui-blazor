@@ -24,4 +24,4 @@ The Total-column exposes a customized filter with which only countries that fall
 The resize options UI is using a customized string for the label ('Width (+/- 10px)' instead of the normal 'Column width').
 This is done through the custom localizer which is registered in the Server project's Program.cs file.
 
-{{ DataGridTypical Files=Code:DataGridTypical.razor;CSS:DataGridTypical.razor.css }} }}
+{{ DataGridTypical Files=Code:DataGridTypical.razor;CSS:DataGridTypical.razor.css }}
