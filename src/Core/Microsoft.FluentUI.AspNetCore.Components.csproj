@@ -107,6 +107,41 @@
     <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Tools\FluentUI.Demo.DocApiGen" />
   </Target>
 
+  <!-- SDK 9.0.300 Broken with WASM Standalone Razor JS Modules -->
+  <Target Name="NormalizeContentPathsForLinux" BeforeTargets="GetTargetPathWithTargetPlatformMoniker">
+
+    <Message Importance="high" Text="Building on Linux!" Condition="$([MSBuild]::IsOSPlatform('Linux'))" />
+
+    <PropertyGroup>
+      <ProjectFullPath>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)'))</ProjectFullPath>
+    </PropertyGroup>
+
+    <!-- Save Content items with absolute paths for normalization -->
+    <ItemGroup>
+      <_ContentWithAbsolutePaths Include="@(Content)" Condition="$([System.String]::Copy('%(Identity)').StartsWith('/'))">
+        <OriginalIdentity>%(Identity)</OriginalIdentity>
+        <NormalizedPath>$([MSBuild]::MakeRelative($(ProjectFullPath), '%(FullPath)'))</NormalizedPath>
+      </_ContentWithAbsolutePaths>
+    </ItemGroup>
+
+    <!-- Log before modification -->
+    <Message Importance="normal" Text="Found @(_ContentWithAbsolutePaths->Count()) Content items with absolute paths to normalize" />
+
+    <!-- Remove the items with absolute paths -->
+    <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+      <Content Remove="@(_ContentWithAbsolutePaths->'%(OriginalIdentity)')" />
+    </ItemGroup>
+
+    <!-- Add them back with normalized paths -->
+    <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+      <Content Include="@(_ContentWithAbsolutePaths->'%(NormalizedPath)')" />
+    </ItemGroup>
+
+    <!-- Log after modification -->
+    <Message Importance="normal" Text="Normalized paths for Content items on Linux" Condition="$([MSBuild]::IsOSPlatform('Linux'))" />
+
+  </Target>
+
   <!-- Resources Localization  -->
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.ResxSourceGenerator">
