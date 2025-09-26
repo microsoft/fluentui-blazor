@@ -352,7 +352,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// Exposes the elements FocusAsync() method.
     /// </summary>
     [SuppressMessage("Style", "VSTHRD200:Use `Async` suffix for async methods", Justification = "#vNext: To update in the next version")]
-    public async void FocusAsync()
+    public virtual async void FocusAsync()
     {
         await Element!.FocusAsync();
     }
