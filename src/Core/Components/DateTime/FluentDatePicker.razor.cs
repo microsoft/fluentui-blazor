@@ -34,6 +34,11 @@ public partial class FluentDatePicker : FluentCalendarBase
     private string PopupId => $"{Id}-popup";
 
     /// <summary>
+    /// Holds the reference to the internal <see cref="FluentTextField"/> component.
+    /// </summary>
+    private FluentTextField TextField { get; set; } = default!;
+
+    /// <summary>
     /// Gets or sets the design of this input.
     /// </summary>
     [Parameter]
@@ -153,4 +158,9 @@ public partial class FluentDatePicker : FluentCalendarBase
             CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
             _ => Culture.DateTimeFormat.ShortDatePattern
         };
+
+    public override void FocusAsync()
+    {
+        TextField?.FocusAsync();
+    }
 }
