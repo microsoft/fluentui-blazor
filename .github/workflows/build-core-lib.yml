@@ -46,8 +46,14 @@ jobs:
      - name: Setup .NET 9.0
        uses: actions/setup-dotnet@v4
        with:
-        dotnet-version: 9.0.203     # Waiting a fix in the 9.0.300: https://github.com/dotnet/sdk/issues/49038
+        dotnet-version: 9.0.305
         dotnet-quality: ga
+
+     - name: Setup .NET 10.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 10.0.x
+        dotnet-quality: preview
 
      # Build
 
@@ -124,7 +130,7 @@ jobs:
      - name: Report Generator
        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
        with:
-         reports: '**/coverage.cobertura.xml;**/coverage.net9.0.cobertura.xml'
+         reports: '**/coverage.cobertura.xml;**/coverage.net10.0.cobertura.xml'
          targetdir: 'CoverageReports'
          title: 'Unit Tests Code Coverage'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
@@ -190,8 +196,14 @@ jobs:
     - name: Setup .NET 9.0
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.203     # Waiting a fix in the 9.0.300: https://github.com/dotnet/sdk/issues/49038
+        dotnet-version: 9.0.305
         dotnet-quality: ga
+
+    - name: Setup .NET 10.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
+        dotnet-quality: preview
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
