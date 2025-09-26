@@ -46,7 +46,7 @@ jobs:
      - name: Setup .NET 9.0
        uses: actions/setup-dotnet@v4
        with:
-        dotnet-version: 9.0.110
+        dotnet-version: 9.0.305
         dotnet-quality: ga
 
      - name: Setup .NET 10.0
@@ -196,7 +196,7 @@ jobs:
     - name: Setup .NET 9.0
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.110
+        dotnet-version: 9.0.305
         dotnet-quality: ga
 
     - name: Setup .NET 10.0
