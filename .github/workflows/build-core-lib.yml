@@ -46,7 +46,7 @@ jobs:
      - name: Setup .NET 9.0
        uses: actions/setup-dotnet@v4
        with:
-        dotnet-version: 9.0.110     # Waiting a fix in the 9.0.300: https://github.com/dotnet/sdk/issues/49038
+        dotnet-version: 9.0.110
         dotnet-quality: ga
 
      - name: Setup .NET 10.0
@@ -193,11 +193,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # - name: Setup .NET 9.0
-    #   uses: actions/setup-dotnet@v4
-    #   with:
-    #     dotnet-version: 9.0.203     # Waiting a fix in the 9.0.300: https://github.com/dotnet/sdk/issues/49038
-    #     dotnet-quality: ga
+    - name: Setup .NET 9.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.110
+        dotnet-quality: ga
 
     - name: Setup .NET 10.0
       uses: actions/setup-dotnet@v4
