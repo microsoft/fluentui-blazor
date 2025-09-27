@@ -48,7 +48,11 @@
                 {
                     @if (Virtualize)
                     {
-                        if (_internalGridContext.TotalItemCount == 0)
+                        if (_lastError != null)
+                        {
+                            @_renderErrorContent
+                        }
+                        else if (_internalGridContext.TotalItemCount == 0)
                         {
                             @_renderEmptyContent
                         }
@@ -83,16 +87,16 @@
     {
         var initialRowIndex = (GenerateHeader != GenerateHeaderOption.None) ? 2 : 1; // aria-rowindex is 1-based, plus 1 if there is a header
         var rowIndex = initialRowIndex;
-        if (_internalGridContext.Items.Any())
+        if (_lastError != null)
+        {
+            RenderErrorContent(__builder);
+        }
+        else if (_internalGridContext.Items.Any())
         {
             foreach (var item in _internalGridContext.Items)
             {
                 RenderRow(__builder, rowIndex++, item);
             }
-        }
-        else if (_lastError != null)
-        {
-            RenderErrorContent(__builder);
         }
         else
         {

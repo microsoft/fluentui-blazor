@@ -400,9 +400,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Caches of method->delegate conversions
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
-
     private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderLoadingContent;
+    private readonly RenderFragment _renderErrorContent;
 
     private string? _internalGridTemplateColumns;
 
@@ -439,6 +439,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _renderNonVirtualizedRows = RenderNonVirtualizedRows;
         _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
+        _renderErrorContent = RenderErrorContent;
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
@@ -868,7 +869,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
             }
-            if (_internalGridContext.TotalItemCount > 0 && Loading is null)
+            if ((_internalGridContext.TotalItemCount > 0 && Loading is null) || _lastError != null)
             {
                 Loading = false;
                 StateHasChanged();
