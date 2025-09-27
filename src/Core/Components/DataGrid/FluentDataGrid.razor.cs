@@ -281,7 +281,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public RenderFragment? LoadingContent { get; set; }
 
-
     /// <summary>
     /// Gets or sets the callback that is invoked when the asynchronous loading state of items changes.
     /// </summary>
