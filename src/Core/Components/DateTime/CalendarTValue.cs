@@ -32,9 +32,14 @@ internal static class CalendarTValue
     /// <summary>
     /// Convert TValue to DateTime? for internal use
     /// </summary>
-    internal static DateTime? ConvertToDateTime<TValue>(this TValue value)
+    internal static DateTime? ConvertToDateTime<TValue>(this TValue value, bool isNullOrDefault = true)
     {
-        if (value == null || value.IsNullOrDefault())
+        if (isNullOrDefault && value.IsNullOrDefault())
+        {
+            return null;
+        }
+
+        if (value == null)
         {
             return null;
         }
@@ -51,14 +56,14 @@ internal static class CalendarTValue
     /// <summary>
     /// Convert TValue to DateTime for internal use
     /// </summary>
-    internal static DateTime ConvertToRequiredDateTime<TValue>(this TValue value)
+    internal static DateTime ConvertToRequiredDateTime<TValue>(this TValue value, bool isNullOrDefault = true)
     {
         if (value == null)
         {
             throw new ArgumentNullException(nameof(value));
         }
 
-        return ConvertToDateTime(value) ?? DateTimeProvider.Today;
+        return ConvertToDateTime(value, isNullOrDefault) ?? DateTimeProvider.Today;
     }
 
     /// <summary>
@@ -91,6 +96,14 @@ internal static class CalendarTValue
     /// Determines whether the specified value is not null or not the default value for its type.
     /// </summary>
     public static bool IsNotNull<TValue>(this TValue? value) => !IsNullOrDefault(value);
+
+    /// <summary>
+    /// Determines whether two values are equal.
+    /// </summary>
+    public static bool IsEquals<TValue>(this TValue? value1, TValue? value2)
+    {
+        return EqualityComparer<TValue>.Default.Equals(value1, value2);
+    }
 
     /// <summary>
     /// Returns the DateTime resulting from adding the given number of

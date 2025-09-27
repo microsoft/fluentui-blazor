@@ -114,7 +114,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var minDate = Culture_enUS.Calendar.MinSupportedDateTime;
+        var minDate = Culture_enUS.Calendar.MinSupportedDateTime.AddMonths(1);
         var calendar = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.View, view)
             .Add(p => p.PickerMonth, minDate)

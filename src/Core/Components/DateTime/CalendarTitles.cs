@@ -101,7 +101,7 @@ internal class CalendarTitles<TValue>
     {
         get
         {
-            var minDate = _calendar.Culture.Calendar.MinSupportedDateTime;
+            var minDate = _calendar.Culture.Calendar.MinSupportedDateTime.AddMonths(1);
 
             return View switch
             {
