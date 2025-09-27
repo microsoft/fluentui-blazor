@@ -36,7 +36,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
                    (Required ?? false)
                    && !(Disabled ?? false)
                    && !ReadOnly
-                   && CurrentValue.IsNull();
+                   && CurrentValue.IsNullOrDefault();
         };
     }
 

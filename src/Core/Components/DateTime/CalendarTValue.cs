@@ -34,7 +34,7 @@ internal static class CalendarTValue
     /// </summary>
     internal static DateTime? ConvertToDateTime<TValue>(this TValue value)
     {
-        if (value == null || value.IsNull())
+        if (value == null || value.IsNullOrDefault())
         {
             return null;
         }
@@ -82,15 +82,15 @@ internal static class CalendarTValue
     /// <typeparam name="TValue"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
-    public static bool IsNull<TValue>(this TValue? value)
+    public static bool IsNullOrDefault<TValue>(this TValue? value)
     {
-        return EqualityComparer<TValue>.Default.Equals(value, default);
+        return value is null || EqualityComparer<TValue>.Default.Equals(value, default);
     }
 
     /// <summary>
     /// Determines whether the specified value is not null or not the default value for its type.
     /// </summary>
-    public static bool IsNotNull<TValue>(this TValue? value) => !IsNull(value);
+    public static bool IsNotNull<TValue>(this TValue? value) => !IsNullOrDefault(value);
 
     /// <summary>
     /// Returns the DateTime resulting from adding the given number of
