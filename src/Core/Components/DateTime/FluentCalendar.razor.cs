@@ -110,7 +110,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             }
 
             _pickerMonth = monthDateTime.HasValue ? monthDateTime.Value.ConvertToTValue<TValue>() : default;
-            _ = PickerMonthChanged.InvokeAsync(value);
+            _ = PickerMonthChanged.InvokeAsync(_pickerMonth);
         }
     }
 

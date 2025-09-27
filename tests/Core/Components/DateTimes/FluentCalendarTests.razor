@@ -388,7 +388,7 @@ value=""2022-02-20"">20</div>");
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
 
-        DateTime? value = DateTime.MinValue;
+        DateTime? value = DateTime.MinValue.AddMonths(1);
 
         // Arrange & Act
         var calendar = Render(@<FluentCalendar TValue="DateTime?" Value="@value" View="@view" Culture="@InvariantCulture" />);
