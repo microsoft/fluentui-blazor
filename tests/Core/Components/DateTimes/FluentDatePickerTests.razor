@@ -45,15 +45,15 @@
         text.Click();
 
         // Assert
-        var calendar = picker.FindComponent<FluentCalendar<DateTime>>();
+        var calendar = picker.FindComponent<FluentCalendar<DateTime?>>();
 
         Assert.True(picker.FindComponent<FluentDatePicker<DateTime?>>().Instance.Opened);
         // The calendar's Value can be null even if TValue is DateTime - that's the key difference
         // FluentDatePicker can be nullable but the internal calendar might not be
 
-        Assert.Equal(System.DateTime.Today.Year, calendar.Instance.PickerMonth.Year);
-        Assert.Equal(System.DateTime.Today.Month, calendar.Instance.PickerMonth.Month);
-        Assert.Equal(1, calendar.Instance.PickerMonth.Day);
+        Assert.Equal(System.DateTime.Today.Year, calendar.Instance.PickerMonth?.Year);
+        Assert.Equal(System.DateTime.Today.Month, calendar.Instance.PickerMonth?.Month);
+        Assert.Equal(1, calendar.Instance.PickerMonth?.Day);
     }
 
     [Fact]
@@ -106,7 +106,7 @@
         day.Click();
 
         // Assert
-        var calendar = picker.FindComponent<FluentCalendar<DateTime>>();
+        var calendar = picker.FindComponent<FluentCalendar<DateTime?>>();
         Assert.Equal(DateTime.Parse(expectedDate, InvariantCulture), calendar.Instance.Value);
     }
 
