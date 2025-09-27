@@ -651,7 +651,7 @@
         }
         else
         {
-            Assert.Null(parsedValue);
+            Assert.Equal(DateTime.MinValue, parsedValue);
         }
 
         // TryParseValueFromString always returns true and sets validationErrorMessage to null
@@ -715,7 +715,7 @@
         }
         else
         {
-            Assert.Null(parsedValue);
+            Assert.Equal(DateTime.MinValue, parsedValue);
         }
 
         // TryParseValueFromString always returns true and sets validationErrorMessage to null

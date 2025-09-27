@@ -169,6 +169,8 @@ public class CalendarTValueTests
     [Fact]
     public void ConvertToRequiredDateTime_DefaultDateTime_ReturnsToday()
     {
+        using var context = new DateTimeProviderContext(DateTime.Today);
+
         // Arrange
         var defaultDateTime = default(DateTime);
 
