@@ -619,10 +619,10 @@
     [InlineData("1999", true, "1/1/1999")]
     [InlineData("1", true, "1/1/0001")]
     [InlineData("9999", true, "1/1/9999")]
-    [InlineData("invalid", true, null)]
-    [InlineData("", true, null)]
-    [InlineData(null, true, null)]
-    [InlineData("2023.5", true, "5/1/2023")] // int.TryParse will parse this as 2023, then new DateTime(2023, 1, 1) gets converted to string and back
+    [InlineData("invalid", false, null)]
+    [InlineData("", false, null)]
+    [InlineData(null, false, null)]
+    [InlineData("2023.5", true, "5/1/2023")] // Falls back to DateTime.TryParse which parses 2023.5 as May 1, 2023
     public void FluentDatePicker_TryParseValueFromString_YearsView(string? input, bool expectedResult, string? expectedDateString)
     {
         // Arrange
@@ -644,18 +644,18 @@
         // Assert
         Assert.Equal(expectedResult, result);
 
-        if (expectedDateString != null)
+        if (expectedResult && expectedDateString != null)
         {
             var expectedDate = DateTime.Parse(expectedDateString, InvariantCulture);
             Assert.Equal(expectedDate, parsedValue);
+            Assert.Null(validationErrorMessage);
         }
-        else
+        else if (!expectedResult)
         {
-            Assert.Equal(DateTime.MinValue, parsedValue);
+            Assert.Equal(default(DateTime), parsedValue);
+            Assert.NotNull(validationErrorMessage);
+            Assert.Contains("must be a date", validationErrorMessage);
         }
-
-        // TryParseValueFromString always returns true and sets validationErrorMessage to null
-        Assert.Null(validationErrorMessage);
     }
 
     [Theory]
@@ -684,9 +684,9 @@
 
     [Theory]
     [InlineData("3/15/2022", true, "3/15/2022")]
-    [InlineData("invalid date", true, null)]
-    [InlineData("", true, null)]
-    [InlineData(null, true, null)]
+    [InlineData("invalid date", false, null)]
+    [InlineData("", false, null)]
+    [InlineData(null, false, null)]
     public void FluentDatePicker_TryParseValueFromString_DaysView(string? input, bool expectedResult, string? expectedDateString)
     {
         // Arrange
@@ -708,17 +708,17 @@
         // Assert
         Assert.Equal(expectedResult, result);
 
-        if (expectedDateString != null)
+        if (expectedResult && expectedDateString != null)
         {
             var expectedDate = DateTime.Parse(expectedDateString, InvariantCulture);
             Assert.Equal(expectedDate, parsedValue);
+            Assert.Null(validationErrorMessage);
         }
-        else
+        else if (!expectedResult)
         {
-            Assert.Equal(DateTime.MinValue, parsedValue);
+            Assert.Equal(default(DateTime), parsedValue);
+            Assert.NotNull(validationErrorMessage);
+            Assert.Contains("must be a date", validationErrorMessage);
         }
-
-        // TryParseValueFromString always returns true and sets validationErrorMessage to null
-        Assert.Null(validationErrorMessage);
     }
 }

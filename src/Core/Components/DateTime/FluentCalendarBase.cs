@@ -87,8 +87,8 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
         }
 
         result = default!;
-        validationErrorMessage = null; // string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Calendar_FieldMustBeADate], DisplayName ?? FieldIdentifier.FieldName);
-        return true;
+        validationErrorMessage = string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Calendar_FieldMustBeADate], DisplayName ?? FieldIdentifier.FieldName);
+        return false;
     }
 
     /// <summary />

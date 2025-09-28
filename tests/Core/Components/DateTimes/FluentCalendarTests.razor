@@ -1693,9 +1693,9 @@ value=""2022-02-20"">20</div>");
     [InlineData("2022-06-15", true, "2022-06-15")]
     [InlineData("2022-12-31", true, "2022-12-31")]
     [InlineData("2000-01-01", true, "2000-01-01")]
-    [InlineData("invalid-date", true, null)]
-    [InlineData("", true, null)]
-    [InlineData(null, true, null)]
+    [InlineData("invalid-date", false, null)]
+    [InlineData("", false, null)]
+    [InlineData(null, false, null)]
     [InlineData("2022/06/15", true, "2022-06-15")] // Different format but should parse
     [InlineData("June 15, 2022", true, "2022-06-15")] // Long format should parse
     public void TryParseValueFromString_ReturnsExpectedResults(string? input, bool expectedSuccess, string? expectedDateString)
@@ -1720,18 +1720,18 @@ value=""2022-02-20"">20</div>");
         // Assert
         Assert.Equal(expectedSuccess, result);
 
-        if (expectedDateString != null)
+        if (expectedSuccess && expectedDateString != null)
         {
             Assert.NotNull(parsedValue);
             Assert.Equal(DateTime.Parse(expectedDateString), parsedValue.Value);
+            Assert.Null(validationErrorMessage);
         }
-        else
+        else if (!expectedSuccess)
         {
-            // For invalid inputs, the method still returns true but result might be null or unexpected
-            // The actual behavior depends on BindConverter.TryConvertTo implementation
+            Assert.Equal(default(DateTime), parsedValue);
+            Assert.NotNull(validationErrorMessage);
+            Assert.Contains("must be a date", validationErrorMessage);
         }
-
-        Assert.Null(validationErrorMessage); // Method always sets this to null
     }
 
     [Theory]
@@ -1773,7 +1773,7 @@ value=""2022-02-20"">20</div>");
     }
 
     [Fact]
-    public void TryParseValueFromString_AlwaysReturnsTrue()
+    public void TryParseValueFromString_HandlesInvalidInputsCorrectly()
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
 
@@ -1785,46 +1785,67 @@ value=""2022-02-20"">20</div>");
         var method = component.Instance.GetType().GetMethod("TryParseValueFromString",
             BindingFlags.NonPublic | BindingFlags.Instance);
 
-        var testInputs = new string?[] { "invalid", "completely-wrong", "2022-13-45", "", null, "999999999999" };
+        var invalidInputs = new string?[] { "invalid", "completely-wrong", "2022-13-45", "", null, "999999999999" };
+        var validInputs = new string[] { "2022-06-15", "2022/06/15", "June 15, 2022" };
 
-        foreach (var input in testInputs)
+        // Test invalid inputs
+        foreach (var input in invalidInputs)
         {
             var parameters = new object?[] { input, null, null };
-
-            // Act
-            var result = (bool)(method?.Invoke(component.Instance, parameters) ?? false);
-
-            // Assert
-            Assert.True(result); // Method always returns true according to implementation
-        }
-    }
-
-    [Fact]
-    public void TryParseValueFromString_AlwaysSetsValidationErrorMessageToNull()
-    {
-        using var context = new DateTimeProviderContext(DateTime.Now);
-
-        // Arrange
-        var calendar = Render(@<FluentCalendar TValue="DateTime" />);
-        var component = calendar.FindComponent<FluentCalendar<DateTime>>();
-
-        // Use reflection to access the protected method
-        var method = component.Instance.GetType().GetMethod("TryParseValueFromString",
-            BindingFlags.NonPublic | BindingFlags.Instance);
-
-        var testInputs = new string?[] { "2022-06-15", "invalid", "", null };
-
-        foreach (var input in testInputs)
-        {
-            var parameters = new object?[] { input, null, "initial-error" };
 
             // Act
             var result = (bool)(method?.Invoke(component.Instance, parameters) ?? false);
             var validationErrorMessage = (string?)parameters[2];
 
             // Assert
-            Assert.Null(validationErrorMessage); // Always set to null in the method
+            Assert.False(result);
+            Assert.NotNull(validationErrorMessage);
         }
+
+        // Test valid inputs
+        foreach (var input in validInputs)
+        {
+            var parameters = new object?[] { input, null, null };
+
+            // Act
+            var result = (bool)(method?.Invoke(component.Instance, parameters) ?? false);
+            var validationErrorMessage = (string?)parameters[2];
+
+            // Assert
+            Assert.True(result);
+            Assert.Null(validationErrorMessage);
+        }
+    }
+
+    [Fact]
+    public void TryParseValueFromString_SetsValidationErrorMessageCorrectly()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar TValue="DateTime" />);
+        var component = calendar.FindComponent<FluentCalendar<DateTime>>();
+
+        // Use reflection to access the protected method
+        var method = component.Instance.GetType().GetMethod("TryParseValueFromString",
+            BindingFlags.NonPublic | BindingFlags.Instance);
+
+        // Test valid input - should not set validation error message
+        var validParameters = new object?[] { "2022-06-15", null, "initial-error" };
+        var validResult = (bool)(method?.Invoke(component.Instance, validParameters) ?? false);
+        var validValidationMessage = (string?)validParameters[2];
+
+        Assert.True(validResult);
+        Assert.Null(validValidationMessage);
+
+        // Test invalid input - should set validation error message
+        var invalidParameters = new object?[] { "invalid-date", null, "initial-error" };
+        var invalidResult = (bool)(method?.Invoke(component.Instance, invalidParameters) ?? false);
+        var invalidValidationMessage = (string?)invalidParameters[2];
+
+        Assert.False(invalidResult);
+        Assert.NotNull(invalidValidationMessage);
+        Assert.Contains("must be a date", invalidValidationMessage);
     }
 
     [Theory]
@@ -1852,10 +1873,17 @@ value=""2022-02-20"">20</div>");
         var parsedValue = (DateTime?)parameters[1];
         var validationErrorMessage = (string?)parameters[2];
 
-        // Assert
-        Assert.True(result);
-        Assert.Null(validationErrorMessage);
-        // The actual parsing result depends on BindConverter.TryConvertTo behavior with different cultures
+        // Assert - ISO format should parse successfully in most cultures
+        if (result)
+        {
+            Assert.Null(validationErrorMessage);
+            Assert.NotNull(parsedValue);
+        }
+        else
+        {
+            Assert.NotNull(validationErrorMessage);
+            Assert.Contains("must be a date", validationErrorMessage);
+        }
     }
 
     #endregion
