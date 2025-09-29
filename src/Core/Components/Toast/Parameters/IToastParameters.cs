@@ -10,8 +10,11 @@ public interface IToastParameters
 {
     string? Id { get; set; }
     ToastIntent Intent { get; set; }
-    (Icon Value, Color Color)? Icon { get; set; }
     string? Title { get; set; }
+
+    (Icon Value, Color Color)? Icon { get; set; }
+    string? Style { get; set; }
+    string? Class { get; set; }
 
     ToastTopCTAType TopCTAType { get; set; }
     string? TopAction { get; set; }
