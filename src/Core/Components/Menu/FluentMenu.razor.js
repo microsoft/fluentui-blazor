@@ -34,11 +34,11 @@ export function isChecked(menuItemId) {
 
 const menuState = new Map();
 
-export async function initialize(anchorId, menuId, anchoredRegionModule, dotNetHelper) {
+export async function initialize(anchorId, menuId, menuOpen, anchoredRegionModule, dotNetHelper) {
     // Dispose existing listeners if any
     dispose(anchorId);
 
-    if (!menuId) {
+    if (!menuId || !menuOpen) {
         return;
     }
 

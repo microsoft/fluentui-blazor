@@ -241,7 +241,9 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
 
         if (_jsModule is not null)
         {
-            await _jsModule.InvokeVoidAsync("initialize", Anchor, Open ? Id : null, _anchoredRegionModule, _dotNetHelper);
+            // Initialization should happen on each render, as the menu itself will not
+            // be rendered until Open is true. Thus, we may not have anything to attach to immediately.
+            await _jsModule.InvokeVoidAsync("initialize", Anchor, Id, Open, _anchoredRegionModule, _dotNetHelper);
         }
 
         await base.OnAfterRenderAsync(firstRender);
@@ -314,13 +316,6 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
 
         StateHasChanged();
 
-    }
-
-    [JSInvokable]
-    public Task CloseMenuAsync()
-    {
-        Open = false;
-        return InvokeAsync(StateHasChanged);
     }
 
     internal void Register(FluentMenuItem item)
