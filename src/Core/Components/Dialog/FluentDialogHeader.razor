@@ -11,7 +11,7 @@
         <div style="width: 100%;" tabindex="@TabIndex">
             @if (@ChildContent == null && Dialog.Instance?.Parameters?.ShowTitle == true)
             {
-                <FluentLabel Typo="Typography.PaneHeader">@Dialog.Instance?.Parameters?.Title</FluentLabel>
+                <FluentLabel Typo="@(Dialog.Instance?.Parameters?.TitleTypo ?? Typography.PaneHeader)">@Dialog.Instance?.Parameters?.Title</FluentLabel>
             }
             else
             {

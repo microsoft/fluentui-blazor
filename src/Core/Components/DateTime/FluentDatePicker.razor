@@ -2,46 +2,47 @@
 @inherits FluentCalendarBase
 
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
-<FluentTextField Id="@Id"
-                 Embedded="true"
-                 Class="@ClassValue"
-                 Style="@StyleValue"
-                 AutoComplete="off"
-                 Autofocus="@Autofocus"
-                 Appearance="@Appearance"
-                 @bind-Value="@CurrentValueAsString"
-                 @onclick="@OnCalendarOpenHandlerAsync"
-                 @ondblclick="@OnDoubleClickHandlerAsync"
-                 @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnCalendarOpenHandlerAsync))"
-                 ReadOnly="@ReadOnly"
-                 Disabled="@Disabled"
-                 Required="@Required"
-                 Placeholder="@(Placeholder ?? PlaceholderAccordingToView())"
-                 Name="@Name"
-                 @attributes="@AdditionalAttributes">
-    @((MarkupString)CalendarIcon)
+<FluentTextField @ref="TextField"
+				 Id="@Id"
+				 Embedded="true"
+				 Class="@ClassValue"
+				 Style="@StyleValue"
+				 AutoComplete="off"
+				 Autofocus="@Autofocus"
+				 Appearance="@Appearance"
+				 @bind-Value="@CurrentValueAsString"
+				 @onclick="@OnCalendarOpenHandlerAsync"
+				 @ondblclick="@OnDoubleClickHandlerAsync"
+				 @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnCalendarOpenHandlerAsync))"
+				 ReadOnly="@ReadOnly"
+				 Disabled="@Disabled"
+				 Required="@Required"
+				 Placeholder="@(Placeholder ?? PlaceholderAccordingToView())"
+				 Name="@Name"
+				 @attributes="@AdditionalAttributes">
+	@((MarkupString)CalendarIcon)
 </FluentTextField>
 
 @if (Opened)
 {
-    <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" Interactive="true" InteractiveExceptId="@PopupId" />
-    <FluentAnchoredRegion Anchor="@Id"
-                          Id="@PopupId"
-                          HorizontalDefaultPosition="@(PopupHorizontalPosition ?? (System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? HorizontalPosition.Left : HorizontalPosition.Right))"
-                          HorizontalInset="true"
-                          VerticalDefaultPosition="@VerticalPosition.Unset"
-                          Shadow="ElevationShadow.Flyout"
-                          Class="fluent-datepicker-popup"
-                          Style="@($"z-index: {ZIndex.DatePickerPopup}; border-radius: calc(var(--control-corner-radius) * 1px); padding: 12px;")">
-        <FluentCalendar Culture="@Culture"
-                        View="@View"
-                        DayFormat="@DayFormat"
-                        DisabledDateFunc="@DisabledDateFunc"
-                        DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
-                        DisabledSelectable="@DisabledSelectable"
-                        Value="@Value"
-                        ValueChanged="@OnSelectedDateAsync"
-                        DaysTemplate="@DaysTemplate"
-                        PickerMonthChanged="@PickerMonthChanged" />
-    </FluentAnchoredRegion>
+	<FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" Interactive="true" InteractiveExceptId="@PopupId" />
+	<FluentAnchoredRegion Anchor="@Id"
+						  Id="@PopupId"
+						  HorizontalDefaultPosition="@(PopupHorizontalPosition ?? (System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? HorizontalPosition.Left : HorizontalPosition.Right))"
+						  HorizontalInset="true"
+						  VerticalDefaultPosition="@VerticalPosition.Unset"
+						  Shadow="ElevationShadow.Flyout"
+						  Class="fluent-datepicker-popup"
+						  Style="@($"z-index: {ZIndex.DatePickerPopup}; border-radius: calc(var(--control-corner-radius) * 1px); padding: 12px;")">
+		<FluentCalendar Culture="@Culture"
+						View="@View"
+						DayFormat="@DayFormat"
+						DisabledDateFunc="@DisabledDateFunc"
+						DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
+						DisabledSelectable="@DisabledSelectable"
+						Value="@Value"
+						ValueChanged="@OnSelectedDateAsync"
+						DaysTemplate="@DaysTemplate"
+						PickerMonthChanged="@PickerMonthChanged" />
+	</FluentAnchoredRegion>
 }

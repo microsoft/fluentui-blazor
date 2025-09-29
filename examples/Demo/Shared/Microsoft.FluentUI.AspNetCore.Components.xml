@@ -3050,6 +3050,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PopupId">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.TextField">
+            <summary>
+            Holds the reference to the internal <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTextField"/> component.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Appearance">
             <summary>
             Gets or sets the design of this input.
@@ -3767,6 +3772,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Title">
             <summary>
             Gets or sets the title of the dialog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.TitleTypo">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Typography"/> style for the title text.
+            Defaults to <see cref="F:Microsoft.FluentUI.AspNetCore.Components.Typography.PaneHeader"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Modal">
@@ -6292,6 +6303,11 @@
             Called whenever the selection changed.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOption`1.Title">
+            <summary>
+            Gets or sets the title tooltip of this option.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOption`1.OnClickHandlerAsync">
             <summary />
         </member>
@@ -6475,6 +6491,12 @@
             Gets or sets the function used to determine if an option is initially selected.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.OptionTitle">
+            <summary>
+            Gets or sets the function used to determine the option tooltip (title).
+            If null is returned, then no title is displayed.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.OptionComparer">
             <summary>
             Gets or sets the <see cref="T:System.Collections.Generic.IEqualityComparer`1"/> used to determine if an option is already added to the internal list.
@@ -6556,6 +6578,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.GetOptionValue(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.GetOptionTitle(`0)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.GetOptionText(`0)">

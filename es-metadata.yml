@@ -1,0 +1,8 @@
+schemaVersion: 0.0.1
+isProduction: true
+accountableOwners:
+  service: f69df73d-84a2-4b0a-81e3-0a1b8b20ed39
+routing:
+  defaultAreaPath:
+    org: msazure
+    path: CCI\PVA\FluentUI Blazor Experience

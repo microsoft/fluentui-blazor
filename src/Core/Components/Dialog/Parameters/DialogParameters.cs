@@ -40,6 +40,12 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public string? Title { get; set; }
 
     /// <summary>
+    /// Gets or sets the <see cref="Typography"/> style for the title text.
+    /// Defaults to <see cref="Typography.PaneHeader"/>.
+    /// </summary>
+    public Typography TitleTypo { get; set; } = Typography.PaneHeader;
+
+    /// <summary>
     /// Determines if the dialog is modal. Defaults to true.
     /// Obscures the area around the dialog.
     /// </summary>
