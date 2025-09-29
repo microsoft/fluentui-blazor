@@ -26,6 +26,7 @@ public partial class FluentToast : FluentComponentBase, IDisposable
         _parameters = Instance.Parameters;
 
         Class = new CssBuilder("fluent-toast").AddClass(_parameters.Class).Build();
+        Style = new StyleBuilder(_parameters.Style).Build();
 
         ToastContext!.Register(this);
 
