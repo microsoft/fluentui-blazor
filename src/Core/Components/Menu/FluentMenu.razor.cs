@@ -16,6 +16,7 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js";
     private const string ANCHORED_REGION_JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js";
 
+    private bool _reinitializeEventListeners = false;
     private bool _opened = false;
     private DotNetObjectReference<FluentMenu>? _dotNetHelper = null;
 
@@ -101,6 +102,7 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
             if (_opened != value)
             {
                 _opened = value;
+                _reinitializeEventListeners = true;
                 if (DrawMenuWithService)
                 {
                     UpdateMenuProviderAsync().ConfigureAwait(true);
@@ -237,13 +239,21 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
                     }
                 }
             }
-        }
 
-        if (_jsModule is not null)
+            if (_jsModule is not null)
+            {
+                await _jsModule.InvokeVoidAsync("initialize", Anchor, Id, Open, _anchoredRegionModule, _dotNetHelper);
+            }
+        }
+        else
         {
-            // Initialization should happen on each render, as the menu itself will not
-            // be rendered until Open is true. Thus, we may not have anything to attach to immediately.
-            await _jsModule.InvokeVoidAsync("initialize", Anchor, Id, Open, _anchoredRegionModule, _dotNetHelper);
+            if (_jsModule is not null && _reinitializeEventListeners)
+            {
+                // If the menu was closed, remove its set event listeners. If it opened (ie if the menu starts out closed),
+                // we should set them now.
+                _reinitializeEventListeners = false;
+                await _jsModule.InvokeVoidAsync("initialize", Anchor, Id, Open, _anchoredRegionModule, _dotNetHelper);
+            }
         }
 
         await base.OnAfterRenderAsync(firstRender);
