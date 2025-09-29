@@ -366,7 +366,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// means that the browser will scroll the element into view after focusing it.
     /// If preventScroll is set to true, no scrolling will occur.</param>
     [SuppressMessage("Style", "VSTHRD200:Use `Async` suffix for async methods", Justification = "#vNext: To update in the next version")]
-    public async void FocusAsync(bool preventScroll)
+    public virtual async void FocusAsync(bool preventScroll)
     {
         await Element!.FocusAsync(preventScroll);
     }

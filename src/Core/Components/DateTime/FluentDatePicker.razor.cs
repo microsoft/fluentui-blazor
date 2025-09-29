@@ -163,4 +163,9 @@ public partial class FluentDatePicker : FluentCalendarBase
     {
         TextField?.FocusAsync();
     }
+
+    public override void FocusAsync(bool preventScroll)
+    {
+        TextField?.FocusAsync(preventScroll);
+    }
 }
