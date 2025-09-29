@@ -13,8 +13,8 @@ public interface IToastParameters
     string? Title { get; set; }
 
     (Icon Value, Color Color)? Icon { get; set; }
-    public string? Style { get; set; }
-    public string? Class { get; set; }
+    string? Style { get; set; }
+    string? Class { get; set; }
 
     ToastTopCTAType TopCTAType { get; set; }
     string? TopAction { get; set; }
