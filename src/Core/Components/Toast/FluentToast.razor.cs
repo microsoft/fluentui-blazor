@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -23,6 +24,10 @@ public partial class FluentToast : FluentComponentBase, IDisposable
     protected override async Task OnInitializedAsync()
     {
         _parameters = Instance.Parameters;
+
+        Class = new CssBuilder("fluent-toast").AddClass(_parameters.Class).Build();
+        Style = new StyleBuilder(_parameters.Style).Build();
+
         ToastContext!.Register(this);
 
         if (_parameters.Timeout.HasValue && _parameters.Timeout == 0)
