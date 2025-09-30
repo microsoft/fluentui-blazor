@@ -1887,4 +1887,34 @@ value=""2022-02-20"">20</div>");
     }
 
     #endregion
+
+    #region FluentCalendarBase Constructor Validation Tests
+
+    /// <summary>
+    /// Test classes that inherit from FluentCalendarBase to test constructor validation
+    /// </summary>
+    private class TestFluentCalendarBaseString : FluentCalendarBase<string>
+    {
+        public TestFluentCalendarBaseString(LibraryConfiguration configuration) : base(configuration)
+        {
+        }
+    }
+
+    [Fact]
+    public void FluentCalendarBase_Constructor_WithInvalidStringType_ThrowsInvalidOperationException()
+    {
+        // Arrange
+        var libraryConfiguration = Services.GetRequiredService<LibraryConfiguration>();
+
+        // Act & Assert
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+        {
+            new TestFluentCalendarBaseString(libraryConfiguration);
+        });
+
+        Assert.Contains("The type parameter System.String is not supported", exception.Message);
+        Assert.Contains("Supported types are DateTime, DateTime?, DateOnly, and DateOnly?", exception.Message);
+    }
+
+    #endregion
 }
