@@ -45,10 +45,13 @@ public class CalendarTValueTests
     }
 
     [Theory]
-    [InlineData("2023-10-26 14:30:00", typeof(DateTime), "2023-10-26 14:30:00")]
-    [InlineData("2023-10-26 00:00:00", typeof(DateOnly), "2023-10-26 00:00:00")]
-    [InlineData("2023-10-26 14:30:00", typeof(DateTimeOffset), "2023-10-26 14:30:00")]
-    public void ConvertToDateTime_ValidValues_ReturnsCorrectDateTime(string inputDate, Type inputType, string expectedDate)
+    [InlineData("2023-10-26 14:30:00", typeof(DateTime), true, "2023-10-26 14:30:00")]
+    [InlineData("2023-10-26 00:00:00", typeof(DateOnly), true, "2023-10-26 00:00:00")]
+    [InlineData("2023-10-26 14:30:00", typeof(DateTimeOffset), true, "2023-10-26 14:30:00")]
+    [InlineData("2023-10-26 14:30:00", typeof(DateTime), false, "2023-10-26 14:30:00")]
+    [InlineData("2023-10-26 00:00:00", typeof(DateOnly), false, "2023-10-26 00:00:00")]
+    [InlineData("2023-10-26 14:30:00", typeof(DateTimeOffset), false, "2023-10-26 14:30:00")]
+    public void ConvertToDateTime_ValidValues_ReturnsCorrectDateTime(string inputDate, Type inputType, bool isNullOrDefault, string expectedDate)
     {
         // Arrange
         var expectedDateTime = DateTime.Parse(expectedDate, CultureInfo.InvariantCulture);
@@ -63,9 +66,9 @@ public class CalendarTValueTests
         // Act
         var result = inputType switch
         {
-            Type t when t == typeof(DateTime) => ((DateTime)inputValue).ConvertToDateTime(),
-            Type t when t == typeof(DateOnly) => ((DateOnly)inputValue).ConvertToDateTime(),
-            Type t when t == typeof(DateTimeOffset) => ((DateTimeOffset)inputValue).ConvertToDateTime(),
+            Type t when t == typeof(DateTime) => ((DateTime)inputValue).ConvertToDateTime(isNullOrDefault),
+            Type t when t == typeof(DateOnly) => ((DateOnly)inputValue).ConvertToDateTime(isNullOrDefault),
+            Type t when t == typeof(DateTimeOffset) => ((DateTimeOffset)inputValue).ConvertToDateTime(isNullOrDefault),
             _ => throw new ArgumentException($"Unsupported type: {inputType}")
         };
 
@@ -74,30 +77,35 @@ public class CalendarTValueTests
     }
 
     [Theory]
-    [InlineData(typeof(DateTime?))]
-    [InlineData(typeof(DateOnly?))]
-    [InlineData(typeof(DateTimeOffset?))]
-    public void ConvertToDateTime_NullValues_ReturnsNull(Type nullableType)
+    [InlineData(typeof(DateTime?), true, null)]
+    [InlineData(typeof(DateOnly?), true, null)]
+    [InlineData(typeof(DateTimeOffset?), true, null)]
+    [InlineData(typeof(DateTime?), false, null)]
+    [InlineData(typeof(DateOnly?), false, null)]
+    [InlineData(typeof(DateTimeOffset?), false, null)]
+    [InlineData(typeof(DateTime), false, "0001-01-01")]
+    [InlineData(typeof(DateOnly), false, "0001-01-01")]
+    [InlineData(typeof(DateTimeOffset), false, "0001-01-01")]
+    [InlineData(typeof(int), true, null)]
+    [InlineData(typeof(int), false, null)]
+    public void ConvertToDateTime_NullValues_ReturnsNull(Type nullableType, bool isNullOrDefault, string? expectedDateTimeString)
     {
-        // Act & Assert
-        if (nullableType == typeof(DateTime?))
+        DateTime? expectedDateTime = expectedDateTimeString != null ? DateTime.Parse(expectedDateTimeString, CultureInfo.InvariantCulture) : null;
+
+        // Arrange & Act
+        var result = nullableType switch
         {
-            DateTime? nullDateTime = null;
-            var result = nullDateTime.ConvertToDateTime();
-            Assert.Null(result);
-        }
-        else if (nullableType == typeof(DateOnly?))
-        {
-            DateOnly? nullDateOnly = null;
-            var result = nullDateOnly.ConvertToDateTime();
-            Assert.Null(result);
-        }
-        else if (nullableType == typeof(DateTimeOffset?))
-        {
-            DateTimeOffset? nullDateTimeOffset = null;
-            var result = nullDateTimeOffset.ConvertToDateTime();
-            Assert.Null(result);
-        }
+            Type t when t == typeof(DateTime?) => ((DateTime?)null).ConvertToDateTime(isNullOrDefault),
+            Type t when t == typeof(DateOnly?) => ((DateOnly?)null).ConvertToDateTime(isNullOrDefault),
+            Type t when t == typeof(DateTimeOffset?) => ((DateTimeOffset?)null).ConvertToDateTime(isNullOrDefault),
+            Type t when t == typeof(DateTime) => DateTime.MinValue.ConvertToDateTime(isNullOrDefault),
+            Type t when t == typeof(DateOnly) => DateOnly.MinValue.ConvertToDateTime(isNullOrDefault),
+            Type t when t == typeof(DateTimeOffset) => DateTimeOffset.MinValue.ConvertToDateTime(isNullOrDefault),
+            _ => 0.ConvertToDateTime(isNullOrDefault)
+        };
+
+        // Assert
+        Assert.Equal(expectedDateTime, result);
     }
 
     [Theory]

@@ -98,14 +98,6 @@ internal static class CalendarTValue
     public static bool IsNotNull<TValue>(this TValue? value) => !IsNullOrDefault(value);
 
     /// <summary>
-    /// Determines whether two values are equal.
-    /// </summary>
-    public static bool IsEquals<TValue>(this TValue? value1, TValue? value2)
-    {
-        return EqualityComparer<TValue>.Default.Equals(value1, value2);
-    }
-
-    /// <summary>
     /// Returns the DateTime resulting from adding the given number of
     /// months to the specified DateTime.
     /// </summary>
