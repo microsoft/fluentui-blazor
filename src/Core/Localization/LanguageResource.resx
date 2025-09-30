@@ -300,6 +300,9 @@
   <data name="DatePicker_ButtonTitle" xml:space="preserve">
     <value>Show date picker</value>
   </data>
+  <data name="DataGrid_EmptyContent" xml:space="preserve">
+    <value>No data to show.</value>
+  </data>
   <data name="Calendar_FieldMustBeADate" xml:space="preserve">
     <value>The {0} field must be a date.</value>
   </data>

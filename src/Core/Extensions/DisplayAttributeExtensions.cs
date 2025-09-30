@@ -18,7 +18,7 @@ internal static class DisplayAttributeExtensions
     /// <returns></returns>
     [SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
                    Justification = "In the context of the Enum, the 'Display' attribute will not be trimmed.")]
-    public static string? GetDisplayAttributeString([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] this Type itemType, string propertyName)
+    public static string? GetDisplayAttributeString([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] this Type itemType, string propertyName)
     {
         var propertyInfo = itemType.GetProperty(propertyName);
 
