@@ -15,8 +15,10 @@
 
 <blockquote>
     <p>
-        <strong>Note:</strong> When <code>multiple=true</code> the select list is always shown expanded.
-    </p>
+        <strong>Note:</strong> When <code>multiple=true</code> the select list is always shown expanded. <br/>
+        Also when using custom types without overriding <code>ToString()</code>, selection may not work as intended. <br/>
+		Please supply <code>OptionText</code> or <code>OptionValue</code> parameter , or override <code>ToString()</code> in your type to resolve this.
+	</p>
 </blockquote>
 
 <h2 id="example">Examples</h2>

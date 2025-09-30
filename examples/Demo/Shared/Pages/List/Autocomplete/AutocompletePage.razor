@@ -12,6 +12,13 @@
     Some functionalities, such as error messages, the requirement message or the validation messages are missing.
 </blockquote>
 
+<blockquote>
+	<p>
+		<strong>Note:</strong> When using custom types without overriding <code>ToString()</code>, selection may not work as intended. <br/>
+		Please supply <code>OptionText</code> or <code>OptionValue</code> parameter , or override <code>ToString()</code> in your type to resolve this.
+	</p>
+</blockquote>
+
 <h2 id="example">Examples</h2>
 
 <DemoSection Title="Default" Component="@typeof(AutocompleteDefault)" />
