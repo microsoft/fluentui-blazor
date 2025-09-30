@@ -95,15 +95,19 @@ else
                     HorizontalGap="12px"
                     Style="font-size: smaller;">
 
-        Version: @AppVersion.Version
+        <div>
+			Version: @AppVersion.Version
+		</div>
 
         <FluentSpacer />
-        <a href="https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core" target="_blank">
+		<a href="https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core" target="_blank" hidden-when="xs">
             Powered by @AppVersion.FrameworkDescription
         </a>
         <FluentSpacer />
 
-        &copy; Microsoft @AppVersion.CurrentYear. All rights reserved.
+		<div hidden-when="xs">
+			&copy; Microsoft @AppVersion.CurrentYear. All rights reserved.
+		</div>
     </FluentStack>
 </FluentLayoutItem>
 
