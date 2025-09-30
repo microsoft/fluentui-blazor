@@ -775,9 +775,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // (2) We won't know what slice of data to query for
             await _virtualizeComponent.RefreshDataAsync();
             _pendingDataLoadCancellationTokenSource = null;
-
-            StateHasChanged();
-            return;
         }
 
         // If we're not using Virtualize, we build and execute a request against the items provider directly
