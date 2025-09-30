@@ -38,7 +38,7 @@ public static partial class IconsExtensions
 
             // Ex. Microsoft.FluentUI.AspNetCore.Components.Icons.Filled.Size10+PresenceAvailable
             var iconFullName = $"{Namespace}.Icons.{icon.Variant}.Size{(int)icon.Size}+{icon.Name}";
-            var iconType = allIcons.FirstOrDefault(i => i.FullName == iconFullName);
+            var iconType = allIcons.FirstOrDefault(i => string.Equals(i.FullName, iconFullName, StringComparison.InvariantCultureIgnoreCase));
 
             if (iconType != null)
             {
