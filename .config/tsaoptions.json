@@ -1,6 +1,6 @@
 {
     "areaPath": "CCI\\PVA\\FluentUI Blazor Experience",
-    "codebaseName": "fluentui-blazor",
+    "codebaseName": "fluentui-blazor-cci",
     "instanceUrl": "https://msazure.visualstudio.com/",
     "notificationAliases": [
       "fluentui-blazor@microsoft.com"
