@@ -151,6 +151,13 @@ extends:
             version: 9.0.x
             includePreviewVersions: false
 
+        # Install .NET 10.0
+        - task: UseDotNet@2
+          displayName: 'Install .NET 10.0'
+          inputs:
+            version: 10.0.x
+            includePreviewVersions: true
+
         # Set version number (exclude some folders)
         - task: PowerShell@2
           displayName: 'Versioning $(Build.BuildNumber)'
