@@ -43,8 +43,8 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
    * @returns
    */
   export function isDarkMode(): boolean {
-    const luminance: string = getComputedStyle(document.documentElement).getPropertyValue('--base-layer-luminance');
-    return parseFloat(luminance) < 0.5;
+    const bodyTheme = document.body.getAttribute('data-theme');
+    return bodyTheme === 'dark';
   }
 
   /**
@@ -61,6 +61,41 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   export function setDarkTheme(): void {
     setTheme(webDarkTheme);
     updateBodyTag(true);
+  }
+
+  /**
+   * Switches the FluentUI theme between light and dark mode.
+   * And returns true if the new theme is dark mode, false otherwise.
+   */
+  export function switchTheme(): boolean {
+    if (isDarkMode()) {
+      setLightTheme();
+      return false;
+    } else {
+      setDarkTheme();
+      return true;
+    }
+  }
+
+  /**
+   * Sets the FluentUI theme to the default mode based on the body `data-theme` attribute or the browser preference
+   */
+  export function setDefaultTheme(): void {
+    // If the theme is already set by the dev, use it, otherwise try to check browser-prefers scheme
+    const bodyTheme = document.body.getAttribute('data-theme');
+
+    if (bodyTheme === 'dark') {
+      setDarkTheme();
+    }
+    else if (bodyTheme === 'light') {
+      setLightTheme();
+    }
+    else if (isSystemDark()) {
+      setDarkTheme();
+    }
+    else {
+      setLightTheme();
+    }
   }
 
   /**
@@ -112,14 +147,14 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     // Add event listeners for each media query
     getMediaQueries().forEach((mediaQuery) => {
       window.matchMedia(mediaQuery.query).addEventListener('change', media => {
-          if (media.matches) {
-            const bodyTag: HTMLElement = document?.body;
-            if (bodyTag && bodyTag.getAttribute('data-media') !== mediaQuery.id) {
-              bodyTag.setAttribute('data-media', mediaQuery.id);
-              dispatchMediaChanged(bodyTag);
-            }
+        if (media.matches) {
+          const bodyTag: HTMLElement = document?.body;
+          if (bodyTag && bodyTag.getAttribute('data-media') !== mediaQuery.id) {
+            bodyTag.setAttribute('data-media', mediaQuery.id);
+            dispatchMediaChanged(bodyTag);
           }
-        });
+        }
+      });
     });
   }
 

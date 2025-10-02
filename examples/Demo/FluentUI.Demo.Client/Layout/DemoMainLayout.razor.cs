@@ -14,7 +14,6 @@ public partial class DemoMainLayout
     private FluentLayoutHamburger _hamburger = default!;
     private bool _consoleLogOpened;
     private bool _useReboot;
-    private bool _darkTheme;
 
     [Inject]
     public required IJSRuntime JSRuntime { get; set; }
@@ -37,8 +36,7 @@ public partial class DemoMainLayout
 
     private async Task SwitchThemeAsync()
     {
-        _darkTheme = !_darkTheme;
-        await JSRuntime.InvokeVoidAsync(_darkTheme ? "Blazor.theme.setDarkTheme" : "Blazor.theme.setLightTheme");
+        await JSRuntime.InvokeVoidAsync("Blazor.theme.switchTheme");
     }
 
     private void ReloadReboot()
