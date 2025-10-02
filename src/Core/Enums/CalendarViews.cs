@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Defines the view display in a <see cref="FluentCalendar"/> component.
+/// Defines the view display in a <see cref="FluentCalendar{TValue}"/> component.
 /// </summary>
 public enum CalendarViews
 {

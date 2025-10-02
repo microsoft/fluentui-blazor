@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Defines the format of days shown in a <see cref="FluentCalendar"/> component.
+/// Defines the format of days shown in a <see cref="FluentCalendar{TValue}"/> component.
 /// </summary>
 public enum CalendarDayFormat
 {

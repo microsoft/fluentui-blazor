@@ -3,36 +3,44 @@
 // ------------------------------------------------------------------------
 
 using System.Globalization;
+using Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Computes the properties of a day in the calendar, depending on the current culture.
 /// </summary>
-public class FluentCalendarDay
+/// <typeparam name="TValue">The type of value handled by the calendar.</typeparam>
+public class FluentCalendarDay<TValue>
 {
-    private readonly FluentCalendar _calendar;
+    private readonly FluentCalendar<TValue> _calendar;
     private readonly bool _isInDisabledList;
     private readonly bool _isOutsideCurrentMonth;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FluentCalendarDay"/> class.
+    /// Initializes a new instance of the <see cref="FluentCalendarDay{TValue}"/> class.
     /// </summary>
     /// <param name="calendar"></param>
     /// <param name="day"></param>
-    internal FluentCalendarDay(FluentCalendar calendar, DateTime day)
+    internal FluentCalendarDay(FluentCalendar<TValue> calendar, DateTime day)
     {
         _calendar = calendar;
-        Date = day;
+        Date = day.Date.ConvertToTValue<TValue>();
+        DateTime = day.Date;
 
-        _isInDisabledList = calendar.DisabledDateFunc?.Invoke(day) ?? false;
+        _isInDisabledList = calendar.DisabledDateFunc?.Invoke(day.ConvertToTValue<TValue>()) ?? false;
         _isOutsideCurrentMonth = !calendar.CalendarExtended.IsInCurrentMonth(day);
     }
 
     /// <summary>
     /// Current day
     /// </summary>
-    public DateTime Date { get; }
+    internal DateTime DateTime { get; }
+
+    /// <summary>
+    /// Current day converted to TValue
+    /// </summary>
+    public TValue Date { get; }
 
     /// <summary>
     /// Gets a value indicating whether the day is disabled by the user.
@@ -47,22 +55,22 @@ public class FluentCalendarDay
     /// <summary>
     /// Gets a value indicating whether the day is set to Today.
     /// </summary>
-    public bool IsToday => Date == DateTimeProvider.Today && !_isOutsideCurrentMonth;
+    public bool IsToday => DateTime == DateTimeProvider.Today && !_isOutsideCurrentMonth;
 
     /// <summary>
     /// Gets a value indicating whether the day is selected by the user.
     /// </summary>
-    public bool IsSelected => Date.Date == _calendar.Value?.Date;
+    public bool IsSelected => DateTime.Date == _calendar.ValueAsDateTime?.Date;
 
     /// <summary>
-    /// Gets a value indicating whether the day is selected by the user, using <see cref="FluentCalendar.SelectMode"/>.
+    /// Gets a value indicating whether the day is selected by the user, using <see cref="FluentCalendar{TValue}.SelectMode"/>.
     /// </summary>
     public bool IsMultiDaySelected => _calendar.SelectMode != CalendarSelectMode.Single && _calendar.SelectedDates.Contains(Date) && !IsDisabled;
 
     /// <summary>
     /// Gets the name of the day and month in current culture.
     /// </summary>
-    public string Title => _calendar.CalendarExtended.GetCalendarDayWithMonthName(Date);
+    public string Title => _calendar.CalendarExtended.GetCalendarDayWithMonthName(DateTime);
 
     /// <summary>
     /// Gets the number of day of the month in the current Culture.
@@ -71,7 +79,7 @@ public class FluentCalendarDay
     {
         get
         {
-            var day = _calendar.CalendarExtended.GetCalendarDayOfMonth(Date);
+            var day = _calendar.CalendarExtended.GetCalendarDayOfMonth(DateTime);
 
             return _calendar.DayFormat switch
             {
@@ -84,5 +92,5 @@ public class FluentCalendarDay
     /// <summary>
     /// Gets the identifier of the day in the format yyyy-MM-dd.
     /// </summary>
-    public string DayIdentifier => Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+    public string DayIdentifier => DateTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 }

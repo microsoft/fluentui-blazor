@@ -1,8 +1,9 @@
-﻿// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Globalization;
+using Microsoft.FluentUI.AspNetCore.Components.Calendar;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DateTimes.Utilities;

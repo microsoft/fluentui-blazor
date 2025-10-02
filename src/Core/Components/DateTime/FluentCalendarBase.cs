@@ -2,18 +2,33 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Provides a base class for building calendar components.
 /// </summary>
-public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
+/// <typeparam name="TValue">The type of value handled by the calendar. Must be one of: DateTime?, DateTime, DateOnly, or DateOnly?.</typeparam>
+public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
 {
+    /* ************************************************************************************
+     * Dev Note: The TValue cannot be constrained to `where TValue : struct, IComparable`
+     * because it can be either a nullable or non-nullable value type.
+     * So, the CalendarTValue.IsNullOrDefault() extension method returns true if the value is null or equal to the default value (Date.Min).
+     * ************************************************************************************/
+
     /// <summary />
-    protected FluentCalendarBase(LibraryConfiguration configuration) : base(configuration) { }
+    protected FluentCalendarBase(LibraryConfiguration configuration) : base(configuration)
+    {
+        if (typeof(TValue).IsNotDateType())
+        {
+            throw new InvalidOperationException($"The type parameter {typeof(TValue)} is not supported. Supported types are DateTime, DateTime?, DateOnly, and DateOnly?.");
+        }
+    }
 
     /// <summary>
     /// Gets or sets the verification to do when the selected value has changed.
@@ -33,7 +48,7 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     /// Function to know if a specific day must be disabled.
     /// </summary>
     [Parameter]
-    public virtual Func<DateTime, bool>? DisabledDateFunc { get; set; }
+    public virtual Func<TValue, bool>? DisabledDateFunc { get; set; }
 
     /// <summary>
     /// By default, the <see cref="DisabledDateFunc" /> check only the first day of the month and the first day of the year for the Month and Year views.
@@ -56,20 +71,36 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     public CalendarDayFormat? DayFormat { get; set; } = CalendarDayFormat.Numeric;
 
     /// <summary>
-    /// Defines the appearance of the <see cref="FluentCalendar"/> component.
+    /// Defines the appearance of the <see cref="FluentCalendar{TValue}"/> component.
     /// </summary>
     [Parameter]
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
     /// <summary />
-    protected virtual Task OnSelectedDateHandlerAsync(DateTime? value)
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        if (DateTime.TryParse(value, Culture, out var dateTime))
+        {
+            result = dateTime.ConvertToTValue<TValue>();
+            validationErrorMessage = null;
+            return true;
+        }
+
+        result = default!;
+        validationErrorMessage = string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Calendar_FieldMustBeADate], DisplayName ?? FieldIdentifier.FieldName);
+        return false;
+    }
+
+    /// <summary />
+    protected virtual Task OnSelectedDateHandlerAsync(TValue? value)
     {
         if (ReadOnly || Disabled == true)
         {
             return Task.CompletedTask;
         }
 
-        if ((CheckIfSelectedValueHasChanged ?? true) && CurrentValue == value)
+        var dateTime = value.ConvertToDateTime();
+        if ((CheckIfSelectedValueHasChanged ?? true) && CurrentValue.ConvertToDateTime() == dateTime)
         {
             return Task.CompletedTask;
         }

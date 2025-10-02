@@ -307,7 +307,7 @@ dotnet_diagnostic.IDE0029.severity = warning
 dotnet_diagnostic.IDE0030.severity = warning
 
 # IDE0031: Use null propagation
-dotnet_diagnostic.IDE0031.severity = warning
+dotnet_diagnostic.IDE0031.severity = none
 
 # IDE0035: Remove unreachable code
 dotnet_diagnostic.IDE0035.severity = warning

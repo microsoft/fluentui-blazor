@@ -1,4 +1,4 @@
-@using System.Globalization
+﻿@using System.Globalization
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Xunit
 @using Microsoft.FluentUI.AspNetCore.Components
@@ -20,13 +20,13 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS));
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2025, 8, 15);
 
         // Act
-        var calendarMonth = new FluentCalendarMonth(calendar, date);
+        var calendarMonth = new FluentCalendarMonth<DateTime>(calendar, date);
 
         // Assert
         Assert.Equal(new DateTime(2025, 8, 1), calendarMonth.Month);
@@ -38,14 +38,14 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS)
             .Add(p => p.ReadOnly, true));
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2025, 8, 1);
 
         // Act
-        var calendarMonth = new FluentCalendarMonth(calendar, date);
+        var calendarMonth = new FluentCalendarMonth<DateTime>(calendar, date);
 
         // Assert
         Assert.True(calendarMonth.IsReadOnly);
@@ -57,14 +57,14 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS)
             .Add(p => p.DisabledDateFunc, (dt) => dt.Month == 8));
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2025, 8, 1);
 
         // Act
-        var calendarMonth = new FluentCalendarMonth(calendar, date);
+        var calendarMonth = new FluentCalendarMonth<DateTime>(calendar, date);
 
         // Assert
         Assert.True(calendarMonth.IsReadOnly);
@@ -76,14 +76,14 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS)
             .Add(p => p.DisabledDateFunc, (dt) => dt.Month == 8));
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2025, 8, 1);
 
         // Act
-        var calendarMonth = new FluentCalendarMonth(calendar, date);
+        var calendarMonth = new FluentCalendarMonth<DateTime>(calendar, date);
 
         // Assert
         Assert.True(calendarMonth.IsDisabled);
@@ -95,7 +95,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS)
             .Add(p => p.DisabledCheckAllDaysOfMonthYear, true)
             .Add(p => p.DisabledDateFunc, (dt) => dt.Month == 8));
@@ -103,7 +103,7 @@
         var date = new DateTime(2025, 8, 1);
 
         // Act
-        var calendarMonth = new FluentCalendarMonth(calendar, date);
+        var calendarMonth = new FluentCalendarMonth<DateTime>(calendar, date);
 
         // Assert
         Assert.True(calendarMonth.IsDisabled);
@@ -115,14 +115,14 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS)
             .Add(p => p.DisabledDateFunc, (dt) => dt.Month == 9));
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2025, 8, 1);
 
         // Act
-        var calendarMonth = new FluentCalendarMonth(calendar, date);
+        var calendarMonth = new FluentCalendarMonth<DateTime>(calendar, date);
 
         // Assert
         Assert.False(calendarMonth.IsDisabled);
@@ -135,14 +135,14 @@
 
         // Arrange
         var selectedDate = new DateTime(2025, 8, 10);
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS)
             .Add(p => p.Value, selectedDate));
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2025, 8, 1);
 
         // Act
-        var calendarMonth = new FluentCalendarMonth(calendar, date);
+        var calendarMonth = new FluentCalendarMonth<DateTime>(calendar, date);
 
         // Assert
         Assert.True(calendarMonth.IsSelected);
@@ -155,14 +155,14 @@
 
         // Arrange
         var selectedDate = new DateTime(2025, 9, 10);
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS)
             .Add(p => p.Value, selectedDate));
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2025, 8, 1);
 
         // Act
-        var calendarMonth = new FluentCalendarMonth(calendar, date);
+        var calendarMonth = new FluentCalendarMonth<DateTime>(calendar, date);
 
         // Assert
         Assert.False(calendarMonth.IsSelected);
@@ -174,14 +174,14 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime?>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS)
             .Add(p => p.Value, null));
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2025, 8, 1);
 
         // Act
-        var calendarMonth = new FluentCalendarMonth(calendar, date);
+        var calendarMonth = new FluentCalendarMonth<DateTime?>(calendar, date);
 
         // Assert
         Assert.False(calendarMonth.IsSelected);
@@ -193,13 +193,13 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS));
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2025, 8, 1);
 
         // Act
-        var calendarMonth = new FluentCalendarMonth(calendar, date);
+        var calendarMonth = new FluentCalendarMonth<DateTime>(calendar, date);
 
         // Assert
         Assert.Equal("August 2025", calendarMonth.Title);
@@ -211,13 +211,13 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS));
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2025, 8, 1);
 
         // Act
-        var calendarMonth = new FluentCalendarMonth(calendar, date);
+        var calendarMonth = new FluentCalendarMonth<DateTime>(calendar, date);
 
         // Assert
         Assert.Equal("2025-08", calendarMonth.MonthIdentifier);

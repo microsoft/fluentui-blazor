@@ -2,25 +2,24 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
 /// <summary>
 /// Provides titles and navigation-related properties for a calendar,  based on the current view and culture settings.
 /// </summary>
-internal class CalendarTitles
+/// <typeparam name="TValue">The type of value handled by the calendar.</typeparam>
+internal class CalendarTitles<TValue>
 {
-    private readonly FluentCalendar _calendar;
+    private readonly FluentCalendar<TValue> _calendar;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CalendarTitles"/> class.
+    /// Initializes a new instance of the <see cref="CalendarTitles{TValue}"/> class.
     /// </summary>
     /// <param name="calendar"></param>
-    public CalendarTitles(FluentCalendar calendar)
+    public CalendarTitles(FluentCalendar<TValue> calendar)
     {
         _calendar = calendar;
-        CalendarExtended = new CalendarExtended(calendar.Culture, calendar.PickerMonth);
+        CalendarExtended = new CalendarExtended(calendar.Culture, calendar.PickerMonth.ConvertToRequiredDateTime());
         View = calendar.View;
     }
 
@@ -102,7 +101,7 @@ internal class CalendarTitles
     {
         get
         {
-            var minDate = _calendar.Culture.Calendar.MinSupportedDateTime;
+            var minDate = _calendar.Culture.Calendar.MinSupportedDateTime.AddMonths(1);
 
             return View switch
             {

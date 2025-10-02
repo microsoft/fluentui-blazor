@@ -1,6 +1,8 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@inherits FluentCalendarBase
+@using Microsoft.FluentUI.AspNetCore.Components.Calendar
+@inherits FluentCalendarBase<TValue>
+@typeparam TValue
 
 <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
     <div id="@Id"
@@ -169,8 +171,9 @@
 
                 @if (PickerView == CalendarViews.Months)
                 {
-                    <FluentCalendar View="CalendarViews.Months"
-                                    Value="@PickerMonth"
+                    <FluentCalendar TValue="DateTime"
+                                    View="CalendarViews.Months"
+                                    Value="@PickerMonth.ConvertToRequiredDateTime()"
                                     ValueChanged="@PickerMonthSelectAsync"
                                     ReadOnly="@ReadOnly"
                                     Disabled="@Disabled"
@@ -178,14 +181,15 @@
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"
                                     DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
-                                    DisabledDateFunc="@(e => DisabledDateFunc != null ? DisabledDateFunc(e) : false)" />
+                                    DisabledDateFunc="@(e => DisabledDateFunc != null ? DisabledDateFunc(e.ConvertToTValue<TValue>()) : false)" />
                 }
 
 
                 @if (PickerView == CalendarViews.Years)
                 {
-                    <FluentCalendar View="CalendarViews.Years"
-                                    Value="@PickerMonth"
+                    <FluentCalendar TValue="DateTime"
+                                    View="CalendarViews.Years"
+                                    Value="@PickerMonth.ConvertToRequiredDateTime()"
                                     ValueChanged="@PickerYearSelectAsync"
                                     ReadOnly="@ReadOnly"
                                     Disabled="@Disabled"
@@ -193,7 +197,7 @@
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"
                                     DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
-                                    DisabledDateFunc="@(e => DisabledDateFunc != null ? DisabledDateFunc(e) : false)" />
+                                    DisabledDateFunc="@(e => DisabledDateFunc != null ? DisabledDateFunc(e.ConvertToTValue<TValue>()) : false)" />
                 }
             </CascadingValue>
         </CascadingValue>

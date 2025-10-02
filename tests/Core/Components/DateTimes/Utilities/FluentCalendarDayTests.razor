@@ -1,4 +1,4 @@
-@using System.Globalization
+﻿@using System.Globalization
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Xunit
 @using Microsoft.FluentUI.AspNetCore.Components
@@ -20,15 +20,15 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendarComponent = RenderComponent<FluentCalendar>();
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>();
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2024, 7, 31);
 
         // Act
-        var calendarDay = new FluentCalendarDay(calendar, date);
+        var calendarDay = new FluentCalendarDay<DateTime>(calendar, date);
 
         // Assert
-        Assert.Equal(date, calendarDay.Date);
+        Assert.Equal(date, calendarDay.DateTime);
     }
 
     [Theory]
@@ -41,13 +41,13 @@
 
         // Arrange
         var date = new DateTime(2024, 7, 31);
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.DisabledDateFunc, (d) => d == date && isInDisabledList)
             .Add(p => p.DisabledSelectable, disabledSelectable));
         var calendar = calendarComponent.Instance;
 
         // Act
-        var calendarDay = new FluentCalendarDay(calendar, date);
+        var calendarDay = new FluentCalendarDay<DateTime>(calendar, date);
 
         // Assert
         Assert.Equal(expected, calendarDay.IsDisabled);
@@ -63,14 +63,14 @@
 
         // Arrange
         var date = isOutsideMonth ? new DateTime(2024, 8, 1) : new DateTime(2024, 7, 15);
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Value, new DateTime(2024, 7, 10))
             .Add(p => p.DisabledDateFunc, (d) => d == date && isInDisabledList)
             .Add(p => p.DisabledSelectable, false));
         var calendar = calendarComponent.Instance;
 
         // Act
-        var calendarDay = new FluentCalendarDay(calendar, date);
+        var calendarDay = new FluentCalendarDay<DateTime>(calendar, date);
 
         // Assert
         Assert.Equal(expected, calendarDay.IsInactive);
@@ -84,12 +84,12 @@
         // Arrange
         var today = DateTime.Today;
         var notToday = today.AddDays(1);
-        var calendarComponent = RenderComponent<FluentCalendar>();
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>();
         var calendar = calendarComponent.Instance;
 
         // Act
-        var calendarDayToday = new FluentCalendarDay(calendar, today);
-        var calendarDayNotToday = new FluentCalendarDay(calendar, notToday);
+        var calendarDayToday = new FluentCalendarDay<DateTime>(calendar, today);
+        var calendarDayNotToday = new FluentCalendarDay<DateTime>(calendar, notToday);
 
         // Assert
         Assert.True(calendarDayToday.IsToday);
@@ -104,13 +104,13 @@
         // Arrange
         var selectedDate = new DateTime(2024, 7, 31);
         var notSelectedDate = new DateTime(2024, 7, 30);
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Value, selectedDate));
         var calendar = calendarComponent.Instance;
 
         // Act
-        var calendarDaySelected = new FluentCalendarDay(calendar, selectedDate);
-        var calendarDayNotSelected = new FluentCalendarDay(calendar, notSelectedDate);
+        var calendarDaySelected = new FluentCalendarDay<DateTime>(calendar, selectedDate);
+        var calendarDayNotSelected = new FluentCalendarDay<DateTime>(calendar, notSelectedDate);
 
         // Assert
         Assert.True(calendarDaySelected.IsSelected);
@@ -126,15 +126,15 @@
         var selectedDate1 = new DateTime(2024, 7, 20);
         var selectedDate2 = new DateTime(2024, 7, 22);
         var notSelectedDate = new DateTime(2024, 7, 21);
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.SelectMode, CalendarSelectMode.Multiple)
             .Add(p => p.SelectedDates, new List<DateTime> { selectedDate1, selectedDate2 }));
         var calendar = calendarComponent.Instance;
 
         // Act
-        var calendarDaySelected1 = new FluentCalendarDay(calendar, selectedDate1);
-        var calendarDaySelected2 = new FluentCalendarDay(calendar, selectedDate2);
-        var calendarDayNotSelected = new FluentCalendarDay(calendar, notSelectedDate);
+        var calendarDaySelected1 = new FluentCalendarDay<DateTime>(calendar, selectedDate1);
+        var calendarDaySelected2 = new FluentCalendarDay<DateTime>(calendar, selectedDate2);
+        var calendarDayNotSelected = new FluentCalendarDay<DateTime>(calendar, notSelectedDate);
 
         // Assert
         Assert.True(calendarDaySelected1.IsMultiDaySelected);
@@ -149,12 +149,12 @@
 
         // Arrange
         var date = new DateTime(2024, 7, 31);
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS));
         var calendar = calendarComponent.Instance;
 
         // Act
-        var calendarDay = new FluentCalendarDay(calendar, date);
+        var calendarDay = new FluentCalendarDay<DateTime>(calendar, date);
 
         // Assert
         Assert.Equal("July 31", calendarDay.Title);
@@ -169,13 +169,13 @@
 
         // Arrange
         var date = new DateTime(2024, 7, 7);
-        var calendarComponent = RenderComponent<FluentCalendar>(parameters => parameters
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.DayFormat, format)
             .Add(p => p.Culture, Culture_enUS));
         var calendar = calendarComponent.Instance;
 
         // Act
-        var calendarDay = new FluentCalendarDay(calendar, date);
+        var calendarDay = new FluentCalendarDay<DateTime>(calendar, date);
 
         // Assert
         Assert.Equal(expected, calendarDay.DayNumber);
@@ -188,11 +188,11 @@
 
         // Arrange
         var date = new DateTime(2024, 7, 31);
-        var calendarComponent = RenderComponent<FluentCalendar>();
+        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>();
         var calendar = calendarComponent.Instance;
 
         // Act
-        var calendarDay = new FluentCalendarDay(calendar, date);
+        var calendarDay = new FluentCalendarDay<DateTime>(calendar, date);
 
         // Assert
         Assert.Equal("2024-07-31", calendarDay.DayIdentifier);

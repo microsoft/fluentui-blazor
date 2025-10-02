@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using Microsoft.FluentUI.AspNetCore.Components.Calendar;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -9,17 +10,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Computes the properties of a month in the calendar.
 /// </summary>
-internal class FluentCalendarMonth
+/// <typeparam name="TValue">The type of value handled by the calendar.</typeparam>
+internal class FluentCalendarMonth<TValue>
 {
-    private readonly FluentCalendar _calendar;
+    private readonly FluentCalendar<TValue> _calendar;
     private readonly bool _isInDisabledList;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FluentCalendarMonth"/> class.
+    /// Initializes a new instance of the <see cref="FluentCalendarMonth{TValue}"/> class.
     /// </summary>
     /// <param name="calendar"></param>
     /// <param name="month"></param>
-    internal FluentCalendarMonth(FluentCalendar calendar, DateTime month)
+    internal FluentCalendarMonth(FluentCalendar<TValue> calendar, DateTime month)
     {
         _calendar = calendar;
         Month = month.GetDay(_calendar.Culture) == 1 ? month : month.StartOfMonth(_calendar.Culture);
@@ -30,7 +32,7 @@ internal class FluentCalendarMonth
         }
         else
         {
-            _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Month) ?? false;
+            _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Month.ConvertToTValue<TValue>()) ?? false;
         }
     }
 
@@ -52,7 +54,7 @@ internal class FluentCalendarMonth
     /// <summary>
     /// Whether the month is selected by the user
     /// </summary>
-    public bool IsSelected => Month.GetYear(_calendar.Culture) == _calendar.Value?.GetYear(_calendar.Culture) && Month.GetMonth(_calendar.Culture) == _calendar.Value?.GetMonth(_calendar.Culture);
+    public bool IsSelected => Month.GetYear(_calendar.Culture) == _calendar.ValueAsDateTime?.GetYear(_calendar.Culture) && Month.GetMonth(_calendar.Culture) == _calendar.ValueAsDateTime?.GetMonth(_calendar.Culture);
 
     /// <summary>
     /// Gets the title of the month in the format [month] [year].

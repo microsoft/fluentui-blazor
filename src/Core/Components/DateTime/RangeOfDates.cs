@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents a range of dates with a defined start and end, providing functionality to retrieve all dates within the range.
 /// </summary>
-public class RangeOfDates : RangeOf<System.DateTime>
+internal class RangeOfDates : RangeOf<System.DateTime>
 {
     /// <inheritdoc cref="RangeOf{T}"/>
     public RangeOfDates() : base() { }
