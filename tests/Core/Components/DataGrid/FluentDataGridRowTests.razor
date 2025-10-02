@@ -41,6 +41,20 @@
         Assert.NotNull(row.Instance.ChildContent);
     }
 
+	[Fact]
+    public void FluentDataGridRow_Properties_CompileCorrectly()
+    {
+        // This test verifies that our new public properties compile correctly
+        // by checking that they exist and are public using reflection
+
+        var rowType = typeof(FluentDataGridRow<object>);
+
+        // Verify that the Columns property exists on DataGridRow
+        var columnsProperty = rowType.GetProperty("Columns");
+        Assert.NotNull(columnsProperty);
+        Assert.True(columnsProperty.CanRead);
+        Assert.True(columnsProperty.GetMethod?.IsPublic);
+    }
 
     [Fact]
     public void FluentDataGridRow_TestNativeHandlers()

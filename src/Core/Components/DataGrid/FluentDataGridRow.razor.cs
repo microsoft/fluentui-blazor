@@ -87,6 +87,11 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
     /// <summary>
+    /// Gets the columns associated with this data grid row.
+    /// </summary>
+    public IReadOnlyList<ColumnBase<TGridItem>> Columns => Grid._columns;
+
+    /// <summary>
     /// Sets the RowIndex for this row.
     /// </summary>
     public void SetRowIndex(int rowIndex)
