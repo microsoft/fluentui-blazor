@@ -42,18 +42,11 @@
                 Click on upper right clipboard emoji in a card to copy a ready to paste <code>FluentEmoji</code>
                 component declaration to the clipboard.
             </FluentLabel>
-
-            <div class="result-list">
-                @foreach (var item in EmojisForCurrentPage)
-                {
-                    <PreviewCard Emoji="@item" />
-                }
-            </div>
-
-            <FluentLabel Class="footer">
-                <FluentPaginator State="@PaginationState"
-                                 CurrentPageIndexChanged="@HandleCurrentPageIndexChanged" />
-            </FluentLabel>
+			<DynamicRowElementVirtualisationList TItem="EmojiInfo" ItemsProvider="EmojisFound.AsQueryable()" Context="item">
+				<ItemTemplate>
+					<PreviewCard Emoji="@item" />
+				</ItemTemplate>
+			</DynamicRowElementVirtualisationList>
         }
         else
         {

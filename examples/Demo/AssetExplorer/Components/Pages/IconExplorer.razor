@@ -64,29 +64,12 @@
                 Click on upper right clipboard icon in a card to copy a ready to paste <code>FluentIcon</code>
                 component declaration to the clipboard.
             </FluentLabel>
-			<div @ref="resultList" class="result-list">
-				<Virtualize Context="item" ItemsProvider="GetRows">
-					<ItemContent>
-						<div>
-							@foreach (var column in item.Icons)
-							{
-								<PreviewCard Icon="@column" IconColor="@Criteria.Color" TopLeftLabel="@(Criteria.Size > 0 ? string.Empty : $"{(int)column.Size}")" />
-							}
-						</div>
-					</ItemContent>
-					<Placeholder>
-						<div>
-							<FluentProgress Style="width: 100%"></FluentProgress>
-						</div>
-					</Placeholder>
-				</Virtualize>
-			</div>
-           
-
-          @*   <FluentLabel Class="footer">
-                <FluentPaginator State="@PaginationState"
-                                 CurrentPageIndexChanged="@HandleCurrentPageIndexChanged" />
-            </FluentLabel> *@
+			
+				<DynamicRowElementVirtualisationList TItem="IconInfo" ItemsProvider="IconsFound.AsQueryable()" Context="item">
+					<ItemTemplate>
+						<PreviewCard Icon="@item" IconColor="@Criteria.Color" TopLeftLabel="@(Criteria.Size > 0 ? string.Empty : $"{(int)item.Size}")" />
+					</ItemTemplate>
+				</DynamicRowElementVirtualisationList>
         }
         else
         {

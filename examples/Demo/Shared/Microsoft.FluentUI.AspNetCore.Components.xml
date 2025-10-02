@@ -5263,7 +5263,7 @@
             </remarks>
             <returns>True if the icon was found and created; otherwise, false.</returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetAllIcons">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetAllIcons(System.String)">
             <summary>
             Returns a new instance of the icon.
             </summary>

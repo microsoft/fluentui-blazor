@@ -1,0 +1,18 @@
+﻿@typeparam TItem
+<div @ref="resultList" class="result-list">
+	<Virtualize Context="row" ItemsProvider="GetRows">
+		<ItemContent>
+			<div>
+				@foreach (var item in row.Items)
+				{
+					@ItemTemplate(item)
+				}
+			</div>
+		</ItemContent>
+		<Placeholder>
+			<div>
+				<FluentProgress Style="width: 100%"></FluentProgress>
+			</div>
+		</Placeholder>
+	</Virtualize>
+</div>

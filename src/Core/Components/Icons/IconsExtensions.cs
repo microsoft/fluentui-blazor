@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Collections.Frozen;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
@@ -74,6 +75,7 @@ public static partial class IconsExtensions
         return result != null;
     }
 
+    private static readonly Dictionary<string, FrozenSet<IconInfo>> _IconsCache = new();
     /// <summary>
     /// Returns a new instance of the icon.
     /// </summary>
@@ -83,39 +85,51 @@ public static partial class IconsExtensions
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="IconInfo.Name"/> is not found in predefined icons.</exception>
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
-    public static IEnumerable<IconInfo> GetAllIcons(string assemblyName)
+    public static FrozenSet<IconInfo> GetAllIcons(string assemblyName)
     {
+        if(_IconsCache.ContainsKey(assemblyName))
+        {
+            return _IconsCache[assemblyName];
+        }
         var assembly = GetAssembly(assemblyName);
         if (assembly is null)
         {
-            return Array.Empty<IconInfo>();
+            return Array.Empty<IconInfo>().ToFrozenSet();
         }
         var allTypes = assembly.GetTypes()
                                .Where(i => i.BaseType == typeof(Icon)
                                         && i.Name != nameof(CustomIcon));
-
-        return allTypes.Select(type => Activator.CreateInstance(type) as IconInfo ?? new IconInfo());
+        var frozenInfos = allTypes.Select(type => Activator.CreateInstance(type) as IconInfo ?? new IconInfo()).ToFrozenSet();
+        _IconsCache.Add(assemblyName, frozenInfos);
+        return frozenInfos;
     }
 
+    private static FrozenSet<IconInfo> _allIcons = null!;
     /// <summary />
-    public static IEnumerable<IconInfo> AllIcons
+    public static FrozenSet<IconInfo> AllIcons
     {
         get
         {
+            if(_allIcons is not null)
+            {
+                return _allIcons;
+            }
             var allIcons = new List<IconInfo>();
             foreach (var variant in Enum.GetValues(typeof(IconVariant)).Cast<IconVariant>())
             {
                 var assemblyName = string.Format(LibraryName, variant);
                 allIcons.AddRange(GetAllIcons(assemblyName));
             }
-            return allIcons;
+            _allIcons = allIcons.ToFrozenSet();
+            return _allIcons;
         }
     }
 
-    public static IEnumerable<IconInfo> CoreIcons
+    public static FrozenSet<IconInfo> CoreIcons
     {
         get
         {
+            // This is allready fully cached path, so no need to cache again
             return GetAllIcons(CoreIconsLibraryName);
         }
     }

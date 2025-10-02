@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Collections.Frozen;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
@@ -83,12 +84,14 @@ public static partial class EmojiExtensions
         return allIcons;
     }
 
+    private static FrozenSet<EmojiInfo>? _allEmojis = null!;
     /// <summary />
-    public static IEnumerable<EmojiInfo> AllEmojis
+    public static FrozenSet<EmojiInfo> AllEmojis
     {
         get
         {
-            return GetAllEmojis();
+            _allEmojis ??= GetAllEmojis().ToFrozenSet();
+            return _allEmojis;
         }
     }
 
