@@ -13,7 +13,7 @@ The `FluentDatePicker` is an input field that shows a calendar dropdown to selec
 The `FluentTimePicker` allows for picking a specific time of day by selecting hour, minutes and AM/PM
 
 > [!Note] The FluentCalendar and FluentDatePicker components are not yet fully compatible with the EditForm and FluentEditForm elements.
-> Some functionalities, such as error messages, the requirement message or the validation messages are missing.
+> Some functionalities, such as error messages, the required message or the validation messages are missing.
 
 ## Calendar
 
