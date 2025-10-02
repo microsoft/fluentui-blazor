@@ -47,12 +47,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     // Initialize Fluent UI theme
     blazor.theme = ThemeFile.FluentUI.Blazor.Utilities.Theme;
     ThemeFile.FluentUI.Blazor.Utilities.Theme.addMediaQueriesListener();
-    if (blazor.theme.isSystemDark()) {
-      blazor.theme.setDarkTheme();
-    }
-    else {
-      blazor.theme.setLightTheme();
-    }
+    ThemeFile.FluentUI.Blazor.Utilities.Theme.setDefaultTheme();
 
     // Initialize all custom components
     FluentPageScript.registerComponent(blazor, mode);
