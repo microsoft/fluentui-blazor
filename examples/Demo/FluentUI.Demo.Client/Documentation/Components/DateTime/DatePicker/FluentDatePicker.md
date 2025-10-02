@@ -62,7 +62,7 @@ In this case, the mobile picker will be used. This could be useful to use the na
 
 The **FluentCalendar** and **FluentDatePicker** components are a generic components, so you can use it with date types such as `DateTime?`, `DateTime`, `DateOnly?` or `DateOnly`.  
 Blazor will automatically infer the type based on the value you provide to the `Value` or `SelectedDates` parameters.  
-You can also explicitly set the type using the generic type parameter: `TValue=“DateOnly?”`.
+You can also explicitly set the type using the generic type parameter: `TValue` (i.e. `TValue="DateOnly?"`).
 
 {{ CalendarTypes }}
 
