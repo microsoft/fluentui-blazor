@@ -894,7 +894,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             if (ItemsProvider is not null)
             {
-                return await ItemsProvider(request);
+                var gipr = await ItemsProvider(request);
+                if (gipr.Items is not null && Loading is null)
+                {
+                    Loading = false;
+                    StateHasChanged();
+                }
+                return gipr;
             }
             else if (Items is not null)
             {
@@ -931,13 +937,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
         finally
         {
-            if (Loading == true)
+            if (Items is not null && _asyncQueryExecutor is not null)
             {
-                Loading = false;
-                StateHasChanged();
-            }
-            if (_asyncQueryExecutor is not null)
-            {
+                if (Loading == true)
+                {
+                    Loading = false;
+                    StateHasChanged();
+                }
                 await OnItemsLoading.InvokeAsync(false);
             }
         }
