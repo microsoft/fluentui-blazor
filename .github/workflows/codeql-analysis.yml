@@ -41,8 +41,8 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
-        dotnet-quality: ga
+        dotnet-version: 10.0.x
+        dotnet-quality: preview
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
