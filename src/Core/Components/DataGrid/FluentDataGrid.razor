@@ -40,7 +40,11 @@
                 </thead>
             }
             <tbody>
-                @if (EffectiveLoadingValue)
+                @if (_lastError != null)
+                {
+                    @_renderErrorContent
+                }
+                else if (EffectiveLoadingValue)
                 {
                     @_renderLoadingContent
                 }
@@ -48,11 +52,7 @@
                 {
                     @if (Virtualize)
                     {
-                        if (_lastError != null)
-                        {
-                            @_renderErrorContent
-                        }
-                        else if (_internalGridContext.TotalItemCount == 0)
+                        if (_internalGridContext.TotalItemCount == 0)
                         {
                             @_renderEmptyContent
                         }
