@@ -282,7 +282,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public RenderFragment? LoadingContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback that is invoked when the asynchronous loading state of items changes.
+    /// Gets or sets the callback that is invoked when the asynchronous loading state of items changes and <see cref="IAsyncQueryExecutor"/> is used.
     /// </summary>
     /// <remarks>The callback receives a <see langword="true"/> value when items start loading
     /// and a <see langword="false"/> value when the loading process completes.</remarks>
@@ -884,32 +884,20 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Normalizes all the different ways of configuring a data source so they have common GridItemsProvider-shaped API
     private async ValueTask<GridItemsProviderResult<TGridItem>> ResolveItemsRequestAsync(GridItemsProviderRequest<TGridItem> request)
     {
+        if (_lastError != null)
+        {
+            _lastError = null;
+            StateHasChanged();
+        }
+
         try
         {
             if (ItemsProvider is not null)
             {
-                if (_lastError != null)
-                {
-                    _lastError = null;
-                    StateHasChanged();
-                }
-                var gipr = await ItemsProvider(request);
-                if (gipr.Items is not null && Loading is null)
-                {
-                    Loading = false;
-                    StateHasChanged();
-                }
-                return gipr;
+                return await ItemsProvider(request);
             }
             else if (Items is not null)
             {
-
-                if (_internalGridContext.Items.Count == 0 || _lastError != null)
-                {
-                    _lastError = null;
-                    Loading = _internalGridContext.Items.Count == 0;
-                    StateHasChanged();
-                }
                 if (_asyncQueryExecutor is not null)
                 {
                     await OnItemsLoading.InvokeAsync(true);
@@ -943,15 +931,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
         finally
         {
-            if (Items is not null)
+            if (Loading == true)
             {
                 Loading = false;
-                if (_asyncQueryExecutor is not null)
-                {
-                    await OnItemsLoading.InvokeAsync(false);
-                }
+                StateHasChanged();
+            }
+            if (_asyncQueryExecutor is not null)
+            {
+                await OnItemsLoading.InvokeAsync(false);
             }
         }
+
         return GridItemsProviderResult.From(Array.Empty<TGridItem>(), 0);
     }
 

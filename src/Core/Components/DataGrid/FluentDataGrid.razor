@@ -291,7 +291,7 @@
             <FluentDataGridCell Class="empty-content-cell" Style="@style" colspan="@colspan">
                 @if (ErrorContent is null)
                 {
-                    @(_lastError.Message)
+                    @("An error occurred while retrieving data.")
                 }
                 else
                 {

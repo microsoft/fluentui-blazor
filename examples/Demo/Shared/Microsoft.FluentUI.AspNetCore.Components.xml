@@ -2106,7 +2106,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnItemsLoading">
             <summary>
-            Gets or sets the callback that is invoked when the asynchronous loading state of items changes.
+            Gets or sets the callback that is invoked when the asynchronous loading state of items changes and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure.IAsyncQueryExecutor"/> is used.
             </summary>
             <remarks>The callback receives a <see langword="true"/> value when items start loading
             and a <see langword="false"/> value when the loading process completes.</remarks>
