@@ -23,4 +23,7 @@ public class IconInfo
     /// Gets the variant of the icon: Filled, Regular.
     /// </summary>
     public virtual IconVariant Variant { get; init; } = IconVariant.Regular;
+
+    internal string AssemblyName { get; set; } = string.Empty;
+    internal string FullName { get; set; } = string.Empty;
 }

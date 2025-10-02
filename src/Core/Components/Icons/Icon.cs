@@ -35,6 +35,8 @@ public class Icon : IconInfo
         Variant = variant;
         Size = size;
         Content = content;
+        AssemblyName = GetType().Assembly.GetName().Name ?? string.Empty;
+        FullName = GetType().FullName ?? string.Empty;
     }
 
     /// <summary>

@@ -10,8 +10,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public static partial class IconsExtensions
 {
-    private const string Namespace = "Microsoft.FluentUI.AspNetCore.Components";
     private const string LibraryName = "Microsoft.FluentUI.AspNetCore.Components.Icons.{0}";    // {0} must be replaced with the "Variant": Regular, Filled, etc.
+    private const string CoreIconsLibraryName = "Microsoft.FluentUI.AspNetCore.Components";
 
     /// <summary>
     /// Returns a new instance of the icon.
@@ -28,8 +28,7 @@ public static partial class IconsExtensions
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public static CustomIcon GetInstance(this IconInfo icon, bool? throwOnError = true)
     {
-        var assemblyName = string.Format(LibraryName, icon.Variant);
-        var assembly = GetAssembly(assemblyName);
+        var assembly = GetAssembly(icon.AssemblyName);
 
         if (assembly != null)
         {
@@ -37,8 +36,7 @@ public static partial class IconsExtensions
                                    .Where(i => i.BaseType == typeof(Icon));
 
             // Ex. Microsoft.FluentUI.AspNetCore.Components.Icons.Filled.Size10+PresenceAvailable
-            var iconFullName = $"{Namespace}.Icons.{icon.Variant}.Size{(int)icon.Size}+{icon.Name}";
-            var iconType = allIcons.FirstOrDefault(i => i.FullName == iconFullName);
+            var iconType = allIcons.FirstOrDefault(i => i.FullName == icon.FullName);
 
             if (iconType != null)
             {
@@ -85,26 +83,18 @@ public static partial class IconsExtensions
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="IconInfo.Name"/> is not found in predefined icons.</exception>
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
-    public static IEnumerable<IconInfo> GetAllIcons()
+    public static IEnumerable<IconInfo> GetAllIcons(string assemblyName)
     {
-        var allIcons = new List<IconInfo>();
-
-        foreach (var variant in Enum.GetValues(typeof(IconVariant)).Cast<IconVariant>())
+        var assembly = GetAssembly(assemblyName);
+        if (assembly is null)
         {
-            var assemblyName = string.Format(LibraryName, variant);
-            var assembly = GetAssembly(assemblyName);
-
-            if (assembly != null)
-            {
-                var allTypes = assembly.GetTypes()
-                                       .Where(i => i.BaseType == typeof(Icon)
-                                                && i.Name != nameof(CustomIcon));
-
-                allIcons.AddRange(allTypes.Select(type => Activator.CreateInstance(type) as IconInfo ?? new IconInfo()));
-            }
+            return Array.Empty<IconInfo>();
         }
+        var allTypes = assembly.GetTypes()
+                               .Where(i => i.BaseType == typeof(Icon)
+                                        && i.Name != nameof(CustomIcon));
 
-        return allIcons;
+        return allTypes.Select(type => Activator.CreateInstance(type) as IconInfo ?? new IconInfo());
     }
 
     /// <summary />
@@ -112,7 +102,21 @@ public static partial class IconsExtensions
     {
         get
         {
-            return GetAllIcons();
+            var allIcons = new List<IconInfo>();
+            foreach (var variant in Enum.GetValues(typeof(IconVariant)).Cast<IconVariant>())
+            {
+                var assemblyName = string.Format(LibraryName, variant);
+                allIcons.AddRange(GetAllIcons(assemblyName));
+            }
+            return allIcons;
+        }
+    }
+
+    public static IEnumerable<IconInfo> CoreIcons
+    {
+        get
+        {
+            return GetAllIcons(CoreIconsLibraryName);
         }
     }
 

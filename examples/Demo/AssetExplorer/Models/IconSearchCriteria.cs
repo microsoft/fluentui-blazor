@@ -8,4 +8,5 @@ internal class IconSearchCriteria
     public IconVariant Variant { get; set; } = IconVariant.Regular;
     public int Size { get; set; } = 20;
     public Color Color { get; set; } = Color.Accent;
+    public bool OnlyCoreIcons { get; set; } = false;
 }

@@ -41,6 +41,11 @@
 			OptionValue="@(i => i.ToAttributeValue())" />
 		</FluentGridItem>
 		<FluentGridItem>
+			<FluentCheckbox @bind-Value="@Criteria.OnlyCoreIcons">
+				Only icons that are used in FluentUI components
+			</FluentCheckbox>
+		</FluentGridItem>
+		<FluentGridItem>
 			<FluentButton IconStart="@(new Icons.Regular.Size24.ArrowCircleRight())"
 			OnClick="@(() => StartNewSearchAsync(string.Empty))" />
 		</FluentGridItem>
@@ -59,18 +64,29 @@
                 Click on upper right clipboard icon in a card to copy a ready to paste <code>FluentIcon</code>
                 component declaration to the clipboard.
             </FluentLabel>
+			<div @ref="resultList" class="result-list">
+				<Virtualize Context="item" ItemsProvider="GetRows">
+					<ItemContent>
+						<div>
+							@foreach (var column in item.Icons)
+							{
+								<PreviewCard Icon="@column" IconColor="@Criteria.Color" TopLeftLabel="@(Criteria.Size > 0 ? string.Empty : $"{(int)column.Size}")" />
+							}
+						</div>
+					</ItemContent>
+					<Placeholder>
+						<div>
+							<FluentProgress Style="width: 100%"></FluentProgress>
+						</div>
+					</Placeholder>
+				</Virtualize>
+			</div>
+           
 
-            <div class="result-list">
-                @foreach (var item in IconsForCurrentPage)
-                {
-                    <PreviewCard Icon="@item" IconColor="@Criteria.Color" TopLeftLabel="@(Criteria.Size > 0 ? string.Empty : $"{(int)item.Size}")" />
-                }
-            </div>
-
-            <FluentLabel Class="footer">
+          @*   <FluentLabel Class="footer">
                 <FluentPaginator State="@PaginationState"
                                  CurrentPageIndexChanged="@HandleCurrentPageIndexChanged" />
-            </FluentLabel>
+            </FluentLabel> *@
         }
         else
         {
