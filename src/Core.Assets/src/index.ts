@@ -93,6 +93,41 @@ var beforeStartCalled = false;
 var afterStartedCalled = false;
 
 
+function attachfluentnumberfieldObserver() {
+  if (!document.body) return;
+  // Disconnect existing observers
+  if (window.__fluentnumberfieldObserver) {
+    window.__fluentnumberfieldObserver.disconnect();
+  }
+
+  function reAddCurrentValue(target: Element) {
+    target.setAttribute('current-value', target.getAttribute('value') ?? '');
+  }
+  const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (
+        mutation.target instanceof Element &&
+        mutation.type === 'attributes' &&
+        mutation.attributeName === 'current-value' &&
+        mutation.target.hasAttribute('value') &&
+        !mutation.target.hasAttribute('current-value')
+      ) {
+        reAddCurrentValue(mutation.target);
+      }
+    }
+  });
+
+  // Observe all fields
+  document.querySelectorAll('fluent-number-field').forEach(field => {
+    observer.observe(field, {
+      attributes: true,
+      attributeFilter: ['current-value'],
+    });
+  });
+
+  window.__fluentnumberfieldObserver = observer;
+}
+
 export function afterWebStarted(blazor: any) {
   if (!afterStartedCalled) {
     afterStarted(blazor, 'web');
@@ -341,6 +376,10 @@ export function afterStarted(blazor: Blazor, mode: string) {
   if (typeof blazor.addEventListener === 'function' && mode === 'web') {
     customElements.define('fluent-page-script', FluentPageScript);
     blazor.addEventListener('enhancedload', onEnhancedLoad);
+  }
+
+  if (mode === 'web') {
+    blazor.addEventListener('enhancednavigationstart', attachfluentnumberfieldObserver);
   }
 
   afterStartedCalled = true;

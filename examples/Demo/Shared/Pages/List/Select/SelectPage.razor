@@ -15,7 +15,9 @@
 
 <blockquote>
     <p>
-        <strong>Note:</strong> When <code>multiple=true</code> the select list is always shown expanded.
+        <strong>Note:</strong> When <code>multiple=true</code> the select list is always shown expanded.<br />
+        Each option’s default value is taken from its <code>ToString()</code> output, so using custom types without overriding this method may cause selection to fail.<br />
+        Please supply <code>OptionText</code> or <code>OptionValue</code> on the component, or override <code>ToString()</code> in your type to resolve this.
     </p>
 </blockquote>
 
