@@ -273,7 +273,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
             const diffX = isRTL ? (pageX! - e.pageX) : (e.pageX - pageX!);
             const column: Column = columns.find(({ header }) => header === curCol)!;
 
-            column.size = parseInt(Math.max(minWidth, curColWidth! + diffX) as any, 10) + 'px';
+            column.size = parseInt(Math.max(parseInt((column.header as HTMLElement).style.minWidth), curColWidth! + diffX) as any, 10) + 'px';
 
             columns.forEach((col) => {
               if (col.size.startsWith('minmax')) {
@@ -389,7 +389,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         const width = headerBeingResized!.getBoundingClientRect().width + change;
 
         if (change < 0) {
-          column.size = Math.max(minWidth, width) + 'px';
+          column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
         }
         else {
           column.size = width + 'px';
@@ -416,7 +416,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     grids[gridElement.id].columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
-        column.size = Math.max(minWidth, width) + 'px';
+        column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
       }
       else {
         if (column.size.startsWith('minmax')) {
