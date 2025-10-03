@@ -1,0 +1,13 @@
+﻿﻿<div>
+	<b>Selected time:</b> @(SelectedValue?.ToString("HH:mm"))
+</div>
+
+<FluentTimePicker TValue="DateTime?"
+				  Label="Meeting time"
+				  DisabledHourFunc="@(date => date?.Hour == 12)"
+				  @bind-Value="@SelectedValue" />
+
+@code
+{
+	DateTime? SelectedValue;
+}

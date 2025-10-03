@@ -1,0 +1,38 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentInputBase<TValue>
+@typeparam TValue
+
+<FluentCombobox Id="@Id"
+				TOption="DateTime?"
+				Class="@ClassValue"
+				Style="@StyleValue"
+				Label="@Label"
+				LabelTemplate="@LabelTemplate"
+				LabelPosition="@LabelPosition"
+				LabelWidth="@LabelWidth"
+				AriaLabel="@AriaLabel"
+				Autofocus="@Autofocus"
+				Appearance="@Appearance"
+				ReadOnly="@ReadOnly"
+				Disabled="@Disabled"
+				@bind-Value="SelectedValue"
+				OptionText="@(i => i?.ToString(TimePattern))"
+				OptionValue="@(i => i?.ToString("HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture))"
+				OptionDisabled="@DisableHourHandler"
+				Required="@Required"
+				Items="@Items"
+				Message="@Message"
+				MessageIcon="@MessageIcon"
+				MessageCondition="@MessageCondition"
+				MessageState="@MessageState"
+				MessageTemplate="@MessageTemplate"
+				Placeholder="@GetPlaceholderAccordingToView()"
+				Width="@Width"
+				Name="@Name"
+				@attributes="@AdditionalAttributes">
+</FluentCombobox>
+
+@if (IsFluentUIStyle)
+{
+	
+}
