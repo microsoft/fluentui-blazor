@@ -2,7 +2,8 @@
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 
-<FluentCombobox Id="@Id"
+<FluentCombobox @ref="_fluentCombobox"
+				Id="@Id"
 				TOption="DateTime?"
 				Class="@ClassValue"
 				Style="@StyleValue"
@@ -16,6 +17,7 @@
 				ReadOnly="@ReadOnly"
 				Disabled="@Disabled"
 				@bind-Value="SelectedValue"
+				@onkeydown="@KeyDownHandlerAsync"
 				OptionText="@(i => i?.ToString(TimePattern))"
 				OptionValue="@(i => i?.ToString("HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture))"
 				OptionDisabled="@DisableHourHandler"

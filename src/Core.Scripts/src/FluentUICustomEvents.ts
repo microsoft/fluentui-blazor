@@ -76,7 +76,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
         return {
           id: event.target.id,
           type: event.type,
-          selectedOptions: event.target.selectedOptions.map((item: any) => item.id).join(';'),
+          selectedOptions: event.target.selectedOptions?.map((item: any) => item.id).join(';'),
         };
       }
     });

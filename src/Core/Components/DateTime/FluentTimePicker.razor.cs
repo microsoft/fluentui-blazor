@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -12,6 +13,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 {
+    private FluentCombobox<DateTime?> _fluentCombobox = default!;
+
     /// <summary />
     public FluentTimePicker(LibraryConfiguration configuration) : base(configuration)
     {
@@ -120,7 +123,6 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
         }
         set
         {
-            Console.WriteLine(value?.ToString("HH:mm:ss", CultureInfo.InvariantCulture));
             CurrentValueAsString = value?.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
         }
     }
@@ -169,5 +171,14 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 
         var value = CalendarTValue.ConvertToTValue<TValue>(dateTime ?? throw new ArgumentNullException(nameof(dateTime)));
         return DisabledHourFunc(value);
+    }
+
+    /// <summary />
+    private async Task KeyDownHandlerAsync(KeyboardEventArgs args)
+    {
+        if (string.Equals(args.Key, "Delete", StringComparison.OrdinalIgnoreCase))
+        {
+            await _fluentCombobox.ClearAsync();
+        }
     }
 }
