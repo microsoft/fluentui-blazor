@@ -25,7 +25,7 @@ on:
 env:
   PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
   TESTS: "./tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
-  DOTNET_VERSION: "net9.0"
+  DOTNET_VERSION: "net10.0"
 
 jobs:
   Build:
@@ -48,17 +48,17 @@ jobs:
      #    dotnet-version: 8.0.x
      #    dotnet-quality: ga
 
-     - name: Setup .NET 9.0
-       uses: actions/setup-dotnet@v4
-       with:
-        dotnet-version: 9.0.205
-        # dotnet-quality: ga
-
-     # - name: Setup .NET 10.0
+     # - name: Setup .NET 9.0
      #   uses: actions/setup-dotnet@v4
      #   with:
-     #    dotnet-version: 10.0.x
-     #    dotnet-quality: preview
+     #    dotnet-version: 9.0.x
+     #    dotnet-quality: ga
+
+     - name: Setup .NET 10.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 10.0.x
+        dotnet-quality: preview
 
      # Build
 
@@ -134,7 +134,7 @@ jobs:
      - name: Report Generator
        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
        with:
-         reports: '**/coverage.cobertura.xml;**/coverage.net8.0.cobertura.xml;**/coverage.net9.0.cobertura.xml'
+         reports: '**/coverage.cobertura.xml;**/coverage.*.cobertura.xml'
          targetdir: 'CoverageReports'
          title: 'Unit Tests Code Coverage'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'

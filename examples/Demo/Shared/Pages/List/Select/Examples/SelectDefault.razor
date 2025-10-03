@@ -8,6 +8,7 @@
               Placeholder="Make a selection..."
               OptionValue="@(p => p.PersonId.ToString())"
               OptionText="@(p => p.LastName + ", " + p.FirstName)"
+              OptionTitle="@(p => p.LastName.Length + p.FirstName.Length > 20 ? p.LastName : null)"
               @bind-Value="@SelectedValue"
               @bind-SelectedOption="@SelectedPerson" />
 
