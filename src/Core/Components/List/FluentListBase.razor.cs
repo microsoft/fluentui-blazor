@@ -97,6 +97,12 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     [Parameter]
     public virtual Func<TOption?, bool>? OptionDisabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets the function used to determine whether two options are considered equal for selection purposes.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TOption?, TOption?, bool>? OptionSelected { get; set; }
+
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
     public string? Tooltip { get; set; }
@@ -167,10 +173,20 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         // Multiple items
         if (Multiple)
         {
+            if (OptionSelected != null)
+            {
+                return SelectedItems?.Any(selectedItem => OptionSelected(item, selectedItem)) ?? false;
+            }
+
             return SelectedItems?.Contains(item) ?? false;
         }
 
         // Single item
+        if (OptionSelected != null)
+        {
+            return OptionSelected(item, CurrentValue);
+        }
+
         return Equals(item, CurrentValue);
     }
 

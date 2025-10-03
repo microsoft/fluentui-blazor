@@ -1,0 +1,25 @@
+﻿﻿<FluentStack Wrap="true" HorizontalGap="24px">
+	<FluentTimePicker Label="DateTime?" @bind-Value="@NullableDateTime" />
+	<FluentTimePicker Label="DateTime" @bind-Value="@DateTime" />
+	<FluentTimePicker Label="TimeOnly?" @bind-Value="@NullableTimeOnly" />
+	<FluentTimePicker Label="TimeOnly" @bind-Value="@TimeOnly" />
+</FluentStack>
+
+<ul>
+	<li>Nullable DateTime: @NullableDateTime</li>
+	<li>DateTime: @DateTime</li>
+	<li>Nullable TimeOnly: @NullableTimeOnly</li>
+	<li>TimeOnly: @TimeOnly</li>
+</ul>
+
+@code
+{
+	private DateTime? NullableDateTime;
+	private DateTime DateTime = Now;
+	private TimeOnly? NullableTimeOnly;
+	private TimeOnly TimeOnly = TimeOnly.FromDateTime(Now);
+
+	// Return the time "4pm" with no minutes/seconds component
+	// To ensure that the TimePicker can select the current time
+	private static DateTime Now => DateTime.Today.AddHours(16);
+}

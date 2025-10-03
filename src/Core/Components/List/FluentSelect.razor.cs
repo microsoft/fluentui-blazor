@@ -53,6 +53,14 @@ public partial class FluentSelect<TOption> : FluentListBase<TOption>
         {
             // Import the JavaScript module
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+
+            // By default, the combobox text is not bound to the Value property.
+            // This method don't change the SelectedItems and Value properties.
+            if (string.Equals(DropdownType, "combobox", StringComparison.Ordinal))
+            {
+                var defaultText = GetOptionText(Value);
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Select.SetComboBoxValue", Id, defaultText);
+            }
         }
 
         await base.OnAfterRenderAsync(firstRender);

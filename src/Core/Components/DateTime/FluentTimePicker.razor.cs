@@ -13,12 +13,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 {
+    private static readonly DateTime DefaultTime = new(2000, 1, 1, 0, 0, 0);
     private FluentCombobox<DateTime?> _fluentCombobox = default!;
 
     /// <summary />
     public FluentTimePicker(LibraryConfiguration configuration) : base(configuration)
     {
-        if (typeof(TValue).IsNotDateType())
+        if (typeof(TValue).IsNotTimeType())
         {
             throw new InvalidOperationException($"The type parameter {typeof(TValue)} is not supported. Supported types are DateTime, DateTime?, TimeOnly, and TimeOnly?.");
         }
@@ -107,7 +108,7 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
             var count = EndHour - StartHour < 1 ? 1 : EndHour - StartHour + 1;
 
             return Enumerable.Range(0, count * (60 / Increment))
-                             .Select(i => (DateTime?)new DateTime().AddHours(StartHour).AddMinutes(i * Increment));
+                             .Select(i => (DateTime?)DefaultTime.AddHours(StartHour).AddMinutes(i * Increment));
         }
     }
 
@@ -148,6 +149,23 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     }
 
     /// <summary />
+    protected override string? FormatValueAsString(TValue? value)
+    {
+        return value switch
+        {
+            DateTime dt => dt.ToString("HH:mm:ss", CultureInfo.InvariantCulture),
+            TimeOnly to => to.ToString("HH:mm:ss", CultureInfo.InvariantCulture),
+            _ => null
+        };
+    }
+
+    /// <summary />
+    private static string? FormatValueAsString(DateTime? value)
+    {
+        return value?.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
+    }
+
+    /// <summary />
     internal string? GetInputType() => IsFluentUIStyle ? null : "time";
 
     /// <summary />
@@ -176,7 +194,9 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     /// <summary />
     private async Task KeyDownHandlerAsync(KeyboardEventArgs args)
     {
-        if (string.Equals(args.Key, "Delete", StringComparison.OrdinalIgnoreCase))
+        var isNullable = Nullable.GetUnderlyingType(typeof(TValue)) != null || !typeof(TValue).IsValueType;
+
+        if (isNullable && string.Equals(args.Key, "Delete", StringComparison.OrdinalIgnoreCase))
         {
             await _fluentCombobox.ClearAsync();
         }
