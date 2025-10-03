@@ -20,6 +20,7 @@
 				OptionValue="@(i => i?.ToString("HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture))"
 				OptionDisabled="@DisableHourHandler"
 				Required="@Required"
+				Indicator="@(new CoreIcons.Regular.Size20.Clock().WithColor("var(--colorNeutralForeground3)"))"
 				Items="@Items"
 				Message="@Message"
 				MessageIcon="@MessageIcon"

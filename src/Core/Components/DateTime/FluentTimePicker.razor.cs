@@ -120,6 +120,7 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
         }
         set
         {
+            Console.WriteLine(value?.ToString("HH:mm:ss", CultureInfo.InvariantCulture));
             CurrentValueAsString = value?.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
         }
     }

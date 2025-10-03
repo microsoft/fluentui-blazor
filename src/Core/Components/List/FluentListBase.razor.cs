@@ -205,6 +205,11 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     protected virtual RenderFragment? RenderOptions() => InternalRenderOptions;
 
     /// <summary>
+    /// Provides an optional additional fragment of UI content to render after the main component output.
+    /// </summary>
+    protected virtual RenderFragment? RenderExtraFragment() => null;
+
+    /// <summary>
     /// Handler for the OnFocus event.
     /// </summary>
     /// <param name="e"></param>
