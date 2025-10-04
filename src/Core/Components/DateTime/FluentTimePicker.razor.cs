@@ -55,12 +55,11 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     public DatePickerRenderStyle RenderStyle { get; set; } = DatePickerRenderStyle.FluentUI;
 
     /// <summary>
-    /// Gets or sets the format string used to display time values.
-    /// If not <see cref="Placeholder"/> is set, the placeholder will be set to this time pattern.
-    /// By default "HH:mm".
+    /// Gets or sets the culture of the component.
+    /// By default <see cref="CultureInfo.CurrentCulture"/> to display using the OS culture.
     /// </summary>
     [Parameter]
-    public string TimePattern { get; set; } = "HH:mm";
+    public virtual CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
 
     /// <summary>
     /// Gets or sets the width of the component.
@@ -75,10 +74,10 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     public string? Placeholder { get; set; }
 
     /// <summary>
-    /// Function to know if a specific hour must be disabled.
+    /// Function to know if a specific time must be disabled.
     /// </summary>
     [Parameter]
-    public virtual Func<TValue, bool>? DisabledHourFunc { get; set; }
+    public virtual Func<TValue, bool>? DisabledTimeFunc { get; set; }
 
     /// <summary>
     /// Gets or sets the hour of the day at which the operation or schedule should start, in 24-hour format.
@@ -97,6 +96,11 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     /// </summary>
     [Parameter]
     public int Increment { get; set; } = 15;
+
+    /// <summary>
+    /// Gets the short time pattern used by the current culture for formatting time values.
+    /// </summary>
+    private string TimePattern => Culture.DateTimeFormat.ShortTimePattern;
 
     /// <summary>
     /// Gets a collection of nullable <see cref="DateTime"/> values representing each hour within the configured range.
@@ -182,13 +186,13 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     /// <summary />
     private bool DisableHourHandler(DateTime? dateTime)
     {
-        if (dateTime is null || DisabledHourFunc is null)
+        if (dateTime is null || DisabledTimeFunc is null)
         {
             return false;
         }
 
         var value = CalendarTValue.ConvertToTValue<TValue>(dateTime ?? throw new ArgumentNullException(nameof(dateTime)));
-        return DisabledHourFunc(value);
+        return DisabledTimeFunc(value);
     }
 
     /// <summary />
