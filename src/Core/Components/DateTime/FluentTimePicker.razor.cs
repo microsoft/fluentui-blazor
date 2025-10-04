@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 {
-    private static readonly DateTime DefaultTime = new(2000, 1, 1, 0, 0, 0);
+    private static readonly DateTime DefaultTime = new(1900, 1, 1, 0, 0, 0);
     private FluentCombobox<DateTime?> _fluentCombobox = default!;
 
     /// <summary />
@@ -140,9 +140,12 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     /// <summary />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        if (DateTime.TryParse(value, CultureInfo.InvariantCulture, out var dateTime))
+        var acceptedFormats = new string[] { "HH:mm", "HH:mm:ss", "HH:mm:ss.fff" };
+        var currentValue = Value.ConvertToDateTime()?.Date ?? DefaultTime;
+
+        if (DateTime.TryParseExact(value, acceptedFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateTime))
         {
-            result = dateTime.ConvertToTValue<TValue>();
+            result = (currentValue.Date + dateTime.TimeOfDay).ConvertToTValue<TValue>();
             validationErrorMessage = null;
             return true;
         }
