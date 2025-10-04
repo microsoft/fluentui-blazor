@@ -1,6 +1,41 @@
 export namespace Microsoft.FluentUI.Blazor.Utilities.Attributes {
 
   /**
+   * Copies an attribute from a regular element to a shadow DOM element.
+   * @param elementOrId The element or its ID to copy the attribute from.
+   * @param shadowSelector The selector for the shadow DOM element to copy the attribute to. E.g `[part='control']`
+   * @param attributeName The name of the attribute to copy.
+   * @param attributeValue The value of the attribute to copy.
+   * @returns
+   */
+  export function copyToShadow(
+    elementOrId: HTMLElement | string,
+    shadowSelector: string,
+    attributeName: string,
+    attributeValue: string) {
+
+    // Get the element reference
+    let element: HTMLElement | null;
+    if (typeof elementOrId === 'string') {
+      element = document.getElementById(elementOrId);
+    } else {
+      element = elementOrId;
+    }
+
+    if (!element) {
+      return;
+    }
+
+    // Find the shadow element with the specified selector
+    const shadowElement = element.shadowRoot?.querySelector(shadowSelector);
+
+    if (shadowElement) {
+      // Add the attribute to the found shadow element
+      shadowElement.setAttribute(attributeName, attributeValue);
+    }
+  }
+
+  /**
   * Observe the change in the HTML `attributeName` attribute to update the element's `propertyName` JavaScript property.
   * @param element The element to observe.
   * @param attributeName The name of the attribute to observe.

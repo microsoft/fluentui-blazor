@@ -13,12 +13,16 @@ If the user write an invalid time, the input field content will be deleted when 
 You can use the `Culture` parameter to display the time in different format patterns;
 and to set the time format displayed in the input field.
 
+## Default
+
+The TimePicker allows users to select a time value: `<FluentTimePicker @bind-Value="@SelectedValue" />`
+
 {{ TimePickerDefault }}
 
-> [!NOTE] When you bind a DateTime value to the TimePicker, the date part is ignored in the input field.
-> But the date part is preserved in the bound value.
-> For nullable DateTime (`DateTime?`), the value will be deleted when the user clears the input field
-> using `Delete` key.
+When you bind a DateTime value to the TimePicker, the date part is ignored in the input field.
+But the date part is preserved in the bound value.
+For nullable DateTime (`DateTime?`), the value will be deleted when the user clears the input field
+using `Delete` key.
 
 ## Culture
 
@@ -42,10 +46,13 @@ The `native` rendering style uses the default browser styles.
 This mode is useful when you want to use a very simple TimePicker with a **mobile device**.
 In this case, the mobile picker will be used. This could be useful to use the native Android or iOS date picker.
 
-> [!WARNING] This mode is very limited in features and does not support the UI customization (`DisabledTimeFunc`, `StartHour`, ...).
-> The following parameters are ignored: `Culture`, `StartHour`, `EndHour`, `DisabledTimeFunc`.
+> [!WARNING] This mode is very limited in features and does not support the UI customization.
+> The following parameters are ignored: `Culture`, `StartHour`, `EndHour`, `Increment`,`DisabledTimeFunc`.
 
 {{ TimePickerRendering }}
+
+[!NOTE] Active HTML form controls like `<input type="time">` have limited styling capabilities.
+The **clock icon** is part of the browser's internal implementation and is generally not affected by CSS styling, including **dark mode** styles.
 
 ## Value type
 

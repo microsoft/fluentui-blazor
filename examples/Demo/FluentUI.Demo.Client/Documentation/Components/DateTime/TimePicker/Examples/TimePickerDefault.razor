@@ -2,8 +2,7 @@
 	<b>Selected time:</b> @(SelectedValue?.ToString("yyyy-MM-dd HH:mm"))
 </div>
 
-<FluentTimePicker TValue="DateTime?"
-                  Label="Meeting time"
+<FluentTimePicker Label="Meeting time"
                   DisabledTimeFunc="@(date => date?.Hour == 12)"
                   @bind-Value="@SelectedValue" />
 

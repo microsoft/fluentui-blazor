@@ -7,6 +7,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Calendar;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -136,6 +137,29 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     /// Gets a value indicating whether the date picker is using the Fluent UI style.
     /// </summary>
     private bool IsFluentUIStyle => RenderStyle == DatePickerRenderStyle.FluentUI;
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !IsFluentUIStyle)
+        {
+            // Set the attribute min/max/step on the shadow "control" element.
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                Id,
+                "[part='control']",
+                "min", DefaultTime.AddHours(StartHour).ToString("HH:mm", CultureInfo.InvariantCulture));
+
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                Id,
+                "[part='control']",
+                "max", DefaultTime.AddHours(EndHour).ToString("HH:mm", CultureInfo.InvariantCulture));
+
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                Id,
+                "[part='control']",
+                "step", Increment);
+        }
+    }
 
     /// <summary />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
