@@ -205,4 +205,20 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
             await _fluentCombobox.ClearAsync();
         }
     }
+
+    /// <summary />
+    private TextInputAppearance TextInputAppearance
+    {
+        get
+        {
+            return Appearance switch
+            {
+                ListAppearance.FilledLighter => TextInputAppearance.FilledLighter,
+                ListAppearance.FilledDarker => TextInputAppearance.FilledDarker,
+                ListAppearance.Outline => TextInputAppearance.Outline,
+                ListAppearance.Transparent => TextInputAppearance.Underline,
+                _ => TextInputAppearance.Outline
+            };
+        }
+    }
 }
