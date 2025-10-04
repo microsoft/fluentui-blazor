@@ -61,3 +61,9 @@ Blazor will automatically infer the type based on the value you provide to the `
 You can also explicitly set the type using the generic type parameter: `TValue` (i.e. `TValue="TimeOnly?"`).
 
 {{ TimePickerTypes }}
+
+## API FluentTimePicker
+
+{{ API Type=FluentTimePicker<DateTime> }}
+
+> [!NOTE] The `Width` parameter is not yet developed.
