@@ -2,7 +2,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
   interface Grid {
     id: string;
-    columns: any[]; // or a more specific type if you have one
+    columns: Column[]; // or a more specific type if you have one
     initialWidths: string;
   }
 
@@ -12,8 +12,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
   }
 
   // Use a dictionary for grids for id-based access
-  let grids: { [id: string]: Grid } = {};
-  const minWidth = 100;
+  let grids: Grid[] = []; // { [id: string]: Grid } = {};
 
   export function Initialize(gridElement: HTMLElement, autoFocus: boolean) {
     if (gridElement === undefined || gridElement === null) {
@@ -150,7 +149,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         document.body.removeEventListener('click', bodyClickHandler);
         document.body.removeEventListener('mousedown', bodyClickHandler);
         gridElement.removeEventListener('keydown', keyDownHandler);
-        delete grids[gridElement.id];
+        grids = grids.filter(grid => grid.id !== gridElement.id);
+
       }
     };
   }
@@ -236,11 +236,13 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     }
 
     const id = gridElement.id;
-    grids[id] = {
-      id,
-      columns,
-      initialWidths,
-    };
+    if (!grids.find((grid: Grid) => grid.id === id)) {
+        grids.push({
+            id,
+            columns,
+            initialWidths,
+        });
+    }
 
     function setListeners(div: HTMLElement, isRTL: boolean) {
       let pageX: number | undefined, curCol: HTMLElement | undefined, curColWidth: number | undefined;
@@ -345,7 +347,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
   export function ResetColumnWidths(gridElement: HTMLElement) {
     const isGrid = gridElement.classList.contains('grid');
-    const grid = grids[gridElement.id];
+    const grid = grids.find(grid => grid.id = gridElement.id);
     if (!grid) {
       return;
     }
@@ -370,6 +372,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
   }
 
   export function ResizeColumnDiscrete(gridElement: HTMLElement, column: string | undefined, change: number) {
+    const isGrid = gridElement.classList.contains('grid');
     const columns: any[] = [];
     let headerBeingResized: HTMLElement | null | undefined;
 
@@ -383,10 +386,10 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     else {
       headerBeingResized = gridElement.querySelector('.column-header[col-index="' + column + '"]') as HTMLElement | null;
     }
-
-    grids[gridElement.id].columns.forEach((column: any) => {
+    grids.find(grid => grid.id = gridElement.id)!.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
-        const width = headerBeingResized!.getBoundingClientRect().width + change;
+        const width = headerBeingResized!.offsetWidth + change;
+        //const width = headerBeingResized!.getBoundingClientRect().width + change;
 
         if (change < 0) {
           column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
@@ -394,19 +397,25 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         else {
           column.size = width + 'px';
         }
+        column.header.style.width = column.size;
       }
-      else {
+
+      if (isGrid) {
+        // for grid we need to recalculate all columns that are minmax
         if (column.size.startsWith('minmax')) {
           column.size = parseInt(column.header.clientWidth, 10) + 'px';
         }
+        columns.push(column.size);
       }
-      columns.push(column.size);
     });
 
-    gridElement.style.gridTemplateColumns = columns.join(' ');
+    if (isGrid) {
+      gridElement.style.gridTemplateColumns = columns.join(' ');
+    }
   }
 
   export function ResizeColumnExact(gridElement: HTMLElement, column: string, width: number) {
+    const isGrid = gridElement.classList.contains('grid');
     const columns: any[] = [];
     let headerBeingResized = gridElement.querySelector('.column-header[col-index="' + column + '"]') as HTMLElement | null;
 
@@ -414,19 +423,25 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       return;
     }
 
-    grids[gridElement.id].columns.forEach((column: any) => {
+    grids.find(grid => grid.id = gridElement.id)!.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
         column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
+        column.header.style.width = column.size;
       }
-      else {
+
+      if (isGrid) {
+        // for grid we need to recalculate all columns that are minmax
         if (column.size.startsWith('minmax')) {
           column.size = parseInt(column.header.clientWidth, 10) + 'px';
         }
+        column.header.style.width = column.size;
+        columns.push(column.size);
       }
-      columns.push(column.size);
     });
 
-    gridElement.style.gridTemplateColumns = columns.join(' ');
+    if (isGrid) {
+      gridElement.style.gridTemplateColumns = columns.join(' ');
+    }
 
     gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
     gridElement.focus();
@@ -448,8 +463,9 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     gridElement.style.gridTemplateColumns = gridTemplateColumns;
     gridElement.classList.remove('auto-fit');
 
-    if (grids[gridElement.id]) {
-      grids[gridElement.id].initialWidths = gridTemplateColumns;
+    const grid = grids.find(grid => grid.id = gridElement.id);
+    if (grid) {
+      grid.initialWidths = gridTemplateColumns;
     }
   }
 
