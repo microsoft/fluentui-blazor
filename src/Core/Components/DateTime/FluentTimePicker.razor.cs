@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 {
-    private static readonly DateTime DefaultTime = new(1900, 1, 1, 0, 0, 0);
+    private DateTime DefaultTime => Culture.Calendar.MinSupportedDateTime;
     private FluentCombobox<DateTime?> _fluentCombobox = default!;
 
     /// <summary />
@@ -112,7 +112,7 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
         {
             var count = EndHour - StartHour < 1 ? 1 : EndHour - StartHour + 1;
 
-            return Enumerable.Range(0, count * (60 / Increment))
+            return Enumerable.Range(0, count * (60 / Increment) - 1)
                              .Select(i => (DateTime?)DefaultTime.AddHours(StartHour).AddMinutes(i * Increment));
         }
     }
