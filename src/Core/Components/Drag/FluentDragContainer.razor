@@ -1,0 +1,12 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+@typeparam TItem
+@attribute [CascadingTypeParameter(nameof(TItem))]
+<div id=@Id
+     class=@ClassValue
+     style=@StyleValue>
+    <CascadingValue Value="this">
+        @ChildContent
+    </CascadingValue>
+</div>
