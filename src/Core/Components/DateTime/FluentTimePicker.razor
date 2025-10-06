@@ -22,7 +22,7 @@
                     @onkeydown="@KeyDownHandlerAsync"
                     OptionText="@(i => i?.ToString(TimePattern))"
                     OptionValue="@(i => FormatValueAsString(i))"
-                    OptionSelected="@((i, j) => i?.Hour == j?.Hour && i?.Minute == j?.Minute)"
+                    OptionSelectedComparer="@((i, j) => i?.Hour == j?.Hour && i?.Minute == j?.Minute)"
                     OptionDisabled="@DisableHourHandler"
                     Required="@Required"
                     Indicator="@(new CoreIcons.Regular.Size20.Clock().WithColor("var(--colorNeutralForeground3)"))"

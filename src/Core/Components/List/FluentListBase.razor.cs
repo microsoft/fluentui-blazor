@@ -101,7 +101,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// Gets or sets the function used to determine whether two options are considered equal for selection purposes.
     /// </summary>
     [Parameter]
-    public virtual Func<TOption?, TOption?, bool>? OptionSelected { get; set; }
+    public virtual Func<TOption?, TOption?, bool>? OptionSelectedComparer { get; set; }
 
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
@@ -173,18 +173,18 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         // Multiple items
         if (Multiple)
         {
-            if (OptionSelected != null)
+            if (OptionSelectedComparer != null)
             {
-                return SelectedItems?.Any(selectedItem => OptionSelected(item, selectedItem)) ?? false;
+                return SelectedItems?.Any(selectedItem => OptionSelectedComparer(item, selectedItem)) ?? false;
             }
 
             return SelectedItems?.Contains(item) ?? false;
         }
 
         // Single item
-        if (OptionSelected != null)
+        if (OptionSelectedComparer != null)
         {
-            return OptionSelected(item, CurrentValue);
+            return OptionSelectedComparer(item, CurrentValue);
         }
 
         return Equals(item, CurrentValue);

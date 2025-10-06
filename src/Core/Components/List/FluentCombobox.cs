@@ -51,5 +51,5 @@ public partial class FluentCombobox<TOption> : FluentSelect<TOption>
         }
 
         return null;
-    }    
+    }
 }
