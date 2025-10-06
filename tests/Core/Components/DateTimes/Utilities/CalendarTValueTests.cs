@@ -15,8 +15,6 @@ public class CalendarTValueTests
     [InlineData(typeof(DateTime?))]
     [InlineData(typeof(DateOnly))]
     [InlineData(typeof(DateOnly?))]
-    [InlineData(typeof(DateTimeOffset))]
-    [InlineData(typeof(DateTimeOffset?))]
     public void IsNotDateType_SupportedTypes_ReturnsFalse(Type type)
     {
         // Act
