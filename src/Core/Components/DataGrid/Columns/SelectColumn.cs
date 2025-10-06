@@ -37,6 +37,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     public SelectColumn()
     {
         Width = "50px";
+        MinWidth = "50px";
         ChildContent = GetDefaultChildContent();
 
         _itemsChanged = new(EventCallback.Factory.Create<object?>(this, UpdateSelectedItemsAsync));
