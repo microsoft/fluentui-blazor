@@ -173,7 +173,7 @@
     public void FluentTimePicker_TryParseValueFromString_ValidTime(string timeString)
     {
         // Arrange & Act
-        var timePicker = Render(@<FluentTimePicker TValue="DateTime?" Culture="@InvariantCulture" RenderStyle="DatePickerRenderStyle.Native" />);
+        var timePicker = Render(@<FluentTimePicker TValue="DateTime ?" Culture="@InvariantCulture" RenderStyle="DatePickerRenderStyle.Native" />);
         var textInput = timePicker.Find("fluent-text-input");
 
         // Set time value
@@ -191,7 +191,7 @@
     public void FluentTimePicker_TryParseValueFromString_InvalidTime()
     {
         // Arrange & Act
-        var timePicker = Render(@<FluentTimePicker TValue="DateTime?" Culture="@InvariantCulture" RenderStyle="DatePickerRenderStyle.Native" />);
+        var timePicker = Render(@<FluentTimePicker TValue="DateTime ?" Culture="@InvariantCulture" RenderStyle="DatePickerRenderStyle.Native" />);
         var textInput = timePicker.Find("fluent-text-input");
 
         // Set invalid time value
@@ -241,29 +241,46 @@
     [InlineData(typeof(TimeOnly?))]
     public void FluentTimePicker_SupportedTypes_DoesNotThrowException(Type timeType)
     {
-        // This test verifies that the constructor doesn't throw for supported types
-        // We can't easily test the constructor directly in Razor component tests,
-        // but we can verify the component renders without error for supported types
+        // Arrange & Act
+        var picker = timeType switch
+        {
+            Type t when t == typeof(DateTime)
+                => Render(@<FluentTimePicker TValue="DateTime" Culture="@InvariantCulture" />),
 
-        // Arrange & Act & Assert - No exception should be thrown
-        if (timeType == typeof(DateTime))
+            Type t when t == typeof(DateTime?)
+                => Render(@<FluentTimePicker TValue="DateTime?" Culture="@InvariantCulture" />),
+
+            Type t when t == typeof(TimeOnly)
+                => Render(@<FluentTimePicker TValue="TimeOnly" Culture="@InvariantCulture" />),
+
+            Type t when t == typeof(TimeOnly?)
+                => Render(@<FluentTimePicker TValue="TimeOnly?" Culture="@InvariantCulture" />),
+
+            _ => throw new NotSupportedException($"Type {timeType} is not supported.")
+        };
+
+        // Assert
+        Assert.NotNull(picker);
+    }
+
+    [Fact]
+    public void FluentTimePicker_InvalidSupportedTypes_ThrowException()
+    {
+        // Arrange & Act
+        var exception = Assert.Throws<InvalidOperationException>(() =>
         {
-            var picker1 = Render(@<FluentTimePicker TValue="DateTime" Culture="@InvariantCulture" />);
-            Assert.NotNull(picker1);
-        }
-        else if (timeType == typeof(DateTime?))
-        {
-            var picker2 = Render(@<FluentTimePicker TValue="DateTime?" Culture="@InvariantCulture" />);
-            Assert.NotNull(picker2);
-        }
-        // Note: TimeOnly tests would require .NET 6+ and might not be available in this test environment
+            Render(@<FluentTimePicker TValue="string" Culture="@InvariantCulture" />);
+        });
+
+        Assert.Contains("The type parameter System.String is not supported", exception.Message);
+        Assert.Contains("Supported types are DateTime, DateTime?, TimeOnly, and TimeOnly?", exception.Message);
     }
 
     [Fact]
     public void FluentTimePicker_Required_ShowsRequiredValidation()
     {
         // Arrange & Act
-        var timePicker = Render(@<FluentTimePicker TValue="DateTime?" Culture="@InvariantCulture" Required="true" />);
+        var timePicker = Render(@<FluentTimePicker TValue="DateTime ?" Culture="@InvariantCulture" Required="true" />);
         var timePickerInstance = timePicker.FindComponent<FluentTimePicker<DateTime?>>().Instance;
 
         // Assert
@@ -339,7 +356,7 @@
         var initialTime = new DateTime(2023, 1, 1, 14, 30, 0);
 
         // Act
-        var timePicker = Render(@<FluentTimePicker TValue="DateTime?" Culture="@InvariantCulture" Value="@initialTime" RenderStyle="DatePickerRenderStyle.FluentUI" />);
+        var timePicker = Render(@<FluentTimePicker TValue="DateTime ?" Culture="@InvariantCulture" Value="@initialTime" RenderStyle="DatePickerRenderStyle.FluentUI" />);
         var dropdown = timePicker.Find("fluent-dropdown");
 
         // Simulate Delete key press
@@ -352,21 +369,19 @@
     }
 
     [Theory]
-    [InlineData(ListAppearance.FilledLighter)]
-    [InlineData(ListAppearance.FilledDarker)]
-    [InlineData(ListAppearance.Outline)]
-    [InlineData(ListAppearance.Transparent)]
-    public void FluentTimePicker_TextInputAppearance_MapsCorrectly(ListAppearance listAppearance)
+    [InlineData(ListAppearance.FilledLighter, TextInputAppearance.FilledLighter)]
+    [InlineData(ListAppearance.FilledDarker, TextInputAppearance.FilledDarker)]
+    [InlineData(ListAppearance.Outline, TextInputAppearance.Outline)]
+    [InlineData(ListAppearance.Transparent, TextInputAppearance.Underline)]
+    [InlineData((ListAppearance)999, TextInputAppearance.Outline)]
+    public void FluentTimePicker_TextInputAppearance_MapsCorrectly(ListAppearance listAppearance, TextInputAppearance expected)
     {
         // Arrange & Act
         var timePicker = Render(@<FluentTimePicker TValue="DateTime" Culture="@InvariantCulture" Appearance="@listAppearance" RenderStyle="DatePickerRenderStyle.Native" />);
         var textInput = timePicker.Find("fluent-text-input");
 
-        // Assert
-        Assert.NotNull(textInput);
-        // The TextInputAppearance mapping is internal, but we can verify the component renders correctly
-        var timePickerInstance = timePicker.FindComponent<FluentTimePicker<DateTime>>().Instance;
-        Assert.Equal(listAppearance, timePickerInstance.Appearance);
+        var timePickerInstance = timePicker.FindComponent<FluentTextInput>().Instance;
+        Assert.Equal(expected, timePickerInstance.Appearance);
     }
 
     [Fact]

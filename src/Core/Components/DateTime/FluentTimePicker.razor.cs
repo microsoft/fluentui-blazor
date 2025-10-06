@@ -197,9 +197,6 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     }
 
     /// <summary />
-    internal string? GetInputType() => IsFluentUIStyle ? null : "time";
-
-    /// <summary />
     private string GetPlaceholderAccordingToView()
     {
         if (!string.IsNullOrEmpty(Placeholder))
