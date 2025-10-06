@@ -1,0 +1,48 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits Bunit.TestContext
+
+@code {
+	public FluentDragTests()
+	{
+		JSInterop.Mode = JSRuntimeMode.Loose;
+		Services.AddFluentUIComponents();
+	}
+
+	[Fact]
+	public void FluentDrag_Default()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentDragContainer TItem="int" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+			<FluentDropZone Draggable="true" TItem="int" Item="1" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+				Item 1
+			</FluentDropZone>
+
+			<FluentDropZone Draggable="true" TItem="int" Item="2" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+				Item 2
+			</FluentDropZone>
+		</FluentDragContainer>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentDrag_StopPropagation()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentDragContainer TItem="int" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+			<FluentDropZone Draggable="true" StopPropagation="true" TItem="int" Item="1" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+				Item 1
+			</FluentDropZone>
+
+			<FluentDropZone Draggable="true" StopPropagation="true" TItem="int" Item="2" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+				Item 2
+			</FluentDropZone>
+		</FluentDragContainer>);
+
+		// Assert
+		cut.Verify();
+	}
+}
