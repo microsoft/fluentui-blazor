@@ -236,13 +236,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public PaginationState? Pagination { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the component will not add itself to the tab queue.
-    /// Default is false.
-    /// </summary>
-    [Parameter]
-    public bool NoTabbing { get; set; }
-
-    /// <summary>
     /// Gets or sets a value indicating whether the grid should automatically generate a header row and its type.
     /// See <see cref="DataGridGeneratedHeaderType"/>
     /// </summary>
@@ -332,6 +325,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     /// <remarks>The callback receives a <see langword="true"/> value when items start loading
     /// and a <see langword="false"/> value when the loading process completes.</remarks>
+    [ExcludeFromCodeCoverage(Justification = "This method requires a db connection and is to complex to be tested with bUnit.")]
     [Parameter]
     public EventCallback<bool> OnItemsLoading { get; set; }
 
