@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -14,10 +13,12 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
     public FluentDragContainer(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary />
-    protected virtual string? ClassValue => new CssBuilder(Class).Build();
+    protected virtual string? ClassValue => DefaultClassBuilder
+        .Build();
 
     /// <summary />
-    protected virtual string? StyleValue => new StyleBuilder(Style).Build();
+    protected virtual string? StyleValue => DefaultStyleBuilder
+        .Build();
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
