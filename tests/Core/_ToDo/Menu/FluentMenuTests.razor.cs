@@ -13,6 +13,10 @@ public partial class FluentMenuTests : TestContext
         JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
         Services.AddSingleton(LibraryConfiguration.ForUnitTests);
         Services.AddSingleton<IMenuService, MenuService>();
+        JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js");
+
+        var menuModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
+        menuModule.SetupVoid("initialize", _ => true);
     }
 
     [Fact]

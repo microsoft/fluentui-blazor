@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -45,7 +44,7 @@ public partial class FluentMenuButton : FluentComponentBase
     public bool UseMenuService { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the texts shown on th button.
+    /// Gets or sets the texts shown on the button. This property will be ignored if <see cref="ButtonContent"/> is provided.
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -88,6 +87,13 @@ public partial class FluentMenuButton : FluentComponentBase
     [Parameter]
     public EventCallback<MenuChangeEventArgs> OnMenuChanged { get; set; }
 
+    /// <summary>
+    /// The content to be rendered inside the button. This parameter should be supplied if you do not want to render a chevron
+    /// on the menu button. Only one of <see cref="Text"/> or <see cref="ButtonContent"/> may be provided.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ButtonContent { get; set; }
+
     protected override void OnInitialized()
     {
         _buttonId = Identifier.NewId();
@@ -95,6 +101,11 @@ public partial class FluentMenuButton : FluentComponentBase
 
     protected override void OnParametersSet()
     {
+        if (Text is not null && ButtonContent is not null)
+        {
+            throw new ArgumentException($"Only one of the parameters {nameof(Text)} or {nameof(ButtonContent)} can be provided.");
+        }
+
         _iconColor = ButtonAppearance == Appearance.Accent ? Color.Fill : Color.FillInverse;
     }
 
@@ -116,13 +127,5 @@ public partial class FluentMenuButton : FluentComponentBase
         }
 
         _visible = false;
-    }
-
-    private void OnKeyDown(KeyboardEventArgs args)
-    {
-        if (args is not null && args.Key == "Escape")
-        {
-            _visible = false;
-        }
     }
 }

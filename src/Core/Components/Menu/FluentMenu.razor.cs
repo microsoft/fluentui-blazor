@@ -11,10 +11,12 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentMenu : FluentComponentBase, IDisposable
+public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js";
+    private const string ANCHORED_REGION_JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js";
 
+    private bool _reinitializeEventListeners = false;
     private bool _opened = false;
     private DotNetObjectReference<FluentMenu>? _dotNetHelper = null;
 
@@ -22,6 +24,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     private readonly Dictionary<string, FluentMenuItem> items = [];
     private IMenuService? _menuService = null;
     private IJSObjectReference _jsModule = default!;
+    private IJSObjectReference _anchoredRegionModule = default!;
 
     private (int top, int right, int bottom, int left) _stylePositions;
 
@@ -99,6 +102,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
             if (_opened != value)
             {
                 _opened = value;
+                _reinitializeEventListeners = true;
                 if (DrawMenuWithService)
                 {
                     UpdateMenuProviderAsync().ConfigureAwait(true);
@@ -214,12 +218,11 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            _anchoredRegionModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", ANCHORED_REGION_JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            _dotNetHelper = DotNetObjectReference.Create(this);
 
             if (Trigger != MouseButton.None)
             {
-
-                _dotNetHelper = DotNetObjectReference.Create(this);
-
                 if (Anchor is not null)
                 {
                     // Add LeftClick event
@@ -236,6 +239,21 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
                     }
                 }
             }
+
+            if (_jsModule is not null)
+            {
+                await _jsModule.InvokeVoidAsync("initialize", Anchor, Id, Open, _anchoredRegionModule, _dotNetHelper);
+            }
+        }
+        else
+        {
+            if (_jsModule is not null && _reinitializeEventListeners)
+            {
+                // If the menu was closed, remove its set event listeners. If it opened (ie if the menu starts out closed),
+                // we should set them now.
+                _reinitializeEventListeners = false;
+                await _jsModule.InvokeVoidAsync("initialize", Anchor, Id, Open, _anchoredRegionModule, _dotNetHelper);
+            }
         }
 
         await base.OnAfterRenderAsync(firstRender);
@@ -251,6 +269,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     /// Close the menu.
     /// </summary>
     /// <returns></returns>
+    [JSInvokable]
     public async Task CloseAsync()
     {
         Open = false;
@@ -372,8 +391,21 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     /// <summary>
     /// Dispose this menu.
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
         _dotNetHelper?.Dispose();
+
+        try
+        {
+            await _jsModule.InvokeVoidAsync("dispose", Anchor);
+            await _jsModule.DisposeAsync();
+            await _anchoredRegionModule.DisposeAsync();
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }
