@@ -36,6 +36,14 @@ public partial class FluentMenuButton : FluentComponentBase
     public FluentMenu? Menu { get; set; }
 
     /// <summary>
+    /// Use IMenuService to create the menu, if this service was injected.
+    /// This value must be defined before the component is rendered (you can't change it during the component lifecycle).
+    /// Default, true.
+    /// </summary>
+    [Parameter]
+    public bool UseMenuService { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the texts shown on the button. This property will be ignored if <see cref="ButtonContent"/> is provided.
     /// </summary>
     [Parameter]
