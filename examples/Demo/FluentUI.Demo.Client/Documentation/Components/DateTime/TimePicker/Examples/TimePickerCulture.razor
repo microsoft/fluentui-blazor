@@ -9,11 +9,11 @@
                       @bind-Value="@SelectedCulture" />
     </div>
 
-    <FluentDatePicker Label="@($"Culture {SelectedCulture.DisplayName}")"
+    <FluentTimePicker Label="@($"Culture {SelectedCulture.DisplayName}")"
                       Culture="@SelectedCulture"
                       @bind-Value="@SelectedValue" />
 
-    <FluentDatePicker Label="Current culture"
+	<FluentTimePicker Label="Current culture"
                       @bind-Value="@SelectedValue" />  
 </FluentStack>
 
