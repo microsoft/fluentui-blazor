@@ -13,6 +13,12 @@ If the user inputs an invalid time, the field's content will be deleted when it 
 You can use the `Culture` parameter to display the time in different format patterns;
 and to set the time format displayed in the input field.
 
+**Important**
+
+By default, **FluentTimePicker** displays a list of **predefined** times, ranging from `StartHour` 8:00 a.m. to `EndHour` 6:00 p.m. in 15-minute `Increment`.
+You can customize these parameters to fit your requirements.  
+If you want the user to be able **to enter any time** (any hour or any minute), you must enable the mode `RenderStyle="Native"`.
+
 ## Default
 
 The TimePicker allows users to select a time value: `<FluentTimePicker @bind-Value="@SelectedValue" />`
@@ -42,7 +48,7 @@ The `FluentUI` rendering style uses the Fluent UI styles and components.
 This mode provides a consistent look and feel with other Fluent UI components.
 This mode provides all the features of the component.
 
-The `native` rendering style uses the default browser styles.
+The `Native` rendering style uses the default browser styles.
 This mode is useful when you want to use a very simple TimePicker with a **mobile device**.
 In this case, the mobile picker will be used. This could be useful to use the native Android or iOS date picker.
 
