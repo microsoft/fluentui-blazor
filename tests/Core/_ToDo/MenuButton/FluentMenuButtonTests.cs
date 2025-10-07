@@ -80,22 +80,6 @@ public class FluentMenuButtonTests : TestBase
         cut.Verify();
     }
 
-    [Fact]
-    public void FluentMenuButton_Throws_IfBothTextAndButtonContentAreSet()
-    {
-        Assert.Throws<ArgumentException>(() =>
-        {
-            TestContext.RenderComponent<FluentMenuButton>(parameters => parameters
-                .Add(p => p.Text, "Button Text")
-                .Add<RenderFragment>(p => p.ButtonContent, builder =>
-                {
-                    builder.OpenComponent<FluentMenuItem>(0);
-                    builder.AddAttribute(1, "Text", "Menu Item 1");
-                    builder.CloseComponent();
-                })
-            );
-        });
-    }
 
     [Fact]
     public void FluentMenuButton_Renders_ButtonContent()

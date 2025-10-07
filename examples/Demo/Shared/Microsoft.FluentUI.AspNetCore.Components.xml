@@ -6692,6 +6692,13 @@
             Gets or sets the button appearance.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonContent">
+            <summary>
+            The content to be rendered inside the button. This parameter should be supplied if you do not want to render a chevron
+            on the menu button.
+            If both <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Text"/> and ButtonContent are provided, ButtonContent will be used.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Menu">
             <summary>
             Gets or sets a reference to the menu.
@@ -6706,7 +6713,8 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Text">
             <summary>
-            Gets or sets the texts shown on th button.
+            Gets or sets the texts shown on the button.
+            If both Text and<see cref = "P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonContent" /> are provided, ButtonContent will be used.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.IconStart">
@@ -6880,7 +6888,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.SetOpenAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Dispose">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.DisposeAsync">
             <summary>
             Dispose this menu.
             </summary>
