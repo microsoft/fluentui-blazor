@@ -8,7 +8,7 @@ route: /DateTime/TimePicker
 
 **FluentTimePicker** offers a control that's optimized for selecting a time from a
 drop-down list or using free-form input to select a predefined time.
-If the user write an invalid time, the input field content will be deleted when the input field loses focus.
+If the user inputs an invalid time, the field's content will be deleted when it losses focus.
 
 You can use the `Culture` parameter to display the time in different format patterns;
 and to set the time format displayed in the input field.
@@ -22,7 +22,7 @@ The TimePicker allows users to select a time value: `<FluentTimePicker @bind-Val
 When you bind a DateTime value to the TimePicker, the date part is ignored in the input field.
 But the date part is preserved in the bound value.
 For nullable DateTime (`DateTime?`), the value will be deleted when the user clears the input field
-using `Delete` key.
+by using `Delete` key.
 
 ## Culture
 

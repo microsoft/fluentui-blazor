@@ -91,7 +91,7 @@ If you have a very large number of items, you should use the **FluentAutocomplet
 
 {{ API Type=FluentSelect }}
 
-> [!NOTE] The `Width` parameter is not yet developed.
+> [!NOTE] The `Width` parameter is not yet implemented.
 
 ## API FluentOption
 

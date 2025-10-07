@@ -58,7 +58,7 @@ See a similar example on the [FluentSelect](/List/Select#customize-the-items) pa
 
 {{ API Type=FluentCombobox }}
 
-> [!NOTE] The `Width` parameter is not yet developed.
+> [!NOTE] The `Width` parameter is not yet implemented.
 
 ## API FluentOption
 
