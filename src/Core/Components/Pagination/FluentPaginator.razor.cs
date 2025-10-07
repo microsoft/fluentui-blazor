@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -46,6 +47,10 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public RenderFragment? PaginationTextTemplate { get; set; }
+
+    protected string? ClassValue => new CssBuilder(Class)
+       .AddClass("paginator")
+       .Build();
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentPaginator" />.
