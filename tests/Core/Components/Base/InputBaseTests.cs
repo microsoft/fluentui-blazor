@@ -38,6 +38,7 @@ public class InputBaseTests : Bunit.TestContext
         { typeof(FluentRadioGroup<>), type => type.MakeGenericType(typeof(string)) },
         { typeof(FluentCalendar<>), type => type.MakeGenericType(typeof(DateTime)) },
         { typeof(FluentDatePicker<>), type => type.MakeGenericType(typeof(DateTime)) },
+        { typeof(FluentTimePicker<>), type => type.MakeGenericType(typeof(DateTime)) },
     };
 
     /// <summary />

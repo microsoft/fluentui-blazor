@@ -199,6 +199,34 @@
     }
 
     [Fact]
+    public async Task FluentSelect_Multiple_OptionSelectedComparer()
+    {
+        string? value = "One";
+        IEnumerable<string>? selectedItems = ["One",];
+
+        // Arrange
+        var cut = Render(@<FluentSelect
+            Id="MyList"
+            Multiple="true"
+            Items="@Digits"
+            OptionSelectedComparer="@((i, j) => string.Compare(i, j, StringComparison.InvariantCultureIgnoreCase) == 0)"
+            @bind-Value="@value"
+            @bind-SelectedItems="@selectedItems" />);
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            Id = "MyList",
+            Type = "",
+            SelectedOptions = "ONE",    // Upper case to validate the "Ignore case"
+        });
+
+        // Assert
+        Assert.Null(value);
+        Assert.Empty(selectedItems);
+    }
+
+    [Fact]
     public void FluentSelect_Data()
     {
         // Arrange

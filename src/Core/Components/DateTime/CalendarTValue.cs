@@ -22,8 +22,24 @@ internal static class CalendarTValue
             typeof(DateTime?),
             typeof(DateOnly),
             typeof(DateOnly?),
-            typeof(DateTimeOffset),
-            typeof(DateTimeOffset?),
+        };
+
+        return !supportedTypes.Contains(type);
+    }
+
+    /// <summary>
+    /// Determines whether the specified type does not represent a supported time type such as DateTime or TimeOnly.
+    /// </summary>
+    /// <param name="type">The type to evaluate for time type support. This can be a non-null Type instance representing any .NET type.</param>
+    /// <returns>true if the specified type is not DateTime, DateTime?, TimeOnly, or TimeOnly?; otherwise, false.</returns>
+    internal static bool IsNotTimeType(this Type type)
+    {
+        var supportedTypes = new Type[]
+        {
+            typeof(DateTime),
+            typeof(DateTime?),
+            typeof(TimeOnly),
+            typeof(TimeOnly?),
         };
 
         return !supportedTypes.Contains(type);
@@ -49,6 +65,7 @@ internal static class CalendarTValue
             DateTime dt => dt,
             DateOnly d => d.ToDateTime(),
             DateTimeOffset dto => dto.DateTime,
+            TimeOnly t => t.ToDateTime(),
             _ => null
         };
     }
@@ -77,6 +94,8 @@ internal static class CalendarTValue
             Type t when t == typeof(DateTime?) => (TValue)(object)(DateTime?)value,
             Type t when t == typeof(DateOnly) => (TValue)(object)DateOnly.FromDateTime(value),
             Type t when t == typeof(DateOnly?) => (TValue)(object)(DateOnly?)DateOnly.FromDateTime(value),
+            Type t when t == typeof(TimeOnly) => (TValue)(object)TimeOnly.FromDateTime(value),
+            Type t when t == typeof(TimeOnly?) => (TValue)(object)(TimeOnly?)TimeOnly.FromDateTime(value),
             _ => throw new ArgumentException($"Unsupported type: {typeof(TValue)}", nameof(value))
         };
     }

@@ -97,6 +97,12 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     [Parameter]
     public virtual Func<TOption?, bool>? OptionDisabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets the function used to determine whether two options are considered equal for selection purposes.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TOption?, TOption?, bool>? OptionSelectedComparer { get; set; }
+
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
     public string? Tooltip { get; set; }
@@ -167,10 +173,20 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         // Multiple items
         if (Multiple)
         {
+            if (OptionSelectedComparer != null)
+            {
+                return SelectedItems?.Any(selectedItem => OptionSelectedComparer(item, selectedItem)) ?? false;
+            }
+
             return SelectedItems?.Contains(item) ?? false;
         }
 
         // Single item
+        if (OptionSelectedComparer != null)
+        {
+            return OptionSelectedComparer(item, CurrentValue);
+        }
+
         return Equals(item, CurrentValue);
     }
 
@@ -203,6 +219,11 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// </summary>
     /// <returns></returns>
     protected virtual RenderFragment? RenderOptions() => InternalRenderOptions;
+
+    /// <summary>
+    /// Provides an optional additional fragment of UI content to render after the main component output.
+    /// </summary>
+    protected virtual RenderFragment? RenderExtraFragment() => null;
 
     /// <summary>
     /// Handler for the OnFocus event.

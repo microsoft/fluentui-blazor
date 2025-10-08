@@ -102,7 +102,7 @@ public class Icon : IconInfo
     /// <summary>
     /// Gets the HTML markup of the icon.
     /// </summary>
-    public virtual MarkupString ToMarkup(string? size = null, string? color = null, string? backgroundColor = null, string? slotName = null)
+    public virtual MarkupString ToMarkup(string? size = null, string? color = null, string? backgroundColor = null, string? slotName = null, string? role = null)
     {
         if (Size != IconSize.Custom && ContainsSVG)
         {
@@ -111,7 +111,8 @@ public class Icon : IconInfo
             var styleColor = color ?? Color ?? DefaultColor;
             var styleBackgroundColor = backgroundColor ?? "var(--colorNeutralBackground1)";
             var slotAttribute = string.IsNullOrEmpty(slotName) ? string.Empty : $" slot=\"{slotName}\"";
-            return new MarkupString($"<svg viewBox=\"0 0 {sizeAsString} {sizeAsString}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: {styleBackgroundColor}; width: {styleWidth};\" aria-hidden=\"true\" {slotAttribute}>{Content}</svg>");
+            var roleAttribute = string.IsNullOrEmpty(role) ? string.Empty : $" role=\"{role}\"";
+            return new MarkupString($"<svg viewBox=\"0 0 {sizeAsString} {sizeAsString}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: {styleBackgroundColor}; width: {styleWidth};\" aria-hidden=\"true\" {slotAttribute}{roleAttribute}>{Content}</svg>");
         }
 
         if (string.IsNullOrEmpty(size) && string.IsNullOrEmpty(color))

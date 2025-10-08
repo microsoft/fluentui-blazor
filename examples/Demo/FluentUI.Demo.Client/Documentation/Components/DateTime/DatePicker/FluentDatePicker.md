@@ -15,10 +15,10 @@ and to set the date format displayed in the input field.
 
 ## Views
 
-The DatePicker can be displayed in different views: day, month, and year.  
+The DatePicker can be displayed in different views: day, month, and year.
 The user can switch between these views using the title item: the month name or the year number.
 
-{{ DatePickerDefault }} 
+{{ DatePickerDefault }}
 
 ## DoubleClickToDate
 
@@ -50,9 +50,7 @@ The `native` rendering style uses the default browser styles.
 This mode is useful when you want to use a very simple DatePicker with a **mobile device**.
 In this case, the mobile picker will be used. This could be useful to use the native Android or iOS date picker.
 
-> [!WARNING]
-> 
-> This mode is very limited in features and does not support the UI customization (`DisabledDateFunc`, `DaysTemplate`, ...).
+> [!WARNING] This mode is very limited in features and does not support the UI customization (`DisabledDateFunc`, `DaysTemplate`, ...).
 > The following parameters are ignored: `Culture`, `DayFormat`, `DisabledDateFunc`, `DisabledCheckAllDaysOfMonthYear`,
 > `DisabledSelectable`, `DaysTemplate`, `PickerMonthChanged`.
 
@@ -60,8 +58,8 @@ In this case, the mobile picker will be used. This could be useful to use the na
 
 ## Value type
 
-The **FluentCalendar** and **FluentDatePicker** components are a generic components, so you can use it with date types such as `DateTime?`, `DateTime`, `DateOnly?` or `DateOnly`.  
-Blazor will automatically infer the type based on the value you provide to the `Value` or `SelectedDates` parameters.  
+The **FluentCalendar** and **FluentDatePicker** components are a generic components, so you can use it with date types such as `DateTime?`, `DateTime`, `DateOnly?` or `DateOnly`.
+Blazor will automatically infer the type based on the value you provide to the `Value` or `SelectedDates` parameters.
 You can also explicitly set the type using the generic type parameter: `TValue` (i.e. `TValue="DateOnly?"`).
 
 {{ CalendarTypes }}
