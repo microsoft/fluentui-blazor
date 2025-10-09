@@ -139,7 +139,7 @@
 	}
 
 	[Fact]
-	public void FluentDataGrid_ErrorContent_TableMode()
+	public void FluentDataGrid_ErrorContent_Supplied()
 	{
 		// This is sort of untestable because you'd need to force a connection errror or something like that
 		// Arrange && Act
@@ -155,7 +155,7 @@
         </FluentDataGrid>);
 
         // Assert
-        Assert.NotNull(cut.Find("#empty-content"));
+		Assert.NotNull(cut.Find("#empty-content"));
         Assert.Throws<ElementNotFoundException>(() => cut.Find("#error-content"));
     }
 

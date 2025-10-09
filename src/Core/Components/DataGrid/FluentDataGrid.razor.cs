@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
@@ -69,11 +70,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _renderLoadingContent = RenderLoadingContent;
         _renderErrorContent = RenderErrorContent;
 
-    // As a special case, we don't issue the first data load request until we've collected the initial set of columns
-    // This is so we can apply default sort order (or any future per-column options) before loading data
-    // We use EventCallbackSubscriber to safely hook this async operation into the synchronous rendering flow
-    EventCallbackSubscriber<object?>? columnsFirstCollectedSubscriber = new(
-            EventCallback.Factory.Create<object?>(this, RefreshDataCoreAsync));
+        // As a special case, we don't issue the first data load request until we've collected the initial set of columns
+        // This is so we can apply default sort order (or any future per-column options) before loading data
+        // We use EventCallbackSubscriber to safely hook this async operation into the synchronous rendering flow
+        EventCallbackSubscriber<object?>? columnsFirstCollectedSubscriber = new(
+                EventCallback.Factory.Create<object?>(this, RefreshDataCoreAsync));
         columnsFirstCollectedSubscriber.SubscribeOrMove(_internalGridContext.ColumnsFirstCollected);
     }
 
@@ -339,7 +340,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Gets or sets the content to render when an error occurs.
     /// </summary>
     [Parameter]
-    public RenderFragment<Exception>? ErrorContent { get; set; }
+    public RenderFragment<Exception?>? ErrorContent { get; set; }
 
     /// <summary>
     /// Sets <see cref="GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
@@ -1129,6 +1130,21 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (_gridReference is not null && JSModule is not null)
         {
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.ResetColumnWidths", _gridReference);
+        }
+    }
+
+    [ExcludeFromCodeCoverage(Justification = "This method requires a failing db connection and is too complex to be tested with bUnit.")]
+    private void RenderActualError(RenderTreeBuilder builder)
+    {
+        if (ErrorContent is null)
+        {
+            builder.AddContent(0, Localizer[Localization.LanguageResource.DataGrid_ErrorContent]);
+
+        }
+        else
+        {
+            builder.AddContent(1, ErrorContent(_lastError));
+
         }
     }
 }
