@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -28,10 +29,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     internal const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
     internal const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
     internal const string ERROR_CONTENT_ROW_CLASS = "error-content-row";
-
-//#if DEBUG
-//    internal static bool IsUnitTest;
-//#endif
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -74,11 +71,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _renderLoadingContent = RenderLoadingContent;
         _renderErrorContent = RenderErrorContent;
 
-    // As a special case, we don't issue the first data load request until we've collected the initial set of columns
-    // This is so we can apply default sort order (or any future per-column options) before loading data
-    // We use EventCallbackSubscriber to safely hook this async operation into the synchronous rendering flow
-    EventCallbackSubscriber<object?>? columnsFirstCollectedSubscriber = new(
-            EventCallback.Factory.Create<object?>(this, RefreshDataCoreAsync));
+        // As a special case, we don't issue the first data load request until we've collected the initial set of columns
+        // This is so we can apply default sort order (or any future per-column options) before loading data
+        // We use EventCallbackSubscriber to safely hook this async operation into the synchronous rendering flow
+        EventCallbackSubscriber<object?>? columnsFirstCollectedSubscriber = new(
+                EventCallback.Factory.Create<object?>(this, RefreshDataCoreAsync));
         columnsFirstCollectedSubscriber.SubscribeOrMove(_internalGridContext.ColumnsFirstCollected);
     }
 
@@ -871,50 +868,50 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 var gipr = await ItemsProvider(request);
                 if (gipr.Items is not null && Loading is null)
-            {
+                {
                     Loading = false;
                     StateHasChanged();
-        }
+                }
 
                 return gipr;
-    }
-
-        if (Items is not null)
-        {
-            if (_asyncQueryExecutor is not null)
-            {
-                await OnItemsLoading.InvokeAsync(true);
             }
 
-            var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
-            _internalGridContext.TotalItemCount = totalItemCount;
-            IQueryable<TGridItem>? result;
-            if (RefreshItems is null)
+            if (Items is not null)
             {
-                result = request.ApplySorting(Items).Skip(request.StartIndex);
-                if (request.Count.HasValue)
+                if (_asyncQueryExecutor is not null)
                 {
-                    result = result.Take(request.Count.Value);
+                    await OnItemsLoading.InvokeAsync(true);
                 }
-            }
-            else
-            {
-                result = Items;
-            }
 
-            var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
-            return GridItemsProviderResult.From(resultArray, totalItemCount);
+                var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
+                _internalGridContext.TotalItemCount = totalItemCount;
+                IQueryable<TGridItem>? result;
+                if (RefreshItems is null)
+                {
+                    result = request.ApplySorting(Items).Skip(request.StartIndex);
+                    if (request.Count.HasValue)
+                    {
+                        result = result.Take(request.Count.Value);
+                    }
+                }
+                else
+                {
+                    result = Items;
+                }
+
+                var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
+                return GridItemsProviderResult.From(resultArray, totalItemCount);
+            }
         }
-    }
         catch (OperationCanceledException oce) when (oce.CancellationToken == request.CancellationToken) // No-op; we canceled the operation, so it's fine to suppress this exception.
-    {
+        {
         }
         catch (Exception ex) when (HandleLoadingError?.Invoke(ex) == true)
         {
             _lastError = ex.GetBaseException();
         }
         finally
-            {
+        {
             if (Items is not null && _asyncQueryExecutor is not null)
             {
                 CheckAndResetLoading();
