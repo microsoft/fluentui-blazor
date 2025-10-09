@@ -77,19 +77,24 @@ export function RegisterKeyCode(globalDocument, eventNames, id, elementRef, only
 }
 
 export function UnregisterKeyCode(eventId) {
+    if (!document.fluentKeyCodeEvents) {
+        return;
+    }
 
-    if (document.fluentKeyCodeEvents != null) {
-        const keyEvent = document.fluentKeyCodeEvents[eventId];
-        const element = keyEvent.source;
+    const keyEvent = document.fluentKeyCodeEvents[eventId];
+    if (!keyEvent) {
+        return;
+    }
 
-        if (!!keyEvent.handlerKeydown) {
+    const element = keyEvent.source;
+    if (element) {
+        if (keyEvent.handlerKeydown) {
             element.removeEventListener("keydown", keyEvent.handlerKeydown);
         }
-
-        if (!!keyEvent.handlerKeyup) {
+        if (keyEvent.handlerKeyup) {
             element.removeEventListener("keyup", keyEvent.handlerKeyup);
         }
-
-        delete document.fluentKeyCodeEvents[eventId];
     }
+
+    delete document.fluentKeyCodeEvents[eventId];
 }

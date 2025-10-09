@@ -2,12 +2,12 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
+using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using System.Linq.Expressions;
-using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -64,18 +64,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
             if (!string.IsNullOrEmpty(Format))
             {
-                // TODO: Consider using reflection to avoid having to box every value just to call IFormattable.ToString
-                // For example, define a method "string Type<U>(Func<TGridItem, U> property) where U: IFormattable", and
-                // then construct the closed type here with U=TProp when we know TProp implements IFormattable
-
-                // If the type is nullable, we're interested in formatting the underlying type
-                var nullableUnderlyingTypeOrNull = Nullable.GetUnderlyingType(typeof(TProp));
-                if (!typeof(IFormattable).IsAssignableFrom(nullableUnderlyingTypeOrNull ?? typeof(TProp)))
-                {
-                    throw new InvalidOperationException($"A '{nameof(Format)}' parameter was supplied, but the type '{typeof(TProp)}' does not implement '{typeof(IFormattable)}'.");
-                }
-
-                _cellTextFunc = item => ((IFormattable?)compiledPropertyExpression!(item))?.ToString(Format, null);
+                _cellTextFunc = CreateFormatter(compiledPropertyExpression, Format);
             }
             else
             {
@@ -87,10 +76,8 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
                     {
                         return (value as Enum)?.GetDisplayName();
                     }
-                    else
-                    {
-                        return value?.ToString();
-                    }
+
+                    return value?.ToString();
                 };
             }
             if (Sortable.HasValue)
@@ -116,6 +103,56 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
                 }
             }
         }
+    }
+
+    private static Func<TGridItem, string?> CreateFormatter(Func<TGridItem, TProp> getter, string format)
+    {
+        var closedType = typeof(PropertyColumn<,>).MakeGenericType(typeof(TGridItem), typeof(TProp));
+
+        //Nullable struct
+        if (Nullable.GetUnderlyingType(typeof(TProp)) is Type underlying &&
+            typeof(IFormattable).IsAssignableFrom(underlying))
+        {
+            var method = closedType
+                .GetMethod(nameof(CreateNullableValueTypeFormatter), BindingFlags.NonPublic | BindingFlags.Static)!
+                .MakeGenericMethod(underlying);
+            return (Func<TGridItem, string?>)method.Invoke(null, [getter, format])!;
+        }
+
+        if (typeof(IFormattable).IsAssignableFrom(typeof(TProp)))
+        {
+            //Struct
+            if (typeof(TProp).IsValueType)
+            {
+                var method = closedType
+                    .GetMethod(nameof(CreateValueTypeFormatter), BindingFlags.NonPublic | BindingFlags.Static)!
+                    .MakeGenericMethod(typeof(TProp));
+                return (Func<TGridItem, string?>)method.Invoke(null, [getter, format])!;
+            }
+
+            //Double cast required because CreateReferenceTypeFormatter required the TProp to be a reference type which implements IFormattable.
+            return CreateReferenceTypeFormatter((Func<TGridItem, IFormattable?>)(object)getter, format);
+        }
+
+        throw new InvalidOperationException($"A '{nameof(Format)}' parameter was supplied, but the type '{typeof(TProp)}' does not implement '{typeof(IFormattable)}'.");
+    }
+
+    private static Func<TGridItem, string?> CreateReferenceTypeFormatter<T>(Func<TGridItem, T?> getter, string format)
+        where T : class, IFormattable
+    {
+        return item => getter(item)?.ToString(format, null);
+    }
+
+    private static Func<TGridItem, string?> CreateValueTypeFormatter<T>(Func<TGridItem, T> getter, string format)
+        where T : struct, IFormattable
+    {
+        return item => getter(item).ToString(format, null);
+    }
+
+    private static Func<TGridItem, string?> CreateNullableValueTypeFormatter<T>(Func<TGridItem, T?> getter, string format)
+        where T : struct, IFormattable
+    {
+        return item => getter(item)?.ToString(format, null);
     }
 
     /// <inheritdoc />

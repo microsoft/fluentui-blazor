@@ -175,7 +175,7 @@ extends:
           inputs:
             command: 'build'
             projects: ${{ parameters.Projects }}
-            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true'
+            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true /p:DebugType=portable /p:DebugSymbols=true'
 
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2
@@ -206,11 +206,11 @@ extends:
             reportDirectory: CoverageFolder
 
         # Index sources and publish symbols
-
-        #- task: PublishSymbols@2
-        #  inputs:
-        #    SearchPattern: '**/bin/**/*.pdb' # string. Required. Search pattern. Default: **/bin/**/*.pdb.
-        #    SymbolServerType: 'TeamServices'
+        - task: PublishSymbols@2
+          displayName: 'Publish Symbols to Artifact Services'
+          inputs:
+            SearchPattern: '**/bin/**/*.pdb' # string. Required. Search pattern. Default: **/bin/**/*.pdb.
+            SymbolServerType: 'TeamServices'
 
         # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
         - task: CopyFiles@2

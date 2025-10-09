@@ -8,7 +8,10 @@
 
     public FluentDialogServiceTests()
     {
+        JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddSingleton(LibraryConfiguration);
+        var dialogUtilsModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Dialog/FluentDialogProvider.razor.js");
+        dialogUtilsModule.SetupModule("getActiveElement", _ => true);
     }
 
     [Fact]
@@ -32,6 +35,29 @@
         // Assert
         cut.Verify();
     }
+
+	[Fact]
+	public async Task FluentDialogService_ChangeHeaderTypo()
+	{
+		Services.AddFluentUIComponents();
+
+		// Arrange
+		var cut = Render(@<FluentDialogProvider />);
+		var dialogService = Services.GetRequiredService<IDialogService>();
+
+		// Act
+		var dialog = await dialogService.ShowDialogAsync<TestDialogHeaderFooter>(new DialogParameters()
+		{
+			Height = "200px",
+			Title = "Sample title as H2",
+			TitleTypo = Typography.H2,
+			PreventDismissOnOverlayClick = true,
+			PreventScroll = true,
+		});
+
+		// Assert
+		cut.Verify();
+	}
 
     [Fact]
     public async Task FluentDialogService_HeightUnset()

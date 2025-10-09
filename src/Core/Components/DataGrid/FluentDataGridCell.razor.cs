@@ -53,7 +53,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// <summary>
     /// Gets a reference to the column that this cell belongs to.
     /// </summary>
-    private ColumnBase<TGridItem>? Column => Grid._columns.ElementAtOrDefault(GridColumn - 1);
+    public ColumnBase<TGridItem>? Column => Grid._columns.ElementAtOrDefault(GridColumn - 1);
 
     /// <summary>
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
@@ -68,15 +68,16 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("grid-column", GridColumn.ToString(), () => !Grid.EffectiveLoadingValue && (Grid.Items is not null || Grid.ItemsProvider is not null) && Grid.DisplayMode == DataGridDisplayMode.Grid)
+        .AddStyle("grid-column", GridColumn.ToString(), () => !Grid.EffectiveLoadingValue && (Grid.Items is not null || Grid.ItemsProvider is not null) && InternalGridContext.TotalItemCount > 0 && Grid.DisplayMode == DataGridDisplayMode.Grid)
         .AddStyle("text-align", "center", Column is SelectColumn<TGridItem>)
         .AddStyle("align-content", "center", Column is SelectColumn<TGridItem>)
+        .AddStyle("min-width", Column?.MinWidth, Owner.RowType is DataGridRowType.Header or DataGridRowType.StickyHeader)
         .AddStyle("padding-inline-start", "calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px)", Column is SelectColumn<TGridItem> && Owner.RowType == DataGridRowType.Default)
         .AddStyle("padding-top", "calc(var(--design-unit) * 2.5px)", Column is SelectColumn<TGridItem> && (Grid.RowSize == DataGridRowSize.Medium || Owner.RowType == DataGridRowType.Header))
         .AddStyle("padding-top", "calc(var(--design-unit) * 1.5px)", Column is SelectColumn<TGridItem> && Grid.RowSize == DataGridRowSize.Small && Owner.RowType == DataGridRowType.Default)
         .AddStyle("width", Column?.Width, !string.IsNullOrEmpty(Column?.Width) && Grid.DisplayMode == DataGridDisplayMode.Table)
         .AddStyle("height", $"{Grid.ItemSize:0}px", () => !Grid.EffectiveLoadingValue && Grid.Virtualize)
-        .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && !Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null))
+        .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && !Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null) && InternalGridContext.TotalItemCount > 0)
         .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
         .AddStyle("z-index", ZIndex.DataGridHeaderPopup.ToString(), CellType == DataGridCellType.ColumnHeader && Grid._columns.Count > 0 && Grid.UseMenuService)

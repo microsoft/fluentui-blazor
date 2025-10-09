@@ -18,6 +18,27 @@
 
 <DemoSection Title="Usage examples" Component="@typeof(DragDropBasic)"></DemoSection>
 
+<DemoSection Title="Nested drag & drop" Component="@typeof(DragDropNested)">
+    <Description>
+        <p>
+            This example demonstrates how to nest multiple <code>FluentDragContainer</code> components to enable drag-and-drop interactions across hierarchical structures such as rows, columns, and elements.
+
+            The key to making this multi-level drag-and-drop system work is the use of the <code>StopPropagation</code> property. By enabling it where appropriate, each nested <code>FluentDragContainer</code> can handle drag events independently-preventing unintended interference from parent containers.
+
+            Each level supports independent drag behavior:
+            <ul>
+                <li><strong>Rows</strong> can be reordered vertically.</li>
+                <li><strong>Columns</strong> can be moved within the same row or between different rows.</li>
+                <li><strong>Elements</strong> can be rearranged inside a column or moved across columns.</li>
+            </ul>
+
+            The <span style="background-color: yellow; padding: 0 0.2em; color: #000;">yellow area</span> indicates an empty drop zone inside a row. It accepts columns when a row does not contain any yet. Similarly, empty columns behave as drop zones for elements.
+
+            This structure allows fully flexible layout editing with deep nesting and drag-and-drop handling at every level.
+        </p>
+    </Description>
+</DemoSection>
+
 <h2 id="documentation">Documentation</h2>
 
 <ApiDocumentation Component="typeof(FluentDragContainer<>)" InstanceTypes="@(new[] {typeof(object)})" GenericLabel="TItem" />

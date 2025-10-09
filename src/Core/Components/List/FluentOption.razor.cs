@@ -48,6 +48,12 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     [Parameter]
     public EventCallback<string> OnSelect { get; set; }
 
+    /// <summary>
+    /// Gets or sets the title tooltip of this option.
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
+
     protected override Task OnInitializedAsync()
     {
         InternalListContext.Register(this);

@@ -1300,6 +1300,14 @@
             Needs to be a valid CSS width value like '100px', '10%' or '0.5fr'.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.MinWidth">
+            <summary>
+            Gets or sets the minimal width of the column.
+            Defaults to 100px for a regular column and 50px for a select column.
+            When resizing a column, the user will not be able to make it smaller than this value.
+            Needs to be a valid CSS width value like '100px', '10%' or '0.5fr'.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Grid">
             <summary>
             Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
@@ -2096,6 +2104,23 @@
             A default fragment is used if loading content is not specified.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnItemsLoading">
+            <summary>
+            Gets or sets the callback that is invoked when the asynchronous loading state of items changes and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure.IAsyncQueryExecutor"/> is used.
+            </summary>
+            <remarks>The callback receives a <see langword="true"/> value when items start loading
+            and a <see langword="false"/> value when the loading process completes.</remarks>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.HandleLoadingError">
+            <summary>
+            Gets or sets a delegate that determines whether a given exception should be handled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ErrorContent">
+            <summary>
+            Gets or sets the content to render when an error occurs.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.AutoFit">
             <summary>
             Sets <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
@@ -2371,6 +2396,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Grid">
             <summary>
             Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Columns">
+            <summary>
+            Gets the columns associated with this data grid row.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.HandleOnRowClickAsync(System.String)">
@@ -3036,6 +3066,11 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PopupId">
             <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.TextField">
+            <summary>
+            Holds the reference to the internal <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTextField"/> component.
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Appearance">
             <summary>
@@ -3754,6 +3789,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Title">
             <summary>
             Gets or sets the title of the dialog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.TitleTypo">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Typography"/> style for the title text.
+            Defaults to <see cref="F:Microsoft.FluentUI.AspNetCore.Components.Typography.PaneHeader"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Modal">
@@ -4535,6 +4576,11 @@
             This event is fired when an element is dropped on a valid drop target.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.StopPropagation">
+            <summary>
+            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.IsOver">
             <summary />
         </member>
@@ -5282,9 +5328,6 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.Module">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.DropOver">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ClassValue">
@@ -6065,6 +6108,13 @@
             Gets or sets whether the dropdown is shown when there are no items.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ShowProgressIndicator">
+            <summary>
+            Gets or sets whether the component will display a progress indicator while fetching data.
+            A progress ring will be shown ad the end of the component, when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.OnOptionsSearch"/> is invoked.
+            You can customize the progress indicator by using the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.HeaderContent"/> or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.FooterContent"/> parameters: see <see cref="P:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1.InProgress"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize">
              <summary>
              If true, the options list will be rendered with virtualization. This is normally used in conjunction with
@@ -6177,6 +6227,19 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MustBeClosed">
             <summary />
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1.InProgress">
+            <summary>
+            Gets a value indicating whether the operation is currently in progress.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1.Items">
+            <summary>
+            Gets the items to display in the header or footer.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.LibraryConfiguration">
             <summary />
         </member>
@@ -6255,6 +6318,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOption`1.OnSelect">
             <summary>
             Called whenever the selection changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOption`1.Title">
+            <summary>
+            Gets or sets the title tooltip of this option.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOption`1.OnClickHandlerAsync">
@@ -6440,6 +6508,12 @@
             Gets or sets the function used to determine if an option is initially selected.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.OptionTitle">
+            <summary>
+            Gets or sets the function used to determine the option tooltip (title).
+            If null is returned, then no title is displayed.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.OptionComparer">
             <summary>
             Gets or sets the <see cref="T:System.Collections.Generic.IEqualityComparer`1"/> used to determine if an option is already added to the internal list.
@@ -6521,6 +6595,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.GetOptionValue(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.GetOptionTitle(`0)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.GetOptionText(`0)">
@@ -6615,14 +6692,29 @@
             Gets or sets the button appearance.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonContent">
+            <summary>
+            The content to be rendered inside the button. This parameter should be supplied if you do not want to render a chevron
+            on the menu button.
+            If both <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Text"/> and ButtonContent are provided, ButtonContent will be used.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Menu">
             <summary>
             Gets or sets a reference to the menu.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.UseMenuService">
+            <summary>
+            Use IMenuService to create the menu, if this service was injected.
+            This value must be defined before the component is rendered (you can't change it during the component lifecycle).
+            Default, true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Text">
             <summary>
-            Gets or sets the texts shown on th button.
+            Gets or sets the texts shown on the button.
+            If both Text and<see cref = "P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonContent" /> are provided, ButtonContent will be used.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.IconStart">
@@ -6796,7 +6888,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.SetOpenAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Dispose">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.DisposeAsync">
             <summary>
             Dispose this menu.
             </summary>
@@ -10268,6 +10360,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.GlobalOptions">
             <summary>
             Gets the default tooltip options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.AriaLabel">
+            <summary>
+            Gets or sets the text used on aria-label attribute.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.HideTooltipOnCursorLeave">
@@ -15862,12 +15959,6 @@
         </member>
         <member name="T:System.Text.RegularExpressions.Generated.Utilities">
             <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
-            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
-            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
         </member>
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_20FF03FEFFFF87FEFFFF07">
             <summary>Supports searching for characters in or not in "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".</summary>

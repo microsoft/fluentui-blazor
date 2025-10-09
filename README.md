@@ -4,9 +4,17 @@
 [![.NET C#](https://img.shields.io/badge/.NET-C%23-blue)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![NuGet](https://img.shields.io/nuget/v/Microsoft.FluentUI.AspNetCore.Components?label=NuGet%20Component%20Library)](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components)
 [![NuGet](https://img.shields.io/nuget/v/Microsoft.FluentUI.AspNetCore.Templates?label=NuGet%20Templates)](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates)
-
-[![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
 [![Discord](https://img.shields.io/badge/chat%20on-discord-7289da.svg)](https://discord.gg/M5cBTfp6J2)
+
+<!--
+[![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
+-->
+
+## Demo
+Explore the Demo: visit https://www.fluentui-blazor.net to kickstart your first project, browse the documentation, and test all components live.  
+If you encounter any problems, you can use the [backup site](https://fluentui-blazor.azurewebsites.net). 
+
+---
 
 :star:  We appreciate your star, it helps!
 
@@ -113,7 +121,7 @@ These providers are used by associated services to display Toasts, Dialog boxes,
 <FluentMessageBarProvider />
 <FluentMenuProvider />
 ```
-> **note:** You can remove providers which you are using in your application.
+> **note:** You can remove providers which you are not using in your application.
 
 ## Working with Icons and Emoji
 We have additional packages available that include the complete Fluent UI System icons and Fluent UI Emoji collections. 
@@ -164,7 +172,7 @@ The `app-name` attribute needs to match your app's assembly name - initializersL
 initializersLoader replaces standard `fetch` function with one which provides the correct file in place of the empty `blazor.modules.json`. `fetch` is restored to its original state once `_framework/blazor.modules.json` request is intercepted.
 
 For more information regarding the bug, see issue [15234](https://github.com/dotnet/maui/issues/15234) in the MAUI repo.
-	
+  
 ## Use the DataGrid component with EF Core or OData Client
 If you want to use the `<FluentDataGrid>` with data provided through EF Core or an OData Client, you need to install an additional package so the grid knows how to resolve queries asynchronously for efficiency.
 Please see the [DataGrid](https://www.fluentui-blazor.net/DataGrid) page for more information.

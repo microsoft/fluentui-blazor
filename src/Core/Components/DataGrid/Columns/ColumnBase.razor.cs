@@ -152,6 +152,15 @@ public abstract partial class ColumnBase<TGridItem>
     public string? Width { get; set; }
 
     /// <summary>
+    /// Gets or sets the minimal width of the column.
+    /// Defaults to 100px for a regular column and 50px for a select column.
+    /// When resizing a column, the user will not be able to make it smaller than this value.
+    /// Needs to be a valid CSS width value like '100px', '10%' or '0.5fr'.
+    /// </summary>
+    [Parameter]
+    public string MinWidth { get; set; } = "100px";
+
+    /// <summary>
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
@@ -260,7 +269,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// <summary>
     /// Constructs an instance of <see cref="ColumnBase{TGridItem}" />.
     /// </summary>
-    public ColumnBase()
+    protected ColumnBase()
     {
         HeaderContent = RenderDefaultHeaderContent;
         HeaderTitleContent = RenderDefaultHeaderTitle;

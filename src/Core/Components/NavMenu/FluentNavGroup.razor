@@ -47,7 +47,7 @@
     {
         <FluentMenu @bind-Open="_open"
                     Anchor="@Id"
-                    HorizontalPosition="@HorizontalPosition.End"
+                    HorizontalPosition="@(Owner.Expanded ? HorizontalPosition.End : HorizontalPosition.Center)"
                     HorizontalInset="@false"
                     VerticalPosition="@VerticalPosition.Bottom"
                     VerticalInset="@true"

@@ -3,7 +3,9 @@ export function addThemeChangeEvent(dotNetHelper, id) {
 
     if (element) {
         element.addEventListener("onchange", (e) => {
-            UpdateBodyDataSetTheme(e.detail.newValue);
+            if (e.detail.name === "mode") {
+                UpdateBodyDataSetTheme(e.detail.newValue);
+            }
             try {
                 // setTimeout: https://github.com/dotnet/aspnetcore/issues/26809
                 setTimeout(() => {
@@ -28,7 +30,7 @@ export function addThemeChangeEvent(dotNetHelper, id) {
             ClearLocalStorage(id);
             console.error(`FluentDesignTheme: failing to load theme from localStorage.`, error);
         }
-       
+
     }
 
     return null;

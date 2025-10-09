@@ -1,4 +1,4 @@
-export * from '@fluentui/web-components/dist/web-components'
+﻿export * from '@fluentui/web-components/dist/web-components'
 export { parseColorHexRGB } from '@microsoft/fast-colors'
 
 import { accentBaseColor, neutralBaseColor, SwatchRGB, } from '@fluentui/web-components/dist/web-components'
@@ -74,6 +74,15 @@ fluent-number-field::part(control)
 {
     letter-spacing: inherit;
 }
+
+fluent-text-area:not([disabled]):active::after,
+fluent-text-field:not([disabled]):active::after,
+fluent-search:not([disabled]):active::after,
+fluent-combobox:not([disabled]):active::after,
+fluent-number-field:not([disabled]):active::after
+{
+	width: 100%; /* Fixes :active misplacement for touch devices */
+}
 `;
 
 styleSheet.replaceSync(styles);
@@ -83,6 +92,41 @@ document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
 var beforeStartCalled = false;
 var afterStartedCalled = false;
 
+
+function attachfluentnumberfieldObserver() {
+  if (!document.body) return;
+  // Disconnect existing observers
+  if (window.__fluentnumberfieldObserver) {
+    window.__fluentnumberfieldObserver.disconnect();
+  }
+
+  function reAddCurrentValue(target: Element) {
+    target.setAttribute('current-value', target.getAttribute('value') ?? '');
+  }
+  const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (
+        mutation.target instanceof Element &&
+        mutation.type === 'attributes' &&
+        mutation.attributeName === 'current-value' &&
+        mutation.target.hasAttribute('value') &&
+        !mutation.target.hasAttribute('current-value')
+      ) {
+        reAddCurrentValue(mutation.target);
+      }
+    }
+  });
+
+  // Observe all fields
+  document.querySelectorAll('fluent-number-field').forEach(field => {
+    observer.observe(field, {
+      attributes: true,
+      attributeFilter: ['current-value'],
+    });
+  });
+
+  window.__fluentnumberfieldObserver = observer;
+}
 
 export function afterWebStarted(blazor: any) {
   if (!afterStartedCalled) {
@@ -332,6 +376,10 @@ export function afterStarted(blazor: Blazor, mode: string) {
   if (typeof blazor.addEventListener === 'function' && mode === 'web') {
     customElements.define('fluent-page-script', FluentPageScript);
     blazor.addEventListener('enhancedload', onEnhancedLoad);
+  }
+
+  if (mode === 'web') {
+    blazor.addEventListener('enhancednavigationstart', attachfluentnumberfieldObserver);
   }
 
   afterStartedCalled = true;

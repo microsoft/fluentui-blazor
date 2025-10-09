@@ -13,11 +13,12 @@ name: "Security Scanning"
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
   schedule:
     - cron: '0 0 * * 0,3'
+  workflow_dispatch:
 
 jobs:
   analyze:
@@ -31,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp' ]
+        language: [ 'csharp', 'javascript' ]
 
     steps:
     - name: Checkout repository
@@ -40,10 +41,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: |
-            8.0.x
-            9.0.x
-            10.0.x
+        dotnet-version: 10.0.x
         dotnet-quality: preview
 
     - name: Initialize CodeQL

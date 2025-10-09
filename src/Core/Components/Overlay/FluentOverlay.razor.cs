@@ -305,6 +305,6 @@ public partial class FluentOverlay : IAsyncDisposable
         }
     }
 
-    [GeneratedRegex("^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))")]
+    [GeneratedRegex("^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))", RegexOptions.None, matchTimeoutMilliseconds: 1000)] //Add timeout to prevent ReDoS
     private static partial Regex CheckRGBString();
 }
