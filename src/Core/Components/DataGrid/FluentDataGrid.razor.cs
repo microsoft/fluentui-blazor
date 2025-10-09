@@ -339,7 +339,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Gets or sets the content to render when an error occurs.
     /// </summary>
     [Parameter]
-    public RenderFragment<Exception>? ErrorContent { get; set; }
+    public RenderFragment<Exception?>? ErrorContent { get; set; }
 
     /// <summary>
     /// Sets <see cref="GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
