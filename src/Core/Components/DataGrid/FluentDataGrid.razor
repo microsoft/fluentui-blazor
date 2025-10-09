@@ -276,7 +276,7 @@
 		</FluentDataGridRow>
 	}
 
-	[ExcludeFromCodeCoverage(Justification = "This method requires a failing db connection and is to complex to be tested with bUnit.")]
+	[ExcludeFromCodeCoverage(Justification = "This method requires a failing db connection and is too complex to be tested with bUnit.")]
 	private void RenderErrorContent(RenderTreeBuilder __builder)
 	{
 		if (_lastError == null)
@@ -297,21 +297,8 @@
 
 		<FluentDataGridRow Class="@ERROR_CONTENT_ROW_CLASS" TGridItem="TGridItem">
 			<FluentDataGridCell Class="empty-content-cell" Style="@style" colspan="@colspan">
-				RenderActualError(_lastError)
+				@RenderActualError
 			</FluentDataGridCell>
 		</FluentDataGridRow>
-	}
-
-	[ExcludeFromCodeCoverage(Justification = "Circumvent EFCC shortcomings when using razor.")]
-	private void RenderActualError(RenderTreeBuilder __builder, Exception ex)
-	{
-		if (ErrorContent is null)
-		{
-			@("An error occurred while retrieving data.")
-		}
-		else
-		{
-			@ErrorContent(ex)
-		}
 	}
 }

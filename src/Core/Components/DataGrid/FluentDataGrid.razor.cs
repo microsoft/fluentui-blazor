@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
@@ -27,6 +28,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     internal const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
     internal const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
     internal const string ERROR_CONTENT_ROW_CLASS = "error-content-row";
+
+//#if DEBUG
+//    internal static bool IsUnitTest;
+//#endif
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -866,50 +871,50 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 var gipr = await ItemsProvider(request);
                 if (gipr.Items is not null && Loading is null)
-                {
+            {
                     Loading = false;
                     StateHasChanged();
-                }
+        }
 
                 return gipr;
-            }
+    }
 
-            if (Items is not null)
-            {
-                if (_asyncQueryExecutor is not null)
-                {
-                    await OnItemsLoading.InvokeAsync(true);
-                }
-
-                var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
-                _internalGridContext.TotalItemCount = totalItemCount;
-                IQueryable<TGridItem>? result;
-                if (RefreshItems is null)
-                {
-                    result = request.ApplySorting(Items).Skip(request.StartIndex);
-                    if (request.Count.HasValue)
-                    {
-                        result = result.Take(request.Count.Value);
-                    }
-                }
-                else
-                {
-                    result = Items;
-                }
-
-                var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
-                return GridItemsProviderResult.From(resultArray, totalItemCount);
-            }
-        }
-        catch (OperationCanceledException oce) when (oce.CancellationToken == request.CancellationToken) // No-op; we canceled the operation, so it's fine to suppress this exception.
+        if (Items is not null)
         {
+            if (_asyncQueryExecutor is not null)
+            {
+                await OnItemsLoading.InvokeAsync(true);
+            }
+
+            var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
+            _internalGridContext.TotalItemCount = totalItemCount;
+            IQueryable<TGridItem>? result;
+            if (RefreshItems is null)
+            {
+                result = request.ApplySorting(Items).Skip(request.StartIndex);
+                if (request.Count.HasValue)
+                {
+                    result = result.Take(request.Count.Value);
+                }
+            }
+            else
+            {
+                result = Items;
+            }
+
+            var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
+            return GridItemsProviderResult.From(resultArray, totalItemCount);
+        }
+    }
+        catch (OperationCanceledException oce) when (oce.CancellationToken == request.CancellationToken) // No-op; we canceled the operation, so it's fine to suppress this exception.
+    {
         }
         catch (Exception ex) when (HandleLoadingError?.Invoke(ex) == true)
         {
             _lastError = ex.GetBaseException();
         }
         finally
-        {
+            {
             if (Items is not null && _asyncQueryExecutor is not null)
             {
                 CheckAndResetLoading();
@@ -1129,6 +1134,21 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (_gridReference is not null && JSModule is not null)
         {
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.ResetColumnWidths", _gridReference);
+        }
+    }
+
+    [ExcludeFromCodeCoverage(Justification = "This method requires a failing db connection and is too complex to be tested with bUnit.")]
+    private void RenderActualError(RenderTreeBuilder builder)
+    {
+        if (ErrorContent is null)
+        {
+            builder.AddContent(0, Localizer[Localization.LanguageResource.DataGrid_ErrorContent]);
+
+        }
+        else
+        {
+            builder.AddContent(1, ErrorContent(_lastError));
+
         }
     }
 }
