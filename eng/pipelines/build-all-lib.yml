@@ -21,9 +21,6 @@ parameters:
 variables:
   - template: /eng/pipelines/version.yml@self
 
-  - name: SignType
-    value: real
-
   - name: TeamName
     value: fluentui-blazor
 
@@ -69,7 +66,8 @@ extends:
           mb:
             signing:
               enabled: true
-              signType: $(SignType)
+              signType: real
+              signWithProd: true
               zipSources: false
               feedSource: https://dnceng.pkgs.visualstudio.com/_packaging/MicroBuildToolset/nuget/v3/index.json
               env:
