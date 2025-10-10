@@ -15,8 +15,6 @@ public class CalendarTValueTests
     [InlineData(typeof(DateTime?))]
     [InlineData(typeof(DateOnly))]
     [InlineData(typeof(DateOnly?))]
-    [InlineData(typeof(DateTimeOffset))]
-    [InlineData(typeof(DateTimeOffset?))]
     public void IsNotDateType_SupportedTypes_ReturnsFalse(Type type)
     {
         // Act
@@ -51,6 +49,7 @@ public class CalendarTValueTests
     [InlineData("2023-10-26 14:30:00", typeof(DateTime), false, "2023-10-26 14:30:00")]
     [InlineData("2023-10-26 00:00:00", typeof(DateOnly), false, "2023-10-26 00:00:00")]
     [InlineData("2023-10-26 14:30:00", typeof(DateTimeOffset), false, "2023-10-26 14:30:00")]
+    [InlineData("14:30:00", typeof(TimeOnly), false, "0001-01-01 14:30:00")]
     public void ConvertToDateTime_ValidValues_ReturnsCorrectDateTime(string inputDate, Type inputType, bool isNullOrDefault, string expectedDate)
     {
         // Arrange
@@ -60,6 +59,7 @@ public class CalendarTValueTests
             Type t when t == typeof(DateTime) => DateTime.Parse(inputDate, CultureInfo.InvariantCulture),
             Type t when t == typeof(DateOnly) => DateOnly.Parse(inputDate.Split(' ')[0], CultureInfo.InvariantCulture),
             Type t when t == typeof(DateTimeOffset) => new DateTimeOffset(DateTime.Parse(inputDate, CultureInfo.InvariantCulture), TimeSpan.FromHours(2)),
+            Type t when t == typeof(TimeOnly) => TimeOnly.Parse(inputDate, CultureInfo.InvariantCulture),
             _ => throw new ArgumentException($"Unsupported type: {inputType}")
         };
 
@@ -69,6 +69,7 @@ public class CalendarTValueTests
             Type t when t == typeof(DateTime) => ((DateTime)inputValue).ConvertToDateTime(isNullOrDefault),
             Type t when t == typeof(DateOnly) => ((DateOnly)inputValue).ConvertToDateTime(isNullOrDefault),
             Type t when t == typeof(DateTimeOffset) => ((DateTimeOffset)inputValue).ConvertToDateTime(isNullOrDefault),
+            Type t when t == typeof(TimeOnly) => ((TimeOnly)inputValue).ConvertToDateTime(isNullOrDefault),
             _ => throw new ArgumentException($"Unsupported type: {inputType}")
         };
 
@@ -242,6 +243,34 @@ public class CalendarTValueTests
 
         // Act
         var result = dateTime.ConvertToTValue<DateOnly?>();
+
+        // Assert
+        Assert.Equal(expectedDateOnly, result);
+    }
+
+    [Fact]
+    public void ConvertToTValue_TimeOnly_ReturnsCorrectValue()
+    {
+        // Arrange
+        var dateTime = new DateTime(1, 1, 1, 14, 30, 0);
+        var expectedDateOnly = TimeOnly.FromDateTime(dateTime);
+
+        // Act
+        var result = dateTime.ConvertToTValue<TimeOnly>();
+
+        // Assert
+        Assert.Equal(expectedDateOnly, result);
+    }
+
+    [Fact]
+    public void ConvertToTValue_NullableTimeOnly_ReturnsCorrectValue()
+    {
+        // Arrange
+        var dateTime = new DateTime(1, 1, 1, 14, 30, 0);
+        var expectedDateOnly = TimeOnly.FromDateTime(dateTime);
+
+        // Act
+        var result = dateTime.ConvertToTValue<TimeOnly?>();
 
         // Assert
         Assert.Equal(expectedDateOnly, result);

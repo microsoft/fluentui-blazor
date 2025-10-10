@@ -131,10 +131,32 @@
             <ChildContent>
                 <PropertyColumn Width="100%" Property="@(i => i.Name)" />
             </ChildContent>
+        </FluentDataGrid>
+	);
+
+		// Assert
+		Assert.NotNull(cut.Find("#empty-content"));
+	}
+
+	[Fact]
+	public void FluentDataGrid_ErrorContent_Supplied()
+	{
+		// This is sort of untestable because you'd need to force a connection errror or something like that
+		// Arrange && Act
+		IQueryable<Customer>? Items = null;
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@Items" DisplayMode="DataGridDisplayMode.Table" HandleLoadingError="@(ex => true)">
+            <EmptyContent><p id="empty-content">empty content</p></EmptyContent>
+			<ErrorContent><p id="error-content">error content</p></ErrorContent>
+            <ChildContent>
+                <PropertyColumn Width="100%" Property="@(i => i.Name)" />
+            </ChildContent>
         </FluentDataGrid>);
 
         // Assert
-        Assert.NotNull(cut.Find("#empty-content"));
+		Assert.NotNull(cut.Find("#empty-content"));
+        Assert.Throws<ElementNotFoundException>(() => cut.Find("#error-content"));
     }
 
     [Fact]
@@ -201,6 +223,23 @@
             );
         });
     }
+
+	[Fact]
+    public void FluentDataGrid_IsFixed()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" IsFixed="true" RefreshItems="RefreshItemsAsync">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true"/>
+                </ChildContent>
+                <EmptyContent><p>empty content</p></EmptyContent>
+            </FluentDataGrid>);
+
+        // Assert
+        cut.Verify();
+    }
+
 
     [Fact]
     public void FluentDataGrid_GridTemplateColumns_And_Width()
@@ -1432,7 +1471,6 @@
         FluentDataGrid<GridRow>? grid = default!;
         ColumnKeyGridSort<GridRow>? _firstNameSort = null;
 
-
         var  _lastNameSort = new ColumnKeyGridSort<GridRow>(
             "lastname",
             (queryable, sortAscending) =>
@@ -1491,6 +1529,8 @@
         // Assert
         Assert.NotEmpty(rows); // Asserting that there are rows present
         Assert.Equal(4, rows.Count);  //3 DataRows + 1 header row
+
+		cut.Verify();
     }
 
     [Fact]

@@ -306,4 +306,7 @@
   <data name="Calendar_FieldMustBeADate" xml:space="preserve">
     <value>The {0} field must be a date.</value>
   </data>
+  <data name="DataGrid_ErrorContent" xml:space="preserve">
+    <value>An error occurred while retrieving data.</value>
+  </data>
 </root>

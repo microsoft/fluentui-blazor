@@ -50,6 +50,7 @@ public class ComponentBaseTests : Bunit.TestContext
         { typeof(FluentDatePicker<>), Loader.MakeGenericType(typeof(DateTime))},
         { typeof(FluentDragContainer<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentDropZone<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentTimePicker<>), Loader.MakeGenericType(typeof(DateTime))},
     };
 
     /// <summary />

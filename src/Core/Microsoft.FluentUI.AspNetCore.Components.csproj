@@ -57,9 +57,6 @@
     <None Include="**\*.ts" />
   </ItemGroup>
 
-  <ItemGroup>
-    <TypeScriptCompile Remove="components\datetime\FluentCalendar.razor.ts" />
-  </ItemGroup>
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

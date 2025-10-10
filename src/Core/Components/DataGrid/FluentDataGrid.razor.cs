@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
@@ -26,6 +27,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     internal const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
     internal const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
+    internal const string ERROR_CONTENT_ROW_CLASS = "error-content-row";
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -44,11 +46,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private readonly RenderFragment _renderNonVirtualizedRows;
     private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderLoadingContent;
+    private readonly RenderFragment _renderErrorContent;
     private string? _internalGridTemplateColumns;
     private PaginationState? _lastRefreshedPaginationState;
     private IQueryable<TGridItem>? _lastAssignedItems;
     private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
+    private Exception? _lastError;
     private GridItemsProviderRequest<TGridItem>? _lastRequest;
     private bool _forceRefreshData;
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
@@ -64,12 +68,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _renderNonVirtualizedRows = RenderNonVirtualizedRows;
         _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
+        _renderErrorContent = RenderErrorContent;
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
         // We use EventCallbackSubscriber to safely hook this async operation into the synchronous rendering flow
         EventCallbackSubscriber<object?>? columnsFirstCollectedSubscriber = new(
-            EventCallback.Factory.Create<object?>(this, RefreshDataCoreAsync));
+                EventCallback.Factory.Create<object?>(this, RefreshDataCoreAsync));
         columnsFirstCollectedSubscriber.SubscribeOrMove(_internalGridContext.ColumnsFirstCollected);
     }
 
@@ -232,13 +237,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public PaginationState? Pagination { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the component will not add itself to the tab queue.
-    /// Default is false.
-    /// </summary>
-    [Parameter]
-    public bool NoTabbing { get; set; }
-
-    /// <summary>
     /// Gets or sets a value indicating whether the grid should automatically generate a header row and its type.
     /// See <see cref="DataGridGeneratedHeaderType"/>
     /// </summary>
@@ -322,6 +320,27 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter]
     public RenderFragment? LoadingContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the asynchronous loading state of items changes and <see cref="IAsyncQueryExecutor"/> is used.
+    /// </summary>
+    /// <remarks>The callback receives a <see langword="true"/> value when items start loading
+    /// and a <see langword="false"/> value when the loading process completes.</remarks>
+    [ExcludeFromCodeCoverage(Justification = "This method requires a db connection and is to complex to be tested with bUnit.")]
+    [Parameter]
+    public EventCallback<bool> OnItemsLoading { get; set; }
+
+    /// <summary>
+    /// Gets or sets a delegate that determines whether a given exception should be handled.
+    /// </summary>
+    [Parameter]
+    public Func<Exception, bool>? HandleLoadingError { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to render when an error occurs.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Exception?>? ErrorContent { get; set; }
 
     /// <summary>
     /// Sets <see cref="GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
@@ -732,9 +751,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // (2) We won't know what slice of data to query for
             await _virtualizeComponent.RefreshDataAsync();
             _pendingDataLoadCancellationTokenSource = null;
-
-            StateHasChanged();
-            return;
         }
 
         // If we're not using Virtualize, we build and execute a request against the items provider directly
@@ -824,7 +840,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
             }
 
-            if (_internalGridContext.TotalItemCount > 0 && Loading is null)
+            if ((_internalGridContext.TotalItemCount > 0 && Loading is null) || _lastError != null)
             {
                 Loading = false;
                 _ = InvokeAsync(StateHasChanged);
@@ -844,6 +860,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Normalizes all the different ways of configuring a data source so they have common GridItemsProvider-shaped API
     private async ValueTask<GridItemsProviderResult<TGridItem>> ResolveItemsRequestAsync(GridItemsProviderRequest<TGridItem> request)
     {
+        CheckAndResetLastError();
         try
         {
             if (ItemsProvider is not null)
@@ -860,6 +877,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
             if (Items is not null)
             {
+                if (_asyncQueryExecutor is not null)
+                {
+                    await OnItemsLoading.InvokeAsync(true);
+                }
+
                 var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
                 _internalGridContext.TotalItemCount = totalItemCount;
                 IQueryable<TGridItem>? result;
@@ -880,12 +902,41 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 return GridItemsProviderResult.From(resultArray, totalItemCount);
             }
         }
-        catch (OperationCanceledException oce) when (oce.CancellationToken == request.CancellationToken)
+        catch (OperationCanceledException oce) when (oce.CancellationToken == request.CancellationToken) // No-op; we canceled the operation, so it's fine to suppress this exception.
         {
-            // No-op; we canceled the operation, so it's fine to suppress this exception.
+        }
+        catch (Exception ex) when (HandleLoadingError?.Invoke(ex) == true)
+        {
+            _lastError = ex.GetBaseException();
+        }
+        finally
+        {
+            if (Items is not null && _asyncQueryExecutor is not null)
+            {
+                CheckAndResetLoading();
+                await OnItemsLoading.InvokeAsync(false);
+            }
         }
 
         return GridItemsProviderResult.From(Array.Empty<TGridItem>(), 0);
+    }
+
+    private void CheckAndResetLoading()
+    {
+        if (Loading == true)
+        {
+            Loading = false;
+            StateHasChanged();
+        }
+    }
+
+    private void CheckAndResetLastError()
+    {
+        if (_lastError != null)
+        {
+            _lastError = null;
+            StateHasChanged();
+        }
     }
 
     private string AriaSortValue(ColumnBase<TGridItem> column)
@@ -1079,6 +1130,21 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (_gridReference is not null && JSModule is not null)
         {
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.ResetColumnWidths", _gridReference);
+        }
+    }
+
+    [ExcludeFromCodeCoverage(Justification = "This method requires a failing db connection and is too complex to be tested with bUnit.")]
+    private void RenderActualError(RenderTreeBuilder builder)
+    {
+        if (ErrorContent is null)
+        {
+            builder.AddContent(0, Localizer[Localization.LanguageResource.DataGrid_ErrorContent]);
+
+        }
+        else
+        {
+            builder.AddContent(1, ErrorContent(_lastError));
+
         }
     }
 }
