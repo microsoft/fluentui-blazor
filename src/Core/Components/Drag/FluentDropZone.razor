@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 @typeparam TItem
 
-<div draggable="@(Draggable ? "true" : null)"
+<div draggable="@GetDraggableAttributeValue()"
      id="@Id"
      class="@ClassValue"
      style="@StyleValue"

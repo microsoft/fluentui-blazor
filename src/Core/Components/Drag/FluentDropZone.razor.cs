@@ -251,4 +251,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
 
         Container.SetStartedZone(value: null);
     }
+
+    /// <summary />
+    private string? GetDraggableAttributeValue() => Draggable ? "true" : null;
 }
