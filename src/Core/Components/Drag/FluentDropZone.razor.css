@@ -1,9 +1,10 @@
-﻿div[draggable='true'] {
-    cursor: move;
+div[draggable='true'] {
+  cursor: move;
 }
 
 div[dragged-over] {
-    background-color: lightgray;
-    opacity: 0.6;
-    animation: blinker 1s linear infinite;
+  background-color: var(--colorNeutralBackground2);
+  color: var(--colorNeutralForeground2);
+  opacity: 0.6;
+  animation: blinker 1s linear infinite;
 }
