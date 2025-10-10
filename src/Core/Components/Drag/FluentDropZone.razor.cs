@@ -23,7 +23,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
 
     /// <summary />
     [CascadingParameter]
-    private FluentDragContainer<TItem> Container { get; set; } = default!;
+    public required FluentDragContainer<TItem> Container { get; set; }
 
     /// <summary>
     /// Gets or sets the item to identify a draggable zone.
@@ -104,15 +104,17 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
 
         Container.SetStartedZone(this);
 
-        if (OnDragStart != null)
+        OnDragStart?.Invoke(new FluentDragEventArgs<TItem>
         {
-            OnDragStart(new FluentDragEventArgs<TItem>(this, this));
-        }
+            Source = this,
+            Target = this,
+        });
 
-        if (Container.OnDragStart != null)
+        Container.OnDragStart?.Invoke(new FluentDragEventArgs<TItem>
         {
-            Container.OnDragStart(new FluentDragEventArgs<TItem>(this, this));
-        }
+            Source = this,
+            Target = this,
+        });
     }
 
     /// <summary />
@@ -123,15 +125,17 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
             return;
         }
 
-        if (OnDragEnd != null)
+        OnDragEnd?.Invoke(new FluentDragEventArgs<TItem>
         {
-            OnDragEnd(new FluentDragEventArgs<TItem>(this, this));
-        }
+            Source = this,
+            Target = this,
+        });
 
-        if (Container.OnDragEnd != null)
+        Container.OnDragEnd?.Invoke(new FluentDragEventArgs<TItem>
         {
-            Container.OnDragEnd(new FluentDragEventArgs<TItem>(this, this));
-        }
+            Source = this,
+            Target = this,
+        });
     }
 
     /// <summary />
@@ -149,15 +153,17 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
             return;
         }
 
-        if (OnDragEnter != null)
+        OnDragEnter?.Invoke(new FluentDragEventArgs<TItem>
         {
-            OnDragEnter(new FluentDragEventArgs<TItem>(Container.StartedZone, this));
-        }
+            Source = Container.StartedZone,
+            Target = this,
+        });
 
-        if (Container.OnDragEnter != null)
+        Container.OnDragEnter?.Invoke(new FluentDragEventArgs<TItem>
         {
-            Container.OnDragEnter(new FluentDragEventArgs<TItem>(Container.StartedZone, this));
-        }
+            Source = Container.StartedZone,
+            Target = this,
+        });
     }
 
     /// <summary />
@@ -175,15 +181,17 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
 
         IsOver = true;
 
-        if (OnDragOver != null)
+        OnDragOver?.Invoke(new FluentDragEventArgs<TItem>
         {
-            OnDragOver(new FluentDragEventArgs<TItem>(Container.StartedZone, this));
-        }
+            Source = Container.StartedZone,
+            Target = this,
+        });
 
-        if (Container.OnDragOver != null)
+        Container.OnDragOver?.Invoke(new FluentDragEventArgs<TItem>
         {
-            Container.OnDragOver(new FluentDragEventArgs<TItem>(Container.StartedZone, this));
-        }
+            Source = Container.StartedZone,
+            Target = this,
+        });
     }
 
     /// <summary />
@@ -201,15 +209,17 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
             return;
         }
 
-        if (OnDragLeave != null)
+        OnDragLeave?.Invoke(new FluentDragEventArgs<TItem>
         {
-            OnDragLeave(new FluentDragEventArgs<TItem>(Container.StartedZone, this));
-        }
+            Source = Container.StartedZone,
+            Target = this,
+        });
 
-        if (Container.OnDragLeave != null)
+        Container.OnDragLeave?.Invoke(new FluentDragEventArgs<TItem>
         {
-            Container.OnDragLeave(new FluentDragEventArgs<TItem>(Container.StartedZone, this));
-        }
+            Source = Container.StartedZone,
+            Target = this,
+        });
     }
 
     /// <summary />
@@ -227,16 +237,18 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
             return;
         }
 
-        if (OnDropEnd != null)
+        OnDropEnd?.Invoke(new FluentDragEventArgs<TItem>
         {
-            OnDropEnd(new FluentDragEventArgs<TItem>(Container.StartedZone, this));
-        }
+            Source = Container.StartedZone,
+            Target = this,
+        });
 
-        if (Container.OnDropEnd != null)
+        Container.OnDropEnd?.Invoke(new FluentDragEventArgs<TItem>
         {
-            Container.OnDropEnd(new FluentDragEventArgs<TItem>(Container.StartedZone, this));
-        }
+            Source = Container.StartedZone,
+            Target = this,
+        });
 
-        Container.SetStartedZone(null);
+        Container.SetStartedZone(value: null);
     }
 }
