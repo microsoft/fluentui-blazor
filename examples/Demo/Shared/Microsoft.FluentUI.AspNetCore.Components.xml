@@ -6227,6 +6227,12 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MustBeClosed">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.FocusAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.FocusAsync(System.Boolean)">
+            <inheritdoc />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1">
             <summary />
         </member>

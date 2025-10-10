@@ -706,6 +706,32 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         return false;
     }
+
+    /// <inheritdoc />
+    public override void FocusAsync()
+    {
+        if (Multiple)
+        {
+            Element?.FocusAsync();
+        }
+        else
+        {
+            OnDropDownExpandedAsync();
+        }
+    }
+
+    /// <inheritdoc />
+    public override void FocusAsync(bool preventScroll)
+    {
+        if (Multiple)
+        {
+            Element?.FocusAsync(preventScroll);
+        }
+        else
+        {
+            OnDropDownExpandedAsync();
+        }
+    }
 }
 
 /// <summary />
