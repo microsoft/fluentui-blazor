@@ -40,7 +40,7 @@ jobs:
       - name: .NET Setup SDKs
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 9.0.205
           dotnet-quality: ga
 
       - name: Setup .NET 10.0
