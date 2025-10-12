@@ -68,3 +68,14 @@ if (Test-Path "./examples/Demo/FluentUI.Demo/bin/Publish") {
 }
 
 Write-Host "✅ Demo publish process completed successfully!" -ForegroundColor Green
+
+# Ask user if they want to run the website
+Write-Host ""
+$runWebsite = Read-Host "Do you want to run the website now? (Y/n)"
+if ($runWebsite -eq "" -or $runWebsite -eq "Y" -or $runWebsite -eq "y") {
+    Write-Host "👉 Starting the website..." -ForegroundColor Green
+    Start-Process -FilePath "./examples/Demo/FluentUI.Demo/bin/Publish/FluentUI.Demo.exe" -WorkingDirectory "./examples/Demo/FluentUI.Demo/bin/Publish"
+}
+
+Write-Host "👉 You can deploy to Azure using a command like:" -ForegroundColor Green
+Write-Host "▶️ az webapp deploy --resource-group FluentUI --name fluentui-blazor-v5 --src-path ./examples/Demo/FluentUI.Demo/bin/FluentUI-Blazor.zip --type zip" -ForegroundColor Green
