@@ -24,7 +24,7 @@ if (Test-Path "./src/Core/obj/") {
 }
 
 # Build the core project
-Write-Host "👉 Building core project..." -ForegroundColor Yellow
+Write-Host "👉 Building Core project..." -ForegroundColor Yellow
 dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish"  -f net9.0
 
 # Generate documentation file
@@ -34,16 +34,6 @@ dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.Doc
 # Publish the demo
 Write-Host "👉 Publishing demo..." -ForegroundColor Yellow
 dotnet publish "./examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" -c Release -o "./examples/Demo/FluentUI.Demo/bin/Publish" -f net9.0
-
-# Create deployment archive
-Write-Host "👉 Creating deployment archive..." -ForegroundColor Yellow
-if (Test-Path "./examples/Demo/FluentUI.Demo/bin/Publish") {
-    Compress-Archive -Path ./examples/Demo/FluentUI.Demo/bin/Publish/* -DestinationPath ./examples/Demo/FluentUI.Demo/bin/FluentUI-Blazor.zip -Force
-    Write-Host "☑️ Archive created: ./examples/Demo/FluentUI.Demo/bin/FluentUI-Blazor.zip" -ForegroundColor Green
-} else {
-    Write-Host "⛔Publish directory not found!" -ForegroundColor Red
-    exit 1
-}
 
 # Verify that the bundle CSS file has the expected size
 Write-Host "👉 Verifying bundle CSS file size..." -ForegroundColor Yellow
@@ -64,6 +54,16 @@ if (Test-Path $bundleFilePath) {
 } else {
     Write-Host "⛔ Bundle CSS file not found: $bundleFilePath" -ForegroundColor Red
     Write-Host "⛔ This may indicate a build issue with the CSS bundle generation." -ForegroundColor Red
+    exit 1
+}
+
+# Create deployment archive
+Write-Host "👉 Creating deployment archive..." -ForegroundColor Yellow
+if (Test-Path "./examples/Demo/FluentUI.Demo/bin/Publish") {
+    Compress-Archive -Path ./examples/Demo/FluentUI.Demo/bin/Publish/* -DestinationPath ./examples/Demo/FluentUI.Demo/bin/FluentUI-Blazor.zip -Force
+    Write-Host "☑️ Archive created: ./examples/Demo/FluentUI.Demo/bin/FluentUI-Blazor.zip" -ForegroundColor Green
+} else {
+    Write-Host "⛔Publish directory not found!" -ForegroundColor Red
     exit 1
 }
 
