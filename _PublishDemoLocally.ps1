@@ -45,4 +45,26 @@ if (Test-Path "./examples/Demo/FluentUI.Demo/bin/Publish") {
     exit 1
 }
 
+# Verify that the bundle CSS file has the expected size
+Write-Host "👉 Verifying bundle CSS file size..." -ForegroundColor Yellow
+$bundleFilePath = "./examples/Demo/FluentUI.Demo/bin/Publish/wwwroot/_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css.br"
+
+if (Test-Path $bundleFilePath) {
+    $fileSize = (Get-Item $bundleFilePath).Length
+    $fileSizeKB = [math]::Round($fileSize / 1024, 2)
+
+    if ($fileSize -gt 1024) {
+        Write-Host "☑️ Bundle CSS file verified: $fileSizeKB KB" -ForegroundColor Green
+    } else {
+        Write-Host "⛔ Bundle CSS file is too small: $fileSizeKB KB (expected > 1KB)" -ForegroundColor Red
+        Write-Host "⛔ This may indicate a build issue with the CSS bundle generation." -ForegroundColor Red
+        Write-Host "⛔ Install .NET 9.0.205 SDK and a `global.json` file with `{ ""sdk"": { ""version"": ""9.0.205"" } }`." -ForegroundColor Red
+        exit 1
+    }
+} else {
+    Write-Host "⛔ Bundle CSS file not found: $bundleFilePath" -ForegroundColor Red
+    Write-Host "⛔ This may indicate a build issue with the CSS bundle generation." -ForegroundColor Red
+    exit 1
+}
+
 Write-Host "✅ Demo publish process completed successfully!" -ForegroundColor Green
