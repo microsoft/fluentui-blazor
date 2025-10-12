@@ -25,6 +25,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Condition="'$(TargetFramework)'=='net9.0'">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
