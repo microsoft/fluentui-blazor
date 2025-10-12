@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
@@ -9,6 +9,17 @@
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <!-- TypeScript (no tsconfig.json to avoid NETSDK1152) -->
+  <PropertyGroup>
+    <TypeScriptTarget>ESNext</TypeScriptTarget>
+    <TypeScriptModuleKind>ESNext</TypeScriptModuleKind>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+    <TypeScriptStrict>true</TypeScriptStrict>
+    <TypeScriptNoImplicitAny>true</TypeScriptNoImplicitAny>
+    <TypeScriptNoEmitOnError>true</TypeScriptNoEmitOnError>
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
   </PropertyGroup>
 
   <!-- Code Analysis -->
