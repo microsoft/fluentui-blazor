@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
@@ -9,6 +9,17 @@
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <!-- TypeScript (no tsconfig.json to avoid NETSDK1152) -->
+  <PropertyGroup>
+    <TypeScriptTarget>ESNext</TypeScriptTarget>
+    <TypeScriptModuleKind>ESNext</TypeScriptModuleKind>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+    <TypeScriptStrict>true</TypeScriptStrict>
+    <TypeScriptNoImplicitAny>true</TypeScriptNoImplicitAny>
+    <TypeScriptNoEmitOnError>true</TypeScriptNoEmitOnError>
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
   </PropertyGroup>
 
   <!-- Code Analysis -->
@@ -29,15 +40,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <!-- TypeScript Configuration -->
-  <ItemGroup>
-    <TypeScriptConfig Include="tsconfig.client.json" />
-    <Content Remove="tsconfig.client.json" />
-    <None Include="tsconfig.client.json">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
