@@ -1,0 +1,214 @@
+﻿@using Bunit.TestDoubles
+@using System.ComponentModel.DataAnnotations
+@using Xunit
+@using System.Reflection
+@inherits Bunit.TestContext
+
+@code {
+    public FluentDataGridErrorContentTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        // Register services
+        Services.AddFluentUIComponents();
+        Services.AddScoped<IKeyCodeService>(factory => new KeyCodeService());
+    }
+
+    [Fact]
+    public void RenderActualError_WithDefaultErrorContent_ShowsLocalizedMessage()
+    {
+        // Arrange: Create a grid with an ItemsProvider that throws an exception
+        GridItemsProvider<Customer> itemsProvider = async (request) =>
+        {
+            await Task.Delay(1); // Ensure async
+            throw new InvalidOperationException("Test database error");
+        };
+
+        // Act: Render the grid
+        var cut = Render<FluentDataGrid<Customer>>(@<FluentDataGrid ItemsProvider="@itemsProvider" HandleLoadingError="@(ex => true)">
+            <ChildContent>
+                <PropertyColumn Property="@(x => x.Name)" />
+            </ChildContent>
+        </FluentDataGrid>);
+
+        // Wait for the error to be processed
+        cut.WaitForState(() => cut.FindAll(".error-content-row").Count > 0, TimeSpan.FromSeconds(5));
+
+        // Assert: Verify the default localized error message is displayed
+        var errorRow = cut.Find(".error-content-row");
+        Assert.NotNull(errorRow);
+
+        // The default error content should contain the localized message
+        var errorCell = errorRow.QuerySelector(".empty-content-cell");
+        Assert.NotNull(errorCell);
+        Assert.Contains("An error occurred while retrieving data.", errorCell.TextContent);
+    }
+
+    [Fact]
+    public void RenderActualError_WithCustomErrorContent_ShowsCustomMessage()
+    {
+        // Arrange: Create a grid with custom error content and an ItemsProvider that throws an exception
+        GridItemsProvider<Customer> itemsProvider = async (request) =>
+        {
+            await Task.Delay(1); // Ensure async
+            throw new InvalidOperationException("Test database error");
+        };
+
+        // Act: Render the grid
+        var cut = Render<FluentDataGrid<Customer>>(@<FluentDataGrid ItemsProvider="@itemsProvider"
+                                         HandleLoadingError="@(ex => true)">
+            <ErrorContent>
+                <div class="custom-error">
+                    <p>Custom error occurred</p>
+                    <p>Details: @context?.Message</p>
+                </div>
+            </ErrorContent>
+            <ChildContent>
+                <PropertyColumn Property="@(x => x.Name)" />
+            </ChildContent>
+        </FluentDataGrid>);
+
+        // Wait for the error to be processed
+        cut.WaitForState(() => cut.FindAll(".error-content-row").Count > 0, TimeSpan.FromSeconds(5));
+
+        // Assert: Verify the custom error content is displayed
+        var errorRow = cut.Find(".error-content-row");
+        Assert.NotNull(errorRow);
+
+        var customErrorDiv = errorRow.QuerySelector(".custom-error");
+        Assert.NotNull(customErrorDiv);
+        Assert.Contains("Custom error occurred", customErrorDiv.TextContent);
+        Assert.Contains("Test database error", customErrorDiv.TextContent);
+    }
+
+    [Fact]
+    public void RenderActualError_WithGridDisplayMode_UsesGridColumnSpanning()
+    {
+        // Arrange: Create a grid in Grid display mode with an ItemsProvider that throws an exception
+        GridItemsProvider<Customer> itemsProvider = async (request) =>
+        {
+            await Task.Delay(1); // Ensure async
+            throw new InvalidOperationException("Test database error");
+        };
+
+        // Act: Render the grid with Grid display mode (default)
+        var cut = Render<FluentDataGrid<Customer>>(@<FluentDataGrid ItemsProvider="@itemsProvider"
+                                         HandleLoadingError="@(ex => true)"
+                                         DisplayMode="DataGridDisplayMode.Grid">
+            <ChildContent>
+                <PropertyColumn Property="@(x => x.Name)" />
+                <PropertyColumn Property="@(x => x.Id)" />
+            </ChildContent>
+        </FluentDataGrid>);
+
+        // Wait for the error to be processed
+        cut.WaitForState(() => cut.FindAll(".error-content-row").Count > 0, TimeSpan.FromSeconds(5));
+
+        // Assert: Verify the error cell uses grid column spanning
+        var errorCell = cut.Find(".empty-content-cell");
+        Assert.NotNull(errorCell);
+
+        // In grid mode, the style should include grid-column spanning
+        var style = errorCell.GetAttribute("style");
+        Assert.Contains("grid-column: 1 / 3", style); // 2 columns + 1
+    }
+
+    [Fact]
+    public void RenderActualError_WithTableDisplayMode_UsesColspan()
+    {
+        // Arrange: Create a grid in Table display mode with an ItemsProvider that throws an exception
+        GridItemsProvider<Customer> itemsProvider = async (request) =>
+        {
+            await Task.Delay(1); // Ensure async
+            throw new InvalidOperationException("Test database error");
+        };
+
+        // Act: Render the grid with Table display mode
+        var cut = Render<FluentDataGrid<Customer>>(@<FluentDataGrid ItemsProvider="@itemsProvider"
+                                         HandleLoadingError="@(ex => true)"
+                                         DisplayMode="DataGridDisplayMode.Table">
+            <ChildContent>
+                <PropertyColumn Property="@(x => x.Name)" />
+                <PropertyColumn Property="@(x => x.Id)" />
+            </ChildContent>
+        </FluentDataGrid>);
+
+        // Wait for the error to be processed
+        cut.WaitForState(() => cut.FindAll(".error-content-row").Count > 0, TimeSpan.FromSeconds(5));
+
+        // Assert: Verify the error cell uses colspan
+        var errorCell = cut.Find(".empty-content-cell");
+        Assert.NotNull(errorCell);
+
+        // In table mode, the cell should have a colspan attribute
+        var colspan = errorCell.GetAttribute("colspan");
+        Assert.Equal("2", colspan); // Should span across both columns
+    }
+
+    [Fact]
+    public void RenderActualError_WithNullException_DoesNotRender()
+    {
+        // Arrange: Create a grid with no error condition
+        var customers = GetCustomers().AsQueryable();
+
+        // Act: Render the grid normally (no error)
+        var cut = Render<FluentDataGrid<Customer>>(@<FluentDataGrid Items="@customers">
+            <ChildContent>
+                <PropertyColumn Property="@(x => x.Name)" />
+            </ChildContent>
+        </FluentDataGrid>);
+
+        // Assert: Verify no error content is rendered
+        var errorRows = cut.FindAll(".error-content-row");
+        Assert.Empty(errorRows);
+    }
+
+    [Fact]
+    public void RenderActualError_WithErrorContentNull_ShowsDefaultMessage()
+    {
+        // Arrange: Create a grid with ErrorContent explicitly set to null
+        GridItemsProvider<Customer> itemsProvider = async (request) =>
+        {
+            await Task.Delay(1); // Ensure async
+            throw new InvalidOperationException("Test database error");
+        };
+
+        // Act: Render the grid with ErrorContent set to null
+        var cut = Render<FluentDataGrid<Customer>>(@<FluentDataGrid ItemsProvider="@itemsProvider"
+                                         HandleLoadingError="@(ex => true)"
+                                         ErrorContent="@((RenderFragment<Exception?>?)null)">
+            <ChildContent>
+                <PropertyColumn Property="@(x => x.Name)" />
+            </ChildContent>
+        </FluentDataGrid>);
+
+        // Wait for the error to be processed
+        cut.WaitForState(() => cut.FindAll(".error-content-row").Count > 0, TimeSpan.FromSeconds(5));
+
+        // Assert: Verify the default localized error message is displayed
+        var errorRow = cut.Find(".error-content-row");
+        Assert.NotNull(errorRow);
+
+        var errorCell = errorRow.QuerySelector(".empty-content-cell");
+        Assert.NotNull(errorCell);
+        Assert.Contains("An error occurred while retrieving data.", errorCell.TextContent);
+    }
+
+    // Sample data for testing
+    private IEnumerable<Customer> GetCustomers()
+    {
+        yield return new Customer(1, "Denis Voituron", new DateTime(2023, 1, 15), CustomerStatus.Active);
+        yield return new Customer(2, "Vincent Baaij", new DateTime(2023, 2, 20), CustomerStatus.Inactive);
+        yield return new Customer(3, "Bill Gates", new DateTime(2023, 3, 31), CustomerStatus.Pending);
+    }
+
+    private record Customer(int Id, string Name, DateTime CreatedDate, CustomerStatus Status);
+
+    private enum CustomerStatus
+    {
+        Active,
+        Inactive,
+        Pending,
+        Suspended
+    }
+}

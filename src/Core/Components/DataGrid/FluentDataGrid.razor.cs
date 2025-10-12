@@ -326,7 +326,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     /// <remarks>The callback receives a <see langword="true"/> value when items start loading
     /// and a <see langword="false"/> value when the loading process completes.</remarks>
-    [ExcludeFromCodeCoverage(Justification = "This method requires a db connection and is to complex to be tested with bUnit.")]
     [Parameter]
     public EventCallback<bool> OnItemsLoading { get; set; }
 
@@ -980,7 +979,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <inheritdoc/>
-    [ExcludeFromCodeCoverage(Justification = "Tested via integration tests.")]
     public override ValueTask DisposeAsync()
     {
         _currentPageItemsChanged.Dispose();
@@ -1133,7 +1131,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
-    [ExcludeFromCodeCoverage(Justification = "This method requires a failing db connection and is too complex to be tested with bUnit.")]
     private void RenderActualError(RenderTreeBuilder builder)
     {
         if (ErrorContent is null)
