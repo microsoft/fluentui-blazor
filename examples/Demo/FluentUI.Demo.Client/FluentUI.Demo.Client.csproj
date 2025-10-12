@@ -31,6 +31,15 @@
     </PackageReference>
   </ItemGroup>
 
+  <!-- TypeScript Configuration -->
+  <ItemGroup>
+    <TypeScriptConfig Include="tsconfig.client.json" />
+    <Content Remove="tsconfig.client.json" />
+    <None Include="tsconfig.client.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
     <ProjectReference Include="..\..\Tools\FluentUI.Demo.DocViewer\FluentUI.Demo.DocViewer.csproj" />
