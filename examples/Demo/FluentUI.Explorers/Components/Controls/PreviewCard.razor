@@ -1,0 +1,17 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+
+<div>
+    <FluentCard Shadow="CardShadow.Small" Class="card" OnClick="@CardClick">
+        <div class="image">
+            @if (Icon is not null)
+            {
+                <FluentIcon Value="@IconsExtensions.GetInstance(Icon)"
+                            Color="@IconColor"
+                            Title="@Icon.Name" />
+            }
+        </div>
+        <FluentText Class="name" Tooltip="@FullName">
+            @Icon?.Name
+        </FluentText>
+    </FluentCard>
+</div>

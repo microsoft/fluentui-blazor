@@ -1,0 +1,23 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<FluentStack Wrap="true">
+    <FluentTextInput Placeholder="Part of icon name"
+                     Spellcheck="false"
+                     @bind-Value="@Criteria.SearchTerm"
+                     ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])"
+                     OnChangeAfterKeyPress="@StartSearch">
+        <StartTemplate>
+            <FluentIcon Value="@(new Icons.Regular.Size16.Search())" Color="Color.Primary" />
+        </StartTemplate>
+    </FluentTextInput>
+    <FluentTextInput Placeholder="" />
+</FluentStack>
+
+<FluentStack Orientation="Orientation.Horizontal" Wrap="true" HorizontalGap="12px" VerticalGap="12px">
+    @for (int i = 0; i < 200; i++)
+    {
+        <PreviewCard Icon="@(new Icons.Regular.Size20.AccessTime())" />
+    }
+</FluentStack>

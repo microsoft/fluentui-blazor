@@ -1,0 +1,23 @@
+::deep .card {
+  width: 100px;
+  height: 100px;
+  padding: 0px;
+}
+
+  ::deep .card .image {
+    height: 80px;
+    text-align: center;
+    align-content: space-evenly;
+  }
+
+  ::deep .card .name {
+    height: 20px;
+    display: block;
+    background-color: var(--colorNeutralBackground4);
+    text-align: center;
+    font-size: var(--fontSizeBase200);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 0px 0px var(--borderRadiusMedium) var(--borderRadiusMedium);
+  }
