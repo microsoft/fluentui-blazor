@@ -1,0 +1,9 @@
+﻿<Router AppAssembly="typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
+        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+    </Found>
+</Router>
+
+@* Apply InteractiveServer render mode globally to all routes *@
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
