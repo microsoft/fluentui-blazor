@@ -6,7 +6,7 @@ Each time a commit is pushed into the `main` ou `dev`, the **Core** package is p
 Install the latest [Visual Studio 2022 Preview version](https://visualstudio.microsoft.com/vs/preview/) for the tooling.
 
 **This package is a preliminary version and are not intended for production use.
-It is intended to be used to test the latest feature and bug fix.** 
+It is intended to be used to test the latest feature and bug fix.**
 
 If you just want the last final release of **FluentUI-Blazor**, the packages are on [NuGet.org](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components).
 
@@ -22,6 +22,23 @@ or else in the global NuGet.config. See [configuring NuGet behavior](https://lea
 
 Alternatively, if you are using Visual Studio, you can [Install and manage packages in Visual Studio](https://learn.microsoft.com/nuget/consume-packages/install-use-packages-visual-studio#package-sources)
 and add the feed `https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json` there.
+
+## NuGet’s Central Package Management (CPM)
+
+If you are using the NuGet’s Central Package Management (CPM) feature, you probably need to set `ManagePackageVersionsCentrally=false`
+
+Example (update the version number with the lastest values):
+
+```xml
+<PropertyGroup>
+  <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+</PropertyGroup>
+
+ <ItemGroup>
+  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.0-preview.25286.1" />
+  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.13.0" />
+</ItemGroup>
+```
 
 ## Documentation
 
