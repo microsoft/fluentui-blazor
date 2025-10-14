@@ -21,3 +21,23 @@
     text-overflow: ellipsis;
     border-radius: 0px 0px var(--borderRadiusMedium) var(--borderRadiusMedium);
   }
+
+/* Animation for copy feedback */
+::deep .card .image.copied {
+  animation: copyPulse 0.6s ease-out;
+}
+
+@keyframes copyPulse {
+  0% {
+    transform: scale(1);
+    background-color: transparent;
+  }
+  50% {
+    transform: scale(1.1);
+    background-color: var(--colorBrandBackground2);
+  }
+  100% {
+    transform: scale(1);
+    background-color: transparent;
+  }
+}
