@@ -2,22 +2,49 @@
 
 <PageTitle>Home</PageTitle>
 
-<FluentStack Wrap="true">
+<FluentStack Wrap="true" HorizontalGap="12px" Margin="@Margin.Vertical2">
     <FluentTextInput Placeholder="Part of icon name"
                      Spellcheck="false"
                      @bind-Value="@Criteria.SearchTerm"
                      ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])"
-                     OnChangeAfterKeyPress="@StartSearch">
-        <StartTemplate>
-            <FluentIcon Value="@(new Icons.Regular.Size16.Search())" Color="Color.Primary" />
-        </StartTemplate>
-    </FluentTextInput>
-    <FluentTextInput Placeholder="" />
+                     OnChangeAfterKeyPress="@StartSearchFromInput" />
+
+    <FluentSelect Items="@(GetEnumValues<IconSize>())"
+                  @bind-Value="@Criteria.Size" />
+
+    <FluentSelect Items="@(GetEnumValues<IconVariant>())"
+                  @bind-Value="@Criteria.Variant" />
+
+    <FluentSelect Items="@(GetEnumValues<Color>())"
+                  @bind-Value="@Criteria.Color" />
+
+    <FluentButton IconStart="@(new Icons.Regular.Size20.ArrowRight())"
+                  OnClick="@StartSearch" />
 </FluentStack>
 
 <FluentStack Orientation="Orientation.Horizontal" Wrap="true" HorizontalGap="12px" VerticalGap="12px">
-    @for (int i = 0; i < 200; i++)
+    @if (SearchInProgress)
     {
-        <PreviewCard Icon="@(new Icons.Regular.Size20.AccessTime())" />
+        <FluentSpinner />
+    }
+    else if (IconsFound.Any())
+    {
+        <FluentText As="TextTag.Paragraph">
+            Click on upper right clipboard icon in a card to copy a ready to paste "FluentIcon"
+            component declaration to the clipboard.
+        </FluentText>
+
+        <div style="flex-basis: 100%; height: 0;" /> @* Break *@
+
+        @foreach (var item in IconsFound)
+        {
+            <PreviewCard Icon="@item" IconColor="@Criteria.Color" />
+        }
+    }
+    else
+    {
+        <FluentText>
+            No icons found
+        </FluentText>
     }
 </FluentStack>

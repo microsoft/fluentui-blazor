@@ -8,18 +8,46 @@ namespace FluentUI.Explorers.Components.Pages;
 
 public partial class IconExplorer
 {
-    private IconSearchCriteria Criteria { get; set; } = new();
+    private IconInfo[] IconsFound = Array.Empty<IconInfo>();
+    private readonly IconSearchCriteria Criteria = new();
+    private bool SearchInProgress;
 
-    private static async Task StartSearch(FluentKeyPressEventArgs e)
+    private async Task StartSearch()
     {
-        await Task.Delay(2000); // Simulate a delay for processing
+        SearchInProgress = true;
+        StateHasChanged();
+
+        IconsFound =
+        [
+            .. IconsExtensions.AllIcons
+                    .Where(i => i.Variant == Criteria.Variant
+                             && i.Size == Criteria.Size
+                             && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
+                    .OrderBy(i => i.Name)
+        ];
+
+        SearchInProgress = false;
+        StateHasChanged();
+        await Task.CompletedTask;
+    }
+
+    private Task StartSearchFromInput(FluentKeyPressEventArgs _) => StartSearch();
+
+    private static IEnumerable<T> GetEnumValues<T>()
+    {
+        return Enum.GetValues(typeof(T))
+            .Cast<T>()
+            .Where(value => value!.ToString() != "Custom" &&
+                           !typeof(T).GetField(value!.ToString()!)!
+                                      .GetCustomAttributes(typeof(ObsoleteAttribute), false)
+                                      .Any());
     }
 
     internal class IconSearchCriteria
     {
         public string SearchTerm { get; set; } = string.Empty;
         public IconVariant Variant { get; set; } = IconVariant.Regular;
-        public int Size { get; set; } = 20;
-        public Color Color { get; set; } = Color.Accent;
+        public IconSize Size { get; set; } = IconSize.Size20;
+        public Color Color { get; set; } = Color.Primary;
     }
 }
