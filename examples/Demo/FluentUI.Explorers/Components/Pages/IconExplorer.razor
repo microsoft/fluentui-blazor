@@ -67,7 +67,7 @@
 </div>
 
 <script>
-    window.copyToClipboard = function(text) {
+    window.copyToClipboard = function(text, element) {
         navigator.clipboard.writeText(text).then(function () {
             return "";
         }).catch(function (error) {

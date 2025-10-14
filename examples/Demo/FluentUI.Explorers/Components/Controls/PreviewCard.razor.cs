@@ -10,6 +10,8 @@ namespace FluentUI.Explorers.Components.Controls;
 
 public partial class PreviewCard
 {
+    private ElementReference ImageElement;
+
     [Inject]
     public required IJSRuntime JSRuntime { get; set; }
 
@@ -50,7 +52,7 @@ public partial class PreviewCard
 
             var code = $"<FluentIcon {value}{color} />";
 
-            await JSRuntime.InvokeVoidAsync("copyToClipboard", code);
+            await JSRuntime.InvokeVoidAsync("copyToClipboard", code, ImageElement);
         }
     }
 }
