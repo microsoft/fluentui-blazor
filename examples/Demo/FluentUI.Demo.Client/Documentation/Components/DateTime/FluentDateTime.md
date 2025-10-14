@@ -21,6 +21,22 @@ Navigate to this [page](/DateTime/Calendar) for more details.
 
 {{ CalendarDefault }}
 
+## DatePicker
+
+Navigate to this [page](/DateTime/DatePicker) for more details.
+
+{{ DatePickerDefault }}
+
+## TimePicker
+
+Navigate to this [page](/DateTime/TimePicker) for more details.
+
+{{ TimePickerDefault }}
+
+## Extensions
+
+Navigate to this [page](/DateTime/Extensions) for more details.
+
 ## Minimum and Maximum dates
 
 The minimum selectable date is the 1st of February 0001 and the maximum selectable date is the 31st of December 9999.
