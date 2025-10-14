@@ -8,6 +8,23 @@
     height: 80px;
     text-align: center;
     align-content: space-evenly;
+    position: relative;
+  }
+
+  ::deep .card .image .clipboard-icon {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    background-color: var(--colorNeutralBackground1);
+    border-radius: var(--borderRadiusSmall);
+    padding: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  ::deep .card .image:hover .clipboard-icon {
+    opacity: 1;
   }
 
   ::deep .card .name {
