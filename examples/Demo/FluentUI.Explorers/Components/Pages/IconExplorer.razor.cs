@@ -12,26 +12,26 @@ public partial class IconExplorer
     private readonly IconSearchCriteria Criteria = new();
     private bool SearchInProgress;
 
-    private async Task StartSearch()
+    private async Task StartSearchAsync()
     {
         SearchInProgress = true;
         StateHasChanged();
 
+        await Task.Delay(10);   // To display the Spinner
+
         IconsFound =
         [
-            .. IconsExtensions.AllIcons
+            .. IconsExtensions
+                    .AllIcons
                     .Where(i => i.Variant == Criteria.Variant
                              && i.Size == Criteria.Size
-                             && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
+                             && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) || i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
                     .OrderBy(i => i.Name)
         ];
 
         SearchInProgress = false;
         StateHasChanged();
-        await Task.CompletedTask;
     }
-
-    private Task StartSearchFromInput(FluentKeyPressEventArgs _) => StartSearch();
 
     private static IEnumerable<T> GetEnumValues<T>()
     {
@@ -43,11 +43,11 @@ public partial class IconExplorer
                                       .Any());
     }
 
-    internal class IconSearchCriteria
+    private class IconSearchCriteria
     {
         public string SearchTerm { get; set; } = string.Empty;
         public IconVariant Variant { get; set; } = IconVariant.Regular;
         public IconSize Size { get; set; } = IconSize.Size20;
-        public Color Color { get; set; } = Color.Primary;
+        public Color Color { get; set; } = Color.Default;
     }
 }

@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 100%;
+}
+
+.header {
+    padding: 12px;
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+::deep .help {
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  align-content: center;
+}
+
+.footer {
+    padding: 12px;
+    text-align: center;
+}
