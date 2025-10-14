@@ -65,3 +65,13 @@
         }
     </div>
 </div>
+
+<script>
+    window.copyToClipboard = function(text) {
+        navigator.clipboard.writeText(text).then(function () {
+            return "";
+        }).catch(function (error) {
+            return error;
+        });
+    }
+</script>

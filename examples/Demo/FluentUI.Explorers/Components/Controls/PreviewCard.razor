@@ -1,7 +1,7 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components
 
 <div>
-    <FluentCard Shadow="CardShadow.Small" Class="card" OnClick="@CardClick">
+    <FluentCard Shadow="CardShadow.Small" Class="card" OnClick="@CopyToClipboardAsync">
         <div class="image">
             @if (Icon is not null)
             {
@@ -10,7 +10,7 @@
                             Title="@Icon.Name" />
             }
         </div>
-        <FluentText Class="name" Tooltip="@FullName">
+        <FluentText Class="name" title="@FullName">
             @Icon?.Name
         </FluentText>
     </FluentCard>

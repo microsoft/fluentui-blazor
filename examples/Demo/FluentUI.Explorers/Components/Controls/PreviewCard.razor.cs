@@ -4,11 +4,15 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace FluentUI.Explorers.Components.Controls;
 
 public partial class PreviewCard
 {
+    [Inject]
+    public required IJSRuntime JSRuntime { get; set; }
+
     [Parameter]
     public Color? IconColor { get; set; }
 
@@ -36,9 +40,17 @@ public partial class PreviewCard
         }
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
-    private void CardClick()
+    public async void CopyToClipboardAsync()
     {
+        if (Icon != null)
+        {
+            // Icons.[IconVariant].[IconSize].[IconName]
+            var value = $"Value=\"@(new Icons.{FullName}())\"";
+            var color = IconColor == Color.Accent ? string.Empty : $" Color=\"@Color.{IconColor}\"";
 
+            var code = $"<FluentIcon {value}{color} />";
+
+            await JSRuntime.InvokeVoidAsync("copyToClipboard", code);
+        }
     }
 }
