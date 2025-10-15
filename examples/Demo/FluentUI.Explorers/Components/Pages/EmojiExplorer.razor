@@ -1,7 +1,8 @@
-﻿@page "/icon-explorer"  
+﻿@page "/"
+@page "/emoji-explorer"
 @inherits ExplorerBase
 
-<PageTitle>FluentUI Blazor - Icons explorer</PageTitle>
+<PageTitle>FluentUI Blazor - Emojis explorer</PageTitle>
 
 <SectionContent SectionName="SearchBar">
     <FluentTextInput Placeholder="Part of icon name"
@@ -32,7 +33,7 @@
     {
         <FluentSpinner />
     }
-    else if (IconsFound.Any())
+    else if (EmojisFound.Any())
     {
         <FluentText As="TextTag.Paragraph">
             Click on the card to copy a ready to paste "FluentIcon"
@@ -42,12 +43,12 @@
         <div style="min-height: 12px;" />
 
         <FluentStack Orientation="Orientation.Horizontal" Wrap="true" HorizontalGap="12px" VerticalGap="12px">
-            @foreach (var item in IconsFound.Take(MaximumOfIcons))
+            @foreach (var item in EmojisFound.Take(MaximumOfIcons))
             {
                 <PreviewCard Icon="@item" IconColor="@Criteria.Color" />
             }
 
-            @if (IconsFound.Length > MaximumOfIcons)
+            @if (EmojisFound.Length > MaximumOfIcons)
             {
                 <FluentButton Appearance="ButtonAppearance.Transparent"
                               OnClick="@ShowMoreHandlerAsync"
@@ -73,7 +74,7 @@
     @if (!SearchInProgress)
     {
         <FluentText>
-            @(IconsFound.Length > 0 ? IconsFound.Length : "no") icons found
+            @(EmojisFound.Length > 0 ? EmojisFound.Length : "no") icons found
         </FluentText>
     }
 </SectionContent>
