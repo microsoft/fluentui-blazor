@@ -11,6 +11,15 @@ public partial class IconExplorer
     private IconInfo[] IconsFound = Array.Empty<IconInfo>();
     private readonly IconSearchCriteria Criteria = new();
     private bool SearchInProgress;
+    private const int ShowMoreStep = 64;
+
+    private int MaximumOfIcons { get; set; } = 32;
+
+    private Task ShowMoreHandlerAsync()
+    {
+        MaximumOfIcons += ShowMoreStep;
+        return Task.CompletedTask;
+    }
 
     private async Task StartSearchAsync()
     {
