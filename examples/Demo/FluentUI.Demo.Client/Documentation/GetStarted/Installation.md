@@ -65,7 +65,7 @@ In your `_Imports.razor` file, include:
 
 In your main HTML file (e.g., `index.html`, `_Layout.cshtml`, `_Host.cshtml`, or `App.razor`, depending on your Blazor hosting model), add the following:
 
-Either uncomment the link to your default stylesheet `styles.css` (or `site.css`).  
+Either uncomment the link to your default stylesheet `styles.css` (or `site.css`).
 Or add this link the **Fluent UI Blazor** stylesheet.
 
 ```html
@@ -115,6 +115,9 @@ Add this code to a Razor page to verify that the installation is correct.
 @page "/counter"
 @inject IDialogService DialogService
 
+@* Apply an "interactive" render mode, or set the render mode globally for all routes *@
+@rendermode InteractiveServer
+
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
@@ -138,6 +141,10 @@ Add this code to a Razor page to verify that the installation is correct.
     }
 }
 ```
+
+> You can apply a rendering mode globally to all routes by adding a similar command in the `Routes.razor` file:
+> `@rendermode @(new InteractiveServerRenderMode(prerender: false))`
+> (here is an example: update this line according to your project type).
 
 ### 9. Learn More
 
