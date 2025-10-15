@@ -17,7 +17,7 @@ You can configure this behavior by setting the `PublishTrimmed` property in your
 
 More details on [this page](https://learn.microsoft.com/aspnet/core/blazor/host-and-deploy/configure-trimmer).
 
-> ⚠️ We recommend always using the `Value` property to specify the icon to be rendered (and not the `Icon` property).
+> [!WARNING] We recommend always using the `Value` property to specify the icon to be rendered (and not the `Icon` property).
 > This ensures that the icon is referenced by your project and will not deleted from the final library.
 > 
 > `<FluentIcon Value="@(new Icons.Regular.Size24.Bookmark())" />`
