@@ -1,96 +1,79 @@
 ﻿@page "/"
+@inherits ExplorerBase
 
 <PageTitle>FluentUI Blazor - Icons explorer</PageTitle>
 
-<div class="container">
-    <div class="header">
-        <FluentStack Wrap="true" HorizontalGap="12px" Margin="@Margin.Vertical2" VerticalAlignment="VerticalAlignment.Center">
-            <FluentTextInput Placeholder="Part of icon name"
-                             Spellcheck="false"
-                             @bind-Value="@Criteria.SearchTerm"
-                             @bind-Value:after="@StartSearchAsync"
-                             ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])" />
+<SectionContent SectionName="SearchBar">
+    <FluentTextInput Placeholder="Part of icon name"
+                     Spellcheck="false"
+                     @bind-Value="@Criteria.SearchTerm"
+                     @bind-Value:after="@StartSearchAsync"
+                     ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])" />
 
-            <FluentSelect Items="@(GetEnumValues<IconSize>())"
-                          @bind-Value="@Criteria.Size"
-                          @bind-Value:after="@StartSearchAsync" />
+    <FluentSelect Items="@(GetEnumValues<IconSize>())"
+                  @bind-Value="@Criteria.Size"
+                  @bind-Value:after="@StartSearchAsync" />
 
-            <FluentSelect Items="@(GetEnumValues<IconVariant>())"
-                          @bind-Value="@Criteria.Variant"
-                          @bind-Value:after="@StartSearchAsync" />
+    <FluentSelect Items="@(GetEnumValues<IconVariant>())"
+                  @bind-Value="@Criteria.Variant"
+                  @bind-Value:after="@StartSearchAsync" />
 
-            <FluentSelect Items="@(GetEnumValues<Color>())"
-                          @bind-Value="@Criteria.Color"
-                          @bind-Value:after="@StartSearchAsync" />
+    <FluentSelect Items="@(GetEnumValues<Color>())"
+                  @bind-Value="@Criteria.Color"
+                  @bind-Value:after="@StartSearchAsync" />
 
-            <FluentButton IconStart="@(new Icons.Regular.Size20.ArrowRight())"
-                          OnClick="@StartSearchAsync" />
+    <FluentButton IconStart="@(new Icons.Regular.Size20.ArrowRight())"
+                  OnClick="@StartSearchAsync" />
+
+</SectionContent>
+
+<SectionContent SectionName="SearchResult">
+    @if (SearchInProgress)
+    {
+        <FluentSpinner />
+    }
+    else if (IconsFound.Any())
+    {
+        <FluentText As="TextTag.Paragraph">
+            Click on the card to copy a ready to paste "FluentIcon"
+            component declaration to the clipboard.
+        </FluentText>
+
+        <div style="min-height: 12px;" />
+
+        <FluentStack Orientation="Orientation.Horizontal" Wrap="true" HorizontalGap="12px" VerticalGap="12px">
+            @foreach (var item in IconsFound.Take(MaximumOfIcons))
+            {
+                <PreviewCard Icon="@item" IconColor="@Criteria.Color" />
+            }
+
+            @if (IconsFound.Length > MaximumOfIcons)
+            {
+                <FluentButton Appearance="ButtonAppearance.Transparent"
+                              OnClick="@ShowMoreHandlerAsync"
+                              Color="var(--colorBrandForegroundLink)"
+                              Style="height: 100px;">
+                    Show more
+                </FluentButton>
+            }
+
         </FluentStack>
-    </div>
-    <div class="body">
-        @if (SearchInProgress)
-        {
-            <FluentSpinner />
-        }
-        else if (IconsFound.Any())
-        {
-            <FluentText As="TextTag.Paragraph">
-                Click on the card to copy a ready to paste "FluentIcon"
-                component declaration to the clipboard.
-            </FluentText>
-
-            <div style="min-height: 12px;" />
-
-            <FluentStack Orientation="Orientation.Horizontal" Wrap="true" HorizontalGap="12px" VerticalGap="12px">
-                @foreach (var item in IconsFound.Take(MaximumOfIcons))
-                {
-                    <PreviewCard Icon="@item" IconColor="@Criteria.Color" />
-                }
-
-                @if (IconsFound.Length > MaximumOfIcons)
-                {
-                    <FluentButton Appearance="ButtonAppearance.Transparent"
-                                  OnClick="@ShowMoreHandlerAsync"
-                                  Color="var(--colorBrandForegroundLink)"
-                                  Style="height: 100px;">
-                        Show more
-                    </FluentButton>
-                }
-
-            </FluentStack>
-        }
-        else
-        {
+    }
+    else
+    {
+        <div>
             <FluentText Class="help">
                 Enter part of the icon name and press the search arrow or press Enter.
             </FluentText>
-        }
-    </div>
-    <div class="footer">
-        @if (!SearchInProgress)
-        {
-
-            <FluentText>
-                @(IconsFound.Length > 0 ? IconsFound.Length : "no") icons found
-            </FluentText>
-        }
-    </div>
-</div>
-
-<script>
-    window.copyToClipboard = function(text, element) {
-        navigator.clipboard.writeText(text).then(function () {
-            // Add animation class
-            element.classList.add('copied');
-
-            // Remove the animation class after animation completes
-            setTimeout(function() {
-                element.classList.remove('copied');
-            }, 600); // Match the animation duration
-
-            return "";
-        }).catch(function (error) {
-            return error;
-        });
+        </div>
     }
-</script>
+</SectionContent>
+
+<SectionContent SectionName="SearchFooter">
+    @if (!SearchInProgress)
+    {
+        <FluentText>
+            @(IconsFound.Length > 0 ? IconsFound.Length : "no") icons found
+        </FluentText>
+    }
+</SectionContent>

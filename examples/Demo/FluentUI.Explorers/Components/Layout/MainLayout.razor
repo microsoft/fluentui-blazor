@@ -1,6 +1,21 @@
 ﻿@inherits LayoutComponentBase
 
-@Body
+<div class="container">
+    <div class="header">
+        <FluentStack Wrap="true" HorizontalGap="12px" Margin="@Margin.Vertical2" VerticalAlignment="VerticalAlignment.Center">
+            <SectionOutlet SectionName="SearchBar" />
+        </FluentStack>
+    </div>
+
+    <div class="body">
+        <SectionOutlet SectionName="SearchResult" />
+        @Body
+    </div>
+
+    <div class="footer">
+        <SectionOutlet SectionName="SearchFooter" />
+    </div>
+</div>
 
 @* Add all FluentUI Blazor Providers *@
 <FluentProviders />
