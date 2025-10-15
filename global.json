@@ -1,0 +1,7 @@
+{
+  "sdk": {
+    "version": "10.0.0-rc.2.225502.107",
+    "allowPrerelease": true,
+    "rollForward": "latestFeature"
+  }
+}
