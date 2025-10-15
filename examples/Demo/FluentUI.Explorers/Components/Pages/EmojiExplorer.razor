@@ -1,5 +1,4 @@
-﻿@page "/"
-@page "/emoji-explorer"
+﻿@page "/emoji-explorer"
 @inherits ExplorerBase
 
 <PageTitle>FluentUI Blazor - Emojis explorer</PageTitle>
@@ -81,7 +80,7 @@
     @if (!SearchInProgress)
     {
         <FluentText>
-            @(EmojisFound.Length > 0 ? EmojisFound.Length : "no") emojis found
+            @NumberOfIconsFound
         </FluentText>
     }
 </SectionContent>

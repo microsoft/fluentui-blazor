@@ -36,6 +36,24 @@ public partial class EmojiExplorer : ExplorerBase
         StateHasChanged();
     }
 
+    private string NumberOfIconsFound
+    {
+        get
+        {
+            if (EmojisFound.Length == 0)
+            {
+                return "no emojis found.";
+            }
+
+            if (EmojisFound.Length <= MaximumOfItems)
+            {
+                return $"{EmojisFound.Length} emojis found.";
+            }
+
+            return $"{Math.Min(MaximumOfItems, EmojisFound.Length)} / {EmojisFound.Length} emojis found.";
+        }
+    }
+
     private class EmojiSearchCriteria
     {
         public string SearchTerm { get; set; } = string.Empty;

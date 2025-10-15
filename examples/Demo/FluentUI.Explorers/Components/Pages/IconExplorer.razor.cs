@@ -32,6 +32,24 @@ public partial class IconExplorer : ExplorerBase
         StateHasChanged();
     }
 
+    private string NumberOfIconsFound
+    {
+        get
+        {
+            if (IconsFound.Length == 0)
+            {
+                return "no icons found.";
+            }
+
+            if (IconsFound.Length <= MaximumOfItems)
+            {
+                return $"{IconsFound.Length} icons found.";
+            }
+
+            return $"{Math.Min(MaximumOfItems, IconsFound.Length)} / {IconsFound.Length} icons found.";
+        }
+    }
+
     private class IconSearchCriteria
     {
         public string SearchTerm { get; set; } = string.Empty;
