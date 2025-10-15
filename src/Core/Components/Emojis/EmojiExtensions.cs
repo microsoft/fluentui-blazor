@@ -24,6 +24,7 @@ public static partial class EmojiExtensions
     /// </remarks>
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="EmojiInfo.Name"/> is not found in predefined emojis.</exception>
+    [ExcludeFromCodeCoverage(Justification = "We can't test the Emoji.* DLLs here")]
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public static CustomEmoji GetInstance(this EmojiInfo emoji)
     {
@@ -61,6 +62,7 @@ public static partial class EmojiExtensions
     /// </remarks>
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="EmojiInfo.Name"/> is not found in predefined emojis.</exception>
+    [ExcludeFromCodeCoverage(Justification = "We can't test the Emoji.* DLLs here")]
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public static IEnumerable<EmojiInfo> GetAllEmojis()
     {
