@@ -36,7 +36,8 @@ public abstract class ExplorerBase : ComponentBase
                                          typeof(T).GetField(value!.ToString()!)!
                                                   .GetCustomAttributes(typeof(ObsoleteAttribute), false)
                                                   .Length == 0)
-                         .Cast<T>();
+                         .Cast<T>()
+                         .ToArray();
 
         if (addEmptyItem)
         {
