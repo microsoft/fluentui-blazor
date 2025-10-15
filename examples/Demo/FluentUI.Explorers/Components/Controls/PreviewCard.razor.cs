@@ -21,8 +21,8 @@ public partial class PreviewCard
     [Parameter]
     public IconInfo? Icon { get; set; }
 
-    //[Parameter]
-    //public EmojiInfo? Emoji { get; set; }
+    [Parameter]
+    public EmojiInfo? Emoji { get; set; }
 
     private string FullName
     {
@@ -33,10 +33,10 @@ public partial class PreviewCard
                 return $"{Icon.Variant}.{Icon.Size}.{Icon.Name}";
             }
 
-            //if (Emoji != null)
-            //{
-            //    return $"{Emoji.Group}.{Emoji.Style}.{Emoji.Skintone}.{Emoji.Name}".Replace("_", "");
-            //}
+            if (Emoji != null)
+            {
+                return $"{Emoji.Group}.{Emoji.Style}.{Emoji.Skintone}.{Emoji.Name}".Replace("_", "");
+            }
 
             return string.Empty;
         }
@@ -51,6 +51,16 @@ public partial class PreviewCard
             var color = IconColor == Color.Accent ? string.Empty : $" Color=\"@Color.{IconColor}\"";
 
             var code = $"<FluentIcon {value}{color} />";
+
+            await JSRuntime.InvokeVoidAsync("copyToClipboard", code, ImageElement);
+        }
+
+        if (Emoji != null)
+        {
+            // Emojis.[Grouo].[Style].[Skintone].[Name]
+            var value = $"Value=\"@(new Emojis.{FullName}())\"";
+
+            var code = $"<FluentEmoji {value} />";
 
             await JSRuntime.InvokeVoidAsync("copyToClipboard", code, ImageElement);
         }

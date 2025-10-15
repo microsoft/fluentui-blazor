@@ -8,27 +8,41 @@ namespace FluentUI.Explorers.Components.Pages;
 
 public abstract class ExplorerBase : ComponentBase
 {
+    public const int EmptyEnumValue = -1;
+
+    public static T GetEmptyEnum<T>() where T : Enum
+        => (T)Enum.ToObject(typeof(T), EmptyEnumValue);
+
     private const int ShowMoreStep = 64;
 
     public bool SearchInProgress { get; set; }
 
-    public int MaximumOfIcons { get; set; } = 32;
+    public int MaximumOfItems { get; set; } = 32;
 
     protected virtual Task ShowMoreHandlerAsync()
     {
-        MaximumOfIcons += ShowMoreStep;
+        MaximumOfItems += ShowMoreStep;
         return Task.CompletedTask;
     }
 
     protected abstract Task StartSearchAsync();
 
-    protected static IEnumerable<T> GetEnumValues<T>()
+    protected static IEnumerable<T> GetEnumValues<T>(bool addEmptyItem = false)
+        where T : Enum
     {
-        return Enum.GetValues(typeof(T))
-            .Cast<T>()
-            .Where(value => value!.ToString() != "Custom" &&
-                            typeof(T).GetField(value!.ToString()!)!
-                                     .GetCustomAttributes(typeof(ObsoleteAttribute), false)
-                                     .Length == 0);
+        var values = Enum.GetValues(typeof(T))
+                         .Cast<T>()
+                         .Where(value => value!.ToString() != "Custom" &&
+                                         typeof(T).GetField(value!.ToString()!)!
+                                                  .GetCustomAttributes(typeof(ObsoleteAttribute), false)
+                                                  .Length == 0)
+                         .Cast<T>();
+
+        if (addEmptyItem)
+        {
+            return new T[] { GetEmptyEnum<T>() }.Concat(values);
+        }
+
+        return values;
     }
 }

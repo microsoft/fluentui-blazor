@@ -9,10 +9,15 @@
                             Color="@IconColor"
                             Title="@Icon.Name" />
             }
+            @if (Emoji is not null)
+            {
+                <FluentEmoji Value="@EmojiExtensions.GetInstance(Emoji)"
+                             Title="@Emoji.Name" />
+            }
             <div class="clipboard-icon" title="Copy to Clipboard"></div>
         </div>
         <FluentText Class="name" title="@FullName">
-            @Icon?.Name
+            @(Icon?.Name ?? Emoji?.Name)
         </FluentText>
     </FluentCard>
 </div>

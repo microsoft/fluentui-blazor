@@ -42,12 +42,12 @@
         <div style="min-height: 12px;" />
 
         <FluentStack Orientation="Orientation.Horizontal" Wrap="true" HorizontalGap="12px" VerticalGap="12px">
-            @foreach (var item in IconsFound.Take(MaximumOfIcons))
+            @foreach (var item in IconsFound.Take(MaximumOfItems))
             {
                 <PreviewCard Icon="@item" IconColor="@Criteria.Color" />
             }
 
-            @if (IconsFound.Length > MaximumOfIcons)
+            @if (IconsFound.Length > MaximumOfItems)
             {
                 <FluentButton Appearance="ButtonAppearance.Transparent"
                               OnClick="@ShowMoreHandlerAsync"

@@ -5,22 +5,15 @@
 <PageTitle>FluentUI Blazor - Emojis explorer</PageTitle>
 
 <SectionContent SectionName="SearchBar">
-    <FluentTextInput Placeholder="Part of icon name"
+    <FluentTextInput Placeholder="Part of emoji name"
                      Spellcheck="false"
                      @bind-Value="@Criteria.SearchTerm"
                      @bind-Value:after="@StartSearchAsync"
                      ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])" />
 
-    <FluentSelect Items="@(GetEnumValues<IconSize>())"
-                  @bind-Value="@Criteria.Size"
-                  @bind-Value:after="@StartSearchAsync" />
-
-    <FluentSelect Items="@(GetEnumValues<IconVariant>())"
-                  @bind-Value="@Criteria.Variant"
-                  @bind-Value:after="@StartSearchAsync" />
-
-    <FluentSelect Items="@(GetEnumValues<Color>())"
-                  @bind-Value="@Criteria.Color"
+    <FluentSelect Items="@(GetEnumValues<EmojiStyle>(addEmptyItem: true))"
+                  OptionText="@(i => (int)i == ExplorerBase.EmptyEnumValue ? "[All]" : i.ToString())"
+                  @bind-Value="@Criteria.Style"
                   @bind-Value:after="@StartSearchAsync" />
 
     <FluentButton IconStart="@(new Icons.Regular.Size20.ArrowRight())"
@@ -36,19 +29,19 @@
     else if (EmojisFound.Any())
     {
         <FluentText As="TextTag.Paragraph">
-            Click on the card to copy a ready to paste "FluentIcon"
+            Click on the card to copy a ready to paste "FluentEmoji"
             component declaration to the clipboard.
         </FluentText>
 
         <div style="min-height: 12px;" />
 
         <FluentStack Orientation="Orientation.Horizontal" Wrap="true" HorizontalGap="12px" VerticalGap="12px">
-            @foreach (var item in EmojisFound.Take(MaximumOfIcons))
+            @foreach (var item in EmojisFound.Take(MaximumOfItems))
             {
-                <PreviewCard Icon="@item" IconColor="@Criteria.Color" />
+                <PreviewCard Emoji="@item" />
             }
 
-            @if (EmojisFound.Length > MaximumOfIcons)
+            @if (EmojisFound.Length > MaximumOfItems)
             {
                 <FluentButton Appearance="ButtonAppearance.Transparent"
                               OnClick="@ShowMoreHandlerAsync"
@@ -64,7 +57,7 @@
     {
         <div>
             <FluentText Class="help">
-                Enter part of the icon name and press the search arrow or press Enter.
+                Enter part of the emoji name and press the search arrow or press Enter.
             </FluentText>
         </div>
     }
@@ -74,7 +67,7 @@
     @if (!SearchInProgress)
     {
         <FluentText>
-            @(EmojisFound.Length > 0 ? EmojisFound.Length : "no") icons found
+            @(EmojisFound.Length > 0 ? EmojisFound.Length : "no") emojis found
         </FluentText>
     }
 </SectionContent>
