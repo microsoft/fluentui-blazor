@@ -65,7 +65,7 @@ public partial class PreviewCard
         return string.Empty;
     }
 
-    public async void CopyToClipboardAsync()
+    public async Task CopyToClipboardAsync()
     {
         await JSRuntime.InvokeVoidAsync("copyToClipboard", GetCodeToCopy(fullNamespace: false), ImageElement);
     }
