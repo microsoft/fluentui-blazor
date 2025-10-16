@@ -14,11 +14,6 @@
                   @bind-Value="@Criteria.Style"
                   @bind-Value:after="@StartSearchAsync" />
 
-@*     <FluentSelect Items="@(GetEnumValues<EmojiSize>(addEmptyItem: true))"
-                  OptionText="@(i => (int)i == ExplorerBase.EmptyEnumValue ? "[All]" : i.ToString())"
-                  @bind-Value="@Criteria.Size"
-                  @bind-Value:after="@StartSearchAsync" /> *@
-
     <FluentSelect Items="@(GetEnumValues<EmojiGroup>(addEmptyItem: true))"
                   OptionText="@(i => (int)i == ExplorerBase.EmptyEnumValue ? "[All]" : i.ToString())"
                   @bind-Value="@Criteria.Group"
