@@ -14,25 +14,6 @@
 <body>
     <Routes />
     <script src="_framework/blazor.web.js"></script>
-
-    <script>
-        window.copyToClipboard = function(text, element) {
-            navigator.clipboard.writeText(text).then(function () {
-                // Add animation class
-                element.classList.add('copied');
-
-                // Remove the animation class after animation completes
-                setTimeout(function() {
-                    element.classList.remove('copied');
-                }, 600); // Match the animation duration
-
-                return "";
-            }).catch(function (error) {
-                return error;
-            });
-        }
-    </script>
-
 </body>
 
 </html>

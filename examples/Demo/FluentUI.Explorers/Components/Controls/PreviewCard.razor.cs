@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -42,27 +43,44 @@ public partial class PreviewCard
         }
     }
 
-    public async void CopyToClipboardAsync()
+    private string GetCodeToCopy(bool fullNamespace)
     {
+        var ns = fullNamespace ? "Microsoft.FluentUI.AspNetCore.Components." : "";
+
         if (Icon != null)
         {
             // Icons.[IconVariant].[IconSize].[IconName]
-            var value = $"Value=\"@(new Icons.{FullName}())\"";
+            var value = $"Value=\"@(new {ns}Icons.{FullName}())\"";
             var color = IconColor == Color.Accent ? string.Empty : $" Color=\"@Color.{IconColor}\"";
-
-            var code = $"<FluentIcon {value}{color} />";
-
-            await JSRuntime.InvokeVoidAsync("copyToClipboard", code, ImageElement);
+            return $"<FluentIcon {value}{color} />";
         }
 
         if (Emoji != null)
         {
-            // Emojis.[Grouo].[Style].[Skintone].[Name]
-            var value = $"Value=\"@(new Emojis.{FullName}())\"";
-
-            var code = $"<FluentEmoji {value} />";
-
-            await JSRuntime.InvokeVoidAsync("copyToClipboard", code, ImageElement);
+            // Emojis.[Group].[Style].[Skintone].[Name]
+            var value = $"Value=\"@(new {ns}Emojis.{FullName}())\"";
+            return $"<FluentEmoji {value} />";
         }
+
+        return string.Empty;
+    }
+
+    public async void CopyToClipboardAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("copyToClipboard", GetCodeToCopy(fullNamespace: false), ImageElement);
+    }
+
+    private async Task OnRightClick(MouseEventArgs e)
+    {
+        await JSRuntime.InvokeVoidAsync("showContextMenu",
+            e.ClientX,
+            e.ClientY,
+            new
+            {
+                element = ImageElement,
+                simplified = GetCodeToCopy(fullNamespace: false),
+                full = GetCodeToCopy(fullNamespace: true),
+                name = Icon?.Name ?? Emoji?.Name
+            });
     }
 }

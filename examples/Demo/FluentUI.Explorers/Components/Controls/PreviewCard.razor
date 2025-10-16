@@ -2,7 +2,10 @@
 
 <div>
     <FluentCard Shadow="CardShadow.Small" Class="card" OnClick="@CopyToClipboardAsync">
-        <div class="image" @ref="ImageElement">
+        <div class="image"
+             @ref="ImageElement"
+             @oncontextmenu="@OnRightClick"
+             @oncontextmenu:preventDefault="true">
             @if (Icon is not null)
             {
                 <FluentIcon Value="@IconsExtensions.GetInstance(Icon)"
