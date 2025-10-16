@@ -62,10 +62,23 @@
         if (menu) {
             // Position the menu at mouse coordinates
             menu.style.position = 'fixed';
-            menu.style.left = x + 'px';
             menu.style.top = (y - 100) + 'px';
             menu.style.display = 'block';
             menu.style.zIndex = '9999';
+
+            // Check if menu is too close to the right edge (< 250px)
+            const windowWidth = window.innerWidth;
+            const spaceOnRight = windowWidth - x;
+
+            if (spaceOnRight < 220) {
+                // Display on the left
+                menu.style.left = 'auto';
+                menu.style.right = (windowWidth - x) + 'px';
+            } else {
+                // Display on the right (default)
+                menu.style.left = x + 'px';
+                menu.style.right = 'auto';
+            }
 
             menu.data = data;
 
