@@ -1,0 +1,79 @@
+﻿@page "/icon-explorer"  
+@inherits ExplorerBase
+
+<PageTitle>FluentUI Blazor - Icons explorer</PageTitle>
+
+<SectionContent SectionName="SearchBar">
+    <FluentTextInput Placeholder="Part of icon name"
+                     Spellcheck="false"
+                     @bind-Value="@Criteria.SearchTerm"
+                     @bind-Value:after="@StartSearchAsync"
+                     ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])" />
+
+    <FluentSelect Items="@(GetEnumValues<IconSize>())"
+                  @bind-Value="@Criteria.Size"
+                  @bind-Value:after="@StartSearchAsync" />
+
+    <FluentSelect Items="@(GetEnumValues<IconVariant>())"
+                  @bind-Value="@Criteria.Variant"
+                  @bind-Value:after="@StartSearchAsync" />
+
+    <FluentSelect Items="@(GetEnumValues<Color>())"
+                  @bind-Value="@Criteria.Color"
+                  @bind-Value:after="@StartSearchAsync" />
+
+    <FluentButton IconStart="@(new Icons.Regular.Size20.ArrowRight())"
+                  OnClick="@StartSearchAsync" />
+
+</SectionContent>
+
+<SectionContent SectionName="SearchResult">
+    @if (SearchInProgress)
+    {
+        <FluentSpinner />
+    }
+    else if (IconsFound.Any())
+    {
+        <FluentText As="TextTag.Paragraph">
+            Click on the card to copy a ready to paste "FluentIcon"
+            component declaration to the clipboard. Or right-click for more options.
+        </FluentText>
+
+        <div style="min-height: 12px;" />
+
+        <FluentStack Orientation="Orientation.Horizontal" Wrap="true" HorizontalGap="12px" VerticalGap="12px">
+            @foreach (var item in IconsFound.Take(MaximumOfItems))
+            {
+                <PreviewCard Icon="@item" IconColor="@Criteria.Color" />
+            }
+
+            @if (IconsFound.Length > MaximumOfItems)
+            {
+                <FluentButton Appearance="ButtonAppearance.Transparent"
+                              OnClick="@ShowMoreHandlerAsync"
+                              Color="var(--colorBrandForegroundLink)"
+                              Style="height: 100px;">
+                    Show more
+                </FluentButton>
+            }
+
+        </FluentStack>
+    }
+    else
+    {
+        <div>
+            <FluentText Class="help">
+                Enter part of the icon name and press the search arrow or press Enter.
+            </FluentText>
+        </div>
+    }
+</SectionContent>
+
+<SectionContent SectionName="SearchFooter">
+    @if (!SearchInProgress)
+    {
+        <FluentText>
+            @NumberOfIconsFound
+        </FluentText>
+    }
+</SectionContent>
