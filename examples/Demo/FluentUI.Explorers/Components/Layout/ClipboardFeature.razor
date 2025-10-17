@@ -1,13 +1,13 @@
 ﻿<div id="clipboard-menu-id" style="display: none; position: fixed; z-index: 9999;">
-    <FluentMenuList Style="width: 220px;">
+    <FluentMenuList Style="width: 240px;">
         <FluentMenuItem OnClick="@(e => ItemToCopyAsync("name"))">
-            Copy the name
+            Copy name
         </FluentMenuItem>
         <FluentMenuItem OnClick="@(e => ItemToCopyAsync("simplified"))">
-            Copy the simplified component
+            Copy component
         </FluentMenuItem>
         <FluentMenuItem OnClick="@(e => ItemToCopyAsync("full"))">
-            Copy the full component
+            Copy component (full namespace)
         </FluentMenuItem>
     </FluentMenuList>
 </div>
@@ -70,7 +70,7 @@
             const windowWidth = window.innerWidth;
             const spaceOnRight = windowWidth - x;
 
-            if (spaceOnRight < 220) {
+            if (spaceOnRight < 240) {
                 // Display on the left
                 menu.style.left = 'auto';
                 menu.style.right = (windowWidth - x) + 'px';
