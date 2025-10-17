@@ -20,9 +20,37 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+// Override any default CSP headers with our custom policy
+app.Use(async (context, next) =>
+{
+    context.Response.OnStarting(() =>
+    {
+        // Remove X-Frame-Options (it conflicts with CSP frame-ancestors)
+        context.Response.Headers.Remove("X-Frame-Options");
+
+        // Define allowed frame ancestors
+        string[] allowedFrameAncestors =
+        [
+            "'self'",
+            "https://localhost:7026",
+            "https://localhost:7062",
+            "https://fluentui-blazor.net",
+            "https://www.fluentui-blazor.net",
+            "https://preview.fluentui-blazor.net",
+            "https://fluentui-explorer-v5.azurewebsites.net"
+        ];
+
+        // Set a single CSP header, replacing any that Blazor might have added
+        context.Response.Headers["Content-Security-Policy"] =
+            $"frame-ancestors {string.Join(" ", allowedFrameAncestors)};";
+
+        return Task.CompletedTask;
+    });
+    await next();
+});
 
 app.UseHttpsRedirection();
 
