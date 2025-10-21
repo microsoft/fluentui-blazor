@@ -491,7 +491,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
             {
                 return GetOptionValue(item) == GetOptionValue(SelectedOption);
             }
-            else if (!string.IsNullOrEmpty(Value) || !string.IsNullOrEmpty(InternalValue))
+            else if (!string.IsNullOrEmpty(Value))
             {
                 return string.Equals(GetOptionValue(item), Value, StringComparison.Ordinal);
             }
