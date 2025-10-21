@@ -23,8 +23,8 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
     private bool _contextMenu = false;
     private readonly Dictionary<string, FluentMenuItem> items = [];
     private IMenuService? _menuService = null;
-    private IJSObjectReference _jsModule = default!;
-    private IJSObjectReference _anchoredRegionModule = default!;
+    private IJSObjectReference? _jsModule = default!;
+    private IJSObjectReference? _anchoredRegionModule = default!;
 
     private (int top, int right, int bottom, int left) _stylePositions;
 
@@ -240,14 +240,14 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
                 }
             }
 
-            if (_jsModule is not null && _anchoredRegionModule is not null)
+            if (_jsModule is not null && _anchoredRegionModule is not null && _dotNetHelper is not null)
             {
                 await _jsModule.InvokeVoidAsync("initialize", Anchor, Id, Open, _anchoredRegionModule, _dotNetHelper);
             }
         }
         else
         {
-            if (_jsModule is not null && _anchoredRegionModule is not null && _reinitializeEventListeners)
+            if (_jsModule is not null && _anchoredRegionModule is not null && _dotNetHelper is not null && _reinitializeEventListeners)
             {
                 // If the menu was closed, remove its set event listeners. If it opened (ie if the menu starts out closed),
                 // we should set them now.
@@ -385,6 +385,10 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
 
     internal async Task<bool> IsCheckedAsync(FluentMenuItem item)
     {
+        if (_jsModule is null)
+        {
+            return false;
+        }
         return await _jsModule.InvokeAsync<bool>("isChecked", item.Id);
     }
 
@@ -401,11 +405,13 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
             {
                 await _jsModule.InvokeVoidAsync("dispose", Anchor);
                 await _jsModule.DisposeAsync();
+                _jsModule = null;
             }
 
             if (_anchoredRegionModule is not null)
             {
                 await _anchoredRegionModule.DisposeAsync();
+                _anchoredRegionModule = null;
             }
         }
         catch (Exception ex) when (ex is JSDisconnectedException ||
