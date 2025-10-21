@@ -483,13 +483,17 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
             {
                 return OptionSelected.Invoke(item);
             }
-            else if (SelectedOption == null)
+            else if (SelectedOption == null && string.IsNullOrEmpty(Value))
             {
                 return false;
             }
             else if (OptionValue != null && SelectedOption != null)
             {
                 return GetOptionValue(item) == GetOptionValue(SelectedOption);
+            }
+            else if (!string.IsNullOrEmpty(Value) || !string.IsNullOrEmpty(InternalValue))
+            {
+                return string.Equals(GetOptionValue(item), Value, StringComparison.Ordinal);
             }
             else
             {
