@@ -23,8 +23,9 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
     private bool _contextMenu = false;
     private readonly Dictionary<string, FluentMenuItem> items = [];
     private IMenuService? _menuService = null;
-    private IJSObjectReference? _jsModule = default!;
-    private IJSObjectReference? _anchoredRegionModule = default!;
+    private IJSObjectReference _jsModule = default!;
+    private IJSObjectReference _anchoredRegionModule = default!;
+    private bool _disposed;
 
     private (int top, int right, int bottom, int left) _stylePositions;
 
@@ -240,14 +241,14 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
                 }
             }
 
-            if (_jsModule is not null && _anchoredRegionModule is not null && _dotNetHelper is not null)
+            if (!_disposed)
             {
                 await _jsModule.InvokeVoidAsync("initialize", Anchor, Id, Open, _anchoredRegionModule, _dotNetHelper);
             }
         }
         else
         {
-            if (_jsModule is not null && _anchoredRegionModule is not null && _dotNetHelper is not null && _reinitializeEventListeners)
+            if (!_disposed && _reinitializeEventListeners)
             {
                 // If the menu was closed, remove its set event listeners. If it opened (ie if the menu starts out closed),
                 // we should set them now.
@@ -397,6 +398,12 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
     /// </summary>
     public async ValueTask DisposeAsync()
     {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _disposed = true;
         _dotNetHelper?.Dispose();
 
         try
@@ -419,6 +426,10 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
         {
             // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.
+        }
+        finally
+        {
+            GC.SuppressFinalize(this);
         }
     }
 }
