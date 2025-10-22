@@ -412,13 +412,11 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
             {
                 await _jsModule.InvokeVoidAsync("dispose", Anchor);
                 await _jsModule.DisposeAsync();
-                _jsModule = null;
             }
 
             if (_anchoredRegionModule is not null)
             {
                 await _anchoredRegionModule.DisposeAsync();
-                _anchoredRegionModule = null;
             }
         }
         catch (Exception ex) when (ex is JSDisconnectedException ||
