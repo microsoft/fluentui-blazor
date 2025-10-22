@@ -224,7 +224,7 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
 
             if (Trigger != MouseButton.None)
             {
-                if (Anchor is not null)
+                if (!_disposed && Anchor is not null)
                 {
                     // Add LeftClick event
                     if (Trigger == MouseButton.Left)
