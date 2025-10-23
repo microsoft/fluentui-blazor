@@ -11,7 +11,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
    * @param id The ID of the input element.
    * @param mask The mask pattern to apply.
    */
-  export function applyPatternMask(id: string, mask: string): void {
+  export function applyPatternMask(id: string, mask: string, lazy: boolean, placeholderChar: string): void {
 
     const fluentText = document.getElementById(id) as FluentUIComponents.TextInput;
     const inputElement = getInputElement(id);
@@ -20,7 +20,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
     const maskOptions =
     {
       mask: mask,
-      lazy: false,
+      lazy: lazy,                       // false: make placeholder always visible
+      placeholderChar: placeholderChar, // defaults to '_'
     };
 
     // Destroy existing mask if any

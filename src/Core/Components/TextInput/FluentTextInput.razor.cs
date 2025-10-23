@@ -102,6 +102,20 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     public string? MaskPattern { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the mask should be applied lazily (only when the user types).
+    /// The default is false, meaning the <see cref="MaskPattern"/> is always visible.
+    /// </summary>
+    [Parameter]
+    public bool MaskLazy { get; set; }
+
+    /// <summary>
+    /// Gets or sets the character used to represent unfilled positions in the input mask.
+    /// The default is "_". Only the first character is used.
+    /// </summary>
+    [Parameter]
+    public string MaskPlaceholder { get; set; } = "_";
+
+    /// <summary>
     /// Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
     /// An Id value must be set to use this property.
     /// </summary>
@@ -189,7 +203,9 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
             // Set the mask pattern if defined
             if (!string.IsNullOrEmpty(MaskPattern))
             {
-                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyPatternMask", Id, MaskPattern);
+                var placeholder = MaskPlaceholder.Length > 0 ? MaskPlaceholder[0] : '_';
+
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyPatternMask", Id, MaskPattern, MaskLazy, placeholder);
             }
         }
     }

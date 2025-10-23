@@ -69,6 +69,48 @@ You cannot therefore fill the entire background of these templates, with a colou
 
 {{ TextInputPrefixSuffix }}
 
+## Masked Input
+
+You can use the `MaskPattern` property to define a mask for the text input.
+The `Value` property will contain the masked value, including fixed characters from the mask.
+
+Use **MaskPattern** when:
+
+- mask is complex or contains nested masks
+- mask is fixed in size (optional symbols can provide some flexibility)
+- placeholder is needed
+- more reliability or flexibility on processing input is needed
+
+`MaskPattern` is just a string. E.g. `{#}000[aaa]/NIC-[**]`
+
+The `MaskPattern` definitions are:
+- `0` - any digit
+- `a` - any letter
+- `*` - any char
+
+Other chars which is not in custom definitions supposed to be fixed
+- `[]` - make input optional
+- `{}` - include fixed part in unmasked value
+
+If definition character should be treated as fixed it should be escaped by `\\` (E.g. `\\0`).
+
+{{ TextInputMasked }}
+
+> [!NOTE] The mask is only a visual aid to the user. The binded value will always be a string
+> containing the characters typed by the user, along with any fixed characters from the mask.
+> The mask does not enforce any validation on the input. You should still validate the input value.
+> If you set a value that does not conform to the mask, it will be displayed as-is.
+
+You can also use these extra parameters to customize the masking behavior:
+
+- `MaskLazy` - when set to true, the placeholder characters are shown only when the user types in that position.
+- `MaskPlaceholder` - defines the character used as a placeholder in the mask. Default is underscore `_`.
+
+{{ TextInputMaskedAdvanced }}
+
+All these parameters must be defined when the component is first rendered.
+You cannot modify them dynamically.
+
 ## API FluentTextInput
 
 {{ API Type=FluentTextInput }}
