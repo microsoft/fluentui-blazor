@@ -96,6 +96,12 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     public string? Pattern { get; set; }
 
     /// <summary>
+    /// Gets or sets the input mask pattern that defines the allowed format for user input.
+    /// </summary>
+    [Parameter]
+    public string? MaskPattern { get; set; }
+
+    /// <summary>
     /// Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
     /// An Id value must be set to use this property.
     /// </summary>
@@ -179,6 +185,12 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
 
             // Initialize the change after key press event
             await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
+
+            // Set the mask pattern if defined
+            if (!string.IsNullOrEmpty(MaskPattern))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyPatternMask", Id, MaskPattern);
+            }
         }
     }
 
