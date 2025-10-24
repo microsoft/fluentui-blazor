@@ -211,4 +211,26 @@
         // Assert
         Assert.Equal("width: 100px;", cut.Find("fluent-text-input").GetAttribute("style"));
     }
+
+    [Fact]
+    public void FluentInputText_MaskPattern()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput MaskPattern="000.000" Value="123.456" />);
+
+        // Assert
+        // Check only the value attribute, because the mask is applied via JS
+        Assert.Contains("value=\"123.456\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentInputText_EmptyMaskPlaceholder()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput MaskPattern="000.000" MaskLazy="true" MaskPlaceholder="" Value="123.456" />);
+
+        // Assert
+        // Check only the value attribute, because the mask is applied via JS
+        Assert.Contains("value=\"123.456\"", cut.Markup);
+    }
 }
