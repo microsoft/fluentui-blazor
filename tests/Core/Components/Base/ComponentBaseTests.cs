@@ -33,6 +33,7 @@ public class ComponentBaseTests : Bunit.TestContext
     private static readonly Dictionary<Type, Loader> ComponentInitializer = new()
     {
         { typeof(FluentIcon<>), Loader.MakeGenericType(typeof(Samples.Icons.Samples.Info))},
+        { typeof(FluentEmoji<>), Loader.MakeGenericType(typeof(Samples.Emojis.Samples.Hamburger))},
         { typeof(FluentSelect<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentCombobox<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},

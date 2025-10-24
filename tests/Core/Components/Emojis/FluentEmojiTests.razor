@@ -1,0 +1,334 @@
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits Bunit.TestContext
+
+@code
+{
+    public FluentEmojiTests()
+    {
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentEmoji_Default()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentEmoji_WithTitle()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" Title="Hamburger Emoji" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentEmoji_WithSlot()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" Slot="@FluentSlot.Start" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentEmoji_WithSlotAndTitle()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" Slot="@FluentSlot.Start" Title="My Emoji" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentEmoji_WithWidth()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" Width="100px" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentEmoji_WithWidth_EmptyString()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" Width="" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentEmoji_OnClick()
+    {
+        var isClicked = false;
+
+        // Arrange
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" OnClick="@(e => isClicked = true)" />);
+
+        // Act
+        cut.Find("svg").Click();
+
+        // Assert
+        Assert.True(isClicked);
+    }
+
+    [Fact]
+    public void FluentEmoji_OnClick_NoDelegate()
+    {
+        var isClicked = false;
+
+        // Arrange
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" />);
+
+        // Act
+        cut.Find("svg").Click();
+
+        // Assert
+        Assert.False(isClicked);
+    }
+
+    [Fact]
+    public void FluentEmoji_AdditionalAttributes()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" extra="My-Extra-Attribute" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentEmoji_Data()
+    {
+        // Arrange
+        var emoji = new Emojis.Samples.Hamburger();
+        var myData = "MyEmojiData";
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" Data="@myData" />);
+
+        // Assert
+        var component = cut.FindComponent<FluentEmoji<Emojis.Samples.Hamburger>>();
+        Assert.Equal("MyEmojiData", component.Instance.Data);
+    }
+
+    [Fact]
+    public void FluentEmoji_ToMarkup()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<div>@emoji.ToMarkup()</div>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentEmoji_ToMarkup_WithSize()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<div>@emoji.ToMarkup(size: "80px")</div>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentEmoji_Properties()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+
+        // Assert
+        Assert.Equal("Hamburger", emoji.Name);
+        Assert.Equal(EmojiSize.Size32, emoji.Size);
+        Assert.Equal(EmojiGroup.Food_Drink, emoji.Group);
+        Assert.Equal(EmojiSkintone.Default, emoji.Skintone);
+        Assert.Equal(EmojiStyle.Color, emoji.Style);
+        Assert.NotEmpty(emoji.Content);
+    }
+
+    [Fact]
+    public void FluentEmoji_Content_NotEmpty()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+
+        // Assert
+        Assert.NotEmpty(emoji.Content);
+        Assert.StartsWith("<", emoji.Content);
+    }
+
+    [Fact]
+    public void FluentEmoji_Width_Property()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+
+        // Assert
+        Assert.Equal(32, emoji.Width);
+    }
+
+    [Fact]
+    public void FluentEmoji_Constructor_Throws()
+    {
+        // Arrange & Act & Assert
+        Assert.Throws<InvalidOperationException>(() => new Emoji());
+    }
+
+    [Fact]
+    public void FluentEmoji_WithId()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" Id="my-emoji-id" />);
+
+        // Assert
+        var svg = cut.Find("svg");
+        Assert.Equal("my-emoji-id", svg.Id);
+    }
+
+    [Fact]
+    public void FluentEmoji_WithClass()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" Class="my-custom-class" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentEmoji_WithStyle()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" Style="border: 1px solid red;" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentEmoji_OnParametersSet_CreatesEmojiIfNull()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+        var cut = Render(@<FluentEmoji TEmoji="Emojis.Samples.Hamburger" Value="@emoji" />);
+
+        // Assert
+        var component = cut.FindComponent<FluentEmoji<Emojis.Samples.Hamburger>>();
+        Assert.NotNull(component.Instance.Value);
+    }
+
+    [Fact]
+    public void FluentEmoji_ContainsSVG_WithPath()
+    {
+        // Arrange & Act
+        var emoji = new Emojis.Samples.Hamburger();
+
+        // Assert
+        Assert.True(emoji.Content.StartsWith("<path ", StringComparison.Ordinal) ||
+                    emoji.Content.Contains("<path "));
+    }
+
+    [Fact]
+    public void EmojiInfo_DefaultProperties()
+    {
+        // Arrange & Act
+        var emojiInfo = new EmojiInfo();
+
+        // Assert
+        Assert.Equal(string.Empty, emojiInfo.Name);
+        Assert.Equal(EmojiSize.Size32, emojiInfo.Size);
+        Assert.Equal(EmojiGroup.Activities, emojiInfo.Group);
+        Assert.Equal(EmojiSkintone.Default, emojiInfo.Skintone);
+        Assert.Equal(EmojiStyle.Color, emojiInfo.Style);
+        Assert.Equal(string.Empty, emojiInfo.KeyWords);
+    }
+
+    [Fact]
+    public void EmojiInfo_WithInitializers()
+    {
+        // Arrange & Act
+        var emojiInfo = new EmojiInfo
+        {
+            Name = "TestEmoji",
+            Size = EmojiSize.Size64,
+            Group = EmojiGroup.Flags,
+            Skintone = EmojiSkintone.Dark,
+            Style = EmojiStyle.Flat,
+            KeyWords = "test, emoji, sample"
+        };
+
+        // Assert
+        Assert.Equal("TestEmoji", emojiInfo.Name);
+        Assert.Equal(EmojiSize.Size64, emojiInfo.Size);
+        Assert.Equal(EmojiGroup.Flags, emojiInfo.Group);
+        Assert.Equal(EmojiSkintone.Dark, emojiInfo.Skintone);
+        Assert.Equal(EmojiStyle.Flat, emojiInfo.Style);
+        Assert.Equal("test, emoji, sample", emojiInfo.KeyWords);
+    }
+
+    [Fact]
+    public void CustomEmoji_Content_IsDecompressed()
+    {
+        // Arrange
+        var source = new Emojis.Samples.Hamburger();
+
+        // Act
+        var customEmoji = new CustomEmoji(source);
+
+        // Assert
+        Assert.NotEmpty(customEmoji.Content);
+        Assert.Equal(source.Content, customEmoji.Content);
+    }
+
+    [Fact]
+    public void FluentEmoji_NonSVG_RendersAsDiv()
+    {
+        // Arrange - Create a custom emoji with non-SVG content (plain text)
+        var textEmoji = new TextOnlyEmoji();
+
+        // Act
+        var cut = Render(@<FluentEmoji TEmoji="TextOnlyEmoji" Value="@textEmoji" />);
+
+        // Assert - Should render as div, not svg
+        var div = cut.Find("div");
+        Assert.NotNull(div);
+        Assert.Contains("Hello World", div.InnerHtml);
+        cut.Verify();
+    }
+
+    // Helper class to create an emoji with non-SVG content
+    private class TextOnlyEmoji : Emoji
+    {
+        public TextOnlyEmoji()
+            : base("TextOnly", EmojiSize.Size32, EmojiGroup.Objects,
+                   EmojiSkintone.Default, EmojiStyle.Color,
+                   EmojiCompress.Zip("Hello World"))
+        {
+        }
+    }
+}

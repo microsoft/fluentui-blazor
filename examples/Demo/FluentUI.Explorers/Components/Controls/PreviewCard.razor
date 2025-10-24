@@ -1,0 +1,26 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+
+<div>
+    <FluentCard Shadow="CardShadow.Small" Class="card" OnClick="@CopyToClipboardAsync">
+        <div class="image"
+             @ref="ImageElement"
+             @oncontextmenu="@OnRightClick"
+             @oncontextmenu:preventDefault="true">
+            @if (Icon is not null)
+            {
+                <FluentIcon Value="@IconsExtensions.GetInstance(Icon)"
+                            Color="@IconColor"
+                            Title="@Icon.Name" />
+            }
+            @if (Emoji is not null)
+            {
+                <FluentEmoji Value="@EmojiExtensions.GetInstance(Emoji)"
+                             Title="@Emoji.Name" />
+            }
+            <div class="clipboard-icon" title="Copy to Clipboard"></div>
+        </div>
+        <FluentText Class="name" title="@FullName">
+            @(Icon?.Name ?? Emoji?.Name)
+        </FluentText>
+    </FluentCard>
+</div>
