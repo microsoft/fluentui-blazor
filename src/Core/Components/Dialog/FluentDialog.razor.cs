@@ -81,7 +81,10 @@ public partial class FluentDialog : FluentComponentBase
         if (firstRender && LaunchedFromService)
         {
             var instance = Instance as DialogInstance;
-            instance?.FluentDialog = this;
+            if (instance is not null)
+            {
+                instance.FluentDialog = this;
+            }
 
             return ShowAsync();
         }

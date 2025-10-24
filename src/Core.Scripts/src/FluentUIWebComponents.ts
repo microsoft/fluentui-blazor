@@ -1,5 +1,4 @@
 import * as FluentUIComponents from '@fluentui/web-components'
-import * as Theme from './Utilities/Theme'
 
 export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
 
