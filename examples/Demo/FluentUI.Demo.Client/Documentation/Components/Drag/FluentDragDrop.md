@@ -5,9 +5,11 @@ route: /Drag
 
 # Drag and Drop
 
-A web component implementation of a <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API" target="_blank">HTML Drag and Drop API</a>.
+A Blazor component implementation of a <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API" target="_blank">HTML Drag and Drop API</a>.
 
 The user may select draggable elements with a mouse, drag those elements to a droppable element, and drop them by releasing the mouse button. A translucent representation of the draggable elements follows the pointer during the drag operation.
+
+Create a `FluentDragContainer` surface that will contain drag-and-drop areas. Customize these areas with the `Draggable` and `Droppable` parameters. Each time an item is dragged or dropped onto an area, an event is triggered to notify the developer. You can retrieve a generic `Item` argument with your personal data.
 
 ## Basic example
 
@@ -30,4 +32,14 @@ This structure allows fully flexible layout editing with deep nesting and drag-a
 
 {{ DragDropNested }}
 
+## API FluentDragContainer
 
+{{ API Type=FluentDragContainer<int> }}
+
+## API FluentDropZone
+
+{{ API Type=FluentDropZone<int> }}
+
+## API FluentDragEventArgs
+
+{{ API Type=FluentDragEventArgs<int> }}
