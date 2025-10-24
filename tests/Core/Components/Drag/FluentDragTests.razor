@@ -1,0 +1,370 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.Reflection
+@using Xunit;
+@inherits Bunit.TestContext
+
+@code {
+	public FluentDragTests()
+	{
+		JSInterop.Mode = JSRuntimeMode.Loose;
+		Services.AddFluentUIComponents();
+	}
+
+	[Fact]
+	public void FluentDrag_Default()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentDragContainer TItem="int" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+			<FluentDropZone Draggable="true" TItem="int" Item="1" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+				Item 1
+			</FluentDropZone>
+
+			<FluentDropZone Draggable="true" TItem="int" Item="2" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+				Item 2
+			</FluentDropZone>
+		</FluentDragContainer>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentDrag_StopPropagation()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentDragContainer TItem="int" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+			<FluentDropZone Draggable="true" StopPropagation="true" TItem="int" Item="1" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+				Item 1
+			</FluentDropZone>
+
+			<FluentDropZone Draggable="true" StopPropagation="true" TItem="int" Item="2" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+				Item 2
+			</FluentDropZone>
+		</FluentDragContainer>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentDrag_EventHandlers_Invoke_for_Draggable_And_Droppable_Flow()
+	{
+		// Arrange
+		FluentDragEventArgs<int>? zoneStartArgs = null;
+		FluentDragEventArgs<int>? containerStartArgs = null;
+
+		FluentDragEventArgs<int>? zoneEndArgs = null;
+		FluentDragEventArgs<int>? containerEndArgs = null;
+
+		FluentDragEventArgs<int>? zoneEnterArgs = null;
+		FluentDragEventArgs<int>? containerEnterArgs = null;
+
+		FluentDragEventArgs<int>? zoneOverArgs = null;
+		FluentDragEventArgs<int>? containerOverArgs = null;
+
+		FluentDragEventArgs<int>? zoneLeaveArgs = null;
+		FluentDragEventArgs<int>? containerLeaveArgs = null;
+
+		FluentDragEventArgs<int>? zoneDropArgs = null;
+		FluentDragEventArgs<int>? containerDropArgs = null;
+
+		var cut = Render(@<FluentDragContainer TItem="int"
+												 OnDragStart="(e) => containerStartArgs = e"
+												 OnDragEnd="(e) => containerEndArgs = e"
+												 OnDragEnter="(e) => containerEnterArgs = e"
+												 OnDragOver="(e) => containerOverArgs = e"
+												 OnDragLeave="(e) => containerLeaveArgs = e"
+												 OnDropEnd="(e) => containerDropArgs = e">
+			<FluentDropZone id="zone1" Draggable="true" TItem="int" Item="1"
+							OnDragStart="(e) => zoneStartArgs = e"
+							OnDragEnd="(e) => zoneEndArgs = e">
+				Item 1
+			</FluentDropZone>
+
+			<FluentDropZone id="zone2" Droppable="true" TItem="int" Item="2"
+							OnDragEnter="(e) => zoneEnterArgs = e"
+							OnDragOver="(e) => zoneOverArgs = e"
+							OnDragLeave="(e) => zoneLeaveArgs = e"
+							OnDropEnd="(e) => zoneDropArgs = e">
+				Item 2
+			</FluentDropZone>
+		</FluentDragContainer>
+	);
+
+		// Act: start dragging zone1 (should set started zone and invoke both zone & container start handlers)
+		var z1 = cut.Find("#zone1");
+		z1.TriggerEvent("ondragstart", new DragEventArgs());
+
+		// Assert start handlers invoked
+		Assert.NotNull(zoneStartArgs);
+		Assert.NotNull(containerStartArgs);
+		Assert.Equal(1, zoneStartArgs!.Source.Item);
+		Assert.Equal(1, zoneStartArgs!.Target.Item); // start target is same zone
+		Assert.Equal(1, containerStartArgs!.Source.Item);
+		Assert.Equal(1, containerStartArgs!.Target.Item);
+
+		// Act: drag enter zone2 -> should add attribute dragged-over and raise enter handlers
+		var z2 = cut.Find("#zone2");
+		z2.TriggerEvent("ondragenter", new DragEventArgs());
+
+		Assert.NotNull(zoneEnterArgs);
+		Assert.NotNull(containerEnterArgs);
+		Assert.Equal(1, zoneEnterArgs!.Source.Item); // source is started zone
+		Assert.Equal(2, zoneEnterArgs!.Target.Item); // target is zone2
+		Assert.Equal("", z2.GetAttribute("dragged-over"));
+
+		// Act: drag over zone2 -> should raise over handlers and keep IsOver true
+		z2.TriggerEvent("ondragover", new DragEventArgs());
+
+		Assert.NotNull(zoneOverArgs);
+		Assert.NotNull(containerOverArgs);
+		Assert.Equal(1, zoneOverArgs!.Source.Item);
+		Assert.Equal(2, zoneOverArgs!.Target.Item);
+		Assert.Equal("", z2.GetAttribute("dragged-over"));
+
+		// Act: drag leave zone2 -> should raise leave handlers and set dragged-over false
+		z2.TriggerEvent("ondragleave", new DragEventArgs());
+
+		Assert.NotNull(zoneLeaveArgs);
+		Assert.NotNull(containerLeaveArgs);
+		Assert.Equal(1, zoneLeaveArgs!.Source.Item);
+		Assert.Equal(2, zoneLeaveArgs!.Target.Item);
+		Assert.Null(z2.GetAttribute("dragged-over"));
+
+		// Prepare again: start drag to set StartedZone
+		z1.TriggerEvent("ondragstart", new DragEventArgs());
+
+		// Act: drop on zone2 -> should raise drop handlers and clear IsOver
+		z2.TriggerEvent("ondrop", new DragEventArgs());
+
+		Assert.NotNull(zoneDropArgs);
+		Assert.NotNull(containerDropArgs);
+		Assert.Equal(1, zoneDropArgs!.Source.Item);
+		Assert.Equal(2, zoneDropArgs!.Target.Item);
+		Assert.Null(z2.GetAttribute("dragged-over"));
+
+		// Act: drag end on zone1 -> invoke end handlers
+		z1.TriggerEvent("ondragend", new DragEventArgs());
+
+		Assert.NotNull(zoneEndArgs);
+		Assert.NotNull(containerEndArgs);
+		Assert.Equal(1, zoneEndArgs!.Source.Item);
+		Assert.Equal(1, zoneEndArgs!.Target.Item);
+
+		var c = cut.FindComponent<FluentDragContainer<int>>();
+		cut.InvokeAsync(() => c.Instance.SetStartedZone(null));
+
+		z2.TriggerEvent("ondragenter", new DragEventArgs());
+
+		Assert.NotNull(zoneEnterArgs);
+		Assert.NotNull(containerEnterArgs);
+		Assert.Equal(1, zoneEnterArgs!.Source.Item); // source is started zone
+		Assert.Equal(2, zoneEnterArgs!.Target.Item); // target is zone2
+		Assert.Equal("", z2.GetAttribute("dragged-over"));
+
+		z2.TriggerEvent("ondrop", new DragEventArgs());
+
+		Assert.NotNull(zoneDropArgs);
+		Assert.NotNull(containerDropArgs);
+		Assert.Equal(1, zoneDropArgs!.Source.Item);
+		Assert.Equal(2, zoneDropArgs!.Target.Item);
+		Assert.Null(z2.GetAttribute("dragged-over"));
+
+		z2.TriggerEvent("ondragover", new DragEventArgs());
+
+		Assert.NotNull(zoneOverArgs);
+		Assert.NotNull(containerOverArgs);
+		Assert.Equal(1, zoneOverArgs!.Source.Item);
+		Assert.Equal(2, zoneOverArgs!.Target.Item);
+		Assert.Null(z2.GetAttribute("dragged-over"));
+	}
+
+	[Fact]
+	public void FluentDrag_NonDraggable_And_NonDroppable_Are_Ignored()
+	{
+		// Arrange: make zone1 not draggable and zone2 not droppable
+		bool zoneStartCalled = false;
+		bool containerStartCalled = false;
+
+		bool zoneEnterCalled = false;
+		bool containerEnterCalled = false;
+
+		FluentDragEventArgs<int>? zoneOverArgs = null;
+		FluentDragEventArgs<int>? containerOverArgs = null;
+
+		FluentDragEventArgs<int>? zoneDropArgs = null;
+		FluentDragEventArgs<int>? containerDropArgs = null;
+
+		var cut = Render(@<FluentDragContainer TItem="int"
+												 OnDragStart="(e) => containerStartCalled = true"
+												 OnDragEnter="(e) => containerEnterCalled = true">
+			<FluentDropZone id="zone1" Draggable="false" TItem="int" Item="1" OnDragStart="(e) => zoneStartCalled = true">
+				Item 1
+			</FluentDropZone>
+
+			<FluentDropZone id="zone2" Droppable="false" TItem="int" Item="2" OnDragEnter="(e) => zoneEnterCalled = true">
+				Item 2
+			</FluentDropZone>
+		</FluentDragContainer>);
+
+		// Act: attempt to start drag on non-draggable zone -> nothing should happen
+		var z1 = cut.Find("#zone1");
+		z1.TriggerEvent("ondragstart", new DragEventArgs());
+
+		Assert.False(zoneStartCalled);
+		Assert.False(containerStartCalled);
+
+		// Act: attempt to drag enter on non-droppable zone -> nothing should happen
+		var z2 = cut.Find("#zone2");
+		z2.TriggerEvent("ondragenter", new DragEventArgs());
+
+		Assert.False(zoneEnterCalled);
+		Assert.False(containerEnterCalled);
+
+		z2.TriggerEvent("ondragover", new DragEventArgs());
+
+		Assert.Null(zoneOverArgs);
+		Assert.Null(containerOverArgs);
+		Assert.Null(z2.GetAttribute("dragged-over"));
+
+		// Act: drop on zone2 -> should raise drop handlers and clear IsOver
+		z2.TriggerEvent("ondrop", new DragEventArgs());
+
+		Assert.Null(zoneDropArgs);
+		Assert.Null(containerDropArgs);
+		Assert.Null(z2.GetAttribute("dragged-over"));
+	}
+
+	[Fact]
+	public void FluentDrag_DraggableAttribute_Is_Present_When_True_And_Absent_When_False()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentDragContainer TItem="int">
+			<FluentDropZone id="dr_true" Draggable="true" TItem="int" Item="1">Item</FluentDropZone>
+			<FluentDropZone id="dr_false" Draggable="false" TItem="int" Item="2">Item</FluentDropZone>
+		</FluentDragContainer>);
+
+		var drTrue = cut.Find("#dr_true");
+		var drFalse = cut.Find("#dr_false");
+
+		// Assert: attribute exists and equals "true" for draggable true
+		Assert.Equal("true", drTrue.GetAttribute("draggable"));
+
+		// Assert: attribute missing (GetAttribute returns null) for draggable false
+		Assert.Null(drFalse.GetAttribute("draggable"));
+	}
+
+	[Fact]
+	public void FluentDrag_FluentDragEventArgs_Properties_Are_Assigned()
+	{
+		// Arrange: construct two dummy drop zones and a drag event args
+		var container = Render(@<FluentDragContainer TItem="int">
+			<FluentDropZone id="a" Draggable="true" TItem="int" Item="10">A</FluentDropZone>
+			<FluentDropZone id="b" Droppable="true" TItem="int" Item="20">B</FluentDropZone>
+		</FluentDragContainer>);
+
+		var a = container.Find("#a");
+		var b = container.Find("#b");
+
+		// We can't directly obtain the FluentDropZone<T> instances from DOM elements here (they're backing components),
+		// but we can exercise FluentDragEventArgs by creating one via the constructors in code paths (simulate via handlers).
+		FluentDragEventArgs<int>? captured = null;
+
+		var cut2 = Render(@<FluentDragContainer TItem="int">
+			<FluentDropZone id="c" Draggable="true" TItem="int" Item="42" OnDragStart="(e) => captured = e">C</FluentDropZone>
+		</FluentDragContainer>);
+
+		var c = cut2.Find("#c");
+		c.TriggerEvent("ondragstart", new DragEventArgs());
+
+		Assert.NotNull(captured);
+		Assert.Equal(42, captured!.Source.Item);
+		Assert.Equal(42, captured!.Target.Item);
+	}
+
+	[Fact]
+	public void FluentDropZone_OnDragEndHandler_Ignores_When_Not_Draggable()
+	{
+		// Arrange
+		bool zoneEndCalled = false;
+		bool containerEndCalled = false;
+
+		var cut = Render(@<FluentDragContainer TItem="int" OnDragEnd="(e) => containerEndCalled = true">
+			<FluentDropZone id="nd" Draggable="false" TItem="int" Item="1" OnDragEnd="(e) => zoneEndCalled = true">
+				not draggable
+			</FluentDropZone>
+		</FluentDragContainer>);
+
+		// Get the component instance and invoke private handler
+		var zoneComp = cut.FindComponents<FluentDropZone<int>>().First();
+		var zone = zoneComp.Instance;
+
+		var mi = zone.GetType().GetMethod("OnDragEndHandler", BindingFlags.NonPublic | BindingFlags.Instance);
+		Assert.NotNull(mi);
+
+		// Act: invoke private handler directly
+		mi!.Invoke(zone, new object[] { new DragEventArgs() });
+
+		// Assert: since Draggable == false, handlers should not have been invoked
+		Assert.False(zoneEndCalled);
+		Assert.False(containerEndCalled);
+	}
+
+	[Fact]
+	public void FluentDropZone_OnDragLeaveHandler_Ignores_When_Not_Droppable()
+	{
+		// Arrange
+		bool zoneLeaveCalled = false;
+		bool containerLeaveCalled = false;
+
+		var cut = Render(@<FluentDragContainer TItem="int" OnDragLeave="(e) => containerLeaveCalled = true">
+			<FluentDropZone id="ndl" Droppable="false" TItem="int" Item="1" OnDragLeave="(e) => zoneLeaveCalled = true">
+				not droppable
+			</FluentDropZone>
+		</FluentDragContainer>);
+
+		// Get the component instance and invoke private handler
+		var zoneComp = cut.FindComponents<FluentDropZone<int>>().First();
+		var zone = zoneComp.Instance;
+
+		var mi = zone.GetType().GetMethod("OnDragLeaveHandler", BindingFlags.NonPublic | BindingFlags.Instance);
+		Assert.NotNull(mi);
+
+		// Act: invoke private handler directly
+		mi!.Invoke(zone, new object[] { new DragEventArgs() });
+
+		// Assert: since Droppable == false, handlers should not have been invoked
+		Assert.False(zoneLeaveCalled);
+		Assert.False(containerLeaveCalled);
+	}
+
+	[Fact]
+	public void FluentDropZone_OnDragLeaveHandler_Ignores_When_Container_StartedZone_Is_Null()
+	{
+		// Arrange
+		bool zoneLeaveCalled = false;
+		bool containerLeaveCalled = false;
+
+		// Do not start any drag on the container so container.StartedZone remains null
+		var cut = Render(@<FluentDragContainer TItem="int" OnDragLeave="(e) => containerLeaveCalled = true">
+			<FluentDropZone id="nl2" Droppable="true" TItem="int" Item="1" OnDragLeave="(e) => zoneLeaveCalled = true">
+				no started zone
+			</FluentDropZone>
+		</FluentDragContainer>);
+
+		// Get the component instance and invoke private handler
+		var zoneComp = cut.FindComponents<FluentDropZone<int>>().First();
+		var zone = zoneComp.Instance;
+
+		var mi = zone.GetType().GetMethod("OnDragLeaveHandler", BindingFlags.NonPublic | BindingFlags.Instance);
+		Assert.NotNull(mi);
+
+		// Act: invoke private handler directly (container.StartedZone == null)
+		mi!.Invoke(zone, new object[] { new DragEventArgs() });
+
+		// Assert: since container.StartedZone == null, handlers should not have been invoked
+		Assert.False(zoneLeaveCalled);
+		Assert.False(containerLeaveCalled);
+	}
+}
