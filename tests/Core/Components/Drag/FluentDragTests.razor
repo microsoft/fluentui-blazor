@@ -89,7 +89,8 @@
 							OnDropEnd="(e) => zoneDropArgs = e">
 				Item 2
 			</FluentDropZone>
-		</FluentDragContainer>);
+		</FluentDragContainer>
+	);
 
 		// Act: start dragging zone1 (should set started zone and invoke both zone & container start handlers)
 		var z1 = cut.Find("#zone1");
@@ -150,6 +151,33 @@
 		Assert.NotNull(containerEndArgs);
 		Assert.Equal(1, zoneEndArgs!.Source.Item);
 		Assert.Equal(1, zoneEndArgs!.Target.Item);
+
+		var c = cut.FindComponent<FluentDragContainer<int>>();
+		cut.InvokeAsync(() => c.Instance.SetStartedZone(null));
+
+		z2.TriggerEvent("ondragenter", new DragEventArgs());
+
+		Assert.NotNull(zoneEnterArgs);
+		Assert.NotNull(containerEnterArgs);
+		Assert.Equal(1, zoneEnterArgs!.Source.Item); // source is started zone
+		Assert.Equal(2, zoneEnterArgs!.Target.Item); // target is zone2
+		Assert.Equal("", z2.GetAttribute("dragged-over"));
+
+		z2.TriggerEvent("ondrop", new DragEventArgs());
+
+		Assert.NotNull(zoneDropArgs);
+		Assert.NotNull(containerDropArgs);
+		Assert.Equal(1, zoneDropArgs!.Source.Item);
+		Assert.Equal(2, zoneDropArgs!.Target.Item);
+		Assert.Null(z2.GetAttribute("dragged-over"));
+
+		z2.TriggerEvent("ondragover", new DragEventArgs());
+
+		Assert.NotNull(zoneOverArgs);
+		Assert.NotNull(containerOverArgs);
+		Assert.Equal(1, zoneOverArgs!.Source.Item);
+		Assert.Equal(2, zoneOverArgs!.Target.Item);
+		Assert.Null(z2.GetAttribute("dragged-over"));
 	}
 
 	[Fact]
@@ -161,6 +189,12 @@
 
 		bool zoneEnterCalled = false;
 		bool containerEnterCalled = false;
+
+		FluentDragEventArgs<int>? zoneOverArgs = null;
+		FluentDragEventArgs<int>? containerOverArgs = null;
+
+		FluentDragEventArgs<int>? zoneDropArgs = null;
+		FluentDragEventArgs<int>? containerDropArgs = null;
 
 		var cut = Render(@<FluentDragContainer TItem="int"
 												 OnDragStart="(e) => containerStartCalled = true"
@@ -187,6 +221,19 @@
 
 		Assert.False(zoneEnterCalled);
 		Assert.False(containerEnterCalled);
+
+		z2.TriggerEvent("ondragover", new DragEventArgs());
+
+		Assert.Null(zoneOverArgs);
+		Assert.Null(containerOverArgs);
+		Assert.Null(z2.GetAttribute("dragged-over"));
+
+		// Act: drop on zone2 -> should raise drop handlers and clear IsOver
+		z2.TriggerEvent("ondrop", new DragEventArgs());
+
+		Assert.Null(zoneDropArgs);
+		Assert.Null(containerDropArgs);
+		Assert.Null(z2.GetAttribute("dragged-over"));
 	}
 
 	[Fact]
