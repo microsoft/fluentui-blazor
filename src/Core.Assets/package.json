@@ -4,7 +4,7 @@
   "source": "src/index.ts",
   "main": "dist/Microsoft.FluentUI.AspNetCore.Components.lib.module.js",
   "scripts": {
-    "build": "webpack --config webpack.config.ts",
+    "build": "node ./esbuild.config.mjs",
     "clean": "rimraf ./dist"
   },
   "keywords": [],
@@ -16,18 +16,14 @@
     "@microsoft/fast-foundation": "2.49.6",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
-    "compression-webpack-plugin": "^11.1.0",
     "esbuild": "0.25.0",
     "esbuild-plugin-inline-css": "^0.0.1",
     "eslint": "8.57.0",
     "rimraf": "^5.0.5",
-    "ts-loader": "^9.5.4",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.4",
-    "webpack": "^5.102.1",
-    "webpack-cli": "^6.0.1"
+    "typescript": "^5.4.4"
   },
   "dependencies": {
+    "@espcom/esbuild-plugin-compress": "^1.2.0",
     "@fluentui/web-components": "2.6.1"
   }
 }
