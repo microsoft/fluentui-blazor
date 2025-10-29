@@ -27,7 +27,7 @@ export function addThemeChangeEvent(dotNetHelper, id) {
                 return JSON.stringify(theme);
             }
         } catch (error) {
-            ClearLocalStorage(id);
+            //ClearLocalStorage(id);
             console.error(`FluentDesignTheme: failing to load theme from localStorage.`, error);
         }
 

@@ -23,6 +23,7 @@
     "typescript": "^5.4.4"
   },
   "dependencies": {
+    "@espcom/esbuild-plugin-compress": "^1.2.0",
     "@fluentui/web-components": "2.6.1"
   }
 }

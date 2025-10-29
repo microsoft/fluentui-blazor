@@ -36,6 +36,7 @@
 - \[AppBar\] Add TryGetValue and Apps.ContainsKey ([#4146](https://github.com/microsoft/fluentui-blazor/pull/4146))
 - \[Autocomplete\] Add a ShowProgressIndicator parameter + Breaking change ([#4042](https://github.com/microsoft/fluentui-blazor/pull/4042))
 - \[AutoComplete\] Invalid aria-controls reference in Autocomplete popup rendering ([#4117](https://github.com/microsoft/fluentui-blazor/pull/4117))
+- \[AutoComplete\] Override FocusAsync in FluentAutoComplete ([#4230](https://github.com/microsoft/fluentui-blazor/pull/4230))
 - \[DataGrid\] Add MinWidth parameter to ColumnBase  ([#4112](https://github.com/microsoft/fluentui-blazor/pull/4112))
 - \[DataGrid\] Add public Columns property to DataGridRow and Column property to DataGridCell for easier column access ([#4036](https://github.com/microsoft/fluentui-blazor/pull/4036))
 - \[DataGrid\] Asynchronous IQueryable based loading and error handling UI feedback ([#4177](https://github.com/microsoft/fluentui-blazor/pull/4177))
