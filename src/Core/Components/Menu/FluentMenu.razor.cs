@@ -25,6 +25,7 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
     private IMenuService? _menuService = null;
     private IJSObjectReference _jsModule = default!;
     private IJSObjectReference _anchoredRegionModule = default!;
+    private bool _disposed;
 
     private (int top, int right, int bottom, int left) _stylePositions;
 
@@ -223,7 +224,7 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
 
             if (Trigger != MouseButton.None)
             {
-                if (Anchor is not null)
+                if (!_disposed && Anchor is not null)
                 {
                     // Add LeftClick event
                     if (Trigger == MouseButton.Left)
@@ -240,14 +241,14 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
                 }
             }
 
-            if (_jsModule is not null)
+            if (!_disposed)
             {
                 await _jsModule.InvokeVoidAsync("initialize", Anchor, Id, Open, _anchoredRegionModule, _dotNetHelper);
             }
         }
         else
         {
-            if (_jsModule is not null && _reinitializeEventListeners)
+            if (!_disposed && _reinitializeEventListeners)
             {
                 // If the menu was closed, remove its set event listeners. If it opened (ie if the menu starts out closed),
                 // we should set them now.
@@ -385,6 +386,10 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
 
     internal async Task<bool> IsCheckedAsync(FluentMenuItem item)
     {
+        if (_jsModule is null)
+        {
+            return false;
+        }
         return await _jsModule.InvokeAsync<bool>("isChecked", item.Id);
     }
 
@@ -393,19 +398,36 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
     /// </summary>
     public async ValueTask DisposeAsync()
     {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _disposed = true;
         _dotNetHelper?.Dispose();
 
         try
         {
-            await _jsModule.InvokeVoidAsync("dispose", Anchor);
-            await _jsModule.DisposeAsync();
-            await _anchoredRegionModule.DisposeAsync();
+            if (_jsModule is not null)
+            {
+                await _jsModule.InvokeVoidAsync("dispose", Anchor);
+                await _jsModule.DisposeAsync();
+            }
+
+            if (_anchoredRegionModule is not null)
+            {
+                await _anchoredRegionModule.DisposeAsync();
+            }
         }
         catch (Exception ex) when (ex is JSDisconnectedException ||
                                    ex is OperationCanceledException)
         {
             // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.
+        }
+        finally
+        {
+            GC.SuppressFinalize(this);
         }
     }
 }

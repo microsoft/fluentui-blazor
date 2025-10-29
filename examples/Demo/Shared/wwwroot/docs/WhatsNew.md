@@ -1,3 +1,22 @@
+## V4.13.1
+
+- \[General\] Fix ADO pipelines ([#4227](https://github.com/microsoft/fluentui-blazor/pull/4227))  
+- \[Templates\] Fix .NET 10 Web App template ([#4242](https://github.com/microsoft/fluentui-blazor/pull/4242))  
+
+### General
+
+### Components
+- \[AutoComplete\] Override FocusAsync in FluentAutoComplete ([#4230](https://github.com/microsoft/fluentui-blazor/pull/4230))  
+- \[Combobox\] Fix presetting option ([#4255](https://github.com/microsoft/fluentui-blazor/pull/4255))  
+- \[Menu\] Add null checks for modules on DisposeAsync ([#4249](https://github.com/microsoft/fluentui-blazor/pull/4249))  
+- \[Menu\] Fix dispose error ([#4256](https://github.com/microsoft/fluentui-blazor/pull/4256))  
+- \[Menu\] More fixes for dispose error ([#4258](https://github.com/microsoft/fluentui-blazor/pull/4258))  
+
+### Icons and Emoji
+- Update to Fluent UI System Icons 1.1.311
+    See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
+
+-------------
 ## V4.13.0
 
 ### General
@@ -62,7 +81,7 @@
 - \[Icons\] Allow GetInstance to find icons regardless of casing ([#4179](https://github.com/microsoft/fluentui-blazor/pull/4179))
 - Update to Fluent UI System Icons 1.1.311
     See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
-
+--------------
 ## V4.12.1
 
 ### General
@@ -100,6 +119,7 @@
 - Update to Fluent UI System Icons 1.1.306.
     See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
 
+-------------
 ## V4.12.0
 
 ### General
