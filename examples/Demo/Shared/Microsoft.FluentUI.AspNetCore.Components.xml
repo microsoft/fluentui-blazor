@@ -6227,6 +6227,12 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MustBeClosed">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.FocusAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.FocusAsync(System.Boolean)">
+            <inheritdoc />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.HeaderFooterContent`1">
             <summary />
         </member>
@@ -6692,14 +6698,29 @@
             Gets or sets the button appearance.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonContent">
+            <summary>
+            The content to be rendered inside the button. This parameter should be supplied if you do not want to render a chevron
+            on the menu button.
+            If both <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Text"/> and ButtonContent are provided, ButtonContent will be used.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Menu">
             <summary>
             Gets or sets a reference to the menu.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.UseMenuService">
+            <summary>
+            Use IMenuService to create the menu, if this service was injected.
+            This value must be defined before the component is rendered (you can't change it during the component lifecycle).
+            Default, true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Text">
             <summary>
-            Gets or sets the texts shown on th button.
+            Gets or sets the texts shown on the button.
+            If both Text and<see cref = "P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonContent" /> are provided, ButtonContent will be used.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.IconStart">
@@ -6873,7 +6894,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.SetOpenAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Dispose">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.DisposeAsync">
             <summary>
             Dispose this menu.
             </summary>

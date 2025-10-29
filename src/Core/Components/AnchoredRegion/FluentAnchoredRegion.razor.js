@@ -36,8 +36,7 @@ export function goToNextFocusableElement(forContainer, toOriginal, delay) {
 /**
  * Focusable Element
  */
-class FocusableElement {
-
+export class FocusableElement {
     FOCUSABLE_SELECTORS = "input, select, textarea, button, object, a[href], area[href], [tabindex]";
     _originalActiveElement;
     _container;
@@ -64,11 +63,32 @@ class FocusableElement {
      * @returns
      */
     findNextFocusableElement(currentElement) {
-        // Get all focusable elements
-        const focusableElements = this._container.querySelectorAll(this.FOCUSABLE_SELECTORS);
+        // Fluent web components may have children that are focusable, but they are not
+        // focusable themselves. Thus, we unfortunately need to query every element or provide
+        // a list of all fluent elements that have focusable children.
+        const queriedElements = Array.from(this._container.querySelectorAll("*")).filter(el => {
+            return el.matches(this.FOCUSABLE_SELECTORS) || el.tagName.toLowerCase().startsWith("fluent-");
+        });
 
-        // Filter out elements with tabindex="-1"
-        const filteredElements = Array.from(focusableElements).filter(el => el?.tabIndex !== -1);
+        const focusableElements = [];
+
+        // If an element is a fluent web component and is not focusable, replace with its inner focusable element
+        // if one exists.
+        queriedElements.forEach((el, index) => {
+            if (el.tagName.toLowerCase().startsWith("fluent-") && el.tabIndex === -1 && !!el.shadowRoot) {
+                Array.from(el.shadowRoot.children).forEach(child => {
+                    if (child.tabIndex !== -1 && child.checkVisibility()) {
+                        focusableElements.push(child);
+                    }
+                });
+            }
+            else {
+                focusableElements.push(el);
+            }
+        });
+
+        // Filter out elements with tabindex="-1" and elements that are not visible
+        const filteredElements = focusableElements.filter(el => !!el && el.tabIndex !== -1 && el.checkVisibility());
 
         // Find the index of the current element
         const current = currentElement ?? document.activeElement;

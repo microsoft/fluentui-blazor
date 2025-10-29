@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -31,13 +30,30 @@ public partial class FluentMenuButton : FluentComponentBase
     public Appearance ButtonAppearance { get; set; } = Appearance.Accent;
 
     /// <summary>
+    /// The content to be rendered inside the button. This parameter should be supplied if you do not want to render a chevron
+    /// on the menu button.
+    /// If both <see cref="Text"/> and ButtonContent are provided, ButtonContent will be used.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ButtonContent { get; set; }
+
+    /// <summary>
     /// Gets or sets a reference to the menu.
     /// </summary>
     [Parameter]
     public FluentMenu? Menu { get; set; }
 
     /// <summary>
-    /// Gets or sets the texts shown on th button.
+    /// Use IMenuService to create the menu, if this service was injected.
+    /// This value must be defined before the component is rendered (you can't change it during the component lifecycle).
+    /// Default, true.
+    /// </summary>
+    [Parameter]
+    public bool UseMenuService { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the texts shown on the button.
+    /// If both Text and<see cref = "ButtonContent" /> are provided, ButtonContent will be used.
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -108,13 +124,5 @@ public partial class FluentMenuButton : FluentComponentBase
         }
 
         _visible = false;
-    }
-
-    private void OnKeyDown(KeyboardEventArgs args)
-    {
-        if (args is not null && args.Key == "Escape")
-        {
-            _visible = false;
-        }
     }
 }
