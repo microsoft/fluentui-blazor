@@ -1,7 +1,12 @@
-# Build all projects (manual).
+# Build all projects (tag-based trigger).
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
-trigger: none    # Disable dev and main branches.
+trigger:
+  branches:
+    include: []         # Explicitly disable branch triggers
+  tags:
+    include:
+      - v*              # Triggers on tags like v1.0.0, v2.1.3
 pr: none         # Disable pull request triggers.
 
 parameters:
@@ -20,9 +25,6 @@ parameters:
 
 variables:
   - template: /eng/pipelines/version.yml@self
-
-  - name: SignType
-    value: real
 
   - name: TeamName
     value: fluentui-blazor
@@ -69,7 +71,8 @@ extends:
           mb:
             signing:
               enabled: true
-              signType: $(SignType)
+              signType: real
+              signWithProd: true
               zipSources: false
               feedSource: https://dnceng.pkgs.visualstudio.com/_packaging/MicroBuildToolset/nuget/v3/index.json
               env:
