@@ -10,10 +10,11 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentSortableList<TItem> : FluentComponentBase
+public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/SortableList/FluentSortableList.razor.js";
     private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
+    private bool _disposed;
 
     /// <summary />
     [Inject]
@@ -22,6 +23,11 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     /// <summary />
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
+
+
 
     /// <summary>
     /// Gets or sets the template to be used to define each sortable item in the list.
@@ -190,20 +196,15 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        try
+
+        if (firstRender)
         {
-            if (firstRender)
+            _selfReference = DotNetObjectReference.Create(this);
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            if (!_disposed)
             {
-                _selfReference = DotNetObjectReference.Create(this);
-                IJSObjectReference? module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-                await module.InvokeAsync<string>("init", Element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
+                await Module.InvokeAsync<string>("init", Element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
             }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                           ex is OperationCanceledException)
-        {
-            // This exception is expected when the user navigates away from the page
-            // and the component is disposed. We can ignore it.
         }
     }
 
@@ -239,5 +240,27 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
         }
     }
 
-    public void Dispose() => _selfReference?.Dispose();
+    public async ValueTask DisposeAsync()
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        try
+        {
+            _selfReference?.Dispose();
+            _disposed = true;
+            if (Module is not null)
+            {
+                await Module.DisposeAsync();
+            }
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
+    }
 }
