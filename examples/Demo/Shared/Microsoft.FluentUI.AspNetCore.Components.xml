@@ -9127,6 +9127,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.JSRuntime">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ItemTemplate">
             <summary>
             Gets or sets the template to be used to define each sortable item in the list.
