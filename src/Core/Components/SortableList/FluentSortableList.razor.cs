@@ -27,8 +27,6 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     /// <summary />
     private IJSObjectReference? Module { get; set; }
 
-
-
     /// <summary>
     /// Gets or sets the template to be used to define each sortable item in the list.
     /// Use the @context parameter to access the item and its properties.
