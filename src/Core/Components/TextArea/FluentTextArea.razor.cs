@@ -85,7 +85,7 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     public bool? AutoResize { get; set; }
 
     /// <summary>
-    /// Gets or sets the size of the textarea. See <see cref="Components.TextAreaSize"/>
+    /// Gets or sets the size of the textarea. See <see cref="TextAreaSize"/>
     /// </summary>
     [Parameter]
     public TextAreaSize? Size { get; set; }
@@ -103,7 +103,7 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     public string? Height { get; set; }
 
     /// <summary>
-    /// Gets or sets the how resize the element. See <see cref="Components.TextAreaResize"/>
+    /// Gets or sets the how resize the element. See <see cref="TextAreaResize"/>
     /// </summary>
     [Parameter]
     public TextAreaResize? Resize { get; set; }

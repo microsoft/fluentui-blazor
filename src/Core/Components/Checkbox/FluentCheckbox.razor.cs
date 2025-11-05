@@ -20,7 +20,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     /// </summary>
     public FluentCheckbox(LibraryConfiguration configuration) : base(configuration)
     {
-        LabelPosition = Components.LabelPosition.After;
+        LabelPosition = AspNetCore.Components.LabelPosition.After;
     }
 
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />

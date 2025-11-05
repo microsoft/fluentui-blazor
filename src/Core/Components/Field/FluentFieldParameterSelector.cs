@@ -50,7 +50,7 @@ internal class FluentFieldParameterSelector : IFluentField
     /// <summary />
     public LabelPosition? LabelPosition
     {
-        get => _component.LabelPosition ?? _component.InputComponent?.LabelPosition ?? Components.LabelPosition.Above;
+        get => _component.LabelPosition ?? _component.InputComponent?.LabelPosition ?? AspNetCore.Components.LabelPosition.Above;
         set => throw new NotSupportedException();
     }
 
@@ -115,9 +115,9 @@ internal class FluentFieldParameterSelector : IFluentField
     {
         return state switch
         {
-            Components.MessageState.Success => FluentStatus.SuccessIcon,
-            Components.MessageState.Error => FluentStatus.ErrorIcon,
-            Components.MessageState.Warning => FluentStatus.WarningIcon,
+            AspNetCore.Components.MessageState.Success => FluentStatus.SuccessIcon,
+            AspNetCore.Components.MessageState.Error => FluentStatus.ErrorIcon,
+            AspNetCore.Components.MessageState.Warning => FluentStatus.WarningIcon,
             _ => null
         };
     }
@@ -127,9 +127,9 @@ internal class FluentFieldParameterSelector : IFluentField
     {
         return state switch
         {
-            Components.MessageState.Success => localizer[LanguageResource.Field_SuccessMessage],
-            Components.MessageState.Error => localizer[LanguageResource.Field_ErrorMessage],
-            Components.MessageState.Warning => localizer[LanguageResource.Field_WarningMessage],
+            AspNetCore.Components.MessageState.Success => localizer[LanguageResource.Field_SuccessMessage],
+            AspNetCore.Components.MessageState.Error => localizer[LanguageResource.Field_ErrorMessage],
+            AspNetCore.Components.MessageState.Warning => localizer[LanguageResource.Field_WarningMessage],
             _ => null
         };
     }
@@ -139,7 +139,7 @@ internal class FluentFieldParameterSelector : IFluentField
     {
         return state switch
         {
-            Components.MessageState.Success => builder =>
+            AspNetCore.Components.MessageState.Success => builder =>
             {
                 builder.OpenComponent(0, typeof(FluentText));
                 builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
@@ -150,7 +150,7 @@ internal class FluentFieldParameterSelector : IFluentField
                 builder.CloseComponent();
             }
             ,
-            Components.MessageState.Error => builder =>
+            AspNetCore.Components.MessageState.Error => builder =>
             {
                 builder.OpenComponent(0, typeof(FluentText));
                 builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
@@ -161,7 +161,7 @@ internal class FluentFieldParameterSelector : IFluentField
                 builder.CloseComponent();
             }
             ,
-            Components.MessageState.Warning => builder =>
+            AspNetCore.Components.MessageState.Warning => builder =>
             {
                 builder.OpenComponent(0, typeof(FluentText));
                 builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>

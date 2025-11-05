@@ -124,7 +124,7 @@ public partial class FluentText : FluentComponentBase, ITooltipComponent
     /// <summary />
     protected override void OnParametersSet()
     {
-        if (!string.IsNullOrEmpty(CustomColor) && Color != Components.Color.Custom)
+        if (!string.IsNullOrEmpty(CustomColor) && Color != AspNetCore.Components.Color.Custom)
         {
             throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom.", nameof(CustomColor));
         }
@@ -136,7 +136,7 @@ public partial class FluentText : FluentComponentBase, ITooltipComponent
     /// <returns></returns>
     private string? GetTextColor()
     {
-        if (Color == Components.Color.Custom && !string.IsNullOrEmpty(CustomColor))
+        if (Color == AspNetCore.Components.Color.Custom && !string.IsNullOrEmpty(CustomColor))
         {
             return CustomColor;
         }

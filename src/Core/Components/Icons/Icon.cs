@@ -93,7 +93,7 @@ public class Icon : IconInfo
     {
         if (accentContainer && Color == null)
         {
-            Color = Components.Color.Lightweight.ToAttributeValue();
+            Color = AspNetCore.Components.Color.Lightweight.ToAttributeValue();
         }
 
         return this;

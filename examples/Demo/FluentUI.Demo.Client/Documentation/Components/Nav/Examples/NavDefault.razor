@@ -1,0 +1,49 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+
+<h3>NavDefault</h3>
+
+<div style="border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
+
+	<FluentLayout  Height="400px">
+
+		<!-- Header -->
+		<FluentLayoutItem Area="@LayoutArea.Header" >
+			<FluentStack VerticalAlignment="VerticalAlignment.Center">
+				<FluentLayoutHamburger />
+				<FluentText Weight="TextWeight.Bold" Size="TextSize.Size400">
+					Microsoft Demo
+				</FluentText>
+			</FluentStack>
+		</FluentLayoutItem>
+
+		<!-- Menu -->
+		<FluentLayoutItem Area="@LayoutArea.Menu"
+						  Width="260px" Padding="@Padding.All2"
+						  Style="border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
+
+
+			<FluentNavDrawer UseLinks="false" />
+		</FluentLayoutItem>
+
+		<!-- Content -->
+		<FluentLayoutItem Area="@LayoutArea.Content" Padding="@Padding.All3">
+			<FluentText Weight="TextWeight.Bold">Content</FluentText>
+
+		</FluentLayoutItem>
+
+		<!-- Aside -->
+		<FluentLayoutItem Area="@LayoutArea.Aside" Width="120px" Sticky="true"
+						  Style="padding: 8px; background-color: var(--colorBrandBackground2);">
+			<FluentText Weight="TextWeight.Bold">News</FluentText>
+
+		</FluentLayoutItem>
+
+		<!-- Footer -->
+		<FluentLayoutItem Area="@LayoutArea.Footer" >
+			&copy; Microsoft @DateTime.Now.Year
+		</FluentLayoutItem>
+
+	</FluentLayout>
+</div>
+
+

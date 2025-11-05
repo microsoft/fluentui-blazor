@@ -121,7 +121,7 @@ public partial class FluentBadge : FluentComponentBase
 
         if (Positioning is null && _isAttached)
         {
-            Positioning = Components.Positioning.AboveEnd;
+            Positioning = AspNetCore.Components.Positioning.AboveEnd;
         }
     }
 

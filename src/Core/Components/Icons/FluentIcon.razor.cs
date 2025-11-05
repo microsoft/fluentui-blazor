@@ -134,7 +134,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase, ITooltipComponent, 
     {
         _icon ??= new Icon();
 
-        if (!string.IsNullOrEmpty(CustomColor) && Color != Components.Color.Custom)
+        if (!string.IsNullOrEmpty(CustomColor) && Color != AspNetCore.Components.Color.Custom)
         {
             throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom.", nameof(CustomColor));
         }
@@ -166,6 +166,6 @@ public partial class FluentIcon<Icon> : FluentComponentBase, ITooltipComponent, 
             return _icon.Color;
         }
 
-        return Components.Icon.DefaultColor;
+        return AspNetCore.Components.Icon.DefaultColor;
     }
 }

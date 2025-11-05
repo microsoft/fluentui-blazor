@@ -74,7 +74,7 @@ public partial class FluentCounterBadge : FluentBadge, IFluentComponentBase
 
         if (Positioning is null && _isAttached)
         {
-            Positioning = Components.Positioning.AboveEnd;
+            Positioning = AspNetCore.Components.Positioning.AboveEnd;
         }
     }
 }

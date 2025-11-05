@@ -18,7 +18,7 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent
     /// </summary>
     public FluentSwitch(LibraryConfiguration configuration) : base(configuration)
     {
-        LabelPosition = Components.LabelPosition.After;
+        LabelPosition = AspNetCore.Components.LabelPosition.After;
     }
 
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
@@ -45,7 +45,7 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent
     private void OnSwitchChangedHandler(ChangeEventArgs e)
     {
         ArgumentNullException.ThrowIfNull(e);
-        
+
         CurrentValue = !CurrentValue;
     }
 
