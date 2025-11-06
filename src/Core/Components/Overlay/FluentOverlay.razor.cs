@@ -13,7 +13,7 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public partial class FluentOverlay : IAsyncDisposable
+public partial class FluentOverlay : FluentComponentBase
 {
     private readonly string _defaultId = Identifier.NewId();
     private string? _color = null;
@@ -154,6 +154,9 @@ public partial class FluentOverlay : IAsyncDisposable
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary />
+    public FluentOverlay(LibraryConfiguration configuration) : base(configuration) { }
 
     protected override async Task OnParametersSetAsync()
     {
