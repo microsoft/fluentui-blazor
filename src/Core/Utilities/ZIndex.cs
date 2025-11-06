@@ -10,6 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public static class ZIndex
 {
     /// <summary>
+    /// ZIndex for the <see cref="FluentOverlay" /> component.
+    /// </summary>
+    public static int Overlay { get; set; } = 9900;
+
+    /// <summary>
     /// ZIndex for the <see cref="FluentDialog" /> component.
     /// </summary>
     public static int Dialog { get; set; } = 999;

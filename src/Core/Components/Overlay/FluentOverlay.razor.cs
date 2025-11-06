@@ -16,25 +16,17 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentOverlay : FluentComponentBase
 {
     private readonly string _defaultId = Identifier.NewId();
-    private string? _color = null;
+    private string? _color;
     private int _r, _g, _b;
 
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overlay/FluentOverlay.razor.js";
     private const string DEFAULT_NEUTRAL_COLOR = "#808080";
 
-    private DotNetObjectReference<FluentOverlay>? _dotNetHelper = null;
-
-    /// <summary />
-    [Inject]
-    private GlobalState GlobalState { get; set; } = default!;
+    private DotNetObjectReference<FluentOverlay>? _dotNetHelper;
 
     /// <summary />
     [Inject]
     private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
-
-    /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
     private IJSObjectReference? _jsModule { get; set; }
@@ -47,12 +39,12 @@ public partial class FluentOverlay : FluentComponentBase
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("cursor", "auto", () => Transparent)
-        .AddStyle("background-color", $"rgba({_r}, {_g}, {_b}, {Opacity.ToString()!.Replace(',', '.')})", () => !Transparent)
-        //.AddStyle("opacity", Opacity.ToString()!.Replace(',', '.'), CheckCSSVariableName().IsMatch(BackgroundColor))
+        //.AddStyle("background-color", $"rgba({_r}, {_g}, {_b}, {Opacity.ToString()})", () => !Transparent)
+        ////.AddStyle("opacity", Opacity.ToString()!.Replace(',', '.'), CheckCSSVariableName().IsMatch(BackgroundColor))
         .AddStyle("cursor", "default", () => !Transparent)
         .AddStyle("position", FullScreen ? "fixed" : "absolute")
         .AddStyle("display", "flex")
-        .AddStyle("align-items", Alignment.ToAttributeValue())
+        //.AddStyle("align-items", Alignment.ToAttributeValue())
         .AddStyle("justify-content", Justification.ToAttributeValue())
         .AddStyle("pointer-events", "none", () => Interactive)
         .AddStyle("z-index", $"{ZIndex.Overlay}")
@@ -62,12 +54,6 @@ public partial class FluentOverlay : FluentComponentBase
     protected string? StyleContentValue => new StyleBuilder()
         .AddStyle("pointer-events", "auto", () => Interactive)
         .Build();
-
-    /// <summary>
-    /// Gets or sets the unique identifier of the overlay.
-    /// </summary>
-    [Parameter]
-    public string? Id { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the overlay is visible.
@@ -100,12 +86,12 @@ public partial class FluentOverlay : FluentComponentBase
     [Parameter]
     public double? Opacity { get; set; }
 
-    /// <summary>
-    /// Gets or sets the alignment of the content to a <see cref="AspNetCore.Components.Align"/> value.
-    /// Defaults to Align.Center.
-    /// </summary>
-    [Parameter]
-    public Align Alignment { get; set; } = Align.Center;
+    ///// <summary>
+    ///// Gets or sets the alignment of the content to a <see cref="AspNetCore.Components.Align"/> value.
+    ///// Defaults to Align.Center.
+    ///// </summary>
+    //[Parameter]
+    //public Align Alignment { get; set; } = Align.Center;
 
     /// <summary>
     /// Gets or sets the justification of the content to a <see cref="AspNetCore.Components.JustifyContent"/> value.
@@ -149,15 +135,18 @@ public partial class FluentOverlay : FluentComponentBase
     [Parameter]
     public string? BackgroundColor { get; set; }
 
+    /// <summary />
     [Parameter]
-    public bool PreventScroll { get; set; } = false;
+    public bool PreventScroll { get; set; }
 
+    /// <summary />
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
     public FluentOverlay(LibraryConfiguration configuration) : base(configuration) { }
 
+    /// <summary />
     protected override async Task OnParametersSetAsync()
     {
         if (Interactive)
@@ -189,7 +178,7 @@ public partial class FluentOverlay : FluentComponentBase
             Transparent = false;
         }
 
-        BackgroundColor ??= GlobalState.NeutralColor ?? DEFAULT_NEUTRAL_COLOR;
+        BackgroundColor ??= DEFAULT_NEUTRAL_COLOR;
 
         if (!CheckRGBString().IsMatch(BackgroundColor))
         {
@@ -200,28 +189,25 @@ public partial class FluentOverlay : FluentComponentBase
 
         if (_color.Length == 6)
         {
-            _r = int.Parse(_color[..2], NumberStyles.HexNumber);
-            _g = int.Parse(_color[2..4], NumberStyles.HexNumber);
-            _b = int.Parse(_color[4..], NumberStyles.HexNumber);
+            _r = int.Parse(_color[..2], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+            _g = int.Parse(_color[2..4], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+            _b = int.Parse(_color[4..], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
         }
         else
         {
-            _r = int.Parse(_color[0..1], NumberStyles.HexNumber);
-            _g = int.Parse(_color[1..2], NumberStyles.HexNumber);
-            _b = int.Parse(_color[2..], NumberStyles.HexNumber);
+            _r = int.Parse(_color[0..1], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+            _g = int.Parse(_color[1..2], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+            _b = int.Parse(_color[2..], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
         }
     }
-    protected override void OnInitialized()
-    {
-        GlobalState.OnChange += UpdateNeutralColor;
-    }
-
+   
     private void UpdateNeutralColor()
     {
-        BackgroundColor = GlobalState.NeutralColor;
+        //BackgroundColor = GlobalState.NeutralColor;
         StateHasChanged();
     }
 
+    /// <summary />
     [JSInvokable]
     public async Task OnCloseInteractiveAsync(MouseEventArgs e)
     {
@@ -236,7 +222,7 @@ public partial class FluentOverlay : FluentComponentBase
         // Close the overlay
         await OnCloseInternalHandlerAsync(e);
     }
-
+    /// <summary />
     public async Task OnCloseHandlerAsync(MouseEventArgs e)
     {
         if (!Dismissable || !Visible || Interactive)
@@ -267,7 +253,7 @@ public partial class FluentOverlay : FluentComponentBase
     /// Disposes the overlay.
     /// </summary>
     /// <returns></returns>
-    public async ValueTask DisposeAsync()
+    public override async ValueTask DisposeAsync()
     {
         try
         {
@@ -277,7 +263,6 @@ public partial class FluentOverlay : FluentComponentBase
             {
                 await _jsModule.DisposeAsync();
             }
-
         }
         catch (Exception ex) when (ex is JSDisconnectedException ||
                                    ex is OperationCanceledException)
@@ -286,7 +271,7 @@ public partial class FluentOverlay : FluentComponentBase
             // the client disconnected. This is not an error.
         }
 
-        GlobalState.OnChange -= UpdateNeutralColor;
+        await base.DisposeAsync();
     }
 
     /// <summary />
