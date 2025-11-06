@@ -15,7 +15,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentOverlay : FluentComponentBase
 {
-    private readonly string _defaultId = Identifier.NewId();
     private string? _color;
     private int _r, _g, _b;
 
@@ -147,11 +146,6 @@ public partial class FluentOverlay : FluentComponentBase
     {
         if (Interactive)
         {
-            if (string.IsNullOrEmpty(Id))
-            {
-                Id = _defaultId;
-            }
-
             if (Visible)
             {
                 // Add a document.addEventListener when Visible is true
