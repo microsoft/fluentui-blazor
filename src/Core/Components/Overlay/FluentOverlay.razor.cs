@@ -19,17 +19,10 @@ public partial class FluentOverlay : FluentComponentBase
     private string? _color;
     private int _r, _g, _b;
 
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overlay/FluentOverlay.razor.js";
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Overlay/FluentOverlay.razor.js";
     private const string DEFAULT_NEUTRAL_COLOR = "#808080";
 
     private DotNetObjectReference<FluentOverlay>? _dotNetHelper;
-
-    /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference? _jsModule { get; set; }
 
     /// <summary />
     protected string? ClassValue => new CssBuilder("fluent-overlay")
@@ -144,7 +137,10 @@ public partial class FluentOverlay : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
-    public FluentOverlay(LibraryConfiguration configuration) : base(configuration) { }
+    public FluentOverlay(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary />
     protected override async Task OnParametersSetAsync()
@@ -201,12 +197,6 @@ public partial class FluentOverlay : FluentComponentBase
         }
     }
    
-    private void UpdateNeutralColor()
-    {
-        //BackgroundColor = GlobalState.NeutralColor;
-        StateHasChanged();
-    }
-
     /// <summary />
     [JSInvokable]
     public async Task OnCloseInteractiveAsync(MouseEventArgs e)
@@ -259,9 +249,9 @@ public partial class FluentOverlay : FluentComponentBase
         {
             await InvokeOverlayDisposeAsync();
 
-            if (_jsModule != null)
+            if (JSModule != null)
             {
-                await _jsModule.DisposeAsync();
+                await JSModule.DisposeAsync();
             }
         }
         catch (Exception ex) when (ex is JSDisconnectedException ||
@@ -278,18 +268,18 @@ public partial class FluentOverlay : FluentComponentBase
     private async Task InvokeOverlayInitializeAsync()
     {
         _dotNetHelper ??= DotNetObjectReference.Create(this);
-        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+        await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
         var containerId = FullScreen ? null : Id;
-        await _jsModule.InvokeVoidAsync("overlayInitialize", _dotNetHelper, containerId, InteractiveExceptId);
+        await JSModule.ObjectReference.InvokeVoidAsync("overlayInitialize", _dotNetHelper, containerId, InteractiveExceptId);
     }
 
     /// <summary />
     private async Task InvokeOverlayDisposeAsync()
     {
-        if (_jsModule != null && Interactive)
+        if (JSModule != null && Interactive)
         {
-            await _jsModule.InvokeVoidAsync("overlayDispose", InteractiveExceptId);
+            await JSModule.ObjectReference.InvokeVoidAsync("overlayDispose", InteractiveExceptId);
         }
     }
 
