@@ -126,7 +126,7 @@
     .fluent-grid > div[xs="1"] {
         flex-grow: 0;
         max-width: 8.3333%;
-        flex-basis: 8..3333%;
+        flex-basis: 8.3333%;
     }
 
     .fluent-grid > div[xs="2"] {
@@ -220,7 +220,7 @@
     .fluent-grid > div[sm="1"] {
         flex-grow: 0;
         max-width: 8.3333%;
-        flex-basis: 8..3333%;
+        flex-basis: 8.3333%;
     }
 
     .fluent-grid > div[sm="2"] {
@@ -314,7 +314,7 @@
     .fluent-grid > div[md="1"] {
         flex-grow: 0;
         max-width: 8.3333%;
-        flex-basis: 8..3333%;
+        flex-basis: 8.3333%;
     }
 
     .fluent-grid > div[md="2"] {
@@ -408,7 +408,7 @@
     .fluent-grid > div[lg="1"] {
         flex-grow: 0;
         max-width: 8.3333%;
-        flex-basis: 8..3333%;
+        flex-basis: 8.3333%;
     }
 
     .fluent-grid > div[lg="2"] {
@@ -502,7 +502,7 @@
     .fluent-grid > div[xl="1"] {
         flex-grow: 0;
         max-width: 8.3333%;
-        flex-basis: 8..3333%;
+        flex-basis: 8.3333%;
     }
 
     .fluent-grid > div[xl="2"] {
@@ -596,7 +596,7 @@
     .fluent-grid > div[xxl="1"] {
         flex-grow: 0;
         max-width: 8.3333%;
-        flex-basis: 8..3333%;
+        flex-basis: 8.3333%;
     }
 
     .fluent-grid > div[xxl="2"] {
