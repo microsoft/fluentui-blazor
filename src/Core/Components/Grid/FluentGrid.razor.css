@@ -125,14 +125,14 @@
 
     .fluent-grid ::deep > div[xs="1"] {
         flex-grow: 0;
-        max-width: 8.333%;
+        max-width: 8.3333%;
         flex-basis: 8.3333%;
     }
 
     .fluent-grid ::deep > div[xs="2"] {
         flex-grow: 0;
-        max-width: 16.667%;
-        flex-basis: 16.667%;
+        max-width: 16.6667%;
+        flex-basis: 16.6667%;
     }
 
     .fluent-grid ::deep > div[xs="3"] {
@@ -143,14 +143,14 @@
 
     .fluent-grid ::deep > div[xs="4"] {
         flex-grow: 0;
-        max-width: 33.333%;
-        flex-basis: 33.333%;
+        max-width: 33.3333%;
+        flex-basis: 33.3333%;
     }
 
     .fluent-grid ::deep > div[xs="5"] {
         flex-grow: 0;
-        max-width: 41.667%;
-        flex-basis: 41.667%;
+        max-width: 41.6667%;
+        flex-basis: 41.6667%;
     }
 
     .fluent-grid ::deep > div[xs="6"] {
@@ -161,14 +161,14 @@
 
     .fluent-grid ::deep > div[xs="7"] {
         flex-grow: 0;
-        max-width: 58.333%;
-        flex-basis: 58.333%;
+        max-width: 58.3333%;
+        flex-basis: 58.3333%;
     }
 
     .fluent-grid ::deep > div[xs="8"] {
         flex-grow: 0;
-        max-width: 66.667%;
-        flex-basis: 66.667%;
+        max-width: 66.6667%;
+        flex-basis: 66.6667%;
     }
 
     .fluent-grid ::deep > div[xs="9"] {
@@ -179,14 +179,14 @@
 
     .fluent-grid ::deep > div[xs="10"] {
         flex-grow: 0;
-        max-width: 83.333%;
-        flex-basis: 83.333%;
+        max-width: 83.3333%;
+        flex-basis: 83.3333%;
     }
 
     .fluent-grid ::deep > div[xs="11"] {
         flex-grow: 0;
-        max-width: 91.667%;
-        flex-basis: 91.667%;
+        max-width: 91.6667%;
+        flex-basis: 91.6667%;
     }
 
     .fluent-grid ::deep > div[xs="12"] {
@@ -219,14 +219,14 @@
 
     .fluent-grid ::deep > div[sm="1"] {
         flex-grow: 0;
-        max-width: 8.333%;
+        max-width: 8.3333%;
         flex-basis: 8.3333%;
     }
 
     .fluent-grid ::deep > div[sm="2"] {
         flex-grow: 0;
-        max-width: 16.667%;
-        flex-basis: 16.667%;
+        max-width: 16.6667%;
+        flex-basis: 16.6667%;
     }
 
     .fluent-grid ::deep > div[sm="3"] {
@@ -237,14 +237,14 @@
 
     .fluent-grid ::deep > div[sm="4"] {
         flex-grow: 0;
-        max-width: 33.333%;
-        flex-basis: 33.333%;
+        max-width: 33.3333%;
+        flex-basis: 33.3333%;
     }
 
     .fluent-grid ::deep > div[sm="5"] {
         flex-grow: 0;
-        max-width: 41.667%;
-        flex-basis: 41.667%;
+        max-width: 41.6667%;
+        flex-basis: 41.6667%;
     }
 
     .fluent-grid ::deep > div[sm="6"] {
@@ -255,14 +255,14 @@
 
     .fluent-grid ::deep > div[sm="7"] {
         flex-grow: 0;
-        max-width: 58.333%;
-        flex-basis: 58.333%;
+        max-width: 58.3333%;
+        flex-basis: 58.3333%;
     }
 
     .fluent-grid ::deep > div[sm="8"] {
         flex-grow: 0;
-        max-width: 66.667%;
-        flex-basis: 66.667%;
+        max-width: 66.6667%;
+        flex-basis: 66.6667%;
     }
 
     .fluent-grid ::deep > div[sm="9"] {
@@ -273,14 +273,14 @@
 
     .fluent-grid ::deep > div[sm="10"] {
         flex-grow: 0;
-        max-width: 83.333%;
-        flex-basis: 83.333%;
+        max-width: 83.3333%;
+        flex-basis: 83.3333%;
     }
 
     .fluent-grid ::deep > div[sm="11"] {
         flex-grow: 0;
-        max-width: 91.667%;
-        flex-basis: 91.667%;
+        max-width: 91.6667%;
+        flex-basis: 91.6667%;
     }
 
     .fluent-grid ::deep > div[sm="12"] {
@@ -313,14 +313,14 @@
 
     .fluent-grid ::deep > div[md="1"] {
         flex-grow: 0;
-        max-width: 8.333%;
+        max-width: 8.3333%;
         flex-basis: 8.3333%;
     }
 
     .fluent-grid ::deep > div[md="2"] {
         flex-grow: 0;
-        max-width: 16.667%;
-        flex-basis: 16.667%;
+        max-width: 16.6667%;
+        flex-basis: 16.6667%;
     }
 
     .fluent-grid ::deep > div[md="3"] {
@@ -331,14 +331,14 @@
 
     .fluent-grid ::deep > div[md="4"] {
         flex-grow: 0;
-        max-width: 33.333%;
-        flex-basis: 33.333%;
+        max-width: 33.3333%;
+        flex-basis: 33.3333%;
     }
 
     .fluent-grid ::deep > div[md="5"] {
         flex-grow: 0;
-        max-width: 41.667%;
-        flex-basis: 41.667%;
+        max-width: 41.6667%;
+        flex-basis: 41.6667%;
     }
 
     .fluent-grid ::deep > div[md="6"] {
@@ -349,14 +349,14 @@
 
     .fluent-grid ::deep > div[md="7"] {
         flex-grow: 0;
-        max-width: 58.333%;
-        flex-basis: 58.333%;
+        max-width: 58.3333%;
+        flex-basis: 58.3333%;
     }
 
     .fluent-grid ::deep > div[md="8"] {
         flex-grow: 0;
-        max-width: 66.667%;
-        flex-basis: 66.667%;
+        max-width: 66.6667%;
+        flex-basis: 66.6667%;
     }
 
     .fluent-grid ::deep > div[md="9"] {
@@ -367,14 +367,14 @@
 
     .fluent-grid ::deep > div[md="10"] {
         flex-grow: 0;
-        max-width: 83.333%;
-        flex-basis: 83.333%;
+        max-width: 83.3333%;
+        flex-basis: 83.3333%;
     }
 
     .fluent-grid ::deep > div[md="11"] {
         flex-grow: 0;
-        max-width: 91.667%;
-        flex-basis: 91.667%;
+        max-width: 91.6667%;
+        flex-basis: 91.6667%;
     }
 
     .fluent-grid ::deep > div[md="12"] {
@@ -407,14 +407,14 @@
 
     .fluent-grid ::deep > div[lg="1"] {
         flex-grow: 0;
-        max-width: 8.333%;
+        max-width: 8.3333%;
         flex-basis: 8.3333%;
     }
 
     .fluent-grid ::deep > div[lg="2"] {
         flex-grow: 0;
-        max-width: 16.667%;
-        flex-basis: 16.667%;
+        max-width: 16.6667%;
+        flex-basis: 16.6667%;
     }
 
     .fluent-grid ::deep > div[lg="3"] {
@@ -425,14 +425,14 @@
 
     .fluent-grid ::deep > div[lg="4"] {
         flex-grow: 0;
-        max-width: 33.333%;
-        flex-basis: 33.333%;
+        max-width: 33.3333%;
+        flex-basis: 33.3333%;
     }
 
     .fluent-grid ::deep > div[lg="5"] {
         flex-grow: 0;
-        max-width: 41.667%;
-        flex-basis: 41.667%;
+        max-width: 41.6667%;
+        flex-basis: 41.6667%;
     }
 
     .fluent-grid ::deep > div[lg="6"] {
@@ -443,14 +443,14 @@
 
     .fluent-grid ::deep > div[lg="7"] {
         flex-grow: 0;
-        max-width: 58.333%;
-        flex-basis: 58.333%;
+        max-width: 58.3333%;
+        flex-basis: 58.3333%;
     }
 
     .fluent-grid ::deep > div[lg="8"] {
         flex-grow: 0;
-        max-width: 66.667%;
-        flex-basis: 66.667%;
+        max-width: 66.6667%;
+        flex-basis: 66.6667%;
     }
 
     .fluent-grid ::deep > div[lg="9"] {
@@ -461,14 +461,14 @@
 
     .fluent-grid ::deep > div[lg="10"] {
         flex-grow: 0;
-        max-width: 83.333%;
-        flex-basis: 83.333%;
+        max-width: 83.3333%;
+        flex-basis: 83.3333%;
     }
 
     .fluent-grid ::deep > div[lg="11"] {
         flex-grow: 0;
-        max-width: 91.667%;
-        flex-basis: 91.667%;
+        max-width: 91.6667%;
+        flex-basis: 91.6667%;
     }
 
     .fluent-grid ::deep > div[lg="12"] {
@@ -501,14 +501,14 @@
 
     .fluent-grid ::deep > div[xl="1"] {
         flex-grow: 0;
-        max-width: 8.333%;
+        max-width: 8.3333%;
         flex-basis: 8.3333%;
     }
 
     .fluent-grid ::deep > div[xl="2"] {
         flex-grow: 0;
-        max-width: 16.667%;
-        flex-basis: 16.667%;
+        max-width: 16.6667%;
+        flex-basis: 16.6667%;
     }
 
     .fluent-grid ::deep > div[xl="3"] {
@@ -519,14 +519,14 @@
 
     .fluent-grid ::deep > div[xl="4"] {
         flex-grow: 0;
-        max-width: 33.333%;
-        flex-basis: 33.333%;
+        max-width: 33.3333%;
+        flex-basis: 33.3333%;
     }
 
     .fluent-grid ::deep > div[xl="5"] {
         flex-grow: 0;
-        max-width: 41.667%;
-        flex-basis: 41.667%;
+        max-width: 41.6667%;
+        flex-basis: 41.6667%;
     }
 
     .fluent-grid ::deep > div[xl="6"] {
@@ -537,14 +537,14 @@
 
     .fluent-grid ::deep > div[xl="7"] {
         flex-grow: 0;
-        max-width: 58.333%;
-        flex-basis: 58.333%;
+        max-width: 58.3333%;
+        flex-basis: 58.3333%;
     }
 
     .fluent-grid ::deep > div[xl="8"] {
         flex-grow: 0;
-        max-width: 66.667%;
-        flex-basis: 66.667%;
+        max-width: 66.6667%;
+        flex-basis: 66.6667%;
     }
 
     .fluent-grid ::deep > div[xl="9"] {
@@ -555,14 +555,14 @@
 
     .fluent-grid ::deep > div[xl="10"] {
         flex-grow: 0;
-        max-width: 83.333%;
-        flex-basis: 83.333%;
+        max-width: 83.3333%;
+        flex-basis: 83.3333%;
     }
 
     .fluent-grid ::deep > div[xl="11"] {
         flex-grow: 0;
-        max-width: 91.667%;
-        flex-basis: 91.667%;
+        max-width: 91.6667%;
+        flex-basis: 91.6667%;
     }
 
     .fluent-grid ::deep > div[xl="12"] {
@@ -595,14 +595,14 @@
 
     .fluent-grid ::deep > div[xxl="1"] {
         flex-grow: 0;
-        max-width: 8.333%;
+        max-width: 8.3333%;
         flex-basis: 8.3333%;
     }
 
     .fluent-grid ::deep > div[xxl="2"] {
         flex-grow: 0;
-        max-width: 16.667%;
-        flex-basis: 16.667%;
+        max-width: 16.6667%;
+        flex-basis: 16.6667%;
     }
 
     .fluent-grid ::deep > div[xxl="3"] {
@@ -613,14 +613,14 @@
 
     .fluent-grid ::deep > div[xxl="4"] {
         flex-grow: 0;
-        max-width: 33.333%;
-        flex-basis: 33.333%;
+        max-width: 33.3333%;
+        flex-basis: 33.3333%;
     }
 
     .fluent-grid ::deep > div[xxl="5"] {
         flex-grow: 0;
-        max-width: 41.667%;
-        flex-basis: 41.667%;
+        max-width: 41.6667%;
+        flex-basis: 41.6667%;
     }
 
     .fluent-grid ::deep > div[xxl="6"] {
@@ -631,14 +631,14 @@
 
     .fluent-grid ::deep > div[xxl="7"] {
         flex-grow: 0;
-        max-width: 58.333%;
-        flex-basis: 58.333%;
+        max-width: 58.3333%;
+        flex-basis: 58.3333%;
     }
 
     .fluent-grid ::deep > div[xxl="8"] {
         flex-grow: 0;
-        max-width: 66.667%;
-        flex-basis: 66.667%;
+        max-width: 66.6667%;
+        flex-basis: 66.6667%;
     }
 
     .fluent-grid ::deep > div[xxl="9"] {
@@ -649,14 +649,14 @@
 
     .fluent-grid ::deep > div[xxl="10"] {
         flex-grow: 0;
-        max-width: 83.333%;
-        flex-basis: 83.333%;
+        max-width: 83.3333%;
+        flex-basis: 83.3333%;
     }
 
     .fluent-grid ::deep > div[xxl="11"] {
         flex-grow: 0;
-        max-width: 91.667%;
-        flex-basis: 91.667%;
+        max-width: 91.6667%;
+        flex-basis: 91.6667%;
     }
 
     .fluent-grid ::deep > div[xxl="12"] {
