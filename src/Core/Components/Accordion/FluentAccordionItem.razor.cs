@@ -2,8 +2,10 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+//using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -40,6 +42,12 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the heading tooltip of the accordion item.
+    /// </summary>
+    [Parameter]
+    public string? HeaderTooltip { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the item is expanded or collapsed.
@@ -112,6 +120,18 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
         Size = Owner?.Size;
     }
 
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && HeaderTooltip is not null)
+        {
+            // Set the attribute min/max/step on the shadow "control" element.
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                Id,
+                "[part='button']",
+                "title", HeaderTooltip);
+        }
+    }
     /// <summary>
     /// Sets the expanded state of the accordion item.
     /// </summary>
