@@ -48,6 +48,19 @@
         cut.Verify();
     }
 
+	[Fact]
+	public void FluentAccordionItem_HeaderWithTooltip()
+	{
+		// Arrange & Act
+
+		JSInterop.SetupVoid("copyToShadow, _ => true);");
+
+		var cut = Render(@<FluentAccordionItem Header="Test Header" HeaderTooltip="Test tooltip" />);
+
+		// Assert
+		Assert.Equal("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow", JSInterop.Invocations.First().Identifier);
+	}
+
     [Fact]
     public void FluentAccordionItem_Expanded()
     {

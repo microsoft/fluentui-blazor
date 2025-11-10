@@ -14,6 +14,9 @@ multiple sections of content on a single page.
 ## Multi expanded mode (default)
 In this mode, multiple accordion items can be expanded at the same time. This is the default mode of the accordion.
 
+A tooltip can be provided for each accordion item header by setting the `HeaderTooltip` parameter.
+See the example below where that is used on the second header.
+
 {{ AccordionDefault }}
 
 ## Single expanded mode
