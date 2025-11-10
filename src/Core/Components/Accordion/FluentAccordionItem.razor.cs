@@ -122,9 +122,8 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && HeaderTooltip is not null)
+        if (firstRender && !string.IsNullOrEmpty(HeaderTooltip))
         {
-            // Set the attribute min/max/step on the shadow "control" element.
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
                 Id,
                 "[part='button']",
