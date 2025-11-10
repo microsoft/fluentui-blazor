@@ -3,17 +3,23 @@
 // ------------------------------------------------------------------------
 
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Accordion;
 
-public class FluentAccordionTests : TestBase
+public class FluentAccordionTests : TestContext
 {
+    public FluentAccordionTests()
+    {
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+    }
+
     [Fact]
     public void FluentAccordion_When_ChildContent_IsNull()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordion>();
+        var cut = RenderComponent<FluentAccordion>();
 
         // Assert
         cut.Verify();
@@ -23,7 +29,7 @@ public class FluentAccordionTests : TestBase
     public void FluentAccordion_TheDefaultExpandMode_WhenExpandMode_IsNotSpecified()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordion>();
+        var cut = RenderComponent<FluentAccordion>();
 
         // Assert
         cut.Verify();
@@ -35,7 +41,7 @@ public class FluentAccordionTests : TestBase
     public void FluentAccordion_WhenExpandMode_IsSpecified(AccordionExpandMode accordionExpandMode)
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordion>(parameters =>
+        var cut = RenderComponent<FluentAccordion>(parameters =>
         {
             parameters.Add(p => p.ExpandMode, accordionExpandMode);
         });
@@ -48,7 +54,7 @@ public class FluentAccordionTests : TestBase
     public void FluentAccordion_WhenAdditionalCSSClass_IsProvided()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordion>(parameters =>
+        var cut = RenderComponent<FluentAccordion>(parameters =>
         {
             parameters.Add(p => p.Class, "additional-class");
         });
@@ -61,7 +67,7 @@ public class FluentAccordionTests : TestBase
     public void FluentAccordion_WhenAdditionalStyle_IsProvided()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordion>(parameters =>
+        var cut = RenderComponent<FluentAccordion>(parameters =>
         {
             parameters.Add(p => p.Style, "background-color: grey");
         });
@@ -74,7 +80,7 @@ public class FluentAccordionTests : TestBase
     public void FluentAccordion_WhenAdditionalParameters_AreAdded()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordion>(parameters =>
+        var cut = RenderComponent<FluentAccordion>(parameters =>
         {
             parameters.AddUnmatched("unmatched1", "unmatched1-value");
             parameters.AddUnmatched("unmatched2", "unmatched2-value");
@@ -88,7 +94,7 @@ public class FluentAccordionTests : TestBase
     public void FluentAccordion_WhenExpandedModeIsSingle_AndMultipleItemAreExpanded_ByDefault()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordion>(parameters =>
+        var cut = RenderComponent<FluentAccordion>(parameters =>
         {
             parameters.Add(p => p.ExpandMode, AccordionExpandMode.Single);
             parameters.AddChildContent<FluentAccordionItem>(itemParams => itemParams.Add(p => p.Expanded, true));
@@ -103,14 +109,14 @@ public class FluentAccordionTests : TestBase
     public void FluentAccordion_Dispose()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordion>(parameters =>
+        var cut = RenderComponent<FluentAccordion>(parameters =>
         {
             parameters.Add(p => p.ExpandMode, AccordionExpandMode.Single);
             parameters.AddChildContent<FluentAccordionItem>(itemParams => itemParams.Add(p => p.Expanded, true));
             parameters.AddChildContent<FluentAccordionItem>(itemParams => itemParams.Add(p => p.Expanded, true));
         });
 
-        TestContext.DisposeComponents();
+        DisposeComponents();
 
         // Assert
         Assert.True(cut.IsDisposed);

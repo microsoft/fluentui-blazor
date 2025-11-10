@@ -3,17 +3,32 @@
 // ------------------------------------------------------------------------
 
 using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Accordion;
 
-public class FluentAccordionItemTests : TestBase
+public class FluentAccordionItemTests : TestContext
 {
+    private const string FluentAccordionItemRazorJs = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Accordion/FluentAccordionItem.razor.js";
+
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentAccordionItemTests()
+    {
+        var script = JSInterop.SetupModule(FluentAccordionItemRazorJs);
+        script.SetupVoid("setControlAttribute", _ => true);
+
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+    }
+
     [Fact]
     public void FluentAccordionItem_WithChildContent_IsNull()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>();
+        var cut = RenderComponent<FluentAccordionItem>();
 
         // Assert
         cut.Verify();
@@ -23,7 +38,7 @@ public class FluentAccordionItemTests : TestBase
     public void FluentAccordionItem_WithProvided_Content()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.AddChildContent("child content");
         });
@@ -35,8 +50,9 @@ public class FluentAccordionItemTests : TestBase
     [Fact]
     public void FluentAccordionItem_WithCustomHeaderValue()
     {
+
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.Add(p => p.Heading, "custom heading value");
         });
@@ -49,7 +65,7 @@ public class FluentAccordionItemTests : TestBase
     public void FluentAccordionItem_WithHeadingTemplateAndHeading_IsProvidedBoth()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.Add(p => p.HeadingTemplate, context =>
             {
@@ -63,13 +79,45 @@ public class FluentAccordionItemTests : TestBase
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentAccordionItem_WithHeadingAndTooltip()
+    {
+        // Arrange & Act
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
+        {
+            parameters.Add(p => p.Heading, "custom heading value");
+            parameters.Add(p => p.HeadingTooltip, "my tooltip");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAccordionItem_WithHeadingTemplateAndTooltip()
+    {
+        // Arrange & Act
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
+        {
+            parameters.Add(p => p.HeadingTemplate, context =>
+            {
+                context.AddContent(0, "custom heading content");
+            });
+
+            parameters.Add(p => p.HeadingTooltip, "my tooltip");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
     public void FluentAccordionItem_WithProvidedExpanded_Parameter(bool expanded)
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.Add(p => p.Expanded, expanded);
         });
@@ -82,7 +130,7 @@ public class FluentAccordionItemTests : TestBase
     public void FluentAccordionItem_WithAnAdditionalAttribute()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.AddUnmatched("unknown", "unknowns-value");
         });
@@ -95,7 +143,7 @@ public class FluentAccordionItemTests : TestBase
     public void FluentAccordionItem_WithMultipleAdditionalAttributes()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.AddUnmatched("unknown1", "unknown1s-value");
             parameters.AddUnmatched("unknown2", "unknown2s-value");
@@ -109,7 +157,7 @@ public class FluentAccordionItemTests : TestBase
     public void FluentAccordionItem_WhenAllParamsAdded_AndAdditionalAttributes_AndContent()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.Add(p => p.Expanded, true);
             parameters.Add(p => p.Heading, "custom heading value");
@@ -126,7 +174,7 @@ public class FluentAccordionItemTests : TestBase
     public void FluentAccordionItem_WhenAdditionalCSSClass_IsProvided()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.Add(p => p.Class, "additional-class");
         });
@@ -139,7 +187,7 @@ public class FluentAccordionItemTests : TestBase
     public void FluentAccordionItem_WhenAdditionalStyle_IsProvided()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.Add(p => p.Style, "background-color: grey");
         });
@@ -152,7 +200,7 @@ public class FluentAccordionItemTests : TestBase
     public void FluentAccordionItem_WithHeadingTemplate_IsNull()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.Add(p => p.HeadingTemplate, context => { });
         });
@@ -165,7 +213,7 @@ public class FluentAccordionItemTests : TestBase
     public void FluentAccordionItem_WithHeadingTemplate_IsProvided()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        var cut = RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.Add(p => p.HeadingTemplate, context =>
             {
