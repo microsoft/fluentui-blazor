@@ -41,7 +41,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 10.0.x
+        dotnet-version: 9.0.x
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
@@ -51,8 +51,7 @@ jobs:
     - if: matrix.language == 'csharp'
       name: Manually build CSharp on .NET
       run: |
-        dotnet restore Microsoft.FluentUI.sln
-        dotnet build Microsoft.FluentUI.sln --no-restore --configuration Release
+        dotnet build ./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj -c Release -f net9.0
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
