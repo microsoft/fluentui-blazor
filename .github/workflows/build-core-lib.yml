@@ -48,11 +48,20 @@ jobs:
      #    dotnet-version: 9.0.x
      #    dotnet-quality: ga
 
+
      - name: Setup .NET 10.0
-       uses: actions/setup-dotnet@v4
+       uses: actions/setup-dotnet@v6
        with:
         dotnet-version: 10.0.x
         dotnet-quality: preview
+
+     - name: NPM Install
+       uses: actions/setup-node@v4
+       with:
+        cache: 'npm'
+        cache-dependency-path: src/Core.Assets/package-lock.json
+
+     - run: npm install "src/Core.Assets/"
 
      # Build
 
