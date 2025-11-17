@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk" InitialTargets="AddTemplatesToPackageAsContent">
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<Authors>Microsoft</Authors>
 		<ContentTargetFolders>Content</ContentTargetFolders>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
@@ -24,12 +24,16 @@
 
 	<PropertyGroup>
 		<!-- for templates -->
-		<AspirePackageVersion>9.3.2</AspirePackageVersion>
-		<MicrosoftExtensionsHttpResiliencePackageVersion>9.7.0</MicrosoftExtensionsHttpResiliencePackageVersion>
-		<MicrosoftAspNetCorePackageVersionForNet8>8.0.18</MicrosoftAspNetCorePackageVersionForNet8>
-		<MicrosoftAspNetCorePackageVersionForNet9>9.0.7</MicrosoftAspNetCorePackageVersionForNet9>
-        <MicrosoftAspNetCorePackageVersionForNet10>10.0.0-preview.6.25358.103</MicrosoftAspNetCorePackageVersionForNet10>
-        <OpenTelemetryLTSVersion>1.9.0</OpenTelemetryLTSVersion>
+		<AspirePackageVersion>13.0</AspirePackageVersion>
+		<MicrosoftExtensionsHttpResiliencePackageVersion>10.0.0</MicrosoftExtensionsHttpResiliencePackageVersion>
+        <MicrosoftExtensionsServiceDiscoveryVersion>10.0.0</MicrosoftExtensionsServiceDiscoveryVersion>
+        <MicrosoftAspNetCorePackageVersionForNet8>8.0.20</MicrosoftAspNetCorePackageVersionForNet8>
+		<MicrosoftAspNetCorePackageVersionForNet9>9.0.9</MicrosoftAspNetCorePackageVersionForNet9>
+        <MicrosoftAspNetCorePackageVersionForNet10>10.0.0</MicrosoftAspNetCorePackageVersionForNet10>
+        <MicrosoftAspNetCoreOpenApiVersion>9.0.11</MicrosoftAspNetCoreOpenApiVersion>
+        <MicrosoftAspNetCoreOpenApiPreviewVersion>10.0.0</MicrosoftAspNetCoreOpenApiPreviewVersion>
+        <OpenTelemetryNet8Version>1.9.0</OpenTelemetryNet8Version>
+        <OpenTelemetryLTSVersion>1.12.0</OpenTelemetryLTSVersion>
         <OpenTelemetryInstrumentationAspNetCoreVersion>1.12.0</OpenTelemetryInstrumentationAspNetCoreVersion>
         <OpenTelemetryInstrumentationHttpVersion>1.12.0</OpenTelemetryInstrumentationHttpVersion>
         <OpenTelemetryInstrumentationExtensionsHostingVersion>1.12.0</OpenTelemetryInstrumentationExtensionsHostingVersion>
@@ -100,12 +104,17 @@
 								    .Replace('!!REPLACE_WITH_ASPNETCORE_9_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet9)')
                                     .Replace('!!REPLACE_WITH_ASPNETCORE_10_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet10)')
 									.Replace('!!REPLACE_WITH_DOTNET_EXTENSIONS_VERSION!!', '$(MicrosoftExtensionsHttpResiliencePackageVersion)')
+                                    .Replace('!!REPLACE_WITH_SERVICE_DISCOVERY_VERSION!!', '$(MicrosoftExtensionsServiceDiscoveryVersion)')
+                                    .Replace('!!REPLACE_WITH_OTEL_NET8_VERSION!!', '$(OpenTelemetryNet8Version)')
                                     .Replace('!!REPLACE_WITH_OTEL_LTS_VERSION!!', '$(OpenTelemetryLTSVersion)')
                                     .Replace('!!REPLACE_WITH_OTEL_EXPORTER_VERSION!!', '$(OpenTelemetryExporterOpenTelemetryProtocolVersion)')
                                     .Replace('!!REPLACE_WITH_OTEL_HOSTING_VERSION!!', '$(OpenTelemetryInstrumentationExtensionsHostingVersion)')
                                     .Replace('!!REPLACE_WITH_OTEL_ASPNETCORE_VERSION!!', '$(OpenTelemetryInstrumentationAspNetCoreVersion)')
                                     .Replace('!!REPLACE_WITH_OTEL_HTTP_VERSION!!', '$(OpenTelemetryInstrumentationHttpVersion)')
-                                    .Replace('!!REPLACE_WITH_OTEL_RUNTIME_VERSION!!', '$(OpenTelemetryInstrumentationRuntimeVersion)') )"
+                                    .Replace('!!REPLACE_WITH_OTEL_RUNTIME_VERSION!!', '$(OpenTelemetryInstrumentationRuntimeVersion)')
+                                    .Replace('!!REPLACE_WITH_ASPNETCORE_OPENAPI_9_VERSION!!', '$(MicrosoftAspNetCoreOpenApiVersion)')
+                                    .Replace('!!REPLACE_WITH_ASPNETCORE_OPENAPI_10_VERSION!!', '$(MicrosoftAspNetCoreOpenApiPreviewVersion)') )"
+
 						  Overwrite="true" />
 	</Target>
 
