@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -15,6 +16,8 @@ public partial class FluentDialogProvider : IAsyncDisposable
 
     private readonly InternalDialogContext _internalDialogContext;
     private readonly RenderFragment _renderDialogs;
+    // Don't set RunContinuationsAsynchronously to true because we want to stay in the same sync context.
+    private readonly TaskCompletionSource _moduleLoadedTcs = new(TaskCreationOptions.None);
     private IJSObjectReference? _module;
 
     [Inject]
@@ -55,20 +58,44 @@ public partial class FluentDialogProvider : IAsyncDisposable
     {
         if (firstRender)
         {
-            _module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            if (_module is null)
+            {
+                try
+                {
+                    _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+                    _moduleLoadedTcs.TrySetResult();
+                }
+                catch (Exception ex)
+                {
+                    _moduleLoadedTcs.TrySetException(ex);
+                    throw;
+                }
+            }
         }
+    }
+
+    /// <summary>
+    /// Wait for the module to be loaded and return it.
+    /// </summary>
+    private async Task<IJSObjectReference> GetLoadedModuleAsync()
+    {
+        if (_module is null)
+        {
+            await _moduleLoadedTcs.Task;
+        }
+
+        // TCS either succeeds and the module is assigned, or it throws and we never get here.
+        Debug.Assert(_module is not null);
+        return _module;
     }
 
     private void ShowDialog(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
     {
-        if (_module is null)
-        {
-            throw new InvalidOperationException("JS module is not loaded.");
-        }
-
         InvokeAsync(async () =>
         {
-            var previouslyFocusedElement = await _module.InvokeAsync<IJSObjectReference>("getActiveElement");
+            var module = await GetLoadedModuleAsync();
+
+            var previouslyFocusedElement = await module.InvokeAsync<IJSObjectReference>("getActiveElement");
             DialogInstance dialog = new(dialogComponent, parameters, content, previouslyFocusedElement);
             dialogReference.Instance = dialog;
 
@@ -78,14 +105,11 @@ public partial class FluentDialogProvider : IAsyncDisposable
 
     private async Task<IDialogReference> ShowDialogAsync(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
     {
-        if (_module is null)
-        {
-            throw new InvalidOperationException("JS module is not loaded.");
-        }
-
         return await Task.Run(async () =>
         {
-            var previouslyFocusedElement = await _module.InvokeAsync<IJSObjectReference>("getActiveElement");
+            var module = await GetLoadedModuleAsync();
+
+            var previouslyFocusedElement = await module.InvokeAsync<IJSObjectReference>("getActiveElement");
 
             DialogInstance dialog = new(dialogComponent, parameters, content, previouslyFocusedElement);
             dialogReference.Instance = dialog;
@@ -166,12 +190,9 @@ public partial class FluentDialogProvider : IAsyncDisposable
 
     internal async Task ReturnFocusAsync(IJSObjectReference element)
     {
-        if (_module is null)
-        {
-            throw new InvalidOperationException("JS module is not loaded.");
-        }
+        var module = await GetLoadedModuleAsync();
 
-        await _module.InvokeVoidAsync("focusElement", element);
+        await module.InvokeVoidAsync("focusElement", element);
         await element.DisposeAsync();
     }
 
