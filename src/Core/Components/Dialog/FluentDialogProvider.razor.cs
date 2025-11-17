@@ -61,14 +61,10 @@ public partial class FluentDialogProvider : IAsyncDisposable
 
     private void ShowDialog(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
     {
-        if (_module is null)
-        {
-            throw new InvalidOperationException("JS module is not loaded.");
-        }
-
         InvokeAsync(async () =>
         {
-            var previouslyFocusedElement = await _module.InvokeAsync<IJSObjectReference>("getActiveElement");
+            var previouslyFocusedElement = await GetPreviouslyFocusedElementAsync();
+
             DialogInstance dialog = new(dialogComponent, parameters, content, previouslyFocusedElement);
             dialogReference.Instance = dialog;
 
@@ -76,16 +72,23 @@ public partial class FluentDialogProvider : IAsyncDisposable
         });
     }
 
-    private async Task<IDialogReference> ShowDialogAsync(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
+    private async Task<IJSObjectReference?> GetPreviouslyFocusedElementAsync()
     {
-        if (_module is null)
+        // If the module hasn't been loaded then the page hasn't rendered yet, so there is no previously focused element.
+        IJSObjectReference? previouslyFocusedElement = null;
+        if (_module is not null)
         {
-            throw new InvalidOperationException("JS module is not loaded.");
+            previouslyFocusedElement = await _module.InvokeAsync<IJSObjectReference>("getActiveElement");
         }
 
+        return previouslyFocusedElement;
+    }
+
+    private async Task<IDialogReference> ShowDialogAsync(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
+    {
         return await Task.Run(async () =>
         {
-            var previouslyFocusedElement = await _module.InvokeAsync<IJSObjectReference>("getActiveElement");
+            var previouslyFocusedElement = await GetPreviouslyFocusedElementAsync();
 
             DialogInstance dialog = new(dialogComponent, parameters, content, previouslyFocusedElement);
             dialogReference.Instance = dialog;
@@ -166,12 +169,12 @@ public partial class FluentDialogProvider : IAsyncDisposable
 
     internal async Task ReturnFocusAsync(IJSObjectReference element)
     {
-        if (_module is null)
+        // Module should always be loaded here, but check just in case.
+        if (_module is not null)
         {
-            throw new InvalidOperationException("JS module is not loaded.");
+            await _module.InvokeVoidAsync("focusElement", element);
         }
 
-        await _module.InvokeVoidAsync("focusElement", element);
         await element.DisposeAsync();
     }
 
