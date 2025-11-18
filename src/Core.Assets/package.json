@@ -19,7 +19,7 @@
     "esbuild": "0.25.0",
     "esbuild-plugin-inline-css": "^0.0.1",
     "eslint": "8.57.0",
-    "rimraf": "^5.0.5",
+    "rimraf": "^6.1.0",
     "typescript": "^5.4.4"
   },
   "dependencies": {
