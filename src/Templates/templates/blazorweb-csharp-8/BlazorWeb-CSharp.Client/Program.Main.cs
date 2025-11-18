@@ -3,6 +3,9 @@ using BlazorWeb_CSharp.Client;
 using Microsoft.AspNetCore.Components.Authorization;
 #endif
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+#if (UseWebAssembly)
+using Microsoft.FluentUI.AspNetCore.Components;
+#endif
 
 namespace BlazorWeb_CSharp.Client;
 
@@ -16,8 +19,12 @@ class Program
         builder.Services.AddAuthorizationCore();
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticationStateProvider>();
-
 #endif
+
+#if (UseWebAssembly)
+        builder.Services.AddFluentUIComponents();
+#endif
+
         await builder.Build().RunAsync();
     }
 }
