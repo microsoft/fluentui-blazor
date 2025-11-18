@@ -15,7 +15,7 @@ public enum LayoutArea
     Footer,
 
     /// <summary />
-    Menu,
+    Navigation,
 
     /// <summary />
     Content,

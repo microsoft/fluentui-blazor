@@ -91,12 +91,12 @@ public partial class FluentLayout : FluentComponentBase
     public EventCallback<bool> OnBreakpointEnter { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the <see cref="LayoutArea.Menu"/> content is rendered only when this area is visible.
+    /// Gets or sets whether the <see cref="LayoutArea.Navigation"/> content is rendered only when this area is visible.
     /// To reduce the HTML page size, the <see cref="FluentLayoutHamburger" /> is not rendered when the layout is in desktop mode.
     /// To use this feature, make sure to enable the Blazor interactive mode.
     /// </summary>
     [Parameter]
-    public bool MenuDeferredLoading { get; set; } = false;
+    public bool NavigationDeferredLoading { get; set; } = false;
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -127,14 +127,14 @@ public partial class FluentLayout : FluentComponentBase
         }
 
         // Update the layout (Menu and Hamburger)
-        if (MenuDeferredLoading)
+        if (NavigationDeferredLoading)
         {
             foreach (var item in Hamburgers)
             {
                 await item.RefreshAsync();
             }
 
-            foreach (var item in Areas.Where(i => i.Area == LayoutArea.Menu))
+            foreach (var item in Areas.Where(i => i.Area == LayoutArea.Navigation))
             {
                 await item.RefreshAsync();
             }

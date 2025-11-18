@@ -18,7 +18,7 @@
         var cut = Render(@<div>
             <FluentLayout Id="my-id">
                 <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
-                <FluentLayoutItem Area="LayoutArea.Menu">Menu</FluentLayoutItem>
+                <FluentLayoutItem Area="LayoutArea.Navigation">Menu</FluentLayoutItem>
                 <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
                 <FluentLayoutItem Area="LayoutArea.Aside">Aside</FluentLayoutItem>
                 <FluentLayoutItem Area="LayoutArea.Footer">Footer</FluentLayoutItem>
@@ -36,7 +36,7 @@
         var cut = Render(@<div>
             <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
             <FluentLayout Id="my-id">
-                <FluentLayoutItem Area="LayoutArea.Menu">Menu</FluentLayoutItem>
+                <FluentLayoutItem Area="LayoutArea.Navigation">Menu</FluentLayoutItem>
                 <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
                 <FluentLayoutItem Area="LayoutArea.Aside">Aside</FluentLayoutItem>
             </FluentLayout>
@@ -221,13 +221,13 @@
 
         // Arrange
         var cut = Render(@<FluentLayout Id="my-id"
-                                        MenuDeferredLoading="true"
+                                        NavigationDeferredLoading="true"
                                         OnBreakpointEnter="@(e => isMobileView = e)">
             <FluentLayoutItem Area="LayoutArea.Header">
                 <FluentLayoutHamburger />
                 Header
             </FluentLayoutItem>
-            <FluentLayoutItem Area="LayoutArea.Menu">
+            <FluentLayoutItem Area="LayoutArea.Navigation">
                 Menu content
             </FluentLayoutItem>
         </FluentLayout>
