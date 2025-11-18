@@ -16,7 +16,7 @@
     </FluentStack>
 
     <div style="resize: horizontal; overflow: hidden;">
-        <FluentLayout GlobalScrollbar="@GlobalScrollbar" Height="400px" Style="@CommonStyles.NeutralBorder1" OnBreakpointEnter="@(e => MobileView = e)" NavigationDeferredLoading="@MenuDeferredLoading">
+        <FluentLayout GlobalScrollbar="@GlobalScrollbar" Height="400px" Style="@CommonStyles.NeutralBorder1" OnBreakpointEnter="@(e => MobileView = e)" NavigationDeferredLoading="@NavigationDeferredLoading">
 
             @if (Header.Visible)
             {
