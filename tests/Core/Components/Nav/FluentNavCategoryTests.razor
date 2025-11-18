@@ -1,0 +1,162 @@
+﻿@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components
+@inherits Bunit.TestContext
+
+@code {
+    public FluentNavCategoryTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentNavCategory_Renders_With_Title()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer>
+            <FluentNavCategory Title="Test Category">
+                <div>Category Content</div>
+            </FluentNavCategory>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("Test Category", cut.Markup);
+        Assert.Contains("fluent-navcategoryitem", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavCategory_Renders_Expanded_By_Default()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer>
+            <FluentNavCategory Title="Test Category" Expanded="true">
+                <div>Content</div>
+            </FluentNavCategory>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("aria-expanded", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavCategory_Renders_Collapsed_When_Not_Expanded()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer>
+            <FluentNavCategory Title="Test Category" Expanded="false">
+                <div>Content</div>
+            </FluentNavCategory>
+        </FluentNavDrawer>
+	);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.DoesNotContain("aria-expanded", cut.Markup);
+	}
+
+	[Fact]
+	public async Task FluentNavCategory_Call_ToggleExpanded()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNavDrawer>
+			<FluentNavCategory Title="Test Category" Expanded="false">
+				<div>Content</div>
+			</FluentNavCategory>
+		</FluentNavDrawer>);
+
+		// Act
+		var category = cut.FindComponent<FluentNavCategory>();
+		await category.Instance.ToggleExpandedAsync();
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.True(category.Instance.Expanded);
+
+		await category.Instance.ToggleExpandedAsync();
+		Assert.False(category.Instance.Expanded);
+
+	}
+
+    [Fact]
+    public void FluentNavCategory_Throws_When_Not_Child_Of_NavDrawer()
+    {
+        // Arrange & Act & Assert
+        var ex = Assert.Throws<InvalidOperationException>(() =>
+        {
+            Render(@<FluentNavCategory Title="Test Category">
+                <div>Content</div>
+            </FluentNavCategory>);
+        });
+
+        Assert.Contains("must be used as a child of", ex.Message);
+        Assert.Contains("FluentNavDrawer", ex.Message);
+    }
+
+    [Fact]
+    public void FluentNavCategory_Renders_With_CustomId()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer>
+            <FluentNavCategory Id="my-category-id" Title="Test Category">
+                <div>Content</div>
+            </FluentNavCategory>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("id=\"my-category-id\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavCategory_Renders_With_Small_Density()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer Density="NavDrawerDensity.Small">
+            <FluentNavCategory Title="Test Category">
+                <div>Content</div>
+            </FluentNavCategory>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("density=", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavCategory_Provides_CascadingValue_To_SubItems()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer>
+            <FluentNavCategory Title="Test Category">
+                <FluentNavSubItem>Sub Item</FluentNavSubItem>
+            </FluentNavCategory>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("Sub Item", cut.Markup);
+        Assert.Contains("fluent-navsubitem", cut.Markup);
+    }
+
+    // [Fact]
+    // public void FluentNavCategory_Toggle_Calls_JavaScript_ToggleCategory()
+    // {
+    //     // Arrange
+    //     var cut = Render(@<FluentNavDrawer UseSingleExpanded="true">
+    //         <FluentNavCategory Title="Test Category" Expanded="false">
+    //             <FluentNavSubItem>Sub Item</FluentNavSubItem>
+    //         </FluentNavCategory>
+    //     </FluentNavDrawer>);
+
+    //     // Act
+    //     // Find and click the category button to trigger toggle
+    //     var button = cut.Find("button.fluent-navcategoryitem");
+    //     button.Click();
+
+    //     // Assert
+    //     Assert.NotNull(cut);
+    //     // Verify the component rendered successfully and button was clickable
+    // }
+}

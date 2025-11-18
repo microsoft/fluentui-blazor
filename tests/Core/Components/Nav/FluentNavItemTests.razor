@@ -1,0 +1,105 @@
+﻿@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components
+@inherits Bunit.TestContext
+
+@code {
+    public FluentNavItemTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentNavItem_Renders_As_Link_When_UseLinks_True()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer UseLinks="true">
+            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("<a ", cut.Markup);
+        Assert.Contains("href=\"https://example.com\"", cut.Markup);
+        Assert.Contains("Test Item", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavItem_Renders_As_Button_When_UseLinks_False()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer UseLinks="false">
+            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("<button", cut.Markup);
+        Assert.Contains("Test Item", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavItem_Renders_With_Active_State()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer UseLinks="true">
+            <FluentNavItem Href="https://example.com" Active="true">Active Item</FluentNavItem>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("active", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavItem_Renders_With_CustomClass()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer UseLinks="true">
+            <FluentNavItem Href="https://example.com" Class="custom-nav-item">Test Item</FluentNavItem>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("custom-nav-item", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavItem_Throws_When_Not_Child_Of_NavDrawer()
+    {
+        // Arrange & Act & Assert
+        var ex = Assert.Throws<InvalidOperationException>(() =>
+        {
+            Render(@<FluentNavItem Href="https://example.com">Test Item</FluentNavItem>);
+        });
+
+        Assert.Contains("must be used as a child of", ex.Message);
+        Assert.Contains("FluentNavDrawer", ex.Message);
+    }
+
+    [Fact]
+    public void FluentNavItem_Renders_With_Small_Density()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer UseLinks="true" Density="NavDrawerDensity.Small">
+            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("density=", cut.Markup);
+    }
+
+	[Fact]
+	public void FluentNavItem_Renders_With_Icon()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNavDrawer >
+			<FluentNavItem Icon="@Samples.Icons.Info">Test Item</FluentNavItem>
+		</FluentNavDrawer>);
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<svg class=\"icon\" style=\"width: 24px;", cut.Markup);
+		Assert.Contains("Test Item", cut.Markup);
+	}
+}

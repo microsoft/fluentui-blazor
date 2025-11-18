@@ -1,0 +1,22 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<AddTag Name="@(Owner.UseLinks ? "a" : "button")"
+		fuib
+		id="@Id"
+		class="@ClassValue"
+		style="@StyleValue"
+		href="@Href"
+		density="@Owner.Density.ToAttributeValue()"
+		@attributes="AdditionalAttributes">
+	@if (Icon is not null)
+	{
+			<FluentIcon Value="Icon" Class="icon" />
+	}
+	@* else
+	{
+		<span style="width: 20px;"></span>
+	} *@
+	@ChildContent
+</AddTag>

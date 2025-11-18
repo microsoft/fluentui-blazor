@@ -1,0 +1,59 @@
+﻿@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components
+@inherits Bunit.TestContext
+
+@code {
+    public FluentNavSectionHeaderTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentNavSectionHeader_Renders_With_Title()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer>
+            <FluentNavSectionHeader Title="My Section" />
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("My Section", cut.Markup);
+        Assert.Contains("fluent-navsectionheader", cut.Markup);
+        Assert.Contains("<h3", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavSectionHeader_Renders_Empty_When_No_Title()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer>
+            <FluentNavSectionHeader Title="" />
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("fluent-navsectionheader", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavSectionHeader_Throws_When_Not_Child_Of_NavDrawer()
+    {
+        // Arrange & Act & Assert
+        var ex = Assert.Throws<InvalidOperationException>(() =>
+        {
+            Render(@<FluentNavSectionHeader Title="My Section" />);
+        });
+
+        Assert.Contains("must be used as a child of", ex.Message);
+        Assert.Contains("FluentNavDrawer", ex.Message);
+    }
+
+    [Fact]
+    public void FluentNavSectionHeader_Implements_INavDrawerItem_Interface()
+    {
+        // Arrange & Act & Assert
+        Assert.True(typeof(INavDrawerItem).IsAssignableFrom(typeof(FluentNavSectionHeader)));
+    }
+}

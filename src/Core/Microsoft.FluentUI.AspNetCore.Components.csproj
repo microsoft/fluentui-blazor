@@ -57,6 +57,10 @@
     <None Include="**\*.ts" />
   </ItemGroup>
 
+  <ItemGroup>
+    <TypeScriptCompile Remove="Components\Nav\FluentNavDrawer.razor.ts" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
@@ -152,8 +156,5 @@
       <AsConstants>true</AsConstants>
       <NoWarn>CS1591</NoWarn>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\Nav\" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,153 @@
-.fluent-nav-inlinedrawer {
-  min-width: 260px;
+.fluent-nav {
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--lineHeightBase300);
+  overflow: hidden;
+  max-width: 100vw;
+  height: auto;
+  max-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: var(--colorNeutralForeground1);
+  position: relative;
+  border-right: var(--strokeWidthThin) solid var(--colorTransparentStroke);
+  left: 0px;
+  background-color: var(--colorNeutralBackground4);
+  align-items: unset;
+  right: auto;
   width: 260px;
+  min-width: 260px;
+  opacity: 1;
+  transform: translate3d(0px, 0px, 0px);
+}
+
+.fluent-nav > .header {
+
+  color: var(--colorNeutralForeground1);
+  width: 100%;
+  max-width: 100%;
+  padding: var(--spacingVerticalXXL) var(--spacingHorizontalXXL) var(--spacingVerticalS);
+  gap: var(--spacingHorizontalS);
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+  margin: unset;
+  padding-block: 5px;
+  padding-inline-start: 14px;
+}
+
+.fluent-nav > .body {
+
+  color: var(--colorNeutralForeground1);
+  flex: 1 1 0%;
+  align-self: stretch;
+  position: relative;
+  z-index: 1;
+  overflow: auto;
+  padding: 0 var(--spacingHorizontalXS) 0 var(--spacingHorizontalMNudge);
+  flex-direction: column;
+  display: flex;
+  align-items: unset;
+  row-gap: var(--spacingVerticalXXS);
+  padding-bottom: calc(var(--spacingHorizontalXXL) + 1px);
+}
+
+  .fluent-nav-body:last-child {
+    padding-bottom: calc(var(--spacingHorizontalXXL) + 1px);
+  }
+
+
+.fluent-nav .appitem {
+  display: flex;
+  text-transform: none;
+  position: relative;
+  justify-content: start;
+  text-align: left;
+  border-radius: var(--borderRadiusMedium);
+  color: var(--colorNeutralForeground2);
+  text-decoration-line: none;
+  border: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition-duration: var(--durationFaster);
+  transition-timing-function: var(--curveLinear);
+  transition-property: background;
+  gap: 10px;
+  padding: var(--spacingVerticalS) var(--spacingHorizontalS) var(--spacingVerticalS) var(--spacingHorizontalMNudge);
+
+  line-height: var(--lineHeightBase400);
+  font-size: var(--fontSizeBase400);
+  font-weight: var(--fontWeightSemibold);
+  align-items: center;
+
+  margin-inline-start: -6px;
+  margin-inline-end: 0px;
   background-color: var(--colorNeutralBackground4);
 }
+
+
+.fluent-nav-item {
+  display: flex;
+  text-transform: none;
+  position: relative;
+  justify-content: start;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--spacingVerticalL);
+  padding: var(--spacingVerticalMNudge) var(--spacingHorizontalS) var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge);
+  background-color: var(--colorNeutralBackground4);
+  border-radius: var(--borderRadiusMedium);
+  color: var(--colorNeutralForeground2);
+  text-decoration-line: none;
+  border: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition-duration: var(--durationFaster);
+  transition-timing-function: var(--curveLinear);
+  transition-property: background;
+  width: 100%;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--lineHeightBase300);
+}
+
+  .appitem:hover, .fluent-nav-item:hover, .fluentui-navmenu-subitem:hover {
+    background-color: var(--colorNeutralBackground4Hover);
+  }
+
+
+
+f1ayorr4 animation {
+  background-origin: padding-box;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: rgb(15, 108, 189);
+  background-image: none;
+}
+
+
+.fluent-nav .navlink.active::after {
+  width: 4px;
+  height: 20px;
+  background-color: var(--colorCompoundBrandForeground1);
+  margin-inline-start: -16px;
+  animation-name: f1ayorr4;
+  animation-timing-function: var(--curveLinear);
+  animation-fill-mode: both;
+  animation-duration: var(--durationFaster);
+  content: "";
+  position: absolute;
+  border-radius: var(--borderRadiusCircular);
+}
+

@@ -4,9 +4,9 @@
     <RuntimeVersion9>9.0.9</RuntimeVersion9>
     <AspNetCoreVersion9>9.0.9</AspNetCoreVersion9>
     <EfCoreVersion9>9.0.9</EfCoreVersion9>
-    <RuntimeVersion10>10.0.0-rc.1.25451.107</RuntimeVersion10>
-    <AspNetCoreVersion10>10.0.0-rc.1.25451.107</AspNetCoreVersion10>
-    <EfCoreVersion10>10.0.0-rc.1.25451.107</EfCoreVersion10>
+    <RuntimeVersion10>10.0.0</RuntimeVersion10>
+    <AspNetCoreVersion10>10.0.0</AspNetCoreVersion10>
+    <EfCoreVersion10>10.0.0</EfCoreVersion10>
   </PropertyGroup>
   <!-- Independent from TargetFrameWorks-->
   <ItemGroup>

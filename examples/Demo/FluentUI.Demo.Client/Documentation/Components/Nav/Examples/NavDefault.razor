@@ -1,49 +1,70 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 
 <h3>NavDefault</h3>
 
-<div style="border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="15">
+	<FluentNavDrawer UseLinks="@_useLinks"
+					 UseSingleExpanded="@(!_useMultipleExpanded)"
+				   AppTitle="Contoso"
+				   Appicon="@(new Icons.Regular.Size32.Person())"
+				   Density="@_density">
+		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.Board())">Dashboard</FluentNavItem>
+		<FluentNavItem Active="true" Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.MegaphoneLoud())">Announcements</FluentNavItem>
+		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/">Employee Spotlight</FluentNavItem>
+		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.PersonSearch())">Profile Search</FluentNavItem>
+		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.PersonMoney())">Performance Reviews</FluentNavItem>
 
-	<FluentLayout  Height="400px">
+		<FluentNavSectionHeader Title="Employee Management" />
 
-		<!-- Header -->
-		<FluentLayoutItem Area="@LayoutArea.Header" >
-			<FluentStack VerticalAlignment="VerticalAlignment.Center">
-				<FluentLayoutHamburger />
-				<FluentText Weight="TextWeight.Bold" Size="TextSize.Size400">
-					Microsoft Demo
-				</FluentText>
-			</FluentStack>
-		</FluentLayoutItem>
+		<FluentNavCategory Title="Job Postings" Icon="@(new Icons.Regular.Size20.NotePin())">
 
-		<!-- Menu -->
-		<FluentLayoutItem Area="@LayoutArea.Menu"
-						  Width="260px" Padding="@Padding.All2"
-						  Style="border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
+				<FluentNavSubItem>Openings</FluentNavSubItem>
+				<FluentNavSubItem>Submissions</FluentNavSubItem>
 
+		</FluentNavCategory>
+		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.People())">Interviews</FluentNavItem>
 
-			<FluentNavDrawer UseLinks="false" />
-		</FluentLayoutItem>
+	 	<FluentNavSectionHeader Title="Benefits" />
+		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.HeartPulse())">Health Plans</FluentNavItem>
 
-		<!-- Content -->
-		<FluentLayoutItem Area="@LayoutArea.Content" Padding="@Padding.All3">
-			<FluentText Weight="TextWeight.Bold">Content</FluentText>
+		<FluentNavCategory Title="Retirement" Icon="@(new Icons.Regular.Size20.Person())">
 
-		</FluentLayoutItem>
+				<FluentNavSubItem>Plan Information</FluentNavSubItem>
+				<FluentNavSubItem>Fund Performance</FluentNavSubItem>
 
-		<!-- Aside -->
-		<FluentLayoutItem Area="@LayoutArea.Aside" Width="120px" Sticky="true"
-						  Style="padding: 8px; background-color: var(--colorBrandBackground2);">
-			<FluentText Weight="TextWeight.Bold">News</FluentText>
+		</FluentNavCategory>
 
-		</FluentLayoutItem>
+		<FluentNavDivider />
 
-		<!-- Footer -->
-		<FluentLayoutItem Area="@LayoutArea.Footer" >
-			&copy; Microsoft @DateTime.Now.Year
-		</FluentLayoutItem>
+		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.BoxMultiple())">Training Programs</FluentNavItem>
 
-	</FluentLayout>
-</div>
+		<FluentNavCategory Title="Career Development" Icon="@(new Icons.Regular.Size20.PeopleStar())">
 
+				<FluentNavSubItem>Openings</FluentNavSubItem>
+				<FluentNavSubItem>Submissions</FluentNavSubItem>
 
+		</FluentNavCategory>
+
+		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.ArrowTrendingLines())">Workforce Data</FluentNavItem>
+		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.DocumentBulletListMultiple())">Reports</FluentNavItem>
+	</FluentNavDrawer>
+
+	<FluentStack Orientation="Orientation.Vertical">
+		<FluentRadioGroup @bind-Value="@_density" Label="Density" Wrap="true">
+			<FluentRadio Label="Medium" Value="NavDrawerDensity.Medium" />
+			<FluentRadio Label="Small" Value="NavDrawerDensity.Small" />
+		</FluentRadioGroup>
+
+		<FluentSwitch @bind-Value="@_useLinks" Label="Use Links" />
+		<FluentSwitch @bind-Value="@_useMultipleExpanded" Label="Allow multiple expanded categories" />
+	</FluentStack>
+
+</FluentStack>
+
+@code
+{
+	NavDrawerDensity _density;
+	bool _useLinks;
+	bool _useMultipleExpanded = true;
+}

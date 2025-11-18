@@ -1,0 +1,164 @@
+﻿@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components
+@inherits Bunit.TestContext
+
+@code {
+    public FluentNavDrawerTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentNavDrawer_Renders_WithDefaultParameters()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer>
+            <div>Test Content</div>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("Test Content", cut.Markup);
+        Assert.Contains("navmenu-container", cut.Markup);
+        Assert.Contains("fluent-nav", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDrawer_Renders_AppTitle()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer AppTitle="My App">
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("My App", cut.Markup);
+        Assert.Contains("appitem", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDrawer_Does_Not_Render_AppTitle_When_Empty()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer AppTitle="">
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.DoesNotContain("appitem", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDrawer_Renders_With_CustomAppLink()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer AppTitle="My App" AppLink="/custom-link">
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("href=\"/custom-link\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDrawer_UseLinks_True_Renders_Links()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer UseLinks="true">
+            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("<a ", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDrawer_UseLinks_False_Renders_Buttons()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer UseLinks="false">
+            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("<button", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDrawer_Renders_With_CustomId()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer Id="my-drawer-id">
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("id=\"my-drawer-id\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDrawer_Renders_With_CustomClass()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer Class="custom-drawer-class">
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("custom-drawer-class", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDrawer_Renders_With_CustomStyle()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer Style="background-color: red;">
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("background-color: red;", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDrawer_Renders_With_Small_Density()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer Density="NavDrawerDensity.Small">
+            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("density=", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDrawer_Renders_With_Medium_Density()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer Density="NavDrawerDensity.Medium">
+            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("density=", cut.Markup);
+    }
+
+	[Fact]
+	public void FluentNavDrawer_Renders_With_AppIcon()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNavDrawer AppTitle="My App" AppIcon="@Samples.Icons.Info">
+			
+		</FluentNavDrawer>);
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<svg style=\"width: 24px;", cut.Markup); 
+		Assert.Contains("My App", cut.Markup);
+	}
+}

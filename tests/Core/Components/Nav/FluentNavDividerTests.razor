@@ -1,0 +1,45 @@
+﻿@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components
+@inherits Bunit.TestContext
+
+@code {
+    public FluentNavDividerTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentNavDivider_Renders_Correctly()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNavDrawer>
+            <FluentNavDivider />
+        </FluentNavDrawer>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("fluent-navdivider", cut.Markup);
+        Assert.Contains("fluent-divider", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDivider_Throws_When_Not_Child_Of_NavDrawer()
+    {
+        // Arrange & Act & Assert
+        var ex = Assert.Throws<InvalidOperationException>(() =>
+        {
+            Render(@<FluentNavDivider />);
+        });
+
+        Assert.Contains("must be used as a child of", ex.Message);
+        Assert.Contains("FluentNavDrawer", ex.Message);
+    }
+
+    [Fact]
+    public void FluentNavDivider_Implements_INavDrawerItem_Interface()
+    {
+        // Arrange & Act & Assert
+        Assert.True(typeof(INavDrawerItem).IsAssignableFrom(typeof(FluentNavDivider)));
+    }
+}
