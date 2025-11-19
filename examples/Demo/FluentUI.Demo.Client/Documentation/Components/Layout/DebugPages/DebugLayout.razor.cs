@@ -9,11 +9,11 @@ namespace FluentUI.Demo.Client.Documentation.Components.Layout.DebugPages;
 public partial class DebugLayout
 {
     private bool GlobalScrollbar = true;
-    private bool MenuDeferredLoading;
+    private bool NavigationDeferredLoading;
     private string HamburgerContent = string.Empty;
     private readonly RenderFragment _renderOptions;
     private readonly Option Header = new() { Visible = true, Sticky = false };
-    private readonly Option Menu = new() { Visible = true, Sticky = false };
+    private readonly Option Navigation = new() { Visible = true, Sticky = false };
     private readonly Option Content = new() { Visible = true, Sticky = false };
     private readonly Option Aside = new() { Visible = true, Sticky = false };
     private readonly Option Footer = new() { Visible = true, Sticky = false };

@@ -173,7 +173,7 @@ public partial class FluentLayoutItem : FluentComponentBase
     /// <param name="styles"></param>
     private void AddStickyStyle(StyleBuilder styles)
     {
-        var isMiddleArea = Area == LayoutArea.Aside || Area == LayoutArea.Menu || Area == LayoutArea.Content;
+        var isMiddleArea = Area == LayoutArea.Aside || Area == LayoutArea.Navigation || Area == LayoutArea.Content;
         if (isMiddleArea && LayoutContainer != null && LayoutContainer.HasHeader && LayoutContainer.HeaderSticky)
         {
             styles.AddStyle("top", LayoutContainer?.HeaderHeight ?? "0");
@@ -189,7 +189,7 @@ public partial class FluentLayoutItem : FluentComponentBase
         }
 
         // For the Menu area, if the Native view is active
-        if (Area == LayoutArea.Menu && LayoutContainer.MenuDeferredLoading && LayoutContainer.IsMobile)
+        if (Area == LayoutArea.Navigation && LayoutContainer.NavigationDeferredLoading && LayoutContainer.IsMobile)
         {
             return false;
         }

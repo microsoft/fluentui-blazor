@@ -102,7 +102,7 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     public bool? Visible { get; set; }
 
     /// <summary />
-    private RenderFragment? MenuContent => ChildContent ?? LayoutContainer?.Areas.Find(i => i.Area == LayoutArea.Menu)?.ChildContent;
+    private RenderFragment? NavigationContent => ChildContent ?? LayoutContainer?.Areas.Find(i => i.Area == LayoutArea.Navigation)?.ChildContent;
 
     /// <summary />
     protected override void OnInitialized()
@@ -166,7 +166,7 @@ public partial class FluentLayoutHamburger : FluentComponentBase
         }
 
         // If the Desktop view is active
-        if (LayoutContainer.MenuDeferredLoading && !LayoutContainer.IsMobile)
+        if (LayoutContainer.NavigationDeferredLoading && !LayoutContainer.IsMobile)
         {
             return false;
         }

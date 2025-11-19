@@ -1,6 +1,6 @@
 ﻿<FluentSwitch @bind-Value="@UseGlobalScrollbar" Label=" GlobalScrollbar" Margin="@Margin.All2" />
 <FluentSwitch @bind-Value="@UseHeaderSticky" Label="Header Sticky" Margin="@Margin.All2" Disabled="@(!UseGlobalScrollbar)" />
-<FluentSwitch @bind-Value="@UseMenuSticky" Label="Menu Sticky" Margin="@Margin.All2" Disabled="@(!UseGlobalScrollbar)" />
+<FluentSwitch @bind-Value="@UseNavigationSticky" Label="Navigation Sticky" Margin="@Margin.All2" Disabled="@(!UseGlobalScrollbar)" />
 <FluentSwitch @bind-Value="@UseFooterSticky" Label="Footer Sticky" Margin="@Margin.All2" Disabled="@(!UseGlobalScrollbar)" />
 
 <div style="border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
@@ -17,9 +17,9 @@
             </FluentStack>
         </FluentLayoutItem>
 
-        <!-- Menu -->
-        <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@UseMenuSticky"
-                          Width="150px" Padding="@Padding.All2" 
+        <!-- Navigation -->
+        <FluentLayoutItem Area="@LayoutArea.Navigation" Sticky="@UseNavigationSticky"
+                          Width="150px" Padding="@Padding.All2"
                           Style="border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
 
             <FluentText Weight="TextWeight.Bold">Navigation</FluentText>
@@ -51,7 +51,7 @@
 {
     bool UseGlobalScrollbar = false;
     bool UseHeaderSticky = false;
-    bool UseMenuSticky = false;
+    bool UseNavigationSticky = false;
     bool UseFooterSticky = false;
 
     static MarkupString NavigationContent = SampleData.Text.Titles.Take(20).ToMarkupList("li");

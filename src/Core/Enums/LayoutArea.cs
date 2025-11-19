@@ -1,6 +1,7 @@
 // ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
+using System.ComponentModel;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -9,17 +10,22 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum LayoutArea
 {
     /// <summary />
+    [Description("header")]
     Header,
 
     /// <summary />
+    [Description("footer")]
     Footer,
 
     /// <summary />
-    Menu,
+    [Description("nav")]
+    Navigation,
 
     /// <summary />
+    [Description("content")]
     Content,
 
     /// <summary />
+    [Description("aside")]
     Aside,
 }

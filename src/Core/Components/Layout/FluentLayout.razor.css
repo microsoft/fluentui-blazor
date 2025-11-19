@@ -1,13 +1,13 @@
 .fluent-layout {
   --layout-height: 100dvh;
   --zindex-layout-aside: 80;
-  --zindex-layout-menu: 80;
+  --zindex-layout-nav: 80;
   --zindex-layout-header: 85;
   --zindex-layout-footer: 85;
   display: grid;
   grid-template-areas:
     "header header header"
-    "menu content aside"
+    "nav content aside"
     "footer footer footer";
   grid-template-columns: auto 1fr auto;
   grid-template-rows: auto 1fr auto;
