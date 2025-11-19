@@ -3,7 +3,7 @@
   "author": "Microsoft",
   "classifications": [
     "Common",
-    ".NET Aspire",
+    "Aspire",
     "Blazor",
     "Web",
     "Web API",
@@ -16,9 +16,9 @@
     "NUnit",
     "xUnit"
   ],
-  "name": "Fluent .NET Aspire Starter App",
+  "name": "Fluent Aspire Starter App",
   "defaultName": "AspireApp",
-  "description": "A project template for creating a .NET Aspire app with a Fluent UI Blazor web frontend and web API backend service, optionally using Redis for caching.",
+  "description": "A project template for creating an Aspire app with a Fluent UI Blazor web frontend and web API backend service, optionally using Redis for caching.",
   "shortName": "fluentaspire-starter",
   "sourceName": "Aspire-StarterApplication.1",
   "preferNameDirectory": false,
@@ -42,9 +42,9 @@
   ],
   "sources": [
     {
-      "source": "./9.2",
+      "source": "./9.5",
       "target": "./",
-      "condition": "AspireVersionActual == 9.2",
+      "condition": "AspireVersionActual == 9.5",
       "modifiers": [
         {
           "condition": "(hostIdentifier != \"dotnetcli\" && hostIdentifier != \"dotnetcli-preview\")",
@@ -61,9 +61,9 @@
       ]
     },
     {
-      "source": "./9.3",
+      "source": "./13.0",
       "target": "./",
-      "condition": "AspireVersionActual == 9.3",
+      "condition": "AspireVersionActual == 13.0",
       "modifiers": [
         {
           "condition": "(hostIdentifier != \"dotnetcli\" && hostIdentifier != \"dotnetcli-preview\")",
@@ -93,69 +93,33 @@
         {
           "choice": "net9.0",
           "description": "Target net9.0"
+        },
+        {
+          "choice": "net10.0",
+          "description": "Target net10.0"
         }
       ],
       "replaces": "net8.0",
-      "defaultValue": "net9.0"
-    },
-    "AspireVersionCli": {
-      "type": "parameter",
-      "description": "The version of .NET Aspire to use.",
-      "displayName": ".NET Aspire version",
-      "datatype": "choice",
-      "choices": [
-        {
-          "choice": "9.2",
-          "displayName": "9.2",
-          "description": "Chooses .NET Aspire 9.2"
-        },
-        {
-          "choice": "9.3",
-          "displayName": "9.3",
-          "description": "Chooses .NET Aspire 9.3"
-        }
-      ],
-      "defaultValue": "9.3"
+      "defaultValue": "net10.0"
     },
     "AspireVersion": {
       "type": "parameter",
-      "description": "The version of .NET Aspire to use.",
-      "displayName": ".NET Aspire version",
+      "description": "The version of Aspire to use.",
+      "displayName": "Aspire version",
       "datatype": "choice",
-      "isEnabled": "Framework == net8.0",
       "choices": [
         {
-          "choice": "9.2",
-          "displayName": "9.2",
-          "description": "Chooses .NET Aspire 9.2"
+          "choice": "13.0",
+          "displayName": "13.0",
+          "description": "Chooses Aspire 13.0"
         },
         {
-          "choice": "9.3",
-          "displayName": "9.3",
-          "description": "Chooses .NET Aspire 9.3"
+          "choice": "9.5",
+          "displayName": "9.5",
+          "description": "Chooses Aspire 9.5"
         }
       ],
-      "defaultValue": "9.3"
-    },
-    "AspireVersionNet9": {
-      "type": "parameter",
-      "description": "The version of .NET Aspire to use.",
-      "displayName": ".NET Aspire version",
-      "datatype": "choice",
-      "isEnabled": "Framework == net9.0",
-      "choices": [
-        {
-          "choice": "9.2",
-          "displayName": "9.2",
-          "description": "Chooses .NET Aspire 9.2"
-        },
-        {
-          "choice": "9.3",
-          "displayName": "9.3",
-          "description": "Chooses .NET Aspire 9.3"
-        }
-      ],
-      "defaultValue": "9.3"
+      "defaultValue": "13.0"
     },
     "AspireVersionActual": {
       "type": "generated",
@@ -164,20 +128,12 @@
       "parameters": {
         "cases": [
           {
-            "condition": "AspireVersionCli == 9.2",
-            "value": "9.2"
-          },
-          {
-            "condition": "AspireVersion == 9.2",
-            "value": "9.2"
-          },
-          {
-            "condition": "AspireVersionNet9 == 9.2",
-            "value": "9.2"
+            "condition": "AspireVersion == 9.5",
+            "value": "9.5"
           },
           {
             "condition": "",
-            "value": "9.3"
+            "value": "13.0"
           }
         ]
       }
@@ -304,6 +260,28 @@
       },
       "replaces": "19000"
     },
+    "appHostMcpHttpPort": {
+      "type": "parameter",
+      "datatype": "integer",
+      "description": "Port number to use for the MCP HTTP endpoint in launchSettings.json of the AppHost project."
+    },
+    "appHostMcpHttpPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 18000,
+        "high": 18300
+      }
+    },
+    "appHostMcpHttpPortReplacer": {
+      "type": "generated",
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "appHostMcpHttpPort",
+        "fallbackVariableName": "appHostMcpHttpPortGenerated"
+      },
+      "replaces": "18000"
+    },
     "appHostResourceHttpPort": {
       "type": "parameter",
       "datatype": "integer",
@@ -369,6 +347,28 @@
         "fallbackVariableName": "appHostOtlpHttpsPortGenerated"
       },
       "replaces": "21000"
+    },
+    "appHostMcpHttpsPort": {
+      "type": "parameter",
+      "datatype": "integer",
+      "description": "Port number to use for the MCP HTTPS endpoint in launchSettings.json of the AppHost project."
+    },
+    "appHostMcpHttpsPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 23000,
+        "high": 23300
+      }
+    },
+    "appHostMcpHttpsPortReplacer": {
+      "type": "generated",
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "appHostMcpHttpsPort",
+        "fallbackVariableName": "appHostMcpHttpsPortGenerated"
+      },
+      "replaces": "23000"
     },
     "appHostResourceHttpsPort": {
       "type": "parameter",
@@ -517,6 +517,14 @@
       "replaces": "XmlEncodedProjectName",
       "valueSource": "name",
       "valueTransform": "xmlEncode"
+    },
+    "LocalhostTld": {
+      "type": "parameter",
+      "datatype": "bool",
+      "isEnabled": "Framework == net10.0 && AspireVersion == 13.0",
+      "defaultValue": "false",
+      "displayName": "Use the .dev.localhost TLD in the application URL",
+      "description": "Whether to combine the project name with the .dev.localhost TLD in the application URL for local development, e.g. https://myapp.dev.localhost:12345. Supported on .NET 10 and later."
     }
   },
   "primaryOutputs": [
