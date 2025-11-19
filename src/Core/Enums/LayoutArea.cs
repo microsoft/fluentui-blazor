@@ -10,9 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum LayoutArea
 {
     /// <summary />
+    [Description("header")]
     Header,
 
     /// <summary />
+    [Description("footer")]
     Footer,
 
     /// <summary />
@@ -20,8 +22,10 @@ public enum LayoutArea
     Navigation,
 
     /// <summary />
+    [Description("content")]
     Content,
 
     /// <summary />
+    [Description("aside")]
     Aside,
 }
