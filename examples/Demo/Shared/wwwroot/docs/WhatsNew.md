@@ -1,9 +1,30 @@
-## V4.13.1
-
-- \[General\] Fix ADO pipelines ([#4227](https://github.com/microsoft/fluentui-blazor/pull/4227))  
-- \[Templates\] Fix .NET 10 Web App template ([#4242](https://github.com/microsoft/fluentui-blazor/pull/4242))  
+## V4.13.2
 
 ### General
+- [Chore] Use NET 10 GA SDK in ([#4279](https://github.com/microsoft/fluentui-blazor/pull/4279))
+- [Chore] Fix CodeQL in ([#4315](https://github.com/microsoft/fluentui-blazor/pull/4315))
+- [Chore] Configure Dependabot settings in ([#4320](https://github.com/microsoft/fluentui-blazor/pull/4320))
+- [Templates] Fix .net10 web app rename issue in ([#4310](https://github.com/microsoft/fluentui-blazor/pull/4310))
+- [Templates] Fix Client projects in Web App templates in ([#4328](https://github.com/microsoft/fluentui-blazor/pull/4328))
+- [Templates] Adjust _Imports include condition in ([#4329](https://github.com/microsoft/fluentui-blazor/pull/4329))
+
+### Components
+- [AccordionItem] Add HeadingTooltip parameter in ([#4306](https://github.com/microsoft/fluentui-blazor/pull/4306))
+- [Dialog] Fix error when module hasn't finished loading in ([#4324](https://github.com/microsoft/fluentui-blazor/pull/4324))
+- [Grid] Use more presice values for width percentages in ([#4299](https://github.com/microsoft/fluentui-blazor/pull/4299))
+- [SortableList] Handle JS errors in a better way in ([#4286](https://github.com/microsoft/fluentui-blazor/pull/4286))
+
+### Icons and Emoji
+- Update to Fluent UI System Icons 1.1.315
+    See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
+
+--------------
+
+## V4.13.1
+
+### General
+- \[General\] Fix ADO pipelines ([#4227](https://github.com/microsoft/fluentui-blazor/pull/4227))  
+- \[Templates\] Fix .NET 10 Web App template ([#4242](https://github.com/microsoft/fluentui-blazor/pull/4242))  
 
 ### Components
 - \[AutoComplete\] Override FocusAsync in FluentAutoComplete ([#4230](https://github.com/microsoft/fluentui-blazor/pull/4230))  
