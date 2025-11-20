@@ -115,14 +115,24 @@ class SplitPanels extends HTMLElement {
 
     this.addEventListener("pointermove", this.resizeDrag);
     this.addEventListener("pointerup", this.pointerup);
+    this.addEventListener("touchmove", this.touchmove);
+    this.addEventListener("touchend", this.pointerup);
   }
   pointerup() {
     this.isResizing = false;
     fireEvent(this, "splitterresized", { panel1size: this.#slot1size, panel2size: this.#slot2size });
     this.removeEventListener("pointermove", this.resizeDrag);
     this.removeEventListener("pointerup", this.pointerup);
+    this.removeEventListener("touchmove", this.touchmove);
+    this.removeEventListener("touchend", this.pointerup);
   }
-  resizeDrag(e: PointerEvent) {
+  touchmove(e: TouchEvent) {
+    if (e.touches.length > 0) {
+      const { clientX, clientY } = e.touches[0];
+      this.resizeDrag({ clientX, clientY });
+    }
+  }
+  resizeDrag(e: { clientX: number, clientY: number }) {
     if (this.direction === "row") {
       const newMedianStart = (document.body.dir === '' || document.body.dir === 'ltr') ? (e.clientX - this.left) : (this.right - e.clientX);
       const median = this.barsize;
