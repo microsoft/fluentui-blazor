@@ -376,6 +376,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // async query APIs that might be available. We have built-in support for using EF Core's async query APIs.
     private IAsyncQueryExecutor? _asyncQueryExecutor;
     private AsyncServiceScope? _scope;
+    private bool _asyncQueryExecuted;
 
     // We cascade the InternalGridContext to descendants, which in turn call it to add themselves to _columns
     // This happens on every render so that the column list can be updated dynamically
@@ -411,6 +412,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // things have changed, and to discard earlier load attempts that were superseded.
     private PaginationState? _lastRefreshedPaginationState;
     private IQueryable<TGridItem>? _lastAssignedItems;
+    private bool? _lastVirtualizationMode;
 
     private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
@@ -483,11 +485,22 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _lastAssignedItemsProvider = ItemsProvider;
             _lastAssignedItems = Items;
             _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(_scope.Value.ServiceProvider, Items);
+            _asyncQueryExecuted = false;
         }
 
         var paginationStateHasChanged =
             Pagination?.ItemsPerPage != _lastRefreshedPaginationState?.ItemsPerPage
             || Pagination?.CurrentPageIndex != _lastRefreshedPaginationState?.CurrentPageIndex;
+
+        if (_lastVirtualizationMode != Virtualize)
+        {
+            _lastVirtualizationMode = Virtualize;
+            _asyncQueryExecuted = false;
+        }
+        if (Loading == true && _asyncQueryExecutor is not null && _asyncQueryExecuted)
+        {
+            Loading = false; // switch to uncontrolled loading state after first IAsyncQueryExecutor completes
+        }
 
         var mustRefreshData = dataSourceHasChanged || paginationStateHasChanged || EffectiveLoadingValue;
 
@@ -865,7 +878,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
             }
-            if ((_internalGridContext.TotalItemCount > 0 && Loading is null) || _lastError != null)
+            if ((_internalGridContext.TotalItemCount > 0 && Loading != false) || _lastError != null)
             {
                 Loading = false;
                 StateHasChanged();
@@ -904,13 +917,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
             else if (Items is not null)
             {
-                if (_asyncQueryExecutor is not null)
-                {
-                    await OnItemsLoading.InvokeAsync(true);
-                }
-                var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
-                _internalGridContext.TotalItemCount = totalItemCount;
-                IQueryable<TGridItem>? result;
+                var result = Items;
                 if (RefreshItems is null)
                 {
                     result = request.ApplySorting(Items).Skip(request.StartIndex);
@@ -919,12 +926,24 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                         result = result.Take(request.Count.Value);
                     }
                 }
+                if (_asyncQueryExecutor is not null)
+                {
+                    await OnItemsLoading.InvokeAsync(true);
+                    var totalItemCount = await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
+                    var resultArray = await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
+
+                    Loading = false;
+                    _asyncQueryExecuted = true;
+                    _internalGridContext.TotalItemCount = totalItemCount;
+
+                    return GridItemsProviderResult.From(resultArray, totalItemCount);
+                }
                 else
                 {
-                    result = Items;
+                    var totalItemCount = Items.Count();
+                    _internalGridContext.TotalItemCount = totalItemCount;
+                    return GridItemsProviderResult.From([.. result], totalItemCount);
                 }
-                var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
-                return GridItemsProviderResult.From(resultArray, totalItemCount);
             }
         }
         catch (OperationCanceledException oce) when (oce.CancellationToken == request.CancellationToken)
@@ -939,11 +958,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             if (Items is not null && _asyncQueryExecutor is not null)
             {
-                if (Loading == true)
-                {
-                    Loading = false;
-                    StateHasChanged();
-                }
                 await OnItemsLoading.InvokeAsync(false);
             }
         }
