@@ -209,6 +209,9 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     [Parameter]
     public override IGridSort<TGridItem>? SortBy { get; set; }
 
+    [Parameter]
+    public IEqualityComparer<TGridItem>? Comparer { get; set; } = null;
+
     /// <summary>
     /// Allows to clear the selection.
     /// </summary>
@@ -296,14 +299,21 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     {
         if (item != null && (Selectable == null || Selectable.Invoke(item)))
         {
-            if (SelectMode is DataGridSelectMode.SingleSticky && _selectedItems.Contains(item))
+            if (_selectedItems.Contains(item, Comparer))
             {
-                return;
-            }
-
-            if (SelectedItems.Contains(item))
-            {
-                _selectedItems.Remove(item);
+                if (SelectMode is DataGridSelectMode.SingleSticky)
+                {
+                    return;
+                }
+                if (Comparer != null)
+                {
+                    var toRemove = _selectedItems.First(i => Comparer.Equals(i, item));
+                    _selectedItems.Remove(toRemove);
+                }
+                else
+                {
+                    _selectedItems.Remove(item);
+                }
                 SelectAll = false;
                 await CallOnSelectAsync(item, false);
             }
@@ -340,13 +350,12 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
 
     private async Task UpdateSelectedItemsAsync()
     {
-
-        if (!SelectedItems.Any() || InternalGridContext == null || InternalGridContext.Items == null)
+        if (_selectedItems.Count == 0 || InternalGridContext == null || InternalGridContext.Items == null)
         {
             return;
         }
 
-        var itemsToRemove = _selectedItems.Where(item => !InternalGridContext.Items.Contains(item)).ToList();
+        var itemsToRemove = _selectedItems.Where(item => !InternalGridContext.Items.Contains(item, Comparer)).ToList();
         foreach (var item in itemsToRemove)
         {
             await AddOrRemoveSelectedItemAsync(item);
@@ -414,15 +423,16 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
                 return;
             }
 
-            var selected = _selectedItems.Contains(item) || Property.Invoke(item);
+            var contained = _selectedItems.Contains(item, Comparer);
+            var selected = contained || Property.Invoke(item);
 
             // Sync with SelectedItems list
-            if (selected && !_selectedItems.Contains(item))
+            if (selected && !contained)
             {
                 _selectedItems.Add(item);
                 RefreshHeaderContent();
             }
-            else if (!selected && _selectedItems.Contains(item))
+            else if (!selected && contained)
             {
                 _selectedItems.Remove(item);
             }
@@ -508,23 +518,16 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
         // Using SelectedItems only
         if (InternalGridContext != null && (Grid.Items != null || Grid.ItemsProvider != null))
         {
-            if (!SelectedItems.Any())
+            if (_selectedItems.Count == 0)
             {
                 return false;
             }
-            else if (SelectedItems.Count() == InternalGridContext.TotalItemCount || SelectAll == true)
+            else if (_selectedItems.Count == InternalGridContext.TotalItemCount || SelectAll == true)
             {
                 return true;
             }
-            else
-            {
-                return null;
-            }
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     /// <inheritdoc />
@@ -555,13 +558,13 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
             await SelectAllChanged.InvokeAsync(SelectAll);
         }
 
-        var count = SelectedItems.Count();
         // SelectedItems
+        var count = _selectedItems.Count;
         _selectedItems.Clear();
         if (SelectAll == true && count != InternalGridContext.TotalItemCount)
         {
             // Only add selectable items
-            _selectedItems.AddRange((InternalGridContext.Grid.Items?.ToList() ?? InternalGridContext.Items)
+            _selectedItems.AddRange(InternalGridContext.Items
                 .Where(item => Selectable?.Invoke(item) ?? true)
             );
         }
