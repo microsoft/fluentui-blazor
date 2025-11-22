@@ -209,6 +209,12 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     [Parameter]
     public override IGridSort<TGridItem>? SortBy { get; set; }
 
+    /// <summary>
+    /// Gets or sets the equality comparer used to determine whether two grid items are equal.
+    /// </summary>
+    /// <remarks>If not set, the default equality comparer for <typeparamref name="TGridItem"/> is used.
+    /// Setting this property allows customization of how grid items are compared for equality, which can affect
+    /// operations such as selection, filtering, or updating items in the grid.</remarks>
     [Parameter]
     public IEqualityComparer<TGridItem>? Comparer { get; set; } = null;
 
