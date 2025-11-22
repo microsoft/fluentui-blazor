@@ -1,8 +1,9 @@
-﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.3804879">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.4110890">
   <PropertyGroup>
     <DebugAssetsDirectory>dist\</DebugAssetsDirectory>
     <StaticWebAssetSourceId>Microsoft.FluentUI.AspNetCore.Components</StaticWebAssetSourceId>
     <IsPackable>false</IsPackable>
+    <ShouldRunNpmAudit>false</ShouldRunNpmAudit>
     <BuildCommand>npm run build</BuildCommand>
     <CleanCommand>npm run clean</CleanCommand>
   </PropertyGroup>
