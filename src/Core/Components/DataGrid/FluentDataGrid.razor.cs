@@ -429,6 +429,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <inheritdoc />
+    [SuppressMessage("Design", "MA0042:Do not use blocking calls in an async method", Justification = "Usage okay for dispose")]
+    [SuppressMessage("Usage", "VSTHRD103:Call async methods when in an async method", Justification = "Usage okay for dispose")]
     protected override Task OnParametersSetAsync()
     {
         // The associated pagination state may have been added/removed/replaced
@@ -448,7 +450,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var dataSourceHasChanged = !Equals(ItemsProvider, _lastAssignedItemsProvider) || !ReferenceEquals(Items, _lastAssignedItems);
         if (dataSourceHasChanged)
         {
-            _ = Task.Run(() => _scope?.DisposeAsync());
+            _scope?.Dispose();
             _scope = ScopeFactory.CreateAsyncScope();
             _lastAssignedItemsProvider = ItemsProvider;
             _lastAssignedItems = Items;
