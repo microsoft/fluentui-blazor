@@ -8,7 +8,7 @@ To begin you'll need Git, .NET, and NodeJS (v22.x or higher) setup on your machi
 
 The `fluentui-blazor` repository uses Git as its source control system. If you haven't already installed it, you can download it [here](https://git-scm.com/downloads) or if you prefer a GUI-based approach, try [GitHub Desktop](https://desktop.github.com/).
 
-Once Git is installed, you'll also need .NET and NodeJS. Instructions and downloads for .NET on your preferred OS can be found [here](https://dotnet.microsoft.com/download). NodeJS can be found [here](https://nodejs.org). You need to install the 22.xx LTS version. 
+Once Git is installed, you'll also need .NET and NodeJS. Instructions and downloads for .NET on your preferred OS can be found [here](https://dotnet.microsoft.com/download). NodeJS can be found [here](https://nodejs.org). You need to install the 24.xx LTS version. 
 
 > [!IMPORTANT]
 > The above steps are a one-time setup for your machine and do not need to be repeated after the initial configuration.
@@ -34,6 +34,13 @@ From within the folder where you've cloned the repo, build the project with the 
 ```bash
 dotnet build
 ```
+
+### Debug external project
+
+Begin by cloning this repository locally. Next, remove the NuGet dependency on `Microsoft.FluentUI.AspNetCore.Components` from your external project. After that, right-click your solution and include the `Microsoft.FluentUI.AspNetCore.Components.csproj` file using _Add->Existing Project_. Lastly, reference the newly added project from within your existing project.
+
+> [!IMPORTANT]
+> The above steps do not work if your projects are located on a ReFS-formatted Dev Drive.
 
 ### Submitting a pull request
 
