@@ -7,6 +7,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -32,6 +33,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
     private IAsyncQueryExecutor? _asyncQueryExecutor;
+    private AsyncServiceScope? _scope;
+    private bool _asyncQueryExecuted;
     private readonly InternalGridContext<TGridItem> _internalGridContext;
     internal readonly List<ColumnBase<TGridItem>> _columns;
     private bool _collectingColumns;
@@ -50,6 +53,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private string? _internalGridTemplateColumns;
     private PaginationState? _lastRefreshedPaginationState;
     private IQueryable<TGridItem>? _lastAssignedItems;
+    private bool? _lastVirtualizationMode;
     private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
     private Exception? _lastError;
@@ -82,7 +86,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private NavigationManager NavigationManager { get; set; } = default!;
 
     [Inject]
-    private IServiceProvider Services { get; set; } = default!;
+    private IServiceScopeFactory ScopeFactory { get; set; } = default!;
 
     [Inject]
     private IKeyCodeService KeyCodeService { get; set; } = default!;
@@ -425,7 +429,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <inheritdoc />
-    protected override Task OnParametersSetAsync()
+    protected override async Task OnParametersSetAsync()
     {
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
@@ -444,9 +448,23 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var dataSourceHasChanged = !Equals(ItemsProvider, _lastAssignedItemsProvider) || !ReferenceEquals(Items, _lastAssignedItems);
         if (dataSourceHasChanged)
         {
+            await (_scope?.DisposeAsync() ?? default);
+            _scope = ScopeFactory.CreateAsyncScope();
             _lastAssignedItemsProvider = ItemsProvider;
             _lastAssignedItems = Items;
-            _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(Services, Items);
+            _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(_scope.Value.ServiceProvider, Items);
+            _asyncQueryExecuted = false;
+        }
+
+        if (_lastVirtualizationMode != Virtualize)
+        {
+            _lastVirtualizationMode = Virtualize;
+            _asyncQueryExecuted = false;
+        }
+
+        if (Loading == true && _asyncQueryExecutor is not null && _asyncQueryExecuted)
+        {
+            Loading = false; // switch to uncontrolled loading state after first IAsyncQueryExecutor completes
         }
 
         var paginationStateHasChanged =
@@ -458,7 +476,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
         // to have to re-query immediately
-        return (_columns.Count > 0 && mustRefreshData) ? RefreshDataCoreAsync() : Task.CompletedTask;
+        if (_columns.Count > 0 && mustRefreshData)
+        {
+            await RefreshDataCoreAsync();
+        }
     }
 
     /// <inheritdoc />
@@ -840,7 +861,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
             }
 
-            if ((_internalGridContext.TotalItemCount > 0 && Loading is null) || _lastError != null)
+            if ((_internalGridContext.TotalItemCount > 0 && Loading != false) || _lastError != null)
             {
                 Loading = false;
                 _ = InvokeAsync(StateHasChanged);
@@ -858,9 +879,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     // Normalizes all the different ways of configuring a data source so they have common GridItemsProvider-shaped API
+    [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Not going to do artificial optimization because of some random arbitrary determined line count number")]
     private async ValueTask<GridItemsProviderResult<TGridItem>> ResolveItemsRequestAsync(GridItemsProviderRequest<TGridItem> request)
     {
-        CheckAndResetLastError();
+        if (_lastError != null)
+        {
+            _lastError = null;
+            StateHasChanged();
+        }
+
         try
         {
             if (ItemsProvider is not null)
@@ -877,14 +904,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
             if (Items is not null)
             {
-                if (_asyncQueryExecutor is not null)
-                {
-                    await OnItemsLoading.InvokeAsync(true);
-                }
-
-                var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
-                _internalGridContext.TotalItemCount = totalItemCount;
-                IQueryable<TGridItem>? result;
+                var result = Items;
                 if (RefreshItems is null)
                 {
                     result = request.ApplySorting(Items).Skip(request.StartIndex);
@@ -893,13 +913,25 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                         result = result.Take(request.Count.Value);
                     }
                 }
+
+                if (_asyncQueryExecutor is not null)
+                {
+                    await OnItemsLoading.InvokeAsync(true);
+                    var totalItemCount = await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
+                    var resultArray = await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
+
+                    Loading = false;
+                    _asyncQueryExecuted = true;
+                    _internalGridContext.TotalItemCount = totalItemCount;
+
+                    return GridItemsProviderResult.From(resultArray, totalItemCount);
+                }
                 else
                 {
-                    result = Items;
+                    var totalItemCount = Items.Count();
+                    _internalGridContext.TotalItemCount = totalItemCount;
+                    return GridItemsProviderResult.From([.. result], totalItemCount);
                 }
-
-                var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
-                return GridItemsProviderResult.From(resultArray, totalItemCount);
             }
         }
         catch (OperationCanceledException oce) when (oce.CancellationToken == request.CancellationToken) // No-op; we canceled the operation, so it's fine to suppress this exception.
@@ -913,30 +945,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             if (Items is not null && _asyncQueryExecutor is not null)
             {
-                CheckAndResetLoading();
                 await OnItemsLoading.InvokeAsync(false);
             }
         }
 
         return GridItemsProviderResult.From(Array.Empty<TGridItem>(), 0);
-    }
-
-    private void CheckAndResetLoading()
-    {
-        if (Loading == true)
-        {
-            Loading = false;
-            StateHasChanged();
-        }
-    }
-
-    private void CheckAndResetLastError()
-    {
-        if (_lastError != null)
-        {
-            _lastError = null;
-            StateHasChanged();
-        }
     }
 
     private string AriaSortValue(ColumnBase<TGridItem> column)
@@ -984,6 +997,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public override ValueTask DisposeAsync()
     {
         _currentPageItemsChanged.Dispose();
+        _scope?.Dispose();
+
         return base.DisposeAsync();
     }
 

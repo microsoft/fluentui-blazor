@@ -76,8 +76,6 @@
         Assert.Single(SelectedItems);
     }
 
-
-
     [Fact]
     public async Task SelectColumnTests_Selectable_SingleSelect_SelectedItems()
     {
@@ -1099,7 +1097,7 @@
         // Arrange
         bool selectAllCalled = false;
         var people = People.ToList();
-        
+
         var selectColumn = new SelectColumn<Person>
         {
             SelectMode = DataGridSelectMode.Single,
@@ -1243,6 +1241,58 @@
         // Assert
         Assert.Single(selectColumn.SelectedItems);
         Assert.Equal(people[0], selectColumn.SelectedItems.First());
+    }
+
+	// Add a test to cover the Comparer property
+	[Fact]
+	public void SelectColumnTests_Comparer_Property()
+	{
+		// Arrange
+		var selectColumn = new SelectColumn<Person>();
+		// Act
+		var comparer = EqualityComparer<Person>.Create((x, y) => x!.PersonId == y!.PersonId, x => x.PersonId.GetHashCode());
+		selectColumn.Comparer = comparer;
+		// Assert
+		Assert.Equal(comparer, selectColumn.Comparer);
+	}
+
+	[Fact]
+    public async Task SelectColumnTests_SingleSelect_SelectedItemsWithComparer()
+    {
+        IEnumerable<Person> SelectedItems = new List<Person>();
+
+		IQueryable<Person> People = new[]
+		{
+			new Person(1, "Jean Martin", new DateOnly(1985, 3, 16)),
+			new Person(2, "Jean Martin", new DateOnly(1985, 3, 16)),
+			new Person(3, "Julie Smith", new DateOnly(1958, 10, 10)),
+		}.AsQueryable();
+
+        // Arrange
+        var cut = Render(
+			@<FluentDataGrid Items="@People" TGridItem="Person">
+				<SelectColumn TGridItem="Person"
+							  SelectMode="@DataGridSelectMode.Single"
+							  Comparer = "@(EqualityComparer<Person>.Create((x, y) => x!.PersonId == y!.PersonId, x => x.PersonId.GetHashCode()))"
+							  @bind-SelectedItems="@SelectedItems"
+							  Tooltip="true"/>
+				<PropertyColumn Property="@(p => p.Name)" />
+			</FluentDataGrid>
+		);
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+
+        // Act - Click and select Row 1
+        await ClickOnRowAsync(cut, row: 0);
+
+        Assert.Empty(SelectedItems);
     }
 
 #pragma warning restore BL0005

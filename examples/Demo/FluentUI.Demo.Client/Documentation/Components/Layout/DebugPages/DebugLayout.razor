@@ -16,14 +16,14 @@
     </FluentStack>
 
     <div style="resize: horizontal; overflow: hidden;">
-        <FluentLayout GlobalScrollbar="@GlobalScrollbar" Height="400px" Style="@CommonStyles.NeutralBorder1" OnBreakpointEnter="@(e => MobileView = e)" MenuDeferredLoading="@MenuDeferredLoading">
+        <FluentLayout GlobalScrollbar="@GlobalScrollbar" Height="400px" Style="@CommonStyles.NeutralBorder1" OnBreakpointEnter="@(e => MobileView = e)" NavigationDeferredLoading="@NavigationDeferredLoading">
 
             @if (Header.Visible)
             {
                 <!-- Header -->
                 <FluentLayoutItem Area="@LayoutArea.Header" Sticky="@Header.Sticky">
 
-                    <!-- Hamburger menu -->
+                    <!-- Hamburger -->
                     <FluentLayoutHamburger OnOpened="@(e => Opened = e.Opened)"
                                            ChildContent="@(string.IsNullOrWhiteSpace(HamburgerContent) ? null : builder => { builder.AddMarkupContent(0, HamburgerContent); })" />
 
@@ -35,17 +35,17 @@
                         Sign in
                     </FluentButton>
 
-                    <!-- Second Hamburger menu -->
+                    <!-- Second Hamburger -->
                     <FluentLayoutHamburger OnOpened="@(e => Opened = e.Opened)"
                                            ChildContent="@(string.IsNullOrWhiteSpace(HamburgerContent) ? null : builder => { builder.AddMarkupContent(0, HamburgerContent); })" />
 
                 </FluentLayoutItem>
             }
 
-            @if (Menu.Visible)
+            @if (Navigation.Visible)
             {
-                <!-- Menu -->
-                <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky"
+                <!-- Navigation -->
+                <FluentLayoutItem Area="@LayoutArea.Navigation" Sticky="@Navigation.Sticky"
                                   Width="150px" Padding="@Padding.All2"
                                   Style="border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
 
@@ -110,8 +110,8 @@
                     <td><InputCheckbox @bind-Value="@(GlobalScrollbar)" /></td>
                 </tr>
                 <tr>
-                    <td>Menu Deferred Loading</td>
-                    <td><InputCheckbox @bind-Value="@(MenuDeferredLoading)" /></td>
+                    <td>Navigation Deferred Loading</td>
+                    <td><InputCheckbox @bind-Value="@(NavigationDeferredLoading)" /></td>
                 </tr>
                 <tr>
                     <td>Header</td>
@@ -119,9 +119,9 @@
                     <td><InputCheckbox @bind-Value="@(Header.Sticky)" /></td>
                 </tr>
                 <tr>
-                    <td>Menu</td>
-                    <td><InputCheckbox @bind-Value="@(Menu.Visible)" /></td>
-                    <td><InputCheckbox @bind-Value="@(Menu.Sticky)" /></td>
+                    <td>Navigation</td>
+                    <td><InputCheckbox @bind-Value="@(Navigation.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Navigation.Sticky)" /></td>
                 </tr>
                 <tr>
                     <td>Content</td>

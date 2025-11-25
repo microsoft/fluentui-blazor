@@ -6,14 +6,14 @@ route: /Layout
 # Layout
 
 `FluentLayout` is a component that defines a layout for a page, using a grid composed of a **Header**, a **Footer**
-and 3 columns: **Menu**, **Content** and **Aside** panes.
+and 3 columns: **Navigation**, **Content** and **Aside** panes.
 
 <table class="layout-schema">
   <tr>
     <td colspan="3">Header</td>
   </tr>
   <tr>
-    <td>Menu</td>
+    <td>Navigation</td>
     <td style="width: 100%; height: 60px;">Content</td>
     <td>Aside</td>
   <tr>
@@ -21,7 +21,7 @@ and 3 columns: **Menu**, **Content** and **Aside** panes.
   </tr>
 </table>
 
-For mobile devices (< 768px), the layout is a single column with the **Menu**, the **Content** and the **Footer** panes stacked vertically.
+For mobile devices (< 768px), the layout is a single column with the **Navigation**, the **Content** and the **Footer** panes stacked vertically.
 
 <table class="layout-schema">
   <tr>
@@ -43,23 +43,23 @@ using the [@container](https://developer.mozilla.org/en-US/docs/Web/CSS/@contain
 Each time the breakpoint is reached, the layout will be updated to reflect the new layout, and the event `OnBreakpointEnter` will be triggered.
 
 [!TIP] The `FluentLayout` component can be used with a Blazor static web app or a Blazor interactive app.
-The hamburger menu is available in all modes, but the event `OnBreakpointEnter` and the `MenuDeferredLoading` parameter are only available in "interactive mode".
+The hamburger Navigation is available in all modes, but the event `OnBreakpointEnter` and the `NavigationDeferredLoading` parameter are only available in "interactive mode".
 
 ## Sticky Panels
 
   All panels (except `Content`) can be fixed using the `Sticky` parameter.  
   In this case, the panel remains fixed when the page is scrolled.
 
-## Hamburger Menu
+## Hamburger Navigation
 
-  **On mobile device only** (<768 px) the **Menu** pane will be collapsed into a hamburger menu.
+  **On mobile device only** (<768 px) the **Navigation** pane will be collapsed into a hamburger Navigation.
   The hamburger button is displayed when the screen width is less than 768px.
 
   💡 You can "force" the visibility of the hamburger button using
   the `FluentLayoutHamburger.Visible="true"` parameter.
 
-  By default, on mobile, the menu is hidden and a hamburger button is displayed to make it appear or disappear.
-  or make it disappear. Once displayed, this menu takes a large part of the screen width.
+  By default, on mobile, the Navigation is hidden and a hamburger button is displayed to make it appear or disappear.
+  or make it disappear. Once displayed, this Navigation takes a large part of the screen width.
   This is configurable using the `FluentLayoutHamburger.PanelSize` parameter.
 
   To use this Hamburger icon, you need to add the `FluentLayoutHamburger` component to the **Header**.
@@ -72,7 +72,7 @@ The hamburger menu is available in all modes, but the event `OnBreakpointEnter` 
   ```
 
 When you have navigation elements that can be used from the **FluentLayoutHamburger**, you must intercept
-these elements to close/hide the **Hamburger** menu when you want to. For example
+these elements to close/hide the **Hamburger** Navigation when you want to. For example
 
 ```razor
 @inject NavigationManager NavigationManager
@@ -98,17 +98,17 @@ these elements to close/hide the **Hamburger** menu when you want to. For exampl
 }
 ```
 
-## Customized Hamburger Menu
+## Customized Hamburger Navigation
 
-By default, the hamburger menu contains the **Menu** FluentLayoutItem.
-This hamburger menu can be customized using some parameters like the `ChildContent` for the panel content,
+By default, the hamburger Navigation contains the **Navigation** FluentLayoutItem.
+This hamburger Navigation can be customized using some parameters like the `ChildContent` for the panel content,
 the `PanelHeader` for the header/title content, the `PanelSize` for the panel width and the `PanelPosition` for the panel position (left or right).
 
-If `ChildContent` is not defined, the menu content will be used.
-It is then generated **twice** in the HTML code, once for the menu and once for the hamburger panel.
-If your menu is very large, it is best to set the `FluentLayout.MenuDeferredLoading` parameter to `true`.
-In this case, Blazor will generate the content in the menu area in Desktop mode and then remove it from the DOM to place it in the hamburger panel in mobile mode.
-This parameter `MenuDeferredLoading` is only available in Blazor "interactive mode".
+If `ChildContent` is not defined, the Navigation content will be used.
+It is then generated **twice** in the HTML code, once for the Navigation and once for the hamburger panel.
+If your Navigation is very large, it is best to set the `FluentLayout.NavigationDeferredLoading` parameter to `true`.
+In this case, Blazor will generate the content in the Navigation area in Desktop mode and then remove it from the DOM to place it in the hamburger panel in mobile mode.
+This parameter `NavigationDeferredLoading` is only available in Blazor "interactive mode".
 
 ## Example
 

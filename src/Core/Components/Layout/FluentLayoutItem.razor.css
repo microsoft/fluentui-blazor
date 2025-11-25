@@ -31,15 +31,15 @@
     z-index: var(--zindex-layout-footer);
   }
 
-  .fluent-layout-item[area="menu"] {
+  .fluent-layout-item[area="nav"] {
     background-color: var(--colorNeutralBackground2);
     left: 0;
     overflow-y: auto;
     top: 0;
-    z-index: var(--zindex-layout-menu);
+    z-index: var(--zindex-layout-nav);
   }
 
-    .fluent-layout-item[area="menu"][sticky] {
+    .fluent-layout-item[area="nav"][sticky] {
       height: fit-content;
     }
 
