@@ -141,7 +141,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
     protected override async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
 
-        if (e.Value is not null && Items is not null)
+        if (e.Value is not null && Items is not null )
         {
             var value = e.Value.ToString();
             var item = Items.FirstOrDefault(i => GetOptionText(i) == value);
@@ -171,7 +171,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
         }
         else
         {
-            return null;
+            return Value;
         }
     }
 
