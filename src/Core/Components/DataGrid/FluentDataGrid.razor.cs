@@ -429,9 +429,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <inheritdoc />
-    [SuppressMessage("Design", "MA0042:Do not use blocking calls in an async method", Justification = "Usage okay for dispose")]
-    [SuppressMessage("Usage", "VSTHRD103:Call async methods when in an async method", Justification = "Usage okay for dispose")]
-    protected override Task OnParametersSetAsync()
+    protected override async Task OnParametersSetAsync()
     {
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
@@ -450,7 +448,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var dataSourceHasChanged = !Equals(ItemsProvider, _lastAssignedItemsProvider) || !ReferenceEquals(Items, _lastAssignedItems);
         if (dataSourceHasChanged)
         {
-            _scope?.Dispose();
+            await (_scope?.DisposeAsync() ?? default);
             _scope = ScopeFactory.CreateAsyncScope();
             _lastAssignedItemsProvider = ItemsProvider;
             _lastAssignedItems = Items;
@@ -478,7 +476,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
         // to have to re-query immediately
-        return (_columns.Count > 0 && mustRefreshData) ? RefreshDataCoreAsync() : Task.CompletedTask;
+        if (_columns.Count > 0 && mustRefreshData)
+        {
+            await RefreshDataCoreAsync();
+        }
     }
 
     /// <inheritdoc />
