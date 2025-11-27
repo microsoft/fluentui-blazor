@@ -58,7 +58,7 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
     /// Gets or sets a value indicating whether the overlay is visible.
     /// </summary>
     [Parameter]
-    public bool Visible { get; set; } = false;
+    public bool Visible { get; set; }
 
     /// <summary>
     /// Callback for when overlay visibility changes.
