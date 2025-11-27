@@ -31,12 +31,13 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
     private IJSObjectReference? _jsModule { get; set; }
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder("fluent-overlay")
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-overlay")
         .AddClass("prevent-scroll", PreventScroll)
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("cursor", "auto", () => Transparent)
         .AddStyle("background-color", string.Create(CultureInfo.InvariantCulture, $"rgba({_r}, {_g}, {_b}, {Opacity})"), () => !Transparent)
         .AddStyle("cursor", "default", () => !Transparent)
