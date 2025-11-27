@@ -17,8 +17,9 @@ export namespace Microsoft.FluentUI.Blazor.Overlay {
 
       // Click event handler
       clickHandler: async function (event: MouseEvent) {
-        const isInsideContainer = isClickInsideContainer(event, document.getElementById(containerId));
-        const isInsideExcludedElement = !!document.getElementById(id) && isClickInsideContainer(event, document.getElementById(id));
+        const containerElement = document.getElementById(containerId) as HTMLElement;
+        const isInsideContainer = isClickInsideContainer(event, containerElement);
+        const isInsideExcludedElement = !!containerElement && isClickInsideContainer(event, containerElement);
 
         if (isInsideContainer && !isInsideExcludedElement) {
           dotNetHelper.invokeMethodAsync('OnCloseInteractiveAsync', event);
@@ -41,7 +42,7 @@ export namespace Microsoft.FluentUI.Blazor.Overlay {
       delete _document.fluentOverlayData[id];
     }
   }
-  function isClickInsideContainer(event: MouseEvent, container: any) {
+  function isClickInsideContainer(event: MouseEvent, container: HTMLElement) {
     if (!!container) {
       const rect = container.getBoundingClientRect();
 
