@@ -4,15 +4,14 @@
               OptionValue="@(c => c.ToAttributeValue())"
               TOption="JustifyContent"
               Placeholder="Test"
-              @bind-SelectedOption="@justification" />
-<p>Value: @alignment.ToAttributeValue()</p>
+              @bind-Value="@justification" />
 
 <FluentSelect Items=@(Enum.GetValues<HorizontalAlignment>())
               OptionValue="@(c => c.ToAttributeValue())"
               TOption="HorizontalAlignment"
               Placeholder="Test"
-              @bind-SelectedOption="@alignment" />
-<p>Value: @alignment.ToAttributeValue()</p>
+              @bind-Value="@alignment" />
+
 <br />
 <br />
 
