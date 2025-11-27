@@ -1,0 +1,31 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+
+<FluentSelect Items=@(Enum.GetValues<JustifyContent>())
+              OptionValue="@(c => c.ToAttributeValue())"
+              TOption="JustifyContent"
+              Position="SelectPosition.Below"
+@bind-SelectedOption="@justification" />
+
+<FluentSelect Items=@(Enum.GetValues<HorizontalAlignment>())
+              OptionValue="@(c => c.ToAttributeValue())"
+              TOption="HorizontalAlignment"
+              Position="SelectPosition.Below"
+@bind-SelectedOption="@alignment" />
+<br />
+<br />
+
+
+<FluentButton Appearance="ButtonAppearance.Primary" @onclick="() => visible = !visible">Show Overlay</FluentButton>
+
+<FluentOverlay @bind-Visible=@visible
+               Transparent="false"
+               Alignment="@alignment"
+               Justification="@justification">
+    <FluentProgressRing />
+</FluentOverlay>
+
+@code {
+    bool visible = false;
+    JustifyContent justification = JustifyContent.Center;
+    HorizontalAlignment alignment = HorizontalAlignment.Center;
+}
