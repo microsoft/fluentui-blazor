@@ -58,11 +58,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Remove="components\overlay\FluentOverlay.razor.ts" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
@@ -80,7 +75,7 @@
 
   <!-- Dependencies -->
   <ItemGroup>
-	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Http" />
@@ -89,9 +84,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <ProjectReference Include="..\Core.Scripts\Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj" PrivateAssets="All" />
   </ItemGroup>
 
@@ -126,7 +121,7 @@
     </ItemGroup>
 
     <!-- Log before modification -->
-    <Message Importance="normal" Text="Found @(_ContentWithAbsolutePaths-&gt;Count()) Content items with absolute paths to normalize" />
+    <Message Importance="normal" Text="Found @(_ContentWithAbsolutePaths->Count()) Content items with absolute paths to normalize" />
 
     <!-- Remove the items with absolute paths -->
     <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">

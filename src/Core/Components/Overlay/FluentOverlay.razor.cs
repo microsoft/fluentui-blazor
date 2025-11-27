@@ -16,7 +16,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentOverlay : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Overlay/FluentOverlay.razor.js";
-    private const string DEFAULT_NEUTRAL_COLOR = "#808080";
 
     private string? _color;
     private int _r, _g, _b;
@@ -130,7 +129,7 @@ public partial class FluentOverlay : FluentComponentBase
     /// Default NeutralBaseColor token value (#808080).
     /// </summary>
     [Parameter]
-    public string? BackgroundColor { get; set; }
+    public string BackgroundColor { get; set; } = "#808080";
 
     /// <summary />
     [Parameter]
@@ -175,8 +174,6 @@ public partial class FluentOverlay : FluentComponentBase
         {
             Transparent = false;
         }
-
-        BackgroundColor ??= DEFAULT_NEUTRAL_COLOR;
 
         if (!CheckRGBString().IsMatch(BackgroundColor))
         {
