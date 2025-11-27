@@ -55,6 +55,15 @@
             Gets or sets a callback when a accordion item is changed.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.Owner">
             <summary>
             Gets or sets the owning FluentTreeView.
@@ -72,6 +81,11 @@
             Gets or sets the heading content of the accordion item.
             Use either this or the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.Heading"/> parameter."/>
             If both are set, this parameter will not be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.HeadingTooltip">
+            <summary>
+            Gets or sets the tooltip for the heading of the accordion item.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.Expanded">
@@ -1779,6 +1793,14 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SortBy">
             <inheritdoc />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.Comparer">
+            <summary>
+            Gets or sets the equality comparer used to determine whether two grid items are equal.
+            </summary>
+            <remarks>If not set, the default equality comparer for <typeparamref name="TGridItem"/> is used.
+            Setting this property allows customization of how grid items are compared for equality, which can affect
+            operations such as selection, filtering, or updating items in the grid.</remarks>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.ClearSelection">
             <summary>
@@ -9125,6 +9147,9 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Module">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ItemTemplate">

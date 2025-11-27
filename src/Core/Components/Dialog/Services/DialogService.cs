@@ -2,8 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -30,12 +30,12 @@ public partial class DialogService : IDialogService
     /// <returns></returns>
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback) => EventCallback.Factory.Create(receiver, callback);
 
-    public Task CloseAsync(DialogReference dialog)
+    public Task CloseAsync(IDialogReference dialog)
     {
         return CloseAsync(dialog, DialogResult.Ok<object?>(null));
     }
 
-    public Task CloseAsync(DialogReference dialog, DialogResult result)
+    public Task CloseAsync(IDialogReference dialog, DialogResult result)
     {
         OnDialogCloseRequested?.Invoke(dialog, result);
         return Task.CompletedTask;

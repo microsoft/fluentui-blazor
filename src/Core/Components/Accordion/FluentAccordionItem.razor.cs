@@ -3,11 +3,26 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentAccordionItem : FluentComponentBase, IDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Accordion/FluentAccordionItem.razor.js";
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
+
     /// <summary>
     /// Gets or sets the owning FluentTreeView.
     /// </summary>
@@ -29,6 +44,12 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public RenderFragment? HeadingTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the tooltip for the heading of the accordion item.
+    /// </summary>
+    [Parameter]
+    public string? HeadingTooltip { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the item is expanded or collapsed.
@@ -63,6 +84,18 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     protected override void OnInitialized()
     {
         Owner?.Register(this);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (HeadingTooltip != null && !string.IsNullOrEmpty(Id))
+            {
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "title", HeadingTooltip);
+            }
+        }
     }
 
     private async Task HandleOnAccordionItemChangedAsync(AccordionChangeEventArgs args)

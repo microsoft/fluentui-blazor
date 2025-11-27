@@ -141,7 +141,7 @@ extends:
           displayName: 'Install .NET 10.0'
           inputs:
             version: 10.0.x
-            includePreviewVersions: true
+            includePreviewVersions: false
 
         # Set version number (exclude some folders)
         - task: PowerShell@2

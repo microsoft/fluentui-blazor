@@ -38,11 +38,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Update TargetFrameworks to net9.0
+      shell: pwsh
+      run: |
+        .\.github\workflows\update-target-frameworks.ps1 -newTarget "net9.0"
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 10.0.x
-        dotnet-quality: preview
+        dotnet-version: 9.0.x
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
@@ -52,7 +56,7 @@ jobs:
     - if: matrix.language == 'csharp'
       name: Manually build CSharp on .NET
       run: |
-        dotnet build Microsoft.FluentUI.sln
+        dotnet build Microsoft.FluentUI.sln -c Release
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3

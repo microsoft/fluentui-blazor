@@ -1,18 +1,12 @@
 {
-    "$schema": "https://json.schemastore.org/dotnetcli.host",
+    "$schema": "http://json.schemastore.org/dotnetcli.host",
     "symbolInfo": {
       "Framework": {
         "longName": "framework"
       },
-      "AspireVersionCli": {
+      "AspireVersion": {
         "shortName": "",
         "longName": "aspire-version"
-      },
-      "AspireVersion": {
-        "isHidden": true
-      },
-      "AspireVersionNet9": {
-        "isHidden": true
       },
       "XUnitVersion": {
         "shortName": "",
@@ -29,6 +23,12 @@
         "isHidden": true
       },
       "appHostOtlpHttpsPort": {
+        "isHidden": true
+      },
+      "appHostMcpHttpPort": {
+        "isHidden": true
+      },
+      "appHostMcpHttpsPort": {
         "isHidden": true
       },
       "appHostResourceHttpPort": {
@@ -60,6 +60,10 @@
       "TestFx": {
         "longName": "test-framework",
         "shortName": "t"
+      },
+      "LocalhostTld": {
+        "longName": "localhost-tld",
+        "shortName": ""
       }
     },
     "usageExamples": [

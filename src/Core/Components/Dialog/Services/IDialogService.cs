@@ -8,9 +8,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial interface IDialogService
 {
-    Task CloseAsync(DialogReference dialog);
+    Task CloseAsync(IDialogReference dialog);
 
-    Task CloseAsync(DialogReference dialog, DialogResult result);
+    Task CloseAsync(IDialogReference dialog, DialogResult result);
 
     /// <summary>
     /// An event that will be invoked when showing a dialog with a custom component
