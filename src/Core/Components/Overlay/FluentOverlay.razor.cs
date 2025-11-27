@@ -247,10 +247,7 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
     /// <summary />
     protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        if (Interactive)
-        {
-            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overlay.overlayDispose", InteractiveExceptId);
-        }
+        await InvokeOverlayDisposeAsync();
     }
 
     /// <summary />
