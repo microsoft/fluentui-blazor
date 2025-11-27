@@ -57,6 +57,10 @@
     <None Include="**\*.ts" />
   </ItemGroup>
 
+  <ItemGroup>
+    <TypeScriptCompile Remove="components\overlay\FluentOverlay.razor.ts" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

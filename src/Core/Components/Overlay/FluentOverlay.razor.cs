@@ -15,7 +15,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
 {
-    private readonly string _defaultId = Identifier.NewId();
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Menu/FluentOverlay.razor.js";
+
     private string? _color;
     private int _r, _g, _b;
 
@@ -25,10 +26,10 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
     private DotNetObjectReference<FluentOverlay>? _dotNetHelper;
 
     /// <summary />
-    public FluentOverlay(LibraryConfiguration configuration) : base(configuration) { }
-
-    /// <summary />
-    private IJSObjectReference? _jsModule { get; set; }
+    public FluentOverlay(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -143,27 +144,25 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (Interactive)
+        if (firstRender)
         {
-            if (string.IsNullOrEmpty(Id))
-            {
-                Id = _defaultId;
-            }
+            // Import the JavaScript module
+            _dotNetHelper ??= DotNetObjectReference.Create(this);
+            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
-            if (Visible)
+            if (Interactive)
             {
-                // Add a document.addEventListener when Visible is true
-                await InvokeOverlayInitializeAsync();
-            }
-            else
-            {
-                // Remove a document.addEventListener when Visible is false
-                await InvokeOverlayDisposeAsync();
+                var containerId = FullScreen ? null : Id;
+                await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overlay.Initialize", _dotNetHelper, containerId, InteractiveExceptId);
             }
         }
+    }
 
+    /// <summary />
+    protected override async Task OnParametersSetAsync()
+    {
         if (!Transparent && Opacity is null)
         {
             Opacity = 0.4;
@@ -207,7 +206,7 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
         }
 
         // Remove the document.removeEventListener
-        await InvokeOverlayDisposeAsync();
+        //await InvokeOverlayDisposeAsync();
 
         // Close the overlay
         await OnCloseInternalHandlerAsync(e);
@@ -240,47 +239,12 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
         }
     }
 
-    /// <summary>
-    /// Disposes the overlay.
-    /// </summary>
-    /// <returns></returns>
-    public override async ValueTask DisposeAsync()
-    {
-        await base.DisposeAsync();
-
-        try
-        {
-            await InvokeOverlayDisposeAsync();
-
-            if (_jsModule != null)
-            {
-                await _jsModule.DisposeAsync();
-            }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
-        }
-    }
-
     /// <summary />
-    private async Task InvokeOverlayInitializeAsync()
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        _dotNetHelper ??= DotNetObjectReference.Create(this);
-        //_jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-
-        //var containerId = FullScreen ? null : Id;
-        //await _jsModule.InvokeVoidAsync("overlayInitialize", _dotNetHelper, containerId, InteractiveExceptId);
-    }
-
-    /// <summary />
-    private async Task InvokeOverlayDisposeAsync()
-    {
-        if (_jsModule != null && Interactive)
+        if (Interactive)
         {
-            await _jsModule.InvokeVoidAsync("overlayDispose", InteractiveExceptId);
+            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overlay.overlayDispose", InteractiveExceptId);
         }
     }
 
