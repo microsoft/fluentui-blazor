@@ -3,18 +3,15 @@
 <FluentSelect Items=@(Enum.GetValues<JustifyContent>())
               OptionValue="@(c => c.ToAttributeValue())"
               TOption="JustifyContent"
-              Placeholder="Test"
               @bind-Value="@justification" />
 
 <FluentSelect Items=@(Enum.GetValues<HorizontalAlignment>())
               OptionValue="@(c => c.ToAttributeValue())"
               TOption="HorizontalAlignment"
-              Placeholder="Test"
               @bind-Value="@alignment" />
 
 <br />
 <br />
-
 
 <FluentButton Appearance="ButtonAppearance.Primary" @onclick="ShowOverlay">Show Overlay</FluentButton>
 
