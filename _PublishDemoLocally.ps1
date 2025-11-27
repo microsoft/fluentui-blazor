@@ -77,17 +77,15 @@ if (Test-Path $globalJsonPath) {
     Write-Host "👉 Backing up existing global.json file..." -ForegroundColor Yellow
     Copy-Item -Path $globalJsonPath -Destination $globalJsonBackupPath -Force
     Remove-Item -Path $globalJsonPath -Force
-    # store that we need to restore it later
     $restoreGlobalJson = $true
 }
 
-# If a 'global.json.local' file exists, rename it to 'global.json'
+# If a 'global.json.local' file exists, copy it to 'global.json'
 $globalJsonLocalPath = "./global.json.local"
 if (Test-Path $globalJsonLocalPath) {
-    Write-Host "👉 Using specific global.json for this publish..." -ForegroundColor Yellow
-    Rename-Item -Path $globalJsonLocalPath -NewName "global.json"
-    # store that we need to restore it later
-    $restoreGlobalJsonLocal = $true
+    Write-Host "👉 Using specific global.json for publish..." -ForegroundColor Yellow
+    Copy-Item -Path $globalJsonLocalPath -Destination "./global.json" -Force
+    $deleteLocalGlobalJson = $true
 }
 
 #search through all .csproj files and replace <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks> with <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
@@ -112,7 +110,7 @@ foreach ($file in $csprojFiles) {
 # Search through Directory.Packages.props and replace the following package version from 4.14.0 to 4.13.0 for the following packages:
 # - Microsoft.CodeAnalysis.Analyzers
 # - Microsoft.CodeAnalysis.CSharp
-Write-Host "👉 Setting CodeAnalasys packages versions to 4.13.0..." -ForegroundColor Yellow
+Write-Host "👉 Setting CodeAnalysis packages versions to 4.13.0..." -ForegroundColor Yellow
 $directoryPackagesFile = "./Directory.Packages.props"
 if (Test-Path $directoryPackagesFile) {
     $originalContent = Get-Content $directoryPackagesFile -Raw
@@ -127,10 +125,12 @@ if (Test-Path $directoryPackagesFile) {
 
 
 # Publish the demo
+Write-Host ""
 Write-Host "👉 Publishing demo..." -ForegroundColor Yellow
 dotnet publish "./examples/Demo/Client/FluentUI.Demo.Client.csproj" -c Release -o "./examples/Demo/Client/bin/Publish" -f $dotnetVersion -r linux-x64 --self-contained=true -p:BuildNumber=$buildNumber
 
 # Verify that the bundle JS file has the expected size
+Write-Host ""
 Write-Host "👉 Verifying bundle JS file size..." -ForegroundColor Yellow
 $bundleFilePath = "./examples/Demo/Client/bin/Publish/wwwroot/_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js.br"
 
@@ -151,14 +151,23 @@ if (Test-Path $bundleFilePath) {
     Write-Host "⛔ This may indicate a build issue with the JS bundle generation." -ForegroundColor Red
     exit 1
 }
-
+Write-Host ""
 Write-Host "✅ Demo publish process completed successfully!" -ForegroundColor Green
+Write-Host ""
 
-Write-Host "👉 You can deploy to Azure using a command like:" -ForegroundColor Green
-Write-Host "▶️ swa deploy --output-location ./examples/Demo/Client/bin/Publish/wwwroot --env production --deployment-token <TOKEN>" -ForegroundColor Green
+# Delete the local global.json.local file if it was used
+if ($deleteLocalGlobalJson) {
+    Write-Host "👉 Delete the publish specific global.json file..." -ForegroundColor Yellow
+    Remove-Item -Path $globalJsonPath -Force
+}
+
+# Restore the original global.json file if it was backed up
+if ($restoreGlobalJson) {
+    Write-Host "👉 Restoring original global.json file..." -ForegroundColor Yellow
+    Move-Item -Path $globalJsonBackupPath -Destination $globalJsonPath -Force
+}
 
 # Undo the TargetFrameworks changes
-
 Write-Host "👉 Restoring TargetFrameworks in project files..." -ForegroundColor Yellow
 foreach ($file in $csprojFiles) {
     #if the project file is in the Templates folder, skip it
@@ -187,18 +196,11 @@ if (Test-Path $directoryPackagesFile) {
     }
 }
 
-# Restore the global.json.local file if it was used
-if ($restoreGlobalJsonLocal) {
-    Write-Host "👉 Restoring global.json.local file..." -ForegroundColor Yellow
-    Rename-Item -Path $globalJsonPath -NewName "global.json.local"
-}
-
-# Restore the original global.json file if it was backed up
-if ($restoreGlobalJson) {
-    Write-Host "👉 Restoring original global.json file..." -ForegroundColor Yellow
-    Move-Item -Path $globalJsonBackupPath -Destination $globalJsonPath -Force
-}
-
+Write-Host ""
+Write-Host "----------------------------------------------------"
+Write-Host "👉 You can deploy to Azure using a command like:" -ForegroundColor Green
+Write-Host "▶️ swa deploy --output-location ./examples/Demo/Client/bin/Publish/wwwroot --env production --deployment-token <TOKEN>" -ForegroundColor Green
+Write-Host "----------------------------------------------------"
 
 # Ask user if they want to run the website
 # Require 'dotnet tool install --global dotnet-serve'
