@@ -29,6 +29,12 @@ Overlay with a custom background color
 
 {{ OverlayBackgroundColor }}
 
+## Full screen
+
+Overlay which takes up the whole screen.
+
+{{ OverlayFullScreen }}
+
 ## API FluentOverlay
 
 {{ API Type=FluentOverlay }}
