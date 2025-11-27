@@ -202,7 +202,7 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
         }
 
         // Remove the document.removeEventListener
-        //await InvokeOverlayDisposeAsync();
+        await InvokeOverlayDisposeAsync();
 
         // Close the overlay
         await OnCloseInternalHandlerAsync(e);
