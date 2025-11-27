@@ -148,23 +148,10 @@ public partial class FluentOverlay : FluentComponentBase
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
         }
     }
-    /// <summary />
-    protected override async Task OnParametersSetAsync()
-    {
-        if (Interactive && JSModule.Imported)
-        {
-            if (Visible)
-            {
-                // Add a document.addEventListener when Visible is true
-                await InvokeOverlayInitializeAsync();
-            }
-            else
-            {
-                // Remove a document.addEventListener when Visible is false
-                await InvokeOverlayDisposeAsync();
-            }
-        }
 
+    /// <summary />
+    protected override void OnInitialized()
+    {
         if (!Transparent && Opacity is null)
         {
             Opacity = 0.4;
@@ -193,6 +180,24 @@ public partial class FluentOverlay : FluentComponentBase
             _r = int.Parse(_color[0..1], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
             _g = int.Parse(_color[1..2], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
             _b = int.Parse(_color[2..], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+        }
+    }
+
+    /// <summary />
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Interactive && JSModule.Imported)
+        {
+            if (Visible)
+            {
+                // Add a document.addEventListener when Visible is true
+                await InvokeOverlayInitializeAsync();
+            }
+            else
+            {
+                // Remove a document.addEventListener when Visible is false
+                await InvokeOverlayDisposeAsync();
+            }
         }
     }
 
