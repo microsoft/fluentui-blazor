@@ -19,7 +19,7 @@
     "esbuild": "0.25.10",
     "esbuild-plugin-inline-css": "0.0.1",
     "eslint": "9.36.0",
-    "glob": "11.0.3",
+    "glob": "^11.1.0",
     "rimraf": "6.0.1",
     "tabbable": "6.2.0",
     "typescript": "5.9.2"
