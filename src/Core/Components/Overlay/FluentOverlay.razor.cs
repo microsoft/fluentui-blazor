@@ -103,21 +103,21 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
     /// Gets or sets a value indicating whether the overlay is shown full screen or bound to the containing element.
     /// </summary>
     [Parameter]
-    public bool FullScreen { get; set; } = false;
+    public bool FullScreen { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the overlay is interactive, except for the element with the specified <see cref="InteractiveExceptId"/>.
     /// In other words, the elements below the overlay remain usable (mouse-over, click) and the overlay will closed when clicked.
     /// </summary>
     [Parameter]
-    public bool Interactive { get; set; } = false;
+    public bool Interactive { get; set; }
 
     /// <summary>
     /// Gets or sets the HTML identifier of the element that is not interactive when the overlay is shown.
     /// This property is ignored if <see cref="Interactive"/> is false.
     /// </summary>
     [Parameter]
-    public string? InteractiveExceptId { get; set; } = null;
+    public string? InteractiveExceptId { get; set; }
 
     /// <summary>
     /// Gets of sets a value indicating if the overlay can be dismissed by clicking on it.
@@ -136,7 +136,7 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
 
     /// <summary />
     [Parameter]
-    public bool PreventScroll { get; set; } = false;
+    public bool PreventScroll { get; set; }
 
     /// <summary />
     [Parameter]
