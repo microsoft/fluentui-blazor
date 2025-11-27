@@ -7,16 +7,15 @@
 <FluentSelect Items=@(Enum.GetValues<HorizontalAlignment>())
               OptionValue="@(c => c.ToAttributeValue())"
               @bind-Value="@alignment" />
-
 <br />
 <br />
 
-<FluentButton Appearance="ButtonAppearance.Primary" @onclick="ShowOverlay">Show Overlay</FluentButton>
+<FluentButton Appearance="ButtonAppearance.Primary" @onclick="HandleOnOpen">Show Overlay</FluentButton>
 
-<FluentOverlay @bind-Visible=@visible
-               Transparent="false"
-               Alignment="@alignment"
-               Justification="@justification">
+<FluentOverlay @bind-Visible="visible"
+               Opacity="0.4"
+               Alignment="alignment"
+               Justification="justification">
     <FluentProgressRing />
 </FluentOverlay>
 
@@ -25,9 +24,11 @@
     private JustifyContent justification = JustifyContent.Center;
     private HorizontalAlignment alignment = HorizontalAlignment.Center;
 
-    private Task ShowOverlay()
+    protected async Task HandleOnOpen()
     {
-        visible = !visible;
-        return Task.CompletedTask;
+        visible = true;
+        //DemoLogger.WriteLine("Overlay opened");
+        await Task.Delay(3000);
+        visible = false;
     }
 }
