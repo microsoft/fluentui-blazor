@@ -23,6 +23,12 @@ Overlay with a transparent background
 
 {{ OverlayTransparent }}
 
+## Background color
+
+Overlay with a custom background color
+
+{{ OverlayBackgroundColor }}
+
 ## API FluentOverlay
 
 {{ API Type=FluentOverlay }}
