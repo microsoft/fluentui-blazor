@@ -15,12 +15,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Menu/FluentOverlay.razor.js";
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Overlay/FluentOverlay.razor.js";
 
     private string? _color;
     private int _r, _g, _b;
 
-    //private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overlay/FluentOverlay.razor.js";
     private const string DEFAULT_NEUTRAL_COLOR = "#808080";
 
     private DotNetObjectReference<FluentOverlay>? _dotNetHelper;
