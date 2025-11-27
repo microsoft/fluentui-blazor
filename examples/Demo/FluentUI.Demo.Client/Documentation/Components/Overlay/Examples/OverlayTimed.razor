@@ -1,12 +1,12 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 
-<FluentSelect Items=@(Enum.GetValues<JustifyContent>())
+<FluentSelect Items="@(Enum.GetValues<JustifyContent>())"
               OptionValue="@(c => c.ToAttributeValue())"
-              @bind-Value="@justification" />
+              @bind-Value="justification" />
 
-<FluentSelect Items=@(Enum.GetValues<HorizontalAlignment>())
+<FluentSelect Items="@(Enum.GetValues<HorizontalAlignment>())"
               OptionValue="@(c => c.ToAttributeValue())"
-              @bind-Value="@alignment" />
+              @bind-Value="alignment" />
 <br />
 <br />
 
@@ -24,10 +24,10 @@
     private JustifyContent justification = JustifyContent.Center;
     private HorizontalAlignment alignment = HorizontalAlignment.Center;
 
-    protected async Task HandleOnOpen()
+    private async Task HandleOnOpen()
     {
         visible = true;
-        //DemoLogger.WriteLine("Overlay opened");
+        Console.WriteLine("Overlay opened");
         await Task.Delay(3000);
         visible = false;
     }

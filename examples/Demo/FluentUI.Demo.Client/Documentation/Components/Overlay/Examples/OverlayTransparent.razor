@@ -1,15 +1,15 @@
 ﻿
 <FluentButton Appearance="ButtonAppearance.Primary" @onclick="() => visible = !visible">Show Overlay</FluentButton>
 
-<FluentOverlay @bind-Visible=@visible OnClose="HandleOnClose">
+<FluentOverlay @bind-Visible="visible" OnClose="HandleOnClose">
     <FluentSpinner />
 </FluentOverlay>
 
 @code {
     private bool visible;
 
-    protected void HandleOnClose()
+    private void HandleOnClose()
     {
-        //DemoLogger.WriteLine("Transparent overlay closed");
+        Console.WriteLine("Transparent overlay closed");
     }
 }
