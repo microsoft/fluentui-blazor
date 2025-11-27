@@ -13,10 +13,10 @@
 
 <FluentButton Appearance="ButtonAppearance.Primary" @onclick="ShowOverlay">Show Overlay</FluentButton>
 
-<FluentOverlay @bind-Visible=@visible
+<FluentOverlay @bind-Visible="visible"
                Transparent="false"
-               Alignment="@alignment"
-               Justification="@justification">
+               Alignment="alignment"
+               Justification="justification">
     <FluentProgressRing />
 </FluentOverlay>
 
