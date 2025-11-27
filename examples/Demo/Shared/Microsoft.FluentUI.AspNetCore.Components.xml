@@ -1794,6 +1794,14 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SortBy">
             <inheritdoc />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.Comparer">
+            <summary>
+            Gets or sets the equality comparer used to determine whether two grid items are equal.
+            </summary>
+            <remarks>If not set, the default equality comparer for <typeparamref name="TGridItem"/> is used.
+            Setting this property allows customization of how grid items are compared for equality, which can affect
+            operations such as selection, filtering, or updating items in the grid.</remarks>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.ClearSelection">
             <summary>
             Allows to clear the selection.
