@@ -35,6 +35,12 @@ Overlay which takes up the whole screen.
 
 {{ OverlayFullScreen }}
 
+## Interactive
+By using the `Interactive` and `InteractiveExceptId` properties, only the targeted element will not close the FluentOverlay panel. The user can click anywhere else to close the FluentOverlay.
+In this example, the FluentOverlay will only close when the user clicks outside the white zone and the user can increment the counter before to close the Overlay.
+
+{{ OverlayInteractive }}
+
 ## API FluentOverlay
 
 {{ API Type=FluentOverlay }}
