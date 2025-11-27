@@ -296,6 +296,23 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
     }
 
     /// <summary />
+    internal Task ResizeExecAsync(TouchEventArgs args, int paneIndex)
+    {
+        if (args.Touches.Length < 1)
+        {
+            return Task.CompletedTask;
+        }
+
+        var mouseArgs = new MouseEventArgs
+        {
+            ClientX = args.Touches[0].ClientX,
+            ClientY = args.Touches[0].ClientY,
+        };
+
+        return ResizeExecAsync(mouseArgs, paneIndex);
+    }
+
+    /// <summary />
     internal async Task ResizeExecAsync(MouseEventArgs args, int paneIndex)
     {
         var pane = Panes[paneIndex];

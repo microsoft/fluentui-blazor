@@ -16,6 +16,7 @@
     <div class="fluent-multi-splitter-bar"
          status="@GetClassStatus()"
          @onmousedown="@(e => Splitter?.ResizeExecAsync(e, Index) ?? Task.CompletedTask)"
+         @ontouchstart="@(e => Splitter?.ResizeExecAsync(e, Index) ?? Task.CompletedTask)"
          @onclick:preventDefault="true"
          @onclick:stopPropagation="true">
 
