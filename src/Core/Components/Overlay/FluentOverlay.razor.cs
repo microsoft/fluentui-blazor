@@ -13,15 +13,13 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
+public partial class FluentOverlay : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Overlay/FluentOverlay.razor.js";
+    private const string DEFAULT_NEUTRAL_COLOR = "#808080";
 
     private string? _color;
     private int _r, _g, _b;
-
-    private const string DEFAULT_NEUTRAL_COLOR = "#808080";
-
     private DotNetObjectReference<FluentOverlay>? _dotNetHelper;
 
     /// <summary />
@@ -178,7 +176,7 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
             Transparent = false;
         }
 
-        BackgroundColor ??= DEFAULT_NEUTRAL_COLOR;//GlobalState.NeutralColor ?? DEFAULT_NEUTRAL_COLOR;
+        BackgroundColor ??= DEFAULT_NEUTRAL_COLOR;
 
         if (!CheckRGBString().IsMatch(BackgroundColor))
         {
