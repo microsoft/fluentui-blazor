@@ -17,6 +17,12 @@ A timed overlay that hides after being shown for 3 seconds
 
 {{ OverlayTimed }}
 
+## Transparent overlay
+
+Overlay with a transparent background
+
+{{ OverlayTransparent }}
+
 ## API FluentOverlay
 
 {{ API Type=FluentOverlay }}
