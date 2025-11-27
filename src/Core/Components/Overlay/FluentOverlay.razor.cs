@@ -155,7 +155,7 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
             else
             {
                 // Remove a document.addEventListener when Visible is false
-                await InvokeOverlayDisposeAsync();
+                //await InvokeOverlayDisposeAsync();
             }
         }
 
@@ -248,10 +248,9 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
     private async Task InvokeOverlayInitializeAsync()
     {
         _dotNetHelper ??= DotNetObjectReference.Create(this);
-        var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
+        await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
         var containerId = FullScreen ? null : Id;
-        await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overlay.Initialize", _dotNetHelper, containerId, InteractiveExceptId);
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overlay.Initialize", _dotNetHelper, containerId, InteractiveExceptId);
     }
 
     /// <summary />
