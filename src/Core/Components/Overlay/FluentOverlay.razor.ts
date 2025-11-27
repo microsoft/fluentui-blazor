@@ -1,5 +1,7 @@
+import { DotNet } from "../../../Core.Scripts/src/d-ts/Microsoft.JSInterop";
+
 export namespace Microsoft.FluentUI.Blazor.Overlay {
-  export function Initialize(dotNetHelper: any, containerId: string, id: string) {
+  export function Initialize(dotNetHelper: DotNet.DotNetObject, containerId: string, id: string) {
     const _document = document as any;
 
     if (!_document.fluentOverlayData) {
