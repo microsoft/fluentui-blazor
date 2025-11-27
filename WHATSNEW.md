@@ -1,22 +1,29 @@
 ## V4.13.2
 
 ### General
-- [Chore] Use NET 10 GA SDK in ([#4279](https://github.com/microsoft/fluentui-blazor/pull/4279))
-- [Chore] Fix CodeQL in ([#4315](https://github.com/microsoft/fluentui-blazor/pull/4315))
-- [Chore] Configure Dependabot settings in ([#4320](https://github.com/microsoft/fluentui-blazor/pull/4320))
-- [Templates] Fix .net10 web app rename issue in ([#4310](https://github.com/microsoft/fluentui-blazor/pull/4310))
-- [Templates] Fix Client projects in Web App templates in ([#4328](https://github.com/microsoft/fluentui-blazor/pull/4328))
-- [Templates] Adjust _Imports include condition in ([#4329](https://github.com/microsoft/fluentui-blazor/pull/4329))
+- \[Chore\] Use NET 10 GA SDK ([#4279](https://github.com/microsoft/fluentui-blazor/pull/4279))
+- \[Chore\] Fix CodeQL ([#4315](https://github.com/microsoft/fluentui-blazor/pull/4315))
+- \[Chore\] Configure Dependabot settings ([#4320](https://github.com/microsoft/fluentui-blazor/pull/4320))
+- \[Templates\] Fix .net10 web app rename issue ([#4310](https://github.com/microsoft/fluentui-blazor/pull/4310))
+- \[Templates\] Fix Client projects in Web App templates ([#4328](https://github.com/microsoft/fluentui-blazor/pull/4328))
+- \[Templates\] Adjust _Imports include condition ([#4329](https://github.com/microsoft/fluentui-blazor/pull/4329))
+- \[Templates\] Fix icon in Web App 9 and 10 templates ([#4337](https://github.com/microsoft/fluentui-blazor/pull/4337))
 
 ### Components
-- [AccordionItem] Add HeadingTooltip parameter in ([#4306](https://github.com/microsoft/fluentui-blazor/pull/4306))
-- [Dialog] Fix error when module hasn't finished loading in ([#4324](https://github.com/microsoft/fluentui-blazor/pull/4324))
-- [Grid] Use more presice values for width percentages in ([#4299](https://github.com/microsoft/fluentui-blazor/pull/4299))
-- [SortableList] Handle JS errors in a better way in ([#4286](https://github.com/microsoft/fluentui-blazor/pull/4286))
+- \[AccordionItem\] Add HeadingTooltip parameter ([#4306](https://github.com/microsoft/fluentui-blazor/pull/4306))
+- \[Combobox\] Fix binding to a value not in the list items ([#4353](https://github.com/microsoft/fluentui-blazor/pull/4353))
+- \[Dialog\] Fix error when module hasn't finished loading ([#4324](https://github.com/microsoft/fluentui-blazor/pull/4324))
+- \[Dialog\] Update methods to accept an IDialogReference interface ([#4316](https://github.com/microsoft/fluentui-blazor/pull/4316))
+- \[DataGrid\] Add a SelectColumn Comparer property ([#4344](https://github.com/microsoft/fluentui-blazor/pull/4344))
+- \[DataGrid\] Asynchronous IQueryable based loading enhancements ([#4343](https://github.com/microsoft/fluentui-blazor/pull/4343))
+- \[Grid\] Use more presice values for width percentages ([#4299](https://github.com/microsoft/fluentui-blazor/pull/4299))
+- \[SortableList\] Handle JS errors in a better way ([#4286](https://github.com/microsoft/fluentui-blazor/pull/4286))
+- \[Splitter\] Add support for touch events ([#4338](https://github.com/microsoft/fluentui-blazor/pull/4338))
 
 ### Icons and Emoji
 - Update to Fluent UI System Icons 1.1.315
     See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
+
 --------------
 
 ## V4.13.1
