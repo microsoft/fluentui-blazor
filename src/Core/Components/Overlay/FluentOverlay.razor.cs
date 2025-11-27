@@ -38,8 +38,7 @@ public partial class FluentOverlay : FluentComponentBase, IAsyncDisposable
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("cursor", "auto", () => Transparent)
-        //.AddStyle("background-color", $"rgba({_r}, {_g}, {_b}, {Opacity.ToString()})", () => !Transparent)
-        ////.AddStyle("opacity", Opacity.ToString()!.Replace(',', '.'), CheckCSSVariableName().IsMatch(BackgroundColor))
+        .AddStyle("background-color", string.Create(CultureInfo.InvariantCulture, $"rgba({_r}, {_g}, {_b}, {Opacity})"), () => !Transparent)
         .AddStyle("cursor", "default", () => !Transparent)
         .AddStyle("position", FullScreen ? "fixed" : "absolute")
         .AddStyle("display", "flex")
