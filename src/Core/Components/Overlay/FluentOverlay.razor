@@ -1,0 +1,16 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+@if (Visible)
+{
+    <div class="@ClassValue"
+         style="@StyleValue"
+         id="@Id"
+         @onclick="@OnCloseHandlerAsync"
+         @oncontextmenu="@OnCloseHandlerAsync"
+         @oncontextmenu:preventDefault="true">
+        <div style="@StyleContentValue">
+            @ChildContent
+        </div>
+    </div>
+}

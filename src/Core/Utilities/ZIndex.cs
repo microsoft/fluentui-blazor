@@ -34,4 +34,9 @@ public static class ZIndex
     /// ZIndex for the popup components in the <see cref="FluentDataGrid{TGridItem}"/>.
     /// </summary>
     public static int DataGridHeaderPopup { get; set; } = 5;
+
+    /// <summary>
+    /// ZIndex for the <see cref="FluentOverlay" /> component.
+    /// </summary>
+    public static int Overlay { get; set; } = 9900;
 }
