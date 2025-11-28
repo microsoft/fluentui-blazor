@@ -47,7 +47,7 @@ public partial class FluentOverlay : IAsyncDisposable
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("cursor", "auto", () => Transparent)
-        .AddStyle("background-color", $"rgba({_r}, {_g}, {_b}, {Opacity.ToString()!.Replace(',', '.')})", () => !Transparent)
+        .AddStyle("background-color", string.Create(CultureInfo.InvariantCulture, $"rgba({_r}, {_g}, {_b}, {Opacity})"), () => !Transparent)
         //.AddStyle("opacity", Opacity.ToString()!.Replace(',', '.'), CheckCSSVariableName().IsMatch(BackgroundColor))
         .AddStyle("cursor", "default", () => !Transparent)
         .AddStyle("position", FullScreen ? "fixed" : "absolute")
@@ -55,7 +55,7 @@ public partial class FluentOverlay : IAsyncDisposable
         .AddStyle("align-items", Alignment.ToAttributeValue())
         .AddStyle("justify-content", Justification.ToAttributeValue())
         .AddStyle("pointer-events", "none", () => Interactive)
-        .AddStyle("z-index", $"{ZIndex.Overlay}")
+        .AddStyle("z-index", ZIndex.Overlay.ToString(CultureInfo.InvariantCulture))
         .Build();
 
     /// <summary />
