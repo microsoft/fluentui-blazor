@@ -16,5 +16,5 @@ hidden: true
 
 ### Removed properties💥
 
-- `Cols`
-- `Rows`
+- `Cols` use `Width` instead.
+- `Rows` use `Height` instead.
