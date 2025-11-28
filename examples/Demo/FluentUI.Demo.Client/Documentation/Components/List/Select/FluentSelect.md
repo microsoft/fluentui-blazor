@@ -99,4 +99,4 @@ If you have a very large number of items, you should use the **FluentAutocomplet
 
 ## Migrating to v5
 
-TODO
+{{ INCLUDE File=MigrationFluentSelect }}
