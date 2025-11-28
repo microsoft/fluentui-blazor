@@ -57,6 +57,10 @@ The categories these changes fall in are:
 
 {{ INCLUDE MigrationFluentDataGrid }}
 
+## FluentSelect
+
+{{ INCLUDE MigrationFluentSelect }}
+
 ## Migrate to v5 with help from GitHub Copilot chat
 
 {{ INCLUDE CopilotInstructionsContent }}
