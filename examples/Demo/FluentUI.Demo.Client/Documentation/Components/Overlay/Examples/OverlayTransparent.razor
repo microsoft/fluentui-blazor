@@ -1,7 +1,7 @@
 ﻿
 <FluentButton Appearance="ButtonAppearance.Primary" @onclick="() => visible = !visible">Show Overlay</FluentButton>
 
-<FluentOverlay @bind-Visible="visible" OnClose="HandleOnClose">
+<FluentOverlay @bind-Visible="visible" OnClose="HandleOnClose" Transparent="true">
     <FluentSpinner />
 </FluentOverlay>
 

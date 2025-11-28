@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Globalization;
-using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -16,9 +15,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentOverlay : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Overlay/FluentOverlay.razor.js";
-
-    private string? _color;
-    private int _r, _g, _b;
     private DotNetObjectReference<FluentOverlay>? _dotNetHelper;
 
     /// <summary />
@@ -36,7 +32,7 @@ public partial class FluentOverlay : FluentComponentBase
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("cursor", "auto", () => Transparent)
-        .AddStyle("background-color", string.Create(CultureInfo.InvariantCulture, $"rgba({_r}, {_g}, {_b}, {Opacity})"), () => !Transparent)
+        .AddStyle("background-color", string.Create(CultureInfo.InvariantCulture, $"color-mix(in srgb, {BackgroundColor} {Opacity}%, transparent)"), () => !Transparent)
         .AddStyle("cursor", "default", () => !Transparent)
         .AddStyle("position", FullScreen ? "fixed" : "absolute")
         .AddStyle("display", "flex")
@@ -77,10 +73,10 @@ public partial class FluentOverlay : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the opacity of the overlay.
-    /// Default is 0.4.
+    /// Default is 40%.
     /// </summary>
     [Parameter]
-    public double? Opacity { get; set; }
+    public int? Opacity { get; set; } = 40;
 
     /// <summary>
     /// Gets or sets the alignment of the content to a <see cref="HorizontalAlignment"/> value.
@@ -152,34 +148,9 @@ public partial class FluentOverlay : FluentComponentBase
     /// <summary />
     protected override void OnInitialized()
     {
-        if (!Transparent && Opacity is null)
-        {
-            Opacity = 0.4;
-        }
-
         if (Opacity > 0)
         {
             Transparent = false;
-        }
-
-        if (!CheckRGBString().IsMatch(BackgroundColor))
-        {
-            throw new ArgumentException("BackgroundColor must be a valid HTML hex color string (#rrggbb or #rgb)");
-        }
-
-        _color = BackgroundColor[1..];
-
-        if (_color.Length == 6)
-        {
-            _r = int.Parse(_color[..2], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
-            _g = int.Parse(_color[2..4], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
-            _b = int.Parse(_color[4..], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
-        }
-        else
-        {
-            _r = int.Parse(_color[0..1], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
-            _g = int.Parse(_color[1..2], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
-            _b = int.Parse(_color[2..], NumberStyles.HexNumber, CultureInfo.InvariantCulture);
         }
     }
 
@@ -265,7 +236,4 @@ public partial class FluentOverlay : FluentComponentBase
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overlay.overlayDispose", InteractiveExceptId);
         }
     }
-
-    [GeneratedRegex("^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))", RegexOptions.None, matchTimeoutMilliseconds: 1000)] //Add timeout to prevent ReDoS
-    private static partial Regex CheckRGBString();
 }
