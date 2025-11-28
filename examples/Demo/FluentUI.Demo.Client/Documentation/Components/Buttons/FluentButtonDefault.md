@@ -45,8 +45,3 @@ Navigate to this [page](/Button/SplitButton) for more details.
 Navigate to this [page](/Button/ToggleButton) for more details.
 
 {{ ToggleButtonDefault }}
-
-
-## Migrating to v5
-
-{{ INCLUDE File=MigrationFluentButton }}
