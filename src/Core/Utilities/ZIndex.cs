@@ -38,5 +38,5 @@ public static class ZIndex
     /// <summary>
     /// ZIndex for the <see cref="FluentOverlay" /> component.
     /// </summary>
-    public static int Overlay { get; set; } = 9900;
+    public static int Overlay { get; set; } = 99990;
 }
