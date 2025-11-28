@@ -53,6 +53,10 @@ The categories these changes fall in are:
 
 {{ INCLUDE MigrationFluentSpacer }}
 
+## FluentDataGrid
+
+{{ INCLUDE MigrationFluentDataGrid }}
+
 ## FluentSelect
 
 {{ INCLUDE MigrationFluentSelect }}

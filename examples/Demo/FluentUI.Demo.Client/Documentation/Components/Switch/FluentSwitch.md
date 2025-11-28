@@ -44,3 +44,7 @@ A Switch can be disabled and read only.
 ## API FluentSwitch
 
 {{ API Type=FluentSwitch }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentSwitch }}
