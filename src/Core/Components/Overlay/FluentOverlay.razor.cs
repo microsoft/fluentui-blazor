@@ -121,7 +121,6 @@ public partial class FluentOverlay : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the background color.
-    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
     /// Default NeutralBaseColor token value (#808080).
     /// </summary>
     [Parameter]
@@ -142,15 +141,6 @@ public partial class FluentOverlay : FluentComponentBase
         {
             _dotNetHelper ??= DotNetObjectReference.Create(this);
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-        }
-    }
-
-    /// <summary />
-    protected override void OnInitialized()
-    {
-        if (Opacity > 0)
-        {
-            Transparent = false;
         }
     }
 
