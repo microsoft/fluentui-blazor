@@ -52,6 +52,7 @@ public class ComponentBaseTests : Bunit.TestContext
         { typeof(FluentDragContainer<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentDropZone<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentTimePicker<>), Loader.MakeGenericType(typeof(DateTime))},
+        { typeof(FluentOverlay), Loader.Default.WithRequiredParameter("Visible", true)}
     };
 
     /// <summary />
