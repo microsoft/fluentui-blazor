@@ -173,8 +173,16 @@ export namespace Microsoft.FluentUI.Blazor.Components.MultiSplitter {
       },
 
       touchMoveHandler: (e: TouchEvent) => {
+        if (e.touches.length < 1) {
+          return;
+        }
+
+        if (e.cancelable) {
+          e.preventDefault(); // Prevent scrolling while dragging
+        }
+
         const splitteDataElement = ((document as any).splitter as SplitterData)?.Data.get(el);
-        const touch = e.changedTouches[0]
+        const touch = e.touches[0]
 
         const eventArgs = new MouseEvent("mouseup", {
           bubbles: true,
@@ -198,8 +206,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.MultiSplitter {
     if (splitterDataElement) {
       document.addEventListener('mousemove', splitterDataElement.mouseMoveHandler);
       document.addEventListener('mouseup', splitterDataElement.mouseUpHandler);
-      document.addEventListener('touchmove', splitterDataElement.touchMoveHandler, { passive: true });
-      document.addEventListener('touchend', splitterDataElement.mouseUpHandler, { passive: true });
+      document.addEventListener('touchmove', splitterDataElement.touchMoveHandler, { passive: false });
+      document.addEventListener('touchend', splitterDataElement.mouseUpHandler, { passive: false });
     }
   }
 
