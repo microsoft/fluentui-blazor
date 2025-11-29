@@ -76,7 +76,7 @@ public partial class FluentOverlay : FluentComponentBase
     /// Default is 40%.
     /// </summary>
     [Parameter]
-    public int? Opacity { get; set; } = 40;
+    public double? Opacity { get; set; } = 40;
 
     /// <summary>
     /// Gets or sets the alignment of the content to a <see cref="HorizontalAlignment"/> value.
