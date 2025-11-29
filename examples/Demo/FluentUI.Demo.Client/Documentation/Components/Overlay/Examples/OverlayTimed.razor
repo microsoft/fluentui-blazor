@@ -1,0 +1,33 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+
+<FluentSelect Items="@(Enum.GetValues<JustifyContent>())"
+              OptionValue="@(c => c.ToAttributeValue())"
+              @bind-Value="justification" />
+
+<FluentSelect Items="@(Enum.GetValues<HorizontalAlignment>())"
+              OptionValue="@(c => c.ToAttributeValue())"
+              @bind-Value="alignment" />
+<br />
+<br />
+
+<FluentButton Appearance="ButtonAppearance.Primary" @onclick="HandleOnOpen">Show Overlay</FluentButton>
+
+<FluentOverlay @bind-Visible="visible"
+               Alignment="alignment"
+               Justification="justification">
+    <FluentSpinner />
+</FluentOverlay>
+
+@code {
+    private bool visible;
+    private JustifyContent justification = JustifyContent.Center;
+    private HorizontalAlignment alignment = HorizontalAlignment.Center;
+
+    private async Task HandleOnOpen()
+    {
+        visible = true;
+        Console.WriteLine("Overlay opened");
+        await Task.Delay(3000);
+        visible = false;
+    }
+}

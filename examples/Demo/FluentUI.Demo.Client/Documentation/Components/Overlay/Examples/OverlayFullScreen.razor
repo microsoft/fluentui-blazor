@@ -1,0 +1,19 @@
+﻿
+<FluentButton Appearance="ButtonAppearance.Primary" @onclick="() => visible = !visible">Show Overlay</FluentButton>
+
+<FluentOverlay @bind-Visible="visible"
+               BackgroundColor="#e8f48c"
+               FullScreen="true"
+               OnClose="HandleOnClose"
+               PreventScroll="true">
+    <FluentSpinner />
+</FluentOverlay>
+
+@code {
+    private bool visible;
+
+    private void HandleOnClose()
+    {
+        Console.WriteLine("Full screen overlay closed");
+    }
+}
