@@ -1,0 +1,54 @@
+﻿@inject NavigationManager Navigation
+@inject FluentUI.Demo.DocViewer.Services.DocViewerService DocViewerService
+
+<FluentNav UseLinks="true"
+		   UseSingleExpanded="false"
+		   Density="@NavDrawerDensity.Small">
+
+	@foreach (var category in NavItems)
+	{
+		<FluentNavSectionHeader>@category.Title</FluentNavSectionHeader>
+
+		@foreach (var sitepage in category.Items)
+		{
+			<FluentNavItem Href="@sitepage.Route">
+				@sitepage.Title
+				@if (sitepage.Items.Any())
+				{
+					<FluentNavCategory Title="@sitepage.Title" >
+
+						@foreach (var subPage in sitepage.Items)
+						{
+							<FluentNavSubItem Href="@sitepage.Route">@(subPage.Title)</FluentNavSubItem>
+						}
+					</FluentNavCategory>
+				}
+			</FluentNavItem>
+		}
+
+	}
+	@* <FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.Board())">Dashboard</FluentNavItem> *@
+
+
+	<FluentNavSectionHeader Title="Get started" />
+	<FluentNavItem Href="/" Icon="@(new Icons.Regular.Size20.Home())">Home</FluentNavItem>
+	<FluentNavItem Href="/installation" Icon="@(new Icons.Regular.Size20.Wrench())">Installation</FluentNavItem>
+	<FluentNavItem Href="/default-values" Icon="@(new Icons.Regular.Size20.Wrench())">Default Values</FluentNavItem>
+	<FluentNavItem Href="/WhatsNew" Icon="@(new Icons.Regular.Size20.Wrench())">What's New</FluentNavItem>
+
+
+	<FluentNavSectionHeader Title="Components" />
+
+	<FluentNavDivider />
+
+	<FluentNavSectionHeader Title="Labs" />
+
+	@* <FluentNavCategory Title="Job Postings" Icon="@(new Icons.Regular.Size20.NotePin())">
+
+			<FluentNavSubItem>Openings</FluentNavSubItem>
+			<FluentNavSubItem>Submissions</FluentNavSubItem>
+
+		</FluentNavCategory> *@
+
+
+</FluentNav>
