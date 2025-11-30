@@ -13,9 +13,9 @@
     public void FluentNavDivider_Renders_Correctly()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer>
+        var cut = Render(@<FluentNav>
             <FluentNavDivider />
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -33,7 +33,7 @@
         });
 
         Assert.Contains("must be used as a child of", ex.Message);
-        Assert.Contains("FluentNavDrawer", ex.Message);
+        Assert.Contains("FluentNav", ex.Message);
     }
 
     [Fact]

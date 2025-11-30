@@ -53,24 +53,24 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the parent <see cref="FluentNavDrawer"/> component for this instance.
+    /// Gets or sets the parent <see cref="FluentNav"/> component for this instance.
     /// </summary>
     /// <remarks>This property is typically set automatically by the Blazor framework when the component is
-    /// used within a <see cref="FluentNavDrawer"/>. It enables the component to access shared state or functionality from
+    /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
     /// its parent navigation menu.</remarks>
     [CascadingParameter]
-    public required FluentNavDrawer Owner { get; set; }
+    public required FluentNav Owner { get; set; }
 
     /// <summary>
-    /// Validates that this component is used within a FluentNavDrawer.
+    /// Validates that this component is used within a FluentNav.
     /// </summary>
     protected override void OnParametersSet()
     {
-        // Validate that this component is used within a FluentNavDrawer
+        // Validate that this component is used within a FluentNav
         if (Owner == null)
         {
             throw new InvalidOperationException(
-                $"{nameof(FluentNavItem)} must be used as a child of {nameof(FluentNavDrawer)} or {nameof(FluentNavCategory)}.");
+                $"{nameof(FluentNavItem)} must be used as a child of {nameof(FluentNav)}.");
         }
     }
 }

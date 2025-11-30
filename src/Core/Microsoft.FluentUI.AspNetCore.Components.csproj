@@ -58,7 +58,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Remove="Components\Nav\FluentNavDrawer.razor.ts" />
+    <TypeScriptCompile Remove="Components\Nav\FluentNav.razor.ts" />
   </ItemGroup>
 
 

@@ -8,9 +8,9 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// A container for a <see cref="FluentNavDrawer"/> subgroup
+/// A container for a <see cref="FluentNav"/> subgroup
 /// </summary>
-public partial class FluentNavSubItem : FluentComponentBase
+public partial class FluentNavSubItem : FluentNavItem
 {
 
     /// <summary />
@@ -20,52 +20,30 @@ public partial class FluentNavSubItem : FluentComponentBase
     }
 
     /// <summary />
-    protected string? ClassValue => DefaultClassBuilder
+    protected new string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-navsubitem")
         .AddClass("active", Active)
         .Build();
 
-    /// <summary />
-    protected string? StyleValue => DefaultStyleBuilder
-        .Build();
-
     /// <summary>
-    /// Get or sets the href of the link.
-    /// </summary>
-    [Parameter]
-    public string? Href { get; set; }
-
-    /// <summary>
-    /// Get or sets wether the link is active
-    /// </summary>
-    [Parameter]
-    public bool Active { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content of the nav menu item.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// Gets or sets the parent <see cref="FluentNavDrawer"/> component for this instance.
+    /// Gets or sets the parent <see cref="FluentNavCategory"/> component for this instance.
     /// </summary>
     /// <remarks>This property is typically set automatically by the Blazor framework when the component is
-    /// used within a <see cref="FluentNavDrawer"/>. It enables the component to access shared state or functionality from
+    /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
     /// its parent navigation menu.</remarks>
-    [CascadingParameter]
-    public required FluentNavDrawer Owner { get; set; }
+    [CascadingParameter(Name = "Category")]
+    public required FluentNavCategory Category { get; set; }
 
     /// <summary>
-    /// Validates that this component is used within a FluentNavDrawer.
+    /// Validates that this component is used within a FluentNav.
     /// </summary>
     protected override void OnParametersSet()
     {
-        // Validate that this component is used within a FluentNavCategory inside a FluentNavDrawer
-        if (Owner == null)
+        // Validate that this component is used within a FluentNavCategory inside a FluentNav
+        if (Owner == null || Category is null)
         {
             throw new InvalidOperationException(
-                $"{nameof(FluentNavSubItem)} must be used as a child of {nameof(FluentNavCategory)} within a {nameof(FluentNavDrawer)}.");
+                $"{nameof(FluentNavSubItem)} must be used as a child of {nameof(FluentNavCategory)} within a {nameof(FluentNav)}.");
         }
     }
 }

@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The density of the <see cref="FluentNavDrawer" /> items.
+/// The density of the <see cref="FluentNav" /> items.
 /// </summary>
 public enum NavDrawerDensity
 {

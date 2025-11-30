@@ -13,11 +13,11 @@
     public void FluentNavSubItem_Renders_As_Link_When_UseLinks_True()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer UseLinks="true">
+        var cut = Render(@<FluentNav UseLinks="true">
             <FluentNavCategory Title="Test Category">
                 <FluentNavSubItem Href="https://example.com">Sub Item</FluentNavSubItem>
             </FluentNavCategory>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -30,11 +30,11 @@
     public void FluentNavSubItem_Renders_As_Button_When_UseLinks_False()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer UseLinks="false">
+        var cut = Render(@<FluentNav UseLinks="false">
             <FluentNavCategory Title="Test Category">
                 <FluentNavSubItem Href="https://example.com">Sub Item</FluentNavSubItem>
             </FluentNavCategory>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -46,11 +46,11 @@
     public void FluentNavSubItem_Renders_With_Active_State()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer UseLinks="true">
+        var cut = Render(@<FluentNav UseLinks="true">
             <FluentNavCategory Title="Test Category">
                 <FluentNavSubItem Href="https://example.com" Active="true">Active Sub Item</FluentNavSubItem>
             </FluentNavCategory>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -76,9 +76,9 @@
     //     // Arrange & Act & Assert
     //     var ex = Assert.Throws<InvalidOperationException>(() =>
     //     {
-    //         Render(@<FluentNavDrawer>
+    //         Render(@<FluentNav>
     //             <FluentNavSubItem Href="https://example.com">Sub Item</FluentNavSubItem>
-    //         </FluentNavDrawer>);
+    //         </FluentNav>);
     //     });
 
     //     Assert.Contains("must be used as a child of", ex.Message);
@@ -89,11 +89,11 @@
     public void FluentNavSubItem_Renders_With_CustomClass()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer UseLinks="true">
+        var cut = Render(@<FluentNav UseLinks="true">
             <FluentNavCategory Title="Test Category">
                 <FluentNavSubItem Href="https://example.com" Class="custom-sub-item">Sub Item</FluentNavSubItem>
             </FluentNavCategory>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -104,11 +104,11 @@
     public void FluentNavSubItem_Renders_With_Small_Density()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer UseLinks="true" Density="NavDrawerDensity.Small">
+        var cut = Render(@<FluentNav UseLinks="true" Density="NavDrawerDensity.Small">
             <FluentNavCategory Title="Test Category">
                 <FluentNavSubItem Href="https://example.com">Sub Item</FluentNavSubItem>
             </FluentNavCategory>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);

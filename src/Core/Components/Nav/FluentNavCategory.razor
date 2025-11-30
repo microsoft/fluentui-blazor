@@ -10,7 +10,7 @@
 			density="@Owner.Density.ToAttributeValue()"
 			@onclick="ToggleExpandedAsync"
 			@attributes="@AdditionalAttributes">
-		@if (Icon is not null)
+		@if (Owner.UseIcons && Icon is not null)
 		{
 			<FluentIcon Value="Icon" Class="icon" />
 		}

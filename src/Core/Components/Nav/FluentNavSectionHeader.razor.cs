@@ -3,14 +3,30 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// A section header for use within a <see cref="FluentNavDrawer"/>
+/// A section header for use within a <see cref="FluentNav"/>
 /// </summary>
-public partial class FluentNavSectionHeader : INavDrawerItem
+public partial class FluentNavSectionHeader : FluentComponentBase,INavDrawerItem
 {
+    /// <summary />
+    public FluentNavSectionHeader(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-navsectionheader")
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .Build();
+
     /// <summary>
     /// Gets or sets the title of the section header.
     /// </summary>
@@ -18,24 +34,24 @@ public partial class FluentNavSectionHeader : INavDrawerItem
     public string? Title { get; set; }
 
     /// <summary>
-    /// Gets or sets the parent <see cref="FluentNavDrawer"/> component for this instance.
+    /// Gets or sets the parent <see cref="FluentNav"/> component for this instance.
     /// </summary>
     /// <remarks>This property is typically set automatically by the Blazor framework when the component is
-    /// used within a <see cref="FluentNavDrawer"/>. It enables the component to access shared state or functionality from
+    /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
     /// its parent navigation menu.</remarks>
     [CascadingParameter]
-    public required FluentNavDrawer Owner { get; set; }
+    public required FluentNav Owner { get; set; }
 
     /// <summary>
-    /// Validates that this component is used within a FluentNavDrawer.
+    /// Validates that this component is used within a FluentNav.
     /// </summary>
     protected override void OnParametersSet()
     {
-        // Validate that this component is used within a FluentNavDrawer
+        // Validate that this component is used within a FluentNav
         if (Owner == null)
         {
             throw new InvalidOperationException(
-                $"{nameof(FluentNavSectionHeader)} must be used as a child of {nameof(FluentNavDrawer)}.");
+                $"{nameof(FluentNavSectionHeader)} must be used as a child of {nameof(FluentNav)}.");
         }
     }
 }

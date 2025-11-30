@@ -13,11 +13,11 @@
     public void FluentNavCategory_Renders_With_Title()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer>
+        var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category">
                 <div>Category Content</div>
             </FluentNavCategory>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -29,11 +29,11 @@
     public void FluentNavCategory_Renders_Expanded_By_Default()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer>
+        var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="true">
                 <div>Content</div>
             </FluentNavCategory>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -44,11 +44,11 @@
     public void FluentNavCategory_Renders_Collapsed_When_Not_Expanded()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer>
+        var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="false">
                 <div>Content</div>
             </FluentNavCategory>
-        </FluentNavDrawer>
+        </FluentNav>
 	);
 
 		// Assert
@@ -60,11 +60,11 @@
 	public async Task FluentNavCategory_Call_ToggleExpanded()
 	{
 		// Arrange & Act
-		var cut = Render(@<FluentNavDrawer>
+		var cut = Render(@<FluentNav>
 			<FluentNavCategory Title="Test Category" Expanded="false">
 				<div>Content</div>
 			</FluentNavCategory>
-		</FluentNavDrawer>);
+		</FluentNav>);
 
 		// Act
 		var category = cut.FindComponent<FluentNavCategory>();
@@ -91,18 +91,18 @@
         });
 
         Assert.Contains("must be used as a child of", ex.Message);
-        Assert.Contains("FluentNavDrawer", ex.Message);
+        Assert.Contains("FluentNav", ex.Message);
     }
 
     [Fact]
     public void FluentNavCategory_Renders_With_CustomId()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer>
+        var cut = Render(@<FluentNav>
             <FluentNavCategory Id="my-category-id" Title="Test Category">
                 <div>Content</div>
             </FluentNavCategory>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -113,11 +113,11 @@
     public void FluentNavCategory_Renders_With_Small_Density()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer Density="NavDrawerDensity.Small">
+        var cut = Render(@<FluentNav Density="NavDrawerDensity.Small">
             <FluentNavCategory Title="Test Category">
                 <div>Content</div>
             </FluentNavCategory>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -128,11 +128,11 @@
     public void FluentNavCategory_Provides_CascadingValue_To_SubItems()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer>
+        var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category">
                 <FluentNavSubItem>Sub Item</FluentNavSubItem>
             </FluentNavCategory>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -144,11 +144,11 @@
     // public void FluentNavCategory_Toggle_Calls_JavaScript_ToggleCategory()
     // {
     //     // Arrange
-    //     var cut = Render(@<FluentNavDrawer UseSingleExpanded="true">
+    //     var cut = Render(@<FluentNav UseSingleExpanded="true">
     //         <FluentNavCategory Title="Test Category" Expanded="false">
     //             <FluentNavSubItem>Sub Item</FluentNavSubItem>
     //         </FluentNavCategory>
-    //     </FluentNavDrawer>);
+    //     </FluentNav>);
 
     //     // Act
     //     // Find and click the category button to trigger toggle

@@ -52,11 +52,11 @@ public class ComponentBaseTests : Bunit.TestContext
         { typeof(FluentDragContainer<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentDropZone<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentTimePicker<>), Loader.MakeGenericType(typeof(DateTime))},
-        { typeof(FluentNavItem), Loader.Default.WithCascadingValue(new FluentNavDrawer(new LibraryConfiguration())) },
-        { typeof(FluentNavCategory), Loader.Default.WithCascadingValue(new FluentNavDrawer(new LibraryConfiguration())) },
-        { typeof(FluentNavDivider), Loader.Default.WithCascadingValue(new FluentNavDrawer(new LibraryConfiguration())) },
-        { typeof(FluentNavSubItem), Loader.Default.WithCascadingValue(new FluentNavDrawer(new LibraryConfiguration())) },
-        { typeof(FluentNavSectionHeader), Loader.Default.WithCascadingValue(new FluentNavDrawer(new LibraryConfiguration())) },
+        { typeof(FluentNavItem), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
+        { typeof(FluentNavCategory), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
+        { typeof(FluentNavDivider), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
+        { typeof(FluentNavSubItem), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
+        { typeof(FluentNavSectionHeader), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
 
     };
 

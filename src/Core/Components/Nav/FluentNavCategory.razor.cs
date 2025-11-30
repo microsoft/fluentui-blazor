@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// that support complex navigation scenarios.</remarks>
 public partial class FluentNavCategory : FluentComponentBase, INavDrawerItem
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNavDrawer.razor.js";
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
 
     /// <summary />
     public FluentNavCategory(LibraryConfiguration configuration) : base(configuration)
@@ -58,13 +58,13 @@ public partial class FluentNavCategory : FluentComponentBase, INavDrawerItem
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the parent <see cref="FluentNavDrawer"/> component for this instance.
+    /// Gets or sets the parent <see cref="FluentNav"/> component for this instance.
     /// </summary>
     /// <remarks>This property is typically set automatically by the Blazor framework when the component is
-    /// used within a <see cref="FluentNavDrawer"/>. It enables the component to access shared state or functionality from
+    /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
     /// its parent navigation menu.</remarks>
     [CascadingParameter]
-    public required FluentNavDrawer Owner { get; set; }
+    public required FluentNav Owner { get; set; }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -77,17 +77,17 @@ public partial class FluentNavCategory : FluentComponentBase, INavDrawerItem
     }
 
     /// <summary>
-    /// Validates that this component is used within a FluentNavDrawer.
+    /// Validates that this component is used within a FluentNav.
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        
-        // Validate that this component is used within a FluentNavDrawer
+
+        // Validate that this component is used within a FluentNav
         if (Owner == null)
         {
             throw new InvalidOperationException(
-                $"{nameof(FluentNavCategory)} must be used as a child of {nameof(FluentNavDrawer)}.");
+                $"{nameof(FluentNavCategory)} must be used as a child of {nameof(FluentNav)}.");
         }
     }
 

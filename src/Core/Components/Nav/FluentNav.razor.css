@@ -92,33 +92,9 @@
 }
 
 
-.fluent-nav-item {
-  display: flex;
-  text-transform: none;
-  position: relative;
-  justify-content: start;
-  align-items: flex-start;
-  text-align: left;
-  gap: var(--spacingVerticalL);
-  padding: var(--spacingVerticalMNudge) var(--spacingHorizontalS) var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge);
-  background-color: var(--colorNeutralBackground4);
-  border-radius: var(--borderRadiusMedium);
-  color: var(--colorNeutralForeground2);
-  text-decoration-line: none;
-  border: none;
-  box-sizing: border-box;
-  cursor: pointer;
-  transition-duration: var(--durationFaster);
-  transition-timing-function: var(--curveLinear);
-  transition-property: background;
-  width: 100%;
-  font-family: var(--fontFamilyBase);
-  font-size: var(--fontSizeBase300);
-  font-weight: var(--fontWeightRegular);
-  line-height: var(--lineHeightBase300);
-}
 
-  .appitem:hover, .fluent-nav-item:hover, .fluentui-navmenu-subitem:hover {
+
+  .fluent-nav .appitem:hover {
     background-color: var(--colorNeutralBackground4Hover);
   }
 
@@ -137,17 +113,18 @@ f1ayorr4 animation {
 }
 
 
-.fluent-nav .navlink.active::after {
-  width: 4px;
-  height: 20px;
-  background-color: var(--colorCompoundBrandForeground1);
-  margin-inline-start: -16px;
-  animation-name: f1ayorr4;
-  animation-timing-function: var(--curveLinear);
-  animation-fill-mode: both;
-  animation-duration: var(--durationFaster);
-  content: "";
-  position: absolute;
-  border-radius: var(--borderRadiusCircular);
-}
+.fluent-nav .fluent-navitem.active::after,
+.fluent-nav .fluent-navsubitem.active::after {
+    width: 4px;
+    height: 20px;
+    background-color: var(--colorCompoundBrandForeground1);
+    margin-inline-start: -16px;
+    animation-name: f1ayorr4;
+    animation-timing-function: var(--curveLinear);
+    animation-fill-mode: both;
+    animation-duration: var(--durationFaster);
+    content: "";
+    position: absolute;
+    border-radius: var(--borderRadiusCircular);
+  }
 

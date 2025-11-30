@@ -13,9 +13,9 @@
     public void FluentNavSectionHeader_Renders_With_Title()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer>
+        var cut = Render(@<FluentNav>
             <FluentNavSectionHeader Title="My Section" />
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -28,9 +28,9 @@
     public void FluentNavSectionHeader_Renders_Empty_When_No_Title()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer>
+        var cut = Render(@<FluentNav>
             <FluentNavSectionHeader Title="" />
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -47,7 +47,7 @@
         });
 
         Assert.Contains("must be used as a child of", ex.Message);
-        Assert.Contains("FluentNavDrawer", ex.Message);
+        Assert.Contains("FluentNav", ex.Message);
     }
 
     [Fact]

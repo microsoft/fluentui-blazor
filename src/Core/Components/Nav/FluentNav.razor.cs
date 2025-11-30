@@ -13,13 +13,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// a Fluent UI application.
 /// </summary>
 /// <remarks>
-/// <para>Use the FluentNavDrawer to present a collapsible navigation menu, typically accessed via a hamburger icon. 
+/// <para>Use the FluentNav to present a collapsible navigation menu, typically accessed via a hamburger icon. 
 /// The component supports customization of the displayed icon and its tooltip text and is designed for integration 
 /// into Fluent UI layouts.</para>
 /// 
 /// <para><strong>Allowed Child Components:</strong></para>
 /// <para>Only components implementing the <see cref="INavDrawerItem"/> interface are allowed as direct children 
-/// of FluentNavDrawer. Attempting to use other components will result in an <see cref="InvalidOperationException"/>.</para>
+/// of FluentNav. Attempting to use other components will result in an <see cref="InvalidOperationException"/>.</para>
 /// 
 /// <para>Valid direct children include:</para>
 /// <list type="bullet">
@@ -33,12 +33,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <para><see cref="FluentNavSubItem"/> components can only be used as direct children of <see cref="FluentNavCategory"/>, 
 /// not directly in the drawer.</para>
 /// </remarks>
-public partial class FluentNavDrawer : FluentComponentBase
+public partial class FluentNav : FluentComponentBase
 {
-    //private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNavDrawer.razor.js";
+    //private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
 
     /// <summary />
-    public FluentNavDrawer(LibraryConfiguration configuration) : base(configuration)
+    public FluentNav(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
@@ -89,6 +89,12 @@ public partial class FluentNavDrawer : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool UseLinks { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets wether to enable using icons in the nav items.
+    /// </summary>
+    [Parameter]
+    public bool UseIcons { get; set; } = true;
 
     /// <summary>
     /// Gets or sets wether to allowjust one expanded category or multiple

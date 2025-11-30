@@ -10,13 +10,17 @@
 		href="@Href"
 		density="@Owner.Density.ToAttributeValue()"
 		@attributes="AdditionalAttributes">
-	@if (Icon is not null)
+	@if (Owner.UseIcons)
 	{
+		@if (Icon is not null)
+		{
 			<FluentIcon Value="Icon" Class="icon" />
+		}
+		else
+		{
+			<span style="width: 20px;"></span>
+		}
+
 	}
-	@* else
-	{
-		<span style="width: 20px;"></span>
-	} *@
 	@ChildContent
 </AddTag>

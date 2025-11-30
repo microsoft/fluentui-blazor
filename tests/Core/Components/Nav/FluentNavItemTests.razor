@@ -13,9 +13,9 @@
     public void FluentNavItem_Renders_As_Link_When_UseLinks_True()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer UseLinks="true">
+        var cut = Render(@<FluentNav UseLinks="true">
             <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -28,9 +28,9 @@
     public void FluentNavItem_Renders_As_Button_When_UseLinks_False()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer UseLinks="false">
+        var cut = Render(@<FluentNav UseLinks="false">
             <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -42,9 +42,9 @@
     public void FluentNavItem_Renders_With_Active_State()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer UseLinks="true">
+        var cut = Render(@<FluentNav UseLinks="true">
             <FluentNavItem Href="https://example.com" Active="true">Active Item</FluentNavItem>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -55,9 +55,9 @@
     public void FluentNavItem_Renders_With_CustomClass()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer UseLinks="true">
+        var cut = Render(@<FluentNav UseLinks="true">
             <FluentNavItem Href="https://example.com" Class="custom-nav-item">Test Item</FluentNavItem>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -74,16 +74,16 @@
         });
 
         Assert.Contains("must be used as a child of", ex.Message);
-        Assert.Contains("FluentNavDrawer", ex.Message);
+        Assert.Contains("FluentNav", ex.Message);
     }
 
     [Fact]
     public void FluentNavItem_Renders_With_Small_Density()
     {
         // Arrange & Act
-        var cut = Render(@<FluentNavDrawer UseLinks="true" Density="NavDrawerDensity.Small">
+        var cut = Render(@<FluentNav UseLinks="true" Density="NavDrawerDensity.Small">
             <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
-        </FluentNavDrawer>);
+        </FluentNav>);
 
         // Assert
         Assert.NotNull(cut);
@@ -94,12 +94,26 @@
 	public void FluentNavItem_Renders_With_Icon()
 	{
 		// Arrange & Act
-		var cut = Render(@<FluentNavDrawer >
+		var cut = Render(@<FluentNav >
 			<FluentNavItem Icon="@Samples.Icons.Info">Test Item</FluentNavItem>
-		</FluentNavDrawer>);
+		</FluentNav>);
 		// Assert
 		Assert.NotNull(cut);
 		Assert.Contains("<svg class=\"icon\" style=\"width: 24px;", cut.Markup);
 		Assert.Contains("Test Item", cut.Markup);
 	}
-}
+
+	// Renders without icon if FluentNav.UseIsons = false
+	[Fact]
+	public void FluentNavItem_Renders_Without_Icon_When_Not_UseIcons()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav UseIcons="false">
+			<FluentNavItem Icon="@Samples.Icons.Info">Test Item</FluentNavItem>
+		</FluentNav>);
+		// Assert
+		Assert.NotNull(cut);
+		Assert.DoesNotContain("<svg class=\"icon\"", cut.Markup);
+		Assert.Contains("Test Item", cut.Markup);
+	}
+} 
