@@ -2,11 +2,13 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentNavItem
 
-@if (Owner.UseLinks)
+@if (!string.IsNullOrEmpty(Href))
 {
 	<NavLink fuib
 			 id="@Id"
 			 class="@ClassValue"
+			 ActiveClass="@ActiveClass"
+             Match="@Match"
 			 @attributes="Attributes">
 		@ChildContent
 	</NavLink>

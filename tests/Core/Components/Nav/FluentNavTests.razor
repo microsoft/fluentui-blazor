@@ -3,14 +3,14 @@
 @inherits Bunit.TestContext
 
 @code {
-    public FluentNavDrawerTests()
+    public FluentNavTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
     }
 
     [Fact]
-    public void FluentNavDrawer_Renders_WithDefaultParameters()
+    public void FluentNav_Renders_WithDefaultParameters()
     {
         // Arrange & Act
         var cut = Render(@<FluentNav>
@@ -25,7 +25,7 @@
     }
 
     [Fact]
-    public void FluentNavDrawer_Renders_AppTitle()
+    public void FluentNav_Renders_AppTitle()
     {
         // Arrange & Act
         var cut = Render(@<FluentNav AppTitle="My App">
@@ -38,7 +38,7 @@
     }
 
     [Fact]
-    public void FluentNavDrawer_Does_Not_Render_AppTitle_When_Empty()
+    public void FluentNav_Does_Not_Render_AppTitle_When_Empty()
     {
         // Arrange & Act
         var cut = Render(@<FluentNav AppTitle="">
@@ -50,7 +50,7 @@
     }
 
     [Fact]
-    public void FluentNavDrawer_Renders_With_CustomAppLink()
+    public void FluentNav_Renders_With_CustomAppLink()
     {
         // Arrange & Act
         var cut = Render(@<FluentNav AppTitle="My App" AppLink="/custom-link">
@@ -61,34 +61,9 @@
         Assert.Contains("href=\"/custom-link\"", cut.Markup);
     }
 
+    
     [Fact]
-    public void FluentNavDrawer_UseLinks_True_Renders_Links()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav UseLinks="true">
-            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
-        </FluentNav>);
-
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("<a ", cut.Markup);
-    }
-
-    [Fact]
-    public void FluentNavDrawer_UseLinks_False_Renders_Buttons()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav UseLinks="false">
-            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
-        </FluentNav>);
-
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("<button", cut.Markup);
-    }
-
-    [Fact]
-    public void FluentNavDrawer_Renders_With_CustomId()
+    public void FluentNav_Renders_With_CustomId()
     {
         // Arrange & Act
         var cut = Render(@<FluentNav Id="my-drawer-id">
@@ -100,7 +75,7 @@
     }
 
     [Fact]
-    public void FluentNavDrawer_Renders_With_CustomClass()
+    public void FluentNav_Renders_With_CustomClass()
     {
         // Arrange & Act
         var cut = Render(@<FluentNav Class="custom-drawer-class">
@@ -112,7 +87,7 @@
     }
 
     [Fact]
-    public void FluentNavDrawer_Renders_With_CustomStyle()
+    public void FluentNav_Renders_With_CustomStyle()
     {
         // Arrange & Act
         var cut = Render(@<FluentNav Style="background-color: red;">
@@ -124,7 +99,7 @@
     }
 
     [Fact]
-    public void FluentNavDrawer_Renders_With_Small_Density()
+    public void FluentNav_Renders_With_Small_Density()
     {
         // Arrange & Act
         var cut = Render(@<FluentNav Density="NavDrawerDensity.Small">
@@ -137,7 +112,7 @@
     }
 
     [Fact]
-    public void FluentNavDrawer_Renders_With_Medium_Density()
+    public void FluentNav_Renders_With_Medium_Density()
     {
         // Arrange & Act
         var cut = Render(@<FluentNav Density="NavDrawerDensity.Medium">
@@ -150,11 +125,10 @@
     }
 
 	[Fact]
-	public void FluentNavDrawer_Renders_With_AppIcon()
+	public void FluentNav_Renders_With_AppIcon()
 	{
 		// Arrange & Act
 		var cut = Render(@<FluentNav AppTitle="My App" AppIcon="@Samples.Icons.Info">
-			
 		</FluentNav>);
 		// Assert
 		Assert.NotNull(cut);
@@ -163,28 +137,15 @@
 	}
 
 	[Fact]
-	public void FluentNavDrawer_UseIcons_True()
+	public void FluentNav_UseIcons_True()
 	{
 		// Arrange & Act
-		var cut = Render(@<FluentNav UseLinks="true">
+		var cut = Render(@<FluentNav>
 			<FluentNavItem Icon="@Samples.Icons.Info" Href="https://example.com">Test Item</FluentNavItem>
 		</FluentNav>);
 
 		// Assert
 		Assert.NotNull(cut);
 		Assert.Contains("<svg", cut.Markup);
-	}
-
-	[Fact]
-	public void FluentNavDrawer_UseLinks_False()
-	{
-		// Arrange & Act
-		var cut = Render(@<FluentNav UseLinks="false">
-			<FluentNavItem Icon="@Samples.Icons.Info" Href="https://example.com">Test Item</FluentNavItem>
-		</FluentNav>);
-
-		// Assert
-		Assert.NotNull(cut);
-		Assert.DoesNotContain("<svg", cut.Markup);
 	}
 }

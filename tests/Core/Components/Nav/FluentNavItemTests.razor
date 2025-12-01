@@ -3,98 +3,146 @@
 @inherits Bunit.TestContext
 
 @code {
-    public FluentNavItemTests()
-    {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-        Services.AddFluentUIComponents();
-    }
+	public FluentNavItemTests()
+	{
+		JSInterop.Mode = JSRuntimeMode.Loose;
+		Services.AddFluentUIComponents();
+	}
 
-    [Fact]
-    public void FluentNavItem_Renders_As_Link_When_UseLinks_True()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav UseLinks="true">
-            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
-        </FluentNav>);
+	[Fact]
+	public void FluentNavItem_Renders_As_Link_When_Href_Provided()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+		</FluentNav>);
 
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("<a ", cut.Markup);
-        Assert.Contains("href=\"https://example.com\"", cut.Markup);
-        Assert.Contains("Test Item", cut.Markup);
-    }
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<a ", cut.Markup);
+		Assert.Contains("href=\"https://example.com\"", cut.Markup);
+		Assert.Contains("Test Item", cut.Markup);
+	}
 
-    [Fact]
-    public void FluentNavItem_Renders_As_Button_When_UseLinks_False()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav UseLinks="false">
-            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
-        </FluentNav>);
+	[Fact]
+	public void FluentNavItem_Renders_As_Button_When_No_Href_Provided()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem>Test Item</FluentNavItem>
+		</FluentNav>);
 
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("<button", cut.Markup);
-        Assert.Contains("Test Item", cut.Markup);
-    }
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<button", cut.Markup);
+		Assert.Contains("Test Item", cut.Markup);
+	}
 
-    [Fact]
-    public void FluentNavItem_Renders_With_Active_State()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav UseLinks="true">
-            <FluentNavItem Href="https://example.com" Active="true">Active Item</FluentNavItem>
-        </FluentNav>);
+	[Fact]
+	public void FluentNavItem_With_OnClick_Handler()
+	{
+		// Arrange & Act
+		bool clicked = false;
 
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("active", cut.Markup);
-    }
+		var cut = Render(@<FluentNav>
+			<FluentNavItem OnClick="@(() => { clicked = true; })" Id="custom-id">Test Item</FluentNavItem>
+			</FluentNav>
+		);
 
-    [Fact]
-    public void FluentNavItem_Renders_With_CustomClass()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav UseLinks="true">
-            <FluentNavItem Href="https://example.com" Class="custom-nav-item">Test Item</FluentNavItem>
-        </FluentNav>);
+		// Assert
+		Assert.NotNull(cut);
+		var button = cut.Find("#custom-id");
+		button.Click();
 
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("custom-nav-item", cut.Markup);
-    }
+		Assert.True(clicked);
+	}
 
-    [Fact]
-    public void FluentNavItem_Throws_When_Not_Child_Of_NavDrawer()
-    {
-        // Arrange & Act & Assert
-        var ex = Assert.Throws<InvalidOperationException>(() =>
-        {
-            Render(@<FluentNavItem Href="https://example.com">Test Item</FluentNavItem>);
-        });
+	[Fact]
+	public void FluentNavItem_With_OnClick_Handler_And_Href()
+	{
+		var cut = Render(@<FluentNav>
+			<FluentNavItem OnClick="@(() => { })" Href="https://example.com" Id="custom-id">Test Item</FluentNavItem>
+			</FluentNav>
+		);
 
-        Assert.Contains("must be used as a child of", ex.Message);
-        Assert.Contains("FluentNav", ex.Message);
-    }
+		// Assert
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<a ", cut.Markup);
+		Assert.Contains("href=\"https://example.com\"", cut.Markup);
+		Assert.Contains("Test Item", cut.Markup);
+	}
 
-    [Fact]
-    public void FluentNavItem_Renders_With_Small_Density()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav UseLinks="true" Density="NavDrawerDensity.Small">
-            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
-        </FluentNav>);
+	// [Fact]
+	// public void FluentNavItem_Renders_With_Active_State()
+	// {
+	// 	// Arrange & Act
+	// 	var cut = Render(@<FluentNav>
+	// 		<FluentNavItem Href="https://example.com" Active="true">Active Item</FluentNavItem>
+	// 	</FluentNav>);
 
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("density=", cut.Markup);
-    }
+	// 	// Assert
+	// 	Assert.NotNull(cut);
+	// 	Assert.Contains("active", cut.Markup);
+	// }
+
+	[Fact]
+	public void FluentNavItem_Renders_With_Disabled_State()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Href="https://example.com" Disabled="true">Disabled Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("disabled", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_Renders_With_CustomClass()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Href="https://example.com" Class="custom-nav-item">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("custom-nav-item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_Throws_When_Not_Child_Of_NavDrawer()
+	{
+		// Arrange & Act & Assert
+		var ex = Assert.Throws<InvalidOperationException>(() =>
+		{
+			Render(@<FluentNavItem Href="https://example.com">Test Item</FluentNavItem>);
+		});
+
+		Assert.Contains("must be used as a child of", ex.Message);
+		Assert.Contains("FluentNav", ex.Message);
+	}
+
+	[Fact]
+	public void FluentNavItem_Renders_With_Small_Density()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav Density="NavDrawerDensity.Small">
+			<FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("density=", cut.Markup);
+	}
 
 	[Fact]
 	public void FluentNavItem_Renders_With_Icon()
 	{
 		// Arrange & Act
-		var cut = Render(@<FluentNav >
+		var cut = Render(@<FluentNav>
 			<FluentNavItem Icon="@Samples.Icons.Info">Test Item</FluentNavItem>
 		</FluentNav>);
 		// Assert
@@ -116,4 +164,4 @@
 		Assert.DoesNotContain("<svg class=\"icon\"", cut.Markup);
 		Assert.Contains("Test Item", cut.Markup);
 	}
-} 
+}

@@ -22,7 +22,7 @@ public partial class FluentNavSubItem : FluentNavItem
     /// <summary />
     protected new string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-navsubitem")
-        .AddClass("active", Active)
+        //.AddClass("active", Active)
         .Build();
 
     /// <summary>

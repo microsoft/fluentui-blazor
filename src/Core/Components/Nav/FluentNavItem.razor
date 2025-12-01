@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-@if (Owner.UseLinks)
+@if (!string.IsNullOrEmpty(Href))
 {
 	<NavLink fuib
 			 id="@Id"
@@ -14,7 +14,7 @@
 		{
 			@if (Icon is not null)
 			{
-				<FluentIcon Value="Icon" Class="icon" Color="@(Active? Color.Primary: Color.Default)" />
+				<FluentIcon Value="GetIcon(Icon)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
 			}
 			else
 			{
@@ -35,7 +35,7 @@ else
 		{
 			@if (Icon is not null)
 			{
-				<FluentIcon Value="Icon" Class="icon" Color="@(Active? Color.Primary: Color.Default)" />
+				<FluentIcon Value="GetIcon(Icon)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
 			}
 			else
 			{

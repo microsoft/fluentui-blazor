@@ -143,3 +143,9 @@ f1ayorr4 animation {
 .fluent-nav .fluent-navsubitem.active {
   font-weight: var(--fontWeightSemibold);
 }
+
+.fluent-nav .fluent-navitem.disabled,
+.fluent-nav .fluent-navsubitem.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

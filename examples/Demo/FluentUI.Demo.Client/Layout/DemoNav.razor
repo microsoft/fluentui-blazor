@@ -1,12 +1,15 @@
 ﻿@inject NavigationManager Navigation
 @inject FluentUI.Demo.DocViewer.Services.DocViewerService DocViewerService
 
-<FluentNav UseLinks="true"
+<FluentNav Style="padding-top:10px;"
 		   UseSingleExpanded="false"
+		   AppTitle="Fluent UI Documentation"
 		   Density="@NavDrawerDensity.Medium">
 
+	<FluentNavItem Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())">Home</FluentNavItem>
 	@foreach (var category in NavItems)
 	{
+
 		<FluentNavSectionHeader Title="@category.Title" />
 
 		@foreach (var s in category.Items)

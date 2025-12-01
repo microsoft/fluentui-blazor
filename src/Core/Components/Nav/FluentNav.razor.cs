@@ -13,14 +13,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// a Fluent UI application.
 /// </summary>
 /// <remarks>
-/// <para>Use the FluentNav to present a collapsible navigation menu, typically accessed via a hamburger icon. 
-/// The component supports customization of the displayed icon and its tooltip text and is designed for integration 
+/// <para>Use the FluentNav to present a collapsible navigation menu, typically accessed via a hamburger icon.
+/// The component supports customization of the displayed icon and its tooltip text and is designed for integration
 /// into Fluent UI layouts.</para>
-/// 
+///
 /// <para><strong>Allowed Child Components:</strong></para>
-/// <para>Only components implementing the <see cref="INavDrawerItem"/> interface are allowed as direct children 
+/// <para>Only components implementing the <see cref="INavDrawerItem"/> interface are allowed as direct children
 /// of FluentNav. Attempting to use other components will result in an <see cref="InvalidOperationException"/>.</para>
-/// 
+///
 /// <para>Valid direct children include:</para>
 /// <list type="bullet">
 /// <item><description><see cref="FluentNavItem"/> - A simple navigation item</description></item>
@@ -28,9 +28,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <item><description><see cref="FluentNavSectionHeader"/> - A section header to organize navigation</description></item>
 /// <item><description><see cref="FluentNavDivider"/> - A visual divider between sections</description></item>
 /// </list>
-/// 
+///
 /// <para><strong>Nested Navigation:</strong></para>
-/// <para><see cref="FluentNavSubItem"/> components can only be used as direct children of <see cref="FluentNavCategory"/>, 
+/// <para><see cref="FluentNavSubItem"/> components can only be used as direct children of <see cref="FluentNavCategory"/>,
 /// not directly in the drawer.</para>
 /// </remarks>
 public partial class FluentNav : FluentComponentBase
@@ -83,12 +83,6 @@ public partial class FluentNav : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? ToggleIconTitle { get; set; }
-
-    /// <summary>
-    /// Gets or sets wether to enable using links in the nav items.
-    /// </summary>
-    [Parameter]
-    public bool UseLinks { get; set; } = true;
 
     /// <summary>
     /// Gets or sets wether to enable using icons in the nav items.

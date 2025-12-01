@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
@@ -13,8 +14,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents a navigation menu item that renders content within a Fluent UI styled navigation link.
 /// </summary>
-public partial class FluentNavItem : FluentComponentBase, INavDrawerItem
+public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDisposable
 {
+    private const string EnableMatchAllForQueryStringAndFragmentSwitchKey = "Microsoft.AspNetCore.Components.Routing.NavLink.EnableMatchAllForQueryStringAndFragment";
+    private static readonly bool _enableMatchAllForQueryStringAndFragment = AppContext.TryGetSwitch(EnableMatchAllForQueryStringAndFragmentSwitchKey, out var switchValue) && switchValue;
+
+    bool _isActive;
+    private string? _hrefAbsolute;
+
     /// <summary />
     public FluentNavItem(LibraryConfiguration configuration) : base(configuration)
     {
@@ -24,7 +31,8 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-navitem")
-        .AddClass("active", Active)
+        //.AddClass("active", _isActive)
+        .AddClass("disabled", Disabled)
         .Build();
 
     /// <summary />
@@ -123,6 +131,24 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem
             throw new InvalidOperationException(
                 $"{nameof(FluentNavItem)} must be used as a child of {nameof(FluentNav)}.");
         }
+
+        // Update computed state
+        _hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
+        _isActive = ShouldMatch(NavigationManager.Uri);
+    }
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        // We'll consider re-rendering on each location change
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        // To avoid leaking memory, it's important to detach any event handlers in Dispose()
+        NavigationManager.LocationChanged -= OnLocationChanged;
     }
 
     internal Dictionary<string, object?> Attributes
@@ -152,6 +178,188 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem
         if (OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync(args);
+        }
+    }
+
+    [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "<Pending>")]
+    private Icon? GetIcon(Icon icon)
+    {
+        if (_isActive)
+        {
+            var iconInfo = new IconInfo
+            {
+
+                Name = icon.Name,
+                Size = IconSize.Size20,
+                Variant = IconVariant.Filled,
+            };
+
+            if (iconInfo.TryGetInstance(out var customIcon))
+            {
+                return customIcon;
+            }
+        }
+
+        return icon;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs args)
+    {
+        // We could just re-render always, but for this component we know the
+        // only relevant state change is to the _isActive property.
+        var shouldBeActiveNow = ShouldMatch(args.Location);
+        if (shouldBeActiveNow != _isActive)
+        {
+            _isActive = shouldBeActiveNow;
+
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// Determines whether the current URI should match the link.
+    /// </summary>
+    /// <param name="uriAbsolute">The absolute URI of the current location.</param>
+    /// <returns>True if the link should be highlighted as active; otherwise, false.</returns>
+    protected virtual bool ShouldMatch(string uriAbsolute)
+    {
+        if (_hrefAbsolute == null)
+        {
+            return false;
+        }
+
+        var uriAbsoluteSpan = uriAbsolute.AsSpan();
+        var hrefAbsoluteSpan = _hrefAbsolute.AsSpan();
+        if (EqualsHrefExactlyOrIfTrailingSlashAdded(uriAbsoluteSpan, hrefAbsoluteSpan))
+        {
+            return true;
+        }
+
+        if (Match == NavLinkMatch.Prefix
+            && IsStrictlyPrefixWithSeparator(uriAbsolute, _hrefAbsolute))
+        {
+            return true;
+        }
+
+        if (_enableMatchAllForQueryStringAndFragment || Match != NavLinkMatch.All)
+        {
+            return false;
+        }
+
+        var uriWithoutQueryAndFragment = GetUriIgnoreQueryAndFragment(uriAbsoluteSpan);
+        if (EqualsHrefExactlyOrIfTrailingSlashAdded(uriWithoutQueryAndFragment, hrefAbsoluteSpan))
+        {
+            return true;
+        }
+
+        hrefAbsoluteSpan = GetUriIgnoreQueryAndFragment(hrefAbsoluteSpan);
+        return EqualsHrefExactlyOrIfTrailingSlashAdded(uriWithoutQueryAndFragment, hrefAbsoluteSpan);
+    }
+
+    private static ReadOnlySpan<char> GetUriIgnoreQueryAndFragment(ReadOnlySpan<char> uri)
+    {
+        if (uri.IsEmpty)
+        {
+            return ReadOnlySpan<char>.Empty;
+        }
+
+        var queryStartPos = uri.IndexOf('?');
+        var fragmentStartPos = uri.IndexOf('#');
+
+        if (queryStartPos < 0 && fragmentStartPos < 0)
+        {
+            return uri;
+        }
+
+        int minPos;
+        if (queryStartPos < 0)
+        {
+            minPos = fragmentStartPos;
+        }
+        else if (fragmentStartPos < 0)
+        {
+            minPos = queryStartPos;
+        }
+        else
+        {
+            minPos = Math.Min(queryStartPos, fragmentStartPos);
+        }
+
+        return uri.Slice(0, minPos);
+    }
+
+    private static readonly CaseInsensitiveCharComparer CaseInsensitiveComparer = new CaseInsensitiveCharComparer();
+
+    private static bool EqualsHrefExactlyOrIfTrailingSlashAdded(ReadOnlySpan<char> currentUriAbsolute, ReadOnlySpan<char> hrefAbsolute)
+    {
+        if (currentUriAbsolute.SequenceEqual(hrefAbsolute, CaseInsensitiveComparer))
+        {
+            return true;
+        }
+
+        if (currentUriAbsolute.Length == hrefAbsolute.Length - 1)
+        {
+            // Special case: highlight links to http://host/path/ even if you're
+            // at http://host/path (with no trailing slash)
+            //
+            // This is because the router accepts an absolute URI value of "same
+            // as base URI but without trailing slash" as equivalent to "base URI",
+            // which in turn is because it's common for servers to return the same page
+            // for http://host/vdir as they do for host://host/vdir/ as it's no
+            // good to display a blank page in that case.
+            if (hrefAbsolute[hrefAbsolute.Length - 1] == '/' &&
+                currentUriAbsolute.SequenceEqual(hrefAbsolute.Slice(0, hrefAbsolute.Length - 1), CaseInsensitiveComparer))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool IsUnreservedCharacter(char c)
+    {
+        // Checks whether it is an unreserved character according to
+        // https://datatracker.ietf.org/doc/html/rfc3986#section-2.3
+        // Those are characters that are allowed in a URI but do not have a reserved
+        // purpose (e.g. they do not separate the components of the URI)
+        return char.IsLetterOrDigit(c) ||
+                c == '-' ||
+                c == '.' ||
+                c == '_' ||
+                c == '~';
+    }
+
+    private static bool IsStrictlyPrefixWithSeparator(string value, string prefix)
+    {
+        var prefixLength = prefix.Length;
+        if (value.Length > prefixLength)
+        {
+            return value.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+                && (
+                    // Only match when there's a separator character either at the end of the
+                    // prefix or right after it.
+                    // Example: "/abc" is treated as a prefix of "/abc/def" but not "/abcdef"
+                    // Example: "/abc/" is treated as a prefix of "/abc/def" but not "/abcdef"
+                    prefixLength == 0
+                    || !IsUnreservedCharacter(prefix[prefixLength - 1])
+                    || !IsUnreservedCharacter(value[prefixLength])
+                );
+        }
+
+        return false;
+    }
+
+    private class CaseInsensitiveCharComparer : IEqualityComparer<char>
+    {
+        public bool Equals(char x, char y)
+        {
+            return char.ToLowerInvariant(x) == char.ToLowerInvariant(y);
+        }
+
+        public int GetHashCode(char obj)
+        {
+            return char.ToLowerInvariant(obj).GetHashCode();
         }
     }
 }
