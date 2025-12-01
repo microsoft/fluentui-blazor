@@ -1,6 +1,7 @@
 ---
 title: Menu
 route: /Menu
+icon: LineHorizontal1Dot
 ---
 
 # Menu

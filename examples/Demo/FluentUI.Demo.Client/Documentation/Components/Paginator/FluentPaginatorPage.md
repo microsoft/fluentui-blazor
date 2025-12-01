@@ -1,6 +1,7 @@
 ---
 title: Paginator
 route: /Paginator
+icon: ArrowNext
 ---
 
 # Paginator

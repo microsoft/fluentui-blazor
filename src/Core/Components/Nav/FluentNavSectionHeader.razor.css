@@ -4,4 +4,5 @@
   font-size: var(--fontSizeBase200);
   font-weight: var(--fontWeightSemibold);
   margin-inline-start: 10px;
+  line-height: var(--lineHeightBase200);
 }

@@ -1,6 +1,7 @@
 ---
 title: Buttons
 route: /Button/[Default]
+icon: Button
 ---
 
 # Buttons

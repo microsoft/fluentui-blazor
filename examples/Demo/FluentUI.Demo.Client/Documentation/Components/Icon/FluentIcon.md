@@ -1,6 +1,7 @@
 ---
 title: Icon
 route: /Icon
+icon: Icons
 ---
 
 # Icon

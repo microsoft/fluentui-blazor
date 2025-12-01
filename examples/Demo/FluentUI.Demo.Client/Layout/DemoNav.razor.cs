@@ -21,7 +21,7 @@ public partial class DemoNav
 
         var navItems = pages
                 .GroupBy(p => p.Category.Title)
-                .Select(categoryGroup => 
+                .Select(categoryGroup =>
                 {
                     // Group items within each category by PageGroup
                     var subGroups = categoryGroup
@@ -45,7 +45,7 @@ public partial class DemoNav
                                 return [ new NavItem(
                                     Title: subGroup.Key,
                                     Route: subGroup.FirstOrDefault(p => p.IsDefaultPageGroup)?.Route ?? subGroup.OrderBy(p => p.Order).First().Route,
-                                    Icon: string.Empty,
+                                    Icon: subGroup.FirstOrDefault(p => p.IsDefaultPageGroup)?.Icon ?? null,
                                     Order: subGroup.First().Order,
                                     Items: subGroup.Where(p => !p.IsDefaultPageGroup)
                                                    .Select(p => new NavItem(
@@ -77,14 +77,14 @@ public partial class DemoNav
 
     public IEnumerable<NavItem> NavItems { get; private set; } = Enumerable.Empty<NavItem>();
 
-    public record NavItem(string Title, string Route, string Icon, string Order, IEnumerable<NavItem> Items);
+    public record NavItem(string Title, string Route, string? Icon, string Order, IEnumerable<NavItem> Items);
 
     /// <summary>
     /// Create an <see cref="Icon"/> instance from a friendly name (e.g. "Home").
     /// Uses the icons reflection helpers already present in the library so no switch/lookup table is needed.
     /// Returns null when name is empty or the icon cannot be found.
     /// </summary>
-    private static Icon? GetIconFromName(string? iconName)
+    private static CustomIcon? GetIconFromName(string? iconName)
     {
         if (string.IsNullOrWhiteSpace(iconName))
         {

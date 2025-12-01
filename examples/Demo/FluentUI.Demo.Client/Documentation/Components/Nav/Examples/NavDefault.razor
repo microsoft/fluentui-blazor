@@ -1,54 +1,55 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inject IDialogService DialogService
 
 <h3>NavDefault</h3>
 
 <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="15">
 	<FluentNav UseLinks="@_useLinks"
-					 UseIcons="@_useIcons"
-					 UseSingleExpanded="@(!_useMultipleExpanded)"
-				   AppTitle="Contoso"
-				   Appicon="@(new Icons.Regular.Size32.Person())"
-				   Density="@_density">
-		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.Board())">Dashboard</FluentNavItem>
-		<FluentNavItem Active="true" Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.MegaphoneLoud())">Announcements</FluentNavItem>
-		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/">Employee Spotlight</FluentNavItem>
-		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.PersonSearch())">Profile Search</FluentNavItem>
-		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.PersonMoney())">Performance Reviews</FluentNavItem>
+			   UseIcons="@_useIcons"
+			   UseSingleExpanded="@(!_useMultipleExpanded)"
+			   AppTitle="Contoso"
+			   Appicon="@(new Icons.Regular.Size32.Person())"
+			   Density="@_density">
+		<FluentNavItem OnClick="@ShowInformationAsync" Href="@_link" Icon="@(new Icons.Regular.Size20.Board())">Dashboard</FluentNavItem>
+		<FluentNavItem Active="true" OnClick="@ShowInformationAsync" Href="@_link" Icon="@(new Icons.Regular.Size20.MegaphoneLoud())">Announcements</FluentNavItem>
+		<FluentNavItem OnClick="@ShowInformationAsync" Href="@_link">Employee Spotlight</FluentNavItem>
+		<FluentNavItem OnClick="@ShowInformationAsync" Href="@_link" Icon="@(new Icons.Regular.Size20.PersonSearch())">Profile Search</FluentNavItem>
+		<FluentNavItem OnClick="@ShowInformationAsync" Href="@_link" Icon="@(new Icons.Regular.Size20.PersonMoney())">Performance Reviews</FluentNavItem>
 
 		<FluentNavSectionHeader Title="Employee Management" />
 
 		<FluentNavCategory Title="Job Postings" Icon="@(new Icons.Regular.Size20.NotePin())">
 
-				<FluentNavSubItem>Openings</FluentNavSubItem>
-				<FluentNavSubItem>Submissions</FluentNavSubItem>
+			<FluentNavSubItem>Openings</FluentNavSubItem>
+			<FluentNavSubItem>Submissions</FluentNavSubItem>
 
 		</FluentNavCategory>
-		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.People())">Interviews</FluentNavItem>
+		<FluentNavItem OnClick="@ShowInformationAsync" Href="@_link" Icon="@(new Icons.Regular.Size20.People())">Interviews</FluentNavItem>
 
-	 	<FluentNavSectionHeader Title="Benefits" />
-		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.HeartPulse())">Health Plans</FluentNavItem>
+		<FluentNavSectionHeader Title="Benefits" />
+		<FluentNavItem OnClick="@ShowInformationAsync" Href="@_link" Icon="@(new Icons.Regular.Size20.HeartPulse())">Health Plans</FluentNavItem>
 
 		<FluentNavCategory Title="Retirement" Icon="@(new Icons.Regular.Size20.Person())">
 
-				<FluentNavSubItem>Plan Information</FluentNavSubItem>
-				<FluentNavSubItem>Fund Performance</FluentNavSubItem>
+			<FluentNavSubItem>Plan Information</FluentNavSubItem>
+			<FluentNavSubItem>Fund Performance</FluentNavSubItem>
 
 		</FluentNavCategory>
 
 		<FluentNavDivider />
 
-		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.BoxMultiple())">Training Programs</FluentNavItem>
+		<FluentNavItem OnClick="@ShowInformationAsync" Href="@_link" Icon="@(new Icons.Regular.Size20.BoxMultiple())">Training Programs</FluentNavItem>
 
 		<FluentNavCategory Title="Career Development" Icon="@(new Icons.Regular.Size20.PeopleStar())">
 
-				<FluentNavSubItem>Openings</FluentNavSubItem>
-				<FluentNavSubItem>Submissions</FluentNavSubItem>
+			<FluentNavSubItem>Openings</FluentNavSubItem>
+			<FluentNavSubItem>Submissions</FluentNavSubItem>
 
 		</FluentNavCategory>
 
-		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.ArrowTrendingLines())">Workforce Data</FluentNavItem>
-		<FluentNavItem Href="https://fluentui-blazor-v5.azurewebsites.net/" Icon="@(new Icons.Regular.Size20.DocumentBulletListMultiple())">Reports</FluentNavItem>
+		<FluentNavItem OnClick="@ShowInformationAsync" Href="@_link" Icon="@(new Icons.Regular.Size20.ArrowTrendingLines())">Workforce Data</FluentNavItem>
+		<FluentNavItem OnClick="@ShowInformationAsync" Href="@_link" Icon="@(new Icons.Regular.Size20.DocumentBulletListMultiple())">Reports</FluentNavItem>
 	</FluentNav>
 
 	<FluentStack Orientation="Orientation.Vertical">
@@ -57,7 +58,7 @@
 			<FluentRadio Label="Small" Value="NavDrawerDensity.Small" />
 		</FluentRadioGroup>
 
-		<FluentSwitch @bind-Value="@_useLinks" Label="Use Links" />
+		<FluentSwitch @bind-Value="@_useLinks" Label="Use Links" @bind-Value:after="@ToggleLinks" />
 		<FluentSwitch @bind-Value="@_useIcons" Label="Use Icons" />
 		<FluentSwitch @bind-Value="@_useMultipleExpanded" Label="Allow multiple expanded categories" />
 	</FluentStack>
@@ -70,4 +71,26 @@
 	bool _useLinks;
 	bool _useIcons;
 	bool _useMultipleExpanded = true;
+	string? _link = "https://fluentui-blazor-v5.azurewebsites.net/";
+
+	private async Task ShowInformationAsync()
+	{
+		if (_useLinks)
+		{
+			return;
+		}
+		var result = await DialogService.ShowInfoAsync("This is a message");
+	}
+
+	private void ToggleLinks()
+	{
+		if (_useLinks)
+		{
+			_link = "https://fluentui-blazor-v5.azurewebsites.net/";
+		}
+		else
+		{
+			_link = null;
+		}
+	}
 }

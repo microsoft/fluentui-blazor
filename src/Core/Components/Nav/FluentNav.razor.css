@@ -128,3 +128,18 @@ f1ayorr4 animation {
     border-radius: var(--borderRadiusCircular);
   }
 
+
+.fluent-nav .fluent-navsubitem.active::after {
+  margin-inline-start: -52px;
+}
+
+.fluent-nav .fluent-navitem:focus-visible,
+.fluent-nav .fluent-navsubitem:focus-visible {
+  outline: var(--strokeWidthThick) solid var(--colorStrokeFocus2);
+  outline-offset: calc(var(--strokeWidthThick) * -1);
+}
+
+.fluent-nav .fluent-navitem.active,
+.fluent-nav .fluent-navsubitem.active {
+  font-weight: var(--fontWeightSemibold);
+}

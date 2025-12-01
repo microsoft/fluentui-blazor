@@ -2,13 +2,21 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentNavItem
 
-<AddTag Name="@(Owner.UseLinks ? "a" : "button")"
-		fuib
-		id="@Id"
-		class="@ClassValue"
-		style="@StyleValue"
-		href="@Href"
-		density="@Owner.Density.ToAttributeValue()"
-		@attributes="AdditionalAttributes">
-	@ChildContent
-</AddTag>
+@if (Owner.UseLinks)
+{
+	<NavLink fuib
+			 id="@Id"
+			 class="@ClassValue"
+			 @attributes="Attributes">
+		@ChildContent
+	</NavLink>
+}
+else
+{
+	<button fuib
+			class="@ClassValue"
+			@onclick="OnClickHandlerAsync"
+			@attributes="Attributes">
+		@ChildContent
+	</button>
+}

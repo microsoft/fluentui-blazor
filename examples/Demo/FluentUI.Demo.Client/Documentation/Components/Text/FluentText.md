@@ -1,6 +1,7 @@
 ---
 title: Text
 route: /Text
+icon: CodeText
 ---
 
 # Text

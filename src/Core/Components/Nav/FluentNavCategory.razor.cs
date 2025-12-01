@@ -52,6 +52,12 @@ public partial class FluentNavCategory : FluentComponentBase, INavDrawerItem
     public bool Expanded { get; set; }
 
     /// <summary>
+    /// Gets or sets the tooltip to display when the mouse is placed over the item.
+    /// </summary>
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary>
     /// Gets or sets the content of the nav menu item.
     /// </summary>
     [Parameter]

@@ -1,6 +1,7 @@
 ---
 title: CounterBadge
 route: /CounterBadge
+icon: NumberCircle5
 ---
 
 # CouterBadge

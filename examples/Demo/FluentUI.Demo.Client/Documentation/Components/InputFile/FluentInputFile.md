@@ -1,6 +1,7 @@
 ---
 title: InputFile
 route: /InputFile
+icon: ArrowUpload
 ---
 
 # InputFile

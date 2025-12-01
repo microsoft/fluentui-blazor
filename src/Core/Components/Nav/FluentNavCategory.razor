@@ -8,6 +8,7 @@
 			class="@ClassValue"
 			style="@StyleValue"
 			density="@Owner.Density.ToAttributeValue()"
+			title="@(Tooltip ?? Title)"
 			@onclick="ToggleExpandedAsync"
 			@attributes="@AdditionalAttributes">
 		@if (Owner.UseIcons && Icon is not null)

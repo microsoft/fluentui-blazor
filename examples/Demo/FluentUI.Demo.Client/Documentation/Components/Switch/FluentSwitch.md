@@ -1,6 +1,7 @@
 ---
 title: Switch
 route: /Switch
+icon: ToggleLeft
 ---
 
 # Switch

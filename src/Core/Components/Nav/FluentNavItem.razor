@@ -2,25 +2,47 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<AddTag Name="@(Owner.UseLinks ? "a" : "button")"
-		fuib
-		id="@Id"
-		class="@ClassValue"
-		style="@StyleValue"
-		href="@Href"
-		density="@Owner.Density.ToAttributeValue()"
-		@attributes="AdditionalAttributes">
-	@if (Owner.UseIcons)
-	{
-		@if (Icon is not null)
+@if (Owner.UseLinks)
+{
+	<NavLink fuib
+			 id="@Id"
+			 class="@ClassValue"
+			 ActiveClass="@ActiveClass"
+             Match="@Match"
+			 @attributes="Attributes">
+		@if (Owner.UseIcons)
 		{
-			<FluentIcon Value="Icon" Class="icon" />
-		}
-		else
-		{
-			<span style="width: 20px;"></span>
-		}
+			@if (Icon is not null)
+			{
+				<FluentIcon Value="Icon" Class="icon" Color="@(Active? Color.Primary: Color.Default)" />
+			}
+			else
+			{
+				<span style="width: 20px;"></span>
+			}
 
-	}
-	@ChildContent
-</AddTag>
+		}
+		@ChildContent
+	</NavLink>
+}
+else
+{
+	<button fuib
+			@onclick="OnClickHandlerAsync"
+			class="@ClassValue"
+			@attributes="Attributes">
+		@if (Owner.UseIcons)
+		{
+			@if (Icon is not null)
+			{
+				<FluentIcon Value="Icon" Class="icon" Color="@(Active? Color.Primary: Color.Default)" />
+			}
+			else
+			{
+				<span style="width: 20px;"></span>
+			}
+
+		}
+		@ChildContent
+	</button>
+}

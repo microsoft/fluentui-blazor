@@ -3,26 +3,27 @@
 
 <FluentNav UseLinks="true"
 		   UseSingleExpanded="false"
-		   Density="@NavDrawerDensity.Small">
+		   Density="@NavDrawerDensity.Medium">
 
 	@foreach (var category in NavItems)
 	{
 		<FluentNavSectionHeader Title="@category.Title" />
 
-		@foreach (var sitepage in category.Items)
+		@foreach (var s in category.Items)
 		{
+			var sitePage = s;
 
-			@if (!sitepage.Items.Any())
+			@if (!sitePage.Items.Any())
 			{
-				<FluentNavItem Href="@sitepage.Route" Icon="@(GetIconFromName(sitepage.Icon))">@sitepage.Title</FluentNavItem>
+				<FluentNavItem Href="@sitePage.Route" Icon="@(GetIconFromName(sitePage.Icon))">@sitePage.Title</FluentNavItem>
 			}
 			else
 			{
-				<FluentNavCategory Title="@sitepage.Title">
-					<FluentNavSubItem Href="@sitepage.Route">Default</FluentNavSubItem>
-					@foreach (var subPage in sitepage.Items)
+				<FluentNavCategory Title="@sitePage.Title" Icon="@(GetIconFromName(sitePage.Icon))">
+					<FluentNavSubItem Href="@sitePage.Route">Default</FluentNavSubItem>
+					@foreach (var subPage in sitePage.Items)
 					{
-						<FluentNavSubItem Href="@sitepage.Route">@(subPage.Title)</FluentNavSubItem>
+						<FluentNavSubItem Href="@subPage.Route">@(subPage.Title)</FluentNavSubItem>
 					}
 				</FluentNavCategory>
 			}

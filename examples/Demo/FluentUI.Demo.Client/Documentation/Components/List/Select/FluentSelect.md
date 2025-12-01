@@ -1,6 +1,7 @@
 ---
 title: List / Select
 route: /List/Select
+icon: GroupList
 ---
 
 # Select

@@ -1,6 +1,7 @@
 ---
 title: Divider
 route: /Divider
+icon: DividerShort
 ---
 
 # Divider

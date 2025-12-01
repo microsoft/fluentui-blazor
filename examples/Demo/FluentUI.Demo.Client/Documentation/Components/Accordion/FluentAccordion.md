@@ -1,6 +1,7 @@
 ---
 title: Accordion
 route: /Accordion
+icon: TextCollapse
 ---
 
 # Accordion

@@ -1,6 +1,7 @@
 ---
 title: List / Combobox
 route: /List/Combobox
+icon: BoxEdit
 ---
 
 # Combobox

@@ -1,6 +1,7 @@
 ---
 title: TextArea
 route: /TextArea
+icon: TextboxMore
 ---
 
 # TextArea
