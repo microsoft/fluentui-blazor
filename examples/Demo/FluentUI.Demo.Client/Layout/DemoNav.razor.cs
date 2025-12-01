@@ -79,6 +79,33 @@ public partial class DemoNav
 
     public record NavItem(string Title, string Route, string Icon, string Order, IEnumerable<NavItem> Items);
 
+    /// <summary>
+    /// Create an <see cref="Icon"/> instance from a friendly name (e.g. "Home").
+    /// Uses the icons reflection helpers already present in the library so no switch/lookup table is needed.
+    /// Returns null when name is empty or the icon cannot be found.
+    /// </summary>
+    private static Icon? GetIconFromName(string? iconName)
+    {
+        if (string.IsNullOrWhiteSpace(iconName))
+        {
+            return null;
+        }
+
+        var iconInfo = new IconInfo
+        {
+            Name = iconName,
+            Size = IconSize.Size20,
+            Variant = IconVariant.Regular
+        };
+
+        if (iconInfo.TryGetInstance(out var customIcon))
+        {
+            return customIcon;
+        }
+
+        return null;
+    }
+
     //private async Task ItemClickAsync(NavItem item)
     //{
     //    NavigationManager.NavigateTo(item.Route);

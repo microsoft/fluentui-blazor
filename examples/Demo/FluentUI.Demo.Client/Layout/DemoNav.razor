@@ -14,7 +14,7 @@
 
 			@if (!sitepage.Items.Any())
 			{
-				<FluentNavItem Href="@sitepage.Route" Icon="@(new Icons.Regular.Size20.Home())">@sitepage.Title</FluentNavItem>
+				<FluentNavItem Href="@sitepage.Route" Icon="@(GetIconFromName(sitepage.Icon))">@sitepage.Title</FluentNavItem>
 			}
 			else
 			{
