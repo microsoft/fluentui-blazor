@@ -3,8 +3,10 @@
 # List of misspelled words
 # Please, sort the list alphabetically
 # ***************************
+altcolor
 ansi
 appsettings
+beforetoggle
 blazor
 brotli
 colspan
@@ -12,7 +14,6 @@ columnheader
 combobox
 cref
 csproj
-currentcolor
 currentcolor
 datagrid
 datalist
@@ -22,7 +23,9 @@ displaymode
 elementreference
 evenodd
 eventargs
-eventargs
+firstname
+gipr
+gridcell
 gzip
 henkan
 heure
@@ -33,6 +36,8 @@ jours
 keycapture
 keydown
 keyup
+langa
+lastname
 maintenant
 menuchecked
 menuclicked
@@ -54,12 +59,15 @@ onclosecolumnoptions
 onclosecolumnresize
 ondialogbeforetoggle
 ondropdownchange
+oninput
 onkeydown
 onmenuitemchange
 ontabchange
 ontreechanged
 ontreetoggle
+overscan
 rendertree
+resx
 rightclick
 rowcount
 rowheader
@@ -67,39 +75,14 @@ rowindex
 rrggbb
 secondes
 sortabillity
-sortabillity
 sourcecode
-Subscribable
-Subscribable
+subscribable
 summarydata
 tabindex
 tablist
 tabpanel
 testid
 textarea
+voituron
 wdelta
-displaymode
-Overscan
-gipr
-gridcell
-Voituron
-beforetoggle
-resx
 yyyy
-Langa
-Overscan
-gipr
-rowindex
-rowcount
-displaymode
-Voituron
-inputfile
-eventargs
-Subscribable
-colspan
-Voituron
-firstname
-lastname
-oninput
-altcolor
-wdelta
