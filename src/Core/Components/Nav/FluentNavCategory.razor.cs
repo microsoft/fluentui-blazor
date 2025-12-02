@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <remarks>Use this class to organize navigation elements into logical groups when building fluent or
 /// hierarchical navigation structures. Grouping navigation items can improve usability and clarity in user interfaces
 /// that support complex navigation scenarios.</remarks>
-public partial class FluentNavCategory : FluentComponentBase, INavDrawerItem
+public partial class FluentNavCategory : FluentComponentBase, INavItem
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
 
@@ -90,7 +90,7 @@ public partial class FluentNavCategory : FluentComponentBase, INavDrawerItem
         base.OnParametersSet();
 
         // Validate that this component is used within a FluentNav
-        if (Owner == null)
+        if (Owner == null || Owner.GetType() != typeof(FluentNav))
         {
             throw new InvalidOperationException(
                 $"{nameof(FluentNavCategory)} must be used as a child of {nameof(FluentNav)}.");

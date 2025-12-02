@@ -12,6 +12,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// of <see cref="FluentNav"/>. Only components implementing this interface should be used as children
 /// of the navigation drawer to ensure proper structure and styling.
 /// </remarks>
-public interface INavDrawerItem
+public interface INavItem
 {
 }

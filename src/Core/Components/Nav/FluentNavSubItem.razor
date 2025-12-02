@@ -7,18 +7,31 @@
 	<NavLink fuib
 			 id="@Id"
 			 class="@ClassValue"
+			 style="@StyleValue"
+			 href="@Href"
+			 density="@Owner.Density.ToAttributeValue()"
+			 title="@Tooltip"
+			 target="@Target"
+			 rel="@(!string.IsNullOrWhiteSpace(Target) ? "noopener noreferrer" : string.Empty)"
 			 ActiveClass="@ActiveClass"
              Match="@Match"
-			 @attributes="Attributes">
+			 @attributes="AdditionalAttributes">
 		@ChildContent
 	</NavLink>
 }
 else
 {
 	<button fuib
-			class="@ClassValue"
+			 id="@Id"
+			 class="@ClassValue"
+			 style="@StyleValue"
+			 href="@Href"
+			 density="@Owner.Density.ToAttributeValue()"
+			 title="@Tooltip"
+			 target="@Target"
+			 rel="@(!string.IsNullOrWhiteSpace(Target) ? "noopener noreferrer" : string.Empty)"
 			@onclick="OnClickHandlerAsync"
-			@attributes="Attributes">
+			@attributes="AdditionalAttributes">
 		@ChildContent
 	</button>
 }

@@ -7,9 +7,15 @@
 	<NavLink fuib
 			 id="@Id"
 			 class="@ClassValue"
+			 style="@StyleValue"
+			 href="@Href"
+			 density="@Owner.Density.ToAttributeValue()"
+			 title="@Tooltip"
+			 target="@Target"
+			 rel="@(!string.IsNullOrWhiteSpace(Target) ? "noopener noreferrer" : string.Empty)"
 			 ActiveClass="@ActiveClass"
-             Match="@Match"
-			 @attributes="Attributes">
+			 Match="@Match"
+			 @attributes="@AdditionalAttributes">
 		@if (Owner.UseIcons)
 		{
 			@if (Icon is not null)
@@ -28,9 +34,16 @@
 else
 {
 	<button fuib
-			@onclick="OnClickHandlerAsync"
+			id="@Id"
 			class="@ClassValue"
-			@attributes="Attributes">
+			style="@StyleValue"
+			href="@Href"
+			density="@Owner.Density.ToAttributeValue()"
+			title="@Tooltip"
+			target="@Target"
+			rel="@(!string.IsNullOrWhiteSpace(Target) ? "noopener noreferrer" : string.Empty)"
+			@onclick="OnClickHandlerAsync"
+			@attributes="@AdditionalAttributes">
 		@if (Owner.UseIcons)
 		{
 			@if (Icon is not null)

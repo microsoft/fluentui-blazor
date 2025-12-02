@@ -6,7 +6,6 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -14,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents a navigation menu item that renders content within a Fluent UI styled navigation link.
 /// </summary>
-public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDisposable
+public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
 {
     private const string EnableMatchAllForQueryStringAndFragmentSwitchKey = "Microsoft.AspNetCore.Components.Routing.NavLink.EnableMatchAllForQueryStringAndFragment";
     private static readonly bool _enableMatchAllForQueryStringAndFragment = AppContext.TryGetSwitch(EnableMatchAllForQueryStringAndFragmentSwitchKey, out var switchValue) && switchValue;
@@ -31,7 +30,6 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-navitem")
-        //.AddClass("active", _isActive)
         .AddClass("disabled", Disabled)
         .Build();
 
@@ -52,22 +50,10 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
     public string? Href { get; set; }
 
     /// <summary>
-    /// Get or sets wether the link is active
-    /// </summary>
-    [Parameter]
-    public bool Active { get; set; }
-
-    /// <summary>
     /// The callback to invoke when the item is clicked.
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
-
-    /// <summary>
-    /// If true, force browser to redirect outside component router-space.
-    /// </summary>
-    [Parameter]
-    public bool ForceLoad { get; set; }
 
     /// <summary>
     /// If true, the item will be disabled.
@@ -126,7 +112,7 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
     protected override void OnParametersSet()
     {
         // Validate that this component is used within a FluentNav
-        if (Owner == null)
+        if (Owner == null || Owner.GetType() != typeof(FluentNav))
         {
             throw new InvalidOperationException(
                 $"{nameof(FluentNavItem)} must be used as a child of {nameof(FluentNav)}.");
@@ -151,20 +137,6 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
         NavigationManager.LocationChanged -= OnLocationChanged;
     }
 
-    internal Dictionary<string, object?> Attributes
-    {
-        get => Disabled ? [] : new Dictionary<string, object?>(StringComparer.OrdinalIgnoreCase)
-         {
-            { "id", Id },
-            { "style", StyleValue },
-            { "href", Href },
-            { "density", Owner.Density.ToAttributeValue()},
-            { "title", Tooltip },
-            { "target", Target },
-            { "rel", !string.IsNullOrWhiteSpace(Target) ? "noopener noreferrer" : string.Empty },
-        };
-    }
-
     /// <summary>
     /// Calls the <see cref="OnClick"/> delegate when specified (and item not disabled)
     /// </summary>
@@ -181,6 +153,7 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
         }
     }
 
+    [ExcludeFromCodeCoverage(Justification = "We can't test the Icon.* DLLs here")]
     [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "<Pending>")]
     private Icon? GetIcon(Icon icon)
     {
@@ -194,6 +167,7 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
                 Variant = IconVariant.Filled,
             };
 
+            //This cannot be tested as the Icons assembly is not available in bUnit tests
             if (iconInfo.TryGetInstance(out var customIcon))
             {
                 return customIcon;
@@ -203,6 +177,7 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
         return icon;
     }
 
+    [ExcludeFromCodeCoverage(Justification = "Cannot be tested with current bUnit version")]
     private void OnLocationChanged(object? sender, LocationChangedEventArgs args)
     {
         // We could just re-render always, but for this component we know the
@@ -221,6 +196,7 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
     /// </summary>
     /// <param name="uriAbsolute">The absolute URI of the current location.</param>
     /// <returns>True if the link should be highlighted as active; otherwise, false.</returns>
+    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
     protected virtual bool ShouldMatch(string uriAbsolute)
     {
         if (_hrefAbsolute == null)
@@ -256,6 +232,7 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
         return EqualsHrefExactlyOrIfTrailingSlashAdded(uriWithoutQueryAndFragment, hrefAbsoluteSpan);
     }
 
+    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
     private static ReadOnlySpan<char> GetUriIgnoreQueryAndFragment(ReadOnlySpan<char> uri)
     {
         if (uri.IsEmpty)
@@ -290,6 +267,7 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
 
     private static readonly CaseInsensitiveCharComparer CaseInsensitiveComparer = new CaseInsensitiveCharComparer();
 
+    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
     private static bool EqualsHrefExactlyOrIfTrailingSlashAdded(ReadOnlySpan<char> currentUriAbsolute, ReadOnlySpan<char> hrefAbsolute)
     {
         if (currentUriAbsolute.SequenceEqual(hrefAbsolute, CaseInsensitiveComparer))
@@ -317,6 +295,7 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
         return false;
     }
 
+    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
     private static bool IsUnreservedCharacter(char c)
     {
         // Checks whether it is an unreserved character according to
@@ -330,6 +309,7 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
                 c == '~';
     }
 
+    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
     private static bool IsStrictlyPrefixWithSeparator(string value, string prefix)
     {
         var prefixLength = prefix.Length;
@@ -350,6 +330,7 @@ public partial class FluentNavItem : FluentComponentBase, INavDrawerItem, IDispo
         return false;
     }
 
+    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
     private class CaseInsensitiveCharComparer : IEqualityComparer<char>
     {
         public bool Equals(char x, char y)

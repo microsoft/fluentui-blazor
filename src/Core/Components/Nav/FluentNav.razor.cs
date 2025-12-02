@@ -18,7 +18,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// into Fluent UI layouts.</para>
 ///
 /// <para><strong>Allowed Child Components:</strong></para>
-/// <para>Only components implementing the <see cref="INavDrawerItem"/> interface are allowed as direct children
+/// <para>Only components implementing the <see cref="INavItem"/> interface are allowed as direct children
 /// of FluentNav. Attempting to use other components will result in an <see cref="InvalidOperationException"/>.</para>
 ///
 /// <para>Valid direct children include:</para>
@@ -71,18 +71,19 @@ public partial class FluentNav : FluentComponentBase
     [Parameter]
     public string AppLink { get; set; } = "/";
 
-    /// <summary>
-    /// Gets or sets the icon to display for collapsing/expanding the nav menu.
-    /// By default, this icon is a hamburger icon.
-    /// </summary>
-    [Parameter]
-    public Icon ToggleIcon { get; set; } = new CoreIcons.Regular.Size20.LineHorizontal3();
+    // This is for when the header with the hamburger icon is implemented
+    ///// <summary>
+    ///// Gets or sets the icon to display for collapsing/expanding the nav menu.
+    ///// By default, this icon is a hamburger icon.
+    ///// </summary>
+    //[Parameter]
+    //public Icon ToggleIcon { get; set; } = new CoreIcons.Regular.Size20.LineHorizontal3();
 
-    /// <summary>
-    /// Gets or sets the title to display when the user hovers over the hamburger icon.
-    /// </summary>
-    [Parameter]
-    public string? ToggleIconTitle { get; set; }
+    ///// <summary>
+    ///// Gets or sets the title to display when the user hovers over the hamburger icon.
+    ///// </summary>
+    //[Parameter]
+    //public string? ToggleIconTitle { get; set; }
 
     /// <summary>
     /// Gets or sets wether to enable using icons in the nav items.

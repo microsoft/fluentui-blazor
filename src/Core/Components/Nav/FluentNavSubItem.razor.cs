@@ -22,7 +22,7 @@ public partial class FluentNavSubItem : FluentNavItem
     /// <summary />
     protected new string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-navsubitem")
-        //.AddClass("active", Active)
+        .AddClass("disabled", Disabled)
         .Build();
 
     /// <summary>
@@ -40,7 +40,7 @@ public partial class FluentNavSubItem : FluentNavItem
     protected override void OnParametersSet()
     {
         // Validate that this component is used within a FluentNavCategory inside a FluentNav
-        if (Owner == null || Category is null)
+        if (Owner == null || Category is null || Category.GetType() != typeof(FluentNavCategory))
         {
             throw new InvalidOperationException(
                 $"{nameof(FluentNavSubItem)} must be used as a child of {nameof(FluentNavCategory)} within a {nameof(FluentNav)}.");
