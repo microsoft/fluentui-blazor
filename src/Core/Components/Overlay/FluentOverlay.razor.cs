@@ -69,7 +69,7 @@ public partial class FluentOverlay : FluentComponentBase
     /// Gets or set if the overlay is transparent.
     /// </summary>
     [Parameter]
-    public bool Transparent { get; set; } = true;
+    public bool Transparent { get; set; }
 
     /// <summary>
     /// Gets or sets the opacity of the overlay.
