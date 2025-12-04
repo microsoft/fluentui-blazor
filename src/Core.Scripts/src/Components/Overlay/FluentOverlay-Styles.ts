@@ -14,7 +14,7 @@ export const fluentOverlayStyles: string = `
     outline: none;
   }
 
-  :host[fullscreen] dialog {
+  :host([fullscreen]) dialog {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -23,11 +23,11 @@ export const fluentOverlayStyles: string = `
     pointer-events: pointer;
   }
 
-  :host[fullscreen] dialog::backdrop {
+  :host([fullscreen]) dialog::backdrop {
     background-color: var(--overlayBackground);
   }
 
-  :host:not([fullscreen]):has(dialog[open]) {
+  :host(:not([fullscreen])):has(dialog[open]) {
     position: absolute;
     top: 0;
     left: 0;
@@ -37,13 +37,13 @@ export const fluentOverlayStyles: string = `
     /* pointer-events: none; */
   }
 
-  :host:not([fullscreen]) dialog {
+  :host(:not([fullscreen])) dialog {
     position: fixed;
     margin: 0;
     transform: translate(-50%, -50%);
   }
 
-  :host:not([fullscreen]) dialog::backdrop {
+  :host(:not([fullscreen])) dialog::backdrop {
     background-color: transparent;
   }
 
