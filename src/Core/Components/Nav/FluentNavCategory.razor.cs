@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// that support complex navigation scenarios.</remarks>
 public partial class FluentNavCategory : FluentComponentBase, INavItem
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNavCategory.razor.js";
 
     /// <summary />
     public FluentNavCategory(LibraryConfiguration configuration) : base(configuration)

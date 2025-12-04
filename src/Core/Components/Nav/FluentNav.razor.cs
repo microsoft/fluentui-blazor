@@ -35,8 +35,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </remarks>
 public partial class FluentNav : FluentComponentBase
 {
-    //private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
-
     /// <summary />
     public FluentNav(LibraryConfiguration configuration) : base(configuration)
     {
@@ -108,18 +106,4 @@ public partial class FluentNav : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // Import the JavaScript module
-            //var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
-            // Call a function from the JavaScript module
-            //await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.NavDrawer.InitializeCategoryToggle",
-            //    UseSingleExpanded);
-        }
-    }
 }

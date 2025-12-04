@@ -22,7 +22,7 @@ export function ToggleCategory(categoryId: string, useSingleExpand: boolean): vo
 
 
 
-export function Expand(categoryId: string, useSingleExpand: boolean): void {
+export function ExpandCategory(categoryId: string, useSingleExpand: boolean): void {
     const category = document.getElementById(categoryId) as HTMLElement;
     if (!category) return;
 
@@ -36,7 +36,7 @@ export function Expand(categoryId: string, useSingleExpand: boolean): void {
     expand(group, category);
 }
 
-export function Collapse(categoryId: string): void {
+export function CollapseCategory(categoryId: string): void {
     const category = document.getElementById(categoryId) as HTMLElement;
     if (!category) return;
 
@@ -46,7 +46,7 @@ export function Collapse(categoryId: string): void {
     }
 }
 
-export function CollapseAll(): void {
+export function CollapseAllCategories(): void {
     const allGroups = document.querySelectorAll<HTMLElement>('.fluent-navsubitemgroup.expanded');
     allGroups.forEach(group => {
         const category = group.previousElementSibling as HTMLElement;
