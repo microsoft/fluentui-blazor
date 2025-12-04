@@ -1,0 +1,19 @@
+﻿<FluentSwitch @bind-Value="@FullScreen" Label="FullScreen" Margin="@Margin.Right4" />
+<FluentSwitch @bind-Value="@Interactive" Label="Interactive" Margin="@Margin.Right4" />
+
+<div style="width: 50%; height: 100px; border: 1px dashed red;">
+    <h3>Container</h3>
+    <fluent-overlay id="id1" fullscreen="@FullScreen" interactive="@Interactive">
+        <FluentSpinner />
+    </fluent-overlay>
+</div>
+
+<div>
+    <button onclick="document.getElementById('id1').show()">Show Overlay</button>
+</div>
+
+@code
+{
+    bool FullScreen = false;
+    bool Interactive = false;
+}
