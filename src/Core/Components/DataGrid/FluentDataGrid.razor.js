@@ -188,7 +188,7 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
     if (!resizeColumnOnAllRows) {
         // Only use the header height when resizeColumnOnAllRows is false
         // Use the first header's height if available
-        resizeHandleHeight = headers.length > 0 ? (headers[0].offsetHeight - 14 ): 30; // fallback to 30px if no headers
+        resizeHandleHeight = headers.length > 0 ? (headers[0].offsetHeight - 14 ): 32; // fallback to 30px if no headers
     }
 
     headers.forEach((header) => {
@@ -201,8 +201,11 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
         const resizedivs  = header.querySelectorAll(".actual-resize-handle");
         resizedivs.forEach(div => div.remove());
 
+        // Get the top of the first resize-handle
+        const resizeTop = header.querySelector('.resize-handle').offsetTop;
+
         // add a new resize div
-        const div = createDiv(resizeHandleHeight, isRTL);
+        const div = createDiv(resizeHandleHeight, resizeTop, isRTL);
         header.appendChild(div);
         setListeners(div, isRTL);
     });
@@ -283,14 +286,14 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
         });
     }
 
-    function createDiv(height, isRTL) {
+    function createDiv(height, top, isRTL) {
         const div = document.createElement('div');
         div.className = "actual-resize-handle";
-        div.style.top = '5px';
+        div.style.top = top + 'px';
         div.style.position = 'absolute';
         div.style.cursor = 'col-resize';
         div.style.userSelect = 'none';
-        div.style.height = (height - 5) + 'px';
+        div.style.height = (height - 4) + 'px';
         div.style.width = '6px';
         div.style.opacity = 'var(--fluent-data-grid-header-opacity)'
 
