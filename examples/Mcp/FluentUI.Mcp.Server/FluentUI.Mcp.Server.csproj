@@ -1,0 +1,73 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
+    <RootNamespace>FluentUI.Mcp.Server</RootNamespace>
+    <!-- Disable culture-related warnings for string formatting in MCP tools -->
+    <NoWarn>$(NoWarn);CA1305;IDE0005;IDE0060;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <!-- NuGet Package Configuration -->
+  <PropertyGroup>
+    <PackageId>Microsoft.FluentUI.AspNetCore.Components.McpServer</PackageId>
+    <Version>5.0.0-preview.1</Version>
+    <Authors>Microsoft</Authors>
+    <Description>MCP (Model Context Protocol) server for Fluent UI Blazor component documentation. Provides AI assistants with access to component details, parameters, events, methods, enums, and usage examples.</Description>
+    <PackageTags>mcp;model-context-protocol;fluent-ui;blazor;documentation;ai;copilot</PackageTags>
+    <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- Configure as .NET Tool for NuGet -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>fluentui-mcp</ToolCommandName>
+
+    <!-- MCP Server package type for NuGet discovery -->
+    <PackageType>McpServer</PackageType>
+  </PropertyGroup>
+
+  <!-- Include README and MCP server manifest in package -->
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include=".mcp\server.json" Pack="true" PackagePath=".mcp\" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- Code Analysis -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- MCP SDK -->
+  <ItemGroup>
+    <PackageReference Include="ModelContextProtocol" />
+  </ItemGroup>
+
+  <!-- Dependencies -->
+  <ItemGroup>
+    <PackageReference Include="LoxSmoke.DocXml" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+
+  <!-- Reference to the FluentUI Components for API extraction -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+  </ItemGroup>
+
+  <!-- Exclude duplicate XML documentation file -->
+  <ItemGroup>
+    <Content Remove="..\..\Tools\FluentUI.Demo.DocApiGen\Microsoft.FluentUI.AspNetCore.Components.xml" />
+  </ItemGroup>
+
+</Project>

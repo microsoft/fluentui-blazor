@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <RuntimeVersion9>9.0.9</RuntimeVersion9>
+    <RuntimeVersion9>9.0.10</RuntimeVersion9>
     <AspNetCoreVersion9>9.0.9</AspNetCoreVersion9>
     <EfCoreVersion9>9.0.9</EfCoreVersion9>
     <RuntimeVersion10>10.0.0</RuntimeVersion10>
@@ -15,6 +15,9 @@
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.13.1" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.13.1" />
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.8.0" />
+    <!-- MCP Server dependencies -->
+    <PackageVersion Include="ModelContextProtocol" Version="0.4.1-preview.1" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="1.38.5" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />

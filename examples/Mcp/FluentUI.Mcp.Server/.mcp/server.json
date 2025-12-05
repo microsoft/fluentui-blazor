@@ -1,0 +1,182 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/registry/main/docs/server-json/schema.json",
+  "name": "io.github.microsoft/fluentui-blazor-mcp",
+  "description": "MCP server providing documentation for Fluent UI Blazor components. Access component details, parameters, events, methods, enums, guides, and usage examples through AI assistants.",
+  "packages": [
+    {
+      "registry_name": "nuget",
+      "name": "Microsoft.FluentUI.AspNetCore.Components.McpServer",
+      "version": "5.0.0-preview.1",
+      "package_arguments": [],
+      "environment_variables": []
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/microsoft/fluentui-blazor",
+    "source": "github"
+  },
+  "version_detail": {
+    "version": "5.0.0-preview.1"
+  },
+  "tools": [
+    {
+      "name": "ListComponents",
+      "description": "Lists all available Fluent UI Blazor components with their names and brief descriptions."
+    },
+    {
+      "name": "GetComponentDetails",
+      "description": "Gets detailed documentation for a specific component including parameters, events, and methods."
+    },
+    {
+      "name": "SearchComponents",
+      "description": "Searches for components by name or description."
+    },
+    {
+      "name": "ListCategories",
+      "description": "Lists all available component categories."
+    },
+    {
+      "name": "GetEnumValues",
+      "description": "Gets information about a specific enum type including all possible values. Supports optional filter parameter."
+    },
+    {
+      "name": "GetComponentEnums",
+      "description": "Lists all enum types used by a specific component, showing which property/parameter uses each enum."
+    },
+    {
+      "name": "ListEnums",
+      "description": "Lists all enum types used in the library. Supports optional filter parameter."
+    },
+    {
+      "name": "GetComponentExample",
+      "description": "Gets usage examples for a specific component."
+    },
+    {
+      "name": "GetGuide",
+      "description": "Gets a specific documentation guide (installation, defaultvalues, whatsnew, migration, localization, styles)."
+    },
+    {
+      "name": "SearchGuides",
+      "description": "Searches documentation guides for specific content or topics."
+    },
+    {
+      "name": "ListGuides",
+      "description": "Lists all available documentation guides with descriptions."
+    }
+  ],
+  "resources": [
+    {
+      "uri": "fluentui://components",
+      "name": "All Components",
+      "description": "Complete list of all Fluent UI Blazor components organized by category."
+    },
+    {
+      "uri": "fluentui://categories",
+      "name": "Component Categories",
+      "description": "List of all component categories with component counts."
+    },
+    {
+      "uri": "fluentui://enums",
+      "name": "All Enum Types",
+      "description": "Complete list of all enum types used in the library."
+    },
+    {
+      "uri": "fluentui://guides",
+      "name": "Documentation Guides",
+      "description": "List of all available documentation guides."
+    },
+    {
+      "uri": "fluentui://guide/installation",
+      "name": "Installation Guide",
+      "description": "Complete installation and setup guide for Fluent UI Blazor."
+    },
+    {
+      "uri": "fluentui://guide/defaultvalues",
+      "name": "Default Values Guide",
+      "description": "Guide for configuring default component values globally."
+    },
+    {
+      "uri": "fluentui://guide/whatsnew",
+      "name": "What's New",
+      "description": "Latest release notes and changes."
+    },
+    {
+      "uri": "fluentui://guide/migration",
+      "name": "Migration to v5",
+      "description": "Complete migration guide from v4 to v5 with all breaking changes."
+    },
+    {
+      "uri": "fluentui://guide/localization",
+      "name": "Localization Guide",
+      "description": "Guide for translating and localizing component texts."
+    },
+    {
+      "uri": "fluentui://guide/styles",
+      "name": "Styles Guide",
+      "description": "CSS styling, design tokens, and theming guide."
+    }
+  ],
+  "resource_templates": [
+    {
+      "uri_template": "fluentui://component/{name}",
+      "name": "Component Documentation",
+      "description": "Detailed documentation for a specific component including parameters, events, and methods."
+    },
+    {
+      "uri_template": "fluentui://category/{name}",
+      "name": "Components by Category",
+      "description": "List of all components in a specific category."
+    },
+    {
+      "uri_template": "fluentui://enum/{name}",
+      "name": "Enum Details",
+      "description": "Detailed information about a specific enum type including all values."
+    }
+  ],
+  "prompts": [
+    {
+      "name": "create_component",
+      "description": "Generate code for a Fluent UI Blazor component with specified configuration."
+    },
+    {
+      "name": "explain_component",
+      "description": "Get a detailed explanation of a component and its usage."
+    },
+    {
+      "name": "compare_components",
+      "description": "Compare two or more components to understand their differences."
+    },
+    {
+      "name": "create_form",
+      "description": "Generate a complete Fluent UI Blazor form with validation."
+    },
+    {
+      "name": "create_datagrid",
+      "description": "Generate a DataGrid with specified columns and features."
+    },
+    {
+      "name": "create_dialog",
+      "description": "Generate a dialog/modal component."
+    },
+    {
+      "name": "create_drawer",
+      "description": "Generate a drawer/panel component for side content."
+    },
+    {
+      "name": "migrate_to_v5",
+      "description": "Get guidance for migrating code from v4 to v5."
+    },
+    {
+      "name": "setup_project",
+      "description": "Get step-by-step guidance for setting up a new project."
+    },
+    {
+      "name": "configure_theming",
+      "description": "Get guidance for configuring theming and styles."
+    },
+    {
+      "name": "configure_localization",
+      "description": "Get guidance for implementing localization."
+    }
+  ]
+}
