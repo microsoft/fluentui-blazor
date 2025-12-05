@@ -5,7 +5,9 @@
 <h3>NavDefault</h3>
 
 <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="15">
-	<FluentNav UseIcons="@_useIcons"
+	<FluentNav @ref="@nav"
+			   UseHeader="@_useHeader"
+			   UseIcons="@_useIcons"
 			   UseSingleExpanded="@(!_useMultipleExpanded)"
 			   AppTitle="Contoso"
 			   Appicon="@(new Icons.Regular.Size32.Person())"
@@ -59,13 +61,18 @@
 
 		<FluentSwitch @bind-Value="@_useIcons" Label="Use Icons" />
 		<FluentSwitch @bind-Value="@_useMultipleExpanded" Label="Allow multiple expanded categories" />
+		<FluentSwitch @bind-Value="@_useHeader" Label="Use Header" />
+
+		<FluentButton Disabled="@(!nav!.UseHeader)" OnClick="ShowNavAsync">Show Navigation</FluentButton>
 	</FluentStack>
 
 </FluentStack>
 
 @code
 {
+	private FluentNav? nav;
 	NavDrawerDensity _density;
+	bool _useHeader = false;
 	bool _useIcons = true;
 	bool _useMultipleExpanded = true;
 	string? _link = "https://fluentui-blazor-v5.azurewebsites.net/";
@@ -73,5 +80,13 @@
 	private async Task ShowInformationAsync()
 	{
 		var result = await DialogService.ShowInfoAsync("This is a message");
+	}
+
+	private async Task ShowNavAsync()
+	{
+		if (nav!.UseHeader)
+		{
+			await nav!.ToggleNavAsync();
+		}
 	}
 }

@@ -20,7 +20,7 @@
         // Assert
         Assert.NotNull(cut);
         Assert.Contains("Test Content", cut.Markup);
-        Assert.Contains("navmenu-container", cut.Markup);
+        Assert.Contains("fluent-nav-container", cut.Markup);
         Assert.Contains("fluent-nav", cut.Markup);
     }
 
@@ -61,7 +61,7 @@
         Assert.Contains("href=\"/custom-link\"", cut.Markup);
     }
 
-    
+
     [Fact]
     public void FluentNav_Renders_With_CustomId()
     {
@@ -132,7 +132,7 @@
 		</FluentNav>);
 		// Assert
 		Assert.NotNull(cut);
-		Assert.Contains("<svg style=\"width: 24px;", cut.Markup); 
+		Assert.Contains("<svg style=\"width: 24px;", cut.Markup);
 		Assert.Contains("My App", cut.Markup);
 	}
 
@@ -149,15 +149,78 @@
 		Assert.Contains("<svg", cut.Markup);
 	}
 
-	// This is for when the header with ToggleIcon is re-enabled
-	// [Fact]
-	// public void FluentNav_ToggleIconTitle()
-	// {
-	// 	Arrange & Act
-	// 	var cut = Render(@<FluentNav ToggleIconTitle="Toggle Navigation">
-	// 	</FluentNav>);
-	// 	Assert
-	// 	Assert.NotNull(cut);
-	// 	Assert.Contains("title=\"Toggle Navigation\"", cut.Markup);
-	// }
+	[Fact]
+	public void FluentNav_UseHeader_True()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav UseHeader="true"></FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<header", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNav_UseHeader_False()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav UseHeader="false"></FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.DoesNotContain("<header", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNav_ToggleIcon()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav UseHeader="true" ToggleIcon="@Samples.Icons.Info">
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<path d=\"M12 2a10 10 0 1 1 0 20 10 10", cut.Markup);
+	}
+
+	[Fact]
+	public async Task FluentNav_Call_ToggleExpanded()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav UseHeader="true">
+
+		</FluentNav>);
+
+		// Act
+		var nav = cut.FindComponent<FluentNav>();
+		await nav.Instance.ToggleNavAsync();
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.False(nav.Instance._navOpen);
+
+		await nav.Instance.ToggleNavAsync();
+		Assert.True(nav.Instance._navOpen);
+
+	}
+
+	[Fact]
+	public async Task FluentNav_Call_ToggleExpanded_With_Callback()
+	{
+		bool callbackInvoked = false;
+		// Arrange & Act
+		var cut = Render(@<FluentNav UseHeader="true" OnToggleNav="@(() => { callbackInvoked = true; })">
+
+		</FluentNav>);
+
+		// Act
+		var nav = cut.FindComponent<FluentNav>();
+		await nav.Instance.ToggleNavAsync();
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.False(nav.Instance._navOpen);
+
+		Assert.True(callbackInvoked);
+	}
 }

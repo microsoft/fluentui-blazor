@@ -1,4 +1,4 @@
-export namespace Microsoft.FluentUI.Blazor.NavDrawer {
+export namespace Microsoft.FluentUI.Blazor.NavCategory {
 
 export function ToggleCategory(categoryId: string, useSingleExpand: boolean): void {
     const category = document.getElementById(categoryId) as HTMLButtonElement;

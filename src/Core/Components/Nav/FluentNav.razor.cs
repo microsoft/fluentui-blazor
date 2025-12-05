@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 //using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -35,6 +36,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </remarks>
 public partial class FluentNav : FluentComponentBase
 {
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
+    internal bool _navOpen = true;
+
     /// <summary />
     public FluentNav(LibraryConfiguration configuration) : base(configuration)
     {
@@ -69,19 +73,19 @@ public partial class FluentNav : FluentComponentBase
     [Parameter]
     public string AppLink { get; set; } = "/";
 
-    // This is for when the header with the hamburger icon is implemented
-    ///// <summary>
-    ///// Gets or sets the icon to display for collapsing/expanding the nav menu.
-    ///// By default, this icon is a hamburger icon.
-    ///// </summary>
-    //[Parameter]
-    //public Icon ToggleIcon { get; set; } = new CoreIcons.Regular.Size20.LineHorizontal3();
+    /// <summary>
+    /// Gets or sets whether to use the header with the hamburger icon.
+    /// Defaults to false until we have a good way to make this work with the LayoutHamburger component.
+    /// </summary>
+    [Parameter]
+    public bool UseHeader { get; set; } = false;
 
-    ///// <summary>
-    ///// Gets or sets the title to display when the user hovers over the hamburger icon.
-    ///// </summary>
-    //[Parameter]
-    //public string? ToggleIconTitle { get; set; }
+    /// <summary>
+    /// Gets or sets the icon to display for collapsing/expanding the nav menu.
+    /// By default, this icon is a hamburger icon.
+    /// </summary>
+    [Parameter]
+    public Icon ToggleIcon { get; set; } = new CoreIcons.Regular.Size20.LineHorizontal3();
 
     /// <summary>
     /// Gets or sets wether to enable using icons in the nav items.
@@ -106,4 +110,35 @@ public partial class FluentNav : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Event callback invoked when the nav menu is toggled.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> OnToggleNav { get; set; }
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Import the JavaScript module
+            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+        }
+    }
+
+    /// <summary>
+    /// Toggles the nav menu open or closed.
+    /// </summary>
+    public async Task ToggleNavAsync()
+    {
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.ToggleNav", Id, _navOpen);
+
+        _navOpen = !_navOpen;
+
+        if (OnToggleNav.HasDelegate)
+        {
+            await OnToggleNav.InvokeAsync(_navOpen);
+        }
+    }
 }

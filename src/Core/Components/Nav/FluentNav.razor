@@ -1,30 +1,23 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<style>
-	.navmenu-container {
-		color: var(--colorNeutralForeground1);
-		line-height: var(--lineHeightBase300);
-		overflow: hidden;
-		display: flex;
-		height: 100%;
-		min-width: 260px;
-	}
-</style>
-
 <CascadingValue Value="this" IsFixed="true">
-	<div class="navmenu-container"> 
+	<div class="fluent-nav-container"> 
 		<div id="@Id"
 			role="navigation"
 			class="@ClassValue"
 			style="@StyleValue"
 			@attributes="@AdditionalAttributes">
-			@* <header role="none" class="header">
+			@if (UseHeader)
+			{
+				<header role="none" class="header">
 				<FluentButton Appearance="@ButtonAppearance.Transparent"
 							  IconStart="@ToggleIcon"
-							  Title="@ToggleIconTitle"
-							  IconOnly="true" />
-			</header> *@
+							  Title="@Localizer[Localization.LanguageResource.Nav_ToggleTitle]"
+							  IconOnly="true"
+							  OnClick="@ToggleNavAsync"/>
+				</header>
+			}
 			<div class="body">
 				@if (!string.IsNullOrEmpty(AppTitle))
 				{

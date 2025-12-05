@@ -1,3 +1,16 @@
+:root {
+  --nav-width: 260px;
+}
+
+.fluent-nav-container {
+  color: var(--colorNeutralForeground1);
+  line-height: var(--lineHeightBase300);
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+  min-width: var(--nav-width);
+}
+
 .fluent-nav {
   font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
@@ -18,8 +31,8 @@
   background-color: var(--colorNeutralBackground4);
   align-items: unset;
   right: auto;
-  width: 260px;
-  min-width: 260px;
+  width: var(--nav-width);
+  min-width: var(--nav-width);
   opacity: 1;
   transform: translate3d(0px, 0px, 0px);
 }
