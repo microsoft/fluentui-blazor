@@ -48,9 +48,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
       this.dialog.setAttribute('fuib', '');
       this.dialog.setAttribute('part', 'dialog');    // To allow styling using `fluent-overlay::part(dialog)`
 
-      // Prevent to use ESC key to close the dialog
-      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy#browser_compatibility
-      this.dialog.setAttribute('closedBy', 'none');
+      this.dialog.addEventListener('toggle', (e) => {
+        // Dispatch event when closed
+        this.dispatchOpenedEvent(e.newState === 'open');
+      });
 
       // Set initial styles for the dialog
       const sheet = new CSSStyleSheet();
@@ -162,6 +163,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
         this.dialog.setAttribute('style', this.dialogStyle);
         this.dialog.setAttribute('class', this.dialogClass);
 
+        // Prevent to use ESC key to close the dialog
+        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy#browser_compatibility
+        if (this.closeMode === 'manual') {
+          this.dialog.setAttribute('closedBy', 'none');
+        }
+
         if (this.fullscreen === false) {
           this.ensureParentPositioning();
           this.createResizeObserver();
@@ -189,9 +196,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
             document.addEventListener('click', this.clickHandler!);
           }, 0);
         }
-
-        // Dispatch event when opened
-        this.dispatchOpenedEvent(true);
       }
     }
 
@@ -205,9 +209,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
           document.removeEventListener('click', this.clickHandler);
           this.clickHandler = null;
         }
-
-        // Dispatch event when closed
-        this.dispatchOpenedEvent(false);
       }
     }
 
@@ -273,7 +274,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
         const containerRect = this.container.getBoundingClientRect();
         this.dialog.style.top = `${containerRect.top + containerRect.height / 2}px`;
         this.dialog.style.left = `${containerRect.left + containerRect.width / 2}px`;
-      }      
+      }
     }
 
     // Private method to clear the dialog position
