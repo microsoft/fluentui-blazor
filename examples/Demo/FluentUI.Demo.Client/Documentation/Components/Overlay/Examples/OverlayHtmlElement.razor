@@ -2,6 +2,7 @@
 <FluentSwitch @bind-Value="@Interactive" Label="Interactive" Margin="@Margin.Right4" />
 <br />
 <FluentSelect @bind-Value="@CloseMode" Label="Close Mode" LabelPosition="LabelPosition.Before">
+    <FluentOption Value="manual">Manual</FluentOption>
     <FluentOption Value="all">All</FluentOption>
     <FluentOption Value="inside">Inside only</FluentOption>
     <FluentOption Value="outside">Outside only</FluentOption>
@@ -11,6 +12,8 @@
     <h3>Container</h3>
     <button onclick="alert('clicked')">Click Me</button>
     <fluent-overlay id="id1"
+                    dialog-style="background: transparent;"
+                    dialog-class="my-class"
                     fullscreen="@FullScreen"
                     interactive="@Interactive"
                     close-mode="@CloseMode">
@@ -20,6 +23,7 @@
 
 <div>
     <button onclick="document.getElementById('id1').show()">Show Overlay</button>
+    <button onclick="document.getElementById('id1').close()">Close Overlay</button>
 </div>
 
 @code
@@ -28,6 +32,12 @@
     bool Interactive = false;
     string CloseMode = "all";
 }
+
+<script>
+    document.getElementById('id1').addEventListener('toggle', function (event) {
+        console.log('New State:', event.detail.newState);
+    });
+</script>
 
 <style>
     .container {

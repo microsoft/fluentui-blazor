@@ -3,12 +3,23 @@ import { fluentOverlayStyles } from "./FluentOverlay-Styles";
 
 export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
 
-  export type CloseMode = 'all' | 'inside' | 'outside' | null;
+  /**
+   * CloseMode type
+   * - manual: Do not close automatically
+   * - all: Close on any click
+   * - inside: Close on click inside the dialog
+   * - outside: Close on click outside the dialog
+   */
+  export type CloseMode = 'manual' | 'all' | 'inside' | 'outside' | null;
 
+  /**
+   * FluentOverlay web component
+   */
   class FluentOverlay extends HTMLElement {
 
+    private readonly DEFAULT_BACKGROUND: string = 'color-mix(in srgb, var(--colorBackgroundOverlay) 40%, transparent)';
     private container: HTMLElement | null = null;
-    private dialog: HTMLDialogElement;
+    private dialog: HTMLDialogElement | null = null;
     private resizeObserver: ResizeObserver | null = null;
     private clickHandler: ((ev: MouseEvent) => any) | null = null;
 
@@ -103,7 +114,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
 
     // Property getter/setter for background-color
     public get background(): string {
-      return this.getAttribute('background') ?? 'color-mix(in srgb, var(--colorBackgroundOverlay) 40%, transparent)';
+      return this.getAttribute('background') ?? this.DEFAULT_BACKGROUND;
     }
 
     public set background(value: string) {
@@ -114,14 +125,42 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
       }
     }
 
+    // Property getter/setter for dialog-style
+    public get dialogStyle(): string {
+      return this.getAttribute('dialog-style') ?? '';
+    }
+
+    public set dialogStyle(value: string) {
+      if (value) {
+        this.setAttribute('dialog-style', value);
+      } else {
+        this.removeAttribute('dialog-style');
+      }
+    }
+
+    // Property getter/setter for dialog-class
+    public get dialogClass(): string {
+      return this.getAttribute('dialog-class') ?? '';
+    }
+
+    public set dialogClass(value: string) {
+      if (value) {
+        this.setAttribute('dialog-class', value);
+      } else {
+        this.removeAttribute('dialog-class');
+      }
+    }
+
     /************************
       Public methods
     ************************/
 
-
     // Public method to open the dialog
     public show() {
-      if (this.dialog) {
+      if (this.dialog && !this.dialog.open) {
+
+        this.dialog.setAttribute('style', this.dialogStyle);
+        this.dialog.setAttribute('class', this.dialogClass);
 
         if (this.fullscreen === false) {
           this.ensureParentPositioning();
@@ -150,12 +189,15 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
             document.addEventListener('click', this.clickHandler!);
           }, 0);
         }
+
+        // Dispatch event when opened
+        this.dispatchOpenedEvent(true);
       }
     }
 
     // Public method to close the dialog
     public close() {
-      if (this.dialog) {
+      if (this.dialog && this.dialog.open) {
         this.dialog.close();
 
         // Remove the click event listener if it exists
@@ -163,6 +205,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
           document.removeEventListener('click', this.clickHandler);
           this.clickHandler = null;
         }
+
+        // Dispatch event when closed
+        this.dispatchOpenedEvent(false);
       }
     }
 
@@ -172,7 +217,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
 
     // Private method to handle click events
     private onClick(event: MouseEvent): void {
-      if (this.dialog.open && event.target instanceof HTMLElement) {
+      if (this.dialog && this.dialog.open) {
         const insideDialog = this.isClickInsideDialog(event);
         event.stopPropagation();
 
@@ -193,6 +238,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
 
     // Private method to check if a click event is inside the dialog
     private isClickInsideDialog(event: MouseEvent): boolean {
+
+      if (!this.dialog) {
+        return false;
+      }
+
       const dialogRect = this.dialog.getBoundingClientRect();
       const clickX = event.clientX;
       const clickY = event.clientY;
@@ -246,8 +296,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
 
     // Private method to clean up the resize observer
     private cleanResizeObserver(): void {
-      this.dialog.style.top = '';
-      this.dialog.style.left = '';
+      if (this.dialog) {
+        this.dialog.style.top = '';
+        this.dialog.style.left = '';
+      }
+
       this.resizeObserver?.disconnect();
       this.resizeObserver = null;
     }
@@ -262,6 +315,19 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
         this.clickHandler = null;
       }
     }
+
+    // Dispatch event when opened or closed
+    private dispatchOpenedEvent(opened: boolean) {
+      this.dispatchEvent(new CustomEvent('toggle', {
+        detail: {
+          oldState: opened ? 'closed' : 'open',
+          newState: opened ? 'open' : 'closed',
+        },
+        bubbles: true,
+        composed: true
+      }));
+    }
+
   }
 
   /**
