@@ -17,6 +17,12 @@
 
         <FluentSpacer />
 
+        @* GitHub link *@
+        <a href="https://github.com/microsoft/fluentui-blazor/tree/dev-v5" class="github-logo-link" target="_blank"
+                rel="noopener noreferrer">
+            <GitHubLogo />
+        </a>
+
         @* DarkTheme *@
         <FluentButton IconStart="@(new Icons.Regular.Size20.DarkTheme().WithColor("var(--colorNeutralForegroundOnBrand)"))"
                         OnClick="@SwitchThemeAsync"
