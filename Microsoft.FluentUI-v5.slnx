@@ -5,6 +5,10 @@
     <Project Path="examples/Demo/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj" />
     <Project Path="examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" />
   </Folder>
+  <Folder Name="/examples/mcp/">
+    <Project Path="examples/Mcp/FluentUI.Mcp.Server/FluentUI.Mcp.Server.csproj" />
+    <Project Path="examples/Mcp/FluentUI.Mcp.Shared/FluentUI.Mcp.Shared.csproj" />
+  </Folder>
   <Folder Name="/examples/tools/">
     <Project Path="examples/Tools/FluentUI.Demo.DocApiGen/FluentUI.Demo.DocApiGen.csproj" />
     <Project Path="examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj" />

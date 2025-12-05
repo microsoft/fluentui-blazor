@@ -5,7 +5,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace FluentUI.Mcp.Server.Reflection;
+namespace FluentUI.Mcp.Shared;
 
 /// <summary>
 /// Provides reflection-based discovery of MCP tools, prompts, and resources.
@@ -15,10 +15,8 @@ public static class McpReflectionService
     /// <summary>
     /// Gets all MCP tools defined in the assembly.
     /// </summary>
-    public static IReadOnlyList<McpToolInfo> GetTools(Assembly? assembly = null)
+    public static IReadOnlyList<McpToolInfo> GetTools(Assembly assembly)
     {
-        assembly ??= typeof(McpReflectionService).Assembly;
-
         var tools = new List<McpToolInfo>();
 
         // Find all types with [McpServerToolType] attribute
@@ -60,10 +58,8 @@ public static class McpReflectionService
     /// <summary>
     /// Gets all MCP prompts defined in the assembly.
     /// </summary>
-    public static IReadOnlyList<McpPromptInfo> GetPrompts(Assembly? assembly = null)
+    public static IReadOnlyList<McpPromptInfo> GetPrompts(Assembly assembly)
     {
-        assembly ??= typeof(McpReflectionService).Assembly;
-
         var prompts = new List<McpPromptInfo>();
 
         // Find all types with [McpServerPromptType] attribute
@@ -104,10 +100,8 @@ public static class McpReflectionService
     /// <summary>
     /// Gets all MCP resources defined in the assembly.
     /// </summary>
-    public static IReadOnlyList<McpResourceInfo> GetResources(Assembly? assembly = null)
+    public static IReadOnlyList<McpResourceInfo> GetResources(Assembly assembly)
     {
-        assembly ??= typeof(McpReflectionService).Assembly;
-
         var resources = new List<McpResourceInfo>();
 
         // Find all types with [McpServerResourceType] attribute
@@ -145,7 +139,7 @@ public static class McpReflectionService
     /// <summary>
     /// Gets a summary of all MCP primitives in the assembly.
     /// </summary>
-    public static McpSummary GetSummary(Assembly? assembly = null)
+    public static McpSummary GetSummary(Assembly assembly)
     {
         return new McpSummary(
             GetTools(assembly),

@@ -63,6 +63,7 @@
   <!-- Reference to the FluentUI Components for API extraction -->
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+    <ProjectReference Include="..\FluentUI.Mcp.Shared\FluentUI.Mcp.Shared.csproj" />
   </ItemGroup>
 
   <!-- Exclude duplicate XML documentation file -->

@@ -47,6 +47,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mcp", "mcp", "{5B3FD904-3D3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Mcp.Server", "examples\Mcp\FluentUI.Mcp.Server\FluentUI.Mcp.Server.csproj", "{77D4C32F-A336-44C8-83C7-80EF960B7D6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Mcp.Shared", "examples\Mcp\FluentUI.Mcp.Shared\FluentUI.Mcp.Shared.csproj", "{C908B2BA-F26E-4C10-8761-0DB94709D556}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -210,6 +212,18 @@ Global
 		{77D4C32F-A336-44C8-83C7-80EF960B7D6C}.Release|x64.Build.0 = Release|Any CPU
 		{77D4C32F-A336-44C8-83C7-80EF960B7D6C}.Release|x86.ActiveCfg = Release|Any CPU
 		{77D4C32F-A336-44C8-83C7-80EF960B7D6C}.Release|x86.Build.0 = Release|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Debug|x64.Build.0 = Debug|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Debug|x86.Build.0 = Debug|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Release|x64.ActiveCfg = Release|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Release|x64.Build.0 = Release|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Release|x86.ActiveCfg = Release|Any CPU
+		{C908B2BA-F26E-4C10-8761-0DB94709D556}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -233,6 +247,7 @@ Global
 		{EB38AC75-966B-41BB-A1C5-0CAFE17FE3D5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{5B3FD904-3D34-05FA-68A8-2F22A80B7D05} = {F273876F-7528-42B3-BFE8-7CFF8ED1E2A2}
 		{77D4C32F-A336-44C8-83C7-80EF960B7D6C} = {5B3FD904-3D34-05FA-68A8-2F22A80B7D05}
+		{C908B2BA-F26E-4C10-8761-0DB94709D556} = {5B3FD904-3D34-05FA-68A8-2F22A80B7D05}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {44D95FF7-AEBE-41FB-9D40-CF1E09ADC6BC}
