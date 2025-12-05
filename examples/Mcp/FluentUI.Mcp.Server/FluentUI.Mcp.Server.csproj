@@ -13,6 +13,11 @@
     <NoWarn>$(NoWarn);CA1305;IDE0005;IDE0060;CS1591</NoWarn>
   </PropertyGroup>
 
+  <!-- Expose internals to test project -->
+  <ItemGroup>
+    <InternalsVisibleTo Include="FluentUI.Mcp.Server.Tests" />
+  </ItemGroup>
+
   <!-- NuGet Package Configuration -->
   <PropertyGroup>
     <PackageId>Microsoft.FluentUI.AspNetCore.Components.McpServer</PackageId>

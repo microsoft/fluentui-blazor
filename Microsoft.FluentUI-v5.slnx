@@ -29,5 +29,6 @@
     <Project Path="tests/Integration/Components.IntegrationTests.csproj">
       <Build Solution="Debug|*" Project="false" />
     </Project>
+    <Project Path="tests/Mcp/FluentUI.Mcp.Server.Tests.csproj" />
   </Folder>
 </Solution>
