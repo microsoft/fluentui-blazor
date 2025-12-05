@@ -5,7 +5,7 @@ export const fluentOverlayStyles: string = `
   }
 
   :host dialog {
-    border: 1px solid blue; /* TODO: Remove me */
+    border: none;
     background: none;
     z-index: var(--overlayZIndex);
   }
@@ -20,7 +20,6 @@ export const fluentOverlayStyles: string = `
     left: 50%;
     margin: 0;
     transform: translate(-50%, -50%);
-    pointer-events: pointer;
   }
 
   :host([fullscreen]) dialog::backdrop {
@@ -34,7 +33,6 @@ export const fluentOverlayStyles: string = `
     right: 0;
     bottom: 0;
     background-color: var(--overlayBackground);
-    /* pointer-events: none; */
   }
 
   :host(:not([fullscreen])) dialog {
@@ -45,16 +43,21 @@ export const fluentOverlayStyles: string = `
 
   :host(:not([fullscreen])) dialog::backdrop {
     background-color: transparent;
+    width: 0;
+    height: 0;
   }
 
-  :host[interactive][fullscreen]:has(dialog[open]) {
+  :host([interactive][fullscreen]):has(dialog[open]) {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: calc(var(--overlayZIndex) - 1);
-    pointer-events: none;
     background-color: var(--overlayBackground);
+  }
+
+  :host([interactive]):has(dialog[open]) {
+    pointer-events: none;
   }
 `;

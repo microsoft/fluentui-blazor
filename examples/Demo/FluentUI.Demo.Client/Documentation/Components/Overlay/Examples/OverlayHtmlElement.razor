@@ -1,9 +1,19 @@
 ﻿<FluentSwitch @bind-Value="@FullScreen" Label="FullScreen" Margin="@Margin.Right4" />
 <FluentSwitch @bind-Value="@Interactive" Label="Interactive" Margin="@Margin.Right4" />
+<br />
+<FluentSelect @bind-Value="@CloseMode" Label="Close Mode" LabelPosition="LabelPosition.Before">
+    <FluentOption Value="all">All</FluentOption>
+    <FluentOption Value="inside">Inside only</FluentOption>
+    <FluentOption Value="outside">Outside only</FluentOption>
+</FluentSelect>
 
-<div style="width: 50%; height: 100px; border: 1px dashed red;">
+<div class="container">
     <h3>Container</h3>
-    <fluent-overlay id="id1" fullscreen="@FullScreen" interactive="@Interactive">
+    <button onclick="alert('clicked')">Click Me</button>
+    <fluent-overlay id="id1"
+                    fullscreen="@FullScreen"
+                    interactive="@Interactive"
+                    close-mode="@CloseMode">
         <FluentSpinner />
     </fluent-overlay>
 </div>
@@ -16,4 +26,21 @@
 {
     bool FullScreen = false;
     bool Interactive = false;
+    string CloseMode = "all";
 }
+
+<style>
+    .container {
+        width: 50%;
+        height: 100px;
+        border: 1px dashed red;
+    }
+
+        .container button {
+            cursor: pointer;
+        }
+
+        .container h3:hover {
+            color: red;
+        }
+</style>
