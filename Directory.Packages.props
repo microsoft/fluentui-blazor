@@ -22,7 +22,6 @@
     <PackageVersion Include="bunit" Version="1.38.5" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-    <PackageVersion Include="NSubstitute" Version="5.3.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.v3" Version="3.2.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />

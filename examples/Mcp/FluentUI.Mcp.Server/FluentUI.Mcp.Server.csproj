@@ -35,18 +35,27 @@
     <InternalsVisibleTo Include="FluentUI.Mcp.Server.Tests" />
   </ItemGroup>
 
+  <!-- Release -->
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <Optimize>True</Optimize>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
   <!-- NuGet Package Configuration -->
   <PropertyGroup>
     <PackageId>Microsoft.FluentUI.AspNetCore.Components.McpServer</PackageId>
     <Version>5.0.0-preview.1</Version>
     <Authors>Microsoft</Authors>
-    <Description>MCP (Model Context Protocol) server for Fluent UI Blazor component documentation. Provides AI assistants with access to component details, parameters, events, methods, enums, and usage examples.</Description>
+    <Description>MCP (Model Context Protocol) server for Fluent UI Blazor component documentation.
+      Provides AI assistants with access to component details, parameters, events, methods, enums,
+      and usage examples.</Description>
     <PackageTags>mcp;model-context-protocol;fluent-ui;blazor;documentation;ai;copilot</PackageTags>
     <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
     <RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+
 
     <!-- Configure as .NET Tool for NuGet -->
     <PackAsTool>true</PackAsTool>
@@ -59,7 +68,8 @@
   <!-- Include README and MCP server manifest in package -->
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
-    <None Include=".mcp\server.json" Pack="true" PackagePath=".mcp\" CopyToOutputDirectory="PreserveNewest" />
+    <None Include=".mcp\server.json" Pack="true" PackagePath=".mcp\"
+      CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <!-- Code Analysis -->
@@ -90,7 +100,8 @@
 
   <!-- Exclude duplicate XML documentation file -->
   <ItemGroup>
-    <Content Remove="..\..\Tools\FluentUI.Demo.DocApiGen\Microsoft.FluentUI.AspNetCore.Components.xml" />
+    <Content
+      Remove="..\..\Tools\FluentUI.Demo.DocApiGen\Microsoft.FluentUI.AspNetCore.Components.xml" />
   </ItemGroup>
 
 </Project>
