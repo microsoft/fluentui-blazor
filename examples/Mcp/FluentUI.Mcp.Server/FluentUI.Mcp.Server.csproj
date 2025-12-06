@@ -11,6 +11,23 @@
     <RootNamespace>FluentUI.Mcp.Server</RootNamespace>
     <!-- Disable culture-related warnings for string formatting in MCP tools -->
     <NoWarn>$(NoWarn);CA1305;IDE0005;IDE0060;CS1591</NoWarn>
+
+    <SignAssembly>False</SignAssembly>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugType>embedded</DebugType>
+
+    <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+
+    <!-- Write the generated files to a specific folder -->
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+
   </PropertyGroup>
 
   <!-- Expose internals to test project -->
