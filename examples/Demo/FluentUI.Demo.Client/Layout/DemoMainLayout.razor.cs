@@ -64,4 +64,12 @@ public partial class DemoMainLayout
 
     /// <summary />
     private string GetLayoutKey() => IsHomePage() ? "Home" : string.Empty;
+
+    /// <summary>
+    /// Opens a URL in a new browser tab.
+    /// </summary>
+    private async Task OpenUrlInNewTabAsync(string url)
+    {
+        await JSRuntime.InvokeVoidAsync("open", url, "_blank");
+    }
 }
