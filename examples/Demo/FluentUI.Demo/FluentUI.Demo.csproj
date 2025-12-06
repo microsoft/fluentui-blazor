@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+    <ProjectReference Include="..\..\Mcp\FluentUI.Mcp.Server\FluentUI.Mcp.Server.csproj" />
     <ProjectReference Include="..\FluentUI.Demo.Client\FluentUI.Demo.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
   </ItemGroup>

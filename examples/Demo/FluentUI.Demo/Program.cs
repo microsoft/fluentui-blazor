@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using FluentUI.Demo.Client;
+using FluentUI.Mcp.Shared;
 using Microsoft.FluentUI.AspNetCore.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +33,9 @@ builder.Services.AddFluentUIComponents(config =>
 // Add Demo server services
 builder.Services.AddFluentUIDemoServices().ForServer();
 
+// Initialize MCP capabilities data from the MCP Server assembly
+McpCapabilitiesData.Initialize(typeof(FluentUI.Mcp.Server.Services.FluentUIDocumentationService).Assembly);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -53,6 +57,10 @@ app.UseAntiforgery();
 
 // Use the localization services
 app.UseRequestLocalization(new RequestLocalizationOptions().AddSupportedUICultures(["en", "fr"]));
+
+// API endpoint to expose MCP capabilities for WebAssembly clients
+app.MapGet("/api/mcp/capabilities", () => McpCapabilitiesData.GetSummary())
+    .WithName("GetMcpCapabilities");
 
 app.MapRazorComponents<FluentUI.Demo.Components.App>()
     .AddInteractiveServerRenderMode()
