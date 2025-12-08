@@ -3,6 +3,7 @@ import { Microsoft as ThemeFile } from './Utilities/Theme';
 import { Microsoft as FluentUIComponentsFile } from './FluentUIWebComponents';
 import { Microsoft as FluentPageScriptFile } from './Components/PageScript/FluentPageScript';
 import { Microsoft as FluentPopoverFile } from './Components/Popover/FluentPopover';
+import { Microsoft as FluentOverlayFile } from './Components/Overlay/FluentOverlay';
 import { Microsoft as FluentUIStylesFile } from './FluentUIStyles';
 import { Microsoft as FluentUICustomEventsFile } from './FluentUICustomEvents';
 import { StartedMode } from './d-ts/StartedMode';
@@ -14,6 +15,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
   import FluentUIComponents = FluentUIComponentsFile.FluentUI.Blazor.FluentUIWebComponents;
   import FluentPageScript = FluentPageScriptFile.FluentUI.Blazor.Components.PageScript;
   import FluentPopover = FluentPopoverFile.FluentUI.Blazor.Components.Popover;
+  import FluentOverlay = FluentOverlayFile.FluentUI.Blazor.Components.Overlay;
   import FluentUIStyles = FluentUIStylesFile.FluentUI.Blazor.FluentUIStyles;
   import FluentUICustomEvents = FluentUICustomEventsFile.FluentUI.Blazor.FluentUICustomEvents;
 
@@ -52,6 +54,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     // Initialize all custom components
     FluentPageScript.registerComponent(blazor, mode);
     FluentPopover.registerComponent(blazor, mode);
+    FluentOverlay.registerComponent(blazor, mode);
     // [^^^ Add your other custom components before this line ^^^]
 
     // Register all custom events
