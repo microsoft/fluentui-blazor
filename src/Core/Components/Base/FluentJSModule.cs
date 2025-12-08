@@ -10,14 +10,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Base class to manage the JavaScript function from the FluentUI Blazor components.
 /// </summary>
-internal class FluentJSModule : IAsyncDisposable
+public class FluentJSModule : IAsyncDisposable
 {
     private IJSObjectReference? _jsModule;
 
     /// <summary>
     /// Gets the root path for the JavaScript files.
     /// </summary>
-    public const string JAVASCRIPT_ROOT = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/";
+    internal const string JAVASCRIPT_ROOT = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentJSModule"/> class.
@@ -75,7 +75,7 @@ internal class FluentJSModule : IAsyncDisposable
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
     [ExcludeFromCodeCoverage]
-    internal virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
+    protected virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
         if (jsModule != null)
         {
