@@ -46,7 +46,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("height", $"{Grid.ItemSize.ToString(CultureInfo.InvariantCulture):0}px", () => !Grid.EffectiveLoadingValue && Grid.Virtualize)
         .AddStyle("height", $"{((int)Grid.RowSize).ToString(CultureInfo.InvariantCulture)}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && !Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null) && InternalGridContext.TotalItemCount > 0)
         .AddStyle("height", "100%", Grid.MultiLine)
-        .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
+        .AddStyle("min-height", "40px", Owner.RowType != DataGridRowType.Default)
         .AddStyle("z-index", ZIndex.DataGridHeaderPopup.ToString(CultureInfo.InvariantCulture), CellType == DataGridCellType.ColumnHeader && Grid._columns.Count > 0 && Grid.UseMenuService)
         .AddStyle(Owner.Style)
         .Build();
