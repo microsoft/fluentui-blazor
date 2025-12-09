@@ -1,5 +1,5 @@
 ﻿@using Xunit;
-@inherits Bunit.BunitContext
+@inherits FluentUITestContext
 
 @code
 {
@@ -242,7 +242,7 @@
         cut.Verify(suffix: "Before");
 
         // Open Tab2 and re-render
-        cut.FindComponent<FluentTabs>().SetParametersAndRender(parameters => parameters.Add(p => p.ActiveTabId, "Tab2"));
+        cut.FindComponent<FluentTabs>().Render(parameters => parameters.Add(p => p.ActiveTabId, "Tab2"));
         var content2After = cut.Find("#Tab2-panel").InnerHtml;
 
         // Assert

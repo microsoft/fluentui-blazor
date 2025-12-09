@@ -103,7 +103,9 @@ internal class CalendarTitles<TValue>
     {
         get
         {
-            var minDate = _calendar.Culture.Calendar.MinSupportedDateTime.AddMonths(1, _calendar.Culture);
+#pragma warning disable MA0011
+            var minDate = _calendar.Culture.Calendar.MinSupportedDateTime.AddMonths(1);
+#pragma warning restore MA0011
 
             return View switch
             {

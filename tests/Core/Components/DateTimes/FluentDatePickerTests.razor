@@ -3,7 +3,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using System.Runtime.InteropServices
 @using Xunit
-@inherits Bunit.BunitContext
+@inherits FluentUITestContext
 
 @code
 {
@@ -221,7 +221,7 @@
         var text = picker.Find("fluent-text-input");
 
         // Double-Click
-        text.Click(detail: 2);
+        text.Click(new MouseEventArgs { Detail = 2 });
         var pickerInstance = picker.FindComponent<FluentDatePicker<DateTime?>>().Instance;
 
         // Assert
@@ -250,7 +250,7 @@
         var text = picker.Find("fluent-text-input");
 
         // Double-Click
-        text.Click(detail: 2);
+        text.Click(new MouseEventArgs { Detail = 2 });
 
         // Assert
         Assert.Equal(expected, actual);

@@ -45,7 +45,7 @@ public class InputBaseTests : Bunit.BunitContext
     public InputBaseTests(ITestOutputHelper testOutputHelper)
     {
         Output = testOutputHelper;
-        Services.AddFluentUIComponents();        
+        Services.AddFluentUIComponents();
     }
 
     /// <summary>
@@ -100,7 +100,7 @@ public class InputBaseTests : Bunit.BunitContext
                      : componentType;
 
             // Arrange and Act
-            var renderedComponent = RenderComponent<DynamicComponent>(parameters =>
+            var renderedComponent = Render<DynamicComponent>(parameters =>
             {
                 var attributes = new Dictionary<string, object>
                 {

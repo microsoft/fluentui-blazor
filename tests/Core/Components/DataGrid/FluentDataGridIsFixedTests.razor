@@ -1,5 +1,5 @@
 ﻿@using Xunit
-@inherits Bunit.BunitContext
+@inherits FluentUITestContext
 
 @code {
     public FluentDataGridIsFixedTests()
@@ -60,7 +60,7 @@
 
         // Act - Update items (simulating data change)
         var newItems = GetCustomers().Concat(new[] { new Customer(4, "New Customer") }).AsQueryable();
-        cut.SetParametersAndRender(parameters => parameters
+        cut.Render(parameters => parameters
             .Add(p => p.Items, newItems));
 
         // Assert - With IsFixed=true, the grid should still work correctly

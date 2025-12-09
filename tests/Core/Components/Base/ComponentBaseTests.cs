@@ -102,7 +102,7 @@ public class ComponentBaseTests : Bunit.BunitContext
             // Arrange and Act
             try
             {
-                var renderedComponent = RenderComponent<DynamicComponent>(parameters =>
+                var renderedComponent = Render<DynamicComponent>(parameters =>
                 {
                     parameters.Add(p => p.Type, type);
 
@@ -169,7 +169,7 @@ public class ComponentBaseTests : Bunit.BunitContext
                      : componentType;
 
             // Arrange and Act
-            var renderedComponent = RenderComponent<FluentStack>(stack =>
+            var renderedComponent = Render<FluentStack>(stack =>
             {
                 stack.AddChildContent<DynamicComponent>(parameters =>
                 {
@@ -254,7 +254,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         module.Mode = JSRuntimeMode.Loose;
 
         // Act
-        var cut = RenderComponent<MyComponent>(parameter =>
+        var cut = Render<MyComponent>(parameter =>
         {
             parameter.Add(p => p.OnBreakpointEnter, EventCallback.Factory.Create<GridItemSize>(this, e => { }));
         });
@@ -278,9 +278,9 @@ public class ComponentBaseTests : Bunit.BunitContext
         Assert.Throws<InvalidOperationException>(() =>
         {
             // Act: no OnBreakpointEnter
-            var cut = RenderComponent<MyComponent>(parameter =>
+            var cut = Render<MyComponent>((Action<ComponentParameterCollectionBuilder<MyComponent>>)(parameter =>
             {
-            });
+            }));
 
             var module = cut.Instance.GetJSModule();
         });

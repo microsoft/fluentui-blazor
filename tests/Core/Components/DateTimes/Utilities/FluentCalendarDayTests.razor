@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Xunit
 @using Microsoft.FluentUI.AspNetCore.Components
-@inherits Bunit.BunitContext
+@inherits FluentUITestContext
 
 @code
 {
@@ -20,7 +20,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>();
+        var calendarComponent = Render<FluentCalendar<DateTime>>();
         var calendar = calendarComponent.Instance;
         var date = new DateTime(2024, 7, 31);
 
@@ -41,7 +41,7 @@
 
         // Arrange
         var date = new DateTime(2024, 7, 31);
-        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendarComponent = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.DisabledDateFunc, (d) => d == date && isInDisabledList)
             .Add(p => p.DisabledSelectable, disabledSelectable));
         var calendar = calendarComponent.Instance;
@@ -63,7 +63,7 @@
 
         // Arrange
         var date = isOutsideMonth ? new DateTime(2024, 8, 1) : new DateTime(2024, 7, 15);
-        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendarComponent = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Value, new DateTime(2024, 7, 10))
             .Add(p => p.DisabledDateFunc, (d) => d == date && isInDisabledList)
             .Add(p => p.DisabledSelectable, false));
@@ -84,7 +84,7 @@
         // Arrange
         var today = DateTime.Today;
         var notToday = today.AddDays(1);
-        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>();
+        var calendarComponent = Render<FluentCalendar<DateTime>>();
         var calendar = calendarComponent.Instance;
 
         // Act
@@ -104,7 +104,7 @@
         // Arrange
         var selectedDate = new DateTime(2024, 7, 31);
         var notSelectedDate = new DateTime(2024, 7, 30);
-        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendarComponent = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Value, selectedDate));
         var calendar = calendarComponent.Instance;
 
@@ -126,7 +126,7 @@
         var selectedDate1 = new DateTime(2024, 7, 20);
         var selectedDate2 = new DateTime(2024, 7, 22);
         var notSelectedDate = new DateTime(2024, 7, 21);
-        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendarComponent = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.SelectMode, CalendarSelectMode.Multiple)
             .Add(p => p.SelectedDates, new List<DateTime> { selectedDate1, selectedDate2 }));
         var calendar = calendarComponent.Instance;
@@ -149,7 +149,7 @@
 
         // Arrange
         var date = new DateTime(2024, 7, 31);
-        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendarComponent = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.Culture, Culture_enUS));
         var calendar = calendarComponent.Instance;
 
@@ -169,7 +169,7 @@
 
         // Arrange
         var date = new DateTime(2024, 7, 7);
-        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendarComponent = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.DayFormat, format)
             .Add(p => p.Culture, Culture_enUS));
         var calendar = calendarComponent.Instance;
@@ -188,7 +188,7 @@
 
         // Arrange
         var date = new DateTime(2024, 7, 31);
-        var calendarComponent = RenderComponent<FluentCalendar<DateTime>>();
+        var calendarComponent = Render<FluentCalendar<DateTime>>();
         var calendar = calendarComponent.Instance;
 
         // Act

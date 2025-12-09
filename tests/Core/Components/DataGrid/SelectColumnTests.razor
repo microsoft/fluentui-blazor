@@ -1,8 +1,9 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
 @using Xunit;
 @using Microsoft.AspNetCore.Components;
+@using Bunit.Rendering
 
-@inherits Bunit.BunitContext
+@inherits FluentUITestContext
 
 @code
 {
@@ -1303,7 +1304,7 @@
     /// <param name="row"></param>
     /// <param name="keyCode"></param>
     /// <returns></returns>
-    private async Task KeyDownOnRowAsync(IRenderedFragment cut, int row, string keyCode)
+    private async Task KeyDownOnRowAsync(IRenderedComponent<ContainerFragment> cut, int row, string keyCode)
     {
         var item = cut.FindComponents<FluentDataGridRow<Person>>().ElementAt(row + 1);
         var keyboardEventArgs = new KeyboardEventArgs
@@ -1322,7 +1323,7 @@
     /// <param name="row"></param>
     /// <param name="col"></param>
     /// <returns></returns>
-    private async Task ClickOnRowAsync(IRenderedFragment cut, int row, int? col = null)
+    private async Task ClickOnRowAsync(IRenderedComponent<ContainerFragment> cut, int row, int? col = null)
     {
         if (col == null)
         {
@@ -1345,7 +1346,7 @@
     /// </summary>
     /// <param name="cut"></param>
     /// <returns></returns>
-    private async Task ClickOnAllAsync(IRenderedFragment cut)
+    private async Task ClickOnAllAsync(IRenderedComponent<ContainerFragment> cut)
     {
         var col = cut.FindComponent<SelectColumn<Person>>();
         await col.Instance.OnClickAllAsync(new MouseEventArgs());

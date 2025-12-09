@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit
 @using Bunit
-@inherits Bunit.BunitContext
+@inherits FluentUITestContext
 @code
 {
     public FluentFieldParameterSelectorTests()
@@ -129,7 +129,7 @@
         }
 
         // Render
-        var cut = RenderComponent<DynamicComponent>(parameters =>
+        var cut = Render<DynamicComponent>(parameters =>
             {
                 parameters.Add(p => p.Type, typeof(FluentField));
                 parameters.Add(p => p.Parameters, attributes);
