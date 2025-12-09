@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
-public class ComponentBaseTests : Bunit.TestContext
+public class ComponentBaseTests : Bunit.BunitContext
 {
     /// <summary>
     /// List of components to exclude from the test.
