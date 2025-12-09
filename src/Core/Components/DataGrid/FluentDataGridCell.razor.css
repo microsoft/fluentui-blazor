@@ -50,7 +50,6 @@ td.grid-cell-placeholder:after {
     font-weight: 600;
     text-align: center;
     position: relative;
-    padding: calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px) 1px calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px);
 }
 
 ::deep .col-sort-button {
