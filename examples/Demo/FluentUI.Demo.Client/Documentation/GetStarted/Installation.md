@@ -32,10 +32,31 @@ You must check the Preview box to view it in your package manager.
 <configuration>
   <packageSources>
     <clear />
-    <add key="nuget" value="https://api.nuget.org/v3/index.json" />
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
     <add key="dotnet9" value="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json" />
   </packageSources>
+
+  <packageSourceMapping>
+    <packageSource key="nuget.org">
+      <package pattern="*" />
+      <package pattern="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
+      <package pattern="Microsoft.FluentUI.AspNetCore.Components.Icons" />
+      <!-- fallback -->
+    </packageSource>
+
+    <packageSource key="dotnet9">
+      <package pattern="Microsoft.FluentUI.AspNetCore.Components" />
+    </packageSource>
+  </packageSourceMapping>
 </configuration>
+```
+
+If you have enabled the `TreatWarningsAsErrors` flag in your project, then you also need to ignore signature errors from NuGet, because the preview packages do not come with a certificate. You can do this by ignoring the warnings in your `.csproj` or `Directory.Build.props` file.
+
+```xml
+<PropertyGroup>
+    <WarningsNotAsErrors>NU3018;NU3027</WarningsNotAsErrors>
+</PropertyGroup>
 ```
 
 ### 1. Install the NuGet Package
