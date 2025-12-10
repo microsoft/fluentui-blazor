@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DataGrid;
 
-public class GridSortTests : Bunit.TestContext
+public class GridSortTests : Bunit.BunitContext
 {
     private static readonly GridRow[] _gridData = [
         new(2, "B"),

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Emojis;
 
-public class CustomEmojiTests : Bunit.TestContext
+public class CustomEmojiTests : Bunit.BunitContext
 {
     [Fact]
     public void DefaultConstructor_SetsExpectedDefaults()

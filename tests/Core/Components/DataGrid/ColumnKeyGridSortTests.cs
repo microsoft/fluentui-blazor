@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DataGrid;
 
-public class ColumnKeyGridSortTests : Bunit.TestContext
+public class ColumnKeyGridSortTests : Bunit.BunitContext
 {
     [Fact]
     public void ToPropertyList_ReturnsCorrectPropertyAndDirection()
