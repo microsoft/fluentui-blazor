@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Icons;
 
-public class IconsExtensionsTests : Bunit.TestContext
+public class IconsExtensionsTests : Bunit.BunitContext
 {
     private static IconInfo CreateMissingIcon()
     {

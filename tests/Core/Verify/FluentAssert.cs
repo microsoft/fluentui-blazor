@@ -2,9 +2,13 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using AngleSharp.Dom;
+using AngleSharp.Html;
+using AngleSharp.Html.Dom;
+using AngleSharp.Html.Parser;
 using Bunit;
 using Bunit.Rendering;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +44,7 @@ public static class FluentAssert
     public static readonly FluentAssertOptions Options = new();
 
     /// <summary>
-    /// Verifies that the rendered markup from the <paramref name="actual"/> <see cref="IRenderedFragment"/> matches
+    /// Verifies that the rendered markup from the <paramref name="actual"/> <see cref="IRenderedComponent{T}"/> matches
     /// the ".verified.html" file content, using the <see cref="Bunit.Diffing.HtmlComparer"/> type.
     /// If the contents are not the same, a new ".received.html" file is created to allow comparison.
     /// ".received.html" and ".verified.html" extension is configurable using <see cref="Options"/>.
@@ -51,17 +55,17 @@ public static class FluentAssert
     /// <param name="memberName"></param>
     /// <param name="suffix"></param>
     /// <exception cref="ArgumentNullException"></exception>
-    public static void Verify(this IRenderedFragment? actual,
+    public static void Verify<T>(this IRenderedComponent<T>? actual,
         Func<string, string>? received = null,
         [CallerFilePath] string? filename = "",
         [CallerMemberName] string? memberName = "",
-        string? suffix = UndefinedSuffix)
+        string? suffix = UndefinedSuffix) where T : Microsoft.AspNetCore.Components.IComponent
     {
         if (actual is null)
         {
             return;
         }
-
+        
         // Valid?
         ArgumentNullException.ThrowIfNull(filename, nameof(filename));
         ArgumentNullException.ThrowIfNull(memberName, nameof(memberName));
@@ -72,7 +76,7 @@ public static class FluentAssert
         var memberFullName = GetMemberFullName(memberName, suffix);
         var expectedFile = file.GetTargetFile(memberFullName, isRazor ? Options.VerifiedRazorExtension : Options.VerifiedCSharpExtension);
         var receivedFile = file.GetTargetFile(memberFullName, isRazor ? Options.ReceivedRazorExtension : Options.ReceivedCSharpExtension);
-        var htmlParser = actual.Services.GetRequiredService<BunitHtmlParser>();
+        var htmlParser = actual.Services.GetRequiredService<IHtmlParser>();
 
         // Load "verified.html" file
         var expectedHtml = expectedFile.Exists
@@ -104,14 +108,28 @@ public static class FluentAssert
         // Create a "received.json" file
         else if (Options.UpdateVerifiedFiles)
         {
-            var formattedReceivedHtml = NodePrintExtensions.ToMarkup((IEnumerable<INode>)receivedNodes);
+            using var writer = new StringWriter();
+            var formatter = new PrettyMarkupFormatter();
+            foreach (var node in receivedNodes)
+            {
+                node.ToHtml(writer, formatter);
+            }
+
+            var formattedReceivedHtml = writer.ToString();
             File.WriteAllText(expectedFile.FullName, formattedReceivedHtml);
         }
 
         // Create a "received.json" file
         else
         {
-            var formattedReceivedHtml = NodePrintExtensions.ToMarkup((IEnumerable<INode>)receivedNodes);
+            using var writer = new StringWriter();
+            var formatter = new PrettyMarkupFormatter();
+            foreach (var node in receivedNodes)
+            {
+                node.ToHtml(writer, formatter);
+            }
+
+            var formattedReceivedHtml = writer.ToString();
             File.WriteAllText(receivedFile.FullName, formattedReceivedHtml);
             throw new HtmlEqualException(diffs, expectedNodes, receivedNodes, null);
         }
@@ -140,15 +158,15 @@ public static class FluentAssert
         }
     }
 
-    private static INodeList ToNodeList(this string markup, BunitHtmlParser? htmlParser)
+    private static INodeList ToNodeList(this string markup, IHtmlParser? htmlParser)
     {
         if (htmlParser is null)
         {
-            using var newHtmlParser = new BunitHtmlParser();
-            return newHtmlParser.Parse(markup);
+            var newHtmlParser = new HtmlParser();
+            return newHtmlParser.ParseDocument(markup).ChildNodes;
         }
 
-        return htmlParser.Parse(markup);
+        return htmlParser.ParseDocument(markup).ChildNodes;
     }
 
     private static FileInfo GetTargetFile(this FileInfo file, string memberName, string extension)
