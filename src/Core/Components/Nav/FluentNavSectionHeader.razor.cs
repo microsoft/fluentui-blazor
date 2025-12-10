@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A section header for use within a <see cref="FluentNav"/>
 /// </summary>
-public partial class FluentNavSectionHeader : FluentComponentBase,INavItem
+public partial class FluentNavSectionHeader : FluentComponentBase, INavItem
 {
     /// <summary />
     public FluentNavSectionHeader(LibraryConfiguration configuration) : base(configuration)

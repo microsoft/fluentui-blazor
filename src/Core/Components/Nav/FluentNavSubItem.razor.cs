@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+//using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -12,18 +13,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentNavSubItem : FluentNavItem
 {
-
     /// <summary />
     public FluentNavSubItem(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
-
-    /// <summary />
-    protected new string? ClassValue => DefaultClassBuilder
-        .AddClass("fluent-navsubitem")
-        .AddClass("disabled", Disabled)
-        .Build();
 
     /// <summary>
     /// Gets or sets the parent <see cref="FluentNavCategory"/> component for this instance.
@@ -32,7 +26,13 @@ public partial class FluentNavSubItem : FluentNavItem
     /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
     /// its parent navigation menu.</remarks>
     [CascadingParameter(Name = "Category")]
-    public required FluentNavCategory Category { get; set; }
+    public required FluentNavCategory? Category { get; set; }
+
+    /// <summary />
+    protected new string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-navsubitem")
+        .AddClass("disabled", Disabled)
+        .Build();
 
     /// <summary>
     /// Validates that this component is used within a FluentNav.
@@ -45,5 +45,35 @@ public partial class FluentNavSubItem : FluentNavItem
             throw new InvalidOperationException(
                 $"{nameof(FluentNavSubItem)} must be used as a child of {nameof(FluentNavCategory)} within a {nameof(FluentNav)}.");
         }
+
+        base.OnParametersSet();
+    }
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Category?.RegisterSubitem(this);
+    }
+
+    /// <summary>
+    /// Overrides the location changed handler to notify the parent category when this subitem's active state changes.
+    /// </summary>
+    protected override void OnLocationChanged(object? sender, LocationChangedEventArgs args)
+    {
+        var shouldBeActiveNow = ShouldMatch(args.Location);
+        if (shouldBeActiveNow != _isActive)
+        {
+            _isActive = shouldBeActiveNow;
+
+            //Category?.OnSubitemActiveStateChanged();
+        }
+    }
+
+    /// <inheritdoc />
+    public new void Dispose()
+    {
+        Category?.UnregisterSubitem(this);
+        base.Dispose();
     }
 }

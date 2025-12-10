@@ -13,7 +13,7 @@
 			@attributes="@AdditionalAttributes">
 		@if (Owner.UseIcons && Icon is not null)
 		{
-			<FluentIcon Value="Icon" Class="icon" />
+			<FluentIcon Value="NavUtils.GetActiveIcon(Icon, _isActive)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
 		}
 		@Title
 		<span aria-hidden="true" class="expand-icon ">
@@ -28,7 +28,7 @@
 			}
 		</span>
 	</button>
-	<div id="@($"{Id}-group")" class="fluent-navsubitemgroup" expanded="@Expanded">
+	<div id="@($"{Id}-group")" class="fluent-navsubitemgroup@(Expanded ? " expanded" : "")" expanded="@Expanded">
 		@ChildContent
 	</div>
 </CascadingValue>

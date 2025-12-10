@@ -20,7 +20,7 @@
 		{
 			@if (Icon is not null)
 			{
-				<FluentIcon Value="GetIcon(Icon)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
+				<FluentIcon Value="NavUtils.GetActiveIcon(Icon, _isActive)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
 			}
 			else
 			{
@@ -48,7 +48,7 @@ else
 		{
 			@if (Icon is not null)
 			{
-				<FluentIcon Value="GetIcon(Icon)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
+				<FluentIcon Value="NavUtils.GetActiveIcon(Icon, _isActive)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
 			}
 			else
 			{

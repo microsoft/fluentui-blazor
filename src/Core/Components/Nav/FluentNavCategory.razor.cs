@@ -17,6 +17,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentNavCategory : FluentComponentBase, INavItem
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNavCategory.razor.js";
+    private bool _isActive;
+    private readonly List<FluentNavSubItem> _subitems = [];
 
     /// <summary />
     public FluentNavCategory(LibraryConfiguration configuration) : base(configuration)
@@ -27,6 +29,7 @@ public partial class FluentNavCategory : FluentComponentBase, INavItem
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-navcategoryitem")
+        .AddClass("active", _isActive)
         .Build();
 
     /// <summary />
@@ -77,7 +80,6 @@ public partial class FluentNavCategory : FluentComponentBase, INavItem
     {
         if (firstRender)
         {
-            // Import the JavaScript module
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
         }
     }
@@ -87,14 +89,14 @@ public partial class FluentNavCategory : FluentComponentBase, INavItem
     /// </summary>
     protected override void OnParametersSet()
     {
-        base.OnParametersSet();
-
         // Validate that this component is used within a FluentNav
         if (Owner == null || Owner.GetType() != typeof(FluentNav))
         {
             throw new InvalidOperationException(
                 $"{nameof(FluentNavCategory)} must be used as a child of {nameof(FluentNav)}.");
         }
+
+        UpdateActiveState();
     }
 
     /// <summary>
@@ -103,6 +105,69 @@ public partial class FluentNavCategory : FluentComponentBase, INavItem
     internal async Task ToggleExpandedAsync()
     {
         Expanded = !Expanded;
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.NavDrawer.ToggleCategory", Id, Owner.UseSingleExpanded);
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.NavCategory.ToggleCategory", Id, Owner.UseSingleExpanded);
+
+        UpdateActiveState();
+    }
+
+    /// <summary>
+    /// Called by subitems to notify the category when their active state changes.
+    /// Updates the category's active state and auto-expands if a subitem becomes active.
+    /// </summary>
+    internal void OnSubitemActiveStateChanged()
+    {
+        if (!Expanded && HasActiveSubitem())
+        {
+            Expanded = true;
+            _ = InvokeExpandAsync();
+        }
+
+        UpdateActiveState();
+    }
+
+    /// <summary>
+    /// Checks if any FluentNavSubItem is currently active.
+    /// </summary>
+    /// <returns>True if at least one subitem is active; otherwise, false.</returns>
+    internal bool HasActiveSubitem()
+    {
+        return _subitems.Exists(item => item.Active);
+    }
+
+    /// <summary>
+    /// Registers a subitem with this category.
+    /// </summary>
+    internal void RegisterSubitem(FluentNavSubItem subitem)
+    {
+        if (!_subitems.Contains(subitem))
+        {
+            _subitems.Add(subitem);
+        }
+    }
+
+    /// <summary>
+    /// Unregisters a subitem from this category.
+    /// </summary>
+    internal void UnregisterSubitem(FluentNavSubItem subitem)
+    {
+        _subitems.Remove(subitem);
+    }
+
+    /// <summary>
+    /// Invokes the JavaScript expansion with UseSingleExpanded logic.
+    /// This is fire-and-forget as it's triggered by navigation and doesn't need to block.
+    /// </summary>
+    private async Task InvokeExpandAsync()
+    {
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.NavCategory.ExpandCategory", Id, Owner.UseSingleExpanded);
+    }
+
+    /// <summary>
+    /// Updates the active state based on whether any subitem is active and the category is collapsed.
+    /// </summary>
+    private void UpdateActiveState()
+    {
+        // Only show active state when category is collapsed and has an active subitem
+        _isActive = !Expanded && HasActiveSubitem();
     }
 }

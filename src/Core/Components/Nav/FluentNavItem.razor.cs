@@ -16,10 +16,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
 {
     private const string EnableMatchAllForQueryStringAndFragmentSwitchKey = "Microsoft.AspNetCore.Components.Routing.NavLink.EnableMatchAllForQueryStringAndFragment";
+    private string? _hrefAbsolute;
+
+    private static readonly CaseInsensitiveCharComparer CaseInsensitiveComparer = new();
     private static readonly bool _enableMatchAllForQueryStringAndFragment = AppContext.TryGetSwitch(EnableMatchAllForQueryStringAndFragmentSwitchKey, out var switchValue) && switchValue;
 
-    bool _isActive;
-    private string? _hrefAbsolute;
+    /// <summary />
+    protected bool _isActive;
 
     /// <summary />
     public FluentNavItem(LibraryConfiguration configuration) : base(configuration)
@@ -107,6 +110,11 @@ public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
     public required NavigationManager NavigationManager { get; set; }
 
     /// <summary>
+    /// Gets te active state on this navigation item
+    /// </summary>
+    public bool Active => _isActive;
+
+    /// <summary>
     /// Validates that this component is used within a FluentNav.
     /// </summary>
     protected override void OnParametersSet()
@@ -118,7 +126,6 @@ public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
                 $"{nameof(FluentNavItem)} must be used as a child of {nameof(FluentNav)}.");
         }
 
-        // Update computed state
         _hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
         _isActive = ShouldMatch(NavigationManager.Uri);
     }
@@ -128,13 +135,6 @@ public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
     {
         // We'll consider re-rendering on each location change
         NavigationManager.LocationChanged += OnLocationChanged;
-    }
-
-    /// <inheritdoc />
-    public void Dispose()
-    {
-        // To avoid leaking memory, it's important to detach any event handlers in Dispose()
-        NavigationManager.LocationChanged -= OnLocationChanged;
     }
 
     /// <summary>
@@ -153,32 +153,11 @@ public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
         }
     }
 
-    [ExcludeFromCodeCoverage(Justification = "We can't test the Icon.* DLLs here")]
-    [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "<Pending>")]
-    private Icon? GetIcon(Icon icon)
-    {
-        if (_isActive)
-        {
-            var iconInfo = new IconInfo
-            {
-
-                Name = icon.Name,
-                Size = IconSize.Size20,
-                Variant = IconVariant.Filled,
-            };
-
-            //This cannot be tested as the Icons assembly is not available in bUnit tests
-            if (iconInfo.TryGetInstance(out var customIcon))
-            {
-                return customIcon;
-            }
-        }
-
-        return icon;
-    }
-
+    /// <summary>
+    /// Handles location change events and updates the active state.
+    /// </summary>
     [ExcludeFromCodeCoverage(Justification = "Cannot be tested with current bUnit version")]
-    private void OnLocationChanged(object? sender, LocationChangedEventArgs args)
+    protected virtual void OnLocationChanged(object? sender, LocationChangedEventArgs args)
     {
         // We could just re-render always, but for this component we know the
         // only relevant state change is to the _isActive property.
@@ -187,7 +166,7 @@ public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
         {
             _isActive = shouldBeActiveNow;
 
-            StateHasChanged();
+            //StateHasChanged();
         }
     }
 
@@ -232,12 +211,20 @@ public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
         return EqualsHrefExactlyOrIfTrailingSlashAdded(uriWithoutQueryAndFragment, hrefAbsoluteSpan);
     }
 
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        // To avoid leaking memory, it's important to detach any event handlers in Dispose()
+        NavigationManager.LocationChanged -= OnLocationChanged;
+        GC.SuppressFinalize(this);
+    }
+
     [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
     private static ReadOnlySpan<char> GetUriIgnoreQueryAndFragment(ReadOnlySpan<char> uri)
     {
         if (uri.IsEmpty)
         {
-            return ReadOnlySpan<char>.Empty;
+            return [];
         }
 
         var queryStartPos = uri.IndexOf('?');
@@ -262,10 +249,8 @@ public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
             minPos = Math.Min(queryStartPos, fragmentStartPos);
         }
 
-        return uri.Slice(0, minPos);
+        return uri[..minPos];
     }
-
-    private static readonly CaseInsensitiveCharComparer CaseInsensitiveComparer = new CaseInsensitiveCharComparer();
 
     [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
     private static bool EqualsHrefExactlyOrIfTrailingSlashAdded(ReadOnlySpan<char> currentUriAbsolute, ReadOnlySpan<char> hrefAbsolute)
@@ -285,8 +270,8 @@ public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
             // which in turn is because it's common for servers to return the same page
             // for http://host/vdir as they do for host://host/vdir/ as it's no
             // good to display a blank page in that case.
-            if (hrefAbsolute[hrefAbsolute.Length - 1] == '/' &&
-                currentUriAbsolute.SequenceEqual(hrefAbsolute.Slice(0, hrefAbsolute.Length - 1), CaseInsensitiveComparer))
+            if (hrefAbsolute[^1] == '/' &&
+                currentUriAbsolute.SequenceEqual(hrefAbsolute[..^1], CaseInsensitiveComparer))
             {
                 return true;
             }
