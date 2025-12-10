@@ -33,20 +33,20 @@ examples/
 
 ### Prerequisites
 - .NET 8 SDK or later
-- Node.js 20.15 LTS (for Core.Scripts project)
-- Visual Studio 2022 Preview (recommended on Windows)
+- Node.js 22.x (for Core.Scripts project)
+- Visual Studio 2026 (recommended on Windows)
 
 ### Build Commands
 
 ```bash
 # Build the entire solution
-dotnet build Microsoft.FluentUI-v5.sln --configuration Debug
+dotnet build Microsoft.FluentUI-v5.sln
 
 # Build only the core component library
-dotnet build src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj --configuration Debug
+dotnet build src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj
 
 # Build the demo application
-dotnet build examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj --configuration Debug
+dotnet build examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj
 
 # Clean the solution
 dotnet clean Microsoft.FluentUI-v5.sln
@@ -71,7 +71,7 @@ dotnet watch run --project examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj
 
 ```bash
 # Run all unit tests
-dotnet test tests/Core/Components.Tests.csproj --configuration Debug
+dotnet test tests/Core/Components.Tests.csproj
 
 # Run specific test
 dotnet test tests/Core/Components.Tests.csproj --filter "FullyQualifiedName~TestClassName"
