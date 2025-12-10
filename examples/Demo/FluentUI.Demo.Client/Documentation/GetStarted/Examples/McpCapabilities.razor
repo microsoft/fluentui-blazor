@@ -1,4 +1,6 @@
-@using FluentUI.Mcp.Shared
+﻿@using Microsoft.FluentUI.AspNetCore.Components.McpServer.Shared
+@using Microsoft.FluentUI.AspNetCore.Components.McpServer.Shared.Models
+@using System.Net.Http.Json
 @inject HttpClient Http
 
 @if (_loading)
@@ -13,9 +15,9 @@ else if (_summary is null)
 }
 else
 {
-    <FluentTabs @bind-ActiveTabId="@_activeTab">
-        <FluentTab Id="tools" Header="@($"Tools ({_summary.Tools.Count})")">
-            <FluentDataGrid Items="@_summary.Tools.AsQueryable()" GridTemplateColumns="1fr 2fr 1fr">
+    <FluentTabs ActiveTabId="@_activeTab" ActiveTabIdChanged="@OnTabChanged">
+        <FluentTab Id="tools" Label="@($"Tools ({_summary.Tools.Count})")">
+            <FluentDataGrid TGridItem="McpToolInfo" Items="@_summary.Tools.AsQueryable()" GridTemplateColumns="1fr 2fr 1fr">
                 <PropertyColumn Property="@(t => t.Name)" Title="Name" />
                 <PropertyColumn Property="@(t => t.Description)" Title="Description" />
                 <TemplateColumn Title="Parameters">
@@ -43,8 +45,8 @@ else
             </FluentDataGrid>
         </FluentTab>
 
-        <FluentTab Id="prompts" Header="@($"Prompts ({_summary.Prompts.Count})")">
-            <FluentDataGrid Items="@_summary.Prompts.AsQueryable()" GridTemplateColumns="1fr 2fr 1fr">
+        <FluentTab Id="prompts" Label="@($"Prompts ({_summary.Prompts.Count})")">
+            <FluentDataGrid TGridItem="McpPromptInfo" Items="@_summary.Prompts.AsQueryable()" GridTemplateColumns="1fr 2fr 1fr">
                 <PropertyColumn Property="@(p => p.Name)" Title="Name" />
                 <PropertyColumn Property="@(p => p.Description)" Title="Description" />
                 <TemplateColumn Title="Parameters">
@@ -72,8 +74,8 @@ else
             </FluentDataGrid>
         </FluentTab>
 
-        <FluentTab Id="resources" Header="@($"Resources ({_summary.Resources.Count})")">
-            <FluentDataGrid Items="@_summary.Resources.AsQueryable()" GridTemplateColumns="1fr 1fr 2fr 0.5fr">
+        <FluentTab Id="resources" Label="@($"Resources ({_summary.Resources.Count})")">
+            <FluentDataGrid TGridItem="McpResourceInfo" Items="@_summary.Resources.AsQueryable()" GridTemplateColumns="1fr 1fr 2fr 0.5fr">
                 <PropertyColumn Property="@(r => r.Uri)" Title="URI" />
                 <PropertyColumn Property="@(r => r.Title)" Title="Title" />
                 <PropertyColumn Property="@(r => r.Description)" Title="Description" />
@@ -120,5 +122,10 @@ else
         {
             _loading = false;
         }
+    }
+
+    private void OnTabChanged(string? tabId)
+    {
+        _activeTab = tabId ?? "tools";
     }
 }

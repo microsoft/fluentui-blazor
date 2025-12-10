@@ -3,8 +3,9 @@
 // ------------------------------------------------------------------------
 
 using FluentUI.Demo.Client;
-using FluentUI.Mcp.Shared;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.McpServer.Services;
+using Microsoft.FluentUI.AspNetCore.Components.McpServer.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +35,7 @@ builder.Services.AddFluentUIComponents(config =>
 builder.Services.AddFluentUIDemoServices().ForServer();
 
 // Initialize MCP capabilities data from the MCP Server assembly
-McpCapabilitiesData.Initialize(typeof(FluentUI.Mcp.Server.Services.FluentUIDocumentationService).Assembly);
+McpCapabilitiesData.Initialize(typeof(FluentUIDocumentationService).Assembly);
 
 var app = builder.Build();
 

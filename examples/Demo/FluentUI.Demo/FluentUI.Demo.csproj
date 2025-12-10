@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
-    <ProjectReference Include="..\..\Mcp\FluentUI.Mcp.Server\FluentUI.Mcp.Server.csproj" />
+    <ProjectReference Include="..\..\..\src\Tools\McpServer\Microsoft.FluentUI.AspNetCore.Components.McpServer.csproj" />
     <ProjectReference Include="..\FluentUI.Demo.Client\FluentUI.Demo.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
   </ItemGroup>

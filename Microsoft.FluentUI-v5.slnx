@@ -5,10 +5,6 @@
     <Project Path="examples/Demo/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj" />
     <Project Path="examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" />
   </Folder>
-  <Folder Name="/examples/mcp/">
-    <Project Path="examples/Mcp/FluentUI.Mcp.Server/FluentUI.Mcp.Server.csproj" />
-    <Project Path="examples/Mcp/FluentUI.Mcp.Shared/FluentUI.Mcp.Shared.csproj" />
-  </Folder>
   <Folder Name="/examples/tools/">
     <Project Path="examples/Tools/FluentUI.Demo.DocApiGen/FluentUI.Demo.DocApiGen.csproj" />
     <Project Path="examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj" />
@@ -24,11 +20,17 @@
     </Project>
     <Project Path="src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" />
   </Folder>
+  <Folder Name="/src/tools/">
+    <Project Path="src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.Components.McpServer.csproj" />
+    <Project Path="src/Tools/McpServer.Shared/Microsoft.FluentUI.AspNetCore.Components.McpServer.Shared.csproj" />
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Core/Components.Tests.csproj" />
     <Project Path="tests/Integration/Components.IntegrationTests.csproj">
       <Build Solution="Debug|*" Project="false" />
     </Project>
-    <Project Path="tests/Mcp/FluentUI.Mcp.Server.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/tools/">
+    <Project Path="tests/Tools/McpServer.Tests/Microsoft.FluentUI.AspNetCore.Components.McpServer.Tests.csproj" />
   </Folder>
 </Solution>
