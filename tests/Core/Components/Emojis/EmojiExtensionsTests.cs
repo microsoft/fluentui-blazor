@@ -11,7 +11,7 @@ using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Emojis;
 
-public class EmojiExtensionsTests : Bunit.TestContext
+public class EmojiExtensionsTests : Bunit.BunitContext
 {
     [Fact]
     [RequiresUnreferencedCode("This test requires dynamic access to code.")]

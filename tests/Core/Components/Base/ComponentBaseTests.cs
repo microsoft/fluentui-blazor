@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
-public class ComponentBaseTests : Bunit.TestContext
+public class ComponentBaseTests : Bunit.BunitContext
 {
     /// <summary>
     /// List of components to exclude from the test.
@@ -102,7 +102,7 @@ public class ComponentBaseTests : Bunit.TestContext
             // Arrange and Act
             try
             {
-                var renderedComponent = RenderComponent<DynamicComponent>(parameters =>
+                var renderedComponent = Render<DynamicComponent>(parameters =>
                 {
                     parameters.Add(p => p.Type, type);
 
@@ -169,7 +169,7 @@ public class ComponentBaseTests : Bunit.TestContext
                      : componentType;
 
             // Arrange and Act
-            var renderedComponent = RenderComponent<FluentStack>(stack =>
+            var renderedComponent = Render<FluentStack>(stack =>
             {
                 stack.AddChildContent<DynamicComponent>(parameters =>
                 {
@@ -254,7 +254,7 @@ public class ComponentBaseTests : Bunit.TestContext
         module.Mode = JSRuntimeMode.Loose;
 
         // Act
-        var cut = RenderComponent<MyComponent>(parameter =>
+        var cut = Render<MyComponent>(parameter =>
         {
             parameter.Add(p => p.OnBreakpointEnter, EventCallback.Factory.Create<GridItemSize>(this, e => { }));
         });
@@ -278,9 +278,9 @@ public class ComponentBaseTests : Bunit.TestContext
         Assert.Throws<InvalidOperationException>(() =>
         {
             // Act: no OnBreakpointEnter
-            var cut = RenderComponent<MyComponent>(parameter =>
+            var cut = Render<MyComponent>((Action<ComponentParameterCollectionBuilder<MyComponent>>)(parameter =>
             {
-            });
+            }));
 
             var module = cut.Instance.GetJSModule();
         });
