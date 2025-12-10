@@ -35,8 +35,8 @@
 <p>
     When both the <code>PrimaryButton</code> and <code>SecondaryButton</code> properties are set, the <code>MessageBox</code> will be
     displayed as a modal. This means that the user has to click one of the buttons to close the dialog. It cannot be closed by clicking
-    outside of the dialog. Clicking <code>PrimaryButton</code> will return <code>true</code> and clicking <code>SecondaryButton</code> will
-    return <code>false</code> as the dialog result. See the Console log for these return values.
+    outside of the dialog. The <code>DialogResult.Cancelled</code> property will reflect which button was pressed. Clicking <code>PrimaryButton</code> will return <code>fasle</code> for Cancelled and clicking <code>SecondaryButton</code> will
+    return <code>true</code>.
 </p>
 <p>
     Internally, the <code>ShowMessageBox</code> methods call the <code>ShowDialog</code> methods. If is possible to directly call these methods and thereby have
