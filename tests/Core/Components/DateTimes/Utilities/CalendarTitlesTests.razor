@@ -3,7 +3,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Xunit
 @using Microsoft.FluentUI.AspNetCore.Components
-@inherits Bunit.TestContext
+@inherits FluentUITestContext
 
 @code
 {
@@ -26,7 +26,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendar = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.View, view)
             .Add(p => p.PickerMonth, new DateTime(2024, 7, 1))
             .Add(p => p.Culture, Culture_enUS)
@@ -44,7 +44,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendar = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.View, CalendarViews.Days)
             .Add(p => p.PickerMonth, new DateTime(2024, 7, 1))
             .Add(p => p.Culture, Culture_enUS)
@@ -68,7 +68,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendar = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.View, view)
             .Add(p => p.PickerMonth, new DateTime(2024, 7, 1))
             .Add(p => p.Culture, Culture_enUS)
@@ -91,7 +91,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendar = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.View, view)
             .Add(p => p.PickerMonth, new DateTime(2024, 7, 1))
             .Add(p => p.Culture, Culture_enUS)
@@ -115,7 +115,7 @@
 
         // Arrange
         var minDate = Culture_enUS.Calendar.MinSupportedDateTime.AddMonths(1);
-        var calendar = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.View, view)
             .Add(p => p.PickerMonth, minDate)
             .Add(p => p.Culture, Culture_enUS)
@@ -138,7 +138,7 @@
         using var context = new DateTimeProviderContext(DateTime.Now);
 
         // Arrange
-        var calendar = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.View, view)
             .Add(p => p.PickerMonth, new DateTime(2024, 7, 1))
             .Add(p => p.Culture, Culture_enUS)
@@ -162,7 +162,7 @@
 
         // Arrange
         var maxDate = Culture_enUS.Calendar.MaxSupportedDateTime;
-        var calendar = RenderComponent<FluentCalendar<DateTime>>(parameters => parameters
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.View, view)
             .Add(p => p.PickerMonth, maxDate)
             .Add(p => p.Culture, Culture_enUS)

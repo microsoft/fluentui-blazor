@@ -69,9 +69,11 @@ internal class CalendarTitles<TValue>
         {
             return View switch
             {
+#pragma warning disable MA0011
                 CalendarViews.Days => CalendarExtended.GetMonthNameAndYear(),
                 CalendarViews.Months => CalendarExtended.GetYear(),
                 CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture)),
+#pragma warning restore MA0011
                 _ => string.Empty
             };
         }
@@ -101,7 +103,9 @@ internal class CalendarTitles<TValue>
     {
         get
         {
+#pragma warning disable MA0011
             var minDate = _calendar.Culture.Calendar.MinSupportedDateTime.AddMonths(1);
+#pragma warning restore MA0011
 
             return View switch
             {

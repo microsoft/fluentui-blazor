@@ -41,7 +41,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
     /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
     /// </summary>
-    internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime);
+    protected FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime);
 
     /// <summary>
     /// Gets the class builder, containing the default margin and padding values.
