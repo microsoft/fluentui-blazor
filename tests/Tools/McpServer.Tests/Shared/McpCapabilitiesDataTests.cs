@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using Microsoft.FluentUI.AspNetCore.Components.McpServer.Services;
 using Microsoft.FluentUI.AspNetCore.Components.McpServer.Shared;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.McpServer.Tests.Shared;
@@ -11,6 +12,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components.McpServer.Tests.Shared;
 /// </summary>
 public class McpCapabilitiesDataTests
 {
+    public McpCapabilitiesDataTests()
+    {
+        // Initialize with the MCP Server assembly
+        var mcpServerAssembly = typeof(FluentUIDocumentationService).Assembly;
+        McpCapabilitiesData.Initialize(mcpServerAssembly);
+    }
+
     [Fact]
     public void Tools_ReturnsNonEmptyList()
     {
@@ -167,5 +175,23 @@ public class McpCapabilitiesDataTests
                 Assert.NotEmpty(param.Type);
             }
         }
+    }
+
+    [Fact]
+    public void IsInitialized_ReturnsTrue()
+    {
+        // Assert
+        Assert.True(McpCapabilitiesData.IsInitialized);
+    }
+
+    [Fact]
+    public void ClearCache_ClearsCache()
+    {
+        // Act
+        McpCapabilitiesData.ClearCache();
+        var summary = McpCapabilitiesData.GetSummary();
+
+        // Assert
+        Assert.NotNull(summary);
     }
 }

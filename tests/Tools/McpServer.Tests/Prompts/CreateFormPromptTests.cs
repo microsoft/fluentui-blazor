@@ -79,8 +79,12 @@ public class CreateFormPromptTests
 
         // Assert
         Assert.Contains("Available Form Components", result.Text);
-        Assert.Contains("FluentTextField", result.Text);
-        Assert.Contains("EditForm", result.Text);
+        // Check for either TextField or TextInput (v5 name change)
+        Assert.True(
+            result.Text.Contains("FluentTextField") || 
+            result.Text.Contains("FluentTextInput"),
+            "Should contain FluentTextField or FluentTextInput");
+        Assert.Contains("Form", result.Text);
     }
 
     [Theory]

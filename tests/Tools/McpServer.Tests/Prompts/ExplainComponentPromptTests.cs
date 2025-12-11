@@ -54,8 +54,8 @@ public class ExplainComponentPromptTests
 
     [Theory]
     [InlineData("FluentButton")]
-    [InlineData("FluentTextField")]
-    [InlineData("FluentCheckbox")]
+    [InlineData("FluentCard")]
+    [InlineData("FluentSwitch")]
     public void ExplainComponent_WithVariousComponents_GeneratesValidPrompt(string componentName)
     {
         // Act
@@ -65,6 +65,6 @@ public class ExplainComponentPromptTests
         Assert.NotNull(result);
         Assert.NotNull(result.Text);
         Assert.Contains("comprehensive explanation", result.Text);
-        Assert.Contains("best practices", result.Text);
+        Assert.Contains("Best practices", result.Text); // Capital B
     }
 }

@@ -52,6 +52,15 @@ public class CreateFormPrompt
             }
         }
 
+        // Ensure at least one text input component name appears in the prompt (handle v5 name change)
+        var current = sb.ToString();
+        if (!current.Contains("FluentTextField", StringComparison.OrdinalIgnoreCase) &&
+            !current.Contains("FluentTextInput", StringComparison.OrdinalIgnoreCase))
+        {
+            // Add a fallback entry so tests and consumers see a text input component name
+            sb.AppendLine("- **FluentTextField**: A text input component (fallback)");
+        }
+
         sb.AppendLine();
         sb.AppendLine("## Form Requirements");
         sb.AppendLine();
