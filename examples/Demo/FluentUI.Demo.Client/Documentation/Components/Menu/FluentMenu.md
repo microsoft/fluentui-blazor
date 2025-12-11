@@ -81,6 +81,6 @@ Although not advised, It is possible to use a `FluentMenuList` standalone (so no
 
 {{ API Type=FluentMenuItem }}
 
-## Migrating from v4
+## Migrating to v5
 
 {{ INCLUDE File=MigrationFluentMenu }}

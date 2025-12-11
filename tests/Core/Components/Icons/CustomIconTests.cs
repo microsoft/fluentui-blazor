@@ -10,7 +10,7 @@ using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Icons;
 
-public class CustomIconTests : Bunit.TestContext
+public class CustomIconTests : Bunit.BunitContext
 {
     [Fact]
     public void DefaultConstructor_SetsExpectedDefaults()

@@ -24,12 +24,12 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent
     protected bool EmptyContent => ChildContent is null && Label is null;
 
     /// <summary />
-    protected string? ClassValue => DefaultClassBuilder
+    protected virtual string? ClassValue => DefaultClassBuilder
         .AddClass("loading-button", when: () => LoadingOverlay)
         .Build();
 
     /// <summary />
-    protected string? StyleValue => DefaultStyleBuilder
+    protected virtual string? StyleValue => DefaultStyleBuilder
         .AddStyle("background-color", BackgroundColor, when: () => !string.IsNullOrEmpty(BackgroundColor))
         .AddStyle("color", Color, when: () => !string.IsNullOrEmpty(Color))
         .AddStyle("opacity", "0.3", when: () => Disabled && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))

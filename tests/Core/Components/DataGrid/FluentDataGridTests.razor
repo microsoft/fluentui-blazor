@@ -1,7 +1,7 @@
 ﻿@using Bunit.TestDoubles
 @using System.ComponentModel.DataAnnotations
 @using Xunit
-@inherits Bunit.TestContext
+@inherits FluentUITestContext
 
 @code {
     public FluentDataGridTests()
@@ -114,7 +114,7 @@
         Assert.NotNull(cut.Find("#loading-content"));
         Assert.Throws<ElementNotFoundException>(() => cut.Find("#empty-content"));
 
-        cut.SetParametersAndRender(parameters => parameters
+        cut.Render(parameters => parameters
             .Add(p => p.Loading, false));
 
         Assert.Throws<ElementNotFoundException>(() => cut.Find("#loading-content"));
@@ -176,7 +176,7 @@
         Assert.NotNull(cut.Find("#loading-content"));
         Assert.Throws<ElementNotFoundException>(() => cut.Find("#empty-content"));
 
-        cut.SetParametersAndRender(parameters => parameters
+        cut.Render(parameters => parameters
             .Add(p => p.Loading, false));
 
         Assert.Throws<ElementNotFoundException>(() => cut.Find("#loading-content"));
@@ -429,7 +429,7 @@
     public void FluentDataGrid_LoadState_Pagination()
     {
         // Arrange && Act
-        var navMan = Services.GetRequiredService<FakeNavigationManager>();
+        var navMan = Services.GetRequiredService<BunitNavigationManager>();
         PaginationState state = new();
 
         state.ItemsPerPage = 1;
@@ -505,7 +505,7 @@
         Assert.NotNull(cut.Find("#loading-content"));
 
         // now not loading but still with 0 items, should render empty content
-        cut.SetParametersAndRender(parameters => parameters
+        cut.Render(parameters => parameters
             .Add(p => p.Loading, false));
 
         Assert.NotNull(cut.Find("#empty-content"));
@@ -557,7 +557,7 @@
         // if we explicitly set Loading back to null, we should see the same behaviors because data should
         // be refreshed
         tcs = new TaskCompletionSource();
-        cut.SetParametersAndRender(parameters => parameters
+        cut.Render(parameters => parameters
             .Add(p => p.Loading, null));
         Assert.NotNull(cut.Find("#loading-content"));
 
@@ -1553,7 +1553,7 @@
         // Simulate a click on the header cell button
         row.Find(".col-sort-button").Click();
 
-        var items = cut.FindAll("fluent-menu-item",true);
+        var items = cut.FindAll("fluent-menu-item");
 
         items[0].KeyDown(new KeyboardEventArgs() { Key = "Enter" }); // Click the first item in the menu - Sort
         items[1].KeyDown(new KeyboardEventArgs() { Key = "Enter" }); // Click the second item in the menu - Resize
@@ -1581,7 +1581,7 @@
         // Simulate a click on the header cell button
         row.Find(".col-sort-button").Click();
 
-        var items = cut.FindAll("fluent-menu-item",true);
+        var items = cut.FindAll("fluent-menu-item");
 
         // Assert
         Assert.NotEmpty(items); // Asserting that there are menu items present
@@ -1604,7 +1604,7 @@
         // Simulate a click on the header cell button
         row.Find(".col-sort-button").Click();
 
-        var items = cut.FindAll("fluent-menu-item",true);
+        var items = cut.FindAll("fluent-menu-item");
 
         // Assert
         Assert.NotEmpty(items); // Asserting that there are menu items present
@@ -1631,7 +1631,7 @@
         // Simulate a click on the header cell button
         row.Find(".col-sort-button").Click();
 
-        var items = cut.FindAll("fluent-menu-item",true);
+        var items = cut.FindAll("fluent-menu-item");
 
         // Assert
         Assert.NotEmpty(items); // Asserting that there are menu items present
@@ -1655,7 +1655,7 @@
         // Simulate a click on the header cell button
         row.Find(".col-sort-button").Click();
 
-        var items = cut.FindAll("fluent-menu-item",true);
+        var items = cut.FindAll("fluent-menu-item");
 
         // Assert
         Assert.NotEmpty(items); // Asserting that there are menu items present
@@ -1682,7 +1682,7 @@
         // Simulate a click on the header cell button
         row.Find(".col-sort-button").Click();
 
-        var items = cut.FindAll("fluent-menu-item",true);
+        var items = cut.FindAll("fluent-menu-item");
 
         // Assert
         Assert.NotEmpty(items); // Asserting that there are menu items present

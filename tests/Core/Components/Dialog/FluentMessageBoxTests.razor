@@ -1,5 +1,5 @@
 ﻿@using Xunit;
-@inherits Bunit.TestContext
+@inherits FluentUITestContext
 @code
 {
     // A timeout can be set when you open a dialog box and do not close it.
@@ -11,7 +11,7 @@
         Services.AddFluentUIComponents();
 
         DialogService = Services.GetRequiredService<IDialogService>();
-        DialogProvider = RenderComponent<FluentDialogProvider>();
+        DialogProvider = Render<FluentDialogProvider>();
     }
 
     /// <summary>

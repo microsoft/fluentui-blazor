@@ -15,7 +15,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
-public class InputBaseTests : Bunit.TestContext
+public class InputBaseTests : Bunit.BunitContext
 {
     /// <summary>
     /// List of components to exclude from the test.
@@ -45,7 +45,7 @@ public class InputBaseTests : Bunit.TestContext
     public InputBaseTests(ITestOutputHelper testOutputHelper)
     {
         Output = testOutputHelper;
-        Services.AddFluentUIComponents();        
+        Services.AddFluentUIComponents();
     }
 
     /// <summary>
@@ -100,7 +100,7 @@ public class InputBaseTests : Bunit.TestContext
                      : componentType;
 
             // Arrange and Act
-            var renderedComponent = RenderComponent<DynamicComponent>(parameters =>
+            var renderedComponent = Render<DynamicComponent>(parameters =>
             {
                 var attributes = new Dictionary<string, object>
                 {

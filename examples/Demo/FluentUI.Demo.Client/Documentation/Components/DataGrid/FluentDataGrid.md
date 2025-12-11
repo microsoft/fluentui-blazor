@@ -144,3 +144,8 @@ The following examples show how to use the DataGrid component in different scena
 - [Virtualized grid](/DataGrid/Virtualize)
 - [Remote data](/DataGrid/RemoteData)
 - [Manual grid](/DataGrid/ManualDataGrid)
+
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentDataGrid }}

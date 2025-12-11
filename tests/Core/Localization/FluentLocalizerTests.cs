@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Localization;
 
-public class FluentLocalizerTests : Bunit.TestContext
+public class FluentLocalizerTests : Bunit.BunitContext
 {
     [Theory]
     [InlineData("en")]

@@ -1,7 +1,7 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
-@inherits Bunit.TestContext
+@inherits FluentUITestContext
 @code
 {
     private readonly IEnumerable<string?> Digits = new[] { null, "One", "Two", "Three" };
@@ -141,7 +141,7 @@
         var cut = Render(@<FluentCombobox Items="@Digits" @bind-Value="@value" />);
 
         // Act and re-render
-        cut.FindComponent<FluentCombobox<string>>().SetParametersAndRender(parameters => parameters.Add(p => p.Value, "One"));
+        cut.FindComponent<FluentCombobox<string>>().Render(parameters => parameters.Add(p => p.Value, "One"));
         var one = cut.Find("fluent-option[value='One']");
 
         // Assert

@@ -72,3 +72,7 @@ At this time, it's not possible to define the height and width of the component.
 ## API FluentTextArea
 
 {{ API Type=FluentTextArea }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentTextArea }}
