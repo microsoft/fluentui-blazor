@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Reflection;
 using Microsoft.FluentUI.AspNetCore.Components.McpServer.Models;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.McpServer.Services;
@@ -30,6 +31,29 @@ public class FluentUIDocumentationService
     /// Gets whether the documentation is available.
     /// </summary>
     public bool IsAvailable => _reader.IsAvailable;
+
+    /// <summary>
+    /// Gets the version of the Fluent UI Components library that this documentation was generated from.
+    /// </summary>
+    public string ComponentsVersion => _reader.Metadata?.AssemblyVersion ?? "Unknown";
+
+    /// <summary>
+    /// Gets the version of the MCP Server.
+    /// </summary>
+    public static string McpServerVersion
+    {
+        get
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var version = assembly.GetName().Version;
+            return version?.ToString(3) ?? "Unknown";
+        }
+    }
+
+    /// <summary>
+    /// Gets the date when the documentation was generated.
+    /// </summary>
+    public string DocumentationGeneratedDate => _reader.Metadata?.GeneratedDateUtc ?? "Unknown";
 
     /// <summary>
     /// Initializes the component and enum caches from JSON data.

@@ -80,7 +80,9 @@ internal static class ServiceCollectionExtensions
             .WithPrompts<MigrateToV5Prompt>()
             .WithPrompts<SetupProjectPrompt>()
             .WithPrompts<ConfigureThemingPrompt>()
-            .WithPrompts<ConfigureLocalizationPrompt>();
+            .WithPrompts<ConfigureLocalizationPrompt>()
+            // Version & compatibility prompts
+            .WithPrompts<CheckVersionCompatibilityPrompt>();
 
         return services;
     }
