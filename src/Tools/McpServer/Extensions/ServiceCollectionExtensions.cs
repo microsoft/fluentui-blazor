@@ -33,17 +33,16 @@ internal static class ServiceCollectionExtensions
 
     /// <summary>
     /// Adds the Fluent UI documentation service.
+    /// Uses pre-generated JSON documentation for fast, dependency-free access.
     /// </summary>
     public static IServiceCollection AddFluentUIDocumentation(this IServiceCollection services)
     {
-        // Component documentation service
-        services.AddSingleton(_ =>
-        {
-            var componentsAssembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
-            var xmlPath = XmlDocumentationFinder.Find();
+        // Try to find external JSON documentation file (for development)
+        var externalJsonPath = JsonDocumentationFinder.Find();
 
-            return new FluentUIDocumentationService(componentsAssembly, xmlPath);
-        });
+        // Component documentation service using pre-generated JSON
+        // Falls back to embedded resource if no external file is found
+        services.AddSingleton(_ => new FluentUIDocumentationService(externalJsonPath));
 
         // Documentation guides service (Installation, Migration, Styles, etc.)
         services.AddSingleton<DocumentationGuideService>();

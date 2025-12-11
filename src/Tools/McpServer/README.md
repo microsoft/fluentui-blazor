@@ -12,6 +12,28 @@ This MCP server enables AI assistants to access comprehensive documentation abou
 - **Enum information** - Explore enum types and their values
 - **Usage examples** - Get code examples for components
 
+## Architecture
+
+The MCP server uses **pre-generated JSON documentation** to provide fast, dependency-free access to component information:
+
+```
+┌─────────────────────────────────────────────────┐
+│ FluentUI.Demo.DocApiGen (Build Time)            │
+│ ├── Uses LoxSmoke.DocXml                        │
+│ └── Generates FluentUIComponentsDocumentation.json
+└─────────────────────────────────────────────────┘
+                    │
+                    ▼ (PreBuild / EmbeddedResource)
+┌─────────────────────────────────────────────────┐
+│ McpServer (Runtime)                             │
+│ └── Reads JSON from embedded resource           │
+└─────────────────────────────────────────────────┘
+```
+
+This architecture provides:
+- **Faster startup** - No XML parsing at runtime
+- **Consistent documentation** - Generated once at build time
+
 ## Tools vs Resources
 
 This server implements both **Tools** and **Resources** following MCP best practices:
@@ -167,9 +189,14 @@ dnx add Microsoft.FluentUI.AspNetCore.Components.McpServer
 - Build the FluentUI Blazor solution first
 
 ```bash
-cd examples/Mcp/FluentUI.Mcp.Server
+cd src/Tools/McpServer
 dotnet build
 ```
+
+The build process will automatically:
+1. Build the FluentUI Components project
+2. Run DocApiGen to generate the MCP documentation JSON
+3. Embed the JSON as a resource in the McpServer assembly
 
 ### Configure in VS Code
 
@@ -198,7 +225,7 @@ If running from source:
         "args": [
           "run",
           "--project",
-          "path/to/examples/Mcp/FluentUI.Mcp.Server/FluentUI.Mcp.Server.csproj"
+          "path/to/src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.Components.McpServer.csproj"
         ]
       }
     }
@@ -213,7 +240,7 @@ Or using the built executable:
   "mcp": {
     "servers": {
       "fluentui-blazor": {
-        "command": "path/to/FluentUI.Mcp.Server.exe"
+        "command": "path/to/Microsoft.FluentUI.AspNetCore.Components.McpServer.exe"
       }
     }
   }
@@ -263,8 +290,9 @@ SearchGuides(searchTerm: "FluentButton")
 ### Project Structure
 
 ```
-FluentUI.Mcp.Server/
+McpServer/
 ├── Program.cs                 # Entry point
+├── FluentUIComponentsDocumentation.json  # Pre-generated documentation (auto-generated)
 ├── Extensions/
 │   └── ServiceCollectionExtensions.cs  # DI configuration
 ├── Models/                    # Data models (7 files)
@@ -275,14 +303,12 @@ FluentUI.Mcp.Server/
 │   ├── MethodInfo.cs
 │   ├── EnumInfo.cs
 │   └── EnumValueInfo.cs
-├── Services/                  # Documentation services (7 files)
-│   ├── FluentUIDocumentationService.cs
+├── Services/                  # Documentation services
+│   ├── JsonBasedDocumentationService.cs  # Main service (uses JSON)
+│   ├── JsonDocumentationReader.cs        # JSON reader
 │   ├── DocumentationGuideService.cs
 │   ├── TypeHelper.cs
-│   ├── ComponentCategoryHelper.cs
-│   ├── XmlDocumentationReader.cs
-│   ├── ComponentInfoFactory.cs
-│   └── EnumInfoFactory.cs
+│   └── ComponentCategoryHelper.cs
 ├── Tools/                     # MCP Tools (model-controlled)
 │   ├── ToolOutputHelper.cs
 │   ├── ComponentListTools.cs
@@ -294,9 +320,21 @@ FluentUI.Mcp.Server/
 │   ├── ComponentResources.cs
 │   └── GuideResources.cs
 └── Prompts/                   # MCP Prompts (user-controlled templates)
-    ├── ComponentPrompts.cs
-    ├── MigrationPrompts.cs
-    └── FormPrompts.cs
+    ├── CreateComponentPrompt.cs
+    ├── ExplainComponentPrompt.cs
+    └── ...
+```
+
+### Regenerating Documentation
+
+The MCP documentation JSON is automatically regenerated during build if:
+- The file doesn't exist
+- You set `ForceGenerateMcpDocs=true`
+
+To force regeneration:
+
+```bash
+dotnet build -p:ForceGenerateMcpDocs=true
 ```
 
 ### Adding New Tools
@@ -323,18 +361,19 @@ FluentUI.Mcp.Server/
 Run the server in debug mode:
 
 ```bash
-dotnet run --project FluentUI.Mcp.Server.csproj
+dotnet run --project Microsoft.FluentUI.AspNetCore.Components.McpServer.csproj
 ```
 
 The server communicates via stdin/stdout using JSON-RPC.
 
 ## Troubleshooting
 
-### XML Documentation Not Found
+### Documentation Not Loading
 
-If component descriptions are missing, ensure:
-1. The `Microsoft.FluentUI.AspNetCore.Components.xml` file exists
-2. Run the `FluentUI.Demo.DocApiGen` project to regenerate it
+If component descriptions are missing:
+1. Check if `FluentUIComponentsDocumentation.json` exists in the project directory
+2. Force regeneration with `dotnet build -p:ForceGenerateMcpDocs=true`
+3. Ensure the FluentUI Components project builds successfully
 
 ### Server Not Responding
 

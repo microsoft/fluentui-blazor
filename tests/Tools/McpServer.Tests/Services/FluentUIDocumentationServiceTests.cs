@@ -15,9 +15,9 @@ public class FluentUIDocumentationServiceTests
 
     public FluentUIDocumentationServiceTests()
     {
-        var assembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
-        var xmlPath = XmlDocumentationFinder.Find();
-        _service = new FluentUIDocumentationService(assembly, xmlPath);
+        // The service will use embedded resource or external JSON file
+        var jsonPath = JsonDocumentationFinder.Find();
+        _service = new FluentUIDocumentationService(jsonPath);
     }
 
     [Fact]

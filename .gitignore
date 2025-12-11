@@ -418,3 +418,4 @@ Microsoft.FluentUI.AspNetCore.Components.xml
 /examples/Demo/FluentUI.Demo.Client/wwwroot/documentation/
 api-comments.json
 /global.json
+/src/Tools/McpServer/FluentUIComponentsDocumentation.json

@@ -2,53 +2,49 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Linq;
-using System.Reflection;
 using Microsoft.FluentUI.AspNetCore.Components.McpServer.Models;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.McpServer.Services;
 
 /// <summary>
-/// Service for extracting documentation from the Fluent UI Blazor components assembly.
+/// Service for providing Fluent UI Blazor component documentation.
+/// Uses pre-generated JSON data for fast, dependency-free access.
 /// </summary>
 public class FluentUIDocumentationService
 {
-    private readonly Assembly _componentsAssembly;
-    private readonly ComponentInfoFactory _componentFactory;
-    private readonly EnumInfoFactory _enumFactory;
+    private readonly JsonDocumentationReader _reader;
     private readonly Dictionary<string, ComponentInfo> _componentCache = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, EnumInfo> _enumCache = new(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentUIDocumentationService"/> class.
     /// </summary>
-    /// <param name="componentsAssembly">The Fluent UI components assembly.</param>
-    /// <param name="xmlDocumentationPath">Optional path to the XML documentation file.</param>
-    public FluentUIDocumentationService(Assembly componentsAssembly, string? xmlDocumentationPath = null)
+    /// <param name="jsonDocumentationPath">Optional path to the JSON documentation file. If null, uses embedded resource.</param>
+    public FluentUIDocumentationService(string? jsonDocumentationPath = null)
     {
-        _componentsAssembly = componentsAssembly;
-
-        var xmlReader = new XmlDocumentationReader(xmlDocumentationPath);
-        _componentFactory = new ComponentInfoFactory(xmlReader);
-        _enumFactory = new EnumInfoFactory(xmlReader);
-
+        _reader = new JsonDocumentationReader(jsonDocumentationPath);
         InitializeCache();
     }
 
     /// <summary>
-    /// Initializes the component and enum caches.
+    /// Gets whether the documentation is available.
+    /// </summary>
+    public bool IsAvailable => _reader.IsAvailable;
+
+    /// <summary>
+    /// Initializes the component and enum caches from JSON data.
     /// </summary>
     private void InitializeCache()
     {
-        foreach (var type in _componentsAssembly.GetTypes().Where(ComponentCategoryHelper.IsValidComponentType))
+        foreach (var jsonComponent in _reader.GetAllComponents())
         {
-            var componentInfo = _componentFactory.CreateComponentInfo(type);
+            var componentInfo = ConvertToComponentInfo(jsonComponent);
             _componentCache[componentInfo.Name] = componentInfo;
         }
 
-        foreach (var type in _componentsAssembly.GetTypes().Where(t => t.IsEnum && t.IsPublic))
+        foreach (var jsonEnum in _reader.GetAllEnums())
         {
-            var enumInfo = _enumFactory.CreateEnumInfo(type);
+            var enumInfo = ConvertToEnumInfo(jsonEnum);
             _enumCache[enumInfo.Name] = enumInfo;
         }
     }
@@ -97,22 +93,18 @@ public class FluentUIDocumentationService
     /// <returns>Detailed component information, or null if not found.</returns>
     public ComponentDetails? GetComponentDetails(string componentName)
     {
-        if (!_componentCache.TryGetValue(componentName, out var componentInfo))
-        {
-            // Try to find with "Fluent" prefix
-            if (!_componentCache.TryGetValue($"Fluent{componentName}", out componentInfo))
-            {
-                return null;
-            }
-        }
-
-        var type = _componentsAssembly.GetType(componentInfo.FullName);
-        if (type == null)
+        var jsonComponent = _reader.GetComponent(componentName);
+        if (jsonComponent == null)
         {
             return null;
         }
 
-        return _componentFactory.CreateComponentDetails(type, componentInfo);
+        if (!_componentCache.TryGetValue(jsonComponent.Name, out var componentInfo))
+        {
+            return null;
+        }
+
+        return ConvertToComponentDetails(jsonComponent, componentInfo);
     }
 
     /// <summary>
@@ -187,7 +179,7 @@ public class FluentUIDocumentationService
             return enumInfo;
         }
 
-        // Try to find by partial match (e.g., "Appearance" in the cache)
+        // Try to find by partial match
         var match = _enumCache.Values.FirstOrDefault(e =>
             e.Name.Equals(cleanTypeName, StringComparison.OrdinalIgnoreCase) ||
             e.FullName.EndsWith($".{cleanTypeName}", StringComparison.OrdinalIgnoreCase));
@@ -207,5 +199,83 @@ public class FluentUIDocumentationService
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .OrderBy(c => c, StringComparer.OrdinalIgnoreCase)
             .ToList();
+    }
+
+    /// <summary>
+    /// Converts JSON component info to ComponentInfo.
+    /// </summary>
+    private static ComponentInfo ConvertToComponentInfo(JsonComponentInfo json)
+    {
+        return new ComponentInfo
+        {
+            Name = json.Name,
+            FullName = json.FullName,
+            Summary = json.Summary,
+            Category = json.Category,
+            IsGeneric = json.IsGeneric,
+            BaseClass = json.BaseClass
+        };
+    }
+
+    /// <summary>
+    /// Converts JSON enum info to EnumInfo.
+    /// </summary>
+    private static EnumInfo ConvertToEnumInfo(JsonEnumInfo json)
+    {
+        return new EnumInfo
+        {
+            Name = json.Name,
+            FullName = json.FullName,
+            Description = json.Description,
+            Values = json.Values.Select(v => new EnumValueInfo
+            {
+                Name = v.Name,
+                Value = v.Value,
+                Description = v.Description
+            }).ToList()
+        };
+    }
+
+    /// <summary>
+    /// Converts JSON component to ComponentDetails.
+    /// </summary>
+    private static ComponentDetails ConvertToComponentDetails(JsonComponentInfo json, ComponentInfo componentInfo)
+    {
+        var properties = json.Properties.Select(p => new Models.PropertyInfo
+        {
+            Name = p.Name,
+            Type = p.Type,
+            Description = p.Description,
+            IsParameter = p.IsParameter,
+            IsInherited = p.IsInherited,
+            DefaultValue = p.DefaultValue,
+            EnumValues = p.EnumValues
+        }).ToList();
+
+        var events = json.Events.Select(e => new Models.EventInfo
+        {
+            Name = e.Name,
+            Type = e.Type,
+            Description = e.Description,
+            IsInherited = e.IsInherited
+        }).ToList();
+
+        var methods = json.Methods.Select(m => new Models.MethodInfo
+        {
+            Name = m.Name,
+            ReturnType = m.ReturnType,
+            Description = m.Description,
+            Parameters = m.Parameters,
+            IsInherited = m.IsInherited
+        }).ToList();
+
+        return new ComponentDetails
+        {
+            Component = componentInfo,
+            Parameters = properties.Where(p => p.IsParameter).OrderBy(p => p.Name).ToList(),
+            Properties = properties.OrderBy(p => p.Name).ToList(),
+            Events = events.OrderBy(e => e.Name).ToList(),
+            Methods = methods.OrderBy(m => m.Name).ToList()
+        };
     }
 }

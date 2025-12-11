@@ -15,8 +15,8 @@ public class CreateFormPromptTests
 
     public CreateFormPromptTests()
     {
-        var componentsAssembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
-        _documentationService = new FluentUIDocumentationService(componentsAssembly);
+        var jsonPath = JsonDocumentationFinder.Find();
+        _documentationService = new FluentUIDocumentationService(jsonPath);
         _prompt = new CreateFormPrompt(_documentationService);
     }
 

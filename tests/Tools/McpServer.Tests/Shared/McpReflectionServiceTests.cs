@@ -4,6 +4,7 @@
 
 using System.Reflection;
 using Microsoft.FluentUI.AspNetCore.Components.McpServer.Shared;
+using Microsoft.FluentUI.AspNetCore.Components.McpServer.Services;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.McpServer.Tests.Shared;
 
@@ -16,8 +17,8 @@ public class McpReflectionServiceTests
 
     public McpReflectionServiceTests()
     {
-        // Get the MCP Server assembly
-        _mcpServerAssembly = typeof(XmlDocumentationFinder).Assembly;
+        // Get the MCP Server assembly using the service type
+        _mcpServerAssembly = typeof(FluentUIDocumentationService).Assembly;
     }
 
     [Fact]

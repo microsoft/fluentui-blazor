@@ -17,9 +17,8 @@ public class EnumToolsTests
 
     public EnumToolsTests()
     {
-        var assembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
-        var xmlPath = XmlDocumentationFinder.Find();
-        _documentationService = new FluentUIDocumentationService(assembly, xmlPath);
+        var jsonPath = JsonDocumentationFinder.Find();
+        _documentationService = new FluentUIDocumentationService(jsonPath);
         _tools = new EnumTools(_documentationService);
     }
 

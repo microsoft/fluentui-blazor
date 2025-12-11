@@ -15,8 +15,8 @@ public class ExplainComponentPromptTests
 
     public ExplainComponentPromptTests()
     {
-        var componentsAssembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
-        _documentationService = new FluentUIDocumentationService(componentsAssembly);
+        var jsonPath = JsonDocumentationFinder.Find();
+        _documentationService = new FluentUIDocumentationService(jsonPath);
         _prompt = new ExplainComponentPrompt(_documentationService);
     }
 
