@@ -36,31 +36,58 @@ public class Program
             Console.WriteLine("Usage: DocApiGen --xml <xml_file>" +
                                               " --dll <dll_file>" +
                                               " --output <generated_file>" +
-                                              " --format <csharp|json>");
+                                              " --format <csharp|json|mcp>");
+            Console.WriteLine();
+            Console.WriteLine("Formats:");
+            Console.WriteLine("  csharp  - Generate C# code with summary data dictionary");
+            Console.WriteLine("  json    - Generate JSON with summary data");
+            Console.WriteLine("  mcp     - Generate complete MCP documentation JSON for McpServer");
             return;
         }
 
         // Assembly and documentation file
         var assembly = Assembly.LoadFrom(dllFile);
         var docXml = new FileInfo(xmlFile);
-        var apiGenerator = new ApiClassGenerator(assembly, docXml);
 
         Console.WriteLine("Generating documentation...");
-        if (!string.IsNullOrEmpty(outputFile))
+
+        if (format.Equals("mcp", StringComparison.OrdinalIgnoreCase))
         {
-            apiGenerator.SaveToFile(outputFile, format);
-            Console.WriteLine($"Documentation saved to {outputFile}");
-        }
-        else
-        {
-            Console.WriteLine();
-            if (format == "json")
+            // Generate MCP-compatible JSON documentation
+            var mcpGenerator = new McpDocumentationGenerator(assembly, docXml);
+
+            if (!string.IsNullOrEmpty(outputFile))
             {
-                Console.WriteLine(apiGenerator.GenerateJson());
+                mcpGenerator.SaveToFile(outputFile);
+                Console.WriteLine($"MCP documentation saved to {outputFile}");
             }
             else
             {
-                Console.WriteLine(apiGenerator.GenerateCSharp());
+                Console.WriteLine();
+                Console.WriteLine(mcpGenerator.GenerateJson());
+            }
+        }
+        else
+        {
+            // Generate traditional API documentation
+            var apiGenerator = new ApiClassGenerator(assembly, docXml);
+
+            if (!string.IsNullOrEmpty(outputFile))
+            {
+                apiGenerator.SaveToFile(outputFile, format);
+                Console.WriteLine($"Documentation saved to {outputFile}");
+            }
+            else
+            {
+                Console.WriteLine();
+                if (format == "json")
+                {
+                    Console.WriteLine(apiGenerator.GenerateJson());
+                }
+                else
+                {
+                    Console.WriteLine(apiGenerator.GenerateCSharp());
+                }
             }
         }
 
