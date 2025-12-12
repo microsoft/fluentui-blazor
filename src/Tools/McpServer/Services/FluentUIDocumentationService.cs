@@ -79,7 +79,7 @@ public class FluentUIDocumentationService
     /// <returns>A list of all components.</returns>
     public IReadOnlyList<ComponentInfo> GetAllComponents()
     {
-        return _componentCache.Values.OrderBy(c => c.Name).ToList();
+        return [.. _componentCache.Values.OrderBy(c => c.Name)];
     }
 
     /// <summary>
@@ -89,10 +89,9 @@ public class FluentUIDocumentationService
     /// <returns>A list of components in the specified category.</returns>
     public IReadOnlyList<ComponentInfo> GetComponentsByCategory(string category)
     {
-        return _componentCache.Values
+        return [.. _componentCache.Values
             .Where(c => c.Category.Equals(category, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(c => c.Name)
-            .ToList();
+            .OrderBy(c => c.Name)];
     }
 
     /// <summary>
@@ -103,11 +102,10 @@ public class FluentUIDocumentationService
     public IReadOnlyList<ComponentInfo> SearchComponents(string searchTerm)
     {
         var lowerSearch = searchTerm.ToLowerInvariant();
-        return _componentCache.Values
+        return [.. _componentCache.Values
             .Where(c => c.Name.Contains(lowerSearch, StringComparison.OrdinalIgnoreCase) ||
                         c.Summary.Contains(lowerSearch, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(c => c.Name)
-            .ToList();
+            .OrderBy(c => c.Name)];
     }
 
     /// <summary>
@@ -137,7 +135,7 @@ public class FluentUIDocumentationService
     /// <returns>A list of all enums.</returns>
     public IReadOnlyList<EnumInfo> GetAllEnums()
     {
-        return _enumCache.Values.OrderBy(e => e.Name).ToList();
+        return [.. _enumCache.Values.OrderBy(e => e.Name)];
     }
 
     /// <summary>
@@ -217,12 +215,11 @@ public class FluentUIDocumentationService
     /// <returns>A list of all categories.</returns>
     public IReadOnlyList<string> GetCategories()
     {
-        return _componentCache.Values
+        return [.. _componentCache.Values
             .Select(c => c.Category)
             .Where(c => !string.IsNullOrEmpty(c))
             .Distinct(StringComparer.OrdinalIgnoreCase)
-            .OrderBy(c => c, StringComparer.OrdinalIgnoreCase)
-            .ToList();
+            .OrderBy(c => c, StringComparer.OrdinalIgnoreCase)];
     }
 
     /// <summary>
@@ -251,12 +248,12 @@ public class FluentUIDocumentationService
             Name = json.Name,
             FullName = json.FullName,
             Description = json.Description,
-            Values = json.Values.Select(v => new EnumValueInfo
+            Values = [.. json.Values.Select(v => new EnumValueInfo
             {
                 Name = v.Name,
                 Value = v.Value,
                 Description = v.Description
-            }).ToList()
+            })]
         };
     }
 
@@ -296,10 +293,10 @@ public class FluentUIDocumentationService
         return new ComponentDetails
         {
             Component = componentInfo,
-            Parameters = properties.Where(p => p.IsParameter).OrderBy(p => p.Name).ToList(),
-            Properties = properties.OrderBy(p => p.Name).ToList(),
-            Events = events.OrderBy(e => e.Name).ToList(),
-            Methods = methods.OrderBy(m => m.Name).ToList()
+            Parameters = [.. properties.Where(p => p.IsParameter).OrderBy(p => p.Name)],
+            Properties = [.. properties.OrderBy(p => p.Name)],
+            Events = [.. events.OrderBy(e => e.Name)],
+            Methods = [.. methods.OrderBy(m => m.Name)]
         };
     }
 }

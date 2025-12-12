@@ -28,7 +28,7 @@ public class McpSharedMoreTests
 
         // Assert - Should return empty or valid summary
         Assert.NotNull(summary);
-        
+
         // Reinitialize for other tests
         var mcpServerAssembly = typeof(FluentUIDocumentationService).Assembly;
         McpCapabilitiesData.Initialize(mcpServerAssembly);
@@ -38,7 +38,7 @@ public class McpSharedMoreTests
     public void McpReflectionService_WithNullAssembly_ThrowsException()
     {
         // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => 
+        Assert.Throws<ArgumentNullException>(() =>
             McpReflectionService.GetTools(null!));
     }
 

@@ -24,9 +24,9 @@ public class McpCapabilitiesDataAdditionalTests
     {
         // Arrange
         var customSummary = new McpSummary(
-            new[] { new McpToolInfo("TestTool", "Test", "TestClass", new McpParameterInfo[0]) },
-            new[] { new McpPromptInfo("TestPrompt", "Test", "TestClass", new McpParameterInfo[0]) },
-            new[] { new McpResourceInfo("test://resource", "test", "Test", "Test", "text/plain", false, "TestClass") }
+            [new McpToolInfo("TestTool", "Test", "TestClass", [])],
+            [new McpPromptInfo("TestPrompt", "Test", "TestClass", [])],
+            [new McpResourceInfo("test://resource", "test", "Test", "Test", "text/plain", false, "TestClass")]
         );
 
         // Act

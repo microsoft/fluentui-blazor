@@ -77,7 +77,7 @@ public class JsonDocumentationFinderMoreTests
             // Assert
             var output = sw.ToString();
             Assert.True(
-                output.Contains("Found JSON documentation") || 
+                output.Contains("Found JSON documentation") ||
                 output.Contains("No external JSON documentation"),
                 "Should log to stderr");
         }

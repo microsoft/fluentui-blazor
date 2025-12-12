@@ -4,7 +4,6 @@
 
 using Microsoft.FluentUI.AspNetCore.Components.McpServer.Prompts;
 using Microsoft.FluentUI.AspNetCore.Components.McpServer.Services;
-using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.McpServer.Tests.Prompts;
 

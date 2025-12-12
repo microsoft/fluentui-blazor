@@ -19,10 +19,9 @@ public class McpModelsTests
             "TestTool",
             "Test Description",
             "TestClass",
-            new[]
-            {
+            [
                 new McpParameterInfo("param1", "string", "Description", true)
-            });
+            ]);
 
         // Assert
         Assert.Equal("TestTool", tool.Name);
@@ -39,10 +38,9 @@ public class McpModelsTests
             "TestPrompt",
             "Test Description",
             "TestClass",
-            new[]
-            {
+            [
                 new McpParameterInfo("param1", "string", "Description", false)
-            });
+            ]);
 
         // Assert
         Assert.Equal("TestPrompt", prompt.Name);
@@ -91,8 +89,8 @@ public class McpModelsTests
     public void McpSummary_AllPropertiesWork()
     {
         // Arrange
-        var tools = new[] { new McpToolInfo("Tool1", "Desc", "Class1", Array.Empty<McpParameterInfo>()) };
-        var prompts = new[] { new McpPromptInfo("Prompt1", "Desc", "Class1", Array.Empty<McpParameterInfo>()) };
+        var tools = new[] { new McpToolInfo("Tool1", "Desc", "Class1", []) };
+        var prompts = new[] { new McpPromptInfo("Prompt1", "Desc", "Class1", []) };
         var resources = new[] { new McpResourceInfo("uri://test", "test", "Title", "Desc", "text/plain", false, "Class1") };
 
         // Act
@@ -108,7 +106,7 @@ public class McpModelsTests
     public void McpToolInfo_WithEmptyParameters_Works()
     {
         // Act
-        var tool = new McpToolInfo("TestTool", "Description", "TestClass", Array.Empty<McpParameterInfo>());
+        var tool = new McpToolInfo("TestTool", "Description", "TestClass", []);
 
         // Assert
         Assert.Empty(tool.Parameters);

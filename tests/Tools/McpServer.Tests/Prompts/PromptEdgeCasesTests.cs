@@ -26,7 +26,6 @@ public class PromptEdgeCasesTests
     public void CreateDrawer_WithAllParameters_GeneratesCompletePrompt()
     {
         // Arrange
-        var guideService = new DocumentationGuideService();
         var prompt = new CreateDrawerPrompt(_documentationService);
 
         // Act
@@ -180,7 +179,7 @@ public class PromptEdgeCasesTests
         // Arrange
         var prompt = new CheckVersionCompatibilityPrompt(_documentationService);
         var expectedVersion = _documentationService.ComponentsVersion;
-        
+
         // Parse and create a patch version difference
         var parts = expectedVersion.Split('.');
         if (parts.Length >= 3)
