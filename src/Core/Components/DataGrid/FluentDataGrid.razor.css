@@ -67,7 +67,6 @@
 
 .fluent-data-grid .resize-handle {
     position: absolute;
-    top: 5px;
     right: 0;
     left: unset;
     bottom: 0;

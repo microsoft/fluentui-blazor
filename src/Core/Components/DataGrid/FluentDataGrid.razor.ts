@@ -218,8 +218,11 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       const resizedivs = header.querySelectorAll('.actual-resize-handle');
       resizedivs.forEach(div => div.remove());
 
+      // get the top of the first resize-handle
+      const resizeTop = (header.querySelector('.resize-handle') as HTMLElement)?.offsetTop ?? 2;
+
       // add a new resize div
-      const div = createDiv(resizeHandleHeight, isRTL);
+      const div = createDiv(resizeHandleHeight, resizeTop, isRTL);
       header.appendChild(div);
       setListeners(div, isRTL);
     });
@@ -302,10 +305,10 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       });
     }
 
-    function createDiv(height: number, isRTL: boolean) {
+    function createDiv(height: number, top: number, isRTL: boolean) {
       const div = document.createElement('div');
       div.className = 'actual-resize-handle';
-      div.style.top = '5px';
+      div.style.top = top + 'px';
       div.style.position = 'absolute';
       div.style.cursor = 'col-resize';
       div.style.userSelect = 'none';
