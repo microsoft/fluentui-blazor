@@ -73,3 +73,8 @@
 .fluent-layout[mobile] .fluent-layout-item[area="footer"] {
   line-height: var(--lineHeightBase100);
 }
+
+/* For external use */
+.fluent-header-hover:hover {
+  background-color: var(--colorBrandBackground);
+}
