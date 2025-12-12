@@ -1,0 +1,9 @@
+body[data-theme="light"] .hidden-if-light,
+body:not([data-theme]) .hidden-if-light,
+body[data-theme=""] .hidden-if-light {
+  display: none;
+}
+
+body[data-theme="dark"] .hidden-if-dark {
+  display: none;
+}
