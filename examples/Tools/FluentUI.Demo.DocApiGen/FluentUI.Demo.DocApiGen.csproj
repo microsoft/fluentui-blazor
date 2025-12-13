@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Suppress code analysis rules for null checks -->
+    <NoWarn>$(NoWarn);CA1510;IDE0005;IDE0007;IDE0011;CS1591</NoWarn>
   </PropertyGroup>
 
 <!-- Code Analysis -->

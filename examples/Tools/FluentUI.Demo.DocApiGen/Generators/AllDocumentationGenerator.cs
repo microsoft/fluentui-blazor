@@ -2,50 +2,86 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using FluentUI.Demo.DocApiGen.Abstractions;
 using FluentUI.Demo.DocApiGen.Extensions;
-using FluentUI.Demo.DocApiGen.Models;
 using FluentUI.Demo.DocApiGen.Models.AllMode;
 using FluentUI.Demo.DocApiGen.Models.SummaryMode;
 
-namespace FluentUI.Demo.DocApiGen;
+namespace FluentUI.Demo.DocApiGen.Generators;
 
 /// <summary>
-/// Generates MCP-compatible JSON documentation for the McpServer.
-/// This allows the McpServer to consume pre-generated documentation
-/// without needing the LoxSmoke.DocXml dependency at runtime.
+/// Generates All mode documentation (complete: all properties, methods, events).
+/// Supports JSON output format only.
 /// </summary>
-public class McpDocumentationGenerator
+public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
 {
-    private readonly Assembly _assembly;
     private readonly LoxSmoke.DocXml.DocXmlReader _docXmlReader;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="McpDocumentationGenerator"/> class.
+    /// Initializes a new instance of the <see cref="AllDocumentationGenerator"/> class.
     /// </summary>
-    public McpDocumentationGenerator(Assembly assembly, FileInfo xmlDocumentation)
+    /// <param name="assembly">The assembly to generate documentation for.</param>
+    /// <param name="xmlDocumentation">The XML documentation file.</param>
+    public AllDocumentationGenerator(Assembly assembly, FileInfo xmlDocumentation)
+        : base(assembly, xmlDocumentation)
     {
-        _assembly = assembly;
         _docXmlReader = new LoxSmoke.DocXml.DocXmlReader(xmlDocumentation.FullName);
     }
 
-    /// <summary>
-    /// Generates the MCP documentation root containing all components and enums.
-    /// </summary>
-    public DocumentationRoot Generate()
+    /// <inheritdoc/>
+    public override GenerationMode Mode => GenerationMode.All;
+
+    /// <inheritdoc/>
+    public override string Generate(IOutputFormatter formatter)
     {
-        var assemblyInfo = ApiClassGenerator.GetAssemblyInfo(_assembly);
-        var components = GenerateComponents().ToList();
-        var enums = GenerateEnums().ToList();
+        if (formatter == null)
+        {
+            throw new ArgumentNullException(nameof(formatter));
+        }
+
+        if (formatter.FormatName != "json")
+        {
+            throw new NotSupportedException(
+                $"AllDocumentationGenerator only supports JSON format. Requested format: {formatter.FormatName}");
+        }
+
+        var data = BuildDocumentationData();
+        return formatter.Format(data);
+    }
+
+    /// <summary>
+    /// Builds the complete documentation data structure.
+    /// </summary>
+    private DocumentationRoot BuildDocumentationData()
+    {
+        var (version, date) = GetAssemblyInfo();
+        var components = new List<ComponentInfo>();
+        var enums = new List<EnumInfo>();
+
+        // Generate components
+        foreach (var type in Assembly.GetTypes().Where(IsValidComponentType))
+        {
+            var componentInfo = GenerateComponentInfo(type);
+            if (componentInfo != null)
+            {
+                components.Add(componentInfo);
+            }
+        }
+
+        // Generate enums
+        foreach (var type in Assembly.GetTypes().Where(t => t.IsEnum && t.IsPublic))
+        {
+            enums.Add(GenerateEnumInfo(type));
+        }
 
         return new DocumentationRoot
         {
             Metadata = new DocumentationMetadata
             {
-                AssemblyVersion = assemblyInfo.Version,
-                GeneratedDateUtc = assemblyInfo.Date,
+                AssemblyVersion = version,
+                GeneratedDateUtc = date,
                 ComponentCount = components.Count,
                 EnumCount = enums.Count
             },
@@ -55,81 +91,25 @@ public class McpDocumentationGenerator
     }
 
     /// <summary>
-    /// Generates the JSON string for MCP documentation.
-    /// </summary>
-    public string GenerateJson(bool indented = true)
-    {
-        var root = Generate();
-        var jsonSerializerOptions = new JsonSerializerOptions
-        {
-            WriteIndented = indented,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-        };
-
-        return JsonSerializer.Serialize(root, jsonSerializerOptions);
-    }
-
-    /// <summary>
-    /// Saves the MCP documentation to a JSON file.
-    /// </summary>
-    public void SaveToFile(string fileName, bool indented = true)
-    {
-        if (File.Exists(fileName))
-        {
-            File.Delete(fileName);
-        }
-
-        File.WriteAllText(fileName, GenerateJson(indented));
-    }
-
-    /// <summary>
-    /// Generates component information for all valid component types.
-    /// </summary>
-    private IEnumerable<ComponentInfo> GenerateComponents()
-    {
-        foreach (var type in _assembly.GetTypes().Where(IsValidComponentType))
-        {
-            var componentInfo = GenerateComponentInfo(type);
-            if (componentInfo != null)
-            {
-                yield return componentInfo;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Generates enum information for all public enums.
-    /// </summary>
-    private IEnumerable<EnumInfo> GenerateEnums()
-    {
-        foreach (var type in _assembly.GetTypes().Where(t => t.IsEnum && t.IsPublic))
-        {
-            yield return GenerateEnumInfo(type);
-        }
-    }
-
-    /// <summary>
-    /// Generates component information for a specific type using the ApiClass model.
+    /// Generates component information for a specific type.
     /// </summary>
     private ComponentInfo? GenerateComponentInfo(Type type)
     {
         try
         {
-            var options = new ApiClassOptions(_assembly, _docXmlReader)
+            var options = new ApiClassOptions(Assembly, _docXmlReader)
             {
-                Mode = GenerationMode.All // MCP uses All mode to include all properties, methods, and events
+                Mode = GenerationMode.All
             };
 
             var apiClass = new ApiClass(type, options);
-            var category = DetermineCategory(type);
 
             var component = new ComponentInfo
             {
                 Name = apiClass.Name,
                 FullName = type.FullName ?? type.Name,
                 Summary = apiClass.Summary,
-                Category = category,
+                Category = DetermineCategory(type),
                 IsGeneric = type.IsGenericType,
                 BaseClass = type.BaseType?.Name,
                 Properties = [],
@@ -137,7 +117,7 @@ public class McpDocumentationGenerator
                 Methods = []
             };
 
-            // Extract properties from ApiClass
+            // Extract properties
             foreach (var property in apiClass.Properties)
             {
                 var isInherited = property.MemberInfo.DeclaringType != type;
@@ -154,7 +134,7 @@ public class McpDocumentationGenerator
                 });
             }
 
-            // Extract events from ApiClass
+            // Extract events
             foreach (var evt in apiClass.Events)
             {
                 var isInherited = evt.MemberInfo.DeclaringType != type;
@@ -168,7 +148,7 @@ public class McpDocumentationGenerator
                 });
             }
 
-            // Extract methods from ApiClass
+            // Extract methods
             foreach (var method in apiClass.Methods)
             {
                 var isInherited = method.MemberInfo.DeclaringType != type;
@@ -185,9 +165,9 @@ public class McpDocumentationGenerator
 
             return component;
         }
-        catch (Exception ex)
+        catch
         {
-            Console.WriteLine($"[McpDocGen] Warning: Could not process component {type.Name}: {ex.Message}");
+            // Skip types that cannot be processed
             return null;
         }
     }
@@ -204,7 +184,7 @@ public class McpDocumentationGenerator
         for (var i = 0; i < names.Length; i++)
         {
             var name = names[i];
-            var value = Convert.ToInt32(enumValues.GetValue(i), System.Globalization.CultureInfo.InvariantCulture);
+            var value = Convert.ToInt32(enumValues.GetValue(i), CultureInfo.InvariantCulture);
             var field = type.GetField(name);
             var description = field != null ? _docXmlReader.GetMemberSummary(field) : string.Empty;
 
@@ -226,9 +206,9 @@ public class McpDocumentationGenerator
     }
 
     /// <summary>
-    /// Checks if a type is a valid FluentUI Blazor component type.
+    /// Checks if a type is a valid component type.
     /// </summary>
-    private bool IsValidComponentType(Type type)
+    private static bool IsValidComponentType(Type type)
     {
         return type != null &&
                type.IsPublic &&
@@ -239,70 +219,28 @@ public class McpDocumentationGenerator
                !type.Name.Contains('<') &&
                !type.Name.Contains('>') &&
                !type.Name.EndsWith("_g", StringComparison.Ordinal) &&
-               IsFluentComponent(type);
+               type.IsValidType();
     }
 
     /// <summary>
-    /// Checks if a type implements IFluentComponentBase.
-    /// </summary>
-    private bool IsFluentComponent(Type type)
-    {
-        // Search for IFluentComponentBase interface in the assembly
-        var fluentComponentBaseInterface = _assembly.GetTypes()
-            .FirstOrDefault(t => t.Name == "IFluentComponentBase");
-
-        if (fluentComponentBaseInterface != null)
-        {
-            return fluentComponentBaseInterface.IsAssignableFrom(type);
-        }
-
-        // Fallback: check if the type name starts with "Fluent" and has a base class containing "Component"
-        return type.Name.StartsWith("Fluent", StringComparison.Ordinal) &&
-               (type.BaseType?.Name.Contains("Component") ?? false);
-    }
-
-    /// <summary>
-    /// Determines the category of a component based on its namespace or name.
+    /// Determines the category of a component based on its name.
     /// </summary>
     private static string DetermineCategory(Type type)
     {
-        var ns = type.Namespace ?? string.Empty;
         var name = type.Name;
 
-        // Extract category from namespace
-        if (ns.Contains(".Components.", StringComparison.OrdinalIgnoreCase))
-        {
-            var parts = ns.Split('.');
-            var componentsIndex = Array.IndexOf(parts, "Components");
-            if (componentsIndex >= 0 && componentsIndex < parts.Length - 1)
-            {
-                return parts[componentsIndex + 1];
-            }
-        }
-
-        // Categorize by component name patterns
-        return GetCategoryFromName(name);
-    }
-
-    /// <summary>
-    /// Gets category from component name patterns.
-    /// </summary>
-    private static string GetCategoryFromName(string name)
-    {
         if (name.Contains("Button", StringComparison.OrdinalIgnoreCase))
         {
             return "Button";
         }
 
         if (name.Contains("Input", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("TextField", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("TextArea", StringComparison.OrdinalIgnoreCase))
+            name.Contains("TextField", StringComparison.OrdinalIgnoreCase))
         {
             return "Input";
         }
 
-        if (name.Contains("Dialog", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("Modal", StringComparison.OrdinalIgnoreCase))
+        if (name.Contains("Dialog", StringComparison.OrdinalIgnoreCase))
         {
             return "Dialog";
         }
@@ -334,12 +272,39 @@ public class McpDocumentationGenerator
         }
 
         if (name.Contains("Layout", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("Stack", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("Splitter", StringComparison.OrdinalIgnoreCase))
+            name.Contains("Stack", StringComparison.OrdinalIgnoreCase))
         {
             return "Layout";
         }
 
         return "Components";
+    }
+
+    /// <summary>
+    /// Gets assembly version and current date.
+    /// </summary>
+    private (string Version, string Date) GetAssemblyInfo()
+    {
+        var version = "Unknown";
+        
+        var versionAttribute = Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+        if (versionAttribute != null)
+        {
+            var versionString = versionAttribute.InformationalVersion;
+            var plusIndex = versionString.IndexOf('+');
+            
+            if (plusIndex >= 0 && plusIndex + 9 < versionString.Length)
+            {
+                version = versionString[..(plusIndex + 9)];
+            }
+            else
+            {
+                version = versionString;
+            }
+        }
+
+        var date = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+        
+        return (version, date);
     }
 }

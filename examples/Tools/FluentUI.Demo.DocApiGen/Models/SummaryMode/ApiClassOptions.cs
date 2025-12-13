@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Reflection;
+using FluentUI.Demo.DocApiGen.Abstractions;
 
 namespace FluentUI.Demo.DocApiGen.Models.SummaryMode;
 

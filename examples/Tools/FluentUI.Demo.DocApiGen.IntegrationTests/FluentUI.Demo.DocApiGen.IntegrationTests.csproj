@@ -8,6 +8,8 @@
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
     <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+    <!-- Suppress specific code analysis warnings for tests -->
+    <NoWarn>$(NoWarn);IDE0005;CA1510</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2,19 +2,19 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using FluentUI.Demo.DocApiGen.Models;
+using FluentUI.Demo.DocApiGen;
+using FluentUI.Demo.DocApiGen.Abstractions;
+using FluentUI.Demo.DocApiGen.Formatters;
+using FluentUI.Demo.DocApiGen.Generators;
 using System.Reflection;
 using System.Text.Json;
-using System.Linq;
 using Xunit;
 
 namespace FluentUI.Demo.DocApiGen.IntegrationTests;
 
 /// <summary>
 /// Integration tests using the real Microsoft.FluentUI.AspNetCore.Components.xml file.
-/// These tests validate documentation generation for actual FluentUI components with
-/// the ApiClassGenerator (Summary mode focus).
-/// Note: MCP (All mode) tests are skipped for now - will be implemented later.
+/// These tests validate documentation generation for actual FluentUI components.
 /// </summary>
 public class FluentUIComponentsIntegrationTests : IDisposable
 {
@@ -34,28 +34,28 @@ public class FluentUIComponentsIntegrationTests : IDisposable
         // Get project root directory
         var projectRoot = GetProjectRootDirectory();
         _xmlPath = Path.Combine(projectRoot, "examples", "Tools", "FluentUI.Demo.DocApiGen", "Microsoft.FluentUI.AspNetCore.Components.xml");
-        
+
         if (!File.Exists(_xmlPath))
         {
             throw new FileNotFoundException($"XML documentation file not found at: {_xmlPath}");
         }
-        
+
         _xmlDocumentation = new FileInfo(_xmlPath);
 
         // Load the FluentUI assembly dynamically
         var fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Debug", "net9.0", "Microsoft.FluentUI.AspNetCore.Components.dll");
-        
+
         if (!File.Exists(fluentUIAssemblyPath))
         {
             // Try alternative path (Release build)
             fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Release", "net9.0", "Microsoft.FluentUI.AspNetCore.Components.dll");
-            
+
             if (!File.Exists(fluentUIAssemblyPath))
             {
                 throw new FileNotFoundException($"FluentUI assembly not found. Please build the Core project first. Looked for: {fluentUIAssemblyPath}");
             }
         }
-        
+
         _fluentUIAssembly = Assembly.LoadFrom(fluentUIAssemblyPath);
     }
 
@@ -65,7 +65,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     private static string GetProjectRootDirectory()
     {
         var directory = new DirectoryInfo(Directory.GetCurrentDirectory());
-        
+
         // Look for solution file
         while (directory != null)
         {
@@ -74,10 +74,10 @@ public class FluentUIComponentsIntegrationTests : IDisposable
             {
                 return directory.FullName;
             }
-            
+
             directory = directory.Parent;
         }
-        
+
         throw new InvalidOperationException($"Could not find project root directory. Current directory: {Directory.GetCurrentDirectory()}");
     }
 
@@ -99,49 +99,52 @@ public class FluentUIComponentsIntegrationTests : IDisposable
         }
     }
 
-    #region ApiClassGenerator (Summary Mode) Tests
+    #region Summary Mode Tests (New Architecture)
 
     [Fact]
-    public void ApiGenerator_ShouldGenerateJsonSuccessfully()
+    public void SummaryGenerator_ShouldGenerateJsonSuccessfully()
     {
         // Arrange
-        var generator = new ApiClassGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
 
         // Act
-        var json = generator.GenerateJson(GenerationMode.Summary);
+        var json = generator.Generate(formatter);
 
         // Assert
         Assert.NotNull(json);
         Assert.NotEmpty(json);
         Assert.Contains("__Generated__", json);
-        Assert.Contains("\"Mode\": \"Summary\"", json);
+        Assert.Contains("AssemblyVersion", json);
     }
 
     [Fact]
-    public void ApiGenerator_ShouldGenerateCSharpSuccessfully()
+    public void SummaryGenerator_ShouldGenerateCSharpSuccessfully()
     {
         // Arrange
-        var generator = new ApiClassGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateCSharpFormatter();
 
         // Act
-        var code = generator.GenerateCSharp(GenerationMode.Summary);
+        var code = generator.Generate(formatter);
 
         // Assert
         Assert.NotNull(code);
         Assert.NotEmpty(code);
-        Assert.Contains("public class CodeComments", code);
+        Assert.Contains("public static class CodeComments", code);
         Assert.Contains("Mode: Summary", code);
         Assert.Contains("SummaryData", code);
     }
 
     [Fact]
-    public void ApiGenerator_JsonOutput_ShouldContainFluentUIComponents()
+    public void SummaryGenerator_JsonOutput_ShouldContainFluentUIComponents()
     {
         // Arrange
-        var generator = new ApiClassGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
 
         // Act
-        var json = generator.GenerateJson(GenerationMode.Summary);
+        var json = generator.Generate(formatter);
 
         // Assert
         // Should contain common FluentUI component names
@@ -149,13 +152,14 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     }
 
     [Fact]
-    public void ApiGenerator_CSharpOutput_ShouldContainFluentUIComponents()
+    public void SummaryGenerator_CSharpOutput_ShouldContainFluentUIComponents()
     {
         // Arrange
-        var generator = new ApiClassGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateCSharpFormatter();
 
         // Act
-        var code = generator.GenerateCSharp(GenerationMode.Summary);
+        var code = generator.Generate(formatter);
 
         // Assert
         // Should contain common FluentUI component names
@@ -163,13 +167,14 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     }
 
     [Fact]
-    public void ApiGenerator_JsonOutput_ShouldBeValidJson()
+    public void SummaryGenerator_JsonOutput_ShouldBeValidJson()
     {
         // Arrange
-        var generator = new ApiClassGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
 
         // Act
-        var json = generator.GenerateJson(GenerationMode.Summary);
+        var json = generator.Generate(formatter);
 
         // Assert - Verify it's valid JSON
         var exception = Record.Exception(() => JsonDocument.Parse(json));
@@ -177,120 +182,265 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     }
 
     [Fact]
-    public void ApiGenerator_SaveToFile_JsonShouldSucceed()
+    public void SummaryGenerator_SaveToFile_JsonShouldSucceed()
     {
         // Arrange
-        var generator = new ApiClassGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
         var outputPath = Path.Combine(_tempOutputDirectory, "fluentui_summary.json");
 
         // Act
-        generator.SaveToFile(outputPath, "json", GenerationMode.Summary);
+        generator.SaveToFile(outputPath, formatter);
 
         // Assert
         Assert.True(File.Exists(outputPath));
-        
+
         var content = File.ReadAllText(outputPath);
         Assert.NotEmpty(content);
         Assert.Contains("__Generated__", content);
-        
+
         // Verify valid JSON
         var exception = Record.Exception(() => JsonDocument.Parse(content));
         Assert.Null(exception);
     }
 
     [Fact]
-    public void ApiGenerator_SaveToFile_CSharpShouldSucceed()
+    public void SummaryGenerator_SaveToFile_CSharpShouldSucceed()
     {
         // Arrange
-        var generator = new ApiClassGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateCSharpFormatter();
         var outputPath = Path.Combine(_tempOutputDirectory, "fluentui_summary.cs");
 
         // Act
-        generator.SaveToFile(outputPath, "csharp", GenerationMode.Summary);
+        generator.SaveToFile(outputPath, formatter);
 
         // Assert
         Assert.True(File.Exists(outputPath));
-        
+
         var content = File.ReadAllText(outputPath);
         Assert.NotEmpty(content);
-        Assert.Contains("public class CodeComments", content);
+        Assert.Contains("public static class CodeComments", content);
     }
 
     [Fact]
-    public void ApiGenerator_LargeScale_ShouldCompleteWithoutErrors()
+    public void SummaryGenerator_LargeScale_ShouldCompleteWithoutErrors()
     {
         // Arrange
-        var generator = new ApiClassGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var jsonFormatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
+        var csharpFormatter = OutputFormatterFactory.CreateCSharpFormatter();
 
         // Act & Assert - Should complete without throwing
         var exception = Record.Exception(() =>
         {
-            var json = generator.GenerateJson(GenerationMode.Summary);
+            var json = generator.Generate(jsonFormatter);
             Assert.NotNull(json);
             Assert.NotEmpty(json);
-            
-            var code = generator.GenerateCSharp(GenerationMode.Summary);
+
+            var code = generator.Generate(csharpFormatter);
             Assert.NotNull(code);
             Assert.NotEmpty(code);
         });
-        
+
         Assert.Null(exception);
     }
 
     [Fact]
-    public void ApiGenerator_OutputSize_ShouldBeReasonable()
+    public void SummaryGenerator_OutputSize_ShouldBeReasonable()
     {
         // Arrange
-        var generator = new ApiClassGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var jsonFormatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
+        var csharpFormatter = OutputFormatterFactory.CreateCSharpFormatter();
 
         // Act
-        var json = generator.GenerateJson(GenerationMode.Summary);
-        var code = generator.GenerateCSharp(GenerationMode.Summary);
+        var json = generator.Generate(jsonFormatter);
+        var code = generator.Generate(csharpFormatter);
 
         // Assert - Output should be substantial but not excessive
         Assert.True(json.Length > 1000, "JSON output should be substantial");
         Assert.True(json.Length < 50_000_000, "JSON output should not be excessive");
-        
+
         Assert.True(code.Length > 1000, "C# output should be substantial");
         Assert.True(code.Length < 50_000_000, "C# output should not be excessive");
     }
 
     [Fact]
-    public void ApiGenerator_JsonMetadata_ShouldBePresent()
+    public void SummaryGenerator_JsonMetadata_ShouldBePresent()
     {
         // Arrange
-        var generator = new ApiClassGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
 
         // Act
-        var json = generator.GenerateJson(GenerationMode.Summary);
+        var json = generator.Generate(formatter);
         using var doc = JsonDocument.Parse(json);
 
         // Assert
         var root = doc.RootElement;
         Assert.True(root.TryGetProperty("__Generated__", out var generated));
-        
-        var generatedObj = generated;
-        Assert.True(generatedObj.TryGetProperty("AssemblyVersion", out _));
-        Assert.True(generatedObj.TryGetProperty("DateUtc", out _));
-        Assert.True(generatedObj.TryGetProperty("Mode", out var mode));
+
+        Assert.True(generated.TryGetProperty("AssemblyVersion", out _));
+        Assert.True(generated.TryGetProperty("DateUtc", out _));
+    }
+
+    #endregion
+
+    #region Summary Mode Tests - Compact Format (Standard)
+
+    [Fact]
+    public void SummaryGenerator_CompactFormat_ShouldGenerateCorrectStructure()
+    {
+        // Arrange
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
+
+        // Act
+        var json = generator.Generate(formatter);
+
+        // Assert
+        Assert.NotNull(json);
+        Assert.NotEmpty(json);
+        Assert.Contains("__Generated__", json);
+        Assert.Contains("AssemblyVersion", json);
+        Assert.Contains("DateUtc", json);
+        Assert.Contains("FluentButton", json);
+    }
+
+    [Fact]
+    public void SummaryGenerator_CompactFormat_ShouldBeValidJson()
+    {
+        // Arrange
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
+
+        // Act
+        var json = generator.Generate(formatter);
+
+        // Assert - Verify it's valid JSON
+        var exception = Record.Exception(() => JsonDocument.Parse(json));
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public void SummaryGenerator_CompactFormat_SaveToFile_ShouldSucceed()
+    {
+        // Arrange
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
+        var outputPath = Path.Combine(_tempOutputDirectory, "fluentui_compact.json");
+
+        // Act
+        generator.SaveToFile(outputPath, formatter);
+
+        // Assert
+        Assert.True(File.Exists(outputPath));
+
+        var content = File.ReadAllText(outputPath);
+        Assert.NotEmpty(content);
+        Assert.Contains("__Generated__", content);
+
+        // Verify valid JSON
+        var exception = Record.Exception(() => JsonDocument.Parse(content));
+        Assert.Null(exception);
+    }
+
+    #endregion
+
+    #region Summary Mode Tests - Structured Format (Extended)
+
+    [Fact]
+    public void SummaryGenerator_StructuredFormat_ShouldContainMetadata()
+    {
+        // Arrange
+        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
+
+        // Act
+        var json = generator.Generate(formatter);
+        using var doc = JsonDocument.Parse(json);
+
+        // Assert
+        var root = doc.RootElement;
+        Assert.True(root.TryGetProperty("metadata", out var metadata));
+        Assert.True(metadata.TryGetProperty("assemblyVersion", out _));
+        Assert.True(metadata.TryGetProperty("dateUtc", out _));
+        Assert.True(metadata.TryGetProperty("mode", out var mode));
         Assert.Equal("Summary", mode.GetString());
     }
 
     #endregion
 
-    #region MCP Tests (Skipped - Future Implementation)
+    #region All Mode Tests
 
-    // Note: MCP/All mode tests are commented out for now
-    // These will be implemented in a future phase
-    
-    /*
-    [Fact(Skip = "MCP implementation deferred")]
-    public void McpGenerator_WillBeImplementedLater()
+    [Fact]
+    public void AllGenerator_ShouldGenerateJsonSuccessfully()
     {
-        // MCP tests will be added when ready to work on All mode
-        Assert.True(true);
+        // Arrange
+        var generator = DocumentationGeneratorFactory.CreateAllGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
+
+        // Act
+        var json = generator.Generate(formatter);
+
+        // Assert
+        Assert.NotNull(json);
+        Assert.NotEmpty(json);
+        Assert.Contains("metadata", json);
+        Assert.Contains("components", json);
     }
-    */
+
+    [Fact]
+    public void AllGenerator_ShouldNotSupportCSharpFormat()
+    {
+        // Arrange
+        var generator = DocumentationGeneratorFactory.CreateAllGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateCSharpFormatter();
+
+        // Act & Assert
+        var exception = Assert.Throws<NotSupportedException>(() => generator.Generate(formatter));
+        Assert.Contains("only supports JSON format", exception.Message);
+    }
+
+    [Fact]
+    public void AllGenerator_JsonOutput_ShouldContainComponents()
+    {
+        // Arrange
+        var generator = DocumentationGeneratorFactory.CreateAllGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
+
+        // Act
+        var json = generator.Generate(formatter);
+        using var doc = JsonDocument.Parse(json);
+
+        // Assert
+        var root = doc.RootElement;
+        Assert.True(root.TryGetProperty("components", out var components));
+        Assert.True(components.GetArrayLength() > 0);
+    }
+
+    [Fact]
+    public void AllGenerator_SaveToFile_ShouldSucceed()
+    {
+        // Arrange
+        var generator = DocumentationGeneratorFactory.CreateAllGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
+        var outputPath = Path.Combine(_tempOutputDirectory, "fluentui_all.json");
+
+        // Act
+        generator.SaveToFile(outputPath, formatter);
+
+        // Assert
+        Assert.True(File.Exists(outputPath));
+
+        var content = File.ReadAllText(outputPath);
+        Assert.NotEmpty(content);
+
+        // Verify valid JSON
+        var exception = Record.Exception(() => JsonDocument.Parse(content));
+        Assert.Null(exception);
+    }
 
     #endregion
 }
