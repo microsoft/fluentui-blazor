@@ -2,30 +2,30 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-namespace FluentUI.Demo.DocApiGen.Models.McpDocumentation;
+namespace FluentUI.Demo.DocApiGen.Models.AllMode;
 
 /// <summary>
-/// Represents an event of a component.
+/// Represents an enum type.
 /// </summary>
-public class McpEventInfo
+public class EnumInfo
 {
     /// <summary>
-    /// Gets or sets the name of the event.
+    /// Gets or sets the name of the enum.
     /// </summary>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the type of the event callback.
+    /// Gets or sets the full type name of the enum.
     /// </summary>
-    public string Type { get; set; } = string.Empty;
+    public string FullName { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the description of the event.
+    /// Gets or sets the description of the enum.
     /// </summary>
     public string Description { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets whether this event is inherited.
+    /// Gets or sets the enum values.
     /// </summary>
-    public bool IsInherited { get; set; }
+    public List<EnumValueInfo> Values { get; set; } = [];
 }

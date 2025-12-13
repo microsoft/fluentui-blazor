@@ -3,20 +3,20 @@
 // ------------------------------------------------------------------------
 
 using Xunit;
-using FluentUI.Demo.DocApiGen.Models.McpDocumentation;
+using FluentUI.Demo.DocApiGen.Models.AllMode;
 
-namespace FluentUI.Demo.DocApiGen.Tests.Models.McpDocumentation;
+namespace FluentUI.Demo.DocApiGen.Tests.Models.AllMode;
 
 /// <summary>
-/// Unit tests for <see cref="McpComponentInfo"/>.
+/// Unit tests for <see cref="ComponentInfo"/>.
 /// </summary>
-public class McpComponentInfoTests
+public class ComponentInfoTests
 {
     [Fact]
     public void Constructor_ShouldInitializeWithDefaults()
     {
         // Arrange & Act
-        var component = new McpComponentInfo();
+        var component = new ComponentInfo();
 
         // Assert
         Assert.Equal(string.Empty, component.Name);
@@ -37,7 +37,7 @@ public class McpComponentInfoTests
     public void Name_ShouldBeSettable()
     {
         // Arrange
-        var component = new McpComponentInfo();
+        var component = new ComponentInfo();
 
         // Act
         component.Name = "FluentButton";
@@ -50,7 +50,7 @@ public class McpComponentInfoTests
     public void FullName_ShouldBeSettable()
     {
         // Arrange
-        var component = new McpComponentInfo();
+        var component = new ComponentInfo();
 
         // Act
         component.FullName = "Microsoft.FluentUI.AspNetCore.Components.FluentButton";
@@ -63,7 +63,7 @@ public class McpComponentInfoTests
     public void Summary_ShouldBeSettable()
     {
         // Arrange
-        var component = new McpComponentInfo();
+        var component = new ComponentInfo();
 
         // Act
         component.Summary = "A button component";
@@ -76,7 +76,7 @@ public class McpComponentInfoTests
     public void Category_ShouldBeSettable()
     {
         // Arrange
-        var component = new McpComponentInfo();
+        var component = new ComponentInfo();
 
         // Act
         component.Category = "Forms";
@@ -89,7 +89,7 @@ public class McpComponentInfoTests
     public void IsGeneric_ShouldBeSettable()
     {
         // Arrange
-        var component = new McpComponentInfo();
+        var component = new ComponentInfo();
 
         // Act
         component.IsGeneric = true;
@@ -102,7 +102,7 @@ public class McpComponentInfoTests
     public void BaseClass_ShouldBeSettableToNull()
     {
         // Arrange
-        var component = new McpComponentInfo { BaseClass = "SomeBase" };
+        var component = new ComponentInfo { BaseClass = "SomeBase" };
 
         // Act
         component.BaseClass = null;
@@ -115,7 +115,7 @@ public class McpComponentInfoTests
     public void BaseClass_ShouldBeSettableToValue()
     {
         // Arrange
-        var component = new McpComponentInfo();
+        var component = new ComponentInfo();
 
         // Act
         component.BaseClass = "FluentComponentBase";
@@ -128,8 +128,8 @@ public class McpComponentInfoTests
     public void Properties_ShouldBeSettable()
     {
         // Arrange
-        var component = new McpComponentInfo();
-        var properties = new List<McpPropertyInfo>
+        var component = new ComponentInfo();
+        var properties = new List<PropertyInfo>
         {
             new() { Name = "Appearance", Type = "Appearance?" },
             new() { Name = "Disabled", Type = "bool" }
@@ -147,8 +147,8 @@ public class McpComponentInfoTests
     public void Events_ShouldBeSettable()
     {
         // Arrange
-        var component = new McpComponentInfo();
-        var events = new List<McpEventInfo>
+        var component = new ComponentInfo();
+        var events = new List<EventInfo>
         {
             new() { Name = "OnClick", Type = "EventCallback<MouseEventArgs>" }
         };
@@ -165,8 +165,8 @@ public class McpComponentInfoTests
     public void Methods_ShouldBeSettable()
     {
         // Arrange
-        var component = new McpComponentInfo();
-        var methods = new List<McpMethodInfo>
+        var component = new ComponentInfo();
+        var methods = new List<MethodInfo>
         {
             new() { Name = "Focus", ReturnType = "Task" }
         };
@@ -183,7 +183,7 @@ public class McpComponentInfoTests
     public void CompleteObject_ShouldBeConstructedProperly()
     {
         // Arrange & Act
-        var component = new McpComponentInfo
+        var component = new ComponentInfo
         {
             Name = "FluentButton",
             FullName = "Microsoft.FluentUI.AspNetCore.Components.FluentButton",
@@ -193,15 +193,15 @@ public class McpComponentInfoTests
             BaseClass = "FluentComponentBase",
             Properties =
             [
-                new McpPropertyInfo { Name = "Appearance", Type = "Appearance?" }
+                new PropertyInfo { Name = "Appearance", Type = "Appearance?" }
             ],
             Events =
             [
-                new McpEventInfo { Name = "OnClick", Type = "EventCallback<MouseEventArgs>" }
+                new EventInfo { Name = "OnClick", Type = "EventCallback<MouseEventArgs>" }
             ],
             Methods =
             [
-                new McpMethodInfo { Name = "Focus", ReturnType = "Task" }
+                new MethodInfo { Name = "Focus", ReturnType = "Task" }
             ]
         };
 
@@ -221,12 +221,12 @@ public class McpComponentInfoTests
     public void Collections_CanBeModifiedAfterConstruction()
     {
         // Arrange
-        var component = new McpComponentInfo();
+        var component = new ComponentInfo();
 
         // Act
-        component.Properties.Add(new McpPropertyInfo { Name = "Prop1" });
-        component.Events.Add(new McpEventInfo { Name = "Event1" });
-        component.Methods.Add(new McpMethodInfo { Name = "Method1" });
+        component.Properties.Add(new PropertyInfo { Name = "Prop1" });
+        component.Events.Add(new EventInfo { Name = "Event1" });
+        component.Methods.Add(new MethodInfo { Name = "Method1" });
 
         // Assert
         Assert.Single(component.Properties);

@@ -8,7 +8,7 @@ using FluentUI.Demo.DocApiGen.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace FluentUI.Demo.DocApiGen.Models;
+namespace FluentUI.Demo.DocApiGen.Models.SummaryMode;
 
 /// <summary>
 /// Represents a class with properties, methods, and events.

@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using FluentUI.Demo.DocApiGen.Models;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
@@ -10,7 +11,7 @@ namespace FluentUI.Demo.DocApiGen;
 /// <summary />
 public class Program
 {
-    private static readonly System.Diagnostics.Stopwatch _watcher = new ();
+    private static readonly System.Diagnostics.Stopwatch _watcher = new();
 
     /// <summary />
     public static void Main(string[] args)
@@ -29,6 +30,7 @@ public class Program
         var dllFile = config["dll"];
         var outputFile = config["output"];
         var format = config["format"] ?? "json";
+        var modeArg = config["mode"] ?? "summary";
 
         // Help
         if (string.IsNullOrEmpty(xmlFile) || string.IsNullOrEmpty(dllFile))
@@ -36,24 +38,37 @@ public class Program
             Console.WriteLine("Usage: DocApiGen --xml <xml_file>" +
                                               " --dll <dll_file>" +
                                               " --output <generated_file>" +
-                                              " --format <csharp|json|mcp>");
+                                              " --format <csharp|json>" +
+                                              " --mode <summary|all>");
             Console.WriteLine();
             Console.WriteLine("Formats:");
             Console.WriteLine("  csharp  - Generate C# code with summary data dictionary");
             Console.WriteLine("  json    - Generate JSON with summary data");
-            Console.WriteLine("  mcp     - Generate complete MCP documentation JSON for McpServer");
+            Console.WriteLine();
+            Console.WriteLine("Modes:");
+            Console.WriteLine("  summary - Generate documentation with only [Parameter] properties (default)");
+            Console.WriteLine("  all     - Generate complete documentation with all properties, methods, and events");
             return;
         }
+
+        // Parse generation mode
+        var mode = modeArg.Equals("all", StringComparison.OrdinalIgnoreCase)
+            ? GenerationMode.All
+            : GenerationMode.Summary;
 
         // Assembly and documentation file
         var assembly = Assembly.LoadFrom(dllFile);
         var docXml = new FileInfo(xmlFile);
 
         Console.WriteLine("Generating documentation...");
+        Console.WriteLine($"Mode: {mode}");
+        Console.WriteLine($"Format: {format}");
 
         if (format.Equals("mcp", StringComparison.OrdinalIgnoreCase))
         {
             // Generate MCP-compatible JSON documentation
+            // MCP format always uses GenerationMode.All
+            Console.WriteLine("Note: MCP format always uses 'All' mode");
             var mcpGenerator = new McpDocumentationGenerator(assembly, docXml);
 
             if (!string.IsNullOrEmpty(outputFile))
@@ -74,7 +89,7 @@ public class Program
 
             if (!string.IsNullOrEmpty(outputFile))
             {
-                apiGenerator.SaveToFile(outputFile, format);
+                apiGenerator.SaveToFile(outputFile, format, mode);
                 Console.WriteLine($"Documentation saved to {outputFile}");
             }
             else
@@ -82,11 +97,11 @@ public class Program
                 Console.WriteLine();
                 if (format == "json")
                 {
-                    Console.WriteLine(apiGenerator.GenerateJson());
+                    Console.WriteLine(apiGenerator.GenerateJson(mode));
                 }
                 else
                 {
-                    Console.WriteLine(apiGenerator.GenerateCSharp());
+                    Console.WriteLine(apiGenerator.GenerateCSharp(mode));
                 }
             }
         }

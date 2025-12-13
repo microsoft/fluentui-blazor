@@ -2,12 +2,12 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-namespace FluentUI.Demo.DocApiGen.Models.McpDocumentation;
+namespace FluentUI.Demo.DocApiGen.Models.AllMode;
 
 /// <summary>
 /// Represents a property of a component.
 /// </summary>
-public class McpPropertyInfo
+public class PropertyInfo
 {
     /// <summary>
     /// Gets or sets the name of the property.

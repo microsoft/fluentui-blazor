@@ -4,6 +4,7 @@
 
 using FluentUI.Demo.DocApiGen.Extensions;
 using FluentUI.Demo.DocApiGen.Models;
+using FluentUI.Demo.DocApiGen.Models.SummaryMode;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -40,12 +41,13 @@ public class ApiClassGenerator
     /// Gets the <see cref="ApiClass"/> for the specified component.
     /// </summary>
     /// <param name="type"></param>
+    /// <param name="mode">The generation mode (Summary or All). Default is Summary.</param>
     /// <returns></returns>
-    public ApiClass FromTypeName(Type type)
+    public ApiClass FromTypeName(Type type, GenerationMode mode = GenerationMode.Summary)
     {
         var options = new ApiClassOptions(Assembly, DocXmlReader)
         {
-            PropertyParameterOnly = false,
+            Mode = mode,
         };
 
         return new ApiClass(type, options);
@@ -54,9 +56,10 @@ public class ApiClassGenerator
     /// <summary>
     /// Generates the C# code for the documentation.
     /// </summary>
+    /// <param name="mode">The generation mode (Summary or All). Default is Summary.</param>
     /// <returns></returns>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "Not necessary")]
-    public string GenerateCSharp()
+    public string GenerateCSharp(GenerationMode mode = GenerationMode.Summary)
     {
         var code = new StringBuilder();
         var assemblyInfo = GetAssemblyInfo(Assembly);
@@ -73,6 +76,7 @@ public class ApiClassGenerator
         code.AppendLine("//     the code is regenerated.");
         code.AppendLine("//");
         code.AppendLine("//     Version: " + assemblyInfo.Version + " - " + assemblyInfo.Date);
+        code.AppendLine("//     Mode: " + mode);
         code.AppendLine("// </auto-generated>");
         code.AppendLine("//------------------------------------------------------------------------------");
         code.AppendLine();
@@ -88,7 +92,7 @@ public class ApiClassGenerator
 
         foreach (var type in Assembly.GetTypes().Where(i => i.IsValidType()))
         {
-            var apiClass = FromTypeName(type);
+            var apiClass = FromTypeName(type, mode);
             var apiClassMembers = apiClass.ToDictionary();
 
             if (apiClassMembers.Any())
@@ -136,9 +140,10 @@ public class ApiClassGenerator
     /// <summary>
     /// Generates the JSON for the documentation.
     /// </summary>
+    /// <param name="mode">The generation mode (Summary or All). Default is Summary.</param>
     /// <returns></returns>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "Not necessary")]
-    public string GenerateJson()
+    public string GenerateJson(GenerationMode mode = GenerationMode.Summary)
     {
         var code = new StringBuilder();
         var assemblyInfo = GetAssemblyInfo(Assembly);
@@ -146,12 +151,13 @@ public class ApiClassGenerator
         code.AppendLine("{");
         code.AppendLine($"  \"__Generated__\": {{");
         code.AppendLine($"    \"AssemblyVersion\": \"{assemblyInfo.Version}\",");
-        code.AppendLine($"    \"DateUtc\": \"{assemblyInfo.Date}\"");
+        code.AppendLine($"    \"DateUtc\": \"{assemblyInfo.Date}\",");
+        code.AppendLine($"    \"Mode\": \"{mode}\"");
         code.AppendLine($"  }},");
 
         foreach (var type in Assembly.GetTypes().Where(i => i.IsValidType()))
         {
-            var apiClass = FromTypeName(type);
+            var apiClass = FromTypeName(type, mode);
             var apiClassMembers = apiClass.ToDictionary();
 
             if (apiClassMembers.Any())
@@ -181,7 +187,8 @@ public class ApiClassGenerator
     /// </summary>
     /// <param name="fileName"></param>
     /// <param name="format"></param>
-    public void SaveToFile(string fileName, string format)
+    /// <param name="mode">The generation mode (Summary or All). Default is Summary.</param>
+    public void SaveToFile(string fileName, string format, GenerationMode mode = GenerationMode.Summary)
     {
         if (File.Exists(fileName))
         {
@@ -190,11 +197,11 @@ public class ApiClassGenerator
 
         if (format == "json")
         {
-            File.WriteAllText(fileName, GenerateJson());
+            File.WriteAllText(fileName, GenerateJson(mode));
         }
         else
         {
-            File.WriteAllText(fileName, GenerateCSharp());
+            File.WriteAllText(fileName, GenerateCSharp(mode));
         }
     }
 

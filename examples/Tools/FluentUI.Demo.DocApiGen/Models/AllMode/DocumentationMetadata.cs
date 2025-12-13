@@ -2,12 +2,12 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-namespace FluentUI.Demo.DocApiGen.Models.McpDocumentation;
+namespace FluentUI.Demo.DocApiGen.Models.AllMode;
 
 /// <summary>
 /// Metadata about the generated documentation.
 /// </summary>
-public class McpDocumentationMetadata
+public class DocumentationMetadata
 {
     /// <summary>
     /// Gets or sets the assembly version.

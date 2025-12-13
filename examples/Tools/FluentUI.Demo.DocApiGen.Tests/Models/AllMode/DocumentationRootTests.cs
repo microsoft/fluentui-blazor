@@ -3,20 +3,20 @@
 // ------------------------------------------------------------------------
 
 using Xunit;
-using FluentUI.Demo.DocApiGen.Models.McpDocumentation;
+using FluentUI.Demo.DocApiGen.Models.AllMode;
 
-namespace FluentUI.Demo.DocApiGen.Tests.Models.McpDocumentation;
+namespace FluentUI.Demo.DocApiGen.Tests.Models.AllMode;
 
 /// <summary>
-/// Unit tests for <see cref="McpDocumentationRoot"/>.
+/// Unit tests for <see cref="DocumentationRoot"/>.
 /// </summary>
-public class McpDocumentationRootTests
+public class DocumentationRootTests
 {
     [Fact]
     public void Constructor_ShouldInitializeWithDefaults()
     {
         // Arrange & Act
-        var root = new McpDocumentationRoot();
+        var root = new DocumentationRoot();
 
         // Assert
         Assert.NotNull(root.Metadata);
@@ -30,8 +30,8 @@ public class McpDocumentationRootTests
     public void Metadata_ShouldBeSettable()
     {
         // Arrange
-        var root = new McpDocumentationRoot();
-        var metadata = new McpDocumentationMetadata
+        var root = new DocumentationRoot();
+        var metadata = new DocumentationMetadata
         {
             AssemblyVersion = "1.0.0",
             GeneratedDateUtc = "2024-01-01T00:00:00Z",
@@ -54,8 +54,8 @@ public class McpDocumentationRootTests
     public void Components_ShouldBeSettable()
     {
         // Arrange
-        var root = new McpDocumentationRoot();
-        var components = new List<McpComponentInfo>
+        var root = new DocumentationRoot();
+        var components = new List<ComponentInfo>
         {
             new() { Name = "FluentButton", FullName = "Microsoft.FluentUI.AspNetCore.Components.FluentButton" },
             new() { Name = "FluentCard", FullName = "Microsoft.FluentUI.AspNetCore.Components.FluentCard" }
@@ -75,8 +75,8 @@ public class McpDocumentationRootTests
     public void Enums_ShouldBeSettable()
     {
         // Arrange
-        var root = new McpDocumentationRoot();
-        var enums = new List<McpEnumInfo>
+        var root = new DocumentationRoot();
+        var enums = new List<EnumInfo>
         {
             new() { Name = "Appearance", FullName = "Microsoft.FluentUI.AspNetCore.Components.Appearance" },
             new() { Name = "Color", FullName = "Microsoft.FluentUI.AspNetCore.Components.Color" }
@@ -96,9 +96,9 @@ public class McpDocumentationRootTests
     public void CompleteObject_ShouldBeConstructedProperly()
     {
         // Arrange & Act
-        var root = new McpDocumentationRoot
+        var root = new DocumentationRoot
         {
-            Metadata = new McpDocumentationMetadata
+            Metadata = new DocumentationMetadata
             {
                 AssemblyVersion = "2.0.0",
                 GeneratedDateUtc = "2024-12-01T10:30:00Z",
@@ -107,7 +107,7 @@ public class McpDocumentationRootTests
             },
             Components =
             [
-                new McpComponentInfo
+                new ComponentInfo
                 {
                     Name = "FluentButton",
                     FullName = "Microsoft.FluentUI.AspNetCore.Components.FluentButton",
@@ -117,7 +117,7 @@ public class McpDocumentationRootTests
                     BaseClass = "FluentComponentBase",
                     Properties =
                     [
-                        new McpPropertyInfo
+                        new PropertyInfo
                         {
                             Name = "Appearance",
                             Type = "Appearance?",
@@ -127,7 +127,7 @@ public class McpDocumentationRootTests
                     ],
                     Events =
                     [
-                        new McpEventInfo
+                        new EventInfo
                         {
                             Name = "OnClick",
                             Type = "EventCallback<MouseEventArgs>",
@@ -136,7 +136,7 @@ public class McpDocumentationRootTests
                     ],
                     Methods =
                     [
-                        new McpMethodInfo
+                        new MethodInfo
                         {
                             Name = "Focus",
                             ReturnType = "Task",
@@ -147,20 +147,20 @@ public class McpDocumentationRootTests
             ],
             Enums =
             [
-                new McpEnumInfo
+                new EnumInfo
                 {
                     Name = "Appearance",
                     FullName = "Microsoft.FluentUI.AspNetCore.Components.Appearance",
                     Description = "Defines button appearance styles",
                     Values =
                     [
-                        new McpEnumValueInfo
+                        new EnumValueInfo
                         {
                             Name = "Neutral",
                             Value = 0,
                             Description = "Neutral appearance"
                         },
-                        new McpEnumValueInfo
+                        new EnumValueInfo
                         {
                             Name = "Accent",
                             Value = 1,
@@ -193,11 +193,11 @@ public class McpDocumentationRootTests
     public void Components_CanBeModifiedAfterConstruction()
     {
         // Arrange
-        var root = new McpDocumentationRoot();
+        var root = new DocumentationRoot();
 
         // Act
-        root.Components.Add(new McpComponentInfo { Name = "Component1" });
-        root.Components.Add(new McpComponentInfo { Name = "Component2" });
+        root.Components.Add(new ComponentInfo { Name = "Component1" });
+        root.Components.Add(new ComponentInfo { Name = "Component2" });
 
         // Assert
         Assert.Equal(2, root.Components.Count);
@@ -209,11 +209,11 @@ public class McpDocumentationRootTests
     public void Enums_CanBeModifiedAfterConstruction()
     {
         // Arrange
-        var root = new McpDocumentationRoot();
+        var root = new DocumentationRoot();
 
         // Act
-        root.Enums.Add(new McpEnumInfo { Name = "Enum1" });
-        root.Enums.Add(new McpEnumInfo { Name = "Enum2" });
+        root.Enums.Add(new EnumInfo { Name = "Enum1" });
+        root.Enums.Add(new EnumInfo { Name = "Enum2" });
 
         // Assert
         Assert.Equal(2, root.Enums.Count);

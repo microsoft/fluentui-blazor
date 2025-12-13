@@ -7,7 +7,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using FluentUI.Demo.DocApiGen.Extensions;
 using FluentUI.Demo.DocApiGen.Models;
-using FluentUI.Demo.DocApiGen.Models.McpDocumentation;
+using FluentUI.Demo.DocApiGen.Models.AllMode;
+using FluentUI.Demo.DocApiGen.Models.SummaryMode;
 
 namespace FluentUI.Demo.DocApiGen;
 
@@ -33,15 +34,15 @@ public class McpDocumentationGenerator
     /// <summary>
     /// Generates the MCP documentation root containing all components and enums.
     /// </summary>
-    public McpDocumentationRoot Generate()
+    public DocumentationRoot Generate()
     {
         var assemblyInfo = ApiClassGenerator.GetAssemblyInfo(_assembly);
         var components = GenerateComponents().ToList();
         var enums = GenerateEnums().ToList();
 
-        return new McpDocumentationRoot
+        return new DocumentationRoot
         {
-            Metadata = new McpDocumentationMetadata
+            Metadata = new DocumentationMetadata
             {
                 AssemblyVersion = assemblyInfo.Version,
                 GeneratedDateUtc = assemblyInfo.Date,
@@ -85,7 +86,7 @@ public class McpDocumentationGenerator
     /// <summary>
     /// Generates component information for all valid component types.
     /// </summary>
-    private IEnumerable<McpComponentInfo> GenerateComponents()
+    private IEnumerable<ComponentInfo> GenerateComponents()
     {
         foreach (var type in _assembly.GetTypes().Where(IsValidComponentType))
         {
@@ -100,7 +101,7 @@ public class McpDocumentationGenerator
     /// <summary>
     /// Generates enum information for all public enums.
     /// </summary>
-    private IEnumerable<McpEnumInfo> GenerateEnums()
+    private IEnumerable<EnumInfo> GenerateEnums()
     {
         foreach (var type in _assembly.GetTypes().Where(t => t.IsEnum && t.IsPublic))
         {
@@ -111,19 +112,19 @@ public class McpDocumentationGenerator
     /// <summary>
     /// Generates component information for a specific type using the ApiClass model.
     /// </summary>
-    private McpComponentInfo? GenerateComponentInfo(Type type)
+    private ComponentInfo? GenerateComponentInfo(Type type)
     {
         try
         {
             var options = new ApiClassOptions(_assembly, _docXmlReader)
             {
-                PropertyParameterOnly = false // Include all properties, not just [Parameter] ones
+                Mode = GenerationMode.All // MCP uses All mode to include all properties, methods, and events
             };
 
             var apiClass = new ApiClass(type, options);
             var category = DetermineCategory(type);
 
-            var component = new McpComponentInfo
+            var component = new ComponentInfo
             {
                 Name = apiClass.Name,
                 FullName = type.FullName ?? type.Name,
@@ -131,9 +132,9 @@ public class McpDocumentationGenerator
                 Category = category,
                 IsGeneric = type.IsGenericType,
                 BaseClass = type.BaseType?.Name,
-                Properties = new List<McpPropertyInfo>(),
-                Events = new List<McpEventInfo>(),
-                Methods = new List<McpMethodInfo>()
+                Properties = [],
+                Events = [],
+                Methods = []
             };
 
             // Extract properties from ApiClass
@@ -141,7 +142,7 @@ public class McpDocumentationGenerator
             {
                 var isInherited = property.MemberInfo.DeclaringType != type;
 
-                component.Properties.Add(new McpPropertyInfo
+                component.Properties.Add(new Models.AllMode.PropertyInfo
                 {
                     Name = property.Name,
                     Type = property.Type,
@@ -158,7 +159,7 @@ public class McpDocumentationGenerator
             {
                 var isInherited = evt.MemberInfo.DeclaringType != type;
 
-                component.Events.Add(new McpEventInfo
+                component.Events.Add(new Models.AllMode.EventInfo
                 {
                     Name = evt.Name,
                     Type = evt.Type,
@@ -172,7 +173,7 @@ public class McpDocumentationGenerator
             {
                 var isInherited = method.MemberInfo.DeclaringType != type;
 
-                component.Methods.Add(new McpMethodInfo
+                component.Methods.Add(new Models.AllMode.MethodInfo
                 {
                     Name = method.Name,
                     ReturnType = method.Type,
@@ -194,9 +195,9 @@ public class McpDocumentationGenerator
     /// <summary>
     /// Generates enum information for a specific type.
     /// </summary>
-    private McpEnumInfo GenerateEnumInfo(Type type)
+    private EnumInfo GenerateEnumInfo(Type type)
     {
-        var values = new List<McpEnumValueInfo>();
+        var values = new List<EnumValueInfo>();
         var names = Enum.GetNames(type);
         var enumValues = Enum.GetValues(type);
 
@@ -207,7 +208,7 @@ public class McpDocumentationGenerator
             var field = type.GetField(name);
             var description = field != null ? _docXmlReader.GetMemberSummary(field) : string.Empty;
 
-            values.Add(new McpEnumValueInfo
+            values.Add(new EnumValueInfo
             {
                 Name = name,
                 Value = value,
@@ -215,7 +216,7 @@ public class McpDocumentationGenerator
             });
         }
 
-        return new McpEnumInfo
+        return new EnumInfo
         {
             Name = type.Name,
             FullName = type.FullName ?? type.Name,

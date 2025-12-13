@@ -3,20 +3,20 @@
 // ------------------------------------------------------------------------
 
 using Xunit;
-using FluentUI.Demo.DocApiGen.Models.McpDocumentation;
+using FluentUI.Demo.DocApiGen.Models.AllMode;
 
-namespace FluentUI.Demo.DocApiGen.Tests.Models.McpDocumentation;
+namespace FluentUI.Demo.DocApiGen.Tests.Models.AllMode;
 
 /// <summary>
-/// Unit tests for <see cref="McpEnumInfo"/>.
+/// Unit tests for <see cref="EnumInfo"/>.
 /// </summary>
-public class McpEnumInfoTests
+public class EnumInfoTests
 {
     [Fact]
     public void Constructor_ShouldInitializeWithDefaults()
     {
         // Arrange & Act
-        var enumInfo = new McpEnumInfo();
+        var enumInfo = new EnumInfo();
 
         // Assert
         Assert.Equal(string.Empty, enumInfo.Name);
@@ -30,7 +30,7 @@ public class McpEnumInfoTests
     public void Name_ShouldBeSettable()
     {
         // Arrange
-        var enumInfo = new McpEnumInfo();
+        var enumInfo = new EnumInfo();
 
         // Act
         enumInfo.Name = "Appearance";
@@ -43,7 +43,7 @@ public class McpEnumInfoTests
     public void FullName_ShouldBeSettable()
     {
         // Arrange
-        var enumInfo = new McpEnumInfo();
+        var enumInfo = new EnumInfo();
 
         // Act
         enumInfo.FullName = "Microsoft.FluentUI.AspNetCore.Components.Appearance";
@@ -56,7 +56,7 @@ public class McpEnumInfoTests
     public void Description_ShouldBeSettable()
     {
         // Arrange
-        var enumInfo = new McpEnumInfo();
+        var enumInfo = new EnumInfo();
 
         // Act
         enumInfo.Description = "Defines button appearance styles";
@@ -69,8 +69,8 @@ public class McpEnumInfoTests
     public void Values_ShouldBeSettable()
     {
         // Arrange
-        var enumInfo = new McpEnumInfo();
-        var values = new List<McpEnumValueInfo>
+        var enumInfo = new EnumInfo();
+        var values = new List<EnumValueInfo>
         {
             new() { Name = "Neutral", Value = 0 },
             new() { Name = "Accent", Value = 1 }
@@ -88,26 +88,26 @@ public class McpEnumInfoTests
     public void CompleteObject_ShouldBeConstructedProperly()
     {
         // Arrange & Act
-        var enumInfo = new McpEnumInfo
+        var enumInfo = new EnumInfo
         {
             Name = "Appearance",
             FullName = "Microsoft.FluentUI.AspNetCore.Components.Appearance",
             Description = "Defines button appearance styles",
             Values =
             [
-                new McpEnumValueInfo
+                new EnumValueInfo
                 {
                     Name = "Neutral",
                     Value = 0,
                     Description = "Neutral appearance"
                 },
-                new McpEnumValueInfo
+                new EnumValueInfo
                 {
                     Name = "Accent",
                     Value = 1,
                     Description = "Accent appearance"
                 },
-                new McpEnumValueInfo
+                new EnumValueInfo
                 {
                     Name = "Lightweight",
                     Value = 2,
@@ -131,11 +131,11 @@ public class McpEnumInfoTests
     public void Values_CanBeModifiedAfterConstruction()
     {
         // Arrange
-        var enumInfo = new McpEnumInfo();
+        var enumInfo = new EnumInfo();
 
         // Act
-        enumInfo.Values.Add(new McpEnumValueInfo { Name = "Value1", Value = 0 });
-        enumInfo.Values.Add(new McpEnumValueInfo { Name = "Value2", Value = 1 });
+        enumInfo.Values.Add(new EnumValueInfo { Name = "Value1", Value = 0 });
+        enumInfo.Values.Add(new EnumValueInfo { Name = "Value2", Value = 1 });
 
         // Assert
         Assert.Equal(2, enumInfo.Values.Count);

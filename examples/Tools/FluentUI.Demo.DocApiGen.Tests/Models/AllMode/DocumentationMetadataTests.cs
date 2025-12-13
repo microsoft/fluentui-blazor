@@ -3,20 +3,20 @@
 // ------------------------------------------------------------------------
 
 using Xunit;
-using FluentUI.Demo.DocApiGen.Models.McpDocumentation;
+using FluentUI.Demo.DocApiGen.Models.AllMode;
 
-namespace FluentUI.Demo.DocApiGen.Tests.Models.McpDocumentation;
+namespace FluentUI.Demo.DocApiGen.Tests.Models.AllMode;
 
 /// <summary>
-/// Unit tests for <see cref="McpDocumentationMetadata"/>.
+/// Unit tests for <see cref="DocumentationMetadata"/>.
 /// </summary>
-public class McpDocumentationMetadataTests
+public class DocumentationMetadataTests
 {
     [Fact]
     public void Constructor_ShouldInitializeWithDefaults()
     {
         // Arrange & Act
-        var metadata = new McpDocumentationMetadata();
+        var metadata = new DocumentationMetadata();
 
         // Assert
         Assert.Equal(string.Empty, metadata.AssemblyVersion);
@@ -29,7 +29,7 @@ public class McpDocumentationMetadataTests
     public void AssemblyVersion_ShouldBeSettable()
     {
         // Arrange
-        var metadata = new McpDocumentationMetadata();
+        var metadata = new DocumentationMetadata();
 
         // Act
         metadata.AssemblyVersion = "1.2.3";
@@ -42,7 +42,7 @@ public class McpDocumentationMetadataTests
     public void GeneratedDateUtc_ShouldBeSettable()
     {
         // Arrange
-        var metadata = new McpDocumentationMetadata();
+        var metadata = new DocumentationMetadata();
         var date = "2024-12-01T10:30:00Z";
 
         // Act
@@ -56,7 +56,7 @@ public class McpDocumentationMetadataTests
     public void ComponentCount_ShouldBeSettable()
     {
         // Arrange
-        var metadata = new McpDocumentationMetadata();
+        var metadata = new DocumentationMetadata();
 
         // Act
         metadata.ComponentCount = 42;
@@ -69,7 +69,7 @@ public class McpDocumentationMetadataTests
     public void EnumCount_ShouldBeSettable()
     {
         // Arrange
-        var metadata = new McpDocumentationMetadata();
+        var metadata = new DocumentationMetadata();
 
         // Act
         metadata.EnumCount = 15;
@@ -82,7 +82,7 @@ public class McpDocumentationMetadataTests
     public void AllProperties_CanBeSetTogether()
     {
         // Arrange & Act
-        var metadata = new McpDocumentationMetadata
+        var metadata = new DocumentationMetadata
         {
             AssemblyVersion = "2.0.0",
             GeneratedDateUtc = "2024-12-01T12:00:00Z",

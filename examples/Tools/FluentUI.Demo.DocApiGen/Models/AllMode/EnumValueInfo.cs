@@ -2,12 +2,12 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-namespace FluentUI.Demo.DocApiGen.Models.McpDocumentation;
+namespace FluentUI.Demo.DocApiGen.Models.AllMode;
 
 /// <summary>
 /// Represents an enum value.
 /// </summary>
-public class McpEnumValueInfo
+public class EnumValueInfo
 {
     /// <summary>
     /// Gets or sets the name of the enum value.
