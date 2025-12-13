@@ -6,12 +6,14 @@
     <Project Path="examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" />
   </Folder>
   <Folder Name="/examples/tools/">
-    <Project Path="examples/Tools/FluentUI.Demo.DocApiGen.Tests/FluentUI.Demo.DocApiGen.Tests.csproj" />
     <Project Path="examples/Tools/FluentUI.Demo.DocApiGen/FluentUI.Demo.DocApiGen.csproj" />
-    <Project Path="examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj" />
     <Project Path="examples/Tools/FluentUI.Demo.DocViewer/FluentUI.Demo.DocViewer.csproj" />
     <Project Path="examples/Tools/FluentUI.Demo.SampleApi/FluentUI.Demo.SampleApi.csproj" />
     <Project Path="examples/Tools/FluentUI.Demo.SampleData/FluentUI.Demo.SampleData.csproj" />
+  </Folder>
+  <Folder Name="/examples/tools/Tests/">
+    <Project Path="examples/Tools/FluentUI.Demo.DocApiGen.Tests/FluentUI.Demo.DocApiGen.Tests.csproj" />
+    <Project Path="examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj" />
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Core/">
