@@ -64,7 +64,22 @@ public class ApiClass
     /// <summary>
     /// Gets the list of properties for the specified component.
     /// </summary>
-    public IEnumerable<ApiMember> Properties => GetMembers(MemberTypes.Property).Where(i => _options.PropertyParameterOnly == false ? true : i.IsParameter);
+    public IEnumerable<ApiMember> Properties
+    {
+        get
+        {
+            var properties = GetMembers(MemberTypes.Property);
+            
+            // For enums, include all values regardless of PropertyParameterOnly setting
+            if (_component.IsEnum)
+            {
+                return properties;
+            }
+            
+            // For classes, apply PropertyParameterOnly filter
+            return properties.Where(i => _options.PropertyParameterOnly == false || i.IsParameter);
+        }
+    }
 
     /// <summary>
     /// Gets the list of Events for the specified component.

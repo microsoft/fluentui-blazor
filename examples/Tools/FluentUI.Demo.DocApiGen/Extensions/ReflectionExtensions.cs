@@ -43,7 +43,10 @@ public static class ReflectionExtensions
                type.BaseType != typeof(Regex) &&
                type.BaseType?.Name != "Icon" &&
                type.IsAbstract == false &&
-               type.Name.EndsWith("_g") == false;
+               type.Name.EndsWith("_g") == false &&
+               !type.Name.Contains('+') && // Exclude nested types
+               !type.IsInterface &&
+               type.IsPublic;
     }
 
     /// <summary>
