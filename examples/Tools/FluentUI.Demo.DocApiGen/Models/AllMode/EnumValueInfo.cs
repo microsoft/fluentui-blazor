@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Text.Json.Serialization;
+
 namespace FluentUI.Demo.DocApiGen.Models.AllMode;
 
 /// <summary>
@@ -22,5 +24,6 @@ public class EnumValueInfo
     /// <summary>
     /// Gets or sets the description of the enum value.
     /// </summary>
-    public string Description { get; set; } = string.Empty;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public string? Description { get; set; }
 }

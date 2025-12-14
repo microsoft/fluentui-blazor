@@ -126,60 +126,69 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
             {
                 Name = apiClass.Name,
                 FullName = type.FullName ?? type.Name,
-                Summary = apiClass.Summary,
+                Summary = !string.IsNullOrWhiteSpace(apiClass.Summary) ? apiClass.Summary : null,
                 Category = DetermineCategory(type),
                 IsGeneric = type.IsGenericType,
-                BaseClass = type.BaseType?.Name,
-                Properties = [],
-                Events = [],
-                Methods = []
+                BaseClass = type.BaseType?.Name
             };
 
-            // Extract properties
+            // Extract properties - only if we have any
+            var properties = new List<Models.AllMode.PropertyInfo>();
             foreach (var property in apiClass.Properties)
             {
                 var isInherited = property.MemberInfo.DeclaringType != type;
+                var description = !string.IsNullOrWhiteSpace(property.Description) ? property.Description : null;
 
-                component.Properties.Add(new Models.AllMode.PropertyInfo
+                properties.Add(new Models.AllMode.PropertyInfo
                 {
                     Name = property.Name,
                     Type = property.Type,
-                    Description = property.Description,
+                    Description = description,
                     IsParameter = property.IsParameter,
                     IsInherited = isInherited,
                     DefaultValue = property.Default,
-                    EnumValues = property.EnumValues
+                    EnumValues = property.EnumValues != null && property.EnumValues.Length > 0 ? property.EnumValues : null
                 });
             }
 
-            // Extract events
+            component.Properties = properties.Count > 0 ? properties : null;
+
+            // Extract events - only if we have any
+            var events = new List<Models.AllMode.EventInfo>();
             foreach (var evt in apiClass.Events)
             {
                 var isInherited = evt.MemberInfo.DeclaringType != type;
+                var description = !string.IsNullOrWhiteSpace(evt.Description) ? evt.Description : null;
 
-                component.Events.Add(new Models.AllMode.EventInfo
+                events.Add(new Models.AllMode.EventInfo
                 {
                     Name = evt.Name,
                     Type = evt.Type,
-                    Description = evt.Description,
+                    Description = description,
                     IsInherited = isInherited
                 });
             }
 
-            // Extract methods
+            component.Events = events.Count > 0 ? events : null;
+
+            // Extract methods - only if we have any
+            var methods = new List<Models.AllMode.MethodInfo>();
             foreach (var method in apiClass.Methods)
             {
                 var isInherited = method.MemberInfo.DeclaringType != type;
+                var description = !string.IsNullOrWhiteSpace(method.Description) ? method.Description : null;
 
-                component.Methods.Add(new Models.AllMode.MethodInfo
+                methods.Add(new Models.AllMode.MethodInfo
                 {
                     Name = method.Name,
                     ReturnType = method.Type,
-                    Description = method.Description,
-                    Parameters = method.Parameters,
+                    Description = description,
+                    Parameters = method.Parameters != null && method.Parameters.Length > 0 ? method.Parameters : null,
                     IsInherited = isInherited
                 });
             }
+
+            component.Methods = methods.Count > 0 ? methods : null;
 
             return component;
         }
@@ -211,15 +220,17 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
             {
                 Name = name,
                 Value = value,
-                Description = description
+                Description = !string.IsNullOrWhiteSpace(description) ? description : null
             });
         }
+
+        var enumDescription = _docXmlReader.GetComponentSummary(type);
 
         return new EnumInfo
         {
             Name = type.Name,
             FullName = type.FullName ?? type.Name,
-            Description = _docXmlReader.GetComponentSummary(type),
+            Description = !string.IsNullOrWhiteSpace(enumDescription) ? enumDescription : null,
             Values = values
         };
     }
@@ -305,13 +316,13 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
     private (string Version, string Date) GetAssemblyInfo()
     {
         var version = "Unknown";
-        
+
         var versionAttribute = Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
         if (versionAttribute != null)
         {
             var versionString = versionAttribute.InformationalVersion;
             var plusIndex = versionString.IndexOf('+');
-            
+
             if (plusIndex >= 0 && plusIndex + 9 < versionString.Length)
             {
                 version = versionString[..(plusIndex + 9)];
@@ -323,7 +334,7 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
         }
 
         var date = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-        
+
         return (version, date);
     }
 }

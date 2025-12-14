@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Text.Json.Serialization;
+
 namespace FluentUI.Demo.DocApiGen.Models.AllMode;
 
 /// <summary>
@@ -22,7 +24,8 @@ public class PropertyInfo
     /// <summary>
     /// Gets or sets the description of the property.
     /// </summary>
-    public string Description { get; set; } = string.Empty;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public string? Description { get; set; }
 
     /// <summary>
     /// Gets or sets whether this property is a [Parameter].
@@ -31,16 +34,21 @@ public class PropertyInfo
 
     /// <summary>
     /// Gets or sets whether this property is inherited.
+    /// Only serialized when true to reduce JSON size.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool IsInherited { get; set; }
 
     /// <summary>
     /// Gets or sets the default value of the property.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? DefaultValue { get; set; }
 
     /// <summary>
     /// Gets or sets the enum values if this property is an enum type.
+    /// Only serialized when not empty to reduce JSON size.
     /// </summary>
-    public string[] EnumValues { get; set; } = [];
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public string[]? EnumValues { get; set; }
 }

@@ -21,16 +21,13 @@ public class ComponentInfoTests
         // Assert
         Assert.Equal(string.Empty, component.Name);
         Assert.Equal(string.Empty, component.FullName);
-        Assert.Equal(string.Empty, component.Summary);
-        Assert.Equal(string.Empty, component.Category);
+        Assert.Null(component.Summary);
+        Assert.Null(component.Category);
         Assert.False(component.IsGeneric);
         Assert.Null(component.BaseClass);
-        Assert.NotNull(component.Properties);
-        Assert.NotNull(component.Events);
-        Assert.NotNull(component.Methods);
-        Assert.Empty(component.Properties);
-        Assert.Empty(component.Events);
-        Assert.Empty(component.Methods);
+        Assert.Null(component.Properties);
+        Assert.Null(component.Events);
+        Assert.Null(component.Methods);
     }
 
     [Fact]
@@ -221,7 +218,12 @@ public class ComponentInfoTests
     public void Collections_CanBeModifiedAfterConstruction()
     {
         // Arrange
-        var component = new ComponentInfo();
+        var component = new ComponentInfo
+        {
+            Properties = [],
+            Events = [],
+            Methods = []
+        };
 
         // Act
         component.Properties.Add(new PropertyInfo { Name = "Prop1" });

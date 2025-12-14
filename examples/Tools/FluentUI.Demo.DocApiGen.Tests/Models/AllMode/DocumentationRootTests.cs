@@ -180,9 +180,12 @@ public class DocumentationRootTests
         Assert.Single(root.Components);
         Assert.Equal("FluentButton", root.Components[0].Name);
         Assert.Equal("Forms", root.Components[0].Category);
-        Assert.Single(root.Components[0].Properties);
-        Assert.Single(root.Components[0].Events);
-        Assert.Single(root.Components[0].Methods);
+        Assert.NotNull(root.Components[0].Properties);
+        Assert.Single(root.Components[0].Properties!);
+        Assert.NotNull(root.Components[0].Events);
+        Assert.Single(root.Components[0].Events!);
+        Assert.NotNull(root.Components[0].Methods);
+        Assert.Single(root.Components[0].Methods!);
 
         Assert.Single(root.Enums);
         Assert.Equal("Appearance", root.Enums[0].Name);
