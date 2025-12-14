@@ -1,16 +1,17 @@
-﻿<FluentSwitch @bind-Value="@FullScreen" Label="FullScreen" Margin="@Margin.Right4" />
-<FluentSwitch @bind-Value="@Interactive" Label="Interactive" Margin="@Margin.Right4" />
-<FluentSwitch @bind-Value="@Visible" Label="Visible" Margin="@Margin.Right4" />
+﻿<FluentStack Wrap="true" VerticalAlignment="VerticalAlignment.Center">
+    <FluentSwitch @bind-Value="@FullScreen" Label="FullScreen" Margin="@Margin.Right4" />
+    <FluentSwitch @bind-Value="@Interactive" Label="Interactive" Margin="@Margin.Right4" />
+    <FluentSwitch @bind-Value="@Visible" Label="Visible" Margin="@Margin.Right4" />
+    <FluentSpacer />
+    <FluentSelect @bind-Value="@CloseMode"
+                  Items="@(Enum.GetValues(typeof(OverlayCloseMode)).Cast<OverlayCloseMode>())"
+                  Label="Close Mode"
+                  LabelPosition="LabelPosition.Before" />
+</FluentStack>
 
-<br />
-<FluentSelect @bind-Value="@CloseMode" Label="Close Mode" LabelPosition="LabelPosition.Before">
-    <FluentOption Value="manual">Manual</FluentOption>
-    <FluentOption Value="all">All</FluentOption>
-    <FluentOption Value="inside">Inside only</FluentOption>
-    <FluentOption Value="outside">Outside only</FluentOption>
-</FluentSelect>
+<div style="@CommonStyles.NeutralBorder1 @CommonStyles.NeutralBackground"
+     class="@Margin.All4 @Padding.All4">
 
-<div style="@CommonStyles.NeutralBorder1 @CommonStyles.NeutralBackground">
     <!-- Container with a interactive (clickable) button -->
     <h3>Container</h3>
     <button onclick="alert('clicked')">Click Me</button>
@@ -27,7 +28,7 @@
 
 </div>
 
-<FluentStack>
+<FluentStack Wrap="true" HorizontalGap="12px">
     <FluentButton OnClick="@(e => OverlayRef.ShowAsync())">Show Overlay</FluentButton>
     <FluentButton OnClick="@(e => OverlayRef.CloseAsync())">Close Overlay</FluentButton>
 </FluentStack>
@@ -38,5 +39,5 @@
     bool FullScreen = false;
     bool Interactive = false;
     bool Visible = false;
-    string CloseMode = "all";
+    OverlayCloseMode CloseMode = OverlayCloseMode.All;
 }

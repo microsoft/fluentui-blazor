@@ -381,6 +381,24 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
   }
 
   /**
+   * Display the fluent-overlay with the given id
+   * @param id The id of the fluent-overlay to display
+   */
+  export function Show(id: string): void {
+    const element = document.getElementById(id) as any;
+    element?.show();
+  }
+
+  /**
+   * Close the fluent-overlay with the given id
+   * @param id The id of the fluent-overlay to close
+   */
+  export function Close(id: string): void {
+    const element = document.getElementById(id) as any;
+    element?.close();
+  }
+
+  /**
   * Register the FluentOverlay component
   * @param blazor
   * @param mode

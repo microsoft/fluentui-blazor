@@ -7,6 +7,6 @@ route: /Overlay
 
 {{ OverlayDefault }}
 
-# Overlay HTMLElement
+## API FluentOverlay
 
-{{ OverlayHtmlElement }}
+{{ API Type=FluentOverlay }}

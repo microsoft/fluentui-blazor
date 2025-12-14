@@ -44,9 +44,26 @@ public partial class FluentOverlay : FluentComponentBase, IFluentComponentElemen
     [Parameter]
     public bool Interactive { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Gets or sets the background color of the overlay.
+    /// Default is `var(--colorBackgroundOverlay)`.
+    /// </summary>
     [Parameter]
-    public string CloseMode { get; set; } = "all";
+    public string BackgroundColor { get; set; } = "var(--colorBackgroundOverlay)";
+
+    /// <summary>
+    /// Gets or sets the opacity level of the overlay background.
+    /// Default is `0.2` (20%).
+    /// </summary>
+    [Parameter]
+    public double Opacity { get; set; } = 0.4;
+
+    /// <summary>
+    /// Gets or sets the mode that determines how the overlay can be closed.
+    /// Default is <see cref="OverlayCloseMode.All"/>.
+    /// </summary>
+    [Parameter]
+    public OverlayCloseMode CloseMode { get; set; } = OverlayCloseMode.All;
 
     /// <summary>
     /// Gets or sets a value indicating whether the overlay is visible.
@@ -72,7 +89,7 @@ public partial class FluentOverlay : FluentComponentBase, IFluentComponentElemen
     [ExcludeFromCodeCoverage]
     public async Task ShowAsync()
     {
-        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Show", Id);
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overlay.Show", Id);
     }
 
     /// <summary>
@@ -81,7 +98,7 @@ public partial class FluentOverlay : FluentComponentBase, IFluentComponentElemen
     [ExcludeFromCodeCoverage]
     public async Task CloseAsync()
     {
-        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Close", Id);
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overlay.Close", Id);
     }
 
     /// <summary />
@@ -102,5 +119,10 @@ public partial class FluentOverlay : FluentComponentBase, IFluentComponentElemen
                 await VisibleChanged.InvokeAsync(Visible);
             }
         }
+    }
+
+    private string GetBackground()
+    {
+        return $"color-mix(in srgb, {BackgroundColor} {Opacity * 100}%, transparent)";
     }
 }
