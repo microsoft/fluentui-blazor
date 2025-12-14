@@ -57,33 +57,54 @@ public sealed class SummaryDocumentationGenerator : DocumentationGeneratorBase
             Mode = GenerationMode.Summary
         };
 
-        foreach (var type in Assembly.GetTypes().Where(t => t.IsValidType()))
+        var validTypes = Assembly.GetTypes().Where(t => t.IsValidType()).ToList();
+        Console.WriteLine($"Processing {validTypes.Count} valid types...");
+
+        var processedCount = 0;
+        foreach (var type in validTypes)
         {
-            var apiClass = new ApiClass(type, options);
-            var members = apiClass.ToDictionary();
-
-            if (members.Any())
+            processedCount++;
+            if (processedCount % 10 == 0)
             {
-                // Add class summary
-                var classKey = $"{type.FullName}.__summary__";
-                components[classKey] = new ComponentEntry
-                {
-                    Summary = apiClass.Summary,
-                    Signature = type.Name
-                };
+                Console.Write($"\rProcessed {processedCount}/{validTypes.Count} types...");
+            }
 
-                // Add members
-                foreach (var member in members)
+            try
+            {
+                var apiClass = new ApiClass(type, options);
+                var members = apiClass.ToDictionary();
+
+                if (members.Any())
                 {
-                    var memberKey = $"{type.FullName}.{member.Key}";
-                    components[memberKey] = new ComponentEntry
+                    // Add class summary
+                    var classKey = $"{type.FullName}.__summary__";
+                    components[classKey] = new ComponentEntry
                     {
-                        Summary = member.Value,
-                        Signature = member.Key
+                        Summary = apiClass.Summary,
+                        Signature = type.Name
                     };
+
+                    // Add members
+                    foreach (var member in members)
+                    {
+                        var memberKey = $"{type.FullName}.{member.Key}";
+                        components[memberKey] = new ComponentEntry
+                        {
+                            Summary = member.Value,
+                            Signature = member.Key
+                        };
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"[WARNING] Error processing type {type.FullName}: {ex.Message}");
+            }
         }
+
+        Console.WriteLine();
+        Console.WriteLine($"✓ Processed {validTypes.Count} types, generated {components.Count} documentation entries.");
 
         return new SummaryDocumentationData
         {

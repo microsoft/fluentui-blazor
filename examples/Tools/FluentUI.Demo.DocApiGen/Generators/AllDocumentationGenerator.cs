@@ -60,9 +60,21 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
         var components = new List<ComponentInfo>();
         var enums = new List<EnumInfo>();
 
+        var validTypes = Assembly.GetTypes().Where(IsValidComponentType).ToList();
+        var enumTypes = Assembly.GetTypes().Where(t => t.IsEnum && t.IsPublic).ToList();
+
+        Console.WriteLine($"Processing {validTypes.Count} components and {enumTypes.Count} enums...");
+
         // Generate components
-        foreach (var type in Assembly.GetTypes().Where(IsValidComponentType))
+        var componentCount = 0;
+        foreach (var type in validTypes)
         {
+            componentCount++;
+            if (componentCount % 10 == 0)
+            {
+                Console.Write($"\rProcessed {componentCount}/{validTypes.Count} components...");
+            }
+
             var componentInfo = GenerateComponentInfo(type);
             if (componentInfo != null)
             {
@@ -70,11 +82,17 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
             }
         }
 
+        Console.WriteLine();
+
         // Generate enums
-        foreach (var type in Assembly.GetTypes().Where(t => t.IsEnum && t.IsPublic))
+        var enumCount = 0;
+        foreach (var type in enumTypes)
         {
+            enumCount++;
             enums.Add(GenerateEnumInfo(type));
         }
+
+        Console.WriteLine($"✓ Processed {validTypes.Count} components and {enumTypes.Count} enums.");
 
         return new DocumentationRoot
         {
@@ -165,9 +183,10 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
 
             return component;
         }
-        catch
+        catch (Exception ex)
         {
-            // Skip types that cannot be processed
+            Console.WriteLine();
+            Console.WriteLine($"[WARNING] Error processing component {type.FullName}: {ex.Message}");
             return null;
         }
     }
