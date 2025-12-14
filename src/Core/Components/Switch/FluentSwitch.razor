@@ -4,7 +4,8 @@
 
 <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Label="@GetLabel"
              tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)">
-    <fluent-switch aria-label="@AriaLabel"
+    <fluent-switch @ref="@Element"
+                   aria-label="@AriaLabel"
                    autofocus="@Autofocus"
                    checked="@CurrentValue"
                    disabled="@Disabled"

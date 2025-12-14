@@ -70,6 +70,42 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
       shadow.appendChild(this.dialog);
     }
 
+    /*************** 
+      Attributes
+    ****************/
+
+    static get observedAttributes() { return ['dialogStyle', 'dialogClass', 'visible']; }
+
+    // Handles attribute changes to update references and listeners.
+    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+      if (oldValue !== newValue) {
+
+        if (name === 'background') {
+          if (this.hasAttribute('background')) {
+            this.background = this.getAttribute('background')!;
+          }
+        }
+
+        if (name === 'dialogStyle') {
+          if (this.hasAttribute('dialogStyle')) {
+            this.dialogStyle = this.getAttribute('dialogStyle')!;
+          }
+        }
+
+        if (name === 'dialogClass') {
+          if (this.hasAttribute('dialogClass')) {
+            this.dialogClass = this.getAttribute('dialogClass')!;
+          }
+        }
+
+        if (name === 'visible') {
+          const isVisible = this.hasAttribute('visible')
+            && (this.getAttribute('visible') === 'true' || this.getAttribute('visible') === '');
+          this.visible = isVisible;
+        }
+      }
+    }
+
     /************************
        Public Properties
     ************************/
@@ -149,6 +185,19 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
         this.setAttribute('dialog-class', value);
       } else {
         this.removeAttribute('dialog-class');
+      }
+    }
+
+    // Property getter/setter for visible
+    public get visible(): boolean {
+      return this.dialog?.open ?? false;
+    }
+
+    public set visible(value: boolean) {
+      if (value) {
+        this.show();
+      } else {
+        this.close();
       }
     }
 
@@ -285,7 +334,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
       }
     }
 
-    // Subscribe to container size changes        
+    // Subscribe to container size changes
     private createResizeObserver(): void {
       if (!this.resizeObserver && this.container) {
         this.resizeObserver = new ResizeObserver(() => {

@@ -20,6 +20,16 @@ export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
   }
 
   /**
+ * Close the fluent-dialog with the given id
+ * @param id The id of the fluent-dialog to close
+ */
+  export function Close(id: string): void {
+    const dialog = document.getElementById(id) as any;
+    dialog?.close();
+    FocusOnPreviousActiveElement(id);
+  }
+
+  /**
     * Save the element that was active before the dialog was opened
     * @param id
     */

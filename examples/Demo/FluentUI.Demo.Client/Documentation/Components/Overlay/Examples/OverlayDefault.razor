@@ -1,0 +1,42 @@
+﻿<FluentSwitch @bind-Value="@FullScreen" Label="FullScreen" Margin="@Margin.Right4" />
+<FluentSwitch @bind-Value="@Interactive" Label="Interactive" Margin="@Margin.Right4" />
+<FluentSwitch @bind-Value="@Visible" Label="Visible" Margin="@Margin.Right4" />
+
+<br />
+<FluentSelect @bind-Value="@CloseMode" Label="Close Mode" LabelPosition="LabelPosition.Before">
+    <FluentOption Value="manual">Manual</FluentOption>
+    <FluentOption Value="all">All</FluentOption>
+    <FluentOption Value="inside">Inside only</FluentOption>
+    <FluentOption Value="outside">Outside only</FluentOption>
+</FluentSelect>
+
+<div style="@CommonStyles.NeutralBorder1 @CommonStyles.NeutralBackground">
+    <!-- Container with a interactive (clickable) button -->
+    <h3>Container</h3>
+    <button onclick="alert('clicked')">Click Me</button>
+
+    <!-- Overlay -->
+    <FluentOverlay @ref="OverlayRef" Style="background: transparent;"
+                   Class="my-class"
+                   FullScreen="@FullScreen"
+                   Interactive="@Interactive"
+                   @bind-Visible="@Visible"
+                   CloseMode="@CloseMode">
+        <FluentSpinner />
+    </FluentOverlay>
+
+</div>
+
+<FluentStack>
+    <FluentButton OnClick="@(e => OverlayRef.ShowAsync())">Show Overlay</FluentButton>
+    <FluentButton OnClick="@(e => OverlayRef.CloseAsync())">Close Overlay</FluentButton>
+</FluentStack>
+
+@code
+{
+    FluentOverlay OverlayRef = default!;
+    bool FullScreen = false;
+    bool Interactive = false;
+    bool Visible = false;
+    string CloseMode = "all";
+}

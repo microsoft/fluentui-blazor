@@ -1,0 +1,22 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<fluent-overlay id="@Id"
+                dialog-style="@StyleValue"
+                dialog-class="@ClassValue"
+                background="color-mix(in srgb, var(--colorBrandBackground) 20%, transparent)"
+                fullscreen="@FullScreen"
+                interactive="@Interactive"
+                close-mode="@CloseMode"
+                visible="@Visible"
+                @attributes="@AdditionalAttributes"
+                @ondialogtoggle="@OnToggleAsync">
+    @if (ChildContent is null)
+    {
+        <FluentSpinner />
+    }
+    else
+    {
+        @ChildContent
+    }
+</fluent-overlay>
