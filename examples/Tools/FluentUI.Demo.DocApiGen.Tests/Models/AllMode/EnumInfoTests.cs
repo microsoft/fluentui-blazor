@@ -21,7 +21,7 @@ public class EnumInfoTests
         // Assert
         Assert.Equal(string.Empty, enumInfo.Name);
         Assert.Equal(string.Empty, enumInfo.FullName);
-        Assert.Equal(string.Empty, enumInfo.Description);
+        Assert.Null(enumInfo.Description);
         Assert.NotNull(enumInfo.Values);
         Assert.Empty(enumInfo.Values);
     }
