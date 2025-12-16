@@ -1,7 +1,6 @@
 ---
-title: List / Select
-route: /List/Select
-icon: GroupList
+title: Select
+route: /Lists/Select
 ---
 
 # Select

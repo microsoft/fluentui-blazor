@@ -14,11 +14,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <remarks>Use this class to organize navigation elements into logical groups when building fluent or
 /// hierarchical navigation structures. Grouping navigation items can improve usability and clarity in user interfaces
 /// that support complex navigation scenarios.</remarks>
-public partial class FluentNavCategory : FluentComponentBase, INavItem
+public partial class FluentNavCategory : FluentComponentBase, INavItem, IDisposable
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNavCategory.razor.js";
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
     private bool _isActive;
     private readonly List<FluentNavSubItem> _subitems = [];
+    private bool _hasBeenManuallyCollapsed;
 
     /// <summary />
     public FluentNavCategory(LibraryConfiguration configuration) : base(configuration)
@@ -75,15 +76,6 @@ public partial class FluentNavCategory : FluentComponentBase, INavItem
     [CascadingParameter]
     public required FluentNav Owner { get; set; }
 
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-        }
-    }
-
     /// <summary>
     /// Validates that this component is used within a FluentNav.
     /// </summary>
@@ -100,14 +92,97 @@ public partial class FluentNavCategory : FluentComponentBase, INavItem
     }
 
     /// <summary>
+    /// Called after the component has been initialized.
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Owner.RegisterCategory(this);
+    }
+
+    /// <summary>
+    /// Disposes of the component and unregisters from the owner.
+    /// </summary>
+    public void Dispose()
+    {
+        Owner.UnregisterCategory(this);
+    }
+
+    /// <summary>
+    /// Called after the component has been rendered.
+    /// </summary>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+
+            // Ensure category is expanded when any subitem is active on initial load
+            if (HasActiveSubitem() && !Expanded && !_hasBeenManuallyCollapsed)
+            {
+                Expanded = true;
+                StateHasChanged();
+            }
+        }
+    }
+
+    internal async Task SetExpandedAsync(bool expanded)
+    {
+        if (Expanded == expanded)
+            return;
+
+        Expanded = expanded;
+        
+        // Clear manual collapse flag when programmatically setting expanded state
+        // This allows programmatic control to override user's manual collapse
+        if (!expanded)
+        {
+            _hasBeenManuallyCollapsed = false;
+        }
+        
+        UpdateActiveState();
+        StateHasChanged();
+
+        // Animate after state change
+        await AnimateCurrentStateAsync();
+    }
+
+    /// <summary>
     /// Toggles the expanded state of the nav group.
     /// </summary>
     internal async Task ToggleExpandedAsync()
     {
+        // Toggle the state
         Expanded = !Expanded;
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.NavCategory.ToggleCategory", Id, Owner.UseSingleExpanded);
+
+        // Track manual collapse to prevent auto-re-expansion
+        if (!Expanded && HasActiveSubitem())
+        {
+            _hasBeenManuallyCollapsed = true;
+        }
+        else if (Expanded)
+        {
+            // Clear the manual collapse flag when manually expanding
+            _hasBeenManuallyCollapsed = false;
+            
+            // If single expand mode, collapse other categories
+            if (Owner.UseSingleExpanded)
+            {
+                foreach (var category in Owner.GetCategories())
+                {
+                    if (category != this && category.Expanded)
+                    {
+                        category.SetExpanded(false);
+                    }
+                }
+            }
+        }
 
         UpdateActiveState();
+        StateHasChanged();
+
+        // After Blazor re-renders with new state, animate the result
+        await AnimateCurrentStateAsync();
     }
 
     /// <summary>
@@ -116,13 +191,21 @@ public partial class FluentNavCategory : FluentComponentBase, INavItem
     /// </summary>
     internal void OnSubitemActiveStateChanged()
     {
-        if (!Expanded && HasActiveSubitem())
+        var hasActiveSubitem = HasActiveSubitem();
+
+        // Always ensure the category is expanded when any subitem is active
+        if (hasActiveSubitem && !Expanded && !_hasBeenManuallyCollapsed)
         {
             Expanded = true;
-            _ = InvokeExpandAsync();
+            UpdateActiveState();
+            StateHasChanged();
+            _ = AnimateCurrentStateAsync();
         }
-
-        UpdateActiveState();
+        else
+        {
+            UpdateActiveState();
+            StateHasChanged();
+        }
     }
 
     /// <summary>
@@ -132,6 +215,15 @@ public partial class FluentNavCategory : FluentComponentBase, INavItem
     internal bool HasActiveSubitem()
     {
         return _subitems.Exists(item => item.Active);
+    }
+
+    /// <summary>
+    /// Gets the effective expanded state - returns the manual expansion state.
+    /// </summary>
+    /// <returns>True if the category should be considered expanded; otherwise, false.</returns>
+    internal bool IsEffectivelyExpanded()
+    {
+        return Expanded;
     }
 
     /// <summary>
@@ -154,12 +246,27 @@ public partial class FluentNavCategory : FluentComponentBase, INavItem
     }
 
     /// <summary>
-    /// Invokes the JavaScript expansion with UseSingleExpanded logic.
-    /// This is fire-and-forget as it's triggered by navigation and doesn't need to block.
+    /// Animates the category group to match the current Expanded state.
+    /// Pure animation - no state changes.
     /// </summary>
-    private async Task InvokeExpandAsync()
+    private async Task AnimateCurrentStateAsync()
     {
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.NavCategory.ExpandCategory", Id, Owner.UseSingleExpanded);
+        try
+        {
+            var groupId = $"{Id}-group";
+            if (Expanded)
+            {
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.AnimateExpand", groupId);
+            }
+            else
+            {
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.AnimateCollapse", groupId);
+            }
+        }
+        catch
+        {
+            // JS might not be loaded yet
+        }
     }
 
     /// <summary>
@@ -167,7 +274,7 @@ public partial class FluentNavCategory : FluentComponentBase, INavItem
     /// </summary>
     private void UpdateActiveState()
     {
-        // Only show active state when category is collapsed and has an active subitem
+        // Only show active state when category is NOT expanded and has an active subitem
         _isActive = !Expanded && HasActiveSubitem();
     }
 }

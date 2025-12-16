@@ -9,7 +9,21 @@
   display: flex;
   height: 100%;
   min-width: var(--nav-width);
+  transition: transform 0.2s cubic-bezier(0.33, 0, 0.67, 1),
+              opacity 0.2s cubic-bezier(0.33, 0, 0.67, 1);
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
 }
+
+  .fluent-nav-container.collapsed {
+    transform: translate3d(calc(var(--nav-width) * -1), 0, 0);
+    opacity: 0;
+  }
+
+  /* RTL support for collapsed state */
+  [dir="rtl"] .fluent-nav-container.collapsed {
+    transform: translate3d(var(--nav-width), 0, 0);
+  }
 
 .fluent-nav {
   font-family: var(--fontFamilyBase);
@@ -37,44 +51,41 @@
   transform: translate3d(0px, 0px, 0px);
 }
 
-.fluent-nav > .header {
+  .fluent-nav > .header {
+    color: var(--colorNeutralForeground1);
+    width: 100%;
+    max-width: 100%;
+    padding: var(--spacingVerticalXXL) var(--spacingHorizontalXXL) var(--spacingVerticalS);
+    gap: var(--spacingHorizontalS);
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+    margin: unset;
+    padding-block: 5px;
+    padding-inline-start: 14px;
+  }
 
-  color: var(--colorNeutralForeground1);
-  width: 100%;
-  max-width: 100%;
-  padding: var(--spacingVerticalXXL) var(--spacingHorizontalXXL) var(--spacingVerticalS);
-  gap: var(--spacingHorizontalS);
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 2;
-  margin: unset;
-  padding-block: 5px;
-  padding-inline-start: 14px;
-}
-
-.fluent-nav > .body {
-
-  color: var(--colorNeutralForeground1);
-  flex: 1 1 0%;
-  align-self: stretch;
-  position: relative;
-  z-index: 1;
-  overflow: auto;
-  padding: 0 var(--spacingHorizontalXS) 0 var(--spacingHorizontalMNudge);
-  flex-direction: column;
-  display: flex;
-  align-items: unset;
-  row-gap: var(--spacingVerticalXXS);
-  padding-bottom: calc(var(--spacingHorizontalXXL) + 1px);
-}
-
-  .fluent-nav-body:last-child {
+  .fluent-nav > .body {
+    color: var(--colorNeutralForeground1);
+    flex: 1 1 0%;
+    align-self: stretch;
+    position: relative;
+    z-index: 1;
+    overflow: auto;
+    padding: 0 var(--spacingHorizontalXS) 0 var(--spacingHorizontalMNudge);
+    flex-direction: column;
+    display: flex;
+    align-items: unset;
+    row-gap: var(--spacingVerticalXXS);
     padding-bottom: calc(var(--spacingHorizontalXXL) + 1px);
   }
 
+.fluent-nav-body:last-child {
+  padding-bottom: calc(var(--spacingHorizontalXXL) + 1px);
+}
 
 .fluent-nav .appitem {
   display: flex;
@@ -93,41 +104,31 @@
   transition-property: background;
   gap: 10px;
   padding: var(--spacingVerticalS) var(--spacingHorizontalS) var(--spacingVerticalS) var(--spacingHorizontalMNudge);
-
   line-height: var(--lineHeightBase400);
   font-size: var(--fontSizeBase400);
   font-weight: var(--fontWeightSemibold);
   align-items: center;
-
   margin-inline-start: -6px;
   margin-inline-end: 0px;
   background-color: var(--colorNeutralBackground4);
 }
 
-
-
-
   .fluent-nav .appitem:hover {
     background-color: var(--colorNeutralBackground4Hover);
   }
 
-
-
-f1ayorr4 animation {
-  background-origin: padding-box;
-  background-position-x: 0%;
-  background-position-y: 0%;
-  background-repeat: repeat;
-  background-size: auto;
-  background-attachment: scroll;
-  background-clip: border-box;
-  background-color: rgb(15, 108, 189);
-  background-image: none;
+@keyframes f1ayorr4 {
+  0% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: var(--colorCompoundBrandForeground1);
+  }
 }
 
-
 .fluent-nav .fluent-navitem.active::after,
-.fluent-nav .fluent-navsubitem.active::after {
+.fluent-nav .fluent-navsubitem.active::after,
+.fluent-nav .fluent-navcategoryitem.active::after {
   width: 4px;
   height: 20px;
   background-color: var(--colorCompoundBrandForeground1);
@@ -140,21 +141,6 @@ f1ayorr4 animation {
   position: absolute;
   border-radius: var(--borderRadiusCircular);
 }
-
-.fluent-nav .fluent-navcategoryitem.active::before
- {
-  width: 4px;
-  height: 20px;
-  background-color: var(--colorCompoundBrandForeground1);
-  margin-inline-start: -16px;
-  animation-name: f1ayorr4;
-  animation-timing-function: var(--curveLinear);
-  animation-fill-mode: both;
-  animation-duration: var(--durationFaster);
-  content: "";
-  border-radius: var(--borderRadiusCircular);
-}
-
 
 .fluent-nav .fluent-navsubitem.active::after {
   margin-inline-start: -52px;

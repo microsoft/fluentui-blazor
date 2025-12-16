@@ -38,11 +38,14 @@ public partial class FluentNav : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
     internal bool _navOpen = true;
+    private readonly List<FluentNavCategory> _categories = [];
+    private bool _previousUseSingleExpanded;
 
     /// <summary />
     public FluentNav(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
+        _previousUseSingleExpanded = UseSingleExpanded;
     }
 
     /// <summary />
@@ -118,6 +121,27 @@ public partial class FluentNav : FluentComponentBase
     public EventCallback<bool> OnToggleNav { get; set; }
 
     /// <summary />
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        // If UseSingleExpanded changed from false to true, collapse all but the first expanded category
+        if (UseSingleExpanded && !_previousUseSingleExpanded)
+        {
+            var expandedCategories = _categories.Where(c => c.Expanded).Skip(1).ToList();
+            if (expandedCategories.Any())
+            {
+                foreach (var category in expandedCategories)
+                {
+                    await category.SetExpandedAsync(false);
+                }
+            }
+        }
+
+        _previousUseSingleExpanded = UseSingleExpanded;
+    }
+
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -140,5 +164,102 @@ public partial class FluentNav : FluentComponentBase
         {
             await OnToggleNav.InvokeAsync(_navOpen);
         }
+    }
+
+    /// <summary>
+    /// Expands a specific category by its ID.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category to expand.</param>
+    public async Task ExpandCategoryAsync(string categoryId)
+    {
+        var category = _categories.FirstOrDefault(c => string.Equals(c.Id, categoryId, StringComparison.OrdinalIgnoreCase));
+        if (category != null)
+        {
+            // If single expand mode, collapse other categories first
+            if (UseSingleExpanded)
+            {
+                foreach (var otherCategory in _categories)
+                {
+                    if (otherCategory != category && otherCategory.Expanded)
+                    {
+                        await otherCategory.SetExpandedAsync(expanded: false);
+                    }
+                }
+            }
+
+            await category.SetExpandedAsync(expanded: true);
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// Collapses a specific category by its ID.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category to collapse.</param>
+    public async Task CollapseCategoryAsync(string categoryId)
+    {
+        var category = _categories.FirstOrDefault(c => string.Equals(c.Id, categoryId, StringComparison.OrdinalIgnoreCase));
+        if (category != null)
+        {
+            await category.SetExpandedAsync(expanded: false);
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// Collapses all categories in the navigation menu.
+    /// </summary>
+    public async Task CollapseAllCategoriesAsync()
+    {
+        // Update all category states and animate
+        foreach (var category in _categories)
+        {
+            await category.SetExpandedAsync(expanded: false);
+        }
+
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// Expands all categories in the navigation menu.
+    /// When <see cref="UseSingleExpanded" /> is true, only the first category will be expanded.
+    /// </summary>
+    public async Task ExpandAllCategoriesAsync()
+    {
+        foreach (var category in _categories)
+        {
+            await category.SetExpandedAsync(expanded: true);
+            if (UseSingleExpanded)
+            {
+                break; // Only expand the first one if single expanded is enabled
+            }
+        }
+    }
+
+    /// <summary>
+    /// Registers a category with this nav component.
+    /// </summary>
+    internal void RegisterCategory(FluentNavCategory category)
+    {
+        if (!_categories.Contains(category))
+        {
+            _categories.Add(category);
+        }
+    }
+
+    /// <summary>
+    /// Unregisters a category from this nav component.
+    /// </summary>
+    internal void UnregisterCategory(FluentNavCategory category)
+    {
+        _categories.Remove(category);
+    }
+
+    /// <summary>
+    /// Gets all registered categories.
+    /// </summary>
+    internal IEnumerable<FluentNavCategory> GetCategories()
+    {
+        return _categories;
     }
 }

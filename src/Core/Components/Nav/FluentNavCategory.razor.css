@@ -30,17 +30,29 @@
   color: var(--colorNeutralForeground2);
   height: 20px;
   margin-inline-start: auto;
+  transition: transform 0.2s ease;
 }
 
+  .fluent-nav .fluent-navcategoryitem > .expand-icon.expanded {
+    transform: rotate(180deg);
+  }
 
+/* Category group container - state controlled by Blazor via 'expanded' class */
 .fluent-nav .fluent-navsubitemgroup {
-  color: var(--colorNeutralForeground1);
+  overflow: hidden;
+  transition: max-height 0.2s ease, opacity 0.2s ease;
   max-height: 0;
   opacity: 0;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
 }
 
- .fluent-nav .fluent-navsubitemgroup:has(.fluent-navsubitem) .fluent-navsubitem {
+  /* Expanded state - Blazor sets this class */
+  .fluent-nav .fluent-navsubitemgroup.expanded {
+    max-height: none;
+    opacity: 1;
+  }
+
+  .fluent-nav .fluent-navsubitemgroup:has(.fluent-navsubitem) .fluent-navsubitem {
     padding-inline-start: 46px;
   }
+
 

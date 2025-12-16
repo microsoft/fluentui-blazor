@@ -4,7 +4,7 @@
 <FluentNav Style="padding-top:10px;"
 		   UseSingleExpanded="false"
 		   AppTitle="Fluent UI Blazor Documentation & demos"
-		   Density="@NavDrawerDensity.Medium">
+		   Density="@NavDrawerDensity.Small">
 
 	<FluentNavItem Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())">Home</FluentNavItem>
 	@foreach (var category in NavItems)
@@ -23,7 +23,7 @@
 			else
 			{
 				<FluentNavCategory Title="@sitePage.Title" Icon="@(GetIconFromName(sitePage.Icon))">
-					<FluentNavSubItem Href="@sitePage.Route" Match="NavLinkMatch.All">Default</FluentNavSubItem>
+					<FluentNavSubItem Href="@sitePage.Route" Match="NavLinkMatch.All">Overview</FluentNavSubItem>
 					@foreach (var subPage in sitePage.Items)
 					{
 						<FluentNavSubItem Href="@subPage.Route">@(subPage.Title)</FluentNavSubItem>

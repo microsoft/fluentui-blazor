@@ -59,7 +59,6 @@
 
   <ItemGroup>
     <TypeScriptCompile Remove="Components\Nav\FluentNav.razor.ts" />
-    <TypeScriptCompile Remove="Components\Nav\FluentNavCategory.razor.ts" />
   </ItemGroup>
 
 

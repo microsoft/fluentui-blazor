@@ -1,7 +1,7 @@
 ﻿@using Bunit.TestDoubles
 @using Xunit
 @using Microsoft.FluentUI.AspNetCore.Components
-@inherits Bunit.TestContext
+@inherits FluentUITestContext
 
 @code {
 	public FluentNavItemTests()
@@ -204,7 +204,7 @@
 	public void FluentNavItem_IsActive_When_Href_Matches_Current_URI()
 	{
 		// Arrange
-		var navMan = Services.GetRequiredService<FakeNavigationManager>();
+		var navMan = Services.GetRequiredService<NavigationManager>();
 		navMan.NavigateTo("https://localhost/test", true);
 
 		var cut = Render(@<FluentNav>
@@ -231,7 +231,7 @@
 
 		// Assert
 		cut.FindComponent<FluentNavItem>().Instance.Dispose();
-		DisposeComponents();
+		cut.Dispose();
 
 		Assert.Equal(0, calledTimes);
 

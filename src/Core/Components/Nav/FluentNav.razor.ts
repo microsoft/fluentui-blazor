@@ -1,5 +1,6 @@
 export namespace Microsoft.FluentUI.Blazor.Nav {
 
+  // FluentNav panel toggle
   export function ToggleNav(id: string, expanded: boolean): void {
     const navContainer = document.getElementById(id)?.parentElement as HTMLElement;
 
@@ -7,84 +8,94 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
       return;
 
     if (expanded) {
-      collapse(navContainer);
+      collapseNav(navContainer);
     } else {
-      expand(navContainer);
+      expandNav(navContainer);
     }
   }
 
+  // Pure animation functions - Blazor owns all state
+  // These functions only animate based on the element ID passed from Blazor
+  
+  /**
+   * Animates expansion of a category group element.
+   * Blazor has already set the 'expanded' class - this just animates the transition.
+   */
+  export function AnimateExpand(groupId: string): void {
+    const group = document.getElementById(groupId) as HTMLElement;
+    if (!group) return;
 
-  // Animation helpers
-  function getPositionTransform(position: 'start' | 'end', sizeVar: string, dir: 'ltr' | 'rtl'): string {
-    const leftToRightTransform = `translate3d(var(${sizeVar}), 0, 0)`;
-    const rightToLeftTransform = `translate3d(calc(var(${sizeVar}) * -1), 0, 0)`;
+    const height = group.scrollHeight;
+    
+    // Start from collapsed state
+    group.style.maxHeight = '0px';
+    group.style.opacity = '0';
 
-    if (position === 'start') {
-      return dir === 'ltr' ? rightToLeftTransform : leftToRightTransform;
-    }
-    if (position === 'end') {
-      return dir === 'ltr' ? leftToRightTransform : rightToLeftTransform;
-    }
-    return 'translate3d(0, 0, 0)';
+    // Force a reflow to ensure the starting state is applied
+    void group.offsetHeight;
+
+    // Animate to expanded state
+    requestAnimationFrame(() => {
+      group.style.maxHeight = `${height}px`;
+      group.style.opacity = '1';
+    });
+
+    // Remove maxHeight constraint after animation completes to allow dynamic content
+    group.addEventListener('transitionend', (e) => {
+      if (e.propertyName === 'max-height' && group.classList.contains('expanded')) {
+        group.style.maxHeight = 'none';
+      }
+    }, { once: true });
   }
 
-  function animateNav(element: HTMLElement, position: 'start' | 'end', sizeVar: string, dir: 'ltr' | 'rtl', show: boolean): Animation {
-    const keyframes = show
-      ? [
-          { transform: getPositionTransform(position, sizeVar, dir), opacity: 0 },
-          { transform: 'translate3d(0, 0, 0)', opacity: 1 }
-        ]
-      : [
-          { transform: 'translate3d(0, 0, 0)', opacity: 1 },
-          { transform: getPositionTransform(position, sizeVar, dir), opacity: 0 }
-        ];
-    return element.animate(keyframes, {
-      duration: 300,
-      easing: 'cubic-bezier(0.33, 0, 0.67, 1)'
+  /**
+   * Animates collapse of a category group element.
+   * Blazor has already removed the 'expanded' class - this just animates the transition.
+   */
+  export function AnimateCollapse(groupId: string): void {
+    const group = document.getElementById(groupId) as HTMLElement;
+    if (!group) return;
+
+    const height = group.scrollHeight;
+
+    // Set to actual height first to enable transition
+    group.style.maxHeight = `${height}px`;
+    group.style.opacity = '1';
+
+    // Force a reflow to ensure the starting state is applied
+    void group.offsetHeight;
+
+    // Animate to collapsed state
+    requestAnimationFrame(() => {
+      group.style.maxHeight = '0px';
+      group.style.opacity = '0';
     });
   }
 
-  function expand(element: HTMLElement): void {
+  // Nav panel animation helpers using CSS transitions
+  function expandNav(element: HTMLElement): void {
     // Make element visible before animating
     element.style.display = '';
-    // Detect direction (LTR or RTL)
-    const dir = getComputedStyle(element).direction || document.dir || "ltr";
-    // Use CSS variable for nav size, fallback to 260px if not set
-    const sizeVar = '--nav-width';
-    const sizeValue = getComputedStyle(element).getPropertyValue(sizeVar) || '260px';
-    // Assume position 'start' for nav, can be parameterized if needed
-    const position: 'start' | 'end' = 'start';
 
-    // Set the CSS variable for animation
-    element.style.setProperty(sizeVar, sizeValue);
+    element.classList.remove('collapsed');
 
-    // Animate in
-    const animation = animateNav(element, position, sizeVar, dir as 'ltr' | 'rtl', true);
-    animation.onfinish = () => {
-      element.classList.add('expanded');
-      element.style.transform = '';
-      element.style.opacity = '1';
-      //element.style.boxShadow = '0 4px 24px 0 rgba(0,0,0,0.12)';
-    };
+    // Force a reflow to ensure the starting state is applied
+    void element.offsetHeight;
   }
 
-  function collapse(element: HTMLElement): void {
-    const dir = getComputedStyle(element).direction || document.dir || "ltr";
-    const sizeVar = '--nav-width';
-    const sizeValue = getComputedStyle(element).getPropertyValue(sizeVar) || '260px';
-    const position: 'start' | 'end' = 'start';
+  function collapseNav(element: HTMLElement): void {
+    element.classList.add('collapsed');
 
-    element.style.setProperty(sizeVar, sizeValue);
+    // Force a reflow to ensure the starting state is applied
+    void element.offsetHeight;
 
-    // Animate out
-    const animation = animateNav(element, position, sizeVar, dir as 'ltr' | 'rtl', false);
-    animation.onfinish = () => {
-      element.classList.remove('expanded');
-      element.style.transform = '';
-      element.style.opacity = '0';
-      //element.style.boxShadow = '';
-      element.style.display = 'none'; // Hide after animation
-    };
+    // Hide after animation completes
+    // Only respond to transform to avoid double-firing (opacity also transitions)
+    element.addEventListener('transitionend', (e) => {
+      if (e.propertyName === 'transform') {
+        element.style.display = 'none';
+      }
+    }, { once: true });
   }
 
 }

@@ -1,6 +1,6 @@
 ---
 title: AnchorButton
-route: /Button/AnchorButton 
+route: /Buttons/AnchorButton 
 ---
 
 # AnchorButton
