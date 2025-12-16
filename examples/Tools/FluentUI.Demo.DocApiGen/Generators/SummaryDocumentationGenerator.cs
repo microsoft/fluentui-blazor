@@ -35,10 +35,7 @@ public sealed class SummaryDocumentationGenerator : DocumentationGeneratorBase
     /// <inheritdoc/>
     public override string Generate(IOutputFormatter formatter)
     {
-        if (formatter == null)
-        {
-            throw new ArgumentNullException(nameof(formatter));
-        }
+        ArgumentNullException.ThrowIfNull(formatter);
 
         var data = BuildDocumentationData();
         return formatter.Format(data);
@@ -124,13 +121,13 @@ public sealed class SummaryDocumentationGenerator : DocumentationGeneratorBase
     private (string Version, string Date) GetAssemblyInfo()
     {
         var version = "Unknown";
-        
+
         var versionAttribute = Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
         if (versionAttribute != null)
         {
             var versionString = versionAttribute.InformationalVersion;
             var plusIndex = versionString.IndexOf('+');
-            
+
             if (plusIndex >= 0 && plusIndex + 9 < versionString.Length)
             {
                 version = versionString[..(plusIndex + 9)];
@@ -142,7 +139,7 @@ public sealed class SummaryDocumentationGenerator : DocumentationGeneratorBase
         }
 
         var date = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-        
+
         return (version, date);
     }
 }

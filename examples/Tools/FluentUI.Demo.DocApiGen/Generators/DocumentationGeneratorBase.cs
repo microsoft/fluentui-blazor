@@ -52,10 +52,7 @@ public abstract class DocumentationGeneratorBase : IDocumentationGenerator
             throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
         }
 
-        if (formatter == null)
-        {
-            throw new ArgumentNullException(nameof(formatter));
-        }
+        ArgumentNullException.ThrowIfNull(formatter);
 
         var output = Generate(formatter);
 

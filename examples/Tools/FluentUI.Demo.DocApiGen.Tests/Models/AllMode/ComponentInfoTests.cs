@@ -34,10 +34,11 @@ public class ComponentInfoTests
     public void Name_ShouldBeSettable()
     {
         // Arrange
-        var component = new ComponentInfo();
-
-        // Act
-        component.Name = "FluentButton";
+        var component = new ComponentInfo
+        {
+            // Act
+            Name = "FluentButton"
+        };
 
         // Assert
         Assert.Equal("FluentButton", component.Name);
@@ -47,10 +48,11 @@ public class ComponentInfoTests
     public void FullName_ShouldBeSettable()
     {
         // Arrange
-        var component = new ComponentInfo();
-
-        // Act
-        component.FullName = "Microsoft.FluentUI.AspNetCore.Components.FluentButton";
+        var component = new ComponentInfo
+        {
+            // Act
+            FullName = "Microsoft.FluentUI.AspNetCore.Components.FluentButton"
+        };
 
         // Assert
         Assert.Equal("Microsoft.FluentUI.AspNetCore.Components.FluentButton", component.FullName);
@@ -60,10 +62,11 @@ public class ComponentInfoTests
     public void Summary_ShouldBeSettable()
     {
         // Arrange
-        var component = new ComponentInfo();
-
-        // Act
-        component.Summary = "A button component";
+        var component = new ComponentInfo
+        {
+            // Act
+            Summary = "A button component"
+        };
 
         // Assert
         Assert.Equal("A button component", component.Summary);
@@ -73,10 +76,11 @@ public class ComponentInfoTests
     public void Category_ShouldBeSettable()
     {
         // Arrange
-        var component = new ComponentInfo();
-
-        // Act
-        component.Category = "Forms";
+        var component = new ComponentInfo
+        {
+            // Act
+            Category = "Forms"
+        };
 
         // Assert
         Assert.Equal("Forms", component.Category);
@@ -86,10 +90,11 @@ public class ComponentInfoTests
     public void IsGeneric_ShouldBeSettable()
     {
         // Arrange
-        var component = new ComponentInfo();
-
-        // Act
-        component.IsGeneric = true;
+        var component = new ComponentInfo
+        {
+            // Act
+            IsGeneric = true
+        };
 
         // Assert
         Assert.True(component.IsGeneric);
@@ -112,10 +117,11 @@ public class ComponentInfoTests
     public void BaseClass_ShouldBeSettableToValue()
     {
         // Arrange
-        var component = new ComponentInfo();
-
-        // Act
-        component.BaseClass = "FluentComponentBase";
+        var component = new ComponentInfo
+        {
+            // Act
+            BaseClass = "FluentComponentBase"
+        };
 
         // Assert
         Assert.Equal("FluentComponentBase", component.BaseClass);

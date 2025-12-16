@@ -36,10 +36,7 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
     /// <inheritdoc/>
     public override string Generate(IOutputFormatter formatter)
     {
-        if (formatter == null)
-        {
-            throw new ArgumentNullException(nameof(formatter));
-        }
+        ArgumentNullException.ThrowIfNull(formatter);
 
         if (formatter.FormatName != "json")
         {

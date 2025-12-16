@@ -57,5 +57,3 @@ The tool supports different JSON formats depending on the generation mode:
    - CamelCase property names
    - Full type names with namespaces
    - Includes properties, methods, events, and enums
-
-See [GENERATION_MODES.md](GENERATION_MODES.md) for detailed documentation about generation modes and formats.

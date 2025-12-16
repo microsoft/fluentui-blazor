@@ -20,10 +20,7 @@ public class CSharpOutputFormatter : IOutputFormatter
     /// <inheritdoc/>
     public string Format(object data)
     {
-        if (data == null)
-        {
-            throw new ArgumentNullException(nameof(data));
-        }
+        ArgumentNullException.ThrowIfNull(data);
 
         if (data is not SummaryDocumentationData summaryData)
         {
@@ -84,7 +81,7 @@ public class CSharpOutputFormatter : IOutputFormatter
             var key = EscapeString(entry.Key);
             var summary = EscapeString(entry.Value.Summary);
             var signature = EscapeString(entry.Value.Signature);
-            
+
 #pragma warning disable CA1305 // Specify IFormatProvider
             sb.AppendLine($"        {{ \"{key}\", (\"{summary}\", \"{signature}\") }},");
 #pragma warning restore CA1305 // Specify IFormatProvider

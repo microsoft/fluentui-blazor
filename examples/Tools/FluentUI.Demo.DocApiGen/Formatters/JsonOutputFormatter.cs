@@ -36,10 +36,7 @@ public class JsonOutputFormatter : IOutputFormatter
     /// <inheritdoc/>
     public string Format(object data)
     {
-        if (data == null)
-        {
-            throw new ArgumentNullException(nameof(data));
-        }
+        ArgumentNullException.ThrowIfNull(data);
 
         // Si c'est un SummaryDocumentationData et qu'on veut le format compact (Summary mode standard)
         if (_useCompactFormat && data is SummaryDocumentationData summaryData)
@@ -82,9 +79,11 @@ public class JsonOutputFormatter : IOutputFormatter
             // Format de la clé: "Namespace.TypeName.__summary__" ou "Namespace.TypeName.MemberName"
             var fullKey = kvp.Key;
             var lastDotIndex = fullKey.LastIndexOf('.');
-            
+
             if (lastDotIndex == -1)
+            {
                 continue;
+            }
 
             var beforeLastDot = fullKey[..lastDotIndex];
             var memberName = fullKey[(lastDotIndex + 1)..];
@@ -95,7 +94,7 @@ public class JsonOutputFormatter : IOutputFormatter
 
             if (!componentsByType.TryGetValue(typeName, out var members))
             {
-                members = new Dictionary<string, string>();
+                members = [];
                 componentsByType[typeName] = members;
             }
 
@@ -109,14 +108,14 @@ public class JsonOutputFormatter : IOutputFormatter
             sb.AppendLine(CultureInfo.InvariantCulture, $"  \"{EscapeJson(typeEntry.Key)}\": {{");
 
             var membersList = typeEntry.Value.OrderBy(x => x.Key).ToList();
-            for (int i = 0; i < membersList.Count; i++)
+            for (var i = 0; i < membersList.Count; i++)
             {
                 var member = membersList[i];
                 var isLast = i == membersList.Count - 1;
 
                 var escapedValue = EscapeJson(member.Value);
                 sb.Append(CultureInfo.InvariantCulture, $"    \"{EscapeJson(member.Key)}\": \"{escapedValue}\"");
-                
+
                 if (!isLast)
                 {
                     sb.AppendLine(",");

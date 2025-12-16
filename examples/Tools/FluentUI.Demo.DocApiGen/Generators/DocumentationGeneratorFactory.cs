@@ -26,15 +26,9 @@ public static class DocumentationGeneratorFactory
         Assembly assembly,
         FileInfo xmlDocumentation)
     {
-        if (assembly == null)
-        {
-            throw new ArgumentNullException(nameof(assembly));
-        }
+        ArgumentNullException.ThrowIfNull(assembly);
 
-        if (xmlDocumentation == null)
-        {
-            throw new ArgumentNullException(nameof(xmlDocumentation));
-        }
+        ArgumentNullException.ThrowIfNull(xmlDocumentation);
 
         return mode switch
         {
