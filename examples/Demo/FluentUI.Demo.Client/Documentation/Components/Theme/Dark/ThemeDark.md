@@ -11,6 +11,8 @@ This theme is designed to provide a visually appealing and comfortable user expe
 You can easily switch between light and dark themes using the provided JavaScript functions: 
 `Blazor.theme.setDarkTheme` and `Blazor.theme.setLightTheme`.
 
+> [!TIP] See to the section **Code snippets** at the bottom of this page for ready-to-use code examples.
+
 ## Example
 
 ```csharp
@@ -91,3 +93,23 @@ Or to automatically switch themes based on system preferences.
     });
 </script>
 ```
+
+## Code snippets
+
+In this example, two buttons are created that allows users to switch between light and dark themes.
+
+1. The first/left example uses two icons:
+    - A **dark icon** (a sun) that is only visible when the light theme is active.
+      The internal CSS class `hidden-if-light` is used to hide the icon when the light theme is active.
+    - A **light icon** (a moon) that is only visible when the dark theme is active.
+      The internal CSS class `hidden-if-dark` is used to hide the icon when the dark theme is active.
+
+2. The second/right example uses the same **DarkTheme icon** but changes its appearance based on the current theme: `Style="transform: rotate(180deg);"`
+
+In these two examples, when the button is **hovered**, the icon color changes to indicate interactivity, using the class `fluent-header-hover`.
+
+When the user clicks the button, the `OnClick` event handler calls the JavaScript function `Blazor.theme.switchTheme` to toggle between light and dark themes.
+(note the use of `@inject IJSRuntime JSRuntime` to invoke JavaScript functions from Blazor).
+The `body data-theme` attribute is automatically updated, and the `themeChanged` event is triggered.
+
+{{ ThemeSnippet }}
