@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A section header for use within a <see cref="FluentNav"/>
 /// </summary>
-public partial class FluentNavSectionHeader : FluentComponentBase, INavItem
+public partial class FluentNavSectionHeader : FluentComponentBase
 {
     /// <summary />
     public FluentNavSectionHeader(LibraryConfiguration configuration) : base(configuration)
@@ -48,10 +48,10 @@ public partial class FluentNavSectionHeader : FluentComponentBase, INavItem
     protected override void OnParametersSet()
     {
         // Validate that this component is used within a FluentNav
-        if (Owner == null || Owner.GetType() != typeof(FluentNav))
+        if (Owner.GetType() != typeof(FluentNav))
         {
             throw new InvalidOperationException(
-                $"{nameof(FluentNavSectionHeader)} must be used as a child of {nameof(FluentNav)}.");
+                $"{nameof(FluentNavSectionHeader)} can only be used as a direct child of {nameof(FluentNav)}.");
         }
     }
 }

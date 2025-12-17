@@ -28,7 +28,7 @@ public partial class FluentNavSubItem : FluentNavItem
     /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
     /// its parent navigation menu.</remarks>
     [CascadingParameter(Name = "Category")]
-    public required FluentNavCategory? Category { get; set; }
+    public required FluentNavCategory Category { get; set; }
 
     /// <summary />
     protected new string? ClassValue => DefaultClassBuilder
@@ -41,11 +41,10 @@ public partial class FluentNavSubItem : FluentNavItem
     /// </summary>
     protected override void OnParametersSet()
     {
-        // Validate that this component is used within a FluentNavCategory inside a FluentNav
-        if (Owner == null || Category is null || Category.GetType() != typeof(FluentNavCategory))
+        if (Category.GetType() != typeof(FluentNavCategory))
         {
             throw new InvalidOperationException(
-                $"{nameof(FluentNavSubItem)} must be used as a child of {nameof(FluentNavCategory)} within a {nameof(FluentNav)}.");
+                $"{nameof(FluentNavSubItem)} can only be used as a direct child of a {nameof(FluentNavCategory)} within a {nameof(FluentNav)}.");
         }
 
         base.OnParametersSet();

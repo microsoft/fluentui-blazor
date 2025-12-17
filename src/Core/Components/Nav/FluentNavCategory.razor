@@ -4,7 +4,7 @@
 
 <CascadingValue Name="Category" Value="this">
 	<button id="@Id"
-			aria-expanded="@IsEffectivelyExpanded().ToString().ToLower()"
+			aria-expanded="@Expanded.ToString().ToLower()"
 			class="@ClassValue"
 			style="@StyleValue"
 			density="@Owner.Density.ToAttributeValue()"
@@ -16,14 +16,14 @@
 			<FluentIcon Value="NavUtils.GetActiveIcon(Icon, _isActive)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
 		}
 		@Title
-		<span aria-hidden="true" class="expand-icon@(IsEffectivelyExpanded() ? " expanded" : "")">
+		<span aria-hidden="true" class="expand-icon@(Expanded ? " expanded" : "")">
 			<FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" />
 		</span>
 	</button>
 	<div id="@($"{Id}-group")"
-		 class="fluent-navsubitemgroup@(IsEffectivelyExpanded() ? " expanded" : "")"
-		 expanded="@IsEffectivelyExpanded()"
-		 aria-hidden="@(!IsEffectivelyExpanded())">
+		 class="fluent-navsubitemgroup@(Expanded ? " expanded" : "")"
+		 expanded="@Expanded"
+		 aria-hidden="@(!Expanded)">
 		@ChildContent
 	</div>
 </CascadingValue>

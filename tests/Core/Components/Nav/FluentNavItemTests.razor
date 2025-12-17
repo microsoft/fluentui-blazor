@@ -1,4 +1,5 @@
 ﻿@using Bunit.TestDoubles
+@using Microsoft.AspNetCore.Components.Authorization
 @using Xunit
 @using Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentUITestContext
@@ -147,15 +148,18 @@
 	}
 
 	[Fact]
-	public void FluentNavItem_Throws_When_Not_Child_Of_NavDrawer()
+	public void FluentNavItem_Throws_When_Not_Child_Of_Nav()
 	{
+		// Arrange - Create a derived FluentNav (which should fail the exact type check)
+		var derivedNav = new DerivedFluentNav(Services.GetRequiredService<LibraryConfiguration>());
+
 		// Arrange & Act & Assert
 		var ex = Assert.Throws<InvalidOperationException>(() =>
 		{
-			Render(@<FluentNavItem Href="https://example.com">Test Item</FluentNavItem>);
+			Render(@<CascadingValue Value="derivedNav"><FluentNavItem Href="https://example.com">Test Item</FluentNavItem></CascadingValue>);
 		});
 
-		Assert.Contains("must be used as a child of", ex.Message);
+		Assert.Contains("can only be used as a direct child of", ex.Message);
 		Assert.Contains("FluentNav", ex.Message);
 	}
 

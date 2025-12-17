@@ -82,23 +82,30 @@
 	        <FluentNavCategory Title="Test Category">
 	            <FluentNavSubItem Href="https://example.com" Disabled="true">Disabled Sub Item</FluentNavSubItem>
 	        </FluentNavCategory>
-	    </FluentNav>);
+	    </FluentNav>
+	);
 
-	    // Assert
-	    Assert.NotNull(cut);
-	    Assert.Contains("disabled", cut.Markup);
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("disabled", cut.Markup);
 	}
 
-    [Fact]
-    public void FluentNavSubItem_Throws_When_Not_Child_Of_Category()
-    {
+	[Fact]
+	public void FluentNavSubItem_Throws_When_Not_Child_Of_Category()
+	{
+		// Arrange - Create a derived FluentNav (which should fail the exact type check)
+		var derivedCategory = new DerivedFluentNavCategory(Services.GetRequiredService<LibraryConfiguration>())
+        {
+            Owner = new DerivedFluentNav(Services.GetRequiredService<LibraryConfiguration>())
+        };
+
         // Arrange & Act & Assert
         var ex = Assert.Throws<InvalidOperationException>(() =>
         {
-            Render(@<FluentNavSubItem Href="https://example.com">Sub Item</FluentNavSubItem>);
+            Render(@<CascadingValue Name="Category" Value="derivedCategory"><FluentNavSubItem Href="https://example.com">Sub Item</FluentNavSubItem></CascadingValue>);
         });
 
-        Assert.Contains("must be used as a child of", ex.Message);
+        Assert.Contains("can only be used as a direct child of", ex.Message);
         Assert.Contains("FluentNavCategory", ex.Message);
     }
 

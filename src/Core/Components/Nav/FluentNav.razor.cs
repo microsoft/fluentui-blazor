@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
-//using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -19,10 +18,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// into Fluent UI layouts.</para>
 ///
 /// <para><strong>Allowed Child Components:</strong></para>
-/// <para>Only components implementing the <see cref="INavItem"/> interface are allowed as direct children
-/// of FluentNav. Attempting to use other components will result in an <see cref="InvalidOperationException"/>.</para>
-///
-/// <para>Valid direct children include:</para>
 /// <list type="bullet">
 /// <item><description><see cref="FluentNavItem"/> - A simple navigation item</description></item>
 /// <item><description><see cref="FluentNavCategory"/> - A grouped set of navigation items</description></item>
@@ -123,17 +118,15 @@ public partial class FluentNav : FluentComponentBase
     /// <summary />
     protected override async Task OnParametersSetAsync()
     {
-        await base.OnParametersSetAsync();
-
         // If UseSingleExpanded changed from false to true, collapse all but the first expanded category
         if (UseSingleExpanded && !_previousUseSingleExpanded)
         {
             var expandedCategories = _categories.Where(c => c.Expanded).Skip(1).ToList();
-            if (expandedCategories.Any())
+            if (expandedCategories.Count != 0)
             {
                 foreach (var category in expandedCategories)
                 {
-                    await category.SetExpandedAsync(false);
+                    await category.SetExpandedAsync(expanded: false);
                 }
             }
         }
@@ -146,7 +139,6 @@ public partial class FluentNav : FluentComponentBase
     {
         if (firstRender)
         {
-            // Import the JavaScript module
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
         }
     }
@@ -156,9 +148,21 @@ public partial class FluentNav : FluentComponentBase
     /// </summary>
     public async Task ToggleNavAsync()
     {
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.ToggleNav", Id, _navOpen);
-
         _navOpen = !_navOpen;
+        await InvokeAsync(StateHasChanged);
+
+        // Animate the transition
+        if (JSModule.Imported)
+        {
+            if (_navOpen)
+            {
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.AnimateNavOpen", Id);
+            }
+            else
+            {
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.AnimateNavClose", Id);
+            }
+        }
 
         if (OnToggleNav.HasDelegate)
         {
@@ -188,7 +192,7 @@ public partial class FluentNav : FluentComponentBase
             }
 
             await category.SetExpandedAsync(expanded: true);
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
     }
 
@@ -202,7 +206,7 @@ public partial class FluentNav : FluentComponentBase
         if (category != null)
         {
             await category.SetExpandedAsync(expanded: false);
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
     }
 
@@ -216,8 +220,6 @@ public partial class FluentNav : FluentComponentBase
         {
             await category.SetExpandedAsync(expanded: false);
         }
-
-        StateHasChanged();
     }
 
     /// <summary>

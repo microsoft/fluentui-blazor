@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents a navigation menu item that renders content within a Fluent UI styled navigation link.
 /// </summary>
-public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
+public partial class FluentNavItem : FluentComponentBase, IDisposable
 {
     private const string EnableMatchAllForQueryStringAndFragmentSwitchKey = "Microsoft.AspNetCore.Components.Routing.NavLink.EnableMatchAllForQueryStringAndFragment";
     private string? _hrefAbsolute;
@@ -120,10 +120,10 @@ public partial class FluentNavItem : FluentComponentBase, INavItem, IDisposable
     protected override void OnParametersSet()
     {
         // Validate that this component is used within a FluentNav
-        if (Owner == null || Owner.GetType() != typeof(FluentNav))
+        if (Owner.GetType() != typeof(FluentNav))
         {
             throw new InvalidOperationException(
-                $"{nameof(FluentNavItem)} must be used as a child of {nameof(FluentNav)}.");
+                $"{nameof(FluentNavItem)} can only be used as a direct child of {nameof(FluentNav)}.");
         }
 
         _hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;

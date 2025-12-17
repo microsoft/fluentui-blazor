@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 
 <CascadingValue Value="this" IsFixed="true">
-	<div class="fluent-nav-container"> 
+	<div class="fluent-nav-container@(_navOpen ? "" : " collapsed")"> 
 		<div id="@Id"
 			role="navigation"
 			class="@ClassValue"

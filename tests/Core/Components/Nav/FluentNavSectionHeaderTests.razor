@@ -38,22 +38,18 @@
     }
 
     [Fact]
-    public void FluentNavSectionHeader_Throws_When_Not_Child_Of_NavDrawer()
+    public void FluentNavSectionHeader_Throws_When_Not_Child_Of_Nav()
     {
+		// Arrange - Create a derived FluentNav (which should fail the exact type check)
+		var derivedNav = new DerivedFluentNav(Services.GetRequiredService<LibraryConfiguration>());
+
         // Arrange & Act & Assert
         var ex = Assert.Throws<InvalidOperationException>(() =>
         {
-            Render(@<FluentNavSectionHeader Title="My Section" />);
+            Render(@<CascadingValue Value="derivedNav"><FluentNavSectionHeader Title="My Section" /></CascadingValue>);
         });
 
-        Assert.Contains("must be used as a child of", ex.Message);
+        Assert.Contains("can only be used as a direct child of", ex.Message);
         Assert.Contains("FluentNav", ex.Message);
-    }
-
-    [Fact]
-    public void FluentNavSectionHeader_Implements_INavDrawerItem_Interface()
-    {
-        // Arrange & Act & Assert
-        Assert.True(typeof(INavItem).IsAssignableFrom(typeof(FluentNavSectionHeader)));
     }
 }
