@@ -27,7 +27,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 ///
 /// <para><strong>Nested Navigation:</strong></para>
 /// <para><see cref="FluentNavSubItem"/> components can only be used as direct children of <see cref="FluentNavCategory"/>,
-/// not directly in the drawer.</para>
+/// not directly in the navigation.</para>
 /// </remarks>
 public partial class FluentNav : FluentComponentBase
 {
@@ -92,7 +92,7 @@ public partial class FluentNav : FluentComponentBase
     public bool UseIcons { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets wether to allowjust one expanded category or multiple
+    /// Gets or sets wether to allow just one expanded category or multiple
     /// </summary>
     [Parameter]
     public bool UseSingleExpanded { get; set; } = true;
@@ -118,16 +118,12 @@ public partial class FluentNav : FluentComponentBase
     /// <summary />
     protected override async Task OnParametersSetAsync()
     {
-        // If UseSingleExpanded changed from false to true, collapse all but the first expanded category
         if (UseSingleExpanded && !_previousUseSingleExpanded)
         {
             var expandedCategories = _categories.Where(c => c.Expanded).Skip(1).ToList();
-            if (expandedCategories.Count != 0)
+            foreach (var category in expandedCategories)
             {
-                foreach (var category in expandedCategories)
-                {
-                    await category.SetExpandedAsync(expanded: false);
-                }
+                await category.SetExpandedAsync(expanded: false);
             }
         }
 
@@ -179,15 +175,12 @@ public partial class FluentNav : FluentComponentBase
         var category = _categories.FirstOrDefault(c => string.Equals(c.Id, categoryId, StringComparison.OrdinalIgnoreCase));
         if (category != null)
         {
-            // If single expand mode, collapse other categories first
             if (UseSingleExpanded)
             {
-                foreach (var otherCategory in _categories)
+                var expandedCategories = _categories.Where(c => c != category && c.Expanded).ToList();
+                foreach (var otherCategory in expandedCategories)
                 {
-                    if (otherCategory != category && otherCategory.Expanded)
-                    {
-                        await otherCategory.SetExpandedAsync(expanded: false);
-                    }
+                    await otherCategory.SetExpandedAsync(expanded: false);
                 }
             }
 
@@ -233,7 +226,7 @@ public partial class FluentNav : FluentComponentBase
             await category.SetExpandedAsync(expanded: true);
             if (UseSingleExpanded)
             {
-                break; // Only expand the first one if single expanded is enabled
+                break; // Only expand the first category if single expanded is enabled
             }
         }
     }

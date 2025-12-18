@@ -122,7 +122,6 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
         {
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
-            // Ensure category is expanded when any subitem is active on initial load
             if (HasActiveSubitem() && !Expanded && !_hasBeenManuallyCollapsed)
             {
                 Expanded = true;
@@ -133,7 +132,6 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
 
     internal async Task SetExpandedAsync(bool expanded)
     {
-        // Clear the manual collapse flag when programmatically setting the expanded state
         _hasBeenManuallyCollapsed = false;
 
         if (Expanded == expanded)
@@ -160,7 +158,6 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
             }
         }
 
-        // Check the state AFTER toggle will occur
         if (Expanded && HasActiveSubitem())
         {
             _hasBeenManuallyCollapsed = true;
@@ -216,6 +213,7 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     {
         _subitems.Remove(subitem);
     }
+
     private async Task UpdateExpandedStateAsync(bool expanded)
     {
         Expanded = expanded;

@@ -4,7 +4,6 @@
 
 .fluent-nav-container {
   color: var(--colorNeutralForeground1);
-  line-height: var(--lineHeightBase300);
   overflow: hidden;
   display: flex;
   height: 100%;
@@ -26,10 +25,6 @@
   }
 
 .fluent-nav {
-  font-family: var(--fontFamilyBase);
-  font-size: var(--fontSizeBase300);
-  font-weight: var(--fontWeightRegular);
-  line-height: var(--lineHeightBase300);
   overflow: hidden;
   max-width: 100vw;
   height: auto;
@@ -52,7 +47,6 @@
 }
 
   .fluent-nav > .header {
-    color: var(--colorNeutralForeground1);
     width: 100%;
     max-width: 100%;
     padding: var(--spacingVerticalXXL) var(--spacingHorizontalXXL) var(--spacingVerticalS);
@@ -69,7 +63,6 @@
   }
 
   .fluent-nav > .body {
-    color: var(--colorNeutralForeground1);
     flex: 1 1 0%;
     align-self: stretch;
     position: relative;
@@ -81,6 +74,10 @@
     align-items: unset;
     row-gap: var(--spacingVerticalXXS);
     padding-bottom: calc(var(--spacingHorizontalXXL) + 1px);
+  }
+
+  [dir="rtl"] .fluent-nav > .body {
+    padding: 0 var(--spacingHorizontalMNudge) 0 var(--spacingHorizontalXS);
   }
 
 .fluent-nav-body:last-child {
@@ -110,14 +107,13 @@
   align-items: center;
   margin-inline-start: -6px;
   margin-inline-end: 0px;
-  background-color: var(--colorNeutralBackground4);
 }
 
   .fluent-nav .appitem:hover {
     background-color: var(--colorNeutralBackground4Hover);
   }
 
-@keyframes f1ayorr4 {
+@keyframes animate_bar {
   0% {
     background-color: transparent;
   }
@@ -133,7 +129,7 @@
   height: 20px;
   background-color: var(--colorCompoundBrandForeground1);
   margin-inline-start: -16px;
-  animation-name: f1ayorr4;
+  animation-name: animate_bar;
   animation-timing-function: var(--curveLinear);
   animation-fill-mode: both;
   animation-duration: var(--durationFaster);

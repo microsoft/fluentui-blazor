@@ -13,7 +13,7 @@
 			@attributes="@AdditionalAttributes">
 		@if (Owner.UseIcons && Icon is not null)
 		{
-			<FluentIcon Value="NavUtils.GetActiveIcon(Icon, _isActive)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
+			<FluentIcon Value="NavUtils.GetActiveIcon(Icon, _isActive)" Class="icon" Color="@(_isActive ? Color.Primary : Color.Default)" />
 		}
 		@Title
 		<span aria-hidden="true" class="expand-icon@(Expanded ? " expanded" : "")">

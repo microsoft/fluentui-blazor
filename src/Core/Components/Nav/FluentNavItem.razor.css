@@ -6,22 +6,16 @@
   align-items: flex-start;
   text-align: left;
   gap: var(--spacingVerticalL);
-  padding: var(--spacingVerticalMNudge) var(--spacingHorizontalS) var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge);
-  background-color: var(--colorNeutralBackground4);
+  padding: var(--spacingVerticalMNudge) var(--spacingHorizontalS) var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge); 
   border-radius: var(--borderRadiusMedium);
   color: var(--colorNeutralForeground2);
   text-decoration-line: none;
   border: none;
-  box-sizing: border-box;
   cursor: pointer;
   transition-duration: var(--durationFaster);
   transition-timing-function: var(--curveLinear);
   transition-property: background;
   width: 100%;
-  font-family: var(--fontFamilyBase);
-  font-size: var(--fontSizeBase300);
-  font-weight: var(--fontWeightRegular);
-  line-height: var(--lineHeightBase300);
 }
 
   .fluent-nav .fluent-navitem[density="small"] {
@@ -32,4 +26,8 @@
     background-color: var(--colorNeutralBackground4Hover);
   }
 
+[dir="rtl"] .fluent-nav .fluent-navitem {
+  text-align: right;
+  padding: var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge) var(--spacingVerticalMNudge) var(--spacingHorizontalS);
+}
 

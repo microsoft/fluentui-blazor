@@ -8,21 +8,15 @@
   text-align: left;
   gap: var(--spacingVerticalL);
   padding: var(--spacingVerticalMNudge) var(--spacingHorizontalS) var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge);
-  background-color: var(--colorNeutralBackground4);
   border-radius: var(--borderRadiusMedium);
   color: var(--colorNeutralForeground2);
   text-decoration-line: none;
   border: none;
-  box-sizing: border-box;
   cursor: pointer;
   transition-duration: var(--durationFaster);
   transition-timing-function: var(--curveLinear);
   transition-property: background;
   width: 100%;
-  font-family: var(--fontFamilyBase);
-  font-size: var(--fontSizeBase300);
-  font-weight: var(--fontWeightRegular);
-  line-height: var(--lineHeightBase300);
 }
 
   .fluent-nav .fluent-navsubitem[density="small"] {
@@ -32,3 +26,8 @@
   .fluent-nav .fluent-navsubitem:hover {
     background-color: var(--colorNeutralBackground4Hover);
   }
+
+[dir="rtl"] .fluent-nav .fluent-navsubitem {
+  text-align: right;
+  padding: var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge) var(--spacingVerticalMNudge) var(--spacingHorizontalS);
+}

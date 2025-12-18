@@ -47,7 +47,6 @@ public partial class FluentNavSectionHeader : FluentComponentBase
     /// </summary>
     protected override void OnParametersSet()
     {
-        // Validate that this component is used within a FluentNav
         if (Owner.GetType() != typeof(FluentNav))
         {
             throw new InvalidOperationException(

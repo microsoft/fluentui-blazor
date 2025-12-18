@@ -37,7 +37,10 @@
     transform: rotate(180deg);
   }
 
-/* Category group container - state controlled by Blazor via 'expanded' class */
+  [dir="rtl"] .fluent-nav .fluent-navcategoryitem > .expand-icon.expanded {
+    transform: rotate(-180deg);
+  }
+
 .fluent-nav .fluent-navsubitemgroup {
   overflow: hidden;
   transition: max-height 0.2s ease, opacity 0.2s ease;
@@ -45,7 +48,6 @@
   opacity: 0;
 }
 
-  /* Expanded state - Blazor sets this class */
   .fluent-nav .fluent-navsubitemgroup.expanded {
     max-height: none;
     opacity: 1;
@@ -54,5 +56,3 @@
   .fluent-nav .fluent-navsubitemgroup:has(.fluent-navsubitem) .fluent-navsubitem {
     padding-inline-start: 46px;
   }
-
-

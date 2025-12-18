@@ -16,18 +16,7 @@
 			 ActiveClass="@ActiveClass"
 			 Match="@Match"
 			 @attributes="@AdditionalAttributes">
-		@if (Owner.UseIcons)
-		{
-			@if (Icon is not null)
-			{
-				<FluentIcon Value="NavUtils.GetActiveIcon(Icon, _isActive)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
-			}
-			else
-			{
-				<span style="width: 20px;"></span>
-			}
-
-		}
+		@RenderIcon
 		@ChildContent
 	</NavLink>
 }
@@ -44,9 +33,17 @@ else
 			rel="@(!string.IsNullOrWhiteSpace(Target) ? "noopener noreferrer" : string.Empty)"
 			@onclick="OnClickHandlerAsync"
 			@attributes="@AdditionalAttributes">
-		@if (Owner.UseIcons)
+		@RenderIcon
+		@ChildContent
+	</button>
+}
+
+@code {
+	private RenderFragment RenderIcon => __builder =>
+	{
+		if (Owner.UseIcons)
 		{
-			@if (Icon is not null)
+			if (Icon is not null)
 			{
 				<FluentIcon Value="NavUtils.GetActiveIcon(Icon, _isActive)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
 			}
@@ -54,8 +51,6 @@ else
 			{
 				<span style="width: 20px;"></span>
 			}
-
 		}
-		@ChildContent
-	</button>
+	};
 }
