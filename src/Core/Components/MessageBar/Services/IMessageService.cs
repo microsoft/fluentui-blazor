@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
@@ -29,6 +31,9 @@ public interface IMessageService : IDisposable
     Message ShowMessageBar(string title, MessageIntent intent, string section);
 
     /// <summary />
+    Message ShowMessageBar(MarkupString title, MessageIntent intent, string section);
+
+    /// <summary />
     Task<Message> ShowMessageBarAsync(Action<MessageOptions> options);
 
     /// <summary />
@@ -39,6 +44,9 @@ public interface IMessageService : IDisposable
 
     /// <summary />
     Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section);
+
+    /// <summary />
+    Task<Message> ShowMessageBarAsync(MarkupString title, MessageIntent intent, string section);
 
     /// <summary />
     void Clear(string? section = null);
