@@ -17,7 +17,16 @@
             <div class="fluent-messagebar-message">
                 @if (!String.IsNullOrEmpty(Title))
                 {
-                    <span class="title">@(Content?.UseMarkupString == true ? (MarkupString)Title : Title)</span>
+                    <span class="title">
+                        @if (Content?.UseMarkupString == true)
+                        {
+                            @((MarkupString)Title)
+                        }
+                        else
+                        {
+                            @Title
+                        }
+                    </span>
                 }
                 @if (ChildContent is not null)
                 {
@@ -25,7 +34,14 @@
                 }
                 else
                 {
-                    @(Content?.UseMarkupString == true ? (MarkupString)Content!.Body! : Content!.Body)
+                    @if (Content?.UseMarkupString == true)
+                    {
+                        @((MarkupString)Content!.Body!)
+                    }
+                    else
+                    {
+                        @(Content!.Body)
+                    }
                 }
                 @if (Link is not null)
                 {
@@ -84,7 +100,14 @@
             @if (!String.IsNullOrEmpty(Title))
             {
                 <div class="fluent-messagebar-notification-message" title="@Title">
-                    @(Content?.UseMarkupString == true ? (MarkupString)(Title) : Title)
+                    @if (Content?.UseMarkupString == true)
+                    {
+                        @((MarkupString)Title)
+                    }
+                    else
+                    {
+                        @Title
+                    }
                 </div>
             }
 
@@ -105,7 +128,14 @@
                 @ChildContent
                 @if (!String.IsNullOrEmpty(Content?.Body))
                 {
-                    @(Content?.UseMarkupString == true ? (MarkupString)Content.Body : Content?.Body)
+                    @if (Content?.UseMarkupString == true)
+                    {
+                        @((MarkupString)Content.Body)
+                    }
+                    else
+                    {
+                        @Content?.Body
+                    }
                 }
                 @if (Link is not null)
                 {
