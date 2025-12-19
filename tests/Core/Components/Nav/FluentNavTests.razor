@@ -235,13 +235,13 @@
 		var useSingleExpanded = false;
 		var cut = Render<FluentNav>(@<FluentNav UseSingleExpanded="@useSingleExpanded">
 			<FluentNavCategory Title="Category 1">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Title="Category 2">
-				<FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Title="Category 3">
-				<FluentNavSubItem Href="/test3">Sub Item 3</FluentNavSubItem>
+				<FluentNavItem Href="/test3">Sub Item 3</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -276,10 +276,10 @@
 		// Arrange - Start with UseSingleExpanded=true
 		var cut = Render<FluentNav>(@<FluentNav UseSingleExpanded="true">
 			<FluentNavCategory Title="Category 1">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Title="Category 2">
-				<FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -306,10 +306,10 @@
 		// Arrange
 		var cut = Render(@<FluentNav>
 			<FluentNavCategory Id="category-1" Title="Category 1">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Id="category-2" Title="Category 2">
-				<FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -336,10 +336,10 @@
 		// Arrange
 		var cut = Render(@<FluentNav UseSingleExpanded="true">
 			<FluentNavCategory Id="category-1" Title="Category 1">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Id="category-2" Title="Category 2">
-				<FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -371,7 +371,7 @@
 		// Arrange
 		var cut = Render(@<FluentNav>
 			<FluentNavCategory Id="Category-1" Title="Category 1">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -394,7 +394,7 @@
 		// Arrange
 		var cut = Render(@<FluentNav>
 			<FluentNavCategory Id="category-1" Title="Category 1">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -418,10 +418,10 @@
 		// Arrange
 		var cut = Render(@<FluentNav>
 			<FluentNavCategory Id="category-1" Title="Category 1">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Id="category-2" Title="Category 2">
-				<FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -452,7 +452,7 @@
 		// Arrange
 		var cut = Render(@<FluentNav>
 			<FluentNavCategory Id="Category-1" Title="Category 1">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -478,7 +478,7 @@
 		// Arrange
 		var cut = Render(@<FluentNav>
 			<FluentNavCategory Id="category-1" Title="Category 1" Expanded="true">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -499,13 +499,13 @@
 		// Arrange
 		var cut = Render(@<FluentNav>
 			<FluentNavCategory Id="category-1" Title="Category 1">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Id="category-2" Title="Category 2">
-				<FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Id="category-3" Title="Category 3">
-				<FluentNavSubItem Href="/test3">Sub Item 3</FluentNavSubItem>
+				<FluentNavItem Href="/test3">Sub Item 3</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -553,13 +553,13 @@
 		// Arrange
 		var cut = Render(@<FluentNav UseSingleExpanded="false">
 			<FluentNavCategory Id="category-1" Title="Category 1" Expanded="false">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Id="category-2" Title="Category 2" Expanded="false">
-				<FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Id="category-3" Title="Category 3" Expanded="false">
-				<FluentNavSubItem Href="/test3">Sub Item 3</FluentNavSubItem>
+				<FluentNavItem Href="/test3">Sub Item 3</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -588,13 +588,13 @@
 		// Arrange
 		var cut = Render(@<FluentNav UseSingleExpanded="true">
 			<FluentNavCategory Id="category-1" Title="Category 1" Expanded="false">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Id="category-2" Title="Category 2" Expanded="false">
-				<FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Id="category-3" Title="Category 3" Expanded="false">
-				<FluentNavSubItem Href="/test3">Sub Item 3</FluentNavSubItem>
+				<FluentNavItem Href="/test3">Sub Item 3</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 
@@ -637,10 +637,10 @@
 		// Arrange
 		var cut = Render(@<FluentNav>
 			<FluentNavCategory Id="category-1" Title="Category 1">
-				<FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
 			</FluentNavCategory>
 			<FluentNavCategory Id="category-2" Title="Category 2">
-				<FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>);
 

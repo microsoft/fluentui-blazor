@@ -240,4 +240,122 @@
 		Assert.Equal(0, calledTimes);
 
 	}
+
+	// Tests for FluentNavItem when used as a subitem (within FluentNavCategory)
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Renders_As_Link_When_Href_Provided()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem Href="https://example.com">Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<a ", cut.Markup);
+		Assert.Contains("href=\"https://example.com\"", cut.Markup);
+		Assert.Contains("Sub Item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Renders_As_Button_When_No_Href_Provided()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem>Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<button", cut.Markup);
+		Assert.Contains("Sub Item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Renders_With_Disabled_State()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem Href="https://example.com" Disabled="true">Disabled Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("disabled", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Renders_With_CustomClass()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem Href="https://example.com" Class="custom-sub-item">Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("custom-sub-item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Renders_With_Small_Density()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav Density="NavDrawerDensity.Small">
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem Href="https://example.com">Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("density=", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Does_Not_Render_Icon()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem Icon="@Samples.Icons.Info">Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>
+	);
+
+		// Assert
+		Assert.NotNull(cut);
+
+		var i = cut.FindComponent<FluentNavItem>();
+		Assert.DoesNotContain("<svg class=\"icon\"", i.Markup);
+		Assert.Contains("Sub Item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Throws_When_Category_Is_Derived_Type()
+	{
+		// Arrange - Create a derived FluentNavCategory (which should fail the exact type check)
+		var derivedCategory = new DerivedFluentNavCategory(Services.GetRequiredService<LibraryConfiguration>())
+		{
+			Owner = new FluentNav(Services.GetRequiredService<LibraryConfiguration>())
+		};
+
+		// Arrange & Act & Assert
+		var ex = Assert.Throws<InvalidOperationException>(() =>
+		{
+			Render(@<CascadingValue Name="Category" Value="derivedCategory"><FluentNav><FluentNavItem Href="https://example.com">Sub Item</FluentNavItem></FluentNav></CascadingValue>);
+		});
+
+		Assert.Contains("can only be used as a direct child of", ex.Message);
+		Assert.Contains("FluentNav", ex.Message);
+	}
 }

@@ -34,7 +34,6 @@ public class ComponentBaseTests : Bunit.BunitContext
     [
         typeof(FluentNavCategory),
         typeof(FluentNavItem),
-        typeof(FluentNavSubItem),
     ];
 
     /// <summary>
@@ -65,8 +64,6 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentNavItem), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
         { typeof(FluentNavCategory), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
         { typeof(FluentNavDivider), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
-        { typeof(FluentNavSubItem), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration()))
-                                      .WithCascadingValue("Category", new FluentNavCategory(new LibraryConfiguration()) { Owner = new FluentNav(new LibraryConfiguration()) }) },
         { typeof(FluentNavSectionHeader), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
 
     };

@@ -42,15 +42,16 @@
   }
 
 .fluent-nav .fluent-navsubitemgroup {
-  overflow: hidden;
   transition: max-height 0.2s ease, opacity 0.2s ease;
   max-height: 0;
   opacity: 0;
+  overflow: hidden;
 }
 
   .fluent-nav .fluent-navsubitemgroup.expanded {
     max-height: none;
     opacity: 1;
+    overflow: visible;
   }
 
   .fluent-nav .fluent-navsubitemgroup:has(.fluent-navsubitem) .fluent-navsubitem {

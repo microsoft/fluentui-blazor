@@ -41,6 +41,11 @@ else
 @code {
 	private RenderFragment RenderIcon => __builder =>
 	{
+		if (_isSubItem)
+		{
+			return;
+		}
+
 		if (Owner.UseIcons)
 		{
 			if (Icon is not null)

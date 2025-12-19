@@ -19,15 +19,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 ///
 /// <para><strong>Allowed Child Components:</strong></para>
 /// <list type="bullet">
-/// <item><description><see cref="FluentNavItem"/> - A simple navigation item</description></item>
+/// <item><description><see cref="FluentNavItem"/> - A simple navigation item. When used as a sub item in a <see cref="FluentNavCategory"/>, no icon will be rendered</description></item>
 /// <item><description><see cref="FluentNavCategory"/> - A grouped set of navigation items</description></item>
 /// <item><description><see cref="FluentNavSectionHeader"/> - A section header to organize navigation</description></item>
 /// <item><description><see cref="FluentNavDivider"/> - A visual divider between sections</description></item>
 /// </list>
-///
-/// <para><strong>Nested Navigation:</strong></para>
-/// <para><see cref="FluentNavSubItem"/> components can only be used as direct children of <see cref="FluentNavCategory"/>,
-/// not directly in the navigation.</para>
 /// </remarks>
 public partial class FluentNav : FluentComponentBase
 {

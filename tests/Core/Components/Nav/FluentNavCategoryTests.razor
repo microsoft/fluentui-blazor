@@ -135,7 +135,7 @@
         // Arrange & Act
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category">
-                <FluentNavSubItem>Sub Item</FluentNavSubItem>
+                <FluentNavItem>Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -154,7 +154,7 @@
 
 		var cut = Render(@<FluentNav>
 				<FluentNavCategory Title="Test Category">
-					<FluentNavSubItem>Sub Item</FluentNavSubItem>
+					<FluentNavItem>Sub Item</FluentNavItem>
 				</FluentNavCategory>
 			</FluentNav>
 		);
@@ -180,7 +180,7 @@
         // Act - Render with a subitem that matches the current location
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="false">
-                <FluentNavSubItem Href="/test-page">Active Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test-page">Active Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -201,7 +201,7 @@
         // Act - Render with a subitem that does NOT match the current location
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="false">
-                <FluentNavSubItem Href="/test-page">Inactive Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test-page">Inactive Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -217,7 +217,7 @@
         // Arrange
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="false">
-                <FluentNavSubItem Href="/test">Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test">Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -238,7 +238,7 @@
         // Arrange
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="true">
-                <FluentNavSubItem Href="/test">Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test">Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -259,7 +259,7 @@
         // Arrange
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="true">
-                <FluentNavSubItem Href="/test">Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test">Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -283,7 +283,7 @@
 
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="true">
-                <FluentNavSubItem Href="/test-page">Active Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test-page">Active Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -316,7 +316,7 @@
         // Arrange
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="false">
-                <FluentNavSubItem Href="/test">Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test">Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -344,7 +344,7 @@
             <FluentNavCategory Title="Test Category" 
                                Expanded="false"
                                ExpandedChanged="@((bool expanded) => { expandedChangedCallCount++; lastExpandedValue = expanded; })">
-                <FluentNavSubItem Href="/test">Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test">Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -376,7 +376,7 @@
             <FluentNavCategory Title="Test Category" 
                                Expanded="true"
                                ExpandedChanged="@((bool expanded) => { expandedChangedCallCount++; })">
-                <FluentNavSubItem Href="/test">Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test">Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -401,7 +401,7 @@
             <FluentNavCategory Title="Test Category" 
                                Expanded="false"
                                ExpandedChanged="@((bool expanded) => { expandedChangedCallCount++; lastExpandedValue = expanded; })">
-                <FluentNavSubItem Href="/test">Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test">Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -428,7 +428,7 @@
         // Arrange
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category">
-                <FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+                <FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -448,12 +448,12 @@
 
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category">
-                <FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+                <FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
         var category = cut.FindComponent<FluentNavCategory>();
-        var subitem = cut.FindComponent<FluentNavSubItem>();
+        var subitem = cut.FindComponent<FluentNavItem>();
 
         // Verify subitem is registered and active
         Assert.True(category.Instance.HasActiveSubitem(), "Subitem should be active initially");
@@ -472,14 +472,14 @@
         // Arrange
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category">
-                <FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+                <FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
         var category = cut.FindComponent<FluentNavCategory>();
 
         // Create a separate subitem instance (not registered)
-        var unregisteredSubitem = new FluentNavSubItem(Services.GetRequiredService<LibraryConfiguration>())
+        var unregisteredSubitem = new FluentNavItem(Services.GetRequiredService<LibraryConfiguration>())
         {
             Owner = null!,
             NavigationManager = Services.GetRequiredService<NavigationManager>(),
@@ -496,7 +496,7 @@
         // Arrange
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="false">
-                <FluentNavSubItem Href="/test">Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test">Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -517,7 +517,7 @@
         // Arrange
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="true">
-                <FluentNavSubItem Href="/test">Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test">Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -541,7 +541,7 @@
 
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="true">
-                <FluentNavSubItem Href="/test-page">Active Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test-page">Active Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -562,7 +562,7 @@
 
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="true">
-                <FluentNavSubItem Href="/test-page">Active Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test-page">Active Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -597,10 +597,10 @@
         // Arrange
         var cut = Render(@<FluentNav UseSingleExpanded="true">
             <FluentNavCategory Title="Category 1" Expanded="true">
-                <FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+                <FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
             </FluentNavCategory>
             <FluentNavCategory Title="Category 2" Expanded="false">
-                <FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+                <FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -625,10 +625,10 @@
         // Arrange
         var cut = Render(@<FluentNav UseSingleExpanded="false">
             <FluentNavCategory Title="Category 1" Expanded="true">
-                <FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+                <FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
             </FluentNavCategory>
             <FluentNavCategory Title="Category 2" Expanded="false">
-                <FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+                <FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -653,10 +653,10 @@
         // Arrange
         var cut = Render(@<FluentNav UseSingleExpanded="true">
             <FluentNavCategory Title="Category 1" Expanded="false">
-                <FluentNavSubItem Href="/test1">Sub Item 1</FluentNavSubItem>
+                <FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
             </FluentNavCategory>
             <FluentNavCategory Title="Category 2" Expanded="true">
-                <FluentNavSubItem Href="/test2">Sub Item 2</FluentNavSubItem>
+                <FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -681,7 +681,7 @@
 
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="true">
-                <FluentNavSubItem Href="/test-page">Active Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test-page">Active Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 
@@ -706,7 +706,7 @@
         // Arrange
         var cut = Render(@<FluentNav>
             <FluentNavCategory Title="Test Category" Expanded="false">
-                <FluentNavSubItem Href="/test">Sub Item</FluentNavSubItem>
+                <FluentNavItem Href="/test">Sub Item</FluentNavItem>
             </FluentNavCategory>
         </FluentNav>);
 

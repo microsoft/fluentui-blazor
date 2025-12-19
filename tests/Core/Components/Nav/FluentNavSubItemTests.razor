@@ -9,56 +9,6 @@
         Services.AddFluentUIComponents();
     }
 
-    [Fact]
-    public void FluentNavSubItem_Renders_As_Link_When_Href_provided()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav>
-            <FluentNavCategory Title="Test Category">
-                <FluentNavSubItem Href="https://example.com">Sub Item</FluentNavSubItem>
-            </FluentNavCategory>
-        </FluentNav>);
-
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("<a ", cut.Markup);
-        Assert.Contains("href=\"https://example.com\"", cut.Markup);
-        Assert.Contains("Sub Item", cut.Markup);
-    }
-
-    [Fact]
-    public void FluentNavSubItem_Renders_As_Button_When_No_Href_Provided()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav>
-            <FluentNavCategory Title="Test Category">
-                <FluentNavSubItem>Sub Item</FluentNavSubItem>
-            </FluentNavCategory>
-        </FluentNav>);
-
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("<button", cut.Markup);
-        Assert.Contains("Sub Item", cut.Markup);
-    }
-
-	[Fact]
-	public void FluentNavItem_With_OnClick_Handler_And_Href()
-	{
-		var cut = Render(@<FluentNav>
-				<FluentNavCategory Title="Test Category">
-					<FluentNavItem OnClick="@(() => { })" Href="https://example.com" Id="custom-id">Test Item</FluentNavItem>
-				</FluentNavCategory>
-			</FluentNav>
-		);
-
-		// Assert
-		Assert.NotNull(cut);
-		Assert.Contains("<a ", cut.Markup);
-		Assert.Contains("href=\"https://example.com\"", cut.Markup);
-		Assert.Contains("Test Item", cut.Markup);
-	}
-
     // [Fact]
     // public void FluentNavSubItem_Renders_With_Active_State()
     // {
@@ -74,41 +24,6 @@
     //     Assert.Contains("active", cut.Markup);
     // }
 
-	[Fact]
-	public void FluentNavSubItem_Renders_With_Disabled_State()
-	{
-	    // Arrange & Act
-	    var cut = Render(@<FluentNav>
-	        <FluentNavCategory Title="Test Category">
-	            <FluentNavSubItem Href="https://example.com" Disabled="true">Disabled Sub Item</FluentNavSubItem>
-	        </FluentNavCategory>
-	    </FluentNav>
-	);
-
-		// Assert
-		Assert.NotNull(cut);
-		Assert.Contains("disabled", cut.Markup);
-	}
-
-	[Fact]
-	public void FluentNavSubItem_Throws_When_Not_Child_Of_Category()
-	{
-		// Arrange - Create a derived FluentNav (which should fail the exact type check)
-		var derivedCategory = new DerivedFluentNavCategory(Services.GetRequiredService<LibraryConfiguration>())
-        {
-            Owner = new DerivedFluentNav(Services.GetRequiredService<LibraryConfiguration>())
-        };
-
-        // Arrange & Act & Assert
-        var ex = Assert.Throws<InvalidOperationException>(() =>
-        {
-            Render(@<CascadingValue Name="Category" Value="derivedCategory"><FluentNavSubItem Href="https://example.com">Sub Item</FluentNavSubItem></CascadingValue>);
-        });
-
-        Assert.Contains("can only be used as a direct child of", ex.Message);
-        Assert.Contains("FluentNavCategory", ex.Message);
-    }
-
     // [Fact]
     // public void FluentNavSubItem_Throws_When_Direct_Child_Of_NavDrawer()
     // {
@@ -123,34 +38,4 @@
     //     Assert.Contains("must be used as a child of", ex.Message);
     //     Assert.Contains("FluentNavCategory", ex.Message);
     // }
-
-    [Fact]
-    public void FluentNavSubItem_Renders_With_CustomClass()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav>
-            <FluentNavCategory Title="Test Category">
-                <FluentNavSubItem Href="https://example.com" Class="custom-sub-item">Sub Item</FluentNavSubItem>
-            </FluentNavCategory>
-        </FluentNav>);
-
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("custom-sub-item", cut.Markup);
-    }
-
-    [Fact]
-    public void FluentNavSubItem_Renders_With_Small_Density()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav Density="NavDrawerDensity.Small">
-            <FluentNavCategory Title="Test Category">
-                <FluentNavSubItem Href="https://example.com">Sub Item</FluentNavSubItem>
-            </FluentNavCategory>
-        </FluentNav>);
-
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("density=", cut.Markup);
-    }
 }

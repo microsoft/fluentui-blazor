@@ -23,10 +23,10 @@
 			else
 			{
 				<FluentNavCategory Title="@sitePage.Title" Icon="@(GetIconFromName(sitePage.Icon))">
-					<FluentNavSubItem Href="@sitePage.Route" Match="NavLinkMatch.All">Overview</FluentNavSubItem>
+					<FluentNavItem Href="@sitePage.Route" Match="NavLinkMatch.All">Overview</FluentNavItem>
 					@foreach (var subPage in sitePage.Items)
 					{
-						<FluentNavSubItem Href="@subPage.Route">@(subPage.Title)</FluentNavSubItem>
+						<FluentNavItem Href="@subPage.Route">@(subPage.Title)</FluentNavItem>
 					}
 				</FluentNavCategory>
 			}

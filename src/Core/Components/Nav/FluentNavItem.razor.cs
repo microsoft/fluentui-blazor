@@ -25,6 +25,9 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     protected bool _isActive;
 
     /// <summary />
+    protected bool _isSubItem => Category != null;
+
+    /// <summary />
     public FluentNavItem(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
@@ -33,6 +36,7 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-navitem")
+        .AddClass("fluent-navsubitem", _isSubItem)
         .AddClass("disabled", Disabled)
         .Build();
 
@@ -105,6 +109,15 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     [CascadingParameter]
     public required FluentNav Owner { get; set; }
 
+    /// <summary>
+    /// Gets or sets the parent <see cref="FluentNavCategory"/> component for this instance.
+    /// </summary>
+    /// <remarks>This property is typically set automatically by the Blazor framework when the component is
+    /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
+    /// its parent navigation menu.</remarks>
+    [CascadingParameter(Name = "Category")]
+    public FluentNavCategory? Category { get; set; }
+
     /// <summary />
     [Inject]
     public required NavigationManager NavigationManager { get; set; }
@@ -126,6 +139,12 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
                 $"{nameof(FluentNavItem)} can only be used as a direct child of {nameof(FluentNav)}.");
         }
 
+        if (Category != null && Category.GetType() != typeof(FluentNavCategory))
+        {
+            throw new InvalidOperationException(
+                $"{nameof(FluentNavItem)} can only be used as a direct child of {nameof(FluentNav)} or a {nameof(FluentNavCategory)}.");
+        }
+
         _hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
         _isActive = ShouldMatch(NavigationManager.Uri);
     }
@@ -135,6 +154,12 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     {
         // We'll consider re-rendering on each location change
         NavigationManager.LocationChanged += OnLocationChanged;
+
+        // Register with parent category if this is a subitem
+        if (_isSubItem)
+        {
+            Category?.RegisterSubitem(this);
+        }
     }
 
     /// <summary>
@@ -166,7 +191,11 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
         {
             _isActive = shouldBeActiveNow;
 
-            //StateHasChanged();
+            // Notify parent category if this is a subitem
+            if (_isSubItem)
+            {
+                Category?.OnSubitemActiveStateChanged();
+            }
         }
     }
 
@@ -216,6 +245,13 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     {
         // To avoid leaking memory, it's important to detach any event handlers in Dispose()
         NavigationManager.LocationChanged -= OnLocationChanged;
+
+        // Unregister from parent category if this is a subitem
+        if (_isSubItem)
+        {
+            Category?.UnregisterSubitem(this);
+        }
+
         GC.SuppressFinalize(this);
     }
 

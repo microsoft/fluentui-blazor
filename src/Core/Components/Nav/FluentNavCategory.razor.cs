@@ -18,7 +18,7 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
     private bool _isActive;
-    private readonly List<FluentNavSubItem> _subitems = [];
+    private readonly List<FluentNavItem> _subitems = [];
     private bool _hasBeenManuallyCollapsed;
 
     /// <summary />
@@ -124,8 +124,7 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
 
             if (HasActiveSubitem() && !Expanded && !_hasBeenManuallyCollapsed)
             {
-                Expanded = true;
-                StateHasChanged();
+                await UpdateExpandedStateAsync(expanded: true);
             }
         }
     }
@@ -178,12 +177,13 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     {
         if (HasActiveSubitem() && !Expanded && !_hasBeenManuallyCollapsed)
         {
-            Expanded = true;
-            _ = AnimateCurrentStateAsync();
+            _ = InvokeAsync(async () => await UpdateExpandedStateAsync(expanded: true));
         }
-
-        UpdateActiveState();
-        StateHasChanged();
+        else
+        {
+            UpdateActiveState();
+            StateHasChanged();
+        }
     }
 
     /// <summary>
@@ -198,7 +198,7 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     /// <summary>
     /// Registers a subitem with this category.
     /// </summary>
-    internal void RegisterSubitem(FluentNavSubItem subitem)
+    internal void RegisterSubitem(FluentNavItem subitem)
     {
         if (!_subitems.Contains(subitem))
         {
@@ -209,7 +209,7 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     /// <summary>
     /// Unregisters a subitem from this category.
     /// </summary>
-    internal void UnregisterSubitem(FluentNavSubItem subitem)
+    internal void UnregisterSubitem(FluentNavItem subitem)
     {
         _subitems.Remove(subitem);
     }
@@ -218,7 +218,6 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     {
         Expanded = expanded;
         UpdateActiveState();
-        await InvokeAsync(StateHasChanged);
 
         if (ExpandedChanged.HasDelegate)
         {
@@ -226,6 +225,7 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
         }
 
         await AnimateCurrentStateAsync();
+        await InvokeAsync(StateHasChanged);
     }
 
     /// <summary />
