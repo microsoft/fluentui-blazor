@@ -12,3 +12,11 @@
         <FluentProgressBar Color="purple" Value="80" Thickness="@ProgressThickness.Large" Width="300px" />
     </FluentField>
 </FluentStack>
+
+@* <FluentProgressBar Color="@xssColor" />
+
+@code
+{
+    string xssColor = "red; } </style> <script>alert('XSS')</script> <style>";
+}
+ *@

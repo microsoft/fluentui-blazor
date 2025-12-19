@@ -6,7 +6,7 @@
 {
     @if (HasCustomStyle)
     {
-        @CustomStyle()
+        @CustomStyle()?.Markup
     }
     <fluent-progress-bar id="@GetId()"
                          class="@ClassValue"
