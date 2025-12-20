@@ -14,6 +14,28 @@ public readonly partial struct MarkupStringSanitized
 {
     private readonly MarkupSanitizedOptions _configuration;
 
+    private const string DeveloperExceptionMessage = $"You can customize the `{nameof(LibraryConfiguration.MarkupSanitized)}` option during the `Services.AddFluentUIComponents()` call.";
+
+    internal static readonly Func<string, string> DefaultSanitizeInlineStyle = (value) =>
+    {
+        // A very string pattern to allow only safe CSS values.
+        var pattern = @"^(?!.*(behavior\s*:|expression\s*\(|-moz-binding\s*:|javascript\s*:|url\s*\(\s*['""]?\s*javascript\s*:))[a-zA-Z0-9\s,.:;_%\-()#{}pxemremvhsmsdegradturn]+$";
+        var regex = new Regex(pattern, RegexOptions.IgnoreCase, matchTimeout: TimeSpan.FromMilliseconds(400));
+        var isValid = regex.IsMatch(value);
+
+        if (isValid)
+        {
+            return value;
+        }
+
+        if (MarkupSanitizedOptions.ThrowOnUnsafe)
+        {
+            throw new InvalidOperationException($"The provided CSS inline style contains potentially unsafe content: {value}. {DeveloperExceptionMessage}");
+        }
+
+        return string.Empty;
+    };
+
     /// <summary>
     /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> struct.
     /// </summary>
