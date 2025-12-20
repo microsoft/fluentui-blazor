@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -9,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 /// <summary>
 /// MarkupString wrapper that sanitizes the content for safe usage in inline style attributes.
 /// </summary>
-public readonly struct MarkupStringSanitized
+public readonly partial struct MarkupStringSanitized
 {
     private readonly MarkupSanitizedOptions _configuration;
 
@@ -24,6 +25,29 @@ public readonly struct MarkupStringSanitized
         _configuration = configuration?.MarkupSanitized ?? MarkupSanitizedOptions.Default;
 
         Value = $"<{tag}>{_configuration.SanitizeInlineStyle(value)}</{tag}>";
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> struct.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="configuration"></param>
+    /// <exception cref="ArgumentException"></exception>
+    public MarkupStringSanitized(string value, LibraryConfiguration? configuration)
+    {
+        _configuration = configuration?.MarkupSanitized ?? MarkupSanitizedOptions.Default;
+
+        var match = RegExWithTag().Match(value);
+
+        if (!match.Success)
+        {
+            throw new ArgumentException("Value must be in the format '<tag>content</tag>'.", nameof(value));
+        }
+
+        var tag = match.Groups[1].Value;
+        var content = match.Groups[2].Value;
+
+        Value = $"<{tag}>{_configuration.SanitizeInlineStyle(content)}</{tag}>";
     }
 
     /// <summary>
@@ -47,4 +71,7 @@ public readonly struct MarkupStringSanitized
     /// </summary>
     /// <returns></returns>
     public override string ToString() => Value ?? string.Empty;
+
+    [GeneratedRegex(@"^<(?<tag>[a-zA-Z][a-zA-Z0-9]*)>(?<content>[\s\S]{0,4096})<\/\k<tag>>$", RegexOptions.Singleline | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 300)]
+    private static partial System.Text.RegularExpressions.Regex RegExWithTag();
 }

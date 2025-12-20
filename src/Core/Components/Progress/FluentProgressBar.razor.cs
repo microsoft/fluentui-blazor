@@ -126,7 +126,7 @@ public partial class FluentProgressBar : FluentComponentBase, ITooltipComponent
     /// <summary />
     private MarkupStringSanitized? CustomStyle() =>
         HasCustomStyle
-        ? new MarkupStringSanitized("style", $"#{GetId()}::part(indicator) {{ background-color: {Color}; }}", LibraryConfiguration)
+        ? new MarkupStringSanitized($"<style>#{GetId()}::part(indicator) {{ background-color: {Color}; }}</style>", LibraryConfiguration)
         : null;
 
     /// <summary />
