@@ -13,9 +13,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 public readonly partial struct MarkupStringSanitized
 {
     private readonly MarkupSanitizedOptions _configuration;
-
     private const string DeveloperExceptionMessage = $"You can customize the `{nameof(LibraryConfiguration.MarkupSanitized)}` option during the `Services.AddFluentUIComponents()` call.";
 
+    /// <summary>
+    /// Default inline style sanitizer function.
+    /// </summary>
     internal static readonly Func<string, string> DefaultSanitizeInlineStyle = (value) =>
     {
         // A very string pattern to allow only safe CSS values.
@@ -50,7 +52,8 @@ public readonly partial struct MarkupStringSanitized
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> struct.
+    /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> struct,
+    /// where the value must be in the format "<tag>content</tag>".
     /// </summary>
     /// <param name="value"></param>
     /// <param name="configuration"></param>
