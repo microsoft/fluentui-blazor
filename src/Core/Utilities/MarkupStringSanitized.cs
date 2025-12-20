@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 /// <summary>
 /// MarkupString wrapper that sanitizes the content for safe usage in inline style attributes.
 /// </summary>
-public struct MarkupStringSanitized
+public readonly struct MarkupStringSanitized
 {
     private readonly MarkupSanitizedOptions _configuration;
 
@@ -22,6 +22,7 @@ public struct MarkupStringSanitized
     public MarkupStringSanitized(string tag, string value, LibraryConfiguration? configuration)
     {
         _configuration = configuration?.MarkupSanitized ?? MarkupSanitizedOptions.Default;
+
         Value = $"<{tag}>{_configuration.SanitizeInlineStyle(value)}</{tag}>";
     }
 
@@ -39,7 +40,7 @@ public struct MarkupStringSanitized
     /// Operator to convert a MarkupStringSanitized to a MarkupString.
     /// </summary>
     /// <param name="value"></param>
-    public static explicit operator MarkupString(MarkupStringSanitized value) => new(value.Value);
+    public static implicit operator MarkupString(MarkupStringSanitized value) => new(value.Value);
 
     /// <summary>
     /// ToString override to return the sanitized string value.

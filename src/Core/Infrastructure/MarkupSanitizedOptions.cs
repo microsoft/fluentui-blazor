@@ -15,6 +15,7 @@ public class MarkupSanitizedOptions
     /// Gets or sets a value indicating whether an exception is thrown when an unsafe operation is detected.
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0069:Non-constant static fields should not be visible", Justification = "The developer could modify this value globally.")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2211:Non-constant fields should not be visible", Justification = "The developer could modify this value globally.")]
     public static bool ThrowOnUnsafe = true;
 
     /// <summary />
