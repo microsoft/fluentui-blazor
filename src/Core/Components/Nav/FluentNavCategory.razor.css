@@ -30,7 +30,7 @@
   color: var(--colorNeutralForeground2);
   height: 20px;
   margin-inline-start: auto;
-  transition: transform 0.2s ease;
+  transition: transform var(--durationNormal) var(--curveDecelerateMid);
 }
 
   .fluent-nav .fluent-navcategoryitem > .expand-icon.expanded {
@@ -41,15 +41,35 @@
     transform: rotate(-180deg);
   }
 
+  /* Rotate expand icon when sibling group contains an active subitem (for direct navigation) */
+  /* Only apply when user hasn't manually collapsed - once user interacts, .expanded class controls the state */
+  .fluent-nav .fluent-navcategoryitem:has(+ .fluent-navsubitemgroup .active) > .expand-icon:not(.user-interacted) {
+    transform: rotate(180deg);
+  }
+
+  [dir="rtl"] .fluent-nav .fluent-navcategoryitem:has(+ .fluent-navsubitemgroup .active) > .expand-icon:not(.user-interacted) {
+    transform: rotate(-180deg);
+  }
+
 .fluent-nav .fluent-navsubitemgroup {
-  transition: max-height 0.2s ease, opacity 0.2s ease;
-  max-height: 0;
+  height: 0;
+  min-height: 0;
   opacity: 0;
   overflow: hidden;
 }
 
   .fluent-nav .fluent-navsubitemgroup.expanded {
-    max-height: none;
+    height: auto;
+    min-height: auto;
+    opacity: 1;
+    overflow: visible;
+  }
+
+  /* Immediately show group when it contains an active subitem (for direct navigation) */
+  /* Only apply when user hasn't manually collapsed the category */
+  .fluent-nav .fluent-navsubitemgroup:not(.user-interacted):has(.active) {
+    height: auto;
+    min-height: auto;
     opacity: 1;
     overflow: visible;
   }

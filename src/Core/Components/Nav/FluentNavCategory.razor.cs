@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -217,7 +218,13 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     private async Task UpdateExpandedStateAsync(bool expanded)
     {
         Expanded = expanded;
-        UpdateActiveState();
+
+        // For expand: update active state immediately before animation
+        // For collapse: update active state after animation completes
+        if (expanded)
+        {
+            UpdateActiveState();
+        }
 
         if (ExpandedChanged.HasDelegate)
         {
@@ -225,6 +232,13 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
         }
 
         await AnimateCurrentStateAsync();
+
+        // For collapse: update active state after animation completes
+        if (!expanded)
+        {
+            UpdateActiveState();
+        }
+
         await InvokeAsync(StateHasChanged);
     }
 
@@ -234,13 +248,14 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
         if (JSModule.Imported)
         {
             var groupId = $"{Id}-group";
+            var density = Owner.Density?.ToAttributeValue() ?? "medium";
             if (Expanded)
             {
-                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.AnimateExpand", groupId);
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.AnimateExpand", groupId, density);
             }
             else
             {
-                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.AnimateCollapse", groupId);
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.AnimateCollapse", groupId, density);
             }
         }
     }
@@ -252,5 +267,18 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     {
         // Only show active state when category is NOT expanded and has an active subitem
         _isActive = !Expanded && HasActiveSubitem();
+    }
+
+    /// <summary>
+    /// Gets the inline style for the subitem group to ensure visibility when it contains an active subitem.
+    /// </summary>
+    private string GetSubitemGroupStyle()
+    {
+        if (HasActiveSubitem())
+        {
+            return "height: auto; min-height: auto; opacity: 1; overflow: visible;";
+        }
+
+        return string.Empty;
     }
 }

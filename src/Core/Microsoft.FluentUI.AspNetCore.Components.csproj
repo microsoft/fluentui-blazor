@@ -58,11 +58,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Remove="Components\Nav\FluentNav.razor.ts" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
