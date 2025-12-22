@@ -41,8 +41,6 @@
     transform: rotate(-180deg);
   }
 
-  /* Rotate expand icon when sibling group contains an active subitem (for direct navigation) */
-  /* Only apply when user hasn't manually collapsed - once user interacts, .expanded class controls the state */
   .fluent-nav .fluent-navcategoryitem:has(+ .fluent-navsubitemgroup .active) > .expand-icon:not(.user-interacted) {
     transform: rotate(180deg);
   }
@@ -65,8 +63,6 @@
     overflow: visible;
   }
 
-  /* Immediately show group when it contains an active subitem (for direct navigation) */
-  /* Only apply when user hasn't manually collapsed the category */
   .fluent-nav .fluent-navsubitemgroup:not(.user-interacted):has(.active) {
     height: auto;
     min-height: auto;

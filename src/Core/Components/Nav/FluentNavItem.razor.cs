@@ -181,7 +181,6 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     /// <summary>
     /// Handles location change events and updates the active state.
     /// </summary>
-    [ExcludeFromCodeCoverage(Justification = "Cannot be tested with current bUnit version")]
     protected virtual void OnLocationChanged(object? sender, LocationChangedEventArgs args)
     {
         // We could just re-render always, but for this component we know the
@@ -243,10 +242,8 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     /// <inheritdoc />
     public void Dispose()
     {
-        // To avoid leaking memory, it's important to detach any event handlers in Dispose()
         NavigationManager.LocationChanged -= OnLocationChanged;
 
-        // Unregister from parent category if this is a subitem
         if (_isSubItem)
         {
             Category?.UnregisterSubitem(this);

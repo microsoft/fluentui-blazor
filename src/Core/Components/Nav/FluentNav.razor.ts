@@ -63,7 +63,6 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
 
   /**
    * Animates expansion of a category group element using Web Animations API.
-   * Matches React's NavGroupMotion - opacity and height animate simultaneously.
    */
   export function AnimateExpand(groupId: string, density: string = 'medium'): void {
     const group = document.getElementById(groupId) as HTMLElement;
@@ -143,4 +142,3 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
     });
   }
 }
-

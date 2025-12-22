@@ -143,6 +143,45 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     }
 
     /// <summary>
+    /// Collapses this category without waiting for the animation to complete.
+    /// Used for simultaneous collapse/expand animations when UseSingleExpanded is true.
+    /// </summary>
+    internal void CollapseWithoutAwait()
+    {
+        if (!Expanded)
+        {
+            return;
+        }
+
+        _hasBeenManuallyCollapsed = false;
+        Expanded = false;
+        UpdateActiveState();
+
+        if (ExpandedChanged.HasDelegate)
+        {
+            _ = ExpandedChanged.InvokeAsync(false);
+        }
+
+        _ = InvokeAsync(StateHasChanged);
+
+        // Fire animation without awaiting - let it run in parallel
+        _ = AnimateCollapseAsync();
+    }
+
+    /// <summary>
+    /// Animates the collapse and updates final state after animation completes.
+    /// </summary>
+    private async Task AnimateCollapseAsync()
+    {
+        if (JSModule.Imported)
+        {
+            var groupId = $"{Id}-group";
+            var density = Owner.Density?.ToAttributeValue() ?? "medium";
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.AnimateCollapse", groupId, density);
+        }
+    }
+
+    /// <summary>
     /// Toggles the expanded state of the nav group.
     /// </summary>
     internal async Task ToggleExpandedAsync()
@@ -153,7 +192,7 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
             {
                 if (category != this && category.Expanded)
                 {
-                    await category.SetExpandedAsync(expanded: false);
+                    category.CollapseWithoutAwait();
                 }
             }
         }
@@ -219,8 +258,6 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     {
         Expanded = expanded;
 
-        // For expand: update active state immediately before animation
-        // For collapse: update active state after animation completes
         if (expanded)
         {
             UpdateActiveState();
@@ -233,7 +270,6 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
 
         await AnimateCurrentStateAsync();
 
-        // For collapse: update active state after animation completes
         if (!expanded)
         {
             UpdateActiveState();

@@ -173,10 +173,11 @@ public partial class FluentNav : FluentComponentBase
         {
             if (UseSingleExpanded)
             {
+                // Fire-and-forget: start collapse animations for other categories without waiting
                 var expandedCategories = _categories.Where(c => c != category && c.Expanded).ToList();
                 foreach (var otherCategory in expandedCategories)
                 {
-                    await otherCategory.SetExpandedAsync(expanded: false);
+                    otherCategory.CollapseWithoutAwait();
                 }
             }
 

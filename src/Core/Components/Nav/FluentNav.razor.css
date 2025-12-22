@@ -19,7 +19,6 @@
     opacity: 0;
   }
 
-  /* RTL support for collapsed state */
   [dir="rtl"] .fluent-nav-container.collapsed {
     transform: translate3d(var(--nav-width), 0, 0);
   }
@@ -94,16 +93,12 @@
   color: var(--colorNeutralForeground2);
   text-decoration-line: none;
   border: none;
-  box-sizing: border-box;
   cursor: pointer;
   transition-duration: var(--durationFaster);
   transition-timing-function: var(--curveLinear);
   transition-property: background;
   gap: 10px;
   padding: var(--spacingVerticalS) var(--spacingHorizontalS) var(--spacingVerticalS) var(--spacingHorizontalMNudge);
-  line-height: var(--lineHeightBase400);
-  font-size: var(--fontSizeBase400);
-  font-weight: var(--fontWeightSemibold);
   align-items: center;
   margin-inline-start: -6px;
   margin-inline-end: 0px;

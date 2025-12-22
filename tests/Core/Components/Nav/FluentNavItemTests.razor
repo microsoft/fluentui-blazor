@@ -358,4 +358,70 @@
 		Assert.Contains("can only be used as a direct child of", ex.Message);
 		Assert.Contains("FluentNav", ex.Message);
 	}
+
+	[Fact]
+	public void FluentNavItem_OnLocationChanged_Updates_Active_State()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/other", true);
+
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Id="link" Href="https://localhost/test">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert initial state - should not be active
+		Assert.DoesNotContain("active", cut.Find("#link").ClassName);
+
+		// Act - Navigate to the matching URL
+		navMan.NavigateTo("https://localhost/test", true);
+
+		// Assert - should now be active after location change
+		Assert.Contains("active", cut.Find("#link").ClassName);
+	}
+
+	[Fact]
+	public void FluentNavItem_OnLocationChanged_Updates_Active_State_When_Navigating_Away()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/test", true);
+
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Id="link" Href="https://localhost/test">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert initial state - should be active
+		Assert.Contains("active", cut.Find("#link").ClassName);
+
+		// Act - Navigate away from the matching URL
+		navMan.NavigateTo("https://localhost/other", true);
+
+		// Assert - should no longer be active after location change
+		Assert.DoesNotContain("active", cut.Find("#link").ClassName);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_OnLocationChanged_Notifies_Category()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/other", true);
+
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category" Expanded="true">
+				<FluentNavItem Id="sublink" Href="https://localhost/test">Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert initial state - subitem should not be active
+		var subItem = cut.FindComponent<FluentNavItem>();
+		Assert.False(subItem.Instance.Active);
+
+		// Act - Navigate to the matching URL
+		navMan.NavigateTo("https://localhost/test", true);
+
+		// Assert - subitem should now be active
+		Assert.True(subItem.Instance.Active);
+	}
 }
