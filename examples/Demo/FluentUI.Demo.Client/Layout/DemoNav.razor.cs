@@ -106,13 +106,4 @@ public partial class DemoNav
         return null;
     }
 
-    //private async Task ItemClickAsync(NavItem item)
-    //{
-    //    NavigationManager.NavigateTo(item.Route);
-
-    //    if (Hamburger is not null)
-    //    {
-    //        await Hamburger.HideAsync();
-    //    }
-    //}
 }

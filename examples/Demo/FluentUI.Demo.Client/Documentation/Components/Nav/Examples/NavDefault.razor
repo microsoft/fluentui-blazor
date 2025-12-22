@@ -81,11 +81,11 @@
 	bool _useHeader = false;
 	bool _useIcons = true;
 	bool _useMultipleExpanded = true;
-	string? _link = "https://fluentui-blazor-v5.azurewebsites.net/";
+	private readonly string? _link = "https://fluentui-blazor-v5.azurewebsites.net/";
 
 	private async Task ShowInformationAsync()
 	{
-		var result = await DialogService.ShowInfoAsync("This is a message");
+		await DialogService.ShowInfoAsync("This is a message");
 	}
 
 	private async Task ToggleNavAsync()
