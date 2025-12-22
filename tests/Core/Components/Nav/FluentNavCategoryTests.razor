@@ -172,7 +172,6 @@
     {
         // Arrange
         var navManager = Services.GetRequiredService<NavigationManager>();
-        var testUri = navManager.ToAbsoluteUri("/test-page").ToString();
 
         // Navigate to a test URI that will match the subitem
         navManager.NavigateTo("/test-page");
@@ -711,8 +710,6 @@
         </FluentNav>);
 
         var category = cut.FindComponent<FluentNavCategory>();
-        var jsInvocations = JSInterop.Invocations.ToList();
-        var initialCount = jsInvocations.Count;
 
         // Act - Toggle to expand
         await category.Instance.ToggleExpandedAsync();

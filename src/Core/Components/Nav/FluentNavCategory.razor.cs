@@ -188,23 +188,13 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     {
         if (!Expanded && Owner.UseSingleExpanded)
         {
-            foreach (var category in Owner.GetCategories())
+            foreach (var category in Owner.GetCategories().Where(c => c != this && c.Expanded))
             {
-                if (category != this && category.Expanded)
-                {
-                    category.CollapseWithoutAwait();
-                }
+                category.CollapseWithoutAwait();
             }
         }
 
-        if (Expanded && HasActiveSubitem())
-        {
-            _hasBeenManuallyCollapsed = true;
-        }
-        else
-        {
-            _hasBeenManuallyCollapsed = false;
-        }
+        _hasBeenManuallyCollapsed = Expanded && HasActiveSubitem();
 
         await UpdateExpandedStateAsync(!Expanded);
     }

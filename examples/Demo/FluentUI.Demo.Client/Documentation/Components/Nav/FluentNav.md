@@ -20,7 +20,7 @@ Create a simple nav using nav items. These are first-level links that give peopl
 
 Create a complex nav using nav categories and sub-items. Nav categories expand and collapse so people only see the information they need. Nav sub-items group related links within that category and let people navigate to those sub-pages. Nav categories act as accordions and show or hide information; they’re not links and won’t lead to site or app locations.
 
-By using the `UseSigleExpanded` parameter, you can ensure that only one nav category is expanded at a time. When a new category is expanded, any previously expanded category will automatically collapse.
+By using the `UseSingleExpanded` parameter, you can ensure that only one nav category is expanded at a time. When a new category is expanded, any previously expanded category will automatically collapse.
 
 ## Icons
 Whenever possible, use icons with nav category labels. They create additional visual emphasis and differentiate nav categories from the nav subitems within them. Use simple and recognizable icons that are easy to understand.

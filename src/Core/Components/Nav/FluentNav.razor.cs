@@ -55,7 +55,7 @@ public partial class FluentNav : FluentComponentBase
     public Icon? AppIcon { get; set; }
 
     /// <summary>
-    /// Gets or sets the title to display at the top of the menu .
+    /// Gets or sets the title to display at the top of the menu.
     /// </summary>
     [Parameter]
     public string? AppTitle { get; set; }
@@ -82,13 +82,13 @@ public partial class FluentNav : FluentComponentBase
     public Icon ToggleIcon { get; set; } = new CoreIcons.Regular.Size20.LineHorizontal3();
 
     /// <summary>
-    /// Gets or sets wether to enable using icons in the nav items.
+    /// Gets or sets whether to enable using icons in the nav items.
     /// </summary>
     [Parameter]
     public bool UseIcons { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets wether to allow just one expanded category or multiple
+    /// Gets or sets whether to allow just one expanded category or multiple
     /// </summary>
     [Parameter]
     public bool UseSingleExpanded { get; set; } = false;

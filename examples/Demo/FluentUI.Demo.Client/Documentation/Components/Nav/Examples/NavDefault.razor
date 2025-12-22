@@ -10,7 +10,7 @@
 			   UseIcons="@_useIcons"
 			   UseSingleExpanded="@(!_useMultipleExpanded)"
 			   AppTitle="Contoso"
-			   Appicon="@(new Icons.Regular.Size32.Person())"
+			   AppIcon="@(new Icons.Regular.Size32.Person())"
 			   Density="@_density">
 		<FluentNavItem Href="/Nav" Icon="@(new Icons.Regular.Size20.Board())">Dashboard</FluentNavItem>
 		<FluentNavItem OnClick="@ShowInformationAsync" Icon="@(new Icons.Regular.Size20.MegaphoneLoud())">Announcements</FluentNavItem>
@@ -81,11 +81,11 @@
 	bool _useHeader = false;
 	bool _useIcons = true;
 	bool _useMultipleExpanded = true;
-	string? _link = "https://fluentui-blazor-v5.azurewebsites.net/";
+	private readonly string? _link = "https://fluentui-blazor-v5.azurewebsites.net/";
 
 	private async Task ShowInformationAsync()
 	{
-		var result = await DialogService.ShowInfoAsync("This is a message");
+		await DialogService.ShowInfoAsync("This is a message");
 	}
 
 	private async Task ToggleNavAsync()

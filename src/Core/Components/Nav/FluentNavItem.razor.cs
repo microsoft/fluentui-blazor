@@ -51,7 +51,7 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     public Icon? Icon { get; set; }
 
     /// <summary>
-    /// Get or sets the href of the link.
+    /// Gets or sets the href of the link.
     /// </summary>
     [Parameter]
     public string? Href { get; set; }
@@ -123,7 +123,7 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     public required NavigationManager NavigationManager { get; set; }
 
     /// <summary>
-    /// Gets te active state on this navigation item
+    /// Gets the active state on this navigation item
     /// </summary>
     public bool Active => _isActive;
 
