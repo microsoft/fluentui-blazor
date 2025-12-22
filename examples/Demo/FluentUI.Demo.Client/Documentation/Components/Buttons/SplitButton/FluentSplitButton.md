@@ -1,6 +1,6 @@
 ---
 title: SplitButton
-route: /Button/SplitButton
+route: /Buttons/SplitButton
 ---
 
 # SplitButton

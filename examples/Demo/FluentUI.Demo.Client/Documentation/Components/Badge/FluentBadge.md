@@ -1,6 +1,7 @@
 ---
 title: Badge
 route: /Badge
+icon: Tag
 ---
 
 # Badge

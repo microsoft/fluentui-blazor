@@ -1,6 +1,7 @@
 ---
 title: Slider
 route: /Slider
+icon: Options
 ---
 
 # Slider

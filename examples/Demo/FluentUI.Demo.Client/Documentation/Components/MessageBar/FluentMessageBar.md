@@ -1,6 +1,7 @@
 ---
 title: MessageBar
 route: /MessageBar
+icon: WindowHeaderHorizontal
 ---
 
 # MessageBar

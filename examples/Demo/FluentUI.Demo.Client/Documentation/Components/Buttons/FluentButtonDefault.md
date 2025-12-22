@@ -1,9 +1,10 @@
 ---
-title: Buttons
-route: /Button/[Default]
+title: Button components
+route: /Buttons/[Default]
+icon: Button
 ---
 
-# Buttons
+# Button components
 
 The **Button** components allow users to commit a change or trigger an action via a single click
 or tap and is often found inside forms, dialogs, drawers (panels) and/or pages.

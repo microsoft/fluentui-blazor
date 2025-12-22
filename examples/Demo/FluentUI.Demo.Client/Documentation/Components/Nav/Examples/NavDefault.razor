@@ -1,0 +1,108 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inject IDialogService DialogService
+
+<h3>NavDefault</h3>
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="15">
+	<FluentNav @ref="@nav"
+			   UseHeader="@_useHeader"
+			   UseIcons="@_useIcons"
+			   UseSingleExpanded="@(!_useMultipleExpanded)"
+			   AppTitle="Contoso"
+			   Appicon="@(new Icons.Regular.Size32.Person())"
+			   Density="@_density">
+		<FluentNavItem Href="/Nav" Icon="@(new Icons.Regular.Size20.Board())">Dashboard</FluentNavItem>
+		<FluentNavItem OnClick="@ShowInformationAsync" Icon="@(new Icons.Regular.Size20.MegaphoneLoud())">Announcements</FluentNavItem>
+		<FluentNavItem Disabled="true" Href="@_link">Employee Spotlight</FluentNavItem>
+		<FluentNavItem OnClick="@ShowInformationAsync" Icon="@(new Icons.Regular.Size20.PersonSearch())">Profile Search</FluentNavItem>
+		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.PersonMoney())">Performance Reviews</FluentNavItem>
+
+		<FluentNavSectionHeader Title="Employee Management" />
+
+		<FluentNavCategory Title="Job Postings" Icon="@(new Icons.Regular.Size20.NotePin())">
+
+			<FluentNavItem OnClick="@ShowInformationAsync">Openings</FluentNavItem>
+			<FluentNavItem OnClick="@ShowInformationAsync">Submissions</FluentNavItem>
+
+		</FluentNavCategory>
+		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.People())">Interviews</FluentNavItem>
+
+		<FluentNavSectionHeader Title="Benefits" />
+		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.HeartPulse())">Health Plans</FluentNavItem>
+
+		<FluentNavCategory Id="retirement" Title="Retirement" Icon="@(new Icons.Regular.Size20.Person())">
+
+			<FluentNavItem>Plan Information</FluentNavItem>
+			<FluentNavItem>Fund Performance</FluentNavItem>
+
+		</FluentNavCategory>
+
+		<FluentNavDivider />
+
+		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.BoxMultiple())">Training Programs</FluentNavItem>
+
+		<FluentNavCategory Title="Career Development" Icon="@(new Icons.Regular.Size20.PeopleStar())">
+
+			<FluentNavItem>Openings</FluentNavItem>
+			<FluentNavItem>Submissions</FluentNavItem>
+
+		</FluentNavCategory>
+
+		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.ArrowTrendingLines())">Workforce Data</FluentNavItem>
+		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.DocumentBulletListMultiple())">Reports</FluentNavItem>
+	</FluentNav>
+
+	<FluentStack Orientation="Orientation.Vertical" VerticalGap="5">
+		<FluentRadioGroup @bind-Value="@_density" Label="Density" Wrap="true">
+			<FluentRadio Label="Medium" Value="NavDrawerDensity.Medium" />
+			<FluentRadio Label="Small" Value="NavDrawerDensity.Small" />
+		</FluentRadioGroup>
+
+		<FluentSwitch @bind-Value="@_useIcons" Label="Use Icons" />
+		<FluentSwitch @bind-Value="@_useMultipleExpanded" Label="Allow multiple expanded categories" />
+		<FluentSwitch @bind-Value="@_useHeader" Label="Use Header" />
+
+		<FluentButton Disabled="@(!nav!.UseHeader)" OnClick="ToggleNavAsync">Toggle Navigation</FluentButton>
+
+		<FluentText>Programmatically control expanded/collapsed state</FluentText>
+		<span>
+			<FluentButton OnClick="ExpandRetirementAsync">Expand 'Retirement'</FluentButton>
+			<FluentButton OnClick="CollapseRetirementAsync">Collapse 'Retirement'</FluentButton>
+		</span>
+	</FluentStack>
+
+</FluentStack>
+
+@code
+{
+	private FluentNav? nav;
+	NavDrawerDensity _density;
+	bool _useHeader = false;
+	bool _useIcons = true;
+	bool _useMultipleExpanded = true;
+	string? _link = "https://fluentui-blazor-v5.azurewebsites.net/";
+
+	private async Task ShowInformationAsync()
+	{
+		var result = await DialogService.ShowInfoAsync("This is a message");
+	}
+
+	private async Task ToggleNavAsync()
+	{
+		if (nav!.UseHeader)
+		{
+			await nav!.ToggleNavAsync();
+		}
+	}
+
+	private async Task ExpandRetirementAsync()
+	{
+		await nav!.ExpandCategoryAsync("retirement");
+	}
+
+	private async Task CollapseRetirementAsync()
+	{
+		await nav!.CollapseCategoryAsync("retirement");
+	}
+}

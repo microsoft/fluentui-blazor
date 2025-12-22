@@ -1,6 +1,7 @@
 ---
 title: Checkbox
 route: /Checkbox
+icon: CheckboxChecked
 ---
 
 # Checkbox

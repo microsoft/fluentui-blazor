@@ -3,6 +3,7 @@ title: Styles
 order: 0040
 category: 10|Get Started
 route: /Styles
+icon: StyleGuide
 ---
 
 # Styles

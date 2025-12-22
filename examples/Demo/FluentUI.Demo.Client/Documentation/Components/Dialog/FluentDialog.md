@@ -1,6 +1,7 @@
 ---
 title: Dialog
 route: /Dialog
+icon: AppGeneric
 ---
 
 # Dialog

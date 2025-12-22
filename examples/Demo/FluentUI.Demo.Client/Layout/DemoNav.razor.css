@@ -1,0 +1,31 @@
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  font: var(--fontWeightRegular) var(--fontSizeBase300) / var(--lineHeightBase300) var(--fontFamilyBase);
+}
+
+li {
+  font-weight: 600;
+}
+
+  li:not(:has(> a)) {
+    padding: 8px 10px;
+  }
+
+  li li {
+    font-weight: 400;
+    padding-left: 24px;
+  }
+
+    li li:hover {
+      background: var(--colorNeutralBackground1Hover);
+      color: var(--colorNeutralForeground2Hover);
+    }
+
+a {
+  text-decoration: none;
+  color: var(--colorNeutralForeground2);
+  display: block;
+  padding: 8px 10px;
+  cursor: pointer;
+}

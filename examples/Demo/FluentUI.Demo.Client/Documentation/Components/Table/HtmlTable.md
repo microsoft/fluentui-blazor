@@ -1,6 +1,7 @@
 ---
 title: Table
 route: /Table
+icon: Table
 ---
 
 # Table

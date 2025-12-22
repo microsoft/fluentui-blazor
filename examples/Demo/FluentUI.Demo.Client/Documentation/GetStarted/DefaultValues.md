@@ -3,6 +3,7 @@ title: Default Values
 order: 0006
 category: 10|Get Started
 route: /default-values
+icon: BoxCheckmark
 ---
 
 # Default Values
