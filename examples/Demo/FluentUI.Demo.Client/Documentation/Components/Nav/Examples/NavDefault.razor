@@ -55,8 +55,8 @@
 
 	<FluentStack Orientation="Orientation.Vertical" VerticalGap="5">
 		<FluentRadioGroup @bind-Value="@_density" Label="Density" Wrap="true">
-			<FluentRadio Label="Medium" Value="NavDrawerDensity.Medium" />
-			<FluentRadio Label="Small" Value="NavDrawerDensity.Small" />
+			<FluentRadio Label="Medium" Value="NavDensity.Medium" />
+			<FluentRadio Label="Small" Value="NavDensity.Small" />
 		</FluentRadioGroup>
 
 		<FluentSwitch @bind-Value="@_useIcons" Label="Use Icons" />
@@ -77,7 +77,7 @@
 @code
 {
 	private FluentNav? nav;
-	NavDrawerDensity _density;
+	NavDensity _density;
 	bool _useHeader = false;
 	bool _useIcons = true;
 	bool _useMultipleExpanded = true;
