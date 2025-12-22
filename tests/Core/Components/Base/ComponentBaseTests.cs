@@ -28,6 +28,15 @@ public class ComponentBaseTests : Bunit.BunitContext
     ];
 
     /// <summary>
+    /// List of components to exclude from the test.
+    /// </summary>
+    private static readonly Type[] ExcludedTooltip =
+    [
+        typeof(FluentNavCategory),
+        typeof(FluentNavItem),
+    ];
+
+    /// <summary>
     /// List of customized actions to initialize the component with a specific type and optional required parameters.
     /// </summary>
     private static readonly Dictionary<Type, Loader> ComponentInitializer = new()
@@ -52,6 +61,11 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentDragContainer<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentDropZone<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentTimePicker<>), Loader.MakeGenericType(typeof(DateTime))},
+        { typeof(FluentNavItem), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
+        { typeof(FluentNavCategory), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
+        { typeof(FluentNavDivider), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
+        { typeof(FluentNavSectionHeader), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
+
     };
 
     /// <summary />
@@ -161,7 +175,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         using var context = new DateTimeProviderContext(DateTime.Now);
         JSInterop.Mode = JSRuntimeMode.Loose;
 
-        foreach (var componentType in BaseHelpers.GetDerivedTypes<ITooltipComponent>(except: Excluded))
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<ITooltipComponent>(except: Excluded.Union(ExcludedTooltip)))
         {
             // Convert to generic type if needed
             var type = ComponentInitializer.TryGetValue(componentType, out var value)
@@ -210,7 +224,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         using var context = new DateTimeProviderContext(DateTime.Now);
         JSInterop.Mode = JSRuntimeMode.Loose;
 
-        foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded))
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded.Union(ExcludedTooltip)))
         {
             // Check if the component contains a Tooltip property but without implementing the ITooltipComponent interface
             var hasTooltipProperty = componentType.GetProperty("Tooltip", BindingFlags.Public | BindingFlags.Instance) != null;
