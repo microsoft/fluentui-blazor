@@ -5,7 +5,7 @@
 using System.Reflection;
 using FluentUI.Demo.DocApiGen.Extensions;
 
-namespace FluentUI.Demo.DocApiGen.Models;
+namespace FluentUI.Demo.DocApiGen.Models.SummaryMode;
 
 /// <summary>
 /// Represents a member of a class (Property, Method, Event).
