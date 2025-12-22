@@ -73,6 +73,11 @@ internal static partial class CoreIcons
 
             public class Clock : Icon { public Clock() : base("Clock", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16Zm0 1a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-.5 2a.5.5 0 0 1 .5.41V10h2.5a.5.5 0 0 1 .09 1H9.5a.5.5 0 0 1-.5-.41V5.5c0-.28.22-.5.5-.5Z\"></path>") { } };
         }
+
+        internal static partial class Size24
+        {
+            public class MoreHorizontal : Icon { public MoreHorizontal() : base("MoreHorizontal", IconVariant.Regular, IconSize.Size24, "<path d=\"M7.75 12a1.75 1.75 0 1 1-3.5 0 1.75 1.75 0 0 1 3.5 0Zm6 0a1.75 1.75 0 1 1-3.5 0 1.75 1.75 0 0 1 3.5 0ZM18 13.75a1.75 1.75 0 1 0 0-3.5 1.75 1.75 0 0 0 0 3.5Z\"/>") { } }
+        }
     }
 
     /// <summary>
