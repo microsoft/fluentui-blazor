@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Text.RegularExpressions;
@@ -13,6 +13,7 @@ namespace FluentUI.Demo.DocViewer.Models;
 /// </summary>
 public record Page
 {
+    private const string DefaultPageGroupIdentifier = "[Default]";
     private readonly DocViewerService _docViewerService;
     private IEnumerable<PageHtmlHeader>? _pageHtmlHeaders;
 
@@ -44,6 +45,11 @@ public record Page
         Route = GetItem(items, "route");
         Hidden = GetItem(items, "hidden") == "true";
 
+        if (string.IsNullOrEmpty(Order))
+        {
+            Order = "99999";
+        }
+
         var category = GetItem(items, "category");
         if (!string.IsNullOrEmpty(category))
         {
@@ -56,6 +62,21 @@ public record Page
             {
                 Category = (string.Empty, category.Trim());
             }
+        }
+        else
+        {
+            Category = ("50", "Components");    // Default category
+        }
+
+        // PageGroup
+        var route = Route.Trim().Trim('/');
+        PageGroup = route.Contains('/') ? route.Split('/')[0] : "";
+
+        // Default PageGroup
+        if (Route.EndsWith(DefaultPageGroupIdentifier, StringComparison.CurrentCultureIgnoreCase))
+        {
+            Route = Route[..^DefaultPageGroupIdentifier.Length].TrimEnd('/');
+            IsDefaultPageGroup = true;
         }
     }
 
@@ -84,6 +105,17 @@ public record Page
     /// Gets the page title defined in the <see cref="Headers"/>
     /// </summary>
     public string Title { get; } = string.Empty;
+
+    /// <summary>
+    /// Gets the page group, which is the first part of the route before a slash ("/").
+    /// If the route does not contain a slash, it returns an empty string.
+    /// </summary>
+    public string PageGroup { get; }
+
+    /// <summary>
+    /// Gets a value indicating whether the current route represents the default page group.
+    /// </summary>
+    public bool IsDefaultPageGroup { get; }
 
     /// <summary>
     /// Gets the page order defined in the <see cref="Headers"/>

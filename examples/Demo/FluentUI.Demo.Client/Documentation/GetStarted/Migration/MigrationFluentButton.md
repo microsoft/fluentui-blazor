@@ -27,8 +27,8 @@ hidden: true
 
     `ButtonAppearance` enum has the following values:
     - `Default`
-    - `Primary`
     - `Outline`
+    - `Primary`
     - `Subtle`
     - `Transparent`
 
@@ -45,9 +45,10 @@ You can use the `ToButtonAppearance()` method to convert the `Appearance` proper
 
 |v3 & v4|v5|
 |-----|-----|
-|`Appearance.Neutral`    |`ButtonAppearance.Default`|
+|`Appearance.Neutral`    |`null`|
 |`Appearance.Accent`     |`ButtonAppearance.Primary`|
 |`Appearance.Lightweight`|`ButtonAppearance.Transparent`|
 |`Appearance.Outline`    |`ButtonAppearance.Outline`|
-|`Appearance.Stealth`    |`ButtonAppearance.Default`|
-|`Appearance.Filled`     |`ButtonAppearance.Default`|
+|`Appearance.Stealth`    |`ButtonAppearance.Subtle`|
+|`Appearance.Hypertext`  |`null`|
+|`Appearance.Filled`     |`null`|

@@ -1,9 +1,10 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -21,17 +22,19 @@ public partial class FluentGrid : FluentComponentBase
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentGrid"/> class.
     /// </summary>
-    public FluentGrid()
+    public FluentGrid(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-grid")
         .Build();
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("justify-content", Justify.ToAttributeValue())
         .Build();
 
     /// <summary />
@@ -42,7 +45,7 @@ public partial class FluentGrid : FluentComponentBase
     /// Only values from 0 to 10 are possible.
     /// </summary>
     [Parameter]
-    public int Spacing { get; set; } = 3;
+    public int Spacing { get; set; }
 
     /// <summary>
     /// Defines how the browser distributes space between and around content items.
@@ -104,11 +107,8 @@ public partial class FluentGrid : FluentComponentBase
     /// </summary>
     /// <returns></returns>
     [ExcludeFromCodeCoverage(Justification = "Tested via integration tests.")]
-    protected override async ValueTask DisposeAsync(IJSObjectReference? jsModule)
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        if (jsModule != null)
-        {
-            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Grid.FluentGridCleanup", Id);
-        }
+        await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Grid.FluentGridCleanup", Id);
     }
 }

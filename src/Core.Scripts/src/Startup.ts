@@ -1,6 +1,9 @@
 import { Microsoft as LoggerFile } from './Utilities/Logger';
+import { Microsoft as ThemeFile } from './Utilities/Theme';
 import { Microsoft as FluentUIComponentsFile } from './FluentUIWebComponents';
 import { Microsoft as FluentPageScriptFile } from './Components/PageScript/FluentPageScript';
+import { Microsoft as FluentPopoverFile } from './Components/Popover/FluentPopover';
+import { Microsoft as FluentOverlayFile } from './Components/Overlay/FluentOverlay';
 import { Microsoft as FluentUIStylesFile } from './FluentUIStyles';
 import { Microsoft as FluentUICustomEventsFile } from './FluentUICustomEvents';
 import { StartedMode } from './d-ts/StartedMode';
@@ -11,6 +14,8 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
   import Logger = LoggerFile.FluentUI.Blazor.Utilities.Logger;
   import FluentUIComponents = FluentUIComponentsFile.FluentUI.Blazor.FluentUIWebComponents;
   import FluentPageScript = FluentPageScriptFile.FluentUI.Blazor.Components.PageScript;
+  import FluentPopover = FluentPopoverFile.FluentUI.Blazor.Components.Popover;
+  import FluentOverlay = FluentOverlayFile.FluentUI.Blazor.Components.Overlay;
   import FluentUIStyles = FluentUIStylesFile.FluentUI.Blazor.FluentUIStyles;
   import FluentUICustomEvents = FluentUICustomEventsFile.FluentUI.Blazor.FluentUICustomEvents;
 
@@ -42,14 +47,24 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     FluentUIStyles.applyStyles();
 
     // Initialize Fluent UI theme
-    FluentUIComponents.initializeTheme(blazor);
+    blazor.theme = ThemeFile.FluentUI.Blazor.Utilities.Theme;
+    ThemeFile.FluentUI.Blazor.Utilities.Theme.addMediaQueriesListener();
+    ThemeFile.FluentUI.Blazor.Utilities.Theme.setDefaultTheme();
 
     // Initialize all custom components
     FluentPageScript.registerComponent(blazor, mode);
+    FluentPopover.registerComponent(blazor, mode);
+    FluentOverlay.registerComponent(blazor, mode);
     // [^^^ Add your other custom components before this line ^^^]
 
     // Register all custom events
+    FluentUICustomEvents.Accordion(blazor);
     FluentUICustomEvents.DialogToggle(blazor);
+    FluentUICustomEvents.MenuItem(blazor);
+    FluentUICustomEvents.DropdownList(blazor);
+    FluentUICustomEvents.Tabs(blazor);
+    FluentUICustomEvents.RadioGroup(blazor);
+    FluentUICustomEvents.TreeView(blazor);
     // [^^^ Add your other custom events before this line ^^^]
 
     // Finishing

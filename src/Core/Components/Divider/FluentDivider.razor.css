@@ -1,0 +1,7 @@
+fluent-divider:not([orientation='vertical']) {
+  width: 100%;
+}
+
+fluent-divider[orientation='vertical'] {
+  height: 100%;
+}

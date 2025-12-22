@@ -37,6 +37,22 @@ This can be achieved by setting the `Immediate` and the optional `ImmediateDelay
 
 {{ TextInputImmediate }}
 
+## Search Text Input
+
+In the example of a search text area, you can use the `ChangeAfterKeyPress` parameter to trigger the `OnChange` event
+after a specific key or keys are pressed. E.g. `Enter`, `Tab`, `Ctrl+Enter`, etc.
+You can capture the content of the text area from the `Value` parameter.
+
+An `OnChangeAfterKeyPress` event is also triggered when the user presses these key combinations.
+This also gives you the key used to trigger the event (this can be useful when you allow multiple key combinations).
+
+```razor
+<FluentTextInput ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])"
+                 OnChangeAfterKeyPress="@(e => ...)" />
+```
+
+{{ TextInputChangeAfterKeyPress }}
+
 ## States
 
 A text input can be in different states, such as `Disabled`, `ReadOnly`, and `Required`.
@@ -52,6 +68,48 @@ These templates are automatically positioned with a small margin between the tex
 You cannot therefore fill the entire background of these templates, with a colour for example.
 
 {{ TextInputPrefixSuffix }}
+
+## Masked Input
+
+You can use the `MaskPattern` property to define a mask for the text input.
+The `Value` property will contain the masked value, including fixed characters from the mask.
+
+Use **MaskPattern** when:
+
+- mask is complex or contains nested masks
+- mask is fixed in size (optional symbols can provide some flexibility)
+- placeholder is needed
+- more reliability or flexibility on processing input is needed
+
+`MaskPattern` is just a string. E.g. `{#}000[aaa]/NIC-[**]`
+
+The `MaskPattern` definitions are:
+- `0` - any digit
+- `a` - any letter
+- `*` - any char
+
+Other chars which is not in custom definitions supposed to be fixed
+- `[]` - make input optional
+- `{}` - include fixed part in unmasked value
+
+If definition character should be treated as fixed it should be escaped by `\\` (E.g. `\\0`).
+
+{{ TextInputMasked }}
+
+> [!NOTE] The mask is only a visual aid to the user. The binded value will always be a string
+> containing the characters typed by the user, along with any fixed characters from the mask.
+> The mask does not enforce any validation on the input. You should still validate the input value.
+> If you set a value that does not conform to the mask, it will be displayed as-is.
+
+You can also use these extra parameters to customize the masking behavior:
+
+- `MaskLazy` - when set to true, the placeholder characters are shown only when the user types in that position.
+- `MaskPlaceholder` - defines the character used as a placeholder in the mask. Default is underscore `_`.
+
+{{ TextInputMaskedAdvanced }}
+
+All these parameters must be defined when the component is first rendered.
+You cannot modify them dynamically.
 
 ## API FluentTextInput
 

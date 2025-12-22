@@ -34,19 +34,20 @@ Here's a step-by-step guide:
                 return key switch
                 {
                     "SomeKey" => "Your Custom Translation",
-                    "AnotherKey" => String.Format("Another Custom Translation {0}",
+                    "AnotherKey" => String.Format("Another Custom Translation {0}"),
 
                     // Fallback to the Default/English if no translation is found
-                    _ => IFluentLocalizer.GetDefault(key, arguments)
+                    _ => IFluentLocalizer.GetDefault(key, arguments),
                 };
             }
         }
     }
     ```
 
-   > **Note:**
-   >
-   > The list of keys can be found in the `Core\Microsoft.FluentUI.AspNetCore.Components\Localization\LanguageResource.resx` file.
+   > [!NOTE]   
+   > The list of keys can be found in the `Core\Microsoft.FluentUI.AspNetCore.Components\Localization\LanguageResource.resx` file.  
+   > Or you can use a constant from the `Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource` class.
+   > Example: `Localization.LanguageResource.MessageBox_ButtonOk`.
 
 2. **Register the Custom Localizer**
 

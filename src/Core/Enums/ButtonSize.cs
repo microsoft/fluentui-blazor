@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -10,14 +10,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum ButtonSize
 {
     /// <summary>
-    /// Small button.
-    /// </summary>
-    Small,
-
-    /// <summary>
     /// Medium button.
     /// </summary>
     Medium,
+
+    /// <summary>
+    /// Small button.
+    /// </summary>
+    Small,
 
     /// <summary>
     /// Large button.

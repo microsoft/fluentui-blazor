@@ -19,6 +19,12 @@ We recommend to use a spacing of 24px between text fields and other components.
 
 {{ TextAreaAppearances }}
 
+## Size
+A textarea supports `Small`, `Medium` (default) and `Large` size.  
+You can set the `Width` and `Height` properties to control the size of the textarea.
+
+{{ TextAreaSizeExample }}
+
 ## Resize
 
 The `Resize` property allows you to specify how the textarea can be resized by the user.
@@ -33,6 +39,22 @@ and update the model immediately after the user types a character. But you may a
 This can be achieved by setting the `Immediate` and the (optional) `ImmediateDelay` properties.
 
 {{ TextAreaImmediate }}
+
+## ChangeAfterKeyPress
+
+In the example of a command area or search text area, you can use the `ChangeAfterKeyPress` parameter to trigger the `OnChange` event
+after a specific key or keys are pressed. E.g. `Enter`, `Escape`, `Tab`, `Ctrl+Enter`, etc.
+You can capture the content of the text area from the `Value` parameter.
+
+An `OnChangeAfterKeyPress` event is also triggered when the user presses these key combinations.
+This also gives you the key used to trigger the event (this can be useful when you allow multiple key combinations).
+
+```razor
+<FluentTextArea ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter).AndCtrlKey(), KeyPress.For(KeyCode.Enter)])"
+                OnChangeAfterKeyPress="@(e => ...)" />
+```
+
+{{ TextAreaChangeAfterKeyPress }}
 
 ## States
 
@@ -49,3 +71,7 @@ At this time, it's not possible to define the height and width of the component.
 ## API FluentTextArea
 
 {{ API Type=FluentTextArea }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentTextArea }}

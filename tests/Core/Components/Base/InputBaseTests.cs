@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 /* ********************************************************
@@ -7,29 +7,23 @@
  * ********************************************************
  */
 
-using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using Bunit;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.JSInterop;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
-public class InputBaseTests : TestContext
+public class InputBaseTests : Bunit.BunitContext
 {
     /// <summary>
     /// List of components to exclude from the test.
     /// </summary>
     private static readonly Type[] Excluded = new[]
     {
-        typeof(AspNetCore.Components._Imports)
+        typeof(AspNetCore.Components._Imports),
+        typeof(FluentRadio<>),
     };
 
     /// <summary>
@@ -38,7 +32,13 @@ public class InputBaseTests : TestContext
     private static readonly Dictionary<Type, Func<Type, Type>> ComponentInitializer = new()
     {
         // { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) }
-        { typeof(FluentSelect<>), type => type.MakeGenericType(typeof(string)) }    // FluentSelect<string>
+        { typeof(FluentSelect<>), type => type.MakeGenericType(typeof(string)) },
+        { typeof(FluentCombobox<>), type => type.MakeGenericType(typeof(string)) },
+        { typeof(FluentSlider<>), type => type.MakeGenericType(typeof(int)) },
+        { typeof(FluentRadioGroup<>), type => type.MakeGenericType(typeof(string)) },
+        { typeof(FluentCalendar<>), type => type.MakeGenericType(typeof(DateTime)) },
+        { typeof(FluentDatePicker<>), type => type.MakeGenericType(typeof(DateTime)) },
+        { typeof(FluentTimePicker<>), type => type.MakeGenericType(typeof(DateTime)) },
     };
 
     /// <summary />
@@ -80,6 +80,8 @@ public class InputBaseTests : TestContext
     [InlineData("LostFocus", "input", null, null, "Check_LostFocus")]
     public void InputBase_DefaultProperties(string attributeName, object attributeValue, string? htmlAttribute = null, object? htmlValue = null, string? extraCondition = null)
     {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
         var errors = new StringBuilder();
         var localizer = Services.GetRequiredService<IFluentLocalizer>();
 
@@ -98,7 +100,7 @@ public class InputBaseTests : TestContext
                      : componentType;
 
             // Arrange and Act
-            var renderedComponent = RenderComponent<DynamicComponent>(parameters =>
+            var renderedComponent = Render<DynamicComponent>(parameters =>
             {
                 var attributes = new Dictionary<string, object>
                 {

@@ -1,10 +1,11 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -12,13 +13,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A textarea component that allows users to enter and edit a single line of text.
 /// </summary>
-public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluentComponentElementBase
+public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress
 {
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
     /// </summary>
-    public FluentTextArea()
+    public FluentTextArea(LibraryConfiguration configuration) : base(configuration)
     {
         // Default conditions for the message
         MessageCondition = (field) =>
@@ -33,6 +34,14 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
                    && string.IsNullOrEmpty(CurrentValueAsString);
         };
     }
+
+    /// <summary>
+    /// Gets the CSS class to apply to the internal web-component.
+    /// </summary>
+    protected virtual string? ComponentStyleValue => new StyleBuilder()
+        .AddStyle("width", Width)
+        .AddStyle("height", Height)
+        .Build();
 
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
@@ -82,6 +91,18 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     public TextAreaSize? Size { get; set; }
 
     /// <summary>
+    /// Gets or sets the width of the input field.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the height of the input field.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
+    /// <summary>
     /// Gets or sets the how resize the element. See <see cref="Components.TextAreaResize"/>
     /// </summary>
     [Parameter]
@@ -93,12 +114,52 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     [Parameter]
     public bool? Spellcheck { get; set; }
 
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.ChangeAfterKeyPress" />
+    [Parameter]
+    public KeyPress[]? ChangeAfterKeyPress { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.OnChangeAfterKeyPress" />
+    [Parameter]
+    public EventCallback<FluentKeyPressEventArgs> OnChangeAfterKeyPress { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.ChangeAfterKeyPressHandlerAsync(string, KeyPress)" />
+    [JSInvokable]
+    public async Task ChangeAfterKeyPressHandlerAsync(string value, KeyPress key)
+    {
+        await ChangeHandlerAsync(new ChangeEventArgs()
+        {
+            Value = value,
+        });
+
+        if (OnChangeAfterKeyPress.HasDelegate)
+        {
+            await OnChangeAfterKeyPress.InvokeAsync(new FluentKeyPressEventArgs()
+            {
+                Value = value,
+                KeyPress = key,
+            });
+        }
+    }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
+
     /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "value");
+
+            // Initialize the change after key press event
+            await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
         }
     }
 

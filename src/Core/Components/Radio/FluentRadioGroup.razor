@@ -1,0 +1,34 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputBase<TValue>
+@typeparam TValue
+
+<CascadingValue Value="this" IsFixed="true" Name="RadioGroup">
+    <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" IncludeInputSlot="false">
+        <fluent-radio-group @ref="@Element"
+                            id="@Id"
+                            wrap="@Wrap"
+                            disabled="@Disabled"
+                            slot="@FluentSlot.FieldInput"
+                            aria-labelledby="radio-group-default--label"
+                            name="@GetGroupName()"
+                            orientation="@Orientation.ToAttributeValue()"
+                            required="@Required"
+                            readonly="@ReadOnly"
+                            aria-label="@AriaLabel"
+                            autofocus="@Autofocus"
+                            value="@(RadioValue?.Invoke(Value) ?? Value?.ToString())"
+                            @onradiochange="@RadioChangeHandlerAsync"
+                            @onfocusout="@FocusOutHandlerAsync"
+                            @attributes="@AdditionalAttributes">
+            @if (Items is not null)
+            {
+                foreach (var item in Items)
+                {
+                    <FluentRadio Value="@item" />
+                }
+            }
+            @ChildContent
+        </fluent-radio-group>
+    </FluentField>
+</CascadingValue>

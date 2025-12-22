@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
@@ -27,8 +27,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// List of custom events to associate an event argument type with an event attribute name.
 /// </summary>
+[EventHandler("onaccordionchange", typeof(AccordionItemEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ondialogbeforetoggle", typeof(DialogToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ondialogtoggle", typeof(DialogToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onmenuitemchange", typeof(MenuItemEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("ontabchange", typeof(TabChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("ondropdownchange", typeof(DropdownEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("ontreechanged", typeof(TreeItemChangedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("ontreetoggle", typeof(TreeItemToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onclosecolumnoptions", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onclosecolumnresize", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onradiochange", typeof(RadioEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+
 public static class EventHandlers
 {
 }

@@ -1,0 +1,14 @@
+﻿<div>
+    Selected items: @(string.Join(", ", SelectedItems))
+</div>
+
+<FluentSelect Label="Color"
+              Placeholder="Select colors"
+              Items="@Colors"
+              @bind-SelectedItems="@SelectedItems"
+              Multiple="true" />
+
+@code {
+    static string[] Colors = ["Red", "Green", "Blue"];
+    IEnumerable<string> SelectedItems = new[] { Colors[0] };
+}

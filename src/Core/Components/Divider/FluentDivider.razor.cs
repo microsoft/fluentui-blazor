@@ -1,6 +1,7 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -8,8 +9,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// FluentDivider component
 /// </summary>
-public partial class FluentDivider : FluentComponentBase
+public partial class FluentDivider : FluentComponentBase, ITooltipComponent
 {
+    /// <summary />
+    public FluentDivider(LibraryConfiguration configuration) : base(configuration) { }
+
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
@@ -47,6 +51,16 @@ public partial class FluentDivider : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     private string? Orientation
         => Vertical.HasValue

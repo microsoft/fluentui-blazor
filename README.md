@@ -10,7 +10,7 @@
 
 :star:  We appreciate your star, it helps!
 
-**This package is for use in .NET 8 Blazor projects. If you are using .NET 6 or 7, please use the v3 version of the package which is named `Microsoft.Fast.Components.FluentUI`**
+**This package is for use in .NET 8 (and up) Blazor projects. If you are using .NET 6 or 7, please use the v3 version of the package which is named `Microsoft.Fast.Components.FluentUI`**
 
 ## 🔹Introduction
 
@@ -117,6 +117,11 @@ These providers are used by associated services to display Toasts, Dialog boxes,
 <FluentMessageBarProvider />
 ```
 > **note:** You can remove providers that are not used in your application.
+
+You can also add all available providers in your `MainLayout.razor` file by using the `FluentProviders` component:
+```xml
+<FluentProviders />
+```
 
 ## 🔹Working with Icons and Emoji
 We have additional packages available that include the complete **Fluent UI System icons** and **Fluent UI Emoji** collections. 

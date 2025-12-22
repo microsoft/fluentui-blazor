@@ -3,7 +3,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using System.ComponentModel.DataAnnotations
 @using Xunit;
-@inherits TestContext
+@inherits FluentUITestContext
 
 @code
 {
@@ -18,12 +18,12 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentTextArea Appearance="@TextAreaAppearance.Outline"
-                 Autofocus="true"
-                 AriaLabel="My aria label"
-                 Label="My Label"
-                 Name="MyName"
-                 Placeholder="My help"
-                 Value="My Value" />
+                Autofocus="true"
+                AriaLabel="My aria label"
+                Label="My Label"
+                Name="MyName"
+                Placeholder="My help"
+                Value="My Value" />
         );
 
         // Assert
@@ -76,18 +76,18 @@
     }
 
     [Theory]
-    [InlineData(TextAreaSize.Small, "small")]
-    [InlineData(TextAreaSize.Medium, "medium")]
-    [InlineData(TextAreaSize.Large, "large")]
-    public void FluentTextArea_Size(TextAreaSize size, string expectedAttribute)
+    [InlineData(TextAreaSize.Small)]
+    [InlineData(TextAreaSize.Medium)]
+    [InlineData(TextAreaSize.Large)]
+    [InlineData((TextAreaSize)999)]
+    [InlineData(null)]
+    public void FluentTextArea_Size(TextAreaSize? size)
     {
         // Arrange && Act
-        using var context = new IdentifierContext(i => "myId");
         var cut = Render(@<FluentTextArea Size="@size" />);
 
         // Assert
-        cut.Find("fluent-textarea")
-            .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\"  size=\"{expectedAttribute}\" />");
+        cut.Verify(suffix: size.ToString());
     }
 
     [Fact]
@@ -96,8 +96,8 @@
         // Arrange && Act
         var cut = Render(
             @<FluentTextArea>
-                <LabelTemplate><div style="font-weight: bold;">My label</div></LabelTemplate>
-            </FluentTextArea>
+    <LabelTemplate><div style="font-weight: bold;">My label</div></LabelTemplate>
+</FluentTextArea>
         );
 
         // Assert
@@ -153,7 +153,7 @@
            .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" value=\"{expectedImmediateValue}\" />");
 
         // Assert: After a small delay
-        await Task.Delay(200);
+        await Task.Delay(200, Xunit.TestContext.Current.CancellationToken);
         Assert.Equal(expectedDelayedValue, value);
         cut.Find("fluent-textarea")
            .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" value=\"{expectedDelayedValue}\" />");
@@ -168,5 +168,35 @@
         var value = AspNetCore.Components.Migration.FluentInputAppearanceExtensions.ToTextAreaAppearance(appearance);
 
         Assert.Equal(expected, value);
+    }
+
+    [Fact]
+    public async Task FluentTextArea_ChangeAfterKeyPress()
+    {
+        var value = string.Empty;
+        var lastEventArgs = new FluentKeyPressEventArgs() { KeyPress = new KeyPress(), Value = "" };
+
+        // Arrange && Act
+        var cut = Render(@<FluentTextArea @bind-Value="@value"
+                ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])"
+                OnChangeAfterKeyPress="@(e => lastEventArgs = e)" />
+        );
+
+        // Act
+        await cut.FindComponent<FluentTextArea>().Instance.ChangeAfterKeyPressHandlerAsync("MyValue", KeyPress.For(KeyCode.Enter));
+
+        // Assert
+        Assert.Equal(KeyCode.Enter, lastEventArgs.KeyPress.Key);
+        Assert.Equal("MyValue", lastEventArgs.Value);
+    }
+
+    [Fact]
+    public void FluentTextArea_WidthHeight()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextArea Width="150px" Height="100px" />);
+
+        // Assert
+        Assert.Equal("width: 150px; height: 100px;", cut.Find("fluent-textarea").GetAttribute("style"));
     }
 }

@@ -1,0 +1,13 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+<CascadingValue Value="this" IsFixed="true">
+    <fluent-accordion id="@Id"
+                      class="@ClassValue"
+                      style="@StyleValue"
+                      expand-mode="@ExpandMode.ToAttributeValue()"
+                      @onaccordionchange="HandleOnAccordionChangedAsync"
+                      @attributes="AdditionalAttributes">
+        @ChildContent
+    </fluent-accordion>
+</CascadingValue>

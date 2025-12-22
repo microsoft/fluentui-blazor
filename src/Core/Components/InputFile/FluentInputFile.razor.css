@@ -1,0 +1,52 @@
+.fluent-inputfile-container {
+  display: grid;
+  grid-gap: 10px;
+  background-color: var(--colorNeutralBackground2);
+  border: 1px dashed var(--colorBrandStroke1);
+}
+
+  .fluent-inputfile-container[drop-files] {
+    border: 1px solid var(--colorBrandStroke1);
+  }
+
+  .fluent-inputfile-container .inputfile-content {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .fluent-inputfile-container:has(input[type='file']:focus-visible) {
+    outline: var(--strokeWidthThick) solid var(--colorStrokeFocus2);
+    border-radius: var(--borderRadiusMedium);
+  }
+
+  .fluent-inputfile-container input[type='file'] {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  .fluent-inputfile-container label,
+  .fluent-inputfile-container a {
+    color: var(--colorBrandStroke1);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .fluent-inputfile-container .inputfile-progress {
+    padding-top: 20px;
+    height: 50px;
+    margin: 0px 15%;
+    text-align: center;
+    line-height: 8px;
+    font-size: var(--fontSizeBase100);
+  }
+
+  .fluent-inputfile-container[disabled],
+  .fluent-inputfile-container[disabled="true"] {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+  }

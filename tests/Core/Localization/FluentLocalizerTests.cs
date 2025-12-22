@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Globalization;
@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Localization;
 
-public class FluentLocalizerTests : TestContext
+public class FluentLocalizerTests : Bunit.BunitContext
 {
     [Theory]
     [InlineData("en")]

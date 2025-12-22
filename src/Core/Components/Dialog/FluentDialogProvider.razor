@@ -6,13 +6,45 @@
     {
         @foreach (var dialog in DialogService.Items.Values.OrderBy(i => i.Index))
         {
-            <FluentDialog Id="@dialog.Id"
-                          Class="@dialog.Options?.ClassValue"
-                          Style="@dialog.Options?.StyleValue"
-                          Data="@dialog.Options?.Data"
-                          Instance="@dialog"
-                          OnStateChange="@(dialog.Options?.OnStateChange ?? EmptyOnStateChange)"
-                          @attributes="@AdditionalAttributes" />
+            @* FluentInputFile *@
+            if (dialog.ComponentType == typeof(Microsoft.AspNetCore.Components.Forms.InputFile))
+            {
+                var anchorId = dialog.Options?.Parameters["ElementId"] as string;
+                var options = dialog.Options?.Parameters["Options"] as InputFileOptions ?? new InputFileOptions();
+                var onCompleted = dialog.Options?.Parameters["OnCompletedAsync"] as Func<IEnumerable<FluentInputFileEventArgs>, Task> ?? (_ => Task.CompletedTask);
+                var onFileUploaded = dialog.Options?.Parameters["OnFileUploadedAsync"] as Func<FluentInputFileEventArgs, Task> ?? (_ => Task.CompletedTask);
+                var onProgressChange = dialog.Options?.Parameters["OnProgressChangeAsync"] as Func<FluentInputFileEventArgs, Task> ?? (_ => Task.CompletedTask);
+                var onFileError = dialog.Options?.Parameters["OnFileErrorAsync"] as Func<FluentInputFileErrorEventArgs, Task> ?? (_ => Task.CompletedTask);
+
+                if (!string.IsNullOrEmpty(anchorId))
+                {
+                    <FluentInputFile Id="@dialog.Id"
+                                     DragDropZoneVisible="false"
+                                     AnchorId="@anchorId"
+                                     OnCompleted="@(e => onCompleted.Invoke(e))"
+                                     Accept="@options.Accept"
+                                     Multiple="@options.Multiple"
+                                     MaximumFileCount="@options.MaximumFileCount"
+                                     MaximumFileSize="@options.MaximumFileSize"
+                                     BufferSize="@options.BufferSize"
+                                     Mode="@options.Mode"
+                                     OnFileUploaded="@(e => onFileUploaded.Invoke(e))"
+                                     OnProgressChange="@(e => onProgressChange.Invoke(e))"
+                                     OnFileError="@(e => onFileError.Invoke(e))" />
+                }
+            }
+
+            @* FluentDialog *@
+            else
+            {
+                <FluentDialog Id="@dialog.Id"
+                              Class="@dialog.Options?.ClassValue"
+                              Style="@dialog.Options?.StyleValue"
+                              Data="@dialog.Options?.Data"
+                              Instance="@dialog"
+                              OnStateChange="@(dialog.Options?.OnStateChange ?? EmptyOnStateChange)"
+                              @attributes="@AdditionalAttributes" />
+            }
         }
     }
 </div>

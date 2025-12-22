@@ -6,11 +6,13 @@ icon: Regular.ArrowBetweenUp
 route: /MigrationV5
 ---
 
-# Changes introduced in this version 5
+# Changes introduced in this version
 
 The following changes have been included in version 5.
-Some of these are coding changes,
-component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
+The categories these changes fall in are:
+- Coding changes
+- Component changes (marked with 🔃)
+- Breaking Changes (marked with 💥)
 
 ## General
 
@@ -19,6 +21,9 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 ## Color Enumeration
 
 {{ INCLUDE MigrationColor }}
+
+## FluentAccordion
+{{ INCLUDE MigrationFluentAccordion }}
 
 ## FluentButton
 
@@ -32,6 +37,10 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 
 {{ INCLUDE MigrationFluentLabel }}
 
+## FluentSwitch
+
+{{ INCLUDE MigrationFluentSwitch }}
+
 ## FluentTextArea
 
 {{ INCLUDE MigrationFluentTextArea }}
@@ -39,6 +48,18 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 ## FluentLayout and FluentMainLayout
 
 {{ INCLUDE MigrationFluentLayout }}
+
+## FluentSpacer
+
+{{ INCLUDE MigrationFluentSpacer }}
+
+## FluentDataGrid
+
+{{ INCLUDE MigrationFluentDataGrid }}
+
+## FluentSelect
+
+{{ INCLUDE MigrationFluentSelect }}
 
 ## Migrate to v5 with help from GitHub Copilot chat
 

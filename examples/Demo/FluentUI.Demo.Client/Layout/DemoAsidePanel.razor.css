@@ -3,6 +3,7 @@
   border-left: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
   padding: 0px 0px 24px 8px;
   min-height: 40vh;
+  background-color: var(--colorNeutralBackground1);
 }
 
   .demo-aside ::deep a {

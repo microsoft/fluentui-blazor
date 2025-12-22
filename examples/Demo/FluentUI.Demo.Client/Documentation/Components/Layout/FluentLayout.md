@@ -6,14 +6,14 @@ route: /Layout
 # Layout
 
 `FluentLayout` is a component that defines a layout for a page, using a grid composed of a **Header**, a **Footer**
-and 3 columns: **Menu**, **Content** and **Aside** panes.
+and 3 columns: **Navigation**, **Content** and **Aside** panes.
 
 <table class="layout-schema">
   <tr>
     <td colspan="3">Header</td>
   </tr>
   <tr>
-    <td>Menu</td>
+    <td>Navigation</td>
     <td style="width: 100%; height: 60px;">Content</td>
     <td>Aside</td>
   <tr>
@@ -21,7 +21,7 @@ and 3 columns: **Menu**, **Content** and **Aside** panes.
   </tr>
 </table>
 
-For mobile devices (< 768px), the layout is a single column with the **Menu**, the **Content** and the **Footer** panes stacked vertically.
+For mobile devices (< 768px), the layout is a single column with the **Navigation**, the **Content** and the **Footer** panes stacked vertically.
 
 <table class="layout-schema">
   <tr>
@@ -34,62 +34,107 @@ For mobile devices (< 768px), the layout is a single column with the **Menu**, t
   </tr>
 </table>
 
-The layout adapts automatically if you decide not to use or hide any of the panels.
+The mobile breakpoint is defined in the `FluentLayout` component using the `MobileBreakdownWidth` parameter.
+By default, it is set to `768px`.
+
+This breakpoint is based on the FluentLayout component width (not the screen width)
+using the [@container](https://developer.mozilla.org/en-US/docs/Web/CSS/@container) CSS rule.
+
+Each time the breakpoint is reached, the layout will be updated to reflect the new layout, and the event `OnBreakpointEnter` will be triggered.
+
+[!TIP] The `FluentLayout` component can be used with a Blazor static web app or a Blazor interactive app.
+The hamburger Navigation is available in all modes, but the event `OnBreakpointEnter` and the `NavigationDeferredLoading` parameter are only available in "interactive mode".
 
 ## Sticky Panels
 
-  All panels (except `Content`) can be fixed using the `Sticky` property.
+  All panels (except `Content`) can be fixed using the `Sticky` parameter.  
   In this case, the panel remains fixed when the page is scrolled.
 
-## Hamburger Menu
+## Hamburger Navigation
 
-  **On mobile device only** (<768 px) the **Menu** pane can be collapsed into a hamburger menu.
-  The hamburger menu is displayed when the screen width is less than 768px.
+  **On mobile device only** (<768 px) the **Navigation** pane will be collapsed into a hamburger Navigation.
+  The hamburger button is displayed when the screen width is less than 768px.
 
-  By default, on mobile, the menu is hidden and a hamburger button is displayed to make it appear or disappear.
-  or make it disappear. Once displayed, this menu takes up all available screen space (except for the header and footer).
+  💡 You can "force" the visibility of the hamburger button using
+  the `FluentLayoutHamburger.Visible="true"` parameter.
+
+  By default, on mobile, the Navigation is hidden and a hamburger button is displayed to make it appear or disappear.
+  or make it disappear. Once displayed, this Navigation takes a large part of the screen width.
+  This is configurable using the `FluentLayoutHamburger.PanelSize` parameter.
 
   To use this Hamburger icon, you need to add the `FluentLayoutHamburger` component to the **Header**.
-
-  > &#9432; You can set only one `FluentLayoutHamburger` component per `FluentLayout`.
-
-  ```razor
-  <FluentLayoutItem Area="@LayoutArea.Header" Style="display: flex; ">
-    <FluentLayoutHamburger />
-    My company
-  </FluentLayoutItem>
-  ```
-
-  The menu is displayed inside the **Content** and **Aside** panels of the `FluentLayout` in which it is placed.
-  If you've placed the `FluentLayoutHamburger` component in a different location, you need to specify the
-  the `FluentLayout` to be used, using the `Layout` property.
 
   ```razor
   <FluentLayoutItem Area="@LayoutArea.Header">
     <FluentLayoutHamburger />
     My company
   </FluentLayoutItem>
-
-  <FluentLayout @ref="@Layout" Style="height: 330px;">
-    ...
-  </FluentLayout>
-
-  @code
-  {
-      FluentLayout? Layout;
-  }
   ```
+
+When you have navigation elements that can be used from the **FluentLayoutHamburger**, you must intercept
+these elements to close/hide the **Hamburger** Navigation when you want to. For example
+
+```razor
+@inject NavigationManager NavigationManager
+
+<FluentLayoutHamburger @ref="_hamburger">
+    <FluentLink OnClick="@(e => GoToPageAsync("/page1"))">Page 1</FluentLink>
+    <FluentLink OnClick="@(e => GoToPageAsync("/page2"))">Page 2</FluentLink>
+</FluentLayoutHamburger>
+
+@code
+{
+    private FluentLayoutHamburger? _hamburger;
+
+    private async Task GoToPageAsync(string page)
+    {
+        NavigationManager.NavigateTo(page);
+
+        if (Hamburger is not null)
+        {
+            await Hamburger.HideAsync();
+        }
+    }
+}
+```
+
+## Customized Hamburger Navigation
+
+By default, the hamburger Navigation contains the **Navigation** FluentLayoutItem.
+This hamburger Navigation can be customized using some parameters like the `ChildContent` for the panel content,
+the `PanelHeader` for the header/title content, the `PanelSize` for the panel width and the `PanelPosition` for the panel position (left or right).
+
+If `ChildContent` is not defined, the Navigation content will be used.
+It is then generated **twice** in the HTML code, once for the Navigation and once for the hamburger panel.
+If your Navigation is very large, it is best to set the `FluentLayout.NavigationDeferredLoading` parameter to `true`.
+In this case, Blazor will generate the content in the Navigation area in Desktop mode and then remove it from the DOM to place it in the hamburger panel in mobile mode.
+This parameter `NavigationDeferredLoading` is only available in Blazor "interactive mode".
 
 ## Example
 
+Using the `GlobalScrollbar="true"` parameter, you can set the scrollbar to be global for the entire page.  
+Using the `Sticky` paremeter to fix the header and footer.
+
+> TODO: When `GlobalScrollbar=“true”`, a problem persists with the fixed footer.
+
 {{ LayoutDefault }}
 
-## Fixed Header and Footer
+You can set the **Header** and **Footer** using the `Sticky` parameter,
 
-You can set the **Header** and **Footer** using the `Sticky` property,
-property, but you can also "move" these elements outside the `FluentLayout` to keep a scrollbar for content only.
+## CSS Variables
 
-{{ LayoutFixed }}
+To make it easier to customize your sub-components, you can use these CSS variables,
+whose default values are as follows.
+
+You can adapt them using the `Height` parameter of the `FluentLayout`,
+`FluentLayoutItem` with `Area="LayoutArea.Header"`, `Area="LayoutArea.Content"` and `Area="LayoutArea.Footer"`.
+
+```css
+--layout-height: 100dvh;
+--layout-header-height: 44px;
+--layout-footer-height: 36px;
+--layout-body-height: calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height));
+```
 
 ## API FluentLayout
 
@@ -98,6 +143,10 @@ property, but you can also "move" these elements outside the `FluentLayout` to k
 ## API FluentLayoutItem
 
 {{ API Type=FluentLayoutItem }}
+
+## API FluentLayoutHamburger
+
+{{ API Type=FluentLayoutHamburger }}
 
 <style>
   .layout-schema {

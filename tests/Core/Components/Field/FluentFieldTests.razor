@@ -1,7 +1,7 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
-@inherits TestContext
+@inherits FluentUITestContext
 @code
 {
     public FluentFieldTests()
@@ -55,13 +55,15 @@
     [InlineData(MessageState.Success)]
     [InlineData(MessageState.Warning)]
     [InlineData(MessageState.Error)]
-    public void FluentField_MessageState(MessageState state)
+    [InlineData(null)]
+    [InlineData((MessageState)99)]
+    public void FluentField_MessageState(MessageState? value)
     {
         // Arrange & Act
-        var cut = Render(@<FluentField MessageState="@state">Field content</FluentField>);
+        var cut = Render(@<FluentField MessageState="@value">Field content</FluentField>);
 
         // Assert
-        cut.Verify(suffix: state.ToString());
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
     }
 
     [Theory]
@@ -163,7 +165,7 @@
     public void FluentField_InvalidSlot()
     {
         // Call GetId for a standalone FluentField
-        var field1 = new FluentField();
+        var field1 = new FluentField(LibraryConfiguration.Empty);
         Assert.Throws<ArgumentException>(() =>
         {
             field1.GetId("Unknown");
@@ -171,7 +173,7 @@
 
         // Call GetId for a mixed FluentField
 #pragma warning disable BL0005  // Component parameter should not be set outside of its component.
-        var field2 = new FluentField()
+        var field2 = new FluentField(LibraryConfiguration.Empty)
         {
                 InputComponent = new FluentFieldParameterSelectorTests.MockFluentField()
         };
@@ -180,5 +182,50 @@
             field2.GetId("Unknown");
         });
 #pragma warning restore BL0005
+    }
+
+    [Theory]
+    [InlineData(FieldSize.Small)]
+    [InlineData(FieldSize.Medium)]
+    [InlineData(FieldSize.Large)]
+    [InlineData(null)]
+    [InlineData((FieldSize)99)]
+
+    public void FluentField_Size(FieldSize? value)
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentField Label="My label" Size="@value">Field content</FluentField>);
+
+        // Assert
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
+
+
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void FluentField_IncludeInputSlot(bool withInputSlot)
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentField Id="MyField" IncludeInputSlot="@withInputSlot">Field content</FluentField>);
+
+        // Act
+        var hasContent = cut.Markup.Contains(">Field content<");
+        var hasSlot = cut.Markup.Contains("<div slot=\"input\" id=\"MyField-input\"");
+
+        // Assert
+        Assert.True(hasContent);
+        Assert.Equal(withInputSlot, hasSlot);
+    }
+
+    [Fact]
+    public void FluentField_HideFluentField()
+    {
+        // Arrange & Act
+        var cut = Render(@<CascadingValue Value="true" Name="HideFluentField"><FluentField>Field content</FluentField></CascadingValue>);
+
+        // Assert
+        Assert.Equal("Field content", cut.Markup);
     }
 }

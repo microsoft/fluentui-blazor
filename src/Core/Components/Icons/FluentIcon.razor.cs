@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components.Web;
@@ -12,10 +12,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// FluentIcon is a component that renders an icon from the Fluent System icon set.
 /// </summary>
-public partial class FluentIcon<Icon> : FluentComponentBase
+public partial class FluentIcon<Icon> : FluentComponentBase, ITooltipComponent, IFluentComponentElementBase
     where Icon : AspNetCore.Components.Icon, new()
 {
     private Icon _icon = default!;
+
+    /// <summary />
+    public FluentIcon(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -28,6 +31,10 @@ public partial class FluentIcon<Icon> : FluentComponentBase
         .AddStyle("cursor", "pointer", when: () => OnClick.HasDelegate)
         .AddStyle("display", "inline-block", () => !_icon.ContainsSVG)
         .Build();
+
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    [Parameter]
+    public ElementReference Element { get; set; }
 
     /// <summary>
     /// Gets or sets the slot where the icon is displayed in.
@@ -85,6 +92,16 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool Focusable { get; set; } = false;
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     /// <summary />
     protected virtual Task OnClickHandlerAsync(MouseEventArgs e)
@@ -149,6 +166,6 @@ public partial class FluentIcon<Icon> : FluentComponentBase
             return _icon.Color;
         }
 
-        return null;
+        return Components.Icon.DefaultColor;
     }
 }

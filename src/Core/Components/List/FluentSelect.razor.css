@@ -1,0 +1,8 @@
+fluent-field:has(fluent-dropdown[readonly]) {
+  pointer-events: none;
+}
+
+fluent-dropdown[readonly] {
+  pointer-events: none;
+  user-select: none;
+}

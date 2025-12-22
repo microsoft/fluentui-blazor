@@ -18,14 +18,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(10);
         Options.OnInitializedCount++;
+        await Task.Delay(100, Xunit.TestContext.Current.CancellationToken);
     }
 
     protected override async Task OnParametersSetAsync()
     {
-        await Task.Delay(10);
         Options.OnParametersSetCount++;
+        await Task.Delay(100, Xunit.TestContext.Current.CancellationToken);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -45,7 +45,7 @@
 
         if (Options.AutoClose && Options.AutoCloseDelay <= 0)
         {
-            await Task.Delay(10);
+            await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
             await Dialog.CloseAsync(Options.AutoCloseResult);
         }
     }

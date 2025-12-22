@@ -1,8 +1,11 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -12,15 +15,20 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialogService
 {
     private readonly IServiceProvider _serviceProvider;
+    private readonly IJSRuntime _jsRuntime;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DialogService"/> class.
     /// </summary>
     /// <param name="serviceProvider">List of services available in the application.</param>
     /// <param name="localizer">Localizer for the application.</param>
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogInstance))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IDialogInstance))]
     public DialogService(IServiceProvider serviceProvider, IFluentLocalizer? localizer)
     {
         _serviceProvider = serviceProvider;
+        _jsRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
         Localizer = localizer ?? FluentLocalizerInternal.Default;
     }
 
@@ -46,7 +54,7 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogOptions)"/>
-    public virtual async Task<DialogResult> ShowDialogAsync(Type componentType, DialogOptions options)
+    public virtual async Task<DialogResult> ShowDialogAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, DialogOptions options)
     {
         if (!componentType.IsSubclassOf(typeof(ComponentBase)))
         {
@@ -68,26 +76,26 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync{TDialog}(DialogOptions)"/>
-    public Task<DialogResult> ShowDialogAsync<TDialog>(DialogOptions options) where TDialog : ComponentBase
+    public Task<DialogResult> ShowDialogAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(DialogOptions options) where TDialog : ComponentBase
     {
         return ShowDialogAsync(typeof(TDialog), options);
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync{TDialog}(Action{DialogOptions})"/>
-    public Task<DialogResult> ShowDialogAsync<TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
+    public Task<DialogResult> ShowDialogAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
     {
         return ShowDialogAsync(typeof(TDialog), new DialogOptions(options));
     }
 
     /// <inheritdoc cref="IDialogService.ShowDrawerAsync{TDialog}(DialogOptions)"/>
-    public Task<DialogResult> ShowDrawerAsync<TDialog>(DialogOptions options) where TDialog : ComponentBase
+    public Task<DialogResult> ShowDrawerAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(DialogOptions options) where TDialog : ComponentBase
     {
         options.Alignment ??= DialogAlignment.End;
         return ShowDialogAsync(typeof(TDialog), options);
     }
 
     /// <inheritdoc cref="IDialogService.ShowDrawerAsync{TDialog}(Action{DialogOptions})"/>
-    public Task<DialogResult> ShowDrawerAsync<TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
+    public Task<DialogResult> ShowDrawerAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
     {
         var dialogOptions = new DialogOptions(options);
         dialogOptions.Alignment ??= DialogAlignment.End;
@@ -100,11 +108,11 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     /// <param name="dialog"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    internal Task RemoveDialogFromProviderAsync(IDialogInstance? dialog)
+    internal async Task RemoveDialogFromProviderAsync(IDialogInstance? dialog)
     {
         if (dialog is null)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         // Remove the HTML code from the DialogProvider
@@ -113,6 +121,7 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
             throw new InvalidOperationException($"Failed to remove dialog from DialogProvider: the ID '{dialog.Id}' doesn't exist in the DialogServiceProvider.");
         }
 
-        return ServiceProvider.OnUpdatedAsync.Invoke(dialog);
+        await ServiceProvider.OnUpdatedAsync.Invoke(dialog);
+        await _jsRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.FocusOnPreviousActiveElement", dialog.Id);
     }
 }

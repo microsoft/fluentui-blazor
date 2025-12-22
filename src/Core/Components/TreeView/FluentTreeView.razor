@@ -1,0 +1,25 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<CascadingValue Value="this" IsFixed="true">
+    <fluent-tree id="@Id"
+                 class="@ClassValue"
+                 style="@StyleValue"
+                 appearance="@Appearance.ToAttributeValue(isNull: TreeAppearance.Subtle)"
+                 size="@Size.ToAttributeValue(isNull: TreeSize.Medium)"
+                 hide-selection="@HideSelection"
+                 @attributes="AdditionalAttributes">
+
+        @ChildContent
+
+        @if (Items != null)
+        {
+            foreach (var item in Items)
+            {
+                @FluentTreeItem.GetFluentTreeItem(this, item)
+            }
+        }
+
+    </fluent-tree>
+</CascadingValue>

@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Reflection;
@@ -43,7 +43,10 @@ public static class ReflectionExtensions
                type.BaseType != typeof(Regex) &&
                type.BaseType?.Name != "Icon" &&
                type.IsAbstract == false &&
-               type.Name.EndsWith("_g") == false;
+               !type.Name.EndsWith("_g") &&
+               !type.Name.Contains('+') && // Exclude nested types
+               !type.IsInterface &&
+               type.IsPublic;
     }
 
     /// <summary>

@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
@@ -13,12 +13,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// The FluentCheckbox component is used to render a checkbox input
 /// </summary>
-public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentElementBase
+public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentElementBase, ITooltipComponent
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
-    public FluentCheckbox()
+    public FluentCheckbox(LibraryConfiguration configuration) : base(configuration)
     {
         LabelPosition = Components.LabelPosition.After;
     }
@@ -35,16 +35,18 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     public bool? CheckState { get; set; }
 
     /// <summary>
-    /// Gets or sets the shape of the checkbox
+    /// Gets or sets the shape of the checkbox. See <see cref="CheckboxShape"/>
+    /// The default value is `null`. Internally the component uses CheckboxShape.Square.
     /// </summary>
     [Parameter]
-    public CheckboxShape Shape { get; set; } = CheckboxShape.Square;
+    public CheckboxShape? Shape { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the checkbox. See <see cref="CheckboxSize"/>
+    /// The default value is `null`. Internally the component uses CheckboxSize.Medium.
     /// </summary>
     [Parameter]
-    public CheckboxSize Size { get; set; } = CheckboxSize.Medium;
+    public CheckboxSize? Size { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
@@ -74,6 +76,10 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     [Parameter]
     public EventCallback<bool?> CheckStateChanged { get; set; }
 
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
     /// <summary>
     /// Handler for the OnFocus event.
     /// </summary>
@@ -89,6 +95,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        await base.RenderTooltipAsync(Tooltip);
 
         if (ThreeState && CheckState.HasValue)
         {
@@ -171,7 +178,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
             }
             else
             {
-                // Current Uncheck 
+                // Current Uncheck
                 if (ThreeStateOrderUncheckToIntermediate && ShowIndeterminate)
                 {
                     await SetToIndeterminateAsync();

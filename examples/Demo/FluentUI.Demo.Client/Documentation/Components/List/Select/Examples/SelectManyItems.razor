@@ -1,0 +1,17 @@
+﻿<FluentSelect Label="500 Names"
+              Placeholder="Select a name"
+              Items="@Persons"
+              OptionText="@(i => $"{i?.FirstName} {i?.LastName}")"
+              OptionValue="@(i => $"{i?.Id}")"
+              Height="200px"
+              Width="300px"
+              @bind-Value="@Selected" />
+
+<div>
+    Selected: @Selected?.FirstName
+</div>
+
+@code {
+    static SampleData.People.Person[] Persons = SampleData.People.GeneratePersons(500).ToArray();
+    SampleData.People.Person? Selected;
+}

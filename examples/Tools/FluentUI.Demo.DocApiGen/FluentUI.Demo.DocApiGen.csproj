@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -19,11 +19,11 @@
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="LoxSmoke.DocXml" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" />
   </ItemGroup>
-  
+
 </Project>

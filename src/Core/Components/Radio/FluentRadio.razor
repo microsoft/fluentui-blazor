@@ -1,0 +1,21 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+@typeparam TValue
+
+<FluentField ForId="@Id"
+             Class="@ClassValue"
+             Style="@StyleValue"
+             Label="@GetLabel()"
+             LabelTemplate="@LabelTemplate"
+             IncludeInputSlot="false"
+             LabelWidth="@LabelWidth"
+             Disabled="@GetDisabled()"
+             LabelPosition="@Components.LabelPosition.After">
+    <fluent-radio id="@Id"
+                  disabled="@GetDisabled()"
+                  slot="@FluentSlot.FieldInput"
+                  name="@Owner?.GetGroupName()"
+                  value="@GetValue()"
+                  @attributes="AdditionalAttributes">
+    </fluent-radio>
+</FluentField>

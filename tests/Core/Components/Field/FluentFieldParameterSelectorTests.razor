@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit
 @using Bunit
-@inherits TestContext
+@inherits FluentUITestContext
 @code
 {
     public FluentFieldParameterSelectorTests()
@@ -70,7 +70,7 @@
     [MemberData(nameof(GetTestData))]
     public void FluentFieldParameterSelector_SetNotSupported(string name, object? value, object? expectedValue, MessageState? state)
     {
-        var selector = new FluentFieldParameterSelector(new FluentField(), FluentLocalizer);
+        var selector = new FluentFieldParameterSelector(new FluentField(LibraryConfiguration.Empty), FluentLocalizer);
 
         Assert.ThrowsAny<Exception>(() =>
         {
@@ -86,7 +86,7 @@
     public void FluentFieldParameterSelector_FocusLost()
     {
         // Arrange
-        var field = new FluentField() { FocusLost = true };
+        var field = new FluentField(LibraryConfiguration.Empty) { FocusLost = true };
         var selector = new FluentFieldParameterSelector(field, FluentLocalizer);
 
         // Act
@@ -129,7 +129,7 @@
         }
 
         // Render
-        var cut = RenderComponent<DynamicComponent>(parameters =>
+        var cut = Render<DynamicComponent>(parameters =>
             {
                 parameters.Add(p => p.Type, typeof(FluentField));
                 parameters.Add(p => p.Parameters, attributes);

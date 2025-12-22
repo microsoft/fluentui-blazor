@@ -1,0 +1,42 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+@if (Visible)
+{
+    <div id="@Id"
+         class="@ClassValue"
+         style="@StyleValue"
+         shape="@(Circular ? "circle" : null)"
+         shimmer="@Shimmer"
+         @attributes="@AdditionalAttributes">
+
+        @* Custom content *@
+        @ChildContent?.Invoke(this)
+
+        @* Default skeleton patterns *@
+        @switch (Pattern)
+        {
+             case SkeletonPattern.Icon:
+                @DrawCircle("48px")
+
+                break;
+
+            case SkeletonPattern.IconTitle:
+                <FluentStack>
+                    @DrawCircle("48px")
+                    @DrawRectangle("100%", "48px")
+                </FluentStack>
+
+                break;
+
+            case SkeletonPattern.IconTitleContent:
+                <FluentStack>
+                    @DrawCircle("48px")
+                    @DrawRectangle("100%", "48px")
+                </FluentStack>
+                @DrawRectangle("auto", "100%")
+
+                break;
+        }
+    </div>
+}

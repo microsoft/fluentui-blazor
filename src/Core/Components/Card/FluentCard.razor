@@ -1,0 +1,17 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<div id="@Id"
+     appearance="@Appearance.ToAttributeValue(CardAppearance.Default, returnEmptyAsNull: true)"
+     shadow="@Shadow.ToAttributeValue(CardShadow.Default, returnEmptyAsNull: true)"
+     class="@ClassValue"
+     style="@StyleValue"
+     role="@Role"
+     selectable="@OnClick.HasDelegate"
+     tabindex="@(OnClick.HasDelegate ? 0 : null)"
+     @onclick="@ClickHandlerAsync"
+     @onkeydown="KeyDownHandlerAsync"
+     @attributes="@AdditionalAttributes">
+    @ChildContent
+</div>

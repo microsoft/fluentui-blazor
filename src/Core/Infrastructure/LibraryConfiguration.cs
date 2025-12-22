@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.Extensions.DependencyInjection;
@@ -13,15 +13,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class LibraryConfiguration
 {
     /// <summary>
+    /// Gets an empty instance of the <see cref="LibraryConfiguration"/> class.
+    /// Mainly used for testing purposes or when no configuration is needed.
+    /// </summary>
+    internal static LibraryConfiguration Empty { get; } = new LibraryConfiguration();
+
+    /// <summary>
     /// Gets the assembly version formatted as a string.
     /// </summary>
     public static readonly string? AssemblyVersion = typeof(LibraryConfiguration).Assembly.GetName().Version?.ToString();
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
-    /// If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
-    /// </summary>
-    public bool UseTooltipServiceProvider { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the service lifetime for the library services, when using Fluent UI in WebAssembly, it can make sense to use <see cref="ServiceLifetime.Singleton"/>.
@@ -36,9 +36,19 @@ public class LibraryConfiguration
     public IFluentLocalizer? Localizer { get; set; }
 
     /// <summary>
-    /// Gets or sets the default CSS class and styles for the library components.
+    /// Gets the default CSS class and styles for the library components.
     /// </summary>
     public DefaultStyles DefaultStyles { get; } = new DefaultStyles();
+
+    /// <summary>
+    /// Gets the default CSS class and styles for the library components.
+    /// </summary>
+    public DefaultValues DefaultValues { get; } = new DefaultValues();
+
+    /// <summary>
+    /// Gets the options for the library tooltip.
+    /// </summary>
+    public LibraryTooltipOptions Tooltip { get; } = new LibraryTooltipOptions();
 
     /* TODO: Implement these properties
      

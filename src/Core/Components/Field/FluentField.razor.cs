@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
@@ -14,12 +14,15 @@ public partial class FluentField : FluentComponentBase, IFluentField
 {
     private readonly string _defaultId = Identifier.NewId();
 
+    /// <summary />
+    public FluentField(LibraryConfiguration configuration) : base(configuration) { }
+
     [Inject]
     private LibraryConfiguration Configuration { get; set; } = default!;
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
-        .AddClass(Configuration.DefaultStyles.FluentFieldClass, when: HasLabel || HasMessage)
+        .AddClass(Configuration.DefaultStyles.FluentFieldClass, when: HasLabel)
         .Build();
 
     /// <summary />
@@ -31,7 +34,13 @@ public partial class FluentField : FluentComponentBase, IFluentField
         .Build();
 
     /// <summary>
-    /// Gets or sets an existing Input component to use in the field.
+    /// Gets or sets a value indicating whether the Fluent field should be hidden. For internal use only.
+    /// </summary>
+    [CascadingParameter(Name = "HideFluentField")]
+    internal bool HideFluentField { get; set; }
+
+    /// <summary>
+    /// Gets or sets an existing FieldInput component to use in the field.
     /// Setting this parameter will define the parameters
     /// Label, LabelTemplate, LabelPosition, LabelWidth,
     /// Required, Disabled,
@@ -41,7 +50,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     public IFluentField? InputComponent { get; set; }
 
     /// <summary>
-    /// Gets or sets the ID of the Input component to associate with the field.
+    /// Gets or sets the ID of the FieldInput component to associate with the field.
     /// </summary>
     [Parameter]
     public string? ForId { get; set; }
@@ -74,7 +83,14 @@ public partial class FluentField : FluentComponentBase, IFluentField
     public bool? Disabled { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the <see cref="ChildContent" /> should be rendered in an extra `div slot="input"`.
+    /// </summary>
+    [Parameter]
+    public bool IncludeInputSlot { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the child content of the field.
+    /// ⚠️ If the <see cref="InputComponent"/> is not set, you must set the `id="@Id"` and `slot="@FluentSlot.FieldInput"` parameters in YOUR input component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -99,11 +115,17 @@ public partial class FluentField : FluentComponentBase, IFluentField
     [Parameter]
     public MessageState? MessageState { get; set; }
 
+    /// <summary>
+    /// Gets or sets the <see cref="FieldSize"/> of the label in the field.
+    /// </summary>
+    [Parameter]
+    public FieldSize? Size { get; set; }
+
     private FluentFieldParameterSelector Parameters => new(this, Localizer);
 
     internal string? GetId(string slot)
     {
-        // Wrapper of an Input component
+        // Wrapper of an FieldInput component
         if (Parameters.HasInputComponent)
         {
             var id = (string.IsNullOrEmpty(ForId) ? Id : ForId) ?? _defaultId;

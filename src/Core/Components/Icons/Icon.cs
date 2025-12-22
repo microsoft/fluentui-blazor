@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Globalization;
@@ -14,6 +14,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class Icon : IconInfo
 {
+
+    /// <summary>
+    /// Represents the default color value used when no specific color is provided.
+    /// This value is required to ensure that the icon inherits the current text color from its parent element.
+    /// And will be correct for dark and light mode.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword
+    /// </summary>
+    internal const string DefaultColor = "currentColor";
+
     /// <summary>
     /// Please use the constructor including parameters.
     /// </summary>
@@ -93,14 +102,17 @@ public class Icon : IconInfo
     /// <summary>
     /// Gets the HTML markup of the icon.
     /// </summary>
-    public virtual MarkupString ToMarkup(string? size = null, string? color = null)
+    public virtual MarkupString ToMarkup(string? size = null, string? color = null, string? backgroundColor = null, string? slotName = null, string? role = null)
     {
         if (Size != IconSize.Custom && ContainsSVG)
         {
             var sizeAsString = ((int)Size).ToString(CultureInfo.InvariantCulture);
             var styleWidth = size ?? $"{sizeAsString}px";
-            var styleColor = color ?? Color ?? Components.Color.Primary.ToAttributeValue();
-            return new MarkupString($"<svg viewBox=\"0 0 {sizeAsString} {sizeAsString}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: var(--colorNeutralBackground1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
+            var styleColor = color ?? Color ?? DefaultColor;
+            var styleBackgroundColor = backgroundColor ?? "var(--colorNeutralBackground1)";
+            var slotAttribute = string.IsNullOrEmpty(slotName) ? string.Empty : $" slot=\"{slotName}\"";
+            var roleAttribute = string.IsNullOrEmpty(role) ? string.Empty : $" role=\"{role}\"";
+            return new MarkupString($"<svg viewBox=\"0 0 {sizeAsString} {sizeAsString}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: {styleBackgroundColor}; width: {styleWidth};\" aria-hidden=\"true\" {slotAttribute}{roleAttribute}>{Content}</svg>");
         }
 
         if (string.IsNullOrEmpty(size) && string.IsNullOrEmpty(color))

@@ -1,0 +1,64 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using Microsoft.FluentUI.AspNetCore.Components.Calendar;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+/// <summary>
+/// Computes the properties of a year in the calendar.
+/// </summary>
+/// <typeparam name="TValue">The type of value handled by the calendar.</typeparam>
+internal class FluentCalendarYear<TValue>
+{
+    private readonly FluentCalendar<TValue> _calendar;
+    private readonly bool _isInDisabledList;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentCalendarYear{TValue}"/> class.
+    /// </summary>
+    /// <param name="calendar"></param>
+    /// <param name="year"></param>
+    internal FluentCalendarYear(FluentCalendar<TValue> calendar, DateTime year)
+    {
+        _calendar = calendar;
+        Year = year.GetDay(_calendar.Culture) == 1 && year.GetMonth(_calendar.Culture) == 1 ? year : year.StartOfYear(_calendar.Culture);
+
+        if (calendar.DisabledCheckAllDaysOfMonthYear)
+        {
+            _isInDisabledList = calendar.AllDaysAreDisabled(year.StartOfYear(_calendar.Culture), year.EndOfYear(_calendar.Culture));
+        }
+        else
+        {
+            _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Year.ConvertToTValue<TValue>()) ?? false;
+        }
+    }
+
+    /// <summary>
+    /// Current Year (month and day are always 1)
+    /// </summary>
+    public DateTime Year { get; }
+
+    /// <summary>
+    /// Whether the year is readonly.
+    /// </summary>
+    public bool IsReadOnly => _isInDisabledList || _calendar.IsReadOnlyOrDisabled;
+
+    /// <summary>
+    /// Whether the year is disabled.
+    /// </summary>
+
+    public bool IsDisabled => _isInDisabledList;
+
+    /// <summary>
+    /// Whether the year is selected by the user
+    /// </summary>
+    public bool IsSelected => Year.GetYear(_calendar.Culture) == _calendar.ValueAsDateTime?.GetYear(_calendar.Culture);
+
+    /// <summary>
+    /// Gets the identifier of the year in the format yyyy.
+    /// </summary>
+    public string YearIdentifier => Year.ToString("yyyy", _calendar.Culture);
+}

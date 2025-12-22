@@ -1,0 +1,30 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using System.Linq
+@inherits FluentComponentBase
+
+<div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
+    @if (TooltipService != null)
+    {
+        @foreach (var tooltip in TooltipService.Items.Values)
+        {
+            <FluentTooltip UseTooltipService="false"
+                           Id="@tooltip.Id"
+                           Class="@tooltip.ClassValue"
+                           Style="@tooltip.StyleValue"
+                           Margin="@tooltip.Margin"
+                           Padding="@tooltip.Padding"
+                           Anchor="@tooltip.Anchor"
+                           MaxWidth="@tooltip.MaxWidth"
+                           SpacingHorizontal="@tooltip.SpacingHorizontal"
+                           SpacingVertical="@tooltip.SpacingVertical"
+                           Delay="@tooltip.Delay"
+                           Positioning="@tooltip.Positioning"
+                           Data="@tooltip.Data"
+                           OnToggle="@tooltip.OnToggle"
+                           OnDismissed="@tooltip.OnDismissed"
+                           @attributes="@tooltip.AdditionalAttributes">
+                @tooltip.ChildContent
+            </FluentTooltip>
+        }
+    }
+</div>

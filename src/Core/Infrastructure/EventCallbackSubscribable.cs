@@ -1,0 +1,52 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using System.Collections.Concurrent;
+using Microsoft.AspNetCore.Components;
+
+namespace Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
+
+/// <summary>
+/// Represents an event that you may subscribe to. This differs from normal C# events in that the handlers
+/// are EventCallback<typeparamref name="T"/>, and so may have async behaviors and cause component re-rendering
+/// while retaining error flow.
+/// </summary>
+/// <typeparam name="T">A type for the eventargs.</typeparam>
+internal sealed class EventCallbackSubscribable<T>
+{
+    private readonly ConcurrentDictionary<EventCallbackSubscriber<T>, EventCallback<T>> _callbacks = [];
+
+    /// <summary>
+    /// Invokes all the registered callbacks sequentially, in an undefined order.
+    /// </summary>
+    public async Task InvokeCallbacksAsync(T eventArg)
+    {
+        foreach (var callback in _callbacks.Values)
+        {
+            try
+            {
+                await callback.InvokeAsync(eventArg);
+            }
+            catch (InvalidOperationException)
+            {
+                // Continue invoking the rest of the callbacks even if one fails.
+            }
+        }
+    }
+
+    /// <summary>
+    /// Don't call this directly - it gets called by EventCallbackSubscription
+    /// </summary>
+    /// <param name="owner">The subscriber that owns this callback.</param>
+    /// <param name="callback">The callback to invoke.</param>
+    public void Subscribe(EventCallbackSubscriber<T> owner, EventCallback<T> callback)
+        => _callbacks.TryAdd(owner, callback);
+
+    /// <summary>
+    /// Don't call this directly - it gets called by EventCallbackSubscription
+    /// <param name="owner">The subscriber that owns this callback.</param>
+    /// </summary>
+    public void Unsubscribe(EventCallbackSubscriber<T> owner)
+        => _callbacks.TryRemove(owner, out _);
+}

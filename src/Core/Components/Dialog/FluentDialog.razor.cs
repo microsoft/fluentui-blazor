@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
@@ -12,12 +12,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The dialog component is a window overlaid on either the primary window or another dialog window.
-/// Windows under a modal dialog are inert. 
+/// Windows under a modal dialog are inert.
 /// </summary>
 public partial class FluentDialog : FluentComponentBase
 {
     /// <summary />
-    public FluentDialog()
+    [DynamicDependency(nameof(OnToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
+    public FluentDialog(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
@@ -73,11 +75,7 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public EventCallback<DialogEventArgs> OnStateChange { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
+    /// <summary />
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && LaunchedFromService)
@@ -97,6 +95,11 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     internal async Task OnToggleAsync(DialogToggleEventArgs args)
     {
+        if (string.CompareOrdinal(args.Id, Instance?.Id) != 0)
+        {
+            return;
+        }
+
         // Raise the event received from the Web Component
         var dialogEventArgs = await RaiseOnStateChangeAsync(args);
 
@@ -221,8 +224,8 @@ public partial class FluentDialog : FluentComponentBase
 
             return alignment switch
             {
-                DialogAlignment.Start => "start",
-                DialogAlignment.End => "end",
+                DialogAlignment.Start => FluentSlot.Start,
+                DialogAlignment.End => FluentSlot.End,
                 _ => null
             };
         }

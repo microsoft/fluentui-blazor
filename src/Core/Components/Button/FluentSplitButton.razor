@@ -1,0 +1,31 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Rendering;
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<FluentMenu Id="@Id" Class="@ClassValue" Style="@StyleValue" OnClick="@OnMenuClick" OnCheckedChanged="@OnMenuCheckedChanged" split="true" @attributes=@AdditionalAttributes>
+    <FluentButton IconStart="@IconStart"
+                  IconOnly="@IconOnly"
+                  Appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance)"
+                  Shape="@Shape"
+                  Size="@Size"
+                  BackgroundColor="@BackgroundColor"
+                  Color="@Color"
+                  Name="@Name"
+                  OnClick="@OnClick"
+                  slot="primary-action">
+        @Label
+    </FluentButton>
+
+    @*This can be added once the web component gets fixed
+      IconEnd="@IconToggle"
+      IconOnly="@(IconToggle is null ? true : true)"*@
+    <FluentMenuButton Appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance)"
+                      Shape="@Shape"
+                      Size="@Size"
+                      BackgroundColor="@BackgroundColor"
+                      Color="@Color"
+                      aria-label="@Title" />
+    @ChildContent
+</FluentMenu>
+

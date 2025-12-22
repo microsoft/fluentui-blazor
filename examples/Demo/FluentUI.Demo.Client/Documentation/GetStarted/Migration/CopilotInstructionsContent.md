@@ -12,8 +12,7 @@ Example benefits:
 - Migrate complete file following new namespacing and new parameters
 - Renaming old names from v3-v4 to v5
 
-> ⚠️ Note
->
+> [!NOTE]
 > - This feature is currently in public preview and is subject to change.
 > - Custom instructions are currently only supported for **Copilot Chat** in **VS Code** and **Visual Studio**.
 

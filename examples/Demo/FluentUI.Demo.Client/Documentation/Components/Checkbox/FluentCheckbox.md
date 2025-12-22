@@ -12,7 +12,7 @@ It's typically used to capture a boolean value.
 
 ## Appearance
 
-The apparent style of a checkbox can be changed by setting the `Shape` property, but also by setting the `Size` property.
+The apparent style of a checkbox can be changed by setting the `Shape` property, but also by setting the `Size` property (see below).
 
 You can also add a label to the checkbox by setting the `Label` property.
 The label will be automatically positioned next to the checkbox.
@@ -21,8 +21,13 @@ We recommend using a spacing of 24px between checkboxes and other components.
 
 {{ CheckboxAppearances }}
 
+## Size
+Checkboxes can be shown either in `Medium` or `Large` size
 
-### Indeterminate
+{{ CheckboxSizeExample }}
+
+
+## Indeterminate
 
 To define the indeterminate state, you need to use the CheckState bindable property,
 which has three possible values: null, true and false.

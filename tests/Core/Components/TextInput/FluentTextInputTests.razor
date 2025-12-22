@@ -3,7 +3,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using System.ComponentModel.DataAnnotations
 @using Xunit;
-@inherits TestContext
+@inherits FluentUITestContext
 
 @code
 {
@@ -84,18 +84,19 @@
     }
 
     [Theory]
-    [InlineData(TextInputSize.Small, "small")]
-    [InlineData(TextInputSize.Medium, "medium")]
-    [InlineData(TextInputSize.Large, "large")]
-    public void FluentInputText_Size(TextInputSize size, string expectedAttribute)
+    [InlineData(TextInputSize.Small)]
+    [InlineData(TextInputSize.Medium)]
+    [InlineData(TextInputSize.Large)]
+    [InlineData((TextInputSize)999)]
+    [InlineData(null)]
+    public void FluentInputText_Size(TextInputSize? size)
     {
         // Arrange && Act
-        using var context = new IdentifierContext(i => "myId");
+        
         var cut = Render(@<FluentTextInput Size="@size" />);
 
         // Assert
-        cut.Find("fluent-text-input")
-           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" control-size=\"{expectedAttribute}\" />");
+        cut.Verify(suffix: size.ToString());
     }
 
     [Fact]
@@ -164,7 +165,7 @@
            .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedImmediateValue}\" />");
 
         // Assert: After a small delay
-        await Task.Delay(200);
+        await Task.Delay(200, Xunit.TestContext.Current.CancellationToken);
         Assert.Equal(expectedDelayedValue, value);
         cut.Find("fluent-text-input")
            .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedDelayedValue}\" />");
@@ -179,5 +180,57 @@
         var value = AspNetCore.Components.Migration.FluentInputAppearanceExtensions.ToTextInputAppearance(appearance);
 
         Assert.Equal(expected, value);
+    }
+
+    [Fact]
+    public async Task FluentInputText_ChangeAfterKeyPress()
+    {
+        var value = string.Empty;
+        var lastEventArgs = new FluentKeyPressEventArgs() { KeyPress = new KeyPress(), Value = "" };
+
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput @bind-Value="@value"
+                ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])"
+                OnChangeAfterKeyPress="@(e => lastEventArgs = e)" />
+        );
+
+        // Act
+        await cut.FindComponent<FluentTextInput>().Instance.ChangeAfterKeyPressHandlerAsync("MyValue", KeyPress.For(KeyCode.Enter));
+
+        // Assert
+        Assert.Equal(KeyCode.Enter, lastEventArgs.KeyPress.Key);
+        Assert.Equal("MyValue", lastEventArgs.Value);
+    }
+
+    [Fact]
+    public void FluentInputText_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput Width="100px" />);
+
+        // Assert
+        Assert.Equal("width: 100px;", cut.Find("fluent-text-input").GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentInputText_MaskPattern()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput MaskPattern="000.000" Value="123.456" />);
+
+        // Assert
+        // Check only the value attribute, because the mask is applied via JS
+        Assert.Contains("value=\"123.456\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentInputText_EmptyMaskPlaceholder()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput MaskPattern="000.000" MaskLazy="true" MaskPlaceholder="" Value="123.456" />);
+
+        // Assert
+        // Check only the value attribute, because the mask is applied via JS
+        Assert.Contains("value=\"123.456\"", cut.Markup);
     }
 }

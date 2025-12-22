@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Helper class for selecting parameters for a FluentField,
-/// from the component itself or from an existing Input component.
+/// from the component itself or from an existing FieldInput component.
 /// </summary>
 internal class FluentFieldParameterSelector : IFluentField
 {

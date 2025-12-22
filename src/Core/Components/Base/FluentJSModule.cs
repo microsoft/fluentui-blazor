@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.JSInterop;
@@ -10,14 +10,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Base class to manage the JavaScript function from the FluentUI Blazor components.
 /// </summary>
-internal class FluentJSModule : IAsyncDisposable
+public class FluentJSModule : IAsyncDisposable
 {
     private IJSObjectReference? _jsModule;
 
     /// <summary>
     /// Gets the root path for the JavaScript files.
     /// </summary>
-    public const string JAVASCRIPT_ROOT = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/";
+    internal const string JAVASCRIPT_ROOT = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentJSModule"/> class.
@@ -33,6 +33,12 @@ internal class FluentJSModule : IAsyncDisposable
     /// This property is injected by the Blazor framework.
     /// </summary>
     protected virtual IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary>
+    /// Gets a value indicating whether the JavaScript module has been imported,
+    /// using the <see cref="ImportJavaScriptModuleAsync"/> method.
+    /// </summary>
+    public bool Imported => _jsModule is not null;
 
     /// <summary>
     /// Gets the JavaScript module imported with the <see cref="ImportJavaScriptModuleAsync"/> method.
@@ -59,23 +65,7 @@ internal class FluentJSModule : IAsyncDisposable
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
-
         await DisposeAsync(_jsModule);
-
-        if (_jsModule != null)
-        {
-            try
-            {
-                await _jsModule.DisposeAsync();
-            }
-            catch (Exception ex) when (ex is JSDisconnectedException ||
-                                       ex is OperationCanceledException)
-            {
-                // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-                // the client disconnected. This is not an error.
-            }
-        }
-
         GC.SuppressFinalize(this);
     }
 
@@ -85,8 +75,20 @@ internal class FluentJSModule : IAsyncDisposable
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
     [ExcludeFromCodeCoverage]
-    internal virtual ValueTask DisposeAsync(IJSObjectReference? jsModule)
+    protected virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
-        return ValueTask.CompletedTask;
+        if (jsModule != null)
+        {
+            try
+            {
+                await jsModule.DisposeAsync();
+            }
+            catch (Exception ex) when (ex is JSDisconnectedException ||
+                                       ex is OperationCanceledException)
+            {
+                // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+                // the client disconnected. This is not an error.
+            }
+        }
     }
 }

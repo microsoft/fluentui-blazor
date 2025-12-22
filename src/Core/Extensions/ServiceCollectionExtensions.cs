@@ -1,7 +1,8 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -17,6 +18,8 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">Service collection</param>
     /// <param name="configuration">Library configuration</param>
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IDialogService))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogService))]
     public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, LibraryConfiguration? configuration = null)
     {
         var options = configuration ?? new();
@@ -31,6 +34,12 @@ public static class ServiceCollectionExtensions
         services.Add<LibraryConfiguration>(provider => options ?? new(), serviceLifetime);
         services.Add<IDialogService, DialogService>(serviceLifetime);
         services.Add<IFluentLocalizer>(provider => options?.Localizer ?? FluentLocalizerInternal.Default, serviceLifetime);
+        services.Add<IKeyCodeService, KeyCodeService>(serviceLifetime);
+
+        if (configuration == null || configuration.Tooltip.UseServiceProvider)
+        {
+            services.Add<ITooltipService, TooltipService>(serviceLifetime);
+        }
 
         return services;
     }
@@ -61,7 +70,7 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary />
-    private static IServiceCollection Add<TService, TImplementation>(this IServiceCollection services, ServiceLifetime lifetime)
+    private static IServiceCollection Add<TService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TImplementation>(this IServiceCollection services, ServiceLifetime lifetime)
         where TService : class
         where TImplementation : class, TService
     {

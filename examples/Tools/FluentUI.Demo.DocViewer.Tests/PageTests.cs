@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using FluentUI.Demo.DocViewer.Models;
@@ -191,7 +191,7 @@ public class PageTests
 
         var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
 
-        Assert.Equal(string.Empty, page.Order);
+        Assert.Equal("99999", page.Order);
     }
 
     [Fact]

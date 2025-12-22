@@ -1,10 +1,10 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -12,10 +12,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentDialogProvider : FluentComponentBase
 {
-    private IDialogService? _dialogService;
-
     /// <summary />
-    public FluentDialogProvider()
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogOptionsFooter))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogOptionsFooterAction))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogOptionsHeader))]
+    public FluentDialogProvider(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
@@ -37,7 +38,7 @@ public partial class FluentDialogProvider : FluentComponentBase
     public IServiceProvider? ServiceProvider { get; set; }
 
     /// <summary />
-    protected virtual IDialogService? DialogService => _dialogService ??= ServiceProvider?.GetService<IDialogService>();
+    protected virtual IDialogService? DialogService => GetCachedServiceOrNull<IDialogService>();
 
     /// <summary />
     protected override void OnInitialized()
@@ -67,7 +68,8 @@ public partial class FluentDialogProvider : FluentComponentBase
 
         if (DialogService is not null)
         {
-            DialogService.ProviderId = id;
+            
+        DialogService.ProviderId = id;
         }
     }
 }

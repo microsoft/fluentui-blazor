@@ -1,14 +1,8 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
@@ -21,7 +15,7 @@ public class FluentInputExtensionsTests
     public void FluentInputExtensions_TryParseSelectableValueFromString_String(string value, bool expectedValid, string expectedResult, string? expectedValidationMessage)
     {
         // Arrange
-        var input = new FluentSelect<string>();
+        var input = new FluentSelect<string>(LibraryConfiguration.Empty);
 
         // Act
         var ok = FluentInputExtensions.TryParseSelectableValueFromString(input, value, out var result, out var validationErrorMessage);
@@ -39,7 +33,7 @@ public class FluentInputExtensionsTests
     public void FluentInputExtensions_TryParseSelectableValueFromString_Number(string value, bool expectedValid, int expectedResult, string? expectedValidationMessage)
     {
         // Arrange
-        var input = new FluentSelect<int>();
+        var input = new FluentSelect<int>(LibraryConfiguration.Empty);
 
         // Act
         var ok = FluentInputExtensions.TryParseSelectableValueFromString(input, value, out var result, out var validationErrorMessage);
@@ -57,7 +51,7 @@ public class FluentInputExtensionsTests
     public void FluentInputExtensions_TryParseSelectableValueFromString_Boolean(string value, bool expectedValid, bool expectedResult, string? expectedValidationMessage)
     {
         // Arrange
-        var input = new FluentSelect<bool>();
+        var input = new FluentSelect<bool>(LibraryConfiguration.Empty);
 
         // Act
         var ok = FluentInputExtensions.TryParseSelectableValueFromString(input, value, out var result, out var validationErrorMessage);
@@ -76,7 +70,7 @@ public class FluentInputExtensionsTests
     public void FluentInputExtensions_TryParseSelectableValueFromString_BooleanNullable(string value, bool expectedValid, bool? expectedResult, string? expectedValidationMessage)
     {
         // Arrange
-        var input = new FluentSelect<bool?>();
+        var input = new FluentSelect<bool?>(LibraryConfiguration.Empty);
 
         // Act
         var ok = FluentInputExtensions.TryParseSelectableValueFromString(input, value, out var result, out var validationErrorMessage);

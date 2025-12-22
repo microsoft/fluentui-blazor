@@ -1,10 +1,14 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
+@* To avoid a flicker effect, the time it takes for the FluentLayout mobile attribute to be updated*@
+<style>@GetContainerMobileStyles()</style>
+
 <CascadingValue Value="this" IsFixed="true">
-    <div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes"
-         global-scrollbar="@GlobalScrollbar"
-         menu-opened="@(Hamburger?.Opened ?? false)">
-        @ChildContent
+    <div id="@($"{Id}-container")">
+        <div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes" global-scrollbar="@GlobalScrollbar">
+            @ChildContent
+        </div>
     </div>
 </CascadingValue>
+

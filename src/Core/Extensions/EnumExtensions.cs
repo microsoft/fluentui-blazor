@@ -1,9 +1,10 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -37,10 +38,34 @@ public static class EnumExtensions
 
     /// <summary>
     /// Returns the Description attribute of an enum value if present.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="isNull">The enum value that represents null.</param>
+    /// <param name="returnEmptyAsNull">If True, returns null if the description is empty.</param>
+    /// <returns></returns>
+    public static string? ToAttributeValue(this Enum? value, Enum isNull, bool? returnEmptyAsNull = false)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+
+        if (value.Equals(isNull))
+        {
+            return null;
+        }
+
+        return ToAttributeValue(value, returnEmptyAsNull);
+    }
+
+    /// <summary>
+    /// Returns the Description attribute of an enum value if present.
     /// Returns the enum name if the attribute is not found (in lower-case).
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
+    [SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
+                     Justification = "In the context of the Enum, the 'Display' attribute will not be trimmed.")]
     public static string GetDescription(this Enum value)
     {
         var memberInfo = value.GetType().GetMember(value.ToString());
@@ -62,6 +87,8 @@ public static class EnumExtensions
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
+    [SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
+                     Justification = "In the context of the Enum, the 'Display' attribute will not be trimmed.")]
     public static string GetDisplay(this Enum value)
     {
         var memberInfo = value.GetType().GetMember(value.ToString());
@@ -87,6 +114,7 @@ public static class EnumExtensions
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
+    [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public static bool IsObsolete(this Enum value)
     {
         var memberInfo = value.GetType().GetMember(value.ToString());

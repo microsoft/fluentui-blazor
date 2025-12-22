@@ -1,0 +1,37 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Forms
+@inherits FluentComponentBase
+
+<div class="@ClassValue"
+     style="@StyleValue"
+     disabled="@Disabled"
+     @ref="@_containerElement">
+
+    <div class="inputfile-content" style="@($"z-index: {ZIndex.InputFileDropZone + 1}")">
+
+        @ChildContent
+
+        <div class="inputfile-progress" style="@ProgressStyle">
+            @if (ProgressTemplate == null)
+            {
+                <FluentProgressBar Min="0" Max="100" Value="@ProgressPercent" />
+                <br />
+                @ProgressTitle
+            }
+            else
+            {
+                @ProgressTemplate(ProgressPercent > 0 ? ProgressFileDetails with { Percentage = ProgressPercent } : new ProgressFileDetails())
+            }
+        </div>
+    </div>
+
+    <div style="grid-column: 1; grid-row: 1; ">
+        <InputFile OnChange="OnUploadFilesHandlerAsync"
+                   @attributes="@AdditionalAttributes"
+                   @ref="@_inputFile"
+                   id="@Id"
+                   multiple=@Multiple
+                   accept="@Accept"
+                   disabled="@Disabled" />
+    </div>
+</div>

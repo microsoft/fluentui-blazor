@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
@@ -11,6 +11,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentStack : FluentComponentBase
 {
+    /// <summary />
+    public FluentStack(LibraryConfiguration configuration) : base(configuration) { }
+
     [Inject]
     private LibraryConfiguration Configuration { get; set; } = default!;
 
@@ -90,6 +93,12 @@ public partial class FluentStack : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? VerticalGap { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the stack is reversed.
+    /// </summary>
+    [Parameter]
+    public bool? Reversed { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

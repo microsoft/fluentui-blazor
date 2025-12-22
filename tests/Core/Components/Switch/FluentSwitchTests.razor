@@ -1,0 +1,132 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.ComponentModel.DataAnnotations
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    public FluentSwitchTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSwitch_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(LabelPosition.Above, "above")]
+    [InlineData(LabelPosition.After, "after")]
+    [InlineData(LabelPosition.Before, "before")]
+    [InlineData(null, "above")]
+    [InlineData((LabelPosition)999, "")]
+    public void FluentSwitch_LabelPosition(LabelPosition? value, string expected)
+    {
+        // Arrange
+        var cut = Render(@<FluentSwitch Label="My label" LabelPosition="@value" />);
+
+        // Act
+        var position = cut.Find("fluent-field").GetAttribute("label-position");
+
+        // Assert
+        Assert.Equal(expected, position);
+    }
+
+    [Fact]
+    public void FluentCheckbox_LabelTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch><LabelTemplate>Label with <b>bold</b> text</LabelTemplate></FluentSwitch>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCheckbox_ReadOnly()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch ReadOnly="true" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCheckbox_Required()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch Required="true" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    public void FluentSwitch_OnClick(bool initialValue, bool expectedValue)
+    {
+        // Arrange
+        var value = initialValue;
+        var cut = Render(@<FluentSwitch @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-switch").Change("");
+
+        // Assert
+        Assert.Equal(expectedValue, value);
+    }
+
+    [Fact]
+    public void FluentSwitch_TryParseValueFromString()
+    {
+        // Arrange
+        var fluentSwitch = new FluentSwitch(LibraryConfiguration.Empty);
+
+        // Act & Assert
+        Assert.Throws<NotSupportedException>(() => fluentSwitch.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
+    }
+
+#pragma warning disable CS0618
+
+    [Fact]
+    public void FluentSwitch_ChildContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentSwitch>My Label</FluentSwitch>);
+
+        // Act
+        var label = cut.FindAll("fluent-field > label");
+
+        // Assert
+        Assert.Empty(label);
+        Assert.DoesNotContain("My Label", cut.Markup);
+    }
+
+    [Theory]
+    [InlineData(false, "Is unchecked")]
+    [InlineData(true, "Is checked")]
+    public void FluentSwitch_Message(bool value, string expectedLabel)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch CheckedMessage="Is checked" UncheckedMessage="Is unchecked" Value="@value" />);
+
+        // Act
+        var label = cut.Find("fluent-field > label").InnerHtml.Trim(' ', '\n', '\r');
+
+        // Assert
+        Assert.Equal(expectedLabel, label);
+    }
+
+#pragma warning restore
+}

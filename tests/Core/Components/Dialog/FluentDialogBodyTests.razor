@@ -1,5 +1,5 @@
 ﻿@using Xunit;
-@inherits TestContext
+@inherits FluentUITestContext
 @code
 {
     public FluentDialogBodyTests()
@@ -8,7 +8,7 @@
         Services.AddFluentUIComponents();
 
         DialogService = Services.GetRequiredService<IDialogService>();
-        DialogProvider = RenderComponent<FluentDialogProvider>();
+        DialogProvider = Render<FluentDialogProvider>();
     }
 
     /// <summary>

@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Collections.Concurrent;
@@ -23,7 +23,7 @@ public abstract class FluentServiceBase<TComponent> : IFluentServiceBase<TCompon
     /// <see cref="IFluentServiceBase{TComponent}.Items" />
     /// </summary>
     ConcurrentDictionary<string, TComponent> IFluentServiceBase<TComponent>.Items => _list;
-   
+
     /// <summary>
     /// <see cref="IFluentServiceBase{TComponent}.OnUpdatedAsync" />
     /// </summary>

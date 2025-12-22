@@ -7,7 +7,8 @@ interface Blazor {
   // Custom properties
   theme: {
     isSystemDark(): boolean,
-    isDarkMode(): boolean
+    isDarkMode(): boolean,
+    setLightTheme(): void,
+    setDarkTheme(): void,
   }
- 
 }

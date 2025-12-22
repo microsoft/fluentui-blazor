@@ -1,0 +1,19 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-image id="@Id"
+              class="@ClassValue"
+              style="@StyleValue"
+              fit="@Fit.ToAttributeValue()"
+              shape="@Shape.ToAttributeValue()"
+              block="@Block"
+              bordered="@Bordered"
+              shadow="@Shadow"
+              @attributes="AdditionalAttributes">
+    @if (!string.IsNullOrEmpty(Source))
+    {
+        <img style="@ImageStyleValue" class="@ImageClassValue" src="@Source" alt="@AlternateText" />
+    }
+    @ChildContent
+</fluent-image>

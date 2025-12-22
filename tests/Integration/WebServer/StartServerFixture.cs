@@ -1,14 +1,8 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Playwright;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.WebServer;

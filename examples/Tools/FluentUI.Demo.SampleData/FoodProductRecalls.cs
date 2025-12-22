@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Text.Json;
@@ -15,12 +15,12 @@ namespace FluentUI.Demo.SampleData;
 public class RemoteFoodProductRecalls
 {
     private const string FDA_API = "https://api.fda.gov/food/enforcement.json";
-    private static readonly HttpClient _client = new HttpClient();
+    private static readonly HttpClient _client = new();
 
     /// <summary>
     /// Options for JSON serialization and deserialization.
     /// </summary>
-    private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
+    private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
@@ -47,7 +47,7 @@ public class RemoteFoodProductRecalls
         public Meta Meta { get; set; } = new();
 
         /// <summary />
-        public IEnumerable<FoodProduct> Results { get; set; } = Array.Empty<FoodProduct>();
+        public IEnumerable<FoodProduct> Results { get; set; } = [];
     }
 
     /// <summary />
@@ -115,3 +115,51 @@ public class RemoteFoodProductRecalls
         public int Total { get; set; }
     }
 }
+
+#nullable disable
+/// <summary>
+/// Represents the data returned by https://open.fda.gov/apis/food/enforcement/
+/// This is a subset of the fields available on that API
+/// </summary>
+public class FoodRecall
+{
+    /// <summary />
+    public string Event_Id { get; set; }
+    /// <summary />
+    public string Status { get; set; }
+    /// <summary />
+    public string City { get; set; }
+    /// <summary />
+    public string State { get; set; }
+    /// <summary />
+    public string Recalling_Firm { get; set; }
+    /// <summary />
+    public string Termination_Date { get; set; }
+}
+
+/// <summary>
+/// Represents the result of a food recall query from the FDA API.
+/// </summary>
+public class FoodRecallQueryResult
+{
+    /// <summary />
+    public Metadata Meta { get; set; }
+    /// <summary />
+    public FoodRecall[] Results { get; set; }
+
+    /// <summary />
+    public class Metadata
+    {
+        /// <summary />
+        public ResultsInfo Results { get; set; }
+    }
+
+    /// <summary />
+    public class ResultsInfo
+    {
+        /// <summary />
+        public int Total { get; set; }
+    }
+}
+
+#nullable enable

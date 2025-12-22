@@ -1,10 +1,11 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -12,12 +13,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A text input component that allows users to enter and edit a single line of text.
 /// </summary>
-public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase
+public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
     /// </summary>
-    public FluentTextInput()
+    public FluentTextInput(LibraryConfiguration configuration) : base(configuration)
     {
         // Default conditions for the message
         MessageCondition = (field) =>
@@ -33,6 +34,13 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
         };
 
     }
+
+    /// <summary>
+    /// Gets the CSS class to apply to the internal web-component.
+    /// </summary>
+    protected virtual string? ComponentStyleValue => new StyleBuilder()
+        .AddStyle("width", Width)
+        .Build();
 
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
@@ -88,11 +96,37 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     public string? Pattern { get; set; }
 
     /// <summary>
+    /// Gets or sets the input mask pattern that defines the allowed format for user input.
+    /// </summary>
+    [Parameter]
+    public string? MaskPattern { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the mask should be applied lazily (only when the user types).
+    /// The default is false, meaning the <see cref="MaskPattern"/> is always visible.
+    /// </summary>
+    [Parameter]
+    public bool MaskLazy { get; set; }
+
+    /// <summary>
+    /// Gets or sets the character used to represent unfilled positions in the input mask.
+    /// The default is "_". Only the first character is used.
+    /// </summary>
+    [Parameter]
+    public string MaskPlaceholder { get; set; } = "_";
+
+    /// <summary>
     /// Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
     /// An Id value must be set to use this property.
     /// </summary>
     [Parameter]
     public string? AutoComplete { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width of the input field.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
 
     /// <summary>
     /// Gets or sets the text filed type. See <see cref="Components.TextInputType"/>
@@ -119,12 +153,60 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     [Parameter]
     public TextInputMode? InputMode { get; set; }   // TODO: To verify if this is supported by the component
 
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.ChangeAfterKeyPress" />
+    [Parameter]
+    public KeyPress[]? ChangeAfterKeyPress { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.OnChangeAfterKeyPress" />
+    [Parameter]
+    public EventCallback<FluentKeyPressEventArgs> OnChangeAfterKeyPress { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.ChangeAfterKeyPressHandlerAsync(string, KeyPress)" />
+    [JSInvokable]
+    public async Task ChangeAfterKeyPressHandlerAsync(string value, KeyPress key)
+    {
+        await ChangeHandlerAsync(new ChangeEventArgs()
+        {
+            Value = value,
+        });
+
+        if (OnChangeAfterKeyPress.HasDelegate)
+        {
+            await OnChangeAfterKeyPress.InvokeAsync(new FluentKeyPressEventArgs()
+            {
+                Value = value,
+                KeyPress = key,
+            });
+        }
+    }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
+
     /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "value");
+
+            // Initialize the change after key press event
+            await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
+
+            // Set the mask pattern if defined
+            if (!string.IsNullOrEmpty(MaskPattern))
+            {
+                var placeholder = MaskPlaceholder.Length > 0 ? MaskPlaceholder[0] : '_';
+
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyPatternMask", Id, MaskPattern, MaskLazy, placeholder);
+            }
         }
     }
 

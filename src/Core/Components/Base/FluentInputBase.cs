@@ -1,12 +1,12 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using System.Diagnostics.CodeAnalysis;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,17 +16,23 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// as a cascading parameter.
 /// </summary>
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
-public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField
+public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField, IAsyncDisposable
 {
     private FluentJSModule? _jsModule;
+    private CachedServices? _cachedServices;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentInputBase{TValue}"/> class.
     /// </summary>
-    protected FluentInputBase()
+    /// <param name="configuration">The configuration object used to apply default values to the component.</param>
+    protected FluentInputBase(LibraryConfiguration configuration)
     {
         ValueExpression = () => CurrentValueOrDefault;
+        configuration?.DefaultValues.ApplyDefaults(this);
     }
+
+    [Inject]
+    private IServiceProvider ServiceProvider { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -207,8 +213,61 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     protected virtual string? GetAriaLabelWithRequired()
     {
         return (AriaLabel ?? Label ?? string.Empty) +
-               (Required == true ? $", {Localizer["FluentInputBase_Required"]}" : string.Empty);
+               (Required == true ? $", {Localizer[Localization.LanguageResource.FluentInputBase_Required]}" : string.Empty);
     }
+
+    /// <summary>
+    /// Dispose the <see cref="JSModule"/> object.
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    [ExcludeFromCodeCoverage]
+    public virtual async ValueTask DisposeAsync()
+    {
+        if (_jsModule != null)
+        {
+            try
+            {
+                await DisposeAsync(_jsModule.ObjectReference);
+            }
+            catch (Exception ex) when (ex is JSDisconnectedException ||
+                                       ex is OperationCanceledException)
+            {
+                // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+                // the client disconnected. This is not an error.
+            }
+        }
+
+        _cachedServices?.DisposeTooltipAsync(this);
+        _cachedServices?.Dispose();
+        await JSModule.DisposeAsync();
+    }
+
+    /// <summary>
+    /// Override this method to call your custom dispose logic, using the <see cref="IJSObjectReference"/> object.
+    /// </summary>
+    /// <param name="jsModule"></param>
+    /// <returns></returns>
+    [ExcludeFromCodeCoverage]
+    protected virtual ValueTask DisposeAsync(IJSObjectReference jsModule)
+    {
+        return ValueTask.CompletedTask;
+    }
+
+    /// <summary>
+    /// Get service of type <typeparamref name="T"/> from the <see cref="IServiceProvider"/> or null if not found.
+    /// Keep in mind that this method will cache the service in the component memory for future use.
+    /// </summary>
+    /// <typeparam name="T">The type of service object to get.</typeparam>
+    /// <returns></returns>
+    protected virtual T? GetCachedServiceOrNull<T>() => (_cachedServices ??= new CachedServices(ServiceProvider)).GetCachedServiceOrNull<T>();
+
+    /// <summary>
+    /// Renders the label in a FluentTooltipProvider.
+    /// </summary>
+    /// <param name="label"></param>
+    /// <returns></returns>
+    protected Task RenderTooltipAsync(string? label) => (_cachedServices ??= new CachedServices(ServiceProvider)).RenderTooltipAsync(this, label);
 
     #endregion
 }

@@ -120,7 +120,7 @@
   <data name="Fake_Hello" xml:space="preserve">
     <value>Hello {0}</value>
   </data>
-  <data name="FluentLayoutHamburger_Title" xml:space="preserve">
+  <data name="LayoutHamburger_Title" xml:space="preserve">
     <value>Menu</value>
   </data>
   <data name="FluentInputBase_Required" xml:space="preserve">
@@ -164,5 +164,149 @@
   </data>
   <data name="Field_WarningMessage" xml:space="preserve">
     <value>Please, check this value</value>
+  </data>
+  <data name="TimeAgo_DayAgo" xml:space="preserve">
+    <value>{0} day ago</value>
+  </data>
+  <data name="TimeAgo_DaysAgo" xml:space="preserve">
+    <value>{0} days ago</value>
+  </data>
+  <data name="TimeAgo_HourAgo" xml:space="preserve">
+    <value>{0} hour ago</value>
+  </data>
+  <data name="TimeAgo_HoursAgo" xml:space="preserve">
+    <value>{0} hours ago</value>
+  </data>
+  <data name="TimeAgo_MinuteAgo" xml:space="preserve">
+    <value>{0} minute ago</value>
+  </data>
+  <data name="TimeAgo_MinutesAgo" xml:space="preserve">
+    <value>{0} minutes ago</value>
+  </data>
+  <data name="TimeAgo_MonthAgo" xml:space="preserve">
+    <value>{0} month ago</value>
+  </data>
+  <data name="TimeAgo_MonthsAgo" xml:space="preserve">
+    <value>{0} months ago</value>
+  </data>
+  <data name="TimeAgo_SecondAgo" xml:space="preserve">
+    <value>Just now</value>
+  </data>
+  <data name="TimeAgo_SecondsAgo" xml:space="preserve">
+    <value>{0} seconds ago</value>
+  </data>
+  <data name="TimeAgo_YearAgo" xml:space="preserve">
+    <value>{0} year ago</value>
+  </data>
+  <data name="TimeAgo_YearsAgo" xml:space="preserve">
+    <value>{0} years ago</value>
+  </data>
+  <data name="FluentInputFile_LoadingBefore" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="FluentInputFile_LoadingCompleted" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="FluentInputFile_LoadingCanceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="FluentInputFile_LoadingInProgress" xml:space="preserve">
+    <value>Loading {0}/{1} - {2}</value>
+  </data>
+  <data name="LayoutHamburger_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="TreeItem_LoadingMessage" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="ErrorBoundary_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ErrorBoundary_Title" xml:space="preserve">
+    <value>An error occured</value>
+  </data>
+  <data name="ErrorBoundary_Message" xml:space="preserve">
+    <value>An unhandled error has occurred. Please, contact your IT support.</value>
+  </data>
+  <data name="Paginator_GoFirstPage" xml:space="preserve">
+    <value>Go to first page</value>
+  </data>
+  <data name="Paginator_GoPreviousPage" xml:space="preserve">
+    <value>Go to previous page</value>
+  </data>
+  <data name="Paginator_GoNextPage" xml:space="preserve">
+    <value>Go to next page</value>
+  </data>
+  <data name="Paginator_GoLastPage" xml:space="preserve">
+    <value>Go to last page</value>
+  </data>
+  <data name="Paginator_Status" xml:space="preserve">
+    <value>Page {0} of {1}</value>
+  </data>
+  <data name="DataGrid_SortMenuAscending" xml:space="preserve">
+    <value>Sort (ascending)</value>
+  </data>
+  <data name="DataGrid_SortMenuDescending" xml:space="preserve">
+    <value>Sort (descending)</value>
+  </data>
+  <data name="DataGrid_SortMenu" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="DataGrid_ResizeMenu" xml:space="preserve">
+    <value>Resize</value>
+  </data>
+  <data name="DataGrid_OptionsMenu" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="DataGrid_ResizeDiscrete" xml:space="preserve">
+    <value>Column width</value>
+  </data>
+  <data name="DataGrid_ResizeExact" xml:space="preserve">
+    <value>Column width (in pixels)</value>
+  </data>
+  <data name="DataGrid_ResizeGrow" xml:space="preserve">
+    <value>Grow column width</value>
+  </data>
+  <data name="DataGrid_ResizeShrink" xml:space="preserve">
+    <value>Shrink column width</value>
+  </data>
+  <data name="DataGrid_ResizeReset" xml:space="preserve">
+    <value>Reset column widths</value>
+  </data>
+  <data name="DataGrid_ResizeSubmit" xml:space="preserve">
+    <value>Set column widths</value>
+  </data>
+  <data name="MessageBar_Dismiss" xml:space="preserve">
+    <value>Hide this message</value>
+  </data>
+  <data name="DataGrid_SelectColumn_AllChecked" xml:space="preserve">
+    <value>All rows are selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_AllUnchecked" xml:space="preserve">
+    <value>No rows areselected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_AllIndeterminate" xml:space="preserve">
+    <value>Some rows are selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_RowChecked" xml:space="preserve">
+    <value>Row selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_RowUnchecked" xml:space="preserve">
+    <value>Row not selected</value>
+  </data>
+  <data name="Calendar_RequiredMessage" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
+  <data name="DatePicker_ButtonTitle" xml:space="preserve">
+    <value>Show date picker</value>
+  </data>
+  <data name="DataGrid_EmptyContent" xml:space="preserve">
+    <value>No data to show.</value>
+  </data>
+  <data name="Calendar_FieldMustBeADate" xml:space="preserve">
+    <value>The {0} field must be a date.</value>
+  </data>
+  <data name="DataGrid_ErrorContent" xml:space="preserve">
+    <value>An error occurred while retrieving data.</value>
   </data>
 </root>

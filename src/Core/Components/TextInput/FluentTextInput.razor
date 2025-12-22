@@ -2,8 +2,9 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputImmediateBase<string?>
 
-<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Size="@Size.ToFieldSize()">
     <fluent-text-input @ref="@Element"
+                       style="@ComponentStyleValue"
                        appearance="@Appearance.ToAttributeValue()"
                        autocomplete="@AutoComplete"
                        autofocus="@Autofocus"
@@ -19,7 +20,7 @@
                        placeholder="@Placeholder"
                        readonly="@ReadOnly"
                        required="@Required"
-                       slot="input"
+                       slot="@FluentSlot.FieldInput"
                        spellcheck="@Spellcheck"
                        control-size="@Size.ToAttributeValue()"
                        type="@TextFieldType.ToAttributeValue()"
@@ -31,14 +32,14 @@
 
         @if (StartTemplate != null)
         {
-            <div slot="start">
+            <div slot="@FluentSlot.Start">
                 @StartTemplate
             </div>
         }
 
         @if (EndTemplate != null)
         {
-            <div slot="end">
+            <div slot="@FluentSlot.End">
                 @EndTemplate
             </div>
         }

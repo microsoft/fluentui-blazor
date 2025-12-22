@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using AngleSharp.Diffing.Core;
@@ -52,6 +52,8 @@ public class FluentAssertOptions
                       .ReplaceAttribute("blazor:elementreference", "xxx")
                       .ReplaceAttribute("blazor:onclick", "x")
                       .ReplaceAttribute("blazor:onkeydown", "x")
+                      .ReplaceAttribute("blazor:onmousedown", "x")
+                      .ReplaceAttribute("blazor:onmouseup", "x")
                       .ReplaceAttribute("anchor", "xxx");
     }
 

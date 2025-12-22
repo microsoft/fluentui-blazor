@@ -17,7 +17,7 @@ You can configure this behavior by setting the `PublishTrimmed` property in your
 
 More details on [this page](https://learn.microsoft.com/aspnet/core/blazor/host-and-deploy/configure-trimmer).
 
-> ⚠️ We recommend always using the `Value` property to specify the icon to be rendered (and not the `Icon` property).
+> [!WARNING] We recommend always using the `Value` property to specify the icon to be rendered (and not the `Icon` property).
 > This ensures that the icon is referenced by your project and will not deleted from the final library.
 > 
 > `<FluentIcon Value="@(new Icons.Regular.Size24.Bookmark())" />`
@@ -38,7 +38,7 @@ in the color set with the `Color` parameter.
 
 A lot of the web components have named **slots** that declare locations in which content can be rendered.
 `FluentIcon` leverages this capability through its `Slot` parameter. With this you can for
-example render the icon **in front** (`Slot="start"`) or **after** (`Slot="end"`) a label in a `FluentButton` component.
+example render the icon **in front** (`Slot="@FluentSlot.Start"`) or **after** (`Slot="@FluentSlot.End"`) a label in a `FluentButton` component.
 
 {{ IconDefault }}
 
@@ -57,6 +57,9 @@ With the code above you can use the following options at the `<···>`:
 
 With `Color.Custom`, supply your own color value through the `CustomColor` parameter. <br/>
 Needs to be formatted as an HTML hex color string (`#rrggbb` or `#rgb`) or a CSS variable (`var(--...)`).
+
+> The default color is [currentColor](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword), 
+> which means that the icon will inherit the color from its parent element.
 
 ## Customization
 

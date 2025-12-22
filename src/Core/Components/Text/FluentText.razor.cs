@@ -1,6 +1,7 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
@@ -9,8 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// FluentText component, codifies Fluent's opinions on typography to make them easy to use and standardize across products.
 /// </summary>
-public partial class FluentText : FluentComponentBase
+public partial class FluentText : FluentComponentBase, ITooltipComponent
 {
+    /// <summary />
+    public FluentText(LibraryConfiguration configuration) : base(configuration) { }
+
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
@@ -106,6 +110,16 @@ public partial class FluentText : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     /// <summary />
     protected override void OnParametersSet()

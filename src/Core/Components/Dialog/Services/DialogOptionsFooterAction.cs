@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components.Web;
@@ -14,7 +14,6 @@ public class DialogOptionsFooterAction
     /// <summary />
     public DialogOptionsFooterAction() : this(ButtonAppearance.Default)
     {
-        
     }
 
     /// <summary />

@@ -11,6 +11,17 @@
     <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
   </PropertyGroup>
 
+  <!-- TypeScript (no tsconfig.json to avoid NETSDK1152) -->
+  <PropertyGroup>
+    <TypeScriptTarget>ESNext</TypeScriptTarget>
+    <TypeScriptModuleKind>ESNext</TypeScriptModuleKind>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+    <TypeScriptStrict>true</TypeScriptStrict>
+    <TypeScriptNoImplicitAny>true</TypeScriptNoImplicitAny>
+    <TypeScriptNoEmitOnError>true</TypeScriptNoEmitOnError>
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+  </PropertyGroup>
+
   <!-- Code Analysis -->
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
@@ -25,6 +36,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Condition="'$(TargetFramework)'=='net9.0'">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -43,7 +58,7 @@
   <!-- Copy all .razor files to .txt files in wwwroot\sources -->
   <Target Name="CopySources" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)'=='net9.0'">
     <ItemGroup>
-      <Sources Include="$(ProjectDir)\Documentation\**\*.razor*;$(ProjectDir)\Documentation\**\*.cs" />
+      <Sources Include="$(ProjectDir)\Documentation\**\*.razor*;$(ProjectDir)\Documentation\**\*.cs*;" />
     </ItemGroup>
     <Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 
@@ -72,5 +87,4 @@
       <LastGenOutput>%(ParentFile).Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>

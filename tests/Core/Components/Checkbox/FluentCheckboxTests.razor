@@ -3,7 +3,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using System.ComponentModel.DataAnnotations
 @using Xunit;
-@inherits TestContext
+@inherits FluentUITestContext
 
 @code
 {
@@ -27,27 +27,31 @@
     }
 
     [Theory]
-    [InlineData(CheckboxShape.Circular, "circular")]
-    [InlineData(CheckboxShape.Square, "square")]
-    public void FluentCheckbox_Shape(CheckboxShape checkboxShape, string expectedAttribute)
+    [InlineData(CheckboxShape.Circular)]
+    [InlineData(CheckboxShape.Square)]
+    [InlineData(null)]
+    [InlineData((CheckboxShape)999)]
+    public void FluentCheckbox_Shape(CheckboxShape? value)
     {
         // Arrange && Act
-        var cut = Render(@<FluentCheckbox Id="xxx" Shape="@checkboxShape" />);
+        var cut = Render(@<FluentCheckbox Id="xxx" Shape="@value" />);
 
         // Assert
-        cut.Verify(suffix: expectedAttribute);
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
     }
 
     [Theory]
-    [InlineData(CheckboxSize.Medium, "medium")]
-    [InlineData(CheckboxSize.Large, "large")]
-    public void FluentCheckbox_Size(CheckboxSize checkboxSize, string expectedAttribute)
+    [InlineData(CheckboxSize.Medium)]
+    [InlineData(CheckboxSize.Large)]
+    [InlineData(null)]
+    [InlineData((CheckboxSize)999)]
+    public void FluentCheckbox_Size(CheckboxSize? value)
     {
         // Arrange && Act
-        var cut = Render(@<FluentCheckbox Id="xxx" Size="@checkboxSize" />);
+        var cut = Render(@<FluentCheckbox Id="xxx" Size="@value" />);
 
         // Assert
-        cut.Verify(suffix: expectedAttribute);
+        cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
     }
 
     [Fact]
@@ -64,7 +68,7 @@
     public void FluentCheckbox_TryParseValueFromString()
     {
         // Arrange
-        var fluentCheckbox = new FluentCheckbox();
+        var fluentCheckbox = new FluentCheckbox(LibraryConfiguration.Empty);
 
         // Act & Assert
         Assert.Throws<NotSupportedException>(() => fluentCheckbox.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
@@ -90,7 +94,7 @@
 
         // Assert
         cut.Verify();
-    } 
+    }
 
     [Theory]
     [InlineData(true, true)]

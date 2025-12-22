@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
@@ -18,6 +18,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
 {
     private readonly Debounce _debounce = new();
+
+    /// <summary />
+    protected FluentInputImmediateBase(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary>
     /// Change the content of this input field when the user write text (based on 'OnInput' HTML event).

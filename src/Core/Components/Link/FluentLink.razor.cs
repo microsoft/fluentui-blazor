@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
@@ -10,8 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// The FluentLink component specifies relationships between the current document and an external resource.
 /// </summary>
-public partial class FluentLink : FluentComponentBase
+public partial class FluentLink : FluentComponentBase, ITooltipComponent
 {
+    /// <summary />
+    public FluentLink(LibraryConfiguration configuration) : base(configuration) { }
+
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
@@ -93,6 +96,16 @@ public partial class FluentLink : FluentComponentBase
     /// </summary>
     [Parameter]
     public Icon? IconEnd { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
     /// <summary />
     protected async Task OnClickHandlerAsync(MouseEventArgs e)

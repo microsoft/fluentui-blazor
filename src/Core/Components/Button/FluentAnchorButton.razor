@@ -1,0 +1,32 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Rendering;
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-anchor-button id="@Id"
+                      class="@ClassValue"
+                      style="@StyleValue"
+                      href="@Href"
+                      hreflang="@HrefLang"
+                      rel="@Rel"
+                      target="@Target.ToAttributeValue()"
+                      referrerpolicy="@ReferrerPolicy"
+                      type="@Type"
+                      appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
+                      shape="@Shape.ToAttributeValue()"
+                      size="@Size.ToAttributeValue()"
+                      icon-only="@(IconOnly || EmptyContent)"
+                      name="@Name"
+                      aria-label="@Title"
+                      @attributes="@AdditionalAttributes">
+    @if (IconStart != null)
+    {
+        <FluentIcon Value="@IconStart" Slot="@(EmptyContent ? null : FluentSlot.Start)" />
+    }
+    @Label
+    @ChildContent
+    @if (IconEnd != null)
+    {
+        <FluentIcon Value="@IconEnd" Slot="@(EmptyContent ? null : FluentSlot.End)" />
+    }
+</fluent-anchor-button>

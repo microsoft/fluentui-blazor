@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.WebServer;
@@ -17,7 +17,7 @@ public class FluentButtonTests : FluentPlaywrightBaseTest
     {
     }
 
-    //[Fact]    - Uncomment this line to run the test
+    [Fact(Skip = "Playwright is optional for the moment")]
     public async Task FluentButton_IncrementCounter()
     {
         // Arrange

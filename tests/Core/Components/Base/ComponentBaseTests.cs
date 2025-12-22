@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Reflection;
@@ -8,31 +8,50 @@ using System.Text.RegularExpressions;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.JSInterop;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
-public class ComponentBaseTests : TestContext
+public class ComponentBaseTests : Bunit.BunitContext
 {
     /// <summary>
     /// List of components to exclude from the test.
     /// </summary>
-    private static readonly Type[] Excluded = new[]
-    {
+    private static readonly Type[] Excluded =
+    [
         typeof(AspNetCore.Components._Imports),
         typeof(DialogOptions),
-    };
+        typeof(FluentRadio<>),  // TODO: To update
+        typeof(FluentTab),      // Excluded because the Tab content in rendered in the parent FluentTabs component
+    ];
 
     /// <summary>
-    /// List of customized actions to initialize the component with a specific type.
+    /// List of customized actions to initialize the component with a specific type and optional required parameters.
     /// </summary>
-    private static readonly Dictionary<Type, Func<Type, Type>> ComponentInitializer = new()
+    private static readonly Dictionary<Type, Loader> ComponentInitializer = new()
     {
-        { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) },
-        { typeof(FluentSelect<>), type => type.MakeGenericType(typeof(int)) },
+        { typeof(FluentIcon<>), Loader.MakeGenericType(typeof(Samples.Icons.Samples.Info))},
+        { typeof(FluentEmoji<>), Loader.MakeGenericType(typeof(Samples.Emojis.Samples.Hamburger))},
+        { typeof(FluentSelect<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentCombobox<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentRadioGroup<>), Loader.MakeGenericType(typeof(string)) },
+        { typeof(FluentTooltip), Loader.Default.WithRequiredParameter("Anchor", "MyButton").WithRequiredParameter("UseTooltipService", false)},
+        { typeof(FluentHighlighter), Loader.Default.WithRequiredParameter("HighlightedText", "AB").WithRequiredParameter("Text", "ABCDEF")},
+        { typeof(FluentKeyCode), Loader.Default.WithRequiredParameter("ChildContent", (RenderFragment)(builder => builder.AddContent(0, "MyContent"))) },
+        { typeof(FluentPaginator), Loader.Default.WithRequiredParameter("State", new PaginationState()) },
+        { typeof(FluentDataGrid<>), Loader.MakeGenericType(typeof(string)) },
+        { typeof(FluentDataGridRow<>), Loader.MakeGenericType(typeof(string)).WithCascadingValue(new InternalGridContext<string>(new FluentDataGrid<string>(new LibraryConfiguration()))) },
+        { typeof(FluentDataGridCell<>), Loader.MakeGenericType(typeof(string))
+                                       .WithCascadingValue(new InternalGridContext<string>(new FluentDataGrid<string>(new LibraryConfiguration())))
+                                       .WithCascadingValue("OwningRow", new FluentDataGridRow<string>(new LibraryConfiguration()) { InternalGridContext = new InternalGridContext<string>(new FluentDataGrid<string>(new LibraryConfiguration())) }) },
+        { typeof(FluentCalendar<>), Loader.MakeGenericType(typeof(DateTime))},
+        { typeof(FluentDatePicker<>), Loader.MakeGenericType(typeof(DateTime))},
+        { typeof(FluentDragContainer<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentDropZone<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentTimePicker<>), Loader.MakeGenericType(typeof(DateTime))},
     };
 
     /// <summary />
@@ -70,34 +89,153 @@ public class ComponentBaseTests : TestContext
         var blazorAttribute = ParseHtmlAttribute(blazor);
         var htmlAttribute = ParseHtmlAttribute(html);
 
+        using var context = new DateTimeProviderContext(DateTime.Now);
         JSInterop.Mode = JSRuntimeMode.Loose;
 
         foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded))
         {
             // Convert to generic type if needed
-            var type = ComponentInitializer.ContainsKey(componentType)
-                     ? ComponentInitializer[componentType](componentType)
+            var type = ComponentInitializer.TryGetValue(componentType, out var value)
+                     ? value.ComponentType(componentType)
                      : componentType;
 
             // Arrange and Act
-            var renderedComponent = RenderComponent<DynamicComponent>(parameters =>
+            try
             {
-                parameters.Add(p => p.Type, type);
-                parameters.Add(p => p.Parameters, new Dictionary<string, object>
+                var renderedComponent = Render<DynamicComponent>(parameters =>
                 {
-                    { blazorAttribute.Name, blazorAttribute.Value }
+                    parameters.Add(p => p.Type, type);
+
+                    // Required parameters
+                    parameters.Add(p => p.Parameters, DictionaryExtensions.Union(
+                        new Dictionary<string, object>
+                        {
+                            { blazorAttribute.Name, blazorAttribute.Value }
+                        },
+                        ComponentInitializer.TryGetValue(componentType, out var valueRequired) ? valueRequired.RequiredParameters : null
+                    ));
+
+                    // Cascading values
+                    if (ComponentInitializer.TryGetValue(componentType, out var valueCascading))
+                    {
+                        foreach (var (Name, Value) in valueCascading.CascadingValues)
+                        {
+                            if (string.IsNullOrEmpty(Name))
+                            {
+                                parameters.AddCascadingValue(Value);
+                            }
+                            else
+                            {
+                                parameters.AddCascadingValue(Name, Value);
+                            }
+                        }
+                    }
                 });
+
+                // Assert
+                var isMatch = renderedComponent.Markup.ContainsAttribute(htmlAttribute.Name, htmlAttribute.Value);
+
+                Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
+
+                if (!isMatch)
+                {
+                    var error = $"\"{componentType.Name}\" does not use the \"{blazorAttribute.Name}\" property/attribute (missing HTML attribute {htmlAttribute.Name}=\"{htmlAttribute.Value}\").";
+                    errors.AppendLine(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                var error = $"Error rendering component {componentType?.Name}. Update the `ComponentInitializer` dictionary: {Environment.NewLine}{Environment.NewLine}{ex.Message}{Environment.NewLine}{Environment.NewLine}{ex.InnerException?.Message}";
+                errors.AppendLine(error);
+            }
+        }
+
+        Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    [Fact]
+    public void ComponentBase_TooltipInterface_CorrectRendering()
+    {
+        var errors = new StringBuilder();
+
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<ITooltipComponent>(except: Excluded))
+        {
+            // Convert to generic type if needed
+            var type = ComponentInitializer.TryGetValue(componentType, out var value)
+                     ? value.ComponentType(componentType)
+                     : componentType;
+
+            // Arrange and Act
+            var renderedComponent = Render<FluentStack>(stack =>
+            {
+                stack.AddChildContent<DynamicComponent>(parameters =>
+                {
+                    parameters.Add(p => p.Type, type);
+                    parameters.Add(p => p.Parameters, DictionaryExtensions.Union(
+                        new Dictionary<string, object>
+                        {
+                            { "Id", $"id-{type.Name}" },
+                            { "Tooltip", $"My tooltip {type.Name}" },
+                        },
+                        ComponentInitializer.TryGetValue(componentType, out var valueRequired) ? valueRequired.RequiredParameters : null
+                    ));
+                });
+                stack.AddChildContent<FluentTooltipProvider>();
             });
 
             // Assert
-            var isMatch = renderedComponent.Markup.ContainsAttribute(htmlAttribute.Name, htmlAttribute.Value);
+
+            var isMatch = Regex.IsMatch(renderedComponent.Markup, $"<fluent-tooltip .+><text>My tooltip {type.Name}<\\/text><\\/fluent-tooltip>");
 
             Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
 
             if (!isMatch)
             {
-                var error = $"\"{componentType.Name}\" does not use the \"{blazorAttribute.Name}\" property/attribute (missing HTML attribute {htmlAttribute.Name}=\"{htmlAttribute.Value}\").";
+                var error = $"\"{componentType.Name}\" does not correctly implement the \"Tooltip\" parameter.";
                 errors.AppendLine(error);
+            }
+        }
+
+        Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    [Fact]
+    public void ComponentBase_TooltipInterface_NotImplemented()
+    {
+        var errors = new StringBuilder();
+
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded))
+        {
+            // Check if the component contains a Tooltip property but without implementing the ITooltipComponent interface
+            var hasTooltipProperty = componentType.GetProperty("Tooltip", BindingFlags.Public | BindingFlags.Instance) != null;
+            var isImplementingTooltipComponent = typeof(ITooltipComponent).IsAssignableFrom(componentType);
+            var hasTooltipParameterAttribute = componentType.GetProperty("Tooltip", BindingFlags.Public | BindingFlags.Instance)?.GetCustomAttribute<ParameterAttribute>() != null;
+
+            if (hasTooltipProperty && !isImplementingTooltipComponent)
+            {
+                Output.WriteLine($"❌ {componentType.Name}");
+
+                var error = $"\"{componentType.Name}\" contains the \"Tooltip\" property but does not implement the \"ITooltipComponent\" interface.";
+                errors.AppendLine(error);
+            }
+
+            else if (hasTooltipProperty && !hasTooltipParameterAttribute)
+            {
+                Output.WriteLine($"❌ {componentType.Name}");
+
+                var error = $"\"{componentType.Name}.Tooltip\" property is not a Blazor [Parameter].";
+                errors.AppendLine(error);
+            }
+
+            else if (hasTooltipProperty)
+            {
+                Output.WriteLine($"✅ {componentType.Name}");
             }
         }
 
@@ -108,6 +246,7 @@ public class ComponentBaseTests : TestContext
     public void ComponentBase_JsModule()
     {
         // Arrange
+        using var context = new DateTimeProviderContext(DateTime.Now);
         JSInterop.Mode = JSRuntimeMode.Strict;
         Services.AddSingleton<LibraryConfiguration>();
 
@@ -115,7 +254,7 @@ public class ComponentBaseTests : TestContext
         module.Mode = JSRuntimeMode.Loose;
 
         // Act
-        var cut = RenderComponent<MyComponent>(parameter =>
+        var cut = Render<MyComponent>(parameter =>
         {
             parameter.Add(p => p.OnBreakpointEnter, EventCallback.Factory.Create<GridItemSize>(this, e => { }));
         });
@@ -128,6 +267,7 @@ public class ComponentBaseTests : TestContext
     public void ComponentBase_JsModule_Undefined()
     {
         // Arrange
+        using var context = new DateTimeProviderContext(DateTime.Now);
         JSInterop.Mode = JSRuntimeMode.Strict;
         Services.AddSingleton<LibraryConfiguration>();
 
@@ -138,9 +278,9 @@ public class ComponentBaseTests : TestContext
         Assert.Throws<InvalidOperationException>(() =>
         {
             // Act: no OnBreakpointEnter
-            var cut = RenderComponent<MyComponent>(parameter =>
+            var cut = Render<MyComponent>((Action<ComponentParameterCollectionBuilder<MyComponent>>)(parameter =>
             {
-            });
+            }));
 
             var module = cut.Instance.GetJSModule();
         });
@@ -164,7 +304,59 @@ public class ComponentBaseTests : TestContext
     // Class used by the "ComponentBase_JsModule" test
     private class MyComponent : FluentGrid
     {
+        public MyComponent() : base(LibraryConfiguration.Empty) { }
+
         public const string JAVASCRIPT_FILENAME = "FluentGrid.razor.js";
         public IJSObjectReference GetJSModule() => base.JSModule.ObjectReference;
+    }
+
+    private class Loader
+    {
+        public static Loader MakeGenericType(Type type) => new()
+        {
+            ComponentType = t => t.MakeGenericType(type)
+        };
+
+        public static Loader Default => new();
+
+        private Loader() { }
+
+        public Func<Type, Type> ComponentType { get; private set; } = t => t;
+
+        public Dictionary<string, object> RequiredParameters { get; } = [];
+
+        public List<(string? Name, object Value)> CascadingValues { get; } = [];
+
+        public Loader WithRequiredParameter(string key, object value)
+        {
+            RequiredParameters.Add(key, value);
+            return this;
+        }
+
+        public Loader WithCascadingValue<TValue>(string? name, TValue cascadingValue) where TValue : notnull
+        {
+            CascadingValues.Add((name, cascadingValue));
+            return this;
+        }
+
+        public Loader WithCascadingValue<TValue>(TValue cascadingValue) where TValue : notnull
+        {
+            return WithCascadingValue(null, cascadingValue);
+        }
+    }
+
+    private static class DictionaryExtensions
+    {
+        public static Dictionary<string, object> Union(Dictionary<string, object> first, Dictionary<string, object>? second)
+        {
+            if (second == null)
+            {
+                return first;
+            }
+
+            return first.Concat(second)
+                .GroupBy(kvp => kvp.Key)
+                .ToDictionary(g => g.Key, g => g.Last().Value);
+        }
     }
 }
