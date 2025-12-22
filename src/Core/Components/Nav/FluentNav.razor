@@ -1,0 +1,36 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<CascadingValue Value="this" IsFixed="true">
+	<div class="fluent-nav-container@(_navOpen ? "" : " collapsed")">
+		<div id="@Id"
+			role="navigation"
+			class="@ClassValue"
+			style="@StyleValue"
+			@attributes="@AdditionalAttributes">
+			@if (UseHeader)
+			{
+				<header role="none" class="header">
+				<FluentButton Appearance="@ButtonAppearance.Transparent"
+							  IconStart="@ToggleIcon"
+							  Title="@Localizer[Localization.LanguageResource.Nav_ToggleTitle]"
+							  IconOnly="true"
+							  OnClick="@ToggleNavAsync"/>
+				</header>
+			}
+			<div class="body">
+				@if (!string.IsNullOrEmpty(AppTitle))
+				{
+					<a href="@AppLink" class="appitem">
+						@if (AppIcon is not null)
+						{
+							<FluentIcon Value="AppIcon" />
+						}
+						@AppTitle
+					</a>
+				}
+				@ChildContent
+			</div>
+		</div>
+	</div>
+</CascadingValue>

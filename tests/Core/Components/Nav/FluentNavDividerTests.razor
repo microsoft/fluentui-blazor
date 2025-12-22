@@ -1,0 +1,41 @@
+﻿@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentUITestContext
+
+@code {
+    public FluentNavDividerTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentNavDivider_Renders_Correctly()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNav>
+            <FluentNavDivider />
+        </FluentNav>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("fluent-navdivider", cut.Markup);
+        Assert.Contains("fluent-divider", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavDivider_Throws_When_Not_Child_Of_Nav()
+    {
+		// Arrange - Create a derived FluentNav (which should fail the exact type check)
+		var derivedNav = new DerivedFluentNav(Services.GetRequiredService<LibraryConfiguration>());
+
+        // Arrange & Act & Assert
+        var ex = Assert.Throws<InvalidOperationException>(() =>
+        {
+            Render(@<CascadingValue Value="derivedNav"><FluentNavDivider /></CascadingValue>);
+        });
+
+        Assert.Contains("can only be used as a direct child of", ex.Message);
+        Assert.Contains("FluentNav", ex.Message);
+    }
+}

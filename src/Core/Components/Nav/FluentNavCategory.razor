@@ -1,0 +1,30 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<CascadingValue Name="Category" Value="this">
+	<button id="@Id"
+			aria-expanded="@Expanded.ToString().ToLower()"
+			class="@ClassValue"
+			style="@StyleValue"
+			density="@Owner.Density.ToAttributeValue()"
+			title="@(Tooltip ?? Title)"
+			@onclick="ToggleExpandedAsync"
+			@attributes="@AdditionalAttributes">
+		@if (Owner.UseIcons && Icon is not null)
+		{
+			<FluentIcon Value="NavUtils.GetActiveIcon(Icon, _isActive)" Class="icon" Color="@(_isActive ? Color.Primary : Color.Default)" />
+		}
+		@Title
+		<span aria-hidden="true" class="@( "expand-icon" + (Expanded ? " expanded" : "") + (_hasBeenManuallyCollapsed ? " user-interacted" : "") )">
+			<FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" />
+		</span>
+	</button>
+	<div id="@($"{Id}-group")"
+		 class="@( "fluent-navsubitemgroup" + (Expanded ? " expanded" : "") + (_hasBeenManuallyCollapsed ? " user-interacted" : "") )"
+		 style="@GetSubitemGroupStyle()"
+		 expanded="@Expanded"
+		 aria-hidden="@(!Expanded)">
+		@ChildContent
+	</div>
+</CascadingValue>
