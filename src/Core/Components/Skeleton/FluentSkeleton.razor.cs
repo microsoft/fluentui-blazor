@@ -83,7 +83,7 @@ public partial class FluentSkeleton : FluentComponentBase
     /// <summary>
     /// Generates a circular element with the specified radius.
     /// </summary>
-    /// <returns>A <see cref="MarkupString"/> containing the HTML markup for a styled circular element.</returns>
+    /// <returns>A <see cref="MarkupStringSanitized"/> containing the HTML markup for a styled circular element.</returns>
     public MarkupStringSanitized DrawCircle(string radius)
     {
         var style = new StyleBuilder()
@@ -104,7 +104,7 @@ public partial class FluentSkeleton : FluentComponentBase
     /// </summary>
     /// <param name="width">The width of the rectangle, specified as a CSS-compatible value (e.g., "100px", "50%").</param>
     /// <param name="height">The height of the rectangle, specified as a CSS-compatible value (e.g., "100px", "50%").</param>
-    /// <returns>A <see cref="MarkupString"/> containing the HTML representation of a rectangle styled with the specified dimensions.</returns>
+    /// <returns>A <see cref="MarkupStringSanitized"/> containing the HTML representation of a rectangle styled with the specified dimensions.</returns>
     public MarkupStringSanitized DrawRectangle(string width, string height)
     {
         var style = new StyleBuilder()
