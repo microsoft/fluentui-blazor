@@ -79,16 +79,6 @@ public readonly struct InlineStyleBuilder
     }
 
     /// <summary>
-    /// Finalize the completed Attribute as a string.
-    /// </summary>
-    /// <returns>string</returns>
-    public MarkupString BuildMarkupString()
-    {
-        var styles = Build();
-        return styles != null ? (MarkupString)styles : (MarkupString)string.Empty;
-    }
-
-    /// <summary>
     /// Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
     /// </summary>
     /// <param name="name"></param>

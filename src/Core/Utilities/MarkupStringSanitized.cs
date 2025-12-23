@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 /// <summary>
-/// MarkupString wrapper that sanitizes the content for safe usage in inline style attributes.
+/// MarkupString wrapper that sanitizes the content for safe usage in inline style tags and attributes.
+/// You can configure the sanitization behavior via the <see cref="LibraryConfiguration.MarkupSanitized"/> option.
 /// </summary>
 public readonly partial struct MarkupStringSanitized
 {
@@ -55,6 +56,28 @@ public readonly partial struct MarkupStringSanitized
     };
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> struct,
+    /// where the element must be in the format "<tag>content</tag>" or "<tag style='style-element'>content</tag>".
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="configuration"></param>
+    /// <exception cref="ArgumentException"></exception>
+    internal MarkupStringSanitized(string value, LibraryConfiguration? configuration)
+        : this(ParseTagAndContent(value), configuration) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> class with the already sanitized value.
+    /// ⚠️ Warning: This constructor should only be used when you are certain that the provided value is already sanitized.
+    /// </summary>
+    internal MarkupStringSanitized(string value, bool isSanitized)
+    {
+        _configuration = MarkupSanitizedOptions.Default;
+        Value = isSanitized
+              ? value
+              : throw new InvalidOperationException("Cannot create MarkupStringSanitized with explicitly un-sanitized value.");
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> struct.
     /// </summary>
     /// <param name="element"></param>
@@ -94,16 +117,6 @@ public readonly partial struct MarkupStringSanitized
             }
         }
     }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> struct,
-    /// where the element must be in the format "<tag>content</tag>" or "<tag style='style-element'>content</tag>".
-    /// </summary>
-    /// <param name="value"></param>
-    /// <param name="configuration"></param>
-    /// <exception cref="ArgumentException"></exception>
-    public MarkupStringSanitized(string value, LibraryConfiguration? configuration)
-        : this(ParseTagAndContent(value), configuration) { }
 
     /// <summary>
     /// Gets the element as a markup string suitable for rendering as HTML content.
