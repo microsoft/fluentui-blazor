@@ -1,0 +1,30 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "description": "MCP server for Fluent UI Blazor: 142+ components, parameters, events, methods, enums and examples.",
+  "icons": [
+    {
+      "src": "https://www.fluentui-blazor.net/logo.svg",
+      "sizes": [ "192x192" ],
+      "mimeType": "image/svg"
+    }
+  ],
+  "name": "io.github.microsoft/fluentui-blazor-mcp",
+  "packages": [
+    {
+      "registryType": "nuget",
+      "registryBaseUrl": "https://api.nuget.org",
+      "identifier": "Microsoft.FluentUI.AspNetCore.McpServer",
+      "version": "5.0.0-preview.1",
+      "runtimeHint": "dnx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/microsoft/fluentui-blazor",
+    "source": "github"
+  },
+  "title": "Fluent UI Blazor MCP Server",
+  "version": "5.0.0-preview.1"
+}
