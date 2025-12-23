@@ -69,4 +69,16 @@ public class MarkupStringSanitizedTests
         // Assert
         Assert.Equal(expected, result.Value);
     }
+
+    [Theory]
+    [InlineData("<style> .my-class { color: ### } </style>", "red; } </style> <script>alert('XSS')</script> <style>")]
+    public void MarkupStringSanitized_Constructor_ThrowsException(string input, string xss)
+    {
+        const string exceptionMessage = "The provided CSS inline style contains potentially unsafe content";
+
+        // Act & Assert
+        var exception = Assert.Throws<InvalidOperationException>(() => new MarkupStringSanitized(input.Replace("###", xss), null));
+
+        Assert.Contains(exceptionMessage, exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
 }
