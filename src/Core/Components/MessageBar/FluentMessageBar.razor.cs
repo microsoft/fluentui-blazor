@@ -70,8 +70,6 @@ public partial class FluentMessageBar : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the most important info to be shown in the message bar.
-    /// You cannot format this string using HTML tags (bold, italic, etc.).
-    /// If you need to format the content, use the <see cref="ChildContent"/> parameter.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }

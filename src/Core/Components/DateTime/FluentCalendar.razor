@@ -42,7 +42,7 @@
                         {
                             <div class="previous" title="@titles.PreviousTitle" @onclick="@OnPreviousButtonHandlerAsync"
                                  role="button" tabindex="0">
-                                @ArrowUp
+                                @((MarkupString)ArrowUp)
                             </div>
                         }
                         @if (titles.NextDisabled)
@@ -53,7 +53,7 @@
                         {
                             <div class="next" title="@titles.NextTitle" @onclick="@OnNextButtonHandlerAsync"
                                  role="button" tabindex="0">
-                                @ArrowDown
+                                @((MarkupString)ArrowDown)
                             </div>
                         }
                     </div>
