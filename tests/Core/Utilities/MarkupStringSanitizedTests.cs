@@ -81,4 +81,39 @@ public class MarkupStringSanitizedTests
 
         Assert.Contains(exceptionMessage, exception.Message, StringComparison.OrdinalIgnoreCase);
     }
+
+    [Theory]
+    [InlineData("<p>Simple paragraph</p>", "<p>Simple paragraph</p>")]
+    [InlineData("<div>Hello World</div>", "<div>Hello World</div>")]
+    [InlineData("<span class=\"my-class\">Text</span>", "<span class=\"my-class\">Text</span>")]
+    [InlineData("<strong>Bold text</strong>", "<strong>Bold text</strong>")]
+    [InlineData("<em>Italic text</em>", "<em>Italic text</em>")]
+    [InlineData("<ul><li>Item 1</li><li>Item 2</li></ul>", "<ul><li>Item 1</li><li>Item 2</li></ul>")]
+    [InlineData("<h1>Heading</h1>", "<h1>Heading</h1>")]
+    [InlineData("<div id=\"test-id\" title=\"Test Title\">Content</div>", "<div id=\"test-id\" title=\"Test Title\">Content</div>")]
+    [InlineData("Plain text without tags", "Plain text without tags")]
+    public void MarkupStringSanitized_Html_ValidContent(string input, string expected)
+    {
+        // Act
+        var result = new MarkupStringSanitized(input, MarkupStringSanitized.Formats.Html, configuration: null);
+
+        // Assert
+        Assert.Equal(expected, result.Value);
+    }
+
+    [Theory]
+    [InlineData("<script>alert('XSS')</script>")]
+    [InlineData("<div onclick=\"alert('XSS')\">Click me</div>")]
+    [InlineData("<iframe src=\"javascript:alert('XSS')\"></iframe>")]
+    [InlineData("<img src=x onerror=\"alert('XSS')\">")]
+    [InlineData("<a href=\"javascript:void(0)\">Link</a>")]
+    public void MarkupStringSanitized_Html_UnsafeContent_ThrowsException(string input)
+    {
+        const string exceptionMessage = "The provided HTML content contains potentially unsafe content";
+
+        // Act & Assert
+        var exception = Assert.Throws<InvalidOperationException>(() => new MarkupStringSanitized(input, MarkupStringSanitized.Formats.Html, configuration: null));
+
+        Assert.Contains(exceptionMessage, exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
 }

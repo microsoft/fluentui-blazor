@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Dialog.MessageBox;
 
@@ -15,7 +16,7 @@ public partial class FluentMessageBox
     /// Gets or sets the content of the message box.
     /// </summary>
     [Parameter]
-    public MarkupString? Message { get; set; }
+    public MarkupStringSanitized? Message { get; set; }
 
     /// <summary>
     /// Gets or sets the icon of the message box.

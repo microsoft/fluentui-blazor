@@ -23,6 +23,13 @@ public class MarkupSanitizedOptions
 
     /// <summary>
     /// Gets or sets the function used to sanitize inline CSS style attribute values before rendering.
+    /// See <see cref="MarkupStringSanitized.DefaultSanitizeInlineStyle"/> for more details.
     /// </summary>
     public Func<string, string> SanitizeInlineStyle { get; set; } = MarkupStringSanitized.DefaultSanitizeInlineStyle;
+
+    /// <summary>
+    /// Gets or sets the function used to sanitize HTML code values before rendering.
+    /// See <see cref="MarkupStringSanitized.DefaultSanitizeHtml"/> for more details.
+    /// </summary>
+    public Func<string, string> DefaultSanitizeHtml { get; set; } = MarkupStringSanitized.DefaultSanitizeHtml;
 }

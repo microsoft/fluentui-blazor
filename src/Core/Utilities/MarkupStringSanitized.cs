@@ -18,10 +18,14 @@ public readonly partial struct MarkupStringSanitized
 
     /// <summary>
     /// Default inline style sanitizer function.
+    /// - Allows only letters (a-zA-Z), numbers: 0-9, whitespace, punctuation characters ,.:;_%\-()#{}'"
+    /// - Allows only CSS units: px, em, rem, vh, vw (as letter combinations)
+    /// - Allows only CSS keywords: ms, s, deg, rad, turn (for animations/transforms)
+    /// - Blocks Dangerous Content: behavior, expression(), -moz-binding:, javascript:, url(javascript:)
     /// </summary>
     internal static readonly Func<string, string> DefaultSanitizeInlineStyle = (value) =>
     {
-        // A very string pattern to allow only safe CSS values.
+        // A very strict pattern to allow only safe CSS values.
         var pattern = @"^(?!.*(behavior\s*:|expression\s*\(|-moz-binding\s*:|javascript\s*:|url\s*\(\s*['""]?\s*javascript\s*:))[a-zA-Z0-9\s,.:;_%\-()#{}'""pxemremvhsmsdegradturn]+$";
         var regex = new Regex(pattern, RegexOptions.IgnoreCase, matchTimeout: TimeSpan.FromMilliseconds(400));
         var isValid = regex.IsMatch(value);
@@ -40,13 +44,45 @@ public readonly partial struct MarkupStringSanitized
     };
 
     /// <summary>
+    /// Default HTML code sanitizer function.
+    /// - Allows only safe tags: p, div, span, strong, em, b, i, u, ul, ol, li, h1-h6, br, hr
+    /// - Allows only safe attributes: class, id, title, data-*
+    /// </summary>
+    internal static readonly Func<string, string> DefaultSanitizeHtml = (value) =>
+    {
+        // Simple text without HTML tags
+        if (!value.Contains('<', StringComparison.Ordinal) && !value.Contains('>', StringComparison.Ordinal))
+        {
+            return value;
+        }
+
+        // A very strict pattern to allow only safe HTML tags and attributes.
+        var pattern = @"^(?:(?:[^<>]|<(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6]|br|hr)(?:\s+(?:class|id|title|data-[a-z0-9\-]+)\s*=\s*(?:""[^""<>]*""|'[^'<>]*'))*\s*\/?>|<\/(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6])>))*$";
+        var regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, matchTimeout: TimeSpan.FromMilliseconds(400));
+        var isValid = regex.IsMatch(value);
+
+        if (isValid)
+        {
+            return value;
+        }
+
+        if (MarkupSanitizedOptions.ThrowOnUnsafe)
+        {
+            throw new InvalidOperationException($"The provided HTML content contains potentially unsafe content: {value}. {DeveloperExceptionMessage}");
+        }
+
+        return string.Empty;
+    };
+    //
+
+    /// <summary>
     /// Provides the default function for sanitizing tag names by removing invalid characters.
     /// </summary>
     /// <remarks>The default sanitizer allows only ASCII letters (A–Z, a–z), digits (0–9), hyphens (-),
     /// periods (.), colons (:), and underscores (_). Characters outside this set may be removed to ensure
     /// the tag name is valid for its intended use.
     /// </remarks>
-    internal static readonly Func<string, string> DefaultSanitizeTagName = (value) =>
+    private static readonly Func<string, string> DefaultSanitizeTagName = (value) =>
     {
         var pattern = @"[^a-zA-Z0-9\-.:_]";
         var regex = new Regex(pattern, RegexOptions.None, matchTimeout: TimeSpan.FromMilliseconds(400));
@@ -63,58 +99,80 @@ public readonly partial struct MarkupStringSanitized
     /// <param name="configuration"></param>
     /// <exception cref="ArgumentException"></exception>
     internal MarkupStringSanitized(string value, LibraryConfiguration? configuration)
-        : this(ParseTagAndContent(value), configuration) { }
+        : this(ParseTagAndContent(value), Formats.InlineStyle, configuration) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> class with the already sanitized value.
     /// ⚠️ Warning: This constructor should only be used when you are certain that the provided value is already sanitized.
     /// </summary>
     internal MarkupStringSanitized(string value, bool isSanitized)
-    {
-        _configuration = MarkupSanitizedOptions.Default;
-        Value = isSanitized
-              ? value
-              : throw new InvalidOperationException("Cannot create MarkupStringSanitized with explicitly un-sanitized value.");
-    }
+        : this(new ParsedContent(Tag: "", Attribute: null, AttributeValue: null, Quote: '"', Content: value), isSanitized ? Formats.AlreadySanitized : (Formats)999, configuration: null)
+    { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> struct for HTML content.
+    /// </summary>
+    internal MarkupStringSanitized(string value, Formats format, LibraryConfiguration? configuration = null)
+        : this(new ParsedContent(Tag: "", Attribute: null, AttributeValue: null, Quote: '"', Content: value), format, configuration)
+    { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> struct.
     /// </summary>
     /// <param name="element"></param>
+    /// <param name="format"></param>
     /// <param name="configuration"></param>
-    private MarkupStringSanitized(ParsedContent element, LibraryConfiguration? configuration)
+    private MarkupStringSanitized(ParsedContent element, Formats format, LibraryConfiguration? configuration)
     {
         _configuration = configuration?.MarkupSanitized ?? MarkupSanitizedOptions.Default;
 
-        var sanitizedElement = new ParsedContent(
-            MarkupStringSanitized.DefaultSanitizeTagName(element.Tag),
-            string.IsNullOrEmpty(element.Attribute) ? null : MarkupStringSanitized.DefaultSanitizeTagName(element.Attribute),
-            string.IsNullOrEmpty(element.AttributeValue) ? null : _configuration.SanitizeInlineStyle(element.AttributeValue),
-            element.Quote,
-            string.IsNullOrEmpty(element.Content) ? null : _configuration.SanitizeInlineStyle(element.Content));
-
-        if (string.IsNullOrEmpty(sanitizedElement.Content))
+        switch (format)
         {
-            if (string.IsNullOrEmpty(sanitizedElement.Attribute) || string.IsNullOrEmpty(sanitizedElement.AttributeValue))
-            {
-                Value = $"<{sanitizedElement.Tag} />";
-            }
+            // Inline style sanitization
+            case Formats.InlineStyle:
+                var sanitizedElement = new ParsedContent(
+                    MarkupStringSanitized.DefaultSanitizeTagName(element.Tag),
+                    string.IsNullOrEmpty(element.Attribute) ? null : MarkupStringSanitized.DefaultSanitizeTagName(element.Attribute),
+                    string.IsNullOrEmpty(element.AttributeValue) ? null : _configuration.SanitizeInlineStyle(element.AttributeValue),
+                    element.Quote,
+                    string.IsNullOrEmpty(element.Content) ? null : _configuration.SanitizeInlineStyle(element.Content));
 
-            else
-            {
-                Value = $"<{sanitizedElement.Tag} {sanitizedElement.Attribute}={sanitizedElement.Quote}{sanitizedElement.AttributeValue}{sanitizedElement.Quote} />";
-            }
-        }
-        else
-        {
-            if (string.IsNullOrEmpty(sanitizedElement.Attribute) || string.IsNullOrEmpty(sanitizedElement.AttributeValue))
-            {
-                Value = $"<{sanitizedElement.Tag}>{sanitizedElement.Content}</{sanitizedElement.Tag}>";
-            }
-            else
-            {
-                Value = $"<{sanitizedElement.Tag} {sanitizedElement.Attribute}={sanitizedElement.Quote}{sanitizedElement.AttributeValue}{sanitizedElement.Quote}>{sanitizedElement.Content}</{sanitizedElement.Tag}>";
-            }
+                if (string.IsNullOrEmpty(sanitizedElement.Content))
+                {
+                    if (string.IsNullOrEmpty(sanitizedElement.Attribute) || string.IsNullOrEmpty(sanitizedElement.AttributeValue))
+                    {
+                        Value = $"<{sanitizedElement.Tag} />";
+                    }
+
+                    else
+                    {
+                        Value = $"<{sanitizedElement.Tag} {sanitizedElement.Attribute}={sanitizedElement.Quote}{sanitizedElement.AttributeValue}{sanitizedElement.Quote} />";
+                    }
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(sanitizedElement.Attribute) || string.IsNullOrEmpty(sanitizedElement.AttributeValue))
+                    {
+                        Value = $"<{sanitizedElement.Tag}>{sanitizedElement.Content}</{sanitizedElement.Tag}>";
+                    }
+                    else
+                    {
+                        Value = $"<{sanitizedElement.Tag} {sanitizedElement.Attribute}={sanitizedElement.Quote}{sanitizedElement.AttributeValue}{sanitizedElement.Quote}>{sanitizedElement.Content}</{sanitizedElement.Tag}>";
+                    }
+                }
+
+                break;
+
+            case Formats.Html:
+                Value = _configuration.DefaultSanitizeHtml(element.Content ?? "");
+                break;
+
+            case Formats.AlreadySanitized:
+                Value = element.Content ?? "";
+                break;
+
+            default:
+                throw new InvalidOperationException("Cannot create MarkupStringSanitized with explicitly un-sanitized value.");
         }
     }
 
@@ -177,4 +235,17 @@ public readonly partial struct MarkupStringSanitized
 
     /// <summary />
     internal record ParsedContent(string Tag, string? Attribute, string? AttributeValue, char Quote, string? Content);
+
+    /// <summary />
+    internal enum Formats
+    {
+        /// <summary />
+        InlineStyle,
+
+        /// <summary />
+        Html,
+
+        /// <summary />
+        AlreadySanitized
+    }
 }
