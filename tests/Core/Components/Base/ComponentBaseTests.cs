@@ -67,7 +67,7 @@ public class ComponentBaseTests : Bunit.BunitContext
     public ITestOutputHelper Output { get; }
 
     /// <summary>
-    /// Test to verify that all FluentUI components implement the default properties (Id, Class, Style)
+    /// Test to verify that all FluentUI components implement the default properties (Id, Class, Attribute)
     /// from <see cref="FluentComponentBase"/>.
     ///
     /// ⚠️ DO NOT CHANGE THE FOLLOWING TEST.

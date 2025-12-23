@@ -47,7 +47,7 @@ public readonly struct StyleBuilder
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
     /// </summary>
     /// <param name="prop"></param>
-    /// <param name="value">Style to add</param>
+    /// <param name="value">Attribute to add</param>
     /// <returns>StyleBuilder</returns>
     public StyleBuilder AddStyle(string prop, string? value) => string.IsNullOrEmpty(value) ? this : AddRaw($"{prop}: {value}");
 
@@ -55,7 +55,7 @@ public readonly struct StyleBuilder
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
     /// </summary>
     /// <param name="prop"></param>
-    /// <param name="value">Style to conditionally add.</param>
+    /// <param name="value">Attribute to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
     public StyleBuilder AddStyle(string prop, string? value, bool when) => AddStyle(prop, value, () => when);
@@ -64,7 +64,7 @@ public readonly struct StyleBuilder
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
     /// </summary>
     /// <param name="prop"></param>
-    /// <param name="value">Style to conditionally add.</param>
+    /// <param name="value">Attribute to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
     public StyleBuilder AddStyle(string prop, string? value, Func<bool> when) => when != null && when() ? AddStyle(prop, value) : this;
@@ -73,13 +73,13 @@ public readonly struct StyleBuilder
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
     /// </summary>
     /// <param name="prop"></param>
-    /// <param name="value">Style to conditionally add.</param>
+    /// <param name="value">Attribute to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
     public StyleBuilder AddStyle(string prop, string? value, Func<string?, bool> when) => when != null && when(value) ? AddStyle(prop, value) : this;
 
     /// <summary>
-    /// Finalize the completed Style as a string.
+    /// Finalize the completed Attribute as a string.
     /// </summary>
     /// <returns>string</returns>
     public string? Build()

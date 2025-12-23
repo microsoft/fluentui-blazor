@@ -23,13 +23,13 @@ public static class SpacingExtensions
     /// or a classValue name if the value is not a valid CSS keyword like `auto`, `inherit`, `initial`, ...
     /// </summary>
     /// <example>
-    ///  - ConvertSpacing("auto")                  => Style = "auto"               Class = ""
-    ///  - ConvertSpacing("10px")                  => Style = "10px"               Class = ""
-    ///  - ConvertSpacing("10px 20px")             => Style = "10px 20px"          Class = ""
-    ///  - ConvertSpacing("10px 20px 30px")        => Style = "10px 20px 30px"     Class = ""
-    ///  - ConvertSpacing("mr-0")                  => Style = ""                   Class = "mr-0"
-    ///  - ConvertSpacing("my-classValue")         => Style = ""                   Class = "my-classValue"
-    ///  - ConvertSpacing("mr-0 my-classValue")    => Style = ""                   Class = "mr-0 my-classValue"
+    ///  - ConvertSpacing("auto")                  => Attribute = "auto"               Class = ""
+    ///  - ConvertSpacing("10px")                  => Attribute = "10px"               Class = ""
+    ///  - ConvertSpacing("10px 20px")             => Attribute = "10px 20px"          Class = ""
+    ///  - ConvertSpacing("10px 20px 30px")        => Attribute = "10px 20px 30px"     Class = ""
+    ///  - ConvertSpacing("mr-0")                  => Attribute = ""                   Class = "mr-0"
+    ///  - ConvertSpacing("my-classValue")         => Attribute = ""                   Class = "my-classValue"
+    ///  - ConvertSpacing("mr-0 my-classValue")    => Attribute = ""                   Class = "mr-0 my-classValue"
     /// </example>
     /// <param name="value"></param>    
     /// <returns></returns>

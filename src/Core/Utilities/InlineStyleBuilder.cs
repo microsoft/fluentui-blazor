@@ -28,7 +28,7 @@ public readonly struct InlineStyleBuilder
     /// </summary>
     /// <param name="name"></param>
     /// <param name="prop"></param>
-    /// <param name="value">Style to add</param>
+    /// <param name="value">Attribute to add</param>
     /// <returns>StyleBuilder</returns>
     public InlineStyleBuilder AddStyle(string name, string prop, string? value)
         => AddRaw(name, prop, value);
@@ -38,7 +38,7 @@ public readonly struct InlineStyleBuilder
     /// </summary>
     /// <param name="name"></param>
     /// <param name="prop"></param>
-    /// <param name="value">Style to conditionally add.</param>
+    /// <param name="value">Attribute to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
     public InlineStyleBuilder AddStyle(string name, string prop, string? value, bool when = true)
@@ -49,14 +49,14 @@ public readonly struct InlineStyleBuilder
     /// </summary>
     /// <param name="name"></param>
     /// <param name="prop"></param>
-    /// <param name="value">Style to conditionally add.</param>
+    /// <param name="value">Attribute to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
     public InlineStyleBuilder AddStyle(string name, string prop, string? value, Func<bool> when)
          => AddStyle(name, prop, value, when != null && when());
 
     /// <summary>
-    /// Finalize the completed Style as a string.
+    /// Finalize the completed Attribute as a string.
     /// </summary>
     /// <returns>string</returns>
     public string? Build(bool newLineSeparator = true)
@@ -79,7 +79,7 @@ public readonly struct InlineStyleBuilder
     }
 
     /// <summary>
-    /// Finalize the completed Style as a string.
+    /// Finalize the completed Attribute as a string.
     /// </summary>
     /// <returns>string</returns>
     public MarkupString BuildMarkupString()
