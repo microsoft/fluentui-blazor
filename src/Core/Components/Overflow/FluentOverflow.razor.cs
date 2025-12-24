@@ -1,46 +1,43 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
-using System.Text.Json;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js";
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Overflow/FluentOverflow.razor.js";
     private readonly List<FluentOverflowItem> _items = [];
-    private DotNetObjectReference<FluentOverflow>? _dotNetHelper = null;
-    private IJSObjectReference _jsModule = default!;
+    private DotNetObjectReference<FluentOverflow>? _dotNetHelper;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-overflow")
+    protected virtual string? ClassValue => DefaultClassBuilder
+         .AddClass("fluent-overflow")
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("visibility", "hidden", VisibleOnLoad == false)
+    protected virtual string? StyleValue => DefaultStyleBuilder
+        .AddStyle("visibility", "hidden", !VisibleOnLoad)
         .Build();
 
     /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+    public FluentOverflow(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
-    [Inject]
-    protected IJSRuntime JSRuntime { get; set; } = default!;
+    internal FluentOverflow(LibraryConfiguration configuration, List<FluentOverflowItem> items) : this(configuration)
+    {
+        _items = items;
+    }
 
-    /// <summary>
-    /// Gets or sets the content to display.
-    /// All first HTML elements are included in the items flow.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
     /// <summary>
     /// Gets or sets the template to display <see cref="ItemsOverflow"/> elements.
     /// </summary>
@@ -77,6 +74,13 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     public EventCallback<IEnumerable<FluentOverflowItem>> OnOverflowRaised { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to display.
+    /// All first level HTML elements are included in the items flow.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// Gets all items with <see cref="FluentOverflowItem.Overflow"/> assigned to True.
     /// </summary>
     public IEnumerable<FluentOverflowItem> ItemsOverflow => _items.Where(i => i.Overflow == true);
@@ -88,38 +92,41 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 
     private bool IsHorizontal => Orientation == Orientation.Horizontal;
 
-    public FluentOverflow()
-    {
-        Id = Identifier.NewId();
-    }
-
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+
             _dotNetHelper = DotNetObjectReference.Create(this);
-            await _jsModule.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, IsHorizontal, Selectors, 25);
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Initialize", _dotNetHelper, Id, IsHorizontal, Selectors, 25);
             VisibleOnLoad = true;
         }
     }
 
+    /// <summary>
+    /// Asynchronously refreshes the overflow state of the associated UI element.
+    /// </summary>
+    /// <remarks>Call this method to update the overflow indicators when the content or layout of the element
+    /// changes. This method has no effect if the underlying JavaScript module is not loaded.</remarks>
+    /// <returns>A task that represents the asynchronous refresh operation.</returns>
     public async Task RefreshAsync()
     {
-        if (_jsModule is not null)
+        if (JSModule is not null)
         {
-            await _jsModule.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper, Id, IsHorizontal, Selectors, 25);
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Refresh", _dotNetHelper, Id, IsHorizontal, Selectors, 25);
         }
     }
 
     /// <summary />
     [JSInvokable]
+    [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "<Pending>")]
     public async Task OverflowRaisedAsync(string value)
     {
         var items = JsonSerializer.Deserialize<OverflowItem[]>(value);
 
-        if (items == null)
+        if (items == null || items.Length == 0)
         {
             return;
         }
@@ -127,7 +134,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         // Update Item components
         foreach (var item in items)
         {
-            var element = _items.FirstOrDefault(i => i.Id == item.Id);
+            var element = _items.FirstOrDefault(i => string.Equals(i.Id, item.Id, StringComparison.OrdinalIgnoreCase));
             element?.SetProperties(item.Overflow, item.Text);
         }
 
@@ -137,37 +144,32 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
             await OnOverflowRaised.InvokeAsync(ItemsOverflow);
         }
 
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
     }
     internal void Register(FluentOverflowItem item)
     {
         _items.Add(item);
     }
 
-    internal void Unregister(FluentOverflowItem item)
+    internal async Task UnregisterAsync(FluentOverflowItem item)
     {
         _items.Remove(item);
-        _jsModule?.InvokeVoidAsync("fluentOverflowDispose", item.Id);
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Dispose", item.Id);
     }
 
     /// <inheritdoc />
-    public async ValueTask DisposeAsync()
+    public override async ValueTask DisposeAsync()
     {
-        try
-        {
-            _dotNetHelper?.Dispose();
 
-            if (_jsModule is not null)
-            {
-                await _jsModule.InvokeVoidAsync("fluentOverflowDispose", Id);
-                await _jsModule.DisposeAsync();
-            }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
+        _dotNetHelper?.Dispose();
+
+        if (JSModule is not null)
         {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Dispose", Id);
+            await JSModule.DisposeAsync();
         }
+
+        GC.SuppressFinalize(this);
+
     }
 }

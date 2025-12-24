@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------
-// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
@@ -8,17 +8,17 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public partial class FluentOverflowItem : IDisposable
+public partial class FluentOverflowItem : FluentComponentBase, IAsyncDisposable
 {
     //private bool _disposed;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-overflow-item")
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .Build();
 
     /// <summary>
@@ -51,9 +51,16 @@ public partial class FluentOverflowItem : IDisposable
     /// </summary>
     public string Text { get; private set; } = string.Empty;
 
-    public FluentOverflowItem()
+    /// <summary />
+    public FluentOverflowItem(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
+    }
+
+    internal FluentOverflowItem(LibraryConfiguration configuration, bool isOverflow, string text) : this(configuration)
+    {
+        Overflow = isOverflow;
+        Text = text;
     }
 
     /// <summary />
@@ -70,5 +77,8 @@ public partial class FluentOverflowItem : IDisposable
     }
 
     /// <summary />
-    public void Dispose() => Owner?.Unregister(this);
+    public override async ValueTask DisposeAsync()
+    {
+        Owner?.UnregisterAsync(this);
+    }
 }

@@ -14,15 +14,25 @@
 .fluent-overflow-more {
     min-width: 32px;
     max-width: 32px;
+    flex-shrink: 0;
 }
 
-.fluent-overflow ::deep > *[overflow] {
+.fluent-overflow-more[style*="visibility: hidden"] {
+    pointer-events: none;
+}
+
+.fluent-overflow > *[overflow] {
     display: none;
 }
 
-.fluent-overflow ::deep .fluent-overflow-item[fixed='ellipsis'] {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: fit-content;
+.fluent-overflow > *[fixed] {
+    flex-shrink: 0;
+}
+
+.fluent-overflow .fluent-overflow-item[fixed='ellipsis'] {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  max-width: fit-content;
 }

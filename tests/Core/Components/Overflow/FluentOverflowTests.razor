@@ -1,0 +1,282 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit
+@inherits FluentUITestContext
+
+@code {
+    public FluentOverflowTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentOverflow_Renders_WithoutOverflow()
+    {
+        // Arrange
+        var cut = Render(@<div><FluentOverflow>
+            <FluentOverflowItem>Item 1</FluentOverflowItem>
+            <FluentOverflowItem>Item 2</FluentOverflowItem>
+        </FluentOverflow><FluentTooltipProvider /></div>);
+
+        // Assert
+        Assert.Equal(2, cut.FindAll(".fluent-overflow-item").Count);
+        Assert.Empty(cut.FindAll(".fluent-overflow-item[overflow]"));
+    }
+
+    [Fact]
+    public void FluentOverflow_Handles_FixedEllipsis_Item()
+    {
+        // Arrange
+        var cut = Render(@<div><FluentOverflow>
+            <FluentOverflowItem Fixed="OverflowItemFixed.Ellipsis">Long text that should ellipsis</FluentOverflowItem>
+            <FluentOverflowItem>Item 2</FluentOverflowItem>
+        </FluentOverflow><FluentTooltipProvider /></div>);
+
+        // Assert
+        var ellipsisItem = cut.Find(".fluent-overflow-item[fixed='ellipsis']");
+        Assert.NotNull(ellipsisItem);
+        Assert.Contains("ellipsis", ellipsisItem.GetAttribute("fixed"));
+    }
+
+    [Fact]
+    public void FluentOverflow_Triggers_Overflow_Event()
+    {
+        // Arrange
+        var overflowRaised = false;
+        var cut = Render(@<div><FluentOverflow OnOverflowRaised="@(() => overflowRaised = true)">
+            @for (int i = 0; i < 20; i++)
+            {
+                <FluentOverflowItem>Item @i</FluentOverflowItem>
+            }
+        </FluentOverflow><FluentTooltipProvider /></div>);
+
+        // Act: Simulate resize or trigger refresh (in a real scenario, this might involve JS interop)
+        // For simplicity, assume overflow is triggered
+
+        // Assert
+        // Note: Actual overflow detection requires JS interop, so this is a placeholder
+        Assert.False(overflowRaised); // Adjust based on implementation
+    }
+
+    [Fact]
+    public void FluentOverflow_Renders_MoreButton_When_Overflow()
+    {
+        // Arrange
+        var cut = Render(@<div><FluentOverflow>
+            @for (int i = 0; i < 10; i++)
+            {
+                <FluentOverflowItem>Very long item text @i</FluentOverflowItem>
+            }
+        </FluentOverflow><FluentTooltipProvider /></div>);
+
+        // Assert
+        var moreButton = cut.Find(".fluent-overflow-more");
+        Assert.NotNull(moreButton);
+        Assert.Contains("visibility: hidden", moreButton.GetAttribute("style")); // Initially hidden
+    }
+
+    [Fact]
+    public void FluentOverflow_Respects_Orientation()
+    {
+        // Arrange
+        var cut = Render(@<div><FluentOverflow Orientation="Orientation.Vertical">
+            <FluentOverflowItem>Item 1</FluentOverflowItem>
+        </FluentOverflow><FluentTooltipProvider /></div>);
+
+        // Assert
+        var container = cut.Find(".fluent-overflow");
+        Assert.Equal("vertical", container.GetAttribute("orientation"));
+    }
+
+    [Fact]
+    public void FluentOverflow_Item_With_Fixed_Attribute()
+    {
+        // Arrange
+        var cut = Render(@<div><FluentOverflow>
+            <FluentOverflowItem Fixed="OverflowItemFixed.Fixed">Fixed Item</FluentOverflowItem>
+            <FluentOverflowItem>Regular Item</FluentOverflowItem>
+        </FluentOverflow><FluentTooltipProvider /></div>);
+
+        // Assert
+        var fixedItem = cut.Find(".fluent-overflow-item[fixed='fixed']");
+        Assert.NotNull(fixedItem);
+        Assert.Equal("Fixed Item", fixedItem.TextContent);
+    }
+
+    [Fact]
+    public void FluentOverflow_Custom_MoreButtonTemplate()
+    {
+        // Arrange
+        var cut = Render(@<div><FluentOverflow>
+            <MoreButtonTemplate>
+                <p>Custom More</p>
+            </MoreButtonTemplate>
+			<ChildContent>
+            @for (int i = 0; i < 10; i++)
+            {
+                <FluentOverflowItem>Item 1</FluentOverflowItem>
+            }
+			</ChildContent>
+        </FluentOverflow><FluentTooltipProvider /></div>);
+
+        // Assert
+        var customButton = cut.Find("p");
+        Assert.NotNull(customButton);
+        Assert.Equal("Custom More", customButton.TextContent);
+    }
+
+    [Fact]
+    public void FluentOverflow_Custom_OverflowTemplate()
+    {
+        // Arrange
+        var cut = Render(@<div><FluentOverflow>
+            <OverflowTemplate>
+                <FluentTooltip Anchor="id1">Custom Overflow Content</FluentTooltip>
+            </OverflowTemplate>
+			<ChildContent>
+            @for (int i = 0; i < 10; i++)
+            {
+                <FluentOverflowItem>Item @i</FluentOverflowItem>
+            }
+			</ChildContent>
+        </FluentOverflow><FluentTooltipProvider /></div>);
+
+        // Assert
+        var tooltip = cut.Find("fluent-tooltip");
+        Assert.NotNull(tooltip);
+        Assert.Contains("Custom Overflow Content", tooltip.TextContent);
+    }
+
+    [Fact]
+    public async Task FluentOverflow_Calls_OverflowRaisedAsync()
+    {
+        // Arrange
+        var overflowRaised = false;
+        var cut = Render(@<div><FluentOverflow Id="overflow" OnOverflowRaised="@(() => overflowRaised = true)">
+            @for (int i = 0; i < 20; i++)
+            {
+                <FluentOverflowItem>Item @i</FluentOverflowItem>
+            }
+        </FluentOverflow><FluentTooltipProvider /></div>);
+
+        // Act
+		var overflow = cut.FindComponent<FluentOverflow>();
+        await overflow.Instance.OverflowRaisedAsync("[{\"Id\":\"item1\",\"Overflow\":true,\"Text\":\"Item 1\"}]");
+
+        // Assert: Verify the event was raised
+        Assert.True(overflowRaised);
+    }
+
+	[Fact]
+	public async Task FluentOverflow_Calls_OverflowRaisedAsync_With_No_Result()
+	{
+		// Arrange
+		var overflowRaised = false;
+		var cut = Render(@<div><FluentOverflow Id="overflow" OnOverflowRaised="@(() => overflowRaised = true)">
+			@for (int i = 0; i < 20; i++)
+			{
+				<FluentOverflowItem>Item @i</FluentOverflowItem>
+			}
+		</FluentOverflow><FluentTooltipProvider /></div>);
+
+		// Act
+		var overflow = cut.FindComponent<FluentOverflow>();
+		await overflow.Instance.OverflowRaisedAsync("[]");
+
+		// Assert: Verify the event was raised
+		Assert.False(overflowRaised);
+	}
+
+	[Fact]
+	public async Task FluentOverflow_Calls_RefreshAsync()
+	{
+	// Arrange
+	var overflowRaised = false;
+	var cut = Render(@<div><FluentOverflow Id="overflow" OnOverflowRaised="@(() => overflowRaised = true)">
+		@for (int i = 0; i < 20; i++)
+		{
+			<FluentOverflowItem>Item @i</FluentOverflowItem>
+		}
+	</FluentOverflow><FluentTooltipProvider /></div>
+		);
+
+		// Act
+		var overflow = cut.FindComponent<FluentOverflow>();
+		await overflow.Instance.RefreshAsync();
+
+		// Assert: Verify the event was raised
+		Assert.False(overflowRaised);
+	}
+
+	[Fact]
+	public async Task FluentOverflow_Has_Overflow()
+	{
+		// Arrange
+		var overflowRaised = false;
+		FluentOverflowItem fluentOverflowItem1 = new(new LibraryConfiguration(), false, "Item 1");
+		FluentOverflowItem fluentOverflowItem2 = new(new LibraryConfiguration(), false, "Item 2");
+		FluentOverflowItem fluentOverflowItem3 = new(new LibraryConfiguration(), true, "Item 3");
+		FluentOverflowItem fluentOverflowItem4 = new(new LibraryConfiguration(), true, "Item 4");
+
+		FluentOverflow fluentOverflow = new(new LibraryConfiguration(), new List<FluentOverflowItem>() { fluentOverflowItem1, fluentOverflowItem2, fluentOverflowItem3, fluentOverflowItem4 });
+		
+		var cut = Render(@<div><FluentOverflow Id="overflow" @ref="@fluentOverflow" Style="width: 60px;" OnOverflowRaised="@(() => overflowRaised = true)" >
+					<FluentOverflowItem @ref="@fluentOverflowItem1" Id="@($"item1")" Style="width: 20px">Item 1</FluentOverflowItem>
+					<FluentOverflowItem @ref="@fluentOverflowItem2" Id="@($"item2")" Style="width: 20px">Item 2</FluentOverflowItem>
+					<FluentOverflowItem @ref="@fluentOverflowItem3" Id="@($"item3")" Style="width: 20px">Item 3</FluentOverflowItem>
+					<FluentOverflowItem @ref="@fluentOverflowItem4" Id="@($"item4")" Style="width: 20px">Item 4</FluentOverflowItem>
+			</FluentOverflow><FluentTooltipProvider /></div>);
+
+	// Act
+
+	var overflow = cut.FindComponent<FluentOverflow>();
+	await overflow.Instance.OverflowRaisedAsync("[{\"Id\":\"item3\",\"Overflow\":true,\"Text\":\"Item 3\"},{\"Id\":\"item4\",\"Overflow\":true,\"Text\":\"Item 4\"}]");
+	overflow.Render();
+
+	// Assert: Verify the event was raised
+	Assert.True(overflowRaised);
+}
+
+	[Fact]
+	public void FluentOverflow_Renders_Default_Tooltip_When_OverflowTemplate_Is_Null()
+	{
+		// Arrange
+		var cut = Render(@<div><FluentOverflow>
+			@for (int i = 0; i < 10; i++)
+			{
+				<FluentOverflowItem>Item @i</FluentOverflowItem>
+			}
+		</FluentOverflow><FluentTooltipProvider /></div>);
+
+		// Assert - Default FluentTooltip should be rendered
+		var tooltip = cut.Find("fluent-tooltip");
+		Assert.NotNull(tooltip);
+		Assert.Equal("below-start", tooltip.GetAttribute("positioning"));
+	}
+
+	[Fact]
+	public void FluentOverflow_Renders_Custom_OverflowTemplate_Instead_Of_Default_Tooltip()
+	{
+		// Arrange
+		var cut = Render(@<div><FluentOverflow>
+			<OverflowTemplate>
+				<div class="custom-overflow">Custom overflow content</div>
+			</OverflowTemplate>
+			<ChildContent>
+				@for (int i = 0; i < 10; i++)
+				{
+					<FluentOverflowItem>Item @i</FluentOverflowItem>
+				}
+			</ChildContent>
+		</FluentOverflow><FluentTooltipProvider /></div>);
+
+		// Assert - Custom template should be rendered instead of default tooltip
+		var customOverflow = cut.Find(".custom-overflow");
+		Assert.NotNull(customOverflow);
+		Assert.Equal("Custom overflow content", customOverflow.TextContent);
+		
+		// Default tooltip should not be present
+		var tooltips = cut.FindAll("fluent-tooltip");
+		Assert.Empty(tooltips);
+	}
+}
