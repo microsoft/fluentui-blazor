@@ -1,0 +1,355 @@
+﻿@using Xunit;
+@inherits FluentUITestContext
+@code
+{
+    public FluentOverlayTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentOverlay_Default()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay FullScreen="true" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentOverlay_FullScreen()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay FullScreen="true" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.True(component.HasAttribute("fullscreen"));
+    }
+
+    [Fact]
+    public void FluentOverlay_NotFullScreen()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay FullScreen="false" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.False(component.HasAttribute("fullscreen"));
+    }
+
+    [Fact]
+    public void FluentOverlay_Interactive()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay Interactive="true" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.True(component.HasAttribute("interactive"));
+    }
+
+    [Fact]
+    public void FluentOverlay_NotInteractive()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay Interactive="false" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.False(component.HasAttribute("interactive"));
+    }
+
+    [Fact]
+    public void FluentOverlay_CustomBackgroundColor()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay BackgroundColor="#ff0000" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.Equal("color-mix(in srgb, #ff0000 40%, transparent)", component.GetAttribute("background"));
+    }
+
+    [Fact]
+    public void FluentOverlay_CustomOpacity()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay Opacity="80" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.Equal("color-mix(in srgb, var(--colorBackgroundOverlay) 80%, transparent)", component.GetAttribute("background"));
+    }
+
+    [Fact]
+    public void FluentOverlay_ZeroOpacity()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay Opacity="0" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.Equal("color-mix(in srgb, var(--colorBackgroundOverlay) 0%, transparent)", component.GetAttribute("background"));
+    }
+
+    [Fact]
+    public void FluentOverlay_CloseModeManual()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay CloseMode="OverlayCloseMode.Manual" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.Equal("manual", component.GetAttribute("close-mode"));
+    }
+
+    [Fact]
+    public void FluentOverlay_CloseModeAll()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay CloseMode="OverlayCloseMode.All" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.Equal("all", component.GetAttribute("close-mode"));
+    }
+
+    [Fact]
+    public void FluentOverlay_CloseModeInsideOnly()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay CloseMode="OverlayCloseMode.InsideOnly" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.Equal("inside", component.GetAttribute("close-mode"));
+    }
+
+    [Fact]
+    public void FluentOverlay_CloseModeOutsideOnly()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay CloseMode="OverlayCloseMode.OutsideOnly" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.Equal("outside", component.GetAttribute("close-mode"));
+    }
+
+    [Fact]
+    public void FluentOverlay_Visible()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay Visible="true" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.True(component.HasAttribute("visible"));
+    }
+
+    [Fact]
+    public void FluentOverlay_NotVisible()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay Visible="false" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.False(component.HasAttribute("visible"));
+    }
+
+    [Fact]
+    public void FluentOverlay_WithCustomContent()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay>
+            <div>Custom overlay content</div>
+        </FluentOverlay>);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.Contains("Custom overlay content", component.InnerHtml);
+    }
+
+    [Fact]
+    public void FluentOverlay_WithoutContentRendersSpinner()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        var spinner = cut.FindComponent<FluentSpinner>();
+        Assert.NotNull(spinner);
+    }
+
+    [Fact]
+    public void FluentOverlay_AllPropertiesCombined()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay FullScreen="true"
+                                        Interactive="true"
+                                        BackgroundColor="#0078d4"
+                                        Opacity="60"
+                                        CloseMode="OverlayCloseMode.OutsideOnly"
+                                        Visible="true">
+            <div class="overlay-content">Custom content</div>
+        </FluentOverlay>);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.True(component.HasAttribute("fullscreen"));
+        Assert.True(component.HasAttribute("interactive"));
+        Assert.Equal("color-mix(in srgb, #0078d4 60%, transparent)", component.GetAttribute("background"));
+        Assert.Equal("outside", component.GetAttribute("close-mode"));
+        Assert.True(component.HasAttribute("visible"));
+        Assert.Contains("Custom content", component.InnerHtml);
+    }
+
+    [Fact]
+    public async Task FluentOverlay_VisibleChangedCallback()
+    {
+        // Arrange
+        var visibleChanged = false;
+        var newVisibleValue = false;
+
+        // Act
+        var cut = Render(@<FluentOverlay Visible="false"
+                                        VisibleChanged="@((bool value) => { visibleChanged = true; newVisibleValue = value; })" />);
+
+        var instance = cut.FindComponent<FluentOverlay>().Instance;
+        await instance.OnToggleAsync(new DialogToggleEventArgs { Id = instance.Id, NewState = "open" });
+
+        // Assert
+        Assert.True(visibleChanged);
+        Assert.True(newVisibleValue);
+    }
+
+    [Fact]
+    public async Task FluentOverlay_OnToggleAsync_OpensOverlay()
+    {
+        // Arrange
+        var cut = Render(@<FluentOverlay Visible="false" />);
+        var instance = cut.FindComponent<FluentOverlay>().Instance;
+
+        // Act
+        await instance.OnToggleAsync(new DialogToggleEventArgs
+        {
+            Id = instance.Id,
+            OldState = "closed",
+            NewState = "open"
+        });
+
+        // Assert
+        Assert.True(instance.Visible);
+    }
+
+    [Fact]
+    public async Task FluentOverlay_OnToggleAsync_ClosesOverlay()
+    {
+        // Arrange
+        var cut = Render(@<FluentOverlay Visible="true" />);
+        var instance = cut.FindComponent<FluentOverlay>().Instance;
+
+        // Act
+        await instance.OnToggleAsync(new DialogToggleEventArgs
+        {
+            Id = instance.Id,
+            OldState = "open",
+            NewState = "closed"
+        });
+
+        // Assert
+        Assert.False(instance.Visible);
+    }
+
+    [Fact]
+    public async Task FluentOverlay_OnToggleAsync_IgnoresDifferentId()
+    {
+        // Arrange
+        var visibleChanged = false;
+        var cut = Render(@<FluentOverlay Visible="false"
+                                        VisibleChanged="@((bool value) => { visibleChanged = true; })" />);
+        var instance = cut.FindComponent<FluentOverlay>().Instance;
+
+        // Act
+        await instance.OnToggleAsync(new DialogToggleEventArgs
+        {
+            Id = "different-id",
+            NewState = "open"
+        });
+
+        // Assert
+        Assert.False(visibleChanged);
+        Assert.False(instance.Visible);
+    }
+
+    [Fact]
+    public void FluentOverlay_HasUniqueId()
+    {
+        // Act
+        var cut1 = Render(@<FluentOverlay />);
+        var cut2 = Render(@<FluentOverlay />);
+
+        var instance1 = cut1.FindComponent<FluentOverlay>().Instance;
+        var instance2 = cut2.FindComponent<FluentOverlay>().Instance;
+
+        // Assert
+        Assert.NotNull(instance1.Id);
+        Assert.NotNull(instance2.Id);
+        Assert.NotEqual(instance1.Id, instance2.Id);
+    }
+
+    [Fact]
+    public void FluentOverlay_WithAdditionalAttributes()
+    {
+        // Arrange
+        var additionalAttributes = new Dictionary<string, object>
+        {
+            { "data-test", "test-value" },
+            { "aria-label", "Overlay label" }
+        };
+
+        // Act
+        var cut = Render(@<FluentOverlay AdditionalAttributes="@additionalAttributes" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.Equal("test-value", component.GetAttribute("data-test"));
+        Assert.Equal("Overlay label", component.GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void FluentOverlay_StyleAndClassAttributes()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay Style="border: 1px solid red;"
+                                        Class="custom-overlay-class" />);
+        var component = cut.Find("fluent-overlay");
+
+        // Assert
+        Assert.NotNull(component);
+        Assert.Equal("border: 1px solid red;", component.GetAttribute("dialog-style"));
+        Assert.Equal("custom-overlay-class", component.GetAttribute("dialog-class"));
+    }
+}
