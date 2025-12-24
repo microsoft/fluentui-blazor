@@ -1,43 +1,21 @@
-﻿<FluentStack Wrap="true" VerticalAlignment="VerticalAlignment.Center">
-    <FluentSwitch @bind-Value="@FullScreen" Label="FullScreen" Margin="@Margin.Right4" />
-    <FluentSwitch @bind-Value="@Interactive" Label="Interactive" Margin="@Margin.Right4" />
-    <FluentSwitch @bind-Value="@Visible" Label="Visible" Margin="@Margin.Right4" />
-    <FluentSpacer />
-    <FluentSelect @bind-Value="@CloseMode"
-                  Items="@(Enum.GetValues(typeof(OverlayCloseMode)).Cast<OverlayCloseMode>())"
-                  Label="Close Mode"
-                  LabelPosition="LabelPosition.Before" />
-</FluentStack>
+﻿<FluentCard Appearance="@CardAppearance.Outline" Margin="@Margin.Vertical4">
 
-<div style="@CommonStyles.NeutralBorder1 @CommonStyles.NeutralBackground"
-     class="@Margin.All4 @Padding.All4">
+    <!-- Content -->
+    <FluentText>
+        Lorem Ipsum rhoncus turpis turpis sed maecenas Odio turpis Lorem Euismod ipsum felis ridiculus
+    </FluentText>
 
-    <!-- Container with a interactive (clickable) button -->
-    <h3>Container</h3>
-    <button onclick="alert('clicked')">Click Me</button>
+    <!-- Overlay with the default Spinner -->
+    <FluentOverlay FullScreen="true"
+                   @bind-Visible="@IsVisible" />
 
-    <!-- Overlay -->
-    <FluentOverlay @ref="OverlayRef" Style="background: transparent;"
-                   Class="my-class"
-                   FullScreen="@FullScreen"
-                   Interactive="@Interactive"
-                   @bind-Visible="@Visible"
-                   CloseMode="@CloseMode">
-        <FluentSpinner />
-    </FluentOverlay>
+</FluentCard>
 
-</div>
-
-<FluentStack Wrap="true" HorizontalGap="12px">
-    <FluentButton OnClick="@(e => OverlayRef.ShowAsync())">Show Overlay</FluentButton>
-    <FluentButton OnClick="@(e => OverlayRef.CloseAsync())">Close Overlay</FluentButton>
-</FluentStack>
+<FluentButton OnClick="@(e => IsVisible = true)">
+    Show Overlay
+</FluentButton>
 
 @code
 {
-    FluentOverlay OverlayRef = default!;
-    bool FullScreen = false;
-    bool Interactive = false;
-    bool Visible = false;
-    OverlayCloseMode CloseMode = OverlayCloseMode.All;
+    bool IsVisible;
 }

@@ -49,10 +49,10 @@ public partial class FluentOverlay : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the opacity level of the overlay background.
-    /// Default is `0.2` (20%).
+    /// Default is 40%.
     /// </summary>
     [Parameter]
-    public double Opacity { get; set; } = 0.4;
+    public int Opacity { get; set; } = 40;
 
     /// <summary>
     /// Gets or sets the mode that determines how the overlay can be closed.
@@ -106,19 +106,20 @@ public partial class FluentOverlay : FluentComponentBase
         }
 
         var isVisible = string.Equals(args.NewState, "open", StringComparison.OrdinalIgnoreCase);
+
         if (Visible != isVisible)
         {
             Visible = isVisible;
+        }
 
-            if (VisibleChanged.HasDelegate)
-            {
-                await VisibleChanged.InvokeAsync(Visible);
-            }
+        if (VisibleChanged.HasDelegate)
+        {
+            await VisibleChanged.InvokeAsync(Visible);
         }
     }
 
     private string GetBackground()
     {
-        return $"color-mix(in srgb, {BackgroundColor} {Opacity * 100}%, transparent)";
+        return $"color-mix(in srgb, {BackgroundColor} {Opacity}%, transparent)";
     }
 }
