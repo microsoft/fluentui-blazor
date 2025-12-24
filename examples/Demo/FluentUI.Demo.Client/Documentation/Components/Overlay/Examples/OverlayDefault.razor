@@ -1,15 +1,6 @@
-﻿<FluentCard Appearance="@CardAppearance.Outline" Margin="@Margin.Vertical4">
-
-    <!-- Content -->
-    <FluentText>
-        Lorem Ipsum rhoncus turpis turpis sed maecenas Odio turpis Lorem Euismod ipsum felis ridiculus
-    </FluentText>
-
-    <!-- Overlay with the default Spinner -->
-    <FluentOverlay FullScreen="true"
-                   @bind-Visible="@IsVisible" />
-
-</FluentCard>
+﻿<!-- Overlay with the default Spinner -->
+<FluentOverlay FullScreen="true"
+               @bind-Visible="@IsVisible" />
 
 <FluentButton OnClick="@(e => IsVisible = true)">
     Show Overlay
