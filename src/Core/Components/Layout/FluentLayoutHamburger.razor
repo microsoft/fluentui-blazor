@@ -4,7 +4,7 @@
 
 @if (Visible ?? true)
 {
-    <div class="@ClassValue" style="@StyleValue" id="@Id" @attributes="@AdditionalAttributes">
+    <div class="@ClassValue" style="@StyleValue" id="@Id" @attributes="@AdditionalAttributes" display="@Display.ToAttributeValue(returnEmptyAsNull: true)">
         <FluentButton Appearance="@ButtonAppearance.Transparent"
                       Color="var(--colorNeutralForegroundOnBrand)"
                       IconStart="@Icon"
