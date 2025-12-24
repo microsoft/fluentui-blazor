@@ -2,9 +2,10 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Dialog.MessageBox;
 using Microsoft.FluentUI.AspNetCore.Components.Localization;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -94,7 +95,7 @@ public partial class DialogService : IDialogService
             config.Footer.PrimaryAction.ShortCut = options.PrimaryShortCut;
             config.Footer.SecondaryAction.Label = options.SecondaryButton;
             config.Footer.SecondaryAction.ShortCut = options.SecondaryShortCut;
-            config.Parameters.Add(nameof(FluentMessageBox.Message), new MarkupString(options.Message ?? ""));
+            config.Parameters.Add(nameof(FluentMessageBox.Message), new MarkupStringSanitized(options.Message ?? "", MarkupStringSanitized.Formats.Html, _serviceProvider.GetService<LibraryConfiguration>()));
             config.Parameters.Add(nameof(FluentMessageBox.Icon), options.Icon);
             config.Parameters.Add(nameof(FluentMessageBox.IconColor), options.IconColor);
         });
