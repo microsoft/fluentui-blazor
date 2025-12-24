@@ -8,7 +8,7 @@ using FluentUI.Demo.DocApiGen.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace FluentUI.Demo.DocApiGen.Models;
+namespace FluentUI.Demo.DocApiGen.Models.SummaryMode;
 
 /// <summary>
 /// Represents a class with properties, methods, and events.
@@ -64,7 +64,22 @@ public class ApiClass
     /// <summary>
     /// Gets the list of properties for the specified component.
     /// </summary>
-    public IEnumerable<ApiMember> Properties => GetMembers(MemberTypes.Property).Where(i => _options.PropertyParameterOnly == false ? true : i.IsParameter);
+    public IEnumerable<ApiMember> Properties
+    {
+        get
+        {
+            var properties = GetMembers(MemberTypes.Property);
+            
+            // For enums, include all values regardless of PropertyParameterOnly setting
+            if (_component.IsEnum)
+            {
+                return properties;
+            }
+            
+            // For classes, apply PropertyParameterOnly filter
+            return properties.Where(i => _options.PropertyParameterOnly == false || i.IsParameter);
+        }
+    }
 
     /// <summary>
     /// Gets the list of Events for the specified component.
@@ -103,6 +118,7 @@ public class ApiClass
             List<ApiMember>? members = [];
             object? obj = null;
             var created = false;
+            var canCreateInstance = CanCreateInstance(_component);
 
             var ctorArguments = HasCtorWithArguments(_component, ["LibraryConfiguration"])
                   ? new object?[] { null }
@@ -111,16 +127,21 @@ public class ApiClass
             // Create an instance of the component to get the default values
             object? GetObjectValue(string propertyName)
             {
+                // Skip instance creation if we know it will fail
+                if (!canCreateInstance || _component.IsAbstract || _component.IsInterface)
+                {
+                    return null;
+                }
+
                 try
                 {
-
                     if (!created)
                     {
                         if (_component.IsGenericType)
                         {
                             if (InstanceTypes is null)
                             {
-                                throw new InvalidCastException("InstanceTypes must be specified when Component is a generic type");
+                                return null;
                             }
 
                             // Supply the type to create the generic instance with (needs to be an array)
@@ -135,10 +156,11 @@ public class ApiClass
                     }
 
                     return obj?.GetType().GetProperty(propertyName)?.GetValue(obj);
-
                 }
                 catch (Exception)
                 {
+                    // Mark as unable to create to avoid future attempts
+                    canCreateInstance = false;
                     return null;
                 }
             }
@@ -188,9 +210,9 @@ public class ApiClass
                             // Parameters/properties
                             if (!isEvent)
                             {
-                                // Icon? icon = null;
+                                // Only try to get default value if we can create an instance and the property type is simple
                                 var defaultValue = "";
-                                if (propertyInfo.PropertyType.IsValueType || propertyInfo.PropertyType == typeof(string))
+                                if (canCreateInstance && (propertyInfo.PropertyType.IsValueType || propertyInfo.PropertyType == typeof(string)))
                                 {
                                     defaultValue = GetObjectValue(propertyInfo.Name)?.ToString();
                                 }
@@ -250,10 +272,10 @@ public class ApiClass
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine($"[ApiDocumentation] ERROR: Cannot found {_component.FullName} -> {memberInfo.Name}");
-                    throw;
+                    Console.WriteLine($"[ApiDocumentation] ERROR: Cannot process {_component.FullName} -> {memberInfo.Name}: {ex.Message}");
+                    // Don't rethrow, continue with next member
                 }
             }
 
@@ -261,6 +283,45 @@ public class ApiClass
         }
 
         return _allMembers.Where(i => i.MemberType == type);
+    }
+
+    /// <summary>
+    /// Checks if a type can be instantiated.
+    /// </summary>
+    private static bool CanCreateInstance(Type type)
+    {
+        if (type.IsAbstract || type.IsInterface || type.IsGenericTypeDefinition)
+        {
+            return false;
+        }
+
+        // Check if type has a parameterless constructor or a constructor with nullable LibraryConfiguration
+        var constructors = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
+        if (constructors.Length == 0)
+        {
+            return false;
+        }
+
+        foreach (var ctor in constructors)
+        {
+            var parameters = ctor.GetParameters();
+            
+            // Parameterless constructor
+            if (parameters.Length == 0)
+            {
+                return true;
+            }
+            
+            // Constructor with single nullable LibraryConfiguration parameter
+            if (parameters.Length == 1 && 
+                parameters[0].ParameterType.Name == "LibraryConfiguration" &&
+                parameters[0].IsOptional == false)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /// <summary />
