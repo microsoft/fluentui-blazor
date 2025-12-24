@@ -22,7 +22,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
 {
     private ElementReference _calendarReference = default!;
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DateTime/FluentCalendar.razor.js";
-    
+
     internal static MarkupStringSanitized ArrowUp = new("<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.2 10.73a.75.75 0 001.1 1.04l5.95-6.25v14.73a.75.75 0 001.5 0V5.52l5.95 6.25a.75.75 0 001.1-1.04l-7.08-7.42a1 1 0 00-1.44 0L4.2 10.73z\"/></svg>", MarkupStringSanitized.Formats.AlreadySanitized);
     internal static MarkupStringSanitized ArrowDown = new("<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19.8 13.27a.75.75 0 00-1.1-1.04l-5.95 6.25V3.75a.75.75 0 10-1.5 0v14.73L5.3 12.23a.75.75 0 10-1.1 1.04l7.08 7.42a1 1 0 001.44 0l7.07-7.42z\"/></svg>", MarkupStringSanitized.Formats.AlreadySanitized);
 
@@ -167,12 +167,14 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     internal bool IsReadOnlyOrDisabled => ReadOnly || Disabled == true;
 
     /// <summary />
-    internal string GetAnimationClass(string existingClass) => CanBeAnimated ? _animationRunning switch
-    {
-        AnimationRunning.Up => $"{existingClass} animation-running-up",
-        AnimationRunning.Down => $"{existingClass} animation-running-down",
-        _ => $"{existingClass} animation-none"
-    } : existingClass;
+    internal string GetAnimationClass(string existingClass) => CanBeAnimated
+        ? _animationRunning switch
+        {
+            AnimationRunning.Up => $"{existingClass} animation-running-up",
+            AnimationRunning.Down => $"{existingClass} animation-running-down",
+            _ => $"{existingClass} animation-none",
+        }
+        : existingClass;
 
     /// <summary>
     /// All days of this current month.

@@ -72,14 +72,30 @@ public class MarkupStringSanitizedTests
 
     [Theory]
     [InlineData("<style> .my-class { color: ### } </style>", "red; } </style> <script>alert('XSS')</script> <style>")]
-    public void MarkupStringSanitized_Constructor_ThrowsException(string input, string xss)
+    [InlineData("<style> .my-class { color: ### } </style>", "red; } </style> <script>alert('XSS')</script> <style>", false)]
+    public void MarkupStringSanitized_Constructor_ThrowsException(string input, string xss, bool throwOnUnsafe = true)
     {
         const string exceptionMessage = "The provided CSS inline style contains potentially unsafe content";
 
         // Act & Assert
-        var exception = Assert.Throws<InvalidOperationException>(() => new MarkupStringSanitized(input.Replace("###", xss), null));
+        if (throwOnUnsafe)
+        {
+            var exception = Assert.Throws<InvalidOperationException>(() => StartMarkupStringSanitized());
+            Assert.Contains(exceptionMessage, exception.Message, StringComparison.OrdinalIgnoreCase);
+        }
+        else
+        {
+            var result = StartMarkupStringSanitized();
+            Assert.Equal("<style />", result.Value);
+        }
 
-        Assert.Contains(exceptionMessage, exception.Message, StringComparison.OrdinalIgnoreCase);
+        MarkupStringSanitized StartMarkupStringSanitized()
+        {
+            MarkupSanitizedOptions.ThrowOnUnsafe = throwOnUnsafe;
+            var result = new MarkupStringSanitized(input.Replace("###", xss), null);
+            MarkupSanitizedOptions.ThrowOnUnsafe = true;    // Reset to default after test
+            return result;
+        }
     }
 
     [Theory]
@@ -115,5 +131,49 @@ public class MarkupStringSanitizedTests
         var exception = Assert.Throws<InvalidOperationException>(() => new MarkupStringSanitized(input, MarkupStringSanitized.Formats.Html, configuration: null));
 
         Assert.Contains(exceptionMessage, exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Theory]
+    [InlineData("<script>alert('XSS')</script>", "")]
+    public void MarkupStringSanitized_Html_UnsafeContent_NoException(string input, string expected)
+    {
+        // Act & Assert
+        MarkupSanitizedOptions.ThrowOnUnsafe = false;
+        var result = new MarkupStringSanitized(input, MarkupStringSanitized.Formats.Html, configuration: null).Value;
+        MarkupSanitizedOptions.ThrowOnUnsafe = true;
+
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void MarkupStringSanitized_Constructor_Invalid()
+    {
+        const string exceptionMessage = "Cannot create MarkupStringSanitized with explicitly un-sanitized value.";
+
+        // Act & Assert
+        var exception = Assert.Throws<InvalidOperationException>(() => new MarkupStringSanitized("Any data", (MarkupStringSanitized.Formats)999, configuration: null));
+
+        Assert.Contains(exceptionMessage, exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void MarkupStringSanitized_ToString()
+    {
+        // Act & Assert
+        var input = "<p>Simple paragraph</p>";
+        var result = new MarkupStringSanitized(input, MarkupStringSanitized.Formats.Html, configuration: null);
+
+        Assert.Equal(input, result.ToString());
+    }
+
+    [Fact]
+    public void MarkupStringSanitized_MarkupString()
+    {
+        // Act & Assert
+        var input = "<p>Simple paragraph</p>";
+        var result = new MarkupStringSanitized(input, MarkupStringSanitized.Formats.Html, configuration: null);
+        var markupString = result.Markup;
+
+        Assert.Equal(input, markupString.Value);
     }
 }
