@@ -120,6 +120,6 @@ public partial class FluentOverlay : FluentComponentBase
 
     private string GetBackground()
     {
-        return $"color-mix(in srgb, {BackgroundColor} {Opacity}%, transparent)";
+        return $"color-mix(in srgb, {BackgroundColor} {Opacity.ToString(System.Globalization.CultureInfo.InvariantCulture)}%, transparent)";
     }
 }
