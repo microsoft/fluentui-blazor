@@ -50,6 +50,11 @@ public class LibraryConfiguration
     /// </summary>
     public LibraryTooltipOptions Tooltip { get; } = new LibraryTooltipOptions();
 
+    /// <summary>
+    /// Gets the sanitized markup string for safe rendering in HTML/Styles contexts.
+    /// </summary>
+    public MarkupSanitizedOptions MarkupSanitized { get; } = new MarkupSanitizedOptions();
+
     /* TODO: Implement these properties
      
     /// <summary>

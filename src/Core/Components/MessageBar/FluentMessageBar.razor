@@ -19,7 +19,9 @@
 
             @if (!string.IsNullOrEmpty(Title))
             {
-                <span class="title">@Title</span>
+                <span class="title">
+                    @(new MarkupStringSanitized(Title, MarkupStringSanitized.Formats.Html, LibraryConfiguration))
+                </span>
             }
         </AddTag>
 

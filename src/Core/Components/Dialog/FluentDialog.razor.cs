@@ -268,14 +268,14 @@ public partial class FluentDialog : FluentComponentBase
     private bool IsDialog() => !IsDrawer();
 
     /// <summary />
-    private MarkupString? GetDialogStyle()
+    private MarkupStringSanitized? GetDialogStyle()
     {
         if (string.IsNullOrEmpty(StyleValue))
         {
             return null;
         }
 
-        return (MarkupString)$"<style>#{Id}::part(dialog) {{ {StyleValue} }}</style>";
+        return new MarkupStringSanitized($"<style>#{Id}::part(dialog) {{ {StyleValue} }}</style>", LibraryConfiguration);
     }
 
     /// <summary>

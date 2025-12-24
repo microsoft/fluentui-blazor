@@ -12,6 +12,7 @@
     <Project Path="examples/Tools/FluentUI.Demo.SampleData/FluentUI.Demo.SampleData.csproj" />
   </Folder>
   <Folder Name="/examples/tools/Tests/">
+    <Project Path="examples/Tools/FluentUI.Demo.DocApiGen.IntegrationTests/FluentUI.Demo.DocApiGen.IntegrationTests.csproj" />
     <Project Path="examples/Tools/FluentUI.Demo.DocApiGen.Tests/FluentUI.Demo.DocApiGen.Tests.csproj" />
     <Project Path="examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj" />
   </Folder>
