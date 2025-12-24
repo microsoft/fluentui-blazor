@@ -14,6 +14,7 @@ public partial class FluentMessageBox
 {
     /// <summary>
     /// Gets or sets the content of the message box.
+    /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
     /// </summary>
     [Parameter]
     public MarkupStringSanitized? Message { get; set; }
