@@ -1,0 +1,20 @@
+﻿@using Xunit;
+@inherits FluentUITestContext
+@code
+{
+    public FluentOverlayTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentOverlay_Default()
+    {
+        // Act
+        var cut = Render(@<FluentOverlay FullScreen="true" />);
+
+        // Assert
+        cut.Verify();
+    }
+}
