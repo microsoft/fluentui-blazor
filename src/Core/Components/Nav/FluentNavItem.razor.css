@@ -19,8 +19,8 @@
   width: 100%;
 }
 
-  .fluent-nav .fluent-navitem[density="small"],
-  .fluent-nav .fluent-navsubitem[density="small"] {
+  .fluent-nav[density="small"] .fluent-navitem,
+  .fluent-nav[density="small"] .fluent-navsubitem {
     padding: var(--spacingVerticalXS) var(--spacingHorizontalS) var(--spacingVerticalXS) var(--spacingHorizontalMNudge);
   }
 

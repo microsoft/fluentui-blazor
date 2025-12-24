@@ -18,9 +18,9 @@
   width: 100%;
 }
 
-  .fluent-nav .fluent-navcategoryitem[density="small"] {
-    padding: var(--spacingVerticalXS) var(--spacingHorizontalS) var(--spacingVerticalXS) var(--spacingHorizontalMNudge);
-  }
+.fluent-nav[density="small"] .fluent-navcategoryitem {
+  padding: var(--spacingVerticalXS) var(--spacingHorizontalS) var(--spacingVerticalXS) var(--spacingHorizontalMNudge);
+}
 
   .fluent-nav .fluent-navcategoryitem:hover {
     background-color: var(--colorNeutralBackground4Hover);

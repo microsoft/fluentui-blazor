@@ -9,10 +9,9 @@
 			 class="@ClassValue"
 			 style="@StyleValue"
 			 href="@Href"
-			 density="@Owner.Density.ToAttributeValue()"
 			 title="@Tooltip"
-			 target="@Target"
-			 rel="@(!string.IsNullOrWhiteSpace(Target) ? "noopener noreferrer" : string.Empty)"
+			 target="@Target.ToAttributeValue()"
+			 rel="@(Target is not null ? "noopener noreferrer" : string.Empty)"
 			 ActiveClass="@ActiveClass"
 			 Match="@Match"
 			 @attributes="@AdditionalAttributes">
@@ -27,35 +26,12 @@ else
 			class="@ClassValue"
 			style="@StyleValue"
 			href="@Href"
-			density="@Owner.Density.ToAttributeValue()"
 			title="@Tooltip"
-			target="@Target"
-			rel="@(!string.IsNullOrWhiteSpace(Target) ? "noopener noreferrer" : string.Empty)"
+			target="@Target.ToAttributeValue()"
+			rel="@(Target is not null ? "noopener noreferrer" : string.Empty)"
 			@onclick="OnClickHandlerAsync"
 			@attributes="@AdditionalAttributes">
 		@RenderIcon
 		@ChildContent
 	</button>
-}
-
-@code {
-	private RenderFragment RenderIcon => __builder =>
-	{
-		if (_isSubItem)
-		{
-			return;
-		}
-
-		if (Owner.UseIcons)
-		{
-			if (Icon is not null)
-			{
-				<FluentIcon Value="NavUtils.GetActiveIcon(Icon, _isActive)" Class="icon" Color="@(_isActive? Color.Primary: Color.Default)" />
-			}
-			else
-			{
-				<span style="width: 20px;"></span>
-			}
-		}
-	};
 }

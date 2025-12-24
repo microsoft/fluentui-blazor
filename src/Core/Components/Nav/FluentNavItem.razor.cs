@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -44,6 +45,10 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     protected string? StyleValue => DefaultStyleBuilder
         .Build();
 
+    /// <summary />
+    [Inject]
+    public required NavigationManager NavigationManager { get; set; }
+
     /// <summary>
     /// Gets or sets the icon of the nav menu item.
     /// </summary>
@@ -73,7 +78,7 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     /// Possible values: _blank | _self | _parent | _top.
     /// </summary>
     [Parameter]
-    public string? Target { get; set; }
+    public LinkTarget? Target { get; set; }
 
     /// <summary>
     /// Gets or sets the class names to use to indicate the item is active, separated by space.
@@ -118,10 +123,6 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     [CascadingParameter(Name = "Category")]
     public FluentNavCategory? Category { get; set; }
 
-    /// <summary />
-    [Inject]
-    public required NavigationManager NavigationManager { get; set; }
-
     /// <summary>
     /// Gets the active state on this navigation item
     /// </summary>
@@ -162,203 +163,230 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
         }
     }
 
-    /// <summary>
-    /// Calls the <see cref="OnClick"/> delegate when specified (and item not disabled)
-    /// </summary>
-    protected async Task OnClickHandlerAsync(MouseEventArgs args)
+    /// <summary />
+    protected void RenderIcon(RenderTreeBuilder builder)
     {
-        if (Disabled)
+        if (_isSubItem)
         {
             return;
         }
 
-        if (OnClick.HasDelegate)
+        if (Owner.UseIcons)
         {
-            await OnClick.InvokeAsync(args);
-        }
-    }
-
-    /// <summary>
-    /// Handles location change events and updates the active state.
-    /// </summary>
-    protected virtual void OnLocationChanged(object? sender, LocationChangedEventArgs args)
-    {
-        // We could just re-render always, but for this component we know the
-        // only relevant state change is to the _isActive property.
-        var shouldBeActiveNow = ShouldMatch(args.Location);
-        if (shouldBeActiveNow != _isActive)
-        {
-            _isActive = shouldBeActiveNow;
-
-            // Notify parent category if this is a subitem
-            if (_isSubItem)
+            if (Icon is not null)
             {
-                Category?.OnSubitemActiveStateChanged();
+                builder.OpenComponent< FluentIcon<Icon>>(0);
+                builder.AddAttribute(1, "Value", NavUtils.GetActiveIcon(Icon, _isActive));
+                builder.AddAttribute(2, "Class", "icon");
+                builder.AddAttribute(3, "Color", _isActive ? Color.Primary : Color.Default);
+                builder.CloseComponent();
+            }
+            else
+            {
+                builder.OpenElement(4, "span");
+                builder.AddAttribute(5, "style", "width: 20px;");
+                builder.CloseElement();
             }
         }
     }
 
     /// <summary>
-    /// Determines whether the current URI should match the link.
+    /// Calls the <see cref="OnClick"/> delegate when specified (and item not disabled)
     /// </summary>
-    /// <param name="uriAbsolute">The absolute URI of the current location.</param>
-    /// <returns>True if the link should be highlighted as active; otherwise, false.</returns>
-    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
-    protected virtual bool ShouldMatch(string uriAbsolute)
+    protected async Task OnClickHandlerAsync(MouseEventArgs args)
+{
+    if (Disabled)
     {
-        if (_hrefAbsolute == null)
-        {
-            return false;
-        }
-
-        var uriAbsoluteSpan = uriAbsolute.AsSpan();
-        var hrefAbsoluteSpan = _hrefAbsolute.AsSpan();
-        if (EqualsHrefExactlyOrIfTrailingSlashAdded(uriAbsoluteSpan, hrefAbsoluteSpan))
-        {
-            return true;
-        }
-
-        if (Match == NavLinkMatch.Prefix
-            && IsStrictlyPrefixWithSeparator(uriAbsolute, _hrefAbsolute))
-        {
-            return true;
-        }
-
-        if (_enableMatchAllForQueryStringAndFragment || Match != NavLinkMatch.All)
-        {
-            return false;
-        }
-
-        var uriWithoutQueryAndFragment = GetUriIgnoreQueryAndFragment(uriAbsoluteSpan);
-        if (EqualsHrefExactlyOrIfTrailingSlashAdded(uriWithoutQueryAndFragment, hrefAbsoluteSpan))
-        {
-            return true;
-        }
-
-        hrefAbsoluteSpan = GetUriIgnoreQueryAndFragment(hrefAbsoluteSpan);
-        return EqualsHrefExactlyOrIfTrailingSlashAdded(uriWithoutQueryAndFragment, hrefAbsoluteSpan);
+        return;
     }
 
-    /// <inheritdoc />
-    public void Dispose()
+    if (OnClick.HasDelegate)
     {
-        NavigationManager.LocationChanged -= OnLocationChanged;
+        await OnClick.InvokeAsync(args);
+    }
+}
 
+/// <summary>
+/// Handles location change events and updates the active state.
+/// </summary>
+protected virtual void OnLocationChanged(object? sender, LocationChangedEventArgs args)
+{
+    // We could just re-render always, but for this component we know the
+    // only relevant state change is to the _isActive property.
+    var shouldBeActiveNow = ShouldMatch(args.Location);
+    if (shouldBeActiveNow != _isActive)
+    {
+        _isActive = shouldBeActiveNow;
+
+        // Notify parent category if this is a subitem
         if (_isSubItem)
         {
-            Category?.UnregisterSubitem(this);
+            Category?.OnSubitemActiveStateChanged();
         }
+    }
+}
 
-        GC.SuppressFinalize(this);
+/// <summary>
+/// Determines whether the current URI should match the link.
+/// </summary>
+/// <param name="uriAbsolute">The absolute URI of the current location.</param>
+/// <returns>True if the link should be highlighted as active; otherwise, false.</returns>
+[ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
+protected virtual bool ShouldMatch(string uriAbsolute)
+{
+    if (_hrefAbsolute == null)
+    {
+        return false;
     }
 
-    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
-    private static ReadOnlySpan<char> GetUriIgnoreQueryAndFragment(ReadOnlySpan<char> uri)
+    var uriAbsoluteSpan = uriAbsolute.AsSpan();
+    var hrefAbsoluteSpan = _hrefAbsolute.AsSpan();
+    if (EqualsHrefExactlyOrIfTrailingSlashAdded(uriAbsoluteSpan, hrefAbsoluteSpan))
     {
-        if (uri.IsEmpty)
-        {
-            return [];
-        }
-
-        var queryStartPos = uri.IndexOf('?');
-        var fragmentStartPos = uri.IndexOf('#');
-
-        if (queryStartPos < 0 && fragmentStartPos < 0)
-        {
-            return uri;
-        }
-
-        int minPos;
-        if (queryStartPos < 0)
-        {
-            minPos = fragmentStartPos;
-        }
-        else if (fragmentStartPos < 0)
-        {
-            minPos = queryStartPos;
-        }
-        else
-        {
-            minPos = Math.Min(queryStartPos, fragmentStartPos);
-        }
-
-        return uri[..minPos];
+        return true;
     }
 
-    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
-    private static bool EqualsHrefExactlyOrIfTrailingSlashAdded(ReadOnlySpan<char> currentUriAbsolute, ReadOnlySpan<char> hrefAbsolute)
+    if (Match == NavLinkMatch.Prefix
+        && IsStrictlyPrefixWithSeparator(uriAbsolute, _hrefAbsolute))
     {
-        if (currentUriAbsolute.SequenceEqual(hrefAbsolute, CaseInsensitiveComparer))
+        return true;
+    }
+
+    if (_enableMatchAllForQueryStringAndFragment || Match != NavLinkMatch.All)
+    {
+        return false;
+    }
+
+    var uriWithoutQueryAndFragment = GetUriIgnoreQueryAndFragment(uriAbsoluteSpan);
+    if (EqualsHrefExactlyOrIfTrailingSlashAdded(uriWithoutQueryAndFragment, hrefAbsoluteSpan))
+    {
+        return true;
+    }
+
+    hrefAbsoluteSpan = GetUriIgnoreQueryAndFragment(hrefAbsoluteSpan);
+    return EqualsHrefExactlyOrIfTrailingSlashAdded(uriWithoutQueryAndFragment, hrefAbsoluteSpan);
+}
+
+/// <inheritdoc />
+public void Dispose()
+{
+    NavigationManager.LocationChanged -= OnLocationChanged;
+
+    if (_isSubItem)
+    {
+        Category?.UnregisterSubitem(this);
+    }
+
+    GC.SuppressFinalize(this);
+}
+
+[ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
+private static ReadOnlySpan<char> GetUriIgnoreQueryAndFragment(ReadOnlySpan<char> uri)
+{
+    if (uri.IsEmpty)
+    {
+        return [];
+    }
+
+    var queryStartPos = uri.IndexOf('?');
+    var fragmentStartPos = uri.IndexOf('#');
+
+    if (queryStartPos < 0 && fragmentStartPos < 0)
+    {
+        return uri;
+    }
+
+    int minPos;
+    if (queryStartPos < 0)
+    {
+        minPos = fragmentStartPos;
+    }
+    else if (fragmentStartPos < 0)
+    {
+        minPos = queryStartPos;
+    }
+    else
+    {
+        minPos = Math.Min(queryStartPos, fragmentStartPos);
+    }
+
+    return uri[..minPos];
+}
+
+[ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
+private static bool EqualsHrefExactlyOrIfTrailingSlashAdded(ReadOnlySpan<char> currentUriAbsolute, ReadOnlySpan<char> hrefAbsolute)
+{
+    if (currentUriAbsolute.SequenceEqual(hrefAbsolute, CaseInsensitiveComparer))
+    {
+        return true;
+    }
+
+    if (currentUriAbsolute.Length == hrefAbsolute.Length - 1)
+    {
+        // Special case: highlight links to http://host/path/ even if you're
+        // at http://host/path (with no trailing slash)
+        //
+        // This is because the router accepts an absolute URI value of "same
+        // as base URI but without trailing slash" as equivalent to "base URI",
+        // which in turn is because it's common for servers to return the same page
+        // for http://host/vdir as they do for host://host/vdir/ as it's no
+        // good to display a blank page in that case.
+        if (hrefAbsolute[^1] == '/' &&
+            currentUriAbsolute.SequenceEqual(hrefAbsolute[..^1], CaseInsensitiveComparer))
         {
             return true;
         }
-
-        if (currentUriAbsolute.Length == hrefAbsolute.Length - 1)
-        {
-            // Special case: highlight links to http://host/path/ even if you're
-            // at http://host/path (with no trailing slash)
-            //
-            // This is because the router accepts an absolute URI value of "same
-            // as base URI but without trailing slash" as equivalent to "base URI",
-            // which in turn is because it's common for servers to return the same page
-            // for http://host/vdir as they do for host://host/vdir/ as it's no
-            // good to display a blank page in that case.
-            if (hrefAbsolute[^1] == '/' &&
-                currentUriAbsolute.SequenceEqual(hrefAbsolute[..^1], CaseInsensitiveComparer))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
-    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
-    private static bool IsUnreservedCharacter(char c)
+    return false;
+}
+
+[ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
+private static bool IsUnreservedCharacter(char c)
+{
+    // Checks whether it is an unreserved character according to
+    // https://datatracker.ietf.org/doc/html/rfc3986#section-2.3
+    // Those are characters that are allowed in a URI but do not have a reserved
+    // purpose (e.g. they do not separate the components of the URI)
+    return char.IsLetterOrDigit(c) ||
+            c == '-' ||
+            c == '.' ||
+            c == '_' ||
+            c == '~';
+}
+
+[ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
+private static bool IsStrictlyPrefixWithSeparator(string value, string prefix)
+{
+    var prefixLength = prefix.Length;
+    if (value.Length > prefixLength)
     {
-        // Checks whether it is an unreserved character according to
-        // https://datatracker.ietf.org/doc/html/rfc3986#section-2.3
-        // Those are characters that are allowed in a URI but do not have a reserved
-        // purpose (e.g. they do not separate the components of the URI)
-        return char.IsLetterOrDigit(c) ||
-                c == '-' ||
-                c == '.' ||
-                c == '_' ||
-                c == '~';
+        return value.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+            && (
+                // Only match when there's a separator character either at the end of the
+                // prefix or right after it.
+                // Example: "/abc" is treated as a prefix of "/abc/def" but not "/abcdef"
+                // Example: "/abc/" is treated as a prefix of "/abc/def" but not "/abcdef"
+                prefixLength == 0
+                || !IsUnreservedCharacter(prefix[prefixLength - 1])
+                || !IsUnreservedCharacter(value[prefixLength])
+            );
     }
 
-    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
-    private static bool IsStrictlyPrefixWithSeparator(string value, string prefix)
+    return false;
+}
+
+[ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
+private class CaseInsensitiveCharComparer : IEqualityComparer<char>
+{
+    public bool Equals(char x, char y)
     {
-        var prefixLength = prefix.Length;
-        if (value.Length > prefixLength)
-        {
-            return value.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
-                && (
-                    // Only match when there's a separator character either at the end of the
-                    // prefix or right after it.
-                    // Example: "/abc" is treated as a prefix of "/abc/def" but not "/abcdef"
-                    // Example: "/abc/" is treated as a prefix of "/abc/def" but not "/abcdef"
-                    prefixLength == 0
-                    || !IsUnreservedCharacter(prefix[prefixLength - 1])
-                    || !IsUnreservedCharacter(value[prefixLength])
-                );
-        }
-
-        return false;
+        return char.ToLowerInvariant(x) == char.ToLowerInvariant(y);
     }
 
-    [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]
-    private class CaseInsensitiveCharComparer : IEqualityComparer<char>
+    public int GetHashCode(char obj)
     {
-        public bool Equals(char x, char y)
-        {
-            return char.ToLowerInvariant(x) == char.ToLowerInvariant(y);
-        }
-
-        public int GetHashCode(char obj)
-        {
-            return char.ToLowerInvariant(obj).GetHashCode();
-        }
+        return char.ToLowerInvariant(obj).GetHashCode();
     }
+}
 }
