@@ -7,7 +7,8 @@
 
     @_renderOptions
 
-    <FluentTextArea @bind-Value="@HamburgerContent" Label="Hamburger content" />
+    <FluentTextArea @bind-Value="@HamburgerContent" Label="Hamburger content" /> <br/>
+    <FluentCheckbox @bind-Value="@HamburgerOnDesktop" Label="Visible on desktop" />
 
     <FluentStack Margin="@Margin.Vertical2">
         View: @(MobileView ? "📱 Mobile" : "💻 Desktop")
@@ -25,6 +26,7 @@
 
                     <!-- Hamburger -->
                     <FluentLayoutHamburger OnOpened="@(e => Opened = e.Opened)"
+                                           Display="@(HamburgerOnDesktop ? HamburgerDisplay.DesktopMobile : HamburgerDisplay.MobileOnly)"
                                            ChildContent="@(string.IsNullOrWhiteSpace(HamburgerContent) ? null : builder => { builder.AddMarkupContent(0, HamburgerContent); })" />
 
                     <FluentText Weight="TextWeight.Bold" Size="TextSize.Size400">

@@ -101,6 +101,12 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     [Parameter]
     public bool? Visible { get; set; }
 
+    /// <summary>
+    /// Gets or sets the display mode for the hamburger menu.
+    /// </summary>
+    [Parameter]
+    public HamburgerDisplay Display { get; set; } = HamburgerDisplay.MobileOnly;
+
     /// <summary />
     private RenderFragment? NavigationContent => ChildContent ?? LayoutContainer?.Areas.Find(i => i.Area == LayoutArea.Navigation)?.ChildContent;
 
@@ -117,7 +123,7 @@ public partial class FluentLayoutHamburger : FluentComponentBase
         if (firstRender)
         {
             var dotNetHelper = DotNetObjectReference.Create(this);
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Layout.HamburgerInitialize", dotNetHelper, Id);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Layout.HamburgerInitialize", dotNetHelper, Id, LayoutContainer?.Id);
         }
     }
 

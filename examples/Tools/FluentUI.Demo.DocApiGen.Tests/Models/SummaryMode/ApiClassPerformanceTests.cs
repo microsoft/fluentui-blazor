@@ -4,6 +4,7 @@
 
 using Xunit;
 using FluentUI.Demo.DocApiGen.Models.SummaryMode;
+using Microsoft.AspNetCore.Components;
 
 namespace FluentUI.Demo.DocApiGen.Tests.Models.SummaryMode;
 
@@ -213,11 +214,13 @@ public class ApiClassPerformanceTests
         /// <summary>
         /// Test property.
         /// </summary>
+        [Parameter]
         public string? TestProperty { get; set; }
 
         /// <summary>
         /// Test integer property.
         /// </summary>
+        [Parameter]
         public int TestIntProperty { get; set; }
     }
 

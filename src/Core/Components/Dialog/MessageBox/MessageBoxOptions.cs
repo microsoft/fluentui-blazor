@@ -11,6 +11,8 @@ public class MessageBoxOptions
 {
     /// <summary>
     /// Gets or sets the message to display in the dialog.
+    /// The message can contain simple HTML markup for formatting.
+    /// See <see cref="LibraryConfiguration.MarkupSanitized"/> for more information.
     /// </summary>
     public string? Message { get; set; }
 

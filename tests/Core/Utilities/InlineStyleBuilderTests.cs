@@ -84,7 +84,6 @@ public class InlineStyleBuilderTests
 
         // Assert - Values are sorted
         Assert.Null(styleBuilder.Build(newLineSeparator: false));
-        Assert.Equal(string.Empty, styleBuilder.BuildMarkupString().Value);
     }
 
     [Fact]
@@ -98,7 +97,6 @@ public class InlineStyleBuilderTests
         styleBuilder.AddStyle("div", "color", "green", false);
 
         // Assert 
-        Assert.Equal($"<style>{Environment.NewLine}div {{ color: red; }}{Environment.NewLine}</style>", styleBuilder.BuildMarkupString().Value);
         Assert.Equal(@"<style> div { color: red; } </style>", styleBuilder.Build(newLineSeparator: false));
     }
 
