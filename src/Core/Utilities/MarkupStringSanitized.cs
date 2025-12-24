@@ -25,10 +25,7 @@ public readonly partial struct MarkupStringSanitized
     /// </summary>
     internal static readonly Func<string, string> DefaultSanitizeInlineStyle = (value) =>
     {
-        // A very strict pattern to allow only safe CSS values.
-        var pattern = @"^(?!.*(behavior\s*:|expression\s*\(|-moz-binding\s*:|javascript\s*:|url\s*\(\s*['""]?\s*javascript\s*:))[a-zA-Z0-9\s,.:;_%\-()#{}'""pxemremvhsmsdegradturn]+$";
-        var regex = new Regex(pattern, RegexOptions.IgnoreCase, matchTimeout: TimeSpan.FromMilliseconds(400));
-        var isValid = regex.IsMatch(value);
+        var isValid = InlineStyleRegex().IsMatch(value);
 
         if (isValid)
         {
@@ -56,10 +53,7 @@ public readonly partial struct MarkupStringSanitized
             return value;
         }
 
-        // A very strict pattern to allow only safe HTML tags and attributes.
-        var pattern = @"^(?:(?:[^<>]|<(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6]|br|hr)(?:\s+(?:class|id|title|data-[a-z0-9\-]+)\s*=\s*(?:""[^""<>]*""|'[^'<>]*'))*\s*\/?>|<\/(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6])>))*$";
-        var regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, matchTimeout: TimeSpan.FromMilliseconds(400));
-        var isValid = regex.IsMatch(value);
+        var isValid = HtmlSanitizerRegex().IsMatch(value);
 
         if (isValid)
         {
@@ -73,7 +67,6 @@ public readonly partial struct MarkupStringSanitized
 
         return string.Empty;
     };
-    //
 
     /// <summary>
     /// Provides the default function for sanitizing tag names by removing invalid characters.
@@ -84,12 +77,12 @@ public readonly partial struct MarkupStringSanitized
     /// </remarks>
     private static readonly Func<string, string> DefaultSanitizeTagName = (value) =>
     {
-        var pattern = @"[^a-zA-Z0-9\-.:_]";
-        var regex = new Regex(pattern, RegexOptions.None, matchTimeout: TimeSpan.FromMilliseconds(400));
-        var sanitized = regex.Replace(value, string.Empty);
-
+        var sanitized = TagNameSanitizerRegex().Replace(value, string.Empty);
         return sanitized;
     };
+
+    [GeneratedRegex(@"[^a-zA-Z0-9\-.:_]", RegexOptions.None, matchTimeoutMilliseconds: 400)]
+    private static partial Regex TagNameSanitizerRegex();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> struct,
@@ -198,9 +191,6 @@ public readonly partial struct MarkupStringSanitized
     /// <returns></returns>
     public override string ToString() => Value ?? string.Empty;
 
-    [GeneratedRegex(@"^<(?<tag>[a-zA-Z][a-zA-Z0-9]*?)(?:\s+(?<attribute>[a-zA-Z][a-zA-Z0-9\-]*?)\s*=\s*(?<quote>[""'])(?<attributevalue>.*?)\k<quote>)?(?:\s*/)?>(?<content>[\s\S]*?)(?:</\k<tag>>)?$", RegexOptions.Singleline | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 300)]
-    private static partial Regex RegExWithTagAndStyle();
-
     /// <summary />
     internal static ParsedContent ParseTagAndContent(string value)
     {
@@ -248,4 +238,13 @@ public readonly partial struct MarkupStringSanitized
         /// <summary />
         AlreadySanitized
     }
+
+    [GeneratedRegex(@"^(?!.*(behavior\s*:|expression\s*\(|-moz-binding\s*:|javascript\s*:|url\s*\(\s*['""]?\s*javascript\s*:))[a-zA-Z0-9\s,.:;_%\-()#{}'""pxemremvhsmsdegradturn]+$", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 400)]
+    private static partial Regex InlineStyleRegex();
+
+    [GeneratedRegex(@"^(?:(?:[^<>]|<(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6]|br|hr)(?:\s+(?:class|id|title|data-[a-z0-9\-]+)\s*=\s*(?:""[^""<>]*""|'[^'<>]*'))*\s*\/?>|<\/(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6])>))*$", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 400)]
+    private static partial Regex HtmlSanitizerRegex();
+
+    [GeneratedRegex(@"^<(?<tag>[a-zA-Z][a-zA-Z0-9]*?)(?:\s+(?<attribute>[a-zA-Z][a-zA-Z0-9\-]*?)\s*=\s*(?<quote>[""'])(?<attributevalue>.*?)\k<quote>)?(?:\s*/)?>(?<content>[\s\S]*?)(?:</\k<tag>>)?$", RegexOptions.Singleline | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 300)]
+    private static partial Regex RegExWithTagAndStyle();
 }
