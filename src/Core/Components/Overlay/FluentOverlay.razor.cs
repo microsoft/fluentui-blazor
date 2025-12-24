@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents an overlay component that provides visual layering and interaction blocking in Fluent UI applications.
 /// </summary>
-public partial class FluentOverlay : FluentComponentBase, IFluentComponentElementBase
+public partial class FluentOverlay : FluentComponentBase
 {
     /// <summary />
     public FluentOverlay(LibraryConfiguration configuration) : base(configuration)
@@ -27,10 +27,6 @@ public partial class FluentOverlay : FluentComponentBase, IFluentComponentElemen
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
         .Build();
-
-    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
-    [Parameter]
-    public ElementReference Element { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the component is displayed in full screen mode.

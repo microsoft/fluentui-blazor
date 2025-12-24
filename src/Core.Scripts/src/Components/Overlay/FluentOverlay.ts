@@ -74,7 +74,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
       Attributes
     ****************/
 
-    static get observedAttributes() { return ['dialogStyle', 'dialogClass', 'visible']; }
+    static get observedAttributes() { return ['background', 'dialogStyle', 'dialogClass', 'visible']; }
 
     // Handles attribute changes to update references and listeners.
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -385,7 +385,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
    * @param id The id of the fluent-overlay to display
    */
   export function Show(id: string): void {
-    const element = document.getElementById(id) as any;
+    const element = document.getElementById(id) as FluentOverlay | null;
     element?.show();
   }
 
@@ -394,7 +394,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
    * @param id The id of the fluent-overlay to close
    */
   export function Close(id: string): void {
-    const element = document.getElementById(id) as any;
+    const element = document.getElementById(id) as FluentOverlay | null;
     element?.close();
   }
 
