@@ -16,7 +16,7 @@
     }
     else if (!string.IsNullOrEmpty(Instance?.Options.Header.Title))
     {
-        <div slot="@FluentSlot.DialogTitle">@((MarkupString)(Instance.Options.Header.Title))</div>
+        <div slot="@FluentSlot.DialogTitle">@(new MarkupStringSanitized(Instance.Options.Header.Title, MarkupStringSanitized.Formats.Html, LibraryConfiguration))</div>
     }
 
     @* Header Action *@

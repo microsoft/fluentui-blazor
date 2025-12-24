@@ -935,10 +935,10 @@ value=""2022-02-20"">20</div>");
     public void FluentCalendar_ArrowUpAndDown_Constants()
     {
         // Assert
-        Assert.Contains("svg", FluentCalendar<DateTime>.ArrowUp);
-        Assert.Contains("svg", FluentCalendar<DateTime>.ArrowDown);
-        Assert.Contains("path", FluentCalendar<DateTime>.ArrowUp);
-        Assert.Contains("path", FluentCalendar<DateTime>.ArrowDown);
+        Assert.Contains("svg", FluentCalendar<DateTime>.ArrowUp.Value);
+        Assert.Contains("svg", FluentCalendar<DateTime>.ArrowDown.Value);
+        Assert.Contains("path", FluentCalendar<DateTime>.ArrowUp.Value);
+        Assert.Contains("path", FluentCalendar<DateTime>.ArrowDown.Value);
     }
 
     #region OnSelectedDateHandlerAsync Behavior Tests

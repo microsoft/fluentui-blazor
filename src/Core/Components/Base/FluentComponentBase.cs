@@ -24,6 +24,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     protected FluentComponentBase(LibraryConfiguration configuration)
     {
         configuration?.DefaultValues.ApplyDefaults(this);
+        LibraryConfiguration = configuration;
     }
 
     [Inject]
@@ -36,6 +37,11 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// <summary />
     [Inject]
     protected IFluentLocalizer Localizer { get; set; } = FluentLocalizerInternal.Default;
+
+    /// <summary>
+    /// Gets the configuration settings for the library instance.
+    /// </summary>
+    protected internal LibraryConfiguration? LibraryConfiguration { get; }
 
     /// <summary>
     /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
