@@ -52,19 +52,28 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
    * @param dotNetHelper DotNet helper to call back to the Blazor component
    * @param id Identifier of the hamburger menu
    */
-  export function HamburgerInitialize(dotNetHelper: DotNet.DotNetObject, id: string) {
+  export function HamburgerInitialize(dotNetHelper: DotNet.DotNetObject, id: string, containerId: string | null | undefined) {
     const element = document.getElementById(id);
+    const layoutContainer = containerId ? document.getElementById(containerId) : null;
     const dialog = document.getElementById(id + '-drawer') as any;
     const closeButton = document.getElementById(id + '-drawer-close-button');
 
     if (element) {
 
       element.addEventListener('click', (event: MouseEvent) => {
+        const layoutNav = layoutContainer ? layoutContainer.querySelector('.fluent-layout-item[area="nav"]') : null;
         const isExpanded = element.getAttribute('aria-expanded') === 'true';
         const newValue = !isExpanded;
+        const isMobile = layoutContainer ? layoutContainer.hasAttribute('mobile') : true;
+
+        // Show or hide the nav area
+        if (layoutNav && !isMobile) {
+          element.setAttribute('aria-expanded', newValue ? 'true' : 'false');
+          layoutNav.toggleAttribute('hidden', newValue);
+        }
 
         // Show or hide the fluent-drawer
-        if (dialog) {
+        else if (isMobile && dialog) {
 
           // Add a Toggle event
           if (!dialog.toggleRegistered) {

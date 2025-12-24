@@ -3,6 +3,10 @@
     "FluentUI.Demo.DocApiGen": {
       "commandName": "Project",
       "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.Components.xml\" --dll \"$(SolutionDir)src/Core/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json\" --format json"
+    },
+    "FluentUI.Demo.DocApiGen all": {
+      "commandName": "Project",
+      "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.Components.xml\" --dll \"$(SolutionDir)src/Core/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments-all.json\" --format json --mode all"
     }
   }
 }
