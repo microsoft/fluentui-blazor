@@ -7264,6 +7264,13 @@
             Most important info to be shown in the message bar.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Message.UseMarkupString">
+            <summary>
+            Indicates whether the title and body should be rendered as markup string.
+            Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
+            Only use it with fully trusted, sanitized content.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.Message.Body">
             <summary>
             Gets or sets the message to be shown in the message bar.
@@ -7311,6 +7318,9 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(Microsoft.AspNetCore.Components.MarkupString,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.Action{Microsoft.FluentUI.AspNetCore.Components.MessageOptions})">
             <summary />
         </member>
@@ -7321,6 +7331,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(Microsoft.AspNetCore.Components.MarkupString,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.Clear(System.String)">
@@ -7351,6 +7364,13 @@
             <summary>
             Gets or sets the title.
             Most important info to be shown in the message bar.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.UseMarkupString">
+            <summary>
+            Indicates whether the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.Title"/> and <see cref="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.Body"/> should be rendered as markup string.
+            Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
+            Only use it with fully trusted, sanitized content.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.Body">
@@ -7457,6 +7477,17 @@
             <param name="section">Section to show the message bar in </param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBar(Microsoft.AspNetCore.Components.MarkupString,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title"> Main info. 
+            Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
+            Only use it with fully trusted, sanitized content.</param>
+            <param name="intent">Intent of the message</param>
+            <param name="section">Section to show the message bar in </param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBar(System.Action{Microsoft.FluentUI.AspNetCore.Components.MessageOptions})">
             <summary>
             Show a message based on the provided options in a message bar.
@@ -7484,6 +7515,17 @@
             Show a message based on the provided parameters in a message bar.
             </summary>
             <param name="title">Main info</param>
+            <param name="intent">Intent of the message</param>
+            <param name="section">Section to show the message bar in </param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBarAsync(Microsoft.AspNetCore.Components.MarkupString,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title"> Main info. 
+            Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
+            Only use it with fully trusted, sanitized content.</param>
             <param name="intent">Intent of the message</param>
             <param name="section">Section to show the message bar in </param>
             <returns></returns>

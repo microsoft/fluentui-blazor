@@ -12,7 +12,7 @@
             {
                 foreach (var item in Items)
                 {
-                    <FluentAppBarItem IconRest="@item.IconRest" IconActive="@item.IconActive" Text="@item.Text" Href="@item.Href" Count="@item.Count" />
+                    <FluentAppBarItem IconRest="@item.IconRest" IconActive="@item.IconActive" Text="@item.Text" Href="@item.Href" Count="@item.Count" OnClick="@item.OnClick" />
                 }
             }
             @if (AppsOverflow.Any())
@@ -53,7 +53,7 @@
                         @foreach (var item in _searchResults)
                         {
                             <FluentGridItem xs="4" Style="width: 100px; height: 85px; display: flex; height: 85px; align-content: center; flex-wrap: wrap; justify-content: center;">
-                                <FluentAppBarItem IconRest="@item.IconRest" Text="@item.Text" Href="@item.Href" Count="@item.Count" inpopover="true" />
+                                <FluentAppBarItem IconRest="@item.IconRest" Text="@item.Text" Href="@item.Href" Count="@item.Count" inpopover="true" OnClick="@item.OnClick" />
                             </FluentGridItem>
                         }
                     </FluentGrid>
