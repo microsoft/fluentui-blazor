@@ -89,14 +89,14 @@ public class Program
             {
                 Console.ForegroundColor = ConsoleColor.Red;
             }
-            
+
             Console.WriteLine($"✗ Error: {ex.Message}");
-            
+
             if (OperatingSystem.IsWindows() || OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
             {
                 Console.ResetColor();
             }
-            
+
             Environment.Exit(1);
         }
     }
@@ -124,6 +124,8 @@ public class Program
         Console.WriteLine("             Supports: json, csharp");
         Console.WriteLine("  all      - Generate complete documentation (properties, methods, events)");
         Console.WriteLine("             Supports: json only");
+        Console.WriteLine("  mcp      - Generate MCP server documentation (tools, resources, prompts)");
+        Console.WriteLine("             Supports: json only");
         Console.WriteLine();
         Console.WriteLine("Examples:");
         Console.WriteLine("  # Generate Summary mode JSON");
@@ -134,6 +136,9 @@ public class Program
         Console.WriteLine();
         Console.WriteLine("  # Generate All mode JSON");
         Console.WriteLine("  DocApiGen --xml MyApp.xml --dll MyApp.dll --output api-all.json --mode all");
+        Console.WriteLine();
+        Console.WriteLine("  # Generate MCP documentation JSON");
+        Console.WriteLine("  DocApiGen --xml McpServer.xml --dll McpServer.dll --output mcp-docs.json --mode mcp");
     }
 
     private static GenerationMode ParseMode(string modeArg)
@@ -142,7 +147,8 @@ public class Program
         {
             "summary" => GenerationMode.Summary,
             "all" => GenerationMode.All,
-            _ => throw new ArgumentException($"Invalid mode '{modeArg}'. Valid modes are: summary, all")
+            "mcp" => GenerationMode.Mcp,
+            _ => throw new ArgumentException($"Invalid mode '{modeArg}'. Valid modes are: summary, all, mcp")
         };
     }
 
@@ -155,6 +161,13 @@ public class Program
         {
             throw new NotSupportedException(
                 $"Mode 'all' only supports JSON format. Requested format: {format}");
+        }
+
+        // MCP mode only supports JSON
+        if (mode == GenerationMode.Mcp && formatLower != "json")
+        {
+            throw new NotSupportedException(
+                $"Mode 'mcp' only supports JSON format. Requested format: {format}");
         }
     }
 }

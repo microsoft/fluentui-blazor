@@ -443,4 +443,272 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     }
 
     #endregion
+
+    #region MCP Mode Tests
+
+    [Fact]
+    public void McpGenerator_ShouldGenerateJsonSuccessfully()
+    {
+        // Arrange
+        // Load the McpServer assembly
+        var projectRoot = GetProjectRootDirectory();
+        var mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Debug", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+        if (!File.Exists(mcpAssemblyPath))
+        {
+            // Try Release build
+            mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Release", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+            if (!File.Exists(mcpAssemblyPath))
+            {
+                // Skip test if MCP Server is not built
+                return;
+            }
+        }
+
+        var mcpXmlPath = Path.Combine(Path.GetDirectoryName(mcpAssemblyPath)!, "Microsoft.FluentUI.AspNetCore.McpServer.xml");
+
+        if (!File.Exists(mcpXmlPath))
+        {
+            // Skip test if XML documentation is not available
+            return;
+        }
+
+        var mcpAssembly = Assembly.LoadFrom(mcpAssemblyPath);
+        var mcpXml = new FileInfo(mcpXmlPath);
+
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Mcp, mcpAssembly, mcpXml);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
+
+        // Act
+        var json = generator.Generate(formatter);
+
+        // Assert
+        Assert.NotNull(json);
+        Assert.NotEmpty(json);
+        Assert.Contains("metadata", json);
+        Assert.Contains("tools", json);
+        Assert.Contains("resources", json);
+    }
+
+    [Fact]
+    public void McpGenerator_ShouldNotSupportCSharpFormat()
+    {
+        // Arrange
+        var projectRoot = GetProjectRootDirectory();
+        var mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Debug", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+        if (!File.Exists(mcpAssemblyPath))
+        {
+            mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Release", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+            if (!File.Exists(mcpAssemblyPath))
+            {
+                return;
+            }
+        }
+
+        var mcpXmlPath = Path.Combine(Path.GetDirectoryName(mcpAssemblyPath)!, "Microsoft.FluentUI.AspNetCore.McpServer.xml");
+
+        if (!File.Exists(mcpXmlPath))
+        {
+            return;
+        }
+
+        var mcpAssembly = Assembly.LoadFrom(mcpAssemblyPath);
+        var mcpXml = new FileInfo(mcpXmlPath);
+
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Mcp, mcpAssembly, mcpXml);
+        var formatter = OutputFormatterFactory.CreateCSharpFormatter();
+
+        // Act & Assert
+        var exception = Assert.Throws<NotSupportedException>(() => generator.Generate(formatter));
+        Assert.Contains("only supports JSON format", exception.Message);
+    }
+
+    [Fact]
+    public void McpGenerator_JsonOutput_ShouldContainTools()
+    {
+        // Arrange
+        var projectRoot = GetProjectRootDirectory();
+        var mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Debug", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+        if (!File.Exists(mcpAssemblyPath))
+        {
+            mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Release", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+            if (!File.Exists(mcpAssemblyPath))
+            {
+                return;
+            }
+        }
+
+        var mcpXmlPath = Path.Combine(Path.GetDirectoryName(mcpAssemblyPath)!, "Microsoft.FluentUI.AspNetCore.McpServer.xml");
+
+        if (!File.Exists(mcpXmlPath))
+        {
+            return;
+        }
+
+        var mcpAssembly = Assembly.LoadFrom(mcpAssemblyPath);
+        var mcpXml = new FileInfo(mcpXmlPath);
+
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Mcp, mcpAssembly, mcpXml);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
+
+        // Act
+        var json = generator.Generate(formatter);
+        using var doc = JsonDocument.Parse(json);
+
+        // Assert
+        var root = doc.RootElement;
+        Assert.True(root.TryGetProperty("tools", out var tools));
+        Assert.True(tools.GetArrayLength() > 0);
+
+        // Should contain known tools
+        Assert.Contains("ListComponents", json);
+        Assert.Contains("GetComponentDetails", json);
+        Assert.Contains("SearchComponents", json);
+    }
+
+    [Fact]
+    public void McpGenerator_JsonOutput_ShouldContainResources()
+    {
+        // Arrange
+        var projectRoot = GetProjectRootDirectory();
+        var mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Debug", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+        if (!File.Exists(mcpAssemblyPath))
+        {
+            mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Release", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+            if (!File.Exists(mcpAssemblyPath))
+            {
+                return;
+            }
+        }
+
+        var mcpXmlPath = Path.Combine(Path.GetDirectoryName(mcpAssemblyPath)!, "Microsoft.FluentUI.AspNetCore.McpServer.xml");
+
+        if (!File.Exists(mcpXmlPath))
+        {
+            return;
+        }
+
+        var mcpAssembly = Assembly.LoadFrom(mcpAssemblyPath);
+        var mcpXml = new FileInfo(mcpXmlPath);
+
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Mcp, mcpAssembly, mcpXml);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
+
+        // Act
+        var json = generator.Generate(formatter);
+        using var doc = JsonDocument.Parse(json);
+
+        // Assert
+        var root = doc.RootElement;
+        Assert.True(root.TryGetProperty("resources", out var resources));
+        Assert.True(resources.GetArrayLength() > 0);
+
+        // Should contain known resource URIs
+        Assert.Contains("fluentui://components", json);
+        Assert.Contains("fluentui://enums", json);
+    }
+
+    [Fact]
+    public void McpGenerator_JsonOutput_ShouldContainMetadata()
+    {
+        // Arrange
+        var projectRoot = GetProjectRootDirectory();
+        var mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Debug", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+        if (!File.Exists(mcpAssemblyPath))
+        {
+            mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Release", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+            if (!File.Exists(mcpAssemblyPath))
+            {
+                return;
+            }
+        }
+
+        var mcpXmlPath = Path.Combine(Path.GetDirectoryName(mcpAssemblyPath)!, "Microsoft.FluentUI.AspNetCore.McpServer.xml");
+
+        if (!File.Exists(mcpXmlPath))
+        {
+            return;
+        }
+
+        var mcpAssembly = Assembly.LoadFrom(mcpAssemblyPath);
+        var mcpXml = new FileInfo(mcpXmlPath);
+
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Mcp, mcpAssembly, mcpXml);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
+
+        // Act
+        var json = generator.Generate(formatter);
+        using var doc = JsonDocument.Parse(json);
+
+        // Assert
+        var root = doc.RootElement;
+        Assert.True(root.TryGetProperty("metadata", out var metadata));
+        Assert.True(metadata.TryGetProperty("assemblyVersion", out _));
+        Assert.True(metadata.TryGetProperty("generatedDateUtc", out _));
+        Assert.True(metadata.TryGetProperty("toolCount", out var toolCount));
+        Assert.True(metadata.TryGetProperty("resourceCount", out var resourceCount));
+        Assert.True(toolCount.GetInt32() > 0);
+        Assert.True(resourceCount.GetInt32() > 0);
+    }
+
+    [Fact]
+    public void McpGenerator_SaveToFile_ShouldSucceed()
+    {
+        // Arrange
+        var projectRoot = GetProjectRootDirectory();
+        var mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Debug", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+        if (!File.Exists(mcpAssemblyPath))
+        {
+            mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Release", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+
+            if (!File.Exists(mcpAssemblyPath))
+            {
+                return;
+            }
+        }
+
+        var mcpXmlPath = Path.Combine(Path.GetDirectoryName(mcpAssemblyPath)!, "Microsoft.FluentUI.AspNetCore.McpServer.xml");
+
+        if (!File.Exists(mcpXmlPath))
+        {
+            return;
+        }
+
+        var mcpAssembly = Assembly.LoadFrom(mcpAssemblyPath);
+        var mcpXml = new FileInfo(mcpXmlPath);
+
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Mcp, mcpAssembly, mcpXml);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
+        var outputPath = Path.Combine(_tempOutputDirectory, "mcp_documentation.json");
+
+        // Act
+        generator.SaveToFile(outputPath, formatter);
+
+        // Assert
+        Assert.True(File.Exists(outputPath));
+
+        var content = File.ReadAllText(outputPath);
+        Assert.NotEmpty(content);
+
+        // Verify valid JSON
+        var exception = Record.Exception(() => JsonDocument.Parse(content));
+        Assert.Null(exception);
+
+        // Verify content
+        Assert.Contains("tools", content);
+        Assert.Contains("resources", content);
+        Assert.Contains("prompts", content);
+    }
+
+    #endregion
 }
