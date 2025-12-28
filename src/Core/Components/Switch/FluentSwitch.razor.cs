@@ -5,13 +5,14 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// A FluentSwitch component represents a physical switch that allows a choice between two mutually exclusive options.
 /// </summary>
-public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent
+public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IFluentComponentElementBase
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentSwitch"/> class.
@@ -20,6 +21,10 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent
     {
         LabelPosition = Components.LabelPosition.After;
     }
+
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    [Parameter]
+    public ElementReference Element { get; set; }
 
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
@@ -45,8 +50,17 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent
     private void OnSwitchChangedHandler(ChangeEventArgs e)
     {
         ArgumentNullException.ThrowIfNull(e);
-        
+
         CurrentValue = !CurrentValue;
+    }
+
+    /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "checked", "boolean");
+        }
     }
 
     /// <summary>
