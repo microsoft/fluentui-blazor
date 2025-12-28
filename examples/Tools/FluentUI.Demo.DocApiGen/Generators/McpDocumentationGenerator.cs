@@ -75,43 +75,28 @@ public sealed class McpDocumentationGenerator : DocumentationGeneratorBase
             // Check for Tool types
             if (HasAttribute(type, McpServerToolTypeAttribute))
             {
-                var typeMethods = GetMethodsWithAttribute(type, McpServerToolAttribute);
-                foreach (var method in typeMethods)
-                {
-                    var toolInfo = ExtractToolInfo(type, method);
-                    if (toolInfo != null)
-                    {
-                        tools.Add(toolInfo);
-                    }
-                }
+                tools.AddRange(
+                    GetMethodsWithAttribute(type, McpServerToolAttribute)
+                        .Select(method => ExtractToolInfo(type, method))
+                        .Where(toolInfo => toolInfo != null)!);
             }
 
             // Check for Resource types
             if (HasAttribute(type, McpServerResourceTypeAttribute))
             {
-                var typeMethods = GetMethodsWithAttribute(type, McpServerResourceAttribute);
-                foreach (var method in typeMethods)
-                {
-                    var resourceInfo = ExtractResourceInfo(type, method);
-                    if (resourceInfo != null)
-                    {
-                        resources.Add(resourceInfo);
-                    }
-                }
+                resources.AddRange(
+                    GetMethodsWithAttribute(type, McpServerResourceAttribute)
+                        .Select(method => ExtractResourceInfo(type, method))
+                        .Where(resourceInfo => resourceInfo != null)!);
             }
 
             // Check for Prompt types
             if (HasAttribute(type, McpServerPromptTypeAttribute))
             {
-                var typeMethods = GetMethodsWithAttribute(type, McpServerPromptAttribute);
-                foreach (var method in typeMethods)
-                {
-                    var promptInfo = ExtractPromptInfo(type, method);
-                    if (promptInfo != null)
-                    {
-                        prompts.Add(promptInfo);
-                    }
-                }
+                prompts.AddRange(
+                    GetMethodsWithAttribute(type, McpServerPromptAttribute)
+                        .Select(method => ExtractPromptInfo(type, method))
+                        .Where(promptInfo => promptInfo != null)!);
             }
         }
 
@@ -173,12 +158,17 @@ public sealed class McpDocumentationGenerator : DocumentationGeneratorBase
             var description = GetDescriptionAttribute(method);
             var resourceAttr = GetResourceAttributeProperties(method);
 
-            var parameters = ExtractMethodParameters(method);
+            if (string.IsNullOrWhiteSpace(resourceAttr.UriTemplate))
+            {
+                Console.WriteLine($"[WARNING] Resource {type.Name}.{method.Name} has a null or empty UriTemplate and will be skipped.");
+                return null;
+            }
 
+            var parameters = ExtractMethodParameters(method);
             return new McpResourceInfo
             {
                 Name = resourceAttr.Name ?? method.Name,
-                UriTemplate = resourceAttr.UriTemplate ?? string.Empty,
+                UriTemplate = resourceAttr.UriTemplate,
                 Title = resourceAttr.Title,
                 MimeType = resourceAttr.MimeType,
                 Description = !string.IsNullOrWhiteSpace(description) ? description : null,
@@ -371,14 +361,9 @@ public sealed class McpDocumentationGenerator : DocumentationGeneratorBase
             var versionString = versionAttribute.InformationalVersion;
             var plusIndex = versionString.IndexOf('+');
 
-            if (plusIndex >= 0 && plusIndex + 9 < versionString.Length)
-            {
-                version = versionString[..(plusIndex + 9)];
-            }
-            else
-            {
-                version = versionString;
-            }
+            version = plusIndex >= 0 && plusIndex + 9 < versionString.Length
+                ? versionString[..(plusIndex + 9)]
+                : versionString;
         }
 
         var date = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);

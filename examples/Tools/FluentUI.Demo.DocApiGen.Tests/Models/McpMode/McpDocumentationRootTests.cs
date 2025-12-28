@@ -141,7 +141,7 @@ public class McpDocumentationRootTests
                 AssemblyVersion = "5.0.0",
                 GeneratedDateUtc = "2024-06-15 12:30",
                 ToolCount = 5,
-                ResourceCount = 6,
+                ResourceCount = 5,
                 PromptCount = 0
             },
             Tools =
@@ -168,7 +168,7 @@ public class McpDocumentationRootTests
         Assert.Equal(5, root.Resources.Count);
         Assert.Empty(root.Prompts);
         Assert.Equal(5, root.Metadata.ToolCount);
-        Assert.Equal(6, root.Metadata.ResourceCount);
+        Assert.Equal(5, root.Metadata.ResourceCount);
         Assert.Equal(0, root.Metadata.PromptCount);
     }
 }
