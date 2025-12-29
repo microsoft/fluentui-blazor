@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics;
-using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -76,16 +75,6 @@ public readonly struct InlineStyleBuilder
         }
 
         return $"<style>{separator}{result}{separator}</style>";
-    }
-
-    /// <summary>
-    /// Finalize the completed Style as a string.
-    /// </summary>
-    /// <returns>string</returns>
-    public MarkupString BuildMarkupString()
-    {
-        var styles = Build();
-        return styles != null ? (MarkupString)styles : (MarkupString)string.Empty;
     }
 
     /// <summary>
