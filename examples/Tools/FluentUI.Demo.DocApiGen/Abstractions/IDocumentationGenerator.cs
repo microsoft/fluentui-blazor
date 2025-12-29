@@ -42,5 +42,10 @@ public enum GenerationMode
     /// <summary>
     /// Generate complete documentation including all properties, methods, and events.
     /// </summary>
-    All
+    All,
+
+    /// <summary>
+    /// Generate MCP server documentation (tools, resources, prompts).
+    /// </summary>
+    Mcp
 }
