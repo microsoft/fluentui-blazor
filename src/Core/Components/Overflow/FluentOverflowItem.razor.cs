@@ -64,9 +64,12 @@ public partial class FluentOverflowItem : FluentComponentBase, IAsyncDisposable
     }
 
     /// <summary />
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        Owner?.Register(this);
+        if (Owner is not null)
+        {
+            await Owner.RegisterAsync(this);
+        }
     }
 
     /// <summary />

@@ -1,5 +1,6 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit
+@using static Microsoft.FluentUI.AspNetCore.Components.FluentOverflow
 @inherits FluentUITestContext
 
 @code {
@@ -161,7 +162,7 @@
 
         // Act
 		var overflow = cut.FindComponent<FluentOverflow>();
-        await overflow.Instance.OverflowRaisedAsync("[{\"Id\":\"item1\",\"Overflow\":true,\"Text\":\"Item 1\"}]");
+        await overflow.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "item1", Overflow = true, Text = "Item 1" } });
 
         // Assert: Verify the event was raised
         Assert.True(overflowRaised);
@@ -181,7 +182,7 @@
 
 		// Act
 		var overflow = cut.FindComponent<FluentOverflow>();
-		await overflow.Instance.OverflowRaisedAsync("[]");
+		await overflow.Instance.OverflowRaisedAsync(new OverflowItem[] { });
 
 		// Assert: Verify the event was raised
 		Assert.False(overflowRaised);
@@ -230,7 +231,10 @@
 	// Act
 
 	var overflow = cut.FindComponent<FluentOverflow>();
-	await overflow.Instance.OverflowRaisedAsync("[{\"Id\":\"item3\",\"Overflow\":true,\"Text\":\"Item 3\"},{\"Id\":\"item4\",\"Overflow\":true,\"Text\":\"Item 4\"}]");
+	await overflow.Instance.OverflowRaisedAsync(new OverflowItem[] {
+		new OverflowItem() { Id = "item3", Overflow = true, Text = "Item 3" },
+		new OverflowItem() { Id = "item4", Overflow = true, Text = "Item 4" }
+	});
 	overflow.Render();
 
 	// Assert: Verify the event was raised
