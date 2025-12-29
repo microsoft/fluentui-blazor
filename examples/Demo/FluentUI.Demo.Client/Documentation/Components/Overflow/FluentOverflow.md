@@ -24,7 +24,7 @@ will be added when the container size is too small.
 With below example the `VisibleOnLoad` parameter is set to false.Make sure the screen dimension is small enough to show an overflow badge with count.
 Then refresh the page to see the difference between this example and the one above
 
-{{ OverflowNotVisibleOnLoad }}
+{{ OverflowVisibleOnLoad }}
 
 ## Horizontal Overflow example
 

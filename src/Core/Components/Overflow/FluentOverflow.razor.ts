@@ -156,7 +156,7 @@ export namespace Microsoft.FluentUI.Blazor.Overflow {
           Text: element.innerText.trim()
         });
       });
-      dotNetHelper.invokeMethodAsync("OverflowRaisedAsync", JSON.stringify(listOfOverflow));
+      dotNetHelper.invokeMethodAsync("OverflowRaisedAsync", listOfOverflow);
     }
 
     lastHandledState.id = id;
