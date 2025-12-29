@@ -70,6 +70,42 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
       shadow.appendChild(this.dialog);
     }
 
+    /*************** 
+      Attributes
+    ****************/
+
+    static get observedAttributes() { return ['background', 'dialogStyle', 'dialogClass', 'visible']; }
+
+    // Handles attribute changes to update references and listeners.
+    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+      if (oldValue !== newValue) {
+
+        if (name === 'background') {
+          if (this.hasAttribute('background')) {
+            this.background = this.getAttribute('background')!;
+          }
+        }
+
+        if (name === 'dialogStyle') {
+          if (this.hasAttribute('dialogStyle')) {
+            this.dialogStyle = this.getAttribute('dialogStyle')!;
+          }
+        }
+
+        if (name === 'dialogClass') {
+          if (this.hasAttribute('dialogClass')) {
+            this.dialogClass = this.getAttribute('dialogClass')!;
+          }
+        }
+
+        if (name === 'visible') {
+          const isVisible = this.hasAttribute('visible')
+            && (this.getAttribute('visible') === 'true' || this.getAttribute('visible') === '');
+          this.visible = isVisible;
+        }
+      }
+    }
+
     /************************
        Public Properties
     ************************/
@@ -152,6 +188,19 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
       }
     }
 
+    // Property getter/setter for visible
+    public get visible(): boolean {
+      return this.dialog?.open ?? false;
+    }
+
+    public set visible(value: boolean) {
+      if (value) {
+        this.show();
+      } else {
+        this.close();
+      }
+    }
+
     /************************
       Public methods
     ************************/
@@ -219,18 +268,18 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
     // Private method to handle click events
     private onClick(event: MouseEvent): void {
       if (this.dialog && this.dialog.open) {
-        const insideDialog = this.isClickInsideDialog(event);
+        const insideOverlay = this.isClickInsideOverlay(event);
         event.stopPropagation();
 
         if (this.closeMode === `all` || this.closeMode === null) {
           this.close();
           return;
         }
-        if (this.closeMode === `inside` && insideDialog) {
+        if (this.closeMode === `inside` && insideOverlay) {
           this.close();
           return;
         }
-        if (this.closeMode === `outside` && !insideDialog) {
+        if (this.closeMode === `outside` && !insideOverlay) {
           this.close();
           return;
         }
@@ -238,20 +287,20 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
     }
 
     // Private method to check if a click event is inside the dialog
-    private isClickInsideDialog(event: MouseEvent): boolean {
+    private isClickInsideOverlay(event: MouseEvent): boolean {
 
       if (!this.dialog) {
         return false;
       }
 
-      const dialogRect = this.dialog.getBoundingClientRect();
+      const overlayRect = this.getBoundingClientRect();
       const clickX = event.clientX;
       const clickY = event.clientY;
 
-      return clickX >= dialogRect.left &&
-        clickX <= dialogRect.right &&
-        clickY >= dialogRect.top &&
-        clickY <= dialogRect.bottom;
+      return clickX >= overlayRect.left &&
+        clickX <= overlayRect.right &&
+        clickY >= overlayRect.top &&
+        clickY <= overlayRect.bottom;
     }
 
     // Private method to ensure parent has proper positioning
@@ -285,7 +334,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
       }
     }
 
-    // Subscribe to container size changes        
+    // Subscribe to container size changes
     private createResizeObserver(): void {
       if (!this.resizeObserver && this.container) {
         this.resizeObserver = new ResizeObserver(() => {
@@ -329,6 +378,24 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
       }));
     }
 
+  }
+
+  /**
+   * Display the fluent-overlay with the given id
+   * @param id The id of the fluent-overlay to display
+   */
+  export function Show(id: string): void {
+    const element = document.getElementById(id) as FluentOverlay | null;
+    element?.show();
+  }
+
+  /**
+   * Close the fluent-overlay with the given id
+   * @param id The id of the fluent-overlay to close
+   */
+  export function Close(id: string): void {
+    const element = document.getElementById(id) as FluentOverlay | null;
+    element?.close();
   }
 
   /**

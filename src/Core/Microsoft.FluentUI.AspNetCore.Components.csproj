@@ -122,7 +122,7 @@
     </ItemGroup>
 
     <!-- Log before modification -->
-    <Message Importance="normal" Text="Found @(_ContentWithAbsolutePaths->Count()) Content items with absolute paths to normalize" />
+    <Message Importance="normal" Text="Found @(_ContentWithAbsolutePaths-&gt;Count()) Content items with absolute paths to normalize" />
 
     <!-- Remove the items with absolute paths -->
     <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
