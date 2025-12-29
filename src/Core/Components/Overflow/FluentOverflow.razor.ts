@@ -1,3 +1,5 @@
+import { DotNet } from "../../../Core.Scripts/src/d-ts/Microsoft.JSInterop";
+
 export namespace Microsoft.FluentUI.Blazor.Overflow {
   interface OverflowItem {
     Id: string;
@@ -22,7 +24,7 @@ export namespace Microsoft.FluentUI.Blazor.Overflow {
   let observerAddRemove: MutationObserver | undefined;
   let lastHandledState: LastHandledState = { id: null, isHorizontal: null };
 
-  export function Initialize(dotNetHelper: DotNetHelper, id: string, isHorizontal: boolean, querySelector: string | null, threshold: number): void {
+  export function Initialize(dotNetHelper: DotNet.DotNetObject, id: string, isHorizontal: boolean, querySelector: string | null, threshold: number): void {
     let localSelector = querySelector;
     if (!localSelector) {
       localSelector = ".fluent-overflow-item";
@@ -63,26 +65,28 @@ export namespace Microsoft.FluentUI.Blazor.Overflow {
     lastHandledState.isHorizontal = isHorizontal;
   }
 
-  export function Refresh(dotNetHelper: DotNetHelper, id: string, isHorizontal: boolean, querySelector: string | null, threshold: number): void {
+  export function Refresh(dotNetHelper: DotNet.DotNetObject, id: string, isHorizontal: boolean, querySelector: string | null, threshold: number): void {
     const container = document.getElementById(id);
     if (!container) return;
 
-    let localSelector = ":scope >" + querySelector;
-    if (!localSelector) {
-      localSelector = ":scope .fluent-overflow-item";
+    let localQuerySelector: string;
+    if (!querySelector) {
+      localQuerySelector = ":scope .fluent-overflow-item";
+    } else {
+      localQuerySelector = ":scope >" + querySelector;
     }
 
-    const allItems = container.querySelectorAll<OverflowElement>(localSelector);
-    const items = container.querySelectorAll<OverflowElement>(localSelector + ":not([fixed])");
+    const allItems = container.querySelectorAll<OverflowElement>(localQuerySelector);
+    const items = container.querySelectorAll<OverflowElement>(localQuerySelector + ":not([fixed])");
 
-    const fixedItemsFromSelector = container.querySelectorAll<OverflowElement>(localSelector + "[fixed]");
-    const otherFixedItems = container.querySelectorAll<OverflowElement>(":scope > [fixed]:not(" + querySelector + ")");
+    const fixedItemsFromSelector = container.querySelectorAll<OverflowElement>(localQuerySelector + "[fixed]");
+    const otherFixedItems = container.querySelectorAll<OverflowElement>(":scope > [fixed]:not(.fluent-overflow-item)");
     const fixedItems = [
       ...Array.from(fixedItemsFromSelector),
       ...Array.from(otherFixedItems)
     ].filter(el => el.getAttribute("fixed") !== "ellipsis");
 
-    const ellipsisItems = Array.from(container.querySelectorAll<OverflowElement>(localSelector + "[fixed='ellipsis']"));
+    const ellipsisItems = Array.from(container.querySelectorAll<OverflowElement>(localQuerySelector + "[fixed='ellipsis']"));
 
     let ellipsisTotal = 0;
     let containerGap = parseFloat(window.getComputedStyle(container).gap);
@@ -156,7 +160,7 @@ export namespace Microsoft.FluentUI.Blazor.Overflow {
           Text: element.innerText.trim()
         });
       });
-      dotNetHelper.invokeMethodAsync("OverflowRaisedAsync", JSON.stringify(listOfOverflow));
+      dotNetHelper.invokeMethodAsync("OverflowRaisedAsync", listOfOverflow);
     }
 
     lastHandledState.id = id;

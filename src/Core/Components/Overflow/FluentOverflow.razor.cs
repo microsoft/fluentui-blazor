@@ -11,7 +11,7 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
+public partial class FluentOverflow : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Overflow/FluentOverflow.razor.js";
     private readonly List<FluentOverflowItem> _items = [];
@@ -19,7 +19,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 
     /// <summary />
     protected virtual string? ClassValue => DefaultClassBuilder
-         .AddClass("fluent-overflow")
+        .AddClass("fluent-overflow")
         .Build();
 
     /// <summary />
@@ -67,6 +67,13 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     /// </summary>
     [Parameter]
     public string? Selectors { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets if the tooltip should be displayed by using the TooltipService
+    /// </summary>
+    [Parameter]
+    public bool UseTooltipService { get; set; } = false;
+
     /// <summary>
     /// Event raised when a <see cref="FluentOverflowItem"/> enter or leave the current panel.
     /// </summary>
@@ -121,8 +128,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 
     /// <summary />
     [JSInvokable]
-    [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "<Pending>")]
-    public async Task OverflowRaisedAsync(string value)
+    public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
         var items = JsonSerializer.Deserialize<OverflowItem[]>(value);
 
@@ -146,9 +152,9 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 
         await InvokeAsync(StateHasChanged);
     }
-    internal void Register(FluentOverflowItem item)
+    internal async Task RegisterAsync(FluentOverflowItem item)
     {
-        _items.Add(item);
+        await InvokeAsync(() => _items.Add(item));
     }
 
     internal async Task UnregisterAsync(FluentOverflowItem item)
@@ -158,18 +164,25 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     }
 
     /// <inheritdoc />
-    public override async ValueTask DisposeAsync()
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Dispose", Id);
         _dotNetHelper?.Dispose();
+    }
 
-        if (JSModule is not null)
-        {
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Dispose", Id);
-            await JSModule.DisposeAsync();
-        }
+    /// <summary>
+    /// Represents an item that may be subject to overflow handling, typically used in scenarios where content or data
+    /// exceeds a predefined limit.
+    /// </summary>
+    public class OverflowItem
+    {
+        /// <summary />
+        public string? Id { get; set; }
 
-        GC.SuppressFinalize(this);
+        /// <summary />
+        public bool? Overflow { get; set; }
 
+        /// <summary />
+        public string? Text { get; set; }
     }
 }
