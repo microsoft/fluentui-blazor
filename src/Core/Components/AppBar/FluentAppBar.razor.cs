@@ -83,7 +83,8 @@ public partial class FluentAppBar : FluentComponentBase
         .AddStyle("flex-direction", "row", Orientation == Orientation.Horizontal)
         .AddStyle("flex-direction", "column", Orientation == Orientation.Vertical)
         .AddStyle("height", "100%", Orientation == Orientation.Vertical)
-        .AddStyle("gap", "calc(var(--design-unit) * 0.5px)")
+        .AddStyle("width", "100%", Orientation == Orientation.Horizontal)
+        .AddStyle("gap", "2px")
         .Build();
 
     /// <summary />
@@ -140,7 +141,7 @@ public partial class FluentAppBar : FluentComponentBase
         if (JSModule is not null)
         {
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Initialize", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Refresh", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
+            //await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Refresh", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
         }
     }
 
