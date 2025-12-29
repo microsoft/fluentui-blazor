@@ -5,7 +5,7 @@
 @code {
 
 	// Test helper: Simulates using FluentNavCategory with wrong parent type
-	
+
 
     public FluentNavTests()
     {
@@ -246,12 +246,12 @@
 		</FluentNav>);
 
 		var categories = cut.FindComponents<FluentNavCategory>();
-		
+
 		// Set initial expanded state programmatically to avoid parameter binding issues
 		await categories[0].Instance.SetExpandedAsync(true);
 		await categories[1].Instance.SetExpandedAsync(true);
 		await categories[2].Instance.SetExpandedAsync(true);
-		
+
 		Assert.True(categories[0].Instance.Expanded, "Category 1 should be expanded");
 		Assert.True(categories[1].Instance.Expanded, "Category 2 should be expanded");
 		Assert.True(categories[2].Instance.Expanded, "Category 3 should be expanded");
@@ -284,11 +284,11 @@
 		</FluentNav>);
 
 		var categories = cut.FindComponents<FluentNavCategory>();
-		
+
 		// Set initial expanded state programmatically to avoid parameter binding issues
 		await categories[0].Instance.SetExpandedAsync(true);
 		await categories[1].Instance.SetExpandedAsync(false);
-		
+
 		var category1InitialState = categories[0].Instance.Expanded;
 		var category2InitialState = categories[1].Instance.Expanded;
 
@@ -328,6 +328,40 @@
 			Assert.True(categories[0].Instance.Expanded, "Category 1 should be expanded");
 			Assert.False(categories[1].Instance.Expanded, "Category 2 should remain collapsed");
 		}, TimeSpan.FromSeconds(1));
+	}
+
+	[Fact]
+	public async Task FluentNav_ExpandCategoryAsync_Expands_Specified_Category_With_EventHandler()
+	{
+		// Arrange
+		var isExpandedEventFired = false;
+		var cut = Render(@<FluentNav UseSingleExpanded="true">
+			<FluentNavCategory Id="category-1" Title="Category 1" ExpandedChanged="@(isExpanded => isExpandedEventFired = true)">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-2" Title="Category 2" Expanded="true" ExpandedChanged="@(isExpanded => isExpandedEventFired = true)">
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var categories = cut.FindComponents<FluentNavCategory>();
+
+		Assert.False(categories[0].Instance.Expanded, "Category 1 should start collapsed");
+		Assert.True(categories[1].Instance.Expanded, "Category 2 should start expanded");
+
+		// Act
+		await nav.Instance.ExpandCategoryAsync("category-1");
+
+
+		// Assert - Wait for async state updates to complete
+		cut.WaitForAssertion(() =>
+		{
+			Assert.True(categories[0].Instance.Expanded, "Category 1 should be expanded");
+			Assert.True(categories[1].Instance.Expanded, "Category 2 should remain expanded");
+		}, TimeSpan.FromSeconds(1));
+
+		Assert.True(isExpandedEventFired, "ExpandedChanged event should have been fired");
 	}
 
 	[Fact]
@@ -400,7 +434,7 @@
 
 		var nav = cut.FindComponent<FluentNav>();
 		var category = cut.FindComponent<FluentNavCategory>();
-		
+
 		// Set initial expanded state programmatically to avoid parameter binding issues
 		await category.Instance.SetExpandedAsync(true);
 		var initialState = category.Instance.Expanded;

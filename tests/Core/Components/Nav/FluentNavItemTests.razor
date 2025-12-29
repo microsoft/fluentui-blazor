@@ -222,7 +222,7 @@
 	}
 
 	[Fact]
-	public void FluentNavItem_Dispose()
+	public async Task FluentNavItem_DisposeAsync()
 	{
 		// Arrange & Act
 
@@ -234,7 +234,7 @@
 		);
 
 		// Assert
-		cut.FindComponent<FluentNavItem>().Instance.Dispose();
+		await cut.FindComponent<FluentNavItem>().Instance.DisposeAsync();
 		cut.Dispose();
 
 		Assert.Equal(0, calledTimes);

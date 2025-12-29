@@ -105,7 +105,6 @@ public partial class FluentNavCategory : FluentComponentBase, IAsyncDisposable
         Owner?.RegisterCategory(this);
     }
 
-    
     /// <summary />
     public override async ValueTask DisposeAsync()
     {
@@ -147,11 +146,6 @@ public partial class FluentNavCategory : FluentComponentBase, IAsyncDisposable
     /// </summary>
     internal void CollapseWithoutAwait()
     {
-        if (!Expanded)
-        {
-            return;
-        }
-
         _hasBeenManuallyCollapsed = false;
         Expanded = false;
         UpdateActiveState();

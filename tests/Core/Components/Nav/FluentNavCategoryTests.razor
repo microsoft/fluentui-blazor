@@ -146,7 +146,7 @@
     }
 
 	[Fact]
-	public void FluentNavCategory_Dispose()
+	public async Task FluentNavCategory_DisposeAsync()
 	{
 		// Arrange & Act
 
@@ -160,7 +160,7 @@
 		);
 
 		// Assert
-		cut.FindComponent<FluentNavCategory>().Instance.Dispose();
+		await cut.FindComponent<FluentNavCategory>().Instance.DisposeAsync();
 		cut.Dispose();
 
 		Assert.Equal(0, calledTimes);
@@ -340,7 +340,7 @@
         var lastExpandedValue = false;
 
         var cut = Render(@<FluentNav>
-            <FluentNavCategory Title="Test Category" 
+            <FluentNavCategory Title="Test Category"
                                Expanded="false"
                                ExpandedChanged="@((bool expanded) => { expandedChangedCallCount++; lastExpandedValue = expanded; })">
                 <FluentNavItem Href="/test">Sub Item</FluentNavItem>
@@ -372,7 +372,7 @@
         var expandedChangedCallCount = 0;
 
         var cut = Render(@<FluentNav>
-            <FluentNavCategory Title="Test Category" 
+            <FluentNavCategory Title="Test Category"
                                Expanded="true"
                                ExpandedChanged="@((bool expanded) => { expandedChangedCallCount++; })">
                 <FluentNavItem Href="/test">Sub Item</FluentNavItem>
@@ -397,7 +397,7 @@
         var lastExpandedValue = false;
 
         var cut = Render(@<FluentNav>
-            <FluentNavCategory Title="Test Category" 
+            <FluentNavCategory Title="Test Category"
                                Expanded="false"
                                ExpandedChanged="@((bool expanded) => { expandedChangedCallCount++; lastExpandedValue = expanded; })">
                 <FluentNavItem Href="/test">Sub Item</FluentNavItem>
@@ -439,7 +439,7 @@
     }
 
     [Fact]
-    public void FluentNavCategory_UnregisterSubitem_Removes_SubItem_From_Collection()
+    public async Task FluentNavCategory_UnregisterSubitem_Removes_SubItem_From_Collection()
     {
         // Arrange
         var navManager = Services.GetRequiredService<NavigationManager>();
@@ -458,7 +458,7 @@
         Assert.True(category.Instance.HasActiveSubitem(), "Subitem should be active initially");
 
         // Act - Dispose the subitem (which calls UnregisterSubitem)
-        subitem.Instance.Dispose();
+        await subitem.Instance.DisposeAsync();
 
         // Assert
         Assert.False(category.Instance.HasActiveSubitem(),
