@@ -46,14 +46,14 @@ public class FluentUIResources
         sb.AppendLine(CultureInfo.InvariantCulture, $"Total: {components.Count} components");
         sb.AppendLine();
 
-        var groupedByCategory = components.GroupBy(c => c.Category).OrderBy(g => g.Key);
+        var groupedByCategory = components.GroupBy(c => c.Category, StringComparer.OrdinalIgnoreCase).OrderBy(g => g.Key, StringComparer.OrdinalIgnoreCase);
 
         foreach (var group in groupedByCategory)
         {
             sb.AppendLine(CultureInfo.InvariantCulture, $"## {group.Key}");
             sb.AppendLine();
 
-            foreach (var component in group.OrderBy(c => c.Name))
+            foreach (var component in group.OrderBy(c => c.Name, StringComparer.OrdinalIgnoreCase))
             {
                 var genericIndicator = component.IsGeneric ? "<T>" : "";
                 sb.AppendLine(CultureInfo.InvariantCulture, $"- **{component.Name}{genericIndicator}**: {component.Summary}");

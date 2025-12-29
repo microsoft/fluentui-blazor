@@ -42,8 +42,8 @@ public class EnumToolsTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("# Appearance", result);
-        Assert.Contains("## Values", result);
+        Assert.Contains("# Appearance", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## Values", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -58,8 +58,8 @@ public class EnumToolsTests
         var result = tools.GetEnumValues("NonExistentEnum");
 
         // Assert
-        Assert.Contains("not found", result);
-        Assert.Contains("ListEnums()", result);
+        Assert.Contains("not found", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("ListEnums()", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -74,7 +74,7 @@ public class EnumToolsTests
         var result = tools.GetEnumValues("appearance");
 
         // Assert
-        Assert.Contains("# Appearance", result);
+        Assert.Contains("# Appearance", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -89,8 +89,8 @@ public class EnumToolsTests
         var result = tools.GetEnumValues("Appearance");
 
         // Assert
-        Assert.Contains("| Name | Value | Description |", result);
-        Assert.Contains("|------|-------|-------------|", result);
+        Assert.Contains("| Name | Value | Description |", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("|------|-------|-------------|", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -105,7 +105,7 @@ public class EnumToolsTests
         var result = tools.GetEnumValues("Appearance", filter: "Accent");
 
         // Assert
-        Assert.Contains("Accent", result);
+        Assert.Contains("Accent", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -120,7 +120,7 @@ public class EnumToolsTests
         var result = tools.GetEnumValues("Appearance", filter: "XyzNonExistent");
 
         // Assert
-        Assert.Contains("No values found matching filter", result);
+        Assert.Contains("No values found matching filter", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -135,9 +135,9 @@ public class EnumToolsTests
         var result = tools.GetEnumValues("Appearance");
 
         // Assert
-        Assert.Contains("# ", result);
-        Assert.Contains("## ", result);
-        Assert.Contains("|", result);
+        Assert.Contains("# ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("|", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -152,7 +152,7 @@ public class EnumToolsTests
         var result = tools.GetEnumValues("Appearance", filter: null);
 
         // Assert
-        Assert.Contains("## Values", result);
+        Assert.Contains("## Values", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -167,7 +167,7 @@ public class EnumToolsTests
         var result = tools.GetEnumValues("Appearance", filter: "");
 
         // Assert
-        Assert.Contains("## Values", result);
+        Assert.Contains("## Values", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion
@@ -187,7 +187,7 @@ public class EnumToolsTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("Enum Types for", result);
+        Assert.Contains("Enum Types for", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -202,8 +202,8 @@ public class EnumToolsTests
         var result = tools.GetComponentEnums("NonExistentComponent");
 
         // Assert
-        Assert.Contains("not found", result);
-        Assert.Contains("ListComponents()", result);
+        Assert.Contains("not found", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("ListComponents()", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -218,7 +218,7 @@ public class EnumToolsTests
         var result = tools.GetComponentEnums("FluentButton");
 
         // Assert
-        Assert.Contains("→", result);
+        Assert.Contains("→", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -233,7 +233,7 @@ public class EnumToolsTests
         var result = tools.GetComponentEnums("FluentButton");
 
         // Assert
-        Assert.Contains("| Value | Description |", result);
+        Assert.Contains("| Value | Description |", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -248,7 +248,7 @@ public class EnumToolsTests
         var result = tools.GetComponentEnums("FluentButton");
 
         // Assert
-        Assert.Contains("GetEnumValues(enumName:", result);
+        Assert.Contains("GetEnumValues(enumName:", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -263,7 +263,7 @@ public class EnumToolsTests
         var result = tools.GetComponentEnums("Button");
 
         // Assert
-        Assert.Contains("Enum Types for", result);
+        Assert.Contains("Enum Types for", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -278,9 +278,9 @@ public class EnumToolsTests
         var result = tools.GetComponentEnums("FluentButton");
 
         // Assert
-        Assert.Contains("# ", result);
-        Assert.Contains("## ", result);
-        Assert.Contains("|", result);
+        Assert.Contains("# ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("|", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -312,7 +312,7 @@ public class EnumToolsTests
         var result = tools.GetComponentEnums("FluentButton");
 
         // Assert
-        Assert.Contains("enum type(s)", result);
+        Assert.Contains("enum type(s)", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion

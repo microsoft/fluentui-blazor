@@ -265,7 +265,38 @@ public class FluentUIDocumentationServiceEdgeCaseTests
     {
         // Arrange
         var tempPath = Path.Combine(Path.GetTempPath(), $"test_convert_{Guid.NewGuid()}.json");
-        var json = """
+        var json = GetExampleInJson();
+        File.WriteAllText(tempPath, json);
+
+        try
+        {
+            var service = new FluentUIDocumentationService(tempPath);
+
+            // Act
+            var details = service.GetComponentDetails("FullComponent");
+
+            // Assert
+            Assert.NotNull(details);
+            Assert.Equal("FullComponent", details!.Component.Name);
+            Assert.True(details.Component.IsGeneric);
+            Assert.Equal("BaseComponent", details.Component.BaseClass);
+            Assert.Single(details.Parameters);
+            Assert.Equal("Prop1", details.Parameters[0].Name);
+            Assert.Equal(2, details.Properties.Count);
+            Assert.Single(details.Events);
+            Assert.Equal("OnChange", details.Events[0].Name);
+            Assert.Single(details.Methods);
+            Assert.Equal("DoSomething", details.Methods[0].Name);
+        }
+        finally
+        {
+            File.Delete(tempPath);
+        }
+    }
+
+    private static string GetExampleInJson()
+    {
+        return """
         {
             "metadata": { "assemblyVersion": "1.0.0", "generatedDateUtc": "2024-01-01", "componentCount": 1, "enumCount": 0 },
             "components": [{
@@ -308,32 +339,6 @@ public class FluentUIDocumentationServiceEdgeCaseTests
             "enums": []
         }
         """;
-        File.WriteAllText(tempPath, json);
-
-        try
-        {
-            var service = new FluentUIDocumentationService(tempPath);
-
-            // Act
-            var details = service.GetComponentDetails("FullComponent");
-
-            // Assert
-            Assert.NotNull(details);
-            Assert.Equal("FullComponent", details!.Component.Name);
-            Assert.True(details.Component.IsGeneric);
-            Assert.Equal("BaseComponent", details.Component.BaseClass);
-            Assert.Single(details.Parameters);
-            Assert.Equal("Prop1", details.Parameters[0].Name);
-            Assert.Equal(2, details.Properties.Count);
-            Assert.Single(details.Events);
-            Assert.Equal("OnChange", details.Events[0].Name);
-            Assert.Single(details.Methods);
-            Assert.Equal("DoSomething", details.Methods[0].Name);
-        }
-        finally
-        {
-            File.Delete(tempPath);
-        }
     }
 
     #endregion

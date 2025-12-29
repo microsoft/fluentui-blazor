@@ -42,7 +42,7 @@ public class FluentUIResourcesTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("# Fluent UI Blazor Components", result);
+        Assert.Contains("# Fluent UI Blazor Components", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -57,8 +57,8 @@ public class FluentUIResourcesTests
         var result = resources.GetAllComponents();
 
         // Assert
-        Assert.Contains("Total:", result);
-        Assert.Contains("components", result);
+        Assert.Contains("Total:", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("components", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -73,7 +73,7 @@ public class FluentUIResourcesTests
         var result = resources.GetAllComponents();
 
         // Assert
-        Assert.Contains("## ", result);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -88,7 +88,7 @@ public class FluentUIResourcesTests
         var result = resources.GetAllComponents();
 
         // Assert
-        Assert.Contains("<T>", result);
+        Assert.Contains("<T>", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -103,9 +103,9 @@ public class FluentUIResourcesTests
         var result = resources.GetAllComponents();
 
         // Assert
-        Assert.Contains("# ", result);
-        Assert.Contains("## ", result);
-        Assert.Contains("- **", result);
+        Assert.Contains("# ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("- **", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -120,8 +120,8 @@ public class FluentUIResourcesTests
         var result = resources.GetAllComponents();
 
         // Assert
-        Assert.Contains("FluentButton", result);
-        Assert.Contains("FluentGrid", result);
+        Assert.Contains("FluentButton", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("FluentGrid", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion
@@ -141,7 +141,7 @@ public class FluentUIResourcesTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("# Fluent UI Blazor Enum Types", result);
+        Assert.Contains("# Fluent UI Blazor Enum Types", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -156,8 +156,8 @@ public class FluentUIResourcesTests
         var result = resources.GetAllEnums();
 
         // Assert
-        Assert.Contains("Total:", result);
-        Assert.Contains("enums", result);
+        Assert.Contains("Total:", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("enums", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -172,7 +172,7 @@ public class FluentUIResourcesTests
         var result = resources.GetAllEnums();
 
         // Assert
-        Assert.Contains("**Values:**", result);
+        Assert.Contains("**Values:**", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -187,8 +187,8 @@ public class FluentUIResourcesTests
         var result = resources.GetAllEnums();
 
         // Assert
-        Assert.Contains("# ", result);
-        Assert.Contains("## ", result);
+        Assert.Contains("# ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -203,7 +203,7 @@ public class FluentUIResourcesTests
         var result = resources.GetAllEnums();
 
         // Assert
-        Assert.Contains("Appearance", result);
+        Assert.Contains("Appearance", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion

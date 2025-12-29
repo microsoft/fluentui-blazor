@@ -51,9 +51,9 @@ public record MethodInfo
             return false;
         }
 
-        return Name == other.Name &&
-               ReturnType == other.ReturnType &&
-               Description == other.Description &&
+        return string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase) &&
+               string.Equals(ReturnType, other.ReturnType, StringComparison.OrdinalIgnoreCase) &&
+               string.Equals(Description, other.Description, StringComparison.OrdinalIgnoreCase) &&
                Parameters.SequenceEqual(other.Parameters) &&
                IsInherited == other.IsInherited;
     }

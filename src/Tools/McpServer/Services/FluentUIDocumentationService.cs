@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.FluentUI.AspNetCore.McpServer.Models;
+using Microsoft.FluentUI.AspNetCore.McpServer.Models.McpDocumentation;
 
 namespace Microsoft.FluentUI.AspNetCore.McpServer.Services;
 
@@ -48,7 +49,7 @@ public class FluentUIDocumentationService
     /// <returns>A list of all components.</returns>
     public IReadOnlyList<ComponentInfo> GetAllComponents()
     {
-        return [.. _componentCache.Values.OrderBy(c => c.Name)];
+        return [.. _componentCache.Values.OrderBy(c => c.Name, StringComparer.OrdinalIgnoreCase)];
     }
 
     /// <summary>
@@ -60,7 +61,7 @@ public class FluentUIDocumentationService
     {
         return [.. _componentCache.Values
             .Where(c => c.Category.Equals(category, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(c => c.Name)];
+            .OrderBy(c => c.Name, StringComparer.OrdinalIgnoreCase)];
     }
 
     /// <summary>
@@ -74,7 +75,7 @@ public class FluentUIDocumentationService
         return [.. _componentCache.Values
             .Where(c => c.Name.Contains(lowerSearch, StringComparison.OrdinalIgnoreCase) ||
                         c.Summary.Contains(lowerSearch, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(c => c.Name)];
+            .OrderBy(c => c.Name, StringComparer.OrdinalIgnoreCase)];
     }
 
     /// <summary>
@@ -104,7 +105,7 @@ public class FluentUIDocumentationService
     /// <returns>A list of all enums.</returns>
     public IReadOnlyList<EnumInfo> GetAllEnums()
     {
-        return [.. _enumCache.Values.OrderBy(e => e.Name)];
+        return [.. _enumCache.Values.OrderBy(e => e.Name, StringComparer.OrdinalIgnoreCase)];
     }
 
     /// <summary>
@@ -123,7 +124,7 @@ public class FluentUIDocumentationService
     /// </summary>
     /// <param name="componentName">The name of the component.</param>
     /// <returns>A dictionary of property names to their enum info.</returns>
-    public Dictionary<string, EnumInfo> GetEnumsForComponent(string componentName)
+    public IDictionary<string, EnumInfo> GetEnumsForComponent(string componentName)
     {
         var result = new Dictionary<string, EnumInfo>(StringComparer.OrdinalIgnoreCase);
         var details = GetComponentDetails(componentName);
@@ -249,10 +250,10 @@ public class FluentUIDocumentationService
         return new ComponentDetails
         {
             Component = componentInfo,
-            Parameters = [.. properties.Where(p => p.IsParameter).OrderBy(p => p.Name)],
-            Properties = [.. properties.OrderBy(p => p.Name)],
-            Events = [.. events.OrderBy(e => e.Name)],
-            Methods = [.. methods.OrderBy(m => m.Name)]
+            Parameters = [.. properties.Where(p => p.IsParameter).OrderBy(p => p.Name, StringComparer.OrdinalIgnoreCase)],
+            Properties = [.. properties.OrderBy(p => p.Name, StringComparer.OrdinalIgnoreCase)],
+            Events = [.. events.OrderBy(e => e.Name, StringComparer.OrdinalIgnoreCase)],
+            Methods = [.. methods.OrderBy(m => m.Name, StringComparer.OrdinalIgnoreCase)]
         };
     }
 }

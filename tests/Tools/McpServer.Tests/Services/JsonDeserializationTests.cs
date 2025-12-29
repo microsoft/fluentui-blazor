@@ -3,7 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Text.Json;
-using Microsoft.FluentUI.AspNetCore.McpServer.Services;
+using Microsoft.FluentUI.AspNetCore.McpServer.Models.McpDocumentation;
 
 namespace Microsoft.FluentUI.AspNetCore.McpServer.Tests.Services;
 

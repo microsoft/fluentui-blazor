@@ -123,7 +123,7 @@ public class EnumTools
         sb.AppendLine(CultureInfo.InvariantCulture, $"Found {enumsByProperty.Count} enum type(s) used by this component:");
         sb.AppendLine();
 
-        foreach (var kvp in enumsByProperty.OrderBy(k => k.Key))
+        foreach (var kvp in enumsByProperty.OrderBy(k => k.Key, StringComparer.OrdinalIgnoreCase))
         {
             var propertyName = kvp.Key;
             var enumInfo = kvp.Value;

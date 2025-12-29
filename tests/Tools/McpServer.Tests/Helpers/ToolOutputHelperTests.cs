@@ -78,7 +78,7 @@ public class ToolOutputHelperTests
         var result = ToolOutputHelper.TruncateSummary(summary, 20);
 
         // Assert
-        Assert.EndsWith("...", result);
+        Assert.EndsWith("...", result, StringComparison.OrdinalIgnoreCase);
         Assert.Equal(20, result.Length);
         Assert.Equal("This is a very lo...", result);
     }
@@ -161,7 +161,7 @@ public class ToolOutputHelperTests
         var param = new PropertyInfo
         {
             Name = "Label",
-            Type = "string"
+            Type = "string",
         };
 
         // Act
@@ -178,7 +178,7 @@ public class ToolOutputHelperTests
         var param = new PropertyInfo
         {
             Name = "Disabled",
-            Type = "bool"
+            Type = "bool",
         };
 
         // Act
@@ -195,7 +195,7 @@ public class ToolOutputHelperTests
         var param = new PropertyInfo
         {
             Name = "MaxLength",
-            Type = "int"
+            Type = "int",
         };
 
         // Act
@@ -213,7 +213,7 @@ public class ToolOutputHelperTests
         {
             Name = "Appearance",
             Type = "Appearance",
-            EnumValues = ["Accent", "Lightweight", "Neutral"]
+            EnumValues = ["Accent", "Lightweight", "Neutral"],
         };
 
         // Act
@@ -230,7 +230,7 @@ public class ToolOutputHelperTests
         var param = new PropertyInfo
         {
             Name = "Data",
-            Type = "CustomType"
+            Type = "CustomType",
         };
 
         // Act
@@ -247,7 +247,7 @@ public class ToolOutputHelperTests
         var param = new PropertyInfo
         {
             Name = "Placeholder",
-            Type = "string"
+            Type = "string",
         };
 
         // Act
@@ -255,62 +255,6 @@ public class ToolOutputHelperTests
 
         // Assert
         Assert.Equal("your-placeholder", result);
-    }
-
-    #endregion
-
-    #region ExtractEventType Tests
-
-    [Fact]
-    public void ExtractEventType_WithEventCallback_ShouldReturnInnerType()
-    {
-        // Arrange
-        var eventCallbackType = "EventCallback<MouseEventArgs>";
-
-        // Act
-        var result = ToolOutputHelper.ExtractEventType(eventCallbackType);
-
-        // Assert
-        Assert.Equal("MouseEventArgs", result);
-    }
-
-    [Fact]
-    public void ExtractEventType_WithComplexGenericType_ShouldReturnInnerType()
-    {
-        // Arrange
-        var eventCallbackType = "EventCallback<ChangeEventArgs<string>>";
-
-        // Act
-        var result = ToolOutputHelper.ExtractEventType(eventCallbackType);
-
-        // Assert
-        Assert.Equal("ChangeEventArgs<string>", result);
-    }
-
-    [Fact]
-    public void ExtractEventType_WithSimpleEventCallback_ShouldReturnEventArgs()
-    {
-        // Arrange
-        var eventCallbackType = "EventCallback";
-
-        // Act
-        var result = ToolOutputHelper.ExtractEventType(eventCallbackType);
-
-        // Assert
-        Assert.Equal("EventArgs", result);
-    }
-
-    [Fact]
-    public void ExtractEventType_WithOtherType_ShouldReturnEventArgs()
-    {
-        // Arrange
-        var eventCallbackType = "Action<string>";
-
-        // Act
-        var result = ToolOutputHelper.ExtractEventType(eventCallbackType);
-
-        // Assert
-        Assert.Equal("EventArgs", result);
     }
 
     #endregion
@@ -327,8 +271,8 @@ public class ToolOutputHelperTests
         ToolOutputHelper.AppendHeader(sb, "Title", 1);
 
         // Assert
-        Assert.Contains("# Title", sb.ToString());
-        Assert.EndsWith(Environment.NewLine, sb.ToString());
+        Assert.Contains("# Title", sb.ToString(), StringComparison.OrdinalIgnoreCase);
+        Assert.EndsWith(Environment.NewLine, sb.ToString(), StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -341,7 +285,7 @@ public class ToolOutputHelperTests
         ToolOutputHelper.AppendHeader(sb, "Subtitle", 2);
 
         // Assert
-        Assert.Contains("## Subtitle", sb.ToString());
+        Assert.Contains("## Subtitle", sb.ToString(), StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -354,7 +298,7 @@ public class ToolOutputHelperTests
         ToolOutputHelper.AppendHeader(sb, "Section", 3);
 
         // Assert
-        Assert.Contains("### Section", sb.ToString());
+        Assert.Contains("### Section", sb.ToString(), StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -367,7 +311,7 @@ public class ToolOutputHelperTests
         ToolOutputHelper.AppendHeader(sb, "Default Title");
 
         // Assert
-        Assert.StartsWith("# Default Title", sb.ToString());
+        Assert.StartsWith("# Default Title", sb.ToString(), StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion
@@ -385,8 +329,8 @@ public class ToolOutputHelperTests
 
         // Assert
         var result = sb.ToString();
-        Assert.Contains("| Name | Value |", result);
-        Assert.Contains("|------|------|", result);
+        Assert.Contains("| Name | Value |", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("|------|------|", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -400,8 +344,8 @@ public class ToolOutputHelperTests
 
         // Assert
         var result = sb.ToString();
-        Assert.Contains("| Name | Type | Description |", result);
-        Assert.Contains("|------|------|------|", result);
+        Assert.Contains("| Name | Type | Description |", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("|------|------|------|", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -415,8 +359,8 @@ public class ToolOutputHelperTests
 
         // Assert
         var result = sb.ToString();
-        Assert.Contains("| Name |", result);
-        Assert.Contains("|------|", result);
+        Assert.Contains("| Name |", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("|------|", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion

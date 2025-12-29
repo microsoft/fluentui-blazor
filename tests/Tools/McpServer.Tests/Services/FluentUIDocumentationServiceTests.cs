@@ -26,7 +26,7 @@ public class FluentUIDocumentationServiceTests
     public void Constructor_WithNullPath_ShouldNotThrow()
     {
         // Act
-        var exception = Record.Exception(() => new FluentUIDocumentationService(null));
+        var exception = Record.Exception(() => new FluentUIDocumentationService(jsonDocumentationPath: null));
 
         // Assert
         Assert.Null(exception);
@@ -62,7 +62,7 @@ public class FluentUIDocumentationServiceTests
         // Assert
         Assert.NotEmpty(components);
         var names = components.Select(c => c.Name).ToList();
-        var sortedNames = names.OrderBy(n => n).ToList();
+        var sortedNames = names.Order(StringComparer.OrdinalIgnoreCase).ToList();
         Assert.Equal(sortedNames, names);
     }
 
@@ -78,8 +78,8 @@ public class FluentUIDocumentationServiceTests
         var components = service.GetAllComponents();
 
         // Assert
-        Assert.Contains(components, c => c.Name == "FluentButton");
-        Assert.Contains(components, c => c.Name == "FluentLink");
+        Assert.Contains(components, c => string.Equals(c.Name, "FluentButton", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(components, c => string.Equals(c.Name, "FluentLink", StringComparison.OrdinalIgnoreCase));
     }
 
     #endregion
@@ -146,7 +146,7 @@ public class FluentUIDocumentationServiceTests
 
         // Assert
         var names = components.Select(c => c.Name).ToList();
-        var sortedNames = names.OrderBy(n => n).ToList();
+        var sortedNames = names.Order(StringComparer.OrdinalIgnoreCase).ToList();
         Assert.Equal(sortedNames, names);
     }
 
@@ -229,7 +229,7 @@ public class FluentUIDocumentationServiceTests
 
         // Assert
         var names = components.Select(c => c.Name).ToList();
-        var sortedNames = names.OrderBy(n => n).ToList();
+        var sortedNames = names.Order(StringComparer.OrdinalIgnoreCase).ToList();
         Assert.Equal(sortedNames, names);
     }
 
@@ -345,7 +345,7 @@ public class FluentUIDocumentationServiceTests
         // Assert
         Assert.NotNull(details);
         var names = details!.Parameters.Select(p => p.Name).ToList();
-        var sortedNames = names.OrderBy(n => n).ToList();
+        var sortedNames = names.Order(StringComparer.OrdinalIgnoreCase).ToList();
         Assert.Equal(sortedNames, names);
     }
 
@@ -367,7 +367,7 @@ public class FluentUIDocumentationServiceTests
         // Assert
         Assert.NotEmpty(enums);
         var names = enums.Select(e => e.Name).ToList();
-        var sortedNames = names.OrderBy(n => n).ToList();
+        var sortedNames = names.Order(StringComparer.OrdinalIgnoreCase).ToList();
         Assert.Equal(sortedNames, names);
     }
 
@@ -383,7 +383,7 @@ public class FluentUIDocumentationServiceTests
         var enums = service.GetAllEnums();
 
         // Assert
-        Assert.Contains(enums, e => e.Name == "Appearance");
+        Assert.Contains(enums, e => string.Equals(e.Name, "Appearance", StringComparison.OrdinalIgnoreCase));
     }
 
     #endregion

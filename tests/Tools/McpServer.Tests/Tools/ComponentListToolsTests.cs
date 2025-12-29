@@ -42,8 +42,8 @@ public class ComponentListToolsTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("# Fluent UI Blazor Components", result);
-        Assert.Contains("FluentButton", result);
+        Assert.Contains("# Fluent UI Blazor Components", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("FluentButton", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -58,7 +58,7 @@ public class ComponentListToolsTests
         var result = tools.ListComponents();
 
         // Assert
-        Assert.Contains("found)", result);
+        Assert.Contains("found)", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -74,7 +74,7 @@ public class ComponentListToolsTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("Components", result);
+        Assert.Contains("Components", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -89,8 +89,8 @@ public class ComponentListToolsTests
         var result = tools.ListComponents(category: "NonExistentCategory");
 
         // Assert
-        Assert.Contains("No components found in category", result);
-        Assert.Contains("NonExistentCategory", result);
+        Assert.Contains("No components found in category", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("NonExistentCategory", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -105,7 +105,7 @@ public class ComponentListToolsTests
         var result = tools.ListComponents();
 
         // Assert
-        Assert.Contains("## ", result);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -120,7 +120,7 @@ public class ComponentListToolsTests
         var result = tools.ListComponents();
 
         // Assert
-        Assert.Contains("<T>", result);
+        Assert.Contains("<T>", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -135,9 +135,9 @@ public class ComponentListToolsTests
         var result = tools.ListComponents();
 
         // Assert
-        Assert.Contains("# ", result);
-        Assert.Contains("## ", result);
-        Assert.Contains("**", result);
+        Assert.Contains("# ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("**", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion
@@ -157,8 +157,8 @@ public class ComponentListToolsTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("Search Results", result);
-        Assert.Contains("Button", result);
+        Assert.Contains("Search Results", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("Button", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -173,7 +173,7 @@ public class ComponentListToolsTests
         var result = tools.SearchComponents("");
 
         // Assert
-        Assert.Contains("Please provide a search term", result);
+        Assert.Contains("Please provide a search term", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -188,7 +188,7 @@ public class ComponentListToolsTests
         var result = tools.SearchComponents("   ");
 
         // Assert
-        Assert.Contains("Please provide a search term", result);
+        Assert.Contains("Please provide a search term", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -203,7 +203,7 @@ public class ComponentListToolsTests
         var result = tools.SearchComponents("XyzNonExistentTerm123");
 
         // Assert
-        Assert.Contains("No components found matching", result);
+        Assert.Contains("No components found matching", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -218,7 +218,7 @@ public class ComponentListToolsTests
         var result = tools.SearchComponents("Button");
 
         // Assert
-        Assert.Contains("found)", result);
+        Assert.Contains("found)", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -233,7 +233,7 @@ public class ComponentListToolsTests
         var result = tools.SearchComponents("Button");
 
         // Assert
-        Assert.Contains("**Category:**", result);
+        Assert.Contains("**Category:**", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -249,8 +249,8 @@ public class ComponentListToolsTests
         var resultUpper = tools.SearchComponents("BUTTON");
 
         // Assert
-        Assert.Contains("Button", resultLower);
-        Assert.Contains("Button", resultUpper);
+        Assert.Contains("Button", resultLower, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("Button", resultUpper, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -265,8 +265,8 @@ public class ComponentListToolsTests
         var result = tools.SearchComponents("Button");
 
         // Assert
-        Assert.Contains("# ", result);
-        Assert.Contains("## ", result);
+        Assert.Contains("# ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion

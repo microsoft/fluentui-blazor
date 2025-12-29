@@ -37,40 +37,40 @@ public class IntegrationTests
 
         // Act & Assert - List all components
         var allComponents = listTools.ListComponents();
-        Assert.Contains("FluentButton", allComponents);
+        Assert.Contains("FluentButton", allComponents, StringComparison.OrdinalIgnoreCase);
 
         // Act & Assert - Search for a component
         var searchResults = listTools.SearchComponents("Button");
-        Assert.Contains("FluentButton", searchResults);
+        Assert.Contains("FluentButton", searchResults, StringComparison.OrdinalIgnoreCase);
 
         // Act & Assert - Get component details
         var details = detailTools.GetComponentDetails("FluentButton");
-        Assert.Contains("# FluentButton", details);
-        Assert.Contains("## Parameters", details);
+        Assert.Contains("# FluentButton", details, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## Parameters", details, StringComparison.OrdinalIgnoreCase);
 
         // Act & Assert - Get enum values
         var enumValues = enumTools.GetEnumValues("Appearance");
-        Assert.Contains("# Appearance", enumValues);
+        Assert.Contains("# Appearance", enumValues, StringComparison.OrdinalIgnoreCase);
 
         // Act & Assert - Get component enums
         var componentEnums = enumTools.GetComponentEnums("FluentButton");
-        Assert.Contains("Enum Types for", componentEnums);
+        Assert.Contains("Enum Types for", componentEnums, StringComparison.OrdinalIgnoreCase);
 
         // Act & Assert - Resources
         var allComponentsResource = fluentUIResources.GetAllComponents();
-        Assert.Contains("# Fluent UI Blazor Components", allComponentsResource);
+        Assert.Contains("# Fluent UI Blazor Components", allComponentsResource, StringComparison.OrdinalIgnoreCase);
 
         var allEnumsResource = fluentUIResources.GetAllEnums();
-        Assert.Contains("# Fluent UI Blazor Enum Types", allEnumsResource);
+        Assert.Contains("# Fluent UI Blazor Enum Types", allEnumsResource, StringComparison.OrdinalIgnoreCase);
 
         var componentResource = componentResources.GetComponent("FluentButton");
-        Assert.Contains("# FluentButton", componentResource);
+        Assert.Contains("# FluentButton", componentResource, StringComparison.OrdinalIgnoreCase);
 
         var categoryResource = componentResources.GetCategory("Components");
-        Assert.Contains("Components", categoryResource);
+        Assert.Contains("Components", categoryResource, StringComparison.OrdinalIgnoreCase);
 
         var enumResource = componentResources.GetEnum("Appearance");
-        Assert.Contains("# Appearance", enumResource);
+        Assert.Contains("# Appearance", enumResource, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -89,7 +89,7 @@ public class IntegrationTests
         foreach (var component in allComponents.Take(10)) // Test first 10 for speed
         {
             var details = detailTools.GetComponentDetails(component.Name);
-            Assert.Contains($"# {component.Name}", details);
+            Assert.Contains($"# {component.Name}", details, StringComparison.OrdinalIgnoreCase);
         }
     }
 
@@ -109,7 +109,7 @@ public class IntegrationTests
         foreach (var enumInfo in allEnums.Take(10)) // Test first 10 for speed
         {
             var details = enumTools.GetEnumValues(enumInfo.Name);
-            Assert.Contains($"# {enumInfo.Name}", details);
+            Assert.Contains($"# {enumInfo.Name}", details, StringComparison.OrdinalIgnoreCase);
         }
     }
 
@@ -130,7 +130,7 @@ public class IntegrationTests
         var components = service.SearchComponents("Button");
         foreach (var details in components.Select(component => detailTools.GetComponentDetails(component.Name)))
         {
-            Assert.DoesNotContain("not found", details);
+            Assert.DoesNotContain("not found", details, StringComparison.OrdinalIgnoreCase);
         }
     }
 
@@ -152,7 +152,7 @@ public class IntegrationTests
         foreach (var component in components.Take(5))
         {
             var details = detailTools.GetComponentDetails(component.Name);
-            Assert.Contains($"**Category:** {component.Category}", details);
+            Assert.Contains($"**Category:** {component.Category}", details, StringComparison.OrdinalIgnoreCase);
         }
     }
 
@@ -172,7 +172,7 @@ public class IntegrationTests
         foreach (var kvp in componentEnums)
         {
             var enumDetails = enumTools.GetEnumValues(kvp.Value.Name);
-            Assert.Contains($"# {kvp.Value.Name}", enumDetails);
+            Assert.Contains($"# {kvp.Value.Name}", enumDetails, StringComparison.OrdinalIgnoreCase);
         }
     }
 
@@ -192,7 +192,7 @@ public class IntegrationTests
         // Assert
         Assert.Equal(components1.Count, components2.Count);
         Assert.Equal(
-            components1.Select(c => c.Name).OrderBy(n => n),
-            components2.Select(c => c.Name).OrderBy(n => n));
+            components1.Select(c => c.Name).Order(StringComparer.OrdinalIgnoreCase),
+            components2.Select(c => c.Name).Order(StringComparer.OrdinalIgnoreCase));
     }
 }

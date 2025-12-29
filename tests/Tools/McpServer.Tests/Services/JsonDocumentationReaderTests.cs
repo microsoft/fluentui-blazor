@@ -26,7 +26,7 @@ public class JsonDocumentationReaderTests
     public void Constructor_WithNullPath_ShouldTryEmbeddedResource()
     {
         // Act
-        var reader = new JsonDocumentationReader(null);
+        var reader = new JsonDocumentationReader(jsonDocumentationPath: null);
 
         // Assert - should not throw, may or may not have documentation depending on resource
         Assert.NotNull(reader);
@@ -135,7 +135,7 @@ public class JsonDocumentationReaderTests
         var components = reader.GetAllComponents();
 
         // Assert
-        Assert.Contains(components, c => c.Name == "FluentButton");
+        Assert.Contains(components, c => string.Equals(c.Name, "FluentButton", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -258,7 +258,7 @@ public class JsonDocumentationReaderTests
         var enums = reader.GetAllEnums();
 
         // Assert
-        Assert.Contains(enums, e => e.Name == "Appearance");
+        Assert.Contains(enums, e => string.Equals(e.Name, "Appearance", StringComparison.OrdinalIgnoreCase));
     }
 
     #endregion

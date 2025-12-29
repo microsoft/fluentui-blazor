@@ -42,7 +42,7 @@ public class ComponentDetailToolsTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("# FluentButton", result);
+        Assert.Contains("# FluentButton", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -58,7 +58,7 @@ public class ComponentDetailToolsTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("# FluentButton", result);
+        Assert.Contains("# FluentButton", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -73,8 +73,8 @@ public class ComponentDetailToolsTests
         var result = tools.GetComponentDetails("NonExistentComponent");
 
         // Assert
-        Assert.Contains("not found", result);
-        Assert.Contains("ListComponents()", result);
+        Assert.Contains("not found", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("ListComponents()", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -89,7 +89,7 @@ public class ComponentDetailToolsTests
         var result = tools.GetComponentDetails("FluentButton");
 
         // Assert
-        Assert.Contains("**Category:**", result);
+        Assert.Contains("**Category:**", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -104,8 +104,8 @@ public class ComponentDetailToolsTests
         var result = tools.GetComponentDetails("FluentButton");
 
         // Assert
-        Assert.Contains("## Parameters", result);
-        Assert.Contains("| Name | Type | Default | Description |", result);
+        Assert.Contains("## Parameters", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("| Name | Type | Default | Description |", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -120,7 +120,7 @@ public class ComponentDetailToolsTests
         var result = tools.GetComponentDetails("FluentButton");
 
         // Assert
-        Assert.Contains("**Base Class:**", result);
+        Assert.Contains("**Base Class:**", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -135,7 +135,7 @@ public class ComponentDetailToolsTests
         var result = tools.GetComponentDetails("FluentDataGrid");
 
         // Assert
-        Assert.Contains("**Generic Component:** Yes", result);
+        Assert.Contains("**Generic Component:** Yes", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -150,7 +150,7 @@ public class ComponentDetailToolsTests
         var result = tools.GetComponentDetails("fluentbutton");
 
         // Assert
-        Assert.Contains("# FluentButton", result);
+        Assert.Contains("# FluentButton", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -165,9 +165,9 @@ public class ComponentDetailToolsTests
         var result = tools.GetComponentDetails("FluentButton");
 
         // Assert
-        Assert.Contains("# ", result);
-        Assert.Contains("## ", result);
-        Assert.Contains("|", result);
+        Assert.Contains("# ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("|", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -182,7 +182,7 @@ public class ComponentDetailToolsTests
         var result = tools.GetComponentDetails("FluentButton");
 
         // Assert
-        Assert.Contains("Values:", result);
+        Assert.Contains("Values:", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -197,7 +197,7 @@ public class ComponentDetailToolsTests
         var result = tools.GetComponentDetails("FluentButton");
 
         // Assert
-        Assert.Contains("## Events", result);
+        Assert.Contains("## Events", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -213,9 +213,9 @@ public class ComponentDetailToolsTests
 
         // Assert
         // If the component has methods, they should be shown
-        if (result.Contains("## Methods"))
+        if (result.Contains("## Methods", StringComparison.OrdinalIgnoreCase))
         {
-            Assert.Contains("```csharp", result);
+            Assert.Contains("```csharp", result, StringComparison.OrdinalIgnoreCase);
         }
     }
 

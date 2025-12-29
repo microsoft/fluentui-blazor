@@ -4,195 +4,9 @@
 
 using System.Reflection;
 using System.Text.Json;
-using System.Text.Json.Serialization;
+using Microsoft.FluentUI.AspNetCore.McpServer.Models.McpDocumentation;
 
 namespace Microsoft.FluentUI.AspNetCore.McpServer.Services;
-
-/// <summary>
-/// Root model for the MCP documentation JSON file.
-/// </summary>
-internal class McpDocumentationRoot
-{
-    /// <summary>
-    /// Gets or sets metadata about the generated documentation.
-    /// </summary>
-    [JsonPropertyName("metadata")]
-    public McpDocumentationMetadata Metadata { get; set; } = new();
-
-    /// <summary>
-    /// Gets or sets the list of all components.
-    /// </summary>
-    [JsonPropertyName("components")]
-    public List<JsonComponentInfo> Components { get; set; } = [];
-
-    /// <summary>
-    /// Gets or sets the list of all enums.
-    /// </summary>
-    [JsonPropertyName("enums")]
-    public List<JsonEnumInfo> Enums { get; set; } = [];
-}
-
-/// <summary>
-/// Metadata about the generated documentation.
-/// </summary>
-internal class McpDocumentationMetadata
-{
-    /// <summary>
-    /// Gets or sets the assembly version.
-    /// </summary>
-    [JsonPropertyName("assemblyVersion")]
-    public string AssemblyVersion { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the generation date in UTC.
-    /// </summary>
-    [JsonPropertyName("generatedDateUtc")]
-    public string GeneratedDateUtc { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the total component count.
-    /// </summary>
-    [JsonPropertyName("componentCount")]
-    public int ComponentCount { get; set; }
-
-    /// <summary>
-    /// Gets or sets the total enum count.
-    /// </summary>
-    [JsonPropertyName("enumCount")]
-    public int EnumCount { get; set; }
-}
-
-/// <summary>
-/// JSON representation of a component.
-/// </summary>
-internal class JsonComponentInfo
-{
-    [JsonPropertyName("name")]
-    public string Name { get; set; } = string.Empty;
-
-    [JsonPropertyName("fullName")]
-    public string FullName { get; set; } = string.Empty;
-
-    [JsonPropertyName("summary")]
-    public string Summary { get; set; } = string.Empty;
-
-    [JsonPropertyName("category")]
-    public string Category { get; set; } = string.Empty;
-
-    [JsonPropertyName("isGeneric")]
-    public bool IsGeneric { get; set; }
-
-    [JsonPropertyName("baseClass")]
-    public string? BaseClass { get; set; }
-
-    [JsonPropertyName("properties")]
-    public List<JsonPropertyInfo> Properties { get; set; } = [];
-
-    [JsonPropertyName("events")]
-    public List<JsonEventInfo> Events { get; set; } = [];
-
-    [JsonPropertyName("methods")]
-    public List<JsonMethodInfo> Methods { get; set; } = [];
-}
-
-/// <summary>
-/// JSON representation of a property.
-/// </summary>
-internal class JsonPropertyInfo
-{
-    [JsonPropertyName("name")]
-    public string Name { get; set; } = string.Empty;
-
-    [JsonPropertyName("type")]
-    public string Type { get; set; } = string.Empty;
-
-    [JsonPropertyName("description")]
-    public string Description { get; set; } = string.Empty;
-
-    [JsonPropertyName("isParameter")]
-    public bool IsParameter { get; set; }
-
-    [JsonPropertyName("isInherited")]
-    public bool IsInherited { get; set; }
-
-    [JsonPropertyName("defaultValue")]
-    public string? DefaultValue { get; set; }
-
-    [JsonPropertyName("enumValues")]
-    public string[] EnumValues { get; set; } = [];
-}
-
-/// <summary>
-/// JSON representation of an event.
-/// </summary>
-internal class JsonEventInfo
-{
-    [JsonPropertyName("name")]
-    public string Name { get; set; } = string.Empty;
-
-    [JsonPropertyName("type")]
-    public string Type { get; set; } = string.Empty;
-
-    [JsonPropertyName("description")]
-    public string Description { get; set; } = string.Empty;
-
-    [JsonPropertyName("isInherited")]
-    public bool IsInherited { get; set; }
-}
-
-/// <summary>
-/// JSON representation of a method.
-/// </summary>
-internal class JsonMethodInfo
-{
-    [JsonPropertyName("name")]
-    public string Name { get; set; } = string.Empty;
-
-    [JsonPropertyName("returnType")]
-    public string ReturnType { get; set; } = string.Empty;
-
-    [JsonPropertyName("description")]
-    public string Description { get; set; } = string.Empty;
-
-    [JsonPropertyName("parameters")]
-    public string[] Parameters { get; set; } = [];
-
-    [JsonPropertyName("isInherited")]
-    public bool IsInherited { get; set; }
-}
-
-/// <summary>
-/// JSON representation of an enum.
-/// </summary>
-internal class JsonEnumInfo
-{
-    [JsonPropertyName("name")]
-    public string Name { get; set; } = string.Empty;
-
-    [JsonPropertyName("fullName")]
-    public string FullName { get; set; } = string.Empty;
-
-    [JsonPropertyName("description")]
-    public string Description { get; set; } = string.Empty;
-
-    [JsonPropertyName("values")]
-    public List<JsonEnumValueInfo> Values { get; set; } = [];
-}
-
-/// <summary>
-/// JSON representation of an enum value.
-/// </summary>
-internal class JsonEnumValueInfo
-{
-    [JsonPropertyName("name")]
-    public string Name { get; set; } = string.Empty;
-
-    [JsonPropertyName("value")]
-    public int Value { get; set; }
-
-    [JsonPropertyName("description")]
-    public string Description { get; set; } = string.Empty;
-}
 
 /// <summary>
 /// Service for reading pre-generated JSON documentation.
@@ -306,7 +120,7 @@ internal sealed class JsonDocumentationReader
         // Try to load from file first
         if (!string.IsNullOrEmpty(jsonDocumentationPath) && File.Exists(jsonDocumentationPath))
         {
-            Console.Error.WriteLine($"[FluentUI.Mcp.Server] Loading documentation from: {jsonDocumentationPath}");
+            Console.Error.WriteLine($"{McpServerConstants.LogPrefix} Loading documentation from: {jsonDocumentationPath}");
             jsonContent = File.ReadAllText(jsonDocumentationPath);
         }
         else
@@ -317,7 +131,7 @@ internal sealed class JsonDocumentationReader
 
         if (string.IsNullOrEmpty(jsonContent))
         {
-            Console.Error.WriteLine("[FluentUI.Mcp.Server] Warning: JSON documentation not found. Documentation will be limited.");
+            Console.Error.WriteLine($"{McpServerConstants.LogPrefix} Warning: JSON documentation not found. Documentation will be limited.");
             return null;
         }
 
@@ -332,14 +146,14 @@ internal sealed class JsonDocumentationReader
 
             if (documentation != null)
             {
-                Console.Error.WriteLine($"[FluentUI.Mcp.Server] Loaded {documentation.Components.Count} components and {documentation.Enums.Count} enums from documentation.");
+                Console.Error.WriteLine($"{McpServerConstants.LogPrefix} Loaded {documentation.Components.Count} components and {documentation.Enums.Count} enums from documentation.");
             }
 
             return documentation;
         }
         catch (Exception ex)
         {
-            Console.Error.WriteLine($"[FluentUI.Mcp.Server] Error parsing JSON documentation: {ex.Message}");
+            Console.Error.WriteLine($"{McpServerConstants.LogPrefix} Error parsing JSON documentation: {ex.Message}");
             return null;
         }
     }
@@ -357,12 +171,12 @@ internal sealed class JsonDocumentationReader
         {
             // List available resources for debugging
             var availableResources = assembly.GetManifestResourceNames();
-            Console.Error.WriteLine($"[FluentUI.Mcp.Server] Available embedded resources: {string.Join(", ", availableResources)}");
+            Console.Error.WriteLine($"{McpServerConstants.LogPrefix} Available embedded resources: {string.Join(", ", availableResources)}");
             return null;
         }
 
         using var reader = new StreamReader(stream);
-        Console.Error.WriteLine("[FluentUI.Mcp.Server] Loading documentation from embedded resource.");
+        Console.Error.WriteLine($"{McpServerConstants.LogPrefix} Loading documentation from embedded resource.");
         return reader.ReadToEnd();
     }
 }

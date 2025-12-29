@@ -65,19 +65,6 @@ internal static class ToolOutputHelper
     }
 
     /// <summary>
-    /// Extracts the type parameter from an EventCallback type.
-    /// </summary>
-    public static string ExtractEventType(string eventCallbackType)
-    {
-        if (eventCallbackType.StartsWith("EventCallback<") && eventCallbackType.EndsWith(">"))
-        {
-            return eventCallbackType[14..^1];
-        }
-
-        return "EventArgs";
-    }
-
-    /// <summary>
     /// Appends a markdown header.
     /// </summary>
     public static void AppendHeader(StringBuilder sb, string title, int level = 1)

@@ -9,7 +9,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
     <RootNamespace>Microsoft.FluentUI.AspNetCore.McpServer</RootNamespace>
-    
+
     <SignAssembly>False</SignAssembly>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -49,8 +49,10 @@
     <Authors>
       Microsoft;dvoituron;aclerbois;vnbaaij
     </Authors>
-    <Description>MCP (Model Context Protocol) server for Fluent UI Blazor component documentation.
-      Provides AI assistants with access to component details, parameters, events, methods,and enums.</Description>
+    <Description>
+      MCP (Model Context Protocol) server for Fluent UI Blazor component documentation.
+      Provides AI assistants with access to component details, parameters, events, methods,and enums.
+    </Description>
     <PackageTags>mcp;model-context-protocol;fluent-ui;blazor;documentation;ai;copilot</PackageTags>
     <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
     <RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
@@ -79,6 +81,10 @@
   <!-- Code Analysis -->
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Meziantou.Analyzer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -123,10 +129,10 @@
     </PropertyGroup>
 
     <Message Text="Generating MCP documentation JSON..." Importance="high" />
-    
+
     <!-- Build the FluentUI Components first to ensure DLL and XML exist -->
     <MSBuild Projects="$(MSBuildThisFileDirectory)..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" Targets="Build" Properties="Configuration=$(Configuration)" />
-    
+
     <!-- Build DocApiGen -->
     <MSBuild Projects="$(DocApiGenProject)" Targets="Build" Properties="Configuration=$(Configuration)" />
 

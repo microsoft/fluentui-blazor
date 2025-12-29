@@ -42,7 +42,7 @@ public class ComponentResourcesTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("# FluentButton", result);
+        Assert.Contains("# FluentButton", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -57,8 +57,8 @@ public class ComponentResourcesTests
         var result = resources.GetComponent("NonExistentComponent");
 
         // Assert
-        Assert.Contains("# Component Not Found", result);
-        Assert.Contains("was not found", result);
+        Assert.Contains("# Component Not Found", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("was not found", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -73,7 +73,7 @@ public class ComponentResourcesTests
         var result = resources.GetComponent("FluentButton");
 
         // Assert
-        Assert.Contains("**Category:**", result);
+        Assert.Contains("**Category:**", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -88,7 +88,7 @@ public class ComponentResourcesTests
         var result = resources.GetComponent("FluentButton");
 
         // Assert
-        Assert.Contains("## Parameters", result);
+        Assert.Contains("## Parameters", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -103,7 +103,7 @@ public class ComponentResourcesTests
         var result = resources.GetComponent("FluentDataGrid");
 
         // Assert
-        Assert.Contains("**Generic Component:** Yes", result);
+        Assert.Contains("**Generic Component:** Yes", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -118,7 +118,7 @@ public class ComponentResourcesTests
         var result = resources.GetComponent("FluentButton");
 
         // Assert
-        Assert.Contains("## Events", result);
+        Assert.Contains("## Events", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -133,9 +133,9 @@ public class ComponentResourcesTests
         var result = resources.GetComponent("FluentButton");
 
         // Assert
-        Assert.Contains("# ", result);
-        Assert.Contains("## ", result);
-        Assert.Contains("|", result);
+        Assert.Contains("# ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("|", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion
@@ -155,8 +155,8 @@ public class ComponentResourcesTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("# Components Components", result);
-        Assert.Contains("Total:", result);
+        Assert.Contains("# Components Components", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("Total:", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -171,8 +171,8 @@ public class ComponentResourcesTests
         var result = resources.GetCategory("NonExistentCategory");
 
         // Assert
-        Assert.Contains("# Category Not Found", result);
-        Assert.Contains("No components found in category", result);
+        Assert.Contains("# Category Not Found", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("No components found in category", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -187,8 +187,8 @@ public class ComponentResourcesTests
         var result = resources.GetCategory("Components");
 
         // Assert
-        Assert.Contains("Total:", result);
-        Assert.Contains("components", result);
+        Assert.Contains("Total:", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("components", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -203,8 +203,8 @@ public class ComponentResourcesTests
         var result = resources.GetCategory("Components");
 
         // Assert
-        Assert.Contains("# ", result);
-        Assert.Contains("## ", result);
+        Assert.Contains("# ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -219,7 +219,7 @@ public class ComponentResourcesTests
         var result = resources.GetCategory("Components");
 
         // Assert
-        Assert.Contains("<T>", result);
+        Assert.Contains("<T>", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion
@@ -239,7 +239,7 @@ public class ComponentResourcesTests
 
         // Assert
         Assert.False(string.IsNullOrEmpty(result));
-        Assert.Contains("# Appearance", result);
+        Assert.Contains("# Appearance", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -254,8 +254,8 @@ public class ComponentResourcesTests
         var result = resources.GetEnum("NonExistentEnum");
 
         // Assert
-        Assert.Contains("# Enum Not Found", result);
-        Assert.Contains("was not found", result);
+        Assert.Contains("# Enum Not Found", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("was not found", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -270,8 +270,8 @@ public class ComponentResourcesTests
         var result = resources.GetEnum("Appearance");
 
         // Assert
-        Assert.Contains("## Values", result);
-        Assert.Contains("| Name | Value | Description |", result);
+        Assert.Contains("## Values", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("| Name | Value | Description |", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -286,9 +286,9 @@ public class ComponentResourcesTests
         var result = resources.GetEnum("Appearance");
 
         // Assert
-        Assert.Contains("# ", result);
-        Assert.Contains("## ", result);
-        Assert.Contains("|", result);
+        Assert.Contains("# ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("## ", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("|", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion

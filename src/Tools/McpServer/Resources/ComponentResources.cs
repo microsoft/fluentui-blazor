@@ -48,6 +48,19 @@ public class ComponentResources
 
         var sb = new StringBuilder();
 
+        AddHeaders(details, sb);
+
+        AddParameters(details, sb);
+
+        AddEvents(details, sb);
+
+        AddMethods(details, sb);
+
+        return sb.ToString();
+    }
+
+    private static void AddHeaders(Models.ComponentDetails details, StringBuilder sb)
+    {
         // Header
         sb.AppendLine(CultureInfo.InvariantCulture, $"# {details.Component.Name}");
         sb.AppendLine();
@@ -71,44 +84,10 @@ public class ComponentResources
         }
 
         sb.AppendLine();
+    }
 
-        // Parameters
-        if (details.Parameters.Count > 0)
-        {
-            sb.AppendLine("## Parameters");
-            sb.AppendLine();
-            sb.AppendLine("| Name | Type | Default | Description |");
-            sb.AppendLine("|------|------|---------|-------------|");
-
-            foreach (var param in details.Parameters)
-            {
-                var defaultValue = param.DefaultValue ?? "-";
-                var description = ToolOutputHelper.TruncateSummary(param.Description, 80);
-                var enumHint = param.EnumValues.Length > 0
-                    ? $" Values: {string.Join(", ", param.EnumValues.Take(5))}{(param.EnumValues.Length > 5 ? "..." : "")}"
-                    : "";
-                sb.AppendLine(CultureInfo.InvariantCulture, $"| {param.Name} | `{param.Type}` | {defaultValue} | {description}{enumHint} |");
-            }
-
-            sb.AppendLine();
-        }
-
-        // Events
-        if (details.Events.Count > 0)
-        {
-            sb.AppendLine("## Events");
-            sb.AppendLine();
-            sb.AppendLine("| Name | Type | Description |");
-            sb.AppendLine("|------|------|-------------|");
-
-            foreach (var evt in details.Events)
-            {
-                sb.AppendLine(CultureInfo.InvariantCulture, $"| {evt.Name} | `{evt.Type}` | {ToolOutputHelper.TruncateSummary(evt.Description, 80)} |");
-            }
-
-            sb.AppendLine();
-        }
-
+    private static void AddMethods(Models.ComponentDetails details, StringBuilder sb)
+    {
         // Methods
         if (details.Methods.Count > 0)
         {
@@ -132,8 +111,49 @@ public class ComponentResources
                 sb.AppendLine();
             }
         }
+    }
 
-        return sb.ToString();
+    private static void AddEvents(Models.ComponentDetails details, StringBuilder sb)
+    {
+        // Events
+        if (details.Events.Count > 0)
+        {
+            sb.AppendLine("## Events");
+            sb.AppendLine();
+            sb.AppendLine("| Name | Type | Description |");
+            sb.AppendLine("|------|------|-------------|");
+
+            foreach (var evt in details.Events)
+            {
+                sb.AppendLine(CultureInfo.InvariantCulture, $"| {evt.Name} | `{evt.Type}` | {ToolOutputHelper.TruncateSummary(evt.Description, 80)} |");
+            }
+
+            sb.AppendLine();
+        }
+    }
+
+    private static void AddParameters(Models.ComponentDetails details, StringBuilder sb)
+    {
+        // Parameters
+        if (details.Parameters.Count > 0)
+        {
+            sb.AppendLine("## Parameters");
+            sb.AppendLine();
+            sb.AppendLine("| Name | Type | Default | Description |");
+            sb.AppendLine("|------|------|---------|-------------|");
+
+            foreach (var param in details.Parameters)
+            {
+                var defaultValue = param.DefaultValue ?? "-";
+                var description = ToolOutputHelper.TruncateSummary(param.Description, 80);
+                var enumHint = param.EnumValues.Length > 0
+                    ? $" Values: {string.Join(", ", param.EnumValues.Take(5))}{(param.EnumValues.Length > 5 ? "..." : "")}"
+                    : "";
+                sb.AppendLine(CultureInfo.InvariantCulture, $"| {param.Name} | `{param.Type}` | {defaultValue} | {description}{enumHint} |");
+            }
+
+            sb.AppendLine();
+        }
     }
 
     /// <summary>
@@ -160,7 +180,7 @@ public class ComponentResources
         sb.AppendLine(CultureInfo.InvariantCulture, $"Total: {components.Count} components");
         sb.AppendLine();
 
-        foreach (var component in components.OrderBy(c => c.Name))
+        foreach (var component in components.OrderBy(c => c.Name, StringComparer.OrdinalIgnoreCase))
         {
             var genericIndicator = component.IsGeneric ? "<T>" : "";
             sb.AppendLine(CultureInfo.InvariantCulture, $"## {component.Name}{genericIndicator}");

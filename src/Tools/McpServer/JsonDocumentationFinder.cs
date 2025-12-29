@@ -22,10 +22,10 @@ internal static class JsonDocumentationFinder
             // Same directory as executable
             Path.Combine(AppContext.BaseDirectory, JsonFileName),
             // Development paths - relative to McpServer project
-            Path.Combine(AppContext.BaseDirectory, "..", "..", "..", JsonFileName),
-            Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "Tools", "McpServer", JsonFileName),
+            Path.Combine(AppContext.BaseDirectory, "../../..", JsonFileName),
+            Path.Combine(AppContext.BaseDirectory, "../../../../Tools/McpServer", JsonFileName),
             // Development paths - relative to solution
-            Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "src", "Tools", "McpServer", JsonFileName),
+            Path.Combine(AppContext.BaseDirectory, "../../../../../src/Tools/McpServer", JsonFileName),
         };
 
         var foundPath = possiblePaths
@@ -34,12 +34,12 @@ internal static class JsonDocumentationFinder
 
         if (foundPath != null)
         {
-            Console.Error.WriteLine($"[FluentUI.Mcp.Server] Found JSON documentation at: {foundPath}");
+            Console.Error.WriteLine($"{McpServerConstants.LogPrefix} Found JSON documentation at: {foundPath}");
             return foundPath;
         }
 
         // No external file found - will use embedded resource
-        Console.Error.WriteLine("[FluentUI.Mcp.Server] No external JSON documentation file found. Using embedded resource.");
+        Console.Error.WriteLine($"{McpServerConstants.LogPrefix} No external JSON documentation file found. Using embedded resource.");
         return null;
     }
 }
