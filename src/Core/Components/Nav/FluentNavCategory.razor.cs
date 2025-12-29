@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <remarks>Use this class to organize navigation elements into logical groups when building fluent or
 /// hierarchical navigation structures. Grouping navigation items can improve usability and clarity in user interfaces
 /// that support complex navigation scenarios.</remarks>
-public partial class FluentNavCategory : FluentComponentBase, IDisposable
+public partial class FluentNavCategory : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
     private bool _isActive;
@@ -88,12 +88,6 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     /// </summary>
     protected override void OnParametersSet()
     {
-        if (Owner.GetType() != typeof(FluentNav))
-        {
-            throw new InvalidOperationException(
-                $"{nameof(FluentNavCategory)} can only be used as a direct child of {nameof(FluentNav)}.");
-        }
-
         UpdateActiveState();
     }
 
@@ -102,18 +96,23 @@ public partial class FluentNavCategory : FluentComponentBase, IDisposable
     /// </summary>
     protected override void OnInitialized()
     {
+        if (Owner.GetType() != typeof(FluentNav))
+        {
+            throw new InvalidOperationException(
+                $"{nameof(FluentNavCategory)} can only be used as a direct child of {nameof(FluentNav)}.");
+        }
+
         Owner?.RegisterCategory(this);
     }
 
-    /// <summary>
-    /// Disposes of the component and unregisters from the owner.
-    /// </summary>
-    public void Dispose()
+    
+    /// <summary />
+    public override async ValueTask DisposeAsync()
     {
         Owner.UnregisterCategory(this);
-        GC.SuppressFinalize(this);
-    }
 
+        await base.DisposeAsync();
+    }
     /// <summary>
     /// Called after the component has been rendered.
     /// </summary>

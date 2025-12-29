@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents a navigation menu item that renders content within a Fluent UI styled navigation link.
 /// </summary>
-public partial class FluentNavItem : FluentComponentBase, IDisposable
+public partial class FluentNavItem : FluentComponentBase, IAsyncDisposable
 {
     private const string EnableMatchAllForQueryStringAndFragmentSwitchKey = "Microsoft.AspNetCore.Components.Routing.NavLink.EnableMatchAllForQueryStringAndFragment";
     private string? _hrefAbsolute;
@@ -133,6 +133,13 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
     /// </summary>
     protected override void OnParametersSet()
     {
+        _hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
+        _isActive = ShouldMatch(NavigationManager.Uri);
+    }
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
         // Validate that this component is used within a FluentNav
         if (Owner.GetType() != typeof(FluentNav))
         {
@@ -146,13 +153,6 @@ public partial class FluentNavItem : FluentComponentBase, IDisposable
                 $"{nameof(FluentNavItem)} can only be used as a direct child of {nameof(FluentNav)} or a {nameof(FluentNavCategory)}.");
         }
 
-        _hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
-        _isActive = ShouldMatch(NavigationManager.Uri);
-    }
-
-    /// <summary />
-    protected override void OnInitialized()
-    {
         // We'll consider re-rendering on each location change
         NavigationManager.LocationChanged += OnLocationChanged;
 
@@ -268,7 +268,7 @@ protected virtual bool ShouldMatch(string uriAbsolute)
 }
 
 /// <inheritdoc />
-public void Dispose()
+public override async ValueTask DisposeAsync()
 {
     NavigationManager.LocationChanged -= OnLocationChanged;
 
@@ -277,7 +277,7 @@ public void Dispose()
         Category?.UnregisterSubitem(this);
     }
 
-    GC.SuppressFinalize(this);
+    await base.DisposeAsync();
 }
 
 [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]

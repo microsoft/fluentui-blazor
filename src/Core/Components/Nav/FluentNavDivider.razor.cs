@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A divider for use within a <see cref="FluentNav"/>
 /// </summary>
-public partial class FluentNavDivider
+public partial class FluentNavDivider 
 {
     /// <summary>
     /// Gets or sets the parent <see cref="FluentNav"/> component for this instance.
@@ -23,7 +23,7 @@ public partial class FluentNavDivider
     /// <summary>
     /// Validates that this component is used within a FluentNav.
     /// </summary>
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
         // Validate that this component is used within a FluentNav
         if (Owner.GetType() != typeof(FluentNav))
