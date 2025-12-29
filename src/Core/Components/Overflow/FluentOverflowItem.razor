@@ -1,0 +1,7 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<div id="@Id" class="@ClassValue" style="@StyleValue" overflow=@Overflow fixed="@(Fixed != OverflowItemFixed.None ? Fixed.ToAttributeValue() : null)" @attributes="@AdditionalAttributes">
+    @ChildContent
+</div>
