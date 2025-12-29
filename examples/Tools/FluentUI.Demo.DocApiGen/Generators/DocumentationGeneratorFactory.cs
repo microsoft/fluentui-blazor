@@ -34,6 +34,7 @@ public static class DocumentationGeneratorFactory
         {
             GenerationMode.Summary => new SummaryDocumentationGenerator(assembly, xmlDocumentation),
             GenerationMode.All => new AllDocumentationGenerator(assembly, xmlDocumentation),
+            GenerationMode.Mcp => new McpDocumentationGenerator(assembly, xmlDocumentation),
             _ => throw new NotSupportedException($"Generation mode '{mode}' is not supported.")
         };
     }
@@ -62,5 +63,18 @@ public static class DocumentationGeneratorFactory
         FileInfo xmlDocumentation)
     {
         return Create(GenerationMode.All, assembly, xmlDocumentation);
+    }
+
+    /// <summary>
+    /// Creates an MCP mode documentation generator.
+    /// </summary>
+    /// <param name="assembly">The assembly to generate documentation for.</param>
+    /// <param name="xmlDocumentation">The XML documentation file.</param>
+    /// <returns>An MCP mode documentation generator.</returns>
+    public static IDocumentationGenerator CreateMcpGenerator(
+        Assembly assembly,
+        FileInfo xmlDocumentation)
+    {
+        return Create(GenerationMode.Mcp, assembly, xmlDocumentation);
     }
 }
