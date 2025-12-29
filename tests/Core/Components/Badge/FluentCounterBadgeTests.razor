@@ -49,7 +49,7 @@
     public void FluentCounterBadge_Appearance(BadgeAppearance? value, string expectedValue)
     {
         // Arrange && Act
-        var cut = Render(@<FluentCounterBadge Appearance="@value" />);
+        var cut = Render(@<FluentCounterBadge Count="2" Appearance="@value" />);
 
         // Assert
         var attribute = cut.Find("fluent-counter-badge").GetAttribute("appearance") ?? string.Empty;
@@ -82,7 +82,7 @@
     public void FluentCounterBadge_Color(BadgeColor? value, string expectedValue)
     {
         // Arrange && Act
-        var cut = Render(@<FluentCounterBadge Color="@value" />);
+        var cut = Render(@<FluentCounterBadge Count="2" Color="@value" />);
 
         // Assert
         var attribute = cut.Find("fluent-counter-badge").GetAttribute("color") ?? string.Empty;
