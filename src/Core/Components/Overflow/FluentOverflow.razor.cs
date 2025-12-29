@@ -9,7 +9,7 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
+public partial class FluentOverflow : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Overflow/FluentOverflow.razor.js";
     private readonly List<FluentOverflowItem> _items = [];
@@ -160,20 +160,10 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     }
 
     /// <inheritdoc />
-    public override async ValueTask DisposeAsync()
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Dispose", Id);
         _dotNetHelper?.Dispose();
-
-        if (JSModule is not null)
-        {
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Dispose", Id);
-            await JSModule.DisposeAsync();
-        }
-
-        await base.DisposeAsync();
-        GC.SuppressFinalize(this);
-
     }
 
     /// <summary>
