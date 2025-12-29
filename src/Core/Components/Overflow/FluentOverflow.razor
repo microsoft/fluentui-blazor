@@ -22,7 +22,7 @@
     }
     else
     {
-        <FluentTooltip UseTooltipService="true" Anchor="@IdMoreButton" Positioning="Positioning.BelowStart" Style="flex-direction: column;">
+        <FluentTooltip UseTooltipService="@UseTooltipService" Anchor="@IdMoreButton" Positioning="Positioning.BelowStart" Style="flex-direction: column;">
             @foreach (var item in ItemsOverflow)
             {
                 <div style="margin: 5px;">@item.Text</div>

@@ -67,6 +67,12 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     public string? Selectors { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets if the tooltip should be displayed by using the TooltipService
+    /// </summary>
+    [Parameter]
+    public bool UseTooltipService { get; set; } = false;
+
+    /// <summary>
     /// Event raised when a <see cref="FluentOverflowItem"/> enter or leave the current panel.
     /// </summary>
     [Parameter]
@@ -165,6 +171,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
             await JSModule.DisposeAsync();
         }
 
+        await base.DisposeAsync();
         GC.SuppressFinalize(this);
 
     }

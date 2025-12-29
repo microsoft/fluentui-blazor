@@ -17,7 +17,7 @@
         var cut = Render(@<div><FluentOverflow>
             <FluentOverflowItem>Item 1</FluentOverflowItem>
             <FluentOverflowItem>Item 2</FluentOverflowItem>
-        </FluentOverflow><FluentTooltipProvider /></div>);
+        </FluentOverflow></div>);
 
         // Assert
         Assert.Equal(2, cut.FindAll(".fluent-overflow-item").Count);
@@ -31,7 +31,7 @@
         var cut = Render(@<div><FluentOverflow>
             <FluentOverflowItem Fixed="OverflowItemFixed.Ellipsis">Long text that should ellipsis</FluentOverflowItem>
             <FluentOverflowItem>Item 2</FluentOverflowItem>
-        </FluentOverflow><FluentTooltipProvider /></div>);
+        </FluentOverflow></div>);
 
         // Assert
         var ellipsisItem = cut.Find(".fluent-overflow-item[fixed='ellipsis']");
@@ -49,7 +49,7 @@
             {
                 <FluentOverflowItem>Item @i</FluentOverflowItem>
             }
-        </FluentOverflow><FluentTooltipProvider /></div>);
+        </FluentOverflow></div>);
 
         // Act: Simulate resize or trigger refresh (in a real scenario, this might involve JS interop)
         // For simplicity, assume overflow is triggered
@@ -68,7 +68,7 @@
             {
                 <FluentOverflowItem>Very long item text @i</FluentOverflowItem>
             }
-        </FluentOverflow><FluentTooltipProvider /></div>);
+        </FluentOverflow></div>);
 
         // Assert
         var moreButton = cut.Find(".fluent-overflow-more");
@@ -82,7 +82,7 @@
         // Arrange
         var cut = Render(@<div><FluentOverflow Orientation="Orientation.Vertical">
             <FluentOverflowItem>Item 1</FluentOverflowItem>
-        </FluentOverflow><FluentTooltipProvider /></div>);
+        </FluentOverflow></div>);
 
         // Assert
         var container = cut.Find(".fluent-overflow");
@@ -96,7 +96,7 @@
         var cut = Render(@<div><FluentOverflow>
             <FluentOverflowItem Fixed="OverflowItemFixed.Fixed">Fixed Item</FluentOverflowItem>
             <FluentOverflowItem>Regular Item</FluentOverflowItem>
-        </FluentOverflow><FluentTooltipProvider /></div>);
+        </FluentOverflow></div>);
 
         // Assert
         var fixedItem = cut.Find(".fluent-overflow-item[fixed='fixed']");
@@ -118,7 +118,7 @@
                 <FluentOverflowItem>Item 1</FluentOverflowItem>
             }
 			</ChildContent>
-        </FluentOverflow><FluentTooltipProvider /></div>);
+        </FluentOverflow></div>);
 
         // Assert
         var customButton = cut.Find("p");
@@ -158,7 +158,7 @@
             {
                 <FluentOverflowItem>Item @i</FluentOverflowItem>
             }
-        </FluentOverflow><FluentTooltipProvider /></div>);
+        </FluentOverflow></div>);
 
         // Act
 		var overflow = cut.FindComponent<FluentOverflow>();
@@ -178,7 +178,7 @@
 			{
 				<FluentOverflowItem>Item @i</FluentOverflowItem>
 			}
-		</FluentOverflow><FluentTooltipProvider /></div>);
+		</FluentOverflow></div>);
 
 		// Act
 		var overflow = cut.FindComponent<FluentOverflow>();
@@ -198,7 +198,7 @@
 		{
 			<FluentOverflowItem>Item @i</FluentOverflowItem>
 		}
-	</FluentOverflow><FluentTooltipProvider /></div>
+	</FluentOverflow></div>
 		);
 
 		// Act
@@ -226,7 +226,7 @@
 					<FluentOverflowItem @ref="@fluentOverflowItem2" Id="@($"item2")" Style="width: 20px">Item 2</FluentOverflowItem>
 					<FluentOverflowItem @ref="@fluentOverflowItem3" Id="@($"item3")" Style="width: 20px">Item 3</FluentOverflowItem>
 					<FluentOverflowItem @ref="@fluentOverflowItem4" Id="@($"item4")" Style="width: 20px">Item 4</FluentOverflowItem>
-			</FluentOverflow><FluentTooltipProvider /></div>);
+			</FluentOverflow></div>);
 
 	// Act
 
@@ -250,7 +250,7 @@
 			{
 				<FluentOverflowItem>Item @i</FluentOverflowItem>
 			}
-		</FluentOverflow><FluentTooltipProvider /></div>);
+		</FluentOverflow></div>);
 
 		// Assert - Default FluentTooltip should be rendered
 		var tooltip = cut.Find("fluent-tooltip");
@@ -272,7 +272,7 @@
 					<FluentOverflowItem>Item @i</FluentOverflowItem>
 				}
 			</ChildContent>
-		</FluentOverflow><FluentTooltipProvider /></div>);
+		</FluentOverflow></div>);
 
 		// Assert - Custom template should be rendered instead of default tooltip
 		var customOverflow = cut.Find(".custom-overflow");

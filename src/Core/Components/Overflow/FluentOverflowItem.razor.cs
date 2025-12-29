@@ -26,7 +26,7 @@ public partial class FluentOverflowItem : FluentComponentBase, IAsyncDisposable
     /// </summary>
     /// <value>The splitter.</value>
     [CascadingParameter]
-    public FluentOverflow? Owner { get; set; }
+    internal FluentOverflow? Owner { get; set; }
 
     /// <summary>
     /// Gets or sets the content to display. All first HTML elements are included in the items flow.
@@ -83,5 +83,6 @@ public partial class FluentOverflowItem : FluentComponentBase, IAsyncDisposable
     public override async ValueTask DisposeAsync()
     {
         Owner?.UnregisterAsync(this);
+        await base.DisposeAsync();
     }
 }
