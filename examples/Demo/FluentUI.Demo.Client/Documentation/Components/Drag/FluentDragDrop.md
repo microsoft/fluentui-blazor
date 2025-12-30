@@ -1,6 +1,7 @@
 ---
 title: Drag and Drop
 route: /Drag
+icon: Drag
 ---
 
 # Drag and Drop

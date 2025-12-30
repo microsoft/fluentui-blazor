@@ -1,6 +1,6 @@
 ---
 title: MenuButton
-route: /Button/MenuButton
+route: /Buttons/MenuButton
 ---
 
 # MenuButton

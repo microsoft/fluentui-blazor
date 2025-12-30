@@ -1,6 +1,7 @@
 ---
 title: Popover
 route: /Popover
+icon: TooltipQuote
 ---
 
 # Popover

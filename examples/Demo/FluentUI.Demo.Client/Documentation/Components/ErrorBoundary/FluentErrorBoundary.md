@@ -1,6 +1,7 @@
 ---
 title: Error Boundary
 route: /ErrorBoundary
+icon: DocumentError
 ---
 
 # Error Boundary

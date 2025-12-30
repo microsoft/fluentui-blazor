@@ -1,6 +1,7 @@
 ---
 title: Grid
 route: /Grid
+icon: SlideGrid
 ---
 
 # Grid

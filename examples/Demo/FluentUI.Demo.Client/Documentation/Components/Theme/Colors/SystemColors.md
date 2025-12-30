@@ -1,6 +1,6 @@
 ---
-title: Theme / System colors
-route: /theme/colors
+title: System colors
+route: /Theme/Colors
 ---
 
 # System colors

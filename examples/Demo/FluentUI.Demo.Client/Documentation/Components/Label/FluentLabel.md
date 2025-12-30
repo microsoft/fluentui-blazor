@@ -1,6 +1,7 @@
 ---
 title: Label
 route: /Label
+icon: DoorTag
 ---
 
 # Label
