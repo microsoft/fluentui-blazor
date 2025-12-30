@@ -44,8 +44,20 @@ The `OffestX` and `OffsetY` allow for tuning the positioning further.
 
 {{ CounterBadgeAttached SourceCode=false}}
 
+## ShowEmpty
+A counter badge will by default be shown even if the count value is 0 or not set (null) or `ShowWhen` evaluates to `true` (see below) .
+
+This behavior can be changed by setting the `ShowEmpty` parameter to `false`.
+See on the code tab below that there are actually two `FluentCounterBadge` components. The component with `ShowEmpty="false"` will not render anything.
+
+{{ CounterBadgeShowEmpty }}
+
 ## ShowZero
 A counter badge can be shown even if the count is zero.
+
+- First example `ShowZero="true"`. 
+- Second example `ShowZero="false"`.
+
 
 {{ CounterBadgeShowZero }}
 
@@ -53,13 +65,17 @@ A counter badge can be shown even if the count is zero.
 A counter badge can be shown when a specific condition (lambda expression) is met.
 For instance, `ShowWhen=@(c => c > 4)` will show the badge only when the count is greater than 4.
 
-- First example `Count="3"`. With rule set like above it will not show
-- Second example `Count="5"`. With rule set like above it will show
+- First example `Count="3"`. With rule set like above it will not show a count in the badge.
+- Second example `Count="5"`. With rule set like above it will show a count in the badge.
+- Third Example Count="3"`. With rule set like above and `ShowEmpty="false"`, nothing will be shown (see code tab).
+
+_Because of the default behavior, an empty badge will be shown for the first example._
 
 {{ CounterBadgeShowWhen }}
 
 ## Dot
 A counter badge can be shown as a dot. This can be used, for example, to indicate there are new items but the actual number is not really important.
+Setting this parameter to `true` will overrule `ShowEmpty="false"`
 
 {{ CounterBadgeDot }}
 
