@@ -1,6 +1,6 @@
 ---
 title: ToggleButton
-route: /Button/ToggleButton
+route: /Buttons/ToggleButton
 ---
 
 # ToggleButton

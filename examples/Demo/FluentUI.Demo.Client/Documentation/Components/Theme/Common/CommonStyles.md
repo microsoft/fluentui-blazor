@@ -1,6 +1,6 @@
 ---
-title: Theme / Common Styles
-route: /theme/common-styles
+title: Common Styles
+route: /Theme/Common-Styles
 ---
 
 # Common styles

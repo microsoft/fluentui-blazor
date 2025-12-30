@@ -1,6 +1,7 @@
 ---
 title: Link
 route: /link
+icon: Link
 ---
 
 # Link

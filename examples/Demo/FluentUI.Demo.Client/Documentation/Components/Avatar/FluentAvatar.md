@@ -1,6 +1,7 @@
 ---
 title: Avatar
 route: /Avatar
+icon: Person
 ---
 
 # Avatar

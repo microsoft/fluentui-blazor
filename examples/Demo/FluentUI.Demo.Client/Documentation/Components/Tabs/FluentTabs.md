@@ -1,6 +1,7 @@
 ---
 title: Tabs
 route: /Tabs
+icon: TabDesktop
 ---
 
 # Tabs

@@ -6,7 +6,7 @@ icon: Navigation
 
 # Nav
 
-Nav, or navigation, provides a list of links that lets people move through the main sections of an app or site. Itâ€™s a high-level wayfinding component thatâ€™s always easily accessible but can be minimized to free up space.
+Nav, or navigation, provides a list of links that lets people move through the main sections of an app or site. It’s a high-level wayfinding component that’s always easily accessible but can be minimized to free up space.
 
 Nav only supports one level of nesting and might not show all available items.
 
@@ -18,7 +18,7 @@ Navs can be organized with up to two levels of hierarchy. Simple navs list the s
 
 Create a simple nav using nav items. These are first-level links that give people a quick understanding of the main parts of an experience.
 
-Create a complex nav using nav categories and sub-items. Nav categories expand and collapse so people only see the information they need. Nav sub-items group related links within that category and let people navigate to those sub-pages. Nav categories act as accordions and show or hide information; theyâ€™re not links and wonâ€™t lead to site or app locations.
+Create a complex nav using nav categories and sub-items. Nav categories expand and collapse so people only see the information they need. Nav sub-items group related links within that category and let people navigate to those sub-pages. Nav categories act as accordions and show or hide information; they’re not links and won’t lead to site or app locations.
 
 By using the `UseSingleExpanded` parameter, you can ensure that only one nav category is expanded at a time. When a new category is expanded, any previously expanded category will automatically collapse.
 

@@ -1,9 +1,10 @@
 ---
 title: CounterBadge
 route: /CounterBadge
+icon: NumberCircle5
 ---
 
-# CouterBadge
+# CounterBadge
 
 The `CounterBadge` component is a visual indicator that communicates a numerical count.
 It uses numbers, color, and icons for quick recognition and is placed near the relavant content.

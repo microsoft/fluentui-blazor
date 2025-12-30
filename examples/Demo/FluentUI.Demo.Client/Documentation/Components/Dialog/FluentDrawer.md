@@ -1,6 +1,7 @@
 ---
 title: Drawer (Panel)
 route: /Drawer
+icon: PanelRight
 ---
 
 # Drawer (Panel)

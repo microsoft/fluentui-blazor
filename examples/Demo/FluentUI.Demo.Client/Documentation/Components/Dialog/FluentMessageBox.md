@@ -1,6 +1,7 @@
 ---
 title: MessageBox
 route: /MessageBox
+icon: WindowHeaderHorizontal
 ---
 
 # MessageBox

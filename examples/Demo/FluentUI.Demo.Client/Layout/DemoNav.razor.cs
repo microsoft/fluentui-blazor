@@ -7,7 +7,7 @@ using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace FluentUI.Demo.Client.Layout;
 
-public partial class DemoNavMenu
+public partial class DemoNav
 {
     [Inject]
     public required NavigationManager NavigationManager { get; set; }
@@ -20,8 +20,9 @@ public partial class DemoNavMenu
         var pages = DocViewerService.Pages.Where(i => !i.Hidden);
 
         var navItems = pages
+                .OrderBy(g => g.Category.Key)
                 .GroupBy(p => p.Category.Title)
-                .Select(categoryGroup => 
+                .Select(categoryGroup =>
                 {
                     // Group items within each category by PageGroup
                     var subGroups = categoryGroup
@@ -36,16 +37,16 @@ public partial class DemoNavMenu
                                     Route: p.Route,
                                     Icon: p.Icon,
                                     Order: p.Order,
-                                    Items: Enumerable.Empty<NavItem>()));
+                                    Items: []));
                             }
 
                             // If PageGroup has value, create a sub-category
                             else
                             {
-                                return new[] { new NavItem(
+                                return [ new NavItem(
                                     Title: subGroup.Key,
                                     Route: subGroup.FirstOrDefault(p => p.IsDefaultPageGroup)?.Route ?? subGroup.OrderBy(p => p.Order).First().Route,
-                                    Icon: string.Empty,
+                                    Icon: subGroup.FirstOrDefault(p => p.IsDefaultPageGroup)?.Icon ?? null,
                                     Order: subGroup.First().Order,
                                     Items: subGroup.Where(p => !p.IsDefaultPageGroup)
                                                    .Select(p => new NavItem(
@@ -53,10 +54,10 @@ public partial class DemoNavMenu
                                                         Route: p.Route,
                                                         Icon: p.Icon,
                                                         Order: p.Order,
-                                                        Items: Enumerable.Empty<NavItem>()))
+                                                        Items: []))
                                     .OrderBy(i => i.Order)
                                     .ThenBy(i => i.Title))
-                                };
+                                ];
                             }
                         })
                         .SelectMany(x => x)
@@ -75,17 +76,34 @@ public partial class DemoNavMenu
         NavItems = navItems;
     }
 
-    public IEnumerable<NavItem> NavItems { get; private set; } = Enumerable.Empty<NavItem>();
+    public IEnumerable<NavItem> NavItems { get; private set; } = [];
 
-    public record NavItem(string Title, string Route, string Icon, string Order, IEnumerable<NavItem> Items);
+    public record NavItem(string Title, string Route, string? Icon, string Order, IEnumerable<NavItem> Items);
 
-    private async Task ItemClickAsync(NavItem item)
+    /// <summary>
+    /// Create an <see cref="Icon"/> instance from a friendly name (e.g. "Home").
+    /// Uses the icons reflection helpers already present in the library so no switch/lookup table is needed.
+    /// Returns null when name is empty or the icon cannot be found.
+    /// </summary>
+    private static CustomIcon? GetIconFromName(string? iconName)
     {
-        NavigationManager.NavigateTo(item.Route);
-
-        if (Hamburger is not null)
+        if (string.IsNullOrWhiteSpace(iconName))
         {
-            await Hamburger.HideAsync();
+            return null;
         }
+
+        var iconInfo = new IconInfo
+        {
+            Name = iconName,
+            Size = IconSize.Size20,
+            Variant = IconVariant.Regular
+        };
+
+        if (iconInfo.TryGetInstance(out var customIcon))
+        {
+            return customIcon;
+        }
+
+        return null;
     }
 }

@@ -3,6 +3,7 @@ title: Installation
 order: 0005
 category: 10|Get Started
 route: /installation
+icon: SettingsCogMultiple
 ---
 
 # Installation

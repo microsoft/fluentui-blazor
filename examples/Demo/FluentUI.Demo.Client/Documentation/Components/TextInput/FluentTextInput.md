@@ -1,6 +1,7 @@
 ---
 title: TextInput
 route: /TextInput
+icon: Textbox
 ---
 
 # TextInput

@@ -1,6 +1,7 @@
 ---
 title: ProgressBar
 route: /progress-bar
+icon: SquareHint
 ---
 
 # ProgressBar

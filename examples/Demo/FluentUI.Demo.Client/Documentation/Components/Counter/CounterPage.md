@@ -1,8 +1,8 @@
 ---
 title: My Counter (Test)
 category: 90|Labs
-icon: Regular.ArrowBetweenUp
 route: /Test/Counter
+icon: Beaker
 ---
 
 # My Counter Page
