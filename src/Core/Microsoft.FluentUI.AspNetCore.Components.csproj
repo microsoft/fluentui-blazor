@@ -105,4 +105,23 @@
       <LastGenOutput>%(ParentFile).Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <!-- Temporary fix for problem with .esproj files when using latest SDKs. Will be fully fixed in later SDK -->
+  <Target Name="FixEsprojOriginalItemSpec"
+           AfterTargets="ResolveReferencedProjectsStaticWebAssets"
+           Condition="'@(StaticWebAsset)' != ''">
+    <ItemGroup>
+      <_EsprojAssetsToFix Include="@(StaticWebAsset)"
+                          Condition="$([System.String]::new('%(StaticWebAsset.OriginalItemSpec)').EndsWith('.esproj'))" />
+    </ItemGroup>
+    <ItemGroup Condition="'@(_EsprojAssetsToFix)' != ''">
+      <StaticWebAsset Remove="@(_EsprojAssetsToFix)" />
+      <StaticWebAsset Include="@(_EsprojAssetsToFix)">
+        <OriginalItemSpec>%(Identity)</OriginalItemSpec>
+      </StaticWebAsset>
+    </ItemGroup>
+    <ItemGroup>
+      <_EsprojAssetsToFix Remove="@(_EsprojAssetsToFix)" />
+    </ItemGroup>
+  </Target>
 </Project>
