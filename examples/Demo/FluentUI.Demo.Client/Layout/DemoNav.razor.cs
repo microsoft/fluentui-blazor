@@ -53,7 +53,7 @@ public partial class DemoNav
                                                         Route: p.Route,
                                                         Icon: p.Icon,
                                                         Order: p.Order,
-                                                        Items: Enumerable.Empty<NavItem>()))
+                                                        Items: []))
                                     .OrderBy(i => i.Order)
                                     .ThenBy(i => i.Title))
                                 ];
@@ -75,7 +75,7 @@ public partial class DemoNav
         NavItems = navItems;
     }
 
-    public IEnumerable<NavItem> NavItems { get; private set; } = Enumerable.Empty<NavItem>();
+    public IEnumerable<NavItem> NavItems { get; private set; } = [];
 
     public record NavItem(string Title, string Route, string? Icon, string Order, IEnumerable<NavItem> Items);
 
@@ -105,5 +105,4 @@ public partial class DemoNav
 
         return null;
     }
-
 }
