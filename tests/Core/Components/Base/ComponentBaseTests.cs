@@ -63,7 +63,6 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentTimePicker<>), Loader.MakeGenericType(typeof(DateTime))},
         { typeof(FluentNavItem), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
         { typeof(FluentNavCategory), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
-        { typeof(FluentNavDivider), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
         { typeof(FluentNavSectionHeader), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
 
     };

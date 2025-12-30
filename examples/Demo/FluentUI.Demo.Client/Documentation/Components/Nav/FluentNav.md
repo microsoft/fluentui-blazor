@@ -22,6 +22,9 @@ Create a complex nav using nav categories and sub-items. Nav categories expand a
 
 By using the `UseSingleExpanded` parameter, you can ensure that only one nav category is expanded at a time. When a new category is expanded, any previously expanded category will automatically collapse.
 
+## Divider
+Use the `FluentDivider` to separate groups of nav items. This helps people scan and find what they need more quickly. The right styling will automatically be applied when using the divider inside the `FluentNav`
+
 ## Icons
 Whenever possible, use icons with nav category labels. They create additional visual emphasis and differentiate nav categories from the nav subitems within them. Use simple and recognizable icons that are easy to understand.
 
@@ -43,6 +46,7 @@ In the example below, the first (and third and fifth) item has an `Href` that na
 {{ API Type=FluentNav }}
 
 ## API FluentNavCategory
+
 {{ API Type=FluentNavCategory }}
 
 ## API FluentNavItem
@@ -50,9 +54,6 @@ In the example below, the first (and third and fifth) item has an `Href` that na
 
 ## API FluentNavSectionHeader
 {{ API Type=FluentNavSectionHeader }}
-
-## API FluentNavDivider
-{{ API Type=FluentNavDivider }}
 
 ## Migrating to v5
 There is no direct migration path for  the `FluentNavMenu` from v4

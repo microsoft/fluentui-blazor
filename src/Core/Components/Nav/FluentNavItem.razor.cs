@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents a navigation menu item that renders content within a Fluent UI styled navigation link.
 /// </summary>
-public partial class FluentNavItem : FluentComponentBase, IAsyncDisposable
+public partial class FluentNavItem : FluentComponentBase
 {
     private const string EnableMatchAllForQueryStringAndFragmentSwitchKey = "Microsoft.AspNetCore.Components.Routing.NavLink.EnableMatchAllForQueryStringAndFragment";
     private string? _hrefAbsolute;
@@ -121,7 +121,7 @@ public partial class FluentNavItem : FluentComponentBase, IAsyncDisposable
     /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
     /// its parent navigation menu.</remarks>
     [CascadingParameter(Name = "Category")]
-    public FluentNavCategory? Category { get; set; }
+    internal FluentNavCategory? Category { get; set; }
 
     /// <summary>
     /// Gets the active state on this navigation item
@@ -278,6 +278,7 @@ public partial class FluentNavItem : FluentComponentBase, IAsyncDisposable
         }
 
         await base.DisposeAsync();
+        GC.SuppressFinalize(this);
     }
 
     [ExcludeFromCodeCoverage(Justification = "Copied from Blazor source")]

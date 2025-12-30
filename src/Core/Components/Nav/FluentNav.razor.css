@@ -150,3 +150,7 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.fluent-nav fluent-divider {
+  margin: var(--spacingVerticalXS) 0;
+}

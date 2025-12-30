@@ -22,7 +22,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <item><description><see cref="FluentNavItem"/> - A simple navigation item. When used as a sub item in a <see cref="FluentNavCategory"/>, no icon will be rendered</description></item>
 /// <item><description><see cref="FluentNavCategory"/> - A grouped set of navigation items</description></item>
 /// <item><description><see cref="FluentNavSectionHeader"/> - A section header to organize navigation</description></item>
-/// <item><description><see cref="FluentNavDivider"/> - A visual divider between sections</description></item>
+/// <item><description><see cref="FluentDivider"/> - A visual divider between sections</description></item>
 /// </list>
 /// </remarks>
 public partial class FluentNav : FluentComponentBase
@@ -72,7 +72,7 @@ public partial class FluentNav : FluentComponentBase
     /// Defaults to false until we have a good way to make this work with the LayoutHamburger component.
     /// </summary>
     [Parameter]
-    public bool UseHeader { get; set; } = false;
+    public bool UseHeader { get; set; }
 
     /// <summary>
     /// Gets or sets the icon to display for collapsing/expanding the nav menu.
@@ -91,7 +91,7 @@ public partial class FluentNav : FluentComponentBase
     /// Gets or sets whether to allow just one expanded category or multiple
     /// </summary>
     [Parameter]
-    public bool UseSingleExpanded { get; set; } = false;
+    public bool UseSingleExpanded { get; set; }
 
     /// <summary>
     /// Gets or sets the density of the nav menu item.
