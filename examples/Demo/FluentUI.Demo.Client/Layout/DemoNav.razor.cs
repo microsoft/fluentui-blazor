@@ -20,6 +20,7 @@ public partial class DemoNav
         var pages = DocViewerService.Pages.Where(i => !i.Hidden);
 
         var navItems = pages
+                .OrderBy(g => g.Category.Key)
                 .GroupBy(p => p.Category.Title)
                 .Select(categoryGroup =>
                 {

@@ -1,6 +1,7 @@
 ---
 title: Accordion
 route: /Accordion
+category: 20|Components
 icon: TextCollapse
 ---
 
