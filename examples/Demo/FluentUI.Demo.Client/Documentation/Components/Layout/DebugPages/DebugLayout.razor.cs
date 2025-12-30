@@ -18,6 +18,7 @@ public partial class DebugLayout
     private readonly Option Aside = new() { Visible = true, Sticky = false };
     private readonly Option Footer = new() { Visible = true, Sticky = false };
 
+    public bool HamburgerOnDesktop { get; set; }
     public bool MobileView { get; set; }
     public bool Opened { get; set; }
 

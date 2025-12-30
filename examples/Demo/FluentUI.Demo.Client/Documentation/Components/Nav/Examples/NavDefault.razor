@@ -10,7 +10,7 @@
 			   UseIcons="@_useIcons"
 			   UseSingleExpanded="@(!_useMultipleExpanded)"
 			   AppTitle="Contoso"
-			   Appicon="@(new Icons.Regular.Size32.Person())"
+			   AppIcon="@(new Icons.Regular.Size32.Person())"
 			   Density="@_density">
 		<FluentNavItem Href="/Nav" Icon="@(new Icons.Regular.Size20.Board())">Dashboard</FluentNavItem>
 		<FluentNavItem OnClick="@ShowInformationAsync" Icon="@(new Icons.Regular.Size20.MegaphoneLoud())">Announcements</FluentNavItem>
@@ -38,7 +38,7 @@
 
 		</FluentNavCategory>
 
-		<FluentNavDivider />
+		<FluentDivider />
 
 		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.BoxMultiple())">Training Programs</FluentNavItem>
 
@@ -76,7 +76,7 @@
 
 @code
 {
-	private FluentNav? nav;
+	private FluentNav nav = default!;
 	NavDensity _density;
 	bool _useHeader = false;
 	bool _useIcons = true;
@@ -90,19 +90,19 @@
 
 	private async Task ToggleNavAsync()
 	{
-		if (nav!.UseHeader)
+		if (nav.UseHeader)
 		{
-			await nav!.ToggleNavAsync();
+			await nav.ToggleNavAsync();
 		}
 	}
 
 	private async Task ExpandRetirementAsync()
 	{
-		await nav!.ExpandCategoryAsync("retirement");
+		await nav.ExpandCategoryAsync("retirement");
 	}
 
 	private async Task CollapseRetirementAsync()
 	{
-		await nav!.CollapseCategoryAsync("retirement");
+		await nav.CollapseCategoryAsync("retirement");
 	}
 }

@@ -309,4 +309,7 @@
   <data name="DataGrid_ErrorContent" xml:space="preserve">
     <value>An error occurred while retrieving data.</value>
   </data>
+  <data name="Nav_ToggleTitle" xml:space="preserve">
+    <value>Toggle navigation</value>
+  </data>
 </root>
