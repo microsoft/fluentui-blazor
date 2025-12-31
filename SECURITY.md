@@ -39,3 +39,82 @@ We prefer all communications to be in English.
 Microsoft follows the principle of [Coordinated Vulnerability Disclosure](https://www.microsoft.com/en-us/msrc/cvd).
 
 <!-- END MICROSOFT SECURITY.MD BLOCK -->
+
+---
+
+## MCP Server Security
+
+### Overview
+
+The Fluent UI Blazor MCP Server is a **read-only documentation provider** designed with security in mind:
+
+- ✅ No code execution capabilities
+- ✅ No network access required
+- ✅ Read-only operations only
+- ✅ Sandboxed by IDE runtime
+- ✅ No access to sensitive data
+
+### Security Architecture
+
+The MCP Server operates within strict security boundaries:
+
+```
+┌─────────────────────────────────────────────┐
+│        Developer Workstation                │
+│  ┌──────────────┐      ┌──────────────┐     │
+│  │     IDE      │◄────►│  MCP Server  │     │
+│  │ (VS/VS Code) │ stdio│   (Local)    │     │
+│  └──────────────┘      └──────────────┘     │
+│                               │             │
+│                               ▼             │
+│                        ┌──────────────┐     │
+│                        │ Embedded JSON│     │
+│                        │Documentation │     │
+│                        └──────────────┘     │
+└─────────────────────────────────────────────┘
+```
+
+### Security Features
+
+| Feature | Security Benefit |
+|---------|------------------|
+| Pre-generated documentation | No runtime code generation or execution |
+| Local-only operation | No external network requests |
+| stdio communication | Process-isolated, no network ports |
+| Read-only access | Cannot modify files or system state |
+| Embedded resources | No external file dependencies |
+| No credential access | Cannot access environment variables or secrets |
+
+### What the MCP Server CANNOT Do
+
+- ❌ Execute arbitrary code
+- ❌ Access your source code or workspace files  
+- ❌ Make network requests
+- ❌ Modify files or system state
+- ❌ Access environment variables or credentials
+- ❌ Launch other processes
+- ❌ Access system resources outside its scope
+
+### Security Scope
+
+Security vulnerabilities in the MCP Server should be reported if they:
+
+- Allow code execution beyond serving documentation
+- Enable file system access outside the documentation directory
+- Create network communication channels
+- Bypass process isolation
+- Expose sensitive information
+- Allow privilege escalation
+
+### For SecOps Teams
+
+For comprehensive security information including threat model, compliance considerations, and security checklists, see our [Security & Compliance Documentation](https://www.fluentui-blazor.net/Mcp/Security).
+
+Topics covered:
+- Architecture and isolation details
+- Threat model analysis
+- Compliance considerations (GDPR, SOC 2, ISO 27001, HIPAA, PCI DSS)
+- Audit procedures and monitoring
+- Security best practices
+- Security approval checklist
+

@@ -6,6 +6,7 @@ using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using FluentUI.Demo.DocViewer.Extensions;
 using FluentUI.Demo.DocViewer.Models;
+using FluentUI.Demo.DocViewer.Models.Mcp;
 using FluentUI.Demo.DocViewer.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -73,6 +74,14 @@ public partial class MarkdownViewer
         {
             HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
             ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/api-comments.json");
+        }
+
+        // Load MCP documentation if any MCP or McpSummary section is present
+        if (Sections.Any(s => s.Type == SectionType.Mcp || s.Type == SectionType.McpSummary) && McpDocumentationService.Cached is null)
+        {
+            HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
+            await McpDocumentationService.LoadAsync(HttpClient, "/mcp-documentation.json").ConfigureAwait(true);
+            StateHasChanged();
         }
     }
 
@@ -161,6 +170,19 @@ public partial class MarkdownViewer
                                .GetTypes()
                                .Where(t => t.IsSubclassOf(typeof(ComponentBase)) && !t.IsAbstract)
                                .FirstOrDefault(i => i.Name == name);
+    }
+
+    /// <summary>
+    /// Parses a string to an McpType enum value.
+    /// </summary>
+    private static McpType ParseMcpType(string? value)
+    {
+        return value?.ToLower() switch
+        {
+            "resources" => McpType.Resources,
+            "prompts" => McpType.Prompts,
+            _ => McpType.Tools
+        };
     }
 
     /// <summary />

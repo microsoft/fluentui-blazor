@@ -1,0 +1,26 @@
+﻿@using FluentUI.Demo.DocViewer.Models.Mcp
+
+@if (Tools.Count == 0)
+{
+    <div class="mcp-empty-message">
+        <em>No tools available yet.</em>
+    </div>
+}
+else
+{
+    <div class="mcp-summary-container">
+        <div class="mcp-summary-header">
+            <div class="mcp-summary-col">Tool</div>
+            <div class="mcp-summary-col">Description</div>
+        </div>
+        <div class="mcp-summary-body">
+            @foreach (var tool in Tools.OrderBy(t => t.Name))
+            {
+                <div class="mcp-summary-row">
+                    <div class="mcp-summary-col"><code>@tool.Name</code></div>
+                    <div class="mcp-summary-col">@((MarkupString)(tool.Description ?? tool.Summary ?? "-"))</div>
+                </div>
+            }
+        </div>
+    </div>
+}

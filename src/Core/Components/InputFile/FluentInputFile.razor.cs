@@ -446,7 +446,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, II
         if (_containerInstance is not null)
         {
             await _containerInstance.InvokeVoidAsync("dispose");
-            await _containerInstance.DisposeAsync().ConfigureAwait(false);
+            await _containerInstance.DisposeAsync();
         }
     }
 }
