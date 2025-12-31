@@ -9,18 +9,16 @@
          style="@StyleValue"
          density="@Density.ToAttributeValue()"
          @attributes="@AdditionalAttributes">
-        <div class="nav-body">
-            @if (!string.IsNullOrEmpty(AppTitle))
-            {
-                <a href="@AppLink" class="appitem">
-                    @if (AppIcon is not null)
-                    {
-                        <FluentIcon Value="AppIcon" />
-                    }
-                    @AppTitle
-                </a>
-            }
-            @ChildContent
-        </div>
+        @if (!string.IsNullOrEmpty(AppTitle))
+        {
+            <a href="@AppLink" class="appitem">
+                @if (AppIcon is not null)
+                {
+                    <FluentIcon Value="AppIcon" />
+                }
+                @AppTitle
+            </a>
+        }
+        @ChildContent
     </div>
 </CascadingValue>

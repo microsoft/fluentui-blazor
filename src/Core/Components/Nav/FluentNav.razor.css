@@ -1,12 +1,9 @@
-:root {
-  --nav-width: 260px;
-}
-
 .fluent-nav {
-  overflow: hidden;
-  max-width: 100vw;
+  overflow-y: auto;
+  overflow-x: hidden;
   box-sizing: border-box;
   display: flex;
+  flex: 1 1 0%;
   flex-direction: column;
   justify-content: flex-start;
   color: var(--colorNeutralForeground1);
@@ -16,27 +13,15 @@
   background-color: var(--colorNeutralBackground4);
   align-items: unset;
   right: auto;
-  width: var(--nav-width);
-  min-width: var(--nav-width);
   opacity: 1;
   transform: translate3d(0px, 0px, 0px);
+  align-self: stretch;
+  padding: 0 var(--spacingHorizontalXS) 0 var(--spacingHorizontalMNudge);
+  row-gap: var(--spacingVerticalXXS);
+  padding-bottom: calc(var(--spacingHorizontalXXL) + 1px);
 }
 
-  .fluent-nav > .nav-body {
-    flex: 1 1 0%;
-    align-self: stretch;
-    position: relative;
-    z-index: 1;
-    overflow: auto;
-    padding: 0 var(--spacingHorizontalXS) 0 var(--spacingHorizontalMNudge);
-    flex-direction: column;
-    display: flex;
-    align-items: unset;
-    row-gap: var(--spacingVerticalXXS);
-    padding-bottom: calc(var(--spacingHorizontalXXL) + 1px);
-  }
-
-  [dir="rtl"] .fluent-nav > .nav-body {
+  [dir="rtl"] .fluent-nav {
     padding: 0 var(--spacingHorizontalMNudge) 0 var(--spacingHorizontalXS);
   }
 

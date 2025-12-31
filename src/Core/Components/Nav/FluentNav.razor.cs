@@ -45,7 +45,8 @@ public partial class FluentNav : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
-        .AddStyle("--nav-width", Width)
+        .AddStyle("width", Width)
+        .AddStyle("min-width", Width)
         .Build();
 
     /// <summary>
