@@ -1,0 +1,87 @@
+.fluent-appbar {
+  --appbar-item-size: 68;
+  background-color: var(--colorNeutralBackground2);
+}
+
+  .fluent-appbar .fluent-appbar-item {
+    width: calc(var(--appbar-item-size) * 1px);
+    --appbar-active-indicator-width: 2px;
+    height: calc(var(--appbar-item-size) * 1px - 20px);
+  }
+
+    .fluent-appbar .fluent-appbar-item:hover {
+      background-color: var(--colorNeutralBackground5Hover);
+    }
+
+  .fluent-appbar-item a {
+    color: inherit;
+    text-decoration: none;
+    font-size: var(--fontSizeBase100);
+    line-height: var(--lineHeightBase100);
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+  }
+
+  .fluent-appbar-item a .fluent-stack-vertical {
+    padding: 4px 8px;
+    height: 100%;
+  }
+
+div[part="label"] {
+  color: var(--colorNeutralForeground2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+}
+
+.fluent-appbar[orientation=vertical] .fluent-appbar-item:not([inpopover]) a.active::before {
+  content: "";
+  position: absolute;
+  width: var(--appbar-active-indicator-width);
+  height: 100%;
+  background-color: var(--colorBrandForeground1);
+  border-radius: var(--borderRadiusSmall);
+  top: 0;
+  left: 2px;
+  right: unset;
+}
+
+.fluent-appbar[orientation=vertical] .fluent-appbar-item.fluent-appbar-item-local:not([inpopover]) a.active::before {
+    all: initial;
+}
+
+[dir='rtl'] .fluent-appbar[orientation=vertical] .fluent-appbar-item:not([inpopover]) a.active::before {
+    right:2px;
+    left: unset;
+}
+
+[dir='rtl'] .fluent-appbar[orientation=vertical] .fluent-appbar-item.fluent-appbar-item-local:not([inpopover]) a.active::before {
+    all: initial;
+}
+
+.fluent-popover-content .fluent-popover-body {
+    margin-top: 0 !important;
+}
+
+.fluent-appbar-item:hover svg[part="icon-rest"],
+.fluent-appbar-item:not(:hover):not(.active) svg[part="icon-active"],
+.fluent-appbar-item:not(:hover) a.active svg[part="icon-rest"],
+.fluent-appbar-item[overflow] {
+    display: none;
+}
+
+.fluent-appbar-item:not(:hover) .active svg[part="icon-active"] {
+    display: block;
+}
+
+.fluent-appbar-item[inpopover]:not(:hover) a.active svg[part="icon-active"] {
+    display: none;
+}
+
+.fluent-appbar-item[inpopover=true]:not(:hover) a.active svg[part="icon-rest"] {
+    display: block;
+}
