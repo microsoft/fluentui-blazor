@@ -167,13 +167,14 @@
       <Output TaskParameter="Lines" ItemName="McpServerJsonLines" />
     </ReadLinesFromFile>
 
-    <!-- Replace version in content and write to target -->
-    <PropertyGroup>
-      <McpServerJsonContent>@(McpServerJsonLines, '%0A')</McpServerJsonContent>
-      <McpServerJsonContentUpdated>$([System.Text.RegularExpressions.Regex]::Replace($(McpServerJsonContent), '"version":\s*"[^"]*"', '"version": "$(Version)"'))</McpServerJsonContentUpdated>
-    </PropertyGroup>
+    <!-- Replace version in each line and write to target -->
+    <ItemGroup>
+      <McpServerJsonLinesUpdated Include="@(McpServerJsonLines)">
+        <Text>$([System.Text.RegularExpressions.Regex]::Replace('%(Identity)', '"version":\s*"[^"]*"', '"version": "$(Version)"'))</Text>
+      </McpServerJsonLinesUpdated>
+    </ItemGroup>
 
-    <WriteLinesToFile File="$(McpServerJsonTarget)" Lines="$(McpServerJsonContentUpdated)" Overwrite="true" />
+    <WriteLinesToFile File="$(McpServerJsonTarget)" Lines="@(McpServerJsonLinesUpdated->'%(Text)')" Overwrite="true" />
 
     <Message Text="Updated server.json version to $(Version)" Importance="high" />
   </Target>
