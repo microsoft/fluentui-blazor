@@ -1,6 +1,7 @@
 ---
 title: Radio
 route: /Radio
+icon: RadioButton
 ---
 
 # RadioGroup and Radio

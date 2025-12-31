@@ -1,0 +1,90 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+/// <summary />
+public partial class FluentOverflowItem : FluentComponentBase, IAsyncDisposable
+{
+    //private bool _disposed;
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-overflow-item")
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the reference to the associated container.
+    /// </summary>
+    /// <value>The splitter.</value>
+    [CascadingParameter]
+    internal FluentOverflow? Owner { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to display. All first HTML elements are included in the items flow.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether this element does not participate in overflow logic, and will always be visible.
+    /// Defaults to false
+    /// </summary>
+    [Parameter]
+    public OverflowItemFixed Fixed { get; set; } = OverflowItemFixed.None;
+
+    /// <summary>
+    /// Gets True if this component is out of panel.
+    /// </summary>
+    public bool? Overflow { get; private set; }
+
+    /// <summary>
+    /// Gets the InnerText of <see cref="ChildContent"/>.
+    /// </summary>
+    public string Text { get; private set; } = string.Empty;
+
+    /// <summary />
+    public FluentOverflowItem(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
+
+    internal FluentOverflowItem(LibraryConfiguration configuration, bool isOverflow, string text) : this(configuration)
+    {
+        Overflow = isOverflow;
+        Text = text;
+    }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        if (Owner is not null)
+        {
+            await Owner.RegisterAsync(this);
+        }
+    }
+
+    /// <summary />
+    internal void SetProperties(bool? isOverflow, string? text)
+    {
+        Overflow = isOverflow == true ? isOverflow : null;
+        Text = text ?? string.Empty;
+    }
+
+    /// <summary />
+    public override async ValueTask DisposeAsync()
+    {
+        Owner?.UnregisterAsync(this);
+        await base.DisposeAsync();
+
+        GC.SuppressFinalize(this);
+    }
+}

@@ -1,6 +1,6 @@
 ---
-title: List / Combobox
-route: /List/Combobox
+title: Combobox
+route: /Lists/Combobox
 ---
 
 # Combobox

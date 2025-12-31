@@ -1,6 +1,7 @@
 ---
 title: Layout
 route: /Layout
+icon: ContentViewGallery
 ---
 
 # Layout

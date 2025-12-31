@@ -2,8 +2,8 @@
 title: Localization
 order: 0030
 category: 10|Get Started
-icon: Regular.Translate
 route: /localization
+icon: LocalLanguage
 ---
 
 # Localization

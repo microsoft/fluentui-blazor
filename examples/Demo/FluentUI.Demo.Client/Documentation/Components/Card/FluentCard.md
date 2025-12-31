@@ -1,6 +1,7 @@
 ---
 title: Card
 route: /Card
+icon: ContactCard
 ---
 
 # Card

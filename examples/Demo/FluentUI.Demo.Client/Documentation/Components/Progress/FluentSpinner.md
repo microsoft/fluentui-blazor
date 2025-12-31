@@ -1,6 +1,7 @@
 ---
 title: Spinner
 route: /spinner
+icon: ArrowClockwiseDashes
 ---
 
 # Spinner

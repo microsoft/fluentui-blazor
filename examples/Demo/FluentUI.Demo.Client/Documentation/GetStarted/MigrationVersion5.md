@@ -2,8 +2,8 @@
 title: Migrating to v5
 order: 0020
 category: 10|Get Started
-icon: Regular.ArrowBetweenUp
 route: /MigrationV5
+icon: WrenchScrewdriver
 ---
 
 # Changes introduced in this version

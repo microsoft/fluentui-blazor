@@ -1,6 +1,6 @@
 ---
-title: Theme / Light-Dark
-route: /theme/dark
+title: Light-Dark
+route: /Theme/Dark
 ---
 
 # Light-Dark Themes

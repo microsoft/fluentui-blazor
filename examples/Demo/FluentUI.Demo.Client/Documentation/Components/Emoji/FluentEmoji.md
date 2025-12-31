@@ -1,6 +1,7 @@
 ---
 title: Emoji
 route: /Emoji
+icon: EmojiSmileSlight
 ---
 
 # Emoji

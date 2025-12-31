@@ -1,0 +1,75 @@
+.fluent-nav .fluent-navcategoryitem {
+  display: flex;
+  text-transform: none;
+  position: relative;
+  justify-content: start;
+  align-items: center;
+  gap: var(--spacingVerticalL);
+  padding: var(--spacingVerticalMNudge) var(--spacingHorizontalS) var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge);
+  background-color: var(--colorNeutralBackground4);
+  border-radius: var(--borderRadiusMedium);
+  color: var(--colorNeutralForeground2);
+  text-decoration-line: none;
+  border: none;
+  cursor: pointer;
+  transition-duration: var(--durationFaster);
+  transition-timing-function: var(--curveLinear);
+  transition-property: background;
+  width: 100%;
+}
+
+.fluent-nav[density="small"] .fluent-navcategoryitem {
+  padding: var(--spacingVerticalXS) var(--spacingHorizontalS) var(--spacingVerticalXS) var(--spacingHorizontalMNudge);
+}
+
+  .fluent-nav .fluent-navcategoryitem:hover {
+    background-color: var(--colorNeutralBackground4Hover);
+  }
+
+ .fluent-nav .fluent-navcategoryitem > .expand-icon {
+  color: var(--colorNeutralForeground2);
+  height: 20px;
+  margin-inline-start: auto;
+  transition: transform var(--durationNormal) var(--curveDecelerateMid);
+}
+
+  .fluent-nav .fluent-navcategoryitem > .expand-icon.expanded {
+    transform: rotate(180deg);
+  }
+
+  [dir="rtl"] .fluent-nav .fluent-navcategoryitem > .expand-icon.expanded {
+    transform: rotate(-180deg);
+  }
+
+  .fluent-nav .fluent-navcategoryitem:has(+ .fluent-navsubitemgroup .active) > .expand-icon:not(.user-interacted) {
+    transform: rotate(180deg);
+  }
+
+  [dir="rtl"] .fluent-nav .fluent-navcategoryitem:has(+ .fluent-navsubitemgroup .active) > .expand-icon:not(.user-interacted) {
+    transform: rotate(-180deg);
+  }
+
+.fluent-nav .fluent-navsubitemgroup {
+  height: 0;
+  min-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+  .fluent-nav .fluent-navsubitemgroup.expanded {
+    height: auto;
+    min-height: auto;
+    opacity: 1;
+    overflow: visible;
+  }
+
+  .fluent-nav .fluent-navsubitemgroup:not(.user-interacted):has(.active) {
+    height: auto;
+    min-height: auto;
+    opacity: 1;
+    overflow: visible;
+  }
+
+  .fluent-nav .fluent-navsubitemgroup:has(.fluent-navsubitem) .fluent-navsubitem {
+    padding-inline-start: 46px;
+  }

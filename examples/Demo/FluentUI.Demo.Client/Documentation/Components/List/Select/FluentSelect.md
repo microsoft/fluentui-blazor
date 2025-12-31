@@ -1,6 +1,6 @@
 ---
-title: List / Select
-route: /List/Select
+title: Select
+route: /Lists/Select
 ---
 
 # Select

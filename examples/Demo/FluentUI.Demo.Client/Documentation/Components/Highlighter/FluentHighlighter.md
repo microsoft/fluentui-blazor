@@ -1,6 +1,7 @@
 ---
 title: Highlighter
 route: /Highlighter
+icon: Highlight
 ---
 
 # Highlighter

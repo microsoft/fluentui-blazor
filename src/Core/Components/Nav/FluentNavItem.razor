@@ -1,0 +1,37 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+@if (!string.IsNullOrEmpty(Href))
+{
+	<NavLink fuib
+			 id="@Id"
+			 class="@ClassValue"
+			 style="@StyleValue"
+			 href="@Href"
+			 title="@Tooltip"
+			 target="@Target.ToAttributeValue()"
+			 rel="@(Target is not null ? "noopener noreferrer" : string.Empty)"
+			 ActiveClass="@ActiveClass"
+			 Match="@Match"
+			 @attributes="@AdditionalAttributes">
+		@RenderIcon
+		@ChildContent
+	</NavLink>
+}
+else
+{
+	<button fuib
+			id="@Id"
+			class="@ClassValue"
+			style="@StyleValue"
+			href="@Href"
+			title="@Tooltip"
+			target="@Target.ToAttributeValue()"
+			rel="@(Target is not null ? "noopener noreferrer" : string.Empty)"
+			@onclick="OnClickHandlerAsync"
+			@attributes="@AdditionalAttributes">
+		@RenderIcon
+		@ChildContent
+	</button>
+}
