@@ -34,32 +34,6 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
     ];
   }
 
-  /**
-   * Animates the nav panel open.
-   */
-  export function AnimateNavOpen(navContainerId: string): void {
-    const navContainer = document.getElementById(navContainerId)?.parentElement as HTMLElement;
-    if (!navContainer) return;
-
-    navContainer.style.display = '';
-    void navContainer.offsetHeight;
-  }
-
-  /**
-   * Animates the nav panel closed.
-   */
-  export function AnimateNavClose(navContainerId: string): void {
-    const navContainer = document.getElementById(navContainerId)?.parentElement as HTMLElement;
-    if (!navContainer) return;
-
-    void navContainer.offsetHeight;
-
-    navContainer.addEventListener('transitionend', (e) => {
-      if (e.propertyName === 'transform') {
-        navContainer.style.display = 'none';
-      }
-    }, { once: true });
-  }
 
   /**
    * Animates expansion of a category group element using Web Animations API.

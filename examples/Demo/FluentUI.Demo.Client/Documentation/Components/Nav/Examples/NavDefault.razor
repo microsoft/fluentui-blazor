@@ -2,107 +2,119 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inject IDialogService DialogService
 
-<h3>NavDefault</h3>
-
 <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="15">
-	<FluentNav @ref="@nav"
-			   UseHeader="@_useHeader"
-			   UseIcons="@_useIcons"
-			   UseSingleExpanded="@(!_useMultipleExpanded)"
-			   AppTitle="Contoso"
-			   AppIcon="@(new Icons.Regular.Size32.Person())"
-			   Density="@_density">
-		<FluentNavItem Href="/Nav" Icon="@(new Icons.Regular.Size20.Board())">Dashboard</FluentNavItem>
-		<FluentNavItem OnClick="@ShowInformationAsync" Icon="@(new Icons.Regular.Size20.MegaphoneLoud())">Announcements</FluentNavItem>
-		<FluentNavItem Disabled="true" Href="@_link">Employee Spotlight</FluentNavItem>
-		<FluentNavItem OnClick="@ShowInformationAsync" Icon="@(new Icons.Regular.Size20.PersonSearch())">Profile Search</FluentNavItem>
-		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.PersonMoney())">Performance Reviews</FluentNavItem>
 
-		<FluentNavSectionHeader Title="Employee Management" />
+    <FluentNav @ref="@nav"
+               UseIcons="@UseIcons"
+               UseSingleExpanded="@(!UseMultipleExpanded)"
+               AppTitle="Contoso"
+               AppIcon="@(new Icons.Regular.Size32.Person())"
+               Density="@Density">
 
-		<FluentNavCategory Title="Job Postings" Icon="@(new Icons.Regular.Size20.NotePin())">
+        <!-- Navigation Items -->
+        <FluentNavItem Href="/Nav" Icon="@(new Icons.Regular.Size20.Board())">
+            Dashboard
+        </FluentNavItem>
+        <FluentNavItem OnClick="@ShowInformationAsync" Icon="@(new Icons.Regular.Size20.MegaphoneLoud())">
+            Announcements
+        </FluentNavItem>
+        <FluentNavItem Disabled="true" Href="@FluentUIBlazor_Url">Employee Spotlight</FluentNavItem>
+        <FluentNavItem OnClick="@ShowInformationAsync" Icon="@(new Icons.Regular.Size20.PersonSearch())">
+            Profile Search
+        </FluentNavItem>
+        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.PersonMoney())">
+            Performance Reviews
+        </FluentNavItem>
 
-			<FluentNavItem OnClick="@ShowInformationAsync">Openings</FluentNavItem>
-			<FluentNavItem OnClick="@ShowInformationAsync">Submissions</FluentNavItem>
+        <!-- Employee Management -->
+        <FluentNavSectionHeader Title="Employee Management" />
 
-		</FluentNavCategory>
-		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.People())">Interviews</FluentNavItem>
+        <FluentNavCategory Title="Job Postings" Icon="@(new Icons.Regular.Size20.NotePin())">
+            <FluentNavItem OnClick="@ShowInformationAsync">Openings</FluentNavItem>
+            <FluentNavItem OnClick="@ShowInformationAsync">Submissions</FluentNavItem>
+        </FluentNavCategory>
 
-		<FluentNavSectionHeader Title="Benefits" />
-		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.HeartPulse())">Health Plans</FluentNavItem>
+        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.People())">
+            Interviews
+        </FluentNavItem>
 
-		<FluentNavCategory Id="retirement" Title="Retirement" Icon="@(new Icons.Regular.Size20.Person())">
+        <!-- Benefits -->
+        <FluentNavSectionHeader Title="Benefits" />
 
-			<FluentNavItem>Plan Information</FluentNavItem>
-			<FluentNavItem>Fund Performance</FluentNavItem>
+        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.HeartPulse())">
+            Health Plans
+        </FluentNavItem>
 
-		</FluentNavCategory>
+        <FluentNavCategory Id="retirement" Title="Retirement" Icon="@(new Icons.Regular.Size20.Person())">
+            <FluentNavItem>
+                Plan Information
+            </FluentNavItem>
+            <FluentNavItem>
+                Fund Performance
+            </FluentNavItem>
+        </FluentNavCategory>
 
-		<FluentDivider />
+        <!-- Divider -->
+        <FluentDivider />
 
-		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.BoxMultiple())">Training Programs</FluentNavItem>
+        <!-- Training Programs -->
+        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.BoxMultiple())">
+            Training Programs
+        </FluentNavItem>
 
-		<FluentNavCategory Title="Career Development" Icon="@(new Icons.Regular.Size20.PeopleStar())">
+        <FluentNavCategory Title="Career Development" Icon="@(new Icons.Regular.Size20.PeopleStar())">
+            <FluentNavItem>Openings</FluentNavItem>
+            <FluentNavItem>Submissions</FluentNavItem>
+        </FluentNavCategory>
 
-			<FluentNavItem>Openings</FluentNavItem>
-			<FluentNavItem>Submissions</FluentNavItem>
+        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.ArrowTrendingLines())">
+            Workforce Data
+        </FluentNavItem>
+        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.DocumentBulletListMultiple())">
+            Reports
+        </FluentNavItem>
+    </FluentNav>
 
-		</FluentNavCategory>
+    <FluentStack Orientation="Orientation.Vertical" VerticalGap="5" Wrap="true">
+        <FluentRadioGroup @bind-Value="@Density" Label="Density" Wrap="true">
+            <FluentRadio Label="Medium" Value="NavDensity.Medium" />
+            <FluentRadio Label="Small" Value="NavDensity.Small" />
+        </FluentRadioGroup>
 
-		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.ArrowTrendingLines())">Workforce Data</FluentNavItem>
-		<FluentNavItem Href="@_link" Icon="@(new Icons.Regular.Size20.DocumentBulletListMultiple())">Reports</FluentNavItem>
-	</FluentNav>
+        <FluentSwitch @bind-Value="@UseIcons" Label="Use Icons" />
 
-	<FluentStack Orientation="Orientation.Vertical" VerticalGap="5">
-		<FluentRadioGroup @bind-Value="@_density" Label="Density" Wrap="true">
-			<FluentRadio Label="Medium" Value="NavDensity.Medium" />
-			<FluentRadio Label="Small" Value="NavDensity.Small" />
-		</FluentRadioGroup>
+        <FluentSwitch @bind-Value="@UseMultipleExpanded" Label="Allow multiple expanded categories" />
 
-		<FluentSwitch @bind-Value="@_useIcons" Label="Use Icons" />
-		<FluentSwitch @bind-Value="@_useMultipleExpanded" Label="Allow multiple expanded categories" />
-		<FluentSwitch @bind-Value="@_useHeader" Label="Use Header" />
-
-		<FluentButton Disabled="@(!nav!.UseHeader)" OnClick="ToggleNavAsync">Toggle Navigation</FluentButton>
-
-		<FluentText>Programmatically control expanded/collapsed state</FluentText>
-		<span>
-			<FluentButton OnClick="ExpandRetirementAsync">Expand 'Retirement'</FluentButton>
-			<FluentButton OnClick="CollapseRetirementAsync">Collapse 'Retirement'</FluentButton>
-		</span>
-	</FluentStack>
+        <FluentText>Programmatically control expanded/collapsed state</FluentText>
+        <FluentStack Orientation="Orientation.Horizontal">
+            <FluentButton OnClick="ExpandRetirementAsync">Expand 'Retirement'</FluentButton>
+            <FluentButton OnClick="CollapseRetirementAsync">Collapse 'Retirement'</FluentButton>
+        </FluentStack>
+    </FluentStack>
 
 </FluentStack>
 
 @code
 {
-	private FluentNav nav = default!;
-	NavDensity _density;
-	bool _useHeader = false;
-	bool _useIcons = true;
-	bool _useMultipleExpanded = true;
-	private readonly string? _link = "https://fluentui-blazor-v5.azurewebsites.net/";
+    const string FluentUIBlazor_Url = "https://fluentui-blazor-v5.azurewebsites.net/";
+    FluentNav nav = default!;
 
-	private async Task ShowInformationAsync()
-	{
-		await DialogService.ShowInfoAsync("This is a message");
-	}
+    NavDensity Density;
+    bool UseIcons = true;
+    bool UseMultipleExpanded = true;
 
-	private async Task ToggleNavAsync()
-	{
-		if (nav.UseHeader)
-		{
-			await nav.ToggleNavAsync();
-		}
-	}
+    async Task ShowInformationAsync()
+    {
+        await DialogService.ShowInfoAsync("This is a message");
+    }
 
-	private async Task ExpandRetirementAsync()
-	{
-		await nav.ExpandCategoryAsync("retirement");
-	}
+    async Task ExpandRetirementAsync()
+    {
+        await nav.ExpandCategoryAsync("retirement");
+    }
 
-	private async Task CollapseRetirementAsync()
-	{
-		await nav.CollapseCategoryAsync("retirement");
-	}
+    async Task CollapseRetirementAsync()
+    {
+        await nav.CollapseCategoryAsync("retirement");
+    }
 }

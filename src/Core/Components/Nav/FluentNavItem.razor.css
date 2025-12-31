@@ -1,6 +1,7 @@
 .fluent-nav .fluent-navitem,
 .fluent-nav .fluent-navsubitem {
   display: flex;
+  background-color: var(--colorNeutralBackground4);
   text-transform: none;
   position: relative;
   justify-content: start;
