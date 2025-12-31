@@ -1,0 +1,156 @@
+:root {
+  --nav-width: 260px;
+}
+
+.fluent-nav-container {
+  color: var(--colorNeutralForeground1);
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+  min-width: var(--nav-width);
+  transition: transform 0.2s cubic-bezier(0.33, 0, 0.67, 1),
+              opacity 0.2s cubic-bezier(0.33, 0, 0.67, 1);
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+  .fluent-nav-container.collapsed {
+    transform: translate3d(calc(var(--nav-width) * -1), 0, 0);
+    opacity: 0;
+  }
+
+  [dir="rtl"] .fluent-nav-container.collapsed {
+    transform: translate3d(var(--nav-width), 0, 0);
+  }
+
+.fluent-nav {
+  overflow: hidden;
+  max-width: 100vw;
+  height: auto;
+  max-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: var(--colorNeutralForeground1);
+  position: relative;
+  border-right: var(--strokeWidthThin) solid var(--colorTransparentStroke);
+  left: 0px;
+  background-color: var(--colorNeutralBackground4);
+  align-items: unset;
+  right: auto;
+  width: var(--nav-width);
+  min-width: var(--nav-width);
+  opacity: 1;
+  transform: translate3d(0px, 0px, 0px);
+}
+
+  .fluent-nav > .nav-header {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--spacingVerticalXXL) var(--spacingHorizontalXXL) var(--spacingVerticalS);
+    gap: var(--spacingHorizontalS);
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+    margin: unset;
+    padding-block: 5px;
+    padding-inline-start: 14px;
+  }
+
+  .fluent-nav > .nav-body {
+    flex: 1 1 0%;
+    align-self: stretch;
+    position: relative;
+    z-index: 1;
+    overflow: auto;
+    padding: 0 var(--spacingHorizontalXS) 0 var(--spacingHorizontalMNudge);
+    flex-direction: column;
+    display: flex;
+    align-items: unset;
+    row-gap: var(--spacingVerticalXXS);
+    padding-bottom: calc(var(--spacingHorizontalXXL) + 1px);
+  }
+
+  [dir="rtl"] .fluent-nav > .nav-body {
+    padding: 0 var(--spacingHorizontalMNudge) 0 var(--spacingHorizontalXS);
+  }
+
+.fluent-nav .appitem {
+  display: flex;
+  text-transform: none;
+  position: relative;
+  justify-content: start;
+  text-align: left;
+  border-radius: var(--borderRadiusMedium);
+  color: var(--colorNeutralForeground2);
+  text-decoration-line: none;
+  border: none;
+  cursor: pointer;
+  transition-duration: var(--durationFaster);
+  transition-timing-function: var(--curveLinear);
+  transition-property: background;
+  gap: 10px;
+  padding: var(--spacingVerticalS) var(--spacingHorizontalS) var(--spacingVerticalS) var(--spacingHorizontalMNudge);
+  align-items: center;
+  margin-inline-start: -6px;
+  margin-inline-end: 0px;
+}
+
+  .fluent-nav .appitem:hover {
+    background-color: var(--colorNeutralBackground4Hover);
+  }
+
+@keyframes animate_bar {
+  0% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: var(--colorCompoundBrandForeground1);
+  }
+}
+
+.fluent-nav .fluent-navitem.active::after,
+.fluent-nav .fluent-navsubitem.active::after,
+.fluent-nav .fluent-navcategoryitem.active::after {
+  width: 4px;
+  height: 20px;
+  background-color: var(--colorCompoundBrandForeground1);
+  margin-inline-start: -16px;
+  animation-name: animate_bar;
+  animation-timing-function: var(--curveLinear);
+  animation-fill-mode: both;
+  animation-duration: var(--durationFaster);
+  content: "";
+  position: absolute;
+  border-radius: var(--borderRadiusCircular);
+}
+
+.fluent-nav .fluent-navsubitem.active::after {
+  margin-inline-start: -52px;
+}
+
+.fluent-nav .fluent-navitem:focus-visible,
+.fluent-nav .fluent-navsubitem:focus-visible {
+  outline: var(--strokeWidthThick) solid var(--colorStrokeFocus2);
+  outline-offset: calc(var(--strokeWidthThick) * -1);
+}
+
+.fluent-nav .fluent-navitem.active,
+.fluent-nav .fluent-navsubitem.active,
+.fluent-nav .fluent-navcategoryitem.active {
+  font-weight: var(--fontWeightSemibold);
+}
+
+.fluent-nav .fluent-navitem.disabled,
+.fluent-nav .fluent-navsubitem.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fluent-nav fluent-divider {
+  margin: var(--spacingVerticalXS) 0;
+}

@@ -1,6 +1,7 @@
 ---
 title: RatingDisplay
 route: /rating-display
+icon: Star
 ---
 
 # Rating display

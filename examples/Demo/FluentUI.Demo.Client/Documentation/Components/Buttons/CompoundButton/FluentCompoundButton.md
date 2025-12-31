@@ -1,6 +1,6 @@
 ---
 title: CompoundButton
-route: /Button/CompoundButton 
+route: /Buttons/CompoundButton 
 ---
 
 # CompoundButton

@@ -1,0 +1,427 @@
+﻿@using Bunit.TestDoubles
+@using Microsoft.AspNetCore.Components.Authorization
+@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentUITestContext
+
+@code {
+	public FluentNavItemTests()
+	{
+		JSInterop.Mode = JSRuntimeMode.Loose;
+		Services.AddFluentUIComponents();
+	}
+
+	[Fact]
+	public void FluentNavItem_Renders_As_Link_When_Href_Provided()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<a ", cut.Markup);
+		Assert.Contains("href=\"https://example.com\"", cut.Markup);
+		Assert.Contains("Test Item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_Renders_As_Button_When_No_Href_Provided()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem>Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<button", cut.Markup);
+		Assert.Contains("Test Item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_With_OnClick_Handler()
+	{
+		// Arrange & Act
+		bool clicked = false;
+
+		var cut = Render(@<FluentNav>
+			<FluentNavItem OnClick="@(() => { clicked = true; })" Id="custom-id">Test Item</FluentNavItem>
+			</FluentNav>
+		);
+
+		// Assert
+		Assert.NotNull(cut);
+		var button = cut.Find("#custom-id");
+		button.Click();
+
+		Assert.True(clicked);
+	}
+
+	[Fact]
+	public void FluentNavItem_With_OnClick_Handler_And_Href()
+	{
+		var cut = Render(@<FluentNav>
+			<FluentNavItem OnClick="@(() => { })" Href="https://example.com" Id="custom-id">Test Item</FluentNavItem>
+			</FluentNav>
+		);
+
+		// Assert
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<a ", cut.Markup);
+		Assert.Contains("href=\"https://example.com\"", cut.Markup);
+		Assert.Contains("Test Item", cut.Markup);
+	}
+
+	// [Fact]
+	// public void FluentNavItem_Renders_With_Active_State()
+	// {
+	// 	// Arrange & Act
+	// 	var cut = Render(@<FluentNav>
+	// 		<FluentNavItem Href="https://example.com" Active="true">Active Item</FluentNavItem>
+	// 	</FluentNav>);
+
+	// 	// Assert
+	// 	Assert.NotNull(cut);
+	// 	Assert.Contains("active", cut.Markup);
+	// }
+
+	[Fact]
+	public void FluentNavItem_Renders_With_Disabled_State()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Href="https://example.com" Disabled="true">Disabled Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("disabled", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_Renders_With_Disabled_State_As_Button()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Disabled="true">Disabled Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("disabled", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_Renders_With_Disabled_State_As_Button_And_Clicked()
+	{
+		// Arrange & Act
+		bool clicked = false;
+
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Disabled="true" OnClick="@(() => { clicked = true; })" Id="custom-id">Test Item</FluentNavItem>
+			</FluentNav>
+		);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("disabled", cut.Markup);
+
+		var button = cut.Find("#custom-id");
+		button.Click();
+		Assert.False(clicked);
+	}
+
+	[Fact]
+	public void FluentNavItem_Renders_With_CustomClass()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Href="https://example.com" Class="custom-nav-item">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("custom-nav-item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_Throws_When_Not_Child_Of_Nav()
+	{
+		// Arrange - Create a derived FluentNav (which should fail the exact type check)
+		var derivedNav = new DerivedFluentNav(Services.GetRequiredService<LibraryConfiguration>());
+
+		// Arrange & Act & Assert
+		var ex = Assert.Throws<InvalidOperationException>(() =>
+		{
+			Render(@<CascadingValue Value="derivedNav"><FluentNavItem Href="https://example.com">Test Item</FluentNavItem></CascadingValue>);
+		});
+
+		Assert.Contains("can only be used as a direct child of", ex.Message);
+		Assert.Contains("FluentNav", ex.Message);
+	}
+
+	[Fact]
+	public void FluentNavItem_Renders_With_Small_Density()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav Density="NavDensity.Small">
+			<FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("density=", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_Renders_With_Icon()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Icon="@Samples.Icons.Info">Test Item</FluentNavItem>
+		</FluentNav>);
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<svg class=\"icon\" style=\"width: 24px;", cut.Markup);
+		Assert.Contains("Test Item", cut.Markup);
+	}
+
+	// Renders without icon if FluentNav.UseIsons = false
+	[Fact]
+	public void FluentNavItem_Renders_Without_Icon_When_Not_UseIcons()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav UseIcons="false">
+			<FluentNavItem Icon="@Samples.Icons.Info">Test Item</FluentNavItem>
+		</FluentNav>);
+		// Assert
+		Assert.NotNull(cut);
+		Assert.DoesNotContain("<svg class=\"icon\"", cut.Markup);
+		Assert.Contains("Test Item", cut.Markup);
+	}
+
+	// Write a test for checking the _isActive state of FluentNavItem when the Href matches the current URI
+	[Fact]
+	public void FluentNavItem_IsActive_When_Href_Matches_Current_URI()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/test", true);
+
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Id="link" Icon="@Samples.Icons.Info" Href="https://localhost/test">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+
+		Assert.Contains("active", cut.Markup);
+	}
+
+	[Fact]
+	public async Task FluentNavItem_DisposeAsync()
+	{
+		// Arrange & Act
+
+		var calledTimes = 0;
+
+		var cut = Render(@<FluentNav>
+				<FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+			</FluentNav>
+		);
+
+		// Assert
+		await cut.FindComponent<FluentNavItem>().Instance.DisposeAsync();
+		cut.Dispose();
+
+		Assert.Equal(0, calledTimes);
+
+	}
+
+	// Tests for FluentNavItem when used as a subitem (within FluentNavCategory)
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Renders_As_Link_When_Href_Provided()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem Href="https://example.com">Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<a ", cut.Markup);
+		Assert.Contains("href=\"https://example.com\"", cut.Markup);
+		Assert.Contains("Sub Item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Renders_As_Button_When_No_Href_Provided()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem>Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<button", cut.Markup);
+		Assert.Contains("Sub Item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Renders_With_Disabled_State()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem Href="https://example.com" Disabled="true">Disabled Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("disabled", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Renders_With_CustomClass()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem Href="https://example.com" Class="custom-sub-item">Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("custom-sub-item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Renders_With_Small_Density()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav Density="NavDensity.Small">
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem Href="https://example.com">Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("density=", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Does_Not_Render_Icon()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category">
+				<FluentNavItem Icon="@Samples.Icons.Info">Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>
+	);
+
+		// Assert
+		Assert.NotNull(cut);
+
+		var i = cut.FindComponent<FluentNavItem>();
+		Assert.DoesNotContain("<svg class=\"icon\"", i.Markup);
+		Assert.Contains("Sub Item", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_Throws_When_Category_Is_Derived_Type()
+	{
+		// Arrange - Create a derived FluentNavCategory (which should fail the exact type check)
+		var derivedCategory = new DerivedFluentNavCategory(Services.GetRequiredService<LibraryConfiguration>())
+		{
+			Owner = new FluentNav(Services.GetRequiredService<LibraryConfiguration>())
+		};
+
+		// Arrange & Act & Assert
+		var ex = Assert.Throws<InvalidOperationException>(() =>
+		{
+			Render(@<CascadingValue Name="Category" Value="derivedCategory"><FluentNav><FluentNavItem Href="https://example.com">Sub Item</FluentNavItem></FluentNav></CascadingValue>);
+		});
+
+		Assert.Contains("can only be used as a direct child of", ex.Message);
+		Assert.Contains("FluentNav", ex.Message);
+	}
+
+	[Fact]
+	public void FluentNavItem_OnLocationChanged_Updates_Active_State()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/other", true);
+
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Id="link" Href="https://localhost/test">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert initial state - should not be active
+		Assert.DoesNotContain("active", cut.Find("#link").ClassName);
+
+		// Act - Navigate to the matching URL
+		navMan.NavigateTo("https://localhost/test", true);
+
+		// Assert - should now be active after location change
+		Assert.Contains("active", cut.Find("#link").ClassName);
+	}
+
+	[Fact]
+	public void FluentNavItem_OnLocationChanged_Updates_Active_State_When_Navigating_Away()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/test", true);
+
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Id="link" Href="https://localhost/test">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert initial state - should be active
+		Assert.Contains("active", cut.Find("#link").ClassName);
+
+		// Act - Navigate away from the matching URL
+		navMan.NavigateTo("https://localhost/other", true);
+
+		// Assert - should no longer be active after location change
+		Assert.DoesNotContain("active", cut.Find("#link").ClassName);
+	}
+
+	[Fact]
+	public void FluentNavItem_As_SubItem_OnLocationChanged_Notifies_Category()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/other", true);
+
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Title="Test Category" Expanded="true">
+				<FluentNavItem Id="sublink" Href="https://localhost/test">Sub Item</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		// Assert initial state - subitem should not be active
+		var subItem = cut.FindComponent<FluentNavItem>();
+		Assert.False(subItem.Instance.Active);
+
+		// Act - Navigate to the matching URL
+		navMan.NavigateTo("https://localhost/test", true);
+
+		// Assert - subitem should now be active
+		Assert.True(subItem.Instance.Active);
+	}
+}

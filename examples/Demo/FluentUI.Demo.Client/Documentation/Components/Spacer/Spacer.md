@@ -1,6 +1,7 @@
 ---
 title: Spacer
 route: /Spacer
+icon: Spacebar
 ---
 
 # Spacer

@@ -1,0 +1,36 @@
+.fluent-nav .fluent-navitem,
+.fluent-nav .fluent-navsubitem {
+  display: flex;
+  text-transform: none;
+  position: relative;
+  justify-content: start;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--spacingVerticalL);
+  padding: var(--spacingVerticalMNudge) var(--spacingHorizontalS) var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge);
+  border-radius: var(--borderRadiusMedium);
+  color: var(--colorNeutralForeground2);
+  text-decoration-line: none;
+  border: none;
+  cursor: pointer;
+  transition-duration: var(--durationFaster);
+  transition-timing-function: var(--curveLinear);
+  transition-property: background;
+  width: 100%;
+}
+
+  .fluent-nav[density="small"] .fluent-navitem,
+  .fluent-nav[density="small"] .fluent-navsubitem {
+    padding: var(--spacingVerticalXS) var(--spacingHorizontalS) var(--spacingVerticalXS) var(--spacingHorizontalMNudge);
+  }
+
+  .fluent-nav .fluent-navitem:hover,
+  .fluent-nav .fluent-navsubitem:hover {
+    background-color: var(--colorNeutralBackground4Hover);
+  }
+
+[dir="rtl"] .fluent-nav .fluent-navitem,
+[dir="rtl"] .fluent-nav .fluent-navsubitem {
+  text-align: right;
+  padding: var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge) var(--spacingVerticalMNudge) var(--spacingHorizontalS);
+}

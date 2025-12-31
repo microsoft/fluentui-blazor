@@ -1,8 +1,9 @@
 ---
+hidden: true
 title: Home
 order: 0000
 category: 10|Get Started
-icon: Regular.Home
+icon: Home
 route: /
 ---
 

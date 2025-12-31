@@ -1,7 +1,7 @@
-
 ---
 title: Tooltip
 route: /Tooltip
+icon: TooltipQuote
 ---
 
 # Tooltip

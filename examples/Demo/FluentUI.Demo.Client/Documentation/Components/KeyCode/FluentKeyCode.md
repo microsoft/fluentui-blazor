@@ -1,6 +1,7 @@
 ---
 title: KeyCode
 route: /KeyCode
+icon: Keyboard
 ---
 
 # KeyCode

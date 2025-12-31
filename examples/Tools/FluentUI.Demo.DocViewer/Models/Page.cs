@@ -11,14 +11,14 @@ namespace FluentUI.Demo.DocViewer.Models;
 /// <summary>
 /// Represents a page of a markdown document.
 /// </summary>
-public record Page
+public partial record Page
 {
     private const string DefaultPageGroupIdentifier = "[Default]";
     private readonly DocViewerService _docViewerService;
     private IEnumerable<PageHtmlHeader>? _pageHtmlHeaders;
 
     /// <summary>
-    /// 
+    ///
     ///   ---
     ///   category: 20|Components
     ///   title: Button
@@ -26,7 +26,7 @@ public record Page
     ///   hidden: true
     ///   ---
     ///   My content
-    /// 
+    ///
     /// </summary>
     /// <param name="service"></param>
     /// <param name="resourceName"></param>
@@ -65,7 +65,7 @@ public record Page
         }
         else
         {
-            Category = ("50", "Components");    // Default category
+            Category = ("20", "Components");    // Default category
         }
 
         // PageGroup
@@ -213,7 +213,7 @@ public record Page
     private static Dictionary<string, string> ExtractHeaderContent(string input)
     {
         var dictionary = new Dictionary<string, string>();
-        var regex = new Regex(@"---\s*(.*?)\s*---", RegexOptions.Singleline);
+        var regex = ExtractHeaderRegEx();
         var match = regex.Match(input);
 
         if (match.Success)
@@ -276,4 +276,7 @@ public record Page
 
         return $"FILE NOT FOUND: ${resourceName}";
     }
+
+    [GeneratedRegex(@"---\s*(.*?)\s*---", RegexOptions.Singleline)]
+    private static partial Regex ExtractHeaderRegEx();
 }

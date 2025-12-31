@@ -1,6 +1,7 @@
 ---
 title: Skeleton
 route: /Skeleton
+icon: Shortpick
 ---
 
 # Skeleton

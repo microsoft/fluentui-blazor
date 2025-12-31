@@ -1,7 +1,7 @@
-
 ---
 title: TreeView
 route: /TreeView
+icon: TextBulletListTree
 ---
 
 # TreeView

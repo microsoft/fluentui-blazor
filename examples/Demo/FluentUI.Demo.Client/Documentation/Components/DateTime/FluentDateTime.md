@@ -1,6 +1,7 @@
 ---
 title: Date and Time pickers
 route: /DateTime/[Default]
+icon: Calendar
 ---
 
 # Date and Time pickers

@@ -1,6 +1,7 @@
 ---
 title: Splitter
 route: /Splitter
+icon: SplitHorizontal
 ---
 
 # Splitter

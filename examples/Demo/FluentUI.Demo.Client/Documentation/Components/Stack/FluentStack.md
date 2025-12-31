@@ -1,6 +1,7 @@
 ---
 title: Stack
 route: /Stack
+icon: Stack
 ---
 
 # Stack
