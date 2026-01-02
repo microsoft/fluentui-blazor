@@ -2,8 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -116,14 +114,8 @@ public partial class FluentAppBar : FluentComponentBase
 
     /// <summary />
     [JSInvokable]
-    [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "<Pending>")]
-    public async Task OverflowRaisedAsync(string value)
+    public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
-        if (JsonSerializer.Deserialize<OverflowItem[]>(value) is not OverflowItem[] items)
-        {
-            return;
-        }
-
         foreach (var item in items)
         {
             if (item.Id is not null)
@@ -194,9 +186,13 @@ public partial class FluentAppBar : FluentComponentBase
         }
     }
 
-    private class OverflowItem
+    /// <summary />
+    public class OverflowItem
     {
+        /// <summary />
         public string? Id { get; set; }
+
+        /// <summary />
         public bool Overflow { get; set; }
     }
 }
