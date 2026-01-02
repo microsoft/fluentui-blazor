@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "McpServer with Inspector": {
+      "commandName": "Project",
+      "executablePath": "cmd",
+      "commandLineArgs": "/c npx @modelcontextprotocol/inspector dotnet run --project \"$(ProjectDir)\\Microsoft.FluentUI.AspNetCore.McpServer.csproj\" --configuration Debug",
+      "workingDirectory": "$(ProjectDir)",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

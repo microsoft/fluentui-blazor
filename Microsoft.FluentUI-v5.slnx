@@ -24,10 +24,16 @@
     </Project>
     <Project Path="src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" />
   </Folder>
+  <Folder Name="/src/Tools/">
+    <Project Path="src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" />
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Core/Components.Tests.csproj" />
     <Project Path="tests/Integration/Components.IntegrationTests.csproj">
       <Build Solution="Debug|*" Project="false" />
     </Project>
+  </Folder>
+  <Folder Name="/tests/Tools/">
+    <Project Path="tests/Tools/McpServer.Tests/Microsoft.FluentUI.AspNetCore.McpServer.Tests.csproj" />
   </Folder>
 </Solution>
