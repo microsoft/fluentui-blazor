@@ -15,6 +15,8 @@
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.13.2" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.13.2" />
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.8.0" />
+    <!-- For MCP Apps -->
+    <PackageVersion Include="ModelContextProtocol" Version="0.4.0-preview.3" />
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="2.2.2" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
@@ -48,6 +50,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion9)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion9)" />
