@@ -1,23 +1,13 @@
 ---
 title: CounterBadge
-route: /CounterBadge
-icon: NumberCircle5
+route: /Badges/CounterBadge
 ---
 
 # CounterBadge
-
-The `CounterBadge` component is a visual indicator that communicates a numerical count.
-It uses numbers, color, and icons for quick recognition and is placed near the relavant content.
-
-Typically a `CounterBadge` 'wraps' a component, such as a `FluentButton`, to indicate a count (>0) that represents a status.
-
-There are 9 possible positions for a badge to attach to the content it wraps:
-
-{{ BadgePositions SourceCode=false }}
+A counter badge is a badge that displays a numerical count.
 
 ## Best practices
-
-The same principles that apply to [badges](/Badge) apply to `CounterBadge` as well.
+The principles mentioned on the [overview](/Badges) page apply to a `CounterBadge` as well.
 
 ### Numbers on Badge
 CounterBadges are intented to have short, small numerical values or status information.
@@ -25,18 +15,14 @@ An `OverflowCount` can be set as the maximum number that is shown in the Counter
 It will add a `+` sign to the end of the number to indacate that the number is larger than the `OverflowCount`.
 
 ### Content
-
-The CounterBadge can only show a count (through the `Count` parameter).
-If you need to add textual content, you can use the `Badge` component.
+The CounterBadge can only show a count (through the `Count` parameter). If you need to add textual content, you can use the `Badge` component.
 
 ## Default
-
 - First example shows an empty counter badge. 
 - Second example shows a counter badge with a count.
-- Third example shows a count higher than the overflow (default is 99)
+- Third example shows an overflow (`Count` is higher than the `OverflowCount` (default is 99))
 
 {{ CounterBadgeDefault }}
-
 
 ## Attached to content
 A counter badge can be attached to any content. The default position is above-end. The position can be changed using the `Positioning` parameter.
@@ -45,12 +31,16 @@ The `OffestX` and `OffsetY` allow for tuning the positioning further.
 {{ CounterBadgeAttached SourceCode=false}}
 
 ## ShowEmpty
-A counter badge will by default be shown even if the count value is 0 or not set (null) or `ShowWhen` evaluates to `true` (see below) .
+A counter badge will by default be shown as an empty badge if the count value is 0 or not set (null), as can be seen in the first badge in the Default example above, or when `ShowWhen` evaluates to `true` (see below).
 
 This behavior can be changed by setting the `ShowEmpty` parameter to `false`.
-See on the code tab below that there are actually two `FluentCounterBadge` components. The component with `ShowEmpty="false"` will not render anything.
+
+- First example `ShowEmpty="true"`. 
+- Second example `ShowEmpty="false"` (see code tab).
 
 {{ CounterBadgeShowEmpty }}
+
+_When `ShowEmpty` is set to `false` and the `Count` is greater than 0 or `ShowWhen` evaluates to true, the `CounterBadge` will be shown as normal_
 
 ## ShowZero
 A counter badge can be shown even if the count is zero.
@@ -58,20 +48,20 @@ A counter badge can be shown even if the count is zero.
 - First example `ShowZero="true"`. 
 - Second example `ShowZero="false"`.
 
-
 {{ CounterBadgeShowZero }}
+
+_Because of the default behavior, an empty badge is shown for the second example._
 
 ## ShowWhen
 A counter badge can be shown when a specific condition (lambda expression) is met.
 For instance, `ShowWhen=@(c => c > 4)` will show the badge only when the count is greater than 4.
 
-- First example `Count="3"`. With rule set like above it will not show a count in the badge.
-- Second example `Count="5"`. With rule set like above it will show a count in the badge.
-- Third Example Count="3"`. With rule set like above and `ShowEmpty="false"`, nothing will be shown (see code tab).
-
-_Because of the default behavior, an empty badge will be shown for the first example._
+- First example `Count="5"`. With rule set like above it will show a count in the badge.
+- Second example `Count="3"`. With rule set like above it will not show a count in the badge.
 
 {{ CounterBadgeShowWhen }}
+
+_Because of the default behavior, an empty badge is shown for the first example._
 
 ## Dot
 A counter badge can be shown as a dot. This can be used, for example, to indicate there are new items but the actual number is not really important.
@@ -91,7 +81,6 @@ An `Icon` can be shown in the start or end slot (or both). The color of the icon
 {{ CounterBadgeIcons }}
 
 ## Appearance
-
 The counter badge appearance can be set to a value from the `BadgeAppearance` enumeration.
 **CounterBadge does not support Ghost and Tint appearances**.
 
@@ -108,7 +97,7 @@ The counter badge size be set to a value from  the `BadgeSize` enumeration.
 
 {{ CounterBadgeSizes }}
 
-## API FluentButton
+## API FluentCounterBadge
 
 {{ API Type=FluentCounterBadge }}
 

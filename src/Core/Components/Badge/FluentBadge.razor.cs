@@ -98,14 +98,14 @@ public partial class FluentBadge : FluentComponentBase
     public Positioning? Positioning { get; set; }
 
     /// <summary>
-    /// Gets or sets how much the badge overlaps the content it wraps on the x-axis
+    /// Gets or sets how much the badge overlaps the content it wraps on the x-axis.
     /// Only applied when <see cref="ChildContent"/> is not null
     /// </summary>
     [Parameter]
     public sbyte? OffsetX { get; set; }
 
     /// <summary>
-    /// Gets or sets how much the badge overlaps the content it wraps on the y-axis
+    /// Gets or sets how much the badge overlaps the content it wraps on the y-axis.
     /// Only applied when <see cref="ChildContent"/> is not null
     /// </summary>
     [Parameter]
@@ -133,7 +133,7 @@ public partial class FluentBadge : FluentComponentBase
             BadgeColor.Informative => "var(--colorNeutralForeground3)",
             BadgeColor.Subtle => "var(--colorNeutralForeground1)",
             BadgeColor.Warning => "var(--colorNeutralForeground1Static)",
-            _ => "var(--colorNeutralForegroundOnBrand)"
+            _ => "var(--colorNeutralForegroundOnBrand)",
         };
     }
 }

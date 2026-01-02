@@ -4,12 +4,12 @@
 
 using Microsoft.FluentUI.AspNetCore.Components;
 
-namespace FluentUI.Demo.Client.Documentation.Components.CounterBadge.Examples;
-public partial class CounterBadgeAttached
+namespace FluentUI.Demo.Client.Documentation.Components.Badges.Badge.Examples;
+public partial class BadgeAttached
 {
-    private string? count = "3";
-    private string? offsetX;
-    private string? offsetY;
+    private string? content = "Badge";
+    private string? offsetX; // = "30";
+    private string? offsetY; // = "5";
 
     private Positioning? _positioning;
 
