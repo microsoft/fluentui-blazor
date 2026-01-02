@@ -165,20 +165,4 @@ public partial class FluentOverflow : FluentComponentBase
         await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Dispose", Id);
         _dotNetHelper?.Dispose();
     }
-
-    /// <summary>
-    /// Represents an item that may be subject to overflow handling, typically used in scenarios where content or data
-    /// exceeds a predefined limit.
-    /// </summary>
-    public class OverflowItem
-    {
-        /// <summary />
-        public string? Id { get; set; }
-
-        /// <summary />
-        public bool? Overflow { get; set; }
-
-        /// <summary />
-        public string? Text { get; set; }
-    }
 }

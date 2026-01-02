@@ -116,6 +116,11 @@ public partial class FluentAppBar : FluentComponentBase
     [JSInvokable]
     public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
+        if (items is null || items.Length == 0)
+        {
+            return;
+        }
+
         foreach (var item in items)
         {
             if (item.Id is not null)
@@ -184,15 +189,5 @@ public partial class FluentAppBar : FluentComponentBase
             var filterdAppBarItems = AppsOverflow.Where(i => i.Text.Contains(_searchTerm, StringComparison.CurrentCultureIgnoreCase)).ToList();
             _searchResults = filterdAppBarItems;
         }
-    }
-
-    /// <summary />
-    public class OverflowItem
-    {
-        /// <summary />
-        public string? Id { get; set; }
-
-        /// <summary />
-        public bool Overflow { get; set; }
     }
 }
