@@ -4,7 +4,7 @@
 
 <AddTag Name="fluent-counter-badge-container" TagWhen="@(() => _isAttached )">
     @ChildContent
-	@if (ShowEmpty || Dot)
+	@if (ShowEmpty || Dot || GetCount() is not null || (ShowZero ?? false) || (ShowWhen?.Invoke(Count) == true))
 	{
 		<fluent-counter-badge id="@Id"
 		fuib
