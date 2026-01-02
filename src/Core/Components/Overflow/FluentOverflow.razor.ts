@@ -7,10 +7,6 @@ export namespace Microsoft.FluentUI.Blazor.Overflow {
     Text: string;
   }
 
-  interface DotNetHelper {
-    invokeMethodAsync(methodName: string, ...args: any[]): Promise<any>;
-  }
-
   interface OverflowElement extends HTMLElement {
     overflowSize?: number | null;
   }

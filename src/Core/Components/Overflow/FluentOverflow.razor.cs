@@ -2,8 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -130,7 +128,6 @@ public partial class FluentOverflow : FluentComponentBase
     [JSInvokable]
     public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
-        var items = JsonSerializer.Deserialize<OverflowItem[]>(value);
 
         if (items == null || items.Length == 0)
         {
