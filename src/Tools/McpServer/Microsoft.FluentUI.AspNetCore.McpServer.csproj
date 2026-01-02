@@ -1,0 +1,152 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
+    <RootNamespace>Microsoft.FluentUI.AspNetCore.McpServer</RootNamespace>
+
+    <SignAssembly>False</SignAssembly>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugType>embedded</DebugType>
+
+    <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+
+    <!-- Write the generated files to a specific folder -->
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+
+    <!-- Path to the generated documentation JSON file -->
+    <McpDocumentationJsonPath>$(MSBuildThisFileDirectory)FluentUIComponentsDocumentation.json</McpDocumentationJsonPath>
+  </PropertyGroup>
+
+  <!-- Expose internals to test project -->
+  <ItemGroup>
+    <InternalsVisibleTo Include="Microsoft.FluentUI.AspNetCore.McpServer.Tests" />
+  </ItemGroup>
+
+  <!-- Release -->
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <Optimize>True</Optimize>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <!-- NuGet Package Configuration -->
+  <PropertyGroup>
+    <PackageId>Microsoft.FluentUI.AspNetCore.McpServer</PackageId>
+    <Version>5.0.0-preview.6</Version>
+    <PackageIcon>icon.png</PackageIcon>
+    <Authors>
+      Microsoft;dvoituron;aclerbois;vnbaaij
+    </Authors>
+    <Description>
+      MCP (Model Context Protocol) server for Fluent UI Blazor component documentation.
+      Provides AI assistants with access to component details, parameters, events, methods,and enums.
+    </Description>
+    <PackageTags>mcp;model-context-protocol;fluent-ui;blazor;documentation;ai;copilot</PackageTags>
+    <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+
+    <!-- Configure as .NET Tool for NuGet -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>fluentui-mcp</ToolCommandName>
+
+    <!-- MCP Server package type for NuGet discovery -->
+    <PackageType>McpServer</PackageType>
+  </PropertyGroup>
+
+  <!-- Include README and MCP server manifest in package -->
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include=".mcp\server.json" Pack="true" PackagePath=".mcp\" />
+    <None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- Embed the pre-generated JSON documentation as a resource -->
+
+  <!-- Code Analysis -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Meziantou.Analyzer">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- MCP SDK -->
+  <ItemGroup>
+    <PackageReference Include="ModelContextProtocol" />
+  </ItemGroup>
+
+  <!-- Dependencies - Note: LoxSmoke.DocXml is no longer needed -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+
+  <!-- Reference to the FluentUI Components for API extraction (still needed for type information) -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+  </ItemGroup>
+
+  <!-- Exclude duplicate XML documentation file -->
+  <ItemGroup>
+    <Content Remove="..\..\Tools\FluentUI.Demo.DocApiGen\Microsoft.FluentUI.AspNetCore.Components.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="FluentUIComponentsDocumentation.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- 
+    PreBuild target to generate the MCP documentation JSON.
+    This runs DocApiGen to extract documentation from the FluentUI Components assembly
+    and creates a JSON file that is then embedded as a resource.
+  -->
+  <Target Name="GenerateMcpDocumentation" BeforeTargets="BeforeBuild" Condition="!Exists('$(McpDocumentationJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true'">
+    <PropertyGroup>
+      <DocApiGenProject>$(MSBuildThisFileDirectory)..\..\..\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj</DocApiGenProject>
+      <FluentUIComponentsDll>$(MSBuildThisFileDirectory)..\..\Core\bin\$(Configuration)\net9.0\Microsoft.FluentUI.AspNetCore.Components.dll</FluentUIComponentsDll>
+      <FluentUIComponentsXml>$(MSBuildThisFileDirectory)..\..\Core\bin\$(Configuration)\net9.0\Microsoft.FluentUI.AspNetCore.Components.xml</FluentUIComponentsXml>
+    </PropertyGroup>
+
+    <Message Text="Generating MCP documentation JSON..." Importance="high" />
+
+    <!-- Build the FluentUI Components first to ensure DLL and XML exist -->
+    <MSBuild Projects="$(MSBuildThisFileDirectory)..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" Targets="Build" Properties="Configuration=$(Configuration)" />
+
+    <!-- Build DocApiGen -->
+    <MSBuild Projects="$(DocApiGenProject)" Targets="Build" Properties="Configuration=$(Configuration)" />
+
+    <!-- Run DocApiGen to generate MCP JSON -->
+    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpDocumentationJsonPath)&quot; --format json --mode all" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
+
+    <Message Text="MCP documentation JSON generated at $(McpDocumentationJsonPath)" Importance="high" />
+  </Target>
+
+  <!-- Clean target to remove generated documentation -->
+  <Target Name="CleanMcpDocumentation" AfterTargets="Clean">
+    <Message Text="Cleaning MCP documentation JSON at $(McpDocumentationJsonPath)..." Importance="high" Condition="Exists('$(McpDocumentationJsonPath)')" />
+    <Delete Files="$(McpDocumentationJsonPath)" Condition="Exists('$(McpDocumentationJsonPath)')" />
+    <Message Text="MCP documentation JSON cleaned." Importance="high" Condition="Exists('$(McpDocumentationJsonPath)')" />
+  </Target>
+
+</Project>

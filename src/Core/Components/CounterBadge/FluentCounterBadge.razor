@@ -2,9 +2,9 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentBadge
 
-<AddTag Name="fluent-counter-badge-container" TagWhen="@(() => _isAttached && (ShowWhen?.Invoke(Count) ?? true))">
+<AddTag Name="fluent-counter-badge-container" TagWhen="@(() => _isAttached )">
     @ChildContent
-	@if (ShowZero || (ShowWhen?.Invoke(Count) ?? true))
+	@if (ShowEmpty || Dot || GetCount() is not null || (ShowZero ?? false) || (ShowWhen?.Invoke(Count) == true))
 	{
 		<fluent-counter-badge id="@Id"
 		fuib

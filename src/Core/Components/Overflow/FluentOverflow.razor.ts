@@ -76,7 +76,7 @@ export namespace Microsoft.FluentUI.Blazor.Overflow {
     const items = container.querySelectorAll<OverflowElement>(localQuerySelector + ":not([fixed])");
 
     const fixedItemsFromSelector = container.querySelectorAll<OverflowElement>(localQuerySelector + "[fixed]");
-    const otherFixedItems = container.querySelectorAll<OverflowElement>(":scope > [fixed]:not(.fluent-overflow-item)");
+    const otherFixedItems = container.querySelectorAll<OverflowElement>(":scope > [fixed]:not(" + localQuerySelector + ")");
     const fixedItems = [
       ...Array.from(fixedItemsFromSelector),
       ...Array.from(otherFixedItems)
