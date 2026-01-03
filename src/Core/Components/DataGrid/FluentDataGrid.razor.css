@@ -77,6 +77,11 @@
     opacity: var(--fluent-data-grid-header-opacity);
 }
 
+[dir=rtl] * ::deep .resize-handle {
+    right: unset;
+    left: 0;
+}
+
 .header {
     padding: 0;
     z-index: 3;

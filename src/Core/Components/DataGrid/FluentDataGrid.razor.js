@@ -251,31 +251,32 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
         div.addEventListener('pointercancel', removeBorder);
         div.addEventListener('pointerleave', removeBorder);
 
-        document.addEventListener('pointermove', (e) =>
+        document.addEventListener('pointermove', (e) => 
             requestAnimationFrame(() => {
-                gridElement.style.tableLayout = 'fixed';
+            gridElement.style.tableLayout = 'fixed';
 
-                if (curCol) {
-                    const diffX = isRTL ? pageX - e.pageX : e.pageX - pageX;
-                    const column = columns.find(({ header }) => header === curCol);
+            if (curCol) {
+                const rawDiffX = e.pageX - pageX;
+                const diffX = isRTL ? -rawDiffX : rawDiffX;
+                const column = columns.find(({ header }) => header === curCol);
 
-                    column.size = parseInt(Math.max(parseInt(column.header.style.minWidth), curColWidth + diffX), 10) + 'px';
+                column.size = parseInt(Math.max(parseInt(column.header.style.minWidth), curColWidth + diffX), 10) + 'px';
 
-                    columns.forEach((col) => {
-                        if (col.size.startsWith('minmax')) {
-                            col.size = parseInt(col.header.clientWidth, 10) + 'px';
-                        }
-                    });
-
-                    if (isGrid) {
-                        gridElement.style.gridTemplateColumns = columns
-                            .map(({ size }) => size)
-                            .join(' ');
+                columns.forEach((col) => {
+                    if (col.size.startsWith('minmax')) {
+                        col.size = parseInt(col.header.clientWidth, 10) + 'px';
                     }
-                    else {
-                        curCol.style.width = column.size;
-                    }
+                });
+
+                if (isGrid) {
+                    gridElement.style.gridTemplateColumns = columns
+                        .map(({ size }) => size)
+                        .join(' ');
                 }
+                else {
+                    curCol.style.width = column.size;
+                }
+            }
             })
         );
 
