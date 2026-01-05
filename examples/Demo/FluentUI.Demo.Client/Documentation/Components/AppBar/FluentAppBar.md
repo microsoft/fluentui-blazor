@@ -1,6 +1,7 @@
 ---
 title: AppBar
 route: /AppBar
+icon: AppsList
 ---
 
 # AppBar

@@ -2,6 +2,9 @@
   --appbar-item-size: 68;
   background-color: var(--colorNeutralBackground2);
 }
+  .fluent-appbar fluent-popover-b > div {
+    background-color: var(--colorNeutralBackground2);
+  }
 
   .fluent-appbar .fluent-appbar-item {
     width: calc(var(--appbar-item-size) * 1px);
@@ -63,10 +66,6 @@
     all: initial;
 }
 
-.fluent-popover-content .fluent-popover-body {
-    margin-top: 0 !important;
-}
-
 .fluent-appbar-item:hover svg[part="icon-rest"],
 .fluent-appbar-item:not(:hover):not(.active) svg[part="icon-active"],
 .fluent-appbar-item:not(:hover) a.active svg[part="icon-rest"],
@@ -85,3 +84,5 @@
 .fluent-appbar-item[inpopover=true]:not(:hover) a.active svg[part="icon-rest"] {
     display: block;
 }
+
+
