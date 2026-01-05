@@ -34,3 +34,7 @@
   text-align: right;
   padding: var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge) var(--spacingVerticalMNudge) var(--spacingHorizontalS);
 }
+
+button.fluent-navitem {
+  background-color: inherit;
+}
