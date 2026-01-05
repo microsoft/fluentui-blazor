@@ -47,26 +47,9 @@ public partial class FluentNav : FluentComponentBase
     protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("width", Width)
         .AddStyle("min-width", Width)
+        .AddStyle("--nav-bg-color", BackgroundColor)
+        .AddStyle("--nav-bg-color-hover", BackgroundColorHover)
         .Build();
-
-    /// <summary>
-    /// Gets or sets the icon to display besides the app title.
-    /// </summary>
-    [Parameter]
-    public Icon? AppIcon { get; set; }
-
-    /// <summary>
-    /// Gets or sets the title to display at the top of the menu.
-    /// </summary>
-    [Parameter]
-    public string? AppTitle { get; set; }
-
-    /// <summary>
-    /// Gets or sets the link to use for the app item.
-    /// Defaults to homepage ("/").
-    /// </summary>
-    [Parameter]
-    public string AppLink { get; set; } = "/";
 
     /// <summary>
     /// Gets or sets whether to enable using icons in the nav items.
@@ -91,6 +74,20 @@ public partial class FluentNav : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color of the component.
+    /// The default value is "var(--colorNeutralBackground4)".
+    /// </summary>
+    [Parameter]
+    public string? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color of the component when hovered.
+    /// The default value is "var(--colorNeutralBackground4Hover)".
+    /// </summary>
+    [Parameter]
+    public string? BackgroundColorHover { get; set; }
 
     /// <summary>
     /// Gets or sets the CSS width value to apply to the component.

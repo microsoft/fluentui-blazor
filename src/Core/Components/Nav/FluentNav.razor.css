@@ -10,7 +10,7 @@
   position: relative;
   border-right: var(--strokeWidthThin) solid var(--colorTransparentStroke);
   left: 0px;
-  background-color: var(--colorNeutralBackground4);
+  background-color: var(--nav-bg-color, var(--colorNeutralBackground4));
   align-items: unset;
   right: auto;
   opacity: 1;
@@ -47,7 +47,7 @@
 }
 
   .fluent-nav .appitem:hover {
-    background-color: var(--colorNeutralBackground4Hover);
+    background-color: var(--nav-bg-hover, var(--colorNeutralBackground4Hover));
   }
 
 @keyframes animate_bar {

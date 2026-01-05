@@ -28,44 +28,6 @@
     }
 
     [Fact]
-    public void FluentNav_Renders_AppTitle()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav AppTitle="My App">
-        </FluentNav>);
-
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("My App", cut.Markup);
-        Assert.Contains("appitem", cut.Markup);
-    }
-
-    [Fact]
-    public void FluentNav_Does_Not_Render_AppTitle_When_Empty()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav AppTitle="">
-        </FluentNav>);
-
-        // Assert
-        Assert.NotNull(cut);
-        Assert.DoesNotContain("appitem", cut.Markup);
-    }
-
-    [Fact]
-    public void FluentNav_Renders_With_CustomAppLink()
-    {
-        // Arrange & Act
-        var cut = Render(@<FluentNav AppTitle="My App" AppLink="/custom-link">
-        </FluentNav>);
-
-        // Assert
-        Assert.NotNull(cut);
-        Assert.Contains("href=\"/custom-link\"", cut.Markup);
-    }
-
-
-    [Fact]
     public void FluentNav_Renders_With_CustomId()
     {
         // Arrange & Act
