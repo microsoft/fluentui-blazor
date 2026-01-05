@@ -119,7 +119,7 @@ public partial class FluentAppBar : FluentComponentBase
     [JSInvokable]
     public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
-        if (items is null)
+        if (items is null || items.Length == 0)
         {
             return;
         }
