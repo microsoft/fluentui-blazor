@@ -1,27 +1,29 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentBadge
-
-<AddTag Name="fluent-counter-badge-container" TagWhen="@(() => _isAttached )">
-    @ChildContent
-	@if (ShowEmpty || Dot || GetCount() is not null || (ShowZero ?? false) || (ShowWhen?.Invoke(Count) == true))
+@{
+	var render = ShowEmpty || Dot || GetCount() is not null || (ShowZero ?? false) || (ShowWhen?.Invoke(Count) == true);
+}
+<AddTag Name="fluent-counter-badge-container" TagWhen="@(() => _isAttached && render)" style="@ContainerStyle">
+	@ChildContent
+	@if (render)
 	{
 		<fluent-counter-badge id="@Id"
-		fuib
-		class="@ClassValue"
-		style="@StyleValue"
-		appearance="@Appearance.ToAttributeValue()"
-		color="@Color.ToAttributeValue()"
-		shape="@Shape.ToAttributeValue()"
-		size="@Size.ToAttributeValue()"
-		positioning="@Positioning.ToAttributeValue()"
-		offset-x="@(OffsetX)"
-		offset-y="@(OffsetY)"
-		count="@GetCount()"
-		overflow-count="@OverflowCount"
-		show-zero="@ShowZero"
-		dot="@Dot"
-		@attributes="@AdditionalAttributes">
+							  fuib
+							  class="@ClassValue"
+							  style="@StyleValue"
+							  appearance="@Appearance.ToAttributeValue()"
+							  color="@Color.ToAttributeValue()"
+							  shape="@Shape.ToAttributeValue()"
+							  size="@Size.ToAttributeValue()"
+							  positioning="@Positioning.ToAttributeValue()"
+							  offset-x="@(OffsetX)"
+							  offset-y="@(OffsetY)"
+							  count="@GetCount()"
+							  overflow-count="@OverflowCount"
+							  show-zero="@ShowZero"
+							  dot="@Dot"
+							  @attributes="@AdditionalAttributes">
 			@if (IconStart != null)
 			{
 				<FluentIcon Value="@IconStart" Slot="@FluentSlot.Start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
@@ -32,5 +34,5 @@
 			}
 		</fluent-counter-badge>
 	}
-	</AddTag>
+</AddTag>
 

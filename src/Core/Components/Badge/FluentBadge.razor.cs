@@ -111,6 +111,12 @@ public partial class FluentBadge : FluentComponentBase
     [Parameter]
     public sbyte? OffsetY { get; set; }
 
+    /// <summary>
+    /// Gets or sets the CSS styles applied to the badge container.
+    /// </summary>
+    [Parameter]
+    public string? ContainerStyle { get; set; }
+
     /// <summary />
     protected override void OnParametersSet()
     {
