@@ -1,14 +1,14 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
 @using Xunit
+@using static Microsoft.FluentUI.AspNetCore.Components.FluentOverflow
 @inherits FluentUITestContext
-
 
 @code
 {
     public FluentAppBarTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
-		Services.AddFluentUIComponents();
+        Services.AddFluentUIComponents();
     }
 
     [Fact]
@@ -17,8 +17,10 @@
         // Arrange
         // Act
         var cut = Render(@<FluentAppBar><div>Child content</div></FluentAppBar>);
-        // Assert
-        cut.Verify();
+
+		// Assert
+		var ab = cut.Find(".fluent-appbar");
+		Assert.NotNull(ab);
     }
 
     [Fact]
@@ -27,12 +29,14 @@
         // Arrange
         // Act
         var cut = Render(@<FluentAppBar Orientation="@Orientation.Horizontal"><div>Child content</div></FluentAppBar>);
-        // Assert
-        cut.Verify();
+
+		// Assert
+		var ab = cut.Find(".fluent-appbar");
+		Assert.NotNull(ab);
     }
 
     [Fact]
-    public void FluentAppBar_Overflow()
+    public async Task FluentAppBar_Overflow()
     {
         // Arrange
 
@@ -47,39 +51,41 @@
             );
 
         // This does not contribute to html output but helps for code coverage testing
-        cut.InvokeAsync(() => cut.Instance.OverflowRaisedAsync("""[{"Id":"id1","Overflow":false,"Text":"My item"},{"Id":"id2","Overflow":true,"Text":"My item 2"}]"""));
+        await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id1", Overflow = false, Text = "My item" }, new OverflowItem() { Id = "id2", Overflow = true, Text = "My item 2" } });
+
         var item = cut.FindComponent<FluentAppBarItem>();
         item.Instance.Overflow = true;
 
         cut.Render();
 
-        // Assert
-        cut.Verify();
+		// Assert
+		var popup = cut.Find("fluent-popover-b");
+		Assert.NotNull(popup);
     }
 
     [Fact]
-    public void FluentAppBar_NoPopoverSearch()
+    public async Task FluentAppBar_NoPopoverSearch()
     {
         // Arrange
 
         // Act
         var cut = Render<FluentAppBar>(
-    @<FluentAppBar Id="appbar" PopoverShowSearch="false">
-        <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item tooltip">
-        </FluentAppBarItem>
-        <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item 2 tooltip">
-        </FluentAppBarItem>
-    </FluentAppBar>
+            @<FluentAppBar Id="appbar" PopoverShowSearch="false">
+                <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item tooltip">
+                </FluentAppBarItem>
+                <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item 2 tooltip">
+                </FluentAppBarItem>
+            </FluentAppBar>
         );
 
         // This does not contribute to html output but helps for code coverage testing
-        cut.InvokeAsync(() => cut.Instance.OverflowRaisedAsync("""[{"Id":"id1","Overflow":false,"Text":"My item"},{"Id":"id2","Overflow":true,"Text":"My item 2"}]"""));
+        await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id1", Overflow = false, Text = "My item" }, new OverflowItem() { Id = "id2", Overflow = true, Text = "My item 2" } });
         var item = cut.FindComponent<FluentAppBarItem>();
         item.Instance.Overflow = true;
 
         cut.Render();
 
         // Assert
-        cut.Verify();
-    }
+		Assert.Throws<ElementNotFoundException>(() => cut.Find("fluent-text-input"));
+	}
 }

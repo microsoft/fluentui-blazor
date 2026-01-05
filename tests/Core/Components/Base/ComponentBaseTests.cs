@@ -25,7 +25,6 @@ public class ComponentBaseTests : Bunit.BunitContext
         typeof(DialogOptions),
         typeof(FluentRadio<>),  // TODO: To update
         typeof(FluentTab),      // Excluded because the Tab content in rendered in the parent FluentTabs component
-        typeof(FluentOverflow),
     ];
 
     /// <summary>
@@ -35,6 +34,7 @@ public class ComponentBaseTests : Bunit.BunitContext
     [
         typeof(FluentNavCategory),
         typeof(FluentNavItem),
+        typeof(FluentAppBarItem),
     ];
 
     /// <summary>
@@ -65,7 +65,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentNavItem), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
         { typeof(FluentNavCategory), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
         { typeof(FluentNavSectionHeader), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
-
+        { typeof(FluentAppBarItem), Loader.Default.WithCascadingValue(new InternalAppBarContext(new FluentAppBar(new LibraryConfiguration()))) },
     };
 
     /// <summary />
