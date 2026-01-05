@@ -10,9 +10,9 @@ A counter badge is a badge that displays a numerical count.
 The principles mentioned on the [overview](/Badges) page apply to a `CounterBadge` as well.
 
 ### Numbers on Badge
-CounterBadges are intented to have short, small numerical values or status information.
+CounterBadges are intended to have short, small numerical values or status information.
 An `OverflowCount` can be set as the maximum number that is shown in the CounterBadge.
-It will add a `+` sign to the end of the number to indacate that the number is larger than the `OverflowCount`.
+It will add a `+` sign to the end of the number to indicate that the number is larger than the `OverflowCount`.
 
 ### Content
 The CounterBadge can only show a count (through the `Count` parameter). If you need to add textual content, you can use the `Badge` component.
