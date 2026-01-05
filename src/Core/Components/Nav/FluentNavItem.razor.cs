@@ -204,6 +204,11 @@ public partial class FluentNavItem : FluentComponentBase
         {
             await OnClick.InvokeAsync(args);
         }
+
+        if (Owner is not null && Owner.OnItemClick.HasDelegate)
+        {
+            await Owner.OnItemClick.InvokeAsync(this);
+        }
     }
 
     /// <summary>

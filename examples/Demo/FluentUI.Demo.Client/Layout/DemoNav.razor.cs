@@ -15,6 +15,8 @@ public partial class DemoNav
     [Parameter]
     public FluentLayoutHamburger? Hamburger { get; set; }
 
+    public IEnumerable<NavItem> NavItems { get; private set; } = [];
+
     protected override void OnInitialized()
     {
         var pages = DocViewerService.Pages.Where(i => !i.Hidden);
@@ -76,7 +78,14 @@ public partial class DemoNav
         NavItems = navItems;
     }
 
-    public IEnumerable<NavItem> NavItems { get; private set; } = [];
+    private async Task OnNavItemClickAsync(FluentNavItem item)
+    {
+        if (Hamburger is not null && !string.IsNullOrEmpty(item.Href))
+        {
+            NavigationManager.NavigateTo(item.Href);
+            await Hamburger.HideAsync();
+        }
+    }
 
     public record NavItem(string Title, string Route, string? Icon, string Order, IEnumerable<NavItem> Items);
 

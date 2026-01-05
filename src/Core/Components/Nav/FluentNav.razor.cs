@@ -90,6 +90,12 @@ public partial class FluentNav : FluentComponentBase
     public string? BackgroundColorHover { get; set; }
 
     /// <summary>
+    /// Gets or sets the callback that is invoked when a nav item is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentNavItem> OnItemClick { get; set; }
+
+    /// <summary>
     /// Gets or sets the CSS width value to apply to the component.
     /// Default value is 260px.
     /// </summary>

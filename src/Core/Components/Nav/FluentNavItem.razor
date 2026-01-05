@@ -12,6 +12,7 @@
 			 title="@Tooltip"
 			 target="@Target.ToAttributeValue()"
 			 rel="@(Target is not null ? "noopener noreferrer" : string.Empty)"
+             @onclick="OnClickHandlerAsync"
 			 ActiveClass="@ActiveClass"
 			 Match="@Match"
 			 @attributes="@AdditionalAttributes">
