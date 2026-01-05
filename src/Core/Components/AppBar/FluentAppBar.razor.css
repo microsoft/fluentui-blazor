@@ -29,7 +29,7 @@
     height: 100%;
   }
 
-div[part="label"] {
+.fluent-appbar-item div[part="label"] {
   color: var(--colorNeutralForeground2);
   overflow: hidden;
   text-overflow: ellipsis;
