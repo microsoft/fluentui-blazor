@@ -72,7 +72,8 @@
   <!-- Include README and MCP server manifest in package -->
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
-    <None Include=".mcp\server.json" Pack="true" PackagePath=".mcp\" />
+    <None Include=".mcp\server.json" />
+    <None Include="$(IntermediateOutputPath).mcp\server.json" Pack="true" PackagePath=".mcp\" />
     <None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
@@ -147,6 +148,35 @@
     <Message Text="Cleaning MCP documentation JSON at $(McpDocumentationJsonPath)..." Importance="high" Condition="Exists('$(McpDocumentationJsonPath)')" />
     <Delete Files="$(McpDocumentationJsonPath)" Condition="Exists('$(McpDocumentationJsonPath)')" />
     <Message Text="MCP documentation JSON cleaned." Importance="high" Condition="Exists('$(McpDocumentationJsonPath)')" />
+  </Target>
+
+  <!-- 
+    Target to update version in server.json before packing.
+    This copies server.json to intermediate directory and replaces version placeholders.
+  -->
+  <Target Name="UpdateMcpServerJsonVersion" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <McpServerJsonSource>$(MSBuildThisFileDirectory).mcp\server.json</McpServerJsonSource>
+      <McpServerJsonTarget>$(IntermediateOutputPath).mcp\server.json</McpServerJsonTarget>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(IntermediateOutputPath).mcp" />
+
+    <!-- Read the source file -->
+    <ReadLinesFromFile File="$(McpServerJsonSource)">
+      <Output TaskParameter="Lines" ItemName="McpServerJsonLines" />
+    </ReadLinesFromFile>
+
+    <!-- Replace version in each line and write to target -->
+    <ItemGroup>
+      <McpServerJsonLinesUpdated Include="@(McpServerJsonLines)">
+        <Text>$([System.Text.RegularExpressions.Regex]::Replace('%(Identity)', '"version":\s*"[^"]*"', '"version": "$(Version)"'))</Text>
+      </McpServerJsonLinesUpdated>
+    </ItemGroup>
+
+    <WriteLinesToFile File="$(McpServerJsonTarget)" Lines="@(McpServerJsonLinesUpdated->'%(Text)')" Overwrite="true" />
+
+    <Message Text="Updated server.json version to $(Version)" Importance="high" />
   </Target>
 
 </Project>
