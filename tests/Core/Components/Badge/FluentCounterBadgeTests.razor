@@ -68,7 +68,7 @@
 		Assert.Throws<ArgumentException>(() =>
 		{
 			// Arrange && Act
-			var cut = Render(@<FluentCounterBadge Appearance="@value" />);
+			Render(@<FluentCounterBadge Appearance="@value" />);
 		});
 	}
 
@@ -99,7 +99,7 @@
 		Assert.Throws<ArgumentException>(() =>
 		{
 			// Arrange && Act
-			var cut = Render(@<FluentCounterBadge BackgroundColor="mediumpurple" Color="BadgeColor.Danger" />);
+			Render(@<FluentCounterBadge BackgroundColor="mediumpurple" Color="BadgeColor.Danger" />);
 		});
 	}
 
@@ -135,7 +135,7 @@
 		Assert.Throws<ArgumentException>(() =>
 		{
 			// Arrange && Act
-			var cut = Render(@<FluentCounterBadge Shape="@value" />);
+			Render(@<FluentCounterBadge Shape="@value" />);
 		});
 	}
 
@@ -391,5 +391,18 @@
 		var cb = cut.Find("fluent-counter-badge");
 		Assert.NotNull(cb);
 	}
+
+	[Fact]
+	public void FluentCounterBadge_ShowDotTrue_ShowEmptyFalse()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentCounterBadge Dot="true" ShowEmpty="false"></FluentCounterBadge> );
+
+		// Assert
+		var cb = cut.Find("fluent-counter-badge");
+		Assert.NotNull(cb);
+	}
 }
+
+
 
