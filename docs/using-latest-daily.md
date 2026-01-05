@@ -24,6 +24,18 @@ or else in the global NuGet.config. See [configuring NuGet behavior](https://lea
 Alternatively, if you are using Visual Studio, you can [Install and manage packages in Visual Studio](https://learn.microsoft.com/nuget/consume-packages/install-use-packages-visual-studio#package-sources)
 and add the feed `https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json` there.
 
+## Restore error
+
+If you get the error **NU3018** `The author primary signature's signing certificate is not trusted by the trust provider`
+or **NU3027** `The signature should be timestamped to enable long-term signature validity after the certificate has expired`,
+you can work around it by adding the following to your project file:
+
+```xml
+<PropertyGroup>
+  <NoWarn>NU3018;NU3027</NoWarn>
+</PropertyGroup>
+```
+
 ## NuGet’s Central Package Management (CPM)
 
 If you are using the NuGet’s Central Package Management (CPM) feature, you probably need to set `ManagePackageVersionsCentrally=false`
