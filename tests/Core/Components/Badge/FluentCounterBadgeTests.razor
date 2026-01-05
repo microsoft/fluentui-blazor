@@ -366,6 +366,7 @@
 		var cut = Render(@<FluentCounterBadge ShowEmpty="false" ShowZero="false" Count="0"></FluentCounterBadge> );
 
 		// Assert
+		Assert.Throws<ElementNotFoundException>(() => cut.Find("fluent-counter-badge-container"));
 		Assert.Throws<ElementNotFoundException>(() => cut.Find("fluent-counter-badge"));
 	}
 
