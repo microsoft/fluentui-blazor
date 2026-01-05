@@ -113,7 +113,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
         .Build();
 
     /// <summary />
-    protected async Task OnClickHandlerAsync(MouseEventArgs ev)
+    internal async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (OnClick.HasDelegate)
         {
