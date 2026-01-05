@@ -28,10 +28,10 @@ Use the `FluentDivider` to separate groups of nav items. This helps people scan 
 ## Icons
 Whenever possible, use icons with nav category labels. They create additional visual emphasis and differentiate nav categories from the nav subitems within them. Use simple and recognizable icons that are easy to understand.
 
-If icons arenâ€™t technically possible or difficult to pick due to an overwhelming number of nav items, remove them. If nav categories donâ€™t include an icon, subitems are indented to maintain a clear hierarchy.
+If icons aren't technically possible or difficult to pick due to an overwhelming number of nav items, remove them. If nav categories don't include an icon, subitems are indented to maintain a clear hierarchy.
 
 ## Items
-Nav doesnâ€™t support an icon-only layout.
+Nav doesn't support an icon-only layout.
 
 A `NavItem` can contain either an `Href` or an `OnClick` handler.
 
