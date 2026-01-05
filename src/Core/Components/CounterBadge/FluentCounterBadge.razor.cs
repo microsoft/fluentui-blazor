@@ -32,7 +32,7 @@ public partial class FluentCounterBadge : FluentBadge
     public bool? ShowZero { get; set; }
 
     /// <summary>
-    /// Gets or sets whether to show the badge when the count is 0 or ShowWhen evaluates to true.
+    /// Gets or sets whether to show an empty badge (when count is null/0 and ShowWhen returns false/null).
     /// </summary>
     [Parameter]
     public bool ShowEmpty { get; set; } = true;
