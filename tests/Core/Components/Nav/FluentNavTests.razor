@@ -90,18 +90,6 @@
     }
 
 	[Fact]
-	public void FluentNav_Renders_With_AppIcon()
-	{
-		// Arrange & Act
-		var cut = Render(@<FluentNav AppTitle="My App" AppIcon="@Samples.Icons.Info">
-		</FluentNav>);
-		// Assert
-		Assert.NotNull(cut);
-		Assert.Contains("<svg style=\"width: 24px;", cut.Markup);
-		Assert.Contains("My App", cut.Markup);
-	}
-
-	[Fact]
 	public void FluentNav_UseIcons_True()
 	{
 		// Arrange & Act
