@@ -14,7 +14,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDisposable
 {
-    private FluentCounterBadge _counterBadge = default!;
 
     /// <summary>
     /// Gets or sets the URL for this item.
@@ -33,7 +32,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
     /// Gets or sets the Icon to use when the item is not hovered/selected/active.
     /// </summary>
     [Parameter, EditorRequired]
-    public required Icon IconRest { get; set; }
+    public required Icon IconRest { get; set; } = new CoreIcons.Regular.Size20.Folder();
 
     /// <summary>
     /// Gets or sets the Icon to use when the item is hovered/selected/active.
@@ -100,12 +99,6 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
     }
 
     /// <summary />
-    protected override void OnAfterRender(bool firstRender)
-    {
-        _counterBadge.SetContainerStyle("display: inline;");
-    }
-
-    /// <summary />
     protected virtual string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-appbar-item")
         .AddClass("fluent-appbar-item-local", when: string.IsNullOrEmpty(Href))
@@ -120,7 +113,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
         .Build();
 
     /// <summary />
-    protected async Task OnClickHandlerAsync(MouseEventArgs ev)
+    internal async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (OnClick.HasDelegate)
         {

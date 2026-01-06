@@ -2,6 +2,9 @@
   --appbar-item-size: 68;
   background-color: var(--colorNeutralBackground2);
 }
+  .fluent-appbar fluent-popover-b > div {
+    background-color: var(--colorNeutralBackground2);
+  }
 
   .fluent-appbar .fluent-appbar-item {
     width: calc(var(--appbar-item-size) * 1px);
@@ -29,7 +32,7 @@
     height: 100%;
   }
 
-div[part="label"] {
+.fluent-appbar-item div[part="label"] {
   color: var(--colorNeutralForeground2);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -85,3 +88,5 @@ div[part="label"] {
 .fluent-appbar-item[inpopover=true]:not(:hover) a.active svg[part="icon-rest"] {
     display: block;
 }
+
+

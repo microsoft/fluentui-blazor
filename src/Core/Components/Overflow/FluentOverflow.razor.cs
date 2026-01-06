@@ -128,6 +128,7 @@ public partial class FluentOverflow : FluentComponentBase
     [JSInvokable]
     public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
+
         if (items == null || items.Length == 0)
         {
             return;

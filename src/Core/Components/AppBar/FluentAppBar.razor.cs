@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
+using static Microsoft.FluentUI.AspNetCore.Components.FluentOverflow;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -72,11 +73,13 @@ public partial class FluentAppBar : FluentComponentBase
     /// </summary>
     public IEnumerable<IAppBarItem> AppsOverflow => _internalAppBarContext.Apps.Where(i => i.Value.Overflow == true).Select(v => v.Value);
 
-    internal string? ClassValue => new CssBuilder("fluent-appbar")
-        .AddClass(Class)
+    /// <summary />
+    protected virtual string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-appbar")
         .Build();
 
-    internal string? StyleValue => new StyleBuilder(Style)
+    /// <summary />
+    protected virtual string? StyleValue => DefaultStyleBuilder
         .AddStyle("display", "flex")
         .AddStyle("flex-direction", "row", Orientation == Orientation.Horizontal)
         .AddStyle("flex-direction", "column", Orientation == Orientation.Vertical)

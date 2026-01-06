@@ -25,8 +25,8 @@
 							 VerticalAlignment="VerticalAlignment.Center"
 							 VerticalGap="0"
 							 Style="height: calc(var(--appbar-item-size) * 1px - 20px);">
-					<FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" Color="Color.Default" part="icon-rest" />
-					<FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" part="icon-active" />
+					<FluentIcon Width="24" Value="@(new CoreIcons.Regular.Size20.MoreHorizontal())" Color="Color.Default" part="icon-rest" />
+					<FluentIcon Width="24" Value="@(new CoreIcons.Regular.Size20.MoreHorizontal())" Color="Color.Primary" part="icon-active" />
 				</FluentStack>
 			</div>
 		}
@@ -34,8 +34,10 @@
 		@if (AppsOverflow.Any())
 		{
 			@*ToDo: Make styling configurable *@
-			<FluentPopover @bind-Opened="_showMoreItems" AnchorId="@($"appbar-more-{Id}")"
-						   OffsetVertical="-48" OffsetHorizontal="68">
+			<FluentPopover @bind-Opened="_showMoreItems"
+						   AnchorId="@($"appbar-more-{Id}")"
+						   OffsetVertical="-48"
+						   OffsetHorizontal="68">
 				<ChildContent>
 					<div style="width: 320px; height: 200px; padding: 1rem;">
 						@if (PopoverShowSearch)
