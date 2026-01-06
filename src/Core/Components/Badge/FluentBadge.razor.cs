@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The FluentBadge component is a visual indicator that communicates a status or description of an associated component.
-/// It uses short text, color, and icons for quick recognition and is placed near the relavant content.
+/// It uses short text, color, and icons for quick recognition and is placed near the relevant content.
 /// </summary>
 public partial class FluentBadge : FluentComponentBase
 {
@@ -98,18 +98,24 @@ public partial class FluentBadge : FluentComponentBase
     public Positioning? Positioning { get; set; }
 
     /// <summary>
-    /// Gets or sets how much the badge overlaps the content it wraps on the x-axis
+    /// Gets or sets how much the badge overlaps the content it wraps on the x-axis.
     /// Only applied when <see cref="ChildContent"/> is not null
     /// </summary>
     [Parameter]
     public sbyte? OffsetX { get; set; }
 
     /// <summary>
-    /// Gets or sets how much the badge overlaps the content it wraps on the y-axis
+    /// Gets or sets how much the badge overlaps the content it wraps on the y-axis.
     /// Only applied when <see cref="ChildContent"/> is not null
     /// </summary>
     [Parameter]
     public sbyte? OffsetY { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS styles applied to the badge container.
+    /// </summary>
+    [Parameter]
+    public string? ContainerStyle { get; set; }
 
     /// <summary />
     protected override void OnParametersSet()
@@ -133,7 +139,7 @@ public partial class FluentBadge : FluentComponentBase
             BadgeColor.Informative => "var(--colorNeutralForeground3)",
             BadgeColor.Subtle => "var(--colorNeutralForeground1)",
             BadgeColor.Warning => "var(--colorNeutralForeground1Static)",
-            _ => "var(--colorNeutralForegroundOnBrand)"
+            _ => "var(--colorNeutralForegroundOnBrand)",
         };
     }
 }
