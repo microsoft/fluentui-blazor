@@ -6,7 +6,7 @@ icon: Tag
 
 # Badge components
 A badge component is a visual indicator that communicates a status or description of an associated component.
-It uses short text, color, and icons for quick recognition and is placed near the relavant content.
+It uses short text, color, and icons for quick recognition and is placed near the relevant content.
 
 Different badges can display different content.
 
@@ -32,11 +32,12 @@ This should provide a reasonable default for most badges that contain plain text
 There are two actions authors should consider taking when using Badge to improve this experience:
 
 1. If the badge contains a custom icon, that icon must be given alternative text with aria-label, unless it is purely presentational:
-   ```
+   ```xml
    <FluentBadge IconLabel="paste" />
    ```
-2. If the text of the badge itself is not sufficient to convey its meaning, the parent element should be given an explicit label:
-   ```
+
+2.  If the text of the badge itself is not sufficient to convey its meaning, the parent element should be given an explicit label:
+   ```xml
    <FluentBadge Content="New">
        <FluentButton aria-label="Inbox, 6 new messages">
            Inbox
@@ -48,7 +49,8 @@ There are two actions authors should consider taking when using Badge to improve
 Include meaningful descriptions when using color to represent meaning in a badge. If relying on color only, ensure that non-visual information is included in the parent's label or description.
 
 ### Text on Badge
-Badges are intented to have short text, small numerical values or status information. Long text is not supported and should not be used within a badge.
+Badges are intended to have short text, small numerical values or status information. Long text is not supported and should not be used within a badge.
+
 
 See the following pages for more information on the different badge components:
 - [Badge](/Badges/Badge)

@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The FluentBadge component is a visual indicator that communicates a status or description of an associated component.
-/// It uses short text, color, and icons for quick recognition and is placed near the relavant content.
+/// It uses short text, color, and icons for quick recognition and is placed near the relevant content.
 /// </summary>
 public partial class FluentBadge : FluentComponentBase
 {
