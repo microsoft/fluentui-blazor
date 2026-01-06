@@ -16,6 +16,7 @@ public partial class FluentCounterBadge : FluentBadge
     public FluentCounterBadge(LibraryConfiguration configuration) : base(configuration) { }
 
     private bool _isAttached => ChildContent is not null;
+    private bool _render => ShowEmpty || Dot || GetCount() is not null || (ShowZero ?? false) || (ShowWhen?.Invoke(Count) == true);
 
     private int? GetCount() => ShowWhen?.Invoke(Count) == true ? Count : null;
 

@@ -32,11 +32,12 @@ This should provide a reasonable default for most badges that contain plain text
 There are two actions authors should consider taking when using Badge to improve this experience:
 
 1. If the badge contains a custom icon, that icon must be given alternative text with aria-label, unless it is purely presentational:
-   ```
+   ```xml
    <FluentBadge IconLabel="paste" />
    ```
-2. If the text of the badge itself is not sufficient to convey its meaning, the parent element should be given an explicit label:
-   ```
+
+2.  If the text of the badge itself is not sufficient to convey its meaning, the parent element should be given an explicit label:
+   ```xml
    <FluentBadge Content="New">
        <FluentButton aria-label="Inbox, 6 new messages">
            Inbox
