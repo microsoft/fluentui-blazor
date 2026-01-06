@@ -13,6 +13,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentBadge : FluentComponentBase
 {
+    /// <summary>
+    /// Allows for setting the container style when the badge is attached.
+    /// </summary>
+    protected string? _containerStyle;
+
     /// <summary />
     public FluentBadge(LibraryConfiguration configuration) : base(configuration) { }
 
@@ -135,5 +140,10 @@ public partial class FluentBadge : FluentComponentBase
             BadgeColor.Warning => "var(--colorNeutralForeground1Static)",
             _ => "var(--colorNeutralForegroundOnBrand)",
         };
+    }
+
+    internal void SetContainerStyle(string style)
+    {
+       _containerStyle = style;
     }
 }

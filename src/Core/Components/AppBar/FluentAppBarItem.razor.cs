@@ -14,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDisposable
 {
+    private FluentCounterBadge _counterBadge = default!;
 
     /// <summary>
     /// Gets or sets the URL for this item.
@@ -98,12 +99,22 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
         }
     }
 
-    internal string? ClassValue => new CssBuilder("fluent-appbar-item")
+    /// <summary />
+    protected override void OnAfterRender(bool firstRender)
+    {
+        _counterBadge.SetContainerStyle("display: inline;");
+    }
+
+    /// <summary />
+    protected virtual string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-appbar-item")
         .AddClass("fluent-appbar-item-local", when: string.IsNullOrEmpty(Href))
         .AddClass(Class)
         .Build();
 
-    internal string? StyleValue => new StyleBuilder(Style)
+    /// <summary />
+    internal string? StyleValue => DefaultStyleBuilder
+        .AddStyle(Style)
         .AddStyle("min-height", "calc(var(--appbar-item-size) * 1px - 20px)", Owner.AppBar.Orientation == Orientation.Vertical)
         .AddStyle("min-width", "calc(var(--appbar-item-size) * 1px)", Owner.AppBar.Orientation == Orientation.Horizontal)
         .Build();

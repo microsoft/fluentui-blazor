@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<AddTag Name="fluent-badge-container" TagWhen="@(() => _isAttached)">
+<AddTag Name="fluent-badge-container" TagWhen="@(() => _isAttached)" style="@_containerStyle">
     @ChildContent
     <fluent-badge id="@Id"
                   fuib

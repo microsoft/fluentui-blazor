@@ -2,17 +2,20 @@
 @inherits FluentComponentBase
 
 <div id=@Id @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" title="@(Tooltip ?? Text)">
-	<NavLink href="@Href" Match="Match" @onclick="OnClickHandlerAsync">
-		<FluentStack Orientation="Orientation.Vertical"
-					 HorizontalAlignment="HorizontalAlignment.Center"
-					 VerticalAlignment="VerticalAlignment.Center"
-					 VerticalGap="0"
-					 Class="fluent-appbaritem-stack">
-			<FluentCounterBadge Count="@Count"
-								Appearance="BadgeAppearance.Filled"
-								Color="BadgeColor.Danger"
-								OffsetY="5"
-								ShowEmpty="false">
+	<FluentCounterBadge @ref="_counterBadge"
+						Count="@Count"
+						Style="display: flex; flex-direction: column; align-items: center;"
+						Appearance="BadgeAppearance.Filled"
+						Color="BadgeColor.Danger"
+						OffsetY="-5"
+						OffsetX="-20"
+						ShowEmpty="false">
+		<NavLink href="@Href" Match="Match" @onclick="OnClickHandlerAsync">
+			<FluentStack Orientation="Orientation.Vertical"
+						 HorizontalAlignment="HorizontalAlignment.Center"
+						 VerticalAlignment="VerticalAlignment.Center"
+						 VerticalGap="0"
+						 Class="fluent-appbaritem-stack">
 				@if (ChildContent is not null)
 				{
 					@ChildContent
@@ -23,7 +26,7 @@
 					<FluentIcon Value="IconActive ?? IconRest" part="icon-active" />
 					<div part="label">@Text</div>
 				}
-			</FluentCounterBadge>
-		</FluentStack>
-	</NavLink>
+			</FluentStack>
+		</NavLink>
+	</FluentCounterBadge>
 </div>
