@@ -15,7 +15,7 @@
                name="@GetNameValue"
                shape="@Shape.ToAttributeValue()"
                size="@Size.ToAttributeValue()"
-               slot="@Slot"
+
                @onclick="@OnClickHandlerAsync"
                @onkeydown="@OnKeyDownHandlerAsync"
                @attributes="@AdditionalAttributes">
@@ -32,5 +32,5 @@
     {
         @Icon.ToMarkup(size: GetAvatarSize, color: "currentcolor", backgroundColor: "unset")
     }
-
+	@ChildContent
 </fluent-avatar>
