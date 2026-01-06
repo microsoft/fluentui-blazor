@@ -34,7 +34,7 @@ public partial class FluentCounterBadge : FluentBadge
 
     /// <summary>
     /// Gets or sets whether to render the badge when there is no meaningful content to display (no count, no dot).
-    /// It is overridden by Dot=true or ShowWhen returning true.
+    /// It is overruled by Dot=true or ShowWhen returning true.
     /// </summary>
     [Parameter]
     public bool ShowEmpty { get; set; } = true;
