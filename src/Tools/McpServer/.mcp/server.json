@@ -14,7 +14,7 @@
       "registryType": "nuget",
       "registryBaseUrl": "https://api.nuget.org",
       "identifier": "Microsoft.FluentUI.AspNetCore.McpServer",
-      "version": "5.0.0-preview.1",
+      "version": "0.0.1",
       "runtimeHint": "dnx",
       "transport": {
         "type": "stdio"
@@ -26,5 +26,5 @@
     "source": "github"
   },
   "title": "Fluent UI Blazor MCP Server",
-  "version": "5.0.0-preview.1"
+  "version": "0.0.1"
 }

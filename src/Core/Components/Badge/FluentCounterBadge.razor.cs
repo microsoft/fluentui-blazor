@@ -8,7 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The FluentCounterBadge component is a visual indicator that communicates a value about an associated component.
-/// It uses short postive numbers, color, and icons for quick recognition and is placed near the relavant content.
+/// It uses short postive numbers, color, and icons for quick recognition and is placed near the relevant content.
 /// </summary>
 public partial class FluentCounterBadge : FluentBadge
 {
@@ -16,6 +16,7 @@ public partial class FluentCounterBadge : FluentBadge
     public FluentCounterBadge(LibraryConfiguration configuration) : base(configuration) { }
 
     private bool _isAttached => ChildContent is not null;
+    private bool _render => ShowEmpty || Dot || GetCount() is not null || (ShowZero ?? false) || (ShowWhen?.Invoke(Count) == true);
 
     private int? GetCount() => ShowWhen?.Invoke(Count) == true ? Count : null;
 
@@ -32,7 +33,8 @@ public partial class FluentCounterBadge : FluentBadge
     public bool? ShowZero { get; set; }
 
     /// <summary>
-    /// Gets or sets whether to show the badge when the count is 0 or ShowWhen evaluates to true.
+    /// Gets or sets whether to render the badge when there is no meaningful content to display (no count, no dot).
+    /// It is overruled by Dot=true or ShowWhen returning true.
     /// </summary>
     [Parameter]
     public bool ShowEmpty { get; set; } = true;

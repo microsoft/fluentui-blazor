@@ -10,9 +10,9 @@ A counter badge is a badge that displays a numerical count.
 The principles mentioned on the [overview](/Badges) page apply to a `CounterBadge` as well.
 
 ### Numbers on Badge
-CounterBadges are intented to have short, small numerical values or status information.
+CounterBadges are intended to have short, small numerical values or status information.
 An `OverflowCount` can be set as the maximum number that is shown in the CounterBadge.
-It will add a `+` sign to the end of the number to indacate that the number is larger than the `OverflowCount`.
+It will add a `+` sign to the end of the number to indicate that the number is larger than the `OverflowCount`.
 
 ### Content
 The CounterBadge can only show a count (through the `Count` parameter). If you need to add textual content, you can use the `Badge` component.
@@ -31,9 +31,7 @@ The `OffestX` and `OffsetY` allow for tuning the positioning further.
 {{ CounterBadgeAttached SourceCode=false}}
 
 ## ShowEmpty
-A counter badge will by default be shown as an empty badge if the count value is 0 or not set (null), as can be seen in the first badge in the Default example above, or when `ShowWhen` evaluates to `true` (see below).
-
-This behavior can be changed by setting the `ShowEmpty` parameter to `false`.
+A counter badge will by default be shown as an empty badge if the count value is 0 or not set (null) or when `ShowWhen` evaluates to `true`. This behavior can be changed by setting the `ShowEmpty` parameter to `false`.
 
 - First example `ShowEmpty="true"`. 
 - Second example `ShowEmpty="false"` (see code tab).

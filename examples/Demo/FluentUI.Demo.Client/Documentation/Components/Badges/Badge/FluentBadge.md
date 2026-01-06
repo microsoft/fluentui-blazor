@@ -16,7 +16,7 @@ First example shows an empty badge. Second example shows a badge with content.
 
 ## Attached to content
 A badge can be attached to any content. The default position is above-end. The position can be changed using the `Positioning` parameter.
-The `OffestX` and `OffsetY` allow for tuning the positioning further.
+The `OffsetX` and `OffsetY` allow for tuning the positioning further.
 
 {{ BadgeAttached SourcCode=false }}
 
