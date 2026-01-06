@@ -52,6 +52,12 @@ public partial class FluentNav : FluentComponentBase
         .Build();
 
     /// <summary>
+    /// Gets or sets the parent layout component.
+    /// </summary>
+    [CascadingParameter]
+    private FluentLayout? LayoutContainer { get; set; }
+
+    /// <summary>
     /// Gets or sets whether to enable using icons in the nav items.
     /// </summary>
     [Parameter]
@@ -122,6 +128,15 @@ public partial class FluentNav : FluentComponentBase
     {
         if (firstRender)
         {
+            // Set background color for hamburgers in the layout
+            if (LayoutContainer is not null && !string.IsNullOrEmpty(BackgroundColor))
+            {
+                foreach (var hamburger in LayoutContainer?.Hamburgers ?? [])
+                {
+                    hamburger.SetBackGroundColor(BackgroundColor);
+                }
+            }
+
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
         }
     }
@@ -191,6 +206,9 @@ public partial class FluentNav : FluentComponentBase
             }
         }
     }
+
+    /// <summary />
+    internal FluentLayoutHamburger[] OpenedHamburgers => LayoutContainer?.Hamburgers.Where(i => i.IsOpened).ToArray() ?? [];
 
     /// <summary>
     /// Registers a category with this nav component.

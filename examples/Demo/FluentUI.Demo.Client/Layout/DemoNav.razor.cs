@@ -12,9 +12,6 @@ public partial class DemoNav
     [Inject]
     public required NavigationManager NavigationManager { get; set; }
 
-    [Parameter]
-    public FluentLayoutHamburger? Hamburger { get; set; }
-
     public IEnumerable<NavItem> NavItems { get; private set; } = [];
 
     protected override void OnInitialized()
@@ -76,15 +73,6 @@ public partial class DemoNav
                 .OrderBy(i => i.Order);
 
         NavItems = navItems;
-    }
-
-    private async Task OnNavItemClickAsync(FluentNavItem item)
-    {
-        if (Hamburger is not null && !string.IsNullOrEmpty(item.Href))
-        {
-            NavigationManager.NavigateTo(item.Href);
-            await Hamburger.HideAsync();
-        }
     }
 
     public record NavItem(string Title, string Route, string? Icon, string Order, IEnumerable<NavItem> Items);

@@ -11,7 +11,6 @@ namespace FluentUI.Demo.Client.Layout;
 
 public partial class DemoMainLayout
 {
-    private FluentLayoutHamburger _hamburger = default!;
     private bool _consoleLogOpened;
     private bool _useReboot;
 

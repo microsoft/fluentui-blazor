@@ -11,7 +11,7 @@
 			 href="@Href"
 			 title="@Tooltip"
 			 target="@Target.ToAttributeValue()"
-			 rel="@(Target is not null ? "noopener noreferrer" : string.Empty)"
+             rel="@(Target is not null ? RelNoOpenerNoReferrer : string.Empty)"
              @onclick="OnClickHandlerAsync"
 			 ActiveClass="@ActiveClass"
 			 Match="@Match"
@@ -29,7 +29,7 @@ else
 			href="@Href"
 			title="@Tooltip"
 			target="@Target.ToAttributeValue()"
-			rel="@(Target is not null ? "noopener noreferrer" : string.Empty)"
+            rel="@(Target is not null ? RelNoOpenerNoReferrer : string.Empty)"
 			@onclick="OnClickHandlerAsync"
 			@attributes="@AdditionalAttributes">
 		@RenderIcon
