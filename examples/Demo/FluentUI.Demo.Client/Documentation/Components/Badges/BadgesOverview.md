@@ -51,7 +51,6 @@ Include meaningful descriptions when using color to represent meaning in a badge
 ### Text on Badge
 Badges are intended to have short text, small numerical values or status information. Long text is not supported and should not be used within a badge.
 
-
 See the following pages for more information on the different badge components:
 - [Badge](/Badges/Badge)
 - [CounterBadge](/Badges/CounterBadge)
