@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// AppBar item component for use within a <see cref="FluentAppBar"/>.
 /// </summary>
-public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDisposable
+public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
 {
     /// <summary />
     public FluentAppBarItem(LibraryConfiguration configuration) : base(configuration)
@@ -120,11 +120,12 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
         }
     }
 
-    /// <summary />
-    public void Dispose()
+    /// <inheritdoc />
+    public override ValueTask DisposeAsync()
     {
         Owner.Unregister(this);
         GC.SuppressFinalize(this);
-        
+
+        return base.DisposeAsync();
     }
 }
