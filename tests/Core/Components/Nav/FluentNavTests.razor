@@ -1,16 +1,46 @@
 ﻿@using Xunit
 @using Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples
 @inherits FluentUITestContext
 
 @code {
 
-	// Test helper: Simulates using FluentNavCategory with wrong parent type
+    // Test helper: Simulates using FluentNavCategory with wrong parent type
 
 
     public FluentNavTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentNav_Default()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNav>
+            <FluentNavItem Href="/Link1" Icon="@(new Icons.Samples.Info())">
+                Item 1
+            </FluentNavItem>
+            <FluentNavItem Href="/Link2" Icon="@(new Icons.Samples.Warning())">
+                Item 2
+            </FluentNavItem>
+            <FluentNavItem OnClick="@(e => {})">
+                Item 3
+            </FluentNavItem>
+
+            <FluentNavSectionHeader Title="My Section" />
+
+            <FluentNavCategory Title="My Category">
+                <FluentNavItem>Openings</FluentNavItem>
+                <FluentNavItem>Submissions</FluentNavItem>
+            </FluentNavCategory>
+
+        </FluentNav>
+    );
+
+        // Assert
+        cut.Verify();
     }
 
     [Fact]
@@ -561,5 +591,105 @@
 		Assert.Equal(2, categories.Count());
 		Assert.Contains(categories, c => c.Id == "category-1");
 		Assert.Contains(categories, c => c.Id == "category-2");
+	}
+
+	[Fact]
+	public void FluentNav_OnAfterRenderAsync_Sets_BackgroundColor_On_Hamburger_Menu()
+	{
+		// Arrange - Create a layout with hamburger and nav with custom background color
+		var customBgColor = "var(--my-custom-color)";
+		var cut = Render(@<FluentLayout Id="my-layout">
+			<FluentLayoutItem Area="LayoutArea.Header">
+				<FluentLayoutHamburger Id="my-hamburger" />
+				Header
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Navigation">
+				<FluentNav BackgroundColor="@customBgColor">
+					<FluentNavItem Href="/test">Test Item</FluentNavItem>
+				</FluentNav>
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+		</FluentLayout>);
+
+		// Act - OnAfterRenderAsync is called automatically after render
+		var hamburger = cut.FindComponent<FluentLayoutHamburger>();
+
+		// Assert - Background color should be set on the hamburger
+		Assert.Equal(customBgColor, hamburger.Instance.BackgroundColor);
+	}
+
+	[Fact]
+	public void FluentNav_OnAfterRenderAsync_Sets_BackgroundColor_On_Multiple_Hamburgers()
+	{
+		// Arrange - Create a layout with multiple hamburgers
+		var customBgColor = "var(--my-custom-color)";
+		var cut = Render(@<FluentLayout Id="my-layout">
+			<FluentLayoutItem Area="LayoutArea.Header">
+				<FluentLayoutHamburger Id="hamburger-1" />
+				<FluentLayoutHamburger Id="hamburger-2" />
+				Header
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Navigation">
+				<FluentNav BackgroundColor="@customBgColor">
+					<FluentNavItem Href="/test">Test Item</FluentNavItem>
+				</FluentNav>
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+		</FluentLayout>);
+
+		// Act
+		var hamburgers = cut.FindComponents<FluentLayoutHamburger>();
+
+		// Assert - Background color should be set on both hamburgers
+		Assert.Equal(2, hamburgers.Count);
+		Assert.All(hamburgers, h => Assert.Equal(customBgColor, h.Instance.BackgroundColor));
+	}
+
+	[Fact]
+	public void FluentNav_OnAfterRenderAsync_Does_Not_Set_BackgroundColor_When_Null()
+	{
+		// Arrange - Create a layout with hamburger but no custom background color on Nav
+		var cut = Render(@<FluentLayout Id="my-layout">
+			<FluentLayoutItem Area="LayoutArea.Header">
+				<FluentLayoutHamburger Id="my-hamburger" BackgroundColor="var(--original-color)" />
+				Header
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Navigation">
+				<FluentNav>
+					<FluentNavItem Href="/test">Test Item</FluentNavItem>
+				</FluentNav>
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+		</FluentLayout>);
+
+		// Act
+		var hamburger = cut.FindComponent<FluentLayoutHamburger>();
+
+		// Assert - Original background color should remain unchanged
+		Assert.Equal("var(--original-color)", hamburger.Instance.BackgroundColor);
+	}
+
+	[Fact]
+	public void FluentNav_OnAfterRenderAsync_Does_Not_Set_BackgroundColor_When_Empty()
+	{
+		// Arrange - Create a layout with hamburger but empty background color on Nav
+		var cut = Render(@<FluentLayout Id="my-layout">
+			<FluentLayoutItem Area="LayoutArea.Header">
+				<FluentLayoutHamburger Id="my-hamburger" BackgroundColor="var(--original-color)" />
+				Header
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Navigation">
+				<FluentNav BackgroundColor="">
+					<FluentNavItem Href="/test">Test Item</FluentNavItem>
+				</FluentNav>
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+		</FluentLayout>);
+
+		// Act
+		var hamburger = cut.FindComponent<FluentLayoutHamburger>();
+
+		// Assert - Original background color should remain unchanged
+		Assert.Equal("var(--original-color)", hamburger.Instance.BackgroundColor);
 	}
 }
