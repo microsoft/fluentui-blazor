@@ -95,7 +95,6 @@ public partial class FluentAppBar : FluentComponentBase
     }
 
     /// <summary />
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

@@ -56,7 +56,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
     /// Gets or sets the count to show on the item with a <see cref="FluentCounterBadge"/>.
     /// </summary>
     [Parameter]
-    public ushort? Count { get; set; } = null;
+    public ushort? Count { get; set; }
 
     /// <summary>
     ///  Gets or sets the content to be shown.
@@ -90,7 +90,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
     /// <summary />
     protected override void OnInitialized()
     {
-        Owner!.Register(this);
+        Owner.Register(this);
 
         if (string.IsNullOrWhiteSpace(Href))
         {
@@ -124,7 +124,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
     /// <summary />
     public void Dispose()
     {
-        Owner?.Unregister(this);
+        Owner.Unregister(this);
         GC.SuppressFinalize(this);
     }
 }

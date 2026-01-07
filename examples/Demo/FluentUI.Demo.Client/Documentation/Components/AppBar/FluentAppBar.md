@@ -8,16 +8,20 @@ icon: AppsList
 
 The `FluentAppBar` component is an implementation of the AppBar as you know from the Teams application
 
-## Simple AppBar 
+## Simple AppBar
+
 {{ AppBarDefault }}
 
-## Small Icons AppBar 
+## Small Icons AppBar
+
 {{ AppBarSmallIcons }}
 
 ## From a list of Apps
+
 {{ AppBarFromListOfApps }}
 
 ## With OnClick event
+
 {{ AppBarClick }}
 
 

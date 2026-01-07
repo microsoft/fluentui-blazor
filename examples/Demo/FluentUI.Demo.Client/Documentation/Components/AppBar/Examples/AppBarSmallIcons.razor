@@ -1,6 +1,6 @@
 ﻿<style>
     .fluent-appbar.smallicons {
-    --appbar-item-size: 58;
+		--appbar-item-size: 58;
     }
 </style>
 @{
@@ -12,10 +12,7 @@
 		<FluentSwitch @bind-Value="_vertical" @bind-Value:after="@HandleOrientationChanged" Label="@($"Show {(_vertical ? "Vertical" : "Horizontal")}")" />
 	</FluentStack>
     <div class="smallicons" style="@stylevalue">
-        @{
-            var wh = _vertical ? "height: 100%; width: 58px;" : "width: 100%;";
-        }
-        <FluentAppBar Orientation="@(_vertical ? Orientation.Vertical : Orientation.Horizontal)" Class="smallicons" Style="@($"{wh} ")" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
+        <FluentAppBar Orientation="@(_vertical ? Orientation.Vertical : Orientation.Horizontal)" Class="smallicons" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
 
             <FluentAppBarItem Href="/AppBarDefault"
                                 Match="NavLinkMatch.All"
