@@ -132,7 +132,7 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     /// Gets or sets the text filed type. See <see cref="Components.TextInputType"/>
     /// </summary>
     [Parameter]
-    public TextInputType? TextFieldType { get; set; }
+    public TextInputType? TextInputType { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the input. See <see cref="Components.TextInputSize"/>

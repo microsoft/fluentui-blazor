@@ -39,5 +39,23 @@ public enum TextInputType
     /// A text field that is used for URL input.
     /// </summary>
     [Description("url")]
-    Url
+    Url,
+
+    /// <summary>
+    /// A text field that is used for color input (hexadecimal color value).
+    /// </summary>
+    [Description("color")]
+    Color,
+
+    /// <summary>
+    /// A text field that is used to search for a value. (accessibility)
+    /// </summary>
+    [Description("search")]
+    Search,
+
+    /// <summary>
+    /// A text field that is used for number input.
+    /// </summary>
+    [Description("number")]
+    Number,
 }

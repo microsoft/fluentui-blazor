@@ -112,6 +112,12 @@ You can also use these extra parameters to customize the masking behavior:
 All these parameters must be defined when the component is first rendered.
 You cannot modify them dynamically.
 
+## TextInput types
+
+You can set the `TextFieldType` property to define the type of the text input.
+
+{{ TextInputTypes }}
+
 ## API FluentTextInput
 
 {{ API Type=FluentTextInput }}
