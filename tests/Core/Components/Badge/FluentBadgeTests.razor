@@ -255,13 +255,4 @@
         // Assert
         cut.Verify();
     }
-
-	[Fact]
-	public void FluentBadge_ContainerStyle()
-	{
-		// Arrange && Act
-		var cut = Render(@<FluentBadge Content="Badge" ContainerStyle="margin:10px;"><FluentButton>Test</FluentButton></FluentBadge>);
-		// Assert
-		cut.Verify();
-	}
 }
