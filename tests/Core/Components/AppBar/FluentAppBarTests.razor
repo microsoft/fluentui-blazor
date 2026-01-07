@@ -1,0 +1,499 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Xunit
+@using static Microsoft.FluentUI.AspNetCore.Components.FluentOverflow
+@inherits FluentUITestContext
+
+@code
+{
+    public FluentAppBarTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentAppBar_ChildContent()
+    {
+        // Arrange
+        // Act
+        var cut = Render(@<FluentAppBar><div>Child content</div></FluentAppBar>);
+
+		// Assert
+		var ab = cut.Find(".fluent-appbar");
+		Assert.NotNull(ab);
+    }
+
+    [Fact]
+    public void FluentAppBar_ChildContent_Horizontal()
+    {
+        // Arrange
+        // Act
+        var cut = Render(@<FluentAppBar Orientation="@Orientation.Horizontal"><div>Child content</div></FluentAppBar>);
+
+		// Assert
+		var ab = cut.Find(".fluent-appbar");
+		Assert.NotNull(ab);
+    }
+
+    [Fact]
+    public async Task FluentAppBar_Overflow()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBar>(
+            @<FluentAppBar Id="appbar">
+                <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item tooltip">
+                </FluentAppBarItem>
+                <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item 2 tooltip">
+                </FluentAppBarItem>
+                </FluentAppBar>
+            );
+
+        // This does not contribute to html output but helps for code coverage testing
+        await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id1", Overflow = false, Text = "My item" }, new OverflowItem() { Id = "id2", Overflow = true, Text = "My item 2" } });
+
+        var item = cut.FindComponent<FluentAppBarItem>();
+        item.Instance.Overflow = true;
+
+        cut.Render();
+
+		// Assert
+		var popup = cut.Find("fluent-popover-b");
+		Assert.NotNull(popup);
+    }
+
+    [Fact]
+    public async Task FluentAppBar_NoPopoverSearch()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBar>(
+            @<FluentAppBar Id="appbar" PopoverShowSearch="false">
+                <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item tooltip">
+                </FluentAppBarItem>
+                <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item 2 tooltip">
+                </FluentAppBarItem>
+            </FluentAppBar>
+        );
+
+        // This does not contribute to html output but helps for code coverage testing
+        await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id1", Overflow = false, Text = "My item" }, new OverflowItem() { Id = "id2", Overflow = true, Text = "My item 2" } });
+        var item = cut.FindComponent<FluentAppBarItem>();
+        item.Instance.Overflow = true;
+
+        cut.Render();
+
+        // Assert
+		Assert.Throws<ElementNotFoundException>(() => cut.Find("fluent-text-input"));
+	}
+
+    [Fact]
+    public void FluentAppBar_NoItems()
+    {
+        // Arrange
+        // Act
+        var cut = Render(@<FluentAppBar></FluentAppBar>);
+
+        // Assert
+        var ab = cut.Find(".fluent-appbar");
+        Assert.NotNull(ab);
+    }
+
+    [Fact]
+    public void FluentAppBar_ItemWithNullId()
+    {
+        // Arrange
+        // Act
+        var cut = Render(@<FluentAppBar>
+            <FluentAppBarItem Id="@(null)" Text="Test Item" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Test tooltip">
+            </FluentAppBarItem>
+        </FluentAppBar>);
+
+        // Assert
+        var ab = cut.Find(".fluent-appbar");
+        Assert.NotNull(ab);
+    }
+
+    [Fact]
+    public void FluentAppBar_Unregister_NullApp()
+    {
+        // Arrange
+        var cut = Render(@<FluentAppBar></FluentAppBar>);
+        var context = GetPrivateField<InternalAppBarContext>(cut.FindComponent<FluentAppBar>().Instance, "_internalAppBarContext");
+
+		IAppBarItem? nullItem = null;
+        // Act
+        context?.Unregister(nullItem!);
+
+        // Assert
+		Assert.NotNull(cut.Instance);
+    }
+
+    [Fact]
+    public void FluentAppBar_Unregister_NullId()
+    {
+        // Arrange
+        var cut = Render(@<FluentAppBar>
+            <FluentAppBarItem Id="@(null)" Text="Test Item" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Test tooltip">
+            </FluentAppBarItem>
+        </FluentAppBar>);
+        var item = cut.FindComponent<FluentAppBarItem>().Instance;
+        //item.Id = null;
+        var context = GetPrivateField<InternalAppBarContext>(cut.FindComponent<FluentAppBar>().Instance, "_internalAppBarContext");
+
+        // Act
+        context?.Unregister(item);
+
+        // Assert
+		Assert.NotNull(cut.Instance);
+    }
+
+	[Fact]
+	public void FluentAppBar_Unregister_App()
+	{
+		// Arrange
+		var cut = Render(@<FluentAppBar>
+			<FluentAppBarItem Text="Test Item" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Test tooltip">
+			</FluentAppBarItem>
+		</FluentAppBar>);
+		var item = cut.FindComponent<FluentAppBarItem>().Instance;
+		//item.Id = null;
+		var context = GetPrivateField<InternalAppBarContext>(cut.FindComponent<FluentAppBar>().Instance, "_internalAppBarContext");
+
+		// Act
+		context?.Unregister(item);
+
+		// Assert
+		Assert.NotNull(cut.Instance);
+	}
+
+    [Fact]
+    public void FluentAppBar_Items()
+    {
+        // Arrange
+        var items = new List<IAppBarItem>
+        {
+            new TestAppBarItem { Id = "1", Text = "Item 1", IconRest = new Samples.Icons.Samples.Info() },
+            new TestAppBarItem { Id = "2", Text = "Item 2", IconRest = new Samples.Icons.Samples.Warning() }
+        };
+
+        // Act
+        var cut = Render(@<FluentAppBar Items="items" />);
+
+        // Assert
+        var ab = cut.Find(".fluent-appbar");
+        Assert.NotNull(ab);
+
+        var appBarItems = cut.FindAll(".fluent-appbar-item");
+        Assert.Equal(2, appBarItems.Count);
+    }
+
+    [Fact]
+    public async Task FluentAppBar_OverflowRaisedAsync_Empty()
+    {
+        // Arrange
+        bool popoverVisible = false;
+        var cut = Render<FluentAppBar>(@<FluentAppBar PopoverVisibilityChanged="@((bool visible) => popoverVisible = visible)">
+            <FluentAppBarItem Id="id1" Text="Item 1" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+            </FluentAppBarItem>
+        </FluentAppBar>);
+
+        // Act
+        await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { });
+
+        // Assert
+        Assert.False(popoverVisible);
+    }
+
+    [Fact]
+    public async Task FluentAppBar_HandlePopoverKeyDownAsync_Enter()
+    {
+        // Arrange
+        bool popoverVisible = false;
+        var cut = Render<FluentAppBar>(@<FluentAppBar Id="appbar" PopoverVisibilityChanged="@((bool visible) => popoverVisible = visible)">
+            <FluentAppBarItem Id="id1" Text="Item1" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+            </FluentAppBarItem>
+            <FluentAppBarItem Id="id2" Text="Item2" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+            </FluentAppBarItem>
+        </FluentAppBar>
+	);
+
+		await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id2", Overflow = true, Text = "Item2" } });
+		cut.Render();
+
+		var method = typeof(FluentAppBar).GetMethod("HandlePopoverKeyDownAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+		var targetId = $"appbar-more-{cut.Instance.Id}";
+
+		// Act for Enter
+		popoverVisible = false;
+		var argsEnter = new FluentKeyCodeEventArgs { Key = KeyCode.Enter, TargetId = targetId };
+		if (method is not null && cut.Instance is not null)
+		{
+			var result = method.Invoke(cut.Instance, [argsEnter]);
+			if (result is Task task)
+			{
+				await task;
+			}
+		}
+
+		// Assert
+		Assert.True(popoverVisible);
+	}
+
+	[Fact]
+	public async Task FluentAppBar_HandlePopoverKeyDownAsync_Right()
+	{
+		// Arrange
+		bool popoverVisible = false;
+		var cut = Render<FluentAppBar>(@<FluentAppBar Id="appbar" PopoverVisibilityChanged="@((bool visible) => popoverVisible = visible)">
+        <FluentAppBarItem Id="id1" Text="Item1" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+        </FluentAppBarItem>
+        <FluentAppBarItem Id="id2" Text="Item2" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+        </FluentAppBarItem>
+    </FluentAppBar>
+	);
+
+		await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id2", Overflow = true, Text = "Item2" } });
+		cut.Render();
+
+		var method = typeof(FluentAppBar).GetMethod("HandlePopoverKeyDownAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+		var targetId = $"appbar-more-{cut.Instance.Id}";
+
+		// Act for Right
+		popoverVisible = false;
+		var argsRight = new FluentKeyCodeEventArgs { Key = KeyCode.Right, TargetId = targetId };
+		if (method is not null && cut.Instance is not null)
+		{
+			var result = method.Invoke(cut.Instance, [argsRight]);
+			if (result is Task task)
+			{
+				await task;
+			}
+		}
+
+		// Assert
+		Assert.True(popoverVisible);
+	}
+
+	[Fact]
+	public async Task FluentAppBar_HandlePopoverKeyDownAsync_Left()
+	{
+		// Arrange
+		bool popoverVisible = false;
+		var cut = Render<FluentAppBar>(@<FluentAppBar Id="appbar" PopoverVisibilityChanged="@((bool visible) => popoverVisible = visible)">
+			<FluentAppBarItem Id="id1" Text="Item1" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+			</FluentAppBarItem>
+			<FluentAppBarItem Id="id2" Text="Item2" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+			</FluentAppBarItem>
+		</FluentAppBar>);
+
+		await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id2", Overflow = true, Text = "Item2" } });
+		cut.Render();
+
+		var method = typeof(FluentAppBar).GetMethod("HandlePopoverKeyDownAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+		var targetId = $"appbar-more-{cut.Instance.Id}";
+
+		// Act for Left
+		popoverVisible = false;
+		var argsLeft = new FluentKeyCodeEventArgs { Key = KeyCode.Left, TargetId = targetId };
+		if (method is not null && cut.Instance is not null)
+		{
+			var result = method.Invoke(cut.Instance, [argsLeft]);
+			if (result is Task task)
+			{
+				await task;
+			}
+		}
+
+		// Assert
+		Assert.False(popoverVisible);
+	}
+
+	[Fact]
+	public async Task FluentAppBar_HandlePopoverKeyDownAsync_A()
+	{
+		// Arrange
+		bool popoverVisible = false;
+		var cut = Render<FluentAppBar>(@<FluentAppBar Id="appbar" PopoverVisibilityChanged="@((bool visible) => popoverVisible = visible)">
+			<FluentAppBarItem Id="id1" Text="Item1" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+			</FluentAppBarItem>
+			<FluentAppBarItem Id="id2" Text="Item2" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+			</FluentAppBarItem>
+		</FluentAppBar>);
+
+		await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id2", Overflow = true, Text = "Item2" } });
+		cut.Render();
+
+		var method = typeof(FluentAppBar).GetMethod("HandlePopoverKeyDownAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+		var targetId = $"appbar-more-{cut.Instance.Id}";
+
+		// Act for Left
+		popoverVisible = false;
+		var argsA = new FluentKeyCodeEventArgs { Key = KeyCode.KeyA, TargetId = targetId };
+		if (method is not null && cut.Instance is not null)
+		{
+			var result = method.Invoke(cut.Instance, [argsA]);
+			if (result is Task task)
+			{
+				await task;
+			}
+		}
+		//await Task.Delay(50, Xunit.TestContext.Current.CancellationToken);
+		Assert.False(popoverVisible);
+	}
+
+	[Fact]
+	public async Task FluentAppBar_HandlePopoverKeyDownAsync_InvalidId()
+	{
+		// Arrange
+		bool popoverVisible = false;
+		var cut = Render<FluentAppBar>(@<FluentAppBar Id="appbar" PopoverVisibilityChanged="@((bool visible) => popoverVisible = visible)">
+			<FluentAppBarItem Id="id1" Text="Item1" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+			</FluentAppBarItem>
+			<FluentAppBarItem Id="id2" Text="Item2" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+			</FluentAppBarItem>
+		</FluentAppBar>);
+
+		await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id2", Overflow = true, Text = "Item2" } });
+		cut.Render();
+
+		var method = typeof(FluentAppBar).GetMethod("HandlePopoverKeyDownAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+		var targetId = $"appbar-more-{cut.Instance.Id}abc";
+
+		// Act for Left
+		popoverVisible = false;
+		var argsA = new FluentKeyCodeEventArgs { Key = KeyCode.KeyA, TargetId = targetId };
+		if (method is not null && cut.Instance is not null)
+		{
+			var result = method.Invoke(cut.Instance, [argsA]);
+			if (result is Task task)
+			{
+				await task;
+			}
+		}
+		//await Task.Delay(50, Xunit.TestContext.Current.CancellationToken);
+		Assert.False(popoverVisible);
+	}
+
+    [Fact]
+    public async Task FluentAppBar_HandlePopoverToggleAsync_SameValue()
+    {
+        // Arrange
+        int callCount = 0;
+        var cut = Render<FluentAppBar>(@<FluentAppBar PopoverVisibilityChanged="@((bool visible) => callCount++)">
+            <FluentAppBarItem Id="id1" Text="Item1" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+            </FluentAppBarItem>
+        </FluentAppBar>);
+
+        var method = typeof(FluentAppBar).GetMethod("HandlePopoverToggleAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+        // Act: Call with true twice
+        if (method is not null && cut.Instance is not null)
+        {
+            var result1 = method.Invoke(cut.Instance, [true]);
+            if (result1 is Task task1) await task1;
+
+            var result2 = method.Invoke(cut.Instance, [true]);
+            if (result2 is Task task2) await task2;
+        }
+
+        // Assert: Event should be invoked only once
+        Assert.Equal(1, callCount);
+    }
+
+    [Fact]
+    public async Task FluentAppBar_HandleSearch()
+    {
+        // Arrange
+        var cut = Render<FluentAppBar>(@<FluentAppBar>
+            <FluentAppBarItem Id="id1" Text="Apple" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+            </FluentAppBarItem>
+            <FluentAppBarItem Id="id2" Text="Banana" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+            </FluentAppBarItem>
+            <FluentAppBarItem Id="id3" Text="Cherry" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+            </FluentAppBarItem>
+        </FluentAppBar>
+	);
+
+		await cut.Instance.OverflowRaisedAsync(new OverflowItem[] {
+            new OverflowItem() { Id = "id1", Overflow = true, Text = "Apple" },
+            new OverflowItem() { Id = "id2", Overflow = true, Text = "Banana" },
+            new OverflowItem() { Id = "id3", Overflow = true, Text = "Cherry" }
+	});
+
+		var searchTermField = typeof(FluentAppBar).GetField("_searchTerm", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+		var searchResultsField = typeof(FluentAppBar).GetField("_searchResults", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+		var handleSearchMethod = typeof(FluentAppBar).GetMethod("HandleSearch", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+		if (searchTermField is null || searchResultsField is null || handleSearchMethod is null)
+		{
+			Assert.Fail("Failed to access private members of FluentAppBar.");
+		}
+
+        // Act: Empty search term
+        searchTermField.SetValue(cut.Instance, string.Empty);
+        handleSearchMethod.Invoke(cut.Instance, null);
+        var results = (IEnumerable<IAppBarItem>)searchResultsField.GetValue(cut.Instance)!;
+        Assert.Equal(3, results.Count());
+
+        // Act: Search for "a"
+        searchTermField.SetValue(cut.Instance, "a");
+        handleSearchMethod.Invoke(cut.Instance, null);
+        results = (IEnumerable<IAppBarItem>)searchResultsField.GetValue(cut.Instance)!;
+        Assert.Equal(2, results.Count()); // Apple, Banana
+
+        // Act: Search for "Cherry"
+        searchTermField.SetValue(cut.Instance, "Cherry");
+        handleSearchMethod.Invoke(cut.Instance, null);
+        results = (IEnumerable<IAppBarItem>)searchResultsField.GetValue(cut.Instance)!;
+        Assert.Single(results);
+        Assert.Equal("Cherry", results.First().Text);
+    }
+
+    [Fact]
+    public async Task FluentAppBar_TogglePopoverAsync()
+    {
+        // Arrange
+        bool popoverVisible = false;
+        var cut = Render<FluentAppBar>(@<FluentAppBar PopoverVisibilityChanged="@((bool visible) => popoverVisible = visible)">
+            <FluentAppBarItem Id="id1" Text="Item1" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
+            </FluentAppBarItem>
+        </FluentAppBar>);
+
+        var method = typeof(FluentAppBar).GetMethod("TogglePopoverAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+        // Act
+        if (method is not null && cut.Instance is not null)
+        {
+            var result = method.Invoke(cut.Instance, null);
+            if (result is Task task) await task;
+        }
+
+        // Assert: Since initial _showMoreItems is false, toggle should set to true
+        Assert.True(popoverVisible);
+    }
+
+	private T? GetPrivateField<T>(object obj, string fieldName)
+    {
+        var field = obj.GetType().GetField(fieldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        return (T?)field?.GetValue(obj);
+    }
+
+
+	private class TestAppBarItem : IAppBarItem
+    {
+        public string? Id { get; set; }
+        public string? Href { get; set; }
+        public NavLinkMatch Match { get; set; }
+        public Icon IconRest { get; set; } = new CoreIcons.Regular.Size20.Folder();
+        public Icon? IconActive { get; set; }
+        public string Text { get; set; } = string.Empty;
+        public string? Tooltip { get; set; }
+        public ushort? Count { get; set; }
+        public bool? Overflow { get; set; }
+        public EventCallback<IAppBarItem> OnClick { get; set; }
+    }
+}

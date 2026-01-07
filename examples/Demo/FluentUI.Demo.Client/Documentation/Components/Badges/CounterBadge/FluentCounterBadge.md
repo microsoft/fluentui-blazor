@@ -31,9 +31,7 @@ The `OffestX` and `OffsetY` allow for tuning the positioning further.
 {{ CounterBadgeAttached SourceCode=false}}
 
 ## ShowEmpty
-A counter badge will by default be shown as an empty badge if the count value is 0 or not set (null), as can be seen in the first badge in the Default example above, or when `ShowWhen` evaluates to `true` (see below).
-
-This behavior can be changed by setting the `ShowEmpty` parameter to `false`.
+A counter badge will by default be shown as an empty badge if the count value is 0 or not set (null) or when `ShowWhen` evaluates to `true`. This behavior can be changed by setting the `ShowEmpty` parameter to `false`.
 
 - First example `ShowEmpty="true"`. 
 - Second example `ShowEmpty="false"` (see code tab).
