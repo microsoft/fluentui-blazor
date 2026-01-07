@@ -61,12 +61,10 @@
     private async Task ShowSuccessAsync(IAppBarItem item)
     {
         var dialog = await DialogService.ShowSuccessAsync($"You clicked {item.Text}");
-        var result = dialog.Value;
     }
 
     private async Task ShowWarningAsync(IAppBarItem item)
     {
         var dialog = await DialogService.ShowWarningAsync($"Are you sure? {item.Text}");
-        var result = dialog.Value;
     }
 }

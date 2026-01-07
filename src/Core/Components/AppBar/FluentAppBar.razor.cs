@@ -57,7 +57,7 @@ public partial class FluentAppBar : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the collections of app bar items.
-    /// Use eiter this or ChildContent to define the content of the app bar.
+    /// Use either this or ChildContent to define the content of the app bar.
     /// </summary>
     [Parameter]
     public IEnumerable<IAppBarItem>? Items { get; set; }
@@ -189,8 +189,8 @@ public partial class FluentAppBar : FluentComponentBase
         }
         else
         {
-            var filterdAppBarItems = AppsOverflow.Where(i => i.Text.Contains(_searchTerm, StringComparison.CurrentCultureIgnoreCase)).ToList();
-            _searchResults = filterdAppBarItems;
+            var filteredAppBarItems = AppsOverflow.Where(i => i.Text.Contains(_searchTerm, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            _searchResults = filteredAppBarItems;
         }
     }
 }

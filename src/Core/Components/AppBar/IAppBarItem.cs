@@ -55,7 +55,7 @@ public interface IAppBarItem
     public ushort? Count { get; set; }
 
     /// <summary>
-    /// Wether this app is outside of visible app bar area.
+    /// Whether this app is outside of visible app bar area.
     /// </summary>
     public bool? Overflow { get; set; }
 
