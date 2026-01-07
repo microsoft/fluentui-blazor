@@ -14,6 +14,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDisposable
 {
+    /// <summary />
+    public FluentAppBarItem(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary>
     /// Gets or sets the URL for this item.
@@ -82,12 +87,6 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
     public bool? Overflow { get; set; }
 
     /// <summary />
-    public FluentAppBarItem(LibraryConfiguration configuration) : base(configuration)
-    {
-        Id = Identifier.NewId();
-    }
-
-    /// <summary />
     protected override void OnInitialized()
     {
         Owner.Register(this);
@@ -126,5 +125,6 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
     {
         Owner.Unregister(this);
         GC.SuppressFinalize(this);
+        
     }
 }

@@ -19,7 +19,7 @@
 		@if (AppsOverflow.Any())
 		{
 			<FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
-			<div id="@($"appbar-more-{Id}")" class="fluent-appbar-item" style="min-width: calc(var(--appbar-item-size)* 1px);" tabindex="0" fixed title="View more apps" @onclick="@TogglePopoverAsync">
+			<div id="@($"appbar-more-{Id}")" class="fluent-appbar-item" style="min-width: calc(var(--appbar-item-size)* 1px);" tabindex="0" fixed title="@Localizer[Localization.LanguageResource.AppBar_MoreItems]" @onclick="@TogglePopoverAsync">
 				<FluentStack Orientation="Orientation.Vertical"
 							 HorizontalAlignment="HorizontalAlignment.Center"
 							 VerticalAlignment="VerticalAlignment.Center"
@@ -43,12 +43,13 @@
 						@if (PopoverShowSearch)
 						{
 							<FluentTextInput @bind-Value="@_searchTerm"
-											 @bind-Value:after=HandleSearch
+											 @bind-Value:after="@HandleSearch"
 											 Width="100%"
 											 Style="width: 100%;"
 											 Immediate="true"
 											 Placeholder="Search for apps"
-											 Autofocus="true" tabindex="0">
+											 Autofocus="true"
+											 tabindex="0">
 								<StartTemplate>
 									<FluentIcon Value="@(new CoreIcons.Regular.Size20.Search())" Color="Color.Primary" />
 								</StartTemplate>

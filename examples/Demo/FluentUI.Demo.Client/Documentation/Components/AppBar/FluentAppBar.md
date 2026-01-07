@@ -8,6 +8,13 @@ icon: AppsList
 
 The `FluentAppBar` component is an implementation of the AppBar as you know from the Teams application
 
+## Change strings used in the UI
+
+The AppBar uses a string in the UI. It's value can be changed by leveraging the built-in [localization](/localization) functionality.
+The following values can be localized:
+
+- AppBar_MoreItems
+
 ## Simple AppBar
 
 {{ AppBarDefault }}

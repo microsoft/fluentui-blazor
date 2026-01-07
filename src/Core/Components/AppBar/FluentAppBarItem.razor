@@ -22,8 +22,8 @@
 				}
 				else
 				{
-					<FluentIcon Value="IconRest" Color="Color.Default" part="icon-rest" />
-					<FluentIcon Value="IconActive ?? IconRest" part="icon-active" />
+					<FluentIcon Value="@IconRest" Color="Color.Default" part="icon-rest" />
+					<FluentIcon Value="@(IconActive ?? IconRest)" part="icon-active" />
 					<div part="label">@Text</div>
 				}
 			</FluentStack>

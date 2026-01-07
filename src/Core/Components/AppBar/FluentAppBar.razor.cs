@@ -21,13 +21,20 @@ public partial class FluentAppBar : FluentComponentBase
 
     private readonly InternalAppBarContext _internalAppBarContext;
     private DotNetObjectReference<FluentAppBar>? _dotNetHelper;
-    //private IJSObjectReference _jsModuleOverflow = default!;
     private bool _showMoreItems;
     private string? _searchTerm = string.Empty;
     private IEnumerable<IAppBarItem> _searchResults = [];
+    private Orientation _previousOrientation;
 
     // ToDo: Implement focus on popup
-    //private FluentSearch? _appSearch;
+
+    /// <summary />
+    public FluentAppBar(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+        _internalAppBarContext = new(this);
+        _previousOrientation = Orientation;
+    }
 
     /// <summary>
     /// Gets or sets if the popover shows the search box.
@@ -39,15 +46,7 @@ public partial class FluentAppBar : FluentComponentBase
     /// Gets or sets the <see cref="AspNetCore.Components.Orientation"/> of the app bar.
     /// </summary>
     [Parameter]
-    public Orientation Orientation
-    {
-        get;
-        set
-        {
-            field = value;
-            _ = InvokeAsync(InitializeOverflowAsync);
-        }
-    } = Orientation.Vertical;
+    public Orientation Orientation { get; set; } = Orientation.Vertical;
 
     /// <summary>
     /// Event to be called when the visibility of the popover changes.
@@ -71,7 +70,7 @@ public partial class FluentAppBar : FluentComponentBase
     /// <summary>
     /// Gets all app items with <see cref="IAppBarItem.Overflow"/> assigned to True.
     /// </summary>
-    public IEnumerable<IAppBarItem> AppsOverflow => _internalAppBarContext.Apps.Where(i => i.Value.Overflow == true).Select(v => v.Value);
+    internal IEnumerable<IAppBarItem> AppsOverflow => _internalAppBarContext.Apps.Where(i => i.Value.Overflow == true).Select(v => v.Value);
 
     /// <summary />
     protected virtual string? ClassValue => DefaultClassBuilder
@@ -108,10 +107,13 @@ public partial class FluentAppBar : FluentComponentBase
     }
 
     /// <summary />
-    public FluentAppBar(LibraryConfiguration configuration) : base(configuration)
+    protected override async Task OnParametersSetAsync()
     {
-        Id = Identifier.NewId();
-        _internalAppBarContext = new(this);
+        if (_previousOrientation != Orientation)
+        {
+            _previousOrientation = Orientation;
+            await InitializeOverflowAsync();
+        }
     }
 
     /// <summary />
