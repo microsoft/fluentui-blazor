@@ -2,33 +2,46 @@
 @inject FluentUI.Demo.DocViewer.Services.DocViewerService DocViewerService
 
 <FluentNav Style="padding-top:10px;"
-		   UseSingleExpanded="false"
-		   Density="@NavDensity.Medium">
+           UseSingleExpanded="false"
+           Density="@NavDensity.Medium">
 
-	<FluentNavItem Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())">Home</FluentNavItem>
-	@foreach (var category in NavItems)
-	{
+    <FluentNavItem Href="/"
+                   Match="NavLinkMatch.All"
+                   Icon="@(new Icons.Regular.Size20.Home())">
+        Home
+    </FluentNavItem>
 
-		<FluentNavSectionHeader Title="@category.Title" />
+    @foreach (var category in NavItems)
+    {
+        <FluentNavSectionHeader Title="@category.Title" />
 
-		@foreach (var s in category.Items)
-		{
-			var sitePage = s;
+        @foreach (var s in category.Items)
+        {
+            var sitePage = s;
 
-			@if (!sitePage.Items.Any())
-			{
-				<FluentNavItem Href="@sitePage.Route" Icon="@(GetIconFromName(sitePage.Icon))">@sitePage.Title</FluentNavItem>
-			}
-			else
-			{
-				<FluentNavCategory Title="@sitePage.Title" Icon="@(GetIconFromName(sitePage.Icon))">
-					<FluentNavItem Href="@sitePage.Route" Match="NavLinkMatch.All">Overview</FluentNavItem>
-					@foreach (var subPage in sitePage.Items)
-					{
-						<FluentNavItem Href="@subPage.Route">@(subPage.Title)</FluentNavItem>
-					}
-				</FluentNavCategory>
-			}
-		}
-	}
+            @if (!sitePage.Items.Any())
+            {
+                <FluentNavItem Href="@sitePage.Route"
+                               Icon="@(GetIconFromName(sitePage.Icon))">
+                    @sitePage.Title
+                </FluentNavItem>
+            }
+            else
+            {
+                <FluentNavCategory Title="@sitePage.Title" Icon="@(GetIconFromName(sitePage.Icon))">
+                    <FluentNavItem Href="@sitePage.Route"
+                                   Match="NavLinkMatch.All">
+                        Overview
+                    </FluentNavItem>
+
+                    @foreach (var subPage in sitePage.Items)
+                    {
+                        <FluentNavItem Href="@subPage.Route">
+                            @(subPage.Title)
+                        </FluentNavItem>
+                    }
+                </FluentNavCategory>
+            }
+        }
+    }
 </FluentNav>
