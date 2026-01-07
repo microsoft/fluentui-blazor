@@ -109,7 +109,7 @@ public partial class FluentAppBar : FluentComponentBase
     /// <summary />
     protected override async Task OnParametersSetAsync()
     {
-        if (_previousOrientation != Orientation)
+        if (_previousOrientation != Orientation && JSModule.Imported)
         {
             _previousOrientation = Orientation;
             await InitializeOverflowAsync();

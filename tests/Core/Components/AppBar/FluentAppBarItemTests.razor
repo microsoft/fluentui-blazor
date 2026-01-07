@@ -160,7 +160,7 @@
         Assert.True(context?.Apps.ContainsKey(item.Id!));
 
         // Act
-        item.Dispose();
+        item.DisposeAsync();
 
         // Assert unregistered
         Assert.False(context?.Apps.ContainsKey(item.Id!));
