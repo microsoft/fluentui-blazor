@@ -292,7 +292,7 @@
         // Arrange && Act
         var cut = Render(@<FluentCounterBadge Count="11" OffsetX="4" />);
         // Assert
-        cut.Verify();
+		Assert.Contains("--offset-x: 4px", cut.Find("fluent-counter-badge").GetAttribute("style"));
     }
 
     [Fact]
@@ -301,7 +301,7 @@
         // Arrange && Act
         var cut = Render(@<FluentCounterBadge Count="11" OffsetY="4" />);
         // Assert
-        cut.Verify();
+        Assert.Contains("--offset-y: 4px", cut.Find("fluent-counter-badge").GetAttribute("style"));
     }
 
     [Fact]
