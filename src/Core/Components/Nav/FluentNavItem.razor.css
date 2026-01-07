@@ -1,6 +1,7 @@
 .fluent-nav .fluent-navitem,
 .fluent-nav .fluent-navsubitem {
   display: flex;
+  background-color: var(--nav-bg-color, var(--colorNeutralBackground4));
   text-transform: none;
   position: relative;
   justify-content: start;
@@ -26,7 +27,7 @@
 
   .fluent-nav .fluent-navitem:hover,
   .fluent-nav .fluent-navsubitem:hover {
-    background-color: var(--colorNeutralBackground4Hover);
+    background-color: var(--nav-bg-color-hover, var(--colorNeutralBackground4Hover));
   }
 
 [dir="rtl"] .fluent-nav .fluent-navitem,

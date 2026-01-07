@@ -35,6 +35,11 @@ public partial class FluentLayoutHamburger : FluentComponentBase
         .AddStyle("display", "none", when: Visible == false)
         .Build();
 
+    /// <summary />
+    protected string? DrawerStyle => DefaultStyleBuilder
+        .AddStyle("--dialog-bg-color", BackgroundColor)
+        .Build();
+
     /// <summary>
     /// Gets or sets the parent layout component.
     /// </summary>
@@ -107,6 +112,22 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     [Parameter]
     public HamburgerDisplay Display { get; set; } = HamburgerDisplay.MobileOnly;
 
+    /// <summary>
+    /// Gets or sets the background color of the hamburger menu panel.
+    /// </summary>
+    [Parameter]
+    public string? BackgroundColor { get; set; }
+
+    internal void SetBackGroundColor(string? color)
+    {
+        BackgroundColor = color;
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether the hamburger menu is opened or not.
+    /// </summary>
+    internal bool IsOpened { get; private set; }
+
     /// <summary />
     private RenderFragment? NavigationContent => ChildContent ?? LayoutContainer?.Areas.Find(i => i.Area == LayoutArea.Navigation)?.ChildContent;
 
@@ -131,6 +152,8 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     [JSInvokable]
     public async Task FluentLayout_HamburgerClickAsync(bool isExpanded)
     {
+        IsOpened = isExpanded;
+
         if (OnOpened.HasDelegate)
         {
             await OnOpened.InvokeAsync(new LayoutHamburgerEventArgs(Id ?? "", isExpanded));
