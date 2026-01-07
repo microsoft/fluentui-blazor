@@ -3,12 +3,12 @@
 @inherits FluentComponentBase
 
 <CascadingValue Value="this" IsFixed="true">
-    <div id="@Id"
+    <nav id="@Id"
          role="navigation"
          class="@ClassValue"
          style="@StyleValue"
          density="@Density.ToAttributeValue()"
          @attributes="@AdditionalAttributes">
         @ChildContent
-    </div>
+    </nav>
 </CascadingValue>
