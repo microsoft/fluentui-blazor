@@ -32,8 +32,8 @@ public partial class FluentBadge : FluentComponentBase
         .AddStyle("background-color", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
         .AddStyle("z-index", ZIndex.Badge.ToString(CultureInfo.InvariantCulture), _isAttached)
         // Provide CSS custom properties for offset so browsers like Firefox can use them
-        .AddStyle("--offset-x", $"{OffsetX?.ToString(CultureInfo.InvariantCulture)}px", OffsetX.HasValue)
-        .AddStyle("--offset-y", $"{OffsetY?.ToString(CultureInfo.InvariantCulture)}px", OffsetY.HasValue)
+        .AddStyle("--offset-x", $"{OffsetX?.ToString(CultureInfo.InvariantCulture)}px", when: OffsetX.HasValue)
+        .AddStyle("--offset-y", $"{OffsetY?.ToString(CultureInfo.InvariantCulture)}px", when: OffsetY.HasValue)
         .Build();
 
     /// <summary>
