@@ -39,7 +39,7 @@
 						   OffsetVertical="-48"
 						   OffsetHorizontal="68">
 				<ChildContent>
-					<div style="width: 320px; height: 200px; padding: 1rem;">
+					<div class="fluent-appbar-popover">
 						@if (PopoverShowSearch)
 						{
 							<FluentTextInput @bind-Value="@_searchTerm"
@@ -55,7 +55,7 @@
 								</StartTemplate>
 							</FluentTextInput>
 						}
-						<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3" Style="margin-top: 2px">
+						<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3" Style="margin-top: 2px; background-color: inherit;">
 							@foreach (var item in _searchResults)
 							{
 								<FluentGridItem xs="4" Style="width: 100px; height: 85px; display: flex; height: 85px; align-content: center; flex-wrap: wrap; justify-content: center;">

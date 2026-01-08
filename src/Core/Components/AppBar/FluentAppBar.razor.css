@@ -2,7 +2,11 @@
   --appbar-item-size: 68;
   background-color: var(--colorNeutralBackground2);
 }
-  .fluent-appbar fluent-popover-b > div {
+  .fluent-appbar fluent-popover-b .fluent-appbar-popover {
+    width: 320px;
+    height: 200px;
+    padding: 1rem;
+    overflow: auto;
     background-color: var(--colorNeutralBackground2);
   }
 
