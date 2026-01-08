@@ -226,7 +226,7 @@
         // Arrange && Act
         var cut = Render(@<FluentBadge Content="Badge" OffsetX="4" />);
 		// Assert
-		Assert.Contains("--offset-x: 4px", cut.Find("fluent-badge").GetAttribute("style"));
+		cut.Verify();
 	}
 
     [Fact]
@@ -235,7 +235,7 @@
         // Arrange && Act
         var cut = Render(@<FluentBadge Content="Badge" OffsetY="4" />);
         // Assert
-        Assert.Contains("--offset-y: 4px", cut.Find("fluent-badge").GetAttribute("style"));
+		cut.Verify();
     }
 
     [Fact]
