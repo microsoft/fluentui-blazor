@@ -13,6 +13,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentBadge : FluentComponentBase
 {
+    /// <summary>
+    /// Allows for setting the container style when the badge is attached.
+    /// </summary>
+    protected string? _containerStyle;
+
     /// <summary />
     public FluentBadge(LibraryConfiguration configuration) : base(configuration) { }
 
@@ -26,6 +31,9 @@ public partial class FluentBadge : FluentComponentBase
     protected virtual string? StyleValue => DefaultStyleBuilder
         .AddStyle("background-color", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
         .AddStyle("z-index", ZIndex.Badge.ToString(CultureInfo.InvariantCulture), _isAttached)
+        // Provide CSS custom properties for offset so browsers like Firefox can use them
+        .AddStyle("--offset-x", $"{OffsetX?.ToString(CultureInfo.InvariantCulture)}px", when: OffsetX.HasValue)
+        .AddStyle("--offset-y", $"{OffsetY?.ToString(CultureInfo.InvariantCulture)}px", when: OffsetY.HasValue)
         .Build();
 
     /// <summary>
@@ -141,5 +149,10 @@ public partial class FluentBadge : FluentComponentBase
             BadgeColor.Warning => "var(--colorNeutralForeground1Static)",
             _ => "var(--colorNeutralForegroundOnBrand)",
         };
+    }
+
+    internal void SetContainerStyle(string style)
+    {
+       _containerStyle = style;
     }
 }

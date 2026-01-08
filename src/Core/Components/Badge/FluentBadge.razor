@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<AddTag Name="fluent-badge-container" TagWhen="@(() => _isAttached)" style="@ContainerStyle">
+<AddTag Name="fluent-badge-container" TagWhen="@(() => _isAttached)" style="@_containerStyle">
     @ChildContent
     <fluent-badge id="@Id"
                   fuib
@@ -13,8 +13,6 @@
                   shape="@Shape.ToAttributeValue()"
                   size="@Size.ToAttributeValue()"
                   positioning="@Positioning.ToAttributeValue()"
-                  offset-x="@(OffsetX)"
-                  offset-y="@(OffsetY)"
                   @attributes="@AdditionalAttributes">
         @if (IconStart != null)
         {

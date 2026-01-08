@@ -12,8 +12,7 @@ public partial class DemoNav
     [Inject]
     public required NavigationManager NavigationManager { get; set; }
 
-    [Parameter]
-    public FluentLayoutHamburger? Hamburger { get; set; }
+    public IEnumerable<NavItem> NavItems { get; private set; } = [];
 
     protected override void OnInitialized()
     {
@@ -75,8 +74,6 @@ public partial class DemoNav
 
         NavItems = navItems;
     }
-
-    public IEnumerable<NavItem> NavItems { get; private set; } = [];
 
     public record NavItem(string Title, string Route, string? Icon, string Order, IEnumerable<NavItem> Items);
 

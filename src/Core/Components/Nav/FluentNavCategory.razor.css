@@ -6,7 +6,7 @@
   align-items: center;
   gap: var(--spacingVerticalL);
   padding: var(--spacingVerticalMNudge) var(--spacingHorizontalS) var(--spacingVerticalMNudge) var(--spacingHorizontalMNudge);
-  background-color: var(--colorNeutralBackground4);
+  background-color: var(--nav-bg-color, var(--colorNeutralBackground4));
   border-radius: var(--borderRadiusMedium);
   color: var(--colorNeutralForeground2);
   text-decoration-line: none;
@@ -23,7 +23,7 @@
 }
 
   .fluent-nav .fluent-navcategoryitem:hover {
-    background-color: var(--colorNeutralBackground4Hover);
+    background-color: var(--nav-bg-color-hover, var(--colorNeutralBackground4Hover));
   }
 
  .fluent-nav .fluent-navcategoryitem > .expand-icon {

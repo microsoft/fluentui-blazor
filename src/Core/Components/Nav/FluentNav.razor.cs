@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -46,40 +45,17 @@ public partial class FluentNav : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .AddStyle("min-width", Width)
+        .AddStyle("--nav-bg-color", BackgroundColor)
+        .AddStyle("--nav-bg-color-hover", BackgroundColorHover)
         .Build();
 
     /// <summary>
-    /// Gets or sets the icon to display besides the app title.
+    /// Gets or sets the parent layout component.
     /// </summary>
-    [Parameter]
-    public Icon? AppIcon { get; set; }
-
-    /// <summary>
-    /// Gets or sets the title to display at the top of the menu.
-    /// </summary>
-    [Parameter]
-    public string? AppTitle { get; set; }
-
-    /// <summary>
-    /// Gets or sets the link to use for the app item.
-    /// Defaults to homepage ("/").
-    /// </summary>
-    [Parameter]
-    public string AppLink { get; set; } = "/";
-
-    /// <summary>
-    /// Gets or sets whether to use the header with the hamburger icon.
-    /// Defaults to false until we have a good way to make this work with the LayoutHamburger component.
-    /// </summary>
-    [Parameter]
-    public bool UseHeader { get; set; }
-
-    /// <summary>
-    /// Gets or sets the icon to display for collapsing/expanding the nav menu.
-    /// By default, this icon is a hamburger icon.
-    /// </summary>
-    [Parameter]
-    public Icon ToggleIcon { get; set; } = new CoreIcons.Regular.Size20.LineHorizontal3();
+    [CascadingParameter]
+    private FluentLayout? LayoutContainer { get; set; }
 
     /// <summary>
     /// Gets or sets whether to enable using icons in the nav items.
@@ -106,10 +82,31 @@ public partial class FluentNav : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Event callback invoked when the nav menu is toggled.
+    /// Gets or sets the background color of the component.
+    /// The default value is "var(--colorNeutralBackground4)".
     /// </summary>
     [Parameter]
-    public EventCallback<bool> OnToggleNav { get; set; }
+    public string? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color of the component when hovered.
+    /// The default value is "var(--colorNeutralBackground4Hover)".
+    /// </summary>
+    [Parameter]
+    public string? BackgroundColorHover { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when a nav item is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentNavItem> OnItemClick { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS width value to apply to the component.
+    /// Default value is 260px.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
 
     /// <summary />
     protected override async Task OnParametersSetAsync()
@@ -131,34 +128,16 @@ public partial class FluentNav : FluentComponentBase
     {
         if (firstRender)
         {
+            // Set background color for hamburgers in the layout
+            if (LayoutContainer is not null && !string.IsNullOrEmpty(BackgroundColor))
+            {
+                foreach (var hamburger in LayoutContainer?.Hamburgers ?? [])
+                {
+                    hamburger.SetBackGroundColor(BackgroundColor);
+                }
+            }
+
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-        }
-    }
-
-    /// <summary>
-    /// Toggles the nav menu open or closed.
-    /// </summary>
-    public async Task ToggleNavAsync()
-    {
-        _navOpen = !_navOpen;
-        await InvokeAsync(StateHasChanged);
-
-        // Animate the transition
-        if (JSModule.Imported)
-        {
-            if (_navOpen)
-            {
-                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.AnimateNavOpen", Id);
-            }
-            else
-            {
-                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.AnimateNavClose", Id);
-            }
-        }
-
-        if (OnToggleNav.HasDelegate)
-        {
-            await OnToggleNav.InvokeAsync(_navOpen);
         }
     }
 
@@ -227,6 +206,9 @@ public partial class FluentNav : FluentComponentBase
             }
         }
     }
+
+    /// <summary />
+    internal FluentLayoutHamburger[] OpenedHamburgers => LayoutContainer?.Hamburgers.Where(i => i.IsOpened).ToArray() ?? [];
 
     /// <summary>
     /// Registers a category with this nav component.
