@@ -114,7 +114,8 @@ You cannot modify them dynamically.
 
 ## TextInput types
 
-You can set the `TextFieldType` property to define the type of the text input.
+You can set the `TextInputType` property to define the type of the text input. This relies on browser supplied support for the different types and can therefore vary between browsers.
+
 
 {{ TextInputTypes }}
 
