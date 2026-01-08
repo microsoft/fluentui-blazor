@@ -28,6 +28,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       // Set initial styles for the dialog
       const sheet = new CSSStyleSheet();
       sheet.replaceSync(`
+            :host(:not([opened='true'])) {
+                display: none;
+            }
+
             :host div[fuib][popover] {
                 position: fixed;
                 margin: 0;
