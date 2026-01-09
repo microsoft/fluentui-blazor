@@ -77,11 +77,14 @@ public partial class FluentOption<TOption> : FluentComponentBase
             InternalListContext.AddOption(this);
 
             // Use OptionSelectedComparer if available, otherwise fallback to EqualityComparer<TOption>.Default
-            var comparer = InternalListContext.ListComponent.OptionSelectedComparer;
-            if ((comparer != null && comparer(InternalListContext.ListComponent.Value, Value)) ||
-                (comparer == null && EqualityComparer<TOption>.Default.Equals(InternalListContext.ListComponent.Value, Value)))
+            if (Value is not null)
             {
-                Selected = true;
+                var comparer = InternalListContext.ListComponent.OptionSelectedComparer;
+                if ((comparer != null && comparer(InternalListContext.ListComponent.Value, Value)) ||
+                    (comparer == null && EqualityComparer<TOption>.Default.Equals(InternalListContext.ListComponent.Value, Value)))
+                {
+                    Selected = true;
+                }
             }
         }
 

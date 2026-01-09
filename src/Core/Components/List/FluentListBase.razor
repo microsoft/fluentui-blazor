@@ -25,12 +25,11 @@
 
             foreach (var item in Items)
             {                
-                <FluentOption TOption="string"
-                              Data="@item"
-                              Text="@GetOptionText(item)"
-                              Value="@GetOptionValue(item)"
-                              Selected="@(GetOptionSelected(item))"
-                              Disabled="@(GetOptionDisabled(item))">
+                <FluentOptionString Data="@item"
+                                    Text="@GetOptionText(item)"
+                                    Value="@GetOptionValue(item)"
+                                    Selected="@(GetOptionSelected(item))"
+                                    Disabled="@(GetOptionDisabled(item))">
                     @if (OptionTemplate is not null)
                     {
                         @OptionTemplate(item)
@@ -39,7 +38,7 @@
                     {
                         @GetOptionText(item)
                     }
-                </FluentOption>
+                </FluentOptionString>
             }
         }
     }
