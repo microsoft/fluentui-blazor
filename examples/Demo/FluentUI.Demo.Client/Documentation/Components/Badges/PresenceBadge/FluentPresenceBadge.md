@@ -7,6 +7,21 @@ icon: PresenceAvailable
 
 A presence badge is a badge that displays a status indicator such as available, away, or busy.
 
+## Change strings used in the UI
+
+The AppBar uses a string in the UI. It's value can be changed by leveraging the built-in [localization](/localization) functionality.
+The following values can be localized (the default value is shown between brackets) :
+
+- PresenceStatus_Available ("Available")
+- PresenceStatus_Away ("Away")
+- PresenceStatus_Busy ("Busy")
+- PresenceStatus_DoNotDisturb ("Do not disturb")
+- PresenceStatus_Offline ("Offline")
+- PresenceStatus_Unknown ("Unknown")
+- PresenceStatus_OutOfOffice ("Out of office")
+- PresenceStatus_Blocked ("Blocked")
+
+
 ## Examples
 
 ### Default
@@ -48,5 +63,16 @@ Using a presence badges with `OutOfOffice="true"` and all posible statusses used
 _Due to a bug in the Avatar Web Component the initials are not show at the moment. A fix is under review._
 
 ## API FluentPresenceBadge
+
+The PresenceBadge is a specialized Badge component and does **not** support the following parameters:
+
+-  Appearance
+-  BackgroundColor
+-  Color
+-  Content
+-  IconEnd
+-  IconLabel
+-  IconStart
+-  Shape
 
 {{ API Type=FluentPresenceBadge }}

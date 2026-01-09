@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentBadge
 
-<AddTag Name="fluent-badge-container" TagWhen="@(() => _isAttached)" style="@ContainerStyle">
+<AddTag Name="fluent-badge-container" TagWhen="@(() => _isAttached)" style="@_containerStyle">
 	@ChildContent
 	<fluent-badge id="@Id"
 				  fuib
@@ -10,12 +10,11 @@
 				  style="@StyleValue"
 				  size="@Size.ToAttributeValue()"
 				  positioning="@Positioning.ToAttributeValue()"
-				  offset-x="@(OffsetX)"
-				  offset-y="@(OffsetY)"
+				  aria-label="@_ariaLabel"
 				  @attributes="@AdditionalAttributes">
 		@if (IconStart != null)
 		{
-			<FluentIcon Width="@($"{_width}px")" Value="@IconStart" Slot="@FluentSlot.Start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" style="@IconStartStyle" />
+			<FluentIcon Width="@($"{_iconWidth}px")" Value="@IconStart" Slot="@FluentSlot.Start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" Style="margin: -1px;" />
 		}
 	</fluent-badge>
 </AddTag>

@@ -1,4 +1,9 @@
-/*
-    As CounterBadge and Badge area using the same positioning logic,
-    all CSS rules are defined in the FluentBadge.razor.css file
-*/
+.fluent-presence-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--borderRadiusCircular);
+  background-color: var(--colorNeutralBackground1);
+  background-clip: content-box;
+  padding: 1px;
+}
