@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>, ITooltipComponent
 {
     // List of items rendered with an ID to retrieve the element by ID.
-    private Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
+    private protected Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
 
     /// <summary />
     [DynamicDependency(nameof(OnDropdownChangeHandlerAsync))]

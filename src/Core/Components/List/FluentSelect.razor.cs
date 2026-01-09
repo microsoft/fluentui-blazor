@@ -81,4 +81,34 @@ public partial class FluentSelect<TOption> : FluentListBase<TOption>
             await SelectedItemsChanged.InvokeAsync(SelectedItems);
         }
     }
+
+    internal override async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
+    {
+        // List of IDs received from the web component.
+        var selectedIds = e.SelectedOptions?.Split(';', StringSplitOptions.TrimEntries) ?? Array.Empty<string>();
+        SelectedItems = selectedIds.Length > 0
+                      ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
+                      : Array.Empty<TOption>();
+
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(SelectedItems);
+        }
+
+        if (ValueChanged.HasDelegate)
+        {
+            if (InternalOptions.Count == 0 && selectedIds.Length > 0)
+            {
+                var result = await JSModule.ObjectReference.InvokeAsync<string>("Microsoft.FluentUI.Blazor.Select.GetSelectedValue", selectedIds.FirstOrDefault());
+                if (TryParseValueFromString(result, out var currentValue, out _))
+                {
+                    await ValueChanged.InvokeAsync(currentValue);
+                }
+            }
+            else
+            {
+                await ValueChanged.InvokeAsync(SelectedItems.FirstOrDefault());
+            }
+        }
+    }
 }

@@ -21,4 +21,21 @@ export namespace Microsoft.FluentUI.Blazor.Select {
       element._control.value = value;
     }
   }
+
+  /**
+   * Fluent-specific helper:
+   * Retrieves the selected option value from a fluent-option.
+   * @param id
+   */
+  export function GetSelectedValue(id: string): string | null {
+    const element = document.getElementById(id) as any;
+
+    if (!element) return null;
+
+    if (element.tagName === 'FLUENT-OPTION' && element.value !== undefined) {
+      return element.value?.toString() ?? null;
+    }
+
+    return null;
+  }
 }
