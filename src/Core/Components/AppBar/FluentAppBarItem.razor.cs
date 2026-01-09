@@ -14,6 +14,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
 {
+    private FluentCounterBadge _counterBadge = default!;
+
     /// <summary />
     public FluentAppBarItem(LibraryConfiguration configuration) : base(configuration)
     {
@@ -94,6 +96,15 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
         if (string.IsNullOrWhiteSpace(Href))
         {
             Match = NavLinkMatch.All;
+        }
+    }
+
+    /// <summary />
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _counterBadge.SetContainerStyle("display: inline;");
         }
     }
 
