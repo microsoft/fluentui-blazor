@@ -1,4 +1,13 @@
-﻿<FluentSelect TOption="Language" TValue="int" Label="Language" @bind-Value="@SelectedLanguageId">
+﻿<!-- Using Items -->
+<FluentSelect Label="Language"
+              Items="@Languages"
+              @bind-Value="@SelectedLanguageId"
+              OptionText="@(i => i.Name)"
+              OptionValue="@(i => i.Id)"
+              OptionValueFormatted="@(i => i.ToString())"/>
+
+<!-- Using FluentOptions -->
+<FluentSelect Label="Language" @bind-Value="@SelectedLanguageId" TOption="Language" TValue="int">
     @foreach (var language in Languages)
     {
         <FluentOption Value="@language.Id">
