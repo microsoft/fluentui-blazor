@@ -317,11 +317,11 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       div.style.opacity = 'var(--fluent-data-grid-header-opacity)';
 
       if (isRTL) {
-        div.style.left = '0px';
+        div.style.left = '0';
         div.style.right = 'unset';
       } else {
         div.style.left = 'unset';
-        div.style.right = '0px';
+        div.style.right = '0';
       }
       return div;
     }
