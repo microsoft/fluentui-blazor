@@ -45,10 +45,16 @@ public partial class FluentNavCategory : FluentComponentBase
     public string? Title { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon of the nav menu group.
+    /// Gets or sets the icon to use when the item is not hovered/selected/active.
     /// </summary>
     [Parameter]
-    public Icon? Icon { get; set; } = new CoreIcons.Regular.Size20.Folder();
+    public Icon? IconRest { get; set; } = new CoreIcons.Regular.Size20.Folder();
+
+    /// <summary>
+    /// Gets or sets the icon to use when the item is hovered/selected/active.
+    /// </summary>
+    [Parameter]
+    public Icon? IconActive { get; set; }
 
     /// <summary>
     /// Gets or sets the expanded state of the nav menu group.
