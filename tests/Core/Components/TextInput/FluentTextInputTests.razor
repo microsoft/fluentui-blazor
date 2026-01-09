@@ -72,11 +72,14 @@
     [InlineData(TextInputType.Password, "password")]
     [InlineData(TextInputType.Telephone, "tel")]
     [InlineData(TextInputType.Url, "url")]
-    public void FluentInputText_TextFieldType(TextInputType type, string expectedAttribute)
+	[InlineData(TextInputType.Color, "color")]
+	[InlineData(TextInputType.Search, "search")]
+	[InlineData(TextInputType.Number, "number")]
+    public void FluentInputText_TextInputType(TextInputType type, string expectedAttribute)
     {
         // Arrange && Act
         using var context = new IdentifierContext(i => "myId");
-        var cut = Render(@<FluentTextInput TextFieldType="@type" />);
+        var cut = Render(@<FluentTextInput TextInputType="@type" />);
 
         // Assert
         cut.Find("fluent-text-input")
@@ -92,7 +95,7 @@
     public void FluentInputText_Size(TextInputSize? size)
     {
         // Arrange && Act
-        
+
         var cut = Render(@<FluentTextInput Size="@size" />);
 
         // Assert

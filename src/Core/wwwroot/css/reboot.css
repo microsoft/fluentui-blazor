@@ -16,7 +16,7 @@
 
 
 @media (prefers-reduced-motion: no-preference) {
-  : root {
+  :root {
     scroll-behavior: smooth;
   }
 }
@@ -357,9 +357,9 @@ legend {
   line-height: inherit;
 }
 
-legend + * {
-  clear: left;
-}
+  legend + * {
+    clear: left;
+  }
 
 ::-webkit-datetime-edit-fields-wrapper,
 ::-webkit-datetime-edit-text,

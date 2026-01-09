@@ -1,5 +1,5 @@
 ﻿<FluentTextInput Label="Example field"
-                 TextFieldType="TextInputType.Password"
+                 TextInputType="TextInputType.Password"
                  @bind-Value="@MyValue"
                  Immediate="true"
                  MessageCondition="@(i => i.When(() => MyValue.Length < 8)
