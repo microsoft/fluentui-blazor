@@ -114,7 +114,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     }
 
     /// <summary />
-    internal string? AddOption(FluentOption option)
+    internal string? AddOption(FluentOption<TOption> option)
     {
         var id = option.Id ?? "";
 
@@ -135,7 +135,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         }
 
         // Manual list using FluentOption
-        if (typeof(TOption) == typeof(string) && option.Value is TOption value)
+        if (option.Value is TOption value)
         {
             InternalOptions.TryAdd(id, value);
             return option.Id;
@@ -145,14 +145,13 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     }
 
     /// <summary />
-    internal string? RemoveOption(FluentOption option)
+    internal string? RemoveOption(FluentOption<TOption> option)
     {
         var id = option.Id ?? "";
 
         if (InternalOptions.ContainsKey(id))
         {
-            if (option.Data is TOption _ ||
-                typeof(TOption) == typeof(string) && option.Value is TOption _)
+            if (option.Data is TOption _ || option.Value is TOption _)
             {
                 InternalOptions.Remove(id);
                 return option.Id;

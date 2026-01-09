@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// The Option element is used to define an item contained in a List component.
 /// </summary>
-public partial class FluentOption : FluentComponentBase
+public partial class FluentOption<TOption> : FluentComponentBase
 {
     /// <summary />
     public FluentOption(LibraryConfiguration configuration) : base(configuration) { }
@@ -19,7 +19,7 @@ public partial class FluentOption : FluentComponentBase
     /// Gets or sets the context of the list.
     /// </summary>
     [CascadingParameter(Name = "ListContext")]
-    private IInternalListContextOptions? InternalListContext { get; set; }
+    private IInternalListContextOptions<TOption>? InternalListContext { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the element is disabled.
@@ -31,7 +31,7 @@ public partial class FluentOption : FluentComponentBase
     /// Gets or sets the value of this option.
     /// </summary>
     [Parameter]
-    public string? Value { get; set; }
+    public TOption? Value { get; set; }
 
     /// <summary>
     /// Gets or sets the name of this option.
@@ -73,8 +73,16 @@ public partial class FluentOption : FluentComponentBase
             {
                 Id = Identifier.NewId();
             }
-
+            
             InternalListContext.AddOption(this);
+
+            // Use OptionSelectedComparer if available, otherwise fallback to EqualityComparer<TOption>.Default
+            var comparer = InternalListContext.ListComponent.OptionSelectedComparer;
+            if ((comparer != null && comparer(InternalListContext.ListComponent.Value, Value)) ||
+                (comparer == null && EqualityComparer<TOption>.Default.Equals(InternalListContext.ListComponent.Value, Value)))
+            {
+                Selected = true;
+            }
         }
 
         return Task.CompletedTask;

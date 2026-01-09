@@ -79,6 +79,10 @@ An example of using the `FluentOption` components directly in the `Select` is sh
 
 {{ SelectManual }}
 
+Demonstrates two-way data binding with `FluentSelect` using `@bind-Value` to bind an integer value from a collection of a complex object.
+
+{{ SelectLanguage }}
+
 ## Many items
 
 You can use this component with a large number of items.

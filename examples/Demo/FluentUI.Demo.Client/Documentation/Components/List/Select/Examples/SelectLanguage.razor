@@ -1,0 +1,28 @@
+﻿<FluentSelect Label="Language" @bind-Value="@SelectedLanguageId">
+    @foreach (var language in Languages)
+    {
+        <FluentOption Value="@language.Id">
+            @language.Name
+        </FluentOption>
+    }
+</FluentSelect>
+
+<div>
+    Selected: @SelectedLanguageId
+</div>
+
+@code {
+
+    int SelectedLanguageId = 3;
+
+    static Language[] Languages = new Language[]
+    {
+        new(1, "C#"),
+        new(2, "Java"),
+        new(3, "Python"),
+        new(4, "JavaScript"),
+        new(5, "Go")
+    };
+
+    record Language(int Id, string Name);
+}

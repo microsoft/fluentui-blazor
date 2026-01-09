@@ -25,7 +25,8 @@
 
             foreach (var item in Items)
             {                
-                <FluentOption Data="@item"
+                <FluentOption TOption="string"
+                              Data="@item"
                               Text="@GetOptionText(item)"
                               Value="@GetOptionValue(item)"
                               Selected="@(GetOptionSelected(item))"
