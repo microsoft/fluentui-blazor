@@ -4,19 +4,19 @@
 
 <AddTag Name="fluent-badge-container" TagWhen="@(() => _isAttached)" style="@ContainerStyle">
 	@ChildContent
-		<fluent-badge id="@Id"
-							  fuib
-							  class="@ClassValue"
-							  style="@StyleValue"
-							  size="@Size.ToAttributeValue()"
-							  positioning="@Positioning.ToAttributeValue()"
-							  offset-x="@(OffsetX)"
-							  offset-y="@(OffsetY)"
-							  @attributes="@AdditionalAttributes">
-			@if (IconStart != null)
-			{
+	<fluent-badge id="@Id"
+				  fuib
+				  class="@ClassValue"
+				  style="@StyleValue"
+				  size="@Size.ToAttributeValue()"
+				  positioning="@Positioning.ToAttributeValue()"
+				  offset-x="@(OffsetX)"
+				  offset-y="@(OffsetY)"
+				  @attributes="@AdditionalAttributes">
+		@if (IconStart != null)
+		{
 			<FluentIcon Width="@($"{_width}px")" Value="@IconStart" Slot="@FluentSlot.Start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" style="@IconStartStyle" />
-			}
-		</fluent-badge>
+		}
+	</fluent-badge>
 </AddTag>
 

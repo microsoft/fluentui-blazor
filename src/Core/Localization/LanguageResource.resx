@@ -312,4 +312,7 @@
   <data name="Nav_ToggleTitle" xml:space="preserve">
     <value>Toggle navigation</value>
   </data>
+  <data name="AppBar_MoreItems" xml:space="preserve">
+    <value>View more apps</value>
+  </data>
 </root>

@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,6 +18,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentNavItem : FluentComponentBase
 {
+    private const string RelNoOpenerNoReferrer = "noopener noreferrer";
     private const string EnableMatchAllForQueryStringAndFragmentSwitchKey = "Microsoft.AspNetCore.Components.Routing.NavLink.EnableMatchAllForQueryStringAndFragment";
     private string? _hrefAbsolute;
 
@@ -50,10 +53,34 @@ public partial class FluentNavItem : FluentComponentBase
     public required NavigationManager NavigationManager { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon of the nav menu item.
+    /// Gets or sets the parent <see cref="FluentNav"/> component for this instance.
+    /// </summary>
+    /// <remarks>This property is typically set automatically by the Blazor framework when the component is
+    /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
+    /// its parent navigation menu.</remarks>
+    [CascadingParameter]
+    internal FluentNav? Owner { get; set; }
+
+    /// <summary>
+    /// Gets or sets the parent <see cref="FluentNavCategory"/> component for this instance.
+    /// </summary>
+    /// <remarks>This property is typically set automatically by the Blazor framework when the component is
+    /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
+    /// its parent navigation menu.</remarks>
+    [CascadingParameter(Name = "Category")]
+    internal FluentNavCategory? Category { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon to use when the item is not hovered/selected/active.
     /// </summary>
     [Parameter]
-    public Icon? Icon { get; set; }
+    public Icon? IconRest { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon to use when the item is hovered/selected/active.
+    /// </summary>
+    [Parameter]
+    public Icon? IconActive { get; set; }
 
     /// <summary>
     /// Gets or sets the href of the link.
@@ -106,24 +133,6 @@ public partial class FluentNavItem : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the parent <see cref="FluentNav"/> component for this instance.
-    /// </summary>
-    /// <remarks>This property is typically set automatically by the Blazor framework when the component is
-    /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
-    /// its parent navigation menu.</remarks>
-    [CascadingParameter]
-    internal FluentNav? Owner { get; set; }
-
-    /// <summary>
-    /// Gets or sets the parent <see cref="FluentNavCategory"/> component for this instance.
-    /// </summary>
-    /// <remarks>This property is typically set automatically by the Blazor framework when the component is
-    /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
-    /// its parent navigation menu.</remarks>
-    [CascadingParameter(Name = "Category")]
-    internal FluentNavCategory? Category { get; set; }
-
-    /// <summary>
     /// Gets the active state on this navigation item
     /// </summary>
     public bool Active => _isActive;
@@ -173,10 +182,10 @@ public partial class FluentNavItem : FluentComponentBase
 
         if (Owner is not null && Owner.UseIcons)
         {
-            if (Icon is not null)
+            if (IconRest is not null)
             {
                 builder.OpenComponent<FluentIcon<Icon>>(0);
-                builder.AddAttribute(1, "Value", NavUtils.GetActiveIcon(Icon, _isActive));
+                builder.AddAttribute(1, "Value", _isActive ? IconActive ?? IconRest : IconRest);
                 builder.AddAttribute(2, "Class", "icon");
                 builder.AddAttribute(3, "Color", _isActive ? Color.Primary : Color.Default);
                 builder.CloseComponent();
@@ -203,6 +212,35 @@ public partial class FluentNavItem : FluentComponentBase
         if (OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync(args);
+        }
+
+        if (Owner is not null && Owner.OnItemClick.HasDelegate)
+        {
+            await Owner.OnItemClick.InvokeAsync(this);
+        }
+
+        // Hamburger menus should close when a nav item is clicked
+        if (Owner?.OpenedHamburgers.Length > 0)
+        {
+            foreach (var hamburger in Owner.OpenedHamburgers)
+            {
+                await hamburger.HideAsync();
+            }
+
+            // Anchor links does not work inside a fluent-drawer.
+            // We need to navigate using the NavigationManager to ensure the correct behavior.
+            if (!string.IsNullOrEmpty(Href))
+            {
+                if (Target.HasValue)
+                {
+                    // Use JS to open link with target attribute
+                    await JSRuntime.InvokeVoidAsync("window.open", Href, Target.ToAttributeValue(), RelNoOpenerNoReferrer);
+                }
+                else
+                {
+                    NavigationManager.NavigateTo(Href);
+                }
+            }
         }
     }
 

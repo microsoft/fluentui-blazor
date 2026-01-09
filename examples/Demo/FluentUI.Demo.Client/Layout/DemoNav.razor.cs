@@ -12,8 +12,7 @@ public partial class DemoNav
     [Inject]
     public required NavigationManager NavigationManager { get; set; }
 
-    [Parameter]
-    public FluentLayoutHamburger? Hamburger { get; set; }
+    public IEnumerable<NavItem> NavItems { get; private set; } = [];
 
     protected override void OnInitialized()
     {
@@ -76,8 +75,6 @@ public partial class DemoNav
         NavItems = navItems;
     }
 
-    public IEnumerable<NavItem> NavItems { get; private set; } = [];
-
     public record NavItem(string Title, string Route, string? Icon, string Order, IEnumerable<NavItem> Items);
 
     /// <summary>
@@ -85,7 +82,7 @@ public partial class DemoNav
     /// Uses the icons reflection helpers already present in the library so no switch/lookup table is needed.
     /// Returns null when name is empty or the icon cannot be found.
     /// </summary>
-    private static CustomIcon? GetIconFromName(string? iconName)
+    private static CustomIcon? GetIconFromName(string? iconName, bool isActive)
     {
         if (string.IsNullOrWhiteSpace(iconName))
         {
@@ -96,7 +93,7 @@ public partial class DemoNav
         {
             Name = iconName,
             Size = IconSize.Size20,
-            Variant = IconVariant.Regular
+            Variant = isActive ? IconVariant.Filled : IconVariant.Regular
         };
 
         if (iconInfo.TryGetInstance(out var customIcon))

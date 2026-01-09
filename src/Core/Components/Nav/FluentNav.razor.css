@@ -1,81 +1,27 @@
-:root {
-  --nav-width: 260px;
-}
-
-.fluent-nav-container {
-  color: var(--colorNeutralForeground1);
-  overflow: hidden;
-  display: flex;
-  height: 100%;
-  min-width: var(--nav-width);
-  transition: transform 0.2s cubic-bezier(0.33, 0, 0.67, 1),
-              opacity 0.2s cubic-bezier(0.33, 0, 0.67, 1);
-  transform: translate3d(0, 0, 0);
-  opacity: 1;
-}
-
-  .fluent-nav-container.collapsed {
-    transform: translate3d(calc(var(--nav-width) * -1), 0, 0);
-    opacity: 0;
-  }
-
-  [dir="rtl"] .fluent-nav-container.collapsed {
-    transform: translate3d(var(--nav-width), 0, 0);
-  }
-
 .fluent-nav {
-  overflow: hidden;
-  max-width: 100vw;
-  height: auto;
-  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
   box-sizing: border-box;
   display: flex;
+  flex: 1 1 0%;
   flex-direction: column;
   justify-content: flex-start;
   color: var(--colorNeutralForeground1);
   position: relative;
   border-right: var(--strokeWidthThin) solid var(--colorTransparentStroke);
   left: 0px;
-  background-color: var(--colorNeutralBackground4);
+  background-color: var(--nav-bg-color, var(--colorNeutralBackground4));
   align-items: unset;
   right: auto;
-  width: var(--nav-width);
-  min-width: var(--nav-width);
   opacity: 1;
   transform: translate3d(0px, 0px, 0px);
+  align-self: stretch;
+  padding: 0 var(--spacingHorizontalXS) 0 var(--spacingHorizontalMNudge);
+  row-gap: var(--spacingVerticalXXS);
+  padding-bottom: calc(var(--spacingHorizontalXXL) + 1px);
 }
 
-  .fluent-nav > .nav-header {
-    width: 100%;
-    max-width: 100%;
-    padding: var(--spacingVerticalXXL) var(--spacingHorizontalXXL) var(--spacingVerticalS);
-    gap: var(--spacingHorizontalS);
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 2;
-    margin: unset;
-    padding-block: 5px;
-    padding-inline-start: 14px;
-  }
-
-  .fluent-nav > .nav-body {
-    flex: 1 1 0%;
-    align-self: stretch;
-    position: relative;
-    z-index: 1;
-    overflow: auto;
-    padding: 0 var(--spacingHorizontalXS) 0 var(--spacingHorizontalMNudge);
-    flex-direction: column;
-    display: flex;
-    align-items: unset;
-    row-gap: var(--spacingVerticalXXS);
-    padding-bottom: calc(var(--spacingHorizontalXXL) + 1px);
-  }
-
-  [dir="rtl"] .fluent-nav > .nav-body {
+  [dir="rtl"] .fluent-nav {
     padding: 0 var(--spacingHorizontalMNudge) 0 var(--spacingHorizontalXS);
   }
 
@@ -101,7 +47,7 @@
 }
 
   .fluent-nav .appitem:hover {
-    background-color: var(--colorNeutralBackground4Hover);
+    background-color: var(--nav-bg-hover, var(--colorNeutralBackground4Hover));
   }
 
 @keyframes animate_bar {

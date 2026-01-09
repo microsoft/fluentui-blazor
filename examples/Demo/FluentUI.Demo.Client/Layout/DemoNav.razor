@@ -5,10 +5,15 @@
 		   UseSingleExpanded="false"
 		   Density="@NavDensity.Medium">
 
-	<FluentNavItem Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())">Home</FluentNavItem>
+	<FluentNavItem Href="/"
+				   Match="NavLinkMatch.All"
+				   IconRest="@(new Icons.Regular.Size20.Home())"
+				   IconActive="@(new Icons.Filled.Size20.Home())">
+		Home
+	</FluentNavItem>
+
 	@foreach (var category in NavItems)
 	{
-
 		<FluentNavSectionHeader Title="@category.Title" />
 
 		@foreach (var s in category.Items)
@@ -17,15 +22,27 @@
 
 			@if (!sitePage.Items.Any())
 			{
-				<FluentNavItem Href="@sitePage.Route" Icon="@(GetIconFromName(sitePage.Icon))">@sitePage.Title</FluentNavItem>
+				<FluentNavItem Href="@sitePage.Route"
+							   IconRest="@(GetIconFromName(sitePage.Icon, isActive: false))"
+							   IconActive="@(GetIconFromName(sitePage.Icon, isActive: true))">
+					@sitePage.Title
+				</FluentNavItem>
 			}
 			else
 			{
-				<FluentNavCategory Title="@sitePage.Title" Icon="@(GetIconFromName(sitePage.Icon))">
-					<FluentNavItem Href="@sitePage.Route" Match="NavLinkMatch.All">Overview</FluentNavItem>
+				<FluentNavCategory Title="@sitePage.Title"
+								   IconRest="@(GetIconFromName(sitePage.Icon, isActive: false))"
+								   IconActive="@(GetIconFromName(sitePage.Icon, isActive: true))">
+					<FluentNavItem Href="@sitePage.Route"
+								   Match="NavLinkMatch.All">
+						Overview
+					</FluentNavItem>
+
 					@foreach (var subPage in sitePage.Items)
 					{
-						<FluentNavItem Href="@subPage.Route">@(subPage.Title)</FluentNavItem>
+						<FluentNavItem Href="@subPage.Route">
+							@(subPage.Title)
+						</FluentNavItem>
 					}
 				</FluentNavCategory>
 			}
