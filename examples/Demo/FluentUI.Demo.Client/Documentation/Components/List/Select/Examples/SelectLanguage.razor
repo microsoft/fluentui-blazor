@@ -3,8 +3,8 @@
               Items="@Languages"
               @bind-Value="@SelectedLanguageId"
               OptionText="@(i => i.Name)"
-              OptionValue="@(i => i.Id)"
-              OptionValueFormatted="@(i => i.ToString())"/>
+              OptionBindedValue="@(i => i.Id)"
+              OptionValue="@(i => i.ToString())"/>
 
 <!-- Using FluentOptions -->
 <FluentSelect Label="Language" @bind-Value="@SelectedLanguageId" TOption="Language" TValue="int">

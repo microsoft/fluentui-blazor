@@ -4,7 +4,7 @@
               Placeholder="Select a name"
               Items="@Persons"
               OptionText="@(i => $"{i?.FirstName} {i?.LastName}")"
-              OptionValueFormatted="@(i => $"{i?.Id}")"
+              OptionValue="@(i => $"{i?.Id}")"
               Height="200px"
               Width="300px"
               @bind-Value="@Selected" />

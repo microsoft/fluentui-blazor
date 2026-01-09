@@ -79,16 +79,16 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     public virtual RenderFragment<TOption>? OptionTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the function used to determine which value to apply to the option value attribute.
+    /// Gets or sets the function used to determine which value to apply to the binded value.
     /// </summary>
     [Parameter]
-    public virtual Func<TOption?, TValue?>? OptionValue { get; set; }
+    public virtual Func<TOption?, TValue?>? OptionBindedValue { get; set; }
 
     /// <summary>
-    /// Gets or sets the function used to determine which value to apply to the option value attribute.
+    /// Gets or sets the function used to determine which value to apply to the HTML option value attribute.
     /// </summary>
     [Parameter]
-    public virtual Func<TValue?, string>? OptionValueFormatted { get; set; }
+    public virtual Func<TValue?, string>? OptionValue { get; set; }
 
     /// <summary>
     /// Gets or sets the function used to determine which text to display for each option.
@@ -197,9 +197,9 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// <summary />
     protected virtual TValue? GetOptionValue(TOption? item)
     {
-        if (OptionValue is not null)
+        if (OptionBindedValue is not null)
         {
-            return OptionValue.Invoke(item);
+            return OptionBindedValue.Invoke(item);
         }
 
         return default;

@@ -30,7 +30,7 @@ You can customize the items in the **FluentSelect** component by using Lambda ex
 The following example shows how to customize the items:
 - `OptionText`: This function is used to customize the text of the option.  
    In the following example, the **FirstName** is used.
-- `OptionValue`: This function is used to customize the value of the option.  
+- `OptionBindedValue`: This function is used to customize the value of the option.  
    In the following example, the **Id** is returned.
 - `OptionDisabled`: This function is used to define the disabled options.  
    In the following example, the third element is disabled.
