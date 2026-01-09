@@ -6,7 +6,7 @@
     <FluentNav @ref="@nav"
                UseIcons="@UseIcons"
                UseSingleExpanded="@(!UseMultipleExpanded)"
-               OnItemClick="@(e => Console.WriteLine("NavItem clicked."))"
+			   OnItemClick="@(e => Console.WriteLine($"NavItem clicked: '{e.IconRest?.Name}'."))"
                Width="260px"
                Density="@Density">
 

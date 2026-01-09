@@ -51,7 +51,7 @@ public partial class FluentNavCategory : FluentComponentBase
     public Icon? IconRest { get; set; } = new CoreIcons.Regular.Size20.Folder();
 
     /// <summary>
-    /// Gets or sets the Icon to use when the item is hovered/selected/active.
+    /// Gets or sets the icon to use when the item is hovered/selected/active.
     /// </summary>
     [Parameter]
     public Icon? IconActive { get; set; }

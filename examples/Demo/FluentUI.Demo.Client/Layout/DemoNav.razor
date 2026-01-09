@@ -23,16 +23,16 @@
 			@if (!sitePage.Items.Any())
 			{
 				<FluentNavItem Href="@sitePage.Route"
-							   IconRest="@(GetIconFromName(sitePage.Icon, false))"
-							   IconActive="@(GetIconFromName(sitePage.Icon, true))">
+							   IconRest="@(GetIconFromName(sitePage.Icon, isActive: false))"
+							   IconActive="@(GetIconFromName(sitePage.Icon, isActive: true))">
 					@sitePage.Title
 				</FluentNavItem>
 			}
 			else
 			{
 				<FluentNavCategory Title="@sitePage.Title"
-								   IconRest="@(GetIconFromName(sitePage.Icon, false))"
-								   IconActive="@(GetIconFromName(sitePage.Icon, true))">
+								   IconRest="@(GetIconFromName(sitePage.Icon, isActive: false))"
+								   IconActive="@(GetIconFromName(sitePage.Icon, isActive: true))">
 					<FluentNavItem Href="@sitePage.Route"
 								   Match="NavLinkMatch.All">
 						Overview
