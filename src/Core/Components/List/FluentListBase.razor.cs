@@ -10,7 +10,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>, ITooltipComponent
+public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<TValue>, ITooltipComponent, IInternalListBase<TValue>
 {
     // List of items rendered with an ID to retrieve the element by ID.
     private Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
@@ -20,7 +20,6 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DropdownEventArgs))]
     protected FluentListBase(LibraryConfiguration configuration) : base(configuration)
     {
-        
     }
 
     /// <summary>
@@ -74,7 +73,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     public EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the template for the <see cref="FluentListBase{TOption}.Items"/> items.
+    /// Gets or sets the template for the <see cref="FluentListBase{TOption, TValue}.Items"/> items.
     /// </summary>
     [Parameter]
     public virtual RenderFragment<TOption>? OptionTemplate { get; set; }
@@ -101,7 +100,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// Gets or sets the function used to determine whether two options are considered equal for selection purposes.
     /// </summary>
     [Parameter]
-    public virtual Func<TOption?, TOption?, bool>? OptionSelectedComparer { get; set; }
+    public virtual Func<TValue?, TValue?, bool>? OptionSelectedComparer { get; set; }
 
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
@@ -114,7 +113,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     }
 
     /// <summary />
-    internal string? AddOption(FluentOption<TOption> option)
+    string? IInternalListBase<TValue>.AddOption(FluentOption<TValue> option)
     {
         var id = option.Id ?? "";
 
@@ -145,13 +144,13 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     }
 
     /// <summary />
-    internal string? RemoveOption(FluentOption<TOption> option)
+    string? IInternalListBase<TValue>.RemoveOption(FluentOption<TValue> option)
     {
         var id = option.Id ?? "";
 
         if (InternalOptions.ContainsKey(id))
         {
-            if (option.Data is TOption _ || option.Value is TOption _)
+            if (option.Data is TValue _ || option.Value is TValue _)
             {
                 InternalOptions.Remove(id);
                 return option.Id;
@@ -174,7 +173,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         {
             if (OptionSelectedComparer != null)
             {
-                return SelectedItems?.Any(selectedItem => OptionSelectedComparer(item, selectedItem)) ?? false;
+                return SelectedItems?.Any(selectedItem => OptionSelectedComparer(GetOptionValue(item), GetOptionValue(selectedItem))) ?? false;
             }
 
             return SelectedItems?.Contains(item) ?? false;
@@ -183,16 +182,22 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         // Single item
         if (OptionSelectedComparer != null)
         {
-            return OptionSelectedComparer(item, CurrentValue);
+            return OptionSelectedComparer(GetOptionValue(item), CurrentValue);
         }
 
         return Equals(item, CurrentValue);
     }
 
     /// <summary />
-    protected virtual string? GetOptionValue(TOption? item)
+    protected virtual TValue? GetOptionValue(TOption? item)
     {
-        return OptionValue?.Invoke(item) ?? item?.ToString() ?? null;
+        if (OptionValue is not null)
+        {
+            return OptionValue.Invoke(item);
+        }
+
+        // TODO: Try to convert TOption to TValue ????
+        return default!;
     }
 
     /// <summary />
@@ -238,7 +243,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
     {
         // List of IDs received from the web component.
-        var selectedIds = e.SelectedOptions?.Split(';', StringSplitOptions.TrimEntries) ?? Array.Empty<string>();
+        var selectedIds = e.SelectedOptions?.Split(';', StringSplitOptions.TrimEntries) ?? [];
         SelectedItems = selectedIds.Length > 0
                       ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
                       : Array.Empty<TOption>();
@@ -250,12 +255,12 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
 
         if (ValueChanged.HasDelegate)
         {
-            await ValueChanged.InvokeAsync(SelectedItems.FirstOrDefault());
+            await ValueChanged.InvokeAsync(GetOptionValue(SelectedItems.FirstOrDefault()));
         }
     }
 
     /// <summary />
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TOption result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         return this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
     }
@@ -263,14 +268,14 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// <summary>
     /// For unit testing purposes only.
     /// </summary>
-    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out TOption result, [NotNullWhen(false)] out string? validationErrorMessage)
+    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         return TryParseValueFromString(value, out result, out validationErrorMessage);
     }
 
     /// <summary />
-    internal InternalListContext<TOption> GetCurrentContext()
+    internal InternalListContext<TValue> GetCurrentContext()
     {
-        return new InternalListContext<TOption>(this);
+        return new InternalListContext<TValue>(this);
     }
 }

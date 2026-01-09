@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 {
     private DateTime DefaultTime => Culture.Calendar.MinSupportedDateTime;
-    private FluentCombobox<DateTime?> _fluentCombobox = default!;
+    private FluentCombobox<DateTime?, DateTime?> _fluentCombobox = default!;
 
     /// <summary />
     public FluentTimePicker(LibraryConfiguration configuration) : base(configuration)
@@ -186,7 +186,7 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
         {
             DateTime dt => dt.ToString("HH:mm:ss", CultureInfo.InvariantCulture),
             TimeOnly to => to.ToString("HH:mm:ss", CultureInfo.InvariantCulture),
-            _ => null
+            _ => null,
         };
     }
 
@@ -241,7 +241,7 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
                 ListAppearance.FilledDarker => TextInputAppearance.FilledDarker,
                 ListAppearance.Outline => TextInputAppearance.Outline,
                 ListAppearance.Transparent => TextInputAppearance.Underline,
-                _ => TextInputAppearance.Outline
+                _ => TextInputAppearance.Outline,
             };
         }
     }

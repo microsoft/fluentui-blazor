@@ -19,7 +19,7 @@ public partial class FluentOption<TValue> : FluentComponentBase
     /// Gets or sets the context of the list.
     /// </summary>
     [CascadingParameter(Name = "ListContext")]
-    private IInternalListContextOptions<TValue>? InternalListContext { get; set; }
+    private InternalListContext<TValue>? InternalListContext { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the element is disabled.
@@ -73,7 +73,7 @@ public partial class FluentOption<TValue> : FluentComponentBase
             {
                 Id = Identifier.NewId();
             }
-            
+
             InternalListContext.AddOption(this);
 
             // Use OptionSelectedComparer if available, otherwise fallback to EqualityComparer<TValue>.Default

@@ -8,13 +8,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// The component cascades this so that descendant options can talk back to it.
 /// It's an internal type so it doesn't show up in unrelated components by mistake
 /// </summary>
-internal class InternalListContext<TOption> : IInternalListContextOptions<TOption>
+internal class InternalListContext<TValue>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="InternalListContext{TOption}"/> class.
+    /// Initializes a new instance of the InternalListContext class.
     /// </summary>
     /// <param name="component"></param>
-    public InternalListContext(FluentListBase<TOption> component)
+    public InternalListContext(IInternalListBase<TValue> component)
     {
         ListComponent = component;
     }
@@ -22,14 +22,14 @@ internal class InternalListContext<TOption> : IInternalListContextOptions<TOptio
     /// <summary>
     /// Gets the list component.
     /// </summary>
-    public FluentListBase<TOption> ListComponent { get; }
+    public IInternalListBase<TValue> ListComponent { get; }
 
     /// <summary>
     /// Call the list component to add an option.
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    string? IInternalListContextOptions<TOption>.AddOption(FluentOption<TOption> option)
+    public string? AddOption(FluentOption<TValue> option)
     {
         return ListComponent.AddOption(option);
     }
@@ -39,7 +39,7 @@ internal class InternalListContext<TOption> : IInternalListContextOptions<TOptio
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    string? IInternalListContextOptions<TOption>.RemoveOption(FluentOption<TOption> option)
+    public string? RemoveOption(FluentOption<TValue> option)
     {
         return ListComponent.RemoveOption(option);
     }
