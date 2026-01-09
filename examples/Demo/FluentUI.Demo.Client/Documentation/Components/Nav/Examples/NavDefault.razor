@@ -3,49 +3,48 @@
 @inject IDialogService DialogService
 
 <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="15">
-
     <FluentNav @ref="@nav"
                UseIcons="@UseIcons"
                UseSingleExpanded="@(!UseMultipleExpanded)"
-               OnItemClick="@(e => Console.WriteLine($"NavItem clicked: Icon '{e.Icon?.Name}'."))"
+               OnItemClick="@(e => Console.WriteLine("NavItem clicked."))"
                Width="260px"
                Density="@Density">
 
         <!-- Navigation Items -->
-        <FluentNavItem Href="/Nav" Icon="@(new Icons.Regular.Size20.Board())">
+        <FluentNavItem Href="/Nav" IconRest="@((new Icons.Regular.Size20.Board()))" IconActive="@((new Icons.Filled.Size20.Board()))">
             Dashboard
         </FluentNavItem>
-        <FluentNavItem OnClick="@ShowInformationAsync" Icon="@(new Icons.Regular.Size20.MegaphoneLoud())">
+        <FluentNavItem OnClick="@ShowInformationAsync" IconRest="@((new Icons.Regular.Size20.MegaphoneLoud()))" IconActive="@((new Icons.Filled.Size20.MegaphoneLoud()))">
             Announcements
         </FluentNavItem>
         <FluentNavItem Disabled="true" Href="@FluentUIBlazor_Url">Employee Spotlight</FluentNavItem>
-        <FluentNavItem OnClick="@ShowInformationAsync" Icon="@(new Icons.Regular.Size20.PersonSearch())">
+        <FluentNavItem OnClick="@ShowInformationAsync" IconRest="@((new Icons.Regular.Size20.PersonSearch()))" IconActive="@((new Icons.Filled.Size20.PersonSearch()))">
             Profile Search
         </FluentNavItem>
-        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.PersonMoney())">
+        <FluentNavItem Href="@FluentUIBlazor_Url" IconRest="@((new Icons.Regular.Size20.PersonMoney()))" IconActive="@((new Icons.Filled.Size20.PersonMoney()))">
             Performance Reviews
         </FluentNavItem>
 
         <!-- Employee Management -->
         <FluentNavSectionHeader Title="Employee Management" />
 
-        <FluentNavCategory Title="Job Postings" Icon="@(new Icons.Regular.Size20.NotePin())">
+        <FluentNavCategory Title="Job Postings" IconRest="@((new Icons.Regular.Size20.NotePin()))" IconActive="@((new Icons.Filled.Size20.NotePin()))">
             <FluentNavItem OnClick="@ShowInformationAsync">Openings</FluentNavItem>
             <FluentNavItem OnClick="@ShowInformationAsync">Submissions</FluentNavItem>
         </FluentNavCategory>
 
-        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.People())">
+        <FluentNavItem Href="@FluentUIBlazor_Url" IconRest="@((new Icons.Regular.Size20.People()))" IconActive="@((new Icons.Filled.Size20.People()))">
             Interviews
         </FluentNavItem>
 
         <!-- Benefits -->
         <FluentNavSectionHeader Title="Benefits" />
 
-        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.HeartPulse())">
+        <FluentNavItem Href="@FluentUIBlazor_Url" IconRest="@((new Icons.Regular.Size20.HeartPulse()))" IconActive="@((new Icons.Filled.Size20.HeartPulse()))">
             Health Plans
         </FluentNavItem>
 
-        <FluentNavCategory Id="retirement" Title="Retirement" Icon="@(new Icons.Regular.Size20.Person())">
+        <FluentNavCategory Id="retirement" Title="Retirement" IconRest="@((new Icons.Regular.Size20.Person()))" IconActive="@((new Icons.Filled.Size20.Person()))">
             <FluentNavItem>
                 Plan Information
             </FluentNavItem>
@@ -58,19 +57,19 @@
         <FluentDivider />
 
         <!-- Training Programs -->
-        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.BoxMultiple())">
+        <FluentNavItem Href="@FluentUIBlazor_Url" IconRest="@((new Icons.Regular.Size20.BoxMultiple()))" IconActive="@((new Icons.Filled.Size20.BoxMultiple()))">
             Training Programs
         </FluentNavItem>
 
-        <FluentNavCategory Title="Career Development" Icon="@(new Icons.Regular.Size20.PeopleStar())">
+        <FluentNavCategory Title="Career Development" IconRest="@((new Icons.Regular.Size20.PeopleStar()))" IconActive="@((new Icons.Filled.Size20.PeopleStar()))">
             <FluentNavItem>Openings</FluentNavItem>
             <FluentNavItem>Submissions</FluentNavItem>
         </FluentNavCategory>
 
-        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.ArrowTrendingLines())">
+        <FluentNavItem Href="@FluentUIBlazor_Url" IconRest="@((new Icons.Regular.Size20.ArrowTrendingLines()))" IconActive="@((new Icons.Filled.Size20.ArrowTrendingLines()))">
             Workforce Data
         </FluentNavItem>
-        <FluentNavItem Href="@FluentUIBlazor_Url" Icon="@(new Icons.Regular.Size20.DocumentBulletListMultiple())">
+        <FluentNavItem Href="@FluentUIBlazor_Url" IconRest="@((new Icons.Regular.Size20.DocumentBulletListMultiple()))" IconActive="@((new Icons.Filled.Size20.DocumentBulletListMultiple()))">
             Reports
         </FluentNavItem>
     </FluentNav>

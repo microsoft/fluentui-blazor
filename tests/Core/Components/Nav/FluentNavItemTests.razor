@@ -177,11 +177,11 @@
 	}
 
 	[Fact]
-	public void FluentNavItem_Renders_With_Icon()
+	public void FluentNavItem_Renders_With_IconRest()
 	{
 		// Arrange & Act
 		var cut = Render(@<FluentNav>
-			<FluentNavItem Icon="@Samples.Icons.Info">Test Item</FluentNavItem>
+			<FluentNavItem IconRest="@Samples.Icons.Info">Test Item</FluentNavItem>
 		</FluentNav>);
 		// Assert
 		Assert.NotNull(cut);
@@ -195,7 +195,7 @@
 	{
 		// Arrange & Act
 		var cut = Render(@<FluentNav UseIcons="false">
-			<FluentNavItem Icon="@Samples.Icons.Info">Test Item</FluentNavItem>
+			<FluentNavItem IconRest="@Samples.Icons.Info">Test Item</FluentNavItem>
 		</FluentNav>);
 		// Assert
 		Assert.NotNull(cut);
@@ -203,7 +203,6 @@
 		Assert.Contains("Test Item", cut.Markup);
 	}
 
-	// Write a test for checking the _isActive state of FluentNavItem when the Href matches the current URI
 	[Fact]
 	public void FluentNavItem_IsActive_When_Href_Matches_Current_URI()
 	{
@@ -212,13 +211,48 @@
 		navMan.NavigateTo("https://localhost/test", true);
 
 		var cut = Render(@<FluentNav>
-			<FluentNavItem Id="link" Icon="@Samples.Icons.Info" Href="https://localhost/test">Test Item</FluentNavItem>
+			<FluentNavItem Id="link" IconRest="@Samples.Icons.Info" Href="https://localhost/test">Test Item</FluentNavItem>
 		</FluentNav>);
 
 		// Assert
 		Assert.NotNull(cut);
 
 		Assert.Contains("active", cut.Markup);
+	}
+
+		
+	[Fact]
+	public void FluentNavItem_IsActive_IconActive()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/test", true);
+
+		var cut = Render(@<FluentNav>
+				<FluentNavItem Id="link" IconActive="@Samples.Icons.Warning" IconRest="@Samples.Icons.Info" Href="https://localhost/test">Test Item</FluentNavItem>
+			</FluentNav>);
+
+			// Assert
+			Assert.NotNull(cut);
+
+			cut.Verify();
+	}
+
+	[Fact]
+	public void FluentNavItem_IsActive_WithoutIconActive()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/test", true);
+
+		var cut = Render(@<FluentNav>
+				<FluentNavItem Id="link" IconRest="@Samples.Icons.Info" Href="https://localhost/test">Test Item</FluentNavItem>
+			</FluentNav>);
+
+			// Assert
+			Assert.NotNull(cut);
+
+			cut.Verify();
 	}
 
 	[Fact]
@@ -327,7 +361,7 @@
 		// Arrange & Act
 		var cut = Render(@<FluentNav>
 			<FluentNavCategory Title="Test Category">
-				<FluentNavItem Icon="@Samples.Icons.Info">Sub Item</FluentNavItem>
+				<FluentNavItem IconRest="@Samples.Icons.Info">Sub Item</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>
 	);

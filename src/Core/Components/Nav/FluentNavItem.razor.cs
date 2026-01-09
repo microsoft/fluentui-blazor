@@ -71,10 +71,16 @@ public partial class FluentNavItem : FluentComponentBase
     internal FluentNavCategory? Category { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon of the nav menu item.
+    /// Gets or sets the icon to use when the item is not hovered/selected/active.
     /// </summary>
     [Parameter]
-    public Icon? Icon { get; set; }
+    public Icon? IconRest { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Icon to use when the item is hovered/selected/active.
+    /// </summary>
+    [Parameter]
+    public Icon? IconActive { get; set; }
 
     /// <summary>
     /// Gets or sets the href of the link.
@@ -176,10 +182,10 @@ public partial class FluentNavItem : FluentComponentBase
 
         if (Owner is not null && Owner.UseIcons)
         {
-            if (Icon is not null)
+            if (IconRest is not null)
             {
                 builder.OpenComponent<FluentIcon<Icon>>(0);
-                builder.AddAttribute(1, "Value", NavUtils.GetActiveIcon(Icon, _isActive));
+                builder.AddAttribute(1, "Value", _isActive ? IconActive ?? IconRest : IconRest);
                 builder.AddAttribute(2, "Class", "icon");
                 builder.AddAttribute(3, "Color", _isActive ? Color.Primary : Color.Default);
                 builder.CloseComponent();
