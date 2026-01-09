@@ -82,7 +82,13 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// Gets or sets the function used to determine which value to apply to the option value attribute.
     /// </summary>
     [Parameter]
-    public virtual Func<TOption?, string>? OptionValue { get; set; }
+    public virtual Func<TOption?, TValue?>? OptionValue { get; set; }
+
+    /// <summary>
+    /// Gets or sets the function used to determine which value to apply to the option value attribute.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TValue?, string>? OptionValueFormatted { get; set; }
 
     /// <summary>
     /// Gets or sets the function used to determine which text to display for each option.
@@ -196,8 +202,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             return OptionValue.Invoke(item);
         }
 
-        // TODO: Try to convert TOption to TValue ????
-        return default!;
+        return default;
     }
 
     /// <summary />

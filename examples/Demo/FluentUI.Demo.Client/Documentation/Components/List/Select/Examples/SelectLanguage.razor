@@ -1,4 +1,4 @@
-﻿<FluentSelect Label="Language" @bind-Value="@SelectedLanguageId">
+﻿<FluentSelect TOption="Language" TValue="int" Label="Language" @bind-Value="@SelectedLanguageId">
     @foreach (var language in Languages)
     {
         <FluentOption Value="@language.Id">

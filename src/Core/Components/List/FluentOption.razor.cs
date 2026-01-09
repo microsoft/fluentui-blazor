@@ -65,6 +65,21 @@ public partial class FluentOption<TValue> : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
+    private string? ValueFormatted
+    {
+        get
+        {
+            if (InternalListContext is null ||
+                InternalListContext.ListComponent.OptionValueFormatted is null)
+            {
+                return Value?.ToString();
+            }
+
+            return InternalListContext.ListComponent.OptionValueFormatted.Invoke(Value);
+        }
+    }
+
+    /// <summary />
     protected override Task OnInitializedAsync()
     {
         if (InternalListContext is not null)
