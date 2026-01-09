@@ -147,6 +147,7 @@ public partial class FluentBadge : FluentComponentBase
 
     internal void SetContainerStyle(string style)
     {
-       _containerStyle = style;
+        _containerStyle = style;
+        StateHasChanged();
     }
 }
