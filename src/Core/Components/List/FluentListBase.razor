@@ -1,7 +1,10 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Rendering
-@inherits FluentInputBase<TOption>
+@attribute [CascadingTypeParameter(nameof(TOption))]
+@attribute [CascadingTypeParameter(nameof(TValue))]
+@inherits FluentInputBase<TValue>
 @typeparam TOption
+@typeparam TValue
 
 @code
 {

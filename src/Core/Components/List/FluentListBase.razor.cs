@@ -10,7 +10,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>, ITooltipComponent
+public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<TValue>, ITooltipComponent, IInternalListBase<TValue>
 {
     // List of items rendered with an ID to retrieve the element by ID.
     private protected Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
@@ -74,7 +74,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     public EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the template for the <see cref="FluentListBase{TOption}.Items"/> items.
+    /// Gets or sets the template for the <see cref="FluentListBase{TOption, TValue}.Items"/> items.
     /// </summary>
     [Parameter]
     public virtual RenderFragment<TOption>? OptionTemplate { get; set; }
@@ -101,7 +101,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// Gets or sets the function used to determine whether two options are considered equal for selection purposes.
     /// </summary>
     [Parameter]
-    public virtual Func<TOption?, TOption?, bool>? OptionSelectedComparer { get; set; }
+    public virtual Func<TValue?, TValue?, bool>? OptionSelectedComparer { get; set; }
 
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
@@ -114,7 +114,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     }
 
     /// <summary />
-    internal string? AddOption(FluentOption option)
+    string? IInternalListBase<TValue>.AddOption(FluentOption option)
     {
         var id = option.Id ?? "";
 
@@ -135,7 +135,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         }
 
         // Manual list using FluentOption
-        if (typeof(TOption) == typeof(string) && option.Value is TOption value)
+        if (option.Value is TOption value)
         {
             InternalOptions.TryAdd(id, value);
             return option.Id;
@@ -145,14 +145,13 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     }
 
     /// <summary />
-    internal string? RemoveOption(FluentOption option)
+    string? IInternalListBase<TValue>.RemoveOption(FluentOption option)
     {
         var id = option.Id ?? "";
 
         if (InternalOptions.ContainsKey(id))
         {
-            if (option.Data is TOption _ ||
-                typeof(TOption) == typeof(string) && option.Value is TOption _)
+            if (option.Data is TOption _ || option.Value is TOption _)
             {
                 InternalOptions.Remove(id);
                 return option.Id;
@@ -170,21 +169,24 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
             return false;
         }
 
-        // Multiple items
-        if (Multiple)
+        if(TryParseValueFromString(GetOptionValue(item), out var itemValue, out _))
         {
-            if (OptionSelectedComparer != null)
+            // Multiple items
+            if (Multiple)
             {
-                return SelectedItems?.Any(selectedItem => OptionSelectedComparer(item, selectedItem)) ?? false;
+                if (OptionSelectedComparer != null)
+                {
+                    return SelectedItems?.Any(selectedItem => TryParseValueFromString(GetOptionValue(selectedItem), out var selectedItemValue, out _) && OptionSelectedComparer(itemValue, selectedItemValue)) ?? false;
+                }
+
+                return SelectedItems?.Contains(item) ?? false;
             }
 
-            return SelectedItems?.Contains(item) ?? false;
-        }
-
-        // Single item
-        if (OptionSelectedComparer != null)
-        {
-            return OptionSelectedComparer(item, CurrentValue);
+            // Single item
+            if (OptionSelectedComparer != null)
+            {
+                return OptionSelectedComparer(itemValue, CurrentValue);
+            }
         }
 
         return Equals(item, CurrentValue);
@@ -251,12 +253,19 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
 
         if (ValueChanged.HasDelegate)
         {
-            await ValueChanged.InvokeAsync(SelectedItems.FirstOrDefault());
+            if(SelectedItems.FirstOrDefault() is TValue value)
+            {
+                await ValueChanged.InvokeAsync(value);
+            }
+            else if(TryParseValueFromString(CurrentValueAsString, out var parsedValue, out _))
+            {
+                await ValueChanged.InvokeAsync(parsedValue);
+            }
         }
     }
 
     /// <summary />
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TOption result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         return this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
     }
@@ -264,14 +273,14 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// <summary>
     /// For unit testing purposes only.
     /// </summary>
-    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out TOption result, [NotNullWhen(false)] out string? validationErrorMessage)
+    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         return TryParseValueFromString(value, out result, out validationErrorMessage);
     }
 
     /// <summary />
-    internal InternalListContext<TOption> GetCurrentContext()
+    internal InternalListContext<TValue> GetCurrentContext()
     {
-        return new InternalListContext<TOption>(this);
+        return new InternalListContext<TValue>(this);
     }
 }

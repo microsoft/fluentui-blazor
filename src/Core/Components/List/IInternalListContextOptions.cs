@@ -8,14 +8,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 internal interface IInternalListContextOptions
 {
     /// <summary>
-    /// Adds an option to the <see cref="FluentListBase{TOption}"/>
+    /// Adds an option to the <see cref="FluentListBase{TOption,TValue}"/>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
     string? AddOption(FluentOption option);
 
     /// <summary>
-    /// Removes an option to the <see cref="FluentListBase{TOption}"/>
+    /// Removes an option to the <see cref="FluentListBase{TOption, TValue}"/>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>

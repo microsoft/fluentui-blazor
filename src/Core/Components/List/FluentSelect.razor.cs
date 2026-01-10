@@ -12,7 +12,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A FluentSelect allows for selecting one or more options from a list of options.
 /// </summary>
 /// <typeparam name="TOption"></typeparam>
-public partial class FluentSelect<TOption> : FluentListBase<TOption>
+/// <typeparam name="TValue"></typeparam>
+public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TValue>
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "List/FluentSelect.razor.js";
 
@@ -56,9 +57,9 @@ public partial class FluentSelect<TOption> : FluentListBase<TOption>
 
             // By default, the combobox text is not bound to the Value property.
             // This method don't change the SelectedItems and Value properties.
-            if (string.Equals(DropdownType, "combobox", StringComparison.Ordinal))
+            if (string.Equals(DropdownType, "combobox", StringComparison.Ordinal) && Value is TOption optionValue)
             {
-                var defaultText = GetOptionText(Value);
+                var defaultText = GetOptionText(optionValue);
                 await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Select.SetComboBoxValue", Id, defaultText);
             }
         }
@@ -107,7 +108,14 @@ public partial class FluentSelect<TOption> : FluentListBase<TOption>
             }
             else
             {
-                await ValueChanged.InvokeAsync(SelectedItems.FirstOrDefault());
+                if (SelectedItems.FirstOrDefault() is TValue value)
+                {
+                    await ValueChanged.InvokeAsync(value);
+                }
+                else if (TryParseValueFromString(CurrentValueAsString, out var parsedValue, out _))
+                {
+                    await ValueChanged.InvokeAsync(parsedValue);
+                }
             }
         }
     }
