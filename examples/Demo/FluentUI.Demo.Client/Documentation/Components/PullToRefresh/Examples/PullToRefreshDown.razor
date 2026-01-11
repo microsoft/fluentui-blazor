@@ -1,4 +1,4 @@
-<FluentPullToRefresh OnRefreshAsync="LoadAsync" TipHeight="40" Style="overflow-x: auto;">
+<FluentPullToRefresh OnRefreshAsync="LoadAsync" TipHeight="40px" Style="overflow-x: auto;">
     <PullingTemplate>
         Pull to refresh
     </PullingTemplate>
@@ -10,7 +10,7 @@
     </CompletedTemplate>
 
     <ChildContent>
-        <FluentStack Gap="8px" Padding="12px">
+        <FluentStack VerticalGap="8px" Padding="12px">
             @foreach (var item in items)
             {
                 <FluentCard Padding="@Padding.All2">@item</FluentCard>

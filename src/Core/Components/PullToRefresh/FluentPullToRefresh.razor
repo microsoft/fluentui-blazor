@@ -11,7 +11,7 @@
     <div style="@WrapperStyle">
         @if (Direction == PullDirection.Down && _internalShowStaticTip)
         {
-            <div part="tip" direction="down" style="--fluent-pull-refresh-head-height: @(TipHeight)px;">
+            <div part="tip" direction="down" style="--fluent-pull-refresh-head-height: @(TipHeight);">
                 @GetTipContent()
             </div>
         }
