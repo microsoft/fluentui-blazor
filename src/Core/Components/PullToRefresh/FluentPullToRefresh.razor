@@ -18,7 +18,7 @@
         @ChildContent
         @if (Direction == PullDirection.Up && _internalShowStaticTip)
         {
-            <div part="tip" direction="up" style="--fluent-pull-refresh-head-height: @(TipHeight)px;">
+            <div part="tip" direction="up" style="--fluent-pull-refresh-head-height: @(TipHeight);">
                 @GetTipContent()
             </div>
         }

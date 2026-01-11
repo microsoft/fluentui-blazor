@@ -23,7 +23,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     private string _wrapperStyle = "";
     private bool _originalShowStaticTip;
     private bool _internalShowStaticTip = true;
-    
+
     /// <summary />
     public FluentPullToRefresh(LibraryConfiguration configuration) : base(configuration)
     {
@@ -129,10 +129,10 @@ public partial class FluentPullToRefresh : FluentComponentBase
     public int DragDistance { get; set; } = 32;
 
     /// <summary>
-    /// Gets or sets the height (in pixels) of the tip fragment (if shown).
+    /// Gets or sets the height (default 32px) of the tip fragment (if shown).
     /// </summary>
     [Parameter]
-    public int TipHeight { get; set; } = 32;
+    public string TipHeight { get; set; } = "32px";
 
     /// <summary>
     /// Gets or sets the amount of time (in milliseconds) a status update message will be displayed.
@@ -161,11 +161,6 @@ public partial class FluentPullToRefresh : FluentComponentBase
     protected override void OnInitialized()
     {
         _originalShowStaticTip = _internalShowStaticTip = ShowStaticTip;
-    }
-
-    /// <summary />
-    protected override void OnParametersSet()
-    {
         PullingTemplate ??= builder =>
         {
             builder.OpenComponent(0, typeof(FluentIcon<Icon>));

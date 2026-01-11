@@ -1,11 +1,6 @@
 ﻿@using System.Reflection
 @using System.Linq
-@using Bunit.Rendering
-@using Bunit
-@using Microsoft.FluentUI.AspNetCore.Components.Utilities
-@using Microsoft.AspNetCore.Components.Web
 @using Xunit;
-@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
 @inherits FluentUITestContext
 
 @code
@@ -174,7 +169,7 @@
             .Add(p => p.EmulateTouch, false)
             .Add(p => p.ShowStaticTip, false)
             .Add(p => p.DragDistance, 64)
-            .Add(p => p.TipHeight, 48)
+            .Add(p => p.TipHeight, "48px")
             .Add(p => p.StatusUpdateMessageTimeout, 1200)
             .Add(p => p.DragThreshold, 12)
             .Add(p => p.OnRefreshAsync, refresh)
@@ -189,7 +184,7 @@
         Assert.False(instance.EmulateTouch);
         Assert.False(instance.ShowStaticTip);
         Assert.Equal(64, instance.DragDistance);
-        Assert.Equal(48, instance.TipHeight);
+        Assert.Equal("48px", instance.TipHeight);
         Assert.Equal(1200, instance.StatusUpdateMessageTimeout);
         Assert.Equal(12, instance.DragThreshold);
         Assert.Equal(refresh, instance.OnRefreshAsync);
