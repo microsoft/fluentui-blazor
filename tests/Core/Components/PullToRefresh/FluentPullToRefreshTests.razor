@@ -1,0 +1,196 @@
+﻿@using System.Reflection
+@using Bunit.Rendering
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits FluentUITestContext
+
+@code
+{
+    public FluentPullToRefreshTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_Default_RendersTipAndContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentPullToRefresh Style="width:100%;" data-test="pull-root">
+            <ChildContent>
+                <div class="content">Hello</div>
+            </ChildContent>
+        </FluentPullToRefresh>);
+
+        // Assert
+        var root = cut.Find("div.fluent-pull-container");
+        Assert.Contains("fluent-pull-container", root.GetAttribute("class"));
+        Assert.Equal("pull-root", root.GetAttribute("data-test"));
+        var tip = cut.Find("[part='tip']");
+        Assert.Equal("down", tip.GetAttribute("direction"));
+        Assert.Contains("--fluent-pull-refresh-head-height: 32px", tip.GetAttribute("style"));
+        Assert.Equal("Hello", cut.Find(".content").TextContent.Trim());
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_DirectionUp_RendersTipAfterContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentPullToRefresh Direction="PullDirection.Up">
+            <ChildContent>
+                <div class="content">Content</div>
+            </ChildContent>
+        </FluentPullToRefresh>);
+
+        // Assert
+        var wrapper = cut.Find("div.fluent-pull-container > div");
+        Assert.Equal(2, wrapper.Children.Length);
+        Assert.Equal("content", wrapper.Children[0].ClassName);
+        Assert.Equal("up", wrapper.Children[1].GetAttribute("direction"));
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_ShowStaticTipFalse_HidesTip()
+    {
+        // Arrange
+        var cut = Render(@<FluentPullToRefresh ShowStaticTip="false">
+            <ChildContent>
+                <div>Content</div>
+            </ChildContent>
+        </FluentPullToRefresh>);
+
+        // Assert
+        Assert.Empty(cut.FindAll("[part='tip']"));
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_CustomPullingTemplate_Rendered()
+    {
+        // Arrange
+        var cut = Render(@<FluentPullToRefresh>
+            <PullingTemplate>
+                <span class="custom-tip">Custom tip</span>
+            </PullingTemplate>
+            <ChildContent>
+                <div>Content</div>
+            </ChildContent>
+        </FluentPullToRefresh>);
+
+        // Assert
+        var tip = cut.Find("[part='tip'] .custom-tip");
+        Assert.Equal("Custom tip", tip.TextContent.Trim());
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_CustomReleaseTemplate_Rendered()
+    {
+        // Arrange
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content"))
+            .Add(p => p.ReleaseTemplate, SpanTemplate("release-tip", "Release it")));
+
+        SetPullStatus(cut, PullStatus.WaitingForRelease);
+
+        // Assert
+        var tip = cut.Find("[part='tip'] .release-tip");
+        Assert.Equal("Release it", tip.TextContent.Trim());
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_CustomLoadingTemplate_Rendered()
+    {
+        // Arrange
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content"))
+            .Add(p => p.LoadingTemplate, SpanTemplate("loading-tip", "Loading")));
+
+        SetPullStatus(cut, PullStatus.Loading);
+
+        // Assert
+        var tip = cut.Find("[part='tip'] .loading-tip");
+        Assert.Equal("Loading", tip.TextContent.Trim());
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_CustomCompletedTemplate_Rendered()
+    {
+        // Arrange
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content"))
+            .Add(p => p.CompletedTemplate, SpanTemplate("completed-tip", "Done")));
+
+        SetPullStatus(cut, PullStatus.Completed);
+
+        // Assert
+        var tip = cut.Find("[part='tip'] .completed-tip");
+        Assert.Equal("Done", tip.TextContent.Trim());
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_CustomNoDataTemplate_Rendered()
+    {
+        // Arrange
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content"))
+            .Add(p => p.NoDataTemplate, SpanTemplate("nodata-tip", "No data")));
+
+        SetPullStatus(cut, PullStatus.NoData);
+
+        // Assert
+        var tip = cut.Find("[part='tip'] .nodata-tip");
+        Assert.Equal("No data", tip.TextContent.Trim());
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_ParameterValues_AreSet()
+    {
+        // Arrange
+        Func<Task<bool>> refresh = () => Task.FromResult(true);
+        var cut = Render(@<FluentPullToRefresh Direction="PullDirection.Up"
+                                             Disabled="true"
+                                             EmulateTouch="false"
+                                             ShowStaticTip="false"
+                                             DragDistance="64"
+                                             TipHeight="48"
+                                             StatusUpdateMessageTimeout="1200"
+                                             DragThreshold="12"
+                                             Class="extra"
+                                             Style="height: 50px;"
+                                             OnRefreshAsync="refresh">
+            <ChildContent>
+                <div>Child</div>
+            </ChildContent>
+        </FluentPullToRefresh>);
+
+        // Assert
+        var instance = cut.FindComponent<FluentPullToRefresh>().Instance;
+        Assert.Equal(PullDirection.Up, instance.Direction);
+        Assert.True(instance.Disabled);
+        Assert.False(instance.EmulateTouch);
+        Assert.False(instance.ShowStaticTip);
+        Assert.Equal(64, instance.DragDistance);
+        Assert.Equal(48, instance.TipHeight);
+        Assert.Equal(1200, instance.StatusUpdateMessageTimeout);
+        Assert.Equal(12, instance.DragThreshold);
+        Assert.Equal(refresh, instance.OnRefreshAsync);
+        var root = cut.Find("div.fluent-pull-container");
+        Assert.Contains("extra", root.GetAttribute("class"));
+        Assert.Contains("height: 50px", root.GetAttribute("style"));
+    }
+
+    private static void SetPullStatus(IRenderedComponent<FluentPullToRefresh> cut, PullStatus status)
+    {
+        var field = typeof(FluentPullToRefresh).GetField("_pullStatus", BindingFlags.Instance | BindingFlags.NonPublic);
+        field!.SetValue(cut.Instance, status);
+        cut.Render();
+    }
+
+    private static RenderFragment SpanTemplate(string cssClass, string text) => builder =>
+    {
+        builder.OpenElement(0, "span");
+        builder.AddAttribute(1, "class", cssClass);
+        builder.AddContent(2, text);
+        builder.CloseElement();
+    };
+}

@@ -25,12 +25,12 @@ public partial class FluentPullToRefresh : FluentComponentBase
     private bool _internalShowStaticTip = true;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-pull-container")
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .Build();
 
     /// <summary>
@@ -84,7 +84,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     public RenderFragment ReleaseTemplate { get; set; } = builder =>
     {
         builder.OpenComponent(0, typeof(FluentIcon<Icon>));
-        builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size20.ArrowSyncCircle());
+        builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size20.ArrowSyncCircle().WithColor(Color.Primary));
         builder.CloseComponent();
     };
 
@@ -196,7 +196,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     }
 
     /// <summary />
-    protected virtual string? WrapperStyle => new StyleBuilder()
+    protected virtual string? WrapperStyle => DefaultStyleBuilder
         .AddStyle("position", "relative")
         .AddStyle("user-select", "none")
         .AddStyle("height", "100%")
