@@ -1,6 +1,9 @@
 ﻿@using System.Reflection
+@using System.Linq
 @using Bunit.Rendering
+@using Bunit
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Microsoft.AspNetCore.Components.Web
 @using Xunit;
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
 @inherits FluentUITestContext
@@ -17,11 +20,16 @@
     public void FluentPullToRefresh_Default_RendersTipAndContent()
     {
         // Arrange
-        var cut = Render(@<FluentPullToRefresh Style="width:100%;" data-test="pull-root">
-            <ChildContent>
-                <div class="content">Hello</div>
-            </ChildContent>
-        </FluentPullToRefresh>);
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.Style, "width:100%;")
+            .AddUnmatched("data-test", "pull-root")
+            .Add(p => p.ChildContent, builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddAttribute(1, "class", "content");
+                builder.AddContent(2, "Hello");
+                builder.CloseElement();
+            }));
 
         // Assert
         var root = cut.Find("div.fluent-pull-container");
@@ -37,11 +45,15 @@
     public void FluentPullToRefresh_DirectionUp_RendersTipAfterContent()
     {
         // Arrange
-        var cut = Render(@<FluentPullToRefresh Direction="PullDirection.Up">
-            <ChildContent>
-                <div class="content">Content</div>
-            </ChildContent>
-        </FluentPullToRefresh>);
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.Direction, PullDirection.Up)
+            .Add(p => p.ChildContent, builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddAttribute(1, "class", "content");
+                builder.AddContent(2, "Content");
+                builder.CloseElement();
+            }));
 
         // Assert
         var wrapper = cut.Find("div.fluent-pull-container > div");
@@ -54,11 +66,9 @@
     public void FluentPullToRefresh_ShowStaticTipFalse_HidesTip()
     {
         // Arrange
-        var cut = Render(@<FluentPullToRefresh ShowStaticTip="false">
-            <ChildContent>
-                <div>Content</div>
-            </ChildContent>
-        </FluentPullToRefresh>);
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.ShowStaticTip, false)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
 
         // Assert
         Assert.Empty(cut.FindAll("[part='tip']"));
@@ -68,14 +78,15 @@
     public void FluentPullToRefresh_CustomPullingTemplate_Rendered()
     {
         // Arrange
-        var cut = Render(@<FluentPullToRefresh>
-            <PullingTemplate>
-                <span class="custom-tip">Custom tip</span>
-            </PullingTemplate>
-            <ChildContent>
-                <div>Content</div>
-            </ChildContent>
-        </FluentPullToRefresh>);
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.PullingTemplate, builder =>
+            {
+                builder.OpenElement(0, "span");
+                builder.AddAttribute(1, "class", "custom-tip");
+                builder.AddContent(2, "Custom tip");
+                builder.CloseElement();
+            })
+            .Add(p => p.ChildContent, builder => builder.AddContent(3, "Content")));
 
         // Assert
         var tip = cut.Find("[part='tip'] .custom-tip");
@@ -147,24 +158,22 @@
     {
         // Arrange
         Func<Task<bool>> refresh = () => Task.FromResult(true);
-        var cut = Render(@<FluentPullToRefresh Direction="PullDirection.Up"
-                                             Disabled="true"
-                                             EmulateTouch="false"
-                                             ShowStaticTip="false"
-                                             DragDistance="64"
-                                             TipHeight="48"
-                                             StatusUpdateMessageTimeout="1200"
-                                             DragThreshold="12"
-                                             Class="extra"
-                                             Style="height: 50px;"
-                                             OnRefreshAsync="refresh">
-            <ChildContent>
-                <div>Child</div>
-            </ChildContent>
-        </FluentPullToRefresh>);
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.Direction, PullDirection.Up)
+            .Add(p => p.Disabled, true)
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.ShowStaticTip, false)
+            .Add(p => p.DragDistance, 64)
+            .Add(p => p.TipHeight, 48)
+            .Add(p => p.StatusUpdateMessageTimeout, 1200)
+            .Add(p => p.DragThreshold, 12)
+            .Add(p => p.OnRefreshAsync, refresh)
+            .AddUnmatched("class", "extra")
+            .AddUnmatched("style", "height: 50px;")
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Child")));
 
         // Assert
-        var instance = cut.FindComponent<FluentPullToRefresh>().Instance;
+        var instance = cut.Instance;
         Assert.Equal(PullDirection.Up, instance.Direction);
         Assert.True(instance.Disabled);
         Assert.False(instance.EmulateTouch);
@@ -179,11 +188,326 @@
         Assert.Contains("height: 50px", root.GetAttribute("style"));
     }
 
+    [Fact]
+    public void FluentPullToRefresh_DefaultPullingTemplate_RendersIcon()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        var tip = cut.Find("[part='tip']");
+        Assert.NotNull(tip.QuerySelector("svg"));
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_DefaultLoadingTemplate_RendersSpinner()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        SetPullStatus(cut, PullStatus.Loading);
+
+        var tip = cut.Find("[part='tip']");
+        Assert.NotNull(tip.QuerySelector("fluent-spinner"));
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_DefaultCompletedTemplateRendersIcon()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        SetPullStatus(cut, PullStatus.Completed);
+
+        var tip = cut.Find("[part='tip']");
+        Assert.NotNull(tip.QuerySelector("svg"));
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_DefaultNoDataTemplate_RendersMessage()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        SetPullStatus(cut, PullStatus.NoData);
+
+        Assert.Equal("No more data", cut.Find("[part='tip']").TextContent.Trim());
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_SetDistance_AppliesTransform_Down()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        await SetDistanceAsync(cut, 20);
+
+        var wrapper = cut.Find("div.fluent-pull-container > div");
+        Assert.Contains("translate3d(0, 20px, 0)", wrapper.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_SetDistance_AppliesTransform_Up()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.Direction, PullDirection.Up)
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        await SetDistanceAsync(cut, 12);
+
+        var wrapper = cut.Find("div.fluent-pull-container > div");
+        Assert.Contains("translate3d(0, -12px, 0)", wrapper.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_SetDistance_ResetClearsTransform()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        await SetDistanceAsync(cut, 18);
+        await SetDistanceAsync(cut, -1);
+
+        var wrapper = cut.Find("div.fluent-pull-container > div");
+        Assert.DoesNotContain("translate3d", wrapper.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_SetDistance_LessThanDragDistanceKeepsPulling()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.DragDistance, 40)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        await SetDistanceAsync(cut, 20);
+
+        Assert.Equal(PullStatus.Pulling, GetPullStatus(cut));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_SetDistance_GreaterThanDragDistanceClampsAndWaitsForRelease()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.DragDistance, 30)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        await SetDistanceAsync(cut, 70);
+
+        Assert.Equal(PullStatus.WaitingForRelease, GetPullStatus(cut));
+        var wrapper = cut.Find("div.fluent-pull-container > div");
+        Assert.Contains("translate3d(0, 30px, 0)", wrapper.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_DragThreshold_PreventsMovementUntilExceeded()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.Direction, PullDirection.Up)
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.DragThreshold, 10)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        var container = cut.Find("div.fluent-pull-container");
+        await container.TriggerEventAsync("ontouchstart", CreateTouchEventArgs(100));
+        await container.TriggerEventAsync("ontouchmove", CreateTouchEventArgs(95));
+
+        var wrapper = cut.Find("div.fluent-pull-container > div");
+        Assert.DoesNotContain("translate3d", wrapper.GetAttribute("style"));
+        Assert.Equal(PullStatus.Pulling, GetPullStatus(cut));
+
+        await container.TriggerEventAsync("ontouchmove", CreateTouchEventArgs(60));
+
+        wrapper = cut.Find("div.fluent-pull-container > div");
+        Assert.Contains("translate3d", wrapper.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_OnTouchEnd_WithMoreData_CompletesThenResets()
+    {
+        var refreshCalls = 0;
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.StatusUpdateMessageTimeout, 10)
+            .Add(p => p.OnRefreshAsync, () =>
+            {
+                refreshCalls++;
+                return Task.FromResult(true);
+            })
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        await SetDistanceAsync(cut, 80);
+        var container = cut.Find("div.fluent-pull-container");
+        var touchEndTask = container.TriggerEventAsync("ontouchend", CreateTouchEventArgs(0));
+
+        await cut.WaitForAssertionAsync(() => Assert.Equal(PullStatus.Completed, GetPullStatus(cut)));
+
+        await touchEndTask;
+
+        Assert.Equal(PullStatus.Awaiting, GetPullStatus(cut));
+        Assert.Equal(1, refreshCalls);
+        Assert.DoesNotContain("translate3d", cut.Find("div.fluent-pull-container > div").GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_OnTouchEnd_NoMoreData_ShowsNoDataBeforeReset()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.StatusUpdateMessageTimeout, 10)
+            .Add(p => p.OnRefreshAsync, () => Task.FromResult(false))
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        await SetDistanceAsync(cut, 80);
+        var container = cut.Find("div.fluent-pull-container");
+        var touchEndTask = container.TriggerEventAsync("ontouchend", CreateTouchEventArgs(0));
+
+        await cut.WaitForAssertionAsync(() => Assert.Equal(PullStatus.NoData, GetPullStatus(cut)));
+
+        await touchEndTask;
+
+        Assert.Equal(PullStatus.Awaiting, GetPullStatus(cut));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_OnTouchMoveDown_AtTop_ClampsAndWaitsForRelease()
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("PullToRefresh/FluentPullToRefresh.razor.js") == true));
+        module.Setup<int>("Microsoft.FluentUI.Blazor.PullToRefresh.GetScrollDistToTop").SetResult(0);
+        module.SetupVoid("Microsoft.FluentUI.Blazor.PullToRefresh.InitTouchEmulator");
+
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.DragDistance, 32)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        var container = cut.Find("div.fluent-pull-container");
+        await container.TriggerEventAsync("ontouchstart", CreateTouchEventArgs(100));
+        await container.TriggerEventAsync("ontouchmove", CreateTouchEventArgs(200));
+
+        var wrapper = cut.Find("div.fluent-pull-container > div");
+        Assert.Equal(PullStatus.WaitingForRelease, GetPullStatus(cut));
+        Assert.Contains("translate3d(0, 32px, 0)", wrapper.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_OnTouchMoveDown_WhenScrolled_ReturnsEarly()
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("PullToRefresh/FluentPullToRefresh.razor.js") == true));
+        module.Setup<int>("Microsoft.FluentUI.Blazor.PullToRefresh.GetScrollDistToTop").SetResult(10);
+        module.SetupVoid("Microsoft.FluentUI.Blazor.PullToRefresh.InitTouchEmulator");
+
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.DragDistance, 32)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        var container = cut.Find("div.fluent-pull-container");
+        await container.TriggerEventAsync("ontouchstart", CreateTouchEventArgs(100));
+        await container.TriggerEventAsync("ontouchmove", CreateTouchEventArgs(200));
+
+        var wrapper = cut.Find("div.fluent-pull-container > div");
+        Assert.Equal(PullStatus.Pulling, GetPullStatus(cut));
+        Assert.DoesNotContain("translate3d", wrapper.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_Disabled_IgnoresTouchMovement()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.Disabled, true)
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        var container = cut.Find("div.fluent-pull-container");
+        await container.TriggerEventAsync("ontouchstart", CreateTouchEventArgs(100));
+        await container.TriggerEventAsync("ontouchmove", CreateTouchEventArgs(150));
+        await container.TriggerEventAsync("ontouchend", CreateTouchEventArgs(150));
+
+        var wrapper = cut.Find("div.fluent-pull-container > div");
+        Assert.Equal(PullStatus.Awaiting, GetPullStatus(cut));
+        Assert.DoesNotContain("translate3d", wrapper.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_OnRefreshAsyncThrows_ResetsAndPropagates()
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("PullToRefresh/FluentPullToRefresh.razor.js") == true));
+        module.SetupVoid("Microsoft.FluentUI.Blazor.PullToRefresh.InitTouchEmulator");
+
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.EmulateTouch, true)
+            .Add(p => p.OnRefreshAsync, () => throw new InvalidOperationException("boom"))
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        await SetDistanceAsync(cut, 80);
+        var container = cut.Find("div.fluent-pull-container");
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => container.TriggerEventAsync("ontouchend", CreateTouchEventArgs(0)));
+
+        var wrapper = cut.Find("div.fluent-pull-container > div");
+        Assert.Equal(PullStatus.Awaiting, GetPullStatus(cut));
+        Assert.DoesNotContain("translate3d", wrapper.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentPullToRefresh_OnTouchEndWhilePulling_ResetsTipVisibility()
+    {
+        var cut = Render<FluentPullToRefresh>(parameters => parameters
+            .Add(p => p.Direction, PullDirection.Up)
+            .Add(p => p.ShowStaticTip, false)
+            .Add(p => p.EmulateTouch, false)
+            .Add(p => p.DragDistance, 30)
+            .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
+
+        var container = cut.Find("div.fluent-pull-container");
+        await container.TriggerEventAsync("ontouchstart", CreateTouchEventArgs(100));
+        await container.TriggerEventAsync("ontouchmove", CreateTouchEventArgs(95));
+
+        Assert.NotEmpty(cut.FindAll("[part='tip']"));
+
+        await container.TriggerEventAsync("ontouchend", CreateTouchEventArgs(95));
+
+        Assert.Equal(PullStatus.Awaiting, GetPullStatus(cut));
+        Assert.Empty(cut.FindAll("[part='tip']"));
+    }
+
     private static void SetPullStatus(IRenderedComponent<FluentPullToRefresh> cut, PullStatus status)
     {
         var field = typeof(FluentPullToRefresh).GetField("_pullStatus", BindingFlags.Instance | BindingFlags.NonPublic);
         field!.SetValue(cut.Instance, status);
         cut.Render();
+    }
+
+    private static Task SetDistanceAsync(IRenderedComponent<FluentPullToRefresh> cut, int distance)
+    {
+        var method = typeof(FluentPullToRefresh).GetMethod("SetDistance", BindingFlags.Instance | BindingFlags.NonPublic);
+        return cut.InvokeAsync(() => method!.Invoke(cut.Instance, [distance]));
+    }
+
+    private static PullStatus GetPullStatus(IRenderedComponent<FluentPullToRefresh> cut)
+    {
+        var field = typeof(FluentPullToRefresh).GetField("_pullStatus", BindingFlags.Instance | BindingFlags.NonPublic);
+        return (PullStatus)field!.GetValue(cut.Instance)!;
+    }
+
+    private static TouchEventArgs CreateTouchEventArgs(double clientY)
+    {
+        return new TouchEventArgs
+        {
+            TargetTouches =
+            [
+                new TouchPoint
+                {
+                    ClientY = clientY,
+                }
+            ],
+        };
     }
 
     private static RenderFragment SpanTemplate(string cssClass, string text) => builder =>
@@ -194,3 +518,4 @@
         builder.CloseElement();
     };
 }
+
