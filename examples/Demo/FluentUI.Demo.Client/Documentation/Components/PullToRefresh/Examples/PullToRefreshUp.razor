@@ -16,7 +16,7 @@
 <div class="pull-up-demo">
     <FluentPullToRefresh Direction="@PullDirection.Up" OnRefreshAsync="OnRefreshAsync" TipHeight="50" DragDistance="100" Style="width: 100%">
         <LoadingTemplate>
-            <FluentProgressBar Width="150px;"/>
+            <FluentProgressBar Width="150px"/>
         </LoadingTemplate>
         <ChildContent>
             <div class="pull-content">
@@ -30,11 +30,10 @@
 </div>
 
 @code {
-
     int refreshcount = 0;
     int count = 3;
 
-    public async Task<bool> OnRefreshAsync()
+    async Task<bool> OnRefreshAsync()
     {
         refreshcount++;
         if (count < 15)

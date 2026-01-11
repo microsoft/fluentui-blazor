@@ -23,6 +23,12 @@ public partial class FluentPullToRefresh : FluentComponentBase
     private string _wrapperStyle = "";
     private bool _originalShowStaticTip;
     private bool _internalShowStaticTip = true;
+    
+    /// <summary />
+    public FluentPullToRefresh(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -140,12 +146,6 @@ public partial class FluentPullToRefresh : FluentComponentBase
     /// </summary>
     [Parameter]
     public int DragThreshold { get; set; } = 0;
-
-    /// <summary />
-    public FluentPullToRefresh(LibraryConfiguration configuration) : base(configuration)
-    {
-        Id = Identifier.NewId();
-    }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)

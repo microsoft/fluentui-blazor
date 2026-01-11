@@ -17,6 +17,16 @@
     }
 
     [Fact]
+    public void FluentPullToRefresh_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPullToRefresh>Content that can be refreshed</FluentPullToRefresh>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentPullToRefresh_Default_RendersTipAndContent()
     {
         // Arrange

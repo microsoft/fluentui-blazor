@@ -4,10 +4,10 @@
 <div id="@Id"
      class="@ClassValue"
      style="@StyleValue"
-     @attributes="AdditionalAttributes"
-     @ontouchstart="OnTouchStartAsync"
-     @ontouchmove="OnTouchMoveAsync"
-     @ontouchend="OnTouchEndAsync">
+     @attributes="@AdditionalAttributes"
+     @ontouchstart="@OnTouchStartAsync"
+     @ontouchmove="@OnTouchMoveAsync"
+     @ontouchend="@OnTouchEndAsync">
     <div style="@WrapperStyle">
         @if (Direction == PullDirection.Down && _internalShowStaticTip)
         {
