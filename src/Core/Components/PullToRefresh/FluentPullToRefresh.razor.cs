@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -14,8 +18,8 @@ public partial class FluentPullToRefresh : FluentComponentBase
         FluentJSModule.JAVASCRIPT_ROOT + "PullToRefresh/FluentPullToRefresh.razor.js";
 
     private PullStatus _pullStatus = PullStatus.Awaiting;
-    private double _startY = 0;
-    private int _moveDistance = 0;
+    private double _startY;
+    private int _moveDistance;
     private string _wrapperStyle = "";
     private bool _originalShowStaticTip;
     private bool _internalShowStaticTip = true;
@@ -68,13 +72,13 @@ public partial class FluentPullToRefresh : FluentComponentBase
     public Func<Task<bool>>? OnRefreshAsync { get; set; }
 
     /// <summary>
-    /// Gets or sets the the content to indicate the <see cref="ChildContent"/> can be refreshed by a pull down/up action.
+    /// Gets or sets the content to indicate the <see cref="ChildContent"/> can be refreshed by a pull down/up action.
     /// </summary>
     [Parameter]
     public RenderFragment? PullingTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the the content to indicate the pulled <see cref="ChildContent"/> must be released to start the refresh action.
+    /// Gets or sets the content to indicate the pulled <see cref="ChildContent"/> must be released to start the refresh action.
     /// </summary>
     [Parameter]
     public RenderFragment ReleaseTemplate { get; set; } = builder =>
@@ -85,7 +89,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     };
 
     /// <summary>
-    /// Gets or sets the the content to indicate the <see cref="ChildContent"/> is being refreshed.
+    /// Gets or sets the content to indicate the <see cref="ChildContent"/> is being refreshed.
     /// </summary>
     [Parameter]
     public RenderFragment LoadingTemplate { get; set; } = builder =>
@@ -96,18 +100,18 @@ public partial class FluentPullToRefresh : FluentComponentBase
     };
 
     /// <summary>
-    /// Gets or sets the the content to indicate the <see cref="ChildContent"/> has been refreshed.
+    /// Gets or sets the content to indicate the <see cref="ChildContent"/> has been refreshed.
     /// </summary>
     [Parameter]
     public RenderFragment CompletedTemplate { get; set; } = builder =>
     {
         builder.OpenComponent(0, typeof(FluentIcon<Icon>));
-        builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size20.CheckmarkCircle());
+        builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size20.CheckmarkCircle().WithColor(Color.Primary));
         builder.CloseComponent();
     };
 
     /// <summary>
-    /// Gets or sets the the content to indicate the <see cref="ChildContent"/> can not be refreshed anymore.
+    /// Gets or sets the content to indicate the <see cref="ChildContent"/> can not be refreshed anymore.
     /// </summary>
     [Parameter]
     public RenderFragment NoDataTemplate { get; set; } = builder => { builder.AddContent(0, "No more data"); };
@@ -137,6 +141,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     [Parameter]
     public int DragThreshold { get; set; } = 0;
 
+    /// <summary />
     public FluentPullToRefresh(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
@@ -148,25 +153,29 @@ public partial class FluentPullToRefresh : FluentComponentBase
         if (firstRender && EmulateTouch)
         {
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
-            await JSModule.ObjectReference.InvokeVoidAsync("initTouchEmulator");
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.PullToRefresh.InitTouchEmulator");
         }
     }
 
+    /// <summary />
     protected override void OnInitialized()
     {
         _originalShowStaticTip = _internalShowStaticTip = ShowStaticTip;
+    }
 
+    /// <summary />
+    protected override void OnParametersSet()
+    {
         PullingTemplate ??= builder =>
         {
             builder.OpenComponent(0, typeof(FluentIcon<Icon>));
             if (Direction == PullDirection.Down)
             {
-                builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size20.ArrowCircleDown());
+                builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size20.ArrowCircleDown().WithColor(Color.Primary));
             }
             else
             {
-                builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size20.ArrowCircleUp());
+                builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size20.ArrowCircleUp().WithColor(Color.Primary));
             }
 
             builder.CloseComponent();
@@ -186,6 +195,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
         return renderFragment;
     }
 
+    /// <summary />
     protected virtual string? WrapperStyle => new StyleBuilder()
         .AddStyle("position", "relative")
         .AddStyle("user-select", "none")
@@ -232,7 +242,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
 
     private async Task OnTouchMoveDownAsync(TouchEventArgs e)
     {
-        var distToTop = await JSModule.ObjectReference.InvokeAsync<int>("getScrollDistToTop");
+        var distToTop = await JSModule.ObjectReference.InvokeAsync<int>("Microsoft.FluentUI.Blazor.PullToRefresh.GetScrollDistToTop");
 
         if (distToTop > 0)
         {

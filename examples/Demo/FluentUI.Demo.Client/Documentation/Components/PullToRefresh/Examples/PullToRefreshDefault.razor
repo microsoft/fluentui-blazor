@@ -1,0 +1,29 @@
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="5">
+    <div>
+        <FluentSwitch @bind-Value="_enabled" Label="@(_enabled ? "Pull is enabled"  : "Pull is disabled")"  />
+        <FluentSwitch @bind-Value="_direction" Label="@(_direction ? "Pull up" : "Pull down")" />
+    </div>
+    <FluentPullToRefresh Disabled="@(!_enabled)"
+                         Direction="@(_direction ? PullDirection.Up : PullDirection.Down)"
+                         OnRefreshAsync="OnRefreshAsync"
+                         Style="width: 100%"
+                         >
+        <div style="height: 150px; width: 100%; padding: 5px;">
+            Content to refresh. Pull counter: @_counter
+        </div>
+    </FluentPullToRefresh>
+</FluentStack>
+
+@code {
+    bool _enabled = true;
+    bool _direction;
+    int _counter;
+
+    async Task<bool> OnRefreshAsync()
+    {
+        _counter++;
+        await Task.Delay(250);
+        return true;
+    }
+}
+

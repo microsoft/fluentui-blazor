@@ -1,0 +1,43 @@
+<FluentPullToRefresh OnRefreshAsync="LoadAsync" TipHeight="40" Style="overflow-x: auto;">
+    <PullingTemplate>
+        Pull to refresh
+    </PullingTemplate>
+    <ReleaseTemplate>
+        Release to update
+    </ReleaseTemplate>
+    <CompletedTemplate>
+        Update completed
+    </CompletedTemplate>
+
+    <ChildContent>
+        <FluentStack Gap="8px" Padding="12px">
+            @foreach (var item in _items)
+            {
+                <FluentCard Style="padding:8px;">@item</FluentCard>
+            }
+        </FluentStack>
+    </ChildContent>
+</FluentPullToRefresh>
+
+@code {
+    private int _counter = 4;
+    private static readonly Random Rand = new();
+    private readonly List<string> _items = new()
+    {
+        "Item 1",
+        "Item 2",
+        "Item 3"
+    };
+
+    private async Task<bool> LoadAsync()
+    {
+        await Task.Delay(800);
+        _items.Clear();
+        var count = Rand.Next(1, 6); // random between 1 and 5 inclusive
+        for (var i = 0; i < count; i++)
+        {
+            _items.Insert(0, $"New item {_counter++}");
+        }
+        return true; // indicate more data can still be loaded
+    }
+}

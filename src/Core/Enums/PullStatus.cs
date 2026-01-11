@@ -6,6 +6,9 @@ using System.ComponentModel;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Describes the status in the PullToRefresh component
+/// </summary>
 public enum PullStatus
 {
     /// <summary>

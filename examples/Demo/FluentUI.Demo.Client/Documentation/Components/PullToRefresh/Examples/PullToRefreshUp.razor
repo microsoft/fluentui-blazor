@@ -1,0 +1,50 @@
+<style>
+    .pull-up-demo {
+        height: 51.2vh;
+        max-width: 400px;
+        overflow: auto;
+    }
+    .pull-content {
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        height: calc(100% - 50px);
+    }
+</style>
+
+<div class="pull-up-demo">
+    <FluentPullToRefresh Direction="@PullDirection.Up" OnRefreshAsync="OnRefreshAsync" TipHeight="50" DragDistance="100" >
+        <LoadingTemplate>
+            <FluentProgressBar Width="150px;"/>
+        </LoadingTemplate>
+        <ChildContent>
+            <div class="pull-content">
+                @for (int i = 1; i <= count; i++)
+                {
+                    <span @key="i">item @i</span>
+                }
+            </div>
+        </ChildContent>
+    </FluentPullToRefresh>
+</div>
+
+@code {
+
+    int refreshcount = 0;
+    int count = 3;
+
+    public async Task<bool> OnRefreshAsync()
+    {
+        refreshcount++;
+        if (count < 15)
+        {
+            await Task.Delay(1000);
+            count += 3;
+
+            return true;
+        }
+
+        return false;
+    }
+}
