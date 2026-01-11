@@ -5,7 +5,7 @@ icon: ArrowSync
 ---
 
 # PullToRefresh
-The Pull-to-refresh is a touchscreen gesture. It involves touching the screen of a computing device with a finger or pressing a button on a pointing device, dragging the screen downward, and then releasing it. This action signals the application to refresh the contents of the component. Its purpose is to make refreshing immediately accessible and to save valuable screen space that would otherwise be occupied by a refresh button.
+The Pull-to-refresh is a touchscreen gesture. It involves touching the screen of a computing device with a finger or pressing a button on a pointing device, dragging the screen (downward or upward, depending on the parameters), and then releasing it. This action signals the application to refresh the contents of the component. Its purpose is to make refreshing immediately accessible and to save valuable screen space that would otherwise be occupied by a refresh button.
 
 These features are mainly used on mobile devices. To maintain compatibility with the majority of desktop browsers, an emulator script is included and loaded automatically by the component.
 
