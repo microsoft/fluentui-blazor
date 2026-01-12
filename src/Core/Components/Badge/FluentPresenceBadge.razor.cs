@@ -38,7 +38,7 @@ public partial class FluentPresenceBadge : FluentBadge
     /// Gets or sets the presence status.
     /// </summary>
     [Parameter]
-    public PresenceStatus Status { get; set; } = PresenceStatus.Available;
+    public PresenceStatus? Status { get; set; } = PresenceStatus.Available;
 
     /// <summary>
     ///  Gets or sets the out of office state.
@@ -47,11 +47,17 @@ public partial class FluentPresenceBadge : FluentBadge
     public bool OutOfOffice { get; set; }
 
     /// <summary>
+    /// Gets or sets the slot where the badge is displayed in.
+    /// </summary>
+    [Parameter]
+    public string? Slot { get; set; } = null;
+
+    /// <summary>
     /// Gets whether the status is considered busy.
     /// </summary>
     /// <param name="status">The status to check.</param>
     /// <returns></returns>
-    public bool IsBusyStatus(PresenceStatus status) => status is PresenceStatus.Busy or PresenceStatus.DoNotDisturb or PresenceStatus.Blocked;
+    public bool IsBusyStatus(PresenceStatus? status) => status is PresenceStatus.Busy or PresenceStatus.DoNotDisturb or PresenceStatus.Blocked;
 
     /// <summary />
     protected override void OnInitialized()
@@ -102,9 +108,9 @@ public partial class FluentPresenceBadge : FluentBadge
         }
 
         _ariaLabel = GetAriaLabel(Status, OutOfOffice);
-        _iconWidth = GetIconSize(Size ?? BadgeSize.Medium);
+        _iconWidth = GetIconSize(Size);
         IconStart = GetPresenceIcon(Status, OutOfOffice);
-        Size ??= AdditionalAttributes?["slot"] is not null ? BadgeSize.ExtraSmall : null;
+        Size ??= AdditionalAttributes?.ContainsKey("slot") is not null ? BadgeSize.ExtraSmall : null;
     }
 
     /// <summary />
@@ -120,11 +126,11 @@ public partial class FluentPresenceBadge : FluentBadge
             PresenceStatus.OutOfOffice => "var(--colorPaletteBerryForeground3)",
             PresenceStatus.Blocked => "var(--colorPaletteRedBackground3)",
             PresenceStatus.Unknown => "var(--colorNeutralForeground3)",
-            _ => "var(--colorPaletteLightGreenForeground3)",
+            _ => "var(--colorNeutralForeground3)",
         };
     }
 
-    private static int GetIconSize(BadgeSize size)
+    private static int GetIconSize(BadgeSize? size)
     {
         return size switch
         {
@@ -138,7 +144,7 @@ public partial class FluentPresenceBadge : FluentBadge
         };
     }
 
-    private static Icon GetPresenceIcon(PresenceStatus status, bool outOfOffice)
+    private static Icon GetPresenceIcon(PresenceStatus? status, bool outOfOffice)
     {
         return (status, outOfOffice) switch
         {
@@ -159,7 +165,7 @@ public partial class FluentPresenceBadge : FluentBadge
         };
     }
 
-    private string GetAriaLabel(PresenceStatus status, bool outOfOffice)
+    private string GetAriaLabel(PresenceStatus? status, bool outOfOffice)
     {
         var statusText = status switch
         {

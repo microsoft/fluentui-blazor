@@ -39,7 +39,9 @@
     [InlineData(PresenceStatus.Unknown, true, "unknown out of office")]
     [InlineData(PresenceStatus.Blocked, false, "blocked")]
     [InlineData(PresenceStatus.Blocked, true, "blocked out of office")]
-    public void FluentPresenceBadge_Status_AriaLabel(PresenceStatus status, bool outOfOffice, string expectedAriaLabel)
+    [InlineData(null, false, "unknown")]
+    [InlineData(null, true, "unknown out of office")]
+    public void FluentPresenceBadge_Status_AriaLabel(PresenceStatus? status, bool outOfOffice, string expectedAriaLabel)
     {
         // Arrange && Act
         var cut = Render(@<FluentPresenceBadge Status="@status" OutOfOffice="@outOfOffice" />);
@@ -51,16 +53,24 @@
 
     [Theory]
     [InlineData(PresenceStatus.Available, false, "var(--colorPaletteLightGreenForeground3)")]
-    [InlineData(PresenceStatus.Away, true, "var(--colorPaletteBerryForeground3)")]
+    [InlineData(PresenceStatus.Available, true, "var(--colorPaletteLightGreenForeground3)")]
     [InlineData(PresenceStatus.Away, false, "var(--colorPaletteMarigoldBackground3)")]
+    [InlineData(PresenceStatus.Away, true, "var(--colorPaletteBerryForeground3)")]
     [InlineData(PresenceStatus.Busy, false, "var(--colorPaletteRedBackground3)")]
+    [InlineData(PresenceStatus.Busy, true, "var(--colorPaletteRedBackground3)")]
     [InlineData(PresenceStatus.DoNotDisturb, false, "var(--colorPaletteRedBackground3)")]
-    [InlineData(PresenceStatus.Offline, true, "var(--colorPaletteBerryForeground3)")]
+    [InlineData(PresenceStatus.DoNotDisturb, true, "var(--colorPaletteRedBackground3)")]
     [InlineData(PresenceStatus.Offline, false, "var(--colorNeutralForeground3)")]
+    [InlineData(PresenceStatus.Offline, true, "var(--colorPaletteBerryForeground3)")]
     [InlineData(PresenceStatus.OutOfOffice, false, "var(--colorPaletteBerryForeground3)")]
+    [InlineData(PresenceStatus.OutOfOffice, true, "var(--colorPaletteBerryForeground3)")]
     [InlineData(PresenceStatus.Blocked, false, "var(--colorPaletteRedBackground3)")]
+    [InlineData(PresenceStatus.Blocked, true, "var(--colorPaletteRedBackground3)")]
     [InlineData(PresenceStatus.Unknown, false, "var(--colorNeutralForeground3)")]
-    public void FluentPresenceBadge_Status_IconColor(PresenceStatus status, bool outOfOffice, string expectedColor)
+    [InlineData(PresenceStatus.Unknown, true, "var(--colorNeutralForeground3)")]
+	[InlineData(null, false, "var(--colorNeutralForeground3)")]
+	[InlineData(null, true, "var(--colorNeutralForeground3)")]
+    public void FluentPresenceBadge_Status_IconColor(PresenceStatus? status, bool outOfOffice, string expectedColor)
     {
         // Arrange && Act
         var cut = Render(@<FluentPresenceBadge Status="@status" OutOfOffice="@outOfOffice" />);
@@ -105,7 +115,8 @@
     [InlineData(BadgeSize.Medium, "16px")]
     [InlineData(BadgeSize.Large, "20px")]
     [InlineData(BadgeSize.ExtraLarge, "28px")]
-    public void FluentPresenceBadge_Size_IconWidth(BadgeSize size, string expectedWidth)
+	[InlineData(null, "16px")]
+    public void FluentPresenceBadge_Size_IconWidth(BadgeSize? size, string expectedWidth)
     {
         // Arrange && Act
         var cut = Render(@<FluentPresenceBadge Size="@size" />);
@@ -138,7 +149,8 @@
     [InlineData(PresenceStatus.Offline, false)]
     [InlineData(PresenceStatus.OutOfOffice, false)]
     [InlineData(PresenceStatus.Unknown, false)]
-    public void FluentPresenceBadge_IsBusyStatus(PresenceStatus status, bool expected)
+	[InlineData(null, false)]
+    public void FluentPresenceBadge_IsBusyStatus(PresenceStatus? status, bool expected)
     {
         // Arrange
         var configuration = new LibraryConfiguration();
@@ -149,6 +161,36 @@
 
         // Assert
         Assert.Equal(expected, result);
+    }
+
+	 [Theory]
+    [InlineData(PresenceStatus.Available, false, "PresenceAvailable", IconVariant.Filled)]
+    [InlineData(PresenceStatus.Available, true, "PresenceAvailable", IconVariant.Regular)]
+    [InlineData(PresenceStatus.Away, false, "PresenceAway", IconVariant.Filled)]
+    [InlineData(PresenceStatus.Away, true, "PresenceOof", IconVariant.Regular)]
+    [InlineData(PresenceStatus.Busy, false, "PresenceBusy", IconVariant.Filled)]
+    [InlineData(PresenceStatus.Busy, true, "PresenceUnknown", IconVariant.Regular)]
+    [InlineData(PresenceStatus.DoNotDisturb, false, "PresenceDnd", IconVariant.Filled)]
+    [InlineData(PresenceStatus.DoNotDisturb, true, "PresenceDnd", IconVariant.Regular)]
+    [InlineData(PresenceStatus.Offline, false, "PresenceOffline", IconVariant.Regular)]
+    [InlineData(PresenceStatus.Offline, true, "PresenceOof", IconVariant.Regular)]
+    [InlineData(PresenceStatus.OutOfOffice, false, "PresenceOof", IconVariant.Regular)]
+    [InlineData(PresenceStatus.OutOfOffice, true, "PresenceOof", IconVariant.Regular)]
+    [InlineData(PresenceStatus.Unknown, false, "PresenceUnknown", IconVariant.Regular)]
+    [InlineData(PresenceStatus.Unknown, true, "PresenceUnknown", IconVariant.Regular)]
+    [InlineData(PresenceStatus.Blocked, false, "PresenceBlocked", IconVariant.Regular)]
+    [InlineData(PresenceStatus.Blocked, true, "PresenceBlocked", IconVariant.Regular)]
+	[InlineData(null, false, "PresenceUnknown", IconVariant.Regular)]
+    [InlineData(null, true, "PresenceUnknown", IconVariant.Regular)]
+    public void FluentPresenceBadge_Status_PresenceIcon(PresenceStatus? status, bool outOfOffice, string expectedName, IconVariant expectedVariant)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPresenceBadge Status="@status" OutOfOffice="@outOfOffice" />);
+
+        // Assert
+        var icon = cut.FindComponent<FluentIcon<Icon>>();
+        Assert.Equal(expectedName, icon.Instance.Value?.Name);
+        Assert.Equal(expectedVariant, icon.Instance.Value?.Variant);
     }
 
     [Fact]
@@ -174,4 +216,17 @@
         var badge = cut.Find("fluent-badge");
         Assert.Equal("extra-small", badge.GetAttribute("size"));
     }
+
+	[Fact]
+	public void FluentPresenceBadge_Attached()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentAvatar Color="AvatarColor.Colorful" Name="Jan Smith" Shape="AvatarShape.Square">
+							<FluentPresenceBadge Status="PresenceStatus.DoNotDisturb"/>
+						  </FluentAvatar>);
+
+		// Assert
+		var badge = cut.Find("fluent-badge");
+		Assert.NotNull(badge);
+	}
 }

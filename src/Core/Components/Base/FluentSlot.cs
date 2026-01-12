@@ -39,6 +39,11 @@ public static class FluentSlot
     /// </summary>
     public const string Thumb = "thumb";
 
+    /// <summary>
+    /// Slot for the FluentAvatar badge element.
+    /// </summary>
+    public const string Badge = "badge";
+
     /* ***************************************** */
     /* Only for FluentUI Blazor Lib internal use */
     /* ***************************************** */

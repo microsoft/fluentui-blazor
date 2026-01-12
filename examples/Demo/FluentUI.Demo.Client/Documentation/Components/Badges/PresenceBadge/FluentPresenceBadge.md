@@ -12,15 +12,14 @@ A presence badge is a badge that displays a status indicator such as available, 
 The AppBar uses a string in the UI. It's value can be changed by leveraging the built-in [localization](/localization) functionality.
 The following values can be localized (the default value is shown between brackets) :
 
-- PresenceStatus_Available ("Available")
-- PresenceStatus_Away ("Away")
-- PresenceStatus_Busy ("Busy")
-- PresenceStatus_DoNotDisturb ("Do not disturb")
-- PresenceStatus_Offline ("Offline")
-- PresenceStatus_Unknown ("Unknown")
-- PresenceStatus_OutOfOffice ("Out of office")
-- PresenceStatus_Blocked ("Blocked")
-
+- PresenceStatus_Available ("available")
+- PresenceStatus_Away ("away")
+- PresenceStatus_Blocked ("blocked")
+- PresenceStatus_Busy ("busy")
+- PresenceStatus_DoNotDisturb ("do not disturb")
+- PresenceStatus_Offline ("offline")
+- PresenceStatus_OutOfOffice ("out of office")
+- PresenceStatus_Unknown ("unknown")
 
 ## Examples
 
@@ -48,19 +47,17 @@ A presence badge can indicate if a user is out of office by setting the `OutOfOf
 
 ### On Avatar
 
-Using a presence badges with posible statusses used on an avatar component.
+The Avatar component is tailored to work with the PresenceBadge component. The PresenceBadge needs to be supplied as the `ChildContent` of the Avatar component and the value of the `Slot` parameter needs to be set to `FluentSlot.Badge`.
 
 {{ PresenceBadgeOnAvatar }}
 
-_Due to a bug in the Avatar Web Component the initials are not show at the moment. A fix is under review._
-
 ### On Avatar with OutOfOffice
 
-Using a presence badges with `OutOfOffice="true"` and all posible statusses used on an avatar component.
+The Avatar component is tailored to work with the PresenceBadge component. The PresenceBadge needs to be supplied as the `ChildContent` of the Avatar component and the value of the `Slot` parameter needs to be set to `FluentSlot.Badge`.
 
 {{ PresenceBadgeOnAvatarOOO }}
 
-_Due to a bug in the Avatar Web Component the initials are not show at the moment. A fix is under review._
+
 
 ## API FluentPresenceBadge
 
