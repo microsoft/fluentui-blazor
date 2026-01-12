@@ -10,7 +10,7 @@ A presence badge is a badge that displays a status indicator such as available, 
 ## Change strings used in the UI
 
 The AppBar uses a string in the UI. It's value can be changed by leveraging the built-in [localization](/localization) functionality.
-The following values can be localized (the default value is shown between brackets) :
+The following values can be localized (default value in brackets) :
 
 - PresenceStatus_Available ("available")
 - PresenceStatus_Away ("away")
@@ -51,13 +51,15 @@ The Avatar component is tailored to work with the PresenceBadge component. The P
 
 {{ PresenceBadgeOnAvatar }}
 
+_Due to an issue in the Avatar Component the initials are not show at the moment. A fix is being worked on._
+
 ### On Avatar with OutOfOffice
 
 The Avatar component is tailored to work with the PresenceBadge component. The PresenceBadge needs to be supplied as the `ChildContent` of the Avatar component and the value of the `Slot` parameter needs to be set to `FluentSlot.Badge`.
 
 {{ PresenceBadgeOnAvatarOOO }}
 
-
+_Due to an issue in the Avatar Component the initials are not show at the moment. A fix is being worked on._
 
 ## API FluentPresenceBadge
 

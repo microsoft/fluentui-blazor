@@ -86,7 +86,7 @@ public static class FluentSlot
     /// <summary>
     /// Slot for the title element.
     /// </summary>
-    internal const string DialogTitle= "title";
+    internal const string DialogTitle = "title";
 
     /// <summary>
     /// Slot for the footer element.

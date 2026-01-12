@@ -144,7 +144,7 @@ public partial class FluentAvatar : FluentComponentBase, ITooltipComponent
 
     private string GetAvatarSize =>
         Size is not null
-        ? $"{(int)Size}px"
+        ? $"{Size}px"
         : "32px"; // Default component size
 
     private string? GetActiveValue =>

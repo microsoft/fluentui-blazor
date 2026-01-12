@@ -48,6 +48,7 @@ public partial class FluentPresenceBadge : FluentBadge
 
     /// <summary>
     /// Gets or sets the slot where the badge is displayed in.
+    /// Only FluentSlot.Badge is supported.
     /// </summary>
     [Parameter]
     public string? Slot { get; set; } = null;
@@ -110,7 +111,7 @@ public partial class FluentPresenceBadge : FluentBadge
         _ariaLabel = GetAriaLabel(Status, OutOfOffice);
         _iconWidth = GetIconSize(Size);
         IconStart = GetPresenceIcon(Status, OutOfOffice);
-        Size ??= AdditionalAttributes?.ContainsKey("slot") is not null ? BadgeSize.ExtraSmall : null;
+        Size ??= Slot is FluentSlot.Badge ? BadgeSize.ExtraSmall : null;
     }
 
     /// <summary />

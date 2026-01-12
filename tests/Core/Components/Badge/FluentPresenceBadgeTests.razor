@@ -207,15 +207,28 @@
     }
 
     [Fact]
-    public void FluentPresenceBadge_Slot_DefaultSize()
+    public void FluentPresenceBadge_Slot()
     {
         // Arrange && Act
-        var cut = Render(@<FluentPresenceBadge slot="some-slot" />);
+        var cut = Render(@<FluentPresenceBadge Slot="@FluentSlot.Badge" />);
 
         // Assert
         var badge = cut.Find("fluent-badge");
+        Assert.Equal("badge", badge.GetAttribute("slot"));
         Assert.Equal("extra-small", badge.GetAttribute("size"));
     }
+
+	[Fact]
+	public void FluentPresenceBadge_Slot_NotEqualToBadge()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentPresenceBadge Slot="@FluentSlot.Start" />);
+
+		// Assert
+		var badge = cut.Find("fluent-badge");
+		Assert.Equal("start", badge.GetAttribute("slot"));
+		Assert.Null(badge.GetAttribute("size"));
+	}
 
 	[Fact]
 	public void FluentPresenceBadge_Attached()
@@ -229,4 +242,6 @@
 		var badge = cut.Find("fluent-badge");
 		Assert.NotNull(badge);
 	}
+
+
 }
