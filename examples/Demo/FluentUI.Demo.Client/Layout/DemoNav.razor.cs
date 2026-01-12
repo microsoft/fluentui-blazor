@@ -82,7 +82,7 @@ public partial class DemoNav
     /// Uses the icons reflection helpers already present in the library so no switch/lookup table is needed.
     /// Returns null when name is empty or the icon cannot be found.
     /// </summary>
-    private static CustomIcon? GetIconFromName(string? iconName)
+    private static CustomIcon? GetIconFromName(string? iconName, bool isActive)
     {
         if (string.IsNullOrWhiteSpace(iconName))
         {
@@ -93,7 +93,7 @@ public partial class DemoNav
         {
             Name = iconName,
             Size = IconSize.Size20,
-            Variant = IconVariant.Regular
+            Variant = isActive ? IconVariant.Filled : IconVariant.Regular
         };
 
         if (iconInfo.TryGetInstance(out var customIcon))

@@ -177,11 +177,11 @@
 	}
 
 	[Fact]
-	public void FluentNavItem_Renders_With_Icon()
+	public void FluentNavItem_Renders_With_IconRest()
 	{
 		// Arrange & Act
 		var cut = Render(@<FluentNav>
-			<FluentNavItem Icon="@Samples.Icons.Info">Test Item</FluentNavItem>
+			<FluentNavItem IconRest="@Samples.Icons.Info">Test Item</FluentNavItem>
 		</FluentNav>);
 		// Assert
 		Assert.NotNull(cut);
@@ -195,7 +195,7 @@
 	{
 		// Arrange & Act
 		var cut = Render(@<FluentNav UseIcons="false">
-			<FluentNavItem Icon="@Samples.Icons.Info">Test Item</FluentNavItem>
+			<FluentNavItem IconRest="@Samples.Icons.Info">Test Item</FluentNavItem>
 		</FluentNav>);
 		// Assert
 		Assert.NotNull(cut);
@@ -203,7 +203,6 @@
 		Assert.Contains("Test Item", cut.Markup);
 	}
 
-	// Write a test for checking the _isActive state of FluentNavItem when the Href matches the current URI
 	[Fact]
 	public void FluentNavItem_IsActive_When_Href_Matches_Current_URI()
 	{
@@ -212,13 +211,47 @@
 		navMan.NavigateTo("https://localhost/test", true);
 
 		var cut = Render(@<FluentNav>
-			<FluentNavItem Id="link" Icon="@Samples.Icons.Info" Href="https://localhost/test">Test Item</FluentNavItem>
+			<FluentNavItem Id="link" IconRest="@Samples.Icons.Info" Href="https://localhost/test">Test Item</FluentNavItem>
 		</FluentNav>);
 
 		// Assert
 		Assert.NotNull(cut);
 
 		Assert.Contains("active", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_IsActive_IconActive()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/test", true);
+
+		var cut = Render(@<FluentNav>
+				<FluentNavItem Id="link" IconActive="@Samples.Icons.Warning" IconRest="@Samples.Icons.Info" Href="https://localhost/test">Test Item</FluentNavItem>
+			</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentNavItem_IsActive_WithoutIconActive()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/test", true);
+
+		var cut = Render(@<FluentNav>
+				<FluentNavItem Id="link" IconRest="@Samples.Icons.Info" Href="https://localhost/test">Test Item</FluentNavItem>
+			</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+
+		cut.Verify();
 	}
 
 	[Fact]
@@ -327,7 +360,7 @@
 		// Arrange & Act
 		var cut = Render(@<FluentNav>
 			<FluentNavCategory Title="Test Category">
-				<FluentNavItem Icon="@Samples.Icons.Info">Sub Item</FluentNavItem>
+				<FluentNavItem IconRest="@Samples.Icons.Info">Sub Item</FluentNavItem>
 			</FluentNavCategory>
 		</FluentNav>
 	);
@@ -443,7 +476,7 @@
 		</FluentLayout>);
 
 		var hamburger = cut.FindComponent<FluentLayoutHamburger>();
-		
+
 		// Open the hamburger menu
 		await hamburger.Instance.FluentLayout_HamburgerClickAsync(isExpanded: true);
 		Assert.True(hamburger.Instance.IsOpened, "Hamburger should be opened");
@@ -477,7 +510,7 @@
 		</FluentLayout>);
 
 		var hamburgers = cut.FindComponents<FluentLayoutHamburger>();
-		
+
 		// Open both hamburger menus
 		await hamburgers[0].Instance.FluentLayout_HamburgerClickAsync(isExpanded: true);
 		await hamburgers[1].Instance.FluentLayout_HamburgerClickAsync(isExpanded: true);
@@ -498,7 +531,7 @@
 		// Arrange - Create a layout with hamburger and nav item with href
 		var navMan = Services.GetRequiredService<NavigationManager>();
 		var initialUri = navMan.Uri;
-		
+
 		var cut = Render(@<FluentLayout Id="my-layout">
 			<FluentLayoutItem Area="LayoutArea.Header">
 				<FluentLayoutHamburger Id="my-hamburger" />
@@ -513,7 +546,7 @@
 		</FluentLayout>);
 
 		var hamburger = cut.FindComponent<FluentLayoutHamburger>();
-		
+
 		// Open the hamburger menu
 		await hamburger.Instance.FluentLayout_HamburgerClickAsync(isExpanded: true);
 
@@ -543,7 +576,7 @@
 		</FluentLayout>);
 
 		var hamburger = cut.FindComponent<FluentLayoutHamburger>();
-		
+
 		// Open the hamburger menu
 		await hamburger.Instance.FluentLayout_HamburgerClickAsync(isExpanded: true);
 
@@ -591,7 +624,7 @@
 	{
 		// Arrange
 		FluentNavItem? clickedItem = null;
-		
+
 		var cut = Render(@<FluentNav OnItemClick="@((item) => clickedItem = item)">
 			<FluentNavItem Id="nav-item" Href="/test">Test Item</FluentNavItem>
 		</FluentNav>);
@@ -611,7 +644,7 @@
 		// Arrange
 		bool onClickCalled = false;
 		FluentNavItem? clickedItem = null;
-		
+
 		var cut = Render(@<FluentNav OnItemClick="@((item) => clickedItem = item)">
 			<FluentNavItem Id="nav-item" Href="/test" OnClick="@(() => onClickCalled = true)">Test Item</FluentNavItem>
 		</FluentNav>);
@@ -631,7 +664,7 @@
 	{
 		// Arrange - Test that OnItemClick is called before hamburger closes
 		FluentNavItem? clickedItem = null;
-		
+
 		var cut = Render(@<FluentLayout Id="my-layout">
 			<FluentLayoutItem Area="LayoutArea.Header">
 				<FluentLayoutHamburger Id="my-hamburger" />
@@ -646,7 +679,7 @@
 		</FluentLayout>);
 
 		var hamburger = cut.FindComponent<FluentLayoutHamburger>();
-		
+
 		// Open the hamburger menu
 		await hamburger.Instance.FluentLayout_HamburgerClickAsync(isExpanded: true);
 
@@ -665,7 +698,7 @@
 	{
 		// Arrange
 		FluentNavItem? clickedItem = null;
-		
+
 		var cut = Render(@<FluentNav OnItemClick="@((item) => clickedItem = item)">
 			<FluentNavItem Id="nav-item" Href="/test" Disabled="true">Test Item</FluentNavItem>
 		</FluentNav>);
@@ -683,7 +716,7 @@
 	{
 		// Arrange
 		FluentNavItem? clickedItem = null;
-		
+
 		var cut = Render(@<FluentNav OnItemClick="@((item) => clickedItem = item)">
 			<FluentNavCategory Title="Test Category" Expanded="true">
 				<FluentNavItem Id="sub-item" Href="/test">Sub Item</FluentNavItem>

@@ -19,10 +19,10 @@
     {
         // Arrange & Act
         var cut = Render(@<FluentNav>
-            <FluentNavItem Href="/Link1" Icon="@(new Icons.Samples.Info())">
+            <FluentNavItem Href="/Link1" IconRest="@(new Icons.Samples.Info())">
                 Item 1
             </FluentNavItem>
-            <FluentNavItem Href="/Link2" Icon="@(new Icons.Samples.Warning())">
+            <FluentNavItem Href="/Link2" IconRest="@(new Icons.Samples.Warning())">
                 Item 2
             </FluentNavItem>
             <FluentNavItem OnClick="@(e => {})">
@@ -124,7 +124,7 @@
 	{
 		// Arrange & Act
 		var cut = Render(@<FluentNav>
-			<FluentNavItem Icon="@Samples.Icons.Info" Href="https://example.com">Test Item</FluentNavItem>
+			<FluentNavItem IconRest="@Samples.Icons.Info" Href="https://example.com">Test Item</FluentNavItem>
 		</FluentNav>);
 
 		// Assert
