@@ -1,0 +1,177 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    public FluentPresenceBadgeTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentPresenceBadge_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPresenceBadge />);
+
+        // Assert
+        var badge = cut.Find("fluent-badge");
+        Assert.Equal("available", badge.GetAttribute("aria-label"));
+        Assert.Contains("fluent-presence-badge", badge.GetAttribute("class"));
+    }
+
+    [Theory]
+    [InlineData(PresenceStatus.Available, false, "available")]
+    [InlineData(PresenceStatus.Available, true, "available out of office")]
+    [InlineData(PresenceStatus.Away, false, "away")]
+    [InlineData(PresenceStatus.Away, true, "away out of office")]
+    [InlineData(PresenceStatus.Busy, false, "busy")]
+    [InlineData(PresenceStatus.Busy, true, "busy out of office")]
+    [InlineData(PresenceStatus.DoNotDisturb, false, "do not disturb")]
+    [InlineData(PresenceStatus.DoNotDisturb, true, "do not disturb out of office")]
+    [InlineData(PresenceStatus.Offline, false, "offline")]
+    [InlineData(PresenceStatus.Offline, true, "offline out of office")]
+    [InlineData(PresenceStatus.OutOfOffice, false, "out of office")]
+    [InlineData(PresenceStatus.OutOfOffice, true, "out of office")]
+    [InlineData(PresenceStatus.Unknown, false, "unknown")]
+    [InlineData(PresenceStatus.Unknown, true, "unknown out of office")]
+    [InlineData(PresenceStatus.Blocked, false, "blocked")]
+    [InlineData(PresenceStatus.Blocked, true, "blocked out of office")]
+    public void FluentPresenceBadge_Status_AriaLabel(PresenceStatus status, bool outOfOffice, string expectedAriaLabel)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPresenceBadge Status="@status" OutOfOffice="@outOfOffice" />);
+
+        // Assert
+        var badge = cut.Find("fluent-badge");
+        Assert.Equal(expectedAriaLabel, badge.GetAttribute("aria-label"));
+    }
+
+    [Theory]
+    [InlineData(PresenceStatus.Available, false, "var(--colorPaletteLightGreenForeground3)")]
+    [InlineData(PresenceStatus.Away, true, "var(--colorPaletteBerryForeground3)")]
+    [InlineData(PresenceStatus.Away, false, "var(--colorPaletteMarigoldBackground3)")]
+    [InlineData(PresenceStatus.Busy, false, "var(--colorPaletteRedBackground3)")]
+    [InlineData(PresenceStatus.DoNotDisturb, false, "var(--colorPaletteRedBackground3)")]
+    [InlineData(PresenceStatus.Offline, true, "var(--colorPaletteBerryForeground3)")]
+    [InlineData(PresenceStatus.Offline, false, "var(--colorNeutralForeground3)")]
+    [InlineData(PresenceStatus.OutOfOffice, false, "var(--colorPaletteBerryForeground3)")]
+    [InlineData(PresenceStatus.Blocked, false, "var(--colorPaletteRedBackground3)")]
+    [InlineData(PresenceStatus.Unknown, false, "var(--colorNeutralForeground3)")]
+    public void FluentPresenceBadge_Status_IconColor(PresenceStatus status, bool outOfOffice, string expectedColor)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPresenceBadge Status="@status" OutOfOffice="@outOfOffice" />);
+
+        // Assert
+        var icon = cut.FindComponent<FluentIcon<Icon>>();
+        Assert.Equal(expectedColor, icon.Instance.CustomColor);
+    }
+
+    [Theory]
+    [InlineData(BadgeSize.Tiny, "aspect-ratio: 1; width: 6px; background-clip: unset;")]
+    [InlineData(BadgeSize.ExtraSmall, "")]
+    [InlineData(BadgeSize.Small, "")]
+    [InlineData(BadgeSize.Medium, "")]
+    [InlineData(BadgeSize.Large, "aspect-ratio: 1; width: 20px;")]
+    [InlineData(BadgeSize.ExtraLarge, "aspect-ratio: 1; width: 28px;")]
+    public void FluentPresenceBadge_Size_Style(BadgeSize size, string expectedStyle)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPresenceBadge Size="@size" />);
+
+        // Assert
+        var badge = cut.Find("fluent-badge");
+        var style = badge.GetAttribute("style") ?? string.Empty;
+        if (string.IsNullOrEmpty(expectedStyle))
+        {
+             Assert.DoesNotContain("width:", style);
+        }
+        else
+        {
+            foreach (var part in expectedStyle.Split(';', StringSplitOptions.RemoveEmptyEntries))
+            {
+                Assert.Contains(part.Trim(), style);
+            }
+        }
+    }
+
+    [Theory]
+    [InlineData(BadgeSize.Tiny, "6px")]
+    [InlineData(BadgeSize.ExtraSmall, "10px")]
+    [InlineData(BadgeSize.Small, "12px")]
+    [InlineData(BadgeSize.Medium, "16px")]
+    [InlineData(BadgeSize.Large, "20px")]
+    [InlineData(BadgeSize.ExtraLarge, "28px")]
+    public void FluentPresenceBadge_Size_IconWidth(BadgeSize size, string expectedWidth)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPresenceBadge Size="@size" />);
+
+        // Assert
+        var icon = cut.Find("svg");
+        var style = icon.GetAttribute("style") ?? string.Empty;
+        Assert.Contains($"width: {expectedWidth}", style);
+    }
+
+    [Fact]
+    public void FluentPresenceBadge_RestrictedParameters()
+    {
+        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge BackgroundColor="red" />));
+        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge Appearance="BadgeAppearance.Filled" />));
+        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge Shape="BadgeShape.Circular" />));
+        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge Content="Something" />));
+        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge Color="BadgeColor.Brand" />));
+        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge IconStart="@(new CoreIcons.Regular.Size20.Add())" />));
+        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge IconEnd="@(new CoreIcons.Regular.Size20.Add())" />));
+        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge IconLabel="Label" />));
+    }
+
+    [Theory]
+    [InlineData(PresenceStatus.Busy, true)]
+    [InlineData(PresenceStatus.DoNotDisturb, true)]
+    [InlineData(PresenceStatus.Blocked, true)]
+    [InlineData(PresenceStatus.Available, false)]
+    [InlineData(PresenceStatus.Away, false)]
+    [InlineData(PresenceStatus.Offline, false)]
+    [InlineData(PresenceStatus.OutOfOffice, false)]
+    [InlineData(PresenceStatus.Unknown, false)]
+    public void FluentPresenceBadge_IsBusyStatus(PresenceStatus status, bool expected)
+    {
+        // Arrange
+        var configuration = new LibraryConfiguration();
+        var component = new FluentPresenceBadge(configuration);
+
+        // Act
+        var result = component.IsBusyStatus(status);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void FluentPresenceBadge_Attached_DefaultPositioning()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPresenceBadge>
+                            <div id="target">Target</div>
+                          </FluentPresenceBadge>);
+
+        // Assert
+        var badge = cut.Find("fluent-badge");
+        Assert.Equal("below-end", badge.GetAttribute("positioning"));
+    }
+
+    [Fact]
+    public void FluentPresenceBadge_Slot_DefaultSize()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPresenceBadge slot="some-slot" />);
+
+        // Assert
+        var badge = cut.Find("fluent-badge");
+        Assert.Equal("extra-small", badge.GetAttribute("size"));
+    }
+}
