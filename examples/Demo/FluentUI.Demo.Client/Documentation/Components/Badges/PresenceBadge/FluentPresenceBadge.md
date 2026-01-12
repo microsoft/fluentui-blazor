@@ -51,7 +51,7 @@ The Avatar component is tailored to work with the PresenceBadge component. The P
 
 {{ PresenceBadgeOnAvatar }}
 
-_Due to an issue in the Avatar Component the initials are not show at the moment. A fix is being worked on._
+_Due to an issue in the Avatar Component the initials are not shown at the moment. A fix is being worked on._
 
 ### On Avatar with OutOfOffice
 
@@ -59,7 +59,7 @@ The Avatar component is tailored to work with the PresenceBadge component. The P
 
 {{ PresenceBadgeOnAvatarOOO }}
 
-_Due to an issue in the Avatar Component the initials are not show at the moment. A fix is being worked on._
+_Due to an issue in the Avatar Component the initials are not shown at the moment. A fix is being worked on._
 
 ## API FluentPresenceBadge
 

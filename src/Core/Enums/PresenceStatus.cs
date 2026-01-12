@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// How to handle the input file(s).
+/// Represents the presence status of a user.
 /// </summary>
 public enum PresenceStatus
 {
