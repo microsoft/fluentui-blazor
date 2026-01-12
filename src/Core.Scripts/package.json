@@ -25,7 +25,7 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "@fluentui/web-components": "3.0.0-rc.1",
+    "@fluentui/web-components": "^3.0.0-rc.2",
     "imask": "^7.6.1"
   }
 }
