@@ -259,7 +259,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
 
     private Task OnTouchMoveUpAsync(TouchEventArgs e)
     {
-        var move = _startY - e.TargetTouches[0].ClientY + DragThreshold;
+        var move = _startY - (e.TargetTouches[0].ClientY + DragThreshold);
 
         if (move > 0)
         {
