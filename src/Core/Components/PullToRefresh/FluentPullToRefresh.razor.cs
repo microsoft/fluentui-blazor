@@ -41,26 +41,28 @@ public partial class FluentPullToRefresh : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the direction to pull the <see cref="ChildContent"/>.
+    /// Defaults to <see cref="PullDirection.Down"/>."/>
     /// </summary>
     [Parameter]
     public PullDirection Direction { get; set; } = PullDirection.Down;
 
     /// <summary>
     /// Gets or sets if the pull action is disabled.
-    /// Deaults to false.
+    /// Defaults to false.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
 
     /// <summary>
     /// Gets or sets if the component should work on non-touch devices (by using an emulation script).
-    /// Deaults to true.
+    /// Defaults to true.
     /// </summary>
     [Parameter]
     public bool EmulateTouch { get; set; } = true;
 
     /// <summary>
     /// Gets or sets if a tip is shown when <see cref="ChildContent"/> is not being pulled.
+    /// Defaults to true.
     /// </summary>
     [Parameter]
     public bool ShowStaticTip { get; set; } = true;
@@ -124,12 +126,14 @@ public partial class FluentPullToRefresh : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the distance the <see cref="ChildContent"/> needs to be pulled (in pixels) to initiate a refresh action.
+    /// Default is 32px
     /// </summary>
     [Parameter]
     public int DragDistance { get; set; } = 32;
 
     /// <summary>
-    /// Gets or sets the height (default 32px) of the tip fragment (if shown).
+    /// Gets or sets the height of the tip fragment (if shown).
+    /// Default is 32px
     /// </summary>
     [Parameter]
     public string TipHeight { get; set; } = "32px";
@@ -145,7 +149,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     /// Gets or sets the threshold distance the <see cref="ChildContent"/> needs to be pulled (in pixels) to start the tip pull action.
     /// </summary>
     [Parameter]
-    public int DragThreshold { get; set; } = 0;
+    public int DragThreshold { get; set; }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -244,7 +248,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
             return;
         }
 
-        var move = e.TargetTouches[0].ClientY - (_startY + DragThreshold);
+        var move = e.TargetTouches[0].ClientY - _startY + DragThreshold;
 
         if (move > 0)
         {
@@ -255,7 +259,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
 
     private Task OnTouchMoveUpAsync(TouchEventArgs e)
     {
-        var move = _startY - (e.TargetTouches[0].ClientY + DragThreshold);
+        var move = _startY - e.TargetTouches[0].ClientY + DragThreshold;
 
         if (move > 0)
         {
