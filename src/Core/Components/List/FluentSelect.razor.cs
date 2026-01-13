@@ -11,6 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A FluentSelect allows for selecting one or more options from a list of options.
 /// </summary>
+[CascadingTypeParameter(nameof(TValue))]
 public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TValue>
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "List/FluentSelect.razor.js";

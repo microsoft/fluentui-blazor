@@ -5,10 +5,21 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
+/// Non-generic base class for InternalListContext to support type validation.
+/// </summary>
+internal abstract class InternalListContext
+{
+    /// <summary>
+    /// Gets the Type of the TValue generic parameter for the list component.
+    /// </summary>
+    public abstract Type ValueType { get; }
+}
+
+/// <summary>
 /// The component cascades this so that descendant options can talk back to it.
 /// It's an internal type so it doesn't show up in unrelated components by mistake
 /// </summary>
-internal class InternalListContext<TValue>
+internal class InternalListContext<TValue> : InternalListContext
 {
     /// <summary>
     /// Initializes a new instance of the InternalListContext class.
@@ -18,6 +29,9 @@ internal class InternalListContext<TValue>
     {
         ListComponent = component;
     }
+
+    /// <inheritdoc />
+    public override Type ValueType => typeof(TValue);
 
     /// <summary>
     /// Gets the list component.

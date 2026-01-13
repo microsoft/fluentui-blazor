@@ -1,13 +1,15 @@
 ﻿<!-- Using Items -->
 <FluentSelect Label="Language"
               Items="@Languages"
-              @bind-Value="@SelectedLanguageId"
+              @bind-Value="@SelectedId1"
               OptionText="@(i => i.Name)"
-              OptionBindedValue="@(i => i.Id)"
-              OptionValue="@(i => i.ToString())"/>
+              OptionBindedValue="@(i => i.Id)" />
 
 <!-- Using FluentOptions -->
-<FluentSelect Label="Language" @bind-Value="@SelectedLanguageId" TOption="Language" TValue="int">
+<FluentSelect Label="Language"
+              TOption="Language"
+              TValue="int"
+              @bind-Value="@SelectedId2">
     @foreach (var language in Languages)
     {
         <FluentOption Value="@language.Id">
@@ -17,12 +19,13 @@
 </FluentSelect>
 
 <div>
-    Selected: @SelectedLanguageId
+    IDs: (@SelectedId1, @SelectedId2)
 </div>
 
 @code {
 
-    int SelectedLanguageId = 3;
+    int SelectedId1 = 3;
+    int SelectedId2 = 3;
 
     static Language[] Languages = new Language[]
     {

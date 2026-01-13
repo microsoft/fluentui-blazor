@@ -76,6 +76,7 @@ An option can also use the `Description` parameter to display additional informa
 {{ OptionStartContent }}
 
 An example of using the `FluentOption` components directly in the `Select` is shown below.
+[!NOTE] Note the two parameters `TOption="string"` and `TValue="string"` required, to inform the type of the options.
 
 {{ SelectManual }}
 

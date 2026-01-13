@@ -10,10 +10,12 @@ using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
+[CascadingTypeParameter(nameof(TValue))]
 public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<TValue>, ITooltipComponent, IInternalListBase<TValue>
 {
     // List of items rendered with an ID to retrieve the element by ID.
     private Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
+    private Dictionary<string, TValue> InternalValues { get; } = new(StringComparer.Ordinal);
 
     /// <summary />
     [DynamicDependency(nameof(OnDropdownChangeHandlerAsync))]
@@ -141,10 +143,10 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             }
         }
 
-        // Manual list using FluentOption
-        if (option.Value is TOption value)
+        // Manual list
+        if (option.Value is TValue value)
         {
-            InternalOptions.TryAdd(id, value);
+            InternalValues.TryAdd(id, value);
             return option.Id;
         }
 
@@ -156,16 +158,9 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     {
         var id = option.Id ?? "";
 
-        if (InternalOptions.ContainsKey(id))
-        {
-            if (option.Data is TValue _ || option.Value is TValue _)
-            {
-                InternalOptions.Remove(id);
-                return option.Id;
-            }
-        }
-
-        return null;
+        return InternalOptions.Remove(id) || InternalValues.Remove(id)
+            ? option.Id
+            : null;
     }
 
     /// <summary />
@@ -256,21 +251,39 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     {
         // List of IDs received from the web component.
         var selectedIds = e.SelectedOptions?.Split(';', StringSplitOptions.TrimEntries) ?? [];
-        SelectedItems = selectedIds.Length > 0
-                      ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
-                      : Array.Empty<TOption>();
 
-        //Console.WriteLine($"Selected IDs: {string.Join(", ", selectedIds)}");
-        //Console.WriteLine($"Selected Items: {string.Join(", ", SelectedItems)}");
-
-        if (SelectedItemsChanged.HasDelegate)
+        // Bind Items
+        if (InternalOptions.Count > 0)
         {
-            await SelectedItemsChanged.InvokeAsync(SelectedItems);
+            SelectedItems = selectedIds.Length > 0
+                          ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
+                          : Array.Empty<TOption>();
+
+            //Console.WriteLine($"InternalOptions: {string.Join(", ", InternalOptions.Keys)}");
+            //Console.WriteLine($"Selected IDs: {string.Join(", ", selectedIds)} - Selected Items: {string.Join(", ", SelectedItems)}");
+
+            if (SelectedItemsChanged.HasDelegate)
+            {
+                await SelectedItemsChanged.InvokeAsync(SelectedItems);
+            }
+
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(GetOptionValue(SelectedItems.FirstOrDefault()));
+            }
         }
 
-        if (ValueChanged.HasDelegate)
+        // Manual FluentOptions
+        if (InternalValues.Count > 0)
         {
-            await ValueChanged.InvokeAsync(GetOptionValue(SelectedItems.FirstOrDefault()));
+            var SelectedValue = selectedIds.Length > 0
+                              ? InternalValues.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).FirstOrDefault()
+                              : default;
+
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(SelectedValue);
+            }
         }
     }
 

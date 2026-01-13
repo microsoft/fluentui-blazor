@@ -22,6 +22,12 @@ public partial class FluentOption<TValue> : FluentComponentBase
     private InternalListContext<TValue>? InternalListContext { get; set; }
 
     /// <summary>
+    /// Gets or sets the non-generic context of the list for type validation.
+    /// </summary>
+    [CascadingParameter(Name = "ListContextBase")]
+    private InternalListContext? InternalListContextBase { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the element is disabled.
     /// </summary>
     [Parameter]
@@ -82,6 +88,14 @@ public partial class FluentOption<TValue> : FluentComponentBase
     /// <summary />
     protected override Task OnInitializedAsync()
     {
+        // Validate that the FluentOption TValue matches the parent List TValue
+        if (InternalListContext is null && InternalListContextBase is not null)
+        {
+            throw new InvalidOperationException(
+                $"The type parameter '{typeof(TValue).Name}' of the FluentOption component does not match " +
+                $"the type '{InternalListContextBase.ValueType.Name}' of the parent List component.");
+        }
+
         if (InternalListContext is not null)
         {
             if (string.IsNullOrEmpty(Id))
