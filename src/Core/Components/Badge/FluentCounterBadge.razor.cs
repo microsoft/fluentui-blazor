@@ -53,7 +53,7 @@ public partial class FluentCounterBadge : FluentBadge
     /// With ShowZero being false by default, the default result will be an empty counter badge
     /// </summary>
     [Parameter]
-    public ushort? Count { get; set; }
+    public int? Count { get; set; }
 
     /// <summary>
     /// Gets or sets the badge's overflow count.
