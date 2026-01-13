@@ -123,6 +123,8 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     {
         var id = option.Id ?? "";
 
+        // Console.WriteLine($"Adding option with ID: {id} -> Items {(Items is null ? "is null" : "is not null")}, Data: {option.Data}, Value: {option.Value}.");
+
         // Bound list
         if (Items != null)
         {
@@ -202,6 +204,11 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             return OptionBindedValue.Invoke(item);
         }
 
+        if (typeof(TOption) == typeof(TValue))
+        {
+            return (TValue?)(object?)item;
+        }
+
         return default;
     }
 
@@ -252,6 +259,9 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         SelectedItems = selectedIds.Length > 0
                       ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
                       : Array.Empty<TOption>();
+
+        //Console.WriteLine($"Selected IDs: {string.Join(", ", selectedIds)}");
+        //Console.WriteLine($"Selected Items: {string.Join(", ", SelectedItems)}");
 
         if (SelectedItemsChanged.HasDelegate)
         {
