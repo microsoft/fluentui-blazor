@@ -8,7 +8,7 @@ namespace FluentUI.Demo.Client.Documentation.Components.Badges.CounterBadge.Exam
 public partial class CounterBadgeAttached
 {
     private string? count = "3";
-    private string? overflowcount = string.Empty;
+    private string? overflowCount = string.Empty;
     private string? offsetX;
     private string? offsetY;
 

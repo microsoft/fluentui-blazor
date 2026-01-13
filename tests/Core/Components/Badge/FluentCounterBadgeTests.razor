@@ -37,8 +37,6 @@
 	public void FluentCounterBadge_CountOutOfRange()
 	{
 		// Arrange
-		// Fix for CS1002: Add missing semicolon at the end of the statement.
-		// Fix for CS0220: Cast int.MaxValue to long before adding 1 to avoid overflow at compile time.
 		long c = (long)int.MaxValue + 1;
 
 		// Act
