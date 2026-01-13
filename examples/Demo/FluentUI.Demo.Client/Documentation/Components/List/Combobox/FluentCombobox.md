@@ -56,13 +56,13 @@ See a similar example on the [FluentSelect](/List/Select#customize-the-items) pa
 
 ## API FluentCombobox
 
-{{ API Type=FluentCombobox }}
+{{ API Type=FluentCombobox<string,string> }}
 
 > [!NOTE] The `Width` parameter is not yet implemented.
 
 ## API FluentOption
 
-{{ API Type=FluentOption }}
+{{ API Type=FluentOption<string> }}
 
 ## Migrating to v5
 

@@ -32,8 +32,8 @@ public class InputBaseTests : Bunit.BunitContext
     private static readonly Dictionary<Type, Func<Type, Type>> ComponentInitializer = new()
     {
         // { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) }
-        { typeof(FluentSelect<>), type => type.MakeGenericType(typeof(string)) },
-        { typeof(FluentCombobox<>), type => type.MakeGenericType(typeof(string)) },
+        { typeof(FluentSelect<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
+        { typeof(FluentCombobox<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
         { typeof(FluentSlider<>), type => type.MakeGenericType(typeof(int)) },
         { typeof(FluentRadioGroup<>), type => type.MakeGenericType(typeof(string)) },
         { typeof(FluentCalendar<>), type => type.MakeGenericType(typeof(DateTime)) },

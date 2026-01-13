@@ -9,6 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A FluentCombobox allows one option to be selected from multiple items.
 /// </summary>
+[CascadingTypeParameter(nameof(TValue))]
 public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TValue>
 {
     /// <summary />
