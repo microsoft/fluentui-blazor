@@ -1,0 +1,24 @@
+﻿.fluent-pull-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.fluent-pull-container div[part="tip"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--colorNeutralBackground3);
+  height: var(--fluent-pull-refresh-head-height, 50px);
+}
+
+.fluent-pull-container div[part="tip"][direction="down"] {
+  position: relative;
+  top: 0px;
+}
+
+.fluent-pull-container div[part="tip"][direction="up"] {
+  position: relative;
+  bottom: 0px;
+}

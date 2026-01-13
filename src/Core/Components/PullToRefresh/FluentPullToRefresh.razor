@@ -1,0 +1,26 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     @attributes="@AdditionalAttributes"
+     @ontouchstart="@OnTouchStartAsync"
+     @ontouchmove="@OnTouchMoveAsync"
+     @ontouchend="@OnTouchEndAsync">
+    <div style="@WrapperStyle">
+        @if (Direction == PullDirection.Down && _internalShowStaticTip)
+        {
+            <div part="tip" direction="down" style="--fluent-pull-refresh-head-height: @(TipHeight);">
+                @GetTipContent()
+            </div>
+        }
+        @ChildContent
+        @if (Direction == PullDirection.Up && _internalShowStaticTip)
+        {
+            <div part="tip" direction="up" style="--fluent-pull-refresh-head-height: @(TipHeight);">
+                @GetTipContent()
+            </div>
+        }
+    </div>
+</div>
