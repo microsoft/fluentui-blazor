@@ -272,7 +272,7 @@
     public void FluentCombobox_TryParseValueFromString(string? value, int? expectedParsedValue, string? expectedValidationErrorMessage)
     {
         // Arrange
-        var FluentCombobox = new FluentCombobox<int, int?>(LibraryConfiguration.Empty);
+        var FluentCombobox = new FluentCombobox<int, int>(LibraryConfiguration.Empty);
 
         // Act
         FluentCombobox.InternalTryParseValueFromString(value, out var parsedValue, out var validationErrorMessage);
