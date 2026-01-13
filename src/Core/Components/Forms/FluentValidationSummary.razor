@@ -1,0 +1,13 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Forms
+@inherits ValidationSummary
+
+@if (_validationMessages is not null && _validationMessages.Any())
+{
+	<ul class="@ClassValue" style=@StyleValue" role="alert" @attributes="@AdditionalAttributes">
+		@foreach (var error in _validationMessages)
+        {
+			<li class="fluent-validation-message">@error</li>
+        }
+    </ul>
+}

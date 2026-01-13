@@ -42,9 +42,19 @@ else
             }
         }
 
+        @foreach (var validationMessage in ValidationMessages)
+        {
+
+            <FluentText slot="@FluentSlot.FieldMessage" size="@TextSize.Size200" Color="@Color.Error">
+                @CreateIcon(FluentStatus.ErrorIcon)
+                @validationMessage
+            </FluentText>
+
+        }
+
         @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
         {
-            <FluentText slot="@FluentSlot.FieldMessage" size="@TextSize.Size200">
+			<FluentText slot="@FluentSlot.FieldMessage" size="@TextSize.Size200" >
 
                 @CreateIcon(Parameters.MessageIcon)
 

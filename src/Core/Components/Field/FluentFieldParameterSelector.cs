@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Localization;
 
@@ -22,6 +23,9 @@ internal class FluentFieldParameterSelector : IFluentField
         _component = component;
         _localizer = localizer;
     }
+
+    /// <summary />
+    public LambdaExpression? ValueExpression => _component.For ?? _component.InputComponent?.ValueExpression;
 
     /// <summary />
     public bool HasInputComponent => _component.InputComponent != null;

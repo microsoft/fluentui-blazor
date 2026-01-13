@@ -19,3 +19,8 @@ fluent-field div[slot='input'] {
   min-height: -webkit-fill-available;
   min-height: -moz-available;
 }
+
+fluent-field.invalid fluent-text-input {
+  border: 1px solid var(--colorPaletteRedBorder2);
+  border-radius: var(--borderRadiusMedium);
+}
