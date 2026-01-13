@@ -1,6 +1,7 @@
 ---
 title: Overlay
 route: /Overlay
+icon: CursorHover
 ---
 
 # Overlay
