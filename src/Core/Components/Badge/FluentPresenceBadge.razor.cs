@@ -8,9 +8,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The FluentCounterBadge component is a visual indicator that communicates a value about an associated component.
-/// It uses short postive numbers, color, and icons for quick recognition and is placed near the relevant content.
+/// It uses short positive numbers, color, and icons for quick recognition and is placed near the relevant content.
 /// </summary>
-public partial class FluentPresenceBadge : FluentBadge
+public partial class FluentPresenceBadge : FluentComponentBase
 {
     private int _iconWidth;
     private string _ariaLabel = string.Empty;
@@ -18,12 +18,12 @@ public partial class FluentPresenceBadge : FluentBadge
     private bool _isAttached => ChildContent is not null;
 
     /// <summary />
-    protected override string? ClassValue => DefaultClassBuilder
+    protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-presence-badge")
         .Build();
 
     /// <summary />
-    protected override string? StyleValue => DefaultStyleBuilder
+    protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("aspect-ratio", "1", Size == BadgeSize.Tiny || Size == BadgeSize.Large || Size == BadgeSize.ExtraLarge)
         .AddStyle("width", "6px", Size == BadgeSize.Tiny)
         .AddStyle("background-clip", "unset", Size == BadgeSize.Tiny)
@@ -47,11 +47,29 @@ public partial class FluentPresenceBadge : FluentBadge
     public bool OutOfOffice { get; set; }
 
     /// <summary>
-    /// Gets or sets the slot where the badge is displayed in.
-    /// Only FluentSlot.Badge is supported.
+    /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
-    public string? Slot { get; set; } = null;
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of badge content.
+    /// </summary>
+    [Parameter]
+    public Icon? Icon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size of the badge.
+    /// </summary>
+    [Parameter]
+    public BadgeSize? Size { get; set; }
+
+    /// <summary>
+    /// Gets or sets the badge's positioning relative to the <see cref="FluentBadge.ChildContent" />.
+    /// The default value is `null`. Internally the component uses AboveEnd as its default value.
+    /// </summary>
+    [Parameter]
+    public Positioning? Positioning { get; set; }
 
     /// <summary>
     /// Gets whether the status is considered busy.
@@ -63,45 +81,6 @@ public partial class FluentPresenceBadge : FluentBadge
     /// <summary />
     protected override void OnInitialized()
     {
-        if (!string.IsNullOrWhiteSpace(BackgroundColor))
-        {
-            throw new ArgumentException("FluentPresenceBadge does not support setting the BackgroundColor parameter.");
-        }
-
-        if (Appearance is not null)
-        {
-            throw new ArgumentException("FluentPresenceBadge does not support setting the Appearance parameter.");
-        }
-
-        if (Shape is not null)
-        {
-            throw new ArgumentException("FluentPresenceBadge does not support setting the Shape parameter.");
-        }
-
-        if (Content is not null)
-        {
-            throw new ArgumentException("FluentPresenceBadge does not support setting the Content parameter.");
-        }
-
-        if (Color is not null)
-        {
-            throw new ArgumentException("FluentPresenceBadge does not support setting the Color parameter.");
-        }
-
-        if (IconStart is not null)
-        {
-            throw new ArgumentException("FluentPresenceBadge does not support setting the IconStart parameter.");
-        }
-
-        if (IconEnd is not null)
-        {
-            throw new ArgumentException("FluentPresenceBadge does not support setting the IconEnd parameter.");
-        }
-
-        if (IconLabel is not null)
-        {
-            throw new ArgumentException("FluentPresenceBadge does not support setting the IconLabel parameter.");
-        }
 
         if (Positioning is null && _isAttached)
         {
@@ -110,12 +89,16 @@ public partial class FluentPresenceBadge : FluentBadge
 
         _ariaLabel = GetAriaLabel(Status, OutOfOffice);
         _iconWidth = GetIconSize(Size);
-        IconStart = GetPresenceIcon(Status, OutOfOffice);
-        Size ??= Slot is FluentSlot.Badge ? BadgeSize.ExtraSmall : null;
+        Icon = GetPresenceIcon(Status, OutOfOffice);
+
+        if (AdditionalAttributes is not null && AdditionalAttributes.ContainsKey("slot"))
+        {
+            Size ??= AdditionalAttributes["slot"] == (object)FluentSlot.Badge ? BadgeSize.ExtraSmall : null;
+        }
     }
 
     /// <summary />
-    protected override string GetIconColor()
+    protected string GetIconColor()
     {
         return Status switch
         {

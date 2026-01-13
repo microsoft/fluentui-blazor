@@ -47,19 +47,15 @@ A presence badge can indicate if a user is out of office by setting the `OutOfOf
 
 ### On Avatar
 
-The Avatar component is tailored to work with the PresenceBadge component. The PresenceBadge needs to be supplied as the `ChildContent` of the Avatar component and the value of the `Slot` parameter needs to be set to `FluentSlot.Badge`.
+The Avatar component is tailored to work with the PresenceBadge component. The PresenceBadge needs to be supplied as the `ChildContent` of the Avatar component.
 
 {{ PresenceBadgeOnAvatar }}
 
-_Due to an issue in the Avatar Component the initials are not shown at the moment. A fix is being worked on._
-
 ### On Avatar with OutOfOffice
 
-The Avatar component is tailored to work with the PresenceBadge component. The PresenceBadge needs to be supplied as the `ChildContent` of the Avatar component and the value of the `Slot` parameter needs to be set to `FluentSlot.Badge`.
+The Avatar component is tailored to work with the PresenceBadge component. The PresenceBadge needs to be supplied as the `ChildContent` of the Avatar component.
 
 {{ PresenceBadgeOnAvatarOOO }}
-
-_Due to an issue in the Avatar Component the initials are not shown at the moment. A fix is being worked on._
 
 ## API FluentPresenceBadge
 

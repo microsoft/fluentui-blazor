@@ -127,19 +127,6 @@
         Assert.Contains($"width: {expectedWidth}", style);
     }
 
-    [Fact]
-    public void FluentPresenceBadge_RestrictedParameters()
-    {
-        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge BackgroundColor="red" />));
-        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge Appearance="BadgeAppearance.Filled" />));
-        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge Shape="BadgeShape.Circular" />));
-        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge Content="Something" />));
-        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge Color="BadgeColor.Brand" />));
-        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge IconStart="@(new CoreIcons.Regular.Size20.Add())" />));
-        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge IconEnd="@(new CoreIcons.Regular.Size20.Add())" />));
-        Assert.Throws<ArgumentException>(() => Render(@<FluentPresenceBadge IconLabel="Label" />));
-    }
-
     [Theory]
     [InlineData(PresenceStatus.Busy, true)]
     [InlineData(PresenceStatus.DoNotDisturb, true)]
@@ -210,7 +197,7 @@
     public void FluentPresenceBadge_Slot()
     {
         // Arrange && Act
-        var cut = Render(@<FluentPresenceBadge Slot="@FluentSlot.Badge" />);
+        var cut = Render(@<FluentPresenceBadge slot="@FluentSlot.Badge" />);
 
         // Assert
         var badge = cut.Find("fluent-badge");
@@ -222,7 +209,7 @@
 	public void FluentPresenceBadge_Slot_NotEqualToBadge()
 	{
 		// Arrange && Act
-		var cut = Render(@<FluentPresenceBadge Slot="@FluentSlot.Start" />);
+		var cut = Render(@<FluentPresenceBadge slot="@FluentSlot.Start" />);
 
 		// Assert
 		var badge = cut.Find("fluent-badge");
