@@ -50,6 +50,10 @@ on the checkbox to select an item.
 
 {{ SelectEnum }}
 
+> [!NOTE] In some situation, the option elements may not catch the click event to select the item.
+> To avoid this, you can use the `Style="pointer-events: none;"` to disable the pointer events
+> on the element and let the click event pass through to the parent element.
+
 ## Multiple
 
 Use the **Multiple** parameter to enable multiple selections.
