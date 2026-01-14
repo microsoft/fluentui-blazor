@@ -134,7 +134,7 @@ public partial class FluentBadge : FluentComponentBase
     }
 
     /// <summary />
-    protected string GetIconColor()
+    protected virtual string GetIconColor()
     {
         return Color switch
         {

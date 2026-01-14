@@ -315,4 +315,28 @@
   <data name="AppBar_MoreItems" xml:space="preserve">
     <value>View more apps</value>
   </data>
+  <data name="PresenceStatus_Available" xml:space="preserve">
+    <value>available</value>
+  </data>
+  <data name="PresenceStatus_Away" xml:space="preserve">
+    <value>away</value>
+  </data>
+  <data name="PresenceStatus_Busy" xml:space="preserve">
+    <value>busy</value>
+  </data>
+  <data name="PresenceStatus_Unknown" xml:space="preserve">
+    <value>unknown</value>
+  </data>
+  <data name="PresenceStatus_OutOfOffice" xml:space="preserve">
+    <value>out of office</value>
+  </data>
+  <data name="PresenceStatus_Offline" xml:space="preserve">
+    <value>offline</value>
+  </data>
+  <data name="PresenceStatus_DoNotDisturb" xml:space="preserve">
+    <value>do not disturb</value>
+  </data>
+  <data name="PresenceStatus_Blocked" xml:space="preserve">
+    <value>blocked</value>
+  </data>
 </root>

@@ -1,0 +1,24 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<AddTag Name="fluent-badge-container" TagWhen="@(() => _isAttached)">
+	@if (ChildContent is not null)
+	{
+		@*This is needed to make sure the Avatar renders the initials. It is doing something weird when we just render ChildContent unconditionally *@
+		@ChildContent
+	}
+	<fluent-badge id="@Id"
+				  class="@ClassValue"
+				  style="@StyleValue"
+				  size="@Size.ToAttributeValue()"
+				  positioning="@Positioning.ToAttributeValue()"
+				  aria-label="@_ariaLabel"
+				  @attributes="@AdditionalAttributes">
+		@if (Icon != null)
+		{
+			<FluentIcon Width="@($"{_iconWidth}px")" Value="@Icon" Slot="@FluentSlot.Start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" Style="margin: -1px;" />
+		}
+	</fluent-badge>
+</AddTag>
+
