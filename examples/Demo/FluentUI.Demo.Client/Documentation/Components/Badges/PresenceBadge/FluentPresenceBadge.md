@@ -9,8 +9,8 @@ A presence badge is a badge that displays a status indicator such as available, 
 
 ## Change strings used in the UI
 
-The AppBar uses a string in the UI. It's value can be changed by leveraging the built-in [localization](/localization) functionality.
-The following values can be localized (default value in brackets) :
+The PresenceBadge uses strings in the UI. The values can be changed by leveraging the built-in [localization](/localization) functionality.
+The following values can be localized (default value in brackets):
 
 - PresenceStatus_Available ("available")
 - PresenceStatus_Away ("away")
