@@ -308,6 +308,67 @@
         Assert.Equal(expectedValidationErrorMessage, validationErrorMessage);
     }
 
+    [Fact]
+    public async Task FluentSelect_ClearAsync()
+    {
+        var value = "Two";
+        IEnumerable<string> selectedItems = ["Two"];
+        IEnumerable<string>? capturedSelectedItems = null;
+        var selectedItemsChangedCalled = false;
+
+        // Arrange
+        var cut = Render(@<FluentSelect
+            TOption="string"
+            TValue="string"
+            Items="@Digits"
+            Value="@value" 
+            SelectedItems="@selectedItems"
+            SelectedItemsChanged="@(items => { capturedSelectedItems = items; selectedItemsChangedCalled = true; })" />);
+
+        // Verify initial state
+        var two = cut.Find("fluent-option[value='Two']");
+        Assert.True(two.HasAttribute("selected"));
+        Assert.Equal(new[] { "Two" }, selectedItems);
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?, string?>>().Instance.ClearAsync();
+
+        // Assert
+        Assert.True(selectedItemsChangedCalled, "SelectedItemsChanged should have been invoked");
+        Assert.NotNull(capturedSelectedItems);
+        Assert.Empty(capturedSelectedItems);
+    }
+
+    [Fact]
+    public async Task FluentSelect_ClearAsync_Multiple()
+    {
+        var value = "One";
+        IEnumerable<string>? selectedItems = ["One", "Two"];
+        IEnumerable<string>? capturedSelectedItems = null;
+        var selectedItemsChangedCalled = false;
+
+        // Arrange
+        var cut = Render(@<FluentSelect
+            TOption="string"
+            TValue="string"
+            Multiple="true"
+            Items="@Digits" 
+            Value="@value" 
+            SelectedItems="@selectedItems"
+            SelectedItemsChanged="@(items => { capturedSelectedItems = items; selectedItemsChangedCalled = true; })" />);
+
+        // Verify initial state
+        Assert.Equal(new[] { "One", "Two" }, selectedItems);
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?, string?>>().Instance.ClearAsync();
+
+        // Assert
+        Assert.True(selectedItemsChangedCalled, "SelectedItemsChanged should have been invoked");
+        Assert.NotNull(capturedSelectedItems);
+        Assert.Empty(capturedSelectedItems);
+    }
+
 //     [Theory]
 //     [InlineData("InvalidId")]
 //     [InlineData(null)]

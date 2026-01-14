@@ -66,4 +66,24 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentOption_ThrowsException_WhenTypeMismatchWithParentList()
+    {
+        // Arrange & Act & Assert
+        // This test validates that when a FluentOption<TValue> has a different type parameter
+        // than the parent FluentSelect<TValue>, an InvalidOperationException is thrown
+        // during OnInitializedAsync when InternalListContext is null but InternalListContextBase is not.
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+        {
+            Render(@<FluentSelect TOption="string" TValue="string">
+                <FluentOption TValue="int" Value="123" Text="Invalid Type" />
+            </FluentSelect>);
+        });
+
+        // Assert
+        Assert.Contains("does not match", exception.Message);
+        Assert.Contains("Int32", exception.Message);
+        Assert.Contains("String", exception.Message);
+    }
 }
