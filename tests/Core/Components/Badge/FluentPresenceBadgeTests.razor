@@ -68,8 +68,8 @@
     [InlineData(PresenceStatus.Blocked, true, "var(--colorPaletteRedBackground3)")]
     [InlineData(PresenceStatus.Unknown, false, "var(--colorNeutralForeground3)")]
     [InlineData(PresenceStatus.Unknown, true, "var(--colorNeutralForeground3)")]
-	[InlineData(null, false, "var(--colorNeutralForeground3)")]
-	[InlineData(null, true, "var(--colorNeutralForeground3)")]
+    [InlineData(null, false, "var(--colorNeutralForeground3)")]
+    [InlineData(null, true, "var(--colorNeutralForeground3)")]
     public void FluentPresenceBadge_Status_IconColor(PresenceStatus? status, bool outOfOffice, string expectedColor)
     {
         // Arrange && Act
