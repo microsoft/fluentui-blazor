@@ -93,6 +93,10 @@ Demonstrates two-way data binding with `FluentSelect` using `@bind-Value` to bin
 
 {{ SelectLanguage }}
 
+**Note:** If you programmatically change the value of a manually constructed list (using `FluentOption`),
+you will likely need to add an attribute `@key=“@SelectedId”` to force Blazor to redraw the component correctly.
+This is the case in the above example: `@key="@(SelectedId2 ?? 0)"`.
+
 ## Many items
 
 You can use this component with a large number of items.

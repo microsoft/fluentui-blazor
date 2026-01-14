@@ -368,36 +368,4 @@
         Assert.NotNull(capturedSelectedItems);
         Assert.Empty(capturedSelectedItems);
     }
-
-//     [Theory]
-//     [InlineData("InvalidId")]
-//     [InlineData(null)]
-//     [InlineData("FIRST_EXISTING_ID")]
-//     public void FluentSelect_RemoveUnknownOption(string? id)
-//     {
-// #pragma warning disable BL0005
-
-//         // Arrange
-//         var cut = Render(@<FluentSelect Items="@Digits" TOption="string" TValue="string" />);
-//         var ids = cut.FindAll("fluent-option").Select(i => i.GetAttribute("id"));
-//         var data = (object?)null;
-
-//         if (id == "FIRST_EXISTING_ID")
-//         {
-//             id = ids.First();
-//             data = Guid.NewGuid();
-//         }
-
-//         // Act
-//         var removedId = cut.FindComponent<FluentSelect<string?, string>>().Instance.RemoveOption(new(LibraryConfiguration.Empty)
-//         {
-//             Id = id,
-//             Data = data,
-//         });
-
-//         // Assert
-//         Assert.Null(removedId);
-
-// #pragma warning restore BL0005
-//     }
 }
