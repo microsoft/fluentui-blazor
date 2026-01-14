@@ -12,6 +12,12 @@
                selected="@Selected"
                @attributes="@AdditionalAttributes">
     @ChildContent
+
+    @if (ChildContent is null && !string.IsNullOrEmpty(Text))
+    {
+        @Text
+    }
+
     @if (!string.IsNullOrWhiteSpace(Description))
     {
         <span slot="@FluentSlot.Description">@Description</span>

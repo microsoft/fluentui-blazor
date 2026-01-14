@@ -8,11 +8,12 @@
 <!-- Using FluentOptions -->
 <FluentSelect Label="Language"
               TOption="Language"
-              TValue="int"
+              TValue="int?"
               @bind-Value="@SelectedId2">
+    <FluentOption TValue="int?" Value="@(null)" Text="[Select]" />
     @foreach (var language in Languages)
     {
-        <FluentOption Value="@language.Id">
+        <FluentOption TValue="int?" Value="@language.Id">
             @language.Name
         </FluentOption>
     }
@@ -25,7 +26,7 @@
 @code {
 
     int SelectedId1 = 3;
-    int SelectedId2 = 3;
+    int? SelectedId2 = 3;
 
     static Language[] Languages = new Language[]
     {
