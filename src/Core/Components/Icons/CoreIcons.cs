@@ -79,6 +79,22 @@ internal static partial class CoreIcons
 
             public class QuestionCircle : Icon { public QuestionCircle() : base("QuestionCircle", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16Zm0 1a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm0 10.5a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Zm0-8a2.5 2.5 0 0 1 1.65 4.38l-.15.12-.22.17-.09.07-.16.15c-.33.36-.53.85-.53 1.61a.5.5 0 0 1-1 0 3.2 3.2 0 0 1 1.16-2.62l.25-.19.12-.1A1.5 1.5 0 0 0 10 6.5c-.83 0-1.5.67-1.5 1.5a.5.5 0 0 1-1 0A2.5 2.5 0 0 1 10 5.5Z\"></path>") { } };
 
+            public class PresenceAvailable : Icon { public PresenceAvailable() : base("PresenceAvailable", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 0a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm12.2-3.2a1 1 0 0 1 0 1.4l-4.5 4.5a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1 1.4-1.4L9 10.58l3.8-3.8a1 1 0 0 1 1.4 0Z\"/>") { } }
+
+            public class PresenceAway : Icon { public PresenceAway() : base("PresenceAway", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 9.59V6a1 1 0 1 0-2 0V10c0 .27.1.52.3.7l3 3a1 1 0 1 0 1.4-1.4L10 9.58Zm-10 .4a10 10 0 1 1 20 0 10 10 0 0 1-20 0ZM10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z\"/>") { } }
+
+            public class PresenceBlocked : Icon { public PresenceBlocked() : base("PresenceBlocked", IconVariant.Regular, IconSize.Size20, "<path d=\"M20 10a10 10 0 1 0-20 0 10 10 0 0 0 20 0Zm-2 0a8 8 0 0 1-12.9 6.32L16.31 5.09A7.97 7.97 0 0 1 18 10Zm-3.1-6.32L3.69 14.91A8 8 0 0 1 14.91 3.68Z\"/>") { } }
+
+            public class PresenceDnd : Icon { public PresenceDnd() : base("PresenceDnd", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 0a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm4 0a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Z\"/>") { } }
+
+            public class PresenceOffline : Icon { public PresenceOffline() : base("PresenceOffline", IconVariant.Regular, IconSize.Size20, "<path d=\"M13.7 6.3a1 1 0 0 1 0 1.4L11.42 10l2.3 2.3a1 1 0 0 1-1.42 1.4L10 11.42l-2.3 2.3a1 1 0 0 1-1.4-1.42L8.58 10l-2.3-2.3a1 1 0 0 1 1.42-1.4L10 8.58l2.3-2.3a1 1 0 0 1 1.4 0ZM0 10a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm10-8a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z\"/>") { } }
+
+            public class PresenceOof : Icon { public PresenceOof() : base("PresenceOof", IconVariant.Regular, IconSize.Size20, "<path d=\"M10.7 7.7A1 1 0 1 0 9.28 6.3l-3 3a1 1 0 0 0 0 1.41l3 3a1 1 0 1 0 1.42-1.41l-1.3-1.3H13a1 1 0 1 0 0-2H9.4l1.3-1.29ZM10 0a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z\"/>") { } }
+
+            public class PresenceTentative : Icon { public PresenceTentative() : base("PresenceTentative", IconVariant.Regular, IconSize.Size20, "<path d=\"M8.95.05a9.96 9.96 0 0 0-8.9 8.9l8.9-8.9ZM.19 11.95 11.95.2c.8.16 1.6.42 2.35.78L.97 14.31a9.97 9.97 0 0 1-.78-2.36Zm1.99 4.29a10.12 10.12 0 0 0 1.58 1.58L17.81 3.76a10.1 10.1 0 0 0-1.58-1.58L2.18 16.24ZM19.02 5.69 5.7 19.03c.76.36 1.55.62 2.36.78L19.8 8.05c-.16-.8-.42-1.6-.79-2.36Zm.92 5.37-8.89 8.88a9.96 9.96 0 0 0 8.89-8.88Z\"/>") { } }
+
+            public class PresenceUnknown : Icon { public PresenceUnknown() : base("PresenceUnknown", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16ZM0 10a10 10 0 1 1 20 0 10 10 0 0 1-20 0Z\"/>") { } }
+
             public class RadioButton : Icon { public RadioButton() : base("RadioButton", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-8 7a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z\" />") { } };
 
             public class Search : Icon { public Search() : base("Search", IconVariant.Regular, IconSize.Size20, "<path d=\"M12.73 13.44a6.5 6.5 0 1 1 .7-.7l3.42 3.4a.5.5 0 0 1-.63.77l-.07-.06-3.42-3.41Zm-.71-.71A5.54 5.54 0 0 0 14 8.5a5.5 5.5 0 1 0-1.98 4.23Z\"/>") { } }
@@ -108,6 +124,14 @@ internal static partial class CoreIcons
             public class CheckboxChecked : Icon { public CheckboxChecked() : base("CheckboxChecked", IconVariant.Filled, IconSize.Size20, "<path d=\"M6 3a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6Zm7.85 4.85-5 5a.5.5 0 0 1-.7 0l-2-2a.5.5 0 0 1 .7-.7l1.65 1.64 4.65-4.64a.5.5 0 0 1 .7.7Z\" />") { } }
 
             public class CheckboxIndeterminate : Icon { public CheckboxIndeterminate() : base("CheckboxIndeterminate", IconVariant.Filled, IconSize.Size20, "<path d=\"M6 3a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6ZM4.5 6c0-.83.67-1.5 1.5-1.5h8c.83 0 1.5.67 1.5 1.5v8c0 .83-.67 1.5-1.5 1.5H6A1.5 1.5 0 0 1 4.5 14V6ZM7 6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H7Z\"></path><path d=\"M6 3a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6ZM4.5 6c0-.83.67-1.5 1.5-1.5h8c.83 0 1.5.67 1.5 1.5v8c0 .83-.67 1.5-1.5 1.5H6A1.5 1.5 0 0 1 4.5 14V6ZM7 6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H7Z\"></path>") { } }
+
+            public class PresenceAvailable : Icon { public PresenceAvailable() : base("PresenceAvailable", IconVariant.Filled, IconSize.Size20, "<path d=\"M10 20a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm4.2-11.8-4.5 4.5a1 1 0 0 1-1.4 0l-2-2a1 1 0 1 1 1.4-1.4L9 10.58l3.8-3.8a1 1 0 1 1 1.4 1.42Z\"/>") { } }
+
+            public class PresenceAway : Icon { public PresenceAway() : base("PresenceAway", IconVariant.Filled, IconSize.Size20, "<path d=\"M10 20a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm0-14V9.6l2.7 2.7a1 1 0 0 1-1.4 1.42l-3-3A1 1 0 0 1 8 10V6a1 1 0 1 1 2 0Z\"/>") { } }
+
+            public class PresenceBusy : Icon { public PresenceBusy() : base("PresenceBusy", IconVariant.Filled, IconSize.Size20, "<path d=\"M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z\"/>") { } }
+
+            public class PresenceDnd : Icon { public PresenceDnd() : base("PresenceDnd", IconVariant.Filled, IconSize.Size20, "<path d=\"M10 20a10 10 0 1 0 0-20 10 10 0 0 0 0 20ZM7 9h6a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2Z\"/>") { } }
 
             public class RadioButton : Icon { public RadioButton() : base("RadioButton", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-13a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm-7 8a7 7 0 1 1 14 0 7 7 0 0 1-14 0Z\" />") { } };
 

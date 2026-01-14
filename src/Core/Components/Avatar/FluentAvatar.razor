@@ -15,11 +15,9 @@
                name="@GetNameValue"
                shape="@Shape.ToAttributeValue()"
                size="@Size.ToAttributeValue()"
-               slot="@Slot"
                @onclick="@OnClickHandlerAsync"
                @onkeydown="@OnKeyDownHandlerAsync"
                @attributes="@AdditionalAttributes">
-
     @if (DisplayImage)
     {
         <img alt="@Name"
@@ -27,10 +25,9 @@
              aria-hidden="true"
              src="@Image" />
     }
-
     @if (DisplayIcon && Icon is not null)
     {
         @Icon.ToMarkup(size: GetAvatarSize, color: "currentcolor", backgroundColor: "unset")
     }
-
+    @ChildContent
 </fluent-avatar>
