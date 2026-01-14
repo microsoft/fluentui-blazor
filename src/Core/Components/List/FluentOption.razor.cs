@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// The Option element is used to define an item contained in a List component.
 /// </summary>
-public partial class FluentOption : FluentComponentBase
+public partial class FluentOption<TValue> : FluentComponentBase
 {
     /// <summary />
     public FluentOption(LibraryConfiguration configuration) : base(configuration) { }
@@ -19,7 +19,13 @@ public partial class FluentOption : FluentComponentBase
     /// Gets or sets the context of the list.
     /// </summary>
     [CascadingParameter(Name = "ListContext")]
-    private IInternalListContextOptions? InternalListContext { get; set; }
+    private InternalListContext<TValue>? InternalListContext { get; set; }
+
+    /// <summary>
+    /// Gets or sets the non-generic context of the list for type validation.
+    /// </summary>
+    [CascadingParameter(Name = "ListContextBase")]
+    private InternalListContext? InternalListContextBase { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the element is disabled.
@@ -31,7 +37,7 @@ public partial class FluentOption : FluentComponentBase
     /// Gets or sets the value of this option.
     /// </summary>
     [Parameter]
-    public string? Value { get; set; }
+    public TValue? Value { get; set; }
 
     /// <summary>
     /// Gets or sets the name of this option.
@@ -65,8 +71,31 @@ public partial class FluentOption : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
+    private string? ValueFormatted
+    {
+        get
+        {
+            if (InternalListContext is null ||
+                InternalListContext.ListComponent.OptionValueToString is null)
+            {
+                return Value?.ToString();
+            }
+
+            return InternalListContext.ListComponent.OptionValueToString.Invoke(Value);
+        }
+    }
+
+    /// <summary />
     protected override Task OnInitializedAsync()
     {
+        // Validate that the FluentOption TValue matches the parent List TValue
+        if (InternalListContext is null && InternalListContextBase is not null)
+        {
+            throw new InvalidOperationException(
+                $"The type parameter '{typeof(TValue).Name}' of the FluentOption component does not match " +
+                $"the type '{InternalListContextBase.ValueType.Name}' of the parent List component.");
+        }
+
         if (InternalListContext is not null)
         {
             if (string.IsNullOrEmpty(Id))
@@ -75,6 +104,17 @@ public partial class FluentOption : FluentComponentBase
             }
 
             InternalListContext.AddOption(this);
+
+            // Use OptionSelectedComparer if available, otherwise fallback to EqualityComparer<TValue>.Default
+            if (Value is not null)
+            {
+                var comparer = InternalListContext.ListComponent.OptionSelectedComparer;
+                if ((comparer != null && comparer(InternalListContext.ListComponent.Value, Value)) ||
+                    (comparer == null && EqualityComparer<TValue>.Default.Equals(InternalListContext.ListComponent.Value, Value)))
+                {
+                    Selected = true;
+                }
+            }
         }
 
         return Task.CompletedTask;

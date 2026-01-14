@@ -6,7 +6,8 @@
 {
     <FluentCombobox @ref="_fluentCombobox"
                     Id="@Id"
-                    TOption="DateTime ?"
+                    TOption="DateTime?"
+                    TValue="DateTime?"
                     Class="@ClassValue"
                     Style="@StyleValue"
                     Label="@Label"
@@ -21,7 +22,7 @@
                     @bind-Value="SelectedValue"
                     @onkeydown="@KeyDownHandlerAsync"
                     OptionText="@(i => i?.ToString(TimePattern))"
-                    OptionValue="@(i => FormatValueAsString(i))"
+                    OptionValueToString="@(i => FormatValueAsString(i))"
                     OptionSelectedComparer="@((i, j) => i?.Hour == j?.Hour && i?.Minute == j?.Minute)"
                     OptionDisabled="@DisableHourHandler"
                     Required="@Required"

@@ -122,17 +122,19 @@ public partial class MarkdownViewer
         var componentType = "";
 
         // Convert "MyComponent<MyType>" to ("MyComponent", "MyType")
-        var match = Regex.Match(name, @"(\w+)<(\w+)>");
+        var match = Regex.Match(name, @"(\w+)(&lt;|<)(.+)(>|&gt;)");
         if (match.Success)
         {
             componentName = match.Groups[1].Value;
-            componentType = match.Groups[2].Value;
+            componentType = match.Groups[3].Value;
         }
 
         // Get the component type
         var type = DocViewerService.ApiAssembly
                                   ?.GetTypes()
-                                  ?.FirstOrDefault(i => i.Name == componentName || i.Name.StartsWith($"{componentName}`1"));
+                                  ?.FirstOrDefault(i => i.Name == componentName
+                                                     || i.Name.StartsWith($"{componentName}`1")
+                                                     || i.Name.StartsWith($"{componentName}`2"));
 
         // Create the ApiClass
         var result = type is null ? null : new ApiClass(DocViewerService, type, allProperties);
@@ -140,10 +142,22 @@ public partial class MarkdownViewer
         // if the component type is specified, set the InstanceTypes
         if (result != null && !string.IsNullOrEmpty(componentType))
         {
-            type = ReflectionExtensions.KnownTypeNames
-                                       .FirstOrDefault(i => string.Compare(i.Value, componentType, StringComparison.InvariantCultureIgnoreCase) == 0)
-                                       .Key;
-            result.InstanceTypes = [type];
+            var listOfTypes = new List<Type>();
+
+            foreach (var typeName in componentType.Split(','))
+            {
+                var t = ReflectionExtensions.KnownTypeNames
+                                               .FirstOrDefault(i => string.Compare(i.Value, typeName.Trim(), StringComparison.InvariantCultureIgnoreCase) == 0)
+                                               .Key;
+
+                if (t is not null)
+                {
+                    listOfTypes.Add(t);
+                }
+            }
+
+            
+            result.InstanceTypes = listOfTypes.ToArray();
         }
 
         return result;

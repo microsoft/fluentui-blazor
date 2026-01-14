@@ -32,6 +32,7 @@ The following example shows how to customize the items:
    In the following example, the **FirstName** is used.
 - `OptionValue`: This function is used to customize the value of the option.  
    In the following example, the **Id** is returned.
+- `OptionValueToString`: This function is used to customize the HTML value of the option.
 - `OptionDisabled`: This function is used to define the disabled options.  
    In the following example, the third element is disabled.
 
@@ -48,6 +49,10 @@ in front of each item. Due to the **OptionTemplate**, the user must click
 on the checkbox to select an item.
 
 {{ SelectEnum }}
+
+> [!NOTE] In some situation, the option elements may not catch the click event to select the item.
+> To avoid this, you can use the `Style="pointer-events: none;"` to disable the pointer events
+> on the element and let the click event pass through to the parent element.
 
 ## Multiple
 
@@ -77,7 +82,20 @@ An option can also use the `Description` parameter to display additional informa
 
 An example of using the `FluentOption` components directly in the `Select` is shown below.
 
+**Notes:**
+1. The two parameters `TOption="string"` and `TValue="string"` are required to indicate the type of options.
+1. To simplify writing a `<FluentOption TValue="string">` we introduced a `<FluentOptionString>`.
+   This component simply and directly inherits from `FluentOption<string>`.
+
 {{ SelectManual }}
+
+Demonstrates two-way data binding with `FluentSelect` using `@bind-Value` to bind an integer value from a collection of a complex object.
+
+{{ SelectLanguage }}
+
+**Note:** If you programmatically change the value of a manually constructed list (using `FluentOption`),
+you will likely need to add an attribute `@key=“@SelectedId”` to force Blazor to redraw the component correctly.
+This is the case in the above example: `@key="@(SelectedId2 ?? 0)"`.
 
 ## Many items
 
@@ -89,13 +107,11 @@ If you have a very large number of items, you should use the **FluentAutocomplet
 
 ## API FluentSelect
 
-{{ API Type=FluentSelect }}
-
-> [!NOTE] The `Width` parameter is not yet implemented.
+{{ API Type=FluentSelect<string,string> }}
 
 ## API FluentOption
 
-{{ API Type=FluentOption }}
+{{ API Type=FluentOption<string> }}
 
 ## Migrating to v5
 
