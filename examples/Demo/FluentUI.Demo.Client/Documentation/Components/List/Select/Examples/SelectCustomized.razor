@@ -5,7 +5,7 @@
               Items="@Coworkers"
               @bind-Value="@Value"
               OptionText="@(item => item?.FirstName)"
-              OptionValue="@(item => item?.Id)"
+              OptionValueToString="@(item => item?.Id)"
               OptionDisabled="@(item => item == Coworkers.ElementAt(3))" />
 
 <div>

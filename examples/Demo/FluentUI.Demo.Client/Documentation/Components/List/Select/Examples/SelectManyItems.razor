@@ -2,7 +2,7 @@
               Placeholder="Select a name"
               Items="@Persons"
               OptionText="@(i => $"{i?.FirstName} {i?.LastName}")"
-              OptionValue="@(i => $"{i?.Id}")"
+              OptionValueToString="@(i => $"{i?.Id}")"
               Height="200px"
               Width="300px"
               @bind-Value="@Selected" />

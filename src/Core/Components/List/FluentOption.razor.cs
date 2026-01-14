@@ -76,12 +76,12 @@ public partial class FluentOption<TValue> : FluentComponentBase
         get
         {
             if (InternalListContext is null ||
-                InternalListContext.ListComponent.OptionValue is null)
+                InternalListContext.ListComponent.OptionValueToString is null)
             {
                 return Value?.ToString();
             }
 
-            return InternalListContext.ListComponent.OptionValue.Invoke(Value);
+            return InternalListContext.ListComponent.OptionValueToString.Invoke(Value);
         }
     }
 

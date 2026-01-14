@@ -2,7 +2,7 @@
                 Placeholder="Select your countries"
                 Multiple="true"
                 OptionText="@(i => i?.Name)"
-                OptionBindedValue="@(i => i?.Code)"
+                OptionValue="@(i => i?.Code)"
                 Items="@Countries"
                 @bind-SelectedItems="@SelectedCountries">
                 <FreeOption>

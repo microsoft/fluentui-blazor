@@ -100,7 +100,7 @@
         var cut = Render(@<FluentCombobox Items="@Digits"
                       OptionDisabled="@(item => item == "Two")"
                       OptionText="@(item => item?.ToUpper())"
-                      OptionBindedValue="@(item => $"value-{item}")" />);
+                      OptionValue="@(item => $"value-{item}")" />);
 
         // Assert
         cut.Verify();

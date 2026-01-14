@@ -12,7 +12,7 @@ internal interface IInternalListBase<TValue>
 
     Func<TValue?, TValue?, bool>? OptionSelectedComparer { get; set; }
 
-    Func<TValue?, string>? OptionValue { get; set; }
+    Func<TValue?, string>? OptionValueToString { get; set; }
 
     TValue? Value { get; set; }
 }
