@@ -11,12 +11,12 @@
     This form uses the Fluent UI input components. It uses a `DataAnnotationsValidator`, a `FluentValidationSummary`
     and `FluentValidationMessage`s.
 
-	The `EditForm` has the attribute `novalidate="true"` to disable the browser's native validation UI.
+	On the `EditForm` component, the `novalidate="true"` attribute is set to disable the browser's native validation UI, allowing the Fluent UI components to handle validation feedback.
 </p>
 
 <h2>New Ship Entry Form</h2>
 
-<EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit" FormName="starship_fluent_entry" novalidate="true">
+<EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit" novalidate="true">
     <DataAnnotationsValidator />
     <FluentValidationSummary />
 
@@ -27,8 +27,7 @@
 
         </div>
         <div>
-            <FluentTextArea Name="description" Rows=5 Cols=60 @bind-Value="starship.Description" Label="Description (optional)" Required="true" />
-
+            <FluentTextArea Name="description" Rows=5 Cols=60 @bind-Value="starship.Description" Label="Description (min. 10 characters)" Required="true" />
         </div>
         @* <div>
             <FluentAutocomplete TOption="Country"
@@ -46,17 +45,16 @@
             <FluentValidationMessage For="@(() => starship.Countries)" />
         </div> *@
         <div>
-            <FluentSelect Name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" Required="true" Label="Primary Classification">
-                <FluentOption Value="">Select classification ...</FluentOption>
-                <FluentOption Value="Exploration">Exploration</FluentOption>
-                <FluentOption Value="Diplomacy">Diplomacy</FluentOption>
-                <FluentOption Value="Defense">Defense</FluentOption>
+            <FluentSelect Name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" TValue="string" Required="true" Label="Primary Classification">
+                <FluentOptionString Value="">Select classification ...</FluentOptionString>
+                <FluentOptionString Value="Exploration">Exploration</FluentOptionString>
+                <FluentOptionString Value="Diplomacy">Diplomacy</FluentOptionString>
+                <FluentOptionString Value="Defense">Defense</FluentOptionString>
             </FluentSelect>
 
         </div>
         <div>
-            <FluentTextInput TextInputType="TextInputType.Number" Name="accomodation" @bind-Value="starship.MaximumAccommodation" Label="Maximum Accommodation" Required="true" />
-
+            <FluentTextInput TextInputType="TextInputType.Number" Name="accommodation" @bind-Value="starship.MaximumAccommodation" Label="Maximum Accommodation" Required="true" />
         </div>
         <div>
             <FluentCheckbox Name="approved" @bind-Value="starship.IsValidatedDesign" Required="true" Label="Engineering approval" />
@@ -67,32 +65,11 @@
 
         </div>
         <div>
-            <FluentSwitch Name="teleporter" @bind-value="starship.HasTeleporter" Label="Has a Teleporter" />
-
+            <FluentSwitch Name="teleporter" @bind-Value="starship.HasTeleporter" Label="Has a Teleporter" />
         </div>
         <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Submit</FluentButton>
     </FluentStack>
 </EditForm>
 
 <div style="margin-top: 3rem;"><a href="http://www.startrek.com/">Star Trek</a>, ©1966-2023 CBS Studios, Inc. and <a href="https://www.paramount.com">Paramount Pictures</a></div>
-@code {
 
-
-    protected override void OnInitialized()
-    {
-        starship.ProductionDate = DateTime.Now;
-    }
-
-    IEnumerable<Country> SelectedItems = Array.Empty<Country>();
-
-
-    [SupplyParameterFromForm]
-    private Starship starship { get; set; } = new();
-
-    private void HandleValidSubmit()
-    {
-        Console.WriteLine("HandleValidSubmit called");
-
-        // Process the valid form
-    }
-}

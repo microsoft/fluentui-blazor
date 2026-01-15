@@ -11,16 +11,3 @@ fluent-field[label-position='before'] > fluent-label[slot='label'] {
 fluent-field label[disabled] {
   color: var(--colorNeutralForegroundDisabled);
 }
-
-/* To use with input element without specifi width/height */
-fluent-field div[slot='input'] {
-  min-width: -webkit-fill-available;
-  min-width: -moz-available;
-  min-height: -webkit-fill-available;
-  min-height: -moz-available;
-}
-
-fluent-field.invalid fluent-text-input {
-  border: 1px solid var(--colorPaletteRedBorder2);
-  border-radius: var(--borderRadiusMedium);
-}

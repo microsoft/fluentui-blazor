@@ -12,7 +12,7 @@ Different badges can display different content.
 
 - `Badge` displays text and/or an icon
 - `CounterBadge` displays numerical values
-- `PresenceBadge` displays status (not yet implemented)
+- `PresenceBadge` displays status 
 
 Typically a badge 'wraps' a component, such as a `FluentButton`, to indicate a status.
 
@@ -45,7 +45,7 @@ There are two actions authors should consider taking when using Badge to improve
    </FluentBadge>
    ```
 
-### Badge shouldn't rely only on color information
+### Badges shouldn't rely only on color information
 Include meaningful descriptions when using color to represent meaning in a badge. If relying on color only, ensure that non-visual information is included in the parent's label or description.
 
 ### Text on Badge
@@ -54,3 +54,4 @@ Badges are intended to have short text, small numerical values or status informa
 See the following pages for more information on the different badge components:
 - [Badge](/Badges/Badge)
 - [CounterBadge](/Badges/CounterBadge)
+- [PresenceBadge](/Badges/PresenceBadge)

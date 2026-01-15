@@ -44,8 +44,9 @@ public class ComponentBaseTests : Bunit.BunitContext
     {
         { typeof(FluentIcon<>), Loader.MakeGenericType(typeof(Samples.Icons.Samples.Info))},
         { typeof(FluentEmoji<>), Loader.MakeGenericType(typeof(Samples.Emojis.Samples.Hamburger))},
-        { typeof(FluentSelect<>), Loader.MakeGenericType(typeof(int))},
-        { typeof(FluentCombobox<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentSelect<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
+        { typeof(FluentCombobox<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
+        { typeof(FluentOption<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentRadioGroup<>), Loader.MakeGenericType(typeof(string)) },
         { typeof(FluentTooltip), Loader.Default.WithRequiredParameter("Anchor", "MyButton").WithRequiredParameter("UseTooltipService", false)},
@@ -329,6 +330,10 @@ public class ComponentBaseTests : Bunit.BunitContext
         public static Loader MakeGenericType(Type type) => new()
         {
             ComponentType = t => t.MakeGenericType(type)
+        };
+        public static Loader MakeGenericType(Type type1, Type type2) => new()
+        {
+            ComponentType = t => t.MakeGenericType(type1, type2)
         };
 
         public static Loader Default => new();

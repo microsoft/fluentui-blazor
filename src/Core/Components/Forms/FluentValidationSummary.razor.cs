@@ -9,12 +9,10 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Displays a summary of validation messages for a specified model within a cascaded <see cref="EditContext"/>.
+/// Displays a summary of validation messages for a specified model within a cascaded <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>.
 /// </summary>
 public partial class FluentValidationSummary
 {
-    private IEnumerable<string>? _validationMessages;
-
     /// <summary />
     protected string? ClassValue => new CssBuilder()
         .AddClass("fluent-validation-errors")
@@ -33,17 +31,12 @@ public partial class FluentValidationSummary
     public bool UseErrorTextColor { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the <see cref="EditContext"/> for the form.
+    /// Gets or sets the <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/> for the form.
     /// </summary>
     [CascadingParameter]
-    public EditContext FluentEditContext { get; set; } = default!;
+    public EditContext EditContext { get; set; } = default!;
 
-    /// <summary />
-    protected override void OnInitialized()
-    {
-
-        _validationMessages = Model is null
-            ? FluentEditContext.GetValidationMessages()
-            : FluentEditContext.GetValidationMessages(new FieldIdentifier(Model, string.Empty));
-    }
+    private IEnumerable<string> ValidationMessages => Model is null
+        ? EditContext.GetValidationMessages()
+        : EditContext.GetValidationMessages(new FieldIdentifier(Model, string.Empty));
 }

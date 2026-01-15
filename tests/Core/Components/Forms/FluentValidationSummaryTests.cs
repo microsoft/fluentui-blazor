@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Forms;
 public class FluentValidationSummaryTests : Verify.FluentUITestContext
 {
     [Fact]
-    public async Task FluentValidationSummary_Renders_Validation_Messages()
+    public void FluentValidationSummary_Renders_Validation_Messages()
     {
         // Arrange
         var model = new TestModel();
@@ -27,13 +27,13 @@ public class FluentValidationSummaryTests : Verify.FluentUITestContext
         );
 
         // Assert
-        var messages = cut.FindAll(".validation-message");
+        var messages = cut.FindAll(".fluent-validation-message");
         Assert.Single(messages);
         Assert.Contains("Name is required", messages[0].InnerHtml);
     }
 
     [Fact]
-    public async Task FluentValidationSummary_Filters_By_Model()
+    public void FluentValidationSummary_Filters_By_Model()
     {
         // Arrange
         var model1 = new TestModel();
@@ -51,7 +51,7 @@ public class FluentValidationSummaryTests : Verify.FluentUITestContext
         );
 
         // Assert
-        var messages = cut.FindAll(".validation-message");
+        var messages = cut.FindAll(".fluent-validation-message");
         Assert.Single(messages);
         Assert.Contains("Model1 error", messages[0].InnerHtml);
     }
@@ -69,6 +69,9 @@ public class FluentValidationSummaryTests : Verify.FluentUITestContext
         );
 
         // Act
+        var messages = cut.FindAll(".fluent-validation-message");
+        Assert.Empty(messages);
+
         await cut.InvokeAsync(() =>
         {
             messageStore.Add(editContext.Field(nameof(TestModel.Name)), "Name is invalid");
@@ -76,7 +79,7 @@ public class FluentValidationSummaryTests : Verify.FluentUITestContext
         });
 
         // Assert
-        var messages = cut.FindAll(".validation-message");
+        messages = cut.FindAll(".fluent-validation-message");
         Assert.Single(messages);
         Assert.Contains("Name is invalid", messages[0].InnerHtml);
     }
