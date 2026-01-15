@@ -561,17 +561,20 @@
 		// Arrange
 		var cut = Render(@<FluentNav>
 			<FluentNavItem Href="/test">Simple Item</FluentNavItem>
-		</FluentNav>);
+		</FluentNav>
+    );
 
-		var nav = cut.FindComponent<FluentNav>();
+        var nav = cut.FindComponent<FluentNav>();
 
-		// Act & Assert - Should not throw
-		await nav.Instance.ExpandAllCategoriesAsync();
-	}
+        // Act & Assert - Should not throw
+        await nav.Instance.ExpandAllCategoriesAsync();
+    }
 
-	[Fact]
-	public async Task FluentNav_GetCategories_Returns_All_Registered_Categories()
-	{
+    [Fact]
+    public async Task FluentNav_GetCategories_Returns_All_Registered_Categories()
+    {
+        await Task.CompletedTask;
+
 		// Arrange
 		var cut = Render(@<FluentNav>
 			<FluentNavCategory Id="category-1" Title="Category 1">

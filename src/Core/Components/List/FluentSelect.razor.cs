@@ -11,8 +11,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A FluentSelect allows for selecting one or more options from a list of options.
 /// </summary>
-/// <typeparam name="TOption"></typeparam>
-public partial class FluentSelect<TOption> : FluentListBase<TOption>
+[CascadingTypeParameter(nameof(TValue))]
+public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TValue>
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "List/FluentSelect.razor.js";
 
@@ -58,7 +58,7 @@ public partial class FluentSelect<TOption> : FluentListBase<TOption>
             // This method don't change the SelectedItems and Value properties.
             if (string.Equals(DropdownType, "combobox", StringComparison.Ordinal))
             {
-                var defaultText = GetOptionText(Value);
+                var defaultText = ""; // GetOptionText(Value);      TODO: implement GetOptionText ????
                 await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Select.SetComboBoxValue", Id, defaultText);
             }
         }

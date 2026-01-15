@@ -1,7 +1,8 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Rendering
-@inherits FluentInputBase<TOption>
+@inherits FluentInputBase<TValue>
 @typeparam TOption
+@typeparam TValue
 
 @code
 {
@@ -24,8 +25,9 @@
             }
 
             foreach (var item in Items)
-            {                
-                <FluentOption Data="@item"
+            {
+                <FluentOption TValue="TValue"
+                              Data="@item"
                               Text="@GetOptionText(item)"
                               Value="@GetOptionValue(item)"
                               Selected="@(GetOptionSelected(item))"

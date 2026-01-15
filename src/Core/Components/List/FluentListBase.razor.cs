@@ -10,17 +10,18 @@ using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>, ITooltipComponent
+[CascadingTypeParameter(nameof(TValue))]
+public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<TValue>, ITooltipComponent, IInternalListBase<TValue>
 {
     // List of items rendered with an ID to retrieve the element by ID.
     private Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
+    private Dictionary<string, TValue> InternalValues { get; } = new(StringComparer.Ordinal);
 
     /// <summary />
     [DynamicDependency(nameof(OnDropdownChangeHandlerAsync))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DropdownEventArgs))]
     protected FluentListBase(LibraryConfiguration configuration) : base(configuration)
     {
-        
     }
 
     /// <summary>
@@ -74,16 +75,22 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     public EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the template for the <see cref="FluentListBase{TOption}.Items"/> items.
+    /// Gets or sets the template for the <see cref="FluentListBase{TOption, TValue}.Items"/> items.
     /// </summary>
     [Parameter]
     public virtual RenderFragment<TOption>? OptionTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the function used to determine which value to apply to the option value attribute.
+    /// Gets or sets the function used to determine which value to apply to the binded value.
     /// </summary>
     [Parameter]
-    public virtual Func<TOption?, string>? OptionValue { get; set; }
+    public virtual Func<TOption?, TValue?>? OptionValue { get; set; }
+
+    /// <summary>
+    /// Gets or sets the function used to determine which value to apply to the "HTML option value" attribute.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TValue?, string>? OptionValueToString { get; set; }
 
     /// <summary>
     /// Gets or sets the function used to determine which text to display for each option.
@@ -101,7 +108,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// Gets or sets the function used to determine whether two options are considered equal for selection purposes.
     /// </summary>
     [Parameter]
-    public virtual Func<TOption?, TOption?, bool>? OptionSelectedComparer { get; set; }
+    public virtual Func<TValue?, TValue?, bool>? OptionSelectedComparer { get; set; }
 
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
@@ -114,7 +121,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     }
 
     /// <summary />
-    internal string? AddOption(FluentOption option)
+    string? IInternalListBase<TValue>.AddOption(FluentOption<TValue> option)
     {
         var id = option.Id ?? "";
 
@@ -134,10 +141,10 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
             }
         }
 
-        // Manual list using FluentOption
-        if (typeof(TOption) == typeof(string) && option.Value is TOption value)
+        // Manual list
+        if (option.Value is TValue value)
         {
-            InternalOptions.TryAdd(id, value);
+            InternalValues.TryAdd(id, value);
             return option.Id;
         }
 
@@ -145,21 +152,13 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     }
 
     /// <summary />
-    internal string? RemoveOption(FluentOption option)
+    string? IInternalListBase<TValue>.RemoveOption(FluentOption<TValue> option)
     {
         var id = option.Id ?? "";
 
-        if (InternalOptions.ContainsKey(id))
-        {
-            if (option.Data is TOption _ ||
-                typeof(TOption) == typeof(string) && option.Value is TOption _)
-            {
-                InternalOptions.Remove(id);
-                return option.Id;
-            }
-        }
-
-        return null;
+        return InternalOptions.Remove(id) || InternalValues.Remove(id)
+            ? option.Id
+            : null;
     }
 
     /// <summary />
@@ -175,7 +174,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         {
             if (OptionSelectedComparer != null)
             {
-                return SelectedItems?.Any(selectedItem => OptionSelectedComparer(item, selectedItem)) ?? false;
+                return SelectedItems?.Any(selectedItem => OptionSelectedComparer(GetOptionValue(item), GetOptionValue(selectedItem))) ?? false;
             }
 
             return SelectedItems?.Contains(item) ?? false;
@@ -184,16 +183,26 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
         // Single item
         if (OptionSelectedComparer != null)
         {
-            return OptionSelectedComparer(item, CurrentValue);
+            return OptionSelectedComparer(GetOptionValue(item), CurrentValue);
         }
 
-        return Equals(item, CurrentValue);
+        return Equals(GetOptionValue(item), CurrentValue);
     }
 
     /// <summary />
-    protected virtual string? GetOptionValue(TOption? item)
+    protected virtual TValue? GetOptionValue(TOption? item)
     {
-        return OptionValue?.Invoke(item) ?? item?.ToString() ?? null;
+        if (OptionValue is not null)
+        {
+            return OptionValue.Invoke(item);
+        }
+
+        if (typeof(TOption) == typeof(TValue))
+        {
+            return (TValue?)(object?)item;
+        }
+
+        return default;
     }
 
     /// <summary />
@@ -239,24 +248,42 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
     {
         // List of IDs received from the web component.
-        var selectedIds = e.SelectedOptions?.Split(';', StringSplitOptions.TrimEntries) ?? Array.Empty<string>();
-        SelectedItems = selectedIds.Length > 0
-                      ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
-                      : Array.Empty<TOption>();
+        var selectedIds = e.SelectedOptions?.Split(';', StringSplitOptions.TrimEntries) ?? [];
 
-        if (SelectedItemsChanged.HasDelegate)
+        // Bind Items
+        if (InternalOptions.Count > 0)
         {
-            await SelectedItemsChanged.InvokeAsync(SelectedItems);
+            SelectedItems = selectedIds.Length > 0
+                          ? InternalOptions.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
+                          : Array.Empty<TOption>();
+
+            if (SelectedItemsChanged.HasDelegate)
+            {
+                await SelectedItemsChanged.InvokeAsync(SelectedItems);
+            }
+
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(GetOptionValue(SelectedItems.FirstOrDefault()));
+            }
         }
 
-        if (ValueChanged.HasDelegate)
+        // Manual FluentOptions
+        if (InternalValues.Count > 0)
         {
-            await ValueChanged.InvokeAsync(SelectedItems.FirstOrDefault());
+            var SelectedValue = selectedIds.Length > 0
+                              ? InternalValues.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).FirstOrDefault()
+                              : default;
+
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(SelectedValue);
+            }
         }
     }
 
     /// <summary />
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TOption result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         return this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
     }
@@ -264,14 +291,14 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// <summary>
     /// For unit testing purposes only.
     /// </summary>
-    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out TOption result, [NotNullWhen(false)] out string? validationErrorMessage)
+    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         return TryParseValueFromString(value, out result, out validationErrorMessage);
     }
 
     /// <summary />
-    internal InternalListContext<TOption> GetCurrentContext()
+    internal InternalListContext<TValue> GetCurrentContext()
     {
-        return new InternalListContext<TOption>(this);
+        return new InternalListContext<TValue>(this);
     }
 }

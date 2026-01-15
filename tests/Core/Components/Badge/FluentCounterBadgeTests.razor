@@ -30,19 +30,22 @@
 
 		// Assert
 		var cb = cut.FindComponent<FluentCounterBadge>();
-		Assert.Equal((ushort?)3, cb.Instance.Count);
+		Assert.Equal(3, cb.Instance.Count);
 	}
 
 	[Fact]
 	public void FluentCounterBadge_CountOutOfRange()
 	{
-		// Arrange && Act
-		var cut = Render(@<FluentCounterBadge Count="256" />);
+		// Arrange
+		long c = (long)int.MaxValue + 1;
+
+		// Act
+		var cut = Render(@<FluentCounterBadge Count="@((int)c)" />);
 
 		// Assert
 		Assert.NotNull(cut.Find("fluent-counter-badge"));
 		var count = cut.Find("fluent-counter-badge").GetAttribute("count");
-		Assert.Equal("256", count);
+		Assert.Null(count);
 	}
 
 	[Theory]
@@ -227,6 +230,7 @@
 		var cut = Render(@<FluentCounterBadge Count="11" OverflowCount="10" />);
 		// Assert
 		Assert.Equal("10", cut.Find("fluent-counter-badge").GetAttribute("overflow-count"));
+		Assert.Equal("11", cut.Find("fluent-counter-badge").GetAttribute("count"));
 	}
 
 	[Fact]
@@ -403,6 +407,3 @@
 		Assert.NotNull(cb);
 	}
 }
-
-
-

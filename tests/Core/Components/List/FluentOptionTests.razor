@@ -23,7 +23,7 @@
     public void FluentOption_Default()
     {
         // Arrange and Act
-        var cut = Render(@<FluentOption Text="One" Value="One" />);
+        var cut = Render(@<FluentOptionString Text="One" Value="One" />);
         // Assert
         cut.Verify();
     }
@@ -32,7 +32,7 @@
     public void FluentOption_Disabled()
     {
         // Arrange and Act
-        var cut = Render(@<FluentOption Text="One" Value="One" Disabled="true" />);
+        var cut = Render(@<FluentOptionString Text="One" Value="One" Disabled="true" />);
         // Assert
         cut.Verify();
     }
@@ -41,7 +41,7 @@
     public void FluentOption_Selected()
     {
         // Arrange and Act
-        var cut = Render(@<FluentOption Text="One" Value="One" Selected="true" />);
+        var cut = Render(@<FluentOptionString Text="One" Value="One" Selected="true" />);
         // Assert
         cut.Verify();
     }
@@ -50,7 +50,7 @@
     public void FluentOption_Description()
     {
         // Arrange and Act
-        var cut = Render(@<FluentOption Text="One" Value="One" Description="Description" />);
+        var cut = Render(@<FluentOptionString Text="One" Value="One" Description="Description" />);
         // Assert
         cut.Verify();
     }
@@ -59,11 +59,31 @@
     public void FluentOption_StartSlot()
     {
         // Arrange and Act
-        var cut = Render(@<FluentOption Text="One" Value="One">
+        var cut = Render(@<FluentOptionString Text="One" Value="One">
             <FluentAvatar Size="AvatarSize.Size16" Color="AvatarColor.Blue" Slot="@FluentSlot.Start">16</FluentAvatar>
-        </FluentOption>);
+        </FluentOptionString>);
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentOption_ThrowsException_WhenTypeMismatchWithParentList()
+    {
+        // Arrange & Act & Assert
+        // This test validates that when a FluentOption<TValue> has a different type parameter
+        // than the parent FluentSelect<TValue>, an InvalidOperationException is thrown
+        // during OnInitializedAsync when InternalListContext is null but InternalListContextBase is not.
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+        {
+            Render(@<FluentSelect TOption="string" TValue="string">
+                <FluentOption TValue="int" Value="123" Text="Invalid Type" />
+            </FluentSelect>);
+        });
+
+        // Assert
+        Assert.Contains("does not match", exception.Message);
+        Assert.Contains("Int32", exception.Message);
+        Assert.Contains("String", exception.Message);
     }
 }
