@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Forms;
 public class FluentValidationSummaryTests : Verify.FluentUITestContext
 {
     [Fact]
-    public async Task FluentValidationSummary_Renders_Validation_Messages()
+    public void FluentValidationSummary_Renders_Validation_Messages()
     {
         // Arrange
         var model = new TestModel();
@@ -33,7 +33,7 @@ public class FluentValidationSummaryTests : Verify.FluentUITestContext
     }
 
     [Fact]
-    public async Task FluentValidationSummary_Filters_By_Model()
+    public void FluentValidationSummary_Filters_By_Model()
     {
         // Arrange
         var model1 = new TestModel();

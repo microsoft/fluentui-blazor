@@ -2,10 +2,10 @@
 @using Microsoft.AspNetCore.Components.Forms
 @inherits ValidationSummary
 
-@if (_validationMessages is not null && _validationMessages.Any())
+@if (ValidationMessages.Any())
 {
 	<ul class="@ClassValue" style="@StyleValue" role="alert" @attributes="@AdditionalAttributes">
-		@foreach (var error in _validationMessages)
+		@foreach (var error in ValidationMessages)
         {
 			<li class="fluent-validation-message">@error</li>
         }

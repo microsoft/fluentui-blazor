@@ -5,7 +5,7 @@ icon: Form
 ---
 
 ## Validation
-The Fluent UI Razor components work with a validation summary in the same way the standard Blazor (input) components do. An extra components is provided to make it possible to show a validation summary that follow the Fluent Design guidelines:
+The Fluent UI Razor components work with a validation summary in the same way the standard Blazor (input) components do. An extra component is provided to make it possible to show a validation summary that follows the Fluent Design guidelines:
 
 - FluentValidationSummary
 
