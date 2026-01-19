@@ -1,6 +1,4 @@
 {
-    // Ctrl+Shift+P → "Tasks: Run Task" to run any specific task
-    // Ctrl+Shift+B → To run the default build task (build-solution)
     "version": "2.0.0",
     "tasks": [
         // Build Microsoft.FluentUI-v5.sln.
@@ -244,41 +242,6 @@
             },
             "options": {
                 "cwd": "${workspaceFolder}"
-            }
-        },
-
-        // Build current project based on active file
-        {
-            "label": "build-current-project",
-            "type": "shell",
-            "command": "powershell.exe",
-            "args": [
-                "-NoProfile",
-                "-ExecutionPolicy",
-                "Bypass",
-                "-File",
-                "${workspaceFolder}/.vscode/build-current-project.ps1"
-            ],
-            "group": "build",
-            "problemMatcher": "$msCompile",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": true,
-                "clear": false
-            },
-            "options": {
-                "cwd": "${workspaceFolder}",
-                "env": {
-                    "VSCODE_ACTIVE_FILE": "${file}",
-                    "WORKSPACE_FOLDER": "${workspaceFolder}"
-                },
-                "shell": {
-                    "executable": "powershell.exe",
-                    "args": ["-NoProfile"]
-                }
             }
         }
     ]
