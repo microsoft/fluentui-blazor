@@ -82,3 +82,4 @@ public interface IFluentField
     /// </summary>
     MessageState? MessageState { get; set; }
 }
+

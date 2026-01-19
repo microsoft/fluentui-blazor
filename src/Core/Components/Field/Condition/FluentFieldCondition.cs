@@ -76,12 +76,12 @@ public class FluentFieldCondition
         {
             if (item.Condition.Invoke())
             {
-                var coloredMessage = FluentFieldParameterSelector.StateToMessageTemplate(item.State, item.Message);
+                var coloredMessage = FluentFieldParameterCollector.StateToMessageTemplate(item.State, item.Message);
 
                 messages.Add(builder =>
                 {
                     builder.OpenElement(0, "div");
-                    builder.AddContent(1, FluentField.CreateIcon(item.Icon ?? FluentFieldParameterSelector.StateToIcon(item.State)));
+                    builder.AddContent(1, FluentField.CreateIcon(item.Icon ?? FluentFieldParameterCollector.StateToIcon(item.State)));
 
                     if (item.State is null)
                     {

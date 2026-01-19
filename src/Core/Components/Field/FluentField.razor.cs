@@ -153,7 +153,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     [Parameter]
     public FieldSize? Size { get; set; }
 
-    private FluentFieldParameterSelector Parameters => new(this, Localizer);
+    private FluentFieldParameterCollector Parameters => new(this, Localizer);
 
     /// <inheritdoc />
     protected override void OnParametersSet()

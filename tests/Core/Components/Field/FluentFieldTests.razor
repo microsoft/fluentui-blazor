@@ -175,7 +175,7 @@
 #pragma warning disable BL0005  // Component parameter should not be set outside of its component.
         var field2 = new FluentField(LibraryConfiguration.Empty)
         {
-                InputComponent = new FluentFieldParameterSelectorTests.MockFluentField()
+                InputComponent = new FluentFieldParameterCollectorTests.MockFluentField()
         };
         Assert.Throws<ArgumentException>(() =>
         {

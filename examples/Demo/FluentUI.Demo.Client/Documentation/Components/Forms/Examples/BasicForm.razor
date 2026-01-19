@@ -22,27 +22,13 @@
 
 
     <FluentStack Orientation="Orientation.Vertical">
-        <div>
-			<FluentTextInput Name="identifier" @bind-Value="starship.Identifier" Label="Identifier" Required="true" Message="" />
-
+       @*  <div>
+			<FluentTextInput Name="identifier" @bind-Value="starship.Identifier" Label="Identifier" Required="true" Message="@(null)"/>
+			<FluentValidationMessage For="@(() => starship.Identifier)" />
         </div>
         <div>
             <FluentTextArea Name="description" Rows=5 Cols=60 @bind-Value="starship.Description" Label="Description (min. 10 characters)" Required="true" />
-        </div>
-        @* <div>
-            <FluentAutocomplete TOption="Country"
-                                Name="countries"
-                                AutoComplete="off"
-                                Required
-                                Label="Select countries"
-                                Width="250px"
-                                Placeholder="Select countries"
-                                OnOptionsSearch="@OnSearchAsync"
-                                MaximumSelectedOptions="3"
-                                OptionText="@(item => item.Name)"
-                                Multiple="true"
-                                @bind-SelectedOptions="@starship.Countries" />
-            <FluentValidationMessage For="@(() => starship.Countries)" />
+			<FluentValidationMessage For="@(() => starship.Description)" />
         </div> *@
         <div>
             <FluentSelect Name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" TValue="string" Required="true" Label="Primary Classification">
@@ -51,22 +37,21 @@
                 <FluentOptionString Value="Diplomacy">Diplomacy</FluentOptionString>
                 <FluentOptionString Value="Defense">Defense</FluentOptionString>
             </FluentSelect>
-
+			@* <FluentValidationMessage For="@(() => starship.Classification)" /> *@
+            <FluentTextInput Name="accommodation" @bind-Value="starship.MaximumAccommodation" Label="Maximum Accommodation" Required="true" />
+			@* <FluentValidationMessage For="@(() => starship.MaximumAccommodation)" /> *@
         </div>
-        <div>
-            <FluentTextInput TextInputType="TextInputType.Number" Name="accommodation" @bind-Value="starship.MaximumAccommodation" Label="Maximum Accommodation" Required="true" />
-        </div>
-        <div>
+        @* <div>
             <FluentCheckbox Name="approved" @bind-Value="starship.IsValidatedDesign" Required="true" Label="Engineering approval" />
-
+			<FluentValidationMessage For="@(() => starship.IsValidatedDesign)" />
         </div>
         <div>
             <FluentDatePicker Name="production_date" Id="proddate" @bind-Value="starship.ProductionDate" Label="Production Date" Required="true" />
-
+			<FluentValidationMessage For="@(() => starship.ProductionDate)" />
         </div>
         <div>
             <FluentSwitch Name="teleporter" @bind-Value="starship.HasTeleporter" Label="Has a Teleporter" />
-        </div>
+        </div> *@
         <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Submit</FluentButton>
     </FluentStack>
 </EditForm>

@@ -12,13 +12,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Helper class for selecting parameters for a FluentField,
 /// from the component itself or from an existing FieldInput component.
 /// </summary>
-internal class FluentFieldParameterSelector : IFluentField
+internal class FluentFieldParameterCollector : IFluentField
 {
     private readonly FluentField _component;
     private readonly IFluentLocalizer _localizer;
 
     /// <summary />
-    internal FluentFieldParameterSelector(FluentField component, IFluentLocalizer localizer)
+    internal FluentFieldParameterCollector(FluentField component, IFluentLocalizer localizer)
     {
         _component = component;
         _localizer = localizer;
@@ -103,7 +103,7 @@ internal class FluentFieldParameterSelector : IFluentField
     /// <summary />
     public Func<IFluentField, bool>? MessageCondition
     {
-        get => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? FluentFieldCondition.Always;
+        get => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? FluentFieldCondition.Never;
         set => throw new NotSupportedException();
     }
 
@@ -122,7 +122,7 @@ internal class FluentFieldParameterSelector : IFluentField
             Components.MessageState.Success => FluentStatus.SuccessIcon,
             Components.MessageState.Error => FluentStatus.ErrorIcon,
             Components.MessageState.Warning => FluentStatus.WarningIcon,
-            _ => null
+            _ => null,
         };
     }
 
@@ -134,7 +134,7 @@ internal class FluentFieldParameterSelector : IFluentField
             Components.MessageState.Success => localizer[LanguageResource.Field_SuccessMessage],
             Components.MessageState.Error => localizer[LanguageResource.Field_ErrorMessage],
             Components.MessageState.Warning => localizer[LanguageResource.Field_WarningMessage],
-            _ => null
+            _ => null,
         };
     }
 
@@ -176,7 +176,7 @@ internal class FluentFieldParameterSelector : IFluentField
                 builder.CloseComponent();
             }
             ,
-            _ => null
+            _ => null,
         };
     }
 }

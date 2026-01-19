@@ -46,7 +46,7 @@ public class Starship
     /// Maximum accommodation capacity of the starship.
     /// </summary>
     [Required(ErrorMessage = "Maximum accommodation is required")]
-    [Range(1, 100000, ErrorMessage = "Accommodation invalid (1-100000)")]
+    //[Range(1, 100000, ErrorMessage = "Accommodation invalid (1-100000)")]
     public string? MaximumAccommodation { get; set; }
 
     /// <summary>

@@ -2,11 +2,13 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Bunit;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.JSInterop;
@@ -25,6 +27,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         typeof(DialogOptions),
         typeof(FluentRadio<>),  // TODO: To update
         typeof(FluentTab),      // Excluded because the Tab content in rendered in the parent FluentTabs component
+        typeof(FluentValidationMessage<>), // Excluded because requires special handling of EditContext
     ];
 
     /// <summary>

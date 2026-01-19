@@ -60,7 +60,7 @@ public class FluentValidationMessageTests : Verify.FluentUITestContext
         });
 
         // Assert
-        var message = cut.Find(".validation-message");
+        var message = cut.Find(".fluent-validation-message");
         Assert.NotNull(message);
         Assert.Contains("Name is required", message.InnerHtml);
         Assert.NotNull(cut.Find("svg"));

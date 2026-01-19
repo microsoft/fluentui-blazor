@@ -4,43 +4,43 @@
 
 @if (HideFluentField)
 {
-    @ChildContent
+	@ChildContent
 }
 else
 {
-    <fluent-field id="@GetId("field")"
-                  label-position="@Parameters.LabelPosition.ToAttributeValue()"
-                  class="@ClassValue"
-                  style="@StyleValue"
-                  size="@Size.ToAttributeValue()"
-                  @attributes="AdditionalAttributes">
+	<fluent-field id="@GetId("field")"
+				  label-position="@Parameters.LabelPosition.ToAttributeValue()"
+				  class="@ClassValue"
+				  style="@StyleValue"
+				  size="@Size.ToAttributeValue()"
+				  @attributes="AdditionalAttributes">
 
-        @if (HasLabel)
-        {
-            <label id="@GetId("label")"
-                   slot="@FluentSlot.FieldLabel"
-                   for="@GetId("input")"
-                   required="@(Parameters.Required ?? false)"
-                   disabled="@(Parameters.Disabled ?? false)"
-                   style="@LabelStyle">
-                @Parameters.Label
-                @Parameters.LabelTemplate
-            </label>
-        }
+		@if (HasLabel)
+		{
+			<label id="@GetId("label")"
+				   slot="@FluentSlot.FieldLabel"
+				   for="@GetId("input")"
+				   required="@(Parameters.Required ?? false)"
+				   disabled="@(Parameters.Disabled ?? false)"
+				   style="@LabelStyle">
+				@Parameters.Label
+				@Parameters.LabelTemplate
+			</label>
+		}
 
-        @if (ChildContent is not null)
-        {
-            @if (Parameters.HasInputComponent || !IncludeInputSlot)
-            {
-                @ChildContent
-            }
-            else
-            {
-                <div slot="@FluentSlot.FieldInput" id="@GetId("input")">
-                    @ChildContent
-                </div>
-            }
-        }
+		@if (ChildContent is not null)
+		{
+			@if (Parameters.HasInputComponent || !IncludeInputSlot)
+			{
+				@ChildContent
+			}
+			else
+			{
+				<div slot="@FluentSlot.FieldInput" id="@GetId("input")">
+					@ChildContent
+				</div>
+			}
+		}
 
         @foreach (var validationMessage in ValidationMessages)
         {
@@ -53,21 +53,21 @@ else
         }
 
         @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
-        {
+		{
 			<FluentText slot="@FluentSlot.FieldMessage" size="@TextSize.Size200" >
 
                 @CreateIcon(Parameters.MessageIcon)
 
                 @if (Parameters.MessageTemplate is not null)
-                {
+				{
                     @Parameters.MessageTemplate
-                }
-                else
-                {
+				}
+				else
+				{
                     @Parameters.Message
-                }
-            </FluentText>
-        }
+				}
+			</FluentText>
+		}
 
     </fluent-field>
 }

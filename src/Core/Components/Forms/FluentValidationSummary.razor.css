@@ -1,4 +1,3 @@
 .fluent-validation-errors .fluent-validation-message {
-    display: list-item;
     font-size: var(--fontSizeBase300);
 }

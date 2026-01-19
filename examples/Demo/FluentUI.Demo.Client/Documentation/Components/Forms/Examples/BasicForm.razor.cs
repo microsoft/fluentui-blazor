@@ -8,7 +8,6 @@ namespace FluentUI.Demo.Client.Documentation.Components.Forms.Examples;
 
 public partial class BasicForm
 {
-    //private readonly IEnumerable<Country> SelectedItems = Array.Empty<Country>();
     private Starship starship { get; set; } = new();
 
     protected override void OnInitialized()
