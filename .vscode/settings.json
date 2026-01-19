@@ -1,0 +1,4 @@
+{
+    // Settings for the Dotnet Pulse extension: F5 or Ctrl+F5 to run/debug the project.
+    "dotnetPulse.projectUri": "examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj"
+}
