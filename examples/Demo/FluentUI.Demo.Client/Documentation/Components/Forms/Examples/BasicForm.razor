@@ -25,22 +25,8 @@
             <FluentTextInput Name="identifier" @bind-Value="starship.Identifier" Label="Identifier" Required="true" />
         </div>
         <div>
-            <FluentTextArea Name="description" Rows=5 Cols=60 @bind-Value="starship.Description" Label="Description (min. 10 characters)" Required="true" />
+            <FluentTextArea Name="description" @bind-Value="starship.Description" Label="Description (min. 10 characters)" Required="true" />
         </div>
-        @* <div>
-            <FluentAutocomplete TOption="Country"
-                                Name="countries"
-                                AutoComplete="off"
-                                Required
-                                Label="Select countries"
-                                Width="250px"
-                                Placeholder="Select countries"
-                                OnOptionsSearch="@OnSearchAsync"
-                                MaximumSelectedOptions="3"
-                                OptionText="@(item => item.Name)"
-                                Multiple="true"
-                                @bind-SelectedOptions="@starship.Countries" />
-        </div> *@
         <div>
             <FluentSelect Name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" TValue="string" Required="true" Label="Primary Classification">
                 <FluentOptionString Value="">Select classification ...</FluentOptionString>

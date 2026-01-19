@@ -20,8 +20,8 @@ public partial class FluentValidationSummary
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("color", "var(--colorPaletteRedForeground1)", when: UseErrorTextColor)
-        .AddStyle("color", "var(--colorNeutralForeground2)", when: !UseErrorTextColor)
+        .AddStyle("color", "var(--error)", when: UseErrorTextColor)
+        .AddStyle("color", "var(--info)", when: !UseErrorTextColor)
         .Build();
 
     /// <summary>
