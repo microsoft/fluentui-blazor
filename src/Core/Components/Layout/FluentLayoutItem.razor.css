@@ -74,6 +74,10 @@
   line-height: var(--lineHeightBase100);
 }
 
+.fluent-layout[mobile] .fluent-layout-item[area="nav"] {
+  display: none;
+}
+
 /* For external use */
 .fluent-header-hover:hover {
   background-color: var(--colorBrandBackground);
