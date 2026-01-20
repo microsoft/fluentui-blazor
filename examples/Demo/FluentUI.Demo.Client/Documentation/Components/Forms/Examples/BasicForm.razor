@@ -22,14 +22,14 @@
 
 
     <FluentStack Orientation="Orientation.Vertical">
-       @*  <div>
+       <div>
 			<FluentTextInput Name="identifier" @bind-Value="starship.Identifier" Label="Identifier" Required="true" Message="@(null)"/>
-			<FluentValidationMessage For="@(() => starship.Identifier)" />
+			@* <FluentValidationMessage For="@(() => starship.Identifier)" /> *@
         </div>
         <div>
             <FluentTextArea Name="description" Rows=5 Cols=60 @bind-Value="starship.Description" Label="Description (min. 10 characters)" Required="true" />
-			<FluentValidationMessage For="@(() => starship.Description)" />
-        </div> *@
+			@* <FluentValidationMessage For="@(() => starship.Description)" /> *@
+        </div>
         <div>
             <FluentSelect Name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" TValue="string" Required="true" Label="Primary Classification">
                 <FluentOptionString Value="">Select classification ...</FluentOptionString>
@@ -38,20 +38,22 @@
                 <FluentOptionString Value="Defense">Defense</FluentOptionString>
             </FluentSelect>
 			@* <FluentValidationMessage For="@(() => starship.Classification)" /> *@
+		</div>
+		<div>
             <FluentTextInput Name="accommodation" @bind-Value="starship.MaximumAccommodation" Label="Maximum Accommodation" Required="true" />
 			@* <FluentValidationMessage For="@(() => starship.MaximumAccommodation)" /> *@
         </div>
-        @* <div>
+        <div>
             <FluentCheckbox Name="approved" @bind-Value="starship.IsValidatedDesign" Required="true" Label="Engineering approval" />
-			<FluentValidationMessage For="@(() => starship.IsValidatedDesign)" />
+			@* <FluentValidationMessage For="@(() => starship.IsValidatedDesign)" /> *@
         </div>
         <div>
             <FluentDatePicker Name="production_date" Id="proddate" @bind-Value="starship.ProductionDate" Label="Production Date" Required="true" />
-			<FluentValidationMessage For="@(() => starship.ProductionDate)" />
+			@* <FluentValidationMessage For="@(() => starship.ProductionDate)" /> *@
         </div>
         <div>
             <FluentSwitch Name="teleporter" @bind-Value="starship.HasTeleporter" Label="Has a Teleporter" />
-        </div> *@
+        </div>
         <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Submit</FluentButton>
     </FluentStack>
 </EditForm>

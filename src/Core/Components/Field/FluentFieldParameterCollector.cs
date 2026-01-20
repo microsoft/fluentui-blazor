@@ -96,7 +96,7 @@ internal class FluentFieldParameterCollector : IFluentField
     /// <summary />
     public RenderFragment? MessageTemplate
     {
-        get => _component.MessageTemplate ?? _component.InputComponent?.MessageTemplate ?? StateToMessageTemplate(MessageState, Message);
+        get => _component.MessageTemplate ?? _component.InputComponent?.MessageTemplate; //?? StateToMessageTemplate(MessageState, Message);
         set => throw new NotSupportedException();
     }
 
@@ -150,7 +150,8 @@ internal class FluentFieldParameterCollector : IFluentField
                 {
                     contentBuilder.AddContent(0, message);
                 }));
-                builder.AddAttribute(2, "Color", Color.Success);
+                builder.AddAttribute(2, "Color", Color.Info);
+                builder.AddAttribute(3, "style", "display: flex;");
                 builder.CloseComponent();
             }
             ,
@@ -162,6 +163,7 @@ internal class FluentFieldParameterCollector : IFluentField
                     contentBuilder.AddContent(0, message);
                 }));
                 builder.AddAttribute(2, "Color", Color.Error);
+                builder.AddAttribute(3, "style", "display: flex;");
                 builder.CloseComponent();
             }
             ,
@@ -173,6 +175,7 @@ internal class FluentFieldParameterCollector : IFluentField
                     contentBuilder.AddContent(0, message);
                 }));
                 builder.AddAttribute(2, "Color", Color.Info);
+                builder.AddAttribute(3, "style", "display: flex;");
                 builder.CloseComponent();
             }
             ,

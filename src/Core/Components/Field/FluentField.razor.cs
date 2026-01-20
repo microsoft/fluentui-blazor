@@ -215,7 +215,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
         return (FieldIdentifier)method.MakeGenericMethod(accessor.ReturnType).Invoke(null, [accessor])!;
     }
 
-    private IEnumerable<string> ValidationMessages => CurrentEditContext?.GetValidationMessages(_fieldIdentifier) ?? Enumerable.Empty<string>();
+    private IEnumerable<string> ValidationMessages => CurrentEditContext?.GetValidationMessages(_fieldIdentifier) ?? [];
 
     internal string? GetId(string slot)
     {

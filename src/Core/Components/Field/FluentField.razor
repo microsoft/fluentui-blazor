@@ -42,32 +42,32 @@ else
 			}
 		}
 
-        @foreach (var validationMessage in ValidationMessages)
-        {
 
-            <FluentText slot="@FluentSlot.FieldMessage" size="@TextSize.Size200" Color="@Color.Error">
-                @CreateIcon(FluentStatus.ErrorIcon)
-                @validationMessage
-            </FluentText>
 
-        }
-
-        @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
+		@foreach (var validationMessage in ValidationMessages)
 		{
-			<FluentText slot="@FluentSlot.FieldMessage" size="@TextSize.Size200" >
-
-                @CreateIcon(Parameters.MessageIcon)
-
-                @if (Parameters.MessageTemplate is not null)
-				{
-                    @Parameters.MessageTemplate
-				}
-				else
-				{
-                    @Parameters.Message
-				}
-			</FluentText>
+			if (!string.Equals(validationMessage, Parameters.Message, StringComparison.Ordinal))
+			{
+				<FluentText slot="@FluentSlot.FieldMessage" size="@TextSize.Size200" Color="@Color.Error" Style="display: flex; align-items: center;">
+					@CreateIcon(FluentStatus.ErrorIcon)
+					@validationMessage
+				</FluentText>
+			}
 		}
 
-    </fluent-field>
+		@if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
+		{
+			@if (Parameters.MessageTemplate is not null)
+			{
+				@Parameters.MessageTemplate
+			}
+			else
+			{
+				<FluentText slot="@FluentSlot.FieldMessage" Color="@(Parameters.MessageState is null ? Color.Error : Color.Info)" Size="@TextSize.Size200" Style="display: flex; align-items: center;">
+					@CreateIcon(Parameters.MessageIcon)
+					@Parameters.Message
+				</FluentText>
+			}
+		}
+	</fluent-field>
 }

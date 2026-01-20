@@ -245,6 +245,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
         _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
         await JSModule.DisposeAsync();
+
+        GC.SuppressFinalize(this);
     }
 
     /// <summary>

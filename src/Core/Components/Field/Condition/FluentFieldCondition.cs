@@ -76,23 +76,20 @@ public class FluentFieldCondition
         {
             if (item.Condition.Invoke())
             {
-                var coloredMessage = FluentFieldParameterCollector.StateToMessageTemplate(item.State, item.Message);
-
                 messages.Add(builder =>
                 {
-                    builder.OpenElement(0, "div");
-                    builder.AddContent(1, FluentField.CreateIcon(item.Icon ?? FluentFieldParameterCollector.StateToIcon(item.State)));
-
-                    if (item.State is null)
+                    builder.OpenComponent<FluentText>(0);
+                    builder.AddComponentParameter(1, "As", TextTag.Span);
+                    builder.AddComponentParameter(2, "Color", item.State == MessageState.Error ? Color.Error : Color.Info);
+                    builder.AddAttribute(4, "slot", "message");
+                    builder.AddAttribute(5, "style", "display: flex; align-items: center;");
+                    builder.AddAttribute(6, "ChildContent", (RenderFragment)(contentBuilder =>
                     {
-                        builder.AddContent(2, item.Message);
-                    }
-                    else
-                    {
-                        builder.AddContent(2, coloredMessage);
-                    }
+                        contentBuilder.AddContent(0, FluentField.CreateIcon(item.Icon ?? FluentFieldParameterCollector.StateToIcon(item.State)));
+                        contentBuilder.AddContent(1, item.Message);
+                    }));
 
-                    builder.CloseElement();
+                    builder.CloseComponent();
                 });
             }
         }
