@@ -183,6 +183,10 @@ Tools are invoked automatically by the LLM for dynamic queries.
 | `SearchComponents` | Searches components by name or description | `searchTerm` |
 | `GetEnumValues` | Gets enum type values | `enumName`, `filter` (optional) |
 | `GetComponentEnums` | Lists enums used by a component | `componentName` |
+| `ListGetStartedTopics` | Lists all GetStarted documentation topics | - |
+| `GetGetStartedTopic` | Gets detailed documentation for a GetStarted topic | `topicName` |
+| `SearchGetStartedDocumentation` | Searches GetStarted documentation by keyword | `searchTerm` |
+| `GetMigrationGuide` | Gets migration guide for upgrading to v5 | - |
 
 ### Resources (User-controlled)
 
@@ -196,6 +200,9 @@ Resources provide static documentation that users can attach to conversations.
 | `fluentui://component/{name}` | Detailed documentation for a specific component |
 | `fluentui://category/{name}` | List of components in a specific category |
 | `fluentui://enum/{name}` | Detailed information about a specific enum type |
+| `fluentui://getstarted` | Complete list of all GetStarted documentation topics |
+| `fluentui://getstarted/{topic}` | Documentation for a specific GetStarted topic (e.g., installation, localization, styles) |
+| `fluentui://getstarted/migration` | Complete migration guide for upgrading to v5 |
 
 ## Usage Examples
 
@@ -213,9 +220,23 @@ SearchComponents(searchTerm: "input")
 GetEnumValues(enumName: "Appearance")
 ```
 
+# List all GetStarted documentation topics
+ListGetStartedTopics()
+
+# Get the installation guide
+GetGetStartedTopic(topicName: "Installation")
+
+# Search for migration-related documentation
+SearchGetStartedDocumentation(searchTerm: "migrate")
+
+# Get the complete migration guide to v5
+GetMigrationGuide()
+```
+
 ## Debugging
 
-### Visual Studio Code
+
+### Visual Studio
 
 1. Configure the MCP server in `.vscode/mcp.json`:
 
