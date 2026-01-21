@@ -220,14 +220,14 @@ SearchComponents(searchTerm: "input")
 GetEnumValues(enumName: "Appearance")
 ```
 
-# List all GetStarted documentation topics
-ListGetStartedTopics()
+# List all documentation topics
+ListDocumentation()
 
 # Get the installation guide
-GetGetStartedTopic(topicName: "Installation")
+GetDocumentationTopic(topicName: "Installation")
 
 # Search for migration-related documentation
-SearchGetStartedDocumentation(searchTerm: "migrate")
+SearchDocumentation(searchTerm: "migrate")
 
 # Get the complete migration guide to v5
 GetMigrationGuide()

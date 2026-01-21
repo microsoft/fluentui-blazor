@@ -41,7 +41,7 @@ public class DocumentationResourcesTests
         var result = _resources.GetAllTopics();
 
         // Assert
-        Assert.Contains("Fluent UI Blazor - GetStarted Documentation", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("Fluent UI Blazor - Documentation", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -61,7 +61,7 @@ public class DocumentationResourcesTests
         var result = _resources.GetAllTopics();
 
         // Assert
-        Assert.Contains("fluentui://getstarted/", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("fluentui://documentations/", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion

@@ -21,10 +21,10 @@ public class DocumentationToolsTests
         _tools = new DocumentationTools(_documentationService);
     }
 
-    #region ListGetStartedTopics Tests
+    #region ListDocumentation Tests
 
     [Fact]
-    public void ListGetStartedTopics_ShouldReturnNonNullResult()
+    public void ListDocumentation_ShouldReturnNonNullResult()
     {
         // Act
         var result = _tools.ListDocumentation();
@@ -35,7 +35,7 @@ public class DocumentationToolsTests
     }
 
     [Fact]
-    public void ListGetStartedTopics_WhenNoDocumentation_ShouldReturnAppropriateMessage()
+    public void ListDocumentation_WhenNoDocumentation_ShouldReturnAppropriateMessage()
     {
         // Act
         var result = _tools.ListDocumentation();
@@ -49,10 +49,10 @@ public class DocumentationToolsTests
 
     #endregion
 
-    #region GetGetStartedTopic Tests
+    #region GetDocumentationTopic Tests
 
     [Fact]
-    public void GetGetStartedTopic_WithEmptyName_ShouldReturnErrorMessage()
+    public void GetDocumentationTopic_WithEmptyName_ShouldReturnErrorMessage()
     {
         // Act
         var result = _tools.GetDocumentationTopic(string.Empty);
@@ -62,7 +62,7 @@ public class DocumentationToolsTests
     }
 
     [Fact]
-    public void GetGetStartedTopic_WithWhitespace_ShouldReturnErrorMessage()
+    public void GetDocumentationTopic_WithWhitespace_ShouldReturnErrorMessage()
     {
         // Act
         var result = _tools.GetDocumentationTopic("   ");
@@ -72,7 +72,7 @@ public class DocumentationToolsTests
     }
 
     [Fact]
-    public void GetGetStartedTopic_WithNonExistentTopic_ShouldReturnNotFoundMessage()
+    public void GetDocumentationTopic_WithNonExistentTopic_ShouldReturnNotFoundMessage()
     {
         // Act
         var result = _tools.GetDocumentationTopic("NonExistentTopic12345");
@@ -83,10 +83,10 @@ public class DocumentationToolsTests
 
     #endregion
 
-    #region SearchGetStartedDocumentation Tests
+    #region SearchDocumentation Tests
 
     [Fact]
-    public void SearchGetStartedDocumentation_WithEmptyTerm_ShouldReturnErrorMessage()
+    public void SearchDocumentation_WithEmptyTerm_ShouldReturnErrorMessage()
     {
         // Act
         var result = _tools.SearchDocumentation(string.Empty);
@@ -96,7 +96,7 @@ public class DocumentationToolsTests
     }
 
     [Fact]
-    public void SearchGetStartedDocumentation_WithWhitespace_ShouldReturnErrorMessage()
+    public void SearchDocumentation_WithWhitespace_ShouldReturnErrorMessage()
     {
         // Act
         var result = _tools.SearchDocumentation("   ");
@@ -106,7 +106,7 @@ public class DocumentationToolsTests
     }
 
     [Fact]
-    public void SearchGetStartedDocumentation_WithNonMatchingTerm_ShouldReturnNoResultsMessage()
+    public void SearchDocumentation_WithNonMatchingTerm_ShouldReturnNoResultsMessage()
     {
         // Act
         var result = _tools.SearchDocumentation("XYZ123NonExistent456");

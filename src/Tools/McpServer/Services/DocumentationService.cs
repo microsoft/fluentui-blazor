@@ -68,6 +68,11 @@ public partial class DocumentationService
     /// <returns>A list of matching documentation pages.</returns>
     public IReadOnlyList<GetStartedInfo> SearchDocumentation(string searchTerm)
     {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            return [];
+        }
+
         var lowerSearch = searchTerm.ToLowerInvariant();
         return [.. _documentationCache.Values
             .Where(d => !d.Hidden &&
