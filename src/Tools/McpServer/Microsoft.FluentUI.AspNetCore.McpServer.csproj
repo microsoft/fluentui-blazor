@@ -79,7 +79,7 @@
 
   <!-- Embed the pre-generated JSON documentation as a resource -->
 
-  <!-- Include GetStarted documentation markdown files as embedded resources -->
+  <!-- Include Documentation markdown files as embedded resources -->
   <ItemGroup>
     <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\GetStarted\**\*.md" 
                       Exclude="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\GetStarted\mcp\**\*"

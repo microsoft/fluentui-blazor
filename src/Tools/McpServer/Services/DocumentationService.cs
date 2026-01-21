@@ -14,16 +14,16 @@ namespace Microsoft.FluentUI.AspNetCore.McpServer.Services;
 /// Service for providing GetStarted documentation content.
 /// Reads markdown files embedded in the assembly.
 /// </summary>
-public partial class GetStartedDocumentationService
+public partial class DocumentationService
 {
     private readonly Dictionary<string, GetStartedInfo> _documentationCache = new(StringComparer.OrdinalIgnoreCase);
     private readonly List<string> _excludedFolders;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GetStartedDocumentationService"/> class.
+    /// Initializes a new instance of the <see cref="DocumentationService"/> class.
     /// </summary>
     /// <param name="excludedFolders">Optional list of folder names to exclude (e.g., "mcp").</param>
-    public GetStartedDocumentationService(IEnumerable<string>? excludedFolders = null)
+    public DocumentationService(IEnumerable<string>? excludedFolders = null)
     {
         _excludedFolders = excludedFolders?.ToList() ?? ["mcp"];
         LoadDocumentation();

@@ -8,17 +8,17 @@ using Microsoft.FluentUI.AspNetCore.McpServer.Services;
 namespace Microsoft.FluentUI.AspNetCore.McpServer.Tests.Resources;
 
 /// <summary>
-/// Tests for the <see cref="GetStartedResources"/> class.
+/// Tests for the <see cref="GetDocumentationResources"/> class.
 /// </summary>
 public class GetStartedResourcesTests
 {
-    private readonly GetStartedDocumentationService _documentationService;
-    private readonly GetStartedResources _resources;
+    private readonly DocumentationService _documentationService;
+    private readonly GetDocumentationResources _resources;
 
     public GetStartedResourcesTests()
     {
-        _documentationService = new GetStartedDocumentationService();
-        _resources = new GetStartedResources(_documentationService);
+        _documentationService = new DocumentationService();
+        _resources = new GetDocumentationResources(_documentationService);
     }
 
     #region GetAllTopics Tests

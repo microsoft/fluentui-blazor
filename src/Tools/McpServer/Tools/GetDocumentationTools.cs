@@ -11,29 +11,29 @@ using ModelContextProtocol.Server;
 namespace Microsoft.FluentUI.AspNetCore.McpServer.Tools;
 
 /// <summary>
-/// MCP tools for accessing GetStarted documentation.
+/// MCP tools for accessing documentation.
 /// </summary>
 [McpServerToolType]
-public class GetStartedTools
+public class GetDocumentationTools
 {
-    private readonly GetStartedDocumentationService _documentationService;
+    private readonly DocumentationService _documentationService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GetStartedTools"/> class.
+    /// Initializes a new instance of the <see cref="GetDocumentationTools"/> class.
     /// </summary>
-    /// <param name="documentationService">The GetStarted documentation service.</param>
-    public GetStartedTools(GetStartedDocumentationService documentationService)
+    /// <param name="documentationService">The documentation service.</param>
+    public GetDocumentationTools(DocumentationService documentationService)
     {
         _documentationService = documentationService;
     }
 
     /// <summary>
-    /// Lists all available GetStarted documentation topics.
+    /// Lists all available documentation topics.
     /// </summary>
     /// <returns>A formatted string listing all available documentation topics.</returns>
     [McpServerTool]
     [Description("Lists all available GetStarted documentation topics for Fluent UI Blazor. Use this to discover installation guides, migration information, localization, and styling documentation.")]
-    public string ListGetStartedTopics()
+    public string ListDocumentation()
     {
         var docs = _documentationService.GetAllDocumentation();
 
@@ -53,7 +53,7 @@ public class GetStartedTools
         }
 
         sb.AppendLine();
-        sb.AppendLine("Use `GetGetStartedTopic(topicName)` to get detailed information about a specific topic.");
+        sb.AppendLine("Use `GetDocumentationTopic(topicName)` to get detailed information about a specific topic.");
 
         return sb.ToString();
     }
@@ -64,14 +64,14 @@ public class GetStartedTools
     /// <param name="topicName">The name or route of the topic (e.g., 'Installation', 'Localization', 'Styles', 'MigrationV5').</param>
     /// <returns>The full documentation content for the specified topic.</returns>
     [McpServerTool]
-    [Description("Gets detailed documentation for a specific GetStarted topic. Use this to get full installation guides, migration instructions, localization setup, or styling documentation.")]
-    public string GetGetStartedTopic(
+    [Description("Get documentation for a specific GetStarted topic. Use this to get full installation guides, migration instructions, localization setup, or styling documentation.")]
+    public string GetDocumentationTopic(
         [Description("The name or route of the topic (e.g., 'Installation', 'Localization', 'Styles', 'Migrating to v5', 'Default Values').")]
         string topicName)
     {
         if (string.IsNullOrWhiteSpace(topicName))
         {
-            return "Please provide a topic name. Use ListGetStartedTopics() to see available topics.";
+            return "Please provide a topic name. Use ListDocumentation() to see available topics.";
         }
 
         var doc = _documentationService.GetDocumentation(topicName);
@@ -80,7 +80,7 @@ public class GetStartedTools
         {
             var availableTopics = _documentationService.GetTopics();
             var topicList = string.Join(", ", availableTopics.Take(5));
-            return $"Topic '{topicName}' was not found. Available topics include: {topicList}. Use ListGetStartedTopics() for the complete list.";
+            return $"Topic '{topicName}' was not found. Available topics include: {topicList}. Use ListDocumentation() for the complete list.";
         }
 
         return doc.Content;
@@ -92,8 +92,8 @@ public class GetStartedTools
     /// <param name="searchTerm">The keyword to search for in documentation titles and content.</param>
     /// <returns>A formatted string listing matching documentation topics.</returns>
     [McpServerTool]
-    [Description("Searches for GetStarted documentation by keyword. Use this to find specific information about installation, configuration, migration, or styling.")]
-    public string SearchGetStartedDocumentation(
+    [Description("Searches documentation by keyword. Use this to find specific information about installation, configuration, migration, or styling.")]
+    public string SearchDocumentation(
         [Description("The keyword to search for (e.g., 'install', 'migrate', 'localize', 'style', 'reboot', 'service').")]
         string searchTerm)
     {
@@ -106,7 +106,7 @@ public class GetStartedTools
 
         if (docs.Count == 0)
         {
-            return $"No documentation found matching '{searchTerm}'. Try different keywords or use ListGetStartedTopics() to see all available topics.";
+            return $"No documentation found matching '{searchTerm}'. Try different keywords or use ListDocumentation() to see all available topics.";
         }
 
         var sb = new StringBuilder();
@@ -120,7 +120,7 @@ public class GetStartedTools
             sb.AppendLine();
         }
 
-        sb.AppendLine("Use `GetGetStartedTopic(topicName)` to get the full documentation for a specific topic.");
+        sb.AppendLine("Use `GetDocumentationTopic(topicName)` to get the full documentation for a specific topic.");
 
         return sb.ToString();
     }
@@ -175,7 +175,7 @@ public class GetStartedTools
             }
 
             sb.AppendLine();
-            sb.AppendLine("Use `GetGetStartedTopic(topicName)` to get detailed migration information for a specific component.");
+            sb.AppendLine("Use `GetDocumentationTopic(topicName)` to get detailed migration information for a specific component.");
         }
 
         return sb.ToString();

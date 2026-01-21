@@ -183,9 +183,9 @@ Tools are invoked automatically by the LLM for dynamic queries.
 | `SearchComponents` | Searches components by name or description | `searchTerm` |
 | `GetEnumValues` | Gets enum type values | `enumName`, `filter` (optional) |
 | `GetComponentEnums` | Lists enums used by a component | `componentName` |
-| `ListGetStartedTopics` | Lists all GetStarted documentation topics | - |
-| `GetGetStartedTopic` | Gets detailed documentation for a GetStarted topic | `topicName` |
-| `SearchGetStartedDocumentation` | Searches GetStarted documentation by keyword | `searchTerm` |
+| `ListDocumentationTopics` | Lists all documentation topics | - |
+| `GetDocumentationTopic` | Gets detailed documentation for a documentation topic | `topicName` |
+| `SearchDocumentation` | Searches documentation by keyword | `searchTerm` |
 | `GetMigrationGuide` | Gets migration guide for upgrading to v5 | - |
 
 ### Resources (User-controlled)
@@ -200,9 +200,9 @@ Resources provide static documentation that users can attach to conversations.
 | `fluentui://component/{name}` | Detailed documentation for a specific component |
 | `fluentui://category/{name}` | List of components in a specific category |
 | `fluentui://enum/{name}` | Detailed information about a specific enum type |
-| `fluentui://getstarted` | Complete list of all GetStarted documentation topics |
-| `fluentui://getstarted/{topic}` | Documentation for a specific GetStarted topic (e.g., installation, localization, styles) |
-| `fluentui://getstarted/migration` | Complete migration guide for upgrading to v5 |
+| `fluentui://documentations` | Complete list of all documentation topics |
+| `fluentui://documentations/{topic}` | Documentation for a specific documentations topic (e.g., installation, localization, styles) |
+| `fluentui://documentations/migration` | Complete migration guide for upgrading to v5 |
 
 ## Usage Examples
 

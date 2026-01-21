@@ -7,7 +7,7 @@ using Microsoft.FluentUI.AspNetCore.McpServer.Services;
 namespace Microsoft.FluentUI.AspNetCore.McpServer.Tests.Services;
 
 /// <summary>
-/// Tests for the <see cref="GetStartedDocumentationService"/> class.
+/// Tests for the <see cref="DocumentationService"/> class.
 /// </summary>
 public class GetStartedDocumentationServiceTests
 {
@@ -17,7 +17,7 @@ public class GetStartedDocumentationServiceTests
     public void Constructor_WithNullExcludedFolders_ShouldDefaultToMcp()
     {
         // Act
-        var exception = Record.Exception(() => new GetStartedDocumentationService(excludedFolders: null));
+        var exception = Record.Exception(() => new DocumentationService(excludedFolders: null));
 
         // Assert
         Assert.Null(exception);
@@ -27,7 +27,7 @@ public class GetStartedDocumentationServiceTests
     public void Constructor_WithEmptyExcludedFolders_ShouldNotThrow()
     {
         // Act
-        var exception = Record.Exception(() => new GetStartedDocumentationService([]));
+        var exception = Record.Exception(() => new DocumentationService([]));
 
         // Assert
         Assert.Null(exception);
@@ -37,7 +37,7 @@ public class GetStartedDocumentationServiceTests
     public void Constructor_WithCustomExcludedFolders_ShouldNotThrow()
     {
         // Act
-        var exception = Record.Exception(() => new GetStartedDocumentationService(["mcp", "custom"]));
+        var exception = Record.Exception(() => new DocumentationService(["mcp", "custom"]));
 
         // Assert
         Assert.Null(exception);
@@ -51,7 +51,7 @@ public class GetStartedDocumentationServiceTests
     public void GetAllDocumentation_ShouldReturnNonNullList()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.GetAllDocumentation();
@@ -64,7 +64,7 @@ public class GetStartedDocumentationServiceTests
     public void GetAllDocumentation_ShouldExcludeHiddenDocuments()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.GetAllDocumentation();
@@ -77,7 +77,7 @@ public class GetStartedDocumentationServiceTests
     public void GetAllDocumentation_ShouldBeOrderedByOrder()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.GetAllDocumentation();
@@ -100,7 +100,7 @@ public class GetStartedDocumentationServiceTests
     public void GetDocumentation_WithNonExistentTitle_ShouldReturnNull()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.GetDocumentation("NonExistentTitle12345");
@@ -113,7 +113,7 @@ public class GetStartedDocumentationServiceTests
     public void GetDocumentation_WithEmptyString_ShouldReturnNull()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.GetDocumentation(string.Empty);
@@ -130,7 +130,7 @@ public class GetStartedDocumentationServiceTests
     public void SearchDocumentation_WithEmptyTerm_ShouldReturnEmptyList()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.SearchDocumentation(string.Empty);
@@ -143,7 +143,7 @@ public class GetStartedDocumentationServiceTests
     public void SearchDocumentation_WithNonMatchingTerm_ShouldReturnEmptyList()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.SearchDocumentation("XYZ123NonExistent456");
@@ -156,7 +156,7 @@ public class GetStartedDocumentationServiceTests
     public void SearchDocumentation_ShouldBeCaseInsensitive()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var lowerResult = service.SearchDocumentation("install");
@@ -174,7 +174,7 @@ public class GetStartedDocumentationServiceTests
     public void GetMigrationDocumentation_ShouldReturnNonNullList()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.GetMigrationDocumentation();
@@ -187,7 +187,7 @@ public class GetStartedDocumentationServiceTests
     public void GetMigrationDocumentation_ShouldOnlyReturnMigrationRelatedDocs()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.GetMigrationDocumentation();
@@ -210,7 +210,7 @@ public class GetStartedDocumentationServiceTests
     public void GetTopics_ShouldReturnNonNullList()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.GetTopics();
@@ -223,7 +223,7 @@ public class GetStartedDocumentationServiceTests
     public void GetTopics_ShouldReturnDistinctTitles()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.GetTopics();
@@ -236,7 +236,7 @@ public class GetStartedDocumentationServiceTests
     public void GetTopics_ShouldBeOrderedAlphabetically()
     {
         // Arrange
-        var service = new GetStartedDocumentationService();
+        var service = new DocumentationService();
 
         // Act
         var result = service.GetTopics();

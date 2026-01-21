@@ -8,17 +8,17 @@ using Microsoft.FluentUI.AspNetCore.McpServer.Tools;
 namespace Microsoft.FluentUI.AspNetCore.McpServer.Tests.Tools;
 
 /// <summary>
-/// Tests for the <see cref="GetStartedTools"/> class.
+/// Tests for the <see cref="GetDocumentationTools"/> class.
 /// </summary>
 public class GetStartedToolsTests
 {
-    private readonly GetStartedDocumentationService _documentationService;
-    private readonly GetStartedTools _tools;
+    private readonly DocumentationService _documentationService;
+    private readonly GetDocumentationTools _tools;
 
     public GetStartedToolsTests()
     {
-        _documentationService = new GetStartedDocumentationService();
-        _tools = new GetStartedTools(_documentationService);
+        _documentationService = new DocumentationService();
+        _tools = new GetDocumentationTools(_documentationService);
     }
 
     #region ListGetStartedTopics Tests
@@ -27,7 +27,7 @@ public class GetStartedToolsTests
     public void ListGetStartedTopics_ShouldReturnNonNullResult()
     {
         // Act
-        var result = _tools.ListGetStartedTopics();
+        var result = _tools.ListDocumentation();
 
         // Assert
         Assert.NotNull(result);
@@ -38,7 +38,7 @@ public class GetStartedToolsTests
     public void ListGetStartedTopics_WhenNoDocumentation_ShouldReturnAppropriateMessage()
     {
         // Act
-        var result = _tools.ListGetStartedTopics();
+        var result = _tools.ListDocumentation();
 
         // Assert
         // Either contains documentation or indicates no documentation found
@@ -55,7 +55,7 @@ public class GetStartedToolsTests
     public void GetGetStartedTopic_WithEmptyName_ShouldReturnErrorMessage()
     {
         // Act
-        var result = _tools.GetGetStartedTopic(string.Empty);
+        var result = _tools.GetDocumentationTopic(string.Empty);
 
         // Assert
         Assert.Contains("Please provide a topic name", result, StringComparison.OrdinalIgnoreCase);
@@ -65,7 +65,7 @@ public class GetStartedToolsTests
     public void GetGetStartedTopic_WithWhitespace_ShouldReturnErrorMessage()
     {
         // Act
-        var result = _tools.GetGetStartedTopic("   ");
+        var result = _tools.GetDocumentationTopic("   ");
 
         // Assert
         Assert.Contains("Please provide a topic name", result, StringComparison.OrdinalIgnoreCase);
@@ -75,7 +75,7 @@ public class GetStartedToolsTests
     public void GetGetStartedTopic_WithNonExistentTopic_ShouldReturnNotFoundMessage()
     {
         // Act
-        var result = _tools.GetGetStartedTopic("NonExistentTopic12345");
+        var result = _tools.GetDocumentationTopic("NonExistentTopic12345");
 
         // Assert
         Assert.Contains("was not found", result, StringComparison.OrdinalIgnoreCase);
@@ -89,7 +89,7 @@ public class GetStartedToolsTests
     public void SearchGetStartedDocumentation_WithEmptyTerm_ShouldReturnErrorMessage()
     {
         // Act
-        var result = _tools.SearchGetStartedDocumentation(string.Empty);
+        var result = _tools.SearchDocumentation(string.Empty);
 
         // Assert
         Assert.Contains("Please provide a search term", result, StringComparison.OrdinalIgnoreCase);
@@ -99,7 +99,7 @@ public class GetStartedToolsTests
     public void SearchGetStartedDocumentation_WithWhitespace_ShouldReturnErrorMessage()
     {
         // Act
-        var result = _tools.SearchGetStartedDocumentation("   ");
+        var result = _tools.SearchDocumentation("   ");
 
         // Assert
         Assert.Contains("Please provide a search term", result, StringComparison.OrdinalIgnoreCase);
@@ -109,7 +109,7 @@ public class GetStartedToolsTests
     public void SearchGetStartedDocumentation_WithNonMatchingTerm_ShouldReturnNoResultsMessage()
     {
         // Act
-        var result = _tools.SearchGetStartedDocumentation("XYZ123NonExistent456");
+        var result = _tools.SearchDocumentation("XYZ123NonExistent456");
 
         // Assert
         Assert.Contains("No documentation found", result, StringComparison.OrdinalIgnoreCase);

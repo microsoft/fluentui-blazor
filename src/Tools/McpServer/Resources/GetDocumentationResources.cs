@@ -11,47 +11,47 @@ using ModelContextProtocol.Server;
 namespace Microsoft.FluentUI.AspNetCore.McpServer.Resources;
 
 /// <summary>
-/// MCP Resources providing static GetStarted documentation content for Fluent UI Blazor.
+/// MCP Resources providing static documentation content for Fluent UI Blazor.
 /// These resources are user-selected and provide context for the LLM.
 /// </summary>
 [McpServerResourceType]
-public class GetStartedResources
+public class GetDocumentationResources
 {
-    private readonly GetStartedDocumentationService _documentationService;
+    private readonly DocumentationService _documentationService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GetStartedResources"/> class.
+    /// Initializes a new instance of the <see cref="GetDocumentationResources"/> class.
     /// </summary>
-    public GetStartedResources(GetStartedDocumentationService documentationService)
+    public GetDocumentationResources(DocumentationService documentationService)
     {
         _documentationService = documentationService;
     }
 
     /// <summary>
-    /// Gets the complete list of all GetStarted documentation topics.
+    /// Gets the complete list of all  documentation topics.
     /// </summary>
     [McpServerResource(
-        UriTemplate = "fluentui://getstarted",
-        Name = "getstarted",
-        Title = "Fluent UI Blazor - GetStarted Documentation",
+        UriTemplate = "fluentui://documentations",
+        Name = "documentations",
+        Title = "Fluent UI Blazor - Documentation",
         MimeType = "text/markdown")]
-    [Description("Complete list of all GetStarted documentation topics including installation, configuration, migration, and styling guides.")]
+    [Description("Complete list of all documentation topics including installation, configuration, migration, and styling guides.")]
     public string GetAllTopics()
     {
         var docs = _documentationService.GetAllDocumentation();
 
         var sb = new StringBuilder();
-        sb.AppendLine("# Fluent UI Blazor - GetStarted Documentation");
+        sb.AppendLine("# Fluent UI Blazor - Documentation");
         sb.AppendLine();
         sb.AppendLine(CultureInfo.InvariantCulture, $"Total: {docs.Count} documentation topics");
         sb.AppendLine();
-        sb.AppendLine("Available topics (use `fluentui://getstarted/{topic}` to access):");
+        sb.AppendLine("Available topics (use `fluentui://documentations/{topic}` to access):");
         sb.AppendLine();
 
         foreach (var doc in docs)
         {
             sb.AppendLine(CultureInfo.InvariantCulture, $"## {doc.Title}");
-            sb.AppendLine(CultureInfo.InvariantCulture, $"**URI:** `fluentui://getstarted/{doc.FileName.ToLowerInvariant()}`");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"**URI:** `fluentui://documentations/{doc.FileName.ToLowerInvariant()}`");
 
             if (!string.IsNullOrEmpty(doc.Route))
             {
@@ -67,15 +67,15 @@ public class GetStartedResources
     }
 
     /// <summary>
-    /// Gets documentation for a specific GetStarted topic by name.
+    /// Gets documentation for a specific documentation topic by name.
     /// </summary>
     /// <param name="topic">The topic name (e.g., 'installation', 'localization', 'styles', 'migrationversion5', 'defaultvalues').</param>
     [McpServerResource(
-        UriTemplate = "fluentui://getstarted/{topic}",
-        Name = "getstarted-topic",
-        Title = "GetStarted Topic Documentation",
+        UriTemplate = "fluentui://documentations/{topic}",
+        Name = "documentations-topic",
+        Title = "Topic Documentation",
         MimeType = "text/markdown")]
-    [Description("Detailed documentation for a specific GetStarted topic. Use topic names like 'installation', 'localization', 'styles', 'migrationversion5', 'defaultvalues'.")]
+    [Description("Detailed documentation for a specific documentation topic. Use topic names like 'installation', 'localization', 'styles', 'migrationversion5', 'defaultvalues'.")]
     public string GetTopic(string topic)
     {
         var doc = _documentationService.GetDocumentation(topic);
@@ -87,7 +87,7 @@ public class GetStartedResources
 
             return $"# Topic Not Found\n\nTopic '{topic}' was not found.\n\n" +
                    $"Available topics include: {topicList}\n\n" +
-                   "Use `fluentui://getstarted` to see all available topics.";
+                   "Use `fluentui://documentations` to see all available topics.";
         }
 
         return doc.Content;
@@ -97,7 +97,7 @@ public class GetStartedResources
     /// Gets the complete migration guide documentation.
     /// </summary>
     [McpServerResource(
-        UriTemplate = "fluentui://getstarted/migration",
+        UriTemplate = "fluentui://documentations/migration",
         Name = "migration",
         Title = "Fluent UI Blazor - Migration Guide to v5",
         MimeType = "text/markdown")]
