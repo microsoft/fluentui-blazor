@@ -1,0 +1,141 @@
+/* MCP Viewer Styles - Detailed View */
+
+.mcp-viewer ::deep .component-not-found {
+  padding: 12px;
+  border: 1px dashed red;
+  background-color: lightyellow;
+  color: red;
+  font-weight: bold;
+}
+
+/* MCP Detail Container - Flexbox */
+.mcp-viewer ::deep .mcp-detail-container {
+  width: 100%;
+  max-width: calc(100vw - 32px);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+/* MCP Detail Header */
+.mcp-viewer ::deep .mcp-detail-header {
+  display: flex;
+  flex-direction: row;
+  font-weight: 600;
+  border-bottom: 2px solid var(--colorNeutralStroke1);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+/* MCP Detail Body */
+.mcp-viewer ::deep .mcp-detail-body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* MCP Detail Row */
+.mcp-viewer ::deep .mcp-detail-row {
+  display: flex;
+  flex-direction: row;
+  border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+  padding: 8px 0;
+  gap: 12px;
+}
+
+  .mcp-viewer ::deep .mcp-detail-row:last-child {
+    border-bottom: none;
+  }
+
+/* MCP Detail Column */
+.mcp-viewer ::deep .mcp-detail-col {
+  padding-right: 12px;
+  vertical-align: top;
+}
+
+  .mcp-viewer ::deep .mcp-detail-header .mcp-detail-col:first-child,
+  .mcp-viewer ::deep .mcp-detail-row .mcp-detail-col:first-child {
+    min-width: 150px;
+    flex: 0 0 150px;
+    white-space: nowrap;
+  }
+
+  .mcp-viewer ::deep .mcp-detail-header .mcp-detail-col:nth-child(2),
+  .mcp-viewer ::deep .mcp-detail-row .mcp-detail-col:nth-child(2) {
+    flex: 1;
+  }
+
+  .mcp-viewer ::deep .mcp-detail-header .mcp-detail-col:last-child,
+  .mcp-viewer ::deep .mcp-detail-row .mcp-detail-col:last-child {
+    flex: 1;
+  }
+
+  .mcp-viewer ::deep .mcp-detail-col code {
+    font-weight: 600;
+    background-color: var(--colorNeutralBackground4);
+  }
+
+  .mcp-viewer ::deep .mcp-detail-col p {
+    margin: 0;
+  }
+
+  .mcp-viewer ::deep .mcp-detail-col .mcp-uri {
+    font-family: var(--fontFamilyMonospace);
+    font-size: 12px;
+    color: var(--colorBrandForeground1);
+    word-break: break-all;
+  }
+
+  .mcp-viewer ::deep .mcp-detail-col .mcp-params {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+  }
+
+    .mcp-viewer ::deep .mcp-detail-col .mcp-params li {
+      margin-bottom: 4px;
+    }
+
+    .mcp-viewer ::deep .mcp-detail-col .mcp-params code {
+      font-weight: 600;
+    }
+
+  .mcp-viewer ::deep .mcp-detail-col .mcp-param-type {
+    color: var(--colorNeutralForeground3);
+    font-size: 12px;
+    margin-left: 4px;
+  }
+
+  .mcp-viewer ::deep .mcp-detail-col .mcp-required {
+    color: var(--colorPaletteRedForeground1);
+    font-weight: bold;
+    margin-left: 2px;
+  }
+
+  .mcp-viewer ::deep .mcp-detail-col small {
+    color: var(--colorNeutralForeground3);
+    display: block;
+    margin-top: 2px;
+  }
+
+/* Mobile Responsive - Stack columns vertically */
+@media (max-width: 768px) {
+  .mcp-viewer ::deep .mcp-detail-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mcp-viewer ::deep .mcp-detail-header {
+    display: none;
+  }
+
+  .mcp-viewer ::deep .mcp-detail-col:first-child {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .mcp-viewer ::deep .mcp-detail-col {
+    min-width: auto !important;
+    flex: 1 !important;
+    padding-right: 0;
+  }
+}

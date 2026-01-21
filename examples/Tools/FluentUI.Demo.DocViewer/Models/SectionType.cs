@@ -28,5 +28,15 @@ public enum SectionType
     /// API array to display
     /// </summary>
     Api,
+
+    /// <summary>
+    /// MCP documentation (tools, resources, prompts) - detailed view
+    /// </summary>
+    Mcp,
+
+    /// <summary>
+    /// MCP documentation summary - lightweight view for overview pages
+    /// </summary>
+    McpSummary,
 }
 
