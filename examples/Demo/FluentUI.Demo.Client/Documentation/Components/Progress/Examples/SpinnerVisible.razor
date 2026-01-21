@@ -11,6 +11,7 @@
 <FluentSelect Items="@([true, false, null])"
               OptionText="@(i => GetVisibleText(i) )"
               TOption="bool?"
+              TValue="bool?"
               @bind-Value="@Visible" />
 
 @code

@@ -1,0 +1,4 @@
+.fluent-validation-errors .fluent-validation-message {
+    display: block;
+    font-size: var(--fontSizeBase300);
+}

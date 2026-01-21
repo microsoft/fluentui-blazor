@@ -43,7 +43,7 @@ public partial class FluentAvatar : FluentComponentBase, ITooltipComponent
 
     /// <summary>
     /// Gets or sets the default icon. The icon will only be shown when there is no image or initials available.
-    /// </summary> 
+    /// </summary>
     [Parameter]
     public Icon? Icon { get; set; }
 
@@ -94,6 +94,12 @@ public partial class FluentAvatar : FluentComponentBase, ITooltipComponent
     [Parameter]
     public string? Tooltip { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
@@ -138,7 +144,7 @@ public partial class FluentAvatar : FluentComponentBase, ITooltipComponent
 
     private string GetAvatarSize =>
         Size is not null
-        ? $"{(int)Size}px"
+        ? $"{Size}px"
         : "32px"; // Default component size
 
     private string? GetActiveValue =>

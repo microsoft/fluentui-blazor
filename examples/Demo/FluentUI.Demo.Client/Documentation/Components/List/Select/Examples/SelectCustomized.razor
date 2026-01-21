@@ -5,7 +5,7 @@
               Items="@Coworkers"
               @bind-Value="@Value"
               OptionText="@(item => item?.FirstName)"
-              OptionValue="@(item => item?.Id)"
+              OptionValueToString="@(item => item?.Id)"
               OptionDisabled="@(item => item == Coworkers.ElementAt(3))" />
 
 <div>
@@ -14,8 +14,7 @@
 
 @code {
     static Samples.Person?[] OneNullPerson = new Samples.Person?[] { null };
-    static Samples.Person?[] Coworkers =>
-          OneNullPerson.Union(Samples.Persons.Take(5).ToArray()).ToArray();
+    static Samples.Person?[] Coworkers = OneNullPerson.Union(Samples.Persons.Take(5).ToArray()).ToArray();
 
     Samples.Person? Value = Coworkers.ElementAt(2);
 }

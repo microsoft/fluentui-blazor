@@ -1,5 +1,6 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
+@typeparam TValue
 
 <fluent-option id="@Id"
                class="@DefaultClassBuilder.Build()"
@@ -7,10 +8,16 @@
                disabled="@Disabled"
                name="@Name"
                text="@Text"
-               value="@Value"
+               value="@ValueFormatted"
                selected="@Selected"
                @attributes="@AdditionalAttributes">
     @ChildContent
+
+    @if (ChildContent is null && !string.IsNullOrEmpty(Text))
+    {
+        @Text
+    }
+
     @if (!string.IsNullOrWhiteSpace(Description))
     {
         <span slot="@FluentSlot.Description">@Description</span>
