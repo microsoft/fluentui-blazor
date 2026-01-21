@@ -38,7 +38,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [EventHandler("onclosecolumnoptions", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onclosecolumnresize", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onradiochange", typeof(RadioEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-
+[EventHandler("onimmediate", typeof(ChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 public static class EventHandlers
 {
 }

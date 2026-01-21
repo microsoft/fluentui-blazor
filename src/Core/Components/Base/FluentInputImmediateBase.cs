@@ -2,10 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -17,8 +15,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
 public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
 {
-    private readonly Debounce _debounce = new();
-
     /// <summary />
     protected FluentInputImmediateBase(LibraryConfiguration configuration) : base(configuration) { }
 
@@ -46,25 +42,6 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
             return;
         }
 
-        if (ImmediateDelay > 0)
-        {
-            await _debounce.RunAsync(ImmediateDelay, async () => await ChangeHandlerAsync(e));
-        }
-        else
-        {
-            await ChangeHandlerAsync(e);
-        }
-    }
-
-    /// <inheritdoc cref="IDisposable.Dispose" />
-    [ExcludeFromCodeCoverage()]
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-
-        if (disposing)
-        {
-            _debounce.Dispose();
-        }
+        await ChangeHandlerAsync(e);
     }
 }
