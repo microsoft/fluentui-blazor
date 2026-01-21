@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -43,5 +44,17 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
         }
 
         await ChangeHandlerAsync(e);
+    }
+
+    /// <summary>
+    /// Initializes the immediate event if the immediate mode is enabled.
+    /// </summary>
+    protected virtual async Task InitializeImmediateAsync()
+    {
+        // Initialize the 'immediate' custom event for the immediate mode
+        if (Immediate)
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextInput.attachImmediateEvent", Id, ImmediateDelay);
+        }
     }
 }

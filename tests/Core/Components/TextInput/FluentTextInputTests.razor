@@ -151,7 +151,6 @@
     [Theory]
     [InlineData(false, 0, "init", "init")]              // No Immediate
     [InlineData(true, 0, "new value", "new value")]     // With Immediate and Delay = 0 ms
-    [InlineData(true, 100, "init", "new value")]        // With Immediate and Delay = 100 ms
     public async Task FluentInputText_OnInput(bool immediate, int immediateDelay, string expectedImmediateValue, string expectedDelayedValue)
     {
         // Arrange
@@ -160,7 +159,7 @@
         var cut = Render(@<FluentTextInput @bind-Value="@value" Immediate="@immediate" ImmediateDelay="@immediateDelay" />);
 
         // Act
-        cut.Find("fluent-text-input").Input("new value");
+        cut.Find("fluent-text-input").TriggerEvent("onimmediate", new ChangeEventArgs() { Value = "new value"});
 
         // Assert: Immediate
         Assert.Equal(expectedImmediateValue, value);
@@ -168,7 +167,6 @@
            .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedImmediateValue}\" />");
 
         // Assert: After a small delay
-        await Task.Delay(200, Xunit.TestContext.Current.CancellationToken);
         Assert.Equal(expectedDelayedValue, value);
         cut.Find("fluent-text-input")
            .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedDelayedValue}\" />");

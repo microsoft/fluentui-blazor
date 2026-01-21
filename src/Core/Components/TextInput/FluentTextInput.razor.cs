@@ -202,10 +202,7 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
             await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
 
             // Initialize the 'immediate' custom event for the immediate mode
-            if (Immediate)
-            {
-                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextInput.attachImmediateEvent", Id, ImmediateDelay);
-            }
+            await InitializeImmediateAsync();
 
             // Set the mask pattern if defined
             if (!string.IsNullOrEmpty(MaskPattern))

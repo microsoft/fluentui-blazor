@@ -158,6 +158,9 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
         {
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "value");
 
+            // Initialize the 'immediate' custom event for the immediate mode
+            await InitializeImmediateAsync();
+
             // Initialize the change after key press event
             await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
         }
