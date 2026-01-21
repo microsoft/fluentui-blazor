@@ -8,17 +8,17 @@ using Microsoft.FluentUI.AspNetCore.McpServer.Tools;
 namespace Microsoft.FluentUI.AspNetCore.McpServer.Tests.Tools;
 
 /// <summary>
-/// Tests for the <see cref="GetDocumentationTools"/> class.
+/// Tests for the <see cref="DocumentationTools"/> class.
 /// </summary>
-public class GetStartedToolsTests
+public class DocumentationToolsTests
 {
     private readonly DocumentationService _documentationService;
-    private readonly GetDocumentationTools _tools;
+    private readonly DocumentationTools _tools;
 
-    public GetStartedToolsTests()
+    public DocumentationToolsTests()
     {
         _documentationService = new DocumentationService();
-        _tools = new GetDocumentationTools(_documentationService);
+        _tools = new DocumentationTools(_documentationService);
     }
 
     #region ListGetStartedTopics Tests

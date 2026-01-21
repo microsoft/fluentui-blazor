@@ -168,7 +168,7 @@ public partial class DocumentationService
         var frontMatterMatch = FrontMatterRegex().Match(content);
         if (frontMatterMatch.Success)
         {
-            var frontMatter = frontMatterMatch.Groups[1].Value;
+            var frontMatter = frontMatterMatch.Groups[0].Value;
             info.Title = ExtractYamlValue(frontMatter, "title");
             info.Route = ExtractYamlValue(frontMatter, "route");
             info.Icon = ExtractYamlValue(frontMatter, "icon");

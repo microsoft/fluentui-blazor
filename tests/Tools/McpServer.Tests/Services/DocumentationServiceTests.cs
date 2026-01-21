@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.McpServer.Tests.Services;
 /// <summary>
 /// Tests for the <see cref="DocumentationService"/> class.
 /// </summary>
-public class GetStartedDocumentationServiceTests
+public class DocumentationServiceTests
 {
     #region Constructor Tests
 

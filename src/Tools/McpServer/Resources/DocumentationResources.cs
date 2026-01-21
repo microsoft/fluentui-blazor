@@ -15,14 +15,14 @@ namespace Microsoft.FluentUI.AspNetCore.McpServer.Resources;
 /// These resources are user-selected and provide context for the LLM.
 /// </summary>
 [McpServerResourceType]
-public class GetDocumentationResources
+public class DocumentationResources
 {
     private readonly DocumentationService _documentationService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GetDocumentationResources"/> class.
+    /// Initializes a new instance of the <see cref="DocumentationResources"/> class.
     /// </summary>
-    public GetDocumentationResources(DocumentationService documentationService)
+    public DocumentationResources(DocumentationService documentationService)
     {
         _documentationService = documentationService;
     }

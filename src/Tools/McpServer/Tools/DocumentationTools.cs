@@ -14,15 +14,15 @@ namespace Microsoft.FluentUI.AspNetCore.McpServer.Tools;
 /// MCP tools for accessing documentation.
 /// </summary>
 [McpServerToolType]
-public class GetDocumentationTools
+public class DocumentationTools
 {
     private readonly DocumentationService _documentationService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GetDocumentationTools"/> class.
+    /// Initializes a new instance of the <see cref="DocumentationTools"/> class.
     /// </summary>
     /// <param name="documentationService">The documentation service.</param>
-    public GetDocumentationTools(DocumentationService documentationService)
+    public DocumentationTools(DocumentationService documentationService)
     {
         _documentationService = documentationService;
     }
