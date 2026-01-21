@@ -236,7 +236,7 @@ GetMigrationGuide()
 ## Debugging
 
 
-### Visual Studio
+### Visual Studio Code
 
 1. Configure the MCP server in `.vscode/mcp.json`:
 
