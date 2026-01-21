@@ -63,12 +63,6 @@ A text input can be in different states, such as `Disabled`, `ReadOnly`, and `Re
 
 {{ TextAreaState }}
 
-## Know restrictions
-
-At this time, it's not possible to define the height and width of the component.
-
-> These features are under investigation.
-
 ## API FluentTextArea
 
 {{ API Type=FluentTextArea }}

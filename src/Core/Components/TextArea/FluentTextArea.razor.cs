@@ -35,6 +35,11 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
         };
     }
 
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
     /// <summary>
     /// Gets the CSS class to apply to the internal web-component.
     /// </summary>
