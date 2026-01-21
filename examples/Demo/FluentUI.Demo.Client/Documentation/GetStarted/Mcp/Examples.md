@@ -45,7 +45,7 @@ What button components are available in Fluent UI Blazor?
 > - **FluentSplitButton**: Button split between action and dropdown
 > - **FluentToggleButton**: Button that maintains a pressed state
 
-### Visual Studio 2022
+### Visual Studio 2026
 
 The interaction is similar - open Copilot Chat and ask the same question.
 
