@@ -79,6 +79,13 @@
 
   <!-- Embed the pre-generated JSON documentation as a resource -->
 
+  <!-- Include Documentation markdown files as embedded resources -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\GetStarted\**\*.md" 
+                      Exclude="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\GetStarted\mcp\**\*"
+                      Link="Documentation\GetStarted\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
   <!-- Code Analysis -->
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">

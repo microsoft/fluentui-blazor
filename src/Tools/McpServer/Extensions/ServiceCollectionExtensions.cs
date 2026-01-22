@@ -42,6 +42,10 @@ internal static class ServiceCollectionExtensions
         // Falls back to embedded resource if no external file is found
         services.AddSingleton(_ => new FluentUIDocumentationService(externalJsonPath));
 
+        // Documentation service
+        // Excludes the 'mcp' folder
+        services.AddSingleton(_ => new DocumentationService(["mcp"]));
+
         return services;
     }
 

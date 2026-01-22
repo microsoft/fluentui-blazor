@@ -183,6 +183,10 @@ Tools are invoked automatically by the LLM for dynamic queries.
 | `SearchComponents` | Searches components by name or description | `searchTerm` |
 | `GetEnumValues` | Gets enum type values | `enumName`, `filter` (optional) |
 | `GetComponentEnums` | Lists enums used by a component | `componentName` |
+| `ListDocumentationTopics` | Lists all documentation topics | - |
+| `GetDocumentationTopic` | Gets detailed documentation for a documentation topic | `topicName` |
+| `SearchDocumentation` | Searches documentation by keyword | `searchTerm` |
+| `GetMigrationGuide` | Gets migration guide for upgrading to v5 | - |
 
 ### Resources (User-controlled)
 
@@ -196,6 +200,9 @@ Resources provide static documentation that users can attach to conversations.
 | `fluentui://component/{name}` | Detailed documentation for a specific component |
 | `fluentui://category/{name}` | List of components in a specific category |
 | `fluentui://enum/{name}` | Detailed information about a specific enum type |
+| `fluentui://documentation` | Complete list of all documentation topics |
+| `fluentui://documentation/{topic}` | Documentation for a specific documentation topic (e.g., installation, localization, styles) |
+| `fluentui://documentation/migration` | Complete migration guide for upgrading to v5 |
 
 ## Usage Examples
 
@@ -213,7 +220,21 @@ SearchComponents(searchTerm: "input")
 GetEnumValues(enumName: "Appearance")
 ```
 
+# List all documentation topics
+ListDocumentation()
+
+# Get the installation guide
+GetDocumentationTopic(topicName: "Installation")
+
+# Search for migration-related documentation
+SearchDocumentation(searchTerm: "migrate")
+
+# Get the complete migration guide to v5
+GetMigrationGuide()
+```
+
 ## Debugging
+
 
 ### Visual Studio Code
 
