@@ -64,14 +64,19 @@
         cut.Verify();
     }
 
-    [Fact]
-    public void FluentCheckbox_TryParseValueFromString()
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("true")]
+    [InlineData("false")]
+    [InlineData("abc")]
+    public void FluentCheckbox_InternalTryParseValueFromString_Throws_NotSupportedException(string? value)
     {
         // Arrange
         var fluentCheckbox = new FluentCheckbox(LibraryConfiguration.Empty);
 
         // Act & Assert
-        Assert.Throws<NotSupportedException>(() => fluentCheckbox.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
+        Assert.Throws<NotSupportedException>(() => fluentCheckbox.InternalTryParseValueFromString(value, out _, out _));
     }
 
     [Fact]

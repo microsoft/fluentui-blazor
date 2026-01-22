@@ -108,10 +108,32 @@
         Assert.Contains(expectedHTML, cut.Markup);
     }
 
+    [Fact]
+    public async Task FluentErrorBoundary_Recover()
+    {
+        // Arrange
+        var cut = Render(@<FluentErrorBoundary>
+            <ChildContent>
+                <ThrowingExceptionComponent Throw="true">My content</ThrowingExceptionComponent>
+            </ChildContent>
+            <ErrorContent>My Error</ErrorContent>
+        </FluentErrorBoundary>);
+
+        // Assert initially in error
+        Assert.Contains("My Error", cut.Markup);
+
+        // Act
+        await cut.InvokeAsync(() => cut.FindComponent<FluentErrorBoundary>().Instance.Recover());
+        cut.Render();
+
+        // Assert: back to normal (because ERROR_ALREADY_OCCURED prevents second throw)
+        Assert.Contains("My content", cut.Markup);
+    }
+
     [Theory]
-    [InlineData("open")]
-    [InlineData("closed")]
-    public void FluentErrorBoundary_OnToggleAsync(string newState)
+    [InlineData("open", true)]
+    [InlineData("closed", false)]
+    public async Task FluentErrorBoundary_OnToggleAsync(string newState, bool remainsInError)
     {
         // Arrange
         var cut = Render(@<FluentErrorBoundary>
@@ -119,12 +141,21 @@
         </FluentErrorBoundary>);
 
         // Act
-        cut.FindComponent<FluentErrorBoundary>().Instance.OnToggleAsync(new()
-            {
-                NewState = newState,
-            });
+        await cut.InvokeAsync(() => cut.FindComponent<FluentErrorBoundary>().Instance.OnToggleAsync(new()
+        {
+            NewState = newState,
+        }));
+        cut.Render();
 
-        // No value to test, just ensure it doesn't throw an exception
+        // Assert
+        if (remainsInError)
+        {
+            Assert.DoesNotContain("My content", cut.Markup);
+        }
+        else
+        {
+            Assert.Contains("My content", cut.Markup);
+        }
     }
 
     [Fact]
