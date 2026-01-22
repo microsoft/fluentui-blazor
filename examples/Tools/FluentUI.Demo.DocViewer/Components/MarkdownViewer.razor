@@ -1,4 +1,7 @@
-﻿@using FluentUI.Demo.DocViewer.Models
+﻿@using FluentUI.Demo.DocViewer.Components.Markdown
+@using FluentUI.Demo.DocViewer.Models
+@using FluentUI.Demo.DocViewer.Models.Mcp
+@using FluentUI.Demo.DocViewer.Services
 @using Microsoft.AspNetCore.Components.Web
 
 <PageTitle>@string.Format(DocViewerService.Options.PageTitle, PageTitle)</PageTitle>
@@ -188,6 +191,22 @@
                         }
                     }
 
+                    break;
+
+                case SectionType.Mcp:
+                    var mcpType = section.GetArgumentValue(Section.ARGUMENT_MCP_TYPE)?.ToLower() ?? "tools";
+                    var mcpFilter = section.GetArgumentValue(Section.ARGUMENT_MCP_FILTER);
+                    var parsedMcpType = ParseMcpType(mcpType);
+
+                    <McpViewer McpType="@parsedMcpType" McpFilter="@mcpFilter" />
+                    break;
+
+                case SectionType.McpSummary:
+                    var summaryType = section.GetArgumentValue(Section.ARGUMENT_MCP_TYPE)?.ToLower() ?? "tools";
+                    var summaryFilter = section.GetArgumentValue(Section.ARGUMENT_MCP_FILTER);
+                    var parsedSummaryType = ParseMcpType(summaryType);
+
+                    <McpSummaryViewer McpType="@parsedSummaryType" McpFilter="@summaryFilter" />
                     break;
 
                 default:

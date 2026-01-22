@@ -2,10 +2,9 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -17,8 +16,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
 public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
 {
-    private readonly Debounce _debounce = new();
-
     /// <summary />
     protected FluentInputImmediateBase(LibraryConfiguration configuration) : base(configuration) { }
 
@@ -46,25 +43,18 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
             return;
         }
 
-        if (ImmediateDelay > 0)
-        {
-            await _debounce.RunAsync(ImmediateDelay, async () => await ChangeHandlerAsync(e));
-        }
-        else
-        {
-            await ChangeHandlerAsync(e);
-        }
+        await ChangeHandlerAsync(e);
     }
 
-    /// <inheritdoc cref="IDisposable.Dispose" />
-    [ExcludeFromCodeCoverage()]
-    protected override void Dispose(bool disposing)
+    /// <summary>
+    /// Initializes the immediate event if the immediate mode is enabled.
+    /// </summary>
+    protected virtual async Task InitializeImmediateAsync()
     {
-        base.Dispose(disposing);
-
-        if (disposing)
+        // Initialize the 'immediate' custom event for the immediate mode
+        if (Immediate)
         {
-            _debounce.Dispose();
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextInput.attachImmediateEvent", Id, ImmediateDelay);
         }
     }
 }

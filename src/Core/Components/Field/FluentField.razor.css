@@ -11,16 +11,3 @@ fluent-field[label-position='before'] > fluent-label[slot='label'] {
 fluent-field label[disabled] {
   color: var(--colorNeutralForegroundDisabled);
 }
-
-/*
-
-fluent-field[slot="message"] ::slotted([slot="message"]) {
-  display: flex;
-  align-items: flex-start;
-}
-
-::slotted([slot="message"]) {
-  display: flex;
-  align-items: flex-start;
-}
-*/

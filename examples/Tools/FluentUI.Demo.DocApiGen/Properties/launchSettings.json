@@ -7,6 +7,10 @@
     "FluentUI.Demo.DocApiGen all": {
       "commandName": "Project",
       "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.Components.xml\" --dll \"$(SolutionDir)src/Core/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments-all.json\" --format json --mode all"
+    },
+    "FluentUI.Demo.DocApiGen mcp": {
+      "commandName": "Project",
+      "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.McpServer.xml\" --dll \"$(SolutionDir)src/Tools/McpServer/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.McpServer.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json\" --format json --mode mcp"
     }
   }
 }

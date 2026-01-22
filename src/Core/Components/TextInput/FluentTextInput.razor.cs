@@ -42,6 +42,11 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
 
     }
 
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
     /// <summary>
     /// Gets the CSS class to apply to the internal web-component.
     /// </summary>
@@ -207,6 +212,9 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
 
             // Initialize the change after key press event
             await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
+
+            // Initialize the 'immediate' custom event for the immediate mode
+            await InitializeImmediateAsync();
 
             // Set the mask pattern if defined
             if (!string.IsNullOrEmpty(MaskPattern))

@@ -23,19 +23,31 @@ dotnet tool install -g Microsoft.FluentUI.AspNetCore.McpServer
 
 After installation, configure your MCP client to use the tool:
 
+**For Visual Studio Code** (`.vscode/mcp.json`):
+
 ```json
 {
-  "mcp": {
     "servers": {
-      "fluentui-blazor": {
-        "command": "fluentui-mcp"
-      }
+        "fluent-ui-blazor": {
+            "command": "fluentui-mcp"
+        }
     }
-  }
 }
 ```
 
-### Option 1: Use dnx script tool based on NuGet.org
+**For Visual Studio 2026** (`.mcp.json` at solution root):
+
+```json
+{
+    "servers": {
+        "fluent-ui-blazor": {
+            "command": "fluentui-mcp"
+        }
+    }
+}
+```
+
+### Option 2: Use dnx script tool based on NuGet.org
 
 Use [dnx](https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-10/sdk#the-new-dnx-tool-execution-script) to add the MCP server directly to your MCP client:
 
@@ -44,22 +56,38 @@ dnx Microsoft.FluentUI.AspNetCore.McpServer
 ```
 
 Once added, configure your MCP client to use the tool:
+
+**For Visual Studio Code** (`.vscode/mcp.json`):
+
 ```json
 {
-  "mcp": {
     "servers": {
-      "fluentui-blazor": {
-        "command": "dnx",
-        "args": [
-          "Microsoft.FluentUI.AspNetCore.McpServer"
-        ]
-      }
+        "fluent-ui-blazor": {
+            "command": "dnx",
+            "args": [
+                "Microsoft.FluentUI.AspNetCore.McpServer"
+            ]
+        }
     }
-  }
 }
 ```
 
-This command will download from NuGet.org the latest version. You can specify the version number using the following command :
+**For Visual Studio 2026** (`.mcp.json`):
+
+```json
+{
+    "servers": {
+        "fluent-ui-blazor": {
+            "command": "dnx",
+            "args": [
+                "Microsoft.FluentUI.AspNetCore.McpServer"
+            ]
+        }
+    }
+}
+```
+
+This command will download from NuGet.org the latest version. You can specify the version number using the following command:
 
 ```bash
 dnx Microsoft.FluentUI.AspNetCore.McpServer@5.0.1
@@ -79,20 +107,44 @@ dotnet build
 
 Configure in your MCP client:
 
+**For Visual Studio Code** (`.vscode/mcp.json`):
+
 ```json
 {
-  "mcp": {
     "servers": {
-      "fluentui-blazor": {
-        "command": "dotnet",
-        "args": [
-          "run",
-          "--project",
-          "path/to/src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj"
-        ]
-      }
+        "fluent-ui-blazor": {
+            "type": "stdio",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj"
+            ],
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            }
+        }
     }
-  }
+}
+```
+
+**For Visual Studio 2026** (`.mcp.json` at solution root):
+
+```json
+{
+    "servers": {
+        "fluent-ui-blazor": {
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj"
+            ],
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            }
+        }
+    }
 }
 ```
 
@@ -159,37 +211,37 @@ SearchComponents(searchTerm: "input")
 
 # Get enum values for Appearance
 GetEnumValues(enumName: "Appearance")
-
+```
 
 ## Debugging
 
-### Visual Studio
+### Visual Studio Code
 
 1. Configure the MCP server in `.vscode/mcp.json`:
 
 ```json
 {
-  "servers": {
-    "fluentui-blazor": {
-      "type": "stdio",
-      "command": "dotnet",
-      "args": [
-        "run",
-        "--project",
-        "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj"
-      ],
-      "env": {
-        "DOTNET_ENVIRONMENT": "Development"
-      }
+    "servers": {
+        "fluent-ui-blazor": {
+            "type": "stdio",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj"
+            ],
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            }
+        }
     }
-  }
 }
 ```
 
 2. Set breakpoints in your code
 3. Use **Debug > Attach to Process** and select the `dotnet` process running the MCP server
 
-### VS Code
+### MCP Inspector
 
 1. Launch the MCP Inspector with the server:
 
@@ -233,6 +285,48 @@ dotnet build -p:ForceGenerateMcpDocs=true
 2. Add methods with `[McpServerPrompt]` and `[Description]` attributes
 3. Return `ChatMessage` with the prompt content
 4. Register in `ServiceCollectionExtensions.cs` with `.WithPrompts<YourPromptClass>()`
+
+## Security
+
+The Fluent UI Blazor MCP Server is designed with security as a priority:
+
+### Security Features
+
+- ✅ **Read-only operations** - No file system modifications
+- ✅ **No network access** - Runs entirely offline
+- ✅ **Pre-generated documentation** - No runtime code execution
+- ✅ **Sandboxed execution** - Runs as a child process of your IDE
+- ✅ **No sensitive data** - Only serves public API documentation
+- ✅ **Open source** - All code is publicly auditable
+
+### What the MCP Server CANNOT Do
+
+- ❌ Execute arbitrary code
+- ❌ Access your source code or files
+- ❌ Make network requests
+- ❌ Modify system state
+- ❌ Access environment variables or credentials
+- ❌ Launch other processes
+
+### For SecOps Teams
+
+For comprehensive security information including:
+- Architecture and isolation details
+- Threat model analysis
+- Compliance considerations
+- Audit procedures
+- Security best practices
+
+See the [Security & Compliance Documentation](/Mcp/Security) in the demo site.
+
+### Reporting Security Issues
+
+To report security vulnerabilities:
+- **Microsoft Security Response Center**: secure@microsoft.com
+- **GitHub Security Advisories**: https://github.com/microsoft/fluentui-blazor/security
+
+> [!IMPORTANT]
+> Do not report security issues via public GitHub issues.
 
 ## Troubleshooting
 
