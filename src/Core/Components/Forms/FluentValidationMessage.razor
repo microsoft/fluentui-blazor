@@ -5,7 +5,7 @@
 @foreach (var message in CurrentEditContext.GetValidationMessages(_fieldIdentifier))
 {
     <div class="@ClassValue" style="@StyleValue" @attributes=@AdditionalAttributes>
-        @CreateIcon(new CoreIcons.Filled.Size20.DismissCircle())
+        @CreateIcon(Icon)
         <span>@message</span>
     </div>
 }

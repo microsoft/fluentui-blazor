@@ -137,49 +137,4 @@ internal class FluentFieldParameterCollector : IFluentField
             _ => null,
         };
     }
-
-    /// <summary />
-    internal static RenderFragment? StateToMessageTemplate(MessageState? state, string? message)
-    {
-        return state switch
-        {
-            Components.MessageState.Success => builder =>
-            {
-                builder.OpenComponent(0, typeof(FluentText));
-                builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
-                {
-                    contentBuilder.AddContent(0, message);
-                }));
-                builder.AddAttribute(2, "Color", Color.Info);
-                builder.AddAttribute(3, "style", "display: flex;");
-                builder.CloseComponent();
-            }
-            ,
-            Components.MessageState.Error => builder =>
-            {
-                builder.OpenComponent(0, typeof(FluentText));
-                builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
-                {
-                    contentBuilder.AddContent(0, message);
-                }));
-                builder.AddAttribute(2, "Color", Color.Error);
-                builder.AddAttribute(3, "style", "display: flex;");
-                builder.CloseComponent();
-            }
-            ,
-            Components.MessageState.Warning => builder =>
-            {
-                builder.OpenComponent(0, typeof(FluentText));
-                builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
-                {
-                    contentBuilder.AddContent(0, message);
-                }));
-                builder.AddAttribute(2, "Color", Color.Info);
-                builder.AddAttribute(3, "style", "display: flex;");
-                builder.CloseComponent();
-            }
-            ,
-            _ => null,
-        };
-    }
 }

@@ -34,6 +34,13 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase
     [Parameter]
     public Expression<Func<TValue>>? For { get; set; }
 
+    /// <summary>
+    /// Gets or sets the icon to be displayed with the validation message.
+    /// The default is <see cref="CoreIcons.Filled.Size20.DismissCircle"/>.
+    /// </summary>
+    [Parameter]
+    public Icon? Icon { get; set; } = new CoreIcons.Filled.Size20.DismissCircle();
+
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-validation-message")

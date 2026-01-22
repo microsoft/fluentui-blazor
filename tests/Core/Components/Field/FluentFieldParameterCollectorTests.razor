@@ -102,6 +102,49 @@
         Assert.True(field.FocusLost);
     }
 
+    [Fact]
+    public void FluentFieldParameterCollector_ValueExpression_Standalone()
+    {
+        // Arrange
+        Expression<Func<string>> expression = () => "test";
+        var field = new FluentField(LibraryConfiguration.Empty);
+        typeof(FluentField).GetProperty("For")?.SetValue(field, expression);
+        var collector = new FluentFieldParameterCollector(field, FluentLocalizer);
+
+        // Act & Assert
+        Assert.Equal(expression, collector.ValueExpression);
+    }
+
+    [Fact]
+    public void FluentFieldParameterCollector_ValueExpression_InputComponent()
+    {
+        // Arrange
+        Expression<Func<string>> expression = () => "test";
+        var inputComponent = new MockFluentField { ValueExpression = expression };
+        var field = new FluentField(LibraryConfiguration.Empty);
+        typeof(FluentField).GetProperty("InputComponent")?.SetValue(field, inputComponent);
+        var collector = new FluentFieldParameterCollector(field, FluentLocalizer);
+
+        // Act & Assert
+        Assert.Equal(expression, collector.ValueExpression);
+    }
+
+    [Fact]
+    public void FluentFieldParameterCollector_ValueExpression_Precedence()
+    {
+        // Arrange
+        Expression<Func<string>> expressionFor = () => "for";
+        Expression<Func<string>> expressionInput = () => "input";
+        var inputComponent = new MockFluentField { ValueExpression = expressionInput };
+        var field = new FluentField(LibraryConfiguration.Empty);
+        typeof(FluentField).GetProperty("For")?.SetValue(field, expressionFor);
+        typeof(FluentField).GetProperty("InputComponent")?.SetValue(field, inputComponent);
+        var collector = new FluentFieldParameterCollector(field, FluentLocalizer);
+
+        // Act & Assert
+        Assert.Equal(expressionFor, collector.ValueExpression);
+    }
+
     private void CommonTest(MockFluentField? inputComponent, string name, object? value, object? expectedValue, MessageState? state)
     {
         Dictionary<string, object> attributes;
