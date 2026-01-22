@@ -265,6 +265,166 @@
         Assert.Equal(result.Markups[1].ScrubBlazorAttributes(), result.Cut.Markup.ScrubBlazorAttributes());
     }
 
+    [Fact]
+    public void FluentMultiSplitter_Resize_Mousedown()
+    {
+        // Arrange
+        var cut = Render<FluentMultiSplitter>(parameters =>
+        {
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Action
+        var bar = cut.Find($".fluent-multi-splitter-bar");
+        bar.MouseDown(new MouseEventArgs { ClientX = 100, ClientY = 200 });
+
+        // Assert
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.MultiSplitter.StartResize");
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Resize_Touchstart()
+    {
+        // Arrange
+        var cut = Render<FluentMultiSplitter>(parameters =>
+        {
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Action
+        var bar = cut.Find($".fluent-multi-splitter-bar");
+        bar.TouchStart(new TouchEventArgs
+        {
+            Touches = new[] { new TouchPoint { ClientX = 100, ClientY = 200 } }
+        });
+
+        // Assert
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.MultiSplitter.StartResize");
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Resize_Touchstart_Empty()
+    {
+        // Arrange
+        var cut = Render<FluentMultiSplitter>(parameters =>
+        {
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Action
+        var bar = cut.Find($".fluent-multi-splitter-bar");
+        bar.TouchStart(new TouchEventArgs { Touches = Array.Empty<TouchPoint>() });
+
+        // Assert
+        JSInterop.VerifyNotInvoke("Microsoft.FluentUI.Blazor.Components.MultiSplitter.StartResize");
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Resize_Mousedown_NotResizable()
+    {
+        // Arrange
+        var cut = Render<FluentMultiSplitter>(parameters =>
+        {
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Resizable, false);
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Action
+        var bar = cut.Find($".fluent-multi-splitter-bar");
+        bar.MouseDown(new MouseEventArgs { ClientX = 100, ClientY = 200 });
+
+        // Assert
+        JSInterop.VerifyNotInvoke("Microsoft.FluentUI.Blazor.Components.MultiSplitter.StartResize");
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Resize_Mousedown_SkipCollapsed()
+    {
+        // Arrange
+        var cut = Render<FluentMultiSplitter>(parameters =>
+        {
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Collapsed, true);
+                pane.AddChildContent("Pane B");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane C");
+            });
+        });
+
+        // Action
+        var bar = cut.Find($".fluent-multi-splitter-bar"); // First bar (between A and B)
+        bar.MouseDown(new MouseEventArgs { ClientX = 100, ClientY = 200 });
+
+        // Assert
+        // The next resizable should be Pane C because Pane B is collapsed
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.MultiSplitter.StartResize");
+        var paneCId = cut.FindComponents<FluentMultiSplitterPane>()[2].Instance.Id;
+
+        Assert.Equal(paneCId, invocation.Arguments[3]);
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Resize_Mousedown_Vertical()
+    {
+        // Arrange
+        var cut = Render<FluentMultiSplitter>(parameters =>
+        {
+            parameters.Add(p => p.Orientation, Orientation.Vertical);
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Action
+        var bar = cut.Find($".fluent-multi-splitter-bar");
+        bar.MouseDown(new MouseEventArgs { ClientX = 100, ClientY = 200 });
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.MultiSplitter.StartResize");
+        Assert.Equal("vertical", invocation.Arguments[4]);
+        Assert.Equal(200.0, invocation.Arguments[5]); // ClientY used for Vertical
+    }
+
     private (bool EventCalled, string[] Markups, IRenderedComponent<ContainerFragment> Cut) RenderExpandCollapse(string firstClickOn, string? secondClickOn = null, bool firstCancel = false, bool secondCancel = false)
     {
         var eventCalled = 0;
