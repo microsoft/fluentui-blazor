@@ -12,15 +12,6 @@ fluent-field label[disabled] {
   color: var(--colorNeutralForegroundDisabled);
 }
 
-/*
-
-fluent-field[slot="message"] ::slotted([slot="message"]) {
-  display: flex;
-  align-items: flex-start;
+fluent-field [slot="message"] {
+  display: block;
 }
-
-::slotted([slot="message"]) {
-  display: flex;
-  align-items: flex-start;
-}
-*/

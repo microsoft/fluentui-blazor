@@ -42,32 +42,40 @@ else
 			}
 		}
 
-
-
-		@foreach (var validationMessage in ValidationMessages)
+		@if (ValidationMessages.Where(x => !string.Equals(x, Parameters.Message, StringComparison.Ordinal)).Any() ||
+			HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
 		{
-			if (!string.Equals(validationMessage, Parameters.Message, StringComparison.Ordinal))
-			{
-				<FluentText slot="@FluentSlot.FieldMessage" size="@TextSize.Size200" Color="@Color.Error" Style="display: flex; align-items: center;">
-					@CreateIcon(FluentStatus.ErrorIcon)
-					@validationMessage
-				</FluentText>
-			}
+			<div slot="message">
+				@foreach (var validationMessage in ValidationMessages)
+				{
+					if (!string.Equals(validationMessage, Parameters.Message, StringComparison.Ordinal))
+					{
+
+						<FluentText size="@TextSize.Size200" Color="@Color.Error" Style="display: flex; align-items: center;">
+							@CreateIcon(FluentStatus.ErrorIcon)
+							@validationMessage
+						</FluentText>
+					}
+				}
+
+				@if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
+				{
+					@if (Parameters.MessageTemplate is not null)
+					{
+						@Parameters.MessageTemplate
+					}
+					else
+					{
+
+						<FluentText Color="@(Parameters.MessageState is null ? Color.Error : Color.Info)" Size="@TextSize.Size200" Style="display: flex; align-items: center;">
+							@CreateIcon(Parameters.MessageIcon)
+							@Parameters.Message
+						</FluentText>
+					}
+				}
+			</div>
 		}
 
-		@if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
-		{
-			@if (Parameters.MessageTemplate is not null)
-			{
-				@Parameters.MessageTemplate
-			}
-			else
-			{
-				<FluentText slot="@FluentSlot.FieldMessage" Color="@(Parameters.MessageState is null ? Color.Error : Color.Info)" Size="@TextSize.Size200" Style="display: flex; align-items: center;">
-					@CreateIcon(Parameters.MessageIcon)
-					@Parameters.Message
-				</FluentText>
-			}
-		}
+
 	</fluent-field>
 }

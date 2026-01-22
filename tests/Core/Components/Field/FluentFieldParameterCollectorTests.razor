@@ -48,9 +48,10 @@
         yield return new object?[] { "MessageIcon", null, FluentStatus.SuccessIcon, MessageState.Success };
         yield return new object?[] { "MessageIcon", null, FluentStatus.WarningIcon, MessageState.Warning };
         yield return new object?[] { "MessageIcon", null, FluentStatus.ErrorIcon, MessageState.Error };
-        yield return new object?[] { "MessageTemplate", null, FluentFieldParameterCollector.StateToMessageTemplate(MessageState.Success, "Valid data"), MessageState.Success };
-        yield return new object?[] { "MessageTemplate", null, FluentFieldParameterCollector.StateToMessageTemplate(MessageState.Warning, "Please, check this value"), MessageState.Warning };
-        yield return new object?[] { "MessageTemplate", null, FluentFieldParameterCollector.StateToMessageTemplate(MessageState.Error, "An error occurred"), MessageState.Error };
+		//The collector doesn't create a defaukt template based on the state anymore
+        //yield return new object?[] { "MessageTemplate", null, FluentFieldParameterCollector.StateToMessageTemplate(MessageState.Success, "Valid data"), MessageState.Success };
+        //yield return new object?[] { "MessageTemplate", null, FluentFieldParameterCollector.StateToMessageTemplate(MessageState.Warning, "Please, check this value"), MessageState.Warning };
+        //yield return new object?[] { "MessageTemplate", null, FluentFieldParameterCollector.StateToMessageTemplate(MessageState.Error, "An error occurred"), MessageState.Error };
     }
 
     [Theory]

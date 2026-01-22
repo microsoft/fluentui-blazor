@@ -23,6 +23,14 @@ public class Starship
     public string? Identifier { get; set; }
 
     /// <summary>
+    /// The unique identifier for the starship.
+    /// </summary>
+    [Required]
+    [MinLength(8, ErrorMessage = "Password is too short")]
+    [RegularExpression(@"[A-Z][a-z]{\d}+", ErrorMessage = "Password must contain at least one uppercase letter, one lowercase letter and one digit")]
+    public string? Password { get; set; }
+
+    /// <summary>
     /// The description of the starship.
     /// </summary>
     [Required(ErrorMessage = "Description is required")]

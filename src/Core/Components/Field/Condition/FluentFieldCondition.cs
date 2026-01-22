@@ -81,7 +81,7 @@ public class FluentFieldCondition
                     builder.OpenComponent<FluentText>(0);
                     builder.AddComponentParameter(1, "As", TextTag.Span);
                     builder.AddComponentParameter(2, "Color", item.State == MessageState.Error ? Color.Error : Color.Info);
-                    builder.AddAttribute(4, "slot", "message");
+                    //builder.AddAttribute(4, "slot", "message");
                     builder.AddAttribute(5, "style", "display: flex; align-items: center;");
                     builder.AddAttribute(6, "ChildContent", (RenderFragment)(contentBuilder =>
                     {
