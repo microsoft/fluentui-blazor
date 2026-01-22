@@ -34,6 +34,16 @@ public record Section
     public const string ARGUMENT_EXTRA_FILES = "files";
 
     /// <summary>
+    /// Key for the MCP type argument (tools, resources, prompts).
+    /// </summary>
+    public const string ARGUMENT_MCP_TYPE = "type";
+
+    /// <summary>
+    /// Key for the MCP filter argument (filter by class name).
+    /// </summary>
+    public const string ARGUMENT_MCP_FILTER = "filter";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Section"/> class.
     /// </summary>
     /// <param name="docViewerService"></param>
@@ -55,7 +65,7 @@ public record Section
     /// <summary>
     /// Gets True if the contains SourceCode="false" in the arguments.
     /// </summary>
-    public bool NoCode => Arguments.TryGetValue(ARGUMENT_SOURCECODE, out var sourceCodeValue) && sourceCodeValue.Equals("false", StringComparison.CurrentCultureIgnoreCase);
+    public bool NoCode => Arguments.TryGetValue(ARGUMENT_SOURCECODE, out var sourceCodeValue) && sourceCodeValue.Equals("false", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
     /// Gets the files to display in extra tabs in the Component.
@@ -93,7 +103,7 @@ public record Section
     public Task<Section> ReadAsync(string content)
     {
         // Code section
-        if (content.StartsWith("<pre><code", StringComparison.InvariantCultureIgnoreCase))
+        if (content.StartsWith("<pre><code", StringComparison.OrdinalIgnoreCase))
         {
             var regex = new Regex(@"language-(\w+)"); // Extract the Language name
             var match = regex.Match(content);
@@ -108,17 +118,27 @@ public record Section
             };
         }
 
-        // API or Component section
+        // API, MCP, McpSummary or Component section
         else if (content.StartsWith("{{") && content.EndsWith("}}"))
         {
             var component = ParseComponent(content);
 
             // API
-            if (string.Compare(component.Name, "API", StringComparison.InvariantCultureIgnoreCase) == 0)
+            if (component.Name.Equals("API", StringComparison.OrdinalIgnoreCase))
             {
-                Arguments = component.Arguments;
-                Value = string.Join(';', component.Arguments.Select(i => $"{i.Key}={i.Value}"));
-                Type = SectionType.Api;
+                SetSection(component.Arguments, SectionType.Api);
+            }
+
+            // MCP (detailed view)
+            else if (component.Name.Equals("MCP", StringComparison.OrdinalIgnoreCase))
+            {
+                SetSection(component.Arguments, SectionType.Mcp);
+            }
+
+            // McpSummary (lightweight view)
+            else if (component.Name.Equals("McpSummary", StringComparison.OrdinalIgnoreCase))
+            {
+                SetSection(component.Arguments, SectionType.McpSummary);
             }
 
             // Component
@@ -149,6 +169,16 @@ public record Section
     public string? GetArgumentValue(string key)
     {
         return Arguments.TryGetValue(key.ToLower(), out var value) ? value : null;
+    }
+
+    /// <summary>
+    /// Sets the section as an MCP-like section (API, MCP, or McpSummary).
+    /// </summary>
+    private void SetSection(Dictionary<string, string> arguments, SectionType sectionType)
+    {
+        Arguments = arguments;
+        Value = string.Join(';', arguments.Select(i => $"{i.Key}={i.Value}"));
+        Type = sectionType;
     }
 
     /// <summary />

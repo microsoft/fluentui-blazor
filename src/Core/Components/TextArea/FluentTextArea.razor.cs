@@ -35,6 +35,11 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
         };
     }
 
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
     /// <summary>
     /// Gets the CSS class to apply to the internal web-component.
     /// </summary>
@@ -157,6 +162,9 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "value");
+
+            // Initialize the 'immediate' custom event for the immediate mode
+            await InitializeImmediateAsync();
 
             // Initialize the change after key press event
             await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);

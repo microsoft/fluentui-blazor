@@ -27,9 +27,17 @@ if (Test-Path "./src/Core/obj/") {
 Write-Host "👉 Building Core project..." -ForegroundColor Yellow
 dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish"  -f net9.0
 
-# Generate documentation file
+# Generate API documentation file
 Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
 dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "./src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.xml" --dll "./src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.dll" --output "./examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json
+
+# Build the MCP Server project
+Write-Host "👉 Building MCP Server project..." -ForegroundColor Yellow
+dotnet build "./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" -c Release -o "./src/Tools/McpServer/bin/Publish" -f net9.0
+
+# Generate MCP documentation file
+Write-Host "👉 Generating MCP documentation..." -ForegroundColor Yellow
+dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "./src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.xml" --dll "./src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.dll" --output "./examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json" --format json --mode mcp
 
 # Publish the demo
 Write-Host "👉 Publishing demo..." -ForegroundColor Yellow

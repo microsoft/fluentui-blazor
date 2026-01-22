@@ -1,0 +1,64 @@
+﻿@using FluentUI.Demo.DocViewer.Models.Mcp
+
+@if (Tools.Count == 0)
+{
+    <div class="component-not-found">&#9888; No MCP tools found@(string.IsNullOrEmpty(Filter) ? "" : $" matching '{Filter}'").</div>
+}
+else
+{
+    var groupedTools = Tools.GroupBy(t => t.ClassName).OrderBy(g => g.Key);
+
+    foreach (var group in groupedTools)
+    {
+        <h4>🔧 @group.Key</h4>
+
+        <div class="mcp-detail-container">
+            <div class="mcp-detail-header">
+                <div class="mcp-detail-col">Tool</div>
+                <div class="mcp-detail-col">Description</div>
+                <div class="mcp-detail-col">Parameters</div>
+            </div>
+            <div class="mcp-detail-body">
+                @foreach (var tool in group.OrderBy(t => t.Name))
+                {
+                    <div class="mcp-detail-row">
+                        <div class="mcp-detail-col">
+                            <code>@tool.Name</code>
+                            @if (!string.IsNullOrEmpty(tool.ReturnType))
+                            {
+                                <br /><small>→ @tool.ReturnType</small>
+                            }
+                        </div>
+                        <div class="mcp-detail-col">@((MarkupString)(tool.Description ?? tool.Summary ?? "-"))</div>
+                        <div class="mcp-detail-col">
+                            @if (tool.Parameters?.Count > 0)
+                            {
+                                <ul class="mcp-params">
+                                    @foreach (var param in tool.Parameters)
+                                    {
+                                        <li>
+                                            <code>@param.Name</code>
+                                            <span class="mcp-param-type">(@param.Type)</span>
+                                            @if (param.IsRequired)
+                                            {
+                                                <span class="mcp-required">*</span>
+                                            }
+                                            @if (!string.IsNullOrEmpty(param.Description))
+                                            {
+                                                <br /><small>@param.Description</small>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
