@@ -197,6 +197,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public bool NoTabbing { get; set; }
 
     /// <summary>
+    /// Event callback for when a hierarchical row is expanded or collapsed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TGridItem> OnToggle { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the grid should automatically generate a header row and its type.
     /// See <see cref="GenerateHeaderOption"/>
     /// </summary>
@@ -1192,6 +1198,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (_gridReference is not null && Module is not null)
         {
             await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
+        }
+    }
+
+    private async Task ToggleExpandedAsync(TGridItem item)
+    {
+        if (item is IHierarchicalGridItem hierarchicalItem)
+        {
+            hierarchicalItem.IsCollapsed = !hierarchicalItem.IsCollapsed;
+            if (OnToggle.HasDelegate)
+            {
+                await OnToggle.InvokeAsync(item);
+            }
+            await RefreshDataAsync();
         }
     }
 }
