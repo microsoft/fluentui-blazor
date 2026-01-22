@@ -65,6 +65,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     FluentUICustomEvents.Tabs(blazor);
     FluentUICustomEvents.RadioGroup(blazor);
     FluentUICustomEvents.TreeView(blazor);
+    FluentUICustomEvents.TextInput(blazor);
     // [^^^ Add your other custom events before this line ^^^]
 
     // Finishing

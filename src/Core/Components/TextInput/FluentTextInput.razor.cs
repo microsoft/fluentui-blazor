@@ -206,6 +206,9 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
             // Initialize the change after key press event
             await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
 
+            // Initialize the 'immediate' custom event for the immediate mode
+            await InitializeImmediateAsync();
+
             // Set the mask pattern if defined
             if (!string.IsNullOrEmpty(MaskPattern))
             {
