@@ -75,13 +75,7 @@ public partial class FluentErrorBoundary : FluentComponentBase
     /// </summary>
     public void Recover()
     {
-        try
-        {
-            ErrorBoundary?.Recover();
-        }
-        catch (Exception)
-        {
-        }
+        ErrorBoundary?.Recover();
     }
 
     /// <summary />
