@@ -151,7 +151,7 @@
     [Theory]
     [InlineData(false, 0, "init", "init")]              // No Immediate
     [InlineData(true, 0, "new value", "new value")]     // With Immediate and Delay = 0 ms
-    public async Task FluentInputText_OnInput(bool immediate, int immediateDelay, string expectedImmediateValue, string expectedDelayedValue)
+    public async Task FluentInputText_OnImmediate(bool immediate, int immediateDelay, string expectedImmediateValue, string expectedDelayedValue)
     {
         // Arrange
         using var context = new IdentifierContext(i => "myId");
