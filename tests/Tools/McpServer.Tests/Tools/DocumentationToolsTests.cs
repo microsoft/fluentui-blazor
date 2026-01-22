@@ -43,7 +43,7 @@ public class DocumentationToolsTests
         // Assert
         // Either contains documentation or indicates no documentation found
         var hasContent = result.Contains('#', StringComparison.Ordinal) ||
-                         result.Contains("No GetStarted documentation found", StringComparison.OrdinalIgnoreCase);
+                         result.Contains("No documentation found", StringComparison.OrdinalIgnoreCase);
         Assert.True(hasContent);
     }
 

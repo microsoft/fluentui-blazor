@@ -32,18 +32,18 @@ public class DocumentationTools
     /// </summary>
     /// <returns>A formatted string listing all available documentation topics.</returns>
     [McpServerTool]
-    [Description("Lists all available GetStarted documentation topics for Fluent UI Blazor. Use this to discover installation guides, migration information, localization, and styling documentation.")]
+    [Description("Lists all available documentation topics for Fluent UI Blazor. Use this to discover installation guides, migration information, localization, and styling documentation.")]
     public string ListDocumentation()
     {
         var docs = _documentationService.GetAllDocumentation();
 
         if (docs.Count == 0)
         {
-            return "No GetStarted documentation found.";
+            return "No documentation found.";
         }
 
         var sb = new StringBuilder();
-        sb.AppendLine(CultureInfo.InvariantCulture, $"# Fluent UI Blazor - GetStarted Documentation ({docs.Count} topics)");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"# Fluent UI Blazor - Documentation ({docs.Count} topics)");
         sb.AppendLine();
 
         foreach (var doc in docs)
@@ -59,12 +59,12 @@ public class DocumentationTools
     }
 
     /// <summary>
-    /// Gets detailed documentation for a specific GetStarted topic.
+    /// Gets detailed documentation for a specific topic.
     /// </summary>
     /// <param name="topicName">The name or route of the topic (e.g., 'Installation', 'Localization', 'Styles', 'MigrationV5').</param>
     /// <returns>The full documentation content for the specified topic.</returns>
     [McpServerTool]
-    [Description("Get documentation for a specific GetStarted topic. Use this to get full installation guides, migration instructions, localization setup, or styling documentation.")]
+    [Description("Get documentation for a specific topic. Use this to get full installation guides, migration instructions, localization setup, or styling documentation.")]
     public string GetDocumentationTopic(
         [Description("The name or route of the topic (e.g., 'Installation', 'Localization', 'Styles', 'Migrating to v5', 'Default Values').")]
         string topicName)
@@ -87,7 +87,7 @@ public class DocumentationTools
     }
 
     /// <summary>
-    /// Searches for GetStarted documentation by keyword.
+    /// Searches for documentation by keyword.
     /// </summary>
     /// <param name="searchTerm">The keyword to search for in documentation titles and content.</param>
     /// <returns>A formatted string listing matching documentation topics.</returns>

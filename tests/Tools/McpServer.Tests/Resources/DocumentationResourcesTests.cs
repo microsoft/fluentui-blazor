@@ -61,7 +61,7 @@ public class DocumentationResourcesTests
         var result = _resources.GetAllTopics();
 
         // Assert
-        Assert.Contains("fluentui://documentations/", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("fluentui://documentation/", result, StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion

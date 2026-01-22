@@ -28,11 +28,11 @@ public class DocumentationResources
     }
 
     /// <summary>
-    /// Gets the complete list of all  documentation topics.
+    /// Gets the complete list of all documentation topics.
     /// </summary>
     [McpServerResource(
-        UriTemplate = "fluentui://documentations",
-        Name = "documentations",
+        UriTemplate = "fluentui://documentation",
+        Name = "documentation",
         Title = "Fluent UI Blazor - Documentation",
         MimeType = "text/markdown")]
     [Description("Complete list of all documentation topics including installation, configuration, migration, and styling guides.")]
@@ -45,13 +45,13 @@ public class DocumentationResources
         sb.AppendLine();
         sb.AppendLine(CultureInfo.InvariantCulture, $"Total: {docs.Count} documentation topics");
         sb.AppendLine();
-        sb.AppendLine("Available topics (use `fluentui://documentations/{topic}` to access):");
+        sb.AppendLine("Available topics (use `fluentui://documentation/{topic}` to access):");
         sb.AppendLine();
 
         foreach (var doc in docs)
         {
             sb.AppendLine(CultureInfo.InvariantCulture, $"## {doc.Title}");
-            sb.AppendLine(CultureInfo.InvariantCulture, $"**URI:** `fluentui://documentations/{doc.FileName.ToLowerInvariant()}`");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"**URI:** `fluentui://documentation/{doc.FileName.ToLowerInvariant()}`");
 
             if (!string.IsNullOrEmpty(doc.Route))
             {
@@ -71,8 +71,8 @@ public class DocumentationResources
     /// </summary>
     /// <param name="topic">The topic name (e.g., 'installation', 'localization', 'styles', 'migrationversion5', 'defaultvalues').</param>
     [McpServerResource(
-        UriTemplate = "fluentui://documentations/{topic}",
-        Name = "documentations-topic",
+        UriTemplate = "fluentui://documentation/{topic}",
+        Name = "documentation-topic",
         Title = "Topic Documentation",
         MimeType = "text/markdown")]
     [Description("Detailed documentation for a specific documentation topic. Use topic names like 'installation', 'localization', 'styles', 'migrationversion5', 'defaultvalues'.")]
@@ -87,7 +87,7 @@ public class DocumentationResources
 
             return $"# Topic Not Found\n\nTopic '{topic}' was not found.\n\n" +
                    $"Available topics include: {topicList}\n\n" +
-                   "Use `fluentui://documentations` to see all available topics.";
+                   "Use `fluentui://documentation` to see all available topics.";
         }
 
         return doc.Content;
@@ -97,7 +97,7 @@ public class DocumentationResources
     /// Gets the complete migration guide documentation.
     /// </summary>
     [McpServerResource(
-        UriTemplate = "fluentui://documentations/migration",
+        UriTemplate = "fluentui://documentation/migration",
         Name = "migration",
         Title = "Fluent UI Blazor - Migration Guide to v5",
         MimeType = "text/markdown")]

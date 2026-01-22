@@ -200,9 +200,9 @@ Resources provide static documentation that users can attach to conversations.
 | `fluentui://component/{name}` | Detailed documentation for a specific component |
 | `fluentui://category/{name}` | List of components in a specific category |
 | `fluentui://enum/{name}` | Detailed information about a specific enum type |
-| `fluentui://documentations` | Complete list of all documentation topics |
-| `fluentui://documentations/{topic}` | Documentation for a specific documentations topic (e.g., installation, localization, styles) |
-| `fluentui://documentations/migration` | Complete migration guide for upgrading to v5 |
+| `fluentui://documentation` | Complete list of all documentation topics |
+| `fluentui://documentation/{topic}` | Documentation for a specific documentation topic (e.g., installation, localization, styles) |
+| `fluentui://documentation/migration` | Complete migration guide for upgrading to v5 |
 
 ## Usage Examples
 

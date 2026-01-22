@@ -11,12 +11,12 @@ using Microsoft.FluentUI.AspNetCore.McpServer.Models;
 namespace Microsoft.FluentUI.AspNetCore.McpServer.Services;
 
 /// <summary>
-/// Service for providing GetStarted documentation content.
+/// Service for providing documentation content.
 /// Reads markdown files embedded in the assembly.
 /// </summary>
 public partial class DocumentationService
 {
-    private readonly Dictionary<string, GetStartedInfo> _documentationCache = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, GeneralInfo> _documentationCache = new(StringComparer.OrdinalIgnoreCase);
     private readonly List<string> _excludedFolders;
 
     /// <summary>
@@ -30,10 +30,10 @@ public partial class DocumentationService
     }
 
     /// <summary>
-    /// Gets all available GetStarted documentation pages.
+    /// Gets all available documentation pages.
     /// </summary>
     /// <returns>A list of all documentation pages ordered by their order value.</returns>
-    public IReadOnlyList<GetStartedInfo> GetAllDocumentation()
+    public IReadOnlyList<GeneralInfo> GetAllDocumentation()
     {
         return [.. _documentationCache.Values
             .Where(d => !d.Hidden)
@@ -46,7 +46,7 @@ public partial class DocumentationService
     /// </summary>
     /// <param name="identifier">The title or route of the documentation page.</param>
     /// <returns>The documentation page, or null if not found.</returns>
-    public GetStartedInfo? GetDocumentation(string identifier)
+    public GeneralInfo? GetDocumentation(string identifier)
     {
         // Try to find by title first
         if (_documentationCache.TryGetValue(identifier, out var doc))
@@ -66,7 +66,7 @@ public partial class DocumentationService
     /// </summary>
     /// <param name="searchTerm">The term to search for in titles and content.</param>
     /// <returns>A list of matching documentation pages.</returns>
-    public IReadOnlyList<GetStartedInfo> SearchDocumentation(string searchTerm)
+    public IReadOnlyList<GeneralInfo> SearchDocumentation(string searchTerm)
     {
         if (string.IsNullOrWhiteSpace(searchTerm))
         {
@@ -87,7 +87,7 @@ public partial class DocumentationService
     /// Gets all migration-related documentation pages.
     /// </summary>
     /// <returns>A list of migration documentation pages.</returns>
-    public IReadOnlyList<GetStartedInfo> GetMigrationDocumentation()
+    public IReadOnlyList<GeneralInfo> GetMigrationDocumentation()
     {
         return [.. _documentationCache.Values
             .Where(d => d.FileName.StartsWith("Migration", StringComparison.OrdinalIgnoreCase) ||
@@ -161,9 +161,9 @@ public partial class DocumentationService
         });
     }
 
-    private static GetStartedInfo? ParseMarkdownFile(string content, string resourceName)
+    private static GeneralInfo? ParseMarkdownFile(string content, string resourceName)
     {
-        var info = new GetStartedInfo
+        var info = new GeneralInfo
         {
             FileName = ExtractFileName(resourceName),
             Content = content,
