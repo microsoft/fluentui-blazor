@@ -136,6 +136,19 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     });
   }
 
+  export function TextInput(blazor: Blazor) {
+    blazor.registerCustomEventType('immediate', {
+      browserEventName: 'immediate',
+      createEventArgs: (event: any)=> {
+       return {
+          id: event.target.id,
+          type: event.type,
+          value: event.detail?.value ?? event.value,
+        };
+      }
+    });
+  }
+
   // [^^^ Add your other custom events before this line ^^^]
 
 }

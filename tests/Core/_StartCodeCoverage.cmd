@@ -2,8 +2,8 @@ echo off
 
 REM 0. Include the NuGet Package "coverlet.msbuild" in the UnitTests project.
 REM 1. Install tools:
-REM     $:\> dotnet tool install --global coverlet.console --version 3.2.0
-REM     $:\> dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.3.7
+REM     $:\> dotnet tool install --global coverlet.console
+REM     $:\> dotnet tool install --global dotnet-reportgenerator-globaltool
 REM    
 REM     Use this command to list existing installed tools:
 REM     $:\> dotnet tool list --global

@@ -6,6 +6,7 @@ import { Microsoft as FluentTabsFile } from './Components/Tabs/FluentTabs';
 import { Microsoft as FluentMultiSplitterFile } from './Components/Splitter/FluentMultiSplitter';
 import { Microsoft as FluentLayoutFile } from './Components/Layout/FluentLayout';
 import { Microsoft as FluentTextMaskedFile } from './Components/TextInput/TextMasked';
+import { Microsoft as FluentTextInput } from './Components/TextInput/TextInput';
 import { Microsoft as FluentOverlayFile } from './Components/Overlay/FluentOverlay';
 
 export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
@@ -33,6 +34,7 @@ export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
     (window as any).Microsoft.FluentUI.Blazor.Components.MultiSplitter = FluentMultiSplitterFile.FluentUI.Blazor.Components.MultiSplitter;
     (window as any).Microsoft.FluentUI.Blazor.Components.Layout = FluentLayoutFile.FluentUI.Blazor.Components.Layout;
     (window as any).Microsoft.FluentUI.Blazor.Components.TextMasked = FluentTextMaskedFile.FluentUI.Blazor.Components.TextMasked;
+    (window as any).Microsoft.FluentUI.Blazor.Components.TextInput = FluentTextInput.FluentUI.Blazor.Components.TextInput;
     (window as any).Microsoft.FluentUI.Blazor.Components.Overlay = FluentOverlayFile.FluentUI.Blazor.Components.Overlay;
 
     // [^^^ Add your other exported methods before this line ^^^]
