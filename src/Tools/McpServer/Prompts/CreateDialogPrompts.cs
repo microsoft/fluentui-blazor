@@ -92,7 +92,11 @@ public class CreateDialogPrompts
         sb.AppendLine("    {");
         sb.AppendLine("        var result = await DialogService.ShowDialogAsync<YourDialogComponent>(options =>");
         sb.AppendLine("        {");
-        sb.AppendLine(CultureInfo.InvariantCulture, $"            options.Size = DialogSize.{char.ToUpperInvariant(size[0]) + size[1..].ToLowerInvariant()};");
+
+        var sizeValue = string.IsNullOrEmpty(size)
+            ? "Medium"
+            : char.ToUpperInvariant(size[0]) + size[1..].ToLowerInvariant();
+        sb.AppendLine(CultureInfo.InvariantCulture, $"            options.Size = DialogSize.{sizeValue};");
         sb.AppendLine("            options.Modal = true;");
         sb.AppendLine("            ");
         sb.AppendLine("            // Optional: Pass parameters");

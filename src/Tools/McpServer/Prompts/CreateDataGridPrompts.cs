@@ -33,7 +33,6 @@ public class CreateDataGridPrompts
         string displayMode = "grid")
     {
         var featureList = features.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-            .Select(f => f.ToUpperInvariant())
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
         var sb = new StringBuilder();

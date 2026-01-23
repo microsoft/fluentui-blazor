@@ -84,15 +84,15 @@ public class ExplainComponentPrompts
         sb.AppendLine(CultureInfo.InvariantCulture, $"## Provide a **{detailLevel}** level explanation covering:");
         sb.AppendLine();
 
-        switch (detailLevel)
+        switch (detailLevel.ToLowerInvariant())
         {
-            case var _ when string.Equals(detailLevel, "BASIC", StringComparison.OrdinalIgnoreCase):
+            case "basic":
                 sb.AppendLine("1. What the component is and its purpose");
                 sb.AppendLine("2. When to use this component");
                 sb.AppendLine("3. Essential parameters");
                 break;
 
-            case var _ when string.Equals(detailLevel, "ADVANCED", StringComparison.OrdinalIgnoreCase):
+            case "advanced":
                 sb.AppendLine("1. Detailed purpose and design philosophy");
                 sb.AppendLine("2. Complete parameter reference");
                 sb.AppendLine("3. All events and callbacks");
