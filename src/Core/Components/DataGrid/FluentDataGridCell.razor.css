@@ -107,3 +107,40 @@
 .fluent-data-grid .col-justify-end .col-title {
   text-align: end;
 }
+
+.fluent-data-grid .hierarchical-toggle-container {
+  height: 24px;
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+  column-gap: var(--spacingHorizontalXS);
+  position: relative;
+  left: calc(var(--spacingHorizontalXS) * -1.5);
+}
+
+.fluent-data-grid .hierarchical-expander {
+  display: inline-block;
+  position: relative;
+  top: -2px;
+  width: 22px;
+}
+
+  .fluent-data-grid .hierarchical-expander svg {
+    transition: transform 0.1s linear;
+    pointer-events: none;
+  }
+
+.fluent-data-grid .hierarchical-collapsed svg {
+  transform: rotate(0deg);
+}
+
+.fluent-data-grid .hierarchical-expanded svg {
+  transform: rotate(90deg);
+}
+
+.fluent-data-grid .hierarchical-expand-button {
+  width: 20px;
+  height: 24px;
+  min-width: 20px;
+  vertical-align: middle;
+}

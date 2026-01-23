@@ -394,7 +394,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
             {
                 DataGridSelectMode.Single => IconSelectedSingle,
                 DataGridSelectMode.SingleSticky => IconSelectedSingle,
-                _ => IconSelectedMultiple
+                _ => IconSelectedMultiple,
             };
         }
 
@@ -402,7 +402,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
         {
             DataGridSelectMode.Single => IconUnselectedSingle,
             DataGridSelectMode.SingleSticky => IconUnselectedSingle,
-            _ => IconUnselectedMultiple
+            _ => IconUnselectedMultiple,
         };
     }
 
@@ -621,7 +621,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     public void Dispose()
     {
         _itemsChanged.Dispose();
-
+        GC.SuppressFinalize(this);
     }
 }
 
