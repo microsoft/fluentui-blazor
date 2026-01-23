@@ -79,19 +79,9 @@ public class ConfigureLocalizationPrompts
         sb.AppendLine();
         sb.AppendLine("In `Program.cs`:");
         sb.AppendLine();
-        sb.AppendLine("```csharp");
-        sb.AppendLine("// Add localization services");
-        sb.AppendLine("builder.Services.AddLocalization();");
-        sb.AppendLine();
-        sb.AppendLine("// Configure supported cultures");
-        sb.AppendLine("app.UseRequestLocalization(new RequestLocalizationOptions()");
-        sb.Append("    .AddSupportedCultures(new[] { ");
-        sb.Append(string.Join(", ", languageList.Select(l => $"\"{l}\"")));
-        sb.AppendLine(" })");
-        sb.Append("    .AddSupportedUICultures(new[] { ");
-        sb.Append(string.Join(", ", languageList.Select(l => $"\"{l}\"")));
-        sb.AppendLine(" }));");
-        sb.AppendLine("```");
+        sb.AppendLine("- Add `builder.Services.AddLocalization();`");
+        sb.AppendLine("- Configure supported cultures using `UseRequestLocalization`");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"- Supported languages: {string.Join(", ", languageList)}");
         sb.AppendLine();
     }
 
@@ -125,22 +115,11 @@ public class ConfigureLocalizationPrompts
     {
         sb.AppendLine("### Step 3: Create Custom Localizer");
         sb.AppendLine();
-        sb.AppendLine("```csharp");
-        sb.AppendLine("public class CustomFluentLocalizer : IFluentLocalizer");
-        sb.AppendLine("{");
-        sb.AppendLine("    public string this[string key, params object[] arguments]");
-        sb.AppendLine("    {");
-        sb.AppendLine("        get");
-        sb.AppendLine("        {");
-        sb.AppendLine("            var localizedString = Resources.FluentLocalizer.ResourceManager");
-        sb.AppendLine("                .GetString(key, CultureInfo.CurrentCulture);");
-        sb.AppendLine("            return localizedString == null");
-        sb.AppendLine("                ? IFluentLocalizer.GetDefault(key, arguments)");
-        sb.AppendLine("                : string.Format(CultureInfo.CurrentCulture, localizedString, arguments);");
-        sb.AppendLine("        }");
-        sb.AppendLine("    }");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("Create a class implementing `IFluentLocalizer` that:");
+        sb.AppendLine();
+        sb.AppendLine("- Retrieves localized strings from resource files using `ResourceManager`");
+        sb.AppendLine("- Falls back to default values using `IFluentLocalizer.GetDefault()` when translation is not found");
+        sb.AppendLine("- Formats strings with arguments using `string.Format()`");
         sb.AppendLine();
     }
 
@@ -148,25 +127,11 @@ public class ConfigureLocalizationPrompts
     {
         sb.AppendLine("### Step 2: Create Custom Localizer (Inline Translations)");
         sb.AppendLine();
-        sb.AppendLine("```csharp");
-        sb.AppendLine("public class CustomFluentLocalizer : IFluentLocalizer");
-        sb.AppendLine("{");
-        sb.AppendLine("    private static readonly Dictionary<string, Dictionary<string, string>> Translations = new()");
-        sb.AppendLine("    {");
-        sb.AppendLine("        [\"fr\"] = new() { [\"MessageBox_ButtonCancel\"] = \"Annuler\" }");
-        sb.AppendLine("    };");
+        sb.AppendLine("Create a class implementing `IFluentLocalizer` that:");
         sb.AppendLine();
-        sb.AppendLine("    public string this[string key, params object[] arguments] => GetTranslation(key, arguments);");
-        sb.AppendLine();
-        sb.AppendLine("    private static string GetTranslation(string key, object[] arguments)");
-        sb.AppendLine("    {");
-        sb.AppendLine("        var culture = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;");
-        sb.AppendLine("        if (Translations.TryGetValue(culture, out var dict) && dict.TryGetValue(key, out var val))");
-        sb.AppendLine("            return string.Format(CultureInfo.CurrentCulture, val, arguments);");
-        sb.AppendLine("        return IFluentLocalizer.GetDefault(key, arguments);");
-        sb.AppendLine("    }");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("- Stores translations in a dictionary organized by culture");
+        sb.AppendLine("- Looks up translations based on `CultureInfo.CurrentCulture`");
+        sb.AppendLine("- Falls back to default values using `IFluentLocalizer.GetDefault()`");
         sb.AppendLine();
     }
 
@@ -174,12 +139,7 @@ public class ConfigureLocalizationPrompts
     {
         sb.AppendLine("### Register the Localizer");
         sb.AppendLine();
-        sb.AppendLine("```csharp");
-        sb.AppendLine("builder.Services.AddFluentUIComponents(config =>");
-        sb.AppendLine("{");
-        sb.AppendLine("    config.Localizer = new CustomFluentLocalizer();");
-        sb.AppendLine("});");
-        sb.AppendLine("```");
+        sb.AppendLine("Register your custom localizer in `Program.cs` by setting `config.Localizer` in `AddFluentUIComponents()`.");
         sb.AppendLine();
     }
 
@@ -191,6 +151,6 @@ public class ConfigureLocalizationPrompts
         sb.AppendLine();
         sb.AppendLine("Find all keys in `Localization/LanguageResource.resx` in the library source.");
         sb.AppendLine();
-        sb.AppendLine("Please generate a complete localization implementation for the specified languages.");
+        sb.AppendLine("**Important:** Use the available MCP tools to retrieve component documentation and code examples for the localization implementation.");
     }
 }

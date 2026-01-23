@@ -65,7 +65,8 @@ public class SetupProjectPromptsTests
         var result = SetupProjectPrompts.SetupProject();
 
         // Assert
-        Assert.Contains("dotnet add package Microsoft.FluentUI.AspNetCore.Components", result.Text, StringComparison.Ordinal);
+        // Verify the prompt mentions NuGet package installation (actual commands are retrieved via MCP tools)
+        Assert.Contains("NuGet", result.Text, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

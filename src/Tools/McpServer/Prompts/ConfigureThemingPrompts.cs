@@ -75,18 +75,9 @@ public class ConfigureThemingPrompts
         sb.AppendLine();
         sb.AppendLine("In `MainLayout.razor`:");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("<FluentProviders Theme=\"@currentTheme\">");
-        sb.AppendLine("    @Body");
-        sb.AppendLine("</FluentProviders>");
-        sb.AppendLine();
-        sb.AppendLine("@code {");
-        sb.AppendLine("    private DesignTheme currentTheme = new()");
-        sb.AppendLine("    {");
-        sb.AppendLine("        Mode = DesignMode.System, // System, Light, or Dark");
-        sb.AppendLine("    };");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("- Wrap your content with `<FluentProviders>` component");
+        sb.AppendLine("- Set the `Theme` parameter to a `DesignTheme` instance");
+        sb.AppendLine("- Configure `Mode` property to `DesignMode.System`, `DesignMode.Light`, or `DesignMode.Dark`");
         sb.AppendLine();
     }
 
@@ -94,15 +85,10 @@ public class ConfigureThemingPrompts
     {
         sb.AppendLine("## Custom Brand Colors");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("private DesignTheme currentTheme = new()");
-        sb.AppendLine("{");
-        sb.AppendLine("    Mode = DesignMode.Light,");
-        sb.AppendLine("    PrimaryColor = \"#0078D4\", // Your brand color");
-        sb.AppendLine("};");
-        sb.AppendLine("```");
+        sb.AppendLine("To customize brand colors:");
         sb.AppendLine();
-        sb.AppendLine("**Key color tokens:** `--colorBrandBackground`, `--colorNeutralBackground1`, etc.");
+        sb.AppendLine("- Set `PrimaryColor` property on `DesignTheme` with your brand color hex value");
+        sb.AppendLine("- Key color tokens include: `--colorBrandBackground`, `--colorNeutralBackground1`, etc.");
         sb.AppendLine();
     }
 
@@ -110,19 +96,11 @@ public class ConfigureThemingPrompts
     {
         sb.AppendLine("## Dark Mode Implementation");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("<FluentSwitch @bind-Value=\"@isDarkMode\" Label=\"Dark Mode\" />");
+        sb.AppendLine("To implement dark mode toggle:");
         sb.AppendLine();
-        sb.AppendLine("@code {");
-        sb.AppendLine("    private bool isDarkMode;");
-        sb.AppendLine("    private DesignTheme Theme => new()");
-        sb.AppendLine("    {");
-        sb.AppendLine("        Mode = isDarkMode ? DesignMode.Dark : DesignMode.Light,");
-        sb.AppendLine("    };");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
-        sb.AppendLine();
-        sb.AppendLine("Use `DesignMode.System` to follow OS preference automatically.");
+        sb.AppendLine("- Use a `FluentSwitch` component to toggle between modes");
+        sb.AppendLine("- Set `Mode` to `DesignMode.Dark` or `DesignMode.Light` based on user preference");
+        sb.AppendLine("- Use `DesignMode.System` to follow OS preference automatically");
         sb.AppendLine();
     }
 
@@ -130,23 +108,12 @@ public class ConfigureThemingPrompts
     {
         sb.AppendLine("## CSS Design Tokens Reference");
         sb.AppendLine();
-        sb.AppendLine("```css");
-        sb.AppendLine("/* Typography */");
-        sb.AppendLine("font-family: var(--fontFamilyBase);");
-        sb.AppendLine("font-size: var(--fontSizeBase300);");
+        sb.AppendLine("Key design token categories:");
         sb.AppendLine();
-        sb.AppendLine("/* Colors */");
-        sb.AppendLine("color: var(--colorNeutralForeground1);");
-        sb.AppendLine("background: var(--colorNeutralBackground1);");
-        sb.AppendLine();
-        sb.AppendLine("/* Spacing */");
-        sb.AppendLine("padding: var(--spacingVerticalM) var(--spacingHorizontalL);");
-        sb.AppendLine("gap: var(--spacingHorizontalM);");
-        sb.AppendLine();
-        sb.AppendLine("/* Borders & Shadows */");
-        sb.AppendLine("border-radius: var(--borderRadiusMedium);");
-        sb.AppendLine("box-shadow: var(--shadow4);");
-        sb.AppendLine("```");
+        sb.AppendLine("- **Typography**: `--fontFamilyBase`, `--fontSizeBase300`");
+        sb.AppendLine("- **Colors**: `--colorNeutralForeground1`, `--colorNeutralBackground1`");
+        sb.AppendLine("- **Spacing**: `--spacingVerticalM`, `--spacingHorizontalL`");
+        sb.AppendLine("- **Borders & Shadows**: `--borderRadiusMedium`, `--shadow4`");
         sb.AppendLine();
     }
 
@@ -159,6 +126,6 @@ public class ConfigureThemingPrompts
         sb.AppendLine("3. **Persist user preference** in localStorage or user settings");
         sb.AppendLine("4. **Consider accessibility** - ensure sufficient color contrast");
         sb.AppendLine();
-        sb.AppendLine("Please generate a complete theming implementation based on the requirements.");
+        sb.AppendLine("**Important:** Use the available MCP tools to retrieve component documentation and code examples for the theming implementation.");
     }
 }

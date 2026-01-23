@@ -75,15 +75,8 @@ public class AccessibilityPrompts
         // Labels
         sb.AppendLine("### 2. Labels and Descriptions");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("@* Always provide labels for form inputs *@");
-        sb.AppendLine("<FluentTextInput Label=\"Email Address\" @bind-Value=\"email\" />");
-        sb.AppendLine();
-        sb.AppendLine("@* For icon-only buttons, use aria-label *@");
-        sb.AppendLine("<FluentButton AriaLabel=\"Delete item\" OnClick=\"Delete\">");
-        sb.AppendLine("    <FluentIcon Value=\"@(new Icons.Regular.Size16.Delete())\" />");
-        sb.AppendLine("</FluentButton>");
-        sb.AppendLine("```");
+        sb.AppendLine("- Always provide labels for form inputs");
+        sb.AppendLine("- For icon-only buttons, use the `AriaLabel` parameter");
         sb.AppendLine();
 
         // Keyboard
@@ -146,5 +139,7 @@ public class AccessibilityPrompts
         sb.AppendLine("3. Screen reader announcements");
         sb.AppendLine("4. Code examples with proper accessibility");
         sb.AppendLine("5. Testing checklist");
+        sb.AppendLine();
+        sb.AppendLine("**Important:** Use the available MCP tools to retrieve component documentation and code examples from the Fluent UI Blazor library.");
     }
 }

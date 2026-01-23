@@ -60,43 +60,15 @@ public class CreateDrawerPrompts
     {
         sb.AppendLine("### Step 1: Create the Drawer Component");
         sb.AppendLine();
-        sb.AppendLine("Create a new Razor component for your drawer that inherits from `FluentDialogInstance`:");
+        sb.AppendLine("Create a new Razor component for your drawer that:");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("@inherits FluentDialogInstance");
-        sb.AppendLine();
-        sb.AppendLine("<FluentDialogBody>");
-        sb.AppendLine("    @* Your drawer content here *@");
-        sb.AppendLine("</FluentDialogBody>");
-        sb.AppendLine();
-        sb.AppendLine("@code {");
-        sb.AppendLine("    // Optional: Add parameters that can be passed to the drawer");
-        sb.AppendLine("    [Parameter]");
-        sb.AppendLine("    public string? SomeParameter { get; set; }");
-        sb.AppendLine();
-        sb.AppendLine("    // Optional: Customize header and footer");
-        sb.AppendLine("    protected override void OnInitializeDialog(DialogOptionsHeader header, DialogOptionsFooter footer)");
-        sb.AppendLine("    {");
-        sb.AppendLine("        header.Title = \"Drawer Title\";");
-        sb.AppendLine("        footer.PrimaryAction.Label = \"Save\";");
-        sb.AppendLine("        footer.SecondaryAction.Label = \"Cancel\";");
-        sb.AppendLine("    }");
-        sb.AppendLine();
-        sb.AppendLine("    // Handle action button clicks");
-        sb.AppendLine("    protected override async Task OnActionClickedAsync(bool primary)");
-        sb.AppendLine("    {");
-        sb.AppendLine("        if (primary)");
-        sb.AppendLine("        {");
-        sb.AppendLine("            // Save logic here");
-        sb.AppendLine("            await DialogInstance.CloseAsync(\"result\");");
-        sb.AppendLine("        }");
-        sb.AppendLine("        else");
-        sb.AppendLine("        {");
-        sb.AppendLine("            await DialogInstance.CancelAsync();");
-        sb.AppendLine("        }");
-        sb.AppendLine("    }");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("- Inherits from `FluentDialogInstance`");
+        sb.AppendLine("- Uses `<FluentDialogBody>` to contain the drawer content");
+        sb.AppendLine("- Optionally adds `[Parameter]` properties for data passed to the drawer");
+        sb.AppendLine("- Overrides `OnInitializeDialog()` to customize header title and footer buttons");
+        sb.AppendLine("- Overrides `OnActionClickedAsync()` to handle save/cancel actions");
+        sb.AppendLine("- Uses `DialogInstance.CloseAsync()` to close with a result");
+        sb.AppendLine("- Uses `DialogInstance.CancelAsync()` to cancel without a result");
         sb.AppendLine();
     }
 
@@ -104,33 +76,14 @@ public class CreateDrawerPrompts
     {
         sb.AppendLine("### Step 2: Show the Drawer from a Parent Component");
         sb.AppendLine();
-        sb.AppendLine("Inject the `IDialogService` and use `ShowDrawerAsync`:");
+        sb.AppendLine("To open the drawer from a parent component:");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("@inject IDialogService DialogService");
-        sb.AppendLine();
-        sb.AppendLine("<FluentButton OnClick=\"@OpenDrawerAsync\">Open Drawer</FluentButton>");
-        sb.AppendLine();
-        sb.AppendLine("@code {");
-        sb.AppendLine("    private async Task OpenDrawerAsync()");
-        sb.AppendLine("    {");
-        sb.AppendLine("        var result = await DialogService.ShowDrawerAsync<YourDrawerComponent>(options =>");
-        sb.AppendLine("        {");
-        sb.AppendLine(CultureInfo.InvariantCulture, $"            options.Alignment = DialogAlignment.{(position.Equals("start", StringComparison.OrdinalIgnoreCase) ? "Start" : "End")};");
-        sb.AppendLine(CultureInfo.InvariantCulture, $"            options.Modal = {(isModal ? "true" : "false")};");
-        sb.AppendLine("            ");
-        sb.AppendLine("            // Optional: Pass parameters to the drawer");
-        sb.AppendLine("            options.Parameters.Add(nameof(YourDrawerComponent.SomeParameter), \"value\");");
-        sb.AppendLine("        });");
-        sb.AppendLine();
-        sb.AppendLine("        if (!result.Cancelled)");
-        sb.AppendLine("        {");
-        sb.AppendLine("            // Handle the result");
-        sb.AppendLine("            var returnValue = result.Value;");
-        sb.AppendLine("        }");
-        sb.AppendLine("    }");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("- Inject `IDialogService`");
+        sb.AppendLine("- Call `ShowDrawerAsync<YourDrawerComponent>()` with options");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"- Set `options.Alignment` to `DialogAlignment.{(position.Equals("start", StringComparison.OrdinalIgnoreCase) ? "Start" : "End")}`");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"- Set `options.Modal` to `{(isModal ? "true" : "false")}`");
+        sb.AppendLine("- Use `options.Parameters.Add()` to pass data to the drawer");
+        sb.AppendLine("- Handle the result by checking `result.Cancelled` and `result.Value`");
         sb.AppendLine();
     }
 
@@ -146,8 +99,6 @@ public class CreateDrawerPrompts
         sb.AppendLine("- Modal drawers can be closed by clicking outside (light dismiss)");
         sb.AppendLine("- Non-modal drawers must be closed via action buttons");
         sb.AppendLine();
-        sb.AppendLine("## Generate the Implementation");
-        sb.AppendLine();
-        sb.AppendLine("Please generate a complete drawer implementation based on the requirements above.");
+        sb.AppendLine("**Important:** Use the available MCP tools to retrieve component documentation and code examples for the drawer implementation.");
     }
 }

@@ -82,34 +82,14 @@ public class CreateDialogPrompts
     {
         sb.AppendLine("### Opening the Dialog");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("@inject IDialogService DialogService");
+        sb.AppendLine("To open a dialog from a parent component:");
         sb.AppendLine();
-        sb.AppendLine("<FluentButton OnClick=\"@OpenDialogAsync\">Open Dialog</FluentButton>");
-        sb.AppendLine();
-        sb.AppendLine("@code {");
-        sb.AppendLine("    private async Task OpenDialogAsync()");
-        sb.AppendLine("    {");
-        sb.AppendLine("        var result = await DialogService.ShowDialogAsync<YourDialogComponent>(options =>");
-        sb.AppendLine("        {");
-
-        var sizeValue = string.IsNullOrEmpty(size)
-            ? "Medium"
-            : char.ToUpperInvariant(size[0]) + size[1..].ToLowerInvariant();
-        sb.AppendLine(CultureInfo.InvariantCulture, $"            options.Size = DialogSize.{sizeValue};");
-        sb.AppendLine("            options.Modal = true;");
-        sb.AppendLine("            ");
-        sb.AppendLine("            // Optional: Pass parameters");
-        sb.AppendLine("            options.Parameters.Add(\"ParameterName\", value);");
-        sb.AppendLine("        });");
-        sb.AppendLine();
-        sb.AppendLine("        if (!result.Cancelled)");
-        sb.AppendLine("        {");
-        sb.AppendLine("            // Handle the result");
-        sb.AppendLine("        }");
-        sb.AppendLine("    }");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("- Inject `IDialogService`");
+        sb.AppendLine("- Call `ShowDialogAsync<YourDialogComponent>()` with options");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"- Set `options.Size` to `DialogSize.{(string.IsNullOrEmpty(size) ? "Medium" : char.ToUpperInvariant(size[0]) + size[1..].ToLowerInvariant())}`");
+        sb.AppendLine("- Set `options.Modal` to `true` for modal dialogs");
+        sb.AppendLine("- Use `options.Parameters.Add()` to pass data to the dialog");
+        sb.AppendLine("- Handle the result by checking `result.Cancelled`");
         sb.AppendLine();
     }
 
@@ -117,21 +97,12 @@ public class CreateDialogPrompts
     {
         sb.AppendLine("## Quick Dialog Methods");
         sb.AppendLine();
-        sb.AppendLine("For simple scenarios, use built-in message box methods:");
+        sb.AppendLine("For simple scenarios, use built-in message box methods from `IDialogService`:");
         sb.AppendLine();
-        sb.AppendLine("```csharp");
-        sb.AppendLine("// Simple info message");
-        sb.AppendLine("await DialogService.ShowInfoAsync(\"Title\", \"Message\");");
-        sb.AppendLine();
-        sb.AppendLine("// Confirmation dialog");
-        sb.AppendLine("var confirmed = await DialogService.ShowConfirmationAsync(\"Are you sure?\");");
-        sb.AppendLine();
-        sb.AppendLine("// Warning message");
-        sb.AppendLine("await DialogService.ShowWarningAsync(\"Warning Title\", \"Warning message\");");
-        sb.AppendLine();
-        sb.AppendLine("// Error message");
-        sb.AppendLine("await DialogService.ShowErrorAsync(\"Error Title\", \"Error details\");");
-        sb.AppendLine("```");
+        sb.AppendLine("- `ShowInfoAsync()` - Display an info message");
+        sb.AppendLine("- `ShowConfirmationAsync()` - Confirmation dialog with yes/no");
+        sb.AppendLine("- `ShowWarningAsync()` - Display a warning message");
+        sb.AppendLine("- `ShowErrorAsync()` - Display an error message");
         sb.AppendLine();
     }
 
@@ -152,148 +123,56 @@ public class CreateDialogPrompts
         sb.AppendLine("- Ensure at least one focusable element exists");
         sb.AppendLine("- Use appropriate sizes for the content");
         sb.AppendLine();
-        sb.AppendLine("Please generate the complete implementation based on the requirements.");
+        sb.AppendLine("**Important:** Use the available MCP tools to retrieve component documentation and code examples for the dialog implementation.");
     }
 
     private static void GenerateSimpleDialogGuide(StringBuilder sb)
     {
         sb.AppendLine("### Simple Dialog Component");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("@inherits FluentDialogInstance");
+        sb.AppendLine("For a simple dialog:");
         sb.AppendLine();
-        sb.AppendLine("<FluentDialogBody>");
-        sb.AppendLine("    <p>Your dialog content goes here.</p>");
-        sb.AppendLine("</FluentDialogBody>");
-        sb.AppendLine();
-        sb.AppendLine("@code {");
-        sb.AppendLine("    protected override void OnInitializeDialog(DialogOptionsHeader header, DialogOptionsFooter footer)");
-        sb.AppendLine("    {");
-        sb.AppendLine("        header.Title = \"Dialog Title\";");
-        sb.AppendLine("        footer.SecondaryAction.Visible = false; // Hide cancel button");
-        sb.AppendLine("    }");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("- Inherit from `FluentDialogInstance`");
+        sb.AppendLine("- Use `<FluentDialogBody>` to contain your content");
+        sb.AppendLine("- Override `OnInitializeDialog()` to set title and footer options");
     }
 
     private static void GenerateFormDialogGuide(StringBuilder sb)
     {
         sb.AppendLine("### Form Dialog Component");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("@inherits FluentDialogInstance");
+        sb.AppendLine("For a form dialog:");
         sb.AppendLine();
-        sb.AppendLine("<FluentDialogBody>");
-        sb.AppendLine("    <EditForm Model=\"@model\" OnValidSubmit=\"@HandleSubmit\">");
-        sb.AppendLine("        <DataAnnotationsValidator />");
-        sb.AppendLine("        <FluentStack Orientation=\"Orientation.Vertical\">");
-        sb.AppendLine("            <FluentTextInput @bind-Value=\"model.Name\" Label=\"Name\" Required=\"true\" />");
-        sb.AppendLine("            <FluentTextInput @bind-Value=\"model.Email\" Label=\"Email\" Required=\"true\" />");
-        sb.AppendLine("        </FluentStack>");
-        sb.AppendLine("    </EditForm>");
-        sb.AppendLine("</FluentDialogBody>");
-        sb.AppendLine();
-        sb.AppendLine("@code {");
-        sb.AppendLine("    private MyModel model = new();");
-        sb.AppendLine();
-        sb.AppendLine("    protected override void OnInitializeDialog(DialogOptionsHeader header, DialogOptionsFooter footer)");
-        sb.AppendLine("    {");
-        sb.AppendLine("        header.Title = \"Edit Information\";");
-        sb.AppendLine("        footer.PrimaryAction.Label = \"Save\";");
-        sb.AppendLine("    }");
-        sb.AppendLine();
-        sb.AppendLine("    protected override async Task OnActionClickedAsync(bool primary)");
-        sb.AppendLine("    {");
-        sb.AppendLine("        if (primary)");
-        sb.AppendLine("            await DialogInstance.CloseAsync(model);");
-        sb.AppendLine("        else");
-        sb.AppendLine("            await DialogInstance.CancelAsync();");
-        sb.AppendLine("    }");
-        sb.AppendLine();
-        sb.AppendLine("    private async Task HandleSubmit()");
-        sb.AppendLine("    {");
-        sb.AppendLine("        await DialogInstance.CloseAsync(model);");
-        sb.AppendLine("    }");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("- Inherit from `FluentDialogInstance`");
+        sb.AppendLine("- Use `<FluentDialogBody>` containing an `<EditForm>`");
+        sb.AppendLine("- Add `<DataAnnotationsValidator />` and form inputs");
+        sb.AppendLine("- Override `OnInitializeDialog()` to set title and action labels");
+        sb.AppendLine("- Override `OnActionClickedAsync()` to handle save/cancel actions");
     }
 
     private static void GenerateConfirmationDialogGuide(StringBuilder sb)
     {
         sb.AppendLine("### Confirmation Dialog");
         sb.AppendLine();
-        sb.AppendLine("For simple confirmations, use the built-in method:");
-        sb.AppendLine();
-        sb.AppendLine("```csharp");
-        sb.AppendLine("var result = await DialogService.ShowConfirmationAsync(");
-        sb.AppendLine("    \"Are you sure you want to delete this item?\",");
-        sb.AppendLine("    \"Confirm Delete\");");
-        sb.AppendLine();
-        sb.AppendLine("if (result.Cancelled == false)");
-        sb.AppendLine("{");
-        sb.AppendLine("    // User confirmed, perform delete");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("For simple confirmations, use the built-in `ShowConfirmationAsync()` method.");
         sb.AppendLine();
         sb.AppendLine("For custom confirmation dialogs:");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("@inherits FluentDialogInstance");
-        sb.AppendLine();
-        sb.AppendLine("<FluentDialogBody>");
-        sb.AppendLine("    <FluentIcon Value=\"@(new Icons.Regular.Size24.Warning())\" Color=\"Color.Warning\" />");
-        sb.AppendLine("    <p>@Message</p>");
-        sb.AppendLine("</FluentDialogBody>");
-        sb.AppendLine();
-        sb.AppendLine("@code {");
-        sb.AppendLine("    [Parameter]");
-        sb.AppendLine("    public string Message { get; set; } = \"Are you sure?\";");
-        sb.AppendLine();
-        sb.AppendLine("    protected override void OnInitializeDialog(DialogOptionsHeader header, DialogOptionsFooter footer)");
-        sb.AppendLine("    {");
-        sb.AppendLine("        header.Title = \"Confirm Action\";");
-        sb.AppendLine("        footer.PrimaryAction.Label = \"Yes\";");
-        sb.AppendLine("        footer.SecondaryAction.Label = \"No\";");
-        sb.AppendLine("    }");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("- Inherit from `FluentDialogInstance`");
+        sb.AppendLine("- Use `<FluentDialogBody>` with warning icon and message");
+        sb.AppendLine("- Override `OnInitializeDialog()` to set Yes/No button labels");
     }
 
     private static void GenerateCustomDialogGuide(StringBuilder sb)
     {
         sb.AppendLine("### Fully Custom Dialog Component");
         sb.AppendLine();
-        sb.AppendLine("Use `FluentDialogBody` with templates for full control:");
+        sb.AppendLine("For full control over the dialog:");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("<FluentDialogBody>");
-        sb.AppendLine("    <TitleTemplate>");
-        sb.AppendLine("        <FluentStack>");
-        sb.AppendLine("            <FluentIcon Value=\"@(new Icons.Regular.Size24.Settings())\" />");
-        sb.AppendLine("            <span>@Dialog.Options.Header.Title</span>");
-        sb.AppendLine("        </FluentStack>");
-        sb.AppendLine("    </TitleTemplate>");
-        sb.AppendLine();
-        sb.AppendLine("    <ChildContent>");
-        sb.AppendLine("        <p>Your custom content here</p>");
-        sb.AppendLine("    </ChildContent>");
-        sb.AppendLine();
-        sb.AppendLine("    <ActionTemplate>");
-        sb.AppendLine("        <FluentButton OnClick=\"@(e => Dialog.CancelAsync())\">Cancel</FluentButton>");
-        sb.AppendLine("        <FluentButton OnClick=\"@CustomAction\">Custom Action</FluentButton>");
-        sb.AppendLine("        <FluentButton OnClick=\"@(e => Dialog.CloseAsync())\" Appearance=\"ButtonAppearance.Primary\">OK</FluentButton>");
-        sb.AppendLine("    </ActionTemplate>");
-        sb.AppendLine("</FluentDialogBody>");
-        sb.AppendLine();
-        sb.AppendLine("@code {");
-        sb.AppendLine("    [CascadingParameter]");
-        sb.AppendLine("    public required IDialogInstance Dialog { get; set; }");
-        sb.AppendLine();
-        sb.AppendLine("    private async Task CustomAction()");
-        sb.AppendLine("    {");
-        sb.AppendLine("        // Perform custom action");
-        sb.AppendLine("    }");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("- Use `<FluentDialogBody>` with template sections");
+        sb.AppendLine("- Add `<TitleTemplate>` for custom header content");
+        sb.AppendLine("- Use `<ChildContent>` for the main dialog body");
+        sb.AppendLine("- Add `<ActionTemplate>` for custom action buttons");
+        sb.AppendLine("- Access the dialog instance via `[CascadingParameter] IDialogInstance Dialog`");
     }
 }

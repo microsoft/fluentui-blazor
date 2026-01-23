@@ -88,43 +88,33 @@ public class CreateDataGridPrompts
     {
         sb.AppendLine("## Basic Structure");
         sb.AppendLine();
-        sb.AppendLine("```razor");
+        sb.AppendLine("The `FluentDataGrid` component should be configured with:");
+        sb.AppendLine();
+        sb.AppendLine("- `Items` parameter bound to an `IQueryable<T>` data source");
 
         if (featureList.Contains("PAGINATION"))
         {
-            sb.AppendLine("<FluentPaginator State=\"@pagination\" />");
-        }
-
-        sb.Append("<FluentDataGrid Items=\"@items\"");
-
-        if (featureList.Contains("PAGINATION"))
-        {
-            sb.Append(" Pagination=\"@pagination\"");
+            sb.AppendLine("- `Pagination` parameter linked to a `PaginationState` instance");
+            sb.AppendLine("- A `FluentPaginator` component to display pagination controls");
         }
 
         if (displayMode.Equals("table", StringComparison.OrdinalIgnoreCase))
         {
-            sb.Append(" DisplayMode=\"DataGridDisplayMode.Table\"");
+            sb.AppendLine("- `DisplayMode` set to `DataGridDisplayMode.Table`");
         }
 
         if (featureList.Contains("VIRTUALIZATION"))
         {
-            sb.Append(" Virtualize=\"true\" ItemSize=\"46\"");
+            sb.AppendLine("- `Virtualize` set to `true` with appropriate `ItemSize`");
         }
-
-        sb.AppendLine(">");
 
         if (featureList.Contains("SELECTION"))
         {
-            sb.AppendLine("    <SelectColumn TGridItem=\"YourModel\" />");
+            sb.AppendLine("- A `SelectColumn` for row selection checkboxes");
         }
 
-        sb.AppendLine("    <PropertyColumn Property=\"@(item => item.Name)\" Sortable=\"true\" />");
-        sb.AppendLine("    <TemplateColumn Title=\"Actions\">");
-        sb.AppendLine("        <FluentButton OnClick=\"@(() => Edit(context))\">Edit</FluentButton>");
-        sb.AppendLine("    </TemplateColumn>");
-        sb.AppendLine("</FluentDataGrid>");
-        sb.AppendLine("```");
+        sb.AppendLine("- `PropertyColumn` components for data-bound columns");
+        sb.AppendLine("- `TemplateColumn` components for custom content like action buttons");
         sb.AppendLine();
     }
 
@@ -132,23 +122,21 @@ public class CreateDataGridPrompts
     {
         sb.AppendLine("## Code Behind");
         sb.AppendLine();
-        sb.AppendLine("```csharp");
-        sb.AppendLine("@code {");
+        sb.AppendLine("The `@code` block should include:");
+        sb.AppendLine();
 
         if (featureList.Contains("PAGINATION"))
         {
-            sb.AppendLine("    private PaginationState pagination = new() { ItemsPerPage = 10 };");
+            sb.AppendLine("- A `PaginationState` instance with `ItemsPerPage` configuration");
         }
 
         if (featureList.Contains("SELECTION"))
         {
-            sb.AppendLine("    private IEnumerable<YourModel> selectedItems = new List<YourModel>();");
+            sb.AppendLine("- A collection to track selected items");
         }
 
-        sb.AppendLine("    private IQueryable<YourModel> items = GetData().AsQueryable();");
-        sb.AppendLine("    private void Edit(YourModel item) { }");
-        sb.AppendLine("}");
-        sb.AppendLine("```");
+        sb.AppendLine("- An `IQueryable<T>` data source for the grid items");
+        sb.AppendLine("- Event handlers for actions like Edit, Delete, etc.");
         sb.AppendLine();
     }
 
@@ -166,12 +154,11 @@ public class CreateDataGridPrompts
     {
         sb.AppendLine("## EF Core Adapter");
         sb.AppendLine();
-        sb.AppendLine("```bash");
-        sb.AppendLine("dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter");
-        sb.AppendLine("```");
+        sb.AppendLine("For Entity Framework Core integration:");
         sb.AppendLine();
-        sb.AppendLine("Then: `builder.Services.AddDataGridEntityFrameworkAdapter();`");
+        sb.AppendLine("- Install the `Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter` package");
+        sb.AppendLine("- Register the adapter with `builder.Services.AddDataGridEntityFrameworkAdapter();`");
         sb.AppendLine();
-        sb.AppendLine("Please generate a complete implementation with the model class and sample data.");
+        sb.AppendLine("**Important:** Use the available MCP tools to retrieve component documentation and code examples for the DataGrid implementation.");
     }
 }

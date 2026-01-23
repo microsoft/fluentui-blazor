@@ -123,37 +123,35 @@ public class CreateFormPrompts
 
     private static void AppendExampleStructure(StringBuilder sb, bool useEditForm, bool includeValidation)
     {
-        sb.AppendLine("### Example Structure");
+        sb.AppendLine("### Form Structure Overview");
         sb.AppendLine();
-        sb.AppendLine("```razor");
 
         if (useEditForm)
         {
-            sb.AppendLine("<EditForm Model=\"@model\" OnValidSubmit=\"@HandleValidSubmit\" novalidate=\"true\">");
+            sb.AppendLine("The form should include:");
+            sb.AppendLine();
+            sb.AppendLine("- `<EditForm>` component with `Model` and `OnValidSubmit` parameters");
+            sb.AppendLine("- `novalidate=\"true\"` attribute on EditForm for Fluent UI validation styling");
 
             if (includeValidation)
             {
-                sb.AppendLine("    <DataAnnotationsValidator />");
-                sb.AppendLine("    <FluentValidationSummary />");
+                sb.AppendLine("- `<DataAnnotationsValidator />` for validation");
+                sb.AppendLine("- `<FluentValidationSummary />` for displaying validation errors");
             }
 
-            sb.AppendLine("    <FluentStack Orientation=\"Orientation.Vertical\">");
-            sb.AppendLine("        <FluentTextInput @bind-Value=\"model.PropertyName\" Label=\"Field Label\" Required=\"true\" />");
-            sb.AppendLine("        <!-- Add more fields as needed -->");
-            sb.AppendLine("        <FluentButton Type=\"ButtonType.Submit\" Appearance=\"ButtonAppearance.Primary\">Submit</FluentButton>");
-            sb.AppendLine("    </FluentStack>");
-            sb.AppendLine("</EditForm>");
+            sb.AppendLine("- `<FluentStack Orientation=\"Orientation.Vertical\">` for layout");
+            sb.AppendLine("- Form input components with `@bind-Value` and `Label` parameters");
+            sb.AppendLine("- Submit button with `Type=\"ButtonType.Submit\"` and `Appearance=\"ButtonAppearance.Primary\"`");
         }
         else
         {
-            sb.AppendLine("<FluentStack Orientation=\"Orientation.Vertical\">");
-            sb.AppendLine("    <FluentTextInput @bind-Value=\"model.PropertyName\" Label=\"Field Label\" />");
-            sb.AppendLine("    <!-- Add more fields as needed -->");
-            sb.AppendLine("    <FluentButton OnClick=\"@HandleSubmit\" Appearance=\"ButtonAppearance.Primary\">Submit</FluentButton>");
-            sb.AppendLine("</FluentStack>");
+            sb.AppendLine("The form should include:");
+            sb.AppendLine();
+            sb.AppendLine("- `<FluentStack Orientation=\"Orientation.Vertical\">` for layout");
+            sb.AppendLine("- Form input components with `@bind-Value` and `Label` parameters");
+            sb.AppendLine("- Submit button with `OnClick` handler and `Appearance=\"ButtonAppearance.Primary\"`");
         }
 
-        sb.AppendLine("```");
         sb.AppendLine();
     }
 
@@ -170,5 +168,8 @@ public class CreateFormPrompts
         {
             sb.AppendLine("3. A model class with appropriate DataAnnotation validation attributes");
         }
+
+        sb.AppendLine();
+        sb.AppendLine("**Important:** Use the available MCP tools to retrieve component documentation and code examples for the form implementation.");
     }
 }

@@ -52,16 +52,12 @@ public class SetupProjectPrompts
         sb.AppendLine();
         sb.AppendLine("### 1. Install the NuGet Package");
         sb.AppendLine();
-        sb.AppendLine("```bash");
-        sb.AppendLine("dotnet add package Microsoft.FluentUI.AspNetCore.Components --prerelease");
-        sb.AppendLine("```");
+        sb.AppendLine("Install `Microsoft.FluentUI.AspNetCore.Components` package (with `--prerelease` flag for v5).");
 
         if (includeIcons)
         {
             sb.AppendLine();
-            sb.AppendLine("```bash");
-            sb.AppendLine("dotnet add package Microsoft.FluentUI.AspNetCore.Components.Icons");
-            sb.AppendLine("```");
+            sb.AppendLine("Also install `Microsoft.FluentUI.AspNetCore.Components.Icons` package for icon support.");
         }
     }
 
@@ -70,37 +66,29 @@ public class SetupProjectPrompts
         sb.AppendLine();
         sb.AppendLine("### 2. Add Imports to `_Imports.razor`");
         sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("@using Microsoft.FluentUI.AspNetCore.Components");
+        sb.AppendLine("Add the following using statements:");
+        sb.AppendLine();
+        sb.AppendLine("- `@using Microsoft.FluentUI.AspNetCore.Components`");
 
         if (includeIcons)
         {
-            sb.AppendLine("@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons");
+            sb.AppendLine("- `@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons`");
         }
 
-        sb.AppendLine("```");
         sb.AppendLine();
         sb.AppendLine("### 3. Add Stylesheet Reference");
         sb.AppendLine();
-        sb.AppendLine("In `App.razor` or your main HTML file, add:");
+        sb.AppendLine("In `App.razor` or your main HTML file, add a link to the Fluent UI CSS bundle:");
         sb.AppendLine();
-        sb.AppendLine("```html");
-        sb.AppendLine("<link href=\"_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css\" rel=\"stylesheet\" />");
-        sb.AppendLine("```");
+        sb.AppendLine("- Path: `_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css`");
         sb.AppendLine();
         sb.AppendLine("### 4. Register Services in `Program.cs`");
         sb.AppendLine();
-        sb.AppendLine("```csharp");
-        sb.AppendLine("builder.Services.AddFluentUIComponents();");
-        sb.AppendLine("```");
+        sb.AppendLine("Call `builder.Services.AddFluentUIComponents();` to register the required services.");
         sb.AppendLine();
         sb.AppendLine("### 5. Add FluentProviders to Layout");
         sb.AppendLine();
-        sb.AppendLine("In `MainLayout.razor`, add at the end:");
-        sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("<FluentProviders />");
-        sb.AppendLine("```");
+        sb.AppendLine("In `MainLayout.razor`, add `<FluentProviders />` at the end of the layout.");
         sb.AppendLine();
         sb.AppendLine("### 6. Ensure Interactive Rendering");
         sb.AppendLine();
@@ -112,16 +100,14 @@ public class SetupProjectPrompts
         sb.AppendLine();
         sb.AppendLine("### 7. Test the Installation");
         sb.AppendLine();
-        sb.AppendLine("Create a simple test page with:");
-        sb.AppendLine();
-        sb.AppendLine("```razor");
-        sb.AppendLine("<FluentButton Appearance=\"ButtonAppearance.Primary\">Test Button</FluentButton>");
-        sb.AppendLine("```");
+        sb.AppendLine("Create a simple test page with a `FluentButton` component to verify the installation works correctly.");
         sb.AppendLine();
         sb.AppendLine("## Important Notes");
         sb.AppendLine();
         sb.AppendLine("- For v5 prerelease, you may need to add a custom NuGet source.");
         sb.AppendLine("- Check the [Installation documentation](https://www.fluentui-blazor.net/installation) for the latest instructions.");
         sb.AppendLine("- Explore the [FluentLayout](https://www.fluentui-blazor.net/layout) documentation to understand layout strategies.");
+        sb.AppendLine();
+        sb.AppendLine("**Important:** Use the available MCP tools to retrieve component documentation and code examples for the project setup.");
     }
 }
