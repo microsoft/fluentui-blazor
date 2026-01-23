@@ -8,6 +8,7 @@
                   offset-vertical="@(OffsetVertical != 0 ? OffsetVertical : null)"
                   offset-horizontal="@(OffsetHorizontal != 0 ? OffsetHorizontal : null)"
                   opened="@(Opened ? "true" : "false")"
+                  nested="@(Nested ? "true" : null)"
                   @attributes="@AdditionalAttributes"
                   @ondialogtoggle="@OnToggleAsync">
     @ChildContent
