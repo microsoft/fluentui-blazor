@@ -1,0 +1,36 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentListBase<TOption, TValue>
+@typeparam TOption
+@typeparam TValue
+
+<CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TValue>" IsFixed="true">
+    <CascadingValue Value="(InternalListContext)GetCurrentContext()" Name="ListContextBase" TValue="InternalListContext" IsFixed="true">
+        
+      <FluentTextInput Id="@Id"
+                       Immediate="true"
+                       ImmediateDelay="@ImmediateDelay"
+                       @onclick="@(e => _isOpen = true)"
+                       @bind-Value="@_textInput">
+        <StartTemplate>START</StartTemplate>
+        <EndTemplate>
+          @_textInput
+          @_isOpen
+        </EndTemplate>        
+      </FluentTextInput>
+
+      <FluentPopover AnchorId="@Id" @bind-Opened="@_isOpen">
+        <fluent-listbox Style="display: flex; flex-direction: column; max-height: 300px; overflow: auto;">
+
+        /*
+            $0.elementInternals.states.add("multiple")
+            To support multiple selection checkbox.
+        */
+
+
+          @RenderOptions()
+        </fluent-listbox>
+      </FluentPopover>
+
+    </CascadingValue>
+</CascadingValue>
