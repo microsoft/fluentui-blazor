@@ -1,0 +1,32 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentListBase<TOption, TValue>
+@typeparam TOption
+@typeparam TValue
+
+<CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TValue>" IsFixed="true">
+    <CascadingValue Value="(InternalListContext)GetCurrentContext()" Name="ListContextBase" TValue="InternalListContext" IsFixed="true">
+        <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+            <div id="@Id"
+                 appearance="@(Appearance.ToAttributeValue(isNull: ListAppearance.Outline, returnEmptyAsNull: true))"
+                 slot="@FluentSlot.FieldInput"
+                 aria-label="@AriaLabel"
+                 autofocus="@Autofocus"
+                 disabled="@Disabled"
+                 multiple="@Multiple"
+                 name="@Name"
+                 readonly="@ReadOnly"
+                 required="@Required"
+                 @ondropdownchange="@OnDropdownChangeHandlerAsync"
+                 @onfocusout="@FocusOutHandlerAsync"
+                 @attributes=AdditionalAttributes>
+                <fluent-listbox style="box-shadow: none;">
+                    @RenderOptions()
+                </fluent-listbox>
+
+                @RenderExtraFragment()
+
+            </div>
+        </FluentField>
+    </CascadingValue>
+</CascadingValue>
