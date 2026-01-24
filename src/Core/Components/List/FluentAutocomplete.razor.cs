@@ -15,6 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TValue))]
 public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOption, TValue>
 {
+    private static readonly string[] Samples = { "Apple", "Banana", "Cherry", "Date", "Elderberry" };
     private string? _textInput;
     private bool _isOpen;
 
@@ -31,4 +32,16 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     [Parameter]
     public int ImmediateDelay { get; set; } = 100;
 
+    /// <summary>
+    /// Renders the selected items.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual RenderFragment? RenderSelectedItems() => InternalRenderSelectedItems;
+
+    private async Task OnTextInputChangedAsync()
+    {
+        await Task.CompletedTask;
+        Items = Samples.Where(item => item.Contains(_textInput ?? string.Empty, StringComparison.OrdinalIgnoreCase)).Cast<TOption>().ToList();
+        _isOpen = true;
+    }
 }
