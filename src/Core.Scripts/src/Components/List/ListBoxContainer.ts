@@ -2,9 +2,10 @@ import * as FluentUIComponents from '@fluentui/web-components'
 
 export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
   export function Init(id: string) {
-    const listbox = document.querySelector(`#${id} fluent-listbox`) as FluentUIComponents.Listbox;
+    const container = document.getElementById(id) as HTMLElement;
+    const listbox = container?.querySelector('fluent-listbox') as FluentUIComponents.Listbox;
     if (listbox) {
-      (listbox as any).__fluentListbox = new ListboxExtended(listbox);
+      (listbox as any).__fluentListbox = new ListboxExtended(listbox, container);
     }
   }
 
@@ -13,15 +14,17 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
    */
   class ListboxExtended {
 
+    private container: HTMLElement;
     private listbox: FluentUIComponents.Listbox;
 
     /**
      * Initializes a new instance of the ListboxExtended class.
      * @param element The FluentUI Listbox element.
      */
-    constructor(element: FluentUIComponents.Listbox) {
+    constructor(element: FluentUIComponents.Listbox, container: HTMLElement) {
+      this.container = container;
       this.listbox = element;
-      this.listbox.multiple =  (this.listbox.hasAttribute('multiple')) ?? false;
+      this.listbox.multiple =  (this.container.hasAttribute('multiple')) ?? false;
       this.listbox.addEventListener("keydown", this.keydownHandler);
 
       const firstItem = this.firstItem();
@@ -182,7 +185,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
           selectedOptions: this.listbox.selectedOptions.map(option => option.id).join(';')
         }
       });
-      this.listbox.dispatchEvent(event);
+      this.container.dispatchEvent(event);
     }
 
   }
