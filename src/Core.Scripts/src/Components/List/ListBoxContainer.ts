@@ -1,11 +1,10 @@
 import * as FluentUIComponents from '@fluentui/web-components'
 
-namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
+export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
   export function Init(id: string) {
     const listbox = document.querySelector(`#${id} fluent-listbox`) as FluentUIComponents.Listbox;
     if (listbox) {
       (listbox as any).__fluentListbox = new ListboxExtended(listbox);
-      // xxx
     }
   }
 
@@ -147,18 +146,18 @@ namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     private setupListboxObserver = (): void => {
       const observer = new MutationObserver((mutations) => {
         mutations.forEach(mutation => {
+          
           // Detect attribute changes on child nodes (fluent-option elements)
           if (mutation.type === 'attributes' && mutation.target !== this.listbox) {
             const target = mutation.target as FluentUIComponents.DropdownOption;
             if (target.tagName === 'FLUENT-OPTION' && mutation.attributeName === 'current-selected') {
-              const isSelected = target.hasAttribute('current-selected');
-              console.log(`Option "${target.textContent}" current-selected: ${isSelected}`);
-              // Handle the change here
+              this.raiseSelectedOptionsChangeEvent();
             }
           }
+
           // Detect when child nodes are added or removed
           if (mutation.type === 'childList') {
-            console.log('Options added or removed from listbox');
+            this.raiseSelectedOptionsChangeEvent();
           }
         });
       });
@@ -169,6 +168,21 @@ namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         subtree: true,
         childList: true
       });
+    }
+
+    /**
+     * Raises the onselectedoptionschange event when selected options change.
+     */
+    private raiseSelectedOptionsChangeEvent = (): void => {
+      console.log('Raising listboxchange event', this.listbox.selectedOptions);
+      const event = new CustomEvent('listboxchange', {
+        bubbles: true,
+        composed: true,
+        detail: {
+          selectedOptions: this.listbox.selectedOptions.map(option => option.id).join(';')
+        }
+      });
+      this.listbox.dispatchEvent(event);
     }
 
   }
