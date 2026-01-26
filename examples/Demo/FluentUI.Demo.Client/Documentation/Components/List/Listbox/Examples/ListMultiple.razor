@@ -9,6 +9,18 @@
                @bind-SelectedItems="@SelectedItems"
                Multiple="true" />
 
+<FluentButton OnClick="@(e => Colors = new[] { "Yellow", "Purple", "Cyan" })">
+    Yellow, Purple, Cyan
+</FluentButton>
+
+<FluentButton OnClick="@(e => Colors = new[] { "Red", "Green", "Blue" })">
+    Red, Green, Blue
+</FluentButton>
+
+<FluentButton OnClick="@(e => SelectedItems = new[] { Colors[0], Colors[2] })">
+    Check 1 and 3
+</FluentButton>
+
 @code {
     static string[] Colors = ["Red", "Green", "Blue"];
     IEnumerable<string> SelectedItems = new[] { Colors[1] };
