@@ -3,7 +3,7 @@ title: Hierarchical data
 route: /DataGrid/Hierarchical
 ---
 
-# DataGrid - Hierarchical data
+## DataGrid - Hierarchical data
 
 The `FluentDataGrid` supports displaying hierarchical data.
 
