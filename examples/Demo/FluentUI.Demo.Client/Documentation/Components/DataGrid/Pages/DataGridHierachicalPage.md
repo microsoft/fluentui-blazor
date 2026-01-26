@@ -3,7 +3,9 @@ title: Hierarchical data
 route: /DataGrid/Hierarchical
 ---
 
-## DataGrid - Hierarchical data
+# Hierarchical data
+
+## Single-level hierarchy
 
 The `FluentDataGrid` supports displaying hierarchical data.
 
@@ -14,7 +16,7 @@ Set the `HierarchicalToggle` parameter to `true` on one of the columns to displa
 
 {{ DataGridHierarchical Files=Code:DataGridHierarchical.razor;CSS:DataGridHierarchical.razor.css}}
 
-### Multi-level hierarchy
+## Multi-level hierarchy
 
 The hierarchical data grid can display multiple levels of nesting. In this example, we show an organization chart with three levels: CEO, Directors, and Employees.
 
