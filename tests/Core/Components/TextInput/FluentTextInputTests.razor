@@ -153,6 +153,8 @@
     [InlineData(true, 0, "new value", "new value")]     // With Immediate and Delay = 0 ms
     public async Task FluentInputText_OnImmediate(bool immediate, int immediateDelay, string expectedImmediateValue, string expectedDelayedValue)
     {
+        await Task.CompletedTask;
+        
         // Arrange
         using var context = new IdentifierContext(i => "myId");
         var value = "init";
