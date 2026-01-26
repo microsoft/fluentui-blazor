@@ -247,8 +247,6 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
 
     internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
     {
-        Console.WriteLine($"OnDropdownChangeHandlerAsync: SelectedOptions='{e.SelectedOptions}'");
-
         // List of IDs received from the web component.
         var selectedIds = e.SelectedOptions?.Split(';', StringSplitOptions.TrimEntries) ?? [];
 

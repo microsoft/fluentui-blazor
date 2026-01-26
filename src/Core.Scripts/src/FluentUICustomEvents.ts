@@ -85,7 +85,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       browserEventName: 'listboxchange',
       createEventArgs: (event: any)=> {
         return {
-          id: event.detail?.id ?? event.id,
+          id: event.srcElement?.id ?? event.detail?.id ?? event.id,
           type: event.type,
           selectedOptions: event.detail?.selectedOptions ?? '',
         };
