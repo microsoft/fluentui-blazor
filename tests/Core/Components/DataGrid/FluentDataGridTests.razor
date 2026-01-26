@@ -2183,6 +2183,34 @@
     }
 
     [Fact]
+    public void FluentDataGrid_HierarchicalToggle_ThrowsIfMultipleColumnsSet()
+    {
+        // Arrange
+        var items = new List<HierarchicalCustomer>().AsQueryable();
+
+        // Act && Assert
+        Assert.Throws<ArgumentException>(() => Render<FluentDataGrid<HierarchicalCustomer>>(
+            @<FluentDataGrid Items="@items">
+                <PropertyColumn Property="@(x => x.Item.Id)" HierarchicalToggle="true" />
+                <PropertyColumn Property="@(x => x.Item.Name)" HierarchicalToggle="true" />
+            </FluentDataGrid>));
+    }
+
+    [Fact]
+    public void FluentDataGrid_HierarchicalToggle_ThrowsIfSetOnNonFirstColumn()
+    {
+        // Arrange
+        var items = new List<HierarchicalCustomer>().AsQueryable();
+
+        // Act && Assert
+        Assert.Throws<ArgumentException>(() => Render<FluentDataGrid<HierarchicalCustomer>>(
+            @<FluentDataGrid Items="@items">
+                <PropertyColumn Property="@(x => x.Item.Id)" />
+                <PropertyColumn Property="@(x => x.Item.Name)" HierarchicalToggle="true" />
+            </FluentDataGrid>));
+    }
+
+    [Fact]
     public void FluentDataGrid_AsyncQueryExecutor()
     {
         // Arrange

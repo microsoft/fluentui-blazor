@@ -564,6 +564,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new ArgumentException("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
+        if (_columns.Count(x => x.HierarchicalToggle) > 1)
+        {
+            throw new ArgumentException("Only one column can have 'HierarchicalToggle' set to true.");
+        }
+
+        if (_columns.Exists(x => x.HierarchicalToggle) && !_columns[0].HierarchicalToggle)
+        {
+            throw new ArgumentException("The 'HierarchicalToggle' parameter can only be set on the first column of the grid.");
+        }
+
         // Always re-evaluate after collecting columns when using displaymode grid. A column might be added or hidden and the _internalGridTemplateColumns needs to reflect that.
         if (DisplayMode == DataGridDisplayMode.Grid)
         {

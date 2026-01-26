@@ -73,6 +73,7 @@ The following values can be localized:
 - DataGrid_SortMenu
 - DataGrid_SortMenuAscending
 - DataGrid_SortMenuDescending
+- DataGrid_ToggleNesting
 
 
 ## Using the DataGrid component with EF Core

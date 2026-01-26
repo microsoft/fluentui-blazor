@@ -339,4 +339,7 @@
   <data name="PresenceStatus_Blocked" xml:space="preserve">
     <value>blocked</value>
   </data>
+  <data name="DataGrid_ToggleNesting" xml:space="preserve">
+    <value>Toggle nesting</value>
+  </data>
 </root>
