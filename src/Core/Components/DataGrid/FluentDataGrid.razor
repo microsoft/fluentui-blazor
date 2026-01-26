@@ -119,12 +119,11 @@
 				<FluentDataGridCell GridColumn=@(colIndex + 1) Class="@ColumnJustifyClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" title="@tooltip" aria-label="@tooltip">
 					@if (col.HierarchicalToggle && item is IHierarchicalGridItem hierarchicalItem)
 					{
-						var indent = hierarchicalItem.Depth * 16;
-						<span class="hierarchical-toggle-container" style="margin-left: @(indent)px;">
+						<span class="hierarchical-toggle-container" style="margin-left: calc(var(--spacingHorizontalL) * @hierarchicalItem.Depth);">
 							<span @onclick:stopPropagation="true" class="hierarchical-expander @(hierarchicalItem.IsCollapsed ? "hierarchical-collapsed" : "hierarchical-expanded")">
 								@if (hierarchicalItem.HasChildren)
 								{
-									<FluentButton aria-label="Toggle" Appearance="ButtonAppearance.Transparent" Size="ButtonSize.Small" Class="hierarchical-expand-button" OnClick="@(() => ToggleExpandedAsync(item))">
+									<FluentButton aria-label="Toggle" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" Class="hierarchical-expand-button" OnClick="@(() => ToggleExpandedAsync(item))">
 										<FluentIcon Width="12" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
 									</FluentButton>
 								}

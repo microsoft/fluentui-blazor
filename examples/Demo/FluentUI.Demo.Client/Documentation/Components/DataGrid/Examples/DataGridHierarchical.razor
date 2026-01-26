@@ -9,9 +9,9 @@
 		@context.Item.Name
 	</TemplateColumn>
 	<PropertyColumn Title="Gold" Property="@(i => i.Item.Medals.Gold)" />
-	<PropertyColumn Title="Silver" Property="@(i => i.Item.Medals.Silver)" />
-	<PropertyColumn Title="Bronze" Property="@(i => i.Item.Medals.Bronze)" />
-	<PropertyColumn Title="Total" Property="@(i => i.Item.Medals.Total)" />
+	<PropertyColumn Title="Silver" Property="@(i => i.Item.Medals.Silver)" Align="DataGridCellAlignment.Center" />
+	<PropertyColumn Title="Bronze" Property="@(i => i.Item.Medals.Bronze)" Align="DataGridCellAlignment.Center" />
+	<PropertyColumn Title="Total" Property="@(i => i.Item.Medals.Total)" Align="DataGridCellAlignment.End" />
 
 </FluentDataGrid>
 

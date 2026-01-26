@@ -44,6 +44,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _sortByAscending;
     private bool _checkColumnOptionsPosition;
     private bool _checkColumnResizePosition;
+    private bool _checkColumnResizing;
     private bool _manualGrid;
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
@@ -523,6 +524,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _checkColumnResizePosition = false;
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference, ".col-resize");
         }
+
+        if (_checkColumnResizing && _gridReference is not null && JSModule.Imported)
+        {
+            _checkColumnResizing = false;
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing", _gridReference, ResizeColumnOnAllRows);
+        }
     }
 
     // Invoked by descendant columns at a special time during rendering
@@ -572,9 +579,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
         }
 
-        if (JSModule.Imported && ResizableColumns)
+        if (ResizableColumns)
         {
-            _ = JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing", _gridReference, ResizeColumnOnAllRows).AsTask();
+            _checkColumnResizing = true;
         }
     }
 

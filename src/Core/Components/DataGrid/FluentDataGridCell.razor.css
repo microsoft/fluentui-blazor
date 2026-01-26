@@ -4,7 +4,7 @@
 }
 
 .fluent-data-grid td:not(.col-select) {
-  padding: 6px 16px;
+  padding: 6px 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -64,10 +64,6 @@
   overflow: hidden;
 }
 
-.fluent-data-grid .col-options-button {
-  padding-inline-start: 4px;
-}
-
 .fluent-data-grid .col-justify-start .col-sort-button {
   justify-content: start;
   overflow: hidden;
@@ -97,7 +93,21 @@
 }
 
 .fluent-data-grid .col-title {
+  padding: 6px 12px;
+  user-select: none;
   text-align: start;
+}
+
+.fluent-data-grid .col-title-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.fluent-data-grid th.col-justify-center svg {
+  align-content: center;
+  text-align: center;
 }
 
 .fluent-data-grid .col-justify-center .col-title {
@@ -120,9 +130,9 @@
 
 .fluent-data-grid .hierarchical-expander {
   display: inline-block;
+  width: 20px;
   position: relative;
-  top: -2px;
-  width: 22px;
+  top: -1px;
 }
 
   .fluent-data-grid .hierarchical-expander svg {
@@ -140,7 +150,8 @@
 
 .fluent-data-grid .hierarchical-expand-button {
   width: 20px;
-  height: 24px;
   min-width: 20px;
+  height: 20px;
+  min-height: 20px;
   vertical-align: middle;
 }

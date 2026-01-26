@@ -278,7 +278,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
             const diffX = isRTL ? (pageX! - e.pageX) : (e.pageX - pageX!);
             const column: Column = columns.find(({ header }) => header === curCol)!;
 
-            column.size = parseInt(Math.max(parseInt((column.header as HTMLElement).style.minWidth), curColWidth! + diffX) as any, 10) + 'px';
+            column.size = parseInt(Math.max(parseInt((column.header as HTMLElement).style.minWidth === '' ? '100' : (column.header as HTMLElement).style.minWidth, 10), curColWidth! + diffX) as any, 10) + 'px';
 
             columns.forEach((col) => {
               if (col.size.startsWith('minmax')) {
@@ -313,7 +313,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       div.style.cursor = 'col-resize';
       div.style.userSelect = 'none';
       div.style.height = (height - 5) + 'px'; // adjust for the top offset
-      div.style.width = '6px';
+      div.style.width = '4px';
       div.style.opacity = 'var(--fluent-data-grid-header-opacity)';
 
       if (isRTL) {
@@ -360,6 +360,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     grid.columns.forEach((column: any, index: number) => {
       if (isGrid) {
         column.size = columnsWidths[index];
+        column.header.style.width = column.size;
       } else {
         column.header.style.width = columnsWidths[index];
       }
@@ -395,7 +396,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         //const width = headerBeingResized!.getBoundingClientRect().width + change;
 
         if (change < 0) {
-          column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
+          column.size = Math.max(parseInt(column.header.style.minWidth === '' ? '100' : column.header.style.minWidth, 10), width) + 'px';
         }
         else {
           column.size = width + 'px';
@@ -428,7 +429,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     grids.find(grid => grid.id = gridElement.id)!.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
-        column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
+        column.size = Math.max(parseInt(column.header.style.minWidth === '' ? '100' : column.header.style.minWidth, 10), width) + 'px';
         column.header.style.width = column.size;
       }
 
