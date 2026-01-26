@@ -397,6 +397,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _sortByAscending;
     private bool _checkColumnOptionsPosition;
     private bool _checkColumnResizePosition;
+    private bool _checkColumnResizing;
     private bool _manualGrid;
 
     // The associated ES6 module, which uses document-level event listeners
@@ -554,6 +555,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             _ = Module?.InvokeVoidAsync("autoFitGridColumns", _gridReference, _columns.Count).AsTask();
         }
+
+        if (_checkColumnResizing && _gridReference is not null)
+        {
+            _checkColumnResizing = false;
+            _ = Module?.InvokeVoidAsync("enableColumnResizing", _gridReference, ResizeColumnOnAllRows).AsTask();
+        }
     }
 
     // Invoked by descendant columns at a special time during rendering
@@ -589,6 +596,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new Exception("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
+        if (_columns.Count(x => x.HierarchicalToggle) > 1)
+        {
+            throw new ArgumentException("Only one column can have 'HierarchicalToggle' set to true.");
+        }
+
+        if (_columns.Exists(x => x.HierarchicalToggle) && !_columns[0].HierarchicalToggle)
+        {
+            throw new ArgumentException("The 'HierarchicalToggle' parameter can only be set on the first column of the grid.");
+        }
+
         // Always re-evaluate after collecting columns when using displaymode grid. A column might be added or hidden and the _internalGridTemplateColumns needs to reflect that.
         if (DisplayMode == DataGridDisplayMode.Grid)
         {
@@ -605,7 +622,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (ResizableColumns)
         {
-            _ = Module?.InvokeVoidAsync("enableColumnResizing", _gridReference, ResizeColumnOnAllRows).AsTask();
+            _checkColumnResizing = true;
         }
     }
 
