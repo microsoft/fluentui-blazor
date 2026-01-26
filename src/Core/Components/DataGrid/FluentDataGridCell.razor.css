@@ -130,6 +130,10 @@ td.grid-cell-placeholder:after {
     transform: rotate(0deg);
 }
 
+[dir=rtl] * ::deep .hierarchical-collapsed svg {
+    transform: rotate(180deg);
+}
+
 ::deep .hierarchical-expanded svg {
     transform: rotate(90deg);
 }

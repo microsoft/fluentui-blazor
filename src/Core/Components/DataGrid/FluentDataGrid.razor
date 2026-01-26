@@ -120,7 +120,7 @@
 					@if (col.HierarchicalToggle && item is IHierarchicalGridItem hierarchicalItem )
                     {
                         var indent = hierarchicalItem.Depth * 16;
-                        <span class="hierarchical-toggle-container" style="margin-left: @(indent)px;">
+                        <span class="hierarchical-toggle-container" style="margin-inline-start: @(indent)px;">
                             <span @onclick:stopPropagation="true" class="hierarchical-expander @(hierarchicalItem.IsCollapsed ? "hierarchical-collapsed" : "hierarchical-expanded")">
                                 @if (hierarchicalItem.HasChildren)
                                 {
