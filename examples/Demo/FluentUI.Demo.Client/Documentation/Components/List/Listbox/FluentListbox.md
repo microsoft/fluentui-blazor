@@ -10,3 +10,7 @@ The **FluentListbox** component allows one option to be selected from a list of 
 ## Default
 
 {{ ListboxDefault }}
+
+## Multiple
+
+{{ ListMultiple }}

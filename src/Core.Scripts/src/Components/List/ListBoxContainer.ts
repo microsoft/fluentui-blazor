@@ -14,6 +14,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
    */
   class ListboxExtended {
 
+    private isInitialized: boolean = false;
     private container: HTMLElement;
     private listbox: FluentUIComponents.Listbox;
 
@@ -24,7 +25,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     constructor(element: FluentUIComponents.Listbox, container: HTMLElement) {
       this.container = container;
       this.listbox = element;
-      this.listbox.multiple =  (this.container.hasAttribute('multiple')) ?? false;
+      this.listbox.multiple = (this.container.hasAttribute('multiple')) ?? false;
       this.listbox.addEventListener("keydown", this.keydownHandler);
 
       const firstItem = this.firstItem();
@@ -32,7 +33,20 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         firstItem.tabIndex = 0;
       }
 
+      // Set initial selected options based on the current state
+      const selectedIds = this.listbox.selectedOptions.map(option => option.id);     
+      setTimeout(() => {
+        if (this.listbox.multiple) {
+          for (let i = 0; i < this.listbox.options.length; i++) {
+            const option = this.listbox.options[i];
+            option.selected = selectedIds.find(id => id === option.id) !== undefined;
+          }
+        }
+        this.isInitialized = true;
+      }, 0);
+
       this.setupListboxObserver();
+
     }
 
     /**
@@ -149,11 +163,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     private setupListboxObserver = (): void => {
       const observer = new MutationObserver((mutations) => {
         mutations.forEach(mutation => {
-          
+
           // Detect attribute changes on child nodes (fluent-option elements)
           if (mutation.type === 'attributes' && mutation.target !== this.listbox) {
             const target = mutation.target as FluentUIComponents.DropdownOption;
-            if (target.tagName === 'FLUENT-OPTION' && mutation.attributeName === 'current-selected') {
+            if (target.tagName === 'FLUENT-OPTION' &&
+              (mutation.attributeName === 'current-selected' || mutation.attributeName === 'selected')) {
               this.raiseSelectedOptionsChangeEvent();
             }
           }
@@ -165,7 +180,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         });
       });
 
-      observer.observe(this.listbox, { 
+      observer.observe(this.listbox, {
         attributes: true,
         attributeFilter: ['current-selected'],
         subtree: true,
@@ -177,7 +192,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
      * Raises the onselectedoptionschange event when selected options change.
      */
     private raiseSelectedOptionsChangeEvent = (): void => {
-      console.log('Raising listboxchange event', this.listbox.selectedOptions);
+
+      if (!this.isInitialized) {
+        return;
+      }
+
       const event = new CustomEvent('listboxchange', {
         bubbles: true,
         composed: true,
