@@ -34,7 +34,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
       }
 
       // Set initial selected options based on the current state
-      const selectedIds = this.listbox.selectedOptions.map(option => option.id);     
+      const selectedIds = this.listbox.selectedOptions.map(option => option.id);
       setTimeout(() => {
         if (this.listbox.multiple) {
           for (let i = 0; i < this.listbox.options.length; i++) {
@@ -42,10 +42,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
             option.selected = selectedIds.find(id => id === option.id) !== undefined;
           }
         }
-        this.isInitialized = true;
-      }, 0);
 
-      this.setupListboxObserver();
+        this.isInitialized = true;
+        this.setupListboxObserver();
+      }, 0);
 
     }
 
@@ -162,22 +162,27 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
      */
     private setupListboxObserver = (): void => {
       const observer = new MutationObserver((mutations) => {
+        let hasSelectedOptionsChanged = false;
+
         mutations.forEach(mutation => {
 
           // Detect attribute changes on child nodes (fluent-option elements)
           if (mutation.type === 'attributes' && mutation.target !== this.listbox) {
             const target = mutation.target as FluentUIComponents.DropdownOption;
-            if (target.tagName === 'FLUENT-OPTION' &&
-              (mutation.attributeName === 'current-selected' || mutation.attributeName === 'selected')) {
-              this.raiseSelectedOptionsChangeEvent();
+            if (target.tagName === 'FLUENT-OPTION' && (mutation.attributeName === 'current-selected' || mutation.attributeName === 'selected')) {
+              hasSelectedOptionsChanged = true;
             }
           }
 
           // Detect when child nodes are added or removed
           if (mutation.type === 'childList') {
-            this.raiseSelectedOptionsChangeEvent();
+            hasSelectedOptionsChanged = true;
           }
         });
+
+        if (hasSelectedOptionsChanged) {
+          this.raiseSelectedOptionsChangeEvent();
+        }
       });
 
       observer.observe(this.listbox, {
@@ -204,6 +209,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
           selectedOptions: this.listbox.selectedOptions.map(option => option.id).join(';')
         }
       });
+
+      console.log('Raising listboxchange event.', event);
       this.container.dispatchEvent(event);
     }
 
