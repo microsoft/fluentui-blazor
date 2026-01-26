@@ -4,7 +4,7 @@
 
 using Xunit;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Tests;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DataGrid;
 
 public class HierarchicalGridUtilitiesTests
 {

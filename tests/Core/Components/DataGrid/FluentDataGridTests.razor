@@ -2309,7 +2309,7 @@
         // Initial load
         Assert.Equal(1, refreshCount);
 
-        // Act - Call RefreshDataAsync without force. 
+        // Act - Call RefreshDataAsync without force.
         // Since IsFixed is true and _lastRequest is set, it should NOT call RefreshItems
         await cut.InvokeAsync(() => grid.RefreshDataAsync(force: false));
 

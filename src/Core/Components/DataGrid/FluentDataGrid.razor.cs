@@ -564,7 +564,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new ArgumentException("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
-        if (_columns.Count(x => x.HierarchicalToggle) > 1)
+        if (_columns.Where(x => x.HierarchicalToggle).Skip(1).Any())
         {
             throw new ArgumentException("Only one column can have 'HierarchicalToggle' set to true.");
         }
@@ -1023,7 +1023,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 #pragma warning disable MA0042 // Do not use blocking calls in an async method
         _scope?.Dispose();
 #pragma warning restore MA0042 // Do not use blocking calls in an async method
-        GC.SuppressFinalize(this);
 
         return base.DisposeAsync();
     }
