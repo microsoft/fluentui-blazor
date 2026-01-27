@@ -1,20 +1,16 @@
 import Sortable from 'sortablejs';
-import { DotNet } from "../../d-ts/Microsoft.JSInterop";
 
-
-declare const Sortable: any;
-
-export namespace Microsoft.FluentUI.Blazor.SortableList {
+export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
   export function init(
     list: HTMLElement,
     group: string,
-    pull: string | null,
+    pull: any,
     put: boolean,
     sort: boolean,
     handle: string | null,
     filter: string | null,
     fallback: boolean,
-    component: DotNet.DotNetObject
+    component: any
   ): void {
     new Sortable(list, {
       animation: 200,

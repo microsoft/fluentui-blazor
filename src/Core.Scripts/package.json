@@ -22,7 +22,9 @@
     "glob": "^13.0.0",
     "rimraf": "6.1.2",
     "tabbable": "6.3.0",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "@types/sortablejs": "1.15.9"
+
   },
   "dependencies": {
     "@fluentui/web-components": "^3.0.0-rc.2",

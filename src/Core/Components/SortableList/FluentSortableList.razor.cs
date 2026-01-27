@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisposable
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "SortableList/FluentSortableList.razor.js";
+    //private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "SortableList/FluentSortableList.razor.js";
     private ElementReference? _element;
     private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
     private bool _disposed;
@@ -199,11 +199,11 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
         if (firstRender)
         {
             _selfReference = DotNetObjectReference.Create(this);
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            //await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
             if (!_disposed)
             {
-                await JSModule.ObjectReference.InvokeAsync<string>("Microsoft.FluentUI.Blazor.SortableList.init", _element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
+                await JSRuntime.InvokeAsync<string>("Microsoft.FluentUI.Blazor.Components.SortableList.init", _element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
             }
         }
     }
@@ -222,7 +222,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     /// <summary>
     /// Invoked from JavaScript when an item is updated.
     /// </summary>
-    [JSInvokable]
+    [JSInvokable("FluentSortableList.OnUpdate")]
     public void OnUpdateJS(int oldIndex, int newIndex, string fromListId, string toListId)
     {
         if (OnUpdate.HasDelegate)
