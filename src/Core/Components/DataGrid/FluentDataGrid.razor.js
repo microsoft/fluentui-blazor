@@ -133,7 +133,11 @@ export function init(gridElement, autoFocus) {
             document.body.removeEventListener('click', bodyClickHandler);
             document.body.removeEventListener('mousedown', bodyClickHandler);
             gridElement.removeEventListener('keydown', keyDownHandler);
-            delete grids[gridElement];
+
+            const index = grids.findIndex(grid => grid.id === gridElement.id);
+            if (index > -1) {
+                grids.splice(index, 1);
+            }
         }
     };
 }
@@ -168,7 +172,6 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
         return;
     }
 
-    const isRTL = getComputedStyle(gridElement).direction === 'rtl';
     const isGrid = gridElement.classList.contains('grid')
 
     let tableHeight = gridElement.offsetHeight;
@@ -205,9 +208,9 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
         const resizeTop = header.querySelector('.resize-handle').offsetTop;
 
         // add a new resize div
-        const div = createDiv(resizeHandleHeight, resizeTop, isRTL);
+        const div = createDiv(resizeHandleHeight, resizeTop);
         header.appendChild(div);
-        setListeners(div, isRTL);
+        setListeners(div);
     });
 
     let initialWidths;
@@ -230,32 +233,15 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
         });
     }
 
-    function setListeners(div, isRTL) {
+    function setListeners(div) {
         let pageX, curCol, curColWidth;
 
-        div.addEventListener('pointerdown', function (e) {
-            curCol = e.target.parentElement;
-            pageX = e.pageX;
-
-            const padding = paddingDiff(curCol);
-
-            curColWidth = curCol.offsetWidth - padding;
-        });
-
-        div.addEventListener('pointerover', function (e) {
-            e.target.style.borderInlineEnd = 'var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color)';
-            e.target.previousElementSibling.style.visibility = 'hidden';
-        });
-
-        div.addEventListener('pointerup', removeBorder);
-        div.addEventListener('pointercancel', removeBorder);
-        div.addEventListener('pointerleave', removeBorder);
-
-        document.addEventListener('pointermove', (e) =>
+        const moveHandler = (e) =>
             requestAnimationFrame(() => {
                 gridElement.style.tableLayout = 'fixed';
 
                 if (curCol) {
+                    const isRTL = getComputedStyle(gridElement).direction === 'rtl';
                     const diffX = isRTL ? pageX - e.pageX : e.pageX - pageX;
                     const column = columns.find(({ header }) => header === curCol);
 
@@ -276,17 +262,40 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
                         curCol.style.width = column.size;
                     }
                 }
-            })
-        );
+            });
 
-        document.addEventListener('pointerup', function () {
+        const upHandler = function () {
+            document.removeEventListener('pointermove', moveHandler);
+            document.removeEventListener('pointerup', upHandler);
+
             curCol = undefined;
             curColWidth = undefined;
             pageX = undefined;
+        };
+
+        div.addEventListener('pointerdown', function (e) {
+            curCol = e.target.parentElement;
+            pageX = e.pageX;
+
+            const padding = paddingDiff(curCol);
+
+            curColWidth = curCol.offsetWidth - padding;
+
+            document.addEventListener('pointermove', moveHandler);
+            document.addEventListener('pointerup', upHandler);
         });
+
+        div.addEventListener('pointerover', function (e) {
+            e.target.style.borderInlineEnd = 'var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color)';
+            e.target.previousElementSibling.style.visibility = 'hidden';
+        });
+
+        div.addEventListener('pointerup', removeBorder);
+        div.addEventListener('pointercancel', removeBorder);
+        div.addEventListener('pointerleave', removeBorder);
     }
 
-    function createDiv(height, top, isRTL) {
+    function createDiv(height, top) {
         const div = document.createElement('div');
         div.className = "actual-resize-handle";
         div.style.top = top + 'px';
@@ -296,14 +305,8 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
         div.style.height = (height - 4) + 'px';
         div.style.width = '6px';
         div.style.opacity = 'var(--fluent-data-grid-header-opacity)'
+        div.style.insetInlineEnd = '0';
 
-        if (isRTL) {
-            div.style.left = '0';
-            div.style.right = 'unset';
-        } else {
-            div.style.left = 'unset';
-            div.style.right = '0';
-        }
         return div;
     }
 
@@ -446,7 +449,10 @@ export function autoFitGridColumns(gridElement, columnCount) {
     gridElement.style.gridTemplateColumns = gridTemplateColumns;
     gridElement.classList.remove("auto-fit");
 
-    grids[gridElement.id] = gridTemplateColumns;
+    const grid = grids.find(grid => grid.id === gridElement.id);
+    if (grid) {
+        grid.initialWidths = gridTemplateColumns;
+    }
 }
 
 function calculateVisibleRows(gridElement, rowHeight) {
