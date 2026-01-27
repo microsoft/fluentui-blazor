@@ -98,6 +98,18 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     }
   }
 
+  export function switchDirection(): void {
+    const htmlTag: HTMLElement = document?.documentElement;
+    if (htmlTag) {
+      const currentDir = htmlTag.getAttribute('dir');
+      if (currentDir === 'rtl') {
+        htmlTag.setAttribute('dir', 'ltr');
+      } else {
+        htmlTag.setAttribute('dir', 'rtl');
+      }
+    }
+  }
+
   /**
   * Adds a listener for media queries to the window object
   * to update the body `data-media` attribute with the current media query
