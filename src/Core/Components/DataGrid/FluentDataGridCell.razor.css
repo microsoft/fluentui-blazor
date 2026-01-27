@@ -144,6 +144,10 @@
   transform: rotate(0deg);
 }
 
+[dir=rtl] .fluent-data-grid .hierarchical-collapsed svg {
+  transform: rotate(180deg);
+}
+
 .fluent-data-grid .hierarchical-expanded svg {
   transform: rotate(90deg);
 }

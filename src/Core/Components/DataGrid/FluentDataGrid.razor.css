@@ -77,6 +77,12 @@
     opacity: var(--fluent-data-grid-header-opacity);
 }
 
+[dir=rtl] .fluent-data-grid .resize-handle {
+  right: unset;
+  left: 0;
+}
+
+
 .fluent-data-grid .header {
   padding: 0;
   z-index: 3;

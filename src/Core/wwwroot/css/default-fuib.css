@@ -114,10 +114,15 @@ table {
     vertical-align: middle;
   }
 
-  table[data-selectable] {
-    --selectedCheckWidth: 28px;
-    --selectedCheckContent: '✔';
-  }
+[dir=rtl] table td,
+[dir=rtl] table th {
+  text-align: right;
+}
+
+table[data-selectable] {
+  --selectedCheckWidth: 28px;
+  --selectedCheckContent: '✔';
+}
 
     table[data-selectable]:not([data-selectable="no-check"]) th:first-child::before {
       content: "";

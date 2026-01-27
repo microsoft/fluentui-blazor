@@ -119,7 +119,7 @@
 				<FluentDataGridCell GridColumn=@(colIndex + 1) Class="@ColumnJustifyClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" title="@tooltip" aria-label="@tooltip">
 					@if (col.HierarchicalToggle && item is IHierarchicalGridItem hierarchicalItem)
 					{
-						<span class="hierarchical-toggle-container" style="margin-left: calc(var(--spacingHorizontalL) * @hierarchicalItem.Depth);">
+						<span class="hierarchical-toggle-container" style="margin-inline-start: calc(var(--spacingHorizontalL) * @hierarchicalItem.Depth);">
 							<span @onclick:stopPropagation="true" class="hierarchical-expander @(hierarchicalItem.IsCollapsed ? "hierarchical-collapsed" : "hierarchical-expanded")">
 								@if (hierarchicalItem.HasChildren)
 								{
