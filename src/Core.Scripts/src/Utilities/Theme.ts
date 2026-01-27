@@ -99,7 +99,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   }
 
   export function switchDirection(): void {
-    const htmlTag: HTMLElement = document?.documentElement;
+    const htmlTag: HTMLElement = document.documentElement;
     if (htmlTag) {
       const currentDir = htmlTag.getAttribute('dir');
       if (currentDir === 'rtl') {
