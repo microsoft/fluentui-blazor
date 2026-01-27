@@ -57,6 +57,10 @@
     <None Include="**\*.ts" />
   </ItemGroup>
 
+  <ItemGroup>
+    <TypeScriptCompile Remove="Components\SortableList\FluentSortableList.razor.ts" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

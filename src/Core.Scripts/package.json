@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@fluentui/web-components": "^3.0.0-rc.2",
-    "imask": "^7.6.1"
+    "imask": "^7.6.1",
+    "sortablejs": "^1.15.6"
   }
 }

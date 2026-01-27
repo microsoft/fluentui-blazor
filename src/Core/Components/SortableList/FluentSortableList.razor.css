@@ -1,0 +1,80 @@
+/* 
+  you need the ::deep identifier if you are using scoped styles like this
+  because scoped styles are only applied to markup in the component, not
+  to the markup inside the render fragment.
+*/
+
+.fluent-sortable-list {
+    --fluent-sortable-list-background-color: var(--neutral-layer-2);
+    --fluent-sortable-list-item-height: calc(var(--design-unit) * 8px);
+    --fluent-sortable-list-filtered: var(--warning);
+    --fluent-sortable-list-border-width: calc(var(--stroke-width) * 1px);
+    --fluent-sortable-list-border-color: var(--neutral-stroke-input-active);
+    --fluent-sortable-list-padding: calc(var(--design-unit) * 1px);
+    --fluent-sortable-list-item-border-width: calc(var(--stroke-width) * 1px);
+    --fluent-sortable-list-item-border-color: var(--neutral-stroke-input-active);
+    --fluent-sortable-list-item-drop-border-color: var(--accent-fill-rest);
+    --fluent-sortable-list-item-drop-color: var(--neutral-layer-1);
+    --fluent-sortable-list-item-padding: 0 calc(var(--design-unit) * 2px);
+    --fluent-sortable-list-item-spacing: 2px;
+    border: var(--fluent-sortable-list-border-width) solid var(--fluent-sortable-list-border-color);
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    padding: var(--fluent-sortable-list-padding);
+    min-height: var(--fluent-sortable-list-item-height);
+}
+
+    /*Not sure yet if this can be deleted. Need to test on iOS*/
+    /*.fluent-sortable-list ::deep .sortable-fallback {
+        opacity: 1 !important
+    }*/
+
+    .fluent-sortable-list ::deep .sortable-grab {
+        cursor: grab;
+        background-color: var(--neutral-layer-1);
+        display: flex;
+        position: relative;
+        height: 100%;
+        left: calc(var(--design-unit) * -2px);
+        right: unset;
+        border-radius: calc(var(--control-corner-radius)* 1px) 0 0 calc(var(--control-corner-radius)* 1px);
+        width: 32px;
+        padding: 0 5px;
+    }
+
+    [dir='rtl'] .fluent-sortable-list ::deep .sortable-grab {
+        left: unset;
+        right: calc(var(--design-unit) * -2px);
+        border-radius: 0 calc(var(--control-corner-radius)* 1px) calc(var(--control-corner-radius)* 1px) 0;
+    }
+
+.fluent-sortable-list ::deep .sortable-item {
+    display: flex;
+    align-items: center;
+    height: var(--fluent-sortable-list-item-height) !important;
+    background-color: var(--fluent-sortable-list-background-color);
+    border: var(--fluent-sortable-list-item-border-width) solid var(--fluent-sortable-list-item-border-color);
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    padding: var(--fluent-sortable-list-item-padding);
+    margin-bottom: var(--fluent-sortable-list-item-spacing);
+}
+
+    .fluent-sortable-list ::deep .sortable-item:last-of-type {
+        margin-bottom: 0;
+    }
+
+.fluent-sortable-list ::deep .sortable-ghost > .sortable-item-content {
+    background-color: var(--fluent-sortable-list-item-drop-color) !important;
+}
+
+.fluent-sortable-list ::deep .sortable-ghost {
+    background: var(--fluent-sortable-list-item-drop-color) !important;
+    border: calc(var(--stroke-width) * 1px) dotted var(--fluent-sortable-list-item-drop-border-color) !important;
+}
+
+.fluent-sortable-list > .sortable-item:is(.filtered) {
+    background: var(--fluent-sortable-list-filtered);
+}
