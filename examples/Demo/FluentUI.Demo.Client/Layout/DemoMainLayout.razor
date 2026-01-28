@@ -30,10 +30,15 @@
 						  Title="Switch to Light/Dark theme" />
 
 			@* Direction *@
-			<FluentButton IconStart="@(new Icons.Regular.Size20.ArrowBidirectionalLeftRight().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+			<FluentButton IconOnly="true"
+						  Title="Switch to LTR/RTL direction"
 						  OnClick="@SwitchDirAsync"
-						  Appearance="ButtonAppearance.Transparent"
-						  Title="Switch direction" />
+						  Appearance="ButtonAppearance.Transparent">
+				<FluentIcon Class="hidden-if-ltr"
+							Value="@(new Icons.Regular.Size20.TextDirectionHorizontalRtl().WithColor(SystemColors.Neutral.ForegroundOnBrand))" />
+				<FluentIcon Class="hidden-if-rtl"
+							Value="@(new Icons.Regular.Size20.TextDirectionHorizontalLtr().WithColor(SystemColors.Neutral.ForegroundOnBrand))" />
+			</FluentButton>
 
 			@* Reboot *@
 			<FluentButton IconStart="@(new Icons.Regular.Size20.DrawText().WithColor("var(--colorNeutralForegroundOnBrand)"))"
