@@ -58,15 +58,15 @@ public class HierarchicalGridItem<TItem, TGridItem> : IHierarchicalGridItem
     }
 
     /// <summary>
-    /// Updates the <see cref="IsHidden"/> property for this item and all its children.
+    /// Updates the <see cref="IsHidden" /> property for this item's children.
     /// </summary>
-    /// <param name="isParentCollapsed">Whether the parent of this item is collapsed.</param>
-    private void UpdateHidden(bool isParentCollapsed = false)
+    private void UpdateHidden()
     {
-        IsHidden = isParentCollapsed;
+        var shouldHideChildren = IsHidden || IsCollapsed;
         foreach (var child in Children)
         {
-            child.UpdateHidden(isParentCollapsed || IsCollapsed);
+            child.IsHidden = shouldHideChildren;
+            child.UpdateHidden();
         }
     }
 }
