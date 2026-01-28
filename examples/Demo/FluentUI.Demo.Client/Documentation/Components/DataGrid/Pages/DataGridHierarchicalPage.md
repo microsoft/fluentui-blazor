@@ -14,7 +14,7 @@ you can define parent-child relationships between items.
 
 Set the `HierarchicalToggle` parameter to `true` on one of the columns to display the expand/collapse button.
 
-{{ DataGridHierarchical Files=Code:DataGridHierarchical.razor;CSS:DataGridHierarchical.razor.css}}
+{{ DataGridHierarchical Files=Razor:DataGridHierarchical.razor;Code:DataGridHierarchical.razor.cs;CSS:DataGridHierarchical.razor.css}}
 
 ## Multi-level hierarchy
 
@@ -22,5 +22,5 @@ The hierarchical data grid can display multiple levels of nesting. In this examp
 
 This example also shows how to programmatically expand and collapse rows by manually setting the `IsCollapsed` property on a `HierarchicalGridItem` instance. 
 
-{{ DataGridHierarchicalOrgChart Files=Code:DataGridHierarchicalOrgChart.razor}}
+{{ DataGridHierarchicalOrgChart Files=Razor:DataGridHierarchicalOrgChart.razor;Code:DataGridHierarchicalOrgChart.razor.cs}}
 

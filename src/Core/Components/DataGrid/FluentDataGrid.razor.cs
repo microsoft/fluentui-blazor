@@ -1173,6 +1173,50 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
+    /// <summary>
+    /// Expands all rows in a hierarchical data grid.
+    /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
+    /// </summary>
+    public async Task ExpandAllRowsAsync(int startDepth = 0)
+    {
+        
+        foreach (var item in _internalGridContext.Items)
+        {
+            if (item is IHierarchicalGridItem hierarchicalItem)
+            {
+                hierarchicalItem.IsCollapsed = false;
+                hierarchicalItem.IsHidden = false;
+
+                if (hierarchicalItem.Depth != startDepth)
+                {
+                    await RefreshDataAsync();
+                    await ExpandAllRowsAsync(startDepth + 1);
+                }
+            }
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// Collapses all rows in a hierarchical data grid with a depth greater than 0.
+    /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
+    /// </summary>
+    public async Task CollapseAllRowsAsync()
+    {
+        foreach (var item in _internalGridContext.Items)
+        {
+            if (item is IHierarchicalGridItem hierarchicalItem && hierarchicalItem.Depth > 0)
+            {
+                hierarchicalItem.IsCollapsed = true;
+                hierarchicalItem.IsHidden = true;
+            }
+        }
+
+        //await RefreshDataAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
     private void RenderActualError(RenderTreeBuilder builder)
     {
         if (ErrorContent is null)

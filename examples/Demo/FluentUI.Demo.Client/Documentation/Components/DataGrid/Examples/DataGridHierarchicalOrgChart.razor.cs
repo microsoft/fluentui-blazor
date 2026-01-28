@@ -10,13 +10,13 @@ namespace FluentUI.Demo.Client.Documentation.Components.DataGrid.Examples;
 public partial class DataGridHierarchicalOrgChart
 {
     private PersonGridItem? ceoItem;
+    private FluentDataGrid<PersonGridItem>? Grid;
     private readonly List<PersonGridItem> items = [];
 
     protected override void OnInitialized()
     {
         var allPeople = GeneratePersons(30).ToList();
 
-        // Level 0: CEO/Manager
         var ceo = allPeople[0] with { FirstName = "Mads", LastName = "Torgersen", JobTitle = "CEO", Department = "Executive" };
         ceoItem = new PersonGridItem
         {
@@ -25,7 +25,6 @@ public partial class DataGridHierarchicalOrgChart
         };
         items.Add(ceoItem);
 
-        // ... existing code ...
         for (var i = 1; i <= 3; i++)
         {
             var manager = allPeople[i] with { JobTitle = "Director", Department = "Engineering" };
@@ -49,6 +48,22 @@ public partial class DataGridHierarchicalOrgChart
         if (ceoItem is not null)
         {
             ceoItem.IsCollapsed = !ceoItem.IsCollapsed;
+        }
+    }
+
+    private async Task ExpandAllAsync()
+    {
+        if (Grid is not null)
+        {
+            await Grid.ExpandAllRowsAsync();
+        }
+    }
+
+    private async Task CollapseAllAsync()
+    {
+        if (Grid is not null)
+        {
+            await Grid.CollapseAllRowsAsync();
         }
     }
 
