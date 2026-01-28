@@ -53,7 +53,7 @@ else
     </FluentDataGrid>
 
     <div>
-        <b>Peoples:</b>
+        <b>People:</b>
         @String.Join("; ", People.Where(p => p.Selected).Select(p => p.Name))
     </div>
 }
