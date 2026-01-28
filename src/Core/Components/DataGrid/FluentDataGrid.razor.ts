@@ -298,8 +298,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
         curColWidth = curCol.offsetWidth - padding;
 
-        document.addEventListener('pointermove', pointerMoveHandler);
-        document.addEventListener('pointerup', pointerUpHandler);
+        gridElement.addEventListener('pointermove', pointerMoveHandler);
+        gridElement.addEventListener('pointerup', pointerUpHandler);
       });
 
       div.addEventListener('pointerover', function (e: MouseEvent) {

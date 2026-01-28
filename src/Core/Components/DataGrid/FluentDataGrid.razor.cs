@@ -294,6 +294,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<TGridItem> OnToggle { get; set; }
 
     /// <summary>
+    /// Event callback for when all hierarchical rows are expanded.
+    /// </summary>
+    [Parameter]
+    public EventCallback OnExpandAll { get; set; }
+
+    /// <summary>
+    /// Event callback for when all hierarchical rows are collapsed.
+    /// </summary>
+    [Parameter]
+    public EventCallback OnCollapseAll { get; set; }
+
+    /// <summary>
     /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
     [Parameter]
@@ -564,7 +576,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new ArgumentException("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
-        if (_columns.Where(x => x.HierarchicalToggle).Skip(1).Any())
+        if (_columns.Count(x => x.HierarchicalToggle) > 1)
         {
             throw new ArgumentException("Only one column can have 'HierarchicalToggle' set to true.");
         }
@@ -1179,23 +1191,33 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     public async Task ExpandAllRowsAsync(int startDepth = 0)
     {
-        
+        var hasChildren = false;
+        await RefreshDataAsync();
+
         foreach (var item in _internalGridContext.Items)
         {
-            if (item is IHierarchicalGridItem hierarchicalItem)
+            if (item is IHierarchicalGridItem hierarchicalItem && hierarchicalItem.Depth == startDepth)
             {
                 hierarchicalItem.IsCollapsed = false;
                 hierarchicalItem.IsHidden = false;
-
-                if (hierarchicalItem.Depth != startDepth)
+                if (hierarchicalItem.HasChildren)
                 {
-                    await RefreshDataAsync();
-                    await ExpandAllRowsAsync(startDepth + 1);
+                    hasChildren = true;
                 }
             }
         }
 
-        await InvokeAsync(StateHasChanged);
+        if (hasChildren)
+        {
+            await ExpandAllRowsAsync(startDepth + 1);
+        }
+        else
+        {
+            if (OnExpandAll.HasDelegate)
+            {
+                await OnExpandAll.InvokeAsync();
+            }
+        }
     }
 
     /// <summary>
@@ -1213,8 +1235,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
         }
 
-        //await RefreshDataAsync();
-        await InvokeAsync(StateHasChanged);
+        if (OnCollapseAll.HasDelegate)
+        {
+            await OnCollapseAll.InvokeAsync();
+        }
     }
 
     private void RenderActualError(RenderTreeBuilder builder)

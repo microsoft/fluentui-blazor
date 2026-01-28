@@ -43,12 +43,24 @@ public partial class DataGridHierarchicalOrgChart
         }
     }
 
+    private static  void OnCollapseAllHandler()
+    {
+        Console.WriteLine("All rows collapsed.");
+    }
+
+    private static void OnExpandAllHandler()
+    {
+        Console.WriteLine("All rows expanded.");
+    }
+
     private void ToggleCEO()
     {
         if (ceoItem is not null)
         {
             ceoItem.IsCollapsed = !ceoItem.IsCollapsed;
         }
+
+        Console.WriteLine("CEO expand/collapse toggled.");
     }
 
     private async Task ExpandAllAsync()
