@@ -145,10 +145,9 @@ public partial class FluentDatePicker : FluentCalendarBase
             value = new DateTime(year, 1, 1).ToString(Culture.DateTimeFormat.ShortDatePattern);
         }
 
-        BindConverter.TryConvertTo(value, Culture, out result);
-
-        validationErrorMessage = null;
-        return true;
+        bool success = BindConverter.TryConvertTo(value, Culture, out result);
+        validationErrorMessage = success ? null : $"The {DisplayName ?? (FieldBound ? FieldIdentifier.FieldName : UnknownBoundField)} field is not in a valid format.";
+        return success;
     }
 
     private string PlaceholderAccordingToView()
