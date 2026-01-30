@@ -1,4 +1,9 @@
-﻿<div>
+﻿@inject IJSRuntime JSRuntime
+
+<div>
+    Colors: @(string.Join(", ", Colors))
+</div>
+<div>
     Selected items: @(string.Join(", ", SelectedItems))
 </div>
 
@@ -22,6 +27,6 @@
 </FluentButton>
 
 @code {
-    static string[] Colors = ["Red", "Green", "Blue"];
-    IEnumerable<string> SelectedItems = new[] { Colors[1] };
+    string[] Colors = ["Red", "Green", "Blue"];
+    IEnumerable<string> SelectedItems = new[] { "Green" };
 }

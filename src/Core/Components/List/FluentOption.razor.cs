@@ -12,6 +12,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentOption<TValue> : FluentComponentBase
 {
+    private (string? Id, object? Data, TValue? Value)? _dataCache;
+
     /// <summary />
     public FluentOption(LibraryConfiguration configuration) : base(configuration) { }
 
@@ -121,8 +123,34 @@ public partial class FluentOption<TValue> : FluentComponentBase
     }
 
     /// <summary />
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+
+        parameters.TryGetValue<string?>(nameof(Id), out var id);
+        parameters.TryGetValue<object?>(nameof(Data), out var data);
+        parameters.TryGetValue<TValue?>(nameof(Value), out var value);
+
+        if (_dataCache is null)
+        {
+            _dataCache = (id, data, value);
+            return;
+        }
+
+        // If any of the key parameters have changed, notify the list context to remove this option
+        if (!StringComparer.Ordinal.Equals(id, _dataCache.Value.Id) ||
+            !EqualityComparer<object?>.Default.Equals(data, _dataCache.Value.Data) ||
+            !EqualityComparer<TValue?>.Default.Equals(value, _dataCache.Value.Value))
+        {
+            InternalListContext?.RemoveOption(this);
+            await OnInitializedAsync();
+        }
+    }
+
+    /// <summary />
     public override async ValueTask DisposeAsync()
     {
+        _dataCache = null;
         InternalListContext?.RemoveOption(this);
 
         await base.DisposeAsync();

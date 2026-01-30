@@ -1,11 +1,37 @@
 import * as FluentUIComponents from '@fluentui/web-components'
 
+/**
+ * ListBoxContainer - Enhances FluentUI Listbox with keyboard navigation and multi-select support.
+ * 
+ * The `Init` function initializes a `ListBoxContainer` by attaching a `ListboxExtended` instance to a `fluent-listbox` element.
+ * Call this from Blazor via JS interop after the component renders: 
+ *   await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ListBoxContainer.Init", "container-id");
+ * 
+ * The ListboxExtended class provides:
+ * - Keyboard navigation (ArrowUp/Down to navigate, Space/Enter to select)
+ * - Multi-select mode support (controlled by 'multiple' attribute on container)
+ * - Tab index management for accessibility
+ * - Automatic synchronization between DOM changes and Blazor state via MutationObserver
+ * - Custom 'listboxchange' event dispatched when selections change (detail.selectedOptions contains semicolon-separated IDs)
+ * 
+ * Usage: Place a 'multiple' attribute on the container div to enable multi-select mode. 
+ * Each fluent-option must have an 'id' attribute for tracking selections.
+ */
 export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
   export function Init(id: string) {
     const container = document.getElementById(id) as HTMLElement;
     const listbox = container?.querySelector('fluent-listbox') as FluentUIComponents.Listbox;
     if (listbox) {
       (listbox as any).__fluentListbox = new ListboxExtended(listbox, container);
+    }
+  }
+
+  export function refresh(id: string) {
+    const container = document.getElementById(id) as HTMLElement;
+    const listbox = container?.querySelector('fluent-listbox') as FluentUIComponents.Listbox;
+    if (listbox) {
+      const instance = (listbox as any).__fluentListbox as ListboxExtended;
+      instance.refresh();
     }
   }
 
@@ -25,28 +51,42 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     constructor(element: FluentUIComponents.Listbox, container: HTMLElement) {
       this.container = container;
       this.listbox = element;
-      this.listbox.multiple = (this.container.hasAttribute('multiple')) ?? false;
       this.listbox.addEventListener("keydown", this.keydownHandler);
 
-      const firstItem = this.firstItem();
-      if (firstItem) {
-        firstItem.tabIndex = 0;
-      }
-
       // Set initial selected options based on the current state
-      const selectedIds = this.listbox.selectedOptions.map(option => option.id);
       setTimeout(() => {
-        if (this.listbox.multiple) {
-          for (let i = 0; i < this.listbox.options.length; i++) {
-            const option = this.listbox.options[i];
-            option.selected = selectedIds.find(id => id === option.id) !== undefined;
-          }
-        }
-
-        this.isInitialized = true;
+        this.refresh(true);
         this.setupListboxObserver();
+        this.isInitialized = true;
       }, 0);
 
+    }
+
+    /**
+     * Refresh the list items and default values
+     * @param firstRendering 
+     */
+    public refresh(firstRendering: boolean = false) {
+      this.listbox.multiple = (this.container.hasAttribute('multiple')) ?? false;
+
+      // Set initial selected options based on the current state
+      if (this.listbox.multiple) {
+        const selectedIds = this.listbox.selectedOptions.map(option => option.id);
+        for (let i = 0; i < this.listbox.options.length; i++) {
+          const option = this.listbox.options[i];
+          option.multiple = true;
+          option.selected = selectedIds.find(id => id === option.id) !== undefined;
+        }
+      }
+
+      // Set the tabIndex="0" to the first item, if not already yet on another item
+      const existingTabItem = this.listbox.querySelector('fluent-option[tabindex="0"]');
+      if (!existingTabItem) {
+        const firstItem = this.listbox.querySelector('fluent-option') as FluentUIComponents.DropdownOption | null;
+        if (firstItem) {
+          firstItem.tabIndex = 0;
+        }
+      }
     }
 
     /**
@@ -103,14 +143,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
       return this.listbox.querySelectorAll('fluent-option') !== null;
     }
 
-    /**
-     * Gets the first item of the ListBoxContainer.
-     * @returns The first item in the ListBoxContainer, or null if there are no items.
-     */
-    private firstItem = (): FluentUIComponents.DropdownOption | null => {
-      return this.listbox.querySelector('fluent-option');
-    }
-
     /** 
      * Gets the active index of the ListBoxContainer. 
     */
@@ -161,24 +193,35 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
      * Sets up a single MutationObserver on the listbox to detect changes to child fluent-option elements.
      */
     private setupListboxObserver = (): void => {
+
       const observer = new MutationObserver((mutations) => {
         let hasSelectedOptionsChanged = false;
+        let hasNewRemovedOptions = false;
 
         mutations.forEach(mutation => {
 
           // Detect attribute changes on child nodes (fluent-option elements)
           if (mutation.type === 'attributes' && mutation.target !== this.listbox) {
             const target = mutation.target as FluentUIComponents.DropdownOption;
-            if (target.tagName === 'FLUENT-OPTION' && (mutation.attributeName === 'current-selected' || mutation.attributeName === 'selected')) {
+            const isSelectedAttribute = mutation.attributeName === 'current-selected' || mutation.attributeName === 'selected';
+            if (target.tagName === 'FLUENT-OPTION' && isSelectedAttribute) {
+
               hasSelectedOptionsChanged = true;
             }
           }
 
           // Detect when child nodes are added or removed
           if (mutation.type === 'childList') {
-            hasSelectedOptionsChanged = true;
+            hasNewRemovedOptions = true;
           }
         });
+
+        if (hasNewRemovedOptions) {
+          // Defer to allow FluentUI component to update its internal options array
+          queueMicrotask(() => {
+            this.refresh(false);
+          });
+        }
 
         if (hasSelectedOptionsChanged) {
           this.raiseSelectedOptionsChangeEvent();
@@ -187,7 +230,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
 
       observer.observe(this.listbox, {
         attributes: true,
-        attributeFilter: ['current-selected'],
+        attributeFilter: ['current-selected', 'selected'],
         subtree: true,
         childList: true
       });
@@ -210,7 +253,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         }
       });
 
-      console.log('Raising listboxchange event.', event);
       this.container.dispatchEvent(event);
     }
 
