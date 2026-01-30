@@ -997,7 +997,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public override ValueTask DisposeAsync()
     {
         _currentPageItemsChanged.Dispose();
+#pragma warning disable MA0042 // Do not use blocking calls in an async method
         _scope?.Dispose();
+#pragma warning restore MA0042 // Do not use blocking calls in an async method
 
         return base.DisposeAsync();
     }

@@ -195,7 +195,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     /// Null is undefined.
     /// </summary>
     [Parameter]
-    public bool? SelectAll { get; set; } = false;
+    public bool? SelectAll { get; set; }
 
     /// <summary>
     /// Gets or sets the action to be executed when the [All] checkbox is clicked.
@@ -394,7 +394,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
             {
                 DataGridSelectMode.Single => IconSelectedSingle,
                 DataGridSelectMode.SingleSticky => IconSelectedSingle,
-                _ => IconSelectedMultiple
+                _ => IconSelectedMultiple,
             };
         }
 
@@ -402,7 +402,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
         {
             DataGridSelectMode.Single => IconUnselectedSingle,
             DataGridSelectMode.SingleSticky => IconUnselectedSingle,
-            _ => IconUnselectedMultiple
+            _ => IconUnselectedMultiple,
         };
     }
 
@@ -543,7 +543,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
         // Using SelectedItems only
         if (InternalGridContext != null && (Grid.Items != null || Grid.ItemsProvider != null))
         {
-            if (_selectedItems.Count == 0)
+            if (_selectedItems.Count == 0 && !InternalGridContext.Items.Any(Property))
             {
                 return false;
             }
