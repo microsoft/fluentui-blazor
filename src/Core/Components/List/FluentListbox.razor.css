@@ -1,0 +1,57 @@
+.fluent-listbox {
+  --control-border-color: var(--colorNeutralStroke1);
+  background-color: var(--colorNeutralBackground1);
+  border-radius: var(--borderRadiusMedium);
+  border: var(--strokeWidthThin) solid var(--colorTransparentStroke);
+  box-shadow: inset 0 0 0 var(--strokeWidthThin) var(--control-border-color);
+  padding: var(--spacingVerticalXS) var(--spacingHorizontalXS);
+  width: 100%;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  font-weight: var(--fontWeightRegular);
+}
+
+  .fluent-listbox fluent-listbox {
+    box-shadow: none;
+  }
+
+  .fluent-listbox[disabled],
+  .fluent-listbox[readonly] {
+    pointer-events: none;
+  }
+
+    .fluent-listbox[disabled] fluent-listbox fluent-option {
+      color: var(--colorNeutralForegroundDisabled);
+    }
+
+  .fluent-listbox[appearance='filled-lighter'],
+  .fluent-listbox[appearance='filled-darker'] {
+    --control-border-color: var(--colorTransparentStroke);
+  }
+
+  .fluent-listbox[appearance='transparent'] {
+    --control-border-color: var(--colorTransparentStrokeInteractive);
+    background-color: var(--colorTransparentBackground);
+    border-radius: var(--borderRadiusNone);
+  }
+
+  .fluent-listbox[appearance='filled-darker'] {
+    background-color: var(--colorNeutralBackground3);
+  }
+
+    .fluent-listbox[appearance='filled-darker'] fluent-listbox {
+      background-color: transparent;
+    }
+
+      .fluent-listbox[appearance='filled-darker'] fluent-listbox fluent-option {
+        background-color: transparent;
+      }
+
+        .fluent-listbox[appearance='filled-darker'] fluent-listbox fluent-option:hover {
+          background-color: var(--colorNeutralBackground1Hover);
+        }
+
+        .fluent-listbox[appearance='filled-darker'] fluent-listbox fluent-option:active {
+          background-color: var(--colorNeutralBackground1Pressed);
+        }

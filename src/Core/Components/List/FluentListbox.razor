@@ -8,6 +8,7 @@
     <CascadingValue Value="(InternalListContext)GetCurrentContext()" Name="ListContextBase" TValue="InternalListContext" IsFixed="true">
         <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
             <div id="@Id"
+                 class="fluent-listbox"
                  appearance="@(Appearance.ToAttributeValue(isNull: ListAppearance.Outline, returnEmptyAsNull: true))"
                  slot="@FluentSlot.FieldInput"
                  aria-label="@AriaLabel"
@@ -20,7 +21,7 @@
                  @onlistboxchange="@OnDropdownChangeHandlerAsync"
                  @onfocusout="@FocusOutHandlerAsync"
                  @attributes=AdditionalAttributes>
-                <fluent-listbox style="box-shadow: none;">
+                <fluent-listbox>
                     @RenderOptions()
                 </fluent-listbox>
 

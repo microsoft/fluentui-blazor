@@ -79,6 +79,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         }
       }
 
+      // If disabled or readonly, do not set tab index
+      if (this.container.hasAttribute('disabled') || this.container.hasAttribute('readonly')) {
+        return;
+      }
+
       // Set the tabIndex="0" to the first item, if not already yet on another item
       const existingTabItem = this.listbox.querySelector('fluent-option[tabindex="0"]');
       if (!existingTabItem) {
@@ -97,6 +102,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     private keydownHandler = (e: KeyboardEvent): boolean | void => {
 
       if (!this.hasItems()) {
+        return;
+      }
+
+      if (this.container.hasAttribute('disabled') || this.container.hasAttribute('readonly')) {
         return;
       }
 
