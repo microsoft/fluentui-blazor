@@ -2,11 +2,11 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
@@ -304,12 +304,12 @@ public class FluentDatePickerTests : TestBase
     public void FluentDatePicker_TryParseValueFromString(string? value, string? cultureName, string? expectedValue)
     {
         // Arrange
-        var picker = new FluentDatePicker();
+        var picker = new TestDatePicker();
         var culture = cultureName != null ? CultureInfo.GetCultureInfo(cultureName) : CultureInfo.InvariantCulture;
 
         // Act
         picker.Culture = culture;
-        var successfullParse = picker.TryParseSelectableValueFromString(value, out var resultDate, out var validationErrorMessage);
+        var successfullParse = picker.CallTryParseValueFromString(value, out var resultDate, out var validationErrorMessage);
 
         // Assert
         if (successfullParse)
@@ -320,6 +320,15 @@ public class FluentDatePickerTests : TestBase
         {
             Assert.Null(resultDate);
             Assert.NotNull(validationErrorMessage);
+        }
+    }
+
+    // Temporary class to expose protected method
+    private class TestDatePicker : FluentDatePicker
+    {
+        public bool CallTryParseValueFromString(string? value, out System.DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
+        {
+            return base.TryParseValueFromString(value, out result, out validationErrorMessage);
         }
     }
 }
