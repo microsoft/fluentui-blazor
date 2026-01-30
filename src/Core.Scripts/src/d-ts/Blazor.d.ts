@@ -10,5 +10,8 @@ interface Blazor {
     isDarkMode(): boolean,
     setLightTheme(): void,
     setDarkTheme(): void,
+    setDefaultTheme(): void,
+    switchTheme(): void,
+    switchDirection(): void
   }
 }
