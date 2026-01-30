@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Globalization;
-using System.Runtime.Serialization;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
