@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Globalization;
+using System.Runtime.Serialization;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
@@ -305,15 +306,16 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         var picker = new FluentDatePicker();
+        var culture = cultureName != null ? CultureInfo.GetCultureInfo(cultureName) : CultureInfo.InvariantCulture;
 
         // Act
-        picker.Culture = cultureName != null ? CultureInfo.GetCultureInfo(cultureName) : CultureInfo.InvariantCulture;
+        picker.Culture = culture;
         var successfullParse = picker.TryParseSelectableValueFromString(value, out var resultDate, out var validationErrorMessage);
 
         // Assert
         if (successfullParse)
         {
-            Assert.Equal(expectedValue, resultDate?.ToShortDateString());
+            Assert.Equal(expectedValue, resultDate?.ToString(culture.DateTimeFormat.ShortDatePattern, culture));
         }
         else
         {
