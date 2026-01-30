@@ -1,30 +1,13 @@
-﻿@inject IJSRuntime JSRuntime
-
-<div>
-    Colors: @(string.Join(", ", Colors))
-</div>
-<div>
-    Selected items: @(string.Join(", ", SelectedItems))
-</div>
-
-<FluentListbox Label="Color"
+﻿<FluentListbox Label="Color"
                Items="@Colors"
                TOption="string"
                TValue="string"
                @bind-SelectedItems="@SelectedItems"
                Multiple="true" />
 
-<FluentButton OnClick="@(e => Colors = new[] { "Yellow", "Purple", "Cyan" })">
-    Yellow, Purple, Cyan
-</FluentButton>
-
-<FluentButton OnClick="@(e => Colors = new[] { "Red", "Green", "Blue" })">
-    Red, Green, Blue
-</FluentButton>
-
-<FluentButton OnClick="@(e => SelectedItems = new[] { Colors[0], Colors[2] })">
-    Check 1 and 3
-</FluentButton>
+<div>
+    Selected items: <b>@(string.Join(", ", SelectedItems))</b>
+</div>
 
 @code {
     string[] Colors = ["Red", "Green", "Blue"];

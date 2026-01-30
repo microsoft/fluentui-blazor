@@ -131,20 +131,19 @@ public partial class FluentOption<TValue> : FluentComponentBase
         parameters.TryGetValue<object?>(nameof(Data), out var data);
         parameters.TryGetValue<TValue?>(nameof(Value), out var value);
 
-        if (_dataCache is null)
+        // If any of the key parameters have changed, notify the list context to remove this option
+        if (_dataCache is not null)
         {
-            _dataCache = (id, data, value);
-            return;
+            if (!StringComparer.Ordinal.Equals(id, _dataCache.Value.Id) ||
+                !EqualityComparer<object?>.Default.Equals(data, _dataCache.Value.Data) ||
+                !EqualityComparer<TValue?>.Default.Equals(value, _dataCache.Value.Value))
+            {
+                InternalListContext?.RemoveOption(this);
+                await OnInitializedAsync();
+            }
         }
 
-        // If any of the key parameters have changed, notify the list context to remove this option
-        if (!StringComparer.Ordinal.Equals(id, _dataCache.Value.Id) ||
-            !EqualityComparer<object?>.Default.Equals(data, _dataCache.Value.Data) ||
-            !EqualityComparer<TValue?>.Default.Equals(value, _dataCache.Value.Value))
-        {
-            InternalListContext?.RemoveOption(this);
-            await OnInitializedAsync();
-        }
+        _dataCache = (id, data, value);
     }
 
     /// <summary />
