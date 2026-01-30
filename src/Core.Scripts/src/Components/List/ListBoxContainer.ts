@@ -126,14 +126,34 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         case 'Enter': {
           e.preventDefault();
           const activeItem = this.activeItem;
+
+
           if (activeItem) {
-            activeItem.selected = !activeItem.selected;
+            if (this.listbox.multiple) {
+              activeItem.selected = !activeItem.selected;
+            }
+            else {
+              activeItem.selected = true;
+              this.unselectAllExcept(activeItem);
+            }
           }
           break;
         }
       }
 
       return true;
+    }
+
+    /**
+     * Unselects all options except the specified one.
+     * @param selectedOption
+     */
+    private unselectAllExcept(selectedOption: FluentUIComponents.DropdownOption) {
+      this.getItems().forEach(option => {
+        if (option !== selectedOption) {
+          option.selected = false;
+        }
+      });
     }
 
     /**
