@@ -136,7 +136,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// Gets or sets the error message to show when the field can not be parsed.
     /// </summary>
     [Parameter]
-    public virtual string ParsingErrorMessage { get; set; } = "The {0} field must be a valid format.";
+    public virtual string ParsingErrorMessage { get; set; } = "The {0} field must have a valid format.";
 
     /// <summary>
     /// Gets the associated <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>.
