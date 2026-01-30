@@ -9,6 +9,10 @@ The **FluentListbox** component allows one option to be selected from a list of 
 
 ## Default
 
+Find here an example of the default usage of the **FluentListbox** component.
+If an item is selected, the user cannot deselect it. If you want to allow the user to deselect the item,
+you can add an empty item.
+
 {{ ListboxDefault }}
 
 ## Appearance
@@ -25,6 +29,9 @@ Use the **Multiple** parameter to enable multiple selections. Selected items are
 {{ ListboxMultiple }}
 
 ## Disabled and ReadOnly
+
+You can disable the **FluentListbox** component by using the **Disabled** parameter.
+You can make the **FluentListbox** component read-only by using the **ReadOnly** parameter.
 
 {{ ListboxDisabledReadOnly }}
 
