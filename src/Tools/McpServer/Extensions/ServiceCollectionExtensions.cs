@@ -63,7 +63,8 @@ internal static class ServiceCollectionExtensions
             .AddMcpServer()
             .WithStdioServerTransport()
             .WithToolsFromAssembly(Assembly.GetExecutingAssembly())
-            .WithResourcesFromAssembly(Assembly.GetExecutingAssembly());
+            .WithResourcesFromAssembly(Assembly.GetExecutingAssembly())
+            .WithPromptsFromAssembly(Assembly.GetExecutingAssembly());
 
         return services;
     }
