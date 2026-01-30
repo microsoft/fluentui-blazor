@@ -133,6 +133,12 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public virtual bool Embedded { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets the error message to show when the field can not be parsed.
+    /// </summary>
+    [Parameter]
+    public virtual string ParsingErrorMessage { get; set; } = "The {0} field must be a valid format.";
+
+    /// <summary>
     /// Gets the associated <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>.
     /// This property is uninitialized if the input does not have a parent <see cref="EditForm"/>.
     /// </summary>
@@ -144,6 +150,12 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     protected internal FieldIdentifier FieldIdentifier { get; set; }
 
     internal virtual bool FieldBound => Field is not null || ValueExpression is not null || ValueChanged.HasDelegate;
+
+    /// <summary>
+    /// Gets the display name of the field, using the specified display name if set; otherwise, uses the field
+    /// identifier's name if the field is bound.
+    /// </summary>
+    internal string FieldDisplayName => DisplayName ?? (FieldBound ? FieldIdentifier.FieldName : UnknownBoundField);
 
     protected async Task SetCurrentValueAsync(TValue? value)
     {

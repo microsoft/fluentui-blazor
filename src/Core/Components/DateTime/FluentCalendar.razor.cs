@@ -294,7 +294,7 @@ public partial class FluentCalendar : FluentCalendarBase
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         bool success = BindConverter.TryConvertTo(value, Culture, out result);
-        validationErrorMessage = success? null : $"The {DisplayName ?? (FieldBound ? FieldIdentifier.FieldName : UnknownBoundField)} field is not in a valid format.";
+        validationErrorMessage = success ? null : string.Format(ParsingErrorMessage, FieldDisplayName);
         return success;
     }
 

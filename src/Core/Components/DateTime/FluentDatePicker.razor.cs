@@ -146,7 +146,7 @@ public partial class FluentDatePicker : FluentCalendarBase
         }
 
         bool success = BindConverter.TryConvertTo(value, Culture, out result);
-        validationErrorMessage = success ? null : $"The {DisplayName ?? (FieldBound ? FieldIdentifier.FieldName : UnknownBoundField)} field is not in a valid format.";
+        validationErrorMessage = success ? null : string.Format(ParsingErrorMessage, FieldDisplayName);
         return success;
     }
 

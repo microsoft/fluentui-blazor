@@ -6,6 +6,7 @@ using System.Globalization;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
@@ -291,5 +292,33 @@ public class FluentDatePickerTests : TestBase
 
         // Assert
         Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("02-22-2000", "en-GB", "02/22/2000")]
+    [InlineData("02-22-2000", "nl-BE", null)]
+    [InlineData("22-12-2000", "nl-BE", "22/12/2000")]
+    [InlineData("02/22/2000", "en-GB", "02/22/2000")]
+    [InlineData("abc", "en-GB", null)]
+    [InlineData("02022000", "en-GB", null)]
+    public void FluentDatePicker_TryParseValueFromString(string? value, string? cultureName, string? expectedValue)
+    {
+        // Arrange
+        var picker = new FluentDatePicker();
+
+        // Act
+        picker.Culture = cultureName != null ? CultureInfo.GetCultureInfo(cultureName) : CultureInfo.InvariantCulture;
+        var successfullParse = picker.TryParseSelectableValueFromString(value, out var resultDate, out var validationErrorMessage);
+
+        // Assert
+        if (successfullParse)
+        {
+            Assert.Equal(expectedValue, resultDate?.ToShortDateString());
+        }
+        else
+        {
+            Assert.Null(resultDate);
+            Assert.NotNull(validationErrorMessage);
+        }
     }
 }

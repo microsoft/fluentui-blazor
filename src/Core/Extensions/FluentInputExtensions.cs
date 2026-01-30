@@ -42,7 +42,7 @@ internal static class FluentInputExtensions
             }
 
             result = default;
-            validationErrorMessage = $"The {input.DisplayName ?? (input.FieldBound ? input.FieldIdentifier.FieldName : input.UnknownBoundField)} field is not valid.";
+            validationErrorMessage = string.Format(input.ParsingErrorMessage, input.FieldDisplayName);
             return false;
         }
         catch (InvalidOperationException ex)
