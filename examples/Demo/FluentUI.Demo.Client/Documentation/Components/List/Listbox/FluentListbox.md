@@ -19,10 +19,19 @@ You can change the appearance of the **FluentListbox** component by using the **
 
 ## Multiple
 
-Use the **Multiple** parameter to enable multiple selections. Selected items are bound to the **SelectedItems** parameter.
+Use the **Multiple** parameter to enable multiple selections. Selected items are bound to the
+**SelectedItems** parameter.
 
 {{ ListboxMultiple }}
 
 ## Disabled and ReadOnly
 
 {{ ListboxDisabledReadOnly }}
+
+## Many items
+
+You can use this component with a large number of items. But all items are rendered in the HTML code
+and loaded at once. If you have a very large number of items, you should use the
+**FluentAutocomplete** component.
+
+{{ ListboxManyItems }}
