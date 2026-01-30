@@ -540,7 +540,6 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     /// <summary />
     private bool? GetSelectAll()
     {
-        // Using SelectedItems only
         if (InternalGridContext != null && (Grid.Items != null || Grid.ItemsProvider != null))
         {
             if (_selectedItems.Count == 0 && !InternalGridContext.Items.Any(Property))
