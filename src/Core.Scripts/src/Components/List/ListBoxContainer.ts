@@ -5,7 +5,7 @@ import * as FluentUIComponents from '@fluentui/web-components'
  * 
  * The `Init` function initializes a `ListBoxContainer` by attaching a `ListboxExtended` instance to a `fluent-listbox` element.
  * Call this from Blazor via JS interop after the component renders: 
- *   await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ListBoxContainer.Init", "container-id");
+ *   await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ListBoxContainer.initialize", "container-id");
  * 
  * The ListboxExtended class provides:
  * - Keyboard navigation (ArrowUp/Down to navigate, Space/Enter to select)
@@ -18,7 +18,7 @@ import * as FluentUIComponents from '@fluentui/web-components'
  * Each fluent-option must have an 'id' attribute for tracking selections.
  */
 export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
-  export function Init(id: string) {
+  export function initialize(id: string) {
     const container = document.getElementById(id) as HTMLElement;
     const listbox = container?.querySelector('fluent-listbox') as FluentUIComponents.Listbox;
     if (listbox) {

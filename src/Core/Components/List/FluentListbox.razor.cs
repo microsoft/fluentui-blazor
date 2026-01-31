@@ -29,7 +29,7 @@ public partial class FluentListbox<TOption, TValue> : FluentListBase<TOption, TV
         if (firstRender)
         {
             // Import the JavaScript module
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ListBoxContainer.Init", Id);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ListBoxContainer.initialize", Id);
         }
 
         await base.OnAfterRenderAsync(firstRender);
