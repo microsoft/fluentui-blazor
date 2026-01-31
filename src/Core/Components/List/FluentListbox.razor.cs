@@ -9,7 +9,7 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// A FluentSelect allows for selecting one or more options from a list of options.
+/// A FluentListbox allows for selecting one or more options from a list of options.
 /// </summary>
 [CascadingTypeParameter(nameof(TValue))]
 public partial class FluentListbox<TOption, TValue> : FluentListBase<TOption, TValue>

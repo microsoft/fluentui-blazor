@@ -98,13 +98,21 @@ public partial class FluentOption<TValue> : FluentComponentBase
                 $"the type '{InternalListContextBase.ValueType.Name}' of the parent List component.");
         }
 
+        if (string.IsNullOrEmpty(Id))
+        {
+            Id = Identifier.NewId();
+        }
+
+        return AddOptionToInternalListAsync();
+    }
+
+    /// <summary>
+    /// Adds this option to the internal list context.
+    /// </summary>
+    private Task AddOptionToInternalListAsync()
+    {
         if (InternalListContext is not null)
         {
-            if (string.IsNullOrEmpty(Id))
-            {
-                Id = Identifier.NewId();
-            }
-
             InternalListContext.AddOption(this);
 
             // Use OptionSelectedComparer if available, otherwise fallback to EqualityComparer<TValue>.Default
@@ -132,14 +140,14 @@ public partial class FluentOption<TValue> : FluentComponentBase
         parameters.TryGetValue<TValue?>(nameof(Value), out var value);
 
         // If any of the key parameters have changed, notify the list context to remove this option
-        if (_dataCache is not null)
+        if (_dataCache is not null && InternalListContext is not null)
         {
             if (!StringComparer.Ordinal.Equals(id, _dataCache.Value.Id) ||
                 !EqualityComparer<object?>.Default.Equals(data, _dataCache.Value.Data) ||
                 !EqualityComparer<TValue?>.Default.Equals(value, _dataCache.Value.Value))
             {
-                InternalListContext?.RemoveOption(this);
-                await OnInitializedAsync();
+                InternalListContext.RemoveOption(this);
+                await AddOptionToInternalListAsync();
             }
         }
 

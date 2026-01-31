@@ -169,7 +169,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
      * @returns True if the ListBoxContainer has items, false otherwise.
      */
     private hasItems = (): boolean => {
-      return this.listbox.querySelectorAll('fluent-option') !== null;
+      return this.listbox.querySelectorAll('fluent-option').length > 0;
     }
 
     /** 
