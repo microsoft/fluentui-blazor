@@ -368,4 +368,123 @@
         Assert.NotNull(capturedSelectedItems);
         Assert.Empty(capturedSelectedItems);
     }
+
+    [Fact]
+    public async Task FluentSelect_Manual_OnDropdownChange()
+    {
+        string? selectedValue = null;
+        var valueChangedCalled = false;
+
+        // Arrange - Using manual FluentOptionString elements (no Items collection)
+        var cut = Render(@<FluentSelect TOption="string" TValue="string" ValueChanged="@(v => { selectedValue = v; valueChangedCalled = true; })">
+            <FluentOptionString Value="One">One</FluentOptionString>
+            <FluentOptionString Value="Two">Two</FluentOptionString>
+            <FluentOptionString Value="Three">Three</FluentOptionString>
+        </FluentSelect>);
+
+        // Get the ID of the "Two" option to simulate selection
+        var twoOption = cut.Find("fluent-option[value='Two']");
+        var twoId = twoOption.GetAttribute("id");
+
+        // Act - Simulate dropdown change with the ID of the "Two" option
+        await cut.FindComponent<FluentSelect<string, string>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = twoId,
+        });
+
+        // Assert
+        Assert.True(valueChangedCalled, "ValueChanged should have been invoked");
+        Assert.Equal("Two", selectedValue);
+    }
+
+    [Fact]
+    public async Task FluentSelect_Manual_OnDropdownChange_EmptySelection()
+    {
+        string? selectedValue = "One";
+        var valueChangedCalled = false;
+
+        // Arrange - Using manual FluentOptionString elements (no Items collection)
+        var cut = Render(@<FluentSelect TOption="string" TValue="string" Value="@selectedValue" ValueChanged="@(v => { selectedValue = v; valueChangedCalled = true; })">
+            <FluentOptionString Value="One">One</FluentOptionString>
+            <FluentOptionString Value="Two">Two</FluentOptionString>
+        </FluentSelect>);
+
+        // Act - Simulate dropdown change with empty selection
+        await cut.FindComponent<FluentSelect<string, string>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = "",
+        });
+
+        // Assert - Value should be cleared to default
+        Assert.True(valueChangedCalled, "ValueChanged should have been invoked");
+        Assert.Null(selectedValue);
+    }
+
+    [Fact]
+    public void FluentSelect_GetOptionValue_DefaultWhenTypesAreDifferent()
+    {
+        // Arrange - Create a scenario where TOption != TValue and no OptionValue function
+        // Using a Person object as TOption and int as TValue
+        var people = new[]
+        {
+            new Person { Id = 1, Name = "Alice" },
+            new Person { Id = 2, Name = "Bob" }
+        };
+
+        // Act - This tests the GetOptionValue method path where typeof(TOption) != typeof(TValue)
+        // and OptionValue is null, which should return default (0 for int)
+        var cut = Render(@<FluentSelect Items="@people" TOption="Person" TValue="int" />);
+
+        // Assert - No exception should be thrown, component renders correctly
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_GetOptionValue_WithOptionValueFunc()
+    {
+        // Arrange - Create a scenario where TOption != TValue but OptionValue is provided
+        var people = new[]
+        {
+            new Person { Id = 1, Name = "Alice" },
+            new Person { Id = 2, Name = "Bob" }
+        };
+
+        int? selectedId = 1;
+
+        // Act - This uses the OptionValue function to extract the value
+        var cut = Render(@<FluentSelect 
+            Items="@people" 
+            TOption="Person" 
+            TValue="int?" 
+            Value="@selectedId"
+            OptionValue="@(p => p?.Id)"
+            OptionText="@(p => p?.Name)" />);
+
+        // Assert - Alice should be selected
+        var selectedOption = cut.Find("fluent-option[selected]");
+        Assert.Equal("Alice", selectedOption.GetInnerText());
+    }
+
+    [Fact]
+    public void FluentSelect_Width_And_Height()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" TOption="string" TValue="string" Width="200px" Height="300px" />);
+
+        // Assert - Width is applied to the dropdown, Height to the listbox
+        var dropdown = cut.Find("fluent-dropdown");
+        var dropdownStyle = dropdown.GetAttribute("style");
+        Assert.Contains("width: 200px", dropdownStyle);
+
+        var listbox = cut.Find("fluent-listbox");
+        var listboxStyle = listbox.GetAttribute("style");
+        Assert.Contains("height: 300px", listboxStyle);
+        Assert.Contains("min-width: 200px", listboxStyle);
+    }
+
+    public record Person
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+    }
 }
