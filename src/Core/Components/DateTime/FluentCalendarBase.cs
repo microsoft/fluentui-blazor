@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public abstract class FluentCalendarBase : FluentParsableInputBase<DateTime?>
+public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
 {
     /// <summary>
     /// Gets or sets the culture of the component.

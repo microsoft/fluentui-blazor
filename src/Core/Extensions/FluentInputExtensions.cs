@@ -11,7 +11,7 @@ internal static class FluentInputExtensions
 {
 
     public static bool TryParseSelectableValueFromString<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue>(
-        this FluentParsableInputBase<TValue> input, string? value,
+        this FluentInputBase<TValue> input, string? value,
         [MaybeNullWhen(false)] out TValue result,
         [NotNullWhen(false)] out string? validationErrorMessage)
     {

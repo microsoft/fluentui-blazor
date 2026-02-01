@@ -21,10 +21,16 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     internal readonly string UnknownBoundField = "(unknown)";
 
     private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
+
     private bool _hasInitializedParameters;
+    private bool _parsingFailed;
+    private string? _incomingValueBeforeParsing;
+    private bool _previousParsingAttemptFailed;
+    private ValidationMessageStore? _parsingValidationMessages;
+    private Type? _nullableUnderlyingType;
 
     [CascadingParameter]
-    private protected EditContext? CascadedEditContext { get; set; }
+    private EditContext? CascadedEditContext { get; set; }
 
     /// <summary>
     /// When true, the control will be immutable by user interaction. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly">readonly</see> HTML attribute for more information.
@@ -127,6 +133,12 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public virtual bool Embedded { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets the error message to show when the field can not be parsed.
+    /// </summary>
+    [Parameter]
+    public virtual string ParsingErrorMessage { get; set; } = "The {0} field must have a valid format.";
+
+    /// <summary>
     /// Gets the associated <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>.
     /// This property is uninitialized if the input does not have a parent <see cref="EditForm"/>.
     /// </summary>
@@ -145,13 +157,15 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// </summary>
     internal string FieldDisplayName => DisplayName ?? (FieldBound ? FieldIdentifier.FieldName : UnknownBoundField);
 
-    protected virtual async Task SetCurrentValueAsync(TValue? value)
+    protected async Task SetCurrentValueAsync(TValue? value)
     {
         var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
         if (!hasChanged)
         {
             return;
         }
+
+        _parsingFailed = false;
 
         // If we don't do this, then when the user edits from A to B, we'd:
         // - Do a render that changes back to A
@@ -184,6 +198,65 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     }
 
     /// <summary>
+    /// Gets or sets the current value of the input, represented as a string.
+    /// </summary>
+    protected string? CurrentValueAsString
+    {
+        // InputBase-derived components can hold invalid states (e.g., an InputNumber being blank even when bound
+        // to an int value). So, if parsing fails, we keep the rejected string in the UI even though it doesn't
+        // match what's on the .NET model. This avoids interfering with typing, but still notifies the EditContext
+        // about the validation error message.
+        get => _parsingFailed ? _incomingValueBeforeParsing : FormatValueAsString(CurrentValue);
+        set => _ = SetCurrentValueAsStringAsync(value);
+
+    }
+
+    /// <summary>
+    /// Attempts to set the current value of the input, represented as a string.
+    /// </summary>
+    /// <param name="value"></param>
+    protected async Task SetCurrentValueAsStringAsync(string? value)
+    {
+        _incomingValueBeforeParsing = value;
+        _parsingValidationMessages?.Clear();
+
+        if (_nullableUnderlyingType != null && string.IsNullOrEmpty(value))
+        {
+            // Assume if it's a nullable type, null/empty inputs should correspond to default(T)
+            // Then all subclasses get nullable support almost automatically (they just have to
+            // not reject Nullable<T> based on the type itself).
+            _parsingFailed = false;
+            CurrentValue = default!;
+        }
+        else if (TryParseValueFromString(value, out var parsedValue, out var validationErrorMessage))
+        {
+            _parsingFailed = false;
+            await SetCurrentValueAsync(parsedValue);
+        }
+        else
+        {
+            _parsingFailed = true;
+
+            // EditContext may be null if the input is not a child component of EditForm.
+            if (EditContext is not null && FieldBound)
+            {
+                _parsingValidationMessages ??= new ValidationMessageStore(EditContext);
+                _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage);
+
+                // Since we're not writing to CurrentValue, we'll need to notify about modification from here
+                EditContext.NotifyFieldChanged(FieldIdentifier);
+            }
+        }
+
+        // We can skip the validation notification if we were previously valid and still are
+        if (_parsingFailed || _previousParsingAttemptFailed)
+        {
+            EditContext?.NotifyValidationStateChanged();
+            _previousParsingAttemptFailed = _parsingFailed;
+        }
+    }
+
+    /// <summary>
     /// Constructs an instance of <see cref="InputBase{TValue}"/>.
     /// </summary>
     protected FluentInputBase()
@@ -193,12 +266,22 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     }
 
     /// <summary>
-    /// Formats the value as a string.
+    /// Formats the value as a string. Derived classes can override this to determine the formating used for <see cref="CurrentValueAsString"/>.
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
     protected virtual string? FormatValueAsString(TValue? value)
         => value?.ToString();
+
+    /// <summary>
+    /// Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
+    /// <see cref="CurrentValueAsString"/> interprets incoming values.
+    /// </summary>
+    /// <param name="value">The string value to be parsed.</param>
+    /// <param name="result">An instance of <typeparamref name="TValue"/>.</param>
+    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
+    /// <returns>True if the value could be parsed; otherwise false.</returns>
+    protected abstract bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage);
 
     /// <summary>
     /// Gets a CSS class string that combines the <c>class</c> attribute and and a string indicating
@@ -256,6 +339,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
                 EditContext.OnValidationStateChanged += _validationStateChangedHandler;
             }
 
+            _nullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
             _hasInitializedParameters = true;
         }
         else if (CascadedEditContext != EditContext)

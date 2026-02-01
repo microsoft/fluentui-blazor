@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
@@ -89,6 +90,13 @@ public partial class FluentTextField : FluentInputBase<string?>
     /// </summary>
     [Parameter]
     public InputMode? InputMode { get; set; }
+
+    protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        result = value;
+        validationErrorMessage = null;
+        return true;
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

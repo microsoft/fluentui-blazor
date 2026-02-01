@@ -10,7 +10,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentRating : FluentParsableInputBase<int>
+public partial class FluentRating : FluentInputBase<int>
 {
     private bool _updatingCurrentValue = false;
     private int? _hoverValue = null;

@@ -10,7 +10,7 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentNumberField<TValue> : FluentParsableInputBase<TValue>, IAsyncDisposable
+public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/TextField/FluentTextField.razor.js";
 

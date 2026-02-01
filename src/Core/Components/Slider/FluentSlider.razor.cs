@@ -13,7 +13,7 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentSlider<TValue> : FluentParsableInputBase<TValue>, IAsyncDisposable
+public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDisposable
     where TValue : System.Numerics.INumber<TValue>
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Slider/FluentSlider.razor.js";

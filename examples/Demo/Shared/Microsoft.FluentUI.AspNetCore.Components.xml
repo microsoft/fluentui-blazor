@@ -658,6 +658,11 @@
             If true, the ClassValue property will not include the EditContext's FieldCssClass.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.ParsingErrorMessage">
+            <summary>
+            Gets or sets the error message to show when the field can not be parsed.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.EditContext">
             <summary>
             Gets the associated <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
@@ -680,6 +685,17 @@
             Gets or sets the current value of the input.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.CurrentValueAsString">
+            <summary>
+            Gets or sets the current value of the input, represented as a string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.SetCurrentValueAsStringAsync(System.String)">
+            <summary>
+            Attempts to set the current value of the input, represented as a string.
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.InputBase`1"/>.
@@ -687,10 +703,20 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.FormatValueAsString(`0)">
             <summary>
-            Formats the value as a string.
+            Formats the value as a string. Derived classes can override this to determine the formating used for <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.CurrentValueAsString"/>.
             </summary>
             <param name="value">The value to format.</param>
             <returns>A string representation of the value.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.TryParseValueFromString(System.String,`0@,System.String@)">
+            <summary>
+            Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
+            <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.CurrentValueAsString"/> interprets incoming values.
+            </summary>
+            <param name="value">The string value to be parsed.</param>
+            <param name="result">An instance of <typeparamref name="TValue"/>.</param>
+            <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
+            <returns>True if the value could be parsed; otherwise false.</returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.ClassValue">
             <summary>
@@ -748,39 +774,6 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary>
             Handler for the OnInput event, with an optional delay to avoid to raise the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.ValueChanged"/> event too often.
-            </summary>
-            <param name="e"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentParsableInputBase`1.ParsingErrorMessage">
-            <summary>
-            Gets or sets the error message to show when the field can not be parsed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentParsableInputBase`1.CurrentValueAsString">
-            <summary>
-            Gets or sets the current value of the input, represented as a string.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentParsableInputBase`1.SetCurrentValueAsStringAsync(System.String)">
-            <summary>
-            Attempts to set the current value of the input, represented as a string.
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentParsableInputBase`1.TryParseValueFromString(System.String,`0@,System.String@)">
-            <summary>
-            Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
-            <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentParsableInputBase`1.CurrentValueAsString"/> interprets incoming values.
-            </summary>
-            <param name="value">The string value to be parsed.</param>
-            <param name="result">An instance of <typeparamref name="TValue"/>.</param>
-            <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
-            <returns>True if the value could be parsed; otherwise false.</returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentParsableInputBase`1.ChangeHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
-            <summary>
-            Handler for the OnChange event.
             </summary>
             <param name="e"></param>
             <returns></returns>
@@ -1085,6 +1078,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.UpdateAndRaiseCheckStateEventAsync(System.Nullable{System.Boolean})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCollapsibleRegion.Expanded">
@@ -6624,6 +6620,9 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.#ctor">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.TryParseValueFromString(System.String,System.String@,System.String@)">
+            <inheritdoc />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.FormatValueAsString(System.String)">
             <inheritdoc />

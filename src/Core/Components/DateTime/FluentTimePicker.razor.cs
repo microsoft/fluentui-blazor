@@ -11,7 +11,7 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentTimePicker : FluentParsableInputBase<DateTime?>
+public partial class FluentTimePicker : FluentInputBase<DateTime?>
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DateTime/FluentTimePicker.razor.js";
 

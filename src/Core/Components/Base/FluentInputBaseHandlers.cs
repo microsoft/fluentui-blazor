@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -31,15 +32,28 @@ public partial class FluentInputBase<TValue>
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
         var _notifyCalled = false;
+        var isValid = TryParseValueFromString(e.Value?.ToString(), out TValue? result, out var validationErrorMessage);
 
-        if (typeof(TValue) == typeof(string))
+        if (isValid)
         {
-            object? value = e.Value?.ToString();  
-            await SetCurrentValueAsync((TValue?)(value ?? default));
-
+            await SetCurrentValueAsync(result ?? default);
             _notifyCalled = true;
+
+            if (FieldBound && CascadedEditContext != null)
+            {
+                _parsingValidationMessages?.Clear(); // Clear any previous errors
+            }
         }
-        
+        else
+        {
+            if (FieldBound && CascadedEditContext != null)
+            {
+                _parsingValidationMessages ??= new ValidationMessageStore(CascadedEditContext);
+
+                _parsingValidationMessages.Clear();
+                _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage ?? "Unknown parsing error");
+            }
+        }
         if (FieldBound && !_notifyCalled)
         {
             CascadedEditContext?.NotifyFieldChanged(FieldIdentifier);

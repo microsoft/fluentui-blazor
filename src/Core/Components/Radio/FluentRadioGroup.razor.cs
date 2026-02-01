@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 
 [CascadingTypeParameter(nameof(TValue))]
-public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentParsableInputBase<TValue>
+public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>
 {
     private readonly string _defaultGroupName = Identifier.NewId();
     private FluentRadioContext? _context;
