@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -419,10 +418,6 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
             }
         }
     }
-
-    /// <inheritdoc />
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
-        => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
 
     /// <inheritdoc />
     protected override string? FormatValueAsString(string? value)

@@ -1,5 +1,5 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
-@inherits FluentInputBase<DateTime?>
+@inherits FluentParsableInputBase<DateTime?>
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
 <fluent-text-field @ref="Element"
 				   class="@($"{ClassValue} fluent-timepicker")"
