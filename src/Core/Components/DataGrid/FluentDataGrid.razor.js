@@ -5,7 +5,10 @@ export function init(gridElement, autoFocus) {
         return;
     };
 
-    enableColumnResizing(gridElement);
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    enableColumnResizing(gridElement, true, signal);
 
     let start = gridElement.querySelector('td:first-child');
 
@@ -31,43 +34,36 @@ export function init(gridElement, autoFocus) {
         }
     }
     const keyDownHandler = event => {
-        if (document.activeElement.tagName.toLowerCase() != 'table' && document.activeElement.tagName.toLowerCase() != 'td' && document.activeElement.tagName.toLowerCase() != 'th') {
-            return;
-        }
         const columnOptionsElement = gridElement?.querySelector('.col-options');
-        if (columnOptionsElement) {
+        if (columnOptionsElement && columnOptionsElement.contains(event.target)) {
+            if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
+                event.stopPropagation();
+            }
             if (event.key === "Escape") {
                 gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
                 gridElement.focus();
             }
-            columnOptionsElement.addEventListener(
-                "keydown",
-                (event) => {
-                    if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
-                        event.stopPropagation();
-                    }
-                }
-            );
         }
+
         const columnResizeElement = gridElement?.querySelector('.col-resize');
-        if (columnResizeElement) {
+        if (columnResizeElement && columnResizeElement.contains(event.target)) {
+            if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
+                event.stopPropagation();
+            }
             if (event.key === "Escape") {
                 gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
                 gridElement.focus();
             }
-            columnResizeElement.addEventListener(
-                "keydown",
-                (event) => {
-                    if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
-                        event.stopPropagation();
-                    }
-                }
-            );
+        }
+
+        if (document.activeElement.tagName.toLowerCase() != 'table' && document.activeElement.tagName.toLowerCase() != 'td' && document.activeElement.tagName.toLowerCase() != 'th') {
+            return;
         }
 
         // check if start is a child of gridElement
         if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start && document.activeElement.tagName.toLowerCase() !== 'fluent-text-field' && document.activeElement.tagName.toLowerCase() !== 'fluent-menu-item') {
             const idx = start.cellIndex;
+            const isRTL = getComputedStyle(gridElement).direction === 'rtl';
 
             if (event.key === "ArrowUp") {
                 // up arrow
@@ -88,13 +84,13 @@ export function init(gridElement, autoFocus) {
             } else if (event.key === "ArrowLeft") {
                 // left arrow
                 event.preventDefault();
-                const previousSibling = (document.body.dir === '' || document.body.dir === 'ltr') ? start.previousElementSibling : start.nextElementSibling;
+                const previousSibling = isRTL ? start.nextElementSibling : start.previousElementSibling;
                 keyboardNavigation(previousSibling);
                 event.stopPropagation();
             } else if (event.key === "ArrowRight") {
                 // right arrow
                 event.preventDefault();
-                const nextsibling = (document.body.dir === '' || document.body.dir === 'ltr') ? start.nextElementSibling : start.previousElementSibling;
+                const nextsibling = isRTL ? start.previousElementSibling : start.nextElementSibling;
                 keyboardNavigation(nextsibling);
                 event.stopPropagation();
             }
@@ -120,20 +116,23 @@ export function init(gridElement, autoFocus) {
                 if (event.target.role !== "gridcell" && (event.key === "ArrowRight" || event.key === "ArrowLeft")) {
                     event.stopPropagation();
                 }
-            }
+            },
+            { signal }
         );
     });
 
-    document.body.addEventListener('click', bodyClickHandler);
-    document.body.addEventListener('mousedown', bodyClickHandler); // Otherwise it seems strange that it doesn't go away until you release the mouse button
-    gridElement.addEventListener('keydown', keyDownHandler);
+    document.body.addEventListener('click', bodyClickHandler, { signal });
+    document.body.addEventListener('mousedown', bodyClickHandler, { signal }); // Otherwise it seems strange that it doesn't go away until you release the mouse button
+    gridElement.addEventListener('keydown', keyDownHandler, { signal });
 
     return {
         stop: () => {
-            document.body.removeEventListener('click', bodyClickHandler);
-            document.body.removeEventListener('mousedown', bodyClickHandler);
-            gridElement.removeEventListener('keydown', keyDownHandler);
-            delete grids[gridElement];
+            controller.abort();
+
+            const index = grids.findIndex(grid => grid.id === gridElement.id);
+            if (index > -1) {
+                grids.splice(index, 1);
+            }
         }
     };
 }
@@ -160,7 +159,7 @@ export function checkColumnPopupPosition(gridElement, selector) {
     }
 }
 
-export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) {
+export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true, signal = null) {
     const columns = [];
     const headers = gridElement.querySelectorAll('.column-header.resizable');
 
@@ -168,7 +167,6 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
         return;
     }
 
-    const isRTL = getComputedStyle(gridElement).direction === 'rtl';
     const isGrid = gridElement.classList.contains('grid')
 
     let tableHeight = gridElement.offsetHeight;
@@ -205,9 +203,9 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
         const resizeTop = header.querySelector('.resize-handle').offsetTop;
 
         // add a new resize div
-        const div = createDiv(resizeHandleHeight, resizeTop, isRTL);
+        const div = createDiv(resizeHandleHeight, resizeTop);
         header.appendChild(div);
-        setListeners(div, isRTL);
+        setListeners(div, signal);
     });
 
     let initialWidths;
@@ -230,32 +228,15 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
         });
     }
 
-    function setListeners(div, isRTL) {
+    function setListeners(div, signal) {
         let pageX, curCol, curColWidth;
 
-        div.addEventListener('pointerdown', function (e) {
-            curCol = e.target.parentElement;
-            pageX = e.pageX;
-
-            const padding = paddingDiff(curCol);
-
-            curColWidth = curCol.offsetWidth - padding;
-        });
-
-        div.addEventListener('pointerover', function (e) {
-            e.target.style.borderInlineEnd = 'var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color)';
-            e.target.previousElementSibling.style.visibility = 'hidden';
-        });
-
-        div.addEventListener('pointerup', removeBorder);
-        div.addEventListener('pointercancel', removeBorder);
-        div.addEventListener('pointerleave', removeBorder);
-
-        document.addEventListener('pointermove', (e) =>
+        const moveHandler = (e) =>
             requestAnimationFrame(() => {
                 gridElement.style.tableLayout = 'fixed';
 
                 if (curCol) {
+                    const isRTL = getComputedStyle(gridElement).direction === 'rtl';
                     const diffX = isRTL ? pageX - e.pageX : e.pageX - pageX;
                     const column = columns.find(({ header }) => header === curCol);
 
@@ -276,17 +257,40 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
                         curCol.style.width = column.size;
                     }
                 }
-            })
-        );
+            });
 
-        document.addEventListener('pointerup', function () {
+        const upHandler = function () {
+            gridElement.removeEventListener('pointermove', moveHandler);
+            gridElement.removeEventListener('pointerup', upHandler);
+
             curCol = undefined;
             curColWidth = undefined;
             pageX = undefined;
-        });
+        };
+
+        div.addEventListener('pointerdown', function (e) {
+            curCol = e.target.parentElement;
+            pageX = e.pageX;
+
+            const padding = paddingDiff(curCol);
+
+            curColWidth = curCol.offsetWidth - padding;
+
+            gridElement.addEventListener('pointermove', moveHandler, { signal });
+            gridElement.addEventListener('pointerup', upHandler, { signal });
+        }, { signal });
+
+        div.addEventListener('pointerover', function (e) {
+            e.target.style.borderInlineEnd = 'var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color)';
+            e.target.previousElementSibling.style.visibility = 'hidden';
+        }, { signal });
+
+        div.addEventListener('pointerup', removeBorder, { signal });
+        div.addEventListener('pointercancel', removeBorder, { signal });
+        div.addEventListener('pointerleave', removeBorder, { signal });
     }
 
-    function createDiv(height, top, isRTL) {
+    function createDiv(height, top) {
         const div = document.createElement('div');
         div.className = "actual-resize-handle";
         div.style.top = top + 'px';
@@ -296,14 +300,8 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true) 
         div.style.height = (height - 4) + 'px';
         div.style.width = '6px';
         div.style.opacity = 'var(--fluent-data-grid-header-opacity)'
+        div.style.insetInlineEnd = '0';
 
-        if (isRTL) {
-            div.style.left = '0';
-            div.style.right = 'unset';
-        } else {
-            div.style.left = 'unset';
-            div.style.right = '0';
-        }
         return div;
     }
 
@@ -446,7 +444,10 @@ export function autoFitGridColumns(gridElement, columnCount) {
     gridElement.style.gridTemplateColumns = gridTemplateColumns;
     gridElement.classList.remove("auto-fit");
 
-    grids[gridElement.id] = gridTemplateColumns;
+    const grid = grids.find(grid => grid.id === gridElement.id);
+    if (grid) {
+        grid.initialWidths = gridTemplateColumns;
+    }
 }
 
 function calculateVisibleRows(gridElement, rowHeight) {

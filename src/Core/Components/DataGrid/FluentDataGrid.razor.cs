@@ -197,6 +197,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public bool NoTabbing { get; set; }
 
     /// <summary>
+    /// Event callback for when a hierarchical row is expanded or collapsed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TGridItem> OnToggle { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the grid should automatically generate a header row and its type.
     /// See <see cref="GenerateHeaderOption"/>
     /// </summary>
@@ -391,6 +397,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _sortByAscending;
     private bool _checkColumnOptionsPosition;
     private bool _checkColumnResizePosition;
+    private bool _checkColumnResizing;
     private bool _manualGrid;
 
     // The associated ES6 module, which uses document-level event listeners
@@ -548,6 +555,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             _ = Module?.InvokeVoidAsync("autoFitGridColumns", _gridReference, _columns.Count).AsTask();
         }
+
+        if (_checkColumnResizing && _gridReference is not null)
+        {
+            _checkColumnResizing = false;
+            _ = Module?.InvokeVoidAsync("enableColumnResizing", _gridReference, ResizeColumnOnAllRows).AsTask();
+        }
     }
 
     // Invoked by descendant columns at a special time during rendering
@@ -583,6 +596,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new Exception("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
+        if (_columns.Count(x => x.HierarchicalToggle) > 1)
+        {
+            throw new ArgumentException("Only one column can have 'HierarchicalToggle' set to true.");
+        }
+
+        if (_columns.Exists(x => x.HierarchicalToggle) && !_columns[0].HierarchicalToggle)
+        {
+            throw new ArgumentException("The 'HierarchicalToggle' parameter can only be set on the first column of the grid.");
+        }
+
         // Always re-evaluate after collecting columns when using displaymode grid. A column might be added or hidden and the _internalGridTemplateColumns needs to reflect that.
         if (DisplayMode == DataGridDisplayMode.Grid)
         {
@@ -599,7 +622,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (ResizableColumns)
         {
-            _ = Module?.InvokeVoidAsync("enableColumnResizing", _gridReference, ResizeColumnOnAllRows).AsTask();
+            _checkColumnResizing = true;
         }
     }
 
@@ -1192,6 +1215,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (_gridReference is not null && Module is not null)
         {
             await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
+        }
+    }
+
+    private async Task ToggleExpandedAsync(TGridItem item)
+    {
+        if (item is IHierarchicalGridItem hierarchicalItem)
+        {
+            hierarchicalItem.IsCollapsed = !hierarchicalItem.IsCollapsed;
+            if (OnToggle.HasDelegate)
+            {
+                await OnToggle.InvokeAsync(item);
+            }
+            await RefreshDataAsync();
         }
     }
 }
