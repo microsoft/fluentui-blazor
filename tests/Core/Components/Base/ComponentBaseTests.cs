@@ -46,6 +46,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentEmoji<>), Loader.MakeGenericType(typeof(Samples.Emojis.Samples.Hamburger))},
         { typeof(FluentSelect<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
         { typeof(FluentCombobox<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
+        { typeof(FluentListbox<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
         { typeof(FluentOption<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentRadioGroup<>), Loader.MakeGenericType(typeof(string)) },
