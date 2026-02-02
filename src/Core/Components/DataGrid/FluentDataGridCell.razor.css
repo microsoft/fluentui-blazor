@@ -1,10 +1,10 @@
 .fluent-data-grid th,
 .fluent-data-grid td {
-  border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStencil1);
+  border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
 }
 
 .fluent-data-grid td:not(.col-select) {
-  padding: 6px 16px;
+  padding: 6px 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -64,10 +64,6 @@
   overflow: hidden;
 }
 
-.fluent-data-grid .col-options-button {
-  padding-inline-start: 4px;
-}
-
 .fluent-data-grid .col-justify-start .col-sort-button {
   justify-content: start;
   overflow: hidden;
@@ -97,7 +93,21 @@
 }
 
 .fluent-data-grid .col-title {
+  padding: 6px 12px;
+  user-select: none;
   text-align: start;
+}
+
+.fluent-data-grid .col-title-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.fluent-data-grid th.col-justify-center svg {
+  align-content: center;
+  text-align: center;
 }
 
 .fluent-data-grid .col-justify-center .col-title {
@@ -106,4 +116,46 @@
 
 .fluent-data-grid .col-justify-end .col-title {
   text-align: end;
+}
+
+.fluent-data-grid .hierarchical-toggle-container {
+  height: 24px;
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+  column-gap: var(--spacingHorizontalXS);
+  position: relative;
+  left: calc(var(--spacingHorizontalXS) * -1.5);
+}
+
+.fluent-data-grid .hierarchical-expander {
+  display: inline-block;
+  width: 20px;
+  position: relative;
+  top: -1px;
+}
+
+  .fluent-data-grid .hierarchical-expander svg {
+    transition: transform 0.1s linear;
+    pointer-events: none;
+  }
+
+.fluent-data-grid .hierarchical-collapsed svg {
+  transform: rotate(0deg);
+}
+
+[dir=rtl] .fluent-data-grid .hierarchical-collapsed svg {
+  transform: rotate(180deg);
+}
+
+.fluent-data-grid .hierarchical-expanded svg {
+  transform: rotate(90deg);
+}
+
+.fluent-data-grid .hierarchical-expand-button {
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  min-height: 20px;
+  vertical-align: middle;
 }

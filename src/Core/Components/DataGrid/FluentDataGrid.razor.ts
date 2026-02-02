@@ -4,6 +4,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     id: string;
     columns: Column[]; // or a more specific type if you have one
     initialWidths: string;
+    resizeController?: AbortController;
   }
 
   interface Column {
@@ -19,7 +20,10 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       return;
     }
 
-    EnableColumnResizing(gridElement);
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    EnableColumnResizing(gridElement, true, signal);
 
     let start = gridElement.querySelector('td:first-child') as HTMLElement | null;
 
@@ -37,6 +41,21 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
       }
     };
+
+    const bodyKeyDownHandler = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        const columnOptionsElement = gridElement?.querySelector('.col-options');
+        if (columnOptionsElement) {
+          gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
+          gridElement.focus();
+        }
+        const columnResizeElement = gridElement?.querySelector('.col-resize');
+        if (columnResizeElement) {
+          gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
+          gridElement.focus();
+        }
+      }
+    };
     const keyboardNavigation = (sibling: HTMLElement | null) => {
       if (sibling !== null) {
         if (start) start.focus();
@@ -45,45 +64,32 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       }
     }
     const keyDownHandler = (event: KeyboardEvent) => {
+      const columnOptionsElement = gridElement?.querySelector('.col-options');
+      if (columnOptionsElement && columnOptionsElement.contains(event.target as HTMLElement)) {
+        if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
+          event.stopPropagation();
+        }
+      }
+
+      const columnResizeElement = gridElement?.querySelector('.col-resize');
+      if (columnResizeElement && columnResizeElement.contains(event.target as HTMLElement)) {
+        if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
+          event.stopPropagation();
+        }
+      }
+
       if (document.activeElement?.tagName.toLowerCase() != 'table' && document.activeElement?.tagName.toLowerCase() != 'td' && document.activeElement?.tagName.toLowerCase() != 'th') {
         return;
       }
-      const columnOptionsElement = gridElement?.querySelector('.col-options');
-      if (columnOptionsElement) {
-        if (event.key === "Escape") {
-          gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
-          gridElement.focus();
-        }
-        columnOptionsElement.addEventListener(
-          "keydown",
-          function (ev) {
-            const kEvent = ev as KeyboardEvent;
-            if (kEvent.key === "ArrowRight" || kEvent.key === "ArrowLeft" || kEvent.key === "ArrowDown" || kEvent.key === "ArrowUp") {
-              kEvent.stopPropagation();
-            }
-          }
-        );
-      }
-      const columnResizeElement = gridElement?.querySelector('.col-resize');
-      if (columnResizeElement) {
-        if (event.key === "Escape") {
-          gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
-          gridElement.focus();
-        }
-        columnResizeElement.addEventListener(
-          "keydown",
-          function (ev) {
-            const kEvent = ev as KeyboardEvent;
-            if (kEvent.key === "ArrowRight" || kEvent.key === "ArrowLeft" || kEvent.key === "ArrowDown" || kEvent.key === "ArrowUp") {
-              kEvent.stopPropagation();
-            }
-          }
-        );
+
+      if ((event.target as HTMLElement).getAttribute('role') !== "gridcell" && (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp")) {
+        return;
       }
 
       // check if start is a child of gridElement
       if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start && document.activeElement.tagName.toLowerCase() !== 'fluent-text-field' && document.activeElement.tagName.toLowerCase() !== 'fluent-menu-item') {
         const idx = (start as HTMLTableCellElement).cellIndex;
+        const isRTL = getComputedStyle(gridElement).direction === 'rtl';
 
         if (event.key === "ArrowUp") {
           // up arrow
@@ -104,13 +110,13 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         } else if (event.key === "ArrowLeft") {
           // left arrow
           event.preventDefault();
-          const previousSibling = (document.body.dir === '' || document.body.dir === 'ltr') ? start.previousElementSibling as HTMLElement : start.nextElementSibling as HTMLElement;
+          const previousSibling = isRTL ? start.nextElementSibling as HTMLElement : start.previousElementSibling as HTMLElement;
           keyboardNavigation(previousSibling);
           event.stopPropagation();
         } else if (event.key === "ArrowRight") {
           // right arrow
           event.preventDefault();
-          const nextsibling = (document.body.dir === '' || document.body.dir === 'ltr') ? start.nextElementSibling as HTMLElement : start.previousElementSibling as HTMLElement;
+          const nextsibling = isRTL ? start.previousElementSibling as HTMLElement : start.nextElementSibling as HTMLElement;
           keyboardNavigation(nextsibling);
           event.stopPropagation();
         }
@@ -132,25 +138,28 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       }
       cell.addEventListener(
         "keydown",
-        (event: KeyboardEvent) => {
-          if ((event.target as HTMLElement).getAttribute('role') !== "gridcell" && (event.key === "ArrowRight" || event.key === "ArrowLeft")) {
+        (event: KeyboardEvent ) => {
+          if ((event.target as HTMLElement).role !== "gridcell" && (event.key === "ArrowRight" || event.key === "ArrowLeft")) {
             event.stopPropagation();
           }
-        }
+        },
+        { signal }
       );
     });
 
-    document.body.addEventListener('click', bodyClickHandler);
-    document.body.addEventListener('mousedown', bodyClickHandler); // Otherwise it seems strange that it doesn't go away until you release the mouse button
-    gridElement.addEventListener('keydown', keyDownHandler);
+    document.body.addEventListener('click', bodyClickHandler, { signal });
+    document.body.addEventListener('mousedown', bodyClickHandler, { signal });
+    document.body.addEventListener('keydown', bodyKeyDownHandler, { signal });
+    gridElement.addEventListener('keydown', keyDownHandler, { signal });
 
     return {
       stop: () => {
-        document.body.removeEventListener('click', bodyClickHandler);
-        document.body.removeEventListener('mousedown', bodyClickHandler);
-        gridElement.removeEventListener('keydown', keyDownHandler);
+        controller.abort();
+        const grid = grids.find(g => g.id === gridElement.id);
+        if (grid?.resizeController) {
+          grid.resizeController.abort();
+        }
         grids = grids.filter(grid => grid.id !== gridElement.id);
-
       }
     };
   }
@@ -177,7 +186,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     }
   }
 
-  export function EnableColumnResizing(gridElement: HTMLElement, resizeColumnOnAllRows: boolean = true) {
+  export function EnableColumnResizing(gridElement: HTMLElement, resizeColumnOnAllRows: boolean = true, signal?: AbortSignal) {
     const columns: Column[] = [];
     const headers = gridElement.querySelectorAll('.column-header.resizable');
 
@@ -185,7 +194,16 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       return;
     }
 
-    const isRTL = getComputedStyle(gridElement).direction === 'rtl';
+    const id = gridElement.id;
+    let grid = grids.find((g: Grid) => g.id === id);
+
+    if (grid?.resizeController) {
+      grid.resizeController.abort();
+    }
+
+    const localController = new AbortController();
+    const effectiveSignal = signal ?? localController.signal;
+
     const isGrid = gridElement.classList.contains('grid');
 
     let tableHeight = gridElement.offsetHeight;
@@ -211,7 +229,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     headers.forEach((header) => {
       columns.push({
         header,
-        size: `${(header as HTMLElement).clientWidth}px`,
+        size: `${isGrid ? (header as HTMLElement).offsetWidth : (header as HTMLElement).clientWidth}px`,
       });
 
       // remove any previously created divs
@@ -222,9 +240,9 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       const resizeTop = (header.querySelector('.resize-handle') as HTMLElement)?.offsetTop ?? 2;
 
       // add a new resize div
-      const div = createDiv(resizeHandleHeight, resizeTop, isRTL);
+      const div = createDiv(resizeHandleHeight, resizeTop);
       header.appendChild(div);
-      setListeners(div, isRTL);
+      setListeners(div, effectiveSignal);
     });
 
     let initialWidths: string;
@@ -238,51 +256,37 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       }
     }
 
-    const id = gridElement.id;
-    if (!grids.find((grid: Grid) => grid.id === id)) {
-        grids.push({
-            id,
-            columns,
-            initialWidths,
-        });
+    if (!grid) {
+      grids.push({
+        id,
+        columns,
+        initialWidths,
+        resizeController: signal ? undefined : localController,
+      });
+    } else {
+      grid.columns = columns;
+      grid.initialWidths = initialWidths;
+      grid.resizeController = signal ? undefined : localController;
     }
 
-    function setListeners(div: HTMLElement, isRTL: boolean) {
+    function setListeners(div: HTMLElement, signal?: AbortSignal) {
       let pageX: number | undefined, curCol: HTMLElement | undefined, curColWidth: number | undefined;
 
-      div.addEventListener('pointerdown', function (e: PointerEvent) {
-        curCol = (e.target as HTMLElement).parentElement as HTMLElement;
-        pageX = e.pageX;
-
-        const padding = paddingDiff(curCol);
-
-        curColWidth = curCol.offsetWidth - padding;
-      });
-
-      div.addEventListener('pointerover', function (e: MouseEvent) {
-        (e.target as HTMLElement).style.borderInlineEnd = 'var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color)';
-        if ((e.target as HTMLElement).previousElementSibling) {
-          ((e.target as HTMLElement).previousElementSibling as HTMLElement).style.visibility = 'hidden';
-        }
-      });
-
-      div.addEventListener('pointerup', removeBorder);
-      div.addEventListener('pointercancel', removeBorder);
-      div.addEventListener('pointerleave', removeBorder);
-
-      document.addEventListener('pointermove', (e: PointerEvent) =>
+      const moveHandler = (e: PointerEvent) => {
         requestAnimationFrame(() => {
           gridElement.style.tableLayout = 'fixed';
 
           if (curCol) {
+            const isRTL = getComputedStyle(gridElement).direction === 'rtl';
             const diffX = isRTL ? (pageX! - e.pageX) : (e.pageX - pageX!);
             const column: Column = columns.find(({ header }) => header === curCol)!;
 
-            column.size = parseInt(Math.max(parseInt((column.header as HTMLElement).style.minWidth), curColWidth! + diffX) as any, 10) + 'px';
+            const minWidth = parseInt((column.header as HTMLElement).style.minWidth) || 0;
+            column.size = Math.max(minWidth, curColWidth! + diffX) + 'px';
 
             columns.forEach((col) => {
               if (col.size.startsWith('minmax')) {
-                col.size = col.header.clientWidth + 'px';
+                col.size = (isGrid ? (column.header as HTMLElement).offsetWidth : col.header.clientWidth) + 'px';
               }
             });
 
@@ -290,22 +294,50 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
               gridElement.style.gridTemplateColumns = columns
                 .map(({ size }) => size)
                 .join(' ');
+
             }
             else {
               curCol.style.width = column.size;
             }
           }
-        })
-      );
+        });
+      };
 
-      document.addEventListener('pointerup', function () {
+      const upHandler = function () {
+        gridElement.removeEventListener('pointermove', moveHandler);
+        gridElement.removeEventListener('pointerup', upHandler);
+
         curCol = undefined;
         curColWidth = undefined;
         pageX = undefined;
-      });
+      };
+
+      div.addEventListener('pointerdown', function (e: PointerEvent) {
+        curCol = (e.target as HTMLElement).parentElement as HTMLElement;
+        pageX = e.pageX;
+
+        const isGrid = gridElement.classList.contains('grid');
+        const padding = isGrid ? 0 : paddingDiff(curCol);
+
+        curColWidth = curCol.offsetWidth - padding;
+
+        gridElement.addEventListener('pointermove', moveHandler, { signal });
+        gridElement.addEventListener('pointerup', upHandler, { signal });
+      }, { signal });
+
+      div.addEventListener('pointerover', function (e: MouseEvent) {
+        (e.target as HTMLElement).style.borderInlineEnd = 'var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color)';
+        if ((e.target as HTMLElement).previousElementSibling) {
+          ((e.target as HTMLElement).previousElementSibling as HTMLElement).style.visibility = 'hidden';
+        }
+      }, { signal });
+
+      div.addEventListener('pointerup', removeBorder, { signal });
+      div.addEventListener('pointercancel', removeBorder, { signal });
+      div.addEventListener('pointerleave', removeBorder, { signal });
     }
 
-    function createDiv(height: number, top: number, isRTL: boolean) {
+    function createDiv(height: number, top: number) {
       const div = document.createElement('div');
       div.className = 'actual-resize-handle';
       div.style.top = top + 'px';
@@ -315,14 +347,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       div.style.height = (height - 5) + 'px'; // adjust for the top offset
       div.style.width = '6px';
       div.style.opacity = 'var(--fluent-data-grid-header-opacity)';
-
-      if (isRTL) {
-        div.style.left = '0';
-        div.style.right = 'unset';
-      } else {
-        div.style.left = 'unset';
-        div.style.right = '0';
-      }
+      div.style.insetInlineEnd = '0';
       return div;
     }
 
@@ -350,7 +375,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
   export function ResetColumnWidths(gridElement: HTMLElement) {
     const isGrid = gridElement.classList.contains('grid');
-    const grid = grids.find(grid => grid.id = gridElement.id);
+    const grid = grids.find(grid => grid.id === gridElement.id);
     if (!grid) {
       return;
     }
@@ -371,6 +396,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     gridElement.dispatchEvent(
       new CustomEvent('closecolumnresize', { bubbles: true })
     );
+
     gridElement.focus();
   }
 
@@ -389,24 +415,26 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     else {
       headerBeingResized = gridElement.querySelector('.column-header[col-index="' + column + '"]') as HTMLElement | null;
     }
-    grids.find(grid => grid.id = gridElement.id)!.columns.forEach((column: any) => {
+    grids.find(grid => grid.id === gridElement.id)!.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
         const width = headerBeingResized!.offsetWidth + change;
         //const width = headerBeingResized!.getBoundingClientRect().width + change;
 
         if (change < 0) {
-          column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
+          column.size = Math.max(parseInt(column.header.style.minWidth === '' ? '100' : column.header.style.minWidth, 10), width) + 'px';
         }
         else {
           column.size = width + 'px';
         }
-        column.header.style.width = column.size;
+        if (!isGrid) {
+          column.header.style.width = column.size;
+        }
       }
 
       if (isGrid) {
         // for grid we need to recalculate all columns that are minmax
         if (column.size.startsWith('minmax')) {
-          column.size = parseInt(column.header.clientWidth, 10) + 'px';
+          column.size = column.header.offsetWidth + 'px';
         }
         columns.push(column.size);
       }
@@ -426,18 +454,19 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       return;
     }
 
-    grids.find(grid => grid.id = gridElement.id)!.columns.forEach((column: any) => {
+    grids.find(grid => grid.id === gridElement.id)!.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
-        column.size = Math.max(parseInt(column.header.style.minWidth), width) + 'px';
-        column.header.style.width = column.size;
+        column.size = Math.max(parseInt(column.header.style.minWidth === '' ? '100' : column.header.style.minWidth, 10), width) + 'px';
+        if (!isGrid) {
+          column.header.style.width = column.size;
+        }
       }
 
       if (isGrid) {
         // for grid we need to recalculate all columns that are minmax
         if (column.size.startsWith('minmax')) {
-          column.size = parseInt(column.header.clientWidth, 10) + 'px';
+          column.size = column.header.offsetWidth + 'px';
         }
-        column.header.style.width = column.size;
         columns.push(column.size);
       }
     });
@@ -466,7 +495,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     gridElement.style.gridTemplateColumns = gridTemplateColumns;
     gridElement.classList.remove('auto-fit');
 
-    const grid = grids.find(grid => grid.id = gridElement.id);
+    const grid = grids.find(grid => grid.id === gridElement.id);
     if (grid) {
       grid.initialWidths = gridTemplateColumns;
     }

@@ -1,7 +1,7 @@
 /* Ensure all the flags are the same size, and centered */
 .flag {
-    height: 1rem;
-    border: 1px solid var(--neutral-layer-3);
+  height: 1rem;
+  border: 1px solid var(--colorNeutralBackground3);
 }
 .search-box {
     min-width: 250px;
