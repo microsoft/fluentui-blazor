@@ -58,19 +58,78 @@
         var callback = new EventCallbackFactory().Create<AspNetCore.Components.FluentSortableListEventArgs>
             (this, (e => args = e));
 
-		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" Items="items">
+		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" Items="items" OnUpdate="callback">
 				<ItemTemplate>
 					<div class="sortable-item">@context.Name</div>
 				</ItemTemplate>
 			</FluentSortableList>);
 
-		
         // Act
         sortableList!.OnUpdateJS(0, 1, "fromList", "toList");
 
         // Verify
         Assert.Equal(new FluentSortableListEventArgs(0, 1, "fromList", "toList"), args,
             FluentSortableListEventArgsComparer);
+    }
+
+	[Fact]
+    public void FluentSortableList_OnRemove()
+    {
+        // Arrange
+        FluentSortableListEventArgs? args = null;
+		FluentSortableList<Item>? sortableList = null;
+
+        var callback = new EventCallbackFactory().Create<AspNetCore.Components.FluentSortableListEventArgs>
+            (this, (e => args = e));
+
+		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" Items="items" OnRemove="callback">
+				<ItemTemplate>
+					<div class="sortable-item">@context.Name</div>
+				</ItemTemplate>
+			</FluentSortableList>);
+
+        // Act
+        sortableList!.OnRemoveJS(0, 1, "fromList", "toList");
+
+        // Verify
+        Assert.Equal(new FluentSortableListEventArgs(0, 1, "fromList", "toList"), args,
+            FluentSortableListEventArgsComparer);
+    }
+
+    [Fact]
+    public void FluentSortableList_ItemFilter()
+    {
+        // Arrange
+        items[0].Disabled = true;
+
+        // Act
+        var cut = Render(@<FluentSortableList Items="items" ItemFilter="@(i => i.Disabled)">
+            <ItemTemplate>
+                <div class="sortable-item">@context.Name</div>
+            </ItemTemplate>
+        </FluentSortableList>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentSortableList_DisposeTwice()
+    {
+        // Arrange
+        FluentSortableList<Item>? sortableList = null;
+        Render(@<FluentSortableList @ref="sortableList" Items="items">
+            <ItemTemplate>
+                <div class="sortable-item">@context.Name</div>
+            </ItemTemplate>
+        </FluentSortableList>);
+
+        // Act
+        await sortableList!.DisposeAsync();
+
+        // Assert
+        var exception = await Record.ExceptionAsync(async () => await sortableList!.DisposeAsync());
+        Assert.Null(exception);
     }
 
     private static bool FluentSortableListEventArgsComparer(FluentSortableListEventArgs? first, FluentSortableListEventArgs? second)

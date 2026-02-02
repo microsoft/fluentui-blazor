@@ -28,10 +28,12 @@
     protected override void OnInitialized()
     {
         var random = new Random();
-        var randomIndex = random.Next(0, items1.Count);
-        items1[randomIndex].Disabled = true;
+		for (int i = 0; i < 3; i++)
+        {
+            var randomIndex = random.Next(0, items1.Count);
+            items1[randomIndex].Disabled = true;
+        }
     }
-
 
     private void SortListOne(FluentSortableListEventArgs args)
     {

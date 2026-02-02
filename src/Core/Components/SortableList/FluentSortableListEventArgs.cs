@@ -6,15 +6,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Provides data for events related to the <see cref="FluentSortableList{TItem}"/> component.
-/// </summary>  
+/// </summary>
 public class FluentSortableListEventArgs
 {
-    /// <summary />
-    public FluentSortableListEventArgs()
-    {
-
-    }
-
     /// <summary />
     public FluentSortableListEventArgs(int oldIndex, int newIndex, string? fromListId, string? toListId)
     {

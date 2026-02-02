@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -17,12 +18,13 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     //private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "SortableList/FluentSortableList.razor.js";
     private ElementReference? _element;
     private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
+    private IJSObjectReference? _jsHandle;
     private bool _disposed;
 
     /// <summary />
     public FluentSortableList(LibraryConfiguration configuration) : base(configuration)
     {
-
+        Id = Identifier.NewId();
     }
 
     /// <summary />
@@ -47,6 +49,12 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     .Build();
 
     /// <summary>
+    /// Gets or sets the text used on `aria-label` attribute.
+    /// </summary>
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
+    /// <summary>
     /// Gets or sets the template to be used to define each sortable item in the list.
     /// Use the @context parameter to access the item and its properties.
     /// </summary>
@@ -57,7 +65,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     /// Gets or sets the list of items to be displayed in a sortable list.
     /// </summary>
     [Parameter, AllowNull]
-    public IEnumerable<TItem> Items { get; set; }
+    public IEnumerable<TItem>? Items { get; set; }
 
     /// <summary>
     /// Event callback for when the list is updated.
@@ -190,7 +198,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     [Parameter]
     public string? ListItemSpacing { get; set; }
 
-    private string Filter => Items.Any(GetItemFiltered) ? ".filtered" : string.Empty;
+    private string? Filter => (Items?.Any(GetItemFiltered) ?? false) ? ".filtered" : string.Empty;
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -203,7 +211,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
 
             if (!_disposed)
             {
-                await JSRuntime.InvokeAsync<string>("Microsoft.FluentUI.Blazor.Components.SortableList.init", _element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
+               _jsHandle = await JSRuntime.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.Components.SortableList.init", _element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
             }
         }
     }
@@ -222,7 +230,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     /// <summary>
     /// Invoked from JavaScript when an item is updated.
     /// </summary>
-    [JSInvokable("FluentSortableList.OnUpdate")]
+    [JSInvokable]
     public void OnUpdateJS(int oldIndex, int newIndex, string fromListId, string toListId)
     {
         if (OnUpdate.HasDelegate)
@@ -246,16 +254,28 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     }
 
     /// <summary />
-    public override ValueTask DisposeAsync()
+    public override async ValueTask DisposeAsync()
     {
         if (_disposed)
         {
-            return default;
+            return;
+        }
+
+        if (_jsHandle is not null)
+        {
+            try
+            {
+                await _jsHandle.InvokeVoidAsync("stop");
+                await _jsHandle.DisposeAsync();
+            }
+            catch (Exception)
+            {
+                /* Ignore */
+            }
         }
 
         _selfReference?.Dispose();
         _disposed = true;
-        return base.DisposeAsync();
-
+        await base.DisposeAsync();
     }
 }
