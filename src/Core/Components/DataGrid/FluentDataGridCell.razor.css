@@ -1,6 +1,6 @@
 .fluent-data-grid th,
 .fluent-data-grid td {
-  border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStencil1);
+  border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
 }
 
 .fluent-data-grid td:not(.col-select) {

@@ -576,7 +576,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new ArgumentException("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
-        if (_columns.Count(x => x.HierarchicalToggle) > 1)
+        if (_columns.Where(x => x.HierarchicalToggle).Skip(1).Any())
         {
             throw new ArgumentException("Only one column can have 'HierarchicalToggle' set to true.");
         }

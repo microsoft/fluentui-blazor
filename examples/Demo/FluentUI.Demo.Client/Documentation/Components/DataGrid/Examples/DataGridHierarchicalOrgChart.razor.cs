@@ -43,7 +43,7 @@ public partial class DataGridHierarchicalOrgChart
         }
     }
 
-    private static  void OnCollapseAllHandler()
+    private static void OnCollapseAllHandler()
     {
         Console.WriteLine("All rows collapsed.");
     }

@@ -1,7 +1,7 @@
 .fluent-data-grid {
-  --fluent-data-grid-resize-handle-color: var(--colorBrandForeground1);
+  --fluent-data-grid-resize-handle-color: var(--colorNeutralStroke2);
   --fluent-data-grid-resize-handle-width: 1px;
-  --fluent-data-grid-header-opacity: 0.5;
+  --fluent-data-grid-header-opacity: 1;
   width: auto;
   flex: 1;
   border-collapse: collapse;

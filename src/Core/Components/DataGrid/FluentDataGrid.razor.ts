@@ -229,7 +229,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     headers.forEach((header) => {
       columns.push({
         header,
-        size: `${(header as HTMLElement).clientWidth}px`,
+        size: `${isGrid ? (header as HTMLElement).offsetWidth : (header as HTMLElement).clientWidth}px`,
       });
 
       // remove any previously created divs
@@ -272,23 +272,24 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     function setListeners(div: HTMLElement, signal?: AbortSignal) {
       let pageX: number | undefined, curCol: HTMLElement | undefined, curColWidth: number | undefined;
 
-      const moveHandler = (e: PointerEvent) =>
+      const moveHandler = (e: PointerEvent) => {
         requestAnimationFrame(() => {
           gridElement.style.tableLayout = 'fixed';
-      div.addEventListener('pointerover', function (e: MouseEvent) {
+
           if (curCol) {
             const isRTL = getComputedStyle(gridElement).direction === 'rtl';
             const diffX = isRTL ? (pageX! - e.pageX) : (e.pageX - pageX!);
             const column: Column = columns.find(({ header }) => header === curCol)!;
-        }
-      });
 
-      div.addEventListener('pointerup', removeBorder);
-      div.addEventListener('pointercancel', removeBorder);
-      div.addEventListener('pointerleave', removeBorder);
+            const minWidth = parseInt((column.header as HTMLElement).style.minWidth) || 0;
+            column.size = Math.max(minWidth, curColWidth! + diffX) + 'px';
 
-      document.addEventListener('pointermove', (e: PointerEvent) =>
-        requestAnimationFrame(() => {
+            columns.forEach((col) => {
+              if (col.size.startsWith('minmax')) {
+                col.size = (isGrid ? (column.header as HTMLElement).offsetWidth : col.header.clientWidth) + 'px';
+              }
+            });
+
             if (isGrid) {
               gridElement.style.gridTemplateColumns = columns
                 .map(({ size }) => size)
@@ -300,7 +301,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
             }
           }
         });
-                  }
+      };
+
       const upHandler = function () {
         gridElement.removeEventListener('pointermove', moveHandler);
         gridElement.removeEventListener('pointerup', upHandler);
@@ -314,7 +316,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         curCol = (e.target as HTMLElement).parentElement as HTMLElement;
         pageX = e.pageX;
 
-        const padding = paddingDiff(curCol);
+        const isGrid = gridElement.classList.contains('grid');
+        const padding = isGrid ? 0 : paddingDiff(curCol);
 
         curColWidth = curCol.offsetWidth - padding;
 
@@ -332,20 +335,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       div.addEventListener('pointerup', removeBorder, { signal });
       div.addEventListener('pointercancel', removeBorder, { signal });
       div.addEventListener('pointerleave', removeBorder, { signal });
-                .join(' ');
-            }
-            else {
-              curCol.style.width = column.size;
-            }
-          }
-        })
-      );
+    }
 
-      div.style.height = (height - 4) + 'px'; // adjust for the top offset
-      div.style.width = '6px';
-        curColWidth = undefined;
-        pageX = undefined;
-      });
     function createDiv(height: number, top: number) {
       const div = document.createElement('div');
       div.className = 'actual-resize-handle';
@@ -357,14 +348,6 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       div.style.width = '6px';
       div.style.opacity = 'var(--fluent-data-grid-header-opacity)';
       div.style.insetInlineEnd = '0';
-
-      if (isRTL) {
-        div.style.left = '0';
-        div.style.right = 'unset';
-      } else {
-        div.style.left = 'unset';
-        div.style.right = '0';
-      }
       return div;
     }
 
@@ -402,7 +385,6 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     grid.columns.forEach((column: any, index: number) => {
       if (isGrid) {
         column.size = columnsWidths[index];
-        column.header.style.width = column.size;
       } else {
         column.header.style.width = columnsWidths[index];
       }
@@ -413,11 +395,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     }
     gridElement.dispatchEvent(
       new CustomEvent('closecolumnresize', { bubbles: true })
-    const grid = grids.find(grid => grid.id === gridElement.id);
-    if (!grid) {
-      return;
-    }
-    grid.columns.forEach((column: any) => {
+    );
+
     gridElement.focus();
   }
 
@@ -436,7 +415,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     else {
       headerBeingResized = gridElement.querySelector('.column-header[col-index="' + column + '"]') as HTMLElement | null;
     }
-    grids.find(grid => grid.id = gridElement.id)!.columns.forEach((column: any) => {
+    grids.find(grid => grid.id === gridElement.id)!.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
         const width = headerBeingResized!.offsetWidth + change;
         //const width = headerBeingResized!.getBoundingClientRect().width + change;
@@ -447,18 +426,16 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         else {
           column.size = width + 'px';
         }
-        column.header.style.width = column.size;
+        if (!isGrid) {
+          column.header.style.width = column.size;
+        }
       }
 
       if (isGrid) {
         // for grid we need to recalculate all columns that are minmax
         if (column.size.startsWith('minmax')) {
-          column.size = parseInt(column.header.clientWidth, 10) + 'px';
-    const grid = grids.find(grid => grid.id === gridElement.id);
-    if (!grid) {
-      return;
-    }
-    grid.columns.forEach((column: any) => {
+          column.size = column.header.offsetWidth + 'px';
+        }
         columns.push(column.size);
       }
     });
@@ -477,18 +454,19 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       return;
     }
 
-    grids.find(grid => grid.id = gridElement.id)!.columns.forEach((column: any) => {
+    grids.find(grid => grid.id === gridElement.id)!.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
         column.size = Math.max(parseInt(column.header.style.minWidth === '' ? '100' : column.header.style.minWidth, 10), width) + 'px';
-        column.header.style.width = column.size;
+        if (!isGrid) {
+          column.header.style.width = column.size;
+        }
       }
 
       if (isGrid) {
         // for grid we need to recalculate all columns that are minmax
         if (column.size.startsWith('minmax')) {
-          column.size = parseInt(column.header.clientWidth, 10) + 'px';
+          column.size = column.header.offsetWidth + 'px';
         }
-        column.header.style.width = column.size;
         columns.push(column.size);
       }
     });

@@ -9,7 +9,7 @@ namespace FluentUI.Demo.Client.Documentation.Components.DataGrid.Examples;
 
 public partial class DataGridHierarchical
 {
-    private readonly List<OlympicGridItem> items = new();
+    private readonly List<OlympicGridItem> items = [];
 
     protected override void OnInitialized()
     {
