@@ -1,4 +1,9 @@
 {
     // Settings for the Dotnet Pulse extension: F5 or Ctrl+F5 to run/debug the project.
+    "dotnetPulse.documentationUrls": [
+        { "label": "Web Component", "url": "https://storybooks.fluentui.dev/web-components" },
+        { "label": "Fluent UI Blazor v5", "url": "https://fluentui-blazor-v5.azurewebsites.net/" }
+    ],
+    "dotnetPulse.projectBuildToConsole": "externalTerminal",
     "dotnetPulse.projectUri": "examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj"
 }
