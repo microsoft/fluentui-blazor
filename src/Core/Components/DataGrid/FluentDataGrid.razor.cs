@@ -44,6 +44,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _sortByAscending;
     private bool _checkColumnOptionsPosition;
     private bool _checkColumnResizePosition;
+    private bool _checkColumnResizing;
     private bool _manualGrid;
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
@@ -287,6 +288,24 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridRow<TGridItem>> OnRowDoubleClick { get; set; }
 
     /// <summary>
+    /// Event callback for when a hierarchical row is expanded or collapsed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TGridItem> OnToggle { get; set; }
+
+    /// <summary>
+    /// Event callback for when all hierarchical rows are expanded.
+    /// </summary>
+    [Parameter]
+    public EventCallback OnExpandAll { get; set; }
+
+    /// <summary>
+    /// Event callback for when all hierarchical rows are collapsed.
+    /// </summary>
+    [Parameter]
+    public EventCallback OnCollapseAll { get; set; }
+
+    /// <summary>
     /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
     [Parameter]
@@ -330,7 +349,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     /// <remarks>The callback receives a <see langword="true"/> value when items start loading
     /// and a <see langword="false"/> value when the loading process completes.</remarks>
-    [ExcludeFromCodeCoverage(Justification = "This method requires a db connection and is to complex to be tested with bUnit.")]
     [Parameter]
     public EventCallback<bool> OnItemsLoading { get; set; }
 
@@ -517,6 +535,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _checkColumnResizePosition = false;
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference, ".col-resize");
         }
+
+        if (_checkColumnResizing && _gridReference is not null && JSModule.Imported)
+        {
+            _checkColumnResizing = false;
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing", _gridReference, ResizeColumnOnAllRows);
+        }
     }
 
     // Invoked by descendant columns at a special time during rendering
@@ -552,6 +576,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new ArgumentException("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
+        if (_columns.Where(x => x.HierarchicalToggle).Skip(1).Any())
+        {
+            throw new ArgumentException("Only one column can have 'HierarchicalToggle' set to true.");
+        }
+
+        if (_columns.Exists(x => x.HierarchicalToggle) && !_columns[0].HierarchicalToggle)
+        {
+            throw new ArgumentException("The 'HierarchicalToggle' parameter can only be set on the first column of the grid.");
+        }
+
         // Always re-evaluate after collecting columns when using displaymode grid. A column might be added or hidden and the _internalGridTemplateColumns needs to reflect that.
         if (DisplayMode == DataGridDisplayMode.Grid)
         {
@@ -566,9 +600,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
         }
 
-        if (JSModule.Imported && ResizableColumns)
+        if (ResizableColumns)
         {
-            _ = JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing", _gridReference, ResizeColumnOnAllRows).AsTask();
+            _checkColumnResizing = true;
         }
     }
 
@@ -820,6 +854,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     // Gets called both by RefreshDataCoreAsync and directly by the Virtualize child component during scrolling
+    [ExcludeFromCodeCoverage(Justification = "This method requires Virtualiztion which cannot be tested with bunit.")]
     private async ValueTask<ItemsProviderResult<(int, TGridItem)>> ProvideVirtualizedItemsAsync(ItemsProviderRequest request)
     {
         _lastRefreshedPaginationState = Pagination;
@@ -1150,7 +1185,62 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
-    [ExcludeFromCodeCoverage(Justification = "This method requires a failing db connection and is too complex to be tested with bUnit.")]
+    /// <summary>
+    /// Expands all rows in a hierarchical data grid.
+    /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
+    /// </summary>
+    public async Task ExpandAllRowsAsync(int startDepth = 0)
+    {
+        var hasChildren = false;
+        await RefreshDataAsync();
+
+        foreach (var item in _internalGridContext.Items)
+        {
+            if (item is IHierarchicalGridItem hierarchicalItem && hierarchicalItem.Depth == startDepth)
+            {
+                hierarchicalItem.IsCollapsed = false;
+                hierarchicalItem.IsHidden = false;
+                if (hierarchicalItem.HasChildren)
+                {
+                    hasChildren = true;
+                }
+            }
+        }
+
+        if (hasChildren)
+        {
+            await ExpandAllRowsAsync(startDepth + 1);
+        }
+        else
+        {
+            if (OnExpandAll.HasDelegate)
+            {
+                await OnExpandAll.InvokeAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Collapses all rows in a hierarchical data grid with a depth greater than 0.
+    /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
+    /// </summary>
+    public async Task CollapseAllRowsAsync()
+    {
+        foreach (var item in _internalGridContext.Items)
+        {
+            if (item is IHierarchicalGridItem hierarchicalItem && hierarchicalItem.Depth > 0)
+            {
+                hierarchicalItem.IsCollapsed = true;
+                hierarchicalItem.IsHidden = true;
+            }
+        }
+
+        if (OnCollapseAll.HasDelegate)
+        {
+            await OnCollapseAll.InvokeAsync();
+        }
+    }
+
     private void RenderActualError(RenderTreeBuilder builder)
     {
         if (ErrorContent is null)
@@ -1162,6 +1252,20 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             builder.AddContent(1, ErrorContent(_lastError));
 
+        }
+    }
+
+    private async Task ToggleExpandedAsync(TGridItem item)
+    {
+        if (item is IHierarchicalGridItem hierarchicalItem)
+        {
+            hierarchicalItem.IsCollapsed = !hierarchicalItem.IsCollapsed;
+            if (OnToggle.HasDelegate)
+            {
+                await OnToggle.InvokeAsync(item);
+            }
+
+            await RefreshDataAsync();
         }
     }
 }

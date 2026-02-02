@@ -117,7 +117,24 @@
 				string? tooltip = col.Tooltip ? @col.RawCellContent(item) : null;
 
 				<FluentDataGridCell GridColumn=@(colIndex + 1) Class="@ColumnJustifyClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" title="@tooltip" aria-label="@tooltip">
-					@((RenderFragment)(__builder => col.CellContent(__builder, item)))
+					@if (col.HierarchicalToggle && item is IHierarchicalGridItem hierarchicalItem)
+					{
+						<span class="hierarchical-toggle-container" style="margin-inline-start: calc(var(--spacingHorizontalL) * @hierarchicalItem.Depth);">
+							<span @onclick:stopPropagation="true" class="hierarchical-expander @(hierarchicalItem.IsCollapsed ? "hierarchical-collapsed" : "hierarchical-expanded")">
+								@if (hierarchicalItem.HasChildren)
+								{
+									<FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleNesting]" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" Class="hierarchical-expand-button" OnClick="@(() => ToggleExpandedAsync(item))">
+										<FluentIcon Width="12" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
+									</FluentButton>
+								}
+							</span>
+							@((RenderFragment)(__builder => col.CellContent(__builder, item)))
+						</span>
+					}
+					else
+					{
+						@((RenderFragment)(__builder => col.CellContent(__builder, item)))
+					}
 				</FluentDataGridCell>
 			}
 		</FluentDataGridRow>
@@ -277,7 +294,6 @@
 		</FluentDataGridRow>
 	}
 
-	[ExcludeFromCodeCoverage(Justification = "This method requires a failing db connection and is too complex to be tested with bUnit.")]
 	private void RenderErrorContent(RenderTreeBuilder __builder)
 	{
 		if (_lastError == null)

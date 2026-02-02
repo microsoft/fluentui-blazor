@@ -1,4 +1,5 @@
 ﻿@using Bunit.TestDoubles
+@using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
 @using System.ComponentModel.DataAnnotations
 @using Xunit
 @inherits FluentUITestContext
@@ -1282,6 +1283,7 @@
         FluentKeyCodeEventArgs myMinusKey = new() { Key = KeyCode.Minus , KeyCode = 45, Value = "-" };
         FluentKeyCodeEventArgs myPlusKey = new() { Key = KeyCode.NumpadAdd, KeyCode = 43, Value = "+" };
         FluentKeyCodeEventArgs myResetKey = new() { Key = KeyCode.KeyR, KeyCode = 114, Value = "r", ShiftKey = true };
+		FluentKeyCodeEventArgs myRemoveSortKey = new() { Key = KeyCode.KeyS, KeyCode = 115, Value = "s", ShiftKey = true };
 
 
         // Register Service
@@ -1309,6 +1311,7 @@
         await keycodeService.Listeners.First().OnKeyDownAsync(myMinusKey);
         await keycodeService.Listeners.First().OnKeyDownAsync(myPlusKey);
         await keycodeService.Listeners.First().OnKeyDownAsync(myResetKey);
+        await keycodeService.Listeners.First().OnKeyDownAsync(myRemoveSortKey);
 
         // Assert
         // Nothing to do here. We want these called for making sure lines are covered
@@ -1998,11 +2001,130 @@
         public Task OnKeyUpAsync(FluentKeyCodeEventArgs args)
         {
             _actionKeyUp?.Invoke(args);
-            return Task.CompletedTask;
-        }
-    }
+                return Task.CompletedTask;
+                }
+            }
 
-    // Sample enum types for testing
+            [Fact]
+            public async Task FluentDataGrid_ErrorContent()
+            {
+                // Arrange
+                var provider = new GridItemsProvider<Customer>(_ => throw new Exception("Test Exception"));
+
+                // Act
+                var cut = Render<FluentDataGrid<Customer>>(
+                    @<FluentDataGrid TGridItem="Customer" ItemsProvider="@provider" HandleLoadingError="@(ex => true)">
+                        <ChildContent>
+                            <PropertyColumn Property="@(x => x.Name)" />
+                        </ChildContent>
+                        <ErrorContent>
+                            <p id="error-msg">@context?.Message</p>
+                        </ErrorContent>
+                    </FluentDataGrid>);
+
+                // Assert
+                await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+                    var errorMsg = cut.Find("#error-msg");
+                    Assert.Equal("Test Exception", errorMsg.TextContent);
+                }
+
+                [Fact]
+                public async Task FluentDataGrid_DefaultErrorContent()
+                {
+                    // Arrange
+                    var provider = new GridItemsProvider<Customer>(_ => throw new Exception("Test Exception"));
+
+                    // Act
+                    var cut = Render<FluentDataGrid<Customer>>(
+                        @<FluentDataGrid TGridItem="Customer" ItemsProvider="@provider" HandleLoadingError="@(ex => true)">
+                            <ChildContent>
+                                <PropertyColumn Property="@(x => x.Name)" />
+                            </ChildContent>
+                        </FluentDataGrid>);
+
+                    // Assert
+                    await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+                    var cell = cut.Find($".{FluentDataGrid<Customer>.ERROR_CONTENT_ROW_CLASS} .empty-content-cell");
+                    Assert.Contains("An error occurred while retrieving data.", cell.TextContent);
+                }
+
+                [Fact]
+                public async Task FluentDataGrid_ErrorContent_TableMode()
+                {
+                    // Arrange
+                    var provider = new GridItemsProvider<Customer>(_ => throw new Exception("Table Error"));
+
+                    // Act
+                    var cut = Render<FluentDataGrid<Customer>>(
+                        @<FluentDataGrid TGridItem="Customer" ItemsProvider="@provider" HandleLoadingError="@(ex => true)" DisplayMode="DataGridDisplayMode.Table">
+                            <ChildContent>
+                                <PropertyColumn Property="@(x => x.Id)" />
+                                <PropertyColumn Property="@(x => x.Name)" />
+                            </ChildContent>
+                        </FluentDataGrid>);
+
+                    // Assert
+                    await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+                    var row = cut.Find($".{FluentDataGrid<Customer>.ERROR_CONTENT_ROW_CLASS}");
+                    var cell = row.QuerySelector("td.empty-content-cell");
+                    Assert.NotNull(cell);
+                    Assert.Equal("2", cell.GetAttribute("colspan"));
+                }
+
+                [Fact]
+                public void FluentDataGrid_RenderErrorContent_WhenLastErrorIsNull()
+                {
+                    // Arrange
+                    var grid = new FluentDataGrid<Customer>(new LibraryConfiguration());
+                    var field = typeof(FluentDataGrid<Customer>).GetField("_renderErrorContent", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    Assert.NotNull(field);
+                    var fragment = (RenderFragment?)field.GetValue(grid);
+                    Assert.NotNull(fragment);
+
+                    var builder = new Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder();
+
+                    // Act
+                    fragment(builder);
+
+                    // Assert
+#pragma warning disable BL0006 // Do not use RenderTree types
+                    Assert.Equal(0, builder.GetFrames().Count);
+#pragma warning restore BL0006
+                }
+
+                [Fact]
+                public void FluentDataGrid_RenderNonVirtualizedRows_WithError()
+                {
+                    // Arrange
+                    var grid = new FluentDataGrid<Customer>(new LibraryConfiguration());
+
+                    // Set _lastError via reflection
+                    var errorField = typeof(FluentDataGrid<Customer>).GetField("_lastError", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    Assert.NotNull(errorField);
+                    errorField.SetValue(grid, new Exception("Custom Error"));
+
+                    // Get _renderNonVirtualizedRows fragment via reflection
+                    var fragmentField = typeof(FluentDataGrid<Customer>).GetField("_renderNonVirtualizedRows", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    Assert.NotNull(fragmentField);
+                    var fragment = (RenderFragment?)fragmentField.GetValue(grid);
+                    Assert.NotNull(fragment);
+
+                    var builder = new Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder();
+
+                    // Act
+                    fragment(builder);
+
+                    // Assert
+#pragma warning disable BL0006 // Do not use RenderTree types
+                    var frames = builder.GetFrames();
+                    Assert.NotEqual(0, frames.Count);
+#pragma warning restore BL0006
+                }
+
+                // Sample enum types for testing
     private enum CustomerStatus
     {
         Active,
@@ -2032,5 +2154,170 @@
         [Display(Name = "Customer Name")]
         public string FullName { get; set; }
 
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_OnToggle()
+    {
+        // Arrange
+        var rootItem = new HierarchicalCustomer { Item = new Customer(1, "Root", DateTime.Now, CustomerStatus.Active), IsCollapsed = true };
+        rootItem.Children.Add(new HierarchicalCustomer { Item = new Customer(2, "Child", DateTime.Now, CustomerStatus.Active) });
+        var items = new List<HierarchicalCustomer> { rootItem };
+
+        HierarchicalCustomer? toggledItem = null;
+        var cut = Render<FluentDataGrid<HierarchicalCustomer>>(
+            @<FluentDataGrid Items="@items.AsQueryable()" OnToggle="@((HierarchicalCustomer item) => { toggledItem = item; })">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Item.Name)" HierarchicalToggle="true" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Act
+        var toggleButton = cut.WaitForElement(".hierarchical-expand-button");
+        await cut.InvokeAsync(() => toggleButton.Click());
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.NotNull(toggledItem));
+        Assert.Equal(rootItem, toggledItem);
+        Assert.False(rootItem.IsCollapsed);
+    }
+
+    [Fact]
+    public void FluentDataGrid_HierarchicalToggle_ThrowsIfMultipleColumnsSet()
+    {
+        // Arrange
+        var items = new List<HierarchicalCustomer>().AsQueryable();
+
+        // Act && Assert
+        Assert.Throws<ArgumentException>(() => Render<FluentDataGrid<HierarchicalCustomer>>(
+            @<FluentDataGrid Items="@items">
+                <PropertyColumn Property="@(x => x.Item.Id)" HierarchicalToggle="true" />
+                <PropertyColumn Property="@(x => x.Item.Name)" HierarchicalToggle="true" />
+            </FluentDataGrid>));
+    }
+
+    [Fact]
+    public void FluentDataGrid_HierarchicalToggle_ThrowsIfSetOnNonFirstColumn()
+    {
+        // Arrange
+        var items = new List<HierarchicalCustomer>().AsQueryable();
+
+        // Act && Assert
+        Assert.Throws<ArgumentException>(() => Render<FluentDataGrid<HierarchicalCustomer>>(
+            @<FluentDataGrid Items="@items">
+                <PropertyColumn Property="@(x => x.Item.Id)" />
+                <PropertyColumn Property="@(x => x.Item.Name)" HierarchicalToggle="true" />
+            </FluentDataGrid>));
+    }
+
+    [Fact]
+    public void FluentDataGrid_AsyncQueryExecutor()
+    {
+        // Arrange
+        var fakeExecutor = new FakeAsyncQueryExecutor();
+        Services.AddSingleton<IAsyncQueryExecutor>(fakeExecutor);
+        var customers = GetCustomers().AsQueryable();
+        bool loadingStarted = false;
+        bool loadingFinished = false;
+
+        // Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@customers" OnItemsLoading="@(v => { if (v) loadingStarted = true; else loadingFinished = true; })">
+                <PropertyColumn Property="@(x => x.Name)" />
+            </FluentDataGrid>);
+
+        // Assert
+        Assert.True(fakeExecutor.CountCalled);
+        Assert.True(fakeExecutor.ToArrayCalled);
+        Assert.True(loadingStarted);
+        Assert.True(loadingFinished);
+
+        var rows = cut.FindAll("tr");
+        Assert.Equal(customers.Count() + 1, rows.Count); // +1 for header
+    }
+
+    private class HierarchicalCustomer : HierarchicalGridItem<Customer, HierarchicalCustomer>
+    {
+    }
+
+    private class FakeAsyncQueryExecutor : IAsyncQueryExecutor
+    {
+        public bool CountCalled { get; private set; }
+        public bool ToArrayCalled { get; private set; }
+
+        public bool IsSupported<T>(IQueryable<T> queryable) => true;
+
+        public Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
+        {
+            CountCalled = true;
+            return Task.FromResult(queryable.Count());
+        }
+
+        public Task<T[]> ToArrayAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
+        {
+            ToArrayCalled = true;
+            return Task.FromResult(queryable.ToArray());
+        }
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_RefreshDataAsync_ForceRefresh()
+    {
+        // Arrange
+        var refreshCount = 0;
+        FluentDataGrid<Customer>? grid = default!;
+        Func<GridItemsProviderRequest<Customer>, Task> refreshItems = (request) =>
+        {
+            refreshCount++;
+            return Task.CompletedTask;
+        };
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@GetCustomers().AsQueryable()" RefreshItems="@refreshItems" @ref="@grid">
+                <PropertyColumn Property="@(x => x.Name)" Title="Name" />
+            </FluentDataGrid>
+        );
+
+        // Initial load should trigger it once
+        Assert.Equal(1, refreshCount);
+
+        // Act - Forcing a refresh
+        await cut.InvokeAsync(() => grid.RefreshDataAsync(force: true));
+
+        // Assert
+        Assert.Equal(2, refreshCount);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_RefreshDataAsync_IsFixed()
+    {
+        // Arrange
+        var refreshCount = 0;
+        FluentDataGrid<Customer>? grid = default!;
+        Func<GridItemsProviderRequest<Customer>, Task> refreshItems = (request) =>
+        {
+            refreshCount++;
+            return Task.CompletedTask;
+        };
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@GetCustomers().AsQueryable()" RefreshItems="@refreshItems" IsFixed="true" @ref="@grid">
+                <PropertyColumn Property="@(x => x.Name)" Title="Name" />
+            </FluentDataGrid>
+        );
+
+        // Initial load
+        Assert.Equal(1, refreshCount);
+
+        // Act - Call RefreshDataAsync without force.
+        // Since IsFixed is true and _lastRequest is set, it should NOT call RefreshItems
+        await cut.InvokeAsync(() => grid.RefreshDataAsync(force: false));
+
+        // Assert
+        Assert.Equal(1, refreshCount);
+
+        // Call again with force: true
+        await cut.InvokeAsync(() => grid.RefreshDataAsync(force: true));
+        Assert.Equal(2, refreshCount);
     }
 }

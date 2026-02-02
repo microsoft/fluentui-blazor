@@ -73,6 +73,7 @@ The following values can be localized:
 - DataGrid_SortMenu
 - DataGrid_SortMenuAscending
 - DataGrid_SortMenuDescending
+- DataGrid_ToggleNesting
 
 
 ## Using the DataGrid component with EF Core
@@ -94,8 +95,6 @@ builder.Services.AddDataGridEntityFrameworkAdapter();Copy
 ```
 
 ## Using the DataGrid component with OData
-
-*Added in 4.11.0*
 
 If you want to use the `FluentDataGrid` with data provided through OData, you need to install an additional package so the grid knows how to resolve queries asynchronously for efficiency.
 
@@ -143,6 +142,7 @@ The following examples show how to use the DataGrid component in different scena
 - [Custom comparer](/DataGrid/CustomComparerSort)
 - [Virtualized grid](/DataGrid/Virtualize)
 - [Remote data](/DataGrid/RemoteData)
+- [Hierarchical grid](/DataGrid/HierarchicalDataGrid)
 - [Manual grid](/DataGrid/ManualDataGrid)
 
 

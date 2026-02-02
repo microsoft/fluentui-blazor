@@ -20,6 +20,9 @@ color by setting the `--datagrid-hover-color` CSS variable. See the Razor tab fo
 To show how the resize handle can be altered, when choosing to use the alternate hover color, the handle color is set to a different value.
 
 [!Note]: once a value has been selected for the Resize type, it cannot be set to null again. You need to refresh the page to start with a null value again.</em></p>
-        
+
+The resize options UI is using a customized string for the label ('Width (+/- 10px)' instead of the normal 'Column width').
+This is done through the custom localizer which is registered in the Server project's Program.cs file.
+
 
 {{ DataGridCustomComparer Files=Code:DataGridCustomComparer.razor;CSS:DataGridCustomComparer.razor.css }}
