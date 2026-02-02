@@ -26,6 +26,20 @@ export function init(gridElement, autoFocus) {
             gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
         }
     };
+    const bodyKeyDownHandler = event => {
+        if (event.key === "Escape") {
+            const columnOptionsElement = gridElement?.querySelector('.col-options');
+            if (columnOptionsElement) {
+                gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
+                gridElement.focus();
+            }
+            const columnResizeElement = gridElement?.querySelector('.col-resize');
+            if (columnResizeElement) {
+                gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
+                gridElement.focus();
+            }
+        }
+    };
     const keyboardNavigation = (sibling) => {
         if (sibling !== null) {
             start.focus();
@@ -35,24 +49,18 @@ export function init(gridElement, autoFocus) {
     }
     const keyDownHandler = event => {
         const columnOptionsElement = gridElement?.querySelector('.col-options');
-        if (columnOptionsElement && columnOptionsElement.contains(event.target)) {
+        if (columnOptionsElement) {
             if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
                 event.stopPropagation();
-            }
-            if (event.key === "Escape") {
-                gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
-                gridElement.focus();
+                return;
             }
         }
 
         const columnResizeElement = gridElement?.querySelector('.col-resize');
-        if (columnResizeElement && columnResizeElement.contains(event.target)) {
+        if (columnResizeElement) {
             if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
                 event.stopPropagation();
-            }
-            if (event.key === "Escape") {
-                gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
-                gridElement.focus();
+                return;
             }
         }
 
@@ -123,6 +131,7 @@ export function init(gridElement, autoFocus) {
 
     document.body.addEventListener('click', bodyClickHandler, { signal });
     document.body.addEventListener('mousedown', bodyClickHandler, { signal }); // Otherwise it seems strange that it doesn't go away until you release the mouse button
+    document.body.addEventListener('keydown', bodyKeyDownHandler, { signal });
     gridElement.addEventListener('keydown', keyDownHandler, { signal });
 
     return {
