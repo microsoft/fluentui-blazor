@@ -21,13 +21,12 @@
     "esbuild-plugin-inline-css": "0.0.1",
     "eslint": "9.38.0",
     "glob": "^13.0.0",
+    "imask": "^7.6.1",
     "rimraf": "6.1.2",
     "tabbable": "6.3.0",
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "@fluentui/web-components": "^3.0.0-rc.2",
-    "imask": "^7.6.1",
-    "sortablejs": "^1.15.6"
+    "@fluentui/web-components": "^3.0.0-rc.2"
   }
 }

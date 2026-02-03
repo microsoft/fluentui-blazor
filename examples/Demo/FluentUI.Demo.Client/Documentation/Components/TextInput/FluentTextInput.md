@@ -112,6 +112,12 @@ You can also use these extra parameters to customize the masking behavior:
 All these parameters must be defined when the component is first rendered.
 You cannot modify them dynamically.
 
+> [!NOTE] We use the [IMask.js](https://imask.js.org/) library for this feature.
+> By default, we automatically load this library when necessary. You can control the loading of this file 
+> (version, choice of CDN or local), by preloading this JavaScript script via a code such as this one, 
+> to be placed at the beginning of the HTML file (in your App.razor, index.html or your main HTML file).  
+> `<script src="https://unpkg.com/imask@7.6.1/dist/imask.min.js"></script>`
+
 ## TextInput types
 
 You can set the `TextInputType` property to define the type of the text input. This relies on browser supplied support for the different types and can therefore vary between browsers.
