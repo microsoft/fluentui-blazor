@@ -16,6 +16,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
     const { signal } = controller;
     let grabMode: boolean = false;
 
+    if (group) {
+      list.setAttribute('data-sortable-group', group);
+    }
+
     const sortable = new Sortable(list, {
       animation: 200,
       group: {
@@ -92,6 +96,48 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
             (item as HTMLElement).focus();
           } else if (item.nextElementSibling) {
             (item.nextElementSibling as HTMLElement).focus();
+          }
+          event.preventDefault();
+          break;
+
+        case 'ArrowLeft':
+        case 'ArrowRight':
+          if (grabMode && group) {
+            const allLists = Array.from(document.querySelectorAll(`[data-sortable-group="${group}"]`));
+            const currentIndex = allLists.indexOf(list);
+            let nextIndex = currentIndex;
+
+            if (event.key === 'ArrowRight') {
+              nextIndex = (currentIndex + 1) % allLists.length;
+            } else {
+              nextIndex = (currentIndex - 1 + allLists.length) % allLists.length;
+            }
+
+            if (nextIndex !== currentIndex) {
+              const targetList = allLists[nextIndex] as HTMLElement;
+              const targetListId = targetList.id;
+              const oldIndex = Array.from(item.parentNode!.children).indexOf(item);
+              const newIndex = 0;
+
+              sortable.options.onRemove!({
+                item: item,
+                from: list,
+                to: targetList,
+                oldIndex: oldIndex,
+                newIndex: newIndex,
+                oldDraggableIndex: oldIndex,
+                newDraggableIndex: newIndex
+              } as any);
+
+              item.setAttribute('aria-grabbed', 'false');
+              grabMode = false;
+
+              setTimeout(() => {
+                const newList = document.getElementById(targetListId);
+                const movedItem = newList?.children[newIndex] as HTMLElement;
+                movedItem?.focus();
+              }, 50);
+            }
           }
           event.preventDefault();
           break;
