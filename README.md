@@ -10,14 +10,12 @@
 [![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
 -->
 
-
-
 > ## Reporting an issue?
 > Please supply us with **ready-to-run** reproduction code in the form of something we can copy/paste, a (zipped) project structure or a GitHub repository.
 >
 > We do not have capacity to craft or compose a reproduction for every issue that gets raised.
 >
-> If no code or repository is provided, the issues will be closed 3 days after creation
+> If no code or repository is provided, the issues will be closed after 3 days.
 >
 > Help us to help you. Thanks.
 >
