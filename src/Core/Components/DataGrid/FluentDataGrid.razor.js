@@ -29,7 +29,7 @@ export function init(gridElement, autoFocus) {
     const bodyKeyDownHandler = event => {
         if (event.key === "Escape") {
             const columnOptionsElement = gridElement?.querySelector('.col-options');
-            if (columnOptionsElement) {
+            if (columnOptionsElement && columnOptionsElement.contains(event.target)) {
                 gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
                 gridElement.focus();
             }
@@ -49,7 +49,7 @@ export function init(gridElement, autoFocus) {
     }
     const keyDownHandler = event => {
         const columnOptionsElement = gridElement?.querySelector('.col-options');
-        if (columnOptionsElement) {
+        if (columnOptionsElement && columnOptionsElement.contains(event.target)) {
             if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
                 event.stopPropagation();
                 return;
@@ -57,7 +57,7 @@ export function init(gridElement, autoFocus) {
         }
 
         const columnResizeElement = gridElement?.querySelector('.col-resize');
-        if (columnResizeElement) {
+        if (columnResizeElement && columnResizeElement.contains(event.target)) {
             if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
                 event.stopPropagation();
                 return;
@@ -187,7 +187,7 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true, 
         grid.resizeController.abort();
     }
 
-    const localController = new AbortController();
+    const localController = signal ? null : new AbortController();
     const effectiveSignal = signal ?? localController.signal;
 
     const isGrid = gridElement.classList.contains('grid')
@@ -250,8 +250,11 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true, 
             resizeController: signal ? undefined : localController,
         });
     } else {
+        const columnsChanged = grid.columns.length !== columns.length;
         grid.columns = columns;
-        grid.initialWidths = initialWidths;
+        if (columnsChanged) {
+            grid.initialWidths = initialWidths;
+        }
         grid.resizeController = signal ? undefined : localController;
     }
 
@@ -361,19 +364,23 @@ export function resetColumnWidths(gridElement) {
         return;
     }
 
-    const columnsWidths = grid.initialWidths.split(' ');
-
-    grid.columns.forEach((column, index) => {
-        if (isGrid) {
-            column.size = columnsWidths[index];
-        } else {
-            column.header.style.width = columnsWidths[index];
-        }
-    });
-
     if (isGrid) {
         gridElement.style.gridTemplateColumns = grid.initialWidths;
+
+        // Force browser to recalculate so we can get accurate computed widths
+        const resolvedWidths = window.getComputedStyle(gridElement).gridTemplateColumns.split(' ');
+
+        grid.columns.forEach((column, index) => {
+            column.size = resolvedWidths[index];
+        });
+    } else {
+        const columnsWidths = grid.initialWidths.split(' ');
+        grid.columns.forEach((column, index) => {
+            column.size = columnsWidths[index];
+            column.header.style.width = column.size;
+        });
     }
+
     gridElement.dispatchEvent(
         new CustomEvent('closecolumnresize', { bubbles: true })
     );
