@@ -2,6 +2,7 @@
 .flag {
   height: 1rem;
   border: 1px solid var(--colorNeutralBackground3);
+  margin-top: 3px;
 }
 .search-box {
     min-width: 250px;

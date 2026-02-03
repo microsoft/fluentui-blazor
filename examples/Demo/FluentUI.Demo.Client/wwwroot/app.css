@@ -4,11 +4,12 @@
   border: 1px dashed var(--colorBrandForeground1);
   padding: 5px;
 }
-[dir=rtl] .hidden-if-ltr {
+
+:dir(rtl) .hidden-if-ltr {
   display: none;
 }
 
-[dir=ltr] .hidden-if-rtl {
+:dir(ltr) .hidden-if-rtl {
   display: none;
 }
 

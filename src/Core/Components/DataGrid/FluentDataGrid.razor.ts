@@ -68,6 +68,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       if (columnOptionsElement && columnOptionsElement.contains(event.target as HTMLElement)) {
         if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
           event.stopPropagation();
+          return;
         }
       }
 
@@ -75,6 +76,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       if (columnResizeElement && columnResizeElement.contains(event.target as HTMLElement)) {
         if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
           event.stopPropagation();
+          return;
         }
       }
 
@@ -264,8 +266,11 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         resizeController: signal ? undefined : localController,
       });
     } else {
+      const columnsChanged = grid.columns.length !== columns.length;
       grid.columns = columns;
-      grid.initialWidths = initialWidths;
+      if (columnsChanged) {
+        grid.initialWidths = initialWidths;
+      }
       grid.resizeController = signal ? undefined : localController;
     }
 
@@ -306,6 +311,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       const upHandler = function () {
         gridElement.removeEventListener('pointermove', moveHandler);
         gridElement.removeEventListener('pointerup', upHandler);
+        gridElement.removeEventListener('pointerleave', upHandler);
+        gridElement.removeEventListener('pointercancel', upHandler);
 
         curCol = undefined;
         curColWidth = undefined;
@@ -323,6 +330,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
         gridElement.addEventListener('pointermove', moveHandler, { signal });
         gridElement.addEventListener('pointerup', upHandler, { signal });
+        gridElement.addEventListener('pointerleave', upHandler, { signal });
+        gridElement.addEventListener('pointercancel', upHandler, { signal });
       }, { signal });
 
       div.addEventListener('pointerover', function (e: MouseEvent) {
@@ -344,7 +353,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       div.style.position = 'absolute';
       div.style.cursor = 'col-resize';
       div.style.userSelect = 'none';
-      div.style.height = (height - 5) + 'px'; // adjust for the top offset
+      div.style.height = (height - 4) + 'px'; // adjust for the top offset
       div.style.width = '6px';
       div.style.opacity = 'var(--fluent-data-grid-header-opacity)';
       div.style.insetInlineEnd = '0';
@@ -380,19 +389,24 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       return;
     }
 
-    const columnsWidths = grid.initialWidths.split(' ');
-
-    grid.columns.forEach((column: any, index: number) => {
-      if (isGrid) {
-        column.size = columnsWidths[index];
-      } else {
-        column.header.style.width = columnsWidths[index];
-      }
-    });
-
     if (isGrid) {
       gridElement.style.gridTemplateColumns = grid.initialWidths;
+
+      // Force browser to recalculate so we can get accurate computed widths
+      const resolvedWidths = window.getComputedStyle(gridElement).gridTemplateColumns.split(' ');
+
+      grid.columns.forEach((column, index) => {
+        column.size = resolvedWidths[index];
+        (column.header as HTMLElement).style.width = "";
+      });
+    } else {
+      const columnsWidths = grid.initialWidths.split(' ');
+      grid.columns.forEach((column: any, index: number) => {
+        column.size = columnsWidths[index];
+        column.header.style.width = column.size;
+      });
     }
+
     gridElement.dispatchEvent(
       new CustomEvent('closecolumnresize', { bubbles: true })
     );
@@ -426,9 +440,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         else {
           column.size = width + 'px';
         }
-        if (!isGrid) {
-          column.header.style.width = column.size;
-        }
+        column.header.style.width = column.size;
       }
 
       if (isGrid) {
@@ -457,9 +469,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     grids.find(grid => grid.id === gridElement.id)!.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
         column.size = Math.max(parseInt(column.header.style.minWidth === '' ? '100' : column.header.style.minWidth, 10), width) + 'px';
-        if (!isGrid) {
-          column.header.style.width = column.size;
-        }
+        column.header.style.width = column.size;
       }
 
       if (isGrid) {

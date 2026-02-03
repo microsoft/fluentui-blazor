@@ -4,13 +4,15 @@
 }
 
 .fluent-data-grid td:not(.col-select) {
-  padding: 6px 18px;
+  padding: 0 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   align-content: center;
 }
-
+  .fluent-data-grid td:focus-visible {
+    outline-offset: -1px;
+  }
 
   .fluent-data-grid td.col-justify-center {
     text-align: center;
@@ -51,7 +53,7 @@
   font-weight: 600;
   text-align: center;
   position: relative;
-  padding: 0px 1px;
+  padding: 2px 2px;
 }
 
 .fluent-data-grid .col-sort-button {
