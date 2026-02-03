@@ -26,6 +26,20 @@ export function init(gridElement, autoFocus) {
             gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
         }
     };
+    const bodyKeyDownHandler = event => {
+        if (event.key === "Escape") {
+            const columnOptionsElement = gridElement?.querySelector('.col-options');
+            if (columnOptionsElement && columnOptionsElement.contains(event.target)) {
+                gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
+                gridElement.focus();
+            }
+            const columnResizeElement = gridElement?.querySelector('.col-resize');
+            if (columnResizeElement) {
+                gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
+                gridElement.focus();
+            }
+        }
+    };
     const keyboardNavigation = (sibling) => {
         if (sibling !== null) {
             start.focus();
@@ -38,10 +52,7 @@ export function init(gridElement, autoFocus) {
         if (columnOptionsElement && columnOptionsElement.contains(event.target)) {
             if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
                 event.stopPropagation();
-            }
-            if (event.key === "Escape") {
-                gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
-                gridElement.focus();
+                return;
             }
         }
 
@@ -49,10 +60,7 @@ export function init(gridElement, autoFocus) {
         if (columnResizeElement && columnResizeElement.contains(event.target)) {
             if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
                 event.stopPropagation();
-            }
-            if (event.key === "Escape") {
-                gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
-                gridElement.focus();
+                return;
             }
         }
 
@@ -123,6 +131,7 @@ export function init(gridElement, autoFocus) {
 
     document.body.addEventListener('click', bodyClickHandler, { signal });
     document.body.addEventListener('mousedown', bodyClickHandler, { signal }); // Otherwise it seems strange that it doesn't go away until you release the mouse button
+    document.body.addEventListener('keydown', bodyKeyDownHandler, { signal });
     gridElement.addEventListener('keydown', keyDownHandler, { signal });
 
     return {
@@ -131,6 +140,10 @@ export function init(gridElement, autoFocus) {
 
             const index = grids.findIndex(grid => grid.id === gridElement.id);
             if (index > -1) {
+                const grid = grids[index];
+                if (grid.resizeController) {
+                    grid.resizeController.abort();
+                }
                 grids.splice(index, 1);
             }
         }
@@ -167,6 +180,16 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true, 
         return;
     }
 
+    const id = gridElement.id;
+    let grid = grids.find(g => g.id === id);
+
+    if (grid?.resizeController) {
+        grid.resizeController.abort();
+    }
+
+    const localController = signal ? null : new AbortController();
+    const effectiveSignal = signal ?? localController.signal;
+
     const isGrid = gridElement.classList.contains('grid')
 
     let tableHeight = gridElement.offsetHeight;
@@ -186,7 +209,7 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true, 
     if (!resizeColumnOnAllRows) {
         // Only use the header height when resizeColumnOnAllRows is false
         // Use the first header's height if available
-        resizeHandleHeight = headers.length > 0 ? (headers[0].offsetHeight - 14 ): 32; // fallback to 32px if no headers
+        resizeHandleHeight = headers.length > 0 ? (headers[0].offsetHeight - 14) : 32; // fallback to 32px if no headers
     }
 
     headers.forEach((header) => {
@@ -196,7 +219,7 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true, 
         });
 
         // remove any previously created divs
-        const resizedivs  = header.querySelectorAll(".actual-resize-handle");
+        const resizedivs = header.querySelectorAll(".actual-resize-handle");
         resizedivs.forEach(div => div.remove());
 
         // Get the top of the first resize-handle
@@ -205,7 +228,7 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true, 
         // add a new resize div
         const div = createDiv(resizeHandleHeight, resizeTop);
         header.appendChild(div);
-        setListeners(div, signal);
+        setListeners(div, effectiveSignal);
     });
 
     let initialWidths;
@@ -219,13 +242,20 @@ export function enableColumnResizing(gridElement, resizeColumnOnAllRows = true, 
         }
     }
 
-    const id = gridElement.id;
-    if (!grids.find(grid => grid.id === id)) {
+    if (!grid) {
         grids.push({
             id,
             columns,
             initialWidths,
+            resizeController: signal ? undefined : localController,
         });
+    } else {
+        const columnsChanged = grid.columns.length !== columns.length;
+        grid.columns = columns;
+        if (columnsChanged) {
+            grid.initialWidths = initialWidths;
+        }
+        grid.resizeController = signal ? undefined : localController;
     }
 
     function setListeners(div, signal) {
@@ -334,19 +364,23 @@ export function resetColumnWidths(gridElement) {
         return;
     }
 
-    const columnsWidths = grid.initialWidths.split(' ');
-
-    grid.columns.forEach((column, index) => {
-        if (isGrid) {
-            column.size = columnsWidths[index];
-        } else {
-            column.header.style.width = columnsWidths[index];
-        }
-    });
-
     if (isGrid) {
         gridElement.style.gridTemplateColumns = grid.initialWidths;
+
+        // Force browser to recalculate so we can get accurate computed widths
+        const resolvedWidths = window.getComputedStyle(gridElement).gridTemplateColumns.split(' ');
+
+        grid.columns.forEach((column, index) => {
+            column.size = resolvedWidths[index];
+        });
+    } else {
+        const columnsWidths = grid.initialWidths.split(' ');
+        grid.columns.forEach((column, index) => {
+            column.size = columnsWidths[index];
+            column.header.style.width = column.size;
+        });
     }
+
     gridElement.dispatchEvent(
         new CustomEvent('closecolumnresize', { bubbles: true })
     );
