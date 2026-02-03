@@ -15,11 +15,11 @@
 > ## Reporting an issue?
 > Please supply us with **ready-to-run** reproduction code in the form of something we can copy/paste, a (zipped) project structure or a GitHub repository.
 >
->We do not have capacity to craft or compose a reproduction for every issue that gets raised.
+> We do not have capacity to craft or compose a reproduction for every issue that gets raised.
 >
->If no code or repository is provided, the issues will be closed 3 days after creation
+> If no code or repository is provided, the issues will be closed 3 days after creation
 >
->Help us to help you. Thanks.
+> Help us to help you. Thanks.
 >
 > With 💖, the Fluent UI crew.
 
