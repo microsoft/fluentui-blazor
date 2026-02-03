@@ -14,6 +14,7 @@ await esbuild.build({
     format: 'esm',
     outfile: pkg.main,
     legalComments: 'none',
+    external: ['imask'], // Exclude imask from bundle - loaded via CDN
 });
 
 // CSS: Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css
