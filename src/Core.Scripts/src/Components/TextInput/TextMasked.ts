@@ -1,7 +1,13 @@
-import IMask, { InputMask } from 'imask';
+// Type-only imports - provides TypeScript types without bundling the library
+import type IMaskType from 'imask';
+import type { InputMask } from 'imask';
 import * as FluentUIComponents from '@fluentui/web-components'
+import { ExternalLibraryLoader, IMaskCdn} from '../../ExternalLibs';
 
 // Doc: https://github.com/uNmAnNeR/imaskjs
+
+// Create a loader instance for IMask
+const imaskLoader = new ExternalLibraryLoader<typeof IMaskType>(IMaskCdn.name, IMaskCdn.url);
 
 export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
 
@@ -11,7 +17,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
    * @param id The ID of the input element.
    * @param mask The mask pattern to apply.
    */
-  export function applyPatternMask(id: string, mask: string, lazy: boolean, placeholderChar: string): void {
+  export async function applyPatternMask(id: string, mask: string, lazy: boolean, placeholderChar: string): Promise<void> {
 
     const fluentText = document.getElementById(id) as FluentUIComponents.TextInput;
     const inputElement = getInputElement(id);
@@ -43,6 +49,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
 
     // Apply new mask
     if (inputElement && mask.length > 0) {
+      // Ensure IMask library is loaded from CDN
+      const IMask = await imaskLoader.load();
+      
       inputElement.mask = IMask(inputElement, maskOptions);
 
       // Workaround to update FluentTextInput value
