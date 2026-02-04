@@ -1,7 +1,50 @@
-import Sortable from 'sortablejs';
+import type Sortable from 'sortablejs';
+import { SortableJSUrl } from '../../ExternalLibs';
+
+declare global {
+  interface Window {
+    Sortable?: typeof Sortable;
+  }
+}
+
+let loadPromise: Promise<typeof Sortable> | null = null;
+
+/**
+ * Dynamically loads SortableJS from CDN if not already loaded
+ */
+async function ensureSortableJSLoaded(): Promise<typeof Sortable> {
+  // Check if SortableJS is already available
+  if (window.Sortable) {
+    return window.Sortable;
+  }
+
+  if (loadPromise) {
+    return loadPromise;
+  }
+
+  // Load SortableJS from CDN
+  loadPromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = SortableJSUrl;
+    script.onload = () => {
+      if (window.Sortable) {
+        resolve(window.Sortable);
+      } else {
+        reject(new Error('SortableJS library failed to load'));
+      }
+    };
+    script.onerror = () => {
+      loadPromise = null;
+      reject(new Error('Failed to load SortableJS from CDN'));
+    };
+    document.head.appendChild(script);
+  });
+
+  return loadPromise;
+}
 
 export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
-  export function init(
+  export async function init(
     list: HTMLElement,
     group: string,
     pull: any,
@@ -11,7 +54,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
     filter: string | null,
     fallback: boolean,
     component: any
-  ): any {
+  ): Promise<any> {
+
+    await ensureSortableJSLoaded();
+
     const controller = new AbortController();
     const { signal } = controller;
     let grabMode: boolean = false;
@@ -72,11 +118,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
         case ' ':
           grabMode = !grabMode;
           item.setAttribute('aria-grabbed', grabMode.toString());
-          //announce(
-          //  grabMode
-          //    ? `Grabbed ${item.textContent!.trim()}. Use arrow keys to move.`
-          //    : `Dropped ${item.textContent!.trim()}.`
-          //);
           event.preventDefault();
           break;
 

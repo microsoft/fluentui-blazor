@@ -5,6 +5,7 @@
  * <script src="https://unpkg.com/imask@7.6.1/dist/imask.min.js"></script>
  */
 export const IMaskUrl = 'https://unpkg.com/imask@7.6.1/dist/imask.min.js';
+export const SortableJSUrl = 'https://unpkg.com/sortablejs@1.15.6/Sortable.min.js';
 
 /*
     How It Works:
@@ -12,11 +13,11 @@ export const IMaskUrl = 'https://unpkg.com/imask@7.6.1/dist/imask.min.js';
     - package.json:       TypeScript types are available in devDependencies (e.g. `imask`).
 
     - esbuild.config.mjs: The external library is NOT bundled into your output (marked as external).
-    
+
     - Source code:        The library follows the standard pattern and exposes itself as window.<LiBName> object (e.g. window.IMask).
                           When the `TextMasked.ts > applyPatternMask()` function is called,
                           it automatically loads the lib into this window property,
-                          from the URL defined in `ExternalLibs.ts` if not already present     
+                          from the URL defined in `ExternalLibs.ts` if not already present
 
      Alternative: Pre-load IMask
 
