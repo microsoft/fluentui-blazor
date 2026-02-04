@@ -161,6 +161,13 @@ public abstract partial class ColumnBase<TGridItem>
     public string MinWidth { get; set; } = "100px";
 
     /// <summary>
+    /// If true, the column will include an expand/collapse toggle for hierarchical data.
+    /// This only applies if <typeparamref name="TGridItem"/> implements <see cref="IHierarchicalGridItem"/>.
+    /// </summary>
+    [Parameter]
+    public bool HierarchicalToggle { get; set; }
+
+    /// <summary>
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;

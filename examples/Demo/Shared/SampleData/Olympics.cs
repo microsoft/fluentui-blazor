@@ -13,4 +13,5 @@ public record Medals
     public int Total => Gold + Silver + Bronze;
 }
 
-public record Country(string Code, string Name, Medals Medals);
+
+public record Country(string Code, string Name, string? ContinentCode, Medals Medals);

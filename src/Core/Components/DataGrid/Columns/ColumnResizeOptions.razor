@@ -7,9 +7,9 @@
         <FluentLabel>@Grid.ColumnResizeLabels.DiscreteLabel</FluentLabel>
 
         <FluentSpacer />
-        <FluentButton OnClick="@HandleShrinkAsync" IconStart="@(new CoreIcons.Regular.Size20.Subtract())" aria-label="@(Grid.ColumnResizeLabels.ShrinkAriaLabel)" />
-        <FluentButton OnClick="@HandleGrowAsync" IconStart="@(new CoreIcons.Regular.Size20.Add())" aria-label="@(Grid.ColumnResizeLabels.GrowAriaLabel)" />
-        <FluentButton OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@(Grid.ColumnResizeLabels.ResetAriaLabel)" />
+        <FluentButton OnClick="@HandleShrinkAsync" IconStart="@(new CoreIcons.Regular.Size20.Subtract())" aria-label="@(Grid.ColumnResizeLabels.ShrinkAriaLabel)" tabindex="0" Autofocus="true"/>
+        <FluentButton OnClick="@HandleGrowAsync" IconStart="@(new CoreIcons.Regular.Size20.Add())" aria-label="@(Grid.ColumnResizeLabels.GrowAriaLabel)" tabindex="0" />
+        <FluentButton OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@(Grid.ColumnResizeLabels.ResetAriaLabel)" tabindex="0	" />
     }
     else
     {
