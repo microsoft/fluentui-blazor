@@ -4,8 +4,10 @@
  * The dev can override this value by adding a script before loading FluentUI.Blazor scripts:
  * <script src="https://unpkg.com/imask@7.6.1/dist/imask.min.js"></script>
  */
-export const IMaskName = 'IMask';
-export const IMaskUrl = 'https://unpkg.com/imask@7.6.1/dist/imask.min.js';
+export const IMaskCdn = {
+  name: 'IMask',
+  url: 'https://unpkg.com/imask@7.6.1/dist/imask.min.js'
+};
 
 /*
     ---------------------------------------------------------------------------------------
