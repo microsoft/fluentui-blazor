@@ -13,6 +13,8 @@ declare global {
   }
 }
 
+let loadPromise: Promise<typeof IMaskType> | null = null;
+
 /**
  * Dynamically loads IMask from CDN if not already loaded
  */
@@ -22,8 +24,13 @@ async function ensureIMaskLoaded(): Promise<typeof IMaskType> {
     return window.IMask;
   }
 
+  // If a load is already in progress, return the existing promise
+  if (loadPromise) {
+    return loadPromise;
+  }
+
   // Load IMask from CDN
-  return new Promise((resolve, reject) => {
+  loadPromise = new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.src = IMaskUrl;
     script.onload = () => {
@@ -36,6 +43,8 @@ async function ensureIMaskLoaded(): Promise<typeof IMaskType> {
     script.onerror = () => reject(new Error('Failed to load IMask from CDN'));
     document.head.appendChild(script);
   });
+
+  return loadPromise;
 }
 
 export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {

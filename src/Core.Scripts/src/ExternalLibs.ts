@@ -20,7 +20,7 @@ export const IMaskUrl = 'https://unpkg.com/imask@7.6.1/dist/imask.min.js';
 
      Alternative: Pre-load IMask
 
-       If the developer want more control, he can add the script tag to the HTML:
+       If you as a developer want more control, you can add a script tag to the HTML:
 
        ```
          <!-- In your _Host.cshtml, _Layout.cshtml, App.razor or index.html -->
