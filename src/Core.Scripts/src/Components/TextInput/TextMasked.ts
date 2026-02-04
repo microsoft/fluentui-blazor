@@ -2,50 +2,12 @@
 import type IMaskType from 'imask';
 import type { InputMask } from 'imask';
 import * as FluentUIComponents from '@fluentui/web-components'
-import { IMaskUrl } from '../../ExternalLibs';
+import { ExternalLibraryLoader, IMaskName, IMaskUrl } from '../../ExternalLibs';
 
 // Doc: https://github.com/uNmAnNeR/imaskjs
 
-// Declare IMask on the global window object
-declare global {
-  interface Window {
-    IMask?: typeof IMaskType;
-  }
-}
-
-let loadPromise: Promise<typeof IMaskType> | null = null;
-
-/**
- * Dynamically loads IMask from CDN if not already loaded
- */
-async function ensureIMaskLoaded(): Promise<typeof IMaskType> {
-  // Check if IMask is already available
-  if (window.IMask) {
-    return window.IMask;
-  }
-
-  // If a load is already in progress, return the existing promise
-  if (loadPromise) {
-    return loadPromise;
-  }
-
-  // Load IMask from CDN
-  loadPromise = new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = IMaskUrl;
-    script.onload = () => {
-      if (window.IMask) {
-        resolve(window.IMask);
-      } else {
-        reject(new Error('IMask library failed to load'));
-      }
-    };
-    script.onerror = () => reject(new Error('Failed to load IMask from CDN'));
-    document.head.appendChild(script);
-  });
-
-  return loadPromise;
-}
+// Create a loader instance for IMask
+const imaskLoader = new ExternalLibraryLoader<typeof IMaskType>(IMaskName, IMaskUrl);
 
 export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
 
@@ -88,7 +50,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
     // Apply new mask
     if (inputElement && mask.length > 0) {
       // Ensure IMask library is loaded from CDN
-      const IMask = await ensureIMaskLoaded();
+      const IMask = await imaskLoader.load();
       
       inputElement.mask = IMask(inputElement, maskOptions);
 
