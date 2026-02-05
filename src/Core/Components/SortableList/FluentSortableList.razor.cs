@@ -121,7 +121,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     public Func<TItem, bool>? ItemFilter { get; set; }
 
     /// <summary>
-    /// Gets or sets wether to ignore the HTML5 DnD behaviour and force the fallback to kick in
+    /// Gets or sets whether to ignore the HTML5 DnD behaviour and force the fallback to kick in
     /// </summary>
     [Parameter]
     public bool Fallback { get; set; } = false;
