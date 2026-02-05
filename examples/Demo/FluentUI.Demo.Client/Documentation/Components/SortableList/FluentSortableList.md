@@ -49,7 +49,7 @@ private void SortList(FluentSortableListEventArgs args)
 }
 ```
 
-## Accessabillity support
+## Accessibility support
 SortableJS does not come with a11y support but we enhanced the `FluentSortableList` component to support keyboard accessibility.We support the following operations by keyboard:
 
 - <kbd>space</kbd> or <kbd>enter</kbd>: grabbing/releasing an item
