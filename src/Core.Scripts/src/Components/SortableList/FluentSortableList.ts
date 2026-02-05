@@ -183,14 +183,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
 
             const allLists = Array.from(document.querySelectorAll(`[data-sortable-group="${group}"]`));
             const currentIndex = allLists.indexOf(list);
-            let nextIndex = currentIndex;
-
-            if (event.key === 'ArrowRight') {
-              nextIndex = (currentIndex + 1) % allLists.length;
-            } else {
-              nextIndex = (currentIndex - 1 + allLists.length) % allLists.length;
-            }
-
+            const nextIndex = event.key === 'ArrowRight'
+              ? (currentIndex + 1) % allLists.length
+              : (currentIndex - 1 + allLists.length) % allLists.length;
             if (nextIndex !== currentIndex) {
               if (isGrabbed) {
 
