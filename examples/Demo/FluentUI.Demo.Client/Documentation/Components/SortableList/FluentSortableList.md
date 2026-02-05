@@ -10,7 +10,7 @@ icon: ArrowSort
 A [SortableJS](https://sortablejs.github.io/Sortable/) library adaptation for Blazor Fluent UI. Allows for reordering elements within a list using drag and drop.
 _Inspired by and based on [Burke Holland's article and code](https://devblogs.microsoft.com/dotnet/introducing-blazor-sortable/). Re-used with permission._
 
->[!Note] The SortableJS script is included in our library script. You don not need to include the SortableJS script manually!
+>[!Note] The SortableJS script is included in our library script. You do not need to include the SortableJS script manually!
 
 
 The SortableList is a generic component that takes a list of items and a `ItemTemplate` that defines how to render each item in the sortable list.
