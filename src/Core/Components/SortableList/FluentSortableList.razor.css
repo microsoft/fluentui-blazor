@@ -29,8 +29,8 @@
     background-color: var(--colorNeutralBackground2);
     display: flex;
     position: relative;
-    height: 100%;
-    left: calc(var(--spacingHorizontalS) * -1);
+    height: 90%;
+    left: calc(calc(var(--spacingHorizontalS) * -1) + 1px);
     right: unset;
     border-radius: var(--borderRadiusMedium) 0 0 var(--borderRadiusMedium);
     width: 32px;

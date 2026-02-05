@@ -203,15 +203,14 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-
         if (firstRender)
         {
             _selfReference = DotNetObjectReference.Create(this);
-            //await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
             if (!_disposed)
             {
-               _jsHandle = await JSRuntime.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.Components.SortableList.init", _element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
+                // list, group, pull: any, put:  sort: boolean, handle: string | null, filter: string | null, fallback: boolean, component: any
+                _jsHandle = await JSRuntime.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.Components.SortableList.Initialize", _element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
             }
         }
     }

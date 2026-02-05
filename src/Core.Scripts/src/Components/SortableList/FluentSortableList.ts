@@ -1,50 +1,10 @@
 import type Sortable from 'sortablejs';
-import { SortableJSUrl } from '../../ExternalLibs';
+import { ExternalLibraryLoader, SortableCdn } from '../../ExternalLibs';
 
-declare global {
-  interface Window {
-    Sortable?: typeof Sortable;
-  }
-}
-
-let loadPromise: Promise<typeof Sortable> | null = null;
-
-/**
- * Dynamically loads SortableJS from CDN if not already loaded
- */
-async function ensureSortableJSLoaded(): Promise<typeof Sortable> {
-  // Check if SortableJS is already available
-  if (window.Sortable) {
-    return window.Sortable;
-  }
-
-  if (loadPromise) {
-    return loadPromise;
-  }
-
-  // Load SortableJS from CDN
-  loadPromise = new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = SortableJSUrl;
-    script.onload = () => {
-      if (window.Sortable) {
-        resolve(window.Sortable);
-      } else {
-        reject(new Error('SortableJS library failed to load'));
-      }
-    };
-    script.onerror = () => {
-      loadPromise = null;
-      reject(new Error('Failed to load SortableJS from CDN'));
-    };
-    document.head.appendChild(script);
-  });
-
-  return loadPromise;
-}
+const sortableLoader = new ExternalLibraryLoader<typeof Sortable>(SortableCdn.name, SortableCdn.url);
 
 export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
-  export async function init(
+  export async function Initialize(
     list: HTMLElement,
     group: string,
     pull: any,
@@ -56,11 +16,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
     component: any
   ): Promise<any> {
 
-    await ensureSortableJSLoaded();
+    const Sortable = await sortableLoader.load();
 
     const controller = new AbortController();
     const { signal } = controller;
-    let grabMode: boolean = false;
 
     if (group) {
       list.setAttribute('data-sortable-group', group);
@@ -106,44 +65,110 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
     });
 
     list.addEventListener('keydown', (event: KeyboardEvent) => {
-      const item = document.activeElement;
-      if (item == null) {
+      const item = document.activeElement as HTMLElement;
+      if (item == null || !item.classList.contains('sortable-item')) {
         return;
       }
 
-      if (!item.classList.contains('sortable-item')) return;
+      const isGrabbed = item.getAttribute('aria-grabbed') === 'true';
 
       switch (event.key) {
         case 'Enter':
         case ' ':
-          grabMode = !grabMode;
-          item.setAttribute('aria-grabbed', grabMode.toString());
+          item.setAttribute('aria-grabbed', (!isGrabbed).toString());
           event.preventDefault();
           break;
 
         case 'ArrowUp':
-          if (grabMode && item.previousElementSibling) {
-            item.parentNode!.insertBefore(item, item.previousElementSibling);
-            (item as HTMLElement).focus();
-          } else if (item.previousElementSibling) {
-            (item.previousElementSibling as HTMLElement).focus();
+          if (item.previousElementSibling) {
+            if (isGrabbed) {
+              if (!sortable.options.sort) {
+                item.setAttribute('aria-grabbed', 'false');
+                event.preventDefault();
+                break;
+              }
+              const oldIndex = Array.from(item.parentNode!.children).indexOf(item);
+              const newIndex = oldIndex - 1;
+
+              item.parentNode!.insertBefore(item, item.previousElementSibling);
+
+              const updateEvent = new CustomEvent('update') as any;
+              updateEvent.item = item;
+              updateEvent.from = list;
+              updateEvent.to = list;
+              updateEvent.oldIndex = oldIndex;
+              updateEvent.newIndex = newIndex;
+              updateEvent.oldDraggableIndex = oldIndex;
+              updateEvent.newDraggableIndex = newIndex;
+
+              sortable.options.onUpdate?.(updateEvent);
+
+              setTimeout(() => {
+                const refreshedList = document.getElementById(list.id);
+                const movedItem = refreshedList?.children[newIndex] as HTMLElement;
+                if (movedItem) {
+                  movedItem.focus();
+                  movedItem.setAttribute('aria-grabbed', 'true');
+                }
+                const oldPositionItem = refreshedList?.children[oldIndex] as HTMLElement;
+                if (oldPositionItem) {
+                  oldPositionItem.setAttribute('aria-grabbed', 'false');
+                }
+              }, 50);
+            } else {
+              (item.previousElementSibling as HTMLElement).focus();
+            }
           }
           event.preventDefault();
           break;
 
         case 'ArrowDown':
-          if (grabMode && item.nextElementSibling) {
-            item.parentNode!.insertBefore(item.nextElementSibling, item);
-            (item as HTMLElement).focus();
-          } else if (item.nextElementSibling) {
-            (item.nextElementSibling as HTMLElement).focus();
+          if (item.nextElementSibling) {
+            if (isGrabbed) {
+              if (!sortable.options.sort) {
+                item.setAttribute('aria-grabbed', 'false');
+                event.preventDefault();
+                break;
+              }
+              const oldIndex = Array.from(item.parentNode!.children).indexOf(item);
+              const newIndex = oldIndex + 1;
+
+              item.parentNode!.insertBefore(item.nextElementSibling, item);
+
+              const updateEvent = new CustomEvent('update') as any;
+              updateEvent.item = item;
+              updateEvent.from = list;
+              updateEvent.to = list;
+              updateEvent.oldIndex = oldIndex;
+              updateEvent.newIndex = newIndex;
+              updateEvent.oldDraggableIndex = oldIndex;
+              updateEvent.newDraggableIndex = newIndex;
+
+              sortable.options.onUpdate?.(updateEvent);
+
+              setTimeout(() => {
+                const refreshedList = document.getElementById(list.id);
+                const movedItem = refreshedList?.children[newIndex] as HTMLElement;
+                if (movedItem) {
+                  movedItem.focus();
+                  movedItem.setAttribute('aria-grabbed', 'true');
+                }
+                const oldPositionItem = refreshedList?.children[oldIndex] as HTMLElement;
+                if (oldPositionItem) {
+                  oldPositionItem.setAttribute('aria-grabbed', 'false');
+                }
+              }, 50);
+            } else {
+              (item.nextElementSibling as HTMLElement).focus();
+            }
           }
           event.preventDefault();
           break;
 
         case 'ArrowLeft':
         case 'ArrowRight':
-          if (grabMode && group) {
+          if (group) {
+
             const allLists = Array.from(document.querySelectorAll(`[data-sortable-group="${group}"]`));
             const currentIndex = allLists.indexOf(list);
             let nextIndex = currentIndex;
@@ -155,39 +180,78 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
             }
 
             if (nextIndex !== currentIndex) {
-              const targetList = allLists[nextIndex] as HTMLElement;
-              const targetListId = targetList.id;
-              const oldIndex = Array.from(item.parentNode!.children).indexOf(item);
-              const newIndex = 0;
+              if (isGrabbed) {
 
-              sortable.options.onRemove!({
-                item: item,
-                from: list,
-                to: targetList,
-                oldIndex: oldIndex,
-                newIndex: newIndex,
-                oldDraggableIndex: oldIndex,
-                newDraggableIndex: newIndex
-              } as any);
+                const targetList = allLists[nextIndex] as HTMLElement;
+                const targetListId = targetList.id;
+                const oldIndex = Array.from(item.parentNode!.children).indexOf(item);
+                const newIndex = 0;
 
-              item.setAttribute('aria-grabbed', 'false');
-              grabMode = false;
+                const pullMode = pull || true
+                //const putMode = put ? true : null;
 
-              setTimeout(() => {
-                const newList = document.getElementById(targetListId);
-                const movedItem = newList?.children[newIndex] as HTMLElement;
-                movedItem?.focus();
-              }, 50);
+                if (pullMode === false) {
+                  break;
+                }
+
+                // Move in DOM immediately for feedback
+                targetList.insertBefore(item, targetList.firstChild);
+
+                // Notify via sortable.onRemove
+                const removeEvent = new CustomEvent('remove') as any;
+                removeEvent.item = item;
+                removeEvent.from = list;
+                removeEvent.to = targetList;
+                removeEvent.oldIndex = oldIndex;
+                removeEvent.newIndex = newIndex;
+                removeEvent.oldDraggableIndex = oldIndex;
+                removeEvent.newDraggableIndex = newIndex;
+                removeEvent.pullMode = pullMode;
+                if (pullMode === 'clone') {
+                  removeEvent.clone = item.cloneNode(true);
+                }
+
+                sortable.options.onRemove?.(removeEvent);
+
+                setTimeout(() => {
+                  const refreshedTargetList = document.getElementById(targetListId);
+                  const movedItem = refreshedTargetList?.children[newIndex] as HTMLElement;
+                  if (movedItem) {
+                    movedItem.focus();
+                    movedItem.setAttribute('aria-grabbed', 'false');
+                  }
+                  const refreshedSourceList = document.getElementById(list.id);
+                  const oldPositionItem = refreshedSourceList?.children[oldIndex] as HTMLElement;
+                  if (oldPositionItem) {
+                    oldPositionItem.setAttribute('aria-grabbed', 'false');
+                  }
+                }, 50);
+              }
+              else {
+                const targetList = allLists[nextIndex] as HTMLElement;
+                const itemIndex = Array.from(item.parentNode!.children).indexOf(item);
+                let targetItem = targetList.children[itemIndex] as HTMLElement;
+
+                if (!targetItem && targetList.children.length > 0) {
+                  const firstDist = Math.abs(itemIndex - 0);
+                  const lastDist = Math.abs(itemIndex - (targetList.children.length - 1));
+                  targetItem = (firstDist < lastDist ? targetList.firstElementChild : targetList.lastElementChild) as HTMLElement;
+                }
+
+                if (targetItem) {
+                  targetItem.focus();
+                }
+              }
             }
           }
           event.preventDefault();
           break;
 
         case 'Tab':
-          if (item.getAttribute('aria-grabbed') === 'true') {
+          if (isGrabbed) {
             item.setAttribute('aria-grabbed', 'false');
-            grabMode = false;
           }
+          break;
       }
     }, { signal });
 

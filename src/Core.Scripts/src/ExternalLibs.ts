@@ -8,8 +8,10 @@ export const IMaskCdn = {
   name: 'IMask',
   url: 'https://unpkg.com/imask@7.6.1/dist/imask.min.js'
 };
-export const IMaskUrl = 'https://unpkg.com/imask@7.6.1/dist/imask.min.js';
-export const SortableJSUrl = 'https://unpkg.com/sortablejs@1.15.6/Sortable.min.js';
+export const SortableCdn = {
+  name: 'Sortable',
+  url: 'https://unpkg.com/sortablejs@1.15.6/Sortable.min.js'
+};
 
 /*
     ---------------------------------------------------------------------------------------
