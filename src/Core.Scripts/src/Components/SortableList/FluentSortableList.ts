@@ -194,7 +194,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
                 const oldIndex = Array.from(item.parentNode!.children).indexOf(item);
                 const newIndex = 0;
 
-                const pullMode = pull || true
+                const pullMode = pull || true;
 
                 if (pullMode === false) {
                   break;
