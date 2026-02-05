@@ -81,7 +81,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
       switch (event.key) {
         case 'Enter':
         case ' ':
-          if (typeof (sortable.options.filter) === 'string' && !item.classList.contains(sortable.options.filter.slice(1)) || !sortable.options.filter) {
+          if (
+            !sortable.options.filter ||
+            (typeof sortable.options.filter === 'string' &&
+              !item.classList.contains(sortable.options.filter.slice(1)))
+          ) {
             item.setAttribute('aria-grabbed', (!isGrabbed).toString());
           }
           event.preventDefault();
