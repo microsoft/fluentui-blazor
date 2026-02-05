@@ -19,11 +19,6 @@
   min-height: var(--fluent-sortable-list-item-height);
 }
 
-  /*Not sure yet if this can be deleted. Need to test on iOS*/
-  /*.fluent-sortable-list .sortable-fallback {
-        opacity: 1 !important
-    }*/
-
   .fluent-sortable-list .sortable-grab {
     cursor: grab;
     background-color: var(--colorNeutralBackground2);
