@@ -8,12 +8,12 @@
 @if (ItemTemplate is not null)
 {
     <div @ref="@_element"
-		 id="@Id"
-		 class="@ClassValue"
-		 style="@StyleValue"
-		 role="list"
-		 aria-label="@AriaLabel"
-		 @attributes="@AdditionalAttributes">
+        id="@Id"
+        class="@ClassValue"
+        style="@StyleValue"
+        role="list"
+        aria-label="@AriaLabel"
+        @attributes="@AdditionalAttributes">
         @foreach (var item in Items ?? Enumerable.Empty<TItem>())
         {
             <div tabindex="0" aria-grabbed="false" draggable="false" class="sortable-item @(GetItemFiltered(item) ? "filtered" : "")">@ItemTemplate(item)</div>
