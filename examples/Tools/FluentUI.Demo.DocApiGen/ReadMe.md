@@ -18,6 +18,7 @@ The tool uses the **compact format by default** for Summary mode, which is optim
 ### Generate Summary mode (default, compact format)
 
 ```bash
+# Note: Update net9.0 paths to match NetVersion in Directory.Build.props (net8.0, net9.0, or net10.0)
 dotnet run --xml "./Microsoft.FluentUI.AspNetCore.Components.xml" --dll "../../../src/Core/bin/Debug/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll" --output "../../../examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json
 ```
 
@@ -39,6 +40,7 @@ This will generate a JSON file with the compact structure optimized for Summary 
 ### Generate All mode (complete documentation)
 
 ```bash
+# Note: Update net9.0 paths to match NetVersion in Directory.Build.props (net8.0, net9.0, or net10.0)
 dotnet run --xml "./Microsoft.FluentUI.AspNetCore.Components.xml" --dll "../../../src/Core/bin/Debug/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll" --output "../../../examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments-all.json" --format json --mode all
 ```
 
@@ -47,6 +49,7 @@ dotnet run --xml "./Microsoft.FluentUI.AspNetCore.Components.xml" --dll "../../.
 Generate documentation for MCP Server tools, resources, and prompts:
 
 ```bash
+# Note: Update net9.0 paths to match NetVersion in Directory.Build.props (net8.0, net9.0, or net10.0)
 dotnet run --xml "../../../src/Tools/McpServer/bin/Debug/net9.0/Microsoft.FluentUI.AspNetCore.McpServer.xml" --dll "../../../src/Tools/McpServer/bin/Debug/net9.0/Microsoft.FluentUI.AspNetCore.McpServer.dll" --output "../../../examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json" --format json --mode mcp
 ```
 

@@ -18,6 +18,9 @@ namespace FluentUI.Demo.DocApiGen.IntegrationTests;
 /// </summary>
 public class FluentUIComponentsIntegrationTests : IDisposable
 {
+    // .NET Framework Version - Change this to net8.0, net9.0, or net10.0 to match Directory.Build.props
+    private const string NET_VERSION = "net9.0";
+
     private readonly FileInfo _xmlDocumentation;
     private readonly string _tempOutputDirectory;
     private readonly string _xmlPath;
@@ -43,12 +46,12 @@ public class FluentUIComponentsIntegrationTests : IDisposable
         _xmlDocumentation = new FileInfo(_xmlPath);
 
         // Load the FluentUI assembly dynamically
-        var fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Debug", "net9.0", "Microsoft.FluentUI.AspNetCore.Components.dll");
+        var fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Debug", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.dll");
 
         if (!File.Exists(fluentUIAssemblyPath))
         {
             // Try alternative path (Release build)
-            fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Release", "net9.0", "Microsoft.FluentUI.AspNetCore.Components.dll");
+            fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Release", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.dll");
 
             if (!File.Exists(fluentUIAssemblyPath))
             {
@@ -453,12 +456,12 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     private static (Assembly McpAssembly, FileInfo McpXml)? TryLoadMcpAssembly()
     {
         var projectRoot = GetProjectRootDirectory();
-        var mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Debug", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+        var mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Debug", NET_VERSION, "Microsoft.FluentUI.AspNetCore.McpServer.dll");
 
         if (!File.Exists(mcpAssemblyPath))
         {
             // Try Release build
-            mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Release", "net9.0", "Microsoft.FluentUI.AspNetCore.McpServer.dll");
+            mcpAssemblyPath = Path.Combine(projectRoot, "src", "Tools", "McpServer", "bin", "Release", NET_VERSION, "Microsoft.FluentUI.AspNetCore.McpServer.dll");
 
             if (!File.Exists(mcpAssemblyPath))
             {
