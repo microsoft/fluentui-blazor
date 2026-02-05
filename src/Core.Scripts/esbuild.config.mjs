@@ -2,13 +2,21 @@ import * as esbuild from 'esbuild'
 import { glob } from 'glob'
 import { writeFile, unlink } from 'fs/promises';
 import pkg from './package.json' with { type: 'json' }
+import fs from "fs";
+import path from "path";
+
+const rawBuildMode = process.argv.find(a => a.startsWith('--build-mode='))?.split('=')[1];
+const buildMode = rawBuildMode === "Release" ? "Release" : "Debug";
+
+const constantsFile = path.resolve("src/BuildConstants.ts");
+fs.writeFileSync(constantsFile, `export const BUILD_MODE = '${buildMode}';\n`);
 
 // JS: Microsoft.FluentUI.AspNetCore.Components.lib.module.js
 await esbuild.build({
     entryPoints: [pkg.source],
     bundle: true,
-    minify: true,
-    sourcemap: true,
+    minify: buildMode !== "Debug",
+    sourcemap: buildMode === "Debug",
     logLevel: 'info',
     target: 'es2022',
     format: 'esm',

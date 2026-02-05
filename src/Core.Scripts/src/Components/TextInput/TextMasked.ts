@@ -2,12 +2,28 @@
 import type IMaskType from 'imask';
 import type { InputMask } from 'imask';
 import * as FluentUIComponents from '@fluentui/web-components'
-import { ExternalLibraryLoader, IMaskCdn} from '../../ExternalLibs';
+import { ExternalLibraryLoader, Library } from '../../ExternalLibs';
 
-// Doc: https://github.com/uNmAnNeR/imaskjs
+/**
+ * See the imask docs at: https://github.com/uNmAnNeR/imaskjs
+ *
+ * The Default Lib Name and URL and debug URL to load the IMask library from CDN.
+ * Debug URL can be used in development for better debugging experience with source maps, while the minified URL is recommended for production for better performance.
+ * If no unminified version is available, the same minified URL can be used for both.
+ *
+ * The dev can override what script will be used in the end by adding a script before loading FluentUI.Blazor scripts:
+ * <script src="https://unpkg.com/imask@7.6.1/dist/imask.min.js"></script>
+ */
+
+
+const iMaskLibrary: Library = {
+  name: 'IMask',
+  url: 'https://unpkg.com/imask@7.6.1/dist/imask.min.js',
+  debugUrl: 'https://unpkg.com/imask@7.6.1/dist/imask.js'
+};
 
 // Create a loader instance for IMask
-const imaskLoader = new ExternalLibraryLoader<typeof IMaskType>(IMaskCdn.name, IMaskCdn.url);
+const imaskLoader = new ExternalLibraryLoader<typeof IMaskType>(iMaskLibrary);
 
 export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
 
@@ -51,7 +67,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
     if (inputElement && mask.length > 0) {
       // Ensure IMask library is loaded from CDN
       const IMask = await imaskLoader.load();
-      
+
       inputElement.mask = IMask(inputElement, maskOptions);
 
       // Workaround to update FluentTextInput value
