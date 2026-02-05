@@ -196,7 +196,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
                 const newIndex = 0;
 
                 const pullMode = pull || true
-                //const putMode = put ? true : null;
 
                 if (pullMode === false) {
                   break;
