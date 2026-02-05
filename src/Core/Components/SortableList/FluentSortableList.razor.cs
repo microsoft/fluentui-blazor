@@ -15,7 +15,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisposable
 {
-    //private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "SortableList/FluentSortableList.razor.js";
     private ElementReference? _element;
     private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
     private IJSObjectReference? _jsHandle;
