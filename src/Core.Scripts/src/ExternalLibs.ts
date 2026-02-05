@@ -4,10 +4,13 @@
  * The dev can override this value by adding a script before loading FluentUI.Blazor scripts:
  * <script src="https://unpkg.com/imask@7.6.1/dist/imask.min.js"></script>
  */
-export const IMaskCdn = {
-  name: 'IMask',
-  url: 'https://unpkg.com/imask@7.6.1/dist/imask.min.js'
-};
+import { BUILD_MODE } from "./BuildConstants";
+
+export interface Library {
+  name: string;
+  url: string;
+  debugUrl: string;
+}
 
 /*
     ---------------------------------------------------------------------------------------
@@ -32,7 +35,7 @@ export const IMaskCdn = {
          <script src="https://unpkg.com/imask@7.6.1/dist/imask.min.js"></script>
        ```
 
-    --------------------------------------------------------------------------------------- 
+    ---------------------------------------------------------------------------------------
 */
 
 
@@ -59,8 +62,7 @@ export class ExternalLibraryLoader<T = any> {
    * @param cdnUrl - The CDN URL to load the library from
    */
   constructor(
-    private readonly libraryName: string,
-    private readonly cdnUrl: string
+    private readonly library: Library
   ) {}
 
   /**
@@ -69,7 +71,7 @@ export class ExternalLibraryLoader<T = any> {
    */
   async load(): Promise<T> {
     // Check if library is already available on window
-    const existingLib = (window as any)[this.libraryName];
+    const existingLib = (window as any)[this.library.name];
     if (existingLib) {
       return existingLib as T;
     }
@@ -82,16 +84,20 @@ export class ExternalLibraryLoader<T = any> {
     // Load library from CDN
     this.loadPromise = new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = this.cdnUrl;
+      if (BUILD_MODE === 'Debug') {
+        script.src = this.library.debugUrl ?? this.library.url;
+      } else {
+        script.src = this.library.url;
+      }
       script.onload = () => {
-        const loadedLib = (window as any)[this.libraryName];
+        const loadedLib = (window as any)[this.library.name];
         if (loadedLib) {
           resolve(loadedLib as T);
         } else {
-          reject(new Error(`${this.libraryName} library failed to load`));
+          reject(new Error(`${this.library.name} library failed to load`));
         }
       };
-      script.onerror = () => reject(new Error(`Failed to load ${this.libraryName} from CDN: ${this.cdnUrl}`));
+      script.onerror = () => reject(new Error(`Failed to load ${this.library.name} from CDN: ${this.library.url}`));
       document.head.appendChild(script);
     });
 
@@ -103,6 +109,6 @@ export class ExternalLibraryLoader<T = any> {
    * @returns true if the library is available on the window object
    */
   isLoaded(): boolean {
-    return !!(window as any)[this.libraryName];
+    return !!(window as any)[this.library.name];
   }
 }
