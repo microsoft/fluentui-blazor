@@ -1,4 +1,5 @@
-﻿<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
+﻿@page "/sortablelist-disabled-sorting/debug"
+<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
     <FluentGridItem xs="12" sm="6">
         <h5>List 1</h5>
         <FluentSortableList Id="disabledOne" Group="disabledSorting" Drop="false" Sort="false" Items="items1" Context="item" OnRemove="ListOneRemove">
@@ -28,16 +29,21 @@
 
     private void ListOneRemove(FluentSortableListEventArgs args)
     {
-        if (args is null)
-        {
-            return;
-        }
+		if (args is null)
+		{
+			return;
+		}
 
-        var item = items1[args.OldIndex];
+		// get the item at the old index in list 1
+		var item = items1[args.OldIndex];
 
-        var clone = item;
+		// add it to the new index in list 2
+		items2.Insert(args.NewIndex, item);
 
-        items2.Insert(args.NewIndex, clone);
+		// remove the item from the old index in list 1
+		items1.Remove(items1[args.OldIndex]);
+
+		Console.WriteLine($"Moved item '{item.Name}' from list '{args.FromListId}' to list '{args.ToListId}'");
     }
 
     private void SortList(FluentSortableListEventArgs args)

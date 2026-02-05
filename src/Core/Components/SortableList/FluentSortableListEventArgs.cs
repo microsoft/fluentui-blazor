@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -9,6 +11,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class FluentSortableListEventArgs
 {
+    /// <summary />
+    [ExcludeFromCodeCoverage(Justification = "This constructor only exist for Demo site API documentation purposes.")]
+    public FluentSortableListEventArgs()
+    {
+
+    }
+
     /// <summary />
     public FluentSortableListEventArgs(int oldIndex, int newIndex, string? fromListId, string? toListId)
     {

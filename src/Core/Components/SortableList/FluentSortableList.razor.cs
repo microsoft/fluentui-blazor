@@ -209,7 +209,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
 
             if (!_disposed)
             {
-                // list, group, pull: any, put:  sort: boolean, handle: string | null, filter: string | null, fallback: boolean, component: any
+                // list, group, pull: any, put: any, sort: boolean, handle: string | null, filter: string | null, fallback: boolean, component: any
                 _jsHandle = await JSRuntime.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.Components.SortableList.Initialize", _element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
             }
         }
@@ -262,15 +262,8 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
 
         if (_jsHandle is not null)
         {
-            try
-            {
-                await _jsHandle.InvokeVoidAsync("stop");
-                await _jsHandle.DisposeAsync();
-            }
-            catch (Exception)
-            {
-                /* Ignore */
-            }
+            await _jsHandle.InvokeVoidAsync("stop");
+            await _jsHandle.DisposeAsync();
         }
 
         _selfReference?.Dispose();
