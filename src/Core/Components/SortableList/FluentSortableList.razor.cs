@@ -92,7 +92,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     public bool Clone { get; set; }
 
     /// <summary>
-    /// Gets or sets wether it is possible to drop items into the current list from another list in the same group.
+    /// Gets or sets whether it is possible to drop items into the current list from another list in the same group.
     /// Set to false to disable dropping from another list onto the current list.
     /// </summary>
     [Parameter]
