@@ -2,12 +2,18 @@
 import type IMaskType from 'imask';
 import type { InputMask } from 'imask';
 import * as FluentUIComponents from '@fluentui/web-components'
-import { ExternalLibraryLoader, IMaskCdn} from '../../ExternalLibs';
+import { ExternalLibraryLoader, Library } from '../../ExternalLibs';
 
 // Doc: https://github.com/uNmAnNeR/imaskjs
 
+const iMaskLibrary: Library = {
+  name: 'IMask',
+  url: 'https://unpkg.com/imask@7.6.1/dist/imask.min.js',
+  debugUrl: 'https://unpkg.com/imask@7.6.1/dist/imask.js'
+};
+
 // Create a loader instance for IMask
-const imaskLoader = new ExternalLibraryLoader<typeof IMaskType>(IMaskCdn.name, IMaskCdn.url);
+const imaskLoader = new ExternalLibraryLoader<typeof IMaskType>(iMaskLibrary);
 
 export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
 

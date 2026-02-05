@@ -1,7 +1,13 @@
 import type Sortable from 'sortablejs';
-import { ExternalLibraryLoader, SortableCdn } from '../../ExternalLibs';
+import { ExternalLibraryLoader, Library } from '../../ExternalLibs';
 
-const sortableLoader = new ExternalLibraryLoader<typeof Sortable>(SortableCdn.name, SortableCdn.url);
+const SortableLibrary: Library = {
+  name: 'Sortable',
+  url: 'https://unpkg.com/sortablejs@1.15.6/Sortable.min.js',
+  debugUrl: 'https://unpkg.com/sortablejs@1.15.6/Sortable.js'
+};
+
+const sortableLoader = new ExternalLibraryLoader<typeof Sortable>(SortableLibrary);
 
 export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
   export async function Initialize(
