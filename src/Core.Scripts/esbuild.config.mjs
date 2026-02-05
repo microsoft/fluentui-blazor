@@ -5,7 +5,8 @@ import pkg from './package.json' with { type: 'json' }
 import fs from "fs";
 import path from "path";
 
-const buildMode = process.argv.find(a => a.startsWith('--build-mode='))?.split('=')[1] || "Debug";
+const rawBuildMode = process.argv.find(a => a.startsWith('--build-mode='))?.split('=')[1];
+const buildMode = rawBuildMode === "Release" ? "Release" : "Debug";
 
 const constantsFile = path.resolve("src/BuildConstants.ts");
 fs.writeFileSync(constantsFile, `export const BUILD_MODE = '${buildMode}';\n`);
@@ -14,7 +15,7 @@ fs.writeFileSync(constantsFile, `export const BUILD_MODE = '${buildMode}';\n`);
 await esbuild.build({
     entryPoints: [pkg.source],
     bundle: true,
-    minify: buildMode === "Release",
+    minify: buildMode !== "Debug",
     sourcemap: buildMode === "Debug",
     logLevel: 'info',
     target: 'es2022',
