@@ -15,7 +15,7 @@
 </FluentGrid>
 
 @code {
-    public class Item
+    class Item
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";
@@ -23,11 +23,11 @@
         public bool Disabled { get; set; } = false;
     }
 
-    public List<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+    List<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
 
-    public List<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+    List<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
 
-    private void ListOneRemove(FluentSortableListEventArgs args)
+    void ListOneRemove(FluentSortableListEventArgs args)
     {
 		if (args is null)
 		{
@@ -46,7 +46,7 @@
 		Console.WriteLine($"Moved item '{item.Name}' from list '{args.FromListId}' to list '{args.ToListId}'");
     }
 
-    private void SortList(FluentSortableListEventArgs args)
+    void SortList(FluentSortableListEventArgs args)
     {
         if (args is null || args.OldIndex == args.NewIndex)
         {

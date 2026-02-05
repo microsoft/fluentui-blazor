@@ -13,7 +13,7 @@
  </FluentGrid>
 
 @code {
-    public class Item
+    class Item
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";
@@ -21,8 +21,8 @@
         public bool Disabled { get; set; } = false;
     }
 
-    public List<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
-    public List<Item> items2 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+    List<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+    List<Item> items2 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
 
     // on initialized, set a random item in the list to disabled
     protected override void OnInitialized()
@@ -35,7 +35,7 @@
         }
     }
 
-    private void SortListOne(FluentSortableListEventArgs args)
+    void SortListOne(FluentSortableListEventArgs args)
     {
         if (args is null || args.OldIndex == args.NewIndex)
         {
@@ -59,7 +59,7 @@
         }
     }
 
-    private void SortListTwo(FluentSortableListEventArgs args)
+    void SortListTwo(FluentSortableListEventArgs args)
     {
         if (args is null || args.OldIndex == args.NewIndex)
         {

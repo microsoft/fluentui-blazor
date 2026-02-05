@@ -90,7 +90,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     /// Gets or sets whether elements are cloned instead of moved. Set Pull to "clone" to enable this.
     /// </summary>
     [Parameter]
-    public bool Clone { get; set; } = false;
+    public bool Clone { get; set; }
 
     /// <summary>
     /// Gets or sets wether it is possible to drop items into the current list from another list in the same group.
@@ -112,7 +112,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     /// Set to true to use an element with classname `.sortable-grab` as the handle.
     /// </summary>
     [Parameter]
-    public bool Handle { get; set; } = false;
+    public bool Handle { get; set; }
 
     /// <summary>
     /// Gets or sets the function to filter out elements that cannot be sorted or moved.
