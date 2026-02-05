@@ -103,7 +103,7 @@ The `ItemFilter` parameter is a function that takes an item and returns a boolea
 In the left list below, the `ItemFilter` parameter is set to filter out (at most) 4 random items from the list. In the right list, the `ItemFilter` parameter is set to filter out items with an Id larger than 6.
 See the Razor tab for how the different functions are being specified.
 
->[!Note] The lists in this example are not part of the same group (`Group` parameter is not set). So dragging between the lists or moving focus between lists by keyboardis not possible. Only sorting items within each individual list is implemented.
+>[!Note] The lists in this example are not part of the same group (`Group` parameter is not set). So dragging between the lists or moving focus between lists by keyboard is not possible. Only sorting items within each individual list is implemented.
     
 {{ SortableListFiltering }}
 
