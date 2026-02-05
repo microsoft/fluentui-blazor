@@ -15,6 +15,7 @@ of the Fluent UI Blazor library.
 
 3. Publish the project in Release mode
    ```bash
+   # Note: Update net9.0 to match NetVersion in Directory.Build.props (net8.0, net9.0, or net10.0)
    dotnet publish "FluentUI.Explorers.csproj" -c Release -o ./bin/Publish -f net9.0
    ```
 

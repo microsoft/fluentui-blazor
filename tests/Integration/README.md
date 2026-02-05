@@ -13,6 +13,7 @@ First, make sure you have the Playwright for .NET package installed. If you don'
 
 ```powershell
 dotnet build
+# Note: Update net9.0 to match NetVersion in Directory.Build.props (net8.0, net9.0, or net10.0)
 ./bin/Debug/net9.0/playwright.ps1 install
 ```
 

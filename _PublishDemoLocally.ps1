@@ -2,7 +2,11 @@
 
 # Script to generate documentation and publish the FluentUI Demo locally
 
+# .NET Framework Version - Change this to net8.0, net9.0, or net10.0 as needed
+$NetVersion = "net9.0"
+
 Write-Host "👉 Starting local demo publish process..." -ForegroundColor Green
+Write-Host "👉 Using .NET Framework: $NetVersion" -ForegroundColor Cyan
 
 # Clean previous build artifacts
 Write-Host "👉 Cleaning previous build artifacts (bin and obj)..." -ForegroundColor Yellow
@@ -25,7 +29,7 @@ if (Test-Path "./src/Core/obj/") {
 
 # Build the core project
 Write-Host "👉 Building Core project..." -ForegroundColor Yellow
-dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish"  -f net9.0
+dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish"  -f $NetVersion
 
 # Generate API documentation file
 Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
@@ -33,7 +37,7 @@ dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.Doc
 
 # Build the MCP Server project
 Write-Host "👉 Building MCP Server project..." -ForegroundColor Yellow
-dotnet build "./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" -c Release -o "./src/Tools/McpServer/bin/Publish" -f net9.0
+dotnet build "./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" -c Release -o "./src/Tools/McpServer/bin/Publish" -f $NetVersion
 
 # Generate MCP documentation file
 Write-Host "👉 Generating MCP documentation..." -ForegroundColor Yellow
@@ -41,7 +45,7 @@ dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.Doc
 
 # Publish the demo
 Write-Host "👉 Publishing demo..." -ForegroundColor Yellow
-dotnet publish "./examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" -c Release -o "./examples/Demo/FluentUI.Demo/bin/Publish" -f net9.0
+dotnet publish "./examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" -c Release -o "./examples/Demo/FluentUI.Demo/bin/Publish" -f $NetVersion
 
 # Verify that the bundle CSS file has the expected size
 Write-Host "👉 Verifying bundle CSS file size..." -ForegroundColor Yellow

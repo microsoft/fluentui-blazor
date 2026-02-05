@@ -1,6 +1,10 @@
 <Project>
   <PropertyGroup>
 
+    <!-- .NET Framework Version -->
+    <!-- Change this to switch between net8.0, net9.0, or net10.0 -->
+    <NetVersion>net9.0</NetVersion>
+
     <!-- Versioning -->
     <VersionFile>5.0.0</VersionFile>
     <VersionPrefix>5.0.0</VersionPrefix>
