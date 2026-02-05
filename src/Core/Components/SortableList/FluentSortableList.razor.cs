@@ -87,7 +87,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     public string? Group { get; set; }
 
     /// <summary>
-    /// Gets or sets whether elements are cloned instead of moved. Set Pull to "clone" to enable this.
+    /// Gets or sets whether elements are cloned instead of moved. Set Clone to true to enable this.
     /// </summary>
     [Parameter]
     public bool Clone { get; set; }
