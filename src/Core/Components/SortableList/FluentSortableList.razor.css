@@ -1,28 +1,28 @@
 
 
 .fluent-sortable-list {
-  --fluent-sortable-list-background-color: var(--colorNeutralBackground4);
-  --fluent-sortable-list-item-height: 32px;
-  --fluent-sortable-list-filtered: var(--warning);
   --fluent-sortable-list-border-width: var(--strokeWidthThin);
   --fluent-sortable-list-border-color: var(--colorNeutralStroke1Pressed);
   --fluent-sortable-list-padding: 4px;
+  --fluent-sortable-list-item-height: 32px;
+  --fluent-sortable-list-item-padding: 0 var(--spacingHorizontalS);
+  --fluent-sortable-list-item-spacing: var(--spacingVerticalXS);
   --fluent-sortable-list-item-border-width: var(--strokeWidthThin);
   --fluent-sortable-list-item-border-color: var(--colorNeutralStroke1);
   --fluent-sortable-list-item-drop-border-color: var(--accent-fill-rest);
   --fluent-sortable-list-item-drop-color: var(--neutral-layer-1);
-  --fluent-sortable-list-item-padding: 0 var(--spacingHorizontalS);
-  --fluent-sortable-list-item-spacing: var(--spacingVerticalXS);
+  --fluent-sortable-list-item-background-color: var(--colorNeutralBackground4);
+  --fluent-sortable-list-item-focused-background-color: var(--colorBrandBackground2);
+  --fluent-sortable-list-item-focused-border-color: var(--colorBrandBackground2Hover);
+  --fluent-sortable-list-item-grabbed-background-color: var(--colorBrandBackground2Hover);
+  --fluent-sortable-list-item-grabbed-border-color: var(--colorBrandBackground2Pressed);
+  --fluent-sortable-list-item-filtered-background-color: var(--warning);
+  --fluent-sortable-list-item-filtered-color: var(--colorNeutralForegroundInverted);
   border: var(--fluent-sortable-list-border-width) solid var(--fluent-sortable-list-border-color);
   border-radius: var(--borderRadiusMedium);
   padding: var(--fluent-sortable-list-padding);
   min-height: var(--fluent-sortable-list-item-height);
 }
-
-  /*Not sure yet if this can be deleted. Need to test on iOS*/
-  /*.fluent-sortable-list .sortable-fallback {
-        opacity: 1 !important
-    }*/
 
   .fluent-sortable-list .sortable-grab {
     cursor: grab;
@@ -47,7 +47,7 @@
   display: flex;
   align-items: center;
   height: var(--fluent-sortable-list-item-height) !important;
-  background-color: var(--fluent-sortable-list-background-color);
+  background-color: var(--fluent-sortable-list-item-background-color);
   border: var(--fluent-sortable-list-item-border-width) solid var(--fluent-sortable-list-item-border-color);
   border-radius: calc(var(--control-corner-radius) * 1px);
   -moz-user-select: none;
@@ -63,13 +63,13 @@
   }
 
   .fluent-sortable-list .sortable-item:focus {
-    background-color: var(--colorBrandBackground2);
-    border: var(--fluent-sortable-list-item-border-width) solid var(--colorBrandBackground2Hover);
+    background-color: var(--fluent-sortable-list-item-focused-background-color);
+    border: var(--fluent-sortable-list-item-border-width) solid var(--fluent-sortable-list-item-focused-border-color);
   }
 
   .fluent-sortable-list .sortable-item[aria-grabbed='true'] {
-    background-color: var(--colorBrandBackground2Hover);
-    border: var(--fluent-sortable-list-item-border-width) solid var(--colorBrandBackground2Pressed);
+    background-color: var(--fluent-sortable-list-item-grabbed-background-color);
+    border: var(--fluent-sortable-list-item-border-width) solid var(--fluent-sortable-list-item-grabbed-border-color);
   }
 
 .fluent-sortable-list .sortable-item-content {
@@ -85,7 +85,7 @@
   border: var(--strokeWidthThin) dotted var(--fluent-sortable-list-item-drop-border-color) !important;
 }
 
-.fluent-sortable-list > .sortable-item:is(.filtered) {
-  background: var(--fluent-sortable-list-filtered);
-  color: var(--colorNeutralForegroundInverted);
+.fluent-sortable-list .sortable-item:is(.filtered) {
+  background: var(--fluent-sortable-list-item-filtered-background-color);
+  color: var(--fluent-sortable-list-item-filtered-color);
 }

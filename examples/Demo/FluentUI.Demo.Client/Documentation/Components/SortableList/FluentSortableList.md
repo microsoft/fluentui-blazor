@@ -58,6 +58,35 @@ SortableJS does not come with a11y support but we enhanced the `FluentSortableLi
 
 The component also provides appropriate ARIA attributes to enhance screen reader support.
 
+## Styling
+
+The code below shows the CSS variables that have been predefined and what their default values are. These can be overwritten (by using the `Style` parameter or in your own CSS file or block).
+See the examples below on how to apply these variables.
+
+```css
+.fluent-sortable-list {
+  /* List styles */
+  --fluent-sortable-list-border-width: var(--strokeWidthThin);
+  --fluent-sortable-list-border-color: var(--colorNeutralStroke1Pressed);
+  --fluent-sortable-list-padding: 4px;
+  /* Item styles */
+  --fluent-sortable-list-item-height: 32px;
+  --fluent-sortable-list-item-padding: 0 var(--spacingHorizontalS);
+  --fluent-sortable-list-item-spacing: var(--spacingVerticalXS);
+  --fluent-sortable-list-item-border-width: var(--strokeWidthThin);
+  --fluent-sortable-list-item-border-color: var(--colorNeutralStroke1);
+  --fluent-sortable-list-item-drop-border-color: var(--accent-fill-rest);
+  --fluent-sortable-list-item-drop-color: var(--neutral-layer-1);
+  --fluent-sortable-list-item-background-color: var(--colorNeutralBackground4);
+  --fluent-sortable-list-item-focused-background-color: var(--colorBrandBackground2);
+  --fluent-sortable-list-item-focused-border-color: var(--colorBrandBackground2Hover);
+  --fluent-sortable-list-item-grabbed-background-color: var(--colorBrandBackground2Hover);
+  --fluent-sortable-list-item-grabbed-border-color: var(--colorBrandBackground2Pressed);
+  --fluent-sortable-list-item-filtered-background-color: var(--warning);
+  --fluent-sortable-list-item-filtered-color: var(--colorNeutralForegroundInverted);
+}
+```
+
 ## Examples
 
 ### Simple sortable list
@@ -70,7 +99,7 @@ Providing the same "Group" name (string) for both lists is what links them toget
 
 >[!Note] When an item is dragged into a different list, it assumes the visual style of that list. This is because Blazor controls the rendering of the list items.
     
-{{ SortableListMoveBetweenLists }}
+{{ SortableListMoveBetweenLists Files=Code:SortableListMoveBetweenLists.razor;CSS:SortableListMoveBetweenLists.razor.css  }}
 
 ### Clone items
 
@@ -105,7 +134,7 @@ See the Razor tab for how the different functions are being specified.
 
 >[!Note] The lists in this example are not part of the same group (`Group` parameter is not set). So dragging between the lists or moving focus between lists by keyboardis not possible. Only sorting items within each individual list is implemented.
     
-{{ SortableListFiltering }}
+{{ SortableListFiltering  Files=Code:SortableListFiltering.razor;CSS:SortableListFiltering.razor.css  }}
 
 ### Sortable list using fallback behavior
 
@@ -120,3 +149,7 @@ By setting Fallback parameter to true, the list will not use native HTML5 drag a
 ## API FluentSortableListEventArgs
 
 {{ API Type=FluentSortableListEventArgs P }}
+
+## Migrating from v4
+
+{{ INCLUDE File=MigrationFluentSortableList }}
