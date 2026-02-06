@@ -67,8 +67,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     public EventCallback<FluentSortableListEventArgs> OnRemove { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the Group used for dragging between lists. Set the group to the same value on both lists to enable.
-    /// You can only have 1 group with 2 lists.
+    /// Gets or sets the name of the Group used for dragging between lists. Set the group to the same value on every list to enable.
     /// </summary>
     [Parameter]
     public string? Group { get; set; }

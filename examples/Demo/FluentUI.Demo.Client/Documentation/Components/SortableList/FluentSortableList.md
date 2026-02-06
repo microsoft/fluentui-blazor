@@ -110,7 +110,7 @@ This is not limited to just two lists. You can have multiple lists sharing the s
 
 ### Clone items
 
-Cloning is enabled by setting the `Clone` parameter to `true` (on the list you want to clone from). The item you drag or move by keyboard (see [a11y](#accessability-support)) will be cloned and the clone will stay in the original list.
+Cloning is enabled by setting the `Clone` parameter to `true` (on the list you want to clone from). The item you drag or move by keyboard (see [a11y](#accessibility-support)) will be cloned and the clone will stay in the original list.
 
 {{ SortableListCloneBetweenLists }}
     
