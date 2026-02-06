@@ -15,7 +15,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisposable
 {
-    //private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "SortableList/FluentSortableList.razor.js";
     private ElementReference? _element;
     private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
     private IJSObjectReference? _jsHandle;
@@ -75,13 +74,13 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     public string? Group { get; set; }
 
     /// <summary>
-    /// Gets or sets whether elements are cloned instead of moved. Set Pull to "clone" to enable this.
+    /// Gets or sets whether elements are cloned instead of moved. Set Clone to true to enable this.
     /// </summary>
     [Parameter]
     public bool Clone { get; set; }
 
     /// <summary>
-    /// Gets or sets wether it is possible to drop items into the current list from another list in the same group.
+    /// Gets or sets whether it is possible to drop items into the current list from another list in the same group.
     /// Set to false to disable dropping from another list onto the current list.
     /// </summary>
     [Parameter]
@@ -109,7 +108,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     public Func<TItem, bool>? ItemFilter { get; set; }
 
     /// <summary>
-    /// Gets or sets wether to ignore the HTML5 DnD behaviour and force the fallback to kick in
+    /// Gets or sets whether to ignore the HTML5 DnD behaviour and force the fallback to kick in
     /// </summary>
     [Parameter]
     public bool Fallback { get; set; } = false;

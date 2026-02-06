@@ -30,7 +30,7 @@
     display: flex;
     position: relative;
     height: 90%;
-    left: calc(calc(var(--spacingHorizontalS) * -1) + 1px);
+    left: calc(var(--spacingHorizontalS) * -1 + 1px);
     right: unset;
     border-radius: var(--borderRadiusMedium) 0 0 var(--borderRadiusMedium);
     width: 32px;

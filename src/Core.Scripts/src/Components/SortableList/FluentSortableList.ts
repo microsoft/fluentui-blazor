@@ -81,7 +81,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
       switch (event.key) {
         case 'Enter':
         case ' ':
-          if (typeof (sortable.options.filter) === 'string' && !item.classList.contains(sortable.options.filter.slice(1)) || !sortable.options.filter) {
+          if (
+            !sortable.options.filter ||
+            (typeof sortable.options.filter === 'string' &&
+              !item.classList.contains(sortable.options.filter.slice(1)))
+          ) {
             item.setAttribute('aria-grabbed', (!isGrabbed).toString());
           }
           event.preventDefault();
@@ -179,14 +183,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
 
             const allLists = Array.from(document.querySelectorAll(`[data-sortable-group="${group}"]`));
             const currentIndex = allLists.indexOf(list);
-            let nextIndex = currentIndex;
-
-            if (event.key === 'ArrowRight') {
-              nextIndex = (currentIndex + 1) % allLists.length;
-            } else {
-              nextIndex = (currentIndex - 1 + allLists.length) % allLists.length;
-            }
-
+            const nextIndex = event.key === 'ArrowRight'
+              ? (currentIndex + 1) % allLists.length
+              : (currentIndex - 1 + allLists.length) % allLists.length;
             if (nextIndex !== currentIndex) {
               if (isGrabbed) {
 
@@ -195,8 +194,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
                 const oldIndex = Array.from(item.parentNode!.children).indexOf(item);
                 const newIndex = 0;
 
-                const pullMode = pull || true
-                //const putMode = put ? true : null;
+                const pullMode = pull || true;
 
                 if (pullMode === false) {
                   break;

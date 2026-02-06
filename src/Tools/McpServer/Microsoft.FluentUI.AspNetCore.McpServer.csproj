@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>$(NetVersion)</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
@@ -126,7 +126,7 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <ItemGroup>
-      <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net9.0\*.xml" />
+      <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(NetVersion)\*.xml" />
     </ItemGroup>
     <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Tools\FluentUI.Demo.DocApiGen" />
   </Target>
@@ -139,8 +139,8 @@
   <Target Name="GenerateMcpDocumentation" BeforeTargets="BeforeBuild" Condition="!Exists('$(McpDocumentationJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true'">
     <PropertyGroup>
       <DocApiGenProject>$(MSBuildThisFileDirectory)..\..\..\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj</DocApiGenProject>
-      <FluentUIComponentsDll>$(MSBuildThisFileDirectory)..\..\Core\bin\$(Configuration)\net9.0\Microsoft.FluentUI.AspNetCore.Components.dll</FluentUIComponentsDll>
-      <FluentUIComponentsXml>$(MSBuildThisFileDirectory)..\..\Core\bin\$(Configuration)\net9.0\Microsoft.FluentUI.AspNetCore.Components.xml</FluentUIComponentsXml>
+      <FluentUIComponentsDll>$(MSBuildThisFileDirectory)..\..\Core\bin\$(Configuration)\$(NetVersion)\Microsoft.FluentUI.AspNetCore.Components.dll</FluentUIComponentsDll>
+      <FluentUIComponentsXml>$(MSBuildThisFileDirectory)..\..\Core\bin\$(Configuration)\$(NetVersion)\Microsoft.FluentUI.AspNetCore.Components.xml</FluentUIComponentsXml>
     </PropertyGroup>
 
     <Message Text="Generating MCP documentation JSON..." Importance="high" />
