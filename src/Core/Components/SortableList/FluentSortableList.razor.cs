@@ -67,6 +67,19 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     public EventCallback<FluentSortableListEventArgs> OnRemove { get; set; }
 
     /// <summary>
+    /// Event callback for when an item is added to the list.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentSortableListEventArgs> OnAdd { get; set; }
+
+    /// <summary>
+    /// Event callback for when the list of items is updated.
+    /// Supports bi-directional binding for the <see cref="Items"/> parameter.
+    /// </summary>
+    [Parameter]
+    public EventCallback<IEnumerable<TItem>?> ItemsChanged { get; set; }
+
+    /// <summary>
     /// Gets or sets the name of the Group used for dragging between lists. Set the group to the same value on every list to enable.
     /// </summary>
     [Parameter]
@@ -140,15 +153,62 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     }
 
     /// <summary>
+    /// Invoked from JavaScript to get an item at a specific index.
+    /// </summary>
+    [JSInvokable]
+    public TItem? GetItemJS(int index)
+    {
+        return Items != null && index >= 0 && index < Items.Count() ? Items.ElementAt(index) : default;
+    }
+
+    /// <summary>
     /// Invoked from JavaScript when an item is updated.
     /// </summary>
     [JSInvokable]
-    public void OnUpdateJS(int oldIndex, int newIndex, string fromListId, string toListId)
+    public async Task OnUpdateJSAsync(int oldIndex, int newIndex, string fromListId, string toListId)
     {
+        if (string.Equals(fromListId, toListId, StringComparison.OrdinalIgnoreCase) && Items != null)
+        {
+            var list = Items.ToList();
+            var item = list[oldIndex];
+            list.RemoveAt(oldIndex);
+            list.Insert(newIndex, item);
+            Items = list;
+            if (ItemsChanged.HasDelegate)
+            {
+                await ItemsChanged.InvokeAsync(Items);
+            }
+        }
+
         if (OnUpdate.HasDelegate)
         {
-            // invoke the OnUpdate event passing in the oldIndex, the newIndex, the fromId and the toId
-            _ = OnUpdate.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
+            await OnUpdate.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
+        }
+    }
+
+    /// <summary>
+    /// Invoked from JavaScript when an item is added to the list.
+    /// </summary>
+    [JSInvokable]
+    public async Task OnAddJSAsync(int oldIndex, int newIndex, string fromListId, string toListId, TItem? item)
+    {
+        if (item is not null)
+        {
+            if (Items != null)
+            {
+                var list = Items.ToList();
+                list.Insert(newIndex, item);
+                Items = list;
+                if (ItemsChanged.HasDelegate)
+                {
+                    await ItemsChanged.InvokeAsync(Items);
+                }
+            }
+        }
+
+        if (OnAdd.HasDelegate)
+        {
+            await OnAdd.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
         }
     }
 
@@ -156,12 +216,22 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     /// Invoked from JavaScript when an item is removed.
     /// </summary>
     [JSInvokable]
-    public void OnRemoveJS(int oldIndex, int newIndex, string fromListId, string toListId)
+    public async Task OnRemoveJSAsync(int oldIndex, int newIndex, string fromListId, string toListId, string? pullMode)
     {
+        if (Items != null && !string.Equals(pullMode, "clone", StringComparison.OrdinalIgnoreCase))
+        {
+            var list = Items.ToList();
+            list.RemoveAt(oldIndex);
+            Items = list;
+            if (ItemsChanged.HasDelegate)
+            {
+                await ItemsChanged.InvokeAsync(Items);
+            }
+        }
+
         if (OnRemove.HasDelegate)
         {
-            // remove the item from the list
-            _ = OnRemove.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
+            await OnRemove.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
         }
     }
 
