@@ -56,6 +56,9 @@ SortableJS does not come with a11y support but we enhanced the `FluentSortableLi
 - <kbd>arrow up</kbd> or <kbd>arrow down</kbd>: move a grabbed item in its own list, move focus between items (when no item is grabbed)
 - <kbd>arrow left</kbd> or <kbd>arrow right</kbd>: move a grabbed item to a different list, move focus between lists (when no item is currently grabbed)
 
+When an item is grabbed and move with the keyboard, it will remain in the grabbed state until the user releases it by pressing <kbd>space</kbd> or <kbd>enter</kbd> again.
+This allows users to move items across lists without having to keep the key pressed. If however, the item is cloned, it will be released immediately after moving.
+
 The component also provides appropriate ARIA attributes to enhance screen reader support.
 
 ## Styling
@@ -92,14 +95,18 @@ See the examples below on how to apply these variables.
 ### Simple sortable list
 {{ SortableListDefault }}
 
-### Move items between two lists
+### Move items between lists
 
 Shared lists are lists where items can be dragged from one list to the other and vice-versa (depending on the lists `Drop` parameter).
-Providing the same "Group" name (string) for both lists is what links them together.
+Providing the same "Group" name (string) for lists is what links them together.
 
 >[!Note] When an item is dragged into a different list, it assumes the visual style of that list. This is because Blazor controls the rendering of the list items.
     
 {{ SortableListMoveBetweenLists Files=Code:SortableListMoveBetweenLists.razor;CSS:SortableListMoveBetweenLists.razor.css  }}
+
+This is not limited to just two lists. You can have multiple lists sharing the same group name and items can be dragged between any of those lists (depending on the lists `Drop` parameter).
+
+{{ SortableListMultipleLists Files=Code:SortableListMultipleLists.razor;CSS:SortableListMultipleLists.razor.css }}
 
 ### Clone items
 

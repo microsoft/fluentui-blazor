@@ -224,7 +224,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
                   const movedItem = refreshedTargetList?.children[newIndex] as HTMLElement;
                   if (movedItem) {
                     movedItem.focus();
-                    movedItem.setAttribute('aria-grabbed', 'false');
+                    pullMode === 'clone' ? movedItem.setAttribute('aria-grabbed', 'false') : movedItem.setAttribute('aria-grabbed', 'true');
                   }
                   const refreshedSourceList = document.getElementById(list.id);
                   const oldPositionItem = refreshedSourceList?.children[oldIndex] as HTMLElement;
