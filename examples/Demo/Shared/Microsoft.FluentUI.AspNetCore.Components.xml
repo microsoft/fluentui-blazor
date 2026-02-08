@@ -1343,6 +1343,12 @@
             Needs to be a valid CSS width value like '100px', '10%' or '0.5fr'.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HierarchicalToggle">
+            <summary>
+            If true, the column will include an expand/collapse toggle for hierarchical data.
+            This only applies if <typeparamref name="TGridItem"/> implements <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IHierarchicalGridItem"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Grid">
             <summary>
             Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
@@ -2075,6 +2081,11 @@
             Default is false.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnToggle">
+            <summary>
+            Event callback for when a hierarchical row is expanded or collapsed.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GenerateHeader">
             <summary>
             Gets or sets a value indicating whether the grid should automatically generate a header row and its type.
@@ -2548,6 +2559,91 @@
             <param name="items">The items being supplied.</param>
             <param name="totalItemCount">The total numer of items that exist. See <see cref="P:Microsoft.FluentUI.AspNetCore.Components.GridItemsProviderResult`1.TotalItemCount"/> for details.</param>
             <returns>An instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridItemsProviderResult`1"/>.</returns>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.HierarchicalGridItem`2">
+            <summary>
+            A base class for a grid item that can be part of a hierarchy.
+            </summary>
+            <typeparam name="TItem">The type of the item being displayed.</typeparam>
+            <typeparam name="TGridItem">The type of the grid item wrapper class.</typeparam>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchicalGridItem`2.Item">
+            <summary>
+            Gets or sets the reference to the item that holds this row's values.
+            This name aligns with <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Item"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchicalGridItem`2.Children">
+            <summary>
+            The children of this item in the hierarchy.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchicalGridItem`2.HasChildren">
+            <summary>
+            Gets a value indicating whether this item has children.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchicalGridItem`2.Depth">
+            <summary>
+            The depth of this item in the hierarchy (0 for root).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchicalGridItem`2.IsHidden">
+            <summary>
+            Whether this item is currently hidden (e.g. because a parent is collapsed).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchicalGridItem`2.IsCollapsed">
+            <summary>
+            Whether this item's children are currently collapsed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchicalGridItem`2.UpdateHidden">
+            <summary>
+            Updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.HierarchicalGridItem`2.IsHidden" /> property for this item's children.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.HierarchicalGridUtilities">
+            <summary>
+            Provides utility methods for managing hierarchical grid data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchicalGridUtilities.OrderHierarchically``2(System.Collections.Generic.List{``0},System.Func{``1,System.String},System.Func{``1,System.String},System.Func{``1,System.Boolean})">
+            <summary>
+            Orders a flat list of grid items into a hierarchical structure based on parent relationships.
+            </summary>
+            <typeparam name="TGridItem">The type of the grid item wrapper.</typeparam>
+            <typeparam name="TItem">The type of the underlying data item.</typeparam>
+            <param name="initialItems">The initial flat list of items.</param>
+            <param name="getId">Function to get the unique identifier of an item.</param>
+            <param name="getParentId">Function to get the parent identifier of an item.</param>
+            <param name="isCollapsed">Function to determine if an item is initially collapsed.</param>
+            <returns>A list of items ordered hierarchically, including child relationships.</returns>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.IHierarchicalGridItem">
+            <summary>
+            An interface for a grid item that can be part of a hierarchy.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IHierarchicalGridItem.Depth">
+            <summary>
+            Gets or sets the depth of this item in the hierarchy (0 for root).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IHierarchicalGridItem.IsHidden">
+            <summary>
+            Gets or sets whether this item is currently hidden (e.g. because a parent is collapsed).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IHierarchicalGridItem.IsCollapsed">
+            <summary>
+            Gets or sets whether this item's children are currently collapsed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IHierarchicalGridItem.HasChildren">
+            <summary>
+            Gets a value indicating whether this item has children.
+            </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure.ColumnsCollectedNotifier`1">
             <summary>
