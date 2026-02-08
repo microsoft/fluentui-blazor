@@ -658,11 +658,6 @@
             If true, the ClassValue property will not include the EditContext's FieldCssClass.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.ParsingErrorMessage">
-            <summary>
-            Gets or sets the error message to show when the field can not be parsed.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.EditContext">
             <summary>
             Gets the associated <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
@@ -778,6 +773,16 @@
             <param name="e"></param>
             <returns></returns>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.ICultureSensitiveComponent">
+            <summary>
+            Defines an interface for components with values that are sensitive to culture settings, eg : parsing to string.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ICultureSensitiveComponent.Culture">
+            <summary>
+            Gets or sets the culture of the component.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.InputHelpers`1.GetMaxValue">
             <summary>
             Because of the limitation of the web component, the maximum value is set to 9999999999 for really large numbers.
@@ -789,6 +794,11 @@
             Because of the limitation of the web component, the minimum value is set to -9999999999 for really large negative numbers.
             </summary>
             <returns>The minimum value for the underlying type</returns>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IStringParsableComponent.ParsingErrorMessage">
+            <summary>
+            Gets or sets the error message to show when the field can not be parsed.
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentBodyContent.ChildContent">
             <summary>
@@ -2913,6 +2923,9 @@
             Gets or sets the culture of the component.
             By default <see cref="P:System.Globalization.CultureInfo.CurrentCulture"/> to display using the OS culture.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.ParsingErrorMessage">
+            <inheritdoc/>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DisabledDateFunc">
             <summary>
@@ -6618,6 +6631,9 @@
             ⚠️ Only available when Multiple = true.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.ParsingErrorMessage">
+            <inheritdoc/>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.#ctor">
             <summary />
         </member>
@@ -8054,9 +8070,7 @@
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.ParsingErrorMessage">
-            <summary>
-            Gets or sets the error message to show when the field can not be parsed.
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.FormatValueAsString(`0)">
             <summary>
@@ -8951,6 +8965,9 @@
             Gets or sets the child content to be rendering inside the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1.ParsingErrorMessage">
+            <inheritdoc/>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1.OnParametersSet">
             <inheritdoc />
         </member>
@@ -9007,9 +9024,7 @@
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.ParsingErrorMessage">
-            <summary>
-            Gets or sets the error message to show when the field can not be parsed.
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.GroupName">
             <summary />

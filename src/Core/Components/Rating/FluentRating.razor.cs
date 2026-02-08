@@ -10,7 +10,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentRating : FluentInputBase<int>
+public partial class FluentRating : FluentInputBase<int>, IStringParsableComponent
 {
     private bool _updatingCurrentValue = false;
     private int? _hoverValue = null;
@@ -74,10 +74,9 @@ public partial class FluentRating : FluentInputBase<int>
     [Parameter]
     public EventCallback<int?> OnHoverValueChanged { get; set; }
 
-    /// <summary>
-    /// Gets or sets the error message to show when the field can not be parsed.
-    /// </summary>
-    public override string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
+    /// <inheritdoc/>
+    [Parameter]
+    public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
 
     /// <summary />
     private string GroupName => Id ?? $"rating-{Id}";

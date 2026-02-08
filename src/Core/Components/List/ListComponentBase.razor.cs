@@ -17,7 +17,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Component that provides a list of options.
 /// </summary>
 /// <typeparam name="TOption"></typeparam>
-public abstract partial class ListComponentBase<TOption> : FluentInputBase<string?>, IAsyncDisposable where TOption : notnull
+public abstract partial class ListComponentBase<TOption> : FluentInputBase<string?>, IAsyncDisposable, IStringParsableComponent where TOption : notnull
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/ListComponentBase.razor.js";
 
@@ -211,6 +211,10 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     /// </summary>
     [Parameter]
     public Expression<Func<IEnumerable<TOption>>>? SelectedOptionsExpression { get; set; }
+
+    /// <inheritdoc/>
+    [Parameter]
+    public string ParsingErrorMessage { get; set; } = "The {0} field must be a (valid) number.";
 
     /// <summary />
     protected ListComponentBase()
