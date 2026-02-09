@@ -18,14 +18,17 @@ namespace Microsoft.FluentUI.AspNetCore.McpServer.Tools;
 public class ComponentDetailTools
 {
     private readonly FluentUIDocumentationService _documentationService;
+    private readonly ComponentDocumentationService _componentDocService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ComponentDetailTools"/> class.
     /// </summary>
     /// <param name="documentationService">The documentation service.</param>
-    public ComponentDetailTools(FluentUIDocumentationService documentationService)
+    /// <param name="componentDocService">The component documentation service.</param>
+    public ComponentDetailTools(FluentUIDocumentationService documentationService, ComponentDocumentationService componentDocService)
     {
         _documentationService = documentationService;
+        _componentDocService = componentDocService;
     }
 
     /// <summary>
@@ -36,7 +39,7 @@ public class ComponentDetailTools
     /// A string containing the detailed documentation for the specified component, or a message indicating that the component was not found.
     /// </returns>
     [McpServerTool]
-    [Description("Gets detailed documentation for a specific Fluent UI Blazor component, including all its parameters, properties, events, and methods.")]
+    [Description("Gets detailed documentation for a specific Fluent UI Blazor component, including usage guide, code examples, parameters, events, and methods.")]
     public string GetComponentDetails(
         [Description("The name of the component (e.g., 'FluentButton', 'FluentDataGrid', 'FluentTextField'). You can omit the 'Fluent' prefix.")]
         string componentName)
@@ -51,11 +54,26 @@ public class ComponentDetailTools
         var sb = new StringBuilder();
 
         AppendComponentHeader(sb, details);
+        AppendUsageDocumentation(sb, componentName);
         AppendParameters(sb, details);
         AppendEvents(sb, details);
         AppendMethods(sb, details);
 
         return sb.ToString();
+    }
+
+    private void AppendUsageDocumentation(StringBuilder sb, string componentName)
+    {
+        var usageDocs = _componentDocService.GetComponentDocumentation(componentName);
+        if (string.IsNullOrEmpty(usageDocs))
+        {
+            return;
+        }
+
+        sb.AppendLine("## Usage Guide");
+        sb.AppendLine();
+        sb.AppendLine(usageDocs);
+        sb.AppendLine();
     }
 
     private static void AppendComponentHeader(StringBuilder sb, Models.ComponentDetails details)

@@ -86,6 +86,16 @@
                       Link="Documentation\GetStarted\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 
+  <!-- Include Component documentation markdown files and Razor examples as embedded resources -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\*.md"
+                      Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\*.razor"
+                      Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\*.razor.cs"
+                      Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
   <!-- Code Analysis -->
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">

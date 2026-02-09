@@ -18,14 +18,17 @@ namespace Microsoft.FluentUI.AspNetCore.McpServer.Tools;
 public class ComponentListTools
 {
     private readonly FluentUIDocumentationService _documentationService;
+    private readonly ComponentDocumentationService _componentDocService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ComponentListTools"/> class.
     /// </summary>
     /// <param name="documentationService">The documentation service.</param>
-    public ComponentListTools(FluentUIDocumentationService documentationService)
+    /// <param name="componentDocService">The component documentation service.</param>
+    public ComponentListTools(FluentUIDocumentationService documentationService, ComponentDocumentationService componentDocService)
     {
         _documentationService = documentationService;
+        _componentDocService = componentDocService;
     }
 
     /// <summary>
@@ -87,9 +90,9 @@ public class ComponentListTools
     /// If no components match, a message indicating no results are found is returned.
     /// </returns>
     [McpServerTool]
-    [Description("Searches for Fluent UI Blazor components by name or description. Use this when you're looking for a component that does something specific.")]
+    [Description("Searches for Fluent UI Blazor components by name, description, or documentation content. Use this when you're looking for a component that does something specific.")]
     public string SearchComponents(
-        [Description("The term to search for in component names and descriptions (e.g., 'button', 'grid', 'input', 'dialog').")]
+        [Description("The term to search for in component names, descriptions, and documentation (e.g., 'button', 'grid', 'input', 'dialog', 'loading', 'modal').")]
         string searchTerm)
     {
         if (string.IsNullOrWhiteSpace(searchTerm))
@@ -97,18 +100,18 @@ public class ComponentListTools
             return "Please provide a search term.";
         }
 
-        var components = _documentationService.SearchComponents(searchTerm);
+        var allResults = MergeSearchResults(searchTerm);
 
-        if (components.Count == 0)
+        if (allResults.Count == 0)
         {
             return $"No components found matching '{searchTerm}'. Try a different search term or use ListComponents() to see all components.";
         }
 
         var sb = new StringBuilder();
-        sb.AppendLine(CultureInfo.InvariantCulture, $"# Search Results for '{searchTerm}' ({components.Count} found)");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"# Search Results for '{searchTerm}' ({allResults.Count} found)");
         sb.AppendLine();
 
-        foreach (var component in components)
+        foreach (var component in allResults)
         {
             var genericIndicator = component.IsGeneric ? "<T>" : "";
             sb.AppendLine(CultureInfo.InvariantCulture, $"## {component.Name}{genericIndicator}");
@@ -124,5 +127,38 @@ public class ComponentListTools
         }
 
         return sb.ToString();
+    }
+
+    /// <summary>
+    /// Merges search results from API documentation and component documentation content.
+    /// </summary>
+    private List<Models.ComponentInfo> MergeSearchResults(string searchTerm)
+    {
+        var components = _documentationService.SearchComponents(searchTerm);
+        var docMatches = _componentDocService.SearchDocumentation(searchTerm);
+        var existingNames = new HashSet<string>(components.Select(c => c.Name), StringComparer.OrdinalIgnoreCase);
+        var additionalComponents = new List<Models.ComponentInfo>();
+        var allComponents = _documentationService.GetAllComponents();
+
+        foreach (var docComponentName in docMatches)
+        {
+            if (existingNames.Contains(docComponentName))
+            {
+                continue;
+            }
+
+            var match = allComponents.FirstOrDefault(c =>
+                c.Name.Equals(docComponentName, StringComparison.OrdinalIgnoreCase) ||
+                c.Name.Equals($"Fluent{docComponentName}", StringComparison.OrdinalIgnoreCase) ||
+                (docComponentName.StartsWith("Fluent", StringComparison.OrdinalIgnoreCase) &&
+                 c.Name.Equals(docComponentName["Fluent".Length..], StringComparison.OrdinalIgnoreCase)));
+
+            if (match != null && existingNames.Add(match.Name))
+            {
+                additionalComponents.Add(match);
+            }
+        }
+
+        return [.. components, .. additionalComponents];
     }
 }
