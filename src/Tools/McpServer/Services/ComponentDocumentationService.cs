@@ -28,11 +28,12 @@ public sealed partial class ComponentDocumentationService
         string RawMarkdown,
         string ResolvedMarkdown);
 
-    // Matches {{ ExampleName }} or {{ ExampleName Files=Code:file1.razor;Label:file2.razor }}
-    private const string DirectivePattern = @"\{\{\s*(?<name>\w+)(?:\s+Files=(?<files>[^\}]+))?\s*\}\}";
+    // Matches {{ ExampleName }}, {{ ExampleName Files=Code:file1.razor;Label:file2.razor }},
+    // and variants with additional parameters (e.g. {{ ExampleName SourceCode=false }})
+    private const string DirectivePattern = @"\{\{\s*(?<name>\w+)(?:\s+Files=(?<files>[^\}\s]+))?(?:\s+[^\}]+)?\s*\}\}";
 
-    // Matches {{ API Type=TypeName ... }}
-    private const string ApiDirectivePattern = @"\{\{\s*API\s+[^\}]+\}\}";
+    // Matches unsupported directives like {{ API Type=TypeName ... }} or {{ INCLUDE File=... }} so they can be stripped
+    private const string ApiDirectivePattern = @"\{\{\s*(?:API|INCLUDE)\b[^\}]*\}\}";
 
     /// <summary>
     /// Key = component name (e.g. "FluentButton", "FluentDataGrid"), case-insensitive.
@@ -51,6 +52,12 @@ public sealed partial class ComponentDocumentationService
     /// Value = the code-behind C# source code.
     /// </summary>
     private readonly Dictionary<string, string> _codeBehind = new(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// Key = plain C# file name without extension (e.g. "PersonDetails"), case-insensitive.
+    /// Value = the C# source code.
+    /// </summary>
+    private readonly Dictionary<string, string> _plainCsFiles = new(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ComponentDocumentationService"/> class.
@@ -192,15 +199,17 @@ public sealed partial class ComponentDocumentationService
     }
 
     /// <summary>
-    /// Loads all Razor example files and code-behind files from embedded resources.
+    /// Loads all Razor example files, code-behind files, and plain C# files from embedded resources.
     /// </summary>
     private void LoadExamples(Assembly assembly, string[] resourceNames)
     {
-        foreach (var resourceName in resourceNames)
+        var exampleResources = resourceNames
+            .Where(r => r.Contains(".Examples.", StringComparison.OrdinalIgnoreCase));
+
+        foreach (var resourceName in exampleResources)
         {
             // Match .razor.cs code-behind files (check before .razor to avoid substring confusion)
-            if (resourceName.Contains(".Examples.", StringComparison.OrdinalIgnoreCase) &&
-                resourceName.EndsWith(".razor.cs", StringComparison.OrdinalIgnoreCase))
+            if (resourceName.EndsWith(".razor.cs", StringComparison.OrdinalIgnoreCase))
             {
                 var content = ReadResource(assembly, resourceName);
                 if (content != null)
@@ -213,8 +222,7 @@ public sealed partial class ComponentDocumentationService
                 }
             }
             // Match .razor example files (but not .razor.cs or .razor.css)
-            else if (resourceName.Contains(".Examples.", StringComparison.OrdinalIgnoreCase) &&
-                     resourceName.EndsWith(".razor", StringComparison.OrdinalIgnoreCase))
+            else if (resourceName.EndsWith(".razor", StringComparison.OrdinalIgnoreCase))
             {
                 var content = ReadResource(assembly, resourceName);
                 if (content != null)
@@ -223,6 +231,20 @@ public sealed partial class ComponentDocumentationService
                     if (!string.IsNullOrEmpty(exampleName))
                     {
                         _examples[exampleName] = content;
+                    }
+                }
+            }
+            // Match plain .cs files (e.g. PersonDetails.cs) — but not .razor.cs
+            else if (resourceName.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
+            {
+                var content = ReadResource(assembly, resourceName);
+                if (content != null)
+                {
+                    var parts = resourceName.Split('.');
+                    if (parts.Length >= 2)
+                    {
+                        var fileName = parts[^2]; // e.g. "PersonDetails"
+                        _plainCsFiles[fileName] = content;
                     }
                 }
             }
@@ -283,11 +305,12 @@ public sealed partial class ComponentDocumentationService
     /// Resolves {{ }} directives in markdown content.
     /// - {{ ExampleName }} → replaces with the example Razor source code in a fenced code block.
     /// - {{ ExampleName Files=Code:file1.razor;Label:file2.razor }} → replaces with multiple code blocks.
-    /// - {{ API Type=... }} → stripped.
+    /// - {{ ExampleName SourceCode=false }} → handled (extra params ignored, example still resolved).
+    /// - {{ API Type=... }} and {{ INCLUDE File=... }} → stripped.
     /// </summary>
     internal string ResolveDirectives(string content)
     {
-        // First, strip {{ API ... }} directives
+        // First, strip {{ API ... }} and {{ INCLUDE ... }} directives
         var result = ApiDirectiveRegex().Replace(content, string.Empty);
 
         // Then, resolve {{ ExampleName }} and {{ ExampleName Files=... }} directives
@@ -375,9 +398,14 @@ public sealed partial class ComponentDocumentationService
             }
 
             // Determine language from extension
-            var language = fileName.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) ? "csharp" : "razor";
+            var language = fileName.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) ? "csharp"
+                         : fileName.EndsWith(".css", StringComparison.OrdinalIgnoreCase) ? "css"
+                         : fileName.EndsWith(".js", StringComparison.OrdinalIgnoreCase) ? "javascript"
+                         : "razor";
 
-            if (_examples.TryGetValue(exName, out var content) || _codeBehind.TryGetValue(exName, out content))
+            if (_examples.TryGetValue(exName, out var content) ||
+                _codeBehind.TryGetValue(exName, out content) ||
+                _plainCsFiles.TryGetValue(exName, out content))
             {
                 sb.AppendLine(CultureInfo.InvariantCulture, $"**{label} ({fileName}):**");
                 sb.AppendLine();
@@ -405,7 +433,7 @@ public sealed partial class ComponentDocumentationService
     /// Extracts the component name from an embedded resource name.
     /// Resource names follow the pattern: *.Components.{Category}.{SubFolder}.{FileName}.md
     /// We extract the FileName (without .md) as the component name (e.g., "FluentButton").
-    /// For overview files, we use the file name as-is.
+    /// Overview and default category summary files are skipped (returns null).
     /// </summary>
     private static string? ExtractComponentNameFromResource(string resourceName)
     {
@@ -526,4 +554,26 @@ public sealed partial class ComponentDocumentationService
 
     [GeneratedRegex(@"\n{3,}", RegexOptions.None, matchTimeoutMilliseconds: 1000)]
     private static partial Regex ExcessiveNewlinesRegex();
+
+    [GeneratedRegex(@"^(?<hashes>#{1,6})\s", RegexOptions.Multiline | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 1000)]
+    private static partial Regex MarkdownHeadingRegex();
+
+    /// <summary>
+    /// Demotes all markdown headings by one level (e.g. # → ##, ## → ###).
+    /// This prevents multiple H1 headings when inlining usage docs under a ## section.
+    /// </summary>
+    internal static string DemoteHeadings(string markdown)
+    {
+        return MarkdownHeadingRegex().Replace(markdown, match =>
+        {
+            var hashes = match.Groups["hashes"].Value;
+            // Cap at h6
+            if (hashes.Length >= 6)
+            {
+                return match.Value;
+            }
+
+            return $"{hashes}# ";
+        });
+    }
 }

@@ -90,9 +90,12 @@
   <ItemGroup>
     <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\*.md"
                       Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
-    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\*.razor"
+    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\**\*.razor"
                       Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
-    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\*.razor.cs"
+    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\**\*.razor.cs"
+                      Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\**\*.cs"
+                      Exclude="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\**\*.razor.cs"
                       Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 

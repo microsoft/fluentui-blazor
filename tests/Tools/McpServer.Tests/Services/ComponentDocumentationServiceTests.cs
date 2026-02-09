@@ -32,6 +32,7 @@ public class ComponentDocumentationServiceTests
         // Assert
         var components = service.GetAvailableComponents();
         Assert.NotNull(components);
+        Assert.NotEmpty(components);
     }
 
     #endregion
@@ -57,11 +58,7 @@ public class ComponentDocumentationServiceTests
         // Arrange
         var service = new ComponentDocumentationService();
         var components = service.GetAvailableComponents();
-
-        if (components.Count == 0)
-        {
-            return; // No embedded docs available in test context
-        }
+        Assert.NotEmpty(components); // Embedded docs must be available
 
         // Act
         var result = service.GetComponentDocumentation(components[0]);
@@ -77,15 +74,12 @@ public class ComponentDocumentationServiceTests
         // Arrange
         var service = new ComponentDocumentationService();
         var components = service.GetAvailableComponents();
+        Assert.NotEmpty(components);
 
         // Act & Assert
-        foreach (var componentName in components)
+        foreach (var result in components.Select(c => service.GetComponentDocumentation(c)).Where(r => r != null))
         {
-            var result = service.GetComponentDocumentation(componentName);
-            if (result != null)
-            {
-                Assert.DoesNotContain("{{ API ", result, StringComparison.OrdinalIgnoreCase);
-            }
+            Assert.DoesNotContain("{{ API ", result, StringComparison.OrdinalIgnoreCase);
         }
     }
 
@@ -95,15 +89,12 @@ public class ComponentDocumentationServiceTests
         // Arrange
         var service = new ComponentDocumentationService();
         var components = service.GetAvailableComponents();
+        Assert.NotEmpty(components);
 
         // Act & Assert
-        foreach (var componentName in components)
+        foreach (var result in components.Select(c => service.GetComponentDocumentation(c)).Where(r => r != null))
         {
-            var result = service.GetComponentDocumentation(componentName);
-            if (result != null)
-            {
-                Assert.DoesNotMatch(@"^---\s*\n", result);
-            }
+            Assert.DoesNotMatch(@"^---\s*\n", result);
         }
     }
 
@@ -156,11 +147,7 @@ public class ComponentDocumentationServiceTests
         // Arrange
         var service = new ComponentDocumentationService();
         var components = service.GetAvailableComponents();
-
-        if (components.Count == 0)
-        {
-            return; // No embedded docs available
-        }
+        Assert.NotEmpty(components); // Embedded docs must be available
 
         // Use a common term that should match multiple docs
         var result = service.SearchDocumentation("component");
@@ -249,6 +236,79 @@ public class ComponentDocumentationServiceTests
 
         // Assert
         Assert.Contains("<!-- Example 'UnknownExampleXyz123' not found -->", result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void ResolveDirectives_WithIncludeDirective_ShouldStripIt()
+    {
+        // Arrange
+        var service = new ComponentDocumentationService();
+        var content = "# Test\n\n{{ INCLUDE File=MigrationFluentButton }}\n\nSome text.";
+
+        // Act
+        var result = service.ResolveDirectives(content);
+
+        // Assert
+        Assert.DoesNotContain("{{ INCLUDE", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("Some text", result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void ResolveDirectives_WithSourceCodeFalseParam_ShouldResolveExample()
+    {
+        // Arrange
+        var service = new ComponentDocumentationService();
+        var content = "# Test\n\n{{ SomeExample SourceCode=false }}";
+
+        // Act
+        var result = service.ResolveDirectives(content);
+
+        // Assert - should not contain raw directive
+        Assert.DoesNotContain("{{ SomeExample", result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void DemoteHeadings_ShouldIncrementHeadingLevels()
+    {
+        // Arrange
+        var markdown = "# Title\n\n## Section\n\nText\n\n### Subsection";
+
+        // Act
+        var result = ComponentDocumentationService.DemoteHeadings(markdown);
+
+        // Assert
+        Assert.Contains("## Title", result, StringComparison.Ordinal);
+        Assert.Contains("### Section", result, StringComparison.Ordinal);
+        Assert.Contains("#### Subsection", result, StringComparison.Ordinal);
+        Assert.DoesNotContain("\n# Title", result, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void DemoteHeadings_ShouldNotExceedH6()
+    {
+        // Arrange
+        var markdown = "###### H6 Heading";
+
+        // Act
+        var result = ComponentDocumentationService.DemoteHeadings(markdown);
+
+        // Assert - should stay at h6
+        Assert.Equal("###### H6 Heading", result);
+    }
+
+    [Fact]
+    public void GetComponentDocumentation_ShouldNotContainIncludeDirectives()
+    {
+        // Arrange
+        var service = new ComponentDocumentationService();
+        var components = service.GetAvailableComponents();
+        Assert.NotEmpty(components);
+
+        // Act & Assert
+        foreach (var result in components.Select(c => service.GetComponentDocumentation(c)).Where(r => r != null))
+        {
+            Assert.DoesNotContain("{{ INCLUDE ", result, StringComparison.OrdinalIgnoreCase);
+        }
     }
 
     #endregion

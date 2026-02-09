@@ -137,28 +137,26 @@ public class ComponentListTools
         var components = _documentationService.SearchComponents(searchTerm);
         var docMatches = _componentDocService.SearchDocumentation(searchTerm);
         var existingNames = new HashSet<string>(components.Select(c => c.Name), StringComparer.OrdinalIgnoreCase);
-        var additionalComponents = new List<Models.ComponentInfo>();
         var allComponents = _documentationService.GetAllComponents();
 
-        foreach (var docComponentName in docMatches)
-        {
-            if (existingNames.Contains(docComponentName))
+        // Build a lookup dictionary for O(1) name resolution instead of O(N) scans
+        var componentLookup = allComponents
+            .SelectMany(c => new[]
             {
-                continue;
-            }
+                (Key: c.Name, Value: c),
+                (Key: c.Name.StartsWith("Fluent", StringComparison.OrdinalIgnoreCase) ? c.Name["Fluent".Length..] : $"Fluent{c.Name}", Value: c)
+            })
+            .GroupBy(x => x.Key, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(g => g.Key, g => g.First().Value, StringComparer.OrdinalIgnoreCase);
 
-            var match = allComponents.FirstOrDefault(c =>
-                c.Name.Equals(docComponentName, StringComparison.OrdinalIgnoreCase) ||
-                c.Name.Equals($"Fluent{docComponentName}", StringComparison.OrdinalIgnoreCase) ||
-                (docComponentName.StartsWith("Fluent", StringComparison.OrdinalIgnoreCase) &&
-                 c.Name.Equals(docComponentName["Fluent".Length..], StringComparison.OrdinalIgnoreCase)));
+        var additionalComponents = docMatches
+            .Where(docName => !existingNames.Contains(docName))
+            .Select(docName => componentLookup.GetValueOrDefault(docName))
+            .Where(match => match != null && existingNames.Add(match.Name))
+            .Select(match => match!)
+            .ToList();
 
-            if (match != null && existingNames.Add(match.Name))
-            {
-                additionalComponents.Add(match);
-            }
-        }
-
-        return [.. components, .. additionalComponents];
+        // Sort the combined results by name for stable output
+        return [.. components.Concat(additionalComponents).OrderBy(c => c.Name, StringComparer.OrdinalIgnoreCase)];
     }
 }

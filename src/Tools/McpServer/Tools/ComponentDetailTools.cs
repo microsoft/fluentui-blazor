@@ -72,7 +72,7 @@ public class ComponentDetailTools
 
         sb.AppendLine("## Usage Guide");
         sb.AppendLine();
-        sb.AppendLine(usageDocs);
+        sb.AppendLine(ComponentDocumentationService.DemoteHeadings(usageDocs));
         sb.AppendLine();
     }
 
