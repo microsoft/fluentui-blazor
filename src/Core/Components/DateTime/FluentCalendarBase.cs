@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
+public abstract class FluentCalendarBase : FluentInputBase<DateTime?> , ICultureSensitiveComponent, IStringParsableComponent
 {
     /// <summary>
     /// Gets or sets the culture of the component.
@@ -15,6 +15,10 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     /// </summary>
     [Parameter]
     public virtual CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
+
+    /// <inheritdoc/>
+    [Parameter]
+    public virtual string ParsingErrorMessage { get; set; } = "The {0} field must have a valid format.";
 
     /// <summary>
     /// Function to know if a specific day must be disabled.

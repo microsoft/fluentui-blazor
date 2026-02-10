@@ -10,13 +10,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 internal static class FluentInputExtensions
 {
 
-    public static bool TryParseSelectableValueFromString<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue>(
-        this FluentInputBase<TValue> input, string? value,
+    public static bool TryParseSelectableValueFromString<TInput, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue>(
+        this TInput input, string? value,
         [MaybeNullWhen(false)] out TValue result,
-        [NotNullWhen(false)] out string? validationErrorMessage)
+        [NotNullWhen(false)] out string? validationErrorMessage) where TInput : FluentInputBase<TValue>, IStringParsableComponent
     {
         try
         {
+            var culture = (input as ICultureSensitiveComponent)?.Culture ?? CultureInfo.CurrentCulture;
+
             // We special-case bool values because BindConverter reserves bool conversion for conditional attributes.
             if (typeof(TValue) == typeof(bool))
             {
@@ -34,7 +36,7 @@ internal static class FluentInputExtensions
                     return true;
                 }
             }
-            else if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.CurrentCulture, out var parsedValue))
+            else if (BindConverter.TryConvertTo<TValue>(value, culture, out var parsedValue))
             {
                 result = parsedValue;
                 validationErrorMessage = null;
@@ -42,7 +44,7 @@ internal static class FluentInputExtensions
             }
 
             result = default;
-            validationErrorMessage = $"The {input.DisplayName ?? (input.FieldBound ? input.FieldIdentifier.FieldName : input.UnknownBoundField)} field is not valid.";
+            validationErrorMessage = string.Format(input.ParsingErrorMessage, input.FieldDisplayName);
             return false;
         }
         catch (InvalidOperationException ex)

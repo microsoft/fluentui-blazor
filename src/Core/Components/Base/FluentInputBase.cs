@@ -145,6 +145,12 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
 
     internal virtual bool FieldBound => Field is not null || ValueExpression is not null || ValueChanged.HasDelegate;
 
+    /// <summary>
+    /// Gets the display name of the field, using the specified display name if set; otherwise, uses the field
+    /// identifier's name if the field is bound.
+    /// </summary>
+    internal string FieldDisplayName => DisplayName ?? (FieldBound ? FieldIdentifier.FieldName : UnknownBoundField);
+
     protected async Task SetCurrentValueAsync(TValue? value)
     {
         var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);

@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Bunit;
 using Microsoft.AspNetCore.Components;
@@ -291,5 +292,43 @@ public class FluentDatePickerTests : TestBase
 
         // Assert
         Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("02-22-2000", "en-GB", "02/22/2000")]
+    [InlineData("02-22-2000", "nl-BE", null)]
+    [InlineData("22-12-2000", "nl-BE", "22/12/2000")]
+    [InlineData("02/22/2000", "en-GB", "02/22/2000")]
+    [InlineData("abc", "en-GB", null)]
+    [InlineData("02022000", "en-GB", null)]
+    public void FluentDatePicker_TryParseValueFromString(string? value, string? cultureName, string? expectedValue)
+    {
+        // Arrange
+        var picker = new TestDatePicker();
+        var culture = cultureName != null ? CultureInfo.GetCultureInfo(cultureName) : CultureInfo.InvariantCulture;
+
+        // Act
+        picker.Culture = culture;
+        var successfullParse = picker.CallTryParseValueFromString(value, out var resultDate, out var validationErrorMessage);
+
+        // Assert
+        if (successfullParse)
+        {
+            Assert.Equal(expectedValue, resultDate?.ToString(culture.DateTimeFormat.ShortDatePattern, culture));
+        }
+        else
+        {
+            Assert.Null(resultDate);
+            Assert.NotNull(validationErrorMessage);
+        }
+    }
+
+    // Temporary class to expose protected method
+    private class TestDatePicker : FluentDatePicker
+    {
+        public bool CallTryParseValueFromString(string? value, out System.DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
+        {
+            return base.TryParseValueFromString(value, out result, out validationErrorMessage);
+        }
     }
 }

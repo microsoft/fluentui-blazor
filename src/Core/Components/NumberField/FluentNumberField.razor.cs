@@ -10,7 +10,7 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsyncDisposable
+public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsyncDisposable, IStringParsableComponent
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/TextField/FluentTextField.razor.js";
 
@@ -87,12 +87,6 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
     public string? AutoComplete { get; set; }
 
     /// <summary>
-    /// Gets or sets the error message to show when the field can not be parsed.
-    /// </summary>
-    [Parameter]
-    public string ParsingErrorMessage { get; set; } = "The {0} field must be a (valid) number.";
-
-    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
@@ -104,6 +98,10 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
     /// </summary>
     [Parameter]
     public bool UseTypeConstraints { get; set; }
+
+    /// <inheritdoc/>
+    [Parameter]
+    public string ParsingErrorMessage { get; set; } = "The {0} field must be a (valid) number.";
 
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
 
