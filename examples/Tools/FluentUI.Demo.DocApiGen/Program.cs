@@ -54,7 +54,7 @@ public class Program
             ValidateFormatCompatibility(mode, format);
 
             // Load assembly and XML documentation
-            var assembly = Assembly.LoadFrom(dllFile);
+            var assembly = Assembly.LoadFile(dllFile);
             var docXml = new FileInfo(xmlFile);
 
             Console.WriteLine("Generating documentation...");
