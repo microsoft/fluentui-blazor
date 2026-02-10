@@ -24,6 +24,8 @@
     <PackageReference Include="LoxSmoke.DocXml" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
   </ItemGroup>
 
 </Project>

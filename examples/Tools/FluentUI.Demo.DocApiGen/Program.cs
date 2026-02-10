@@ -148,6 +148,8 @@ public class Program
             "summary" => GenerationMode.Summary,
             "all" => GenerationMode.All,
             "mcp" => GenerationMode.Mcp,
+            "icons" => GenerationMode.Icons,
+            "emojis" => GenerationMode.Emojis,
             _ => throw new ArgumentException($"Invalid mode '{modeArg}'. Valid modes are: summary, all, mcp")
         };
     }
@@ -168,6 +170,13 @@ public class Program
         {
             throw new NotSupportedException(
                 $"Mode 'mcp' only supports JSON format. Requested format: {format}");
+        }
+
+        // Icons and Emojis modes only support JSON
+        if ((mode == GenerationMode.Icons || mode == GenerationMode.Emojis) && formatLower != "json")
+        {
+            throw new NotSupportedException(
+                $"Mode '{mode}' only supports JSON format. Requested format: {format}");
         }
     }
 }
