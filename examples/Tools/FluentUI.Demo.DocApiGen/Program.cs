@@ -126,6 +126,10 @@ public class Program
         Console.WriteLine("             Supports: json only");
         Console.WriteLine("  mcp      - Generate MCP server documentation (tools, resources, prompts)");
         Console.WriteLine("             Supports: json only");
+        Console.WriteLine("  icons    - Generate Fluent UI icon documentation");
+        Console.WriteLine("             Supports: json only");
+        Console.WriteLine("  emojis   - Generate Fluent UI emoji documentation");
+        Console.WriteLine("             Supports: json only");
         Console.WriteLine();
         Console.WriteLine("Examples:");
         Console.WriteLine("  # Generate Summary mode JSON");
@@ -139,6 +143,12 @@ public class Program
         Console.WriteLine();
         Console.WriteLine("  # Generate MCP documentation JSON");
         Console.WriteLine("  DocApiGen --xml McpServer.xml --dll McpServer.dll --output mcp-docs.json --mode mcp");
+        Console.WriteLine();
+        Console.WriteLine("  # Generate Icons documentation JSON");
+        Console.WriteLine("  DocApiGen --xml MyApp.xml --dll MyApp.dll --output icons.json --mode icons");
+        Console.WriteLine();
+        Console.WriteLine("  # Generate Emojis documentation JSON");
+        Console.WriteLine("  DocApiGen --xml MyApp.xml --dll MyApp.dll --output emojis.json --mode emojis");
     }
 
     private static GenerationMode ParseMode(string modeArg)
@@ -150,7 +160,7 @@ public class Program
             "mcp" => GenerationMode.Mcp,
             "icons" => GenerationMode.Icons,
             "emojis" => GenerationMode.Emojis,
-            _ => throw new ArgumentException($"Invalid mode '{modeArg}'. Valid modes are: summary, all, mcp")
+            _ => throw new ArgumentException($"Invalid mode '{modeArg}'. Valid modes are: summary, all, mcp, icons, emojis")
         };
     }
 
