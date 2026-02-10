@@ -81,7 +81,7 @@
 
   <!-- Include Documentation markdown files as embedded resources -->
   <ItemGroup>
-    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\GetStarted\**\*.md" 
+    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\GetStarted\**\*.md"
                       Exclude="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\GetStarted\mcp\**\*"
                       Link="Documentation\GetStarted\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
@@ -92,10 +92,7 @@
                       Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
     <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\**\*.razor"
                       Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
-    <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\**\*.razor.cs"
-                      Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
     <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\**\*.cs"
-                      Exclude="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\**\*.razor.cs"
                       Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 
@@ -144,7 +141,7 @@
     <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Tools\FluentUI.Demo.DocApiGen" />
   </Target>
 
-  <!-- 
+  <!--
     PreBuild target to generate the MCP documentation JSON.
     This runs DocApiGen to extract documentation from the FluentUI Components assembly
     and creates a JSON file that is then embedded as a resource.
@@ -177,7 +174,7 @@
     <Message Text="MCP documentation JSON cleaned." Importance="high" Condition="Exists('$(McpDocumentationJsonPath)')" />
   </Target>
 
-  <!-- 
+  <!--
     Target to update version in server.json before packing.
     This copies server.json to intermediate directory and replaces version placeholders.
   -->
