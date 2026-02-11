@@ -54,22 +54,27 @@
 		// Arrange
 		FluentSortableListEventArgs? args = null;
 		FluentSortableList<Item>? sortableList = null;
+		IEnumerable<Item> testItems = items.ToList();
 
 		var callback = new EventCallbackFactory().Create<AspNetCore.Components.FluentSortableListEventArgs>
 			(this, (e => args = e));
 
-		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" Items="items" OnUpdate="callback">
+		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems" OnUpdate="callback">
 			<ItemTemplate>
 				<div class="sortable-item">@context.Name</div>
 			</ItemTemplate>
 		</FluentSortableList>);
 
-		// Act
-		await sortableList!.OnUpdateJSAsync(0, 1, "fromList", "toList");
+		// Act - Move within the same list to trigger rearrangement and ItemsChanged
+		await sortableList!.OnUpdateJSAsync(0, 1, "list", "list");
 
 		// Verify
-		Assert.Equal(new FluentSortableListEventArgs(0, 1, "fromList", "toList"), args,
+		Assert.Equal(new FluentSortableListEventArgs(0, 1, "list", "list"), args,
 			FluentSortableListEventArgsComparer);
+
+		// Verify binding updated the local variable
+		Assert.Equal(items[0].Id, testItems.ElementAt(1).Id);
+		Assert.Equal(items[1].Id, testItems.ElementAt(0).Id);
 	}
 
 	[Fact]
@@ -78,22 +83,127 @@
 		// Arrange
 		FluentSortableListEventArgs? args = null;
 		FluentSortableList<Item>? sortableList = null;
+		IEnumerable<Item> testItems = items.Take(3).ToList();
+		var itemToRemove = testItems.ElementAt(1);
 
 		var callback = new EventCallbackFactory().Create<AspNetCore.Components.FluentSortableListEventArgs>
 			(this, (e => args = e));
 
-		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" Items="items" OnRemove="callback">
+		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems" OnRemove="callback">
+			<ItemTemplate>
+				<div class="sortable-item">@context.Name</div>
+			</ItemTemplate>
+		</FluentSortableList>);
+
+		// Act - Remove item at index 1
+		await sortableList!.OnRemoveJSAsync(1, 1, "list", "toList", "false");
+
+		// Verify
+		Assert.Equal(new FluentSortableListEventArgs(1, 1, "list", "toList"), args,
+			FluentSortableListEventArgsComparer);
+
+		// Verify binding updated the local variable
+		Assert.Equal(2, testItems.Count());
+		Assert.DoesNotContain(itemToRemove, testItems);
+	}
+
+	[Fact]
+	public async Task FluentSortableList_OnRemove_Clone()
+	{
+		// Arrange
+		FluentSortableList<Item>? sortableList = null;
+		IEnumerable<Item> testItems = items.ToList();
+		var count = testItems.Count();
+
+		Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems">
+			<ItemTemplate>
+				<div class="sortable-item">@context.Name</div>
+			</ItemTemplate>
+		</FluentSortableList>);
+
+		// Act - Use pullMode == clone, list should not change
+		await sortableList!.OnRemoveJSAsync(0, 1, "list", "toList", "clone");
+
+		// Verify binding did NOT update the local variable
+		Assert.Equal(count, testItems.Count());
+	}
+
+	[Fact]
+	public async Task FluentSortableList_OnAdd()
+	{
+		// Arrange
+		FluentSortableListEventArgs? args = null;
+		FluentSortableList<Item>? sortableList = null;
+		IEnumerable<Item> testItems = items.ToList();
+
+		var callback = new EventCallbackFactory().Create<AspNetCore.Components.FluentSortableListEventArgs>
+			(this, (e => args = e));
+
+		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems" OnAdd="callback">
 			<ItemTemplate>
 				<div class="sortable-item">@context.Name</div>
 			</ItemTemplate>
 		</FluentSortableList>);
 
 		// Act
-		await sortableList!.OnRemoveJSAsync(0, 1, "fromList", "toList", "true");
+		var newItem = new Item { Id = 99, Name = "New Item" };
+		await sortableList!.OnAddJSAsync(0, 5, "fromList", "list", newItem);
 
 		// Verify
-		Assert.Equal(new FluentSortableListEventArgs(0, 1, "fromList", "toList"), args,
+		Assert.Equal(new FluentSortableListEventArgs(0, 5, "fromList", "list"), args,
 			FluentSortableListEventArgsComparer);
+
+		// Verify binding updated the local variable
+		Assert.Contains(newItem, testItems);
+		Assert.Equal(newItem.Id, testItems.ElementAt(5).Id);
+	}
+
+	[Fact]
+	public async Task FluentSortableList_OnUpdate_Reorder()
+	{
+		// Arrange
+		FluentSortableList<Item>? sortableList = null;
+		IEnumerable<Item> testItems = Enumerable.Range(1, 3).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+		var originalFirst = testItems.First();
+
+		Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems">
+			<ItemTemplate>
+				<div class="sortable-item">@context.Name</div>
+			</ItemTemplate>
+		</FluentSortableList>);
+
+		// Act - Move first item to the second position (index 0 to 1) within the same list
+		await sortableList!.OnUpdateJSAsync(0, 1, "list", "list");
+
+		// Assert
+		Assert.Equal(originalFirst.Id, testItems.ElementAt(1).Id);
+		Assert.Equal(2, testItems.ElementAt(0).Id);
+	}
+
+	[Fact]
+	public void FluentSortableList_GetItemJS()
+	{
+		// Arrange
+		FluentSortableList<Item>? sortableList = null;
+
+		Render(@<FluentSortableList @ref="sortableList" Items="items">
+			<ItemTemplate>
+				<div class="sortable-item">@context.Name</div>
+			</ItemTemplate>
+		</FluentSortableList>);
+
+		// Act
+		var item = sortableList!.GetItemJS(2);
+
+		// Assert
+		Assert.NotNull(item);
+		Assert.Equal(items[2].Id, item.Id);
+
+		// Act - out of bounds
+		var nullItem = sortableList!.GetItemJS(99);
+
+		// Assert
+		Assert.Null(nullItem);
 	}
 
 	[Fact]
