@@ -24,7 +24,8 @@ public class ComponentResourcesTests
     private ComponentResources CreateResources()
     {
         var service = new FluentUIDocumentationService(_testJsonPath);
-        return new ComponentResources(service);
+        var componentDocService = new ComponentDocumentationService();
+        return new ComponentResources(service, componentDocService);
     }
 
     #region GetComponent Tests
