@@ -1,74 +1,47 @@
 ﻿@page "/sortablelist-disabled-sorting/debug"
 <FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
-    <FluentGridItem xs="12" sm="6">
-        <h5>List 1</h5>
-        <FluentSortableList Id="disabledOne" Group="disabledSorting" Drop="false" Sort="false" Items="items1" Context="item" OnRemove="ListOneRemove">
-            <ItemTemplate>@item.Name</ItemTemplate>
-        </FluentSortableList>
-    </FluentGridItem>
-    <FluentGridItem xs="12" sm="6">
-        <h5>List 2</h5>
-        <FluentSortableList Id="disabledTwo" Group="disabledSorting" Items="items2" Context="item" OnUpdate="SortList">
-            <ItemTemplate>@item.Name</ItemTemplate>
-        </FluentSortableList>
-    </FluentGridItem>
+	<FluentGridItem xs="12" sm="6">
+		<h5>List 1</h5>
+		<FluentSortableList Id="disabledOne" Group="disabledSorting" Drop="false" Sort="false" @bind-Items="items1" OnUpdate="@HandleOnUpdate" OnAdd="@HandleOnAdd" OnRemove="@HandleOnRemove">
+			<ItemTemplate>@context.Name</ItemTemplate>
+		</FluentSortableList>
+	</FluentGridItem>
+	<FluentGridItem xs="12" sm="6">
+		<h5>List 2</h5>
+		<FluentSortableList Id="disabledTwo" Group="disabledSorting" @bind-Items="items2" OnUpdate="@HandleOnUpdate" OnAdd="@HandleOnAdd" OnRemove="@HandleOnRemove">
+			<ItemTemplate>@context.Name</ItemTemplate>
+		</FluentSortableList>
+	</FluentGridItem>
 </FluentGrid>
 
+<p>List 1: @string.Join(", ", items1.Select(i => i.Name))</p>
+<p>List 2: @string.Join(", ", items2.Select(i => i.Name))</p>
+
 @code {
-    class Item
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = "";
+	class Item
+	{
+		public int Id { get; set; }
+		public string Name { get; set; } = "";
 
-        public bool Disabled { get; set; } = false;
-    }
+		public bool Disabled { get; set; } = false;
+	}
 
-    List<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+	IEnumerable<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" });
 
-    List<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+	IEnumerable<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" });
 
-    void ListOneRemove(FluentSortableListEventArgs args)
-    {
-		if (args is null)
-		{
-			return;
-		}
+	void HandleOnUpdate(FluentSortableListEventArgs args)
+	{
+		Console.WriteLine($"Item moved in list '{args.FromListId}' from index {args.OldIndex} to index {args.NewIndex}");
+	}
 
-		// get the item at the old index in list 1
-		var item = items1[args.OldIndex];
+	void HandleOnAdd(FluentSortableListEventArgs args)
+	{
+		Console.WriteLine($"Item added to list '{args.ToListId}' from list '{args.FromListId}' at index {args.NewIndex}");
+	}
 
-		// add it to the new index in list 2
-		items2.Insert(args.NewIndex, item);
-
-		// remove the item from the old index in list 1
-		items1.Remove(items1[args.OldIndex]);
-
-		Console.WriteLine($"Moved item '{item.Name}' from list '{args.FromListId}' to list '{args.ToListId}'");
-    }
-
-    void SortList(FluentSortableListEventArgs args)
-    {
-        if (args is null || args.OldIndex == args.NewIndex)
-        {
-            return;
-        }
-
-        var oldIndex = args.OldIndex;
-        var newIndex = args.NewIndex;
-
-        var items = this.items2;
-        var itemToMove = items[oldIndex];
-        items.RemoveAt(oldIndex);
-
-        if (newIndex < items2.Count)
-        {
-            items.Insert(newIndex, itemToMove);
-        }
-        else
-        {
-            items.Add(itemToMove);
-        }
-
-        StateHasChanged();
-    }
+	void HandleOnRemove(FluentSortableListEventArgs args)
+	{
+		Console.WriteLine($"Item removed from list '{args.FromListId}' to list '{args.ToListId}' at index {args.OldIndex}");
+	}
 }

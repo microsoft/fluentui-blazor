@@ -27,9 +27,9 @@
         public bool Disabled { get; set; } = false;
     }
 
-    IEnumerable<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+    IEnumerable<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" });
 
-    IEnumerable<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+    IEnumerable<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" });
 
 	void HandleOnUpdate(FluentSortableListEventArgs args)
 	{

@@ -11,6 +11,7 @@ const sortableLoader = new ExternalLibraryLoader<typeof Sortable>(SortableLibrar
 
 export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
   const components = new Map<string, any>();
+  const configurations = new Map<string, any>();
 
   export async function Initialize(
     list: HTMLElement,
@@ -27,6 +28,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
     const Sortable = await sortableLoader.load();
     components.set(list.id, component);
 
+    const groupConfig = {
+      name: group,
+      pull: pull || true,
+      put: put
+    };
+    configurations.set(list.id, groupConfig);
+
     const controller = new AbortController();
     const { signal } = controller;
 
@@ -36,11 +44,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
 
     const sortable = new Sortable(list, {
       animation: 200,
-      group: {
-        name: group,
-        pull: pull || true,
-        put: put
-      },
+      group: groupConfig,
       filter: filter || undefined,
       sort: sort,
       forceFallback: fallback || false,
@@ -51,13 +55,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
       onUnchoose: (event: any) => {
         event.item.setAttribute('aria-grabbed', 'false');
       },
-      onUpdate: (event: any) => {
+      onUpdate: async (event: any) => {
         // Revert the DOM to match the .NET state
         event.item.remove();
         event.to.insertBefore(event.item, event.to.childNodes[event.oldIndex]);
 
         // Notify .NET to update its model and re-render
-        component.invokeMethodAsync('OnUpdateJSAsync', event.oldDraggableIndex, event.newDraggableIndex, event.from.id, event.to.id);
+        await component.invokeMethodAsync('OnUpdateJSAsync', event.oldDraggableIndex, event.newDraggableIndex, event.from.id, event.to.id);
       },
       onAdd: async (event: any) => {
         // Revert the DOM to match the .NET state
@@ -67,9 +71,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
         const item = fromComponent ? await fromComponent.invokeMethodAsync('GetItemJS', event.oldDraggableIndex) : null;
 
         // Notify .NET to update its model and re-render
-        component.invokeMethodAsync('OnAddJSAsync', event.oldDraggableIndex, event.newDraggableIndex, event.from.id, event.to.id, item);
+        await component.invokeMethodAsync('OnAddJSAsync', event.oldDraggableIndex, event.newDraggableIndex, event.from.id, event.to.id, item);
       },
-      onRemove: (event: any) => {
+      onRemove: async (event: any) => {
         if (event.pullMode === 'clone') {
           // Remove the clone
           event.clone.remove();
@@ -79,7 +83,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
         event.from.insertBefore(event.item, event.from.childNodes[event.oldIndex]);
 
         // Notify .NET to update its model and re-render
-        component.invokeMethodAsync('OnRemoveJSAsync', event.oldDraggableIndex, event.newDraggableIndex, event.from.id, event.to.id, event.pullMode?.toString());
+        await component.invokeMethodAsync('OnRemoveJSAsync', event.oldDraggableIndex, event.newDraggableIndex, event.from.id, event.to.id, event.pullMode?.toString());
       }
     });
 
@@ -204,12 +208,17 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
 
                 const targetList = allLists[nextIndex] as HTMLElement;
                 const targetListId = targetList.id;
+                const targetSortable = (Sortable as any).get(targetList);
                 const oldIndex = Array.from(item.parentNode!.children).indexOf(item);
                 const newIndex = 0;
 
-                const pullMode = pull || true;
+                const sourceConfig = configurations.get(list.id);
+                const targetConfig = configurations.get(targetListId);
 
-                if (pullMode === false) {
+                const pullMode = sourceConfig?.pull;
+                const putMode = targetConfig?.put;
+
+                if (pullMode === false || putMode === false) {
                   break;
                 }
 
@@ -217,7 +226,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
                 targetList.insertBefore(item, targetList.firstChild);
 
                 // Notify target via onAdd first to ensure item data can be fetched from source before it is removed
-                const targetSortable = (Sortable as any).get(targetList);
                 if (targetSortable) {
                   const addEvent = new CustomEvent('add') as any;
                   addEvent.item = item;
@@ -293,6 +301,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
       stop: () => {
         sortable.destroy();
         components.delete(list.id);
+        configurations.delete(list.id);
         controller.abort();
       }
     };

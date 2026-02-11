@@ -49,7 +49,7 @@
 	}
 
 	[Fact]
-	public void FluentSortableList_OnUpdate()
+	public async Task FluentSortableList_OnUpdate()
 	{
 		// Arrange
 		FluentSortableListEventArgs? args = null;
@@ -65,7 +65,7 @@
 		</FluentSortableList>);
 
 		// Act
-		sortableList!.OnUpdateJS(0, 1, "fromList", "toList");
+		await sortableList!.OnUpdateJSAsync(0, 1, "fromList", "toList");
 
 		// Verify
 		Assert.Equal(new FluentSortableListEventArgs(0, 1, "fromList", "toList"), args,
@@ -73,7 +73,7 @@
 	}
 
 	[Fact]
-	public void FluentSortableList_OnRemove()
+	public async Task FluentSortableList_OnRemove()
 	{
 		// Arrange
 		FluentSortableListEventArgs? args = null;
@@ -89,7 +89,7 @@
 		</FluentSortableList>);
 
 		// Act
-		sortableList!.OnRemoveJS(0, 1, "fromList", "toList");
+		await sortableList!.OnRemoveJSAsync(0, 1, "fromList", "toList", "true");
 
 		// Verify
 		Assert.Equal(new FluentSortableListEventArgs(0, 1, "fromList", "toList"), args,
