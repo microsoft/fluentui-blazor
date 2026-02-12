@@ -419,4 +419,6 @@ Microsoft.FluentUI.AspNetCore.McpServer.xml
 /examples/Demo/FluentUI.Demo.Client/wwwroot/documentation/
 api-comments.json
 mcp-documentation.json
+all-icons.json
+all-emojis.json
 /global.json
