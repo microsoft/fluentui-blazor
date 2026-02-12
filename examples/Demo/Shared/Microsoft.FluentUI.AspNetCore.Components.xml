@@ -795,6 +795,11 @@
             </summary>
             <returns>The minimum value for the underlying type</returns>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.IStringParsableComponent">
+            <summary>
+            Defines an interface for components with values that can be parsed from a string.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IStringParsableComponent.ParsingErrorMessage">
             <summary>
             Gets or sets the error message to show when the field can not be parsed.
