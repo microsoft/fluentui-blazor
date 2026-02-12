@@ -89,23 +89,23 @@ if (Test-Path $globalJsonLocalPath) {
 }
 
 #search through all .csproj files and replace <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks> with <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-Write-Host "👉 Adjusting TargetFrameworks in project files..." -ForegroundColor Yellow
-$csprojFiles = Get-ChildItem -Path "." -Recurse -Filter "*.csproj"
-foreach ($file in $csprojFiles) {
-    #if the project file is in the Templates folder, skip it
-    if ($file.PSPath -like "*Templates*") {
-        continue
-    }
-    $originalContent = Get-Content $file.PSPath -Raw
-    $newContent = $originalContent -replace '<TargetFrameworks>(.*?);net10.0</TargetFrameworks>', '<TargetFrameworks>$1</TargetFrameworks>'
-    if ($originalContent -ne $newContent) {
-        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
-    }
-    $newContent = $originalContent -replace '<TargetFramework>net10.0</TargetFramework>', '<TargetFramework>net9.0</TargetFramework>'
-    if ($originalContent -ne $newContent) {
-        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
-    }
-}
+#Write-Host "👉 Adjusting TargetFrameworks in project files..." -ForegroundColor Yellow
+#$csprojFiles = Get-ChildItem -Path "." -Recurse -Filter "*.csproj"
+#foreach ($file in $csprojFiles) {
+#    #if the project file is in the Templates folder, skip it
+#    if ($file.PSPath -like "*Templates*") {
+#        continue
+#    }
+#    $originalContent = Get-Content $file.PSPath -Raw
+#    $newContent = $originalContent -replace '<TargetFrameworks>(.*?);net10.0</TargetFrameworks>', '<TargetFrameworks>$1</TargetFrameworks>'
+#    if ($originalContent -ne $newContent) {
+#        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
+#    }
+#    $newContent = $originalContent -replace '<TargetFramework>net10.0</TargetFramework>', '<TargetFramework>net9.0</TargetFramework>'
+#    if ($originalContent -ne $newContent) {
+#        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
+#    }
+#}
 
 # Search through Directory.Packages.props and replace the following package version from 4.14.0 to 4.13.0 for the following packages:
 # - Microsoft.CodeAnalysis.Analyzers
