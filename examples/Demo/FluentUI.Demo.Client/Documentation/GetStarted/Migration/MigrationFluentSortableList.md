@@ -15,7 +15,7 @@ The following parameters have been removed from `FluentSortableList`:
 - ListItemSpacing 
 
 Changing the styling of the list and list items is now done through CSS variables. See below for the list of CSS variables that have
-been added and renamed.See the examples on how to apply these variables.
+been added and renamed. See the examples on how to apply these variables.
 
 ### Styling
 The following CSS variables have changed:
@@ -29,4 +29,4 @@ The following CSS variables have been added:
 - `--fluent-sortable-list-item-focused-border-color`
 - `--fluent-sortable-list-item-grabbed-background-color`
 - `--fluent-sortable-list-item-grabbed-border-color`
-- `--fluent-sortable-list-item-filtered-color:`
+- `--fluent-sortable-list-item-filtered-color`

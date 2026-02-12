@@ -2,18 +2,22 @@
 	<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
     <FluentGridItem xs="12" sm="6">
         <h5>List 1</h5>
-        <FluentSortableList Id="shared1" Group="sharedLists" OnUpdate="@SortListOne" OnRemove="@ListOneRemove" Items="@items1" Context="item">
-            <ItemTemplate>@item.Name</ItemTemplate>
+        <FluentSortableList Id="shared1" Group="sharedLists" @bind-Items="@items1" OnUpdate="@HandleOnUpdate" OnAdd="@HandleOnAdd" OnRemove="@HandleOnRemove">
+            <ItemTemplate>@context.Name</ItemTemplate>
         </FluentSortableList>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="6">
         <h5>List 2</h5>
-        <FluentSortableList Id="shared2" Group="sharedLists" OnUpdate="@SortListTwo" OnRemove="@ListTwoRemove" Items="@items2" Context="item">
-            <ItemTemplate>@item.Name</ItemTemplate>
+			<FluentSortableList Id="shared2" Group="sharedLists" @bind-Items="@items2" OnUpdate="@HandleOnUpdate" OnAdd="@HandleOnAdd" OnRemove="@HandleOnRemove">
+            <ItemTemplate>@context.Name</ItemTemplate>
         </FluentSortableList>
     </FluentGridItem>
 </FluentGrid>
 </div>
+
+<p>List 1: @string.Join(", ", items1.Select(i => i.Name))</p>
+<p>List 2: @string.Join(", ", items2.Select(i => i.Name))</p>
+
 @code {
     class Item
     {
@@ -23,92 +27,23 @@
         public bool Disabled { get; set; } = false;
     }
 
-    List<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+    IEnumerable<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" });
 
-    List<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+    IEnumerable<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" });
 
-    void ListOneRemove(FluentSortableListEventArgs args)
-    {
-        if (args is null)
-        {
-            return;
-        }
+	void HandleOnUpdate(FluentSortableListEventArgs args)
+	{
+		Console.WriteLine($"Item moved in list '{args.FromListId}' from index {args.OldIndex} to index {args.NewIndex}");
+	}
 
-        // get the item at the old index in list 1
-        var item = items1[args.OldIndex];
+	void HandleOnAdd(FluentSortableListEventArgs args)
+	{
+		Console.WriteLine($"Item added to list '{args.ToListId}' from list '{args.FromListId}' at index {args.NewIndex}");
+	}
 
-        // add it to the new index in list 2
-        items2.Insert(args.NewIndex, item);
+	void HandleOnRemove(FluentSortableListEventArgs args)
+	{
+		Console.WriteLine($"Item removed from list '{args.FromListId}' to list '{args.ToListId}' at index {args.OldIndex}");
+	}
 
-        // remove the item from the old index in list 1
-        items1.Remove(items1[args.OldIndex]);
-
-        Console.WriteLine($"Moved item '{item.Name}' from list '{args.FromListId}' to list '{args.ToListId}'");
-    }
-
-    void ListTwoRemove(FluentSortableListEventArgs args)
-    {
-        if (args is null)
-        {
-            return;
-        }
-        // get the item at the old index in list 2
-        var item = items2[args.OldIndex];
-
-        // add it to the new index in list 1
-        items1.Insert(args.NewIndex, item);
-
-        // remove the item from the old index in list 2
-        items2.Remove(items2[args.OldIndex]);
-
-        Console.WriteLine($"Moved item '{item.Name}' from list '{args.FromListId}' to list '{args.ToListId}'");
-    }
-
-    void SortListOne(FluentSortableListEventArgs args)
-    {
-        if (args is null || args.OldIndex == args.NewIndex)
-        {
-            return;
-        }
-
-        var oldIndex = args.OldIndex;
-        var newIndex = args.NewIndex;
-
-        var items = this.items1;
-        var itemToMove = items[oldIndex];
-        items.RemoveAt(oldIndex);
-
-        if (newIndex < items.Count)
-        {
-            items.Insert(newIndex, itemToMove);
-        }
-        else
-        {
-            items.Add(itemToMove);
-        }
-    }
-
-    void SortListTwo(FluentSortableListEventArgs args)
-    {
-        if (args is null || args.OldIndex == args.NewIndex)
-        {
-            return;
-        }
-
-        var oldIndex = args.OldIndex;
-        var newIndex = args.NewIndex;
-
-        var items = this.items2;
-        var itemToMove = items[oldIndex];
-        items.RemoveAt(oldIndex);
-
-        if (newIndex < items.Count)
-        {
-            items.Insert(newIndex, itemToMove);
-        }
-        else
-        {
-            items.Add(itemToMove);
-        }
-    }
 }
