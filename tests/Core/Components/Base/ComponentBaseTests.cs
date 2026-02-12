@@ -68,6 +68,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentNavCategory), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
         { typeof(FluentNavSectionHeader), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
         { typeof(FluentAppBarItem), Loader.Default.WithCascadingValue(new InternalAppBarContext(new FluentAppBar(new LibraryConfiguration()))) },
+        { typeof(FluentSortableList<>), Loader.MakeGenericType(typeof(string)).WithRequiredParameter("ItemTemplate", (RenderFragment<string>)(p => builder => builder.AddContent(0, "MyItemTemplate")))},
     };
 
     /// <summary />

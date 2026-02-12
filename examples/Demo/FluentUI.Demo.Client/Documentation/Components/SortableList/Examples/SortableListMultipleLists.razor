@@ -1,0 +1,104 @@
+﻿<div>
+	<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
+    <FluentGridItem xs="12" sm="4">
+        <h5>List 1</h5>
+        <FluentSortableList Id="multiple1" Group="sharedLists" OnUpdate="@SortList" OnRemove="@RemoveFromList" Items="@items1" Context="item">
+            <ItemTemplate>@item.Name</ItemTemplate>
+        </FluentSortableList>
+    </FluentGridItem>
+    <FluentGridItem xs="12" sm="4">
+        <h5>List 2</h5>
+        <FluentSortableList Id="multiple2" Group="sharedLists" OnUpdate="@SortList" OnRemove="@RemoveFromList" Items="@items2" Context="item">
+            <ItemTemplate>@item.Name</ItemTemplate>
+        </FluentSortableList>
+    </FluentGridItem>
+	<FluentGridItem xs="12" sm="4">
+		<h5>List 3</h5>
+		<FluentSortableList Id="multiple3" Group="sharedLists" OnUpdate="@SortList" OnRemove="@RemoveFromList" Items="@items3" Context="item">
+			<ItemTemplate>@item.Name</ItemTemplate>
+		</FluentSortableList>
+	</FluentGridItem>
+</FluentGrid>
+</div>
+@code {
+	class Item
+	{
+		public int Id { get; set; }
+		public string Name { get; set; } = "";
+
+		public bool Disabled { get; set; } = false;
+	}
+
+	List<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+	List<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+	List<Item> items3 = Enumerable.Range(21, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+	void RemoveFromList(FluentSortableListEventArgs args)
+	{
+		if (args is null)
+		{
+			return;
+		}
+
+		var itemsFrom = args.FromListId switch
+		{
+			"multiple1" => items1,
+			"multiple2" => items2,
+			"multiple3" => items3,
+			_ => throw new InvalidOperationException("Invalid list id"),
+		};
+
+		var itemsTo = args.ToListId switch
+		{
+			"multiple1" => items1,
+			"multiple2" => items2,
+			"multiple3" => items3,
+			_ => throw new InvalidOperationException("Invalid list id"),
+		};
+
+		// get the item at the old index in list 1
+		var item = itemsFrom[args.OldIndex];
+
+		// add it to the new index in list 2
+		itemsTo.Insert(args.NewIndex, item);
+
+		// remove the item from the old index in list 1
+		itemsFrom.Remove(itemsFrom[args.OldIndex]);
+
+		Console.WriteLine($"Moved item '{item.Name}' from list '{args.FromListId}' to list '{args.ToListId}'");
+	}
+
+
+	void SortList(FluentSortableListEventArgs args)
+	{
+		if (args is null || args.OldIndex == args.NewIndex)
+		{
+			return;
+		}
+
+		var oldIndex = args.OldIndex;
+		var newIndex = args.NewIndex;
+
+		var items = args.FromListId switch
+		{
+			"multiple1" => items1,
+			"multiple2" => items2,
+			"multiple3" => items3,
+			_ => throw new InvalidOperationException("Invalid list id"),
+		};
+
+		var itemToMove = items[oldIndex];
+		items.RemoveAt(oldIndex);
+
+		if (newIndex < items.Count)
+		{
+			items.Insert(newIndex, itemToMove);
+		}
+		else
+		{
+			items.Add(itemToMove);
+		}
+	}
+}
