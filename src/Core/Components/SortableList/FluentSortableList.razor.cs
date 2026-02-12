@@ -1,8 +1,6 @@
 // ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
-
-using System;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
