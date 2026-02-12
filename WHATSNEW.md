@@ -12,14 +12,13 @@
 - \[Docs\] Add note about multiple parameter in listbox ([#4514](https://github.com/microsoft/fluentui-blazor/pull/4514))
 
 ### Components
-- \[AppBar\] Fix AppBarItem OnClick not being handeled in popover ([#4421](https://github.com/microsoft/fluentui-blazor/pull/4421))
+- \[AppBar\] Fix AppBarItem OnClick not being handled in popover ([#4421](https://github.com/microsoft/fluentui-blazor/pull/4421))
 - \[DataGrid\] Add Hierarchical DataGrid functionality ([#4484](https://github.com/microsoft/fluentui-blazor/pull/4484))
 - \[DataGrid\] Fix resize indicator height (when ResizeColumnOnAllRows is true) ([#4383](https://github.com/microsoft/fluentui-blazor/pull/4383))
 - \[DataGrid\] Fix RTL resize behavior ([#4453](https://github.com/microsoft/fluentui-blazor/pull/4453))
 - \[DataGrid\] Fix SelectColumn issue ([#4491](https://github.com/microsoft/fluentui-blazor/pull/4491))
 - \[DataGrid\] Improve Script ([#4500](https://github.com/microsoft/fluentui-blazor/pull/4500))
 - \[DatePicker\] Prevent silently ignoring date formatting failures ([#4496](https://github.com/microsoft/fluentui-blazor/pull/4496))
-- \[Icons\] Update Fluent UI System Icons to 1.1.317 ([#4478](https://github.com/microsoft/fluentui-blazor/pull/4478))
 - \[MessageBar\] HTML and Script can be injected into MessageBar Title ([#4414](https://github.com/microsoft/fluentui-blazor/pull/4414))
 - \[Overlay\] Use CultureInfo.InvariantCulture for background-color and z-index ([#4366](https://github.com/microsoft/fluentui-blazor/pull/4366))
 - \[ProfileMenu\] Change tabindex to 0 ([#4398](https://github.com/microsoft/fluentui-blazor/pull/4398))
