@@ -83,6 +83,11 @@
                       Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 
+  <!-- Include icon catalog as embedded resource -->
+  <ItemGroup>
+    <EmbeddedResource Include="all-icons.json" LogicalName="Microsoft.FluentUI.AspNetCore.McpServer.all-icons.json" />
+  </ItemGroup>
+
   <!-- Code Analysis -->
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
