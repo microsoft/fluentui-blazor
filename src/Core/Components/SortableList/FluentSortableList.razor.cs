@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -192,17 +193,14 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     [JSInvokable]
     public async Task OnAddJSAsync(int oldIndex, int newIndex, string fromListId, string toListId, TItem? item)
     {
-        if (item is not null)
+        if (item is not null && Items is not null)
         {
-            if (Items != null)
+            var list = Items.ToList();
+            list.Insert(newIndex, item);
+            Items = list;
+            if (ItemsChanged.HasDelegate)
             {
-                var list = Items.ToList();
-                list.Insert(newIndex, item);
-                Items = list;
-                if (ItemsChanged.HasDelegate)
-                {
-                    await ItemsChanged.InvokeAsync(Items);
-                }
+                await ItemsChanged.InvokeAsync(Items);
             }
         }
 
@@ -251,8 +249,9 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
                 await _jsHandle.DisposeAsync();
             }
         }
-        catch (JSDisconnectedException)
+        catch (Exception ex) when (ex is JSDisconnectedException or OperationCanceledException)
         {
+            // The circuit was disconnected or the task was canceled - we're disposing anyway
         }
 
         _selfReference?.Dispose();

@@ -16,7 +16,7 @@
         @attributes="@AdditionalAttributes">
         @foreach (var item in Items ?? Enumerable.Empty<TItem>())
         {
-            <div tabindex="0" aria-grabbed="false" draggable="false" class="sortable-item@(GetItemFiltered(item) ? " filtered" : "")">@ItemTemplate(item)</div>
+            <div tabindex="0" aria-grabbed="false" draggable="false" class="sortable-item@(GetItemFiltered(item) ? " filtered" : string.Empty)">@ItemTemplate(item)</div>
         }
     </div>
 }

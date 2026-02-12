@@ -59,7 +59,7 @@
 		var callback = new EventCallbackFactory().Create<AspNetCore.Components.FluentSortableListEventArgs>
 			(this, (e => args = e));
 
-		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems" OnUpdate="callback">
+		Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems" OnUpdate="callback">
 			<ItemTemplate>
 				<div class="sortable-item">@context.Name</div>
 			</ItemTemplate>
@@ -89,7 +89,7 @@
 		var callback = new EventCallbackFactory().Create<AspNetCore.Components.FluentSortableListEventArgs>
 			(this, (e => args = e));
 
-		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems" OnRemove="callback">
+		Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems" OnRemove="callback">
 			<ItemTemplate>
 				<div class="sortable-item">@context.Name</div>
 			</ItemTemplate>
@@ -139,7 +139,7 @@
 		var callback = new EventCallbackFactory().Create<AspNetCore.Components.FluentSortableListEventArgs>
 			(this, (e => args = e));
 
-		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems" OnAdd="callback">
+		Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems" OnAdd="callback">
 			<ItemTemplate>
 				<div class="sortable-item">@context.Name</div>
 			</ItemTemplate>
