@@ -164,7 +164,7 @@ extends:
         - task: UseDotNet@2
           displayName: 'Install .NET 9.0'
           inputs:
-            version: 9.0.205
+            version: 9.0.x
             includePreviewVersions: false
 
         - task: UseDotNet@2
