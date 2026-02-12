@@ -1,0 +1,20 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+@using FluentUI.Demo.Shared.SampleData
+
+<p>
+	<FluentButton Appearance="Appearance.Accent" IconStart="@(ceoItem?.IsCollapsed == true ? new Icons.Regular.Size16.Add() : new Icons.Regular.Size16.Subtract())"
+				  OnClick="@ToggleCEO">
+		@(ceoItem?.IsCollapsed == true ? "Expand" : "Collapse") CEO
+	</FluentButton>
+</p>
+
+<FluentDataGrid Items="@items.Where(i => !i.IsHidden).AsQueryable()" ResizableColumns="true">
+	<TemplateColumn Title="Name" HierarchicalToggle="true">
+		@(context.Item.FirstName + " " + context.Item.LastName)
+	</TemplateColumn>
+	<PropertyColumn Title="Job Title" Property="@(i => i.Item.JobTitle)" />
+	<PropertyColumn Title="Department" Property="@(i => i.Item.Department)" />
+	<PropertyColumn Title="Location" Property="@(i => i.Item.Location)" />
+</FluentDataGrid>
+
+

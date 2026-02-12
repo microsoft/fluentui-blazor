@@ -53,6 +53,13 @@ public class Message
     }
 
     /// <summary>
+    /// Indicates whether the title and body should be rendered as markup string.
+    /// Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
+    /// Only use it with fully trusted, sanitized content.
+    /// </summary>
+    internal bool UseMarkupString => Options.UseMarkupString;
+
+    /// <summary>
     /// Gets or sets the message to be shown in the message bar.
     /// </summary>
     public string? Body

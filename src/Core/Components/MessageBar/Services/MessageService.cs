@@ -126,6 +126,26 @@ public class MessageService : IMessageService, IDisposable
     }
 
     /// <summary>
+    /// Show a message based on the provided parameters in a message bar.
+    /// </summary>
+    /// <param name="title"> Main info. 
+    /// Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
+    /// Only use it with fully trusted, sanitized content.</param>
+    /// <param name="intent">Intent of the message</param>
+    /// <param name="section">Section to show the message bar in </param>
+    /// <returns></returns>
+    public Message ShowMessageBar(MarkupString title, MessageIntent intent, string section)
+    {
+        return ShowMessageBar(options =>
+        {
+            options.Title = title.Value;
+            options.UseMarkupString = true;
+            options.Intent = intent;
+            options.Section = section;
+        });
+    }
+
+    /// <summary>
     /// Show a message based on the provided options in a message bar.
     /// </summary>
     /// <param name="options">Message options</param>
@@ -195,6 +215,26 @@ public class MessageService : IMessageService, IDisposable
         return await ShowMessageBarAsync(options =>
         {
             options.Title = title;
+            options.Intent = intent;
+            options.Section = section;
+        });
+    }
+
+    /// <summary>
+    /// Show a message based on the provided parameters in a message bar.
+    /// </summary>
+    /// <param name="title"> Main info. 
+    /// Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
+    /// Only use it with fully trusted, sanitized content.</param>
+    /// <param name="intent">Intent of the message</param>
+    /// <param name="section">Section to show the message bar in </param>
+    /// <returns></returns>
+    public async Task<Message> ShowMessageBarAsync(MarkupString title, MessageIntent intent, string section)
+    {
+        return await ShowMessageBarAsync(options =>
+        {
+            options.Title = title.Value;
+            options.UseMarkupString = true;
             options.Intent = intent;
             options.Section = section;
         });

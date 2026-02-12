@@ -476,6 +476,11 @@ public class DemoNavProvider
                                 title: "Remote data"
                             ),
                             new NavLink (
+                                href:"/datagrid-hierarchical",
+                                icon: new Icons.Regular.Size20.Grid(),
+                                title: "Hierarchical data"
+                            ),
+                            new NavLink (
                                 href:"/datagrid-manual",
                                 icon: new Icons.Regular.Size20.Grid(),
                                 title: "Manual grid"

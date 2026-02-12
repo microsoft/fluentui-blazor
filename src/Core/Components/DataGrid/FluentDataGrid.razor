@@ -117,7 +117,25 @@
                 string? tooltip = col.Tooltip ? @col.RawCellContent(item) : null;
 
                 <FluentDataGridCell GridColumn=@(colIndex+1) Class="@ColumnJustifyClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" title="@tooltip" aria-label="@tooltip">
-                    @((RenderFragment)(__builder => col.CellContent(__builder, item)))
+					@if (col.HierarchicalToggle && item is IHierarchicalGridItem hierarchicalItem )
+                    {
+                        var indent = hierarchicalItem.Depth * 16;
+                        <span class="hierarchical-toggle-container" style="margin-inline-start: @(indent)px;">
+                            <span @onclick:stopPropagation="true" class="hierarchical-expander @(hierarchicalItem.IsCollapsed ? "hierarchical-collapsed" : "hierarchical-expanded")">
+                                @if (hierarchicalItem.HasChildren)
+                                {
+                                    <FluentButton aria-label="Toggle" Appearance="Appearance.Lightweight" Class="hierarchical-expand-button" OnClick="@(() => ToggleExpandedAsync(item))">
+                                        <FluentIcon Value="@(new CoreIcons.Regular.Size12.ChevronRight())" Color="Color.Neutral" />
+                                    </FluentButton>
+                                }
+                            </span>
+                            @((RenderFragment)(__builder => col.CellContent(__builder, item)))
+                        </span>
+                    }
+                    else
+                    {
+                        @((RenderFragment)(__builder => col.CellContent(__builder, item)))
+                    }
                 </FluentDataGridCell>
             }
         </FluentDataGridRow>
@@ -201,7 +219,8 @@
 
                 @if (ResizableColumns)
                 {
-                    <div class="resize-handle"></div>
+                    var top = DisplayMode == DataGridDisplayMode.Table ? "top: 4px;" : "top: 2px;";
+                    <div class="resize-handle" style="@top"></div>
                 }
             </FluentDataGridCell>
         }
@@ -268,7 +287,7 @@
             </FluentDataGridCell>
         </FluentDataGridRow>
     }
-    
+
     private void RenderErrorContent(RenderTreeBuilder __builder)
     {
         if (_lastError == null)

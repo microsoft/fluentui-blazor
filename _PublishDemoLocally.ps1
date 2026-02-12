@@ -16,10 +16,25 @@ if ($dotnetVersionChoice -eq "" -or $dotnetVersionChoice -eq "9") {
 }
 
 # Ask for build number
-$buildNumber = Read-Host "❓ What is the BuildNumber version to use? (e.g., 4.13.0)"
-if ([string]::IsNullOrWhiteSpace($buildNumber)) {
-    Write-Host "⛔ Build number cannot be empty." -ForegroundColor Red
-    exit 1
+# Get the version number from the eng/pipelines/version.yml file if it exists
+$versionFilePath = "./eng/pipelines/version.yml"
+if (Test-Path $versionFilePath) {
+    $versionFileContent = Get-Content $versionFilePath -Raw
+    $versionMatch = $versionFileContent -match "FileVersion:\s*'([0-9]+\.[0-9]+\.[0-9]+)'"
+    if ($versionMatch) {
+        $pipelineVersion = $Matches[1]
+        Write-Host "ℹ️ Found version in version.yml: $pipelineVersion" -ForegroundColor Cyan
+        $buildNumber = $pipelineVersion
+    } else {
+        Write-Host "⚠️ Could not find a version in version.yml." -ForegroundColor Yellow
+    }
+} else {
+    Write-Host "⚠️ version.yml file not found at $versionFilePath." -ForegroundColor Yellow
+    $buildNumber = Read-Host "❓ What is the BuildNumber version to use? (e.g., 4.13.2)"
+    if ([string]::IsNullOrWhiteSpace($buildNumber)) {
+        Write-Host "⛔ Build number cannot be empty." -ForegroundColor Red
+        exit 1
+    }
 }
 
 Write-Host ""
@@ -55,11 +70,67 @@ if (Test-Path "./src/Extensions/DesignToken.Generator/obj/") {
     Remove-Item -Path "./src/Extensions/DesignToken.Generator/obj" -Recurse -Force
 }
 
+# If a 'global.json' file exists, back it up
+$globalJsonPath = "./global.json"
+$globalJsonBackupPath = "./global.json.localpublishbackup"
+if (Test-Path $globalJsonPath) {
+    Write-Host "👉 Backing up existing global.json file..." -ForegroundColor Yellow
+    Copy-Item -Path $globalJsonPath -Destination $globalJsonBackupPath -Force
+    Remove-Item -Path $globalJsonPath -Force
+    $restoreGlobalJson = $true
+}
+
+# If a 'global.json.local' file exists, copy it to 'global.json'
+$globalJsonLocalPath = "./global.json.local"
+if (Test-Path $globalJsonLocalPath) {
+    Write-Host "👉 Using specific global.json for publish..." -ForegroundColor Yellow
+    Copy-Item -Path $globalJsonLocalPath -Destination "./global.json" -Force
+    $deleteLocalGlobalJson = $true
+}
+
+#search through all .csproj files and replace <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks> with <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+Write-Host "👉 Adjusting TargetFrameworks in project files..." -ForegroundColor Yellow
+$csprojFiles = Get-ChildItem -Path "." -Recurse -Filter "*.csproj"
+foreach ($file in $csprojFiles) {
+    #if the project file is in the Templates folder, skip it
+    if ($file.PSPath -like "*Templates*") {
+        continue
+    }
+    $originalContent = Get-Content $file.PSPath -Raw
+    $newContent = $originalContent -replace '<TargetFrameworks>(.*?);net10.0</TargetFrameworks>', '<TargetFrameworks>$1</TargetFrameworks>'
+    if ($originalContent -ne $newContent) {
+        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
+    }
+    $newContent = $originalContent -replace '<TargetFramework>net10.0</TargetFramework>', '<TargetFramework>net9.0</TargetFramework>'
+    if ($originalContent -ne $newContent) {
+        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
+    }
+}
+
+# Search through Directory.Packages.props and replace the following package version from 4.14.0 to 4.13.0 for the following packages:
+# - Microsoft.CodeAnalysis.Analyzers
+# - Microsoft.CodeAnalysis.CSharp
+Write-Host "👉 Setting CodeAnalysis packages versions to 4.13.0..." -ForegroundColor Yellow
+$directoryPackagesFile = "./Directory.Packages.props"
+if (Test-Path $directoryPackagesFile) {
+    $originalContent = Get-Content $directoryPackagesFile -Raw
+    $newContent = $originalContent -replace '<PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />', '<PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.13.0" />'
+    $newContent = $newContent -replace '<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />', '<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />'
+    if ($originalContent -ne $newContent) {
+        Set-Content $directoryPackagesFile ($newContent.TrimEnd("`r", "`n"))
+    }
+} else {
+    Write-Host "⚠️ Directory.Packages.props file not found at $directoryPackagesFile." -ForegroundColor Red
+}
+
+
 # Publish the demo
+Write-Host ""
 Write-Host "👉 Publishing demo..." -ForegroundColor Yellow
 dotnet publish "./examples/Demo/Client/FluentUI.Demo.Client.csproj" -c Release -o "./examples/Demo/Client/bin/Publish" -f $dotnetVersion -r linux-x64 --self-contained=true -p:BuildNumber=$buildNumber
 
 # Verify that the bundle JS file has the expected size
+Write-Host ""
 Write-Host "👉 Verifying bundle JS file size..." -ForegroundColor Yellow
 $bundleFilePath = "./examples/Demo/Client/bin/Publish/wwwroot/_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js.br"
 
@@ -80,11 +151,56 @@ if (Test-Path $bundleFilePath) {
     Write-Host "⛔ This may indicate a build issue with the JS bundle generation." -ForegroundColor Red
     exit 1
 }
-
+Write-Host ""
 Write-Host "✅ Demo publish process completed successfully!" -ForegroundColor Green
+Write-Host ""
 
+# Delete the local global.json.local file if it was used
+if ($deleteLocalGlobalJson) {
+    Write-Host "👉 Delete the publish specific global.json file..." -ForegroundColor Yellow
+    Remove-Item -Path $globalJsonPath -Force
+}
+
+# Restore the original global.json file if it was backed up
+if ($restoreGlobalJson) {
+    Write-Host "👉 Restoring original global.json file..." -ForegroundColor Yellow
+    Move-Item -Path $globalJsonBackupPath -Destination $globalJsonPath -Force
+}
+
+# Undo the TargetFrameworks changes
+Write-Host "👉 Restoring TargetFrameworks in project files..." -ForegroundColor Yellow
+foreach ($file in $csprojFiles) {
+    #if the project file is in the Templates folder, skip it
+    if ($file.PSPath -like "*Templates*") {
+        continue
+    }
+    $originalContent = Get-Content $file.PSPath -Raw
+    $newContent = $originalContent -replace '<TargetFrameworks>net8.0;net9.0</TargetFrameworks>', '<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>'
+    if ($originalContent -ne $newContent) {
+        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
+    }
+    $newContent = $originalContent -replace '<TargetFramework>net9.0</TargetFramework>', '<TargetFramework>net10.0</TargetFramework>'
+    if ($originalContent -ne $newContent) {
+        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
+    }
+}
+
+# Undo the CodeAnalysis package version changes
+Write-Host "👉 Restoring CodeAnalysis packages versions to 4.14.0..." -ForegroundColor Yellow
+if (Test-Path $directoryPackagesFile) {
+    $originalContent = Get-Content $directoryPackagesFile -Raw
+    $newContent = $originalContent -replace '<PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.13.0" />', '<PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />'
+    $newContent = $newContent -replace '<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />', '<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />'
+    if ($originalContent -ne $newContent) {
+        Set-Content $directoryPackagesFile ($newContent.TrimEnd("`r", "`n"))
+    }
+}
+
+Write-Host ""
+Write-Host "----------------------------------------------------"
 Write-Host "👉 You can deploy to Azure using a command like:" -ForegroundColor Green
 Write-Host "▶️ swa deploy --output-location ./examples/Demo/Client/bin/Publish/wwwroot --env production --deployment-token <TOKEN>" -ForegroundColor Green
+Write-Host "----------------------------------------------------"
 
 # Ask user if they want to run the website
 # Require 'dotnet tool install --global dotnet-serve'

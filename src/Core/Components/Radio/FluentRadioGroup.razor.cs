@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 
 [CascadingTypeParameter(nameof(TValue))]
-public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>
+public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>, IStringParsableComponent
 {
     private readonly string _defaultGroupName = Identifier.NewId();
     private FluentRadioContext? _context;
@@ -39,6 +39,10 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
 
     [CascadingParameter]
     private FluentRadioContext? CascadedContext { get; set; }
+
+    /// <inheritdoc/>
+    [Parameter]
+    public string ParsingErrorMessage { get; set; } = "The {0} field must be a (valid) number.";
 
     /// <inheritdoc />
     protected override void OnParametersSet()

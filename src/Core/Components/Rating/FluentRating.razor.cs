@@ -10,7 +10,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentRating : FluentInputBase<int>
+public partial class FluentRating : FluentInputBase<int>, IStringParsableComponent
 {
     private bool _updatingCurrentValue = false;
     private int? _hoverValue = null;
@@ -74,6 +74,10 @@ public partial class FluentRating : FluentInputBase<int>
     [Parameter]
     public EventCallback<int?> OnHoverValueChanged { get; set; }
 
+    /// <inheritdoc/>
+    [Parameter]
+    public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
+
     /// <summary />
     private string GroupName => Id ?? $"rating-{Id}";
 
@@ -90,8 +94,7 @@ public partial class FluentRating : FluentInputBase<int>
         }
         else
         {
-            validationErrorMessage = string.Format(CultureInfo.InvariantCulture,
-                                                   "The {0} field must be a number.",
+            validationErrorMessage = string.Format(ParsingErrorMessage,
                                                    FieldBound ? FieldIdentifier.FieldName : UnknownBoundField);
             return false;
         }

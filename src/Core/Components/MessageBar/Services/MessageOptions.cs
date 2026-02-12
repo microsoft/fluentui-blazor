@@ -30,6 +30,13 @@ public class MessageOptions
     public string? Title { get; set; }
 
     /// <summary>
+    /// Indicates whether the <see cref="Title"/> and <see cref="Body"/> should be rendered as markup string.
+    /// Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
+    /// Only use it with fully trusted, sanitized content.
+    /// </summary>
+    public bool UseMarkupString { get; set; } = false;
+
+    /// <summary>
     /// Gets or sets the message to be shown in the message bar after the title.
     /// </summary>
     public string? Body { get; set; }

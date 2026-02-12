@@ -1,3 +1,35 @@
+## V4.14.0
+
+### General
+- \[General\] Pimp the publish local script ([#4363](https://github.com/microsoft/fluentui-blazor/pull/4363))
+- \[General\] Apply fix for using latest SDKs when publishing ([#4429](https://github.com/microsoft/fluentui-blazor/pull/4429))
+
+### Demo site and documentation
+- Update issue reporting guidelines in README ([#4502](https://github.com/microsoft/fluentui-blazor/pull/4502))
+- \[Docs\] Typos on RebootPage ([#4389](https://github.com/microsoft/fluentui-blazor/pull/4389))
+- \[Docs\] Fix notification center demo issues ([#4493](https://github.com/microsoft/fluentui-blazor/pull/4493))
+- \[Docs\] Update docs for MessageBox result return values ([#4403](https://github.com/microsoft/fluentui-blazor/pull/4403))
+- \[Docs\] Add note about multiple parameter in listbox ([#4514](https://github.com/microsoft/fluentui-blazor/pull/4514))
+
+### Components
+- \[AppBar\] Fix AppBarItem OnClick not being handled in popover ([#4421](https://github.com/microsoft/fluentui-blazor/pull/4421))
+- \[DataGrid\] Add Hierarchical DataGrid functionality ([#4484](https://github.com/microsoft/fluentui-blazor/pull/4484))
+- \[DataGrid\] Fix resize indicator height (when ResizeColumnOnAllRows is true) ([#4383](https://github.com/microsoft/fluentui-blazor/pull/4383))
+- \[DataGrid\] Fix RTL resize behavior ([#4453](https://github.com/microsoft/fluentui-blazor/pull/4453))
+- \[DataGrid\] Fix SelectColumn issue ([#4491](https://github.com/microsoft/fluentui-blazor/pull/4491))
+- \[DataGrid\] Improve Script ([#4500](https://github.com/microsoft/fluentui-blazor/pull/4500))
+- \[DatePicker\] Prevent silently ignoring date formatting failures ([#4496](https://github.com/microsoft/fluentui-blazor/pull/4496))
+- \[MessageBar\] HTML and Script can be injected into MessageBar Title ([#4414](https://github.com/microsoft/fluentui-blazor/pull/4414))
+- \[Overlay\] Use CultureInfo.InvariantCulture for background-color and z-index ([#4366](https://github.com/microsoft/fluentui-blazor/pull/4366))
+- \[ProfileMenu\] Change tabindex to 0 ([#4398](https://github.com/microsoft/fluentui-blazor/pull/4398))
+- \[Templates\] Remove NotFound components from the .NET 10 Microsoft.NET.Sdk.BlazorW… ([#4417](https://github.com/microsoft/fluentui-blazor/pull/4417))
+
+### Icons and Emoji
+- Update to Fluent UI System Icons 1.1.318
+    See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
+
+--------------
+
 ## V4.13.2
 
 ### General
