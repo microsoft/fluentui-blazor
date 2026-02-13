@@ -63,7 +63,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
     /// Gets or sets the count to show on the item with a <see cref="FluentCounterBadge"/>.
     /// </summary>
     [Parameter]
-    public int? Count { get; set; } = 0;
+    public int? Count { get; set; }
 
     /// <summary>
     ///  Gets or sets the content to be shown.
