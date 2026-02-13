@@ -66,7 +66,8 @@ jobs:
 
      - name: Build
        run: |
-         for project in ${{ env.PROJECTS }}; do
+         PROJECTS="${{ env.PROJECTS }}"
+         for project in $PROJECTS; do
            dotnet build "$project" --configuration Release -warnaserror
          done
        working-directory: ${{ github.workspace }}
@@ -75,7 +76,8 @@ jobs:
 
      - name: Tests
        run: |
-         for test in ${{ env.TESTS }}; do
+         TESTS="${{ env.TESTS }}"
+         for test in $TESTS; do
            dotnet test "$test" --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
          done
        working-directory: ${{ github.workspace }}
@@ -224,7 +226,8 @@ jobs:
     - if: matrix.language == 'csharp'
       name: Manually build CSharp on .NET
       run: |
-        for project in ${{ env.PROJECTS }}; do
+        PROJECTS="${{ env.PROJECTS }}"
+        for project in $PROJECTS; do
           dotnet build "$project"
         done
 
