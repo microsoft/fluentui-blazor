@@ -2,18 +2,29 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>$(NetVersion)</TargetFramework>
+    <TargetFrameworks>$(TargetNetVersions)</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
+    <SignAssembly>False</SignAssembly>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
     <RootNamespace>Microsoft.FluentUI.AspNetCore.McpServer</RootNamespace>
+    
+    <PackageId>Microsoft.FluentUI.AspNetCore.McpServer</PackageId>
+    <Title>Microsoft Fluent UI Blazor MCP Server</Title>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <Summary>MCP server for Fluent UI Blazor component documentation. Provides AI assistants with access to component details, parameters, events, methods,and enums.</Summary>
+    <Description>MCP (Model Context Protocol) server for Fluent UI Blazor component documentation. Provides AI assistants with access to component details, parameters, events, methods,and enums.</Description>
+    <PackageTags>mcp;model-context-protocol;fluent-ui;blazor;documentation;ai;copilot</PackageTags>
 
-    <SignAssembly>False</SignAssembly>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <LangVersion>latest</LangVersion>
+    <!-- Configure as .NET Tool for NuGet -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>fluentui-mcp</ToolCommandName>
+
+    <!-- MCP Server package type for NuGet discovery -->
+    <PackageType>McpServer</PackageType>
 
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>true</IsPackable>
@@ -41,39 +52,16 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <!-- NuGet Package Configuration -->
-  <PropertyGroup>
-    <PackageId>Microsoft.FluentUI.AspNetCore.McpServer</PackageId>
-    <Version>5.0.0-preview.6</Version>
-    <PackageIcon>icon.png</PackageIcon>
-    <Authors>
-      Microsoft;dvoituron;aclerbois;vnbaaij
-    </Authors>
-    <Description>
-      MCP (Model Context Protocol) server for Fluent UI Blazor component documentation.
-      Provides AI assistants with access to component details, parameters, events, methods,and enums.
-    </Description>
-    <PackageTags>mcp;model-context-protocol;fluent-ui;blazor;documentation;ai;copilot</PackageTags>
-    <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-
-
-    <!-- Configure as .NET Tool for NuGet -->
-    <PackAsTool>true</PackAsTool>
-    <ToolCommandName>fluentui-mcp</ToolCommandName>
-
-    <!-- MCP Server package type for NuGet discovery -->
-    <PackageType>McpServer</PackageType>
+  <!-- Enable deterministic builds for CI environments and Release configuration -->
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true' Or '$(Configuration)' == 'Release'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
   <!-- Include README and MCP server manifest in package -->
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
     <None Include=".mcp\server.json" />
-    <None Include="$(IntermediateOutputPath).mcp\server.json" Pack="true" PackagePath=".mcp\" />
+    <None Include="$(IntermediateOutputPath)$(NetVersion)\.mcp\server.json" Pack="true" PackagePath=".mcp\" />
     <None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
@@ -146,14 +134,14 @@
     This runs DocApiGen to extract documentation from the FluentUI Components assembly
     and creates a JSON file that is then embedded as a resource.
   -->
-  <Target Name="GenerateMcpDocumentation" BeforeTargets="BeforeBuild" Condition="!Exists('$(McpDocumentationJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true'">
+  <Target Name="GenerateMcpDocumentation" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)' == '$(NetVersion)' AND (!Exists('$(McpDocumentationJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true')">
     <PropertyGroup>
       <DocApiGenProject>$(MSBuildThisFileDirectory)..\..\..\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj</DocApiGenProject>
       <FluentUIComponentsDll>$(MSBuildThisFileDirectory)..\..\Core\bin\$(Configuration)\$(NetVersion)\Microsoft.FluentUI.AspNetCore.Components.dll</FluentUIComponentsDll>
       <FluentUIComponentsXml>$(MSBuildThisFileDirectory)..\..\Core\bin\$(Configuration)\$(NetVersion)\Microsoft.FluentUI.AspNetCore.Components.xml</FluentUIComponentsXml>
     </PropertyGroup>
 
-    <Message Text="Generating MCP documentation JSON..." Importance="high" />
+    <Message Text="Generating MCP documentation JSON... TargetFramework=$(TargetFramework)" Importance="high" />
 
     <!-- Build the FluentUI Components first to ensure DLL and XML exist -->
     <MSBuild Projects="$(MSBuildThisFileDirectory)..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" Targets="Build" Properties="Configuration=$(Configuration)" />
@@ -162,7 +150,7 @@
     <MSBuild Projects="$(DocApiGenProject)" Targets="Build" Properties="Configuration=$(Configuration)" />
 
     <!-- Run DocApiGen to generate MCP JSON -->
-    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpDocumentationJsonPath)&quot; --format json --mode all" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
+    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -c $(Configuration) -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpDocumentationJsonPath)&quot; --format json --mode all" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
 
     <Message Text="MCP documentation JSON generated at $(McpDocumentationJsonPath)" Importance="high" />
   </Target>

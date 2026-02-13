@@ -23,8 +23,12 @@ on:
       - '**/*.gitattributes'
 
 env:
-  PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
-  TESTS: "./tests/Core/Components.Tests.csproj"
+  PROJECTS: >
+    ./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj
+    ./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj
+  TESTS: >
+    ./tests/Core/Components.Tests.csproj
+    ./tests/Tools/McpServer.Tests/Microsoft.FluentUI.AspNetCore.McpServer.Tests.csproj
   INTEGRATION_TEST: "" # DISABLING: ./tests/Integration/Components.IntegrationTests.csproj
   MIN_COVERAGE: "98"
 
@@ -61,13 +65,21 @@ jobs:
        run: dotnet restore Microsoft.FluentUI-v5.slnx
 
      - name: Build
-       run: dotnet build ${{ env.PROJECTS }} --configuration Release -warnaserror
+       run: |
+         PROJECTS="${{ env.PROJECTS }}"
+         for project in $PROJECTS; do
+           dotnet build "$project" --configuration Release -warnaserror
+         done
        working-directory: ${{ github.workspace }}
 
      # Unit Tests
 
      - name: Tests
-       run: dotnet test ${{ env.TESTS }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
+       run: |
+         TESTS="${{ env.TESTS }}"
+         for test in $TESTS; do
+           dotnet test "$test" --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
+         done
        working-directory: ${{ github.workspace }}
 
      - name: Publish Unit Tests
@@ -214,7 +226,10 @@ jobs:
     - if: matrix.language == 'csharp'
       name: Manually build CSharp on .NET
       run: |
-        dotnet build ${{ env.PROJECTS }}
+        PROJECTS="${{ env.PROJECTS }}"
+        for project in $PROJECTS; do
+          dotnet build "$project"
+        done
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
