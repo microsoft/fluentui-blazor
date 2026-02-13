@@ -45,7 +45,10 @@ protected override void OnInitialized()
     KeyCodeService.RegisterListener(OnKeyDownAsync);
 }
 
-public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args) => { // ... }
+public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+{
+    // ...
+}
 
 public ValueTask DisposeAsync()
 {
@@ -57,7 +60,7 @@ public ValueTask DisposeAsync()
 **Either**, implementing the interface **IKeyCodeListener**, retrieving the service and registering the method that will capture the keys:
 
 ```csharp
-public partial MyPage : IKeyCodeListener, IDisposableAsync
+public partial MyPage : IKeyCodeListener, IAsyncDisposable
 {
     [Inject]
     private IKeyCodeService KeyCodeService { get; set; }
@@ -67,7 +70,15 @@ public partial MyPage : IKeyCodeListener, IDisposableAsync
         KeyCodeService.RegisterListener(this);
     }
 
-    public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args) => { // ... }
+    public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+    {
+        // ...
+    }
+
+    public async Task OnKeyUpAsync(FluentKeyCodeEventArgs args)
+    {
+        // ...
+    }
 
     public ValueTask DisposeAsync()
     {
