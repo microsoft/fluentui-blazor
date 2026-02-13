@@ -143,10 +143,11 @@
 
     <Message Text="Generating MCP documentation JSON... TargetFramework=$(TargetFramework)" Importance="high" />
 
-    <!-- Build the FluentUI Components first to ensure DLL and XML exist -->
+    <!-- Build the FluentUI Components first to ensure DLL and XML exist -->    
     <MSBuild Projects="$(MSBuildThisFileDirectory)..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" Targets="Build" Properties="Configuration=$(Configuration)" />
 
-    <!-- Build DocApiGen -->
+    <!-- Restore and Build DocApiGen -->
+    <MSBuild Projects="$(DocApiGenProject)" Targets="Restore" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="$(DocApiGenProject)" Targets="Build" Properties="Configuration=$(Configuration)" />
 
     <!-- Run DocApiGen to generate MCP JSON -->
