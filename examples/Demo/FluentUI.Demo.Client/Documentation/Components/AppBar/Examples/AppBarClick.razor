@@ -1,6 +1,7 @@
 ﻿@inject IDialogService DialogService
 
 <FluentStack Orientation="Orientation.Vertical" Style="height: 330px;">
+	<div style="background-color: var(--colorNeutralBackground5); overflow: hidden; resize: vertical; height: 270px; width: 86px; padding: 10px;">
     <FluentAppBar Style="height: 100%;">
         <FluentAppBarItem Href="/"
                           Match="NavLinkMatch.All"
@@ -21,13 +22,14 @@
                           IconRest="IconsIcon()"
                           IconActive="IconsIcon(active: true)"
                           Text="Icons"
-                          OnClick="ShowWarningAsync" />
+							  OnClick="HandleOnClick" />
         <FluentAppBarItem Href="/Dialog"
                           IconRest="DialogIcon()"
                           IconActive="DialogIcon(active: true)"
                           Text="Dialog"
                           OnClick="HandleOnClick" />
     </FluentAppBar>
+	</div>
 </FluentStack>
 
 @code {
