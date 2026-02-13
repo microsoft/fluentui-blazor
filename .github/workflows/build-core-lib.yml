@@ -174,7 +174,7 @@ jobs:
        shell: pwsh
        working-directory: ${{ github.workspace }}
        run: |
-         # Use the NetVersion from env variable
+         # Use the NetVersion from Directory.Build.props (currently net9.0)
          ./tests/Integration/bin/Release/net9.0/playwright.ps1 install
 
      - name: Run Integration Tests
