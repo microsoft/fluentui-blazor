@@ -45,11 +45,11 @@
         var cut = Render<FluentAppBar>(
             @<FluentAppBar Id="appbar">
                 <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item tooltip">
-                </FluentAppBarItem>
+            </FluentAppBarItem>
                 <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item 2 tooltip">
                 </FluentAppBarItem>
-                </FluentAppBar>
-            );
+        </FluentAppBar>
+        );
 
         // This does not contribute to html output but helps for code coverage testing
         await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id1", Overflow = false, Text = "My item" }, new OverflowItem() { Id = "id2", Overflow = true, Text = "My item 2" } });
@@ -472,9 +472,48 @@
             if (result is Task task) await task;
         }
 
-        // Assert: Since initial _showMoreItems is false, toggle should set to true
-        Assert.True(popoverVisible);
-    }
+		// Assert: Since initial _showMoreItems is false, toggle should set to true
+		Assert.True(popoverVisible);
+	}
+
+	[Fact]
+	public async Task FluentAppBar_OverflowItem_OnClick_ClosesPopover()
+	{
+		// Arrange
+		bool popoverVisible = false;
+		bool onClickCalled = false;
+
+		var cut = Render<FluentAppBar>(
+			@<FluentAppBar PopoverVisibilityChanged="@((bool visible) => popoverVisible = visible)">
+				<FluentAppBarItem Id="id1" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" OnClick="@(_ => onClickCalled = true)">
+				</FluentAppBarItem>
+			</FluentAppBar>
+		);
+
+		// Act - Simulate overflow for the item
+		await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id1", Overflow = true, Text = "My item" } });
+		cut.Render();
+
+		// Show popover by clicking the "More" button
+		var moreButton = cut.Find(".fluent-appbar-item[fixed]"); 
+		await moreButton.ClickAsync();
+		cut.Render();
+
+		Assert.True(popoverVisible);
+
+		// Find the item in the popover.
+		var popover = cut.FindComponent<FluentPopover>();
+		var itemInPopover = popover.FindComponent<FluentAppBarItem>();
+
+		// Find the NavLink and click it
+		var navLink = itemInPopover.Find("a");
+		await navLink.ClickAsync();
+		cut.Render();
+
+		// Assert
+		Assert.True(onClickCalled);
+		Assert.False(popoverVisible);
+	}
 
 	private T? GetPrivateField<T>(object obj, string fieldName)
     {

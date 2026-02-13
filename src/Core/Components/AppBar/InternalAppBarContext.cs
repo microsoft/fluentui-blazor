@@ -16,7 +16,7 @@ internal sealed class InternalAppBarContext(FluentAppBar appBar)
             return;
         }
 
-        Apps.Add(app.Id, app);
+        Apps.TryAdd(app.Id, app);
     }
 
     internal void Unregister(IAppBarItem app)
@@ -26,7 +26,7 @@ internal sealed class InternalAppBarContext(FluentAppBar appBar)
             return;
         }
 
-        if (Apps.Count > 0)
+        if (Apps.TryGetValue(app.Id, out var registered) && registered == app)
         {
             Apps.Remove(app.Id);
         }
