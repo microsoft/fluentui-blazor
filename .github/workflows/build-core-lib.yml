@@ -24,6 +24,7 @@ on:
 
 env:
   PROJECTS: >
+    ./examples/Tools/FluentUI.Demo.DocApiGen/FluentUI.Demo.DocApiGen.csproj
     ./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj
     ./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj
   TESTS: >
