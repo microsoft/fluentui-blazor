@@ -504,6 +504,7 @@
 		// Find the item in the popover.
 		var popover = cut.FindComponent<FluentPopover>();
 		var itemInPopover = popover.FindComponent<FluentAppBarItem>();
+        itemInPopover.Instance.Overflow = true;
 
 		// Find the NavLink and click it
 		var navLink = itemInPopover.Find("a");
