@@ -141,7 +141,7 @@
       <FluentUIComponentsXml>$(MSBuildThisFileDirectory)..\..\Core\bin\$(Configuration)\$(NetVersion)\Microsoft.FluentUI.AspNetCore.Components.xml</FluentUIComponentsXml>
     </PropertyGroup>
 
-    <Message Text="Generating MCP documentation JSON..." Importance="high" />
+    <Message Text="Generating MCP documentation JSON... TargetFramework=$(TargetFramework)" Importance="high" />
 
     <!-- Build the FluentUI Components first to ensure DLL and XML exist -->
     <MSBuild Projects="$(MSBuildThisFileDirectory)..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" Targets="Build" Properties="Configuration=$(Configuration)" />
@@ -150,7 +150,7 @@
     <MSBuild Projects="$(DocApiGenProject)" Targets="Build" Properties="Configuration=$(Configuration)" />
 
     <!-- Run DocApiGen to generate MCP JSON -->
-    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --framework=&quot;$(NetVersion)&quot; --no-build -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpDocumentationJsonPath)&quot; --format json --mode all" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
+    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpDocumentationJsonPath)&quot; --format json --mode all" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
 
     <Message Text="MCP documentation JSON generated at $(McpDocumentationJsonPath)" Importance="high" />
   </Target>
