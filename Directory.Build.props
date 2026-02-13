@@ -1,9 +1,8 @@
 <Project>
   <PropertyGroup>
 
-    <!-- .NET Framework Version -->
+    <!-- .NET Framework Version used with the Demo and Unit Tests projects -->
     <!-- Change this to switch between net8.0, net9.0, or net10.0 -->    
-    <NetVersion>net9.0</NetVersion>
     <!-- 
         NOTES: When updating the NetVersion above, also update the files
          - _PublishDemoLocally.ps1
@@ -12,7 +11,11 @@
          - examples\Tools\FluentUI.Demo.DocApiGen.IntegrationTests\FluentUIComponentsIntegrationTests.cs
          - tests\Integration\WebServer\StartServerFixture.cs
     -->
+    <NetVersion>net10.0</NetVersion>
 
+    <!-- Target .NET versions for multi-targeting -->
+    <!-- Used with the published libraries: Core; McpServer -->
+    <TargetNetVersions>net9.0;net10.0</TargetNetVersions>
 
     <!-- Versioning -->
     <VersionFile>5.0.0</VersionFile>

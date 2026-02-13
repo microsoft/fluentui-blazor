@@ -1,24 +1,24 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <RuntimeVersion9>9.0.11</RuntimeVersion9>
-    <AspNetCoreVersion9>9.0.11</AspNetCoreVersion9>
-    <EfCoreVersion9>9.0.11</EfCoreVersion9>
-    <RuntimeVersion10>10.0.1</RuntimeVersion10>
-    <AspNetCoreVersion10>10.0.1</AspNetCoreVersion10>
-    <EfCoreVersion10>10.0.1</EfCoreVersion10>
+    <RuntimeVersion9>9.0.13</RuntimeVersion9>
+    <AspNetCoreVersion9>9.0.13</AspNetCoreVersion9>
+    <EfCoreVersion9>9.0.13</EfCoreVersion9>
+    <RuntimeVersion10>10.0.3</RuntimeVersion10>
+    <AspNetCoreVersion10>10.0.3</AspNetCoreVersion10>
+    <EfCoreVersion10>10.0.3</EfCoreVersion10>
   </PropertyGroup>
   <!-- Independent from TargetFrameWorks-->
   <ItemGroup>
     <!-- For Sample Apps -->
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.13.2" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.13.2" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.13.2" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.14.0" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.14.0" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.14.0" />
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.8.0" />
     <!-- For MCP Apps -->
-    <PackageVersion Include="ModelContextProtocol" Version="0.4.0-preview.3" />
+    <PackageVersion Include="ModelContextProtocol" Version="0.5.0-preview.1" />
     <!-- Test dependencies -->
-    <PackageVersion Include="bunit" Version="2.2.2" />
+    <PackageVersion Include="bunit" Version="2.5.3" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.v3" Version="3.2.1" />
@@ -70,6 +70,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion10)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion10)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion10)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(RuntimeVersion10)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion10)" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion10)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion10)" />
