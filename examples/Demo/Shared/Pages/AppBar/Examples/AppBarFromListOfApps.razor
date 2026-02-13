@@ -1,9 +1,9 @@
 ﻿<FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
     <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
-    <div style="background-color: var(--neutral-layer-3); overflow: auto; resize: vertical; height: 356px; width: 500px; padding: 10px;">
+	<div style="background-color: var(--neutral-layer-3); overflow: auto; resize: vertical; height: 356px; width: 86px; padding: 10px;">
         <FluentAppBar
                       Items="@_apps.OrderBy(a => a.Order)"
-                      Style="width: 68px; height: 100%; background-color: var(--neutral-layer-2);"
+                      Style="height: 100%; background-color: var(--neutral-layer-2);"
                       PopoverVisibilityChanged="HandlePopover"
                       PopoverShowSearch="@_showSearch">
         </FluentAppBar>
