@@ -52,6 +52,11 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <!-- Enable deterministic builds for CI environments and Release configuration -->
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true' Or '$(Configuration)' == 'Release'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
   <!-- Include README and MCP server manifest in package -->
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />

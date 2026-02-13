@@ -90,8 +90,8 @@
     <ProjectReference Include="..\Core.Scripts\Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj" PrivateAssets="All" />
   </ItemGroup>
 
-  <!-- GitHub -->
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
+  <!-- Enable deterministic builds for CI environments and Release configuration -->
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true' Or '$(Configuration)' == 'Release'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
