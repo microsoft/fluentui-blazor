@@ -12,6 +12,14 @@
     "FluentUI.Demo.DocApiGen mcp": {
       "commandName": "Project",
       "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.McpServer.xml\" --dll \"$(SolutionDir)src/Tools/McpServer/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.McpServer.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json\" --format json --mode mcp"
+    },
+    "FluentUI.Demo.DocApiGen icons": {
+      "commandName": "Project",
+      "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.Components.xml\" --dll \"$(SolutionDir)src/Core/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/all-icons.json\" --mode icons"
+    },
+    "FluentUI.Demo.DocApiGen emojis": {
+      "commandName": "Project",
+      "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.Components.xml\" --dll \"$(SolutionDir)src/Core/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/all-emojis.json\" --mode emojis"
     }
   }
 }

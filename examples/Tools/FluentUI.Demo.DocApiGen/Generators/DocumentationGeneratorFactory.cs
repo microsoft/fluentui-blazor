@@ -35,6 +35,8 @@ public static class DocumentationGeneratorFactory
             GenerationMode.Summary => new SummaryDocumentationGenerator(assembly, xmlDocumentation),
             GenerationMode.All => new AllDocumentationGenerator(assembly, xmlDocumentation),
             GenerationMode.Mcp => new McpDocumentationGenerator(assembly, xmlDocumentation),
+            GenerationMode.Icons => new IconsEmojisGenerator(assembly, xmlDocumentation, mode),
+            GenerationMode.Emojis => new IconsEmojisGenerator(assembly, xmlDocumentation, mode),
             _ => throw new NotSupportedException($"Generation mode '{mode}' is not supported.")
         };
     }

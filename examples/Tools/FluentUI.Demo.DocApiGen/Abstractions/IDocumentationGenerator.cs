@@ -47,5 +47,15 @@ public enum GenerationMode
     /// <summary>
     /// Generate MCP server documentation (tools, resources, prompts).
     /// </summary>
-    Mcp
+    Mcp,
+
+    /// <summary>
+    /// Generate documentation for icons, including metadata and usage information.
+    /// </summary>
+    Icons,
+
+    /// <summary>
+    /// Generate documentation for emojis, including metadata and usage information.
+    /// </summary>
+    Emojis,
 }

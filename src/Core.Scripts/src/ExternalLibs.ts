@@ -18,7 +18,7 @@ export interface Library {
     - Source code:        The library follows the standard pattern and exposes itself as `window.<LiBName>` object (e.g. window.IMask).
                           When the `TextMasked.ts > await imaskLoader.load()` function is called,
                           it automatically loads the lib into this window property,
-                          from the URL defined in `ExternalLibs.ts` if not already present
+                          from the URLs defined in the Library object in `TextMasked.ts` if not already present
 
      Alternative: Pre-load IMask
 

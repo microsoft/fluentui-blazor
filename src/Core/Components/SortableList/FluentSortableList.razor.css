@@ -1,0 +1,91 @@
+
+
+.fluent-sortable-list {
+  --fluent-sortable-list-border-width: var(--strokeWidthThin);
+  --fluent-sortable-list-border-color: var(--colorNeutralStroke1Pressed);
+  --fluent-sortable-list-padding: 4px;
+  --fluent-sortable-list-item-height: 32px;
+  --fluent-sortable-list-item-padding: 0 var(--spacingHorizontalS);
+  --fluent-sortable-list-item-spacing: var(--spacingVerticalXS);
+  --fluent-sortable-list-item-border-width: var(--strokeWidthThin);
+  --fluent-sortable-list-item-border-color: var(--colorNeutralStroke1);
+  --fluent-sortable-list-item-drop-border-color: var(--accent-fill-rest);
+  --fluent-sortable-list-item-drop-color: var(--neutral-layer-1);
+  --fluent-sortable-list-item-background-color: var(--colorNeutralBackground4);
+  --fluent-sortable-list-item-focused-background-color: var(--colorBrandBackground2);
+  --fluent-sortable-list-item-focused-border-color: var(--colorBrandBackground2Hover);
+  --fluent-sortable-list-item-grabbed-background-color: var(--colorBrandBackground2Hover);
+  --fluent-sortable-list-item-grabbed-border-color: var(--colorBrandBackground2Pressed);
+  --fluent-sortable-list-item-filtered-background-color: var(--warning);
+  --fluent-sortable-list-item-filtered-color: var(--colorNeutralForegroundInverted);
+  border: var(--fluent-sortable-list-border-width) solid var(--fluent-sortable-list-border-color);
+  border-radius: var(--borderRadiusMedium);
+  padding: var(--fluent-sortable-list-padding);
+  min-height: var(--fluent-sortable-list-item-height);
+}
+
+  .fluent-sortable-list .sortable-grab {
+    cursor: grab;
+    background-color: var(--colorNeutralBackground2);
+    display: flex;
+    position: relative;
+    height: 90%;
+    left: calc(var(--spacingHorizontalS) * -1 + 1px);
+    right: unset;
+    border-radius: var(--borderRadiusMedium) 0 0 var(--borderRadiusMedium);
+    width: 32px;
+    padding: 0 5px;
+  }
+
+[dir='rtl'] .fluent-sortable-list .sortable-grab {
+  left: unset;
+  right: calc(var(--spacingHorizontalS) * -1);
+  border-radius: 0 var(--borderRadiusMedium) var(--borderRadiusMedium) 0;
+}
+
+.fluent-sortable-list .sortable-item {
+  display: flex;
+  align-items: center;
+  height: var(--fluent-sortable-list-item-height) !important;
+  background-color: var(--fluent-sortable-list-item-background-color);
+  border: var(--fluent-sortable-list-item-border-width) solid var(--fluent-sortable-list-item-border-color);
+  border-radius: calc(var(--control-corner-radius) * 1px);
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  padding: var(--fluent-sortable-list-item-padding);
+  margin-bottom: var(--fluent-sortable-list-item-spacing);
+}
+
+  .fluent-sortable-list .sortable-item:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .fluent-sortable-list .sortable-item:focus {
+    background-color: var(--fluent-sortable-list-item-focused-background-color);
+    border: var(--fluent-sortable-list-item-border-width) solid var(--fluent-sortable-list-item-focused-border-color);
+  }
+
+  .fluent-sortable-list .sortable-item[aria-grabbed='true'] {
+    background-color: var(--fluent-sortable-list-item-grabbed-background-color);
+    border: var(--fluent-sortable-list-item-border-width) solid var(--fluent-sortable-list-item-grabbed-border-color);
+  }
+
+.fluent-sortable-list .sortable-item-content {
+  padding: 0 4px;
+}
+
+.fluent-sortable-list .sortable-ghost > .sortable-item-content {
+  background-color: var(--fluent-sortable-list-item-drop-color) !important;
+}
+
+.fluent-sortable-list .sortable-ghost {
+  background: var(--fluent-sortable-list-item-drop-color) !important;
+  border: var(--strokeWidthThin) dotted var(--fluent-sortable-list-item-drop-border-color) !important;
+}
+
+.fluent-sortable-list .sortable-item:is(.filtered) {
+  background: var(--fluent-sortable-list-item-filtered-background-color);
+  color: var(--fluent-sortable-list-item-filtered-color);
+}
