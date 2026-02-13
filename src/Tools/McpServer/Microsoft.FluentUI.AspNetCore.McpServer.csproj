@@ -150,7 +150,7 @@
     <MSBuild Projects="$(DocApiGenProject)" Targets="Build" Properties="Configuration=$(Configuration)" />
 
     <!-- Run DocApiGen to generate MCP JSON -->
-    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpDocumentationJsonPath)&quot; --format json --mode all" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
+    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -c $(Configuration) -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpDocumentationJsonPath)&quot; --format json --mode all" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
 
     <Message Text="MCP documentation JSON generated at $(McpDocumentationJsonPath)" Importance="high" />
   </Target>

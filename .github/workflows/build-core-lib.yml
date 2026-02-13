@@ -25,7 +25,6 @@ on:
 env:
   PROJECTS: >
     ./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj
-    ./examples/Tools/FluentUI.Demo.DocApiGen/FluentUI.Demo.DocApiGen.csproj
     ./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj
   TESTS: >
     ./tests/Core/Components.Tests.csproj
