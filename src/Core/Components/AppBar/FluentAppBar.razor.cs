@@ -146,7 +146,7 @@ public partial class FluentAppBar : FluentComponentBase
         }
     }
 
-    private Task TogglePopoverAsync() => HandlePopoverToggleAsync(!_showMoreItems);
+    internal Task TogglePopoverAsync() => HandlePopoverToggleAsync(!_showMoreItems);
 
     private async Task HandlePopoverKeyDownAsync(FluentKeyCodeEventArgs args)
     {
