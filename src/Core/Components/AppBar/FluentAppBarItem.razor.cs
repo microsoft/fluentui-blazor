@@ -127,8 +127,8 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
     {
         if (OnClick.HasDelegate)
         {
-            await OnClick.InvokeAsync(this);
             await Owner.AppBar.TogglePopoverAsync();
+            await OnClick.InvokeAsync(this);
         }
     }
 
