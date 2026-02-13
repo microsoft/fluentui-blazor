@@ -32,8 +32,6 @@ env:
     ./tests/Tools/McpServer.Tests/Microsoft.FluentUI.AspNetCore.McpServer.Tests.csproj
   INTEGRATION_TEST: "" # DISABLING: ./tests/Integration/Components.IntegrationTests.csproj
   MIN_COVERAGE: "98"
-  NET_VERSION: "net9.0"            # See the Directory.Build.props file
-  TARGET_NET_VERSIONS: "net9.0;net10.0"
 
 jobs:
   Build:
@@ -65,13 +63,13 @@ jobs:
      # Build
 
      - name: Restore
-       run: dotnet restore Microsoft.FluentUI-v5.slnx /p:NetVersion=${{ env.NET_VERSION }} /p:TargetNetVersions="${{ env.TARGET_NET_VERSIONS }}"
+       run: dotnet restore Microsoft.FluentUI-v5.slnx
 
      - name: Build
        run: |
          PROJECTS="${{ env.PROJECTS }}"
          for project in $PROJECTS; do
-           dotnet build "$project" --configuration Release -warnaserror /p:NetVersion=${{ env.NET_VERSION }} /p:TargetNetVersions="${{ env.TARGET_NET_VERSIONS }}"
+           dotnet build "$project" --configuration Release -warnaserror
          done
        working-directory: ${{ github.workspace }}
 
@@ -81,7 +79,7 @@ jobs:
        run: |
          TESTS="${{ env.TESTS }}"
          for test in $TESTS; do
-           dotnet test "$test" --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full /p:NetVersion=${{ env.NET_VERSION }} /p:TargetNetVersions="${{ env.TARGET_NET_VERSIONS }}"
+           dotnet test "$test" --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
          done
        working-directory: ${{ github.workspace }}
 
@@ -169,7 +167,7 @@ jobs:
 
      - name: Build Integration Tests
        if: env.INTEGRATION_TEST != ''
-       run: dotnet build ${{ env.INTEGRATION_TEST }} --verbosity normal --configuration Release /p:NetVersion=${{ env.NET_VERSION }} /p:TargetNetVersions="${{ env.TARGET_NET_VERSIONS }}"
+       run: dotnet build ${{ env.INTEGRATION_TEST }} --verbosity normal --configuration Release
        working-directory: ${{ github.workspace }}
 
      - name: Install Playwright
@@ -178,11 +176,11 @@ jobs:
        working-directory: ${{ github.workspace }}
        run: |
          # Use the NetVersion from env variable
-         ./tests/Integration/bin/Release/${{ env.NET_VERSION }}/playwright.ps1 install
+         ./tests/Integration/bin/Release/net9.0/playwright.ps1 install
 
      - name: Run Integration Tests
        if: env.INTEGRATION_TEST != ''
-       run: dotnet test ${{ env.INTEGRATION_TEST }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:NetVersion=${{ env.NET_VERSION }} /p:TargetNetVersions="${{ env.TARGET_NET_VERSIONS }}"
+       run: dotnet test ${{ env.INTEGRATION_TEST }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release
        working-directory: ${{ github.workspace }}
 
      - name: Handle Test Failure
@@ -231,7 +229,7 @@ jobs:
       run: |
         PROJECTS="${{ env.PROJECTS }}"
         for project in $PROJECTS; do
-          dotnet build "$project" /p:NetVersion=${{ env.NET_VERSION }} /p:TargetNetVersions="${{ env.TARGET_NET_VERSIONS }}"
+          dotnet build "$project"
         done
 
     - name: Perform CodeQL Analysis
