@@ -105,7 +105,11 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
     {
         if (OnClick.HasDelegate)
         {
-            await Owner.AppBar.TogglePopoverAsync();
+            if (Overflow is true)
+            {
+                await Owner.AppBar.TogglePopoverAsync();
+            }
+
             await OnClick.InvokeAsync(this);
         }
     }
