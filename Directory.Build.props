@@ -11,11 +11,13 @@
          - examples\Tools\FluentUI.Demo.DocApiGen.IntegrationTests\FluentUIComponentsIntegrationTests.cs
          - tests\Integration\WebServer\StartServerFixture.cs
     -->
-    <NetVersion>net10.0</NetVersion>
+    <NetVersion>net9.0</NetVersion>
 
     <!-- Target .NET versions for multi-targeting -->
     <!-- Used with the published libraries: Core; McpServer -->
-    <TargetNetVersions>net9.0;net10.0</TargetNetVersions>
+    <!-- Debug: single target for faster builds; Release: full multi-targeting -->
+    <TargetNetVersions Condition="'$(Configuration)' == 'Release'">net9.0;net10.0</TargetNetVersions>
+    <TargetNetVersions Condition="'$(Configuration)' != 'Release'">$(NetVersion)</TargetNetVersions>
 
     <!-- Versioning -->
     <VersionFile>5.0.0</VersionFile>

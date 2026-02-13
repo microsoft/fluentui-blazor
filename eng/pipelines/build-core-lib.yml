@@ -44,10 +44,12 @@ parameters:
   - name: Projects  	    # List of projects to build
     default: |
       **/Microsoft.FluentUI.AspNetCore.Components.csproj
+      **/Microsoft.FluentUI.AspNetCore.McpServer.csproj
 
   - name: Tests		        # List of Unit-Test projects to run
     default: |
       **/Components.Tests.csproj
+      **/Microsoft.FluentUI.AspNetCore.McpServer.Tests.csproj
 
 variables:
   - template: /eng/pipelines/version.yml@self
