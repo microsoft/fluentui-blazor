@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFramework>$(NetVersion)</TargetFramework>
+    <TargetFrameworks>$(TargetNetVersions)</TargetFrameworks>
     <PackageId>Microsoft.FluentUI.AspNetCore.Components</PackageId>
 
     <Summary>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Summary>
-    <PackageTags>Fluent UI, Blazor, Web Components, .NET9</PackageTags>
+    <PackageTags>Fluent UI, Blazor, Web Components</PackageTags>
     <Title>Microsoft Fluent UI Web Components for Blazor</Title>
     <Description>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -57,7 +57,6 @@
     <None Include="**\*.ts" />
   </ItemGroup>
 
-
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
@@ -91,8 +90,8 @@
     <ProjectReference Include="..\Core.Scripts\Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj" PrivateAssets="All" />
   </ItemGroup>
 
-  <!-- GitHub -->
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
+  <!-- Enable deterministic builds for CI environments and Release configuration -->
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true' Or '$(Configuration)' == 'Release'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
