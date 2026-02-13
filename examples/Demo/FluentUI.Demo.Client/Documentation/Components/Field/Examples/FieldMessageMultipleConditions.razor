@@ -2,6 +2,7 @@
                  TextInputType="TextInputType.Password"
                  @bind-Value="@MyValue"
                  Immediate="true"
+				 Required="true"
                  MessageCondition="@(i => i.When(() => MyValue.Length < 8)
                                                 .Display("8+ characters", MessageState.Error)
                                            .When(() => MyValue.Any(char.IsDigit) == false)

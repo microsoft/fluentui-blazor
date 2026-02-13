@@ -1,0 +1,7 @@
+.fluent-validation-message {
+    display: flex;
+    color: var(--colorPaletteRedForeground1);
+    font-size: var(--fontSizeBase200);
+    align-items: center;
+    column-gap: var(--spacingHorizontalXS);
+}
