@@ -63,7 +63,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
     /// Gets or sets the count to show on the item with a <see cref="FluentCounterBadge"/>.
     /// </summary>
     [Parameter]
-    public ushort? Count { get; set; }
+    public int? Count { get; set; }
 
     /// <summary>
     ///  Gets or sets the content to be shown.
@@ -127,6 +127,11 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
     {
         if (OnClick.HasDelegate)
         {
+            if (Overflow is true)
+            {
+                await Owner.AppBar.TogglePopoverAsync();
+            }
+
             await OnClick.InvokeAsync(this);
         }
     }

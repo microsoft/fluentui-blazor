@@ -1,33 +1,35 @@
 ﻿@inject IDialogService DialogService
 
 <FluentStack Orientation="Orientation.Vertical" Style="height: 330px;">
-    <FluentAppBar Style="height: 100%;">
-        <FluentAppBarItem Href="/"
-                          Match="NavLinkMatch.All"
-                          IconRest="HomeIcon()"
-                          IconActive="HomeIcon(active: true)"
-                          Text="Home"
-                          OnClick="HandleOnClick" />
-        <FluentAppBarItem Href="/AppBar"
-                          IconRest="AppBarIcon()"
-                          IconActive="AppBarIcon(active: true)"
-                          Text="AppBar"
-                          OnClick="HandleOnClick" />
-        <FluentAppBarItem IconRest="WhatsNewIcon()"
-                          IconActive="WhatsNewIcon(active: true)"
-                          Text="What's New"
-                          OnClick="ShowSuccessAsync" />
-        <FluentAppBarItem Href="@(null)"
-                          IconRest="IconsIcon()"
-                          IconActive="IconsIcon(active: true)"
-                          Text="Icons"
-                          OnClick="ShowWarningAsync" />
-        <FluentAppBarItem Href="/Dialog"
-                          IconRest="DialogIcon()"
-                          IconActive="DialogIcon(active: true)"
-                          Text="Dialog"
-                          OnClick="HandleOnClick" />
-    </FluentAppBar>
+    <div style="background-color: var(--colorNeutralBackground5); overflow: hidden; resize: vertical; height: 270px; width: 86px; padding: 10px;">
+        <FluentAppBar Style="height: 100%;">
+            <FluentAppBarItem Href="/"
+                              Match="NavLinkMatch.All"
+                              IconRest="HomeIcon()"
+                              IconActive="HomeIcon(active: true)"
+                              Text="Home"
+                              OnClick="HandleOnClick" />
+            <FluentAppBarItem Href="/AppBar"
+                              IconRest="AppBarIcon()"
+                              IconActive="AppBarIcon(active: true)"
+                              Text="AppBar"
+                              OnClick="HandleOnClick" />
+            <FluentAppBarItem IconRest="WhatsNewIcon()"
+                              IconActive="WhatsNewIcon(active: true)"
+                              Text="What's New"
+                              OnClick="ShowSuccessAsync" />
+            <FluentAppBarItem Href="@(null)"
+                              IconRest="IconsIcon()"
+                              IconActive="IconsIcon(active: true)"
+                              Text="Icons"
+                              OnClick="HandleOnClick" />
+            <FluentAppBarItem Href="/Dialog"
+                              IconRest="DialogIcon()"
+                              IconActive="DialogIcon(active: true)"
+                              Text="Dialog"
+                              OnClick="HandleOnClick" />
+        </FluentAppBar>
+    </div>
 </FluentStack>
 
 @code {
