@@ -30,7 +30,7 @@ The easiest way to install is via the .NET tool:
 dotnet tool install -g Microsoft.FluentUI.AspNetCore.McpServer
 ```
 
-[!NOTE] During the **development phase**, use this NuGet Preview feed by adding the argument `--add-source` and `--prerelease`:  
+[!NOTE] During the **development phase**, use this NuGet Preview feed by adding the argument `--add-source` and `--prerelease`:
 
 ```bash
 dotnet tool install -g Microsoft.FluentUI.AspNetCore.McpServer --add-source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json --prerelease
@@ -56,7 +56,7 @@ Create the appropriate configuration file for your IDE:
 }
 ```
 
-After saving, click on the `Start` link above the server "fluent-ui-blazor" and wait a few seconds for the label `Running` to appear.  
+After saving, click on the `Start` link above the server "fluent-ui-blazor" and wait a few seconds for the label `Running` to appear.
 
 Now you are ready to use the Fluent UI Blazor MCP Server.
 
