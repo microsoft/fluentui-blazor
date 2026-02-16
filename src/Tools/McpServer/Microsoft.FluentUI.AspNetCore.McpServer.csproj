@@ -10,7 +10,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
     <RootNamespace>Microsoft.FluentUI.AspNetCore.McpServer</RootNamespace>
-    
+
     <PackageId>Microsoft.FluentUI.AspNetCore.McpServer</PackageId>
     <Title>Microsoft Fluent UI Blazor MCP Server</Title>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -116,7 +116,7 @@
   <ItemGroup>
     <Content Remove="..\..\Tools\FluentUI.Demo.DocApiGen\Microsoft.FluentUI.AspNetCore.Components.xml" />
   </ItemGroup>
-  
+
   <!-- Embed the generated JSON documentation file as a resource -->
   <ItemGroup>
     <EmbeddedResource Include="FluentUIComponentsDocumentation.json" />
@@ -143,7 +143,7 @@
 
     <Message Text="Generating MCP documentation JSON... TargetFramework=$(TargetFramework)" Importance="high" />
 
-    <!-- Build the FluentUI Components first to ensure DLL and XML exist -->    
+    <!-- Build the FluentUI Components first to ensure DLL and XML exist -->
     <MSBuild Projects="$(MSBuildThisFileDirectory)..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" Targets="Build" Properties="Configuration=$(Configuration)" />
 
     <!-- Restore and Build DocApiGen -->
