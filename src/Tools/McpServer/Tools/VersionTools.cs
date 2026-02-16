@@ -77,6 +77,11 @@ public class VersionTools
         [Description("The version of Microsoft.FluentUI.AspNetCore.Components found in the user's .csproj PackageReference (e.g., '5.0.0-alpha.1').")]
         string projectVersion)
     {
+        if (string.IsNullOrWhiteSpace(projectVersion))
+        {
+            return "Please provide the version of Microsoft.FluentUI.AspNetCore.Components from the user's .csproj PackageReference (e.g., '5.0.0-alpha.1').";
+        }
+
         var mcpVersion = GetMcpSemanticVersion();
         var normalizedProjectVersion = ExtractSemanticVersion(projectVersion.Trim());
 
@@ -159,6 +164,7 @@ public class VersionTools
         {
             return string.Empty;
         }
+
         var plusIndex = version.IndexOf('+', StringComparison.Ordinal);
         return plusIndex >= 0 ? version[..plusIndex] : version;
     }

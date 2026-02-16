@@ -173,6 +173,36 @@ public class VersionToolsTests
         Assert.Contains("**Project version**: `4.9.0`", result, StringComparison.Ordinal);
     }
 
+    [Fact]
+    public void CheckProjectVersion_WithNullInput_DoesNotThrow()
+    {
+        // Act
+        var exception = Record.Exception(() => VersionTools.CheckProjectVersion(null!));
+
+        // Assert
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public void CheckProjectVersion_WithEmptyStringInput_DoesNotThrow()
+    {
+        // Act
+        var exception = Record.Exception(() => VersionTools.CheckProjectVersion(string.Empty));
+
+        // Assert
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public void CheckProjectVersion_WithWhitespaceOnlyInput_DoesNotThrow()
+    {
+        // Act
+        var exception = Record.Exception(() => VersionTools.CheckProjectVersion("   "));
+
+        // Assert
+        Assert.Null(exception);
+    }
+
     #endregion
 
     #region GetMcpSemanticVersion Tests
