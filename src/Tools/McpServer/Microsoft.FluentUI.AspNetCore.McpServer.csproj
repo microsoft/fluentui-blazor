@@ -119,7 +119,7 @@
   
   <!-- Embed the generated JSON documentation file as a resource -->
   <ItemGroup>
-    <EmbeddedResource Include="FluentUIComponentsDocumentation.json" Condition="Exists('FluentUIComponentsDocumentation.json')" />
+    <EmbeddedResource Include="FluentUIComponentsDocumentation.json" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
