@@ -76,19 +76,6 @@ List all available Fluent UI Blazor components
 
 If configured correctly, Copilot will use the MCP tools to provide accurate component information.
 
-### Step 5: Add the NuGet Packages to Your Project
-
-Use the built-in **`add_package_reference`** prompt to let the AI assistant add the correct Fluent UI Blazor packages to your project.
-In the Copilot chat, select the prompt and provide:
-
-- The path to your `.csproj` file
-- Whether you need the **Icons** package (recommended)
-- Whether you need the **Emoji** package (optional)
-
-The prompt will ensure all packages are installed with the **exact version matching the MCP server**, so the documentation you receive is always accurate.
-
-> [!TIP] You can also ask Copilot directly: *"Add the Fluent UI Blazor packages to my project"* and it will use the prompt automatically.
-
 ## Troubleshooting
 
 ### Server Not Starting

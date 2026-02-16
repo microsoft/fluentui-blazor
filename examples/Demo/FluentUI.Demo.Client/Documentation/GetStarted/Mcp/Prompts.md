@@ -20,27 +20,6 @@ MCP Prompts are **pre-defined prompt templates** that help you accomplish common
 
 The MCP server includes built-in prompts for common tasks. You can also use the patterns below when interacting with your AI assistant.
 
-### Add Package Reference
-
-The **`add_package_reference`** prompt guides the AI assistant through adding the correct Fluent UI Blazor NuGet packages to your project.
-It automatically uses the version matching the MCP server, and lets you choose whether to include the Icons and Emoji packages.
-
-**Parameters:**
-
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `projectPath` | Path to your `.csproj` file | *(required)* |
-| `includeIcons` | Add the Icons package | `true` |
-| `includeEmoji` | Add the Emoji package | `false` |
-
-The prompt will:
-1. Check if a `Microsoft.FluentUI.AspNetCore.Components` reference already exists in your project
-2. Install the packages with the correct version
-3. Verify the result
-4. Suggest using the `CheckProjectVersion` tool for final validation
-
-See [Version Compatibility](/Mcp/VersionCompatibility) for more details on why version matching matters.
-
 ### Component Discovery
 
 ```
