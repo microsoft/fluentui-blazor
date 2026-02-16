@@ -116,10 +116,10 @@
   <ItemGroup>
     <Content Remove="..\..\Tools\FluentUI.Demo.DocApiGen\Microsoft.FluentUI.AspNetCore.Components.xml" />
   </ItemGroup>
+  
+  <!-- Embed the generated JSON documentation file as a resource -->
   <ItemGroup>
-    <None Update="FluentUIComponentsDocumentation.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <EmbeddedResource Include="FluentUIComponentsDocumentation.json" Condition="Exists('FluentUIComponentsDocumentation.json')" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
