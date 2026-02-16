@@ -30,7 +30,7 @@ The easiest way to install is via the .NET tool:
 dotnet tool install -g Microsoft.FluentUI.AspNetCore.McpServer
 ```
 
-[!NOTE] During the **development phase**, use this NuGet Preview feed by adding the argument `--add-source` and `--prerelease`:  
+[!NOTE] During the **development phase**, use this NuGet Preview feed by adding the argument `--add-source` and `--prerelease`:
 
 ```bash
 dotnet tool install -g Microsoft.FluentUI.AspNetCore.McpServer --add-source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json --prerelease
@@ -56,7 +56,7 @@ Create the appropriate configuration file for your IDE:
 }
 ```
 
-After saving, click on the `Start` link above the server "fluent-ui-blazor" and wait a few seconds for the label `Running` to appear.  
+After saving, click on the `Start` link above the server "fluent-ui-blazor" and wait a few seconds for the label `Running` to appear.
 
 Now you are ready to use the Fluent UI Blazor MCP Server.
 
@@ -76,6 +76,19 @@ List all available Fluent UI Blazor components
 
 If configured correctly, Copilot will use the MCP tools to provide accurate component information.
 
+### Step 5: Add the NuGet Packages to Your Project
+
+Use the built-in **`add_package_reference`** prompt to let the AI assistant add the correct Fluent UI Blazor packages to your project.
+In the Copilot chat, select the prompt and provide:
+
+- The path to your `.csproj` file
+- Whether you need the **Icons** package (recommended)
+- Whether you need the **Emoji** package (optional)
+
+The prompt will ensure all packages are installed with the **exact version matching the MCP server**, so the documentation you receive is always accurate.
+
+> [!TIP] You can also ask Copilot directly: *"Add the Fluent UI Blazor packages to my project"* and it will use the prompt automatically.
+
 ## Troubleshooting
 
 ### Server Not Starting
@@ -94,6 +107,7 @@ If configured correctly, Copilot will use the MCP tools to provide accurate comp
 
 - Learn about [available MCP Tools](/Mcp/Tools)
 - Explore [MCP Resources](/Mcp/Resources)
+- Verify [Version Compatibility](/Mcp/VersionCompatibility) between the MCP server and your project
 - See [Usage Examples](/Mcp/Examples)
 
 ## References

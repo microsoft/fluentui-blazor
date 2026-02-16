@@ -18,18 +18,39 @@ MCP Prompts are **pre-defined prompt templates** that help you accomplish common
 
 ## Suggested Prompt Patterns
 
-While the server may not include built-in prompts, you can use these effective patterns when interacting with your AI assistant:
+The MCP server includes built-in prompts for common tasks. You can also use the patterns below when interacting with your AI assistant.
+
+### Add Package Reference
+
+The **`add_package_reference`** prompt guides the AI assistant through adding the correct Fluent UI Blazor NuGet packages to your project.
+It automatically uses the version matching the MCP server, and lets you choose whether to include the Icons and Emoji packages.
+
+**Parameters:**
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `projectPath` | Path to your `.csproj` file | *(required)* |
+| `includeIcons` | Add the Icons package | `true` |
+| `includeEmoji` | Add the Emoji package | `false` |
+
+The prompt will:
+1. Check if a `Microsoft.FluentUI.AspNetCore.Components` reference already exists in your project
+2. Install the packages with the correct version
+3. Verify the result
+4. Suggest using the `CheckProjectVersion` tool for final validation
+
+See [Version Compatibility](/Mcp/VersionCompatibility) for more details on why version matching matters.
 
 ### Component Discovery
 
 ```
-List all Fluent UI Blazor components in the [category] category 
+List all Fluent UI Blazor components in the [category] category
 with their main purpose and key parameters.
 ```
 
 **Example:**
 ```
-List all Fluent UI Blazor components in the Input category 
+List all Fluent UI Blazor components in the Input category
 with their main purpose and key parameters.
 ```
 
@@ -68,13 +89,13 @@ Include examples for each group.
 ### Enum Discovery
 
 ```
-What are all possible values for [EnumName]? 
+What are all possible values for [EnumName]?
 Explain when to use each value with practical examples.
 ```
 
 **Example:**
 ```
-What are all possible values for ButtonAppearance? 
+What are all possible values for ButtonAppearance?
 Explain when to use each value with practical examples.
 ```
 
@@ -151,8 +172,8 @@ Please provide:
 
 In your AI assistant chat:
 ```
-@workspace Use the template in .prompts/fluent-datagrid.md to create 
-a grid for displaying customer orders with columns for OrderId, 
+@workspace Use the template in .prompts/fluent-datagrid.md to create
+a grid for displaying customer orders with columns for OrderId,
 CustomerName, OrderDate, and TotalAmount. Enable sorting and pagination.
 ```
 

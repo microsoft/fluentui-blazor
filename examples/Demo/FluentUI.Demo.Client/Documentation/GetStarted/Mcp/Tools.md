@@ -67,6 +67,22 @@ User: "What enums can I use with FluentButton?"
 AI: [Calls GetComponentEnums(componentName: "Button")]
 ```
 
+### GetVersionInfo
+
+```
+User: "What version of Fluent UI Blazor does this MCP server provide docs for?"
+AI: [Calls GetVersionInfo()]
+```
+
+### CheckProjectVersion
+
+```
+User: "Is my project using the right version of Fluent UI Blazor?"
+AI: [Reads .csproj → Calls CheckProjectVersion(projectVersion: "4.9.0")]
+```
+
+See [Version Compatibility](/Mcp/VersionCompatibility) for details on how these tools help ensure documentation accuracy.
+
 ## Best Practices
 
 ### 1. Be Specific
@@ -108,5 +124,6 @@ When you need to know valid values, ask explicitly:
 ## Next Steps
 
 - Learn about [MCP Resources](/Mcp/Resources)
+- Check [Version Compatibility](/Mcp/VersionCompatibility) to ensure accurate documentation
 - See [Usage Examples](/Mcp/Examples)
 - Return to [MCP Overview](/Mcp)
