@@ -117,12 +117,14 @@
     <Content Remove="..\..\Tools\FluentUI.Demo.DocApiGen\Microsoft.FluentUI.AspNetCore.Components.xml" />
   </ItemGroup>
 
-  <!-- Embed the generated JSON documentation file as a resource -->
-  <ItemGroup>
-    <EmbeddedResource Include="FluentUIComponentsDocumentation.json" />
-  </ItemGroup>
+  <!-- Embed the generated JSON documentation file as a resource (added dynamically to handle multi-target timing) -->
+  <Target Name="AddJsonEmbeddedResource" BeforeTargets="PrepareForBuild" Condition="Exists('$(McpDocumentationJsonPath)')">
+    <ItemGroup>
+      <EmbeddedResource Include="FluentUIComponentsDocumentation.json" />
+    </ItemGroup>
+  </Target>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)' == '$(NetVersion)'">
     <ItemGroup>
       <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(NetVersion)\*.xml" />
     </ItemGroup>
@@ -134,7 +136,7 @@
     This runs DocApiGen to extract documentation from the FluentUI Components assembly
     and creates a JSON file that is then embedded as a resource.
   -->
-  <Target Name="GenerateMcpDocumentation" BeforeTargets="BeforeBuild" Condition="!Exists('$(McpDocumentationJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true'">
+  <Target Name="GenerateMcpDocumentation" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)' == '$(NetVersion)' AND (!Exists('$(McpDocumentationJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true')">
     <PropertyGroup>
       <DocApiGenProject>$(MSBuildThisFileDirectory)..\..\..\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj</DocApiGenProject>
       <FluentUIComponentsDll>$(MSBuildThisFileDirectory)..\..\Core\bin\$(Configuration)\$(NetVersion)\Microsoft.FluentUI.AspNetCore.Components.dll</FluentUIComponentsDll>
@@ -156,6 +158,20 @@
     <Message Text="MCP documentation JSON generated at $(McpDocumentationJsonPath)" Importance="high" />
   </Target>
 
+  <!--
+    Outer-build target: Generate JSON before dispatching to inner builds (multi-target).
+    This ensures FluentUIComponentsDocumentation.json exists for ALL target frameworks.
+    Runs only during multi-target builds (when TargetFramework is empty).
+  -->
+  <Target Name="GenerateMcpDocumentationBeforeDispatch"
+          BeforeTargets="DispatchToInnerBuilds"
+          Condition="'$(TargetFramework)' == '' AND (!Exists('$(McpDocumentationJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true')">
+    <Message Text="Generating MCP documentation JSON before multi-target dispatch..." Importance="high" />
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Targets="GenerateMcpDocumentation"
+             Properties="TargetFramework=$(NetVersion);Configuration=$(Configuration)" />
+  </Target>
+
   <!-- Clean target to remove generated documentation -->
   <Target Name="CleanMcpDocumentation" AfterTargets="Clean">
     <Message Text="Cleaning MCP documentation JSON at $(McpDocumentationJsonPath)..." Importance="high" Condition="Exists('$(McpDocumentationJsonPath)')" />
@@ -167,7 +183,7 @@
     Target to update version in server.json before packing.
     This copies server.json to intermediate directory and replaces version placeholders.
   -->
-  <Target Name="UpdateMcpServerJsonVersion" BeforeTargets="BeforeBuild">
+  <Target Name="UpdateMcpServerJsonVersion" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)' == '$(NetVersion)'">
     <PropertyGroup>
       <McpServerJsonSource>$(MSBuildThisFileDirectory).mcp\server.json</McpServerJsonSource>
       <McpServerJsonTarget>$(IntermediateOutputPath).mcp\server.json</McpServerJsonTarget>
