@@ -45,10 +45,7 @@ protected override void OnInitialized()
     KeyCodeService.RegisterListener(OnKeyDownAsync);
 }
 
-public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
-{
-    // ...
-}
+public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args) => { // ... }
 
 public ValueTask DisposeAsync()
 {
@@ -70,15 +67,9 @@ public partial MyPage : IKeyCodeListener, IAsyncDisposable
         KeyCodeService.RegisterListener(this);
     }
 
-    public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
-    {
-        // ...
-    }
+    public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args) => { // ... }
 
-    public async Task OnKeyUpAsync(FluentKeyCodeEventArgs args)
-    {
-        // ...
-    }
+    public async Task OnKeyUpAsync(FluentKeyCodeEventArgs args) => { // ... }
 
     public ValueTask DisposeAsync()
     {
