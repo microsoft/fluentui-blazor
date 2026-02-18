@@ -32,6 +32,8 @@ $RootDir = $PSScriptRoot
 # Update the Directory.Build.props file with the correct .NET version
 Write-Host "👉 Updating Directory.Build.props with .NET version: $NetVersion..." -ForegroundColor Yellow
 (Get-Content "./Directory.Build.props") -replace '<NetVersion>net[0-9]+\.[0-9]+</NetVersion>', "<NetVersion>$NetVersion</NetVersion>" | Set-Content "./Directory.Build.props"
+(Get-Content "./Directory.Build.props") -replace "<TargetNetVersions Condition=`"'\$\(Configuration\)' == 'Release'`">.*</TargetNetVersions>", "<TargetNetVersions Condition=`"'`$(Configuration)' == 'Release'`">$NetVersion</TargetNetVersions>" | Set-Content "./Directory.Build.props"
+
 
 # Build the core project
 Write-Host "👉 Building Core project..." -ForegroundColor Yellow
