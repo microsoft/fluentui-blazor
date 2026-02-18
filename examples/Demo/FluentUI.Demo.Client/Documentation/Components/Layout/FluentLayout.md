@@ -137,6 +137,75 @@ You can adapt them using the `Height` parameter of the `FluentLayout`,
 --layout-body-height: calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height));
 ```
 
+## Standard Layout (header, navigation and footer)
+
+This example demonstrates a classic layout commonly used in most websites. It includes a **header** at the top with a hamburger menu toggle and the application title, a collapsible **navigation panel** on the side with links to different pages, a **content** area that renders the current page body, and a **footer** at the bottom for branding or copyright information.
+
+Simply copy the code below into your Blazor **layout page** and replace the `@Body` element with this code example. That's it!
+
+<table class="layout-schema">
+  <tr>
+    <td colspan="3">Header</td>
+  </tr>
+  <tr>
+    <td>Nav</td>
+    <td colspan="2" style="width: 100%; height: 60px;">Content</td>
+  <tr>
+    <td colspan="3">Footer</td>
+  </tr>
+</table>
+
+```razor
+<FluentLayout>
+
+    <!-- Header -->
+    <FluentLayoutItem Area="@LayoutArea.Header">
+        <FluentStack VerticalAlignment="VerticalAlignment.Center">
+            <FluentLayoutHamburger />
+            <FluentText Weight="TextWeight.Bold"
+                        Size="TextSize.Size400">
+                My application
+            </FluentText>
+        </FluentStack>
+    </FluentLayoutItem>
+
+    <!-- Navigation -->
+    <FluentLayoutItem Area="@LayoutArea.Navigation"
+                      Width="250px">
+
+        <FluentNav Padding="@Padding.All2"
+                   Style="height: 100%;">
+            <FluentNavItem Href="/"
+                           Match="NavLinkMatch.All"
+                           IconRest="@(new Icons.Regular.Size20.Home())">
+                Home
+            </FluentNavItem>
+            <FluentNavItem Href="/counter"
+                           IconRest="@(new Icons.Regular.Size20.RemixAdd())">
+                Counter
+            </FluentNavItem>
+            <FluentNavItem Href="/weather"
+                           IconRest="@(new Icons.Regular.Size20.WeatherRainShowersDay())">
+                Weather
+            </FluentNavItem>
+        </FluentNav>
+
+    </FluentLayoutItem>
+
+    <!-- Content -->
+    <FluentLayoutItem Area="@LayoutArea.Content"
+                      Padding="@Padding.All3">
+        @Body
+    </FluentLayoutItem>
+
+    <!-- Footer -->
+    <FluentLayoutItem Area="@LayoutArea.Footer">
+        Powered by Microsoft Fluent UI Blazor @DateTime.Now.Year
+    </FluentLayoutItem>
+
+</FluentLayout>
+```
+
 ## API FluentLayout
 
 {{ API Type=FluentLayout }}
