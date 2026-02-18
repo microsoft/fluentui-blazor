@@ -152,3 +152,4 @@ Add this code to a Razor page to verify that the installation is correct.
 Before diving into components, it's recommended to explore
 the [FluentLayout](/layout) documentation to understand project structure and layout strategies.
 
+On [this FluentLayout section](/layout#standard-layout-header-navigation-and-footer), you will find an example of a ready-to-use layout.
