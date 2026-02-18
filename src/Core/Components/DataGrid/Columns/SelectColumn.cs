@@ -578,6 +578,23 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     {
         if (InternalGridContext != null && Grid != null && (Grid.Items != null || Grid.ItemsProvider != null))
         {
+            // Fast path: Check if SelectedItems has a cheap Count
+            if (SelectedItems.TryGetNonEnumeratedCount(out var selectedCount))
+            {
+                if (selectedCount == 0 && !InternalGridContext.Items.Any(Property))
+                {
+                    return false;
+                }
+
+                if (selectedCount == InternalGridContext.TotalItemCount || SelectAll == true)
+                {
+                    return true;
+                }
+
+                return null;
+            }
+
+            // Fallback: Use enumeration for non-materialized collections
             if (!SelectedItems.Any() && !InternalGridContext.Items.Any(Property))
             {
                 return false;
