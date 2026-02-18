@@ -32,8 +32,6 @@ interface FluentUIEventType {
   type: string;
 }
 
-var styleSheet = new CSSStyleSheet();
-
 const styles = `
 body:has(.prevent-scroll) {
     overflow: hidden;
@@ -85,9 +83,16 @@ fluent-number-field:not([disabled]):active::after
 }
 `;
 
-styleSheet.replaceSync(styles);
-// document.adoptedStyleSheets.push(styleSheet);
-document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
+if (document.adoptedStyleSheets) {
+  const styleSheet = new CSSStyleSheet();
+  styleSheet.replaceSync(styles);
+  document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
+}
+else {
+  let style = document.createElement('style');
+  style.innerHTML = styles;
+  document.head.appendChild(style);
+}
 
 var beforeStartCalled = false;
 var afterStartedCalled = false;
