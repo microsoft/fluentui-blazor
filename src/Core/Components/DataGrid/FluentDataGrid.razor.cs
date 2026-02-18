@@ -847,6 +847,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
 
             _pendingDataLoadCancellationTokenSource = null;
+            _ = InvokeAsync(() => _internalGridContext.ItemsChanged.InvokeCallbacksAsync(eventArg: null));
         }
 
         _internalGridContext.ResetRowIndexes(startIndex);
@@ -1239,6 +1240,40 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             await OnCollapseAll.InvokeAsync();
         }
+    }
+
+    /// <summary>
+    /// Selects all rows in a hierarchical data grid.
+    /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
+    /// </summary>
+    public async Task SelectAllRowsAsync()
+    {
+        foreach (var item in _internalGridContext.Items)
+        {
+            if (item is IHierarchicalGridItem hierarchicalItem)
+            {
+                hierarchicalItem.IsSelected = true;
+            }
+        }
+
+        await RefreshDataAsync();
+    }
+
+    /// <summary>
+    /// Deselects all rows in a hierarchical data grid.
+    /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
+    /// </summary>
+    public async Task DeselectAllRowsAsync()
+    {
+        foreach (var item in _internalGridContext.Items)
+        {
+            if (item is IHierarchicalGridItem hierarchicalItem)
+            {
+                hierarchicalItem.IsSelected = false;
+            }
+        }
+
+        await RefreshDataAsync();
     }
 
     private void RenderActualError(RenderTreeBuilder builder)

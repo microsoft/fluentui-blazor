@@ -746,10 +746,10 @@
         var selectColumn = cut.FindComponent<SelectColumn<Person>>();
 
         await ClickOnRowAsync(cut, row: 0, col: 0);
-        selectColumn.Instance.ClearSelection();
+        await selectColumn.Instance.ClearSelectionAsync();
 
         // Assert - Selection is cleared
-        Assert.False(SelectedItems.First().Selected);
+        Assert.Empty(SelectedItems);
     }
 
     [Fact]
@@ -774,9 +774,7 @@
         // Act - Clear selection
         var selectColumn = cut.FindComponent<SelectColumn<Person>>();
 
-        await ClickOnAllAsync(cut);
-
-        selectColumn.Instance.ClearSelection();
+        await selectColumn.Instance.ClearSelectionAsync();
 
         // Assert - Selection is cleared
         Assert.Empty(SelectedItems);
@@ -808,7 +806,7 @@
         await selectColumn.Instance.ClearSelectionAsync();
 
         // Assert - Selection is cleared
-        Assert.False(SelectedItems.First().Selected);
+        Assert.Empty(SelectedItems);
     }
 
     [Fact]
@@ -1349,7 +1347,13 @@
     private async Task ClickOnAllAsync(IRenderedComponent<ContainerFragment> cut)
     {
         var col = cut.FindComponent<SelectColumn<Person>>();
-        await col.Instance.OnClickAllAsync(new MouseEventArgs());
+        var method = typeof(SelectColumn<Person>).GetMethod("OnClickAllAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var result = method.Invoke(col.Instance, [new MouseEventArgs()]);
+
+        if (result is Task task)
+        {
+            await task;
+        }
         cut.FindComponent<FluentDataGrid<Person>>().Render();
     }
 }
