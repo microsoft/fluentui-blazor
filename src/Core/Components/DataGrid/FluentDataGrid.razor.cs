@@ -1250,7 +1250,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         foreach (var item in _internalGridContext.Items)
         {
-            if (item is IHierarchicalGridItem hierarchicalItem)
+            if (item is IHierarchicalGridItem hierarchicalItem && hierarchicalItem.Depth == 0)
             {
                 hierarchicalItem.IsSelected = true;
             }
@@ -1267,7 +1267,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         foreach (var item in _internalGridContext.Items)
         {
-            if (item is IHierarchicalGridItem hierarchicalItem)
+            if (item is IHierarchicalGridItem hierarchicalItem && hierarchicalItem.Depth == 0)
             {
                 hierarchicalItem.IsSelected = false;
             }
