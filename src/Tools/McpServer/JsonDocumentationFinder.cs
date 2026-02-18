@@ -13,8 +13,9 @@ internal static class JsonDocumentationFinder
 
     /// <summary>
     /// Tries to find the JSON documentation file for the Fluent UI Components.
+    /// First checks for an external file (useful during development), then falls back to embedded resource.
     /// </summary>
-    /// <returns>The path to the JSON documentation file, or null if not found (will use embedded resource).</returns>
+    /// <returns>The path to the JSON documentation file, or null to use embedded resource.</returns>
     public static string? Find()
     {
         var possiblePaths = new[]
@@ -34,12 +35,12 @@ internal static class JsonDocumentationFinder
 
         if (foundPath != null)
         {
-            Console.Error.WriteLine($"{McpServerConstants.LogPrefix} Found JSON documentation at: {foundPath}");
+            Console.Error.WriteLine($"{McpServerConstants.LogPrefix} Using external JSON documentation at: {foundPath}");
             return foundPath;
         }
 
-        // No external file found - will use embedded resource
-        Console.Error.WriteLine($"{McpServerConstants.LogPrefix} No external JSON documentation file found. Using embedded resource.");
+        // No external file found - JsonDocumentationReader will use embedded resource
+        Console.Error.WriteLine($"{McpServerConstants.LogPrefix} No external JSON documentation file found. Will use embedded resource from DLL.");
         return null;
     }
 }
