@@ -22,23 +22,6 @@ TODO
 If you already have a Blazor project (either from a default template or an existing application),
 follow these steps to integrate **Fluent UI Blazor**.
 
-### 0. During the development phase of version 5
-
-Add this `nuget.config` file to the root of your project.
-During the development phase of v5, the package is placed in [this NuGet feed](https://dev.azure.com/dnceng/public/_artifacts/feed/dotnet9/NuGet/Microsoft.FluentUI.AspNetCore.Components/).
-You must check the Preview box to view it in your package manager.
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <packageSources>
-    <clear />
-    <add key="nuget" value="https://api.nuget.org/v3/index.json" />
-    <add key="dotnet9" value="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json" />
-  </packageSources>
-</configuration>
-```
-
 ### 1. Install the NuGet Package
 
 Use the NuGet Package Manager or run the following command in your terminal:
