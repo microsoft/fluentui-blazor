@@ -1,5 +1,9 @@
 #!/usr/bin/env pwsh
 
+# ###########################################
+# Requires PowerShell Version 7.0+
+# ###########################################
+
 # Script to generate documentation and publish the FluentUI Demo locally
 
 # .NET Framework Version - Change this to net8.0, net9.0, or net10.0 as needed
