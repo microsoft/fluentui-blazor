@@ -2,8 +2,8 @@
 
 ## Prerequisites
 
-- **.NET 9 SDK** or later (v5 does **not** support net8.0)
-- Visual Studio 2022 17.12+ or VS Code with C# Dev Kit
+- **.NET 8 SDK** or later
+- Visual Studio 2026 or VS Code with C# Dev Kit
 
 ## Install the NuGet Package
 
