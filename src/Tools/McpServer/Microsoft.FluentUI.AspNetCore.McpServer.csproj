@@ -10,7 +10,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
     <RootNamespace>Microsoft.FluentUI.AspNetCore.McpServer</RootNamespace>
-    
+
     <PackageId>Microsoft.FluentUI.AspNetCore.McpServer</PackageId>
     <Title>Microsoft Fluent UI Blazor MCP Server</Title>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -60,8 +60,7 @@
   <!-- Include README and MCP server manifest in package -->
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
-    <None Include=".mcp\server.json" />
-    <None Include="$(IntermediateOutputPath)$(NetVersion)\.mcp\server.json" Pack="true" PackagePath=".mcp\" />
+    <None Include=".mcp\server.json" Pack="true" PackagePath=".mcp\" />
     <None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
@@ -116,13 +115,15 @@
   <ItemGroup>
     <Content Remove="..\..\Tools\FluentUI.Demo.DocApiGen\Microsoft.FluentUI.AspNetCore.Components.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="FluentUIComponentsDocumentation.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <!-- Embed the generated JSON documentation file as a resource (added dynamically to handle multi-target timing) -->
+  <Target Name="AddJsonEmbeddedResource" BeforeTargets="PrepareForBuild" Condition="Exists('$(McpDocumentationJsonPath)')">
+    <ItemGroup>
+      <EmbeddedResource Include="FluentUIComponentsDocumentation.json" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)' == '$(NetVersion)'">
     <ItemGroup>
       <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(NetVersion)\*.xml" />
     </ItemGroup>
@@ -143,7 +144,7 @@
 
     <Message Text="Generating MCP documentation JSON... TargetFramework=$(TargetFramework)" Importance="high" />
 
-    <!-- Build the FluentUI Components first to ensure DLL and XML exist -->    
+    <!-- Build the FluentUI Components first to ensure DLL and XML exist -->
     <MSBuild Projects="$(MSBuildThisFileDirectory)..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" Targets="Build" Properties="Configuration=$(Configuration)" />
 
     <!-- Restore and Build DocApiGen -->
@@ -156,6 +157,20 @@
     <Message Text="MCP documentation JSON generated at $(McpDocumentationJsonPath)" Importance="high" />
   </Target>
 
+  <!--
+    Outer-build target: Generate JSON before dispatching to inner builds (multi-target).
+    This ensures FluentUIComponentsDocumentation.json exists for ALL target frameworks.
+    Runs only during multi-target builds (when TargetFramework is empty).
+  -->
+  <Target Name="GenerateMcpDocumentationBeforeDispatch"
+          BeforeTargets="DispatchToInnerBuilds"
+          Condition="'$(TargetFramework)' == '' AND (!Exists('$(McpDocumentationJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true')">
+    <Message Text="Generating MCP documentation JSON before multi-target dispatch..." Importance="high" />
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             Targets="GenerateMcpDocumentation"
+             Properties="TargetFramework=$(NetVersion);Configuration=$(Configuration)" />
+  </Target>
+
   <!-- Clean target to remove generated documentation -->
   <Target Name="CleanMcpDocumentation" AfterTargets="Clean">
     <Message Text="Cleaning MCP documentation JSON at $(McpDocumentationJsonPath)..." Importance="high" Condition="Exists('$(McpDocumentationJsonPath)')" />
@@ -164,32 +179,49 @@
   </Target>
 
   <!--
-    Target to update version in server.json before packing.
-    This copies server.json to intermediate directory and replaces version placeholders.
+    Inline task for reliable version replacement in server.json.
+    Uses C# code to read, regex-replace, and write the file preserving formatting.
   -->
-  <Target Name="UpdateMcpServerJsonVersion" BeforeTargets="BeforeBuild">
+  <UsingTask TaskName="ReplaceVersionInJsonFile" TaskFactory="RoslynCodeTaskFactory"
+             AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <SourceFile ParameterType="System.String" Required="true" />
+      <DestinationFile ParameterType="System.String" Required="true" />
+      <NewVersion ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs">
+        var content = System.IO.File.ReadAllText(SourceFile);
+        content = System.Text.RegularExpressions.Regex.Replace(
+            content,
+            @"""version"":\s*""[^""]*""",
+            $@"""version"": ""{NewVersion}""");
+        var dir = System.IO.Path.GetDirectoryName(DestinationFile);
+        if (!string.IsNullOrEmpty(dir) &amp;&amp; !System.IO.Directory.Exists(dir))
+            System.IO.Directory.CreateDirectory(dir);
+        System.IO.File.WriteAllText(DestinationFile, content);
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <!--
+    Target to stamp version in .mcp/server.json before build and pack.
+    Replaces all "version": "..." entries with the current $(Version) in-place.
+    The source file uses "0.0.1" as a placeholder; the actual version is set during build.
+    Runs once per build (for the primary target framework only).
+    In CI, the working tree is disposable. For local Release builds, use 'git checkout' to restore.
+  -->
+  <Target Name="UpdateMcpServerJsonVersion" BeforeTargets="BeforeBuild"
+          Condition="'$(TargetFramework)' == '$(NetVersion)' AND '$(Configuration)' == 'Release'">
     <PropertyGroup>
-      <McpServerJsonSource>$(MSBuildThisFileDirectory).mcp\server.json</McpServerJsonSource>
-      <McpServerJsonTarget>$(IntermediateOutputPath).mcp\server.json</McpServerJsonTarget>
+      <McpServerJsonPath>$(MSBuildThisFileDirectory).mcp\server.json</McpServerJsonPath>
     </PropertyGroup>
 
-    <MakeDir Directories="$(IntermediateOutputPath).mcp" />
+    <ReplaceVersionInJsonFile SourceFile="$(McpServerJsonPath)"
+                              DestinationFile="$(McpServerJsonPath)"
+                              NewVersion="$(Version)" />
 
-    <!-- Read the source file -->
-    <ReadLinesFromFile File="$(McpServerJsonSource)">
-      <Output TaskParameter="Lines" ItemName="McpServerJsonLines" />
-    </ReadLinesFromFile>
-
-    <!-- Replace version in each line and write to target -->
-    <ItemGroup>
-      <McpServerJsonLinesUpdated Include="@(McpServerJsonLines)">
-        <Text>$([System.Text.RegularExpressions.Regex]::Replace('%(Identity)', '"version":\s*"[^"]*"', '"version": "$(Version)"'))</Text>
-      </McpServerJsonLinesUpdated>
-    </ItemGroup>
-
-    <WriteLinesToFile File="$(McpServerJsonTarget)" Lines="@(McpServerJsonLinesUpdated->'%(Text)')" Overwrite="true" />
-
-    <Message Text="Updated server.json version to $(Version)" Importance="high" />
+    <Message Text="Updated .mcp/server.json version to $(Version)" Importance="high" />
   </Target>
 
 </Project>
