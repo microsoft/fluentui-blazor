@@ -52,7 +52,7 @@ public partial class MigrationService
     /// The search is case-insensitive and supports both prefixed and unprefixed names.
     /// </param>
     /// <returns>The component migration documentation, or null if not found.</returns>
-    public GeneralInfo? GetComponentMigration(string componentName)
+    public GeneralInfo? GetComponentMigration(string? componentName)
     {
         if (string.IsNullOrWhiteSpace(componentName))
         {
@@ -107,8 +107,11 @@ public partial class MigrationService
     private void LoadMigrationDocumentation()
     {
         var assembly = Assembly.GetExecutingAssembly();
+
+        // Only include resources from the Migration folder (segment ".Migration." in the resource name)
+        // to avoid capturing unrelated files like MigrationVersion5.md from other folders.
         var resourceNames = assembly.GetManifestResourceNames()
-            .Where(name => name.Contains("Migration", StringComparison.OrdinalIgnoreCase) &&
+            .Where(name => name.Contains(".Migration.", StringComparison.OrdinalIgnoreCase) &&
                            name.EndsWith(".md", StringComparison.OrdinalIgnoreCase));
 
         foreach (var resourceName in resourceNames)
