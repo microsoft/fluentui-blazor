@@ -49,6 +49,9 @@ internal static class ServiceCollectionExtensions
         // Excludes the 'mcp' folder
         services.AddSingleton(_ => new DocumentationService(["mcp"]));
 
+        // Migration service (dedicated migration documentation)
+        services.AddSingleton<MigrationService>();
+
         return services;
     }
 
