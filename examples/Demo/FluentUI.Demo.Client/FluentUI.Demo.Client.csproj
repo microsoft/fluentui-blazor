@@ -53,6 +53,7 @@
     <EmbeddedResource Include="**\*.md" />
     <EmbeddedResource Remove="DebugPages\_README.md" />
     <EmbeddedResource Remove="wwwroot\copilot-instructions.md" />
+    <EmbeddedResource Remove="wwwroot\skills\**\*.md" />
     <AdditionalFiles Include="$(ProjectDir)/*.xml" />
   </ItemGroup>
 

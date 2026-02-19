@@ -41,6 +41,7 @@ The MCP Server exposes three types of capabilities:
 - [MCP Prompts](/Mcp/Prompts) - Prompt templates
 - [MCP Tools](/Mcp/Tools) - Available tools
 - [Usage Examples](/Mcp/Examples) - Real-world examples
+- [AI Skills](/Mcp/AISkills) - Downloadable skill files for AI assistants
 - [Security & Compliance](/Mcp/Security) - Security information for SecOps teams
 
 ## References
