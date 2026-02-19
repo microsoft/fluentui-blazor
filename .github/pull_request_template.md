@@ -58,6 +58,13 @@ Please provide a summary of the tests affected by this work and any unique strat
 - [ ] I have modified an existing component
 - [ ] I have validated the [Unit Tests](https://github.com/Microsoft/fluentui-blazor/blob/master/unit-tests.md) for an existing component
 
+### MCP Server
+
+<!--- Review the list and put an x in the boxes that apply. -->
+<!--- Remove this section if not applicable. -->
+- [ ] I have added or updated MCP Server tools/prompts/resources
+- [ ] I have added [Unit Tests](https://github.com/Microsoft/fluentui-blazor/blob/master/unit-tests.md) for my MCP Server changes
+
 ## ⏭ Next Steps
 
 <!---
