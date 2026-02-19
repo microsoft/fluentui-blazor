@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public class HierarchicalSelectColumn<TGridItem> : SelectColumn<TGridItem>
 {
-    private bool _isSyncing; // Add this private field
+    private bool _isSyncing;
 
     /// <summary>
     /// Initializes a new instance of <see cref="HierarchicalSelectColumn{TGridItem}"/>.
@@ -28,6 +28,20 @@ public class HierarchicalSelectColumn<TGridItem> : SelectColumn<TGridItem>
         MinWidth = "150px";
         SelectMode = DataGridSelectMode.Multiple;
         Property = (item) => item is IHierarchicalGridItem { IsSelected: true };
+    }
+
+    /// <summary>
+    /// Ensures that this column always uses multiple selection mode, even if a different
+    /// value is supplied via parameters inherited from <see cref="SelectColumn{TGridItem}"/>.
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (SelectMode != DataGridSelectMode.Multiple)
+        {
+            // Lock the selection mode to Multiple to avoid inconsistent behavior.
+            SelectMode = DataGridSelectMode.Multiple;
+        }
     }
 
     /// <summary>

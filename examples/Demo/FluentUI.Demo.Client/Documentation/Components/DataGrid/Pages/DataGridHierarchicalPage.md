@@ -26,10 +26,10 @@ This example also shows how to programmatically expand and collapse rows by manu
 
 ## Hierarchical and selectable
 
-A hierachical grid can have selecable rows by using the `HierarchicalSelectColumn`. Basically this is a combination of a `SelectColumn`, a `TemplateColumn` and 
-parameters related to the `HierachicalGridItem` already set to sensible defaults. A HierarchicalSelectColumn **must**  be the first column in the grid.
+A hierarchical grid can have selectable rows by using the `HierarchicalSelectColumn`. Basically this is a combination of a `SelectColumn`, a `TemplateColumn` and 
+parameters related to the `HierarchicalGridItem` already set to sensible defaults. A HierarchicalSelectColumn **must**  be the first column in the grid.
 
-With regards to the select capabilities, this column type only supports multiple selection (i.e. `DataGridSelectMode.Multiple` is set and cannot be changed).
+With regards to the select capabilities, this column type **only supports multiple selection** (i.e. `DataGridSelectMode.Multiple` is set and cannot be changed).
 The selected state of an item is tied to the parent-child relationships between items:
 - If any child is selected or 1 child is not selected, parent state is indeterminate
 - If all children are selected, parent state is selected
