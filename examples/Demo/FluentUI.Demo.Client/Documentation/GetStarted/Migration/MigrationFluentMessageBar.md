@@ -4,9 +4,6 @@ route: /Migration/MessageBar
 hidden: true
 ---
 
-### New properties
-  `Layout`, `Size`,  `Shape`, `AriaLive` are new properties.
-
 ### Renamed properties 🔃
   The `FadeIn` property has been renamed to `Animation`.
 

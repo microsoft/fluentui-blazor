@@ -1,18 +1,14 @@
+---
+title: Migration FluentMenu
+route: /Migration/Menu
+hidden: true
+---
+
 ### General
 We do not (currently) use the Menu service and Menu provider anymore. These are not needed as the underlying web component uses a different way of
 displaying the menu (using `popover` when available).
 
 
-
-### New parameters
-- `Trigger` (string?)
-- `OpenOnHover` (bool)
-- `OpenOnContext` (bool)
-- `PersistOnItemClick` (bool)
-- `CloseOnScroll` (bool)*
-- `Height` (string?)
-
-\* not working yet
 
 ### Removed parameters💥
   - `UseMenuService`

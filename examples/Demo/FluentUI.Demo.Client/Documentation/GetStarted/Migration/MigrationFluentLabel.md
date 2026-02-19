@@ -1,13 +1,8 @@
 ---
-title: Migrating FluentLabel
+title: Migration FluentLabel
 route: /Migration/Label
 hidden: true
 ---
-
-### New properties
-
-- `Size`, sets the label font size.
-- `Required`, sets required field styling by adding an asterisk 
 
 ### Changed properties 🔃
 - `Weight`, now used to determine if the label text is shown regular or semibold

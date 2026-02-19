@@ -4,9 +4,6 @@ route: /Migration/Button
 hidden: true
 ---
 
-### New properties
-  `Size`,  `Shape`, `DisabledFocusable` are new properties.
-
 ### Renamed properties 🔃
   The `Action` property has been renamed to `FormAction`.
   

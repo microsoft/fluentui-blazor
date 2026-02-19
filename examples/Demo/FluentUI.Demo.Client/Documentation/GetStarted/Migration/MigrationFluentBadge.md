@@ -1,15 +1,12 @@
+---
+title: Migration FluentBadge
+route: /Migration/Badge
+hidden: true
+---
+
 ### General
 The text that is displayed in a badge is now set using the `Content` parameter. The `ChildContent`
 parameter is now used to specify the badge 'wraps'.
-
-### New parameters
-- `Size`
-- `Shape`
-- `IconStart`
-- `IconEnd` 
-- `Positioning`
-- `OffsetX`
-- `OffsetY`
 
 ### Removed parameters💥
   - `Fill`

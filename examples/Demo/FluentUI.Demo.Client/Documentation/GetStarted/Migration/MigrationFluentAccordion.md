@@ -1,29 +1,15 @@
+---
+title: Migration FluentAccordion
+route: /Migration/Accordion
+hidden: true
+---
+
 ### General
 The `HeadingLevel` parameter type has been changed from `string?` to `int?`
 
-### New parameters FluentAccordion
-- `Size`
-- `ExpandMode`
-- `Block`
-- `MarkerPosition`
-
-### New EventCallbacks and methods for FluentAccordion
-- `ExpandModeChanged`
-- `ExpandItemAsync` and `CollapsItemAsync`. Supply these with an id parameter to programmatically change the status of an item.
-
-
-### New parameters FluentAccordionItem
-- `Size`
-- `ExpandMode`
-- `Block`
-- `MarkerPosition`
-- `Header`; this replaces `Heading` parameter
-- `HeaderTemplate`; this replaces `HeadingTemplate` parameter.
-It does not really make sense to set these parameters on a item level. We therefore copy teh values for the parent Accordion component.
-
-### New EventCallback for FluentAccordionItem
-- `ExpandedChanged`
-
+### Renamed parameters FluentAccordionItem
+- `Heading` → `Header`
+- `HeadingTemplate` → `HeaderTemplate`
 
 ### Migrating to v5
 The `OnAccordionItemChange` callback now uses the new `AccordionItemEventArgs` type as the callback data

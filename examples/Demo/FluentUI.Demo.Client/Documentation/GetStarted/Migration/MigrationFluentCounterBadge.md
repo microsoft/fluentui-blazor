@@ -1,17 +1,8 @@
-### General
-If `ChildContent` is provided, the counter badge will 'wrap' that content nd be positioned on top.
-By default, the counter badge will be displayed at the above-end corner of the content.
-Use the `Positioning` parameter to specify a different placement.Use the `OffsetX` and `OffsetY` parameters to specify the offset from the specified position.
-
-### New parameters
-- `Size`
-- `Shape`
-- `OverflowCount`
-- `IconStart` 
-- `IconEnd` 
-- `Positioning`
-- `OffsetX`
-- `OffsetY`
+---
+title: Migration FluentCounterBadge
+route: /Migration/CounterBadge
+hidden: true
+---
 
 ### Removed parameters💥
   - `HorizontalPosition` and `VerticalPosition`.

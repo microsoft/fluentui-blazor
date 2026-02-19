@@ -23,6 +23,3 @@ hidden: true
       config.DefaultValues.For<FluentStack>().Set(p => p.VerticalGap, "10px");
   });
   ```
-
-### New properties
-  `Height` is a new property.

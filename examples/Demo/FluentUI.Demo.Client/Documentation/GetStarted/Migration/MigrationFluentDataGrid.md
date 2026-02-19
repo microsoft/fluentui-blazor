@@ -1,3 +1,9 @@
+---
+title: Migration FluentDataGrid
+route: /Migration/DataGrid
+hidden: true
+---
+
 ### Renamed parameters
 - `ColumnOptionsLabels` has been renamed to `ColumnOptionsUISettings`
 - `ColumnResizeLabels` has been renamed to `ColumnResizeUISettings`
