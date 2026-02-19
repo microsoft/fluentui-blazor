@@ -152,7 +152,7 @@ Configure in your MCP client:
 }
 ```
 
-> **Note:** The `--framework` argument is required because the project targets multiple frameworks (`net9.0` and `net10.0`). Use `net10.0` if you have the .NET 10 SDK installed.
+> **Note:** The `--framework` argument is required when building or running a multi-target configuration (for example, Release) or whenever `dotnet run` reports multiple target frameworks. In that case, specify either `net9.0` or `net10.0` depending on which .NET SDKs you have installed.
 
 ## Architecture
 
@@ -371,7 +371,7 @@ Check that:
 1. The solution builds successfully
 2. .NET 9.0 SDK (or later) is installed
 3. The path in your MCP configuration is correct
-4. When building from source, the `--framework` argument is specified (e.g., `net9.0`)
+4. When running from source with `dotnet run`, the `--framework` argument is specified (e.g., `net9.0`) if the project is multi-targeting (for example, when using `-c Release`)
 
 ## License
 
