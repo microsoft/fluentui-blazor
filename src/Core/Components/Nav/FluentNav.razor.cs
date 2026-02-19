@@ -29,6 +29,7 @@ public partial class FluentNav : FluentComponentBase
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
     internal bool _navOpen = true;
     private readonly List<FluentNavCategory> _categories = [];
+    private readonly List<FluentNavBase> _items = [];
     private bool _previousUseSingleExpanded;
 
     /// <summary />
@@ -80,6 +81,16 @@ public partial class FluentNav : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary />
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
 
     /// <summary>
     /// Gets or sets the background color of the component.
@@ -139,6 +150,15 @@ public partial class FluentNav : FluentComponentBase
 
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
         }
+    }
+
+    /// <inheritdoc />
+    public override async ValueTask DisposeAsync()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+
+        await base.DisposeAsync();
+        GC.SuppressFinalize(this);
     }
 
     /// <summary>
@@ -227,6 +247,33 @@ public partial class FluentNav : FluentComponentBase
     internal void UnregisterCategory(FluentNavCategory category)
     {
         _categories.Remove(category);
+    }
+
+    /// <summary>
+    /// Registers an item with this nav component.
+    /// </summary>
+    internal void Register(FluentNavBase item)
+    {
+        if (!_items.Contains(item))
+        {
+            _items.Add(item);
+        }
+    }
+
+    /// <summary>
+    /// Unregisters an item from this nav component.
+    /// </summary>
+    internal void Unregister(FluentNavBase item)
+    {
+        _items.Remove(item);
+    }
+
+    private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs args)
+    {
+        foreach (var item in _items)
+        {
+            item.UpdateActiveState(args.Location);
+        }
     }
 
     /// <summary>

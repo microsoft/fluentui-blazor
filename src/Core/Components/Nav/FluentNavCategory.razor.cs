@@ -15,10 +15,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <remarks>Use this class to organize navigation elements into logical groups when building fluent or
 /// hierarchical navigation structures. Grouping navigation items can improve usability and clarity in user interfaces
 /// that support complex navigation scenarios.</remarks>
-public partial class FluentNavCategory : FluentComponentBase
+public partial class FluentNavCategory : FluentNavBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
-    private bool _isActive;
     private readonly List<FluentNavItem> _subitems = [];
     private bool _hasBeenManuallyCollapsed;
 
@@ -81,15 +80,6 @@ public partial class FluentNavCategory : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the parent <see cref="FluentNav"/> component for this instance.
-    /// </summary>
-    /// <remarks>This property is typically set automatically by the Blazor framework when the component is
-    /// used within a <see cref="FluentNav"/>. It enables the component to access shared state or functionality from
-    /// its parent navigation menu.</remarks>
-    [CascadingParameter]
-    public required FluentNav Owner { get; set; }
-
-    /// <summary>
     /// Validates that this component is used within a FluentNav.
     /// </summary>
     protected override void OnParametersSet()
@@ -111,7 +101,7 @@ public partial class FluentNavCategory : FluentComponentBase
         Owner?.RegisterCategory(this);
     }
 
-    /// <summary />
+    /// <inheritdoc />
     public override async ValueTask DisposeAsync()
     {
         Owner.UnregisterCategory(this);
@@ -289,10 +279,15 @@ public partial class FluentNavCategory : FluentComponentBase
     /// <summary>
     /// Updates the active state based on whether any subitem is active and the category is collapsed.
     /// </summary>
-    private void UpdateActiveState()
+    internal override void UpdateActiveState(string? location = null)
     {
         // Only show active state when category is NOT expanded and has an active subitem
-        _isActive = !Expanded && HasActiveSubitem();
+        var shouldBeActiveNow = !Expanded && HasActiveSubitem();
+        if (_isActive != shouldBeActiveNow)
+        {
+            _isActive = shouldBeActiveNow;
+            _ = InvokeAsync(StateHasChanged);
+        }
     }
 
     /// <summary>
