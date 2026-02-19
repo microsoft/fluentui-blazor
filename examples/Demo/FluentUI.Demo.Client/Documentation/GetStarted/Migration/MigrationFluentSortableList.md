@@ -28,3 +28,8 @@ The following CSS variables have changed:
 
 `--fluent-sortable-list-background-color` has been renamed to `--fluent-sortable-list-item-background-color`.
 `--fluent-sortable-list-filtered` has been renamed to `--fluent-sortable-list-item-filtered-background-color`.
+
+### New properties
+- `AriaLabel` (`string?`) — accessible label for the list.
+- `OnAdd` (`EventCallback<FluentSortableListEventArgs>`) — event fired when an item is added.
+- `ItemsChanged` (`EventCallback<IEnumerable<TItem>?>`) — two-way binding support for the items collection.

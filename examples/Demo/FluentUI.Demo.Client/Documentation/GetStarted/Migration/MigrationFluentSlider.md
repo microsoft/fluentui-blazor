@@ -20,3 +20,9 @@ hidden: true
 
   V4: `FluentSlider<TValue>` where `TValue : INumber<TValue>`.
   V5: `FluentSlider<TValue>` where `TValue : struct, IComparable<TValue>`.
+
+- ### New properties
+
+  - `Size` (`SliderSize?`) — controls the slider size.
+  - `Tooltip` (`string?`)
+  - `ImmediateDelay` (`ushort`) — delay in milliseconds before the value is updated during drag.

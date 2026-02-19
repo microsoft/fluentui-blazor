@@ -14,3 +14,7 @@ including fixed width and heights.
 
 ### Keep old behavior
 If trying to keep old behavior, simply add the `px` suffix to the previous integer value and change it to a string.
+
+### New properties
+- `Height` (`string?`) — fixed height for vertical spacing.
+- `Orientation` (`Orientation`) — controls whether the spacer grows horizontally or vertically.

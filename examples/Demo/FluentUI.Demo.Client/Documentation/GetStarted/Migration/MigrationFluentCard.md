@@ -4,27 +4,28 @@ route: /Migration/Card
 hidden: true
 ---
 
-- ### Web component removed 💥
+### Removed parameters 💥
 
-  The `FluentCard` component no longer uses the `<fluent-card>` web component.
-  It now renders a plain `<div>` element with CSS classes. This means custom styling that relied
-  on the web component's shadow DOM will need to be updated to standard CSS.
+- `AreaRestricted` — no longer applicable since the web component has been removed.
+- `MinimalStyle` — use the `Appearance` parameter instead to control the visual style.
 
-- ### Removed properties 💥
+### New parameters
 
-  - `AreaRestricted` — no longer applicable since the web component is removed.
-  - `MinimalStyle` — use `Appearance` property instead to control visual style.
+- `Appearance` (`CardAppearance?`) — controls the visual style of the card (replaces `MinimalStyle`).
+- `Shadow` (`CardShadow?`) — controls the shadow effect on the card.
+- `OnClick` (`EventCallback<MouseEventArgs>`) — click event handler for the card.
+- `Role` (`string`) — ARIA role attribute for the card element.
 
-- ### Migration example
+### Migration example
 
-  ```xml
-  <!-- V4 -->
-  <FluentCard AreaRestricted="false" MinimalStyle="true">
-      Card content
-  </FluentCard>
+```xml
+<!-- V4 -->
+<FluentCard AreaRestricted="false" MinimalStyle="true">
+    Card content
+</FluentCard>
 
-  <!-- V5 -->
-  <FluentCard Appearance="CardAppearance.Subtle">
-      Card content
-  </FluentCard>
-  ```
+<!-- V5 -->
+<FluentCard Appearance="CardAppearance.Subtle">
+    Card content
+</FluentCard>
+```

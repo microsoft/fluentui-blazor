@@ -17,3 +17,11 @@ hidden: true
     <!-- V5 -->
     <FluentDivider Vertical="true" />
     ```
+
+- ### New properties
+
+  - `AlignContent` (`DividerAlignContent?`) — controls content alignment within the divider.
+  - `Appearance` (`DividerAppearance?`) — visual appearance of the divider.
+  - `Inset` (`bool?`) — adds inset spacing.
+  - `Vertical` (`bool?`) — replaces `Orientation`.
+  - `Tooltip` (`string?`)

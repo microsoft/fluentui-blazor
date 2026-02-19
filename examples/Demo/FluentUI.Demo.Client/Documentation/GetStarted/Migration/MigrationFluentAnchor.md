@@ -73,3 +73,8 @@ hidden: true
   `FluentAnchorButton` supports: `Href`, `Target` (`LinkTarget`), `Shape` (`ButtonShape`),
   `Size` (`ButtonSize`), `Appearance` (`ButtonAppearance`), `IconStart`, `IconEnd`,
   `BackgroundColor`, `Color`, `Label`, `Tooltip`.
+
+- ### FluentLink new properties
+
+  - `Inline` (`bool`) — renders the link as inline element.
+  - `Tooltip` (`string?`)

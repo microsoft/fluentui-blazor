@@ -48,3 +48,8 @@ hidden: true
       <FluentPersona Name="Jane" />
   </FluentPresenceBadge>
   ```
+
+- ### New properties
+
+  - `Icon` (`Icon?`) — custom icon override.
+  - `Positioning` (`Positioning?`) — controls badge positioning relative to child content.

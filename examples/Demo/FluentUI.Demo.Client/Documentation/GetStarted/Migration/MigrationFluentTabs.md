@@ -21,6 +21,12 @@ hidden: true
   - `ShowClose` (`bool`) — removed, no close button support.
   - `ShowActiveIndicator` (`bool`) — always shown in V5.
 
+  #### New properties
+  - `Appearance` (`TabsAppearance?`)
+  - `Disabled` (`bool`)
+  - `ActiveTab` (`FluentTab?`) — direct reference to the active tab.
+  - `ActiveTabChanged` (`EventCallback<FluentTab?>`) — replaces `OnTabSelect`/`OnTabChange`.
+
 - ### FluentTab changes
 
   #### Renamed properties 💥
@@ -39,6 +45,10 @@ hidden: true
   - `LabelChanged` (`EventCallback<string>`) — no longer editable inline.
   - `LabelEditable` (`bool`) — inline label editing is no longer supported.
   - `Content` (`RenderFragment?`) — use `ChildContent` for all content.
+
+  #### New properties
+  - `IconColor` (`Color?`) — icon color override.
+  - `Tooltip` (`string?`)
 
 - ### Migration example
 

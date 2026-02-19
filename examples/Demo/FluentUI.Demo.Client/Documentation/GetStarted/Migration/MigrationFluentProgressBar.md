@@ -19,3 +19,9 @@ to be coherent with the Web Components and React naming conventions.
   The `Paused` property has been removed. Set a `Value` to display the
   ProgressBar in "paused" state. Set a `null` value to display the ProgressBar in
   "indeterminate" state.
+
+### New properties
+- `Shape` (`ProgressShape?`) — visual shape of the progress bar.
+- `State` (`ProgressState?`) — state indicator (e.g. error, warning, success).
+- `Thickness` (`ProgressThickness?`) — controls the thickness of the bar.
+- `Tooltip` (`string?`)

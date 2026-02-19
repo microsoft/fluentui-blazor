@@ -23,3 +23,6 @@ hidden: true
       config.DefaultValues.For<FluentStack>().Set(p => p.VerticalGap, "10px");
   });
   ```
+
+### New properties
+- `Height` (`string?`) — fixed height for the stack container.

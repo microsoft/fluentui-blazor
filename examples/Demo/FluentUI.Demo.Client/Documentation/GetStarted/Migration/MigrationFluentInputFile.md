@@ -24,3 +24,8 @@ hidden: true
     <FluentInputFile OnFileError="@HandleError" />
     // In handler, check: if (args.FileCountExceeded) { ... }
     ```
+
+- ### New properties
+
+  - `Width` (`string?`)
+  - `Height` (`string?`)

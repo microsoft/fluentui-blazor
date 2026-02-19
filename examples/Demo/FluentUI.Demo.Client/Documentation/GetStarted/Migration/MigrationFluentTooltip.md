@@ -51,3 +51,7 @@ You can use the `ToPositioning()` method to convert the `Position` property to t
 |`TooltipPosition.Start`  |`Positioning.AboveStart`|
 |`TooltipPosition.End`    |`Positioning.AboveEnd`|
 
+### New properties
+- `SpacingHorizontal` (`string?`) — horizontal spacing between the tooltip and the anchor.
+- `SpacingVertical` (`string?`) — vertical spacing between the tooltip and the anchor.
+

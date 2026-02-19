@@ -17,4 +17,8 @@ hidden: true
   <FluentIcon Value="@(new Icons.Regular.Size20.Home())" Color="Color.Primary" />
   ```
 
+- ### New properties
+
+  - `Tooltip` (`string?`) — adds a tooltip to the icon.
+
 

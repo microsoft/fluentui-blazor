@@ -36,3 +36,32 @@ displaying the menu (using `popover` when available).
 |`MenuItemRole.MenuItemCheckbox`     |`MenuItemRole.Checkbox`|
 |`MenuItemRole.MenuItemRadio` |`MenuItemRole.Radio`|
 
+### FluentMenu new properties
+- `OpenOnHover` (`bool?`) — opens the menu on hover.
+- `OpenOnContext` (`bool?`) — opens the menu on right-click.
+- `CloseOnScroll` (`bool?`) — closes the menu when the page is scrolled.
+- `PersistOnItemClick` (`bool?`) — keeps the menu open after an item is clicked.
+- `Height` (`string?`)
+- `OnClick` (`EventCallback<MenuItemEventArgs>`)
+- `Tooltip` (`string?`)
+
+### FluentMenuItem changes
+
+#### Removed properties 💥
+- `Expanded` (`bool`)
+- `KeepOpen` (`bool`)
+
+#### Changed properties
+| V4 Property | V5 Property | Change |
+|-------------|-------------|--------|
+| `Disabled` (`bool`) | `Disabled` (`bool?`) | Now nullable |
+| `Checked` (`bool`) | `Checked` (`bool?`) | Now nullable |
+| `OnClick` (`EventCallback<MouseEventArgs>`) | `OnClick` (`EventCallback<MenuItemEventArgs>`) | Event args changed |
+| `CheckedChanged` (`EventCallback<bool>`) | `CheckedChanged` (`EventCallback<bool?>`) | Now nullable |
+
+#### New properties
+- `IconStart` (`Icon?`)
+- `IconEnd` (`Icon?`)
+- `IconSubmenu` (`Icon?`)
+- `IconIndicator` (`Icon?`)
+

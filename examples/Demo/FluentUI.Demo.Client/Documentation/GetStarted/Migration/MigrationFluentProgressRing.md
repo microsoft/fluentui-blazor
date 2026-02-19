@@ -24,3 +24,8 @@ to be coherent with the Web Components and React naming conventions.
   The `Color`, `Min`, `Max`, `Value` properties have been removed.
 
   The `Width` property has been removed. Use `Size` instead.
+
+### New properties
+- `AppearanceInverted` (`bool`) — inverted appearance for dark backgrounds.
+- `Size` (`SpinnerSize?`) — controls the spinner size.
+- `Tooltip` (`string?`)

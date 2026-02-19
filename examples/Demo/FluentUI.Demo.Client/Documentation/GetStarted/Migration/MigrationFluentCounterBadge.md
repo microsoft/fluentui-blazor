@@ -4,53 +4,31 @@ route: /Migration/CounterBadge
 hidden: true
 ---
 
-### Removed parameters💥
-  - `HorizontalPosition` and `VerticalPosition`.
-  - `ShowOverflow`. 
-  - `Max`; Use `OverflowCount` instead. 
+### General
 
-### Appearance 💥
-  The `Appearance` parameter has been updated to use the `BadgeAppearance` enum
-    instead of `Appearance` enum.
+The `FluentCounterBadge` component has been significantly simplified in V5. It no longer
+accepts `ChildContent`, `BadgeContent` or `BadgeTemplate` render fragments. Positioning
+parameters have been removed — use `FluentBadge` with `Positioning` if you need to anchor
+a counter to an element.
 
-    `BadgeAppearance` enum has the following values :
-    - `Filled`
-    - `Ghost`
-    - `Outline`*
-    - `Tint`*
+### Removed parameters 💥
 
-    * Not supported in CounterBadge
+- `ChildContent` and `BadgeContent` — the component no longer wraps other content.
+- `BadgeTemplate` (`RenderFragment<int?>`) — custom badge rendering template removed.
+- `Max`; use `OverflowCount` instead.
+- `HorizontalPosition`, `BottomPosition` and `VerticalPosition` — positioning is no longer configurable on this component.
+- `Appearance` — no longer supported on `FluentCounterBadge`.
+- `BackgroundColor` and `Color` — no longer supported on `FluentCounterBadge`.
+- `ShowOverflow` — overflow display is now controlled by `OverflowCount`.
 
-### Color 💥
-    The `Color` parameter has been updated to use the `BadgeColor` enum
-      instead of being of type `String?`.
+### Renamed parameters 💥
 
-    `BadgeColor` enum has the following values:
-    - `Brand`
-    - `Danger`
-    - `Important`
-    - `Informative`
-    - `Severe`
-    - `Subtle`
-    - `Success`
-    - `Warning`
-    
-### Migrating to v5
+- `Max` → `OverflowCount` — the maximum count value before showing overflow (e.g. "99+").
 
-You can use the `ToBadgeAppearance()` method to convert the `Appearance` parameter to the `ButtonAppearance` enum.
-```csharp	
-@using Microsoft.FluentUI.AspNetCore.Components.Migration
+### Type-changed parameters 💥
 
-<FluentButton Appearance="Appearance.Accent.ToBadgeAppearance()">Click</FluentButton>
-//                                          ^^^^^^^^^^^^^^^^^^^^
-```
+- `ShowZero`: Changed from `bool` to `bool?`.
 
+### New parameters
 
-|v3 & v4|v5|
-|-----|-----|
-|`Appearance.Neutral`    |`BadgeAppearance.Filled`|
-|`Appearance.Accent`     |`BadgeAppearance.Filled`|
-|`Appearance.Lightweight`|`BadgeAppearance.Ghost`|
-
-The other values of the `Appearance` enum were not supported in earlier versions
-and will be converted to `BadgeAppearance.Filled`.
+- `ShowEmpty` (`bool`) — when true, shows the badge even when `Count` is null.
