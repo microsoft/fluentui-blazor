@@ -33,7 +33,7 @@ public class IconTools
     /// Supports common synonyms (e.g., 'trash' finds Delete, 'notification' finds Alert).
     /// </summary>
     [McpServerTool]
-    [Description("Search for Fluent UI icons by name or keyword. Supports synonyms like 'trash' → Delete, 'notification' → Alert, 'gear' → Settings. Use this to find icons for buttons, menus, toolbars, navigation, and other UI elements.")]
+    [Description("Search for Fluent UI icons by name or keyword. Supports synonyms like 'trash' → Delete, 'notification' → Alert, 'gear' → Settings. Use this to find icons for buttons, menus, toolbars, navigation, and other UI elements. If no results are found, call ListAllIconNames to retrieve the full icon catalog and perform your own fuzzy/semantic term matching to find the closest icon name.")]
     public string SearchIcons(
         [Description("The search term: an icon name (e.g., 'Bookmark') or a keyword (e.g., 'trash', 'notification', 'settings', 'calendar').")]
         string searchTerm,
@@ -76,6 +76,7 @@ public class IconTools
         sb.AppendLine("- Try a broader keyword (e.g., 'arrow' instead of 'arrow-left')");
         sb.AppendLine("- Use common terms like 'trash', 'notification', 'gear', 'home'");
         sb.AppendLine("- Remove the variant/size filter to see all matches");
+        sb.AppendLine("- **Recommended:** Call `ListAllIconNames()` to retrieve the full icon catalog, then perform your own fuzzy or semantic matching to find the closest icon name.");
         return sb.ToString();
     }
 
