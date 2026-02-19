@@ -8,7 +8,7 @@ icon: ShieldCheckmark
 
 # Version Compatibility
 
-The MCP server and the `Microsoft.FluentUI.AspNetCore.Components` NuGet package are **published together with the same version number** (e.g. `5.0.0-alpha.1`).
+The MCP server and the `Microsoft.FluentUI.AspNetCore.Components` NuGet package are **published together with the same version number** (e.g. `5.0.0-rc.1-26049.2`).
 Because the documentation served by the MCP server is generated from a specific version of the component library, your project **must** reference the matching version to ensure the documentation is accurate.
 
 ## Why It Matters
@@ -40,11 +40,11 @@ What version of Fluent UI Blazor does this MCP server target?
 
 The AI calls `GetVersionInfo` and receives:
 
-- The MCP server version (e.g. `5.0.0-alpha.1`)
+- The MCP server version (e.g. `5.0.0-rc.1-26049.2`)
 - The expected `PackageReference`:
 
 ```xml
-<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.0-alpha.1" />
+<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.0-rc.1-26049.2" />
 ```
 
 ### Step 2 — Validate your project
@@ -80,10 +80,10 @@ User: "I want to use FluentDataGrid in my project."
 AI: [Calls GetVersionInfo → reads .csproj → Calls CheckProjectVersion("4.9.0")]
 
 AI: "Your project references version 4.9.0 of the component library,
-     but this MCP server provides documentation for version 5.0.0-alpha.1.
+     but this MCP server provides documentation for version 5.0.0-rc.1-26049.2.
      Parameters and APIs may differ.
      I recommend upgrading:
-     dotnet add package Microsoft.FluentUI.AspNetCore.Components --version 5.0.0-alpha.1"
+     dotnet add package Microsoft.FluentUI.AspNetCore.Components --version 5.0.0-rc.1-26049.2"
 ```
 
 ## Best Practices
@@ -100,7 +100,7 @@ AI: "Your project references version 4.9.0 of the component library,
            "fluent-ui-blazor": {
                "command": "dnx",
                "args": [
-                   "Microsoft.FluentUI.AspNetCore.McpServer@5.0.0-alpha.1"
+                   "Microsoft.FluentUI.AspNetCore.McpServer@5.0.0-rc.1-26049.2"
                ]
            }
        }

@@ -208,7 +208,7 @@ Resources provide static documentation that users can attach to conversations.
 
 ## Version Compatibility
 
-The MCP server and the `Microsoft.FluentUI.AspNetCore.Components` NuGet package are published together with the **same version number** (e.g. `5.0.0-alpha.1`). Because the documentation served by the MCP is generated from a specific version of the library, it is important that the user's project references the matching version.
+The MCP server and the `Microsoft.FluentUI.AspNetCore.Components` NuGet package are published together with the **same version number** (e.g. `5.0.0-rc.1-26049.2`). Because the documentation served by the MCP is generated from a specific version of the library, it is important that the user's project references the matching version.
 
 Two tools are provided to automate this check:
 
@@ -229,8 +229,8 @@ Two tools are provided to automate this check:
 ```
 # Step 1 – Get the MCP server version
 GetVersionInfo()
-# → MCP version: 5.0.0-alpha.1
-# → Expected: <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.0-alpha.1" />
+# → MCP version: 5.0.0-rc.1-26049.2
+# → Expected: <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.0-rc.1-26049.2" />
 
 # Step 2 – Read the user's .csproj, find version "4.9.0"
 

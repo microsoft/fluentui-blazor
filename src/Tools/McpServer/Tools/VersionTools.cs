@@ -65,7 +65,7 @@ public class VersionTools
     /// <c>Microsoft.FluentUI.AspNetCore.Components</c> for this MCP server.
     /// </summary>
     /// <param name="projectVersion">The version found in the user's .csproj PackageReference
-    /// for Microsoft.FluentUI.AspNetCore.Components (e.g., '5.0.0-alpha.1').</param>
+    /// for Microsoft.FluentUI.AspNetCore.Components (e.g., '5.0.0-rc.1-26049.2').</param>
     /// <returns>
     /// A string indicating whether the versions match, or a warning with upgrade instructions.
     /// </returns>
@@ -74,12 +74,12 @@ public class VersionTools
                  "for this MCP server. Pass the version string found in the user's .csproj PackageReference. " +
                  "If versions do not match, the documentation provided by this MCP server may be inaccurate.")]
     public static string CheckProjectVersion(
-        [Description("The version of Microsoft.FluentUI.AspNetCore.Components found in the user's .csproj PackageReference (e.g., '5.0.0-alpha.1').")]
+        [Description("The version of Microsoft.FluentUI.AspNetCore.Components found in the user's .csproj PackageReference (e.g., '5.0.0-rc.1-26049.2').")]
         string projectVersion)
     {
         if (string.IsNullOrWhiteSpace(projectVersion))
         {
-            return "Please provide the version of Microsoft.FluentUI.AspNetCore.Components from the user's .csproj PackageReference (e.g., '5.0.0-alpha.1').";
+            return "Please provide the version of Microsoft.FluentUI.AspNetCore.Components from the user's .csproj PackageReference (e.g., '5.0.0-rc.1-26049.2').";
         }
 
         var mcpVersion = GetMcpSemanticVersion();
@@ -155,8 +155,8 @@ public class VersionTools
     }
 
     /// <summary>
-    /// Extracts the semantic version portion (e.g., "5.0.0-alpha.1") from an informational version string
-    /// that may include build metadata (e.g., "5.0.0-alpha.1+abc123").
+    /// Extracts the semantic version portion (e.g., "5.0.0-rc.1-26049.2") from an informational version string
+    /// that may include build metadata (e.g., "5.0.0-rc.1-26049.2+abc123").
     /// </summary>
     private static string ExtractSemanticVersion(string version)
     {
