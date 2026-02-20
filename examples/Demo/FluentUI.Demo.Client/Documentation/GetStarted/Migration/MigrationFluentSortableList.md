@@ -1,3 +1,9 @@
+---
+title: Migration FluentSortableList
+route: /Migration/SortableList
+hidden: true
+---
+
 ### Removed parameters
 The following parameters have been removed from `FluentSortableList`:
 
@@ -23,10 +29,7 @@ The following CSS variables have changed:
 `--fluent-sortable-list-background-color` has been renamed to `--fluent-sortable-list-item-background-color`.
 `--fluent-sortable-list-filtered` has been renamed to `--fluent-sortable-list-item-filtered-background-color`.
 
-The following CSS variables have been added:
-
-- `--fluent-sortable-list-item-focused-background-color`
-- `--fluent-sortable-list-item-focused-border-color`
-- `--fluent-sortable-list-item-grabbed-background-color`
-- `--fluent-sortable-list-item-grabbed-border-color`
-- `--fluent-sortable-list-item-filtered-color`
+### New properties
+- `AriaLabel` (`string?`) — accessible label for the list.
+- `OnAdd` (`EventCallback<FluentSortableListEventArgs>`) — event fired when an item is added.
+- `ItemsChanged` (`EventCallback<IEnumerable<TItem>?>`) — two-way binding support for the items collection.

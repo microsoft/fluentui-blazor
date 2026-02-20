@@ -97,7 +97,7 @@ dnx Microsoft.FluentUI.AspNetCore.McpServer@5.0.1
 ### Option 3: Build from Source
 
 **Prerequisites:**
-- .NET 9.0 SDK
+- .NET 9.0 SDK (or later)
 - Build the FluentUI Blazor solution first
 
 ```bash
@@ -118,7 +118,9 @@ Configure in your MCP client:
             "args": [
                 "run",
                 "--project",
-                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj"
+                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj",
+                "--framework",
+                "net9.0"
             ],
             "env": {
                 "DOTNET_ENVIRONMENT": "Development"
@@ -138,7 +140,9 @@ Configure in your MCP client:
             "args": [
                 "run",
                 "--project",
-                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj"
+                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj",
+                "--framework",
+                "net9.0"
             ],
             "env": {
                 "DOTNET_ENVIRONMENT": "Development"
@@ -147,6 +151,8 @@ Configure in your MCP client:
     }
 }
 ```
+
+> **Note:** The `--framework` argument is required when building or running a multi-target configuration (for example, Release) or whenever `dotnet run` reports multiple target frameworks. In that case, specify either `net9.0` or `net10.0` depending on which .NET SDKs you have installed.
 
 ## Architecture
 
@@ -288,7 +294,9 @@ GetMigrationGuide()
             "args": [
                 "run",
                 "--project",
-                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj"
+                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj",
+                "--framework",
+                "net9.0"
             ],
             "env": {
                 "DOTNET_ENVIRONMENT": "Development"
@@ -306,7 +314,7 @@ GetMigrationGuide()
 1. Launch the MCP Inspector with the server:
 
 ```bash
-npx @modelcontextprotocol/inspector dotnet run --project src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj
+npx @modelcontextprotocol/inspector dotnet run --project src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj --framework net9.0
 ```
 
 2. Open VS Code and use the **"Attach MCP"** task from the Run and Debug panel to attach the debugger to the running process
@@ -400,8 +408,9 @@ If component descriptions are missing:
 
 Check that:
 1. The solution builds successfully
-2. .NET 9.0 SDK is installed
+2. .NET 9.0 SDK (or later) is installed
 3. The path in your MCP configuration is correct
+4. When running from source with `dotnet run`, the `--framework` argument is specified (e.g., `net9.0`) if the project is multi-targeting (for example, when using `-c Release`)
 
 ## License
 

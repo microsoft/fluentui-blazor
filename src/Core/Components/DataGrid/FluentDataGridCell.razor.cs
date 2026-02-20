@@ -40,7 +40,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("text-align", "center", Column is SelectColumn<TGridItem>)
         .AddStyle("align-content", "center", Column is SelectColumn<TGridItem>)
         .AddStyle("min-width", Column?.MinWidth, Owner.RowType is DataGridRowType.Header or DataGridRowType.StickyHeader && Grid.HeaderCellAsButtonWithMenu)
-        .AddStyle("padding-top", "10px", Column is SelectColumn<TGridItem> && (Grid.RowSize == DataGridRowSize.Medium || Owner.RowType == DataGridRowType.Header))
+        .AddStyle("padding-top", "10px", Column is not HierarchicalSelectColumn<TGridItem> && Column is SelectColumn<TGridItem> && (Grid.RowSize == DataGridRowSize.Medium || Owner.RowType == DataGridRowType.Header))
         .AddStyle("padding-top", "6px", Column is SelectColumn<TGridItem> && Grid.RowSize == DataGridRowSize.Small && Owner.RowType == DataGridRowType.Default)
         .AddStyle("width", Column?.Width, !string.IsNullOrEmpty(Column?.Width) && Grid.DisplayMode == DataGridDisplayMode.Table)
         .AddStyle("height", $"{Grid.ItemSize.ToString(CultureInfo.InvariantCulture):0}px", () => !Grid.EffectiveLoadingValue && Grid.Virtualize)
