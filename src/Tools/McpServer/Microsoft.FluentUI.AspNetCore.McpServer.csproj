@@ -39,6 +39,9 @@
 
     <!-- Path to the generated documentation JSON file -->
     <McpDocumentationJsonPath>$(MSBuildThisFileDirectory)FluentUIComponentsDocumentation.json</McpDocumentationJsonPath>
+
+    <!-- Path to the generated icon catalog JSON file -->
+    <McpIconCatalogJsonPath>$(MSBuildThisFileDirectory)all-icons.json</McpIconCatalogJsonPath>
   </PropertyGroup>
 
   <!-- Expose internals to test project -->
@@ -82,6 +85,13 @@
     <EmbeddedResource Include="..\..\..\examples\Demo\FluentUI.Demo.Client\Documentation\Components\**\Examples\**\*.cs"
                       Link="Documentation\Components\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
+
+  <!-- Embed the generated icon catalog JSON file as a resource (added dynamically to handle multi-target timing) -->
+  <Target Name="AddIconCatalogEmbeddedResource" BeforeTargets="PrepareForBuild" Condition="Exists('$(McpIconCatalogJsonPath)')">
+    <ItemGroup>
+      <EmbeddedResource Include="all-icons.json" LogicalName="Microsoft.FluentUI.AspNetCore.McpServer.all-icons.json" />
+    </ItemGroup>
+  </Target>
 
   <!-- Code Analysis -->
   <ItemGroup>
@@ -139,7 +149,7 @@
     This runs DocApiGen to extract documentation from the FluentUI Components assembly
     and creates a JSON file that is then embedded as a resource.
   -->
-  <Target Name="GenerateMcpDocumentation" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)' == '$(NetVersion)' AND (!Exists('$(McpDocumentationJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true')">
+  <Target Name="GenerateMcpDocumentation" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)' == '$(NetVersion)' AND (!Exists('$(McpDocumentationJsonPath)') OR !Exists('$(McpIconCatalogJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true')">
     <PropertyGroup>
       <DocApiGenProject>$(MSBuildThisFileDirectory)..\..\..\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj</DocApiGenProject>
       <FluentUIComponentsDll>$(MSBuildThisFileDirectory)..\..\Core\bin\$(Configuration)\$(NetVersion)\Microsoft.FluentUI.AspNetCore.Components.dll</FluentUIComponentsDll>
@@ -159,6 +169,11 @@
     <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -c $(Configuration) -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpDocumentationJsonPath)&quot; --format json --mode all" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
 
     <Message Text="MCP documentation JSON generated at $(McpDocumentationJsonPath)" Importance="high" />
+
+    <!-- Run DocApiGen to generate icon catalog JSON -->
+    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -c $(Configuration) -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpIconCatalogJsonPath)&quot; --format json --mode icons" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
+
+    <Message Text="Icon catalog JSON generated at $(McpIconCatalogJsonPath)" Importance="high" />
   </Target>
 
   <!--
@@ -168,7 +183,7 @@
   -->
   <Target Name="GenerateMcpDocumentationBeforeDispatch"
           BeforeTargets="DispatchToInnerBuilds"
-          Condition="'$(TargetFramework)' == '' AND (!Exists('$(McpDocumentationJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true')">
+          Condition="'$(TargetFramework)' == '' AND (!Exists('$(McpDocumentationJsonPath)') OR !Exists('$(McpIconCatalogJsonPath)') OR '$(ForceGenerateMcpDocs)' == 'true')">
     <Message Text="Generating MCP documentation JSON before multi-target dispatch..." Importance="high" />
     <MSBuild Projects="$(MSBuildProjectFile)"
              Targets="GenerateMcpDocumentation"
@@ -180,6 +195,9 @@
     <Message Text="Cleaning MCP documentation JSON at $(McpDocumentationJsonPath)..." Importance="high" Condition="Exists('$(McpDocumentationJsonPath)')" />
     <Delete Files="$(McpDocumentationJsonPath)" Condition="Exists('$(McpDocumentationJsonPath)')" />
     <Message Text="MCP documentation JSON cleaned." Importance="high" Condition="Exists('$(McpDocumentationJsonPath)')" />
+    <Message Text="Cleaning icon catalog JSON at $(McpIconCatalogJsonPath)..." Importance="high" Condition="Exists('$(McpIconCatalogJsonPath)')" />
+    <Delete Files="$(McpIconCatalogJsonPath)" Condition="Exists('$(McpIconCatalogJsonPath)')" />
+    <Message Text="Icon catalog JSON cleaned." Importance="high" Condition="Exists('$(McpIconCatalogJsonPath)')" />
   </Target>
 
   <!--
