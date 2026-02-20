@@ -238,10 +238,7 @@ public partial class FluentNavCategory : FluentNavBase
     {
         Expanded = expanded;
 
-        if (expanded)
-        {
-            UpdateActiveState();
-        }
+        UpdateActiveState();
 
         if (ExpandedChanged.HasDelegate)
         {
@@ -249,11 +246,6 @@ public partial class FluentNavCategory : FluentNavBase
         }
 
         await AnimateCurrentStateAsync();
-
-        if (!expanded)
-        {
-            UpdateActiveState();
-        }
 
         await InvokeAsync(StateHasChanged);
     }

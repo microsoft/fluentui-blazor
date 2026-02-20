@@ -66,10 +66,7 @@
   height: 20px;
   background-color: var(--colorCompoundBrandForeground1);
   margin-inline-start: -16px;
-  animation-name: animate_bar;
-  animation-timing-function: var(--curveLinear);
-  animation-fill-mode: both;
-  animation-duration: var(--durationFaster);
+
   content: "";
   position: absolute;
   border-radius: var(--borderRadiusCircular);
