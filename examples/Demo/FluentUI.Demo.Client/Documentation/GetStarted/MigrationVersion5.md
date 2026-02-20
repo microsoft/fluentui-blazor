@@ -60,7 +60,3 @@ The categories these changes fall in are:
 ## FluentSelect
 
 {{ INCLUDE MigrationFluentSelect }}
-
-## Migrate to v5 with help from GitHub Copilot chat
-
-{{ INCLUDE CopilotInstructionsContent }}
