@@ -1,32 +1,49 @@
-### General
-The `HeadingLevel` parameter type has been changed from `string?` to `int?`
+---
+title: Migration FluentAccordion
+route: /Migration/Accordion
+hidden: true
+---
 
-### New parameters FluentAccordion
-- `Size`
-- `ExpandMode`
-- `Block`
-- `MarkerPosition`
+### FluentAccordionItem - Renamed parameters 💥
 
-### New EventCallbacks and methods for FluentAccordion
-- `ExpandModeChanged`
-- `ExpandItemAsync` and `CollapsItemAsync`. Supply these with an id parameter to programmatically change the status of an item.
+- `Heading` → `Header`
+- `HeadingTemplate` → `HeaderTemplate`
+- `HeadingTooltip` → `HeaderTooltip`
 
+### FluentAccordionItem - Type-changed parameters 💥
 
-### New parameters FluentAccordionItem
-- `Size`
-- `ExpandMode`
-- `Block`
-- `MarkerPosition`
-- `Header`; this replaces `Heading` parameter
-- `HeaderTemplate`; this replaces `HeadingTemplate` parameter.
-It does not really make sense to set these parameters on a item level. We therefore copy teh values for the parent Accordion component.
+- `HeadingLevel`: Changed from `string?` to `int?`.
 
-### New EventCallback for FluentAccordionItem
-- `ExpandedChanged`
+### FluentAccordion - Type-changed parameters 💥
 
+- `OnAccordionItemChange`: Changed from `EventCallback<FluentAccordionItem>` to `EventCallback<AccordionItemEventArgs>`.
+  The affected item can be found in the event arguments via the `Item` property.
 
-### Migrating to v5
-The `OnAccordionItemChange` callback now uses the new `AccordionItemEventArgs` type as the callback data
-instead of the `FluentAccordionItem`. The item affected can be found int the event arguments in the `Item` property
+  ```xml
+  <!-- V4 -->
+  <FluentAccordion OnAccordionItemChange="@OnChange">...</FluentAccordion>
+  @code {
+      void OnChange(FluentAccordionItem item) { }
+  }
 
-The AccordionItem does not expose `start` and `end` slots anymore. Technically they can still be used but they are not styled correctly anymore. As part of the migration work, new styles need to be added manually.
+  <!-- V5 -->
+  <FluentAccordion OnAccordionItemChange="@OnChange">...</FluentAccordion>
+  @code {
+      void OnChange(AccordionItemEventArgs args) { var item = args.Item; }
+  }
+  ```
+
+### New parameters
+
+**FluentAccordion:**
+- `ExpandModeChanged` (`EventCallback<AccordionExpandMode?>`) — two-way binding support for `ExpandMode`.
+- `HeadingLevel` (`int?`) — sets the heading level for all accordion items.
+- `Size` (`AccordionItemSize?`) — sets the size for all accordion items.
+- `MarkerPosition` (`AccordionItemMarkerPosition?`) — controls the expand/collapse marker position.
+- `Block` (`bool?`) — when true, the accordion takes up the full width of its container.
+
+**FluentAccordionItem:**
+- `Disabled` (`bool`) — disables the accordion item.
+- `Size` (`AccordionItemSize?`) — overrides the size set on the parent accordion.
+- `MarkerPosition` (`AccordionItemMarkerPosition?`) — overrides the marker position set on the parent.
+- `Block` (`bool?`) — overrides the block setting on the parent.

@@ -143,19 +143,19 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     private static Func<TGridItem, string?> CreateReferenceTypeFormatter<T>(Func<TGridItem, T?> getter, string format)
         where T : class, IFormattable
     {
-        return item => getter(item)?.ToString(format, null);
+        return item => getter(item)?.ToString(format, formatProvider: null);
     }
 
     private static Func<TGridItem, string?> CreateValueTypeFormatter<T>(Func<TGridItem, T> getter, string format)
         where T : struct, IFormattable
     {
-        return item => getter(item).ToString(format, null);
+        return item => getter(item).ToString(format, formatProvider: null);
     }
 
     private static Func<TGridItem, string?> CreateNullableValueTypeFormatter<T>(Func<TGridItem, T?> getter, string format)
         where T : struct, IFormattable
     {
-        return item => getter(item)?.ToString(format, null);
+        return item => getter(item)?.ToString(format, formatProvider: null);
     }
 
     /// <inheritdoc />

@@ -50,15 +50,6 @@
     background-color: var(--nav-bg-hover, var(--colorNeutralBackground4Hover));
   }
 
-@keyframes animate_bar {
-  0% {
-    background-color: transparent;
-  }
-  100% {
-    background-color: var(--colorCompoundBrandForeground1);
-  }
-}
-
 .fluent-nav .fluent-navitem.active::after,
 .fluent-nav .fluent-navsubitem.active::after,
 .fluent-nav .fluent-navcategoryitem.active::after {
@@ -66,10 +57,6 @@
   height: 20px;
   background-color: var(--colorCompoundBrandForeground1);
   margin-inline-start: -16px;
-  animation-name: animate_bar;
-  animation-timing-function: var(--curveLinear);
-  animation-fill-mode: both;
-  animation-duration: var(--durationFaster);
   content: "";
   position: absolute;
   border-radius: var(--borderRadiusCircular);

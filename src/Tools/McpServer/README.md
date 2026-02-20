@@ -97,7 +97,7 @@ dnx Microsoft.FluentUI.AspNetCore.McpServer@5.0.1
 ### Option 3: Build from Source
 
 **Prerequisites:**
-- .NET 9.0 SDK
+- .NET 9.0 SDK (or later)
 - Build the FluentUI Blazor solution first
 
 ```bash
@@ -118,7 +118,9 @@ Configure in your MCP client:
             "args": [
                 "run",
                 "--project",
-                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj"
+                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj",
+                "--framework",
+                "net9.0"
             ],
             "env": {
                 "DOTNET_ENVIRONMENT": "Development"
@@ -138,7 +140,9 @@ Configure in your MCP client:
             "args": [
                 "run",
                 "--project",
-                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj"
+                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj",
+                "--framework",
+                "net9.0"
             ],
             "env": {
                 "DOTNET_ENVIRONMENT": "Development"
@@ -147,6 +151,8 @@ Configure in your MCP client:
     }
 }
 ```
+
+> **Note:** The `--framework` argument is required when building or running a multi-target configuration (for example, Release) or whenever `dotnet run` reports multiple target frameworks. In that case, specify either `net9.0` or `net10.0` depending on which .NET SDKs you have installed.
 
 ## Architecture
 
@@ -187,6 +193,8 @@ Tools are invoked automatically by the LLM for dynamic queries.
 | `GetDocumentationTopic` | Gets detailed documentation for a documentation topic | `topicName` |
 | `SearchDocumentation` | Searches documentation by keyword | `searchTerm` |
 | `GetMigrationGuide` | Gets migration guide for upgrading to v5 | - |
+| `GetVersionInfo` | Gets the MCP server version and the expected component library version | - |
+| `CheckProjectVersion` | Checks if a project's component library version matches the MCP server | `projectVersion` |
 
 ### Resources (User-controlled)
 
@@ -203,6 +211,43 @@ Resources provide static documentation that users can attach to conversations.
 | `fluentui://documentation` | Complete list of all documentation topics |
 | `fluentui://documentation/{topic}` | Documentation for a specific documentation topic (e.g., installation, localization, styles) |
 | `fluentui://documentation/migration` | Complete migration guide for upgrading to v5 |
+
+## Version Compatibility
+
+The MCP server and the `Microsoft.FluentUI.AspNetCore.Components` NuGet package are published together with the **same version number** (e.g. `5.0.0-rc.1-26049.2`). Because the documentation served by the MCP is generated from a specific version of the library, it is important that the user's project references the matching version.
+
+Two tools are provided to automate this check:
+
+| Tool | Purpose |
+|------|---------|
+| `GetVersionInfo` | Returns the MCP server version and the exact `<PackageReference>` the project should use. |
+| `CheckProjectVersion` | Accepts the version string found in the user's `.csproj` and reports **COMPATIBLE** or **INCOMPATIBLE** with upgrade instructions. |
+
+### Recommended workflow for AI agents
+
+1. Call `GetVersionInfo` to obtain the expected component library version.
+2. Read the user's `.csproj` to find the `Microsoft.FluentUI.AspNetCore.Components` PackageReference version.
+3. Call `CheckProjectVersion(projectVersion)` with that version.
+4. If the result is **INCOMPATIBLE**, inform the user about the risks and suggest upgrading.
+
+### Example
+
+```
+# Step 1 – Get the MCP server version
+GetVersionInfo()
+# → MCP version: 5.0.0-rc.1-26049.2
+# → Expected: <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.0-rc.1-26049.2" />
+
+# Step 2 – Read the user's .csproj, find version "4.9.0"
+
+# Step 3 – Validate
+CheckProjectVersion(projectVersion: "4.9.0")
+# → Result: INCOMPATIBLE – upgrade recommended
+```
+
+When versions do not match, the `CheckProjectVersion` tool returns:
+- A list of **risks** (parameters, events, or methods may differ; code examples may not compile).
+- The exact `<PackageReference>` XML and `dotnet add package` command to upgrade.
 
 ## Usage Examples
 
@@ -249,7 +294,9 @@ GetMigrationGuide()
             "args": [
                 "run",
                 "--project",
-                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj"
+                "src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj",
+                "--framework",
+                "net9.0"
             ],
             "env": {
                 "DOTNET_ENVIRONMENT": "Development"
@@ -267,7 +314,7 @@ GetMigrationGuide()
 1. Launch the MCP Inspector with the server:
 
 ```bash
-npx @modelcontextprotocol/inspector dotnet run --project src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj
+npx @modelcontextprotocol/inspector dotnet run --project src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj --framework net9.0
 ```
 
 2. Open VS Code and use the **"Attach MCP"** task from the Run and Debug panel to attach the debugger to the running process
@@ -361,8 +408,9 @@ If component descriptions are missing:
 
 Check that:
 1. The solution builds successfully
-2. .NET 9.0 SDK is installed
+2. .NET 9.0 SDK (or later) is installed
 3. The path in your MCP configuration is correct
+4. When running from source with `dotnet run`, the `--framework` argument is specified (e.g., `net9.0`) if the project is multi-targeting (for example, when using `-c Release`)
 
 ## License
 
