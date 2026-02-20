@@ -123,12 +123,21 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
     });
   }
 
+  const _navControllers = new Map<string, AbortController>();
+
   /**
    * Initializes keyboard navigation and roving tabindex for the nav menu.
    */
   export function Initialize(navId: string): void {
     const nav = document.getElementById(navId);
     if (!nav) return;
+
+    // Clean up any previous listeners for this nav
+    _navControllers.get(navId)?.abort();
+
+    const controller = new AbortController();
+    const { signal } = controller;
+    _navControllers.set(navId, controller);
 
     UpdateTabIndices(nav);
 
@@ -160,14 +169,22 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
 
         items[nextIndex].focus();
       }
-    });
+    }, { signal });
 
     nav.addEventListener('focusin', (e: FocusEvent) => {
       const target = e.target as HTMLElement;
       if (target.classList.contains('fluent-navitem') || target.classList.contains('fluent-navcategoryitem')) {
         UpdateTabIndices(nav, target);
       }
-    });
+    }, { signal });
+  }
+
+  /**
+   * Removes event listeners added by Initialize and cleans up resources.
+   */
+  export function Dispose(navId: string): void {
+    _navControllers.get(navId)?.abort();
+    _navControllers.delete(navId);
   }
 
   function getVisibleItems(nav: HTMLElement): HTMLElement[] {
