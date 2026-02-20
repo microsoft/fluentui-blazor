@@ -145,7 +145,7 @@ public partial class FluentNavCategory : FluentNavBase
     {
         _hasBeenManuallyCollapsed = false;
         Expanded = false;
-        UpdateActiveState();
+        UpdateActiveState(triggerStateChange: false);
 
         if (ExpandedChanged.HasDelegate)
         {
@@ -201,7 +201,7 @@ public partial class FluentNavCategory : FluentNavBase
         }
         else
         {
-            UpdateActiveState();
+            UpdateActiveState(triggerStateChange: false);
             StateHasChanged();
         }
     }
@@ -238,7 +238,7 @@ public partial class FluentNavCategory : FluentNavBase
     {
         Expanded = expanded;
 
-        UpdateActiveState();
+        UpdateActiveState(triggerStateChange: false);
 
         if (ExpandedChanged.HasDelegate)
         {
@@ -271,14 +271,17 @@ public partial class FluentNavCategory : FluentNavBase
     /// <summary>
     /// Updates the active state based on whether any subitem is active and the category is collapsed.
     /// </summary>
-    internal override void UpdateActiveState(string? location = null)
+    internal override void UpdateActiveState(string? location = null, bool triggerStateChange = true)
     {
         // Only show active state when category is NOT expanded and has an active subitem
         var shouldBeActiveNow = !Expanded && HasActiveSubitem();
         if (_isActive != shouldBeActiveNow)
         {
             _isActive = shouldBeActiveNow;
-            _ = InvokeAsync(StateHasChanged);
+            if (triggerStateChange)
+            {
+                _ = InvokeAsync(StateHasChanged);
+            }
         }
     }
 
