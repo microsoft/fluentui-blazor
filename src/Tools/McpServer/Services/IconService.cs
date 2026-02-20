@@ -18,18 +18,18 @@ public sealed class IconService
 {
     private const string EmbeddedResourceName = "Microsoft.FluentUI.AspNetCore.McpServer.all-icons.json";
 
-    /// <summary>
-    /// Known variants in the Fluent UI icon system.
-    /// </summary>
-    private static readonly string[] KnownVariants = ["Filled", "Regular", "Light", "Color"];
-
-    /// <summary>
-    /// Standard sizes in the Fluent UI icon system.
-    /// </summary>
-    private static readonly int[] KnownSizes = [10, 12, 16, 20, 24, 28, 32, 48];
-
     private readonly List<IconModel> _icons;
     private readonly IconSynonymService _synonymService;
+
+    /// <summary>
+    /// Known variants in the Fluent UI icon system, extracted from the icon catalog.
+    /// </summary>
+    private readonly string[] _knownVariants;
+
+    /// <summary>
+    /// Standard sizes in the Fluent UI icon system, extracted from the icon catalog.
+    /// </summary>
+    private readonly int[] _knownSizes;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="IconService"/> class.
@@ -39,6 +39,8 @@ public sealed class IconService
     {
         _synonymService = synonymService;
         _icons = LoadIcons();
+        _knownVariants = ExtractKnownVariants(_icons);
+        _knownSizes = ExtractKnownSizes(_icons);
     }
 
     /// <summary>
@@ -167,7 +169,7 @@ public sealed class IconService
     public IReadOnlyDictionary<string, int> GetVariantSummary()
     {
         var summary = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-        foreach (var variant in KnownVariants)
+        foreach (var variant in _knownVariants)
         {
             summary[variant] = _icons.Count(i => i.Variants.ContainsKey(variant));
         }
@@ -181,7 +183,7 @@ public sealed class IconService
     public IReadOnlyDictionary<int, int> GetSizeSummary()
     {
         var summary = new Dictionary<int, int>();
-        foreach (var size in KnownSizes)
+        foreach (var size in _knownSizes)
         {
             summary[size] = _icons.Count(i => i.Variants.Values.Any(sizes => sizes.Contains(size)));
         }
@@ -349,6 +351,31 @@ public sealed class IconService
         }
 
         return ("Regular", 20);
+    }
+
+    /// <summary>
+    /// Extracts the distinct variant names from the loaded icon catalog.
+    /// </summary>
+    private static string[] ExtractKnownVariants(List<IconModel> icons)
+    {
+        return icons
+            .SelectMany(i => i.Variants.Keys)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(v => v, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+    }
+
+    /// <summary>
+    /// Extracts the distinct sizes from the loaded icon catalog.
+    /// </summary>
+    private static int[] ExtractKnownSizes(List<IconModel> icons)
+    {
+        return icons
+            .SelectMany(i => i.Variants.Values)
+            .SelectMany(sizes => sizes)
+            .Distinct()
+            .Order()
+            .ToArray();
     }
 
     private static List<IconModel> LoadIcons()
