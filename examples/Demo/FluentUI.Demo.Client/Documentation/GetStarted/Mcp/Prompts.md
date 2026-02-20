@@ -18,18 +18,18 @@ MCP Prompts are **pre-defined prompt templates** that help you accomplish common
 
 ## Suggested Prompt Patterns
 
-While the server may not include built-in prompts, you can use these effective patterns when interacting with your AI assistant:
+The MCP server includes built-in prompts for common tasks. You can also use the patterns below when interacting with your AI assistant.
 
 ### Component Discovery
 
 ```
-List all Fluent UI Blazor components in the [category] category 
+List all Fluent UI Blazor components in the [category] category
 with their main purpose and key parameters.
 ```
 
 **Example:**
 ```
-List all Fluent UI Blazor components in the Input category 
+List all Fluent UI Blazor components in the Input category
 with their main purpose and key parameters.
 ```
 
@@ -68,13 +68,13 @@ Include examples for each group.
 ### Enum Discovery
 
 ```
-What are all possible values for [EnumName]? 
+What are all possible values for [EnumName]?
 Explain when to use each value with practical examples.
 ```
 
 **Example:**
 ```
-What are all possible values for ButtonAppearance? 
+What are all possible values for ButtonAppearance?
 Explain when to use each value with practical examples.
 ```
 
@@ -151,8 +151,8 @@ Please provide:
 
 In your AI assistant chat:
 ```
-@workspace Use the template in .prompts/fluent-datagrid.md to create 
-a grid for displaying customer orders with columns for OrderId, 
+@workspace Use the template in .prompts/fluent-datagrid.md to create
+a grid for displaying customer orders with columns for OrderId,
 CustomerName, OrderDate, and TotalAmount. Enable sorting and pagination.
 ```
 

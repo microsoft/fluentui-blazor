@@ -26,7 +26,7 @@ This will generate a JSON file with the compact structure optimized for Summary 
 ```json
 {
   "__Generated__": {
-    "AssemblyVersion": "5.0.0-alpha.1+07c679a2",
+    "AssemblyVersion": "5.0.0-rc.1-26049.2+07c679a2",
     "DateUtc": "2025-12-13 21:33"
   },
   "FluentButton": {
