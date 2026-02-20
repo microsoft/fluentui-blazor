@@ -153,7 +153,7 @@ public partial class FluentNavItem : FluentNavBase
     /// <summary>
     /// Updates the active state.
     /// </summary>
-    internal override void UpdateActiveState(string? location = null)
+    internal override void UpdateActiveState(string? location = null, bool triggerStateChange = true)
     {
         // We could just re-render always, but for this component we know the
         // only relevant state change is to the _isActive property.
@@ -168,7 +168,10 @@ public partial class FluentNavItem : FluentNavBase
                 Category?.OnSubitemActiveStateChanged();
             }
 
-            _ = InvokeAsync(StateHasChanged);
+            if (triggerStateChange)
+            {
+                StateHasChanged();
+            }
         }
     }
 
