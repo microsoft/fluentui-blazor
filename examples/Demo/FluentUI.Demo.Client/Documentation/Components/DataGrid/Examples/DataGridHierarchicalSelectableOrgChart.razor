@@ -3,14 +3,19 @@
 
 <FluentStack Orientation="Orientation.Vertical" VerticalGap="15">
     <FluentStack HorizontalGap="5" VerticalAlignment="@VerticalAlignment.Center">
-        <FluentButton Appearance="ButtonAppearance.Primary" IconStart="@(ceoItem?.IsCollapsed == true ? new Icons.Regular.Size16.Add() : new Icons.Regular.Size16.Subtract())"
+        <FluentButton Appearance="ButtonAppearance.Primary"
+                      IconStart="@(ceoItem?.IsCollapsed == true ? new Icons.Regular.Size16.Add() : new Icons.Regular.Size16.Subtract())"
                       OnClick="@ToggleCEO">
             @(ceoItem?.IsCollapsed == true ? "Expand" : "Collapse") CEO
         </FluentButton>
-        <FluentButton Appearance="ButtonAppearance.Default" IconStart="@(new Icons.Regular.Size16.Add())" OnClick="@ExpandAllAsync">
+        <FluentButton Appearance="ButtonAppearance.Default"
+                      IconStart="@(new Icons.Regular.Size16.Add())"
+                      OnClick="@ExpandAllAsync">
             Expand all rows
         </FluentButton>
-        <FluentButton Appearance="ButtonAppearance.Default" IconStart="@(new Icons.Regular.Size16.Subtract())" OnClick="@CollapseAllAsync">
+        <FluentButton Appearance="ButtonAppearance.Default"
+                      IconStart="@(new Icons.Regular.Size16.Subtract())"
+                      OnClick="@CollapseAllAsync">
             Collapse all rows
         </FluentButton>
         <FluentBadge Size="@BadgeSize.Large" Content="@($"{SelectedItems.Count()} selected")" />

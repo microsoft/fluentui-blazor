@@ -1190,7 +1190,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Expands all rows in a hierarchical data grid.
     /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
     /// </summary>
-    public async Task ExpandAllRowsAsync(int startDepth = 0)
+    public async Task ExpandAllHierarchicalRowsAsync(int startDepth = 0)
     {
         var hasChildren = false;
         await RefreshDataAsync();
@@ -1210,7 +1210,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (hasChildren)
         {
-            await ExpandAllRowsAsync(startDepth + 1);
+            await ExpandAllHierarchicalRowsAsync(startDepth + 1);
         }
         else
         {
@@ -1225,7 +1225,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Collapses all rows in a hierarchical data grid with a depth greater than 0.
     /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
     /// </summary>
-    public async Task CollapseAllRowsAsync()
+    public async Task CollapseAllHierarchicalRowsAsync()
     {
         foreach (var item in _internalGridContext.Items)
         {
@@ -1246,7 +1246,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Selects all rows in a hierarchical data grid.
     /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
     /// </summary>
-    public async Task SelectAllRowsAsync()
+    public async Task SelectAllHierarchicalRowsAsync()
     {
         foreach (var item in _internalGridContext.Items)
         {
@@ -1263,7 +1263,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Deselects all rows in a hierarchical data grid.
     /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
     /// </summary>
-    public async Task DeselectAllRowsAsync()
+    public async Task DeselectAllHierarchicalRowsAsync()
     {
         foreach (var item in _internalGridContext.Items)
         {

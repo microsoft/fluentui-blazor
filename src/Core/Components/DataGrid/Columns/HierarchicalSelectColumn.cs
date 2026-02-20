@@ -30,17 +30,12 @@ public class HierarchicalSelectColumn<TGridItem> : SelectColumn<TGridItem>
         Property = (item) => item is IHierarchicalGridItem { IsSelected: true };
     }
 
-    /// <summary>
-    /// Ensures that this column always uses multiple selection mode, even if a different
-    /// value is supplied via parameters inherited from <see cref="SelectColumn{TGridItem}"/>.
-    /// </summary>
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        base.OnParametersSet();
         if (SelectMode != DataGridSelectMode.Multiple)
         {
-            // Lock the selection mode to Multiple to avoid inconsistent behavior.
-            SelectMode = DataGridSelectMode.Multiple;
+            throw new InvalidOperationException($"{nameof(HierarchicalSelectColumn<TGridItem>)} only supports {nameof(DataGridSelectMode.Multiple)} selection mode.");
         }
     }
 

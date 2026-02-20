@@ -67,7 +67,7 @@ public partial class DataGridHierarchicalOrgChart
     {
         if (Grid is not null)
         {
-            await Grid.ExpandAllRowsAsync();
+            await Grid.ExpandAllHierarchicalRowsAsync();
         }
     }
 
@@ -75,7 +75,7 @@ public partial class DataGridHierarchicalOrgChart
     {
         if (Grid is not null)
         {
-            await Grid.CollapseAllRowsAsync();
+            await Grid.CollapseAllHierarchicalRowsAsync();
         }
     }
 

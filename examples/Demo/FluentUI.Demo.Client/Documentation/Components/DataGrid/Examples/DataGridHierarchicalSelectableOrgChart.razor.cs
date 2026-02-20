@@ -71,7 +71,7 @@ public partial class DataGridHierarchicalSelectableOrgChart
     {
         if (Grid is not null)
         {
-            await Grid.ExpandAllRowsAsync();
+            await Grid.ExpandAllHierarchicalRowsAsync();
         }
     }
 
@@ -79,7 +79,7 @@ public partial class DataGridHierarchicalSelectableOrgChart
     {
         if (Grid is not null)
         {
-            await Grid.CollapseAllRowsAsync();
+            await Grid.CollapseAllHierarchicalRowsAsync();
         }
     }
 

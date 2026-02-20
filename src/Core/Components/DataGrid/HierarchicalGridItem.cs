@@ -16,6 +16,14 @@ public class HierarchicalGridItem<TItem, TGridItem> : IHierarchicalGridItem
     where TItem : notnull
     where TGridItem : HierarchicalGridItem<TItem, TGridItem>
 {
+    private bool? _isSelected = false;
+    private bool _isCollapsed;
+
+    /// <summary>
+    /// Gets the children of this item in the hierarchy.
+    /// </summary>
+    IEnumerable<IHierarchicalGridItem> IHierarchicalGridItem.Children => Children;
+
     /// <summary>
     /// Gets or sets the reference to the item that holds this row's values.
     /// This name aligns with <see cref="FluentDataGridRow{TGridItem}.Item"/>.
@@ -33,11 +41,6 @@ public class HierarchicalGridItem<TItem, TGridItem> : IHierarchicalGridItem
     public IList<TGridItem> Children { get; } = [];
 
     /// <summary>
-    /// Gets the children of this item in the hierarchy.
-    /// </summary>
-    IEnumerable<IHierarchicalGridItem> IHierarchicalGridItem.Children => Children;
-
-    /// <summary>
     /// Gets a value indicating whether this item has children.
     /// </summary>
     public bool HasChildren => Children.Count > 0;
@@ -52,8 +55,6 @@ public class HierarchicalGridItem<TItem, TGridItem> : IHierarchicalGridItem
     /// </summary>
     public bool IsHidden { get; set; }
 
-    private bool _isCollapsed;
-
     /// <summary>
     /// Whether this item's children are currently collapsed.
     /// </summary>
@@ -66,8 +67,6 @@ public class HierarchicalGridItem<TItem, TGridItem> : IHierarchicalGridItem
             UpdateHidden();
         }
     }
-
-    private bool? _isSelected = false;
 
     /// <summary>
     /// Gets or sets whether this item is currently selected.
