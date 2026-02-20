@@ -122,7 +122,7 @@
 
 .fluent-data-grid .hierarchical-toggle-container {
   height: 24px;
-  display: inline-flex;
+  display: flex;
   vertical-align: middle;
   align-items: center;
   column-gap: var(--spacingHorizontalXS);
