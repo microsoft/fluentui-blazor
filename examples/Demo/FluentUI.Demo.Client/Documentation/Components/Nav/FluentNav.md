@@ -52,6 +52,12 @@ In the example below, the first (and third and fifth) item has an `Href` that na
 
 {{ NavDefault }}
 
+## Accessibility
+Nav is designed to be accessible and follows best practices for keyboard navigation and screen reader support. You can navigate through the nav items
+using the arrow up, arrow down, HOME end END keys, and expand or collapse categories using the Enter or Space keys. As the nav ultimately renders <a> and <button> tags
+(which both have a standard tabindex of '0'), a so called roving tabindex pattern makes sure that only the currently focused item is in the tab order. Tabbing away
+from the nav will remember the last focused item, and when you tab back into the nav, focus will return to that item. This allows for efficient keyboard navigation through the nav items.
+
 ## API FluentNav
 
 {{ API Type=FluentNav }}

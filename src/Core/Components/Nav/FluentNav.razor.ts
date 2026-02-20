@@ -74,6 +74,9 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
       group.style.minHeight = 'auto';
       group.style.opacity = '1';
       group.style.overflow = 'visible';
+
+      const nav = group.closest('.fluent-nav') as HTMLElement;
+      if (nav) UpdateTabIndices(nav);
     };
   }
 
@@ -111,8 +114,85 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
         group.style.height = '0px';
         group.style.minHeight = '0px';
         group.style.opacity = '0';
+
+        const nav = group.closest('.fluent-nav') as HTMLElement;
+        if (nav) UpdateTabIndices(nav);
+
         resolve();
       };
+    });
+  }
+
+  /**
+   * Initializes keyboard navigation and roving tabindex for the nav menu.
+   */
+  export function Initialize(navId: string): void {
+    const nav = document.getElementById(navId);
+    if (!nav) return;
+
+    UpdateTabIndices(nav);
+
+    nav.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Home' || e.key === 'End') {
+        const target = e.target as HTMLElement;
+        if (!target || (!target.classList.contains('fluent-navitem') && !target.classList.contains('fluent-navcategoryitem'))) {
+          return;
+        }
+
+        const items = getVisibleItems(nav);
+        if (items.length === 0) return;
+
+        const currentIndex = items.indexOf(target);
+        if (currentIndex === -1) return;
+
+        e.preventDefault();
+
+        let nextIndex = currentIndex;
+        if (e.key === 'ArrowDown') {
+          nextIndex = (currentIndex + 1) % items.length;
+        } else if (e.key === 'ArrowUp') {
+          nextIndex = (currentIndex - 1 + items.length) % items.length;
+        } else if (e.key === 'Home') {
+          nextIndex = 0;
+        } else if (e.key === 'End') {
+          nextIndex = items.length - 1;
+        }
+
+        items[nextIndex].focus();
+      }
+    });
+
+    nav.addEventListener('focusin', (e: FocusEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('fluent-navitem') || target.classList.contains('fluent-navcategoryitem')) {
+        UpdateTabIndices(nav, target);
+      }
+    });
+  }
+
+  function getVisibleItems(nav: HTMLElement): HTMLElement[] {
+    return Array.from(nav.querySelectorAll('.fluent-navitem, .fluent-navcategoryitem'))
+      .filter(el => {
+        if ((el as HTMLElement).classList.contains('disabled')) return false;
+        const parentGroup = el.closest('.fluent-navsubitemgroup');
+        return !parentGroup || parentGroup.classList.contains('expanded');
+      }) as HTMLElement[];
+  }
+
+  function UpdateTabIndices(nav: HTMLElement, activeItem: HTMLElement | null = null): void {
+    const items = Array.from(nav.querySelectorAll('.fluent-navitem, .fluent-navcategoryitem')) as HTMLElement[];
+    const visibleItems = getVisibleItems(nav);
+
+    if (!activeItem) {
+      activeItem = visibleItems.find(el => el.classList.contains('active')) || visibleItems[0];
+    }
+
+    items.forEach(el => {
+      if (el === activeItem) {
+        el.setAttribute('tabindex', '0');
+      } else {
+        el.setAttribute('tabindex', '-1');
+      }
     });
   }
 }
