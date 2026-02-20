@@ -847,6 +847,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
 
             _pendingDataLoadCancellationTokenSource = null;
+            _ = InvokeAsync(() => _internalGridContext.ItemsChanged.InvokeCallbacksAsync(eventArg: null));
         }
 
         _internalGridContext.ResetRowIndexes(startIndex);
@@ -1189,7 +1190,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Expands all rows in a hierarchical data grid.
     /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
     /// </summary>
-    public async Task ExpandAllRowsAsync(int startDepth = 0)
+    public async Task ExpandAllHierarchicalRowsAsync(int startDepth = 0)
     {
         var hasChildren = false;
         await RefreshDataAsync();
@@ -1209,7 +1210,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (hasChildren)
         {
-            await ExpandAllRowsAsync(startDepth + 1);
+            await ExpandAllHierarchicalRowsAsync(startDepth + 1);
         }
         else
         {
@@ -1224,7 +1225,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Collapses all rows in a hierarchical data grid with a depth greater than 0.
     /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
     /// </summary>
-    public async Task CollapseAllRowsAsync()
+    public async Task CollapseAllHierarchicalRowsAsync()
     {
         foreach (var item in _internalGridContext.Items)
         {
@@ -1239,6 +1240,40 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             await OnCollapseAll.InvokeAsync();
         }
+    }
+
+    /// <summary>
+    /// Selects all rows in a hierarchical data grid.
+    /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
+    /// </summary>
+    public async Task SelectAllHierarchicalRowsAsync()
+    {
+        foreach (var item in _internalGridContext.Items)
+        {
+            if (item is IHierarchicalGridItem hierarchicalItem && hierarchicalItem.Depth == 0)
+            {
+                hierarchicalItem.IsSelected = true;
+            }
+        }
+
+        await RefreshDataAsync();
+    }
+
+    /// <summary>
+    /// Deselects all rows in a hierarchical data grid.
+    /// Items must implement the <see cref="IHierarchicalGridItem"/> interface.
+    /// </summary>
+    public async Task DeselectAllHierarchicalRowsAsync()
+    {
+        foreach (var item in _internalGridContext.Items)
+        {
+            if (item is IHierarchicalGridItem hierarchicalItem && hierarchicalItem.Depth == 0)
+            {
+                hierarchicalItem.IsSelected = false;
+            }
+        }
+
+        await RefreshDataAsync();
     }
 
     private void RenderActualError(RenderTreeBuilder builder)

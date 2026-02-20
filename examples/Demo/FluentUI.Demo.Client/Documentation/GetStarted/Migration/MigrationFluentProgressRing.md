@@ -10,9 +10,6 @@ to be coherent with the Web Components and React naming conventions.
 > [!NOTE] The new component `FluentSpinner` cannot be paused. It must always be spinning.
 > So, the `Paused`, `Min`, `Max`, `Value` properties has been removed.
 
-### New properties
-  `Size`, `AppearanceInverted` are new properties.
-
 ### Renamed properties 🔃
 
   `Stroke` property has been renamed to `Size`.
@@ -27,3 +24,8 @@ to be coherent with the Web Components and React naming conventions.
   The `Color`, `Min`, `Max`, `Value` properties have been removed.
 
   The `Width` property has been removed. Use `Size` instead.
+
+### New properties
+- `AppearanceInverted` (`bool`) — inverted appearance for dark backgrounds.
+- `Size` (`SpinnerSize?`) — controls the spinner size.
+- `Tooltip` (`string?`)

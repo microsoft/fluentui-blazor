@@ -1,7 +1,7 @@
 export namespace Microsoft.FluentUI.Blazor.Nav {
 
   // Fluent motion tokens (matching React's motionTokens)
-  const DURATION_FAST = 150;
+  const DURATION_FAST = 100;
   const DURATION_ULTRA_SLOW = 500;
   const CURVE_DECELERATE_MID = 'cubic-bezier(0, 0, 0, 1)';
   const CURVE_ACCELERATE_MIN = 'cubic-bezier(0.8, 0, 0.78, 1)';
@@ -22,12 +22,10 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
   function createKeyframes(height: number): Keyframe[] {
     return [
       {
-        opacity: 0,
         minHeight: 0,
         height: 0
       },
       {
-        opacity: 1,
         minHeight: `${height}px`,
         height: `${height}px`
       }
@@ -62,7 +60,8 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
 
     const keyframes = createKeyframes(targetHeight);
 
-    group.style.overflow = 'hidden';
+    group.style.overflowY = 'hidden';
+    group.style.overflowX = 'visible';
 
     const animation = group.animate(keyframes, {
       duration: duration,
@@ -99,7 +98,8 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
 
       const keyframes = [...createKeyframes(currentHeight)].reverse();
 
-      group.style.overflow = 'hidden';
+      group.style.overflowY = 'hidden';
+      group.style.overflowX = 'visible';
 
       const animation = group.animate(keyframes, {
         duration: duration,

@@ -4,9 +4,6 @@ route: /Migration/MessageBar
 hidden: true
 ---
 
-### New properties
-  `Layout`, `Size`,  `Shape`, `AriaLive` are new properties.
-
 ### Renamed properties 🔃
   The `FadeIn` property has been renamed to `Animation`.
 
@@ -21,3 +18,9 @@ hidden: true
 
   The `Title` property is a string and cannot contain markup anymore. Use the `ChildContent` property to customize the title content.
   Example: `<ChildContent><span class="title">Customized <b>title</b></span></ChildContent>`  
+
+### New properties
+- `Layout` (`MessageBarLayout?`) — controls the layout/position of actions.
+- `Shape` (`MessageBarShape?`) — visual shape of the message bar.
+- `AriaLive` (`AriaLive?`) — controls the ARIA live region behavior.
+- `ActionsTemplate` (`RenderFragment?`) — template for action buttons.
