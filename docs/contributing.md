@@ -8,7 +8,7 @@ To begin you'll need **Git**, **.NET**, and **NodeJS** setup on your machine.
 
 The `fluentui-blazor` repository uses Git as its source control system. If you haven't already installed it, you can download it [here](https://git-scm.com/downloads) or if you prefer a GUI-based approach, try [GitHub Desktop](https://desktop.github.com/).
 
-Once Git is installed, you'll also need **.NET** and **NodeJS**. Instructions and downloads for .NET on your preferred OS can be found [here](https://dotnet.microsoft.com/download). NodeJS can be found [here](https://nodejs.org). You need to install the 20.15 LTS version. 
+Once Git is installed, you'll also need **.NET** and **NodeJS**. Instructions and downloads for .NET on your preferred OS can be found [here](https://dotnet.microsoft.com/download). NodeJS can be found [here](https://nodejs.org). You need to install the 20.15+ LTS version. 
 
 On Windows, we prefere to develop using [Visual Studio 2022 Preview](https://visualstudio.microsoft.com/vs/preview/).
 
@@ -31,12 +31,20 @@ Cloning via SSH:
 git clone git@github.com:microsoft/fluentui-blazor.git
 ```
 
+Next, checkout the `dev-v5` branch:
+
+```shell
+git checkout dev-v5
+```
+
+
+
 ### Installing and building
 
 From within the folder where you've cloned the repo, build the project with the following command.
 
 ```bash
-dotnet build
+dotnet build ./Microsoft.FluentUI-v5.slnx
 ```
 
 The **Components.Scripts** project uses several NPM packages.
@@ -57,6 +65,27 @@ In the event of an NPM authentication problem (E401), you will probably need to 
    npm install
    ```
 
+### Running the Demo project locally
+
+The demo application can be run in two modes: **Blazor Server** and **Blazor WebAssembly**.
+
+#### 1. Blazor Server
+
+From the root of the repository, run the following command:
+
+```bash
+dotnet run --project examples/Demo/FluentUI.Demo
+```
+
+#### 2. Blazor WebAssembly
+
+From the root of the repository, run the following command:
+
+```bash
+dotnet run --project examples/Demo/FluentUI.Demo.Client
+```
+
+Once running, open the URL displayed in the terminal output in your browser.
 
 ### Submitting a pull request
 
