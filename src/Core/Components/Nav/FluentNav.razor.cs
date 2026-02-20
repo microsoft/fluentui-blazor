@@ -52,6 +52,10 @@ public partial class FluentNav : FluentComponentBase
         .AddStyle("--nav-bg-color-hover", BackgroundColorHover)
         .Build();
 
+    /// <summary />
+    [Inject]
+    internal NavigationManager NavigationManager { get; set; } = default!;
+
     /// <summary>
     /// Gets or sets the parent layout component.
     /// </summary>
@@ -81,10 +85,6 @@ public partial class FluentNav : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    /// <summary />
-    [Inject]
-    public NavigationManager NavigationManager { get; set; } = default!;
 
     /// <summary />
     protected override void OnInitialized()

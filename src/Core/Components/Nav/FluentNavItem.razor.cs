@@ -120,14 +120,13 @@ public partial class FluentNavItem : FluentNavBase
     /// </summary>
     protected override void OnParametersSet()
     {
-        _hrefAbsolute = Href == null ? null : this.NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
+        _hrefAbsolute = Href == null ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
         UpdateActiveState();
     }
 
     /// <summary />
     protected override void OnInitialized()
     {
-        Owner?.Register(this);
 
         // Validate that this component is used within a FluentNav
         if (Owner?.GetType() != typeof(FluentNav))
@@ -141,6 +140,8 @@ public partial class FluentNavItem : FluentNavBase
             throw new InvalidOperationException(
                 $"{nameof(FluentNavItem)} can only be used as a direct child of {nameof(FluentNav)} or a {nameof(FluentNavCategory)}.");
         }
+
+        Owner?.Register(this);
 
         // Register with parent category if this is a subitem
         if (_isSubItem)
@@ -156,7 +157,7 @@ public partial class FluentNavItem : FluentNavBase
     {
         // We could just re-render always, but for this component we know the
         // only relevant state change is to the _isActive property.
-        var shouldBeActiveNow = ShouldMatch(location ?? this.NavigationManager.Uri, Match);
+        var shouldBeActiveNow = ShouldMatch(location ?? NavigationManager.Uri, Match);
         if (shouldBeActiveNow != _isActive)
         {
             _isActive = shouldBeActiveNow;
@@ -167,7 +168,7 @@ public partial class FluentNavItem : FluentNavBase
                 Category?.OnSubitemActiveStateChanged();
             }
 
-            StateHasChanged();
+            _ = InvokeAsync(StateHasChanged);
         }
     }
 
