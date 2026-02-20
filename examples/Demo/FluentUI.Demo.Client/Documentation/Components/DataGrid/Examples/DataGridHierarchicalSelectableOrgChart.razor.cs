@@ -7,11 +7,15 @@ using static FluentUI.Demo.SampleData.People;
 
 namespace FluentUI.Demo.Client.Documentation.Components.DataGrid.Examples;
 
-public partial class DataGridHierarchicalOrgChart
+public partial class DataGridHierarchicalSelectableOrgChart
 {
     private PersonGridItem? ceoItem;
     private FluentDataGrid<PersonGridItem>? Grid;
     private readonly List<PersonGridItem> items = [];
+
+    private IEnumerable<PersonGridItem> SelectedItems = [];
+    private IEnumerable<PersonGridItem> IndeterminateItems = [];
+    private IEnumerable<PersonGridItem> UnselectedItems = [];
 
     protected override void OnInitialized()
     {
