@@ -4,9 +4,6 @@ route: /Migration/Tooltip
 hidden: true
 ---
 
-### New properties
-  `SpacingHorizontal`,  `SpacingVertical`, `OnToggle` are new properties.
-
 ### Removed properties💥
   The `Visible` property has been removed. The tooltip is now visible when the user hovers over the target element.
   The `OnToggle` event is triggered when the tooltip is shown or hidden.
@@ -53,4 +50,8 @@ You can use the `ToPositioning()` method to convert the `Position` property to t
 |`TooltipPosition.Right`  |`Positioning.After`|
 |`TooltipPosition.Start`  |`Positioning.AboveStart`|
 |`TooltipPosition.End`    |`Positioning.AboveEnd`|
+
+### New properties
+- `SpacingHorizontal` (`string?`) — horizontal spacing between the tooltip and the anchor.
+- `SpacingVertical` (`string?`) — vertical spacing between the tooltip and the anchor.
 

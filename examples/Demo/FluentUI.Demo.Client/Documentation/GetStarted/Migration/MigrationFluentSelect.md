@@ -1,53 +1,70 @@
 ---
-title: Migrating FluentSelect
+title: Migration FluentSelect
 route: /Migration/Select
 hidden: true
 ---
 
-### Appearance 💥
+- ### Base class change 💥
+
+  The base class for all list components has changed:
+  - V4: `ListComponentBase<TOption>` inheriting from `FluentInputBase<string?>`
+  - V5: `FluentListBase<TOption, TValue>` inheriting from `FluentInputBase<TValue>`
+
+  All list components (`FluentSelect`, `FluentCombobox`, `FluentListbox`) now require **two** type parameters:
+  `TOption` (the option type) and `TValue` (the value type).
+
+  ```xml
+  <!-- V4 -->
+  <FluentSelect TOption="Country" Items="@countries"
+                OptionValue="@(c => c.Code)" OptionText="@(c => c.Name)"
+                @bind-SelectedOption="selectedCountry" />
+
+  <!-- V5 -->
+  <FluentSelect TOption="Country" TValue="string" Items="@countries"
+                OptionValue="@(c => c.Code)" OptionText="@(c => c.Name)"
+                @bind-Value="selectedCountryCode" />
+  ```
+
+- ### Appearance 💥
+
   The `Appearance` property has been updated to use the `ListAppearance` enum
-    instead of `Appearance` enum.
+  instead of `Appearance` enum.
 
-    `ListAppearance` enum has the following values:
-    - `FilledLighter`
-    - `FilledDarker`
-    - `Outline`
-    - `Transparent`
+  `ListAppearance` enum has the following values:
+  - `FilledLighter`
+  - `FilledDarker`
+  - `Outline`
+  - `Transparent`
 
-### New properties
+- ### Changed properties 💥
 
-- `LabelPosition`, sets the element’s label position relative to the input.
-- `LabelWidth`, sets the width of the label.
-- `Margin`, sets the margin of the component.
-- `Message`, sets the message displayed below the component.
-- `MessageCondition`, sets the condition to display the message.
-- `MessageIcon`, sets the icon displayed next to the message.
-- `MessageState`, sets a value that affects the display style of the message.
-- `MessageTemplate`, sets a custom template for the message.
-- `OptionSelectedComparer`, sets a function to compare whether two options are considered equal for selection purposes.
-- `Padding`, sets the padding of the component.
+  | V4 Property | V5 Property | Change |
+  |-------------|-------------|--------|
+  | `Value` (`string?`) | `Value` (`TValue?`) | Now generic |
+  | `ValueExpression` (`Expression<Func<string>>?`) | `ValueExpression` (`Expression<Func<TValue>>?`) | Now generic |
+  | `Disabled` (`bool`) | `Disabled` (`bool?`) | Now nullable — use `Disabled="true"` instead of just `Disabled` |
+  | `OptionText` (`Func<TOption, string?>`) | `OptionText` (`Func<TOption?, string>?`) | Nullable TOption, non-nullable return |
+  | `OptionValue` (`Func<TOption, string?>?`) | `OptionValue` (`Func<TOption?, TValue?>?`) | Returns `TValue?` instead of `string?` |
+  | `OptionDisabled` (`Func<TOption, bool>?`) | `OptionDisabled` (`Func<TOption?, bool>?`) | Nullable TOption |
+  | `SelectedOptions` (`IEnumerable<TOption>?`) | `SelectedItems` (`IEnumerable<TOption>`) | **Renamed**, now non-nullable (defaults to `[]`) |
+  | `SelectedOptionsChanged` | `SelectedItemsChanged` | **Renamed** |
 
-### Changed properties💥
+- ### Removed properties 💥
 
-- `Value` is now generic instead of type `string?`
-- `ValueExpression` is now generic instead of type `Expression<Func<string>>?`
-- `Disabled` is now of type `bool?` instead of `bool`. This requires the user to define `Disabled="true"` instead of just `Disabled`.
-
-### Removed properties💥
-
-- `ChangeOnEnterOnly`
-- `Embedded`
-- `Field`
-- `Immediate`
-- `ImmediateDelay`
-- `Open`
-- `OptionComparer` use `OptionSelectedComparer` instead.
-- `OptionTitle`
-- `Position`
-- `SelectedOption` use `Value` instead.
-- `SelectedOptionExpression`
-- `SelectedOptions` use `SelectedItems` instead.
-- `SelectedOptionsExpression`
-- `Title`
-- `SelectedOptionChanged` use `ValueChanged` instead.
-- `SelectedOptionsChanged` use `SelectedItemsChanged` instead.
+  - `ChangeOnEnterOnly`
+  - `Embedded`
+  - `Field`
+  - `Immediate`
+  - `ImmediateDelay`
+  - `Open`
+  - `OptionComparer` — use `OptionSelectedComparer` instead.
+  - `OptionSelected` — use `OptionSelectedComparer` instead.
+  - `OptionTitle`
+  - `Position`
+  - `SelectedOption` — use `Value` instead.
+  - `SelectedOptionExpression`
+  - `SelectedOptions` — use `SelectedItems` instead.
+  - `SelectedOptionsExpression`
+  - `Title`
+  - `SelectedOptionChanged` — use `ValueChanged` instead.
+  - `SelectedOptionsChanged` — use `SelectedItemsChanged` instead.

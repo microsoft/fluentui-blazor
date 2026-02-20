@@ -1,65 +1,34 @@
+---
+title: Migration FluentCounterBadge
+route: /Migration/CounterBadge
+hidden: true
+---
+
 ### General
-If `ChildContent` is provided, the counter badge will 'wrap' that content nd be positioned on top.
-By default, the counter badge will be displayed at the above-end corner of the content.
-Use the `Positioning` parameter to specify a different placement.Use the `OffsetX` and `OffsetY` parameters to specify the offset from the specified position.
+
+The `FluentCounterBadge` component has been significantly simplified in V5. It no longer
+accepts `ChildContent`, `BadgeContent` or `BadgeTemplate` render fragments. Positioning
+parameters have been removed — use `FluentBadge` with `Positioning` if you need to anchor
+a counter to an element.
+
+### Removed parameters 💥
+
+- `ChildContent` and `BadgeContent` — the component no longer wraps other content.
+- `BadgeTemplate` (`RenderFragment<int?>`) — custom badge rendering template removed.
+- `Max`; use `OverflowCount` instead.
+- `HorizontalPosition`, `BottomPosition` and `VerticalPosition` — positioning is no longer configurable on this component.
+- `Appearance` — no longer supported on `FluentCounterBadge`.
+- `BackgroundColor` and `Color` — no longer supported on `FluentCounterBadge`.
+- `ShowOverflow` — overflow display is now controlled by `OverflowCount`.
+
+### Renamed parameters 💥
+
+- `Max` → `OverflowCount` — the maximum count value before showing overflow (e.g. "99+").
+
+### Type-changed parameters 💥
+
+- `ShowZero`: Changed from `bool` to `bool?`.
 
 ### New parameters
-- `Size`
-- `Shape`
-- `OverflowCount`
-- `IconStart` 
-- `IconEnd` 
-- `Positioning`
-- `OffsetX`
-- `OffsetY`
 
-### Removed parameters💥
-  - `HorizontalPosition` and `VerticalPosition`.
-  - `ShowOverflow`. 
-  - `Max`; Use `OverflowCount` instead. 
-
-### Appearance 💥
-  The `Appearance` parameter has been updated to use the `BadgeAppearance` enum
-    instead of `Appearance` enum.
-
-    `BadgeAppearance` enum has the following values :
-    - `Filled`
-    - `Ghost`
-    - `Outline`*
-    - `Tint`*
-
-    * Not supported in CounterBadge
-
-### Color 💥
-    The `Color` parameter has been updated to use the `BadgeColor` enum
-      instead of being of type `String?`.
-
-    `BadgeColor` enum has the following values:
-    - `Brand`
-    - `Danger`
-    - `Important`
-    - `Informative`
-    - `Severe`
-    - `Subtle`
-    - `Success`
-    - `Warning`
-    
-### Migrating to v5
-
-You can use the `ToBadgeAppearance()` method to convert the `Appearance` parameter to the `ButtonAppearance` enum.
-```csharp	
-@using Microsoft.FluentUI.AspNetCore.Components.Migration
-
-<FluentButton Appearance="Appearance.Accent.ToBadgeAppearance()">Click</FluentButton>
-//                                          ^^^^^^^^^^^^^^^^^^^^
-```
-
-
-|v3 & v4|v5|
-|-----|-----|
-|`Appearance.Neutral`    |`BadgeAppearance.Filled`|
-|`Appearance.Accent`     |`BadgeAppearance.Filled`|
-|`Appearance.Lightweight`|`BadgeAppearance.Ghost`|
-
-The other values of the `Appearance` enum were not supported in earlier versions
-and will be converted to `BadgeAppearance.Filled`.
+- `ShowEmpty` (`bool`) — when true, shows the badge even when `Count` is null.
