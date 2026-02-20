@@ -123,8 +123,7 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
     });
   }
 
-  type NavHandlers = { keydown: (e: KeyboardEvent) => void; focusin: (e: FocusEvent) => void };
-  const _navHandlers = new Map<string, NavHandlers>();
+  const _navControllers = new Map<string, AbortController>();
 
   /**
    * Initializes keyboard navigation and roving tabindex for the nav menu.
@@ -133,9 +132,16 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
     const nav = document.getElementById(navId);
     if (!nav) return;
 
+    // Clean up any previous listeners for this nav
+    _navControllers.get(navId)?.abort();
+
+    const controller = new AbortController();
+    const { signal } = controller;
+    _navControllers.set(navId, controller);
+
     UpdateTabIndices(nav);
 
-    const keydownHandler = (e: KeyboardEvent) => {
+    nav.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Home' || e.key === 'End') {
         const target = e.target as HTMLElement;
         if (!target || (!target.classList.contains('fluent-navitem') && !target.classList.contains('fluent-navcategoryitem'))) {
@@ -163,32 +169,22 @@ export namespace Microsoft.FluentUI.Blazor.Nav {
 
         items[nextIndex].focus();
       }
-    };
+    }, { signal });
 
-    const focusinHandler = (e: FocusEvent) => {
+    nav.addEventListener('focusin', (e: FocusEvent) => {
       const target = e.target as HTMLElement;
       if (target.classList.contains('fluent-navitem') || target.classList.contains('fluent-navcategoryitem')) {
         UpdateTabIndices(nav, target);
       }
-    };
-
-    nav.addEventListener('keydown', keydownHandler);
-    nav.addEventListener('focusin', focusinHandler);
-
-    _navHandlers.set(navId, { keydown: keydownHandler, focusin: focusinHandler });
+    }, { signal });
   }
 
   /**
    * Removes event listeners added by Initialize and cleans up resources.
    */
   export function Dispose(navId: string): void {
-    const nav = document.getElementById(navId);
-    const handlers = _navHandlers.get(navId);
-    if (nav && handlers) {
-      nav.removeEventListener('keydown', handlers.keydown);
-      nav.removeEventListener('focusin', handlers.focusin);
-    }
-    _navHandlers.delete(navId);
+    _navControllers.get(navId)?.abort();
+    _navControllers.delete(navId);
   }
 
   function getVisibleItems(nav: HTMLElement): HTMLElement[] {
