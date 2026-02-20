@@ -127,8 +127,6 @@ public partial class FluentNavItem : FluentNavBase
     /// <summary />
     protected override void OnInitialized()
     {
-        Owner?.Register(this);
-
         // Validate that this component is used within a FluentNav
         if (Owner?.GetType() != typeof(FluentNav))
         {
@@ -141,6 +139,8 @@ public partial class FluentNavItem : FluentNavBase
             throw new InvalidOperationException(
                 $"{nameof(FluentNavItem)} can only be used as a direct child of {nameof(FluentNav)} or a {nameof(FluentNavCategory)}.");
         }
+
+        Owner?.Register(this);
 
         // Register with parent category if this is a subitem
         if (_isSubItem)
