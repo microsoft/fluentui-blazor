@@ -34,6 +34,7 @@
     <PackageReference Include="Markdig.Signed" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Condition="'$(TargetFramework)'=='$(NetVersion)'">
@@ -52,6 +53,7 @@
     <EmbeddedResource Include="**\*.md" />
     <EmbeddedResource Remove="DebugPages\_README.md" />
     <EmbeddedResource Remove="wwwroot\copilot-instructions.md" />
+    <EmbeddedResource Remove="wwwroot\skills\**\*.md" />
     <AdditionalFiles Include="$(ProjectDir)/*.xml" />
   </ItemGroup>
 
