@@ -53,7 +53,10 @@ public abstract class FluentNavBase : FluentComponentBase
     /// <summary>
     /// Updates the active state.
     /// </summary>
-    internal abstract void UpdateActiveState(string? location = null);
+    /// <param name="location">The current navigation location. If null, uses the current URI.</param>
+    /// <param name="triggerStateChange">When false, skips calling <see cref="ComponentBase.StateHasChanged"/> even if state changed.
+    /// Use this when the caller will trigger a render itself to avoid redundant renders.</param>
+    internal abstract void UpdateActiveState(string? location = null, bool triggerStateChange = true);
 
     /// <summary>
     /// Determines whether the current URI should match the link.
