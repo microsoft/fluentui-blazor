@@ -4,60 +4,78 @@
 
 @if (HideFluentField)
 {
-    @ChildContent
+	@ChildContent
 }
 else
 {
-    <fluent-field id="@GetId("field")"
-                  label-position="@Parameters.LabelPosition.ToAttributeValue()"
-                  class="@ClassValue"
-                  style="@StyleValue"
-                  size="@Size.ToAttributeValue()"
-                  @attributes="AdditionalAttributes">
+	<fluent-field id="@GetId("field")"
+				  label-position="@Parameters.LabelPosition.ToAttributeValue()"
+				  class="@ClassValue"
+				  style="@StyleValue"
+				  size="@Size.ToAttributeValue()"
+				  @attributes="AdditionalAttributes">
 
-        @if (HasLabel)
-        {
-            <label id="@GetId("label")"
-                   slot="@FluentSlot.FieldLabel"
-                   for="@GetId("input")"
-                   required="@(Parameters.Required ?? false)"
-                   disabled="@(Parameters.Disabled ?? false)"
-                   style="@LabelStyle">
-                @Parameters.Label
-                @Parameters.LabelTemplate
-            </label>
-        }
+		@if (HasLabel)
+		{
+			<label id="@GetId("label")"
+				   slot="@FluentSlot.FieldLabel"
+				   for="@GetId("input")"
+				   required="@(Parameters.Required ?? false)"
+				   disabled="@(Parameters.Disabled ?? false)"
+				   style="@LabelStyle">
+				@Parameters.Label
+				@Parameters.LabelTemplate
+			</label>
+		}
 
-        @if (ChildContent is not null)
-        {
-            @if (Parameters.HasInputComponent || !IncludeInputSlot)
-            {
-                @ChildContent
-            }
-            else
-            {
-                <div slot="@FluentSlot.FieldInput" id="@GetId("input")">
-                    @ChildContent
-                </div>
-            }
-        }
+		@if (ChildContent is not null)
+		{
+			@if (Parameters.HasInputComponent || !IncludeInputSlot)
+			{
+				@ChildContent
+			}
+			else
+			{
+				<div slot="@FluentSlot.FieldInput" id="@GetId("input")">
+					@ChildContent
+				</div>
+			}
+		}
 
-        @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
-        {
-            <FluentText slot="@FluentSlot.FieldMessage" size="@TextSize.Size200">
+		@if (ValidationMessages.Where(x => !string.Equals(x, Parameters.Message, StringComparison.Ordinal)).Any() ||
+			HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
+		{
+			<div slot="message">
+				@foreach (var validationMessage in ValidationMessages)
+				{
+					if (!string.Equals(validationMessage, Parameters.Message, StringComparison.Ordinal))
+					{
 
-                @CreateIcon(Parameters.MessageIcon)
+						<FluentText size="@TextSize.Size200" Color="@Color.Error" Style="display: flex; align-items: center;">
+							@CreateIcon(FluentStatus.ErrorIcon)
+							@validationMessage
+						</FluentText>
+					}
+				}
 
-                @if (Parameters.MessageTemplate is not null)
-                {
-                    @Parameters.MessageTemplate
-                }
-                else
-                {
-                    @Parameters.Message
-                }
-            </FluentText>
-        }
+				@if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
+				{
+					@if (Parameters.MessageTemplate is not null)
+					{
+						@Parameters.MessageTemplate
+					}
+					else
+					{
 
-    </fluent-field>
+						<FluentText Color="@(Parameters.MessageState is null ? Color.Error : Color.Info)" Size="@TextSize.Size200" Style="display: flex; align-items: center;">
+							@CreateIcon(Parameters.MessageIcon)
+							@Parameters.Message
+						</FluentText>
+					}
+				}
+			</div>
+		}
+
+
+	</fluent-field>
 }

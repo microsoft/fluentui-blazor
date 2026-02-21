@@ -1,11 +1,12 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.Linq.Expressions
 @using Xunit
 @using Bunit
 @inherits FluentUITestContext
 @code
 {
-    public FluentFieldParameterSelectorTests()
+    public FluentFieldParameterCollectorTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
@@ -37,7 +38,7 @@
         yield return new object?[] { "Message", null, null, null };
         yield return new object?[] { "MessageIcon", null, null, null };
         yield return new object?[] { "MessageTemplate", null, null, null };
-        yield return new object?[] { "MessageCondition", null, FluentFieldCondition.Always, null };
+        yield return new object?[] { "MessageCondition", null, FluentFieldCondition.Never, null };
         yield return new object?[] { "MessageState", null, null, null };
 
         // With default State
@@ -47,30 +48,31 @@
         yield return new object?[] { "MessageIcon", null, FluentStatus.SuccessIcon, MessageState.Success };
         yield return new object?[] { "MessageIcon", null, FluentStatus.WarningIcon, MessageState.Warning };
         yield return new object?[] { "MessageIcon", null, FluentStatus.ErrorIcon, MessageState.Error };
-        yield return new object?[] { "MessageTemplate", null, FluentFieldParameterSelector.StateToMessageTemplate(MessageState.Success, "Valid data"), MessageState.Success };
-        yield return new object?[] { "MessageTemplate", null, FluentFieldParameterSelector.StateToMessageTemplate(MessageState.Warning, "Please, check this value"), MessageState.Warning };
-        yield return new object?[] { "MessageTemplate", null, FluentFieldParameterSelector.StateToMessageTemplate(MessageState.Error, "An error occurred"), MessageState.Error };
+		//The collector doesn't create a defaukt template based on the state anymore
+        //yield return new object?[] { "MessageTemplate", null, FluentFieldParameterCollector.StateToMessageTemplate(MessageState.Success, "Valid data"), MessageState.Success };
+        //yield return new object?[] { "MessageTemplate", null, FluentFieldParameterCollector.StateToMessageTemplate(MessageState.Warning, "Please, check this value"), MessageState.Warning };
+        //yield return new object?[] { "MessageTemplate", null, FluentFieldParameterCollector.StateToMessageTemplate(MessageState.Error, "An error occurred"), MessageState.Error };
     }
 
     [Theory]
     [MemberData(nameof(GetTestData))]
-    public void FluentFieldParameterSelector_Standalone(string name, object? value, object? expectedValue, MessageState? state)
+    public void FluentFieldParameterCollector_Standalone(string name, object? value, object? expectedValue, MessageState? state)
     {
         CommonTest(null, name, value, expectedValue, state);
     }
 
     [Theory]
     [MemberData(nameof(GetTestData))]
-    public void FluentFieldParameterSelector_InputComponent(string name, object? value, object? expectedValue, MessageState? state)
+    public void FluentFieldParameterCollector_InputComponent(string name, object? value, object? expectedValue, MessageState? state)
     {
         CommonTest(new MockFluentField(), name, value, expectedValue, state);
     }
 
     [Theory]
     [MemberData(nameof(GetTestData))]
-    public void FluentFieldParameterSelector_SetNotSupported(string name, object? value, object? expectedValue, MessageState? state)
+    public void FluentFieldParameterCollector_SetNotSupported(string name, object? value, object? expectedValue, MessageState? state)
     {
-        var selector = new FluentFieldParameterSelector(new FluentField(LibraryConfiguration.Empty), FluentLocalizer);
+        var selector = new FluentFieldParameterCollector(new FluentField(LibraryConfiguration.Empty), FluentLocalizer);
 
         Assert.ThrowsAny<Exception>(() =>
         {
@@ -83,21 +85,64 @@
     }
 
     [Fact]
-    public void FluentFieldParameterSelector_FocusLost()
+    public void FluentFieldParameterCollector_FocusLost()
     {
         // Arrange
         var field = new FluentField(LibraryConfiguration.Empty) { FocusLost = true };
-        var selector = new FluentFieldParameterSelector(field, FluentLocalizer);
+        var selector = new FluentFieldParameterCollector(field, FluentLocalizer);
 
         // Act
         Assert.ThrowsAny<Exception>(() =>
         {
-            selector.FocusLost = true;    
+            selector.FocusLost = true;
         });
 
         // Assert
         Assert.False(selector.FocusLost);
         Assert.True(field.FocusLost);
+    }
+
+    [Fact]
+    public void FluentFieldParameterCollector_ValueExpression_Standalone()
+    {
+        // Arrange
+        Expression<Func<string>> expression = () => "test";
+        var field = new FluentField(LibraryConfiguration.Empty);
+        typeof(FluentField).GetProperty("For")?.SetValue(field, expression);
+        var collector = new FluentFieldParameterCollector(field, FluentLocalizer);
+
+        // Act & Assert
+        Assert.Equal(expression, collector.ValueExpression);
+    }
+
+    [Fact]
+    public void FluentFieldParameterCollector_ValueExpression_InputComponent()
+    {
+        // Arrange
+        Expression<Func<string>> expression = () => "test";
+        var inputComponent = new MockFluentField { ValueExpression = expression };
+        var field = new FluentField(LibraryConfiguration.Empty);
+        typeof(FluentField).GetProperty("InputComponent")?.SetValue(field, inputComponent);
+        var collector = new FluentFieldParameterCollector(field, FluentLocalizer);
+
+        // Act & Assert
+        Assert.Equal(expression, collector.ValueExpression);
+    }
+
+    [Fact]
+    public void FluentFieldParameterCollector_ValueExpression_Precedence()
+    {
+        // Arrange
+        Expression<Func<string>> expressionFor = () => "for";
+        Expression<Func<string>> expressionInput = () => "input";
+        var inputComponent = new MockFluentField { ValueExpression = expressionInput };
+        var field = new FluentField(LibraryConfiguration.Empty);
+        typeof(FluentField).GetProperty("For")?.SetValue(field, expressionFor);
+        typeof(FluentField).GetProperty("InputComponent")?.SetValue(field, inputComponent);
+        var collector = new FluentFieldParameterCollector(field, FluentLocalizer);
+
+        // Act & Assert
+        Assert.Equal(expressionFor, collector.ValueExpression);
     }
 
     private void CommonTest(MockFluentField? inputComponent, string name, object? value, object? expectedValue, MessageState? state)
@@ -137,7 +182,7 @@
 
         // Act
         var instance = cut.FindComponent<FluentField>().Instance;
-        var selector = new FluentFieldParameterSelector(instance, FluentLocalizer);
+        var selector = new FluentFieldParameterCollector(instance, FluentLocalizer);
         var propValue = selector.GetType().GetProperty(name)?.GetValue(selector);
 
         // Assert
@@ -163,7 +208,8 @@
 
     internal class MockFluentField : IFluentField
     {
-        public bool FocusLost { get; }
+        public LambdaExpression? ValueExpression { get; set; }
+        public bool FocusLost { get; set; }
         public string? Label { get; set; }
         public RenderFragment? LabelTemplate { get; set; }
         public LabelPosition? LabelPosition { get; set; }

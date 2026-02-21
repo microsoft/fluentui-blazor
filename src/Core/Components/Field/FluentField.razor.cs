@@ -2,7 +2,10 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
+using System.Reflection;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -13,9 +16,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentField : FluentComponentBase, IFluentField
 {
     private readonly string _defaultId = Identifier.NewId();
+    private EditContext? _previousEditContext;
+    private LambdaExpression? _previousFieldAccessor;
+    private readonly EventHandler<ValidationStateChangedEventArgs>? _validationStateChangedHandler;
+    private FieldIdentifier _fieldIdentifier;
 
     /// <summary />
-    public FluentField(LibraryConfiguration configuration) : base(configuration) { }
+    public FluentField(LibraryConfiguration configuration) : base(configuration)
+    {
+        _validationStateChangedHandler = (sender, eventArgs) => StateHasChanged();
+    }
 
     [Inject]
     private LibraryConfiguration Configuration { get; set; } = default!;
@@ -23,6 +33,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .AddClass(Configuration.DefaultStyles.FluentFieldClass, when: HasLabel)
+        .AddClass("invalid", when: ValidationMessages.Any())
         .Build();
 
     /// <summary />
@@ -40,6 +51,12 @@ public partial class FluentField : FluentComponentBase, IFluentField
     internal bool HideFluentField { get; set; }
 
     /// <summary>
+    /// Gets or sets the <see cref="EditContext"/> for the form.
+    /// </summary>
+    [CascadingParameter]
+    private EditContext? CurrentEditContext { get; set; }
+
+    /// <summary>
     /// Gets or sets an existing FieldInput component to use in the field.
     /// Setting this parameter will define the parameters
     /// Label, LabelTemplate, LabelPosition, LabelWidth,
@@ -48,6 +65,21 @@ public partial class FluentField : FluentComponentBase, IFluentField
     /// </summary>
     [Parameter]
     public IFluentField? InputComponent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="FieldIdentifier"/> for which validation messages should be displayed.
+    /// If set, this parameter takes precedence over <see cref="For"/>.
+    /// </summary>
+    [Parameter]
+    public FieldIdentifier? Field { get; set; }
+
+    /// <summary>
+    /// Gets or sets the field for which validation messages should be displayed.
+    /// </summary>
+    [Parameter]
+    public LambdaExpression? For { get; set; }
+
+    LambdaExpression? IFluentField.ValueExpression => For;
 
     /// <summary>
     /// Gets or sets the ID of the FieldInput component to associate with the field.
@@ -121,7 +153,69 @@ public partial class FluentField : FluentComponentBase, IFluentField
     [Parameter]
     public FieldSize? Size { get; set; }
 
-    private FluentFieldParameterSelector Parameters => new(this, Localizer);
+    private FluentFieldParameterCollector Parameters => new(this, Localizer);
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (Field != null)
+        {
+            _fieldIdentifier = Field.Value;
+        }
+        else if (For != null)
+        {
+            if (For != _previousFieldAccessor)
+            {
+                _fieldIdentifier = CreateFieldIdentifier(For);
+                _previousFieldAccessor = For;
+            }
+        }
+        else if (InputComponent?.ValueExpression != null)
+        {
+            if (InputComponent.ValueExpression != _previousFieldAccessor)
+            {
+                _fieldIdentifier = CreateFieldIdentifier(InputComponent.ValueExpression);
+                _previousFieldAccessor = InputComponent.ValueExpression;
+            }
+        }
+
+        if (CurrentEditContext != _previousEditContext)
+        {
+            DetachValidationStateChangedListener();
+            if (CurrentEditContext != null)
+            {
+                CurrentEditContext.OnValidationStateChanged += _validationStateChangedHandler;
+            }
+
+            _previousEditContext = CurrentEditContext;
+        }
+    }
+
+    /// <summary />
+    public override ValueTask DisposeAsync()
+    {
+        DetachValidationStateChangedListener();
+        GC.SuppressFinalize(this);
+        return base.DisposeAsync();
+    }
+
+    private void DetachValidationStateChangedListener()
+    {
+        if (_previousEditContext != null)
+        {
+            _previousEditContext.OnValidationStateChanged -= _validationStateChangedHandler;
+        }
+    }
+
+    private static FieldIdentifier CreateFieldIdentifier(LambdaExpression accessor)
+    {
+        var method = typeof(FieldIdentifier).GetMethod("Create", BindingFlags.Public | BindingFlags.Static)!;
+        return (FieldIdentifier)method.MakeGenericMethod(accessor.ReturnType).Invoke(null, [accessor])!;
+    }
+
+    private IEnumerable<string> ValidationMessages => CurrentEditContext?.GetValidationMessages(_fieldIdentifier) ?? [];
 
     internal string? GetId(string slot)
     {
@@ -156,7 +250,8 @@ public partial class FluentField : FluentComponentBase, IFluentField
         => !string.IsNullOrWhiteSpace(Parameters.Message)
         || Parameters.MessageTemplate is not null
         || Parameters.MessageIcon is not null
-        || Parameters.MessageState is not null;
+        || Parameters.MessageState is not null
+        || ValidationMessages.Any();
 
     private bool HasMessageOrCondition
        => HasMessage || Parameters.MessageCondition is not null;

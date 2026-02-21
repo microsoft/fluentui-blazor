@@ -1,5 +1,8 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Linq.Expressions
+@using Bunit
 @using Xunit;
 @inherits FluentUITestContext
 @code
@@ -175,7 +178,7 @@
 #pragma warning disable BL0005  // Component parameter should not be set outside of its component.
         var field2 = new FluentField(LibraryConfiguration.Empty)
         {
-                InputComponent = new FluentFieldParameterSelectorTests.MockFluentField()
+                InputComponent = new FluentFieldParameterCollectorTests.MockFluentField()
         };
         Assert.Throws<ArgumentException>(() =>
         {
@@ -227,5 +230,180 @@
 
         // Assert
         Assert.Equal("Field content", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentField_ValidationMessages_DisplaysErrors()
+    {
+        // Arrange
+        var model = new TestModel { Name = "" };
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+        messageStore.Add(editContext.Field(nameof(TestModel.Name)), "Name is required");
+
+        // Act
+        var cut = Render(
+            @<EditForm EditContext="editContext">
+                <FluentField For="@(() => model.Name)">Field content</FluentField>
+            </EditForm>);
+
+        // Assert
+        Assert.Contains("Name is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentField_ValidationMessages_ExcludesMessageParameter()
+    {
+        // Arrange
+        var model = new TestModel { Name = "" };
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+        messageStore.Add(editContext.Field(nameof(TestModel.Name)), "Custom Message");
+
+        // Act
+        var cut = Render(
+            @<EditForm EditContext="editContext">
+                <FluentField For="@(() => model.Name)" Message="Custom Message" MessageCondition="@FluentFieldCondition.Never">Field content</FluentField>
+            </EditForm>);
+
+        // Assert
+        // "Custom Message" should be excluded because it matches the Message parameter
+        Assert.DoesNotContain("Custom Message", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentField_ValidationMessages_WithCondition()
+    {
+        // Arrange
+        var model = new TestModel { Name = "" };
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+        messageStore.Add(editContext.Field(nameof(TestModel.Name)), "Validation Error");
+
+        // Act
+        var cut = Render(
+            @<EditForm EditContext="editContext">
+                <FluentField For="@(() => model.Name)" Message="Condition Met" MessageCondition="@FluentFieldCondition.Always">Field content</FluentField>
+            </EditForm>);
+
+        // Assert
+        Assert.Contains("Validation Error", cut.Markup);
+        Assert.Contains("Condition Met", cut.Markup);
+    }
+
+    private class TestModel
+    {
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+    }
+
+    private class MockFluentField : IFluentField
+    {
+        public LambdaExpression? ValueExpression { get; set; }
+        public bool FocusLost { get; set; }
+        public string? Label { get; set; }
+        public RenderFragment? LabelTemplate { get; set; }
+        public LabelPosition? LabelPosition { get; set; }
+        public string? LabelWidth { get; set; }
+        public bool? Required { get; set; }
+        public bool? Disabled { get; set; }
+        public string? Message { get; set; }
+        public Icon? MessageIcon { get; set; }
+        public RenderFragment? MessageTemplate { get; set; }
+        public Func<IFluentField, bool>? MessageCondition { get; set; }
+        public MessageState? MessageState { get; set; }
+    }
+
+    [Fact]
+    public void FluentField_Field_Parameter_Takes_Precedence()
+    {
+        // Arrange
+        var model = new TestModel { Name = "Name", Description = "Desc" };
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+        
+        var nameField = editContext.Field(nameof(TestModel.Name));
+        var descField = editContext.Field(nameof(TestModel.Description));
+        
+        messageStore.Add(nameField, "Name error");
+        messageStore.Add(descField, "Description error");
+
+        // Act
+        var cut = Render(
+            @<EditForm EditContext="editContext">
+                <FluentField For="@(() => model.Name)" Field="@descField">Field content</FluentField>
+            </EditForm>);
+
+        // Assert
+        Assert.Contains("Description error", cut.Markup);
+        Assert.DoesNotContain("Name error", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentField_Uses_InputComponent_ValueExpression()
+    {
+        // Arrange
+        var model = new TestModel { Name = "Name" };
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+        var nameField = editContext.Field(nameof(TestModel.Name));
+        messageStore.Add(nameField, "Name error");
+
+        var inputComponent = new MockFluentField 
+        { 
+            ValueExpression = (Expression<Func<string?>>)(() => model.Name) 
+        };
+
+        // Act
+        var cut = Render<FluentField>(parameters => parameters
+            .AddCascadingValue(editContext)
+            .Add(p => p.InputComponent, inputComponent)
+        );
+
+        // Assert
+        Assert.Contains("Name error", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentField_Swapping_For_Updates_Identifier()
+    {
+        // Arrange
+        var model = new TestModel { Name = "", Description = "" };
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+        messageStore.Add(editContext.Field(nameof(TestModel.Name)), "Name Error");
+        messageStore.Add(editContext.Field(nameof(TestModel.Description)), "Desc Error");
+
+        // Act & Assert 1
+        var cut1 = Render<FluentField>(parameters => parameters
+            .AddCascadingValue(editContext)
+            .Add(p => p.For, (Expression<Func<string?>>)(() => model.Name))
+        );
+
+        Assert.Contains("Name Error", cut1.Markup);
+        Assert.DoesNotContain("Desc Error", cut1.Markup);
+
+        // Act & Assert 2
+        var cut2 = Render<FluentField>(parameters => parameters
+            .AddCascadingValue(editContext)
+            .Add(p => p.For, (Expression<Func<string?>>)(() => model.Description))
+        );
+
+        Assert.Contains("Desc Error", cut2.Markup);
+        Assert.DoesNotContain("Name Error", cut2.Markup);
+    }
+
+    [Fact]
+    public void FluentField_IFluentField_ValueExpression_Returns_For()
+    {
+        // Arrange
+        var model = new TestModel { Name = "test" };
+        Expression<Func<string?>> expression = () => model.Name;
+        var cut = Render<FluentField>(parameters => parameters.Add(p => p.For, expression));
+        var field = cut.Instance;
+        IFluentField ifield = field;
+
+        // Act & Assert
+        Assert.Equal(expression, ifield.ValueExpression);
     }
 }

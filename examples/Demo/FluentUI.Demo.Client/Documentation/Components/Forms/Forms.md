@@ -8,6 +8,7 @@ icon: Form
 The Fluent UI Razor components work with a validation summary in the same way the standard Blazor (input) components do. An extra component is provided to make it possible to show a validation summary that follows the Fluent Design guidelines:
 
 - FluentValidationSummary
+- FluentValidationMessage
 
 See the [documentation](https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation?view=aspnetcore-10.0#validation-summary-and-validation-message-components) on the Learn site for more information on the standard components. As the Fluent component is based on the standard component, the same documentation applies
 
@@ -25,3 +26,6 @@ Not all of the library's input components are used in this form. No data is actu
 
 {{ API Type=FluentValidationSummary }}
 
+## API FluentValidationMessage
+
+{{ API Type=FluentValidationMessage }}

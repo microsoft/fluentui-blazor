@@ -11,3 +11,7 @@ fluent-field[label-position='before'] > fluent-label[slot='label'] {
 fluent-field label[disabled] {
   color: var(--colorNeutralForegroundDisabled);
 }
+
+fluent-field [slot="message"] {
+  display: block;
+}

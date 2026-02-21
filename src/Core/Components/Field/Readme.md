@@ -1,13 +1,13 @@
 # FluentField
 
-The `FluentField` component is a wrapper around a input component that add a label and a message to the input.
+The `FluentField` component is a wrapper around an input component that adds a label and a message to the input.
 
-> **Note:** The `InputComponent` attribute should only be set with FluentUI-Blazor components.
-> Don't use it in standalone mode.
+> **Note:** The `InputComponent` attribute should only be set with Fluent UI Blazor components.
+> Do not use this in standalone mode.
 
-## Usage in FluentUI-Blazor lib
+## Usage in the Fluent UI Blazor library
 
-You can use it by enclosing your component in a FluentField like this.
+You can use the component by enclosing your component in a FluentField like this.
 You need to specify the `InputComponent="@this"`, `ForId="@Id"`, `Class="@ClassValue"` and `Style="@StyleValue"`
 properties for the component to work correctly.
 
