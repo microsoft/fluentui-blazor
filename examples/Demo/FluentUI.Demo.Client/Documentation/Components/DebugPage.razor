@@ -1,0 +1,78 @@
+﻿@page "/Debug"
+
+<div style="padding: 1rem;">
+
+	<FluentTextInput Width="100%" />
+	<FluentTextInput Width="100%" Label="With label" />
+
+	<FluentTextArea Width="100%" />
+	<FluentTextArea Width="100%" Label="With label" />
+	<FluentTextArea Width="100%" LabelWidth="100%" />
+	<FluentTextArea Width="100%" LabelWidth="100%" Label="With label and LabelWidth" />
+
+	<FluentSelect Width="100%" Items="Colors" @bind-Value="Value" />
+	<FluentSelect Width="100%" Items="Colors" @bind-Value="Value" Label="With label" />
+	<FluentSelect Width="100%" LabelWidth="100%" Items="Colors" @bind-Value="Value" />
+	<FluentSelect Width="100%" LabelWidth="100%" Items="Colors" @bind-Value="Value" Label="With label and LabelWidth" />
+
+
+
+
+	<FluentCombobox Width="100%" OptionText="@(i => i?.Name)" OptionValue="@(i => i?.Code)" Items="@Countries" @bind-SelectedItems="@SelectedCountries">
+		<FreeOption>
+			Search for '<FreeOptionOutput />'
+		</FreeOption>
+	</FluentCombobox>
+
+	<FluentCombobox Width="100%" Label="With Label" OptionText="@(i => i?.Name)" OptionValue="@(i => i?.Code)" Items="@Countries" @bind-SelectedItems="@SelectedCountries">
+		<FreeOption>
+			Search for '<FreeOptionOutput />'
+		</FreeOption>
+	</FluentCombobox>
+
+	<FluentCombobox Width="100%" LabelWidth="100%" OptionText="@(i => i?.Name)" OptionValue="@(i => i?.Code)" Items="@Countries" @bind-SelectedItems="@SelectedCountries">
+		<FreeOption>
+			Search for '<FreeOptionOutput />'
+		</FreeOption>
+	</FluentCombobox>
+
+	<FluentCombobox Width="100%" Label="With Label and LabelWidth" OptionText="@(i => i?.Name)" OptionValue="@(i => i?.Code)" Items="@Countries" @bind-SelectedItems="@SelectedCountries">
+		<FreeOption>
+			Search for '<FreeOptionOutput />'
+		</FreeOption>
+	</FluentCombobox>
+
+	<FluentDatePicker Width="100%"
+					  @bind-Value="@SelectedValue" />
+
+	<FluentDatePicker Label="With label"
+					  Width="100%"
+					  @bind-Value="@SelectedValue" />
+
+	<FluentDatePicker Width="100%"
+					  LabelWidth="100%"
+					  @bind-Value="@SelectedValue" />
+
+	<FluentDatePicker Label="With label and LabelWidth"
+					  LabelWidth="100%"
+					  Width="100%"
+					  @bind-Value="@SelectedValue" />
+
+	<FluentTimePicker @bind-Value="@SelectedTime" Width="100%" />
+	<FluentTimePicker @bind-Value="@SelectedTime" Width="100%" Label="With label" />
+	<FluentTimePicker @bind-Value="@SelectedTime" Width="100%" LabelWidth="100%" />
+	<FluentTimePicker @bind-Value="@SelectedTime" Width="100%" Label="With label and LabelWidth" LabelWidth="100%" />
+
+	<FluentSwitch @bind-Value="@value" LabelWidth="100%" />
+	<FluentSwitch @bind-Value="@value" LabelWidth="100%" Label="With Label and LabelWidth" />
+</div>
+@code {
+	IEnumerable<SampleData.Olympics2024.Country> Countries = SampleData.Olympics2024.Countries;
+	IEnumerable<SampleData.Olympics2024.Country> SelectedCountries = [];
+
+	DateOnly? SelectedValue = null;
+	TimeOnly? SelectedTime = null;
+	static string[] Colors = ["Red", "Green", "Blue"];
+	string? Value;
+	bool value = false;
+}
