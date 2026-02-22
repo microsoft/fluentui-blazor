@@ -115,7 +115,7 @@
 
     <div class="panel-resizable">
         <h2>Switches</h2>
-        <FluentSwitch @bind-Value="@value"
+        <FluentSwitch @bind-Value="@value"        
                       LabelWidth="@LabelWidth"
                       Label="Label" />
         <FluentSwitch @bind-Value="@value"
@@ -139,6 +139,7 @@
     string? Value;
     bool value = false;
 }
+
 <style>
     .panel-resizable {
         padding: 1rem;
