@@ -16,10 +16,8 @@
         <h2>Text Inputs</h2>
         <FluentTextInput Width="@Width" />
         <FluentTextInput Width="@Width"
-                         Label="Label" />
-        <FluentTextInput Width="@Width"
                          LabelWidth="@LabelWidth"
-                         Label="Label and LabelWidth" />
+                         Label="Label" />
         <FluentTextInput Width="@Width"
                          LabelWidth="@LabelWidth"
                          LabelPosition="LabelPosition.Before"
@@ -31,10 +29,8 @@
         <h2>Text Areas</h2>
         <FluentTextArea Width="@Width" />
         <FluentTextArea Width="@Width"
-                        Label="Label" />
-        <FluentTextArea Width="@Width"
                         LabelWidth="@LabelWidth"
-                        Label="Label and LabelWidth" />
+                        Label="Label" />
         <FluentTextArea Width="@Width"
                         LabelWidth="@LabelWidth"
                         LabelPosition="LabelPosition.Before"
@@ -47,18 +43,10 @@
                       Items="Colors"
                       @bind-Value="Value" />
         <FluentSelect Width="@Width"
+                      LabelWidth="@LabelWidth"
                       Items="Colors"
                       @bind-Value="Value"
                       Label="Label" />
-        <FluentSelect Width="@Width"
-                      LabelWidth="@LabelWidth"
-                      Items="Colors"
-                      @bind-Value="Value" />
-        <FluentSelect Width="@Width"
-                      LabelWidth="@LabelWidth"
-                      Items="Colors"
-                      @bind-Value="Value"
-                      Label="Label and LabelWidth" />
         <FluentSelect Width="@Width"
                       LabelWidth="@LabelWidth"
                       Items="Colors"
@@ -81,6 +69,7 @@
         </FluentCombobox>
 
         <FluentCombobox Width="@Width"
+                        LabelWidth="@LabelWidth"
                         Label="Label"
                         OptionText="@(i => i?.Name)"
                         OptionValue="@(i => i?.Code)"
@@ -92,29 +81,6 @@
             </FreeOption>
         </FluentCombobox>
 
-        <FluentCombobox Width="@Width"
-                        LabelWidth="@LabelWidth"
-                        OptionText="@(i => i?.Name)"
-                        OptionValue="@(i => i?.Code)"
-                        Items="@Countries"
-                        @bind-SelectedItems="@SelectedCountries">
-            <FreeOption>
-                Search for '
-                <FreeOptionOutput />'
-            </FreeOption>
-        </FluentCombobox>
-
-        <FluentCombobox Width="@Width"
-                        Label="Label and LabelWidth"
-                        OptionText="@(i => i?.Name)"
-                        OptionValue="@(i => i?.Code)"
-                        Items="@Countries"
-                        @bind-SelectedItems="@SelectedCountries">
-            <FreeOption>
-                Search for '
-                <FreeOptionOutput />'
-            </FreeOption>
-        </FluentCombobox>
     </div>
 
     <div class="panel-resizable">
@@ -122,13 +88,12 @@
         <FluentDatePicker Width="@Width"
                           @bind-Value="@SelectedValue" />
         <FluentDatePicker Label="Label"
+                          LabelWidth="@LabelWidth"
                           Width="@Width"
                           @bind-Value="@SelectedValue" />
-        <FluentDatePicker Width="@Width"
-                          LabelWidth="@LabelWidth"
-                          @bind-Value="@SelectedValue" />
-        <FluentDatePicker Label="Label and LabelWidth"
-                          LabelWidth="@LabelWidth"
+        <FluentDatePicker LabelWidth="@LabelWidth"
+                          LabelPosition="LabelPosition.Before"
+                          Label="Label before"
                           Width="@Width"
                           @bind-Value="@SelectedValue" />
     </div>
@@ -138,28 +103,31 @@
         <FluentTimePicker @bind-Value="@SelectedTime"
                           Width="@Width" />
         <FluentTimePicker @bind-Value="@SelectedTime"
-                          Width="@Width" Label="Label" />
-        <FluentTimePicker @bind-Value="@SelectedTime"
-                          Width="@Width" LabelWidth="@LabelWidth" />
+                          Width="@Width"
+                          LabelWidth="@LabelWidth"
+                          Label="Label" />
         <FluentTimePicker @bind-Value="@SelectedTime"
                           Width="@Width"
-                          Label="Label and LabelWidth"
-                          LabelWidth="@LabelWidth" />
+                          LabelWidth="@LabelWidth"
+                          LabelPosition="LabelPosition.Before"
+                          Label="Label before" />
     </div>
 
     <div class="panel-resizable">
         <h2>Switches</h2>
         <FluentSwitch @bind-Value="@value"
-                      LabelWidth="@LabelWidth" />
+                      LabelWidth="@LabelWidth"
+                      Label="Label" />
         <FluentSwitch @bind-Value="@value"
                       LabelWidth="@LabelWidth"
-                      Label="Label and LabelWidth" />
+                      LabelPosition="LabelPosition.Before"
+                      Label="Label before" />
     </div>
 </div>
 
 @code {
-    string Width = "100%";
-    string LabelWidth = "100%";
+    string Width = "";
+    string LabelWidth = "";
     bool showLabelBorder = false;
 
     IEnumerable<SampleData.Olympics2024.Country> Countries = SampleData.Olympics2024.Countries;
