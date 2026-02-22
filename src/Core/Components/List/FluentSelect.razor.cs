@@ -23,13 +23,18 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
     protected virtual string DropdownType => "dropdown";
 
     /// <summary />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
+    /// <summary />
     protected virtual string? DropdownStyle => new StyleBuilder()
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
         .Build();
 
     /// <summary />
     protected virtual string? ListStyle => new StyleBuilder()
-        .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
+        //.AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, when: !string.IsNullOrEmpty(Height))
         .Build();
 
