@@ -55,6 +55,28 @@
                       Label="Label before" />
     </div>
 
+
+    <div class="panel-resizable">
+        <h2>Listboxes</h2>
+        <FluentListbox Width="@Width"
+                       Height="200px"
+                       Items="Colors"
+                       @bind-Value="Value" />
+        <FluentListbox Width="@Width"
+                       LabelWidth="@LabelWidth"
+                       Height="200px"
+                       Items="Colors"
+                       @bind-Value="Value"
+                       Label="Label" />
+        <FluentListbox Width="@Width"
+                       LabelWidth="@LabelWidth"
+                       Height="200px"
+                       Items="Colors"
+                       @bind-Value="Value"
+                       LabelPosition="LabelPosition.Before"
+                       Label="Label before" />
+    </div>
+
     <div class="panel-resizable">
         <h2>Comboboxes</h2>
         <FluentCombobox Width="@Width"
@@ -115,7 +137,7 @@
 
     <div class="panel-resizable">
         <h2>Switches</h2>
-        <FluentSwitch @bind-Value="@value"        
+        <FluentSwitch @bind-Value="@value"
                       LabelWidth="@LabelWidth"
                       Label="Label" />
         <FluentSwitch @bind-Value="@value"

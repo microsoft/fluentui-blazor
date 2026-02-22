@@ -9,6 +9,7 @@
   font-size: var(--fontSizeBase300);
   line-height: var(--lineHeightBase300);
   font-weight: var(--fontWeightRegular);
+  width: 100%;
 }
 
   .fluent-listbox fluent-listbox {
