@@ -30,7 +30,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
         .Build();
 
     private string? LabelStyle => new StyleBuilder()
-        .AddStyle("width", Parameters.LabelWidth, when: () => !string.IsNullOrEmpty(Parameters.LabelWidth) && Parameters.LabelPosition != Components.LabelPosition.Above)
+        .AddStyle("width", Parameters.LabelWidth)
         .Build();
 
     /// <summary>
