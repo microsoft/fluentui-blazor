@@ -159,6 +159,11 @@ public partial class FluentNav : FluentComponentBase
     {
         NavigationManager.LocationChanged -= OnLocationChanged;
 
+        if (JSModule.ObjectReference is not null)
+        {
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.Dispose", Id);
+        }
+
         await base.DisposeAsync();
         GC.SuppressFinalize(this);
     }

@@ -176,5 +176,6 @@ Check that:
 
 - [Get Started](/Mcp/GetStarted) - Configure your IDE
 - [MCP Tools](/Mcp/Tools) - Explore available tools
+- [Version Compatibility](/Mcp/VersionCompatibility) - Ensure your project uses the correct component version
 - [Usage Examples](/Mcp/Examples) - See real-world examples
 - [Security & Compliance](/Mcp/Security) - Security information for SecOps teams
