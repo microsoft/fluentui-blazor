@@ -1,0 +1,175 @@
+﻿@page "/Debug/Width"
+
+<FluentCard>
+    <FluentTextInput @bind-Value="@Width"
+                     Label="Width"
+                     LabelPosition="LabelPosition.Before" />
+    <FluentTextInput @bind-Value="@LabelWidth"
+                     Label="LabelWidth"
+                     LabelPosition="LabelPosition.Before" />
+    <FluentCheckbox @bind-Value="@showLabelBorder"
+                    Label="Show label border" />
+</FluentCard>
+
+<div show-label-border="@showLabelBorder">
+    <div class="panel-resizable">
+        <h2>Text Inputs</h2>
+        <FluentTextInput Width="@Width" />
+        <FluentTextInput Width="@Width"
+                         LabelWidth="@LabelWidth"
+                         Label="Label" />
+        <FluentTextInput Width="@Width"
+                         LabelWidth="@LabelWidth"
+                         LabelPosition="LabelPosition.Before"
+                         Label="Label before" />
+
+    </div>
+
+    <div class="panel-resizable">
+        <h2>Text Areas</h2>
+        <FluentTextArea Width="@Width" />
+        <FluentTextArea Width="@Width"
+                        LabelWidth="@LabelWidth"
+                        Label="Label" />
+        <FluentTextArea Width="@Width"
+                        LabelWidth="@LabelWidth"
+                        LabelPosition="LabelPosition.Before"
+                        Label="Label before" />
+    </div>
+
+    <div class="panel-resizable">
+        <h2>Selects</h2>
+        <FluentSelect Width="@Width"
+                      Items="Colors"
+                      @bind-Value="Value" />
+        <FluentSelect Width="@Width"
+                      LabelWidth="@LabelWidth"
+                      Items="Colors"
+                      @bind-Value="Value"
+                      Label="Label" />
+        <FluentSelect Width="@Width"
+                      LabelWidth="@LabelWidth"
+                      Items="Colors"
+                      @bind-Value="Value"
+                      LabelPosition="LabelPosition.Before"
+                      Label="Label before" />
+    </div>
+
+
+    <div class="panel-resizable">
+        <h2>Listboxes</h2>
+        <FluentListbox Width="@Width"
+                       Height="200px"
+                       Items="Colors"
+                       @bind-Value="Value" />
+        <FluentListbox Width="@Width"
+                       LabelWidth="@LabelWidth"
+                       Height="200px"
+                       Items="Colors"
+                       @bind-Value="Value"
+                       Label="Label" />
+        <FluentListbox Width="@Width"
+                       LabelWidth="@LabelWidth"
+                       Height="200px"
+                       Items="Colors"
+                       @bind-Value="Value"
+                       LabelPosition="LabelPosition.Before"
+                       Label="Label before" />
+    </div>
+
+    <div class="panel-resizable">
+        <h2>Comboboxes</h2>
+        <FluentCombobox Width="@Width"
+                        OptionText="@(i => i?.Name)"
+                        OptionValue="@(i => i?.Code)"
+                        Items="@Countries"
+                        @bind-SelectedItems="@SelectedCountries">
+            <FreeOption>
+                Search for '
+                <FreeOptionOutput />'
+            </FreeOption>
+        </FluentCombobox>
+
+        <FluentCombobox Width="@Width"
+                        LabelWidth="@LabelWidth"
+                        Label="Label"
+                        OptionText="@(i => i?.Name)"
+                        OptionValue="@(i => i?.Code)"
+                        Items="@Countries"
+                        @bind-SelectedItems="@SelectedCountries">
+            <FreeOption>
+                Search for '
+                <FreeOptionOutput />'
+            </FreeOption>
+        </FluentCombobox>
+
+    </div>
+
+    <div class="panel-resizable">
+        <h2>Date Pickers</h2>
+        <FluentDatePicker Width="@Width"
+                          @bind-Value="@SelectedValue" />
+        <FluentDatePicker Label="Label"
+                          LabelWidth="@LabelWidth"
+                          Width="@Width"
+                          @bind-Value="@SelectedValue" />
+        <FluentDatePicker LabelWidth="@LabelWidth"
+                          LabelPosition="LabelPosition.Before"
+                          Label="Label before"
+                          Width="@Width"
+                          @bind-Value="@SelectedValue" />
+    </div>
+
+    <div class="panel-resizable">
+        <h2>Time Pickers</h2>
+        <FluentTimePicker @bind-Value="@SelectedTime"
+                          Width="@Width" />
+        <FluentTimePicker @bind-Value="@SelectedTime"
+                          Width="@Width"
+                          LabelWidth="@LabelWidth"
+                          Label="Label" />
+        <FluentTimePicker @bind-Value="@SelectedTime"
+                          Width="@Width"
+                          LabelWidth="@LabelWidth"
+                          LabelPosition="LabelPosition.Before"
+                          Label="Label before" />
+    </div>
+
+    <div class="panel-resizable">
+        <h2>Switches</h2>
+        <FluentSwitch @bind-Value="@value"
+                      LabelWidth="@LabelWidth"
+                      Label="Label" />
+        <FluentSwitch @bind-Value="@value"
+                      LabelWidth="@LabelWidth"
+                      LabelPosition="LabelPosition.Before"
+                      Label="Label before" />
+    </div>
+</div>
+
+@code {
+    string Width = "100%";
+    string LabelWidth = "";
+    bool showLabelBorder = false;
+
+    IEnumerable<SampleData.Olympics2024.Country> Countries = SampleData.Olympics2024.Countries;
+    IEnumerable<SampleData.Olympics2024.Country> SelectedCountries = [];
+
+    DateOnly? SelectedValue = null;
+    TimeOnly? SelectedTime = null;
+    static string[] Colors = ["Red", "Green", "Blue"];
+    string? Value;
+    bool value = false;
+}
+
+<style>
+    .panel-resizable {
+        padding: 1rem;
+        overflow: hidden;
+        resize: horizontal;
+    }
+
+    div[show-label-border] fluent-field label {
+        background-color: var(--colorNeutralStroke1);
+    }
+</style>
