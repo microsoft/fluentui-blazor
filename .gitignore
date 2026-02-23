@@ -413,3 +413,5 @@ Microsoft.Fast.Components.FluentUI.xml
 /tests/TemplateValidation/**/Data/*
 /spelling.dic
 
+# Mac temporary files
+*.DS_Store
