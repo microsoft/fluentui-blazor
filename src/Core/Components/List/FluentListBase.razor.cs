@@ -24,6 +24,11 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     {
     }
 
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
     /// <summary>
     /// Gets or sets the width of the component.
     /// </summary>
