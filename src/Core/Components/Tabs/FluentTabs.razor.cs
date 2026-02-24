@@ -227,6 +227,8 @@ public partial class FluentTabs : FluentComponentBase
         {
             await OnTabSelect.InvokeAsync(ActiveTab);
         }
+
+        await HandleOnTabChangedAsync(e);
     }
 
     /// <summary />
