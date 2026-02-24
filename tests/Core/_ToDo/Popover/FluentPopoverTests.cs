@@ -2,11 +2,18 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Popover;
 public class FluentPopoverTests : TestBase
 {
+    public FluentPopoverTests()
+    {
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+    }
+
     [Fact]
     public void FluentPopover_Default()
     {
