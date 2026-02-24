@@ -35,6 +35,7 @@
                     Pagination="@pagination"
                     TGridItem="Country"
                     OnRowFocus="HandleRowFocus"
+                    OnSortChanged="HandleSortChanged"
                     GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr"
                     ShowHover="true">
         <TemplateColumn Title="Rank" Sortable="true"  SortBy="@rankSort" Align="DataGridCellAlignment.Center">
@@ -121,6 +122,11 @@
     private void HandleRowFocus(FluentDataGridRow<Country> row)
     {
         Console.WriteLine($"[Custom comparer] Row focused: {row.Item?.Name}");
+    }
+
+    private void HandleSortChanged(DataGridSortEventArgs<Country> args)
+    {
+        Console.WriteLine($"[Custom comparer] Sort changed: {args.Column?.Title} columns sorted {(args.SortByAscending ? "ascending" : "descending")}");
     }
 
     public class StringLengthComparer : IComparer<string>
