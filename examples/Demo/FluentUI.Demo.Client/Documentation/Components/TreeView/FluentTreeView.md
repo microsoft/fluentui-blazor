@@ -23,8 +23,7 @@ If you use the `Items` property, you can also set the `ItemTemplate` property to
 With these two ways of creating a tree, using the `Text` parameter will display the text of the element, adding an ellipsis `...` if the text is too long.
 Each element also has the properties `IconStart`, `IconEnd`, and `IconAside` to display an icon to the left, right, or at the end of the text.
 
-> [!NOTE]
-> When a user clicks on an item, it is selected and expanded/collapsed if children are present.
+> [!NOTE] When a user clicks on an item, it is selected and expanded/collapsed if children are present.
 > It is not possible to open an item without selecting it (except by using the keyboard, pressing the `Enter` or `Space` key)
 > or using the `Mutiple` selection feature (see below).
 
@@ -89,8 +88,7 @@ is updated with the list of selected items.
 We recommand to set the `HideSelection` parameter to `true` to hide the default selection of the item when the `MultiSelect`
 parameter is set. This is more user-friendly and allows the user to see the selected items more clearly.
 
-> [!NOTE]
-> This **Multiple Selection** feature is only available when the `Items` parameter is used to generate the tree.
+> [!NOTE] This **Multiple Selection** feature is only available when the `Items` parameter is used to generate the tree.
 
 {{ TreeViewMultiSelect }}
 
