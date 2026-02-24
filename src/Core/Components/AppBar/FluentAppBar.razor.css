@@ -1,6 +1,6 @@
 .fluent-appbar {
   --appbar-item-size: 68;
-  --appbar-item-padding: 10;
+  --appbar-item-height-adjustment: 10;
   background-color: var(--colorNeutralBackground2);
 }
   .fluent-appbar fluent-popover-b .fluent-appbar-popover {
@@ -15,7 +15,7 @@
     --appbar-active-indicator-width: 2px;
     cursor: pointer;
     width: calc(var(--appbar-item-size) * 1px);
-    height: calc(var(--appbar-item-size) * 1px - var(--appbar-item-padding) * 1px);
+    height: calc(var(--appbar-item-size) * 1px - var(--appbar-item-height-adjustment) * 1px);
   }
 
     .fluent-appbar .fluent-appbar-item:hover {
