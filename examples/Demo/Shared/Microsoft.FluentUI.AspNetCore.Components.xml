@@ -2130,6 +2130,11 @@
             Gets or sets a callback when a row is double-clicked.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnSortChanged">
+            <summary>
+            Event callback for when the grid's sort order changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowClass">
             <summary>
             Optionally defines a class to be applied to a rendered row.
@@ -15179,6 +15184,22 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.WizardStepStatus">
             <summary>
             Step Status
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridSortEventArgs`1">
+            <summary>
+            Supplies information about a sort change event.
+            </summary>
+            <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataGridSortEventArgs`1.Column">
+            <summary>
+            Gets the column that defines the sort order.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataGridSortEventArgs`1.SortByAscending">
+            <summary>
+            Gets a value indicating whether the grid is sorted ascending.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.NavMenuActionArgs">

@@ -249,6 +249,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridRow<TGridItem>> OnRowDoubleClick { get; set; }
 
     /// <summary>
+    /// Event callback for when the grid's sort order changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<DataGridSortEventArgs<TGridItem>> OnSortChanged { get; set; }
+
+    /// <summary>
     /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
     [Parameter]
@@ -372,7 +378,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     // Returns Loading if set (controlled). If not controlled,
     // we assume the grid is loading until the next data load completes
-    internal bool EffectiveLoadingValue => Loading ?? ItemsProvider is not null;
+    internal bool EffectiveLoadingValue => Loading ?? (ItemsProvider is not null);
 
     private ElementReference? _gridReference;
     //private DotNetObjectReference<Type>? _dotNetObjectReference;
@@ -632,7 +638,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <param name="column">The column that defines the new sort order.</param>
     /// <param name="direction">The direction of sorting. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-    public Task SortByColumnAsync(ColumnBase<TGridItem> column, SortDirection direction = SortDirection.Auto)
+    public async Task SortByColumnAsync(ColumnBase<TGridItem> column, SortDirection direction = SortDirection.Auto)
     {
         _sortByAscending = direction switch
         {
@@ -644,8 +650,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         _sortByColumn = column;
 
-        StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
-        return RefreshDataAsync();
+        if (OnSortChanged.HasDelegate)
+        {
+            await OnSortChanged.InvokeAsync(new()
+            {
+                Column = _sortByColumn,
+                SortByAscending = _sortByAscending
+            });
+        }
+
+        _ = InvokeAsync(StateHasChanged); // We want to see the updated sort order in the header, even before the data query is completed
+        await RefreshDataAsync();
     }
 
     /// <summary>
@@ -677,17 +692,26 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     /// <param name="column">The column to check against the current sorted on column.</param>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-    public Task RemoveSortByColumnAsync(ColumnBase<TGridItem> column)
+    public async Task RemoveSortByColumnAsync(ColumnBase<TGridItem> column)
     {
         if (_sortByColumn == column && !column.IsDefaultSortColumn)
         {
             _sortByColumn = _internalGridContext.DefaultSortColumn.Column ?? null;
             _sortByAscending = _internalGridContext.DefaultSortColumn.Direction != SortDirection.Descending;
 
-            StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
-            return RefreshDataCoreAsync();
+            if (OnSortChanged.HasDelegate)
+            {
+                await OnSortChanged.InvokeAsync(new()
+                {
+                    Column = _sortByColumn,
+                    SortByAscending = _sortByAscending
+                });
+            }
+
+            _ = InvokeAsync(StateHasChanged); // We want to see the updated sort order in the header, even before the data query is completed
+            await RefreshDataCoreAsync();
+            return;
         }
-        return Task.CompletedTask;
     }
 
     /// <summary>
