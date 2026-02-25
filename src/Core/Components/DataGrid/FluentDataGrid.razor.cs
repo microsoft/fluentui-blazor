@@ -712,8 +712,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await RefreshDataCoreAsync();
             return;
         }
-
-        await Task.CompletedTask;
     }
 
     /// <summary>

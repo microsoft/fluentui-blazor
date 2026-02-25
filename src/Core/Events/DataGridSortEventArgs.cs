@@ -8,7 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Supplies information about a sort change event.
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
-public class DataGridSortEventArgs<TGridItem>
+public class DataGridSortEventArgs<TGridItem> : EventArgs
 {
     /// <summary>
     /// Gets the column that defines the sort order.
