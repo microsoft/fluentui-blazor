@@ -635,7 +635,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await OnSortChanged.InvokeAsync(new()
             {
                 Column = _sortByColumn,
-                SortByAscending = _sortByAscending
+                SortByAscending = _sortByAscending,
             });
         }
 
@@ -692,8 +692,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await RefreshDataCoreAsync();
             return;
         }
-
-        await Task.CompletedTask;
     }
 
     /// <summary>
