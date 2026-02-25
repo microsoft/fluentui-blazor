@@ -17,8 +17,7 @@ parameter: `DataGridDisplayMode.Grid` (default) and `DataGridDisplayMode.Table`.
 used to specify column widths in fractions. It basically provides an HTML table element with a `display: grid;` style.
 - With the `Table` mode, it uses standard HTML table elements and rendering. Column widths are best specified through the `Width` parameter on the columns.
 
-> [!NOTE]
-Specifically when using `Virtualize`, it is **highly recommended** to use the `Table` display mode as the `Grid` mode can exhibit odd scrolling behavior.
+> [!NOTE] Specifically when using `Virtualize`, it is **highly recommended** to use the `Table` display mode as the `Grid` mode can exhibit odd scrolling behavior.
 
 
 ## Accessibility
