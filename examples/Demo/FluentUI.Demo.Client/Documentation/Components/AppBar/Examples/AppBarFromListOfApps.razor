@@ -15,7 +15,7 @@
     private class FluentCustomAppBarItem : IAppBarItem
     {
         public int Order { get; set; }
-        public string? Id { get; set; }
+        public string? Id { get; set; } = Guid.NewGuid().ToString();
         public string? Href { get; set; }
         public NavLinkMatch Match { get; set; }
         public Icon IconRest { get; set; } = new Icons.Regular.Size24.AppFolder();
@@ -25,11 +25,6 @@
         public int? Count { get; set; }
         public bool? Overflow { get; set; }
         public EventCallback<IAppBarItem> OnClick { get; set; }
-
-        public FluentCustomAppBarItem()
-        {
-            Id = Guid.NewGuid().ToString();
-        }
     }
 
     private List<FluentCustomAppBarItem> _apps => new List<FluentCustomAppBarItem>
