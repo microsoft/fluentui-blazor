@@ -65,7 +65,7 @@ public partial class FluentAppBar : FluentComponentBase
     /// Gets or sets whether to hide the active bar on the side/bottom of the active item.
     /// </summary>
     [Parameter]
-    public bool? HideActiveBar { get; set; }
+    public bool? HideActiveIndicator { get; set; }
 
     /// <summary>
     /// Gets or sets the content to display (the app bar items, <see cref="FluentAppBarItem"/>).

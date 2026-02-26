@@ -212,7 +212,7 @@
     public void FluentAppBar_HideActiveBar_True()
     {
         // Arrange && Act
-        var cut = Render(@<FluentAppBar HideActiveBar="true"><div>Child content</div></FluentAppBar>);
+        var cut = Render(@<FluentAppBar HideActiveIndicator="true"><div>Child content</div></FluentAppBar>);
 
         // Assert
         var ab = cut.Find("nav");
@@ -223,7 +223,7 @@
     public void FluentAppBar_HideActiveBar_False()
     {
         // Arrange && Act
-        var cut = Render(@<FluentAppBar HideActiveBar="false"><div>Child content</div></FluentAppBar>);
+        var cut = Render(@<FluentAppBar HideActiveIndicator="false"><div>Child content</div></FluentAppBar>);
 
         // Assert
         var ab = cut.Find("nav");
@@ -528,7 +528,7 @@
 		cut.Render();
 
 		// Show popover by clicking the "More" button
-		var moreButton = cut.Find(".fluent-appbar-item[fixed]"); 
+		var moreButton = cut.Find(".fluent-appbar-item[fixed]");
 		await moreButton.ClickAsync();
 		cut.Render();
 
