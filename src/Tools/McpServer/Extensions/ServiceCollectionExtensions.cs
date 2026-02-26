@@ -51,6 +51,9 @@ internal static class ServiceCollectionExtensions
 
         // Migration service (dedicated migration documentation)
         services.AddSingleton<MigrationService>();
+        // Icon catalog service (loaded from embedded all-icons.json)
+        services.AddSingleton<IconSynonymService>();
+        services.AddSingleton<IconService>();
 
         return services;
     }
