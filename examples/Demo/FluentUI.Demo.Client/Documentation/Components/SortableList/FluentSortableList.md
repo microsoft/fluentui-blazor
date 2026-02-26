@@ -17,7 +17,7 @@ The SortableList is a generic component that takes a list of items and an `ItemT
 Sorting/moving items within the list or between lists is handled by the component itself and does not require any code (_this is different from how
 it worked with the v4 component_). Event callbacks are available to respond on these operations but they are optional. See the [API](#api-fluentsortablelist) section for more details.
 
->[!Note]Although the SortableList is a list component, it does not share _any_ code with the other list components in our library ([Select](/Lists/Select), [ComboBox](/Lists/ComboBox), [Listbox](/Lists/Listbox)). 
+>[!Note] Although the SortableList is a list component, it does not share _any_ code with the other list components in our library ([Select](/Lists/Select), [ComboBox](/Lists/ComboBox), [Listbox](/Lists/Listbox)). 
 
 ## Accessibility support
 Although SortableJS does not come with any a11y support, the `FluentSortableList` component fully supports keyboard accessibility. The following operations can be used:

@@ -253,7 +253,7 @@ table {
 caption {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  color: #6c757d;
+  color: var(--colorBrandStroke1);
   text-align: left;
 }
 
@@ -293,7 +293,6 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  border: 1px solid black;
 }
 
 
