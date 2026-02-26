@@ -5,9 +5,13 @@
 	<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10">
 		<FluentSwitch @bind-Value="_showSearch" Label="Show search in popover" />
 		<FluentSwitch @bind-Value="_vertical" @bind-Value:after="@HandleOrientationChanged" Label="@($"Show {(_vertical ? "Vertical" : "Horizontal")}")" />
+        <FluentSwitch @bind-Value="_hideBar" @bind-Value:after="@HandleHideBarChanged" Label="@($"Bar {(_hideBar ? "hidden" : "shown")}")" />
 	</FluentStack>
 	<div style="@stylevalue">
-		<FluentAppBar Orientation="@(_vertical? Orientation.Vertical: Orientation.Horizontal)" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
+		<FluentAppBar Orientation="@(_vertical? Orientation.Vertical: Orientation.Horizontal)"
+        PopoverVisibilityChanged="HandlePopover"
+        PopoverShowSearch="@_showSearch"
+        HideActiveBar="@_hideBar">
 
 			<FluentAppBarItem Href="/AppBarDefault"
 							  Match="NavLinkMatch.All"
@@ -80,6 +84,7 @@
 @code {
 	private bool _vertical = true;
 	private bool _showSearch = true;
+    private bool _hideBar = false;
 
 	private static Icon ResourcesIcon(bool active = false) =>
 		active ? new Icons.Filled.Size24.AppFolder()
@@ -107,4 +112,9 @@
 	{
 		Console.WriteLine($"Orientation changed to {(_vertical ? "vertical" : "horizontal")}");
 	}
+
+    private void HandleHideBarChanged()
+    {
+        Console.WriteLine($"{(_hideBar ? "Hiding" : "Showing")} active bar");
+    }
 }

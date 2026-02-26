@@ -47,7 +47,7 @@
   text-align: center;
 }
 
-.fluent-appbar[orientation=vertical] .fluent-appbar-item:not([inpopover]) a.active::before {
+.fluent-appbar[orientation=vertical]:not([hide-bar]) .fluent-appbar-item:not([inpopover]) a.active::before {
   content: "";
   position: absolute;
   width: var(--appbar-active-indicator-width);
@@ -59,17 +59,32 @@
   right: unset;
 }
 
-.fluent-appbar[orientation=vertical] .fluent-appbar-item.fluent-appbar-item-local:not([inpopover]) a.active::before {
-    all: initial;
+.fluent-appbar[orientation=vertical]:not([hide-bar]) .fluent-appbar-item.fluent-appbar-item-local:not([inpopover]) a.active::before {
+  all: initial;
 }
 
-[dir='rtl'] .fluent-appbar[orientation=vertical] .fluent-appbar-item:not([inpopover]) a.active::before {
-    right:2px;
-    left: unset;
+[dir='rtl'] .fluent-appbar[orientation=vertical]:not([hide-bar]) .fluent-appbar-item:not([inpopover]) a.active::before {
+  right: 2px;
+  left: unset;
 }
 
-[dir='rtl'] .fluent-appbar[orientation=vertical] .fluent-appbar-item.fluent-appbar-item-local:not([inpopover]) a.active::before {
-    all: initial;
+[dir='rtl'] .fluent-appbar[orientation=vertical]:not([hide-bar]) .fluent-appbar-item.fluent-appbar-item-local:not([inpopover]) a.active::before {
+  all: initial;
+}
+
+.fluent-appbar[orientation=horizontal]:not([hide-bar]) .fluent-appbar-item:not([inpopover]) a.active::before {
+  content: "";
+  position: absolute;
+  height: var(--appbar-active-indicator-width);
+  width: 100%;
+  background-color: var(--colorBrandForeground1);
+  border-radius: var(--borderRadiusSmall);
+  bottom: 2px;
+
+}
+
+.fluent-appbar[orientation=horizontal]:not([hide-bar]) .fluent-appbar-item.fluent-appbar-item-local:not([inpopover]) a.active::before {
+  all: initial;
 }
 
 .fluent-appbar-item:hover svg[part="icon-rest"],
