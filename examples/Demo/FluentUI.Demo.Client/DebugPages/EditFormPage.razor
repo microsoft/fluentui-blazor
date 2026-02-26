@@ -1,12 +1,52 @@
 ﻿@page "/Debug/EditForm"
 
-<h1>Just a simple page to do some experimenting</h1>
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="6px" Style="padding: 1em;">
+	<h1>Just a simple page to do some experimenting</h1>
+	<FluentCard>
+		<h2>Debug flags</h2>
+		<FluentSwitch @bind-Value="useNativeButton" Label="Use native submit button" />
+		<FluentSwitch @bind-Value="useNativeInputs" Label="Use native inputs" />
+	</FluentCard>
 
-<InputText @bind-Value="@MyValue" />
-<FluentTextInput Value="@MyValue" />
+	<FluentCard>
+		<h2>Form</h2>
+		<EditForm Model="Input" OnValidSubmit="OnValidSubmit">
+			<FluentStack Orientation="Orientation.Vertical" VerticalGap="6px">
+				@if (useNativeInputs)
+				{
+					<InputText @bind-Value="Input.MyValue" />
+				}
+				else
+				{
+					<FluentTextInput @bind-Value="@Input.MyValue" /> @* Pressing enter in the input will trigger the OnValidSubmit twice *@
+				}
+		
 
-MyValue: @MyValue
+				@if (useNativeButton)
+				{
+					<button type="submit">Submit</button>
+				}
+				else
+				{
+					<FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Submit</FluentButton>
+				}
+			</FluentStack>
+		</EditForm>
+	</FluentCard>
+</FluentStack>
 
 @code {
-    public string MyValue { get; set; } = "Test";
+	bool useNativeButton;
+	bool useNativeInputs;
+	MyInput Input { get; set; } = new();
+
+	public void OnValidSubmit()
+	{
+		Console.WriteLine($"Submitted value: {Input.MyValue}");
+	}
+
+	public class MyInput
+	{
+		public string MyValue { get; set; } = "Test";
+	}
 }
