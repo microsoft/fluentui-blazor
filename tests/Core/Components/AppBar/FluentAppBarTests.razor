@@ -209,6 +209,39 @@
     }
 
     [Fact]
+    public void FluentAppBar_HideActiveBar_True()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAppBar HideActiveIndicator="true"><div>Child content</div></FluentAppBar>);
+
+        // Assert
+        var ab = cut.Find("nav");
+        Assert.True(ab.HasAttribute("hide-bar"));
+    }
+
+    [Fact]
+    public void FluentAppBar_HideActiveBar_False()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAppBar HideActiveIndicator="false"><div>Child content</div></FluentAppBar>);
+
+        // Assert
+        var ab = cut.Find("nav");
+        Assert.False(ab.HasAttribute("hide-bar"));
+    }
+
+    [Fact]
+    public void FluentAppBar_HideActiveBar_Null()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAppBar><div>Child content</div></FluentAppBar>);
+
+        // Assert
+        var ab = cut.Find("nav");
+        Assert.False(ab.HasAttribute("hide-bar"));
+    }
+
+    [Fact]
     public async Task FluentAppBar_HandlePopoverKeyDownAsync_Enter()
     {
         // Arrange
@@ -495,7 +528,7 @@
 		cut.Render();
 
 		// Show popover by clicking the "More" button
-		var moreButton = cut.Find(".fluent-appbar-item[fixed]"); 
+		var moreButton = cut.Find(".fluent-appbar-item[fixed]");
 		await moreButton.ClickAsync();
 		cut.Render();
 

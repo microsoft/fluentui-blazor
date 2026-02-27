@@ -17,14 +17,14 @@ namespace Microsoft.FluentUI.AspNetCore.McpServer.Prompts;
 [McpServerPromptType]
 public class MigrationPrompts
 {
-    private readonly DocumentationService _documentationService;
+    private readonly MigrationService _migrationService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MigrationPrompts"/> class.
     /// </summary>
-    public MigrationPrompts(DocumentationService documentationService)
+    public MigrationPrompts(MigrationService migrationService)
     {
-        _documentationService = documentationService;
+        _migrationService = migrationService;
     }
 
     /// <summary>
@@ -35,7 +35,7 @@ public class MigrationPrompts
     [McpServerPrompt(Name = "migrate_to_v5")]
     [Description("Generates guidance for migrating from Fluent UI Blazor v4 to v5, including breaking changes and component updates.")]
     public ChatMessage MigrateToV5(
-        [Description("Specific component to focus on (e.g., 'DataGrid', 'Dialog'), or leave empty for general migration")]
+        [Description("Specific component to focus on (e.g., 'DataGrid', 'Button'), or leave empty for general migration")]
         string componentToMigrate = "",
         [Description("Whether to emphasize breaking changes (default: true)")]
         bool includeBreakingChanges = true)
@@ -44,33 +44,37 @@ public class MigrationPrompts
         sb.AppendLine("# Migrate to Fluent UI Blazor v5");
         sb.AppendLine();
 
-        if (!string.IsNullOrWhiteSpace(componentToMigrate))
-        {
-            sb.AppendLine(CultureInfo.InvariantCulture, $"## Focus: {componentToMigrate} Migration");
-            sb.AppendLine();
-        }
-
-        AppendMigrationDocumentation(sb);
+        // Include general migration overview
+        AppendMigrationOverview(sb);
 
         if (includeBreakingChanges)
         {
             AppendBreakingChanges(sb);
         }
 
-        AppendComponentMigration(sb, componentToMigrate);
+        // Include component-specific migration if requested
+        if (!string.IsNullOrWhiteSpace(componentToMigrate))
+        {
+            AppendComponentMigration(sb, componentToMigrate);
+        }
+        else
+        {
+            AppendAvailableComponentMigrations(sb);
+        }
+
         AppendMigrationSteps(sb);
 
         return new ChatMessage(ChatRole.User, sb.ToString());
     }
 
-    private void AppendMigrationDocumentation(StringBuilder sb)
+    private void AppendMigrationOverview(StringBuilder sb)
     {
-        var migrationDoc = _documentationService.GetDocumentation("MigrationVersion5");
-        if (migrationDoc != null)
+        var overview = _migrationService.GetMigrationOverview();
+        if (overview != null)
         {
-            sb.AppendLine("## Migration Documentation");
+            sb.AppendLine("## General Migration Guidelines");
             sb.AppendLine();
-            sb.AppendLine(migrationDoc.Summary ?? "See the migration guide for details.");
+            sb.AppendLine(overview.Content);
             sb.AppendLine();
         }
     }
@@ -80,19 +84,50 @@ public class MigrationPrompts
         sb.AppendLine("## Key Breaking Changes");
         sb.AppendLine();
         sb.AppendLine("- **Package name change** - Check for any renamed packages");
-        sb.AppendLine("- **API changes** - Some component parameters may have been renamed");
-        sb.AppendLine("- **Styling changes** - CSS class names and design tokens may differ");
-        sb.AppendLine("- **Component restructuring** - Some components may have been split or merged");
+        sb.AppendLine("- **API changes** - Some component parameters may have been renamed or removed");
+        sb.AppendLine("- **Styling changes** - Scoped CSS bundling is now disabled, `::deep` is no longer needed");
+        sb.AppendLine("- **JavaScript interop** - JS files migrated to TypeScript with new namespace conventions");
+        sb.AppendLine("- **ToAttributeValue()** - Now returns `[Description]` value as-is or lowercase enum name");
         sb.AppendLine();
     }
 
-    private static void AppendComponentMigration(StringBuilder sb, string componentToMigrate)
+    private void AppendComponentMigration(StringBuilder sb, string componentToMigrate)
     {
-        if (!string.IsNullOrWhiteSpace(componentToMigrate))
+        var migration = _migrationService.GetComponentMigration(componentToMigrate);
+        if (migration != null)
         {
-            sb.AppendLine(CultureInfo.InvariantCulture, $"### {componentToMigrate}-Specific Migration");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"## {componentToMigrate} Migration Details");
             sb.AppendLine();
-            sb.AppendLine(CultureInfo.InvariantCulture, $"Focus on changes specific to the `{componentToMigrate}` component.");
+            sb.AppendLine(migration.Content);
+            sb.AppendLine();
+        }
+        else
+        {
+            sb.AppendLine(CultureInfo.InvariantCulture, $"## {componentToMigrate} Migration");
+            sb.AppendLine();
+            sb.AppendLine(CultureInfo.InvariantCulture, $"No specific migration guide found for `{componentToMigrate}`.");
+            sb.AppendLine("This component may not have breaking changes, or it may be a new component in v5.");
+            sb.AppendLine();
+
+            AppendAvailableComponentMigrations(sb);
+        }
+    }
+
+    private void AppendAvailableComponentMigrations(StringBuilder sb)
+    {
+        var componentNames = _migrationService.GetAvailableComponentNames();
+        if (componentNames.Count > 0)
+        {
+            sb.AppendLine("## Available Component Migrations");
+            sb.AppendLine();
+            sb.AppendLine("The following components have specific migration guides:");
+            sb.AppendLine();
+
+            foreach (var name in componentNames)
+            {
+                sb.AppendLine(CultureInfo.InvariantCulture, $"- {name}");
+            }
+
             sb.AppendLine();
         }
     }
@@ -102,10 +137,10 @@ public class MigrationPrompts
         sb.AppendLine("## Migration Steps");
         sb.AppendLine();
         sb.AppendLine("1. **Update packages** to v5 versions");
-        sb.AppendLine("2. **Review breaking changes** in release notes");
-        sb.AppendLine("3. **Update component usage** based on API changes");
+        sb.AppendLine("2. **Review general migration guidelines** above for cross-cutting changes");
+        sb.AppendLine("3. **Update component usage** based on component-specific migration guides");
         sb.AppendLine("4. **Test thoroughly** in development environment");
-        sb.AppendLine("5. **Update styles** if using custom CSS");
+        sb.AppendLine("5. **Update styles** — remove `::deep` selectors, update scoped CSS references");
         sb.AppendLine();
         sb.AppendLine("Please provide specific migration guidance based on the requirements.");
     }
