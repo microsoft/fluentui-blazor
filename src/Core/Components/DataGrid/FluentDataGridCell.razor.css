@@ -60,6 +60,7 @@
   width: calc(100% - 20px);
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 75px;
 }
 
 .fluent-data-grid .col-sort-button {
@@ -69,19 +70,23 @@
 .fluent-data-grid .col-justify-start .col-sort-button {
   justify-content: start;
   overflow: hidden;
-  opacity: 1
+  opacity: 1;
+  min-width: 75px;
 }
 
 .fluent-data-grid .col-justify-center .col-sort-button {
   justify-content: center;
   overflow: hidden;
-  opacity: 1
+  opacity: 1;
+  min-width: 75px;
 }
 
 .fluent-data-grid .col-justify-end .col-sort-button  {
   justify-content: end;
   overflow: hidden;
-  opacity: 1
+  opacity: 1;
+  min-width: 75px;
+
 }
 
 
