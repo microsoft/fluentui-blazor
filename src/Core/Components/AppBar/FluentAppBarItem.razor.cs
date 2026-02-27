@@ -140,7 +140,6 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
     public override ValueTask DisposeAsync()
     {
         Owner.Unregister(this);
-        GC.SuppressFinalize(this);
 
         return base.DisposeAsync();
     }
