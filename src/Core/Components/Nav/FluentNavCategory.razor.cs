@@ -107,7 +107,6 @@ public partial class FluentNavCategory : FluentNavBase
         Owner.UnregisterCategory(this);
 
         await base.DisposeAsync();
-        GC.SuppressFinalize(this);
     }
     /// <summary>
     /// Called after the component has been rendered.

@@ -256,6 +256,5 @@ public partial class FluentNavItem : FluentNavBase
         }
 
         await base.DisposeAsync();
-        GC.SuppressFinalize(this);
     }
 }

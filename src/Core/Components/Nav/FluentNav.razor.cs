@@ -155,17 +155,10 @@ public partial class FluentNav : FluentComponentBase
     }
 
     /// <inheritdoc />
-    public override async ValueTask DisposeAsync()
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
         NavigationManager.LocationChanged -= OnLocationChanged;
-
-        if (JSModule.ObjectReference is not null)
-        {
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.Dispose", Id);
-        }
-
-        await base.DisposeAsync();
-        GC.SuppressFinalize(this);
+        await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.Dispose", Id);
     }
 
     /// <summary>
