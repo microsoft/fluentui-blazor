@@ -1023,6 +1023,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         .AddStyle("border-collapse", "separate", GenerateHeader == DataGridGeneratedHeaderType.Sticky)
         .AddStyle("border-spacing", "0", GenerateHeader == DataGridGeneratedHeaderType.Sticky)
         .AddStyle("width", "100%", DisplayMode == DataGridDisplayMode.Table)
+        .AddStyle("table-layout", "fixed", DisplayMode == DataGridDisplayMode.Table)
         .Build();
 
     private string? GridClass => DefaultClassBuilder

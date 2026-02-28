@@ -57,7 +57,7 @@
 }
 
 .fluent-data-grid .col-sort-button {
-  width: calc(100% - 20px);
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 75px;

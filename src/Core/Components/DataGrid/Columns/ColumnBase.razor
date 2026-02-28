@@ -120,7 +120,7 @@
                 {
 
                     // <FluentButton Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="@($"width: calc(100% - {wdelta});")" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
-                    <FluentButton Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="width: 100%;" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+                    <FluentButton Appearance="ButtonAppearance.Subtle" Class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
                         <div class="col-title-text" title="@tooltip">
                             @HeaderTitleContent
                         </div>
