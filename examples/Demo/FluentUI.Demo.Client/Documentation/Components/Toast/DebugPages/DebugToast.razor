@@ -1,4 +1,4 @@
-@page "/Debug/Toast/Service"
+@page "/Toast/Debug/Service"
 @inject IToastService ToastService
 
 <FluentButton OnClick="@OpenToastAsync"
@@ -22,11 +22,11 @@
 
     if (result.Cancelled)
     {
-      Console.WriteLine($"Dialog Canceled: {result.Value}");
+      Console.WriteLine($"Toast Canceled: {result.Value}");
     }
     else
     {
-      Console.WriteLine($"Dialog Saved: {result.Value}");
+      Console.WriteLine($"Toast Confirmed: {result.Value}");
     }
   }
 }

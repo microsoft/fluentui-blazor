@@ -14,7 +14,7 @@
   // If the value is not null, the component is running using the ToastService.
   // `public IToastInstance? FluentToast { get; set; }`
   [CascadingParameter]
-  public required IToastInstance Dialog { get; set; }
+  public required IToastInstance Toast { get; set; }
 
   [Inject]
   public required IToastService ToastService { get; set; }
@@ -24,11 +24,11 @@
 
   private async Task btnOK_Click()
   {
-    await Dialog.CloseAsync(DialogResult.Ok("Yes"));
+    await Toast.CloseAsync(ToastResult.Ok("Yes"));
   }
-
+  
   private async Task btnCancel_Click()
   {
-    await Dialog.CloseAsync(DialogResult.Cancel("No"));
+    await Toast.CloseAsync(ToastResult.Cancel("No"));
   }
 }
