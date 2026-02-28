@@ -54,7 +54,7 @@
 .fluent-nav .fluent-navsubitem.active::after,
 .fluent-nav .fluent-navcategoryitem.active::after {
   width: 4px;
-  height: 20px;
+  height: calc(100% - 20px);
   background-color: var(--colorCompoundBrandForeground1);
   margin-inline-start: -16px;
   content: "";
