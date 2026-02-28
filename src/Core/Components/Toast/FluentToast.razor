@@ -1,7 +1,25 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
+@{
+#pragma warning disable IL2111
+}
 
-<div>
-    TODO: Toast Content
-    @ChildContent
+<div fuib
+     id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     @ondialogbeforetoggle="@OnToggleAsync"
+     @ondialogtoggle="@OnToggleAsync"
+     @attributes="AdditionalAttributes">
+    @if (Instance is not null)
+    {
+        <CascadingValue Value="Instance">
+            <DynamicComponent Type="@Instance.ComponentType"
+                              Parameters="Instance.Options.Parameters" />
+        </CascadingValue>
+    }
+    else
+    {
+        @ChildContent
+    }
 </div>

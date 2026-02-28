@@ -23,6 +23,20 @@ public partial class FluentToast : FluentComponentBase
     }
 
     /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        // TDOD: Remode these styles (only for testing purposes)
+        .AddStyle("border", "1px solid #ccc;")
+        .AddStyle("padding", "16px")
+        .AddStyle("position", "fixed")
+        .AddStyle("top", "50%")
+        .AddStyle("left", "50%")
+        .Build();
+
+    /// <summary />
     [Inject]
     private IToastService? ToastService { get; set; }
 

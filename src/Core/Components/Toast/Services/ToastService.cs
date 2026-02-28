@@ -41,7 +41,7 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         var ToastInstance = Toast as ToastInstance;
 
         // Raise the ToastState.Closing event
-        // TODO: ToastInstance?.FluentToast?.RaiseOnStateChangeAsync(Toast, DialogState.Closing);
+        ToastInstance?.FluentToast?.RaiseOnStateChangeAsync(Toast, DialogState.Closing);
 
         // Remove the Toast from the ToastProvider
         await RemoveToastFromProviderAsync(Toast);
@@ -50,7 +50,7 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         ToastInstance?.ResultCompletion.TrySetResult(result);
 
         // Raise the ToastState.Closed event
-        // TODO: ToastInstance?.FluentToast?.RaiseOnStateChangeAsync(Toast, DialogState.Closed);
+        ToastInstance?.FluentToast?.RaiseOnStateChangeAsync(Toast, DialogState.Closed);
     }
 
     /// <inheritdoc cref="IToastService.ShowToastAsync{TToast}(ToastOptions)"/>
