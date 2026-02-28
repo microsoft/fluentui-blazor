@@ -47,7 +47,6 @@ public abstract class FluentNavBase : FluentComponentBase
         Owner.Unregister(this);
 
         await base.DisposeAsync();
-        GC.SuppressFinalize(this);
     }
 
     /// <summary>

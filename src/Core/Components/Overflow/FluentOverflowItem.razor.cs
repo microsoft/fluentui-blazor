@@ -85,6 +85,5 @@ public partial class FluentOverflowItem : FluentComponentBase, IAsyncDisposable
         Owner?.UnregisterAsync(this);
         await base.DisposeAsync();
 
-        GC.SuppressFinalize(this);
     }
 }
