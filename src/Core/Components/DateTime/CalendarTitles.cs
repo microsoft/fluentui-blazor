@@ -90,7 +90,7 @@ internal class CalendarTitles<TValue>
             {
                 CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(-1, _calendar.Culture)),
                 CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(-1, _calendar.Culture)),
-                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) - 12),
+                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) - 12 - CalendarExtended.YearShiftCentered),
                 _ => string.Empty
             };
         }
@@ -111,7 +111,7 @@ internal class CalendarTitles<TValue>
             {
                 CalendarViews.Days => Date.Year == minDate.Year && Date.Month == minDate.Month,
                 CalendarViews.Months => Date.Year == minDate.Year,
-                CalendarViews.Years => Date.Year == minDate.Year,
+                CalendarViews.Years => Date.Year - CalendarExtended.YearShiftCentered <= minDate.Year,
                 _ => false
             };
         }
@@ -128,7 +128,7 @@ internal class CalendarTitles<TValue>
             {
                 CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(+1, _calendar.Culture)),
                 CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(+1, _calendar.Culture)),
-                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) + 12),
+                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) + 12 - CalendarExtended.YearShiftCentered),
                 _ => string.Empty
             };
         }
@@ -147,7 +147,7 @@ internal class CalendarTitles<TValue>
             {
                 CalendarViews.Days => Date.Year == maxDate.Year && Date.Month == maxDate.Month,
                 CalendarViews.Months => Date.Year == maxDate.Year,
-                CalendarViews.Years => Date.Year == maxDate.Year,
+                CalendarViews.Years => Date.Year + 12 - CalendarExtended.YearShiftCentered >= maxDate.Year,
                 _ => false
             };
         }

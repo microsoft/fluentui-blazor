@@ -366,6 +366,11 @@ public static class DateTimeExtensions
     /// <returns></returns>
     public static DateTime AddYears(this DateTime value, int years, CultureInfo culture)
     {
+        if (culture.Calendar.MaxSupportedDateTime.Year - value.Year < years)
+        {
+            return culture.Calendar.MaxSupportedDateTime;
+        }
+
         return culture.Calendar.AddYears(value, years);
     }
 
