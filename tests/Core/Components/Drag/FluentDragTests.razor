@@ -300,7 +300,7 @@
 		var zoneComp = cut.FindComponents<FluentDropZone<int>>().First();
 		var zone = zoneComp.Instance;
 
-		var mi = zone.GetType().GetMethod("OnDragEndHandler", BindingFlags.NonPublic | BindingFlags.Instance);
+		var mi = zone.GetType().GetMethod("OnDragEndHandlerAsync", BindingFlags.NonPublic | BindingFlags.Instance);
 		Assert.NotNull(mi);
 
 		// Act: invoke private handler directly
@@ -328,7 +328,7 @@
 		var zoneComp = cut.FindComponents<FluentDropZone<int>>().First();
 		var zone = zoneComp.Instance;
 
-		var mi = zone.GetType().GetMethod("OnDragLeaveHandler", BindingFlags.NonPublic | BindingFlags.Instance);
+		var mi = zone.GetType().GetMethod("OnDragLeaveHandlerAsync", BindingFlags.NonPublic | BindingFlags.Instance);
 		Assert.NotNull(mi);
 
 		// Act: invoke private handler directly
@@ -357,7 +357,7 @@
 		var zoneComp = cut.FindComponents<FluentDropZone<int>>().First();
 		var zone = zoneComp.Instance;
 
-		var mi = zone.GetType().GetMethod("OnDragLeaveHandler", BindingFlags.NonPublic | BindingFlags.Instance);
+		var mi = zone.GetType().GetMethod("OnDragLeaveHandlerAsync", BindingFlags.NonPublic | BindingFlags.Instance);
 		Assert.NotNull(mi);
 
 		// Act: invoke private handler directly (container.StartedZone == null)
