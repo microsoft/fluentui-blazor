@@ -25,7 +25,7 @@ public partial interface IToastService : IFluentServiceBase<IToastInstance>
     /// </summary>
     /// <typeparam name="TToast">Type of component to display.</typeparam>
     /// <param name="options">Options to configure the toast component.</param>
-    Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(ToastOptions options)
+    Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(ToastOptions? options = null)
          where TToast : ComponentBase;
 
     /// <summary>

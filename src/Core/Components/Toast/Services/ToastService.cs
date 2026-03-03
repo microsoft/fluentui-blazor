@@ -54,9 +54,9 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
     }
 
     /// <inheritdoc cref="IToastService.ShowToastAsync{TToast}(ToastOptions)"/>
-    public Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(ToastOptions options) where TToast : ComponentBase
+    public Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(ToastOptions? options = null) where TToast : ComponentBase
     {
-        return ShowToastAsync(typeof(TToast), options);
+        return ShowToastAsync(typeof(TToast), options ?? new ToastOptions());
     }
 
     /// <inheritdoc cref="IToastService.ShowToastAsync{TToast}(Action{ToastOptions})"/>

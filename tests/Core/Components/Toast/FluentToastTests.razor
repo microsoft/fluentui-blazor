@@ -522,18 +522,13 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToast_WithInstance()
     {
-        // Arrange
-        var renderOptions = new Templates.ToastRenderOptions();
-
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastWithInstance>(options =>
-               {
-                   options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                   options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-               });
+        var toastTask = ToastService.ShowToastAsync<Templates.ToastWithInstance>();
 
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
+
+        ToastProvider.Render();
 
         // Assert
         var x = ToastProvider.Markup;
