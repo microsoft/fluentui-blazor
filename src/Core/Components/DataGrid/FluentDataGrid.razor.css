@@ -94,3 +94,7 @@
   background-color: var(--colorNeutralBackground4);
   z-index: 2;
 }
+
+.fluent-data-grid.striped-rows tbody tr:nth-child(even) td {
+  background-color: var(--colorNeutralBackground2);
+}

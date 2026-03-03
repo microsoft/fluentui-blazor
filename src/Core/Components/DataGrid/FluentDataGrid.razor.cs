@@ -382,6 +382,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoItemsPerPage { get; set; }
 
+    /// <summary />
+    [Parameter]
+    public bool StripedRows { get; set; }
+
     /// <summary>
     /// Gets or set the <see cref="DataGridDisplayMode"/> of the grid.
     /// Default is 'Grid'.
@@ -1029,6 +1033,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             .AddClass("fluent-data-grid")
             .AddClass("grid", DisplayMode == DataGridDisplayMode.Grid)
             .AddClass("auto-fit", AutoFit)
+            .AddClass("striped-rows", StripedRows)
             .AddClass("loading", _pendingDataLoadCancellationTokenSource is not null)
             .Build();
 
