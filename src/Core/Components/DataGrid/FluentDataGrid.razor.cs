@@ -382,7 +382,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoItemsPerPage { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Gets or sets a value that indicates whether rows should be rendered with
+    /// alternating "striped" backgrounds. When <see langword="true"/>, odd and
+    /// even rows will use different background styling to improve readability.
+    /// </summary>
     [Parameter]
     public bool StripedRows { get; set; }
 
