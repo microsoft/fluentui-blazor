@@ -1,7 +1,5 @@
 /* Demo application styles */
-.grid {
-    background-color: red !important;
-}
+
 .demopanel {
   border: 1px dashed var(--colorBrandForeground1);
   padding: 5px;
