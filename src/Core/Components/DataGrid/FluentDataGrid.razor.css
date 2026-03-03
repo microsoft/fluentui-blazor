@@ -1,4 +1,5 @@
 .fluent-data-grid {
+  --fluent-data-grid-stripe-background-color: var(--colorNeutralBackground2);
   --fluent-data-grid-resize-handle-color: var(--colorNeutralStroke2);
   --fluent-data-grid-resize-handle-width: 1px;
   --fluent-data-grid-header-opacity: 1;
@@ -10,22 +11,22 @@
   margin-bottom: 0px;
 }
 
-    .fluent-data-grid.grid {
-        display: grid;
+  .fluent-data-grid.grid {
+    display: grid;
+  }
+
+    .fluent-data-grid.grid thead,
+    .grid tbody {
+      display: contents;
     }
 
-      .fluent-data-grid.grid thead,
-      .grid tbody {
-        display: contents;
-      }
+    .fluent-data-grid.grid tr {
+      display: contents;
+    }
 
-      .fluent-data-grid.grid tr {
-        display: contents;
-      }
-
-.fluent-data-grid tbody tr .hover {
-  background: var(--colorNeutralBackground5);
-}
+  .fluent-data-grid tbody tr .hover {
+    background: var(--colorNeutralBackground5);
+  }
 
   .fluent-data-grid .col-options, .fluent-data-grid .col-resize {
     position: absolute;
@@ -52,29 +53,29 @@
 
 [dir=rtl] .fluent-data-grid .col-justify-end .col-options,
 [dir=rtl] .fluent-data-grid .col-justify-right .col-options {
-    right: unset;
-    margin-left: 0.6rem;
+  right: unset;
+  margin-left: 0.6rem;
 }
 
 
 
 .fluent-data-grid .resize-options {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .fluent-data-grid .resize-handle {
-    position: absolute;
-    right: 0;
-    left: unset;
-    bottom: 0;
-    height: 80%;
-    cursor: col-resize;
-    width: 6px;
-    border-inline-end: var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color);
-    opacity: var(--fluent-data-grid-header-opacity);
+  position: absolute;
+  right: 0;
+  left: unset;
+  bottom: 0;
+  height: 80%;
+  cursor: col-resize;
+  width: 6px;
+  border-inline-end: var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color);
+  opacity: var(--fluent-data-grid-header-opacity);
 }
 
 [dir=rtl] .fluent-data-grid .resize-handle {
@@ -95,6 +96,6 @@
   z-index: 2;
 }
 
-.fluent-data-grid.striped-rows tbody tr:nth-child(even) td {
-  background-color: var(--colorNeutralBackground2);
+.fluent-data-grid[striped] tbody tr:nth-child(even) td {
+  background-color: var(--fluent-data-grid-stripe-background-color);
 }
