@@ -94,6 +94,7 @@ public partial class FluentToast : FluentComponentBase
         }
 
         // TODO
+        await Task.CompletedTask;
     }
 
     /// <summary />
