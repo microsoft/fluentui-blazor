@@ -1,4 +1,5 @@
 .fluent-badge {
+  display: inline-flex;
   position: relative;
   box-sizing: border-box;
   align-items: center;
@@ -60,6 +61,8 @@
   border-color: currentColor;
   color: var(--colorBrandForeground1);
   background-color: initial;
+  border-style: solid;
+  border-width: var(--strokeWidthThin);
 }
 
 .fluent-badge[appearance='ghost'] {
@@ -71,6 +74,8 @@
   background-color: var(--colorBrandBackground2);
   color: var(--colorBrandForeground2);
   border-color: var(--colorBrandStroke2);
+  border-style: solid;
+  border-width: var(--strokeWidthThin);
 }
 
 /* Shape */
