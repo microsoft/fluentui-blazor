@@ -25,4 +25,4 @@ hidden: true
   ```
 
 ### New properties
-  `Height` is a new property.
+- `Height` (`string?`) — fixed height for the stack container.

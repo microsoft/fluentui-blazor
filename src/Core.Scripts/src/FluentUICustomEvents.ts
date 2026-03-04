@@ -80,7 +80,19 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
         };
       }
     });
+
+    blazor.registerCustomEventType('listboxchange', {
+      browserEventName: 'listboxchange',
+      createEventArgs: (event: any)=> {
+        return {
+          id: event.srcElement?.id ?? event.detail?.id ?? event.id,
+          type: event.type,
+          selectedOptions: event.detail?.selectedOptions ?? '',
+        };
+      }
+    });
   }
+
   export function Tabs(blazor: Blazor) {
 
     // Event when a tab is selected

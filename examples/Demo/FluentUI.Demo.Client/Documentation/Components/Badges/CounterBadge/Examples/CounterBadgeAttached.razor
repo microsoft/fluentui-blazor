@@ -11,6 +11,36 @@
             "before-bottom . . . after-bottom"
             ". below-start below below-end .";
     }
+
+    /* Start (Start/Before) */
+    .above-start.start svg { transform: rotate(-90deg) scaleX(-1); }
+    .before-top.start svg { transform: rotate(0deg); }
+    .before.start svg { transform: rotate(-90deg); }
+    .before-bottom.start svg { transform: rotate(180deg) scaleX(-1); }
+    .below-start.start svg { transform: rotate(-90deg); }
+
+    /* End (End/After) */
+    .above-end.end svg { transform: rotate(90deg); }
+    .after-top.end svg { transform: rotate(0deg) scaleX(-1); }
+    .after.end svg { transform: rotate(90deg); }
+    .after-bottom.end svg { transform: rotate(180deg); }
+    .below-end.end svg { transform: rotate(90deg) scaleX(-1); }
+
+    /* Center */
+    .above svg { transform: rotate(0deg); }
+    .below svg { transform: rotate(180deg); }
+
+    /* RTL Swaps */
+    [dir="rtl"] .above-start.start svg { transform: rotate(90deg); }
+    [dir="rtl"] .before-top.start svg { transform: rotate(0deg) scaleX(-1); }
+    [dir="rtl"] .above-end.end svg { transform: rotate(-90deg) scaleX(-1); }
+    [dir="rtl"] .after-top.end svg { transform: rotate(0deg); }
+    [dir="rtl"] .before.start svg { transform: rotate(90deg); }
+    [dir="rtl"] .after.end svg { transform: rotate(-90deg); }
+    [dir="rtl"] .before-bottom.start svg { transform: rotate(180deg); }
+    [dir="rtl"] .after-bottom.end svg { transform: rotate(180deg) scaleX(-1); }
+    [dir="rtl"] .below-start.start svg { transform: rotate(90deg) scaleX(-1); }
+    [dir="rtl"] .below-end.end svg { transform: rotate(-90deg); }
 </style>
 <FluentStack VerticalAlignment="VerticalAlignment.Top">
     <span>
@@ -34,89 +64,113 @@
              </FluentCounterBadge>
         </div>
 
-        <FluentButton IconOnly="true"
-                      Id="above-start"
-                      Style="grid-area: above-start"
-                      OnClick="@(() => HandlePositioning(Positioning.AboveStart))">
-            <svg style="transform: rotate(-90deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
-        </FluentButton>
+		<FluentButton IconOnly="true"
+					  Id="above-start"
+					  Class="above-start start"
+					  Style="grid-area: above-start"
+					  Title="Above Start"
+					  OnClick="@(() => HandlePositioning(Positioning.AboveStart))">
+			<svg><use href="#arrow-step-back-20-regular"></use></svg>
+		</FluentButton>
 
-         <FluentButton IconOnly="true"
-                      Id="above"
-                      Style="grid-area: above"
-                      OnClick="@(() => HandlePositioning(Positioning.Above))">
-            <svg style="transform: rotate(0deg)"><use href="#arrow-step-out-20-regular"></use></svg>
-        </FluentButton>
+		 <FluentButton IconOnly="true"
+					  Id="above"
+					  Class="above"
+					  Style="grid-area: above"
+					  Title="Above"
+					  OnClick="@(() => HandlePositioning(Positioning.Above))">
+			<svg><use href="#arrow-step-out-20-regular"></use></svg>
+		</FluentButton>
 
-         <FluentButton IconOnly="true"
-                      Id="above-end"
-                      Style="grid-area: above-end"
-                      OnClick="@(() => HandlePositioning(Positioning.AboveEnd))">
-            <svg style="transform: rotate(90deg)"><use href="#arrow-step-back-20-regular"></use></svg>
-        </FluentButton>
+		 <FluentButton IconOnly="true"
+					  Id="above-end"
+					  Class="above-end end"
+					  Style="grid-area: above-end"
+					  Title="Above End"
+					  OnClick="@(() => HandlePositioning(Positioning.AboveEnd))">
+			<svg><use href="#arrow-step-back-20-regular"></use></svg>
+		</FluentButton>
 
-        <FluentButton IconOnly="true"
-                      Id="before-top"
-                      Style="grid-area: before-top"
-                      OnClick="@(() => HandlePositioning(Positioning.BeforeTop))">
-            <svg style="transform: rotate(0deg)"><use href="#arrow-step-back-20-regular"></use></svg>
-        </FluentButton>
+		<FluentButton IconOnly="true"
+					  Id="before-top"
+					  Class="before-top start"
+					  Style="grid-area: before-top"
+					  Title="Before Top"
+					  OnClick="@(() => HandlePositioning(Positioning.BeforeTop))">
+			<svg><use href="#arrow-step-back-20-regular"></use></svg>
+		</FluentButton>
 
-        <FluentButton IconOnly="true"
-                      Id="before"
-                      Style="grid-area: before"
-                      OnClick="@(() => HandlePositioning(Positioning.Before))">
-            <svg style="transform: rotate(-90deg)"><use href="#arrow-step-out-20-regular"></use></svg>
-        </FluentButton>
+		<FluentButton IconOnly="true"
+					  Id="before"
+					  Class="before start"
+					  Style="grid-area: before"
+					  Title="Before"
+					  OnClick="@(() => HandlePositioning(Positioning.Before))">
+			<svg><use href="#arrow-step-out-20-regular"></use></svg>
+		</FluentButton>
 
-        <FluentButton IconOnly="true"
-                      Id="before-bottom"
-                      Style="grid-area: before-bottom"
-                      OnClick="@(() => HandlePositioning(Positioning.BeforeBottom))">
-            <svg style="transform: rotate(180deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
-        </FluentButton>
+		<FluentButton IconOnly="true"
+					  Id="before-bottom"
+					  Class="before-bottom start"
+					  Style="grid-area: before-bottom"
+					  Title="Before Bottom"
+					  OnClick="@(() => HandlePositioning(Positioning.BeforeBottom))">
+			<svg><use href="#arrow-step-back-20-regular"></use></svg>
+		</FluentButton>
 
-         <FluentButton IconOnly="true"
-                      Id="after-top"
-                      Style="grid-area: after-top"
-                      OnClick="@(() => HandlePositioning(Positioning.AfterTop))">
-            <svg style="transform: rotate(0deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
-        </FluentButton>
+		 <FluentButton IconOnly="true"
+					  Id="after-top"
+					  Class="after-top end"
+					  Style="grid-area: after-top"
+					  Title="After Top"
+					  OnClick="@(() => HandlePositioning(Positioning.AfterTop))">
+			<svg><use href="#arrow-step-back-20-regular"></use></svg>
+		</FluentButton>
 
-        <FluentButton IconOnly="true"
-                      Id="after"
-                      Style="grid-area: after"
-                      OnClick="@(() => HandlePositioning(Positioning.After))">
-            <svg style="transform: rotate(90deg)"><use href="#arrow-step-out-20-regular"></use></svg>
-        </FluentButton>
+		<FluentButton IconOnly="true"
+					  Id="after"
+					  Class="after end"
+					  Style="grid-area: after"
+					  Title="After"
+					  OnClick="@(() => HandlePositioning(Positioning.After))">
+			<svg><use href="#arrow-step-out-20-regular"></use></svg>
+		</FluentButton>
 
-        <FluentButton IconOnly="true"
-                      Id="after-bottom"
-                      Style="grid-area: after-bottom"
-                      OnClick="@(() => HandlePositioning(Positioning.AfterBottom))">
-            <svg style="transform: rotate(180deg)"><use href="#arrow-step-back-20-regular"></use></svg>
-        </FluentButton>
+		<FluentButton IconOnly="true"
+					  Id="after-bottom"
+					  Class="after-bottom end"
+					  Style="grid-area: after-bottom"
+					  Title="After Bottom"
+					  OnClick="@(() => HandlePositioning(Positioning.AfterBottom))">
+			<svg><use href="#arrow-step-back-20-regular"></use></svg>
+		</FluentButton>
 
-       <FluentButton IconOnly="true"
-                      Id="below-start"
-                      Style="grid-area: below-start"
-                      OnClick="@(() => HandlePositioning(Positioning.BelowStart))">
-            <svg style="transform: rotate(-90deg)"><use href="#arrow-step-back-20-regular"></use></svg>
-        </FluentButton>
+	   <FluentButton IconOnly="true"
+					  Id="below-start"
+					  Class="below-start start"
+					  Style="grid-area: below-start"
+					  Title="Below Start"
+					  OnClick="@(() => HandlePositioning(Positioning.BelowStart))">
+			<svg><use href="#arrow-step-back-20-regular"></use></svg>
+		</FluentButton>
 
-        <FluentButton IconOnly="true"
-                      Id="below"
-                      Style="grid-area: below"
-                      OnClick="@(() => HandlePositioning(Positioning.Below))">
-            <svg style="transform: rotate(180deg)"><use href="#arrow-step-out-20-regular"></use></svg>
-        </FluentButton>
+		<FluentButton IconOnly="true"
+					  Id="below"
+					  Class="below"
+					  Style="grid-area: below"
+					  Title="Below"
+					  OnClick="@(() => HandlePositioning(Positioning.Below))">
+			<svg><use href="#arrow-step-out-20-regular"></use></svg>
+		</FluentButton>
 
-         <FluentButton IconOnly="true"
-                      Id="below-end"
-                      Style="grid-area: below-end"
-                      OnClick="@(() => HandlePositioning(Positioning.BelowEnd))">
-            <svg style="transform: rotate(90deg) scaleX(-1)"><use href="#arrow-step-back-20-regular"></use></svg>
-        </FluentButton>
+		 <FluentButton IconOnly="true"
+					  Id="below-end"
+					  Class="below-end end"
+					  Style="grid-area: below-end"
+					  Title="Below End"
+					  OnClick="@(() => HandlePositioning(Positioning.BelowEnd))">
+			<svg><use href="#arrow-step-back-20-regular"></use></svg>
+		</FluentButton>
 
          <svg style="display: none">
             <symbol id="arrow-step-out-20-regular" viewBox="0 0 20 20">

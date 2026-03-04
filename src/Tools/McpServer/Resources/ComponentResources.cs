@@ -19,13 +19,15 @@ namespace Microsoft.FluentUI.AspNetCore.McpServer.Resources;
 public class ComponentResources
 {
     private readonly FluentUIDocumentationService _documentationService;
+    private readonly ComponentDocumentationService _componentDocService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ComponentResources"/> class.
     /// </summary>
-    public ComponentResources(FluentUIDocumentationService documentationService)
+    public ComponentResources(FluentUIDocumentationService documentationService, ComponentDocumentationService componentDocService)
     {
         _documentationService = documentationService;
+        _componentDocService = componentDocService;
     }
 
     /// <summary>
@@ -36,7 +38,7 @@ public class ComponentResources
         Name = "component",
         Title = "Component Documentation",
         MimeType = "text/markdown")]
-    [Description("Detailed documentation for a specific Fluent UI Blazor component including parameters, events, and methods.")]
+    [Description("Detailed documentation for a specific Fluent UI Blazor component including usage guide, code examples, parameters, events, and methods.")]
     public string GetComponent(string name)
     {
         var details = _documentationService.GetComponentDetails(name);
@@ -50,6 +52,8 @@ public class ComponentResources
 
         AddHeaders(details, sb);
 
+        AddUsageDocumentation(sb, name);
+
         AddParameters(details, sb);
 
         AddEvents(details, sb);
@@ -57,6 +61,20 @@ public class ComponentResources
         AddMethods(details, sb);
 
         return sb.ToString();
+    }
+
+    private void AddUsageDocumentation(StringBuilder sb, string componentName)
+    {
+        var usageDocs = _componentDocService.GetComponentDocumentation(componentName);
+        if (string.IsNullOrEmpty(usageDocs))
+        {
+            return;
+        }
+
+        sb.AppendLine("## Usage Guide");
+        sb.AppendLine();
+        sb.AppendLine(ComponentDocumentationService.DemoteHeadings(usageDocs));
+        sb.AppendLine();
     }
 
     private static void AddHeaders(Models.ComponentDetails details, StringBuilder sb)

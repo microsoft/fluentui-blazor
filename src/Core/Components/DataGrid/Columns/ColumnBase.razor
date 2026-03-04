@@ -96,13 +96,11 @@
         else
         {
             string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
-            string? wdelta = "10px";
             string? align;
 
             // determine align string based on Align value
             align = Align.ToAttributeValue();
-
-            <div style="display: flex; justify-content: @align; margin-inline-end: 5px; margin-inline-start: 5px;">
+            <div style="display: flex; justify-content: @align; padding: 0 6px; ">
                 @if (Align == DataGridCellAlignment.Start || Align == DataGridCellAlignment.Center)
                 {
                     @if (Grid.ResizeType is not null)
@@ -121,7 +119,8 @@
                 @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
                 {
 
-                    <FluentButton Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="@($"width: calc(100% - {wdelta});")" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+                    // <FluentButton Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="@($"width: calc(100% - {wdelta});")" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+                    <FluentButton Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="width: 100%;" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
                         <div class="col-title-text" title="@tooltip">
                             @HeaderTitleContent
                         </div>
@@ -146,7 +145,7 @@
                 }
                 else
                 {
-                    <div class="col-title" style="@($"width: calc(100% - {wdelta});")">
+					<div class="col-title" style="width: 100%;">
                         <div class="col-title-text" title="@tooltip">
                             @HeaderTitleContent
                             @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType.HasValue)

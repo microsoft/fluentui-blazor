@@ -33,6 +33,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [EventHandler("onmenuitemchange", typeof(MenuItemEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ontabchange", typeof(TabChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ondropdownchange", typeof(DropdownEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onlistboxchange", typeof(DropdownEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ontreechanged", typeof(TreeItemChangedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ontreetoggle", typeof(TreeItemToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onclosecolumnoptions", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]

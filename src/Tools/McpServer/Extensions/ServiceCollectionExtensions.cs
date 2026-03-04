@@ -42,9 +42,18 @@ internal static class ServiceCollectionExtensions
         // Falls back to embedded resource if no external file is found
         services.AddSingleton(_ => new FluentUIDocumentationService(externalJsonPath));
 
+        // Component documentation service (usage guides and Razor examples from Demo.Client)
+        services.AddSingleton<ComponentDocumentationService>();
+
         // Documentation service
         // Excludes the 'mcp' folder
         services.AddSingleton(_ => new DocumentationService(["mcp"]));
+
+        // Migration service (dedicated migration documentation)
+        services.AddSingleton<MigrationService>();
+        // Icon catalog service (loaded from embedded all-icons.json)
+        services.AddSingleton<IconSynonymService>();
+        services.AddSingleton<IconService>();
 
         return services;
     }
@@ -63,7 +72,8 @@ internal static class ServiceCollectionExtensions
             .AddMcpServer()
             .WithStdioServerTransport()
             .WithToolsFromAssembly(Assembly.GetExecutingAssembly())
-            .WithResourcesFromAssembly(Assembly.GetExecutingAssembly());
+            .WithResourcesFromAssembly(Assembly.GetExecutingAssembly())
+            .WithPromptsFromAssembly(Assembly.GetExecutingAssembly());
 
         return services;
     }

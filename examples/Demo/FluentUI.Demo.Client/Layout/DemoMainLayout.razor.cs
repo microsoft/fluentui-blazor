@@ -38,6 +38,11 @@ public partial class DemoMainLayout
         await JSRuntime.InvokeVoidAsync("Blazor.theme.switchTheme");
     }
 
+    private async Task SwitchDirAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("Blazor.theme.switchDirection");
+    }
+
     private void ReloadReboot()
     {
         var uri = new Uri(Navigation.Uri);

@@ -8,3 +8,6 @@ hidden: true
 The `ChildContent` property has been removed. Use `Label` instead.
 
 The `CheckedMessage` and `UncheckedMessage` properties have been removed.
+
+### New properties
+- `Tooltip` (`string?`)

@@ -197,6 +197,13 @@ public abstract partial class ColumnBase<TGridItem>
     public string MinWidth { get; set; } = "100px";
 
     /// <summary>
+    /// If true, the column will include an expand/collapse toggle for hierarchical data.
+    /// This only applies if <typeparamref name="TGridItem"/> implements <see cref="IHierarchicalGridItem"/>.
+    /// </summary>
+    [Parameter]
+    public bool HierarchicalToggle { get; set; }
+
+    /// <summary>
     /// Sets the column index for the current instance.
     /// </summary>
     internal void SetColumnIndex(int index)

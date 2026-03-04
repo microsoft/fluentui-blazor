@@ -10,8 +10,7 @@ icon: Code
 
 This page demonstrates real-world scenarios of using the Fluent UI Blazor MCP Server with AI assistants in Visual Studio and Visual Studio Code.
 
-> [!NOTE]
-> The AI responses shown on this page are **examples only**. Actual responses from GitHub Copilot or other AI assistants **may vary** depending on:
+> [!NOTE] The AI responses shown on this page are **examples only**. Actual responses from GitHub Copilot or other AI assistants **may vary** depending on:
 > - The AI model version and its training data
 > - The context of your conversation
 > - Your workspace configuration

@@ -64,6 +64,27 @@ body[data-theme="dark"] {
 }
 ```
 
+## Flash effect (optional)
+
+When using the dark theme, you may notice a brief white "flash" before the page fully renders. 
+This occurs because the browser's default background color is white, and the FluentUI styles may not load instantly—especially on slower network connections.
+
+To prevent this flash, add the following CSS to your `index.html`, `App.razor`, or `_layout.cshtml` file (in the `<head>...</head>` HTML section).
+This sets a dark background color immediately, before the FluentUI styles are applied.
+
+```html
+<style>
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #292929;
+      color: #ffffff;
+    }
+  }
+</style>
+```
+
+**Notes:** In Razor/CSHTML files, escape the `@` symbol by doubling it: use `@@media` instead of `@media`.
+
 ## themeChanged event
 
 A JavaScript `themeChanged` event is triggered each time the `data-theme` attribute changes.

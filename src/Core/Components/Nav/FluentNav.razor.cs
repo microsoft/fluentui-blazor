@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -29,6 +30,7 @@ public partial class FluentNav : FluentComponentBase
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Nav/FluentNav.razor.js";
     internal bool _navOpen = true;
     private readonly List<FluentNavCategory> _categories = [];
+    private readonly List<FluentNavBase> _items = [];
     private bool _previousUseSingleExpanded;
 
     /// <summary />
@@ -50,6 +52,10 @@ public partial class FluentNav : FluentComponentBase
         .AddStyle("--nav-bg-color", BackgroundColor)
         .AddStyle("--nav-bg-color-hover", BackgroundColorHover)
         .Build();
+
+    /// <summary />
+    [Inject]
+    internal NavigationManager NavigationManager { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the parent layout component.
@@ -80,6 +86,12 @@ public partial class FluentNav : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
 
     /// <summary>
     /// Gets or sets the background color of the component.
@@ -138,7 +150,15 @@ public partial class FluentNav : FluentComponentBase
             }
 
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.Initialize", Id);
         }
+    }
+
+    /// <inheritdoc />
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+        await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.Dispose", Id);
     }
 
     /// <summary>
@@ -227,6 +247,33 @@ public partial class FluentNav : FluentComponentBase
     internal void UnregisterCategory(FluentNavCategory category)
     {
         _categories.Remove(category);
+    }
+
+    /// <summary>
+    /// Registers an item with this nav component.
+    /// </summary>
+    internal void Register(FluentNavBase item)
+    {
+        if (!_items.Contains(item))
+        {
+            _items.Add(item);
+        }
+    }
+
+    /// <summary>
+    /// Unregisters an item from this nav component.
+    /// </summary>
+    internal void Unregister(FluentNavBase item)
+    {
+        _items.Remove(item);
+    }
+
+    private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs args)
+    {
+        foreach (var item in _items)
+        {
+            item.UpdateActiveState(args.Location);
+        }
     }
 
     /// <summary>

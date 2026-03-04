@@ -4,76 +4,54 @@ route: /Migration/General
 hidden: true
 ---
 
+- ### FluentComponentBase changes 💥
+
+  All components inherit from `FluentComponentBase`, which has significant changes in V5:
+
+  | Aspect | V4 | V5 |
+  |--------|----|----|
+  | Constructor | Parameterless | Requires `LibraryConfiguration` parameter |
+  | `Element` parameter | On base class (public get / protected set) | Removed from base — components that need it implement `IFluentComponentElementBase` |
+  | `ParentReference` | `[Parameter] DesignTokens.Reference?` | **Removed** |
+
+  > ⚠️ If you have custom components inheriting from `FluentComponentBase`, you must update them to pass `LibraryConfiguration` to the base constructor.
+
+- ### FluentProviders
+
+  V5 introduces a `FluentProviders` component that should be placed at the root of your application.
+  It provides cascading values (like `LibraryConfiguration`) needed by all Fluent UI components.
+
+  ```xml
+  <!-- In App.razor or MainLayout.razor -->
+  <FluentProviders>
+      @Body
+  </FluentProviders>
+  ```
+
+- ### FluentField — New input wrapping pattern
+
+  V5 introduces `FluentField` as the standard way to wrap input components with a label, validation message, and hint text.
+  V4's `FluentValidationMessage<T>` component is **removed** — use `FluentField`'s `Message`, `MessageCondition`, and `MessageState` instead.
+
+  All V5 input components implement the `IFluentField` interface, providing: `Label`, `LabelTemplate`, `LabelPosition`,
+  `LabelWidth`, `Required`, `Message`, `MessageIcon`, `MessageTemplate`, `MessageCondition`, `MessageState`.
+
+  ```xml
+  <!-- V4 -->
+  <FluentTextField @bind-Value="name" Label="Name" />
+  <FluentValidationMessage For="@(() => name)" />
+
+  <!-- V5 -->
+  <FluentTextInput @bind-Value="name" Label="Name"
+                   MessageCondition="@(f => !string.IsNullOrEmpty(f.Message))"
+                   MessageState="MessageState.Error" />
+  ```
+
 - ### Scoped Css Bundling
 
   The csproj contains `<DisableScopedCssBundling>true</DisableScopedCssBundling>`
   and `<ScopedCssEnabled>false</ScopedCssEnabled>` to prevent the bundling of scoped css files.
 
-  Components won't contain the scoped css identifier and the `::deep` is now useless.
-  The `...bundle.scp.css` file is generated from the **Components.Scripts** project and automatically included in the **Components** project.
+  Components won't contain the scoped css identifier, so if you used `::deep` in your CSS to target
+  Fluent UI components, it is now useless and can be removed.
 
-- ### ToAttributeValue()
-
-  This extension method was updated to return
-  1. The `[Description]` attribute value **without changing the case** (upper/lower case)
-  2. The enumeration value **converted to lowercase** string, if the '[Description]' attribute is not found.
-
-  Examples:
-  - `[Description("MyValue")]` => `MyValue`
-  - `[Description("my-value")]` => `my-value`
-  - `enum Color { Default, Primary }` => `default`, `primary`
-
-  
-
-- ### JavaScript Interop
-
-  We have migrated all **JavaScript** files to **TypeScript**.
-  These files are
-    - Either global to all components, in which case they are included in the **Components.Scripts** project
-    - Or attached to a component and collocated under the component.
-
-  The `.ts` files are compiled into `.js` and included in the application bundle or in the library itself.
-
-  > ⚠️ The functions are included in the global namespace `Microsoft.FluentUI.Blazor.[Component]`.
-
-  To import a JavaScript file in a component, call the `FluentComponentBase.ImportJavaScriptModuleAsync` method.
-
-  Example
-
-  ```ts
-  export namespace Microsoft.FluentUI.Blazor.Button {
-    /**
-     * Returns a string "Hello World"
-     * @returns
-     */
-    export function MyFunction(): string {
-      return "Hello World";
-    }
-  }
-  ```
-
-  ```csharp
-  public partial class FluentButton : FluentComponentBase
-  {
-      private const string JAVASCRIPT_FILE = JAVASCRIPT_ROOT + "Button/FluentButton.razor.js";
-
-      protected override async Task OnAfterRenderAsync(bool firstRender)
-      {
-          if (firstRender)
-          {
-              // Import the JavaScript module
-              var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
-              // Call a function from the JavaScript module
-              await jsModule.InvokeAsync<string>("Microsoft.FluentUI.Blazor.Button.MyFunction");
-          }
-      }
-  }
-  ```
-
-- ### Unit Test and Code Coverage
-
-   We have added unit tests for all components and services.
-   The code coverage is now at 99% for the **Core** project.
-
-   You will find more details on how to create unit tests in the `/docs/unit-tests.md` file.

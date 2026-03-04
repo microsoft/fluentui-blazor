@@ -19,7 +19,7 @@ A badge can be attached to any content. The default position is above-end. The p
 
 The `OffsetX` and `OffsetY` allow for tuning the positioning further.
 
-{{ BadgeAttached SourcCode=false }}
+{{ BadgeAttached SourceCode=false }}
 
 ## Colors
 The badge colors be set to a value from the `BadgeColor` enumeration. The last badge shows how a custom background color can be used.

@@ -24,7 +24,8 @@ public class ComponentDetailToolsTests
     private ComponentDetailTools CreateTools()
     {
         var service = new FluentUIDocumentationService(_testJsonPath);
-        return new ComponentDetailTools(service);
+        var componentDocService = new ComponentDocumentationService();
+        return new ComponentDetailTools(service, componentDocService);
     }
 
     #region GetComponentDetails Tests

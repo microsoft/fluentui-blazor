@@ -15,7 +15,9 @@
     "strict": true,
     "noImplicitAny": true,
     "noEmitOnError": true,
-    "removeComments": true
+    "removeComments": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules",

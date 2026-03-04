@@ -1,20 +1,29 @@
 ---
-title: Migrating FluentTextArea
+title: Migration FluentTextArea
 route: /Migration/TextArea
 hidden: true
 ---
 
-### New properties
+### Changed properties
 
-- `AutoResize`, sets the element’s height should be automatically changed based on the content.
-- `Resize`, sets the textarea resize mode. New value : `none`.
-- `Size`, sets the textarea size. Values available : `small`, `medium`, `large`.
-
-### New values
-
-- The `TextAreaAppareance` contains two new values : `FilledLighterShadow` and `FilledDarkerShadow`.
+  | V4 Property | V5 Property | Change |
+  |-------------|-------------|--------|
+  | `Appearance` (`FluentInputAppearance`) | `Appearance` (`TextAreaAppearance?`) | Enum renamed |
 
 ### Removed properties💥
 
-- `Cols` use `Width` instead.
-- `Rows` use `Height` instead.
+- `Cols` — use `Width` instead.
+- `Rows` — use `Height` instead.
+- `Form` (`string?`)
+- `DataList` (`string?`)
+
+### New properties
+- `Placeholder` (`string?`)
+- `AutoComplete` (`string?`)
+- `AutoResize` (`bool?`) — automatically adjusts height to content.
+- `Size` (`TextAreaSize?`)
+- `Width` (`string?`)
+- `Height` (`string?`)
+- `Tooltip` (`string?`)
+- `ChangeAfterKeyPress` (`KeyPress[]?`) — triggers value change after specific key presses.
+- `OnChangeAfterKeyPress` (`EventCallback<FluentKeyPressEventArgs>`)

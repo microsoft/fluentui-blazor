@@ -1,7 +1,29 @@
-import IMask, { InputMask } from 'imask';
+// Type-only imports - provides TypeScript types without bundling the library
+import type IMaskType from 'imask';
+import type { InputMask } from 'imask';
 import * as FluentUIComponents from '@fluentui/web-components'
+import { ExternalLibraryLoader, Library } from '../../ExternalLibs';
 
-// Doc: https://github.com/uNmAnNeR/imaskjs
+/**
+ * See the imask docs at: https://github.com/uNmAnNeR/imaskjs
+ *
+ * The Default Lib Name and URL and debug URL to load the IMask library from CDN.
+ * Debug URL can be used in development for better debugging experience with source maps, while the minified URL is recommended for production for better performance.
+ * If no unminified version is available, the same minified URL can be used for both.
+ *
+ * The dev can override what script will be used in the end by adding a script before loading FluentUI.Blazor scripts:
+ * <script src="https://unpkg.com/imask@7.6.1/dist/imask.min.js"></script>
+ */
+
+
+const iMaskLibrary: Library = {
+  name: 'IMask',
+  url: 'https://unpkg.com/imask@7.6.1/dist/imask.min.js',
+  debugUrl: 'https://unpkg.com/imask@7.6.1/dist/imask.js'
+};
+
+// Create a loader instance for IMask
+const imaskLoader = new ExternalLibraryLoader<typeof IMaskType>(iMaskLibrary);
 
 export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
 
@@ -11,7 +33,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
    * @param id The ID of the input element.
    * @param mask The mask pattern to apply.
    */
-  export function applyPatternMask(id: string, mask: string, lazy: boolean, placeholderChar: string): void {
+  export async function applyPatternMask(id: string, mask: string, lazy: boolean, placeholderChar: string): Promise<void> {
 
     const fluentText = document.getElementById(id) as FluentUIComponents.TextInput;
     const inputElement = getInputElement(id);
@@ -43,6 +65,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
 
     // Apply new mask
     if (inputElement && mask.length > 0) {
+      // Ensure IMask library is loaded from CDN
+      const IMask = await imaskLoader.load();
+
       inputElement.mask = IMask(inputElement, maskOptions);
 
       // Workaround to update FluentTextInput value
