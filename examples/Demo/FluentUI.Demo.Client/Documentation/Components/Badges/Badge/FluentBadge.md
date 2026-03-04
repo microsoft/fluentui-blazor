@@ -50,6 +50,8 @@ The badge size be set to a value from  the `BadgeSize` enumeration.
 
 Use the `.fluent-badge` CSS class on any HTML `div` or `span` element to quickly represent a badge with the default badge styles, without using the `FluentBadge` component.
 
+> **Note:** The `.fluent-badge` CSS class is intended for standalone elements only. It cannot be used to wrap other components or elements to produce an *attached badge* effect — use the `FluentBadge` component with the `Positioning` parameter for that purpose.
+
 {{ BadgeCss }}
 
 ## API FluentBadge
