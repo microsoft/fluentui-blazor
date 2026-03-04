@@ -46,6 +46,12 @@ The badge size be set to a value from  the `BadgeSize` enumeration.
 
 {{ BadgeSizes }}
 
+## CSS Classes
+
+Use the `.fluent-badge` CSS class on any HTML `div` or `span` element to quickly represent a badge with the default badge styles, without using the `FluentBadge` component.
+
+{{ BadgeCss }}
+
 ## API FluentBadge
 
 {{ API Type=FluentBadge }}
