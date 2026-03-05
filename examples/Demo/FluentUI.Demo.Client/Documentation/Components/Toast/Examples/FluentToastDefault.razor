@@ -1,0 +1,44 @@
+﻿<FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+    <FluentButton OnClick="@(() => Visible = !Visible)">Show Toast</FluentButton>
+
+    <FluentToast @bind-Opened="@Visible"
+                 Intent="@ToastIntent.Success"
+                 Timeout="50000">
+        <FluentToastTitle>
+            Success Toast
+        </FluentToastTitle>
+        <FluentToastBody>
+            <ChildContent>
+            This is a toast notification using the FluentToast component.
+            </ChildContent>
+            <Subtitle>It will auto-dismiss in 5 seconds.</Subtitle>
+        </FluentToastBody>
+    </FluentToast>
+
+    <FluentStack>
+        <FluentButton OnClick="@(() => ErrorVisible = true)">Show Error Toast</FluentButton>
+        <FluentToast @bind-Opened="@ErrorVisible"
+                     Intent="@ToastIntent.Error"
+                     Position="@ToastPosition.BottomLeft"
+                     VerticalOffset="250"
+                     HorizontalOffset="250"
+                     Timeout="0">
+            <FluentToastTitle>
+                <ChildContent>
+                Error Occurred
+                </ChildContent>
+                <Action>
+                    <FluentButton Appearance="ButtonAppearance.Subtle" OnClick="@(() => ErrorVisible = false)">Dismiss</FluentButton>
+                </Action>
+            </FluentToastTitle>
+            <FluentToastBody>
+                This toast has a persistent error message and custom offsets.
+            </FluentToastBody>
+        </FluentToast>
+    </FluentStack>
+</FluentStack>
+
+@code {
+    bool Visible = false;
+    bool ErrorVisible = false;
+}

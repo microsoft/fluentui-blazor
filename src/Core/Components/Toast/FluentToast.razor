@@ -1,0 +1,22 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-toast-b id="@Id"
+                class="@ClassValue"
+                style="@StyleValue"
+                opened="@(Opened ? "true" : "false")"
+                timeout="@Timeout"
+                position="@Position.ToAttributeValue()"
+                intent="@Intent.ToAttributeValue()"
+                vertical-offset="@VerticalOffset"
+                horizontal-offset="@HorizontalOffset"
+                role="listitem"
+                aria-labelledby="@($"{Id}-title")"
+                aria-describedby="@($"{Id}-body")"
+                @attributes="@AdditionalAttributes"
+                @ondialogtoggle="@OnToggleAsync">
+    <CascadingValue Value="@Intent" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</fluent-toast-b>

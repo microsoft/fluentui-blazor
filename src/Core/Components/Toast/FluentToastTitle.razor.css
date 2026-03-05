@@ -1,0 +1,23 @@
+.fluent-toast-title-media {
+  display: flex;
+  padding-top: 2px;
+  grid-column-end: 2;
+  padding-right: 8px;
+  font-size: 16px;
+  color: var(--colorNeutralForeground1);
+}
+
+.fluent-toast-title {
+  display: flex;
+  grid-column-end: 3;
+  color: var(--colorNeutralForeground1);
+  word-break: break-word;
+}
+
+.fluent-toast-title-action {
+  display: flex;
+  align-items: start;
+  padding-left: 12px;
+  grid-column-end: -1;
+  color: var(--colorBrandForeground1);
+}
