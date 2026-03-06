@@ -45,6 +45,8 @@ again will toggle the sort direction. When `HeaderCellAsButtonWithMenu` is true,
 A sort can be removed by right clicking (or by pressing <kbd>Shift</kbd> + <kbd>r</kbd>) on the header column (with exception of
 the default sort).
 
+_The minimal width for a sortable column is 75 pixels._
+
 ## Row size
 
 The DataGrid offers a `RowSize` parameter which allows you to use different preset row heights. The value uses the `DataGridRowSize`
