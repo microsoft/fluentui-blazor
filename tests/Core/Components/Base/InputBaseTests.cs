@@ -76,7 +76,7 @@ public class InputBaseTests : Bunit.BunitContext
     [InlineData("LabelWidth", "150px", null, "width: 150px;", "Set_LabelPosition_Before")]
     [InlineData("LabelPosition", LabelPosition.Before, "label-position", "before")]
     [InlineData("Message", "my-message", null, null, "Add_MessageCondition_AlwaysTrue")]
-    [InlineData("MessageState", MessageState.Success, null, "color: var(--success);", "Add_MessageCondition_AlwaysTrue")]
+    [InlineData("MessageState", MessageState.Success, null, "color: var(--info);", "Add_MessageCondition_AlwaysTrue")]
     [InlineData("InputSlot", "input", null, "slot=\"input\"")]
     [InlineData("LostFocus", "input", null, null, "Check_LostFocus")]
     public void InputBase_DefaultProperties(string attributeName, object attributeValue, string? htmlAttribute = null, object? htmlValue = null, string? extraCondition = null)

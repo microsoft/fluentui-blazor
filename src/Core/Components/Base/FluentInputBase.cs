@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -83,6 +84,9 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     #endregion
 
     #region IFluentField
+
+    /// <inheritdoc />
+    LambdaExpression? IFluentField.ValueExpression => ValueExpression;
 
     /// <inheritdoc cref="IFluentField.FocusLost" />
     public virtual bool FocusLost { get; protected set; }
@@ -241,6 +245,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
         _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
         await JSModule.DisposeAsync();
+
+        GC.SuppressFinalize(this);
     }
 
     /// <summary>
