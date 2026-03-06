@@ -61,7 +61,7 @@
     [Theory]
     [InlineData(CalendarViews.Days, "July 2024")]
     [InlineData(CalendarViews.Months, "2024")]
-    [InlineData(CalendarViews.Years, "2024 - 2035")]
+    [InlineData(CalendarViews.Years, "2019 - 2030")]
     [InlineData((CalendarViews)99, "")] // Default case
     public void CalendarTitles_Label_ReturnsCorrectValue(CalendarViews view, string expected)
     {
@@ -84,7 +84,7 @@
     [Theory]
     [InlineData(CalendarViews.Days, "June")]
     [InlineData(CalendarViews.Months, "2023")]
-    [InlineData(CalendarViews.Years, "2012 - 2023")]
+    [InlineData(CalendarViews.Years, "2007 - 2018")]
     [InlineData((CalendarViews)99, "")] // Default case
     public void CalendarTitles_PreviousTitle_ReturnsCorrectValue(CalendarViews view, string expected)
     {
@@ -131,7 +131,7 @@
     [Theory]
     [InlineData(CalendarViews.Days, "August")]
     [InlineData(CalendarViews.Months, "2025")]
-    [InlineData(CalendarViews.Years, "2036 - 2047")]
+    [InlineData(CalendarViews.Years, "2031 - 2042")]
     [InlineData((CalendarViews)99, "")] // Default case
     public void CalendarTitles_NextTitle_ReturnsCorrectValue(CalendarViews view, string expected)
     {

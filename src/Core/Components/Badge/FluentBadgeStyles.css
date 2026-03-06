@@ -1,0 +1,89 @@
+.fluent-badge {
+  display: inline-flex;
+  position: relative;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fontFamilyBase);
+  font-weight: var(--fontWeightSemibold);
+  font-size: var(--fontSizeBase200);
+  line-height: var(--lineHeightBase200);
+  min-width: 20px;
+  min-height: 20px;
+  padding-inline: calc(var(--spacingHorizontalXS) + var(--spacingHorizontalXXS));
+  border-radius: var(--borderRadiusCircular);
+  border-color: var(--colorTransparentStroke);
+  contain: content;
+  background-color: var(--colorBrandBackground);
+  color: var(--colorNeutralForegroundOnBrand);
+}
+
+/* Color */
+
+.fluent-badge[color='informative'] {
+  background-color: var(--colorNeutralBackground5);
+  color: var(--colorNeutralForeground3);
+}
+
+.fluent-badge[color='important'] {
+  background-color: var(--colorNeutralForeground1);
+  color: var(--colorNeutralBackground1);
+}
+
+.fluent-badge[color='danger'] {
+  background-color: var(--colorPaletteRedBackground3);
+  color: var(--colorNeutralForegroundOnBrand);
+}
+
+.fluent-badge[color='severe'] {
+  background-color: var(--colorPaletteDarkOrangeBackground3);
+  color: var(--colorNeutralForegroundOnBrand);
+}
+
+.fluent-badge[color='subtle'] {
+  background-color: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+}
+
+.fluent-badge[color='sucess'] {
+  background-color: var(--colorPaletteGreenBackground3);
+  color: var(--colorNeutralForegroundOnBrand);
+}
+
+.fluent-badge[color='warning'] {
+  background-color: var(--colorPaletteYellowBackground3);
+  color: var(--colorNeutralForeground1Static);
+}
+
+/* Appareance */
+
+.fluent-badge[appearance='outline'] {
+  border-color: currentColor;
+  color: var(--colorBrandForeground1);
+  background-color: initial;
+  border-style: solid;
+  border-width: var(--strokeWidthThin);
+}
+
+.fluent-badge[appearance='ghost'] {
+  color: var(--colorBrandForeground1);
+  background-color: initial;
+}
+
+.fluent-badge[appearance='tint'] {
+  background-color: var(--colorBrandBackground2);
+  color: var(--colorBrandForeground2);
+  border-color: var(--colorBrandStroke2);
+  border-style: solid;
+  border-width: var(--strokeWidthThin);
+}
+
+/* Shape */
+
+.fluent-badge[shape='rounded'] {
+  border-radius: var(--borderRadiusMedium);
+}
+
+.fluent-badge[shape='square'] {
+  border-radius: var(--borderRadiusNone);
+}
