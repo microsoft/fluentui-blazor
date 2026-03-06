@@ -53,37 +53,37 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     /// This event is fired when the user starts dragging an element.
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDragStart { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDragStart { get; set; }
 
     /// <summary>
     /// This event is fired when the drag operation ends (such as releasing a mouse button or hitting the Esc key).
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDragEnd { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDragEnd { get; set; }
 
     /// <summary>
     /// This event is fired when a dragged element enters a valid drop target.
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDragEnter { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDragEnter { get; set; }
 
     /// <summary>
     /// This event is fired when an element is being dragged over a valid drop target.
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDragOver { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDragOver { get; set; }
 
     /// <summary>
     /// This event is fired when a dragged element leaves a valid drop target.
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDragLeave { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDragLeave { get; set; }
 
     /// <summary>
     /// This event is fired when an element is dropped on a valid drop target.
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDropEnd { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDropEnd { get; set; }
 
     /// <summary>
     /// Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
@@ -95,7 +95,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     private bool IsOver { get; set; }
 
     /// <summary />
-    private void OnDragStartHandler(DragEventArgs e)
+    private async Task OnDragStartHandlerAsync(DragEventArgs e)
     {
         if (!Draggable)
         {
@@ -104,42 +104,54 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
 
         Container.SetStartedZone(this);
 
-        OnDragStart?.Invoke(new FluentDragEventArgs<TItem>
+        if (OnDragStart.HasDelegate)
         {
-            Source = this,
-            Target = this,
-        });
+            await OnDragStart.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = this,
+                Target = this,
+            });
+        }
 
-        Container.OnDragStart?.Invoke(new FluentDragEventArgs<TItem>
+        if (Container.OnDragStart.HasDelegate)
         {
-            Source = this,
-            Target = this,
-        });
+            await Container.OnDragStart.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = this,
+                Target = this,
+            });
+        }
     }
 
     /// <summary />
-    private void OnDragEndHandler(DragEventArgs e)
+    private async Task OnDragEndHandlerAsync(DragEventArgs e)
     {
         if (!Draggable)
         {
             return;
         }
 
-        OnDragEnd?.Invoke(new FluentDragEventArgs<TItem>
+        if (OnDragEnd.HasDelegate)
         {
-            Source = this,
-            Target = this,
-        });
+            await OnDragEnd.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = this,
+                Target = this,
+            });
+        }
 
-        Container.OnDragEnd?.Invoke(new FluentDragEventArgs<TItem>
+        if (Container.OnDragEnd.HasDelegate)
         {
-            Source = this,
-            Target = this,
-        });
+            await Container.OnDragEnd.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = this,
+                Target = this,
+            });
+        }
     }
 
     /// <summary />
-    private void OnDragEnterHandler(DragEventArgs e)
+    private async Task OnDragEnterHandlerAsync(DragEventArgs e)
     {
         if (!Droppable)
         {
@@ -153,21 +165,27 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
             return;
         }
 
-        OnDragEnter?.Invoke(new FluentDragEventArgs<TItem>
+        if (OnDragEnter.HasDelegate)
         {
-            Source = Container.StartedZone,
-            Target = this,
-        });
+            await OnDragEnter.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = Container.StartedZone,
+                Target = this,
+            });
+        }
 
-        Container.OnDragEnter?.Invoke(new FluentDragEventArgs<TItem>
+        if (Container.OnDragEnter.HasDelegate)
         {
-            Source = Container.StartedZone,
-            Target = this,
-        });
+            await Container.OnDragEnter.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = Container.StartedZone,
+                Target = this,
+            });
+        }
     }
 
     /// <summary />
-    private void OnDragOverHandler(DragEventArgs e)
+    private async Task OnDragOverHandlerAsync(DragEventArgs e)
     {
         if (!Droppable)
         {
@@ -181,21 +199,27 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
 
         IsOver = true;
 
-        OnDragOver?.Invoke(new FluentDragEventArgs<TItem>
+        if (OnDragOver.HasDelegate)
         {
-            Source = Container.StartedZone,
-            Target = this,
-        });
+            await OnDragOver.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = Container.StartedZone,
+                Target = this,
+            });
+        }
 
-        Container.OnDragOver?.Invoke(new FluentDragEventArgs<TItem>
+        if (Container.OnDragOver.HasDelegate)
         {
-            Source = Container.StartedZone,
-            Target = this,
-        });
+            await Container.OnDragOver.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = Container.StartedZone,
+                Target = this,
+            });
+        }
     }
 
     /// <summary />
-    private void OnDragLeaveHandler(DragEventArgs e)
+    private async Task OnDragLeaveHandlerAsync(DragEventArgs e)
     {
         if (!Droppable)
         {
@@ -209,21 +233,27 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
             return;
         }
 
-        OnDragLeave?.Invoke(new FluentDragEventArgs<TItem>
+        if (OnDragLeave.HasDelegate)
         {
-            Source = Container.StartedZone,
-            Target = this,
-        });
+            await OnDragLeave.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = Container.StartedZone,
+                Target = this,
+            });
+        }
 
-        Container.OnDragLeave?.Invoke(new FluentDragEventArgs<TItem>
+        if (Container.OnDragLeave.HasDelegate)
         {
-            Source = Container.StartedZone,
-            Target = this,
-        });
+            await Container.OnDragLeave.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = Container.StartedZone,
+                Target = this,
+            });
+        }
     }
 
     /// <summary />
-    private void OnDropHandler(DragEventArgs e)
+    private async Task OnDropHandlerAsync(DragEventArgs e)
     {
         if (!Droppable)
         {
@@ -237,17 +267,23 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
             return;
         }
 
-        OnDropEnd?.Invoke(new FluentDragEventArgs<TItem>
+        if (OnDropEnd.HasDelegate)
         {
-            Source = Container.StartedZone,
-            Target = this,
-        });
+            await OnDropEnd.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = Container.StartedZone,
+                Target = this,
+            });
+        }
 
-        Container.OnDropEnd?.Invoke(new FluentDragEventArgs<TItem>
+        if (Container.OnDropEnd.HasDelegate)
         {
-            Source = Container.StartedZone,
-            Target = this,
-        });
+            await Container.OnDropEnd.InvokeAsync(new FluentDragEventArgs<TItem>
+            {
+                Source = Container.StartedZone,
+                Target = this,
+            });
+        }
 
         Container.SetStartedZone(value: null);
     }

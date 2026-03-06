@@ -30,37 +30,37 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
     /// This event is fired when the user starts dragging an element.
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDragStart { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDragStart { get; set; }
 
     /// <summary>
     /// This event is fired when the drag operation ends (such as releasing a mouse button or hitting the Esc key).
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDragEnd { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDragEnd { get; set; }
 
     /// <summary>
     /// This event is fired when a dragged element enters a valid drop target.
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDragEnter { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDragEnter { get; set; }
 
     /// <summary>
     /// This event is fired when an element is being dragged over a valid drop target.
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDragOver { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDragOver { get; set; }
 
     /// <summary>
     /// This event is fired when a dragged element leaves a valid drop target.
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDragLeave { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDragLeave { get; set; }
 
     /// <summary>
     /// This event is fired when an element is dropped on a valid drop target.
     /// </summary>
     [Parameter]
-    public Action<FluentDragEventArgs<TItem>>? OnDropEnd { get; set; }
+    public EventCallback<FluentDragEventArgs<TItem>> OnDropEnd { get; set; }
 
     /// <summary>
     /// property to keep the zone currently dragged.
