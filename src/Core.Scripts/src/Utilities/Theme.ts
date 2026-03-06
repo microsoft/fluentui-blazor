@@ -138,6 +138,19 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     }
   }
 
+  /**
+ * Sets the Fluent UI theme to the built-in Teams theme using the current effective mode.
+ * Also updates localStorage so this base theme can be restored on a later run.
+ */
+  export function setTeamsTheme(): void {
+    updateStoredThemeSettings({ base: 'teams' });
+    const isDark = isSystemDark();
+    if (isDark) {
+      setTeamsDarkTheme();
+    } else {
+      setTeamsLightTheme();
+    }
+  }
 
   /**
  * Create a Fluent UI theme based on a specified color and customizations for hue, vibrancy and theme.

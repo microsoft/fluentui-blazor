@@ -23,6 +23,7 @@ interface Blazor {
     setTeamsDarkTheme(): void,
     setTeamsSystemTheme(): void,
     setTeamsThemeMode(mode: 'light' | 'dark' | 'system'): void,
+    setTeamsTheme(): void,
 
     createBrandTheme(color: string, hueTorsion: number, vibrancy: number, isDark: boolean, isExact?: boolean): Theme | null,
     setBrandThemeFromTheme(theme: Theme): void,

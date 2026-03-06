@@ -14,7 +14,7 @@ A Fluent UI Theme is represented by a set of tokens. Each token resolves to a si
 The Fluent UI Design System comes with a default theme which provides a modern and cohesive look and feel across all components. It includes a set of
 predefined colors, typography, and spacing that can be easily customized to fit your brand. In this section, the focus is on the
 color(s).
-Besides the default theme, dark and light versions of the Teams theme are also included. This is espacially useful if you use the Fluent UI
+Besides the default theme, dark and light versions of the Teams theme are also included. This is especially useful if you use the Fluent UI
 Blazor library for building Teams add-ins or applications
 
 In the Fluent Design System, there is one primary color defined which is named the **Brand** color. The brand color is used to represent the identity of
@@ -46,7 +46,7 @@ that the exact brand color is used in certain UI elements while still benefiting
 
 >[Note!] We can not guarantee that _all_ the colors in the ramp pass contrast checks for accessibility when using this 'exact" mode.
 
-The choice of using a dark or a light theme mode determines wich color(s) in the ramp will use the exact specified color. Technically, choosing to use an
+The choice of using a dark or a light theme mode determines which color(s) in the ramp will use the exact specified color. Technically, choosing to use an
 exact color will determine what values are assigned to the `--colorBrandBackground` and `--colorCompoundBrandBackground` CSS variables.
 
 We offer two ways to set a custom brand color in your Blazor application:
@@ -56,9 +56,9 @@ You can add a `data-theme-color` attribute to the `<body>` tag in your HTML and 
 a color ramp based on the provided color, and apply it to the application.
 
 The full set of supported attributes for declaratively configuring the theme includes:
-- `data-theme-mode`: Specifies the theme mode, which can be 'light', 'dark', or 'system'.
+- `data-theme`: Specifies the theme mode, which can be 'light', 'dark', or 'system'.
 - `data-theme-color`: Specifies the brand color using a valid hex color code (e.g., #FF0000).
-- `data-theme-hue-torsion`: Specifies the hue torsion for the color ramp generation, with a value between -0.5 and 0.5.
+- `data-theme-hue`: Specifies the hue torsion for the color ramp generation, with a value between -0.5 and 0.5.
 - `data-theme-vibrancy`: Specifies the vibrancy for the color ramp generation, with a value between -0.5 and 0.5.
 - `data-theme-exact`: Specifies whether to use the exact provided color in the ramp, with a boolean value ('true' or 'false').
 
@@ -75,7 +75,7 @@ The following methods are available for setting the brand color programmatically
   based on specific parameters and have full control over all the tokens.
 - `SetThemeAsync(ThemeType type);`
   Where `ThemeType` is an enum with the following values: `Default`, or `Teams`. Uses the effective mode (light or dark).
-- `SetThemeAsync(ThemeType type, ThemeMode mode;`
+- `SetThemeAsync(ThemeType type, ThemeMode mode);`
   Where `ThemeType` is an enum with the following values: `Default`, or `Teams`, and `ThemeMode` is an enum with the following values: `Light`, `Dark`, or `System`.
 - `SetThemeAsync(string color, bool isExact = false);`
   Where `color` should be a valid hex color code (e.g., #FF0000), and `isExact` controls whether the exact provided color is used for the brand background.
@@ -95,10 +95,10 @@ The following methods are available for setting the brand color programmatically
   Boolean method that checks if the current effective theme mode is dark mode.
 - `GetCachedRampAsync();`
   Returns the currently cached color ramp as a dictionary ramp number and corresponding color values.
-- SwitchDirectionAsync();
+- `SwitchDirectionAsync();`
   Change the effective theme direction between left-to-right (LTR) and right-to-left (RTL). This is particularly useful for supporting languages that are
   read from right to left, such as Arabic or Hebrew.
-- SwitchThemeAsync();
+- `SwitchThemeAsync();`
   Switches the effective theme mode between light and dark. This is particularly useful for allowing users to toggle between light and dark themes based
   on their preferences.
 
