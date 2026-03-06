@@ -8,10 +8,30 @@ interface Blazor {
   theme: {
     isSystemDark(): boolean,
     isDarkMode(): boolean,
+    initializeThemeSettings(): void,
+    addSystemThemeChangeListener(): void,
+    getCachedRamp(): BrandVariants | Record<string, string> | null,
+    clearThemeSettings(): void,
+
     setLightTheme(): void,
     setDarkTheme(): void,
-    setDefaultTheme(): void,
-    switchTheme(): void,
-    switchDirection(): void
+    setSystemTheme(): void,
+    setThemeMode(mode: 'light' | 'dark' | 'system'): void,
+    setWebTheme(): void,
+
+    setTeamsLightTheme(): void,
+    setTeamsDarkTheme(): void,
+    setTeamsSystemTheme(): void,
+    setTeamsThemeMode(mode: 'light' | 'dark' | 'system'): void,
+
+    createBrandTheme(color: string, hueTorsion: number, vibrancy: number, isDark: boolean, isExact?: boolean): Theme | null,
+    setBrandThemeFromTheme(theme: Theme): void,
+    setBrandThemeFromColor(color: string): void,
+    setBrandThemeFromColorExact(color: string): void,
+    setBrandTheme(color: string, hueTorsion: number, vibrancy: number, isDark: boolean, isExact?: boolean): void,
+    setBrandThemeToElement(element: HTMLElement, color: string, hueTorsion: number, vibrancy: number, isDark: boolean, isExact?: boolean): void,
+
+    switchTheme(): boolean,
+    switchDirection(): void,
   }
 }
