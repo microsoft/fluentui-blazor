@@ -269,7 +269,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
       };
     }
   });
-  blazor.registerCustomEventType('dateselected', {
+  blazor.registerCustomEventType('fluentdateselected', {
     browserEventName: 'dateselected',
     createEventArgs: event => {
       return {
