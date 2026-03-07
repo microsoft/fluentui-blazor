@@ -29,6 +29,10 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     if (beforeStartCalled) return;
     Logger.debug(`beforeStart mode "${mode}"`, options);
 
+    // Apply theme as early as possible to reduce FOUC
+    ThemeFile.FluentUI.Blazor.Utilities.Theme.initializeThemeSettings();
+    ThemeFile.FluentUI.Blazor.Utilities.Theme.addSystemThemeChangeListener();
+
     // Define Fluent UI components
     FluentUIComponents.defineComponents();
 
@@ -49,7 +53,6 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     // Initialize Fluent UI theme
     blazor.theme = ThemeFile.FluentUI.Blazor.Utilities.Theme;
     ThemeFile.FluentUI.Blazor.Utilities.Theme.addMediaQueriesListener();
-    ThemeFile.FluentUI.Blazor.Utilities.Theme.setDefaultTheme();
 
     // Initialize all custom components
     FluentPageScript.registerComponent(blazor, mode);
