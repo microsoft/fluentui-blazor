@@ -161,7 +161,7 @@
         var cut = Render(@<FluentTextInput @bind-Value="@value" Immediate="@immediate" ImmediateDelay="@immediateDelay" />);
 
         // Act
-        cut.Find("fluent-text-input").TriggerEvent("onimmediate", new ChangeEventArgs() { Value = "new value"});
+        cut.Find("fluent-text-input").TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "new value"});
 
         // Assert: Immediate
         Assert.Equal(expectedImmediateValue, value);
