@@ -146,7 +146,7 @@
         var cut = Render(@<FluentTextArea @bind-Value="@value" Immediate="@immediate" ImmediateDelay="@immediateDelay" />);
 
         // Act
-        cut.Find("fluent-textarea").TriggerEvent("onfluentimmediate", new ChangeEventArgs() { Value = "new value"});
+        cut.Find("fluent-textarea").TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "new value"});
 
         // Assert: Immediate
         Assert.Equal(expectedImmediateValue, value);
