@@ -27,7 +27,7 @@ function Get-CssVariableLines {
 
     # Collect output lines
     $lines = [System.Collections.Generic.List[string]]::new()
-    $dico = [System.Collections.Generic.List[string]]::new()
+    $dico = [System.Collections.Generic.List[System.Collections.Generic.KeyValuePair[string, string]]]::new()
 
     foreach ($match in $matchesCss) {
         if ($match.Groups[1].Value -ne "z") {
@@ -92,6 +92,8 @@ function Get-CssVariableLines {
     $lines.Add("")
     $lines.Add("namespace Microsoft.FluentUI.AspNetCore.Components;")
     $lines.Add("")
+    $lines.Add("#nullable enable")
+    $lines.Add("")
     $lines.Add("/// <summary />")
     
     if ($IsConstants) {
@@ -139,9 +141,9 @@ function Get-CssVariableLines {
                     }
                     else {
                         $lines.Add("        [JsonPropertyName(""$(Fix-JsonAttribute($entry.Groupe4))"")]")
-                        $lines.Add("        public string $(Fix-SizeName("$prefix$g2$($entry.Groupe3)")) { get; set; }")
+                        $lines.Add("        public string? $(Fix-SizeName("$prefix$g2$($entry.Groupe3)")) { get; set; }")
                         
-                        $dico.Add("[""$(Fix-JsonAttribute($entry.Groupe4))""] = value.$g1.$(Fix-SizeName("$prefix$g2$($entry.Groupe3)")),")
+                        $dico.Add([System.Collections.Generic.KeyValuePair[string, string]]::new($(Fix-JsonAttribute($entry.Groupe4)), "$g1.$(Fix-SizeName("$prefix$g2$($entry.Groupe3)"))"))
                     }
                     $lines.Add("")
                 }
@@ -179,9 +181,9 @@ function Get-CssVariableLines {
                     }
                     else {
                         $lines.Add("            [JsonPropertyName(""$(Fix-JsonAttribute($entry.Groupe4))"")]")
-                        $lines.Add("            public string $(Fix-SizeName($entry.Groupe3)) { get; set; }")
+                        $lines.Add("            public string? $(Fix-SizeName($entry.Groupe3)) { get; set; }")
                   
-                        $dico.Add("[""$(Fix-JsonAttribute($entry.Groupe4))""] = value.$g1.$g2.$(Fix-SizeName($entry.Groupe3)),")
+                        $dico.Add([System.Collections.Generic.KeyValuePair[string, string]]::new($(Fix-JsonAttribute($entry.Groupe4)), "$g1.$g2.$(Fix-SizeName($entry.Groupe3))"))
                     }
                     $lines.Add("")
                 }
@@ -190,6 +192,33 @@ function Get-CssVariableLines {
         }
         $lines.Add("    }")
     }
+
+    if (!$IsConstants) {
+        $lines.Add("    /// <summary />")
+        $lines.Add("    public IDictionary<string, string?> ToDictionary()")
+        $lines.Add("    {")
+        $lines.Add("        return new Dictionary<string, string?>")
+        $lines.Add("        {")
+        foreach ($item in $dico) {
+            $key = $item.Key
+            $value = $item.Value
+            $lines.Add("            [""$key""] = $value,")
+        }
+        $lines.Add("        };")
+        $lines.Add("    }")
+        $lines.Add("")
+        $lines.Add("    /// <summary />")
+        $lines.Add("    public void FromDictionary(IDictionary<string, string?> value)")
+        $lines.Add("    {")
+        $lines.Add("        string? GetValue(string key) => value.TryGetValue(key, out var result) ? result : null;")
+        foreach ($item in $dico) {
+            $key = $item.Key
+            $value = $item.Value
+            $lines.Add("        $value = GetValue(""$key"");")
+        }
+        $lines.Add("    }")
+    }
+    
     $lines.Add("}")
 
     return $lines

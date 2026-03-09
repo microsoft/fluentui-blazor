@@ -14,6 +14,8 @@ using System.Text.Json.Serialization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+#nullable enable
+
 /// <summary />
 public partial class ThemeCustom
 {
@@ -33,47 +35,47 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("borderRadius2XLarge")]
-            public string Large2X { get; set; }
+            public string? Large2X { get; set; }
 
             /// <summary />
             [JsonPropertyName("borderRadius3XLarge")]
-            public string Large3X { get; set; }
+            public string? Large3X { get; set; }
 
             /// <summary />
             [JsonPropertyName("borderRadius4XLarge")]
-            public string Large4X { get; set; }
+            public string? Large4X { get; set; }
 
             /// <summary />
             [JsonPropertyName("borderRadius5XLarge")]
-            public string Large5X { get; set; }
+            public string? Large5X { get; set; }
 
             /// <summary />
             [JsonPropertyName("borderRadius6XLarge")]
-            public string Large6X { get; set; }
+            public string? Large6X { get; set; }
 
             /// <summary />
             [JsonPropertyName("borderRadiusCircular")]
-            public string Circular { get; set; }
+            public string? Circular { get; set; }
 
             /// <summary />
             [JsonPropertyName("borderRadiusLarge")]
-            public string Large { get; set; }
+            public string? Large { get; set; }
 
             /// <summary />
             [JsonPropertyName("borderRadiusMedium")]
-            public string Medium { get; set; }
+            public string? Medium { get; set; }
 
             /// <summary />
             [JsonPropertyName("borderRadiusNone")]
-            public string None { get; set; }
+            public string? None { get; set; }
 
             /// <summary />
             [JsonPropertyName("borderRadiusSmall")]
-            public string Small { get; set; }
+            public string? Small { get; set; }
 
             /// <summary />
             [JsonPropertyName("borderRadiusXLarge")]
-            public string XLarge { get; set; }
+            public string? XLarge { get; set; }
 
         }
     }
@@ -93,7 +95,7 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("colorBackgroundOverlay")]
-            public string Overlay { get; set; }
+            public string? Overlay { get; set; }
 
         }
         /// <summary />
@@ -105,147 +107,147 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("colorBrandBackground")]
-            public string Background { get; set; }
+            public string? Background { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackground2")]
-            public string Background2 { get; set; }
+            public string? Background2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackground2Hover")]
-            public string Background2Hover { get; set; }
+            public string? Background2Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackground2Pressed")]
-            public string Background2Pressed { get; set; }
+            public string? Background2Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackground3Static")]
-            public string Background3Static { get; set; }
+            public string? Background3Static { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackground4Static")]
-            public string Background4Static { get; set; }
+            public string? Background4Static { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackgroundHover")]
-            public string BackgroundHover { get; set; }
+            public string? BackgroundHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackgroundInverted")]
-            public string BackgroundInverted { get; set; }
+            public string? BackgroundInverted { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackgroundInvertedHover")]
-            public string BackgroundInvertedHover { get; set; }
+            public string? BackgroundInvertedHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackgroundInvertedPressed")]
-            public string BackgroundInvertedPressed { get; set; }
+            public string? BackgroundInvertedPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackgroundInvertedSelected")]
-            public string BackgroundInvertedSelected { get; set; }
+            public string? BackgroundInvertedSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackgroundPressed")]
-            public string BackgroundPressed { get; set; }
+            public string? BackgroundPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackgroundSelected")]
-            public string BackgroundSelected { get; set; }
+            public string? BackgroundSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandBackgroundStatic")]
-            public string BackgroundStatic { get; set; }
+            public string? BackgroundStatic { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForeground1")]
-            public string Foreground1 { get; set; }
+            public string? Foreground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForeground2")]
-            public string Foreground2 { get; set; }
+            public string? Foreground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForeground2Hover")]
-            public string Foreground2Hover { get; set; }
+            public string? Foreground2Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForeground2Pressed")]
-            public string Foreground2Pressed { get; set; }
+            public string? Foreground2Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForegroundInverted")]
-            public string ForegroundInverted { get; set; }
+            public string? ForegroundInverted { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForegroundInvertedHover")]
-            public string ForegroundInvertedHover { get; set; }
+            public string? ForegroundInvertedHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForegroundInvertedPressed")]
-            public string ForegroundInvertedPressed { get; set; }
+            public string? ForegroundInvertedPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForegroundLink")]
-            public string ForegroundLink { get; set; }
+            public string? ForegroundLink { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForegroundLinkHover")]
-            public string ForegroundLinkHover { get; set; }
+            public string? ForegroundLinkHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForegroundLinkPressed")]
-            public string ForegroundLinkPressed { get; set; }
+            public string? ForegroundLinkPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForegroundLinkSelected")]
-            public string ForegroundLinkSelected { get; set; }
+            public string? ForegroundLinkSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForegroundOnLight")]
-            public string ForegroundOnLight { get; set; }
+            public string? ForegroundOnLight { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForegroundOnLightHover")]
-            public string ForegroundOnLightHover { get; set; }
+            public string? ForegroundOnLightHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForegroundOnLightPressed")]
-            public string ForegroundOnLightPressed { get; set; }
+            public string? ForegroundOnLightPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandForegroundOnLightSelected")]
-            public string ForegroundOnLightSelected { get; set; }
+            public string? ForegroundOnLightSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandShadowAmbient")]
-            public string ShadowAmbient { get; set; }
+            public string? ShadowAmbient { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandShadowKey")]
-            public string ShadowKey { get; set; }
+            public string? ShadowKey { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandStroke1")]
-            public string Stroke1 { get; set; }
+            public string? Stroke1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandStroke2")]
-            public string Stroke2 { get; set; }
+            public string? Stroke2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandStroke2Contrast")]
-            public string Stroke2Contrast { get; set; }
+            public string? Stroke2Contrast { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandStroke2Hover")]
-            public string Stroke2Hover { get; set; }
+            public string? Stroke2Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorBrandStroke2Pressed")]
-            public string Stroke2Pressed { get; set; }
+            public string? Stroke2Pressed { get; set; }
 
         }
         /// <summary />
@@ -257,39 +259,39 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("colorCompoundBrandBackground")]
-            public string BrandBackground { get; set; }
+            public string? BrandBackground { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorCompoundBrandBackgroundHover")]
-            public string BrandBackgroundHover { get; set; }
+            public string? BrandBackgroundHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorCompoundBrandBackgroundPressed")]
-            public string BrandBackgroundPressed { get; set; }
+            public string? BrandBackgroundPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorCompoundBrandForeground1")]
-            public string BrandForeground1 { get; set; }
+            public string? BrandForeground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorCompoundBrandForeground1Hover")]
-            public string BrandForeground1Hover { get; set; }
+            public string? BrandForeground1Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorCompoundBrandForeground1Pressed")]
-            public string BrandForeground1Pressed { get; set; }
+            public string? BrandForeground1Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorCompoundBrandStroke")]
-            public string BrandStroke { get; set; }
+            public string? BrandStroke { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorCompoundBrandStrokeHover")]
-            public string BrandStrokeHover { get; set; }
+            public string? BrandStrokeHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorCompoundBrandStrokePressed")]
-            public string BrandStrokePressed { get; set; }
+            public string? BrandStrokePressed { get; set; }
 
         }
         /// <summary />
@@ -301,471 +303,471 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground1")]
-            public string Background1 { get; set; }
+            public string? Background1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground1Hover")]
-            public string Background1Hover { get; set; }
+            public string? Background1Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground1Pressed")]
-            public string Background1Pressed { get; set; }
+            public string? Background1Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground1Selected")]
-            public string Background1Selected { get; set; }
+            public string? Background1Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground2")]
-            public string Background2 { get; set; }
+            public string? Background2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground2Hover")]
-            public string Background2Hover { get; set; }
+            public string? Background2Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground2Pressed")]
-            public string Background2Pressed { get; set; }
+            public string? Background2Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground2Selected")]
-            public string Background2Selected { get; set; }
+            public string? Background2Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground3")]
-            public string Background3 { get; set; }
+            public string? Background3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground3Hover")]
-            public string Background3Hover { get; set; }
+            public string? Background3Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground3Pressed")]
-            public string Background3Pressed { get; set; }
+            public string? Background3Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground3Selected")]
-            public string Background3Selected { get; set; }
+            public string? Background3Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground4")]
-            public string Background4 { get; set; }
+            public string? Background4 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground4Hover")]
-            public string Background4Hover { get; set; }
+            public string? Background4Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground4Pressed")]
-            public string Background4Pressed { get; set; }
+            public string? Background4Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground4Selected")]
-            public string Background4Selected { get; set; }
+            public string? Background4Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground5")]
-            public string Background5 { get; set; }
+            public string? Background5 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground5Hover")]
-            public string Background5Hover { get; set; }
+            public string? Background5Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground5Pressed")]
-            public string Background5Pressed { get; set; }
+            public string? Background5Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground5Selected")]
-            public string Background5Selected { get; set; }
+            public string? Background5Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground6")]
-            public string Background6 { get; set; }
+            public string? Background6 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground7")]
-            public string Background7 { get; set; }
+            public string? Background7 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground7Hover")]
-            public string Background7Hover { get; set; }
+            public string? Background7Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground7Pressed")]
-            public string Background7Pressed { get; set; }
+            public string? Background7Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground7Selected")]
-            public string Background7Selected { get; set; }
+            public string? Background7Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackground8")]
-            public string Background8 { get; set; }
+            public string? Background8 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackgroundAlpha")]
-            public string BackgroundAlpha { get; set; }
+            public string? BackgroundAlpha { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackgroundAlpha2")]
-            public string BackgroundAlpha2 { get; set; }
+            public string? BackgroundAlpha2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackgroundDisabled")]
-            public string BackgroundDisabled { get; set; }
+            public string? BackgroundDisabled { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackgroundDisabled2")]
-            public string BackgroundDisabled2 { get; set; }
+            public string? BackgroundDisabled2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackgroundInverted")]
-            public string BackgroundInverted { get; set; }
+            public string? BackgroundInverted { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackgroundInvertedDisabled")]
-            public string BackgroundInvertedDisabled { get; set; }
+            public string? BackgroundInvertedDisabled { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackgroundInvertedHover")]
-            public string BackgroundInvertedHover { get; set; }
+            public string? BackgroundInvertedHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackgroundInvertedPressed")]
-            public string BackgroundInvertedPressed { get; set; }
+            public string? BackgroundInvertedPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackgroundInvertedSelected")]
-            public string BackgroundInvertedSelected { get; set; }
+            public string? BackgroundInvertedSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralBackgroundStatic")]
-            public string BackgroundStatic { get; set; }
+            public string? BackgroundStatic { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralCardBackground")]
-            public string CardBackground { get; set; }
+            public string? CardBackground { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralCardBackgroundDisabled")]
-            public string CardBackgroundDisabled { get; set; }
+            public string? CardBackgroundDisabled { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralCardBackgroundHover")]
-            public string CardBackgroundHover { get; set; }
+            public string? CardBackgroundHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralCardBackgroundPressed")]
-            public string CardBackgroundPressed { get; set; }
+            public string? CardBackgroundPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralCardBackgroundSelected")]
-            public string CardBackgroundSelected { get; set; }
+            public string? CardBackgroundSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground1")]
-            public string Foreground1 { get; set; }
+            public string? Foreground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground1Hover")]
-            public string Foreground1Hover { get; set; }
+            public string? Foreground1Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground1Pressed")]
-            public string Foreground1Pressed { get; set; }
+            public string? Foreground1Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground1Selected")]
-            public string Foreground1Selected { get; set; }
+            public string? Foreground1Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground1Static")]
-            public string Foreground1Static { get; set; }
+            public string? Foreground1Static { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground2")]
-            public string Foreground2 { get; set; }
+            public string? Foreground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground2BrandHover")]
-            public string Foreground2BrandHover { get; set; }
+            public string? Foreground2BrandHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground2BrandPressed")]
-            public string Foreground2BrandPressed { get; set; }
+            public string? Foreground2BrandPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground2BrandSelected")]
-            public string Foreground2BrandSelected { get; set; }
+            public string? Foreground2BrandSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground2Hover")]
-            public string Foreground2Hover { get; set; }
+            public string? Foreground2Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground2Link")]
-            public string Foreground2Link { get; set; }
+            public string? Foreground2Link { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground2LinkHover")]
-            public string Foreground2LinkHover { get; set; }
+            public string? Foreground2LinkHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground2LinkPressed")]
-            public string Foreground2LinkPressed { get; set; }
+            public string? Foreground2LinkPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground2LinkSelected")]
-            public string Foreground2LinkSelected { get; set; }
+            public string? Foreground2LinkSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground2Pressed")]
-            public string Foreground2Pressed { get; set; }
+            public string? Foreground2Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground2Selected")]
-            public string Foreground2Selected { get; set; }
+            public string? Foreground2Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground3")]
-            public string Foreground3 { get; set; }
+            public string? Foreground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground3BrandHover")]
-            public string Foreground3BrandHover { get; set; }
+            public string? Foreground3BrandHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground3BrandPressed")]
-            public string Foreground3BrandPressed { get; set; }
+            public string? Foreground3BrandPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground3BrandSelected")]
-            public string Foreground3BrandSelected { get; set; }
+            public string? Foreground3BrandSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground3Hover")]
-            public string Foreground3Hover { get; set; }
+            public string? Foreground3Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground3Pressed")]
-            public string Foreground3Pressed { get; set; }
+            public string? Foreground3Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground3Selected")]
-            public string Foreground3Selected { get; set; }
+            public string? Foreground3Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground4")]
-            public string Foreground4 { get; set; }
+            public string? Foreground4 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground5")]
-            public string Foreground5 { get; set; }
+            public string? Foreground5 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground5Hover")]
-            public string Foreground5Hover { get; set; }
+            public string? Foreground5Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground5Pressed")]
-            public string Foreground5Pressed { get; set; }
+            public string? Foreground5Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForeground5Selected")]
-            public string Foreground5Selected { get; set; }
+            public string? Foreground5Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundDisabled")]
-            public string ForegroundDisabled { get; set; }
+            public string? ForegroundDisabled { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundInverted")]
-            public string ForegroundInverted { get; set; }
+            public string? ForegroundInverted { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundInverted2")]
-            public string ForegroundInverted2 { get; set; }
+            public string? ForegroundInverted2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundInvertedDisabled")]
-            public string ForegroundInvertedDisabled { get; set; }
+            public string? ForegroundInvertedDisabled { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundInvertedHover")]
-            public string ForegroundInvertedHover { get; set; }
+            public string? ForegroundInvertedHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundInvertedLink")]
-            public string ForegroundInvertedLink { get; set; }
+            public string? ForegroundInvertedLink { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundInvertedLinkHover")]
-            public string ForegroundInvertedLinkHover { get; set; }
+            public string? ForegroundInvertedLinkHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundInvertedLinkPressed")]
-            public string ForegroundInvertedLinkPressed { get; set; }
+            public string? ForegroundInvertedLinkPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundInvertedLinkSelected")]
-            public string ForegroundInvertedLinkSelected { get; set; }
+            public string? ForegroundInvertedLinkSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundInvertedPressed")]
-            public string ForegroundInvertedPressed { get; set; }
+            public string? ForegroundInvertedPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundInvertedSelected")]
-            public string ForegroundInvertedSelected { get; set; }
+            public string? ForegroundInvertedSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundOnBrand")]
-            public string ForegroundOnBrand { get; set; }
+            public string? ForegroundOnBrand { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralForegroundStaticInverted")]
-            public string ForegroundStaticInverted { get; set; }
+            public string? ForegroundStaticInverted { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralShadowAmbient")]
-            public string ShadowAmbient { get; set; }
+            public string? ShadowAmbient { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralShadowAmbientDarker")]
-            public string ShadowAmbientDarker { get; set; }
+            public string? ShadowAmbientDarker { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralShadowAmbientLighter")]
-            public string ShadowAmbientLighter { get; set; }
+            public string? ShadowAmbientLighter { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralShadowKey")]
-            public string ShadowKey { get; set; }
+            public string? ShadowKey { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralShadowKeyDarker")]
-            public string ShadowKeyDarker { get; set; }
+            public string? ShadowKeyDarker { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralShadowKeyLighter")]
-            public string ShadowKeyLighter { get; set; }
+            public string? ShadowKeyLighter { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStencil1")]
-            public string Stencil1 { get; set; }
+            public string? Stencil1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStencil1Alpha")]
-            public string Stencil1Alpha { get; set; }
+            public string? Stencil1Alpha { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStencil2")]
-            public string Stencil2 { get; set; }
+            public string? Stencil2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStencil2Alpha")]
-            public string Stencil2Alpha { get; set; }
+            public string? Stencil2Alpha { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStroke1")]
-            public string Stroke1 { get; set; }
+            public string? Stroke1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStroke1Hover")]
-            public string Stroke1Hover { get; set; }
+            public string? Stroke1Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStroke1Pressed")]
-            public string Stroke1Pressed { get; set; }
+            public string? Stroke1Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStroke1Selected")]
-            public string Stroke1Selected { get; set; }
+            public string? Stroke1Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStroke2")]
-            public string Stroke2 { get; set; }
+            public string? Stroke2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStroke3")]
-            public string Stroke3 { get; set; }
+            public string? Stroke3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStroke4")]
-            public string Stroke4 { get; set; }
+            public string? Stroke4 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStroke4Hover")]
-            public string Stroke4Hover { get; set; }
+            public string? Stroke4Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStroke4Pressed")]
-            public string Stroke4Pressed { get; set; }
+            public string? Stroke4Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStroke4Selected")]
-            public string Stroke4Selected { get; set; }
+            public string? Stroke4Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeAccessible")]
-            public string StrokeAccessible { get; set; }
+            public string? StrokeAccessible { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeAccessibleHover")]
-            public string StrokeAccessibleHover { get; set; }
+            public string? StrokeAccessibleHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeAccessiblePressed")]
-            public string StrokeAccessiblePressed { get; set; }
+            public string? StrokeAccessiblePressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeAccessibleSelected")]
-            public string StrokeAccessibleSelected { get; set; }
+            public string? StrokeAccessibleSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeAlpha")]
-            public string StrokeAlpha { get; set; }
+            public string? StrokeAlpha { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeAlpha2")]
-            public string StrokeAlpha2 { get; set; }
+            public string? StrokeAlpha2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeDisabled")]
-            public string StrokeDisabled { get; set; }
+            public string? StrokeDisabled { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeDisabled2")]
-            public string StrokeDisabled2 { get; set; }
+            public string? StrokeDisabled2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeInvertedDisabled")]
-            public string StrokeInvertedDisabled { get; set; }
+            public string? StrokeInvertedDisabled { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeOnBrand")]
-            public string StrokeOnBrand { get; set; }
+            public string? StrokeOnBrand { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeOnBrand2")]
-            public string StrokeOnBrand2 { get; set; }
+            public string? StrokeOnBrand2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeOnBrand2Hover")]
-            public string StrokeOnBrand2Hover { get; set; }
+            public string? StrokeOnBrand2Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeOnBrand2Pressed")]
-            public string StrokeOnBrand2Pressed { get; set; }
+            public string? StrokeOnBrand2Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeOnBrand2Selected")]
-            public string StrokeOnBrand2Selected { get; set; }
+            public string? StrokeOnBrand2Selected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorNeutralStrokeSubtle")]
-            public string StrokeSubtle { get; set; }
+            public string? StrokeSubtle { get; set; }
 
         }
         /// <summary />
@@ -777,603 +779,603 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("colorPaletteAnchorBackground2")]
-            public string AnchorBackground2 { get; set; }
+            public string? AnchorBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteAnchorBorderActive")]
-            public string AnchorBorderActive { get; set; }
+            public string? AnchorBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteAnchorForeground2")]
-            public string AnchorForeground2 { get; set; }
+            public string? AnchorForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBeigeBackground2")]
-            public string BeigeBackground2 { get; set; }
+            public string? BeigeBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBeigeBorderActive")]
-            public string BeigeBorderActive { get; set; }
+            public string? BeigeBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBeigeForeground2")]
-            public string BeigeForeground2 { get; set; }
+            public string? BeigeForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBerryBackground1")]
-            public string BerryBackground1 { get; set; }
+            public string? BerryBackground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBerryBackground2")]
-            public string BerryBackground2 { get; set; }
+            public string? BerryBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBerryBackground3")]
-            public string BerryBackground3 { get; set; }
+            public string? BerryBackground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBerryBorder1")]
-            public string BerryBorder1 { get; set; }
+            public string? BerryBorder1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBerryBorder2")]
-            public string BerryBorder2 { get; set; }
+            public string? BerryBorder2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBerryBorderActive")]
-            public string BerryBorderActive { get; set; }
+            public string? BerryBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBerryForeground1")]
-            public string BerryForeground1 { get; set; }
+            public string? BerryForeground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBerryForeground2")]
-            public string BerryForeground2 { get; set; }
+            public string? BerryForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBerryForeground3")]
-            public string BerryForeground3 { get; set; }
+            public string? BerryForeground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBlueBackground2")]
-            public string BlueBackground2 { get; set; }
+            public string? BlueBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBlueBorderActive")]
-            public string BlueBorderActive { get; set; }
+            public string? BlueBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBlueForeground2")]
-            public string BlueForeground2 { get; set; }
+            public string? BlueForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBrassBackground2")]
-            public string BrassBackground2 { get; set; }
+            public string? BrassBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBrassBorderActive")]
-            public string BrassBorderActive { get; set; }
+            public string? BrassBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBrassForeground2")]
-            public string BrassForeground2 { get; set; }
+            public string? BrassForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBrownBackground2")]
-            public string BrownBackground2 { get; set; }
+            public string? BrownBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBrownBorderActive")]
-            public string BrownBorderActive { get; set; }
+            public string? BrownBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteBrownForeground2")]
-            public string BrownForeground2 { get; set; }
+            public string? BrownForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteCornflowerBackground2")]
-            public string CornflowerBackground2 { get; set; }
+            public string? CornflowerBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteCornflowerBorderActive")]
-            public string CornflowerBorderActive { get; set; }
+            public string? CornflowerBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteCornflowerForeground2")]
-            public string CornflowerForeground2 { get; set; }
+            public string? CornflowerForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteCranberryBackground2")]
-            public string CranberryBackground2 { get; set; }
+            public string? CranberryBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteCranberryBorderActive")]
-            public string CranberryBorderActive { get; set; }
+            public string? CranberryBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteCranberryForeground2")]
-            public string CranberryForeground2 { get; set; }
+            public string? CranberryForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkGreenBackground2")]
-            public string DarkGreenBackground2 { get; set; }
+            public string? DarkGreenBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkGreenBorderActive")]
-            public string DarkGreenBorderActive { get; set; }
+            public string? DarkGreenBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkGreenForeground2")]
-            public string DarkGreenForeground2 { get; set; }
+            public string? DarkGreenForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkOrangeBackground1")]
-            public string DarkOrangeBackground1 { get; set; }
+            public string? DarkOrangeBackground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkOrangeBackground2")]
-            public string DarkOrangeBackground2 { get; set; }
+            public string? DarkOrangeBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkOrangeBackground3")]
-            public string DarkOrangeBackground3 { get; set; }
+            public string? DarkOrangeBackground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkOrangeBorder1")]
-            public string DarkOrangeBorder1 { get; set; }
+            public string? DarkOrangeBorder1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkOrangeBorder2")]
-            public string DarkOrangeBorder2 { get; set; }
+            public string? DarkOrangeBorder2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkOrangeBorderActive")]
-            public string DarkOrangeBorderActive { get; set; }
+            public string? DarkOrangeBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkOrangeForeground1")]
-            public string DarkOrangeForeground1 { get; set; }
+            public string? DarkOrangeForeground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkOrangeForeground2")]
-            public string DarkOrangeForeground2 { get; set; }
+            public string? DarkOrangeForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkOrangeForeground3")]
-            public string DarkOrangeForeground3 { get; set; }
+            public string? DarkOrangeForeground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkRedBackground2")]
-            public string DarkRedBackground2 { get; set; }
+            public string? DarkRedBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkRedBorderActive")]
-            public string DarkRedBorderActive { get; set; }
+            public string? DarkRedBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteDarkRedForeground2")]
-            public string DarkRedForeground2 { get; set; }
+            public string? DarkRedForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteForestBackground2")]
-            public string ForestBackground2 { get; set; }
+            public string? ForestBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteForestBorderActive")]
-            public string ForestBorderActive { get; set; }
+            public string? ForestBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteForestForeground2")]
-            public string ForestForeground2 { get; set; }
+            public string? ForestForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGoldBackground2")]
-            public string GoldBackground2 { get; set; }
+            public string? GoldBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGoldBorderActive")]
-            public string GoldBorderActive { get; set; }
+            public string? GoldBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGoldForeground2")]
-            public string GoldForeground2 { get; set; }
+            public string? GoldForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGrapeBackground2")]
-            public string GrapeBackground2 { get; set; }
+            public string? GrapeBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGrapeBorderActive")]
-            public string GrapeBorderActive { get; set; }
+            public string? GrapeBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGrapeForeground2")]
-            public string GrapeForeground2 { get; set; }
+            public string? GrapeForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGreenBackground1")]
-            public string GreenBackground1 { get; set; }
+            public string? GreenBackground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGreenBackground2")]
-            public string GreenBackground2 { get; set; }
+            public string? GreenBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGreenBackground3")]
-            public string GreenBackground3 { get; set; }
+            public string? GreenBackground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGreenBorder1")]
-            public string GreenBorder1 { get; set; }
+            public string? GreenBorder1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGreenBorder2")]
-            public string GreenBorder2 { get; set; }
+            public string? GreenBorder2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGreenBorderActive")]
-            public string GreenBorderActive { get; set; }
+            public string? GreenBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGreenForeground1")]
-            public string GreenForeground1 { get; set; }
+            public string? GreenForeground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGreenForeground2")]
-            public string GreenForeground2 { get; set; }
+            public string? GreenForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGreenForeground3")]
-            public string GreenForeground3 { get; set; }
+            public string? GreenForeground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteGreenForegroundInverted")]
-            public string GreenForegroundInverted { get; set; }
+            public string? GreenForegroundInverted { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLavenderBackground2")]
-            public string LavenderBackground2 { get; set; }
+            public string? LavenderBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLavenderBorderActive")]
-            public string LavenderBorderActive { get; set; }
+            public string? LavenderBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLavenderForeground2")]
-            public string LavenderForeground2 { get; set; }
+            public string? LavenderForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightGreenBackground1")]
-            public string LightGreenBackground1 { get; set; }
+            public string? LightGreenBackground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightGreenBackground2")]
-            public string LightGreenBackground2 { get; set; }
+            public string? LightGreenBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightGreenBackground3")]
-            public string LightGreenBackground3 { get; set; }
+            public string? LightGreenBackground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightGreenBorder1")]
-            public string LightGreenBorder1 { get; set; }
+            public string? LightGreenBorder1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightGreenBorder2")]
-            public string LightGreenBorder2 { get; set; }
+            public string? LightGreenBorder2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightGreenBorderActive")]
-            public string LightGreenBorderActive { get; set; }
+            public string? LightGreenBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightGreenForeground1")]
-            public string LightGreenForeground1 { get; set; }
+            public string? LightGreenForeground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightGreenForeground2")]
-            public string LightGreenForeground2 { get; set; }
+            public string? LightGreenForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightGreenForeground3")]
-            public string LightGreenForeground3 { get; set; }
+            public string? LightGreenForeground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightTealBackground2")]
-            public string LightTealBackground2 { get; set; }
+            public string? LightTealBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightTealBorderActive")]
-            public string LightTealBorderActive { get; set; }
+            public string? LightTealBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLightTealForeground2")]
-            public string LightTealForeground2 { get; set; }
+            public string? LightTealForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLilacBackground2")]
-            public string LilacBackground2 { get; set; }
+            public string? LilacBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLilacBorderActive")]
-            public string LilacBorderActive { get; set; }
+            public string? LilacBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteLilacForeground2")]
-            public string LilacForeground2 { get; set; }
+            public string? LilacForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMagentaBackground2")]
-            public string MagentaBackground2 { get; set; }
+            public string? MagentaBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMagentaBorderActive")]
-            public string MagentaBorderActive { get; set; }
+            public string? MagentaBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMagentaForeground2")]
-            public string MagentaForeground2 { get; set; }
+            public string? MagentaForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMarigoldBackground1")]
-            public string MarigoldBackground1 { get; set; }
+            public string? MarigoldBackground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMarigoldBackground2")]
-            public string MarigoldBackground2 { get; set; }
+            public string? MarigoldBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMarigoldBackground3")]
-            public string MarigoldBackground3 { get; set; }
+            public string? MarigoldBackground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMarigoldBorder1")]
-            public string MarigoldBorder1 { get; set; }
+            public string? MarigoldBorder1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMarigoldBorder2")]
-            public string MarigoldBorder2 { get; set; }
+            public string? MarigoldBorder2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMarigoldBorderActive")]
-            public string MarigoldBorderActive { get; set; }
+            public string? MarigoldBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMarigoldForeground1")]
-            public string MarigoldForeground1 { get; set; }
+            public string? MarigoldForeground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMarigoldForeground2")]
-            public string MarigoldForeground2 { get; set; }
+            public string? MarigoldForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMarigoldForeground3")]
-            public string MarigoldForeground3 { get; set; }
+            public string? MarigoldForeground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMinkBackground2")]
-            public string MinkBackground2 { get; set; }
+            public string? MinkBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMinkBorderActive")]
-            public string MinkBorderActive { get; set; }
+            public string? MinkBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteMinkForeground2")]
-            public string MinkForeground2 { get; set; }
+            public string? MinkForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteNavyBackground2")]
-            public string NavyBackground2 { get; set; }
+            public string? NavyBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteNavyBorderActive")]
-            public string NavyBorderActive { get; set; }
+            public string? NavyBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteNavyForeground2")]
-            public string NavyForeground2 { get; set; }
+            public string? NavyForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePeachBackground2")]
-            public string PeachBackground2 { get; set; }
+            public string? PeachBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePeachBorderActive")]
-            public string PeachBorderActive { get; set; }
+            public string? PeachBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePeachForeground2")]
-            public string PeachForeground2 { get; set; }
+            public string? PeachForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePinkBackground2")]
-            public string PinkBackground2 { get; set; }
+            public string? PinkBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePinkBorderActive")]
-            public string PinkBorderActive { get; set; }
+            public string? PinkBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePinkForeground2")]
-            public string PinkForeground2 { get; set; }
+            public string? PinkForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePlatinumBackground2")]
-            public string PlatinumBackground2 { get; set; }
+            public string? PlatinumBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePlatinumBorderActive")]
-            public string PlatinumBorderActive { get; set; }
+            public string? PlatinumBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePlatinumForeground2")]
-            public string PlatinumForeground2 { get; set; }
+            public string? PlatinumForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePlumBackground2")]
-            public string PlumBackground2 { get; set; }
+            public string? PlumBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePlumBorderActive")]
-            public string PlumBorderActive { get; set; }
+            public string? PlumBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePlumForeground2")]
-            public string PlumForeground2 { get; set; }
+            public string? PlumForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePumpkinBackground2")]
-            public string PumpkinBackground2 { get; set; }
+            public string? PumpkinBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePumpkinBorderActive")]
-            public string PumpkinBorderActive { get; set; }
+            public string? PumpkinBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePumpkinForeground2")]
-            public string PumpkinForeground2 { get; set; }
+            public string? PumpkinForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePurpleBackground2")]
-            public string PurpleBackground2 { get; set; }
+            public string? PurpleBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePurpleBorderActive")]
-            public string PurpleBorderActive { get; set; }
+            public string? PurpleBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPalettePurpleForeground2")]
-            public string PurpleForeground2 { get; set; }
+            public string? PurpleForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRedBackground1")]
-            public string RedBackground1 { get; set; }
+            public string? RedBackground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRedBackground2")]
-            public string RedBackground2 { get; set; }
+            public string? RedBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRedBackground3")]
-            public string RedBackground3 { get; set; }
+            public string? RedBackground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRedBorder1")]
-            public string RedBorder1 { get; set; }
+            public string? RedBorder1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRedBorder2")]
-            public string RedBorder2 { get; set; }
+            public string? RedBorder2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRedBorderActive")]
-            public string RedBorderActive { get; set; }
+            public string? RedBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRedForeground1")]
-            public string RedForeground1 { get; set; }
+            public string? RedForeground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRedForeground2")]
-            public string RedForeground2 { get; set; }
+            public string? RedForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRedForeground3")]
-            public string RedForeground3 { get; set; }
+            public string? RedForeground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRedForegroundInverted")]
-            public string RedForegroundInverted { get; set; }
+            public string? RedForegroundInverted { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRoyalBlueBackground2")]
-            public string RoyalBlueBackground2 { get; set; }
+            public string? RoyalBlueBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRoyalBlueBorderActive")]
-            public string RoyalBlueBorderActive { get; set; }
+            public string? RoyalBlueBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteRoyalBlueForeground2")]
-            public string RoyalBlueForeground2 { get; set; }
+            public string? RoyalBlueForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteSeafoamBackground2")]
-            public string SeafoamBackground2 { get; set; }
+            public string? SeafoamBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteSeafoamBorderActive")]
-            public string SeafoamBorderActive { get; set; }
+            public string? SeafoamBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteSeafoamForeground2")]
-            public string SeafoamForeground2 { get; set; }
+            public string? SeafoamForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteSteelBackground2")]
-            public string SteelBackground2 { get; set; }
+            public string? SteelBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteSteelBorderActive")]
-            public string SteelBorderActive { get; set; }
+            public string? SteelBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteSteelForeground2")]
-            public string SteelForeground2 { get; set; }
+            public string? SteelForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteTealBackground2")]
-            public string TealBackground2 { get; set; }
+            public string? TealBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteTealBorderActive")]
-            public string TealBorderActive { get; set; }
+            public string? TealBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteTealForeground2")]
-            public string TealForeground2 { get; set; }
+            public string? TealForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteYellowBackground1")]
-            public string YellowBackground1 { get; set; }
+            public string? YellowBackground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteYellowBackground2")]
-            public string YellowBackground2 { get; set; }
+            public string? YellowBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteYellowBackground3")]
-            public string YellowBackground3 { get; set; }
+            public string? YellowBackground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteYellowBorder1")]
-            public string YellowBorder1 { get; set; }
+            public string? YellowBorder1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteYellowBorder2")]
-            public string YellowBorder2 { get; set; }
+            public string? YellowBorder2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteYellowBorderActive")]
-            public string YellowBorderActive { get; set; }
+            public string? YellowBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteYellowForeground1")]
-            public string YellowForeground1 { get; set; }
+            public string? YellowForeground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteYellowForeground2")]
-            public string YellowForeground2 { get; set; }
+            public string? YellowForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteYellowForeground3")]
-            public string YellowForeground3 { get; set; }
+            public string? YellowForeground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorPaletteYellowForegroundInverted")]
-            public string YellowForegroundInverted { get; set; }
+            public string? YellowForegroundInverted { get; set; }
 
         }
         /// <summary />
@@ -1385,7 +1387,7 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("colorScrollbarOverlay")]
-            public string Overlay { get; set; }
+            public string? Overlay { get; set; }
 
         }
         /// <summary />
@@ -1397,131 +1399,131 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerBackground1")]
-            public string DangerBackground1 { get; set; }
+            public string? DangerBackground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerBackground2")]
-            public string DangerBackground2 { get; set; }
+            public string? DangerBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerBackground3")]
-            public string DangerBackground3 { get; set; }
+            public string? DangerBackground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerBackground3Hover")]
-            public string DangerBackground3Hover { get; set; }
+            public string? DangerBackground3Hover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerBackground3Pressed")]
-            public string DangerBackground3Pressed { get; set; }
+            public string? DangerBackground3Pressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerBorder1")]
-            public string DangerBorder1 { get; set; }
+            public string? DangerBorder1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerBorder2")]
-            public string DangerBorder2 { get; set; }
+            public string? DangerBorder2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerBorderActive")]
-            public string DangerBorderActive { get; set; }
+            public string? DangerBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerForeground1")]
-            public string DangerForeground1 { get; set; }
+            public string? DangerForeground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerForeground2")]
-            public string DangerForeground2 { get; set; }
+            public string? DangerForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerForeground3")]
-            public string DangerForeground3 { get; set; }
+            public string? DangerForeground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusDangerForegroundInverted")]
-            public string DangerForegroundInverted { get; set; }
+            public string? DangerForegroundInverted { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusSuccessBackground1")]
-            public string SuccessBackground1 { get; set; }
+            public string? SuccessBackground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusSuccessBackground2")]
-            public string SuccessBackground2 { get; set; }
+            public string? SuccessBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusSuccessBackground3")]
-            public string SuccessBackground3 { get; set; }
+            public string? SuccessBackground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusSuccessBorder1")]
-            public string SuccessBorder1 { get; set; }
+            public string? SuccessBorder1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusSuccessBorder2")]
-            public string SuccessBorder2 { get; set; }
+            public string? SuccessBorder2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusSuccessBorderActive")]
-            public string SuccessBorderActive { get; set; }
+            public string? SuccessBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusSuccessForeground1")]
-            public string SuccessForeground1 { get; set; }
+            public string? SuccessForeground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusSuccessForeground2")]
-            public string SuccessForeground2 { get; set; }
+            public string? SuccessForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusSuccessForeground3")]
-            public string SuccessForeground3 { get; set; }
+            public string? SuccessForeground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusSuccessForegroundInverted")]
-            public string SuccessForegroundInverted { get; set; }
+            public string? SuccessForegroundInverted { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusWarningBackground1")]
-            public string WarningBackground1 { get; set; }
+            public string? WarningBackground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusWarningBackground2")]
-            public string WarningBackground2 { get; set; }
+            public string? WarningBackground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusWarningBackground3")]
-            public string WarningBackground3 { get; set; }
+            public string? WarningBackground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusWarningBorder1")]
-            public string WarningBorder1 { get; set; }
+            public string? WarningBorder1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusWarningBorder2")]
-            public string WarningBorder2 { get; set; }
+            public string? WarningBorder2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusWarningBorderActive")]
-            public string WarningBorderActive { get; set; }
+            public string? WarningBorderActive { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusWarningForeground1")]
-            public string WarningForeground1 { get; set; }
+            public string? WarningForeground1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusWarningForeground2")]
-            public string WarningForeground2 { get; set; }
+            public string? WarningForeground2 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusWarningForeground3")]
-            public string WarningForeground3 { get; set; }
+            public string? WarningForeground3 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStatusWarningForegroundInverted")]
-            public string WarningForegroundInverted { get; set; }
+            public string? WarningForegroundInverted { get; set; }
 
         }
         /// <summary />
@@ -1533,11 +1535,11 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("colorStrokeFocus1")]
-            public string Focus1 { get; set; }
+            public string? Focus1 { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorStrokeFocus2")]
-            public string Focus2 { get; set; }
+            public string? Focus2 { get; set; }
 
         }
         /// <summary />
@@ -1549,47 +1551,47 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("colorSubtleBackground")]
-            public string Background { get; set; }
+            public string? Background { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorSubtleBackgroundHover")]
-            public string BackgroundHover { get; set; }
+            public string? BackgroundHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorSubtleBackgroundInverted")]
-            public string BackgroundInverted { get; set; }
+            public string? BackgroundInverted { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorSubtleBackgroundInvertedHover")]
-            public string BackgroundInvertedHover { get; set; }
+            public string? BackgroundInvertedHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorSubtleBackgroundInvertedPressed")]
-            public string BackgroundInvertedPressed { get; set; }
+            public string? BackgroundInvertedPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorSubtleBackgroundInvertedSelected")]
-            public string BackgroundInvertedSelected { get; set; }
+            public string? BackgroundInvertedSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorSubtleBackgroundLightAlphaHover")]
-            public string BackgroundLightAlphaHover { get; set; }
+            public string? BackgroundLightAlphaHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorSubtleBackgroundLightAlphaPressed")]
-            public string BackgroundLightAlphaPressed { get; set; }
+            public string? BackgroundLightAlphaPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorSubtleBackgroundLightAlphaSelected")]
-            public string BackgroundLightAlphaSelected { get; set; }
+            public string? BackgroundLightAlphaSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorSubtleBackgroundPressed")]
-            public string BackgroundPressed { get; set; }
+            public string? BackgroundPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorSubtleBackgroundSelected")]
-            public string BackgroundSelected { get; set; }
+            public string? BackgroundSelected { get; set; }
 
         }
         /// <summary />
@@ -1601,31 +1603,31 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("colorTransparentBackground")]
-            public string Background { get; set; }
+            public string? Background { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorTransparentBackgroundHover")]
-            public string BackgroundHover { get; set; }
+            public string? BackgroundHover { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorTransparentBackgroundPressed")]
-            public string BackgroundPressed { get; set; }
+            public string? BackgroundPressed { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorTransparentBackgroundSelected")]
-            public string BackgroundSelected { get; set; }
+            public string? BackgroundSelected { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorTransparentStroke")]
-            public string Stroke { get; set; }
+            public string? Stroke { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorTransparentStrokeDisabled")]
-            public string StrokeDisabled { get; set; }
+            public string? StrokeDisabled { get; set; }
 
             /// <summary />
             [JsonPropertyName("colorTransparentStrokeInteractive")]
-            public string StrokeInteractive { get; set; }
+            public string? StrokeInteractive { get; set; }
 
         }
     }
@@ -1645,15 +1647,15 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("curveAccelerateMax")]
-            public string Max { get; set; }
+            public string? Max { get; set; }
 
             /// <summary />
             [JsonPropertyName("curveAccelerateMid")]
-            public string Mid { get; set; }
+            public string? Mid { get; set; }
 
             /// <summary />
             [JsonPropertyName("curveAccelerateMin")]
-            public string Min { get; set; }
+            public string? Min { get; set; }
 
         }
         /// <summary />
@@ -1665,15 +1667,15 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("curveDecelerateMax")]
-            public string Max { get; set; }
+            public string? Max { get; set; }
 
             /// <summary />
             [JsonPropertyName("curveDecelerateMid")]
-            public string Mid { get; set; }
+            public string? Mid { get; set; }
 
             /// <summary />
             [JsonPropertyName("curveDecelerateMin")]
-            public string Min { get; set; }
+            public string? Min { get; set; }
 
         }
         /// <summary />
@@ -1685,11 +1687,11 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("curveEasyEase")]
-            public string Ease { get; set; }
+            public string? Ease { get; set; }
 
             /// <summary />
             [JsonPropertyName("curveEasyEaseMax")]
-            public string EaseMax { get; set; }
+            public string? EaseMax { get; set; }
 
         }
         /// <summary />
@@ -1701,7 +1703,7 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("curveLinear")]
-            public string Default { get; set; }
+            public string? Default { get; set; }
 
         }
     }
@@ -1714,35 +1716,35 @@ public partial class ThemeCustom
 
         /// <summary />
         [JsonPropertyName("durationFast")]
-        public string Fast { get; set; }
+        public string? Fast { get; set; }
 
         /// <summary />
         [JsonPropertyName("durationFaster")]
-        public string Faster { get; set; }
+        public string? Faster { get; set; }
 
         /// <summary />
         [JsonPropertyName("durationGentle")]
-        public string Gentle { get; set; }
+        public string? Gentle { get; set; }
 
         /// <summary />
         [JsonPropertyName("durationNormal")]
-        public string Normal { get; set; }
+        public string? Normal { get; set; }
 
         /// <summary />
         [JsonPropertyName("durationSlow")]
-        public string Slow { get; set; }
+        public string? Slow { get; set; }
 
         /// <summary />
         [JsonPropertyName("durationSlower")]
-        public string Slower { get; set; }
+        public string? Slower { get; set; }
 
         /// <summary />
         [JsonPropertyName("durationUltraFast")]
-        public string UltraFast { get; set; }
+        public string? UltraFast { get; set; }
 
         /// <summary />
         [JsonPropertyName("durationUltraSlow")]
-        public string UltraSlow { get; set; }
+        public string? UltraSlow { get; set; }
 
     }
     /// <summary />
@@ -1761,15 +1763,15 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("fontFamilyBase")]
-            public string Base { get; set; }
+            public string? Base { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontFamilyMonospace")]
-            public string Monospace { get; set; }
+            public string? Monospace { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontFamilyNumeric")]
-            public string Numeric { get; set; }
+            public string? Numeric { get; set; }
 
         }
         /// <summary />
@@ -1781,43 +1783,43 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("fontSizeBase100")]
-            public string Base100 { get; set; }
+            public string? Base100 { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontSizeBase200")]
-            public string Base200 { get; set; }
+            public string? Base200 { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontSizeBase300")]
-            public string Base300 { get; set; }
+            public string? Base300 { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontSizeBase400")]
-            public string Base400 { get; set; }
+            public string? Base400 { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontSizeBase500")]
-            public string Base500 { get; set; }
+            public string? Base500 { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontSizeBase600")]
-            public string Base600 { get; set; }
+            public string? Base600 { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontSizeHero1000")]
-            public string Hero1000 { get; set; }
+            public string? Hero1000 { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontSizeHero700")]
-            public string Hero700 { get; set; }
+            public string? Hero700 { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontSizeHero800")]
-            public string Hero800 { get; set; }
+            public string? Hero800 { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontSizeHero900")]
-            public string Hero900 { get; set; }
+            public string? Hero900 { get; set; }
 
         }
         /// <summary />
@@ -1829,19 +1831,19 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("fontWeightBold")]
-            public string Bold { get; set; }
+            public string? Bold { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontWeightMedium")]
-            public string Medium { get; set; }
+            public string? Medium { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontWeightRegular")]
-            public string Regular { get; set; }
+            public string? Regular { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontWeightSemibold")]
-            public string Semibold { get; set; }
+            public string? Semibold { get; set; }
 
         }
     }
@@ -1861,43 +1863,43 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("lineHeightBase100")]
-            public string Base100 { get; set; }
+            public string? Base100 { get; set; }
 
             /// <summary />
             [JsonPropertyName("lineHeightBase200")]
-            public string Base200 { get; set; }
+            public string? Base200 { get; set; }
 
             /// <summary />
             [JsonPropertyName("lineHeightBase300")]
-            public string Base300 { get; set; }
+            public string? Base300 { get; set; }
 
             /// <summary />
             [JsonPropertyName("lineHeightBase400")]
-            public string Base400 { get; set; }
+            public string? Base400 { get; set; }
 
             /// <summary />
             [JsonPropertyName("lineHeightBase500")]
-            public string Base500 { get; set; }
+            public string? Base500 { get; set; }
 
             /// <summary />
             [JsonPropertyName("lineHeightBase600")]
-            public string Base600 { get; set; }
+            public string? Base600 { get; set; }
 
             /// <summary />
             [JsonPropertyName("lineHeightHero1000")]
-            public string Hero1000 { get; set; }
+            public string? Hero1000 { get; set; }
 
             /// <summary />
             [JsonPropertyName("lineHeightHero700")]
-            public string Hero700 { get; set; }
+            public string? Hero700 { get; set; }
 
             /// <summary />
             [JsonPropertyName("lineHeightHero800")]
-            public string Hero800 { get; set; }
+            public string? Hero800 { get; set; }
 
             /// <summary />
             [JsonPropertyName("lineHeightHero900")]
-            public string Hero900 { get; set; }
+            public string? Hero900 { get; set; }
 
         }
     }
@@ -1910,51 +1912,51 @@ public partial class ThemeCustom
 
         /// <summary />
         [JsonPropertyName("shadow16")]
-        public string Shadows16 { get; set; }
+        public string? Shadows16 { get; set; }
 
         /// <summary />
         [JsonPropertyName("shadow16Brand")]
-        public string Shadows16Brand { get; set; }
+        public string? Shadows16Brand { get; set; }
 
         /// <summary />
         [JsonPropertyName("shadow2")]
-        public string Shadows2 { get; set; }
+        public string? Shadows2 { get; set; }
 
         /// <summary />
         [JsonPropertyName("shadow28")]
-        public string Shadows28 { get; set; }
+        public string? Shadows28 { get; set; }
 
         /// <summary />
         [JsonPropertyName("shadow28Brand")]
-        public string Shadows28Brand { get; set; }
+        public string? Shadows28Brand { get; set; }
 
         /// <summary />
         [JsonPropertyName("shadow2Brand")]
-        public string Shadows2Brand { get; set; }
+        public string? Shadows2Brand { get; set; }
 
         /// <summary />
         [JsonPropertyName("shadow4")]
-        public string Shadows4 { get; set; }
+        public string? Shadows4 { get; set; }
 
         /// <summary />
         [JsonPropertyName("shadow4Brand")]
-        public string Shadows4Brand { get; set; }
+        public string? Shadows4Brand { get; set; }
 
         /// <summary />
         [JsonPropertyName("shadow64")]
-        public string Shadows64 { get; set; }
+        public string? Shadows64 { get; set; }
 
         /// <summary />
         [JsonPropertyName("shadow64Brand")]
-        public string Shadows64Brand { get; set; }
+        public string? Shadows64Brand { get; set; }
 
         /// <summary />
         [JsonPropertyName("shadow8")]
-        public string Shadows8 { get; set; }
+        public string? Shadows8 { get; set; }
 
         /// <summary />
         [JsonPropertyName("shadow8Brand")]
-        public string Shadows8Brand { get; set; }
+        public string? Shadows8Brand { get; set; }
 
     }
     /// <summary />
@@ -1973,47 +1975,47 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("spacingHorizontalL")]
-            public string L { get; set; }
+            public string? L { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingHorizontalM")]
-            public string M { get; set; }
+            public string? M { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingHorizontalMNudge")]
-            public string MNudge { get; set; }
+            public string? MNudge { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingHorizontalNone")]
-            public string None { get; set; }
+            public string? None { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingHorizontalS")]
-            public string S { get; set; }
+            public string? S { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingHorizontalSNudge")]
-            public string SNudge { get; set; }
+            public string? SNudge { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingHorizontalXL")]
-            public string XL { get; set; }
+            public string? XL { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingHorizontalXS")]
-            public string XS { get; set; }
+            public string? XS { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingHorizontalXXL")]
-            public string XXL { get; set; }
+            public string? XXL { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingHorizontalXXS")]
-            public string XXS { get; set; }
+            public string? XXS { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingHorizontalXXXL")]
-            public string XXXL { get; set; }
+            public string? XXXL { get; set; }
 
         }
         /// <summary />
@@ -2025,47 +2027,47 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("spacingVerticalL")]
-            public string L { get; set; }
+            public string? L { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingVerticalM")]
-            public string M { get; set; }
+            public string? M { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingVerticalMNudge")]
-            public string MNudge { get; set; }
+            public string? MNudge { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingVerticalNone")]
-            public string None { get; set; }
+            public string? None { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingVerticalS")]
-            public string S { get; set; }
+            public string? S { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingVerticalSNudge")]
-            public string SNudge { get; set; }
+            public string? SNudge { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingVerticalXL")]
-            public string XL { get; set; }
+            public string? XL { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingVerticalXS")]
-            public string XS { get; set; }
+            public string? XS { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingVerticalXXL")]
-            public string XXL { get; set; }
+            public string? XXL { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingVerticalXXS")]
-            public string XXS { get; set; }
+            public string? XXS { get; set; }
 
             /// <summary />
             [JsonPropertyName("spacingVerticalXXXL")]
-            public string XXXL { get; set; }
+            public string? XXXL { get; set; }
 
         }
     }
@@ -2085,20 +2087,951 @@ public partial class ThemeCustom
 
             /// <summary />
             [JsonPropertyName("strokeWidthThick")]
-            public string Thick { get; set; }
+            public string? Thick { get; set; }
 
             /// <summary />
             [JsonPropertyName("strokeWidthThicker")]
-            public string Thicker { get; set; }
+            public string? Thicker { get; set; }
 
             /// <summary />
             [JsonPropertyName("strokeWidthThickest")]
-            public string Thickest { get; set; }
+            public string? Thickest { get; set; }
 
             /// <summary />
             [JsonPropertyName("strokeWidthThin")]
-            public string Thin { get; set; }
+            public string? Thin { get; set; }
 
         }
+    }
+    /// <summary />
+    public IDictionary<string, string?> ToDictionary()
+    {
+        return new Dictionary<string, string?>
+        {
+            ["borderRadius2XLarge"] = Borders.Radius.Large2X,
+            ["borderRadius3XLarge"] = Borders.Radius.Large3X,
+            ["borderRadius4XLarge"] = Borders.Radius.Large4X,
+            ["borderRadius5XLarge"] = Borders.Radius.Large5X,
+            ["borderRadius6XLarge"] = Borders.Radius.Large6X,
+            ["borderRadiusCircular"] = Borders.Radius.Circular,
+            ["borderRadiusLarge"] = Borders.Radius.Large,
+            ["borderRadiusMedium"] = Borders.Radius.Medium,
+            ["borderRadiusNone"] = Borders.Radius.None,
+            ["borderRadiusSmall"] = Borders.Radius.Small,
+            ["borderRadiusXLarge"] = Borders.Radius.XLarge,
+            ["colorBackgroundOverlay"] = Colors.Background.Overlay,
+            ["colorBrandBackground"] = Colors.Brand.Background,
+            ["colorBrandBackground2"] = Colors.Brand.Background2,
+            ["colorBrandBackground2Hover"] = Colors.Brand.Background2Hover,
+            ["colorBrandBackground2Pressed"] = Colors.Brand.Background2Pressed,
+            ["colorBrandBackground3Static"] = Colors.Brand.Background3Static,
+            ["colorBrandBackground4Static"] = Colors.Brand.Background4Static,
+            ["colorBrandBackgroundHover"] = Colors.Brand.BackgroundHover,
+            ["colorBrandBackgroundInverted"] = Colors.Brand.BackgroundInverted,
+            ["colorBrandBackgroundInvertedHover"] = Colors.Brand.BackgroundInvertedHover,
+            ["colorBrandBackgroundInvertedPressed"] = Colors.Brand.BackgroundInvertedPressed,
+            ["colorBrandBackgroundInvertedSelected"] = Colors.Brand.BackgroundInvertedSelected,
+            ["colorBrandBackgroundPressed"] = Colors.Brand.BackgroundPressed,
+            ["colorBrandBackgroundSelected"] = Colors.Brand.BackgroundSelected,
+            ["colorBrandBackgroundStatic"] = Colors.Brand.BackgroundStatic,
+            ["colorBrandForeground1"] = Colors.Brand.Foreground1,
+            ["colorBrandForeground2"] = Colors.Brand.Foreground2,
+            ["colorBrandForeground2Hover"] = Colors.Brand.Foreground2Hover,
+            ["colorBrandForeground2Pressed"] = Colors.Brand.Foreground2Pressed,
+            ["colorBrandForegroundInverted"] = Colors.Brand.ForegroundInverted,
+            ["colorBrandForegroundInvertedHover"] = Colors.Brand.ForegroundInvertedHover,
+            ["colorBrandForegroundInvertedPressed"] = Colors.Brand.ForegroundInvertedPressed,
+            ["colorBrandForegroundLink"] = Colors.Brand.ForegroundLink,
+            ["colorBrandForegroundLinkHover"] = Colors.Brand.ForegroundLinkHover,
+            ["colorBrandForegroundLinkPressed"] = Colors.Brand.ForegroundLinkPressed,
+            ["colorBrandForegroundLinkSelected"] = Colors.Brand.ForegroundLinkSelected,
+            ["colorBrandForegroundOnLight"] = Colors.Brand.ForegroundOnLight,
+            ["colorBrandForegroundOnLightHover"] = Colors.Brand.ForegroundOnLightHover,
+            ["colorBrandForegroundOnLightPressed"] = Colors.Brand.ForegroundOnLightPressed,
+            ["colorBrandForegroundOnLightSelected"] = Colors.Brand.ForegroundOnLightSelected,
+            ["colorBrandShadowAmbient"] = Colors.Brand.ShadowAmbient,
+            ["colorBrandShadowKey"] = Colors.Brand.ShadowKey,
+            ["colorBrandStroke1"] = Colors.Brand.Stroke1,
+            ["colorBrandStroke2"] = Colors.Brand.Stroke2,
+            ["colorBrandStroke2Contrast"] = Colors.Brand.Stroke2Contrast,
+            ["colorBrandStroke2Hover"] = Colors.Brand.Stroke2Hover,
+            ["colorBrandStroke2Pressed"] = Colors.Brand.Stroke2Pressed,
+            ["colorCompoundBrandBackground"] = Colors.Compound.BrandBackground,
+            ["colorCompoundBrandBackgroundHover"] = Colors.Compound.BrandBackgroundHover,
+            ["colorCompoundBrandBackgroundPressed"] = Colors.Compound.BrandBackgroundPressed,
+            ["colorCompoundBrandForeground1"] = Colors.Compound.BrandForeground1,
+            ["colorCompoundBrandForeground1Hover"] = Colors.Compound.BrandForeground1Hover,
+            ["colorCompoundBrandForeground1Pressed"] = Colors.Compound.BrandForeground1Pressed,
+            ["colorCompoundBrandStroke"] = Colors.Compound.BrandStroke,
+            ["colorCompoundBrandStrokeHover"] = Colors.Compound.BrandStrokeHover,
+            ["colorCompoundBrandStrokePressed"] = Colors.Compound.BrandStrokePressed,
+            ["colorNeutralBackground1"] = Colors.Neutral.Background1,
+            ["colorNeutralBackground1Hover"] = Colors.Neutral.Background1Hover,
+            ["colorNeutralBackground1Pressed"] = Colors.Neutral.Background1Pressed,
+            ["colorNeutralBackground1Selected"] = Colors.Neutral.Background1Selected,
+            ["colorNeutralBackground2"] = Colors.Neutral.Background2,
+            ["colorNeutralBackground2Hover"] = Colors.Neutral.Background2Hover,
+            ["colorNeutralBackground2Pressed"] = Colors.Neutral.Background2Pressed,
+            ["colorNeutralBackground2Selected"] = Colors.Neutral.Background2Selected,
+            ["colorNeutralBackground3"] = Colors.Neutral.Background3,
+            ["colorNeutralBackground3Hover"] = Colors.Neutral.Background3Hover,
+            ["colorNeutralBackground3Pressed"] = Colors.Neutral.Background3Pressed,
+            ["colorNeutralBackground3Selected"] = Colors.Neutral.Background3Selected,
+            ["colorNeutralBackground4"] = Colors.Neutral.Background4,
+            ["colorNeutralBackground4Hover"] = Colors.Neutral.Background4Hover,
+            ["colorNeutralBackground4Pressed"] = Colors.Neutral.Background4Pressed,
+            ["colorNeutralBackground4Selected"] = Colors.Neutral.Background4Selected,
+            ["colorNeutralBackground5"] = Colors.Neutral.Background5,
+            ["colorNeutralBackground5Hover"] = Colors.Neutral.Background5Hover,
+            ["colorNeutralBackground5Pressed"] = Colors.Neutral.Background5Pressed,
+            ["colorNeutralBackground5Selected"] = Colors.Neutral.Background5Selected,
+            ["colorNeutralBackground6"] = Colors.Neutral.Background6,
+            ["colorNeutralBackground7"] = Colors.Neutral.Background7,
+            ["colorNeutralBackground7Hover"] = Colors.Neutral.Background7Hover,
+            ["colorNeutralBackground7Pressed"] = Colors.Neutral.Background7Pressed,
+            ["colorNeutralBackground7Selected"] = Colors.Neutral.Background7Selected,
+            ["colorNeutralBackground8"] = Colors.Neutral.Background8,
+            ["colorNeutralBackgroundAlpha"] = Colors.Neutral.BackgroundAlpha,
+            ["colorNeutralBackgroundAlpha2"] = Colors.Neutral.BackgroundAlpha2,
+            ["colorNeutralBackgroundDisabled"] = Colors.Neutral.BackgroundDisabled,
+            ["colorNeutralBackgroundDisabled2"] = Colors.Neutral.BackgroundDisabled2,
+            ["colorNeutralBackgroundInverted"] = Colors.Neutral.BackgroundInverted,
+            ["colorNeutralBackgroundInvertedDisabled"] = Colors.Neutral.BackgroundInvertedDisabled,
+            ["colorNeutralBackgroundInvertedHover"] = Colors.Neutral.BackgroundInvertedHover,
+            ["colorNeutralBackgroundInvertedPressed"] = Colors.Neutral.BackgroundInvertedPressed,
+            ["colorNeutralBackgroundInvertedSelected"] = Colors.Neutral.BackgroundInvertedSelected,
+            ["colorNeutralBackgroundStatic"] = Colors.Neutral.BackgroundStatic,
+            ["colorNeutralCardBackground"] = Colors.Neutral.CardBackground,
+            ["colorNeutralCardBackgroundDisabled"] = Colors.Neutral.CardBackgroundDisabled,
+            ["colorNeutralCardBackgroundHover"] = Colors.Neutral.CardBackgroundHover,
+            ["colorNeutralCardBackgroundPressed"] = Colors.Neutral.CardBackgroundPressed,
+            ["colorNeutralCardBackgroundSelected"] = Colors.Neutral.CardBackgroundSelected,
+            ["colorNeutralForeground1"] = Colors.Neutral.Foreground1,
+            ["colorNeutralForeground1Hover"] = Colors.Neutral.Foreground1Hover,
+            ["colorNeutralForeground1Pressed"] = Colors.Neutral.Foreground1Pressed,
+            ["colorNeutralForeground1Selected"] = Colors.Neutral.Foreground1Selected,
+            ["colorNeutralForeground1Static"] = Colors.Neutral.Foreground1Static,
+            ["colorNeutralForeground2"] = Colors.Neutral.Foreground2,
+            ["colorNeutralForeground2BrandHover"] = Colors.Neutral.Foreground2BrandHover,
+            ["colorNeutralForeground2BrandPressed"] = Colors.Neutral.Foreground2BrandPressed,
+            ["colorNeutralForeground2BrandSelected"] = Colors.Neutral.Foreground2BrandSelected,
+            ["colorNeutralForeground2Hover"] = Colors.Neutral.Foreground2Hover,
+            ["colorNeutralForeground2Link"] = Colors.Neutral.Foreground2Link,
+            ["colorNeutralForeground2LinkHover"] = Colors.Neutral.Foreground2LinkHover,
+            ["colorNeutralForeground2LinkPressed"] = Colors.Neutral.Foreground2LinkPressed,
+            ["colorNeutralForeground2LinkSelected"] = Colors.Neutral.Foreground2LinkSelected,
+            ["colorNeutralForeground2Pressed"] = Colors.Neutral.Foreground2Pressed,
+            ["colorNeutralForeground2Selected"] = Colors.Neutral.Foreground2Selected,
+            ["colorNeutralForeground3"] = Colors.Neutral.Foreground3,
+            ["colorNeutralForeground3BrandHover"] = Colors.Neutral.Foreground3BrandHover,
+            ["colorNeutralForeground3BrandPressed"] = Colors.Neutral.Foreground3BrandPressed,
+            ["colorNeutralForeground3BrandSelected"] = Colors.Neutral.Foreground3BrandSelected,
+            ["colorNeutralForeground3Hover"] = Colors.Neutral.Foreground3Hover,
+            ["colorNeutralForeground3Pressed"] = Colors.Neutral.Foreground3Pressed,
+            ["colorNeutralForeground3Selected"] = Colors.Neutral.Foreground3Selected,
+            ["colorNeutralForeground4"] = Colors.Neutral.Foreground4,
+            ["colorNeutralForeground5"] = Colors.Neutral.Foreground5,
+            ["colorNeutralForeground5Hover"] = Colors.Neutral.Foreground5Hover,
+            ["colorNeutralForeground5Pressed"] = Colors.Neutral.Foreground5Pressed,
+            ["colorNeutralForeground5Selected"] = Colors.Neutral.Foreground5Selected,
+            ["colorNeutralForegroundDisabled"] = Colors.Neutral.ForegroundDisabled,
+            ["colorNeutralForegroundInverted"] = Colors.Neutral.ForegroundInverted,
+            ["colorNeutralForegroundInverted2"] = Colors.Neutral.ForegroundInverted2,
+            ["colorNeutralForegroundInvertedDisabled"] = Colors.Neutral.ForegroundInvertedDisabled,
+            ["colorNeutralForegroundInvertedHover"] = Colors.Neutral.ForegroundInvertedHover,
+            ["colorNeutralForegroundInvertedLink"] = Colors.Neutral.ForegroundInvertedLink,
+            ["colorNeutralForegroundInvertedLinkHover"] = Colors.Neutral.ForegroundInvertedLinkHover,
+            ["colorNeutralForegroundInvertedLinkPressed"] = Colors.Neutral.ForegroundInvertedLinkPressed,
+            ["colorNeutralForegroundInvertedLinkSelected"] = Colors.Neutral.ForegroundInvertedLinkSelected,
+            ["colorNeutralForegroundInvertedPressed"] = Colors.Neutral.ForegroundInvertedPressed,
+            ["colorNeutralForegroundInvertedSelected"] = Colors.Neutral.ForegroundInvertedSelected,
+            ["colorNeutralForegroundOnBrand"] = Colors.Neutral.ForegroundOnBrand,
+            ["colorNeutralForegroundStaticInverted"] = Colors.Neutral.ForegroundStaticInverted,
+            ["colorNeutralShadowAmbient"] = Colors.Neutral.ShadowAmbient,
+            ["colorNeutralShadowAmbientDarker"] = Colors.Neutral.ShadowAmbientDarker,
+            ["colorNeutralShadowAmbientLighter"] = Colors.Neutral.ShadowAmbientLighter,
+            ["colorNeutralShadowKey"] = Colors.Neutral.ShadowKey,
+            ["colorNeutralShadowKeyDarker"] = Colors.Neutral.ShadowKeyDarker,
+            ["colorNeutralShadowKeyLighter"] = Colors.Neutral.ShadowKeyLighter,
+            ["colorNeutralStencil1"] = Colors.Neutral.Stencil1,
+            ["colorNeutralStencil1Alpha"] = Colors.Neutral.Stencil1Alpha,
+            ["colorNeutralStencil2"] = Colors.Neutral.Stencil2,
+            ["colorNeutralStencil2Alpha"] = Colors.Neutral.Stencil2Alpha,
+            ["colorNeutralStroke1"] = Colors.Neutral.Stroke1,
+            ["colorNeutralStroke1Hover"] = Colors.Neutral.Stroke1Hover,
+            ["colorNeutralStroke1Pressed"] = Colors.Neutral.Stroke1Pressed,
+            ["colorNeutralStroke1Selected"] = Colors.Neutral.Stroke1Selected,
+            ["colorNeutralStroke2"] = Colors.Neutral.Stroke2,
+            ["colorNeutralStroke3"] = Colors.Neutral.Stroke3,
+            ["colorNeutralStroke4"] = Colors.Neutral.Stroke4,
+            ["colorNeutralStroke4Hover"] = Colors.Neutral.Stroke4Hover,
+            ["colorNeutralStroke4Pressed"] = Colors.Neutral.Stroke4Pressed,
+            ["colorNeutralStroke4Selected"] = Colors.Neutral.Stroke4Selected,
+            ["colorNeutralStrokeAccessible"] = Colors.Neutral.StrokeAccessible,
+            ["colorNeutralStrokeAccessibleHover"] = Colors.Neutral.StrokeAccessibleHover,
+            ["colorNeutralStrokeAccessiblePressed"] = Colors.Neutral.StrokeAccessiblePressed,
+            ["colorNeutralStrokeAccessibleSelected"] = Colors.Neutral.StrokeAccessibleSelected,
+            ["colorNeutralStrokeAlpha"] = Colors.Neutral.StrokeAlpha,
+            ["colorNeutralStrokeAlpha2"] = Colors.Neutral.StrokeAlpha2,
+            ["colorNeutralStrokeDisabled"] = Colors.Neutral.StrokeDisabled,
+            ["colorNeutralStrokeDisabled2"] = Colors.Neutral.StrokeDisabled2,
+            ["colorNeutralStrokeInvertedDisabled"] = Colors.Neutral.StrokeInvertedDisabled,
+            ["colorNeutralStrokeOnBrand"] = Colors.Neutral.StrokeOnBrand,
+            ["colorNeutralStrokeOnBrand2"] = Colors.Neutral.StrokeOnBrand2,
+            ["colorNeutralStrokeOnBrand2Hover"] = Colors.Neutral.StrokeOnBrand2Hover,
+            ["colorNeutralStrokeOnBrand2Pressed"] = Colors.Neutral.StrokeOnBrand2Pressed,
+            ["colorNeutralStrokeOnBrand2Selected"] = Colors.Neutral.StrokeOnBrand2Selected,
+            ["colorNeutralStrokeSubtle"] = Colors.Neutral.StrokeSubtle,
+            ["colorPaletteAnchorBackground2"] = Colors.Palette.AnchorBackground2,
+            ["colorPaletteAnchorBorderActive"] = Colors.Palette.AnchorBorderActive,
+            ["colorPaletteAnchorForeground2"] = Colors.Palette.AnchorForeground2,
+            ["colorPaletteBeigeBackground2"] = Colors.Palette.BeigeBackground2,
+            ["colorPaletteBeigeBorderActive"] = Colors.Palette.BeigeBorderActive,
+            ["colorPaletteBeigeForeground2"] = Colors.Palette.BeigeForeground2,
+            ["colorPaletteBerryBackground1"] = Colors.Palette.BerryBackground1,
+            ["colorPaletteBerryBackground2"] = Colors.Palette.BerryBackground2,
+            ["colorPaletteBerryBackground3"] = Colors.Palette.BerryBackground3,
+            ["colorPaletteBerryBorder1"] = Colors.Palette.BerryBorder1,
+            ["colorPaletteBerryBorder2"] = Colors.Palette.BerryBorder2,
+            ["colorPaletteBerryBorderActive"] = Colors.Palette.BerryBorderActive,
+            ["colorPaletteBerryForeground1"] = Colors.Palette.BerryForeground1,
+            ["colorPaletteBerryForeground2"] = Colors.Palette.BerryForeground2,
+            ["colorPaletteBerryForeground3"] = Colors.Palette.BerryForeground3,
+            ["colorPaletteBlueBackground2"] = Colors.Palette.BlueBackground2,
+            ["colorPaletteBlueBorderActive"] = Colors.Palette.BlueBorderActive,
+            ["colorPaletteBlueForeground2"] = Colors.Palette.BlueForeground2,
+            ["colorPaletteBrassBackground2"] = Colors.Palette.BrassBackground2,
+            ["colorPaletteBrassBorderActive"] = Colors.Palette.BrassBorderActive,
+            ["colorPaletteBrassForeground2"] = Colors.Palette.BrassForeground2,
+            ["colorPaletteBrownBackground2"] = Colors.Palette.BrownBackground2,
+            ["colorPaletteBrownBorderActive"] = Colors.Palette.BrownBorderActive,
+            ["colorPaletteBrownForeground2"] = Colors.Palette.BrownForeground2,
+            ["colorPaletteCornflowerBackground2"] = Colors.Palette.CornflowerBackground2,
+            ["colorPaletteCornflowerBorderActive"] = Colors.Palette.CornflowerBorderActive,
+            ["colorPaletteCornflowerForeground2"] = Colors.Palette.CornflowerForeground2,
+            ["colorPaletteCranberryBackground2"] = Colors.Palette.CranberryBackground2,
+            ["colorPaletteCranberryBorderActive"] = Colors.Palette.CranberryBorderActive,
+            ["colorPaletteCranberryForeground2"] = Colors.Palette.CranberryForeground2,
+            ["colorPaletteDarkGreenBackground2"] = Colors.Palette.DarkGreenBackground2,
+            ["colorPaletteDarkGreenBorderActive"] = Colors.Palette.DarkGreenBorderActive,
+            ["colorPaletteDarkGreenForeground2"] = Colors.Palette.DarkGreenForeground2,
+            ["colorPaletteDarkOrangeBackground1"] = Colors.Palette.DarkOrangeBackground1,
+            ["colorPaletteDarkOrangeBackground2"] = Colors.Palette.DarkOrangeBackground2,
+            ["colorPaletteDarkOrangeBackground3"] = Colors.Palette.DarkOrangeBackground3,
+            ["colorPaletteDarkOrangeBorder1"] = Colors.Palette.DarkOrangeBorder1,
+            ["colorPaletteDarkOrangeBorder2"] = Colors.Palette.DarkOrangeBorder2,
+            ["colorPaletteDarkOrangeBorderActive"] = Colors.Palette.DarkOrangeBorderActive,
+            ["colorPaletteDarkOrangeForeground1"] = Colors.Palette.DarkOrangeForeground1,
+            ["colorPaletteDarkOrangeForeground2"] = Colors.Palette.DarkOrangeForeground2,
+            ["colorPaletteDarkOrangeForeground3"] = Colors.Palette.DarkOrangeForeground3,
+            ["colorPaletteDarkRedBackground2"] = Colors.Palette.DarkRedBackground2,
+            ["colorPaletteDarkRedBorderActive"] = Colors.Palette.DarkRedBorderActive,
+            ["colorPaletteDarkRedForeground2"] = Colors.Palette.DarkRedForeground2,
+            ["colorPaletteForestBackground2"] = Colors.Palette.ForestBackground2,
+            ["colorPaletteForestBorderActive"] = Colors.Palette.ForestBorderActive,
+            ["colorPaletteForestForeground2"] = Colors.Palette.ForestForeground2,
+            ["colorPaletteGoldBackground2"] = Colors.Palette.GoldBackground2,
+            ["colorPaletteGoldBorderActive"] = Colors.Palette.GoldBorderActive,
+            ["colorPaletteGoldForeground2"] = Colors.Palette.GoldForeground2,
+            ["colorPaletteGrapeBackground2"] = Colors.Palette.GrapeBackground2,
+            ["colorPaletteGrapeBorderActive"] = Colors.Palette.GrapeBorderActive,
+            ["colorPaletteGrapeForeground2"] = Colors.Palette.GrapeForeground2,
+            ["colorPaletteGreenBackground1"] = Colors.Palette.GreenBackground1,
+            ["colorPaletteGreenBackground2"] = Colors.Palette.GreenBackground2,
+            ["colorPaletteGreenBackground3"] = Colors.Palette.GreenBackground3,
+            ["colorPaletteGreenBorder1"] = Colors.Palette.GreenBorder1,
+            ["colorPaletteGreenBorder2"] = Colors.Palette.GreenBorder2,
+            ["colorPaletteGreenBorderActive"] = Colors.Palette.GreenBorderActive,
+            ["colorPaletteGreenForeground1"] = Colors.Palette.GreenForeground1,
+            ["colorPaletteGreenForeground2"] = Colors.Palette.GreenForeground2,
+            ["colorPaletteGreenForeground3"] = Colors.Palette.GreenForeground3,
+            ["colorPaletteGreenForegroundInverted"] = Colors.Palette.GreenForegroundInverted,
+            ["colorPaletteLavenderBackground2"] = Colors.Palette.LavenderBackground2,
+            ["colorPaletteLavenderBorderActive"] = Colors.Palette.LavenderBorderActive,
+            ["colorPaletteLavenderForeground2"] = Colors.Palette.LavenderForeground2,
+            ["colorPaletteLightGreenBackground1"] = Colors.Palette.LightGreenBackground1,
+            ["colorPaletteLightGreenBackground2"] = Colors.Palette.LightGreenBackground2,
+            ["colorPaletteLightGreenBackground3"] = Colors.Palette.LightGreenBackground3,
+            ["colorPaletteLightGreenBorder1"] = Colors.Palette.LightGreenBorder1,
+            ["colorPaletteLightGreenBorder2"] = Colors.Palette.LightGreenBorder2,
+            ["colorPaletteLightGreenBorderActive"] = Colors.Palette.LightGreenBorderActive,
+            ["colorPaletteLightGreenForeground1"] = Colors.Palette.LightGreenForeground1,
+            ["colorPaletteLightGreenForeground2"] = Colors.Palette.LightGreenForeground2,
+            ["colorPaletteLightGreenForeground3"] = Colors.Palette.LightGreenForeground3,
+            ["colorPaletteLightTealBackground2"] = Colors.Palette.LightTealBackground2,
+            ["colorPaletteLightTealBorderActive"] = Colors.Palette.LightTealBorderActive,
+            ["colorPaletteLightTealForeground2"] = Colors.Palette.LightTealForeground2,
+            ["colorPaletteLilacBackground2"] = Colors.Palette.LilacBackground2,
+            ["colorPaletteLilacBorderActive"] = Colors.Palette.LilacBorderActive,
+            ["colorPaletteLilacForeground2"] = Colors.Palette.LilacForeground2,
+            ["colorPaletteMagentaBackground2"] = Colors.Palette.MagentaBackground2,
+            ["colorPaletteMagentaBorderActive"] = Colors.Palette.MagentaBorderActive,
+            ["colorPaletteMagentaForeground2"] = Colors.Palette.MagentaForeground2,
+            ["colorPaletteMarigoldBackground1"] = Colors.Palette.MarigoldBackground1,
+            ["colorPaletteMarigoldBackground2"] = Colors.Palette.MarigoldBackground2,
+            ["colorPaletteMarigoldBackground3"] = Colors.Palette.MarigoldBackground3,
+            ["colorPaletteMarigoldBorder1"] = Colors.Palette.MarigoldBorder1,
+            ["colorPaletteMarigoldBorder2"] = Colors.Palette.MarigoldBorder2,
+            ["colorPaletteMarigoldBorderActive"] = Colors.Palette.MarigoldBorderActive,
+            ["colorPaletteMarigoldForeground1"] = Colors.Palette.MarigoldForeground1,
+            ["colorPaletteMarigoldForeground2"] = Colors.Palette.MarigoldForeground2,
+            ["colorPaletteMarigoldForeground3"] = Colors.Palette.MarigoldForeground3,
+            ["colorPaletteMinkBackground2"] = Colors.Palette.MinkBackground2,
+            ["colorPaletteMinkBorderActive"] = Colors.Palette.MinkBorderActive,
+            ["colorPaletteMinkForeground2"] = Colors.Palette.MinkForeground2,
+            ["colorPaletteNavyBackground2"] = Colors.Palette.NavyBackground2,
+            ["colorPaletteNavyBorderActive"] = Colors.Palette.NavyBorderActive,
+            ["colorPaletteNavyForeground2"] = Colors.Palette.NavyForeground2,
+            ["colorPalettePeachBackground2"] = Colors.Palette.PeachBackground2,
+            ["colorPalettePeachBorderActive"] = Colors.Palette.PeachBorderActive,
+            ["colorPalettePeachForeground2"] = Colors.Palette.PeachForeground2,
+            ["colorPalettePinkBackground2"] = Colors.Palette.PinkBackground2,
+            ["colorPalettePinkBorderActive"] = Colors.Palette.PinkBorderActive,
+            ["colorPalettePinkForeground2"] = Colors.Palette.PinkForeground2,
+            ["colorPalettePlatinumBackground2"] = Colors.Palette.PlatinumBackground2,
+            ["colorPalettePlatinumBorderActive"] = Colors.Palette.PlatinumBorderActive,
+            ["colorPalettePlatinumForeground2"] = Colors.Palette.PlatinumForeground2,
+            ["colorPalettePlumBackground2"] = Colors.Palette.PlumBackground2,
+            ["colorPalettePlumBorderActive"] = Colors.Palette.PlumBorderActive,
+            ["colorPalettePlumForeground2"] = Colors.Palette.PlumForeground2,
+            ["colorPalettePumpkinBackground2"] = Colors.Palette.PumpkinBackground2,
+            ["colorPalettePumpkinBorderActive"] = Colors.Palette.PumpkinBorderActive,
+            ["colorPalettePumpkinForeground2"] = Colors.Palette.PumpkinForeground2,
+            ["colorPalettePurpleBackground2"] = Colors.Palette.PurpleBackground2,
+            ["colorPalettePurpleBorderActive"] = Colors.Palette.PurpleBorderActive,
+            ["colorPalettePurpleForeground2"] = Colors.Palette.PurpleForeground2,
+            ["colorPaletteRedBackground1"] = Colors.Palette.RedBackground1,
+            ["colorPaletteRedBackground2"] = Colors.Palette.RedBackground2,
+            ["colorPaletteRedBackground3"] = Colors.Palette.RedBackground3,
+            ["colorPaletteRedBorder1"] = Colors.Palette.RedBorder1,
+            ["colorPaletteRedBorder2"] = Colors.Palette.RedBorder2,
+            ["colorPaletteRedBorderActive"] = Colors.Palette.RedBorderActive,
+            ["colorPaletteRedForeground1"] = Colors.Palette.RedForeground1,
+            ["colorPaletteRedForeground2"] = Colors.Palette.RedForeground2,
+            ["colorPaletteRedForeground3"] = Colors.Palette.RedForeground3,
+            ["colorPaletteRedForegroundInverted"] = Colors.Palette.RedForegroundInverted,
+            ["colorPaletteRoyalBlueBackground2"] = Colors.Palette.RoyalBlueBackground2,
+            ["colorPaletteRoyalBlueBorderActive"] = Colors.Palette.RoyalBlueBorderActive,
+            ["colorPaletteRoyalBlueForeground2"] = Colors.Palette.RoyalBlueForeground2,
+            ["colorPaletteSeafoamBackground2"] = Colors.Palette.SeafoamBackground2,
+            ["colorPaletteSeafoamBorderActive"] = Colors.Palette.SeafoamBorderActive,
+            ["colorPaletteSeafoamForeground2"] = Colors.Palette.SeafoamForeground2,
+            ["colorPaletteSteelBackground2"] = Colors.Palette.SteelBackground2,
+            ["colorPaletteSteelBorderActive"] = Colors.Palette.SteelBorderActive,
+            ["colorPaletteSteelForeground2"] = Colors.Palette.SteelForeground2,
+            ["colorPaletteTealBackground2"] = Colors.Palette.TealBackground2,
+            ["colorPaletteTealBorderActive"] = Colors.Palette.TealBorderActive,
+            ["colorPaletteTealForeground2"] = Colors.Palette.TealForeground2,
+            ["colorPaletteYellowBackground1"] = Colors.Palette.YellowBackground1,
+            ["colorPaletteYellowBackground2"] = Colors.Palette.YellowBackground2,
+            ["colorPaletteYellowBackground3"] = Colors.Palette.YellowBackground3,
+            ["colorPaletteYellowBorder1"] = Colors.Palette.YellowBorder1,
+            ["colorPaletteYellowBorder2"] = Colors.Palette.YellowBorder2,
+            ["colorPaletteYellowBorderActive"] = Colors.Palette.YellowBorderActive,
+            ["colorPaletteYellowForeground1"] = Colors.Palette.YellowForeground1,
+            ["colorPaletteYellowForeground2"] = Colors.Palette.YellowForeground2,
+            ["colorPaletteYellowForeground3"] = Colors.Palette.YellowForeground3,
+            ["colorPaletteYellowForegroundInverted"] = Colors.Palette.YellowForegroundInverted,
+            ["colorScrollbarOverlay"] = Colors.Scrollbar.Overlay,
+            ["colorStatusDangerBackground1"] = Colors.Status.DangerBackground1,
+            ["colorStatusDangerBackground2"] = Colors.Status.DangerBackground2,
+            ["colorStatusDangerBackground3"] = Colors.Status.DangerBackground3,
+            ["colorStatusDangerBackground3Hover"] = Colors.Status.DangerBackground3Hover,
+            ["colorStatusDangerBackground3Pressed"] = Colors.Status.DangerBackground3Pressed,
+            ["colorStatusDangerBorder1"] = Colors.Status.DangerBorder1,
+            ["colorStatusDangerBorder2"] = Colors.Status.DangerBorder2,
+            ["colorStatusDangerBorderActive"] = Colors.Status.DangerBorderActive,
+            ["colorStatusDangerForeground1"] = Colors.Status.DangerForeground1,
+            ["colorStatusDangerForeground2"] = Colors.Status.DangerForeground2,
+            ["colorStatusDangerForeground3"] = Colors.Status.DangerForeground3,
+            ["colorStatusDangerForegroundInverted"] = Colors.Status.DangerForegroundInverted,
+            ["colorStatusSuccessBackground1"] = Colors.Status.SuccessBackground1,
+            ["colorStatusSuccessBackground2"] = Colors.Status.SuccessBackground2,
+            ["colorStatusSuccessBackground3"] = Colors.Status.SuccessBackground3,
+            ["colorStatusSuccessBorder1"] = Colors.Status.SuccessBorder1,
+            ["colorStatusSuccessBorder2"] = Colors.Status.SuccessBorder2,
+            ["colorStatusSuccessBorderActive"] = Colors.Status.SuccessBorderActive,
+            ["colorStatusSuccessForeground1"] = Colors.Status.SuccessForeground1,
+            ["colorStatusSuccessForeground2"] = Colors.Status.SuccessForeground2,
+            ["colorStatusSuccessForeground3"] = Colors.Status.SuccessForeground3,
+            ["colorStatusSuccessForegroundInverted"] = Colors.Status.SuccessForegroundInverted,
+            ["colorStatusWarningBackground1"] = Colors.Status.WarningBackground1,
+            ["colorStatusWarningBackground2"] = Colors.Status.WarningBackground2,
+            ["colorStatusWarningBackground3"] = Colors.Status.WarningBackground3,
+            ["colorStatusWarningBorder1"] = Colors.Status.WarningBorder1,
+            ["colorStatusWarningBorder2"] = Colors.Status.WarningBorder2,
+            ["colorStatusWarningBorderActive"] = Colors.Status.WarningBorderActive,
+            ["colorStatusWarningForeground1"] = Colors.Status.WarningForeground1,
+            ["colorStatusWarningForeground2"] = Colors.Status.WarningForeground2,
+            ["colorStatusWarningForeground3"] = Colors.Status.WarningForeground3,
+            ["colorStatusWarningForegroundInverted"] = Colors.Status.WarningForegroundInverted,
+            ["colorStrokeFocus1"] = Colors.Stroke.Focus1,
+            ["colorStrokeFocus2"] = Colors.Stroke.Focus2,
+            ["colorSubtleBackground"] = Colors.Subtle.Background,
+            ["colorSubtleBackgroundHover"] = Colors.Subtle.BackgroundHover,
+            ["colorSubtleBackgroundInverted"] = Colors.Subtle.BackgroundInverted,
+            ["colorSubtleBackgroundInvertedHover"] = Colors.Subtle.BackgroundInvertedHover,
+            ["colorSubtleBackgroundInvertedPressed"] = Colors.Subtle.BackgroundInvertedPressed,
+            ["colorSubtleBackgroundInvertedSelected"] = Colors.Subtle.BackgroundInvertedSelected,
+            ["colorSubtleBackgroundLightAlphaHover"] = Colors.Subtle.BackgroundLightAlphaHover,
+            ["colorSubtleBackgroundLightAlphaPressed"] = Colors.Subtle.BackgroundLightAlphaPressed,
+            ["colorSubtleBackgroundLightAlphaSelected"] = Colors.Subtle.BackgroundLightAlphaSelected,
+            ["colorSubtleBackgroundPressed"] = Colors.Subtle.BackgroundPressed,
+            ["colorSubtleBackgroundSelected"] = Colors.Subtle.BackgroundSelected,
+            ["colorTransparentBackground"] = Colors.Transparent.Background,
+            ["colorTransparentBackgroundHover"] = Colors.Transparent.BackgroundHover,
+            ["colorTransparentBackgroundPressed"] = Colors.Transparent.BackgroundPressed,
+            ["colorTransparentBackgroundSelected"] = Colors.Transparent.BackgroundSelected,
+            ["colorTransparentStroke"] = Colors.Transparent.Stroke,
+            ["colorTransparentStrokeDisabled"] = Colors.Transparent.StrokeDisabled,
+            ["colorTransparentStrokeInteractive"] = Colors.Transparent.StrokeInteractive,
+            ["curveAccelerateMax"] = Curves.Accelerate.Max,
+            ["curveAccelerateMid"] = Curves.Accelerate.Mid,
+            ["curveAccelerateMin"] = Curves.Accelerate.Min,
+            ["curveDecelerateMax"] = Curves.Decelerate.Max,
+            ["curveDecelerateMid"] = Curves.Decelerate.Mid,
+            ["curveDecelerateMin"] = Curves.Decelerate.Min,
+            ["curveEasyEase"] = Curves.Easy.Ease,
+            ["curveEasyEaseMax"] = Curves.Easy.EaseMax,
+            ["curveLinear"] = Curves.Linear.Default,
+            ["durationFast"] = Durations.Fast,
+            ["durationFaster"] = Durations.Faster,
+            ["durationGentle"] = Durations.Gentle,
+            ["durationNormal"] = Durations.Normal,
+            ["durationSlow"] = Durations.Slow,
+            ["durationSlower"] = Durations.Slower,
+            ["durationUltraFast"] = Durations.UltraFast,
+            ["durationUltraSlow"] = Durations.UltraSlow,
+            ["fontFamilyBase"] = Fonts.Family.Base,
+            ["fontFamilyMonospace"] = Fonts.Family.Monospace,
+            ["fontFamilyNumeric"] = Fonts.Family.Numeric,
+            ["fontSizeBase100"] = Fonts.Size.Base100,
+            ["fontSizeBase200"] = Fonts.Size.Base200,
+            ["fontSizeBase300"] = Fonts.Size.Base300,
+            ["fontSizeBase400"] = Fonts.Size.Base400,
+            ["fontSizeBase500"] = Fonts.Size.Base500,
+            ["fontSizeBase600"] = Fonts.Size.Base600,
+            ["fontSizeHero1000"] = Fonts.Size.Hero1000,
+            ["fontSizeHero700"] = Fonts.Size.Hero700,
+            ["fontSizeHero800"] = Fonts.Size.Hero800,
+            ["fontSizeHero900"] = Fonts.Size.Hero900,
+            ["fontWeightBold"] = Fonts.Weight.Bold,
+            ["fontWeightMedium"] = Fonts.Weight.Medium,
+            ["fontWeightRegular"] = Fonts.Weight.Regular,
+            ["fontWeightSemibold"] = Fonts.Weight.Semibold,
+            ["lineHeightBase100"] = Lines.Height.Base100,
+            ["lineHeightBase200"] = Lines.Height.Base200,
+            ["lineHeightBase300"] = Lines.Height.Base300,
+            ["lineHeightBase400"] = Lines.Height.Base400,
+            ["lineHeightBase500"] = Lines.Height.Base500,
+            ["lineHeightBase600"] = Lines.Height.Base600,
+            ["lineHeightHero1000"] = Lines.Height.Hero1000,
+            ["lineHeightHero700"] = Lines.Height.Hero700,
+            ["lineHeightHero800"] = Lines.Height.Hero800,
+            ["lineHeightHero900"] = Lines.Height.Hero900,
+            ["shadow16"] = Shadows.Shadows16,
+            ["shadow16Brand"] = Shadows.Shadows16Brand,
+            ["shadow2"] = Shadows.Shadows2,
+            ["shadow28"] = Shadows.Shadows28,
+            ["shadow28Brand"] = Shadows.Shadows28Brand,
+            ["shadow2Brand"] = Shadows.Shadows2Brand,
+            ["shadow4"] = Shadows.Shadows4,
+            ["shadow4Brand"] = Shadows.Shadows4Brand,
+            ["shadow64"] = Shadows.Shadows64,
+            ["shadow64Brand"] = Shadows.Shadows64Brand,
+            ["shadow8"] = Shadows.Shadows8,
+            ["shadow8Brand"] = Shadows.Shadows8Brand,
+            ["spacingHorizontalL"] = Spacings.Horizontal.L,
+            ["spacingHorizontalM"] = Spacings.Horizontal.M,
+            ["spacingHorizontalMNudge"] = Spacings.Horizontal.MNudge,
+            ["spacingHorizontalNone"] = Spacings.Horizontal.None,
+            ["spacingHorizontalS"] = Spacings.Horizontal.S,
+            ["spacingHorizontalSNudge"] = Spacings.Horizontal.SNudge,
+            ["spacingHorizontalXL"] = Spacings.Horizontal.XL,
+            ["spacingHorizontalXS"] = Spacings.Horizontal.XS,
+            ["spacingHorizontalXXL"] = Spacings.Horizontal.XXL,
+            ["spacingHorizontalXXS"] = Spacings.Horizontal.XXS,
+            ["spacingHorizontalXXXL"] = Spacings.Horizontal.XXXL,
+            ["spacingVerticalL"] = Spacings.Vertical.L,
+            ["spacingVerticalM"] = Spacings.Vertical.M,
+            ["spacingVerticalMNudge"] = Spacings.Vertical.MNudge,
+            ["spacingVerticalNone"] = Spacings.Vertical.None,
+            ["spacingVerticalS"] = Spacings.Vertical.S,
+            ["spacingVerticalSNudge"] = Spacings.Vertical.SNudge,
+            ["spacingVerticalXL"] = Spacings.Vertical.XL,
+            ["spacingVerticalXS"] = Spacings.Vertical.XS,
+            ["spacingVerticalXXL"] = Spacings.Vertical.XXL,
+            ["spacingVerticalXXS"] = Spacings.Vertical.XXS,
+            ["spacingVerticalXXXL"] = Spacings.Vertical.XXXL,
+            ["strokeWidthThick"] = Strokes.Width.Thick,
+            ["strokeWidthThicker"] = Strokes.Width.Thicker,
+            ["strokeWidthThickest"] = Strokes.Width.Thickest,
+            ["strokeWidthThin"] = Strokes.Width.Thin,
+        };
+    }
+
+    /// <summary />
+    public void FromDictionary(IDictionary<string, string?> value)
+    {
+        string? GetValue(string key) => value.TryGetValue(key, out var result) ? result : null;
+            Borders.Radius.Large2X = GetValue("borderRadius2XLarge");
+            Borders.Radius.Large3X = GetValue("borderRadius3XLarge");
+            Borders.Radius.Large4X = GetValue("borderRadius4XLarge");
+            Borders.Radius.Large5X = GetValue("borderRadius5XLarge");
+            Borders.Radius.Large6X = GetValue("borderRadius6XLarge");
+            Borders.Radius.Circular = GetValue("borderRadiusCircular");
+            Borders.Radius.Large = GetValue("borderRadiusLarge");
+            Borders.Radius.Medium = GetValue("borderRadiusMedium");
+            Borders.Radius.None = GetValue("borderRadiusNone");
+            Borders.Radius.Small = GetValue("borderRadiusSmall");
+            Borders.Radius.XLarge = GetValue("borderRadiusXLarge");
+            Colors.Background.Overlay = GetValue("colorBackgroundOverlay");
+            Colors.Brand.Background = GetValue("colorBrandBackground");
+            Colors.Brand.Background2 = GetValue("colorBrandBackground2");
+            Colors.Brand.Background2Hover = GetValue("colorBrandBackground2Hover");
+            Colors.Brand.Background2Pressed = GetValue("colorBrandBackground2Pressed");
+            Colors.Brand.Background3Static = GetValue("colorBrandBackground3Static");
+            Colors.Brand.Background4Static = GetValue("colorBrandBackground4Static");
+            Colors.Brand.BackgroundHover = GetValue("colorBrandBackgroundHover");
+            Colors.Brand.BackgroundInverted = GetValue("colorBrandBackgroundInverted");
+            Colors.Brand.BackgroundInvertedHover = GetValue("colorBrandBackgroundInvertedHover");
+            Colors.Brand.BackgroundInvertedPressed = GetValue("colorBrandBackgroundInvertedPressed");
+            Colors.Brand.BackgroundInvertedSelected = GetValue("colorBrandBackgroundInvertedSelected");
+            Colors.Brand.BackgroundPressed = GetValue("colorBrandBackgroundPressed");
+            Colors.Brand.BackgroundSelected = GetValue("colorBrandBackgroundSelected");
+            Colors.Brand.BackgroundStatic = GetValue("colorBrandBackgroundStatic");
+            Colors.Brand.Foreground1 = GetValue("colorBrandForeground1");
+            Colors.Brand.Foreground2 = GetValue("colorBrandForeground2");
+            Colors.Brand.Foreground2Hover = GetValue("colorBrandForeground2Hover");
+            Colors.Brand.Foreground2Pressed = GetValue("colorBrandForeground2Pressed");
+            Colors.Brand.ForegroundInverted = GetValue("colorBrandForegroundInverted");
+            Colors.Brand.ForegroundInvertedHover = GetValue("colorBrandForegroundInvertedHover");
+            Colors.Brand.ForegroundInvertedPressed = GetValue("colorBrandForegroundInvertedPressed");
+            Colors.Brand.ForegroundLink = GetValue("colorBrandForegroundLink");
+            Colors.Brand.ForegroundLinkHover = GetValue("colorBrandForegroundLinkHover");
+            Colors.Brand.ForegroundLinkPressed = GetValue("colorBrandForegroundLinkPressed");
+            Colors.Brand.ForegroundLinkSelected = GetValue("colorBrandForegroundLinkSelected");
+            Colors.Brand.ForegroundOnLight = GetValue("colorBrandForegroundOnLight");
+            Colors.Brand.ForegroundOnLightHover = GetValue("colorBrandForegroundOnLightHover");
+            Colors.Brand.ForegroundOnLightPressed = GetValue("colorBrandForegroundOnLightPressed");
+            Colors.Brand.ForegroundOnLightSelected = GetValue("colorBrandForegroundOnLightSelected");
+            Colors.Brand.ShadowAmbient = GetValue("colorBrandShadowAmbient");
+            Colors.Brand.ShadowKey = GetValue("colorBrandShadowKey");
+            Colors.Brand.Stroke1 = GetValue("colorBrandStroke1");
+            Colors.Brand.Stroke2 = GetValue("colorBrandStroke2");
+            Colors.Brand.Stroke2Contrast = GetValue("colorBrandStroke2Contrast");
+            Colors.Brand.Stroke2Hover = GetValue("colorBrandStroke2Hover");
+            Colors.Brand.Stroke2Pressed = GetValue("colorBrandStroke2Pressed");
+            Colors.Compound.BrandBackground = GetValue("colorCompoundBrandBackground");
+            Colors.Compound.BrandBackgroundHover = GetValue("colorCompoundBrandBackgroundHover");
+            Colors.Compound.BrandBackgroundPressed = GetValue("colorCompoundBrandBackgroundPressed");
+            Colors.Compound.BrandForeground1 = GetValue("colorCompoundBrandForeground1");
+            Colors.Compound.BrandForeground1Hover = GetValue("colorCompoundBrandForeground1Hover");
+            Colors.Compound.BrandForeground1Pressed = GetValue("colorCompoundBrandForeground1Pressed");
+            Colors.Compound.BrandStroke = GetValue("colorCompoundBrandStroke");
+            Colors.Compound.BrandStrokeHover = GetValue("colorCompoundBrandStrokeHover");
+            Colors.Compound.BrandStrokePressed = GetValue("colorCompoundBrandStrokePressed");
+            Colors.Neutral.Background1 = GetValue("colorNeutralBackground1");
+            Colors.Neutral.Background1Hover = GetValue("colorNeutralBackground1Hover");
+            Colors.Neutral.Background1Pressed = GetValue("colorNeutralBackground1Pressed");
+            Colors.Neutral.Background1Selected = GetValue("colorNeutralBackground1Selected");
+            Colors.Neutral.Background2 = GetValue("colorNeutralBackground2");
+            Colors.Neutral.Background2Hover = GetValue("colorNeutralBackground2Hover");
+            Colors.Neutral.Background2Pressed = GetValue("colorNeutralBackground2Pressed");
+            Colors.Neutral.Background2Selected = GetValue("colorNeutralBackground2Selected");
+            Colors.Neutral.Background3 = GetValue("colorNeutralBackground3");
+            Colors.Neutral.Background3Hover = GetValue("colorNeutralBackground3Hover");
+            Colors.Neutral.Background3Pressed = GetValue("colorNeutralBackground3Pressed");
+            Colors.Neutral.Background3Selected = GetValue("colorNeutralBackground3Selected");
+            Colors.Neutral.Background4 = GetValue("colorNeutralBackground4");
+            Colors.Neutral.Background4Hover = GetValue("colorNeutralBackground4Hover");
+            Colors.Neutral.Background4Pressed = GetValue("colorNeutralBackground4Pressed");
+            Colors.Neutral.Background4Selected = GetValue("colorNeutralBackground4Selected");
+            Colors.Neutral.Background5 = GetValue("colorNeutralBackground5");
+            Colors.Neutral.Background5Hover = GetValue("colorNeutralBackground5Hover");
+            Colors.Neutral.Background5Pressed = GetValue("colorNeutralBackground5Pressed");
+            Colors.Neutral.Background5Selected = GetValue("colorNeutralBackground5Selected");
+            Colors.Neutral.Background6 = GetValue("colorNeutralBackground6");
+            Colors.Neutral.Background7 = GetValue("colorNeutralBackground7");
+            Colors.Neutral.Background7Hover = GetValue("colorNeutralBackground7Hover");
+            Colors.Neutral.Background7Pressed = GetValue("colorNeutralBackground7Pressed");
+            Colors.Neutral.Background7Selected = GetValue("colorNeutralBackground7Selected");
+            Colors.Neutral.Background8 = GetValue("colorNeutralBackground8");
+            Colors.Neutral.BackgroundAlpha = GetValue("colorNeutralBackgroundAlpha");
+            Colors.Neutral.BackgroundAlpha2 = GetValue("colorNeutralBackgroundAlpha2");
+            Colors.Neutral.BackgroundDisabled = GetValue("colorNeutralBackgroundDisabled");
+            Colors.Neutral.BackgroundDisabled2 = GetValue("colorNeutralBackgroundDisabled2");
+            Colors.Neutral.BackgroundInverted = GetValue("colorNeutralBackgroundInverted");
+            Colors.Neutral.BackgroundInvertedDisabled = GetValue("colorNeutralBackgroundInvertedDisabled");
+            Colors.Neutral.BackgroundInvertedHover = GetValue("colorNeutralBackgroundInvertedHover");
+            Colors.Neutral.BackgroundInvertedPressed = GetValue("colorNeutralBackgroundInvertedPressed");
+            Colors.Neutral.BackgroundInvertedSelected = GetValue("colorNeutralBackgroundInvertedSelected");
+            Colors.Neutral.BackgroundStatic = GetValue("colorNeutralBackgroundStatic");
+            Colors.Neutral.CardBackground = GetValue("colorNeutralCardBackground");
+            Colors.Neutral.CardBackgroundDisabled = GetValue("colorNeutralCardBackgroundDisabled");
+            Colors.Neutral.CardBackgroundHover = GetValue("colorNeutralCardBackgroundHover");
+            Colors.Neutral.CardBackgroundPressed = GetValue("colorNeutralCardBackgroundPressed");
+            Colors.Neutral.CardBackgroundSelected = GetValue("colorNeutralCardBackgroundSelected");
+            Colors.Neutral.Foreground1 = GetValue("colorNeutralForeground1");
+            Colors.Neutral.Foreground1Hover = GetValue("colorNeutralForeground1Hover");
+            Colors.Neutral.Foreground1Pressed = GetValue("colorNeutralForeground1Pressed");
+            Colors.Neutral.Foreground1Selected = GetValue("colorNeutralForeground1Selected");
+            Colors.Neutral.Foreground1Static = GetValue("colorNeutralForeground1Static");
+            Colors.Neutral.Foreground2 = GetValue("colorNeutralForeground2");
+            Colors.Neutral.Foreground2BrandHover = GetValue("colorNeutralForeground2BrandHover");
+            Colors.Neutral.Foreground2BrandPressed = GetValue("colorNeutralForeground2BrandPressed");
+            Colors.Neutral.Foreground2BrandSelected = GetValue("colorNeutralForeground2BrandSelected");
+            Colors.Neutral.Foreground2Hover = GetValue("colorNeutralForeground2Hover");
+            Colors.Neutral.Foreground2Link = GetValue("colorNeutralForeground2Link");
+            Colors.Neutral.Foreground2LinkHover = GetValue("colorNeutralForeground2LinkHover");
+            Colors.Neutral.Foreground2LinkPressed = GetValue("colorNeutralForeground2LinkPressed");
+            Colors.Neutral.Foreground2LinkSelected = GetValue("colorNeutralForeground2LinkSelected");
+            Colors.Neutral.Foreground2Pressed = GetValue("colorNeutralForeground2Pressed");
+            Colors.Neutral.Foreground2Selected = GetValue("colorNeutralForeground2Selected");
+            Colors.Neutral.Foreground3 = GetValue("colorNeutralForeground3");
+            Colors.Neutral.Foreground3BrandHover = GetValue("colorNeutralForeground3BrandHover");
+            Colors.Neutral.Foreground3BrandPressed = GetValue("colorNeutralForeground3BrandPressed");
+            Colors.Neutral.Foreground3BrandSelected = GetValue("colorNeutralForeground3BrandSelected");
+            Colors.Neutral.Foreground3Hover = GetValue("colorNeutralForeground3Hover");
+            Colors.Neutral.Foreground3Pressed = GetValue("colorNeutralForeground3Pressed");
+            Colors.Neutral.Foreground3Selected = GetValue("colorNeutralForeground3Selected");
+            Colors.Neutral.Foreground4 = GetValue("colorNeutralForeground4");
+            Colors.Neutral.Foreground5 = GetValue("colorNeutralForeground5");
+            Colors.Neutral.Foreground5Hover = GetValue("colorNeutralForeground5Hover");
+            Colors.Neutral.Foreground5Pressed = GetValue("colorNeutralForeground5Pressed");
+            Colors.Neutral.Foreground5Selected = GetValue("colorNeutralForeground5Selected");
+            Colors.Neutral.ForegroundDisabled = GetValue("colorNeutralForegroundDisabled");
+            Colors.Neutral.ForegroundInverted = GetValue("colorNeutralForegroundInverted");
+            Colors.Neutral.ForegroundInverted2 = GetValue("colorNeutralForegroundInverted2");
+            Colors.Neutral.ForegroundInvertedDisabled = GetValue("colorNeutralForegroundInvertedDisabled");
+            Colors.Neutral.ForegroundInvertedHover = GetValue("colorNeutralForegroundInvertedHover");
+            Colors.Neutral.ForegroundInvertedLink = GetValue("colorNeutralForegroundInvertedLink");
+            Colors.Neutral.ForegroundInvertedLinkHover = GetValue("colorNeutralForegroundInvertedLinkHover");
+            Colors.Neutral.ForegroundInvertedLinkPressed = GetValue("colorNeutralForegroundInvertedLinkPressed");
+            Colors.Neutral.ForegroundInvertedLinkSelected = GetValue("colorNeutralForegroundInvertedLinkSelected");
+            Colors.Neutral.ForegroundInvertedPressed = GetValue("colorNeutralForegroundInvertedPressed");
+            Colors.Neutral.ForegroundInvertedSelected = GetValue("colorNeutralForegroundInvertedSelected");
+            Colors.Neutral.ForegroundOnBrand = GetValue("colorNeutralForegroundOnBrand");
+            Colors.Neutral.ForegroundStaticInverted = GetValue("colorNeutralForegroundStaticInverted");
+            Colors.Neutral.ShadowAmbient = GetValue("colorNeutralShadowAmbient");
+            Colors.Neutral.ShadowAmbientDarker = GetValue("colorNeutralShadowAmbientDarker");
+            Colors.Neutral.ShadowAmbientLighter = GetValue("colorNeutralShadowAmbientLighter");
+            Colors.Neutral.ShadowKey = GetValue("colorNeutralShadowKey");
+            Colors.Neutral.ShadowKeyDarker = GetValue("colorNeutralShadowKeyDarker");
+            Colors.Neutral.ShadowKeyLighter = GetValue("colorNeutralShadowKeyLighter");
+            Colors.Neutral.Stencil1 = GetValue("colorNeutralStencil1");
+            Colors.Neutral.Stencil1Alpha = GetValue("colorNeutralStencil1Alpha");
+            Colors.Neutral.Stencil2 = GetValue("colorNeutralStencil2");
+            Colors.Neutral.Stencil2Alpha = GetValue("colorNeutralStencil2Alpha");
+            Colors.Neutral.Stroke1 = GetValue("colorNeutralStroke1");
+            Colors.Neutral.Stroke1Hover = GetValue("colorNeutralStroke1Hover");
+            Colors.Neutral.Stroke1Pressed = GetValue("colorNeutralStroke1Pressed");
+            Colors.Neutral.Stroke1Selected = GetValue("colorNeutralStroke1Selected");
+            Colors.Neutral.Stroke2 = GetValue("colorNeutralStroke2");
+            Colors.Neutral.Stroke3 = GetValue("colorNeutralStroke3");
+            Colors.Neutral.Stroke4 = GetValue("colorNeutralStroke4");
+            Colors.Neutral.Stroke4Hover = GetValue("colorNeutralStroke4Hover");
+            Colors.Neutral.Stroke4Pressed = GetValue("colorNeutralStroke4Pressed");
+            Colors.Neutral.Stroke4Selected = GetValue("colorNeutralStroke4Selected");
+            Colors.Neutral.StrokeAccessible = GetValue("colorNeutralStrokeAccessible");
+            Colors.Neutral.StrokeAccessibleHover = GetValue("colorNeutralStrokeAccessibleHover");
+            Colors.Neutral.StrokeAccessiblePressed = GetValue("colorNeutralStrokeAccessiblePressed");
+            Colors.Neutral.StrokeAccessibleSelected = GetValue("colorNeutralStrokeAccessibleSelected");
+            Colors.Neutral.StrokeAlpha = GetValue("colorNeutralStrokeAlpha");
+            Colors.Neutral.StrokeAlpha2 = GetValue("colorNeutralStrokeAlpha2");
+            Colors.Neutral.StrokeDisabled = GetValue("colorNeutralStrokeDisabled");
+            Colors.Neutral.StrokeDisabled2 = GetValue("colorNeutralStrokeDisabled2");
+            Colors.Neutral.StrokeInvertedDisabled = GetValue("colorNeutralStrokeInvertedDisabled");
+            Colors.Neutral.StrokeOnBrand = GetValue("colorNeutralStrokeOnBrand");
+            Colors.Neutral.StrokeOnBrand2 = GetValue("colorNeutralStrokeOnBrand2");
+            Colors.Neutral.StrokeOnBrand2Hover = GetValue("colorNeutralStrokeOnBrand2Hover");
+            Colors.Neutral.StrokeOnBrand2Pressed = GetValue("colorNeutralStrokeOnBrand2Pressed");
+            Colors.Neutral.StrokeOnBrand2Selected = GetValue("colorNeutralStrokeOnBrand2Selected");
+            Colors.Neutral.StrokeSubtle = GetValue("colorNeutralStrokeSubtle");
+            Colors.Palette.AnchorBackground2 = GetValue("colorPaletteAnchorBackground2");
+            Colors.Palette.AnchorBorderActive = GetValue("colorPaletteAnchorBorderActive");
+            Colors.Palette.AnchorForeground2 = GetValue("colorPaletteAnchorForeground2");
+            Colors.Palette.BeigeBackground2 = GetValue("colorPaletteBeigeBackground2");
+            Colors.Palette.BeigeBorderActive = GetValue("colorPaletteBeigeBorderActive");
+            Colors.Palette.BeigeForeground2 = GetValue("colorPaletteBeigeForeground2");
+            Colors.Palette.BerryBackground1 = GetValue("colorPaletteBerryBackground1");
+            Colors.Palette.BerryBackground2 = GetValue("colorPaletteBerryBackground2");
+            Colors.Palette.BerryBackground3 = GetValue("colorPaletteBerryBackground3");
+            Colors.Palette.BerryBorder1 = GetValue("colorPaletteBerryBorder1");
+            Colors.Palette.BerryBorder2 = GetValue("colorPaletteBerryBorder2");
+            Colors.Palette.BerryBorderActive = GetValue("colorPaletteBerryBorderActive");
+            Colors.Palette.BerryForeground1 = GetValue("colorPaletteBerryForeground1");
+            Colors.Palette.BerryForeground2 = GetValue("colorPaletteBerryForeground2");
+            Colors.Palette.BerryForeground3 = GetValue("colorPaletteBerryForeground3");
+            Colors.Palette.BlueBackground2 = GetValue("colorPaletteBlueBackground2");
+            Colors.Palette.BlueBorderActive = GetValue("colorPaletteBlueBorderActive");
+            Colors.Palette.BlueForeground2 = GetValue("colorPaletteBlueForeground2");
+            Colors.Palette.BrassBackground2 = GetValue("colorPaletteBrassBackground2");
+            Colors.Palette.BrassBorderActive = GetValue("colorPaletteBrassBorderActive");
+            Colors.Palette.BrassForeground2 = GetValue("colorPaletteBrassForeground2");
+            Colors.Palette.BrownBackground2 = GetValue("colorPaletteBrownBackground2");
+            Colors.Palette.BrownBorderActive = GetValue("colorPaletteBrownBorderActive");
+            Colors.Palette.BrownForeground2 = GetValue("colorPaletteBrownForeground2");
+            Colors.Palette.CornflowerBackground2 = GetValue("colorPaletteCornflowerBackground2");
+            Colors.Palette.CornflowerBorderActive = GetValue("colorPaletteCornflowerBorderActive");
+            Colors.Palette.CornflowerForeground2 = GetValue("colorPaletteCornflowerForeground2");
+            Colors.Palette.CranberryBackground2 = GetValue("colorPaletteCranberryBackground2");
+            Colors.Palette.CranberryBorderActive = GetValue("colorPaletteCranberryBorderActive");
+            Colors.Palette.CranberryForeground2 = GetValue("colorPaletteCranberryForeground2");
+            Colors.Palette.DarkGreenBackground2 = GetValue("colorPaletteDarkGreenBackground2");
+            Colors.Palette.DarkGreenBorderActive = GetValue("colorPaletteDarkGreenBorderActive");
+            Colors.Palette.DarkGreenForeground2 = GetValue("colorPaletteDarkGreenForeground2");
+            Colors.Palette.DarkOrangeBackground1 = GetValue("colorPaletteDarkOrangeBackground1");
+            Colors.Palette.DarkOrangeBackground2 = GetValue("colorPaletteDarkOrangeBackground2");
+            Colors.Palette.DarkOrangeBackground3 = GetValue("colorPaletteDarkOrangeBackground3");
+            Colors.Palette.DarkOrangeBorder1 = GetValue("colorPaletteDarkOrangeBorder1");
+            Colors.Palette.DarkOrangeBorder2 = GetValue("colorPaletteDarkOrangeBorder2");
+            Colors.Palette.DarkOrangeBorderActive = GetValue("colorPaletteDarkOrangeBorderActive");
+            Colors.Palette.DarkOrangeForeground1 = GetValue("colorPaletteDarkOrangeForeground1");
+            Colors.Palette.DarkOrangeForeground2 = GetValue("colorPaletteDarkOrangeForeground2");
+            Colors.Palette.DarkOrangeForeground3 = GetValue("colorPaletteDarkOrangeForeground3");
+            Colors.Palette.DarkRedBackground2 = GetValue("colorPaletteDarkRedBackground2");
+            Colors.Palette.DarkRedBorderActive = GetValue("colorPaletteDarkRedBorderActive");
+            Colors.Palette.DarkRedForeground2 = GetValue("colorPaletteDarkRedForeground2");
+            Colors.Palette.ForestBackground2 = GetValue("colorPaletteForestBackground2");
+            Colors.Palette.ForestBorderActive = GetValue("colorPaletteForestBorderActive");
+            Colors.Palette.ForestForeground2 = GetValue("colorPaletteForestForeground2");
+            Colors.Palette.GoldBackground2 = GetValue("colorPaletteGoldBackground2");
+            Colors.Palette.GoldBorderActive = GetValue("colorPaletteGoldBorderActive");
+            Colors.Palette.GoldForeground2 = GetValue("colorPaletteGoldForeground2");
+            Colors.Palette.GrapeBackground2 = GetValue("colorPaletteGrapeBackground2");
+            Colors.Palette.GrapeBorderActive = GetValue("colorPaletteGrapeBorderActive");
+            Colors.Palette.GrapeForeground2 = GetValue("colorPaletteGrapeForeground2");
+            Colors.Palette.GreenBackground1 = GetValue("colorPaletteGreenBackground1");
+            Colors.Palette.GreenBackground2 = GetValue("colorPaletteGreenBackground2");
+            Colors.Palette.GreenBackground3 = GetValue("colorPaletteGreenBackground3");
+            Colors.Palette.GreenBorder1 = GetValue("colorPaletteGreenBorder1");
+            Colors.Palette.GreenBorder2 = GetValue("colorPaletteGreenBorder2");
+            Colors.Palette.GreenBorderActive = GetValue("colorPaletteGreenBorderActive");
+            Colors.Palette.GreenForeground1 = GetValue("colorPaletteGreenForeground1");
+            Colors.Palette.GreenForeground2 = GetValue("colorPaletteGreenForeground2");
+            Colors.Palette.GreenForeground3 = GetValue("colorPaletteGreenForeground3");
+            Colors.Palette.GreenForegroundInverted = GetValue("colorPaletteGreenForegroundInverted");
+            Colors.Palette.LavenderBackground2 = GetValue("colorPaletteLavenderBackground2");
+            Colors.Palette.LavenderBorderActive = GetValue("colorPaletteLavenderBorderActive");
+            Colors.Palette.LavenderForeground2 = GetValue("colorPaletteLavenderForeground2");
+            Colors.Palette.LightGreenBackground1 = GetValue("colorPaletteLightGreenBackground1");
+            Colors.Palette.LightGreenBackground2 = GetValue("colorPaletteLightGreenBackground2");
+            Colors.Palette.LightGreenBackground3 = GetValue("colorPaletteLightGreenBackground3");
+            Colors.Palette.LightGreenBorder1 = GetValue("colorPaletteLightGreenBorder1");
+            Colors.Palette.LightGreenBorder2 = GetValue("colorPaletteLightGreenBorder2");
+            Colors.Palette.LightGreenBorderActive = GetValue("colorPaletteLightGreenBorderActive");
+            Colors.Palette.LightGreenForeground1 = GetValue("colorPaletteLightGreenForeground1");
+            Colors.Palette.LightGreenForeground2 = GetValue("colorPaletteLightGreenForeground2");
+            Colors.Palette.LightGreenForeground3 = GetValue("colorPaletteLightGreenForeground3");
+            Colors.Palette.LightTealBackground2 = GetValue("colorPaletteLightTealBackground2");
+            Colors.Palette.LightTealBorderActive = GetValue("colorPaletteLightTealBorderActive");
+            Colors.Palette.LightTealForeground2 = GetValue("colorPaletteLightTealForeground2");
+            Colors.Palette.LilacBackground2 = GetValue("colorPaletteLilacBackground2");
+            Colors.Palette.LilacBorderActive = GetValue("colorPaletteLilacBorderActive");
+            Colors.Palette.LilacForeground2 = GetValue("colorPaletteLilacForeground2");
+            Colors.Palette.MagentaBackground2 = GetValue("colorPaletteMagentaBackground2");
+            Colors.Palette.MagentaBorderActive = GetValue("colorPaletteMagentaBorderActive");
+            Colors.Palette.MagentaForeground2 = GetValue("colorPaletteMagentaForeground2");
+            Colors.Palette.MarigoldBackground1 = GetValue("colorPaletteMarigoldBackground1");
+            Colors.Palette.MarigoldBackground2 = GetValue("colorPaletteMarigoldBackground2");
+            Colors.Palette.MarigoldBackground3 = GetValue("colorPaletteMarigoldBackground3");
+            Colors.Palette.MarigoldBorder1 = GetValue("colorPaletteMarigoldBorder1");
+            Colors.Palette.MarigoldBorder2 = GetValue("colorPaletteMarigoldBorder2");
+            Colors.Palette.MarigoldBorderActive = GetValue("colorPaletteMarigoldBorderActive");
+            Colors.Palette.MarigoldForeground1 = GetValue("colorPaletteMarigoldForeground1");
+            Colors.Palette.MarigoldForeground2 = GetValue("colorPaletteMarigoldForeground2");
+            Colors.Palette.MarigoldForeground3 = GetValue("colorPaletteMarigoldForeground3");
+            Colors.Palette.MinkBackground2 = GetValue("colorPaletteMinkBackground2");
+            Colors.Palette.MinkBorderActive = GetValue("colorPaletteMinkBorderActive");
+            Colors.Palette.MinkForeground2 = GetValue("colorPaletteMinkForeground2");
+            Colors.Palette.NavyBackground2 = GetValue("colorPaletteNavyBackground2");
+            Colors.Palette.NavyBorderActive = GetValue("colorPaletteNavyBorderActive");
+            Colors.Palette.NavyForeground2 = GetValue("colorPaletteNavyForeground2");
+            Colors.Palette.PeachBackground2 = GetValue("colorPalettePeachBackground2");
+            Colors.Palette.PeachBorderActive = GetValue("colorPalettePeachBorderActive");
+            Colors.Palette.PeachForeground2 = GetValue("colorPalettePeachForeground2");
+            Colors.Palette.PinkBackground2 = GetValue("colorPalettePinkBackground2");
+            Colors.Palette.PinkBorderActive = GetValue("colorPalettePinkBorderActive");
+            Colors.Palette.PinkForeground2 = GetValue("colorPalettePinkForeground2");
+            Colors.Palette.PlatinumBackground2 = GetValue("colorPalettePlatinumBackground2");
+            Colors.Palette.PlatinumBorderActive = GetValue("colorPalettePlatinumBorderActive");
+            Colors.Palette.PlatinumForeground2 = GetValue("colorPalettePlatinumForeground2");
+            Colors.Palette.PlumBackground2 = GetValue("colorPalettePlumBackground2");
+            Colors.Palette.PlumBorderActive = GetValue("colorPalettePlumBorderActive");
+            Colors.Palette.PlumForeground2 = GetValue("colorPalettePlumForeground2");
+            Colors.Palette.PumpkinBackground2 = GetValue("colorPalettePumpkinBackground2");
+            Colors.Palette.PumpkinBorderActive = GetValue("colorPalettePumpkinBorderActive");
+            Colors.Palette.PumpkinForeground2 = GetValue("colorPalettePumpkinForeground2");
+            Colors.Palette.PurpleBackground2 = GetValue("colorPalettePurpleBackground2");
+            Colors.Palette.PurpleBorderActive = GetValue("colorPalettePurpleBorderActive");
+            Colors.Palette.PurpleForeground2 = GetValue("colorPalettePurpleForeground2");
+            Colors.Palette.RedBackground1 = GetValue("colorPaletteRedBackground1");
+            Colors.Palette.RedBackground2 = GetValue("colorPaletteRedBackground2");
+            Colors.Palette.RedBackground3 = GetValue("colorPaletteRedBackground3");
+            Colors.Palette.RedBorder1 = GetValue("colorPaletteRedBorder1");
+            Colors.Palette.RedBorder2 = GetValue("colorPaletteRedBorder2");
+            Colors.Palette.RedBorderActive = GetValue("colorPaletteRedBorderActive");
+            Colors.Palette.RedForeground1 = GetValue("colorPaletteRedForeground1");
+            Colors.Palette.RedForeground2 = GetValue("colorPaletteRedForeground2");
+            Colors.Palette.RedForeground3 = GetValue("colorPaletteRedForeground3");
+            Colors.Palette.RedForegroundInverted = GetValue("colorPaletteRedForegroundInverted");
+            Colors.Palette.RoyalBlueBackground2 = GetValue("colorPaletteRoyalBlueBackground2");
+            Colors.Palette.RoyalBlueBorderActive = GetValue("colorPaletteRoyalBlueBorderActive");
+            Colors.Palette.RoyalBlueForeground2 = GetValue("colorPaletteRoyalBlueForeground2");
+            Colors.Palette.SeafoamBackground2 = GetValue("colorPaletteSeafoamBackground2");
+            Colors.Palette.SeafoamBorderActive = GetValue("colorPaletteSeafoamBorderActive");
+            Colors.Palette.SeafoamForeground2 = GetValue("colorPaletteSeafoamForeground2");
+            Colors.Palette.SteelBackground2 = GetValue("colorPaletteSteelBackground2");
+            Colors.Palette.SteelBorderActive = GetValue("colorPaletteSteelBorderActive");
+            Colors.Palette.SteelForeground2 = GetValue("colorPaletteSteelForeground2");
+            Colors.Palette.TealBackground2 = GetValue("colorPaletteTealBackground2");
+            Colors.Palette.TealBorderActive = GetValue("colorPaletteTealBorderActive");
+            Colors.Palette.TealForeground2 = GetValue("colorPaletteTealForeground2");
+            Colors.Palette.YellowBackground1 = GetValue("colorPaletteYellowBackground1");
+            Colors.Palette.YellowBackground2 = GetValue("colorPaletteYellowBackground2");
+            Colors.Palette.YellowBackground3 = GetValue("colorPaletteYellowBackground3");
+            Colors.Palette.YellowBorder1 = GetValue("colorPaletteYellowBorder1");
+            Colors.Palette.YellowBorder2 = GetValue("colorPaletteYellowBorder2");
+            Colors.Palette.YellowBorderActive = GetValue("colorPaletteYellowBorderActive");
+            Colors.Palette.YellowForeground1 = GetValue("colorPaletteYellowForeground1");
+            Colors.Palette.YellowForeground2 = GetValue("colorPaletteYellowForeground2");
+            Colors.Palette.YellowForeground3 = GetValue("colorPaletteYellowForeground3");
+            Colors.Palette.YellowForegroundInverted = GetValue("colorPaletteYellowForegroundInverted");
+            Colors.Scrollbar.Overlay = GetValue("colorScrollbarOverlay");
+            Colors.Status.DangerBackground1 = GetValue("colorStatusDangerBackground1");
+            Colors.Status.DangerBackground2 = GetValue("colorStatusDangerBackground2");
+            Colors.Status.DangerBackground3 = GetValue("colorStatusDangerBackground3");
+            Colors.Status.DangerBackground3Hover = GetValue("colorStatusDangerBackground3Hover");
+            Colors.Status.DangerBackground3Pressed = GetValue("colorStatusDangerBackground3Pressed");
+            Colors.Status.DangerBorder1 = GetValue("colorStatusDangerBorder1");
+            Colors.Status.DangerBorder2 = GetValue("colorStatusDangerBorder2");
+            Colors.Status.DangerBorderActive = GetValue("colorStatusDangerBorderActive");
+            Colors.Status.DangerForeground1 = GetValue("colorStatusDangerForeground1");
+            Colors.Status.DangerForeground2 = GetValue("colorStatusDangerForeground2");
+            Colors.Status.DangerForeground3 = GetValue("colorStatusDangerForeground3");
+            Colors.Status.DangerForegroundInverted = GetValue("colorStatusDangerForegroundInverted");
+            Colors.Status.SuccessBackground1 = GetValue("colorStatusSuccessBackground1");
+            Colors.Status.SuccessBackground2 = GetValue("colorStatusSuccessBackground2");
+            Colors.Status.SuccessBackground3 = GetValue("colorStatusSuccessBackground3");
+            Colors.Status.SuccessBorder1 = GetValue("colorStatusSuccessBorder1");
+            Colors.Status.SuccessBorder2 = GetValue("colorStatusSuccessBorder2");
+            Colors.Status.SuccessBorderActive = GetValue("colorStatusSuccessBorderActive");
+            Colors.Status.SuccessForeground1 = GetValue("colorStatusSuccessForeground1");
+            Colors.Status.SuccessForeground2 = GetValue("colorStatusSuccessForeground2");
+            Colors.Status.SuccessForeground3 = GetValue("colorStatusSuccessForeground3");
+            Colors.Status.SuccessForegroundInverted = GetValue("colorStatusSuccessForegroundInverted");
+            Colors.Status.WarningBackground1 = GetValue("colorStatusWarningBackground1");
+            Colors.Status.WarningBackground2 = GetValue("colorStatusWarningBackground2");
+            Colors.Status.WarningBackground3 = GetValue("colorStatusWarningBackground3");
+            Colors.Status.WarningBorder1 = GetValue("colorStatusWarningBorder1");
+            Colors.Status.WarningBorder2 = GetValue("colorStatusWarningBorder2");
+            Colors.Status.WarningBorderActive = GetValue("colorStatusWarningBorderActive");
+            Colors.Status.WarningForeground1 = GetValue("colorStatusWarningForeground1");
+            Colors.Status.WarningForeground2 = GetValue("colorStatusWarningForeground2");
+            Colors.Status.WarningForeground3 = GetValue("colorStatusWarningForeground3");
+            Colors.Status.WarningForegroundInverted = GetValue("colorStatusWarningForegroundInverted");
+            Colors.Stroke.Focus1 = GetValue("colorStrokeFocus1");
+            Colors.Stroke.Focus2 = GetValue("colorStrokeFocus2");
+            Colors.Subtle.Background = GetValue("colorSubtleBackground");
+            Colors.Subtle.BackgroundHover = GetValue("colorSubtleBackgroundHover");
+            Colors.Subtle.BackgroundInverted = GetValue("colorSubtleBackgroundInverted");
+            Colors.Subtle.BackgroundInvertedHover = GetValue("colorSubtleBackgroundInvertedHover");
+            Colors.Subtle.BackgroundInvertedPressed = GetValue("colorSubtleBackgroundInvertedPressed");
+            Colors.Subtle.BackgroundInvertedSelected = GetValue("colorSubtleBackgroundInvertedSelected");
+            Colors.Subtle.BackgroundLightAlphaHover = GetValue("colorSubtleBackgroundLightAlphaHover");
+            Colors.Subtle.BackgroundLightAlphaPressed = GetValue("colorSubtleBackgroundLightAlphaPressed");
+            Colors.Subtle.BackgroundLightAlphaSelected = GetValue("colorSubtleBackgroundLightAlphaSelected");
+            Colors.Subtle.BackgroundPressed = GetValue("colorSubtleBackgroundPressed");
+            Colors.Subtle.BackgroundSelected = GetValue("colorSubtleBackgroundSelected");
+            Colors.Transparent.Background = GetValue("colorTransparentBackground");
+            Colors.Transparent.BackgroundHover = GetValue("colorTransparentBackgroundHover");
+            Colors.Transparent.BackgroundPressed = GetValue("colorTransparentBackgroundPressed");
+            Colors.Transparent.BackgroundSelected = GetValue("colorTransparentBackgroundSelected");
+            Colors.Transparent.Stroke = GetValue("colorTransparentStroke");
+            Colors.Transparent.StrokeDisabled = GetValue("colorTransparentStrokeDisabled");
+            Colors.Transparent.StrokeInteractive = GetValue("colorTransparentStrokeInteractive");
+            Curves.Accelerate.Max = GetValue("curveAccelerateMax");
+            Curves.Accelerate.Mid = GetValue("curveAccelerateMid");
+            Curves.Accelerate.Min = GetValue("curveAccelerateMin");
+            Curves.Decelerate.Max = GetValue("curveDecelerateMax");
+            Curves.Decelerate.Mid = GetValue("curveDecelerateMid");
+            Curves.Decelerate.Min = GetValue("curveDecelerateMin");
+            Curves.Easy.Ease = GetValue("curveEasyEase");
+            Curves.Easy.EaseMax = GetValue("curveEasyEaseMax");
+            Curves.Linear.Default = GetValue("curveLinear");
+            Durations.Fast = GetValue("durationFast");
+            Durations.Faster = GetValue("durationFaster");
+            Durations.Gentle = GetValue("durationGentle");
+            Durations.Normal = GetValue("durationNormal");
+            Durations.Slow = GetValue("durationSlow");
+            Durations.Slower = GetValue("durationSlower");
+            Durations.UltraFast = GetValue("durationUltraFast");
+            Durations.UltraSlow = GetValue("durationUltraSlow");
+            Fonts.Family.Base = GetValue("fontFamilyBase");
+            Fonts.Family.Monospace = GetValue("fontFamilyMonospace");
+            Fonts.Family.Numeric = GetValue("fontFamilyNumeric");
+            Fonts.Size.Base100 = GetValue("fontSizeBase100");
+            Fonts.Size.Base200 = GetValue("fontSizeBase200");
+            Fonts.Size.Base300 = GetValue("fontSizeBase300");
+            Fonts.Size.Base400 = GetValue("fontSizeBase400");
+            Fonts.Size.Base500 = GetValue("fontSizeBase500");
+            Fonts.Size.Base600 = GetValue("fontSizeBase600");
+            Fonts.Size.Hero1000 = GetValue("fontSizeHero1000");
+            Fonts.Size.Hero700 = GetValue("fontSizeHero700");
+            Fonts.Size.Hero800 = GetValue("fontSizeHero800");
+            Fonts.Size.Hero900 = GetValue("fontSizeHero900");
+            Fonts.Weight.Bold = GetValue("fontWeightBold");
+            Fonts.Weight.Medium = GetValue("fontWeightMedium");
+            Fonts.Weight.Regular = GetValue("fontWeightRegular");
+            Fonts.Weight.Semibold = GetValue("fontWeightSemibold");
+            Lines.Height.Base100 = GetValue("lineHeightBase100");
+            Lines.Height.Base200 = GetValue("lineHeightBase200");
+            Lines.Height.Base300 = GetValue("lineHeightBase300");
+            Lines.Height.Base400 = GetValue("lineHeightBase400");
+            Lines.Height.Base500 = GetValue("lineHeightBase500");
+            Lines.Height.Base600 = GetValue("lineHeightBase600");
+            Lines.Height.Hero1000 = GetValue("lineHeightHero1000");
+            Lines.Height.Hero700 = GetValue("lineHeightHero700");
+            Lines.Height.Hero800 = GetValue("lineHeightHero800");
+            Lines.Height.Hero900 = GetValue("lineHeightHero900");
+            Shadows.Shadows16 = GetValue("shadow16");
+            Shadows.Shadows16Brand = GetValue("shadow16Brand");
+            Shadows.Shadows2 = GetValue("shadow2");
+            Shadows.Shadows28 = GetValue("shadow28");
+            Shadows.Shadows28Brand = GetValue("shadow28Brand");
+            Shadows.Shadows2Brand = GetValue("shadow2Brand");
+            Shadows.Shadows4 = GetValue("shadow4");
+            Shadows.Shadows4Brand = GetValue("shadow4Brand");
+            Shadows.Shadows64 = GetValue("shadow64");
+            Shadows.Shadows64Brand = GetValue("shadow64Brand");
+            Shadows.Shadows8 = GetValue("shadow8");
+            Shadows.Shadows8Brand = GetValue("shadow8Brand");
+            Spacings.Horizontal.L = GetValue("spacingHorizontalL");
+            Spacings.Horizontal.M = GetValue("spacingHorizontalM");
+            Spacings.Horizontal.MNudge = GetValue("spacingHorizontalMNudge");
+            Spacings.Horizontal.None = GetValue("spacingHorizontalNone");
+            Spacings.Horizontal.S = GetValue("spacingHorizontalS");
+            Spacings.Horizontal.SNudge = GetValue("spacingHorizontalSNudge");
+            Spacings.Horizontal.XL = GetValue("spacingHorizontalXL");
+            Spacings.Horizontal.XS = GetValue("spacingHorizontalXS");
+            Spacings.Horizontal.XXL = GetValue("spacingHorizontalXXL");
+            Spacings.Horizontal.XXS = GetValue("spacingHorizontalXXS");
+            Spacings.Horizontal.XXXL = GetValue("spacingHorizontalXXXL");
+            Spacings.Vertical.L = GetValue("spacingVerticalL");
+            Spacings.Vertical.M = GetValue("spacingVerticalM");
+            Spacings.Vertical.MNudge = GetValue("spacingVerticalMNudge");
+            Spacings.Vertical.None = GetValue("spacingVerticalNone");
+            Spacings.Vertical.S = GetValue("spacingVerticalS");
+            Spacings.Vertical.SNudge = GetValue("spacingVerticalSNudge");
+            Spacings.Vertical.XL = GetValue("spacingVerticalXL");
+            Spacings.Vertical.XS = GetValue("spacingVerticalXS");
+            Spacings.Vertical.XXL = GetValue("spacingVerticalXXL");
+            Spacings.Vertical.XXS = GetValue("spacingVerticalXXS");
+            Spacings.Vertical.XXXL = GetValue("spacingVerticalXXXL");
+            Strokes.Width.Thick = GetValue("strokeWidthThick");
+            Strokes.Width.Thicker = GetValue("strokeWidthThicker");
+            Strokes.Width.Thickest = GetValue("strokeWidthThickest");
+            Strokes.Width.Thin = GetValue("strokeWidthThin");
     }
 }

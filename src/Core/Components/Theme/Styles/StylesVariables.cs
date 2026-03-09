@@ -13,6 +13,8 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+#nullable enable
+
 /// <summary />
 public static partial class StylesVariables
 {
