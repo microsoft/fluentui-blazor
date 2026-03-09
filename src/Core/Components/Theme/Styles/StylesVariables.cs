@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -17,55 +17,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public static partial class StylesVariables
 {
     /// <summary />
-    public partial class Curves
-    {
-        /// <summary />
-        public partial class Decelerate
-        {
-            /// <summary />
-            public const string Max = "var(--curveDecelerateMax)";
-
-            /// <summary />
-            public const string Mid = "var(--curveDecelerateMid)";
-
-            /// <summary />
-            public const string Min = "var(--curveDecelerateMin)";
-
-        }
-        /// <summary />
-        public partial class Linear
-        {
-            /// <summary />
-            public const string Default = "var(--curveLinear)";
-
-        }
-        /// <summary />
-        public partial class Accelerate
-        {
-            /// <summary />
-            public const string Max = "var(--curveAccelerateMax)";
-
-            /// <summary />
-            public const string Mid = "var(--curveAccelerateMid)";
-
-            /// <summary />
-            public const string Min = "var(--curveAccelerateMin)";
-
-        }
-        /// <summary />
-        public partial class Easy
-        {
-            /// <summary />
-            public const string Ease = "var(--curveEasyEase)";
-
-            /// <summary />
-            public const string EaseMax = "var(--curveEasyEaseMax)";
-
-        }
-    }
-    /// <summary />
     public partial class Shadows
     {
+
         /// <summary />
         public const string Shadows16 = "var(--shadow16)";
 
@@ -104,39 +58,279 @@ public static partial class StylesVariables
 
     }
     /// <summary />
-    public partial class Durations
+    public partial class Curves
     {
-        /// <summary />
-        public const string Slower = "var(--durationSlower)";
 
         /// <summary />
-        public const string Gentle = "var(--durationGentle)";
+        public partial class Accelerate
+        {
+
+            /// <summary />
+            public const string Max = "var(--curveAccelerateMax)";
+
+            /// <summary />
+            public const string Mid = "var(--curveAccelerateMid)";
+
+            /// <summary />
+            public const string Min = "var(--curveAccelerateMin)";
+
+        }
+        /// <summary />
+        public partial class Linear
+        {
+
+            /// <summary />
+            public const string Default = "var(--curveLinear)";
+
+        }
+        /// <summary />
+        public partial class Easy
+        {
+
+            /// <summary />
+            public const string Ease = "var(--curveEasyEase)";
+
+            /// <summary />
+            public const string EaseMax = "var(--curveEasyEaseMax)";
+
+        }
+        /// <summary />
+        public partial class Decelerate
+        {
+
+            /// <summary />
+            public const string Max = "var(--curveDecelerateMax)";
+
+            /// <summary />
+            public const string Mid = "var(--curveDecelerateMid)";
+
+            /// <summary />
+            public const string Min = "var(--curveDecelerateMin)";
+
+        }
+    }
+    /// <summary />
+    public partial class Fonts
+    {
 
         /// <summary />
-        public const string Fast = "var(--durationFast)";
+        public partial class Family
+        {
+
+            /// <summary />
+            public const string Base = "var(--fontFamilyBase)";
+
+            /// <summary />
+            public const string Monospace = "var(--fontFamilyMonospace)";
+
+            /// <summary />
+            public const string Numeric = "var(--fontFamilyNumeric)";
+
+        }
+        /// <summary />
+        public partial class Size
+        {
+
+            /// <summary />
+            public const string Base100 = "var(--fontSizeBase100)";
+
+            /// <summary />
+            public const string Base200 = "var(--fontSizeBase200)";
+
+            /// <summary />
+            public const string Base300 = "var(--fontSizeBase300)";
+
+            /// <summary />
+            public const string Base400 = "var(--fontSizeBase400)";
+
+            /// <summary />
+            public const string Base500 = "var(--fontSizeBase500)";
+
+            /// <summary />
+            public const string Base600 = "var(--fontSizeBase600)";
+
+            /// <summary />
+            public const string Hero1000 = "var(--fontSizeHero1000)";
+
+            /// <summary />
+            public const string Hero700 = "var(--fontSizeHero700)";
+
+            /// <summary />
+            public const string Hero800 = "var(--fontSizeHero800)";
+
+            /// <summary />
+            public const string Hero900 = "var(--fontSizeHero900)";
+
+        }
+        /// <summary />
+        public partial class Weight
+        {
+
+            /// <summary />
+            public const string Bold = "var(--fontWeightBold)";
+
+            /// <summary />
+            public const string Medium = "var(--fontWeightMedium)";
+
+            /// <summary />
+            public const string Regular = "var(--fontWeightRegular)";
+
+            /// <summary />
+            public const string Semibold = "var(--fontWeightSemibold)";
+
+        }
+    }
+    /// <summary />
+    public partial class Lines
+    {
 
         /// <summary />
-        public const string Slow = "var(--durationSlow)";
+        public partial class Height
+        {
+
+            /// <summary />
+            public const string Base100 = "var(--lineHeightBase100)";
+
+            /// <summary />
+            public const string Base200 = "var(--lineHeightBase200)";
+
+            /// <summary />
+            public const string Base300 = "var(--lineHeightBase300)";
+
+            /// <summary />
+            public const string Base400 = "var(--lineHeightBase400)";
+
+            /// <summary />
+            public const string Base500 = "var(--lineHeightBase500)";
+
+            /// <summary />
+            public const string Base600 = "var(--lineHeightBase600)";
+
+            /// <summary />
+            public const string Hero1000 = "var(--lineHeightHero1000)";
+
+            /// <summary />
+            public const string Hero700 = "var(--lineHeightHero700)";
+
+            /// <summary />
+            public const string Hero800 = "var(--lineHeightHero800)";
+
+            /// <summary />
+            public const string Hero900 = "var(--lineHeightHero900)";
+
+        }
+    }
+    /// <summary />
+    public partial class Spacings
+    {
 
         /// <summary />
-        public const string UltraFast = "var(--durationUltraFast)";
+        public partial class Horizontal
+        {
+
+            /// <summary />
+            public const string L = "var(--spacingHorizontalL)";
+
+            /// <summary />
+            public const string M = "var(--spacingHorizontalM)";
+
+            /// <summary />
+            public const string MNudge = "var(--spacingHorizontalMNudge)";
+
+            /// <summary />
+            public const string None = "var(--spacingHorizontalNone)";
+
+            /// <summary />
+            public const string S = "var(--spacingHorizontalS)";
+
+            /// <summary />
+            public const string SNudge = "var(--spacingHorizontalSNudge)";
+
+            /// <summary />
+            public const string XL = "var(--spacingHorizontalXL)";
+
+            /// <summary />
+            public const string XS = "var(--spacingHorizontalXS)";
+
+            /// <summary />
+            public const string XXL = "var(--spacingHorizontalXXL)";
+
+            /// <summary />
+            public const string XXS = "var(--spacingHorizontalXXS)";
+
+            /// <summary />
+            public const string XXXL = "var(--spacingHorizontalXXXL)";
+
+        }
+        /// <summary />
+        public partial class Vertical
+        {
+
+            /// <summary />
+            public const string L = "var(--spacingVerticalL)";
+
+            /// <summary />
+            public const string M = "var(--spacingVerticalM)";
+
+            /// <summary />
+            public const string MNudge = "var(--spacingVerticalMNudge)";
+
+            /// <summary />
+            public const string None = "var(--spacingVerticalNone)";
+
+            /// <summary />
+            public const string S = "var(--spacingVerticalS)";
+
+            /// <summary />
+            public const string SNudge = "var(--spacingVerticalSNudge)";
+
+            /// <summary />
+            public const string XL = "var(--spacingVerticalXL)";
+
+            /// <summary />
+            public const string XS = "var(--spacingVerticalXS)";
+
+            /// <summary />
+            public const string XXL = "var(--spacingVerticalXXL)";
+
+            /// <summary />
+            public const string XXS = "var(--spacingVerticalXXS)";
+
+            /// <summary />
+            public const string XXXL = "var(--spacingVerticalXXXL)";
+
+        }
+    }
+    /// <summary />
+    public partial class Strokes
+    {
 
         /// <summary />
-        public const string UltraSlow = "var(--durationUltraSlow)";
+        public partial class Width
+        {
 
-        /// <summary />
-        public const string Normal = "var(--durationNormal)";
+            /// <summary />
+            public const string Thick = "var(--strokeWidthThick)";
 
-        /// <summary />
-        public const string Faster = "var(--durationFaster)";
+            /// <summary />
+            public const string Thicker = "var(--strokeWidthThicker)";
 
+            /// <summary />
+            public const string Thickest = "var(--strokeWidthThickest)";
+
+            /// <summary />
+            public const string Thin = "var(--strokeWidthThin)";
+
+        }
     }
     /// <summary />
     public partial class Borders
     {
+
         /// <summary />
         public partial class Radius
         {
+
             /// <summary />
             public const string Large2X = "var(--borderRadius2XLarge)";
 
@@ -173,135 +367,93 @@ public static partial class StylesVariables
         }
     }
     /// <summary />
-    public partial class Fonts
+    public partial class Durations
     {
+
         /// <summary />
-        public partial class Weight
-        {
-            /// <summary />
-            public const string Bold = "var(--fontWeightBold)";
+        public const string Slower = "var(--durationSlower)";
 
-            /// <summary />
-            public const string Medium = "var(--fontWeightMedium)";
-
-            /// <summary />
-            public const string Regular = "var(--fontWeightRegular)";
-
-            /// <summary />
-            public const string Semibold = "var(--fontWeightSemibold)";
-
-        }
         /// <summary />
-        public partial class Family
-        {
-            /// <summary />
-            public const string Base = "var(--fontFamilyBase)";
+        public const string Slow = "var(--durationSlow)";
 
-            /// <summary />
-            public const string Monospace = "var(--fontFamilyMonospace)";
-
-            /// <summary />
-            public const string Numeric = "var(--fontFamilyNumeric)";
-
-        }
         /// <summary />
-        public partial class Size
-        {
-            /// <summary />
-            public const string Base100 = "var(--fontSizeBase100)";
+        public const string Normal = "var(--durationNormal)";
 
-            /// <summary />
-            public const string Base200 = "var(--fontSizeBase200)";
-
-            /// <summary />
-            public const string Base300 = "var(--fontSizeBase300)";
-
-            /// <summary />
-            public const string Base400 = "var(--fontSizeBase400)";
-
-            /// <summary />
-            public const string Base500 = "var(--fontSizeBase500)";
-
-            /// <summary />
-            public const string Base600 = "var(--fontSizeBase600)";
-
-            /// <summary />
-            public const string Hero1000 = "var(--fontSizeHero1000)";
-
-            /// <summary />
-            public const string Hero700 = "var(--fontSizeHero700)";
-
-            /// <summary />
-            public const string Hero800 = "var(--fontSizeHero800)";
-
-            /// <summary />
-            public const string Hero900 = "var(--fontSizeHero900)";
-
-        }
-    }
-    /// <summary />
-    public partial class Strokes
-    {
         /// <summary />
-        public partial class Width
-        {
-            /// <summary />
-            public const string Thick = "var(--strokeWidthThick)";
+        public const string Faster = "var(--durationFaster)";
 
-            /// <summary />
-            public const string Thicker = "var(--strokeWidthThicker)";
+        /// <summary />
+        public const string Fast = "var(--durationFast)";
 
-            /// <summary />
-            public const string Thickest = "var(--strokeWidthThickest)";
+        /// <summary />
+        public const string Gentle = "var(--durationGentle)";
 
-            /// <summary />
-            public const string Thin = "var(--strokeWidthThin)";
+        /// <summary />
+        public const string UltraFast = "var(--durationUltraFast)";
 
-        }
+        /// <summary />
+        public const string UltraSlow = "var(--durationUltraSlow)";
+
     }
     /// <summary />
     public partial class Colors
     {
+
         /// <summary />
-        public partial class Subtle
+        public partial class Stroke
         {
-            /// <summary />
-            public const string Background = "var(--colorSubtleBackground)";
 
             /// <summary />
-            public const string BackgroundHover = "var(--colorSubtleBackgroundHover)";
+            public const string Focus1 = "var(--colorStrokeFocus1)";
 
             /// <summary />
-            public const string BackgroundInverted = "var(--colorSubtleBackgroundInverted)";
+            public const string Focus2 = "var(--colorStrokeFocus2)";
+
+        }
+        /// <summary />
+        public partial class Background
+        {
 
             /// <summary />
-            public const string BackgroundInvertedHover = "var(--colorSubtleBackgroundInvertedHover)";
+            public const string Overlay = "var(--colorBackgroundOverlay)";
+
+        }
+        /// <summary />
+        public partial class Compound
+        {
 
             /// <summary />
-            public const string BackgroundInvertedPressed = "var(--colorSubtleBackgroundInvertedPressed)";
+            public const string BrandBackground = "var(--colorCompoundBrandBackground)";
 
             /// <summary />
-            public const string BackgroundInvertedSelected = "var(--colorSubtleBackgroundInvertedSelected)";
+            public const string BrandBackgroundHover = "var(--colorCompoundBrandBackgroundHover)";
 
             /// <summary />
-            public const string BackgroundLightAlphaHover = "var(--colorSubtleBackgroundLightAlphaHover)";
+            public const string BrandBackgroundPressed = "var(--colorCompoundBrandBackgroundPressed)";
 
             /// <summary />
-            public const string BackgroundLightAlphaPressed = "var(--colorSubtleBackgroundLightAlphaPressed)";
+            public const string BrandForeground1 = "var(--colorCompoundBrandForeground1)";
 
             /// <summary />
-            public const string BackgroundLightAlphaSelected = "var(--colorSubtleBackgroundLightAlphaSelected)";
+            public const string BrandForeground1Hover = "var(--colorCompoundBrandForeground1Hover)";
 
             /// <summary />
-            public const string BackgroundPressed = "var(--colorSubtleBackgroundPressed)";
+            public const string BrandForeground1Pressed = "var(--colorCompoundBrandForeground1Pressed)";
 
             /// <summary />
-            public const string BackgroundSelected = "var(--colorSubtleBackgroundSelected)";
+            public const string BrandStroke = "var(--colorCompoundBrandStroke)";
+
+            /// <summary />
+            public const string BrandStrokeHover = "var(--colorCompoundBrandStrokeHover)";
+
+            /// <summary />
+            public const string BrandStrokePressed = "var(--colorCompoundBrandStrokePressed)";
 
         }
         /// <summary />
         public partial class Palette
         {
+
             /// <summary />
             public const string AnchorBackground2 = "var(--colorPaletteAnchorBackground2)";
 
@@ -754,50 +906,17 @@ public static partial class StylesVariables
 
         }
         /// <summary />
-        public partial class Background
+        public partial class Scrollbar
         {
-            /// <summary />
-            public const string Overlay = "var(--colorBackgroundOverlay)";
-
-        }
-        /// <summary />
-        public partial class Stroke
-        {
-            /// <summary />
-            public const string Focus1 = "var(--colorStrokeFocus1)";
 
             /// <summary />
-            public const string Focus2 = "var(--colorStrokeFocus2)";
-
-        }
-        /// <summary />
-        public partial class Transparent
-        {
-            /// <summary />
-            public const string Background = "var(--colorTransparentBackground)";
-
-            /// <summary />
-            public const string BackgroundHover = "var(--colorTransparentBackgroundHover)";
-
-            /// <summary />
-            public const string BackgroundPressed = "var(--colorTransparentBackgroundPressed)";
-
-            /// <summary />
-            public const string BackgroundSelected = "var(--colorTransparentBackgroundSelected)";
-
-            /// <summary />
-            public const string Stroke = "var(--colorTransparentStroke)";
-
-            /// <summary />
-            public const string StrokeDisabled = "var(--colorTransparentStrokeDisabled)";
-
-            /// <summary />
-            public const string StrokeInteractive = "var(--colorTransparentStrokeInteractive)";
+            public const string Overlay = "var(--colorScrollbarOverlay)";
 
         }
         /// <summary />
         public partial class Neutral
         {
+
             /// <summary />
             public const string Background1 = "var(--colorNeutralBackground1)";
 
@@ -1151,8 +1270,110 @@ public static partial class StylesVariables
 
         }
         /// <summary />
+        public partial class Status
+        {
+
+            /// <summary />
+            public const string DangerBackground1 = "var(--colorStatusDangerBackground1)";
+
+            /// <summary />
+            public const string DangerBackground2 = "var(--colorStatusDangerBackground2)";
+
+            /// <summary />
+            public const string DangerBackground3 = "var(--colorStatusDangerBackground3)";
+
+            /// <summary />
+            public const string DangerBackground3Hover = "var(--colorStatusDangerBackground3Hover)";
+
+            /// <summary />
+            public const string DangerBackground3Pressed = "var(--colorStatusDangerBackground3Pressed)";
+
+            /// <summary />
+            public const string DangerBorder1 = "var(--colorStatusDangerBorder1)";
+
+            /// <summary />
+            public const string DangerBorder2 = "var(--colorStatusDangerBorder2)";
+
+            /// <summary />
+            public const string DangerBorderActive = "var(--colorStatusDangerBorderActive)";
+
+            /// <summary />
+            public const string DangerForeground1 = "var(--colorStatusDangerForeground1)";
+
+            /// <summary />
+            public const string DangerForeground2 = "var(--colorStatusDangerForeground2)";
+
+            /// <summary />
+            public const string DangerForeground3 = "var(--colorStatusDangerForeground3)";
+
+            /// <summary />
+            public const string DangerForegroundInverted = "var(--colorStatusDangerForegroundInverted)";
+
+            /// <summary />
+            public const string SuccessBackground1 = "var(--colorStatusSuccessBackground1)";
+
+            /// <summary />
+            public const string SuccessBackground2 = "var(--colorStatusSuccessBackground2)";
+
+            /// <summary />
+            public const string SuccessBackground3 = "var(--colorStatusSuccessBackground3)";
+
+            /// <summary />
+            public const string SuccessBorder1 = "var(--colorStatusSuccessBorder1)";
+
+            /// <summary />
+            public const string SuccessBorder2 = "var(--colorStatusSuccessBorder2)";
+
+            /// <summary />
+            public const string SuccessBorderActive = "var(--colorStatusSuccessBorderActive)";
+
+            /// <summary />
+            public const string SuccessForeground1 = "var(--colorStatusSuccessForeground1)";
+
+            /// <summary />
+            public const string SuccessForeground2 = "var(--colorStatusSuccessForeground2)";
+
+            /// <summary />
+            public const string SuccessForeground3 = "var(--colorStatusSuccessForeground3)";
+
+            /// <summary />
+            public const string SuccessForegroundInverted = "var(--colorStatusSuccessForegroundInverted)";
+
+            /// <summary />
+            public const string WarningBackground1 = "var(--colorStatusWarningBackground1)";
+
+            /// <summary />
+            public const string WarningBackground2 = "var(--colorStatusWarningBackground2)";
+
+            /// <summary />
+            public const string WarningBackground3 = "var(--colorStatusWarningBackground3)";
+
+            /// <summary />
+            public const string WarningBorder1 = "var(--colorStatusWarningBorder1)";
+
+            /// <summary />
+            public const string WarningBorder2 = "var(--colorStatusWarningBorder2)";
+
+            /// <summary />
+            public const string WarningBorderActive = "var(--colorStatusWarningBorderActive)";
+
+            /// <summary />
+            public const string WarningForeground1 = "var(--colorStatusWarningForeground1)";
+
+            /// <summary />
+            public const string WarningForeground2 = "var(--colorStatusWarningForeground2)";
+
+            /// <summary />
+            public const string WarningForeground3 = "var(--colorStatusWarningForeground3)";
+
+            /// <summary />
+            public const string WarningForegroundInverted = "var(--colorStatusWarningForegroundInverted)";
+
+        }
+        /// <summary />
         public partial class Brand
         {
+
             /// <summary />
             public const string Background = "var(--colorBrandBackground)";
 
@@ -1263,257 +1484,67 @@ public static partial class StylesVariables
 
         }
         /// <summary />
-        public partial class Status
+        public partial class Transparent
         {
-            /// <summary />
-            public const string DangerBackground1 = "var(--colorStatusDangerBackground1)";
 
             /// <summary />
-            public const string DangerBackground2 = "var(--colorStatusDangerBackground2)";
+            public const string Background = "var(--colorTransparentBackground)";
 
             /// <summary />
-            public const string DangerBackground3 = "var(--colorStatusDangerBackground3)";
+            public const string BackgroundHover = "var(--colorTransparentBackgroundHover)";
 
             /// <summary />
-            public const string DangerBackground3Hover = "var(--colorStatusDangerBackground3Hover)";
+            public const string BackgroundPressed = "var(--colorTransparentBackgroundPressed)";
 
             /// <summary />
-            public const string DangerBackground3Pressed = "var(--colorStatusDangerBackground3Pressed)";
+            public const string BackgroundSelected = "var(--colorTransparentBackgroundSelected)";
 
             /// <summary />
-            public const string DangerBorder1 = "var(--colorStatusDangerBorder1)";
+            public const string Stroke = "var(--colorTransparentStroke)";
 
             /// <summary />
-            public const string DangerBorder2 = "var(--colorStatusDangerBorder2)";
+            public const string StrokeDisabled = "var(--colorTransparentStrokeDisabled)";
 
             /// <summary />
-            public const string DangerBorderActive = "var(--colorStatusDangerBorderActive)";
-
-            /// <summary />
-            public const string DangerForeground1 = "var(--colorStatusDangerForeground1)";
-
-            /// <summary />
-            public const string DangerForeground2 = "var(--colorStatusDangerForeground2)";
-
-            /// <summary />
-            public const string DangerForeground3 = "var(--colorStatusDangerForeground3)";
-
-            /// <summary />
-            public const string DangerForegroundInverted = "var(--colorStatusDangerForegroundInverted)";
-
-            /// <summary />
-            public const string SuccessBackground1 = "var(--colorStatusSuccessBackground1)";
-
-            /// <summary />
-            public const string SuccessBackground2 = "var(--colorStatusSuccessBackground2)";
-
-            /// <summary />
-            public const string SuccessBackground3 = "var(--colorStatusSuccessBackground3)";
-
-            /// <summary />
-            public const string SuccessBorder1 = "var(--colorStatusSuccessBorder1)";
-
-            /// <summary />
-            public const string SuccessBorder2 = "var(--colorStatusSuccessBorder2)";
-
-            /// <summary />
-            public const string SuccessBorderActive = "var(--colorStatusSuccessBorderActive)";
-
-            /// <summary />
-            public const string SuccessForeground1 = "var(--colorStatusSuccessForeground1)";
-
-            /// <summary />
-            public const string SuccessForeground2 = "var(--colorStatusSuccessForeground2)";
-
-            /// <summary />
-            public const string SuccessForeground3 = "var(--colorStatusSuccessForeground3)";
-
-            /// <summary />
-            public const string SuccessForegroundInverted = "var(--colorStatusSuccessForegroundInverted)";
-
-            /// <summary />
-            public const string WarningBackground1 = "var(--colorStatusWarningBackground1)";
-
-            /// <summary />
-            public const string WarningBackground2 = "var(--colorStatusWarningBackground2)";
-
-            /// <summary />
-            public const string WarningBackground3 = "var(--colorStatusWarningBackground3)";
-
-            /// <summary />
-            public const string WarningBorder1 = "var(--colorStatusWarningBorder1)";
-
-            /// <summary />
-            public const string WarningBorder2 = "var(--colorStatusWarningBorder2)";
-
-            /// <summary />
-            public const string WarningBorderActive = "var(--colorStatusWarningBorderActive)";
-
-            /// <summary />
-            public const string WarningForeground1 = "var(--colorStatusWarningForeground1)";
-
-            /// <summary />
-            public const string WarningForeground2 = "var(--colorStatusWarningForeground2)";
-
-            /// <summary />
-            public const string WarningForeground3 = "var(--colorStatusWarningForeground3)";
-
-            /// <summary />
-            public const string WarningForegroundInverted = "var(--colorStatusWarningForegroundInverted)";
+            public const string StrokeInteractive = "var(--colorTransparentStrokeInteractive)";
 
         }
         /// <summary />
-        public partial class Compound
+        public partial class Subtle
         {
-            /// <summary />
-            public const string BrandBackground = "var(--colorCompoundBrandBackground)";
 
             /// <summary />
-            public const string BrandBackgroundHover = "var(--colorCompoundBrandBackgroundHover)";
+            public const string Background = "var(--colorSubtleBackground)";
 
             /// <summary />
-            public const string BrandBackgroundPressed = "var(--colorCompoundBrandBackgroundPressed)";
+            public const string BackgroundHover = "var(--colorSubtleBackgroundHover)";
 
             /// <summary />
-            public const string BrandForeground1 = "var(--colorCompoundBrandForeground1)";
+            public const string BackgroundInverted = "var(--colorSubtleBackgroundInverted)";
 
             /// <summary />
-            public const string BrandForeground1Hover = "var(--colorCompoundBrandForeground1Hover)";
+            public const string BackgroundInvertedHover = "var(--colorSubtleBackgroundInvertedHover)";
 
             /// <summary />
-            public const string BrandForeground1Pressed = "var(--colorCompoundBrandForeground1Pressed)";
+            public const string BackgroundInvertedPressed = "var(--colorSubtleBackgroundInvertedPressed)";
 
             /// <summary />
-            public const string BrandStroke = "var(--colorCompoundBrandStroke)";
+            public const string BackgroundInvertedSelected = "var(--colorSubtleBackgroundInvertedSelected)";
 
             /// <summary />
-            public const string BrandStrokeHover = "var(--colorCompoundBrandStrokeHover)";
+            public const string BackgroundLightAlphaHover = "var(--colorSubtleBackgroundLightAlphaHover)";
 
             /// <summary />
-            public const string BrandStrokePressed = "var(--colorCompoundBrandStrokePressed)";
-
-        }
-        /// <summary />
-        public partial class Scrollbar
-        {
-            /// <summary />
-            public const string Overlay = "var(--colorScrollbarOverlay)";
-
-        }
-    }
-    /// <summary />
-    public partial class Lines
-    {
-        /// <summary />
-        public partial class Height
-        {
-            /// <summary />
-            public const string Base100 = "var(--lineHeightBase100)";
+            public const string BackgroundLightAlphaPressed = "var(--colorSubtleBackgroundLightAlphaPressed)";
 
             /// <summary />
-            public const string Base200 = "var(--lineHeightBase200)";
+            public const string BackgroundLightAlphaSelected = "var(--colorSubtleBackgroundLightAlphaSelected)";
 
             /// <summary />
-            public const string Base300 = "var(--lineHeightBase300)";
+            public const string BackgroundPressed = "var(--colorSubtleBackgroundPressed)";
 
             /// <summary />
-            public const string Base400 = "var(--lineHeightBase400)";
-
-            /// <summary />
-            public const string Base500 = "var(--lineHeightBase500)";
-
-            /// <summary />
-            public const string Base600 = "var(--lineHeightBase600)";
-
-            /// <summary />
-            public const string Hero1000 = "var(--lineHeightHero1000)";
-
-            /// <summary />
-            public const string Hero700 = "var(--lineHeightHero700)";
-
-            /// <summary />
-            public const string Hero800 = "var(--lineHeightHero800)";
-
-            /// <summary />
-            public const string Hero900 = "var(--lineHeightHero900)";
-
-        }
-    }
-    /// <summary />
-    public partial class Spacings
-    {
-        /// <summary />
-        public partial class Vertical
-        {
-            /// <summary />
-            public const string L = "var(--spacingVerticalL)";
-
-            /// <summary />
-            public const string M = "var(--spacingVerticalM)";
-
-            /// <summary />
-            public const string MNudge = "var(--spacingVerticalMNudge)";
-
-            /// <summary />
-            public const string None = "var(--spacingVerticalNone)";
-
-            /// <summary />
-            public const string S = "var(--spacingVerticalS)";
-
-            /// <summary />
-            public const string SNudge = "var(--spacingVerticalSNudge)";
-
-            /// <summary />
-            public const string XL = "var(--spacingVerticalXL)";
-
-            /// <summary />
-            public const string XS = "var(--spacingVerticalXS)";
-
-            /// <summary />
-            public const string XXL = "var(--spacingVerticalXXL)";
-
-            /// <summary />
-            public const string XXS = "var(--spacingVerticalXXS)";
-
-            /// <summary />
-            public const string XXXL = "var(--spacingVerticalXXXL)";
-
-        }
-        /// <summary />
-        public partial class Horizontal
-        {
-            /// <summary />
-            public const string L = "var(--spacingHorizontalL)";
-
-            /// <summary />
-            public const string M = "var(--spacingHorizontalM)";
-
-            /// <summary />
-            public const string MNudge = "var(--spacingHorizontalMNudge)";
-
-            /// <summary />
-            public const string None = "var(--spacingHorizontalNone)";
-
-            /// <summary />
-            public const string S = "var(--spacingHorizontalS)";
-
-            /// <summary />
-            public const string SNudge = "var(--spacingHorizontalSNudge)";
-
-            /// <summary />
-            public const string XL = "var(--spacingHorizontalXL)";
-
-            /// <summary />
-            public const string XS = "var(--spacingHorizontalXS)";
-
-            /// <summary />
-            public const string XXL = "var(--spacingHorizontalXXL)";
-
-            /// <summary />
-            public const string XXS = "var(--spacingHorizontalXXS)";
-
-            /// <summary />
-            public const string XXXL = "var(--spacingHorizontalXXXL)";
+            public const string BackgroundSelected = "var(--colorSubtleBackgroundSelected)";
 
         }
     }

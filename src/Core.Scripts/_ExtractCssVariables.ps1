@@ -27,6 +27,7 @@ function Get-CssVariableLines {
 
     # Collect output lines
     $lines = [System.Collections.Generic.List[string]]::new()
+    $dico = [System.Collections.Generic.List[string]]::new()
 
     foreach ($match in $matchesCss) {
         if ($match.Groups[1].Value -ne "z") {
@@ -103,9 +104,21 @@ function Get-CssVariableLines {
     $lines.Add("{")
 
     foreach ($g1 in $result.Keys) {
-        $lines.Add("    /// <summary />")
-        $lines.Add("    public partial class $g1")
-        $lines.Add("    {")
+        
+        if ($IsConstants) {
+            $lines.Add("    /// <summary />")
+            $lines.Add("    public partial class $g1")
+            $lines.Add("    {")
+        }
+        else {
+            $lines.Add("    /// <summary />")
+            $lines.Add("    public Theme$g1 $g1 { get; set; } = new();")
+            $lines.Add("")
+            $lines.Add("    /// <summary />")
+            $lines.Add("    public partial class Theme$g1")
+            $lines.Add("    {")
+        }
+        $lines.Add("")
 
         # Direct constants
         if ($g1 -eq "Durations" -or $g1 -eq "Shadows") {
@@ -127,6 +140,8 @@ function Get-CssVariableLines {
                     else {
                         $lines.Add("        [JsonPropertyName(""$(Fix-JsonAttribute($entry.Groupe4))"")]")
                         $lines.Add("        public string $(Fix-SizeName("$prefix$g2$($entry.Groupe3)")) { get; set; }")
+                        
+                        $dico.Add("[""$(Fix-JsonAttribute($entry.Groupe4))""] = value.$g1.$(Fix-SizeName("$prefix$g2$($entry.Groupe3)")),")
                     }
                     $lines.Add("")
                 }
@@ -136,9 +151,22 @@ function Get-CssVariableLines {
         # Sub category: Group2
         else {
             foreach ($g2 in $result[$g1].Keys) {
-                $lines.Add("        /// <summary />")
-                $lines.Add("        public partial class $g2")
-                $lines.Add("        {")
+
+                if ($IsConstants) {
+                    $lines.Add("        /// <summary />")
+                    $lines.Add("        public partial class $g2")
+                    $lines.Add("        {")
+                }
+                else {
+                    $lines.Add("        /// <summary />")
+                    $lines.Add("        public Theme$g1$g2 $g2 { get; set; } = new();")
+                    $lines.Add("")
+                    $lines.Add("        /// <summary />")
+                    $lines.Add("        public partial class Theme$g1$g2")
+                    $lines.Add("    {")
+                }        
+                $lines.Add("")
+
                 foreach ($entry in $result[$g1][$g2]) {
                     if ($entry.Groupe3 -eq "") {
                         $entry.Groupe3 = "Default"
@@ -152,6 +180,8 @@ function Get-CssVariableLines {
                     else {
                         $lines.Add("            [JsonPropertyName(""$(Fix-JsonAttribute($entry.Groupe4))"")]")
                         $lines.Add("            public string $(Fix-SizeName($entry.Groupe3)) { get; set; }")
+                  
+                        $dico.Add("[""$(Fix-JsonAttribute($entry.Groupe4))""] = value.$g1.$g2.$(Fix-SizeName($entry.Groupe3)),")
                     }
                     $lines.Add("")
                 }

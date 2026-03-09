@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -18,64 +18,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class ThemeCustom
 {
     /// <summary />
-    public partial class Curves
-    {
-        /// <summary />
-        public partial class Decelerate
-        {
-            /// <summary />
-            [JsonPropertyName("curveDecelerateMax")]
-            public string Max { get; set; }
+    public ThemeShadows Shadows { get; set; } = new();
 
-            /// <summary />
-            [JsonPropertyName("curveDecelerateMid")]
-            public string Mid { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("curveDecelerateMin")]
-            public string Min { get; set; }
-
-        }
-        /// <summary />
-        public partial class Linear
-        {
-            /// <summary />
-            [JsonPropertyName("curveLinear")]
-            public string Default { get; set; }
-
-        }
-        /// <summary />
-        public partial class Accelerate
-        {
-            /// <summary />
-            [JsonPropertyName("curveAccelerateMax")]
-            public string Max { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("curveAccelerateMid")]
-            public string Mid { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("curveAccelerateMin")]
-            public string Min { get; set; }
-
-        }
-        /// <summary />
-        public partial class Easy
-        {
-            /// <summary />
-            [JsonPropertyName("curveEasyEase")]
-            public string Ease { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("curveEasyEaseMax")]
-            public string EaseMax { get; set; }
-
-        }
-    }
     /// <summary />
-    public partial class Shadows
+    public partial class ThemeShadows
     {
+
         /// <summary />
         [JsonPropertyName("shadow16")]
         public string Shadows16 { get; set; }
@@ -126,47 +74,395 @@ public partial class ThemeCustom
 
     }
     /// <summary />
-    public partial class Durations
+    public ThemeCurves Curves { get; set; } = new();
+
+    /// <summary />
+    public partial class ThemeCurves
     {
-        /// <summary />
-        [JsonPropertyName("durationSlower")]
-        public string Slower { get; set; }
 
         /// <summary />
-        [JsonPropertyName("durationGentle")]
-        public string Gentle { get; set; }
+        public ThemeCurvesAccelerate Accelerate { get; set; } = new();
 
         /// <summary />
-        [JsonPropertyName("durationFast")]
-        public string Fast { get; set; }
+        public partial class ThemeCurvesAccelerate
+    {
+
+            /// <summary />
+            [JsonPropertyName("curveAccelerateMax")]
+            public string Max { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("curveAccelerateMid")]
+            public string Mid { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("curveAccelerateMin")]
+            public string Min { get; set; }
+
+        }
+        /// <summary />
+        public ThemeCurvesLinear Linear { get; set; } = new();
 
         /// <summary />
-        [JsonPropertyName("durationSlow")]
-        public string Slow { get; set; }
+        public partial class ThemeCurvesLinear
+    {
+
+            /// <summary />
+            [JsonPropertyName("curveLinear")]
+            public string Default { get; set; }
+
+        }
+        /// <summary />
+        public ThemeCurvesEasy Easy { get; set; } = new();
 
         /// <summary />
-        [JsonPropertyName("durationUltraFast")]
-        public string UltraFast { get; set; }
+        public partial class ThemeCurvesEasy
+    {
+
+            /// <summary />
+            [JsonPropertyName("curveEasyEase")]
+            public string Ease { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("curveEasyEaseMax")]
+            public string EaseMax { get; set; }
+
+        }
+        /// <summary />
+        public ThemeCurvesDecelerate Decelerate { get; set; } = new();
 
         /// <summary />
-        [JsonPropertyName("durationUltraSlow")]
-        public string UltraSlow { get; set; }
+        public partial class ThemeCurvesDecelerate
+    {
 
-        /// <summary />
-        [JsonPropertyName("durationNormal")]
-        public string Normal { get; set; }
+            /// <summary />
+            [JsonPropertyName("curveDecelerateMax")]
+            public string Max { get; set; }
 
-        /// <summary />
-        [JsonPropertyName("durationFaster")]
-        public string Faster { get; set; }
+            /// <summary />
+            [JsonPropertyName("curveDecelerateMid")]
+            public string Mid { get; set; }
 
+            /// <summary />
+            [JsonPropertyName("curveDecelerateMin")]
+            public string Min { get; set; }
+
+        }
     }
     /// <summary />
-    public partial class Borders
+    public ThemeFonts Fonts { get; set; } = new();
+
+    /// <summary />
+    public partial class ThemeFonts
     {
+
         /// <summary />
-        public partial class Radius
-        {
+        public ThemeFontsFamily Family { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeFontsFamily
+    {
+
+            /// <summary />
+            [JsonPropertyName("fontFamilyBase")]
+            public string Base { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontFamilyMonospace")]
+            public string Monospace { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontFamilyNumeric")]
+            public string Numeric { get; set; }
+
+        }
+        /// <summary />
+        public ThemeFontsSize Size { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeFontsSize
+    {
+
+            /// <summary />
+            [JsonPropertyName("fontSizeBase100")]
+            public string Base100 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontSizeBase200")]
+            public string Base200 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontSizeBase300")]
+            public string Base300 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontSizeBase400")]
+            public string Base400 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontSizeBase500")]
+            public string Base500 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontSizeBase600")]
+            public string Base600 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontSizeHero1000")]
+            public string Hero1000 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontSizeHero700")]
+            public string Hero700 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontSizeHero800")]
+            public string Hero800 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontSizeHero900")]
+            public string Hero900 { get; set; }
+
+        }
+        /// <summary />
+        public ThemeFontsWeight Weight { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeFontsWeight
+    {
+
+            /// <summary />
+            [JsonPropertyName("fontWeightBold")]
+            public string Bold { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontWeightMedium")]
+            public string Medium { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontWeightRegular")]
+            public string Regular { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("fontWeightSemibold")]
+            public string Semibold { get; set; }
+
+        }
+    }
+    /// <summary />
+    public ThemeLines Lines { get; set; } = new();
+
+    /// <summary />
+    public partial class ThemeLines
+    {
+
+        /// <summary />
+        public ThemeLinesHeight Height { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeLinesHeight
+    {
+
+            /// <summary />
+            [JsonPropertyName("lineHeightBase100")]
+            public string Base100 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("lineHeightBase200")]
+            public string Base200 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("lineHeightBase300")]
+            public string Base300 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("lineHeightBase400")]
+            public string Base400 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("lineHeightBase500")]
+            public string Base500 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("lineHeightBase600")]
+            public string Base600 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("lineHeightHero1000")]
+            public string Hero1000 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("lineHeightHero700")]
+            public string Hero700 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("lineHeightHero800")]
+            public string Hero800 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("lineHeightHero900")]
+            public string Hero900 { get; set; }
+
+        }
+    }
+    /// <summary />
+    public ThemeSpacings Spacings { get; set; } = new();
+
+    /// <summary />
+    public partial class ThemeSpacings
+    {
+
+        /// <summary />
+        public ThemeSpacingsHorizontal Horizontal { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeSpacingsHorizontal
+    {
+
+            /// <summary />
+            [JsonPropertyName("spacingHorizontalL")]
+            public string L { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingHorizontalM")]
+            public string M { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingHorizontalMNudge")]
+            public string MNudge { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingHorizontalNone")]
+            public string None { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingHorizontalS")]
+            public string S { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingHorizontalSNudge")]
+            public string SNudge { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingHorizontalXL")]
+            public string XL { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingHorizontalXS")]
+            public string XS { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingHorizontalXXL")]
+            public string XXL { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingHorizontalXXS")]
+            public string XXS { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingHorizontalXXXL")]
+            public string XXXL { get; set; }
+
+        }
+        /// <summary />
+        public ThemeSpacingsVertical Vertical { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeSpacingsVertical
+    {
+
+            /// <summary />
+            [JsonPropertyName("spacingVerticalL")]
+            public string L { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingVerticalM")]
+            public string M { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingVerticalMNudge")]
+            public string MNudge { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingVerticalNone")]
+            public string None { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingVerticalS")]
+            public string S { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingVerticalSNudge")]
+            public string SNudge { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingVerticalXL")]
+            public string XL { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingVerticalXS")]
+            public string XS { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingVerticalXXL")]
+            public string XXL { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingVerticalXXS")]
+            public string XXS { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("spacingVerticalXXXL")]
+            public string XXXL { get; set; }
+
+        }
+    }
+    /// <summary />
+    public ThemeStrokes Strokes { get; set; } = new();
+
+    /// <summary />
+    public partial class ThemeStrokes
+    {
+
+        /// <summary />
+        public ThemeStrokesWidth Width { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeStrokesWidth
+    {
+
+            /// <summary />
+            [JsonPropertyName("strokeWidthThick")]
+            public string Thick { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("strokeWidthThicker")]
+            public string Thicker { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("strokeWidthThickest")]
+            public string Thickest { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("strokeWidthThin")]
+            public string Thin { get; set; }
+
+        }
+    }
+    /// <summary />
+    public ThemeBorders Borders { get; set; } = new();
+
+    /// <summary />
+    public partial class ThemeBorders
+    {
+
+        /// <summary />
+        public ThemeBordersRadius Radius { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeBordersRadius
+    {
+
             /// <summary />
             [JsonPropertyName("borderRadius2XLarge")]
             public string Large2X { get; set; }
@@ -214,167 +510,131 @@ public partial class ThemeCustom
         }
     }
     /// <summary />
-    public partial class Fonts
+    public ThemeDurations Durations { get; set; } = new();
+
+    /// <summary />
+    public partial class ThemeDurations
     {
+
         /// <summary />
-        public partial class Weight
-        {
-            /// <summary />
-            [JsonPropertyName("fontWeightBold")]
-            public string Bold { get; set; }
+        [JsonPropertyName("durationSlower")]
+        public string Slower { get; set; }
 
-            /// <summary />
-            [JsonPropertyName("fontWeightMedium")]
-            public string Medium { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("fontWeightRegular")]
-            public string Regular { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("fontWeightSemibold")]
-            public string Semibold { get; set; }
-
-        }
         /// <summary />
-        public partial class Family
-        {
-            /// <summary />
-            [JsonPropertyName("fontFamilyBase")]
-            public string Base { get; set; }
+        [JsonPropertyName("durationSlow")]
+        public string Slow { get; set; }
 
-            /// <summary />
-            [JsonPropertyName("fontFamilyMonospace")]
-            public string Monospace { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("fontFamilyNumeric")]
-            public string Numeric { get; set; }
-
-        }
         /// <summary />
-        public partial class Size
-        {
-            /// <summary />
-            [JsonPropertyName("fontSizeBase100")]
-            public string Base100 { get; set; }
+        [JsonPropertyName("durationNormal")]
+        public string Normal { get; set; }
 
-            /// <summary />
-            [JsonPropertyName("fontSizeBase200")]
-            public string Base200 { get; set; }
+        /// <summary />
+        [JsonPropertyName("durationFaster")]
+        public string Faster { get; set; }
 
-            /// <summary />
-            [JsonPropertyName("fontSizeBase300")]
-            public string Base300 { get; set; }
+        /// <summary />
+        [JsonPropertyName("durationFast")]
+        public string Fast { get; set; }
 
-            /// <summary />
-            [JsonPropertyName("fontSizeBase400")]
-            public string Base400 { get; set; }
+        /// <summary />
+        [JsonPropertyName("durationGentle")]
+        public string Gentle { get; set; }
 
-            /// <summary />
-            [JsonPropertyName("fontSizeBase500")]
-            public string Base500 { get; set; }
+        /// <summary />
+        [JsonPropertyName("durationUltraFast")]
+        public string UltraFast { get; set; }
 
-            /// <summary />
-            [JsonPropertyName("fontSizeBase600")]
-            public string Base600 { get; set; }
+        /// <summary />
+        [JsonPropertyName("durationUltraSlow")]
+        public string UltraSlow { get; set; }
 
-            /// <summary />
-            [JsonPropertyName("fontSizeHero1000")]
-            public string Hero1000 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("fontSizeHero700")]
-            public string Hero700 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("fontSizeHero800")]
-            public string Hero800 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("fontSizeHero900")]
-            public string Hero900 { get; set; }
-
-        }
     }
     /// <summary />
-    public partial class Strokes
-    {
-        /// <summary />
-        public partial class Width
-        {
-            /// <summary />
-            [JsonPropertyName("strokeWidthThick")]
-            public string Thick { get; set; }
+    public ThemeColors Colors { get; set; } = new();
 
-            /// <summary />
-            [JsonPropertyName("strokeWidthThicker")]
-            public string Thicker { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("strokeWidthThickest")]
-            public string Thickest { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("strokeWidthThin")]
-            public string Thin { get; set; }
-
-        }
-    }
     /// <summary />
-    public partial class Colors
+    public partial class ThemeColors
     {
+
         /// <summary />
-        public partial class Subtle
-        {
-            /// <summary />
-            [JsonPropertyName("colorSubtleBackground")]
-            public string Background { get; set; }
+        public ThemeColorsStroke Stroke { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeColorsStroke
+    {
 
             /// <summary />
-            [JsonPropertyName("colorSubtleBackgroundHover")]
-            public string BackgroundHover { get; set; }
+            [JsonPropertyName("colorStrokeFocus1")]
+            public string Focus1 { get; set; }
 
             /// <summary />
-            [JsonPropertyName("colorSubtleBackgroundInverted")]
-            public string BackgroundInverted { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorSubtleBackgroundInvertedHover")]
-            public string BackgroundInvertedHover { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorSubtleBackgroundInvertedPressed")]
-            public string BackgroundInvertedPressed { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorSubtleBackgroundInvertedSelected")]
-            public string BackgroundInvertedSelected { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorSubtleBackgroundLightAlphaHover")]
-            public string BackgroundLightAlphaHover { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorSubtleBackgroundLightAlphaPressed")]
-            public string BackgroundLightAlphaPressed { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorSubtleBackgroundLightAlphaSelected")]
-            public string BackgroundLightAlphaSelected { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorSubtleBackgroundPressed")]
-            public string BackgroundPressed { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorSubtleBackgroundSelected")]
-            public string BackgroundSelected { get; set; }
+            [JsonPropertyName("colorStrokeFocus2")]
+            public string Focus2 { get; set; }
 
         }
         /// <summary />
-        public partial class Palette
-        {
+        public ThemeColorsBackground Background { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeColorsBackground
+    {
+
+            /// <summary />
+            [JsonPropertyName("colorBackgroundOverlay")]
+            public string Overlay { get; set; }
+
+        }
+        /// <summary />
+        public ThemeColorsCompound Compound { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeColorsCompound
+    {
+
+            /// <summary />
+            [JsonPropertyName("colorCompoundBrandBackground")]
+            public string BrandBackground { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorCompoundBrandBackgroundHover")]
+            public string BrandBackgroundHover { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorCompoundBrandBackgroundPressed")]
+            public string BrandBackgroundPressed { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorCompoundBrandForeground1")]
+            public string BrandForeground1 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorCompoundBrandForeground1Hover")]
+            public string BrandForeground1Hover { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorCompoundBrandForeground1Pressed")]
+            public string BrandForeground1Pressed { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorCompoundBrandStroke")]
+            public string BrandStroke { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorCompoundBrandStrokeHover")]
+            public string BrandStrokeHover { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorCompoundBrandStrokePressed")]
+            public string BrandStrokePressed { get; set; }
+
+        }
+        /// <summary />
+        public ThemeColorsPalette Palette { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeColorsPalette
+    {
+
             /// <summary />
             [JsonPropertyName("colorPaletteAnchorBackground2")]
             public string AnchorBackground2 { get; set; }
@@ -977,60 +1237,24 @@ public partial class ThemeCustom
 
         }
         /// <summary />
-        public partial class Background
-        {
+        public ThemeColorsScrollbar Scrollbar { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeColorsScrollbar
+    {
+
             /// <summary />
-            [JsonPropertyName("colorBackgroundOverlay")]
+            [JsonPropertyName("colorScrollbarOverlay")]
             public string Overlay { get; set; }
 
         }
         /// <summary />
-        public partial class Stroke
-        {
-            /// <summary />
-            [JsonPropertyName("colorStrokeFocus1")]
-            public string Focus1 { get; set; }
+        public ThemeColorsNeutral Neutral { get; set; } = new();
 
-            /// <summary />
-            [JsonPropertyName("colorStrokeFocus2")]
-            public string Focus2 { get; set; }
-
-        }
         /// <summary />
-        public partial class Transparent
-        {
-            /// <summary />
-            [JsonPropertyName("colorTransparentBackground")]
-            public string Background { get; set; }
+        public partial class ThemeColorsNeutral
+    {
 
-            /// <summary />
-            [JsonPropertyName("colorTransparentBackgroundHover")]
-            public string BackgroundHover { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorTransparentBackgroundPressed")]
-            public string BackgroundPressed { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorTransparentBackgroundSelected")]
-            public string BackgroundSelected { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorTransparentStroke")]
-            public string Stroke { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorTransparentStrokeDisabled")]
-            public string StrokeDisabled { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorTransparentStrokeInteractive")]
-            public string StrokeInteractive { get; set; }
-
-        }
-        /// <summary />
-        public partial class Neutral
-        {
             /// <summary />
             [JsonPropertyName("colorNeutralBackground1")]
             public string Background1 { get; set; }
@@ -1501,8 +1725,148 @@ public partial class ThemeCustom
 
         }
         /// <summary />
-        public partial class Brand
-        {
+        public ThemeColorsStatus Status { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeColorsStatus
+    {
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerBackground1")]
+            public string DangerBackground1 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerBackground2")]
+            public string DangerBackground2 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerBackground3")]
+            public string DangerBackground3 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerBackground3Hover")]
+            public string DangerBackground3Hover { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerBackground3Pressed")]
+            public string DangerBackground3Pressed { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerBorder1")]
+            public string DangerBorder1 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerBorder2")]
+            public string DangerBorder2 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerBorderActive")]
+            public string DangerBorderActive { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerForeground1")]
+            public string DangerForeground1 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerForeground2")]
+            public string DangerForeground2 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerForeground3")]
+            public string DangerForeground3 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusDangerForegroundInverted")]
+            public string DangerForegroundInverted { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusSuccessBackground1")]
+            public string SuccessBackground1 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusSuccessBackground2")]
+            public string SuccessBackground2 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusSuccessBackground3")]
+            public string SuccessBackground3 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusSuccessBorder1")]
+            public string SuccessBorder1 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusSuccessBorder2")]
+            public string SuccessBorder2 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusSuccessBorderActive")]
+            public string SuccessBorderActive { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusSuccessForeground1")]
+            public string SuccessForeground1 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusSuccessForeground2")]
+            public string SuccessForeground2 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusSuccessForeground3")]
+            public string SuccessForeground3 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusSuccessForegroundInverted")]
+            public string SuccessForegroundInverted { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusWarningBackground1")]
+            public string WarningBackground1 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusWarningBackground2")]
+            public string WarningBackground2 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusWarningBackground3")]
+            public string WarningBackground3 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusWarningBorder1")]
+            public string WarningBorder1 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusWarningBorder2")]
+            public string WarningBorder2 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusWarningBorderActive")]
+            public string WarningBorderActive { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusWarningForeground1")]
+            public string WarningForeground1 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusWarningForeground2")]
+            public string WarningForeground2 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusWarningForeground3")]
+            public string WarningForeground3 { get; set; }
+
+            /// <summary />
+            [JsonPropertyName("colorStatusWarningForegroundInverted")]
+            public string WarningForegroundInverted { get; set; }
+
+        }
+        /// <summary />
+        public ThemeColorsBrand Brand { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeColorsBrand
+    {
+
             /// <summary />
             [JsonPropertyName("colorBrandBackground")]
             public string Background { get; set; }
@@ -1649,331 +2013,91 @@ public partial class ThemeCustom
 
         }
         /// <summary />
-        public partial class Status
-        {
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerBackground1")]
-            public string DangerBackground1 { get; set; }
+        public ThemeColorsTransparent Transparent { get; set; } = new();
 
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerBackground2")]
-            public string DangerBackground2 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerBackground3")]
-            public string DangerBackground3 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerBackground3Hover")]
-            public string DangerBackground3Hover { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerBackground3Pressed")]
-            public string DangerBackground3Pressed { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerBorder1")]
-            public string DangerBorder1 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerBorder2")]
-            public string DangerBorder2 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerBorderActive")]
-            public string DangerBorderActive { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerForeground1")]
-            public string DangerForeground1 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerForeground2")]
-            public string DangerForeground2 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerForeground3")]
-            public string DangerForeground3 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusDangerForegroundInverted")]
-            public string DangerForegroundInverted { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusSuccessBackground1")]
-            public string SuccessBackground1 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusSuccessBackground2")]
-            public string SuccessBackground2 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusSuccessBackground3")]
-            public string SuccessBackground3 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusSuccessBorder1")]
-            public string SuccessBorder1 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusSuccessBorder2")]
-            public string SuccessBorder2 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusSuccessBorderActive")]
-            public string SuccessBorderActive { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusSuccessForeground1")]
-            public string SuccessForeground1 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusSuccessForeground2")]
-            public string SuccessForeground2 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusSuccessForeground3")]
-            public string SuccessForeground3 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusSuccessForegroundInverted")]
-            public string SuccessForegroundInverted { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusWarningBackground1")]
-            public string WarningBackground1 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusWarningBackground2")]
-            public string WarningBackground2 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusWarningBackground3")]
-            public string WarningBackground3 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusWarningBorder1")]
-            public string WarningBorder1 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusWarningBorder2")]
-            public string WarningBorder2 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusWarningBorderActive")]
-            public string WarningBorderActive { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusWarningForeground1")]
-            public string WarningForeground1 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusWarningForeground2")]
-            public string WarningForeground2 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusWarningForeground3")]
-            public string WarningForeground3 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorStatusWarningForegroundInverted")]
-            public string WarningForegroundInverted { get; set; }
-
-        }
         /// <summary />
-        public partial class Compound
-        {
-            /// <summary />
-            [JsonPropertyName("colorCompoundBrandBackground")]
-            public string BrandBackground { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorCompoundBrandBackgroundHover")]
-            public string BrandBackgroundHover { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorCompoundBrandBackgroundPressed")]
-            public string BrandBackgroundPressed { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorCompoundBrandForeground1")]
-            public string BrandForeground1 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorCompoundBrandForeground1Hover")]
-            public string BrandForeground1Hover { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorCompoundBrandForeground1Pressed")]
-            public string BrandForeground1Pressed { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorCompoundBrandStroke")]
-            public string BrandStroke { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorCompoundBrandStrokeHover")]
-            public string BrandStrokeHover { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("colorCompoundBrandStrokePressed")]
-            public string BrandStrokePressed { get; set; }
-
-        }
-        /// <summary />
-        public partial class Scrollbar
-        {
-            /// <summary />
-            [JsonPropertyName("colorScrollbarOverlay")]
-            public string Overlay { get; set; }
-
-        }
-    }
-    /// <summary />
-    public partial class Lines
+        public partial class ThemeColorsTransparent
     {
-        /// <summary />
-        public partial class Height
-        {
-            /// <summary />
-            [JsonPropertyName("lineHeightBase100")]
-            public string Base100 { get; set; }
 
             /// <summary />
-            [JsonPropertyName("lineHeightBase200")]
-            public string Base200 { get; set; }
+            [JsonPropertyName("colorTransparentBackground")]
+            public string Background { get; set; }
 
             /// <summary />
-            [JsonPropertyName("lineHeightBase300")]
-            public string Base300 { get; set; }
+            [JsonPropertyName("colorTransparentBackgroundHover")]
+            public string BackgroundHover { get; set; }
 
             /// <summary />
-            [JsonPropertyName("lineHeightBase400")]
-            public string Base400 { get; set; }
+            [JsonPropertyName("colorTransparentBackgroundPressed")]
+            public string BackgroundPressed { get; set; }
 
             /// <summary />
-            [JsonPropertyName("lineHeightBase500")]
-            public string Base500 { get; set; }
+            [JsonPropertyName("colorTransparentBackgroundSelected")]
+            public string BackgroundSelected { get; set; }
 
             /// <summary />
-            [JsonPropertyName("lineHeightBase600")]
-            public string Base600 { get; set; }
+            [JsonPropertyName("colorTransparentStroke")]
+            public string Stroke { get; set; }
 
             /// <summary />
-            [JsonPropertyName("lineHeightHero1000")]
-            public string Hero1000 { get; set; }
+            [JsonPropertyName("colorTransparentStrokeDisabled")]
+            public string StrokeDisabled { get; set; }
 
             /// <summary />
-            [JsonPropertyName("lineHeightHero700")]
-            public string Hero700 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("lineHeightHero800")]
-            public string Hero800 { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("lineHeightHero900")]
-            public string Hero900 { get; set; }
+            [JsonPropertyName("colorTransparentStrokeInteractive")]
+            public string StrokeInteractive { get; set; }
 
         }
-    }
-    /// <summary />
-    public partial class Spacings
+        /// <summary />
+        public ThemeColorsSubtle Subtle { get; set; } = new();
+
+        /// <summary />
+        public partial class ThemeColorsSubtle
     {
-        /// <summary />
-        public partial class Vertical
-        {
-            /// <summary />
-            [JsonPropertyName("spacingVerticalL")]
-            public string L { get; set; }
 
             /// <summary />
-            [JsonPropertyName("spacingVerticalM")]
-            public string M { get; set; }
+            [JsonPropertyName("colorSubtleBackground")]
+            public string Background { get; set; }
 
             /// <summary />
-            [JsonPropertyName("spacingVerticalMNudge")]
-            public string MNudge { get; set; }
+            [JsonPropertyName("colorSubtleBackgroundHover")]
+            public string BackgroundHover { get; set; }
 
             /// <summary />
-            [JsonPropertyName("spacingVerticalNone")]
-            public string None { get; set; }
+            [JsonPropertyName("colorSubtleBackgroundInverted")]
+            public string BackgroundInverted { get; set; }
 
             /// <summary />
-            [JsonPropertyName("spacingVerticalS")]
-            public string S { get; set; }
+            [JsonPropertyName("colorSubtleBackgroundInvertedHover")]
+            public string BackgroundInvertedHover { get; set; }
 
             /// <summary />
-            [JsonPropertyName("spacingVerticalSNudge")]
-            public string SNudge { get; set; }
+            [JsonPropertyName("colorSubtleBackgroundInvertedPressed")]
+            public string BackgroundInvertedPressed { get; set; }
 
             /// <summary />
-            [JsonPropertyName("spacingVerticalXL")]
-            public string XL { get; set; }
+            [JsonPropertyName("colorSubtleBackgroundInvertedSelected")]
+            public string BackgroundInvertedSelected { get; set; }
 
             /// <summary />
-            [JsonPropertyName("spacingVerticalXS")]
-            public string XS { get; set; }
+            [JsonPropertyName("colorSubtleBackgroundLightAlphaHover")]
+            public string BackgroundLightAlphaHover { get; set; }
 
             /// <summary />
-            [JsonPropertyName("spacingVerticalXXL")]
-            public string XXL { get; set; }
+            [JsonPropertyName("colorSubtleBackgroundLightAlphaPressed")]
+            public string BackgroundLightAlphaPressed { get; set; }
 
             /// <summary />
-            [JsonPropertyName("spacingVerticalXXS")]
-            public string XXS { get; set; }
+            [JsonPropertyName("colorSubtleBackgroundLightAlphaSelected")]
+            public string BackgroundLightAlphaSelected { get; set; }
 
             /// <summary />
-            [JsonPropertyName("spacingVerticalXXXL")]
-            public string XXXL { get; set; }
-
-        }
-        /// <summary />
-        public partial class Horizontal
-        {
-            /// <summary />
-            [JsonPropertyName("spacingHorizontalL")]
-            public string L { get; set; }
+            [JsonPropertyName("colorSubtleBackgroundPressed")]
+            public string BackgroundPressed { get; set; }
 
             /// <summary />
-            [JsonPropertyName("spacingHorizontalM")]
-            public string M { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("spacingHorizontalMNudge")]
-            public string MNudge { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("spacingHorizontalNone")]
-            public string None { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("spacingHorizontalS")]
-            public string S { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("spacingHorizontalSNudge")]
-            public string SNudge { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("spacingHorizontalXL")]
-            public string XL { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("spacingHorizontalXS")]
-            public string XS { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("spacingHorizontalXXL")]
-            public string XXL { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("spacingHorizontalXXS")]
-            public string XXS { get; set; }
-
-            /// <summary />
-            [JsonPropertyName("spacingHorizontalXXXL")]
-            public string XXXL { get; set; }
+            [JsonPropertyName("colorSubtleBackgroundSelected")]
+            public string BackgroundSelected { get; set; }
 
         }
     }
