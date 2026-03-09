@@ -39,7 +39,44 @@ public static class ThemeCustomExtensions
         {
             themeCustom.FromDictionary(data);
         }
-        
+
         return themeCustom;
     }
+}
+
+[SuppressMessage("Design", "MA0048:File name must match type name", Justification = "Extension methods for ThemeCustom should be in the same file as the class.")]
+public partial class ThemeCustom
+{
+    /// <summary>
+    /// Initializes a new empty instance of the <see cref="ThemeCustom"/> class
+    /// </summary>
+    public ThemeCustom()
+    {
+
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ThemeCustom"/> class with values from a JSON string.
+    /// </summary>
+    /// <param name="json">The JSON string containing the theme custom values.</param>
+    [RequiresUnreferencedCode("This constructor uses reflection which may be trimmed.")]
+    public ThemeCustom(string json)
+    {
+        FromJson(json);
+    }
+
+    /// <summary>
+    /// Converts the current theme custom object to a JSON string.
+    /// </summary>
+    /// <returns></returns>
+    [RequiresUnreferencedCode("This method uses reflection which may be trimmed.")]
+    public string ToJson() => ThemeCustomExtensions.ToJson(this);
+
+    /// <summary>
+    /// Populates the theme custom object with values from a JSON string.
+    /// </summary>
+    /// <param name="json"></param>
+    /// <returns></returns>
+    [RequiresUnreferencedCode("This method uses reflection which may be trimmed.")]
+    public ThemeCustom FromJson(string json) => ThemeCustomExtensions.FromJson(this, json);
 }
