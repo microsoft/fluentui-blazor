@@ -103,7 +103,7 @@ function Get-CssVariableLines {
     
     $lines.Add("{")
 
-    foreach ($g1 in $result.Keys) {
+    foreach ($g1 in ($result.Keys | Sort-Object)) {
         
         if ($IsConstants) {
             $lines.Add("    /// <summary />")
@@ -130,8 +130,8 @@ function Get-CssVariableLines {
                 $prefix = ""
             }
 
-            foreach ($g2 in $result[$g1].Keys) {
-                foreach ($entry in $result[$g1][$g2]) {
+            foreach ($g2 in ($result[$g1].Keys | Sort-Object)) {
+                foreach ($entry in ($result[$g1][$g2] | Sort-Object Groupe3)) {
                     $lines.Add("        /// <summary />")
                     
                     if ($IsConstants) {
@@ -150,7 +150,7 @@ function Get-CssVariableLines {
 
         # Sub category: Group2
         else {
-            foreach ($g2 in $result[$g1].Keys) {
+            foreach ($g2 in ($result[$g1].Keys | Sort-Object)) {
 
                 if ($IsConstants) {
                     $lines.Add("        /// <summary />")
@@ -167,7 +167,7 @@ function Get-CssVariableLines {
                 }        
                 $lines.Add("")
 
-                foreach ($entry in $result[$g1][$g2]) {
+                foreach ($entry in ($result[$g1][$g2] | Sort-Object Groupe3)) {
                     if ($entry.Groupe3 -eq "") {
                         $entry.Groupe3 = "Default"
                     }
