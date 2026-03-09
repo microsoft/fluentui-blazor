@@ -120,7 +120,6 @@ function Get-CssVariableLines {
             $lines.Add("    public partial class Theme$g1")
             $lines.Add("    {")
         }
-        $lines.Add("")
 
         # Direct constants
         if ($g1 -eq "Durations" -or $g1 -eq "Shadows") {
@@ -165,9 +164,8 @@ function Get-CssVariableLines {
                     $lines.Add("")
                     $lines.Add("        /// <summary />")
                     $lines.Add("        public partial class Theme$g1$g2")
-                    $lines.Add("    {")
+                    $lines.Add("        {")
                 }        
-                $lines.Add("")
 
                 foreach ($entry in ($result[$g1][$g2] | Sort-Object Groupe3)) {
                     if ($entry.Groupe3 -eq "") {

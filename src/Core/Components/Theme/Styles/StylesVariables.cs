@@ -21,11 +21,9 @@ public static partial class StylesVariables
     /// <summary />
     public partial class Borders
     {
-
         /// <summary />
         public partial class Radius
         {
-
             /// <summary />
             public const string Large2X = "var(--borderRadius2XLarge)";
 
@@ -64,11 +62,9 @@ public static partial class StylesVariables
     /// <summary />
     public partial class Colors
     {
-
         /// <summary />
         public partial class Background
         {
-
             /// <summary />
             public const string Overlay = "var(--colorBackgroundOverlay)";
 
@@ -76,7 +72,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Brand
         {
-
             /// <summary />
             public const string Background = "var(--colorBrandBackground)";
 
@@ -189,7 +184,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Compound
         {
-
             /// <summary />
             public const string BrandBackground = "var(--colorCompoundBrandBackground)";
 
@@ -221,7 +215,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Neutral
         {
-
             /// <summary />
             public const string Background1 = "var(--colorNeutralBackground1)";
 
@@ -577,7 +570,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Palette
         {
-
             /// <summary />
             public const string AnchorBackground2 = "var(--colorPaletteAnchorBackground2)";
 
@@ -1032,7 +1024,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Scrollbar
         {
-
             /// <summary />
             public const string Overlay = "var(--colorScrollbarOverlay)";
 
@@ -1040,7 +1031,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Status
         {
-
             /// <summary />
             public const string DangerBackground1 = "var(--colorStatusDangerBackground1)";
 
@@ -1141,7 +1131,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Stroke
         {
-
             /// <summary />
             public const string Focus1 = "var(--colorStrokeFocus1)";
 
@@ -1152,7 +1141,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Subtle
         {
-
             /// <summary />
             public const string Background = "var(--colorSubtleBackground)";
 
@@ -1190,7 +1178,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Transparent
         {
-
             /// <summary />
             public const string Background = "var(--colorTransparentBackground)";
 
@@ -1217,11 +1204,9 @@ public static partial class StylesVariables
     /// <summary />
     public partial class Curves
     {
-
         /// <summary />
         public partial class Accelerate
         {
-
             /// <summary />
             public const string Max = "var(--curveAccelerateMax)";
 
@@ -1235,7 +1220,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Decelerate
         {
-
             /// <summary />
             public const string Max = "var(--curveDecelerateMax)";
 
@@ -1249,7 +1233,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Easy
         {
-
             /// <summary />
             public const string Ease = "var(--curveEasyEase)";
 
@@ -1260,7 +1243,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Linear
         {
-
             /// <summary />
             public const string Default = "var(--curveLinear)";
 
@@ -1269,7 +1251,6 @@ public static partial class StylesVariables
     /// <summary />
     public partial class Durations
     {
-
         /// <summary />
         public const string Fast = "var(--durationFast)";
 
@@ -1298,11 +1279,9 @@ public static partial class StylesVariables
     /// <summary />
     public partial class Fonts
     {
-
         /// <summary />
         public partial class Family
         {
-
             /// <summary />
             public const string Base = "var(--fontFamilyBase)";
 
@@ -1316,7 +1295,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Size
         {
-
             /// <summary />
             public const string Base100 = "var(--fontSizeBase100)";
 
@@ -1351,7 +1329,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Weight
         {
-
             /// <summary />
             public const string Bold = "var(--fontWeightBold)";
 
@@ -1369,11 +1346,9 @@ public static partial class StylesVariables
     /// <summary />
     public partial class Lines
     {
-
         /// <summary />
         public partial class Height
         {
-
             /// <summary />
             public const string Base100 = "var(--lineHeightBase100)";
 
@@ -1409,7 +1384,6 @@ public static partial class StylesVariables
     /// <summary />
     public partial class Shadows
     {
-
         /// <summary />
         public const string Shadows16 = "var(--shadow16)";
 
@@ -1450,11 +1424,9 @@ public static partial class StylesVariables
     /// <summary />
     public partial class Spacings
     {
-
         /// <summary />
         public partial class Horizontal
         {
-
             /// <summary />
             public const string L = "var(--spacingHorizontalL)";
 
@@ -1492,7 +1464,6 @@ public static partial class StylesVariables
         /// <summary />
         public partial class Vertical
         {
-
             /// <summary />
             public const string L = "var(--spacingVerticalL)";
 
@@ -1531,11 +1502,9 @@ public static partial class StylesVariables
     /// <summary />
     public partial class Strokes
     {
-
         /// <summary />
         public partial class Width
         {
-
             /// <summary />
             public const string Thick = "var(--strokeWidthThick)";
 

@@ -25,14 +25,12 @@ public partial class ThemeCustom
     /// <summary />
     public partial class ThemeBorders
     {
-
         /// <summary />
         public ThemeBordersRadius Radius { get; set; } = new();
 
         /// <summary />
         public partial class ThemeBordersRadius
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("borderRadius2XLarge")]
             public string? Large2X { get; set; }
@@ -85,14 +83,12 @@ public partial class ThemeCustom
     /// <summary />
     public partial class ThemeColors
     {
-
         /// <summary />
         public ThemeColorsBackground Background { get; set; } = new();
 
         /// <summary />
         public partial class ThemeColorsBackground
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("colorBackgroundOverlay")]
             public string? Overlay { get; set; }
@@ -103,8 +99,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeColorsBrand
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("colorBrandBackground")]
             public string? Background { get; set; }
@@ -255,8 +250,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeColorsCompound
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("colorCompoundBrandBackground")]
             public string? BrandBackground { get; set; }
@@ -299,8 +293,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeColorsNeutral
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("colorNeutralBackground1")]
             public string? Background1 { get; set; }
@@ -775,8 +768,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeColorsPalette
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("colorPaletteAnchorBackground2")]
             public string? AnchorBackground2 { get; set; }
@@ -1383,8 +1375,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeColorsScrollbar
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("colorScrollbarOverlay")]
             public string? Overlay { get; set; }
@@ -1395,8 +1386,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeColorsStatus
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("colorStatusDangerBackground1")]
             public string? DangerBackground1 { get; set; }
@@ -1531,8 +1521,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeColorsStroke
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("colorStrokeFocus1")]
             public string? Focus1 { get; set; }
@@ -1547,8 +1536,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeColorsSubtle
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("colorSubtleBackground")]
             public string? Background { get; set; }
@@ -1599,8 +1587,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeColorsTransparent
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("colorTransparentBackground")]
             public string? Background { get; set; }
@@ -1637,14 +1624,12 @@ public partial class ThemeCustom
     /// <summary />
     public partial class ThemeCurves
     {
-
         /// <summary />
         public ThemeCurvesAccelerate Accelerate { get; set; } = new();
 
         /// <summary />
         public partial class ThemeCurvesAccelerate
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("curveAccelerateMax")]
             public string? Max { get; set; }
@@ -1663,8 +1648,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeCurvesDecelerate
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("curveDecelerateMax")]
             public string? Max { get; set; }
@@ -1683,8 +1667,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeCurvesEasy
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("curveEasyEase")]
             public string? Ease { get; set; }
@@ -1699,8 +1682,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeCurvesLinear
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("curveLinear")]
             public string? Default { get; set; }
@@ -1713,7 +1695,6 @@ public partial class ThemeCustom
     /// <summary />
     public partial class ThemeDurations
     {
-
         /// <summary />
         [JsonPropertyName("durationFast")]
         public string? Fast { get; set; }
@@ -1753,14 +1734,12 @@ public partial class ThemeCustom
     /// <summary />
     public partial class ThemeFonts
     {
-
         /// <summary />
         public ThemeFontsFamily Family { get; set; } = new();
 
         /// <summary />
         public partial class ThemeFontsFamily
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("fontFamilyBase")]
             public string? Base { get; set; }
@@ -1779,8 +1758,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeFontsSize
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("fontSizeBase100")]
             public string? Base100 { get; set; }
@@ -1827,8 +1805,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeFontsWeight
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("fontWeightBold")]
             public string? Bold { get; set; }
@@ -1853,14 +1830,12 @@ public partial class ThemeCustom
     /// <summary />
     public partial class ThemeLines
     {
-
         /// <summary />
         public ThemeLinesHeight Height { get; set; } = new();
 
         /// <summary />
         public partial class ThemeLinesHeight
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("lineHeightBase100")]
             public string? Base100 { get; set; }
@@ -1909,7 +1884,6 @@ public partial class ThemeCustom
     /// <summary />
     public partial class ThemeShadows
     {
-
         /// <summary />
         [JsonPropertyName("shadow16")]
         public string? Shadows16 { get; set; }
@@ -1965,14 +1939,12 @@ public partial class ThemeCustom
     /// <summary />
     public partial class ThemeSpacings
     {
-
         /// <summary />
         public ThemeSpacingsHorizontal Horizontal { get; set; } = new();
 
         /// <summary />
         public partial class ThemeSpacingsHorizontal
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("spacingHorizontalL")]
             public string? L { get; set; }
@@ -2023,8 +1995,7 @@ public partial class ThemeCustom
 
         /// <summary />
         public partial class ThemeSpacingsVertical
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("spacingVerticalL")]
             public string? L { get; set; }
@@ -2077,14 +2048,12 @@ public partial class ThemeCustom
     /// <summary />
     public partial class ThemeStrokes
     {
-
         /// <summary />
         public ThemeStrokesWidth Width { get; set; } = new();
 
         /// <summary />
         public partial class ThemeStrokesWidth
-    {
-
+        {
             /// <summary />
             [JsonPropertyName("strokeWidthThick")]
             public string? Thick { get; set; }
