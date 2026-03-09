@@ -87,7 +87,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       }
     });
 
-    blazor.registerCustomEventType('listboxchange', {
+    blazor.registerCustomEventType('listchange', {
       browserEventName: 'listboxchange',
       createEventArgs: (event: any)=> {
         return {
@@ -155,7 +155,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
   }
 
   export function TextInput(blazor: Blazor) {
-    blazor.registerCustomEventType('immediate', {
+    blazor.registerCustomEventType('textimmediate', {
       browserEventName: 'immediate',
       createEventArgs: (event: any)=> {
        return {
