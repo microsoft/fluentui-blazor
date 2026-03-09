@@ -63,6 +63,11 @@ function Get-CssVariableLines {
         return $name
     }
 
+    # Fix JSON attribute names by removing the var(-- and ) parts
+    function Fix-JsonAttribute($name) {
+        return $name.replace("var(", "").replace(")", "").Replace("--", "")
+    }
+
     # Display the result
     $lines.Add("// ------------------------------------------------------------------------")
     $lines.Add("// This file is licensed to you under the MIT License.")
@@ -76,11 +81,25 @@ function Get-CssVariableLines {
     $lines.Add("//     the code is regenerated.")
     $lines.Add("// </auto-generated>")
     $lines.Add("//------------------------------------------------------------------------------")
+
+    if ($IsConstants) {
+    }
+    else {
+        $lines.Add("using System.Text.Json.Serialization;")
+    }
+
     $lines.Add("")
     $lines.Add("namespace Microsoft.FluentUI.AspNetCore.Components;")
     $lines.Add("")
     $lines.Add("/// <summary />")
-    $lines.Add("public partial class StylesVariables")
+    
+    if ($IsConstants) {
+        $lines.Add("public static partial class StylesVariables")
+    }
+    else {
+        $lines.Add("public partial class ThemeCustom")
+    }
+    
     $lines.Add("{")
 
     foreach ($g1 in $result.Keys) {
@@ -101,7 +120,14 @@ function Get-CssVariableLines {
             foreach ($g2 in $result[$g1].Keys) {
                 foreach ($entry in $result[$g1][$g2]) {
                     $lines.Add("        /// <summary />")
-                    $lines.Add("        public const string $(Fix-SizeName("$prefix$g2$($entry.Groupe3)")) = ""$($entry.Groupe4)"";")
+                    
+                    if ($IsConstants) {
+                        $lines.Add("        public const string $(Fix-SizeName("$prefix$g2$($entry.Groupe3)")) = ""$($entry.Groupe4)"";")
+                    }
+                    else {
+                        $lines.Add("        [JsonPropertyName(""$(Fix-JsonAttribute($entry.Groupe4))"")]")
+                        $lines.Add("        public string $(Fix-SizeName("$prefix$g2$($entry.Groupe3)")) { get; set; }")
+                    }
                     $lines.Add("")
                 }
             }
@@ -119,7 +145,14 @@ function Get-CssVariableLines {
                     }
 
                     $lines.Add("            /// <summary />")
-                    $lines.Add("            public const string $(Fix-SizeName($entry.Groupe3)) = ""$($entry.Groupe4)"";")
+                    
+                    if ($IsConstants) {
+                        $lines.Add("            public const string $(Fix-SizeName($entry.Groupe3)) = ""$($entry.Groupe4)"";")
+                    }
+                    else {
+                        $lines.Add("            [JsonPropertyName(""$(Fix-JsonAttribute($entry.Groupe4))"")]")
+                        $lines.Add("            public string $(Fix-SizeName($entry.Groupe3)) { get; set; }")
+                    }
                     $lines.Add("")
                 }
                 $lines.Add("        }")
@@ -134,6 +167,7 @@ function Get-CssVariableLines {
 
 # Get the CSS variable constants lines
 $cssConstants = Get-CssVariableLines -IsConstants $true
+$cssVariables = Get-CssVariableLines -IsConstants $false
 
 # Write the result to the console
 $cssConstants | Write-Output
@@ -141,6 +175,11 @@ $cssConstants | Write-Output
 # Write the result to the StylesVariables.cs file
 $outputPath = Join-Path $PSScriptRoot "..\Core\Components\Theme\Styles\StylesVariables.cs"
 $cssConstants | Set-Content -Path $outputPath -Encoding UTF8
+Write-Host ">>> Written to: $outputPath"
+
+# Write the result to the ThemeCustom.cs file
+$outputPath = Join-Path $PSScriptRoot "..\Core\Components\Theme\Styles\ThemeCustom.cs"
+$cssVariables | Set-Content -Path $outputPath -Encoding UTF8
 Write-Host ">>> Written to: $outputPath"
 
 # Extract the matched item names
