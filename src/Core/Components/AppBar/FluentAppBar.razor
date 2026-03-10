@@ -3,7 +3,7 @@
 @inherits FluentComponentBase
 
 <CascadingValue TValue="InternalAppBarContext" Value="@_internalAppBarContext" IsFixed="true">
-	<nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation" orientation="@Orientation.ToAttributeValue()">
+	<nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation" orientation="@Orientation.ToAttributeValue()" hide-bar="@(HideActiveIndicator)">
 
 		@if (Items is null)
 		{
@@ -19,12 +19,12 @@
 		@if (AppsOverflow.Any())
 		{
 			<FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
-			<div id="@($"appbar-more-{Id}")" class="fluent-appbar-item" style="min-width: calc(var(--appbar-item-size)* 1px);" tabindex="0" fixed title="@Localizer[Localization.LanguageResource.AppBar_MoreItems]" @onclick="@TogglePopoverAsync">
+			<div id="@($"appbar-more-{Id}")" class="fluent-appbar-item" style="min-width: var(--appbar-item-size);" tabindex="0" fixed title="@Localizer[Localization.LanguageResource.AppBar_MoreItems]" @onclick="@TogglePopoverAsync">
 				<FluentStack Orientation="Orientation.Vertical"
 							 HorizontalAlignment="HorizontalAlignment.Center"
 							 VerticalAlignment="VerticalAlignment.Center"
 							 VerticalGap="0"
-							 Style="height: calc(var(--appbar-item-size) * 1px - 20px);">
+							 Style="height: calc(var(--appbar-item-size) - var(--appbar-item-height-adjustment));">
 					<FluentIcon Width="24" Value="@(new CoreIcons.Regular.Size20.MoreHorizontal())" Color="Color.Default" part="icon-rest" />
 					<FluentIcon Width="24" Value="@(new CoreIcons.Regular.Size20.MoreHorizontal())" Color="Color.Primary" part="icon-active" />
 				</FluentStack>

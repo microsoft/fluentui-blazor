@@ -2320,4 +2320,66 @@
         await cut.InvokeAsync(() => grid.RefreshDataAsync(force: true));
         Assert.Equal(2, refreshCount);
     }
+
+    [Fact]
+    public async Task FluentDataGrid_OnSortChanged_Fires()
+    {
+        // Arrange
+        var sortChanged = false;
+        DataGridSortEventArgs<Customer>? eventArgs = null;
+        var customers = GetCustomers().AsQueryable();
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@customers" OnSortChanged="@(e => { sortChanged = true; eventArgs = e; })">
+                <PropertyColumn Property="@(i => i.Name)" Title="Name" Sortable="true" />
+            </FluentDataGrid>);
+
+        var grid = cut.Instance;
+        var column = grid._columns[0];
+
+        // Act
+        await cut.InvokeAsync(() => grid.SortByColumnAsync(column, DataGridSortDirection.Ascending));
+
+        // Assert
+        Assert.True(sortChanged);
+        Assert.Equal(column, eventArgs?.Column);
+        Assert.True(eventArgs?.SortByAscending);
+
+        // Reset
+        sortChanged = false;
+
+        // Act - toggle to Descending. direction = Auto means "toggle".
+        await cut.InvokeAsync(() => grid.SortByColumnAsync(column, DataGridSortDirection.Auto));
+
+        // Assert
+        Assert.True(sortChanged);
+        Assert.Equal(column, eventArgs?.Column);
+        Assert.False(eventArgs?.SortByAscending);
+
+        // Reset
+        sortChanged = false;
+
+        // Act - Remove sort
+        await cut.InvokeAsync(() => grid.RemoveSortByColumnAsync(column));
+
+        // Assert
+        Assert.True(sortChanged);
+        Assert.Null(eventArgs?.Column);
+    }
+
+    [Fact]
+    public void FluentDataGrid_StripedRows()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" StripedRows="true">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" />
+                </ChildContent>
+                <EmptyContent><p>empty content</p></EmptyContent>
+            </FluentDataGrid>);
+
+        // Assert
+        cut.Verify();
+    }
 }

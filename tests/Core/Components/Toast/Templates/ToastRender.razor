@@ -1,0 +1,54 @@
+@implements IDisposable
+<div>Toast Content - @Name</div>
+
+@code {
+
+    private System.Threading.Timer? _timer;
+
+    [CascadingParameter]
+    public required IToastInstance Toast { get; set; }
+
+    [Parameter]
+    public string? Name { get; set; }
+
+    [Parameter]
+    public ToastRenderOptions Options { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Options.OnInitializedCount++;
+        await Task.Delay(100, Xunit.TestContext.Current.CancellationToken);
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Options.AutoClose && Options.AutoCloseDelay > 0)
+            {
+                _timer = new System.Threading.Timer(async _ =>
+                {
+                    await Toast.CloseAsync(Options.AutoCloseResult);
+                }, null, Options.AutoCloseDelay, 5000);
+            }
+
+            return;
+        }
+
+        if (Options.AutoClose && Options.AutoCloseDelay <= 0)
+        {
+            await Task.Delay(10, Xunit.TestContext.Current.CancellationToken);
+            await Toast.CloseAsync(Options.AutoCloseResult);
+        }
+    }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+}

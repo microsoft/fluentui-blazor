@@ -671,7 +671,6 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     public void Dispose()
     {
         _itemsChanged.Dispose();
-        GC.SuppressFinalize(this);
     }
 }
 

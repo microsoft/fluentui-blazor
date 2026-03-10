@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -149,16 +150,15 @@ public partial class FluentNav : FluentComponentBase
             }
 
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.Initialize", Id);
         }
     }
 
     /// <inheritdoc />
-    public override async ValueTask DisposeAsync()
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
         NavigationManager.LocationChanged -= OnLocationChanged;
-
-        await base.DisposeAsync();
-        GC.SuppressFinalize(this);
+        await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.Dispose", Id);
     }
 
     /// <summary>

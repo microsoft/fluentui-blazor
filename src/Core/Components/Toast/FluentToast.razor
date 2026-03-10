@@ -1,10 +1,13 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
+@{
+#pragma warning disable IL2111
+}
 
 <fluent-toast-b id="@Id"
-                class="@ClassValue"
-                style="@StyleValue"
+     class="@ClassValue"
+     style="@StyleValue"
                 opened="@(Opened ? "true" : "false")"
                 timeout="@Timeout"
                 position="@Position.ToAttributeValue()"
@@ -18,5 +21,18 @@
                 @ondialogtoggle="@OnToggleAsync">
     <CascadingValue Value="@Intent" IsFixed="true">
         @ChildContent
-    </CascadingValue>
-</fluent-toast-b>
+     @ondialogbeforetoggle="@OnToggleAsync"
+     @ondialogtoggle="@OnToggleAsync"
+     @attributes="AdditionalAttributes">
+    @if (Instance is not null)
+    {
+        <CascadingValue Value="Instance">
+            <DynamicComponent Type="@Instance.ComponentType"
+                              Parameters="Instance.Options.Parameters" />
+        </CascadingValue>
+    }
+    else
+    {
+        @ChildContent
+    }
+</div>

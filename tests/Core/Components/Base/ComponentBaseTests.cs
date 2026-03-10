@@ -23,6 +23,7 @@ public class ComponentBaseTests : Bunit.BunitContext
     [
         typeof(AspNetCore.Components._Imports),
         typeof(DialogOptions),
+        typeof(ToastOptions),
         typeof(FluentRadio<>),  // TODO: To update
         typeof(FluentTab),      // Excluded because the Tab content in rendered in the parent FluentTabs component
     ];

@@ -17,8 +17,7 @@ parameter: `DataGridDisplayMode.Grid` (default) and `DataGridDisplayMode.Table`.
 used to specify column widths in fractions. It basically provides an HTML table element with a `display: grid;` style.
 - With the `Table` mode, it uses standard HTML table elements and rendering. Column widths are best specified through the `Width` parameter on the columns.
 
-> [!NOTE]
-Specifically when using `Virtualize`, it is **highly recommended** to use the `Table` display mode as the `Grid` mode can exhibit odd scrolling behavior.
+> [!NOTE] Specifically when using `Virtualize`, it is **highly recommended** to use the `Table` display mode as the `Grid` mode can exhibit odd scrolling behavior.
 
 
 ## Accessibility
@@ -45,6 +44,8 @@ again will toggle the sort direction. When `HeaderCellAsButtonWithMenu` is true,
 
 A sort can be removed by right clicking (or by pressing <kbd>Shift</kbd> + <kbd>r</kbd>) on the header column (with exception of
 the default sort).
+
+_The minimal width for a sortable column is 75 pixels._
 
 ## Row size
 

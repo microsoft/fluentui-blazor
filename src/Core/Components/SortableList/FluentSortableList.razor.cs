@@ -12,12 +12,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A sortable list component that allows users to reorder items via drag-and-drop.
 /// <typeparam name="TItem">The type of the items in the list.</typeparam>
 /// </summary>
-public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisposable
+public partial class FluentSortableList<TItem> : FluentComponentBase
 {
     private ElementReference? _element;
     private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
-    private IJSObjectReference? _jsHandle;
-    private bool _disposed;
 
     /// <summary />
     public FluentSortableList(LibraryConfiguration configuration) : base(configuration)
@@ -132,11 +130,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
         if (firstRender)
         {
             _selfReference = DotNetObjectReference.Create(this);
-
-            if (!_disposed)
-            {
-                _jsHandle = await JSRuntime.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.Components.SortableList.Initialize", _element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
-            }
+            await JSRuntime.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.Components.SortableList.Initialize", _element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
         }
     }
 
@@ -231,29 +225,10 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
         }
     }
 
-    /// <summary />
-    public override async ValueTask DisposeAsync()
+    /// <inheritdoc />
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        if (_disposed)
-        {
-            return;
-        }
-
-        try
-        {
-            if (_jsHandle is not null)
-            {
-                await _jsHandle.InvokeVoidAsync("stop");
-                await _jsHandle.DisposeAsync();
-            }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException or OperationCanceledException)
-        {
-            // The circuit was disconnected or the task was canceled - we're disposing anyway
-        }
-
+        await jsModule.InvokeVoidAsync("stop");
         _selfReference?.Dispose();
-        _disposed = true;
-        await base.DisposeAsync();
     }
 }
