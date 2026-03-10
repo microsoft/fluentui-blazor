@@ -10,13 +10,14 @@
 
 @code
 {
-  IEnumerable<Country> SelectedCountries = [];
+    IEnumerable<Country> SelectedCountries = [];
 
-  Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
-  {
-    e.Items = Countries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
-                       .OrderBy(i => i.Name);
+    Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
+    {
+        Console.WriteLine($"Search text: {e.Text}");
+        e.Items = Countries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                           .OrderBy(i => i.Name);
 
-    return Task.CompletedTask;
-  }
+        return Task.CompletedTask;
+    }
 }

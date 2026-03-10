@@ -18,7 +18,7 @@
                          ImmediateDelay="@ImmediateDelay"
                          auto-complete="true"
                          AutoComplete="false"
-                         @onclick="@(e => _isOpen = true)"
+                         @onclick="@OnTextInputChangedAsync"
                          @bind-Value="@_textInput"
                          @bind-Value:after="@OnTextInputChangedAsync">
             @* Selected items *@
