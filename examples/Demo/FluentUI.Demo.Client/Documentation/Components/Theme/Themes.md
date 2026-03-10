@@ -70,12 +70,12 @@ The following methods are available for setting the brand color programmatically
 
 | Name | Description |
 |---|---|
-| `CreateCustomThemeAsync(string color, double hueTorsion, double vibrancy, bool isDark, bool isExact = false)` | Creates a Fluent Theme (returned as a `Dictionary`) which can then be applied to the application by passing it to the `SetThemeAsync` method. This allows you to generate a custom theme based on specific parameters and have full control over all the tokens. |
+| `CreateCustomThemeAsync(string color, double hueTorsion, double vibrancy, bool isDark, bool isExact = false)` | Creates a Theme which can then be applied to the application by passing it to the `SetThemeAsync` method. This allows you to generate a custom theme based on specific parameters and have full control over all the tokens. |
 | `SetThemeAsync(ThemeType type)` | Where `ThemeType` is an enum with the following values: `Default`, or `Teams`. Uses the effective mode (light or dark). |
 | `SetThemeAsync(ThemeType type, ThemeMode mode)` | Where `ThemeType` is an enum with the following values: `Default`, or `Teams`, and `ThemeMode` is an enum with the following values: `Light`, `Dark`, or `System`. |
 | `SetThemeAsync(string color, bool isExact = false)` | Where `color` should be a valid hex color code (e.g., `#FF0000`), and `isExact` controls whether the exact provided color is used for the brand background. Uses the effective mode (light or dark). |
 | `SetThemeAsync(string color, double hueTorsion, double vibrancy, ThemeMode mode, bool isExact = false)` | Control every aspect of the theme generation by providing the brand color, hue torsion, vibrancy, theme mode and whether to use the exact provided color in the ramp. Where `color` must be a valid hex color code (e.g., `#FF0000`), `hueTorsion` needs to be a number between `-0.5` and `0.5`, `vibrancy` needs to be a number between `-0.5` and `0.5`. |
-| `SetThemeAsync(IReadOnlyDictionary<string, string> theme)` | Where the `theme` parameter is a dictionary representing a Fluent Theme (created with `CreateCustomThemeAsync`), with token names as keys and their corresponding values as values. This allows you to apply a fully custom theme. |
+| `SetThemeAsync(IReadOnlyDictionary<string, string> theme)` | Where the `theme` parameter is a Theme (created with `CreateCustomThemeAsync`), with token names as keys and their corresponding values as values. This allows you to apply a fully custom theme. |
 | `ClearThemeSettingsAsync()` | Removes any stored theme configuration from `localStorage` and resets the theme to the default settings. |
 | `IsSystemDarkAsync()` | Boolean method that checks if the user's system preference is set to dark mode. |
 | `IsDarkModeAsync()` | Boolean method that checks if the current effective theme mode is dark mode. |
