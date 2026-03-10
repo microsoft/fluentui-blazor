@@ -15,6 +15,11 @@ public static class ZIndex
     public static int Dialog { get; set; } = 999;
 
     /// <summary>
+    /// ZIndex for the <see cref="FluentToast" /> component.
+    /// </summary>
+    public static int Toast { get; set; } = 999;
+
+    /// <summary>
     /// ZIndex for the <see cref="FluentBadge" /> and <see cref="FluentCounterBadge"/> components.
     /// </summary>
     public static int Badge { get; set; } = 999;

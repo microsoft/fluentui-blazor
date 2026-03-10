@@ -1,0 +1,21 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     @attributes="AdditionalAttributes">
+    @if (ToastService != null)
+    {
+        @foreach (var toast in ToastService.Items.Values.OrderBy(i => i.Index))
+        {
+            <FluentToast Id="@toast.Id"
+                         Class="@toast.Options?.ClassValue"
+                         Style="@toast.Options?.StyleValue"
+                         Data="@toast.Options?.Data"
+                         Instance="@toast"
+                         OnStateChange="@(toast.Options?.OnStateChange ?? EmptyOnStateChange)"
+                         @attributes="@AdditionalAttributes" />
+        }
+    }
+</div>
