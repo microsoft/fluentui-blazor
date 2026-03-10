@@ -70,24 +70,30 @@ The following methods are available for setting the brand color programmatically
 
 | Name | Description |
 |---|---|
-| `CreateCustomThemeAsync(string color, double hueTorsion, double vibrancy, bool isDark, bool isExact = false)` | Creates a Theme which can then be applied to the application by passing it to the `SetThemeAsync` method. This allows you to generate a custom theme based on specific parameters and have full control over all the tokens. |
-| `SetThemeAsync(ThemeType type)` | Where `ThemeType` is an enum with the following values: `Default`, or `Teams`. Uses the effective mode (light or dark). |
-| `SetThemeAsync(ThemeType type, ThemeMode mode)` | Where `ThemeType` is an enum with the following values: `Default`, or `Teams`, and `ThemeMode` is an enum with the following values: `Light`, `Dark`, or `System`. |
-| `SetThemeAsync(string color, bool isExact = false)` | Where `color` should be a valid hex color code (e.g., `#FF0000`), and `isExact` controls whether the exact provided color is used for the brand background. Uses the effective mode (light or dark). |
-| `SetThemeAsync(string color, double hueTorsion, double vibrancy, ThemeMode mode, bool isExact = false)` | Control every aspect of the theme generation by providing the brand color, hue torsion, vibrancy, theme mode and whether to use the exact provided color in the ramp. Where `color` must be a valid hex color code (e.g., `#FF0000`), `hueTorsion` needs to be a number between `-0.5` and `0.5`, `vibrancy` needs to be a number between `-0.5` and `0.5`. |
-| `SetThemeAsync(IReadOnlyDictionary<string, string> theme)` | Where the `theme` parameter is a Theme (created with `CreateCustomThemeAsync`), with token names as keys and their corresponding values as values. This allows you to apply a fully custom theme. |
+| `CreateCustomThemeAsync(ThemeSettings settings)` | Creates a custom `Theme` based on the specified settings. The returned theme can be modified by the caller before it is applied. |
+| `SetThemeAsync(Theme theme)` | Applies a fully custom `Theme` (for example created with `CreateCustomThemeAsync`). This applies the theme without generating it from brand settings. |
+| `SetThemeAsync(ThemeType type)` | Sets a built-in theme by type (`Default` or `Teams`) using the current effective mode (light or dark). |
+| `SetThemeAsync(ThemeType type, ThemeMode mode)` | Sets a built-in theme by type (`Default` or `Teams`) and a specific mode (`Light`, `Dark`, or `System`). |
+| `SetThemeAsync(string color, bool isExact = false)` | Sets a custom brand theme from a hex color (e.g. `#FF0000`). `isExact` controls whether the exact provided color is used for the brand background. Uses `ThemeMode.System`. |
+| `SetThemeAsync(ThemeSettings settings)` | Sets a custom brand theme using full settings control: brand color, hue torsion (`-0.5` to `0.5`), vibrancy (`-0.5` to `0.5`), mode, and exact color behavior. |
+| `SetLightThemeAsync()` | Convenience wrapper that sets the `Default` theme to `Light` mode. |
+| `SetDarkThemeAsync()` | Convenience wrapper that sets the `Default` theme to `Dark` mode. |
+| `SetSystemThemeAsync()` | Convenience wrapper that sets the `Default` theme to `System` mode. |
+| `SetTeamsLightThemeAsync()` | Convenience wrapper that sets the `Teams` theme to `Light` mode. |
+| `SetTeamsDarkThemeAsync()` | Convenience wrapper that sets the `Teams` theme to `Dark` mode. |
+| `SetTeamsSystemThemeAsync()` | Convenience wrapper that sets the `Teams` theme to `System` mode. |
 | `ClearThemeSettingsAsync()` | Removes any stored theme configuration from `localStorage` and resets the theme to the default settings. |
-| `IsSystemDarkAsync()` | Boolean method that checks if the user's system preference is set to dark mode. |
-| `IsDarkModeAsync()` | Boolean method that checks if the current effective theme mode is dark mode. |
-| `GetColorRampAsync()` | Returns the current, cached, color ramp as a dictionary ramp number and corresponding color values. |
+| `IsSystemDarkAsync()` | Returns whether the user's system preference is set to dark mode. |
+| `IsDarkModeAsync()` | Returns whether the current effective theme mode is dark mode. |
+| `GetColorRampAsync()` | Returns the current cached color ramp as a dictionary of ramp number to color value, or `null` if no custom ramp has been generated yet. |
 | `GetColorRampFromSettingsAsync(ThemeSettings settings)` | Generates a new color ramp based on the provided settings. Validates inputs and always recalculates the ramp without using the internal cache. Returns `null` for invalid inputs. |
-| `SwitchDirectionAsync()` | Change the effective theme direction between left-to-right (LTR) and right-to-left (RTL). This is particularly useful for supporting languages that are read from right to left, such as Arabic or Hebrew. |
-| `SwitchThemeAsync()` | Switches the effective theme mode between light and dark. This is particularly useful for allowing users to toggle between light and dark themes based on their preferences. |
+| `SwitchDirectionAsync()` | Switches the document direction between left-to-right (LTR) and right-to-left (RTL). |
+| `SwitchThemeAsync()` | Toggles between light and dark mode. Returns `true` if the new effective theme is dark. |
+| `SetThemeToElementAsync(ElementReference element, ThemeSettings settings)` | Applies a custom brand theme (from settings) to a specific element only; does not change the global theme. |
 
 The SetThemeAsync result is cached in `localStorage` so that the theme configuration can be persisted across sessions and restored on subsequent visits
-to the application. The only exception to this is when using the `SetThemeAsync(IReadOnlyDictionary<string, string> theme)` overload, which applies a
+to the application. The only exception to this is when using the `SetThemeAsync(Theme theme)` overload, which applies a
 fully custom theme without caching it.
-
 
 
 ## Theme Designer
