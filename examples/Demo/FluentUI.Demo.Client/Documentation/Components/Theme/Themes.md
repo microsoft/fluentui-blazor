@@ -44,7 +44,7 @@ We've added functionality which allows you to specify that the generated ramp sh
 gives you more control over the generated colors and ensures that the key color is included in the ramp. This can be particularly useful if you want to ensure
 that the exact brand color is used in certain UI elements while still benefiting from the generated shades and tints for other elements.
 
->[Note!] We can not guarantee that _all_ the colors in the ramp pass contrast checks for accessibility when using this 'exact" mode.
+>[!Note] We can not guarantee that _all_ the colors in the ramp pass contrast checks for accessibility when using this 'exact" mode.
 
 The choice of using a dark or a light theme mode determines which color(s) in the ramp will use the exact specified color. Technically, choosing to use an
 exact color will determine what values are assigned to the `--colorBrandBackground` and `--colorCompoundBrandBackground` CSS variables.

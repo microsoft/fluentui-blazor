@@ -23,88 +23,86 @@ public sealed class ThemeService : IThemeService
     }
 
     /// <inheritdoc />
-    public ValueTask<Dictionary<string, string>?> CreateCustomThemeAsync(string color, double hueTorsion, double vibrancy, bool isDark, bool isExact = false, CancellationToken cancellationToken = default)
+    public Task<Dictionary<string, string>?> CreateCustomThemeAsync(ThemeSettings settings)
         => _jsRuntime.InvokeAsync<Dictionary<string, string>?>(
-            "Blazor.theme.createBrandTheme",
-            cancellationToken,
-            color,
-            hueTorsion,
-            vibrancy,
-            isDark,
-            isExact);
+                "Blazor.theme.createBrandThemeFromSettings",
+                CancellationToken.None,
+                new
+                {
+                    color = settings.Color,
+                    hueTorsion = settings.HueTorsion,
+                    vibrancy = settings.Vibrancy,
+                    mode = settings.Mode.ToAttributeValue(),
+                    isExact = settings.IsExact,
+                })
+            .AsTask();
 
     /// <inheritdoc />
-    public ValueTask SetThemeAsync(IReadOnlyDictionary<string, string> theme, CancellationToken cancellationToken = default)
-        => InvokeVoidAsync("Blazor.theme.setBrandThemeFromTheme", cancellationToken, theme);
+    public Task SetThemeAsync(IReadOnlyDictionary<string, string> theme)
+        => InvokeVoidAsync("Blazor.theme.setBrandThemeFromTheme", theme);
 
     /// <inheritdoc />
-    public ValueTask SetThemeAsync(ThemeType type, CancellationToken cancellationToken = default)
+    public Task SetThemeAsync(ThemeType type)
     {
         return type switch
         {
-            ThemeType.Default => InvokeVoidAsync("Blazor.theme.setWebTheme", cancellationToken),
-            ThemeType.Teams => InvokeVoidAsync("Blazor.theme.setTeamsTheme", cancellationToken),
+            ThemeType.Default => InvokeVoidAsync("Blazor.theme.setWebTheme"),
+            ThemeType.Teams => InvokeVoidAsync("Blazor.theme.setTeamsTheme"),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, message: null),
         };
     }
 
     /// <inheritdoc />
-    public ValueTask SetThemeAsync(ThemeType type, ThemeMode mode, CancellationToken cancellationToken = default)
+    public Task SetThemeAsync(ThemeType type, ThemeMode mode)
     {
         return type switch
         {
-            ThemeType.Default => InvokeVoidAsync("Blazor.theme.setThemeMode", cancellationToken, mode.ToAttributeValue()),
-            ThemeType.Teams => InvokeVoidAsync("Blazor.theme.setTeamsThemeMode", cancellationToken, mode.ToAttributeValue()),
+            ThemeType.Default => InvokeVoidAsync("Blazor.theme.setThemeMode", mode.ToAttributeValue()),
+            ThemeType.Teams => InvokeVoidAsync("Blazor.theme.setTeamsThemeMode", mode.ToAttributeValue()),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, message: null),
         };
     }
 
     /// <inheritdoc />
-    public ValueTask SetThemeAsync(string color, bool isExact = false, CancellationToken cancellationToken = default)
-        => SetThemeAsync(color, 0, 0, ThemeMode.System, isExact, cancellationToken);
+    public Task SetThemeAsync(string color, bool isExact = false)
+        => SetThemeAsync(new ThemeSettings(color, 0, 0, ThemeMode.System, isExact));
 
     /// <inheritdoc />
-    public ValueTask SetThemeAsync(string color, double hueTorsion, double vibrancy, ThemeMode mode, bool isExact = false, CancellationToken cancellationToken = default)
-    {
-        if (mode == ThemeMode.Dark)
-        {
-            return InvokeVoidAsync("Blazor.theme.setBrandTheme", cancellationToken, color, hueTorsion, vibrancy, true, isExact);
-        }
-
-        if (mode == ThemeMode.Light)
-        {
-            return InvokeVoidAsync("Blazor.theme.setBrandTheme", cancellationToken, color, hueTorsion, vibrancy, false, isExact);
-        }
-
-        return isExact
-            ? InvokeVoidAsync("Blazor.theme.setBrandThemeFromColorExact", cancellationToken, color)
-            : InvokeVoidAsync("Blazor.theme.setBrandThemeFromColor", cancellationToken, color);
-    }
+    public Task SetThemeAsync(ThemeSettings settings)
+        => InvokeVoidAsync(
+            "Blazor.theme.setBrandThemeFromSettings",
+            new
+            {
+                color = settings.Color,
+                hueTorsion = settings.HueTorsion,
+                vibrancy = settings.Vibrancy,
+                mode = settings.Mode == ThemeMode.System ? null : settings.Mode.ToAttributeValue(),
+                isExact = settings.IsExact,
+            });
 
     /// <inheritdoc />
-    public ValueTask SwitchDirectionAsync(CancellationToken cancellationToken = default)
-        => InvokeVoidAsync("Blazor.theme.switchDirection", cancellationToken);
+    public Task SwitchDirectionAsync()
+        => InvokeVoidAsync("Blazor.theme.switchDirection");
 
     /// <inheritdoc />
-    public ValueTask ClearThemeSettingsAsync(CancellationToken cancellationToken = default)
-        => InvokeVoidAsync("Blazor.theme.clearThemeSettings", cancellationToken);
+    public Task ClearThemeSettingsAsync()
+        => InvokeVoidAsync("Blazor.theme.clearThemeSettings");
 
     /// <inheritdoc />
-    public ValueTask<bool> IsSystemDarkAsync(CancellationToken cancellationToken = default)
-        => _jsRuntime.InvokeAsync<bool>("Blazor.theme.isSystemDark", cancellationToken);
+    public Task<bool> IsSystemDarkAsync()
+        => _jsRuntime.InvokeAsync<bool>("Blazor.theme.isSystemDark").AsTask();
 
     /// <inheritdoc />
-    public ValueTask<bool> IsDarkModeAsync(CancellationToken cancellationToken = default)
-        => _jsRuntime.InvokeAsync<bool>("Blazor.theme.isDarkMode", cancellationToken);
+    public Task<bool> IsDarkModeAsync()
+        => _jsRuntime.InvokeAsync<bool>("Blazor.theme.isDarkMode").AsTask();
 
     /// <inheritdoc />
-    public ValueTask<IReadOnlyDictionary<string, string>?> GetCachedRampAsync(CancellationToken cancellationToken = default)
-        => _jsRuntime.InvokeAsync<IReadOnlyDictionary<string, string>?>("Blazor.theme.getCachedRamp", cancellationToken);
-
+    public Task<IReadOnlyDictionary<string, string>?> GetCurrentColorRampAsync()
+        => _jsRuntime.InvokeAsync<IReadOnlyDictionary<string, string>?>("Blazor.theme.getCachedRamp").AsTask();
     /// <inheritdoc />
-    public ValueTask<bool> SwitchThemeAsync(CancellationToken cancellationToken = default)
-        => _jsRuntime.InvokeAsync<bool>("Blazor.theme.switchTheme", cancellationToken);
+    public Task<bool> SwitchThemeAsync()
+        => _jsRuntime.InvokeAsync<bool>("Blazor.theme.switchTheme", CancellationToken.None).AsTask();
 
-    private ValueTask InvokeVoidAsync(string identifier, CancellationToken cancellationToken, params object?[] args)
-        => _jsRuntime.InvokeVoidAsync(identifier, cancellationToken, args);
+    private Task InvokeVoidAsync(string identifier, params object?[] args)
+        => _jsRuntime.InvokeVoidAsync(identifier, args).AsTask();
 }

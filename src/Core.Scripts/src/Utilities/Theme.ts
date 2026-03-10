@@ -1,11 +1,11 @@
-import { webLightTheme, webDarkTheme, teamsDarkTheme, teamsLightTheme,  BrandVariants, Theme, createDarkTheme, createLightTheme } from '@fluentui/tokens';
+import { webLightTheme, webDarkTheme, teamsDarkTheme, teamsLightTheme, BrandVariants, Theme, createDarkTheme, createLightTheme } from '@fluentui/tokens';
 import { setTheme } from '@fluentui/web-components';
 import { getBrandTokensFromPalette } from './BrandRamp/ramp/getBrandTokensFromPalette';
 
 export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
 
   const THEME_STORAGE_KEY = 'fluentui-blazor:theme-settings';
-  const THEME_EFFECTIVE_ATTRIBUTE = 'data-theme-effective';
+  let _rampCache: RampCache | null = null;
 
   type ThemeMode = 'light' | 'dark' | 'system';
   type Direction = 'ltr' | 'rtl';
@@ -26,31 +26,42 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     dir?: Direction;
   };
 
+  type ThemePreferences = {
+    mode: ThemeMode;
+    base?: ThemeBase;
+    dir?: Direction;
+  };
+
   /**
-  * Sets the Fluent UI theme to light mode.
-  * Takes brand color from data-theme-color attribute and calculates a light theme palette
-  * If attribute not provided then checks local storage value.
-  * Fallback is default value
-  */
+   * Represents the settings used to generate a custom brand theme, including the base color, hue torsion, vibrancy, and theme mode.
+   */
+  export type ThemeSettings = { color: string; hueTorsion: number; vibrancy: number; mode?: ThemeMode | null; isExact?: boolean };
+
+  /**
+   * Sets the Fluent UI theme to light mode.
+   * Takes brand color from data-theme-color attribute to calculates a light theme color ramp (palette).
+   * If attribute not provided then checks local storage.
+   * Fallback is default colorvalue
+   */
   export function setLightTheme(): void {
-    applyTheme(false);
+    setThemeMode('light');
   }
 
   /**
    * Sets the Fluent UI theme to dark mode.
-   * Takes brand color from data-theme-color attribute and calculates a dark theme palette
-   * If attribute not provided then looks for a value in local storage.
-   * Fallback is default value
+   * Takes brand color from data-theme-color attribute to calculates a dark theme color ramp (palette).
+   * If attribute not provided then checks local storage.
+   * Fallback is default color value
    */
   export function setDarkTheme(): void {
-    applyTheme(true);
+    setThemeMode('dark');
   }
 
   /**
    * Sets the Fluent UI theme to match the system theme (dark/light).
-   * Takes brand color from data-theme-color attribute and calculates a theme palette
-   * If attribute not provided then looks for a value in local storage.
-   * Fallback is default value
+   * Takes brand color from data-theme-color attribute to calculates a theme color ramp (palette).
+   * If attribute not provided then checks local storage.
+   * Fallback is default color value
    */
   export function setSystemTheme(): void {
     setThemeMode('system');
@@ -58,34 +69,18 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
 
   /**
    * Sets the Fluent UI theme to the specified mode.
-   * Takes brand color from data-theme-color attribute and calculates a theme palette
-   * If attribute not provided then looks for a value in local storage.
-   * fallback is default value
+   * Takes brand color from data-theme-color attribute to calculate a theme color ramp (palette).
+   * If attribute not provided then checks local storage.
+   * Fallback is default color value
    * @param mode The theme mode to set ('light', 'dark', or 'system').
    */
 
-  export function setThemeMode(mode: ThemeMode): void {
-    if (mode === 'dark') {
-      updateStoredThemeSettings({ base: undefined, theme: 'dark' });
-      setDarkTheme();
-      return;
-    }
-
-    if (mode === 'light') {
-      updateStoredThemeSettings({ base: undefined, theme: 'light' });
-      setLightTheme();
-      return;
-    }
-
-    updateStoredThemeSettings({ base: undefined, theme: undefined });
-    applyTheme(isSystemDark());
-  }
-
   /**
-   * Sets the Fluent UI theme to the built-in Web theme, based on the current effective mode.
+   * Sets the Fluent UI theme to the built-in Web theme, using the current effective mode.
    */
   export function setWebTheme(): void {
-    applyTheme(isDarkMode());
+    const next = updateThemeSettingsInStorage({ base: 'web' });
+    applyCurrentTheme(next);
   }
 
   /**
@@ -93,9 +88,8 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
    * Also updates localStorage so this base theme can be restored on a later run.
    */
   export function setTeamsLightTheme(): void {
-    updateStoredThemeSettings({ base: 'teams' });
-    setTheme(teamsLightTheme);
-    updateBodyTag(false);
+    updateThemeSettingsInStorage({ base: 'teams' });
+    applyTheme(false, 'teams');
   }
 
   /**
@@ -103,9 +97,8 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
    * Also updates localStorage so this base theme can be restored on a later run.
    */
   export function setTeamsDarkTheme(): void {
-    updateStoredThemeSettings({ base: 'teams' });
-    setTheme(teamsDarkTheme);
-    updateBodyTag(true);
+    updateThemeSettingsInStorage({ base: 'teams' });
+    applyTheme(true, 'teams');
   }
 
   /**
@@ -130,7 +123,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
       return;
     }
 
-    const isDark = isSystemDark();
+    const isDark = resolveIsDarkFromMode(mode);
     if (isDark) {
       setTeamsDarkTheme();
     } else {
@@ -143,38 +136,46 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
  * Also updates localStorage so this base theme can be restored on a later run.
  */
   export function setTeamsTheme(): void {
-    updateStoredThemeSettings({ base: 'teams' });
-    const isDark = isSystemDark();
-    if (isDark) {
-      setTeamsDarkTheme();
-    } else {
-      setTeamsLightTheme();
-    }
+    const next = updateThemeSettingsInStorage({ base: 'teams' });
+    applyCurrentTheme(next);
   }
+
+  export function setThemeMode(mode: ThemeMode): void {
+    if (mode === 'dark') {
+      const next = updateThemeSettingsInStorage({ theme: 'dark' });
+      applyCurrentTheme(next);
+      return;
+    }
+
+    if (mode === 'light') {
+      const next = updateThemeSettingsInStorage({ theme: 'light' });
+      applyCurrentTheme(next);
+      return;
+    }
+
+    const next = updateThemeSettingsInStorage({ theme: undefined });
+    applyCurrentTheme(next);
+  }
+
+
 
   /**
  * Create a Fluent UI theme based on a specified color and customizations for hue, vibrancy and theme.
- * @param color The primary color to generate the theme from, in hex format (e.g., #FF0000).
- * @param hueTorsion A number between -0.5 and 0.5 that adjusts the hue of the generated theme. Positive values shift the hue clockwise, negative values shift it counterclockwise.
- * @param vibrancy A number between -0.5 and 0.5 that adjusts the vibrancy of the generated theme. Positive values increase vibrancy, negative values decrease it.
- * @param isDark A boolean indicating whether to generate a dark theme (true) or light theme (false) based on the provided key color and customizations.
- * @param isExact A boolean indicating whether to use the exact color for the brand background.
+ * @param settings The settings to generate the theme, including the primary color in hex format, hue torsion, vibrancy, theme mode, and whether to use the exact color for the brand background.
  * @returns A Fluent UI Theme object, containing all token values, that can be applied globally or to specific elements, or null if the input parameters are invalid.
  */
-  export function createBrandTheme(
-    color: string,
-    hueTorsion: number,
-    vibrancy: number,
-    isDark: boolean,
-    isExact: boolean = false
-  ): Theme | null {
-    if (typeof color !== 'string' || !isValidHexColor(color)) return null;
-    if (typeof hueTorsion !== 'number' || !Number.isFinite(hueTorsion) || hueTorsion < -0.5 || hueTorsion > 0.5) return null;
-    if (typeof vibrancy !== 'number' || !Number.isFinite(vibrancy) || vibrancy < -0.5 || vibrancy > 0.5) return null;
+  export function createBrandTheme(settings: ThemeSettings): Theme | null {
+    if (typeof settings.color !== 'string' || !isValidHexColor(settings.color)) return null;
+    if (typeof settings.hueTorsion !== 'number' || !Number.isFinite(settings.hueTorsion) || settings.hueTorsion < -0.5 || settings.hueTorsion > 0.5) return null;
+    if (typeof settings.vibrancy !== 'number' || !Number.isFinite(settings.vibrancy) || settings.vibrancy < -0.5 || settings.vibrancy > 0.5) return null;
 
-    const normalized = normalizeHexColor(color);
-    const inputs: BrandRampInputs = { color: normalized, hueTorsion, vibrancy, isExact, isDark };
-    const ramp = getOrCreateCustomRamp(inputs);
+    const isExact = settings.isExact ?? false;
+
+    const isDark = resolveIsDarkFromThemeSettings(settings);
+
+    const normalized = normalizeHexColor(settings.color);
+    const inputs: BrandRampInputs = { color: normalized, hueTorsion: settings.hueTorsion, vibrancy: settings.vibrancy, isExact, isDark };
+    const ramp = getOrCreateRamp(inputs);
     return isDark ? createDarkTheme(ramp) : createLightTheme(ramp);
   }
 
@@ -186,65 +187,71 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   }
 
   /**
-   * Sets a FluentUI theme globally based on a specified color and customizations for hue, vibrancy and theme.
-   * This allows dynamic generation of a theme that aligns with a brand color. The generated theme is stored in a cache to optimize performance for repeated inputs.
-   * @param color The primary color to generate the theme from, in hex format (e.g., #FF0000).
-   * @param hueTorsion A number between -0.5 and 0.5 that adjusts the hue of the generated theme. Positive values shift the hue clockwise, negative values shift it counterclockwise.
-   * @param vibrancy A number between -0.5 and 0.5 that adjusts the vibrancy of the generated theme. Positive values increase vibrancy, negative values decrease it.
-   * @param isDark A boolean indicating whether to generate a dark theme (true) or light theme (false) based on the provided key color and customizations.
-   * @param isExact A boolean indicating whether to use the exact color for the brand background.
+   * Sets a Fluent UI theme globally based on a specified color and customizations for hue, vibrancy and theme.
+   * @param settings The settings to generate the theme, including the primary color in hex format, hue torsion, vibrancy, theme mode, and whether to use the exact color for the brand background.
    */
-  export function setBrandTheme(color: string, hueTorsion: number, vibrancy: number, isDark: boolean, isExact: boolean = false): void {
-    const theme = createBrandTheme(color, hueTorsion, vibrancy, isDark, isExact);
+  export function setBrandThemeFromSettings(settings: ThemeSettings): void {
+    const theme = createBrandTheme(settings);
     if (!theme) return;
-    updateStoredThemeSettings({ color: normalizeHexColor(color), hue: hueTorsion, vibrancy, exact: isExact });
+
+    const isExact = settings.isExact ?? false;
+    updateThemeSettingsInStorage({
+      ...themeSettingsToStoredPatch({ ...settings, isExact }),
+      base: 'brand',
+    });
     setTheme(theme);
-    updateBodyTag(isDark);
+    updateBodyTag(resolveIsDarkFromThemeSettings(settings));
   }
 
   /**
-  * Sets a FluentUI theme globally based on the specified color and the current mode only.
-  * This allows dynamic generation of a theme that aligns with a brand color. The generated theme is stored in a cache to optimize performance for repeated inputs.
+  * Sets a Fluent UI theme globally based on the specified color using the current mode.
+  * Generates a ramp (palette) that aligns with the supplied color.
   * @param color The primary color to generate the theme from, in hex format (e.g., #FF0000).
   */
   export function setBrandThemeFromColor(color: string): void {
-    const isDark = isDarkMode();
-    const theme = createBrandTheme(color, 0, 0, isDark, false);
-    if (!theme) return;
-    updateStoredThemeSettings({ color: normalizeHexColor(color), hue: 0, vibrancy: 0, exact: false });
-    setTheme(theme);
-    updateBodyTag(isDark);
+    setBrandThemeFromSettings({ color, hueTorsion: 0, vibrancy: 0, mode: null, isExact: false });
   }
 
   /**
-   * Sets a FluentUI theme globally based on the exact specified color and the current mode only.
-   * This allows dynamic generation of a theme that aligns with a brand color. The generated theme is stored in a cache to optimize performance for repeated inputs.
+   * Sets a Fluent UI theme globally based on the exact specified color using the current mode only.
+   * Generates a ramp (palette) that aligns with the supplied color.
+   * Slots in the palette that are typically used for the brand color (e.g., 80 in light theme, 70 and 100 in dark theme) will be set to the
+   * exact color provided.
+   * THERE IS NO GUARANTEE ALL COLORS IN THE RAMP WILL PASS CONTRAST CHECKS FOR ACCESSIBILITY WHEN USING THIS EXACT MODE
    * @param color The primary color to generate the theme from, in hex format (e.g., #FF0000).
    */
   export function setBrandThemeFromColorExact(color: string): void {
-    const isDark = isDarkMode();
-    const theme = createBrandTheme(color, 0, 0, isDark, true);
-    if (!theme) return;
-    updateStoredThemeSettings({ color: normalizeHexColor(color), hue: 0, vibrancy: 0, exact: true });
-    setTheme(theme);
-    updateBodyTag(isDark);
+    setBrandThemeFromSettings({ color, hueTorsion: 0, vibrancy: 0, mode: null, isExact: true });
   }
 
-
-
   /**
-   * Sets the FluentUI theme on a specified element based on a specified color and customizations for hue, vibrancy and theme.
-   * This allows dynamic generation of a theme that aligns with a brand color. The generated theme is stored in a cache to optimize performance for repeated inputs.
-   * @param color The primary color to generate the theme from, in hex format (e.g., #FF0000).
-   * @param hueTorsion A number between -0.5 and 0.5 that adjusts the hue of the generated theme. Positive values shift the hue clockwise, negative values shift it counterclockwise.
-   * @param vibrancy A number between -0.5 and 0.5 that adjusts the vibrancy of the generated theme. Positive values increase vibrancy, negative values decrease it.
-   * @param isDark A boolean indicating whether to generate a dark theme (true) or light theme (false) based on the provided key color and customizations.
-   * @param isExact A boolean indicating whether to use the exact color for the brand background.
+   * Sets the Fluent UI theme on a specified element based on a specified color and customizations for hue, vibrancy and theme.
+   * @param settings The settings to generate the theme, including the primary color in hex format, hue torsion, vibrancy, theme mode, and whether to use the exact color for the brand background.
    */
-  export function setBrandThemeToElement(element: HTMLElement, color: string, hueTorsion: number, vibrancy: number, isDark: boolean, isExact: boolean = false): void {
-    const theme = createBrandTheme(color, hueTorsion, vibrancy, isDark, isExact);
+  export function setBrandThemeToElement(element: HTMLElement, settings: ThemeSettings): void {
+    const theme = createBrandTheme(settings);
     if (!theme) return;
     setTheme(theme, element);
+  }
+
+  /**
+   * Generates a new brand ramp (palette) from the provided settings.
+   * This always recalculates the ramp and does not use the internal cache.
+   */
+  export function getRampFromSettings(settings: ThemeSettings): BrandVariants | null {
+    if (typeof settings.color !== 'string' || !isValidHexColor(settings.color)) return null;
+    if (typeof settings.hueTorsion !== 'number' || !Number.isFinite(settings.hueTorsion) || settings.hueTorsion < -0.5 || settings.hueTorsion > 0.5) return null;
+    if (typeof settings.vibrancy !== 'number' || !Number.isFinite(settings.vibrancy) || settings.vibrancy < -0.5 || settings.vibrancy > 0.5) return null;
+
+    const isDark = resolveIsDarkFromThemeSettings(settings);
+    const isExact = settings.isExact ?? false;
+
+    const rampBase = createBrandRamp(normalizeHexColor(settings.color), settings.hueTorsion, settings.vibrancy);
+    return isExact
+      ? isDark
+        ? ({ ...rampBase, 70: normalizeHexColor(settings.color), 100: normalizeHexColor(settings.color) } as BrandVariants)
+        : ({ ...rampBase, 80: normalizeHexColor(settings.color) } as BrandVariants)
+      : rampBase;
   }
 
   /**
@@ -262,44 +269,40 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
    * care of calling this in the beforeStart lifecycle method.
    */
   export function addSystemThemeChangeListener(): void {
-    if ((window as any).__fluentuiBlazorSystemThemeChangeListener) {
+    if ((window as any).__FluentUIBlazorSystemThemeChangeListener) {
       return;
     }
-    (window as any).__fluentuiBlazorSystemThemeChangeListener = true;
+    (window as any).__FluentUIBlazorSystemThemeChangeListener = true;
 
     const mql = window.matchMedia?.('(prefers-color-scheme: dark)');
     if (!mql) return;
 
     const handler = (e?: MediaQueryListEvent) => {
-      const storedTheme = tryGetStoredThemeSettings()?.theme;
+      const storedTheme = tryGetThemePreferencesFromStorage(tryGetThemeSettingsFromStorage())?.mode;
       if (storedTheme === 'dark' || storedTheme === 'light') return;
 
       const bodyTheme = document.body.getAttribute('data-theme');
       if (bodyTheme === 'dark' || bodyTheme === 'light') return;
 
-      const isDark = e ? e.matches : mql.matches;
-      applyTheme(isDark);
+      applyCurrentTheme();
     };
 
     mql.addEventListener('change', handler);
   }
 
-  let _rampCache: RampCache | null = null;
-
   /**
    * Returns the currently cached custom brand ramp, or null if no custom ramp has been generated yet.
    */
-  export function getCachedRamp(): BrandVariants | null {
+  export function getCurrentRamp(): BrandVariants | null {
     return _rampCache?.ramp ?? null;
   }
 
 
   /**
-   * Returns true if the current FluentUI theme is dark mode
+   * Returns true if the current Fluent UI theme is dark mode
    */
   export function isDarkMode(): boolean {
-    const effectiveTheme = document.body.getAttribute(THEME_EFFECTIVE_ATTRIBUTE);
-    return effectiveTheme === 'dark';
+    return resolveEffectiveIsDark();
   }
 
   /**
@@ -316,11 +319,11 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
 
 
   /**
-   * Switches the FluentUI theme between light and dark mode.
+   * Switches the Fluent UI theme between light and dark mode.
    * Returns true if the new theme is dark mode, false otherwise.
    */
   export function switchTheme(): boolean {
-    const storedTheme = tryGetStoredThemeSettings()?.theme;
+    const storedTheme = tryGetThemePreferencesFromStorage(tryGetThemeSettingsFromStorage())?.mode;
     const isCurrentlyDark = storedTheme === 'dark' ? true : storedTheme === 'light' ? false : isDarkMode();
 
     if (isCurrentlyDark) {
@@ -333,7 +336,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   }
 
   /**
-   * Sets the initial Fluent UI theme to the default mode, color and customizations based on:
+   * Sets the initial Fluent UI theme to the default mode and color based on:
    * - body `data-theme` attribute (dark/light), else
    * - stored user preference in localStorage, else
    * - system preference
@@ -341,45 +344,21 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
    * Uses default webLightTheme/webDarkTheme unless custom BrandVariants exist.
    */
   export function initializeThemeSettings(): void {
-    const bodyTheme = document.body.getAttribute('data-theme');
-    const bodyThemeColor = document.body.getAttribute('data-theme-color');
-    const stored = tryGetStoredThemeSettings();
+    const stored = tryGetThemeSettingsFromStorage();
+    const prefs = tryGetThemePreferencesFromStorage(stored);
 
-    const modeToApply: ThemeMode =
-      bodyTheme === 'dark' || bodyTheme === 'light' || bodyTheme === 'system'
-        ? bodyTheme
-        : (stored?.theme ?? 'system');
-
-    const isDark =
-      modeToApply === 'dark'
-        ? true
-        : modeToApply === 'light'
-          ? false
-          : isSystemDark();
-
-    const hasColorAttribute = bodyThemeColor !== null;
-    if (!hasColorAttribute && stored?.base === 'teams') {
-      if (isDark) {
-        setTheme(teamsDarkTheme);
-      } else {
-        setTheme(teamsLightTheme);
-      }
-      updateBodyTag(isDark);
-    }
-    else {
-      applyTheme(isDark);
-    }
+    applyCurrentTheme(stored);
 
     const htmlElement = document.documentElement;
     const htmlDir = htmlElement?.getAttribute('dir');
     if (htmlDir === 'ltr' || htmlDir === 'rtl') {
-      updateStoredThemeSettings({ dir: htmlDir });
+      updateThemeSettingsInStorage({ dir: htmlDir });
     }
-    else if (stored?.dir !== undefined) {
-      updateStoredThemeSettings({ dir: undefined });
+    else if (prefs?.dir !== undefined) {
+      updateThemeSettingsInStorage({ dir: undefined });
     }
 
-    const dir: Direction | undefined = stored?.dir;
+    const dir: Direction | undefined = prefs?.dir;
     if (dir) {
       htmlElement?.setAttribute('dir', dir);
     }
@@ -391,7 +370,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
       const currentDir = htmlElement.getAttribute('dir');
       const newDir: Direction = currentDir === 'rtl' ? 'ltr' : 'rtl';
       htmlElement.setAttribute('dir', newDir);
-      updateStoredThemeSettings({ dir: newDir });
+      updateThemeSettingsInStorage({ dir: newDir });
     }
   }
 
@@ -400,10 +379,10 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   * to update the body `data-media` attribute with the current media query
   */
   export function addMediaQueriesListener(): void {
-    if ((window as any).__fluentuiBlazorMediaQueriesListener) {
+    if ((window as any).__FluentUIBlazorMediaQueriesListener) {
       return;
     }
-    (window as any).__fluentuiBlazorMediaQueriesListener = true;
+    (window as any).__FluentUIBlazorMediaQueriesListener = true;
 
     const getMediaQueries = (): { id: string, query: string }[] => {
       return [
@@ -447,43 +426,50 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     });
   }
 
-  function applyTheme(isDark: boolean): void {
+  function applyCurrentTheme(stored: StoredThemeSettings | null = null): void {
+    const storedSettings = stored ?? tryGetThemeSettingsFromStorage();
+    const prefs = tryGetThemePreferencesFromStorage(storedSettings);
+    const mode = resolveEffectiveThemeMode(null, prefs);
+    const isDark = resolveIsDarkFromMode(mode);
+
+    const bodyThemeColor = document.body.getAttribute('data-theme-color');
+    const effectiveBase = resolveEffectiveThemeBase(prefs, bodyThemeColor);
+    applyTheme(isDark, effectiveBase);
+  }
+
+  function applyTheme(isDark: boolean, base: ThemeBase): void {
+    const resolved = resolveTheme(isDark, base);
+    if (!resolved) return;
+    setTheme(resolved);
+    updateBodyTag(isDark);
+  }
+
+  function resolveTheme(isDark: boolean, base: ThemeBase): Theme | null {
+    if (base === 'teams') {
+      return isDark ? teamsDarkTheme : teamsLightTheme;
+    }
+
+    if (base === 'web') {
+      return isDark ? webDarkTheme : webLightTheme;
+    }
+
     const bodyThemeColor = document.body.getAttribute('data-theme-color');
     const overrideColor = bodyThemeColor && isValidHexColor(bodyThemeColor) ? normalizeHexColor(bodyThemeColor) : null;
-
     const hasColorAttribute = bodyThemeColor !== null;
     const hasValidOverrideColor = overrideColor !== null;
 
-    const bodyThemeHue = hasValidOverrideColor ? document.body.getAttribute('data-theme-hue') : null;
-    const overrideHue = tryParseThemeFloat(bodyThemeHue);
-
-    const bodyThemeVibrancy = hasValidOverrideColor ? document.body.getAttribute('data-theme-vibrancy') : null;
-    const overrideVibrancy = tryParseThemeFloat(bodyThemeVibrancy);
-
-    const stored = tryGetStoredThemeSettings();
-
-    const bodyThemeExact = hasValidOverrideColor ? document.body.getAttribute('data-theme-exact') : null;
-    const overrideExact = bodyThemeExact !== null ? (bodyThemeExact !== 'false' && bodyThemeExact !== '0') : null;
-
-    const isExact = hasValidOverrideColor
-      ? (overrideExact ?? false)
-      : hasColorAttribute
-        ? false
-        : (stored?.exact ?? false);
+    const stored = tryGetThemeSettingsFromStorage();
+    const storedRampSettings = tryGetBrandSettingsFromStorage(stored);
+    const isExact = storedRampSettings?.isExact ?? false;
 
     const customInputs = hasColorAttribute && !hasValidOverrideColor
       ? null
-      : tryGetCustomRampInputs(overrideColor, overrideHue, overrideVibrancy);
+      : tryGetRampInputs(overrideColor, storedRampSettings);
 
-    if (customInputs) {
-      const ramp = getOrCreateCustomRamp({ ...customInputs, isExact, isDark });
-      const theme: Theme = isDark ? createDarkTheme(ramp) : createLightTheme(ramp);
-      setTheme(theme);
-    } else {
-      setTheme(isDark ? webDarkTheme : webLightTheme);
-    }
+    if (!customInputs) return isDark ? webDarkTheme : webLightTheme;
 
-    updateBodyTag(isDark);
+    const ramp = getOrCreateRamp({ ...customInputs, isExact, isDark });
+    return isDark ? createDarkTheme(ramp) : createLightTheme(ramp);
   }
 
   function createBrandRamp(color: string, hueTorsion: number, vibrancy: number): BrandVariants {
@@ -494,7 +480,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     });
   }
 
-  function getOrCreateCustomRamp(inputs: BrandRampInputs): BrandVariants {
+  function getOrCreateRamp(inputs: BrandRampInputs): BrandVariants {
     if (_rampCache && areRampInputsEqual(_rampCache.inputs, inputs)) {
       return _rampCache.ramp;
     }
@@ -513,9 +499,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     return a.color === b.color && a.hueTorsion === b.hueTorsion && a.vibrancy === b.vibrancy && a.isExact === b.isExact && a.isDark === b.isDark;
   }
 
-
-
-  function tryGetStoredThemeSettings(): StoredThemeSettings | null {
+  function tryGetThemeSettingsFromStorage(): StoredThemeSettings | null {
     try {
       const stored = localStorage.getItem(THEME_STORAGE_KEY);
       if (!stored) return null;
@@ -526,9 +510,9 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     }
   }
 
-  function updateStoredThemeSettings(patch: Partial<StoredThemeSettings>): void {
+  function updateThemeSettingsInStorage(patch: Partial<StoredThemeSettings>): StoredThemeSettings {
     try {
-      const current = tryGetStoredThemeSettings() ?? {};
+      const current = tryGetThemeSettingsFromStorage() ?? {};
       const next: StoredThemeSettings = { ...current, ...patch };
 
       (Object.keys(next) as (keyof StoredThemeSettings)[]).forEach((k) => {
@@ -538,23 +522,32 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
       });
 
       localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(next));
+      return next;
     } catch {
       // ignore
+      return tryGetThemeSettingsFromStorage() ?? {};
     }
   }
 
-  function tryGetCustomRampInputs(overrideColor: string | null = null, overrideHue: number | null = null, overrideVibrancy: number | null = null): BrandRampInputs | null {
-    const settings = tryGetStoredThemeSettings();
-    const color = overrideColor ?? settings?.color;
-    if (typeof color !== 'string' || !isValidHexColor(color)) return null;
+  function resolveIsDarkFromMode(mode: ThemeMode): boolean {
+    return mode === 'dark' ? true : mode === 'light' ? false : isSystemDark();
+  }
 
-    const hueTorsion = overrideHue ?? (settings?.hue === undefined ? 0 : settings.hue);
-    const vibrancy = overrideVibrancy ?? (settings?.vibrancy === undefined ? 0 : settings.vibrancy);
+  function tryGetRampInputs(
+    overrideColor: string | null = null,
+    storedSettings: Pick<ThemeSettings, 'color' | 'hueTorsion' | 'vibrancy' | 'isExact'> | null = null
+  ): BrandRampInputs | null {
+    const colorRaw = overrideColor ?? storedSettings?.color;
+    if (typeof colorRaw !== 'string' || !isValidHexColor(colorRaw)) return null;
+
+    const hueTorsion = storedSettings?.hueTorsion ?? 0;
+    const vibrancy = storedSettings?.vibrancy ?? 0;
 
     if (typeof hueTorsion !== 'number' || !Number.isFinite(hueTorsion)) return null;
     if (typeof vibrancy !== 'number' || !Number.isFinite(vibrancy)) return null;
 
-    return { color: normalizeHexColor(color), hueTorsion, vibrancy, isExact: false, isDark: false };
+    const isExact = storedSettings?.isExact ?? false;
+    return { color: normalizeHexColor(colorRaw), hueTorsion, vibrancy, isExact, isDark: false };
   }
 
   function isValidHexColor(value: string): boolean {
@@ -572,29 +565,79 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     return v.toUpperCase();
   }
 
-  function tryParseThemeFloat(value: string | null): number | null {
-    if (value === null) return null;
-    const parsed = Number.parseFloat(value);
-    if (!Number.isFinite(parsed)) return null;
-    if (parsed < -0.5 || parsed > 0.5) return null;
-    return parsed;
-  }
-
-  // Update the body tag to set the data-theme attribute + raise event
   function updateBodyTag(isDark: boolean): void {
     const bodyTag: HTMLElement = document?.body;
 
     if (bodyTag) {
-      if (isDark) {
-        bodyTag.setAttribute(THEME_EFFECTIVE_ATTRIBUTE, 'dark');
-      } else {
-        bodyTag.setAttribute(THEME_EFFECTIVE_ATTRIBUTE, 'light');
-      }
-
       const event = new CustomEvent('themeChanged', {
         detail: { isDark }
       });
       bodyTag.dispatchEvent(event);
     }
+  }
+
+  function themeSettingsToStoredPatch(settings: ThemeSettings): Partial<StoredThemeSettings> {
+    return {
+      color: normalizeHexColor(settings.color),
+      hue: settings.hueTorsion,
+      vibrancy: settings.vibrancy,
+      exact: settings.isExact ?? false,
+    };
+  }
+
+  function tryGetBrandSettingsFromStorage(stored: StoredThemeSettings | null): Pick<ThemeSettings, 'color' | 'hueTorsion' | 'vibrancy' | 'isExact'> | null {
+    if (!stored) return null;
+    if (typeof stored.color !== 'string' || !isValidHexColor(stored.color)) return null;
+    const hueTorsion = stored.hue ?? 0;
+    const vibrancy = stored.vibrancy ?? 0;
+    if (typeof hueTorsion !== 'number' || !Number.isFinite(hueTorsion)) return null;
+    if (typeof vibrancy !== 'number' || !Number.isFinite(vibrancy)) return null;
+    return {
+      color: normalizeHexColor(stored.color),
+      hueTorsion,
+      vibrancy,
+      isExact: stored.exact ?? false,
+    };
+  }
+
+  function tryGetThemePreferencesFromStorage(stored: StoredThemeSettings | null): ThemePreferences | null {
+    if (!stored) return null;
+    const mode: ThemeMode = stored.theme ?? 'system';
+    const base = stored.base;
+    const dir = stored.dir;
+    return { mode, base, dir };
+  }
+
+  function resolveIsDarkFromThemeSettings(settings: ThemeSettings): boolean {
+    return settings.mode === 'dark'
+      ? true
+      : settings.mode === 'light'
+        ? false
+        : settings.mode === 'system' || settings.mode === undefined || settings.mode === null
+          ? isSystemDark()
+          : resolveEffectiveIsDark();
+  }
+
+  function resolveEffectiveThemeMode(bodyTheme: string | null = null, prefs: ThemePreferences | null = null): ThemeMode {
+    const bt = bodyTheme ?? document.body.getAttribute('data-theme');
+    if (bt === 'dark' || bt === 'light' || bt === 'system') return bt;
+
+    const p = prefs ?? tryGetThemePreferencesFromStorage(tryGetThemeSettingsFromStorage());
+    return p?.mode ?? 'system';
+  }
+
+  function resolveEffectiveIsDark(): boolean {
+    const mode = resolveEffectiveThemeMode();
+    return mode === 'dark' ? true : mode === 'light' ? false : isSystemDark();
+  }
+
+  function resolveEffectiveThemeBase(prefs: ThemePreferences | null, bodyThemeColor: string | null): ThemeBase {
+    const hasColorAttribute = bodyThemeColor !== null;
+    if (hasColorAttribute) return 'brand';
+
+    if (prefs?.base === 'web') return 'web';
+    if (prefs?.base === 'teams') return 'teams';
+    if (prefs?.base === 'brand') return 'brand';
+    return 'web';
   }
 }
