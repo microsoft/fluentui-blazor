@@ -6,10 +6,10 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Themes;
 
-public partial class ThemeCustomTests
+public partial class ThemeTests
 {
     [Fact]
-    public void ThemesCustom_Serialization()
+    public void Themes_Serialization()
     {
         // Arrange
         var theme = new Theme();
@@ -26,7 +26,7 @@ public partial class ThemeCustomTests
     }
 
     [Fact]
-    public void ThemeCustom_Deserialization()
+    public void Theme_Deserialization()
     {
         // Arrange
         var json = "{ \"borderRadiusLarge\": \"4px\", \"borderRadius2XLarge\": \"8px\" }";
@@ -44,7 +44,7 @@ public partial class ThemeCustomTests
     }
 
     [Fact]
-    public void ThemeCustom_Combine()
+    public void Theme_Combine()
     {
         // Arrange
         var json = "{ \"borderRadiusLarge\": \"4px\", \"borderRadius2XLarge\": \"8px\" }";
