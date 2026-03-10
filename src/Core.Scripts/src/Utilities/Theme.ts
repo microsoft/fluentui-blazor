@@ -21,7 +21,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     hue?: number;
     vibrancy?: number;
     exact?: boolean;
-    theme?: ThemeMode;
+    mode?: ThemeMode;
     base?: ThemeBase;
     dir?: Direction;
   };
@@ -142,18 +142,18 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
 
   export function setThemeMode(mode: ThemeMode): void {
     if (mode === 'dark') {
-      const next = updateThemeSettingsInStorage({ theme: 'dark' });
+      const next = updateThemeSettingsInStorage({ mode: 'dark' });
       applyCurrentTheme(next);
       return;
     }
 
     if (mode === 'light') {
-      const next = updateThemeSettingsInStorage({ theme: 'light' });
+      const next = updateThemeSettingsInStorage({ mode: 'light' });
       applyCurrentTheme(next);
       return;
     }
 
-    const next = updateThemeSettingsInStorage({ theme: undefined });
+    const next = updateThemeSettingsInStorage({ mode: undefined });
     applyCurrentTheme(next);
   }
 
@@ -194,12 +194,14 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     const theme = createBrandTheme(settings);
     if (!theme) return;
 
+    setTheme(theme);
+
     const isExact = settings.isExact ?? false;
     updateThemeSettingsInStorage({
       ...themeSettingsToStoredPatch({ ...settings, isExact }),
       base: 'brand',
+      mode: settings.mode === 'light' || settings.mode === 'dark' ? settings.mode : undefined
     });
-    setTheme(theme);
     updateBodyTag(resolveIsDarkFromThemeSettings(settings));
   }
 
@@ -601,7 +603,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
 
   function tryGetThemePreferencesFromStorage(stored: StoredThemeSettings | null): ThemePreferences | null {
     if (!stored) return null;
-    const mode: ThemeMode = stored.theme ?? 'system';
+    const mode: ThemeMode = stored.mode ?? 'system';
     const base = stored.base;
     const dir = stored.dir;
     return { mode, base, dir };
