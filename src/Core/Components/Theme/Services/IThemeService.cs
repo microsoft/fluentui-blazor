@@ -65,7 +65,7 @@ public interface IThemeService
     Task<bool> IsDarkModeAsync();
 
     /// <summary>
-    /// Returns the currently cached custom brand ramp, or null if no custom ramp has been generated yet.
+    /// Returns the current, cached, custom brand ramp, or null if no custom ramp has been generated yet.
     /// </summary>
     Task<IReadOnlyDictionary<string, string>?> GetColorRampAsync();
 

@@ -235,6 +235,13 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   }
 
   /**
+   * Returns the current, cached, custom brand ramp, or null if no custom ramp has been generated yet.
+   */
+  export function getColorRamp(): BrandVariants | null {
+    return _rampCache?.ramp ?? null;
+  }
+
+  /**
    * Generates a new brand ramp (palette) from the provided settings.
    * This always recalculates the ramp and does not use the internal cache.
    */
@@ -289,14 +296,6 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
 
     mql.addEventListener('change', handler);
   }
-
-  /**
-   * Returns the currently cached custom brand ramp, or null if no custom ramp has been generated yet.
-   */
-  export function getColorRamp(): BrandVariants | null {
-    return _rampCache?.ramp ?? null;
-  }
-
 
   /**
    * Returns true if the current Fluent UI theme is dark mode

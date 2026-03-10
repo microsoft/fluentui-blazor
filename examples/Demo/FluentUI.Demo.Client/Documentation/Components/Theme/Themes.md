@@ -79,7 +79,8 @@ The following methods are available for setting the brand color programmatically
 | `ClearThemeSettingsAsync()` | Removes any stored theme configuration from `localStorage` and resets the theme to the default settings. |
 | `IsSystemDarkAsync()` | Boolean method that checks if the user's system preference is set to dark mode. |
 | `IsDarkModeAsync()` | Boolean method that checks if the current effective theme mode is dark mode. |
-| `GetCachedRampAsync()` | Returns the currently cached color ramp as a dictionary ramp number and corresponding color values. |
+| `GetColorRampAsync()` | Returns the current, cached, color ramp as a dictionary ramp number and corresponding color values. |
+| `GetColorRampFromSettingsAsync(ThemeSettings settings)` | Generates a new color ramp based on the provided settings. Validates inputs and always recalculates the ramp without using the internal cache. Returns `null` for invalid inputs. |
 | `SwitchDirectionAsync()` | Change the effective theme direction between left-to-right (LTR) and right-to-left (RTL). This is particularly useful for supporting languages that are read from right to left, such as Arabic or Hebrew. |
 | `SwitchThemeAsync()` | Switches the effective theme mode between light and dark. This is particularly useful for allowing users to toggle between light and dark themes based on their preferences. |
 

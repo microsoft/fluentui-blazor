@@ -213,7 +213,7 @@ Adds a single `matchMedia('(prefers-color-scheme: dark)')` listener and re-appli
 Removes the stored settings object from `localStorage`.
 
 #### `getColorRamp(): BrandVariants | null`
-Returns the currently cached custom brand ramp, or `null` if no custom ramp has been generated yet.
+Returns the current, cached, custom brand ramp, or `null` if no custom ramp has been generated yet.
 
 #### `getColorRampFromSettings(settings: ThemeSettings): BrandVariants | null`
 Generates a new brand ramp (palette) from the provided settings.
