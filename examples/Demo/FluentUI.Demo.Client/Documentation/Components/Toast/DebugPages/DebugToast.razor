@@ -1,32 +1,32 @@
-@page "/Toast/Debug/Service"
+﻿@page "/Toast/Debug/Service"
 @inject IToastService ToastService
 
 <FluentButton OnClick="@OpenToastAsync"
               Appearance="ButtonAppearance.Primary">
-  Open Toast
+    Open Toast
 </FluentButton>
 
 @code
 {
-  private async Task OpenToastAsync()
-  {
-    var result = await ToastService.ShowToastAsync<DebugToastContent>(options =>
+    private async Task OpenToastAsync()
     {
-      options.Parameters.Add(nameof(DebugToastContent.Name), "John");
+        var result = await ToastService.ShowToastAsync<DebugToastContent>(options =>
+        {
+            options.Parameters.Add(nameof(DebugToastContent.Name), "John");
 
-      options.OnStateChange = (e) =>
-          {
-            Console.WriteLine($"State changed: {e.State}");
-          };
-    });
+            options.OnStateChange = (e) =>
+            {
+                  Console.WriteLine($"State changed: {e.State}");
+              };
+        });
 
-    if (result.Cancelled)
-    {
-      Console.WriteLine($"Toast Canceled: {result.Value}");
+        if (result.Cancelled)
+        {
+            Console.WriteLine($"Toast Canceled: {result.Value}");
+        }
+        else
+        {
+            Console.WriteLine($"Toast Confirmed: {result.Value}");
+        }
     }
-    else
-    {
-      Console.WriteLine($"Toast Confirmed: {result.Value}");
-    }
-  }
 }

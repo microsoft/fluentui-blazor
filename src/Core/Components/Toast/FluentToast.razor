@@ -6,8 +6,8 @@
 }
 
 <fluent-toast-b id="@Id"
-     class="@ClassValue"
-     style="@StyleValue"
+                class="@ClassValue"
+                style="@StyleValue"
                 opened="@(Opened ? "true" : "false")"
                 timeout="@Timeout"
                 position="@Position.ToAttributeValue()"
@@ -18,12 +18,8 @@
                 aria-labelledby="@($"{Id}-title")"
                 aria-describedby="@($"{Id}-body")"
                 @attributes="@AdditionalAttributes"
-                @ondialogtoggle="@OnToggleAsync">
-    <CascadingValue Value="@Intent" IsFixed="true">
-        @ChildContent
-     @ondialogbeforetoggle="@OnToggleAsync"
-     @ondialogtoggle="@OnToggleAsync"
-     @attributes="AdditionalAttributes">
+                @ondialogtoggle="@OnToggleAsync"
+                @ondialogbeforetoggle="@OnToggleAsync">
     @if (Instance is not null)
     {
         <CascadingValue Value="Instance">
@@ -35,4 +31,4 @@
     {
         @ChildContent
     }
-</div>
+</fluent-toast-b>

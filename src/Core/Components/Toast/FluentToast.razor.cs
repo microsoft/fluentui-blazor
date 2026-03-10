@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -13,6 +14,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentToast : FluentComponentBase
 {
     /// <summary />
+    [DynamicDependency(nameof(OnToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
     public FluentToast(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
@@ -24,7 +27,23 @@ public partial class FluentToast : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
+        // TDOD: Remode these styles (only for testing purposes)
+        .AddStyle("border", "1px solid #ccc;")
+        .AddStyle("padding", "16px")
+        .AddStyle("position", "fixed")
+        .AddStyle("top", "50%")
+        .AddStyle("left", "50%")
         .Build();
+
+    /// <summary />
+    [Inject]
+    private IToastService? ToastService { get; set; }
+
+    /// <summary>
+    /// Gets or sets the instance used by the <see cref="ToastService" />.
+    /// </summary>
+    [Parameter]
+    public IToastInstance? Instance { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be displayed in the toast.
@@ -49,7 +68,7 @@ public partial class FluentToast : FluentComponentBase
     /// Set to 0 to disable auto-dismiss.
     /// </summary>
     [Parameter]
-    public int Timeout { get; set; } = 50000;
+    public int Timeout { get; set; } = 7000;
 
     /// <summary>
     /// Gets or sets the toast position.
@@ -83,23 +102,36 @@ public partial class FluentToast : FluentComponentBase
     [Parameter]
     public EventCallback<bool> OnToggle { get; set; }
 
+    /// <summary>
+    /// Command executed when the user clicks on the button.
+    /// </summary>
+    [Parameter]
+    public EventCallback<ToastEventArgs> OnStateChange { get; set; }
+
+    /// <summary />
+    private bool LaunchedFromService => Instance is not null;
+
+    /// <summary />
+    internal Task<ToastEventArgs> RaiseOnStateChangeAsync(DialogToggleEventArgs args) => RaiseOnStateChangeAsync(new ToastEventArgs(this, args));
+
+    /// <summary />
+    internal Task<ToastEventArgs> RaiseOnStateChangeAsync(IToastInstance instance, DialogState state) => RaiseOnStateChangeAsync(new ToastEventArgs(instance, state));
+
     internal async Task OnToggleAsync(DialogToggleEventArgs args)
     {
-        var newState = string.Empty;
-        var argsId = string.Empty;
-
-        if (args is DialogToggleEventArgs toggleArgs)
-        {
-            newState = toggleArgs.NewState;
-            argsId = toggleArgs.Id;
-        }
-
-        if (string.CompareOrdinal(argsId, Id) != 0)
+        // Validate that the event belongs to this toast. For service-launched toasts, the DOM id
+        // is set to Instance.Id. For standalone usage it's the component Id.
+        var expectedId = Instance?.Id ?? Id;
+        if (string.CompareOrdinal(args.Id, expectedId) != 0)
         {
             return;
         }
 
-        var toggled = string.Equals(newState, "open", StringComparison.OrdinalIgnoreCase);
+        // Raise the event received from the Web Component
+        var toastEventArgs = await RaiseOnStateChangeAsync(args);
+
+        // Keep the Opened parameter in sync for both standalone and service usage.
+        var toggled = string.Equals(args.NewState, "open", StringComparison.OrdinalIgnoreCase);
         if (Opened != toggled)
         {
             Opened = toggled;
@@ -114,5 +146,55 @@ public partial class FluentToast : FluentComponentBase
                 await OpenedChanged.InvokeAsync(toggled);
             }
         }
+
+        if (LaunchedFromService)
+        {
+            switch (toastEventArgs.State)
+            {
+                case DialogState.Closing:
+                    (Instance as ToastInstance)?.ResultCompletion.TrySetResult(ToastResult.Cancel());
+                    break;
+
+                case DialogState.Closed:
+                    if (ToastService is ToastService toastService)
+                    {
+                        await toastService.RemoveToastFromProviderAsync(Instance);
+                    }
+
+                    break;
+            }
+        }
+    }
+
+    /// <summary />
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && LaunchedFromService)
+        {
+            var instance = Instance as ToastInstance;
+            if (instance is not null)
+            {
+                instance.FluentToast = this;
+            }
+
+            if (!Opened)
+            {
+                Opened = true;
+                return InvokeAsync(StateHasChanged);
+            }
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary />
+    private async Task<ToastEventArgs> RaiseOnStateChangeAsync(ToastEventArgs args)
+    {
+        if (OnStateChange.HasDelegate)
+        {
+            await InvokeAsync(() => OnStateChange.InvokeAsync(args));
+        }
+
+        return args;
     }
 }

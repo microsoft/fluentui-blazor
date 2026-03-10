@@ -50,10 +50,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
                 flex-direction: column;
                 gap: 8px;
                 display: grid;
-    grid-template-columns: auto 1fr auto;
-    font-size: var(--fontSizeBase300);
-    font-weight: var(--fontWeightSemibold);
-}
+                grid-template-columns: auto 1fr auto;
+                font-size: var(--fontSizeBase300);
+                font-weight: var(--fontWeightSemibold);
 
                 /* Fade out by default when hidden */
                 opacity: 0;

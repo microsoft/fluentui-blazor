@@ -1,11 +1,17 @@
-<div>
-  Toast Content
-</div>
-<div>
-  <FluentButton Appearance="ButtonAppearance.Primary"
-                OnClick="btnOK_Click">OK</FluentButton>
-  <FluentButton Appearance="ButtonAppearance.Default"
-                OnClick="btnCancel_Click">Cancel</FluentButton>
+﻿<div class="fluent-toast">
+    <div class="fluent-toast-title-icon">
+        <!-- icon -->
+    </div>
+    <div id="toast-title-123" class="fluent-toast-title">Email sent</div>
+    <div class="fluent-toast-title-action">
+        <!-- close or undo button as link -->
+    </div>
+    <div id="toast-body-123" class="fluent-toast-body">This is a toast body</div>
+    <div class="fluent-toast-body-subtitle">Subtitle</div>
+    <div class="fluent-toast-footer">
+        <!-- action button 1 as link -->
+        <!-- action button 2 as link -->
+    </div>
 </div>
 
 @code {
@@ -26,7 +32,7 @@
   {
     await Toast.CloseAsync(ToastResult.Ok("Yes"));
   }
-  
+
   private async Task btnCancel_Click()
   {
     await Toast.CloseAsync(ToastResult.Cancel("No"));
