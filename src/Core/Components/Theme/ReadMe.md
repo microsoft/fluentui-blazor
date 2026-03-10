@@ -77,8 +77,6 @@ Rules:
 
 #### `initializeThemeSettings()`
 
-> [!Note] This is the code that gets called when Blazor starts.
-
 Reads stored settings, applies the effective theme via the unified pipeline (`applyCurrentTheme(...)`), and then synchronizes the HTML `dir` attribute.
 
 Base resolution rules:
@@ -183,6 +181,14 @@ Applies a brand theme **only to a given element** via `setTheme(theme, element)`
 
 This does **not** persist anything to storage.
 
+#### `getRampFromSettings(settings: ThemeSettings): BrandVariants | null`
+Generates a new brand ramp (palette) from the provided settings.
+
+- Validates inputs using the same rules as `createBrandTheme(...)`.
+- Always recalculates the ramp and does **not** use the internal cache.
+
+Returns `null` for invalid inputs.
+
 ### State and utilities
 
 #### `isSystemDark()`
@@ -208,14 +214,6 @@ Removes the stored settings object from `localStorage`.
 
 #### `getCurrentRamp(): BrandVariants | null`
 Returns the currently cached custom brand ramp, or `null` if no custom ramp has been generated yet.
-
-#### `getRampFromSettings(settings: ThemeSettings): BrandVariants | null`
-Generates a new brand ramp (palette) from the provided settings.
-
-- Validates inputs using the same rules as `createBrandTheme(...)`.
-- Always recalculates the ramp and does **not** use the internal cache.
-
-Returns `null` for invalid inputs.
 
 #### `switchDirection()`
 Toggles HTML `dir` between `'ltr'` and `'rtl'` and persists it.

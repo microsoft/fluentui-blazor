@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace FluentUI.Demo.Client.Documentation.Components.Theme;
+namespace FluentUI.Demo.Client.Documentation.Components.Theme.Designer;
 
 public partial class ThemeDesigner
 {
-    string? _color = "#0F6CBD";
+    string _color = "#0F6CBD";
     string? _hue = "0";
     string? _vibrancy = "0";
     bool _isDark;
@@ -36,8 +36,10 @@ public partial class ThemeDesigner
         var hue = int.TryParse(_hue, out var h) ? h / 100.0 : 0;
         var vibrancy = int.TryParse(_vibrancy, out var v) ? v / 100.0 : 0;
 
+        _color = _color.ToUpper();
+
         var settings = new ThemeSettings(
-            _color!,
+            _color,
             hue,
             vibrancy,
             _isDark ? ThemeMode.Dark : ThemeMode.Light,

@@ -6,7 +6,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace FluentUI.Demo.Client.Documentation.Components.Theme;
+namespace FluentUI.Demo.Client.Documentation.Components.Theme.Designer;
 
 public partial class PaletteItem
 {

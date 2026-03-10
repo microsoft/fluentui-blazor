@@ -2,14 +2,40 @@
 <h3>Theme Designer</h3>
 
 <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="16px">
-    <FluentStack Orientation="Orientation.Vertical" VerticalGap="10" Width="250px" Style="background-color: var(--colorNeutralBackground3);" Padding="8px 8px 18px 8pxs" >
-        <FluentTextInput Label="Color" Width="150px" Placeholder="Color" @bind-Value="@_color" @bind-Value:after="@PreviewThemeAsync" TextInputType="TextInputType.Color" />
-        <p>Selected color in hex: @_color</p>
-        <FluentTextInput Label="Hue Torsion" @bind-Value="@_hue" @bind-Value:after="@PreviewThemeAsync" TextInputType="TextInputType.Number" Message="Between -50 and 50" MessageCondition="@FluentFieldCondition.Always" />
-        <FluentTextInput Label="Vibrancy" @bind-Value="@_vibrancy" @bind-Value:after="@PreviewThemeAsync" TextInputType="TextInputType.Number" Message="Between -50 and 50" MessageCondition="@FluentFieldCondition.Always" />
-        <FluentSwitch @bind-Value="@_isDark" @bind-Value:after="@PreviewThemeAsync" Label="Dark" />
-        <FluentSwitch @bind-Value="@_isExact" @bind-Value:after="@PreviewThemeAsync" Label="Use exact color" />
-        <FluentButton Appearance="ButtonAppearance.Primary" OnClick="@PreviewThemeAsync">Preview Theme</FluentButton>
+    <FluentStack Orientation="Orientation.Vertical" Width="255px" Style="background-color: var(--colorNeutralBackground3);" Padding="10px 10px 20px 10px">
+        <FluentTextInput Label="Color"
+                         Width="100%"
+                         @bind-Value="@_color"
+                         @bind-Value:after="@PreviewThemeAsync"
+                         TextInputType="TextInputType.Color"
+                         MessageCondition="@FluentFieldCondition.Always"
+                         MessageIcon="@(new Icons.Regular.Size24.PaintBrushSparkle())"
+                         Message="@($"Selected color (hex): {_color}")" />
+        <FluentTextInput Label="Hue Torsion"
+                         Width="100%"
+                         @bind-Value="@_hue"
+                         @bind-Value:after="@PreviewThemeAsync"
+                         TextInputType="TextInputType.Number"
+                         Message="Between -50 and 50"
+                         MessageIcon="@FluentStatus.InfoIcon"
+                         MessageCondition="@FluentFieldCondition.Always" />
+        <FluentTextInput Label="Vibrancy"
+                         Width="100%"
+                         @bind-Value="@_vibrancy"
+                         @bind-Value:after="@PreviewThemeAsync"
+                         TextInputType="TextInputType.Number"
+                         Message="Between -50 and 50"
+                         MessageIcon="@FluentStatus.InfoIcon"
+                         MessageCondition="@FluentFieldCondition.Always" />
+        <FluentSwitch Label="Dark"
+                      @bind-Value="@_isDark"
+                      @bind-Value:after="@PreviewThemeAsync" />
+        <FluentSwitch Label="Use exact color"
+                      @bind-Value="@_isExact"
+                      @bind-Value:after="@PreviewThemeAsync" />
+        <FluentButton Appearance="ButtonAppearance.Primary" OnClick="@PreviewThemeAsync">
+            Preview Theme
+        </FluentButton>
     </FluentStack>
 
 
@@ -38,8 +64,8 @@
                 <FluentGridItem Xs="12" Sm="4">
                     <FluentCard>
                         <h4>Inputs</h4>
-                        <FluentStack Orientation="Orientation.Vertical" >
-                            <FluentTextInput Label="Text" Placeholder="Type here" AutoComplete="off"/>
+                        <FluentStack Orientation="Orientation.Vertical">
+                            <FluentTextInput Label="Text" Placeholder="Type here" AutoComplete="off" />
                             <FluentTextInput Label="Number" Value="42" TextInputType="TextInputType.Number" AutoComplete="off" />
                             <FluentCheckbox Value="true" Label="Option 1" />
                             <FluentCheckbox Value="false" Label="Option 2" />

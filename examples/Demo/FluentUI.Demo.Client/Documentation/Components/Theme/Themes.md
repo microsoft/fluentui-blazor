@@ -44,7 +44,7 @@ We've added functionality which allows you to specify that the generated ramp sh
 gives you more control over the generated colors and ensures that the key color is included in the ramp. This can be particularly useful if you want to ensure
 that the exact brand color is used in certain UI elements while still benefiting from the generated shades and tints for other elements.
 
->[!Note] We can not guarantee that _all_ the colors in the ramp pass contrast checks for accessibility when using this 'exact" mode.
+>[!WARNING] When using the exact mode, there is no guarantee **_all_** colors in the generated ramp will pass contrast checks for accessibility.
 
 The choice of using a dark or a light theme mode determines which color(s) in the ramp will use the exact specified color. Technically, choosing to use an
 exact color will determine what values are assigned to the `--colorBrandBackground` and `--colorCompoundBrandBackground` CSS variables.
@@ -52,55 +52,36 @@ exact color will determine what values are assigned to the `--colorBrandBackgrou
 We offer two ways to set a custom brand color in your Blazor application:
 
 ### Set the Brand color declaratively
-You can add a `data-theme-color` attribute to the `<body>` tag in your HTML and set its value to a valid hex color code (e.g., #FF0000). The library will automatically detect this attribute, generate
-a color ramp based on the provided color, and apply it to the application.
+You can add a `data-theme` attribute to the `<body>` tag in your HTML and set its value to 'light', 'dark', or 'system' to specify the theme mode. This allows
+you to configure the theme mode.
 
-The full set of supported attributes for declaratively configuring the theme includes:
-- `data-theme`: Specifies the theme mode, which can be 'light', 'dark', or 'system'.
-- `data-theme-color`: Specifies the brand color using a valid hex color code (e.g., #FF0000).
-- `data-theme-hue`: Specifies the hue torsion for the color ramp generation, with a value between -0.5 and 0.5.
-- `data-theme-vibrancy`: Specifies the vibrancy for the color ramp generation, with a value between -0.5 and 0.5.
-- `data-theme-exact`: Specifies whether to use the exact provided color in the ramp, with a boolean value ('true' or 'false').
+You can add a `data-theme-color` attribute to the `<body>` tag in your HTML and set its value to a valid hex color code (e.g., #FF0000). The library will
+automatically detect this attribute, generate a color ramp based on the provided color, and apply it to the application.
 
-Declarative `data-theme-*` attributes are treated as developer-provided overrides and are **_not_** persisted to `localStorage`.
+The declarative `data-theme-*` attributes are treated as developer-provided overrides and are **_not_** persisted to `localStorage`.
+
+To have acces to all variables that are available to customize a theme, you can use the methods described below.
 
 ### Set the Brand color with code
-A full API is available for configuring the theme programmatically in your Blazor application. This allows you to dynamically change the theme based on user interactions
-or other conditions in your application.
+A full API is available for configuring the theme programmatically in your Blazor application. This allows you to dynamically change the theme based on user
+interactions or other conditions in your application.
 
 The following methods are available for setting the brand color programmatically:
 
-- `CreateCustomThemeAsync(string color, double hueTorsion, double vibrancy, bool isDark, bool isExact = false);`
-  Creates a Fluent Theme (returned as a `Dictionary`) which can then be applied to the application by passing it to the SetThemeAsync method. This allows you to generate a custom theme
-  based on specific parameters and have full control over all the tokens.
-- `SetThemeAsync(ThemeType type);`
-  Where `ThemeType` is an enum with the following values: `Default`, or `Teams`. Uses the effective mode (light or dark).
-- `SetThemeAsync(ThemeType type, ThemeMode mode);`
-  Where `ThemeType` is an enum with the following values: `Default`, or `Teams`, and `ThemeMode` is an enum with the following values: `Light`, `Dark`, or `System`.
-- `SetThemeAsync(string color, bool isExact = false);`
-  Where `color` should be a valid hex color code (e.g., #FF0000), and `isExact` controls whether the exact provided color is used for the brand background.
-  Uses the effective mode (light or dark).
-- `SetThemeAsync(string color, double hueTorsion, double vibrancy, ThemeMode mode, bool isExact = false);`
-  Control every aspect of the theme generation by providing the brand color, hue torsion, vibrancy, theme mode and whether to use the exact provided color
-  in the ramp. Where `color` must be a valid hex color code (e.g., #FF0000), `hueTorsion` needs to be a number between -0.5 and 0.5, `vibrancy` needs to be
-  a number between -0.5 and 0.5
-- `SetThemeAsync(IReadOnlyDictionary<string, string> theme);`
-  Where the `theme` parameter is a dictionary representing a Fluent Theme (created with `CreateCustomThemeAsync`), with token names as keys and their
-  corresponding values as values. This allows you to apply a fully custom theme.
-- `ClearThemeSettingsAsync();`
-  Removes any stored theme configuration from `localStorage` and resets the theme to the default settings.
-- `IsSystemDarkAsync();`
-  Boolean method that checks if the user's system preference is set to dark mode.
-- `IsDarkModeAsync();`
-  Boolean method that checks if the current effective theme mode is dark mode.
-- `GetCachedRampAsync();`
-  Returns the currently cached color ramp as a dictionary ramp number and corresponding color values.
-- `SwitchDirectionAsync();`
-  Change the effective theme direction between left-to-right (LTR) and right-to-left (RTL). This is particularly useful for supporting languages that are
-  read from right to left, such as Arabic or Hebrew.
-- `SwitchThemeAsync();`
-  Switches the effective theme mode between light and dark. This is particularly useful for allowing users to toggle between light and dark themes based
-  on their preferences.
+| Name | Description |
+|---|---|
+| `CreateCustomThemeAsync(string color, double hueTorsion, double vibrancy, bool isDark, bool isExact = false)` | Creates a Fluent Theme (returned as a `Dictionary`) which can then be applied to the application by passing it to the `SetThemeAsync` method. This allows you to generate a custom theme based on specific parameters and have full control over all the tokens. |
+| `SetThemeAsync(ThemeType type)` | Where `ThemeType` is an enum with the following values: `Default`, or `Teams`. Uses the effective mode (light or dark). |
+| `SetThemeAsync(ThemeType type, ThemeMode mode)` | Where `ThemeType` is an enum with the following values: `Default`, or `Teams`, and `ThemeMode` is an enum with the following values: `Light`, `Dark`, or `System`. |
+| `SetThemeAsync(string color, bool isExact = false)` | Where `color` should be a valid hex color code (e.g., `#FF0000`), and `isExact` controls whether the exact provided color is used for the brand background. Uses the effective mode (light or dark). |
+| `SetThemeAsync(string color, double hueTorsion, double vibrancy, ThemeMode mode, bool isExact = false)` | Control every aspect of the theme generation by providing the brand color, hue torsion, vibrancy, theme mode and whether to use the exact provided color in the ramp. Where `color` must be a valid hex color code (e.g., `#FF0000`), `hueTorsion` needs to be a number between `-0.5` and `0.5`, `vibrancy` needs to be a number between `-0.5` and `0.5`. |
+| `SetThemeAsync(IReadOnlyDictionary<string, string> theme)` | Where the `theme` parameter is a dictionary representing a Fluent Theme (created with `CreateCustomThemeAsync`), with token names as keys and their corresponding values as values. This allows you to apply a fully custom theme. |
+| `ClearThemeSettingsAsync()` | Removes any stored theme configuration from `localStorage` and resets the theme to the default settings. |
+| `IsSystemDarkAsync()` | Boolean method that checks if the user's system preference is set to dark mode. |
+| `IsDarkModeAsync()` | Boolean method that checks if the current effective theme mode is dark mode. |
+| `GetCachedRampAsync()` | Returns the currently cached color ramp as a dictionary ramp number and corresponding color values. |
+| `SwitchDirectionAsync()` | Change the effective theme direction between left-to-right (LTR) and right-to-left (RTL). This is particularly useful for supporting languages that are read from right to left, such as Arabic or Hebrew. |
+| `SwitchThemeAsync()` | Switches the effective theme mode between light and dark. This is particularly useful for allowing users to toggle between light and dark themes based on their preferences. |
 
 The SetThemeAsync result is cached in `localStorage` so that the theme configuration can be persisted across sessions and restored on subsequent visits
 to the application. The only exception to this is when using the `SetThemeAsync(IReadOnlyDictionary<string, string> theme)` overload, which applies a
