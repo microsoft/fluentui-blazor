@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -12,10 +14,9 @@ public interface IThemeService
 
     /// <summary>
     /// Creates a custom theme based on the specified settings.
-    /// The returned dictionary can be modified by the caller before it is applied.
+    /// The returned <see cref="Theme"/> can be modified by the caller before it is applied.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0016:Prefer using collection abstraction instead of implementation", Justification = "The returned dictionary is meant to be modified by the caller.")]
-    Task<Dictionary<string, string>?> CreateCustomThemeAsync(ThemeSettings settings);
+    Task<Theme?> CreateCustomThemeAsync(ThemeSettings settings);
 
     /// <summary>
     /// Sets a theme by type using the current effective mode.
@@ -43,11 +44,10 @@ public interface IThemeService
     Task SetThemeAsync(ThemeSettings settings);
 
     /// <summary>
-    /// Sets a theme represented by a dictionary of tokens.
-    /// Dictionary should be initially created with the <see cref="CreateCustomThemeAsync(ThemeSettings)"/> method, can then be modified before
-    /// applying it here.
+    /// Sets a theme.
+    /// <see cref="Theme"/> should be initially created with the <see cref="CreateCustomThemeAsync(ThemeSettings)"/> method, can then be modified before applying it here.
     /// </summary>
-    Task SetThemeAsync(IReadOnlyDictionary<string, string> theme);
+    Task SetThemeAsync(Theme theme);
 
     /// <summary>
     /// Removes the stored theme settings from localStorage.
@@ -67,7 +67,12 @@ public interface IThemeService
     /// <summary>
     /// Returns the currently cached custom brand ramp, or null if no custom ramp has been generated yet.
     /// </summary>
-    Task<IReadOnlyDictionary<string, string>?> GetCurrentColorRampAsync();
+    Task<IReadOnlyDictionary<string, string>?> GetColorRampAsync();
+
+    /// <summary>
+    /// Returns a custom brand ramp based on the specified settings, or null if invalid settings provided.
+    /// </summary>
+    Task<IReadOnlyDictionary<string, string>?> GetColorRampFromSettingsAsync(ThemeSettings settings);
 
     /// <summary>
     /// Switches the document direction between left-to-right and right-to-left.
@@ -78,4 +83,46 @@ public interface IThemeService
     /// Toggles between light and dark mode.
     /// </summary>
     Task<bool> SwitchThemeAsync();
+
+    /// <summary>
+    /// Sets the theme mode to light.
+    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Default"/>.
+    /// </summary>
+    Task SetLightThemeAsync();
+
+    /// <summary>
+    /// Sets the theme mode to dark.
+    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Default"/>.
+    /// </summary>
+    Task SetDarkThemeAsync();
+
+    /// <summary>
+    /// Sets the theme mode to follow the system preference.
+    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Default"/>.
+    /// </summary>
+    Task SetSystemThemeAsync();
+
+    /// <summary>
+    /// Sets the Teams theme mode to light.
+    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Teams"/>.
+    /// </summary>
+    Task SetTeamsLightThemeAsync();
+
+    /// <summary>
+    /// Sets the Teams theme mode to dark.
+    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Teams"/>.
+    /// </summary>
+    Task SetTeamsDarkThemeAsync();
+
+    /// <summary>
+    /// Sets the Teams theme mode to follow the system preference.
+    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Teams"/>.
+    /// </summary>
+    Task SetTeamsSystemThemeAsync();
+
+    /// <summary>
+    /// Sets a custom theme on a specific element based on the specified settings.
+    /// This does not affect the global theme.
+    /// </summary>
+    Task SetThemeToElementAsync(ElementReference element, ThemeSettings settings);
 }

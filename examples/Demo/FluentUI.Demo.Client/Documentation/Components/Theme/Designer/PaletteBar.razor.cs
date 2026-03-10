@@ -9,5 +9,5 @@ namespace FluentUI.Demo.Client.Documentation.Components.Theme.Designer;
 public partial class PaletteBar
 {
     [Parameter]
-    public Dictionary<string, string> Palette { get; set; } = [];
+    public IReadOnlyDictionary<string, string>? Palette { get; set; }
 }

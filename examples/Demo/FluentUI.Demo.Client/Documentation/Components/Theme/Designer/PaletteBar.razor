@@ -1,5 +1,5 @@
 ﻿<div class="palette-bar">
-    @foreach (var item in Palette)
+    @foreach (var item in Palette ?? Enumerable.Empty<KeyValuePair<string, string>>())
     {
         <PaletteItem Hex="@item.Value" Value="@item.Key" />
     }

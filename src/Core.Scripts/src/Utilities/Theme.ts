@@ -238,7 +238,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
    * Generates a new brand ramp (palette) from the provided settings.
    * This always recalculates the ramp and does not use the internal cache.
    */
-  export function getRampFromSettings(settings: ThemeSettings): BrandVariants | null {
+  export function getColorRampFromSettings(settings: ThemeSettings): BrandVariants | null {
     if (typeof settings.color !== 'string' || !isValidHexColor(settings.color)) return null;
     if (typeof settings.hueTorsion !== 'number' || !Number.isFinite(settings.hueTorsion) || settings.hueTorsion < -0.5 || settings.hueTorsion > 0.5) return null;
     if (typeof settings.vibrancy !== 'number' || !Number.isFinite(settings.vibrancy) || settings.vibrancy < -0.5 || settings.vibrancy > 0.5) return null;
@@ -293,7 +293,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   /**
    * Returns the currently cached custom brand ramp, or null if no custom ramp has been generated yet.
    */
-  export function getCurrentRamp(): BrandVariants | null {
+  export function getColorRamp(): BrandVariants | null {
     return _rampCache?.ramp ?? null;
   }
 

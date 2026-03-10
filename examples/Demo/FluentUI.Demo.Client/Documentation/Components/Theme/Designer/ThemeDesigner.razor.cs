@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Client.Documentation.Components.Theme.Designer;
 
@@ -21,7 +20,10 @@ public partial class ThemeDesigner
     double _slider = 35;
     string _fruit = "Banana";
 
-    Dictionary<string, string> _palette = [];
+    IReadOnlyDictionary<string, string>? _palette;
+
+    [Inject]
+    private IThemeService ThemeService { get; set; } = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -46,11 +48,11 @@ public partial class ThemeDesigner
             _isExact
         );
 
-        var jsSettings = settings.ToJsThemeSettings();
+        //var jsSettings = settings.ToJsThemeSettings();
 
-        await JSRuntime.InvokeVoidAsync("Blazor.theme.setBrandThemeToElement", _themePreviewElement, jsSettings);
+        await ThemeService.SetThemeToElementAsync(_themePreviewElement, settings);
 
-        _palette = await JSRuntime.InvokeAsync<Dictionary<string, string>>("Blazor.theme.getRampFromSettings", jsSettings);
+        _palette = await ThemeService.GetColorRampFromSettingsAsync(settings);
         StateHasChanged();
 
     }

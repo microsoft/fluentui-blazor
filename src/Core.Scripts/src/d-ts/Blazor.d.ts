@@ -19,8 +19,8 @@ interface Blazor {
     isDarkMode(): boolean,
     initializeThemeSettings(): void,
     addSystemThemeChangeListener(): void,
-    getCurrentRamp(): BrandVariants | Record<string, string> | null,
-    getRampFromSettings(settings: ThemeSettings): BrandVariants | Record<string, string> | null,
+    getColorRamp(): BrandVariants | Record<string, string> | null,
+    getColorRampFromSettings(settings: ThemeSettings): BrandVariants | Record<string, string> | null,
     clearThemeSettings(): void,
 
     setLightTheme(): void,

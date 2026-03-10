@@ -212,8 +212,16 @@ Adds a single `matchMedia('(prefers-color-scheme: dark)')` listener and re-appli
 #### `clearThemeSettings()`
 Removes the stored settings object from `localStorage`.
 
-#### `getCurrentRamp(): BrandVariants | null`
+#### `getColorRamp(): BrandVariants | null`
 Returns the currently cached custom brand ramp, or `null` if no custom ramp has been generated yet.
+
+#### `getColorRampFromSettings(settings: ThemeSettings): BrandVariants | null`
+Generates a new brand ramp (palette) from the provided settings.
+
+- Validates inputs using the same rules as `createBrandTheme(...)`.
+- Always recalculates the ramp and does **not** use the internal cache.
+
+Returns `null` for invalid inputs.
 
 #### `switchDirection()`
 Toggles HTML `dir` between `'ltr'` and `'rtl'` and persists it.
