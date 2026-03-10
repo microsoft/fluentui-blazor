@@ -26,7 +26,7 @@ public sealed class ThemeService : IThemeService
     public async Task<Theme?> CreateCustomThemeAsync(ThemeSettings settings)
     {
         var dict = await _jsRuntime.InvokeAsync<Dictionary<string, string?>?>(
-                "Blazor.theme.createBrandThemeFromSettings",
+                "Blazor.theme.createBrandTheme",
                 CancellationToken.None,
                 new
                 {
