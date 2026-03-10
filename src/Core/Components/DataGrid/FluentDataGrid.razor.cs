@@ -383,6 +383,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public bool AutoItemsPerPage { get; set; }
 
     /// <summary>
+    /// Gets or sets a value that indicates whether rows should be rendered with
+    /// alternating "striped" backgrounds. When <see langword="true"/>, odd and
+    /// even rows will use different background styling to improve readability.
+    /// </summary>
+    [Parameter]
+    public bool StripedRows { get; set; }
+
+    /// <summary>
     /// Gets or set the <see cref="DataGridDisplayMode"/> of the grid.
     /// Default is 'Grid'.
     /// When set to Grid, <see cref="GridTemplateColumns" /> can be used to specify column widths.
@@ -1023,6 +1031,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         .AddStyle("border-collapse", "separate", GenerateHeader == DataGridGeneratedHeaderType.Sticky)
         .AddStyle("border-spacing", "0", GenerateHeader == DataGridGeneratedHeaderType.Sticky)
         .AddStyle("width", "100%", DisplayMode == DataGridDisplayMode.Table)
+        .AddStyle("table-layout", "fixed", DisplayMode == DataGridDisplayMode.Table)
         .Build();
 
     private string? GridClass => DefaultClassBuilder

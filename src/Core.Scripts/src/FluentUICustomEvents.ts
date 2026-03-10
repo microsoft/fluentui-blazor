@@ -14,6 +14,12 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     blazor.registerCustomEventType('accordionchange', {
       browserEventName: 'change',
       createEventArgs: event => {
+
+        const isAccordion = event.target instanceof Element && event.target.tagName.toLowerCase() === 'fluent-accordion';
+        if (!isAccordion) {
+          return null;
+        }
+
         const item: any = event.target.accordionItems[event.target.activeItemIndex];
         const header = item?.querySelector(`[slot="heading"]`)?.innerText ?? null;
         return {
@@ -81,7 +87,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       }
     });
 
-    blazor.registerCustomEventType('listboxchange', {
+    blazor.registerCustomEventType('listchange', {
       browserEventName: 'listboxchange',
       createEventArgs: (event: any)=> {
         return {
@@ -149,7 +155,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
   }
 
   export function TextInput(blazor: Blazor) {
-    blazor.registerCustomEventType('immediate', {
+    blazor.registerCustomEventType('textimmediate', {
       browserEventName: 'immediate',
       createEventArgs: (event: any)=> {
        return {
