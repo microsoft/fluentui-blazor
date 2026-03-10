@@ -17,7 +17,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 #nullable enable
 
 /// <summary />
-public partial class ThemeCustom
+public partial class Theme
 {
     /// <summary />
     public ThemeBorders Borders { get; set; } = new();

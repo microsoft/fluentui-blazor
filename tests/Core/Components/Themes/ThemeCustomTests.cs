@@ -4,15 +4,15 @@
 
 using Xunit;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Theme;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Themes;
 
 public partial class ThemeCustomTests
 {
     [Fact]
-    public void ThemeCustom_Serialization()
+    public void ThemesCustom_Serialization()
     {
         // Arrange
-        var theme = new ThemeCustom();
+        var theme = new Theme();
 
         // Act
         theme.Borders.Radius.Medium = "0px";
@@ -30,7 +30,7 @@ public partial class ThemeCustomTests
     {
         // Arrange
         var json = "{ \"borderRadiusLarge\": \"4px\", \"borderRadius2XLarge\": \"8px\" }";
-        var theme = new ThemeCustom(json);
+        var theme = new Theme(json);
 
         // Act
         var dictionary = theme.ToDictionary()
@@ -48,7 +48,7 @@ public partial class ThemeCustomTests
     {
         // Arrange
         var json = "{ \"borderRadiusLarge\": \"4px\", \"borderRadius2XLarge\": \"8px\" }";
-        var theme = new ThemeCustom();
+        var theme = new Theme();
         theme.FromJson(json);
 
         // Act

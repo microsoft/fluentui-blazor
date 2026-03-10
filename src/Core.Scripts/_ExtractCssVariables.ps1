@@ -100,7 +100,7 @@ function Get-CssVariableLines {
         $lines.Add("public static partial class StylesVariables")
     }
     else {
-        $lines.Add("public partial class ThemeCustom")
+        $lines.Add("public partial class Theme")
     }
     
     $lines.Add("{")
@@ -234,8 +234,8 @@ $outputPath = Join-Path $PSScriptRoot "..\Core\Components\Theme\Styles\StylesVar
 $cssConstants | Set-Content -Path $outputPath -Encoding UTF8
 Write-Host ">>> Written to: $outputPath"
 
-# Write the result to the ThemeCustom.cs file
-$outputPath = Join-Path $PSScriptRoot "..\Core\Components\Theme\Styles\ThemeCustom.cs"
+# Write the result to the Theme.cs file
+$outputPath = Join-Path $PSScriptRoot "..\Core\Components\Theme\Styles\Theme.cs"
 $cssVariables | Set-Content -Path $outputPath -Encoding UTF8
 Write-Host ">>> Written to: $outputPath"
 
