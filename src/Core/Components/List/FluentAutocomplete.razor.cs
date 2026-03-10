@@ -15,14 +15,19 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TValue))]
 public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOption, TValue>
 {
-    private static readonly string[] Samples = { "Apple", "Banana", "Cherry", "Date", "Elderberry" };
+    private static readonly Icon BadgeCloseIcon = new CoreIcons.Regular.Size20.Dismiss();
+
     private string? _textInput;
     private bool _isOpen;
+    private bool _inProgress;
 
     /// <summary />
     public FluentAutocomplete(LibraryConfiguration configuration) : base(configuration)
     {
+        // Default values
         Id = Identifier.NewId();
+        Multiple = true;
+        Items = [];
     }
 
     /// <summary>
@@ -30,18 +35,56 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// Default is 400 milliseconds.
     /// </summary>
     [Parameter]
-    public int ImmediateDelay { get; set; } = 100;
+    public int ImmediateDelay { get; set; } = 400;
 
     /// <summary>
-    /// Renders the selected items.
+    /// Filter the list of options (items) using the text written by the user.
     /// </summary>
-    /// <returns></returns>
-    protected virtual RenderFragment? RenderSelectedItems() => InternalRenderSelectedItems;
+    [Parameter]
+    public EventCallback<OptionsSearchEventArgs<TOption>> OnOptionsSearch { get; set; }
 
+    /// <summary>
+    /// Gets or sets the number of maximum options (items) returned by <see cref="OnOptionsSearch"/>.
+    /// Default value is 9.
+    /// </summary>
+    [Parameter]
+    public int MaximumOptionsSearch { get; set; } = 9;
+
+    /// <summary>
+    /// Gets or sets whether the component will display a progress indicator while fetching data.
+    /// A progress ring will be shown at the end of the component, when the <see cref="OnOptionsSearch"/> is invoked.
+    /// </summary>
+    [Parameter]
+    public bool ShowProgressIndicator { get; set; }
+
+    /// <summary />
     private async Task OnTextInputChangedAsync()
     {
-        await Task.CompletedTask;
-        Items = Samples.Where(item => item.Contains(_textInput ?? string.Empty, StringComparison.OrdinalIgnoreCase)).Cast<TOption>().ToList();
+        _inProgress = true;
+
+        var args = new OptionsSearchEventArgs<TOption>()
+        {
+            Items = Items ?? [],
+            Text = _textInput ?? string.Empty,
+        };
+
+        await OnOptionsSearch.InvokeAsync(args);
+
+        Items = args.Items?.Take(MaximumOptionsSearch) ?? [];
+
         _isOpen = true;
+        _inProgress = false;
+    }
+
+    /// <summary />
+    private Task RemoveSelectedItemAsync(TOption? item)
+    {
+        if (item is null)
+        {
+            return Task.CompletedTask;
+        }
+
+        SelectedItems = SelectedItems?.Where(i => !EqualityComparer<TOption>.Default.Equals(i, item)) ?? [];
+        return Task.CompletedTask;
     }
 }

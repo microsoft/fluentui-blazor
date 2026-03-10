@@ -4,27 +4,62 @@
 @typeparam TOption
 @typeparam TValue
 
-<CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TValue>" IsFixed="true">
-    <CascadingValue Value="(InternalListContext)GetCurrentContext()" Name="ListContextBase" TValue="InternalListContext" IsFixed="true">
+<CascadingValue Value="GetCurrentContext()"
+                Name="ListContext"
+                TValue="InternalListContext<TValue>"
+                IsFixed="true">
+    <CascadingValue Value="(InternalListContext)GetCurrentContext()"
+                    Name="ListContextBase"
+                    TValue="InternalListContext"
+                    IsFixed="true">
 
-      <FluentTextInput Id="@Id"
-                       Immediate="true"
-                       ImmediateDelay="@ImmediateDelay"
-                       @onclick="@(e => _isOpen = true)"
-                       @bind-Value="@_textInput"
-                       @bind-Value:after="@OnTextInputChangedAsync">
-        <StartTemplate>
-          @RenderSelectedItems()
-        </StartTemplate>
+        <FluentTextInput Id="@Id"
+                         Immediate="true"
+                         ImmediateDelay="@ImmediateDelay"
+                         auto-complete="true"
+                         AutoComplete="false"
+                         @onclick="@(e => _isOpen = true)"
+                         @bind-Value="@_textInput"
+                         @bind-Value:after="@OnTextInputChangedAsync">
+            @* Selected items *@
+            <StartTemplate>
+                @if (SelectedItems is not null)
+                {
+                    <div style="display: flex;">
+                        @foreach (var item in SelectedItems)
+                        {
+                            <span class="fluent-badge"
+                                  auto-complete="true">
+                                @GetOptionText(item)
+                                <FluentIcon Value="@BadgeCloseIcon"
+                                            Focusable="true"
+                                            OnClick="@(e => RemoveSelectedItemAsync(item))"
+                                            Width="12px" />
+                            </span>
+                        }
+                    </div>
+                }
+            </StartTemplate>
 
-        <EndTemplate>
+            @* Waiting spinner *@
+            <EndTemplate>
+                @if (ShowProgressIndicator && _inProgress)
+                {
+                    <FluentSpinner Size="SpinnerSize.Tiny" />
+                }
+            </EndTemplate>
+        </FluentTextInput>
 
-        </EndTemplate>
-      </FluentTextInput>
-
-      <FluentPopover AnchorId="@Id" @bind-Opened="@_isOpen">
-        
-      </FluentPopover>
+        <FluentPopover AnchorId="@Id"
+                       @bind-Opened="@_isOpen">
+            <FluentListbox auto-complete="true"
+                           TValue="TValue"
+                           TOption="TOption"
+                           Multiple="true"
+                           OptionText="@OptionText"
+                           Items="@Items"
+                           @bind-SelectedItems="@SelectedItems" />
+        </FluentPopover>
 
     </CascadingValue>
 </CascadingValue>

@@ -1,9 +1,22 @@
-<FluentAutocomplete TOption="string"
+@using static FluentUI.Demo.SampleData.Olympics2024
+
+<FluentAutocomplete TOption="Country"
                     TValue="string"
-                    @bind-Value="selectedValue"
-                    Items="@(new string[] { "Option1", "Option2", "Option3" })" />
+                    OnOptionsSearch="@OnSearchAsync"
+                    OptionText="@(item => item.Name)"
+                    @bind-SelectedItems="SelectedCountries" />
+
+@string.Join("; ", SelectedCountries.Select(c => c.Name))
 
 @code
 {
-  string? selectedValue;
+  IEnumerable<Country> SelectedCountries = [];
+
+  Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
+  {
+    e.Items = Countries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                       .OrderBy(i => i.Name);
+
+    return Task.CompletedTask;
+  }
 }

@@ -70,7 +70,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
       this.listbox.multiple = (this.container.hasAttribute('multiple')) ?? false;
 
       // Set initial selected options based on the current state
-      if (this.listbox.multiple) {
+      if (this.listbox.multiple && this.listbox.options) {
         const selectedIds = this.listbox.selectedOptions.map(option => option.id);
         for (let i = 0; i < this.listbox.options.length; i++) {
           const option = this.listbox.options[i];

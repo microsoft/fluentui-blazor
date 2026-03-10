@@ -1,0 +1,19 @@
+.fluent-listbox[auto-complete] {
+  border-radius: unset;
+  border: unset;
+  box-shadow: unset;
+  padding: unset;
+}
+
+fluent-text-input[auto-complete] .fluent-badge[auto-complete] {
+  background: var(--colorNeutralBackground2);
+  color: var(--colorNeutralForeground1);
+  border-radius: var(--borderRadiusMedium);
+  margin-right: var(--spacingHorizontalS);
+  align-items: center;
+  white-space: nowrap;
+}
+
+fluent-text-input[auto-complete] .fluent-badge[auto-complete] svg {
+  margin-left: var(--spacingHorizontalS);  
+}

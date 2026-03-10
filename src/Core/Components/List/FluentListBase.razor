@@ -44,19 +44,4 @@
             }
         }
     }
-
-    internal void InternalRenderSelectedItems(RenderTreeBuilder __builder)
-    {
-        if (SelectedItems is not null)
-        {
-            <FluentStack>
-                @foreach (var item in SelectedItems)
-                {
-                    <FluentBadge Color="BadgeColor.Important" Content="@GetOptionText(item)">
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size20.Dismiss())" />
-                    </FluentBadge>
-                }
-            </FluentStack>
-        }
-    }
 }
