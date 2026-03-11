@@ -76,6 +76,12 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     [Parameter]
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
+    /// <summary>
+    /// Gets or sets whether the title of the calendar should be displayed interactively (default, clickable with arrows) or just as text (static, not clickable, no arrows).
+    /// </summary>
+    [Parameter]
+    public virtual bool ShowTitleStatic { get; set; } = false;
+
     /// <summary />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {

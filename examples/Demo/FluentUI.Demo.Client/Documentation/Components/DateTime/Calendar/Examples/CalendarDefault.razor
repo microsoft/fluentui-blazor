@@ -4,6 +4,7 @@
         <FluentCalendar DisabledDateFunc="@DisabledDay"
                         @bind-Value="@SelectedDay"
                         @bind-PickerMonth="@PickerDay"
+                        ShowTitleStatic="true"
                         Style="height: 250px; align-content: start;" />
         <p>Selected @(SelectedDay.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerDay.ToString("yyyy-MM-dd"))</p>
@@ -14,6 +15,7 @@
                         View="CalendarViews.Months"
                         @bind-Value="@SelectedMonth"
                         @bind-PickerMonth="@PickerMonth"
+                        ShowTitleStatic="true"
                         Style="height: 250px; align-content: start;" />
         <p>Selected @(SelectedMonth.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerMonth.ToString("yyyy-MM-dd"))</p>
@@ -24,6 +26,7 @@
                         View="CalendarViews.Years"
                         @bind-Value="@SelectedYear"
                         @bind-PickerMonth="@PickerYear"
+                        ShowTitleStatic="true"
                         Style="height: 250px; align-content: start;" />
         <p>Selected @(SelectedYear.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerYear.ToString("yyyy-MM-dd"))</p>

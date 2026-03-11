@@ -28,6 +28,14 @@
 
                 @* Title bar (label, previous and next buttons) *@
                 <div class="title" part="title" aria-label="@titles.Label">
+                @if (ShowTitleStatic)
+                {
+                    <div part="label">
+                        @titles.Label
+                    </div>
+                }
+                else
+                {
                     <div part="label" class="@GetAnimationClass("label")" readonly="@ReadOnly"
                          role="button" tabindex="0"
                          @onclick="@(e => TitleClickHandlerAsync(titles))">
@@ -57,6 +65,7 @@
                             </div>
                         }
                     </div>
+                }
                 </div>
 
                 @switch (View)
