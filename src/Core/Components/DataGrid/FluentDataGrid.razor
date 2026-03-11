@@ -65,7 +65,7 @@
 										OverscanCount="@OverscanCount"
 										ItemsProvider="@ProvideVirtualizedItemsAsync"
 										ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
-										Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))"
+										Placeholder="@(placeholderContext => builder => @RenderPlaceholderRow(builder, placeholderContext))"
 										SpacerElement="tr" />
 						}
 					}
@@ -147,21 +147,15 @@
 		string? _rowsDataSize = $"height: {ItemSize}px";
 
 		<FluentDataGridRow aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
-			RenderPlaceholderCells(placeholderContext)
+            @for (var i = 0; i < _columns.Count; i++)
+            {
+                var col = _columns[i];
+
+                <FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnJustifyClass(col))" Style="@col.Style" @key="@col" GridColumn=@col.Index TGridItem="TGridItem">
+                    @((RenderFragment)(__builder => col.RenderPlaceholderContent(__builder, placeholderContext)))
+                </FluentDataGridCell>
+            }
 		</FluentDataGridRow>
-	}
-
-	[ExcludeFromCodeCoverage(Justification = "Circumvent EFCC shortcomings when using razor.")]
-	private void RenderPlaceholderCells(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
-	{
-		for (var i = 0; i < _columns.Count; i++)
-		{
-			var col = _columns[i];
-
-			<FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnJustifyClass(col))" Style="@col.Style" @key="@col" GridColumn=@col.Index TGridItem="TGridItem">
-				@((RenderFragment)(__builder => col.RenderPlaceholderContent(__builder, placeholderContext)))
-			</FluentDataGridCell>
-		}
 	}
 
 	private void RenderColumnHeaders(RenderTreeBuilder __builder)
