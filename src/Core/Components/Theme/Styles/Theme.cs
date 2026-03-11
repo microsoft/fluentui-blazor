@@ -1808,19 +1808,19 @@ public partial class Theme
         {
             /// <summary />
             [JsonPropertyName("fontWeightBold")]
-            public string? Bold { get; set; }
+            public int? Bold { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontWeightMedium")]
-            public string? Medium { get; set; }
+            public int? Medium { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontWeightRegular")]
-            public string? Regular { get; set; }
+            public int? Regular { get; set; }
 
             /// <summary />
             [JsonPropertyName("fontWeightSemibold")]
-            public string? Semibold { get; set; }
+            public int? Semibold { get; set; }
 
         }
     }
@@ -2073,9 +2073,9 @@ public partial class Theme
         }
     }
     /// <summary />
-    public IDictionary<string, string?> ToDictionary()
+    public IDictionary<string, object?> ToDictionary()
     {
-        return new Dictionary<string, string?>
+        return new Dictionary<string, object?>
         {
             ["borderRadius2XLarge"] = Borders.Radius.Large2X,
             ["borderRadius3XLarge"] = Borders.Radius.Large3X,
@@ -2540,9 +2540,10 @@ public partial class Theme
     }
 
     /// <summary />
-    public void FromDictionary(IDictionary<string, string?> value)
+    public void FromDictionary(IDictionary<string, object?> value)
     {
-        string? GetValue(string key) => value.TryGetValue(key, out var result) ? result : null;
+       string? GetValue(string key) => value.TryGetValue(key, out var result) ? result?.ToString() : null;
+       int? GetIntValue(string key) => value.TryGetValue(key, out var result) && int.TryParse(result?.ToString(), out var intValue) ? intValue : null;
         Borders.Radius.Large2X = GetValue("borderRadius2XLarge");
         Borders.Radius.Large3X = GetValue("borderRadius3XLarge");
         Borders.Radius.Large4X = GetValue("borderRadius4XLarge");
@@ -2950,10 +2951,10 @@ public partial class Theme
         Fonts.Size.Hero700 = GetValue("fontSizeHero700");
         Fonts.Size.Hero800 = GetValue("fontSizeHero800");
         Fonts.Size.Hero900 = GetValue("fontSizeHero900");
-        Fonts.Weight.Bold = GetValue("fontWeightBold");
-        Fonts.Weight.Medium = GetValue("fontWeightMedium");
-        Fonts.Weight.Regular = GetValue("fontWeightRegular");
-        Fonts.Weight.Semibold = GetValue("fontWeightSemibold");
+        Fonts.Weight.Bold = GetIntValue("fontWeightBold");
+        Fonts.Weight.Medium = GetIntValue("fontWeightMedium");
+        Fonts.Weight.Regular = GetIntValue("fontWeightRegular");
+        Fonts.Weight.Semibold = GetIntValue("fontWeightSemibold");
         Lines.Height.Base100 = GetValue("lineHeightBase100");
         Lines.Height.Base200 = GetValue("lineHeightBase200");
         Lines.Height.Base300 = GetValue("lineHeightBase300");
