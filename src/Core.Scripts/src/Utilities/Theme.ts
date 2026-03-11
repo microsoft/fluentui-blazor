@@ -227,11 +227,20 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   }
 
   /**
-   * Sets the Fluent UI theme on a specified element based on a specified color and customizations for hue, vibrancy and theme.
+   * Sets the Fluent UI theme on a specified element based on a specified color and customizations for hue, vibrancy and mode.
    * @param settings The settings to generate the theme, including the primary color in hex format, hue torsion, vibrancy, theme mode, and whether to use the exact color for the brand background.
    */
-  export function setBrandThemeToElement(element: HTMLElement, settings: ThemeSettings): void {
+  export function setBrandThemeToElementFromSettings(element: HTMLElement, settings: ThemeSettings): void {
     const theme = createBrandTheme(settings);
+    if (!theme) return;
+    setTheme(theme, element);
+  }
+
+  /**
+ * Sets the Fluent UI theme on a specified element based on a specified theme.
+ * @param theme The theme to apply to the element.
+ */
+  export function setBrandThemeToElementFromTheme(element: HTMLElement, theme: Theme): void {
     if (!theme) return;
     setTheme(theme, element);
   }

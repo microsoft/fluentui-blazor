@@ -25,9 +25,8 @@ public sealed class ThemeService : IThemeService
     /// <inheritdoc />
     public async Task<Theme?> CreateCustomThemeAsync(ThemeSettings settings)
     {
-        var dict = await _jsRuntime.InvokeAsync<Dictionary<string, string?>?>(
+        var dict = await _jsRuntime.InvokeAsync<Dictionary<string, object?>?>(
                 "Blazor.theme.createBrandTheme",
-                CancellationToken.None,
                 new
                 {
                     color = settings.Color,
@@ -155,7 +154,7 @@ public sealed class ThemeService : IThemeService
     /// <inheritdoc />
     public Task SetThemeToElementAsync(Microsoft.AspNetCore.Components.ElementReference element, ThemeSettings settings)
         => InvokeVoidAsync(
-            "Blazor.theme.setBrandThemeToElement",
+            "Blazor.theme.setBrandThemeToElementFromSettings",
             element,
             new
             {
@@ -165,6 +164,10 @@ public sealed class ThemeService : IThemeService
                 mode = settings.Mode == ThemeMode.System ? null : settings.Mode.ToAttributeValue(),
                 isExact = settings.IsExact,
             });
+
+    /// <inheritdoc />
+    public Task SetThemeToElementAsync(Microsoft.AspNetCore.Components.ElementReference element, Theme theme)
+        => InvokeVoidAsync("Blazor.theme.setBrandThemeToElementFromTheme", element, theme.ToDictionary());
 
     private Task InvokeVoidAsync(string identifier, params object?[] args)
         => _jsRuntime.InvokeVoidAsync(identifier, args).AsTask();

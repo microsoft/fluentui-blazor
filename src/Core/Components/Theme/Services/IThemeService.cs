@@ -121,8 +121,14 @@ public interface IThemeService
     Task SetTeamsSystemThemeAsync();
 
     /// <summary>
-    /// Sets a custom theme on a specific element based on the specified settings.
+    /// Sets a custom theme on a specific element based on the specified <see cref="ThemeSettings"/>.
     /// This does not affect the global theme.
     /// </summary>
     Task SetThemeToElementAsync(ElementReference element, ThemeSettings settings);
+
+    /// <summary>
+    /// Sets a custom theme on a specific element based on the specified <see cref="Theme"/>.
+    /// This does not affect the global theme.
+    /// </summary>
+    Task SetThemeToElementAsync(ElementReference element, Theme theme);
 }

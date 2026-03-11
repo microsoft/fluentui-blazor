@@ -16,10 +16,6 @@ public partial class ThemeDesigner
     bool _isExact;
     ElementReference _themePreviewElement;
 
-    bool _switched = true;
-    double _slider = 35;
-    string _fruit = "Banana";
-
     IReadOnlyDictionary<string, string>? _palette;
 
     [Inject]

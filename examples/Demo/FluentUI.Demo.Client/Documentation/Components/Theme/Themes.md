@@ -104,3 +104,11 @@ implementation uses a range of -0.5 to 0.5, so the values you input will be divi
 {{ ThemeDesigner }}
 
 
+## Create and alter a Theme
+
+In addition to setting the brand color and generating a theme from it, you can also create a `Theme` object directly in your code and modify its properties
+before applying it. This gives you full control over all aspects of the theme, including colors, typography, spacing, and more.
+
+Clicking the button below applies an altered theme that changes the border radius, color, font family, and line height to the components in this part of the page only.
+
+{{ CreateAndAlterTheme Files=Razor:CreateAndAlterTheme.razor;Code:CreateAndAlterTheme.razor.cs }}

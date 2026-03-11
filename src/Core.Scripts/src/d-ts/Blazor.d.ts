@@ -41,7 +41,8 @@ interface Blazor {
     setBrandThemeFromColor(color: string): void,
     setBrandThemeFromColorExact(color: string): void,
     setBrandTheme(color: string, hueTorsion: number, vibrancy: number, isDark: boolean, isExact?: boolean): void,
-    setBrandThemeToElement(element: HTMLElement, settings: ThemeSettings): void,
+    setBrandThemeToElementFromSettings(element: HTMLElement, settings: ThemeSettings): void,
+    setBrandThemeToElementFromTheme(element: HTMLElement, theme: Theme): void,
 
     switchTheme(): boolean,
     switchDirection(): void,

@@ -176,7 +176,12 @@ These are preserved for compatibility but delegate to `setBrandThemeFromSettings
 - `setBrandThemeFromColor(color)`
 - `setBrandThemeFromColorExact(color)`
 
-#### `setBrandThemeToElement(element, settings: ThemeSettings)`
+#### `setBrandThemeToElementFromSettings(element, settings: ThemeSettings)`
+Applies a brand theme **only to a given element** via `setTheme(theme, element)`.
+
+This does **not** persist anything to storage.
+
+#### `setBrandThemeToElementFromTheme(element, theme: Theme)`
 Applies a brand theme **only to a given element** via `setTheme(theme, element)`.
 
 This does **not** persist anything to storage.
