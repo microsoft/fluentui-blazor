@@ -15,6 +15,14 @@ function Get-CssVariableLines {
         [bool]$IsConstants = $true
     )
 
+    # List of CSS variables defined as numbers
+    $numberVariables = @(
+        "fontWeightRegular",
+        "fontWeightMedium",
+        "fontWeightSemibold",
+        "fontWeightBold"
+    )
+
     # Read the content of the file
     $fileContent = Get-Content -Path ".\node_modules\@fluentui\web-components\dist\web-components.d.ts"
 
@@ -139,8 +147,16 @@ function Get-CssVariableLines {
                         $lines.Add("        public const string $(Fix-SizeName("$prefix$g2$($entry.Groupe3)")) = ""$($entry.Groupe4)"";")
                     }
                     else {
+
+                        if ($numberVariables -contains "$(Fix-JsonAttribute($entry.Groupe4))") {
+                            $dataType = "int?"
+                        }
+                        else {
+                            $dataType = "string?"
+                        }
+
                         $lines.Add("        [JsonPropertyName(""$(Fix-JsonAttribute($entry.Groupe4))"")]")
-                        $lines.Add("        public string? $(Fix-SizeName("$prefix$g2$($entry.Groupe3)")) { get; set; }")
+                        $lines.Add("        public $dataType $(Fix-SizeName("$prefix$g2$($entry.Groupe3)")) { get; set; }")
                         
                         $dico.Add([System.Collections.Generic.KeyValuePair[string, string]]::new($(Fix-JsonAttribute($entry.Groupe4)), "$g1.$(Fix-SizeName("$prefix$g2$($entry.Groupe3)"))"))
                     }
@@ -178,8 +194,16 @@ function Get-CssVariableLines {
                         $lines.Add("            public const string $(Fix-SizeName($entry.Groupe3)) = ""$($entry.Groupe4)"";")
                     }
                     else {
+
+                        if ($numberVariables -contains "$(Fix-JsonAttribute($entry.Groupe4))") {
+                            $dataType = "int?"
+                        }
+                        else {
+                            $dataType = "string?"
+                        }
+
                         $lines.Add("            [JsonPropertyName(""$(Fix-JsonAttribute($entry.Groupe4))"")]")
-                        $lines.Add("            public string? $(Fix-SizeName($entry.Groupe3)) { get; set; }")
+                        $lines.Add("            public $dataType $(Fix-SizeName($entry.Groupe3)) { get; set; }")
                   
                         $dico.Add([System.Collections.Generic.KeyValuePair[string, string]]::new($(Fix-JsonAttribute($entry.Groupe4)), "$g1.$g2.$(Fix-SizeName($entry.Groupe3))"))
                     }
@@ -193,9 +217,9 @@ function Get-CssVariableLines {
 
     if (!$IsConstants) {
         $lines.Add("    /// <summary />")
-        $lines.Add("    public IDictionary<string, string?> ToDictionary()")
+        $lines.Add("    public IDictionary<string, object?> ToDictionary()")
         $lines.Add("    {")
-        $lines.Add("        return new Dictionary<string, string?>")
+        $lines.Add("        return new Dictionary<string, object?>")
         $lines.Add("        {")
         foreach ($item in $dico) {
             $key = $item.Key
@@ -206,13 +230,19 @@ function Get-CssVariableLines {
         $lines.Add("    }")
         $lines.Add("")
         $lines.Add("    /// <summary />")
-        $lines.Add("    public void FromDictionary(IDictionary<string, string?> value)")
+        $lines.Add("    public void FromDictionary(IDictionary<string, object?> value)")
         $lines.Add("    {")
-        $lines.Add("        string? GetValue(string key) => value.TryGetValue(key, out var result) ? result : null;")
+        $lines.Add("       string? GetValue(string key) => value.TryGetValue(key, out var result) ? result?.ToString() : null;")
+        $lines.Add("       int? GetIntValue(string key) => value.TryGetValue(key, out var result) && int.TryParse(result?.ToString(), out var intValue) ? intValue : null;")
         foreach ($item in $dico) {
             $key = $item.Key
             $value = $item.Value
-            $lines.Add("        $value = GetValue(""$key"");")
+            if ($numberVariables -contains "$key") {
+                $lines.Add("        $value = GetIntValue(""$key"");")
+            }
+            else {                
+                $lines.Add("        $value = GetValue(""$key"");")
+            }
         }
         $lines.Add("    }")
     }
