@@ -399,6 +399,83 @@ value=""2022-02-20"">20</div>");
         calendar.Verify(suffix: view.GetDescription());
     }
 
+    [Fact]
+    public void FluentCalendar_MinMax_Days_DisablesOutsideRange_And_DisablesNavigation()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2022-06-15");
+        var minDate = DateTime.Parse("2022-06-10");
+        var maxDate = DateTime.Parse("2022-06-20");
+
+        DateTime? value = DateTime.Parse("2022-06-15");
+        Action<DateTime?> changed = (e) => value = e;
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar TValue="DateTime?" Culture="@InvariantCulture" PickerMonth="@pickerMonth" Value="@value" ValueChanged="changed"
+                                            MinDate="@minDate" MaxDate="@maxDate" />);
+
+        // Days outside range should be disabled
+        Assert.True(calendar.Find("div[value='2022-06-09']").HasAttribute("disabled"));
+        Assert.True(calendar.Find("div[value='2022-06-21']").HasAttribute("disabled"));
+
+        // Prev/next navigation should be disabled when it would navigate outside the range
+        Assert.True(calendar.Find(".previous").HasAttribute("disabled"));
+        Assert.True(calendar.Find(".next").HasAttribute("disabled"));
+
+        // Clicking an out-of-range day should not change the value
+        calendar.Find("div[value='2022-06-09']").Click();
+        Assert.Equal(DateTime.Parse("2022-06-15"), value);
+
+        // Clicking an in-range day should change the value
+        calendar.Find("div[value='2022-06-10']").Click();
+        Assert.Equal(DateTime.Parse("2022-06-10"), value);
+    }
+
+    [Fact]
+    public void FluentCalendar_MinMax_Months_DisablesOutsideRange_And_DisablesNavigation()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2022-06-15");
+        var minDate = DateTime.Parse("2022-04-15");
+        var maxDate = DateTime.Parse("2022-06-20");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" View="CalendarViews.Months" PickerMonth="@pickerMonth" Value="@pickerMonth"
+                                            MinDate="@minDate" MaxDate="@maxDate" />);
+
+        // Months completely outside range should be disabled
+        Assert.True(calendar.Find("div[value='2022-03']").HasAttribute("disabled"));
+        Assert.True(calendar.Find("div[value='2022-07']").HasAttribute("disabled"));
+
+        // Months intersecting the range should be enabled
+        Assert.False(calendar.Find("div[value='2022-04']").HasAttribute("disabled"));
+        Assert.False(calendar.Find("div[value='2022-06']").HasAttribute("disabled"));
+
+        // Prev/next year navigation should be disabled when it would navigate outside the range
+        Assert.True(calendar.Find(".previous").HasAttribute("disabled"));
+        Assert.True(calendar.Find(".next").HasAttribute("disabled"));
+    }
+
+    [Fact]
+    public void FluentCalendar_MinMax_Years_DisablesOutsideRange()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2022-06-15");
+        var minDate = DateTime.Parse("2021-06-01");
+        var maxDate = DateTime.Parse("2023-02-01");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" View="CalendarViews.Years" PickerMonth="@pickerMonth" Value="@pickerMonth"
+                                            MinDate="@minDate" MaxDate="@maxDate" />);
+
+        Assert.True(calendar.Find("div[value='2020']").HasAttribute("disabled"));
+        Assert.False(calendar.Find("div[value='2022']").HasAttribute("disabled"));
+        Assert.True(calendar.Find("div[value='2024']").HasAttribute("disabled"));
+    }
+
     [Theory]
     [InlineData(CalendarViews.Days)]
     [InlineData(CalendarViews.Months)]

@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Calendar;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -77,10 +78,69 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
     /// <summary>
-    /// Gets or sets whether the title of the calendar should be displayed interactively (default, clickable with arrows) or just as text (static, not clickable, no arrows).
+    /// Gets or sets whether the header of the calendar (title and prev/next arrows) is displayed interactively.
+    /// True (default) renders clickable title and prev/next arrows. False renders just the title as static text.
     /// </summary>
     [Parameter]
-    public virtual bool ShowTitleStatic { get; set; } = false;
+    public virtual bool HeaderInteractive { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the minimum date that can be selected in the calendar. If not set, there is no minimum date.
+    /// </summary>
+    [Parameter]
+    public TValue? MinDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum date that can be selected in the calendar. If not set, there is no maximum date.
+    /// </summary>
+    [Parameter]
+    public TValue? MaxDate { get; set; }
+
+    internal bool IsOutsideRange(DateTime value)
+    {
+        var min = MinDate.ConvertToDateTime()?.Date;
+        var max = MaxDate.ConvertToDateTime()?.Date;
+        var date = value.Date;
+
+        if (min.HasValue && date < min.Value)
+        {
+            return true;
+        }
+
+        if (max.HasValue && date > max.Value)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    internal bool IsPeriodOutsideRange(DateTime periodStart, DateTime periodEnd)
+    {
+        var min = MinDate.ConvertToDateTime()?.Date;
+        var max = MaxDate.ConvertToDateTime()?.Date;
+
+        if (min.HasValue && periodEnd.Date < min.Value)
+        {
+            return true;
+        }
+
+        if (max.HasValue && periodStart.Date > max.Value)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    internal bool IsSelectionOutsideRange(DateTime value)
+        => View switch
+        {
+            CalendarViews.Days => IsOutsideRange(value),
+            CalendarViews.Months => IsPeriodOutsideRange(value.StartOfMonth(Culture), value.EndOfMonth(Culture)),
+            CalendarViews.Years => IsPeriodOutsideRange(value.StartOfYear(Culture), value.EndOfYear(Culture)),
+            _ => false,
+        };
 
     /// <summary />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
@@ -106,6 +166,11 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
         }
 
         var dateTime = value.ConvertToDateTime();
+        if (dateTime.HasValue && IsSelectionOutsideRange(dateTime.Value))
+        {
+            return Task.CompletedTask;
+        }
+
         if ((CheckIfSelectedValueHasChanged ?? true) && CurrentValue.ConvertToDateTime() == dateTime)
         {
             return Task.CompletedTask;

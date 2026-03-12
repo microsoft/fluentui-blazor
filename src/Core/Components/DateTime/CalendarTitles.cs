@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+
 namespace Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
 /// <summary>
@@ -107,11 +109,46 @@ internal class CalendarTitles<TValue>
             var minDate = _calendar.Culture.Calendar.MinSupportedDateTime.AddMonths(1);
 #pragma warning restore MA0011
 
+            var rangeMinDate = _calendar.MinDate.ConvertToDateTime()?.Date;
+            var rangePreviousDisabled = false;
+            if (rangeMinDate.HasValue)
+            {
+                var candidate = View switch
+                {
+                    CalendarViews.Days => Date.AddMonths(-1, _calendar.Culture),
+                    CalendarViews.Months => Date.AddYears(-1, _calendar.Culture),
+                    CalendarViews.Years => Date.AddYears(-12, _calendar.Culture),
+                    _ => Date,
+                };
+
+                var candidatePeriodEnd = View switch
+                {
+                    CalendarViews.Days
+                        => candidate.StartOfMonth(_calendar.Culture)
+                            .AddMonths(1, _calendar.Culture)
+                            .AddDays(-1),
+
+                    CalendarViews.Months
+                        => candidate.StartOfYear(_calendar.Culture)
+                            .AddYears(1, _calendar.Culture)
+                            .AddDays(-1),
+
+                    CalendarViews.Years
+                        => candidate.StartOfYear(_calendar.Culture)
+                            .AddYears(12, _calendar.Culture)
+                            .AddDays(-1),
+
+                    _ => candidate,
+                };
+
+                rangePreviousDisabled = candidatePeriodEnd.Date < rangeMinDate.Value;
+            }
+
             return View switch
             {
-                CalendarViews.Days => Date.Year == minDate.Year && Date.Month == minDate.Month,
-                CalendarViews.Months => Date.Year == minDate.Year,
-                CalendarViews.Years => Date.Year - CalendarExtended.YearShiftCentered <= minDate.Year + 12,
+                CalendarViews.Days => (Date.Year == minDate.Year && Date.Month == minDate.Month) || rangePreviousDisabled,
+                CalendarViews.Months => Date.Year == minDate.Year || rangePreviousDisabled,
+                CalendarViews.Years => Date.Year - CalendarExtended.YearShiftCentered <= minDate.Year + 12 || rangePreviousDisabled,
                 _ => false
             };
         }
@@ -143,11 +180,40 @@ internal class CalendarTitles<TValue>
         {
             var maxDate = _calendar.Culture.Calendar.MaxSupportedDateTime;
 
+            var rangeMaxDate = _calendar.MaxDate.ConvertToDateTime()?.Date;
+            var rangeNextDisabled = false;
+            if (rangeMaxDate.HasValue)
+            {
+                var candidate = View switch
+                {
+                    CalendarViews.Days => Date.AddMonths(+1, _calendar.Culture),
+                    CalendarViews.Months => Date.AddYears(+1, _calendar.Culture),
+                    CalendarViews.Years => Date.AddYears(+12, _calendar.Culture),
+                    _ => Date,
+                };
+
+                var candidatePeriodStart = View switch
+                {
+                    CalendarViews.Days
+                        => candidate.StartOfMonth(_calendar.Culture),
+
+                    CalendarViews.Months
+                        => candidate.StartOfYear(_calendar.Culture),
+
+                    CalendarViews.Years
+                        => candidate.StartOfYear(_calendar.Culture),
+
+                    _ => candidate,
+                };
+
+                rangeNextDisabled = candidatePeriodStart.Date > rangeMaxDate.Value;
+            }
+
             return View switch
             {
-                CalendarViews.Days => Date.Year == maxDate.Year && Date.Month == maxDate.Month,
-                CalendarViews.Months => Date.Year == maxDate.Year,
-                CalendarViews.Years => Date.Year + 12 - CalendarExtended.YearShiftCentered >= maxDate.Year,
+                CalendarViews.Days => (Date.Year == maxDate.Year && Date.Month == maxDate.Month) || rangeNextDisabled,
+                CalendarViews.Months => Date.Year == maxDate.Year || rangeNextDisabled,
+                CalendarViews.Years => Date.Year + 12 - CalendarExtended.YearShiftCentered >= maxDate.Year || rangeNextDisabled,
                 _ => false
             };
         }

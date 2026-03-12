@@ -28,7 +28,7 @@
 
                 @* Title bar (label, previous and next buttons) *@
                 <div class="title" part="title" aria-label="@titles.Label">
-                @if (ShowTitleStatic)
+                @if (HeaderInteractive)
                 {
                     <div part="label">
                         @titles.Label
@@ -186,6 +186,8 @@
                                     ValueChanged="@PickerMonthSelectAsync"
                                     ReadOnly="@ReadOnly"
                                     Disabled="@Disabled"
+                                    MinDate="@(MinDate.ConvertToDateTime() ?? default)"
+                                    MaxDate="@(MaxDate.ConvertToDateTime() ?? default)"
                                     Culture="@Culture"
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"
@@ -202,6 +204,8 @@
                                     ValueChanged="@PickerYearSelectAsync"
                                     ReadOnly="@ReadOnly"
                                     Disabled="@Disabled"
+                                    MinDate="@(MinDate.ConvertToDateTime() ?? default)"
+                                    MaxDate="@(MaxDate.ConvertToDateTime() ?? default)"
                                     Culture="@Culture"
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"
