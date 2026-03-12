@@ -28,44 +28,45 @@
 
                 @* Title bar (label, previous and next buttons) *@
                 <div class="title" part="title" aria-label="@titles.Label">
-                @if (HeaderInteractive)
-                {
-                    <div part="label">
-                        @titles.Label
-                    </div>
-                }
-                else
-                {
-                    <div part="label" class="@GetAnimationClass("label")" readonly="@ReadOnly"
-                         role="button" tabindex="0"
-                         @onclick="@(e => TitleClickHandlerAsync(titles))">
-                        @titles.Label
-                    </div>
-                    <div part="move" class="change-period">
-                        @if (titles.PreviousDisabled)
-                        {
-                            <div class="previous" disabled />
-                        }
-                        else
-                        {
-                            <div class="previous" title="@titles.PreviousTitle" @onclick="@OnPreviousButtonHandlerAsync"
-                                 role="button" tabindex="0">
-                                @((MarkupString)ArrowUp)
-                            </div>
-                        }
-                        @if (titles.NextDisabled)
-                        {
-                            <div class="next" disabled />
-                        }
-                        else
-                        {
-                            <div class="next" title="@titles.NextTitle" @onclick="@OnNextButtonHandlerAsync"
-                                 role="button" tabindex="0">
-                                @((MarkupString)ArrowDown)
-                            </div>
-                        }
-                    </div>
-                }
+                    @if (HeaderInteractive)
+                    {
+                        <div part="label" class="@GetAnimationClass("label")" readonly="@ReadOnly"
+                             role="button" tabindex="0"
+                             @onclick="@(e => TitleClickHandlerAsync(titles))">
+                            @titles.Label
+                        </div>
+                        <div part="move" class="change-period">
+                            @if (titles.PreviousDisabled)
+                            {
+                                <div class="previous" disabled />
+                            }
+                            else
+                            {
+                                <div class="previous" title="@titles.PreviousTitle" @onclick="@OnPreviousButtonHandlerAsync"
+                                     role="button" tabindex="0">
+                                    @((MarkupString)ArrowUp)
+                                </div>
+                            }
+                            @if (titles.NextDisabled)
+                            {
+                                <div class="next" disabled />
+                            }
+                            else
+                            {
+                                <div class="next" title="@titles.NextTitle" @onclick="@OnNextButtonHandlerAsync"
+                                     role="button" tabindex="0">
+                                    @((MarkupString)ArrowDown)
+                                </div>
+                            }
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div part="label">
+                            @titles.Label
+                        </div>
+                    }
                 </div>
 
                 @switch (View)

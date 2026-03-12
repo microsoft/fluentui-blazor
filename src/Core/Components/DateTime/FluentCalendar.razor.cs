@@ -250,7 +250,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             CalendarViews.Days => PickerMonth.AddMonths(-1, Culture),
             CalendarViews.Months => PickerMonth.AddYears(-1, Culture),
             CalendarViews.Years => PickerMonth.AddYears(-12, Culture),
-            _ => PickerMonth
+            _ => PickerMonth,
         };
 
         var minDateTime = MinDate.ConvertToDateTime();
@@ -280,7 +280,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
                         .AddYears(12, Culture)
                         .AddDays(-1),
 
-                _ => candidateDateTime.Value
+                _ => candidateDateTime.Value,
             };
 
             if (candidatePeriodEnd < minDateTime.Value)
@@ -304,7 +304,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             CalendarViews.Days => PickerMonth.AddMonths(+1, Culture),
             CalendarViews.Months => PickerMonth.AddYears(+1, Culture),
             CalendarViews.Years => PickerMonth.AddYears(+12, Culture),
-            _ => PickerMonth
+            _ => PickerMonth,
         };
 
         var maxDateTime = MaxDate.ConvertToDateTime();
@@ -325,7 +325,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
                 CalendarViews.Years
                     => candidateDateTime.Value.StartOfYear(Culture),
 
-                _ => candidateDateTime.Value
+                _ => candidateDateTime.Value,
             };
 
             if (candidatePeriodStart > maxDateTime.Value)

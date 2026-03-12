@@ -4,7 +4,7 @@
         <FluentCalendar DisabledDateFunc="@DisabledDay"
                         @bind-Value="@SelectedDay"
                         @bind-PickerMonth="@PickerDay"
-                        HeaderInteractive="true"
+                        HeaderInteractive="false"
                         Style="height: 250px; align-content: start;" />
         <p>Selected @(SelectedDay.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerDay.ToString("yyyy-MM-dd"))</p>

@@ -57,7 +57,7 @@ internal class CalendarTitles<TValue>
                 CalendarViews.Days => false,
                 CalendarViews.Months => false,
                 CalendarViews.Years => true,
-                _ => true
+                _ => true,
             };
         }
     }
@@ -76,7 +76,7 @@ internal class CalendarTitles<TValue>
                 CalendarViews.Months => CalendarExtended.GetYear(),
                 CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) - CalendarExtended.YearShiftCentered),
 #pragma warning restore MA0011
-                _ => string.Empty
+                _ => string.Empty,
             };
         }
     }
@@ -93,7 +93,7 @@ internal class CalendarTitles<TValue>
                 CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(-1, _calendar.Culture)),
                 CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(-1, _calendar.Culture)),
                 CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) - 12 - CalendarExtended.YearShiftCentered),
-                _ => string.Empty
+                _ => string.Empty,
             };
         }
     }
@@ -149,7 +149,7 @@ internal class CalendarTitles<TValue>
                 CalendarViews.Days => (Date.Year == minDate.Year && Date.Month == minDate.Month) || rangePreviousDisabled,
                 CalendarViews.Months => Date.Year == minDate.Year || rangePreviousDisabled,
                 CalendarViews.Years => Date.Year - CalendarExtended.YearShiftCentered <= minDate.Year + 12 || rangePreviousDisabled,
-                _ => false
+                _ => false,
             };
         }
     }
@@ -166,7 +166,7 @@ internal class CalendarTitles<TValue>
                 CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(+1, _calendar.Culture)),
                 CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(+1, _calendar.Culture)),
                 CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) + 12 - CalendarExtended.YearShiftCentered),
-                _ => string.Empty
+                _ => string.Empty,
             };
         }
     }
@@ -214,7 +214,7 @@ internal class CalendarTitles<TValue>
                 CalendarViews.Days => (Date.Year == maxDate.Year && Date.Month == maxDate.Month) || rangeNextDisabled,
                 CalendarViews.Months => Date.Year == maxDate.Year || rangeNextDisabled,
                 CalendarViews.Years => Date.Year + 12 - CalendarExtended.YearShiftCentered >= maxDate.Year || rangeNextDisabled,
-                _ => false
+                _ => false,
             };
         }
     }
