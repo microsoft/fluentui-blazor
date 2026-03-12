@@ -32,7 +32,7 @@ internal class FluentCalendarMonth<TValue>
         }
         else
         {
-            _isInDisabledList = calendar.IsSelectionOutsideRange(Month) || (calendar.DisabledDateFunc?.Invoke(Month.ConvertToTValue<TValue>()) ?? false);
+            _isInDisabledList = calendar.AllowedRange.IsSelectionOutsideRange(Month, calendar.View, calendar.Culture) || (calendar.DisabledDateFunc?.Invoke(Month.ConvertToTValue<TValue>()) ?? false);
         }
     }
 

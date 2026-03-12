@@ -269,45 +269,18 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <summary />
     internal async Task OnPreviousButtonHandlerAsync(MouseEventArgs _)
     {
-        // Compute the candidate period first, so we can block navigation when MinDate would be violated.
+        // Compute the candidate period first, clamping to MinDate if needed.
         var candidatePickerMonth = View switch
         {
-            CalendarViews.Days => PickerMonth.AddMonths(-1, Culture),
-            CalendarViews.Months => PickerMonth.AddYears(-1, Culture),
-            CalendarViews.Years => PickerMonth.AddYears(-12, Culture),
+            CalendarViews.Days => PickerMonth.AddMonths(-1, Culture).AdaptedForMinDate(MinDate, Culture),
+            CalendarViews.Months => PickerMonth.AddYears(-1, Culture).AdaptedForMinDate(MinDate, CalendarViews.Months, Culture),
+            CalendarViews.Years => PickerMonth.AddYears(-12, Culture).AdaptedForMinDate(MinDate, CalendarViews.Years, Culture, GetDisplayedYearsPeriod),
             _ => PickerMonth,
         };
 
-        var minDateTime = MinDate.ConvertToDateTime();
-        var candidateDateTime = candidatePickerMonth.ConvertToDateTime();
-
-        if (minDateTime.HasValue && candidateDateTime.HasValue)
+        if (candidatePickerMonth.ConvertToDateTime() == PickerMonth.ConvertToDateTime())
         {
-            // Allow navigation as long as the *displayed period* still contains at least one date >= MinDate.
-            // This prevents blocking navigation to the month/year that contains MinDate even if it starts earlier.
-            var candidatePeriodEnd = View switch
-            {
-                CalendarViews.Days
-                    => candidateDateTime.Value
-                        .StartOfMonth(Culture)
-                        .AddMonths(1, Culture)
-                        .AddDays(-1),
-
-                CalendarViews.Months
-                    => candidateDateTime.Value
-                        .StartOfYear(Culture)
-                        .AddYears(1, Culture)
-                        .AddDays(-1),
-
-                CalendarViews.Years => GetDisplayedYearsPeriod(candidateDateTime.Value).PeriodEnd,
-
-                _ => candidateDateTime.Value,
-            };
-
-            if (candidatePeriodEnd.Date < minDateTime.Value.Date)
-            {
-                return;
-            }
+            return;
         }
 
         await StartNewAnimationAsync(AnimationRunning.Down);
@@ -319,39 +292,18 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <summary />
     internal async Task OnNextButtonHandlerAsync(MouseEventArgs _)
     {
-        // Compute the candidate period first, so we can block navigation when MaxDate would be violated.
+        // Compute the candidate period first, clamping to MaxDate if needed.
         var candidatePickerMonth = View switch
         {
-            CalendarViews.Days => PickerMonth.AddMonths(+1, Culture),
-            CalendarViews.Months => PickerMonth.AddYears(+1, Culture),
-            CalendarViews.Years => PickerMonth.AddYears(+12, Culture),
+            CalendarViews.Days => PickerMonth.AddMonths(+1, Culture).AdaptedForMaxDate(MaxDate, Culture),
+            CalendarViews.Months => PickerMonth.AddYears(+1, Culture).AdaptedForMaxDate(MaxDate, CalendarViews.Months, Culture),
+            CalendarViews.Years => PickerMonth.AddYears(+12, Culture).AdaptedForMaxDate(MaxDate, CalendarViews.Years, Culture, GetDisplayedYearsPeriod),
             _ => PickerMonth,
         };
 
-        var maxDateTime = MaxDate.ConvertToDateTime();
-        var candidateDateTime = candidatePickerMonth.ConvertToDateTime();
-
-        if (maxDateTime.HasValue && candidateDateTime.HasValue)
+        if (candidatePickerMonth.ConvertToDateTime() == PickerMonth.ConvertToDateTime())
         {
-            // Allow navigation as long as the *displayed period* still contains at least one date <= MaxDate.
-            // This prevents blocking navigation to the month/year that contains MaxDate even if it ends later.
-            var candidatePeriodStart = View switch
-            {
-                CalendarViews.Days
-                    => candidateDateTime.Value.StartOfMonth(Culture),
-
-                CalendarViews.Months
-                    => candidateDateTime.Value.StartOfYear(Culture),
-
-                CalendarViews.Years => GetDisplayedYearsPeriod(candidateDateTime.Value).PeriodStart,
-
-                _ => candidateDateTime.Value,
-            };
-
-            if (candidatePeriodStart.Date > maxDateTime.Value.Date)
-            {
-                return;
-            }
+            return;
         }
 
         await StartNewAnimationAsync(AnimationRunning.Up);
@@ -482,7 +434,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     }
 
     private bool IsDayDisabled(DateTime value)
-        => IsOutsideRange(value) || (DisabledDateFunc?.Invoke(value.ConvertToTValue<TValue>()) ?? false);
+        => AllowedRange.IsOutsideRange(value) || (DisabledDateFunc?.Invoke(value.ConvertToTValue<TValue>()) ?? false);
 
     /// <summary />
     private (bool IsMultiple, DateTime Min, DateTime Max, bool InProgress) GetMultipleSelection()

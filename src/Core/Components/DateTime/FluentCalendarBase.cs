@@ -6,7 +6,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Calendar;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -96,51 +95,7 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     [Parameter]
     public TValue? MaxDate { get; set; }
 
-    internal bool IsOutsideRange(DateTime value)
-    {
-        var min = MinDate.ConvertToDateTime()?.Date;
-        var max = MaxDate.ConvertToDateTime()?.Date;
-        var date = value.Date;
-
-        if (min.HasValue && date < min.Value)
-        {
-            return true;
-        }
-
-        if (max.HasValue && date > max.Value)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    internal bool IsPeriodOutsideRange(DateTime periodStart, DateTime periodEnd)
-    {
-        var min = MinDate.ConvertToDateTime()?.Date;
-        var max = MaxDate.ConvertToDateTime()?.Date;
-
-        if (min.HasValue && periodEnd.Date < min.Value)
-        {
-            return true;
-        }
-
-        if (max.HasValue && periodStart.Date > max.Value)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    internal bool IsSelectionOutsideRange(DateTime value)
-        => View switch
-        {
-            CalendarViews.Days => IsOutsideRange(value),
-            CalendarViews.Months => IsPeriodOutsideRange(value.StartOfMonth(Culture), value.EndOfMonth(Culture)),
-            CalendarViews.Years => IsPeriodOutsideRange(value.StartOfYear(Culture), value.EndOfYear(Culture)),
-            _ => false,
-        };
+    internal RangeOfDates AllowedRange => new(MinDate.ConvertToDateTime()?.Date, MaxDate.ConvertToDateTime()?.Date);
 
     /// <summary />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
@@ -166,7 +121,7 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
         }
 
         var dateTime = value.ConvertToDateTime();
-        if (dateTime.HasValue && IsSelectionOutsideRange(dateTime.Value))
+        if (dateTime.HasValue && AllowedRange.IsSelectionOutsideRange(dateTime.Value, View, Culture))
         {
             return Task.CompletedTask;
         }
