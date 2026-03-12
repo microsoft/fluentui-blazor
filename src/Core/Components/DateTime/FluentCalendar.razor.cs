@@ -241,6 +241,31 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         return new CalendarTitles<TValue>(this);
     }
 
+    private (DateTime PeriodStart, DateTime PeriodEnd) GetDisplayedYearsPeriod(DateTime pivotDate)
+    {
+        // This must match CalendarExtended.GetYearsRange() logic (YearShiftCentered + supported-year clamping).
+        var pivotYear = pivotDate.GetYear(Culture);
+        var minSupportedYear = Culture.Calendar.MinSupportedDateTime.GetYear(Culture);
+        var maxSupportedYear = Culture.Calendar.MaxSupportedDateTime.GetYear(Culture);
+
+        var fromYear = pivotYear - CalendarExtended.YearShiftCentered;
+        if (fromYear < minSupportedYear)
+        {
+            fromYear = minSupportedYear;
+        }
+
+        var toYear = fromYear + 11;
+        if (toYear > maxSupportedYear)
+        {
+            toYear = maxSupportedYear;
+        }
+
+        var periodStart = Culture.Calendar.ToDateTime(fromYear, 1, 1, 0, 0, 0, 0).StartOfYear(Culture);
+        var periodEnd = Culture.Calendar.ToDateTime(toYear, 1, 1, 0, 0, 0, 0).EndOfYear(Culture);
+
+        return (periodStart, periodEnd);
+    }
+
     /// <summary />
     internal async Task OnPreviousButtonHandlerAsync(MouseEventArgs _)
     {
@@ -274,16 +299,12 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
                         .AddYears(1, Culture)
                         .AddDays(-1),
 
-                CalendarViews.Years
-                    => candidateDateTime.Value
-                        .StartOfYear(Culture)
-                        .AddYears(12, Culture)
-                        .AddDays(-1),
+                CalendarViews.Years => GetDisplayedYearsPeriod(candidateDateTime.Value).PeriodEnd,
 
                 _ => candidateDateTime.Value,
             };
 
-            if (candidatePeriodEnd < minDateTime.Value)
+            if (candidatePeriodEnd.Date < minDateTime.Value.Date)
             {
                 return;
             }
@@ -322,13 +343,12 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
                 CalendarViews.Months
                     => candidateDateTime.Value.StartOfYear(Culture),
 
-                CalendarViews.Years
-                    => candidateDateTime.Value.StartOfYear(Culture),
+                CalendarViews.Years => GetDisplayedYearsPeriod(candidateDateTime.Value).PeriodStart,
 
                 _ => candidateDateTime.Value,
             };
 
-            if (candidatePeriodStart > maxDateTime.Value)
+            if (candidatePeriodStart.Date > maxDateTime.Value.Date)
             {
                 return;
             }
