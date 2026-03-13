@@ -49,6 +49,50 @@
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
     }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_MultiSelect_SelectedItems_PersistAcrossPagination()
+    {
+        var items = new[]
+        {
+            new Person(1, "A", new DateOnly(1985, 3, 16)),
+            new Person(2, "B", new DateOnly(2004, 1, 9)),
+            new Person(3, "C", new DateOnly(1958, 10, 10)),
+            new Person(4, "D", new DateOnly(1991, 12, 1)),
+        }.AsQueryable();
+
+        var pagination = new PaginationState { ItemsPerPage = 2 };
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        var cut = Render(
+    @<div>
+        <FluentDataGrid Items="@items" Pagination="@pagination" TGridItem="Person">
+            <SelectColumn TGridItem="Person"
+                          SelectMode="@DataGridSelectMode.Multiple"
+                          @bind-SelectedItems="@SelectedItems" />
+            <PropertyColumn Property="@(p => p.Name)" />
+        </FluentDataGrid>
+        <FluentPaginator State="@pagination" />
+    </div>);
+
+        // Select an item on page 1
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Single(SelectedItems);
+        var firstSelectedId = SelectedItems.First().PersonId;
+
+        // Move to page 2
+        var grid = cut.FindComponent<FluentDataGrid<Person>>();
+        await grid.InvokeAsync(() => pagination.SetCurrentPageIndexAsync(1));
+        grid.Render();
+
+        // The selection must remain when paging
+        Assert.Single(SelectedItems);
+        Assert.Equal(firstSelectedId, SelectedItems.First().PersonId);
+
+        // Select another item on page 2
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Equal(2, SelectedItems.Count());
+    }
     
     [Fact]
     public async Task FluentDataGrid_ColumSelect_Selectable_SingleSelect_SelectedItems()
