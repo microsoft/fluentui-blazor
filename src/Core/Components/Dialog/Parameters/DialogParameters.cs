@@ -17,6 +17,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// left (full height), right (full height)
     /// or screen middle (using Width and Height properties).
     /// HorizontalAlignment.Stretch is not supported for this property.
+    /// NOTE: Left/Right only works for Panels, not Dialogs, which are always centered.
     /// </summary>
     public virtual HorizontalAlignment Alignment
     {
