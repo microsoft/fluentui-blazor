@@ -41,44 +41,6 @@
         cut.Verify();
     }
 
-    [Fact]
-    public void FluentCalendar_HeaderInteractive_Default_IsInteractive()
-    {
-        using var context = new DateTimeProviderContext(DateTime.Now);
-
-        // Arrange
-        var calendar = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" PickerMonth="@DateTime.Parse("2022-06-15")" />);
-
-        // Assert
-        var label = calendar.Find("div[part='label']");
-        Assert.Equal("button", label.GetAttribute("role"));
-        Assert.Equal("0", label.GetAttribute("tabindex"));
-
-        var previous = calendar.Find(".previous");
-        var next = calendar.Find(".next");
-        Assert.Equal("button", previous.GetAttribute("role"));
-        Assert.Equal("button", next.GetAttribute("role"));
-    }
-
-    [Fact]
-    public void FluentCalendar_HeaderInteractive_False_IsStatic()
-    {
-        using var context = new DateTimeProviderContext(DateTime.Now);
-
-        // Arrange
-        var calendar = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" PickerMonth="@DateTime.Parse("2022-06-15")" HeaderInteractive="false" />);
-
-        // Assert: no navigation controls
-        Assert.Empty(calendar.FindAll(".previous"));
-        Assert.Empty(calendar.FindAll(".next"));
-        Assert.Empty(calendar.FindAll(".change-period"));
-
-        // Assert: title label is not interactive
-        var label = calendar.Find("div[part='label']");
-        Assert.Null(label.GetAttribute("role"));
-        Assert.Null(label.GetAttribute("tabindex"));
-    }
-
     [Theory]
     [InlineData(2022, 02, 15, "en-US")]
     [InlineData(2022, 02, 15, "fa-IR")]

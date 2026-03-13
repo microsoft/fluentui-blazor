@@ -66,7 +66,7 @@ internal static class CalendarTValue
             DateOnly d => d.ToDateTime(),
             DateTimeOffset dto => dto.DateTime,
             TimeOnly t => t.ToDateTime(),
-            _ => null
+            _ => null,
         };
     }
 
@@ -96,7 +96,7 @@ internal static class CalendarTValue
             Type t when t == typeof(DateOnly?) => (TValue)(object)(DateOnly?)DateOnly.FromDateTime(value),
             Type t when t == typeof(TimeOnly) => (TValue)(object)TimeOnly.FromDateTime(value),
             Type t when t == typeof(TimeOnly?) => (TValue)(object)(TimeOnly?)TimeOnly.FromDateTime(value),
-            _ => throw new ArgumentException($"Unsupported type: {typeof(TValue)}", nameof(value))
+            _ => throw new ArgumentException($"Unsupported type: {typeof(TValue)}", nameof(value)),
         };
     }
 

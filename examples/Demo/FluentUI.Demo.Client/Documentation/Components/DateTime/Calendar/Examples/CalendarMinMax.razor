@@ -1,29 +1,32 @@
-﻿﻿<FluentStack Wrap="true" HorizontalGap="24px">
+﻿<FluentStack Wrap="true" HorizontalGap="24px">
 
     <div>
         <FluentCalendar DisabledDateFunc="@DisabledDay"
                         @bind-Value="@SelectedDay"
                         @bind-PickerMonth="@PickerDay"
+                        MinDate="@StartOfMonth"
+                        MaxDate="@EndOfMonth"
                         Style="height: 250px; align-content: start;" />
         <p>Selected @(SelectedDay.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerDay.ToString("yyyy-MM-dd"))</p>
     </div>
 
     <div>
-        <FluentCalendar DisabledDateFunc="@DisableMonth"
-                        View="CalendarViews.Months"
+        <FluentCalendar View="CalendarViews.Months"
                         @bind-Value="@SelectedMonth"
                         @bind-PickerMonth="@PickerMonth"
+                        MinDate="@(new DateTime(2026, 3, 1))"
+                        MaxDate="@(new DateTime(Today.Year+1, 7, 30))"
                         Style="height: 250px; align-content: start;" />
         <p>Selected @(SelectedMonth.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerMonth.ToString("yyyy-MM-dd"))</p>
     </div>
 
     <div>
-        <FluentCalendar DisabledDateFunc="@DisableYear"
-                        View="CalendarViews.Years"
+        <FluentCalendar View="CalendarViews.Years"
                         @bind-Value="@SelectedYear"
                         @bind-PickerMonth="@PickerYear"
+                        MaxDate="@(new DateTime(2030, 7, 30))"
                         Style="height: 250px; align-content: start;" />
         <p>Selected @(SelectedYear.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerYear.ToString("yyyy-MM-dd"))</p>
@@ -34,6 +37,7 @@
 {
     private static readonly DateTime Today = DateTime.Today;
     private static readonly DateTime StartOfMonth = new DateTime(Today.Year, Today.Month, 1);
+    private static readonly DateTime EndOfMonth = new DateTime(Today.Year, Today.Month, DateTime.DaysInMonth(Today.Year, Today.Month));
 
     private DateTime SelectedDay = Today;
     private DateTime PickerDay = StartOfMonth;
@@ -43,6 +47,5 @@
     private DateTime PickerYear = StartOfMonth;
 
     private bool DisabledDay(DateTime date) => date.Day == 3 || date.Day == 8 || date.Day == 20;
-    private bool DisableMonth(DateTime date) => date.Month == 3 || date.Month == 8;
-    private bool DisableYear(DateTime date) => date.Year == 2026 || date.Year == 2027;
+
 }

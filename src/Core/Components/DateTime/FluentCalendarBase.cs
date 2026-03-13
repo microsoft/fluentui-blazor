@@ -77,13 +77,6 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
     /// <summary>
-    /// Gets or sets whether the header of the calendar (title and prev/next arrows) is displayed interactively.
-    /// True (default) renders clickable title and prev/next arrows. False renders just the title as static text.
-    /// </summary>
-    [Parameter]
-    public virtual bool HeaderInteractive { get; set; } = true;
-
-    /// <summary>
     /// Gets or sets the minimum date that can be selected in the calendar. If not set, there is no minimum date.
     /// </summary>
     [Parameter]
