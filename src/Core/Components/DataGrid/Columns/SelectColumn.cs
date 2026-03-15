@@ -238,7 +238,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     /// </summary>
     /// <remarks>If not set, the default equality comparer for <typeparamref name="TGridItem"/> is used.
     /// Setting this property allows customization of how grid items are compared for equality, which can affect
-    /// operations such as selection, filtering, or updating items in the grid.</remarks>
+    /// operations such as selection, filtering, or updating items in the grid.
+    /// When <see cref="Comparer"/> is <see langword="null"/>, the grid uses an effective comparer: it may fall back
+    /// to a key-based comparer derived from <see cref="FluentDataGrid{TGridItem}.ItemKey"/> when available, which can
+    /// differ from <see cref="System.Collections.Generic.EqualityComparer{TGridItem}.Default"/> for <typeparamref name="TGridItem"/>.</remarks>
     [Parameter]
     public IEqualityComparer<TGridItem>? Comparer { get; set; } = null;
 
