@@ -1,19 +1,46 @@
-﻿<FluentTextInput Label="Error state"
-                 MessageState="@MessageState.Error"
-                 Message="This is an error message."
-                 MessageCondition="@FluentFieldCondition.Always" />
+﻿<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit" FormName="entry_form" novalidate="true">
 
-<FluentTextInput Label="Warning state"
-                 MessageState="@MessageState.Warning"
-                 Message="This is a warning message."
-                 MessageCondition="@FluentFieldCondition.Always" />
+	<FluentTextInput Label="Error state"
+					 @bind-Value="model.Text"
+					 MessageState="@MessageState.Error"
+					 Message="This is an error message."
+					 MessageCondition="@FluentFieldCondition.Always"
+					 Required="true" />
 
-<FluentTextInput Label="Success state"
-                 MessageState="@MessageState.Success"
-                 Message="This is a success message."
-                 MessageCondition="@FluentFieldCondition.Always" />
 
-<FluentTextInput Label="Custom state"
-                 Message="This is a custom message."
-                 MessageIcon="@(new Icons.Regular.Size24.Accessibility())"
-                 MessageCondition="@FluentFieldCondition.Always" />
+	<FluentTextInput Label="Warning state"
+					 MessageState="@MessageState.Warning"
+					 Message="This is a warning message."
+					 MessageCondition="@FluentFieldCondition.Always" />
+
+	<FluentTextInput Label="Success state"
+					 MessageState="@MessageState.Success"
+					 Message="This is a success message."
+					 MessageCondition="@FluentFieldCondition.Always" />
+
+	<FluentTextInput Label="Custom state"
+					 Message="This is a custom message."
+					 MessageIcon="@(new Icons.Regular.Size24.Accessibility())"
+					 MessageCondition="@FluentFieldCondition.Always" />
+
+	<div>
+		<FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Submit</FluentButton>
+	</div>
+</EditForm>
+
+@code {
+	[SupplyParameterFromForm]
+	private Model model { get; set; } = new();
+
+	private void HandleValidSubmit()
+	{
+		Console.WriteLine("HandleValidSubmit called");
+
+		// Process the valid form
+	}
+
+	private class Model
+	{
+		public string? Text { get; set; } = string.Empty;
+	}
+}

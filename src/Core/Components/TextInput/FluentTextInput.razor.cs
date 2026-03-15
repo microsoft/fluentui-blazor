@@ -3,6 +3,10 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -20,11 +24,14 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     /// </summary>
     public FluentTextInput(LibraryConfiguration configuration) : base(configuration)
     {
-        // Default conditions for the message
         MessageCondition = (field) =>
         {
             field.MessageIcon = FluentStatus.ErrorIcon;
-            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+
+            // 1. Start with the component's Message parameter if provided.
+            // 2. Fallback: Search for a [Required] attribute ErrorMessage on the bound property via EditContext/FieldIdentifier.
+            // 3. Fallback: Use the default localized string.
+            field.Message = Message ?? GetRequiredAttributeMessage() ?? Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
 
             return FocusLost &&
                    (Required ?? false)
@@ -242,5 +249,26 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     {
         FocusLost = true;
         return Task.CompletedTask;
+    }
+
+    private string? GetRequiredAttributeMessage()
+    {
+        if (ValueExpression is null)
+        {
+            return null;
+        }
+
+        var expression = ValueExpression.Body;
+        if (expression is UnaryExpression { NodeType: ExpressionType.Convert } unary)
+        {
+            expression = unary.Operand;
+        }
+
+        if (expression is MemberExpression memberExpression)
+        {
+            return memberExpression.Member.GetCustomAttribute<RequiredAttribute>()?.ErrorMessage;
+        }
+
+        return null;
     }
 }
