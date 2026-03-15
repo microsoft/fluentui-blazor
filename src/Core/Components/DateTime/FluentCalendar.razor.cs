@@ -291,6 +291,15 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
+
+            if (value == CurrentValue?.ConvertToDateTime())
+            {
+                // Even if the month is the same as the current value, we need to update the day to the first day of the month, and trigger the event.
+                // Otherwise, the user cannot return to the day view.
+                await ValueChanged.InvokeAsync(value.ConvertToTValue<TValue>());
+                return;
+            }
+
             await OnSelectedDateHandlerAsync(value);
         }
     }
@@ -301,6 +310,15 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
+
+            if (value == CurrentValue?.ConvertToDateTime())
+            {
+                // Even if the year is the same as the current value, we need to update the month and day to the first month and day of the year, and trigger the event.
+                // Otherwise, the user cannot return to the month view.
+                await ValueChanged.InvokeAsync(value.ConvertToTValue<TValue>());
+                return;
+            }
+
             await OnSelectedDateHandlerAsync(value);
         }
     }
