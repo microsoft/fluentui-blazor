@@ -361,6 +361,14 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
             return;
         }
 
+        // When the grid only has a subset of the full data set in memory (pagination and/or virtualization),
+        // the current Items collection does not represent all rows. In that case we must not remove selected
+        // items just because they are not in the current slice.
+        if (InternalGridContext.TotalItemCount > 0 && InternalGridContext.Items.Count < InternalGridContext.TotalItemCount)
+        {
+            return;
+        }
+
         var itemsToRemove = _selectedItems.Where(item => !InternalGridContext.Items.Contains(item, Comparer)).ToList();
         foreach (var item in itemsToRemove)
         {
