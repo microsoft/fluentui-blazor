@@ -269,7 +269,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
       };
     }
   });
-  blazor.registerCustomEventType('dateselected', {
+  blazor.registerCustomEventType('fluentdateselected', {
     browserEventName: 'dateselected',
     createEventArgs: event => {
       return {
@@ -312,7 +312,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
       };
     }
   });
-  blazor.registerCustomEventType('scrollstart', {
+  blazor.registerCustomEventType('fluentscrollstart', {
     browserEventName: 'scrollstart',
     createEventArgs: event => {
       return {
@@ -321,7 +321,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
     }
   });
 
-  blazor.registerCustomEventType('scrollend', {
+  blazor.registerCustomEventType('fluentscrollend', {
     browserEventName: 'scrollend',
     createEventArgs: event => {
       return {
@@ -330,7 +330,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
     }
   });
 
-  blazor.registerCustomEventType('splitterresized', {
+  blazor.registerCustomEventType('fluentsplitterresized', {
     browserEventName: 'splitterresized',
     createEventArgs: event => {
       return {
@@ -340,7 +340,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
     }
   });
 
-  blazor.registerCustomEventType('splittercollapsed', {
+  blazor.registerCustomEventType('fluentsplittercollapsed', {
     browserEventName: 'splittercollapsed',
     createEventArgs: event => {
       return {
