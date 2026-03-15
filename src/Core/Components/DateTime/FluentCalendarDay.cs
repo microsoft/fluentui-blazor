@@ -28,7 +28,7 @@ public class FluentCalendarDay<TValue>
         Date = day.Date.ConvertToTValue<TValue>();
         DateTime = day.Date;
 
-        _isInDisabledList = calendar.DisabledDateFunc?.Invoke(day.ConvertToTValue<TValue>()) ?? false;
+        _isInDisabledList = calendar.AllowedRange.IsOutsideRange(day) || (calendar.DisabledDateFunc?.Invoke(day.ConvertToTValue<TValue>()) ?? false);
         _isOutsideCurrentMonth = !calendar.CalendarExtended.IsInCurrentMonth(day);
     }
 
@@ -45,7 +45,7 @@ public class FluentCalendarDay<TValue>
     /// <summary>
     /// Gets a value indicating whether the day is disabled by the user.
     /// </summary>
-    public bool IsDisabled => IsInactive ? false : _isInDisabledList && _calendar.DisabledSelectable;
+    public bool IsDisabled => !IsInactive && _isInDisabledList && _calendar.DisabledSelectable;
 
     /// <summary>
     /// Gets a value indicating whether the day is inactive (out of the current month).

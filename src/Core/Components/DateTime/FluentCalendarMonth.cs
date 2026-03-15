@@ -32,7 +32,7 @@ internal class FluentCalendarMonth<TValue>
         }
         else
         {
-            _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Month.ConvertToTValue<TValue>()) ?? false;
+            _isInDisabledList = calendar.AllowedRange.IsSelectionOutsideRange(Month, calendar.View, calendar.Culture) || (calendar.DisabledDateFunc?.Invoke(Month.ConvertToTValue<TValue>()) ?? false);
         }
     }
 
@@ -59,7 +59,9 @@ internal class FluentCalendarMonth<TValue>
     /// <summary>
     /// Gets the title of the month in the format [month] [year].
     /// </summary>
+#pragma warning disable MA0076 // Do not use implicit culture-sensitive ToString in interpolated strings
     public string Title => $"{_calendar.CalendarExtended.GetMonthName(Month)} {Month.GetYear(_calendar.Culture):0000}";
+#pragma warning restore MA0076 // Do not use implicit culture-sensitive ToString in interpolated strings
 
     /// <summary>
     /// Gets the identifier of the month in the format yyyy-MM.

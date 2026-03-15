@@ -141,6 +141,78 @@ value=""2022-02-20"">20</div>");
         Assert.Equal(juneFirst, component.Instance.PickerMonth);
     }
 
+    [Fact]
+    public async Task FluentCalendar_PickerMonth_Setter_DoesNothing_WhenMonthDateTimeEqualsPickerMonthField()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var sameMonthDifferentDay = DateTime.Parse("2022-06-20");
+        var currentPickerMonth = DateTime.Parse("2022-06-01");
+
+        var changedCount = 0;
+        DateTime lastChanged = default;
+
+        // Arrange
+        var cut = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture"
+                                         PickerMonthChanged="@((DateTime month) => { changedCount++; lastChanged = month; })" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+
+        var pickerMonthField = component.Instance.GetType().GetField("_pickerMonth", BindingFlags.NonPublic | BindingFlags.Instance);
+        Assert.NotNull(pickerMonthField);
+
+        await component.InvokeAsync(() => pickerMonthField!.SetValue(component.Instance, currentPickerMonth));
+
+        Assert.Equal(currentPickerMonth, (DateTime)pickerMonthField!.GetValue(component.Instance)!);
+
+        var pickerMonthProperty = component.Instance.GetType().GetProperty(nameof(FluentCalendar<DateTime>.PickerMonth));
+        Assert.NotNull(pickerMonthProperty);
+
+        // Act: set PickerMonth again so monthDateTime == _pickerMonth
+        await component.InvokeAsync(() => pickerMonthProperty!.SetValue(component.Instance, sameMonthDifferentDay));
+
+        await Task.Delay(50, Xunit.TestContext.Current.CancellationToken);
+
+        // Assert: setter early-return should prevent any callback and keep _pickerMonth unchanged
+        Assert.Equal(0, changedCount);
+        Assert.Equal(currentPickerMonth, (DateTime)pickerMonthField.GetValue(component.Instance)!);
+    }
+
+    [Fact]
+    public async Task FluentCalendar_OnSelectedDateHandlerAsync_DoesNotChangeValue_WhenSelectionOutsideRange()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var initial = new DateTime(2022, 6, 15);
+        var min = new DateTime(2022, 6, 10);
+        var outside = new DateTime(2022, 6, 5);
+
+        var valueChangedCount = 0;
+        DateTime lastValueChanged = default;
+
+        // Arrange
+        var cut = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" Value="@initial" MinDate="@min"
+                                         ValueChanged="@((DateTime v) => { valueChangedCount++; lastValueChanged = v; })" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+
+        Assert.Equal(initial, component.Instance.Value);
+
+        // Resolve the DateTime overload on the FluentCalendar<TValue> class (the derived class contains
+        // both the DateTime adapter and the TValue overload from FluentCalendarBase).
+        var method = typeof(FluentCalendar<DateTime>).GetMethod("OnSelectedDateHandlerAsync", BindingFlags.NonPublic | BindingFlags.Instance, [typeof(DateTime)]);
+        Assert.NotNull(method);
+
+        var beforeCount = valueChangedCount;
+        var beforeValue = component.Instance.Value;
+
+        // Act: valid DateTime value, but outside of the allowed range (IsSelectionOutsideRange)
+        await component.InvokeAsync(() => (Task)method!.Invoke(component.Instance, [outside])!);
+
+        // Assert
+        Assert.Equal(beforeCount, valueChangedCount);
+        Assert.Equal(beforeValue, component.Instance.Value);
+        Assert.Equal(default, lastValueChanged);
+    }
+
     [Theory]
     [InlineData("en-US", "June 2022", "2022-06-01")]
     [InlineData("fa-IR", "خرداد 1401", "2022-05-22")]
@@ -399,6 +471,217 @@ value=""2022-02-20"">20</div>");
         calendar.Verify(suffix: view.GetDescription());
     }
 
+    [Fact]
+    public void FluentCalendar_MinMax_Days_DisablesOutsideRange_And_DisablesNavigation()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2022-06-15");
+        var minDate = DateTime.Parse("2022-06-10");
+        var maxDate = DateTime.Parse("2022-06-20");
+
+        DateTime? value = DateTime.Parse("2022-06-15");
+        Action<DateTime?> changed = (e) => value = e;
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar TValue="DateTime?" Culture="@InvariantCulture" PickerMonth="@pickerMonth" Value="@value" ValueChanged="changed"
+                                            MinDate="@minDate" MaxDate="@maxDate" />);
+
+        // Days outside range should be disabled
+        Assert.True(calendar.Find("div[value='2022-06-09']").HasAttribute("disabled"));
+        Assert.True(calendar.Find("div[value='2022-06-21']").HasAttribute("disabled"));
+
+        // Prev/next navigation should be disabled when it would navigate outside the range
+        Assert.True(calendar.Find(".previous").HasAttribute("disabled"));
+        Assert.True(calendar.Find(".next").HasAttribute("disabled"));
+
+        // Clicking an out-of-range day should not change the value
+        calendar.Find("div[value='2022-06-09']").Click();
+        Assert.Equal(DateTime.Parse("2022-06-15"), value);
+
+        // Clicking an in-range day should change the value
+        calendar.Find("div[value='2022-06-10']").Click();
+        Assert.Equal(DateTime.Parse("2022-06-10"), value);
+    }
+
+    [Fact]
+    public void FluentCalendar_MinMax_Months_DisablesOutsideRange_And_DisablesNavigation()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2022-06-15");
+        var minDate = DateTime.Parse("2022-04-15");
+        var maxDate = DateTime.Parse("2022-06-20");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" View="CalendarViews.Months" PickerMonth="@pickerMonth" Value="@pickerMonth"
+                                            MinDate="@minDate" MaxDate="@maxDate" />);
+
+        // Months completely outside range should be disabled
+        Assert.True(calendar.Find("div[value='2022-03']").HasAttribute("disabled"));
+        Assert.True(calendar.Find("div[value='2022-07']").HasAttribute("disabled"));
+
+        // Months intersecting the range should be enabled
+        Assert.False(calendar.Find("div[value='2022-04']").HasAttribute("disabled"));
+        Assert.False(calendar.Find("div[value='2022-06']").HasAttribute("disabled"));
+
+        // Prev/next year navigation should be disabled when it would navigate outside the range
+        Assert.True(calendar.Find(".previous").HasAttribute("disabled"));
+        Assert.True(calendar.Find(".next").HasAttribute("disabled"));
+    }
+
+    [Fact]
+    public void FluentCalendar_MinMax_Years_DisablesOutsideRange()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2022-06-15");
+        var minDate = DateTime.Parse("2021-06-01");
+        var maxDate = DateTime.Parse("2023-02-01");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" View="CalendarViews.Years" PickerMonth="@pickerMonth" Value="@pickerMonth"
+                                            MinDate="@minDate" MaxDate="@maxDate" />);
+
+        Assert.True(calendar.Find("div[value='2020']").HasAttribute("disabled"));
+        Assert.False(calendar.Find("div[value='2022']").HasAttribute("disabled"));
+        Assert.True(calendar.Find("div[value='2024']").HasAttribute("disabled"));
+    }
+
+    [Fact]
+    public async Task FluentCalendar_OnPreviousButtonHandlerAsync_DaysView_RespectsMinDate_WithPartialMonthOverlap()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2022-06-15");
+        var minDate = DateTime.Parse("2022-05-15");
+
+        // Arrange
+        var cut = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" View="CalendarViews.Days" PickerMonth="@pickerMonth" MinDate="@minDate" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+
+        // Act: June -> May (allowed because May contains dates >= MinDate)
+        await component.InvokeAsync(() => component.Instance.OnPreviousButtonHandlerAsync(new MouseEventArgs()));
+
+        // Assert
+        Assert.Equal(DateTime.Parse("2022-05-01"), component.Instance.PickerMonth);
+
+        // Act: May -> April (blocked because April is entirely < MinDate)
+        await component.InvokeAsync(() => component.Instance.OnPreviousButtonHandlerAsync(new MouseEventArgs()));
+
+        // Assert
+        Assert.Equal(DateTime.Parse("2022-05-01"), component.Instance.PickerMonth);
+    }
+
+    [Fact]
+    public async Task FluentCalendar_OnNextButtonHandlerAsync_DaysView_RespectsMaxDate_WithPartialMonthOverlap()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2022-06-15");
+        var maxDate = DateTime.Parse("2022-07-10");
+
+        // Arrange
+        var cut = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" View="CalendarViews.Days" PickerMonth="@pickerMonth" MaxDate="@maxDate" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+
+        // Act: June -> July (allowed because July contains dates <= MaxDate)
+        await component.InvokeAsync(() => component.Instance.OnNextButtonHandlerAsync(new MouseEventArgs()));
+
+        // Assert
+        Assert.Equal(DateTime.Parse("2022-07-01"), component.Instance.PickerMonth);
+
+        // Act: July -> August (blocked because August is entirely > MaxDate)
+        await component.InvokeAsync(() => component.Instance.OnNextButtonHandlerAsync(new MouseEventArgs()));
+
+        // Assert
+        Assert.Equal(DateTime.Parse("2022-07-01"), component.Instance.PickerMonth);
+    }
+
+    [Fact]
+    public async Task FluentCalendar_OnPreviousButtonHandlerAsync_MonthsView_RespectsMinDate_WithPartialYearOverlap()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2023-06-15");
+        var minDate = DateTime.Parse("2022-04-15");
+
+        // Arrange
+        var cut = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" View="CalendarViews.Months" PickerMonth="@pickerMonth" MinDate="@minDate" AnimatePeriodChanges="false" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+
+        // Act: 2023 -> 2022 (allowed because 2022 contains dates >= MinDate)
+        await component.InvokeAsync(() => component.Instance.OnPreviousButtonHandlerAsync(new MouseEventArgs()));
+        Assert.Equal(DateTime.Parse("2022-06-01"), component.Instance.PickerMonth);
+
+        // Act: 2022 -> 2021 (blocked because 2021 is entirely < MinDate)
+        await component.InvokeAsync(() => component.Instance.OnPreviousButtonHandlerAsync(new MouseEventArgs()));
+        Assert.Equal(DateTime.Parse("2022-06-01"), component.Instance.PickerMonth);
+    }
+
+    [Fact]
+    public async Task FluentCalendar_OnNextButtonHandlerAsync_MonthsView_RespectsMaxDate_WithPartialYearOverlap()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2021-06-15");
+        var maxDate = DateTime.Parse("2022-09-15");
+
+        // Arrange
+        var cut = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" View="CalendarViews.Months" PickerMonth="@pickerMonth" MaxDate="@maxDate" AnimatePeriodChanges="false" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+
+        // Act: 2021 -> 2022 (allowed because 2022 contains dates <= MaxDate)
+        await component.InvokeAsync(() => component.Instance.OnNextButtonHandlerAsync(new MouseEventArgs()));
+        Assert.Equal(DateTime.Parse("2022-06-01"), component.Instance.PickerMonth);
+
+        // Act: 2022 -> 2023 (blocked because 2023 is entirely > MaxDate)
+        await component.InvokeAsync(() => component.Instance.OnNextButtonHandlerAsync(new MouseEventArgs()));
+        Assert.Equal(DateTime.Parse("2022-06-01"), component.Instance.PickerMonth);
+    }
+
+    [Fact]
+    public async Task FluentCalendar_OnPreviousButtonHandlerAsync_YearsView_RespectsMinDate_For12YearRanges()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2026-06-15");
+        var minDate = DateTime.Parse("2018-01-01");
+
+        // Arrange
+        var cut = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" View="CalendarViews.Years" PickerMonth="@pickerMonth" MinDate="@minDate" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+
+        // Act: 2026 -> 2014 (allowed because 2014-2025 range contains dates >= MinDate)
+        await component.InvokeAsync(() => component.Instance.OnPreviousButtonHandlerAsync(new MouseEventArgs()));
+        Assert.Equal(DateTime.Parse("2014-06-01"), component.Instance.PickerMonth);
+
+        // Act: 2014 -> 2002 (blocked because 2002-2013 range is entirely < MinDate)
+        await component.InvokeAsync(() => component.Instance.OnPreviousButtonHandlerAsync(new MouseEventArgs()));
+        Assert.Equal(DateTime.Parse("2014-06-01"), component.Instance.PickerMonth);
+    }
+
+    [Fact]
+    public async Task FluentCalendar_OnNextButtonHandlerAsync_YearsView_RespectsMaxDate_For12YearRanges()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var pickerMonth = DateTime.Parse("2008-06-15");
+        var maxDate = DateTime.Parse("2020-12-31");
+
+        // Arrange
+        var cut = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" View="CalendarViews.Years" PickerMonth="@pickerMonth" MaxDate="@maxDate" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+
+        // Act: 2008 -> 2020 (allowed because 2020-2031 range starts within MaxDate year)
+        await component.InvokeAsync(() => component.Instance.OnNextButtonHandlerAsync(new MouseEventArgs()));
+        Assert.Equal(DateTime.Parse("2020-06-01"), component.Instance.PickerMonth);
+
+        // Act: 2020 -> 2032 (blocked because 2032-2043 range is entirely > MaxDate)
+        await component.InvokeAsync(() => component.Instance.OnNextButtonHandlerAsync(new MouseEventArgs()));
+        Assert.Equal(DateTime.Parse("2020-06-01"), component.Instance.PickerMonth);
+    }
+
     [Theory]
     [InlineData(CalendarViews.Days)]
     [InlineData(CalendarViews.Months)]
@@ -644,6 +927,74 @@ value=""2022-02-20"">20</div>");
         // Assert
         Assert.NotNull(pickerMonthChanged);
         Assert.Equal(new DateTime(2022, 7, 1), pickerMonthChanged.Value);
+    }
+
+    [Fact]
+    public void FluentCalendar_GetDisplayedYearsPeriod_ClampsFromYear_ToMinSupportedYear()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var culture = InvariantCulture;
+        var yearShiftCentered = GetYearShiftCentered();
+
+        var minSupportedYear = culture.Calendar.GetYear(culture.Calendar.MinSupportedDateTime);
+        var pivotYear = minSupportedYear + Math.Max(0, yearShiftCentered - 1);
+        var pivot = culture.Calendar.ToDateTime(pivotYear, 6, 15, 0, 0, 0, 0);
+
+        // Arrange
+        var cut = Render(@<FluentCalendar TValue="DateTime" Culture="@culture" View="CalendarViews.Years" PickerMonth="@pivot" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+        var method = component.Instance.GetType().GetMethod("GetDisplayedYearsPeriod", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        // Act
+        var period = (ValueTuple<DateTime, DateTime>)method!.Invoke(component.Instance, [pivot])!;
+
+        // Assert
+        var expectedFromYear = minSupportedYear;
+        var expectedToYear = Math.Min(expectedFromYear + 11, culture.Calendar.GetYear(culture.Calendar.MaxSupportedDateTime));
+        var expectedStart = culture.Calendar.ToDateTime(expectedFromYear, 1, 1, 0, 0, 0, 0);
+        var expectedEnd = culture.Calendar.ToDateTime(expectedToYear, 1, 1, 0, 0, 0, 0).EndOfYear(culture);
+
+        Assert.Equal(expectedStart.Date, period.Item1.Date);
+        Assert.Equal(expectedEnd.Date, period.Item2.Date);
+    }
+
+    [Fact]
+    public void FluentCalendar_GetDisplayedYearsPeriod_ClampsToYear_ToMaxSupportedYear()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var culture = InvariantCulture;
+        var yearShiftCentered = GetYearShiftCentered();
+
+        var maxSupportedYear = culture.Calendar.GetYear(culture.Calendar.MaxSupportedDateTime);
+
+        var pivotYear = maxSupportedYear - 1;
+        var pivot = culture.Calendar.ToDateTime(pivotYear, 6, 15, 0, 0, 0, 0);
+
+        // Arrange
+        var cut = Render(@<FluentCalendar TValue="DateTime" Culture="@culture" View="CalendarViews.Years" PickerMonth="@pivot" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+        var method = component.Instance.GetType().GetMethod("GetDisplayedYearsPeriod", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        // Act
+        var period = (ValueTuple<DateTime, DateTime>)method!.Invoke(component.Instance, [pivot])!;
+
+        // Assert
+        var expectedFromYear = pivotYear - yearShiftCentered;
+        var expectedStart = culture.Calendar.ToDateTime(expectedFromYear, 1, 1, 0, 0, 0, 0);
+        var expectedEnd = culture.Calendar.ToDateTime(maxSupportedYear, 1, 1, 0, 0, 0, 0).EndOfYear(culture);
+
+        Assert.Equal(expectedStart.Date, period.Item1.Date);
+        Assert.Equal(expectedEnd.Date, period.Item2.Date);
+    }
+
+    private static int GetYearShiftCentered()
+    {
+        var calendarExtendedType = typeof(FluentCalendar<DateTime>).Assembly.GetType("Microsoft.FluentUI.AspNetCore.Components.Calendar.CalendarExtended");
+        var yearShiftField = calendarExtendedType?.GetField("YearShiftCentered", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+
+        return (int)(yearShiftField?.GetRawConstantValue() ?? 5);
     }
 
     [Fact]

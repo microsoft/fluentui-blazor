@@ -241,48 +241,75 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         return new CalendarTitles<TValue>(this);
     }
 
+    private (DateTime PeriodStart, DateTime PeriodEnd) GetDisplayedYearsPeriod(DateTime pivotDate)
+    {
+        // This must match CalendarExtended.GetYearsRange() logic (YearShiftCentered + supported-year clamping).
+        var pivotYear = pivotDate.GetYear(Culture);
+        var minSupportedYear = Culture.Calendar.MinSupportedDateTime.GetYear(Culture);
+        var maxSupportedYear = Culture.Calendar.MaxSupportedDateTime.GetYear(Culture);
+
+        var fromYear = pivotYear - CalendarExtended.YearShiftCentered;
+        if (fromYear < minSupportedYear)
+        {
+            fromYear = minSupportedYear;
+        }
+
+        var toYear = fromYear + 11;
+        if (toYear > maxSupportedYear)
+        {
+            toYear = maxSupportedYear;
+        }
+
+        var periodStart = Culture.Calendar.ToDateTime(fromYear, 1, 1, 0, 0, 0, 0).StartOfYear(Culture);
+        var periodEnd = Culture.Calendar.ToDateTime(toYear, 1, 1, 0, 0, 0, 0).EndOfYear(Culture);
+
+        return (periodStart, periodEnd);
+    }
+
     /// <summary />
     internal async Task OnPreviousButtonHandlerAsync(MouseEventArgs _)
     {
+        // Compute the candidate period first, clamping to MinDate if needed.
+        var candidatePickerMonth = View switch
+        {
+            CalendarViews.Days => PickerMonth.AddMonths(-1, Culture).AdaptedForMinDate(MinDate, Culture),
+            CalendarViews.Months => PickerMonth.AddYears(-1, Culture).AdaptedForMinDate(MinDate, CalendarViews.Months, Culture),
+            CalendarViews.Years => PickerMonth.AddYears(-12, Culture).AdaptedForMinDate(MinDate, CalendarViews.Years, Culture, GetDisplayedYearsPeriod),
+            _ => PickerMonth,
+        };
+
+        if (candidatePickerMonth.ConvertToDateTime() == PickerMonth.ConvertToDateTime())
+        {
+            return;
+        }
+
         await StartNewAnimationAsync(AnimationRunning.Down);
         _refreshAccessibilityPending = true;
 
-        switch (View)
-        {
-            case CalendarViews.Days:
-                PickerMonth = PickerMonth.AddMonths(-1, Culture);
-                break;
-
-            case CalendarViews.Months:
-                PickerMonth = PickerMonth.AddYears(-1, Culture);
-                break;
-
-            case CalendarViews.Years:
-                PickerMonth = PickerMonth.AddYears(-12, Culture);
-                break;
-        }
+        PickerMonth = candidatePickerMonth;
     }
 
     /// <summary />
     internal async Task OnNextButtonHandlerAsync(MouseEventArgs _)
     {
+        // Compute the candidate period first, clamping to MaxDate if needed.
+        var candidatePickerMonth = View switch
+        {
+            CalendarViews.Days => PickerMonth.AddMonths(+1, Culture).AdaptedForMaxDate(MaxDate, Culture),
+            CalendarViews.Months => PickerMonth.AddYears(+1, Culture).AdaptedForMaxDate(MaxDate, CalendarViews.Months, Culture),
+            CalendarViews.Years => PickerMonth.AddYears(+12, Culture).AdaptedForMaxDate(MaxDate, CalendarViews.Years, Culture, GetDisplayedYearsPeriod),
+            _ => PickerMonth,
+        };
+
+        if (candidatePickerMonth.ConvertToDateTime() == PickerMonth.ConvertToDateTime())
+        {
+            return;
+        }
+
         await StartNewAnimationAsync(AnimationRunning.Up);
         _refreshAccessibilityPending = true;
 
-        switch (View)
-        {
-            case CalendarViews.Days:
-                PickerMonth = PickerMonth.AddMonths(+1, Culture);
-                break;
-
-            case CalendarViews.Months:
-                PickerMonth = PickerMonth.AddYears(+1, Culture);
-                break;
-
-            case CalendarViews.Years:
-                PickerMonth = PickerMonth.AddYears(+12, Culture);
-                break;
-        }
+        PickerMonth = candidatePickerMonth;
     }
 
     /// <summary />
@@ -339,6 +366,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     private FluentCalendarMonth<TValue> GetMonthProperties(int? year, int? month)
     {
         var pickerDateTime = PickerMonth.ConvertToRequiredDateTime();
+
         return new(this, Culture.Calendar.ToDateTime(year ?? pickerDateTime.GetYear(Culture), month ?? pickerDateTime.GetMonth(Culture), 1, 0, 0, 0, 0));
     }
 
@@ -423,6 +451,9 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         await Task.CompletedTask;
     }
 
+    private bool IsDayDisabled(DateTime value)
+        => AllowedRange.IsOutsideRange(value) || (DisabledDateFunc?.Invoke(value.ConvertToTValue<TValue>()) ?? false);
+
     /// <summary />
     private (bool IsMultiple, DateTime Min, DateTime Max, bool InProgress) GetMultipleSelection()
     {
@@ -504,7 +535,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             SelectedDates = range.Where(day =>
             {
                 var dateTime = day.ConvertToDateTime();
-                return dateTime.HasValue && (DisabledDateFunc == null || !DisabledDateFunc(day));
+                return dateTime.HasValue && !IsDayDisabled(dateTime.Value);
             });
 
             if (SelectedDatesChanged.HasDelegate)
@@ -550,7 +581,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         }
 
         SelectedDates = _rangeSelector.GetAllDates()
-            .Where(day => DisabledDateFunc == null || !DisabledDateFunc(day.ConvertToTValue<TValue>()))
+            .Where(day => !IsDayDisabled(day))
             .Select(day => day.ConvertToTValue<TValue>());
 
         if (SelectedDatesChanged.HasDelegate)
@@ -583,9 +614,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             _rangeSelectorMouseOver.End = range.MaxDateTime();
         }
 
-        var days = DisabledDateFunc is null
-                 ? _rangeSelectorMouseOver.GetAllDates()
-                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateFunc(day.ConvertToTValue<TValue>()));
+        var days = _rangeSelectorMouseOver.GetAllDates().Where(day => !IsDayDisabled(day));
 
         _selectedDatesMouseOver.Clear();
         _selectedDatesMouseOver.AddRange(days);
@@ -611,14 +640,9 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <returns></returns>
     internal bool AllDaysAreDisabled(DateTime start, DateTime end)
     {
-        if (DisabledDateFunc is null)
-        {
-            return false;
-        }
-
         for (var day = start; day <= end; day = day.AddDays(1))
         {
-            if (!DisabledDateFunc.Invoke(day.ConvertToTValue<TValue>()))
+            if (!IsDayDisabled(day))
             {
                 return false;
             }

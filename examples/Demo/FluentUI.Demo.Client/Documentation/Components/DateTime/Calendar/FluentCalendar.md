@@ -16,6 +16,17 @@ The user can switch between these views using the title item: the month name or 
 
 {{ CalendarDefault }}
 
+### Setting a minimum and maximum date
+You can set a minimum and maximum date for the calendar using the `MinDate` and `MaxDate` parameters.
+
+In the first example below, the view is bound to the current month, and the user can only select dates within the current month.
+
+In the second example, both `MinDate` and `MaxDate` are set so only months within that period can be selected
+
+In the third example, only a `MaxDate` is set to limit the year selection to a specific range of years.
+
+{{ CalendarMinMax }}
+
 ## Selections
 
 You can activate the selection mode by setting the `SelectMode` parameter

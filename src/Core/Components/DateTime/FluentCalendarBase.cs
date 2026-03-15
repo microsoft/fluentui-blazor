@@ -76,6 +76,20 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     [Parameter]
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
+    /// <summary>
+    /// Gets or sets the minimum date that can be selected in the calendar. If not set, there is no minimum date.
+    /// </summary>
+    [Parameter]
+    public TValue? MinDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum date that can be selected in the calendar. If not set, there is no maximum date.
+    /// </summary>
+    [Parameter]
+    public TValue? MaxDate { get; set; }
+
+    internal RangeOfDates AllowedRange => new(MinDate.ConvertToDateTime()?.Date, MaxDate.ConvertToDateTime()?.Date);
+
     /// <summary />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
@@ -100,6 +114,11 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
         }
 
         var dateTime = value.ConvertToDateTime();
+        if (dateTime.HasValue && AllowedRange.IsSelectionOutsideRange(dateTime.Value, View, Culture))
+        {
+            return Task.CompletedTask;
+        }
+
         if ((CheckIfSelectedValueHasChanged ?? true) && CurrentValue.ConvertToDateTime() == dateTime)
         {
             return Task.CompletedTask;
