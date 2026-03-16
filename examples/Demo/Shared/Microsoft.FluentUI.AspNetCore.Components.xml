@@ -3936,6 +3936,7 @@
             left (full height), right (full height)
             or screen middle (using Width and Height properties).
             HorizontalAlignment.Stretch is not supported for this property.
+            NOTE: Left/Right only works for Panels, not Dialogs, which are always centered.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Title">
@@ -4736,22 +4737,22 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.IsOver">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragStartHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragStartHandlerAsync(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragEndHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragEndHandlerAsync(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragEnterHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragEnterHandlerAsync(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragOverHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragOverHandlerAsync(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragLeaveHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragLeaveHandlerAsync(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDropHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDropHandlerAsync(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji">
@@ -8532,6 +8533,12 @@
             <param name="force">If true, the total item count will be updated even if it is the same as the current value.</param>
             <returns></returns>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.JSRuntime">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.AnchorId">
             <summary>
             Gets or sets the id of the component the popover is positioned relative to.
@@ -8610,19 +8617,26 @@
             By default, Escape
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseAndTabKeys">
-            <summary />
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.OnInitialized">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.OnParametersSet">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseAsync">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseOnKeyAsync(Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseAsync">
+            <summary>
+            Closes the popover. Called from JavaScript keyboard navigation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseOverlayAsync">
+            <summary>
+            Closes the popover and returns focus to the original element (used by the overlay on outside-click).
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.DisposeAsync">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentPresenceBadge">

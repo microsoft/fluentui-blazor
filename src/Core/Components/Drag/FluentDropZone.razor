@@ -13,14 +13,15 @@
      @ondragover:stopPropagation="@StopPropagation"
      @ondragleave:stopPropagation="@StopPropagation"
      @ondragstart:stopPropagation="@StopPropagation"
-     @ondragstart=@OnDragStartHandler
-     @ondragover=@OnDragOverHandler
+     @ondragstart="@OnDragStartHandlerAsync"
+     @ondragover="@OnDragOverHandlerAsync"
      @ondragover:preventDefault="@Droppable"
-     @ondragenter=@OnDragEnterHandler
+     @ondragenter="@OnDragEnterHandlerAsync"
      @ondragenter:preventDefault="@Droppable"
-     @ondragleave=@OnDragLeaveHandler
+     @ondragleave="@OnDragLeaveHandlerAsync"
      @ondragleave:preventDefault="@Droppable"
-     @ondragend=@OnDragEndHandler
-     @ondrop=@OnDropHandler @ondrop:preventDefault>
+     @ondragend="@OnDragEndHandlerAsync"
+     @ondrop="@OnDropHandlerAsync"
+     @ondrop:preventDefault>
     @ChildContent
 </div>
