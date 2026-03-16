@@ -60,3 +60,7 @@ The categories these changes fall in are:
 ## FluentSelect
 
 {{ INCLUDE MigrationFluentSelect }}
+
+## FluentDragContainer and FluentDropZone
+
+{{ INCLUDE MigrationDrag }}
