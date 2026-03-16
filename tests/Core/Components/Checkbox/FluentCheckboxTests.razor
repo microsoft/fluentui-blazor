@@ -154,6 +154,24 @@
         Assert.Equal(expectedValue, value);
     }
 
+    // Line 116: private bool _checked => ThreeState ? CheckState ?? Value : Value;
+    [Theory]
+    [InlineData(true,  true,  false, true)]   // ThreeState=true,  CheckState=true  → _checked=true
+    [InlineData(true,  false, true,  false)]  // ThreeState=true,  CheckState=false → _checked=false
+    [InlineData(true,  null,  true,  true)]   // ThreeState=true,  CheckState=null  → falls back to Value=true
+    [InlineData(true,  null,  false, false)]  // ThreeState=true,  CheckState=null  → falls back to Value=false
+    [InlineData(false, null,  true,  true)]   // ThreeState=false, CheckState ignored → _checked=Value=true
+    [InlineData(false, null,  false, false)]  // ThreeState=false, CheckState ignored → _checked=Value=false
+    public void FluentCheckbox_Checked_ReflectsThreeStateLogic(bool threeState, bool? checkState, bool value, bool expectedChecked)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCheckbox ThreeState="@threeState" CheckState="@checkState" Value="@value" />);
+
+        // Assert
+        var checkedAttr = cut.Find("fluent-checkbox").GetAttribute("checked");
+        Assert.Equal(expectedChecked ? "true" : "false", checkedAttr);
+    }
+
     [Theory]
     [InlineData(false, false, true)]
     [InlineData(false, true, false)]

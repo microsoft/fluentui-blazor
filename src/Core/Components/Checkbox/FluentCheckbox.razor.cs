@@ -113,6 +113,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
         }
     }
 
+    //private bool _checked => ThreeState ? CheckState ?? Value : Value;
     private bool _checked => CheckState ?? Value;
 
     private bool _indeterminate => ThreeState
