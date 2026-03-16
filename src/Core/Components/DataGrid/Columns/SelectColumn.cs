@@ -25,6 +25,9 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
 
     private IEnumerable<TGridItem> _selectedItems = [];
 
+    private Func<TGridItem, object>? _lastItemKey;
+    private IEqualityComparer<TGridItem>? _itemKeyComparer;
+
     /// <summary />
     protected readonly Icon IconUnselectedMultiple = new CoreIcons.Regular.Size20.CheckboxUnchecked();
     /// <summary />
@@ -235,9 +238,39 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     /// </summary>
     /// <remarks>If not set, the default equality comparer for <typeparamref name="TGridItem"/> is used.
     /// Setting this property allows customization of how grid items are compared for equality, which can affect
-    /// operations such as selection, filtering, or updating items in the grid.</remarks>
+    /// operations such as selection, filtering, or updating items in the grid.
+    /// When <see cref="Comparer"/> is <see langword="null"/>, the grid uses an effective comparer: it may fall back
+    /// to a key-based comparer derived from <see cref="FluentDataGrid{TGridItem}.ItemKey"/> when available, which can
+    /// differ from <see cref="System.Collections.Generic.EqualityComparer{TGridItem}.Default"/> for <typeparamref name="TGridItem"/>.</remarks>
     [Parameter]
     public IEqualityComparer<TGridItem>? Comparer { get; set; } = null;
+
+    private IEqualityComparer<TGridItem>? EffectiveComparer
+    {
+        get
+        {
+            if (Comparer is not null)
+            {
+                return Comparer;
+            }
+
+            // When paging/virtualizing, items can be re-materialized (new instances). In that case,
+            // we want selection to be based on the grid's stable key (ItemKey) by default.
+            var itemKey = InternalGridContext?.Grid?.ItemKey;
+            if (itemKey is null)
+            {
+                return null;
+            }
+
+            if (_itemKeyComparer is null || !ReferenceEquals(_lastItemKey, itemKey))
+            {
+                _lastItemKey = itemKey;
+                _itemKeyComparer = new ItemKeyEqualityComparer(itemKey);
+            }
+
+            return _itemKeyComparer;
+        }
+    }
 
     /// <summary>
     /// Allows to clear the selection.
@@ -344,17 +377,18 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     {
         if (item != null && (Selectable == null || Selectable.Invoke(item)))
         {
+            var comparer = EffectiveComparer;
             var selectedItems = SelectedItems.ToList();
-            if (selectedItems.Contains(item, Comparer))
+            if (selectedItems.Contains(item, comparer))
             {
                 if (SelectMode is DataGridSelectMode.SingleSticky)
                 {
                     return;
                 }
 
-                if (Comparer != null)
+                if (comparer != null)
                 {
-                    var toRemove = selectedItems.First(i => Comparer.Equals(i, item));
+                    var toRemove = selectedItems.First(i => comparer.Equals(i, item));
                     selectedItems.Remove(toRemove);
                 }
                 else
@@ -407,7 +441,15 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
             return;
         }
 
-        var itemsToRemove = SelectedItems.Where(item => !InternalGridContext.Items.Contains(item, Comparer)).ToList();
+        // When the grid only has a subset of the full data set in memory (pagination and/or virtualization),
+        // the current Items collection does not represent all rows. In that case we must not remove selected
+        // items just because they are not in the current slice.
+        if (InternalGridContext.TotalItemCount > 0 && InternalGridContext.Items.Count < InternalGridContext.TotalItemCount)
+        {
+            return;
+        }
+
+        var itemsToRemove = SelectedItems.Where(item => !InternalGridContext.Items.Contains(item, EffectiveComparer)).ToList();
         foreach (var item in itemsToRemove)
         {
             await AddOrRemoveSelectedItemAsync(item);
@@ -476,7 +518,8 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
                 return;
             }
 
-            var contained = SelectedItems.Contains(item, Comparer);
+            var comparer = EffectiveComparer;
+            var contained = SelectedItems.Contains(item, comparer);
             var selected = contained || Property.Invoke(item);
 
             // Sync with SelectedItems list
@@ -489,7 +532,16 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
             else if (!selected && contained)
             {
                 var selectedItems = SelectedItems.ToList();
-                selectedItems.Remove(item);
+                if (comparer != null)
+                {
+                    var toRemove = selectedItems.First(i => comparer.Equals(i, item));
+                    selectedItems.Remove(toRemove);
+                }
+                else
+                {
+                    selectedItems.Remove(item);
+                }
+
                 SelectedItems = selectedItems;
             }
 
@@ -671,6 +723,34 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     public void Dispose()
     {
         _itemsChanged.Dispose();
+    }
+
+    private sealed class ItemKeyEqualityComparer(Func<TGridItem, object> itemKey) : IEqualityComparer<TGridItem>
+    {
+        private readonly Func<TGridItem, object> _itemKey = itemKey;
+
+        public bool Equals(TGridItem? x, TGridItem? y)
+        {
+            if (ReferenceEquals(x, y))
+            {
+                return true;
+            }
+
+            if (x is null || y is null)
+            {
+                return false;
+            }
+
+            var xKey = _itemKey(x);
+            var yKey = _itemKey(y);
+            return EqualityComparer<object?>.Default.Equals(xKey, yKey);
+        }
+
+        public int GetHashCode(TGridItem obj)
+        {
+            var key = _itemKey(obj);
+            return EqualityComparer<object?>.Default.GetHashCode(key);
+        }
     }
 }
 
