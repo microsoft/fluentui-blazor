@@ -1,9 +1,0 @@
-.fluent-toast-body {
-  grid-column: 2 / 3;
-  padding-top: 6px;
-  font-size: var(--fontSizeBase300);
-  line-height: var(--fontSizeBase300);
-  font-weight: var(--fontWeightRegular);
-  color: var(--colorNeutralForeground1);
-  word-break: break-word;
-}

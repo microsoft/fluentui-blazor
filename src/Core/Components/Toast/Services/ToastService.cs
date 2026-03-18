@@ -62,7 +62,7 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
     /// <inheritdoc cref="IToastService.ShowToastAsync{TToast}(Action{ToastOptions})"/>
     public Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(Action<ToastOptions> options) where TToast : ComponentBase
     {
-        return ShowToastAsync(typeof(TToast), new ToastOptions(options));
+        return ShowToastAsync<TToast>(new ToastOptions(options));
     }
 
     /// <summary />
@@ -71,6 +71,11 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         if (!componentType.IsSubclassOf(typeof(ComponentBase)))
         {
             throw new ArgumentException($"{componentType.FullName} must be a Blazor Component", nameof(componentType));
+        }
+
+        if (!Equals(componentType, typeof(FluentToast)) && !Equals(componentType, typeof(FluentProgressToast)))
+        {
+            throw new ArgumentException($"{componentType.FullName} must be {nameof(FluentToast)} or {nameof(FluentProgressToast)}", nameof(componentType));
         }
 
         if (this.ProviderNotAvailable())

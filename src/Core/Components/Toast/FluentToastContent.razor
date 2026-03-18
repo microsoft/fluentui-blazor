@@ -1,0 +1,54 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+
+@if (Owner.ChildContent is not null)
+{
+    @Owner.ChildContent
+}
+else
+{
+    <div class="fluent-toast-layout">
+        <div class="fluent-toast-title-media" aria-hidden="true">
+            <FluentIcon Value="@Owner.IntentIcon" Color="@FluentToast.GetIntentColor(Owner.Intent)" />
+        </div>
+        <div class="fluent-toast-title">
+            <div id="@($"{Owner.Instance!.Id}-title")">@Owner.Title</div>
+        </div>
+        @if (Owner.ShowDismissButton)
+        {
+            <div class="fluent-toast-title-action">
+                <FluentButton Appearance="@ButtonAppearance.Subtle"
+                              IconOnly="true"
+                              IconStart="@Owner.DismissIcon"
+                              Title="Dismiss"
+                              OnClick="@(() => Owner.Instance!.CancelAsync())" />
+            </div>
+        }
+
+        <div class="fluent-toast-body" style="font-size: 0.875rem; grid-column: 2 / -1;">
+            <div id="@($"{Owner.Instance!.Id}-body")">@Owner.Body</div>
+            @if (!string.IsNullOrEmpty(Owner.Subtitle))
+            {
+                <div class="fluent-toast-subtitle" style="opacity: 0.8; font-size: 0.8125rem;">@Owner.Subtitle</div>
+            }
+        </div>
+
+        @if (!string.IsNullOrEmpty(Owner.QuickAction1) || !string.IsNullOrEmpty(Owner.QuickAction2))
+        {
+            <div class="fluent-toast-footer">
+                @if (!string.IsNullOrEmpty(Owner.QuickAction1))
+                {
+                    <FluentLink Href="" @onclick="@(() => OnActionClickedAsync(primary: true))">
+                        @Owner.QuickAction1
+                    </FluentLink>
+                }
+
+                @if (!string.IsNullOrEmpty(Owner.QuickAction2))
+                {
+                    <FluentLink Href="" OnClick="@(() => OnActionClickedAsync(primary: false))">
+                        @Owner.QuickAction2
+                    </FluentLink>
+                }
+            </div>
+        }
+    </div>
+}

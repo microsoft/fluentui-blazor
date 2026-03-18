@@ -152,4 +152,7 @@
       <NoWarn>CS1591</NoWarn>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
 </Project>

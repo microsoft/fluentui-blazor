@@ -1,5 +1,8 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
+@{
+#pragma warning disable IL2111
+}
 
 <div id="@Id"
      class="@ClassValue"
@@ -9,13 +12,11 @@
     {
         @foreach (var toast in ToastService.Items.Values.OrderBy(i => i.Index))
         {
-            <FluentToast Id="@toast.Id"
-                         Class="@toast.Options?.ClassValue"
-                         Style="@toast.Options?.StyleValue"
-                         Data="@toast.Options?.Data"
-                         Instance="@toast"
-                         OnStateChange="@(toast.Options?.OnStateChange ?? EmptyOnStateChange)"
-                         @attributes="@AdditionalAttributes" />
+            <DynamicComponent Type="@GetToastType(toast)"
+                              Parameters="@GetToastParameters(toast)" />
         }
     }
 </div>
+@{
+#pragma warning restore IL2111
+}

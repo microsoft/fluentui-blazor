@@ -10,13 +10,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class ToastEventArgs : EventArgs
 {
     /// <summary />
-    internal ToastEventArgs(FluentToast toast, DialogToggleEventArgs args)
+    internal ToastEventArgs(FluentToastComponentBase toast, DialogToggleEventArgs args)
         : this(toast, args.Id, args.Type, args.OldState, args.NewState)
     {
     }
 
     /// <summary />
-    internal ToastEventArgs(FluentToast toast, string? id, string? eventType, string? oldState, string? newState)
+    internal ToastEventArgs(FluentToastComponentBase toast, string? id, string? eventType, string? oldState, string? newState)
     {
         Id = id ?? string.Empty;
         Instance = toast.Instance;

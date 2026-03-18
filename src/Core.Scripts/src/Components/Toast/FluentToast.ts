@@ -3,8 +3,12 @@ import { StartedMode } from "../../d-ts/StartedMode";
 export namespace Microsoft.FluentUI.Blazor.Components.Toast {
 
   class FluentToast extends HTMLElement {
+    private static readonly stackGap = 12;
     private dialog: ToastElement;
     private timeoutId: number | null = null;
+    private remainingTimeout: number | null = null;
+    private timeoutStartedAt: number | null = null;
+    private pauseReasons: Set<string> = new Set();
 
     // Creates a new FluentToast element.
     constructor() {
@@ -18,10 +22,19 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
       this.dialog.setAttribute('popover', 'manual');
       this.dialog.setAttribute('part', 'dialog');    // To allow styling using `fluent-toast-b::part(dialog)`
 
-      // Dispatch the toggle event when the toast is opened or closed
+      // Dispatch the toggle events when the toast is opened or closed
+      this.dialog.addEventListener('beforetoggle', (e: any) => {
+        e.stopPropagation();
+        const oldState = e?.oldState ?? (this.dialogIsOpen ? 'open' : 'closed');
+        const newState = e?.newState ?? (oldState === 'open' ? 'closed' : 'open');
+        this.dispatchDialogToggleEvent('beforetoggle', oldState, newState);
+      });
+
       this.dialog.addEventListener('toggle', (e: any) => {
         e.stopPropagation();
-        this.dispatchOpenedEvent(e.newState === 'open');
+        const oldState = e?.oldState ?? (this.dialogIsOpen ? 'open' : 'closed');
+        const newState = e?.newState ?? (oldState === 'open' ? 'closed' : 'open');
+        this.dispatchDialogToggleEvent('toggle', oldState, newState);
       });
 
       // Set initial styles for the dialog
@@ -36,31 +49,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
             }
 
             :host div[fuib][popover] {
-                position: fixed;
-                margin: 0;
-                z-index: 2000;
-                min-width: 292px;
-                max-width: 292px;
-                color: var(--colorNeutralForeground1);
-                background-color: var(--colorNeutralBackground1);
-                border: 1px solid var(--colorTransparentStroke);
-                border-radius: var(--borderRadiusMedium);
-                box-shadow: var(--shadow8);
-                padding: 12px;
-                flex-direction: column;
-                gap: 8px;
-                display: grid;
-                grid-template-columns: auto 1fr auto;
-                font-size: var(--fontSizeBase300);
-                font-weight: var(--fontWeightSemibold);
-
-                /* Fade out by default when hidden */
-                opacity: 0;
+                border: 0;
+                background: transparent;
             }
 
             /* Animations */
             :host div[fuib][popover]:popover-open {
-                display: flex;
+                display: block;
                 opacity: 1;
                 animation: toast-enter 0.25s cubic-bezier(0.33, 0, 0, 1) forwards;
             }
@@ -92,13 +87,68 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
 
     connectedCallback() {
       window.addEventListener('resize', this.handleWindowChange, true);
+      this.addEventListener('pointerover', this.handlePointerOver, true);
+      this.addEventListener('pointerout', this.handlePointerOut, true);
+      this.addEventListener('focusin', this.handleFocusIn, true);
+      this.addEventListener('focusout', this.handleFocusOut, true);
+      window.addEventListener('blur', this.handleWindowBlur, true);
+      window.addEventListener('focus', this.handleWindowFocus, true);
+      this.updateAccessibility();
     }
 
     // Disposes the toast by clearing the timeout.
     disconnectedCallback() {
       window.removeEventListener('resize', this.handleWindowChange, true);
+      this.removeEventListener('pointerover', this.handlePointerOver, true);
+      this.removeEventListener('pointerout', this.handlePointerOut, true);
+      this.removeEventListener('focusin', this.handleFocusIn, true);
+      this.removeEventListener('focusout', this.handleFocusOut, true);
+      window.removeEventListener('blur', this.handleWindowBlur, true);
+      window.removeEventListener('focus', this.handleWindowFocus, true);
       this.clearTimeout();
     }
+
+    private handlePointerOver = () => {
+      if (this.attributeIsTrue('pause-on-hover')) {
+        this.pause('hover');
+      }
+    };
+
+    private handlePointerOut = (e: PointerEvent) => {
+      const related = e.relatedTarget as Node | null;
+      if (related && this.contains(related)) {
+        return;
+      }
+
+      if (this.attributeIsTrue('pause-on-hover')) {
+        this.resume('hover');
+      }
+    };
+
+    private handleFocusIn = () => {
+      this.pause('focus');
+    };
+
+    private handleFocusOut = (e: FocusEvent) => {
+      const related = e.relatedTarget as Node | null;
+      if (related && this.contains(related)) {
+        return;
+      }
+
+      this.resume('focus');
+    };
+
+    private handleWindowBlur = () => {
+      if (this.attributeIsTrue('pause-on-window-blur')) {
+        this.pause('window');
+      }
+    };
+
+    private handleWindowFocus = () => {
+      if (this.attributeIsTrue('pause-on-window-blur')) {
+        this.resume('window');
+      }
+    };
 
     private handleWindowChange = () => {
       if (this.dialogIsOpen) {
@@ -124,15 +174,27 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
       }
     }
 
-    static get observedAttributes() { return ['opened', 'timeout', 'position', 'vertical-offset', 'horizontal-offset']; }
+    static get observedAttributes() { return ['opened', 'timeout', 'position', 'vertical-offset', 'horizontal-offset', 'intent', 'politeness', 'pause-on-hover', 'pause-on-window-blur']; }
 
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
       if (oldValue !== newValue) {
         if (name === 'opened') {
           this.opened = newValue === 'true';
         }
+        if (name === 'timeout' && this.dialogIsOpen) {
+          this.startTimeout();
+        }
         if ((name === 'position' || name === 'vertical-offset' || name === 'horizontal-offset') && this.dialogIsOpen) {
           this.updatePosition();
+        }
+        if (name === 'intent' || name === 'politeness') {
+          this.updateAccessibility();
+        }
+        if (name === 'pause-on-hover' && !this.attributeIsTrue('pause-on-hover')) {
+          this.resume('hover');
+        }
+        if (name === 'pause-on-window-blur' && !this.attributeIsTrue('pause-on-window-blur')) {
+          this.resume('window');
         }
       }
     }
@@ -142,6 +204,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
 
       this.dialog.showPopover();
       this.updatePosition();
+      this.updateToastStack();
+      this.updateAccessibility();
       this.startTimeout();
     }
 
@@ -166,7 +230,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
         this.dialog.hidePopover();
         this.dialog.classList.remove('closing');
         this.classList.remove('animating');
+        this.pauseReasons.clear();
         this.clearTimeout();
+        this.updateToastStack();
       }
     }
 
@@ -175,9 +241,14 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
       const timeoutAttr = this.getAttribute('timeout');
       const timeout = timeoutAttr ? parseInt(timeoutAttr) : 0;
       if (timeout > 0) {
+        this.remainingTimeout = timeout;
+        this.timeoutStartedAt = Date.now();
         this.timeoutId = window.setTimeout(() => {
           this.opened = false;
         }, timeout);
+      } else {
+        this.remainingTimeout = null;
+        this.timeoutStartedAt = null;
       }
     }
 
@@ -188,11 +259,68 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
       }
     }
 
+    private pause(reason: string) {
+      if (this.pauseReasons.has(reason)) {
+        return;
+      }
+
+      this.pauseReasons.add(reason);
+      this.pauseTimeout();
+    }
+
+    private resume(reason: string) {
+      if (!this.pauseReasons.has(reason)) {
+        return;
+      }
+
+      this.pauseReasons.delete(reason);
+      if (this.pauseReasons.size === 0) {
+        this.resumeTimeout();
+      }
+    }
+
+    private pauseTimeout() {
+      if (this.timeoutId === null || this.remainingTimeout === null || this.timeoutStartedAt === null) {
+        return;
+      }
+
+      const elapsed = Date.now() - this.timeoutStartedAt;
+      this.remainingTimeout = Math.max(0, this.remainingTimeout - elapsed);
+      this.timeoutStartedAt = null;
+
+      window.clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
+
+    private resumeTimeout() {
+      if (!this.dialogIsOpen || this.remainingTimeout === null) {
+        return;
+      }
+
+      if (this.pauseReasons.size > 0) {
+        return;
+      }
+
+      if (this.remainingTimeout <= 0) {
+        this.opened = false;
+        return;
+      }
+
+      if (this.timeoutId !== null) {
+        return;
+      }
+
+      this.timeoutStartedAt = Date.now();
+      this.timeoutId = window.setTimeout(() => {
+        this.opened = false;
+      }, this.remainingTimeout);
+    }
+
     private updatePosition() {
       const isRtl = getComputedStyle(this).direction === 'rtl';
       const position = this.getAttribute('position') || (isRtl ? 'bottom-left' : 'bottom-right');
-      const horizontalOffset = parseInt(this.getAttribute('horizontal-offset') || '16');
-      const verticalOffset = parseInt(this.getAttribute('vertical-offset') || '16');
+      const horizontalOffset = parseInt(this.getAttribute('horizontal-offset') || '20');
+      const verticalOffset = parseInt(this.getAttribute('vertical-offset') || '16') + this.getStackOffset(position);
 
       this.dialog.style.top = 'auto';
       this.dialog.style.left = 'auto';
@@ -250,15 +378,64 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
       }
     }
 
-    private dispatchOpenedEvent(opened: boolean) {
-      this.dispatchEvent(new CustomEvent('toggle', {
+    private getStackOffset(position: string): number {
+      const toastElements = Array.from(document.querySelectorAll('fluent-toast-b')) as FluentToast[];
+      const toastsBeforeCurrent = toastElements
+        .slice(0, toastElements.indexOf(this))
+        .filter(toast => toast.getToastPosition() === position && toast.dialogIsOpen);
+
+      return toastsBeforeCurrent.reduce((offset, toast) => {
+        const height = toast.dialog.getBoundingClientRect().height;
+        return offset + height + FluentToast.stackGap;
+      }, 0);
+    }
+
+    private getToastPosition(): string {
+      const isRtl = getComputedStyle(this).direction === 'rtl';
+      return this.getAttribute('position') || (isRtl ? 'bottom-left' : 'bottom-right');
+    }
+
+    private updateToastStack() {
+      const toastElements = Array.from(document.querySelectorAll('fluent-toast-b')) as FluentToast[];
+      toastElements
+        .filter(toast => toast.dialogIsOpen)
+        .forEach(toast => toast.updatePosition());
+    }
+
+    private dispatchDialogToggleEvent(type: string, oldState: string, newState: string) {
+      this.dispatchEvent(new CustomEvent(type, {
         detail: {
-          oldState: opened ? 'closed' : 'open',
-          newState: opened ? 'open' : 'closed',
+          oldState,
+          newState,
         },
         bubbles: true,
         composed: true
       }));
+    }
+
+    private updateAccessibility() {
+      const intent = (this.getAttribute('intent') || '').toLowerCase();
+      const politeness = (this.getAttribute('politeness') || '').toLowerCase();
+
+      const live = politeness === 'polite' || politeness === 'assertive'
+        ? politeness
+        : ((intent !== '' && intent !== 'info') ? 'assertive' : 'polite');
+
+      this.dialog.setAttribute('aria-live', live);
+      this.dialog.setAttribute('role', live === 'assertive' ? 'alert' : 'status');
+    }
+
+    private attributeIsTrue(attributeName: string): boolean {
+      const value = this.getAttribute(attributeName);
+      if (value === null) {
+        return false;
+      }
+
+      if (value === '') {
+        return true;
+      }
+
+      return value.toLowerCase() === 'true';
     }
   }
 

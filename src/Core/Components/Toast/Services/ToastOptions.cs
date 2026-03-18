@@ -67,6 +67,11 @@ public class ToastOptions : IFluentComponentBase
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     /// <summary>
+    /// Gets or sets the timeout duration for the Toast in milliseconds.
+    /// </summary>
+    public int Timeout { get; set; } = 5000;
+
+    /// <summary>
     /// Gets a list of Toast parameters.
     /// Each parameter must correspond to a `[Parameter]` property defined in the component.
     /// </summary>

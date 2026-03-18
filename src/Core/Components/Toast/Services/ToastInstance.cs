@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -12,11 +13,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class ToastInstance : IToastInstance
 {
     private static long _counter;
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     private readonly Type _componentType;
     internal readonly TaskCompletionSource<ToastResult> ResultCompletion = new();
 
     /// <summary />
-    internal ToastInstance(IToastService toastService, Type componentType, ToastOptions options)
+    internal ToastInstance(IToastService toastService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, ToastOptions options)
     {
         _componentType = componentType;
         Options = options;
@@ -26,13 +28,14 @@ public class ToastInstance : IToastInstance
     }
 
     /// <summary />
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     Type IToastInstance.ComponentType => _componentType;
 
     /// <summary />
     internal IToastService ToastService { get; }
 
     /// <summary />
-    internal FluentToast? FluentToast { get; set; }
+    internal FluentToastComponentBase? FluentToast { get; set; }
 
     /// <inheritdoc cref="IToastInstance.Options"/>
     public ToastOptions Options { get; internal set; }
