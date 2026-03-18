@@ -44,3 +44,7 @@ This structure allows fully flexible layout editing with deep nesting and drag-a
 ## API FluentDragEventArgs
 
 {{ API Type=FluentDragEventArgs<int> }}
+
+## Migrating from v4
+
+{{ INCLUDE File=MigrationDrag }}
