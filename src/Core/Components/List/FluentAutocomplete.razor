@@ -17,16 +17,17 @@
                          Immediate="true"
                          ImmediateDelay="@ImmediateDelay"
                          auto-complete="true"
+                         Width="@Width"
                          AutoComplete="false"
                          @onclick="@OnTextInputChangedAsync"
                          @bind-Value="@_textInput"
                          @bind-Value:after="@OnTextInputChangedAsync">
             @* Selected items *@
             <StartTemplate>
-                @if (SelectedItems is not null)
+                @if (_internalSelectedItems is not null)
                 {
                     <div style="display: flex;">
-                        @foreach (var item in SelectedItems)
+                        @foreach (var item in _internalSelectedItems)
                         {
                             <span class="fluent-badge"
                                   auto-complete="true">
@@ -47,6 +48,10 @@
                 {
                     <FluentSpinner Size="SpinnerSize.Tiny" />
                 }
+                else
+                {
+                    <FluentIcon Value="@SearchIcon" Style="cursor: pointer;" />
+                }
             </EndTemplate>
         </FluentTextInput>
 
@@ -58,8 +63,9 @@
                            Multiple="true"
                            OptionText="@OptionText"
                            OptionValue="@OptionValue"
-                           Items="@Items"
-                           @bind-SelectedItems="@SelectedItems" />
+                           Items="@_internalFilteredItems"
+                           SelectedItems="@_internalSelectedItems"
+                           SelectedItemsChanged="@InternalSelectedItemsChangedHandlerAsync" />
         </FluentPopover>
 
     </CascadingValue>

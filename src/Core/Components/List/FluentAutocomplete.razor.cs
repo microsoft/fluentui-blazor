@@ -15,11 +15,17 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TValue))]
 public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOption, TValue>
 {
+    private static readonly Icon SearchIcon = new CoreIcons.Regular.Size20.Search();
     private static readonly Icon BadgeCloseIcon = new CoreIcons.Regular.Size20.Dismiss();
 
     private string? _textInput;
     private bool _isOpen;
+    private bool _isRemovingOneItem;
     private bool _inProgress;
+
+    // List of items used in the internally filtered listbox
+    private List<TOption> _internalFilteredItems = [];
+    private List<TOption> _internalSelectedItems = [];
 
     /// <summary />
     public FluentAutocomplete(LibraryConfiguration configuration) : base(configuration)
@@ -27,7 +33,6 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         // Default values
         Id = Identifier.NewId();
         Multiple = true;
-        Items = [];
     }
 
     /// <summary>
@@ -35,13 +40,20 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// Default is 400 milliseconds.
     /// </summary>
     [Parameter]
-    public int ImmediateDelay { get; set; } = 400;
+    public int ImmediateDelay { get; set; } = 200;
 
     /// <summary>
     /// Filter the list of options (items) using the text written by the user.
     /// </summary>
     [Parameter]
     public EventCallback<OptionsSearchEventArgs<TOption>> OnOptionsSearch { get; set; }
+
+    /// <summary />
+    public override IEnumerable<TOption> SelectedItems
+    {
+        get => _internalSelectedItems;
+        set => _internalSelectedItems = [.. value];
+    }
 
     /// <summary>
     /// Gets or sets the number of maximum options (items) returned by <see cref="OnOptionsSearch"/>.
@@ -57,6 +69,27 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     [Parameter]
     public bool ShowProgressIndicator { get; set; }
 
+    private async Task InternalSelectedItemsChangedHandlerAsync(IEnumerable<TOption> items)
+    {
+        var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, EqualityComparer<TOption>.Default));
+        var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, EqualityComparer<TOption>.Default)).ToList();
+
+        // Add items that are in 'items' but not already in _internalSelectedItems
+        _internalSelectedItems.AddRange(itemsToAdd);
+
+        // Remove items that are in '_internalFilteredItems' but not in 'items' anymore
+        foreach (var item in itemsToRemove)
+        {
+            _internalSelectedItems.Remove(item);
+        }
+
+        // Raise event
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
+        }
+    }
+
     /// <summary />
     private async Task OnTextInputChangedAsync()
     {
@@ -64,27 +97,39 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
 
         var args = new OptionsSearchEventArgs<TOption>()
         {
-            Items = Items ?? [],
+            Items = [],
             Text = _textInput ?? string.Empty,
         };
 
         await OnOptionsSearch.InvokeAsync(args);
 
-        Items = args.Items?.Take(MaximumOptionsSearch) ?? [];
+        _internalFilteredItems = [.. args.Items?.Take(MaximumOptionsSearch) ?? []];
 
-        _isOpen = true;
+        if (!_isRemovingOneItem)
+        {
+            _isOpen = true;
+        }
+
         _inProgress = false;
+        _isRemovingOneItem = false;
     }
 
     /// <summary />
-    private Task RemoveSelectedItemAsync(TOption? item)
+    private async Task RemoveSelectedItemAsync(TOption? item)
     {
         if (item is null)
         {
-            return Task.CompletedTask;
+            return;
         }
 
-        SelectedItems = SelectedItems?.Where(i => !EqualityComparer<TOption>.Default.Equals(i, item)) ?? [];
-        return Task.CompletedTask;
+        _isOpen = false;
+        _isRemovingOneItem = true;
+
+        _internalSelectedItems.Remove(item);
+
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
+        }
     }
 }

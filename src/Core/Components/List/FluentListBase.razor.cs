@@ -71,13 +71,13 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// Gets or sets the items that are selected in the list.
     /// </summary>
     [Parameter]
-    public IEnumerable<TOption> SelectedItems { get; set; } = [];
+    public virtual IEnumerable<TOption> SelectedItems { get; set; } = [];
 
     /// <summary>
     /// Event callback that is invoked when the selected items change.
     /// </summary>
     [Parameter]
-    public EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
+    public virtual EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the template for the <see cref="FluentListBase{TOption, TValue}.Items"/> items.
