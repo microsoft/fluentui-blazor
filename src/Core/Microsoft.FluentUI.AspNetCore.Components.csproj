@@ -153,6 +153,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Components\Toast\Parameters\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 </Project>

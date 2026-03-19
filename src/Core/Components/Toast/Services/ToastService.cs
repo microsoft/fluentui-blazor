@@ -2,8 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 
@@ -22,9 +20,6 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
     /// </summary>
     /// <param name="serviceProvider">List of services available in the application.</param>
     /// <param name="localizer">Localizer for the application.</param>
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ToastEventArgs))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ToastInstance))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IToastInstance))]
     public ToastService(IServiceProvider serviceProvider, IFluentLocalizer? localizer)
     {
         _serviceProvider = serviceProvider;
@@ -53,37 +48,39 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         ToastInstance?.FluentToast?.RaiseOnStateChangeAsync(Toast, DialogState.Closed);
     }
 
-    /// <inheritdoc cref="IToastService.ShowToastAsync{TToast}(ToastOptions)"/>
-    public Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(ToastOptions? options = null) where TToast : ComponentBase
+    /// <inheritdoc cref="IToastService.ShowToastAsync(ToastOptions)"/>
+    public Task<ToastResult> ShowToastAsync(ToastOptions? options = null)
     {
-        return ShowToastAsync(typeof(TToast), options ?? new ToastOptions());
+        return ShowToastCoreAsync(options ?? new ToastOptions());
     }
 
-    /// <inheritdoc cref="IToastService.ShowToastAsync{TToast}(Action{ToastOptions})"/>
-    public Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(Action<ToastOptions> options) where TToast : ComponentBase
+    /// <inheritdoc cref="IToastService.ShowToastAsync(Action{ToastOptions})"/>
+    public Task<ToastResult> ShowToastAsync(Action<ToastOptions> options)
     {
-        return ShowToastAsync<TToast>(new ToastOptions(options));
+        return ShowToastAsync(new ToastOptions(options));
+    }
+
+    /// <inheritdoc cref="IToastService.UpdateToastAsync(IToastInstance, Action{ToastOptions})"/>
+    public async Task UpdateToastAsync(IToastInstance toast, Action<ToastOptions> update)
+    {
+        if (toast is not ToastInstance instance)
+        {
+            throw new ArgumentException($"{nameof(toast)} must be a {nameof(ToastInstance)}.", nameof(toast));
+        }
+
+        update(instance.Options);
+        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
     }
 
     /// <summary />
-    private async Task<ToastResult> ShowToastAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, ToastOptions options)
+    private async Task<ToastResult> ShowToastCoreAsync(ToastOptions options)
     {
-        if (!componentType.IsSubclassOf(typeof(ComponentBase)))
-        {
-            throw new ArgumentException($"{componentType.FullName} must be a Blazor Component", nameof(componentType));
-        }
-
-        if (!Equals(componentType, typeof(FluentToast)) && !Equals(componentType, typeof(FluentProgressToast)))
-        {
-            throw new ArgumentException($"{componentType.FullName} must be {nameof(FluentToast)} or {nameof(FluentProgressToast)}", nameof(componentType));
-        }
-
         if (this.ProviderNotAvailable())
         {
             throw new FluentServiceProviderException<FluentToastProvider>();
         }
 
-        var instance = new ToastInstance(this, componentType, options);
+        var instance = new ToastInstance(this, options);
 
         // Add the Toast to the service, and render it.
         ServiceProvider.Items.TryAdd(instance?.Id ?? "", instance ?? throw new InvalidOperationException("Failed to create FluentToast."));

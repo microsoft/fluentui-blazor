@@ -2,8 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -11,12 +9,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public interface IToastInstance
 {
-    /// <summary>
-    /// Gets the component type of the Toast.
-    /// </summary>
-    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-    internal Type ComponentType { get; }
-
     /// <summary>
     /// Gets the unique identifier for the Toast.
     /// If this value is not set in the <see cref="ToastOptions"/>, a new identifier is generated.
@@ -63,4 +55,11 @@ public interface IToastInstance
     /// <param name="result">Result to close the Toast with.</param>
     /// <returns></returns>
     Task CloseAsync<T>(T result);
+
+    /// <summary>
+    /// Updates the toast options while the toast is shown.
+    /// </summary>
+    /// <param name="update">The action that mutates the current options.</param>
+    /// <returns></returns>
+    Task UpdateAsync(Action<ToastOptions> update);
 }

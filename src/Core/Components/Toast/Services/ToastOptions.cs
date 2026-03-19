@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -72,10 +73,119 @@ public class ToastOptions : IFluentComponentBase
     public int Timeout { get; set; } = 5000;
 
     /// <summary>
-    /// Gets a list of Toast parameters.
-    /// Each parameter must correspond to a `[Parameter]` property defined in the component.
+    /// Gets or sets the toast position on screen.
     /// </summary>
-    public IDictionary<string, object?> Parameters { get; set; } = new Dictionary<string, object?>(StringComparer.Ordinal);
+    public ToastPosition? Position { get; set; }
+
+    /// <summary>
+    /// Gets or sets the vertical offset in pixels.
+    /// </summary>
+    public int VerticalOffset { get; set; } = 16;
+
+    /// <summary>
+    /// Gets or sets the horizontal offset in pixels.
+    /// </summary>
+    public int HorizontalOffset { get; set; } = 20;
+
+    /// <summary>
+    /// Gets or sets the toast intent.
+    /// </summary>
+    public ToastIntent Intent { get; set; } = ToastIntent.Info;
+
+    /// <summary>
+    /// Gets or sets the politeness level used for accessibility.
+    /// </summary>
+    public ToastPoliteness? Politeness { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the timeout pauses while hovering the toast.
+    /// </summary>
+    public bool PauseOnHover { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the timeout pauses while the window is blurred.
+    /// </summary>
+    public bool PauseOnWindowBlur { get; set; }
+
+    /// <summary>
+    /// Gets or sets the toast title.
+    /// </summary>
+    public string? Title { get; set; }
+
+    /// <summary>
+    /// Gets or sets the body text of the toast.
+    /// </summary>
+    public string? Body { get; set; }
+
+    /// <summary>
+    /// Gets or sets the subtitle of the toast.
+    /// </summary>
+    public string? Subtitle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the status text shown for progress toasts.
+    /// </summary>
+    public string? Status { get; set; }
+
+    /// <summary>
+    /// Gets or sets the first quick action label.
+    /// </summary>
+    public string? QuickAction1 { get; set; }
+
+    /// <summary>
+    /// Gets or sets the second quick action label.
+    /// </summary>
+    public string? QuickAction2 { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the dismiss button is shown.
+    /// </summary>
+    public bool ShowDismissButton { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether progress visuals are shown.
+    /// </summary>
+    public bool ShowProgress { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the progress is indeterminate.
+    /// </summary>
+    public bool Indeterminate { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the current progress value.
+    /// </summary>
+    public int? Value { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum progress value.
+    /// </summary>
+    public int? Max { get; set; } = 100;
+
+    /// <summary>
+    /// Gets or sets custom media rendered in the media slot.
+    /// </summary>
+    public RenderFragment? Media { get; set; }
+
+    /// <summary>
+    /// Gets or sets custom content rendered in the title slot.
+    /// </summary>
+    public RenderFragment? TitleContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets custom content rendered in the subtitle slot.
+    /// </summary>
+    public RenderFragment? SubtitleContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets custom content rendered in the footer slot.
+    /// </summary>
+    public RenderFragment? FooterContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets custom content rendered in the default slot.
+    /// </summary>
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// Gets or sets the action raised when the Toast is opened or closed.

@@ -2,8 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-#pragma warning disable IL2111
-
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -54,50 +52,10 @@ public partial class FluentToastProvider : FluentComponentBase
     }
 
     /// <summary />
-    private static Action<ToastEventArgs> EmptyOnStateChange => (_) => { };
+    internal static Action<ToastEventArgs> EmptyOnStateChange => (_) => { };
 
-    private static Type GetToastType(IToastInstance toast)
-    {
-        if (Equals(toast.ComponentType, typeof(FluentToast)) || Equals(toast.ComponentType, typeof(FluentProgressToast)))
-        {
-            return toast.ComponentType;
-        }
-
-        throw new InvalidOperationException($"Unsupported toast component type '{toast.ComponentType.FullName}'. Only {nameof(FluentToast)} and {nameof(FluentProgressToast)} are supported.");
-    }
-
-    private Dictionary<string, object?> GetToastParameters(IToastInstance toast)
-    {
-        var toastOptions = toast.Options;
-        var parameters = new Dictionary<string, object?>(StringComparer.Ordinal)
-        {
-            [nameof(FluentToastComponentBase.Id)] = toast.Id,
-            [nameof(FluentToastComponentBase.Class)] = toastOptions?.ClassValue,
-            [nameof(FluentToastComponentBase.Style)] = toastOptions?.StyleValue,
-            [nameof(FluentToastComponentBase.Data)] = toastOptions?.Data,
-            [nameof(FluentToastComponentBase.Timeout)] = toastOptions?.Timeout ?? 5000,
-            [nameof(FluentToastComponentBase.Instance)] = toast,
-            [nameof(FluentToastComponentBase.OnStateChange)] = EventCallback.Factory.Create<ToastEventArgs>(this, toastOptions?.OnStateChange ?? EmptyOnStateChange),
-            [nameof(FluentToastComponentBase.AdditionalAttributes)] = toastOptions?.AdditionalAttributes,
-        };
-
-        if (toastOptions is null || toastOptions.Parameters is null)
-        {
-            return parameters;
-        }
-
-        foreach (var parameter in toastOptions.Parameters)
-        {
-            if (string.Equals(parameter.Key, nameof(FluentToastComponentBase.Instance), StringComparison.Ordinal))
-            {
-                continue;
-            }
-
-            parameters[parameter.Key] = parameter.Value;
-        }
-
-        return parameters;
-    }
+    private EventCallback<ToastEventArgs> GetOnStateChangeCallback(IToastInstance toast)
+        => EventCallback.Factory.Create<ToastEventArgs>(this, toast.Options.OnStateChange ?? EmptyOnStateChange);
 
     /// <summary>
     /// Only for Unit Tests
@@ -113,5 +71,3 @@ public partial class FluentToastProvider : FluentComponentBase
         }
     }
 }
-
-#pragma warning restore IL2111

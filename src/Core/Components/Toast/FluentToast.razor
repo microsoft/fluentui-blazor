@@ -1,0 +1,113 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+
+<fluent-toast-b id="@Id"
+                class="@ClassValue"
+                style="@StyleValue"
+                opened="@(Opened ? "true" : "false")"
+                timeout="@Timeout"
+                position="@Position.ToAttributeValue()"
+                intent="@Intent.ToAttributeValue()"
+                politeness="@Politeness.ToAttributeValue()"
+                pause-on-hover="@(PauseOnHover ? "true" : null)"
+                pause-on-window-blur="@(PauseOnWindowBlur ? "true" : null)"
+                vertical-offset="@VerticalOffset"
+                horizontal-offset="@HorizontalOffset"
+                role="listitem"
+                aria-labelledby="@($"{Id}-title")"
+                aria-describedby="@($"{Id}-body")"
+                @attributes="@AdditionalAttributes"
+                @ondialogtoggle="@OnToggleAsync"
+                @ondialogbeforetoggle="@OnToggleAsync">
+    @if (Media is not null)
+    {
+        @Media
+    }
+    else if (ShowProgress)
+    {
+        <div slot="media">
+            @if (Indeterminate)
+            {
+                <FluentSpinner Visible="true" Size="@SpinnerSize.Tiny" />
+            }
+            else
+            {
+                <FluentProgressBar Width="32px" Value="@Value" Max="@Max" />
+            }
+        </div>
+    }
+    else
+    {
+        <div slot="media" aria-hidden="true">
+            <FluentIcon Value="@IntentIcon" Color="@GetIntentColor(Intent)" />
+        </div>
+    }
+
+    @if (TitleContent is not null)
+    {
+        <div id="@($"{Id}-title")" slot="title">@TitleContent</div>
+    }
+    else if (!string.IsNullOrEmpty(Title))
+    {
+        <div id="@($"{Id}-title")" slot="title">@Title</div>
+    }
+
+    @if (ShowDismissButton)
+    {
+        @if (DismissContent is not null)
+        {
+            @DismissContent
+        }
+        else
+        {
+            <FluentButton Appearance="@ButtonAppearance.Subtle"
+                          IconOnly="true"
+                          IconStart="@DismissIcon"
+                          Title="Dismiss"
+                          slot="dismiss"
+                          OnClick="@(() => Instance!.CancelAsync())" />
+        }
+    }
+
+    @if (ChildContent is not null)
+    {
+        <div id="@($"{Id}-body")">@ChildContent</div>
+    }
+    else if (!string.IsNullOrEmpty(Body))
+    {
+        <div id="@($"{Id}-body")">@Body</div>
+    }
+
+    @if (SubtitleContent is not null)
+    {
+        <div slot="subtitle">@SubtitleContent</div>
+    }
+    else if (!string.IsNullOrEmpty(ShowProgress ? Status : Subtitle))
+    {
+        <div slot="subtitle">@(ShowProgress ? Status : Subtitle)</div>
+    }
+
+    @if (FooterContent is not null)
+    {
+        <div slot="footer">@FooterContent</div>
+    }
+    else if (!string.IsNullOrEmpty(QuickAction1) || !string.IsNullOrEmpty(QuickAction2))
+    {
+        <div slot="footer">
+            @if (!string.IsNullOrEmpty(QuickAction1))
+            {
+                <FluentLink Href="" @onclick="@(() => OnActionClickedAsync(primary: true))">
+                    @QuickAction1
+                </FluentLink>
+            }
+
+            @if (!string.IsNullOrEmpty(QuickAction2))
+            {
+                <FluentLink Href="" OnClick="@(() => OnActionClickedAsync(primary: false))">
+                    @QuickAction2
+                </FluentLink>
+            }
+        </div>
+    }
+</fluent-toast-b>

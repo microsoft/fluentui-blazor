@@ -28,15 +28,15 @@
 
     private async Task OpenDismissableToastAsync()
     {
-        var result = await ToastService.ShowToastAsync<FluentToast>(options =>
+        var result = await ToastService.ShowToastAsync(options =>
         {
             options.Timeout = 70000;
-            options.Parameters[nameof(FluentToast.Intent)] = ToastIntent.Warning;
-            options.Parameters[nameof(FluentToast.Title)] = "Delete item?";
-            options.Parameters[nameof(FluentToast.Body)] = "This action can't be undone.";
-            options.Parameters[nameof(FluentToast.QuickAction1)] = "Delete";
-            options.Parameters[nameof(FluentToast.QuickAction2)] = "Cancel";
-            options.Parameters[nameof(FluentToast.ShowDismissButton)] = true;
+            options.Intent = ToastIntent.Warning;
+            options.Title = "Delete item?";
+            options.Body = "This action can't be undone.";
+            options.QuickAction1 = "Delete";
+            options.QuickAction2 = "Cancel";
+            options.ShowDismissButton = true;
             options.OnStateChange = (e) =>
             {
                   Console.WriteLine($"State changed: {e.State}");
@@ -48,16 +48,16 @@
 
     private async Task OpenToastAsync()
     {
-        var result = await ToastService.ShowToastAsync<FluentToast>(options =>
+        var result = await ToastService.ShowToastAsync(options =>
         {
             options.Timeout = 70000;
-            options.Parameters[nameof(FluentToast.Intent)] = ToastIntent.Info;
-            options.Parameters[nameof(FluentToast.Title)] = "Email sent";
-            options.Parameters[nameof(FluentToast.Body)] = "Your message was delivered.";
-            options.Parameters[nameof(FluentToast.Subtitle)] = "Just now";
-            options.Parameters[nameof(FluentToast.QuickAction1)] = "Undo";
-            options.Parameters[nameof(FluentToast.QuickAction2)] = "Dismiss";
-            options.Parameters[nameof(FluentToast.ShowDismissButton)] = false;
+            options.Intent = ToastIntent.Info;
+            options.Title = "Email sent";
+            options.Body = "Your message was delivered.";
+            options.Subtitle = "Just now";
+            options.QuickAction1 = "Undo";
+            options.QuickAction2 = "Dismiss";
+            options.ShowDismissButton = false;
         });
 
         _lastResult = result.Cancelled ? "Communication: Cancelled" : "Communication: Ok";
@@ -65,17 +65,18 @@
 
     private async Task OpenProgressToastAsync()
     {
-        var result = await ToastService.ShowToastAsync<FluentProgressToast>(options =>
+        var result = await ToastService.ShowToastAsync(options =>
         {
             options.Timeout = 0;
-            options.Parameters[nameof(FluentProgressToast.Intent)] = ToastIntent.Info;
-            options.Parameters[nameof(FluentProgressToast.Title)] = "Uploading";
-            options.Parameters[nameof(FluentProgressToast.Body)] = "Please wait while your files are uploaded.";
-            options.Parameters[nameof(FluentProgressToast.Status)] = "Uploading 3 files...";
-            options.Parameters[nameof(FluentProgressToast.Indeterminate)] = true;
-            options.Parameters[nameof(FluentProgressToast.QuickAction1)] = "Hide";
-            options.Parameters[nameof(FluentProgressToast.QuickAction2)] = "Cancel";
-            options.Parameters[nameof(FluentProgressToast.ShowDismissButton)] = false;
+            options.Intent = ToastIntent.Info;
+            options.Title = "Uploading";
+            options.Body = "Please wait while your files are uploaded.";
+            options.Status = "Uploading 3 files...";
+            options.ShowProgress = true;
+            options.Indeterminate = true;
+            options.QuickAction1 = "Hide";
+            options.QuickAction2 = "Cancel";
+            options.ShowDismissButton = false;
         });
 
         _lastResult = result.Cancelled ? "Progress: Cancelled" : "Progress: Ok";
@@ -83,17 +84,18 @@
 
     private async Task OpenProgressToast2Async()
     {
-        var result = await ToastService.ShowToastAsync<FluentProgressToast>(options =>
+        var result = await ToastService.ShowToastAsync(options =>
         {
             options.Timeout = 0;
-            options.Parameters[nameof(FluentProgressToast.Intent)] = ToastIntent.Info;
-            options.Parameters[nameof(FluentProgressToast.Title)] = "Uploading";
-            options.Parameters[nameof(FluentProgressToast.Body)] = "Please wait while your files are uploaded.";
-            options.Parameters[nameof(FluentProgressToast.Status)] = "Uploading 3 files...";
-            options.Parameters[nameof(FluentProgressToast.Indeterminate)] = false;
-            options.Parameters[nameof(FluentProgressToast.QuickAction1)] = "Hide";
-            options.Parameters[nameof(FluentProgressToast.QuickAction2)] = "Cancel";
-            options.Parameters[nameof(FluentProgressToast.ShowDismissButton)] = false;
+            options.Intent = ToastIntent.Info;
+            options.Title = "Uploading";
+            options.Body = "Please wait while your files are uploaded.";
+            options.Status = "Uploading 3 files...";
+            options.ShowProgress = true;
+            options.Indeterminate = false;
+            options.QuickAction1 = "Hide";
+            options.QuickAction2 = "Cancel";
+            options.ShowDismissButton = false;
         });
 
         _lastResult = result.Cancelled ? "Progress: Cancelled" : "Progress: Ok";

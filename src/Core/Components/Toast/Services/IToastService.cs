@@ -2,9 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Components;
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -21,18 +18,22 @@ public partial interface IToastService : IFluentServiceBase<IToastInstance>
     Task CloseAsync(IToastInstance Toast, ToastResult result);
 
     /// <summary>
-    /// Shows a Toast with the component type as the body.
+    /// Shows a toast using the supplied options.
     /// </summary>
-    /// <typeparam name="TToast">Type of component to display.</typeparam>
-    /// <param name="options">Options to configure the toast component.</param>
-    Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(ToastOptions? options = null)
-         where TToast : ComponentBase;
+    /// <param name="options">Options to configure the toast.</param>
+    Task<ToastResult> ShowToastAsync(ToastOptions? options = null);
 
     /// <summary>
-    /// Shows a toast with the component type as the body.
+    /// Shows a toast by configuring an options object.
     /// </summary>
-    /// <typeparam name="TToast">Type of component to display.</typeparam>
-    /// <param name="options">Options to configure the toast component.</param>
-    Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(Action<ToastOptions> options)
-         where TToast : ComponentBase;
+    /// <param name="options">Action used to configure the toast.</param>
+    Task<ToastResult> ShowToastAsync(Action<ToastOptions> options);
+
+    /// <summary>
+    /// Updates a shown toast.
+    /// </summary>
+    /// <param name="toast">The toast instance to update.</param>
+    /// <param name="update">The action that mutates the current options.</param>
+    /// <returns></returns>
+    Task UpdateToastAsync(IToastInstance toast, Action<ToastOptions> update);
 }

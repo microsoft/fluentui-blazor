@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -13,14 +12,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class ToastInstance : IToastInstance
 {
     private static long _counter;
-    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-    private readonly Type _componentType;
     internal readonly TaskCompletionSource<ToastResult> ResultCompletion = new();
 
     /// <summary />
-    internal ToastInstance(IToastService toastService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, ToastOptions options)
+    internal ToastInstance(IToastService toastService, ToastOptions options)
     {
-        _componentType = componentType;
         Options = options;
         ToastService = toastService;
         Id = string.IsNullOrEmpty(options.Id) ? Identifier.NewId() : options.Id;
@@ -28,14 +24,10 @@ public class ToastInstance : IToastInstance
     }
 
     /// <summary />
-    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-    Type IToastInstance.ComponentType => _componentType;
-
-    /// <summary />
     internal IToastService ToastService { get; }
 
     /// <summary />
-    internal FluentToastComponentBase? FluentToast { get; set; }
+    internal FluentToast? FluentToast { get; set; }
 
     /// <inheritdoc cref="IToastInstance.Options"/>
     public ToastOptions Options { get; internal set; }
@@ -71,5 +63,11 @@ public class ToastInstance : IToastInstance
     public Task CloseAsync(ToastResult result)
     {
         return ToastService.CloseAsync(this, result);
+    }
+
+    /// <inheritdoc cref="IToastInstance.UpdateAsync(Action{ToastOptions})"/>
+    public Task UpdateAsync(Action<ToastOptions> update)
+    {
+        return ToastService.UpdateToastAsync(this, update);
     }
 }
