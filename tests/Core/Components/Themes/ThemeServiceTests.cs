@@ -81,7 +81,7 @@ public class ThemeServiceTests
         var js = new FakeJSRuntime();
         var sut = new ThemeService(js);
 
-        await sut.SetThemeAsync(ThemeType.Default);
+        await sut.SetThemeAsync(ThemeColorVariant.Default);
 
         var inv = Assert.Single(js.Invocations);
         Assert.Equal("Blazor.theme.setWebTheme", inv.Identifier);
@@ -94,7 +94,7 @@ public class ThemeServiceTests
         var js = new FakeJSRuntime();
         var sut = new ThemeService(js);
 
-        await sut.SetThemeAsync(ThemeType.Teams);
+        await sut.SetThemeAsync(ThemeColorVariant.Teams);
 
         var inv = Assert.Single(js.Invocations);
         Assert.Equal("Blazor.theme.setTeamsTheme", inv.Identifier);
@@ -107,7 +107,7 @@ public class ThemeServiceTests
         var js = new FakeJSRuntime();
         var sut = new ThemeService(js);
 
-        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => sut.SetThemeAsync((ThemeType)123));
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => sut.SetThemeAsync((ThemeColorVariant)123));
         Assert.Empty(js.Invocations);
     }
 
@@ -117,7 +117,7 @@ public class ThemeServiceTests
         var js = new FakeJSRuntime();
         var sut = new ThemeService(js);
 
-        await sut.SetThemeAsync(ThemeType.Default, ThemeMode.Dark);
+        await sut.SetThemeAsync(ThemeColorVariant.Default, ThemeMode.Dark);
 
         var inv = Assert.Single(js.Invocations);
         Assert.Equal("Blazor.theme.setThemeMode", inv.Identifier);
@@ -130,7 +130,7 @@ public class ThemeServiceTests
         var js = new FakeJSRuntime();
         var sut = new ThemeService(js);
 
-        await sut.SetThemeAsync(ThemeType.Teams, ThemeMode.System);
+        await sut.SetThemeAsync(ThemeColorVariant.Teams, ThemeMode.System);
 
         var inv = Assert.Single(js.Invocations);
         Assert.Equal("Blazor.theme.setTeamsThemeMode", inv.Identifier);
@@ -143,7 +143,7 @@ public class ThemeServiceTests
         var js = new FakeJSRuntime();
         var sut = new ThemeService(js);
 
-        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => sut.SetThemeAsync((ThemeType)123, ThemeMode.Dark));
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => sut.SetThemeAsync((ThemeColorVariant)123, ThemeMode.Dark));
         Assert.Empty(js.Invocations);
     }
 

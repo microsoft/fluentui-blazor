@@ -21,15 +21,15 @@ public interface IThemeService
     /// <summary>
     /// Sets a theme by type using the current effective mode.
     /// </summary>
-    /// <param name="type">The <see cref="ThemeType"/> theme type to apply.</param>
-    Task SetThemeAsync(ThemeType type);
+    /// <param name="type">The <see cref="ThemeColorVariant"/> theme type to apply.</param>
+    Task SetThemeAsync(ThemeColorVariant type);
 
     /// <summary>
     /// Sets a theme by type and mode.
     /// </summary>
-    /// <param name="type">The <see cref="ThemeType"/> theme type to apply.</param>
+    /// <param name="type">The <see cref="ThemeColorVariant"/> theme type to apply.</param>
     /// <param name="mode">The <see cref="ThemeMode"/> mode to use.</param>
-    Task SetThemeAsync(ThemeType type, ThemeMode mode);
+    Task SetThemeAsync(ThemeColorVariant type, ThemeMode mode);
 
     /// <summary>
     /// Sets a custom theme based on the specified brand color using the current effective mode.

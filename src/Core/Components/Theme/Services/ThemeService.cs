@@ -50,24 +50,24 @@ public sealed class ThemeService : IThemeService
     public Task SetThemeAsync(Theme theme)
         => InvokeVoidAsync("Blazor.theme.setBrandThemeFromTheme", theme?.ToDictionary());
 
-    /// <inheritdoc cref="IThemeService.SetThemeAsync(ThemeType)"/>
-    public Task SetThemeAsync(ThemeType type)
+    /// <inheritdoc cref="IThemeService.SetThemeAsync(ThemeColorVariant)"/>
+    public Task SetThemeAsync(ThemeColorVariant type)
     {
         return type switch
         {
-            ThemeType.Default => InvokeVoidAsync("Blazor.theme.setWebTheme"),
-            ThemeType.Teams => InvokeVoidAsync("Blazor.theme.setTeamsTheme"),
+            ThemeColorVariant.Default => InvokeVoidAsync("Blazor.theme.setWebTheme"),
+            ThemeColorVariant.Teams => InvokeVoidAsync("Blazor.theme.setTeamsTheme"),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, message: null),
         };
     }
 
-    /// <inheritdoc cref="IThemeService.SetThemeAsync(ThemeType, ThemeMode)"/>
-    public Task SetThemeAsync(ThemeType type, ThemeMode mode)
+    /// <inheritdoc cref="IThemeService.SetThemeAsync(ThemeColorVariant, ThemeMode)"/>
+    public Task SetThemeAsync(ThemeColorVariant type, ThemeMode mode)
     {
         return type switch
         {
-            ThemeType.Default => InvokeVoidAsync("Blazor.theme.setThemeMode", mode.ToAttributeValue()),
-            ThemeType.Teams => InvokeVoidAsync("Blazor.theme.setTeamsThemeMode", mode.ToAttributeValue()),
+            ThemeColorVariant.Default => InvokeVoidAsync("Blazor.theme.setThemeMode", mode.ToAttributeValue()),
+            ThemeColorVariant.Teams => InvokeVoidAsync("Blazor.theme.setTeamsThemeMode", mode.ToAttributeValue()),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, message: null),
         };
     }
