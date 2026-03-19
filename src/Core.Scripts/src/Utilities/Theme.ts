@@ -38,97 +38,11 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   export type ThemeSettings = { color: string; hueTorsion: number; vibrancy: number; mode?: ThemeMode | null; isExact?: boolean };
 
   /**
-   * Sets the Fluent UI theme to light mode.
-   * Takes brand color from data-theme-color attribute to calculates a light theme color ramp (palette).
-   * If attribute not provided then checks local storage.
-   * Fallback is default colorvalue
-   */
-  export function setLightTheme(): void {
-    setThemeMode('light');
-  }
-
-  /**
-   * Sets the Fluent UI theme to dark mode.
-   * Takes brand color from data-theme-color attribute to calculates a dark theme color ramp (palette).
-   * If attribute not provided then checks local storage.
-   * Fallback is default color value
-   */
-  export function setDarkTheme(): void {
-    setThemeMode('dark');
-  }
-
-  /**
-   * Sets the Fluent UI theme to match the system theme (dark/light).
-   * Takes brand color from data-theme-color attribute to calculates a theme color ramp (palette).
-   * If attribute not provided then checks local storage.
-   * Fallback is default color value
-   */
-  export function setSystemTheme(): void {
-    setThemeMode('system');
-  }
-
-  /**
-   * Sets the Fluent UI theme to the specified mode.
-   * Takes brand color from data-theme-color attribute to calculate a theme color ramp (palette).
-   * If attribute not provided then checks local storage.
-   * Fallback is default color value
-   * @param mode The theme mode to set ('light', 'dark', or 'system').
-   */
-
-  /**
    * Sets the Fluent UI theme to the built-in Web theme, using the current effective mode.
    */
   export function setWebTheme(): void {
     const next = updateThemeSettingsInStorage({ base: 'web' });
     applyCurrentTheme(next);
-  }
-
-  /**
-   * Sets the Fluent UI theme to the built-in Teams light theme.
-   * Also updates localStorage so this base theme can be restored on a later run.
-   */
-  export function setTeamsLightTheme(): void {
-    updateThemeSettingsInStorage({ base: 'teams' });
-    applyTheme(false, 'teams');
-  }
-
-  /**
-   * Sets the Fluent UI theme to the built-in Teams dark theme.
-   * Also updates localStorage so this base theme can be restored on a later run.
-   */
-  export function setTeamsDarkTheme(): void {
-    updateThemeSettingsInStorage({ base: 'teams' });
-    applyTheme(true, 'teams');
-  }
-
-  /**
-  * Sets the Fluent UI theme to the built-in Teams theme based on the system theme (dark/light).
-  */
-  export function setTeamsSystemTheme(): void {
-    setTeamsThemeMode('system');
-  }
-
-  /**
-  * Sets the Fluent UI theme to the built-in Teams theme in the specified mode.
-  * @param mode The theme mode to set ('light', 'dark', or 'system').
-  */
-  export function setTeamsThemeMode(mode: ThemeMode): void {
-    if (mode === 'dark') {
-      setTeamsDarkTheme();
-      return;
-    }
-
-    if (mode === 'light') {
-      setTeamsLightTheme();
-      return;
-    }
-
-    const isDark = resolveIsDarkFromMode(mode);
-    if (isDark) {
-      setTeamsDarkTheme();
-    } else {
-      setTeamsLightTheme();
-    }
   }
 
   /**
@@ -140,6 +54,13 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     applyCurrentTheme(next);
   }
 
+  /**
+  * Sets the Fluent UI theme to the specified mode.
+  * Takes brand color from data-theme-color attribute to calculate a theme color ramp (palette).
+  * If attribute not provided then checks local storage.
+  * Fallback is default color value
+  * @param mode The theme mode to set ('light', 'dark', or 'system').
+  */
   export function setThemeMode(mode: ThemeMode): void {
     if (mode === 'dark') {
       const next = updateThemeSettingsInStorage({ mode: 'dark' });
@@ -156,7 +77,6 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     const next = updateThemeSettingsInStorage({ mode: undefined });
     applyCurrentTheme(next);
   }
-
 
 
   /**
@@ -272,6 +192,15 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
       : rampBase;
   }
 
+  /*
+   * Returns the current brand color (default if no custom color set)
+   */
+  export function getBrandColor(): string {
+
+
+    return window.getComputedStyle(document.documentElement).getPropertyValue('--colorBrandForeground1');
+  }
+
   /**
    * Returns true if the browser is in dark mode
    */
@@ -299,9 +228,6 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
       const storedTheme = tryGetThemePreferencesFromStorage(tryGetThemeSettingsFromStorage())?.mode;
       if (storedTheme === 'dark' || storedTheme === 'light') return;
 
-      const bodyTheme = document.body.getAttribute('data-theme');
-      if (bodyTheme === 'dark' || bodyTheme === 'light') return;
-
       applyCurrentTheme();
     };
 
@@ -318,7 +244,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   /**
    * Removes the stored theme settings from localStorage.
    */
-  export function clearThemeSettings(): void {
+  export function clearStoredThemeSettings(): void {
     try {
       localStorage.removeItem(THEME_STORAGE_KEY);
     } catch {
@@ -333,8 +259,8 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
    * Returns true if the new theme is dark mode, false otherwise.
    */
   export function switchTheme(): boolean {
-    const storedTheme = tryGetThemePreferencesFromStorage(tryGetThemeSettingsFromStorage())?.mode;
-    const isCurrentlyDark = storedTheme === 'dark' ? true : storedTheme === 'light' ? false : isDarkMode();
+    const storedThemeMode = tryGetThemePreferencesFromStorage(tryGetThemeSettingsFromStorage())?.mode;
+    const isCurrentlyDark = storedThemeMode === 'dark' ? true : storedThemeMode === 'light' ? false : isDarkMode();
 
     if (isCurrentlyDark) {
       setThemeMode('light');
@@ -347,8 +273,8 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
 
   /**
    * Sets the initial Fluent UI theme to the default mode and color based on:
-   * - body `data-theme` attribute (dark/light), else
    * - stored user preference in localStorage, else
+   * - body `data-theme="dark"` attribute, else
    * - system preference
    *
    * Uses default webLightTheme/webDarkTheme unless custom BrandVariants exist.
@@ -357,7 +283,11 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     const stored = tryGetThemeSettingsFromStorage();
     const prefs = tryGetThemePreferencesFromStorage(stored);
 
-    applyCurrentTheme(stored);
+    const mode = resolveInitialThemeMode(stored);
+    const isDark = resolveIsDarkFromMode(mode);
+    const bodyThemeColor = document.body.getAttribute('data-theme-color');
+    const effectiveBase = resolveEffectiveThemeBase(prefs, bodyThemeColor);
+    applyTheme(isDark, effectiveBase);
 
     const htmlElement = document.documentElement;
     const htmlDir = htmlElement?.getAttribute('dir');
@@ -439,7 +369,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   function applyCurrentTheme(stored: StoredThemeSettings | null = null): void {
     const storedSettings = stored ?? tryGetThemeSettingsFromStorage();
     const prefs = tryGetThemePreferencesFromStorage(storedSettings);
-    const mode = resolveEffectiveThemeMode(null, prefs);
+    const mode = resolveEffectiveThemeMode(prefs);
     const isDark = resolveIsDarkFromMode(mode);
 
     const bodyThemeColor = document.body.getAttribute('data-theme-color');
@@ -543,6 +473,10 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     return mode === 'dark' ? true : mode === 'light' ? false : isSystemDark();
   }
 
+  function tryGetThemeModeFromBody(): 'dark' | null {
+    return document.body.getAttribute('data-theme') === 'dark' ? 'dark' : null;
+  }
+
   function tryGetRampInputs(
     overrideColor: string | null = null,
     storedSettings: Pick<ThemeSettings, 'color' | 'hueTorsion' | 'vibrancy' | 'isExact'> | null = null
@@ -579,6 +513,12 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     const bodyTag: HTMLElement = document?.body;
 
     if (bodyTag) {
+      if (isDark) {
+        bodyTag.setAttribute('data-theme', 'dark');
+      } else {
+        bodyTag.removeAttribute('data-theme');
+      }
+
       const event = new CustomEvent('themeChanged', {
         detail: { isDark }
       });
@@ -628,12 +568,15 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
           : resolveEffectiveIsDark();
   }
 
-  function resolveEffectiveThemeMode(bodyTheme: string | null = null, prefs: ThemePreferences | null = null): ThemeMode {
-    const bt = bodyTheme ?? document.body.getAttribute('data-theme');
-    if (bt === 'dark' || bt === 'light' || bt === 'system') return bt;
+  function resolveEffectiveThemeMode(prefs: ThemePreferences | null = null): ThemeMode {
+
 
     const p = prefs ?? tryGetThemePreferencesFromStorage(tryGetThemeSettingsFromStorage());
     return p?.mode ?? 'system';
+  }
+
+  function resolveInitialThemeMode(stored: StoredThemeSettings | null): ThemeMode {
+    return stored?.mode ?? tryGetThemeModeFromBody() ?? 'system';
   }
 
   function resolveEffectiveIsDark(): boolean {

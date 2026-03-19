@@ -21,18 +21,11 @@ interface Blazor {
     addSystemThemeChangeListener(): void,
     getColorRamp(): BrandVariants | Record<string, string> | null,
     getColorRampFromSettings(settings: ThemeSettings): BrandVariants | Record<string, string> | null,
-    clearThemeSettings(): void,
+    clearStoredThemeSettings(): void,
 
-    setLightTheme(): void,
-    setDarkTheme(): void,
-    setSystemTheme(): void,
     setThemeMode(mode: 'light' | 'dark' | 'system'): void,
-    setWebTheme(): void,
 
-    setTeamsLightTheme(): void,
-    setTeamsDarkTheme(): void,
-    setTeamsSystemTheme(): void,
-    setTeamsThemeMode(mode: 'light' | 'dark' | 'system'): void,
+    setWebTheme(): void,
     setTeamsTheme(): void,
 
     createBrandTheme(settings: ThemeSettings): Theme | null,

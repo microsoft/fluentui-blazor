@@ -68,28 +68,8 @@ interactions or other conditions in your application.
 
 The following methods are available for setting the brand color programmatically:
 
-| Name | Description |
-|---|---|
-| `CreateCustomThemeAsync(ThemeSettings settings)` | Creates a custom `Theme` based on the specified settings. The returned theme can be modified by the caller before it is applied. |
-| `SetThemeAsync(Theme theme)` | Applies a fully custom `Theme` (for example created with `CreateCustomThemeAsync`). This applies the theme without generating it from brand settings. |
-| `SetThemeAsync(ThemeType type)` | Sets a built-in theme by type (`Default` or `Teams`) using the current effective mode (light or dark). |
-| `SetThemeAsync(ThemeType type, ThemeMode mode)` | Sets a built-in theme by type (`Default` or `Teams`) and a specific mode (`Light`, `Dark`, or `System`). |
-| `SetThemeAsync(string color, bool isExact = false)` | Sets a custom brand theme from a hex color (e.g. `#FF0000`). `isExact` controls whether the exact provided color is used for the brand background. Uses `ThemeMode.System`. |
-| `SetThemeAsync(ThemeSettings settings)` | Sets a custom brand theme using full settings control: brand color, hue torsion (`-0.5` to `0.5`), vibrancy (`-0.5` to `0.5`), mode, and exact color behavior. |
-| `SetLightThemeAsync()` | Convenience wrapper that sets the `Default` theme to `Light` mode. |
-| `SetDarkThemeAsync()` | Convenience wrapper that sets the `Default` theme to `Dark` mode. |
-| `SetSystemThemeAsync()` | Convenience wrapper that sets the `Default` theme to `System` mode. |
-| `SetTeamsLightThemeAsync()` | Convenience wrapper that sets the `Teams` theme to `Light` mode. |
-| `SetTeamsDarkThemeAsync()` | Convenience wrapper that sets the `Teams` theme to `Dark` mode. |
-| `SetTeamsSystemThemeAsync()` | Convenience wrapper that sets the `Teams` theme to `System` mode. |
-| `ClearThemeSettingsAsync()` | Removes any stored theme configuration from `localStorage` and resets the theme to the default settings. |
-| `IsSystemDarkAsync()` | Returns whether the user's system preference is set to dark mode. |
-| `IsDarkModeAsync()` | Returns whether the current effective theme mode is dark mode. |
-| `GetColorRampAsync()` | Returns the current cached color ramp as a dictionary of ramp number to color value, or `null` if no custom ramp has been generated yet. |
-| `GetColorRampFromSettingsAsync(ThemeSettings settings)` | Generates a new color ramp based on the provided settings. Validates inputs and always recalculates the ramp without using the internal cache. Returns `null` for invalid inputs. |
-| `SwitchDirectionAsync()` | Switches the document direction between left-to-right (LTR) and right-to-left (RTL). |
-| `SwitchThemeAsync()` | Toggles between light and dark mode. Returns `true` if the new effective theme is dark. |
-| `SetThemeToElementAsync(ElementReference element, ThemeSettings settings)` | Applies a custom brand theme (from settings) to a specific element only; does not change the global theme. |
+{{ API Type=ThemeService }}
+
 
 The SetThemeAsync result is cached in `localStorage` so that the theme configuration can be persisted across sessions and restored on subsequent visits
 to the application. The only exception to this is when using the `SetThemeAsync(Theme theme)` overload, which applies a
@@ -101,7 +81,16 @@ Use the designer below to experiment with different brand colors and see how the
 and theme mode to create a custom theme that fits your brand identity. Hue Torsion and Vibrancy are defined here to be between -50 and 50, but the underlying
 implementation uses a range of -0.5 to 0.5, so the values you input will be divided by 100 before being applied to the color generation algorithm.
 
-{{ ThemeDesigner }}
+Changing any of the values in the 'parameters' block below will automatically update the generated color ramp and apply the new theme to the components in
+this part of the page only. This allows you to see the immediate impact of your changes and fine-tune your theme to achieve the desired look and feel.
+
+By clicking the 'Apply' button, you can apply the currently configured theme to the whole site. The settings will be persisted to local storage and will be
+used as the default theme when you return to the site in the future.
+
+By clicking the 'Reset' button, you can reset the theme to the default settings. This will clear any customizations you have made, restore the original theme
+and clear the local storage.
+
+{{ ThemeDesigner SourceCode=false }}
 
 
 ## Create and alter a Theme

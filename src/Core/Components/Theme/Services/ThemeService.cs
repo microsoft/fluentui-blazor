@@ -22,7 +22,7 @@ public sealed class ThemeService : IThemeService
         _jsRuntime = jsRuntime;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.CreateCustomThemeAsync(ThemeSettings)"/>
     public async Task<Theme?> CreateCustomThemeAsync(ThemeSettings settings)
     {
         var dict = await _jsRuntime.InvokeAsync<Dictionary<string, object?>?>(
@@ -34,8 +34,7 @@ public sealed class ThemeService : IThemeService
                     vibrancy = settings.Vibrancy,
                     mode = settings.Mode.ToAttributeValue(),
                     isExact = settings.IsExact,
-                })
-            .AsTask();
+                });
 
         if (dict is null)
         {
@@ -47,11 +46,11 @@ public sealed class ThemeService : IThemeService
         return theme;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.SetThemeAsync(Theme)"/>
     public Task SetThemeAsync(Theme theme)
         => InvokeVoidAsync("Blazor.theme.setBrandThemeFromTheme", theme?.ToDictionary());
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.SetThemeAsync(ThemeType)"/>
     public Task SetThemeAsync(ThemeType type)
     {
         return type switch
@@ -62,7 +61,7 @@ public sealed class ThemeService : IThemeService
         };
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.SetThemeAsync(ThemeType, ThemeMode)"/>
     public Task SetThemeAsync(ThemeType type, ThemeMode mode)
     {
         return type switch
@@ -73,11 +72,15 @@ public sealed class ThemeService : IThemeService
         };
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.SetThemeAsync(string, bool)"/>
     public Task SetThemeAsync(string color, bool isExact = false)
         => SetThemeAsync(new ThemeSettings(color, 0, 0, ThemeMode.System, isExact));
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.SetThemeAsync(ThemeMode)"/>
+    public Task SetThemeAsync(ThemeMode mode)
+        => InvokeVoidAsync("Blazor.theme.setThemeMode", mode.ToAttributeValue());
+
+    /// <inheritdoc cref="IThemeService.SetThemeAsync(ThemeSettings)"/>
     public Task SetThemeAsync(ThemeSettings settings)
         => InvokeVoidAsync(
             "Blazor.theme.setBrandThemeFromSettings",
@@ -90,27 +93,27 @@ public sealed class ThemeService : IThemeService
                 isExact = settings.IsExact,
             });
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.SwitchDirectionAsync"/>
     public Task SwitchDirectionAsync()
         => InvokeVoidAsync("Blazor.theme.switchDirection");
 
-    /// <inheritdoc />
-    public Task ClearThemeSettingsAsync()
-        => InvokeVoidAsync("Blazor.theme.clearThemeSettings");
+    /// <inheritdoc cref="IThemeService.ClearStoredThemeSettingsAsync"/>
+    public Task ClearStoredThemeSettingsAsync()
+        => InvokeVoidAsync("Blazor.theme.clearStoredThemeSettings");
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.IsSystemDarkAsync"/>
     public Task<bool> IsSystemDarkAsync()
         => _jsRuntime.InvokeAsync<bool>("Blazor.theme.isSystemDark").AsTask();
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.IsDarkModeAsync"/>
     public Task<bool> IsDarkModeAsync()
         => _jsRuntime.InvokeAsync<bool>("Blazor.theme.isDarkMode").AsTask();
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.GetColorRampAsync"/>
     public Task<IReadOnlyDictionary<string, string>?> GetColorRampAsync()
         => _jsRuntime.InvokeAsync<IReadOnlyDictionary<string, string>?>("Blazor.theme.getColorRamp").AsTask();
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.GetColorRampFromSettingsAsync"/>
     public Task<IReadOnlyDictionary<string, string>?> GetColorRampFromSettingsAsync(ThemeSettings settings)
         => _jsRuntime.InvokeAsync<IReadOnlyDictionary<string, string>?>(
             "Blazor.theme.getColorRampFromSettings",
@@ -123,35 +126,15 @@ public sealed class ThemeService : IThemeService
                 isExact = settings.IsExact,
             }).AsTask();
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.GetBrandColorAsync"/>
+    public Task<string> GetBrandColorAsync()
+        => _jsRuntime.InvokeAsync<string>("Blazor.theme.getBrandColor").AsTask();
+
+    /// <inheritdoc cref="IThemeService.SwitchThemeAsync" />
     public Task<bool> SwitchThemeAsync()
         => _jsRuntime.InvokeAsync<bool>("Blazor.theme.switchTheme", CancellationToken.None).AsTask();
 
-    /// <inheritdoc />
-    public Task SetLightThemeAsync()
-        => SetThemeAsync(ThemeType.Default, ThemeMode.Light);
-
-    /// <inheritdoc />
-    public Task SetDarkThemeAsync()
-        => SetThemeAsync(ThemeType.Default, ThemeMode.Dark);
-
-    /// <inheritdoc />
-    public Task SetSystemThemeAsync()
-        => SetThemeAsync(ThemeType.Default, ThemeMode.System);
-
-    /// <inheritdoc />
-    public Task SetTeamsLightThemeAsync()
-        => SetThemeAsync(ThemeType.Teams, ThemeMode.Light);
-
-    /// <inheritdoc />
-    public Task SetTeamsDarkThemeAsync()
-        => SetThemeAsync(ThemeType.Teams, ThemeMode.Dark);
-
-    /// <inheritdoc />
-    public Task SetTeamsSystemThemeAsync()
-        => SetThemeAsync(ThemeType.Teams, ThemeMode.System);
-
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.SetThemeToElementAsync(Microsoft.AspNetCore.Components.ElementReference, ThemeSettings)"/>
     public Task SetThemeToElementAsync(Microsoft.AspNetCore.Components.ElementReference element, ThemeSettings settings)
         => InvokeVoidAsync(
             "Blazor.theme.setBrandThemeToElementFromSettings",
@@ -165,7 +148,7 @@ public sealed class ThemeService : IThemeService
                 isExact = settings.IsExact,
             });
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IThemeService.SetThemeToElementAsync(Microsoft.AspNetCore.Components.ElementReference, Theme)"/>
     public Task SetThemeToElementAsync(Microsoft.AspNetCore.Components.ElementReference element, Theme theme)
         => InvokeVoidAsync("Blazor.theme.setBrandThemeToElementFromTheme", element, theme.ToDictionary());
 

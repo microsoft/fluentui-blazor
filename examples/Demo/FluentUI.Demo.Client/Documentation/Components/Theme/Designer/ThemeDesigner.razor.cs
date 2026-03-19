@@ -93,7 +93,7 @@ public partial class ThemeDesigner
 
         await ThemeService.SetThemeToElementAsync(_themePreviewElement, settings);
         await ThemeService.SetThemeAsync(settings);
-        await ThemeService.ClearThemeSettingsAsync();
+        await ThemeService.ClearStoredThemeSettingsAsync();
 
         StateHasChanged();
     }

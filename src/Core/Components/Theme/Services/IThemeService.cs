@@ -39,6 +39,12 @@ public interface IThemeService
     Task SetThemeAsync(string color, bool isExact = false);
 
     /// <summary>
+    /// Sets a theme by mode using the current effective theme type.
+    /// </summary>
+    /// <param name="mode">The <see cref="ThemeMode"/> mode to use.</param>
+    Task SetThemeAsync(ThemeMode mode);
+
+    /// <summary>
     /// Sets a custom theme based on the specified settings.
     /// </summary>
     Task SetThemeAsync(ThemeSettings settings);
@@ -52,7 +58,7 @@ public interface IThemeService
     /// <summary>
     /// Removes the stored theme settings from localStorage.
     /// </summary>
-    Task ClearThemeSettingsAsync();
+    Task ClearStoredThemeSettingsAsync();
 
     /// <summary>
     /// Returns true if the browser prefers dark mode.
@@ -75,6 +81,11 @@ public interface IThemeService
     Task<IReadOnlyDictionary<string, string>?> GetColorRampFromSettingsAsync(ThemeSettings settings);
 
     /// <summary>
+    /// Returns the current brand color (default if no custom brand color is set).
+    /// </summary>
+    Task<string> GetBrandColorAsync();
+
+    /// <summary>
     /// Switches the document direction between left-to-right and right-to-left.
     /// </summary>
     Task SwitchDirectionAsync();
@@ -83,42 +94,6 @@ public interface IThemeService
     /// Toggles between light and dark mode.
     /// </summary>
     Task<bool> SwitchThemeAsync();
-
-    /// <summary>
-    /// Sets the theme mode to light.
-    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Default"/>.
-    /// </summary>
-    Task SetLightThemeAsync();
-
-    /// <summary>
-    /// Sets the theme mode to dark.
-    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Default"/>.
-    /// </summary>
-    Task SetDarkThemeAsync();
-
-    /// <summary>
-    /// Sets the theme mode to follow the system preference.
-    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Default"/>.
-    /// </summary>
-    Task SetSystemThemeAsync();
-
-    /// <summary>
-    /// Sets the Teams theme mode to light.
-    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Teams"/>.
-    /// </summary>
-    Task SetTeamsLightThemeAsync();
-
-    /// <summary>
-    /// Sets the Teams theme mode to dark.
-    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Teams"/>.
-    /// </summary>
-    Task SetTeamsDarkThemeAsync();
-
-    /// <summary>
-    /// Sets the Teams theme mode to follow the system preference.
-    /// Convenience wrapper for <see cref="SetThemeAsync(ThemeType, ThemeMode)"/> with <see cref="ThemeType.Teams"/>.
-    /// </summary>
-    Task SetTeamsSystemThemeAsync();
 
     /// <summary>
     /// Sets a custom theme on a specific element based on the specified <see cref="ThemeSettings"/>.

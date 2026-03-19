@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Threading;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -149,6 +148,19 @@ public class ThemeServiceTests
     }
 
     [Fact]
+    public async Task SetThemeAsync_Mode_InvokesSetThemeModeWithAttributeValue()
+    {
+        var js = new FakeJSRuntime();
+        var sut = new ThemeService(js);
+
+        await sut.SetThemeAsync(ThemeMode.Dark);
+
+        var inv = Assert.Single(js.Invocations);
+        Assert.Equal("Blazor.theme.setThemeMode", inv.Identifier);
+        Assert.Equal("dark", Assert.Single(inv.Arguments));
+    }
+
+    [Fact]
     public async Task SetThemeAsync_Settings_SystemMode_PassesNullMode()
     {
         var js = new FakeJSRuntime();
@@ -289,15 +301,15 @@ public class ThemeServiceTests
     }
 
     [Fact]
-    public async Task ClearThemeSettingsAsync_InvokesClearThemeSettings()
+    public async Task ClearStoredThemeSettingsAsync_InvokesClearStoredThemeSettings()
     {
         var js = new FakeJSRuntime();
         var sut = new ThemeService(js);
 
-        await sut.ClearThemeSettingsAsync();
+        await sut.ClearStoredThemeSettingsAsync();
 
         var inv = Assert.Single(js.Invocations);
-        Assert.Equal("Blazor.theme.clearThemeSettings", inv.Identifier);
+        Assert.Equal("Blazor.theme.clearStoredThemeSettings", inv.Identifier);
         Assert.Empty(inv.Arguments);
     }
 
@@ -382,6 +394,21 @@ public class ThemeServiceTests
     }
 
     [Fact]
+    public async Task GetBrandColorAsync_ReturnsValueFromJs()
+    {
+        var js = new FakeJSRuntime();
+        js.SetResult("Blazor.theme.getBrandColor", "#0078D4");
+        var sut = new ThemeService(js);
+
+        var result = await sut.GetBrandColorAsync();
+
+        Assert.Equal("#0078D4", result);
+        var inv = Assert.Single(js.Invocations);
+        Assert.Equal("Blazor.theme.getBrandColor", inv.Identifier);
+        Assert.Empty(inv.Arguments);
+    }
+
+    [Fact]
     public async Task SetThemeToElementAsync_FromTheme_InvokesJsWithElementReference()
     {
         var js = new FakeJSRuntime();
@@ -400,51 +427,6 @@ public class ThemeServiceTests
         var dict = Assert.IsAssignableFrom<IDictionary<string, object?>>(inv.Arguments[1]!);
         Assert.Equal("2px", dict["borderRadiusSmall"]);
     }
-
-    [Fact]
-    public async Task ThemeConvenienceMethods_InvokeExpectedJsCalls()
-    {
-        var js = new FakeJSRuntime();
-        var sut = new ThemeService(js);
-
-        await sut.SetLightThemeAsync();
-        await sut.SetTeamsDarkThemeAsync();
-
-        Assert.Equal(2, js.Invocations.Count);
-
-        Assert.Equal("Blazor.theme.setThemeMode", js.Invocations[0].Identifier);
-        Assert.Equal("light", Assert.Single(js.Invocations[0].Arguments));
-
-        Assert.Equal("Blazor.theme.setTeamsThemeMode", js.Invocations[1].Identifier);
-        Assert.Equal("dark", Assert.Single(js.Invocations[1].Arguments));
-    }
-
-    [Fact]
-    public async Task ThemeConvenienceMethods_InvokeRemainingOverloads()
-    {
-        var js = new FakeJSRuntime();
-        var sut = new ThemeService(js);
-
-        await sut.SetDarkThemeAsync();
-        await sut.SetSystemThemeAsync();
-        await sut.SetTeamsLightThemeAsync();
-        await sut.SetTeamsSystemThemeAsync();
-
-        Assert.Equal(4, js.Invocations.Count);
-
-        Assert.Equal("Blazor.theme.setThemeMode", js.Invocations[0].Identifier);
-        Assert.Equal("dark", Assert.Single(js.Invocations[0].Arguments));
-
-        Assert.Equal("Blazor.theme.setThemeMode", js.Invocations[1].Identifier);
-        Assert.Equal("system", Assert.Single(js.Invocations[1].Arguments));
-
-        Assert.Equal("Blazor.theme.setTeamsThemeMode", js.Invocations[2].Identifier);
-        Assert.Equal("light", Assert.Single(js.Invocations[2].Arguments));
-
-        Assert.Equal("Blazor.theme.setTeamsThemeMode", js.Invocations[3].Identifier);
-        Assert.Equal("system", Assert.Single(js.Invocations[3].Arguments));
-    }
-
     private static T? GetPropertyValue<T>(object obj, string propertyName)
     {
         var prop = obj.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);

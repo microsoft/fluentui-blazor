@@ -13,8 +13,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <param name="Mode">The <see cref="ThemeMode"/> to use when applying the theme.</param>
 /// <param name="IsExact">Whether to use the exact color for the brand background.</param>
 public sealed record ThemeSettings(
-    string Color,
-    double HueTorsion,
-    double Vibrancy,
-    ThemeMode Mode,
+    string Color = "0F6CBD",
+    double HueTorsion = 0,
+    double Vibrancy = 0,
+    ThemeMode Mode = ThemeMode.Light,
     bool IsExact = false);

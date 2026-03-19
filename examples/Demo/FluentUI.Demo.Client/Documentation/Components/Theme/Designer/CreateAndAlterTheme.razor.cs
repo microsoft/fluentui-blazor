@@ -9,31 +9,46 @@ namespace FluentUI.Demo.Client.Documentation.Components.Theme.Designer;
 
 public partial class CreateAndAlterTheme
 {
-    private ElementReference _exampleBlocks;
-    private Microsoft.FluentUI.AspNetCore.Components.Theme? _customTheme = new();
-    private readonly ThemeSettings _themeSettings = new("#0FFC0D", 0, 0, ThemeMode.Light, false);
+    ElementReference _exampleBlocks;
 
-    [Inject]
-    private IThemeService ThemeService { get; set; } = default!;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    async Task ApplyCustomThemeAsync()
     {
-        if (firstRender)
+        var isDark = await ThemeService.IsDarkModeAsync();
+        var theme = await ThemeService.CreateCustomThemeAsync(new ThemeSettings()
         {
-            _customTheme = await ThemeService.CreateCustomThemeAsync(_themeSettings);
+            Color = "#0FFC0D",
+            Mode = isDark ? ThemeMode.Dark : ThemeMode.Light,
+        });
+
+        if (theme == null)
+        {
+            return;
         }
+
+        theme.Borders.Radius.Medium = "40px";
+        theme.Fonts.Family.Base = "Comic Sans MS, cursive, sans-serif";
+        theme.Fonts.Size.Base300 = "10px";
+        theme.Lines.Height.Base300 = "8px";
+
+        await ThemeService.SetThemeToElementAsync(_exampleBlocks, theme);
     }
 
-    private async Task ApplyCustomThemeAsync()
+    async Task ResetThemeAsync()
     {
-        if (_customTheme is not null)
-        {
-            _customTheme.Borders.Radius.Medium = "40px";
-            _customTheme.Fonts.Family.Base = "Comic Sans MS, cursive, sans-serif";
-            _customTheme.Fonts.Size.Base300 = "10px";
-            _customTheme.Lines.Height.Base300 = "8px";
+        var isDark = await ThemeService.IsDarkModeAsync();
+        var color = await ThemeService.GetBrandColorAsync();
 
-            await ThemeService.SetThemeToElementAsync(_exampleBlocks, _customTheme);
+        var theme = await ThemeService.CreateCustomThemeAsync(new ThemeSettings()
+        {
+            Color = color,
+            Mode = isDark ? ThemeMode.Dark : ThemeMode.Light,
+        });
+
+        if (theme == null)
+        {
+            return;
         }
+
+        await ThemeService.SetThemeToElementAsync(_exampleBlocks, theme);
     }
 }

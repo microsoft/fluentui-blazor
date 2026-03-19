@@ -1,11 +1,7 @@
 #theme-preview {
   display: flex;
   width: 100%;
-  min-width: 750px;
-  min-height: 400px;
-  padding: 16px;
-  border: 1px solid var(--colorNeutralBackground3);
-  border-radius: 4px;
+  padding-top: 10px;
 }
 
 .sticker-sheet {
