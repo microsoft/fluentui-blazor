@@ -26,9 +26,7 @@ internal class RangeOfDates : RangeOf<System.DateTime>
     {
         return GetRangeValues((min, max) =>
         {
-            return Enumerable.Range(0, (max - min).Days + 1)
-                             .Select(offset => min.AddDays(offset))
-                             .ToArray();
+            return [.. Enumerable.Range(0, (max - min).Days + 1).Select(offset => min.AddDays(offset))];
         });
     }
 

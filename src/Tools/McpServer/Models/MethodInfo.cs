@@ -54,7 +54,7 @@ public record MethodInfo
         return string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase) &&
                string.Equals(ReturnType, other.ReturnType, StringComparison.OrdinalIgnoreCase) &&
                string.Equals(Description, other.Description, StringComparison.OrdinalIgnoreCase) &&
-               Parameters.SequenceEqual(other.Parameters) &&
+               Parameters.SequenceEqual(other.Parameters, StringComparer.OrdinalIgnoreCase) &&
                IsInherited == other.IsInherited;
     }
 

@@ -10,13 +10,43 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public static class ThemeExtensions
 {
     /// <summary>
+    /// Converts the current theme custom object to a dictionary, excluding properties with null, empty string, or zero values.
+    /// </summary>
+    /// <param name="theme"></param>
+    /// <returns></returns>
+    public static IDictionary<string, object?> ToCompactDictionary(this Theme theme)
+    {
+        return theme.ToDictionary().Where(i => !IsEmptyValue(i.Value)).ToDictionary();
+
+        static bool IsEmptyValue(object? value)
+        {
+            if (value is null)
+            {
+                return true;
+            }
+
+            if (value is string strValue)
+            {
+                return string.IsNullOrEmpty(strValue);
+            }
+
+            if (value is int intValue)
+            {
+                return intValue == 0;
+            }
+
+            return false;
+        }
+    }
+
+    /// <summary>
     /// Converts the current theme custom object to a JSON string.
     /// </summary>
     /// <returns></returns>
     [RequiresUnreferencedCode("This method uses reflection which may be trimmed.")]
     public static string ToJson(this Theme theme)
     {
-        var dico = theme.ToDictionary().Where(i => !string.IsNullOrEmpty(i.Value));
+        var dico = theme.ToCompactDictionary();
         var data = System.Linq.Enumerable.ToDictionary(dico, x => x.Key, x => x.Value, StringComparer.Ordinal);
         var options = new System.Text.Json.JsonSerializerOptions
         {
@@ -34,7 +64,7 @@ public static class ThemeExtensions
     [RequiresUnreferencedCode("This method uses reflection which may be trimmed.")]
     public static Theme FromJson(this Theme Theme, string json)
     {
-        var data = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string?>>(json);
+        var data = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object?>>(json);
         if (data is not null)
         {
             Theme.FromDictionary(data);
