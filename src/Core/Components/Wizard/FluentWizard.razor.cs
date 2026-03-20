@@ -15,18 +15,33 @@ public partial class FluentWizard : FluentComponentBase
 {
     /// <summary>
     /// Gets or sets the label for the Previous button.
+    /// If null or empty, the localized value is used.
     /// </summary>
-    public static string LabelButtonPrevious { get; set; } = "Previous";
+    public static string? LabelButtonPrevious { get; set; }
 
     /// <summary>
     /// Gets or sets the label for the Next button.
+    /// If null or empty, the localized value is used.
     /// </summary>
-    public static string LabelButtonNext { get; set; } = "Next";
+    public static string? LabelButtonNext { get; set; }
 
     /// <summary>
     /// Gets or sets the label for the Done button.
+    /// If null or empty, the localized value is used.
     /// </summary>
-    public static string LabelButtonDone { get; set; } = "Done";
+    public static string? LabelButtonDone { get; set; }
+
+    private string LabelButtonPreviousValue => string.IsNullOrWhiteSpace(LabelButtonPrevious)
+        ? Localizer[Localization.LanguageResource.Wizard_LabelButtonPrevious]
+        : LabelButtonPrevious;
+
+    private string LabelButtonNextValue => string.IsNullOrWhiteSpace(LabelButtonNext)
+        ? Localizer[Localization.LanguageResource.Wizard_LabelButtonNext]
+        : LabelButtonNext;
+
+    private string LabelButtonDoneValue => string.IsNullOrWhiteSpace(LabelButtonDone)
+        ? Localizer[Localization.LanguageResource.Wizard_LabelButtonDone]
+        : LabelButtonDone;
 
     private readonly List<FluentWizardStep> _steps = new();
     private int _value;

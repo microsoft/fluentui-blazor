@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
 <CascadingValue Value="this">
@@ -37,7 +37,7 @@
                     <FluentButton Appearance="ButtonAppearance.Default"
                                   Style="@($"width: {buttonWidth};")"
                                   OnClick="@OnPreviousHandlerAsync">
-                        @LabelButtonPrevious
+                        @LabelButtonPreviousValue
                     </FluentButton>
                 }
 
@@ -48,7 +48,7 @@
                     <FluentButton Appearance="ButtonAppearance.Primary"
                                   Style="@($"width: {buttonWidth};")"
                                   OnClick="@OnNextHandlerAsync">
-                        @LabelButtonNext
+                        @LabelButtonNextValue
                     </FluentButton>
                 }
                 else
@@ -56,7 +56,7 @@
                     <FluentButton Appearance="ButtonAppearance.Primary"
                                   Style="@($"width: {buttonWidth};")"
                                   OnClick="OnFinishHandlerAsync">
-                        @LabelButtonDone
+                        @LabelButtonDoneValue
                     </FluentButton>
                 }
             }

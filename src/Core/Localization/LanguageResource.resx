@@ -342,4 +342,13 @@
   <data name="DataGrid_ToggleNesting" xml:space="preserve">
     <value>Toggle nesting</value>
   </data>
+  <data name="Wizard_LabelButtonPrevious" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Wizard_LabelButtonNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Wizard_LabelButtonDone" xml:space="preserve">
+    <value>Done</value>
+  </data>
 </root>
