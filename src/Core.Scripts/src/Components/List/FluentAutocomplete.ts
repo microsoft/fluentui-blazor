@@ -29,46 +29,54 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
       
       const popover = this.getPopover();
       if (!popover) throw new Error(`Popover not found for input with id ${inputId}`);
-      this.Popover = popover;
+      this.Popover = popover as IFluentPopover;
 
       this.input.addEventListener('keydown', this.keydownHandler);
       this.input.addEventListener('input', this.inputChangeHandler);
+      this.Popover.addEventListener('toggle', this.popoverToggleHandler);
     }
 
-    private Popover: HTMLElement;
+    private Popover: IFluentPopover;
 
     /**
      * Handles keydown events on the autocomplete input to manage option hovering and selection.
      */
     private keydownHandler = (e: KeyboardEvent): void => {
-      if (!this.Popover.hasAttribute('opened')) return;
 
       const options = this.getOptions();
-      if (options.length === 0) return;
-
       const currentIndex = options.findIndex(o => o.hasAttribute('hovered'));
 
       switch (e.key) {
 
         case 'ArrowDown': {
           e.preventDefault();
+
+          if (!this.isPopoverOpen()) this.Popover.showPopover();
+
           const nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : options.length - 1;
           this.setHover(options, nextIndex);
+
           break;
         }
 
         case 'ArrowUp': {
           e.preventDefault();
+
+          if (!this.isPopoverOpen()) this.Popover.showPopover();
+
           const prevIndex = currentIndex > 0 ? currentIndex - 1 : 0;
           this.setHover(options, prevIndex);
+
           break;
         }
 
         case 'Enter': {
-          if (currentIndex >= 0) {
+          if (currentIndex >= 0 && this.isPopoverOpen()) {
             e.preventDefault();
             options[currentIndex].click();
-            this.clearAllHovers();
+
+            // Close the popover after selection
+            this.Popover.closePopover();
           }
           break;
         }
@@ -80,6 +88,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
      */
     private getPopover(): HTMLElement | null {
       return document.querySelector(`fluent-popover-b[anchor-id="${this.inputId}"]`);
+    }
+
+    /**
+     * Returns true if the popover is currently open, false otherwise.
+     */
+    private isPopoverOpen(): boolean {
+      return this.Popover.hasAttribute('opened') && (this.Popover.getAttribute('opened') === 'true' || this.Popover.getAttribute('opened') === '' || this.Popover.getAttribute('opened') === null);
     }
 
     /**
@@ -125,6 +140,20 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
     private inputChangeHandler = (): void => {
       this.setHoverFirstOption();
     }
+
+    /**
+     * Hovers the first option when the popover is opened.
+     */
+    private popoverToggleHandler = (e: Event): void => {
+      if ((e as CustomEvent).detail?.newState === 'open') {
+        this.setHoverFirstOption();
+      }
+    }
    
+  }
+
+  interface IFluentPopover extends HTMLElement {
+    showPopover(): void;
+    closePopover(): void;
   }
 }

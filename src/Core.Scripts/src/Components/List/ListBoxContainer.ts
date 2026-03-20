@@ -287,7 +287,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         }
       });
 
-      console.log('Dispatching listboxchange event with selected options:', event.detail.selectedOptions);
       this.container.dispatchEvent(event);
     }
 
