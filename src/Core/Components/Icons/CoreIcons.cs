@@ -95,6 +95,8 @@ internal static partial class CoreIcons
 
             public class PresenceUnknown : Icon { public PresenceUnknown() : base("PresenceUnknown", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16ZM0 10a10 10 0 1 1 20 0 10 10 0 0 1-20 0Z\"/>") { } }
 
+            public class Circle : Icon { public Circle() : base("Circle", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-8 7a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z\"/>") { } }
+
             public class RadioButton : Icon { public RadioButton() : base("RadioButton", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-8 7a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z\" />") { } };
 
             public class Search : Icon { public Search() : base("Search", IconVariant.Regular, IconSize.Size20, "<path d=\"M12.73 13.44a6.5 6.5 0 1 1 .7-.7l3.42 3.4a.5.5 0 0 1-.63.77l-.07-.06-3.42-3.41Zm-.71-.71A5.54 5.54 0 0 0 14 8.5a5.5 5.5 0 1 0-1.98 4.23Z\"/>") { } }
@@ -132,6 +134,8 @@ internal static partial class CoreIcons
             public class PresenceBusy : Icon { public PresenceBusy() : base("PresenceBusy", IconVariant.Filled, IconSize.Size20, "<path d=\"M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z\"/>") { } }
 
             public class PresenceDnd : Icon { public PresenceDnd() : base("PresenceDnd", IconVariant.Filled, IconSize.Size20, "<path d=\"M10 20a10 10 0 1 0 0-20 10 10 0 0 0 0 20ZM7 9h6a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2Z\"/>") { } }
+
+            public class Circle : Icon { public Circle() : base("Circle", IconVariant.Filled, IconSize.Size20, "<path d=\"M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z\"/>") { } }
 
             public class RadioButton : Icon { public RadioButton() : base("RadioButton", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-13a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm-7 8a7 7 0 1 1 14 0 7 7 0 0 1-14 0Z\" />") { } };
 

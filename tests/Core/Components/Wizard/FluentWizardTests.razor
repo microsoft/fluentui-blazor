@@ -1,0 +1,258 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    public FluentWizardTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentWizard_Default()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentWizard>
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                    <FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_WithSteps()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentWizard>
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_NextButton()
+    {
+        // Arrange
+        var value = 0;
+        var cut = Render(
+            @<FluentWizard @bind-Value="@value">
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                    <FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Act
+        var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+        nextButton.Click();
+        Assert.Equal(1, value);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_PreviousButton()
+    {
+        // Arrange
+        var value = 0;
+        var cut = Render(
+            @<FluentWizard @bind-Value="@value">
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                    <FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Act - click Next then Previous
+        var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+        nextButton.Click();
+        Assert.Equal(1, value);
+
+        var prevButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Previous");
+        prevButton.Click();
+        Assert.Equal(0, value);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_DisabledStep()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentWizard>
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Disabled" Disabled="true">Disabled content</FluentWizardStep>
+                    <FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_OnFinish()
+    {
+        // Arrange
+        var finishCalled = false;
+        var value = 0;
+        var cut = Render(
+            @<FluentWizard @bind-Value="@value" OnFinish="@(() => { finishCalled = true; })">
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Act - navigate to last step, click Done
+        var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+        nextButton.Click();
+        Assert.Equal(1, value);
+
+        var doneButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Done");
+        doneButton.Click();
+        Assert.True(finishCalled);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_ValueBinding()
+    {
+        // Arrange
+        var value = 0;
+        var cut = Render(
+            @<FluentWizard @bind-Value="@value">
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                    <FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Act
+        Assert.Equal(0, value);
+        var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+        nextButton.Click();
+        Assert.Equal(1, value);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_StepperPositionTop()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentWizard StepperPosition="StepperPosition.Top">
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_Border()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentWizard Border="WizardBorder.Outside">
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_DeferredLoading()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentWizard>
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2" DeferredLoading="true">Deferred content</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_CancelStepChange()
+    {
+        // Arrange
+        var value = 0;
+        var cut = Render(
+            @<FluentWizard @bind-Value="@value">
+                <Steps>
+                    <FluentWizardStep Label="Step 1" OnChange="@((e) => e.IsCancelled = true)">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Act - try to click next
+        var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+        nextButton.Click();
+        Assert.Equal(0, value);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_StepSequenceAny()
+    {
+        // Arrange
+        var value = 0;
+        var cut = Render(
+            @<FluentWizard @bind-Value="@value" StepSequence="WizardStepSequence.Any">
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                    <FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+                </Steps>
+            </FluentWizard>);
+
+        // Act - click on step 3 directly
+        var steps = cut.FindAll("li");
+        steps[2].Click();
+        Assert.Equal(2, value);
+
+        // Assert
+        cut.Verify();
+    }
+}
