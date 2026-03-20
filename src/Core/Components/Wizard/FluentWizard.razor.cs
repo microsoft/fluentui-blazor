@@ -44,7 +44,6 @@ public partial class FluentWizard : FluentComponentBase
         : LabelButtonDone;
 
     private readonly List<FluentWizardStep> _steps = new();
-    private int _value;
     internal int _maxStepVisited;
 
     /// <summary />
@@ -117,36 +116,8 @@ public partial class FluentWizard : FluentComponentBase
     /// Gets or sets the step index of the current step.
     /// This value is bindable.
     /// </summary>
-#pragma warning disable BL0007 // Component parameters should be auto properties
     [Parameter]
-    public int Value
-#pragma warning restore BL0007
-    {
-        get
-        {
-            return _value;
-        }
-
-        set
-        {
-            if (value < 0 || _steps.Count <= 0)
-            {
-                _value = 0;
-            }
-            else if (value > _steps.Count - 1)
-            {
-                _value = _steps.Count - 1;
-            }
-            else
-            {
-                _value = value;
-            }
-
-            _maxStepVisited = Math.Max(_value, _maxStepVisited);
-
-            SetCurrentStatusToStep(_value);
-        }
-    }
+    public int Value { get; set; }
 
     /// <summary>
     /// Triggers when the value has changed.
@@ -185,6 +156,13 @@ public partial class FluentWizard : FluentComponentBase
     public WizardStepSequence StepSequence { get; set; } = WizardStepSequence.Linear;
 
     /// <summary />
+    protected override void OnParametersSet()
+    {
+        SetCurrentValue(Value);
+        base.OnParametersSet();
+    }
+
+    /// <summary />
     protected virtual async Task OnNextHandlerAsync(MouseEventArgs e)
     {
         // Target step index
@@ -201,10 +179,10 @@ public partial class FluentWizard : FluentComponentBase
 
         if (!isCanceled)
         {
-            Value = targetIndex;
+            SetCurrentValue(targetIndex);
             if (ValueChanged.HasDelegate)
             {
-                await ValueChanged.InvokeAsync(targetIndex);
+                await ValueChanged.InvokeAsync(Value);
             }
 
             StateHasChanged();
@@ -228,10 +206,10 @@ public partial class FluentWizard : FluentComponentBase
 
         if (!isCanceled)
         {
-            Value = targetIndex;
+            SetCurrentValue(targetIndex);
             if (ValueChanged.HasDelegate)
             {
-                await ValueChanged.InvokeAsync(targetIndex);
+                await ValueChanged.InvokeAsync(Value);
             }
 
             StateHasChanged();
@@ -336,10 +314,10 @@ public partial class FluentWizard : FluentComponentBase
 
         if (!isCanceled)
         {
-            Value = targetIndex;
+            SetCurrentValue(targetIndex);
             if (ValueChanged.HasDelegate)
             {
-                await ValueChanged.InvokeAsync(targetIndex);
+                await ValueChanged.InvokeAsync(Value);
             }
 
             StateHasChanged();
@@ -372,6 +350,29 @@ public partial class FluentWizard : FluentComponentBase
     internal void RemoveStep(FluentWizardStep step)
     {
         _steps.Remove(step);
+    }
+
+    private void SetCurrentValue(int value)
+    {
+        Value = NormalizeValue(value);
+        _maxStepVisited = Math.Max(Value, _maxStepVisited);
+
+        SetCurrentStatusToStep(Value);
+    }
+
+    private int NormalizeValue(int value)
+    {
+        if (value < 0 || _steps.Count <= 0)
+        {
+            return 0;
+        }
+
+        if (value > _steps.Count - 1)
+        {
+            return _steps.Count - 1;
+        }
+
+        return value;
     }
 
     private void SetCurrentStatusToStep(int stepIndex)
