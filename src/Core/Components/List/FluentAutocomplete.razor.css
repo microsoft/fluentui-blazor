@@ -5,6 +5,11 @@
   padding: unset;
 }
 
+.fluent-listbox[auto-complete] fluent-option[hovered] {
+  background-color: var(--colorNeutralBackground1Hover);
+  color: var(--colorNeutralForeground2Hover);
+}
+
 fluent-text-input[auto-complete] .fluent-badge[auto-complete] {
   background: var(--colorNeutralBackground2);
   color: var(--colorNeutralForeground1);
@@ -15,5 +20,5 @@ fluent-text-input[auto-complete] .fluent-badge[auto-complete] {
 }
 
 fluent-text-input[auto-complete] .fluent-badge[auto-complete] svg {
-  margin-left: var(--spacingHorizontalS);  
+  margin-left: var(--spacingHorizontalS);
 }

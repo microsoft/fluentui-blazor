@@ -16,8 +16,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
    * - Enter: Selects the currently hovered option.
    */
   class AutocompleteKeyboardNav {
-    
-    private hoveredIndex: number = -1;
+
     private inputId: string;
     private input: HTMLElement;
 
@@ -41,30 +40,29 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
       const options = this.getOptions();
       if (options.length === 0) return;
 
+      const currentIndex = options.findIndex(o => o.hasAttribute('hovered'));
+
       switch (e.key) {
 
         case 'ArrowDown': {
           e.preventDefault();
-          this.clearAllHovers();
-          this.hoveredIndex = this.hoveredIndex < options.length - 1 ? this.hoveredIndex + 1 : options.length - 1;
-          this.applyHover(options[this.hoveredIndex]);
+          const nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : options.length - 1;
+          this.setHover(options, nextIndex);
           break;
         }
 
         case 'ArrowUp': {
           e.preventDefault();
-          this.clearAllHovers();
-          this.hoveredIndex = this.hoveredIndex > 0 ? this.hoveredIndex - 1 : 0;
-          this.applyHover(options[this.hoveredIndex]);
+          const prevIndex = currentIndex > 0 ? currentIndex - 1 : 0;
+          this.setHover(options, prevIndex);
           break;
         }
 
         case 'Enter': {
-          if (this.hoveredIndex >= 0 && this.hoveredIndex < options.length) {
+          if (currentIndex >= 0) {
             e.preventDefault();
-            options[this.hoveredIndex].click();
+            options[currentIndex].click();
             this.clearAllHovers();
-            this.hoveredIndex = -1;
           }
           break;
         }
@@ -88,28 +86,27 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
     }
 
     /**
-     * Displays hover styles on the specified option.
+     * Sets the hovered attribute on the specified option.
      */
-    private applyHover(option: DropdownOption): void {
-      option.style.backgroundColor = 'var(--colorNeutralBackground1Hover)';
-      option.style.color = 'var(--colorNeutralForeground2Hover)';
+    private setHover(options: DropdownOption[], index: number): void {
+      if (index < 0 || index >= options.length) return;
+      this.clearAllHovers();
+      options[index].setAttribute('hovered', '');
     }
 
     /**
-     * Clears hover styles from all options in the popover.
+     * Clears the hovered attribute from all options in the popover.
      */
     private clearAllHovers(): void {
       const popover = this.getPopover();
       if (!popover) return;
-      popover.querySelectorAll('fluent-option').forEach((opt: Element) => {
-        (opt as DropdownOption).style.backgroundColor = '';
-        (opt as DropdownOption).style.color = '';
+      popover.querySelectorAll('fluent-option[hovered]').forEach((opt: Element) => {
+        opt.removeAttribute('hovered');
       });
     }
 
     private inputChangeHandler = (): void => {
       this.clearAllHovers();
-      this.hoveredIndex = -1;
     }
    
   }
