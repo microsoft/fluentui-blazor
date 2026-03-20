@@ -29,6 +29,9 @@ public class ToastInstance : IToastInstance
     /// <summary />
     internal FluentToast? FluentToast { get; set; }
 
+    /// <summary />
+    internal ToastResult? PendingResult { get; set; }
+
     /// <inheritdoc cref="IToastInstance.Options"/>
     public ToastOptions Options { get; internal set; }
 

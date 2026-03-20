@@ -151,6 +151,17 @@ public partial class FluentToast
     public Task OnToggleAsync(DialogToggleEventArgs args)
         => HandleToggleAsync(args);
 
+    internal Task RequestCloseAsync()
+    {
+        if (!Opened)
+        {
+            return Task.CompletedTask;
+        }
+
+        Opened = false;
+        return InvokeAsync(StateHasChanged);
+    }
+
     internal Task OnActionClickedAsync(bool primary)
     {
         return primary ? Instance!.CloseAsync() : Instance!.CancelAsync();
@@ -214,10 +225,12 @@ public partial class FluentToast
             switch (toastEventArgs.State)
             {
                 case DialogState.Closing:
-                    toastInstance.ResultCompletion.TrySetResult(ToastResult.Cancel());
                     break;
 
                 case DialogState.Closed:
+                    toastInstance.ResultCompletion.TrySetResult(toastInstance.PendingResult ?? ToastResult.Cancel());
+                    toastInstance.PendingResult = null;
+
                     if (ToastService is ToastService toastService)
                     {
                         await toastService.RemoveToastFromProviderAsync(Instance);

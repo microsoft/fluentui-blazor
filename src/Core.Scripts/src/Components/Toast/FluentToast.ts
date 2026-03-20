@@ -198,7 +198,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
                 align-items: center;
                 flex-wrap: wrap;
                 gap: 14px;
-                grid-column: 2 / -1;
+                grid-column: 2 / 3;
                 padding-top: 16px;
             }
 
@@ -421,6 +421,14 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
 
     public async closeToast() {
       if (this.dialogIsOpen) {
+        const styles = getComputedStyle(this.dialog);
+
+        this.dialog.style.setProperty('--toast-height', `${this.dialog.offsetHeight}px`);
+        this.dialog.style.setProperty('--toast-margin-top', styles.marginTop);
+        this.dialog.style.setProperty('--toast-margin-bottom', styles.marginBottom);
+        this.dialog.style.setProperty('--toast-padding-top', styles.paddingTop);
+        this.dialog.style.setProperty('--toast-padding-bottom', styles.paddingBottom);
+
         this.classList.add('animating');
         this.dialog.classList.add('closing');
 

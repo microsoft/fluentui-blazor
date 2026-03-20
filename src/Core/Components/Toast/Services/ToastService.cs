@@ -35,6 +35,13 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
     {
         var ToastInstance = Toast as ToastInstance;
 
+        if (ToastInstance?.FluentToast is FluentToast fluentToast)
+        {
+            ToastInstance.PendingResult = result;
+            await fluentToast.RequestCloseAsync();
+            return;
+        }
+
         // Raise the ToastState.Closing event
         ToastInstance?.FluentToast?.RaiseOnStateChangeAsync(Toast, DialogState.Closing);
 
