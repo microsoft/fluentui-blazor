@@ -7,19 +7,26 @@
 <FluentAutocomplete TOption="Country"
                     TValue="string"
                     Width="100%"
+                    ShowProgressIndicator="@ShowProgressIndicator"
                     OnOptionsSearch="@OnSearchAsync"
                     OptionText="@(item => item.Name)"
                     @bind-SelectedItems="@SelectedCountries" />
 
+<FluentSwitch @bind-Value="@ShowProgressIndicator" Label="Show progress indicator" />
+
 @code
 {
-    public IEnumerable<Country> SelectedCountries { get; set; } = [];
+    bool ShowProgressIndicator { get; set; }
+    IEnumerable<Country> SelectedCountries { get; set; } = [];
 
-    Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
+    async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
     {
+        if (ShowProgressIndicator)
+        {
+            await Task.Delay(500); // Simulate async search
+        }
+
         e.Items = Countries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
                            .OrderBy(i => i.Name);
-
-        return Task.CompletedTask;
     }
 }

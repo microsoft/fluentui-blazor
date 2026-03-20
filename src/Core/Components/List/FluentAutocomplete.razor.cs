@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -82,6 +83,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         await base.OnAfterRenderAsync(firstRender);
     }
 
+    /// <summary />
     private async Task InternalSelectedItemsChangedHandlerAsync(IEnumerable<TOption> items)
     {
         var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, EqualityComparer<TOption>.Default));
@@ -104,9 +106,43 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     }
 
     /// <summary />
+    private async Task OnTextInputKeyDownAsync(KeyboardEventArgs args)
+    {
+        switch (args.Key)
+        {
+            // When Backspace is pressed and there is no text in the input, remove the last selected item
+            case "Backspace":
+                if (string.IsNullOrEmpty(_textInput) && _internalSelectedItems.Any())
+                {
+                    await RemoveSelectedItemAsync(_internalSelectedItems.Last());
+                }
+
+                break;
+
+            // When ArrowDown is pressed and the listbox is closed, open it
+            // If there are no yet any items in the list, it means the user hasn't typed anything, so we can open the listbox and show all the options
+            case "ArrowDown":
+                if (!_isOpen && !_internalFilteredItems.Any())
+                {
+                    _isOpen = true;
+                    await OnTextInputChangedAsync();
+                }
+
+                break;
+        }
+    }
+
+    /// <summary />
     private async Task OnTextInputChangedAsync()
     {
         _inProgress = true;
+
+        if (!_isRemovingOneItem)
+        {
+            _isOpen = true;
+        }
+
+        StateHasChanged();
 
         var args = new OptionsSearchEventArgs<TOption>()
         {
@@ -117,11 +153,6 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         await OnOptionsSearch.InvokeAsync(args);
 
         _internalFilteredItems = [.. args.Items?.Take(MaximumOptionsSearch) ?? []];
-
-        if (!_isRemovingOneItem)
-        {
-            _isOpen = true;
-        }
 
         _inProgress = false;
         _isRemovingOneItem = false;

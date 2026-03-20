@@ -19,6 +19,7 @@
                          auto-complete="true"
                          Width="@Width"
                          AutoComplete="false"
+                         @onkeydown="@OnTextInputKeyDownAsync"
                          @onclick="@OnTextInputChangedAsync"
                          @bind-Value="@_textInput"
                          @bind-Value:after="@OnTextInputChangedAsync">
@@ -57,6 +58,12 @@
 
         <FluentPopover AnchorId="@Id"
                        @bind-Opened="@_isOpen">
+
+            @if (ShowProgressIndicator && _inProgress)
+            {
+                <FluentProgressBar Thickness="ProgressThickness.Large" />
+            }
+
             <FluentListbox auto-complete="true"
                            TValue="TValue"
                            TOption="TOption"
