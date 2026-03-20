@@ -228,9 +228,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
                overflow: hidden;
                will-change: opacity, height, margin, padding;
                animation:
-                  toast-exit 600ms cubic-bezier(0.33, 0, 0.67, 1) forwards,
-                  toast-dismiss-collapse-height 200ms cubic-bezier(0.33, 0, 0.67, 1) 400ms forwards,
-                  toast-dismiss-collapse-spacing 200ms cubic-bezier(0.33, 0, 0.67, 1) 400ms forwards;
+                  toast-exit 400ms cubic-bezier(0.33, 0, 0.67, 1) forwards,
+                  toast-collapse-height 200ms cubic-bezier(0.33, 0, 0.67, 1) 400ms forwards,
+                  toast-collapse-spacing 200ms cubic-bezier(0.33, 0, 0.67, 1) 400ms forwards;
             }
 
             @keyframes toast-enter {
@@ -238,28 +238,32 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
                 to { opacity: 1; transform: var(--toast-enter-to, translateY(0)); }
             }
 
-           @keyframes toast-exit {
-              0% {
+            @keyframes toast-exit {
+              from {
                 opacity: 1;
-                height: var(--toast-height);
-                margin-top: var(--toast-margin-top, 0px);
-                margin-bottom: var(--toast-margin-bottom, 0px);
-                padding-top: var(--toast-padding-top, 0px);
-                padding-bottom: var(--toast-padding-bottom, 0px);
               }
-
-              66.666% {
+              to {
                 opacity: 0;
-                height: var(--toast-height);
-                margin-top: var(--toast-margin-top, 0px);
-                margin-bottom: var(--toast-margin-bottom, 0px);
-                padding-top: var(--toast-padding-top, 0px);
-                padding-bottom: var(--toast-padding-bottom, 0px);
               }
+            }
 
-              100% {
-                opacity: 0;
+            @keyframes toast-collapse-height {
+              from {
+                height: var(--toast-height);
+              }
+              to {
                 height: 0;
+              }
+            }
+
+            @keyframes toast-collapse-spacing {
+              from {
+                margin-top: var(--toast-margin-top, 0px);
+                margin-bottom: var(--toast-margin-bottom, 0px);
+                padding-top: var(--toast-padding-top, 0px);
+                padding-bottom: var(--toast-padding-bottom, 0px);
+              }
+              to {
                 margin-top: 0;
                 margin-bottom: 0;
                 padding-top: 0;
@@ -435,7 +439,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
         // Wait for the exit animation to complete
         await new Promise(resolve => {
           const onAnimationEnd = (e: AnimationEvent) => {
-            if (e.animationName === 'toast-exit') {
+            if (e.animationName === 'toast-collapse-spacing') {
               this.dialog.removeEventListener('animationend', onAnimationEnd);
               resolve(true);
             }
