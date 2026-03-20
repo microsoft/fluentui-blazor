@@ -12,15 +12,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Themes;
 public class ThemeServiceTests
 {
     [Fact]
-    public async Task CreateCustomThemeAsync_WhenJsReturnsNull_ReturnsNull()
+    public async Task CreateCustomThemeAsync_WhenJsReturnsNull_Throws()
     {
         var js = new FakeJSRuntime();
         js.SetResult("Blazor.theme.createBrandTheme", (Dictionary<string, object?>?)null);
         var sut = new ThemeService(js);
 
-        var result = await sut.CreateCustomThemeAsync(new ThemeSettings("#0078D4", 0, 0, ThemeMode.Dark));
-
-        Assert.Null(result);
+        await Assert.ThrowsAsync<InvalidOperationException>(() => sut.CreateCustomThemeAsync(new ThemeSettings("", 0, 0, ThemeMode.Dark)));
         var inv = Assert.Single(js.Invocations);
         Assert.Equal("Blazor.theme.createBrandTheme", inv.Identifier);
     }
