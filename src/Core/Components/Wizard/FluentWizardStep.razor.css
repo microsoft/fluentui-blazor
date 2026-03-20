@@ -65,39 +65,39 @@
     right: calc(50% + calc(var(--fluent-wizard-circle-size) / 2 + var(--fluent-wizard-spacing)));
 }
 
-/* Hidden (responsive) */
+/* Hidden */
 @media (max-width: 599.98px) {
-    div[hidden-when~="xs"] {
-        display: none;
-    }
+  .fluent-wizard > ol > li ::deep > div[hidden-when~="xs"] {
+    display: none;
+  }
 }
 
 @media (min-width: 600px) and (max-width: 959.98px) {
-    div[hidden-when~="sm"] {
-        display: none;
-    }
+  .fluent-wizard > ol > li ::deep > div[hidden-when~="sm"] {
+    display: none;
+  }
 }
 
 @media (min-width: 960px) and (max-width: 1279.98px) {
-    div[hidden-when~="md"] {
-        display: none;
-    }
+  .fluent-wizard > ol > li ::deep > div[hidden-when~="md"] {
+    display: none;
+  }
 }
 
 @media (min-width: 1280px) and (max-width: 1919.98px) {
-    div[hidden-when~="lg"] {
-        display: none;
-    }
+  .fluent-wizard > ol > li ::deep > div[hidden-when~="lg"] {
+    display: none;
+  }
 }
 
 @media (min-width: 1920px) and (max-width: 2559.98px) {
-    div[hidden-when~="xl"] {
-        display: none;
-    }
+  .fluent-wizard > ol > li ::deep > div[hidden-when~="xl"] {
+    display: none;
+  }
 }
 
 @media (min-width: 2560px) {
-    div[hidden-when~="xxl"] {
-        display: none;
-    }
+  .fluent-wizard > ol > li ::deep > div[hidden-when~="xxl"] {
+    display: none;
+  }
 }
