@@ -26,16 +26,22 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
     constructor(inputId: string, input: HTMLElement) {
       this.inputId = inputId;
       this.input = input;
+      
+      const popover = this.getPopover();
+      if (!popover) throw new Error(`Popover not found for input with id ${inputId}`);
+      this.Popover = popover;
+
       this.input.addEventListener('keydown', this.keydownHandler);
       this.input.addEventListener('input', this.inputChangeHandler);
     }
+
+    private Popover: HTMLElement;
 
     /**
      * Handles keydown events on the autocomplete input to manage option hovering and selection.
      */
     private keydownHandler = (e: KeyboardEvent): void => {
-      const popover = this.getPopover();
-      if (!popover || !popover.hasAttribute('opened')) return;
+      if (!this.Popover.hasAttribute('opened')) return;
 
       const options = this.getOptions();
       if (options.length === 0) return;
@@ -80,9 +86,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
      * Returns an array of enabled options within the popover.
      */
     private getOptions(): DropdownOption[] {
-      const popover = this.getPopover();
-      if (!popover) return [];
-      return Array.from(popover.querySelectorAll('fluent-option:not([disabled])'));
+      return Array.from(this.Popover.querySelectorAll('fluent-option:not([disabled])'));
     }
 
     /**
@@ -92,21 +96,34 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
       if (index < 0 || index >= options.length) return;
       this.clearAllHovers();
       options[index].setAttribute('hovered', '');
+      options[index].tabIndex = 0;
+    }
+
+    /**
+     * Sets the hover on the first option in the popover.
+     */
+    private setHoverFirstOption(): void {
+      const options = this.getOptions();
+      if (options.length === 0) return;
+      this.setHover(options, 0);
     }
 
     /**
      * Clears the hovered attribute from all options in the popover.
      */
     private clearAllHovers(): void {
-      const popover = this.getPopover();
-      if (!popover) return;
-      popover.querySelectorAll('fluent-option[hovered]').forEach((opt: Element) => {
-        opt.removeAttribute('hovered');
+      this.Popover.querySelectorAll('fluent-option[hovered]').forEach((opt: Element) => {
+        const option = opt as DropdownOption;
+        option.removeAttribute('hovered');
+          option.tabIndex = -1;
       });
     }
 
+    /**
+     * Clears all hovers when the input value changes to ensure the hover state is reset when the user types.
+     */
     private inputChangeHandler = (): void => {
-      this.clearAllHovers();
+      this.setHoverFirstOption();
     }
    
   }
