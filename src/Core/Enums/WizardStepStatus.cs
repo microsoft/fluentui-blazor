@@ -15,6 +15,7 @@ public enum WizardStepStatus
     /// <summary>
     /// No status.
     /// </summary>
+    [Description("none")]
     None = 0,
 
     /// <summary>
