@@ -16,7 +16,7 @@ public interface IThemeService
     /// Creates a custom theme based on the specified settings.
     /// The returned <see cref="Theme"/> can be modified by the caller before it is applied.
     /// </summary>
-    Task<Theme?> CreateCustomThemeAsync(ThemeSettings settings);
+    Task<Theme> CreateCustomThemeAsync(ThemeSettings settings);
 
     /// <summary>
     /// Sets a theme by type using the current effective mode.

@@ -20,11 +20,6 @@ public partial class CreateAndAlterTheme
             Mode = isDark ? ThemeMode.Dark : ThemeMode.Light,
         });
 
-        if (theme == null)
-        {
-            return;
-        }
-
         theme.Borders.Radius.Medium = "40px";
         theme.Fonts.Family.Base = "Comic Sans MS, cursive, sans-serif";
         theme.Fonts.Size.Base300 = "10px";
@@ -43,11 +38,6 @@ public partial class CreateAndAlterTheme
             Color = color,
             Mode = isDark ? ThemeMode.Dark : ThemeMode.Light,
         });
-
-        if (theme == null)
-        {
-            return;
-        }
 
         await ThemeService.SetThemeToElementAsync(_exampleBlocks, theme);
     }

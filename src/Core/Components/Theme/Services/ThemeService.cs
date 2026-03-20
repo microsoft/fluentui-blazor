@@ -23,7 +23,7 @@ public sealed class ThemeService : IThemeService
     }
 
     /// <inheritdoc cref="IThemeService.CreateCustomThemeAsync(ThemeSettings)"/>
-    public async Task<Theme?> CreateCustomThemeAsync(ThemeSettings settings)
+    public async Task<Theme> CreateCustomThemeAsync(ThemeSettings settings)
     {
         var dict = await _jsRuntime.InvokeAsync<Dictionary<string, object?>?>(
                 "Blazor.theme.createBrandTheme",
@@ -38,7 +38,7 @@ public sealed class ThemeService : IThemeService
 
         if (dict is null)
         {
-            return null;
+            throw new InvalidOperationException("Failed to create theme");
         }
 
         var theme = new Theme();
