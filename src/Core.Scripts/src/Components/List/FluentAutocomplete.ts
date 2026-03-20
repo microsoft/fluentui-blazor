@@ -1,3 +1,5 @@
+import { DropdownOption } from "@fluentui/web-components";
+
 export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
 
   export function initialize(id: string) {
@@ -7,12 +9,21 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
     new AutocompleteKeyboardNav(id, input);
   }
 
+  /**
+   * Handles keyboard navigation for the FluentAutocomplete component.
+   * - ArrowDown: Moves hover to the next option.
+   * - ArrowUp: Moves hover to the previous option.
+   * - Enter: Selects the currently hovered option.
+   */
   class AutocompleteKeyboardNav {
-
+    
     private hoveredIndex: number = -1;
     private inputId: string;
     private input: HTMLElement;
 
+    /**
+     * Initializes the keyboard navigation for the autocomplete input.
+     */
     constructor(inputId: string, input: HTMLElement) {
       this.inputId = inputId;
       this.input = input;
@@ -20,35 +31,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
       this.input.addEventListener('input', this.inputChangeHandler);
     }
 
-    private getPopover(): HTMLElement | null {
-      return document.querySelector(`fluent-popover-b[anchor-id="${this.inputId}"]`);
-    }
-
-    private getOptions(): HTMLElement[] {
-      const popover = this.getPopover();
-      if (!popover) return [];
-      return Array.from(popover.querySelectorAll('fluent-option:not([disabled])'));
-    }
-
-    private applyHover(option: HTMLElement): void {
-      option.style.backgroundColor = 'var(--colorNeutralBackground1Hover)';
-      option.style.color = 'var(--colorNeutralForeground2Hover)';
-    }
-
-    private clearAllHovers(): void {
-      const popover = this.getPopover();
-      if (!popover) return;
-      popover.querySelectorAll('fluent-option').forEach((opt: Element) => {
-        (opt as HTMLElement).style.backgroundColor = '';
-        (opt as HTMLElement).style.color = '';
-      });
-    }
-
-    private inputChangeHandler = (): void => {
-      this.clearAllHovers();
-      this.hoveredIndex = -1;
-    }
-
+    /**
+     * Handles keydown events on the autocomplete input to manage option hovering and selection.
+     */
     private keydownHandler = (e: KeyboardEvent): void => {
       const popover = this.getPopover();
       if (!popover || !popover.hasAttribute('opened')) return;
@@ -85,5 +70,47 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
         }
       }
     }
+
+    /**
+     * Returns the popover element associated with the autocomplete input.
+     */
+    private getPopover(): HTMLElement | null {
+      return document.querySelector(`fluent-popover-b[anchor-id="${this.inputId}"]`);
+    }
+
+    /**
+     * Returns an array of enabled options within the popover.
+     */
+    private getOptions(): DropdownOption[] {
+      const popover = this.getPopover();
+      if (!popover) return [];
+      return Array.from(popover.querySelectorAll('fluent-option:not([disabled])'));
+    }
+
+    /**
+     * Displays hover styles on the specified option.
+     */
+    private applyHover(option: DropdownOption): void {
+      option.style.backgroundColor = 'var(--colorNeutralBackground1Hover)';
+      option.style.color = 'var(--colorNeutralForeground2Hover)';
+    }
+
+    /**
+     * Clears hover styles from all options in the popover.
+     */
+    private clearAllHovers(): void {
+      const popover = this.getPopover();
+      if (!popover) return;
+      popover.querySelectorAll('fluent-option').forEach((opt: Element) => {
+        (opt as DropdownOption).style.backgroundColor = '';
+        (opt as DropdownOption).style.color = '';
+      });
+    }
+
+    private inputChangeHandler = (): void => {
+      this.clearAllHovers();
+      this.hoveredIndex = -1;
+    }
+   
   }
 }
