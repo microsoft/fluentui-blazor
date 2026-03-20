@@ -93,7 +93,7 @@ public partial class FluentWizardStep : FluentComponentBase
     /// For internal use only.
     /// </summary>
     [CascadingParameter]
-    public FluentWizard FluentWizard { get; set; } = default!;
+    internal FluentWizard FluentWizard { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the summary of the step, to display near the label.

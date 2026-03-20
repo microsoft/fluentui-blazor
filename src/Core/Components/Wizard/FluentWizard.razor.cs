@@ -187,7 +187,11 @@ public partial class FluentWizard : FluentComponentBase
         if (!isCanceled)
         {
             Value = targetIndex;
-            await ValueChanged.InvokeAsync(targetIndex);
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(targetIndex);
+            }
+
             StateHasChanged();
         }
     }
@@ -210,7 +214,11 @@ public partial class FluentWizard : FluentComponentBase
         if (!isCanceled)
         {
             Value = targetIndex;
-            await ValueChanged.InvokeAsync(targetIndex);
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(targetIndex);
+            }
+
             StateHasChanged();
         }
     }
@@ -314,7 +322,11 @@ public partial class FluentWizard : FluentComponentBase
         if (!isCanceled)
         {
             Value = targetIndex;
-            await ValueChanged.InvokeAsync(targetIndex);
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(targetIndex);
+            }
+
             StateHasChanged();
         }
     }
@@ -329,7 +341,13 @@ public partial class FluentWizard : FluentComponentBase
             SetCurrentStatusToStep(index);
         }
 
-        StateHasChanged();
+        try
+        {
+            StateHasChanged();
+        }
+        catch (InvalidOperationException ex) when (ex.Message.Contains("render handle is not yet assigned", StringComparison.OrdinalIgnoreCase))
+        {
+        }
 
         return index;
     }
