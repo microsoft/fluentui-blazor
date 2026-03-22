@@ -21,7 +21,7 @@ public partial class DemoSearch : IAsyncDisposable
 
     private FluentAutocomplete<NavItem>? _searchAutocomplete = default!;
     private string? _searchTerm = "";
-    private IEnumerable<NavItem>? _selectedOptions = [];
+    private NavItem? _selectedOption = null;
 
     protected override void OnInitialized()
     {
@@ -57,8 +57,8 @@ public partial class DemoSearch : IAsyncDisposable
     private void HandleSearchClicked()
     {
         _searchTerm = null;
-        var targetHref = _selectedOptions?.SingleOrDefault()?.Href;
-        _selectedOptions = [];
+        var targetHref = _selectedOption?.Href;
+        _selectedOption = null;
         InvokeAsync(StateHasChanged);
 
         // Ignore clearing the search bar

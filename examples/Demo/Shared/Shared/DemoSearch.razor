@@ -1,13 +1,13 @@
 ﻿<FluentAutocomplete @ref="_searchAutocomplete"
                     TOption="NavItem"
+                    Multiple="false"
                     Width="250px"
                     AutoComplete="off"
                     Placeholder="Type / to search..."
-                    MaximumSelectedOptions="1"
                     OptionText="@(item => item.Title)"
                     @bind-ValueText="@_searchTerm"
-                    @bind-SelectedOptions="_selectedOptions"
-                    @bind-SelectedOptions:after="HandleSearchClicked"
+                    @bind-SelectedOption="_selectedOption"
+                    @bind-SelectedOption:after="HandleSearchClicked"
                     OnOptionsSearch="@HandleSearchInput"
                     ShowOverlayOnEmptyResults="false">
     <OptionTemplate>
