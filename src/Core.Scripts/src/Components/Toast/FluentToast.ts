@@ -7,13 +7,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
     private dialog: ToastElement;
     private mediaRegion: HTMLDivElement;
     private titleRegion: HTMLDivElement;
-    private dismissRegion: HTMLDivElement;
+    private actionRegion: HTMLDivElement;
     private bodyRegion: HTMLDivElement;
     private subtitleRegion: HTMLDivElement;
     private footerRegion: HTMLDivElement;
     private mediaSlot: HTMLSlotElement;
     private titleSlot: HTMLSlotElement;
-    private dismissSlot: HTMLSlotElement;
+    private actionSlot: HTMLSlotElement;
     private bodySlot: HTMLSlotElement;
     private subtitleSlot: HTMLSlotElement;
     private footerSlot: HTMLSlotElement;
@@ -62,11 +62,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
       this.titleSlot.name = 'title';
       this.titleRegion.appendChild(this.titleSlot);
 
-      this.dismissRegion = document.createElement('div');
-      this.dismissRegion.classList.add('dismiss');
-      this.dismissSlot = document.createElement('slot');
-      this.dismissSlot.name = 'dismiss';
-      this.dismissRegion.appendChild(this.dismissSlot);
+      this.actionRegion = document.createElement('div');
+      this.actionRegion.classList.add('action');
+      this.actionSlot = document.createElement('slot');
+      this.actionSlot.name = 'action';
+      this.actionRegion.appendChild(this.actionSlot);
 
       this.bodyRegion = document.createElement('div');
       this.bodyRegion.classList.add('body');
@@ -88,7 +88,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
       this.dialog.append(
         this.mediaRegion,
         this.titleRegion,
-        this.dismissRegion,
+        this.actionRegion,
         this.bodyRegion,
         this.subtitleRegion,
         this.footerRegion,
@@ -108,9 +108,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
             :host div[fuib][popover] {
                 display: grid;
                 grid-template-columns: auto 1fr auto;
-                border: 0;
                 background: var(--colorNeutralBackground1);
-                padding: 0;
                 font-size: var(--fontSizeBase300);
                 line-height: var(--lineHeightBase300);
                 font-weight: var(--fontWeightSemibold);
@@ -122,60 +120,91 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
                 min-width: 292px;
                 max-width: 292px;
                 padding: 12px;
+                transition:
+                  top 240ms cubic-bezier(0.22, 1, 0.36, 1),
+                  bottom 240ms cubic-bezier(0.22, 1, 0.36, 1),
+                  left 240ms cubic-bezier(0.22, 1, 0.36, 1),
+                  right 240ms cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
             }
 
-            .media,
-            .title,
-            .dismiss,
-            .body,
-            .subtitle,
-            .footer {
-                min-width: 0;
+            :host([inverted]) div[fuib][popover]{
+              color: var(--colorNeutralForegroundInverted2);
+              background-color: var(--colorNeutralBackgroundInverted);
             }
 
             .media {
                 display: flex;
-                grid-column: 1;
-                grid-row: 1;
+                grid-column-end: 2;
                 padding-top: 2px;
                 padding-inline-end: 8px;
                 font-size: var(--fontSizeBase400);
                 color: var(--colorNeutralForeground1);
             }
 
+            :host([inverted]) .media {
+                color: var(--colorNeutralForegroundInverted);
+            }
+
+            .media[data-intent="success"] {
+              color: var(--colorStatusSuccessForeground1);
+            }
+
+            .media[data-intent="error"] {
+              color: var(--colorStatusDangerForeground1);
+            }
+
+            .media[data-intent="warning"] {
+              color: var(--colorStatusWarningForeground1);
+            }
+
+            .media[data-intent="info"] {
+              color: var(--colorNeutralForeground2);
+            }
+
+            :host([inverted]) .media[data-intent="success"] {
+              color: var(--colorStatusSuccessForegroundInverted);
+            }
+
+            :host([inverted]) .media[data-intent="error"] {
+              color: var(--colorStatusDangerForegroundInverted);
+            }
+
+            :host([inverted]) .media[data-intent="warning"] {
+              color: var(--colorStatusWarningForegroundInverted);
+            }
+
+            :host([inverted]) .media[data-intent="info"] {
+              color: var(--colorNeutralForegroundInverted2);
+            }
+
             .title {
                 display: flex;
                 align-items: center;
-                grid-column: 2;
-                grid-row: 1;
+                grid-column-end: 3;
                 color: var(--colorNeutralForeground1);
                 word-break: break-word;
             }
 
-            :host(:not([has-dismiss])) .title {
-                grid-column: 2 / -1;
+            :host([inverted]) .title {
+                color: var(--colorNeutralForegroundInverted2);
             }
 
-            :host(:not([has-media])) .title {
-                grid-column: 1 / span 2;
-            }
-
-            :host(:not([has-media]):not([has-dismiss])) .title {
-                grid-column: 1 / -1;
-            }
-
-            .dismiss {
+            .action {
                 display: flex;
                 align-items: start;
                 justify-content: end;
-                grid-column: 3;
-                grid-row: 1;
+                grid-column-end: -1;
                 padding-inline-start: 12px;
                 color: var(--colorBrandForeground1);
             }
 
+            :host([inverted]) .action {
+                color: var(--colorBrandForegroundInverted);
+            }
+
             .body {
-                grid-column: 2 / -1;
+                grid-column: 2 / 3;
                 padding-top: 6px;
                 font-size: var(--fontSizeBase300);
                 line-height: var(--lineHeightBase300);
@@ -184,13 +213,21 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
                 word-break: break-word;
             }
 
+             :host([inverted]) .body {
+                color: var(--colorNeutralForegroundInverted2);
+            }
+
             .subtitle {
-                grid-column: 2 / -1;
+                grid-column: 2 / 3;
                 padding-top: 4px;
                 font-size: var(--fontSizeBase200);
                 line-height: var(--lineHeightBase200);
                 font-weight: var(--fontWeightRegular);
                 color: var(--colorNeutralForeground2);
+            }
+
+            :host([inverted]) .subtitle {
+              color: var(--colorNeutralForegroundInverted2);
             }
 
             .footer {
@@ -202,15 +239,23 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
                 padding-top: 16px;
             }
 
+            .footer ::slotted(*) {
+              display: contents;
+            }
+
             :host(:not([has-media])) .body,
             :host(:not([has-media])) .subtitle,
             :host(:not([has-media])) .footer {
                 grid-column: 1 / -1;
             }
 
+            :host(:not([has-action])) .title {
+              grid-column: 2 / -1;
+            }
+
             .media[hidden],
             .title[hidden],
-            .dismiss[hidden],
+            .action[hidden],
             .body[hidden],
             .subtitle[hidden],
             .footer[hidden] {
@@ -280,7 +325,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
 
       this.mediaSlot.addEventListener('slotchange', () => this.updateSlotState(this.mediaRegion, this.mediaSlot, 'has-media'));
       this.titleSlot.addEventListener('slotchange', () => this.updateSlotState(this.titleRegion, this.titleSlot, 'has-title'));
-      this.dismissSlot.addEventListener('slotchange', () => this.updateSlotState(this.dismissRegion, this.dismissSlot, 'has-dismiss'));
+      this.actionSlot.addEventListener('slotchange', () => this.updateActionState());
       this.bodySlot.addEventListener('slotchange', () => this.updateSlotState(this.bodyRegion, this.bodySlot, 'has-body'));
       this.subtitleSlot.addEventListener('slotchange', () => this.updateSlotState(this.subtitleRegion, this.subtitleSlot, 'has-subtitle'));
       this.footerSlot.addEventListener('slotchange', () => this.updateSlotState(this.footerRegion, this.footerSlot, 'has-footer'));
@@ -602,9 +647,15 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
 
     private getStackOffset(position: string): number {
       const toastElements = Array.from(document.querySelectorAll('fluent-toast-b')) as FluentToast[];
+      const currentIndex = toastElements.indexOf(this);
+
       const toastsBeforeCurrent = toastElements
-        .slice(0, toastElements.indexOf(this))
-        .filter(toast => toast.getToastPosition() === position && toast.dialogIsOpen);
+        .slice(0, currentIndex)
+        .filter(toast =>
+          toast.getToastPosition() === position &&
+          toast.dialogIsOpen &&
+          !toast.dialog.classList.contains('closing')
+        );
 
       return toastsBeforeCurrent.reduce((offset, toast) => {
         const height = toast.dialog.getBoundingClientRect().height;
@@ -663,10 +714,28 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
     private updateSlotStates() {
       this.updateSlotState(this.mediaRegion, this.mediaSlot, 'has-media');
       this.updateSlotState(this.titleRegion, this.titleSlot, 'has-title');
-      this.updateSlotState(this.dismissRegion, this.dismissSlot, 'has-dismiss');
+      this.updateActionState();
       this.updateSlotState(this.bodyRegion, this.bodySlot, 'has-body');
       this.updateSlotState(this.subtitleRegion, this.subtitleSlot, 'has-subtitle');
       this.updateSlotState(this.footerRegion, this.footerSlot, 'has-footer');
+    }
+
+    private updateActionState() {
+      const hasContent = this.actionSlot.assignedNodes({ flatten: true }).some(node =>
+        node.nodeType !== Node.TEXT_NODE || Boolean(node.textContent?.trim())
+      );
+
+      if (hasContent) {
+        this.setAttribute('has-action', '');
+      } else {
+        this.removeAttribute('has-action');
+      }
+
+      this.actionRegion.hidden = !hasContent;
+
+      if (this.dialogIsOpen) {
+        this.updateToastStack();
+      }
     }
 
     private updateSlotState(region: HTMLDivElement, slot: HTMLSlotElement, hostAttribute: string) {
