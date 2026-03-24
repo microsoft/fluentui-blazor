@@ -47,26 +47,6 @@ public partial class DialogSplashScreenDefault
         await HandleDefaultSplashAsync(result);
     }
 
-    private void OpenSplashDefault()
-    {
-        DemoLogger.WriteLine($"Open default SplashScreen for 4 seconds");
-        DialogParameters<SplashScreenContent> parameters = new()
-        {
-            Content = new()
-            {
-                Title = "Core components",
-                SubTitle = "Microsoft Fluent UI Blazor library",
-                LoadingText = "Loading...",
-                Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
-                Logo = FluentSplashScreen.LOGO,
-            },
-            Width = "640px",
-            Height = "480px",
-            Modal = true,
-        };
-        DialogService.ShowSplashScreen(this, HandleDefaultSplashAsync, parameters);
-    }
-
     private async Task HandleDefaultSplashAsync(DialogResult result)
     {
         await Task.Run(() => DemoLogger.WriteLine($"Default splash closed"));
