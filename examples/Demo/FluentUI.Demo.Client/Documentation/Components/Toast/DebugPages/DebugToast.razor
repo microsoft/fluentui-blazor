@@ -46,9 +46,9 @@
                 return Task.CompletedTask;
             };
             options.ShowDismissButton = true;
-            options.OnStateChange = (e) =>
+            options.OnStatusChange = (e) =>
             {
-                  Console.WriteLine($"State changed: {e.State}");
+                  Console.WriteLine($"Status changed: {e.Id} - {e.Status}");
               };
         });
 

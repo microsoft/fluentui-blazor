@@ -42,17 +42,14 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
             return;
         }
 
-        // Raise the ToastState.Closing event
-        ToastInstance?.FluentToast?.RaiseOnStateChangeAsync(Toast, DialogState.Closing);
-
         // Remove the Toast from the ToastProvider
         await RemoveToastFromProviderAsync(Toast);
 
         // Set the result of the Toast
         ToastInstance?.ResultCompletion.TrySetResult(reason);
 
-        // Raise the ToastState.Closed event
-        ToastInstance?.FluentToast?.RaiseOnStateChangeAsync(Toast, DialogState.Closed);
+        // Raise the final ToastStatus.Unmounted event
+        ToastInstance?.FluentToast?.RaiseOnStatusChangeAsync(Toast, ToastStatus.Unmounted);
     }
 
     /// <inheritdoc cref="IToastService.ShowToastAsync(ToastOptions)"/>
@@ -88,6 +85,7 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         }
 
         var instance = new ToastInstance(this, options);
+        options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastStatus.Queued));
 
         // Add the Toast to the service, and render it.
         ServiceProvider.Items.TryAdd(instance?.Id ?? "", instance ?? throw new InvalidOperationException("Failed to create FluentToast."));

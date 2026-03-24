@@ -54,7 +54,7 @@ public partial class FluentToast
     public EventCallback<bool> OnToggle { get; set; }
 
     [Parameter]
-    public EventCallback<ToastEventArgs> OnStateChange { get; set; }
+    public EventCallback<ToastEventArgs> OnStatusChange { get; set; }
 
     /// <summary>
     /// Gets or sets the title displayed in the toast.
@@ -142,11 +142,11 @@ public partial class FluentToast
     [Inject]
     private IToastService? ToastService { get; set; }
 
-    public Task<ToastEventArgs> RaiseOnStateChangeAsync(DialogToggleEventArgs args)
-        => RaiseOnStateChangeAsync(new ToastEventArgs(this, args));
+    public Task<ToastEventArgs> RaiseOnStatusChangeAsync(DialogToggleEventArgs args)
+        => RaiseOnStatusChangeAsync(new ToastEventArgs(this, args));
 
-    public Task<ToastEventArgs> RaiseOnStateChangeAsync(IToastInstance instance, DialogState state)
-        => RaiseOnStateChangeAsync(new ToastEventArgs(instance, state));
+    public Task<ToastEventArgs> RaiseOnStatusChangeAsync(IToastInstance instance, ToastStatus status)
+        => RaiseOnStatusChangeAsync(new ToastEventArgs(instance, status));
 
     public Task OnToggleAsync(DialogToggleEventArgs args)
         => HandleToggleAsync(args);
@@ -214,7 +214,18 @@ public partial class FluentToast
             return;
         }
 
-        var toastEventArgs = await RaiseOnStateChangeAsync(args);
+        if (Instance is not ToastInstance toastInstance)
+        {
+            return;
+        }
+
+        var toastEventArgs = new ToastEventArgs(this, args);
+        if (toastEventArgs.Status == ToastStatus.Dismissed)
+        {
+            toastInstance.Status = ToastStatus.Dismissed;
+            await RaiseOnStatusChangeAsync(toastEventArgs);
+        }
+
         var toggled = string.Equals(args.NewState, "open", StringComparison.OrdinalIgnoreCase);
         if (Opened != toggled)
         {
@@ -231,32 +242,27 @@ public partial class FluentToast
             }
         }
 
-        if (Instance is ToastInstance toastInstance)
+        if (string.Equals(args.Type, "toggle", StringComparison.OrdinalIgnoreCase)
+            && string.Equals(args.NewState, "closed", StringComparison.OrdinalIgnoreCase))
         {
-            switch (toastEventArgs.State)
+            toastInstance.ResultCompletion.TrySetResult(toastInstance.PendingCloseReason ?? ToastCloseReason.TimedOut);
+            toastInstance.PendingCloseReason = null;
+            toastInstance.Status = ToastStatus.Unmounted;
+
+            if (ToastService is ToastService toastService)
             {
-                case DialogState.Closing:
-                    break;
-
-                case DialogState.Closed:
-                    toastInstance.ResultCompletion.TrySetResult(toastInstance.PendingCloseReason ?? ToastCloseReason.TimedOut);
-                    toastInstance.PendingCloseReason = null;
-
-                    if (ToastService is ToastService toastService)
-                    {
-                        await toastService.RemoveToastFromProviderAsync(Instance);
-                    }
-
-                    break;
+                await toastService.RemoveToastFromProviderAsync(Instance);
             }
+
+            await RaiseOnStatusChangeAsync(toastInstance, ToastStatus.Unmounted);
         }
     }
 
-    private async Task<ToastEventArgs> RaiseOnStateChangeAsync(ToastEventArgs args)
+    private async Task<ToastEventArgs> RaiseOnStatusChangeAsync(ToastEventArgs args)
     {
-        if (OnStateChange.HasDelegate)
+        if (OnStatusChange.HasDelegate)
         {
-            await InvokeAsync(() => OnStateChange.InvokeAsync(args));
+            await InvokeAsync(() => OnStatusChange.InvokeAsync(args));
         }
 
         return args;

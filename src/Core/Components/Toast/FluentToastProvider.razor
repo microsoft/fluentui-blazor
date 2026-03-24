@@ -7,7 +7,7 @@
      @attributes="AdditionalAttributes">
     @if (ToastService != null)
     {
-        @foreach (var toast in ToastService.Items.Values.OrderByDescending(i => i.Index))
+        @foreach (var toast in GetRenderedToasts())
         {
             <FluentToast @key="toast.Id"
                          Id="@toast.Id"
@@ -23,7 +23,7 @@
                          PauseOnHover="@toast.Options.PauseOnHover"
                          PauseOnWindowBlur="@toast.Options.PauseOnWindowBlur"
                          Instance="@toast"
-                         OnStateChange="@GetOnStateChangeCallback(toast)"
+                         OnStatusChange="@GetOnStatusChangeCallback(toast)"
                          AdditionalAttributes="@toast.Options.AdditionalAttributes"
                          Title="@toast.Options.Title"
                          Body="@toast.Options.Body"

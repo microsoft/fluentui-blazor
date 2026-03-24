@@ -198,9 +198,9 @@ public class ToastOptions : IFluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the action raised when the Toast is opened or closed.
+    /// Gets or sets the action raised when the toast lifecycle status changes.
     /// </summary>
-    public Action<ToastEventArgs>? OnStateChange { get; set; }
+    public Action<ToastEventArgs>? OnStatusChange { get; set; }
 
     /// <summary>
     /// Gets the class, including the optional <see cref="Margin"/> and <see cref="Padding"/> values.

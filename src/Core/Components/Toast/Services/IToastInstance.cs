@@ -31,6 +31,11 @@ public interface IToastInstance
     Task<ToastCloseReason> Result { get; }
 
     /// <summary>
+    /// Gets the lifecycle status of the toast.
+    /// </summary>
+    ToastStatus Status { get; }
+
+    /// <summary>
     /// Closes the Toast as dismissed.
     /// </summary>
     /// <returns></returns>

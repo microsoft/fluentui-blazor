@@ -43,6 +43,42 @@
         ToastProvider.Verify();
     }
 
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToast_QueuedUntilProviderHasRoom()
+    {
+        var provider = Render<FluentToastProvider>(parameters => parameters.Add(p => p.MaxToastCount, 1));
+        var statuses = new List<ToastStatus>();
+
+        var firstToastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "First toast";
+        });
+
+        var secondToastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Second toast";
+            options.OnStatusChange = args => statuses.Add(args.Status);
+        });
+
+        await Task.CompletedTask;
+
+        Assert.Contains("First toast", provider.Markup);
+        Assert.DoesNotContain("Second toast", provider.Markup);
+        Assert.Contains(ToastStatus.Queued, statuses);
+
+        var firstToast = provider.FindComponent<FluentToast>();
+        await firstToast.Instance.Instance!.CloseAsync(ToastCloseReason.Programmatic);
+        await firstToastTask;
+        await Task.CompletedTask;
+
+        Assert.Contains("Second toast", provider.Markup);
+        Assert.Contains(ToastStatus.Visible, statuses);
+
+        var secondToast = provider.FindComponent<FluentToast>();
+        await secondToast.Instance.Instance!.CloseAsync(ToastCloseReason.Programmatic);
+        await secondToastTask;
+    }
+
     [Fact]
     public void FluentToast_ChildContent()
     {
@@ -173,12 +209,9 @@
     }
 
     [Theory(Timeout = TEST_TIMEOUT)]
-    [InlineData(DialogState.Closed, "unknown", "any-old", "any-new")]
-    [InlineData(DialogState.Open, "toggle", "any-old", "open")]
-    [InlineData(DialogState.Closed, "toggle", "any-old", "closed")]
-    [InlineData(DialogState.Opening, "beforetoggle", "closed", "any-new")]
-    [InlineData(DialogState.Closing, "beforetoggle", "open", "any-new")]
-    public async Task FluentToast_Toggle_StateChange(DialogState expectedState, string eventType, string oldState, string newState)
+    [InlineData(ToastStatus.Visible, "toggle", "any-old", "open")]
+    [InlineData(ToastStatus.Dismissed, "beforetoggle", "open", "any-new")]
+    public async Task FluentToast_Toggle_StatusChange(ToastStatus expectedStatus, string eventType, string oldState, string newState)
     {
         ToastEventArgs? capturedArgs = null;
 
@@ -187,7 +220,7 @@
         {
             options.Id = "my-id";
             options.Body = "State change body";
-            options.OnStateChange = (args) =>
+            options.OnStatusChange = (args) =>
             {
                 capturedArgs = args;
             };
@@ -196,7 +229,7 @@
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
 
-        // Find the toast and raise a state change via RaiseOnStateChangeAsync
+        // Find the toast and raise a status change via RaiseOnStatusChangeAsync
         var toast = ToastProvider.FindComponent<FluentToast>();
         var toggleArgs = new DialogToggleEventArgs()
         {
@@ -205,11 +238,11 @@
             OldState = oldState,
             NewState = newState,
         };
-        await toast.Instance.RaiseOnStateChangeAsync(toggleArgs);
+        await toast.Instance.RaiseOnStatusChangeAsync(toggleArgs);
 
         // Assert
         Assert.NotNull(capturedArgs);
-        Assert.Equal(expectedState, capturedArgs.State);
+        Assert.Equal(expectedStatus, capturedArgs.Status);
         Assert.Equal("my-id", capturedArgs.Id);
         Assert.NotNull(capturedArgs.Instance);
     }
@@ -241,22 +274,22 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToast_StateChange_ViaClosed()
     {
-        var stateChanges = new List<DialogState>();
+        var statusChanges = new List<ToastStatus>();
 
         // Act
         var toastTask = ToastService.ShowToastAsync(options =>
         {
             options.Body = "State change body";
-            options.OnStateChange = (args) =>
+            options.OnStatusChange = (args) =>
             {
-                stateChanges.Add(args.State);
+                statusChanges.Add(args.Status);
             };
         });
 
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
 
-        // Close the toast via the service — should raise Closing then Closed states
+        // Close the toast via the service — should raise dismissed then unmounted statuses
         var toast = ToastProvider.FindComponent<FluentToast>();
         await ToastService.CloseAsync(toast.Instance.Instance!, ToastCloseReason.Programmatic);
 
@@ -264,13 +297,13 @@
         var result = await toastTask;
 
         // Assert
-        Assert.Contains(DialogState.Closing, stateChanges);
-        Assert.Contains(DialogState.Closed, stateChanges);
+        Assert.Contains(ToastStatus.Dismissed, statusChanges);
+        Assert.Contains(ToastStatus.Unmounted, statusChanges);
         Assert.Equal(ToastCloseReason.Programmatic, result);
     }
 
     [Fact(Timeout = TEST_TIMEOUT)]
-    public async Task FluentToast_OnStateChange_NoDelegate()
+    public async Task FluentToast_OnStatusChange_NoDelegate()
     {
         // Act
         _ = ToastService.ShowToastAsync(options =>
@@ -280,17 +313,17 @@
 
         await Task.CompletedTask;
 
-        // Raise a state change — should not throw even when callback is the empty delegate
+        // Raise a status change — should not throw even when callback is the empty delegate
         var toast = ToastProvider.FindComponent<FluentToast>();
-        var args = await toast.Instance.RaiseOnStateChangeAsync(new DialogToggleEventArgs
+        var args = await toast.Instance.RaiseOnStatusChangeAsync(new DialogToggleEventArgs
         {
             Id = toast.Instance.Instance?.Id,
             Type = "toggle",
             NewState = "open",
         });
 
-        // Assert: state correctly mapped, no exception thrown
-        Assert.Equal(DialogState.Open, args.State);
+        // Assert: status correctly mapped, no exception thrown
+        Assert.Equal(ToastStatus.Visible, args.Status);
     }
 
     [Fact(Timeout = TEST_TIMEOUT)]

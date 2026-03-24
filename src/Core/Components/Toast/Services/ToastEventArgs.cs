@@ -20,41 +20,30 @@ public class ToastEventArgs : EventArgs
     {
         Id = id ?? string.Empty;
         Instance = toast.Instance;
+        Status = ToastStatus.Queued;
 
         if (string.Equals(eventType, "toggle", StringComparison.OrdinalIgnoreCase))
         {
             if (string.Equals(newState, "open", StringComparison.OrdinalIgnoreCase))
             {
-                State = DialogState.Open;
-            }
-            else if (string.Equals(newState, "closed", StringComparison.OrdinalIgnoreCase))
-            {
-                State = DialogState.Closed;
+                Status = ToastStatus.Visible;
             }
         }
         else if (string.Equals(eventType, "beforetoggle", StringComparison.OrdinalIgnoreCase))
         {
-            if (string.Equals(oldState, "closed", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(oldState, "open", StringComparison.OrdinalIgnoreCase))
             {
-                State = DialogState.Opening;
+                Status = ToastStatus.Dismissed;
             }
-            else if (string.Equals(oldState, "open", StringComparison.OrdinalIgnoreCase))
-            {
-                State = DialogState.Closing;
-            }
-        }
-        else
-        {
-            State = DialogState.Closed;
         }
     }
 
     /// <summary />
-    internal ToastEventArgs(IToastInstance instance, DialogState state)
+    internal ToastEventArgs(IToastInstance instance, ToastStatus status)
     {
         Id = instance.Id;
         Instance = instance;
-        State = state;
+        Status = status;
     }
 
     /// <summary>
@@ -63,9 +52,9 @@ public class ToastEventArgs : EventArgs
     public string Id { get; }
 
     /// <summary>
-    /// Gets the state of the FluentToast component.
+    /// Gets the lifecycle status of the FluentToast component.
     /// </summary>
-    public DialogState State { get; }
+    public ToastStatus Status { get; }
 
     /// <summary>
     /// Gets the instance used by the <see cref="ToastService" />.
