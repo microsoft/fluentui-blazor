@@ -15,17 +15,20 @@
     To show a splash screen, the <code>DialogService</code> is used. The <code>DialogService</code> is a singleton service that can be injected
     into any page/component. It exposes the following methods to show a splash screen dialog:
     <ul>
-        <li><code>ShowSplashScreen</code> / <code>ShowSplashScreenAsync</code> (uses the <code>FluentSplashScreen</code> to show the dialog)</li>
+        <li><code>ShowSplashScreenAsync</code> (uses the <code>FluentSplashScreen</code> to show the dialog)</li>
         <li>
-            <code>ShowSplashScreen&lt;T&gt;</code> / <code>ShowSplashScreenAsync&lt;T&gt;</code> where T is a custom component which inherits the <code>FluentSplashScreen</code> component
+            <code>ShowSplashScreenAsync&lt;T&gt;</code> where T is a custom component which inherits the <code>FluentSplashScreen</code> component
             and implements <code>IDialogContentComponent&lt;SplashScreenContent&gt;</code> .</li>
     </ul>
 </p>
 <p>
-    Internally, the <code>ShowSplashScreen</code> methods call the <code>ShowDialog</code> methods. If is possible to directly call these methods and thereby have
-    access to all of the parameters. The <code>ShowSplashScreen</code> variants are just convenience methods that make ite easier to work with panels.
+    Internally, the <code>ShowSplashScreenAsync</code> methods call the <code>ShowDialogAsync</code> methods. If is possible to directly call these methods and thereby have
+    access to all of the parameters. The <code>ShowSplashScreenAsync</code> variants are just convenience methods that make ite easier to work with panels.
 </p>
 
+<FluentMessageBar Title="Warning" Intent="@MessageIntent.Warning">
+    Although the <code>DialogService</code> also exposes synchronous variants, we suggest not using them as they will be removed in the next major version.
+</FluentMessageBar>
 
 <h2 id="example">Examples</h2>
 
