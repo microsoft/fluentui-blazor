@@ -38,24 +38,6 @@ public partial class DialogSplashScreenCustom
         DialogResult result = await _dialog.Result;
         await HandleCustomSplashAsync(result);
     }
-    private void OpenSplashCustom()
-    {
-        DemoLogger.WriteLine($"Open custom splashscreen for 4 seconds");
-        DialogParameters<SplashScreenContent> parameters = new()
-        {
-            Content = new()
-            {
-                Title = "Water drinking 101",
-                LoadingText = "Filling the re-useable bottles...",
-                Message = (MarkupString)"Don't drink <strong>too</strong> much water!",
-                Logo = "_content/FluentUI.Demo.Shared/images/Splash_Corporation_logo.png",
-            },
-            Width = "500px",
-            Height = "300px",
-        };
-        DialogService.ShowSplashScreen<CustomSplashScreen>(this, HandleCustomSplashAsync, parameters);
-    }
-
     private async Task HandleCustomSplashAsync(DialogResult result)
     {
         await Task.Run(() => DemoLogger.WriteLine($"Custom splash closed"));
