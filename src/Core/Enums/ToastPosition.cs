@@ -12,24 +12,24 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum ToastPosition
 {
     /// <summary />
-    [Description("top-right")]
-    TopRight,
+    [Description("top-end")]
+    TopEnd,
 
     /// <summary />
-    [Description("top-left")]
-    TopLeft,
+    [Description("top-start")]
+    TopStart,
 
     /// <summary />
     [Description("top-center")]
     TopCenter,
 
     /// <summary />
-    [Description("bottom-right")]
-    BottomRight,
+    [Description("bottom-end")]
+    BottomEnd,
 
     /// <summary />
-    [Description("bottom-left")]
-    BottomLeft,
+    [Description("bottom-start")]
+    BottomStart,
 
     /// <summary />
     [Description("bottom-center")]

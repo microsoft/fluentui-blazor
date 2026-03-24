@@ -70,7 +70,7 @@ public class ToastOptions : IFluentComponentBase
     /// <summary>
     /// Gets or sets the timeout duration for the Toast in milliseconds.
     /// </summary>
-    public int Timeout { get; set; } = 5000;
+    public int? Timeout { get; set; }
 
     /// <summary>
     /// Gets or sets the toast position on screen.
@@ -80,12 +80,12 @@ public class ToastOptions : IFluentComponentBase
     /// <summary>
     /// Gets or sets the vertical offset in pixels.
     /// </summary>
-    public int VerticalOffset { get; set; } = 16;
+    public int? VerticalOffset { get; set; }
 
     /// <summary>
     /// Gets or sets the horizontal offset in pixels.
     /// </summary>
-    public int HorizontalOffset { get; set; } = 20;
+    public int? HorizontalOffset { get; set; }
 
     /// <summary>
     /// Gets or sets the toast intent.
@@ -100,12 +100,12 @@ public class ToastOptions : IFluentComponentBase
     /// <summary>
     /// Gets or sets a value indicating whether the timeout pauses while hovering the toast.
     /// </summary>
-    public bool PauseOnHover { get; set; }
+    public bool? PauseOnHover { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the timeout pauses while the window is blurred.
     /// </summary>
-    public bool PauseOnWindowBlur { get; set; }
+    public bool? PauseOnWindowBlur { get; set; }
 
     /// <summary>
     /// Gets or sets the toast title.
@@ -148,19 +148,24 @@ public class ToastOptions : IFluentComponentBase
     public Func<Task>? QuickAction2Callback { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the dismiss button is shown.
+    /// Gets or sets a value indicating whether the toast can be dismissed by the user.
     /// </summary>
-    public bool ShowDismissButton { get; set; } = true;
+    public bool IsDismissable { get; set; }
+
+    /// <summary>
+    /// Gets or sets dismiss action label.
+    /// </summary>
+    public string? DismissAction { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback invoked when the dismiss action is clicked.
+    /// </summary>
+    public Func<Task>? DismissActionCallback { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether progress visuals are shown.
     /// </summary>
     public bool ShowProgress { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the progress is indeterminate.
-    /// </summary>
-    public bool Indeterminate { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the current progress value.
@@ -176,16 +181,6 @@ public class ToastOptions : IFluentComponentBase
     /// Gets or sets custom media rendered in the media slot.
     /// </summary>
     public RenderFragment? Media { get; set; }
-
-    /// <summary>
-    /// Gets or sets custom content rendered in the title slot.
-    /// </summary>
-    public RenderFragment? TitleContent { get; set; }
-
-    /// <summary>
-    /// Gets or sets custom content rendered in the subtitle slot.
-    /// </summary>
-    public RenderFragment? SubtitleContent { get; set; }
 
     /// <summary>
     /// Gets or sets custom content rendered in the footer slot.

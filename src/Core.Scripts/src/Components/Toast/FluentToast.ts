@@ -585,7 +585,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
 
     private updatePosition() {
       const isRtl = getComputedStyle(this).direction === 'rtl';
-      const position = this.getAttribute('position') || (isRtl ? 'bottom-left' : 'bottom-right');
+      const position = this.getAttribute('position') || (isRtl ? 'bottom-start' : 'bottom-end');
       const horizontalOffset = parseInt(this.getAttribute('horizontal-offset') || '20');
       const verticalOffset = parseInt(this.getAttribute('vertical-offset') || '16') + this.getStackOffset(position);
 
@@ -598,28 +598,48 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
       let enterTo = 'translateY(0)';
 
       switch (position) {
-        case 'top-right':
+        case 'top-end':
           this.dialog.style.top = `${verticalOffset}px`;
-          this.dialog.style.right = `${horizontalOffset}px`;
-          enterFrom = 'translateX(16px)';
+          if (isRtl) {
+            this.dialog.style.left = `${horizontalOffset}px`;
+            enterFrom = 'translateX(-16px)';
+          } else {
+            this.dialog.style.right = `${horizontalOffset}px`;
+            enterFrom = 'translateX(16px)';
+          }
           enterTo = 'translateX(0)';
           break;
-        case 'top-left':
+        case 'top-start':
           this.dialog.style.top = `${verticalOffset}px`;
-          this.dialog.style.left = `${horizontalOffset}px`;
-          enterFrom = 'translateX(-16px)';
+          if (isRtl) {
+            this.dialog.style.right = `${horizontalOffset}px`;
+            enterFrom = 'translateX(16px)';
+          } else {
+            this.dialog.style.left = `${horizontalOffset}px`;
+            enterFrom = 'translateX(-16px)';
+          }
           enterTo = 'translateX(0)';
           break;
-        case 'bottom-right':
+        case 'bottom-end':
           this.dialog.style.bottom = `${verticalOffset}px`;
-          this.dialog.style.right = `${horizontalOffset}px`;
-          enterFrom = 'translateX(16px)';
+          if (isRtl) {
+            this.dialog.style.left = `${horizontalOffset}px`;
+            enterFrom = 'translateX(-16px)';
+          } else {
+            this.dialog.style.right = `${horizontalOffset}px`;
+            enterFrom = 'translateX(16px)';
+          }
           enterTo = 'translateX(0)';
           break;
-        case 'bottom-left':
+        case 'bottom-start':
           this.dialog.style.bottom = `${verticalOffset}px`;
-          this.dialog.style.left = `${horizontalOffset}px`;
-          enterFrom = 'translateX(-16px)';
+          if (isRtl) {
+            this.dialog.style.right = `${horizontalOffset}px`;
+            enterFrom = 'translateX(16px)';
+          } else {
+            this.dialog.style.left = `${horizontalOffset}px`;
+            enterFrom = 'translateX(-16px)';
+          }
           enterTo = 'translateX(0)';
           break;
         case 'top-center':
@@ -665,7 +685,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
 
     private getToastPosition(): string {
       const isRtl = getComputedStyle(this).direction === 'rtl';
-      return this.getAttribute('position') || (isRtl ? 'bottom-left' : 'bottom-right');
+      return this.getAttribute('position') || (isRtl ? 'bottom-start' : 'bottom-end');
     }
 
     private updateToastStack() {

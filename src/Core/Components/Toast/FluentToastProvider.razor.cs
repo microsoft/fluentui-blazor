@@ -12,6 +12,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentToastProvider : FluentComponentBase
 {
     private const int _defaultMaxToastCount = 4;
+    private const int _defaultTimeout = 7000;
+    private const int _defaultVerticalOffset = 16;
+    private const int _defaultHorizontalOffset = 20;
 
     /// <summary />
     public FluentToastProvider(LibraryConfiguration configuration) : base(configuration)
@@ -24,6 +27,42 @@ public partial class FluentToastProvider : FluentComponentBase
     /// </summary>
     [Parameter]
     public int MaxToastCount { get; set; } = _defaultMaxToastCount;
+
+    /// <summary>
+    /// Gets or sets the default timeout duration in milliseconds for visible toasts.
+    /// </summary>
+    [Parameter]
+    public int Timeout { get; set; } = _defaultTimeout;
+
+    /// <summary>
+    /// Gets or sets the default toast position.
+    /// </summary>
+    [Parameter]
+    public ToastPosition? Position { get; set; }
+
+    /// <summary>
+    /// Gets or sets the default vertical offset in pixels.
+    /// </summary>
+    [Parameter]
+    public int VerticalOffset { get; set; } = _defaultVerticalOffset;
+
+    /// <summary>
+    /// Gets or sets the default horizontal offset in pixels.
+    /// </summary>
+    [Parameter]
+    public int HorizontalOffset { get; set; } = _defaultHorizontalOffset;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether visible toasts pause timeout while hovered.
+    /// </summary>
+    [Parameter]
+    public bool PauseOnHover { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether visible toasts pause timeout while the window is blurred.
+    /// </summary>
+    [Parameter]
+    public bool PauseOnWindowBlur { get; set; }
 
     /// <summary />
     internal string? ClassValue => DefaultClassBuilder
@@ -68,6 +107,24 @@ public partial class FluentToastProvider : FluentComponentBase
     private EventCallback<ToastEventArgs> GetOnStatusChangeCallback(IToastInstance toast)
         => EventCallback.Factory.Create<ToastEventArgs>(this, toast.Options.OnStatusChange ?? EmptyOnStatusChange);
 
+    private int GetTimeout(IToastInstance toast)
+        => toast.Options.Timeout ?? Timeout;
+
+    private ToastPosition? GetPosition(IToastInstance toast)
+        => toast.Options.Position ?? Position;
+
+    private int GetVerticalOffset(IToastInstance toast)
+        => toast.Options.VerticalOffset ?? VerticalOffset;
+
+    private int GetHorizontalOffset(IToastInstance toast)
+        => toast.Options.HorizontalOffset ?? HorizontalOffset;
+
+    private bool GetPauseOnHover(IToastInstance toast)
+        => toast.Options.PauseOnHover ?? PauseOnHover;
+
+    private bool GetPauseOnWindowBlur(IToastInstance toast)
+        => toast.Options.PauseOnWindowBlur ?? PauseOnWindowBlur;
+
     private IEnumerable<IToastInstance> GetRenderedToasts()
         => ToastService?.Items.Values
             .Where(toast => toast.Status is ToastStatus.Visible or ToastStatus.Dismissed)
@@ -101,20 +158,6 @@ public partial class FluentToastProvider : FluentComponentBase
                 toast.Options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastStatus.Visible));
                 activeCount++;
             }
-        }
-    }
-
-    /// <summary>
-    /// Only for Unit Tests
-    /// </summary>
-    /// <param name="id"></param>
-    internal void UpdateId(string? id)
-    {
-        Id = id;
-
-        if (ToastService is not null)
-        {
-            ToastService.ProviderId = id;
         }
     }
 }

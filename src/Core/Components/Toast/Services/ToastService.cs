@@ -42,6 +42,11 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
             return;
         }
 
+        if (ToastInstance is not null)
+        {
+            ToastInstance.Status = ToastStatus.Unmounted;
+        }
+
         // Remove the Toast from the ToastProvider
         await RemoveToastFromProviderAsync(Toast);
 
@@ -49,7 +54,35 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         ToastInstance?.ResultCompletion.TrySetResult(reason);
 
         // Raise the final ToastStatus.Unmounted event
-        ToastInstance?.FluentToast?.RaiseOnStatusChangeAsync(Toast, ToastStatus.Unmounted);
+        if (ToastInstance is not null)
+        {
+            ToastInstance.Options.OnStatusChange?.Invoke(new ToastEventArgs(ToastInstance, ToastStatus.Unmounted));
+        }
+    }
+
+    /// <inheritdoc cref="IToastService.DismissAsync(string)"/>
+    public async Task<bool> DismissAsync(string toastId)
+    {
+        if (string.IsNullOrWhiteSpace(toastId) || !ServiceProvider.Items.TryGetValue(toastId, out var toast))
+        {
+            return false;
+        }
+
+        await CloseAsync(toast, ToastCloseReason.Dismissed);
+        return true;
+    }
+
+    /// <inheritdoc cref="IToastService.DismissAllAsync()"/>
+    public async Task<int> DismissAllAsync()
+    {
+        var toasts = ServiceProvider.Items.Values.ToList();
+
+        foreach (var toast in toasts)
+        {
+            await CloseAsync(toast, ToastCloseReason.Dismissed);
+        }
+
+        return toasts.Count;
     }
 
     /// <inheritdoc cref="IToastService.ShowToastAsync(ToastOptions)"/>

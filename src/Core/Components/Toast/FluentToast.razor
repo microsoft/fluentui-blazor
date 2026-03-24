@@ -27,14 +27,7 @@
     else if (ShowProgress)
     {
         <div slot="media">
-            @if (Indeterminate)
-            {
-                <FluentSpinner Visible="true" Size="@SpinnerSize.Tiny" />
-            }
-            else
-            {
-                <FluentProgressBar Width="32px" Value="@Value" Max="@Max" />
-            }
+           <FluentSpinner Visible="true" Size="@SpinnerSize.Tiny" />
         </div>
     }
     else
@@ -44,20 +37,18 @@
         </div>
     }
 
-    @if (TitleContent is not null)
-    {
-        <div id="@($"{Id}-title")" slot="title">@TitleContent</div>
-    }
-    else if (!string.IsNullOrEmpty(Title))
+    @if (!string.IsNullOrEmpty(Title))
     {
         <div id="@($"{Id}-title")" slot="title">@Title</div>
     }
 
-    @if (ShowDismissButton)
+    @if (IsDismissable)
     {
-        @if (DismissContent is not null)
+        @if (!string.IsNullOrEmpty(DismissAction))
         {
-            @DismissContent
+            <FluentLink Href="" @onclick="@OnDismissActionClickedAsync">
+                @DismissAction
+            </FluentLink>
         }
         else
         {
@@ -79,20 +70,12 @@
         <div id="@($"{Id}-body")">@Body</div>
     }
 
-    @if (SubtitleContent is not null)
+    @if (!string.IsNullOrEmpty(Subtitle))
     {
-        <div slot="subtitle">@SubtitleContent</div>
-    }
-    else if (!string.IsNullOrEmpty(ShowProgress ? Status : Subtitle))
-    {
-        <div slot="subtitle">@(ShowProgress ? Status : Subtitle)</div>
+        <div slot="subtitle">@Subtitle</div>
     }
 
-    @if (FooterContent is not null)
-    {
-        <div style="display: contents;" slot="footer">@FooterContent</div>
-    }
-    else if (!string.IsNullOrEmpty(QuickAction1) || !string.IsNullOrEmpty(QuickAction2))
+    @if (!string.IsNullOrEmpty(QuickAction1) || !string.IsNullOrEmpty(QuickAction2))
     {
         <div slot="footer">
             @if (!string.IsNullOrEmpty(QuickAction1))

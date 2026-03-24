@@ -87,19 +87,22 @@ public partial class FluentToast
     public string? QuickAction2 { get; set; }
 
     /// <summary>
-    /// Gets or sets whether to render the dismiss button.
+    /// Gets or sets whether the toast is dismissable by the user.
     /// </summary>
     [Parameter]
-    public bool ShowDismissButton { get; set; } = true;
+    public bool IsDismissable { get; set; }
+
+    /// <summary>
+    /// Gets or sets the dismiss action label
+    /// </summary>
+    [Parameter]
+    public string? DismissAction { get; set; }
 
     [Parameter]
     public string? Status { get; set; }
 
     [Parameter]
     public bool ShowProgress { get; set; }
-
-    [Parameter]
-    public bool Indeterminate { get; set; } = true;
 
     [Parameter]
     public int? Value { get; set; }
@@ -111,19 +114,7 @@ public partial class FluentToast
     public RenderFragment? Media { get; set; }
 
     [Parameter]
-    public RenderFragment? TitleContent { get; set; }
-
-    [Parameter]
-    public RenderFragment? SubtitleContent { get; set; }
-
-    [Parameter]
-    public RenderFragment? FooterContent { get; set; }
-
-    [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    [Parameter]
-    public RenderFragment? DismissContent { get; set; }
 
     internal Icon DismissIcon => new CoreIcons.Regular.Size20.Dismiss();
 
@@ -161,6 +152,9 @@ public partial class FluentToast
         Opened = false;
         return InvokeAsync(StateHasChanged);
     }
+
+    internal Task OnDismissActionClickedAsync()
+        => HandleActionClickedAsync(Instance?.Options.DismissActionCallback);
 
     internal Task OnQuickAction1ClickedAsync()
         => HandleActionClickedAsync(Instance?.Options.QuickAction1Callback);

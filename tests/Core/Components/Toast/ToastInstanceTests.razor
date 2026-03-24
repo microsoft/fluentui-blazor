@@ -1,0 +1,102 @@
+﻿@using System.Collections.Concurrent;
+@using Bunit;
+@using Microsoft.Extensions.DependencyInjection;
+@using Xunit;
+
+@inherits FluentUITestContext
+
+@code {
+
+    public ToastInstanceTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public async Task CancelAsync_CallsServiceCloseWithDismissedReason()
+    {
+        var service = new TestToastService();
+        var instance = new ToastInstance(service, new ToastOptions());
+
+        await instance.CancelAsync();
+
+        Assert.Same(instance, service.LastClosedToast);
+        Assert.Equal(ToastCloseReason.Dismissed, service.LastCloseReason);
+    }
+
+    [Fact]
+    public async Task CloseAsync_WithReason_CallsServiceCloseWithProvidedReason()
+    {
+        var service = new TestToastService();
+        var instance = new ToastInstance(service, new ToastOptions());
+
+        await instance.CloseAsync(ToastCloseReason.QuickAction);
+
+        Assert.Same(instance, service.LastClosedToast);
+        Assert.Equal(ToastCloseReason.QuickAction, service.LastCloseReason);
+    }
+
+    [Fact]
+    public async Task CloseAsync_WithProgrammaticReason_CallsServiceCloseWithProgrammaticReason()
+    {
+        var service = new TestToastService();
+        var instance = new ToastInstance(service, new ToastOptions());
+
+        await instance.CloseAsync(ToastCloseReason.Programmatic);
+
+        Assert.Same(instance, service.LastClosedToast);
+        Assert.Equal(ToastCloseReason.Programmatic, service.LastCloseReason);
+    }
+
+    [Fact]
+    public async Task CloseAsync_WithoutReason_CallsServiceCloseWithProgrammaticReason()
+    {
+        var service = new TestToastService();
+        var instance = new ToastInstance(service, new ToastOptions());
+
+        await instance.CloseAsync();
+
+        Assert.Same(instance, service.LastClosedToast);
+        Assert.Equal(ToastCloseReason.Programmatic, service.LastCloseReason);
+    }
+
+    private sealed class TestToastService : IToastService
+    {
+        public string? ProviderId { get; set; }
+
+        public ConcurrentDictionary<string, IToastInstance> Items { get; } = new();
+
+        public Func<IToastInstance, Task> OnUpdatedAsync { get; set; } = _ => Task.CompletedTask;
+
+        public IToastInstance? LastClosedToast { get; private set; }
+
+        public ToastCloseReason? LastCloseReason { get; private set; }
+
+        public Task CloseAsync(IToastInstance Toast, ToastCloseReason reason)
+        {
+            LastClosedToast = Toast;
+            LastCloseReason = reason;
+            return Task.CompletedTask;
+        }
+
+        public Task<bool> DismissAsync(string toastId)
+            => Task.FromResult(false);
+
+        public Task<int> DismissAllAsync()
+            => Task.FromResult(0);
+
+        public void Dispose()
+        {
+        }
+
+        public Task<ToastCloseReason> ShowToastAsync(ToastOptions? options = null)
+            => Task.FromResult(ToastCloseReason.Programmatic);
+
+        public Task<ToastCloseReason> ShowToastAsync(Action<ToastOptions> options)
+            => Task.FromResult(ToastCloseReason.Programmatic);
+
+        public Task UpdateToastAsync(IToastInstance toast, Action<ToastOptions> update)
+            => Task.CompletedTask;
+    }
+}

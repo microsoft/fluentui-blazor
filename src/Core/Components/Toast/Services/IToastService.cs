@@ -18,6 +18,19 @@ public partial interface IToastService : IFluentServiceBase<IToastInstance>
     Task CloseAsync(IToastInstance Toast, ToastCloseReason reason);
 
     /// <summary>
+    /// Dismisses the toast with the specified identifier.
+    /// </summary>
+    /// <param name="toastId">The identifier of the toast to dismiss.</param>
+    /// <returns>true when a matching toast was found; otherwise false.</returns>
+    Task<bool> DismissAsync(string toastId);
+
+    /// <summary>
+    /// Dismisses all current toasts.
+    /// </summary>
+    /// <returns>The number of toasts that were dismissed.</returns>
+    Task<int> DismissAllAsync();
+
+    /// <summary>
     /// Shows a toast using the supplied options.
     /// </summary>
     /// <param name="options">Options to configure the toast.</param>

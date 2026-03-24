@@ -45,7 +45,7 @@
                 Console.WriteLine("Cancel action executed.");
                 return Task.CompletedTask;
             };
-            options.ShowDismissButton = true;
+            options.IsDismissable = true;
             options.OnStatusChange = (e) =>
             {
                   Console.WriteLine($"Status changed: {e.Id} - {e.Status}");
@@ -65,7 +65,7 @@
             options.Subtitle = "Just now";
             options.QuickAction1 = "Undo";
             options.QuickAction2 = "Dismiss";
-            options.ShowDismissButton = false;
+            options.IsDismissable = false;
         });
 
         _lastResult = result.ToString() ?? string.Empty;
@@ -81,10 +81,9 @@
             options.Body = "Please wait while your files are uploaded.";
             options.Status = "Uploading 3 files...";
             options.ShowProgress = true;
-            options.Indeterminate = true;
             options.QuickAction1 = "Hide";
             options.QuickAction2 = "Cancel";
-            options.ShowDismissButton = false;
+            options.IsDismissable = false;
         });
 
         _lastResult = result.ToString() ?? string.Empty;
@@ -100,10 +99,9 @@
             options.Body = "Please wait while your files are uploaded.";
             options.Status = "Uploading 3 files...";
             options.ShowProgress = true;
-            options.Indeterminate = false;
             options.QuickAction1 = "Hide";
             options.QuickAction2 = "Cancel";
-            options.ShowDismissButton = false;
+            options.IsDismissable = false;
         });
 
         _lastResult = result.ToString() ?? string.Empty;
