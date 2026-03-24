@@ -133,9 +133,19 @@ public class ToastOptions : IFluentComponentBase
     public string? QuickAction1 { get; set; }
 
     /// <summary>
+    /// Gets or sets the callback invoked when the first quick action is clicked.
+    /// </summary>
+    public Func<Task>? QuickAction1Callback { get; set; }
+
+    /// <summary>
     /// Gets or sets the second quick action label.
     /// </summary>
     public string? QuickAction2 { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback invoked when the second quick action is clicked.
+    /// </summary>
+    public Func<Task>? QuickAction2Callback { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the dismiss button is shown.

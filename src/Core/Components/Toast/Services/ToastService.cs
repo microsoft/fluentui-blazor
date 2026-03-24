@@ -30,14 +30,14 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
     /// <summary />
     protected IFluentLocalizer Localizer { get; }
 
-    /// <inheritdoc cref="IToastService.CloseAsync(IToastInstance, ToastResult)"/>
-    public async Task CloseAsync(IToastInstance Toast, ToastResult result)
+    /// <inheritdoc cref="IToastService.CloseAsync(IToastInstance, ToastCloseReason)"/>
+    public async Task CloseAsync(IToastInstance Toast, ToastCloseReason reason)
     {
         var ToastInstance = Toast as ToastInstance;
 
         if (ToastInstance?.FluentToast is FluentToast fluentToast)
         {
-            ToastInstance.PendingResult = result;
+            ToastInstance.PendingCloseReason = reason;
             await fluentToast.RequestCloseAsync();
             return;
         }
@@ -49,20 +49,20 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         await RemoveToastFromProviderAsync(Toast);
 
         // Set the result of the Toast
-        ToastInstance?.ResultCompletion.TrySetResult(result);
+        ToastInstance?.ResultCompletion.TrySetResult(reason);
 
         // Raise the ToastState.Closed event
         ToastInstance?.FluentToast?.RaiseOnStateChangeAsync(Toast, DialogState.Closed);
     }
 
     /// <inheritdoc cref="IToastService.ShowToastAsync(ToastOptions)"/>
-    public Task<ToastResult> ShowToastAsync(ToastOptions? options = null)
+    public Task<ToastCloseReason> ShowToastAsync(ToastOptions? options = null)
     {
         return ShowToastCoreAsync(options ?? new ToastOptions());
     }
 
     /// <inheritdoc cref="IToastService.ShowToastAsync(Action{ToastOptions})"/>
-    public Task<ToastResult> ShowToastAsync(Action<ToastOptions> options)
+    public Task<ToastCloseReason> ShowToastAsync(Action<ToastOptions> options)
     {
         return ShowToastAsync(new ToastOptions(options));
     }
@@ -80,7 +80,7 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
     }
 
     /// <summary />
-    private async Task<ToastResult> ShowToastCoreAsync(ToastOptions options)
+    private async Task<ToastCloseReason> ShowToastCoreAsync(ToastOptions options)
     {
         if (this.ProviderNotAvailable())
         {

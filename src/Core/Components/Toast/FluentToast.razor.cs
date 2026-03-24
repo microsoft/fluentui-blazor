@@ -162,9 +162,20 @@ public partial class FluentToast
         return InvokeAsync(StateHasChanged);
     }
 
-    internal Task OnActionClickedAsync(bool primary)
+    internal Task OnQuickAction1ClickedAsync()
+        => HandleActionClickedAsync(Instance?.Options.QuickAction1Callback);
+
+    internal Task OnQuickAction2ClickedAsync()
+        => HandleActionClickedAsync(Instance?.Options.QuickAction2Callback);
+
+    private async Task HandleActionClickedAsync(Func<Task>? callback)
     {
-        return primary ? Instance!.CloseAsync() : Instance!.CancelAsync();
+        await Instance!.CloseAsync(ToastCloseReason.QuickAction);
+
+        if (callback is not null)
+        {
+            await callback();
+        }
     }
 
     internal static Color GetIntentColor(ToastIntent intent)
@@ -228,8 +239,8 @@ public partial class FluentToast
                     break;
 
                 case DialogState.Closed:
-                    toastInstance.ResultCompletion.TrySetResult(toastInstance.PendingResult ?? ToastResult.Cancel());
-                    toastInstance.PendingResult = null;
+                    toastInstance.ResultCompletion.TrySetResult(toastInstance.PendingCloseReason ?? ToastCloseReason.TimedOut);
+                    toastInstance.PendingCloseReason = null;
 
                     if (ToastService is ToastService toastService)
                     {

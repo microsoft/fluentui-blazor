@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class ToastInstance : IToastInstance
 {
     private static long _counter;
-    internal readonly TaskCompletionSource<ToastResult> ResultCompletion = new();
+    internal readonly TaskCompletionSource<ToastCloseReason> ResultCompletion = new();
 
     /// <summary />
     internal ToastInstance(IToastService toastService, ToastOptions options)
@@ -30,13 +30,13 @@ public class ToastInstance : IToastInstance
     internal FluentToast? FluentToast { get; set; }
 
     /// <summary />
-    internal ToastResult? PendingResult { get; set; }
+    internal ToastCloseReason? PendingCloseReason { get; set; }
 
     /// <inheritdoc cref="IToastInstance.Options"/>
     public ToastOptions Options { get; internal set; }
 
     /// <inheritdoc cref="IToastInstance.Result"/>
-    public Task<ToastResult> Result => ResultCompletion.Task;
+    public Task<ToastCloseReason> Result => ResultCompletion.Task;
 
     /// <inheritdoc cref="IToastInstance.Id"/>"
     public string Id { get; }
@@ -47,25 +47,19 @@ public class ToastInstance : IToastInstance
     /// <inheritdoc cref="IToastInstance.CancelAsync()"/>
     public Task CancelAsync()
     {
-        return ToastService.CloseAsync(this, ToastResult.Cancel());
+        return ToastService.CloseAsync(this, ToastCloseReason.Dismissed);
     }
 
     /// <inheritdoc cref="IToastInstance.CloseAsync()"/>
     public Task CloseAsync()
     {
-        return ToastService.CloseAsync(this, ToastResult.Ok());
+        return ToastService.CloseAsync(this, ToastCloseReason.Programmatic);
     }
 
-    /// <inheritdoc cref="IToastInstance.CloseAsync{T}(T)"/>
-    public Task CloseAsync<T>(T result)
+    /// <inheritdoc cref="IToastInstance.CloseAsync(ToastCloseReason)"/>
+    public Task CloseAsync(ToastCloseReason reason)
     {
-        return ToastService.CloseAsync(this, ToastResult.Ok(result));
-    }
-
-    /// <inheritdoc cref="IToastInstance.CloseAsync(ToastResult)"/>
-    public Task CloseAsync(ToastResult result)
-    {
-        return ToastService.CloseAsync(this, result);
+        return ToastService.CloseAsync(this, reason);
     }
 
     /// <inheritdoc cref="IToastInstance.UpdateAsync(Action{ToastOptions})"/>

@@ -30,12 +30,21 @@
     {
         var result = await ToastService.ShowToastAsync(options =>
         {
-            options.Timeout = 70000;
             options.Intent = ToastIntent.Warning;
             options.Title = "Delete item?";
             options.Body = "This action can't be undone.";
             options.QuickAction1 = "Delete";
+            options.QuickAction1Callback = () =>
+            {
+                Console.WriteLine("Delete action executed.");
+                return Task.CompletedTask;
+            };
             options.QuickAction2 = "Cancel";
+            options.QuickAction2Callback = () =>
+            {
+                Console.WriteLine("Cancel action executed.");
+                return Task.CompletedTask;
+            };
             options.ShowDismissButton = true;
             options.OnStateChange = (e) =>
             {
@@ -43,14 +52,13 @@
               };
         });
 
-        _lastResult = result.Cancelled ? "Confirmation: Cancelled" : "Confirmation: Ok";
+        _lastResult = result.ToString() ?? string.Empty;
     }
 
     private async Task OpenToastAsync()
     {
         var result = await ToastService.ShowToastAsync(options =>
         {
-            options.Timeout = 70000;
             options.Intent = ToastIntent.Info;
             options.Title = "Email sent";
             options.Body = "Your message was delivered.";
@@ -60,7 +68,7 @@
             options.ShowDismissButton = false;
         });
 
-        _lastResult = result.Cancelled ? "Communication: Cancelled" : "Communication: Ok";
+        _lastResult = result.ToString() ?? string.Empty;
     }
 
     private async Task OpenProgressToastAsync()
@@ -79,7 +87,7 @@
             options.ShowDismissButton = false;
         });
 
-        _lastResult = result.Cancelled ? "Progress: Cancelled" : "Progress: Ok";
+        _lastResult = result.ToString() ?? string.Empty;
     }
 
     private async Task OpenProgressToast2Async()
@@ -98,6 +106,6 @@
             options.ShowDismissButton = false;
         });
 
-        _lastResult = result.Cancelled ? "Progress: Cancelled" : "Progress: Ok";
+        _lastResult = result.ToString() ?? string.Empty;
     }
 }

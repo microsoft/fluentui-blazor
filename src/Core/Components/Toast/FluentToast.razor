@@ -65,7 +65,7 @@
                           IconOnly="true"
                           IconStart="@DismissIcon"
                           Title="Dismiss"
-                          slot="dismiss"
+                          slot="action"
                           OnClick="@(() => Instance!.CancelAsync())" />
         }
     }
@@ -97,14 +97,14 @@
         <div slot="footer">
             @if (!string.IsNullOrEmpty(QuickAction1))
             {
-                <FluentLink Href="" @onclick="@(() => OnActionClickedAsync(primary: true))">
+                <FluentLink Href="" @onclick="@OnQuickAction1ClickedAsync">
                     @QuickAction1
                 </FluentLink>
             }
 
             @if (!string.IsNullOrEmpty(QuickAction2))
             {
-                <FluentLink Href="" OnClick="@(() => OnActionClickedAsync(primary: false))">
+                <FluentLink Href="" OnClick="@OnQuickAction2ClickedAsync">
                     @QuickAction2
                 </FluentLink>
             }

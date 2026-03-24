@@ -10,24 +10,24 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial interface IToastService : IFluentServiceBase<IToastInstance>
 {
     /// <summary>
-    /// Closes the toast with the specified result.
+    /// Closes the toast with the specified reason.
     /// </summary>
     /// <param name="Toast">Instance of the toast to close.</param>
-    /// <param name="result">Result of closing the toast.</param>
+    /// <param name="reason">Reason for closing the toast.</param>
     /// <returns></returns>
-    Task CloseAsync(IToastInstance Toast, ToastResult result);
+    Task CloseAsync(IToastInstance Toast, ToastCloseReason reason);
 
     /// <summary>
     /// Shows a toast using the supplied options.
     /// </summary>
     /// <param name="options">Options to configure the toast.</param>
-    Task<ToastResult> ShowToastAsync(ToastOptions? options = null);
+    Task<ToastCloseReason> ShowToastAsync(ToastOptions? options = null);
 
     /// <summary>
     /// Shows a toast by configuring an options object.
     /// </summary>
     /// <param name="options">Action used to configure the toast.</param>
-    Task<ToastResult> ShowToastAsync(Action<ToastOptions> options);
+    Task<ToastCloseReason> ShowToastAsync(Action<ToastOptions> options);
 
     /// <summary>
     /// Updates a shown toast.
