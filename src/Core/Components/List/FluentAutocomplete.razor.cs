@@ -83,7 +83,9 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    /// <summary />
+    /// <summary>
+    /// Raised when the FluentListbox.SelectedItems property changes.
+    /// </summary>
     private async Task InternalSelectedItemsChangedHandlerAsync(IEnumerable<TOption> items)
     {
         var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, EqualityComparer<TOption>.Default));
@@ -105,7 +107,11 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// Detect when the user presses 'Backspace' or 'ArrowDown' keys in the text input.
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
     private async Task OnTextInputKeyDownAsync(KeyboardEventArgs args)
     {
         switch (args.Key)
@@ -132,7 +138,10 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// When the user types in the input, filter the options.
+    /// </summary>
+    /// <returns></returns>
     private async Task OnTextInputChangedAsync()
     {
         _inProgress = true;
@@ -158,7 +167,11 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         _isRemovingOneItem = false;
     }
 
-    /// <summary />
+    /// <summary>
+    /// When the user clicks the "x" button or presses Backspace with an empty input, remove the selected or latest item.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     private async Task RemoveSelectedItemAsync(TOption? item)
     {
         if (item is null)
