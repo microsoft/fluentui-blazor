@@ -139,14 +139,25 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
 
             case "Enter":
                 // WARN: The option selection feature is done using JS code (FluentAutocomplete.ts)
-                _isOpen = false;
 
-                if (!string.IsNullOrEmpty(_textInput))
+                // If not yet open, do the same as pressing ArrowDown.
+                if (!_isOpen)
                 {
-                    _textInput = string.Empty;
-                    if (ValueChanged.HasDelegate)
+                    await OnTextInputKeyDownAsync(new KeyboardEventArgs { Key = "ArrowDown" });
+                }
+
+                // If already open, close the listbox and let the JS code handle the rest of the logic for selecting the option.
+                else
+                {
+                    _isOpen = false;
+
+                    if (!string.IsNullOrEmpty(_textInput))
                     {
-                        await ValueChanged.InvokeAsync((TValue)(object)_textInput);
+                        _textInput = string.Empty;
+                        if (ValueChanged.HasDelegate)
+                        {
+                            await ValueChanged.InvokeAsync((TValue)(object)_textInput);
+                        }
                     }
                 }
 
