@@ -83,7 +83,13 @@
             options.ShowProgress = true;
             options.QuickAction1 = "Hide";
             options.QuickAction2 = "Cancel";
-            options.IsDismissable = false;
+            options.IsDismissable = true;
+            options.DismissAction = "Dismiss";
+            options.DismissActionCallback = () =>
+            {
+                Console.WriteLine("Toast dismissed.");
+                return Task.CompletedTask;
+            };
         });
 
         _lastResult = result.ToString() ?? string.Empty;

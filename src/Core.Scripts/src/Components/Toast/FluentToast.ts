@@ -483,15 +483,25 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
 
         // Wait for the exit animation to complete
         await new Promise(resolve => {
+          let settled = false;
           const onAnimationEnd = (e: AnimationEvent) => {
             if (e.animationName === 'toast-collapse-spacing') {
               this.dialog.removeEventListener('animationend', onAnimationEnd);
-              resolve(true);
+              if (!settled) {
+                settled = true;
+                resolve(true);
+              }
             }
           };
           this.dialog.addEventListener('animationend', onAnimationEnd);
           // Fallback in case animation doesn't fire
-          setTimeout(() => resolve(false), 650);
+          setTimeout(() => {
+            if (!settled) {
+              settled = true;
+              this.dialog.removeEventListener('animationend', onAnimationEnd);
+              resolve(false);
+            }
+          }, 650);
         });
 
         this.dialog.hidePopover();

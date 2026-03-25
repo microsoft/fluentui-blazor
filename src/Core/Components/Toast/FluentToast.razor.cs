@@ -7,8 +7,12 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-#pragma warning disable CS1591, MA0051, MA0123, CA1822
-
+/// <summary>
+/// The FluentToast component represents a transient message that appears on the screen to provide feedback or
+/// information to the user. It is typically used for displaying notifications, alerts, or status messages in a
+/// non-intrusive manner. The FluentToast component can be customized with various options such as position, intent,
+/// timeout duration, and actions, allowing developers to create engaging and informative user experiences.
+/// </summary>
 public partial class FluentToast
 {
     /// <summary />
@@ -17,42 +21,109 @@ public partial class FluentToast
         Id = Identifier.NewId();
     }
 
+    [Inject]
+    private IToastService ToastService { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets the toast instance associated with this component.
+    /// </summary>
     [Parameter]
     public IToastInstance? Instance { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the component is currently open.
+    /// </summary>
     [Parameter]
     public bool Opened { get; set; }
 
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the open state changes.
+    /// </summary>
+    /// <remarks>
+    /// Use this event to respond to changes in the component's open or closed state. The callback receives a value
+    /// indicating the new open state: <see langword="true"/> if the component is open; otherwise,
+    /// <see langword="false"/>.
+    /// </remarks>
     [Parameter]
     public EventCallback<bool> OpenedChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets the duration in milliseconds before the toast automatically closes. Set this to less or equal to 0
+    /// to disable automatic closing.
+    /// </summary>
     [Parameter]
     public int Timeout { get; set; } = 7000;
 
+    /// <summary>
+    /// Gets or sets the <see cref="ToastPosition"/> on the screen where the toast notification is displayed.
+    /// </summary>
     [Parameter]
     public ToastPosition? Position { get; set; }
 
+    /// <summary>
+    /// Gets or sets the vertical offset, in pixels, applied to the component's position.
+    /// </summary>
     [Parameter]
     public int VerticalOffset { get; set; } = 16;
 
+    /// <summary>
+    /// Gets or sets the horizontal offset, in pixels, applied to the component's content.
+    /// </summary>
     [Parameter]
     public int HorizontalOffset { get; set; } = 20;
 
+    /// <summary>
+    /// Gets or sets the <see cref="ToastIntent"/> intent of the toast notification, indicating its purpose or severity.
+    /// </summary>
+    /// <remarks>
+    /// The intent determines the visual styling and icon used for the toast notification. Common intents include
+    /// informational, success, warning, and error. Setting the appropriate intent helps users quickly understand the
+    /// nature of the message.
+    /// </remarks>
     [Parameter]
     public ToastIntent Intent { get; set; } = ToastIntent.Info;
 
+    /// <summary>
+    /// Gets or sets the level of notification politeness for assistive technologies.
+    /// </summary>
+    /// <remarks>
+    /// Use this property to control how screen readers announce the toast notification. Setting an appropriate
+    /// politeness level can help ensure that important messages are delivered to users without unnecessary
+    /// interruption.
+    /// </remarks>
     [Parameter]
     public ToastPoliteness? Politeness { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the timeout countdown pauses when the user hovers over the component.
+    /// </summary>
     [Parameter]
     public bool PauseOnHover { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the timeout countdown is paused when the browser window loses focus.
+    /// </summary>
     [Parameter]
     public bool PauseOnWindowBlur { get; set; }
 
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the toggle state changes.
+    /// </summary>
+    /// <remarks>
+    /// The callback receives a Boolean value indicating the new state of the toggle. Use this parameter to handle
+    /// toggle events in the parent component.
+    /// </remarks>
     [Parameter]
     public EventCallback<bool> OnToggle { get; set; }
 
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the toast status changes.
+    /// </summary>
+    /// <remarks>
+    /// Use this property to handle status updates for the toast component, such as when it is shown, hidden, or
+    /// dismissed. The callback receives a <see cref="ToastEventArgs"/> instance containing details about the status
+    /// change.
+    /// </remarks>
     [Parameter]
     public EventCallback<ToastEventArgs> OnStatusChange { get; set; }
 
@@ -98,25 +169,48 @@ public partial class FluentToast
     [Parameter]
     public string? DismissAction { get; set; }
 
+    /// <summary>
+    /// Gets or sets the current status value.
+    /// </summary>
     [Parameter]
     public string? Status { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether a progress indicator is displayed.
+    /// </summary>
     [Parameter]
     public bool ShowProgress { get; set; }
 
+    /// <summary>
+    /// Gets or sets the current value of the parameter.
+    /// </summary>
     [Parameter]
     public int? Value { get; set; }
 
+    /// <summary>
+    /// Gets or sets the maximum allowable value.
+    /// </summary>
     [Parameter]
     public int? Max { get; set; } = 100;
 
+    /// <summary>
+    /// Gets or sets the media content to render within the component.
+    /// </summary>
+    /// <remarks>
+    /// Use this property to provide custom media elements, such as images, videos, or icons, that will be displayed as
+    /// part of the component's layout.
+    /// </remarks>
     [Parameter]
     public RenderFragment? Media { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be rendered as the main text of the toast.
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    internal Icon DismissIcon => new CoreIcons.Regular.Size20.Dismiss();
+    //
+    internal static Icon DismissIcon => new CoreIcons.Regular.Size20.Dismiss();
 
     internal Icon IntentIcon => Intent switch
     {
@@ -130,15 +224,36 @@ public partial class FluentToast
 
     internal string? StyleValue => DefaultStyleBuilder.Build();
 
-    [Inject]
-    private IToastService? ToastService { get; set; }
-
+    /// <summary>
+    /// Raises the status change event asynchronously using the specified dialog toggle event arguments.
+    /// </summary>
+    /// <param name="args">The event data associated with the dialog toggle action. Cannot be null.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains the event arguments for the toast
+    /// status change.
+    /// </returns>
     public Task<ToastEventArgs> RaiseOnStatusChangeAsync(DialogToggleEventArgs args)
         => RaiseOnStatusChangeAsync(new ToastEventArgs(this, args));
 
+    /// <summary>
+    /// Raises the status change event for the specified toast instance asynchronously.
+    /// </summary>
+    /// <param name="instance">
+    /// The toast instance for which the status change event is being raised. Cannot be null.
+    /// </param>
+    /// <param name="status">The new status to associate with the toast instance.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains the event arguments for the status
+    /// change.
+    /// </returns>
     public Task<ToastEventArgs> RaiseOnStatusChangeAsync(IToastInstance instance, ToastStatus status)
         => RaiseOnStatusChangeAsync(new ToastEventArgs(instance, status));
 
+    /// <summary>
+    /// Raises the toggle event asynchronously using the specified dialog toggle event arguments.
+    /// </summary>
+    /// <param name="args">The event data associated with the dialog toggle action. Cannot be null.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     public Task OnToggleAsync(DialogToggleEventArgs args)
         => HandleToggleAsync(args);
 
@@ -153,16 +268,23 @@ public partial class FluentToast
         return InvokeAsync(StateHasChanged);
     }
 
-    internal Task OnDismissActionClickedAsync()
-        => HandleActionClickedAsync(Instance?.Options.DismissActionCallback);
+    internal async Task OnDismissActionClickedAsync()
+    {
+        await Instance!.CloseAsync(ToastCloseReason.Dismissed);
+
+        if (Instance?.Options.DismissActionCallback is not null)
+        {
+            await Instance.Options.DismissActionCallback();
+        }
+    }
 
     internal Task OnQuickAction1ClickedAsync()
-        => HandleActionClickedAsync(Instance?.Options.QuickAction1Callback);
+        => HandleQuickActionClickedAsync(Instance?.Options.QuickAction1Callback);
 
     internal Task OnQuickAction2ClickedAsync()
-        => HandleActionClickedAsync(Instance?.Options.QuickAction2Callback);
+        => HandleQuickActionClickedAsync(Instance?.Options.QuickAction2Callback);
 
-    private async Task HandleActionClickedAsync(Func<Task>? callback)
+    private async Task HandleQuickActionClickedAsync(Func<Task>? callback)
     {
         await Instance!.CloseAsync(ToastCloseReason.QuickAction);
 
@@ -262,5 +384,3 @@ public partial class FluentToast
         return args;
     }
 }
-
-#pragma warning restore CS1591, MA0051, MA0123, CA1822

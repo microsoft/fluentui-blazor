@@ -183,11 +183,6 @@ public class ToastOptions : IFluentComponentBase
     public RenderFragment? Media { get; set; }
 
     /// <summary>
-    /// Gets or sets custom content rendered in the footer slot.
-    /// </summary>
-    public RenderFragment? FooterContent { get; set; }
-
-    /// <summary>
     /// Gets or sets custom content rendered in the default slot.
     /// </summary>
     public RenderFragment? ChildContent { get; set; }
