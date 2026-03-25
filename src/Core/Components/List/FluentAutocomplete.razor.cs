@@ -129,7 +129,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             // When ArrowDown is pressed and the listbox is closed, open it
             // If there are no yet any items in the list, it means the user hasn't typed anything, so we can open the listbox and show all the options
             case "ArrowDown":
-                if (!_isOpen && !_internalFilteredItems.Any())
+                if (!_isOpen)
                 {
                     await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
                 }
@@ -159,6 +159,13 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// <returns></returns>
     private async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty)
     {
+        // Raise the ValueChanged event to notify the parent component.
+        if (ValueChanged.HasDelegate)
+        {
+            var value = _textInput ?? string.Empty;
+            await ValueChanged.InvokeAsync((TValue)(object)value);
+        }
+
         // If the input is empty, we don't show any options in the listbox, and we close it if it was open
         if (!showWhenInputIsEmpty && string.IsNullOrEmpty(_textInput))
         {
@@ -170,14 +177,9 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         _inProgress = true;
         _isOpen = true;
 
-        if (ValueChanged.HasDelegate)
-        {
-            var value = _textInput ?? string.Empty;
-            await ValueChanged.InvokeAsync((TValue)(object)value);
-        }
-
         StateHasChanged();
 
+        // Raise the OnOptionsSearch event to get the filtered list of items.
         var args = new OptionsSearchEventArgs<TOption>()
         {
             Items = [],
@@ -187,12 +189,11 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         await OnOptionsSearch.InvokeAsync(args);
 
         _internalFilteredItems = [.. args.Items?.Take(MaximumOptionsSearch) ?? []];
-
         _inProgress = false;
     }
 
     /// <summary />
-    private Task DisplayFilteredOptionsAsync() => DisplayFilteredOptionsAsync(showWhenInputIsEmpty: false);
+    private Task DisplayFilteredOptionsAsync() => DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
 
     /// <summary>
     /// When the user clicks the "x" button or presses Backspace with an empty input, remove the selected or latest item.

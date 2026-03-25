@@ -64,9 +64,9 @@
                        @bind-Opened="@_isOpen"
                        @bind-Opened:after="OnOptionsPopupClosedAsync">
 
-            @if (ShowProgressIndicator && _inProgress)
+            @if (ShowProgressIndicator)
             {
-                <FluentProgressBar Thickness="ProgressThickness.Large" />
+                <FluentProgressBar Thickness="ProgressThickness.Large" Visible="@_inProgress" />
             }
 
             <FluentListbox auto-complete="true"
