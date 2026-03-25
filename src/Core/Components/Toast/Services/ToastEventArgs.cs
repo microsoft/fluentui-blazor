@@ -20,26 +20,26 @@ public class ToastEventArgs : EventArgs
     {
         Id = id ?? string.Empty;
         Instance = toast.Instance;
-        Status = ToastStatus.Queued;
+        Status = ToastLifecycleStatus.Queued;
 
         if (string.Equals(eventType, "toggle", StringComparison.OrdinalIgnoreCase))
         {
             if (string.Equals(newState, "open", StringComparison.OrdinalIgnoreCase))
             {
-                Status = ToastStatus.Visible;
+                Status = ToastLifecycleStatus.Visible;
             }
         }
         else if (string.Equals(eventType, "beforetoggle", StringComparison.OrdinalIgnoreCase))
         {
             if (string.Equals(oldState, "open", StringComparison.OrdinalIgnoreCase))
             {
-                Status = ToastStatus.Dismissed;
+                Status = ToastLifecycleStatus.Dismissed;
             }
         }
     }
 
     /// <summary />
-    internal ToastEventArgs(IToastInstance instance, ToastStatus status)
+    internal ToastEventArgs(IToastInstance instance, ToastLifecycleStatus status)
     {
         Id = instance.Id;
         Instance = instance;
@@ -54,7 +54,7 @@ public class ToastEventArgs : EventArgs
     /// <summary>
     /// Gets the lifecycle status of the FluentToast component.
     /// </summary>
-    public ToastStatus Status { get; }
+    public ToastLifecycleStatus Status { get; }
 
     /// <summary>
     /// Gets the instance used by the <see cref="ToastService" />.

@@ -127,7 +127,7 @@ public partial class FluentToastProvider : FluentComponentBase
 
     private IEnumerable<IToastInstance> GetRenderedToasts()
         => ToastService?.Items.Values
-            .Where(toast => toast.Status is ToastStatus.Visible or ToastStatus.Dismissed)
+            .Where(toast => toast.LifecycleStatus is ToastLifecycleStatus.Visible or ToastLifecycleStatus.Dismissed)
             .OrderByDescending(toast => toast.Index)
             ?? Enumerable.Empty<IToastInstance>();
 
@@ -139,9 +139,9 @@ public partial class FluentToastProvider : FluentComponentBase
         }
 
         var maxToastCount = MaxToastCount <= 0 ? _defaultMaxToastCount : MaxToastCount;
-        var activeCount = ToastService.Items.Values.Count(toast => toast.Status is ToastStatus.Visible or ToastStatus.Dismissed);
+        var activeCount = ToastService.Items.Values.Count(toast => toast.LifecycleStatus is ToastLifecycleStatus.Visible or ToastLifecycleStatus.Dismissed);
         var queuedToasts = ToastService.Items.Values
-            .Where(toast => toast.Status == ToastStatus.Queued)
+            .Where(toast => toast.LifecycleStatus == ToastLifecycleStatus.Queued)
             .OrderBy(toast => toast.Index)
             .ToList();
 
@@ -154,8 +154,8 @@ public partial class FluentToastProvider : FluentComponentBase
 
             if (toast is ToastInstance instance)
             {
-                instance.Status = ToastStatus.Visible;
-                toast.Options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastStatus.Visible));
+                instance.LifecycleStatus = ToastLifecycleStatus.Visible;
+                toast.Options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastLifecycleStatus.Visible));
                 activeCount++;
             }
         }

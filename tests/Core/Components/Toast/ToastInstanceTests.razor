@@ -105,13 +105,13 @@
 
         var result = await instance.Result;
 
-        Assert.Equal(ToastStatus.Unmounted, instance.Status);
+        Assert.Equal(ToastLifecycleStatus.Unmounted, instance.LifecycleStatus);
         Assert.Equal(ToastCloseReason.Programmatic, result);
         Assert.False(service.ContainsItem(instance.Id));
         Assert.Single(updates);
         Assert.Same(instance, updates[0]);
         Assert.NotNull(statusChange);
-        Assert.Equal(ToastStatus.Unmounted, statusChange.Status);
+        Assert.Equal(ToastLifecycleStatus.Unmounted, statusChange.Status);
         Assert.Same(instance, statusChange.Instance);
     }
 
@@ -249,7 +249,7 @@
 
         public Task<ToastCloseReason> Result => Task.FromResult(ToastCloseReason.Programmatic);
 
-        public ToastStatus Status => ToastStatus.Visible;
+        public ToastLifecycleStatus LifecycleStatus => ToastLifecycleStatus.Visible;
 
         public Task CancelAsync() => Task.CompletedTask;
 

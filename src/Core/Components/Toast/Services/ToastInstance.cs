@@ -38,8 +38,8 @@ public class ToastInstance : IToastInstance
     /// <inheritdoc cref="IToastInstance.Result"/>
     public Task<ToastCloseReason> Result => ResultCompletion.Task;
 
-    /// <inheritdoc cref="IToastInstance.Status"/>
-    public ToastStatus Status { get; internal set; } = ToastStatus.Queued;
+    /// <inheritdoc cref="IToastInstance.LifecycleStatus"/>
+    public ToastLifecycleStatus LifecycleStatus { get; internal set; } = ToastLifecycleStatus.Queued;
 
     /// <inheritdoc cref="IToastInstance.Id"/>"
     public string Id { get; }

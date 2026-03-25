@@ -33,7 +33,7 @@ public interface IToastInstance
     /// <summary>
     /// Gets the lifecycle status of the toast.
     /// </summary>
-    ToastStatus Status { get; }
+    ToastLifecycleStatus LifecycleStatus { get; }
 
     /// <summary>
     /// Closes the Toast as dismissed.

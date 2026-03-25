@@ -73,6 +73,12 @@ public partial class FluentToast
     public int HorizontalOffset { get; set; } = 20;
 
     /// <summary>
+    /// Gets or sets the type of toast notification to display.
+    /// </summary>
+    [Parameter]
+    public ToastType Type { get; set; } = ToastType.Communication;
+
+    /// <summary>
     /// Gets or sets the <see cref="ToastIntent"/> intent of the toast notification, indicating its purpose or severity.
     /// </summary>
     /// <remarks>
@@ -170,41 +176,14 @@ public partial class FluentToast
     public string? DismissAction { get; set; }
 
     /// <summary>
-    /// Gets or sets the current status value.
+    /// Gets or sets the icon rendered in the media slot of the toast.
     /// </summary>
     [Parameter]
-    public string? Status { get; set; }
+    public Icon? Icon { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether a progress indicator is displayed.
-    /// </summary>
-    [Parameter]
-    public bool ShowProgress { get; set; }
-
-    /// <summary>
-    /// Gets or sets the current value of the parameter.
-    /// </summary>
-    [Parameter]
-    public int? Value { get; set; }
-
-    /// <summary>
-    /// Gets or sets the maximum allowable value.
-    /// </summary>
-    [Parameter]
-    public int? Max { get; set; } = 100;
-
-    /// <summary>
-    /// Gets or sets the media content to render within the component.
-    /// </summary>
-    /// <remarks>
-    /// Use this property to provide custom media elements, such as images, videos, or icons, that will be displayed as
-    /// part of the component's layout.
-    /// </remarks>
-    [Parameter]
-    public RenderFragment? Media { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content to be rendered as the main text of the toast.
+    /// Gets or sets custom content rendered in the toast body, such as progress content managed through
+    /// <see cref="IToastInstance.UpdateAsync(Action{ToastOptions})"/>.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -246,7 +225,7 @@ public partial class FluentToast
     /// A task that represents the asynchronous operation. The task result contains the event arguments for the status
     /// change.
     /// </returns>
-    public Task<ToastEventArgs> RaiseOnStatusChangeAsync(IToastInstance instance, ToastStatus status)
+    public Task<ToastEventArgs> RaiseOnStatusChangeAsync(IToastInstance instance, ToastLifecycleStatus status)
         => RaiseOnStatusChangeAsync(new ToastEventArgs(instance, status));
 
     /// <summary>
@@ -336,9 +315,9 @@ public partial class FluentToast
         }
 
         var toastEventArgs = new ToastEventArgs(this, args);
-        if (toastEventArgs.Status == ToastStatus.Dismissed)
+        if (toastEventArgs.Status == ToastLifecycleStatus.Dismissed)
         {
-            toastInstance.Status = ToastStatus.Dismissed;
+            toastInstance.LifecycleStatus = ToastLifecycleStatus.Dismissed;
             await RaiseOnStatusChangeAsync(toastEventArgs);
         }
 
@@ -363,14 +342,14 @@ public partial class FluentToast
         {
             toastInstance.ResultCompletion.TrySetResult(toastInstance.PendingCloseReason ?? ToastCloseReason.TimedOut);
             toastInstance.PendingCloseReason = null;
-            toastInstance.Status = ToastStatus.Unmounted;
+            toastInstance.LifecycleStatus = ToastLifecycleStatus.Unmounted;
 
             if (ToastService is ToastService toastService)
             {
                 await toastService.RemoveToastFromProviderAsync(Instance);
             }
 
-            await RaiseOnStatusChangeAsync(toastInstance, ToastStatus.Unmounted);
+            await RaiseOnStatusChangeAsync(toastInstance, ToastLifecycleStatus.Unmounted);
         }
     }
 

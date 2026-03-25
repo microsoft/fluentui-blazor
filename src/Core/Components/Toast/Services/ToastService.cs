@@ -44,7 +44,7 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
 
         if (ToastInstance is not null)
         {
-            ToastInstance.Status = ToastStatus.Unmounted;
+            ToastInstance.LifecycleStatus = ToastLifecycleStatus.Unmounted;
         }
 
         // Remove the Toast from the ToastProvider
@@ -53,10 +53,10 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         // Set the result of the Toast
         ToastInstance?.ResultCompletion.TrySetResult(reason);
 
-        // Raise the final ToastStatus.Unmounted event
+        // Raise the final ToastLifecycleStatus.Unmounted event
         if (ToastInstance is not null)
         {
-            ToastInstance.Options.OnStatusChange?.Invoke(new ToastEventArgs(ToastInstance, ToastStatus.Unmounted));
+            ToastInstance.Options.OnStatusChange?.Invoke(new ToastEventArgs(ToastInstance, ToastLifecycleStatus.Unmounted));
         }
     }
 
@@ -118,7 +118,7 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         }
 
         var instance = new ToastInstance(this, options);
-        options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastStatus.Queued));
+        options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastLifecycleStatus.Queued));
 
         // Add the Toast to the service, and render it.
         ServiceProvider.Items.TryAdd(instance?.Id ?? "", instance ?? throw new InvalidOperationException("Failed to create FluentToast."));

@@ -100,7 +100,7 @@
     public async Task FluentToast_QueuedUntilProviderHasRoom()
     {
         var provider = Render<FluentToastProvider>(parameters => parameters.Add(p => p.MaxToastCount, 1));
-        var statuses = new List<ToastStatus>();
+        var statuses = new List<ToastLifecycleStatus>();
 
         var firstToastTask = ToastService.ShowToastAsync(options =>
         {
@@ -117,7 +117,7 @@
 
         Assert.Contains("First toast", provider.Markup);
         Assert.DoesNotContain("Second toast", provider.Markup);
-        Assert.Contains(ToastStatus.Queued, statuses);
+        Assert.Contains(ToastLifecycleStatus.Queued, statuses);
 
         var firstToast = provider.FindComponent<FluentToast>();
         await CloseToastAndWaitAsync(firstToast, ToastCloseReason.Programmatic);
@@ -125,7 +125,7 @@
         await Task.CompletedTask;
 
         Assert.Contains("Second toast", provider.Markup);
-        Assert.Contains(ToastStatus.Visible, statuses);
+        Assert.Contains(ToastLifecycleStatus.Visible, statuses);
 
         var secondToast = provider.FindComponent<FluentToast>();
         await CloseToastAndWaitAsync(secondToast, ToastCloseReason.Programmatic);
@@ -169,8 +169,8 @@
         var method = typeof(FluentToastProvider).GetMethod("SynchronizeToastQueue", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
         method.Invoke(provider.Instance, null);
 
-        Assert.Equal(ToastStatus.Visible, firstToast.Status);
-        Assert.Equal(ToastStatus.Queued, secondToast.Status);
+        Assert.Equal(ToastLifecycleStatus.Visible, firstToast.LifecycleStatus);
+        Assert.Equal(ToastLifecycleStatus.Queued, secondToast.LifecycleStatus);
     }
 
     private sealed class TestFluentToastProvider : FluentToastProvider

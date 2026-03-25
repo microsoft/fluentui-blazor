@@ -18,6 +18,7 @@
                          Position="@GetPosition(toast)"
                          VerticalOffset="@GetVerticalOffset(toast)"
                          HorizontalOffset="@GetHorizontalOffset(toast)"
+                         Type="@toast.Options.Type"
                          Intent="@toast.Options.Intent"
                          Politeness="@toast.Options.Politeness"
                          PauseOnHover="@GetPauseOnHover(toast)"
@@ -28,15 +29,11 @@
                          Title="@toast.Options.Title"
                          Body="@toast.Options.Body"
                          Subtitle="@toast.Options.Subtitle"
-                         Status="@toast.Options.Status"
                          QuickAction1="@toast.Options.QuickAction1"
                          QuickAction2="@toast.Options.QuickAction2"
                          IsDismissable="@toast.Options.IsDismissable"
                          DismissAction="@toast.Options.DismissAction"
-                         ShowProgress="@toast.Options.ShowProgress"
-                         Value="@toast.Options.Value"
-                         Max="@toast.Options.Max"
-                         Media="@toast.Options.Media"
+                         Icon="@toast.Options.Icon"
                          ChildContent="@toast.Options.ChildContent" />
         }
     }

@@ -20,11 +20,13 @@
                 @attributes="@AdditionalAttributes"
                 @ondialogtoggle="@OnToggleAsync"
                 @ondialogbeforetoggle="@OnToggleAsync">
-    @if (Media is not null)
+    @if (Icon is not null)
     {
-        @Media
+        <div slot="media" aria-hidden="true">
+            <FluentIcon Value="@Icon" Color="@GetIntentColor(Intent)" />
+        </div>
     }
-    else if (ShowProgress)
+    else if (Type == ToastType.IndeterminateProgress)
     {
         <div slot="media">
            <FluentSpinner Visible="true" Size="@SpinnerSize.Tiny" />

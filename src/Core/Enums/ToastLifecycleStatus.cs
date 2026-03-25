@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Describes the current lifecycle status of a toast.
 /// </summary>
-public enum ToastStatus
+public enum ToastLifecycleStatus
 {
     /// <summary>
     /// The toast has been queued for display.

@@ -20,8 +20,7 @@ public class ToastOptions : IFluentComponentBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ToastOptions"/> class
-    /// using the specified implementation factory.
+    /// Initializes a new instance of the <see cref="ToastOptions"/> class using the specified implementation factory.
     /// </summary>
     /// <param name="implementationFactory"></param>
     public ToastOptions(Action<ToastOptions> implementationFactory)
@@ -35,25 +34,26 @@ public class ToastOptions : IFluentComponentBase
     public string? Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the CSS class names.
-    /// If given, these will be included in the class attribute of the `fluent-Toast` or `fluent-drawer` element.
-    /// To apply you styles to the `Toast` element, you need to create a class like `my-class::part(Toast) { ... }`
+    /// Gets or sets the CSS class names. If given, these will be included in the class attribute of the `fluent-Toast`
+    /// or `fluent-drawer` element. To apply you styles to the `Toast` element, you need to create a class like
+    /// `my-class::part(Toast) { ... }`
     /// </summary>
     public string? Class { get; set; }
 
     /// <summary>
-    /// Gets or sets the in-line styles.
-    /// If given, these will be included in the style attribute of the `Toast` element.
+    /// Gets or sets the in-line styles. If given, these will be included in the style attribute of the `Toast` element.
     /// </summary>
     public string? Style { get; set; }
 
     /// <summary>
-    /// Gets or sets the component <see href="https://developer.mozilla.org/docs/Web/CSS/margin">CSS margin</see> property.
+    /// Gets or sets the component <see href="https://developer.mozilla.org/docs/Web/CSS/margin"> CSS margin</see>
+    /// property.
     /// </summary>
     public string? Margin { get; set; }
 
     /// <summary>
-    /// Gets or sets the component <see href="https://developer.mozilla.org/docs/Web/CSS/padding">CSS padding</see> property.
+    /// Gets or sets the component <see href="https://developer.mozilla.org/docs/Web/CSS/padding"> CSS padding</see>
+    /// property.
     /// </summary>
     public string? Padding { get; set; }
 
@@ -86,6 +86,11 @@ public class ToastOptions : IFluentComponentBase
     /// Gets or sets the horizontal offset in pixels.
     /// </summary>
     public int? HorizontalOffset { get; set; }
+
+    /// <summary>
+    /// Gets or sets the toast type, which determines things like a default icon and styling of the toast.
+    /// </summary>
+    public ToastType Type { get; set; }
 
     /// <summary>
     /// Gets or sets the toast intent.
@@ -123,11 +128,6 @@ public class ToastOptions : IFluentComponentBase
     public string? Subtitle { get; set; }
 
     /// <summary>
-    /// Gets or sets the status text shown for progress toasts.
-    /// </summary>
-    public string? Status { get; set; }
-
-    /// <summary>
     /// Gets or sets the first quick action label.
     /// </summary>
     public string? QuickAction1 { get; set; }
@@ -163,27 +163,13 @@ public class ToastOptions : IFluentComponentBase
     public Func<Task>? DismissActionCallback { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether progress visuals are shown.
+    /// Gets or sets the icon rendered in the media slot.
     /// </summary>
-    public bool ShowProgress { get; set; }
+    public Icon? Icon { get; set; }
 
     /// <summary>
-    /// Gets or sets the current progress value.
-    /// </summary>
-    public int? Value { get; set; }
-
-    /// <summary>
-    /// Gets or sets the maximum progress value.
-    /// </summary>
-    public int? Max { get; set; } = 100;
-
-    /// <summary>
-    /// Gets or sets custom media rendered in the media slot.
-    /// </summary>
-    public RenderFragment? Media { get; set; }
-
-    /// <summary>
-    /// Gets or sets custom content rendered in the default slot.
+    /// Gets or sets custom content rendered in the default slot, such as progress content updated through
+    /// <see cref="IToastInstance.UpdateAsync(Action{ToastOptions})"/>.
     /// </summary>
     public RenderFragment? ChildContent { get; set; }
 

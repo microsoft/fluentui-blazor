@@ -73,14 +73,16 @@
 
     private async Task OpenProgressToastAsync()
     {
+        RenderFragment childContent = @<div>Uploading 3 files...</div>;
+
         var result = await ToastService.ShowToastAsync(options =>
         {
             options.Timeout = 0;
             options.Intent = ToastIntent.Info;
             options.Title = "Uploading";
             options.Body = "Please wait while your files are uploaded.";
-            options.Status = "Uploading 3 files...";
-            options.ShowProgress = true;
+            options.Type = ToastType.IndeterminateProgress;
+            options.ChildContent = childContent;
             options.QuickAction1 = "Hide";
             options.QuickAction2 = "Cancel";
             options.IsDismissable = true;
@@ -97,14 +99,19 @@
 
     private async Task OpenProgressToast2Async()
     {
+        RenderFragment childContent = @<div>
+                                         <div>Uploading 3 files...</div>
+                                         <FluentProgressBar Min="0" Max="100" Value="30" Width="100%" />
+                                     </div>;
+
         var result = await ToastService.ShowToastAsync(options =>
         {
             options.Timeout = 0;
             options.Intent = ToastIntent.Info;
             options.Title = "Uploading";
             options.Body = "Please wait while your files are uploaded.";
-            options.Status = "Uploading 3 files...";
-            options.ShowProgress = true;
+            options.Type = ToastType.DeterminateProgress;
+            options.ChildContent = childContent;
             options.QuickAction1 = "Hide";
             options.QuickAction2 = "Cancel";
             options.IsDismissable = false;

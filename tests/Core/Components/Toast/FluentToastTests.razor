@@ -73,20 +73,44 @@
     }
 
     [Fact]
-    public void FluentToast_Media_RendersCustomContent()
+    public void FluentToast_Icon_RendersCustomIcon()
     {
-        RenderFragment media = @<div slot="media">Custom media</div>;
-        var cut = Render(@<FluentToast Body="Toast body" Media="@media" />);
+        var icon = new CoreIcons.Regular.Size20.Dismiss();
+        var cut = Render<FluentToast>(parameters => parameters
+            .Add(p => p.Body, "Toast body")
+            .Add(p => p.Icon, icon));
 
-        Assert.Contains("Custom media", cut.Markup);
+        Assert.Same(icon, cut.Instance.Icon);
+        Assert.Contains("slot=\"media\"", cut.Markup);
+        Assert.DoesNotContain("fluent-spinner", cut.Markup);
     }
 
     [Fact]
-    public void FluentToast_ShowProgress_RendersSpinner()
+    public void FluentToast_IndeterminateProgress_RendersSpinner()
     {
-        var cut = Render(@<FluentToast Body="Toast body" ShowProgress="true" />);
+        var cut = Render<FluentToast>(parameters => parameters
+            .Add(p => p.Body, "Toast body")
+            .Add(p => p.Type, ToastType.IndeterminateProgress));
 
+        Assert.Equal(ToastType.IndeterminateProgress, cut.Instance.Type);
         Assert.Contains("fluent-spinner", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentToast_ToastOptionsType_IsAppliedFromProvider()
+    {
+        _ = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Progress body";
+            options.Type = ToastType.IndeterminateProgress;
+        });
+
+        await Task.CompletedTask;
+
+        var toast = ToastProvider.FindComponent<FluentToast>();
+
+        Assert.Equal(ToastType.IndeterminateProgress, toast.Instance.Type);
+        Assert.Contains("fluent-spinner", toast.Markup);
     }
 
     [Fact]
@@ -400,9 +424,9 @@
     }
 
     [Theory]
-    [InlineData(ToastStatus.Visible, "toggle", "any-old", "open")]
-    [InlineData(ToastStatus.Dismissed, "beforetoggle", "open", "any-new")]
-    public async Task FluentToast_Toggle_StatusChange(ToastStatus expectedStatus, string eventType, string oldState, string newState)
+    [InlineData(ToastLifecycleStatus.Visible, "toggle", "any-old", "open")]
+    [InlineData(ToastLifecycleStatus.Dismissed, "beforetoggle", "open", "any-new")]
+    public async Task FluentToast_Toggle_StatusChange(ToastLifecycleStatus expectedStatus, string eventType, string oldState, string newState)
     {
         ToastEventArgs? capturedArgs = null;
 
@@ -491,7 +515,7 @@
     [Fact]
     public async Task FluentToast_StateChange_ViaClosed()
     {
-        var statusChanges = new List<ToastStatus>();
+        var statusChanges = new List<ToastLifecycleStatus>();
 
         // Act
         var toastTask = ToastService.ShowToastAsync(options =>
@@ -529,8 +553,8 @@
         var result = await toastTask;
 
         // Assert
-        Assert.Contains(ToastStatus.Dismissed, statusChanges);
-        Assert.Contains(ToastStatus.Unmounted, statusChanges);
+        Assert.Contains(ToastLifecycleStatus.Dismissed, statusChanges);
+        Assert.Contains(ToastLifecycleStatus.Unmounted, statusChanges);
         Assert.Equal(ToastCloseReason.Programmatic, result);
     }
 
@@ -555,7 +579,7 @@
         });
 
         // Assert: status correctly mapped, no exception thrown
-        Assert.Equal(ToastStatus.Visible, args.Status);
+        Assert.Equal(ToastLifecycleStatus.Visible, args.Status);
     }
 
     [Fact]
@@ -580,12 +604,18 @@
     public void FluentToast_Options_Ctor()
     {
         // Arrange
-        var options = new ToastOptions() { Data = "My data" };
-        var optionsWithFactory = new ToastOptions(o => o.Id = "my-id");
+        var options = new ToastOptions() { Data = "My data", Type = ToastType.Communication };
+        var optionsWithFactory = new ToastOptions(o =>
+        {
+            o.Id = "my-id";
+            o.Type = ToastType.Confirmation;
+        });
 
         // Assert
         Assert.Equal("My data", options.Data);
+        Assert.Equal(ToastType.Communication, options.Type);
         Assert.Equal("my-id", optionsWithFactory.Id);
+        Assert.Equal(ToastType.Confirmation, optionsWithFactory.Type);
     }
 
     [Theory]
@@ -807,7 +837,7 @@
 
         public Task<ToastCloseReason> Result => Task.FromResult(ToastCloseReason.Programmatic);
 
-        public ToastStatus Status => ToastStatus.Visible;
+        public ToastLifecycleStatus LifecycleStatus => ToastLifecycleStatus.Visible;
 
         public Task CancelAsync() => Task.CompletedTask;
 
