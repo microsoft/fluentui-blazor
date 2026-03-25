@@ -1,9 +1,9 @@
-import { DropdownOption } from "@fluentui/web-components";
+import { DropdownOption, TextInput } from "@fluentui/web-components";
 
 export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
 
   export function initialize(id: string) {
-    const input = document.getElementById(id) as HTMLElement;
+    const input = document.getElementById(id) as TextInput;
     if (!input) return;
 
     new AutocompleteKeyboardNav(id, input);
@@ -18,12 +18,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
   class AutocompleteKeyboardNav {
 
     private inputId: string;
-    private input: HTMLElement;
+    private input: TextInput;
 
     /**
      * Initializes the keyboard navigation for the autocomplete input.
      */
-    constructor(inputId: string, input: HTMLElement) {
+    constructor(inputId: string, input: TextInput) {
       this.inputId = inputId;
       this.input = input;
       
