@@ -36,6 +36,7 @@
                                 <FluentIcon Value="@BadgeCloseIcon"
                                             Focusable="true"
                                             OnClick="@(e => RemoveSelectedItemAsync(item))"
+                                            OnClickStopPropagation="true"
                                             Width="12px" />
                             </span>
                         }
@@ -51,7 +52,10 @@
                 }
                 else
                 {
-                    <FluentIcon Value="@SearchIcon" Style="cursor: pointer;" />
+                    <FluentIcon Value="@SearchIcon" 
+                                Focusable="true"
+                                OnClick="@SwitchOptionsPopupAsync"
+                                OnClickStopPropagation="true" />
                 }
             </EndTemplate>
         </FluentTextInput>

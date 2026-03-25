@@ -129,7 +129,6 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             case "ArrowDown":
                 if (!_isOpen && !_internalFilteredItems.Any())
                 {
-                    _isOpen = true;
                     await DisplayFilteredOptionsAsync();
                 }
 
@@ -180,12 +179,26 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         }
 
         _isOpen = false;
-
         _internalSelectedItems.Remove(item);
 
         if (SelectedItemsChanged.HasDelegate)
         {
             await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
+        }
+    }
+
+    /// <summary>
+    /// When the user clicks the search icon, open or close the listbox with the filtered options depending on its current state.
+    /// </summary>
+    private async Task SwitchOptionsPopupAsync()
+    {
+        if (_isOpen)
+        {
+            _isOpen = false;
+        }
+        else
+        {
+            await DisplayFilteredOptionsAsync();
         }
     }
 }
