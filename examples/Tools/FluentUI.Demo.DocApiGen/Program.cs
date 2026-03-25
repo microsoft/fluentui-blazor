@@ -45,6 +45,10 @@ public class Program
             return;
         }
 
+        // Ensure dllFile and xmlFile are absolute paths
+        dllFile = Path.IsPathRooted(dllFile) ? dllFile : Path.Combine(Directory.GetCurrentDirectory(), dllFile);
+        xmlFile = Path.IsPathRooted(xmlFile) ? xmlFile : Path.Combine(Directory.GetCurrentDirectory(), xmlFile);
+
         try
         {
             // Parse generation mode
