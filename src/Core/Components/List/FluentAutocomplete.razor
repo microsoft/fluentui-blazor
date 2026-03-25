@@ -52,10 +52,20 @@
                 }
                 else
                 {
-                    <FluentIcon Value="@SearchIcon" 
-                                Focusable="true"
-                                OnClick="@SwitchOptionsPopupAsync"
-                                OnClickStopPropagation="true" />
+                    if (_internalSelectedItems.Any())
+                    {
+                        <FluentIcon Value="@ClearIcon" 
+                                    Focusable="true"
+                                    OnClick="@ClearSelectionAsync"
+                                    OnClickStopPropagation="true" />
+                    }
+                    else
+                    {
+                        <FluentIcon Value="@SearchIcon" 
+                                    Focusable="true"
+                                    OnClick="@SwitchOptionsPopupAsync"
+                                    OnClickStopPropagation="true" />
+                    }
                 }
             </EndTemplate>
         </FluentTextInput>

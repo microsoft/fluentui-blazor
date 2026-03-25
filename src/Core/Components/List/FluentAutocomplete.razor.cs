@@ -19,6 +19,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
 {
     private static readonly Icon SearchIcon = new CoreIcons.Regular.Size20.Search();
     private static readonly Icon BadgeCloseIcon = new CoreIcons.Regular.Size20.Dismiss();
+    private static readonly Icon ClearIcon = new CoreIcons.Regular.Size20.Dismiss();
 
     private string? _textInput;
     private bool _isOpen;
@@ -228,6 +229,21 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         else
         {
             await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
+        }
+    }
+
+    /// <summary>
+    /// When the user clicks the "x" button to clear the selection, remove all selected items and close the listbox.
+    /// </summary>
+    /// <returns></returns>
+    private async Task ClearSelectionAsync()
+    {
+        _isOpen = false;
+        _internalSelectedItems.Clear();
+
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
         }
     }
 
