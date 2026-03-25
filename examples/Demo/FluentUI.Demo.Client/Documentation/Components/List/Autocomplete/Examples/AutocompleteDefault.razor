@@ -1,15 +1,15 @@
 ﻿@using static FluentUI.Demo.SampleData.Olympics2024
 
-<div>
-    Selected: <code>@string.Join("; ", SelectedCountries.Select(c => c.Name))</code>
-</div>
+<div>Selected: <b>@string.Join("; ", SelectedCountries.Select(c => c.Name))</b></div>
+<div>Search Text: <b>@SearchText</b></div>
 
 <FluentAutocomplete TOption="Country"
                     TValue="string"
                     Width="100%"
-                    ShowProgressIndicator="@ShowProgressIndicator"
+                    ShowProgressIndicator="@ShowProgressIndicator"                    
                     OnOptionsSearch="@OnSearchAsync"
                     OptionText="@(item => item.Name)"
+                    @bind-Value="@SearchText"
                     @bind-SelectedItems="@SelectedCountries" />
 
 <FluentSwitch @bind-Value="@ShowProgressIndicator" Label="Show progress indicator" />
@@ -17,6 +17,7 @@
 @code
 {
     bool ShowProgressIndicator { get; set; }
+    string? SearchText { get; set; }
     IEnumerable<Country> SelectedCountries { get; set; } = [];
 
     async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)

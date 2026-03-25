@@ -22,7 +22,6 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
 
     private string? _textInput;
     private bool _isOpen;
-    private bool _isRemovingOneItem;
     private bool _inProgress;
 
     // List of items used in the internally filtered listbox
@@ -131,7 +130,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
                 if (!_isOpen && !_internalFilteredItems.Any())
                 {
                     _isOpen = true;
-                    await OnTextInputChangedAsync();
+                    await DisplayFilteredOptionsAsync();
                 }
 
                 break;
@@ -139,16 +138,18 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     }
 
     /// <summary>
-    /// When the user types in the input, filter the options.
+    /// When the user types in the input, display the listbox with the filtered options.
     /// </summary>
     /// <returns></returns>
-    private async Task OnTextInputChangedAsync()
+    private async Task DisplayFilteredOptionsAsync()
     {
         _inProgress = true;
+        _isOpen = true;
 
-        if (!_isRemovingOneItem)
+        if (ValueChanged.HasDelegate)
         {
-            _isOpen = true;
+            var value = _textInput ?? string.Empty;
+            await ValueChanged.InvokeAsync((TValue)(object)value);
         }
 
         StateHasChanged();
@@ -164,7 +165,6 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         _internalFilteredItems = [.. args.Items?.Take(MaximumOptionsSearch) ?? []];
 
         _inProgress = false;
-        _isRemovingOneItem = false;
     }
 
     /// <summary>
@@ -180,7 +180,6 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         }
 
         _isOpen = false;
-        _isRemovingOneItem = true;
 
         _internalSelectedItems.Remove(item);
 

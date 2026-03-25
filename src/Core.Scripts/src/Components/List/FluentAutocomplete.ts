@@ -77,6 +77,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
 
             // Close the popover after selection
             this.Popover.closePopover();
+
+            // Clear the input value
+            this.input.value = '';
+            this.input.dispatchEvent(new Event('input', { bubbles: true }));
           }
           break;
         }

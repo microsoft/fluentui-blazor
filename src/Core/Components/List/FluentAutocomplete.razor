@@ -20,9 +20,9 @@
                          Width="@Width"
                          AutoComplete="false"
                          @onkeydown="@OnTextInputKeyDownAsync"
-                         @onclick="@OnTextInputChangedAsync"
+                         @onclick="@DisplayFilteredOptionsAsync"
                          @bind-Value="@_textInput"
-                         @bind-Value:after="@OnTextInputChangedAsync">
+                         @bind-Value:after="@DisplayFilteredOptionsAsync">
             @* Selected items *@
             <StartTemplate>
                 @if (_internalSelectedItems is not null)
