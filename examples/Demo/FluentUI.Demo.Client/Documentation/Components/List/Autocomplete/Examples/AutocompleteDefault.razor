@@ -7,16 +7,21 @@
                     TValue="string"
                     Width="100%"
                     ShowProgressIndicator="@ShowProgressIndicator"                    
+                    MaxAutoHeight="@((MaxAutoHeight) ? "150px" : null)"
                     OnOptionsSearch="@OnSearchAsync"
                     OptionText="@(item => item.Name)"
                     @bind-Value="@SearchText"
                     @bind-SelectedItems="@SelectedCountries" />
 
-<FluentSwitch @bind-Value="@ShowProgressIndicator" Label="Show progress indicator" />
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentSwitch @bind-Value="@ShowProgressIndicator" Label="Show progress indicator" />
+    <FluentSwitch @bind-Value="@MaxAutoHeight" Label="Set max height for selected items" />
+</FluentStack>
 
 @code
 {
     bool ShowProgressIndicator { get; set; }
+    bool MaxAutoHeight { get; set; }
     string? SearchText { get; set; }
     IEnumerable<Country> SelectedCountries { get; set; } = [];
 

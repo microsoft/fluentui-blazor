@@ -5,6 +5,11 @@
   padding: unset;
 }
 
+
+fluent-text-input[auto-complete] div[slot="start"] div {
+  display: flex;
+}
+
 .fluent-listbox[auto-complete] fluent-option[hovered] {
   background-color: var(--colorNeutralBackground1Hover);
   color: var(--colorNeutralForeground2Hover);
@@ -21,4 +26,22 @@ fluent-text-input[auto-complete] .fluent-badge[auto-complete] {
 
 fluent-text-input[auto-complete] .fluent-badge[auto-complete] svg {
   margin-left: var(--spacingHorizontalS);
+}
+
+/* MaxAutoHeight */
+fluent-text-input[auto-complete] div[slot="start"] div[style*="max-height"] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacingVerticalS);
+  padding: var(--spacingVerticalS) 0;
+}
+
+fluent-text-input[auto-complete]:has(div[slot="start"] div[style*="max-height"])::part(root) {
+  height: unset;
+}
+
+fluent-text-input[auto-complete]:has(div[slot="start"] div[style*="max-height"])::part(control) {
+  min-width: 48px;
+  width: auto;
 }

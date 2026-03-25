@@ -71,6 +71,13 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     [Parameter]
     public bool ShowProgressIndicator { get; set; }
 
+    /// <summary>
+    /// Gets or sets the maximum height of the selected items panel.
+    /// If this parameter is not set, all selected items will be shown on a single line.
+    /// </summary>
+    [Parameter]
+    public string? MaxAutoHeight { get; set; }
+
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
