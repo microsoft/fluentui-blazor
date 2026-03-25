@@ -20,7 +20,7 @@
                          Width="@Width"
                          AutoComplete="false"
                          @onkeydown="@OnTextInputKeyDownAsync"
-                         @onclick="@DisplayFilteredOptionsAsync"
+                         @onclick="@(e => DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true))"
                          @bind-Value="@_textInput"
                          @bind-Value:after="@DisplayFilteredOptionsAsync">
             @* Selected items *@

@@ -131,7 +131,22 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             case "ArrowDown":
                 if (!_isOpen && !_internalFilteredItems.Any())
                 {
-                    await DisplayFilteredOptionsAsync();
+                    await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
+                }
+
+                break;
+
+            case "Enter":
+                // WARN: The option selection feature is done using JS code (FluentAutocomplete.ts)
+                _isOpen = false;
+
+                if (!string.IsNullOrEmpty(_textInput))
+                {
+                    _textInput = string.Empty;
+                    if (ValueChanged.HasDelegate)
+                    {
+                        await ValueChanged.InvokeAsync((TValue)(object)_textInput);
+                    }
                 }
 
                 break;
@@ -142,8 +157,16 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// When the user types in the input, display the listbox with the filtered options.
     /// </summary>
     /// <returns></returns>
-    private async Task DisplayFilteredOptionsAsync()
+    private async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty)
     {
+        // If the input is empty, we don't show any options in the listbox, and we close it if it was open
+        if (!showWhenInputIsEmpty && string.IsNullOrEmpty(_textInput))
+        {
+            _isOpen = false;
+            StateHasChanged();
+            return;
+        }
+
         _inProgress = true;
         _isOpen = true;
 
@@ -167,6 +190,9 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
 
         _inProgress = false;
     }
+
+    /// <summary />
+    private Task DisplayFilteredOptionsAsync() => DisplayFilteredOptionsAsync(showWhenInputIsEmpty: false);
 
     /// <summary>
     /// When the user clicks the "x" button or presses Backspace with an empty input, remove the selected or latest item.
@@ -200,7 +226,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         }
         else
         {
-            await DisplayFilteredOptionsAsync();
+            await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
         }
     }
 
