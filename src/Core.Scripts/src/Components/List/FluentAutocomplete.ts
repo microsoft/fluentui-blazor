@@ -2,11 +2,34 @@ import { DropdownOption, TextInput } from "@fluentui/web-components";
 
 export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
 
+  /**
+   * Initializes the FluentAutocomplete component by attaching keyboard navigation event listeners 
+   * to the input element and managing the popover state for option selection.
+   * @param id The ID of the input element to initialize.
+   */
   export function initialize(id: string) {
     const input = document.getElementById(id) as TextInput;
     if (!input) return;
 
     new AutocompleteKeyboardNav(id, input);
+  }
+
+  /**
+   * Sets focus to the input element of the FluentAutocomplete component, allowing users to start typing immediately.
+   * @param id The ID of the input element to focus.
+   */
+  export function setFocus(id: string) {
+    const input = document.getElementById(id) as TextInput;
+    if (!input) return;
+
+    input.focus();
+
+    // Move the cursor to the end of the input value
+    const control = (input as any).control as HTMLInputElement;
+    if (control) {
+        const len = control.value.length;
+        control.setSelectionRange(len, len);
+    }
   }
 
   /**
