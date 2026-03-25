@@ -672,6 +672,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
       // Centers need translate(-50%, 0) applied permanently if they are open
       if (position.includes('center')) {
         this.dialog.style.transform = enterTo;
+      } else {
+        // Ensure non-center positions do not retain stale transforms from a previous center position
+        this.dialog.style.transform = '';
       }
     }
 
