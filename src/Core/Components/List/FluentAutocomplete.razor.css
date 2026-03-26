@@ -29,19 +29,18 @@ fluent-text-input[auto-complete] .fluent-badge[auto-complete] svg {
 }
 
 /* MaxAutoHeight */
+
+fluent-text-input[auto-complete]:has(div[slot="start"] div[style*="max-height"])::part(root) {
+  height: unset;
+  min-height: 32px;
+  display: grid;
+  grid-template-columns: auto minmax(48px, 1fr) 24px; /* Selected items, input (min-width: 48px), clear button (24px) */
+}
+
 fluent-text-input[auto-complete] div[slot="start"] div[style*="max-height"] {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: var(--spacingVerticalS);
-  padding: var(--spacingVerticalS) 0;
-}
-
-fluent-text-input[auto-complete]:has(div[slot="start"] div[style*="max-height"])::part(root) {
-  height: unset;
-}
-
-fluent-text-input[auto-complete]:has(div[slot="start"] div[style*="max-height"])::part(control) {
-  min-width: 48px;
-  width: auto;
+  gap: var(--spacingVerticalXS) 0;
+  padding: var(--spacingVerticalXS) 0;
 }
