@@ -3,6 +3,7 @@
   border: unset;
   box-shadow: unset;
   padding: unset;
+  --max-selected-width: unset;
 }
 
 
@@ -24,8 +25,16 @@ fluent-text-input[auto-complete] .fluent-badge[auto-complete] {
   white-space: nowrap;
 }
 
-fluent-text-input[auto-complete] .fluent-badge[auto-complete] svg {
-  margin-left: var(--spacingHorizontalS);
+fluent-text-input[auto-complete] .fluent-badge[auto-complete] > svg {
+  margin-left: var(--spacingHorizontalXS);
+}
+
+fluent-text-input[auto-complete] .fluent-badge[auto-complete] > span {
+  display: inline-block;
+  max-width: var(--max-selected-width, unset);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* MaxAutoHeight */

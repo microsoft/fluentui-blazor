@@ -16,6 +16,8 @@
         <FluentTextInput Id="@Id"
                          Immediate="true"
                          ImmediateDelay="@ImmediateDelay"
+                         Style="@StyleValue"
+                         Class="@ClassValue"
                          auto-complete="true"
                          Width="@Width"
                          AutoComplete="false"
@@ -32,8 +34,9 @@
                         @foreach (var item in _internalSelectedItems)
                         {
                             <span class="fluent-badge"
+                                  title="@GetOptionText(item)"
                                   auto-complete="true">
-                                @GetOptionText(item)
+                                <span>@GetOptionText(item)</span>
                                 <FluentIcon Value="@BadgeCloseIcon"
                                             Focusable="true"
                                             OnClick="@(e => RemoveSelectedItemAsync(item))"

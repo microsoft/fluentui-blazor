@@ -10,18 +10,21 @@
                     MaxAutoHeight="@((MaxAutoHeight) ? "150px" : null)"
                     OnOptionsSearch="@OnSearchAsync"
                     OptionText="@(item => item.Name)"
+                    MaxSelectedWidth="@(MaxSelectedWidth ? "40px" : null)"
                     @bind-Value="@SearchText"
                     @bind-SelectedItems="@SelectedCountries" />
 
 <FluentStack Orientation="Orientation.Vertical">
     <FluentSwitch @bind-Value="@ShowProgressIndicator" Label="Show progress indicator" />
     <FluentSwitch @bind-Value="@MaxAutoHeight" Label="Auto height" />
+    <FluentSwitch @bind-Value="@MaxSelectedWidth" Label="Set a max selected width (40px)" />
 </FluentStack>
 
 @code
 {
     bool ShowProgressIndicator { get; set; }
     bool MaxAutoHeight { get; set; }
+    bool MaxSelectedWidth { get; set; }
     string? SearchText { get; set; }
     IEnumerable<Country> SelectedCountries { get; set; } = [];
 

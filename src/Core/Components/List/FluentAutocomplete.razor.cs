@@ -37,6 +37,11 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         Multiple = true;
     }
 
+    /// <summary />
+    protected override string? StyleValue => new StyleBuilder(base.StyleValue)
+        .AddStyle("--max-selected-width", MaxSelectedWidth)
+        .Build();
+
     /// <summary>
     /// Gets or sets the delay, in milliseconds, before to raise the event.
     /// Default is 400 milliseconds.
@@ -77,6 +82,12 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// </summary>
     [Parameter]
     public string? MaxAutoHeight { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum width of the selected items.
+    /// </summary>
+    [Parameter]
+    public string? MaxSelectedWidth { get; set; }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
