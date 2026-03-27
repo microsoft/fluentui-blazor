@@ -14,16 +14,6 @@
     min-width: 20px;
 }
 
-::deep .fluent-nav-group.disabled {
-    color: var(--neutral-fill-secondary-rest) !important;
-    pointer-events: none;
-}
-
-    ::deep .fluent-nav-group.disabled .fluent-nav-icon {
-        fill: var(--neutral-stroke-rest) !important;
-    }
-
-
 /* Group expand/collapse */
 ::deep .expand-collapse-button {
     position: absolute;
