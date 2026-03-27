@@ -18,6 +18,13 @@ public partial interface IToastService : IFluentServiceBase<IToastInstance>
     Task CloseAsync(IToastInstance Toast, ToastCloseReason reason);
 
     /// <summary>
+    /// Dismisses the specified toast instance.
+    /// </summary>
+    /// <param name="Toast">Instance of the toast to dismiss.</param>
+    /// <returns></returns>
+    Task DismissAsync(IToastInstance Toast);
+
+    /// <summary>
     /// Dismisses the toast with the specified identifier.
     /// </summary>
     /// <param name="toastId">The identifier of the toast to dismiss.</param>
@@ -41,6 +48,18 @@ public partial interface IToastService : IFluentServiceBase<IToastInstance>
     /// </summary>
     /// <param name="options">Action used to configure the toast.</param>
     Task<ToastCloseReason> ShowToastAsync(Action<ToastOptions> options);
+
+    /// <summary>
+    /// Shows a toast using the supplied options and returns the live toast instance.
+    /// </summary>
+    /// <param name="options">Options to configure the toast.</param>
+    Task<IToastInstance> ShowToastInstanceAsync(ToastOptions? options = null);
+
+    /// <summary>
+    /// Shows a toast by configuring an options object and returns the live toast instance.
+    /// </summary>
+    /// <param name="options">Action used to configure the toast.</param>
+    Task<IToastInstance> ShowToastInstanceAsync(Action<ToastOptions> options);
 
     /// <summary>
     /// Updates a shown toast.

@@ -197,6 +197,9 @@
         public Task CloseAsync(IToastInstance Toast, ToastCloseReason reason)
             => Task.CompletedTask;
 
+        public Task DismissAsync(IToastInstance Toast)
+            => Task.CompletedTask;
+
         public Task<bool> DismissAsync(string toastId)
             => Task.FromResult(false);
 
@@ -213,7 +216,36 @@
         public Task<ToastCloseReason> ShowToastAsync(Action<ToastOptions> options)
             => Task.FromResult(ToastCloseReason.Programmatic);
 
+        public Task<IToastInstance> ShowToastInstanceAsync(ToastOptions? options = null)
+            => Task.FromResult<IToastInstance>(new TestToastInstance());
+
+        public Task<IToastInstance> ShowToastInstanceAsync(Action<ToastOptions> options)
+            => Task.FromResult<IToastInstance>(new TestToastInstance());
+
         public Task UpdateToastAsync(IToastInstance toast, Action<ToastOptions> update)
             => Task.CompletedTask;
+
+        private sealed class TestToastInstance : IToastInstance
+        {
+            public string Id { get; } = "toast";
+
+            public long Index => 0;
+
+            public ToastOptions Options { get; } = new();
+
+            public Task<ToastCloseReason> Result => Task.FromResult(ToastCloseReason.Programmatic);
+
+            public ToastLifecycleStatus LifecycleStatus => ToastLifecycleStatus.Visible;
+
+            public Task CancelAsync() => Task.CompletedTask;
+
+            public Task CloseAsync() => Task.CompletedTask;
+
+            public Task CloseAsync(ToastCloseReason reason) => Task.CompletedTask;
+
+            public Task DismissAsync() => Task.CompletedTask;
+
+            public Task UpdateAsync(Action<ToastOptions> update) => Task.CompletedTask;
+        }
     }
 }

@@ -41,17 +41,11 @@ public class ToastInstance : IToastInstance
     /// <inheritdoc cref="IToastInstance.LifecycleStatus"/>
     public ToastLifecycleStatus LifecycleStatus { get; internal set; } = ToastLifecycleStatus.Queued;
 
-    /// <inheritdoc cref="IToastInstance.Id"/>"
+    /// <inheritdoc cref="IToastInstance.Id"/>
     public string Id { get; }
 
-    /// <inheritdoc cref="IToastInstance.Index"/>"
+    /// <inheritdoc cref="IToastInstance.Index"/>
     public long Index { get; }
-
-    /// <inheritdoc cref="IToastInstance.CancelAsync()"/>
-    public Task CancelAsync()
-    {
-        return ToastService.CloseAsync(this, ToastCloseReason.Dismissed);
-    }
 
     /// <inheritdoc cref="IToastInstance.CloseAsync()"/>
     public Task CloseAsync()
@@ -63,6 +57,12 @@ public class ToastInstance : IToastInstance
     public Task CloseAsync(ToastCloseReason reason)
     {
         return ToastService.CloseAsync(this, reason);
+    }
+
+    /// <inheritdoc cref="IToastInstance.DismissAsync()"/>
+    public Task DismissAsync()
+    {
+        return ToastService.DismissAsync(this);
     }
 
     /// <inheritdoc cref="IToastInstance.UpdateAsync(Action{ToastOptions})"/>

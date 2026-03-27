@@ -25,16 +25,16 @@
                          PauseOnWindowBlur="@GetPauseOnWindowBlur(toast)"
                          Instance="@toast"
                          OnStatusChange="@GetOnStatusChangeCallback(toast)"
-                         AdditionalAttributes="@toast.Options.AdditionalAttributes"
+                         Icon="@toast.Options.Icon"
                          Title="@toast.Options.Title"
                          Body="@toast.Options.Body"
+                         BodyContent="@toast.Options.BodyContent"
                          Subtitle="@toast.Options.Subtitle"
                          QuickAction1="@toast.Options.QuickAction1"
                          QuickAction2="@toast.Options.QuickAction2"
                          IsDismissable="@toast.Options.IsDismissable"
                          DismissAction="@toast.Options.DismissAction"
-                         Icon="@toast.Options.Icon"
-                         ChildContent="@toast.Options.ChildContent" />
+                         AdditionalAttributes="@toast.Options.AdditionalAttributes" />
         }
     }
 </div>

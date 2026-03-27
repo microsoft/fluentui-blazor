@@ -142,7 +142,7 @@ public partial class FluentToastProvider : FluentComponentBase
         var activeCount = ToastService.Items.Values.Count(toast => toast.LifecycleStatus is ToastLifecycleStatus.Visible or ToastLifecycleStatus.Dismissed);
         var queuedToasts = ToastService.Items.Values
             .Where(toast => toast.LifecycleStatus == ToastLifecycleStatus.Queued)
-            .OrderBy(toast => toast.Index)
+            .OrderByDescending(toast => toast.Index)
             .ToList();
 
         foreach (var toast in queuedToasts)

@@ -60,6 +60,12 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         }
     }
 
+    /// <inheritdoc cref="IToastService.DismissAsync(IToastInstance)"/>
+    public async Task DismissAsync(IToastInstance Toast)
+    {
+        await CloseAsync(Toast, ToastCloseReason.Dismissed);
+    }
+
     /// <inheritdoc cref="IToastService.DismissAsync(string)"/>
     public async Task<bool> DismissAsync(string toastId)
     {
@@ -86,15 +92,28 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
     }
 
     /// <inheritdoc cref="IToastService.ShowToastAsync(ToastOptions)"/>
-    public Task<ToastCloseReason> ShowToastAsync(ToastOptions? options = null)
+    public async Task<ToastCloseReason> ShowToastAsync(ToastOptions? options = null)
     {
-        return ShowToastCoreAsync(options ?? new ToastOptions());
+        var instance = await ShowToastInstanceCoreAsync(options ?? new ToastOptions());
+        return await instance.Result;
     }
 
     /// <inheritdoc cref="IToastService.ShowToastAsync(Action{ToastOptions})"/>
     public Task<ToastCloseReason> ShowToastAsync(Action<ToastOptions> options)
     {
         return ShowToastAsync(new ToastOptions(options));
+    }
+
+    /// <inheritdoc cref="IToastService.ShowToastInstanceAsync(ToastOptions)"/>
+    public async Task<IToastInstance> ShowToastInstanceAsync(ToastOptions? options = null)
+    {
+        return await ShowToastInstanceCoreAsync(options ?? new ToastOptions());
+    }
+
+    /// <inheritdoc cref="IToastService.ShowToastInstanceAsync(Action{ToastOptions})"/>
+    public Task<IToastInstance> ShowToastInstanceAsync(Action<ToastOptions> options)
+    {
+        return ShowToastInstanceAsync(new ToastOptions(options));
     }
 
     /// <inheritdoc cref="IToastService.UpdateToastAsync(IToastInstance, Action{ToastOptions})"/>
@@ -110,7 +129,7 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
     }
 
     /// <summary />
-    private async Task<ToastCloseReason> ShowToastCoreAsync(ToastOptions options)
+    private async Task<ToastInstance> ShowToastInstanceCoreAsync(ToastOptions options)
     {
         if (this.ProviderNotAvailable())
         {
@@ -124,7 +143,7 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         ServiceProvider.Items.TryAdd(instance?.Id ?? "", instance ?? throw new InvalidOperationException("Failed to create FluentToast."));
         await ServiceProvider.OnUpdatedAsync.Invoke(instance);
 
-        return await instance.Result;
+        return instance;
     }
 
     /// <summary>

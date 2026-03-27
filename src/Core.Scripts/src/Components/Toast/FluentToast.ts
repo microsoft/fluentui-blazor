@@ -180,7 +180,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
 
             .title {
                 display: flex;
-                align-items: center;
                 grid-column-end: 3;
                 color: var(--colorNeutralForeground1);
                 word-break: break-word;

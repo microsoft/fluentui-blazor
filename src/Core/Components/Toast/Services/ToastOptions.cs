@@ -171,7 +171,7 @@ public class ToastOptions : IFluentComponentBase
     /// Gets or sets custom content rendered in the default slot, such as progress content updated through
     /// <see cref="IToastInstance.UpdateAsync(Action{ToastOptions})"/>.
     /// </summary>
-    public RenderFragment? ChildContent { get; set; }
+    public RenderFragment? BodyContent { get; set; }
 
     /// <summary>
     /// Gets or sets the action raised when the toast lifecycle status changes.

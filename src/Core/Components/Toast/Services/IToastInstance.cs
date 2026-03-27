@@ -10,8 +10,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface IToastInstance
 {
     /// <summary>
-    /// Gets the unique identifier for the Toast.
-    /// If this value is not set in the <see cref="ToastOptions"/>, a new identifier is generated.
+    /// Gets the unique identifier for the Toast. If this value is not set in the <see cref="ToastOptions"/>, a new
+    /// identifier is generated.
     /// </summary>
     string Id { get; }
 
@@ -36,12 +36,6 @@ public interface IToastInstance
     ToastLifecycleStatus LifecycleStatus { get; }
 
     /// <summary>
-    /// Closes the Toast as dismissed.
-    /// </summary>
-    /// <returns></returns>
-    Task CancelAsync();
-
-    /// <summary>
     /// Closes the Toast programmatically.
     /// </summary>
     /// <returns></returns>
@@ -53,6 +47,12 @@ public interface IToastInstance
     /// <param name="reason">Reason to close the Toast with.</param>
     /// <returns></returns>
     Task CloseAsync(ToastCloseReason reason);
+
+    /// <summary>
+    /// Dismisses the Toast.
+    /// </summary>
+    /// <returns></returns>
+    Task DismissAsync();
 
     /// <summary>
     /// Updates the toast options while the toast is shown.

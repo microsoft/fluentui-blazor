@@ -19,7 +19,7 @@
         var service = new TestToastService();
         var instance = new ToastInstance(service, new ToastOptions());
 
-        await instance.CancelAsync();
+        await instance.DismissAsync();
 
         Assert.Same(instance, service.LastClosedToast);
         Assert.Equal(ToastCloseReason.Dismissed, service.LastCloseReason);
@@ -140,9 +140,56 @@
     {
         var service = new TestableToastService(Services, null);
 
-        var result = await service.DismissAsync(null!);
+        var result = await service.DismissAsync((string)null!);
 
         Assert.False(result);
+    }
+
+    [Fact]
+    public async Task ToastService_DismissAsync_WithToastInstance_ClosesWithDismissedReason()
+    {
+        var service = new TestableToastService(Services, null);
+        var instance = new ToastInstance(service, new ToastOptions());
+
+        service.AddItem(instance);
+
+        await service.DismissAsync(instance);
+
+        var result = await instance.Result;
+
+        Assert.Equal(ToastLifecycleStatus.Unmounted, instance.LifecycleStatus);
+        Assert.Equal(ToastCloseReason.Dismissed, result);
+        Assert.False(service.ContainsItem(instance.Id));
+    }
+
+    [Fact]
+    public async Task ToastService_ShowToastInstanceAsync_ReturnsLiveInstance()
+    {
+        var service = new TestableToastService(Services, null);
+        service.SetProviderId("provider");
+
+        var instance = await service.ShowToastInstanceAsync(new ToastOptions { Body = "Live body" });
+
+        Assert.NotNull(instance);
+        Assert.True(service.ContainsItem(instance.Id));
+        Assert.Equal("Live body", instance.Options.Body);
+        Assert.Equal(ToastLifecycleStatus.Queued, instance.LifecycleStatus);
+    }
+
+    [Fact]
+    public async Task ToastService_ShowToastInstanceAsync_ActionOverload_AppliesOptions()
+    {
+        var service = new TestableToastService(Services, null);
+        service.SetProviderId("provider");
+
+        var instance = await service.ShowToastInstanceAsync(options =>
+        {
+            options.Body = "Configured body";
+            options.Type = ToastType.Confirmation;
+        });
+
+        Assert.Equal("Configured body", instance.Options.Body);
+        Assert.Equal(ToastType.Confirmation, instance.Options.Type);
     }
 
     [Fact]
@@ -195,6 +242,9 @@
             return Task.CompletedTask;
         }
 
+        public Task DismissAsync(IToastInstance Toast)
+            => Task.CompletedTask;
+
         public Task<bool> DismissAsync(string toastId)
             => Task.FromResult(false);
 
@@ -210,6 +260,12 @@
 
         public Task<ToastCloseReason> ShowToastAsync(Action<ToastOptions> options)
             => Task.FromResult(ToastCloseReason.Programmatic);
+
+        public Task<IToastInstance> ShowToastInstanceAsync(ToastOptions? options = null)
+            => Task.FromResult<IToastInstance>(new TestNonToastInstance("toast-instance"));
+
+        public Task<IToastInstance> ShowToastInstanceAsync(Action<ToastOptions> options)
+            => Task.FromResult<IToastInstance>(new TestNonToastInstance("toast-instance"));
 
         public Task UpdateToastAsync(IToastInstance toast, Action<ToastOptions> update)
             => Task.CompletedTask;
@@ -232,6 +288,11 @@
 
         public new Task RemoveToastFromProviderAsync(IToastInstance? toast)
             => base.RemoveToastFromProviderAsync(toast);
+
+        public void SetProviderId(string providerId)
+            => typeof(IFluentServiceBase<IToastInstance>)
+                .GetProperty(nameof(IFluentServiceBase<IToastInstance>.ProviderId))!
+                .SetValue(ServiceProvider, providerId);
     }
 
     private sealed class TestLocalizer : IFluentLocalizer
@@ -252,6 +313,8 @@
         public ToastLifecycleStatus LifecycleStatus => ToastLifecycleStatus.Visible;
 
         public Task CancelAsync() => Task.CompletedTask;
+
+        public Task DismissAsync() => Task.CompletedTask;
 
         public Task CloseAsync() => Task.CompletedTask;
 

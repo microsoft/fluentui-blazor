@@ -186,7 +186,7 @@ public partial class FluentToast
     /// <see cref="IToastInstance.UpdateAsync(Action{ToastOptions})"/>.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public RenderFragment? BodyContent { get; set; }
 
     //
     internal static Icon DismissIcon => new CoreIcons.Regular.Size20.Dismiss();
@@ -249,7 +249,7 @@ public partial class FluentToast
 
     internal async Task OnDismissActionClickedAsync()
     {
-        await Instance!.CloseAsync(ToastCloseReason.Dismissed);
+        await Instance!.DismissAsync();
 
         if (Instance?.Options.DismissActionCallback is not null)
         {

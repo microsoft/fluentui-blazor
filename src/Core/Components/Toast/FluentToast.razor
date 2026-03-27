@@ -29,13 +29,13 @@
     else if (Type == ToastType.IndeterminateProgress)
     {
         <div slot="media">
-           <FluentSpinner Visible="true" Size="@SpinnerSize.Tiny" />
+           <FluentSpinner Visible="true" Size="@SpinnerSize.Tiny" Style="--size: 1em;" />
         </div>
     }
     else
     {
         <div slot="media" aria-hidden="true">
-            <FluentIcon Value="@IntentIcon" Color="@GetIntentColor(Intent)" />
+            <FluentIcon Value="@IntentIcon" Color="@GetIntentColor(Intent)" Width="1em" />
         </div>
     }
 
@@ -48,7 +48,7 @@
     {
         @if (!string.IsNullOrEmpty(DismissAction))
         {
-            <FluentLink Href="" @onclick="@OnDismissActionClickedAsync">
+            <FluentLink slot="action" OnClick="@OnDismissActionClickedAsync">
                 @DismissAction
             </FluentLink>
         }
@@ -59,17 +59,13 @@
                           IconStart="@DismissIcon"
                           Title="Dismiss"
                           slot="action"
-                          OnClick="@(() => Instance!.CancelAsync())" />
+                          OnClick="@(() => Instance!.DismissAsync())" />
         }
     }
 
-    @if (ChildContent is not null)
+    @if (!string.IsNullOrEmpty(Body) || BodyContent is not null)
     {
-        <div id="@($"{Id}-body")">@ChildContent</div>
-    }
-    else if (!string.IsNullOrEmpty(Body))
-    {
-        <div id="@($"{Id}-body")">@Body</div>
+        <div id="@($"{Id}-body")">@Body@BodyContent</div>
     }
 
     @if (!string.IsNullOrEmpty(Subtitle))
@@ -82,14 +78,14 @@
         <div slot="footer">
             @if (!string.IsNullOrEmpty(QuickAction1))
             {
-                <FluentLink Href="" @onclick="@OnQuickAction1ClickedAsync">
+                <FluentLink OnClick="@OnQuickAction1ClickedAsync">
                     @QuickAction1
                 </FluentLink>
             }
 
             @if (!string.IsNullOrEmpty(QuickAction2))
             {
-                <FluentLink Href="" OnClick="@OnQuickAction2ClickedAsync">
+                <FluentLink OnClick="@OnQuickAction2ClickedAsync">
                     @QuickAction2
                 </FluentLink>
             }
