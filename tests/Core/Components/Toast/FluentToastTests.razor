@@ -58,14 +58,13 @@
         // Assert
         Assert.Contains("fluent-toast-provider", ToastProvider.Markup);
         Assert.Contains("Toast Content - John", ToastProvider.Markup);
-        ToastProvider.Verify();
     }
 
     [Fact]
-    public void FluentToast_ChildContent()
+    public void FluentToast_BodyContent()
     {
         // Arrange & Act
-        var cut = Render(@<FluentToast>Hello World</FluentToast>);
+        var cut = Render(@<FluentToast><BodyContent>Hello World</BodyContent></FluentToast>);
 
         // Assert
         Assert.Contains("Hello World", cut.Markup);

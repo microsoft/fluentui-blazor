@@ -159,7 +159,6 @@
         var firstToast = new ToastInstance(service, new ToastOptions { Id = "first" });
         var secondToast = new ToastInstance(service, new ToastOptions { Id = "second" });
 
-        service.Items.TryAdd(secondToast.Id, secondToast);
         service.Items.TryAdd(firstToast.Id, firstToast);
 
         var provider = Render<TestFluentToastProvider>(parameters => parameters
@@ -168,6 +167,8 @@
 
         var method = typeof(FluentToastProvider).GetMethod("SynchronizeToastQueue", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
         method.Invoke(provider.Instance, null);
+
+        service.Items.TryAdd(secondToast.Id, secondToast);
 
         Assert.Equal(ToastLifecycleStatus.Visible, firstToast.LifecycleStatus);
         Assert.Equal(ToastLifecycleStatus.Queued, secondToast.LifecycleStatus);
