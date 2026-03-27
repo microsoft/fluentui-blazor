@@ -34,12 +34,15 @@
     }
 
 ::deep .fluent-nav-group.disabled {
-    color: var(--neutral-fill-secondary-rest) !important;
     pointer-events: none;
 }
 
     ::deep .fluent-nav-group.disabled .fluent-nav-icon {
         fill: var(--neutral-stroke-rest) !important;
+    }
+
+    ::deep .fluent-nav-group.disabled .fluent-nav-text {
+        opacity: var(--disabled-opacity);
     }
 
 [dir='rtl'] * ::deep .fluent-nav-item a.active .positioning-region::before {
