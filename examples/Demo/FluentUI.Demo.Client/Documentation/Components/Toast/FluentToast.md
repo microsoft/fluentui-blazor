@@ -92,7 +92,7 @@ It shows 2 action links in the footer, which is the maximum number of what is po
 
 ### Custom dismissal
 
-This example shows a toast with a custom dismissal configuration. It uses an acton link (with a custom callback) instead of the standard dismiss icon to dismiss the toast.
+This example shows a toast with a custom dismissal configuration. It uses an action link (with a custom callback) instead of the standard dismiss icon to dismiss the toast.
 
 {{ FluentToastCustomDismiss }}
 

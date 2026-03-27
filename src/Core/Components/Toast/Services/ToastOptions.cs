@@ -34,14 +34,12 @@ public class ToastOptions : IFluentComponentBase
     public string? Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the CSS class names. If given, these will be included in the class attribute of the `fluent-Toast`
-    /// or `fluent-drawer` element. To apply you styles to the `Toast` element, you need to create a class like
-    /// `my-class::part(Toast) { ... }`
+    /// Gets or sets the CSS class name.
     /// </summary>
     public string? Class { get; set; }
 
     /// <summary>
-    /// Gets or sets the in-line styles. If given, these will be included in the style attribute of the `Toast` element.
+    /// Gets or sets the in-line styles.
     /// </summary>
     public string? Style { get; set; }
 
@@ -90,7 +88,7 @@ public class ToastOptions : IFluentComponentBase
     /// <summary>
     /// Gets or sets the toast type, which determines things like a default icon and styling of the toast.
     /// </summary>
-    public ToastType Type { get; set; }
+    public ToastType Type { get; set; } = ToastType.Communication;
 
     /// <summary>
     /// Gets or sets the toast intent.

@@ -15,8 +15,8 @@
                 vertical-offset="@VerticalOffset"
                 horizontal-offset="@HorizontalOffset"
                 role="listitem"
-                aria-labelledby="@($"{Id}-title")"
-                aria-describedby="@($"{Id}-body")"
+                aria-labelledby="@(string.IsNullOrEmpty(Title) ? null : $"{Id}-title")"
+                aria-describedby="@((string.IsNullOrEmpty(Body) && BodyContent is null) ? null : $"{Id}-body")"
                 @attributes="@AdditionalAttributes"
                 @ondialogtoggle="@OnToggleAsync"
                 @ondialogbeforetoggle="@OnToggleAsync">

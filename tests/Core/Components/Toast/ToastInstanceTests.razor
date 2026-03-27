@@ -14,7 +14,7 @@
     }
 
     [Fact]
-    public async Task CancelAsync_CallsServiceCloseWithDismissedReason()
+    public async Task DismissAsync_CallsServiceCloseWithDismissedReason()
     {
         var service = new TestToastService();
         var instance = new ToastInstance(service, new ToastOptions());
