@@ -153,25 +153,28 @@
     }
 
     [Fact]
-    public void FluentToast_SynchronizeToastQueue_PromotesQueuedToastsInIndexOrder()
+    public void FluentToast_SynchronizeToastQueue_RendersNewestVisibleToastFirst()
     {
         var service = new TestToastService();
-        var firstToast = new ToastInstance(service, new ToastOptions { Id = "first" });
-        var secondToast = new ToastInstance(service, new ToastOptions { Id = "second" });
+        var firstToast = new ToastInstance(service, new ToastOptions { Id = "first", Body = "First toast" });
+        var secondToast = new ToastInstance(service, new ToastOptions { Id = "second", Body = "Second toast" });
 
         service.Items.TryAdd(firstToast.Id, firstToast);
+        service.Items.TryAdd(secondToast.Id, secondToast);
 
         var provider = Render<TestFluentToastProvider>(parameters => parameters
             .Add(p => p.OverrideToastService, service)
-            .Add(p => p.MaxToastCount, 1));
+            .Add(p => p.MaxToastCount, 2));
 
         var method = typeof(FluentToastProvider).GetMethod("SynchronizeToastQueue", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
         method.Invoke(provider.Instance, null);
+        provider.Render();
 
-        service.Items.TryAdd(secondToast.Id, secondToast);
+        var toasts = provider.FindComponents<FluentToast>().ToList();
 
-        Assert.Equal(ToastLifecycleStatus.Visible, firstToast.LifecycleStatus);
-        Assert.Equal(ToastLifecycleStatus.Queued, secondToast.LifecycleStatus);
+        Assert.Equal(2, toasts.Count);
+        Assert.Equal("second", toasts[0].Instance.Instance?.Id);
+        Assert.Equal("first", toasts[1].Instance.Instance?.Id);
     }
 
     private sealed class TestFluentToastProvider : FluentToastProvider
