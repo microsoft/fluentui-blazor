@@ -19,7 +19,9 @@
   <Folder Name="/examples/samples/">
     <Project Path="examples/Samples/FluentUI.Samples.WasmStandalone/FluentUI.Samples.WasmStandalone.csproj" />
   </Folder>
-  <Folder Name="/src/" />
+  <Folder Name="/src/">
+    <Project Path="src/Templates/Microsoft.FluentUI.AspNetCore.Templates.csproj" />
+  </Folder>
   <Folder Name="/src/Core/">
     <Project Path="src/Core.Scripts/Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj">
       <Build />

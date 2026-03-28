@@ -1,0 +1,132 @@
+<Project Sdk="Microsoft.NET.Sdk" InitialTargets="AddTemplatesToPackageAsContent">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Authors>Microsoft</Authors>
+    <ContentTargetFolders>Content</ContentTargetFolders>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <Description>Project templates for creating a Fluent UI Blazor Web app, Blazor WebAssembly Standalone app, Blazor Hybrid and Web App or .NET Aspire Starter app. These templates are pure copies of the original templates but use the Fluent UI Blazor library for building the user interface (UI).</Description>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <License>MIT</License>
+    <PackageId>Microsoft.FluentUI.AspNetCore.Templates</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
+    <PackageTags>Templates, Fluent UI, Blazor, Web Components</PackageTags>
+    <PackageType>Template</PackageType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Title>Microsoft Fluent UI Blazor Templates</Title>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <UsingToolTemplateLocalizer>true</UsingToolTemplateLocalizer>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- for templates -->
+    <IconsPackageVersion>4.14.0</IconsPackageVersion>
+    <AspirePackageVersion>13.2</AspirePackageVersion>
+    <MicrosoftExtensionsHttpResiliencePackageVersion>10.0.0</MicrosoftExtensionsHttpResiliencePackageVersion>
+    <MicrosoftExtensionsServiceDiscoveryVersion>10.0.0</MicrosoftExtensionsServiceDiscoveryVersion>
+    <MicrosoftAspNetCorePackageVersionForNet8>8.0.25</MicrosoftAspNetCorePackageVersionForNet8>
+    <MicrosoftAspNetCorePackageVersionForNet9>9.0.14</MicrosoftAspNetCorePackageVersionForNet9>
+    <MicrosoftAspNetCorePackageVersionForNet10>10.0.5</MicrosoftAspNetCorePackageVersionForNet10>
+    <MicrosoftAspNetCoreOpenApiVersion>9.0.11</MicrosoftAspNetCoreOpenApiVersion>
+    <MicrosoftAspNetCoreOpenApiPreviewVersion>10.0.0</MicrosoftAspNetCoreOpenApiPreviewVersion>
+    <OpenTelemetryNet8Version>1.9.0</OpenTelemetryNet8Version>
+    <OpenTelemetryLTSVersion>1.15.1</OpenTelemetryLTSVersion>
+    <OpenTelemetryInstrumentationAspNetCoreVersion>1.15.1</OpenTelemetryInstrumentationAspNetCoreVersion>
+    <OpenTelemetryInstrumentationHttpVersion>1.15.0</OpenTelemetryInstrumentationHttpVersion>
+    <OpenTelemetryInstrumentationExtensionsHostingVersion>1.15.1</OpenTelemetryInstrumentationExtensionsHostingVersion>
+    <OpenTelemetryInstrumentationRuntimeVersion>1.15.0</OpenTelemetryInstrumentationRuntimeVersion>
+    <OpenTelemetryExporterOpenTelemetryProtocolVersion>1.15.1</OpenTelemetryExporterOpenTelemetryProtocolVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <IsShipping>true</IsShipping>
+    <Optimize>True</Optimize>
+    <NoWarn>1701;1702;8669;1591</NoWarn>
+    <DebuggerSupport>false</DebuggerSupport>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <UsePublicApiAnalyzers>false</UsePublicApiAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="templates\**\*" />
+    <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**" />
+
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+
+  <!-- When building a package, this target will run to copy all the templates into the intermediate directory,
+			 replaces the package versions, and adds them to the package.-->
+  <Target Name="AddTemplatesToPackageAsContent" DependsOnTargets="ReplacePackageVersionOnTemplates">
+
+    <!-- Creating a temporary item instead of defining content items directly in order to avoid MSBuild MSB4120
+		message shown when an item within a target references itself which may cuase unintended expansion. -->
+    <ItemGroup>
+      <_TemplatesForPackage Include="$(IntermediateOutputPath)\content\templates\**\*" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="%(_TemplatesForPackage.Identity)" PackagePath="content/%(_TemplatesForPackage.RecursiveDir)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Replaces the versions referenced by the templates projects to use the version of the packages being live-built -->
+  <Target Name="ReplacePackageVersionOnTemplates" DependsOnTargets="CopyTemplatesToIntermediateOutputPath">
+
+    <ItemGroup>
+      <TemplateProjectFiles Include="templates\**\*.csproj" />
+      <TemplateProjectFiles>
+        <DestinationFile>$(IntermediateOutputPath)\content\templates\%(RecursiveDir)%(Filename)%(Extension)</DestinationFile>
+      </TemplateProjectFiles>
+    </ItemGroup>
+
+    <WriteLinesToFile File="%(TemplateProjectFiles.DestinationFile)"
+						  Lines="$([System.IO.File]::ReadAllText('%(TemplateProjectFiles.FullPath)')
+									  .Replace('!!REPLACE_WITH_LATEST_VERSION!!', '$(PackageVersion)')
+                    .Replace('!!REPLACE_WITH_LATEST_ICONS_VERSION!!', '$(IconsPackageVersion)')
+                    .Replace('!!REPLACE_WITH_LATEST_ASPIRE_VERSION!!', '$(AspirePackageVersion)')
+									  .Replace('!!REPLACE_WITH_ASPNETCORE_8_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet8)')
+								    .Replace('!!REPLACE_WITH_ASPNETCORE_9_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet9)')
+                    .Replace('!!REPLACE_WITH_ASPNETCORE_10_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet10)')
+									  .Replace('!!REPLACE_WITH_DOTNET_EXTENSIONS_VERSION!!', '$(MicrosoftExtensionsHttpResiliencePackageVersion)')
+                    .Replace('!!REPLACE_WITH_SERVICE_DISCOVERY_VERSION!!', '$(MicrosoftExtensionsServiceDiscoveryVersion)')
+                    .Replace('!!REPLACE_WITH_OTEL_NET8_VERSION!!', '$(OpenTelemetryNet8Version)')
+                    .Replace('!!REPLACE_WITH_OTEL_LTS_VERSION!!', '$(OpenTelemetryLTSVersion)')
+                    .Replace('!!REPLACE_WITH_OTEL_EXPORTER_VERSION!!', '$(OpenTelemetryExporterOpenTelemetryProtocolVersion)')
+                    .Replace('!!REPLACE_WITH_OTEL_HOSTING_VERSION!!', '$(OpenTelemetryInstrumentationExtensionsHostingVersion)')
+                    .Replace('!!REPLACE_WITH_OTEL_ASPNETCORE_VERSION!!', '$(OpenTelemetryInstrumentationAspNetCoreVersion)')
+                    .Replace('!!REPLACE_WITH_OTEL_HTTP_VERSION!!', '$(OpenTelemetryInstrumentationHttpVersion)')
+                    .Replace('!!REPLACE_WITH_OTEL_RUNTIME_VERSION!!', '$(OpenTelemetryInstrumentationRuntimeVersion)')
+                    .Replace('!!REPLACE_WITH_ASPNETCORE_OPENAPI_9_VERSION!!', '$(MicrosoftAspNetCoreOpenApiVersion)')
+                    .Replace('!!REPLACE_WITH_ASPNETCORE_OPENAPI_10_VERSION!!', '$(MicrosoftAspNetCoreOpenApiPreviewVersion)') )"
+
+						  Overwrite="true" />
+  </Target>
+
+  <!-- Grabs the contents of the templates folder and copies them to IntermediateOutputPath directory -->
+  <Target Name="CopyTemplatesToIntermediateOutputPath">
+
+    <ItemGroup>
+      <_ContentFilesToPackage Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**;templates\**\*.csproj" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(_ContentFilesToPackage)" SkipUnchangedFiles="true" DestinationFolder="$(IntermediateOutputPath)\content\templates\%(RecursiveDir)" />
+  </Target>
+
+</Project>
