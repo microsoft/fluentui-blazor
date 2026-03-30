@@ -38,6 +38,7 @@ public static class ServiceCollectionExtensions
         services.Add<IToastService, ToastService>(serviceLifetime);
         services.Add<IFluentLocalizer>(provider => options?.Localizer ?? FluentLocalizerInternal.Default, serviceLifetime);
         services.Add<IKeyCodeService, KeyCodeService>(serviceLifetime);
+        services.Add<IThemeService, ThemeService>(serviceLifetime);
 
         if (configuration == null || configuration.Tooltip.UseServiceProvider)
         {
@@ -68,7 +69,7 @@ public static class ServiceCollectionExtensions
         {
             ServiceLifetime.Singleton => services.AddSingleton(implementationFactory),
             ServiceLifetime.Scoped => services.AddScoped(implementationFactory),
-            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported.")
+            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported."),
         };
     }
 
@@ -81,7 +82,7 @@ public static class ServiceCollectionExtensions
         {
             ServiceLifetime.Singleton => services.AddSingleton<TService, TImplementation>(),
             ServiceLifetime.Scoped => services.AddScoped<TService, TImplementation>(),
-            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported.")
+            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported."),
         };
     }
 }
