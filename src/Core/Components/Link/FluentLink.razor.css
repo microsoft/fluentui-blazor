@@ -1,3 +1,15 @@
 [inline]:hover {
   text-decoration: underline;
 }
+
+fluent-link[clickable] {
+    color: var(--colorBrandForegroundLink);
+    text-decoration: none;
+    text-decoration-thickness: var(--strokeWidthThin);
+}
+
+fluent-link[clickable]:hover {
+    color: var(--colorBrandForegroundLinkHover);
+    outline: none;
+    text-decoration-line: underline;
+}
