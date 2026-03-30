@@ -104,7 +104,8 @@ internal class CalendarTitles<TValue>
         get
         {
 #pragma warning disable MA0011
-            var minDate = _calendar.Culture.Calendar.MinSupportedDateTime.AddMonths(1);
+            var userMinDate = _calendar.MinDate.ConvertToDateTime();
+            var minDate = userMinDate ?? _calendar.Culture.Calendar.MinSupportedDateTime.AddMonths(1);
 #pragma warning restore MA0011
 
             return View switch
@@ -141,7 +142,8 @@ internal class CalendarTitles<TValue>
     {
         get
         {
-            var maxDate = _calendar.Culture.Calendar.MaxSupportedDateTime;
+            var userMaxDate = _calendar.MaxDate.ConvertToDateTime();
+            var maxDate = userMaxDate ?? _calendar.Culture.Calendar.MaxSupportedDateTime;
 
             return View switch
             {

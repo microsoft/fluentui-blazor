@@ -76,6 +76,39 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     [Parameter]
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
+    /// <summary>
+    /// Gets or sets the minimum date that can be selected in the calendar. If not set, there is no minimum date.
+    /// </summary>
+    [Parameter]
+    public TValue? MinDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum date that can be selected in the calendar. If not set, there is no maximum date.
+    /// </summary>
+    [Parameter]
+    public TValue? MaxDate { get; set; }
+
+    internal Func<TValue, bool> DisabledDateMinMaxFunc => (date) =>
+    {
+        var dateTime = date.ConvertToDateTime()?.Date;
+        if (dateTime is null)
+        {
+            return false;
+        }
+
+        if (MinDate.IsNotNull() && dateTime < MinDate.ConvertToDateTime()?.Date)
+        {
+            return true;
+        }
+
+        if (MaxDate.IsNotNull() && dateTime > MaxDate.ConvertToDateTime()?.Date)
+        {
+            return true;
+        }
+
+        return DisabledDateFunc?.Invoke(date) ?? false;
+    };
+
     /// <summary />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
