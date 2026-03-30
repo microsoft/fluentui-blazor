@@ -652,7 +652,23 @@
     [InlineData(ToastIntent.Error, Color.Error)]
     public void FluentToast_Intent_MapsToExpectedColor(ToastIntent intent, Color expectedColor)
     {
-        var color = FluentToast.GetIntentColor(intent);
+        var cut = Render<FluentToast>(parameters => parameters.Add(p => p.Body, "test"));
+        var color = cut.Instance.GetIntentColor(intent);
+
+        Assert.Equal(expectedColor, color);
+    }
+
+    [Theory]
+    [InlineData(ToastIntent.Info, Color.InfoInverted)]
+    [InlineData(ToastIntent.Success, Color.SuccessInverted)]
+    [InlineData(ToastIntent.Warning, Color.WarningInverted)]
+    [InlineData(ToastIntent.Error, Color.ErrorInverted)]
+    public void FluentToast_Inverted_Intent_MapsToExpectedColor(ToastIntent intent, Color expectedColor)
+    {
+        var cut = Render<FluentToast>(parameters => parameters
+            .Add(p => p.Body, "test")
+            .Add(p => p.Inverted, true));
+        var color = cut.Instance.GetIntentColor(intent);
 
         Assert.Equal(expectedColor, color);
     }
