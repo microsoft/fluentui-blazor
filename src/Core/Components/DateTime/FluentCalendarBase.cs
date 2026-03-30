@@ -88,8 +88,17 @@ public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
     [Parameter]
     public TValue? MaxDate { get; set; }
 
-    internal Func<TValue, bool> DisabledDateMinMaxFunc => (date) =>
+    /// <summary>
+    /// Gets whether the date is out of the range defined by <see cref="MinDate"/> and <see cref="MaxDate"/>,
+    /// or if it is disabled by the <see cref="DisabledDateFunc"/>.
+    /// </summary>
+    internal Func<TValue, bool>? DisabledDateMinMaxFunc => (date) =>
     {
+        if (DisabledDateFunc is null && MinDate is null && MaxDate is null)
+        {
+            return false;
+        }
+
         var dateTime = date.ConvertToDateTime()?.Date;
         if (dateTime is null)
         {

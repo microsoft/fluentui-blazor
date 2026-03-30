@@ -2,8 +2,6 @@
 
     <div>
         <FluentCalendar DisabledDateFunc="@DisabledDay"
-                        MinDate="@(new DateTime(Today.Year, Today.Month, 3))"
-                        MaxDate="@(new DateTime(Today.Year, Today.Month, 31))"
                         @bind-Value="@SelectedDay"
                         @bind-PickerMonth="@PickerDay"
                         Style="height: 250px; align-content: start;" />
@@ -14,8 +12,6 @@
     <div>
         <FluentCalendar DisabledDateFunc="@DisableMonth"
                         View="CalendarViews.Months"
-                        MinDate="@(new DateTime(Today.Year, Today.Month, 3))"
-                        MaxDate="@(new DateTime(Today.Year, Today.Month, 31))"
                         @bind-Value="@SelectedMonth"
                         @bind-PickerMonth="@PickerMonth"
                         Style="height: 250px; align-content: start;" />
@@ -26,8 +22,6 @@
     <div>
         <FluentCalendar DisabledDateFunc="@DisableYear"
                         View="CalendarViews.Years"
-                        MinDate="@(new DateTime(Today.Year, Today.Month, 3))"
-                        MaxDate="@(new DateTime(Today.Year, Today.Month, 31))"
                         @bind-Value="@SelectedYear"
                         @bind-PickerMonth="@PickerYear"
                         Style="height: 250px; align-content: start;" />
