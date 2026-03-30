@@ -2,13 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 using Xunit;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DateTimes.Utilities;
 
@@ -443,5 +438,62 @@ public class RangeOfDatesTests
 
         // Assert
         Assert.True(result);
+    }
+
+    [Theory]
+    [InlineData(2024, 1, 1, true)]
+    [InlineData(2024, 1, 15, false)]
+    [InlineData(2024, 6, 1, false)]
+    [InlineData(2024, 12, 15, false)]
+    [InlineData(2024, 12, 16, true)]
+    public void IsOutsideRange_ReturnsExpectedResult(int year, int month, int day, bool expected)
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 15), new DateTime(2024, 12, 15));
+        var value = new DateTime(year, month, day);
+
+        // Act
+        var result = range.IsOutsideRange(value);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(2024, 1, 1, 2024, 1, 14, true)]
+    [InlineData(2024, 12, 16, 2024, 12, 31, true)]
+    [InlineData(2024, 1, 1, 2024, 1, 15, false)]
+    [InlineData(2024, 12, 15, 2024, 12, 31, false)]
+    [InlineData(2024, 6, 1, 2024, 6, 30, false)]
+    public void IsPeriodOutsideRange_ReturnsExpectedResult(int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay, bool expected)
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 15), new DateTime(2024, 12, 15));
+        var periodStart = new DateTime(startYear, startMonth, startDay);
+        var periodEnd = new DateTime(endYear, endMonth, endDay);
+
+        // Act
+        var result = range.IsPeriodOutsideRange(periodStart, periodEnd);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(CalendarViews.Days, 2024, 1, 15, false)]
+    [InlineData(CalendarViews.Days, 2024, 1, 1, true)]
+    [InlineData(CalendarViews.Months, 2024, 2, 1, false)]
+    [InlineData(CalendarViews.Years, 2025, 1, 1, true)]
+    public void IsSelectionOutsideRange_ReturnsExpectedResult(CalendarViews view, int year, int month, int day, bool expected)
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 15), new DateTime(2024, 12, 15));
+        var value = new DateTime(year, month, day);
+
+        // Act
+        var result = range.IsSelectionOutsideRange(value, view, CultureInfo.InvariantCulture);
+
+        // Assert
+        Assert.Equal(expected, result);
     }
 }

@@ -328,6 +328,86 @@ value=""2022-02-20"">20</div>");
     }
 
     [Fact]
+    public async Task FluentCalendar_OnPreviousButtonHandlerAsync_ClampsToMinDate_InDaysView()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var cut = Render(@<FluentCalendar TValue="DateTime"
+                                         Culture="@InvariantCulture"
+                                         View="@CalendarViews.Days"
+                                         PickerMonth="@(new System.DateTime(2022, 05, 01))"
+                                         MinDate="@(new System.DateTime(2022, 07, 15))" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+        var method = typeof(FluentCalendar<DateTime>).GetMethod("OnPreviousButtonHandlerAsync", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        Assert.NotNull(method);
+
+        await component.InvokeAsync(() => (Task)method!.Invoke(component.Instance, [new Microsoft.AspNetCore.Components.Web.MouseEventArgs()])!);
+
+        Assert.Equal(new DateTime(2022, 7, 1), component.Instance.PickerMonth);
+    }
+
+    [Fact]
+    public async Task FluentCalendar_OnNextButtonHandlerAsync_ClampsToMaxDate_InDaysView()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var cut = Render(@<FluentCalendar TValue="DateTime"
+                                         Culture="@InvariantCulture"
+                                         View="@CalendarViews.Days"
+                                         PickerMonth="@(new System.DateTime(2022, 10, 01))"
+                                         MaxDate="@(new System.DateTime(2022, 08, 15))" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+        var method = typeof(FluentCalendar<DateTime>).GetMethod("OnNextButtonHandlerAsync", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        Assert.NotNull(method);
+
+        await component.InvokeAsync(() => (Task)method!.Invoke(component.Instance, [new Microsoft.AspNetCore.Components.Web.MouseEventArgs()])!);
+
+        Assert.Equal(new DateTime(2022, 8, 1), component.Instance.PickerMonth);
+    }
+
+    [Fact]
+    public async Task FluentCalendar_OnPreviousButtonHandlerAsync_ClampsToMinDate_InYearsView()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var cut = Render(@<FluentCalendar TValue="DateTime"
+                                         Culture="@InvariantCulture"
+                                         View="@CalendarViews.Years"
+                                         PickerMonth="@(new System.DateTime(1000, 01, 01))"
+                                         MinDate="@(new System.DateTime(8000, 01, 01))" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+        var method = typeof(FluentCalendar<DateTime>).GetMethod("OnPreviousButtonHandlerAsync", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        Assert.NotNull(method);
+
+        await component.InvokeAsync(() => (Task)method!.Invoke(component.Instance, [new Microsoft.AspNetCore.Components.Web.MouseEventArgs()])!);
+
+        Assert.Equal(new DateTime(8000, 1, 1), component.Instance.PickerMonth);
+    }
+
+    [Fact]
+    public async Task FluentCalendar_OnNextButtonHandlerAsync_ClampsToMaxDate_InYearsView()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var cut = Render(@<FluentCalendar TValue="DateTime"
+                                         Culture="@InvariantCulture"
+                                         View="@CalendarViews.Years"
+                                         PickerMonth="@(new System.DateTime(8000, 01, 01))"
+                                         MaxDate="@(new System.DateTime(1000, 01, 01))" />);
+        var component = cut.FindComponent<FluentCalendar<DateTime>>();
+        var method = typeof(FluentCalendar<DateTime>).GetMethod("OnNextButtonHandlerAsync", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        Assert.NotNull(method);
+
+        await component.InvokeAsync(() => (Task)method!.Invoke(component.Instance, [new Microsoft.AspNetCore.Components.Web.MouseEventArgs()])!);
+
+        Assert.Equal(new DateTime(1000, 1, 1), component.Instance.PickerMonth);
+    }
+
+    [Fact]
     public void FluentCalendar_GetDayOfMonthTwoDigit()
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
@@ -1292,8 +1372,6 @@ value=""2022-02-20"">20</div>");
         Assert.Contains("path", FluentCalendar<DateTime>.ArrowDown.Value);
     }
 
-    #region OnSelectedDateHandlerAsync Behavior Tests
-
     [Fact]
     public void FluentCalendar_ReadOnly_DateSelection_DoesNotChangeValue()
     {
@@ -1544,10 +1622,6 @@ value=""2022-02-20"">20</div>");
         Assert.Equal(targetValue, actualValue);
     }
 
-    #endregion
-
-    #region GetAnimationClass Tests
-
     [Theory]
     [InlineData("existing-class", true, "None", "existing-class animation-none")]
     [InlineData("existing-class", true, "Up", "existing-class animation-running-up")]
@@ -1624,10 +1698,6 @@ value=""2022-02-20"">20</div>");
             Assert.Equal("test-class", result);
         }
     }
-
-    #endregion
-
-    #region StartNewAnimationAsync Tests
 
     [Fact]
     public async Task StartNewAnimationAsync_WhenCanBeAnimated_SetsAnimationAndClearsFirst()
@@ -1725,10 +1795,6 @@ value=""2022-02-20"">20</div>");
         Assert.Equal(FluentCalendar<DateTime>.AnimationRunning.None, finalAnimationState); // Should remain None since animation is disabled
     }
 
-    #endregion
-
-    #region PickerMonthSelectAsync Tests
-
     [Fact]
     public async Task PickerMonthSelectAsync_WithValidMonth_UpdatesPickerMonthAndView()
     {
@@ -1796,10 +1862,6 @@ value=""2022-02-20"">20</div>");
         // Assert
         Assert.Equal(new DateTime(2022, 9, 1), changedMonth);
     }
-
-    #endregion
-
-    #region OnSelectDayMouseOverAsync Tests
 
     [Fact]
     public async Task OnSelectDayMouseOverAsync_WithDisabledDay_ReturnsCompletedTask()
@@ -2036,10 +2098,6 @@ value=""2022-02-20"">20</div>");
         Assert.True(true); // Test passes if no exception is thrown
     }
 
-    #endregion
-
-    #region TryParseValueFromString Tests
-
     [Theory]
     [InlineData("2022-06-15", true, "2022-06-15")]
     [InlineData("2022-12-31", true, "2022-12-31")]
@@ -2237,10 +2295,6 @@ value=""2022-02-20"">20</div>");
         }
     }
 
-    #endregion
-
-    #region FluentCalendarBase Constructor Validation Tests
-
     /// <summary>
     /// Test classes that inherit from FluentCalendarBase to test constructor validation
     /// </summary>
@@ -2266,6 +2320,4 @@ value=""2022-02-20"">20</div>");
         Assert.Contains("The type parameter System.String is not supported", exception.Message);
         Assert.Contains("Supported types are DateTime, DateTime?, DateOnly, and DateOnly?", exception.Message);
     }
-
-    #endregion
 }

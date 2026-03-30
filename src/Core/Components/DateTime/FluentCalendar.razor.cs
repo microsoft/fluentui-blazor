@@ -266,17 +266,59 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         return (periodStart, periodEnd);
     }
 
+    private (DateTime PeriodStart, DateTime PeriodEnd) GetDisplayedPeriod(DateTime pivotDate)
+    {
+        return View switch
+        {
+            CalendarViews.Days => (pivotDate.StartOfMonth(Culture), pivotDate.EndOfMonth(Culture)),
+            CalendarViews.Months => (pivotDate.StartOfYear(Culture), pivotDate.EndOfYear(Culture)),
+            CalendarViews.Years => GetDisplayedYearsPeriod(pivotDate),
+            _ => (pivotDate, pivotDate),
+        };
+    }
+
+    private DateTime GetRequestedPickerMonth(bool navigateForward)
+    {
+        var currentPickerMonth = PickerMonth.ConvertToRequiredDateTime();
+
+        return View switch
+        {
+            CalendarViews.Days => currentPickerMonth.AddMonths(navigateForward ? 1 : -1, Culture),
+            CalendarViews.Months => currentPickerMonth.AddYears(navigateForward ? 1 : -1, Culture),
+            CalendarViews.Years => currentPickerMonth.AddYears(navigateForward ? 12 : -12, Culture),
+            _ => currentPickerMonth,
+        };
+    }
+
+    private DateTime ClampRequestedPickerMonth(DateTime requestedPickerMonth, bool navigateForward)
+    {
+        var (periodStart, periodEnd) = GetDisplayedPeriod(requestedPickerMonth);
+
+        if (navigateForward)
+        {
+            var maxDate = MaxDate.ConvertToDateTime()?.Date;
+            if (maxDate.HasValue && periodStart.Date > maxDate.Value)
+            {
+                return maxDate.Value;
+            }
+        }
+        else
+        {
+            var minDate = MinDate.ConvertToDateTime()?.Date;
+            if (minDate.HasValue && periodEnd.Date < minDate.Value)
+            {
+                return minDate.Value;
+            }
+        }
+
+        return requestedPickerMonth;
+    }
+
     /// <summary />
     internal async Task OnPreviousButtonHandlerAsync(MouseEventArgs _)
     {
-        // Compute the candidate period first, clamping to MinDate if needed.
-        var candidatePickerMonth = View switch
-        {
-            CalendarViews.Days => PickerMonth.AddMonths(-1, Culture).AdaptedForMinDate(MinDate, Culture),
-            CalendarViews.Months => PickerMonth.AddYears(-1, Culture).AdaptedForMinDate(MinDate, CalendarViews.Months, Culture),
-            CalendarViews.Years => PickerMonth.AddYears(-12, Culture).AdaptedForMinDate(MinDate, CalendarViews.Years, Culture, GetDisplayedYearsPeriod),
-            _ => PickerMonth,
-        };
+        var requestedPickerMonth = GetRequestedPickerMonth(navigateForward: false);
+        var candidatePickerMonth = ClampRequestedPickerMonth(requestedPickerMonth, navigateForward: false).ConvertToTValue<TValue>();
 
         if (candidatePickerMonth.ConvertToDateTime() == PickerMonth.ConvertToDateTime())
         {
@@ -292,14 +334,8 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <summary />
     internal async Task OnNextButtonHandlerAsync(MouseEventArgs _)
     {
-        // Compute the candidate period first, clamping to MaxDate if needed.
-        var candidatePickerMonth = View switch
-        {
-            CalendarViews.Days => PickerMonth.AddMonths(+1, Culture).AdaptedForMaxDate(MaxDate, Culture),
-            CalendarViews.Months => PickerMonth.AddYears(+1, Culture).AdaptedForMaxDate(MaxDate, CalendarViews.Months, Culture),
-            CalendarViews.Years => PickerMonth.AddYears(+12, Culture).AdaptedForMaxDate(MaxDate, CalendarViews.Years, Culture, GetDisplayedYearsPeriod),
-            _ => PickerMonth,
-        };
+        var requestedPickerMonth = GetRequestedPickerMonth(navigateForward: true);
+        var candidatePickerMonth = ClampRequestedPickerMonth(requestedPickerMonth, navigateForward: true).ConvertToTValue<TValue>();
 
         if (candidatePickerMonth.ConvertToDateTime() == PickerMonth.ConvertToDateTime())
         {
