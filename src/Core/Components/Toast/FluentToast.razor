@@ -8,6 +8,7 @@
                 opened="@(Opened ? "true" : "false")"
                 timeout="@Timeout"
                 position="@Position.ToAttributeValue()"
+                inverted="@(Inverted ? "true" : null)"
                 intent="@Intent.ToAttributeValue()"
                 politeness="@Politeness.ToAttributeValue()"
                 pause-on-hover="@(PauseOnHover ? "true" : null)"
@@ -48,7 +49,7 @@
     {
         @if (!string.IsNullOrEmpty(DismissAction))
         {
-            <FluentLink slot="action" OnClick="@OnDismissActionClickedAsync">
+            <FluentLink slot="action" OnClick="@OnDismissActionClickedAsync" Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
                 @DismissAction
             </FluentLink>
         }
@@ -78,14 +79,14 @@
         <div slot="footer">
             @if (!string.IsNullOrEmpty(QuickAction1))
             {
-                <FluentLink OnClick="@OnQuickAction1ClickedAsync">
+                <FluentLink OnClick="@OnQuickAction1ClickedAsync" Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
                     @QuickAction1
                 </FluentLink>
             }
 
             @if (!string.IsNullOrEmpty(QuickAction2))
             {
-                <FluentLink OnClick="@OnQuickAction2ClickedAsync">
+                <FluentLink OnClick="@OnQuickAction2ClickedAsync" Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
                     @QuickAction2
                 </FluentLink>
             }

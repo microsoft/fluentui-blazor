@@ -11,6 +11,10 @@ body:has(.prevent-scroll) {
     --warning: var(--colorStatusWarningForeground1);
     --error: var(--colorPaletteRedForeground1);
     --info: var(--colorNeutralForeground3);
+    --success-inverted: var(--colorStatusSuccessForegroundInverted);
+    --warning-inverted: var(--colorStatusWarningForegroundInverted);
+    --error-inverted: var(--colorPaletteRedForegroundInverted);
+    --info-inverted: var(--colorNeutralForegroundInverted2);
     --presence-available: var(--colorPaletteLightGreenForeground3);
     --presence-away: var(--colorPaletteMarigoldBackground3);
     --presence-busy: var(--colorPaletteRedBackground3);

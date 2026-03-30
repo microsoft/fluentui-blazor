@@ -146,6 +146,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
                 color: var(--colorNeutralForegroundInverted);
             }
 
+            :host([inverted]) .media  {
+                color: var(--colorNeutralForegroundInverted);
+            }
+
             .media[data-intent="success"] {
               color: var(--colorStatusSuccessForeground1);
             }
@@ -226,7 +230,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
             }
 
             :host([inverted]) .subtitle {
-              color: var(--colorNeutralForegroundInverted2);
+                color: var(--colorNeutralForegroundInverted2);
             }
 
             .footer {
@@ -236,6 +240,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
                 gap: 14px;
                 grid-column: 2 / 3;
                 padding-top: 16px;
+            }
+
+            :host([inverted]) slot[name="footer"]::slotted(fluent-link[clickable]) {
+                color: var(--colorBrandForegroundInverted);
             }
 
             .footer ::slotted(*) {

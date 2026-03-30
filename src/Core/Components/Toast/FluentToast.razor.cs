@@ -79,6 +79,12 @@ public partial class FluentToast
     public ToastType Type { get; set; } = ToastType.Communication;
 
     /// <summary>
+    /// Gets or sets a value indicating whether the toast uses inverted colors.
+    /// </summary>
+    [Parameter]
+    public bool Inverted { get; set; }
+
+    /// <summary>
     /// Gets or sets the <see cref="ToastIntent"/> intent of the toast notification, indicating its purpose or severity.
     /// </summary>
     /// <remarks>
@@ -273,8 +279,20 @@ public partial class FluentToast
         }
     }
 
-    internal static Color GetIntentColor(ToastIntent intent)
+    internal Color GetIntentColor(ToastIntent intent)
     {
+        if (Inverted)
+        {
+            return intent switch
+            {
+                ToastIntent.Success => Color.SuccessInverted,
+                ToastIntent.Warning => Color.WarningInverted,
+                ToastIntent.Error => Color.ErrorInverted,
+                _ => Color.InfoInverted,
+            };
+
+        }
+
         return intent switch
         {
             ToastIntent.Success => Color.Success,

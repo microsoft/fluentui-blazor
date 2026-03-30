@@ -91,6 +91,11 @@ public class ToastOptions : IFluentComponentBase
     public ToastType Type { get; set; } = ToastType.Communication;
 
     /// <summary>
+    /// Gets or sets a value indicating whether the toast uses inverted colors.
+    /// </summary>
+    public bool Inverted { get; set; }
+
+    /// <summary>
     /// Gets or sets the toast intent.
     /// </summary>
     public ToastIntent Intent { get; set; } = ToastIntent.Info;

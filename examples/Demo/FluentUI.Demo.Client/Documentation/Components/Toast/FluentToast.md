@@ -96,6 +96,15 @@ This example shows a toast with a custom dismissal configuration. It uses an act
 
 {{ FluentToastCustomDismiss }}
 
+### Inverted toast
+
+You can use the `Inverted` property to show a toast with an inverted color scheme. This allows for showing a dark toast on a light background, or a light toast on a dark background.
+
+>[!Note] When setting `IsDismissable` to `true`, without setting a custom `DismissAction`, a toast will render a default dismiss button using the `FluentButton` component.
+As a `FluentButton` has no notion of an `Inverted` property, you need to set an explicit `DismissAction` so a inverted aware link is rendered instead of the default button.
+
+{{ FluentToastInverted }}
+
 ### Indeterminate progress
 
 This example shows a toast with an indeterminate progress configuration. Timeout has been set to zero, so the toast will never close by itself. Use the 'Finish process' button to dismiss the toast.
