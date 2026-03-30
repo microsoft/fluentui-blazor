@@ -941,6 +941,19 @@ value=""2022-02-20"">20</div>");
         Assert.Contains("path", FluentCalendar<DateTime>.ArrowDown.Value);
     }
 
+    [Fact]
+    public void FluentCalendar_MinMax()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Act
+        var calendar = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
+                        MinDate="@(new System.DateTime(2022, 02, 10))" MaxDate="@(new System.DateTime(2022, 02, 20))" />);
+
+        // Assert
+        calendar.Verify();
+    }
+
     #region OnSelectedDateHandlerAsync Behavior Tests
 
     [Fact]

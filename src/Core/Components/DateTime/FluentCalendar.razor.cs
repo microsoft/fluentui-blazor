@@ -504,7 +504,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             SelectedDates = range.Where(day =>
             {
                 var dateTime = day.ConvertToDateTime();
-                return dateTime.HasValue && (DisabledDateFunc == null || !DisabledDateFunc(day));
+                return dateTime.HasValue && (DisabledDateMinMaxFunc == null || !DisabledDateMinMaxFunc(day));
             });
 
             if (SelectedDatesChanged.HasDelegate)
@@ -550,7 +550,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         }
 
         SelectedDates = _rangeSelector.GetAllDates()
-            .Where(day => DisabledDateFunc == null || !DisabledDateFunc(day.ConvertToTValue<TValue>()))
+            .Where(day => DisabledDateMinMaxFunc == null || !DisabledDateMinMaxFunc(day.ConvertToTValue<TValue>()))
             .Select(day => day.ConvertToTValue<TValue>());
 
         if (SelectedDatesChanged.HasDelegate)
@@ -583,9 +583,9 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             _rangeSelectorMouseOver.End = range.MaxDateTime();
         }
 
-        var days = DisabledDateFunc is null
+        var days = DisabledDateMinMaxFunc is null
                  ? _rangeSelectorMouseOver.GetAllDates()
-                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateFunc(day.ConvertToTValue<TValue>()));
+                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateMinMaxFunc(day.ConvertToTValue<TValue>()));
 
         _selectedDatesMouseOver.Clear();
         _selectedDatesMouseOver.AddRange(days);
@@ -611,14 +611,14 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <returns></returns>
     internal bool AllDaysAreDisabled(DateTime start, DateTime end)
     {
-        if (DisabledDateFunc is null)
+        if (DisabledDateMinMaxFunc is null)
         {
             return false;
         }
 
         for (var day = start; day <= end; day = day.AddDays(1))
         {
-            if (!DisabledDateFunc.Invoke(day.ConvertToTValue<TValue>()))
+            if (!DisabledDateMinMaxFunc.Invoke(day.ConvertToTValue<TValue>()))
             {
                 return false;
             }
