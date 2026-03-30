@@ -28,7 +28,7 @@ public class FluentCalendarDay<TValue>
         Date = day.Date.ConvertToTValue<TValue>();
         DateTime = day.Date;
 
-        _isInDisabledList = calendar.DisabledDateFunc?.Invoke(day.ConvertToTValue<TValue>()) ?? false;
+        _isInDisabledList = calendar.DisabledDateMinMaxFunc?.Invoke(day.ConvertToTValue<TValue>()) ?? false;
         _isOutsideCurrentMonth = !calendar.CalendarExtended.IsInCurrentMonth(day);
     }
 
