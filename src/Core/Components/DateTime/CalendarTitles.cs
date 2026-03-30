@@ -50,6 +50,11 @@ internal class CalendarTitles<TValue>
                 return true;
             }
 
+            if (PreviousDisabled && NextDisabled)
+            {
+                return true;
+            }
+
             return View switch
             {
                 CalendarViews.Days => false,
