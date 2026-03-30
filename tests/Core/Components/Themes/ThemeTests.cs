@@ -45,6 +45,25 @@ public partial class ThemeTests
     }
 
     [Fact]
+    public void Theme_ToCompactDictionary_EmptyValuesAreRemoved()
+    {
+        // Arrange
+        var theme = new Theme();
+
+        // Act
+        theme.Borders.Radius.Medium = "1px";
+        theme.Borders.Radius.Small = string.Empty;
+        theme.Fonts.Weight.Bold = 0;
+        var dictionary = theme.ToCompactDictionary();
+
+        // Assert
+        Assert.Single(dictionary);
+        Assert.Equal("1px", dictionary["borderRadiusMedium"]);
+        Assert.False(dictionary.TryGetValue("borderRadiusSmall", out _));
+        Assert.False(dictionary.TryGetValue("fontWeightBold", out _));
+    }
+
+    [Fact]
     public void Theme_Combine()
     {
         // Arrange
