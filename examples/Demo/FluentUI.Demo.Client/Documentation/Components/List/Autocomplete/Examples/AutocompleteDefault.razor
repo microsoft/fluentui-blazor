@@ -17,7 +17,14 @@
                     @bind-Value="@SearchText"
                     @bind-SelectedItems="@SelectedCountries">
     <OptionTemplate>
-        <div Style="pointer-events: none;">@context.Name</div>
+        <FluentStack Style="pointer-events: none;" VerticalAlignment="VerticalAlignment.Center">
+            <FluentAvatar Image="@context.Flag()"
+                          Name="@context.Name" 
+                          Size="AvatarSize.Size20" />
+            <FluentText Margin="@Margin.Left4">
+                @context.Name
+            </FluentText>
+        </FluentStack>
     </OptionTemplate>
 </FluentAutocomplete>
 

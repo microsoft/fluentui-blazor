@@ -74,7 +74,8 @@
             <EndTemplate>
                 @if (ShowProgressIndicator && _inProgress)
                 {
-                    <FluentSpinner Size="SpinnerSize.Tiny" />
+                    <FluentSpinner Size="SpinnerSize.Tiny"
+                                   @onfocus="@(e => _isOpen = false)" />
                 }
                 else
                 {
@@ -82,6 +83,7 @@
                     {
                         <FluentIcon Value="@ClearIcon" 
                                     Focusable="true"
+                                    @onfocus="@(e => _isOpen = false)"
                                     OnClick="@ClearSelectionAsync"
                                     OnClickStopPropagation="true" />
                     }
@@ -89,6 +91,7 @@
                     {
                         <FluentIcon Value="@SearchIcon" 
                                     Focusable="true"
+                                    @onfocus="@(e => _isOpen = false)"
                                     OnClick="@SwitchOptionsPopupAsync"
                                     OnClickStopPropagation="true" />
                     }
