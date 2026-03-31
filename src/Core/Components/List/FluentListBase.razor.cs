@@ -46,7 +46,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// Default is `null`. Internally the component uses <see cref="ListAppearance.Outline"/> as default.
     /// </summary>
     [Parameter]
-    public ListAppearance? Appearance { get; set; }
+    public virtual ListAppearance? Appearance { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -65,7 +65,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// Gets or sets whether the list allows multiple selections.
     /// </summary>
     [Parameter]
-    public bool Multiple { get; set; }
+    public virtual bool Multiple { get; set; }
 
     /// <summary>
     /// Gets or sets the items that are selected in the list.

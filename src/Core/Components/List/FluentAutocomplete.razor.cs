@@ -43,6 +43,19 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         .Build();
 
     /// <summary>
+    /// Gets or sets the appearance of the text input.
+    /// Default is <see cref="TextInputAppearance.Outline"/>.
+    /// </summary>
+    [Parameter]
+    public TextInputAppearance InputAppearance { get; set; } = TextInputAppearance.Outline;
+
+    /// <summary>
+    /// Gets or sets the short hint displayed in the input before the user enters a value.
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    /// <summary>
     /// Gets or sets the delay, in milliseconds, before to raise the event.
     /// Default is 400 milliseconds.
     /// </summary>
