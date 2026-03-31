@@ -50,8 +50,8 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase
     protected string? StyleValue => DefaultStyleBuilder
         .Build();
 
-    /// <summary>`
-    /// Constructs an instance of <see cref="ValidationMessage{TValue}"/>.
+    /// <summary>
+    /// Constructs an instance of <see cref="FluentValidationMessage{TValue}"/>.
     /// </summary>
     public FluentValidationMessage(LibraryConfiguration configuration) : base(configuration)
     {
