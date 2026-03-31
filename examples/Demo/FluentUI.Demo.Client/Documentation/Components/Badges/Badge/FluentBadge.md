@@ -19,7 +19,7 @@ A badge can be attached to any content. The default position is above-end. The p
 
 The `OffsetX` and `OffsetY` allow for tuning the positioning further.
 
-{{ BadgeAttached SourcCode=false }}
+{{ BadgeAttached SourceCode=false }}
 
 ## Colors
 The badge colors be set to a value from the `BadgeColor` enumeration. The last badge shows how a custom background color can be used.
@@ -45,6 +45,14 @@ The badge badge shape can be set to a value from the `BadgeShape` enumeration.
 The badge size be set to a value from  the `BadgeSize` enumeration.
 
 {{ BadgeSizes }}
+
+## CSS Classes
+
+Use the `.fluent-badge` CSS class on any HTML `div` or `span` element to quickly represent a badge with the default badge styles, without using the `FluentBadge` component.
+
+> **Note:** The `.fluent-badge` CSS class is intended for standalone elements only. It cannot be used to wrap other components or elements to produce an *attached badge* effect — use the `FluentBadge` component with the `Positioning` parameter for that purpose.
+
+{{ BadgeCss }}
 
 ## API FluentBadge
 

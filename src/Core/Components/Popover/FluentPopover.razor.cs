@@ -76,6 +76,12 @@ public partial class FluentPopover : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the popover is nested inside another popover.
+    /// </summary>
+    [Parameter]
+    public bool Nested { get; set; }
+
     /// <summary />
     internal async Task OnToggleAsync(DialogToggleEventArgs args)
     {

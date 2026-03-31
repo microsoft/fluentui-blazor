@@ -63,7 +63,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
     /// Gets or sets the count to show on the item with a <see cref="FluentCounterBadge"/>.
     /// </summary>
     [Parameter]
-    public ushort? Count { get; set; }
+    public int? Count { get; set; }
 
     /// <summary>
     ///  Gets or sets the content to be shown.
@@ -118,8 +118,8 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
     /// <summary />
     internal string? StyleValue => DefaultStyleBuilder
         .AddStyle(Style)
-        .AddStyle("min-height", "calc(var(--appbar-item-size) * 1px - 20px)", Owner.AppBar.Orientation == Orientation.Vertical)
-        .AddStyle("min-width", "calc(var(--appbar-item-size) * 1px)", Owner.AppBar.Orientation == Orientation.Horizontal)
+        .AddStyle("min-height", "calc(var(--appbar-item-size) - var(--appbar-item-height-adjustment))", Owner.AppBar.Orientation == Orientation.Vertical)
+        .AddStyle("min-width", "var(--appbar-item-size)", Owner.AppBar.Orientation == Orientation.Horizontal)
         .Build();
 
     /// <summary />
@@ -127,6 +127,11 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
     {
         if (OnClick.HasDelegate)
         {
+            if (Overflow is true)
+            {
+                await Owner.AppBar.TogglePopoverAsync();
+            }
+
             await OnClick.InvokeAsync(this);
         }
     }
@@ -135,7 +140,6 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
     public override ValueTask DisposeAsync()
     {
         Owner.Unregister(this);
-        GC.SuppressFinalize(this);
 
         return base.DisposeAsync();
     }

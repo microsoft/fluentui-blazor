@@ -1,6 +1,6 @@
 ﻿<FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
     <FluentSwitch @bind-Value="_showSearch" Label="Show search in popover" />
-	<div style="background-color: var(--colorNeutralBackground5); overflow: hidden; resize: vertical; height: 270px; width: 86px; padding: 10px;">
+	<div style="background-color: var(--colorNeutralBackground5); overflow: hidden; resize: vertical; height: 320px; width: 86px; padding: 10px;">
         <FluentAppBar
                       Items="@_apps.OrderBy(a => a.Order)"
                       Style="width: 68px; height: 100%;"
@@ -12,17 +12,17 @@
 
 
 @code {
-	private class FluentCustomAppBarItem : IAppBarItem
-	{
-		public int Order { get; set; }
-		public string? Id { get; set; }
-		public string? Href { get; set; }
-		public NavLinkMatch Match { get; set; }
-		public Icon IconRest { get; set; } = new Icons.Regular.Size24.AppFolder();
-		public Icon? IconActive { get; set; }
+    private class FluentCustomAppBarItem : IAppBarItem
+    {
+        public int Order { get; set; }
+        public string? Id { get; set; } = Guid.NewGuid().ToString();
+        public string? Href { get; set; }
+        public NavLinkMatch Match { get; set; }
+        public Icon IconRest { get; set; } = new Icons.Regular.Size24.AppFolder();
+        public Icon? IconActive { get; set; }
         public string Text { get; set; } = string.Empty;
         public string? Tooltip { get; set; }
-        public ushort? Count { get; set; }
+        public int? Count { get; set; }
         public bool? Overflow { get; set; }
         public EventCallback<IAppBarItem> OnClick { get; set; }
     }

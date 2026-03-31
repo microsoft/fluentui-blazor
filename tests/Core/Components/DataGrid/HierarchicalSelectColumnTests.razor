@@ -1,0 +1,744 @@
+﻿@using Bunit.Rendering
+@using Bunit.TestDoubles
+@using Microsoft.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
+@using Xunit
+@inherits FluentUITestContext
+
+@code {
+    public HierarchicalSelectColumnTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        // Register services
+        Services.AddFluentUIComponents();
+    }
+
+
+
+    [Fact]
+    public void Constructor_InitializesCorrectDefaults()
+    {
+        // Arrange & Act
+        var column = new HierarchicalSelectColumn<TestItem>();
+
+        // Assert
+        Assert.True(column.HierarchicalToggle);
+        Assert.Equal("auto", column.Width);
+        Assert.Equal("150px", column.MinWidth);
+        Assert.Equal(DataGridSelectMode.Multiple, column.SelectMode);
+        Assert.NotNull(column.Property);
+    }
+
+    [Fact]
+    public void Property_CorrectlyIdentifiesSelectedItems()
+    {
+        // Arrange
+        var column = new HierarchicalSelectColumn<TestItem>();
+        var item1 = new TestItem { IsSelected = true };
+        var item2 = new TestItem { IsSelected = false };
+        var item3 = new TestItem { IsSelected = null };
+
+        // Act & Assert
+        Assert.True(column.Property(item1));
+        Assert.False(column.Property(item2));
+        Assert.False(column.Property(item3));
+        Assert.False(column.Property(null!));
+    }
+
+    [Fact]
+    public void OnSelectedItemsSet_SyncsSelectionFromList()
+    {
+        // Arrange
+        var child = new TestItem { Id = 2, Depth = 1 };
+        var parent = new TestItem { Id = 1, Depth = 0, Children = [child] };
+
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.InternalGridContext = new InternalGridContext<TestItem>(null!);
+        column.InternalGridContext.Items = [parent];
+
+        // Act - providing complete list
+        column.SetSelectedItems([parent, child]);
+
+        // Assert
+        Assert.True(parent.IsSelected);
+        Assert.True(child.IsSelected);
+    }
+
+    [Fact]
+    public void OnSelectedItemsSet_OverridesHierarchyToMatchList()
+    {
+        // Arrange
+        var child = new TestItem { Id = 2, Depth = 1, IsSelected = true };
+        var parent = new TestItem { Id = 1, Depth = 0, Children = [child], IsSelected = true };
+
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.InternalGridContext = new InternalGridContext<TestItem>(null!);
+        column.InternalGridContext.Items = [parent];
+
+        // Act - empty list overrides existing state
+        column.SetSelectedItems([]);
+        column.CallOnSelectedItemsSet();
+
+        // Assert
+        Assert.False(parent.IsSelected);
+        Assert.False(child.IsSelected);
+    }
+
+    [Fact]
+    public void OnSelectedItemsSet_SyncsIndeterminateStateFromList()
+    {
+        // Arrange
+        var item = new TestItem { Id = 1, Depth = 0 };
+
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.InternalGridContext = new InternalGridContext<TestItem>(null!);
+        column.InternalGridContext.Items = [item];
+
+        // Act - Syncing indeterminate state from list
+        column.SetIndeterminateItems([item]);
+        column.CallOnSelectedItemsSet();
+
+        // Assert
+        Assert.Null(item.IsSelected);
+    }
+
+    [Fact]
+    public async Task UpdateSelectedItemsAsync_CalculatesHierarchicalState()
+    {
+        // Arrange
+        var child1 = new TestItem { Id = 2, Depth = 1, IsSelected = true };
+        var child2 = new TestItem { Id = 3, Depth = 1, IsSelected = false };
+        var parent = new TestItem { Id = 1, Depth = 0, Children = [child1, child2] };
+
+        var selectedCalled = false;
+        var indeterminateCalled = false;
+        var unselectedCalled = false;
+
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.InternalGridContext = new InternalGridContext<TestItem>(null!);
+        column.InternalGridContext.Items = [parent];
+
+        column.SetSelectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => selectedCalled = true));
+        column.SetIndeterminateItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => indeterminateCalled = true));
+        column.SetUnselectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => unselectedCalled = true));
+
+        // Act
+        await column.CallUpdateSelectedItemsAsync();
+
+        // Assert
+        Assert.Null(parent.IsSelected); // Derived from children
+        Assert.Contains(parent, column.IndeterminateItems);
+        Assert.Contains(child1, column.SelectedItems);
+        Assert.Contains(child2, column.UnselectedItems);
+
+        Assert.True(selectedCalled);
+        Assert.True(indeterminateCalled);
+        Assert.True(unselectedCalled);
+    }
+
+    [Fact]
+    public async Task UpdateSelectedItemsAsync_PreventsInfiniteLoops_UsingSequenceEqual()
+    {
+        // Arrange
+        var notificationCount = 0;
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.SetSelectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => notificationCount++));
+
+        var item = new TestItem { Id = 1, IsSelected = true };
+        column.InternalGridContext = new InternalGridContext<TestItem>(null!);
+        column.InternalGridContext.Items = [item];
+
+        // First call - should notify
+        await column.CallUpdateSelectedItemsAsync();
+        Assert.Equal(1, notificationCount);
+
+        // Second call with same state - should NOT notify
+        await column.CallUpdateSelectedItemsAsync();
+        Assert.Equal(1, notificationCount);
+    }
+
+    [Fact]
+    public async Task UpdateSelectedItemsAsync_NoItemsInContext_ReturnsEarly()
+    {
+        // Arrange
+        var selectedCalled = false;
+        var indeterminateCalled = false;
+        var unselectedCalled = false;
+
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+
+        // Initialize with some items BEFORE setting context to avoid automatic clearing
+        var item1 = new TestItem { Id = 1 };
+        var item2 = new TestItem { Id = 2 };
+        var item3 = new TestItem { Id = 3 };
+
+        column.SetSelectedItems(new List<TestItem> { item1 });
+        column.SetIndeterminateItems(new List<TestItem> { item2 });
+        column.SetUnselectedItems(new List<TestItem> { item3 });
+
+        // Now set the context (initially empty)
+        column.InternalGridContext = new InternalGridContext<TestItem>(null!);
+        column.InternalGridContext.Items = [];
+
+        column.SetSelectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => selectedCalled = true));
+        column.SetIndeterminateItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => indeterminateCalled = true));
+        column.SetUnselectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => unselectedCalled = true));
+
+        // Act
+        await column.CallUpdateSelectedItemsAsync();
+
+        // Assert - verify it returned early without modifying state or notifying
+        Assert.Single(column.SelectedItems);
+        Assert.Single(column.IndeterminateItems);
+        Assert.Single(column.UnselectedItems);
+        Assert.False(selectedCalled);
+        Assert.False(indeterminateCalled);
+        Assert.False(unselectedCalled);
+    }
+
+    [Fact]
+    public void GetSelectAll_ReturnsNull_WhenMixedState()
+    {
+        // Arrange
+        var item1 = new TestItem { Id = 1, Depth = 0, IsSelected = true };
+        var item2 = new TestItem { Id = 2, Depth = 0, IsSelected = false };
+
+        var column = new TestableHierarchicalSelectColumn<TestItem>
+        {
+            InternalGridContext = new InternalGridContext<TestItem>(null!)
+        };
+        column.InternalGridContext.Items = [item1, item2];
+
+        // Act
+        var result = column.CallGetSelectAll();
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void ClearSelection_ResetsStatesAndNotifiesCallbacks()
+    {
+        // Arrange
+        var child = new TestItem { Id = 2, Depth = 1, IsSelected = true };
+        var parent = new TestItem { Id = 1, Depth = 0, Children = [child], IsSelected = true };
+
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.InternalGridContext = new InternalGridContext<TestItem>(null!);
+        column.InternalGridContext.Items = [parent, child];
+
+        var selectedCalled = false;
+        var indeterminateCalled = false;
+        var unselectedCalled = false;
+        var selectAllCalled = false;
+
+        column.SetSelectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => selectedCalled = true));
+        column.SetIndeterminateItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => indeterminateCalled = true));
+        column.SetUnselectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => unselectedCalled = true));
+        column.SetSelectAllChanged(EventCallback.Factory.Create<bool?>(this, _ => selectAllCalled = true));
+
+        // Setup initial state
+        column.SetSelectedItems([parent, child]);
+
+        // Act
+        column.ClearSelection();
+
+        // Assert
+        Assert.Empty(column.SelectedItems);
+        Assert.Empty(column.IndeterminateItems);
+        Assert.Equal(2, column.UnselectedItems.Count());
+        Assert.False(parent.IsSelected);
+        Assert.False(child.IsSelected);
+        Assert.True(selectedCalled);
+        Assert.True(indeterminateCalled);
+        Assert.True(unselectedCalled);
+        Assert.True(selectAllCalled);
+    }
+
+    [Fact]
+    public async Task ClearSelectionAsync_ResetsStatesAndNotifiesCallbacks()
+    {
+        // Arrange
+        var child = new TestItem { Id = 2, Depth = 1, IsSelected = true };
+        var parent = new TestItem { Id = 1, Depth = 0, Children = [child], IsSelected = true };
+
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.InternalGridContext = new InternalGridContext<TestItem>(null!);
+        column.InternalGridContext.Items = [parent, child];
+
+        var selectedCalled = false;
+        var indeterminateCalled = false;
+        var unselectedCalled = false;
+        var selectAllCalled = false;
+
+        column.SetSelectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => selectedCalled = true));
+        column.SetIndeterminateItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => indeterminateCalled = true));
+        column.SetUnselectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => unselectedCalled = true));
+        column.SetSelectAllChanged(EventCallback.Factory.Create<bool?>(this, _ => selectAllCalled = true));
+
+        // Setup initial state
+        column.SetSelectedItems([parent, child]);
+
+        // Act
+        await column.ClearSelectionAsync();
+
+        // Assert
+        Assert.Empty(column.SelectedItems);
+        Assert.Empty(column.IndeterminateItems);
+        Assert.Equal(2, column.UnselectedItems.Count());
+        Assert.False(parent.IsSelected);
+        Assert.False(child.IsSelected);
+        Assert.True(selectedCalled);
+        Assert.True(indeterminateCalled);
+        Assert.True(unselectedCalled);
+        Assert.True(selectAllCalled);
+    }
+
+    [Fact]
+    public void ClearSelection_WorksWithoutDelegates()
+    {
+        // Arrange
+        var item = new TestItem { Id = 1, IsSelected = true };
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.InternalGridContext = new InternalGridContext<TestItem>(null!);
+        column.InternalGridContext.Items = [item];
+        column.SetSelectedItems([item]);
+
+        // Act
+        column.ClearSelection();
+
+        // Assert
+        Assert.Empty(column.SelectedItems);
+        Assert.False(item.IsSelected);
+    }
+
+    [Fact]
+    public void OnSelectedItemsSet_ExceptionResetsSyncFlag()
+    {
+        // Arrange
+        var column = new ExceptionHierarchicalSelectColumn<TestItem>();
+
+        // Act - this will throw
+        Assert.Throws<InvalidOperationException>(() => column.CallOnSelectedItemsSet());
+
+        // Assert - we can call it again and it still attempts (meaning _isSyncing allowed it)
+        column.ShouldThrow = false;
+        column.CallOnSelectedItemsSet();
+
+        Assert.Equal(2, column.CallCount);
+    }
+
+    [Fact]
+    public void HierarchicalSelectColumnTests_Rendering()
+    {
+        // Arrange
+        var child = new TestItem { Id = 2, Depth = 1, IsSelected = true };
+        var parent = new TestItem { Id = 1, Depth = 0, Children = [child], IsSelected = true };
+        var items = new List<TestItem> { parent, child }.AsQueryable();
+
+        // Act
+        var cut = Render(
+            @<FluentDataGrid Items="@items" TGridItem="TestItem">
+                <HierarchicalSelectColumn TGridItem="TestItem" />
+                <PropertyColumn Property="@(p => p.Id)" />
+            </FluentDataGrid>
+        );
+
+        // Assert
+        cut.Verify();
+    }
+
+#pragma warning disable BL0005
+    [Fact]
+    public async Task AddOrRemoveSelectedItemAsync_HierarchicalItem_TogglesAndSyncs()
+    {
+        // Arrange
+        var child = new TestItem { Id = 2, Depth = 1, IsSelected = false };
+        var parent = new TestItem { Id = 1, Depth = 0, Children = [child], IsSelected = false };
+
+        var cut = Render(
+            @<FluentDataGrid Items="@(new[] { parent, child }.AsQueryable())" TGridItem="TestItem" />
+        );
+        var grid = cut.FindComponent<FluentDataGrid<TestItem>>().Instance;
+
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.InternalGridContext = new InternalGridContext<TestItem>(grid);
+        column.InternalGridContext.Items = [parent, child];
+
+        var selectedCalled = false;
+        var indeterminateCalled = false;
+        var unselectedCalled = false;
+        var selectAllCalled = false;
+
+        column.SetSelectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => selectedCalled = true));
+        column.SetIndeterminateItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => indeterminateCalled = true));
+        column.SetUnselectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => unselectedCalled = true));
+        column.SetSelectAllChanged(EventCallback.Factory.Create<bool?>(this, _ => selectAllCalled = true));
+
+        // Act - Select parent (should select child too because TestItem propagates)
+        await column.CallAddOrRemoveSelectedItemAsync(parent);
+
+        // Assert
+        Assert.True(parent.IsSelected);
+        Assert.True(child.IsSelected);
+        Assert.Contains(parent, column.SelectedItems);
+        Assert.Contains(child, column.SelectedItems);
+        Assert.True(selectedCalled);
+        Assert.True(indeterminateCalled);
+        Assert.True(unselectedCalled);
+        Assert.True(selectAllCalled);
+
+        // Reset flags
+        selectedCalled = indeterminateCalled = unselectedCalled = selectAllCalled = false;
+
+        // Act - Unselect parent
+        await column.CallAddOrRemoveSelectedItemAsync(parent);
+
+        // Assert
+        Assert.False(parent.IsSelected);
+        Assert.False(child.IsSelected);
+        Assert.Empty(column.SelectedItems);
+        Assert.True(selectedCalled);
+
+        // Act - Make indeterminate then toggle
+        child.IsSelected = true;
+        parent.IsSelected = null;
+        await column.CallAddOrRemoveSelectedItemAsync(parent); // Indeterminate -> True
+        Assert.True(parent.IsSelected);
+        Assert.True(child.IsSelected);
+    }
+
+    [Fact]
+    public async Task AddOrRemoveSelectedItemAsync_NonHierarchicalItem_CallsBase()
+    {
+        // Arrange
+        var item = new SimpleItem { Id = 1 };
+        
+        var cut = Render(
+            @<FluentDataGrid Items="@(new[] { item }.AsQueryable())" TGridItem="SimpleItem" />
+        );
+        var grid = cut.FindComponent<FluentDataGrid<SimpleItem>>().Instance;
+
+        var column = new TestableHierarchicalSelectColumn<SimpleItem>();
+        column.InternalGridContext = new InternalGridContext<SimpleItem>(grid);
+        column.InternalGridContext.Items = [item];
+        
+        // We override Property to match what SelectColumn expects for non-hierarchical items
+        // to stay in the SelectedItems list after sync
+        column.Property = (i) => column.SelectedItems.Contains(i);
+
+        // Act
+        await column.CallAddOrRemoveSelectedItemAsync(item);
+
+        // Assert
+        Assert.Contains(item, column.SelectedItems);
+
+        // Act - Remove
+        await column.CallAddOrRemoveSelectedItemAsync(item);
+        Assert.Empty(column.SelectedItems);
+    }
+
+    [Fact]
+    public async Task OnClickAllAsync_TogglesSelectionAndNotifies()
+    {
+        // Arrange
+        var child = new TestItem { Id = 2, Depth = 1, IsSelected = false };
+        var parent = new TestItem { Id = 1, Depth = 0, Children = [child], IsSelected = false };
+
+        var cut = Render(
+            @<FluentDataGrid Items="@(new[] { parent, child }.AsQueryable())" TGridItem="TestItem" />
+        );
+        var grid = cut.FindComponent<FluentDataGrid<TestItem>>().Instance;
+
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.InternalGridContext = new InternalGridContext<TestItem>(grid);
+        column.InternalGridContext.Items = [parent, child];
+
+        var selectedCalled = false;
+        var indeterminateCalled = false;
+        var unselectedCalled = false;
+        var selectAllCalled = false;
+
+        column.SetSelectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => selectedCalled = true));
+        column.SetIndeterminateItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => indeterminateCalled = true));
+        column.SetUnselectedItemsChanged(EventCallback.Factory.Create<IEnumerable<TestItem>>(this, _ => unselectedCalled = true));
+        column.SetSelectAllChanged(EventCallback.Factory.Create<bool?>(this, _ => selectAllCalled = true));
+
+        // Act - Click All (False -> True)
+        column.SelectAll = false;
+        await column.CallOnClickAllAsync(new MouseEventArgs());
+
+        // Assert
+        Assert.True(parent.IsSelected);
+        Assert.True(child.IsSelected);
+        Assert.True(column.SelectAll);
+        Assert.Equal(2, column.SelectedItems.Count());
+        Assert.True(selectedCalled);
+        Assert.True(indeterminateCalled);
+        Assert.True(unselectedCalled);
+        Assert.True(selectAllCalled);
+
+        // Reset
+        selectedCalled = false;
+
+        // Act - Click All (True -> False)
+        await column.CallOnClickAllAsync(new MouseEventArgs());
+
+        // Assert
+        Assert.False(parent.IsSelected);
+        Assert.False(child.IsSelected);
+        Assert.False(column.SelectAll);
+        Assert.Empty(column.SelectedItems);
+        Assert.True(selectedCalled);
+    }
+
+    [Fact]
+    public async Task OnClickAllAsync_DoesNothing_WhenGridIsNull()
+    {
+        // Arrange
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.InternalGridContext = new InternalGridContext<TestItem>(null!); // Grid is null
+        column.SelectAll = false;
+
+        // Act
+        await column.CallOnClickAllAsync(new MouseEventArgs());
+
+        // Assert
+        Assert.False(column.SelectAll); // Should not have toggled
+    }
+
+    [Fact]
+    public void GetDefaultChildContent_RespectsSelectable()
+    {
+        // Arrange
+        var item = new TestItem { Id = 1 };
+        var column = new TestableHierarchicalSelectColumn<TestItem>
+        {
+            Selectable = (i) => i.Id != 1
+        };
+
+        // Act
+        var cut = Render(column.CallGetDefaultChildContent()(item));
+
+        // Assert
+        Assert.Empty(cut.Nodes);
+    }
+
+    [Fact]
+    public void GetDefaultChildContent_SyncsSelectedItems()
+    {
+        // Arrange
+        var item1 = new TestItem { Id = 1, IsSelected = true };
+        var item2 = new TestItem { Id = 2, IsSelected = false };
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+
+        // Initial state: SelectedItems is empty, but item1 is selected in hierarchy
+        column.SetSelectedItems([]);
+
+        // Act - Render item1 (Selected in hierarchy -> should be added to SelectedItems)
+        Render(column.CallGetDefaultChildContent()(item1));
+        Assert.Contains(item1, column.SelectedItems);
+
+        // Act - Render item2 (Unselected in hierarchy but added to SelectedItems manually)
+        column.SetSelectedItems([item1, item2]);
+        Render(column.CallGetDefaultChildContent()(item2));
+        Assert.DoesNotContain(item2, column.SelectedItems);
+    }
+
+    [Fact]
+    public void GetDefaultChildContent_RendersCursorPointer_WhenSelectFromEntireRowIsFalse()
+    {
+        // Arrange
+        var item = new TestItem { Id = 1 };
+        var column = new TestableHierarchicalSelectColumn<TestItem>
+        {
+            SelectFromEntireRow = false
+        };
+
+        // Act
+        var cut = Render(column.CallGetDefaultChildContent()(item));
+
+        // Assert
+        Assert.Contains("cursor: pointer;", cut.Markup);
+    }
+
+    [Fact]
+    public void GetDefaultChildContent_CalculatesSelected_ForNonHierarchicalItem()
+    {
+        // Arrange
+        var item = new SimpleItem { Id = 1 };
+        var column = new TestableHierarchicalSelectColumn<SimpleItem>();
+
+        // 1. By SelectedItems
+        column.SetSelectedItems([item]);
+        var cut1 = Render(column.CallGetDefaultChildContent()(item));
+        Assert.True(cut1.FindComponent<FluentIcon<Icon>>().Instance.AdditionalAttributes!["row-selected"] as bool?);
+
+        // 2. By Property
+        column.SetSelectedItems([]);
+        column.Property = (i) => i.Id == 1;
+        var cut2 = Render(column.CallGetDefaultChildContent()(item));
+        Assert.True(cut2.FindComponent<FluentIcon<Icon>>().Instance.AdditionalAttributes!["row-selected"] as bool?);
+    }
+
+    [Fact]
+    public async Task OnKeyAllAsync_TriggersOnClickAll_ForEnterKeys()
+    {
+        // Arrange
+        var item = new TestItem { Id = 1, Depth = 0, IsSelected = false };
+        var cut = Render(
+            @<FluentDataGrid Items="@(new[] { item }.AsQueryable())" TGridItem="TestItem" />
+        );
+        var grid = cut.FindComponent<FluentDataGrid<TestItem>>().Instance;
+
+        var column = new TestableHierarchicalSelectColumn<TestItem>();
+        column.InternalGridContext = new InternalGridContext<TestItem>(grid);
+        column.InternalGridContext.Items = [item];
+        column.SelectAll = false;
+
+        // Act - Enter
+        await column.CallOnKeyAllAsync(new KeyboardEventArgs { Code = "Enter" });
+        Assert.True(item.IsSelected);
+
+        // Act - NumpadEnter (Toggles back to false)
+        await column.CallOnKeyAllAsync(new KeyboardEventArgs { Code = "NumpadEnter" });
+        Assert.False(item.IsSelected);
+
+        // Act - Other key (No change)
+        await column.CallOnKeyAllAsync(new KeyboardEventArgs { Code = "Space" });
+        Assert.False(item.IsSelected);
+    }
+#pragma warning restore BL0005
+
+    public class SimpleItem
+    {
+        public int Id { get; set; }
+    }
+
+    public class TestItem : IHierarchicalGridItem
+    {
+        public int Id { get; set; }
+        public int Depth { get; set; }
+        public bool IsHidden { get; set; }
+        public bool IsCollapsed { get; set; }
+        public bool HasChildren => Children?.Any() ?? false;
+        
+        private bool? _isSelected;
+        public bool? IsSelected 
+        { 
+            get => _isSelected; 
+            set 
+            {
+                _isSelected = value;
+                if (value != null)
+                {
+                    foreach(var child in Children.OfType<TestItem>())
+                    {
+                        child.IsSelected = value;
+                    }
+                }
+            }
+        }
+        
+        public IEnumerable<IHierarchicalGridItem> Children { get; set; } = [];
+
+        public override bool Equals(object? obj) => obj is TestItem item && Id == item.Id;
+        public override int GetHashCode() => Id;
+    }
+
+    private class TestableHierarchicalSelectColumn<T> : HierarchicalSelectColumn<T>
+    {
+        public void SetSelectedItems(IEnumerable<T> items) => SelectedItems = items;
+        public void SetIndeterminateItems(IEnumerable<T> items) => IndeterminateItems = items;
+        public void SetUnselectedItems(IEnumerable<T> items) => UnselectedItems = items;
+        public void SetSelectedItemsChanged(EventCallback<IEnumerable<T>> value) => SelectedItemsChanged = value;
+        public void SetIndeterminateItemsChanged(EventCallback<IEnumerable<T>> value) => IndeterminateItemsChanged = value;
+        public void SetUnselectedItemsChanged(EventCallback<IEnumerable<T>> value) => UnselectedItemsChanged = value;
+        public void SetSelectAllChanged(EventCallback<bool?> value) => SelectAllChanged = value;
+
+        public void CallOnSelectedItemsSet() => OnSelectedItemsSet();
+        public async Task CallUpdateSelectedItemsAsync() => await UpdateSelectedItemsAsync();
+        public bool? CallGetSelectAll() => GetSelectAll();
+        public async Task CallAddOrRemoveSelectedItemAsync(T? item) => await AddOrRemoveSelectedItemAsync(item);
+        public async Task CallOnClickAllAsync(MouseEventArgs e) => await OnClickAllAsync(e);
+        public async Task CallOnKeyAllAsync(KeyboardEventArgs e) => await OnKeyAllAsync(e);
+        public RenderFragment<T> CallGetDefaultChildContent() => GetDefaultChildContent();
+    }
+
+    private class ExceptionHierarchicalSelectColumn<T> : TestableHierarchicalSelectColumn<T>
+    {
+        public int CallCount { get; private set; }
+        public bool ShouldThrow { get; set; } = true;
+
+        protected override void OnSelectedItemsSet()
+        {
+            CallCount++;
+            if (ShouldThrow)
+            {
+                throw new InvalidOperationException();
+            }
+
+            base.OnSelectedItemsSet();
+        }
+    }
+
+    [Fact]
+    public void HierarchicalSelectColumnTests_TemplateColumn_Rendering()
+    {
+        // Arrange
+        var root = new TestItem { Id = 1, Depth = 0, IsSelected = false };
+        var items = new List<TestItem> { root }.AsQueryable();
+
+        // Act
+        var cut = Render(
+            @<FluentDataGrid Items="@items" TGridItem="TestItem">
+                <TemplateColumn TGridItem="TestItem" Title="Temp">
+                    @context.Id
+                </TemplateColumn>
+                <PropertyColumn Property="@(p => p.Id)" />
+            </FluentDataGrid>
+        );
+
+        // Assert
+        Assert.Equal(2, cut.FindAll("th").Count);
+    }
+
+    [Fact]
+    public void HierarchicalSelectColumnTests_OnlyHierarchical_Rendering()
+    {
+        // Arrange
+        var root = new TestItem { Id = 1, Depth = 0, IsSelected = false };
+        var items = new List<TestItem> { root }.AsQueryable();
+
+        // Act
+        var cut = Render(
+            @<FluentDataGrid Items="@items" TGridItem="TestItem">
+                <HierarchicalSelectColumn TGridItem="TestItem">@context.Id</HierarchicalSelectColumn>
+            </FluentDataGrid>
+        );
+
+        // Assert
+        Assert.Single(cut.FindAll("th"));
+    }
+
+    [Fact]
+    public void HierarchicalSelectColumnTests_Testable_Rendering()
+    {
+        // Arrange
+        var root = new TestItem { Id = 1, Depth = 0, IsSelected = false };
+        var items = new List<TestItem> { root }.AsQueryable();
+
+        // Act
+        var cut = Render(
+            @<FluentDataGrid Items="@items" TGridItem="TestItem">
+                <HierarchicalSelectColumn TGridItem="TestItem">@context.Id</HierarchicalSelectColumn>
+                <PropertyColumn Property="@(p => p.Id)" />
+            </FluentDataGrid>
+        );
+
+        // Assert
+        Assert.Equal(2, cut.FindAll("th").Count);
+    }
+}

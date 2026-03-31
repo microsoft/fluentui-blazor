@@ -24,7 +24,17 @@ fluent-counter-badge[positioning='above-start'] {
   position: absolute;
   top: calc(1 * var(--offset-y, 0px));
   left: calc(1 * var(--offset-x, 0px));
+  right: unset;
   transform: translate(-50%, -50%);
+}
+
+[dir='rtl'] fluent-badge[positioning='before-top'],
+[dir='rtl'] fluent-badge[positioning='above-start'],
+[dir='rtl'] fluent-counter-badge[positioning='before-top'],
+[dir='rtl'] fluent-counter-badge[positioning='above-start'] {
+  left: unset;
+  right: calc(-1 * var(--offset-x, 0px));
+  transform: translate(50%, -50%);
 }
 
 fluent-badge[positioning='above'],
@@ -41,16 +51,34 @@ fluent-counter-badge[positioning='after-top'],
 fluent-counter-badge[positioning='above-end'] {
   position: absolute;
   top: calc(1 * var(--offset-y, 0px));
+  left: unset;
   right: calc(-1 * var(--offset-x, 0px));
   transform: translate(50%, -50%);
+}
+
+[dir='rtl'] fluent-badge[positioning='after-top'],
+[dir='rtl'] fluent-badge[positioning='above-end'],
+[dir='rtl'] fluent-counter-badge[positioning='after-top'],
+[dir='rtl'] fluent-counter-badge[positioning='above-end'] {
+  left: calc(1 * var(--offset-x, 0px));
+  right: unset;
+  transform: translate(-50%, -50%);
 }
 
 fluent-badge[positioning='after'],
 fluent-counter-badge[positioning='after'] {
   position: absolute;
   top: calc(50% + var(--offset-y, 0px));
+  left: unset;
   right: calc(-1 * var(--offset-x, 0px));
   transform: translate(50%, -50%);
+}
+
+[dir='rtl'] fluent-badge[positioning='after'],
+[dir='rtl'] fluent-counter-badge[positioning='after'] {
+  left: calc(1 * var(--offset-x, 0px));
+  right: unset;
+  transform: translate(-50%, -50%);
 }
 
 fluent-badge[positioning='after-bottom'],
@@ -59,8 +87,18 @@ fluent-counter-badge[positioning='after-bottom'],
 fluent-counter-badge[positioning='below-end'] {
   position: absolute;
   bottom: calc(-1 * var(--offset-y, 0px));
+  left: unset;
   right: calc(-1 * var(--offset-x, 0px));
   transform: translate(50%, 50%);
+}
+
+[dir='rtl'] fluent-badge[positioning='after-bottom'],
+[dir='rtl'] fluent-badge[positioning='below-end'],
+[dir='rtl'] fluent-counter-badge[positioning='after-bottom'],
+[dir='rtl'] fluent-counter-badge[positioning='below-end'] {
+  left: calc(1 * var(--offset-x, 0px));
+  right: unset;
+  transform: translate(-50%, 50%);
 }
 
 fluent-badge[positioning='below'],
@@ -68,6 +106,7 @@ fluent-counter-badge[positioning='below'] {
   position: absolute;
   bottom: calc(-1 * var(--offset-y, 0px));
   left: calc(50% + 1 * var(--offset-x, 0px));
+  right: unset;
   transform: translate(-50%, 50%);
 }
 
@@ -78,7 +117,17 @@ fluent-counter-badge[positioning='below-start'] {
   position: absolute;
   bottom: calc(-1 * var(--offset-y, 0px));
   left: calc(1 * var(--offset-x, 0px));
+  right: unset;
   transform: translate(-50%, 50%);
+}
+
+[dir='rtl'] fluent-badge[positioning='before-bottom'],
+[dir='rtl'] fluent-badge[positioning='below-start'],
+[dir='rtl'] fluent-counter-badge[positioning='before-bottom'],
+[dir='rtl'] fluent-counter-badge[positioning='below-start'] {
+  left: unset;
+  right: calc(-1 * var(--offset-x, 0px));
+  transform: translate(50%, 50%);
 }
 
 fluent-badge[positioning='before'],
@@ -86,7 +135,15 @@ fluent-counter-badge[positioning='before'] {
   position: absolute;
   top: calc(50% + var(--offset-y, 0px));
   left: calc(1 * var(--offset-x, 0px));
+  right: unset;
   transform: translate(-50%, -50%);
+}
+
+[dir='rtl'] fluent-badge[positioning='before'],
+[dir='rtl'] fluent-counter-badge[positioning='before'] {
+  left: unset;
+  right: calc(-1 * var(--offset-x, 0px));
+  transform: translate(50%, -50%);
 }
 
 fluent-badge[positioning='center-center'],

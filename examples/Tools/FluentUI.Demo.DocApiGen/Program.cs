@@ -45,6 +45,10 @@ public class Program
             return;
         }
 
+        // Ensure dllFile and xmlFile are absolute paths
+        dllFile = Path.IsPathRooted(dllFile) ? dllFile : Path.Combine(Directory.GetCurrentDirectory(), dllFile);
+        xmlFile = Path.IsPathRooted(xmlFile) ? xmlFile : Path.Combine(Directory.GetCurrentDirectory(), xmlFile);
+
         try
         {
             // Parse generation mode
@@ -54,7 +58,7 @@ public class Program
             ValidateFormatCompatibility(mode, format);
 
             // Load assembly and XML documentation
-            var assembly = Assembly.LoadFrom(dllFile);
+            var assembly = Assembly.LoadFile(dllFile);
             var docXml = new FileInfo(xmlFile);
 
             Console.WriteLine("Generating documentation...");
@@ -126,6 +130,10 @@ public class Program
         Console.WriteLine("             Supports: json only");
         Console.WriteLine("  mcp      - Generate MCP server documentation (tools, resources, prompts)");
         Console.WriteLine("             Supports: json only");
+        Console.WriteLine("  icons    - Generate Fluent UI icon documentation");
+        Console.WriteLine("             Supports: json only");
+        Console.WriteLine("  emojis   - Generate Fluent UI emoji documentation");
+        Console.WriteLine("             Supports: json only");
         Console.WriteLine();
         Console.WriteLine("Examples:");
         Console.WriteLine("  # Generate Summary mode JSON");
@@ -139,6 +147,12 @@ public class Program
         Console.WriteLine();
         Console.WriteLine("  # Generate MCP documentation JSON");
         Console.WriteLine("  DocApiGen --xml McpServer.xml --dll McpServer.dll --output mcp-docs.json --mode mcp");
+        Console.WriteLine();
+        Console.WriteLine("  # Generate Icons documentation JSON");
+        Console.WriteLine("  DocApiGen --xml MyApp.xml --dll MyApp.dll --output icons.json --mode icons");
+        Console.WriteLine();
+        Console.WriteLine("  # Generate Emojis documentation JSON");
+        Console.WriteLine("  DocApiGen --xml MyApp.xml --dll MyApp.dll --output emojis.json --mode emojis");
     }
 
     private static GenerationMode ParseMode(string modeArg)
@@ -148,7 +162,9 @@ public class Program
             "summary" => GenerationMode.Summary,
             "all" => GenerationMode.All,
             "mcp" => GenerationMode.Mcp,
-            _ => throw new ArgumentException($"Invalid mode '{modeArg}'. Valid modes are: summary, all, mcp")
+            "icons" => GenerationMode.Icons,
+            "emojis" => GenerationMode.Emojis,
+            _ => throw new ArgumentException($"Invalid mode '{modeArg}'. Valid modes are: summary, all, mcp, icons, emojis")
         };
     }
 
@@ -168,6 +184,13 @@ public class Program
         {
             throw new NotSupportedException(
                 $"Mode 'mcp' only supports JSON format. Requested format: {format}");
+        }
+
+        // Icons and Emojis modes only support JSON
+        if ((mode == GenerationMode.Icons || mode == GenerationMode.Emojis) && formatLower != "json")
+        {
+            throw new NotSupportedException(
+                $"Mode '{mode}' only supports JSON format. Requested format: {format}");
         }
     }
 }

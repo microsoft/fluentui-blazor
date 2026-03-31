@@ -291,6 +291,15 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
+
+            if (value == CurrentValue?.ConvertToDateTime())
+            {
+                // Even if the month is the same as the current value, we need to update the day to the first day of the month, and trigger the event.
+                // Otherwise, the user cannot return to the day view.
+                await ValueChanged.InvokeAsync(value.ConvertToTValue<TValue>());
+                return;
+            }
+
             await OnSelectedDateHandlerAsync(value);
         }
     }
@@ -301,6 +310,15 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
+
+            if (value == CurrentValue?.ConvertToDateTime())
+            {
+                // Even if the year is the same as the current value, we need to update the month and day to the first month and day of the year, and trigger the event.
+                // Otherwise, the user cannot return to the month view.
+                await ValueChanged.InvokeAsync(value.ConvertToTValue<TValue>());
+                return;
+            }
+
             await OnSelectedDateHandlerAsync(value);
         }
     }
@@ -486,7 +504,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             SelectedDates = range.Where(day =>
             {
                 var dateTime = day.ConvertToDateTime();
-                return dateTime.HasValue && (DisabledDateFunc == null || !DisabledDateFunc(day));
+                return dateTime.HasValue && (DisabledDateMinMaxFunc == null || !DisabledDateMinMaxFunc(day));
             });
 
             if (SelectedDatesChanged.HasDelegate)
@@ -532,7 +550,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         }
 
         SelectedDates = _rangeSelector.GetAllDates()
-            .Where(day => DisabledDateFunc == null || !DisabledDateFunc(day.ConvertToTValue<TValue>()))
+            .Where(day => DisabledDateMinMaxFunc == null || !DisabledDateMinMaxFunc(day.ConvertToTValue<TValue>()))
             .Select(day => day.ConvertToTValue<TValue>());
 
         if (SelectedDatesChanged.HasDelegate)
@@ -565,9 +583,9 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             _rangeSelectorMouseOver.End = range.MaxDateTime();
         }
 
-        var days = DisabledDateFunc is null
+        var days = DisabledDateMinMaxFunc is null
                  ? _rangeSelectorMouseOver.GetAllDates()
-                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateFunc(day.ConvertToTValue<TValue>()));
+                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateMinMaxFunc(day.ConvertToTValue<TValue>()));
 
         _selectedDatesMouseOver.Clear();
         _selectedDatesMouseOver.AddRange(days);
@@ -593,14 +611,14 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <returns></returns>
     internal bool AllDaysAreDisabled(DateTime start, DateTime end)
     {
-        if (DisabledDateFunc is null)
+        if (DisabledDateMinMaxFunc is null)
         {
             return false;
         }
 
         for (var day = start; day <= end; day = day.AddDays(1))
         {
-            if (!DisabledDateFunc.Invoke(day.ConvertToTValue<TValue>()))
+            if (!DisabledDateMinMaxFunc.Invoke(day.ConvertToTValue<TValue>()))
             {
                 return false;
             }

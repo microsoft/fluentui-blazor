@@ -1,0 +1,34 @@
+<div>
+  Toast Content
+</div>
+<div>
+  <FluentButton Appearance="ButtonAppearance.Primary"
+                OnClick="btnOK_Click">OK</FluentButton>
+  <FluentButton Appearance="ButtonAppearance.Default"
+                OnClick="btnCancel_Click">Cancel</FluentButton>
+</div>
+
+@code {
+  // If you want to use this razor component in standalone mode,
+  // you can use a nullable IToastInstance property.
+  // If the value is not null, the component is running using the ToastService.
+  // `public IToastInstance? FluentToast { get; set; }`
+  [CascadingParameter]
+  public required IToastInstance Toast { get; set; }
+
+  [Inject]
+  public required IToastService ToastService { get; set; }
+
+  [Parameter]
+  public string? Name { get; set; }
+
+  private async Task btnOK_Click()
+  {
+    await Toast.CloseAsync(ToastResult.Ok("Yes"));
+  }
+  
+  private async Task btnCancel_Click()
+  {
+    await Toast.CloseAsync(ToastResult.Cancel("No"));
+  }
+}

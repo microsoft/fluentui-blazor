@@ -40,7 +40,7 @@ examples/
 
 ```bash
 # Build the entire solution
-dotnet build Microsoft.FluentUI-v5.sln
+dotnet build Microsoft.FluentUI-v5.slnx
 
 # Build only the core component library
 dotnet build src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj
@@ -49,10 +49,10 @@ dotnet build src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj
 dotnet build examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj
 
 # Clean the solution
-dotnet clean Microsoft.FluentUI-v5.sln
+dotnet clean Microsoft.FluentUI-v5.slnx
 
 # Restore packages
-dotnet restore Microsoft.FluentUI-v5.sln
+dotnet restore Microsoft.FluentUI-v5.slnx
 ```
 
 ### Run the Demo

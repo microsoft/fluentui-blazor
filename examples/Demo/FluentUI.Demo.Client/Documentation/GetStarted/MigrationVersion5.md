@@ -61,6 +61,6 @@ The categories these changes fall in are:
 
 {{ INCLUDE MigrationFluentSelect }}
 
-## Migrate to v5 with help from GitHub Copilot chat
+## FluentDragContainer and FluentDropZone
 
-{{ INCLUDE CopilotInstructionsContent }}
+{{ INCLUDE MigrationDrag }}

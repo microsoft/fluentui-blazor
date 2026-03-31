@@ -16,6 +16,9 @@ public class StartServerFixture : IAsyncLifetime
     private const string PROCESS_FILENAME = "Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.exe";
     private const string PROJECT_FILENAME = "Components.IntegrationTests.csproj";
 
+    // .NET Framework Version - Change this to net8.0, net9.0, or net10.0 to match Directory.Build.props
+    private const string NET_VERSION = "net9.0";
+
     private Process? _serverProcess;
 
     /// <summary>
@@ -44,11 +47,11 @@ public class StartServerFixture : IAsyncLifetime
 #endif
 
         // Start the process
-        // dotnet run -c Release -f net9.0 --no-build --urls "http://localhost:5050"
+        // dotnet run -c Release -f {NET_VERSION} --no-build --urls "http://localhost:5050"
         _serverProcess = new Process();
         _serverProcess.StartInfo.WorkingDirectory = GetProjectFolder();
         _serverProcess.StartInfo.FileName = "dotnet";
-        _serverProcess.StartInfo.Arguments = $"run --urls \"{BaseUrl}\" -f net9.0 -c {mode} --no-build";
+        _serverProcess.StartInfo.Arguments = $"run --urls \"{BaseUrl}\" -f {NET_VERSION} -c {mode} --no-build";
 
         var started = _serverProcess.Start();
 

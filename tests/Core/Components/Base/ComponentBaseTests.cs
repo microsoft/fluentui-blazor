@@ -23,6 +23,7 @@ public class ComponentBaseTests : Bunit.BunitContext
     [
         typeof(AspNetCore.Components._Imports),
         typeof(DialogOptions),
+        typeof(ToastOptions),
         typeof(FluentRadio<>),  // TODO: To update
         typeof(FluentTab),      // Excluded because the Tab content in rendered in the parent FluentTabs component
         typeof(FluentValidationMessage<>), // Excluded because requires special handling of EditContext
@@ -47,6 +48,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentEmoji<>), Loader.MakeGenericType(typeof(Samples.Emojis.Samples.Hamburger))},
         { typeof(FluentSelect<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
         { typeof(FluentCombobox<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
+        { typeof(FluentListbox<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
         { typeof(FluentOption<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentRadioGroup<>), Loader.MakeGenericType(typeof(string)) },
@@ -68,6 +70,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentNavCategory), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
         { typeof(FluentNavSectionHeader), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
         { typeof(FluentAppBarItem), Loader.Default.WithCascadingValue(new InternalAppBarContext(new FluentAppBar(new LibraryConfiguration()))) },
+        { typeof(FluentSortableList<>), Loader.MakeGenericType(typeof(string)).WithRequiredParameter("ItemTemplate", (RenderFragment<string>)(p => builder => builder.AddContent(0, "MyItemTemplate")))},
     };
 
     /// <summary />

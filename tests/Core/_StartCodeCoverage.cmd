@@ -4,20 +4,28 @@ REM 0. Include the NuGet Package "coverlet.msbuild" in the UnitTests project.
 REM 1. Install tools:
 REM     $:\> dotnet tool install --global coverlet.console
 REM     $:\> dotnet tool install --global dotnet-reportgenerator-globaltool
-REM    
+REM
 REM     Use this command to list existing installed tools:
 REM     $:\> dotnet tool list --global
 REM
 REM 2. Start a code coverage in the UnitTests project:
 REM     $:\> dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-REM 
+REM
 REM 3. Display the Coverage Report:
 REM     $:\> reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage" -reporttypes:HtmlInline_AzurePipelines
 REM     $:\> explorer C:\Temp\Coverage\index.html
+REM
+REM 4. Add /noopen to skip opening the report in a browser (useful for refreshing an open window)
+REM     $:\> _StartCodeCoverage.cmd /noopen
+
 
 echo on
 cls
 
 dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
 reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage" -reporttypes:HtmlInline_AzurePipelines -classfilters:"-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*" -filefilters:"-*RegexGenerator.g.cs" riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30 riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30 minimumCoverageThresholds:lineCoverage=98
-start "" "C:\Temp\FluentUI\Coverage\index.htm"
+
+echo off
+
+if "%~1" neq "/noopen" start "" "C:\Temp\FluentUI\Coverage\index.htm"
+

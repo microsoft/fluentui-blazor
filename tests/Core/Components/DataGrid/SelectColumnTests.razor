@@ -12,6 +12,18 @@
         public bool Selected { get; set; }
     };
 
+    public sealed class PersonEntity
+    {
+        public PersonEntity(int personId, string name)
+        {
+            PersonId = personId;
+            Name = name;
+        }
+
+        public int PersonId { get; }
+        public string Name { get; }
+    }
+
     private readonly IQueryable<Person> People = new[]
     {
         new Person(1, "Jean Martin", new DateOnly(1985, 3, 16)),
@@ -66,13 +78,13 @@
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(SelectedItems);
 
-        // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+     // Act - Click and select Row 0
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
     }
@@ -99,12 +111,12 @@
         Assert.Empty(SelectedItems);
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(SelectedItems);
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
     }
@@ -130,12 +142,12 @@
         Assert.Empty(items.Where(i => i.Selected));
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(items.Where(i => i.Selected));
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(items.Where(i => i.Selected));
     }
@@ -163,12 +175,12 @@
         Assert.Empty(items.Where(i => i.Selected));
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(items.Where(i => i.Selected));
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(items.Where(i => i.Selected));
     }
@@ -211,12 +223,12 @@
         Assert.Empty(SelectedItems);
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
     }
@@ -241,12 +253,12 @@
         Assert.Empty(SelectedItems);
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
 
         // Act - Click and select Row 0 a second time
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
     }
@@ -273,12 +285,12 @@
         Assert.Empty(SelectedItems);
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(SelectedItems);
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
     }
@@ -304,12 +316,12 @@
         Assert.Empty(items.Where(i => i.Selected));
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(items.Where(i => i.Selected));
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(items.Where(i => i.Selected));
     }
@@ -337,12 +349,12 @@
         Assert.Empty(items.Where(i => i.Selected));
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(items.Where(i => i.Selected));
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(items.Where(i => i.Selected));
     }
@@ -385,17 +397,17 @@
         Assert.Empty(SelectedItems);
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Equal(2, cut.FindAll("svg[row-selected]").Count);
         Assert.Equal(2, SelectedItems.Count());
 
         // Act - Click and unselect Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
     }
@@ -422,17 +434,17 @@
         Assert.Empty(SelectedItems);
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(SelectedItems);
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
 
         // Act - Click and unselect Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(SelectedItems);
     }
@@ -458,17 +470,17 @@
         Assert.Empty(items.Where(i => i.Selected));
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(items.Where(i => i.Selected));
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Equal(2, cut.FindAll("svg[row-selected]").Count);
         Assert.Equal(2, items.Where(i => i.Selected).Count());
 
         // Act - Click and unselect Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(items.Where(i => i.Selected));
     }
@@ -496,17 +508,17 @@
         Assert.Empty(items.Where(i => i.Selected));
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(items.Where(i => i.Selected));
 
         // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(items.Where(i => i.Selected));
 
         // Act - Click and unselect Row 1
-        await ClickOnRowAsync(cut, row: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1);
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(items.Where(i => i.Selected));
     }
@@ -672,16 +684,16 @@
         );
 
         // Act - Click on the second cell => no selection
-        await ClickOnRowAsync(cut, row: 0, col: 1);
+        await ClickOnRowAsync<Person>(cut, row: 0, col: 1);
         Assert.Empty(SelectedItems);
 
         // Act - Click on the first cell => select the row
-        await ClickOnRowAsync(cut, row: 0, col: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0, col: 0);
         Assert.Single(SelectedItems);
         Assert.Equal(1, SelectedItems.First().PersonId);
 
         // Act - Click on the second cell => keep the selection
-        await ClickOnRowAsync(cut, row: 1, col: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1, col: 1);
         Assert.Single(SelectedItems);
         Assert.Equal(1, SelectedItems.First().PersonId);
     }
@@ -703,21 +715,21 @@
             );
 
         // Act - Click on the second cell => no selection
-        await ClickOnRowAsync(cut, row: 0, col: 1);
+        await ClickOnRowAsync<Person>(cut, row: 0, col: 1);
         Assert.Empty(SelectedItems);
 
         // Act - Click on the first cell => select the row
-        await ClickOnRowAsync(cut, row: 0, col: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0, col: 0);
         Assert.Single(SelectedItems);
         Assert.Equal(1, SelectedItems.First().PersonId);
 
         // Act - Click on the second cell => keep the selection
-        await ClickOnRowAsync(cut, row: 1, col: 1);
+        await ClickOnRowAsync<Person>(cut, row: 1, col: 1);
         Assert.Single(SelectedItems);
         Assert.Equal(1, SelectedItems.First().PersonId);
 
         // Act - Click on the first cell => select another row
-        await ClickOnRowAsync(cut, row: 1, col: 0);
+        await ClickOnRowAsync<Person>(cut, row: 1, col: 0);
         Assert.Equal(2, SelectedItems.Count());
         Assert.Equal(1, SelectedItems.ElementAt(0).PersonId);
         Assert.Equal(2, SelectedItems.ElementAt(1).PersonId);
@@ -745,11 +757,11 @@
         // Act - Clear selection
         var selectColumn = cut.FindComponent<SelectColumn<Person>>();
 
-        await ClickOnRowAsync(cut, row: 0, col: 0);
-        selectColumn.Instance.ClearSelection();
+        await ClickOnRowAsync<Person>(cut, row: 0, col: 0);
+        await selectColumn.Instance.ClearSelectionAsync();
 
         // Assert - Selection is cleared
-        Assert.False(SelectedItems.First().Selected);
+        Assert.Empty(SelectedItems);
     }
 
     [Fact]
@@ -774,9 +786,7 @@
         // Act - Clear selection
         var selectColumn = cut.FindComponent<SelectColumn<Person>>();
 
-        await ClickOnAllAsync(cut);
-
-        selectColumn.Instance.ClearSelection();
+        await selectColumn.Instance.ClearSelectionAsync();
 
         // Assert - Selection is cleared
         Assert.Empty(SelectedItems);
@@ -804,11 +814,11 @@
         // Act - Clear selection
         var selectColumn = cut.FindComponent<SelectColumn<Person>>();
 
-        await ClickOnRowAsync(cut, row: 0, col: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0, col: 0);
         await selectColumn.Instance.ClearSelectionAsync();
 
         // Assert - Selection is cleared
-        Assert.False(SelectedItems.First().Selected);
+        Assert.Empty(SelectedItems);
     }
 
     [Fact]
@@ -1028,7 +1038,7 @@
         );
 
         // Act - Click on Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
 
         // Assert - Verify row selection
         Assert.Empty(SelectedItems);
@@ -1286,14 +1296,125 @@
         Assert.Empty(SelectedItems);
 
         // Act - Click and select Row 0
-        await ClickOnRowAsync(cut, row: 0);
+        await ClickOnRowAsync<Person>(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
 
-        // Act - Click and select Row 1
-        await ClickOnRowAsync(cut, row: 0);
+     // Act - Click and select Row 1
+        await ClickOnRowAsync<Person>(cut, row: 0);
 
         Assert.Empty(SelectedItems);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumnSelect_MultiSelect_SelectedItems_PersistAcrossPagination()
+    {
+        var items = new[]
+        {
+        new Person(1, "A", new DateOnly(1985, 3, 16)),
+        new Person(2, "B", new DateOnly(2004, 1, 9)),
+        new Person(3, "C", new DateOnly(1958, 10, 10)),
+        new Person(4, "D", new DateOnly(1991, 12, 1)),
+    }.AsQueryable();
+
+        var pagination = new PaginationState { ItemsPerPage = 2 };
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        var cut = Render(
+    @<div>
+        <FluentDataGrid Items="@items" Pagination="@pagination" TGridItem="Person">
+            <SelectColumn TGridItem="Person"
+                          SelectMode="@DataGridSelectMode.Multiple"
+                          @bind-SelectedItems="@SelectedItems" />
+            <PropertyColumn Property="@(p => p.Name)" />
+        </FluentDataGrid>
+        <FluentPaginator State="@pagination" />
+    </div>);
+
+ // Select an item on page 1
+        await ClickOnRowAsync<Person>(cut, row: 0);
+        Assert.Single(SelectedItems);
+        var firstSelectedId = SelectedItems.First().PersonId;
+
+        // Move to page 2
+        var grid = cut.FindComponent<FluentDataGrid<Person>>();
+        await grid.InvokeAsync(() => pagination.SetCurrentPageIndexAsync(1));
+        grid.Render();
+
+        // The selection must remain when paging
+        Assert.Single(SelectedItems);
+        Assert.Equal(firstSelectedId, SelectedItems.First().PersonId);
+
+        // Select another item on page 2
+        await ClickOnRowAsync<Person>(cut, row: 0);
+        Assert.Equal(2, SelectedItems.Count());
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_MultiSelect_SelectedItems_VisuallyRestoresAcrossPagination_WhenItemsAreRematerialized_AndItemKeyIsSet()
+    {
+        var all = new[]
+        {
+            (Id: 1, Name: "A"),
+            (Id: 2, Name: "B"),
+            (Id: 3, Name: "C"),
+            (Id: 4, Name: "D"),
+        };
+
+        var pagination = new PaginationState { ItemsPerPage = 2 };
+        IEnumerable<PersonEntity> selectedItems = Array.Empty<PersonEntity>();
+
+        GridItemsProvider<PersonEntity> provider = request =>
+        {
+            var count = request.Count ?? all.Length;
+            var items = all
+                .Skip(request.StartIndex)
+                .Take(count)
+                // Important: new instances each time to simulate re-materialization (e.g., EF).
+                .Select(p => new PersonEntity(p.Id, p.Name))
+                .ToList();
+
+            return ValueTask.FromResult(GridItemsProviderResult.From<PersonEntity>(items, all.Length));
+        };
+
+        var cut = Render(
+    @<div>
+        <FluentDataGrid ItemsProvider="@provider" Pagination="@pagination" ItemKey="@(p => p.PersonId)" TGridItem="PersonEntity">
+            <SelectColumn TGridItem="PersonEntity"
+                          SelectMode="@DataGridSelectMode.Multiple"
+                          @bind-SelectedItems="@selectedItems" />
+            <PropertyColumn Property="@(p => p.Name)" />
+        </FluentDataGrid>
+        <FluentPaginator State="@pagination" />
+    </div>);
+
+        // Select an item on page 1
+        await ClickOnRowAsync<PersonEntity>(cut, row: 0);
+        Assert.Single(selectedItems);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+
+        var selectedId = selectedItems.First().PersonId;
+
+        // Move to page 2
+        var grid = cut.FindComponent<FluentDataGrid<PersonEntity>>();
+        await grid.InvokeAsync(() => pagination.SetCurrentPageIndexAsync(1));
+        grid.Render();
+
+        // SelectedItems should persist, but the current page doesn't contain the selected row.
+        Assert.Single(selectedItems);
+        Assert.Equal(selectedId, selectedItems.First().PersonId);
+
+        // Move back to page 1
+        await grid.InvokeAsync(() => pagination.SetCurrentPageIndexAsync(0));
+        grid.Render();
+
+        // The row should be visually selected again even though items were re-materialized as new instances.
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+
+        // And it should be possible to unselect it by clicking again (requires key-based removal, not reference-based).
+        await ClickOnRowAsync<PersonEntity>(cut, row: 0);
+        Assert.Empty(selectedItems);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
     }
 
 #pragma warning restore BL0005
@@ -1316,28 +1437,21 @@
         cut.FindComponent<FluentDataGrid<Person>>().Render();
     }
 
-    /// <summary>
-    /// Simulate a click on the DataGrid row number <paramref name="row"/>.
-    /// </summary>
-    /// <param name="cut"></param>
-    /// <param name="row"></param>
-    /// <param name="col"></param>
-    /// <returns></returns>
-    private async Task ClickOnRowAsync(IRenderedComponent<ContainerFragment> cut, int row, int? col = null)
+    private async Task ClickOnRowAsync<TGridItem>(IRenderedComponent<ContainerFragment> cut, int row, int? col = null)
     {
         if (col == null)
         {
-            var item = cut.FindComponents<FluentDataGridRow<Person>>().ElementAt(row + 1);
+            var item = cut.FindComponents<FluentDataGridRow<TGridItem>>().ElementAt(row + 1);
             await item.Instance.HandleOnRowClickAsync(item.Instance.RowId);
-            cut.FindComponent<FluentDataGrid<Person>>().Render();
+            cut.FindComponent<FluentDataGrid<TGridItem>>().Render();
         }
         else
         {
-            var item = cut.FindComponents<FluentDataGridCell<Person>>()
+            var item = cut.FindComponents<FluentDataGridCell<TGridItem>>()
                           .Where(i => i.Instance.GridColumn == col + 1)
                           .ElementAt(row + 1);
             await item.Instance.HandleOnCellClickAsync();
-            cut.FindComponent<FluentDataGrid<Person>>().Render();
+            cut.FindComponent<FluentDataGrid<TGridItem>>().Render();
         }
     }
 
@@ -1349,7 +1463,13 @@
     private async Task ClickOnAllAsync(IRenderedComponent<ContainerFragment> cut)
     {
         var col = cut.FindComponent<SelectColumn<Person>>();
-        await col.Instance.OnClickAllAsync(new MouseEventArgs());
+        var method = typeof(SelectColumn<Person>).GetMethod("OnClickAllAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var result = method.Invoke(col.Instance, [new MouseEventArgs()]);
+
+        if (result is Task task)
+        {
+            await task;
+        }
         cut.FindComponent<FluentDataGrid<Person>>().Render();
     }
 }

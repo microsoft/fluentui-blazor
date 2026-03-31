@@ -1,7 +1,7 @@
 {
     "version": "2.0.0",
     "tasks": [
-        // Build Microsoft.FluentUI-v5.sln.
+        // Build Microsoft.FluentUI-v5.slnx.
         // Default build task
         {
             "label": "build-solution",
@@ -9,7 +9,7 @@
             "command": "dotnet",
             "args": [
                 "build",
-                "Microsoft.FluentUI-v5.sln",
+                "Microsoft.FluentUI-v5.slnx",
                 "--configuration",
                 "Debug"
             ],
@@ -116,7 +116,7 @@
             "command": "dotnet",
             "args": [
                 "clean",
-                "Microsoft.FluentUI-v5.sln"
+                "Microsoft.FluentUI-v5.slnx"
             ],
             "group": "build",
             "problemMatcher": "$msCompile",
@@ -140,7 +140,7 @@
             "command": "dotnet",
             "args": [
                 "restore",
-                "Microsoft.FluentUI-v5.sln"
+                "Microsoft.FluentUI-v5.slnx"
             ],
             "group": "build",
             "problemMatcher": "$msCompile",

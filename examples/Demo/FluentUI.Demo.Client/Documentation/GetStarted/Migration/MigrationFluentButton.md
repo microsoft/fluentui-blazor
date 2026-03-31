@@ -4,51 +4,52 @@ route: /Migration/Button
 hidden: true
 ---
 
-### New properties
-  `Size`,  `Shape`, `DisabledFocusable` are new properties.
+### Renamed parameters 💥
 
-### Renamed properties 🔃
-  The `Action` property has been renamed to `FormAction`.
-  
-  The `Enctype` property has been renamed to `FormEncType`.
-  
-  The `Method` property has been renamed to `FormMethod`.
-  
-  The `NoValidate` property has been renamed to `FormNoValidate`.
-  
-  The `Target` property has been renamed to `FormTarget`.
-
-### Removed properties💥
-  The `CurrentValue` property has been removed. Use `Value` instead.
+- `Autofocus` → `AutoFocus` (also changed from `bool?` to `bool`)
+- `Action` → `FormAction`
+- `Enctype` → `FormEncType`
+- `Method` → `FormMethod`
+- `NoValidate` → `FormNoValidate`
+- `Target` → `FormTarget`
 
 ### Appearance 💥
-  The `Appearance` property has been updated to use the `ButtonAppearance` enum
-    instead of `Appearance` enum.
 
-    `ButtonAppearance` enum has the following values:
-    - `Default`
-    - `Outline`
-    - `Primary`
-    - `Subtle`
-    - `Transparent`
+The `Appearance` parameter has been updated to use the `ButtonAppearance` enum
+instead of the `Appearance` enum.
+
+`ButtonAppearance` enum has the following values:
+- `Default`
+- `Outline`
+- `Primary`
+- `Subtle`
+- `Transparent`
+
+### New parameters
+
+- `Shape` (`ButtonShape?`) — controls the button shape (rounded, circular, square).
+- `Size` (`ButtonSize?`) — controls the button size.
+- `DisabledFocusable` (`bool`) — disables the button but keeps it focusable for accessibility.
+- `IconOnly` (`bool`) — renders the button in icon-only mode.
+- `Label` (`string?`) — accessible label for the button.
+- `Tooltip` (`string?`) — tooltip text shown on hover.
 
 ### Migrating to v5
 
-You can use the `ToButtonAppearance()` method to convert the `Appearance` property to the `ButtonAppearance` enum.
-```csharp	
+You can use the `ToButtonAppearance()` method to convert the `Appearance` parameter to the `ButtonAppearance` enum.
+```csharp
 @using Microsoft.FluentUI.AspNetCore.Components.Migration
 
 <FluentButton Appearance="Appearance.Accent.ToButtonAppearance()">Click</FluentButton>
 //                                          ^^^^^^^^^^^^^^^^^^^^
 ```
 
-
-|v3 & v4|v5|
-|-----|-----|
-|`Appearance.Neutral`    |`null`|
-|`Appearance.Accent`     |`ButtonAppearance.Primary`|
-|`Appearance.Lightweight`|`ButtonAppearance.Transparent`|
-|`Appearance.Outline`    |`ButtonAppearance.Outline`|
-|`Appearance.Stealth`    |`ButtonAppearance.Subtle`|
-|`Appearance.Hypertext`  |`null`|
-|`Appearance.Filled`     |`null`|
+| v3 & v4 | v5 |
+|---|---|
+| `Appearance.Neutral` | `ButtonAppearance.Default` |
+| `Appearance.Accent` | `ButtonAppearance.Primary` |
+| `Appearance.Lightweight` | `ButtonAppearance.Transparent` |
+| `Appearance.Outline` | `ButtonAppearance.Outline` |
+| `Appearance.Stealth` | `ButtonAppearance.Subtle` |
+| `Appearance.Hypertext` | `ButtonAppearance.Default` |
+| `Appearance.Filled` | `ButtonAppearance.Default` |

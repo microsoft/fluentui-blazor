@@ -138,13 +138,15 @@
     [InlineData(true, 0, "new value", "new value")]     // With Immediate and Delay = 0 ms
     public async Task FluentTextArea_OnImmediate(bool immediate, int immediateDelay, string expectedImmediateValue, string expectedDelayedValue)
     {
+        await Task.CompletedTask;
+        
         // Arrange
         using var context = new IdentifierContext(i => "myId");
         var value = "init";
         var cut = Render(@<FluentTextArea @bind-Value="@value" Immediate="@immediate" ImmediateDelay="@immediateDelay" />);
 
         // Act
-        cut.Find("fluent-textarea").TriggerEvent("onimmediate", new ChangeEventArgs() { Value = "new value"});
+        cut.Find("fluent-textarea").TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "new value"});
 
         // Assert: Immediate
         Assert.Equal(expectedImmediateValue, value);

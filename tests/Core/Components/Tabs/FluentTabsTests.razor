@@ -292,4 +292,103 @@
         // Assert
         Assert.Equal(0, index);
     }
+
+    [Fact]
+    public async Task FluentTabs_RemoveTabAsync_Basic()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+        var tab1 = cut.FindComponents<FluentTab>()[0].Instance;
+
+        // Act
+        var count = await tabs.RemoveTabAsync(tab1);
+
+        // Assert
+        Assert.Equal(1, count);
+    }
+
+    [Fact]
+    public async Task FluentTabs_RemoveTabAsync_UpdatesSelection()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs ActiveTabId="tab2">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+        var tab2 = cut.FindComponents<FluentTab>()[1].Instance;
+
+        // Act
+        // Removing tab2 (which is active) should move selection to tab1
+        await tabs.RemoveTabAsync(tab2);
+
+        // Assert
+        Assert.Equal("tab1", tabs.ActiveTabId);
+        Assert.Equal("tab1", tabs.ActiveTab?.Id);
+    }
+
+    [Fact]
+    public async Task FluentTabs_RemoveTabAsync_TriggersEvents()
+    {
+        // Arrange
+        string? changedId = null;
+        FluentTab? changedTab = null;
+
+        var cut = Render(@<FluentTabs
+            ActiveTabId="tab2"
+            ActiveTabIdChanged="@(id => changedId = id)"
+            ActiveTabChanged="@(tab => changedTab = tab)">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+        var tab2 = cut.FindComponents<FluentTab>()[1].Instance;
+
+        // Act
+        await tabs.RemoveTabAsync(tab2);
+
+        // Assert
+        Assert.Equal("tab1", changedId);
+        Assert.Equal("tab1", changedTab?.Id);
+    }
+
+    [Fact]
+    public async Task FluentTabs_RemoveTabAsync_EmptyId()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+        var tab = new FluentTab(LibraryConfiguration.Empty);
+        typeof(FluentComponentBase).GetProperty("Id")?.SetValue(tab, string.Empty);
+
+        // Act
+        var count = await tabs.RemoveTabAsync(tab);
+
+        // Assert
+        Assert.Equal(0, count);
+    }
+
+    [Fact]
+    public async Task FluentTabs_RemoveTabAsync_TabNotInList()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs>
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+        var tab = new FluentTab(LibraryConfiguration.Empty);
+        typeof(FluentComponentBase).GetProperty("Id")?.SetValue(tab, "tab2");
+
+        // Act
+        var count = await tabs.RemoveTabAsync(tab);
+
+        // Assert
+        Assert.Equal(0, count);
+    }
 }

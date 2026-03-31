@@ -12,6 +12,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Calendar;
 /// </summary>
 internal struct CalendarExtended
 {
+
+    /// <summary>
+    /// Gets the number of year to add to the current year to center the current year in the list of years in the "Years" view.
+    /// </summary>
+    internal const int YearShiftCentered = 5; // Used in GetYearsRange()
+
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendarExtended"/> class.
     /// </summary>
@@ -100,7 +106,12 @@ internal struct CalendarExtended
     {
         var maxCount = 12;
         var maxYear = Culture.Calendar.MaxSupportedDateTime.GetYear(Culture);
-        var year = Date.GetYear(Culture);
+        var year = Date.GetYear(Culture) - YearShiftCentered;
+
+        if (year < Culture.Calendar.MinSupportedDateTime.GetYear(Culture))
+        {
+            year = Culture.Calendar.MinSupportedDateTime.GetYear(Culture);
+        }
 
         if (year + maxCount > maxYear)
         {

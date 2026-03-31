@@ -62,6 +62,12 @@ public partial class FluentAppBar : FluentComponentBase
     public IEnumerable<IAppBarItem>? Items { get; set; }
 
     /// <summary>
+    /// Gets or sets whether to hide the active bar on the side/bottom of the active item.
+    /// </summary>
+    [Parameter]
+    public bool? HideActiveIndicator { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to display (the app bar items, <see cref="FluentAppBarItem"/>).
     /// </summary>
     [Parameter]
@@ -146,7 +152,7 @@ public partial class FluentAppBar : FluentComponentBase
         }
     }
 
-    private Task TogglePopoverAsync() => HandlePopoverToggleAsync(!_showMoreItems);
+    internal Task TogglePopoverAsync() => HandlePopoverToggleAsync(!_showMoreItems);
 
     private async Task HandlePopoverKeyDownAsync(FluentKeyCodeEventArgs args)
     {

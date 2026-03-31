@@ -74,6 +74,16 @@
         Assert.Contains("style=\"height: 100px;\"", cut.Markup);
     }
 
+    [Fact]
+    public void FluentPopover_Nested()
+    {
+        // Arrange
+        var cut = Render(@<FluentPopover AnchorId="MyButton" Nested="true">Popover Content</FluentPopover>);
+
+        // Assert
+        Assert.Contains("nested=\"true\"", cut.Markup);
+    }
+
     [Theory]
     [InlineData("MyPopover", "open", true)]
     [InlineData("MyPopover", "closed", false)]

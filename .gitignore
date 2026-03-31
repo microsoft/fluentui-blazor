@@ -9,6 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+.claude/*.local.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -419,4 +420,7 @@ Microsoft.FluentUI.AspNetCore.McpServer.xml
 /examples/Demo/FluentUI.Demo.Client/wwwroot/documentation/
 api-comments.json
 mcp-documentation.json
+all-icons.json
+all-emojis.json
 /global.json
+/src/Core.Scripts/src/BuildConstants.ts

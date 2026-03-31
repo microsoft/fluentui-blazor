@@ -24,6 +24,14 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       this.dialog.setAttribute('fuib', '');
       this.dialog.setAttribute('popover', '');
       this.dialog.setAttribute('part', 'dialog');    // To allow styling using `fluent-popover-b::part(dialog)`
+      
+      // Dispatch the toggle event when the popover is opened or closed
+      // For nested popovers, the event is dispatched during showPopover/closePopover methods
+      this.dialog.addEventListener('toggle', (e) => {
+        if (!this.nested) {
+          this.dispatchOpenedEvent(e.newState === 'open');
+        }
+      });
 
       // Set initial styles for the dialog
       const sheet = new CSSStyleSheet();
@@ -138,6 +146,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       return val !== null ? Number(val) : 0;
     }
 
+    private get nested(): boolean {
+      const val = this.getAttribute('nested');
+      return val !== null && val !== 'false';
+    }
+
     /* ****************/
     /* Show or Close  */
     /* ****************/
@@ -156,9 +169,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
       // Reflect opened property and attribute
       this.opened = true;
-
-      // Dispatch event when shown
-      this.dispatchOpenedEvent(true);
+      
+      // Dispatch event when shown.
+      // For non-nested popovers, the event is dispatched by the Popover component itself.
+      if (this.nested) {
+        this.dispatchOpenedEvent(true);
+      }
     }
 
     public closePopover() {
@@ -169,9 +185,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
         // Reflect opened property and attribute
         this.opened = false;
-
+        
         // Dispatch event when closed
-        this.dispatchOpenedEvent(false);
+        // For non-nested popovers, the event is dispatched by the Popover component itself.
+        if (this.nested) {
+          this.dispatchOpenedEvent(false);
+        }
       }
     }
 

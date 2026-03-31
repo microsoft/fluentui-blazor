@@ -52,7 +52,7 @@ public interface IAppBarItem
     /// <summary>
     /// Gets or sets the count to show on the item with a <see cref="FluentCounterBadge"/>.
     /// </summary>
-    public ushort? Count { get; set; }
+    public int? Count { get; set; }
 
     /// <summary>
     /// Whether this app is outside of visible app bar area.

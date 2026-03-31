@@ -442,7 +442,7 @@ value=""2022-02-20"">20</div>");
     [Theory]
     [InlineData(CalendarViews.Days, "May 2022")]
     [InlineData(CalendarViews.Months, "2023")]
-    [InlineData(CalendarViews.Years, "2034 - 2045")]
+    [InlineData(CalendarViews.Years, "2029 - 2040")]
     public void FluentCalendar_NextButton(CalendarViews view, string nextTitle)
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
@@ -466,7 +466,7 @@ value=""2022-02-20"">20</div>");
     [Theory]
     [InlineData(CalendarViews.Days, "March 2022")]
     [InlineData(CalendarViews.Months, "2021")]
-    [InlineData(CalendarViews.Years, "2010 - 2021")]
+    [InlineData(CalendarViews.Years, "2005 - 2016")]
     public void FluentCalendar_PreviousButton(CalendarViews view, string nextTitle)
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
@@ -528,7 +528,7 @@ value=""2022-02-20"">20</div>");
         april!.Click();
 
         // Assert
-        Assert.Equal("2022", calendar.Find(".label").TextContent);
+        Assert.Equal("April 2022", calendar.Find(".label").TextContent);
     }
 
     [Fact]
@@ -939,6 +939,19 @@ value=""2022-02-20"">20</div>");
         Assert.Contains("svg", FluentCalendar<DateTime>.ArrowDown.Value);
         Assert.Contains("path", FluentCalendar<DateTime>.ArrowUp.Value);
         Assert.Contains("path", FluentCalendar<DateTime>.ArrowDown.Value);
+    }
+
+    [Fact]
+    public void FluentCalendar_MinMax()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Act
+        var calendar = Render(@<FluentCalendar TValue="DateTime" Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
+                        MinDate="@(new System.DateTime(2022, 02, 10))" MaxDate="@(new System.DateTime(2022, 02, 20))" />);
+
+        // Assert
+        calendar.Verify();
     }
 
     #region OnSelectedDateHandlerAsync Behavior Tests

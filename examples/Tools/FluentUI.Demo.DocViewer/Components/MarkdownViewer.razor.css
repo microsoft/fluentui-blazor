@@ -100,6 +100,7 @@
     border-radius: var(--borderRadiusMedium);
     padding: 16px 16px;
     margin: 8px 0px;
+    overflow: auto;
   }
   /* API Summary */
   .doc-viewer ::deep .api-summary {

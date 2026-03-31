@@ -29,11 +29,12 @@ public class IntegrationTests
 
         // Arrange
         var service = new FluentUIDocumentationService(_testJsonPath);
-        var listTools = new ComponentListTools(service);
-        var detailTools = new ComponentDetailTools(service);
+        var componentDocService = new ComponentDocumentationService();
+        var listTools = new ComponentListTools(service, componentDocService);
+        var detailTools = new ComponentDetailTools(service, componentDocService);
         var enumTools = new EnumTools(service);
         var fluentUIResources = new FluentUIResources(service);
-        var componentResources = new ComponentResources(service);
+        var componentResources = new ComponentResources(service, componentDocService);
 
         // Act & Assert - List all components
         var allComponents = listTools.ListComponents();
@@ -80,7 +81,8 @@ public class IntegrationTests
 
         // Arrange
         var service = new FluentUIDocumentationService(_testJsonPath);
-        var detailTools = new ComponentDetailTools(service);
+        var componentDocService = new ComponentDocumentationService();
+        var detailTools = new ComponentDetailTools(service, componentDocService);
 
         // Act
         var allComponents = service.GetAllComponents();
@@ -120,8 +122,9 @@ public class IntegrationTests
 
         // Arrange
         var service = new FluentUIDocumentationService(_testJsonPath);
-        var listTools = new ComponentListTools(service);
-        var detailTools = new ComponentDetailTools(service);
+        var componentDocService = new ComponentDocumentationService();
+        var listTools = new ComponentListTools(service, componentDocService);
+        var detailTools = new ComponentDetailTools(service, componentDocService);
 
         // Act
         _ = listTools.SearchComponents("Button");
@@ -141,8 +144,9 @@ public class IntegrationTests
 
         // Arrange
         var service = new FluentUIDocumentationService(_testJsonPath);
-        var listTools = new ComponentListTools(service);
-        var detailTools = new ComponentDetailTools(service);
+        var componentDocService = new ComponentDocumentationService();
+        var listTools = new ComponentListTools(service, componentDocService);
+        var detailTools = new ComponentDetailTools(service, componentDocService);
 
         // Act
         _ = listTools.ListComponents(category: "Components");

@@ -1,5 +1,5 @@
 ﻿<FluentButton Id="Nested1" OnClick="@(e => Opened1 = !Opened1)">Open Popover</FluentButton>
-<FluentPopover AnchorId="Nested1" @bind-Opened="@Opened1">
+<FluentPopover Nested="true" AnchorId="Nested1" @bind-Opened="@Opened1">
     <p>Popover Level 1 content</p>
 
     <FluentButton Id="Nested2" OnClick="@(e => Opened2 = !Opened2)">Open Level 2</FluentButton>

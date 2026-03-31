@@ -24,16 +24,15 @@ The default HTML table is a simple way to display tabular data.
 
 The `data-selectable` attribute is used to make the table rows selectable.  
 
-> [!WARNING]
-> Only CSS styles are applied, no JavaScript is involved.  
+> [!WARNING] Only CSS styles are applied, no JavaScript is involved.  
 > You need to handle the selection logic yourself, for example by using the `@onclick` event.
 
 The `data-selected` attribute is used to indicate which rows `<tr>` (or cells `<td>`) are selected.
 
 {{ HtmlTableSelectable }}
 
-> [!NOTE]
-> You can customize the styles of the selected checkbox by using CSS variables.
+> [!NOTE] You can customize the styles of the selected checkbox by using CSS variables.
+>
 > `style="--selectedCheckWidth: 28px; --selectedCheckContent: '✔';`
 
 ## No checkbox

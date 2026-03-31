@@ -20,6 +20,8 @@ public static class ServiceCollectionExtensions
     /// <param name="configuration">Library configuration</param>
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IDialogService))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogService))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IToastService))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ToastService))]
     public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, LibraryConfiguration? configuration = null)
     {
         var options = configuration ?? new();
@@ -33,8 +35,10 @@ public static class ServiceCollectionExtensions
         // Add services
         services.Add<LibraryConfiguration>(provider => options ?? new(), serviceLifetime);
         services.Add<IDialogService, DialogService>(serviceLifetime);
+        services.Add<IToastService, ToastService>(serviceLifetime);
         services.Add<IFluentLocalizer>(provider => options?.Localizer ?? FluentLocalizerInternal.Default, serviceLifetime);
         services.Add<IKeyCodeService, KeyCodeService>(serviceLifetime);
+        services.Add<IThemeService, ThemeService>(serviceLifetime);
 
         if (configuration == null || configuration.Tooltip.UseServiceProvider)
         {
@@ -65,7 +69,7 @@ public static class ServiceCollectionExtensions
         {
             ServiceLifetime.Singleton => services.AddSingleton(implementationFactory),
             ServiceLifetime.Scoped => services.AddScoped(implementationFactory),
-            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported.")
+            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported."),
         };
     }
 
@@ -78,7 +82,7 @@ public static class ServiceCollectionExtensions
         {
             ServiceLifetime.Singleton => services.AddSingleton<TService, TImplementation>(),
             ServiceLifetime.Scoped => services.AddScoped<TService, TImplementation>(),
-            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported.")
+            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported."),
         };
     }
 }

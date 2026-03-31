@@ -16,6 +16,9 @@
     <Project Path="examples/Tools/FluentUI.Demo.DocApiGen.Tests/FluentUI.Demo.DocApiGen.Tests.csproj" />
     <Project Path="examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj" />
   </Folder>
+  <Folder Name="/examples/samples/">
+    <Project Path="examples/Samples/FluentUI.Samples.WasmStandalone/FluentUI.Samples.WasmStandalone.csproj" />
+  </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Core/">
     <Project Path="src/Core.Scripts/Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj">

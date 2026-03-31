@@ -18,6 +18,20 @@
     <link rel="stylesheet" href="FluentUI.Demo.styles.css" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <HeadOutlet @rendermode="@DemoRenderMode" />
+
+    <style>
+        /* Set the default dark mode styles, 
+           used before the Fluent UI theme switcher is initialized
+           This is to avoid a flash of white when in dark mode.
+           Update as needed to match your dark theme.
+        */
+        @@media (prefers-color-scheme: dark) {
+            body {
+                background-color: #292929;
+                color: #ffffff;
+            }
+        }
+    </style>
 </head>
 
 <body use-reboot="@reboot">
