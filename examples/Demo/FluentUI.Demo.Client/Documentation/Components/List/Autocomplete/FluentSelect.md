@@ -5,4 +5,42 @@ route: /Lists/Autocomplete
 
 # Autocomplete
 
+An **Autocomplete** component is a text input that provides real-time suggestions as the user types.
+It combines a free-text input with a filtered list of options, allowing users to either select from the suggestions or type their own value.
+
+It is particularly useful when the list of options is large, as the user can narrow down choices without scrolling through all available items.
+
+## Keyboard interaction
+
+| Key | Behavior |
+|---|---|
+| **Type text** | Filters the list of options and triggers the `OnSearchAsync` method to fetch matching results. |
+| **Arrow Down / Arrow Up** | Navigates through the items in the suggestion list. |
+| **Enter** | Selects the currently highlighted item. |
+| **Backspace** | Deletes the most recently selected item (in multi-select mode). |
+| **Escape** | Closes the suggestion list without selecting an item. |
+
+<br /><br />
+
+## Default
+
+A basic autocomplete that filters a list of countries as the user types.
+Multiple items can be selected, and one option is disabled (`OptionDisabled`).
+
 {{ AutocompleteDefault }}
+
+## Customized options
+
+Demonstrates advanced features: a custom `OptionTemplate` to render each option with a flag, a progress indicator during async search, 
+a configurable max dropdown height, and a max width for selected items.
+
+{{ AutocompleteCustomized }}
+
+## API FluentAutocomplete
+
+{{ API Type=FluentAutocomplete<string,string> }}
+
+## Migrating to v5
+
+TODO
+
