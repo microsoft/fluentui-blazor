@@ -128,3 +128,7 @@ You can use an embedded resource to store your translations.
        }
    }
    ```
+
+   ## Default translations
+
+   {{ LocalizationDefaultTranslations SourceCode=false }}
