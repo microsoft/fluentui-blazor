@@ -102,6 +102,24 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     [Parameter]
     public string? MaxSelectedWidth { get; set; }
 
+    /// <summary>
+    /// Gets or sets the icon used for the Clear button. By default: Dismiss icon.
+    /// </summary>
+    [Parameter]
+    public Icon IconDismiss { get; set; } = ClearIcon;
+
+    /// <summary>
+    /// Gets or sets the icon used for the Search button. By default: Search icon.
+    /// </summary>
+    [Parameter]
+    public Icon IconSearch { get; set; } = SearchIcon;
+
+    /// <summary>
+    /// Gets or sets the template for the selected options, displayed in the autocomplete input text.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TOption>? SelectedOptionTemplate { get; set; }
+
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

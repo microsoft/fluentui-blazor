@@ -55,16 +55,23 @@
                     {
                         @foreach (var item in _internalSelectedItems)
                         {
-                            <span class="fluent-badge"
-                                  title="@GetOptionText(item)"
-                                  auto-complete="true">
-                                <span>@GetOptionText(item)</span>
-                                <FluentIcon Value="@BadgeCloseIcon"
-                                            Focusable="true"
-                                            OnClick="@(e => RemoveSelectedItemAsync(item))"
-                                            OnClickStopPropagation="true"
-                                            Width="12px" />
-                            </span>
+                            if (SelectedOptionTemplate is null)
+                            {
+                                <span class="fluent-badge"
+                                    title="@GetOptionText(item)"
+                                    auto-complete="true">
+                                    <span>@GetOptionText(item)</span>
+                                    <FluentIcon Value="@BadgeCloseIcon"
+                                                Focusable="true"
+                                                OnClick="@(e => RemoveSelectedItemAsync(item))"
+                                                OnClickStopPropagation="true"
+                                                Width="12px" />
+                                </span>
+                            }
+                            else
+                            {
+                                @SelectedOptionTemplate(item)
+                            }
                         }
                     }
                 </div>
@@ -81,7 +88,7 @@
                 {
                     if (_internalSelectedItems.Any())
                     {
-                        <FluentIcon Value="@ClearIcon" 
+                        <FluentIcon Value="@IconDismiss" 
                                     Focusable="true"
                                     @onfocus="@(e => _isOpen = false)"
                                     OnClick="@ClearSelectionAsync"
@@ -89,7 +96,7 @@
                     }
                     else
                     {
-                        <FluentIcon Value="@SearchIcon" 
+                        <FluentIcon Value="@IconSearch" 
                                     Focusable="true"
                                     @onfocus="@(e => _isOpen = false)"
                                     OnClick="@SwitchOptionsPopupAsync"
