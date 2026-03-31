@@ -1,0 +1,51 @@
+﻿@using System.Resources
+@using System.Globalization
+@using System.Collections
+
+<table>
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Default translation</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in _localizedStrings)
+        {
+            <tr>
+                <td>@entry.Key</td>
+                <td>@entry.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@code {
+
+    private Dictionary<string, string> _localizedStrings = [];
+
+    protected override Task OnInitializedAsync()
+    {
+        var resourceManager = Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource.ResourceManager;
+        var culture = CultureInfo.InvariantCulture;
+        ResourceSet? resourceSet = resourceManager.GetResourceSet(culture, true, true);
+
+        if (resourceSet is not null)
+        {
+            _localizedStrings = resourceSet
+                .Cast<DictionaryEntry>()
+                .Where(e => e.Value is string)
+                .OrderBy(x => x.Key)
+                .ToDictionary(
+                    e => (string)e.Key,
+                    e => e.Value as string ?? string.Empty
+                );
+
+        }
+
+        return base.OnInitializedAsync();
+    }
+
+}
