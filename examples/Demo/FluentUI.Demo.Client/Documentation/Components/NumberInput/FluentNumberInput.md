@@ -74,3 +74,7 @@ You can bind the value and update immediately as the user types by setting
 the `Immediate` and `ImmediateDelay` properties.
 
 {{ NumberInputImmediate }}
+
+## API FluentNumberInput
+
+{{ API Type=FluentNumberInput<int> }}
