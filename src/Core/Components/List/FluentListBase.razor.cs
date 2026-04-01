@@ -190,7 +190,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         {
             if (OptionSelectedComparer != null)
             {
-                return SelectedItems?.Any(selectedItem => OptionSelectedComparer.Equals(item!, selectedItem!)) ?? false;
+                return SelectedItems?.Any(selectedItem => OptionSelectedComparer.Equals(item, selectedItem)) ?? false;
             }
 
             return SelectedItems?.Contains(item) ?? false;
@@ -199,7 +199,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         // Single item
         if (OptionSelectedComparer != null && CurrentValue is TOption currentAsOption)
         {
-            return OptionSelectedComparer.Equals(item!, currentAsOption);
+            return OptionSelectedComparer.Equals(item, currentAsOption);
         }
 
         return Equals(GetOptionValue(item), CurrentValue);
