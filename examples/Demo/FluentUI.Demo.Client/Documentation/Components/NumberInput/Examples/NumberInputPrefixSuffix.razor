@@ -1,0 +1,30 @@
+﻿<FluentStack HorizontalGap="20px">
+    <FluentNumberInput TValue="double" Label="Price" Step="0.01" Min="0" @bind-Value="@price">
+        <StartTemplate>
+            <fluent-label>€</fluent-label>
+        </StartTemplate>
+    </FluentNumberInput>
+
+    <FluentNumberInput TValue="double" Label="Weight" Step="0.1" Min="0" @bind-Value="@weight">
+        <EndTemplate>
+            <fluent-label>kg</fluent-label>
+        </EndTemplate>
+    </FluentNumberInput>
+
+    <FluentNumberInput TValue="int" Label="Temperature" Min="-50" Max="50" @bind-Value="@temperature">
+        <EndTemplate>
+            <fluent-label>°C</fluent-label>
+        </EndTemplate>
+    </FluentNumberInput>
+</FluentStack>
+
+<FluentLabel>Price = €@price</FluentLabel>
+<FluentLabel>Weight = @weight kg</FluentLabel>
+<FluentLabel>Temperature = @temperature °C</FluentLabel>
+
+@code
+{
+    double price = 9.99;
+    double weight = 1.5;
+    int temperature = 20;
+}

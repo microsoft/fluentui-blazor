@@ -25,7 +25,7 @@ tests/
 └── Integration/                    # Integration tests
 
 examples/
-├── Demo/                           # Demo application
+├── Demo/                           # Demo application and provide a self-documentation
 └── Samples/                        # Sample projects
 ```
 

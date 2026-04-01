@@ -8,6 +8,7 @@ import { Microsoft as FluentMultiSplitterFile } from './Components/Splitter/Flue
 import { Microsoft as FluentLayoutFile } from './Components/Layout/FluentLayout';
 import { Microsoft as FluentTextMaskedFile } from './Components/TextInput/TextMasked';
 import { Microsoft as FluentTextInput } from './Components/TextInput/TextInput';
+import { Microsoft as FluentNumberInputFile } from './Components/NumberInput/NumberInput';
 import { Microsoft as FluentOverlayFile } from './Components/Overlay/FluentOverlay';
 import { Microsoft as FluentListBoxContainerFile } from './Components/List/ListBoxContainer';
 
@@ -38,6 +39,7 @@ export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
     (window as any).Microsoft.FluentUI.Blazor.Components.Layout = FluentLayoutFile.FluentUI.Blazor.Components.Layout;
     (window as any).Microsoft.FluentUI.Blazor.Components.TextMasked = FluentTextMaskedFile.FluentUI.Blazor.Components.TextMasked;
     (window as any).Microsoft.FluentUI.Blazor.Components.TextInput = FluentTextInput.FluentUI.Blazor.Components.TextInput;
+    (window as any).Microsoft.FluentUI.Blazor.Components.NumberInput = FluentNumberInputFile.FluentUI.Blazor.Components.NumberInput;
     (window as any).Microsoft.FluentUI.Blazor.Components.Overlay = FluentOverlayFile.FluentUI.Blazor.Components.Overlay;
     (window as any).Microsoft.FluentUI.Blazor.Components.ListBoxContainer = FluentListBoxContainerFile.FluentUI.Blazor.Components.ListBoxContainer;
 

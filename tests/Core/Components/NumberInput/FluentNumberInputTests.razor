@@ -1,0 +1,220 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.Globalization
+@using Xunit;
+@inherits FluentUITestContext
+@code
+{
+    public FluentNumberInputTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentNumberInput_Default_Int()
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
+        var cut = Render(@<FluentNumberInput TValue="int" Value="5" />);
+
+        // Assert
+        cut.Find("fluent-text-input")
+           .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" inputmode=\"decimal\" type=\"number\" value=\"5\" />");
+    }
+
+    [Fact]
+    public void FluentNumberInput_Default_Double()
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
+        var cut = Render(@<FluentNumberInput TValue="double" Value="1.5" />);
+
+        // Assert
+        cut.Find("fluent-text-input")
+           .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" inputmode=\"decimal\" type=\"number\" value=\"1.5\" />");
+    }
+
+    [Fact]
+    public void FluentNumberInput_Placeholder()
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
+        var cut = Render(@<FluentNumberInput TValue="double" Placeholder="1.0" />);
+ 
+        // Assert
+        cut.Find("fluent-text-input")
+           .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" inputmode=\"decimal\" placeholder=\"1.0\" type=\"number\" value=\"0\" />");
+    }
+
+    [Theory]
+    [InlineData(TextInputAppearance.Outline, "outline")]
+    [InlineData(TextInputAppearance.Underline, "underline")]
+    [InlineData(TextInputAppearance.FilledLighter, "filled-lighter")]
+    [InlineData(TextInputAppearance.FilledDarker, "filled-darker")]
+    public void FluentNumberInput_Appearance(TextInputAppearance appearance, string expectedAttribute)
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
+        var cut = Render(@<FluentNumberInput TValue="int" Appearance="@appearance" />);
+
+        // Assert
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"{expectedAttribute}\" inputmode=\"decimal\" type=\"number\" value=\"0\" />");
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void FluentNumberInput_DisabledAttribute(bool disabled)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentNumberInput TValue="int" Disabled="@disabled" />);
+
+        // Assert
+        var actual = cut.Find("fluent-text-input").HasAttribute("disabled");
+        Assert.Equal(disabled, actual);
+    }
+
+    [Fact]
+    public void FluentNumberInput_ReadOnly()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentNumberInput TValue="int" ReadOnly="true" />);
+
+        // Assert
+        var actual = cut.Find("fluent-text-input").HasAttribute("readonly");
+        Assert.True(actual);
+    }
+
+    [Fact]
+    public void FluentNumberInput_OnChange()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = 10;
+        var cut = Render(@<FluentNumberInput @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-text-input").Change("42");
+
+        // Assert
+        Assert.Equal(42, value);
+    }
+
+    [Fact]
+    public void FluentNumberInput_OnChange_Double()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = 1.0;
+        var cut = Render(@<FluentNumberInput @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-text-input").Change("3.14");
+
+        // Assert
+        Assert.Equal(3.14, value);
+    }
+
+    [Fact]
+    public void FluentNumberInput_InvalidType_Throws()
+    {
+        // Arrange && Act && Assert
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            Render(@<FluentNumberInput TValue="DateTime" />);
+        });
+    }
+
+    [Fact]
+    public void FluentNumberInput_StartEndTemplate()
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
+        var cut = Render(
+    @<FluentNumberInput TValue="int">
+        <StartTemplate>$</StartTemplate>
+        <EndTemplate>.00</EndTemplate>
+    </FluentNumberInput>
+    );
+
+        // Assert
+        var startSlot = cut.Find("div[slot='start']");
+        var endSlot = cut.Find("div[slot='end']");
+        Assert.NotNull(startSlot);
+        Assert.NotNull(endSlot);
+    }
+
+    [Fact]
+    public void FluentNumberInput_Label()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentNumberInput TValue="double" Label="Amount" Value="0" />);
+
+        // Assert
+        var label = cut.Find("label");
+        Assert.Contains("Amount", label.TextContent);
+    }
+
+    [Fact]
+    public void FluentNumberInput_OnChange_Double_WithFrenchCulture()
+    {
+        // Arrange — simulate a French server culture where '.' is the thousands separator
+        var previousCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("fr-FR");
+
+            using var context = new IdentifierContext(i => "myId");
+            var value = 0.0;
+            var cut = Render(@<FluentNumberInput @bind-Value="@value" />);
+
+            // Act — HTML <input type="number"> always sends '.' as decimal separator
+            cut.Find("fluent-text-input").Change("2.5");
+
+            // Assert — must parse as 2.5, not 25 (which would happen with CurrentCulture)
+            Assert.Equal(2.5, value);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = previousCulture;
+        }
+    }
+
+    [Fact]
+    public void FluentNumberInput_OnChange_Double_WithCommaDecimalSeparator()
+    {
+        // Arrange — some browsers might send the locale decimal separator
+        using var context = new IdentifierContext(i => "myId");
+        var value = 0.0;
+        var cut = Render(@<FluentNumberInput @bind-Value="@value" />);
+
+        // Act — edge case: browser sends comma as decimal separator
+        cut.Find("fluent-text-input").Change("3,14");
+
+        // Assert — must normalize comma to dot and parse correctly
+        Assert.Equal(3.14, value);
+    }
+
+    [Fact]
+    public void FluentNumberInput_FormatValue_AlwaysUsesDot()
+    {
+        // Arrange — French culture uses ',' as decimal separator
+        var previousCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("fr-FR");
+
+            using var context = new IdentifierContext(i => "myId");
+            var cut = Render(@<FluentNumberInput TValue="double" Value="1.5" />);
+
+            // Assert — the HTML value attribute must always use '.' for <input type="number">
+            var input = cut.Find("fluent-text-input");
+            Assert.Equal("1.5", input.GetAttribute("value"));
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = previousCulture;
+        }
+    }
+}

@@ -1,0 +1,39 @@
+﻿<FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+    <FluentNumberInput TValue="int"
+                       Label="int"
+                       @bind-Value="@intValue" />
+
+    <FluentNumberInput TValue="long"
+                       Label="long"
+                       @bind-Value="@longValue" />
+
+    <FluentNumberInput TValue="float"
+                       Label="float"
+                       Step="0.1f"
+                       @bind-Value="@floatValue" />
+
+    <FluentNumberInput TValue="double"
+                       Label="double"
+                       Step="0.01"
+                       @bind-Value="@doubleValue" />
+
+    <FluentNumberInput TValue="decimal"
+                       Label="decimal"
+                       Step="0.001m"
+                       @bind-Value="@decimalValue" />
+</FluentStack>
+
+<FluentLabel>int = @intValue</FluentLabel>
+<FluentLabel>long = @longValue</FluentLabel>
+<FluentLabel>float = @floatValue</FluentLabel>
+<FluentLabel>double = @doubleValue</FluentLabel>
+<FluentLabel>decimal = @decimalValue</FluentLabel>
+
+@code
+{
+    int intValue = 42;
+    long longValue = 1000;
+    float floatValue = 3.14f;
+    double doubleValue = 2.71;
+    decimal decimalValue = 9.999m;
+}

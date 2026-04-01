@@ -1,0 +1,12 @@
+﻿<FluentStack HorizontalGap="20px">
+    <FluentNumberInput TValue="int" Required="true" Label="Required" Placeholder="0" @bind-Value="@Value" />
+    <FluentNumberInput TValue="int" Disabled="true" Label="Disabled" Placeholder="0" @bind-Value="@Value" />
+    <FluentNumberInput TValue="int" ReadOnly="true" Label="ReadOnly" @bind-Value="@Value" />
+</FluentStack>
+
+<FluentLabel>Value = @Value</FluentLabel>
+
+@code
+{
+    int Value = 42;
+}
