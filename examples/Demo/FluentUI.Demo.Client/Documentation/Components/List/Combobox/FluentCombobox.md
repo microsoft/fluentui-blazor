@@ -55,6 +55,10 @@ The following example shows how to customize the items:
 
 See a similar example on the [FluentSelect](/List/Select#customize-the-items) page.
 
+## Placeholders and autofill
+
+{{ INCLUDE PlaceholderAutofill }}
+
 ## API FluentCombobox
 
 {{ API Type=FluentCombobox<string,string> }}

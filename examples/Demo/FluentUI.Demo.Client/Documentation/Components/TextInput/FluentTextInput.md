@@ -122,8 +122,11 @@ You cannot modify them dynamically.
 
 You can set the `TextInputType` property to define the type of the text input. This relies on browser supplied support for the different types and can therefore vary between browsers.
 
-
 {{ TextInputTypes }}
+
+## Placeholders and autofill
+
+{{ INCLUDE PlaceholderAutofill }}
 
 ## API FluentTextInput
 
