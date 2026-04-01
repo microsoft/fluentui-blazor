@@ -11,6 +11,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
     const input = document.getElementById(id) as TextInput;
     if (!input) return;
 
+    detectWrappedItems(input);
     new AutocompleteKeyboardNav(id, input);
   }
 
@@ -27,9 +28,43 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
     // Move the cursor to the end of the input value
     const control = (input as any).control as HTMLInputElement;
     if (control) {
-        const len = control.value.length;
-        control.setSelectionRange(len, len);
+      const len = control.value.length;
+      control.setSelectionRange(len, len);
     }
+  }
+
+  /**
+   * Detects if the items in the start slot of the autocomplete input are wrapped to multiple lines and sets an attribute accordingly.
+   */
+  function detectWrappedItems(input: TextInput): void {
+
+    const startSlot = input.querySelector("div[slot='start'] > div") as HTMLElement;
+    if (!startSlot) return;
+
+    const observer = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        if (isFlexWrapped(input, startSlot)) {
+          input.setAttribute("items-wrapped", "true");
+        } else {
+          input.removeAttribute("items-wrapped");
+        }
+      }
+    });
+
+    observer.observe(startSlot);
+  }
+
+  /**
+   * Returns true if the items in the container are wrapped to multiple lines.
+   */
+  function isFlexWrapped(input: TextInput, container: HTMLElement): boolean {
+    const items = Array.from(container.children) as HTMLElement[];
+    if (items.length < 2) return false;
+    
+    if (input.hasAttribute("items-wrapped")) return true;
+
+    const firstTop = items[0].offsetTop;
+    return items.some(item => item.offsetTop !== firstTop);
   }
 
   /**
@@ -49,7 +84,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
     constructor(inputId: string, input: TextInput) {
       this.inputId = inputId;
       this.input = input;
-      
+
       const popover = this.getPopover();
       if (!popover) throw new Error(`Popover not found for input with id ${inputId}`);
       this.Popover = popover as IFluentPopover;
@@ -153,7 +188,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
       this.Popover.querySelectorAll('fluent-option[hovered]').forEach((opt: Element) => {
         const option = opt as DropdownOption;
         option.removeAttribute('hovered');
-          option.tabIndex = -1;
+        option.tabIndex = -1;
       });
     }
 
@@ -172,7 +207,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
         this.setHoverFirstOption();
       }
     }
-   
+
   }
 
   interface IFluentPopover extends HTMLElement {

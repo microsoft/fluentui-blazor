@@ -39,7 +39,7 @@ fluent-text-input[auto-complete] .fluent-badge[auto-complete] > span {
 
 /* MaxAutoHeight */
 
-fluent-text-input[auto-complete]:has(div[slot="start"] div[style*="max-height"])::part(root) {
+fluent-text-input[auto-complete]:not([items-wrapped]):has(div[slot="start"] div[style*="max-height"])::part(root) {
   height: unset;
   min-height: 32px;
   display: grid;
@@ -52,4 +52,32 @@ fluent-text-input[auto-complete] div[slot="start"] div[style*="max-height"] {
   flex-wrap: wrap;
   gap: var(--spacingVerticalXS) 0;
   padding: var(--spacingVerticalXS) 0;
+}
+
+/* MaxAutoHeight - Items wrapped */
+
+fluent-text-input[auto-complete][items-wrapped]::part(root) {
+  height: unset;
+  min-height: 32px;
+  display: grid;
+  grid-template-columns: 1fr 24px;
+  grid-template-rows: auto auto;
+}
+
+fluent-text-input[auto-complete][items-wrapped] div[slot="start"] {
+  grid-column: 1 / -1;
+}
+
+fluent-text-input[auto-complete][items-wrapped] div[slot="start"] div[style*="max-height"] {
+  width: 100%;
+}
+
+fluent-text-input[auto-complete][items-wrapped]::part(control) {
+  grid-column: 1;
+  width: 100%;
+  padding: var(--spacingVerticalS) 0;
+}
+
+fluent-text-input[auto-complete][items-wrapped] div[slot="end"] {
+  grid-column: 2;
 }
