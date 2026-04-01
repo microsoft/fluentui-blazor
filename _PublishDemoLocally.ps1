@@ -44,11 +44,11 @@ Write-Host "  Package version: $version" -ForegroundColor White
 Write-Host ""
 
 # Ask for doing quick of full publish
-$publishChoice = Read-Host "❓ Do you want to do a quick publish (skip API documentation generation, MCP Server build)? (y/n) [default: y]"
+$publishChoice = Read-Host "❓ Do you want to do a full publish (skip API documentation generation, MCP Server build)? (y/n) [default: y]"
 if ($publishChoice -eq "n") {
-    $fullBuild = $true
-} elseif ($publishChoice -eq "" -or $publishChoice -eq "y") {
     $fullBuild = $false
+} elseif ($publishChoice -eq "" -or $publishChoice -eq "y") {
+    $fullBuild = $true
 } else {
     Write-Host "⛔ Invalid choice." -ForegroundColor Red
     exit 1
@@ -78,27 +78,25 @@ $RootDir = $PSScriptRoot
 # Update the Directory.Build.props file with the correct .NET version
 Write-Host "👉 Updating Directory.Build.props with .NET version: $NetVersion..." -ForegroundColor Yellow
 
-$propsMatch = $propsContent -match "<NetVersion>net[0-9]+\.[0-9]+</NetVersion>"
-if ($propsMatch -ne "<NetVersion>$NetVersion</NetVersion>") {
+$propsMatch = $propsContent -match "(<NetVersion>net[0-9]+\.[0-9]+</NetVersion>)"
+if ($Matches[1] -ne "<NetVersion>$NetVersion</NetVersion>") {
     $propsVersion = $Matches[1]
     $propsContent -replace '<NetVersion>net[0-9]+\.[0-9]+</NetVersion>', "<NetVersion>$NetVersion</NetVersion>" | Set-Content "./Directory.Build.props"
     Write-Host "- Replaced NetVersion: $propsVersion -> $NetVersion..."
-
 }
 
 
-$propsMatch = $propsContent -match "<TargetNetVersions Condition=`"'\$\(Configuration\)' == 'Release'`">.*</TargetNetVersions>"
-if ($propsMatch -ne "<TargetNetVersions Condition=`"'`$(Configuration)' == 'Release'`">$NetVersion</TargetNetVersions>") {
+$propsMatch = $propsContent -match "(<TargetNetVersions Condition=`"'\$\(Configuration\)' == 'Release'`">.*</TargetNetVersions>)"
+if ($Matches[1] -ne "<TargetNetVersions Condition=`"'`$(Configuration)' == 'Release'`">$NetVersion</TargetNetVersions>") {
     $propsVersion = $Matches[1]
     $propsContent -replace "<TargetNetVersions Condition=`"'\$\(Configuration\)' == 'Release'`">.*</TargetNetVersions>", "<TargetNetVersions Condition=`"'`$(Configuration)' == 'Release'`">$NetVersion</TargetNetVersions>" | Set-Content "./Directory.Build.props"
     Write-Host "- Replaced TargetNetVersions for Release: $propsVersion -> $NetVersion..."
 }
 
-
 if ($fullBuild) {
     # Build the core project
-    #Write-Host "👉 Building Core project..." -ForegroundColor Yellow
-    #dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish"  -f $NetVersion
+    Write-Host "👉 Building Core project..." -ForegroundColor Yellow
+    dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish"  -f $NetVersion
 
     # Generate API documentation file
     Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
@@ -116,7 +114,11 @@ if ($fullBuild) {
 
 # Publish the demo
 Write-Host "👉 Publishing demo..." -ForegroundColor Yellow
-dotnet publish "./examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" -c Release -o "./examples/Demo/FluentUI.Demo/bin/Publish" -f $NetVersion
+if ($fullBuild) {
+    dotnet publish "./examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" -c Release -o "./examples/Demo/FluentUI.Demo/bin/Publish" -f $NetVersion --no-build
+} else {
+    dotnet publish "./examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" -c Release -o "./examples/Demo/FluentUI.Demo/bin/Publish" -f $NetVersion
+}
 
 # Verify that the bundle JS file has the expected size
 Write-Host ""
