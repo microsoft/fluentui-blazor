@@ -110,10 +110,10 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     public virtual Func<TOption?, bool>? OptionDisabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the function used to determine whether two options are considered equal for selection purposes.
+    /// Gets or sets the equality comparer used to determine whether two options are considered equal for selection purposes.
     /// </summary>
     [Parameter]
-    public virtual Func<TValue?, TValue?, bool>? OptionSelectedComparer { get; set; }
+    public virtual IEqualityComparer<TOption>? OptionSelectedComparer { get; set; }
 
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
@@ -167,6 +167,17 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     }
 
     /// <summary />
+    bool IInternalListBase<TValue>.AreValuesEqual(TValue? value1, TValue? value2)
+    {
+        if (OptionSelectedComparer != null && value1 is TOption option1 && value2 is TOption option2)
+        {
+            return OptionSelectedComparer.Equals(option1, option2);
+        }
+
+        return EqualityComparer<TValue>.Default.Equals(value1, value2);
+    }
+
+    /// <summary />
     protected virtual bool GetOptionSelected(TOption? item)
     {
         if (item == null)
@@ -179,16 +190,16 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         {
             if (OptionSelectedComparer != null)
             {
-                return SelectedItems?.Any(selectedItem => OptionSelectedComparer(GetOptionValue(item), GetOptionValue(selectedItem))) ?? false;
+                return SelectedItems?.Any(selectedItem => OptionSelectedComparer.Equals(item!, selectedItem!)) ?? false;
             }
 
             return SelectedItems?.Contains(item) ?? false;
         }
 
         // Single item
-        if (OptionSelectedComparer != null)
+        if (OptionSelectedComparer != null && CurrentValue is TOption currentAsOption)
         {
-            return OptionSelectedComparer(GetOptionValue(item), CurrentValue);
+            return OptionSelectedComparer.Equals(item!, currentAsOption);
         }
 
         return Equals(GetOptionValue(item), CurrentValue);
