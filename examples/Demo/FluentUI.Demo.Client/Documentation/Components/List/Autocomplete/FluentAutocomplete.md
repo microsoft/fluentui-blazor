@@ -15,7 +15,7 @@ It is particularly useful when the list of options is large, as the user can nar
 | Key | Behavior |
 |---|---|
 | **Type text** | Filters the list of options and triggers the `OnSearchAsync` method to fetch matching results. |
-| **Arrow Down / Arrow Up** | Navigates through the items in the suggestion list. |
+| **Arrow Down / Arrow Up** | Opens the suggestion list and navigates through the items in the suggestion list. |
 | **Enter** | Selects the currently highlighted item. |
 | **Backspace** | Deletes the most recently selected item (in multi-select mode). |
 | **Escape** | Closes the suggestion list without selecting an item. |
