@@ -10,27 +10,7 @@
                        @bind-Value="@price" />
 </FluentStack>
 
-<FluentLabel>
-    Value = @price
-    — Formatted (CurrentCulture): @price.ToString("N2")
-    — Formatted (InvariantCulture): @price.ToString("N2", CultureInfo.InvariantCulture)
-</FluentLabel>
-
-<blockquote style="margin-top: 1rem;">
-    <p>
-        The <code>FluentNumberInput</code> component always uses the <strong>invariant culture</strong>
-        (dot <code>.</code> as decimal separator) for internal formatting and parsing,
-        regardless of the browser or server culture.
-    </p>
-    <p>
-        This is by design: HTML <code>&lt;input type="number"&gt;</code> always transmits values
-        using a dot as the decimal separator, even when the browser displays a comma.
-    </p>
-    <p>
-        If you need to <strong>display</strong> the value formatted in the user's culture,
-        use <code>ToString("N2")</code> or any format string with <code>CultureInfo.CurrentCulture</code> as shown above.
-    </p>
-</blockquote>
+<FluentLabel>Value = @price — Display: @price.ToString("N2")</FluentLabel>
 
 @code
 {

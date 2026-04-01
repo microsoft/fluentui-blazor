@@ -14,12 +14,13 @@
     public void FluentNumberInput_Default_Int()
     {
         // Arrange && Act
-        using var context = new IdentifierContext(i => "myId");
-        var cut = Render(@<FluentNumberInput TValue="int" Value="5" />);
+        var cut = Render(@<FluentNumberInput TValue="int"
+                                             Value="5"
+                                             Label="Quantity"
+                                             Placeholder="0" />);
 
         // Assert
-        cut.Find("fluent-text-input")
-           .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" inputmode=\"decimal\" type=\"number\" value=\"5\" />");
+        cut.Verify();
     }
 
     [Fact]

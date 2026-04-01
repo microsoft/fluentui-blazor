@@ -133,6 +133,10 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
         await base.RenderTooltipAsync(Tooltip);
     }
 
+    private string? _lastStep;
+    private string? _lastMin;
+    private string? _lastMax;
+
     /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -142,14 +146,29 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
 
             // Initialize the 'immediate' custom event for the immediate mode
             await InitializeImmediateAsync();
+        }
 
-            // Set step/min/max on the inner <input> inside the shadow DOM
+        // Set step/min/max on the inner <input> inside the shadow DOM.
+        // Reapply whenever the values change (not only on first render).
+        var currentStep = FormatNullableValue(Step);
+        var currentMin = FormatNullableValue(Min);
+        var currentMax = FormatNullableValue(Max);
+
+        if (firstRender ||
+            !string.Equals(currentStep, _lastStep, StringComparison.Ordinal) ||
+            !string.Equals(currentMin, _lastMin, StringComparison.Ordinal) ||
+            !string.Equals(currentMax, _lastMax, StringComparison.Ordinal))
+        {
+            _lastStep = currentStep;
+            _lastMin = currentMin;
+            _lastMax = currentMax;
+
             await JSRuntime.InvokeVoidAsync(
                 "Microsoft.FluentUI.Blazor.Components.NumberInput.setNumberAttributes",
                 Id,
-                FormatNullableValue(Step),
-                FormatNullableValue(Min),
-                FormatNullableValue(Max));
+                currentStep,
+                currentMin,
+                currentMax);
         }
     }
 

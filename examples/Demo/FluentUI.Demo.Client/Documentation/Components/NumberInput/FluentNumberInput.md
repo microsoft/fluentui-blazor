@@ -12,12 +12,6 @@ It supports both integer and decimal numbers, with configurable `Min`, `Max`, an
 **Value** can be one of the following **Numeric Types**:
 `byte`, `sbyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `float`, `double`, `decimal`.
 
-## Default
-
-A basic number input with default settings.
-
-{{ NumberInputDefault }}
-
 ## Numeric Types
 
 The `TValue` generic parameter defines the type of the value. You must specify it explicitly.
@@ -42,13 +36,6 @@ This means:
 
 {{ NumberInputCulture }}
 
-## Min, Max and Step
-
-Use the `Min`, `Max` and `Step` properties to constrain the input range and increment.
-This is especially useful for decimal values such as prices or measurements.
-
-{{ NumberInputMinMaxStep }}
-
 ## Appearance
 
 The visual style can be changed by setting the `Appearance` and `Size` properties.
@@ -67,13 +54,6 @@ Use the `StartTemplate` and `EndTemplate` properties to add a prefix or suffix t
 such as a currency symbol or unit.
 
 {{ NumberInputPrefixSuffix }}
-
-## Binding with ImmediateDelay
-
-You can bind the value and update immediately as the user types by setting
-the `Immediate` and `ImmediateDelay` properties.
-
-{{ NumberInputImmediate }}
 
 ## API FluentNumberInput
 
