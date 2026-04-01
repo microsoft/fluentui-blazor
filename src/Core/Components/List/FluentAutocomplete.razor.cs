@@ -132,34 +132,13 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    private class ItemsComparer : IEqualityComparer<TOption>
-    {
-        private readonly Func<TValue?, TValue?, bool> EqualityFunc;
-
-        public ItemsComparer(Func<TValue?, TValue?, bool>? equalityFunc)
-        {
-            EqualityFunc = equalityFunc ?? ((x, y) => EqualityComparer<TValue>.Default.Equals(x, y));
-        }
-
-        public bool Equals(TOption? x, TOption? y)
-        {
-            return EqualityFunc(x is null ? default : (TValue)(object)x, y is null ? default : (TValue)(object)y);
-        }
-
-        public int GetHashCode(TOption obj)
-        {
-            return obj is null ? 0 : EqualityComparer<TValue>.Default.GetHashCode((TValue)(object)obj);
-        }
-    }
-
     /// <summary>
     /// Raised when the FluentListbox.SelectedItems property changes.
     /// </summary>
     private async Task InternalSelectedItemsChangedHandlerAsync(IEnumerable<TOption> items)
     {
-        var comparer = new ItemsComparer(OptionSelectedComparer);
-        var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, comparer));
-        var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, comparer)).ToList();
+        var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, EqualityComparer<TOption>.Default)).ToList();
+        var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, EqualityComparer<TOption>.Default)).ToList();
 
         // Add items that are in 'items' but not already in _internalSelectedItems
         _internalSelectedItems.AddRange(itemsToAdd);
