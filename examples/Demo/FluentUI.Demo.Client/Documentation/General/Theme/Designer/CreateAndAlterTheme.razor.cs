@@ -5,7 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 
-namespace FluentUI.Demo.Client.Documentation.Components.Theme.Designer;
+namespace FluentUI.Demo.Client.Documentation.General.Theme.Designer;
 
 public partial class CreateAndAlterTheme
 {

@@ -4,7 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace FluentUI.Demo.Client.Documentation.Components.Theme.Designer;
+namespace FluentUI.Demo.Client.Documentation.General.Theme.Designer;
 
 public partial class PaletteBar
 {

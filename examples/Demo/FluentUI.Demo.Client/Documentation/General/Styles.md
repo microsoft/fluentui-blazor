@@ -1,7 +1,7 @@
 ---
 title: Styles
-order: 0040
-category: 10|Get Started
+order: 0003
+category: 20|General
 route: /Styles
 icon: StyleGuide
 ---
@@ -50,7 +50,7 @@ If you want to use **Reboot** you have two options:
    ```html
    <body use-reboot> ... </body>
    ```
-   
+
 If you are creating a site by using our [Templates package](https://www.fluentui-blazor.net/Templates),
 this is already set up for you.
 You can <a href="/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" target="_blank">download the file</a> to see what's inside.
@@ -551,8 +551,7 @@ Here are a few of them:
 --shadow64Brand: 0 0 8px rgba(0, 0, 0, 0.30), 0 32px 64px rgba(0, 0, 0, 0.25);
 </code></pre>
 
-
-# Reboot CSS
+## About Reboot CSS
 
 Reboot is a collection of element-specific CSS changes in a single file to help kickstart building a site
 with the **FluentUI Blazor library**. It provides an elegant, consistent, and simple baseline to build upon
@@ -571,4 +570,3 @@ this is already set up for you. You can [download the file](https://www.fluentui
 to see what's inside.
 
 PS: It is entirely possible to build a site **without using Reboot** but you will have to do more styling yourself.
-

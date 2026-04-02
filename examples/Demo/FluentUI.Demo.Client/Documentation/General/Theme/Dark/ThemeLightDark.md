@@ -1,15 +1,17 @@
 ---
 title: Light-Dark
-route: /Theme/Dark
+order: 0005.04
+category: 20|General
+route: /Theme/LightDark
 ---
 
-# Light-Dark Themes
+# Light/Dark Themes
 
-FluentUI provides a **dark theme** that can be applied to your application. 
+Fluent UI provides a **dark theme** that can be applied to your application.
 This theme is designed to provide a visually appealing and comfortable user experience in low-light environments.
 
-You can easily switch between light and dark themes using the provided JavaScript functions: 
-`Blazor.theme.setDarkTheme` and `Blazor.theme.setLightTheme`.
+You can easily switch between light and dark themes using the provided functions in the `ThemeService`:
+`SetThemeAsync(ThemeMode mode)`.
 
 > [!TIP] See to the section **Code snippets** at the bottom of this page for ready-to-use code examples.
 
@@ -17,21 +19,19 @@ You can easily switch between light and dark themes using the provided JavaScrip
 
 ```csharp
 [Inject]
-public required IJSRuntime JSRuntime { get; set; }
+public required ThemeService ThemeService { get; set; }
 
 private bool DarkTheme { get; set; };
 
 public async Task SwitchThemeAsync()
 {
     DarkTheme = !DarkTheme;
-    await JSRuntime.InvokeVoidAsync(DarkTheme ? "Blazor.theme.setDarkTheme" : "Blazor.theme.setLightTheme");
+    await ThemeService.SetThemeAsync(DarkTheme ? ThemeMode.Dark : ThemeMode.Light);
 
     // Or simply toggle the theme
-    // await JSRuntime.InvokeVoidAsync("Blazor.theme.switchTheme");
+    // await ThemeService.SwitchThemeAsync();
 }
 ```
-
-> [!NOTE] Soon you will be able to use the Blazor `FluentDesignTheme` component to manage themes in a more declarative way.
 
 ## body data-theme
 
@@ -66,7 +66,7 @@ body[data-theme="dark"] {
 
 ## Flash effect (optional)
 
-When using the dark theme, you may notice a brief white "flash" before the page fully renders. 
+When using the dark theme, you may notice a brief white "flash" before the page fully renders.
 This occurs because the browser's default background color is white, and the FluentUI styles may not load instantly—especially on slower network connections.
 
 To prevent this flash, add the following CSS to your `index.html`, `App.razor`, or `_layout.cshtml` file (in the `<head>...</head>` HTML section).
@@ -97,23 +97,7 @@ A JavaScript `themeChanged` event is triggered each time the `data-theme` attrib
 </script>
 ```
 
-The theme does not update by default when the user changes the system or browser theme, and it is not saved across sessions.
-You can listen to the `themeChanged` event to implement your own logic, such as saving the user's preference in local storage or cookies.
-Or to automatically switch themes based on system preferences.
-
-```html
-<script>
-    document.body.addEventListener('themeChanged', function (e) {
-        if (e.detail.isDark) {
-            // Apply dark theme
-            Blazor.theme.setDarkTheme();
-        } else {
-            // Apply light theme
-            Blazor.theme.setLightTheme();
-        }        
-    });
-</script>
-```
+The theme automatically updates by default when the user changes the system or browser theme but it is not saved across sessions.
 
 ## Code snippets
 
@@ -129,8 +113,7 @@ In this example, two buttons are created that allows users to switch between lig
 
 In these two examples, when the button is **hovered**, the icon color changes to indicate interactivity, using the class `fluent-header-hover`.
 
-When the user clicks the button, the `OnClick` event handler calls the JavaScript function `Blazor.theme.switchTheme` to toggle between light and dark themes.
-(note the use of `@inject IJSRuntime JSRuntime` to invoke JavaScript functions from Blazor).
+When the user clicks the button, the `OnClick` event handler calls the `ThemeService.SwitchThemeAsync` method to toggle between light and dark themes.
 The `body data-theme` attribute is automatically updated, and the `themeChanged` event is triggered.
 
 {{ ThemeSnippet }}

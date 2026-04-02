@@ -5,7 +5,7 @@
 using System.Reflection;
 using Microsoft.FluentUI.AspNetCore.Components;
 
-namespace FluentUI.Demo.Client.Documentation.Components.Theme.Colors.Examples;
+namespace FluentUI.Demo.Client.Documentation.General.Theme.Colors.Examples;
 
 public partial class SystemColorsTable
 {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace FluentUI.Demo.Client.Documentation.Components.Theme.Spacing.Examples;
+namespace FluentUI.Demo.Client.Documentation.General.Spacing.Examples;
 
 public partial class SpacingComputedBoxes
 {
@@ -25,7 +25,7 @@ public partial class SpacingComputedBoxes
     {
         if (firstRender)
         {
-            JSModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Documentation/Components/Theme/Spacing/Examples/SpacingComputedBoxes.razor.js");
+            JSModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Documentation/General/Spacing/Examples/SpacingComputedBoxes.razor.js");
         }
 
         if (JSModule != null)
