@@ -234,7 +234,7 @@ Toggles between `'light'` and `'dark'` preference. If no explicit preference is 
 
 Adds a single `matchMedia('(prefers-color-scheme: dark)')` listener and re-applies the theme via `applyCurrentTheme()` on system changes when the user has not explicitly set `'light'` or `'dark'` (either in storage or via `body[data-theme]`).
 
-#### `clearThemeSettings()`
+#### `clearStoredThemeSettings()`
 
 Removes the stored settings object from `localStorage`.
 
