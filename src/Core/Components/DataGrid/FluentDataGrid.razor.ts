@@ -25,6 +25,10 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     EnableColumnResizing(gridElement, true, signal);
 
+    // Recalculate sticky offsets now that the DOM is fully rendered, so any
+    // browser-computed widths (e.g. after grid layout) are reflected.
+    UpdatePinnedColumnOffsets(gridElement);
+
     let start = gridElement.querySelector('td:first-child') as HTMLElement | null;
 
     if (autoFocus && start) {
@@ -304,6 +308,9 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
             else {
               curCol.style.width = column.size;
             }
+
+            // Keep sticky offsets in sync after every resize step.
+            UpdatePinnedColumnOffsets(gridElement);
           }
         });
       };
@@ -539,5 +546,69 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     const visibleRows = Math.max(Math.floor(availableHeight / rowHeight), 1);
     return visibleRows;
+  }
+
+  /**
+   * Recalculates and applies the `left` / `right` inline offsets for every cell in each
+   * pinned column so that columns stack correctly against the grid edge after the initial
+   * render or after a column is resized.
+   *
+   * Left-pinned columns are processed left-to-right; each column's offset is the sum of
+   * the widths of all left-pinned columns to its left.
+   * Right-pinned columns are processed right-to-left; each column's offset is the sum of
+   * the widths of all right-pinned columns to its right.
+   *
+   * The function reads the actual rendered header-cell width so it handles both Grid mode
+   * (CSS grid layout) and Table mode (standard table layout). Grid mode uses `offsetWidth`
+   * (includes borders, matches the grid-track width) while Table mode uses `clientWidth`
+   * (excludes borders, matches the CSS column width), consistent with how existing resize
+   * logic measures columns throughout this file.
+   */
+  export function UpdatePinnedColumnOffsets(gridElement: HTMLElement) {
+    const isGrid = gridElement.classList.contains('grid');
+
+    /**
+     * Returns the rendered pixel width of a header cell in a way that is consistent with
+     * how the resize logic elsewhere in this file measures column widths.
+     * Grid mode: offsetWidth (includes borders — matches the CSS grid-track size).
+     * Table mode: clientWidth (excludes borders — matches the CSS column width).
+     */
+    function headerWidth(header: HTMLElement): number {
+      return isGrid ? header.offsetWidth : header.clientWidth;
+    }
+
+    /**
+     * Applies a cumulative sticky offset to all cells in a column and returns the new
+     * running total to be used by the next column in the sequence.
+     */
+    function applyOffset(header: HTMLElement, offset: number, side: 'left' | 'right'): number {
+      const colIndex = header.getAttribute('col-index');
+      if (!colIndex) { return offset; }
+
+      (gridElement.querySelectorAll(`[col-index="${colIndex}"]`) as NodeListOf<HTMLElement>)
+        .forEach(cell => { cell.style[side] = offset + 'px'; });
+
+      return offset + headerWidth(header);
+    }
+
+    // Left-pinned columns: process in DOM (left-to-right) order.
+    const leftPinnedHeaders = Array.from(
+      gridElement.querySelectorAll('th.col-pinned-left')
+    ) as HTMLElement[];
+
+    let leftOffset = 0;
+    for (const header of leftPinnedHeaders) {
+      leftOffset = applyOffset(header, leftOffset, 'left');
+    }
+
+    // Right-pinned columns: process in reverse DOM (right-to-left) order.
+    const rightPinnedHeaders = Array.from(
+      gridElement.querySelectorAll('th.col-pinned-right')
+    ) as HTMLElement[];
+
+    let rightOffset = 0;
+    for (let i = rightPinnedHeaders.length - 1; i >= 0; i--) {
+      rightOffset = applyOffset(rightPinnedHeaders[i], rightOffset, 'right');
+    }
   }
 }

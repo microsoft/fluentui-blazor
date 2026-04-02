@@ -188,6 +188,23 @@ public abstract partial class ColumnBase<TGridItem>
     public string? Width { get; set; }
 
     /// <summary>
+    /// Gets or sets whether this column is pinned (frozen) to the left or right edge of the grid,
+    /// so it remains visible when the user scrolls horizontally.
+    /// Pinned columns require an explicit <see cref="Width"/> in pixels (e.g., <c>"150px"</c>).
+    /// Left-pinned columns must be contiguous at the start of the column list;
+    /// right-pinned columns must be contiguous at the end.
+    /// </summary>
+    [Parameter]
+    public DataGridColumnPin Pin { get; set; } = DataGridColumnPin.None;
+
+    /// <summary>
+    /// The sticky <c>left</c> or <c>right</c> CSS offset (in pixels) computed by
+    /// <see cref="FluentDataGrid{TGridItem}"/> when columns are collected.
+    /// Not intended for direct use by consumers.
+    /// </summary>
+    internal double PinOffsetPx { get; set; }
+
+    /// <summary>
     /// Gets or sets the minimal width of the column.
     /// Defaults to 100px for a regular column and 50px for a select column.
     /// When resizing a column, the user will not be able to make it smaller than this value.

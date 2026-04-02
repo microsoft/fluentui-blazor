@@ -600,6 +600,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new ArgumentException("The 'HierarchicalToggle' parameter can only be set on the first column of the grid.");
         }
 
+        // Validate and compute offsets for pinned columns.
+        ValidateAndComputePinnedColumns();
+
         // Always re-evaluate after collecting columns when using displaymode grid. A column might be added or hidden and the _internalGridTemplateColumns needs to reflect that.
         if (DisplayMode == DataGridDisplayMode.Grid)
         {
@@ -618,6 +621,112 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             _checkColumnResizing = true;
         }
+    }
+
+    /// <summary>
+    /// Validates the pinned-column configuration and computes the sticky pixel offsets for each
+    /// pinned column. Rules enforced:
+    /// <list type="bullet">
+    ///   <item>Pinned columns must specify an explicit pixel <c>Width</c> (e.g., <c>"150px"</c>).</item>
+    ///   <item>Left-pinned columns must be contiguous at the beginning of the column list.</item>
+    ///   <item>Right-pinned columns must be contiguous at the end of the column list.</item>
+    /// </list>
+    /// </summary>
+    private void ValidateAndComputePinnedColumns()
+    {
+        var hasPinned = _columns.Exists(c => c.Pin != DataGridColumnPin.None);
+        if (!hasPinned)
+        {
+            return;
+        }
+
+        ValidatePinnedColumnConstraints();
+
+        // Compute left-pin sticky offsets (cumulative left-to-right).
+        var leftOffset = 0.0;
+        foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.Left))
+        {
+            col.PinOffsetPx = leftOffset;
+            leftOffset += ParsePixelWidth(col.Width);
+        }
+
+        // Compute right-pin sticky offsets (cumulative right-to-left).
+        var rightOffset = 0.0;
+        foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.Right).Reverse())
+        {
+            col.PinOffsetPx = rightOffset;
+            rightOffset += ParsePixelWidth(col.Width);
+        }
+    }
+
+    /// <summary>
+    /// Enforces width and ordering constraints for pinned columns. Called only when at least one
+    /// pinned column exists.
+    /// </summary>
+    private void ValidatePinnedColumnConstraints()
+    {
+        // Width must be an explicit pixel value.
+        foreach (var col in _columns.Where(c => c.Pin != DataGridColumnPin.None))
+        {
+            if (string.IsNullOrWhiteSpace(col.Width))
+            {
+                throw new ArgumentException(
+                    $"Column '{col.Title ?? col.Index.ToString(CultureInfo.InvariantCulture)}' has Pin set but no Width. " +
+                    "Pinned columns require an explicit Width in pixels (e.g., '150px').");
+            }
+
+            if (!col.Width!.Trim().EndsWith("px", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException(
+                    $"Column '{col.Title ?? col.Index.ToString(CultureInfo.InvariantCulture)}' has Pin set but Width '{col.Width}' is not in pixels. " +
+                    "Pinned columns require an explicit Width in pixels (e.g., '150px').");
+            }
+        }
+
+        // Left-pinned columns must be contiguous at the start: each one must be preceded by
+        // another left-pinned column (or be the very first column).
+        for (var i = 0; i < _columns.Count; i++)
+        {
+            if (_columns[i].Pin == DataGridColumnPin.Left && i > 0 && _columns[i - 1].Pin != DataGridColumnPin.Left)
+            {
+                throw new ArgumentException(
+                    $"Column '{_columns[i].Title ?? _columns[i].Index.ToString(CultureInfo.InvariantCulture)}' is left-pinned but the preceding column is not. " +
+                    "Left-pinned columns must be contiguous at the start of the column list.");
+            }
+        }
+
+        // Right-pinned columns must be contiguous at the end: each one must be followed by
+        // another right-pinned column (or be the very last column).
+        for (var i = 0; i < _columns.Count; i++)
+        {
+            if (_columns[i].Pin == DataGridColumnPin.Right && i < _columns.Count - 1 && _columns[i + 1].Pin != DataGridColumnPin.Right)
+            {
+                throw new ArgumentException(
+                    $"Column '{_columns[i].Title ?? _columns[i].Index.ToString(CultureInfo.InvariantCulture)}' is right-pinned but the following column is not. " +
+                    "Right-pinned columns must be contiguous at the end of the column list.");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Parses a CSS pixel value string such as <c>"150px"</c> and returns the numeric value.
+    /// Returns <c>0</c> if the string is null, empty, or not a valid pixel value.
+    /// </summary>
+    private static double ParsePixelWidth(string? width)
+    {
+        if (string.IsNullOrWhiteSpace(width))
+        {
+            return 0;
+        }
+
+        var trimmed = width.Trim();
+        if (trimmed.EndsWith("px", StringComparison.OrdinalIgnoreCase) &&
+            double.TryParse(trimmed[..^2], NumberStyles.Number, CultureInfo.InvariantCulture, out var px))
+        {
+            return px;
+        }
+
+        return 0;
     }
 
     /// <summary>

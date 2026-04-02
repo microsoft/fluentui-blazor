@@ -1,0 +1,50 @@
+﻿<p>
+    Demonstrates pinned (frozen) columns using <code>Pin="DataGridColumnPin.Left"</code> and
+    <code>Pin="DataGridColumnPin.Right"</code>.
+    The two leftmost columns and the Actions column remain visible while the rest scroll horizontally.
+</p>
+<p>
+    Wrap the grid in a <code>&lt;div style="overflow-x: auto;"&gt;</code> container and give the grid a
+    <code>Style="min-width: max-content;"</code> so that the horizontal scroll bar appears.
+    Pinned columns require an explicit pixel <code>Width</code>.
+</p>
+
+<div style="overflow-x: auto;">
+    <FluentDataGrid Items="@employees" Style="min-width: max-content;">
+        <PropertyColumn Title="ID"          Property="@(e => e.Id)"         Width="60px"  Pin="DataGridColumnPin.Left"  Sortable="true" />
+        <PropertyColumn Title="Full Name"   Property="@(e => e.FullName)"   Width="160px" Pin="DataGridColumnPin.Left"  Sortable="true" />
+        <PropertyColumn Title="Department"  Property="@(e => e.Department)"               Sortable="true" />
+        <PropertyColumn Title="Location"    Property="@(e => e.Location)"                 Sortable="true" />
+        <PropertyColumn Title="Start Date"  Property="@(e => e.StartDate)"               Sortable="true" />
+        <PropertyColumn Title="Salary"      Property="@(e => e.Salary)"                  Sortable="true" Align="DataGridCellAlignment.End" />
+        <TemplateColumn Title="Actions"     Width="120px" Pin="DataGridColumnPin.Right">
+            <FluentButton IconStart="@(new Icons.Regular.Size16.Edit())"   Appearance="ButtonAppearance.Stealth" Title="Edit"   @onclick="@(() => selectedName = context.FullName + " (edit)")"   />
+            <FluentButton IconStart="@(new Icons.Regular.Size16.Delete())" Appearance="ButtonAppearance.Stealth" Title="Delete" @onclick="@(() => selectedName = context.FullName + " (delete)")" />
+        </TemplateColumn>
+    </FluentDataGrid>
+</div>
+
+@if (!string.IsNullOrEmpty(selectedName))
+{
+    <p style="margin-top: 1rem;">Last action: <strong>@selectedName</strong></p>
+}
+
+@code {
+    string selectedName = string.Empty;
+
+    record Employee(int Id, string FullName, string Department, string Location, string StartDate, string Salary);
+
+    IQueryable<Employee> employees = new[]
+    {
+        new Employee(1,  "Denis Voituron",   "Engineering",   "Brussels",   "2019-03-01", "$120,000"),
+        new Employee(2,  "Vincent Baaij",    "Engineering",   "Amsterdam",  "2018-07-15", "$130,000"),
+        new Employee(3,  "Bill Gates",       "Executive",     "Medina",     "1975-04-04", "$1,000,000"),
+        new Employee(4,  "Satya Nadella",    "Executive",     "Bellevue",   "1992-02-17", "$950,000"),
+        new Employee(5,  "Scott Hanselman",  "Developer Relations", "Portland", "2007-01-22", "$200,000"),
+        new Employee(6,  "Mads Torgersen",   "Languages",    "Seattle",    "2005-08-01", "$180,000"),
+        new Employee(7,  "David Fowler",     "Framework",    "Seattle",    "2010-06-14", "$190,000"),
+        new Employee(8,  "Damian Edwards",   "Framework",    "Cambridge",  "2009-03-30", "$185,000"),
+        new Employee(9,  "Jon Galloway",     "Community",    "San Diego",  "2011-11-01", "$160,000"),
+        new Employee(10, "Maria Naggaga",    "Engineering",  "New York",   "2016-05-20", "$155,000"),
+    }.AsQueryable();
+}
