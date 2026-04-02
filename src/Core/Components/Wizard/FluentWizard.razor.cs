@@ -260,9 +260,9 @@ public partial class FluentWizard : FluentComponentBase
     }
 
     /// <summary />
-    protected virtual async Task OnFinishHandlerAsync(MouseEventArgs e)
+    protected virtual Task OnFinishHandlerAsync(MouseEventArgs e)
     {
-        await FinishAsync(true);
+        return FinishAsync(validateEditContexts: true);
     }
 
     /// <summary>

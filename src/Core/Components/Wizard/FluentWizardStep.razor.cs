@@ -13,8 +13,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentWizardStep : FluentComponentBase
 {
-    private readonly Dictionary<EditForm, EditContext> _editForms = new Dictionary<EditForm, EditContext>();
-    private readonly List<EditContext> _editContexts = new List<EditContext>();
+    private readonly Dictionary<EditForm, EditContext> _editForms = [];
+    private readonly List<EditContext> _editContexts = [];
 
     /// <summary />
     public FluentWizardStep(LibraryConfiguration configuration) : base(configuration)
@@ -60,13 +60,13 @@ public partial class FluentWizardStep : FluentComponentBase
     /// Gets or sets whether the step is disabled.
     /// </summary>
     [Parameter]
-    public bool Disabled { get; set; } = false;
+    public bool Disabled { get; set; }
 
     /// <summary>
     /// Render the Wizard Step content only when the Step is selected.
     /// </summary>
     [Parameter]
-    public bool DeferredLoading { get; set; } = false;
+    public bool DeferredLoading { get; set; }
 
     /// <summary>
     /// Gets or sets the label of the step.
@@ -133,20 +133,13 @@ public partial class FluentWizardStep : FluentComponentBase
     {
         get
         {
-            switch (Status)
+            return Status switch
             {
-                case WizardStepStatus.Previous:
-                    return IconPrevious;
-
-                case WizardStepStatus.Current:
-                    return IconCurrent;
-
-                case WizardStepStatus.Next:
-                    return IconNext;
-
-                default:
-                    return new CoreIcons.Regular.Size20.Circle();
-            }
+                WizardStepStatus.Previous => IconPrevious,
+                WizardStepStatus.Current => IconCurrent,
+                WizardStepStatus.Next => IconNext,
+                _ => new CoreIcons.Regular.Size20.Circle(),
+            };
         }
     }
 
@@ -174,10 +167,7 @@ public partial class FluentWizardStep : FluentComponentBase
     /// </summary>
     public void RegisterEditFormAndContext(EditForm editForm, EditContext editContext)
     {
-        if (!_editForms.ContainsKey(editForm))
-        {
-            _editForms.Add(editForm, editContext);
-        }
+        _editForms.TryAdd(editForm, editContext);
     }
 
     /// <summary>

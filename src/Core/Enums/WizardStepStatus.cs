@@ -40,5 +40,5 @@ public enum WizardStepStatus
     /// All statuses.
     /// </summary>
     [Description("all")]
-    All = Previous | Current | Next
+    All = Previous | Current | Next,
 }
