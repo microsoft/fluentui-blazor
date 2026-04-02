@@ -1,7 +1,7 @@
 ---
 title: Localization
-order: 0030
-category: 10|Get Started
+order: 0002
+category: 20|General
 route: /localization
 icon: LocalLanguage
 ---
@@ -12,7 +12,7 @@ Localization allows the text in some components to be translated.
 
 ## Explanation
 
-**FluentUI Blazor** itself provides English language strings for texts found in. 
+**FluentUI Blazor** itself provides English language strings for texts found in.
 To customize translations in **FluentUI Blazor**, you can register a custom `IFluentLocalizer` implementation as a service.
 
 Here's a step-by-step guide:
@@ -63,7 +63,7 @@ see [ASP.NET Core Blazor globalization and localization](https://learn.microsoft
 
 In summary, you need to:
 
-1. Add localization services 
+1. Add localization services
 
    Apps are localized using [Localization Middleware](https://learn.microsoft.com/aspnet/core/fundamentals/localization#localization-middleware).
    Add localization services to the app with AddLocalization.
@@ -129,6 +129,6 @@ You can use an embedded resource to store your translations.
    }
    ```
 
-   ## Default translations
+## Default translations
 
    {{ LocalizationDefaultTranslations SourceCode=false }}
