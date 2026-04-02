@@ -143,8 +143,9 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// </summary>
     private async Task InternalSelectedItemsChangedHandlerAsync(IEnumerable<TOption> items)
     {
-        var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, EqualityComparer<TOption>.Default)).ToList();
-        var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, EqualityComparer<TOption>.Default)).ToList();
+        var comparer = OptionSelectedComparer ?? EqualityComparer<TOption>.Default;
+        var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, comparer)).ToList();
+        var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, comparer)).ToList();
 
         // Add items that are in 'items' but not already in _internalSelectedItems
         _internalSelectedItems.AddRange(itemsToAdd);
