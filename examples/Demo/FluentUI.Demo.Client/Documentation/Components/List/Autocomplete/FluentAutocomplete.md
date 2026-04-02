@@ -29,6 +29,13 @@ Multiple items can be selected, and one option is disabled (`OptionDisabled`).
 
 {{ AutocompleteDefault }}
 
+## Single item (Multiple=false)
+
+Set the `Multiple` parameter to `false` to restrict the selection to a single item.
+In this mode, the selected value replaces the input text and no tags are displayed.
+
+{{ AutocompleteMultipleFalse }}
+
 ## Customized options
 
 Demonstrates advanced features: a custom `OptionTemplate` to render each option with a flag, a progress indicator during async search, 
