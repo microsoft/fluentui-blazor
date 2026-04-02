@@ -115,12 +115,10 @@ public partial class FluentOption<TValue> : FluentComponentBase
         {
             InternalListContext.AddOption(this);
 
-            // Use OptionSelectedComparer if available, otherwise fallback to EqualityComparer<TValue>.Default
+            // Use AreValuesEqual to check if the option's value matches the list's current value
             if (Value is not null)
             {
-                var comparer = InternalListContext.ListComponent.OptionSelectedComparer;
-                if ((comparer != null && comparer(InternalListContext.ListComponent.Value, Value)) ||
-                    (comparer == null && EqualityComparer<TValue>.Default.Equals(InternalListContext.ListComponent.Value, Value)))
+                if (InternalListContext.ListComponent.AreValuesEqual(InternalListContext.ListComponent.Value, Value))
                 {
                     Selected = true;
                 }

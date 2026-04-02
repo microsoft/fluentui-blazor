@@ -204,6 +204,12 @@ public abstract partial class ColumnBase<TGridItem>
     public bool HierarchicalToggle { get; set; }
 
     /// <summary>
+    /// Disables the ability for cells to receive focus.
+    /// </summary>
+    [Parameter]
+    public bool DisableCellFocus { get; set; }
+
+    /// <summary>
     /// Sets the column index for the current instance.
     /// </summary>
     internal void SetColumnIndex(int index)

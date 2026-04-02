@@ -14,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 {
+    private static readonly IEqualityComparer<DateTime?> TimeComparer = new TimeEqualityComparer();
     private DateTime DefaultTime => Culture.Calendar.MinSupportedDateTime;
     private FluentCombobox<DateTime?, DateTime?> _fluentCombobox = default!;
 
@@ -243,6 +244,19 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
                 ListAppearance.Transparent => TextInputAppearance.Underline,
                 _ => TextInputAppearance.Outline,
             };
+        }
+    }
+
+    private sealed class TimeEqualityComparer : IEqualityComparer<DateTime?>
+    {
+        public bool Equals(DateTime? x, DateTime? y)
+        {
+            return x?.Hour == y?.Hour && x?.Minute == y?.Minute;
+        }
+
+        public int GetHashCode(DateTime? obj)
+        {
+            return obj is null ? 0 : HashCode.Combine(obj.Value.Hour, obj.Value.Minute);
         }
     }
 }
