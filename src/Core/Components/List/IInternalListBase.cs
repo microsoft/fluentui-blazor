@@ -10,7 +10,7 @@ internal interface IInternalListBase<TValue>
 
     string? RemoveOption(FluentOption<TValue> option);
 
-    Func<TValue?, TValue?, bool>? OptionSelectedComparer { get; set; }
+    bool AreValuesEqual(TValue? value1, TValue? value2);
 
     Func<TValue?, string>? OptionValueToString { get; set; }
 
