@@ -22,7 +22,8 @@ if ($dotnetVersionChoice -eq "9") {
 }
 
 # Show build number
-$propsContent = Get-Content "./Directory.Build.props" -Raw
+$path = "./Directory.Build.props"
+$propsContent = Get-Content $path -Raw
 
 $versionPrefix = $propsContent -match "<VersionPrefix>([0-9]+\.[0-9]+\.[0-9]+)</VersionPrefix>"
 $pipelineVersion = $Matches[1]
@@ -78,19 +79,42 @@ $RootDir = $PSScriptRoot
 # Update the Directory.Build.props file with the correct .NET version
 Write-Host "👉 Updating Directory.Build.props with .NET version: $NetVersion..." -ForegroundColor Yellow
 
-$propsMatch = $propsContent -match "(<NetVersion>net[0-9]+\.[0-9]+</NetVersion>)"
-if ($Matches[1] -ne "<NetVersion>$NetVersion</NetVersion>") {
-    $propsVersion = $Matches[1]
-    $propsContent -replace '<NetVersion>net[0-9]+\.[0-9]+</NetVersion>', "<NetVersion>$NetVersion</NetVersion>" | Set-Content "./Directory.Build.props"
-    Write-Host "- Replaced NetVersion: $propsVersion -> $NetVersion..."
+$conditionValue = '''$(Configuration)'' == ''Release'''
+$resolvedPath = (Resolve-Path $path).Path
+
+# Create a backup of the original Directory.Build.props
+$backupPath = "$path.bak"
+Copy-Item $path $backupPath -Force
+
+$xml = New-Object System.Xml.XmlDocument
+$xml.PreserveWhitespace = $true
+$xml.Load($resolvedPath)
+
+# Process NetVersion
+$node = $xml.SelectSingleNode("//NetVersion")
+if ($null -eq $node) {
+    throw "Matching NetVersion element not found."
+}
+if ($node.InnerText -ne $NetVersion) {
+    $node.InnerText = $NetVersion
+    Write-Host "Updated NetVersion temporarily." -ForegroundColor Cyan
+    $xml.Save($resolvedPath)
 }
 
+# Process TargetNetVersions
+$nodes = $xml.SelectNodes("//TargetNetVersions")
+$node = $nodes |
+    Where-Object { $_.GetAttribute("Condition") -eq $conditionValue } |
+    Select-Object -First 1
 
-$propsMatch = $propsContent -match "(<TargetNetVersions Condition=`"'\$\(Configuration\)' == 'Release'`">.*</TargetNetVersions>)"
-if ($Matches[1] -ne "<TargetNetVersions Condition=`"'`$(Configuration)' == 'Release'`">$NetVersion</TargetNetVersions>") {
-    $propsVersion = $Matches[1]
-    $propsContent -replace "<TargetNetVersions Condition=`"'\$\(Configuration\)' == 'Release'`">.*</TargetNetVersions>", "<TargetNetVersions Condition=`"'`$(Configuration)' == 'Release'`">$NetVersion</TargetNetVersions>" | Set-Content "./Directory.Build.props"
-    Write-Host "- Replaced TargetNetVersions for Release: $propsVersion -> $NetVersion..."
+if ($null -eq $node) {
+    throw "Matching TargetNetVersions element not found."
+}
+
+if ($node.InnerText -ne $NetVersion) {
+    $node.InnerText = $NetVersion
+    Write-Host "Updated TargetNetVersions temporarily." -ForegroundColor Cyan
+    $xml.Save($resolvedPath)
 }
 
 if ($fullBuild) {
@@ -150,6 +174,12 @@ if (Test-Path "./examples/Demo/FluentUI.Demo/bin/Publish") {
 } else {
     Write-Host "⛔Publish directory not found!" -ForegroundColor Red
     exit 1
+}
+
+# Restore previous Directory.Build.props
+if (Test-Path $backupPath) {
+    Move-Item $backupPath $path -Force
+    Write-Host "'Directory.Build.props' restored." -ForegroundColor Cyan
 }
 
 Write-Host ""
