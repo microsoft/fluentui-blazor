@@ -101,15 +101,19 @@ This affects DOM/layout only and does not change theme tokens.
 ### Built-in Web theme
 
 #### `setLightTheme()`
+
 Stores `theme='light'` and applies the current theme via `applyCurrentTheme()`.
 
 #### `setDarkTheme()`
+
 Stores `theme='dark'` and applies the current theme via `applyCurrentTheme()`.
 
 #### `setSystemTheme()`
+
 Equivalent to `setThemeMode('system')`.
 
 #### `setThemeMode(mode)`
+
 Sets a persistent preference for theme mode:
 
 - `'dark'` → stores `theme='dark'` and applies via `applyCurrentTheme()`
@@ -117,6 +121,7 @@ Sets a persistent preference for theme mode:
 - `'system'` → clears stored `theme` and applies via `applyCurrentTheme()` (which will follow `isSystemDark()`)
 
 #### `setWebTheme()`
+
 Stores `base='web'` and applies via `applyCurrentTheme()`.
 
 Note: if `body[data-theme-color]` is present, the effective base is treated as `'brand'` (declarative intent). In that case, `setWebTheme()` updates the stored preference but will not change the effective base until the attribute is removed.
@@ -124,21 +129,26 @@ Note: if `body[data-theme-color]` is present, the effective base is treated as `
 ### Built-in Teams theme
 
 #### `setTeamsLightTheme()`
+
 Persists `base='teams'`, applies Teams light theme.
 
 #### `setTeamsDarkTheme()`
+
 Persists `base='teams'`, applies Teams dark theme.
 
 #### `setTeamsSystemTheme()`
+
 Equivalent to `setTeamsThemeMode('system')`.
 
 #### `setTeamsThemeMode(mode)`
+
 Applies Teams theme based on mode (`'light'|'dark'|'system'`). For `'system'` it uses `isSystemDark()`.
 
 Note: the Teams setters are *imperative*; they do not consult declarative attributes like `body[data-theme]` or `body[data-theme-color]`.
 More specifically, they do not use declarative attributes for base/brand selection. `body[data-theme]` can still influence the effective mode for APIs that go through `applyCurrentTheme()` (for example `setTeamsTheme()`).
 
 #### `setTeamsTheme()`
+
 Persists `base='teams'` and applies via `applyCurrentTheme()`.
 
 Note: if `body[data-theme-color]` is present, the effective base is treated as `'brand'` (declarative intent). In that case, `setTeamsTheme()` updates the stored preference but will not change the effective base until the attribute is removed.
@@ -146,6 +156,7 @@ Note: if `body[data-theme-color]` is present, the effective base is treated as `
 ### Brand theme generation
 
 #### `createBrandTheme(settings: ThemeSettings): Theme | null`
+
 Generates a Fluent `Theme` by:
 
 - Validating inputs:
@@ -157,9 +168,11 @@ Generates a Fluent `Theme` by:
 Returns `null` for invalid inputs.
 
 #### `setBrandThemeFromTheme(theme: Theme)`
+
 Applies an already-built Fluent `Theme` via `setTheme(theme)`.
 
 #### `setBrandThemeFromSettings(settings: ThemeSettings)`
+
 High-level helper that:
 
 1. Calls `createBrandTheme(settings)`
@@ -177,16 +190,19 @@ These are preserved for compatibility but delegate to `setBrandThemeFromSettings
 - `setBrandThemeFromColorExact(color)`
 
 #### `setBrandThemeToElementFromSettings(element, settings: ThemeSettings)`
+
 Applies a brand theme **only to a given element** via `setTheme(theme, element)`.
 
 This does **not** persist anything to storage.
 
 #### `setBrandThemeToElementFromTheme(element, theme: Theme)`
+
 Applies a brand theme **only to a given element** via `setTheme(theme, element)`.
 
 This does **not** persist anything to storage.
 
 #### `getRampFromSettings(settings: ThemeSettings): BrandVariants | null`
+
 Generates a new brand ramp (palette) from the provided settings.
 
 - Validates inputs using the same rules as `createBrandTheme(...)`.
@@ -197,9 +213,11 @@ Returns `null` for invalid inputs.
 ### State and utilities
 
 #### `isSystemDark()`
+
 Returns whether the OS/browser preference is dark.
 
 #### `isDarkMode()`
+
 Returns whether the current effective theme is dark.
 
 Resolution order:
@@ -209,18 +227,23 @@ Resolution order:
 3. else system preference (`isSystemDark()`)
 
 #### `switchTheme()`
+
 Toggles between `'light'` and `'dark'` preference. If no explicit preference is stored, it uses the current effective mode.
 
 #### `addSystemThemeChangeListener()`
+
 Adds a single `matchMedia('(prefers-color-scheme: dark)')` listener and re-applies the theme via `applyCurrentTheme()` on system changes when the user has not explicitly set `'light'` or `'dark'` (either in storage or via `body[data-theme]`).
 
 #### `clearThemeSettings()`
+
 Removes the stored settings object from `localStorage`.
 
 #### `getColorRamp(): BrandVariants | null`
+
 Returns the current, cached, custom brand ramp, or `null` if no custom ramp has been generated yet.
 
 #### `getColorRampFromSettings(settings: ThemeSettings): BrandVariants | null`
+
 Generates a new brand ramp (palette) from the provided settings.
 
 - Validates inputs using the same rules as `createBrandTheme(...)`.
@@ -229,9 +252,11 @@ Generates a new brand ramp (palette) from the provided settings.
 Returns `null` for invalid inputs.
 
 #### `switchDirection()`
+
 Toggles HTML `dir` between `'ltr'` and `'rtl'` and persists it.
 
 #### `addMediaQueriesListener()`
+
 Updates `body[data-media]` based on a fixed set of viewport breakpoints and fires a `mediaChanged` event.
 
 ## Internal pipeline (implementation detail)
@@ -270,11 +295,13 @@ Returns the effective `Theme` tokens to apply:
 ## Events
 
 ### `themeChanged`
+
 Dispatched on `document.body` when `updateBodyTag(...)` is called.
 
 - `detail`: `{ isDark: boolean }`
 
 ### `mediaChanged`
+
 Dispatched on `document.body` from `addMediaQueriesListener()`.
 
 - `detail`: `{ media: string }`

@@ -147,6 +147,24 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   }
 
   /**
+   * Sets a Fluent UI brand theme from individual values.
+   * @param color The primary color to generate the theme from, in hex format (e.g., #FF0000).
+   * @param hueTorsion The hue torsion used while generating the brand ramp.
+   * @param vibrancy The vibrancy adjustment used while generating the brand ramp.
+   * @param isDark Whether to generate the dark or light variant of the theme.
+   * @param isExact Whether the exact input color should be used for the brand slot.
+   */
+  export function setBrandTheme(color: string, hueTorsion: number, vibrancy: number, isDark: boolean, isExact: boolean = false): void {
+    setBrandThemeFromSettings({
+      color,
+      hueTorsion,
+      vibrancy,
+      mode: isDark ? 'dark' : 'light',
+      isExact,
+    });
+  }
+
+  /**
    * Sets the Fluent UI theme on a specified element based on a specified color and customizations for hue, vibrancy and mode.
    * @param settings The settings to generate the theme, including the primary color in hex format, hue torsion, vibrancy, theme mode, and whether to use the exact color for the brand background.
    */

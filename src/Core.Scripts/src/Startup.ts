@@ -1,5 +1,5 @@
 import { Microsoft as LoggerFile } from './Utilities/Logger';
-import { Microsoft as ThemeFile } from './Utilities/Theme';
+import { Microsoft as Theme } from './Utilities/Theme';
 import { Microsoft as FluentUIComponentsFile } from './FluentUIWebComponents';
 import { Microsoft as FluentPageScriptFile } from './Components/PageScript/FluentPageScript';
 import { Microsoft as FluentPopoverFile } from './Components/Popover/FluentPopover';
@@ -30,8 +30,8 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     Logger.debug(`beforeStart mode "${mode}"`, options);
 
     // Apply theme as early as possible to reduce FOUC
-    ThemeFile.FluentUI.Blazor.Utilities.Theme.initializeThemeSettings();
-    ThemeFile.FluentUI.Blazor.Utilities.Theme.addSystemThemeChangeListener();
+    Theme.FluentUI.Blazor.Utilities.Theme.initializeThemeSettings();
+    Theme.FluentUI.Blazor.Utilities.Theme.addSystemThemeChangeListener();
 
     // Define Fluent UI components
     FluentUIComponents.defineComponents();
@@ -51,8 +51,8 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     FluentUIStyles.applyStyles();
 
     // Initialize Fluent UI theme
-    blazor.theme = ThemeFile.FluentUI.Blazor.Utilities.Theme;
-    ThemeFile.FluentUI.Blazor.Utilities.Theme.addMediaQueriesListener();
+    blazor.theme = Theme.FluentUI.Blazor.Utilities.Theme;
+    Theme.FluentUI.Blazor.Utilities.Theme.addMediaQueriesListener();
 
     // Initialize all custom components
     FluentPageScript.registerComponent(blazor, mode);
