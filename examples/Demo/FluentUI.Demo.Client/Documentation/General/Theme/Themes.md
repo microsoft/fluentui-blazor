@@ -1,9 +1,10 @@
 ---
 title: Themes
+order: 0005.01
+category: 20|General
 route: /Theme/[Default]
 icon: PaintBrushSparkle
 ---
-
 
 # Theme
 
@@ -25,9 +26,10 @@ and tints of the brand color, allowing for flexibility in design while maintaini
 of colors in their presentation.
 
 When nothing is configured, the library will use a default brand color, which is a shade of blue (#0F6CBD). This default color is chosen to provide a
-visually appealing and accessible experience for users. 
+visually appealing and accessible experience for users.
 
 ## Customizing the Brand color
+
 The Fluent Design system allows for customizing the brand color to align with your brand identity. By providing a custom brand color, you can create a unique
 and personalized experience for your users while still adhering to the principles of the Fluent Design System.
 
@@ -40,6 +42,7 @@ You can choose any valid hex color code as your brand color, and the library wil
 accessibility and visual consistency.
 
 ### Using an exact color in the ramp
+
 We've added functionality which allows you to specify that the generated ramp should include the exact specified color as one of the colors in the ramp. This
 gives you more control over the generated colors and ensures that the key color is included in the ramp. This can be particularly useful if you want to ensure
 that the exact brand color is used in certain UI elements while still benefiting from the generated shades and tints for other elements.
@@ -52,6 +55,7 @@ exact color will determine what values are assigned to the `--colorBrandBackgrou
 We offer two ways to set a custom brand color in your Blazor application:
 
 ### Set the Brand color declaratively
+
 You can add a `data-theme` attribute to the `<body>` tag in your HTML and set its value to 'light', 'dark', or 'system' to specify the theme mode. This allows
 you to configure the theme mode.
 
@@ -63,6 +67,7 @@ The declarative `data-theme-*` attributes are treated as developer-provided over
 To have acces to all variables that are available to customize a theme, you can use the methods described below.
 
 ### Set the Brand color with code
+
 A full API is available for configuring the theme programmatically in your Blazor application. This allows you to dynamically change the theme based on user
 interactions or other conditions in your application.
 
@@ -70,34 +75,6 @@ The following methods are available for setting the brand color programmatically
 
 {{ API Type=ThemeService }}
 
-
 The SetThemeAsync result is cached in `localStorage` so that the theme configuration can be persisted across sessions and restored on subsequent visits
 to the application. The only exception to this is when using the `SetThemeAsync(Theme theme)` overload, which applies a
 fully custom theme without caching it.
-
-
-## Theme Designer
-Use the designer below to experiment with different brand colors and see how they affect the generated color ramp. You can adjust the hue, vibrancy,
-and theme mode to create a custom theme that fits your brand identity. Hue Torsion and Vibrancy are defined here to be between -50 and 50, but the underlying
-implementation uses a range of -0.5 to 0.5, so the values you input will be divided by 100 before being applied to the color generation algorithm.
-
-Changing any of the values in the 'parameters' block below will automatically update the generated color ramp and apply the new theme to the components in
-this part of the page only. This allows you to see the immediate impact of your changes and fine-tune your theme to achieve the desired look and feel.
-
-By clicking the 'Apply' button, you can apply the currently configured theme to the whole site. The settings will be persisted to local storage and will be
-used as the default theme when you return to the site in the future.
-
-By clicking the 'Reset' button, you can reset the theme to the default settings. This will clear any customizations you have made, restore the original theme
-and clear the local storage.
-
-{{ ThemeDesigner SourceCode=false }}
-
-
-## Create and alter a Theme
-
-In addition to setting the brand color and generating a theme from it, you can also create a `Theme` object directly in your code and modify its properties
-before applying it. This gives you full control over all aspects of the theme, including colors, typography, spacing, and more.
-
-Clicking the button below applies an altered theme that changes the border radius, color, font family, and line height to the components in this part of the page only.
-
-{{ CreateAndAlterTheme Files=Razor:CreateAndAlterTheme.razor;Code:CreateAndAlterTheme.razor.cs }}

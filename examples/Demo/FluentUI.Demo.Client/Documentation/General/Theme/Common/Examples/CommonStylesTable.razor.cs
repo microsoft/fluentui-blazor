@@ -5,7 +5,7 @@
 using System.Reflection;
 using Microsoft.FluentUI.AspNetCore.Components;
 
-namespace FluentUI.Demo.Client.Documentation.Components.Theme.Common.Examples;
+namespace FluentUI.Demo.Client.Documentation.General.Theme.Common.Examples;
 
 public partial class CommonStylesTable
 {

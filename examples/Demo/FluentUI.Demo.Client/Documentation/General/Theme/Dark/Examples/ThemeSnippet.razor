@@ -1,4 +1,4 @@
-﻿@inject IJSRuntime JSRuntime
+﻿@inject IThemeService ThemeService
 
 <FluentStack Style="background-color: var(--colorBrandBackgroundHover);"
              HorizontalGap="24px"
@@ -11,7 +11,7 @@
                   IconOnly="true"
                   Class="fluent-header-hover"
                   Title="Switch to Light/Dark theme"
-                  OnClick="@(async e => await JSRuntime.InvokeVoidAsync("Blazor.theme.switchTheme"))">
+                  OnClick="@(async e => await ThemeService.SwitchThemeAsync())">
         @* Dark icon *@
         <FluentIcon Class="hidden-if-light"
                     Value="@(new Icons.Filled.Size20.WeatherSunny().WithColor(SystemColors.Neutral.ForegroundOnBrand))" />
@@ -27,7 +27,7 @@
                   IconOnly="true"
                   Class="fluent-header-hover"
                   Title="Switch to Light/Dark theme"
-                  OnClick="@(async e => await JSRuntime.InvokeVoidAsync("Blazor.theme.switchTheme"))">
+                  OnClick="@(async e => await ThemeService.SwitchThemeAsync())">
         @* Dark icon *@
         <FluentIcon Class="hidden-if-light"
                     Value="@(new Icons.Filled.Size20.DarkTheme().WithColor(SystemColors.Neutral.ForegroundOnBrand))" />
