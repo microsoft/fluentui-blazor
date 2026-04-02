@@ -61,6 +61,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
     const items = Array.from(container.children) as HTMLElement[];
     if (items.length < 2) return false;
     
+    if (input.getAttribute("dismiss") === "hidden") return false;
     if (input.hasAttribute("items-wrapped")) return true;
 
     const firstTop = items[0].offsetTop;

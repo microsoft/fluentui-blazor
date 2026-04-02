@@ -1,11 +1,14 @@
+fluent-text-input[auto-complete] {
+  --max-selected-width: unset;
+  --min-input-width: 48px;
+}
+
 .fluent-listbox[auto-complete] {
   border-radius: unset;
   border: unset;
   box-shadow: unset;
   padding: unset;
-  --max-selected-width: unset;
 }
-
 
 fluent-text-input[auto-complete] div[slot="start"] div {
   display: flex;
@@ -39,11 +42,11 @@ fluent-text-input[auto-complete] .fluent-badge[auto-complete] > span {
 
 /* MaxAutoHeight */
 
-fluent-text-input[auto-complete]:not([items-wrapped]):has(div[slot="start"] div[style*="max-height"])::part(root) {
+fluent-text-input[auto-complete]:not([items-wrapped]):not([dismiss]):has(div[slot="start"] div[style*="max-height"])::part(root) {
   height: unset;
   min-height: 32px;
   display: grid;
-  grid-template-columns: auto minmax(48px, 1fr) 24px; /* Selected items, input (min-width: 48px), clear button (24px) */
+  grid-template-columns: auto minmax(var(--min-input-width, 48px), 1fr) 24px; /* Selected items, input (min-width: 48px), clear button (24px) */
 }
 
 fluent-text-input[auto-complete] div[slot="start"] div[style*="max-height"] {
@@ -54,9 +57,9 @@ fluent-text-input[auto-complete] div[slot="start"] div[style*="max-height"] {
   padding: var(--spacingVerticalXS) 0;
 }
 
-/* MaxAutoHeight - Items wrapped */
+/* MaxAutoHeight - Items wrapped - Show Dismiss */
 
-fluent-text-input[auto-complete][items-wrapped]::part(root) {
+fluent-text-input[auto-complete][items-wrapped]:not([dismiss])::part(root) {
   height: unset;
   min-height: 32px;
   display: grid;
@@ -64,20 +67,44 @@ fluent-text-input[auto-complete][items-wrapped]::part(root) {
   grid-template-rows: auto auto;
 }
 
-fluent-text-input[auto-complete][items-wrapped] div[slot="start"] {
+fluent-text-input[auto-complete][items-wrapped]:not([dismiss]) div[slot="start"] {
   grid-column: 1 / -1;
 }
 
-fluent-text-input[auto-complete][items-wrapped] div[slot="start"] div[style*="max-height"] {
+fluent-text-input[auto-complete][items-wrapped]:not([dismiss]) div[slot="start"] div[style*="max-height"] {
   width: 100%;
 }
 
-fluent-text-input[auto-complete][items-wrapped]::part(control) {
+fluent-text-input[auto-complete][items-wrapped]:not([dismiss])::part(control) {
   grid-column: 1;
   width: 100%;
   padding: var(--spacingVerticalS) 0;
 }
 
-fluent-text-input[auto-complete][items-wrapped] div[slot="end"] {
+fluent-text-input[auto-complete][items-wrapped]:not([dismiss]) div[slot="end"] {
   grid-column: 2;
+}
+
+/* MaxAutoHeight - Items wrapped - Hide Dismiss */
+
+fluent-text-input[auto-complete][dismiss=hidden]::part(root) {
+  height: unset;
+  min-height: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+fluent-text-input[auto-complete][dismiss=hidden] div[slot="start"] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: fit-content;
+}
+
+fluent-text-input[auto-complete][dismiss=hidden]::part(control) {
+  flex: 1;
+  flex-shrink: 0;
+  min-width: var(--min-input-width, 48px);
+  padding: var(--spacingVerticalXS) 0;
 }

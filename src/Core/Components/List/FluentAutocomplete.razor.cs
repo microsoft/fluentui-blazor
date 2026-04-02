@@ -90,7 +90,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     public bool ShowProgressIndicator { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum height of the selected items panel.
+    /// Gets or sets the maximum height of the selected items panel. A common value is 'unset' (unlimited) or '200px'.
     /// If this parameter is not set, all selected items will be shown on a single line.
     /// </summary>
     [Parameter]
@@ -101,6 +101,12 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// </summary>
     [Parameter]
     public string? MaxSelectedWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the Search icon or Clear button is displayed.
+    /// </summary>
+    [Parameter]
+    public bool ShowDismiss { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the icon used for the Clear button. By default: Dismiss icon.

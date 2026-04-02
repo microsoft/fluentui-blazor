@@ -9,10 +9,11 @@
                     Label="Select countries"
                     Placeholder="Type to search..."
                     ShowProgressIndicator="@ShowProgressIndicator"                    
-                    MaxAutoHeight="@((MaxAutoHeight) ? "auto" : null)"
+                    MaxAutoHeight="@((MaxAutoHeight) ? "unset" : null)"
                     OnOptionsSearch="@OnSearchAsync"
                     OptionText="@(item => item.Name)"
                     MaxSelectedWidth="@(MaxSelectedWidth ? "40px" : null)"
+                    ShowDismiss="@ShowDismiss"
                     @bind-Value="@SearchText"
                     @bind-SelectedItems="@SelectedCountries">
     <OptionTemplate>
@@ -31,6 +32,7 @@
     <FluentSwitch @bind-Value="@ShowProgressIndicator" Label="Show progress indicator" />
     <FluentSwitch @bind-Value="@MaxAutoHeight" Label="Auto height" />
     <FluentSwitch @bind-Value="@MaxSelectedWidth" Label="Set a max selected width (40px)" />
+    <FluentSwitch @bind-Value="@ShowDismiss" Label="Show search or dismiss button" />
 </FluentStack>
 
 @code
@@ -38,6 +40,7 @@
     bool ShowProgressIndicator { get; set; }
     bool MaxAutoHeight { get; set; }
     bool MaxSelectedWidth { get; set; }
+    bool ShowDismiss { get; set; } = true;
     string? SearchText { get; set; }
     IEnumerable<Country> SelectedCountries { get; set; } = [];
 

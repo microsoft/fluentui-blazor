@@ -39,6 +39,7 @@
                          Style="@StyleValue"
                          Name="@Name"
                          auto-complete="true"
+                         dismiss="@(ShowDismiss ? null : "hidden")"
                          Width="@Width"
                          AutoComplete="false"
                          Tooltip="@Tooltip"
@@ -77,30 +78,33 @@
                 </div>
             </StartTemplate>
 
-            @* Waiting spinner *@
+            @* Search, Dismiss, Waiting spinner *@
             <EndTemplate>
-                @if (ShowProgressIndicator && _inProgress)
+                @if (ShowDismiss)
                 {
-                    <FluentSpinner Size="SpinnerSize.Tiny"
-                                   @onfocus="@(e => _isOpen = false)" />
-                }
-                else
-                {
-                    if (_internalSelectedItems.Any())
+                    @if (ShowProgressIndicator && _inProgress)
                     {
-                        <FluentIcon Value="@IconDismiss" 
-                                    Focusable="true"
-                                    @onfocus="@(e => _isOpen = false)"
-                                    OnClick="@ClearSelectionAsync"
-                                    OnClickStopPropagation="true" />
+                        <FluentSpinner Size="SpinnerSize.Tiny"
+                                    @onfocus="@(e => _isOpen = false)" />
                     }
                     else
                     {
-                        <FluentIcon Value="@IconSearch" 
-                                    Focusable="true"
-                                    @onfocus="@(e => _isOpen = false)"
-                                    OnClick="@SwitchOptionsPopupAsync"
-                                    OnClickStopPropagation="true" />
+                        if (_internalSelectedItems.Any())
+                        {
+                            <FluentIcon Value="@IconDismiss" 
+                                        Focusable="true"
+                                        @onfocus="@(e => _isOpen = false)"
+                                        OnClick="@ClearSelectionAsync"
+                                        OnClickStopPropagation="true" />
+                        }
+                        else
+                        {
+                            <FluentIcon Value="@IconSearch" 
+                                        Focusable="true"
+                                        @onfocus="@(e => _isOpen = false)"
+                                        OnClick="@SwitchOptionsPopupAsync"
+                                        OnClickStopPropagation="true" />
+                        }
                     }
                 }
             </EndTemplate>
