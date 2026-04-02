@@ -2,7 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-namespace FluentUI.Demo.Client.Documentation.Components.Theme.Designer;
+namespace FluentUI.Demo.Client.Documentation.General.Theme.Designer;
 
 public partial class ExampleBlocks
 {
