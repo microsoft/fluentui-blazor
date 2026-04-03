@@ -1,11 +1,12 @@
 .fluent-data-grid {
+  --fluent-data-grid-pinned-background: var(--colorNeutralBackground2);
   --fluent-data-grid-stripe-background-color: var(--colorNeutralBackground2);
   --fluent-data-grid-resize-handle-color: var(--colorNeutralStroke2);
   --fluent-data-grid-resize-handle-width: 1px;
   --fluent-data-grid-header-opacity: 1;
   width: auto;
   flex: 1;
-  border-collapse: collapse;
+  border-collapse: separate;
   align-items: center;
   height: max-content;
   margin-bottom: 0px;
@@ -99,22 +100,23 @@
 /* ---- Pinned (sticky) columns ---- */
 
 /* Background: keeps content from showing through when scrolling. Override --fluent-data-grid-pinned-background to theme. */
-.fluent-data-grid td.col-pinned-left,
 .fluent-data-grid th.col-pinned-left,
-.fluent-data-grid td.col-pinned-right,
 .fluent-data-grid th.col-pinned-right {
-  background-color: var(--fluent-data-grid-pinned-background, var(--colorNeutralBackground1));
+  background-color: var(--colorNeutralBackground1);
+}
+
+.fluent-data-grid td.col-pinned-left,
+.fluent-data-grid td.col-pinned-right {
+  background-color: var(--fluent-data-grid-pinned-background);
 }
 
 /* Visual separator on the trailing edge of the last left-pinned column */
-.fluent-data-grid td.col-pinned-left,
-.fluent-data-grid th.col-pinned-left {
+.fluent-data-grid td:nth-last-child(1 of .col-pinned-left) {
   border-inline-end: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
 }
 
 /* Visual separator on the leading edge of the first right-pinned column */
-.fluent-data-grid td.col-pinned-right,
-.fluent-data-grid th.col-pinned-right {
+.fluent-data-grid td:nth-child(1 of .col-pinned-right) {
   border-inline-start: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
 }
 
@@ -129,7 +131,7 @@
 
 .fluent-data-grid tr[row-type='sticky-header'] > th.col-pinned-left,
 .fluent-data-grid tr[row-type='sticky-header'] > th.col-pinned-right {
-  background-color: var(--fluent-data-grid-pinned-background, var(--colorNeutralBackground4));
+  background-color: var(--colorNeutralBackground4);
   z-index: 4;
 }
 
