@@ -50,32 +50,58 @@
                          @bind-Value:after="@DisplayFilteredOptionsAsync">
             @* Selected items *@
             <StartTemplate>
-                <div style="@($"{(string.IsNullOrEmpty(MaxAutoHeight) ? "" : $"max-height: {MaxAutoHeight};")}")">
-                    @* Show selected items as badges with an "x" button to remove them. This is shown when the listbox is closed, when it's open the selected items are highlighted in the listbox and we don't show the badges in the input. *@
-                    @if (_internalSelectedItems is not null)
-                    {
-                        @foreach (var item in _internalSelectedItems)
+                @if (Multiple)
+                {
+                    <div style="@($"{(string.IsNullOrEmpty(MaxAutoHeight) ? "" : $"max-height: {MaxAutoHeight};")}")">
+                        @* Show selected items as badges with an "x" button to remove them. 
+                           This is shown when the listbox is closed, when it's open the selected items are highlighted 
+                           in the listbox and we don't show the badges in the input. *@
+                        @if (_internalSelectedItems is not null)
                         {
-                            if (SelectedOptionTemplate is null)
+                            @foreach (var item in _internalSelectedItems)
+                            {
+                                if (SelectedOptionTemplate is null)
+                                {
+                                    <span class="fluent-badge"
+                                          title="@GetOptionText(item)"
+                                          auto-complete="true">
+                                        <span>@GetOptionText(item)</span>
+                                        <FluentIcon Value="@BadgeCloseIcon"
+                                                    Focusable="true"
+                                                    OnClick="@(e => RemoveSelectedItemAsync(item))"
+                                                    OnClickStopPropagation="true"
+                                                    Width="12px" />
+                                    </span>
+                                }
+                                else
+                                {
+                                    @SelectedOptionTemplate(item)
+                                }
+                            }
+                        }
+                    </div>
+                }
+                else
+                {
+                    @if (_internalSelectedItem is not null)
+                    {
+                        <div tabindex="0" role="button" aria-haspopup="listbox" aria-expanded="@_isOpen" style="cursor: pointer;">
+                            @if (SelectedOptionTemplate is null)
                             {
                                 <span class="fluent-badge"
-                                      title="@GetOptionText(item)"
-                                      auto-complete="true">
-                                    <span>@GetOptionText(item)</span>
-                                    <FluentIcon Value="@BadgeCloseIcon"
-                                                Focusable="true"
-                                                OnClick="@(e => RemoveSelectedItemAsync(item))"
-                                                OnClickStopPropagation="true"
-                                                Width="12px" />
+                                      title="@GetOptionText(_internalSelectedItem)"
+                                      auto-complete="true"
+                                      alone="true">
+                                    <span>@GetOptionText(_internalSelectedItem)</span>
                                 </span>
                             }
                             else
                             {
-                                @SelectedOptionTemplate(item)
+                                @SelectedOptionTemplate(_internalSelectedItem)
                             }
-                        }
+                        </div>
                     }
-                </div>
+                }
             </StartTemplate>
 
             @* Search, Dismiss, Waiting spinner *@

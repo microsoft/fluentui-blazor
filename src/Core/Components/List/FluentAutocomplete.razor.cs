@@ -28,6 +28,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     // List of items used in the internally filtered listbox
     private List<TOption> _internalFilteredItems = [];
     private List<TOption> _internalSelectedItems = [];
+    private TOption? _internalSelectedItem => _internalSelectedItems.FirstOrDefault();
 
     /// <summary />
     public FluentAutocomplete(LibraryConfiguration configuration) : base(configuration)
@@ -35,6 +36,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         // Default values
         Id = Identifier.NewId();
         Multiple = true;
+        Width = "160px";
     }
 
     /// <summary />

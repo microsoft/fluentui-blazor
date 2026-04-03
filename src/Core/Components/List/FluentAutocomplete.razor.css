@@ -40,6 +40,24 @@ fluent-text-input[auto-complete] .fluent-badge[auto-complete] > span {
   text-overflow: ellipsis;
 }
 
+/* Single selection - 'alone' attribute */
+fluent-text-input[auto-complete] .fluent-badge[auto-complete][alone] {
+  background: unset;
+  border: unset;
+  font-weight: var(--fontWeightRegular);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+}
+
+fluent-text-input:has(span[auto-complete][alone])::part(control) {
+  display: none;
+}
+
+fluent-text-input:has(span[auto-complete][alone]) div[slot="start"] {
+  width: 100%;
+  justify-content: start;
+}
+
 /* MaxAutoHeight */
 
 fluent-text-input[auto-complete]:not([items-wrapped]):not([dismiss]):has(div[slot="start"] div[style*="max-height"])::part(root) {
