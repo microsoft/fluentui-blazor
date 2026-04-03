@@ -145,11 +145,12 @@
                 <FluentProgressBar Thickness="ProgressThickness.Large" Visible="@_inProgress" />
             }
 
+            @* The listbox is always in multiple selection mode, because the Listbox with Multiple=false does not support the items changes correctly *@
             <FluentListbox auto-complete="true"                           
                            TValue="TValue"
                            TOption="TOption"
                            Appearance="@Appearance"
-                           Multiple="@Multiple"
+                           Multiple="true"
                            OptionText="@OptionText"
                            OptionValue="@OptionValue"
                            OptionDisabled="@OptionDisabled"

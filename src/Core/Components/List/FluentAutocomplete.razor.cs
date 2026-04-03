@@ -149,13 +149,37 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, comparer)).ToList();
         var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, comparer)).ToList();
 
-        // Add items that are in 'items' but not already in _internalSelectedItems
-        _internalSelectedItems.AddRange(itemsToAdd);
-
-        // Remove items that are in '_internalFilteredItems' but not in 'items' anymore
-        foreach (var item in itemsToRemove)
+        // Multiple = True
+        if (Multiple)
         {
-            _internalSelectedItems.Remove(item);
+            // Add items that are in 'items' but not already in _internalSelectedItems
+            _internalSelectedItems.AddRange(itemsToAdd);
+
+            // Remove items that are in '_internalFilteredItems' but not in 'items' anymore
+            foreach (var item in itemsToRemove)
+            {
+                _internalSelectedItems.Remove(item);
+            }
+        }
+
+        // Multiple = False
+        else
+        {
+            var selectedItem = _internalSelectedItems.FirstOrDefault();
+            var isInsideFilteredItems = _internalFilteredItems.Any(item => comparer.Equals(item, selectedItem));
+            if (!items.Any() && isInsideFilteredItems)
+            {
+                _internalSelectedItems.Clear();
+            }
+            else
+            {
+                var singleItemToAdd = itemsToAdd.FirstOrDefault();
+                if (singleItemToAdd != null)
+                {
+                    _internalSelectedItems.Clear();
+                    _internalSelectedItems.Add(singleItemToAdd);
+                }
+            }
         }
 
         // Raise event
