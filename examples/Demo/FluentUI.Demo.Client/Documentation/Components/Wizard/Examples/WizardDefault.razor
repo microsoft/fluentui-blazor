@@ -1,21 +1,6 @@
-﻿<FluentStack VerticalAlignment="VerticalAlignment.Center">
-    <FluentSwitch @bind-Value="@IsTop"
-                  Style="margin: 30px;"
-                  Label="Step position" />
-
-    WizardStepSequence:
-    <FluentSelect Width="150px"
-                  Items="@(Enum.GetValues<WizardStepSequence>())"
-                  @bind-Value="@StepSequence" />
-</FluentStack>
-
-<FluentWizard StepperPosition="@(IsTop ? StepperPosition.Top : StepperPosition.Left)"
-              StepSequence="@StepSequence"
-              DisplayStepNumber="@(WizardStepStatus.Current | WizardStepStatus.Next)"
+﻿<FluentWizard DisplayStepNumber="@(WizardStepStatus.Current | WizardStepStatus.Next)"
               Border="WizardBorder.Outside"
-              StepTitleHiddenWhen="@GridItemHidden.XsAndDown"
-              Height="300px"
-              OnFinish="@OnFinishedAsync">
+			  OnFinish="@OnFinished">
     <Steps>
         <FluentWizardStep Label="Intro"
                           OnChange="@OnStepChange">
@@ -59,16 +44,13 @@
 
 @code
 {
-	bool IsTop = false;
-	WizardStepSequence StepSequence = WizardStepSequence.Linear;
-
 	void OnStepChange(FluentWizardStepChangeEventArgs e)
 	{
 		Console.WriteLine("Step changed to {0}", e.TargetIndex);
 	}
 
-    async Task OnFinishedAsync()
-    {
-        await Task.CompletedTask;
-    }
+	void OnFinished()
+	{
+		Console.WriteLine("Wizard has been finished");
+	}
 }
