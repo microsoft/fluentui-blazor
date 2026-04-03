@@ -8,6 +8,7 @@ fluent-text-input[auto-complete] {
   border: unset;
   box-shadow: unset;
   padding: unset;
+  max-height: 400px;
 }
 
 fluent-text-input[auto-complete] div[slot="start"] div {

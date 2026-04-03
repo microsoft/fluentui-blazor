@@ -72,6 +72,7 @@
     <FluentAutocomplete TOption="Country"
                         TValue="string"
                         Width="100%"
+                        MaximumOptionsSearch="int.MaxValue"
                         Label="Select countries from Items"
                         Items="@Countries"
                         OptionText="@(item => item.Name)"
