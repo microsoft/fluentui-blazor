@@ -1,0 +1,71 @@
+﻿@page "/Lists/Autocomplete/Debug"
+
+@using static FluentUI.Demo.SampleData.Olympics2024
+
+<div>Selected items: <b>@string.Join("; ", SelectedCountries.Select(c => c.Name))</b></div>
+<div>Search Text: <b>@SearchText</b></div>
+
+<FluentAutocomplete TOption="Country"
+                    TValue="string"
+                    Width="100%"
+                    Label="Select countries"
+                    Placeholder="Type to search..."
+                    ShowProgressIndicator="@ShowProgressIndicator"                    
+                    MaxAutoHeight="@((MaxAutoHeight) ? "unset" : null)"
+                    OnOptionsSearch="@OnSearchAsync"
+                    OptionText="@(item => item.Name)"
+                    MaxSelectedWidth="@(MaxSelectedWidth ? "40px" : null)"
+                    ShowDismiss="@ShowDismiss"
+                    Multiple="@Multiple"
+                    @bind-Value="@SearchText"
+                    @bind-SelectedItems="@SelectedCountries">
+    <OptionTemplate>
+        <FluentStack Style="pointer-events: none;" VerticalAlignment="VerticalAlignment.Center">
+            <FluentAvatar Image="@context.Flag()"
+                          Name="@context.Name" 
+                          Size="AvatarSize.Size20" />
+            <FluentText Margin="@Margin.Left4">
+                @context.Name
+            </FluentText>
+        </FluentStack>
+    </OptionTemplate>
+</FluentAutocomplete>
+
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentSwitch @bind-Value="@ShowProgressIndicator" Label="Show progress indicator" />
+    <FluentSwitch @bind-Value="@MaxAutoHeight" Label="Auto height" />
+    <FluentSwitch @bind-Value="@MaxSelectedWidth" Label="Set a max selected width (40px)" />
+    <FluentSwitch @bind-Value="@ShowDismiss" Label="Show search or dismiss button" />
+    <FluentSwitch @bind-Value="@Multiple" Label="Multiple selection" />
+    <FluentButton OnClick="@SetSelectedCountriesAsync">
+        Set SelectedCountries to [be, fr]
+    </FluentButton>
+</FluentStack>
+
+@code
+{
+    bool ShowProgressIndicator { get; set; }
+    bool MaxAutoHeight { get; set; }
+    bool MaxSelectedWidth { get; set; }
+    bool ShowDismiss { get; set; } = true;
+    bool Multiple { get; set; } = true;
+    string? SearchText { get; set; }
+    IEnumerable<Country> SelectedCountries { get; set; } = [];
+
+    async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
+    {
+        if (ShowProgressIndicator)
+        {
+            await Task.Delay(500); // Simulate async search
+        }
+
+        e.Items = Countries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                           .OrderBy(i => i.Name);
+    }
+
+    async Task SetSelectedCountriesAsync()
+    {
+        SelectedCountries = Countries.Where(i => i.Code == "be" || i.Code == "fr");
+        await Task.CompletedTask;
+    }
+}

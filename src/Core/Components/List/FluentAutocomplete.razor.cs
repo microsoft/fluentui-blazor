@@ -74,7 +74,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     public override IEnumerable<TOption> SelectedItems
     {
         get => _internalSelectedItems;
-        set => _internalSelectedItems = [.. value];
+        set => _internalSelectedItems = Multiple ? [.. value] : [.. value.Take(1)];
     }
 
     /// <summary>
@@ -202,6 +202,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         {
             // When Backspace is pressed and there is no text in the input, remove the last selected item
             case "Backspace":
+            case "Delete":
                 if (string.IsNullOrEmpty(_textInput) && _internalSelectedItems.Any())
                 {
                     await RemoveSelectedItemAsync(_internalSelectedItems.Last());
