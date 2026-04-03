@@ -87,6 +87,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// <summary>
     /// Gets or sets whether the component will display a progress indicator while fetching data.
     /// A progress ring will be shown at the end of the component, when the <see cref="OnOptionsSearch"/> is invoked.
+    /// You can customize the progress indicator by using the <see cref="HeaderContent"/> or <see cref="FooterContent"/> parameters: see <see cref="AutocompleteHeaderFooterContent{TOption}.InProgress"/>.
     /// </summary>
     [Parameter]
     public bool ShowProgressIndicator { get; set; }
@@ -127,6 +128,18 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// </summary>
     [Parameter]
     public RenderFragment<TOption>? SelectedOptionTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the header content, placed at the top of the popup panel.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<AutocompleteHeaderFooterContent<TOption>>? HeaderContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the footer content, placed at the bottom of the popup panel.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<AutocompleteHeaderFooterContent<TOption>>? FooterContent { get; set; }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)

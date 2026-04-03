@@ -19,6 +19,8 @@
                     Multiple="@Multiple"
                     @bind-Value="@SearchText"
                     @bind-SelectedItems="@SelectedCountries">
+
+    @* Drop-down item template *@
     <OptionTemplate>
         <FluentStack Style="pointer-events: none;" VerticalAlignment="VerticalAlignment.Center">
             <FluentAvatar Image="@context.Flag()"
@@ -29,6 +31,25 @@
             </FluentText>
         </FluentStack>
     </OptionTemplate>
+
+    @* Content displayed at the top of the drop-down list *@
+    <HeaderContent>
+        <FluentText Size="TextSize.Size200" Color="Color.Primary" Align="TextAlign.Center">
+            Suggested contacts
+        </FluentText>
+        <FluentProgressBar Thickness="ProgressThickness.Large" Visible="@context.InProgress" />
+    </HeaderContent>
+
+    @* Content displayed at the bottom of the drop-down list *@
+    <FooterContent>
+        @if (!context.Items.Any())
+        {
+            <FluentText Size="TextSize.Size200" Align="TextAlign.Center" Color="Color.Error" Style="width: 100%;">
+                No results found
+            </FluentText>
+        }
+    </FooterContent>
+
 </FluentAutocomplete>
 
 <FluentStack Orientation="Orientation.Vertical">

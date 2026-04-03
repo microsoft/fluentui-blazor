@@ -1,6 +1,6 @@
 ﻿@using static FluentUI.Demo.SampleData.Olympics2024
 
-<div>Selected: <b>@string.Join("; ", SelectedCountries.Select(c => c.Name))</b></div>
+<div>Selected: <b>@SelectedCountry?.Name</b></div>
 
 <FluentAutocomplete TOption="Country"
                     TValue="string"
@@ -14,6 +14,12 @@
 @code
 {
     IEnumerable<Country> SelectedCountries { get; set; } = [];
+
+    Country? SelectedCountry
+    {
+        get => SelectedCountries.FirstOrDefault() ?? default;
+        set => SelectedCountries = value is not null ? [value] : [];
+    }
 
     Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
     {
