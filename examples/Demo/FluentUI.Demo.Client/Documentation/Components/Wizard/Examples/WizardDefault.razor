@@ -1,4 +1,4 @@
-<FluentStack VerticalAlignment="VerticalAlignment.Center">
+﻿<FluentStack VerticalAlignment="VerticalAlignment.Center">
     <FluentSwitch @bind-Value="@IsTop"
                   Style="margin: 30px;"
                   Label="Step position" />
@@ -59,12 +59,13 @@
 
 @code
 {
-    bool IsTop = false;
-    WizardStepSequence StepSequence = WizardStepSequence.Linear;
+	bool IsTop = false;
+	WizardStepSequence StepSequence = WizardStepSequence.Linear;
 
-    void OnStepChange(FluentWizardStepChangeEventArgs e)
-    {
-    }
+	void OnStepChange(FluentWizardStepChangeEventArgs e)
+	{
+		Console.WriteLine("Step changed to {0}", e.TargetIndex);
+	}
 
     async Task OnFinishedAsync()
     {
