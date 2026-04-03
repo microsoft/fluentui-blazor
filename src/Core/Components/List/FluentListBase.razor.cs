@@ -202,7 +202,12 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             return OptionSelectedComparer.Equals(item, currentAsOption);
         }
 
-        return Equals(GetOptionValue(item), CurrentValue);
+        if (OptionValue is not null || typeof(TOption) == typeof(TValue))
+        {
+            return Equals(GetOptionValue(item), CurrentValue);
+        }
+
+        return item is null && CurrentValue is null;
     }
 
     /// <summary />
