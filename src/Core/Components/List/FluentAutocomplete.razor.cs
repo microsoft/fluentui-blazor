@@ -70,7 +70,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     [Parameter]
     public EventCallback<OptionsSearchEventArgs<TOption>> OnOptionsSearch { get; set; }
 
-    /// <summary />
+    /// <inheritdoc cref="FluentListBase{TOption, TValue}.SelectedItems" />
     public override IEnumerable<TOption> SelectedItems
     {
         get => _internalSelectedItems;
@@ -307,15 +307,31 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         StateHasChanged();
 
         // Raise the OnOptionsSearch event to get the filtered list of items.
-        var args = new OptionsSearchEventArgs<TOption>()
+        if (OnOptionsSearch.HasDelegate)
         {
-            Items = [],
-            Text = _textInput ?? string.Empty,
-        };
+            var args = new OptionsSearchEventArgs<TOption>()
+            {
+                Items = [],
+                Text = _textInput ?? string.Empty,
+            };
 
-        await OnOptionsSearch.InvokeAsync(args);
+            await OnOptionsSearch.InvokeAsync(args);
 
-        _internalFilteredItems = [.. args.Items?.Take(MaximumOptionsSearch) ?? []];
+            _internalFilteredItems = [.. args.Items?.Take(MaximumOptionsSearch) ?? []];
+        }
+
+        // Use the Items parameter to filter the list of items
+        else if (Items != null)
+        {
+            _internalFilteredItems = [.. Items.Where(item => GetOptionText(item)?.StartsWith(_textInput ?? string.Empty, StringComparison.InvariantCultureIgnoreCase) == true).Take(MaximumOptionsSearch)];
+        }
+
+        // No source of items provided
+        else
+        {
+            _internalFilteredItems = [];
+        }
+
         _inProgress = false;
     }
 

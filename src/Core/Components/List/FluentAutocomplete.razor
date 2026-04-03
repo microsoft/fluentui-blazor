@@ -170,20 +170,20 @@
                     {
                         @* The listbox is always in multiple selection mode, because the Listbox with Multiple=false does not support the items changes correctly *@
                         <FluentListbox auto-complete="true"                           
-                                    TValue="TValue"
-                                    TOption="TOption"
-                                    Appearance="@Appearance"
-                                    Multiple="true"
-                                    OptionText="@OptionText"
-                                    OptionValue="@OptionValue"
-                                    OptionDisabled="@OptionDisabled"
-                                    OptionTemplate="@OptionTemplate"
-                                    OptionValueToString="@OptionValueToString"
-                                    OptionSelectedComparer="@OptionSelectedComparer"
-                                    Height="@Height"
-                                    Items="@_internalFilteredItems"
-                                    SelectedItems="@_internalSelectedItems"
-                                    SelectedItemsChanged="@InternalSelectedItemsChangedHandlerAsync" />
+                                       TValue="TValue"
+                                       TOption="TOption"
+                                       Appearance="@Appearance"
+                                       Multiple="true"
+                                       OptionText="@OptionText"
+                                       OptionValue="@OptionValue"
+                                       OptionDisabled="@OptionDisabled"
+                                       OptionTemplate="@OptionTemplate"
+                                       OptionValueToString="@OptionValueToString"
+                                       OptionSelectedComparer="@OptionSelectedComparer"
+                                       Height="@Height"
+                                       Items="@_internalFilteredItems"
+                                       SelectedItems="@_internalSelectedItems"
+                                       SelectedItemsChanged="@InternalSelectedItemsChangedHandlerAsync" />
                     }
 
                     @if (FooterContent != null)
