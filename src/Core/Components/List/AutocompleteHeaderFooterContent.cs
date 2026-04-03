@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The AutocompleteHeaderFooterContent class represents the content to be displayed in the header or footer of the FluentAutocomplete component.
+/// This class represents the content to be displayed in the header or footer of the FluentAutocomplete component.
 /// </summary>
 /// <typeparam name="TOption"></typeparam>
 public class AutocompleteHeaderFooterContent<TOption>
@@ -13,12 +13,13 @@ public class AutocompleteHeaderFooterContent<TOption>
     /// <summary />
     internal AutocompleteHeaderFooterContent(IEnumerable<TOption>? items, bool inProgress)
     {
-        Items = items ?? Array.Empty<TOption>();
+        Items = items ?? [];
         InProgress = inProgress;
     }
-    
+
     /// <summary>
     /// Gets a value indicating whether the operation is currently in progress.
+    /// Set <see cref="FluentAutocomplete{TOption, TValue}.ShowProgressIndicator"/> to true to refresh this property in the header or footer.
     /// </summary>
     public bool InProgress { get; init; }
 
