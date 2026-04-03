@@ -1,11 +1,14 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<li id="@Id" status="@Status.ToAttributeValue()"
+<li id="@Id"
+	status="@Status.ToAttributeValue()"
     @onclick="@OnClickHandlerAsync"
     disabled="@Disabled"
-    class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes">
+    class="@ClassValue"
+	style="@StyleValue"
+	@attributes="@AdditionalAttributes">
     @if (StepTemplate is null)
     {
         <div class="fluent-wizard-icon">
