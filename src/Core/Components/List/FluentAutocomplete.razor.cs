@@ -190,7 +190,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             // Remove items that are in '_internalFilteredItems' but not in 'items' anymore
             foreach (var item in itemsToRemove)
             {
-                _internalSelectedItems.Remove(item);
+                _internalSelectedItems.RemoveAll(selectedItem => comparer.Equals(selectedItem, item));
             }
         }
 
