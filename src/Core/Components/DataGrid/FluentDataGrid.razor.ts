@@ -13,9 +13,14 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
   }
 
   function getMinWidthPx(header: HTMLElement): number {
-    const configuredMinWidth = header.style.minWidth || getComputedStyle(header).minWidth;
-    const parsedMinWidth = parseInt(configuredMinWidth, 10);
-    return Number.isNaN(parsedMinWidth) ? 100 : parsedMinWidth;
+    const configuredMinWidth = header.style.minWidth;
+    if (configuredMinWidth) {
+      const parsedInlineMinWidth = parseInt(configuredMinWidth, 10);
+      return Number.isNaN(parsedInlineMinWidth) ? 100 : parsedInlineMinWidth;
+    }
+
+    const parsedComputedMinWidth = parseInt(getComputedStyle(header).minWidth, 10);
+    return Number.isNaN(parsedComputedMinWidth) ? 100 : parsedComputedMinWidth;
   }
 
   // Use a dictionary for grids for id-based access
