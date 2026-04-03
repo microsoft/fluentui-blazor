@@ -140,42 +140,59 @@
                        @bind-Opened="@_isOpen"
                        @bind-Opened:after="OnOptionsPopupClosedAsync">
 
-            <FluentStack Orientation="Orientation.Vertical">
-                @if (HeaderContent is null && ShowProgressIndicator)
+            @if (IsReachedMaxItems)
+            {
+                @if (MaximumSelectedOptionsMessage is null)
                 {
-                    <FluentProgressBar Thickness="ProgressThickness.Large" Visible="@_inProgress" />
+                    <FluentText Size="TextSize.Size200" Align="TextAlign.Center" Color="Color.Error" Style="display: block; margin: 12px;">
+                        @Localizer[Localization.LanguageResource.AutoComplete_MaximumSelectedOptionsMessage, MaximumSelectedOptions ?? 0]
+                    </FluentText>
                 }
+                else
+                {
+                    @MaximumSelectedOptionsMessage
+                }                
+            }
+            else
+            {
+                <FluentStack Orientation="Orientation.Vertical">
+                    @if (HeaderContent is null && ShowProgressIndicator)
+                    {
+                        <FluentProgressBar Thickness="ProgressThickness.Large" Visible="@_inProgress" />
+                    }
 
-                @if (HeaderContent != null)
-                {
-                    @HeaderContent(new AutocompleteHeaderFooterContent<TOption>(_internalFilteredItems, _inProgress))
-                }
+                    @if (HeaderContent != null)
+                    {
+                        @HeaderContent(new AutocompleteHeaderFooterContent<TOption>(_internalFilteredItems, _inProgress))
+                    }
 
-                @if (_internalFilteredItems.Count > 0)
-                {
-                    @* The listbox is always in multiple selection mode, because the Listbox with Multiple=false does not support the items changes correctly *@
-                    <FluentListbox auto-complete="true"                           
-                                TValue="TValue"
-                                TOption="TOption"
-                                Appearance="@Appearance"
-                                Multiple="true"
-                                OptionText="@OptionText"
-                                OptionValue="@OptionValue"
-                                OptionDisabled="@OptionDisabled"
-                                OptionTemplate="@OptionTemplate"
-                                OptionValueToString="@OptionValueToString"
-                                OptionSelectedComparer="@OptionSelectedComparer"
-                                Height="@Height"
-                                Items="@_internalFilteredItems"
-                                SelectedItems="@_internalSelectedItems"
-                                SelectedItemsChanged="@InternalSelectedItemsChangedHandlerAsync" />
-                }
+                    @if (_internalFilteredItems.Count > 0 && !IsReachedMaxItems)
+                    {
+                        @* The listbox is always in multiple selection mode, because the Listbox with Multiple=false does not support the items changes correctly *@
+                        <FluentListbox auto-complete="true"                           
+                                    TValue="TValue"
+                                    TOption="TOption"
+                                    Appearance="@Appearance"
+                                    Multiple="true"
+                                    OptionText="@OptionText"
+                                    OptionValue="@OptionValue"
+                                    OptionDisabled="@OptionDisabled"
+                                    OptionTemplate="@OptionTemplate"
+                                    OptionValueToString="@OptionValueToString"
+                                    OptionSelectedComparer="@OptionSelectedComparer"
+                                    Height="@Height"
+                                    Items="@_internalFilteredItems"
+                                    SelectedItems="@_internalSelectedItems"
+                                    SelectedItemsChanged="@InternalSelectedItemsChangedHandlerAsync" />
+                    }
 
-                @if (FooterContent != null)
-                {
-                    @FooterContent(new AutocompleteHeaderFooterContent<TOption>(_internalFilteredItems, _inProgress))
-                }
-            </FluentStack>
+                    @if (FooterContent != null)
+                    {
+                        @FooterContent(new AutocompleteHeaderFooterContent<TOption>(_internalFilteredItems, _inProgress))
+                    }
+
+                </FluentStack>
+            }
         </FluentPopover>
 
     </CascadingValue>

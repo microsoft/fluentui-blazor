@@ -17,6 +17,7 @@
                     MaxSelectedWidth="@(MaxSelectedWidth ? "40px" : null)"
                     ShowDismiss="@ShowDismiss"
                     Multiple="@Multiple"
+                    MaximumSelectedOptions="@(SetMaximumSelectedOptions ? 4 : (int?)null)"
                     @bind-Value="@SearchText"
                     @bind-SelectedItems="@SelectedCountries">
 
@@ -58,6 +59,7 @@
     <FluentSwitch @bind-Value="@MaxSelectedWidth" Label="Set a max selected width (40px)" />
     <FluentSwitch @bind-Value="@ShowDismiss" Label="Show search or dismiss button" />
     <FluentSwitch @bind-Value="@Multiple" Label="Multiple selection" />
+    <FluentSwitch @bind-Value="@SetMaximumSelectedOptions" Label="Set MaximumSelectedOptions to 4" />
     <FluentButton OnClick="@SetSelectedCountriesAsync">
         Set SelectedCountries to [be, fr]
     </FluentButton>
@@ -70,6 +72,7 @@
     bool MaxSelectedWidth { get; set; }
     bool ShowDismiss { get; set; } = true;
     bool Multiple { get; set; } = true;
+    bool SetMaximumSelectedOptions { get; set; }
     string? SearchText { get; set; }
     IEnumerable<Country> SelectedCountries { get; set; } = [];
 

@@ -85,6 +85,20 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     public int MaximumOptionsSearch { get; set; } = 9;
 
     /// <summary>
+    /// Gets or sets the maximum number of options (items) selected.
+    /// Exceeding this value requires the user to delete some elements in order to select new ones.
+    /// See the <see cref="MaximumSelectedOptionsMessage"/>.
+    /// </summary>
+    [Parameter]
+    public int? MaximumSelectedOptions { get; set; }
+
+    /// <summary>
+    /// Gets or sets the message displayed when the <see cref="MaximumSelectedOptions"/> is reached.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? MaximumSelectedOptionsMessage { get; set; }
+
+    /// <summary>
     /// Gets or sets whether the component will display a progress indicator while fetching data.
     /// A progress ring will be shown at the end of the component, when the <see cref="OnOptionsSearch"/> is invoked.
     /// You can customize the progress indicator by using the <see cref="HeaderContent"/> or <see cref="FooterContent"/> parameters: see <see cref="AutocompleteHeaderFooterContent{TOption}.InProgress"/>.
@@ -140,6 +154,11 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// </summary>
     [Parameter]
     public RenderFragment<AutocompleteHeaderFooterContent<TOption>>? FooterContent { get; set; }
+
+    /// <summary>
+    /// Gets a value indicating whether the number of selected options has reached the maximum defined by <see cref="MaximumSelectedOptions"/>.
+    /// </summary>
+    public bool IsReachedMaxItems => MaximumSelectedOptions.HasValue && _internalSelectedItems.Count >= MaximumSelectedOptions.Value;
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
