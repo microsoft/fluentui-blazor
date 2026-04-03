@@ -32,7 +32,7 @@
 
         // Assert
         cut.Find("fluent-text-input")
-           .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" inputmode=\"decimal\" type=\"number\" value=\"1.5\" />");
+           .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" inputmode=\"decimal\" type=\"text\" value=\"1.5\" />");
     }
 
     [Fact]
@@ -44,7 +44,7 @@
 
         // Assert
         cut.Find("fluent-text-input")
-           .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" inputmode=\"decimal\" placeholder=\"1.0\" type=\"number\" value=\"0\" />");
+           .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" inputmode=\"decimal\" placeholder=\"1.0\" type=\"text\" value=\"0\" />");
     }
 
     [Theory]
@@ -60,7 +60,7 @@
 
         // Assert
         cut.Find("fluent-text-input")
-           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"{expectedAttribute}\" inputmode=\"decimal\" type=\"number\" value=\"0\" />");
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"{expectedAttribute}\" inputmode=\"decimal\" type=\"text\" value=\"0\" />");
     }
 
     [Theory]
