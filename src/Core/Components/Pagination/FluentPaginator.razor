@@ -14,7 +14,18 @@
             }
             else
             {
-                <text><strong>@State.TotalItemCount</strong> items</text>
+                if (State.TotalItemCount == 0)
+                {
+                    <strong>@Localizer[Localization.LanguageResource.Paginator_SummaryNoItems]</strong>
+                }
+                else if (State.TotalItemCount == 1)
+                {
+                    <strong>@($"{State.TotalItemCount} {Localizer[Localization.LanguageResource.Paginator_SummaryItem]}")</strong>
+                }
+                else
+                {
+                    <strong>@($"{State.TotalItemCount} {Localizer[Localization.LanguageResource.Paginator_SummaryItems]}")</strong>
+                }
             }
         </div>
         <nav role="navigation" class="paginator-nav">
