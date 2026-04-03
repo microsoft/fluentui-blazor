@@ -57,7 +57,7 @@ property `--fluent-data-grid-pinned-background`:
 
 ```css
 .my-grid {
-    --fluent-data-grid-pinned-background: var(--colorNeutralBackground3);
+    --fluent-data-grid-pinned-background: var(--colorNeutralBackground2);
 }
 ```
 
@@ -70,5 +70,15 @@ property `--fluent-data-grid-pinned-background`:
   same `position: sticky` styling regardless of which page or scroll position is active.
 * In RTL layouts the browser interprets `left` / `right` according to the document direction, so
   pinned columns behave correctly without additional configuration.
+
+## Example
+
+Demonstrates pinned (frozen) columns using `Pin="DataGridColumnPin.Left"` and `Pin="DataGridColumnPin.Right"`.
+The two leftmost columns and the Actions column remain visible while the rest scroll horizontally.
+
+Wrap the grid in a `<div style="overflow-x: auto;">` container and give the grid a `Style="min-width: max-content;"`
+so that the horizontal scroll bar appears.
+
+Pinned columns require an explicit pixel `Width`.
 
 {{ DataGridPinnedColumns }}
