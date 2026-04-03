@@ -12,6 +12,12 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     size: string;
   }
 
+  function getMinWidthPx(header: HTMLElement): number {
+    const configuredMinWidth = header.style.minWidth || getComputedStyle(header).minWidth;
+    const parsedMinWidth = parseInt(configuredMinWidth, 10);
+    return Number.isNaN(parsedMinWidth) ? 100 : parsedMinWidth;
+  }
+
   // Use a dictionary for grids for id-based access
   let grids: Grid[] = []; // { [id: string]: Grid } = {};
 
@@ -290,7 +296,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
             const diffX = isRTL ? (pageX! - e.pageX) : (e.pageX - pageX!);
             const column: Column = columns.find(({ header }) => header === curCol)!;
 
-            const minWidth = parseInt((column.header as HTMLElement).style.minWidth) || 0;
+            const minWidth = getMinWidthPx(column.header as HTMLElement);
             column.size = Math.max(minWidth, curColWidth! + diffX) + 'px';
 
             columns.forEach((col) => {
@@ -442,7 +448,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         //const width = headerBeingResized!.getBoundingClientRect().width + change;
 
         if (change < 0) {
-          column.size = Math.max(parseInt(column.header.style.minWidth === '' ? '100' : column.header.style.minWidth, 10), width) + 'px';
+          column.size = Math.max(getMinWidthPx(column.header), width) + 'px';
         }
         else {
           column.size = width + 'px';
@@ -475,7 +481,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     grids.find(grid => grid.id === gridElement.id)!.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
-        column.size = Math.max(parseInt(column.header.style.minWidth === '' ? '100' : column.header.style.minWidth, 10), width) + 'px';
+        column.size = Math.max(getMinWidthPx(column.header), width) + 'px';
         column.header.style.width = column.size;
       }
 

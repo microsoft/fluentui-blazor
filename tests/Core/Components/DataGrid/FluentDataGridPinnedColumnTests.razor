@@ -81,6 +81,21 @@
         });
     }
 
+    [Fact]
+    public void FluentDataGrid_PinnedColumn_Header_Uses_Configured_MinWidth()
+    {
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="false">
+                <ChildContent>
+                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="120px" MinWidth="150px" Pin="DataGridColumnPin.Left" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        var header = cut.Find("th[col-index='1']");
+
+        Assert.Contains("min-width: 150px", header.GetAttribute("style") ?? "");
+    }
+
     // -------------------------------------------------------------------------
     // Two left-pinned columns: cumulative offsets
     // -------------------------------------------------------------------------
