@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Numerics;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -15,31 +16,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A numeric input component that allows users to enter and edit decimal or integer numbers.
 /// Wraps <c>&lt;fluent-text-input type="number"&gt;</c> and sets step/min/max on the inner input.
 /// </summary>
-/// <typeparam name="TValue">A numeric struct type such as int, double, float, decimal, etc.</typeparam>
+/// <typeparam name="TValue">A numeric struct type such as int, double, float, decimal, etc. Must implement <see cref="INumber{TSelf}"/>.</typeparam>
 public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent
-    where TValue : struct, IComparable<TValue>
+    where TValue : struct, INumber<TValue>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentNumberInput{TValue}"/> class.
     /// </summary>
-    /// <exception cref="InvalidOperationException">Thrown when TValue is not a supported numeric type.</exception>
     public FluentNumberInput(LibraryConfiguration configuration) : base(configuration)
     {
-        if (typeof(TValue) != typeof(byte) &&
-            typeof(TValue) != typeof(sbyte) &&
-            typeof(TValue) != typeof(short) &&
-            typeof(TValue) != typeof(ushort) &&
-            typeof(TValue) != typeof(int) &&
-            typeof(TValue) != typeof(uint) &&
-            typeof(TValue) != typeof(long) &&
-            typeof(TValue) != typeof(ulong) &&
-            typeof(TValue) != typeof(float) &&
-            typeof(TValue) != typeof(double) &&
-            typeof(TValue) != typeof(decimal))
-        {
-            throw new InvalidOperationException("FluentNumberInput only supports numeric types.");
-        }
-
         MessageCondition = (field) =>
         {
             field.MessageIcon = FluentStatus.ErrorIcon;
@@ -123,6 +108,13 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     [Parameter]
     public TextInputSize? Size { get; set; }
 
+    /// <summary>
+    /// Gets or sets the culture used for formatting and parsing the value.
+    /// Defaults to <see cref="CultureInfo.InvariantCulture"/>.
+    /// </summary>
+    [Parameter]
+    public CultureInfo Culture { get; set; } = CultureInfo.InvariantCulture;
+
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
     public string? Tooltip { get; set; }
@@ -173,11 +165,11 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     }
 
     /// <summary>
-    /// Formats the value as a string using InvariantCulture.
+    /// Formats the value as a string using the configured <see cref="Culture"/>.
     /// </summary>
     protected override string? FormatValueAsString(TValue value)
     {
-        return Convert.ToString(value, CultureInfo.InvariantCulture);
+        return value.ToString(null, Culture);
     }
 
     /// <summary>
@@ -187,23 +179,32 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     /// <see cref="CultureInfo.InvariantCulture"/> to avoid misinterpretation
     /// (e.g. in fr-FR, <c>.</c> is the thousands separator, so <c>"2.5"</c> would be parsed as <c>25</c>).
     /// </summary>
-    [SuppressMessage("Trimming", "IL2091:Target generic argument does not satisfy 'DynamicallyAccessedMembersAttribute' in target method or type. The generic parameter of the source method or type does not have matching annotations.",
-                 Justification = "In the context, the 'TValue' will not be trimmed.")]
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         // Normalize comma to dot to handle edge cases where a browser
         // might send the locale-formatted decimal separator.
         var normalized = value?.Replace(',', '.');
 
-        if (BindConverter.TryConvertTo<TValue>(normalized, CultureInfo.InvariantCulture, out var parsedValue))
+        if (TValue.TryParse(normalized, Culture, out var parsedValue))
         {
+            // Clamp the parsed value to Min/Max bounds.
+            if (Min.HasValue && parsedValue < Min.Value)
+            {
+                parsedValue = Min.Value;
+            }
+
+            if (Max.HasValue && parsedValue > Max.Value)
+            {
+                parsedValue = Max.Value;
+            }
+
             result = parsedValue;
             validationErrorMessage = null;
             return true;
         }
 
         result = default;
-        validationErrorMessage = $"The '{DisplayName ?? "Unknown Bound Field"}' field is not valid.";
+        validationErrorMessage = string.Format(Culture, Localizer[Localization.LanguageResource.NumberInput_InvalidValue], DisplayName ?? FieldIdentifier.FieldName);
         return false;
     }
 
@@ -219,8 +220,8 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     /// <summary>
     /// Formats a nullable TValue to a string, or returns null.
     /// </summary>
-    private static string? FormatNullableValue(TValue? value)
+    private string? FormatNullableValue(TValue? value)
     {
-        return value is null ? null : Convert.ToString(value.Value, CultureInfo.InvariantCulture);
+        return value?.ToString(null, Culture);
     }
 }

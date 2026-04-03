@@ -342,4 +342,7 @@
   <data name="DataGrid_ToggleNesting" xml:space="preserve">
     <value>Toggle nesting</value>
   </data>
+  <data name="NumberInput_InvalidValue" xml:space="preserve">
+    <value>The {0} field is not a valid number.</value>
+  </data>
 </root>

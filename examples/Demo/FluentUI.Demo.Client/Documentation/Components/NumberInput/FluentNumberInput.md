@@ -48,12 +48,25 @@ A number input can be in different states: `Disabled`, `ReadOnly`, and `Required
 
 {{ NumberInputStates }}
 
+## Min, Max, and Step
+
+Use `Min`, `Max`, and `Step` to constrain the allowed values and increment.
+
+{{ NumberInputMinMaxStep }}
+
 ## Prefix and Suffix
 
 Use the `StartTemplate` and `EndTemplate` properties to add a prefix or suffix to the number input,
 such as a currency symbol or unit.
 
 {{ NumberInputPrefixSuffix }}
+
+## Immediate Mode
+
+Set `Immediate="true"` to update the bound value on every keystroke instead of on blur.
+Use `ImmediateDelay` to debounce rapid input.
+
+{{ NumberInputImmediate }}
 
 ## API FluentNumberInput
 

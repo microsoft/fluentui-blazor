@@ -41,7 +41,7 @@
         // Arrange && Act
         using var context = new IdentifierContext(i => "myId");
         var cut = Render(@<FluentNumberInput TValue="double" Placeholder="1.0" />);
- 
+
         // Assert
         cut.Find("fluent-text-input")
            .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" inputmode=\"decimal\" placeholder=\"1.0\" type=\"number\" value=\"0\" />");
@@ -118,13 +118,48 @@
     }
 
     [Fact]
-    public void FluentNumberInput_InvalidType_Throws()
+    public void FluentNumberInput_Clamp_AboveMax()
     {
-        // Arrange && Act && Assert
-        Assert.Throws<InvalidOperationException>(() =>
-        {
-            Render(@<FluentNumberInput TValue="DateTime" />);
-        });
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = 0;
+        var cut = Render(@<FluentNumberInput @bind-Value="@value" Max="10" />);
+
+        // Act — value above Max should be clamped
+        cut.Find("fluent-text-input").Change("50");
+
+        // Assert
+        Assert.Equal(10, value);
+    }
+
+    [Fact]
+    public void FluentNumberInput_Clamp_BelowMin()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = 5;
+        var cut = Render(@<FluentNumberInput @bind-Value="@value" Min="0" />);
+
+        // Act — value below Min should be clamped
+        cut.Find("fluent-text-input").Change("-10");
+
+        // Assert
+        Assert.Equal(0, value);
+    }
+
+    [Fact]
+    public void FluentNumberInput_Clamp_WithinRange()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = 0;
+        var cut = Render(@<FluentNumberInput @bind-Value="@value" Min="0" Max="100" />);
+
+        // Act — value within range should be accepted as-is
+        cut.Find("fluent-text-input").Change("42");
+
+        // Assert
+        Assert.Equal(42, value);
     }
 
     [Fact]
@@ -217,5 +252,65 @@
         {
             CultureInfo.CurrentCulture = previousCulture;
         }
+    }
+
+    [Fact]
+    public void FluentNumberInput_InvalidInput_KeepsPreviousValue()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = 42;
+        var cut = Render(@<FluentNumberInput @bind-Value="@value" />);
+
+        // Act — invalid input should not change the value
+        cut.Find("fluent-text-input").Change("abc");
+
+        // Assert — value remains unchanged
+        Assert.Equal(42, value);
+    }
+
+    [Fact]
+    public void FluentNumberInput_EmptyInput_KeepsPreviousValue()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = 10;
+        var cut = Render(@<FluentNumberInput @bind-Value="@value" />);
+
+        // Act — empty string is not a valid number
+        cut.Find("fluent-text-input").Change("");
+
+        // Assert — value remains unchanged
+        Assert.Equal(10, value);
+    }
+
+    [Fact]
+    public void FluentNumberInput_Clamp_Double_AboveMax()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = 0.0;
+        var cut = Render(@<FluentNumberInput @bind-Value="@value" Max="9.99" />);
+
+        // Act
+        cut.Find("fluent-text-input").Change("15.5");
+
+        // Assert — clamped to Max
+        Assert.Equal(9.99, value);
+    }
+
+    [Fact]
+    public void FluentNumberInput_Clamp_Double_BelowMin()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = 5.0;
+        var cut = Render(@<FluentNumberInput @bind-Value="@value" Min="1.5" />);
+
+        // Act
+        cut.Find("fluent-text-input").Change("-3.14");
+
+        // Assert — clamped to Min
+        Assert.Equal(1.5, value);
     }
 }
