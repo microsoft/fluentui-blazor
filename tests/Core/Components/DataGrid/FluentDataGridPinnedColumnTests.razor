@@ -302,6 +302,9 @@
                 </ChildContent>
             </FluentDataGrid>);
 
+        Assert.All(cut.FindAll("th"), header =>
+            Assert.DoesNotContain("z-index: 5", header.GetAttribute("style") ?? ""));
+
         cut.Verify();
     }
 
