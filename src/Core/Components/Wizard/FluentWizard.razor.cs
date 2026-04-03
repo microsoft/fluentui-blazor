@@ -411,16 +411,12 @@ public partial class FluentWizard : FluentComponentBase
             return null;
         }
 
-        switch (StepperPosition)
+        return StepperPosition switch
         {
-            case StepperPosition.Top:
-                return $"height: {StepperSize}";
-
-            case StepperPosition.Left:
-                return $"width: {StepperSize}";
-        }
-
-        return null;
+            StepperPosition.Top => $"height: {StepperSize}",
+            StepperPosition.Left => $"width: {StepperSize}",
+            _ => null,
+        };
     }
 
     private bool DisplayPreviousButton => Value > 0 && _steps[..Value].Any(i => !i.Disabled);
