@@ -642,7 +642,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         ValidatePinnedColumnConstraints();
 
-        // Compute start-pin sticky offsets (cumulative inline-start to inline-end).
+        // Compute start-pin sticky offsets in display order.
         var startOffset = 0.0;
         foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.Start))
         {
@@ -650,7 +650,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             startOffset += ParsePixelWidth(col.Width);
         }
 
-        // Compute end-pin sticky offsets (cumulative inline-end to inline-start).
+        // Compute end-pin sticky offsets in reverse display order.
         var endOffset = 0.0;
         foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.End).Reverse())
         {
@@ -1445,4 +1445,3 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 }
-

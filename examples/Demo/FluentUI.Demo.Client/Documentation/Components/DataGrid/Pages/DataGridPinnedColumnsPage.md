@@ -1,9 +1,8 @@
 # Pinned columns
 
-Columns can be pinned (frozen) to the inline-start or inline-end edge of the grid so that they remain visible
-while the user scrolls horizontally through wider datasets. Using logical-property directions (`Start`/`End`)
-instead of physical ones (`Left`/`Right`) means pinned columns automatically work correctly in both
-LTR and RTL layouts.
+Columns can be pinned (frozen) to the start or end edge of the grid so that they remain visible
+while the user scrolls horizontally through wider datasets. Using `Start`/`End` instead of
+`Left`/`Right` means pinned columns automatically work correctly in both LTR and RTL layouts.
 
 ## Parameters
 
@@ -12,8 +11,8 @@ Set the `Pin` parameter on any `PropertyColumn` or `TemplateColumn`:
 | Value | Behavior |
 |---|---|
 | `DataGridColumnPin.None` | Default — column scrolls normally |
-| `DataGridColumnPin.Start` | Column stays anchored to the inline-start edge (left in LTR, right in RTL) |
-| `DataGridColumnPin.End` | Column stays anchored to the inline-end edge (right in LTR, left in RTL) |
+| `DataGridColumnPin.Start` | Column stays anchored to the start edge (left in LTR, right in RTL) |
+| `DataGridColumnPin.End` | Column stays anchored to the end edge (right in LTR, left in RTL) |
 
 ## Rules
 
@@ -60,13 +59,12 @@ property `--fluent-data-grid-pinned-background`:
 ## Notes
 
 * Column resizing interacts correctly with sticky offsets — the JavaScript in
-  `FluentDataGrid.razor.ts` recalculates `inset-inline-start` / `inset-inline-end` values after
-  every resize step via `UpdatePinnedColumnOffsets`.
+  `FluentDataGrid.razor.ts` recalculates start and end offset values after every resize step via
+  `UpdatePinnedColumnOffsets`.
 * Virtualization and paging are fully compatible because each rendered row's cells carry the
   same `position: sticky` styling regardless of which page or scroll position is active.
-* RTL layouts are fully supported: the CSS logical properties `inset-inline-start` and
-  `inset-inline-end` automatically map to the correct physical direction based on the document's
-  writing mode.
+* RTL layouts are fully supported: start and end automatically map to the correct physical
+  direction based on the document's writing mode.
 
 ## Example
 

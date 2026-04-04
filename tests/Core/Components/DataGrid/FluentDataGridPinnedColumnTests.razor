@@ -45,7 +45,7 @@
                 </ChildContent>
             </FluentDataGrid>);
 
-        // Assert — every cell in the column carries col-pinned-start and position:sticky;inset-inline-start:0px
+        // Assert — every cell in the column carries col-pinned-start and a start offset of 0px
         var cells = cut.FindAll("[col-index='1']");
         Assert.NotEmpty(cells);
         Assert.All(cells, cell =>
@@ -103,7 +103,7 @@
     [Fact]
     public void FluentDataGrid_PinnedColumn_Start_Multiple_Cumulative_Offsets()
     {
-        // Arrange && Act — col1: 100px, col2: 120px → col1 inset-inline-start:0px, col2 inset-inline-start:100px
+        // Arrange && Act — col1: 100px, col2: 120px → col1 start offset 0px, col2 start offset 100px
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <ChildContent>
@@ -127,7 +127,7 @@
     public void FluentDataGrid_PinnedColumn_End_Multiple_Cumulative_Offsets()
     {
         // col1 (normal 1fr) | col2: 80px end-pinned | col3: 60px end-pinned
-        // col3 (rightmost) → inset-inline-end:0px  |  col2 → inset-inline-end:60px
+        // col3 (rightmost) → end offset 0px  |  col2 → end offset 60px
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <ChildContent>
@@ -137,11 +137,11 @@
                 </ChildContent>
             </FluentDataGrid>);
 
-        // col3 is index 3 — rightmost end-pinned → inset-inline-end: 0px
+        // col3 is index 3 — rightmost end-pinned → end offset 0px
         Assert.All(cut.FindAll("[col-index='3']"), cell =>
             Assert.Contains("inset-inline-end: 0px", cell.GetAttribute("style") ?? ""));
 
-        // col2 is index 2 — next-to-last end-pinned → inset-inline-end: 60px (width of col3)
+        // col2 is index 2 — next-to-last end-pinned → end offset 60px (width of col3)
         Assert.All(cut.FindAll("[col-index='2']"), cell =>
             Assert.Contains("inset-inline-end: 60px", cell.GetAttribute("style") ?? ""));
     }
@@ -283,11 +283,11 @@
                 </ChildContent>
             </FluentDataGrid>);
 
-        // col1 (Id)   start-pinned → inset-inline-start: 0px
+        // col1 (Id)   start-pinned → start offset 0px
         Assert.All(cut.FindAll("[col-index='1']"), c =>
             Assert.Contains("inset-inline-start: 0px", c.GetAttribute("style") ?? ""));
 
-        // col2 (Name) start-pinned → inset-inline-start: 50px
+        // col2 (Name) start-pinned → start offset 50px
         Assert.All(cut.FindAll("[col-index='2']"), c =>
             Assert.Contains("inset-inline-start: 50px", c.GetAttribute("style") ?? ""));
 
@@ -295,7 +295,7 @@
         Assert.All(cut.FindAll("[col-index='3']"), c =>
             Assert.DoesNotContain("position: sticky", c.GetAttribute("style") ?? ""));
 
-        // col4 (Action) end-pinned → inset-inline-end: 0px
+        // col4 (Action) end-pinned → end offset 0px
         Assert.All(cut.FindAll("[col-index='4']"), c =>
             Assert.Contains("inset-inline-end: 0px", c.GetAttribute("style") ?? ""));
     }

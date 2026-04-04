@@ -188,7 +188,7 @@ public abstract partial class ColumnBase<TGridItem>
     public string? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets whether this column is pinned (frozen) to the inline-start or inline-end edge of the grid,
+    /// Gets or sets whether this column is pinned (frozen) to the start or end edge of the grid,
     /// so it remains visible when the user scrolls horizontally.
     /// Pinned columns require an explicit <see cref="Width"/> in pixels (e.g., <c>"150px"</c>).
     /// Start-pinned columns must be contiguous at the start of the column list;
@@ -198,7 +198,7 @@ public abstract partial class ColumnBase<TGridItem>
     public DataGridColumnPin Pin { get; set; } = DataGridColumnPin.None;
 
     /// <summary>
-    /// The sticky <c>inset-inline-start</c> or <c>inset-inline-end</c> CSS offset computed by
+    /// The sticky start or end CSS offset computed by
     /// <see cref="FluentDataGrid{TGridItem}"/> when columns are collected.
     /// Not intended for direct use by consumers.
     /// </summary>
