@@ -1,3 +1,8 @@
+---
+title: Pinned columns
+route: /DataGrid/PinnedColumns
+---
+
 # Pinned columns
 
 Columns can be pinned (frozen) to the start or end edge of the grid so that they remain visible
@@ -58,9 +63,7 @@ property `--fluent-data-grid-pinned-background`:
 
 ## Notes
 
-* Column resizing interacts correctly with sticky offsets — the JavaScript in
-  `FluentDataGrid.razor.ts` recalculates start and end offset values after every resize step via
-  `UpdatePinnedColumnOffsets`.
+* Column resizing keeps pinned columns aligned as widths change.
 * Virtualization and paging are fully compatible because each rendered row's cells carry the
   same `position: sticky` styling regardless of which page or scroll position is active.
 * RTL layouts are fully supported: start and end automatically map to the correct physical
