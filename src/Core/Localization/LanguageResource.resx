@@ -343,10 +343,10 @@
     <value>Toggle nesting</value>
   </data>
   <data name="Paginator_SummaryItem" xml:space="preserve">
-    <value>item</value>
+    <value>{0} item</value>
   </data>
   <data name="Paginator_SummaryItems" xml:space="preserve">
-    <value>items</value>
+    <value>{0} items</value>
   </data>
   <data name="Paginator_SummaryNoItems" xml:space="preserve">
     <value>No items</value>

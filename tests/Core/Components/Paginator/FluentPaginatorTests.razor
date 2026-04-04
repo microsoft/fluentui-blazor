@@ -58,7 +58,7 @@
 
         // Assert
         var summaryText = cut.Find(".summary").TextContent.Trim();
-        var expected = $"1 {IFluentLocalizer.GetDefault("Paginator_SummaryItem")}";
+        var expected = $"{IFluentLocalizer.GetDefault("Paginator_SummaryItem", 1)}";
 
         Assert.Equal(expected, summaryText);
     }
@@ -75,7 +75,7 @@
 
         // Assert
         var summaryText = cut.Find(".summary").TextContent.Trim();
-        var expected = $"2 {IFluentLocalizer.GetDefault("Paginator_SummaryItems")}";
+        var expected = $"{IFluentLocalizer.GetDefault("Paginator_SummaryItems", 2)}";
 
         Assert.Equal(expected, summaryText);
     }
