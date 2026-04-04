@@ -624,12 +624,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
-    /// Validates the pinned-column configuration and computes the sticky pixel offsets for each
+    /// Validates the pinned-column configuration and computes the sticky offsets for each
     /// pinned column. Rules enforced:
     /// <list type="bullet">
     ///   <item>Pinned columns must specify an explicit pixel <c>Width</c> (e.g., <c>"150px"</c>).</item>
-    ///   <item>Left-pinned columns must be contiguous at the beginning of the column list.</item>
-    ///   <item>Right-pinned columns must be contiguous at the end of the column list.</item>
+    ///   <item>Start-pinned columns must be contiguous at the beginning of the column list.</item>
+    ///   <item>End-pinned columns must be contiguous at the end of the column list.</item>
     /// </list>
     /// </summary>
     private void ValidateAndComputePinnedColumns()
@@ -642,20 +642,20 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         ValidatePinnedColumnConstraints();
 
-        // Compute left-pin sticky offsets (cumulative left-to-right).
-        var leftOffset = 0.0;
-        foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.Left))
+        // Compute start-pin sticky offsets (cumulative inline-start to inline-end).
+        var startOffset = 0.0;
+        foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.Start))
         {
-            col.PinOffsetPx = leftOffset;
-            leftOffset += ParsePixelWidth(col.Width);
+            col.PinOffset = $"{startOffset.ToString(CultureInfo.InvariantCulture)}px";
+            startOffset += ParsePixelWidth(col.Width);
         }
 
-        // Compute right-pin sticky offsets (cumulative right-to-left).
-        var rightOffset = 0.0;
-        foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.Right).Reverse())
+        // Compute end-pin sticky offsets (cumulative inline-end to inline-start).
+        var endOffset = 0.0;
+        foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.End).Reverse())
         {
-            col.PinOffsetPx = rightOffset;
-            rightOffset += ParsePixelWidth(col.Width);
+            col.PinOffset = $"{endOffset.ToString(CultureInfo.InvariantCulture)}px";
+            endOffset += ParsePixelWidth(col.Width);
         }
     }
 
@@ -683,27 +683,27 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
         }
 
-        // Left-pinned columns must be contiguous at the start: each one must be preceded by
-        // another left-pinned column (or be the very first column).
+        // Start-pinned columns must be contiguous at the start: each one must be preceded by
+        // another start-pinned column (or be the very first column).
         for (var i = 0; i < _columns.Count; i++)
         {
-            if (_columns[i].Pin == DataGridColumnPin.Left && i > 0 && _columns[i - 1].Pin != DataGridColumnPin.Left)
+            if (_columns[i].Pin == DataGridColumnPin.Start && i > 0 && _columns[i - 1].Pin != DataGridColumnPin.Start)
             {
                 throw new ArgumentException(
-                    $"Column '{_columns[i].Title ?? _columns[i].Index.ToString(CultureInfo.InvariantCulture)}' is left-pinned but the preceding column is not. " +
-                    "Left-pinned columns must be contiguous at the start of the column list.");
+                    $"Column '{_columns[i].Title ?? _columns[i].Index.ToString(CultureInfo.InvariantCulture)}' is start-pinned but the preceding column is not. " +
+                    "Start-pinned columns must be contiguous at the start of the column list.");
             }
         }
 
-        // Right-pinned columns must be contiguous at the end: each one must be followed by
-        // another right-pinned column (or be the very last column).
+        // End-pinned columns must be contiguous at the end: each one must be followed by
+        // another end-pinned column (or be the very last column).
         for (var i = 0; i < _columns.Count; i++)
         {
-            if (_columns[i].Pin == DataGridColumnPin.Right && i < _columns.Count - 1 && _columns[i + 1].Pin != DataGridColumnPin.Right)
+            if (_columns[i].Pin == DataGridColumnPin.End && i < _columns.Count - 1 && _columns[i + 1].Pin != DataGridColumnPin.End)
             {
                 throw new ArgumentException(
-                    $"Column '{_columns[i].Title ?? _columns[i].Index.ToString(CultureInfo.InvariantCulture)}' is right-pinned but the following column is not. " +
-                    "Right-pinned columns must be contiguous at the end of the column list.");
+                    $"Column '{_columns[i].Title ?? _columns[i].Index.ToString(CultureInfo.InvariantCulture)}' is end-pinned but the following column is not. " +
+                    "End-pinned columns must be contiguous at the end of the column list.");
             }
         }
     }

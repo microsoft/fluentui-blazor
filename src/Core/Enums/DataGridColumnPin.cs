@@ -16,14 +16,14 @@ public enum DataGridColumnPin
     None,
 
     /// <summary>
-    /// The column is pinned to the left edge of the grid.
-    /// The column will remain visible when the user scrolls right.
+    /// The column is pinned to the inline-start edge of the grid (left in LTR, right in RTL).
+    /// The column will remain visible when the user scrolls toward the inline-end.
     /// </summary>
-    Left,
+    Start,
 
     /// <summary>
-    /// The column is pinned to the right edge of the grid.
-    /// The column will remain visible when the user scrolls left.
+    /// The column is pinned to the inline-end edge of the grid (right in LTR, left in RTL).
+    /// The column will remain visible when the user scrolls toward the inline-start.
     /// </summary>
-    Right,
+    End,
 }
