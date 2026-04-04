@@ -20,11 +20,11 @@
                 }
                 else if (State.TotalItemCount == 1)
                 {
-                    <strong>@(string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_SummaryItem, State.TotalItemCount))</strong>
+                    <strong>@(string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_SummaryItem], State.TotalItemCount))</strong>
                 }
                 else
                 {
-                    <strong>@(string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_SummaryItems, State.TotalItemCount))</strong>
+                    <strong>@(string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_SummaryItems], State.TotalItemCount))</strong>
                 }
             }
         </div>
