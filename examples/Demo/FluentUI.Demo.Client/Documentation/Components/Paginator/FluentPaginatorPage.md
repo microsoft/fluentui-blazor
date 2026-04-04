@@ -21,8 +21,8 @@ The following values can be localized:
 - Paginator_GoNextPage - Go to next page
 - Paginator_GoPreviousPage - Go to previous page
 - Paginator_Status - Page {0} of {1}
-- Paginator_SummaryItem - item
-- Paginator_SummaryItems - items
+- Paginator_SummaryItem - {0} item
+- Paginator_SummaryItems - {0} items
 - Paginator_SummaryNoItems - No items
 
 _At a later date, point to example usage on Icon/Emoji explore  as well_
