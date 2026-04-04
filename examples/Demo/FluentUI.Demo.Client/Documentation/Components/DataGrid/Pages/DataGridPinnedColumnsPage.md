@@ -16,8 +16,8 @@ Set the `Pin` parameter on any `PropertyColumn` or `TemplateColumn`:
 | Value | Behavior |
 |---|---|
 | `DataGridColumnPin.None` | Default — column scrolls normally |
-| `DataGridColumnPin.Start` | Column stays anchored to the start edge (left in LTR, right in RTL) |
-| `DataGridColumnPin.End` | Column stays anchored to the end edge (right in LTR, left in RTL) |
+| `DataGridColumnPin.Start` | Column stays anchored to the start edge |
+| `DataGridColumnPin.End` | Column stays anchored to the end edge |
 
 ## Rules
 
