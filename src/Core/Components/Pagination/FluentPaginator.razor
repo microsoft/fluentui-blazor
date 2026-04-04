@@ -14,17 +14,17 @@
             }
             else
             {
-                if (State.TotalItemCount == 0)
+                @if (State.TotalItemCount == 0)
                 {
                     <strong>@Localizer[Localization.LanguageResource.Paginator_SummaryNoItems]</strong>
                 }
                 else if (State.TotalItemCount == 1)
                 {
-                    <strong>@($"{State.TotalItemCount} {Localizer[Localization.LanguageResource.Paginator_SummaryItem]}")</strong>
+                    <strong>@(string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_SummaryItem, State.TotalItemCount))</strong>
                 }
                 else
                 {
-                    <strong>@($"{State.TotalItemCount} {Localizer[Localization.LanguageResource.Paginator_SummaryItems]}")</strong>
+                    <strong>@(string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_SummaryItems, State.TotalItemCount))</strong>
                 }
             }
         </div>
