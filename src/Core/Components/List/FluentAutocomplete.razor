@@ -52,7 +52,7 @@
             <StartTemplate>
                 @if (Multiple)
                 {
-                    <div style="@($"{(string.IsNullOrEmpty(MaxAutoHeight) ? "" : $"max-height: {MaxAutoHeight};")}")">
+                    <div style="@($"{(string.IsNullOrEmpty(MaxAutoHeight) ? null : $"max-height: {MaxAutoHeight};")}")">
                         @* Show selected items as badges with an "x" button to remove them. 
                            This is shown when the listbox is closed, when it's open the selected items are highlighted 
                            in the listbox and we don't show the badges in the input. *@

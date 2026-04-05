@@ -1,0 +1,104 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits FluentUITestContext
+@code
+{
+    private readonly string[] Digits = new[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
+
+    public FluentAutocompleteTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_Default_Items()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentAutocomplete Id="my-list" Placeholder="Select a digit" Items="@Digits" TOption="string" TValue="string" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_Label()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentAutocomplete Id="my-list" Label="List of digits" Required="true" Items="@Digits" TOption="string" TValue="string" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_OnOptionsSearch_NoFilter()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act
+        cut.Find("fluent-text-input").Click();
+
+        // Assert
+        var optionsCount = cut.FindAll("fluent-option").Count();
+        Assert.Equal(9, optionsCount);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_OnOptionsSearch_Filter()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act
+        cut.Find("fluent-text-input")
+           .TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "F" });
+
+        // Assert
+        var optionsCount = cut.FindAll("fluent-option").Count();
+        Assert.Equal(2, optionsCount);  // "Four" and "Five"
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SelectTwoItems_DisplayedInStartTemplate()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown to display all options
+        cut.Find("fluent-text-input").Click();
+
+        // Get the IDs of the first two options ("Eight" and "Five" - sorted alphabetically)
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+
+        // Select those two options via the listchange event
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Assert - Verify the 2 selected items appear as badges in the StartTemplate
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Equal(2, badges.Count);
+        Assert.Equal("Eight", badges[0].GetAttribute("title"));
+        Assert.Equal("Five", badges[1].GetAttribute("title"));
+    }
+
+    private void OnOptionsSearch(OptionsSearchEventArgs<string> e)
+    {
+        e.Items = Digits.Where(i => i.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                        .OrderBy(i => i);
+    }
+}
