@@ -933,6 +933,30 @@
         Assert.Single(badges);
     }
 
+    [Fact]
+    public async Task FluentAutocomplete_RemoveSelectedItemAsync_NullItem_DoesNothing()
+    {
+        // Arrange - Render with two pre-selected items
+        var selectedItemsChangedCount = 0;
+        IEnumerable<string> selectedItems = new List<string> { "Three", "Six" };
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                Items="@Digits"
+                                @bind-SelectedItems="@selectedItems"
+                                @bind-SelectedItems:after="@(() => selectedItemsChangedCount++)" />);
+
+        // Act - Call RemoveSelectedItemAsync with null
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        await cut.InvokeAsync(() => component.RemoveSelectedItemAsync(null));
+
+        // Assert - Nothing changed: still 2 badges, event not raised
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Equal(2, badges.Count);
+        Assert.Equal(0, selectedItemsChangedCount);
+    }
+
     private void OnOptionsSearch(OptionsSearchEventArgs<string> e)
     {
         e.Items = Digits.Where(i => i.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
