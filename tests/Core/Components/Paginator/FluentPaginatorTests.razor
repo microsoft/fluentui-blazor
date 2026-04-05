@@ -30,6 +30,57 @@
     }
 
     [Fact]
+    public async Task FluentPaginator_Renders_SummaryNoItemsResource_ForNoItems()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(0);
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Assert
+        var summaryText = cut.Find(".summary").TextContent.Trim();
+        var expected = $"{IFluentLocalizer.GetDefault("Paginator_SummaryNoItems")}";
+
+        Assert.Equal(expected, summaryText);
+    }
+
+    [Fact]
+    public async Task FluentPaginator_Renders_SummaryItemResource_ForSingleItem()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(1);
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Assert
+        var summaryText = cut.Find(".summary").TextContent.Trim();
+        var expected = $"{IFluentLocalizer.GetDefault("Paginator_SummaryItem", 1)}";
+
+        Assert.Equal(expected, summaryText);
+    }
+
+    [Fact]
+    public async Task FluentPaginator_Renders_SummaryItemsResource_ForMultipleItems()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(2);
+
+        // Act
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Assert
+        var summaryText = cut.Find(".summary").TextContent.Trim();
+        var expected = $"{IFluentLocalizer.GetDefault("Paginator_SummaryItems", 2)}";
+
+        Assert.Equal(expected, summaryText);
+    }
+
+    [Fact]
     public async Task FluentPaginator_SetItemsPerPage()
     {
         // Arrange
@@ -60,7 +111,7 @@
         var cut = Render(@<FluentPaginator State="@state" />);
 
         // Assert
-        
+
         Assert.NotNull(cut.Find(".fluent-paginator"));
         Assert.NotNull(cut.Find(".summary"));
         Assert.NotNull(cut.Find(".paginator-nav"));
