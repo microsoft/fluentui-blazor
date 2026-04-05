@@ -284,7 +284,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// When the user types in the input, display the listbox with the filtered options.
     /// </summary>
     /// <returns></returns>
-    private async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty)
+    internal async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty)
     {
         // Raise the ValueChanged event to notify the parent component.
         if (ValueChanged.HasDelegate)
@@ -343,7 +343,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private async Task RemoveSelectedItemAsync(TOption? item)
+    internal async Task RemoveSelectedItemAsync(TOption? item)
     {
         if (item is null)
         {
