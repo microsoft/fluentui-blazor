@@ -238,6 +238,36 @@
         Assert.Equal("Eight", customElement.TextContent);
     }
 
+    [Fact]
+    public void FluentAutocomplete_ShowProgressIndicator_DisplaysSpinner()
+    {
+        // Arrange - Use a slow OnOptionsSearch that never completes, keeping _inProgress = true
+        var tcs = new TaskCompletionSource();
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                ShowProgressIndicator="true"
+                                OnOptionsSearch="@OnSlowOptionsSearch" />);
+
+        // Act - Type to trigger the search (which will stay in progress)
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - A FluentSpinner (fluent-spinner) should be rendered in the EndTemplate
+        var spinner = cut.Find("fluent-spinner");
+        Assert.NotNull(spinner);
+
+        // Complete the task to avoid leaking
+        tcs.SetResult();
+        return;
+
+        // Local slow callback
+        async Task OnSlowOptionsSearch(OptionsSearchEventArgs<string> e)
+        {
+            await tcs.Task;
+            e.Items = Digits;
+        }
+    }
+
     private void OnOptionsSearch(OptionsSearchEventArgs<string> e)
     {
         e.Items = Digits.Where(i => i.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
