@@ -268,6 +268,216 @@
         }
     }
 
+    [Fact]
+    public void FluentAutocomplete_FocusSpinner_ClosesPopover()
+    {
+        // Arrange - Use a slow OnOptionsSearch that never completes, keeping _inProgress = true
+        var tcs = new TaskCompletionSource();
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                ShowProgressIndicator="true"
+                                OnOptionsSearch="@OnSlowOptionsSearch" />);
+
+        // Act - Open the dropdown (search stays in progress, spinner is shown)
+        cut.Find("fluent-text-input").Click();
+
+        // Verify popover is open
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Act - Focus the spinner in the EndTemplate
+        var spinner = cut.Find("fluent-spinner");
+        spinner.TriggerEvent("onfocus", new FocusEventArgs());
+
+        // Assert - Popover should be closed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+
+        // Complete the task to avoid leaking
+        tcs.SetResult();
+        return;
+
+        // Local slow callback
+        async Task OnSlowOptionsSearch(OptionsSearchEventArgs<string> e)
+        {
+            await tcs.Task;
+            e.Items = Digits;
+        }
+    }
+
+    [Fact]
+    public void FluentAutocomplete_FocusSearchIcon_ClosesPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown
+        cut.Find("fluent-text-input").Click();
+
+        // Verify popover is open
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Act - Focus the search icon (no items selected, so the search icon is shown)
+        var icon = cut.Find("div[slot='end'] svg[focusable='true']");
+        icon.TriggerEvent("onfocus", new FocusEventArgs());
+
+        // Assert - Popover should be closed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_FocusDismissIcon_ClosesPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown and select an item
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = id1 });
+
+        // Re-open the dropdown
+        cut.Find("fluent-text-input").Click();
+
+        // Verify popover is open
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Act - Focus the dismiss icon (items selected, so the dismiss icon is shown)
+        var icon = cut.Find("div[slot='end'] svg[focusable='true']");
+        icon.TriggerEvent("onfocus", new FocusEventArgs());
+
+        // Assert - Popover should be closed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_IsReachedMaxItems_DefaultMessage()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                MaximumSelectedOptions="2"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown and select 2 items (reaching the max)
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Re-open the dropdown
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - The default max message (FluentText) should be displayed instead of the listbox
+        var maxMessage = cut.Find("fluent-text");
+        Assert.NotNull(maxMessage);
+
+        // The listbox should not be rendered
+        var listboxes = cut.FindAll(".fluent-listbox");
+        Assert.Empty(listboxes);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_IsReachedMaxItems_CustomMessage()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                MaximumSelectedOptions="2"
+                                OnOptionsSearch="@OnOptionsSearch">
+                            <MaximumSelectedOptionsMessage>
+                                <div class="custom-max-message">Maximum reached</div>
+                            </MaximumSelectedOptionsMessage>
+                         </FluentAutocomplete>);
+
+        // Act - Open the dropdown and select 2 items (reaching the max)
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Re-open the dropdown
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - The custom message should be displayed
+        var customMessage = cut.Find("div.custom-max-message");
+        Assert.Equal("Maximum reached", customMessage.TextContent);
+
+        // The listbox should not be rendered
+        var listboxes = cut.FindAll(".fluent-listbox");
+        Assert.Empty(listboxes);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_HeaderContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch">
+                            <HeaderContent>
+                                <div class="custom-header">Found @context.Items.Count() items</div>
+                            </HeaderContent>
+                         </FluentAutocomplete>);
+
+        // Act - Open the dropdown to display options
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - The header content should be rendered with the correct item count
+        var header = cut.Find("div.custom-header");
+        Assert.Equal("Found 9 items", header.TextContent);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_FooterContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch">
+                            <FooterContent>
+                                <div class="custom-footer">Total: @context.Items.Count()</div>
+                            </FooterContent>
+                         </FluentAutocomplete>);
+
+        // Act - Open the dropdown to display options
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - The footer content should be rendered with the correct item count
+        var footer = cut.Find("div.custom-footer");
+        Assert.Equal("Total: 9", footer.TextContent);
+    }
+
     private void OnOptionsSearch(OptionsSearchEventArgs<string> e)
     {
         e.Items = Digits.Where(i => i.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
