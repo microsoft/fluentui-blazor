@@ -1,4 +1,5 @@
-﻿@using static FluentUI.Demo.SampleData.Olympics2024
+﻿@using System.Transactions
+@using static FluentUI.Demo.SampleData.Olympics2024
 
 <div>Selected: <b>@string.Join("; ", SelectedCountries.Select(c => c.Name))</b></div>
 <div>Search Text: <b>@SearchText</b></div>
@@ -16,16 +17,41 @@
                     ShowDismiss="@ShowDismiss"
                     @bind-Value="@SearchText"
                     @bind-SelectedItems="@SelectedCountries">
+
+    @* Template used with each Option items *@
     <OptionTemplate>
         <FluentStack Style="pointer-events: none;" VerticalAlignment="VerticalAlignment.Center">
             <FluentAvatar Image="@context.Flag()"
-                          Name="@context.Name" 
+                          Name="@context.Name"
                           Size="AvatarSize.Size20" />
             <FluentText Margin="@Margin.Left4">
                 @context.Name
             </FluentText>
         </FluentStack>
     </OptionTemplate>
+
+    
+    @* Content display at the top of the Popup area *@
+    <HeaderContent>
+        <FluentText Size="TextSize.Size200" Color="Color.Primary" Align="TextAlign.Center">
+            Suggested contacts
+        </FluentText>
+        <FluentProgressBar Thickness="ProgressThickness.Large" Visible="@context.InProgress" />
+    </HeaderContent>
+
+    @* Content display at the bottom of the Popup area *@
+    <FooterContent>
+        @if (!context.Items.Any())
+        {
+            <FluentText Size="TextSize.Size200" 
+                        Align="TextAlign.Center" 
+                        Color="Color.Error" 
+                        Style="width: 100%;">
+                No results found
+            </FluentText>
+        }
+    </FooterContent>
+    
 </FluentAutocomplete>
 
 <FluentStack Orientation="Orientation.Vertical">
