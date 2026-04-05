@@ -7,7 +7,16 @@
     public FluentToastProviderTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
-        Services.AddFluentUIComponents();
+        Services.AddFluentUIComponents(config =>
+        {
+            config.Toast.MaxToastCount = 2;
+            config.Toast.Timeout = 1234;
+            config.Toast.Position = ToastPosition.TopEnd;
+            config.Toast.VerticalOffset = 44;
+            config.Toast.HorizontalOffset = 55;
+            config.Toast.PauseOnHover = true;
+            config.Toast.PauseOnWindowBlur = true;
+        });
 
         ToastService = Services.GetRequiredService<IToastService>();
         ToastProvider = Render<FluentToastProvider>();
@@ -39,13 +48,7 @@
     [Fact]
     public async Task FluentToast_ProviderDefaults_Applied()
     {
-        var provider = Render<FluentToastProvider>(parameters => parameters
-            .Add(p => p.Timeout, 1234)
-            .Add(p => p.Position, ToastPosition.TopEnd)
-            .Add(p => p.VerticalOffset, 44)
-            .Add(p => p.HorizontalOffset, 55)
-            .Add(p => p.PauseOnHover, true)
-            .Add(p => p.PauseOnWindowBlur, true));
+        var provider = Render<FluentToastProvider>();
 
         _ = ToastService.ShowToastAsync(options =>
         {
@@ -66,13 +69,7 @@
     [Fact]
     public async Task FluentToast_PerToastOverrides_ProviderDefaults()
     {
-        var provider = Render<FluentToastProvider>(parameters => parameters
-            .Add(p => p.Timeout, 1234)
-            .Add(p => p.Position, ToastPosition.TopEnd)
-            .Add(p => p.VerticalOffset, 44)
-            .Add(p => p.HorizontalOffset, 55)
-            .Add(p => p.PauseOnHover, false)
-            .Add(p => p.PauseOnWindowBlur, false));
+        var provider = Render<FluentToastProvider>();
 
         _ = ToastService.ShowToastAsync(options =>
         {
@@ -99,7 +96,7 @@
     [Fact]
     public async Task FluentToast_QueuedUntilProviderHasRoom()
     {
-        var provider = Render<FluentToastProvider>(parameters => parameters.Add(p => p.MaxToastCount, 1));
+        var provider = Render<FluentToastProvider>();
         var statuses = new List<ToastLifecycleStatus>();
 
         var firstToastTask = ToastService.ShowToastAsync(options =>
@@ -113,23 +110,24 @@
             options.OnStatusChange = args => statuses.Add(args.Status);
         });
 
+        var thirdToastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Third toast";
+            options.OnStatusChange = args => statuses.Add(args.Status);
+        });
+
         await Task.CompletedTask;
 
         Assert.Contains("First toast", provider.Markup);
-        Assert.DoesNotContain("Second toast", provider.Markup);
+        Assert.Contains("Second toast", provider.Markup);
+        Assert.DoesNotContain("Third toast", provider.Markup);
         Assert.Contains(ToastLifecycleStatus.Queued, statuses);
 
         var firstToast = provider.FindComponent<FluentToast>();
         await CloseToastAndWaitAsync(firstToast, ToastCloseReason.Programmatic);
-        await firstToastTask;
-        await Task.CompletedTask;
 
-        Assert.Contains("Second toast", provider.Markup);
+        Assert.Contains("Third toast", provider.Markup);
         Assert.Contains(ToastLifecycleStatus.Visible, statuses);
-
-        var secondToast = provider.FindComponent<FluentToast>();
-        await CloseToastAndWaitAsync(secondToast, ToastCloseReason.Programmatic);
-        await secondToastTask;
     }
 
     [Fact]
@@ -163,8 +161,7 @@
         service.Items.TryAdd(secondToast.Id, secondToast);
 
         var provider = Render<TestFluentToastProvider>(parameters => parameters
-            .Add(p => p.OverrideToastService, service)
-            .Add(p => p.MaxToastCount, 2));
+            .Add(p => p.OverrideToastService, service));
 
         var method = typeof(FluentToastProvider).GetMethod("SynchronizeToastQueue", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
         method.Invoke(provider.Instance, null);
