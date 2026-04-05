@@ -96,6 +96,148 @@
         Assert.Equal("Five", badges[1].GetAttribute("title"));
     }
 
+    [Fact]
+    public void FluentAutocomplete_RemoveSelectedItem_ByClickingBadgeClose()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown and select two items
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Verify 2 badges are present
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Equal(2, badges.Count);
+
+        // Act - Click the close icon on the first badge ("Eight") to remove it
+        cut.Find("span.fluent-badge svg").Click();
+
+        // Assert - Only "Five" remains
+        badges = cut.FindAll("span.fluent-badge");
+        Assert.Single(badges);
+        Assert.Equal("Five", badges[0].GetAttribute("title"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SelectedOptionTemplate()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch">
+                            <SelectedOptionTemplate>
+                                <div>@context</div>
+                            </SelectedOptionTemplate>
+                         </FluentAutocomplete>);
+
+        // Act - Open the dropdown and select two items
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Assert - Verify the custom template is used instead of default badges
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Empty(badges);
+
+        // Verify the custom template renders <div>Eight</div> and <div>Five</div>
+        var markup = cut.Markup;
+        Assert.Contains("<div>Eight</div>", markup);
+        Assert.Contains("<div>Five</div>", markup);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SingleSelect_SecondItemReplacesFirst()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown to display all options
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id"); // "Eight"
+        var id2 = options[1].GetAttribute("id"); // "Five"
+
+        // Select the first item ("Eight")
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = id1 });
+
+        // Assert - "Eight" is displayed in the StartTemplate
+        var badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("Eight", badge.GetAttribute("title"));
+
+        // Act - Open dropdown again and select the second item ("Five")
+        cut.Find("fluent-text-input").Click();
+
+        options = cut.FindAll("fluent-option");
+        id2 = options[1].GetAttribute("id"); // "Five" (re-read after re-render)
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = id2 });
+
+        // Assert - "Five" replaced "Eight" in the StartTemplate
+        badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("Five", badge.GetAttribute("title"));
+
+        // Only one badge should be present
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Single(badges);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SingleSelect_SelectedOptionTemplate()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                OnOptionsSearch="@OnOptionsSearch">
+                            <SelectedOptionTemplate>
+                                <div class="custom-selected">@context</div>
+                            </SelectedOptionTemplate>
+                         </FluentAutocomplete>);
+
+        // Act - Open the dropdown and select an item
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id"); // "Eight"
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = id1 });
+
+        // Assert - No default badge is rendered
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Empty(badges);
+
+        // Verify the custom template is used
+        var customElement = cut.Find("div.custom-selected");
+        Assert.Equal("Eight", customElement.TextContent);
+    }
+
     private void OnOptionsSearch(OptionsSearchEventArgs<string> e)
     {
         e.Items = Digits.Where(i => i.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
