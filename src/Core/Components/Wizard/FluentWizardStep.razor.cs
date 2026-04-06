@@ -194,7 +194,7 @@ public partial class FluentWizardStep : FluentComponentBase
     /// <summary>
     /// Unregisters an <see cref="EditContext"/> from validation tracking.
     /// </summary>
-    public void UnregisterEditContext(EditContext editContext)
+    internal void UnregisterEditContext(EditContext editContext)
     {
         _editContexts.Remove(editContext);
     }
