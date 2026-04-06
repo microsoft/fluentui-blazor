@@ -183,7 +183,7 @@ public partial class FluentWizardStep : FluentComponentBase
     /// Registers an <see cref="EditContext"/> for validation tracking.
     /// This is typically called by the <see cref="FluentWizardStepValidator"/> component.
     /// </summary>
-    public void RegisterEditContext(EditContext editContext)
+    internal void RegisterEditContext(EditContext editContext)
     {
         if (!_editContexts.Contains(editContext))
         {
