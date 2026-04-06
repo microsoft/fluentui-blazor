@@ -3,6 +3,8 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Numerics;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -13,10 +15,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A numeric input component that allows users to enter and edit numeric values.
 /// </summary>
-public partial class FluentNumber : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent
+public partial class FluentNumber<TValue> : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent
+                                            where TValue : struct, INumber<TValue>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="FluentNumber"/> class.
+    /// Initializes a new instance of the <see cref="FluentNumber{TValue}"/> class.
     /// </summary>
     public FluentNumber(LibraryConfiguration configuration) : base(configuration)
     {
@@ -91,6 +94,31 @@ public partial class FluentNumber : FluentInputImmediateBase<string?>, IFluentCo
     [Parameter]
     public string? Tooltip { get; set; }
 
+    /// <summary>
+    /// Gets or sets the culture of the component.
+    /// By default <see cref="CultureInfo.CurrentCulture"/> to display using the OS culture.
+    /// </summary>
+    [Parameter]
+    public virtual CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
+
+    /// <summary>
+    /// Gets or sets the minimum allowed value.
+    /// </summary>
+    [Parameter]
+    public TValue? Min { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum allowed value.
+    /// </summary>
+    [Parameter]
+    public TValue? Max { get; set; }
+
+    /// <summary>
+    /// Gets or sets the step increment. For decimal values, use e.g. Step="0.01".
+    /// </summary>
+    [Parameter]
+    public TValue? Step { get; set; }
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
@@ -117,8 +145,14 @@ public partial class FluentNumber : FluentInputImmediateBase<string?>, IFluentCo
                 // min: number, 
                 // max: number, 
                 // thousandsSeparator: string
-                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyNumberMask", 
-                    Id, 2, '.', new[] { '.', ',' }, -10, 999.5, ' ');
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyNumberMask",
+                    Id,
+                    Culture.NumberFormat.NumberDecimalDigits,
+                    Culture.NumberFormat.NumberDecimalSeparator,
+                    new[] { Culture.NumberFormat.NumberDecimalSeparator, CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator },
+                    Min.HasValue ? Min.Value : int.MinValue,
+                    Max.HasValue ? Max.Value : int.MaxValue,
+                    Culture.NumberFormat.NumberGroupSeparator);
             }
         }
     }
