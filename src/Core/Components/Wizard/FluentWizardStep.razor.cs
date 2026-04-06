@@ -173,9 +173,10 @@ public partial class FluentWizardStep : FluentComponentBase
     /// <summary>
     /// Clears all registered EditForm and EditContext pairs.
     /// </summary>
-    public void ClearEditFormAndContext()
+    internal void ClearEditFormAndContext()
     {
         _editForms.Clear();
+        _editContexts.Clear();
     }
 
     /// <summary>
