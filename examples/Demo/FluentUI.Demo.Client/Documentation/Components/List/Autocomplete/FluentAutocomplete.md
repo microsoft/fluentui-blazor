@@ -10,6 +10,11 @@ It combines a free-text input with a filtered list of options, allowing users to
 
 It is particularly useful when the list of options is large, as the user can narrow down choices without scrolling through all available items.
 
+By default, the `FluentAutocomplete` component compares search results by instance with its internal selected items.
+You can control this behavior by providing the `OptionSelectedComparer` parameter.
+
+> **Note:** Accessibility requirements are not yet implemented for this component.
+
 ## Keyboard interaction
 
 | Key | Behavior |
