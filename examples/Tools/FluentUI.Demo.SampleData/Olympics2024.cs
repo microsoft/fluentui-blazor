@@ -149,9 +149,6 @@ public partial class Olympics2024
         /// Gets a the embedded flag for a country
         /// </summary>
         public string Flag() => IMG_PREFIX_SVG + ResourceReader.EmbeddedPicture($"Flags.{Code}.png").ToBase64();
-
-        /// <summary />
-        public override string ToString() => Code;
     }
 
     /// <summary>
