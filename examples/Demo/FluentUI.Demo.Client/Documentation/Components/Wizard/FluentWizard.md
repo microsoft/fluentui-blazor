@@ -37,6 +37,12 @@ the static properties **FluentWizard.LabelButtonPrevious / LabelButtonNext / Lab
 
 {{ WizardDefault }}
 
+## Positioning
+
+You can choose to display the steps on the left (default) or on the top of the component using the **StepperPosition** parameter.
+
+{{ WizardPosition }}
+
 ## Customized
 
 You can customize the wizard with a **ButtonTemplate** to replace the default Previous/Next/Done buttons,
