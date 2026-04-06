@@ -1,7 +1,7 @@
 ---
 title: Default Values
-order: 0006
-category: 10|Get Started
+order: 0001
+category: 20|General
 route: /default-values
 icon: BoxCheckmark
 ---

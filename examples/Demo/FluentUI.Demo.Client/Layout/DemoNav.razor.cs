@@ -43,7 +43,7 @@ public partial class DemoNav
                             else
                             {
                                 return [ new NavItem(
-                                    Title: subGroup.Key,
+                                    Title: subGroup.First().Title,
                                     Route: subGroup.FirstOrDefault(p => p.IsDefaultPageGroup)?.Route ?? subGroup.OrderBy(p => p.Order).First().Route,
                                     Icon: subGroup.FirstOrDefault(p => p.IsDefaultPageGroup)?.Icon ?? null,
                                     Order: subGroup.First().Order,
@@ -70,7 +70,7 @@ public partial class DemoNav
                         Order: string.IsNullOrEmpty(categoryGroup.Key) ? "0099" : "0000",
                         Items: subGroups);
                 })
-                .OrderBy(i => i.Order);
+        .OrderBy(i => i.Order);
 
         NavItems = navItems;
     }

@@ -2,8 +2,8 @@
   <PropertyGroup>
 
     <!-- .NET Framework Version used with the Demo and Unit Tests projects -->
-    <!-- Change this to switch between net8.0, net9.0, or net10.0 -->    
-    <!-- 
+    <!-- Change this to switch between net8.0, net9.0, or net10.0 -->
+    <!--
         NOTES: When updating the NetVersion above, also update the files
          - _PublishDemoLocally.ps1
          - .github\workflows\build-core-lib.yml

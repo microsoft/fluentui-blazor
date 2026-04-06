@@ -1,6 +1,9 @@
 ---
 title: Spacing
-route: /Theme/Spacing
+order: 0004
+category: 20|General
+route: /Spacing
+icon: Spacebar
 ---
 
 # Spacing
@@ -16,7 +19,7 @@ Use the `Margin` or `Padding` **property** and choose a **direction**.
 Then add **size**, ranging from 0 to 8.
 
 Spacing utilities that apply to all breakpoints, from `xs` to `xl`,
-have no breakpoint abbreviation in them. 
+have no breakpoint abbreviation in them.
 The classes are named using the format `{property}{direction}-{size}`
 for `xs` and `{property}{direction}-{breakpoint}-{size}` for `sm`, `md`, `lg`, and `xl`.
 
@@ -91,7 +94,7 @@ The size changes with an interval of, by default, **4 pixels** (see the CSS vari
 
 ## `Margin` and `Padding` component attributes
 
-All **FluentUI Blazor components** have the `Margin` and `Padding` parameters.
+All **Fluent UI Blazor components** impleent the `Margin` and `Padding` parameters.
 
 You can specify a **CSS value** respecting the CSS [padding](https://developer.mozilla.org/docs/Web/CSS/padding)
 or CSS [margin](https://developer.mozilla.org/docs/Web/CSS/margin) pattern.
@@ -104,6 +107,7 @@ Or you can use a **class name** like shown earlier on this page.
 > If you wish to do this, you must use the `Style` parameter.
 
 Example:
+
 ```html
 <FluentButton Margin="10px" />                     => <fluent-button style="margin: 10px;" />
 <FluentButton Margin="10px 20px" />                => <fluent-button style="margin: 10px 20px;" />
@@ -160,13 +164,13 @@ These values can be customized or overridden in your own CSS files.
 
 ## Appendix - Bootstrap
 
-When using **Bootstrap** or **MudBlazor** (and possibly others) in your project,
-you will notice we use the same class names in some cases (this is done for consistency and ease of use).
-In this case, you make the choice to use **Bootstrap** or **FluentUI Blazor** classes for margins and paddings.
+When using **Bootstrap** or **MudBlazor** (and potentially other libraries) in your project,
+you will notice that in some cases we use the same class names (for consistency and ease of use).
+If this is the case, you need to choose whether you want to use our classes or those from the other library for margins and paddings.
 You do this by setting the loading order of the **Styles** files in your main page:
 
 For a project named **FluentUI.Demo**, in this example the Boostrap stylesheet is loaded after the FluentUI stylesheet.
-So, the **Bootstrap** classes override the **FluentUI Blazor** classes.
+So, the **Bootstrap** classes override the **Fluent UI Blazor** classes.
 **Bootstrap** will therefore be used for margins and paddings.
 
 ```html
@@ -174,8 +178,8 @@ So, the **Bootstrap** classes override the **FluentUI Blazor** classes.
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" />
 ```
 
-In this second example, the **FluentUI Blazor** classes override those from **Boostrap**.
-The **FluentUI Blazor** values will therefore be used for margins and paddings.
+In this second example, the **Fluent UI Blazor** classes override those from **Boostrap**.
+The **Fluent UI Blazor** values will therefore be used for margins and paddings.
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" />
