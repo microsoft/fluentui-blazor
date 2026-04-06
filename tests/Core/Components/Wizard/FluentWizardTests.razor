@@ -163,12 +163,14 @@
 		cut.Verify();
 	}
 
-	[Fact]
-	public void FluentWizard_StepperPositionTop()
+	[Theory]
+	[InlineData(StepperPosition.Top)]
+	[InlineData(StepperPosition.Left)]
+	public void FluentWizard_StepperPosition(StepperPosition position)
 	{
 		// Arrange && Act
 		var cut = Render(
-			@<FluentWizard StepperPosition="StepperPosition.Top">
+			@<FluentWizard StepperPosition="position">
 				<Steps>
 					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
 					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
@@ -228,6 +230,52 @@
 		var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
 		nextButton.Click();
 		Assert.Equal(0, value);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_ButtonTemplate()
+	{
+		FluentWizard wizard = default!;
+		int Value = 0;
+
+		// Arrange && Act
+		var cut = Render(
+			@<FluentWizard @ref="wizard" @bind-Value="@Value">
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+					<FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+				</Steps>
+				<ButtonTemplate>
+					@{
+						var index = context;
+						var lastStepIndex = 3;
+
+						<div>
+							@if (index > 0)
+							{
+								<FluentButton OnClick="@(() => wizard.GoToStepAsync(0))">Go to first page</FluentButton>
+								<FluentButton OnClick="@(() => wizard.GoToStepAsync(Value - 1))">Previous</FluentButton>
+							}
+						</div>
+						<FluentSpacer />
+						<div>
+							@if (index != lastStepIndex)
+							{
+								<FluentButton OnClick="@(() => wizard.GoToStepAsync(Value + 1))">Next</FluentButton>
+								<FluentButton OnClick="@(() => wizard.GoToStepAsync(lastStepIndex))">Go to last page</FluentButton>
+							}
+							else
+							{
+								<FluentButton OnClick="@(() => wizard.FinishAsync())">Finish</FluentButton>
+							}
+						</div>
+					}
+				</ButtonTemplate>
+			</FluentWizard>);
 
 		// Assert
 		cut.Verify();
