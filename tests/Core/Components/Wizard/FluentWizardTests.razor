@@ -331,4 +331,50 @@
 		Assert.Equal("Step 2", eventArgs.TargetLabel);
 		Assert.False(eventArgs.IsCancelled);
 	}
+
+
+	[Fact]
+	public void FluentWizard_StepTemplate()
+	{
+		
+		// Arrange && Act
+		var cut = Render(
+			@<FluentWizard>
+				<Steps>
+					<FluentWizardStep Label="Step 1">
+						<StepTemplate>
+							<div active="@context.Active" step-index="@context.Index">
+								Intro
+							</div>
+						</StepTemplate>
+						<ChildContent>
+							Content 1
+						</ChildContent>
+					</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">
+						<StepTemplate>
+							<div active="@context.Active" step-index="@context.Index">
+								Details
+							</div>
+						</StepTemplate>
+						<ChildContent>
+							Content 2
+						</ChildContent>
+					</FluentWizardStep>
+					<FluentWizardStep Label="Step 3">
+						<StepTemplate>
+							<div active="@context.Active" step-index="@context.Index">
+								Conclusion
+							</div>
+						</StepTemplate>
+						<ChildContent>
+							Content 3
+						</ChildContent>
+					</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Assert
+		cut.Verify();
+	}
 }
