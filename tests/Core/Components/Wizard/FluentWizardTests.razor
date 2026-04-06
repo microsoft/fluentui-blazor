@@ -164,9 +164,9 @@
 	}
 
 	[Theory]
-	[InlineData(StepperPosition.Top)]
-	[InlineData(StepperPosition.Left)]
-	public void FluentWizard_StepperPosition(StepperPosition position)
+	[InlineData(StepperPosition.Top, "top")]
+	[InlineData(StepperPosition.Left, "left")]
+	public void FluentWizard_StepperPosition(StepperPosition position, string expectedValue)
 	{
 		// Arrange && Act
 		var cut = Render(
@@ -178,7 +178,8 @@
 			</FluentWizard>);
 
 		// Assert
-		cut.Verify();
+		var attribute = cut.Find("div").GetAttribute("position") ?? string.Empty;
+		Assert.Equal(expectedValue, attribute); ;
 	}
 
 	[Fact]
