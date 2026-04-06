@@ -10,6 +10,9 @@ A **FluentTextInput** component enables a user to enter text into an app.
 It's typically used to capture a single line of text.
 The text displays on the screen in a simple, uniform format.
 
+
+{{ NumberDefault }}
+
 ## Appearance
 
 The apparent style of a text input can be changed by setting the `Appearance` property, but also by setting the `Size` property.

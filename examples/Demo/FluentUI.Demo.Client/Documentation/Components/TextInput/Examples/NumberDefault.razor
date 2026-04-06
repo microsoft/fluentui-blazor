@@ -1,0 +1,11 @@
+﻿<FluentStack HorizontalGap="20px">
+    <FluentNumber Label="Integer" Placeholder="Number" @bind-Value="@Value" />
+    <FluentNumber Label="Decimal" Placeholder="Number" @bind-Value="@Value" />
+</FluentStack>
+
+<FluentLabel>Value = @Value</FluentLabel>
+
+@code
+{
+    string Value = "";
+}

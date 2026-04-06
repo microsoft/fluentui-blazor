@@ -1,0 +1,43 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputImmediateBase<string?>
+
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Size="@Size.ToFieldSize()">
+    <fluent-text-input @ref="@Element"
+                       style="@ComponentStyleValue"
+                       appearance="@Appearance.ToAttributeValue()"
+                       autocomplete="off"
+                       autofocus="@Autofocus"
+                       aria-label="@AriaLabel"
+                       disabled="@Disabled"
+                       id="@Id"
+                       inputmode="numeric"
+                       name="@Name"
+                       placeholder="@Placeholder"
+                       readonly="@ReadOnly"
+                       required="@Required"
+                       slot="@FluentSlot.FieldInput"
+                       spellcheck="false"
+                       control-size="@Size.ToAttributeValue()"
+                       value="@CurrentValueAsString"
+                       @onfocusout="@FocusOutHandlerAsync"
+                       @onchange="@ChangeHandlerAsync"
+                       @ontextimmediate="@InputHandlerAsync"
+                       @attributes="AdditionalAttributes">
+
+        @if (StartTemplate != null)
+        {
+            <div slot="@FluentSlot.Start">
+                @StartTemplate
+            </div>
+        }
+
+        @if (EndTemplate != null)
+        {
+            <div slot="@FluentSlot.End">
+                @EndTemplate
+            </div>
+        }
+
+    </fluent-text-input>
+</FluentField>
