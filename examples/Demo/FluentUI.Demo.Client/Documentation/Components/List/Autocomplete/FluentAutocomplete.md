@@ -54,5 +54,4 @@ a configurable max dropdown height, and a max width for selected items.
 
 ## Migrating to v5
 
-TODO
-
+{{ INCLUDE File=MigrationFluentAutocomplete }}
