@@ -372,7 +372,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     // Returns Loading if set (controlled). If not controlled,
     // we assume the grid is loading until the next data load completes
-    internal bool EffectiveLoadingValue => Loading ?? ItemsProvider is not null;
+    internal bool EffectiveLoadingValue => Loading ?? (ItemsProvider is not null);
 
     private ElementReference? _gridReference;
     //private DotNetObjectReference<Type>? _dotNetObjectReference;
