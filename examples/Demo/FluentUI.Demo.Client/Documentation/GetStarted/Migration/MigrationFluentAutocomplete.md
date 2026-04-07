@@ -78,6 +78,14 @@ In v5, use `Multiple="false"` with `@bind-SelectedItems`.
 }
 ```
 
+### Automatic height growth
+
+In v4, the component used horizontal scroll navigation (`FluentFlipper`) when selected items exceeded the available width.
+In v5, this horizontal navigation has been removed, and the component **grows vertically** to display all selected items:
+set the `MaxAutoHeight` parameter to `unset` or a specific value. 
+You can also use `MaxSelectedWidth` to truncate long selected item labels, reducing the horizontal space each badge occupies.
+This may break existing layouts if you relied on the fixed-height behavior.
+
 ### Migrating to v5
 
 | v4 | v5 |

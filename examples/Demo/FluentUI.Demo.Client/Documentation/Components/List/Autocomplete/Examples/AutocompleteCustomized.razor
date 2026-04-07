@@ -1,5 +1,4 @@
-﻿@using System.Transactions
-@using static FluentUI.Demo.SampleData.Olympics2024
+﻿@using static FluentUI.Demo.SampleData.Olympics2024
 
 <div>Selected: <b>@string.Join("; ", SelectedCountries.Select(c => c.Name))</b></div>
 <div>Search Text: <b>@SearchText</b></div>
@@ -41,7 +40,7 @@
 
     @* Content display at the bottom of the Popup area *@
     <FooterContent>
-        @if (!context.Items.Any())
+        @if (!context.InProgress && !context.Items.Any())
         {
             <FluentText Size="TextSize.Size200" 
                         Align="TextAlign.Center" 

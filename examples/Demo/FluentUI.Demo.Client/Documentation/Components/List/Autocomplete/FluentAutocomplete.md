@@ -48,6 +48,16 @@ a configurable max dropdown height, and a max width for selected items.
 
 {{ AutocompleteCustomized }}
 
+## Different object instances from search result
+
+When the `OnOptionsSearch` method returns **new object instances** on each call (e.g. from an API or database query),
+the component cannot match them to already-selected items by **reference**.
+
+Use the `OptionSelectedComparer` parameter to provide a custom `IEqualityComparer<TOption>` that compares items by a unique key (such as an ID)
+instead of by reference. Without this, previously selected items may not appear as checked in the refreshed list.
+
+{{ AutocompleteComparer }}
+
 ## API FluentAutocomplete
 
 {{ API Type=FluentAutocomplete<string,string> }}
