@@ -40,35 +40,51 @@ public enum Color
 
     /// <summary>
     /// Use the '--warning' CSS variable color.
-    /// Note: This color is defined in the variables.css file. If this file is not being used, 
-    /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
     [Description("var(--warning)")]
     Warning,
 
     /// <summary>
     /// Use the '--info' CSS variable color.
-    /// Note: This color is defined in the variables.css file. If this file is not being used, 
-    /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
     [Description("var(--info)")]
     Info,
 
     /// <summary>
     /// Use the '--error' CSS variable color.
-    /// Note: This color is defined in the variables.css file. If this file is not being used, 
-    /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
     [Description("var(--error)")]
     Error,
 
     /// <summary>
     /// Use the '--success' CSS variable color.
-    /// Note: This color is defined in the variables.css file. If this file is not being used, 
-    /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
     [Description("var(--success)")]
     Success,
+
+    /// <summary>
+    /// Use the '--warning' CSS variable color.
+    /// </summary>
+    [Description("var(--warning-inverted)")]
+    WarningInverted,
+
+    /// <summary>
+    /// Use the '--info' CSS variable color.
+    /// </summary>
+    [Description("var(--info-inverted)")]
+    InfoInverted,
+
+    /// <summary>
+    /// Use the '--error' CSS variable color.
+    /// </summary>
+    [Description("var(--error-inverted)")]
+    ErrorInverted,
+
+    /// <summary>
+    /// Use the '--success' CSS variable color.
+    /// </summary>
+    [Description("var(--success-inverted)")]
+    SuccessInverted,
 
     /// <summary>
     /// Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.

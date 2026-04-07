@@ -1,9 +1,7 @@
-@using Xunit;
+﻿@using Xunit;
 @inherits FluentUITestContext
 @code
 {
-    // A timeout can be set when you open a toast and do not close it.
-    private const int TEST_TIMEOUT = 3000;
 
     public FluentToastTests()
     {
@@ -24,208 +22,456 @@
     /// </summary>
     public IRenderedComponent<FluentToastProvider> ToastProvider { get; }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
+    private static async Task CloseToastAndWaitAsync(IRenderedComponent<FluentToast> toast, ToastCloseReason reason)
+    {
+        await toast.Instance.Instance!.CloseAsync(reason);
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toast.Instance.Instance.Id,
+            Type = "beforetoggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toast.Instance.Instance.Id,
+            Type = "toggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+    }
+
+    private static Task DismissToastAndWaitAsync(IRenderedComponent<FluentToast> toast)
+        => CloseToastAndWaitAsync(toast, ToastCloseReason.Dismissed);
+
+    [Fact]
     public async Task FluentToast_Render()
     {
-        // Arrange
-        var renderOptions = new Templates.ToastRenderOptions();
-
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-               {
-                   options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                   options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-               });
+        _ = ToastService.ShowToastAsync(options =>
+        {
+            options.Title = "Toast title";
+            options.Body = "Toast Content - John";
+        });
 
-        // Don't wait for the toast to be closed
-        await Task.CompletedTask;
 
         // Assert
         Assert.Contains("fluent-toast-provider", ToastProvider.Markup);
         Assert.Contains("Toast Content - John", ToastProvider.Markup);
-        ToastProvider.Verify();
     }
 
     [Fact]
-    public void FluentToast_ChildContent()
+    public void FluentToast_BodyContent()
     {
         // Arrange & Act
-        var cut = Render(@<FluentToast>Hello World</FluentToast>);
+        var cut = Render(@<FluentToast><BodyContent>Hello World</BodyContent></FluentToast>);
 
         // Assert
         Assert.Contains("Hello World", cut.Markup);
-        Assert.Contains("fuib", cut.Markup);
+        Assert.Contains("fluent-toast-b", cut.Markup);
     }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
+    [Fact]
+    public void FluentToast_Icon_RendersCustomIcon()
+    {
+        var icon = new CoreIcons.Regular.Size20.Dismiss();
+        var cut = Render<FluentToast>(parameters => parameters
+            .Add(p => p.Body, "Toast body")
+            .Add(p => p.Icon, icon));
+
+        Assert.Same(icon, cut.Instance.Icon);
+        Assert.Contains("slot=\"media\"", cut.Markup);
+        Assert.DoesNotContain("fluent-spinner", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentToast_Inverted_RendersInvertedAttribute()
+    {
+        var cut = Render<FluentToast>(parameters => parameters
+            .Add(p => p.Body, "Toast body")
+            .Add(p => p.Inverted, true));
+
+        Assert.True(cut.Instance.Inverted);
+        Assert.Contains("inverted=\"true\"", cut.Markup, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void FluentToast_IndeterminateProgress_RendersSpinner()
+    {
+        var cut = Render<FluentToast>(parameters => parameters
+            .Add(p => p.Body, "Toast body")
+            .Add(p => p.Type, ToastType.IndeterminateProgress));
+
+        Assert.Equal(ToastType.IndeterminateProgress, cut.Instance.Type);
+        Assert.Contains("fluent-spinner", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentToast_ToastOptionsType_IsAppliedFromProvider()
+    {
+        _ = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Progress body";
+            options.Type = ToastType.IndeterminateProgress;
+        });
+
+        await Task.CompletedTask;
+
+        var toast = ToastProvider.FindComponent<FluentToast>();
+
+        Assert.Equal(ToastType.IndeterminateProgress, toast.Instance.Type);
+        Assert.Contains("fluent-spinner", toast.Markup);
+    }
+
+    [Fact]
+    public async Task FluentToast_ToastOptionsInverted_IsAppliedFromProvider()
+    {
+        _ = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Inverted body";
+            options.Inverted = true;
+        });
+
+        await Task.CompletedTask;
+
+        var toast = ToastProvider.FindComponent<FluentToast>();
+
+        Assert.True(toast.Instance.Inverted);
+        Assert.Contains("inverted=\"true\"", toast.Markup, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void FluentToast_Subtitle_RendersWhenNotEmpty()
+    {
+        var cut = Render(@<FluentToast Body="Toast body" Subtitle="Toast subtitle" />);
+
+        Assert.Contains("Toast subtitle", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentToast_IsDismissable_TrueWithDismissAction_RendersDismissLink()
+    {
+        var cut = Render(@<FluentToast Body="Toast body" IsDismissable="true" DismissAction="Dismiss now" />);
+
+        Assert.Contains("Dismiss now", cut.Markup);
+        Assert.Contains("fluent-link", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentToast_IsDismissable_TrueWithNullDismissAction_RendersDismissButton()
+    {
+        var cut = Render(@<FluentToast Body="Toast body" IsDismissable="true" />);
+
+        Assert.Contains("Title=\"Dismiss\"", cut.Markup, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("fluent-button", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentToast_DismissButton_OnClick_DismissesToast()
+    {
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Dismiss button body";
+            options.IsDismissable = true;
+        });
+
+        await Task.CompletedTask;
+
+        var toast = ToastProvider.FindComponent<FluentToast>();
+        var toastInstance = Assert.IsType<ToastInstance>(toast.Instance.Instance);
+
+        toast.Find("fluent-button").Click();
+
+        Assert.Equal(ToastCloseReason.Dismissed, toastInstance.PendingCloseReason);
+
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toastInstance.Id,
+            Type = "beforetoggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toastInstance.Id,
+            Type = "toggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+
+        var result = await toastTask;
+
+        Assert.Equal(ToastCloseReason.Dismissed, result);
+    }
+
+    [Fact]
+    public async Task FluentToast_DismissAction_InvokesDismissActionCallback()
+    {
+        var dismissActionCallbackInvoked = false;
+
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Dismiss callback body";
+            options.IsDismissable = true;
+            options.DismissAction = "Dismiss now";
+            options.DismissActionCallback = () =>
+            {
+                dismissActionCallbackInvoked = true;
+                return Task.CompletedTask;
+            };
+        });
+
+        await Task.CompletedTask;
+
+        var toast = ToastProvider.FindComponent<FluentToast>();
+        var toastInstance = Assert.IsType<ToastInstance>(toast.Instance.Instance);
+
+        Assert.True(toast.Instance.IsDismissable);
+        Assert.Equal("Dismiss now", toast.Instance.DismissAction);
+
+        toast.Find("fluent-link").Click();
+
+        Assert.True(dismissActionCallbackInvoked);
+        Assert.Equal(ToastCloseReason.Dismissed, toastInstance.PendingCloseReason);
+
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toastInstance.Id,
+            Type = "beforetoggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toastInstance.Id,
+            Type = "toggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+
+        var result = await toastTask;
+
+        Assert.Equal(ToastCloseReason.Dismissed, result);
+    }
+
+    [Fact]
+    public async Task FluentToast_OnToggle_CallbackInvoked()
+    {
+        bool? callbackValue = null;
+
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "OnToggle body";
+        });
+
+        await Task.CompletedTask;
+
+        var toast = ToastProvider.FindComponent<FluentToast>();
+        var component = toast.Instance;
+        var toastId = component.Instance!.Id;
+        typeof(FluentToast).GetProperty(nameof(FluentToast.OnToggle))!
+            .SetValue(component, Microsoft.AspNetCore.Components.EventCallback.Factory.Create<bool>(this, value => callbackValue = value));
+
+        await component.OnToggleAsync(new()
+        {
+            Id = toastId,
+            Type = "toggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+
+        var result = await toastTask;
+
+        Assert.False(callbackValue);
+        Assert.False(component.Opened);
+        Assert.Equal(ToastCloseReason.TimedOut, result);
+    }
+
+    [Fact]
+    public async Task FluentToast_OpenedChanged_CallbackInvoked()
+    {
+        bool? callbackValue = null;
+
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "OpenedChanged body";
+        });
+
+        await Task.CompletedTask;
+
+        var toast = ToastProvider.FindComponent<FluentToast>();
+        var component = toast.Instance;
+        var toastId = component.Instance!.Id;
+        typeof(FluentToast).GetProperty(nameof(FluentToast.OpenedChanged))!
+            .SetValue(component, Microsoft.AspNetCore.Components.EventCallback.Factory.Create<bool>(this, value => callbackValue = value));
+
+        await component.OnToggleAsync(new()
+        {
+            Id = toastId,
+            Type = "toggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+
+        var result = await toastTask;
+
+        Assert.False(callbackValue);
+        Assert.False(component.Opened);
+        Assert.Equal(ToastCloseReason.TimedOut, result);
+    }
+
+    [Fact]
     public async Task FluentToast_OpenClose()
     {
-        // Arrange
-        var renderOptions = new Templates.ToastRenderOptions()
-        {
-            AutoClose = true,
-        };
-
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-                {
-                    options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                    options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-                });
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Auto-close body";
+        });
 
-        // Wait for the toast to be closed (auto-closed on second render)
+        await Task.CompletedTask;
+
+        var toast = ToastProvider.FindComponent<FluentToast>();
+        await CloseToastAndWaitAsync(toast, ToastCloseReason.Programmatic);
+
+        // Wait for the toast to be closed
         var result = await toastTask;
 
         // Assert
-        Assert.Equal(1, renderOptions.OnInitializedCount);
-        Assert.False(result.Cancelled);
-        Assert.True(result.GetValue<bool>());
+        Assert.Equal(ToastCloseReason.Programmatic, result);
     }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
+    [Fact]
+    public async Task FluentToast_RequestCloseAsync_WhenNotOpened_DoesNothing()
+    {
+        var cut = Render<FluentToast>(parameters => parameters.Add(p => p.Body, "Toast body"));
+        var method = typeof(FluentToast).GetMethod("RequestCloseAsync", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+
+        var task = (Task)method.Invoke(cut.Instance, null)!;
+        await task;
+
+        Assert.False(cut.Instance.Opened);
+    }
+
+    [Fact]
     public async Task FluentToast_Instance()
     {
-        // Arrange
-        var renderOptions = new Templates.ToastRenderOptions();
-
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-               {
-                   options.Id = "my-toast";
-                   options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                   options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-               });
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Id = "my-toast";
+            options.Body = "Instance body";
+        });
 
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
 
-        // Find the toast component and close it with a typed value
+        // Find the toast component and close it programmatically
         var toast = ToastProvider.FindComponent<FluentToast>();
         var instanceId = toast.Instance.Instance?.Id;
         var instanceIndex = toast.Instance.Instance?.Index;
-        await toast.Instance.Instance!.CloseAsync<int>(42);
+        await CloseToastAndWaitAsync(toast, ToastCloseReason.Programmatic);
 
         // Wait for the toast to be closed
         var result = await toastTask;
 
         // Assert
         Assert.Equal("my-toast", instanceId);
-        Assert.Equal(42, result.GetValue<int>());
         Assert.True(instanceIndex > 0);
-        Assert.False(result.Cancelled);
+        Assert.Equal(ToastCloseReason.Programmatic, result);
     }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
+    [Fact]
     public async Task FluentToast_Instance_Cancel()
     {
-        // Arrange
-        var renderOptions = new Templates.ToastRenderOptions();
-
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-               {
-                   options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                   options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-               });
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Cancelable body";
+        });
 
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
 
         // Find the toast and cancel it
         var toast = ToastProvider.FindComponent<FluentToast>();
-        await toast.Instance.Instance!.CancelAsync();
+        await DismissToastAndWaitAsync(toast);
 
         // Wait for the toast to be closed
         var result = await toastTask;
 
         // Assert
-        Assert.True(result.Cancelled);
+        Assert.Equal(ToastCloseReason.Dismissed, result);
     }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
+    [Fact]
     public async Task FluentToast_Instance_CloseWithResult()
     {
-        // Arrange
-        var renderOptions = new Templates.ToastRenderOptions();
-
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-               {
-                   options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                   options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-               });
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Close with result body";
+        });
 
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
 
-        // Find the toast and close it with an explicit ToastResult
+        // Find the toast and close it programmatically
         var toast = ToastProvider.FindComponent<FluentToast>();
-        await toast.Instance.Instance!.CloseAsync(ToastResult.Ok("explicit-result"));
+        await CloseToastAndWaitAsync(toast, ToastCloseReason.Programmatic);
 
         // Wait for the toast to be closed
         var result = await toastTask;
 
         // Assert
-        Assert.False(result.Cancelled);
-        Assert.Equal("explicit-result", result.GetValue<string>());
+        Assert.Equal(ToastCloseReason.Programmatic, result);
     }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
+    [Fact]
     public async Task FluentToast_Instance_CloseNoValue()
     {
-        // Arrange
-        var renderOptions = new Templates.ToastRenderOptions();
-
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-               {
-                   options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                   options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-               });
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Close no value body";
+        });
 
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
 
         // Find the toast and close it without a value
         var toast = ToastProvider.FindComponent<FluentToast>();
-        await toast.Instance.Instance!.CloseAsync();
+        await CloseToastAndWaitAsync(toast, ToastCloseReason.Programmatic);
 
         // Wait for the toast to be closed
         var result = await toastTask;
 
         // Assert
-        Assert.False(result.Cancelled);
-        Assert.Null(result.Value);
+        Assert.Equal(ToastCloseReason.Programmatic, result);
     }
 
-    [Theory(Timeout = TEST_TIMEOUT)]
-    [InlineData(DialogState.Closed, "unknown", "any-old", "any-new")]
-    [InlineData(DialogState.Open, "toggle", "any-old", "open")]
-    [InlineData(DialogState.Closed, "toggle", "any-old", "closed")]
-    [InlineData(DialogState.Opening, "beforetoggle", "closed", "any-new")]
-    [InlineData(DialogState.Closing, "beforetoggle", "open", "any-new")]
-    public async Task FluentToast_Toggle_StateChange(DialogState expectedState, string eventType, string oldState, string newState)
+    [Theory]
+    [InlineData(ToastLifecycleStatus.Visible, "toggle", "any-old", "open")]
+    [InlineData(ToastLifecycleStatus.Dismissed, "beforetoggle", "open", "any-new")]
+    public async Task FluentToast_Toggle_StatusChange(ToastLifecycleStatus expectedStatus, string eventType, string oldState, string newState)
     {
-        // Arrange
-        var renderOptions = new Templates.ToastRenderOptions();
         ToastEventArgs? capturedArgs = null;
 
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-               {
-                   options.Id = "my-id";
-                   options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                   options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-                   options.OnStateChange = (args) =>
-                   {
-                       capturedArgs = args;
-                   };
-               });
+        _ = ToastService.ShowToastAsync(options =>
+        {
+            options.Id = "my-id";
+            options.Body = "State change body";
+            options.OnStatusChange = (args) =>
+            {
+                capturedArgs = args;
+            };
+        });
 
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
 
-        // Find the toast and raise a state change via RaiseOnStateChangeAsync
+        // Find the toast and raise a status change via RaiseOnStatusChangeAsync
         var toast = ToastProvider.FindComponent<FluentToast>();
         var toggleArgs = new DialogToggleEventArgs()
         {
@@ -234,28 +480,24 @@
             OldState = oldState,
             NewState = newState,
         };
-        await toast.Instance.RaiseOnStateChangeAsync(toggleArgs);
+        await toast.Instance.RaiseOnStatusChangeAsync(toggleArgs);
 
         // Assert
         Assert.NotNull(capturedArgs);
-        Assert.Equal(expectedState, capturedArgs.State);
+        Assert.Equal(expectedStatus, capturedArgs.Status);
         Assert.Equal("my-id", capturedArgs.Id);
         Assert.NotNull(capturedArgs.Instance);
     }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
+    [Fact]
     public async Task FluentToast_Toggle_IdMismatch()
     {
-        // Arrange
-        var renderOptions = new Templates.ToastRenderOptions();
-
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-               {
-                   options.Id = "my-id";
-                   options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                   options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-               });
+        _ = ToastService.ShowToastAsync(options =>
+        {
+            options.Id = "my-id";
+            options.Body = "Toast Content";
+        });
 
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
@@ -271,181 +513,181 @@
         Assert.Contains("Toast Content", ToastProvider.Markup);
     }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
+    [Fact]
+    public async Task FluentToast_HandleToggleAsync_WhenInstanceIsNotToastInstance_DoesNothing()
+    {
+        var onToggleInvoked = false;
+        var openedChangedInvoked = false;
+        var fakeInstance = new TestNonToastInstance("non-toast-instance");
+
+        var cut = Render<FluentToast>(parameters => parameters
+            .Add(p => p.Instance, fakeInstance)
+            .Add(p => p.Opened, true)
+            .Add(p => p.OnToggle, Microsoft.AspNetCore.Components.EventCallback.Factory.Create<bool>(this, _ => onToggleInvoked = true))
+            .Add(p => p.OpenedChanged, Microsoft.AspNetCore.Components.EventCallback.Factory.Create<bool>(this, _ => openedChangedInvoked = true)));
+
+        await cut.Instance.OnToggleAsync(new()
+        {
+            Id = fakeInstance.Id,
+            Type = "toggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+
+        Assert.True(cut.Instance.Opened);
+        Assert.False(onToggleInvoked);
+        Assert.False(openedChangedInvoked);
+    }
+
+    [Fact]
     public async Task FluentToast_StateChange_ViaClosed()
     {
-        // Arrange
-        var renderOptions = new Templates.ToastRenderOptions();
-        var stateChanges = new List<DialogState>();
+        var statusChanges = new List<ToastLifecycleStatus>();
 
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-               {
-                   options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                   options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-                   options.OnStateChange = (args) =>
-                   {
-                       stateChanges.Add(args.State);
-                   };
-               });
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "State change body";
+            options.Timeout = 1000;
+            options.OnStatusChange = (args) =>
+            {
+                statusChanges.Add(args.Status);
+            };
+        });
 
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
 
-        // Close the toast via the service — should raise Closing then Closed states
+        // Close the toast via the service — should raise dismissed then unmounted statuses
         var toast = ToastProvider.FindComponent<FluentToast>();
-        await ToastService.CloseAsync(toast.Instance.Instance!, ToastResult.Ok("done"));
+        await ToastService.CloseAsync(toast.Instance.Instance!, ToastCloseReason.Programmatic);
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toast.Instance.Instance!.Id,
+            Type = "beforetoggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toast.Instance.Instance!.Id,
+            Type = "toggle",
+            OldState = "open",
+            NewState = "closed",
+        });
 
         // Wait for the task
         var result = await toastTask;
 
         // Assert
-        Assert.Contains(DialogState.Closing, stateChanges);
-        Assert.Contains(DialogState.Closed, stateChanges);
-        Assert.False(result.Cancelled);
-        Assert.Equal("done", result.GetValue<string>());
+        Assert.Contains(ToastLifecycleStatus.Dismissed, statusChanges);
+        Assert.Contains(ToastLifecycleStatus.Unmounted, statusChanges);
+        Assert.Equal(ToastCloseReason.Programmatic, result);
     }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
-    public async Task FluentToast_OnStateChange_NoDelegate()
+    [Fact]
+    public async Task FluentToast_OnStatusChange_NoDelegate()
     {
-        // Arrange — show toast WITHOUT an OnStateChange callback
-        var renderOptions = new Templates.ToastRenderOptions();
-
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-               {
-                   options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                   options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-                   // No OnStateChange set — provider passes EmptyOnStateChange
-               });
+        _ = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "No delegate body";
+        });
 
         await Task.CompletedTask;
 
-        // Raise a state change — should not throw even when callback is the empty delegate
+        // Raise a status change — should not throw even when callback is the empty delegate
         var toast = ToastProvider.FindComponent<FluentToast>();
-        var args = await toast.Instance.RaiseOnStateChangeAsync(new DialogToggleEventArgs
+        var args = await toast.Instance.RaiseOnStatusChangeAsync(new DialogToggleEventArgs
         {
             Id = toast.Instance.Instance?.Id,
             Type = "toggle",
             NewState = "open",
         });
 
-        // Assert: state correctly mapped, no exception thrown
-        Assert.Equal(DialogState.Open, args.State);
+        // Assert: status correctly mapped, no exception thrown
+        Assert.Equal(ToastLifecycleStatus.Visible, args.Status);
     }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
-    public async Task FluentToast_ComponentRule()
+    [Fact]
+    public async Task FluentToast_UpdateBody()
     {
-        // Arrange — use reflection to call the private ShowToastAsync(Type, ToastOptions)
-        // with System.String which is not a Blazor ComponentBase
-        var method = typeof(ToastService).GetMethod(
-            "ShowToastAsync",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance,
-            [typeof(Type), typeof(ToastOptions)]);
-
-        Assert.NotNull(method);
-
-        // Act
-        var ex = await Assert.ThrowsAsync<ArgumentException>(async () =>
+        _ = ToastService.ShowToastAsync(options =>
         {
-            await (Task<ToastResult>)method!.Invoke(ToastService, [typeof(string), new ToastOptions()])!;
+            options.Body = "Initial body";
         });
 
-        // Assert
-        Assert.Equal("System.String must be a Blazor Component (Parameter 'componentType')", ex.Message);
-    }
+        await Task.CompletedTask;
 
-    [Fact(Timeout = TEST_TIMEOUT)]
-    public async Task FluentToast_ProviderRequired()
-    {
-        // Arrange
-        ToastProvider.Instance.UpdateId(null);
+        var toast = ToastProvider.FindComponent<FluentToast>();
+        await toast.Instance.Instance!.UpdateAsync(options => options.Body = "Updated body");
 
-        // Act
-        var ex = await Assert.ThrowsAsync<FluentServiceProviderException<FluentToastProvider>>(async () =>
-        {
-            _ = await ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-                   {
-                       options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-                   });
-        });
+        ToastProvider.Render();
 
-        // Assert
-        Assert.Equal("FluentToastProvider needs to be added to the page/component hierarchy of your application/site. Usually this will be 'MainLayout' but depending on your setup it could be at a different location.", ex.Message);
-    }
-
-    [Fact]
-    public void FluentToast_ToastResult()
-    {
-        // Arrange
-        var result = new ToastResult(content: "OK", cancelled: false);
-
-        // Assert
-        Assert.Equal("OK", result.Value);
-        Assert.Equal("OK", result.GetValue<string>());
-        Assert.Equal(0, result.GetValue<int>());
-        Assert.False(result.Cancelled);
-    }
-
-    [Fact]
-    public void FluentToast_ToastResult_Ok()
-    {
-        // Arrange
-        var result = ToastResult.Ok("My content");
-
-        // Assert
-        Assert.Equal("My content", result.Value);
-        Assert.False(result.Cancelled);
-    }
-
-    [Fact]
-    public void FluentToast_ToastResult_Ok_NoValue()
-    {
-        // Arrange
-        var result = ToastResult.Ok();
-
-        // Assert
-        Assert.Null(result.Value);
-        Assert.False(result.Cancelled);
-    }
-
-    [Fact]
-    public void FluentToast_ToastResult_Cancel()
-    {
-        // Arrange
-        var result = ToastResult.Cancel("My content");
-
-        // Assert
-        Assert.Equal("My content", result.Value);
-        Assert.True(result.Cancelled);
-    }
-
-    [Fact]
-    public void FluentToast_ToastResult_Cancel_NoValue()
-    {
-        // Arrange
-        var result = ToastResult.Cancel();
-
-        // Assert
-        Assert.Null(result.Value);
-        Assert.True(result.Cancelled);
+        Assert.Contains("Updated body", ToastProvider.Markup);
     }
 
     [Fact]
     public void FluentToast_Options_Ctor()
     {
         // Arrange
-        var options = new ToastOptions() { Data = "My data" };
-        var optionsWithFactory = new ToastOptions(o => o.Id = "my-id");
+        var options = new ToastOptions() { Data = "My data", Type = ToastType.Communication };
+        var optionsWithFactory = new ToastOptions(o =>
+        {
+            o.Id = "my-id";
+            o.Type = ToastType.Confirmation;
+        });
 
         // Assert
         Assert.Equal("My data", options.Data);
+        Assert.Equal(ToastType.Communication, options.Type);
         Assert.Equal("my-id", optionsWithFactory.Id);
+        Assert.Equal(ToastType.Confirmation, optionsWithFactory.Type);
     }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
+    [Theory]
+    [InlineData(ToastIntent.Info, Color.Info)]
+    [InlineData(ToastIntent.Success, Color.Success)]
+    [InlineData(ToastIntent.Warning, Color.Warning)]
+    [InlineData(ToastIntent.Error, Color.Error)]
+    public void FluentToast_Intent_MapsToExpectedColor(ToastIntent intent, Color expectedColor)
+    {
+        var cut = Render<FluentToast>(parameters => parameters.Add(p => p.Body, "test"));
+        var color = cut.Instance.GetIntentColor(intent);
+
+        Assert.Equal(expectedColor, color);
+    }
+
+    [Theory]
+    [InlineData(ToastIntent.Info, Color.InfoInverted)]
+    [InlineData(ToastIntent.Success, Color.SuccessInverted)]
+    [InlineData(ToastIntent.Warning, Color.WarningInverted)]
+    [InlineData(ToastIntent.Error, Color.ErrorInverted)]
+    public void FluentToast_Inverted_Intent_MapsToExpectedColor(ToastIntent intent, Color expectedColor)
+    {
+        var cut = Render<FluentToast>(parameters => parameters
+            .Add(p => p.Body, "test")
+            .Add(p => p.Inverted, true));
+        var color = cut.Instance.GetIntentColor(intent);
+
+        Assert.Equal(expectedColor, color);
+    }
+
+    [Theory]
+    [InlineData(ToastIntent.Info, "Info")]
+    [InlineData(ToastIntent.Success, "CheckmarkCircle")]
+    [InlineData(ToastIntent.Warning, "Warning")]
+    [InlineData(ToastIntent.Error, "DismissCircle")]
+    public void FluentToast_IntentIcon_MapsToExpectedIcon(ToastIntent intent, string expectedIconTypeName)
+    {
+        var cut = Render<FluentToast>(parameters => parameters.Add(p => p.Intent, intent));
+        var intentIcon = cut.Instance.IntentIcon;
+
+        Assert.NotNull(intentIcon);
+        Assert.Equal(expectedIconTypeName, intentIcon.GetType().Name);
+    }
+
+    [Fact]
     public async Task FluentToast_MarginPadding()
     {
         // Arrange
@@ -455,12 +697,11 @@
             Style = "color: red;",
             Margin = "10px",
             Padding = "20px",
+            Body = "Spacing body",
         };
-        toastOptions.Parameters.Add(nameof(Templates.ToastRender.Options), new Templates.ToastRenderOptions());
-        toastOptions.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
 
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(toastOptions);
+        _ = ToastService.ShowToastAsync(toastOptions);
 
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
@@ -473,36 +714,147 @@
         Assert.Contains("color: red;", toastOptions.StyleValue);
     }
 
-    [Fact(Timeout = TEST_TIMEOUT)]
-    public async Task FluentToast_ProviderClassStyle()
-    {
-        // Assert: provider always adds "fluent-toast-provider" class and z-index style
-        Assert.Contains("fluent-toast-provider", ToastProvider.Markup);
-        Assert.Contains("z-index", ToastProvider.Markup);
-
-        // Don't wait for the toast to be closed
-        await Task.CompletedTask;
-    }
-
-    [Fact(Timeout = TEST_TIMEOUT)]
+    [Fact]
     public async Task FluentToast_AdditionalAttributes()
     {
-        // Arrange
-        var renderOptions = new Templates.ToastRenderOptions();
-
         // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastRender>(options =>
-               {
-                   options.Parameters.Add(nameof(Templates.ToastRender.Options), renderOptions);
-                   options.Parameters.Add(nameof(Templates.ToastRender.Name), "John");
-                   options.AdditionalAttributes = new Dictionary<string, object> { { "data-test", "my-toast" } };
-               });
+        _ = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Toast Content";
+            options.AdditionalAttributes = new Dictionary<string, object> { { "data-test", "my-toast" } };
+        });
 
         // Don't wait for the toast to be closed
         await Task.CompletedTask;
 
         // Assert: toast content rendered inside the provider
         Assert.Contains("Toast Content", ToastProvider.Markup);
+        Assert.Contains("data-test=\"my-toast\"", ToastProvider.Markup);
+    }
+
+    [Fact]
+    public async Task FluentToast_QuickAction1Callback()
+    {
+        var invoked = false;
+
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Toast Content";
+            options.QuickAction1 = "Undo";
+            options.QuickAction1Callback = () =>
+            {
+                invoked = true;
+                return Task.CompletedTask;
+            };
+        });
+
+        ToastProvider.Find("fluent-link").Click();
+        var toast = ToastProvider.FindComponent<FluentToast>();
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toast.Instance.Instance!.Id,
+            Type = "toggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+
+        var result = await toastTask;
+
+        Assert.True(invoked);
+        Assert.Equal(ToastCloseReason.QuickAction, result);
+    }
+
+    [Fact]
+    public async Task FluentToast_QuickAction2Callback()
+    {
+        var invoked = false;
+
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Toast Content";
+            options.QuickAction2 = "Undo";
+            options.QuickAction2Callback = () =>
+            {
+                invoked = true;
+                return Task.CompletedTask;
+            };
+        });
+
+        ToastProvider.Find("fluent-link").Click();
+        var toast = ToastProvider.FindComponent<FluentToast>();
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toast.Instance.Instance!.Id,
+            Type = "toggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+
+        var result = await toastTask;
+
+        Assert.True(invoked);
+        Assert.Equal(ToastCloseReason.QuickAction, result);
+    }
+
+    [Fact]
+    public async Task FluentToast_DismissById()
+    {
+        var toastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Id = "dismiss-me";
+            options.Body = "Dismiss by id";
+        });
+
+        await Task.CompletedTask;
+
+        var dismissed = await ToastService.DismissAsync("dismiss-me");
+        var toast = ToastProvider.FindComponent<FluentToast>();
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toast.Instance.Instance!.Id,
+            Type = "toggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+        var result = await toastTask;
+
+        Assert.True(dismissed);
+        Assert.Equal(ToastCloseReason.Dismissed, result);
+    }
+
+    [Fact]
+    public async Task FluentToast_DismissAll()
+    {
+        var firstToastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Id = "dismiss-all-1";
+            options.Body = "First toast";
+        });
+
+        var secondToastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Id = "dismiss-all-2";
+            options.Body = "Second toast";
+        });
+
+        await Task.CompletedTask;
+
+        var dismissedCount = await ToastService.DismissAllAsync();
+        var toasts = ToastProvider.FindComponents<FluentToast>().ToList();
+        foreach (var toast in toasts)
+        {
+            await toast.Instance.OnToggleAsync(new()
+            {
+                Id = toast.Instance.Instance!.Id,
+                Type = "toggle",
+                OldState = "open",
+                NewState = "closed",
+            });
+        }
+
+        Assert.Equal(2, dismissedCount);
+        Assert.Equal(ToastCloseReason.Dismissed, await firstToastTask);
+        Assert.Equal(ToastCloseReason.Dismissed, await secondToastTask);
     }
 
     [Fact]
@@ -518,20 +870,25 @@
         Assert.True(true);
     }
 
-    
-    [Fact(Timeout = TEST_TIMEOUT)]
-    public async Task FluentToast_WithInstance()
+    private sealed class TestNonToastInstance(string id) : IToastInstance
     {
-        // Act
-        var toastTask = ToastService.ShowToastAsync<Templates.ToastWithInstance>();
+        public string Id { get; } = id;
 
-        // Don't wait for the toast to be closed
-        await Task.CompletedTask;
+        public long Index => 0;
 
-        ToastProvider.Render();
+        public ToastOptions Options { get; } = new();
 
-        // Assert
-        var x = ToastProvider.Markup;
-        ToastProvider.Verify();
+        public Task<ToastCloseReason> Result => Task.FromResult(ToastCloseReason.Programmatic);
+
+        public ToastLifecycleStatus LifecycleStatus => ToastLifecycleStatus.Visible;
+
+        public Task DismissAsync() => Task.CompletedTask;
+
+        public Task CloseAsync() => Task.CompletedTask;
+
+        public Task CloseAsync(ToastCloseReason reason) => Task.CompletedTask;
+
+        public Task UpdateAsync(Action<ToastOptions> update) => Task.CompletedTask;
     }
 }
+

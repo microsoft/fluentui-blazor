@@ -10,13 +10,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface IToastInstance
 {
     /// <summary>
-    /// Gets the component type of the Toast.
-    /// </summary>
-    internal Type ComponentType { get; }
-
-    /// <summary>
-    /// Gets the unique identifier for the Toast.
-    /// If this value is not set in the <see cref="ToastOptions"/>, a new identifier is generated.
+    /// Gets the unique identifier for the Toast. If this value is not set in the <see cref="ToastOptions"/>, a new
+    /// identifier is generated.
     /// </summary>
     string Id { get; }
 
@@ -31,33 +26,38 @@ public interface IToastInstance
     ToastOptions Options { get; }
 
     /// <summary>
-    /// Gets the result of the Toast.
+    /// Gets the close reason of the Toast.
     /// </summary>
-    Task<ToastResult> Result { get; }
+    Task<ToastCloseReason> Result { get; }
 
     /// <summary>
-    /// Closes the Toast with a Cancel result.
+    /// Gets the lifecycle status of the toast.
     /// </summary>
-    /// <returns></returns>
-    Task CancelAsync();
+    ToastLifecycleStatus LifecycleStatus { get; }
 
     /// <summary>
-    /// Closes the Toast with the specified result.
+    /// Closes the Toast programmatically.
     /// </summary>
     /// <returns></returns>
     Task CloseAsync();
 
     /// <summary>
-    /// Closes the Toast with the specified result.
+    /// Closes the Toast with the specified reason.
     /// </summary>
-    /// <param name="result">Result to close the Toast with.</param>
+    /// <param name="reason">Reason to close the Toast with.</param>
     /// <returns></returns>
-    Task CloseAsync(ToastResult result);
+    Task CloseAsync(ToastCloseReason reason);
 
     /// <summary>
-    /// Closes the Toast with the specified result.
+    /// Dismisses the Toast.
     /// </summary>
-    /// <param name="result">Result to close the Toast with.</param>
     /// <returns></returns>
-    Task CloseAsync<T>(T result);
+    Task DismissAsync();
+
+    /// <summary>
+    /// Updates the toast options while the toast is shown.
+    /// </summary>
+    /// <param name="update">The action that mutates the current options.</param>
+    /// <returns></returns>
+    Task UpdateAsync(Action<ToastOptions> update);
 }
