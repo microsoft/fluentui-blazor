@@ -66,9 +66,12 @@ public class MessageService : IMessageService, IDisposable
         MessageLock.EnterReadLock();
         try
         {
-            IEnumerable<Message> messages = string.IsNullOrEmpty(section)
-                       ? MessageList
-                       : MessageList.Where(x => x.Section == section);
+            IEnumerable<Message> messages = MessageList;
+
+            if (!string.IsNullOrEmpty(section))
+            {
+                messages = messages.Where(x => x.Section == section);
+            }
 
             if (count > 0)
             {
