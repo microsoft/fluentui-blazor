@@ -31,6 +31,8 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
         .AddClass("select-all", when: CellType == DataGridCellType.ColumnHeader && Column is SelectColumn<TGridItem>)
         .AddClass("multiline-text", when: Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null) && CellType != DataGridCellType.ColumnHeader)
+        .AddClass("col-pinned-start", Column?.Pin == DataGridColumnPin.Start)
+        .AddClass("col-pinned-end", Column?.Pin == DataGridColumnPin.End)
         .AddClass(Owner.Class)
         .Build();
 
@@ -39,7 +41,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("grid-column", GridColumn.ToString(CultureInfo.InvariantCulture), () => !Grid.EffectiveLoadingValue && (Grid.Items is not null || Grid.ItemsProvider is not null) && InternalGridContext.TotalItemCount > 0 && Grid.DisplayMode == DataGridDisplayMode.Grid)
         .AddStyle("text-align", "center", Column is SelectColumn<TGridItem>)
         .AddStyle("align-content", "center", Column is SelectColumn<TGridItem>)
-        .AddStyle("min-width", Column?.MinWidth, Owner.RowType is DataGridRowType.Header or DataGridRowType.StickyHeader && Grid.HeaderCellAsButtonWithMenu)
+        .AddStyle("min-width", Column?.MinWidth, Owner.RowType is DataGridRowType.Header or DataGridRowType.StickyHeader && (Grid.HeaderCellAsButtonWithMenu || Column?.Pin != DataGridColumnPin.None))
         .AddStyle("padding-top", "10px", Column is not HierarchicalSelectColumn<TGridItem> && Column is SelectColumn<TGridItem> && (Grid.RowSize == DataGridRowSize.Medium || Owner.RowType == DataGridRowType.Header))
         .AddStyle("padding-top", "6px", Column is SelectColumn<TGridItem> && Grid.RowSize == DataGridRowSize.Small && Owner.RowType == DataGridRowType.Default)
         .AddStyle("width", Column?.Width, !string.IsNullOrEmpty(Column?.Width) && Grid.DisplayMode == DataGridDisplayMode.Table)
@@ -47,7 +49,10 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("height", $"{((int)Grid.RowSize).ToString(CultureInfo.InvariantCulture)}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && !Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null) && InternalGridContext.TotalItemCount > 0)
         .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle("min-height", "40px", Owner.RowType != DataGridRowType.Default)
-        .AddStyle("z-index", ZIndex.DataGridHeaderPopup.ToString(CultureInfo.InvariantCulture), CellType == DataGridCellType.ColumnHeader && Grid._columns.Count > 0 && Grid.UseMenuService)
+        .AddStyle("position", "sticky", Column != null && Column.Pin != DataGridColumnPin.None)
+        .AddStyle("inset-inline-start", Column?.PinOffset ?? "0px", Column?.Pin == DataGridColumnPin.Start)
+        .AddStyle("inset-inline-end", Column?.PinOffset ?? "0px", Column?.Pin == DataGridColumnPin.End)
+        .AddStyle("z-index", "1", Column != null && Column.Pin != DataGridColumnPin.None && CellType == DataGridCellType.Default)
         .AddStyle(Owner.Style)
         .Build();
 
