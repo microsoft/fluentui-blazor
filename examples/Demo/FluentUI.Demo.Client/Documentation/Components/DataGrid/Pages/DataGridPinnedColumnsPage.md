@@ -52,7 +52,7 @@ bar appears when columns overflow the container:
 ## Theming the pinned background
 
 Pinned cells receive a solid background to prevent scrolling content from showing through. The
-color defaults to `--colorNeutralBackground1` and can be overridden per-grid with the CSS custom
+color defaults to `--colorNeutralBackground2` and can be overridden per-grid with the CSS custom
 property `--fluent-data-grid-pinned-background`:
 
 ```css
@@ -72,11 +72,11 @@ property `--fluent-data-grid-pinned-background`:
 ## Example
 
 Demonstrates pinned (frozen) columns using `Pin="DataGridColumnPin.Start"` and `Pin="DataGridColumnPin.End"`.
-The two leftmost columns and the Actions column remain visible while the rest scroll horizontally.
 
-Wrap the grid in a `<div style="overflow-x: auto;">` container and give the grid a `Style="min-width: max-content;"`
-so that the horizontal scroll bar appears.
+The two leftmost columns and the Actions column remain visible while the rest scroll horizontally. The grid is
+wrapped in a scrollable container to enable sticky positioning and horizontal scrolling when needed. Resize the window
+or the columns in the grid to see the effect.
 
-Pinned columns require an explicit `Width`.
+**Pinned columns require an explicit `Width`**.
 
 {{ DataGridPinnedColumns }}

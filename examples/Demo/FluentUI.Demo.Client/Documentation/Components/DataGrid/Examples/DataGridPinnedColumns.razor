@@ -1,10 +1,9 @@
 ﻿<div style="overflow-x: auto;">
     <FluentDataGrid Items="@employees"
                     Style="min-width: max-content;"
-                    StripedRows="true"
                     ResizableColumns="true"
                     DisplayMode="DataGridDisplayMode.Grid">
-        <PropertyColumn Title="ID" Property="@(e => e.Id)" Width="100px" Pin="DataGridColumnPin.Start"  Sortable="true" />
+        <PropertyColumn Title="ID" Property="@(e => e.Id)" Width="10%" Pin="DataGridColumnPin.Start"  Sortable="true" />
         <PropertyColumn Title="Full Name" Property="@(e => e.FullName)" Width="160px" Pin="DataGridColumnPin.Start"  Sortable="true" />
         <PropertyColumn Title="Department" Property="@(e => e.Department)" Sortable="true" />
         <PropertyColumn Title="Location" Property="@(e => e.Location)" Sortable="true" />
