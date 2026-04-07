@@ -257,7 +257,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       const resizeTop = (header.querySelector('.resize-handle') as HTMLElement)?.offsetTop ?? 2;
 
       // add a new resize div
-      const div = createDiv(resizeHandleHeight, resizeTop);
+      const div = createDiv(resizeHandleHeight, resizeTop, header.classList.contains('col-pinned-start') ? 0 : -1);
       header.appendChild(div);
       setListeners(div, effectiveSignal);
     });
@@ -364,7 +364,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       div.addEventListener('pointerleave', removeBorder, { signal });
     }
 
-    function createDiv(height: number, top: number) {
+    function createDiv(height: number, top: number, pinnedOffset: number) {
       const div = document.createElement('div');
       div.className = 'actual-resize-handle';
       div.style.top = top + 'px';
@@ -374,7 +374,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       div.style.height = (height - 4) + 'px'; // adjust for the top offset
       div.style.width = '6px';
       div.style.opacity = 'var(--fluent-data-grid-header-opacity)';
-      div.style.insetInlineEnd = '0';
+      div.style.insetInlineEnd = pinnedOffset + 'px';
       return div;
     }
 
