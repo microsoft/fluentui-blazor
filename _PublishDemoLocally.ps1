@@ -6,11 +6,54 @@
 
 # Script to generate documentation and publish the FluentUI Demo locally
 
-# .NET Framework Version - Change this to net8.0, net9.0, or net10.0 as needed
-$NetVersion = "net10.0"
+# Ask user for configuration
+Write-Host "👉 Configuration setup..." -ForegroundColor Cyan
+Write-Host ""
 
-Write-Host "👉 Starting local demo publish process..." -ForegroundColor Green
-Write-Host "👉 Using .NET Framework: $NetVersion" -ForegroundColor Cyan
+# Ask for .NET version
+$dotnetVersionChoice = Read-Host "❓ Which .NET version do you want to use? (9 for net9.0, 10 for net10.0) [default: 10]"
+if ($dotnetVersionChoice -eq "9") {
+    $NetVersion = "net9.0"
+} elseif ($dotnetVersionChoice -eq "" -or $dotnetVersionChoice -eq "10") {
+    $NetVersion = "net10.0"
+} else {
+    Write-Host "⛔ Invalid choice." -ForegroundColor Red
+    exit 1
+}
+
+# Show build number
+$path = "./Directory.Build.props"
+$propsContent = Get-Content $path -Raw
+
+$versionPrefix = $propsContent -match "<VersionPrefix>([0-9]+\.[0-9]+\.[0-9]+)</VersionPrefix>"
+$pipelineVersion = $Matches[1]
+
+$versionSuffix = $propsContent -match "<VersionSuffix>([0-9A-Za-z\.-]+)</VersionSuffix>"
+if ($versionSuffix) {
+    $pipelineSuffix = $Matches[1]
+}
+if ($pipelineSuffix) {
+    $version = "$pipelineVersion-$pipelineSuffix"
+} else {
+    $version = $pipelineVersion
+}
+
+Write-Host ""
+Write-Host "Configuration:" -ForegroundColor Green
+Write-Host "     .NET Version: $NetVersion" -ForegroundColor White
+Write-Host "  Package version: $version" -ForegroundColor White
+Write-Host ""
+
+# Ask for doing quick of full publish
+$publishChoice = Read-Host "❓ Do you want to do a full publish (skip API documentation generation, MCP Server build)? (y/n) [default: y]"
+if ($publishChoice -eq "n") {
+    $fullBuild = $false
+} elseif ($publishChoice -eq "" -or $publishChoice -eq "y") {
+    $fullBuild = $true
+} else {
+    Write-Host "⛔ Invalid choice." -ForegroundColor Red
+    exit 1
+}
 
 # Clean previous build artifacts
 Write-Host "👉 Cleaning previous build artifacts (bin and obj)..." -ForegroundColor Yellow
@@ -35,53 +78,90 @@ $RootDir = $PSScriptRoot
 
 # Update the Directory.Build.props file with the correct .NET version
 Write-Host "👉 Updating Directory.Build.props with .NET version: $NetVersion..." -ForegroundColor Yellow
-(Get-Content "./Directory.Build.props") -replace '<NetVersion>net[0-9]+\.[0-9]+</NetVersion>', "<NetVersion>$NetVersion</NetVersion>" | Set-Content "./Directory.Build.props"
-(Get-Content "./Directory.Build.props") -replace "<TargetNetVersions Condition=`"'\$\(Configuration\)' == 'Release'`">.*</TargetNetVersions>", "<TargetNetVersions Condition=`"'`$(Configuration)' == 'Release'`">$NetVersion</TargetNetVersions>" | Set-Content "./Directory.Build.props"
 
+$conditionValue = '''$(Configuration)'' == ''Release'''
+$resolvedPath = (Resolve-Path $path).Path
 
-# Build the core project
-Write-Host "👉 Building Core project..." -ForegroundColor Yellow
-dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish"  -f $NetVersion
+# Create a backup of the original Directory.Build.props
+$backupPath = "$path.bak"
+Copy-Item $path $backupPath -Force
 
-# Generate API documentation file
-Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
-dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.xml" --dll "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json
+$xml = New-Object System.Xml.XmlDocument
+$xml.PreserveWhitespace = $true
+$xml.Load($resolvedPath)
 
-# Build the MCP Server project
-Write-Host "👉 Building MCP Server project..." -ForegroundColor Yellow
-dotnet build "./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" -c Release -o "./src/Tools/McpServer/bin/Publish" -f $NetVersion
+# Process NetVersion
+$node = $xml.SelectSingleNode("//NetVersion")
+if ($null -eq $node) {
+    throw "Matching NetVersion element not found."
+}
+if ($node.InnerText -ne $NetVersion) {
+    $node.InnerText = $NetVersion
+    Write-Host "Updated NetVersion temporarily." -ForegroundColor Cyan
+    $xml.Save($resolvedPath)
+}
 
-# Generate MCP documentation file
-Write-Host "👉 Generating MCP documentation..." -ForegroundColor Yellow
-# dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.xml" --dll "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json" --format json --mode mcp
-Write-Host "   Skipped."
+# Process TargetNetVersions
+$nodes = $xml.SelectNodes("//TargetNetVersions")
+$node = $nodes |
+    Where-Object { $_.GetAttribute("Condition") -eq $conditionValue } |
+    Select-Object -First 1
+
+if ($null -eq $node) {
+    throw "Matching TargetNetVersions element not found."
+}
+
+if ($node.InnerText -ne $NetVersion) {
+    $node.InnerText = $NetVersion
+    Write-Host "Updated TargetNetVersions temporarily." -ForegroundColor Cyan
+    $xml.Save($resolvedPath)
+}
+
+if ($fullBuild) {
+    # Build the core project
+    Write-Host "👉 Building Core project..." -ForegroundColor Yellow
+    dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish"  -f $NetVersion
+
+    # Generate API documentation file
+    Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
+    dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.xml" --dll "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json
+
+    # Build the MCP Server project
+    Write-Host "👉 Building MCP Server project..." -ForegroundColor Yellow
+    dotnet build "./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" -c Release -o "./src/Tools/McpServer/bin/Publish" -f $NetVersion
+
+    # Generate MCP documentation file
+    Write-Host "👉 Generating MCP documentation..." -ForegroundColor Yellow
+    #dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.xml" --dll "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json" --format json --mode mcp
+    Write-Host "   Skipped."
+}
 
 # Publish the demo
 Write-Host "👉 Publishing demo..." -ForegroundColor Yellow
 dotnet publish "./examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" -c Release -o "./examples/Demo/FluentUI.Demo/bin/Publish" -f $NetVersion
 
-# Verify that the bundle CSS file has the expected size
-Write-Host "👉 Verifying bundle CSS file size..." -ForegroundColor Yellow
-$bundleFilePath = "./examples/Demo/FluentUI.Demo/bin/Publish/wwwroot/_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css.br"
+# Verify that the bundle JS file has the expected size
+Write-Host ""
+Write-Host "👉 Verifying bundle JS file size..." -ForegroundColor Yellow
+$bundleFilePath = "./examples/Demo/FluentUI.Demo/bin/Publish/wwwroot/_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js.br"
 
 if (Test-Path $bundleFilePath) {
     $fileSize = (Get-Item $bundleFilePath).Length
     $fileSizeKB = [math]::Round($fileSize / 1024, 2)
 
     if ($fileSize -gt 1024) {
-        Write-Host "☑️ Bundle CSS file verified: $fileSizeKB KB" -ForegroundColor Green
+        Write-Host "☑️ Bundle JS file verified: $fileSizeKB KB" -ForegroundColor Green
     } else {
-        Write-Host "⛔ Bundle CSS file is too small: $fileSizeKB KB (expected > 1KB)" -ForegroundColor Red
-        Write-Host "⛔ This may indicate a build issue with the CSS bundle generation." -ForegroundColor Red
-        Write-Host "⛔ Install .NET 9.0.205 SDK and a `global.json` file with `{ ""sdk"": { ""version"": ""9.0.205"" } }`." -ForegroundColor Red
+        Write-Host "⛔ Bundle JS file is too small: $fileSizeKB KB (expected > 1KB)" -ForegroundColor Red
+        Write-Host "⛔ This may indicate a build issue with the JS bundle generation." -ForegroundColor Red
+        Write-Host "⛔ Install .NET 9.0.205 SDK, remove the references to 'net10' and add a `global.json` file with `{ ""sdk"": { ""version"": ""9.0.205"" } }`." -ForegroundColor Red
         exit 1
     }
 } else {
-    Write-Host "⛔ Bundle CSS file not found: $bundleFilePath" -ForegroundColor Red
-    Write-Host "⛔ This may indicate a build issue with the CSS bundle generation." -ForegroundColor Red
+    Write-Host "⛔ Bundle JS file not found: $bundleFilePath" -ForegroundColor Red
+    Write-Host "⛔ This may indicate a build issue with the JS bundle generation." -ForegroundColor Red
     exit 1
 }
-
 # Create deployment archive
 Write-Host "👉 Creating deployment archive..." -ForegroundColor Yellow
 if (Test-Path "./examples/Demo/FluentUI.Demo/bin/Publish") {
@@ -92,15 +172,26 @@ if (Test-Path "./examples/Demo/FluentUI.Demo/bin/Publish") {
     exit 1
 }
 
+# Restore previous Directory.Build.props
+if (Test-Path $backupPath) {
+    Move-Item $backupPath $path -Force
+    Write-Host "'Directory.Build.props' restored." -ForegroundColor Cyan
+}
+
+Write-Host ""
 Write-Host "✅ Demo publish process completed successfully!" -ForegroundColor Green
+Write-Host ""
+
+Write-Host ""
+Write-Host "----------------------------------------------------"
+Write-Host "👉 You can deploy to Azure using a command like:" -ForegroundColor Green
+Write-Host "▶️ az webapp deploy --resource-group FluentUI --name fluentui-blazor-v5 --src-path ./examples/Demo/FluentUI.Demo/bin/FluentUI-Blazor.zip --type zip" -ForegroundColor Green
+Write-Host "----------------------------------------------------"
 
 # Ask user if they want to run the website
 Write-Host ""
-$runWebsite = Read-Host "Do you want to run the website now? (Y/n)"
+$runWebsite = Read-Host "Do you want to run the local website now? (y/n) [default: y]"
 if ($runWebsite -eq "" -or $runWebsite -eq "Y" -or $runWebsite -eq "y") {
     Write-Host "👉 Starting the website..." -ForegroundColor Green
     Start-Process -FilePath "./examples/Demo/FluentUI.Demo/bin/Publish/FluentUI.Demo.exe" -WorkingDirectory "./examples/Demo/FluentUI.Demo/bin/Publish"
 }
-
-Write-Host "👉 You can deploy to Azure using a command like:" -ForegroundColor Green
-Write-Host "▶️ az webapp deploy --resource-group FluentUI --name fluentui-blazor-v5 --src-path ./examples/Demo/FluentUI.Demo/bin/FluentUI-Blazor.zip --type zip" -ForegroundColor Green
