@@ -1,0 +1,965 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits FluentUITestContext
+@code
+{
+    private readonly string[] Digits = new[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
+
+    public FluentAutocompleteTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_Default_Items()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentAutocomplete Id="my-list" Placeholder="Select a digit" Items="@Digits" TOption="string" TValue="string" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_Label()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentAutocomplete Id="my-list" Label="List of digits" Required="true" Items="@Digits" TOption="string" TValue="string" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_OnOptionsSearch_NoFilter()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act
+        cut.Find("fluent-text-input").Click();
+
+        // Assert
+        var optionsCount = cut.FindAll("fluent-option").Count();
+        Assert.Equal(9, optionsCount);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_OnOptionsSearch_Filter()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act
+        cut.Find("fluent-text-input")
+           .TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "F" });
+
+        // Assert
+        var optionsCount = cut.FindAll("fluent-option").Count();
+        Assert.Equal(2, optionsCount);  // "Four" and "Five"
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SelectTwoItems_DisplayedInStartTemplate()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown to display all options
+        cut.Find("fluent-text-input").Click();
+
+        // Get the IDs of the first two options ("Eight" and "Five" - sorted alphabetically)
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+
+        // Select those two options via the listchange event
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Assert - Verify the 2 selected items appear as badges in the StartTemplate
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Equal(2, badges.Count);
+        Assert.Equal("Eight", badges[0].GetAttribute("title"));
+        Assert.Equal("Five", badges[1].GetAttribute("title"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_RemoveSelectedItem_ByClickingBadgeClose()
+    {
+        // Arrange
+        IEnumerable<string>? lastSelectedItems = null;
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch"
+                                SelectedItemsChanged="@(items => lastSelectedItems = items)" />);
+
+        // Act - Open the dropdown and select two items
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Verify 2 badges are present
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Equal(2, badges.Count);
+
+        // Act - Click the close icon on the first badge ("Eight") to remove it
+        cut.Find("span.fluent-badge svg").Click();
+
+        // Assert - Only "Five" remains
+        badges = cut.FindAll("span.fluent-badge");
+        Assert.Single(badges);
+        Assert.Equal("Five", badges[0].GetAttribute("title"));
+
+        // Assert - SelectedItemsChanged should have been raised with only "Five"
+        Assert.NotNull(lastSelectedItems);
+        Assert.Single(lastSelectedItems!);
+        Assert.Contains("Five", lastSelectedItems!);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SelectedOptionTemplate()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch">
+                            <SelectedOptionTemplate>
+                                <div>@context</div>
+                            </SelectedOptionTemplate>
+                         </FluentAutocomplete>);
+
+        // Act - Open the dropdown and select two items
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Assert - Verify the custom template is used instead of default badges
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Empty(badges);
+
+        // Verify the custom template renders <div>Eight</div> and <div>Five</div>
+        var markup = cut.Markup;
+        Assert.Contains("<div>Eight</div>", markup);
+        Assert.Contains("<div>Five</div>", markup);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SingleSelect_SecondItemReplacesFirst()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown to display all options
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id"); // "Eight"
+        var id2 = options[1].GetAttribute("id"); // "Five"
+
+        // Select the first item ("Eight")
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = id1 });
+
+        // Assert - "Eight" is displayed in the StartTemplate
+        var badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("Eight", badge.GetAttribute("title"));
+
+        // Act - Open dropdown again and select the second item ("Five")
+        cut.Find("fluent-text-input").Click();
+
+        options = cut.FindAll("fluent-option");
+        id2 = options[1].GetAttribute("id"); // "Five" (re-read after re-render)
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = id2 });
+
+        // Assert - "Five" replaced "Eight" in the StartTemplate
+        badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("Five", badge.GetAttribute("title"));
+
+        // Only one badge should be present
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Single(badges);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SingleSelect_SelectedOptionTemplate()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                OnOptionsSearch="@OnOptionsSearch">
+                            <SelectedOptionTemplate>
+                                <div class="custom-selected">@context</div>
+                            </SelectedOptionTemplate>
+                         </FluentAutocomplete>);
+
+        // Act - Open the dropdown and select an item
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id"); // "Eight"
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = id1 });
+
+        // Assert - No default badge is rendered
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Empty(badges);
+
+        // Verify the custom template is used
+        var customElement = cut.Find("div.custom-selected");
+        Assert.Equal("Eight", customElement.TextContent);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_ShowProgressIndicator_DisplaysSpinner()
+    {
+        // Arrange - Use a slow OnOptionsSearch that never completes, keeping _inProgress = true
+        var tcs = new TaskCompletionSource();
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                ShowProgressIndicator="true"
+                                OnOptionsSearch="@OnSlowOptionsSearch" />);
+
+        // Act - Type to trigger the search (which will stay in progress)
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - A FluentSpinner (fluent-spinner) should be rendered in the EndTemplate
+        var spinner = cut.Find("fluent-spinner");
+        Assert.NotNull(spinner);
+
+        // Complete the task to avoid leaking
+        tcs.SetResult();
+        return;
+
+        // Local slow callback
+        async Task OnSlowOptionsSearch(OptionsSearchEventArgs<string> e)
+        {
+            await tcs.Task;
+            e.Items = Digits;
+        }
+    }
+
+    [Fact]
+    public void FluentAutocomplete_FocusSpinner_ClosesPopover()
+    {
+        // Arrange - Use a slow OnOptionsSearch that never completes, keeping _inProgress = true
+        var tcs = new TaskCompletionSource();
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                ShowProgressIndicator="true"
+                                OnOptionsSearch="@OnSlowOptionsSearch" />);
+
+        // Act - Open the dropdown (search stays in progress, spinner is shown)
+        cut.Find("fluent-text-input").Click();
+
+        // Verify popover is open
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Act - Focus the spinner in the EndTemplate
+        var spinner = cut.Find("fluent-spinner");
+        spinner.TriggerEvent("onfocus", new FocusEventArgs());
+
+        // Assert - Popover should be closed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+
+        // Complete the task to avoid leaking
+        tcs.SetResult();
+        return;
+
+        // Local slow callback
+        async Task OnSlowOptionsSearch(OptionsSearchEventArgs<string> e)
+        {
+            await tcs.Task;
+            e.Items = Digits;
+        }
+    }
+
+    [Fact]
+    public void FluentAutocomplete_FocusSearchIcon_ClosesPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown
+        cut.Find("fluent-text-input").Click();
+
+        // Verify popover is open
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Act - Focus the search icon (no items selected, so the search icon is shown)
+        var icon = cut.Find("div[slot='end'] svg[focusable='true']");
+        icon.TriggerEvent("onfocus", new FocusEventArgs());
+
+        // Assert - Popover should be closed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_FocusDismissIcon_ClosesPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown and select an item
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = id1 });
+
+        // Re-open the dropdown
+        cut.Find("fluent-text-input").Click();
+
+        // Verify popover is open
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Act - Focus the dismiss icon (items selected, so the dismiss icon is shown)
+        var icon = cut.Find("div[slot='end'] svg[focusable='true']");
+        icon.TriggerEvent("onfocus", new FocusEventArgs());
+
+        // Assert - Popover should be closed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_IsReachedMaxItems_DefaultMessage()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                MaximumSelectedOptions="2"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown and select 2 items (reaching the max)
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Re-open the dropdown
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - The default max message (FluentText) should be displayed instead of the listbox
+        var maxMessage = cut.Find("fluent-text");
+        Assert.NotNull(maxMessage);
+
+        // The listbox should not be rendered
+        var listboxes = cut.FindAll(".fluent-listbox");
+        Assert.Empty(listboxes);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_IsReachedMaxItems_CustomMessage()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                MaximumSelectedOptions="2"
+                                OnOptionsSearch="@OnOptionsSearch">
+                            <MaximumSelectedOptionsMessage>
+                                <div class="custom-max-message">Maximum reached</div>
+                            </MaximumSelectedOptionsMessage>
+                         </FluentAutocomplete>);
+
+        // Act - Open the dropdown and select 2 items (reaching the max)
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Re-open the dropdown
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - The custom message should be displayed
+        var customMessage = cut.Find("div.custom-max-message");
+        Assert.Equal("Maximum reached", customMessage.TextContent);
+
+        // The listbox should not be rendered
+        var listboxes = cut.FindAll(".fluent-listbox");
+        Assert.Empty(listboxes);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_HeaderContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch">
+                            <HeaderContent>
+                                <div class="custom-header">Found @context.Items.Count() items</div>
+                            </HeaderContent>
+                         </FluentAutocomplete>);
+
+        // Act - Open the dropdown to display options
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - The header content should be rendered with the correct item count
+        var header = cut.Find("div.custom-header");
+        Assert.Equal("Found 9 items", header.TextContent);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_FooterContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch">
+                            <FooterContent>
+                                <div class="custom-footer">Total: @context.Items.Count()</div>
+                            </FooterContent>
+                         </FluentAutocomplete>);
+
+        // Act - Open the dropdown to display options
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - The footer content should be rendered with the correct item count
+        var footer = cut.Find("div.custom-footer");
+        Assert.Equal("Total: 9", footer.TextContent);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SelectedItemsChanged_RaisedOnSelection()
+    {
+        // Arrange
+        IEnumerable<string>? selectedItems = null;
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch"
+                                SelectedItemsChanged="@(items => selectedItems = items)" />);
+
+        // Act - Open the dropdown and select two items
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Assert - The event should have been raised with the 2 selected items
+        Assert.NotNull(selectedItems);
+        Assert.Equal(2, selectedItems!.Count());
+        Assert.Contains("Eight", selectedItems);
+        Assert.Contains("Five", selectedItems);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_KeyDown_Backspace_RemovesLastSelectedItem()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Select two items
+        cut.Find("fluent-text-input").Click();
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Verify 2 badges
+        Assert.Equal(2, cut.FindAll("span.fluent-badge").Count);
+
+        // Act - Press Backspace with empty input
+        cut.Find("fluent-text-input").TriggerEvent("onkeydown", new KeyboardEventArgs { Key = "Backspace" });
+
+        // Assert - Last item ("Five") should be removed, only "Eight" remains
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Single(badges);
+        Assert.Equal("Eight", badges[0].GetAttribute("title"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_KeyDown_Delete_RemovesLastSelectedItem()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Select two items
+        cut.Find("fluent-text-input").Click();
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        Assert.Equal(2, cut.FindAll("span.fluent-badge").Count);
+
+        // Act - Press Delete with empty input
+        cut.Find("fluent-text-input").TriggerEvent("onkeydown", new KeyboardEventArgs { Key = "Delete" });
+
+        // Assert - Last item ("Five") should be removed, only "Eight" remains
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Single(badges);
+        Assert.Equal("Eight", badges[0].GetAttribute("title"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_KeyDown_ArrowDown_OpensPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Verify popover is closed
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+
+        // Act - Press ArrowDown
+        cut.Find("fluent-text-input").TriggerEvent("onkeydown", new KeyboardEventArgs { Key = "ArrowDown" });
+
+        // Assert - Popover should be open
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_KeyDown_Enter_TogglesPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Verify popover is closed
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+
+        // Act - Press Enter when closed → should open
+        cut.Find("fluent-text-input").TriggerEvent("onkeydown", new KeyboardEventArgs { Key = "Enter" });
+
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Act - Press Enter when open → should close
+        cut.Find("fluent-text-input").TriggerEvent("onkeydown", new KeyboardEventArgs { Key = "Enter" });
+
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_KeyDown_Enter_ClearsTextInputAndRaisesValueChanged()
+    {
+        // Arrange
+        string? valueChangedResult = null;
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch"
+                                ValueChanged="@(value => valueChangedResult = value)" />);
+
+        // Act - Type "F" to set the text input and open the popover
+        cut.Find("fluent-text-input")
+           .TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "F" });
+
+        // Verify popover is open and options are filtered
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+        Assert.Equal(2, cut.FindAll("fluent-option").Count);
+
+        // Act - Press Enter while popover is open and text input has content
+        cut.Find("fluent-text-input").TriggerEvent("onkeydown", new KeyboardEventArgs { Key = "Enter" });
+
+        // Assert - Popover should be closed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+
+        // Assert - ValueChanged should have been called with empty string (text cleared)
+        Assert.Equal(string.Empty, valueChangedResult);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_DisplayFilteredOptions_RaisesValueChanged()
+    {
+        // Arrange
+        var valueChangedHistory = new List<string?>();
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch"
+                                ValueChanged="@(value => valueChangedHistory.Add(value))" />);
+
+        // Act - Type "F" to trigger DisplayFilteredOptionsAsync via @bind-Value:after
+        cut.Find("fluent-text-input")
+           .TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "F" });
+
+        // Assert - ValueChanged should have been raised with the typed text "F"
+        Assert.Contains("F", valueChangedHistory);
+
+        // Act - Type "Fo" to trigger again
+        cut.Find("fluent-text-input")
+           .TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "Fo" });
+
+        // Assert - ValueChanged should have been raised with "Fo"
+        Assert.Contains("Fo", valueChangedHistory);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_DisplayFilteredOptions_EmptyInput_ClosesPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Type "F" to open the popover with filtered options
+        cut.Find("fluent-text-input")
+           .TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "F" });
+
+        // Verify popover is open
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Act - Clear the text input (set to empty string)
+        cut.Find("fluent-text-input")
+           .TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "" });
+
+        // Assert - Popover should still be open (showWhenInputIsEmpty: true from @bind-Value:after)
+        // and all 9 options should be displayed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+        Assert.Equal(9, cut.FindAll("fluent-option").Count);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_Items_BuiltInFilter()
+    {
+        // Arrange - Use Items directly without OnOptionsSearch to trigger the built-in filtering
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Items="@Digits" />);
+
+        // Act - Type "F" to filter using the built-in StartsWith logic
+        cut.Find("fluent-text-input")
+           .TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "F" });
+
+        // Assert - Only items starting with "F" should be displayed: "Four" and "Five"
+        var options = cut.FindAll("fluent-option");
+        Assert.Equal(2, options.Count);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_NoItemsNoSearch_EmptyFilteredList()
+    {
+        // Arrange - No Items and no OnOptionsSearch provided
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string" />);
+
+        // Act - Click to open the dropdown
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - No options should be displayed
+        var options = cut.FindAll("fluent-option");
+        Assert.Empty(options);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SearchIcon_Click_OpensPopover()
+    {
+        // Arrange - No items selected, so the search icon is shown
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Verify popover is closed
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+
+        // Act - Click the search icon to trigger SwitchOptionsPopupAsync (else branch)
+        var icon = cut.Find("div[slot='end'] svg[focusable='true']");
+        icon.Click();
+
+        // Assert - Popover should be open with all options displayed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+        Assert.Equal(9, cut.FindAll("fluent-option").Count);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SearchIcon_Click_ClosesOpenPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Open the popover first by clicking the input
+        cut.Find("fluent-text-input").Click();
+
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Act - Click the search icon to trigger SwitchOptionsPopupAsync (if branch: _isOpen = false)
+        var icon = cut.Find("div[slot='end'] svg[focusable='true']");
+        icon.Click();
+
+        // Assert - Popover should be closed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_ClearSelection_RemovesAllItemsAndRaisesEvent()
+    {
+        // Arrange
+        IEnumerable<string>? lastSelectedItems = null;
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                OnOptionsSearch="@OnOptionsSearch"
+                                SelectedItemsChanged="@(items => lastSelectedItems = items)" />);
+
+        // Select two items
+        cut.Find("fluent-text-input").Click();
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+        var id2 = options[1].GetAttribute("id");
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1};{id2}" });
+
+        // Verify 2 badges and SelectedItemsChanged was raised with 2 items
+        Assert.Equal(2, cut.FindAll("span.fluent-badge").Count);
+        Assert.Equal(2, lastSelectedItems!.Count());
+
+        // Re-open the dropdown so the dismiss icon is clickable
+        cut.Find("fluent-text-input").Click();
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Act - Click the dismiss icon to trigger ClearSelectionAsync
+        var dismissIcon = cut.Find("div[slot='end'] svg[focusable='true']");
+        dismissIcon.Click();
+
+        // Assert - All selected items should be cleared
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Empty(badges);
+
+        // Assert - Popover should be closed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+
+        // Assert - SelectedItemsChanged should have been raised with an empty collection
+        Assert.NotNull(lastSelectedItems);
+        Assert.Empty(lastSelectedItems!);
+    }
+
+    [Fact]
+    public async Task FluentAutocomplete_DisplayFilteredOptions_EmptyInput_NotShowWhenEmpty_ClosesPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Open the popover first
+        cut.Find("fluent-text-input").Click();
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Act - Call DisplayFilteredOptionsAsync with showWhenInputIsEmpty: false and empty text input
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        await cut.InvokeAsync(() => component.DisplayFilteredOptionsAsync(showWhenInputIsEmpty: false));
+
+        // Assert - Popover should be closed (early return branch)
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_PopoverClosed_SetsFocusToInput()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Open the popover
+        cut.Find("fluent-text-input").Click();
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("true", popover.GetAttribute("opened"));
+
+        // Get the popover's Id for the dialogtoggle event
+        var popoverId = popover.GetAttribute("id");
+
+        // Act - Close the popover by triggering the dialogtoggle event (simulates popover closing)
+        popover.TriggerEvent("ondialogtoggle", new DialogToggleEventArgs { Id = popoverId, NewState = "closed", OldState = "open" });
+
+        // Assert - Popover should be closed
+        popover = cut.Find("fluent-popover-b");
+        Assert.Equal("false", popover.GetAttribute("opened"));
+
+        // Assert - SetInputFocusAsync should have been called via OnOptionsPopupClosedAsync
+        var jsInvocation = JSInterop.Invocations
+            .FirstOrDefault(i => i.Identifier == "Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus");
+
+        Assert.Equal("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus", jsInvocation.Identifier);
+        Assert.Equal("my-list", jsInvocation.Arguments[0]);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_BindSelectedItems_Multiple_AllItemsPreselected()
+    {
+        // Arrange - Pre-select "Three" and "Six" via @bind-SelectedItems with Multiple=true
+        IEnumerable<string> selectedItems = new List<string> { "Three", "Six" };
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                Items="@Digits"
+                                @bind-SelectedItems="@selectedItems" />);
+
+        // Assert - Both items should appear as badges in the StartTemplate
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Equal(2, badges.Count);
+        Assert.Equal("Three", badges[0].GetAttribute("title"));
+        Assert.Equal("Six", badges[1].GetAttribute("title"));
+
+        // Assert - Reading SelectedItems from the component returns the same items (get => _internalSelectedItems)
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        Assert.Equal(2, component.SelectedItems.Count());
+        Assert.Contains("Three", component.SelectedItems);
+        Assert.Contains("Six", component.SelectedItems);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_BindSelectedItems_SingleSelect_TakesOnlyFirstItem()
+    {
+        // Arrange - Pass two items via @bind-SelectedItems with Multiple=false
+        IEnumerable<string> selectedItems = new List<string> { "Three", "Six" };
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                Items="@Digits"
+                                @bind-SelectedItems="@selectedItems" />);
+
+        // Assert - Only the first item should be selected (value.Take(1))
+        var badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("Three", badge.GetAttribute("title"));
+
+        // Only one badge should be present
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Single(badges);
+    }
+
+    [Fact]
+    public async Task FluentAutocomplete_RemoveSelectedItemAsync_NullItem_DoesNothing()
+    {
+        // Arrange - Render with two pre-selected items
+        var selectedItemsChangedCount = 0;
+        IEnumerable<string> selectedItems = new List<string> { "Three", "Six" };
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="true"
+                                Items="@Digits"
+                                @bind-SelectedItems="@selectedItems"
+                                @bind-SelectedItems:after="@(() => selectedItemsChangedCount++)" />);
+
+        // Act - Call RemoveSelectedItemAsync with null
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        await cut.InvokeAsync(() => component.RemoveSelectedItemAsync(null));
+
+        // Assert - Nothing changed: still 2 badges, event not raised
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Equal(2, badges.Count);
+        Assert.Equal(0, selectedItemsChangedCount);
+    }
+
+    private void OnOptionsSearch(OptionsSearchEventArgs<string> e)
+    {
+        e.Items = Digits.Where(i => i.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                        .OrderBy(i => i);
+    }
+}

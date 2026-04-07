@@ -43,6 +43,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     private isInitialized: boolean = false;
     private container: HTMLElement;
     private listbox: FluentUIComponents.Listbox;
+    private pendingSelectedOptionsChange: boolean = false;
 
     /**
      * Initializes a new instance of the ListboxExtended class.
@@ -70,7 +71,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
       this.listbox.multiple = (this.container.hasAttribute('multiple')) ?? false;
 
       // Set initial selected options based on the current state
-      if (this.listbox.multiple) {
+      if (this.listbox.multiple && this.listbox.options) {
         const selectedIds = this.listbox.selectedOptions.map(option => option.id);
         for (let i = 0; i < this.listbox.options.length; i++) {
           const option = this.listbox.options[i];
@@ -252,8 +253,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
           });
         }
 
-        if (hasSelectedOptionsChanged) {
-          this.raiseSelectedOptionsChangeEvent();
+        if (hasSelectedOptionsChanged && !this.pendingSelectedOptionsChange) {
+          this.pendingSelectedOptionsChange = true;
+          queueMicrotask(() => {
+            this.pendingSelectedOptionsChange = false;
+            this.raiseSelectedOptionsChangeEvent();
+          });
         }
       });
 
