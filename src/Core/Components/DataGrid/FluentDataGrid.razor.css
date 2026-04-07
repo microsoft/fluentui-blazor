@@ -110,16 +110,18 @@
   background-color: var(--fluent-data-grid-pinned-background);
 }
 
-/* Visual separator on the trailing edge of the last start-pinned column */
-.fluent-data-grid td:nth-last-child(1 of .col-pinned-start) {
-  border-inline-end: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
-}
+  /* Visual separator on the trailing edge of the last start-pinned column */
+  .fluent-data-grid td:nth-last-child(1 of .col-pinned-start),
+  .fluent-data-grid td.col-pinned-start:last-child {
+    border-inline-end: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+  }
+
 
 /* Visual separator on the leading edge of the first end-pinned column */
-.fluent-data-grid td:nth-child(1 of .col-pinned-end) {
+.fluent-data-grid td:nth-child(1 of .col-pinned-end),
+.fluent-data-grid td:first-child.col-pinned-right {
   border-inline-start: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
 }
-
 /* Pinned header cells must stack above pinned data cells (z-index: 1 applied inline by C#).
    For UseMenuService=false the inline z-index: 5 is absent, so we provide a floor here.
    The sticky-header row needs the highest value to beat both the sticky-header row z-index (2)
