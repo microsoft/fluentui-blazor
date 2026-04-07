@@ -46,7 +46,7 @@ public class MessageService : IMessageService, IDisposable
             MessageLock.EnterReadLock();
             try
             {
-                return MessageList;
+                return MessageList.ToList();
             }
             finally
             {
@@ -66,11 +66,19 @@ public class MessageService : IMessageService, IDisposable
         MessageLock.EnterReadLock();
         try
         {
-            var messages = string.IsNullOrEmpty(section)
-                       ? MessageList
-                       : MessageList.Where(x => x.Section == section);
+            IEnumerable<Message> messages = MessageList;
 
-            return count > 0 ? messages.Take(count) : messages;
+            if (!string.IsNullOrEmpty(section))
+            {
+                messages = messages.Where(x => x.Section == section);
+            }
+
+            if (count > 0)
+            {
+                messages = messages.Take(count);
+            }
+
+            return messages.ToList();
         }
         finally
         {
@@ -128,7 +136,7 @@ public class MessageService : IMessageService, IDisposable
     /// <summary>
     /// Show a message based on the provided parameters in a message bar.
     /// </summary>
-    /// <param name="title"> Main info. 
+    /// <param name="title"> Main info.
     /// Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
     /// Only use it with fully trusted, sanitized content.</param>
     /// <param name="intent">Intent of the message</param>
@@ -223,7 +231,7 @@ public class MessageService : IMessageService, IDisposable
     /// <summary>
     /// Show a message based on the provided parameters in a message bar.
     /// </summary>
-    /// <param name="title"> Main info. 
+    /// <param name="title"> Main info.
     /// Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
     /// Only use it with fully trusted, sanitized content.</param>
     /// <param name="intent">Intent of the message</param>
@@ -263,7 +271,10 @@ public class MessageService : IMessageService, IDisposable
             MessageLock.ExitWriteLock();
         }
 
-        await OnMessageItemsUpdatedAsync!.Invoke();
+        if (OnMessageItemsUpdatedAsync is { } handler)
+        {
+            await handler.Invoke();
+        }
 
         return message;
     }
@@ -326,10 +337,7 @@ public class MessageService : IMessageService, IDisposable
     /// <summary />
     public void Dispose()
     {
-        if (_navigationManager != null)
-        {
-            _navigationManager.LocationChanged -= NavigationManager_LocationChanged;
-        }
+        _navigationManager?.LocationChanged -= NavigationManager_LocationChanged;
 
         RemoveMessageItems(section: null);
     }
