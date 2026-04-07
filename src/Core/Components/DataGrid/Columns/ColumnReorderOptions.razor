@@ -1,0 +1,29 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@typeparam TGridItem
+
+<FluentStack Class="reorder-options" VerticalGap="6">
+    <FluentLabel>@Localizer[Localization.LanguageResource.DataGrid_ReorderMenu]</FluentLabel>
+
+    <FluentButton OnClick="@HandleMoveToStartAsync"
+                  Disabled="@(!Grid.CanMoveColumnToStart(Column))"
+                  Autofocus="@Grid.CanMoveColumnToStart(Column)">
+        @Localizer[Localization.LanguageResource.DataGrid_ReorderMoveToStart]
+    </FluentButton>
+
+    <FluentButton OnClick="@HandleMoveLeftAsync"
+                  Disabled="@(!Grid.CanMoveColumnLeft(Column))"
+                  Autofocus="@(!Grid.CanMoveColumnToStart(Column) && Grid.CanMoveColumnLeft(Column))">
+        @Localizer[Localization.LanguageResource.DataGrid_ReorderMoveLeft]
+    </FluentButton>
+
+    <FluentButton OnClick="@HandleMoveRightAsync"
+                  Disabled="@(!Grid.CanMoveColumnRight(Column))"
+                  Autofocus="@(!Grid.CanMoveColumnToStart(Column) && !Grid.CanMoveColumnLeft(Column) && Grid.CanMoveColumnRight(Column))">
+        @Localizer[Localization.LanguageResource.DataGrid_ReorderMoveRight]
+    </FluentButton>
+
+    <FluentButton OnClick="@HandleMoveToEndAsync"
+                  Disabled="@(!Grid.CanMoveColumnToEnd(Column))">
+        @Localizer[Localization.LanguageResource.DataGrid_ReorderMoveToEnd]
+    </FluentButton>
+</FluentStack>

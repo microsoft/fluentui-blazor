@@ -83,12 +83,12 @@
                             @Localizer[Localization.LanguageResource.DataGrid_ResizeMenu]
                         </FluentMenuItem>
                     }
-                    @if (ColumnOptions is not null)
+                    @if (HasColumnOptionsPopupContent)
                     {
                         <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnOptionsAsync(this))" @onkeydown="HandleOptionsMenuKeyDownAsync"
                                         IconStart="@(Grid.ColumnOptionsUISettings.Icon is not null && Grid.ColumnOptionsUISettings.IconPositionStart ? Grid.ColumnOptionsUISettings.Icon : null)"
                                         IconEnd="@(Grid.ColumnOptionsUISettings.Icon is not null && !Grid.ColumnOptionsUISettings.IconPositionStart ? Grid.ColumnOptionsUISettings.Icon : null)">
-                            @Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]
+                            @GetOptionsMenuText()
                         </FluentMenuItem>
                     }
                 </FluentMenuList>
@@ -105,16 +105,9 @@
             <div style="display: flex; justify-content: @align; padding: 0 6px; ">
                 @if (Align == DataGridCellAlignment.Start || Align == DataGridCellAlignment.Center)
                 {
-                    @if (Grid.ResizeType is not null)
+                    @if (HasColumnOptionsPopupContent)
                     {
                         @OptionsButton()
-                    }
-                    else
-                    {
-                        @if (ColumnOptions is not null)
-                        {
-                            @FilterButton()
-                        }
                     }
                 }
 
@@ -148,7 +141,7 @@
 					<div class="col-title">
                         <div class="col-title-text" title="@tooltip">
                             @HeaderTitleContent
-                            @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType.HasValue)
+                            @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && HasColumnOptionsPopupContent)
                             {
                                 <span style="padding: 0 5px;">
                                     <FluentIcon Value="@(Grid.ColumnOptionsUISettings.Icon)" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
@@ -160,16 +153,9 @@
 
                 @if (Align == DataGridCellAlignment.End)
                 {
-                    @if (Grid.ResizeType is not null)
+                    @if (HasColumnOptionsPopupContent)
                     {
                         @OptionsButton()
-                    }
-                    else
-                    {
-                        @if (ColumnOptions is not null)
-                        {
-                            @FilterButton()
-                        }
                     }
                 }
             </div>
@@ -191,16 +177,8 @@
     private RenderFragment OptionsButton()
     {
         return
-            @<FluentButton IconOnly="true" Appearance="ButtonAppearance.Subtle" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
+            @<FluentButton IconOnly="true" Appearance="ButtonAppearance.Subtle" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="@GetOptionsMenuText()">
             <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" Color="Color.Default" Width="20px" Style="opacity: var(--fluent-data-grid-header-opacity);" />
-        </FluentButton>;
-    }
-
-    private RenderFragment FilterButton()
-    {
-        return
-            @<FluentButton IconOnly="true" Appearance="ButtonAppearance.Subtle" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
-            <FluentIcon Value="@(Grid.ColumnOptionsUISettings.Icon)" />
         </FluentButton>;
     }
 }

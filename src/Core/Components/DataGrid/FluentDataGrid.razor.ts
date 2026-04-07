@@ -5,6 +5,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     columns: Column[]; // or a more specific type if you have one
     initialWidths: string;
     resizeController?: AbortController;
+    reorderController?: AbortController;
   }
 
   interface Column {
@@ -175,6 +176,9 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         const grid = grids.find(g => g.id === gridElement.id);
         if (grid?.resizeController) {
           grid.resizeController.abort();
+        }
+        if (grid?.reorderController) {
+          grid.reorderController.abort();
         }
         grids = grids.filter(grid => grid.id !== gridElement.id);
       }
@@ -430,6 +434,96 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     );
 
     gridElement.focus();
+  }
+
+  export function EnableColumnReordering(gridElement: HTMLElement, dotNetHelper: any) {
+    const id = gridElement.id;
+    let grid = grids.find((g: Grid) => g.id === id);
+
+    if (grid?.reorderController) {
+      grid.reorderController.abort();
+    }
+
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    if (!grid) {
+      grid = {
+        id,
+        columns: [],
+        initialWidths: ''
+      };
+      grids.push(grid);
+    }
+
+    grid.reorderController = controller;
+
+    const headers = Array.from(
+      gridElement.querySelectorAll('th.column-header[data-column-reorderable="true"]')
+    ) as HTMLElement[];
+
+    headers.forEach(header => header.setAttribute('draggable', 'true'));
+
+    let sourceHeader: HTMLElement | null = null;
+
+    const clearDropTargets = () => {
+      headers.forEach(header => {
+        header.classList.remove('column-reorder-dragging');
+        header.classList.remove('column-reorder-drop-before');
+        header.classList.remove('column-reorder-drop-after');
+      });
+    };
+
+    const getDropAfter = (event: DragEvent, target: HTMLElement) => {
+      const rect = target.getBoundingClientRect();
+      return event.clientX > rect.left + (rect.width / 2);
+    };
+
+    headers.forEach(header => {
+      header.addEventListener('dragstart', event => {
+        sourceHeader = header;
+        header.classList.add('column-reorder-dragging');
+        event.dataTransfer?.setData('text/plain', header.dataset.columnKey ?? '');
+        if (event.dataTransfer) {
+          event.dataTransfer.effectAllowed = 'move';
+        }
+      }, { signal });
+
+      header.addEventListener('dragend', () => {
+        sourceHeader = null;
+        clearDropTargets();
+      }, { signal });
+
+      header.addEventListener('dragover', event => {
+        if (!sourceHeader || sourceHeader === header) {
+          return;
+        }
+
+        event.preventDefault();
+        clearDropTargets();
+        header.classList.add(getDropAfter(event, header) ? 'column-reorder-drop-after' : 'column-reorder-drop-before');
+      }, { signal });
+
+      header.addEventListener('drop', event => {
+        if (!sourceHeader || sourceHeader === header) {
+          clearDropTargets();
+          return;
+        }
+
+        event.preventDefault();
+        const sourceColumnKey = sourceHeader.dataset.columnKey;
+        const targetColumnKey = header.dataset.columnKey;
+
+        clearDropTargets();
+
+        if (!sourceColumnKey || !targetColumnKey) {
+          return;
+        }
+
+        dotNetHelper.invokeMethodAsync('ReorderColumnFromDragAsync', sourceColumnKey, targetColumnKey, getDropAfter(event, header))
+          .catch((err: any) => console.error('Error invoking Blazor method:', err));
+      }, { signal });
+    });
   }
 
   export function ResizeColumnDiscrete(gridElement: HTMLElement, column: string | undefined, change: number) {

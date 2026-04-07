@@ -146,6 +146,24 @@
             Assert.Contains("inset-inline-end: 60px", cell.GetAttribute("style") ?? ""));
     }
 
+    [Fact]
+    public void FluentDataGrid_PinnedColumn_ColumnOrder_Reorders_Only_Unpinned_Columns()
+    {
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@GetCustomers().AsQueryable()" ColumnOrder="@(new[] { "city", "action", "name", "id" })">
+                <ChildContent>
+                    <PropertyColumn ColumnId="id" Title="Id" Property="@(x => x.Id)" Width="80px" Pin="DataGridColumnPin.Start" />
+                    <PropertyColumn ColumnId="name" Title="Name" Property="@(x => x.Name)" />
+                    <PropertyColumn ColumnId="city" Title="City" Property="@(x => x.City)" />
+                    <PropertyColumn ColumnId="action" Title="Action" Property="@(x => x.Action)" Width="120px" Pin="DataGridColumnPin.End" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        var titles = cut.FindAll("th .col-title-text").Select(x => x.TextContent.Trim()).ToArray();
+
+        Assert.Equal(["Id", "City", "Name", "Action"], titles);
+    }
+
     // -------------------------------------------------------------------------
     // Pinned column without Width throws
     // -------------------------------------------------------------------------

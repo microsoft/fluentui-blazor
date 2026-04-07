@@ -175,14 +175,25 @@
 								CellType="@DataGridCellType.ColumnHeader"
 								Class="@(@ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))"
 								scope="col"
-								aria-sort="@AriaSortValue(col)">
+								aria-sort="@AriaSortValue(col)"
+								AdditionalAttributes="@GetColumnHeaderAttributes(col)">
 				@col.HeaderContent
 				@if (HeaderCellAsButtonWithMenu)
 				{
 					@if (col == _displayOptionsForColumn)
 					{
 						<div class="col-options">
-							@col.ColumnOptions
+							<FluentStack Orientation="Orientation.Vertical" VerticalGap="4">
+								@if (CanRenderColumnReorderUi(col))
+								{
+									<ColumnReorderOptions Column="@col" TGridItem="TGridItem" />
+									@if (col.ColumnOptions is not null)
+									{
+										<FluentDivider Style="width: 100%;" />
+									}
+								}
+								@col.ColumnOptions
+							</FluentStack>
 						</div>
 					}
 					@if (ResizableColumns && col == _displayResizeForColumn)
@@ -206,7 +217,15 @@
 								@if (ResizeType is not null)
 								{
 									<ColumnResizeOptions Column="@col.Index" ResizeType=@ResizeType TGridItem="TGridItem" />
-									@if (@col.ColumnOptions is not null)
+									@if (CanRenderColumnReorderUi(col) || col.ColumnOptions is not null)
+									{
+										<FluentDivider Style="width: 100%;" />
+									}
+								}
+								@if (CanRenderColumnReorderUi(col))
+								{
+									<ColumnReorderOptions Column="@col" TGridItem="TGridItem" />
+									@if (col.ColumnOptions is not null)
 									{
 										<FluentDivider Style="width: 100%;" />
 									}

@@ -29,7 +29,7 @@
     background: var(--colorNeutralBackground5);
   }
 
-  .fluent-data-grid .col-options, .fluent-data-grid .col-resize {
+.fluent-data-grid .col-options, .fluent-data-grid .col-resize {
     position: absolute;
     min-width: 250px;
     top: 2.7rem;
@@ -65,6 +65,26 @@
   width: 100%;
   justify-content: center;
   align-items: center;
+}
+
+.fluent-data-grid .reorder-options {
+  width: 100%;
+}
+
+.fluent-data-grid th.column-reorderable {
+  cursor: grab;
+}
+
+.fluent-data-grid th.column-reorderable.column-reorder-dragging {
+  opacity: 0.65;
+}
+
+.fluent-data-grid th.column-reorderable.column-reorder-drop-before {
+  box-shadow: inset 2px 0 0 var(--colorBrandStroke1);
+}
+
+.fluent-data-grid th.column-reorderable.column-reorder-drop-after {
+  box-shadow: inset -2px 0 0 var(--colorBrandStroke1);
 }
 
 .fluent-data-grid .resize-handle {

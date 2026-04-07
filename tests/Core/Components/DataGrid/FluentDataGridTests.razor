@@ -1696,6 +1696,87 @@
     }
 
     [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu_ReorderOnly_ShowsPopup()
+    {
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true" ReorderableColumns="true">
+                <PropertyColumn ColumnId="name" Property="@(x => x.Name)" Sortable="false" />
+                <PropertyColumn ColumnId="city" Property="@(x => x.City)" Sortable="false" />
+            </FluentDataGrid>);
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        row.Find(".col-sort-button").Click();
+
+        var popup = cut.Find(".col-options");
+
+        Assert.Contains("Move right", popup.TextContent);
+        Assert.Contains("Move to end", popup.TextContent);
+    }
+
+    [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu_ReorderAndSort_AddsReorderMenuItem()
+    {
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true" ReorderableColumns="true">
+                <PropertyColumn ColumnId="name" Property="@(x => x.Name)" Sortable="true" />
+                <PropertyColumn ColumnId="city" Property="@(x => x.City)" Sortable="false" />
+            </FluentDataGrid>);
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        row.Find(".col-sort-button").Click();
+
+        var items = cut.FindAll("fluent-menu-item");
+
+        Assert.Equal(2, items.Count);
+        Assert.Contains("Reorder columns", items[1].TextContent);
+    }
+
+    [Fact]
+    public void FluentDataGrid_ColumnOrder_AppliesPersistedOrder()
+    {
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@GetCustomers().AsQueryable()" ColumnOrder="@(new[] { "action", "name", "city" })">
+                <PropertyColumn ColumnId="name" Title="Name" Property="@(x => x.Name)" />
+                <PropertyColumn ColumnId="city" Title="City" Property="@(x => x.City)" />
+                <PropertyColumn ColumnId="action" Title="Action" Property="@(x => x.Action)" />
+            </FluentDataGrid>);
+
+        var titles = cut.FindAll("th .col-title-text").Select(x => x.TextContent.Trim()).ToArray();
+
+        Assert.Equal(["Action", "Name", "City"], titles);
+        Assert.Equal(["action", "name", "city"], cut.Instance.GetColumnOrder());
+    }
+
+    [Fact]
+    public void FluentDataGrid_MoveColumnToEndAsync_UpdatesOrder_And_RaisesCallback()
+    {
+        FluentDataGrid<Customer>? grid = default!;
+        IReadOnlyList<string>? latestOrder = null;
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer"
+                             @ref="@grid"
+                             Items="@GetCustomers().AsQueryable()"
+                             ReorderableColumns="true"
+                             ColumnOrderChanged="@(order => latestOrder = order)">
+                <PropertyColumn ColumnId="name" Title="Name" Property="@(x => x.Name)" />
+                <PropertyColumn ColumnId="city" Title="City" Property="@(x => x.City)" />
+                <PropertyColumn ColumnId="action" Title="Action" Property="@(x => x.Action)" />
+            </FluentDataGrid>);
+
+        cut.InvokeAsync(() => grid!.MoveColumnToEndAsync(grid._columns[0])).GetAwaiter().GetResult();
+
+        var titles = cut.FindAll("th .col-title-text").Select(x => x.TextContent.Trim()).ToArray();
+
+        Assert.Equal(["City", "Action", "Name"], titles);
+        Assert.Equal(["city", "action", "name"], latestOrder);
+    }
+
+    [Fact]
     public void FluentDataGrid_HeaderCellAsButtonWithMenu_NoColumnActions()
     {
         // Arrange && Act

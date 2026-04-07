@@ -53,7 +53,17 @@ public abstract partial class ColumnBase<TGridItem>
     /// <summary>
     /// Gets a value indicating whether any column-related action is enabled.
     /// </summary>
-    protected bool AnyColumnActionEnabled => Sortable is true || ColumnOptions != null || Grid.ResizableColumns;
+    protected bool AnyColumnActionEnabled => Sortable is true || HasColumnOptionsPopupContent || Grid.ResizableColumns;
+
+    /// <summary>
+    /// Gets a value indicating whether this column has popup content that can be displayed from the header.
+    /// </summary>
+    protected bool HasColumnOptionsPopupContent => Grid.HasColumnOptionsPopupContent(this);
+
+    /// <summary>
+    /// Gets a value indicating whether this column can be reordered through the grid UI.
+    /// </summary>
+    protected bool CanReorder => Grid.CanRenderColumnReorderUi(this);
 
     /// <summary>
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
@@ -112,6 +122,13 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     [Parameter]
     public string? HeaderTooltip { get; set; }
+
+    /// <summary>
+    /// Gets or sets the stable identifier used to persist and restore this column's order.
+    /// When omitted, the grid derives an identifier from the bound property, title, or declaration order.
+    /// </summary>
+    [Parameter]
+    public string? ColumnId { get; set; }
 
     /// <summary>
     /// Gets or sets an optional template for this column's header cell.
@@ -207,6 +224,11 @@ public abstract partial class ColumnBase<TGridItem>
     internal string PinOffset { get; set; } = "0px";
 
     /// <summary>
+    /// Gets the effective key used by the grid when persisting and restoring column order.
+    /// </summary>
+    internal string ColumnKey { get; private set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the minimal width of the column.
     /// Defaults to 100px for a regular column and 50px for a select column.
     /// When resizing a column, the user will not be able to make it smaller than this value.
@@ -234,6 +256,14 @@ public abstract partial class ColumnBase<TGridItem>
     internal void SetColumnIndex(int index)
     {
         Index = index;
+    }
+
+    /// <summary>
+    /// Sets the effective column key for the current instance.
+    /// </summary>
+    internal void SetColumnKey(string key)
+    {
+        ColumnKey = key;
     }
 
     /// <summary />
@@ -325,7 +355,7 @@ public abstract partial class ColumnBase<TGridItem>
     {
         var hasSorting = Sortable is true || IsDefaultSortColumn;
         var hasResize = Grid.ResizableColumns;
-        var hasOptions = ColumnOptions is not null;
+        var hasOptions = HasColumnOptionsPopupContent;
         var hasMultiple = (Convert.ToInt32(hasSorting) + Convert.ToInt32(hasResize) + Convert.ToInt32(hasOptions)) > 1;
         var hideMenu = (hasSorting ^ hasResize ^ hasOptions) && !(hasSorting && hasResize && hasOptions);
 
@@ -403,5 +433,15 @@ public abstract partial class ColumnBase<TGridItem>
         }
 
         return Localizer[Localization.LanguageResource.DataGrid_SortMenu];
+    }
+
+    private string GetOptionsMenuText()
+    {
+        if (CanReorder && ColumnOptions is null)
+        {
+            return Localizer[Localization.LanguageResource.DataGrid_ReorderMenu];
+        }
+
+        return Localizer[Localization.LanguageResource.DataGrid_OptionsMenu];
     }
 }
