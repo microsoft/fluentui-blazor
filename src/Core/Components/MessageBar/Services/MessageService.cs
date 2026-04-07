@@ -46,7 +46,7 @@ public class MessageService : IMessageService, IDisposable
             MessageLock.EnterReadLock();
             try
             {
-                return MessageList;
+                return MessageList.ToList();
             }
             finally
             {
@@ -66,11 +66,16 @@ public class MessageService : IMessageService, IDisposable
         MessageLock.EnterReadLock();
         try
         {
-            var messages = string.IsNullOrEmpty(section)
+            IEnumerable<Message> messages = string.IsNullOrEmpty(section)
                        ? MessageList
                        : MessageList.Where(x => x.Section == section);
 
-            return count > 0 ? messages.Take(count) : messages;
+            if (count > 0)
+            {
+                messages = messages.Take(count);
+            }
+
+            return messages.ToList();
         }
         finally
         {
@@ -263,7 +268,10 @@ public class MessageService : IMessageService, IDisposable
             MessageLock.ExitWriteLock();
         }
 
-        await OnMessageItemsUpdatedAsync!.Invoke();
+        if (OnMessageItemsUpdatedAsync is { } handler)
+        {
+            await handler.Invoke();
+        }
 
         return message;
     }
