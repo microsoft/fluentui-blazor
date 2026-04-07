@@ -165,20 +165,26 @@
     }
 
     // -------------------------------------------------------------------------
-    // Pinned column with non-px Width throws
+    // Pinned column with non-px Width renders
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_With_NonPixel_Width_Throws()
+    public void FluentDataGrid_PinnedColumn_With_NonPixel_Width_Renders()
     {
-        Assert.Throws<ArgumentException>(() =>
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+                <ChildContent>
+                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="10rem" Pin="DataGridColumnPin.Start" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        var cells = cut.FindAll("[col-index='1']");
+        Assert.NotEmpty(cells);
+        Assert.All(cells, cell =>
         {
-            Render<FluentDataGrid<Customer>>(
-                @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
-                    <ChildContent>
-                        <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="1fr" Pin="DataGridColumnPin.Start" />
-                    </ChildContent>
-                </FluentDataGrid>);
+            Assert.Contains("col-pinned-start", cell.ClassName);
+            Assert.Contains("position: sticky", cell.GetAttribute("style") ?? "");
+            Assert.Contains("inset-inline-start: 0px", cell.GetAttribute("style") ?? "");
         });
     }
 

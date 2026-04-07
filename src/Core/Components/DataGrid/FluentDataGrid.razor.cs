@@ -600,7 +600,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new ArgumentException("The 'HierarchicalToggle' parameter can only be set on the first column of the grid.");
         }
 
-        // Validate and compute offsets for pinned columns.
+        // Validate pinned columns and seed their initial sticky offsets.
         ValidateAndComputePinnedColumns();
 
         // Always re-evaluate after collecting columns when using displaymode grid. A column might be added or hidden and the _internalGridTemplateColumns needs to reflect that.
@@ -624,10 +624,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
-    /// Validates the pinned-column configuration and computes the sticky offsets for each
-    /// pinned column. Rules enforced:
+    /// Validates the pinned-column configuration and seeds initial sticky offsets for each
+    /// pinned column before JavaScript recomputes them from rendered widths after first render.
+    /// Rules enforced:
     /// <list type="bullet">
-    ///   <item>Pinned columns must specify an explicit pixel <c>Width</c> (e.g., <c>"150px"</c>).</item>
+    ///   <item>Pinned columns must specify an explicit <c>Width</c>.</item>
     ///   <item>Start-pinned columns must be contiguous at the beginning of the column list.</item>
     ///   <item>End-pinned columns must be contiguous at the end of the column list.</item>
     /// </list>
@@ -665,21 +666,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     private void ValidatePinnedColumnConstraints()
     {
-        // Width must be an explicit pixel value.
+        // Width must be explicitly provided for pinned columns.
         foreach (var col in _columns.Where(c => c.Pin != DataGridColumnPin.None))
         {
             if (string.IsNullOrWhiteSpace(col.Width))
             {
                 throw new ArgumentException(
                     $"Column '{col.Title ?? col.Index.ToString(CultureInfo.InvariantCulture)}' has Pin set but no Width. " +
-                    "Pinned columns require an explicit Width in pixels (e.g., '150px').");
-            }
-
-            if (!col.Width!.Trim().EndsWith("px", StringComparison.OrdinalIgnoreCase))
-            {
-                throw new ArgumentException(
-                    $"Column '{col.Title ?? col.Index.ToString(CultureInfo.InvariantCulture)}' has Pin set but Width '{col.Width}' is not in pixels. " +
-                    "Pinned columns require an explicit Width in pixels (e.g., '150px').");
+                    "Pinned columns require an explicit Width.");
             }
         }
 
@@ -710,7 +704,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Parses a CSS pixel value string such as <c>"150px"</c> and returns the numeric value.
-    /// Returns <c>0</c> if the string is null, empty, or not a valid pixel value.
+    /// Returns <c>0</c> if the string is null, empty, or not a valid pixel value so JavaScript
+    /// can recompute the final sticky offsets from rendered widths after first render.
     /// </summary>
     private static double ParsePixelWidth(string? width)
     {

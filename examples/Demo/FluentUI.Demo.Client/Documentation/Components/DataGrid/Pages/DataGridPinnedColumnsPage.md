@@ -21,14 +21,14 @@ Set the `Pin` parameter on any `PropertyColumn` or `TemplateColumn`:
 
 ## Rules
 
-* **Explicit pixel width required.** Every pinned column must declare a `Width` in pixels
-  (e.g. `Width="150px"`). Relative units (`fr`, `%`) are not supported because the browser cannot
-  determine a fixed sticky offset from them at render time.
+* **Explicit width required.** Every pinned column must declare a `Width`.
+  Pixel and non-pixel CSS units are supported. After the grid renders, sticky offsets are
+  recomputed from the rendered header widths so pinned columns stay aligned.
 * **Start-pinned columns must be contiguous at the start.** Each start-pinned column must
   immediately follow another start-pinned column, or be the very first column.
 * **End-pinned columns must be contiguous at the end.** Each end-pinned column must
   immediately precede another end-pinned column, or be the very last column.
-* Violating any of these rules throws an `ArgumentException` with a descriptive message.
+* Violating the missing-width or ordering rules throws an `ArgumentException` with a descriptive message.
 
 ## Scrollable container
 
@@ -77,6 +77,6 @@ The two leftmost columns and the Actions column remain visible while the rest sc
 Wrap the grid in a `<div style="overflow-x: auto;">` container and give the grid a `Style="min-width: max-content;"`
 so that the horizontal scroll bar appears.
 
-Pinned columns require an explicit pixel `Width`.
+Pinned columns require an explicit `Width`.
 
 {{ DataGridPinnedColumns }}

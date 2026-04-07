@@ -570,6 +570,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
    * the widths of all end-pinned columns after it.
    *
    * The function reads the actual rendered header-cell width so it handles both Grid mode
+   * and pinned columns whose configured widths use non-pixel CSS units.
+   * It also handles both Grid mode
    * (CSS grid layout) and Table mode (standard table layout). Grid mode uses `offsetWidth`
    * (includes borders, matches the grid-track width) while Table mode uses `clientWidth`
    * (excludes borders, matches the CSS column width), consistent with how existing resize
