@@ -342,4 +342,16 @@
   <data name="DataGrid_ToggleNesting" xml:space="preserve">
     <value>Toggle nesting</value>
   </data>
+  <data name="Paginator_SummaryItem" xml:space="preserve">
+    <value>{0} item</value>
+  </data>
+  <data name="Paginator_SummaryItems" xml:space="preserve">
+    <value>{0} items</value>
+  </data>
+  <data name="Paginator_SummaryNoItems" xml:space="preserve">
+    <value>No items</value>
+  </data>
+  <data name="AutoComplete_MaximumSelectedOptionsMessage" xml:space="preserve">
+    <value>The maximum number of {0} selected items has been reached.</value>
+  </data>
 </root>

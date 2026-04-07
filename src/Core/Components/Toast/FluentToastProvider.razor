@@ -7,15 +7,35 @@
      @attributes="AdditionalAttributes">
     @if (ToastService != null)
     {
-        @foreach (var toast in ToastService.Items.Values.OrderBy(i => i.Index))
+        @foreach (var toast in GetRenderedToasts())
         {
-            <FluentToast Id="@toast.Id"
-                         Class="@toast.Options?.ClassValue"
-                         Style="@toast.Options?.StyleValue"
-                         Data="@toast.Options?.Data"
+            <FluentToast @key="toast.Id"
+                         Id="@toast.Id"
+                         Class="@toast.Options.ClassValue"
+                         Style="@toast.Options.StyleValue"
+                         Data="@toast.Options.Data"
+                         Timeout="@GetTimeout(toast)"
+                         Position="@GetPosition(toast)"
+                         VerticalOffset="@GetVerticalOffset(toast)"
+                         HorizontalOffset="@GetHorizontalOffset(toast)"
+                         Type="@toast.Options.Type"
+                         Inverted="@toast.Options.Inverted"
+                         Intent="@toast.Options.Intent"
+                         Politeness="@toast.Options.Politeness"
+                         PauseOnHover="@GetPauseOnHover(toast)"
+                         PauseOnWindowBlur="@GetPauseOnWindowBlur(toast)"
                          Instance="@toast"
-                         OnStateChange="@(toast.Options?.OnStateChange ?? EmptyOnStateChange)"
-                         @attributes="@AdditionalAttributes" />
+                         OnStatusChange="@GetOnStatusChangeCallback(toast)"
+                         Icon="@toast.Options.Icon"
+                         Title="@toast.Options.Title"
+                         Body="@toast.Options.Body"
+                         BodyContent="@toast.Options.BodyContent"
+                         Subtitle="@toast.Options.Subtitle"
+                         QuickAction1="@toast.Options.QuickAction1"
+                         QuickAction2="@toast.Options.QuickAction2"
+                         IsDismissable="@toast.Options.IsDismissable"
+                         DismissAction="@toast.Options.DismissAction"
+                         AdditionalAttributes="@toast.Options.AdditionalAttributes" />
         }
     }
 </div>

@@ -1,25 +1,95 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-@{
-#pragma warning disable IL2111
-}
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 
-<div fuib
-     id="@Id"
-     class="@ClassValue"
-     style="@StyleValue"
-     @ondialogbeforetoggle="@OnToggleAsync"
-     @ondialogtoggle="@OnToggleAsync"
-     @attributes="AdditionalAttributes">
-    @if (Instance is not null)
+<fluent-toast-b id="@Id"
+                class="@ClassValue"
+                style="@StyleValue"
+                opened="@(Opened ? "true" : "false")"
+                timeout="@Timeout"
+                position="@Position.ToAttributeValue()"
+                inverted="@(Inverted ? "true" : null)"
+                intent="@Intent.ToAttributeValue()"
+                politeness="@Politeness.ToAttributeValue()"
+                pause-on-hover="@(PauseOnHover ? "true" : null)"
+                pause-on-window-blur="@(PauseOnWindowBlur ? "true" : null)"
+                vertical-offset="@VerticalOffset"
+                horizontal-offset="@HorizontalOffset"
+                role="listitem"
+                aria-labelledby="@(string.IsNullOrEmpty(Title) ? null : $"{Id}-title")"
+                aria-describedby="@((string.IsNullOrEmpty(Body) && BodyContent is null) ? null : $"{Id}-body")"
+                @attributes="@AdditionalAttributes"
+                @ondialogtoggle="@OnToggleAsync"
+                @ondialogbeforetoggle="@OnToggleAsync">
+    @if (Icon is not null)
     {
-        <CascadingValue Value="Instance">
-            <DynamicComponent Type="@Instance.ComponentType"
-                              Parameters="Instance.Options.Parameters" />
-        </CascadingValue>
+        <div slot="media" aria-hidden="true">
+            <FluentIcon Value="@Icon" Color="@GetIntentColor(Intent)" />
+        </div>
+    }
+    else if (Type == ToastType.IndeterminateProgress)
+    {
+        <div slot="media">
+           <FluentSpinner Visible="true" Size="@SpinnerSize.Tiny" Style="--size: 1em;" />
+        </div>
     }
     else
     {
-        @ChildContent
+        <div slot="media" aria-hidden="true">
+            <FluentIcon Value="@IntentIcon" Color="@GetIntentColor(Intent)" Width="1em" />
+        </div>
     }
-</div>
+
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <div id="@($"{Id}-title")" slot="title">@Title</div>
+    }
+
+    @if (IsDismissable)
+    {
+        @if (!string.IsNullOrEmpty(DismissAction))
+        {
+            <FluentLink slot="action" OnClick="@OnDismissActionClickedAsync" Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
+                @DismissAction
+            </FluentLink>
+        }
+        else
+        {
+            <FluentButton Appearance="@ButtonAppearance.Subtle"
+                          IconOnly="true"
+                          IconStart="@DismissIcon"
+                          Title="Dismiss"
+                          slot="action"
+                          OnClick="@(() => Instance!.DismissAsync())" />
+        }
+    }
+
+    @if (!string.IsNullOrEmpty(Body) || BodyContent is not null)
+    {
+        <div id="@($"{Id}-body")">@Body@BodyContent</div>
+    }
+
+    @if (!string.IsNullOrEmpty(Subtitle))
+    {
+        <div slot="subtitle">@Subtitle</div>
+    }
+
+    @if (!string.IsNullOrEmpty(QuickAction1) || !string.IsNullOrEmpty(QuickAction2))
+    {
+        <div slot="footer">
+            @if (!string.IsNullOrEmpty(QuickAction1))
+            {
+                <FluentLink OnClick="@OnQuickAction1ClickedAsync" Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
+                    @QuickAction1
+                </FluentLink>
+            }
+
+            @if (!string.IsNullOrEmpty(QuickAction2))
+            {
+                <FluentLink OnClick="@OnQuickAction2ClickedAsync" Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
+                    @QuickAction2
+                </FluentLink>
+            }
+        </div>
+    }
+</fluent-toast-b>
