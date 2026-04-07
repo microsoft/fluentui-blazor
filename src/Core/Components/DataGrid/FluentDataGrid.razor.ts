@@ -12,6 +12,17 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     size: string;
   }
 
+  function getMinWidthPx(header: HTMLElement): number {
+    const configuredMinWidth = header.style.minWidth;
+    if (configuredMinWidth) {
+      const parsedInlineMinWidth = parseInt(configuredMinWidth, 10);
+      return Number.isNaN(parsedInlineMinWidth) ? 100 : parsedInlineMinWidth;
+    }
+
+    const parsedComputedMinWidth = parseInt(getComputedStyle(header).minWidth, 10);
+    return Number.isNaN(parsedComputedMinWidth) ? 100 : parsedComputedMinWidth;
+  }
+
   // Use a dictionary for grids for id-based access
   let grids: Grid[] = []; // { [id: string]: Grid } = {};
 
@@ -24,6 +35,10 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     const { signal } = controller;
 
     EnableColumnResizing(gridElement, true, signal);
+
+    // Recalculate sticky offsets now that the DOM is fully rendered, so any
+    // browser-computed widths (e.g. after grid layout) are reflected.
+    UpdatePinnedColumnOffsets(gridElement);
 
     let start = gridElement.querySelector('td:first-child') as HTMLElement | null;
 
@@ -242,7 +257,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       const resizeTop = (header.querySelector('.resize-handle') as HTMLElement)?.offsetTop ?? 2;
 
       // add a new resize div
-      const div = createDiv(resizeHandleHeight, resizeTop);
+      const div = createDiv(resizeHandleHeight, resizeTop, header.classList.contains('col-pinned-start') ? 0 : -1);
       header.appendChild(div);
       setListeners(div, effectiveSignal);
     });
@@ -286,7 +301,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
             const diffX = isRTL ? (pageX! - e.pageX) : (e.pageX - pageX!);
             const column: Column = columns.find(({ header }) => header === curCol)!;
 
-            const minWidth = parseInt((column.header as HTMLElement).style.minWidth) || 0;
+            const minWidth = getMinWidthPx(column.header as HTMLElement);
             column.size = Math.max(minWidth, curColWidth! + diffX) + 'px';
 
             columns.forEach((col) => {
@@ -304,6 +319,9 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
             else {
               curCol.style.width = column.size;
             }
+
+            // Keep sticky offsets in sync after every resize step.
+            UpdatePinnedColumnOffsets(gridElement);
           }
         });
       };
@@ -346,7 +364,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       div.addEventListener('pointerleave', removeBorder, { signal });
     }
 
-    function createDiv(height: number, top: number) {
+    function createDiv(height: number, top: number, pinnedOffset: number) {
       const div = document.createElement('div');
       div.className = 'actual-resize-handle';
       div.style.top = top + 'px';
@@ -356,7 +374,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       div.style.height = (height - 4) + 'px'; // adjust for the top offset
       div.style.width = '6px';
       div.style.opacity = 'var(--fluent-data-grid-header-opacity)';
-      div.style.insetInlineEnd = '0';
+      div.style.insetInlineEnd = pinnedOffset + 'px';
       return div;
     }
 
@@ -435,7 +453,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         //const width = headerBeingResized!.getBoundingClientRect().width + change;
 
         if (change < 0) {
-          column.size = Math.max(parseInt(column.header.style.minWidth === '' ? '100' : column.header.style.minWidth, 10), width) + 'px';
+          column.size = Math.max(getMinWidthPx(column.header), width) + 'px';
         }
         else {
           column.size = width + 'px';
@@ -468,7 +486,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     grids.find(grid => grid.id === gridElement.id)!.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
-        column.size = Math.max(parseInt(column.header.style.minWidth === '' ? '100' : column.header.style.minWidth, 10), width) + 'px';
+        column.size = Math.max(getMinWidthPx(column.header), width) + 'px';
         column.header.style.width = column.size;
       }
 
@@ -539,5 +557,70 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     const visibleRows = Math.max(Math.floor(availableHeight / rowHeight), 1);
     return visibleRows;
+  }
+
+  /**
+   * Recalculates and applies the `left` / `right` inline offsets for every cell in each
+   * pinned column so that columns stack correctly against the grid edge after the initial
+   * render or after a column is resized.
+   *
+   * Start-pinned columns are processed in DOM order; each column's offset is the sum of
+   * the widths of all start-pinned columns before it.
+   * End-pinned columns are processed in reverse DOM order; each column's offset is the sum of
+   * the widths of all end-pinned columns after it.
+   *
+   * The function reads the actual rendered header-cell width so it handles pinned columns whose
+   * configured widths use non-pixel CSS units as well as both Grid mode
+   * (CSS grid layout) and Table mode (standard table layout). Grid mode uses `offsetWidth`
+   * (includes borders, matches the grid-track width) while Table mode uses `clientWidth`
+   * (excludes borders, matches the CSS column width), consistent with how existing resize
+   * logic measures columns throughout this file.
+   */
+  export function UpdatePinnedColumnOffsets(gridElement: HTMLElement) {
+    const isGrid = gridElement.classList.contains('grid');
+
+    /**
+     * Returns the rendered pixel width of a header cell in a way that is consistent with
+     * how the resize logic elsewhere in this file measures column widths.
+     * Grid mode: offsetWidth (includes borders — matches the CSS grid-track size).
+     * Table mode: clientWidth (excludes borders — matches the CSS column width).
+     */
+    function headerWidth(header: HTMLElement): number {
+      return isGrid ? header.offsetWidth : header.clientWidth;
+    }
+
+    /**
+     * Applies a cumulative sticky offset to all cells in a column and returns the new
+     * running total to be used by the next column in the sequence.
+     */
+    function applyOffset(header: HTMLElement, offset: number, side: 'insetInlineStart' | 'insetInlineEnd'): number {
+      const colIndex = header.getAttribute('col-index');
+      if (!colIndex) { return offset; }
+
+      (gridElement.querySelectorAll(`[col-index="${colIndex}"]`) as NodeListOf<HTMLElement>)
+        .forEach(cell => { cell.style[side] = offset + 'px'; });
+
+      return offset + headerWidth(header);
+    }
+
+    // Start-pinned columns: process in DOM order.
+    const startPinnedHeaders = Array.from(
+      gridElement.querySelectorAll('th.col-pinned-start')
+    ) as HTMLElement[];
+
+    let startOffset = 0;
+    for (const header of startPinnedHeaders) {
+      startOffset = applyOffset(header, startOffset, 'insetInlineStart');
+    }
+
+    // End-pinned columns: process in reverse DOM order.
+    const endPinnedHeaders = Array.from(
+      gridElement.querySelectorAll('th.col-pinned-end')
+    ) as HTMLElement[];
+
+    let endOffset = 0;
+    for (let i = endPinnedHeaders.length - 1; i >= 0; i--) {
+      endOffset = applyOffset(endPinnedHeaders[i], endOffset, 'insetInlineEnd');
+    }
   }
 }
