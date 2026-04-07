@@ -15,6 +15,8 @@
          aria-hidden="@(Focusable ? null : "true")"
          @onkeydown="@OnKeyDownAsync"
          @onclick="@OnClickHandlerAsync"
+         @onclick:stopPropagation="@OnClickStopPropagation"
+         @onclick:preventDefault="@OnClickPreventDefault"
          @attributes="@AdditionalAttributes">
         @if (!string.IsNullOrEmpty(Title))
         {
@@ -35,7 +37,9 @@ else
          role="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("role", "button", when: () => Focusable)"
          @attributes="@AdditionalAttributes"
          @onkeydown="@OnKeyDownAsync"
-         @onclick="@OnClickHandlerAsync">
+         @onclick="@OnClickHandlerAsync"
+         @onclick:stopPropagation="@OnClickStopPropagation"
+         @onclick:preventDefault="@OnClickPreventDefault">
         @((MarkupString)@_icon.Content)
     </div>
 }

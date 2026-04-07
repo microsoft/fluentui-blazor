@@ -351,4 +351,7 @@
   <data name="Paginator_SummaryNoItems" xml:space="preserve">
     <value>No items</value>
   </data>
+  <data name="AutoComplete_MaximumSelectedOptionsMessage" xml:space="preserve">
+    <value>The maximum number of {0} selected items has been reached.</value>
+  </data>
 </root>

@@ -87,6 +87,18 @@ public partial class FluentIcon<Icon> : FluentComponentBase, ITooltipComponent, 
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the click event should stop propagation.
+    /// </summary>
+    [Parameter]
+    public bool OnClickStopPropagation { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the click event should prevent the default action.
+    /// </summary>
+    [Parameter]
+    public bool OnClickPreventDefault { get; set; }
+
+    /// <summary>
     /// Gets or sets whether the icon is focusable (adding tab-index="0" and role="button"),
     /// allows the icon to be focused sequentially (generally with the Tab key).
     /// </summary>
