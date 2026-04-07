@@ -8,7 +8,7 @@ route: /Lists/Autocomplete
 An **Autocomplete** component is a text input that provides real-time suggestions as the user types.
 It combines a free-text input with a filtered list of options, allowing users to either select from the suggestions or type their own value.
 
-It is particularly useful when the list of options is large, as the user can narrow down choices without scrolling through all available items.
+This is particularly useful when the list of options is large, as the user can narrow down the list op options without needing to scroll through all available items.
 
 By default, the `FluentAutocomplete` component compares search results by instance with its internal selected items.
 You can control this behavior by providing the `OptionSelectedComparer` parameter.
