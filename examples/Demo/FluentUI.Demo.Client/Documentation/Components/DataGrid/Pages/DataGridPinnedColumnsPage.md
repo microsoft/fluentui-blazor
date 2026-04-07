@@ -1,13 +1,13 @@
 ---
 title: Pinned columns
-order: 0095
 route: /DataGrid/PinnedColumns
 ---
 
 # Pinned columns
 
-Columns can be pinned (frozen) to the left or right edge of the grid so that they remain visible
-while the user scrolls horizontally through wider datasets.
+Columns can be pinned (frozen) to the start or end edge of the grid so that they remain visible
+while the user scrolls horizontally through wider datasets. Using `Start`/`End` instead of
+`Left`/`Right` means pinned columns automatically work correctly in both LTR and RTL layouts.
 
 ## Parameters
 
@@ -16,19 +16,19 @@ Set the `Pin` parameter on any `PropertyColumn` or `TemplateColumn`:
 | Value | Behavior |
 |---|---|
 | `DataGridColumnPin.None` | Default — column scrolls normally |
-| `DataGridColumnPin.Left` | Column stays anchored to the left edge |
-| `DataGridColumnPin.Right` | Column stays anchored to the right edge |
+| `DataGridColumnPin.Start` | Column stays anchored to the start edge |
+| `DataGridColumnPin.End` | Column stays anchored to the end edge |
 
 ## Rules
 
-* **Explicit pixel width required.** Every pinned column must declare a `Width` in pixels
-  (e.g. `Width="150px"`). Relative units (`fr`, `%`) are not supported because the browser cannot
-  determine a fixed sticky offset from them at render time.
-* **Left-pinned columns must be contiguous at the start.** Each left-pinned column must
-  immediately follow another left-pinned column, or be the very first column.
-* **Right-pinned columns must be contiguous at the end.** Each right-pinned column must
-  immediately precede another right-pinned column, or be the very last column.
-* Violating any of these rules throws an `ArgumentException` with a descriptive message.
+* **Explicit width required.** Every pinned column must declare a `Width`.
+  Pixel and non-pixel CSS units are supported. After the grid renders, sticky offsets are
+  recomputed from the rendered header widths so pinned columns stay aligned.
+* **Start-pinned columns must be contiguous at the start.** Each start-pinned column must
+  immediately follow another start-pinned column, or be the very first column.
+* **End-pinned columns must be contiguous at the end.** Each end-pinned column must
+  immediately precede another end-pinned column, or be the very last column.
+* Violating the missing-width or ordering rules throws an `ArgumentException` with a descriptive message.
 
 ## Scrollable container
 
@@ -39,10 +39,10 @@ bar appears when columns overflow the container:
 ```razor
 <div style="overflow-x: auto;">
     <FluentDataGrid Items="@employees" Style="min-width: max-content;">
-        <PropertyColumn Title="ID"       Property="@(e => e.Id)"     Width="60px"  Pin="DataGridColumnPin.Left" />
-        <PropertyColumn Title="Name"     Property="@(e => e.Name)"   Width="160px" Pin="DataGridColumnPin.Left" />
+        <PropertyColumn Title="ID"       Property="@(e => e.Id)"     Width="60px"  Pin="DataGridColumnPin.Start" />
+        <PropertyColumn Title="Name"     Property="@(e => e.Name)"   Width="160px" Pin="DataGridColumnPin.Start" />
         <PropertyColumn Title="City"     Property="@(e => e.City)" />
-        <TemplateColumn Title="Actions"  Width="120px" Pin="DataGridColumnPin.Right">
+        <TemplateColumn Title="Actions"  Width="120px" Pin="DataGridColumnPin.End">
             ...
         </TemplateColumn>
     </FluentDataGrid>
@@ -63,22 +63,20 @@ property `--fluent-data-grid-pinned-background`:
 
 ## Notes
 
-* Column resizing interacts correctly with sticky offsets — the JavaScript in
-  `FluentDataGrid.razor.ts` recalculates `left` / `right` values after every resize step via
-  `UpdatePinnedColumnOffsets`.
+* Column resizing keeps pinned columns aligned as widths change.
 * Virtualization and paging are fully compatible because each rendered row's cells carry the
   same `position: sticky` styling regardless of which page or scroll position is active.
-* In RTL layouts the browser interprets `left` / `right` according to the document direction, so
-  pinned columns behave correctly without additional configuration.
+* RTL layouts are fully supported: start and end automatically map to the correct physical
+  direction based on the document's writing mode.
 
 ## Example
 
-Demonstrates pinned (frozen) columns using `Pin="DataGridColumnPin.Left"` and `Pin="DataGridColumnPin.Right"`.
+Demonstrates pinned (frozen) columns using `Pin="DataGridColumnPin.Start"` and `Pin="DataGridColumnPin.End"`.
 The two leftmost columns and the Actions column remain visible while the rest scroll horizontally.
 
 Wrap the grid in a `<div style="overflow-x: auto;">` container and give the grid a `Style="min-width: max-content;"`
 so that the horizontal scroll bar appears.
 
-Pinned columns require an explicit pixel `Width`.
+Pinned columns require an explicit `Width`.
 
 {{ DataGridPinnedColumns }}

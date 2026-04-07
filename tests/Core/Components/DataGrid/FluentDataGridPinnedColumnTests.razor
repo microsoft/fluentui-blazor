@@ -31,43 +31,43 @@
     }
 
     // -------------------------------------------------------------------------
-    // Single pinned-left column: correct CSS class and sticky style
+    // Single pinned-start column: correct CSS class and sticky style
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_Left_Has_Sticky_Class_And_Style()
+    public void FluentDataGrid_PinnedColumn_Start_Has_Sticky_Class_And_Style()
     {
         // Arrange && Act
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <ChildContent>
-                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="100px" Pin="DataGridColumnPin.Left" />
+                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="100px" Pin="DataGridColumnPin.Start" />
                 </ChildContent>
             </FluentDataGrid>);
 
-        // Assert — every cell in the column carries col-pinned-left and position:sticky;left:0px
+        // Assert — every cell in the column carries col-pinned-start and a start offset of 0px
         var cells = cut.FindAll("[col-index='1']");
         Assert.NotEmpty(cells);
         Assert.All(cells, cell =>
         {
-            Assert.Contains("col-pinned-left", cell.ClassName);
+            Assert.Contains("col-pinned-start", cell.ClassName);
             Assert.Contains("position: sticky", cell.GetAttribute("style") ?? "");
-            Assert.Contains("left: 0px", cell.GetAttribute("style") ?? "");
+            Assert.Contains("inset-inline-start: 0px", cell.GetAttribute("style") ?? "");
         });
     }
 
     // -------------------------------------------------------------------------
-    // Single pinned-right column: correct CSS class and sticky style
+    // Single pinned-end column: correct CSS class and sticky style
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_Right_Has_Sticky_Class_And_Style()
+    public void FluentDataGrid_PinnedColumn_End_Has_Sticky_Class_And_Style()
     {
         // Arrange && Act
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <ChildContent>
-                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="80px" Pin="DataGridColumnPin.Right" />
+                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="80px" Pin="DataGridColumnPin.End" />
                 </ChildContent>
             </FluentDataGrid>);
 
@@ -75,9 +75,9 @@
         Assert.NotEmpty(cells);
         Assert.All(cells, cell =>
         {
-            Assert.Contains("col-pinned-right", cell.ClassName);
+            Assert.Contains("col-pinned-end", cell.ClassName);
             Assert.Contains("position: sticky", cell.GetAttribute("style") ?? "");
-            Assert.Contains("right: 0px", cell.GetAttribute("style") ?? "");
+            Assert.Contains("inset-inline-end: 0px", cell.GetAttribute("style") ?? "");
         });
     }
 
@@ -87,7 +87,7 @@
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="false">
                 <ChildContent>
-                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="120px" MinWidth="150px" Pin="DataGridColumnPin.Left" />
+                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="120px" MinWidth="150px" Pin="DataGridColumnPin.Start" />
                 </ChildContent>
             </FluentDataGrid>);
 
@@ -97,53 +97,53 @@
     }
 
     // -------------------------------------------------------------------------
-    // Two left-pinned columns: cumulative offsets
+    // Two start-pinned columns: cumulative offsets
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_Left_Multiple_Cumulative_Offsets()
+    public void FluentDataGrid_PinnedColumn_Start_Multiple_Cumulative_Offsets()
     {
-        // Arrange && Act — col1: 100px, col2: 120px → col1 left:0px, col2 left:100px
+        // Arrange && Act — col1: 100px, col2: 120px → col1 start offset 0px, col2 start offset 100px
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <ChildContent>
-                    <PropertyColumn Title="Id"   Property="@(x => x.Id)"   Width="100px" Pin="DataGridColumnPin.Left" />
-                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="120px" Pin="DataGridColumnPin.Left" />
+                    <PropertyColumn Title="Id"   Property="@(x => x.Id)"   Width="100px" Pin="DataGridColumnPin.Start" />
+                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="120px" Pin="DataGridColumnPin.Start" />
                 </ChildContent>
             </FluentDataGrid>);
 
         Assert.All(cut.FindAll("[col-index='1']"), cell =>
-            Assert.Contains("left: 0px", cell.GetAttribute("style") ?? ""));
+            Assert.Contains("inset-inline-start: 0px", cell.GetAttribute("style") ?? ""));
 
         Assert.All(cut.FindAll("[col-index='2']"), cell =>
-            Assert.Contains("left: 100px", cell.GetAttribute("style") ?? ""));
+            Assert.Contains("inset-inline-start: 100px", cell.GetAttribute("style") ?? ""));
     }
 
     // -------------------------------------------------------------------------
-    // Two right-pinned columns: cumulative offsets
+    // Two end-pinned columns: cumulative offsets
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_Right_Multiple_Cumulative_Offsets()
+    public void FluentDataGrid_PinnedColumn_End_Multiple_Cumulative_Offsets()
     {
-        // col1 (normal 1fr) | col2: 80px right-pinned | col3: 60px right-pinned
-        // col3 (rightmost) → right:0px  |  col2 → right:60px
+        // col1 (normal 1fr) | col2: 80px end-pinned | col3: 60px end-pinned
+        // col3 (rightmost) → end offset 0px  |  col2 → end offset 60px
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <ChildContent>
                     <PropertyColumn Title="Name"   Property="@(x => x.Name)" />
-                    <PropertyColumn Title="City"   Property="@(x => x.City)"   Width="80px"  Pin="DataGridColumnPin.Right" />
-                    <PropertyColumn Title="Action" Property="@(x => x.Action)" Width="60px"  Pin="DataGridColumnPin.Right" />
+                    <PropertyColumn Title="City"   Property="@(x => x.City)"   Width="80px"  Pin="DataGridColumnPin.End" />
+                    <PropertyColumn Title="Action" Property="@(x => x.Action)" Width="60px"  Pin="DataGridColumnPin.End" />
                 </ChildContent>
             </FluentDataGrid>);
 
-        // col3 is index 3 — rightmost right-pinned → right: 0px
+        // col3 is index 3 — rightmost end-pinned → end offset 0px
         Assert.All(cut.FindAll("[col-index='3']"), cell =>
-            Assert.Contains("right: 0px", cell.GetAttribute("style") ?? ""));
+            Assert.Contains("inset-inline-end: 0px", cell.GetAttribute("style") ?? ""));
 
-        // col2 is index 2 — next-to-last right-pinned → right: 60px (width of col3)
+        // col2 is index 2 — next-to-last end-pinned → end offset 60px (width of col3)
         Assert.All(cut.FindAll("[col-index='2']"), cell =>
-            Assert.Contains("right: 60px", cell.GetAttribute("style") ?? ""));
+            Assert.Contains("inset-inline-end: 60px", cell.GetAttribute("style") ?? ""));
     }
 
     // -------------------------------------------------------------------------
@@ -158,85 +158,91 @@
             Render<FluentDataGrid<Customer>>(
                 @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                     <ChildContent>
-                        <PropertyColumn Title="Name" Property="@(x => x.Name)" Pin="DataGridColumnPin.Left" />
+                        <PropertyColumn Title="Name" Property="@(x => x.Name)" Pin="DataGridColumnPin.Start" />
                     </ChildContent>
                 </FluentDataGrid>);
         });
     }
 
     // -------------------------------------------------------------------------
-    // Pinned column with non-px Width throws
+    // Pinned column with non-px Width renders
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_With_NonPixel_Width_Throws()
+    public void FluentDataGrid_PinnedColumn_With_NonPixel_Width_Renders()
     {
-        Assert.Throws<ArgumentException>(() =>
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+                <ChildContent>
+                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="10rem" Pin="DataGridColumnPin.Start" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        var cells = cut.FindAll("[col-index='1']");
+        Assert.NotEmpty(cells);
+        Assert.All(cells, cell =>
         {
-            Render<FluentDataGrid<Customer>>(
-                @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
-                    <ChildContent>
-                        <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="1fr" Pin="DataGridColumnPin.Left" />
-                    </ChildContent>
-                </FluentDataGrid>);
+            Assert.Contains("col-pinned-start", cell.ClassName);
+            Assert.Contains("position: sticky", cell.GetAttribute("style") ?? "");
+            Assert.Contains("inset-inline-start: 0px", cell.GetAttribute("style") ?? "");
         });
     }
 
     // -------------------------------------------------------------------------
-    // Ordering validation: isolated left-pinned column (not at the start) throws
+    // Ordering validation: isolated start-pinned column (not at the start) throws
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_Left_Not_At_Start_Throws()
+    public void FluentDataGrid_PinnedColumn_Start_Not_At_Start_Throws()
     {
-        // col1 is unpinned, col2 is left-pinned → invalid
+        // col1 is unpinned, col2 is start-pinned → invalid
         Assert.Throws<ArgumentException>(() =>
         {
             Render<FluentDataGrid<Customer>>(
                 @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                     <ChildContent>
                         <PropertyColumn Title="Name"   Property="@(x => x.Name)" />
-                        <PropertyColumn Title="City"   Property="@(x => x.City)"   Width="120px" Pin="DataGridColumnPin.Left" />
+                        <PropertyColumn Title="City"   Property="@(x => x.City)"   Width="120px" Pin="DataGridColumnPin.Start" />
                     </ChildContent>
                 </FluentDataGrid>);
         });
     }
 
     // -------------------------------------------------------------------------
-    // Ordering validation: left-pinned columns split by a normal column throws
+    // Ordering validation: start-pinned columns split by a normal column throws
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_Left_NonContiguous_Throws()
+    public void FluentDataGrid_PinnedColumn_Start_NonContiguous_Throws()
     {
-        // col1 left-pinned, col2 normal, col3 left-pinned → not contiguous
+        // col1 start-pinned, col2 normal, col3 start-pinned → not contiguous
         Assert.Throws<ArgumentException>(() =>
         {
             Render<FluentDataGrid<Customer>>(
                 @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                     <ChildContent>
-                        <PropertyColumn Title="Id"     Property="@(x => x.Id)"     Width="60px"  Pin="DataGridColumnPin.Left" />
+                        <PropertyColumn Title="Id"     Property="@(x => x.Id)"     Width="60px"  Pin="DataGridColumnPin.Start" />
                         <PropertyColumn Title="Name"   Property="@(x => x.Name)" />
-                        <PropertyColumn Title="City"   Property="@(x => x.City)"   Width="120px" Pin="DataGridColumnPin.Left" />
+                        <PropertyColumn Title="City"   Property="@(x => x.City)"   Width="120px" Pin="DataGridColumnPin.Start" />
                     </ChildContent>
                 </FluentDataGrid>);
         });
     }
 
     // -------------------------------------------------------------------------
-    // Ordering validation: isolated right-pinned column (not at the end) throws
+    // Ordering validation: isolated end-pinned column (not at the end) throws
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_Right_Not_At_End_Throws()
+    public void FluentDataGrid_PinnedColumn_End_Not_At_End_Throws()
     {
-        // col1 right-pinned, col2 normal → invalid
+        // col1 end-pinned, col2 normal → invalid
         Assert.Throws<ArgumentException>(() =>
         {
             Render<FluentDataGrid<Customer>>(
                 @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                     <ChildContent>
-                        <PropertyColumn Title="Name"   Property="@(x => x.Name)"   Width="120px" Pin="DataGridColumnPin.Right" />
+                        <PropertyColumn Title="Name"   Property="@(x => x.Name)"   Width="120px" Pin="DataGridColumnPin.End" />
                         <PropertyColumn Title="City"   Property="@(x => x.City)" />
                     </ChildContent>
                 </FluentDataGrid>);
@@ -244,60 +250,60 @@
     }
 
     // -------------------------------------------------------------------------
-    // Ordering validation: right-pinned columns split by a normal column throws
+    // Ordering validation: end-pinned columns split by a normal column throws
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_Right_NonContiguous_Throws()
+    public void FluentDataGrid_PinnedColumn_End_NonContiguous_Throws()
     {
-        // col1 normal, col2 right-pinned, col3 normal, col4 right-pinned → not contiguous
+        // col1 normal, col2 end-pinned, col3 normal, col4 end-pinned → not contiguous
         Assert.Throws<ArgumentException>(() =>
         {
             Render<FluentDataGrid<Customer>>(
                 @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                     <ChildContent>
                         <PropertyColumn Title="Name"   Property="@(x => x.Name)" />
-                        <PropertyColumn Title="City"   Property="@(x => x.City)"   Width="80px"  Pin="DataGridColumnPin.Right" />
+                        <PropertyColumn Title="City"   Property="@(x => x.City)"   Width="80px"  Pin="DataGridColumnPin.End" />
                         <PropertyColumn Title="Zip"    Property="@(x => x.Zip)" />
-                        <PropertyColumn Title="Action" Property="@(x => x.Action)" Width="60px"  Pin="DataGridColumnPin.Right" />
+                        <PropertyColumn Title="Action" Property="@(x => x.Action)" Width="60px"  Pin="DataGridColumnPin.End" />
                     </ChildContent>
                 </FluentDataGrid>);
         });
     }
 
     // -------------------------------------------------------------------------
-    // Valid mixed layout: left-pinned + normal + right-pinned
+    // Valid mixed layout: start-pinned + normal + end-pinned
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_LeftAndRight_Valid_Layout()
+    public void FluentDataGrid_PinnedColumn_StartAndEnd_Valid_Layout()
     {
         // Should not throw; verify offsets are correct
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <ChildContent>
-                    <PropertyColumn Title="Id"     Property="@(x => x.Id)"     Width="50px"  Pin="DataGridColumnPin.Left" />
-                    <PropertyColumn Title="Name"   Property="@(x => x.Name)"   Width="150px" Pin="DataGridColumnPin.Left" />
+                    <PropertyColumn Title="Id"     Property="@(x => x.Id)"     Width="50px"  Pin="DataGridColumnPin.Start" />
+                    <PropertyColumn Title="Name"   Property="@(x => x.Name)"   Width="150px" Pin="DataGridColumnPin.Start" />
                     <PropertyColumn Title="City"   Property="@(x => x.City)" />
-                    <PropertyColumn Title="Action" Property="@(x => x.Action)" Width="100px" Pin="DataGridColumnPin.Right" />
+                    <PropertyColumn Title="Action" Property="@(x => x.Action)" Width="100px" Pin="DataGridColumnPin.End" />
                 </ChildContent>
             </FluentDataGrid>);
 
-        // col1 (Id)   left-pinned → left: 0px
+        // col1 (Id)   start-pinned → start offset 0px
         Assert.All(cut.FindAll("[col-index='1']"), c =>
-            Assert.Contains("left: 0px", c.GetAttribute("style") ?? ""));
+            Assert.Contains("inset-inline-start: 0px", c.GetAttribute("style") ?? ""));
 
-        // col2 (Name) left-pinned → left: 50px
+        // col2 (Name) start-pinned → start offset 50px
         Assert.All(cut.FindAll("[col-index='2']"), c =>
-            Assert.Contains("left: 50px", c.GetAttribute("style") ?? ""));
+            Assert.Contains("inset-inline-start: 50px", c.GetAttribute("style") ?? ""));
 
         // col3 (City) not pinned → no sticky style
         Assert.All(cut.FindAll("[col-index='3']"), c =>
             Assert.DoesNotContain("position: sticky", c.GetAttribute("style") ?? ""));
 
-        // col4 (Action) right-pinned → right: 0px
+        // col4 (Action) end-pinned → end offset 0px
         Assert.All(cut.FindAll("[col-index='4']"), c =>
-            Assert.Contains("right: 0px", c.GetAttribute("style") ?? ""));
+            Assert.Contains("inset-inline-end: 0px", c.GetAttribute("style") ?? ""));
     }
 
     // -------------------------------------------------------------------------
@@ -310,10 +316,10 @@
         var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <ChildContent>
-                    <PropertyColumn Title="Id"   Property="@(x => x.Id)"   Width="50px"  Pin="DataGridColumnPin.Left" />
-                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="150px" Pin="DataGridColumnPin.Left" />
+                    <PropertyColumn Title="Id"   Property="@(x => x.Id)"   Width="50px"  Pin="DataGridColumnPin.Start" />
+                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="150px" Pin="DataGridColumnPin.Start" />
                     <PropertyColumn Title="City" Property="@(x => x.City)" />
-                    <PropertyColumn Title="Action" Property="@(x => x.Action)" Width="100px" Pin="DataGridColumnPin.Right" />
+                    <PropertyColumn Title="Action" Property="@(x => x.Action)" Width="100px" Pin="DataGridColumnPin.End" />
                 </ChildContent>
             </FluentDataGrid>);
 

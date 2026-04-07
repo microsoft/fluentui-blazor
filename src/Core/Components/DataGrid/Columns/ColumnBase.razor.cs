@@ -188,21 +188,23 @@ public abstract partial class ColumnBase<TGridItem>
     public string? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets whether this column is pinned (frozen) to the left or right edge of the grid,
+    /// Gets or sets whether this column is pinned (frozen) to the start or end edge of the grid,
     /// so it remains visible when the user scrolls horizontally.
-    /// Pinned columns require an explicit <see cref="Width"/> in pixels (e.g., <c>"150px"</c>).
-    /// Left-pinned columns must be contiguous at the start of the column list;
-    /// right-pinned columns must be contiguous at the end.
+    /// Pinned columns require an explicit <see cref="Width"/>.
+    /// Sticky offsets are recomputed from rendered header widths after the grid is rendered.
+    /// Start-pinned columns must be contiguous at the start of the column list;
+    /// end-pinned columns must be contiguous at the end.
     /// </summary>
     [Parameter]
     public DataGridColumnPin Pin { get; set; } = DataGridColumnPin.None;
 
     /// <summary>
-    /// The sticky <c>left</c> or <c>right</c> CSS offset (in pixels) computed by
-    /// <see cref="FluentDataGrid{TGridItem}"/> when columns are collected.
+    /// The sticky start or end CSS offset seeded by
+    /// <see cref="FluentDataGrid{TGridItem}"/> when columns are collected and later updated from
+    /// rendered widths by JavaScript.
     /// Not intended for direct use by consumers.
     /// </summary>
-    internal double PinOffsetPx { get; set; }
+    internal string PinOffset { get; set; } = "0px";
 
     /// <summary>
     /// Gets or sets the minimal width of the column.

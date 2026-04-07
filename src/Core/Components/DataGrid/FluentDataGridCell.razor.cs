@@ -31,8 +31,8 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
         .AddClass("select-all", when: CellType == DataGridCellType.ColumnHeader && Column is SelectColumn<TGridItem>)
         .AddClass("multiline-text", when: Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null) && CellType != DataGridCellType.ColumnHeader)
-        .AddClass("col-pinned-left", Column?.Pin == DataGridColumnPin.Left)
-        .AddClass("col-pinned-right", Column?.Pin == DataGridColumnPin.Right)
+        .AddClass("col-pinned-start", Column?.Pin == DataGridColumnPin.Start)
+        .AddClass("col-pinned-end", Column?.Pin == DataGridColumnPin.End)
         .AddClass(Owner.Class)
         .Build();
 
@@ -50,8 +50,8 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle("min-height", "40px", Owner.RowType != DataGridRowType.Default)
         .AddStyle("position", "sticky", Column != null && Column.Pin != DataGridColumnPin.None)
-        .AddStyle("left", $"{(Column?.PinOffsetPx ?? 0).ToString(CultureInfo.InvariantCulture)}px", Column?.Pin == DataGridColumnPin.Left)
-        .AddStyle("right", $"{(Column?.PinOffsetPx ?? 0).ToString(CultureInfo.InvariantCulture)}px", Column?.Pin == DataGridColumnPin.Right)
+        .AddStyle("inset-inline-start", Column?.PinOffset ?? "0px", Column?.Pin == DataGridColumnPin.Start)
+        .AddStyle("inset-inline-end", Column?.PinOffset ?? "0px", Column?.Pin == DataGridColumnPin.End)
         .AddStyle("z-index", "1", Column != null && Column.Pin != DataGridColumnPin.None && CellType == DataGridCellType.Default)
         .AddStyle(Owner.Style)
         .Build();

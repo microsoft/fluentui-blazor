@@ -4,13 +4,13 @@
                     StripedRows="true"
                     ResizableColumns="true"
                     DisplayMode="DataGridDisplayMode.Grid">
-        <PropertyColumn Title="ID" Property="@(e => e.Id)" Width="100px" Pin="DataGridColumnPin.Left"  Sortable="true" />
-        <PropertyColumn Title="Full Name" Property="@(e => e.FullName)" Width="160px" Pin="DataGridColumnPin.Left"  Sortable="true" />
+        <PropertyColumn Title="ID" Property="@(e => e.Id)" Width="100px" Pin="DataGridColumnPin.Start"  Sortable="true" />
+        <PropertyColumn Title="Full Name" Property="@(e => e.FullName)" Width="160px" Pin="DataGridColumnPin.Start"  Sortable="true" />
         <PropertyColumn Title="Department" Property="@(e => e.Department)" Sortable="true" />
         <PropertyColumn Title="Location" Property="@(e => e.Location)" Sortable="true" />
         <PropertyColumn Title="Start Date" Property="@(e => e.StartDate)" Sortable="true" />
         <PropertyColumn Title="Salary" Property="@(e => e.Salary)" Width="120px" Sortable="true" Align="DataGridCellAlignment.End" />
-        <TemplateColumn Title="Actions" Width="120px" Pin="DataGridColumnPin.Right">
+        <TemplateColumn Title="Actions" Width="120px" Pin="DataGridColumnPin.End">
             <FluentButton IconStart="@(new Icons.Regular.Size16.Edit())"   Appearance="ButtonAppearance.Subtle" Title="Edit" @onclick="@(() => selectedName = context.FullName + " (edit)")"   />
             <FluentButton IconStart="@(new Icons.Regular.Size16.Delete())" Appearance="ButtonAppearance.Subtle" Title="Delete" @onclick="@(() => selectedName = context.FullName + " (delete)")" />
         </TemplateColumn>

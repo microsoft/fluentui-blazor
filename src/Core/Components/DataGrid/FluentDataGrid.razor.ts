@@ -564,12 +564,13 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
    * pinned column so that columns stack correctly against the grid edge after the initial
    * render or after a column is resized.
    *
-   * Left-pinned columns are processed left-to-right; each column's offset is the sum of
-   * the widths of all left-pinned columns to its left.
-   * Right-pinned columns are processed right-to-left; each column's offset is the sum of
-   * the widths of all right-pinned columns to its right.
+   * Start-pinned columns are processed in DOM order; each column's offset is the sum of
+   * the widths of all start-pinned columns before it.
+   * End-pinned columns are processed in reverse DOM order; each column's offset is the sum of
+   * the widths of all end-pinned columns after it.
    *
-   * The function reads the actual rendered header-cell width so it handles both Grid mode
+   * The function reads the actual rendered header-cell width so it handles pinned columns whose
+   * configured widths use non-pixel CSS units as well as both Grid mode
    * (CSS grid layout) and Table mode (standard table layout). Grid mode uses `offsetWidth`
    * (includes borders, matches the grid-track width) while Table mode uses `clientWidth`
    * (excludes borders, matches the CSS column width), consistent with how existing resize
@@ -592,7 +593,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
      * Applies a cumulative sticky offset to all cells in a column and returns the new
      * running total to be used by the next column in the sequence.
      */
-    function applyOffset(header: HTMLElement, offset: number, side: 'left' | 'right'): number {
+    function applyOffset(header: HTMLElement, offset: number, side: 'insetInlineStart' | 'insetInlineEnd'): number {
       const colIndex = header.getAttribute('col-index');
       if (!colIndex) { return offset; }
 
@@ -602,24 +603,24 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       return offset + headerWidth(header);
     }
 
-    // Left-pinned columns: process in DOM (left-to-right) order.
-    const leftPinnedHeaders = Array.from(
-      gridElement.querySelectorAll('th.col-pinned-left')
+    // Start-pinned columns: process in DOM order.
+    const startPinnedHeaders = Array.from(
+      gridElement.querySelectorAll('th.col-pinned-start')
     ) as HTMLElement[];
 
-    let leftOffset = 0;
-    for (const header of leftPinnedHeaders) {
-      leftOffset = applyOffset(header, leftOffset, 'left');
+    let startOffset = 0;
+    for (const header of startPinnedHeaders) {
+      startOffset = applyOffset(header, startOffset, 'insetInlineStart');
     }
 
-    // Right-pinned columns: process in reverse DOM (right-to-left) order.
-    const rightPinnedHeaders = Array.from(
-      gridElement.querySelectorAll('th.col-pinned-right')
+    // End-pinned columns: process in reverse DOM order.
+    const endPinnedHeaders = Array.from(
+      gridElement.querySelectorAll('th.col-pinned-end')
     ) as HTMLElement[];
 
-    let rightOffset = 0;
-    for (let i = rightPinnedHeaders.length - 1; i >= 0; i--) {
-      rightOffset = applyOffset(rightPinnedHeaders[i], rightOffset, 'right');
+    let endOffset = 0;
+    for (let i = endPinnedHeaders.length - 1; i >= 0; i--) {
+      endOffset = applyOffset(endPinnedHeaders[i], endOffset, 'insetInlineEnd');
     }
   }
 }
