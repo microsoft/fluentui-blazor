@@ -424,3 +424,4 @@ all-icons.json
 all-emojis.json
 /global.json
 /src/Core.Scripts/src/BuildConstants.ts
+/src/Core.Scripts/obj/
