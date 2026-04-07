@@ -58,6 +58,10 @@ instead of by reference. Without this, previously selected items may not appear 
 
 {{ AutocompleteComparer }}
 
+## Placeholders and autofill
+
+{{ INCLUDE PlaceholderAutofill }}
+
 ## API FluentAutocomplete
 
 {{ API Type=FluentAutocomplete<string,string> }}
