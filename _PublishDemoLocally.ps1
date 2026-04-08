@@ -58,6 +58,8 @@ if ($publishChoice -eq "n") {
 # Clean previous build artifacts
 Write-Host "👉 Cleaning previous build artifacts (bin and obj)..." -ForegroundColor Yellow
 
+dotnet clean Microsoft.FluentUI-v5.slnx
+
 if (Test-Path "./examples/Demo/FluentUI.Demo/bin") {
     Remove-Item -Path "./examples/Demo/FluentUI.Demo/bin" -Recurse -Force
 }
@@ -120,20 +122,24 @@ if ($node.InnerText -ne $NetVersion) {
 if ($fullBuild) {
     # Build the core project
     Write-Host "👉 Building Core project..." -ForegroundColor Yellow
-    dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish"  -f $NetVersion
-
-    # Generate API documentation file
-    Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
-    dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.xml" --dll "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json
+    dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish" -f $NetVersion
 
     # Build the MCP Server project
     Write-Host "👉 Building MCP Server project..." -ForegroundColor Yellow
+    dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -f $NetVersion
     dotnet build "./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" -c Release -o "./src/Tools/McpServer/bin/Publish" -f $NetVersion
+
+    # Build the MCP Server project
+    Write-Host "👉 Building MCP Server project..." -ForegroundColor Yellow
+    dotnet run ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" -c Release -f $NetVersion
+
+    # Generate API documentation file
+    Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
+    dotnet run -c Release --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.xml" --dll "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json -f $NetVersion
 
     # Generate MCP documentation file
     Write-Host "👉 Generating MCP documentation..." -ForegroundColor Yellow
-    #dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.xml" --dll "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json" --format json --mode mcp
-    Write-Host "   Skipped."
+    dotnet run -c Release --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.xml" --dll "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json" --format json --mode mcp -f $NetVersion
 }
 
 # Publish the demo
