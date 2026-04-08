@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using FluentUI.Demo.DocApiGen.Abstractions;
@@ -51,7 +52,8 @@ public sealed class SummaryDocumentationGenerator : DocumentationGeneratorBase
 
         var options = new ApiClassOptions(Assembly, _docXmlReader)
         {
-            Mode = GenerationMode.Summary
+            Mode = GenerationMode.Summary,
+            PropertyParameterOnly = false,
         };
 
         var validTypes = Assembly.GetTypes().Where(t => t.IsValidType()).ToList();
