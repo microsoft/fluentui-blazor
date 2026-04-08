@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using FluentUI.Demo.DocApiGen.Abstractions;
