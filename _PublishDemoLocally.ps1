@@ -129,9 +129,9 @@ if ($fullBuild) {
     dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -f $NetVersion
     dotnet build "./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" -c Release -o "./src/Tools/McpServer/bin/Publish" -f $NetVersion
 
-    # Build the MCP Server project
-    Write-Host "👉 Building MCP Server project..." -ForegroundColor Yellow
-    dotnet run ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" -c Release -f $NetVersion
+    # Build the DocApiGen project
+    Write-Host "👉 Building DocApiGen project..." -ForegroundColor Yellow
+    dotnet build ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" -c Release -f $NetVersion
 
     # Generate API documentation file
     Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
