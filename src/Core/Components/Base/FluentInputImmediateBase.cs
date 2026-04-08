@@ -26,10 +26,11 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
     public bool Immediate { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the delay, in milliseconds, before to raise the   event.
+    /// Gets or sets the delay, in milliseconds, before to raise the event.
+    /// Default is 200 milliseconds.
     /// </summary>
     [Parameter]
-    public int ImmediateDelay { get; set; } = 0;
+    public int ImmediateDelay { get; set; } = 200;
 
     /// <summary>
     /// Handler for the OnInput event, with an optional delay to avoid to raise the <see cref="InputBase{TValue}.ValueChanged"/> event too often.

@@ -29,10 +29,12 @@
         else if (Grid.HeaderCellAsButtonWithMenu)
         {
             string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
+            string headerPopupLayerStyle = $"position: relative; z-index: {ZIndex.DataGridHeaderPopup};";
+            string headerButtonStyle = $"width: calc(100% - 10px); {headerPopupLayerStyle}";
 
             @if (AnyColumnActionEnabled)
             {
-                <FluentButton Id="@_columnId" Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="width: calc(100% - 10px);" @onclick="@HandleColumnHeaderClickedAsync" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+                <FluentButton Id="@_columnId" Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="@headerButtonStyle" @onclick="@HandleColumnHeaderClickedAsync" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
                     <div class="col-title-text" title="@tooltip">
                         @HeaderTitleContent
                     </div>
@@ -62,7 +64,7 @@
                     </div>
                 </div>
             }
-            <FluentMenu @ref="@_menu" Trigger="@_columnId">
+            <FluentMenu @ref="@_menu" Trigger="@_columnId" Style="@headerPopupLayerStyle">
                 <FluentMenuList>
                     @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
                     {

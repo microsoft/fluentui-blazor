@@ -601,6 +601,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new ArgumentException("The 'HierarchicalToggle' parameter can only be set on the first column of the grid.");
         }
 
+        // Validate pinned columns and seed their initial sticky offsets.
+        ValidateAndComputePinnedColumns();
+
         // Always re-evaluate after collecting columns when using displaymode grid. A column might be added or hidden and the _internalGridTemplateColumns needs to reflect that.
         if (DisplayMode == DataGridDisplayMode.Grid)
         {
@@ -619,6 +622,107 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             _checkColumnResizing = true;
         }
+    }
+
+    /// <summary>
+    /// Validates the pinned-column configuration and seeds initial sticky offsets for each
+    /// pinned column before JavaScript recomputes them from rendered widths after first render.
+    /// Rules enforced:
+    /// <list type="bullet">
+    ///   <item>Pinned columns must specify an explicit <c>Width</c>.</item>
+    ///   <item>Start-pinned columns must be contiguous at the beginning of the column list.</item>
+    ///   <item>End-pinned columns must be contiguous at the end of the column list.</item>
+    /// </list>
+    /// </summary>
+    private void ValidateAndComputePinnedColumns()
+    {
+        var hasPinned = _columns.Exists(c => c.Pin != DataGridColumnPin.None);
+        if (!hasPinned)
+        {
+            return;
+        }
+
+        ValidatePinnedColumnConstraints();
+
+        // Compute start-pin sticky offsets in display order.
+        var startOffset = 0.0;
+        foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.Start))
+        {
+            col.PinOffset = $"{startOffset.ToString(CultureInfo.InvariantCulture)}px";
+            startOffset += ParsePixelWidth(col.Width);
+        }
+
+        // Compute end-pin sticky offsets in reverse display order.
+        var endOffset = 0.0;
+        foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.End).Reverse())
+        {
+            col.PinOffset = $"{endOffset.ToString(CultureInfo.InvariantCulture)}px";
+            endOffset += ParsePixelWidth(col.Width);
+        }
+    }
+
+    /// <summary>
+    /// Enforces width and ordering constraints for pinned columns. Called only when at least one
+    /// pinned column exists.
+    /// </summary>
+    private void ValidatePinnedColumnConstraints()
+    {
+        // Width must be explicitly provided for pinned columns.
+        foreach (var col in _columns.Where(c => c.Pin != DataGridColumnPin.None))
+        {
+            if (string.IsNullOrWhiteSpace(col.Width))
+            {
+                throw new ArgumentException(
+                    $"Column '{col.Title ?? col.Index.ToString(CultureInfo.InvariantCulture)}' has Pin set but no Width. " +
+                    "Pinned columns require an explicit Width.");
+            }
+        }
+
+        // Start-pinned columns must be contiguous at the start: each one must be preceded by
+        // another start-pinned column (or be the very first column).
+        for (var i = 0; i < _columns.Count; i++)
+        {
+            if (_columns[i].Pin == DataGridColumnPin.Start && i > 0 && _columns[i - 1].Pin != DataGridColumnPin.Start)
+            {
+                throw new ArgumentException(
+                    $"Column '{_columns[i].Title ?? _columns[i].Index.ToString(CultureInfo.InvariantCulture)}' is start-pinned but the preceding column is not. " +
+                    "Start-pinned columns must be contiguous at the start of the column list.");
+            }
+        }
+
+        // End-pinned columns must be contiguous at the end: each one must be followed by
+        // another end-pinned column (or be the very last column).
+        for (var i = 0; i < _columns.Count; i++)
+        {
+            if (_columns[i].Pin == DataGridColumnPin.End && i < _columns.Count - 1 && _columns[i + 1].Pin != DataGridColumnPin.End)
+            {
+                throw new ArgumentException(
+                    $"Column '{_columns[i].Title ?? _columns[i].Index.ToString(CultureInfo.InvariantCulture)}' is end-pinned but the following column is not. " +
+                    "End-pinned columns must be contiguous at the end of the column list.");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Parses a CSS pixel value string such as <c>"150px"</c> and returns the numeric value.
+    /// Returns <c>0</c> if the string is null, empty, or not a valid pixel value so JavaScript
+    /// can recompute the final sticky offsets from rendered widths after first render.
+    /// </summary>
+    private static double ParsePixelWidth(string? width)
+    {
+        if (string.IsNullOrWhiteSpace(width))
+        {
+            return 0;
+        }
+
+        var trimmed = width.Trim();
+        if (trimmed.EndsWith("px", StringComparison.OrdinalIgnoreCase) &&
+            double.TryParse(trimmed[..^2], NumberStyles.Number, CultureInfo.InvariantCulture, out var px))
+        {
+            return px;
+        }
+
+        return 0;
     }
 
     /// <summary>
@@ -1342,4 +1446,3 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 }
-
