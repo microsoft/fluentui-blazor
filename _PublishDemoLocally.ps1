@@ -146,6 +146,45 @@ if ($fullBuild) {
 Write-Host "👉 Publishing demo..." -ForegroundColor Yellow
 dotnet publish "./examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" -c Release -o "./examples/Demo/FluentUI.Demo/bin/Publish" -f $NetVersion
 
+# Fix the static assets manifest to match actual file sizes on disk.
+# Brotli compression is non-deterministic, so the manifest Content-Length values
+# recorded during publish may not match the final compressed files.
+$fixManifest = Read-Host "❓ Do you want to fix the static assets manifest (Content-Length mismatches)? (y/n) [default: y]"
+if ($fixManifest -eq "n") {
+    Write-Host "⏩ Skipping static assets manifest fix." -ForegroundColor Yellow
+} else {
+    Write-Host "👉 Fixing static assets manifest..." -ForegroundColor Yellow
+    $publishDir = "./examples/Demo/FluentUI.Demo/bin/Publish"
+    $manifestPath = "$publishDir/FluentUI.Demo.staticwebassets.endpoints.json"
+
+    if (Test-Path $manifestPath) {
+        $manifest = Get-Content $manifestPath -Raw | ConvertFrom-Json
+        $fixedCount = 0
+
+        foreach ($endpoint in $manifest.endpoints) {
+            $assetPath = Join-Path $publishDir "wwwroot" $endpoint.AssetFile
+            if (Test-Path $assetPath) {
+                $actualSize = (Get-Item $assetPath).Length
+                $clHeader = $endpoint.ResponseHeaders | Where-Object { $_.Name -eq "Content-Length" }
+                if ($null -ne $clHeader -and [long]$clHeader.Value -ne $actualSize) {
+                    Write-Host "   Fixed: $($endpoint.AssetFile) ($($clHeader.Value) -> $actualSize)" -ForegroundColor Cyan
+                    $clHeader.Value = "$actualSize"
+                    $fixedCount++
+                }
+            }
+        }
+
+        if ($fixedCount -gt 0) {
+            $manifest | ConvertTo-Json -Depth 10 | Set-Content $manifestPath -Encoding UTF8
+            Write-Host "☑️ Fixed $fixedCount Content-Length mismatches in the manifest." -ForegroundColor Green
+        } else {
+            Write-Host "☑️ No Content-Length mismatches found." -ForegroundColor Green
+        }
+    } else {
+        Write-Host "⚠️ Static assets manifest not found, skipping fix." -ForegroundColor Yellow
+    }
+}
+
 # Verify that the bundle JS file has the expected size
 Write-Host ""
 Write-Host "👉 Verifying bundle JS file size..." -ForegroundColor Yellow
