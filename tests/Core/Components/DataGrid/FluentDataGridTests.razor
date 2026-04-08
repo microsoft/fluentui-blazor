@@ -309,7 +309,7 @@
 
         Assert.NotEmpty(rows); // Asserting that there are rows present
         //Assert.Equal(101, rows.Count);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
-        Assert.Single(rows);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
+        Assert.Equal(21, rows.Count);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
 
     }
 

@@ -57,6 +57,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool? _lastVirtualizationMode;
     private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
+    private bool _isFirstVirtualizeProviderCall = true;
     private Exception? _lastError;
     private GridItemsProviderRequest<TGridItem>? _lastRequest;
     private bool _forceRefreshData;
@@ -443,7 +444,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     // Returns Loading if set (controlled). If not controlled,
     // we assume the grid is loading until the next data load completes
-    internal bool EffectiveLoadingValue => Loading ?? ItemsProvider is not null;
+    internal bool EffectiveLoadingValue => Loading ?? (ItemsProvider is not null);
 
     /// <summary>
     /// Indicates whether the grid is currently sorted ascending.
@@ -796,7 +797,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 await OnSortChanged.InvokeAsync(new()
                 {
                     Column = _sortByColumn,
-                    SortByAscending = _sortByAscending
+                    SortByAscending = _sortByAscending,
                 });
             }
 
@@ -994,11 +995,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private async ValueTask<ItemsProviderResult<(int, TGridItem)>> ProvideVirtualizedItemsAsync(ItemsProviderRequest request)
     {
         _lastRefreshedPaginationState = Pagination;
+        // Debounce the requests (except on first call). This eliminates a lot of redundant queries at the cost of slight lag after interactions.
+        if (_isFirstVirtualizeProviderCall)
+        {
+            _isFirstVirtualizeProviderCall = false;
+        }
+        else
+        {
+            await Task.Delay(20);
+        }
 
-        // Debounce the requests. This eliminates a lot of redundant queries at the cost of slight lag after interactions.
-        // TODO: Consider making this configurable, or smarter (e.g., doesn't delay on first call in a batch, then the amount
-        // of delay increases if you rapidly issue repeated requests, such as when scrolling a long way)
-        await Task.Delay(20);
         if (request.CancellationToken.IsCancellationRequested)
         {
             return default;
