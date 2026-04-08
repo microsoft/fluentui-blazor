@@ -15,6 +15,8 @@ You can control this behavior by providing the `OptionSelectedComparer` paramete
 
 > **Note:** Accessibility requirements are not yet implemented for this component.
 
+> **Note:** For more information about placeholders and autofill, see this <a href="/TextInput#placeholders-and-autofill">important information</a>
+
 ## Keyboard interaction
 
 | Key | Behavior |
@@ -57,10 +59,6 @@ Use the `OptionSelectedComparer` parameter to provide a custom `IEqualityCompare
 instead of by reference. Without this, previously selected items may not appear as checked in the refreshed list.
 
 {{ AutocompleteComparer }}
-
-## Placeholders and autofill
-
-{{ INCLUDE PlaceholderAutofill }}
 
 ## API FluentAutocomplete
 

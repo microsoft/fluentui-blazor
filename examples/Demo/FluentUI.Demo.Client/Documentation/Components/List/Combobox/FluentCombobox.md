@@ -11,6 +11,8 @@ Entering text will filter options or allow someone to submit a free form answer.
 Comboboxes work well in situations where the list of options is very long.
 If the list is not very long or you can't accept free form answers, try a **FluentSelect**.
 
+> **Note:** For more information about placeholders and autofill, see this <a href="/TextInput#placeholders-and-autofill">important information</a>
+
 ## Default
 
 When no item is selected, a **Placeholder** can be used to describe what should be done.
@@ -54,10 +56,6 @@ The following example shows how to customize the items:
 - `OptionDisabled`: This function is used to define the disabled options. <br />
 
 See a similar example on the [FluentSelect](/List/Select#customize-the-items) page.
-
-## Placeholders and autofill
-
-{{ INCLUDE PlaceholderAutofill }}
 
 ## API FluentCombobox
 
