@@ -124,9 +124,15 @@ if ($fullBuild) {
     Write-Host "👉 Building Core project..." -ForegroundColor Yellow
     dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish" -f $NetVersion
 
+    # Copy Core build output to default location (so MCP Server project can resolve the dependency)
+    $defaultCoreOutput = "./src/Core/bin/Release/$NetVersion"
+    if (-not (Test-Path $defaultCoreOutput)) {
+        New-Item -ItemType Directory -Path $defaultCoreOutput -Force | Out-Null
+    }
+    Copy-Item -Path "./src/Core/bin/Publish/*" -Destination $defaultCoreOutput -Recurse -Force
+
     # Build the MCP Server project
     Write-Host "👉 Building MCP Server project..." -ForegroundColor Yellow
-    dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -f $NetVersion
     dotnet build "./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" -c Release -o "./src/Tools/McpServer/bin/Publish" -f $NetVersion
 
     # Build the DocApiGen project
