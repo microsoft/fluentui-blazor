@@ -43,9 +43,18 @@
         </TemplateColumn>
         <PropertyColumn Property="@(c => c.Name)" InitialSortDirection=DataGridSortDirection.Descending Sortable="true" IsDefaultSortColumn=true Comparer="@StringLengthComparer.Instance" Filtered="!string.IsNullOrWhiteSpace(nameFilter)">
             <ColumnOptions>
-                <div class="search-box" style="width: 100%;">
-                    <FluentTextInput Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @bind-Value:after="HandleClear" Placeholder="Country name..." Style="width: 100%;" Width="100%"/>
-                </div>
+
+                    <FluentTextInput Id="filter"
+                                     Autofocus=true
+                                     AutoComplete="off"
+                                     @bind-Value=nameFilter
+                                     @oninput="HandleCountryFilter"
+                                     @bind-Value:after="HandleClear"
+                                     Placeholder="Country name..."
+                                     Label="Filter"
+                                     Style="width: 100%;"
+                                     Width="100%" />
+
             </ColumnOptions>
         </PropertyColumn>
         @* <TemplateColumn Title="Name" InitialSortDirection=SortDirection.Descending SortBy="@nameSort" IsDefaultSortColumn=true Filtered="!string.IsNullOrWhiteSpace(nameFilter)">

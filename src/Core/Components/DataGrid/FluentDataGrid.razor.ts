@@ -13,17 +13,6 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     size: string;
   }
 
-  function getMinWidthPx(header: HTMLElement): number {
-    const configuredMinWidth = header.style.minWidth;
-    if (configuredMinWidth) {
-      const parsedInlineMinWidth = parseInt(configuredMinWidth, 10);
-      return Number.isNaN(parsedInlineMinWidth) ? 100 : parsedInlineMinWidth;
-    }
-
-    const parsedComputedMinWidth = parseInt(getComputedStyle(header).minWidth, 10);
-    return Number.isNaN(parsedComputedMinWidth) ? 100 : parsedComputedMinWidth;
-  }
-
   // Use a dictionary for grids for id-based access
   let grids: Grid[] = []; // { [id: string]: Grid } = {};
 
@@ -468,9 +457,9 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     const clearDropTargets = () => {
       headers.forEach(header => {
-        header.classList.remove('column-reorder-dragging');
-        header.classList.remove('column-reorder-drop-before');
-        header.classList.remove('column-reorder-drop-after');
+        header.classList.remove('col-reorder-dragging');
+        header.classList.remove('col-reorder-drop-before');
+        header.classList.remove('col-reorder-drop-after');
       });
     };
 
@@ -482,7 +471,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     headers.forEach(header => {
       header.addEventListener('dragstart', event => {
         sourceHeader = header;
-        header.classList.add('column-reorder-dragging');
+        header.classList.add('col-reorder-dragging');
         event.dataTransfer?.setData('text/plain', header.dataset.columnKey ?? '');
         if (event.dataTransfer) {
           event.dataTransfer.effectAllowed = 'move';
@@ -501,7 +490,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
         event.preventDefault();
         clearDropTargets();
-        header.classList.add(getDropAfter(event, header) ? 'column-reorder-drop-after' : 'column-reorder-drop-before');
+        header.classList.add(getDropAfter(event, header) ? 'col-reorder-drop-after' : 'col-reorder-drop-before');
       }, { signal });
 
       header.addEventListener('drop', event => {
@@ -636,6 +625,16 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     }
   }
 
+  function getMinWidthPx(header: HTMLElement): number {
+    const configuredMinWidth = header.style.minWidth;
+    if (configuredMinWidth) {
+      const parsedInlineMinWidth = parseInt(configuredMinWidth, 10);
+      return Number.isNaN(parsedInlineMinWidth) ? 100 : parsedInlineMinWidth;
+    }
+
+    const parsedComputedMinWidth = parseInt(getComputedStyle(header).minWidth, 10);
+    return Number.isNaN(parsedComputedMinWidth) ? 100 : parsedComputedMinWidth;
+  }
   function calculateVisibleRows(gridElement: HTMLElement, rowHeight: number) {
     if (rowHeight <= 0) {
       return 0;

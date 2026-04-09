@@ -51,19 +51,9 @@ public abstract partial class ColumnBase<TGridItem>
     protected internal RenderFragment HeaderTitleContent { get; protected set; }
 
     /// <summary>
-    /// Gets a value indicating whether any column-related action is enabled.
+    /// Gets the header capabilities for this column.
     /// </summary>
-    protected bool AnyColumnActionEnabled => Sortable is true || HasColumnOptionsPopupContent || Grid.ResizableColumns;
-
-    /// <summary>
-    /// Gets a value indicating whether this column has popup content that can be displayed from the header.
-    /// </summary>
-    protected bool HasColumnOptionsPopupContent => Grid.HasColumnOptionsPopupContent(this);
-
-    /// <summary>
-    /// Gets a value indicating whether this column can be reordered through the grid UI.
-    /// </summary>
-    protected bool CanReorder => Grid.CanRenderColumnReorderUi(this);
+    internal ColumnHeaderCapabilities HeaderCapabilities => Grid.GetHeaderCapabilities(this);
 
     /// <summary>
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
@@ -351,15 +341,19 @@ public abstract partial class ColumnBase<TGridItem>
     [ExcludeFromCodeCoverage(Justification = "This method is virtual. It is not called directly on this type.")]
     protected virtual bool IsSortableByDefault() => false;
 
+    internal bool CanSortFromHeader() => Sortable ?? IsSortableByDefault();
+
     private async Task HandleColumnHeaderClickedAsync()
     {
-        var hasSorting = Sortable is true || IsDefaultSortColumn;
-        var hasResize = Grid.ResizableColumns;
-        var hasOptions = HasColumnOptionsPopupContent;
-        var hasMultiple = (Convert.ToInt32(hasSorting) + Convert.ToInt32(hasResize) + Convert.ToInt32(hasOptions)) > 1;
-        var hideMenu = (hasSorting ^ hasResize ^ hasOptions) && !(hasSorting && hasResize && hasOptions);
+        var headerCapabilities = HeaderCapabilities;
+        var hasSorting = headerCapabilities.CanSort;
+        var hasResize = headerCapabilities.CanResize;
+        var hasReorder = headerCapabilities.CanReorder;
+        var hasOptions = headerCapabilities.HasOptions;
+        var enabledActions = Convert.ToInt32(hasSorting) + Convert.ToInt32(hasResize) + Convert.ToInt32(hasReorder) + Convert.ToInt32(hasOptions);
+        var hasMultiple = enabledActions > 1;
 
-        if (_menu is not null && hideMenu)
+        if (_menu is not null && enabledActions == 1)
         {
             await _menu.CloseMenuAsync();
         }
@@ -378,6 +372,10 @@ public abstract partial class ColumnBase<TGridItem>
         {
             await Grid.ShowColumnResizeAsync(this);
         }
+        else if (hasReorder)
+        {
+            await Grid.ShowColumnReorderAsync(this);
+        }
         else if (hasOptions)
         {
             await Grid.ShowColumnOptionsAsync(this);
@@ -389,6 +387,18 @@ public abstract partial class ColumnBase<TGridItem>
         if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key, StringComparer.OrdinalIgnoreCase))
         {
             await Grid.SortByColumnAsync(this);
+            if (_menu is not null)
+            {
+                await _menu.CloseMenuAsync();
+            }
+        }
+    }
+
+    private async Task HandleReorderMenuKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key, StringComparer.OrdinalIgnoreCase))
+        {
+            await Grid.ShowColumnReorderAsync(this);
             if (_menu is not null)
             {
                 await _menu.CloseMenuAsync();
@@ -432,16 +442,6 @@ public abstract partial class ColumnBase<TGridItem>
             return Localizer[Localization.LanguageResource.DataGrid_SortMenuDescending];
         }
 
-        return Localizer[Localization.LanguageResource.DataGrid_SortMenu];
-    }
-
-    private string GetOptionsMenuText()
-    {
-        if (CanReorder && ColumnOptions is null)
-        {
-            return Localizer[Localization.LanguageResource.DataGrid_ReorderMenu];
-        }
-
-        return Localizer[Localization.LanguageResource.DataGrid_OptionsMenu];
+        return Localizer[Grid.ColumnSortMenuSettings.Text];
     }
 }
