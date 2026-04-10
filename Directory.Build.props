@@ -22,7 +22,7 @@
     <!-- Versioning -->
     <VersionFile>5.0.0</VersionFile>
     <VersionPrefix>5.0.0</VersionPrefix>
-    <VersionSuffix>RC.2</VersionSuffix>
+    <VersionSuffix>RC.3</VersionSuffix>
 
     <Authors>Microsoft</Authors>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
