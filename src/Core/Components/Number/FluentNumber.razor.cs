@@ -120,6 +120,13 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     public TValue? Step { get; set; }
 
     /// <summary>
+    /// Gets or sets the visibility behavior of the step buttons (up/down arrows).
+    /// Defaults to <see cref="NumberStepVisibility.Auto"/>.
+    /// </summary>
+    [Parameter]
+    public NumberStepVisibility StepButtons { get; set; } = NumberStepVisibility.Auto;
+
+    /// <summary>
     /// Gets a value indicating whether the type is a floating-point type (e.g. float, double, decimal)
     /// </summary>
     public bool IsDecimal => default(TValue) is float or double or decimal or Half;

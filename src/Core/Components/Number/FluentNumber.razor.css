@@ -10,13 +10,6 @@ fluent-text-input[inputmode="numeric"] div[slot="end"]:last-child {
     padding-left: var(--spacingHorizontalMNudge);
 }
 
-fluent-text-input[inputmode="numeric"] div[slot="end"]:last-child > div {
-    height: calc(var(--numeric-height) - 2px);
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-}
-
 fluent-text-input[inputmode="numeric"] div[button-step] {
     max-height: calc(var(--numeric-height) / 2);
     display: flex;
@@ -48,4 +41,23 @@ fluent-text-input[inputmode="numeric"] div[button-step=up]:hover {
 
 fluent-text-input[inputmode="numeric"] div[button-step=down]:hover {
     border-bottom-right-radius: var(--borderRadiusMedium);
+}
+
+/* The DIV containing the step buttons */
+fluent-text-input[inputmode="numeric"] div[slot="end"]:last-child > div {
+    height: calc(var(--numeric-height) - 2px);
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Auto mode: hide step buttons by default, show on hover or focus-within */
+fluent-text-input[inputmode="numeric"] div[slot="end"]:last-child > div[auto-hide] {
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+}
+
+fluent-text-input[inputmode="numeric"]:hover div[slot="end"]:last-child > div[auto-hide],
+fluent-text-input[inputmode="numeric"]:focus-within div[slot="end"]:last-child > div[auto-hide] {
+    opacity: 1;
 }
