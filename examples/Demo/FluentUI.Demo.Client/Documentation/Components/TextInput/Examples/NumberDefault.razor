@@ -17,27 +17,36 @@
                   @bind-Value="@ValueDouble" />
 </FluentStack>
 
-<div style="width: 100%;">
-    <FluentSelect Label="Select Culture"
-                  Items="@AllCultures"
-                  OptionText="@(item => $"{item.DisplayName} [{item.Name}]")"
-                  @bind-Value="@SelectedCulture" />
-</div>
-
-<FluentText>
-    CurrentCulture = @SelectedCulture.Name (NumberDecimalDigits = @SelectedCulture.NumberFormat.NumberDecimalDigits; NumberDecimalSeparator = '@SelectedCulture.NumberFormat.NumberDecimalSeparator'; NumberGroupSeparator = '@SelectedCulture.NumberFormat.NumberGroupSeparator')
-</FluentText>
 <FluentText>ValueInt = @ValueInt</FluentText>
 <FluentText>ValueDouble = @ValueDouble</FluentText>
 
+<FluentStack>
+    <FluentSelect Label="Select Culture"
+                  Items="@AllCultures"
+                  Width="380px"
+                  OptionText="@(item => $"{item.DisplayName} [{item.NumberFormat.NumberDecimalDigits} digits, '{item.NumberFormat.NumberDecimalSeparator}' decimal, '{item.NumberFormat.NumberGroupSeparator}' group]")"
+                  @bind-Value="@SelectedCulture"
+                  @bind-Value:after="@ResetValues" />
+</FluentStack>
+
 @code
 {
-    private CultureInfo[] AllCultures = CultureInfo.GetCultures(CultureTypes.AllCultures)
-                                                   .Where(i => i.IsNeutralCulture)
-                                                   .OrderBy(i => i.DisplayName)
-                                                   .ToArray();
-    private CultureInfo SelectedCulture = new CultureInfo("fr");
+    static CultureInfo[] AllCultures = [
+        new FluentNumberCultureInfo(),
+        new CultureInfo("fr"),
+        new CultureInfo("en"),
+        new CultureInfo("de"),
+        new CultureInfo("es"),
+        new CultureInfo("ja")];
+
+    private CultureInfo SelectedCulture = AllCultures[0];
 
     int ValueInt = 0;
     double ValueDouble = 0.0;
+
+    void ResetValues()
+    {
+        ValueInt = 0;
+        ValueDouble = 0.0;
+    }
 }
