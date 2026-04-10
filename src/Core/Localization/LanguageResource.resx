@@ -283,7 +283,7 @@
     <value>All rows are selected</value>
   </data>
   <data name="DataGrid_SelectColumn_AllUnchecked" xml:space="preserve">
-    <value>No rows areselected</value>
+    <value>No rows are selected</value>
   </data>
   <data name="DataGrid_SelectColumn_AllIndeterminate" xml:space="preserve">
     <value>Some rows are selected</value>
@@ -350,5 +350,8 @@
   </data>
   <data name="Paginator_SummaryNoItems" xml:space="preserve">
     <value>No items</value>
+  </data>
+  <data name="AutoComplete_MaximumSelectedOptionsMessage" xml:space="preserve">
+    <value>The maximum number of {0} selected items has been reached.</value>
   </data>
 </root>

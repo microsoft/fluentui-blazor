@@ -46,7 +46,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// Default is `null`. Internally the component uses <see cref="ListAppearance.Outline"/> as default.
     /// </summary>
     [Parameter]
-    public ListAppearance? Appearance { get; set; }
+    public virtual ListAppearance? Appearance { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -65,19 +65,19 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// Gets or sets whether the list allows multiple selections.
     /// </summary>
     [Parameter]
-    public bool Multiple { get; set; }
+    public virtual bool Multiple { get; set; }
 
     /// <summary>
     /// Gets or sets the items that are selected in the list.
     /// </summary>
     [Parameter]
-    public IEnumerable<TOption> SelectedItems { get; set; } = [];
+    public virtual IEnumerable<TOption> SelectedItems { get; set; } = [];
 
     /// <summary>
     /// Event callback that is invoked when the selected items change.
     /// </summary>
     [Parameter]
-    public EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
+    public virtual EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the template for the <see cref="FluentListBase{TOption, TValue}.Items"/> items.
@@ -202,7 +202,12 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             return OptionSelectedComparer.Equals(item, currentAsOption);
         }
 
-        return Equals(GetOptionValue(item), CurrentValue);
+        if (OptionValue is not null || typeof(TOption) == typeof(TValue))
+        {
+            return Equals(GetOptionValue(item), CurrentValue);
+        }
+
+        return item is null && CurrentValue is null;
     }
 
     /// <summary />

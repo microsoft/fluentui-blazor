@@ -1,25 +1,8 @@
 ---
-title: Migration FluentList (Autocomplete, Combobox, Listbox)
+title: Migration FluentList (Combobox, Listbox, Select)
 route: /Migration/List
 hidden: true
 ---
-
-- ### FluentAutocomplete removed 💥
-
-  `FluentAutocomplete<TOption>` has been **removed** in V5.
-  Use `FluentCombobox` with the `FreeOption` parameter as a replacement for autocomplete behavior.
-
-  ```xml
-  <!-- V4 -->
-  <FluentAutocomplete TOption="string" Items="@items"
-                      @bind-SelectedOptions="selectedItems" />
-
-  <!-- V5 -->
-  <FluentCombobox TOption="string" TValue="string" Items="@items"
-                  @bind-SelectedItems="selectedItems">
-      <FreeOption>Custom option template</FreeOption>
-  </FluentCombobox>
-  ```
 
 - ### Two type parameters required 💥
 

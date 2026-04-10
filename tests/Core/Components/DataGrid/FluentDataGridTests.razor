@@ -309,7 +309,7 @@
 
         Assert.NotEmpty(rows); // Asserting that there are rows present
         //Assert.Equal(101, rows.Count);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
-        Assert.Single(rows);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
+        Assert.Equal(21, rows.Count);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
 
     }
 
@@ -1532,6 +1532,9 @@
         // Assert
         Assert.NotEmpty(rows); // Asserting that there are rows present
         Assert.Equal(4, rows.Count);  //3 DataRows + 1 header row
+        Assert.DoesNotContain("z-index: 5", cut.Find("th").GetAttribute("style") ?? "");
+        Assert.Contains($"z-index: {ZIndex.DataGridHeaderPopup}", cut.Find("fluent-button").GetAttribute("style") ?? "");
+        Assert.Contains($"z-index: {ZIndex.DataGridHeaderPopup}", cut.Find("fluent-menu").GetAttribute("style") ?? "");
 
 		cut.Verify();
     }
