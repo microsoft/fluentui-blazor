@@ -277,7 +277,8 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
             new[] { Culture.NumberFormat.NumberDecimalSeparator, CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator },  // Map to radix
             Min,                                                            // Min
             Max,                                                            // Max
-            Culture.NumberFormat.NumberGroupSeparator);                     // Thousands separator
+            Culture.NumberFormat.NumberGroupSeparator,                      // Thousands separator
+            Step);                                                          // Step
     }
 
     /// <summary>
