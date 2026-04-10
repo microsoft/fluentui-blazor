@@ -40,7 +40,7 @@
                 
             }
             
-            @if (StepButtons != NumberStepVisibility.Hidden)
+            @if (StepButtons != NumberStepVisibility.Hidden && (Step.HasValue && !Step.Value.Equals(default(TValue))))
             {
                 <div auto-hide="@(StepButtons == NumberStepVisibility.Auto ? "true" : null)">
                     <div button-step="up">

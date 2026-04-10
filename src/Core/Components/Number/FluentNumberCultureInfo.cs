@@ -12,6 +12,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class FluentNumberCultureInfo : CultureInfo
 {
     /// <summary>
+    /// A static instance of FluentNumberCultureInfo with default settings (2 decimal digits, "." as decimal separator, and no group separator).
+    /// </summary>
+    public static readonly FluentNumberCultureInfo Invariant = new();
+
+    /// <summary>
     /// Initializes a new instance of the FluentNumberCultureInfo class with default settings 
     /// (2 decimal digits, "." as decimal separator, and no group separator).
     /// </summary>

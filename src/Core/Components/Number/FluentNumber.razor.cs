@@ -96,10 +96,11 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
 
     /// <summary>
     /// Gets or sets the culture of the component.
-    /// By default <see cref="CultureInfo.CurrentCulture"/> to display using the OS culture.
+    /// By default <see cref="FluentNumberCultureInfo.Invariant"/> to display using a consistent culture independent of the OS culture
+    /// (2 decimal digits, "." as decimal separator, and no group separator).
     /// </summary>
     [Parameter]
-    public virtual CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
+    public virtual CultureInfo Culture { get; set; } = FluentNumberCultureInfo.Invariant;
 
     /// <summary>
     /// Gets or sets the minimum allowed value.
@@ -115,9 +116,10 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
 
     /// <summary>
     /// Gets or sets the step increment. For decimal values, use e.g. Step="0.01".
+    /// Defaults to 1 for all types. If set to null or 0, the step buttons will be disabled.
     /// </summary>
     [Parameter]
-    public TValue? Step { get; set; }
+    public TValue? Step { get; set; } = (TValue)Convert.ChangeType(1, typeof(TValue), CultureInfo.InvariantCulture);
 
     /// <summary>
     /// Gets or sets the visibility behavior of the step buttons (up/down arrows).

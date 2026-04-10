@@ -1,12 +1,9 @@
 ﻿@using System.Globalization
+
 <FluentStack HorizontalGap="20px">
     <FluentNumber TValue="int"
                   Culture="@SelectedCulture"
-                  Min="-10"
-                  Max="9999"
-                  Step="2"
                   Label="Integer"
-                  Placeholder="Number"
                   Message="@($"Value: {ValueInt}")"
                   MessageCondition="@(e => true)"
                   @bind-Value="@ValueInt" />
@@ -14,7 +11,6 @@
     <FluentNumber TValue="double"
                   Culture="@SelectedCulture"
                   Label="Decimal"
-                  Placeholder="Number"
                   Step="0.1"
                   Message="@($"Value: {ValueDouble}")"
                   MessageCondition="@(e => true)"
@@ -22,11 +18,11 @@
 </FluentStack>
 
 <FluentSelect Label="Select Culture"
-                Items="@AllCultures"
-                Width="380px"
-                OptionText="@(item => $"{item.DisplayName} [{item.NumberFormat.NumberDecimalDigits} digits, '{item.NumberFormat.NumberDecimalSeparator}' decimal, '{item.NumberFormat.NumberGroupSeparator}' group]")"
-                @bind-Value="@SelectedCulture"
-                @bind-Value:after="@ResetValues" />
+              Items="@AllCultures"
+              Width="380px"
+              OptionText="@(item => $"{item.DisplayName} [{item.NumberFormat.NumberDecimalDigits} digits, '{item.NumberFormat.NumberDecimalSeparator}' decimal, '{item.NumberFormat.NumberGroupSeparator}' group]")"
+              @bind-Value="@SelectedCulture"
+              @bind-Value:after="@ResetValues" />
 
 @code
 {
@@ -38,7 +34,7 @@
         new CultureInfo("es"),
         new CultureInfo("ja")];
 
-    private CultureInfo SelectedCulture = AllCultures[0];
+    CultureInfo SelectedCulture = AllCultures[0];
 
     int ValueInt = 0;
     double ValueDouble = 0.0;

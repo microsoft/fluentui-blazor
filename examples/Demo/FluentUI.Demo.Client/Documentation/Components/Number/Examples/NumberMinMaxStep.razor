@@ -1,0 +1,12 @@
+<FluentNumber Label="int"
+              Min="0"
+              Max="100"
+              Step="5"
+              Message="@($"Value: {Value}")"
+              MessageCondition="@(e => true)"
+              @bind-Value="@Value" />
+
+@code
+{
+    int Value = 42;
+}
