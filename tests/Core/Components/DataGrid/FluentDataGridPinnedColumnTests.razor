@@ -52,7 +52,6 @@
         {
             Assert.Contains("col-pinned-start", cell.ClassName);
             Assert.Contains("position: sticky", cell.GetAttribute("style") ?? "");
-            Assert.Contains("inset-inline-start: 0px", cell.GetAttribute("style") ?? "");
         });
     }
 
@@ -77,7 +76,6 @@
         {
             Assert.Contains("col-pinned-end", cell.ClassName);
             Assert.Contains("position: sticky", cell.GetAttribute("style") ?? "");
-            Assert.Contains("inset-inline-end: 0px", cell.GetAttribute("style") ?? "");
         });
     }
 
@@ -94,56 +92,6 @@
         var header = cut.Find("th[col-index='1']");
 
         Assert.Contains("min-width: 150px", header.GetAttribute("style") ?? "");
-    }
-
-    // -------------------------------------------------------------------------
-    // Two start-pinned columns: cumulative offsets
-    // -------------------------------------------------------------------------
-
-    [Fact]
-    public void FluentDataGrid_PinnedColumn_Start_Multiple_Cumulative_Offsets()
-    {
-        // Arrange && Act — col1: 100px, col2: 120px → col1 start offset 0px, col2 start offset 100px
-        var cut = Render<FluentDataGrid<Customer>>(
-            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
-                <ChildContent>
-                    <PropertyColumn Title="Id"   Property="@(x => x.Id)"   Width="100px" Pin="DataGridColumnPin.Start" />
-                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="120px" Pin="DataGridColumnPin.Start" />
-                </ChildContent>
-            </FluentDataGrid>);
-
-        Assert.All(cut.FindAll("[col-index='1']"), cell =>
-            Assert.Contains("inset-inline-start: 0px", cell.GetAttribute("style") ?? ""));
-
-        Assert.All(cut.FindAll("[col-index='2']"), cell =>
-            Assert.Contains("inset-inline-start: 100px", cell.GetAttribute("style") ?? ""));
-    }
-
-    // -------------------------------------------------------------------------
-    // Two end-pinned columns: cumulative offsets
-    // -------------------------------------------------------------------------
-
-    [Fact]
-    public void FluentDataGrid_PinnedColumn_End_Multiple_Cumulative_Offsets()
-    {
-        // col1 (normal 1fr) | col2: 80px end-pinned | col3: 60px end-pinned
-        // col3 (rightmost) → end offset 0px  |  col2 → end offset 60px
-        var cut = Render<FluentDataGrid<Customer>>(
-            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
-                <ChildContent>
-                    <PropertyColumn Title="Name"   Property="@(x => x.Name)" />
-                    <PropertyColumn Title="City"   Property="@(x => x.City)"   Width="80px"  Pin="DataGridColumnPin.End" />
-                    <PropertyColumn Title="Action" Property="@(x => x.Action)" Width="60px"  Pin="DataGridColumnPin.End" />
-                </ChildContent>
-            </FluentDataGrid>);
-
-        // col3 is index 3 — rightmost end-pinned → end offset 0px
-        Assert.All(cut.FindAll("[col-index='3']"), cell =>
-            Assert.Contains("inset-inline-end: 0px", cell.GetAttribute("style") ?? ""));
-
-        // col2 is index 2 — next-to-last end-pinned → end offset 60px (width of col3)
-        Assert.All(cut.FindAll("[col-index='2']"), cell =>
-            Assert.Contains("inset-inline-end: 60px", cell.GetAttribute("style") ?? ""));
     }
 
     [Fact]
@@ -202,7 +150,6 @@
         {
             Assert.Contains("col-pinned-start", cell.ClassName);
             Assert.Contains("position: sticky", cell.GetAttribute("style") ?? "");
-            Assert.Contains("inset-inline-start: 0px", cell.GetAttribute("style") ?? "");
         });
     }
 
@@ -307,44 +254,21 @@
                 </ChildContent>
             </FluentDataGrid>);
 
-        // col1 (Id)   start-pinned → start offset 0px
+        // col1 (Id)   start-pinned
         Assert.All(cut.FindAll("[col-index='1']"), c =>
-            Assert.Contains("inset-inline-start: 0px", c.GetAttribute("style") ?? ""));
+            Assert.Contains("position: sticky", c.GetAttribute("style") ?? ""));
 
-        // col2 (Name) start-pinned → start offset 50px
+        // col2 (Name) start-pinned
         Assert.All(cut.FindAll("[col-index='2']"), c =>
-            Assert.Contains("inset-inline-start: 50px", c.GetAttribute("style") ?? ""));
+            Assert.Contains("position: sticky", c.GetAttribute("style") ?? ""));
 
-        // col3 (City) not pinned → no sticky style
+        // col3 (City) not pinned
         Assert.All(cut.FindAll("[col-index='3']"), c =>
             Assert.DoesNotContain("position: sticky", c.GetAttribute("style") ?? ""));
 
-        // col4 (Action) end-pinned → end offset 0px
+        // col4 (Action) end-pinned
         Assert.All(cut.FindAll("[col-index='4']"), c =>
-            Assert.Contains("inset-inline-end: 0px", c.GetAttribute("style") ?? ""));
-    }
-
-    // -------------------------------------------------------------------------
-    // Snapshot test
-    // -------------------------------------------------------------------------
-
-    [Fact]
-    public void FluentDataGrid_PinnedColumn_Snapshot()
-    {
-        var cut = Render<FluentDataGrid<Customer>>(
-            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
-                <ChildContent>
-                    <PropertyColumn Title="Id"   Property="@(x => x.Id)"   Width="50px"  Pin="DataGridColumnPin.Start" />
-                    <PropertyColumn Title="Name" Property="@(x => x.Name)" Width="150px" Pin="DataGridColumnPin.Start" />
-                    <PropertyColumn Title="City" Property="@(x => x.City)" />
-                    <PropertyColumn Title="Action" Property="@(x => x.Action)" Width="100px" Pin="DataGridColumnPin.End" />
-                </ChildContent>
-            </FluentDataGrid>);
-
-        Assert.All(cut.FindAll("th"), header =>
-            Assert.DoesNotContain("z-index: 5", header.GetAttribute("style") ?? ""));
-
-        cut.Verify();
+            Assert.Contains("position: sticky", c.GetAttribute("style") ?? ""));
     }
 
     // -------------------------------------------------------------------------

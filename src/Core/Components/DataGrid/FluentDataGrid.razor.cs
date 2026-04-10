@@ -25,6 +25,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [SuppressMessage("Usage", "MA0040:Forward the CancellationToken parameter to methods that take one", Justification = "The available cancellation token are not appropriate to pass along.")]
 public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent
 {
+    private enum ColumnHeaderUiKind
+    {
+        None,
+        All,
+        Options,
+        Reorder,
+        Resize,
+    }
+
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DataGrid/FluentDataGrid.razor.js";
 
     internal const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
@@ -39,13 +48,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private readonly InternalGridContext<TGridItem> _internalGridContext;
     internal readonly List<ColumnBase<TGridItem>> _columns;
     private bool _collectingColumns;
-    private ColumnBase<TGridItem>? _displayOptionsForColumn;
-    private ColumnBase<TGridItem>? _displayReorderForColumn;
-    internal ColumnBase<TGridItem>? _displayResizeForColumn;
+    private ColumnBase<TGridItem>? _activeHeaderUiColumn;
+    private ColumnHeaderUiKind _activeHeaderUiKind;
+    private ColumnBase<TGridItem>? _pendingHeaderUiReopenColumn;
+    private ColumnHeaderUiKind _pendingHeaderUiReopenKind;
     internal ColumnBase<TGridItem>? _sortByColumn;
     private bool _sortByAscending;
-    private bool _checkColumnOptionsPosition;
-    private bool _checkColumnResizePosition;
+    private bool _checkColumnHeaderUiPosition;
     private bool _checkColumnResizing;
     private bool _checkColumnReordering;
     private bool _manualGrid;
@@ -571,16 +580,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         SaveStateToQueryString();
 
-        if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
+        if (_checkColumnHeaderUiPosition && _activeHeaderUiColumn is not null)
         {
-            _checkColumnOptionsPosition = false;
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference, ".col-options");
-        }
-
-        if (_checkColumnResizePosition && _displayResizeForColumn is not null)
-        {
-            _checkColumnResizePosition = false;
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference, ".col-resize");
+            _checkColumnHeaderUiPosition = false;
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference);
         }
 
         if (_checkColumnResizing && _gridReference is not null && JSModule.Imported)
@@ -593,6 +596,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             _checkColumnReordering = false;
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering", _gridReference, _selfReference);
+        }
+
+        if (_pendingHeaderUiReopenColumn is not null && _pendingHeaderUiReopenKind != ColumnHeaderUiKind.None)
+        {
+            var column = _pendingHeaderUiReopenColumn;
+            var kind = _pendingHeaderUiReopenKind;
+
+            _pendingHeaderUiReopenColumn = null;
+            _pendingHeaderUiReopenKind = ColumnHeaderUiKind.None;
+
+            await ShowColumnHeaderUiAsync(column, kind);
         }
     }
 
@@ -970,6 +984,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         var reorderableColumns = GetReorderableColumns();
         var currentIndex = reorderableColumns.IndexOf(column);
+        var reopenReorderPopupAfterMove = DisplayMode == DataGridDisplayMode.Table
+            && _activeHeaderUiKind == ColumnHeaderUiKind.Reorder
+            && _activeHeaderUiColumn == column;
 
         if (currentIndex < 0 || reorderableColumns.Count <= 1)
         {
@@ -980,6 +997,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (targetIndex == currentIndex)
         {
             return;
+        }
+
+        if (reopenReorderPopupAfterMove)
+        {
+            _activeHeaderUiColumn = null;
+            _activeHeaderUiKind = ColumnHeaderUiKind.None;
+            _checkColumnHeaderUiPosition = false;
+            _pendingHeaderUiReopenColumn = column;
+            _pendingHeaderUiReopenKind = ColumnHeaderUiKind.Reorder;
         }
 
         reorderableColumns.RemoveAt(currentIndex);
@@ -998,7 +1024,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         UpdateGridTemplateColumns();
         await PersistColumnOrderAsync();
 
-        _checkColumnOptionsPosition = _displayOptionsForColumn is not null || _displayReorderForColumn is not null;
+        _checkColumnHeaderUiPosition = _activeHeaderUiColumn is not null;
         _checkColumnResizing = ResizableColumns;
         _checkColumnReordering = true;
         await InvokeAsync(StateHasChanged);
@@ -1028,6 +1054,42 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private List<ColumnBase<TGridItem>> GetReorderableColumns()
         => [.. _columns.Where(c => c.Pin == DataGridColumnPin.None)];
+
+    private Task ShowColumnHeaderUiAsync(ColumnBase<TGridItem> column, ColumnHeaderUiKind kind)
+    {
+        _activeHeaderUiColumn = column;
+        _activeHeaderUiKind = kind;
+        _checkColumnHeaderUiPosition = true;
+        _ = InvokeAsync(StateHasChanged);
+        return Task.CompletedTask;
+    }
+
+    private bool IsColumnHeaderUiActive(ColumnBase<TGridItem> column, ColumnHeaderUiKind kind)
+        => _activeHeaderUiColumn == column && _activeHeaderUiKind == kind;
+
+    private bool ShouldRenderColumnHeaderUi(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+        => IsColumnHeaderUiActive(column, ColumnHeaderUiKind.All)
+            ? headerCapabilities.HasAnyAction
+            : ShouldRenderColumnOptions(column, headerCapabilities)
+                || ShouldRenderColumnResize(column, headerCapabilities)
+                || ShouldRenderColumnReorder(column, headerCapabilities);
+
+    private bool ShouldRenderColumnOptions(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+        => headerCapabilities.HasOptions
+            && (IsColumnHeaderUiActive(column, ColumnHeaderUiKind.Options)
+                || IsColumnHeaderUiActive(column, ColumnHeaderUiKind.All));
+
+    private bool ShouldRenderColumnResize(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+        => headerCapabilities.CanResize
+            && (IsColumnHeaderUiActive(column, ColumnHeaderUiKind.Resize)
+                || IsColumnHeaderUiActive(column, ColumnHeaderUiKind.All));
+
+    private bool ShouldRenderColumnReorder(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+        => headerCapabilities.CanReorder
+            && (IsColumnHeaderUiActive(column, ColumnHeaderUiKind.Reorder)
+                || IsColumnHeaderUiActive(column, ColumnHeaderUiKind.All));
+
+    internal bool IsColumnResizeUiOpen => _activeHeaderUiKind == ColumnHeaderUiKind.Resize && _activeHeaderUiColumn is not null;
 
     /// <summary>
     /// Sets the grid's current sort column to the specified <paramref name="column"/>.
@@ -1125,26 +1187,26 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task ShowColumnOptionsAsync(ColumnBase<TGridItem> column)
     {
-        _displayOptionsForColumn = column;
-        _displayReorderForColumn = null;
-        _displayResizeForColumn = null;
-        _checkColumnOptionsPosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
-        _ = InvokeAsync(StateHasChanged);
-        return Task.CompletedTask;
+        return ShowColumnHeaderUiAsync(column, HeaderCellAsButtonWithMenu ? ColumnHeaderUiKind.Options : ColumnHeaderUiKind.All);
     }
 
     /// <summary>
-    /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column <paramref name="title"/> found first,
+    /// Displays all available header UI elements for the specified column asynchronously.
+    /// </summary>
+    /// <param name="column">The column for which to display all header UI elements. Cannot be null.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    public Task ShowAllHeaderUIAsync(ColumnBase<TGridItem> column)
+    {
+        return ShowColumnHeaderUiAsync(column, ColumnHeaderUiKind.All);
+    }
+
+    /// <summary>
+    /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column,
     /// closing any other column options UI that was previously displayed. If the title is not found, nothing happens.
     /// </summary>
     internal Task ShowColumnReorderAsync(ColumnBase<TGridItem> column)
     {
-        _displayReorderForColumn = column;
-        _displayOptionsForColumn = null;
-        _displayResizeForColumn = null;
-        _checkColumnOptionsPosition = true;
-        _ = InvokeAsync(StateHasChanged);
-        return Task.CompletedTask;
+        return ShowColumnHeaderUiAsync(column, ColumnHeaderUiKind.Reorder);
     }
 
     /// <summary>
@@ -1172,22 +1234,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
-    /// Closes the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI that was previously displayed.
-    /// </summary>
-    public Task CloseColumnOptionsAsync()
-    {
-        _displayOptionsForColumn = null;
-        _displayReorderForColumn = null;
-        _ = InvokeAsync(StateHasChanged);
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
     /// Closes the column resize UI that was previously displayed.
     /// </summary>
-    public Task CloseColumnResizeAsync()
+    public Task CloseColumnHeaderUIAsync()
     {
-        _displayResizeForColumn = null;
+        _activeHeaderUiColumn = null;
+        _activeHeaderUiKind = ColumnHeaderUiKind.None;
+        _checkColumnHeaderUiPosition = false;
         _ = InvokeAsync(StateHasChanged);
         return Task.CompletedTask;
 
@@ -1201,12 +1254,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task ShowColumnResizeAsync(ColumnBase<TGridItem> column)
     {
-        //_displayOptionsForColumn = null;
-        //_displayReorderForColumn = null;
-        _displayResizeForColumn = column;
-        _checkColumnResizePosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
-        _ = InvokeAsync(StateHasChanged);
-        return Task.CompletedTask;
+        return ShowColumnHeaderUiAsync(column, ColumnHeaderUiKind.Resize);
     }
 
     /// <summary>
@@ -1623,9 +1671,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         var activeColumn =
-            _displayReorderForColumn
-            ?? _displayOptionsForColumn
-            ?? _displayResizeForColumn;
+            _activeHeaderUiKind == ColumnHeaderUiKind.Reorder
+                ? _activeHeaderUiColumn
+                : null;
 
         if (activeColumn is null)
         {

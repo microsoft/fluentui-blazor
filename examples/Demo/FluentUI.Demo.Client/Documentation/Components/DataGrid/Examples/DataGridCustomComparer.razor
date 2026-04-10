@@ -27,7 +27,8 @@
 
 <div style="height: 400px; overflow-x:auto; display:flex;">
     <FluentDataGrid Items="@FilteredItems"
-                    ResizableColumns=true
+                    ResizableColumns="true"
+                    ReorderableColumns="true"
                     ResizeType="@_resizeType"
                     ResizeColumnOnAllRows="@_resizeColumnOnAllRows"
                     HeaderCellAsButtonWithMenu="_showActionsMenu"

@@ -24,8 +24,7 @@
                style="@StyleValue"
                aria-rowcount="@(_internalGridContext.TotalItemCount + 1)"
                striped="@StripedRows"
-               @onclosecolumnoptions="CloseColumnOptionsAsync"
-               @onclosecolumnresize="CloseColumnResizeAsync"
+               @onclosecolumnheaderui="CloseColumnHeaderUIAsync"
                @attributes="AdditionalAttributes">
             @if (GenerateHeader != DataGridGeneratedHeaderType.None)
             {
@@ -196,56 +195,30 @@
                                 Class="@(@ColumnHeaderClass(col, headerCapabilities) + (ResizableColumns ? " resizable" : ""))"
                                 AdditionalAttributes="@columnHeaderAttributes">
                 @col.HeaderContent
-                @if (HeaderCellAsButtonWithMenu)
+                @if (ShouldRenderColumnHeaderUi(col, headerCapabilities))
                 {
-                    @if (headerCapabilities.HasOptions && col == _displayOptionsForColumn)
-                    {
-                        <div class="col-options">
+                    <div class="col-header-ui">
+                        @if (ShouldRenderColumnOptions(col, headerCapabilities))
+                        {
                             @col.ColumnOptions
-                        </div>
-                    }
-                    @if (headerCapabilities.CanReorder && col == _displayReorderForColumn)
-                    {
-                        <div class="col-options">
-                            <ColumnReorderOptions Column="@col" TGridItem="TGridItem" />
-                        </div>
-                    }
-                    @if (headerCapabilities.CanResize && col == _displayResizeForColumn)
-                    {
-                        <div class="col-resize">
+                        }
+                        @if (ShouldRenderColumnOptions(col, headerCapabilities) && (ShouldRenderColumnResize(col, headerCapabilities) || ShouldRenderColumnReorder(col, headerCapabilities)))
+                        {
+                            <FluentDivider />
+                        }
+                        @if (ShouldRenderColumnResize(col, headerCapabilities))
+                        {
                             <ColumnResizeOptions Column="@col.Index" ResizeType=@ResizeType TGridItem="TGridItem" />
-                        </div>
-                    }
-                }
-                else
-                {
-                    @if (col == _displayOptionsForColumn)
-                    {
-                        <div class="col-options">
-                            <FluentStack Orientation="Orientation.Vertical">
-                                @if (headerCapabilities.HasOptions)
-                                {
-                                    @col.ColumnOptions
-                                    @if (headerCapabilities.CanResize || headerCapabilities.CanReorder)
-                                    {
-                                        <FluentDivider Style="width: 100%;" />
-                                    }
-                                }
-                                @if (headerCapabilities.CanResize)
-                                {
-                                    <ColumnResizeOptions Column="@col.Index" ResizeType=@ResizeType TGridItem="TGridItem" />
-                                    @if (headerCapabilities.CanReorder)
-                                    {
-                                        <FluentDivider Style="width: 100%;" />
-                                    }
-                                }
-                                @if (headerCapabilities.CanReorder)
-                                {
-                                    <ColumnReorderOptions Column="@col" TGridItem="TGridItem" />
-                                }
-                            </FluentStack>
-                        </div>
-                    }
+                        }
+                        @if (ShouldRenderColumnResize(col, headerCapabilities) && ShouldRenderColumnReorder(col, headerCapabilities))
+                        {
+                            <FluentDivider />
+                        }
+                        @if (ShouldRenderColumnReorder(col, headerCapabilities))
+                        {
+                            <ColumnReorderOptions Column="@col" TGridItem="TGridItem" />
+                        }
+                    </div>
                 }
 
 

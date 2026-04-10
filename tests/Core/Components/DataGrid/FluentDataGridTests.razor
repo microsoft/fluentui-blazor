@@ -726,6 +726,7 @@
 
         // Assert
         Assert.Equal("Hello!", cut.Find(".options").TextContent);
+        Assert.NotNull(cut.Find(".col-header-ui"));
         Assert.NotNull(cut.FindComponent<ColumnResizeOptions<Customer>>());
         Assert.NotNull(cut.FindComponent<ColumnReorderOptions<Customer>>());
         Assert.Equal(2, cut.FindAll("fluent-divider").Count);
@@ -864,7 +865,7 @@
         // Assert
         Assert.Equal("Hello!", columnOptions);
 
-        await grid.CloseColumnOptionsAsync();
+        await grid.CloseColumnHeaderUIAsync();
 
         Assert.Throws<ElementNotFoundException>(() => cut.Find(".options"));
 
@@ -1051,7 +1052,7 @@
         await grid.ShowColumnResizeAsync("InvalidColumnName");
 
         // Assert that the display resize for column is null as the column name is invalid
-        Assert.Null(grid._displayResizeForColumn);
+        Assert.False(grid.IsColumnResizeUiOpen);
 
     }
 
@@ -1101,12 +1102,12 @@
         await grid.ShowColumnResizeAsync(-1);
 
         // Assert
-        Assert.Null(grid._displayResizeForColumn);
+        Assert.False(grid.IsColumnResizeUiOpen);
 
         await grid.ShowColumnResizeAsync(3);
 
         // Assert
-        Assert.Null(grid._displayResizeForColumn);
+        Assert.False(grid.IsColumnResizeUiOpen);
 
     }
 
@@ -1129,11 +1130,11 @@
         await grid.ShowColumnResizeAsync("Name");
 
         // Assert
-        Assert.NotNull(grid._displayResizeForColumn);
+        Assert.True(grid.IsColumnResizeUiOpen);
 
-        await grid.CloseColumnResizeAsync();
+        await grid.CloseColumnHeaderUIAsync();
 
-        Assert.Null(grid._displayResizeForColumn);
+        Assert.False(grid.IsColumnResizeUiOpen);
 
     }
 
@@ -1410,6 +1411,36 @@
         Assert.Equal(expectedOrder, cut.FindAll("th .col-title-text")
             .Select(x => x.TextContent.Trim().ToLowerInvariant())
             .ToArray());
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MoveColumnLeftAsync_TableMode_KeepsReorderPopupOpen()
+    {
+        // Arrange
+        FluentDataGrid<Customer>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer"
+                             @ref="@grid"
+                             Items="@GetCustomers().AsQueryable()"
+                             DisplayMode="DataGridDisplayMode.Table"
+                             ReorderableColumns="true">
+                <PropertyColumn ColumnId="name" Title="Name" Width="150px" Property="@(x => x.Name)" />
+                <PropertyColumn ColumnId="created" Title="Created" Width="150px" Property="@(x => x.CreatedDate)" />
+                <PropertyColumn ColumnId="status" Title="Status" Width="150px" Property="@(x => x.Status)" />
+            </FluentDataGrid>);
+
+        var activeColumn = grid!._columns.Single(x => x.ColumnId == "status");
+        await cut.InvokeAsync(() => grid.ShowColumnReorderAsync(activeColumn));
+
+        Assert.NotNull(cut.FindComponent<ColumnReorderOptions<Customer>>());
+
+        // Act
+        await cut.InvokeAsync(() => grid.MoveColumnLeftAsync(activeColumn));
+
+        // Assert
+        Assert.Equal(["name", "status", "created"], grid.GetColumnOrder());
+        cut.WaitForAssertion(() => Assert.NotNull(cut.FindComponent<ColumnReorderOptions<Customer>>()));
     }
 
     [Fact]
@@ -1803,7 +1834,7 @@
 
         row.Find(".col-sort-button").Click();
 
-        var popup = cut.Find(".col-options");
+        var popup = cut.Find(".col-header-ui");
 
         Assert.Contains("Reorder columns", popup.TextContent);
     }

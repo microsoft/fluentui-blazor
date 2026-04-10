@@ -188,7 +188,7 @@
     private RenderFragment OptionsButton()
     {
         return
-            @<FluentButton IconOnly="true" Appearance="ButtonAppearance.Subtle" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
+            @<FluentButton IconOnly="true" Appearance="ButtonAppearance.Subtle" class="col-options-button" @onclick="@(() => Grid.ShowAllHeaderUIAsync(this))" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" Color="Color.Default" Width="20px" Style="opacity: var(--fluent-data-grid-header-opacity);" />
             </FluentButton>;
     }

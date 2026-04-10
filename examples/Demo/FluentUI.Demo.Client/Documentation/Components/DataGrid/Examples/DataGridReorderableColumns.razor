@@ -1,5 +1,4 @@
-﻿<div style="overflow-x: auto;">
-    <FluentDataGrid Items="@employees"
+﻿    <FluentDataGrid Items="@employees"
                     Style="min-width: max-content;"
                     HeaderCellAsButtonWithMenu="true"
                     ReorderableColumns="true"
@@ -15,7 +14,7 @@
             <FluentButton IconStart="@(new Icons.Regular.Size16.Delete())" Appearance="ButtonAppearance.Subtle" Title="Delete" @onclick="@(() => selectedName = context.FullName + " (delete)")" />
         </TemplateColumn>
     </FluentDataGrid>
-</div>
+
 
 @if (!string.IsNullOrEmpty(selectedName))
 {
