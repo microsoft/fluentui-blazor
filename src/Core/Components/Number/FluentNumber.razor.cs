@@ -232,7 +232,7 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
             return;
         }
 
-        var newValue = CurrentValue + Step.Value;
+        var newValue = RoundIfDecimal(CurrentValue + Step.Value);
 
         if (Max.HasValue && newValue > Max.Value)
         {
@@ -253,7 +253,7 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
             return;
         }
 
-        var newValue = CurrentValue - Step.Value;
+        var newValue = RoundIfDecimal(CurrentValue - Step.Value);
 
         if (Min.HasValue && newValue < Min.Value)
         {
@@ -278,5 +278,20 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
             Min,                                                            // Min
             Max,                                                            // Max
             Culture.NumberFormat.NumberGroupSeparator);                     // Thousands separator
+    }
+
+    /// <summary>
+    /// Rounds the value to the number of decimal digits defined by the current <see cref="Culture"/>.
+    /// This avoids floating-point precision errors (e.g. 0.3 - 0.1 = 0.19999999999999998).
+    /// </summary>
+    private TValue RoundIfDecimal(TValue value)
+    {
+        if (IsDecimal)
+        {
+            var decimals = Culture.NumberFormat.NumberDecimalDigits;
+            return TValue.CreateChecked(Math.Round(double.CreateChecked(value), decimals, MidpointRounding.AwayFromZero));
+        }
+
+        return value;
     }
 }

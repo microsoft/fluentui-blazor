@@ -7,6 +7,8 @@
                   Step="2"
                   Label="Integer"
                   Placeholder="Number"
+                  Message="@($"Value: {ValueInt}")"
+                  MessageCondition="@(e => true)"
                   @bind-Value="@ValueInt" />
 
     <FluentNumber TValue="double"
@@ -14,20 +16,17 @@
                   Label="Decimal"
                   Placeholder="Number"
                   Step="0.1"
+                  Message="@($"Value: {ValueDouble}")"
+                  MessageCondition="@(e => true)"
                   @bind-Value="@ValueDouble" />
 </FluentStack>
 
-<FluentText>ValueInt = @ValueInt</FluentText>
-<FluentText>ValueDouble = @ValueDouble</FluentText>
-
-<FluentStack>
-    <FluentSelect Label="Select Culture"
-                  Items="@AllCultures"
-                  Width="380px"
-                  OptionText="@(item => $"{item.DisplayName} [{item.NumberFormat.NumberDecimalDigits} digits, '{item.NumberFormat.NumberDecimalSeparator}' decimal, '{item.NumberFormat.NumberGroupSeparator}' group]")"
-                  @bind-Value="@SelectedCulture"
-                  @bind-Value:after="@ResetValues" />
-</FluentStack>
+<FluentSelect Label="Select Culture"
+                Items="@AllCultures"
+                Width="380px"
+                OptionText="@(item => $"{item.DisplayName} [{item.NumberFormat.NumberDecimalDigits} digits, '{item.NumberFormat.NumberDecimalSeparator}' decimal, '{item.NumberFormat.NumberGroupSeparator}' group]")"
+                @bind-Value="@SelectedCulture"
+                @bind-Value:after="@ResetValues" />
 
 @code
 {
