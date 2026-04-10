@@ -11,7 +11,7 @@
          - examples\Tools\FluentUI.Demo.DocApiGen.IntegrationTests\FluentUIComponentsIntegrationTests.cs
          - tests\Integration\WebServer\StartServerFixture.cs
     -->
-    <NetVersion>net10.0</NetVersion>
+    <NetVersion>net9.0</NetVersion>
 
     <!-- Target .NET versions for multi-targeting -->
     <!-- Used with the published libraries: Core; McpServer -->
