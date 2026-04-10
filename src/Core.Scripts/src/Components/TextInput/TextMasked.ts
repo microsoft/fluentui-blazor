@@ -109,7 +109,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
    * @param max Maximum value.
    * @param thousandsSeparator Thousands separator character.
    */
-  export async function applyNumberMask(id: string, scale: number, radixChar: string, mapToRadix: string[], min: number, max: number, thousandsSeparator: string): Promise<void> {
+  export async function applyNumberMask(id: string, scale: number, radixChar: string, mapToRadix: string[], min: number | null, max: number | null, thousandsSeparator: string): Promise<void> {
 
     const fluentText = document.getElementById(id) as FluentUIComponents.TextInput;
     const inputElement = getInputElement(id);
@@ -121,8 +121,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
       scale: scale,
       radix: radixChar,
       mapToRadix: mapToRadix,
-      min: min,
-      max: max,
+      min: min !== null ? min : undefined,
+      max: max !== null ? max : undefined,
       thousandsSeparator: thousandsSeparator,
       normalizeZeros: true,
       padFractionalZeros: false,

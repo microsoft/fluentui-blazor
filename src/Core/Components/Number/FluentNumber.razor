@@ -1,7 +1,7 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @typeparam TValue
-@inherits FluentInputImmediateBase<string?>
+@inherits FluentInputImmediateBase<TValue>
 
 <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Size="@Size.ToFieldSize()">
     <fluent-text-input @ref="@Element"
@@ -33,12 +33,24 @@
             </div>
         }
 
-        @if (EndTemplate != null)
-        {
-            <div slot="@FluentSlot.End">
+        <div slot="@FluentSlot.End">
+            @if (EndTemplate != null)
+            {
                 @EndTemplate
+                
+            }
+            <div>
+                <div button-step="up">
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronUp())"
+                                OnClick="@IncrementValue"
+                                Color="@Color.Default" />
+                </div>
+                <div button-step="down">
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" 
+                                OnClick="@DecrementValue"
+                                Color="@Color.Default" />
+                </div>
             </div>
-        }
-
+        </div>
     </fluent-text-input>
 </FluentField>

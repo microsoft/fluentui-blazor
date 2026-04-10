@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A numeric input component that allows users to enter and edit numeric values.
 /// </summary>
-public partial class FluentNumber<TValue> : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent
+public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent
                                             where TValue : struct, INumber<TValue>
 {
     /// <summary>
@@ -119,6 +119,11 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<string?>, I
     [Parameter]
     public TValue? Step { get; set; }
 
+    /// <summary>
+    /// Gets a value indicating whether the type is a floating-point type (e.g. float, double, decimal)
+    /// </summary>
+    public bool IsDecimal => default(TValue) is float or double or decimal or Half;
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
@@ -135,40 +140,74 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<string?>, I
             // Initialize the 'immediate' custom event for the immediate mode
             await InitializeImmediateAsync();
 
-            // Set the mask pattern
-            //if (!string.IsNullOrEmpty(MaskPattern))
-            {
-                // id: string, 
-                // scale: number, 
-                // radixChar: string, 
-                // mapToRadix: string[], 
-                // min: number, 
-                // max: number, 
-                // thousandsSeparator: string
-                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyNumberMask",
-                    Id,
-                    Culture.NumberFormat.NumberDecimalDigits,
-                    Culture.NumberFormat.NumberDecimalSeparator,
-                    new[] { Culture.NumberFormat.NumberDecimalSeparator, CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator },
-                    Min.HasValue ? Min.Value : int.MinValue,
-                    Max.HasValue ? Max.Value : int.MaxValue,
-                    Culture.NumberFormat.NumberGroupSeparator);
-            }
+            // Apply the number mask to the input element
+            await ApplyNumberMaskAsync();
         }
     }
 
     /// <summary>
-    /// Parses a string to create the <see cref="Microsoft.AspNetCore.Components.Forms.InputBase{TValue}.Value"/>.
+    /// Overrides the default parameter setting behavior to detect changes to the Culture parameter and re-apply the number mask when it changes,
+    /// ensuring that the formatting updates accordingly.
     /// </summary>
-    /// <param name="value">The string value to be parsed.</param>
-    /// <param name="result">The result to inject into the Value.</param>
-    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
-    /// <returns>True if the value could be parsed; otherwise false.</returns>
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public override Task SetParametersAsync(ParameterView parameters)
     {
-        result = value;
-        validationErrorMessage = null;
-        return true;
+        // If Culture parameter changes, re-apply the number mask to update the formatting
+        if (parameters.TryGetValue<CultureInfo?>(nameof(Culture), out var newCulture) && newCulture != null && !Equals(newCulture, Culture))
+        {
+            Culture = newCulture;
+            _ = ApplyNumberMaskAsync();
+        }
+
+        // If Min/Max parameters change, re-apply the number mask to update the bounds
+        if ((parameters.TryGetValue<TValue?>(nameof(Min), out var newMin) && newMin != Min) ||
+            (parameters.TryGetValue<TValue?>(nameof(Max), out var newMax) && newMax != Max))
+        {
+            _ = ApplyNumberMaskAsync();
+        }
+
+        return base.SetParametersAsync(parameters);
+    }
+
+    /// <summary>
+    /// Parses a string to create the value.
+    /// HTML <c>&lt;input type="number"&gt;</c> always returns values with <c>.</c> as decimal separator
+    /// (per the HTML spec), regardless of the user's locale. We must parse with
+    /// <see cref="CultureInfo.InvariantCulture"/> to avoid misinterpretation
+    /// (e.g. in fr-FR, <c>.</c> is the thousands separator, so <c>"2.5"</c> would be parsed as <c>25</c>).
+    /// </summary>
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        if (TValue.TryParse(value, Culture, out var parsedValue))
+        {
+            // Clamp the parsed value to Min/Max bounds.
+            if (Min.HasValue && parsedValue < Min.Value)
+            {
+                parsedValue = Min.Value;
+            }
+
+            if (Max.HasValue && parsedValue > Max.Value)
+            {
+                parsedValue = Max.Value;
+            }
+
+            result = parsedValue;
+            validationErrorMessage = null;
+            return true;
+        }
+
+        result = default;
+        validationErrorMessage = "ERROR"; // TODO: string.Format(Culture, Localizer[Localization.LanguageResource.NumberInput_InvalidValue], DisplayName ?? FieldIdentifier.FieldName);
+        return false;
+    }
+
+    /// <summary>
+    /// Formats the value as a string using the configured <see cref="Culture"/>.
+    /// </summary>
+    protected override string? FormatValueAsString(TValue value)
+    {
+        return string.Format(Culture, IsDecimal ? "{0:N}" : "{0:N0}", value);
     }
 
     /// <summary>
@@ -180,5 +219,64 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<string?>, I
     {
         FocusLost = true;
         return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Increments the current value by the defined <see cref="Step"/>.
+    /// If the new value exceeds <see cref="Max"/>, it will be set to <see cref="Max"/>.
+    /// </summary>
+    private void IncrementValue()
+    {
+        if (Disabled == true || ReadOnly || Step == null || EqualityComparer<TValue>.Default.Equals(Step.Value, default))
+        {
+            return;
+        }
+
+        var newValue = CurrentValue + Step.Value;
+
+        if (Max.HasValue && newValue > Max.Value)
+        {
+            newValue = Max.Value;
+        }
+
+        CurrentValue = newValue;
+    }
+
+    /// <summary>
+    /// Decrements the current value by the defined <see cref="Step"/>.
+    /// If the new value is less than <see cref="Min"/>, it will be set to <see cref="Min"/>.
+    /// </summary>
+    private void DecrementValue()
+    {
+        if (Disabled == true || ReadOnly || Step == null || EqualityComparer<TValue>.Default.Equals(Step.Value, default))
+        {
+            return;
+        }
+
+        var newValue = CurrentValue - Step.Value;
+
+        if (Min.HasValue && newValue < Min.Value)
+        {
+            newValue = Min.Value;
+        }
+
+        CurrentValue = newValue;
+    }
+
+    /// <summary>
+    /// Applies the number mask to the input element using JavaScript interop.
+    /// </summary>
+    /// <returns></returns>
+    private async Task ApplyNumberMaskAsync()
+    {
+        // Set the mask pattern
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyNumberMask",
+            Id,
+            IsDecimal ? Culture.NumberFormat.NumberDecimalDigits : 0,       // Scale
+            Culture.NumberFormat.NumberDecimalSeparator,                    // Radix char
+            new[] { Culture.NumberFormat.NumberDecimalSeparator, CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator },  // Map to radix
+            Min,                                                            // Min
+            Max,                                                            // Max
+            Culture.NumberFormat.NumberGroupSeparator);                     // Thousands separator
     }
 }
