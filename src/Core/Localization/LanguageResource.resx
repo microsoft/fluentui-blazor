@@ -256,7 +256,7 @@
     <value>Resize</value>
   </data>
   <data name="DataGrid_OptionsMenu" xml:space="preserve">
-    <value>Filter</value>
+    <value>Column options</value>
   </data>
   <data name="DataGrid_ReorderMenu" xml:space="preserve">
     <value>Reorder columns</value>

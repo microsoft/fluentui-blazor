@@ -5,7 +5,7 @@ route: /DataGrid/ReorderableColumns
 
 # Reorderable columns
 
-The columns in the DataGrid can reordered by setting the `Reorderable` parameter to true.
+The columns in the DataGrid can reordered by setting the `ReorderableColumns` parameter to true.
 This will allow the user to use either drag and drop or a popup on the header of a column to change the column order. Obviously,
 the reorder functionality is only available for columns that are not [pinned](/DataGrid/PinnedColumns).
 

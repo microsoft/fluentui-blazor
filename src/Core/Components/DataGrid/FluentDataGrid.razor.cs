@@ -211,14 +211,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public ColumnMenuSettings ColumnResizeMenuSettings { get; set; } = new(new CoreIcons.Regular.Size20.TableResizeColumn(), LanguageResource.DataGrid_ResizeMenu);
 
     /// <summary>
-    /// Settings (icon, icon position) used in the column sorting UI.
+    /// Settings (icon, icon position) used in the column reorder UI.
     /// (aria) labels are controlled through <see cref="IFluentLocalizer"/>
     /// </summary>
     [Parameter]
     public ColumnMenuSettings ColumnReorderMenuSettings { get; set; } = new(new CoreIcons.Regular.Size20.ColumnArrowRight(), LanguageResource.DataGrid_ReorderMenu);
 
     /// <summary>
-    /// Settings (icon, icon position) used in the column options UI.
+    /// Settings (icon, icon position) used in the column sort UI.
     /// (aria) labels are controlled through <see cref="IFluentLocalizer"/>
     /// </summary>
     [Parameter]

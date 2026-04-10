@@ -1836,7 +1836,7 @@
 
         var popup = cut.Find(".col-header-ui");
 
-        Assert.Contains("Reorder columns", popup.TextContent);
+        Assert.Contains(IFluentLocalizer.GetDefault(global::Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource.DataGrid_ReorderMenu), popup.TextContent);
     }
 
     [Fact]
@@ -1857,7 +1857,7 @@
 
         // Assert
         Assert.Equal(3, items.Count);
-        Assert.Contains("Reorder columns", items[1].TextContent);
+        Assert.Contains(IFluentLocalizer.GetDefault(global::Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource.DataGrid_ReorderMenu), items[1].TextContent);
     }
 
     [Fact]

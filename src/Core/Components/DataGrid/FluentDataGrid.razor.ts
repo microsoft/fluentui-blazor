@@ -452,7 +452,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     }
 
     gridElement.dispatchEvent(
-      new CustomEvent('closecolumnresize', { bubbles: true })
+      new CustomEvent('closecolumnheaderui', { bubbles: true })
     );
 
     gridElement.focus();
