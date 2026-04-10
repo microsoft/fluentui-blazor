@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentMessageBar : FluentComponentBase
 {
     private static readonly Icon IconInfo = new CoreIcons.Regular.Size20.Info().WithColor("var(--info)");
-    private static readonly Icon IconWarning= new CoreIcons.Filled.Size20.Warning().WithColor("var(--warning)");
+    private static readonly Icon IconWarning = new CoreIcons.Filled.Size20.Warning().WithColor("var(--warning)");
     private static readonly Icon IconSuccess = new CoreIcons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
     private static readonly Icon IconError = new CoreIcons.Filled.Size20.DismissCircle().WithColor("var(--error)");
 
@@ -29,14 +29,14 @@ public partial class FluentMessageBar : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets or sets the intent of the message bar. 
+    /// Gets or sets the intent of the message bar.
     /// Default is <see cref="MessageBarIntent.Info"/>.
     /// </summary>
     [Parameter]
     public MessageBarIntent? Intent { get; set; }
 
     /// <summary>
-    /// Gets or sets the layout of the message bar. 
+    /// Gets or sets the layout of the message bar.
     /// Default is <see cref="MessageBarLayout.SingleLine"/>.
     /// </summary>
     [Parameter]

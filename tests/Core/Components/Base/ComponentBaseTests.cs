@@ -48,6 +48,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentSelect<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
         { typeof(FluentCombobox<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
         { typeof(FluentListbox<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
+        { typeof(FluentAutocomplete<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
         { typeof(FluentOption<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentRadioGroup<>), Loader.MakeGenericType(typeof(string)) },

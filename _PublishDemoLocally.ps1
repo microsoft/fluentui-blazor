@@ -58,6 +58,8 @@ if ($publishChoice -eq "n") {
 # Clean previous build artifacts
 Write-Host "👉 Cleaning previous build artifacts (bin and obj)..." -ForegroundColor Yellow
 
+dotnet clean Microsoft.FluentUI-v5.slnx
+
 if (Test-Path "./examples/Demo/FluentUI.Demo/bin") {
     Remove-Item -Path "./examples/Demo/FluentUI.Demo/bin" -Recurse -Force
 }
@@ -120,25 +122,74 @@ if ($node.InnerText -ne $NetVersion) {
 if ($fullBuild) {
     # Build the core project
     Write-Host "👉 Building Core project..." -ForegroundColor Yellow
-    dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish"  -f $NetVersion
+    dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish" -f $NetVersion
 
-    # Generate API documentation file
-    Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
-    dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.xml" --dll "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json
+    # Copy Core build output to default location (so MCP Server project can resolve the dependency)
+    $defaultCoreOutput = "./src/Core/bin/Release/$NetVersion"
+    if (-not (Test-Path $defaultCoreOutput)) {
+        New-Item -ItemType Directory -Path $defaultCoreOutput -Force | Out-Null
+    }
+    Copy-Item -Path "./src/Core/bin/Publish/*" -Destination $defaultCoreOutput -Recurse -Force
 
     # Build the MCP Server project
     Write-Host "👉 Building MCP Server project..." -ForegroundColor Yellow
     dotnet build "./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" -c Release -o "./src/Tools/McpServer/bin/Publish" -f $NetVersion
 
+    # Build the DocApiGen project
+    Write-Host "👉 Building DocApiGen project..." -ForegroundColor Yellow
+    dotnet build ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" -c Release -f $NetVersion
+
+    # Generate API documentation file
+    Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
+    dotnet run -c Release --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.xml" --dll "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json -f $NetVersion
+
     # Generate MCP documentation file
     Write-Host "👉 Generating MCP documentation..." -ForegroundColor Yellow
-    #dotnet run --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.xml" --dll "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json" --format json --mode mcp
-    Write-Host "   Skipped."
+    dotnet run -c Release --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.xml" --dll "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json" --format json --mode mcp -f $NetVersion
 }
 
 # Publish the demo
 Write-Host "👉 Publishing demo..." -ForegroundColor Yellow
 dotnet publish "./examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" -c Release -o "./examples/Demo/FluentUI.Demo/bin/Publish" -f $NetVersion
+
+# Fix the static assets manifest to match actual file sizes on disk.
+# Brotli compression is non-deterministic, so the manifest Content-Length values
+# recorded during publish may not match the final compressed files.
+$fixManifest = Read-Host "❓ Do you want to fix the static assets manifest (Content-Length mismatches)? (y/n) [default: y]"
+if ($fixManifest -eq "n") {
+    Write-Host "⏩ Skipping static assets manifest fix." -ForegroundColor Yellow
+} else {
+    Write-Host "👉 Fixing static assets manifest..." -ForegroundColor Yellow
+    $publishDir = "./examples/Demo/FluentUI.Demo/bin/Publish"
+    $manifestPath = "$publishDir/FluentUI.Demo.staticwebassets.endpoints.json"
+
+    if (Test-Path $manifestPath) {
+        $manifest = Get-Content $manifestPath -Raw | ConvertFrom-Json
+        $fixedCount = 0
+
+        foreach ($endpoint in $manifest.endpoints) {
+            $assetPath = Join-Path $publishDir "wwwroot" $endpoint.AssetFile
+            if (Test-Path $assetPath) {
+                $actualSize = (Get-Item $assetPath).Length
+                $clHeader = $endpoint.ResponseHeaders | Where-Object { $_.Name -eq "Content-Length" }
+                if ($null -ne $clHeader -and [long]$clHeader.Value -ne $actualSize) {
+                    Write-Host "   Fixed: $($endpoint.AssetFile) ($($clHeader.Value) -> $actualSize)" -ForegroundColor Cyan
+                    $clHeader.Value = "$actualSize"
+                    $fixedCount++
+                }
+            }
+        }
+
+        if ($fixedCount -gt 0) {
+            $manifest | ConvertTo-Json -Depth 10 | Set-Content $manifestPath -Encoding UTF8
+            Write-Host "☑️ Fixed $fixedCount Content-Length mismatches in the manifest." -ForegroundColor Green
+        } else {
+            Write-Host "☑️ No Content-Length mismatches found." -ForegroundColor Green
+        }
+    } else {
+        Write-Host "⚠️ Static assets manifest not found, skipping fix." -ForegroundColor Yellow
+    }
+}
 
 # Verify that the bundle JS file has the expected size
 Write-Host ""

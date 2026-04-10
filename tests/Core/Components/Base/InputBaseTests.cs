@@ -35,6 +35,7 @@ public class InputBaseTests : Bunit.BunitContext
         { typeof(FluentSelect<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
         { typeof(FluentCombobox<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
         { typeof(FluentListbox<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
+        { typeof(FluentAutocomplete<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
         { typeof(FluentSlider<>), type => type.MakeGenericType(typeof(int)) },
         { typeof(FluentRadioGroup<>), type => type.MakeGenericType(typeof(string)) },
         { typeof(FluentCalendar<>), type => type.MakeGenericType(typeof(DateTime)) },

@@ -51,6 +51,11 @@ public class LibraryConfiguration
     public LibraryTooltipOptions Tooltip { get; } = new LibraryTooltipOptions();
 
     /// <summary>
+    /// Gets the options for the library toast.
+    /// </summary>
+    public LibraryToastOptions Toast { get; } = new LibraryToastOptions();
+
+    /// <summary>
     /// Gets the sanitized markup string for safe rendering in HTML/Styles contexts.
     /// </summary>
     public MarkupSanitizedOptions MarkupSanitized { get; } = new MarkupSanitizedOptions();
