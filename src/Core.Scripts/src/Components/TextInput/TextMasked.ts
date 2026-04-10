@@ -152,6 +152,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
 
     // Apply new mask
     if (inputElement) {
+      // Set inputmode for mobile keyboard optimization
+      inputElement.inputMode = scale > 0 ? 'decimal' : 'numeric';
+
       // Ensure IMask library is loaded from CDN
       const IMask = await imaskLoader.load();
 
