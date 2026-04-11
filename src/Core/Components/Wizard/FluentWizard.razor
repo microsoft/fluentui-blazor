@@ -30,12 +30,9 @@
              border-inside=@Border.HasFlag(WizardBorder.Inside)>
             @if (ButtonTemplate == null)
             {
-                string buttonWidth = "80px;";
-
                 @if (DisplayPreviousButton)
                 {
                     <FluentButton Appearance="ButtonAppearance.Default"
-                                  Style="@($"width: {buttonWidth};")"
                                   OnClick="@OnPreviousHandlerAsync">
 						@Localizer[Localization.LanguageResource.Wizard_LabelButtonPrevious]
                     </FluentButton>
@@ -46,7 +43,6 @@
                 @if (DisplayNextButton)
                 {
                     <FluentButton Appearance="ButtonAppearance.Primary"
-                                  Style="@($"width: {buttonWidth};")"
                                   OnClick="@OnNextHandlerAsync">
 						@Localizer[Localization.LanguageResource.Wizard_LabelButtonNext]
                     </FluentButton>
@@ -54,7 +50,6 @@
                 else
                 {
                     <FluentButton Appearance="ButtonAppearance.Primary"
-                                  Style="@($"width: {buttonWidth};")"
                                   OnClick="OnFinishHandlerAsync">
 						@Localizer[Localization.LanguageResource.Wizard_LabelButtonDone]
                     </FluentButton>
