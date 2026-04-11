@@ -354,7 +354,6 @@
   <data name="AutoComplete_MaximumSelectedOptionsMessage" xml:space="preserve">
     <value>The maximum number of {0} selected items has been reached.</value>
   </data>
-</root>
   <data name="Wizard_LabelButtonPrevious" xml:space="preserve">
     <value>Previous</value>
   </data>
