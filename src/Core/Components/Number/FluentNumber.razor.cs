@@ -96,11 +96,11 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
 
     /// <summary>
     /// Gets or sets the culture of the component.
-    /// By default <see cref="FluentNumberCultureInfo.Invariant"/> to display using a consistent culture independent of the OS culture
-    /// (2 decimal digits, "." as decimal separator, and no group separator).
+    /// By default <see cref="FluentNumberCultureInfo"/> to display using a consistent culture independent of the OS culture
+    /// (2 decimal digits, CurrentCulture.NumberFormat.NumberDecimalSeparator as decimal separator, and no group separator).
     /// </summary>
     [Parameter]
-    public virtual CultureInfo Culture { get; set; } = FluentNumberCultureInfo.Invariant;
+    public virtual CultureInfo Culture { get; set; } = new FluentNumberCultureInfo();
 
     /// <summary>
     /// Gets or sets the minimum allowed value.

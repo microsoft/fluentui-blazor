@@ -12,23 +12,27 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class FluentNumberCultureInfo : CultureInfo
 {
     /// <summary>
-    /// A static instance of FluentNumberCultureInfo with default settings (2 decimal digits, "." as decimal separator, and no group separator).
+    /// A static instance of FluentNumberCultureInfo with default settings (2 decimal digits, 
+    /// "." as decimal separator, and no group separator).
     /// </summary>
-    public static readonly FluentNumberCultureInfo Invariant = new();
+    public static readonly FluentNumberCultureInfo Invariant = new(2, ".", "");
 
     /// <summary>
     /// Initializes a new instance of the FluentNumberCultureInfo class with default settings 
-    /// (2 decimal digits, "." as decimal separator, and no group separator).
+    /// (2 decimal digits, CurrentCulture.NumberFormat.NumberDecimalSeparator as decimal separator, 
+    /// and no group separator).
     /// </summary>
-    public FluentNumberCultureInfo() : this(2, ".", "")
+    public FluentNumberCultureInfo() : this(2, CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, "")
     {
     }
 
     /// <summary>
-    /// Initializes a new instance of the FluentNumberCultureInfo class with specified decimal digits and default separators
+    /// Initializes a new instance of the FluentNumberCultureInfo class
+    /// with specified decimal digits and default decimal separator 
+    /// (CurrentCulture.NumberFormat.NumberDecimalSeparator) and no group separator.
     /// </summary>
     /// <param name="decimalDigits">The number of decimal digits to use.</param>
-    public FluentNumberCultureInfo(int decimalDigits) : this(decimalDigits, ".", "")
+    public FluentNumberCultureInfo(int decimalDigits) : this(decimalDigits, CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, "")
     {
     }
 
