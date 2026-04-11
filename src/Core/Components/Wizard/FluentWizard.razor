@@ -3,62 +3,62 @@
 
 <CascadingValue Value="this">
 
-    <div id="@Id"
-         style="@StyleValue"
-         class="@ClassValue"
-         border-outside=@Border.HasFlag(WizardBorder.Outside)
-         position="@(StepperPosition == StepperPosition.Top ? "top" : "left")"
-         @attributes="@AdditionalAttributes">
-        <ol style=@GetStepperWidthOrHeight()
-            border-inside=@Border.HasFlag(WizardBorder.Inside)>
-            @Steps
-        </ol>
+	<div id="@Id"
+		 style="@StyleValue"
+		 class="@ClassValue"
+		 border-outside=@Border.HasFlag(WizardBorder.Outside)
+		 position="@(StepperPosition == StepperPosition.Top ? "top" : "left")"
+		 @attributes="@AdditionalAttributes">
+		<ol style=@GetStepperWidthOrHeight()
+			border-inside=@Border.HasFlag(WizardBorder.Inside)>
+			@Steps
+		</ol>
 
-        <div class="fluent-wizard-content"
-             border-inside=@Border.HasFlag(WizardBorder.Inside)>
-            @foreach (var step in _steps.Where(i => i.Index == Value || !i.DeferredLoading))
-            {
-                <div style="@(step.Index == Value ? "" : "display: none;")">
-                    <CascadingValue Value="step">
-                        @(step.ChildContent)
-                    </CascadingValue>
-                </div>
-            }
-        </div>
+		<div class="fluent-wizard-content"
+			 border-inside=@Border.HasFlag(WizardBorder.Inside)>
+			@foreach (var step in _steps.Where(i => i.Index == Value || !i.DeferredLoading))
+			{
+				<div style="@(step.Index == Value ? "" : "display: none;")">
+					<CascadingValue Value="step">
+						@(step.ChildContent)
+					</CascadingValue>
+				</div>
+			}
+		</div>
 
-        <div class="fluent-wizard-buttons"
-             border-inside=@Border.HasFlag(WizardBorder.Inside)>
-            @if (ButtonTemplate == null)
-            {
-                @if (DisplayPreviousButton)
-                {
-                    <FluentButton Appearance="ButtonAppearance.Default"
-                                  OnClick="@OnPreviousHandlerAsync">
-						@Localizer[Localization.LanguageResource.Wizard_LabelButtonPrevious]
-                    </FluentButton>
-                }
+		<div class="fluent-wizard-buttons"
+			 border-inside=@Border.HasFlag(WizardBorder.Inside)>
+			@if (ButtonTemplate == null)
+			{
+				<FluentStack HorizontalGap="10px" HorizontalAlignment="HorizontalAlignment.End">
+					@if (DisplayPreviousButton)
+					{
+						<FluentButton Appearance="ButtonAppearance.Default"
+									  OnClick="@OnPreviousHandlerAsync">
+							@Localizer[Localization.LanguageResource.Wizard_LabelButtonPrevious]
+						</FluentButton>
+					}
 
-                <span style="margin-right: 10px" />
-
-                @if (DisplayNextButton)
-                {
-                    <FluentButton Appearance="ButtonAppearance.Primary"
-                                  OnClick="@OnNextHandlerAsync">
-						@Localizer[Localization.LanguageResource.Wizard_LabelButtonNext]
-                    </FluentButton>
-                }
-                else
-                {
-                    <FluentButton Appearance="ButtonAppearance.Primary"
-                                  OnClick="OnFinishHandlerAsync">
-						@Localizer[Localization.LanguageResource.Wizard_LabelButtonDone]
-                    </FluentButton>
-                }
-            }
-            else
-            {
-                @ButtonTemplate(Value)
-            }
-        </div>
-    </div>
+					@if (DisplayNextButton)
+					{
+						<FluentButton Appearance="ButtonAppearance.Primary"
+									  OnClick="@OnNextHandlerAsync">
+							@Localizer[Localization.LanguageResource.Wizard_LabelButtonNext]
+						</FluentButton>
+					}
+					else
+					{
+						<FluentButton Appearance="ButtonAppearance.Primary"
+									  OnClick="OnFinishHandlerAsync">
+							@Localizer[Localization.LanguageResource.Wizard_LabelButtonDone]
+						</FluentButton>
+					}
+				</FluentStack>
+			}
+			else
+			{
+				@ButtonTemplate(Value)
+			}
+		</div>
+	</div>
 </CascadingValue>
