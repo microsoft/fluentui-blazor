@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Text;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -69,6 +70,92 @@ public partial class FluentColorPicker : FluentComponentBase
     /// </summary>
     [Parameter]
     public Icon SelectedIcon { get; set; } = new CoreIcons.Regular.Size20.Checkmark();
+
+    // -------------------------------------------------------------------------
+    // Color Wheel
+    // -------------------------------------------------------------------------
+
+    private record WheelHexData(string Points, string Color, string CxStr, string CyStr);
+
+    private static readonly IReadOnlyList<string> WheelColors =
+    [
+        "#008080", "#00806D", "#008057", "#008040", "#008029", "#008014", "#008000",
+        "#006D80", "#199595", "#19957F", "#199565", "#19954A", "#199530", "#199519",
+        "#148000", "#005780", "#197F95", "#39ABAA", "#39AB90", "#39AB72", "#39AB53",
+        "#39AB39", "#309519", "#298000", "#004080", "#196595", "#3990AB", "#60C0C0",
+        "#60C0A1", "#60C07F", "#60C060", "#53AB39", "#4A9519", "#408000", "#002980",
+        "#194A95", "#3972AB", "#60A1C0", "#8ED5D5", "#8ED5B2", "#8ED58E", "#7FC060",
+        "#72AB39", "#659519", "#578000", "#001480", "#193095", "#3953AB", "#607FC0",
+        "#8EB2D5", "#C3EAEA", "#C3EAC3", "#B2D58E", "#A1C060", "#90AB39", "#7F9519",
+        "#6D8000", "#000080", "#191995", "#3939AB", "#6060C0", "#8E8ED5", "#C3C3EA",
+        "#FFFFFF", "#EAEAC3", "#D5D58E", "#C0C060", "#ABAB39", "#959519", "#808000",
+        "#140080", "#301995", "#5339AB", "#7F60C0", "#B28ED5", "#EAC3EA", "#EAC3C3",
+        "#D5B28E", "#C0A160", "#AB9039", "#957F19", "#806D00", "#290080", "#4A1995",
+        "#7239AB", "#A160C0", "#D58ED5", "#D58EB2", "#D58E8E", "#C07F60", "#AB7239",
+        "#956519", "#805700", "#400080", "#651995", "#9039AB", "#C060C0", "#C060A1",
+        "#C0607F", "#C06060", "#AB5339", "#954A19", "#804000", "#570080", "#7F1995",
+        "#AB39AB", "#AB3990", "#AB3972", "#AB3953", "#AB3939", "#953019", "#802900",
+        "#6D0080", "#951995", "#95197F", "#951965", "#95194A", "#951930", "#951919",
+        "#801400", "#800080", "#80006D", "#800057", "#800040", "#800029", "#800014",
+        "#800000",
+    ];
+
+    private static readonly IReadOnlyList<WheelHexData> WheelHexagons =
+        [.. GenerateColorWheelHexagons(rings: 6, hexSize: 14.5)];
+
+    private WheelHexData? SelectedWheelHex =>
+        string.IsNullOrEmpty(SelectedColor)
+            ? null
+            : WheelHexagons.FirstOrDefault(h => IsSelectedColor(h.Color));
+
+    /// <summary>
+    /// Generates the hexagonal grid for the color wheel.
+    /// Uses flat-top hexagons in axial (q, r) coordinates.
+    /// Colors are sourced from the <see cref="WheelColors"/> array.
+    /// </summary>
+    private static IEnumerable<WheelHexData> GenerateColorWheelHexagons(int rings, double hexSize)
+    {
+        var sqrt3 = Math.Sqrt(3.0);
+        var polySize = hexSize - 0.5; // slight gap between hexagons
+        var inv = System.Globalization.CultureInfo.InvariantCulture;
+        var colorIndex = 0;
+
+        for (var q = -rings; q <= rings; q++)
+        {
+            var rMin = Math.Max(-rings, -q - rings);
+            var rMax = Math.Min(rings, -q + rings);
+
+            for (var r = rMin; r <= rMax; r++)
+            {
+                // Flat-top hex grid: center pixel position
+                var cx = hexSize * 1.5 * q;
+                var cy = hexSize * sqrt3 * (r + q / 2.0);
+
+                // Build SVG polygon points for a flat-top hexagon (vertex i at 60°*i)
+                var sb = new StringBuilder();
+                for (var i = 0; i < 6; i++)
+                {
+                    var angleRad = Math.PI / 3.0 * i;
+                    var vx = cx + polySize * Math.Cos(angleRad);
+                    var vy = cy + polySize * Math.Sin(angleRad);
+                    if (i > 0)
+                    {
+                        sb.Append(' ');
+                    }
+
+                    sb.Append(vx.ToString("F2", inv));
+                    sb.Append(',');
+                    sb.Append(vy.ToString("F2", inv));
+                }
+
+                yield return new WheelHexData(
+                    Points: sb.ToString(),
+                    Color: WheelColors[colorIndex++],
+                    CxStr: cx.ToString("F2", inv),
+                    CyStr: cy.ToString("F2", inv));
+            }
+        }
+    }
 
     private async Task ColorSelectHandlerAsync(string color)
     {
