@@ -1,13 +1,4 @@
 ﻿<FluentStack>
-
-    <div>
-        <FluentButton Id="ColorPickerButton"
-                      OnClick="@(e => ColorPickerOpened = !ColorPickerOpened)">Open Color</FluentButton>
-        <FluentColorPicker AnchorId="ColorPickerButton"
-                           @bind-Opened="@ColorPickerOpened" />
-    </div>
-
-    
     <div>
         <FluentButton Id="LeftButton"
                       OnClick="@(e => LeftOpened = !LeftOpened)">Open Popover</FluentButton>
@@ -33,7 +24,6 @@
 
 @code
 {
-    bool ColorPickerOpened = false;
     bool LeftOpened = false;
     bool RightOpened = false;
 }

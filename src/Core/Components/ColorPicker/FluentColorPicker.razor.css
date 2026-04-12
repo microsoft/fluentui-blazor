@@ -3,10 +3,20 @@
     --color-picker-selected-border: var(--strokeWidthThin) solid var(--colorBrandStroke1);
     --color-picker-selected-border-radius: var(--borderRadiusMedium);
     display: flex;
-    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+.fluent-color-picker[orientation="vertical"] {
+    width: calc(var(--color-picker-width) * 19);
     height: calc(var(--color-picker-width) * 10);
+    flex-direction: column;
+}
+
+.fluent-color-picker[orientation="horizontal"] {
+    width: calc(var(--color-picker-width) * 10);
+    height: calc(var(--color-picker-width) * 19);
+    flex-direction: row;
 }
 
 .fluent-color-picker>div {
@@ -26,11 +36,4 @@
 
 .fluent-color-picker>div>svg {
     filter: invert(100%);
-}
-
-@media (max-width: 767px) {
-    .fluent-color-picker {
-        flex-direction: row;
-        width: calc(var(--color-picker-width) * 10);
-    }
 }

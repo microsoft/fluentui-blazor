@@ -1,0 +1,18 @@
+﻿<FluentStack>
+    <FluentSelect Label="Flow Direction"
+                  Items=@(Enum.GetValues(typeof(Orientation)).Cast<Orientation>())"
+                  @bind-Value="Orientation" />
+</FluentStack>
+
+<FluentColorPicker Orientation="Orientation"
+                   @bind-SelectedColor="SelectedColor" />
+
+<div>
+    <FluentText>Selected Color: @SelectedColor</FluentText>
+</div>
+
+@code
+{
+    Orientation Orientation = Orientation.Vertical;
+    string SelectedColor = "#FFFFFF";
+}

@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -15,46 +14,37 @@ public partial class FluentColorPicker : FluentComponentBase
     /// <summary />
     public FluentColorPicker(LibraryConfiguration configuration) : base(configuration)
     {
-        Id = Identifier.NewId();
     }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-color-picker")
         .Build();
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .AddStyle("height", Height)
         .Build();
 
     /// <summary>
-    /// Gets or sets the id of the component the popover is positioned relative to.
+    /// Gets or sets the orientation of the color items.
+    /// Default is <see cref="Orientation.Vertical"/>.
     /// </summary>
     [Parameter]
-    public required string AnchorId { get; set; }
+    public Orientation Orientation { get; set; } = Orientation.Vertical;
 
     /// <summary>
-    /// Gets or sets the vertical offset value (pixels) between the color picker and the anchor element.
+    /// Gets or sets the width of the color picker.
     /// </summary>
     [Parameter]
-    public int OffsetVertical { get; set; }
-
+    public string? Width { get; set; }
+    
     /// <summary>
-    /// Gets or sets the horizontal offset value (pixels) between the color picker and the anchor element.
+    /// Gets or sets the height of the color picker.
     /// </summary>
     [Parameter]
-    public int OffsetHorizontal { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the component is currently open.
-    /// </summary>
-    [Parameter]
-    public bool Opened { get; set; }
-
-    /// <summary>
-    /// Gets or sets the callback that is invoked when the opened state changes.
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> OpenedChanged { get; set; }
+    public string? Height { get; set; }
 
     /// <summary>
     /// Gets or sets the currently selected color.
@@ -95,26 +85,6 @@ public partial class FluentColorPicker : FluentComponentBase
     private bool IsSelectedColor(string color)
     {
         return string.Equals(SelectedColor, color, StringComparison.OrdinalIgnoreCase);
-    }
-
-    /// <summary />
-    internal async Task OnToggleAsync(DialogToggleEventArgs args)
-    {
-        if (string.CompareOrdinal(args.Id, Id) != 0)
-        {
-            return;
-        }
-
-        var opened = string.Equals(args.NewState, "open", StringComparison.OrdinalIgnoreCase);
-        if (Opened != opened)
-        {
-            Opened = opened;
-
-            if (OpenedChanged.HasDelegate)
-            {
-                await OpenedChanged.InvokeAsync(Opened);
-            }
-        }
     }
 
     private static readonly IReadOnlyList<string> DefaultColors =
