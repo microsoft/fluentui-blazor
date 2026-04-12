@@ -2,22 +2,35 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<div id="@Id"
-     class="@ClassValue"
-     style="@StyleValue"
-     orientation="@Orientation.ToAttributeValue()"
-     @attributes="@AdditionalAttributes">
-    @foreach (var color in DefaultColors)
-    {
-        <div style="background-color: @color;"
-             selected="@IsSelectedColor(color)"
-             @onclick="@(async () => await ColorSelectHandlerAsync(color))">
-            @if (IsSelectedColor(color))
+@switch (View)
+{
+    case ColorPickerView.SwatchPalette:
+
+        <div id="@Id"
+             class="@ClassValue"
+             style="@StyleValue"
+             orientation="@Orientation.ToAttributeValue()"
+             @attributes="@AdditionalAttributes">
+            @foreach (var color in DefaultColors)
             {
-                <FluentIcon Value="@SelectedIcon"
-                            Color="Color.Custom"
-                            CustomColor="@color" />
+                <div style="background-color: @color;"
+                     selected="@IsSelectedColor(color)"
+                     @onclick="@(async () => await ColorSelectHandlerAsync(color))">
+                    @if (IsSelectedColor(color))
+                    {
+                        <FluentIcon Value="@SelectedIcon"
+                                    Color="Color.Custom"
+                                    CustomColor="@color" />
+                    }
+                </div>
             }
         </div>
-    }
-</div>
+
+        break;
+
+    case ColorPickerView.ColorWheel:
+        break;
+
+    case ColorPickerView.HsvSquare:
+        break;
+}

@@ -28,6 +28,12 @@ public partial class FluentColorPicker : FluentComponentBase
         .Build();
 
     /// <summary>
+    /// Gets or sets the view of the color picker.
+    /// </summary>
+    [Parameter]
+    public ColorPickerView View { get; set; } = ColorPickerView.SwatchPalette;
+
+    /// <summary>
     /// Gets or sets the orientation of the color items.
     /// Default is <see cref="Orientation.Vertical"/>.
     /// </summary>
