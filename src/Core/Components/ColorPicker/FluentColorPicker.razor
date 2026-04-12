@@ -1,0 +1,28 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<fluent-popover-b id="@Id"
+                  class="@ClassValue"
+                  style="@StyleValue"
+                  anchor-id="@AnchorId"
+                  offset-vertical="@(OffsetVertical != 0 ? OffsetVertical : null)"
+                  offset-horizontal="@(OffsetHorizontal != 0 ? OffsetHorizontal : null)"
+                  opened="@(Opened ? "true" : "false")"
+                  @attributes="@AdditionalAttributes"
+                  @ondialogtoggle="@OnToggleAsync">
+    <div class="fluent-color-picker">
+        @foreach (var color in DefaultColors)
+        {
+            <div style="background-color: @color;"
+                 selected="@IsSelectedColor(color)"
+                 @onclick="@(async () => await ColorSelectHandlerAsync(color))">
+                @if (IsSelectedColor(color))
+                {
+                    <FluentIcon Value="@SelectedIcon"
+                                Color="Color.Custom"
+                                CustomColor="@color" />
+                }
+            </div>
+        }
+    </div>
+</fluent-popover-b>

@@ -1,0 +1,36 @@
+.fluent-color-picker {
+    --color-picker-width: 24px;
+    --color-picker-selected-border: var(--strokeWidthThin) solid var(--colorBrandStroke1);
+    --color-picker-selected-border-radius: var(--borderRadiusMedium);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: calc(var(--color-picker-width) * 10);
+}
+
+.fluent-color-picker>div {
+    width: var(--color-picker-width);
+    height: var(--color-picker-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.fluent-color-picker>div[selected],
+.fluent-color-picker>div:hover {
+    border: var(--color-picker-selected-border);
+    border-radius: var(--color-picker-selected-border-radius);
+}
+
+.fluent-color-picker>div>svg {
+    filter: invert(100%);
+}
+
+@media (max-width: 767px) {
+    .fluent-color-picker {
+        flex-direction: row;
+        width: calc(var(--color-picker-width) * 10);
+    }
+}

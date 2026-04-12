@@ -1,7 +1,18 @@
 ﻿<FluentStack>
+
     <div>
-        <FluentButton Id="LeftButton" OnClick="@(e => LeftOpened = !LeftOpened)">Open Popover</FluentButton>
-        <FluentPopover AnchorId="LeftButton" @bind-Opened="@LeftOpened">
+        <FluentButton Id="ColorPickerButton"
+                      OnClick="@(e => ColorPickerOpened = !ColorPickerOpened)">Open Color</FluentButton>
+        <FluentColorPicker AnchorId="ColorPickerButton"
+                           @bind-Opened="@ColorPickerOpened" />
+    </div>
+
+    
+    <div>
+        <FluentButton Id="LeftButton"
+                      OnClick="@(e => LeftOpened = !LeftOpened)">Open Popover</FluentButton>
+        <FluentPopover AnchorId="LeftButton"
+                       @bind-Opened="@LeftOpened">
             <p>Example content for the</p>
             <p>Popover component</p>
         </FluentPopover>
@@ -10,8 +21,10 @@
     <FluentSpacer />
 
     <div>
-        <FluentButton Id="RightButton" OnClick="@(e => RightOpened = !RightOpened)">Open Popover</FluentButton>
-        <FluentPopover AnchorId="RightButton" @bind-Opened="@RightOpened">
+        <FluentButton Id="RightButton"
+                      OnClick="@(e => RightOpened = !RightOpened)">Open Popover</FluentButton>
+        <FluentPopover AnchorId="RightButton"
+                       @bind-Opened="@RightOpened">
             <p>Example content for the</p>
             <p>Popover component</p>
         </FluentPopover>
@@ -20,6 +33,7 @@
 
 @code
 {
+    bool ColorPickerOpened = false;
     bool LeftOpened = false;
     bool RightOpened = false;
 }
