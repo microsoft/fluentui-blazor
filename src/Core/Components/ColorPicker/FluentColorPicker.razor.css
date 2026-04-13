@@ -37,13 +37,3 @@
 .fluent-color-picker>div>svg {
     filter: invert(100%);
 }
-
-/* Color Wheel */
-.fluent-color-wheel {
-    width: 300px;
-    height: 300px;
-}
-
-    .fluent-color-wheel polygon:hover {
-        filter: brightness(1.2);
-    }

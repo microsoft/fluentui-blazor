@@ -29,29 +29,6 @@
         break;
 
     case ColorPickerView.ColorWheel:
-
-        <svg id="@Id"
-             class="@ClassValue fluent-color-wheel"
-             viewBox="-200 -200 400 400"
-             style="@StyleValue"
-             @attributes="@AdditionalAttributes">
-            @foreach (var hex in WheelHexagons)
-            {
-                <polygon points="@hex.Points"
-                         fill="@hex.Color"
-                         stroke="white"
-                         stroke-width="0.5"
-                         style="cursor: pointer;"
-                         @onclick="@(async () => await ColorSelectHandlerAsync(hex.Color))" />
-            }
-            @if (SelectedWheelHex is { } sel)
-            {
-                <circle cx="@sel.CxStr" cy="@sel.CyStr" r="6"
-                        fill="white" stroke="rgba(0,0,0,0.4)" stroke-width="1.5"
-                        pointer-events="none" />
-            }
-        </svg>
-
         break;
 
     case ColorPickerView.HsvSquare:
