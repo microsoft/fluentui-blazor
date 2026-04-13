@@ -45,7 +45,7 @@ public partial class FluentColorPicker : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
-    
+
     /// <summary>
     /// Gets or sets the height of the color picker.
     /// </summary>
@@ -152,5 +152,22 @@ public partial class FluentColorPicker : FluentComponentBase
         // Bleu gris
         "#E5F0F4", "#CED9DD", "#B0BFC6", "#90A4AD", "#798F9A",
         "#607D8B", "#546F7A", "#465A65", "#36474F", "#273238"
+    ];
+
+    private static readonly IReadOnlyList<string> WheelColors =
+    [
+        "#003366", "#336699", "#3366CC", "#003399", "#000099", "#0000CC", "#000066",
+        "#000066", "#000066", "#0099CC", "#0066CC", "#0066CC", "#0066CC", "#0066CC", "#0066CC",
+        "#669999", "#009999", "#33CCCC", "#00CCFF", "#0099FF", "#0066FF", "#3366FF", "#3333CC", "#666699",
+        "#339966", "#00CC99", "#00FFCC", "#00FFFF", "#33CCFF", "#3399FF", "#6699FF", "#6666FF", "#6600FF", "#6600CC",
+        "#339933", "#00CC66", "#00FF99", "#66FFCC", "#66FFFF", "#66CCFF", "#99CCFF", "#9999FF", "#9966FF", "#9933FF", "#9900FF",
+        "#006600", "#00CC00", "#00FF00", "#66FF99", "#99FFCC", "#CCFFFF", "#CCCCFF", "#CC99FF", "#CC66FF", "#CC33FF", "#CC00FF", "#9900CC",
+        "#003300", "#009933", "#33CC33", "#66FF66", "#99FF99", "#CCFFCC", "#FFFFFF", "#FFCCFF", "#FF99FF", "#FF66FF", "#FF00FF", "#CC00CC", "#660066",
+        "#336600", "#009900", "#66FF33", "#99FF66", "#CCFF99", "#FFFFCC", "#FFCCCC", "#FF99CC", "#FF66CC", "#FF33CC", "#CC0099", "#993399",
+        "#333300", "#669900", "#99FF33", "#CCFF66", "#FFFF99", "#FFCC99", "#FF9999", "#FF6699", "#FF3399", "#CC3399", "#990099",
+        "#666633", "#99CC00", "#CCFF33", "#FFFF66", "#FFCC66", "#FF9966", "#FF6666", "#FF0066", "#CC6699", "#993366",
+        "#999968", "#CDCD07", "#FFFF04", "#FFCD05", "#FF9B37", "#FF6B09", "#FF5454", "#CD0569", "#690638",
+        "#A07243", "#D0A218", "#FFA216", "#D17519", "#FF4719", "#FF1818", "#D01414", "#A21645",
+        "#704010", "#EAE0CB", "#D35126", "#A85126", "#A82525", "#942828", "#A75050",
     ];
 }
