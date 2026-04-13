@@ -1,0 +1,12 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+@inherits FluentComponentBase
+
+<fluent-donut-chart data="@ChartJson.Serialize(ChartData)"
+                    value-inside-donut="@ValueInsideDonut"
+                    width="@Width"
+                    height="@Height"
+                    hide-tooltip="@HideTooltip"
+                    hide-legends="@HideLegends"
+                    legend-list-label="@LegendListLabel"
+                    inner-radius="@InnerRadius">
+</fluent-donut-chart>

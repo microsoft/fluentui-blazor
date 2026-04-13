@@ -1,4 +1,5 @@
 import * as FluentUIComponents from '@fluentui/web-components'
+import * as FluentUICharts from '@fluentui/chart-web-components'
 
 export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
 
@@ -45,8 +46,6 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
     FluentUIComponents.SwitchDefinition.define(registry);
     FluentUIComponents.TabDefinition.define(registry);
     FluentUIComponents.TablistDefinition.define(registry);
-    FluentUIComponents.TabPanelDefinition.define(registry);
-    FluentUIComponents.TabsDefinition.define(registry);
     FluentUIComponents.TextAreaDefinition.define(registry);
     FluentUIComponents.TextDefinition.define(registry);
     FluentUIComponents.TextInputDefinition.define(registry);
@@ -54,5 +53,9 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
     FluentUIComponents.TooltipDefinition.define(registry);
     FluentUIComponents.TreeDefinition.define(registry);
     FluentUIComponents.TreeItemDefinition.define(registry);
+
+    // Register Chart Web Components
+    FluentUICharts.DonutChartDefinition.define(registry);
+    FluentUICharts.HorizontalBarChartDefinition.define(registry);
   }
 }

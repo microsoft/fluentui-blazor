@@ -27,6 +27,8 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "@fluentui/web-components": "^3.0.0-rc.9"
+    "@fluentui/web-components": "^3.0.0-rc.13",
+    "@fluentui/chart-web-components": "0.0.71"
+
   }
 }

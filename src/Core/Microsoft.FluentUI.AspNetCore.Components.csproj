@@ -139,12 +139,9 @@
   </Target>
 
   <!-- Temporary fix for problem with .esproj files when using latest SDKs. Will be fully fixed in later SDK -->
-  <Target Name="FixEsprojOriginalItemSpec"
-           AfterTargets="ResolveReferencedProjectsStaticWebAssets"
-           Condition="'@(StaticWebAsset)' != ''">
+  <Target Name="FixEsprojOriginalItemSpec" AfterTargets="ResolveReferencedProjectsStaticWebAssets" Condition="'@(StaticWebAsset)' != ''">
     <ItemGroup>
-      <_EsprojAssetsToFix Include="@(StaticWebAsset)"
-                          Condition="'%(StaticWebAsset.OriginalItemSpec)' != '' AND $([System.String]::Copy('%(StaticWebAsset.OriginalItemSpec)').EndsWith('.esproj'))" />
+      <_EsprojAssetsToFix Include="@(StaticWebAsset)" Condition="'%(StaticWebAsset.OriginalItemSpec)' != '' AND $([System.String]::Copy('%(StaticWebAsset.OriginalItemSpec)').EndsWith('.esproj'))" />
     </ItemGroup>
     <ItemGroup Condition="'@(_EsprojAssetsToFix)' != ''">
       <StaticWebAsset Remove="@(_EsprojAssetsToFix)" />

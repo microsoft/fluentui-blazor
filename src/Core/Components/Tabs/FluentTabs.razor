@@ -21,7 +21,7 @@
         {
             @if (tab.Visible)
             {
-                <div id="@tab.TabPanelId" index="@tab.Index" style="@tab.StyleValue" class="@tab.ClassValue" @attributes="@tab.AdditionalAttributes">
+                <div id="@tab.TabPanelId" index="@tab.Index" style="@tab.StyleValue" class="@tab.ClassValue" role="tabpanel" @attributes="@tab.AdditionalAttributes">
                     @if (tab.DeferredLoading && ActiveTabId != tab.Id)
                     {
                         if (tab.LoadingTemplate is null)
