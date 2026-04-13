@@ -37,3 +37,18 @@
 .fluent-color-picker>div>svg {
     filter: invert(100%);
 }
+
+.fluent-color-wheel polygon {
+    cursor: pointer;
+    transition: stroke-width 0.1s;
+}
+
+.fluent-color-wheel polygon:hover {
+    stroke: #ffffff;
+    stroke-width: 2;
+}
+
+.fluent-color-wheel polygon.hex-selected {
+    stroke: #ffffff;
+    stroke-width: 3;
+}

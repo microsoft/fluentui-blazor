@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -157,7 +158,7 @@ public partial class FluentColorPicker : FluentComponentBase
     private static readonly IReadOnlyList<string> WheelColors =
     [
         "#003366", "#336699", "#3366CC", "#003399", "#000099", "#0000CC", "#000066",
-        "#000066", "#000066", "#0099CC", "#0066CC", "#0066CC", "#0066CC", "#0066CC", "#0066CC",
+        "#006666", "#006699", "#0099CC", "#0066CC", "#0033CC", "#0000FF", "#3333FF", "#333399",
         "#669999", "#009999", "#33CCCC", "#00CCFF", "#0099FF", "#0066FF", "#3366FF", "#3333CC", "#666699",
         "#339966", "#00CC99", "#00FFCC", "#00FFFF", "#33CCFF", "#3399FF", "#6699FF", "#6666FF", "#6600FF", "#6600CC",
         "#339933", "#00CC66", "#00FF99", "#66FFCC", "#66FFFF", "#66CCFF", "#99CCFF", "#9999FF", "#9966FF", "#9933FF", "#9900FF",
@@ -168,6 +169,29 @@ public partial class FluentColorPicker : FluentComponentBase
         "#666633", "#99CC00", "#CCFF33", "#FFFF66", "#FFCC66", "#FF9966", "#FF6666", "#FF0066", "#CC6699", "#993366",
         "#999968", "#CDCD07", "#FFFF04", "#FFCD05", "#FF9B37", "#FF6B09", "#FF5454", "#CD0569", "#690638",
         "#A07243", "#D0A218", "#FFA216", "#D17519", "#FF4719", "#FF1818", "#D01414", "#A21645",
-        "#704010", "#EAE0CB", "#D35126", "#A85126", "#A82525", "#942828", "#A75050",
+        "#704010", "#A77C25", "#D35126", "#A85126", "#A82525", "#942828", "#A75050",
     ];
+
+    private static readonly int[] WheelRowSizes = [7, 8, 9, 10, 11, 12, 13, 12, 11, 10, 9, 8, 7];
+
+    private const double HexSize = 20;
+    private const double HexYSpacing = 1.5 * HexSize;
+    private static readonly double HexWidth = Math.Sqrt(3) * HexSize;
+    private const double WheelPadding = 5;
+    private static readonly double WheelCenterX = 7 * HexWidth;
+    private static readonly string WheelViewBox = FormattableString.Invariant($"0 0 {14 * HexWidth:F1} {(WheelRowSizes.Length - 1) * HexYSpacing + 2 * HexSize + 2 * WheelPadding:F1}");
+
+    private static string Inv(double value) => value.ToString("F1", CultureInfo.InvariantCulture);
+
+    private static string HexPointsAttr(double cx, double cy)
+    {
+        var points = new string[6];
+        for (var i = 0; i < 6; i++)
+        {
+            var angle = Math.PI / 180.0 * (60.0 * i - 90.0);
+            points[i] = $"{Inv(cx + HexSize * Math.Cos(angle))},{Inv(cy + HexSize * Math.Sin(angle))}";
+        }
+
+        return string.Join(" ", points);
+    }
 }

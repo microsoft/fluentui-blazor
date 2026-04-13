@@ -29,6 +29,33 @@
         break;
 
     case ColorPickerView.ColorWheel:
+
+        <svg id="@Id"
+             class="fluent-color-wheel"
+             style="@StyleValue"
+             viewBox="@WheelViewBox"
+             @attributes="@AdditionalAttributes">
+            @{
+                var ci = 0;
+                for (var row = 0; row < WheelRowSizes.Length; row++)
+                {
+                    var count = WheelRowSizes[row];
+                    var cy = WheelPadding + HexSize + row * HexYSpacing;
+                    for (var col = 0; col < count; col++)
+                    {
+                        var cx = WheelCenterX + (col - (count - 1) / 2.0) * HexWidth;
+                        var hc = WheelColors[ci++];
+                        <polygon points="@HexPointsAttr(cx, cy)"
+                                 fill="@hc"
+                                 stroke="@hc"
+                                 stroke-width="1"
+                                 class="@(IsSelectedColor(hc) ? "hex-selected" : null)"
+                                 @onclick="@(async () => await ColorSelectHandlerAsync(hc))" />
+                    }
+                }
+            }
+        </svg>
+
         break;
 
     case ColorPickerView.HsvSquare:
