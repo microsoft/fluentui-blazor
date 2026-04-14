@@ -44,40 +44,46 @@
                     }
                     else if (section.ExtraFiles.Count > 0)
                     {
+                        var id = $"f{section.Id}";
                         <div class="demo-tabs">
-                            <fluent-tabs>
-                                <fluent-tab>Example</fluent-tab>
+                            <fluent-tablist>
+                                <fluent-tab id="@($"{id}-example")" aria-controls="@($"{id}-example-panel")">Example</fluent-tab>
                                 @foreach (var tabName in section.ExtraFiles.Keys)
                                 {
-                                    <fluent-tab>@tabName</fluent-tab>
+                                    <fluent-tab id="@($"{id}-{tabName}")" aria-controls="@($"{id}-{tabName}-panel")">@tabName</fluent-tab>
                                 }
+                            </fluent-tablist>
 
-                                <fluent-tab-panel class="demo-section-example">
-                                    <DynamicComponent Type="@component" />
-                                </fluent-tab-panel>
-                                @foreach (var item in section.ExtraFiles)
-                                {
-                                    <fluent-tab-panel>
-                                        <pre><code id="@($"{section.Id}-{item.Key}")" class="@GetLanguageClassName(item.Value)" source>Loading...</code></pre>
-                                    </fluent-tab-panel>
-                                }
-                            </fluent-tabs>
+                            <div id="@($"{id}-example-panel")" role="tabpanel" class="demo-section-example">
+                                <DynamicComponent Type="@component" />
+                            </div>
+                            @foreach (var item in section.ExtraFiles)
+                            {
+                                <div id="@($"{id}-{item.Key}-panel")" role="tabpanel">
+                                    <pre><code id="@($"{section.Id}-{item.Key}")" class="@GetLanguageClassName(item.Value)" source>Loading...</code></pre>
+                                </div>
+                            }
                         </div>
                     }
                     else
                     {
+                        var id = $"f{section.Id}";
                         <div class="demo-tabs">
-                            <fluent-tabs>
-                                <fluent-tab>Example</fluent-tab>
-                                <fluent-tab>Code</fluent-tab>
+                            <fluent-tablist>
+                                <fluent-tab id="@($"{id}-example")" aria-controls="@($"{id}-example-panel")">
+                                    Example
+                                </fluent-tab>
+                                <fluent-tab id="@($"{id}-code")" aria-controls="@($"{id}-code-panel")">
+                                    Code
+                                </fluent-tab>
+                            </fluent-tablist>
 
-                                <fluent-tab-panel class="demo-section-example">
-                                    <DynamicComponent Type="@component" />
-                                </fluent-tab-panel>
-                                <fluent-tab-panel>
-                                    <pre><code id="@(section.Id)" class="@GetLanguageClassName()" source>Loading...</code></pre>
-                                </fluent-tab-panel>
-                            </fluent-tabs>
+                            <div id="@($"{id}-example-panel")" role="tabpanel" class="demo-section-example">
+                                <DynamicComponent Type="@component" />
+                            </div>
+                            <div id="@($"{id}-code-panel")" role="tabpanel">
+                                <pre><code id="@($"{section.Id}")" class="@GetLanguageClassName()" source>Loading...</code></pre>
+                            </div>
                         </div>
                     }
 

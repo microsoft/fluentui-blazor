@@ -283,7 +283,7 @@
     <value>All rows are selected</value>
   </data>
   <data name="DataGrid_SelectColumn_AllUnchecked" xml:space="preserve">
-    <value>No rows areselected</value>
+    <value>No rows are selected</value>
   </data>
   <data name="DataGrid_SelectColumn_AllIndeterminate" xml:space="preserve">
     <value>Some rows are selected</value>
