@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A numeric input component that allows users to enter and edit numeric values.
 /// </summary>
 public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent
-                                            where TValue : struct, INumber<TValue>
+                                            where TValue : struct, INumber<TValue>, IMinMaxValue<TValue>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentNumber{TValue}"/> class.
@@ -212,8 +212,8 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
         }
 
         result = default;
-        validationErrorMessage = "ERROR"; // TODO: string.Format(Culture, Localizer[Localization.LanguageResource.NumberInput_InvalidValue], DisplayName ?? FieldIdentifier.FieldName);
-        return false;
+        validationErrorMessage = null;
+        return true;
     }
 
     /// <summary>
@@ -304,8 +304,8 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
             IsDecimal ? Culture.NumberFormat.NumberDecimalDigits : 0,       // Scale
             Culture.NumberFormat.NumberDecimalSeparator,                    // Radix char
             new[] { Culture.NumberFormat.NumberDecimalSeparator, CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator },  // Map to radix
-            Min,                                                            // Min
-            Max,                                                            // Max
+            Min ?? TValue.MinValue,                                         // Min
+            Max ?? TValue.MaxValue,                                         // Max
             Culture.NumberFormat.NumberGroupSeparator,                      // Thousands separator
             Step);                                                          // Step
     }

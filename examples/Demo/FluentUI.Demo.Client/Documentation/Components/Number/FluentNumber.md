@@ -42,6 +42,11 @@ This means:
 
 {{ NumberCulture }}
 
+**[!NOTE]** Unlike the native `<input type="number">`, which always submits values using the invariant culture (dot `.` as decimal separator) 
+inside a `<form>`, the `FluentNumber` component submits the value **formatted according to the specified `Culture`**. 
+For example, with a French culture (`fr`), a form submission will send `1,5` instead of `1.5`.
+Keep this in mind when processing form data on the server side.
+
 ## Min, Max, and Step
 
 Use `Min`, `Max`, and `Step` to constrain the allowed values and increment step.
