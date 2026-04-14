@@ -22,7 +22,7 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentNumber{TValue}"/> class.
     /// </summary>
-    [SuppressMessage("Design", "MA0051:Method is too long", Justification = "<Pending>")]
+    [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Optimizing for performance and readability.")]
     public FluentNumber(LibraryConfiguration configuration) : base(configuration)
     {
         // sbyte
@@ -226,7 +226,7 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     /// <summary>
     /// Gets a value indicating whether the type is a floating-point type (e.g. float, double, decimal)
     /// </summary>
-    public bool IsDecimal => default(TValue) is float or double or decimal or Half;
+    public bool IsDecimal => UnderlyingType == typeof(float) || UnderlyingType == typeof(double) || UnderlyingType == typeof(decimal);
 
     /// <summary />
     protected override async Task OnInitializedAsync()

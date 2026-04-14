@@ -10,7 +10,7 @@ The **FluentNumber** component enables a user to enter and edit numeric values.
 It supports both integer and decimal numbers, with configurable `Min`, `Max`, and `Step` constraints.
 
 **Value** can be one of the following **Numeric Types**:
-`byte`, `sbyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `float`, `double`, `decimal`.
+`byte`, `sbyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `float`, `double`, `decimal` (including nullable versions).
 
 Use the `StepButtons` parameter to control the visibility of the up/down step buttons.
 It accepts a `NumberStepVisibility` value:
