@@ -535,6 +535,34 @@
     }
 
     [Fact]
+    public void FluentNumber_IncrementValue_Double_RoundIfDecimal()
+    {
+        // Arrange - Use 0.1 + 0.2 scenario that causes floating-point imprecision
+        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="0.1" Step="0.2" />);
+        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+
+        // Act - Click the ChevronUp icon (0.1 + 0.2 would be 0.30000000000000004 without rounding)
+        cut.Find("[button-step='up'] svg").Click();
+
+        // Assert - RoundIfDecimal should produce a clean 0.3
+        Assert.Equal(0.3, instance.Value);
+    }
+
+    [Fact]
+    public void FluentNumber_DecrementValue_Double_RoundIfDecimal()
+    {
+        // Arrange - Use 0.3 - 0.1 scenario that causes floating-point imprecision
+        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="0.3" Step="0.1" />);
+        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+
+        // Act - Click the ChevronDown icon (0.3 - 0.1 would be 0.19999999999999998 without rounding)
+        cut.Find("[button-step='down'] svg").Click();
+
+        // Assert - RoundIfDecimal should produce a clean 0.2
+        Assert.Equal(0.2, instance.Value);
+    }
+
+    [Fact]
     public void FluentNumber_IncrementValue_Disabled()
     {
         // Arrange
