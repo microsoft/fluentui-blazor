@@ -173,11 +173,14 @@
     [Fact]
     public void FluentAutocomplete_SingleSelect_SecondItemReplacesFirst()
     {
+        string? SelectedItem = null;
+
         // Arrange
         var cut = Render(@<FluentAutocomplete Id="my-list"
                                 TOption="string"
                                 TValue="string"
                                 Multiple="false"
+                                @bind-SelectedItem="@SelectedItem"
                                 OnOptionsSearch="@OnOptionsSearch" />);
 
         // Act - Open the dropdown to display all options
@@ -211,6 +214,7 @@
         // Only one badge should be present
         var badges = cut.FindAll("span.fluent-badge");
         Assert.Single(badges);
+        Assert.Equal("Five", SelectedItem);
     }
 
     [Fact]
@@ -914,7 +918,7 @@
 
     [Fact]
     public void FluentAutocomplete_BindSelectedItems_SingleSelect_TakesOnlyFirstItem()
-    {
+    {        
         // Arrange - Pass two items via @bind-SelectedItems with Multiple=false
         IEnumerable<string> selectedItems = new List<string> { "Three", "Six" };
         var cut = Render(@<FluentAutocomplete Id="my-list"
@@ -955,6 +959,77 @@
         var badges = cut.FindAll("span.fluent-badge");
         Assert.Equal(2, badges.Count);
         Assert.Equal(0, selectedItemsChangedCount);
+    }
+
+    [Fact]
+    public async Task FluentAutocomplete_SetParametersAsync_SelectedItemChanged_SyncsInternalState()
+    {
+        // Arrange - Render with SelectedItem = "Three"
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                Items="@Digits"
+                                SelectedItem="@("Three")" />);
+
+        // Verify initial state: "Three" is displayed
+        var badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("Three", badge.GetAttribute("title"));
+
+        // Act - Change the SelectedItem parameter externally to "Six"
+        // This triggers SetParametersAsync where newSelectedItem ("Six") != currentSelectedItem ("Three")
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        var newParameters = ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            { nameof(FluentAutocomplete<string, string>.SelectedItem), "Six" }
+        });
+        await cut.InvokeAsync(() => component.SetParametersAsync(newParameters));
+
+        // Assert - The badge now shows "Six" (internal state was synced)
+        badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("Six", badge.GetAttribute("title"));
+
+        // Only one badge should be present
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Single(badges);
+
+        // Verify internal state
+        Assert.Equal("Six", component.SelectedItem);
+        Assert.Single(component.SelectedItems);
+        Assert.Contains("Six", component.SelectedItems);
+    }
+
+    [Fact]
+    public async Task FluentAutocomplete_SetParametersAsync_SelectedItemSetToNull_ClearsInternalState()
+    {
+        // Arrange - Render with SelectedItem = "Three"
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                Items="@Digits"
+                                SelectedItem="@("Three")" />);
+
+        // Verify initial state
+        var badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("Three", badge.GetAttribute("title"));
+
+        // Act - Set SelectedItem to null externally
+        // This triggers SetParametersAsync where newSelectedItem (null) != currentSelectedItem ("Three")
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        var newParameters = ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            { nameof(FluentAutocomplete<string, string>.SelectedItem), (string?)null }
+        });
+        await cut.InvokeAsync(() => component.SetParametersAsync(newParameters));
+
+        // Assert - No badge should be present (internal list cleared)
+        var badges = cut.FindAll("span.fluent-badge");
+        Assert.Empty(badges);
+
+        // Verify internal state
+        Assert.Null(component.SelectedItem);
+        Assert.Empty(component.SelectedItems);
     }
 
     private void OnOptionsSearch(OptionsSearchEventArgs<string> e)
