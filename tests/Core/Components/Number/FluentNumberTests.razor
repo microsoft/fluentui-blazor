@@ -1,0 +1,550 @@
+@using Xunit;
+@inherits FluentUITestContext
+@code
+{
+    public FluentNumberTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentNumber_Default_Integer()
+    {        
+        // Arrange and Act
+        var cut = Render(@<FluentNumber Label="int" Width="100px" Value="1234" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNumber_Default_Double()
+    {        
+        // Arrange and Act
+        var cut = Render(@<FluentNumber Label="double" Width="100px" Value="1234.56" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNumber_NoStepButtons()
+    {        
+        // Arrange and Act
+        var cut = Render(@<FluentNumber Label="int" Width="100px" Value="1234" Step="0" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_SByte()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="sbyte" Label="sbyte" />);
+        var instance = cut.FindComponent<FluentNumber<sbyte>>().Instance;
+
+        // Assert
+        Assert.Equal(sbyte.MinValue, instance.Min);
+        Assert.Equal(sbyte.MaxValue, instance.Max);
+        Assert.Equal((sbyte)1, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_SByteNullable()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="sbyte?" Label="sbyte?" />);
+        var instance = cut.FindComponent<FluentNumber<sbyte?>>().Instance;
+
+        // Assert
+        Assert.Equal(sbyte.MinValue, instance.Min);
+        Assert.Equal(sbyte.MaxValue, instance.Max);
+        Assert.Equal((sbyte)1, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_Byte()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="byte" Label="byte" />);
+        var instance = cut.FindComponent<FluentNumber<byte>>().Instance;
+
+        // Assert
+        Assert.Equal(byte.MinValue, instance.Min);
+        Assert.Equal(byte.MaxValue, instance.Max);
+        Assert.Equal((byte)1, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_ByteNullable()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="byte?" Label="byte?" />);
+        var instance = cut.FindComponent<FluentNumber<byte?>>().Instance;
+
+        // Assert
+        Assert.Equal(byte.MinValue, instance.Min);
+        Assert.Equal(byte.MaxValue, instance.Max);
+        Assert.Equal((byte)1, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_Short()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="short" Label="short" />);
+        var instance = cut.FindComponent<FluentNumber<short>>().Instance;
+
+        // Assert
+        Assert.Equal(short.MinValue, instance.Min);
+        Assert.Equal(short.MaxValue, instance.Max);
+        Assert.Equal((short)1, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_ShortNullable()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="short?" Label="short?" />);
+        var instance = cut.FindComponent<FluentNumber<short?>>().Instance;
+
+        // Assert
+        Assert.Equal(short.MinValue, instance.Min);
+        Assert.Equal(short.MaxValue, instance.Max);
+        Assert.Equal((short)1, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_UShort()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="ushort" Label="ushort" />);
+        var instance = cut.FindComponent<FluentNumber<ushort>>().Instance;
+
+        // Assert
+        Assert.Equal(ushort.MinValue, instance.Min);
+        Assert.Equal(ushort.MaxValue, instance.Max);
+        Assert.Equal((ushort)1, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_UShortNullable()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="ushort?" Label="ushort?" />);
+        var instance = cut.FindComponent<FluentNumber<ushort?>>().Instance;
+
+        // Assert
+        Assert.Equal(ushort.MinValue, instance.Min);
+        Assert.Equal(ushort.MaxValue, instance.Max);
+        Assert.Equal((ushort)1, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_Int()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="int" Label="int" />);
+        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+
+        // Assert
+        Assert.Equal(int.MinValue, instance.Min);
+        Assert.Equal(int.MaxValue, instance.Max);
+        Assert.Equal(1, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_IntNullable()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="int?" Label="int?" />);
+        var instance = cut.FindComponent<FluentNumber<int?>>().Instance;
+
+        // Assert
+        Assert.Equal(int.MinValue, instance.Min);
+        Assert.Equal(int.MaxValue, instance.Max);
+        Assert.Equal(1, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_UInt()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="uint" Label="uint" />);
+        var instance = cut.FindComponent<FluentNumber<uint>>().Instance;
+
+        // Assert
+        Assert.Equal(uint.MinValue, instance.Min);
+        Assert.Equal(uint.MaxValue, instance.Max);
+        Assert.Equal(1u, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_UIntNullable()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="uint?" Label="uint?" />);
+        var instance = cut.FindComponent<FluentNumber<uint?>>().Instance;
+
+        // Assert
+        Assert.Equal(uint.MinValue, instance.Min);
+        Assert.Equal(uint.MaxValue, instance.Max);
+        Assert.Equal(1u, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_Long()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="long" Label="long" />);
+        var instance = cut.FindComponent<FluentNumber<long>>().Instance;
+
+        // Assert
+        Assert.Equal(long.MinValue, instance.Min);
+        Assert.Equal(long.MaxValue, instance.Max);
+        Assert.Equal(1L, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_LongNullable()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="long?" Label="long?" />);
+        var instance = cut.FindComponent<FluentNumber<long?>>().Instance;
+
+        // Assert
+        Assert.Equal(long.MinValue, instance.Min);
+        Assert.Equal(long.MaxValue, instance.Max);
+        Assert.Equal(1L, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_ULong()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="ulong" Label="ulong" />);
+        var instance = cut.FindComponent<FluentNumber<ulong>>().Instance;
+
+        // Assert
+        Assert.Equal(ulong.MinValue, instance.Min);
+        Assert.Equal(ulong.MaxValue, instance.Max);
+        Assert.Equal(1UL, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_ULongNullable()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="ulong?" Label="ulong?" />);
+        var instance = cut.FindComponent<FluentNumber<ulong?>>().Instance;
+
+        // Assert
+        Assert.Equal(ulong.MinValue, instance.Min);
+        Assert.Equal(ulong.MaxValue, instance.Max);
+        Assert.Equal(1UL, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_Float()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="float" Label="float" />);
+        var instance = cut.FindComponent<FluentNumber<float>>().Instance;
+
+        // Assert
+        Assert.Equal(float.MinValue, instance.Min);
+        Assert.Equal(float.MaxValue, instance.Max);
+        Assert.Equal(1.0f, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_FloatNullable()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="float?" Label="float?" />);
+        var instance = cut.FindComponent<FluentNumber<float?>>().Instance;
+
+        // Assert
+        Assert.Equal(float.MinValue, instance.Min);
+        Assert.Equal(float.MaxValue, instance.Max);
+        Assert.Equal(1.0f, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_Double()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="double" Label="double" />);
+        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+
+        // Assert
+        Assert.Equal(double.MinValue, instance.Min);
+        Assert.Equal(double.MaxValue, instance.Max);
+        Assert.Equal(1.0, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_DoubleNullable()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="double?" Label="double?" />);
+        var instance = cut.FindComponent<FluentNumber<double?>>().Instance;
+
+        // Assert
+        Assert.Equal(double.MinValue, instance.Min);
+        Assert.Equal(double.MaxValue, instance.Max);
+        Assert.Equal(1.0, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_Decimal()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="decimal" Label="decimal" />);
+        var instance = cut.FindComponent<FluentNumber<decimal>>().Instance;
+
+        // Assert
+        Assert.Equal(decimal.MinValue, instance.Min);
+        Assert.Equal(decimal.MaxValue, instance.Max);
+        Assert.Equal(1M, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_DecimalNullable()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="decimal?" Label="decimal?" />);
+        var instance = cut.FindComponent<FluentNumber<decimal?>>().Instance;
+
+        // Assert
+        Assert.Equal(decimal.MinValue, instance.Min);
+        Assert.Equal(decimal.MaxValue, instance.Max);
+        Assert.Equal(1M, instance.Step);
+    }
+
+    [Fact]
+    public void FluentNumber_DataType_Unsupported()
+    {
+        // Arrange and Act & Assert
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            Render(@<FluentNumber TValue="string" Label="string" />);
+        });
+    }
+
+    [Theory]
+    [InlineData(TextInputAppearance.Outline)]
+    [InlineData(TextInputAppearance.Underline)]
+    [InlineData(TextInputAppearance.FilledLighter)]
+    [InlineData(TextInputAppearance.FilledDarker)]
+    public void FluentNumber_Appearance(TextInputAppearance appearance)
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="int" Label="number" Appearance="@appearance" />);
+
+        // Assert
+        cut.Verify(suffix: appearance.ToString());
+    }
+
+    [Fact]
+    public void FluentNumber_Placeholder()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="int" Label="number" Placeholder="Enter a number" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNumber_StartTemplate()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="int" Label="number">
+            <StartTemplate>
+                <span>$</span>
+            </StartTemplate>
+        </FluentNumber>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNumber_EndTemplate()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="int" Label="number">
+            <EndTemplate>
+                <span>USD</span>
+            </EndTemplate>
+        </FluentNumber>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNumber_Width()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="int" Label="number" Width="250px" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(NumberStepVisibility.Visible)]
+    [InlineData(NumberStepVisibility.Hidden)]
+    [InlineData(NumberStepVisibility.Auto)]
+    public void FluentNumber_StepButtons(NumberStepVisibility stepButtons)
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="int" Label="number" StepButtons="@stepButtons" />);
+
+        // Assert
+        cut.Verify(suffix: stepButtons.ToString());
+    }
+
+    [Fact]
+    public void FluentNumber_Culture_Default()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="1234.56" />);
+        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+
+        // Assert - Default culture is FluentNumberCultureInfo
+        Assert.IsType<FluentNumberCultureInfo>(instance.Culture);
+        Assert.Equal(2, instance.Culture.NumberFormat.NumberDecimalDigits);
+        Assert.Equal("", instance.Culture.NumberFormat.NumberGroupSeparator);
+
+        // The decimal separator comes from CurrentCulture
+        var expectedSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+        Assert.Equal(expectedSeparator, instance.Culture.NumberFormat.NumberDecimalSeparator);
+
+        var input = cut.Find("fluent-text-input");
+        Assert.Equal($"1234{expectedSeparator}56", input.GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentNumber_Culture_US()
+    {
+        // Arrange
+        var usCulture = new System.Globalization.CultureInfo("en-US");
+
+        // Act
+        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="1234.56" Culture="@usCulture" />);
+        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+
+        // Assert
+        Assert.Equal("en-US", instance.Culture.Name);
+        Assert.Equal(".", instance.Culture.NumberFormat.NumberDecimalSeparator);
+        Assert.Equal(",", instance.Culture.NumberFormat.NumberGroupSeparator);
+
+        var input = cut.Find("fluent-text-input");
+        var value = input.GetAttribute("value");
+        Assert.StartsWith("1,234.56", value);
+    }
+
+    [Fact]
+    public void FluentNumber_Culture_FR()
+    {
+        // Arrange
+        var frCulture = new System.Globalization.CultureInfo("fr-FR");
+
+        // Act
+        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="1234.56" Culture="@frCulture" />);
+        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+
+        // Assert
+        Assert.Equal("fr-FR", instance.Culture.Name);
+        Assert.Equal(",", instance.Culture.NumberFormat.NumberDecimalSeparator);
+
+        var input = cut.Find("fluent-text-input");
+        var value = input.GetAttribute("value");
+        Assert.Contains("1", value);
+        Assert.Contains("234,56", value);
+    }
+
+    [Fact]
+    public void FluentNumber_Culture_FluentNumberCultureInfo()
+    {
+        // Arrange
+        var fluentCulture = new FluentNumberCultureInfo(3, ".", ",");
+
+        // Act
+        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="1234.56" Culture="@fluentCulture" />);
+        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+
+        // Assert
+        Assert.IsType<FluentNumberCultureInfo>(instance.Culture);
+        Assert.Equal(3, instance.Culture.NumberFormat.NumberDecimalDigits);
+        Assert.Equal(".", instance.Culture.NumberFormat.NumberDecimalSeparator);
+        Assert.Equal(",", instance.Culture.NumberFormat.NumberGroupSeparator);
+
+        var input = cut.Find("fluent-text-input");
+        Assert.Equal("1,234.560", input.GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentNumber_Culture_Integer_US()
+    {
+        // Arrange
+        var usCulture = new System.Globalization.CultureInfo("en-US");
+
+        // Act
+        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="1234567" Culture="@usCulture" />);
+
+        // Assert
+        var input = cut.Find("fluent-text-input");
+        Assert.Equal("1,234,567", input.GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentNumber_Culture_Integer_FR()
+    {
+        // Arrange
+        var frCulture = new System.Globalization.CultureInfo("fr-FR");
+
+        // Act
+        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="1234567" Culture="@frCulture" />);
+
+        // Assert
+        var input = cut.Find("fluent-text-input");
+        var value = input.GetAttribute("value");
+        Assert.Contains("1", value);
+        Assert.Contains("234", value);
+        Assert.Contains("567", value);
+    }
+
+    [Fact]
+    public void FluentNumber_IncrementValue()
+    {
+        // Arrange
+        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="10" />);
+        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+
+        // Act - Click the ChevronUp icon
+        cut.Find("[button-step='up'] svg").Click();
+
+        // Assert
+        Assert.Equal(11, instance.Value);
+    }
+
+    [Fact]
+    public void FluentNumber_DecrementValue()
+    {
+        // Arrange
+        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="10" />);
+        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+
+        // Act - Click the ChevronDown icon
+        cut.Find("[button-step='down'] svg").Click();
+
+        // Assert
+        Assert.Equal(9, instance.Value);
+    }
+}
