@@ -159,12 +159,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// Gets or sets the currently selected option, when <see cref="FluentListBase{TOption, TValue}.Multiple"/> is false.
     /// </summary>
     [Parameter]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "BL0007:Component parameters should be auto properties", Justification = "Required custom setter logic to update the SelectedItems collection.")]
-    public TOption? SelectedItem
-    {
-        get => _internalSelectedItems.FirstOrDefault();
-        set => _internalSelectedItems = value is not null ? [value] : [];
-    }
+    public TOption? SelectedItem { get; set; }
 
     /// <summary>
     /// Gets or sets an event callback that is raised when the <see cref="SelectedItem"/> changes. 
@@ -188,6 +183,26 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         }
 
         await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary />
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        // Check if SelectedItem is being supplied and has changed
+        if (parameters.TryGetValue<TOption?>(nameof(SelectedItem), out var newSelectedItem))
+        {
+            var comparer = OptionSelectedComparer ?? EqualityComparer<TOption>.Default;
+            var currentSelectedItem = _internalSelectedItem;
+
+            if (!comparer.Equals(newSelectedItem, currentSelectedItem))
+            {
+                // Sync _internalSelectedItems with the new value
+                _internalSelectedItems = newSelectedItem is not null ? [newSelectedItem] : [];
+                SelectedItem = newSelectedItem;
+            }
+        }
+
+        return base.SetParametersAsync(parameters);
     }
 
     /// <summary>
@@ -231,6 +246,8 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
                 }
             }
         }
+
+        SelectedItem = _internalSelectedItem;
 
         // Raise event
         if (SelectedItemsChanged.HasDelegate)
@@ -385,6 +402,11 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         if (SelectedItemsChanged.HasDelegate)
         {
             await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
+        }
+
+        if (SelectedItemChanged.HasDelegate)
+        {
+            await SelectedItemChanged.InvokeAsync(_internalSelectedItem);
         }
     }
 
