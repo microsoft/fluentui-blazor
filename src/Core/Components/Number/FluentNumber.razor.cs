@@ -188,7 +188,12 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     /// </summary>
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        if (TValue.TryParse(value, Culture, out var parsedValue))
+        // Remove all non-digit characters except the decimal separator before parsing.
+        // This ensures that we can reliably parse the number regardless of which Unicode character the browser uses for group separators
+        // (e.g. non-breaking space, narrow no-break space, etc.).
+        var extractedDigits = KeepOnlyDigits(value);
+
+        if (TValue.TryParse(extractedDigits, Culture, out var parsedValue))
         {
             // Clamp the parsed value to Min/Max bounds.
             if (Min.HasValue && parsedValue < Min.Value)
@@ -209,6 +214,21 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
         result = default;
         validationErrorMessage = "ERROR"; // TODO: string.Format(Culture, Localizer[Localization.LanguageResource.NumberInput_InvalidValue], DisplayName ?? FieldIdentifier.FieldName);
         return false;
+    }
+
+    /// <summary>
+    /// Removes all characters that are not ASCII digits or the decimal separator.
+    /// This ensures reliable parsing regardless of which Unicode character the browser uses for group separators.
+    /// </summary>
+    private string? KeepOnlyDigits(string? value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return value;
+        }
+
+        var decimalSep = Culture.NumberFormat.NumberDecimalSeparator;
+        return new string([.. value.Where(c => char.IsAsciiDigit(c) || decimalSep.Contains(c, StringComparison.Ordinal))]);
     }
 
     /// <summary>
