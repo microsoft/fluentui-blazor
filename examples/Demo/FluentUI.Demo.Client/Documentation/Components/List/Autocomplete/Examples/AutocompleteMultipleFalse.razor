@@ -8,18 +8,13 @@
                     Multiple="false"
                     Placeholder="Type to search..."
                     OnOptionsSearch="@OnSearchAsync"
-                    OptionText="@(item => item.Name)"
-                    OptionDisabled="@(e => e.Code == "au")"
-                    @bind-SelectedItems="@SelectedCountries" />
+                    OptionText="@(item => item?.Name)"
+                    OptionDisabled="@(item => item?.Code == "au")"
+                    @bind-SelectedItem="@SelectedCountry" />
+
 @code
 {
-    IEnumerable<Country> SelectedCountries { get; set; } = [];
-
-    Country? SelectedCountry
-    {
-        get => SelectedCountries.FirstOrDefault() ?? default;
-        set => SelectedCountries = value is not null ? [value] : [];
-    }
+    Country? SelectedCountry;
 
     Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
     {

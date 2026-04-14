@@ -156,6 +156,24 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     public RenderFragment<AutocompleteHeaderFooterContent<TOption>>? FooterContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the currently selected option, when <see cref="FluentListBase{TOption, TValue}.Multiple"/> is false.
+    /// </summary>
+    [Parameter]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "BL0007:Component parameters should be auto properties", Justification = "Required custom setter logic to update the SelectedItems collection.")]
+    public TOption? SelectedItem
+    {
+        get => _internalSelectedItem;
+        set => _internalSelectedItems = value is not null ? [value] : [];
+    }
+
+    /// <summary>
+    /// Gets or sets an event callback that is raised when the <see cref="SelectedItem"/> changes. 
+    /// This is only relevant when <see cref="FluentListBase{TOption, TValue}.Multiple"/> is false.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TOption> SelectedItemChanged { get; set; }
+
+    /// <summary>
     /// Gets a value indicating whether the number of selected options has reached the maximum defined by <see cref="MaximumSelectedOptions"/>.
     /// </summary>
     public bool IsReachedMaxItems => MaximumSelectedOptions.HasValue && _internalSelectedItems.Count >= MaximumSelectedOptions.Value;
@@ -218,6 +236,17 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         if (SelectedItemsChanged.HasDelegate)
         {
             await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
+        }
+
+        if (SelectedItemChanged.HasDelegate)
+        {
+            await SelectedItemChanged.InvokeAsync(_internalSelectedItem);
+        }
+
+        if (ValueChanged.HasDelegate)
+        {
+            var value = GetOptionValue(_internalSelectedItem);
+            await ValueChanged.InvokeAsync(value);
         }
 
         await SetInputFocusAsync();
