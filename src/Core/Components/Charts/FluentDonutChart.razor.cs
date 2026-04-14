@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -30,8 +29,6 @@ public partial class FluentDonutChart : FluentComponentBase
         .AddStyle("width", Width.HasValue ? $"{Width.Value}px" : null, when: Width.HasValue)
         .AddStyle("height", Height.HasValue ? $"{Height.Value}px" : null, when: Height.HasValue)
         .Build();
-
-    internal string SerializedData => JsonSerializer.Serialize(ChartData, typeof(DonutChartData), DonutChartDataJsonSerializerContext.Default);
 
     /// <summary>
     /// Gets or sets the data for the donut chart.

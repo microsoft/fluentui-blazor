@@ -32,7 +32,7 @@ Donut charts are used to show proportion, which expresses a partial value in com
 - For scenarios with lots of categories, consider changing the type of graph to a stacked horizontal bar chart.
 - We recommend donut charts over pie charts as they are more readable.
 
-## Dont's
+## Don'ts
 
 - Don't overuse donuts charts. They require a lot of space on the page and using more than one next to each other dilutes the intended message.
 

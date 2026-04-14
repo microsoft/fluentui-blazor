@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Enums;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -20,22 +19,20 @@ public partial class FluentHorizontalBarChart : FluentComponentBase
         Id = Identifier.NewId();
     }
 
-    // <summary />
+    /// <summary />
     internal string? ClassValue => DefaultClassBuilder
        .AddClass("fluent-horizontal-bar-chart")
        .Build();
 
-    // <summary />
+    /// <summary />
     internal string? StyleValue => DefaultStyleBuilder
        .Build();
-
-    internal string SerializedData => JsonSerializer.Serialize(ChartData, typeof(HorizontalBarChartSeries), HorizontalBarChartDataJsonSerializerContext.Default);
 
     /// <summary>
     /// Gets or sets the data for the horizontal bar chart.
     /// </summary>
     [Parameter, EditorRequired]
-    public IReadOnlyList<HorizontalBarChartSeries>? ChartData { get; set; }
+    public IReadOnlyList<HorizontalBarChartSeries> ChartData { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the visual <see cref="HorizontalBarChartVariant"/> variant to use for rendering

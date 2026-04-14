@@ -20,7 +20,11 @@ public enum HorizontalBarChartVariant
     PartToWhole,
 
     /// <summary>
-    /// Gets or sets the absolute scaling factor applied to the object.
+    /// Specifies that bar lengths are based on the raw data values using a
+    /// shared absolute scale. Choose this variant when comparing magnitudes
+    /// across bars, rather than showing each bar as part of a total as in
+    /// <see cref="PartToWhole"/>, or rendering a standalone value as in
+    /// <see cref="SingleBar"/>.
     /// </summary>
     [Description("absolute-scale")]
     AbsoluteScale,
