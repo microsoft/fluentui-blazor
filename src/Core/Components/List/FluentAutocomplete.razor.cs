@@ -162,7 +162,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "BL0007:Component parameters should be auto properties", Justification = "Required custom setter logic to update the SelectedItems collection.")]
     public TOption? SelectedItem
     {
-        get => _internalSelectedItem;
+        get => _internalSelectedItems.FirstOrDefault();
         set => _internalSelectedItems = value is not null ? [value] : [];
     }
 

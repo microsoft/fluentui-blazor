@@ -14,7 +14,7 @@
 
 @code
 {
-    Country? SelectedCountry;
+    Country? SelectedCountry = Countries.FirstOrDefault(c => c.Code == "be");
 
     Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
     {
