@@ -8,12 +8,14 @@
 
     <FluentNumber Label="long"
                   Width="100px"
+                  Placeholder="Long value"
                   Message="@($"Value: {ValueLong}")"
                   MessageCondition="@(e => true)"
                   @bind-Value="@ValueLong" />
 
     <FluentNumber Label="float"
                   Width="100px"
+                  Placeholder="Float value"
                   Step="0.1f"
                   Message="@($"Value: {ValueFloat}")"
                   MessageCondition="@(e => true)"
@@ -37,8 +39,8 @@
 @code
 {
     int ValueInt = 42;
-    long ValueLong = 1000;
-    float ValueFloat = 3.14f;
+    long? ValueLong = 1000;
+    float? ValueFloat = 3.14f;
     double ValueDouble = 2.71;
     decimal ValueDecimal = 9.999m;
 }

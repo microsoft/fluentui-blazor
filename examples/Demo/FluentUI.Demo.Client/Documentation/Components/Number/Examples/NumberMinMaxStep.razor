@@ -2,11 +2,12 @@
               Min="0"
               Max="100"
               Step="5"
+              Placeholder="Number [0 and 100]"
               Message="@($"Value: {Value}")"
               MessageCondition="@(e => true)"
               @bind-Value="@Value" />
 
 @code
 {
-    int? Value = 42;
+    int? Value;
 }

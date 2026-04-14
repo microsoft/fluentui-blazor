@@ -16,6 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent
 {
+    private readonly Type UnderlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
     private readonly TValue ZeroValue;
 
     /// <summary>
@@ -24,7 +25,7 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     [SuppressMessage("Design", "MA0051:Method is too long", Justification = "<Pending>")]
     public FluentNumber(LibraryConfiguration configuration) : base(configuration)
     {
-        //sbyte
+        // sbyte
         if (typeof(TValue) == typeof(sbyte) || typeof(TValue) == typeof(sbyte?))
         {
             ZeroValue = (TValue)(object)(sbyte)0;
@@ -282,27 +283,28 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     /// </summary>
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        // Remove all non-digit characters except the decimal separator before parsing.
-        // This ensures that we can reliably parse the number regardless of which Unicode character the browser uses for group separators
-        // (e.g. non-breaking space, narrow no-break space, etc.).
-        var extractedDigits = KeepOnlyDigits(value);
-
-        if (double.TryParse(extractedDigits, Culture, out var parsedValue))
+        // Nullable types should allow empty string as null value
+        if (string.IsNullOrEmpty(value) && UnderlyingType != typeof(TValue))
         {
-            var parsedTValue = (TValue)Convert.ChangeType(parsedValue, typeof(TValue), CultureInfo.InvariantCulture);
+            result = default!;
+            validationErrorMessage = null;
+            return true;
+        }
 
+        if (TryParse(value, Culture, out var parsedValue))
+        {
             // Clamp the parsed value to Min/Max bounds.
-            if (Min is not null && IsLowerThan(parsedTValue, Min))
+            if (IsLowerThan(parsedValue, Min))
             {
-                parsedTValue = Min;
+                parsedValue = Min;
             }
 
-            if (Max is not null && IsGreaterThan(parsedTValue, Max))
+            if (IsGreaterThan(parsedValue, Max))
             {
-                parsedTValue = Max;
+                parsedValue = Max;
             }
 
-            result = parsedTValue;
+            result = parsedValue;
             validationErrorMessage = null;
             return true;
         }
@@ -310,21 +312,6 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
         result = ZeroValue;
         validationErrorMessage = null;
         return true;
-    }
-
-    /// <summary>
-    /// Removes all characters that are not ASCII digits or the decimal separator.
-    /// This ensures reliable parsing regardless of which Unicode character the browser uses for group separators.
-    /// </summary>
-    private string? KeepOnlyDigits(string? value)
-    {
-        if (string.IsNullOrEmpty(value))
-        {
-            return value;
-        }
-
-        var decimalSep = Culture.NumberFormat.NumberDecimalSeparator;
-        return new string([.. value.Where(c => char.IsAsciiDigit(c) || decimalSep.Contains(c, StringComparison.Ordinal))]);
     }
 
     /// <summary>
@@ -407,6 +394,21 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     }
 
     /// <summary>
+    /// Removes all characters that are not ASCII digits or the decimal separator.
+    /// This ensures reliable parsing regardless of which Unicode character the browser uses for group separators.
+    /// </summary>
+    private string? KeepOnlyDigits(string? value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return value;
+        }
+
+        var decimalSep = Culture.NumberFormat.NumberDecimalSeparator;
+        return new string([.. value.Where(c => char.IsAsciiDigit(c) || decimalSep.Contains(c, StringComparison.Ordinal))]);
+    }
+
+    /// <summary>
     /// Rounds the value to the number of decimal digits defined by the current <see cref="Culture"/>.
     /// This avoids floating-point precision errors (e.g. 0.3 - 0.1 = 0.19999999999999998).
     /// </summary>
@@ -416,10 +418,31 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
         {
             var decimals = Culture.NumberFormat.NumberDecimalDigits;
             var rounded = Math.Round(Convert.ToDouble(value, CultureInfo.InvariantCulture), decimals, MidpointRounding.AwayFromZero);
-            return (TValue)Convert.ChangeType(rounded, typeof(TValue), CultureInfo.InvariantCulture);
+            return (TValue)Convert.ChangeType(rounded, UnderlyingType, CultureInfo.InvariantCulture);
         }
 
         return value;
+    }
+
+    /// <summary>
+    /// Tries to parse the input string into a value of type <typeparamref name="TValue"/> using the specified <see cref="Culture"/>.
+    /// It first removes all non-digit characters except the decimal separator to ensure reliable parsing regardless of which Unicode character the browser uses for group separators.
+    /// </summary>
+    private bool TryParse(string? value, IFormatProvider formatProvider, out TValue result)
+    {
+        // Remove all non-digit characters except the decimal separator before parsing.
+        // This ensures that we can reliably parse the number regardless of which Unicode character the browser uses for group separators
+        // (e.g. non-breaking space, narrow no-break space, etc.).
+        var extractedDigits = KeepOnlyDigits(value);
+
+        if (double.TryParse(extractedDigits, formatProvider, out var parsedValue))
+        {
+            result = (TValue)Convert.ChangeType(parsedValue, UnderlyingType, CultureInfo.InvariantCulture);
+            return true;
+        }
+
+        result = default!;
+        return false;
     }
 
     /// <summary>
@@ -445,10 +468,10 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     /// <summary>
     /// Adds two values of type <typeparamref name="TValue"/> by converting them to double for the addition and then back to <typeparamref name="TValue"/>.
     /// </summary>
-    private static TValue Add(TValue a, TValue b) => (TValue)Convert.ChangeType(Convert.ToDouble(a, CultureInfo.InvariantCulture) + Convert.ToDouble(b, CultureInfo.InvariantCulture), typeof(TValue), CultureInfo.InvariantCulture);
+    private TValue Add(TValue a, TValue b) => (TValue)Convert.ChangeType(Convert.ToDouble(a, CultureInfo.InvariantCulture) + Convert.ToDouble(b, CultureInfo.InvariantCulture), UnderlyingType, CultureInfo.InvariantCulture);
 
     /// <summary>
     /// Subtracts two values of type <typeparamref name="TValue"/> by converting them to double for the subtraction and then back to <typeparamref name="TValue"/>.
     /// </summary>
-    private static TValue Subtract(TValue a, TValue b) => (TValue)Convert.ChangeType(Convert.ToDouble(a, CultureInfo.InvariantCulture) - Convert.ToDouble(b, CultureInfo.InvariantCulture), typeof(TValue), CultureInfo.InvariantCulture);
+    private TValue Subtract(TValue a, TValue b) => (TValue)Convert.ChangeType(Convert.ToDouble(a, CultureInfo.InvariantCulture) - Convert.ToDouble(b, CultureInfo.InvariantCulture), UnderlyingType, CultureInfo.InvariantCulture);
 }
