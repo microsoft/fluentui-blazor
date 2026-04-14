@@ -16,107 +16,38 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent
 {
+    private static readonly Dictionary<Type, (object Zero, object Min, object Max, object Step)> TypeDefaults = new()
+    {
+        [typeof(sbyte)] = ((sbyte)0, sbyte.MinValue, sbyte.MaxValue, (sbyte)1),
+        [typeof(byte)] = ((byte)0, byte.MinValue, byte.MaxValue, (byte)1),
+        [typeof(short)] = ((short)0, short.MinValue, short.MaxValue, (short)1),
+        [typeof(ushort)] = ((ushort)0, ushort.MinValue, ushort.MaxValue, (ushort)1),
+        [typeof(int)] = (0, int.MinValue, int.MaxValue, 1),
+        [typeof(uint)] = (0u, uint.MinValue, uint.MaxValue, 1u),
+        [typeof(long)] = (0L, long.MinValue, long.MaxValue, 1L),
+        [typeof(ulong)] = (0UL, ulong.MinValue, ulong.MaxValue, 1UL),
+        [typeof(float)] = (0.0f, float.MinValue, float.MaxValue, 1.0f),
+        [typeof(double)] = (0.0, double.MinValue, double.MaxValue, 1.0),
+        [typeof(decimal)] = (0.0m, decimal.MinValue, decimal.MaxValue, 1M),
+    };
+
     private readonly Type UnderlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
     private readonly TValue ZeroValue;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentNumber{TValue}"/> class.
     /// </summary>
-    [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Optimizing for performance and readability.")]
     public FluentNumber(LibraryConfiguration configuration) : base(configuration)
     {
-        // sbyte
-        if (typeof(TValue) == typeof(sbyte) || typeof(TValue) == typeof(sbyte?))
-        {
-            ZeroValue = (TValue)(object)(sbyte)0;
-            Min = (TValue)(object)sbyte.MinValue;
-            Max = (TValue)(object)sbyte.MaxValue;
-            Step = (TValue)(object)(sbyte)1;
-        }
-        // byte
-        else if (typeof(TValue) == typeof(byte) || typeof(TValue) == typeof(byte?))
-        {
-            ZeroValue = (TValue)(object)(byte)0;
-            Min = (TValue)(object)byte.MinValue;
-            Max = (TValue)(object)byte.MaxValue;
-            Step = (TValue)(object)(byte)1;
-        }
-        // short
-        else if (typeof(TValue) == typeof(short) || typeof(TValue) == typeof(short?))
-        {
-            ZeroValue = (TValue)(object)(short)0;
-            Min = (TValue)(object)short.MinValue;
-            Max = (TValue)(object)short.MaxValue;
-            Step = (TValue)(object)(short)1;
-        }
-        // ushort
-        else if (typeof(TValue) == typeof(ushort) || typeof(TValue) == typeof(ushort?))
-        {
-            ZeroValue = (TValue)(object)(ushort)0;
-            Min = (TValue)(object)ushort.MinValue;
-            Max = (TValue)(object)ushort.MaxValue;
-            Step = (TValue)(object)(ushort)1;
-        }
-        // int
-        else if (typeof(TValue) == typeof(int) || typeof(TValue) == typeof(int?))
-        {
-            ZeroValue = (TValue)(object)0;
-            Min = (TValue)(object)int.MinValue;
-            Max = (TValue)(object)int.MaxValue;
-            Step = (TValue)(object)1;
-        }
-        // uint
-        else if (typeof(TValue) == typeof(uint) || typeof(TValue) == typeof(uint?))
-        {
-            ZeroValue = (TValue)(object)0u;
-            Min = (TValue)(object)uint.MinValue;
-            Max = (TValue)(object)uint.MaxValue;
-            Step = (TValue)(object)1u;
-        }
-        // long
-        else if (typeof(TValue) == typeof(long) || typeof(TValue) == typeof(long?))
-        {
-            ZeroValue = (TValue)(object)0L;
-            Min = (TValue)(object)long.MinValue;
-            Max = (TValue)(object)long.MaxValue;
-            Step = (TValue)(object)1L;
-        }
-        // ulong
-        else if (typeof(TValue) == typeof(ulong) || typeof(TValue) == typeof(ulong?))
-        {
-            ZeroValue = (TValue)(object)0UL;
-            Min = (TValue)(object)ulong.MinValue;
-            Max = (TValue)(object)ulong.MaxValue;
-            Step = (TValue)(object)1UL;
-        }
-        // float
-        else if (typeof(TValue) == typeof(float) || typeof(TValue) == typeof(float?))
-        {
-            ZeroValue = (TValue)(object)0.0f;
-            Min = (TValue)(object)float.MinValue;
-            Max = (TValue)(object)float.MaxValue;
-            Step = (TValue)(object)1.0f;
-        }
-        // double
-        else if (typeof(TValue) == typeof(double) || typeof(TValue) == typeof(double?))
-        {
-            ZeroValue = (TValue)(object)0.0;
-            Min = (TValue)(object)double.MinValue;
-            Max = (TValue)(object)double.MaxValue;
-            Step = (TValue)(object)1.0;
-        }
-        // decimal
-        else if (typeof(TValue) == typeof(decimal) || typeof(TValue) == typeof(decimal?))
-        {
-            ZeroValue = (TValue)(object)0.0m;
-            Min = (TValue)(object)decimal.MinValue;
-            Max = (TValue)(object)decimal.MaxValue;
-            Step = (TValue)(object)1M;
-        }
-        else
+        if (!TypeDefaults.TryGetValue(UnderlyingType, out var defaults))
         {
             throw new InvalidOperationException($"Unsupported type {typeof(TValue)}. Supported types are sbyte, byte, short, ushort, int, uint, long, ulong, float, double, and decimal (including nullable versions).");
         }
+
+        ZeroValue = (TValue)defaults.Zero;
+        Min = (TValue)defaults.Min;
+        Max = (TValue)defaults.Max;
+        Step = (TValue)defaults.Step;
 
         // Default conditions for the message
         MessageCondition = (field) =>
