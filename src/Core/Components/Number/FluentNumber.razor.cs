@@ -4,7 +4,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Numerics;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -16,13 +15,108 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A numeric input component that allows users to enter and edit numeric values.
 /// </summary>
 public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent
-                                            where TValue : struct, INumber<TValue>, IMinMaxValue<TValue>
 {
+    private readonly TValue ZeroValue;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentNumber{TValue}"/> class.
     /// </summary>
+    [SuppressMessage("Design", "MA0051:Method is too long", Justification = "<Pending>")]
     public FluentNumber(LibraryConfiguration configuration) : base(configuration)
     {
+        //sbyte
+        if (typeof(TValue) == typeof(sbyte) || typeof(TValue) == typeof(sbyte?))
+        {
+            ZeroValue = (TValue)(object)(sbyte)0;
+            Min = (TValue)(object)sbyte.MinValue;
+            Max = (TValue)(object)sbyte.MaxValue;
+            Step = (TValue)(object)(sbyte)1;
+        }
+        // byte
+        else if (typeof(TValue) == typeof(byte) || typeof(TValue) == typeof(byte?))
+        {
+            ZeroValue = (TValue)(object)(byte)0;
+            Min = (TValue)(object)byte.MinValue;
+            Max = (TValue)(object)byte.MaxValue;
+            Step = (TValue)(object)(byte)1;
+        }
+        // short
+        else if (typeof(TValue) == typeof(short) || typeof(TValue) == typeof(short?))
+        {
+            ZeroValue = (TValue)(object)(short)0;
+            Min = (TValue)(object)short.MinValue;
+            Max = (TValue)(object)short.MaxValue;
+            Step = (TValue)(object)(short)1;
+        }
+        // ushort
+        else if (typeof(TValue) == typeof(ushort) || typeof(TValue) == typeof(ushort?))
+        {
+            ZeroValue = (TValue)(object)(ushort)0;
+            Min = (TValue)(object)ushort.MinValue;
+            Max = (TValue)(object)ushort.MaxValue;
+            Step = (TValue)(object)(ushort)1;
+        }
+        // int
+        else if (typeof(TValue) == typeof(int) || typeof(TValue) == typeof(int?))
+        {
+            ZeroValue = (TValue)(object)0;
+            Min = (TValue)(object)int.MinValue;
+            Max = (TValue)(object)int.MaxValue;
+            Step = (TValue)(object)1;
+        }
+        // uint
+        else if (typeof(TValue) == typeof(uint) || typeof(TValue) == typeof(uint?))
+        {
+            ZeroValue = (TValue)(object)0u;
+            Min = (TValue)(object)uint.MinValue;
+            Max = (TValue)(object)uint.MaxValue;
+            Step = (TValue)(object)1u;
+        }
+        // long
+        else if (typeof(TValue) == typeof(long) || typeof(TValue) == typeof(long?))
+        {
+            ZeroValue = (TValue)(object)0L;
+            Min = (TValue)(object)long.MinValue;
+            Max = (TValue)(object)long.MaxValue;
+            Step = (TValue)(object)1L;
+        }
+        // ulong
+        else if (typeof(TValue) == typeof(ulong) || typeof(TValue) == typeof(ulong?))
+        {
+            ZeroValue = (TValue)(object)0UL;
+            Min = (TValue)(object)ulong.MinValue;
+            Max = (TValue)(object)ulong.MaxValue;
+            Step = (TValue)(object)1UL;
+        }
+        // float
+        else if (typeof(TValue) == typeof(float) || typeof(TValue) == typeof(float?))
+        {
+            ZeroValue = (TValue)(object)0.0f;
+            Min = (TValue)(object)float.MinValue;
+            Max = (TValue)(object)float.MaxValue;
+            Step = (TValue)(object)1.0f;
+        }
+        // double
+        else if (typeof(TValue) == typeof(double) || typeof(TValue) == typeof(double?))
+        {
+            ZeroValue = (TValue)(object)0.0;
+            Min = (TValue)(object)double.MinValue;
+            Max = (TValue)(object)double.MaxValue;
+            Step = (TValue)(object)1.0;
+        }
+        // decimal
+        else if (typeof(TValue) == typeof(decimal) || typeof(TValue) == typeof(decimal?))
+        {
+            ZeroValue = (TValue)(object)0.0m;
+            Min = (TValue)(object)decimal.MinValue;
+            Max = (TValue)(object)decimal.MaxValue;
+            Step = (TValue)(object)1M;
+        }
+        else
+        {
+            throw new InvalidOperationException($"Unsupported type {typeof(TValue)}. Supported types are sbyte, byte, short, ushort, int, uint, long, ulong, float, double, and decimal (including nullable versions).");
+        }
+
         // Default conditions for the message
         MessageCondition = (field) =>
         {
@@ -106,20 +200,20 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     /// Gets or sets the minimum allowed value.
     /// </summary>
     [Parameter]
-    public TValue? Min { get; set; }
+    public TValue Min { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum allowed value.
     /// </summary>
     [Parameter]
-    public TValue? Max { get; set; }
+    public TValue Max { get; set; }
 
     /// <summary>
     /// Gets or sets the step increment. For decimal values, use e.g. Step="0.01".
     /// Defaults to 1 for all types. If set to null or 0, the step buttons will be disabled.
     /// </summary>
     [Parameter]
-    public TValue? Step { get; set; } = (TValue)Convert.ChangeType(1, typeof(TValue), CultureInfo.InvariantCulture);
+    public TValue Step { get; set; }
 
     /// <summary>
     /// Gets or sets the visibility behavior of the step buttons (up/down arrows).
@@ -170,8 +264,8 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
         }
 
         // If Min/Max parameters change, re-apply the number mask to update the bounds
-        if ((parameters.TryGetValue<TValue?>(nameof(Min), out var newMin) && newMin != Min) ||
-            (parameters.TryGetValue<TValue?>(nameof(Max), out var newMax) && newMax != Max))
+        if ((parameters.TryGetValue<TValue?>(nameof(Min), out var newMin) && IsNotEquals(newMin, Min)) ||
+            (parameters.TryGetValue<TValue?>(nameof(Max), out var newMax) && IsNotEquals(newMax, Max)))
         {
             _ = ApplyNumberMaskAsync();
         }
@@ -193,25 +287,27 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
         // (e.g. non-breaking space, narrow no-break space, etc.).
         var extractedDigits = KeepOnlyDigits(value);
 
-        if (TValue.TryParse(extractedDigits, Culture, out var parsedValue))
+        if (double.TryParse(extractedDigits, Culture, out var parsedValue))
         {
+            var parsedTValue = (TValue)Convert.ChangeType(parsedValue, typeof(TValue), CultureInfo.InvariantCulture);
+
             // Clamp the parsed value to Min/Max bounds.
-            if (Min.HasValue && parsedValue < Min.Value)
+            if (Min is not null && IsLowerThan(parsedTValue, Min))
             {
-                parsedValue = Min.Value;
+                parsedTValue = Min;
             }
 
-            if (Max.HasValue && parsedValue > Max.Value)
+            if (Max is not null && IsGreaterThan(parsedTValue, Max))
             {
-                parsedValue = Max.Value;
+                parsedTValue = Max;
             }
 
-            result = parsedValue;
+            result = parsedTValue;
             validationErrorMessage = null;
             return true;
         }
 
-        result = default;
+        result = ZeroValue;
         validationErrorMessage = null;
         return true;
     }
@@ -234,7 +330,7 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     /// <summary>
     /// Formats the value as a string using the configured <see cref="Culture"/>.
     /// </summary>
-    protected override string? FormatValueAsString(TValue value)
+    protected override string? FormatValueAsString(TValue? value)
     {
         return string.Format(Culture, IsDecimal ? "{0:N}" : "{0:N0}", value);
     }
@@ -256,16 +352,16 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     /// </summary>
     private void IncrementValue()
     {
-        if (Disabled == true || ReadOnly || Step == null || EqualityComparer<TValue>.Default.Equals(Step.Value, default))
+        if (Disabled == true || ReadOnly || Step == null || IsEquals(Step, ZeroValue))
         {
             return;
         }
 
-        var newValue = RoundIfDecimal(CurrentValue + Step.Value);
+        var newValue = RoundIfDecimal(Add(CurrentValue ?? ZeroValue, Step));
 
-        if (Max.HasValue && newValue > Max.Value)
+        if (IsGreaterThan(newValue, Max))
         {
-            newValue = Max.Value;
+            newValue = Max;
         }
 
         CurrentValue = newValue;
@@ -277,16 +373,16 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     /// </summary>
     private void DecrementValue()
     {
-        if (Disabled == true || ReadOnly || Step == null || EqualityComparer<TValue>.Default.Equals(Step.Value, default))
+        if (Disabled == true || ReadOnly || Step == null || IsEquals(Step, ZeroValue))
         {
             return;
         }
 
-        var newValue = RoundIfDecimal(CurrentValue - Step.Value);
+        var newValue = RoundIfDecimal(Subtract(CurrentValue ?? ZeroValue, Step));
 
-        if (Min.HasValue && newValue < Min.Value)
+        if (IsLowerThan(newValue, Min))
         {
-            newValue = Min.Value;
+            newValue = Min;
         }
 
         CurrentValue = newValue;
@@ -304,8 +400,8 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
             IsDecimal ? Culture.NumberFormat.NumberDecimalDigits : 0,       // Scale
             Culture.NumberFormat.NumberDecimalSeparator,                    // Radix char
             new[] { Culture.NumberFormat.NumberDecimalSeparator, CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator },  // Map to radix
-            Min ?? TValue.MinValue,                                         // Min
-            Max ?? TValue.MaxValue,                                         // Max
+            Min,                                                            // Min
+            Max,                                                            // Max
             Culture.NumberFormat.NumberGroupSeparator,                      // Thousands separator
             Step);                                                          // Step
     }
@@ -314,14 +410,45 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     /// Rounds the value to the number of decimal digits defined by the current <see cref="Culture"/>.
     /// This avoids floating-point precision errors (e.g. 0.3 - 0.1 = 0.19999999999999998).
     /// </summary>
-    private TValue RoundIfDecimal(TValue value)
+    private TValue? RoundIfDecimal(TValue? value)
     {
-        if (IsDecimal)
+        if (value is not null && IsDecimal)
         {
             var decimals = Culture.NumberFormat.NumberDecimalDigits;
-            return TValue.CreateChecked(Math.Round(double.CreateChecked(value), decimals, MidpointRounding.AwayFromZero));
+            var rounded = Math.Round(Convert.ToDouble(value, CultureInfo.InvariantCulture), decimals, MidpointRounding.AwayFromZero);
+            return (TValue)Convert.ChangeType(rounded, typeof(TValue), CultureInfo.InvariantCulture);
         }
 
         return value;
     }
+
+    /// <summary>
+    /// Returns true if <paramref name="a"/> is equal to <paramref name="b"/>.
+    /// </summary>
+    private static bool IsEquals(TValue? a, TValue? b) => Comparer<TValue>.Default.Compare(a, b) == 0;
+
+    /// <summary>
+    /// Returns true if <paramref name="a"/> is not equal to <paramref name="b"/>.
+    /// </summary>
+    private static bool IsNotEquals(TValue? a, TValue? b) => !IsEquals(a, b);
+
+    /// <summary>
+    /// Returns true if <paramref name="a"/> is strictly less than <paramref name="b"/>.
+    /// </summary>
+    private static bool IsLowerThan(TValue? a, TValue? b) => Comparer<TValue>.Default.Compare(a, b) < 0;
+
+    /// <summary>
+    /// Returns true if <paramref name="a"/> is strictly greater than <paramref name="b"/>.
+    /// </summary>
+    private static bool IsGreaterThan(TValue? a, TValue? b) => Comparer<TValue>.Default.Compare(a, b) > 0;
+
+    /// <summary>
+    /// Adds two values of type <typeparamref name="TValue"/> by converting them to double for the addition and then back to <typeparamref name="TValue"/>.
+    /// </summary>
+    private static TValue Add(TValue a, TValue b) => (TValue)Convert.ChangeType(Convert.ToDouble(a, CultureInfo.InvariantCulture) + Convert.ToDouble(b, CultureInfo.InvariantCulture), typeof(TValue), CultureInfo.InvariantCulture);
+
+    /// <summary>
+    /// Subtracts two values of type <typeparamref name="TValue"/> by converting them to double for the subtraction and then back to <typeparamref name="TValue"/>.
+    /// </summary>
+    private static TValue Subtract(TValue a, TValue b) => (TValue)Convert.ChangeType(Convert.ToDouble(a, CultureInfo.InvariantCulture) - Convert.ToDouble(b, CultureInfo.InvariantCulture), typeof(TValue), CultureInfo.InvariantCulture);
 }
