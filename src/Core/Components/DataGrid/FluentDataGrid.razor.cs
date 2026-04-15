@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Localization;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -24,6 +25,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [SuppressMessage("Usage", "MA0040:Forward the CancellationToken parameter to methods that take one", Justification = "The available cancellation token are not appropriate to pass along.")]
 public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent
 {
+    private enum ColumnHeaderUiKind
+    {
+        None,
+        All,
+        Options,
+        Reorder,
+        Resize,
+    }
+
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DataGrid/FluentDataGrid.razor.js";
 
     internal const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
@@ -38,19 +48,22 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private readonly InternalGridContext<TGridItem> _internalGridContext;
     internal readonly List<ColumnBase<TGridItem>> _columns;
     private bool _collectingColumns;
-    private ColumnBase<TGridItem>? _displayOptionsForColumn;
-    internal ColumnBase<TGridItem>? _displayResizeForColumn;
+    private ColumnBase<TGridItem>? _activeHeaderUiColumn;
+    private ColumnHeaderUiKind _activeHeaderUiKind;
+    private ColumnBase<TGridItem>? _pendingHeaderUiReopenColumn;
+    private ColumnHeaderUiKind _pendingHeaderUiReopenKind;
     internal ColumnBase<TGridItem>? _sortByColumn;
     private bool _sortByAscending;
-    private bool _checkColumnOptionsPosition;
-    private bool _checkColumnResizePosition;
+    private bool _checkColumnHeaderUiPosition;
     private bool _checkColumnResizing;
+    private bool _checkColumnReordering;
     private bool _manualGrid;
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
     private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderLoadingContent;
     private readonly RenderFragment _renderErrorContent;
+    private readonly List<string> _columnOrder;
     private string? _internalGridTemplateColumns;
     private PaginationState? _lastRefreshedPaginationState;
     private IQueryable<TGridItem>? _lastAssignedItems;
@@ -61,6 +74,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private Exception? _lastError;
     private GridItemsProviderRequest<TGridItem>? _lastRequest;
     private bool _forceRefreshData;
+    private DotNetObjectReference<FluentDataGrid<TGridItem>>? _selfReference;
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
 
     /// <summary />
@@ -68,6 +82,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         Id = Identifier.NewId();
         _columns = [];
+        _columnOrder = [];
         _internalGridContext = new(this);
         _currentPageItemsChanged = new(EventCallback.Factory.Create<PaginationState>(this, RefreshDataCoreAsync));
         _renderColumnHeaders = RenderColumnHeaders;
@@ -115,7 +130,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Gets or sets a callback that supplies data for the rid.
-    ///
     /// You should supply either <see cref="Items"/> or <see cref="ItemsProvider"/>, but not both.
     /// </summary>
     [Parameter]
@@ -167,6 +181,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public bool ResizableColumns { get; set; }
 
     /// <summary>
+    /// If true, allows unpinned columns to be reordered by drag-and-drop and through the header popup UI.
+    /// </summary>
+    [Parameter]
+    public bool ReorderableColumns { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether column resize handles should extend the full height of the grid.
     /// When true, columns can be resized by dragging from any row. When false, columns can only be resized
     /// by dragging from the column header. Default is true.
@@ -189,24 +209,32 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// (aria) labels are controlled through <see cref="IFluentLocalizer"/>
     /// </summary>
     [Parameter]
-    public ColumnResizeUISettings ColumnResizeUISettings { get; set; } = ColumnResizeUISettings.Default;
+    public ColumnMenuSettings ColumnResizeMenuSettings { get; set; } = new(new CoreIcons.Regular.Size20.TableResizeColumn(), LanguageResource.DataGrid_ResizeMenu);
 
     /// <summary>
-    /// Settings (icon, icon position) used in the column sorting UI.
+    /// Settings (icon, icon position) used in the column reorder UI.
     /// (aria) labels are controlled through <see cref="IFluentLocalizer"/>
     /// </summary>
     [Parameter]
-    public ColumnSortUISettings ColumnSortUISettings { get; set; } = ColumnSortUISettings.Default;
+    public ColumnMenuSettings ColumnReorderMenuSettings { get; set; } = new(new CoreIcons.Regular.Size20.ColumnArrowRight(), LanguageResource.DataGrid_ReorderMenu);
 
     /// <summary>
-    /// Settings (icon, icon position) used in the column options UI.
+    /// Settings (icon, icon position) used in the column sort UI.
     /// (aria) labels are controlled through <see cref="IFluentLocalizer"/>
     /// </summary>
     [Parameter]
-    public ColumnOptionsUISettings ColumnOptionsUISettings { get; set; } = ColumnOptionsUISettings.Default;
+    public ColumnMenuSettings ColumnSortMenuSettings { get; set; } = new(new CoreIcons.Regular.Size20.ArrowSort(), LanguageResource.DataGrid_SortMenu);
 
     /// <summary>
-    ///  If true, enables the new style of header cell that includes a button to display all column options through a menu.
+    /// Settings (icon, icon position) used in the column options menu. (aria) labels are controlled through
+    /// <see cref="IFluentLocalizer"/>
+    /// </summary>
+    [Parameter]
+    public ColumnMenuSettings ColumnOptionsMenuSettings { get; set; } = new(new CoreIcons.Regular.Size20.Filter(), LanguageResource.DataGrid_OptionsMenu);
+
+    /// <summary>
+    /// If true, enables the new style of header cell that includes a button to display all column options through a
+    /// menu.
     /// </summary>
     [Parameter]
     public bool HeaderCellAsButtonWithMenu { get; set; }
@@ -256,6 +284,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the persisted display order for the grid columns.
+    /// Pinned columns are ignored when applying this order and remain fixed at their respective edges.
+    /// </summary>
+    [Parameter]
+    public IReadOnlyList<string>? ColumnOrder { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that is invoked when the column order changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<IReadOnlyList<string>> ColumnOrderChanged { get; set; }
 
     /// <summary>
     /// Gets or sets a callback when a row is focused.
@@ -523,6 +564,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             // Import the JavaScript module
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            _selfReference = DotNetObjectReference.Create(this);
 
             await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus);
             if (AutoItemsPerPage)
@@ -539,22 +581,33 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         SaveStateToQueryString();
 
-        if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
+        if (_checkColumnHeaderUiPosition && _activeHeaderUiColumn is not null)
         {
-            _checkColumnOptionsPosition = false;
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference, ".col-options");
-        }
-
-        if (_checkColumnResizePosition && _displayResizeForColumn is not null)
-        {
-            _checkColumnResizePosition = false;
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference, ".col-resize");
+            _checkColumnHeaderUiPosition = false;
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference);
         }
 
         if (_checkColumnResizing && _gridReference is not null && JSModule.Imported)
         {
             _checkColumnResizing = false;
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing", _gridReference, ResizeColumnOnAllRows);
+        }
+
+        if (_checkColumnReordering && _gridReference is not null && JSModule.Imported && _selfReference is not null)
+        {
+            _checkColumnReordering = false;
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering", _gridReference, _selfReference);
+        }
+
+        if (_pendingHeaderUiReopenColumn is not null && _pendingHeaderUiReopenKind != ColumnHeaderUiKind.None)
+        {
+            var column = _pendingHeaderUiReopenColumn;
+            var kind = _pendingHeaderUiReopenKind;
+
+            _pendingHeaderUiReopenColumn = null;
+            _pendingHeaderUiReopenKind = ColumnHeaderUiKind.None;
+
+            await ShowColumnHeaderUiAsync(column, kind);
         }
     }
 
@@ -601,27 +654,123 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new ArgumentException("The 'HierarchicalToggle' parameter can only be set on the first column of the grid.");
         }
 
-        // Validate pinned columns and seed their initial sticky offsets.
+        AssignColumnKeys();
+        ValidatePinnedColumnConstraints();
+        ApplyStoredColumnOrder();
         ValidateAndComputePinnedColumns();
-
-        // Always re-evaluate after collecting columns when using displaymode grid. A column might be added or hidden and the _internalGridTemplateColumns needs to reflect that.
-        if (DisplayMode == DataGridDisplayMode.Grid)
-        {
-            if (!AutoFit)
-            {
-                _internalGridTemplateColumns = GridTemplateColumns ?? string.Join(' ', Enumerable.Repeat("1fr", _columns.Count));
-            }
-
-            if (_columns.Exists(x => !string.IsNullOrWhiteSpace(x.Width)))
-            {
-                _internalGridTemplateColumns = GridTemplateColumns ?? string.Join(' ', _columns.Select(x => x.Width ?? "auto"));
-            }
-        }
+        UpdateGridTemplateColumns();
 
         if (ResizableColumns)
         {
             _checkColumnResizing = true;
         }
+
+        _checkColumnReordering = true;
+    }
+
+    private void AssignColumnKeys()
+    {
+        var keyCounts = new Dictionary<string, int>(StringComparer.Ordinal);
+
+        foreach (var column in _columns)
+        {
+            var baseKey = GetColumnKeyBase(column);
+            keyCounts.TryGetValue(baseKey, out var existingCount);
+            keyCounts[baseKey] = existingCount + 1;
+            column.SetColumnKey(existingCount == 0 ? baseKey : $"{baseKey}_{existingCount.ToString(CultureInfo.InvariantCulture)}");
+        }
+    }
+
+    private static string GetColumnKeyBase(ColumnBase<TGridItem> column)
+    {
+        if (!string.IsNullOrWhiteSpace(column.ColumnId))
+        {
+            return column.ColumnId;
+        }
+
+        if (column is IBindableColumn bindable && bindable.PropertyInfo is not null)
+        {
+            return $"{bindable.PropertyInfo.DeclaringType?.FullName ?? typeof(TGridItem).FullName}.{bindable.PropertyInfo.Name}";
+        }
+
+        if (!string.IsNullOrWhiteSpace(column.Title))
+        {
+            return column.Title;
+        }
+
+        return $"{column.GetType().Name}_{column.Index.ToString(CultureInfo.InvariantCulture)}";
+    }
+
+    private void ApplyStoredColumnOrder()
+    {
+        if (_columns.Count == 0)
+        {
+            _columnOrder.Clear();
+            return;
+        }
+
+        if (ColumnOrder is not null)
+        {
+            _columnOrder.Clear();
+            _columnOrder.AddRange(ColumnOrder.Where(x => !string.IsNullOrWhiteSpace(x)));
+        }
+
+        var startPinnedColumns = _columns.Where(c => c.Pin == DataGridColumnPin.Start).ToList();
+        var reorderableColumns = _columns.Where(c => c.Pin == DataGridColumnPin.None).ToList();
+        var endPinnedColumns = _columns.Where(c => c.Pin == DataGridColumnPin.End).ToList();
+
+        if (_columnOrder.Count > 0 && reorderableColumns.Count > 0)
+        {
+            var orderLookup = _columnOrder
+                .Distinct(StringComparer.Ordinal)
+                .Select((columnKey, orderIndex) => (columnKey, orderIndex))
+                .ToDictionary(x => x.columnKey, x => x.orderIndex, StringComparer.Ordinal);
+
+            reorderableColumns = [.. reorderableColumns
+                .OrderBy(column => orderLookup.TryGetValue(column.ColumnKey, out var orderIndex) ? orderIndex : int.MaxValue)
+                .ThenBy(column => column.Index)];
+        }
+
+        _columns.Clear();
+        _columns.AddRange(startPinnedColumns);
+        _columns.AddRange(reorderableColumns);
+        _columns.AddRange(endPinnedColumns);
+
+        ResetColumnIndices();
+        UpdateTrackedColumnOrder();
+    }
+
+    private void ResetColumnIndices()
+    {
+        for (var index = 0; index < _columns.Count; index++)
+        {
+            _columns[index].SetColumnIndex(index + 1);
+        }
+    }
+
+    private void UpdateGridTemplateColumns()
+    {
+        // Always re-evaluate after collecting columns when using displaymode grid. A column might be added or hidden and the _internalGridTemplateColumns needs to reflect that.
+        if (DisplayMode != DataGridDisplayMode.Grid)
+        {
+            return;
+        }
+
+        if (!AutoFit)
+        {
+            _internalGridTemplateColumns = GridTemplateColumns ?? string.Join(' ', Enumerable.Repeat("1fr", _columns.Count));
+        }
+
+        if (_columns.Exists(x => !string.IsNullOrWhiteSpace(x.Width)))
+        {
+            _internalGridTemplateColumns = GridTemplateColumns ?? string.Join(' ', _columns.Select(x => x.Width ?? "auto"));
+        }
+    }
+
+    private void UpdateTrackedColumnOrder()
+    {
+        _columnOrder.Clear();
+        _columnOrder.AddRange(_columns.Select(column => column.ColumnKey));
     }
 
     /// <summary>
@@ -725,6 +874,224 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         return 0;
     }
 
+    internal ColumnHeaderCapabilities GetHeaderCapabilities(ColumnBase<TGridItem> column)
+    {
+        var canSort = column.CanSortFromHeader();
+        var canResize = ResizeType is not null && ResizableColumns;
+        var canReorder = ReorderableColumns && IsColumnEligibleForReordering(column);
+        var hasOptions = column.ColumnOptions is not null;
+        var hasHeaderPopupContent = canReorder || hasOptions || (!HeaderCellAsButtonWithMenu && canResize);
+
+        return new(canSort, canResize, canReorder, hasOptions, hasHeaderPopupContent);
+    }
+
+    internal bool CanMoveColumnToStart(ColumnBase<TGridItem> column)
+        => TryGetReorderableColumnIndex(column, out var index) && index > 0;
+
+    internal bool CanMoveColumnLeft(ColumnBase<TGridItem> column)
+        => CanMoveColumnToStart(column);
+
+    internal bool CanMoveColumnRight(ColumnBase<TGridItem> column)
+        => TryGetReorderableColumnIndex(column, out var index) && index >= 0 && index < GetReorderableColumns().Count - 1;
+
+    internal bool CanMoveColumnToEnd(ColumnBase<TGridItem> column)
+        => CanMoveColumnRight(column);
+
+    /// <summary>
+    /// Gets the grid's current column order.
+    /// </summary>
+    public IReadOnlyList<string> GetColumnOrder() => [.. _columns.Select(column => column.ColumnKey)];
+
+    /// <summary>
+    /// Applies a persisted column order to the current grid.
+    /// </summary>
+    /// <param name="columnOrder">The persisted column order to apply.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task SetColumnOrderAsync(IEnumerable<string>? columnOrder)
+    {
+        _columnOrder.Clear();
+
+        if (columnOrder is not null)
+        {
+            _columnOrder.AddRange(columnOrder.Where(x => !string.IsNullOrWhiteSpace(x)));
+        }
+
+        if (_columns.Count == 0)
+        {
+            return Task.CompletedTask;
+        }
+
+        ApplyStoredColumnOrder();
+        ValidateAndComputePinnedColumns();
+        UpdateGridTemplateColumns();
+        _checkColumnResizing = ResizableColumns;
+        _checkColumnReordering = true;
+        _ = InvokeAsync(StateHasChanged);
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Moves the specified column one position to the left within the reorderable column range.
+    /// </summary>
+    public Task MoveColumnLeftAsync(ColumnBase<TGridItem> column) => MoveColumnToReorderableIndexAsync(column, GetCurrentReorderableIndex(column) - 1);
+
+    /// <summary>
+    /// Moves the specified column one position to the right within the reorderable column range.
+    /// </summary>
+    public Task MoveColumnRightAsync(ColumnBase<TGridItem> column) => MoveColumnToReorderableIndexAsync(column, GetCurrentReorderableIndex(column) + 1);
+
+    /// <summary>
+    /// Moves the specified column to the start of the reorderable column range.
+    /// </summary>
+    public Task MoveColumnToStartAsync(ColumnBase<TGridItem> column) => MoveColumnToReorderableIndexAsync(column, 0);
+
+    /// <summary>
+    /// Moves the specified column to the end of the reorderable column range.
+    /// </summary>
+    public Task MoveColumnToEndAsync(ColumnBase<TGridItem> column) => MoveColumnToReorderableIndexAsync(column, GetReorderableColumns().Count - 1);
+
+    /// <summary>
+    /// Reorders a column from a drag-and-drop operation reported by JavaScript.
+    /// </summary>
+    /// <param name="sourceColumnKey">The key of the dragged column.</param>
+    /// <param name="targetColumnKey">The key of the drop target column.</param>
+    /// <param name="insertAfter">If true, inserts the dragged column after the target column; otherwise inserts it before.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    [JSInvokable]
+    public Task ReorderColumnFromDragAsync(string sourceColumnKey, string targetColumnKey, bool insertAfter)
+    {
+        var reorderableColumns = GetReorderableColumns();
+        var sourceIndex = reorderableColumns.FindIndex(column => string.Equals(column.ColumnKey, sourceColumnKey, StringComparison.Ordinal));
+        var targetIndex = reorderableColumns.FindIndex(column => string.Equals(column.ColumnKey, targetColumnKey, StringComparison.Ordinal));
+
+        if (sourceIndex < 0 || targetIndex < 0)
+        {
+            return Task.CompletedTask;
+        }
+
+        if (insertAfter && sourceIndex > targetIndex)
+        {
+            targetIndex++;
+        }
+        else if (!insertAfter && sourceIndex < targetIndex)
+        {
+            targetIndex--;
+        }
+
+        return MoveColumnToReorderableIndexAsync(reorderableColumns[sourceIndex], targetIndex);
+    }
+
+    private async Task MoveColumnToReorderableIndexAsync(ColumnBase<TGridItem> column, int targetIndex)
+    {
+        var reorderableColumns = GetReorderableColumns();
+        var currentIndex = reorderableColumns.IndexOf(column);
+        var reopenReorderPopupAfterMove = DisplayMode == DataGridDisplayMode.Table
+            && _activeHeaderUiKind == ColumnHeaderUiKind.Reorder
+            && _activeHeaderUiColumn == column;
+
+        if (currentIndex < 0 || reorderableColumns.Count <= 1)
+        {
+            return;
+        }
+
+        targetIndex = Math.Clamp(targetIndex, 0, reorderableColumns.Count - 1);
+        if (targetIndex == currentIndex)
+        {
+            return;
+        }
+
+        if (reopenReorderPopupAfterMove)
+        {
+            _activeHeaderUiColumn = null;
+            _activeHeaderUiKind = ColumnHeaderUiKind.None;
+            _checkColumnHeaderUiPosition = false;
+            _pendingHeaderUiReopenColumn = column;
+            _pendingHeaderUiReopenKind = ColumnHeaderUiKind.Reorder;
+        }
+
+        reorderableColumns.RemoveAt(currentIndex);
+        reorderableColumns.Insert(targetIndex, column);
+
+        var startPinnedColumns = _columns.Where(c => c.Pin == DataGridColumnPin.Start).ToList();
+        var endPinnedColumns = _columns.Where(c => c.Pin == DataGridColumnPin.End).ToList();
+
+        _columns.Clear();
+        _columns.AddRange(startPinnedColumns);
+        _columns.AddRange(reorderableColumns);
+        _columns.AddRange(endPinnedColumns);
+
+        ResetColumnIndices();
+        ValidateAndComputePinnedColumns();
+        UpdateGridTemplateColumns();
+        await PersistColumnOrderAsync();
+
+        _checkColumnHeaderUiPosition = _activeHeaderUiColumn is not null;
+        _checkColumnResizing = ResizableColumns;
+        _checkColumnReordering = true;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task PersistColumnOrderAsync()
+    {
+        UpdateTrackedColumnOrder();
+
+        if (ColumnOrderChanged.HasDelegate)
+        {
+            await ColumnOrderChanged.InvokeAsync(GetColumnOrder());
+        }
+    }
+
+    private bool IsColumnEligibleForReordering(ColumnBase<TGridItem> column)
+        => column.Pin == DataGridColumnPin.None && GetReorderableColumns().Count > 1;
+
+    private bool TryGetReorderableColumnIndex(ColumnBase<TGridItem> column, out int index)
+    {
+        index = GetCurrentReorderableIndex(column);
+        return index >= 0;
+    }
+
+    private int GetCurrentReorderableIndex(ColumnBase<TGridItem> column)
+        => GetReorderableColumns().IndexOf(column);
+
+    private List<ColumnBase<TGridItem>> GetReorderableColumns()
+        => [.. _columns.Where(c => c.Pin == DataGridColumnPin.None)];
+
+    private Task ShowColumnHeaderUiAsync(ColumnBase<TGridItem> column, ColumnHeaderUiKind kind)
+    {
+        _activeHeaderUiColumn = column;
+        _activeHeaderUiKind = kind;
+        _checkColumnHeaderUiPosition = true;
+        _ = InvokeAsync(StateHasChanged);
+        return Task.CompletedTask;
+    }
+
+    private bool IsColumnHeaderUiActive(ColumnBase<TGridItem> column, ColumnHeaderUiKind kind)
+        => _activeHeaderUiColumn == column && _activeHeaderUiKind == kind;
+
+    private bool ShouldRenderColumnHeaderUi(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+        => IsColumnHeaderUiActive(column, ColumnHeaderUiKind.All)
+            ? headerCapabilities.HasAnyAction
+            : ShouldRenderColumnOptions(column, headerCapabilities)
+                || ShouldRenderColumnResize(column, headerCapabilities)
+                || ShouldRenderColumnReorder(column, headerCapabilities);
+
+    private bool ShouldRenderColumnOptions(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+        => headerCapabilities.HasOptions
+            && (IsColumnHeaderUiActive(column, ColumnHeaderUiKind.Options)
+                || IsColumnHeaderUiActive(column, ColumnHeaderUiKind.All));
+
+    private bool ShouldRenderColumnResize(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+        => headerCapabilities.CanResize
+            && (IsColumnHeaderUiActive(column, ColumnHeaderUiKind.Resize)
+                || IsColumnHeaderUiActive(column, ColumnHeaderUiKind.All));
+
+    private bool ShouldRenderColumnReorder(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+        => headerCapabilities.CanReorder
+            && (IsColumnHeaderUiActive(column, ColumnHeaderUiKind.Reorder)
+                || IsColumnHeaderUiActive(column, ColumnHeaderUiKind.All));
+
+    internal bool IsColumnResizeUiOpen => _activeHeaderUiKind == ColumnHeaderUiKind.Resize && _activeHeaderUiColumn is not null;
+
     /// <summary>
     /// Sets the grid's current sort column to the specified <paramref name="column"/>.
     /// </summary>
@@ -821,15 +1188,32 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task ShowColumnOptionsAsync(ColumnBase<TGridItem> column)
     {
-        _displayOptionsForColumn = column;
-        _checkColumnOptionsPosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
-        _ = InvokeAsync(StateHasChanged);
-        return Task.CompletedTask;
+        return ShowColumnHeaderUiAsync(column, HeaderCellAsButtonWithMenu ? ColumnHeaderUiKind.Options : ColumnHeaderUiKind.All);
     }
 
     /// <summary>
-    /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column <paramref name="title"/> found first,
+    /// Displays all available header UI elements for the specified column asynchronously.
+    /// </summary>
+    /// <param name="column">The column for which to display all header UI elements. Cannot be null.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    public Task ShowAllHeaderUIAsync(ColumnBase<TGridItem> column)
+    {
+        return ShowColumnHeaderUiAsync(column, ColumnHeaderUiKind.All);
+    }
+
+    /// <summary>
+    /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column,
     /// closing any other column options UI that was previously displayed. If the title is not found, nothing happens.
+    /// </summary>
+    internal Task ShowColumnReorderAsync(ColumnBase<TGridItem> column)
+    {
+        return ShowColumnHeaderUiAsync(column, ColumnHeaderUiKind.Reorder);
+    }
+
+    /// <summary>
+    /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column
+    /// <paramref name="title"/> found first, closing any other column options UI that was previously displayed. If the
+    /// title is not found, nothing happens.
     /// </summary>
     /// <param name="title">The column title whose options UI is to be displayed.</param>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
@@ -851,21 +1235,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
-    /// Closes the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI that was previously displayed.
-    /// </summary>
-    public Task CloseColumnOptionsAsync()
-    {
-        _displayOptionsForColumn = null;
-        _ = InvokeAsync(StateHasChanged);
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
     /// Closes the column resize UI that was previously displayed.
     /// </summary>
-    public Task CloseColumnResizeAsync()
+    public Task CloseColumnHeaderUIAsync()
     {
-        _displayResizeForColumn = null;
+        _activeHeaderUiColumn = null;
+        _activeHeaderUiKind = ColumnHeaderUiKind.None;
+        _checkColumnHeaderUiPosition = false;
         _ = InvokeAsync(StateHasChanged);
         return Task.CompletedTask;
 
@@ -879,10 +1255,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task ShowColumnResizeAsync(ColumnBase<TGridItem> column)
     {
-        _displayResizeForColumn = column;
-        _checkColumnResizePosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
-        _ = InvokeAsync(StateHasChanged);
-        return Task.CompletedTask;
+        return ShowColumnHeaderUiAsync(column, ColumnHeaderUiKind.Resize);
     }
 
     /// <summary>
@@ -1151,13 +1524,29 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             .AddClass("loading", _pendingDataLoadCancellationTokenSource is not null)
             .Build();
 
-    private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
+    private string? ColumnHeaderClass(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
     {
         return new CssBuilder(Class)
            .AddClass(ColumnJustifyClass(column))
            .AddClass("col-sort-asc", _sortByAscending && column.IsActiveSortColumn)
            .AddClass("col-sort-desc", !_sortByAscending && column.IsActiveSortColumn)
+           .AddClass("col-reorderable", headerCapabilities.CanReorder)
            .Build();
+    }
+
+    private static Dictionary<string, object?> GetColumnHeaderAttributes(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+    {
+        if (!headerCapabilities.CanReorder)
+        {
+            return new Dictionary<string, object?>(StringComparer.Ordinal);
+        }
+
+        return new Dictionary<string, object?>(StringComparer.Ordinal)
+        {
+            ["data-column-key"] = column.ColumnKey,
+            ["data-column-reorderable"] = bool.TrueString.ToLowerInvariant(),
+            ["draggable"] = bool.TrueString.ToLowerInvariant(),
+        };
     }
 
     private static string? ColumnJustifyClass(ColumnBase<TGridItem> column)
@@ -1175,6 +1564,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public override ValueTask DisposeAsync()
     {
         _currentPageItemsChanged.Dispose();
+        _selfReference?.Dispose();
 #pragma warning disable MA0042 // Do not use blocking calls in an async method
         _scope?.Dispose();
 #pragma warning restore MA0042 // Do not use blocking calls in an async method
@@ -1284,6 +1674,38 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (string.Equals(args.Value, "+", StringComparison.Ordinal))
         {
             await SetColumnWidthDiscreteAsync(columnIndex: null, 10);
+        }
+
+        var activeColumn =
+            _activeHeaderUiKind == ColumnHeaderUiKind.Reorder
+                ? _activeHeaderUiColumn
+                : null;
+
+        if (activeColumn is null)
+        {
+            return;
+        }
+
+        var reorderableIndex = GetCurrentReorderableIndex(activeColumn);
+
+        if (activeColumn is not null && args.AltKey && args.Key == KeyCode.KeyF)
+        {
+            await MoveColumnToStartAsync(activeColumn);
+        }
+
+        if (activeColumn is not null && args.AltKey && args.Key == KeyCode.KeyP)
+        {
+            await MoveColumnToReorderableIndexAsync(activeColumn, --reorderableIndex);
+        }
+
+        if (activeColumn is not null && args.AltKey && args.Key == KeyCode.KeyN)
+        {
+            await MoveColumnToReorderableIndexAsync(activeColumn, ++reorderableIndex);
+        }
+
+        if (activeColumn is not null && args.AltKey && args.Key == KeyCode.KeyL)
+        {
+            await MoveColumnToEndAsync(activeColumn);
         }
     }
 
