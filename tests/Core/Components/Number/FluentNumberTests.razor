@@ -2,6 +2,13 @@
 @inherits FluentUITestContext
 @code
 {
+    private static System.Globalization.CultureInfo GetInvariantCulture()
+    {
+        var clone = (System.Globalization.CultureInfo)System.Globalization.CultureInfo.InvariantCulture.Clone();
+        clone.NumberFormat.NumberDecimalDigits = 2;
+        return clone;
+    }
+
     public FluentNumberTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
@@ -22,7 +29,7 @@
     public void FluentNumber_Default_Double()
     {        
         // Arrange and Act
-        var cut = Render(@<FluentNumberInput Label="double" Width="100px" Value="1234.56" Culture="@(new System.Globalization.CultureInfo("en-US"))" />);
+        var cut = Render(@<FluentNumberInput Label="double" Width="100px" Value="1234.56" Culture="@GetInvariantCulture()" />);
 
         // Assert
         cut.Verify();
