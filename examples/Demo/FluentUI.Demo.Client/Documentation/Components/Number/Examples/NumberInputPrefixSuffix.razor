@@ -1,36 +1,36 @@
 <FluentStack HorizontalGap="20px">
-    <FluentNumber TValue="double"
+    <FluentNumberInput TValue="double"
                   Label="@($"Price = €{Price}")"
-                  StepButtons="NumberStepVisibility.Visible"
+                  StepButtons="NumberInputStepVisibility.Visible"
                   Step="0.01"
                   Min="0"
                   @bind-Value="@Price">
         <StartTemplate>
             <FluentText>€</FluentText>
         </StartTemplate>
-    </FluentNumber>
+    </FluentNumberInput>
 
-    <FluentNumber TValue="double"
+    <FluentNumberInput TValue="double"
                   Label="@($"Weight = {Weight} kg")"
-                  StepButtons="NumberStepVisibility.Visible"
+                  StepButtons="NumberInputStepVisibility.Visible"
                   Step="0.1"
                   Min="0"
                   @bind-Value="@Weight">
         <EndTemplate>
             <FluentText>kg</FluentText>
         </EndTemplate>
-    </FluentNumber>
+    </FluentNumberInput>
 
-    <FluentNumber TValue="int"
+    <FluentNumberInput TValue="int"
                   Label="@($"Temperature = {Temperature} °C")"
-                  StepButtons="NumberStepVisibility.Visible"
+                  StepButtons="NumberInputStepVisibility.Visible"
                   Min="-50"
                   Max="50"
                   @bind-Value="@Temperature">
         <EndTemplate>
             <FluentText>°C</FluentText>
         </EndTemplate>
-    </FluentNumber>
+    </FluentNumberInput>
 </FluentStack>
 
 @code

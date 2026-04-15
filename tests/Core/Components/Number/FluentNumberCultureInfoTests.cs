@@ -13,7 +13,7 @@ public class FluentNumberCultureInfoTests
     public void Invariant_HasDefaultSettings()
     {
         // Arrange & Act
-        var culture = FluentNumberCultureInfo.Invariant;
+        var culture = FluentNumberInputCultureInfo.Invariant;
 
         // Assert
         Assert.Equal(2, culture.NumberFormat.NumberDecimalDigits);
@@ -27,7 +27,7 @@ public class FluentNumberCultureInfoTests
     public void Constructor_Default_UsesCurrentCultureDecimalSeparator()
     {
         // Arrange & Act
-        var culture = new FluentNumberCultureInfo();
+        var culture = new FluentNumberInputCultureInfo();
 
         // Assert
         var expectedSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
@@ -42,7 +42,7 @@ public class FluentNumberCultureInfoTests
     public void Constructor_WithDecimalDigits_UsesCurrentCultureDecimalSeparator()
     {
         // Arrange & Act
-        var culture = new FluentNumberCultureInfo(4);
+        var culture = new FluentNumberInputCultureInfo(4);
 
         // Assert
         var expectedSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
@@ -55,7 +55,7 @@ public class FluentNumberCultureInfoTests
     public void Constructor_WithDecimalDigitsAndSeparator_UsesEmptyGroupSeparator()
     {
         // Arrange & Act
-        var culture = new FluentNumberCultureInfo(3, ",");
+        var culture = new FluentNumberInputCultureInfo(3, ",");
 
         // Assert
         Assert.Equal(3, culture.NumberFormat.NumberDecimalDigits);
@@ -67,7 +67,7 @@ public class FluentNumberCultureInfoTests
     public void Constructor_WithAllParameters()
     {
         // Arrange & Act
-        var culture = new FluentNumberCultureInfo(5, ".", " ");
+        var culture = new FluentNumberInputCultureInfo(5, ".", " ");
 
         // Assert
         Assert.Equal(5, culture.NumberFormat.NumberDecimalDigits);
@@ -84,7 +84,7 @@ public class FluentNumberCultureInfoTests
     public void Constructor_VariousDecimalDigits(int decimalDigits)
     {
         // Arrange & Act
-        var culture = new FluentNumberCultureInfo(decimalDigits);
+        var culture = new FluentNumberInputCultureInfo(decimalDigits);
 
         // Assert
         Assert.Equal(decimalDigits, culture.NumberFormat.NumberDecimalDigits);
@@ -94,7 +94,7 @@ public class FluentNumberCultureInfoTests
     public void IsInstanceOfCultureInfo()
     {
         // Arrange & Act
-        var culture = new FluentNumberCultureInfo();
+        var culture = new FluentNumberInputCultureInfo();
 
         // Assert
         Assert.IsAssignableFrom<CultureInfo>(culture);

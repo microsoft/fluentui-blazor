@@ -7,22 +7,22 @@ using System.Globalization;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// A custom CultureInfo class for FluentNumber component to allow dynamic culture settings without affecting the global culture.
+/// A custom CultureInfo class for FluentNumberInput component to allow dynamic culture settings without affecting the global culture.
 /// </summary>
-public class FluentNumberCultureInfo : CultureInfo
+public class FluentNumberInputCultureInfo : CultureInfo
 {
     /// <summary>
     /// A static instance of FluentNumberCultureInfo with default settings (2 decimal digits, 
     /// "." as decimal separator, and no group separator).
     /// </summary>
-    public static readonly FluentNumberCultureInfo Invariant = new(2, ".", "");
+    public static readonly FluentNumberInputCultureInfo Invariant = new(2, ".", "");
 
     /// <summary>
     /// Initializes a new instance of the FluentNumberCultureInfo class with default settings 
     /// (2 decimal digits, CurrentCulture.NumberFormat.NumberDecimalSeparator as decimal separator, 
     /// and no group separator).
     /// </summary>
-    public FluentNumberCultureInfo() : this(2, CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, "")
+    public FluentNumberInputCultureInfo() : this(2, CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, "")
     {
     }
 
@@ -32,7 +32,7 @@ public class FluentNumberCultureInfo : CultureInfo
     /// (CurrentCulture.NumberFormat.NumberDecimalSeparator) and no group separator.
     /// </summary>
     /// <param name="decimalDigits">The number of decimal digits to use.</param>
-    public FluentNumberCultureInfo(int decimalDigits) : this(decimalDigits, CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, "")
+    public FluentNumberInputCultureInfo(int decimalDigits) : this(decimalDigits, CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, "")
     {
     }
 
@@ -41,7 +41,7 @@ public class FluentNumberCultureInfo : CultureInfo
     /// </summary>
     /// <param name="decimalDigits">The number of decimal digits to use.</param>
     /// <param name="decimalSeparator">The character to use as the decimal separator.</param>
-    public FluentNumberCultureInfo(int decimalDigits, string decimalSeparator) : this(decimalDigits, decimalSeparator, "")
+    public FluentNumberInputCultureInfo(int decimalDigits, string decimalSeparator) : this(decimalDigits, decimalSeparator, "")
     {
     }
 
@@ -51,7 +51,7 @@ public class FluentNumberCultureInfo : CultureInfo
     /// <param name="decimalDigits">The number of decimal digits to use.</param>
     /// <param name="decimalSeparator">The character to use as the decimal separator.</param>
     /// <param name="groupSeparator">The character to use as the group separator.</param>
-    public FluentNumberCultureInfo(int decimalDigits, string decimalSeparator, string groupSeparator) : base("")
+    public FluentNumberInputCultureInfo(int decimalDigits, string decimalSeparator, string groupSeparator) : base("")
     {
         Name = "fuib";
         DisplayName = "FluentUI";

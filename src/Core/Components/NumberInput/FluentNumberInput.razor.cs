@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A numeric input component that allows users to enter and edit numeric values.
 /// </summary>
-public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent
+public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent
 {
     private static readonly Dictionary<Type, (object Zero, object Min, object Max, object Step)> TypeDefaults = new()
     {
@@ -35,9 +35,9 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
     private readonly TValue ZeroValue;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FluentNumber{TValue}"/> class.
+    /// Initializes a new instance of the <see cref="FluentNumberInput{TValue}"/> class.
     /// </summary>
-    public FluentNumber(LibraryConfiguration configuration) : base(configuration)
+    public FluentNumberInput(LibraryConfiguration configuration) : base(configuration)
     {
         if (!TypeDefaults.TryGetValue(UnderlyingType, out var defaults))
         {
@@ -122,11 +122,11 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
 
     /// <summary>
     /// Gets or sets the culture of the component.
-    /// By default <see cref="FluentNumberCultureInfo"/> to display using a consistent culture independent of the OS culture
+    /// By default <see cref="FluentNumberInputCultureInfo"/> to display using a consistent culture independent of the OS culture
     /// (2 decimal digits, CurrentCulture.NumberFormat.NumberDecimalSeparator as decimal separator, and no group separator).
     /// </summary>
     [Parameter]
-    public virtual CultureInfo Culture { get; set; } = new FluentNumberCultureInfo();
+    public virtual CultureInfo Culture { get; set; } = new FluentNumberInputCultureInfo();
 
     /// <summary>
     /// Gets or sets the minimum allowed value.
@@ -149,10 +149,10 @@ public partial class FluentNumber<TValue> : FluentInputImmediateBase<TValue>, IF
 
     /// <summary>
     /// Gets or sets the visibility behavior of the step buttons (up/down arrows).
-    /// Defaults to <see cref="NumberStepVisibility.Auto"/>.
+    /// Defaults to <see cref="NumberInputStepVisibility.Auto"/>.
     /// </summary>
     [Parameter]
-    public NumberStepVisibility StepButtons { get; set; } = NumberStepVisibility.Auto;
+    public NumberInputStepVisibility StepButtons { get; set; } = NumberInputStepVisibility.Auto;
 
     /// <summary>
     /// Gets a value indicating whether the type is a floating-point type (e.g. float, double, decimal)

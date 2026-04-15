@@ -12,7 +12,7 @@
     public void FluentNumber_Default_Integer()
     {        
         // Arrange and Act
-        var cut = Render(@<FluentNumber Label="int" Width="100px" Value="1234" />);
+        var cut = Render(@<FluentNumberInput Label="int" Width="100px" Value="1234" />);
 
         // Assert
         cut.Verify();
@@ -22,7 +22,7 @@
     public void FluentNumber_Default_Double()
     {        
         // Arrange and Act
-        var cut = Render(@<FluentNumber Label="double" Width="100px" Value="1234.56" />);
+        var cut = Render(@<FluentNumberInput Label="double" Width="100px" Value="1234.56" />);
 
         // Assert
         cut.Verify();
@@ -32,7 +32,7 @@
     public void FluentNumber_NoStepButtons()
     {        
         // Arrange and Act
-        var cut = Render(@<FluentNumber Label="int" Width="100px" Value="1234" Step="0" />);
+        var cut = Render(@<FluentNumberInput Label="int" Width="100px" Value="1234" Step="0" />);
 
         // Assert
         cut.Verify();
@@ -42,8 +42,8 @@
     public void FluentNumber_DataType_SByte()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="sbyte" Label="sbyte" />);
-        var instance = cut.FindComponent<FluentNumber<sbyte>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="sbyte" Label="sbyte" />);
+        var instance = cut.FindComponent<FluentNumberInput<sbyte>>().Instance;
 
         // Assert
         Assert.Equal(sbyte.MinValue, instance.Min);
@@ -55,8 +55,8 @@
     public void FluentNumber_DataType_SByteNullable()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="sbyte?" Label="sbyte?" />);
-        var instance = cut.FindComponent<FluentNumber<sbyte?>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="sbyte?" Label="sbyte?" />);
+        var instance = cut.FindComponent<FluentNumberInput<sbyte?>>().Instance;
 
         // Assert
         Assert.Equal(sbyte.MinValue, instance.Min);
@@ -68,8 +68,8 @@
     public void FluentNumber_DataType_Byte()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="byte" Label="byte" />);
-        var instance = cut.FindComponent<FluentNumber<byte>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="byte" Label="byte" />);
+        var instance = cut.FindComponent<FluentNumberInput<byte>>().Instance;
 
         // Assert
         Assert.Equal(byte.MinValue, instance.Min);
@@ -81,8 +81,8 @@
     public void FluentNumber_DataType_ByteNullable()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="byte?" Label="byte?" />);
-        var instance = cut.FindComponent<FluentNumber<byte?>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="byte?" Label="byte?" />);
+        var instance = cut.FindComponent<FluentNumberInput<byte?>>().Instance;
 
         // Assert
         Assert.Equal(byte.MinValue, instance.Min);
@@ -94,8 +94,8 @@
     public void FluentNumber_DataType_Short()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="short" Label="short" />);
-        var instance = cut.FindComponent<FluentNumber<short>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="short" Label="short" />);
+        var instance = cut.FindComponent<FluentNumberInput<short>>().Instance;
 
         // Assert
         Assert.Equal(short.MinValue, instance.Min);
@@ -107,8 +107,8 @@
     public void FluentNumber_DataType_ShortNullable()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="short?" Label="short?" />);
-        var instance = cut.FindComponent<FluentNumber<short?>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="short?" Label="short?" />);
+        var instance = cut.FindComponent<FluentNumberInput<short?>>().Instance;
 
         // Assert
         Assert.Equal(short.MinValue, instance.Min);
@@ -120,8 +120,8 @@
     public void FluentNumber_DataType_UShort()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="ushort" Label="ushort" />);
-        var instance = cut.FindComponent<FluentNumber<ushort>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="ushort" Label="ushort" />);
+        var instance = cut.FindComponent<FluentNumberInput<ushort>>().Instance;
 
         // Assert
         Assert.Equal(ushort.MinValue, instance.Min);
@@ -133,8 +133,8 @@
     public void FluentNumber_DataType_UShortNullable()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="ushort?" Label="ushort?" />);
-        var instance = cut.FindComponent<FluentNumber<ushort?>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="ushort?" Label="ushort?" />);
+        var instance = cut.FindComponent<FluentNumberInput<ushort?>>().Instance;
 
         // Assert
         Assert.Equal(ushort.MinValue, instance.Min);
@@ -146,8 +146,8 @@
     public void FluentNumber_DataType_Int()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="int" Label="int" />);
-        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="int" Label="int" />);
+        var instance = cut.FindComponent<FluentNumberInput<int>>().Instance;
 
         // Assert
         Assert.Equal(int.MinValue, instance.Min);
@@ -159,8 +159,8 @@
     public void FluentNumber_DataType_IntNullable()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="int?" Label="int?" />);
-        var instance = cut.FindComponent<FluentNumber<int?>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="int?" Label="int?" />);
+        var instance = cut.FindComponent<FluentNumberInput<int?>>().Instance;
 
         // Assert
         Assert.Equal(int.MinValue, instance.Min);
@@ -172,8 +172,8 @@
     public void FluentNumber_DataType_UInt()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="uint" Label="uint" />);
-        var instance = cut.FindComponent<FluentNumber<uint>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="uint" Label="uint" />);
+        var instance = cut.FindComponent<FluentNumberInput<uint>>().Instance;
 
         // Assert
         Assert.Equal(uint.MinValue, instance.Min);
@@ -185,8 +185,8 @@
     public void FluentNumber_DataType_UIntNullable()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="uint?" Label="uint?" />);
-        var instance = cut.FindComponent<FluentNumber<uint?>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="uint?" Label="uint?" />);
+        var instance = cut.FindComponent<FluentNumberInput<uint?>>().Instance;
 
         // Assert
         Assert.Equal(uint.MinValue, instance.Min);
@@ -198,8 +198,8 @@
     public void FluentNumber_DataType_Long()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="long" Label="long" />);
-        var instance = cut.FindComponent<FluentNumber<long>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="long" Label="long" />);
+        var instance = cut.FindComponent<FluentNumberInput<long>>().Instance;
 
         // Assert
         Assert.Equal(long.MinValue, instance.Min);
@@ -211,8 +211,8 @@
     public void FluentNumber_DataType_LongNullable()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="long?" Label="long?" />);
-        var instance = cut.FindComponent<FluentNumber<long?>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="long?" Label="long?" />);
+        var instance = cut.FindComponent<FluentNumberInput<long?>>().Instance;
 
         // Assert
         Assert.Equal(long.MinValue, instance.Min);
@@ -224,8 +224,8 @@
     public void FluentNumber_DataType_ULong()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="ulong" Label="ulong" />);
-        var instance = cut.FindComponent<FluentNumber<ulong>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="ulong" Label="ulong" />);
+        var instance = cut.FindComponent<FluentNumberInput<ulong>>().Instance;
 
         // Assert
         Assert.Equal(ulong.MinValue, instance.Min);
@@ -237,8 +237,8 @@
     public void FluentNumber_DataType_ULongNullable()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="ulong?" Label="ulong?" />);
-        var instance = cut.FindComponent<FluentNumber<ulong?>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="ulong?" Label="ulong?" />);
+        var instance = cut.FindComponent<FluentNumberInput<ulong?>>().Instance;
 
         // Assert
         Assert.Equal(ulong.MinValue, instance.Min);
@@ -250,8 +250,8 @@
     public void FluentNumber_DataType_Float()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="float" Label="float" />);
-        var instance = cut.FindComponent<FluentNumber<float>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="float" Label="float" />);
+        var instance = cut.FindComponent<FluentNumberInput<float>>().Instance;
 
         // Assert
         Assert.Equal(float.MinValue, instance.Min);
@@ -263,8 +263,8 @@
     public void FluentNumber_DataType_FloatNullable()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="float?" Label="float?" />);
-        var instance = cut.FindComponent<FluentNumber<float?>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="float?" Label="float?" />);
+        var instance = cut.FindComponent<FluentNumberInput<float?>>().Instance;
 
         // Assert
         Assert.Equal(float.MinValue, instance.Min);
@@ -276,8 +276,8 @@
     public void FluentNumber_DataType_Double()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="double" Label="double" />);
-        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="double" Label="double" />);
+        var instance = cut.FindComponent<FluentNumberInput<double>>().Instance;
 
         // Assert
         Assert.Equal(double.MinValue, instance.Min);
@@ -289,8 +289,8 @@
     public void FluentNumber_DataType_DoubleNullable()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="double?" Label="double?" />);
-        var instance = cut.FindComponent<FluentNumber<double?>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="double?" Label="double?" />);
+        var instance = cut.FindComponent<FluentNumberInput<double?>>().Instance;
 
         // Assert
         Assert.Equal(double.MinValue, instance.Min);
@@ -302,8 +302,8 @@
     public void FluentNumber_DataType_Decimal()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="decimal" Label="decimal" />);
-        var instance = cut.FindComponent<FluentNumber<decimal>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="decimal" Label="decimal" />);
+        var instance = cut.FindComponent<FluentNumberInput<decimal>>().Instance;
 
         // Assert
         Assert.Equal(decimal.MinValue, instance.Min);
@@ -315,8 +315,8 @@
     public void FluentNumber_DataType_DecimalNullable()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="decimal?" Label="decimal?" />);
-        var instance = cut.FindComponent<FluentNumber<decimal?>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="decimal?" Label="decimal?" />);
+        var instance = cut.FindComponent<FluentNumberInput<decimal?>>().Instance;
 
         // Assert
         Assert.Equal(decimal.MinValue, instance.Min);
@@ -330,7 +330,7 @@
         // Arrange and Act & Assert
         Assert.Throws<InvalidOperationException>(() =>
         {
-            Render(@<FluentNumber TValue="string" Label="string" />);
+            Render(@<FluentNumberInput TValue="string" Label="string" />);
         });
     }
 
@@ -342,7 +342,7 @@
     public void FluentNumber_Appearance(TextInputAppearance appearance)
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Appearance="@appearance" />);
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Appearance="@appearance" />);
 
         // Assert
         cut.Verify(suffix: appearance.ToString());
@@ -352,7 +352,7 @@
     public void FluentNumber_Placeholder()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Placeholder="Enter a number" />);
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Placeholder="Enter a number" />);
 
         // Assert
         cut.Verify();
@@ -362,11 +362,11 @@
     public void FluentNumber_StartTemplate()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="int" Label="number">
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number">
             <StartTemplate>
                 <span>$</span>
             </StartTemplate>
-        </FluentNumber>);
+        </FluentNumberInput>);
 
         // Assert
         cut.Verify();
@@ -376,11 +376,11 @@
     public void FluentNumber_EndTemplate()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="int" Label="number">
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number">
             <EndTemplate>
                 <span>USD</span>
             </EndTemplate>
-        </FluentNumber>);
+        </FluentNumberInput>);
 
         // Assert
         cut.Verify();
@@ -390,20 +390,20 @@
     public void FluentNumber_Width()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Width="250px" />);
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Width="250px" />);
 
         // Assert
         cut.Verify();
     }
 
     [Theory]
-    [InlineData(NumberStepVisibility.Visible)]
-    [InlineData(NumberStepVisibility.Hidden)]
-    [InlineData(NumberStepVisibility.Auto)]
-    public void FluentNumber_StepButtons(NumberStepVisibility stepButtons)
+    [InlineData(NumberInputStepVisibility.Visible)]
+    [InlineData(NumberInputStepVisibility.Hidden)]
+    [InlineData(NumberInputStepVisibility.Auto)]
+    public void FluentNumber_StepButtons(NumberInputStepVisibility stepButtons)
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="int" Label="number" StepButtons="@stepButtons" />);
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" StepButtons="@stepButtons" />);
 
         // Assert
         cut.Verify(suffix: stepButtons.ToString());
@@ -413,11 +413,11 @@
     public void FluentNumber_Culture_Default()
     {
         // Arrange and Act
-        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="1234.56" />);
-        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="double" Label="number" Value="1234.56" />);
+        var instance = cut.FindComponent<FluentNumberInput<double>>().Instance;
 
         // Assert - Default culture is FluentNumberCultureInfo
-        Assert.IsType<FluentNumberCultureInfo>(instance.Culture);
+        Assert.IsType<FluentNumberInputCultureInfo>(instance.Culture);
         Assert.Equal(2, instance.Culture.NumberFormat.NumberDecimalDigits);
         Assert.Equal("", instance.Culture.NumberFormat.NumberGroupSeparator);
 
@@ -436,8 +436,8 @@
         var usCulture = new System.Globalization.CultureInfo("en-US");
 
         // Act
-        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="1234.56" Culture="@usCulture" />);
-        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="double" Label="number" Value="1234.56" Culture="@usCulture" />);
+        var instance = cut.FindComponent<FluentNumberInput<double>>().Instance;
 
         // Assert
         Assert.Equal("en-US", instance.Culture.Name);
@@ -456,8 +456,8 @@
         var frCulture = new System.Globalization.CultureInfo("fr-FR");
 
         // Act
-        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="1234.56" Culture="@frCulture" />);
-        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="double" Label="number" Value="1234.56" Culture="@frCulture" />);
+        var instance = cut.FindComponent<FluentNumberInput<double>>().Instance;
 
         // Assert
         Assert.Equal("fr-FR", instance.Culture.Name);
@@ -473,14 +473,14 @@
     public void FluentNumber_Culture_FluentNumberCultureInfo()
     {
         // Arrange
-        var fluentCulture = new FluentNumberCultureInfo(3, ".", ",");
+        var fluentCulture = new FluentNumberInputCultureInfo(3, ".", ",");
 
         // Act
-        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="1234.56" Culture="@fluentCulture" />);
-        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="double" Label="number" Value="1234.56" Culture="@fluentCulture" />);
+        var instance = cut.FindComponent<FluentNumberInput<double>>().Instance;
 
         // Assert
-        Assert.IsType<FluentNumberCultureInfo>(instance.Culture);
+        Assert.IsType<FluentNumberInputCultureInfo>(instance.Culture);
         Assert.Equal(3, instance.Culture.NumberFormat.NumberDecimalDigits);
         Assert.Equal(".", instance.Culture.NumberFormat.NumberDecimalSeparator);
         Assert.Equal(",", instance.Culture.NumberFormat.NumberGroupSeparator);
@@ -496,7 +496,7 @@
         var usCulture = new System.Globalization.CultureInfo("en-US");
 
         // Act
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="1234567" Culture="@usCulture" />);
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Value="1234567" Culture="@usCulture" />);
 
         // Assert
         var input = cut.Find("fluent-text-input");
@@ -510,7 +510,7 @@
         var frCulture = new System.Globalization.CultureInfo("fr-FR");
 
         // Act
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="1234567" Culture="@frCulture" />);
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Value="1234567" Culture="@frCulture" />);
 
         // Assert
         var input = cut.Find("fluent-text-input");
@@ -524,8 +524,8 @@
     public void FluentNumber_IncrementValue()
     {
         // Arrange
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="10" />);
-        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Value="10" />);
+        var instance = cut.FindComponent<FluentNumberInput<int>>().Instance;
 
         // Act - Click the ChevronUp icon
         cut.Find("[button-step='up'] svg").Click();
@@ -538,8 +538,8 @@
     public void FluentNumber_IncrementValue_Double_RoundIfDecimal()
     {
         // Arrange - Use 0.1 + 0.2 scenario that causes floating-point imprecision
-        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="0.1" Step="0.2" />);
-        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="double" Label="number" Value="0.1" Step="0.2" />);
+        var instance = cut.FindComponent<FluentNumberInput<double>>().Instance;
 
         // Act - Click the ChevronUp icon (0.1 + 0.2 would be 0.30000000000000004 without rounding)
         cut.Find("[button-step='up'] svg").Click();
@@ -552,8 +552,8 @@
     public void FluentNumber_DecrementValue_Double_RoundIfDecimal()
     {
         // Arrange - Use 0.3 - 0.1 scenario that causes floating-point imprecision
-        var cut = Render(@<FluentNumber TValue="double" Label="number" Value="0.3" Step="0.1" />);
-        var instance = cut.FindComponent<FluentNumber<double>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="double" Label="number" Value="0.3" Step="0.1" />);
+        var instance = cut.FindComponent<FluentNumberInput<double>>().Instance;
 
         // Act - Click the ChevronDown icon (0.3 - 0.1 would be 0.19999999999999998 without rounding)
         cut.Find("[button-step='down'] svg").Click();
@@ -566,8 +566,8 @@
     public void FluentNumber_IncrementValue_Disabled()
     {
         // Arrange
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="10" Disabled="true" />);
-        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Value="10" Disabled="true" />);
+        var instance = cut.FindComponent<FluentNumberInput<int>>().Instance;
 
         // Act - Click the ChevronUp icon
         cut.Find("[button-step='up'] svg").Click();
@@ -580,8 +580,8 @@
     public void FluentNumber_IncrementValue_ReadOnly()
     {
         // Arrange
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="10" ReadOnly="true" />);
-        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Value="10" ReadOnly="true" />);
+        var instance = cut.FindComponent<FluentNumberInput<int>>().Instance;
 
         // Act - Click the ChevronUp icon
         cut.Find("[button-step='up'] svg").Click();
@@ -594,8 +594,8 @@
     public void FluentNumber_IncrementValue_MaxReached()
     {
         // Arrange
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="99" Max="100" />);
-        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Value="99" Max="100" />);
+        var instance = cut.FindComponent<FluentNumberInput<int>>().Instance;
 
         // Act - Click the ChevronUp icon twice
         cut.Find("[button-step='up'] svg").Click();
@@ -609,8 +609,8 @@
     public void FluentNumber_DecrementValue()
     {
         // Arrange
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="10" />);
-        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Value="10" />);
+        var instance = cut.FindComponent<FluentNumberInput<int>>().Instance;
 
         // Act - Click the ChevronDown icon
         cut.Find("[button-step='down'] svg").Click();
@@ -623,8 +623,8 @@
     public void FluentNumber_DecrementValue_Disabled()
     {
         // Arrange
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="10" Disabled="true" />);
-        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Value="10" Disabled="true" />);
+        var instance = cut.FindComponent<FluentNumberInput<int>>().Instance;
 
         // Act - Click the ChevronDown icon
         cut.Find("[button-step='down'] svg").Click();
@@ -637,8 +637,8 @@
     public void FluentNumber_DecrementValue_ReadOnly()
     {
         // Arrange
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="10" ReadOnly="true" />);
-        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Value="10" ReadOnly="true" />);
+        var instance = cut.FindComponent<FluentNumberInput<int>>().Instance;
 
         // Act - Click the ChevronDown icon
         cut.Find("[button-step='down'] svg").Click();
@@ -651,8 +651,8 @@
     public void FluentNumber_DecrementValue_MinReached()
     {
         // Arrange
-        var cut = Render(@<FluentNumber TValue="int" Label="number" Value="1" Min="0" />);
-        var instance = cut.FindComponent<FluentNumber<int>>().Instance;
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" Value="1" Min="0" />);
+        var instance = cut.FindComponent<FluentNumberInput<int>>().Instance;
 
         // Act - Click the ChevronDown icon twice
         cut.Find("[button-step='down'] svg").Click();
@@ -667,7 +667,7 @@
     {
         // Arrange
         int value = 10;
-        var cut = Render(@<FluentNumber TValue="int" Label="number" @bind-Value="@value" />);
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" @bind-Value="@value" />);
 
         // Act - User types a new value
         cut.Find("fluent-text-input").Change("42");
@@ -681,7 +681,7 @@
     {
         // Arrange
         int? value = 10;
-        var cut = Render(@<FluentNumber TValue="int?" Label="number" @bind-Value="@value" />);
+        var cut = Render(@<FluentNumberInput TValue="int?" Label="number" @bind-Value="@value" />);
 
         // Act - User types a new value
         cut.Find("fluent-text-input").Change("42");
@@ -695,7 +695,7 @@
     {
         // Arrange
         int? value = 10;
-        var cut = Render(@<FluentNumber TValue="int?" Label="number" @bind-Value="@value" />);
+        var cut = Render(@<FluentNumberInput TValue="int?" Label="number" @bind-Value="@value" />);
 
         // Act - User clears the input
         cut.Find("fluent-text-input").Change("");
@@ -709,7 +709,7 @@
     {
         // Arrange
         int value = 10;
-        var cut = Render(@<FluentNumber TValue="int" Label="number" @bind-Value="@value" />);
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" @bind-Value="@value" />);
 
         // Act - User deletes the value
         cut.Find("fluent-text-input").Change("");
@@ -723,7 +723,7 @@
     {
         // Arrange
         int? value = 10;
-        var cut = Render(@<FluentNumber TValue="int?" Label="number" @bind-Value="@value" />);
+        var cut = Render(@<FluentNumberInput TValue="int?" Label="number" @bind-Value="@value" />);
 
         // Act - User deletes the value
         cut.Find("fluent-text-input").Change("");
@@ -739,7 +739,7 @@
     {
         // Arrange
         int value = 10;
-        var cut = Render(@<FluentNumber TValue="int" Label="number" @bind-Value="@value" Max="100" />);
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" @bind-Value="@value" Max="100" />);
 
         // Act - User types a value greater than Max
         cut.Find("fluent-text-input").Change("999");
@@ -753,7 +753,7 @@
     {
         // Arrange
         int value = 50;
-        var cut = Render(@<FluentNumber TValue="int" Label="number" @bind-Value="@value" Min="10" />);
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" @bind-Value="@value" Min="10" />);
 
         // Act - User types a value less than Min
         cut.Find("fluent-text-input").Change("5");

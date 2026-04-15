@@ -6,14 +6,14 @@ icon: NumberSymbol
 
 # Number
 
-The **FluentNumber** component enables a user to enter and edit numeric values.
+The **FluentNumberInput** component enables a user to enter and edit numeric values.
 It supports both integer and decimal numbers, with configurable `Min`, `Max`, and `Step` constraints.
 
 **Value** can be one of the following **Numeric Types**:
 `byte`, `sbyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `float`, `double`, `decimal` (including nullable versions).
 
 Use the `StepButtons` parameter to control the visibility of the up/down step buttons.
-It accepts a `NumberStepVisibility` value:
+It accepts a `NumberInputStepVisibility` value:
 - **Visible**: The step buttons are always visible.
 - **Hidden**: The step buttons are always hidden.
 - **Auto** *(default)*: The step buttons are shown only when the user hovers over the input or when it has focus.
@@ -33,7 +33,7 @@ For **decimal** types (`float`, `double`, `decimal`), set the `Step` parameter t
 
 Use the `Culture` parameter to control how numbers are formatted and parsed, including the decimal separator, group separator, and number of decimal digits. By default, the component uses the `FluentNumberCultureInfo` class (dot `.` as decimal separator). You can pass any `CultureInfo` instance (e.g. `fr`, `de`, `ja`) to match the user's locale.
 
-The `FluentNumber` component always uses the **invariant culture** (dot `.` as decimal separator)
+The `FluentNumberInput` component always uses the **invariant culture** (dot `.` as decimal separator)
 for internal value. This matches the HTML standard: `<input type="number">`
 
 This means:
@@ -43,7 +43,7 @@ This means:
 {{ NumberCulture }}
 
 **[!NOTE]** Unlike the native `<input type="number">`, which always submits values using the invariant culture (dot `.` as decimal separator) 
-inside a `<form>`, the `FluentNumber` component submits the value **formatted according to the specified `Culture`**. 
+inside a `<form>`, the `FluentNumberInput` component submits the value **formatted according to the specified `Culture`**. 
 For example, with a French culture (`fr`), a form submission will send `1,5` instead of `1.5`.
 Keep this in mind when processing form data on the server side.
 
@@ -70,6 +70,6 @@ When using the up/down buttons or arrow keys, the value is always updated immedi
 
 {{ NumberInputImmediate }}
 
-## API FluentNumber
+## API FluentNumberInput
 
-{{ API Type=FluentNumber<int> }}
+{{ API Type=FluentNumberInput<int> }}

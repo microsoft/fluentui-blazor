@@ -1,14 +1,14 @@
 ﻿@using System.Globalization
 
 <FluentStack HorizontalGap="20px">
-    <FluentNumber TValue="int"
+    <FluentNumberInput TValue="int"
                   Culture="@SelectedCulture"
                   Label="Integer"
                   Message="@($"Value: {ValueInt}")"
                   MessageCondition="@(e => true)"
                   @bind-Value="@ValueInt" />
 
-    <FluentNumber TValue="double"
+    <FluentNumberInput TValue="double"
                   Culture="@SelectedCulture"
                   Label="Decimal"
                   Step="0.1"
@@ -27,7 +27,7 @@
 @code
 {
     static CultureInfo[] AllCultures = [
-        new FluentNumberCultureInfo(),
+        new FluentNumberInputCultureInfo(),
         new CultureInfo("fr"),
         new CultureInfo("en"),
         new CultureInfo("de"),

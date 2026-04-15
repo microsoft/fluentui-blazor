@@ -5,9 +5,9 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Defines the visibility behavior of the step buttons in the <see cref="FluentNumber{TValue}" /> component.
+/// Defines the visibility behavior of the step buttons in the <see cref="FluentNumberInput{TValue}" /> component.
 /// </summary>
-public enum NumberStepVisibility
+public enum NumberInputStepVisibility
 {
     /// <summary>
     /// The step buttons are always visible.

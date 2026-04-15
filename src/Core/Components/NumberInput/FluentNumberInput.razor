@@ -39,9 +39,9 @@
                 @EndTemplate
             }
             
-            @if (StepButtons != NumberStepVisibility.Hidden && IsNotEquals(Step, ZeroValue))
+            @if (StepButtons != NumberInputStepVisibility.Hidden && IsNotEquals(Step, ZeroValue))
             {
-                <div auto-hide="@(StepButtons == NumberStepVisibility.Auto ? "true" : null)">
+                <div auto-hide="@(StepButtons == NumberInputStepVisibility.Auto ? "true" : null)">
                     <div button-step="up">
                         <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronUp())"
                                     OnClick="@IncrementValue"

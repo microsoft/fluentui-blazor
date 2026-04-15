@@ -1,19 +1,19 @@
 <FluentStack HorizontalGap="10px"
              Wrap="true">
-    <FluentNumber Label="int"
+    <FluentNumberInput Label="int"
                   Width="100px"
                   Message="@($"Value: {ValueInt}")"
                   MessageCondition="@(e => true)"
                   @bind-Value="@ValueInt" />
 
-    <FluentNumber Label="long"
+    <FluentNumberInput Label="long"
                   Width="100px"
                   Placeholder="Long"
                   Message="@($"Value: {ValueLong}")"
                   MessageCondition="@(e => true)"
                   @bind-Value="@ValueLong" />
 
-    <FluentNumber Label="float"
+    <FluentNumberInput Label="float"
                   Width="100px"
                   Placeholder="Float"
                   Step="0.1f"
@@ -21,14 +21,14 @@
                   MessageCondition="@(e => true)"
                   @bind-Value="@ValueFloat" />
 
-    <FluentNumber Label="double"
+    <FluentNumberInput Label="double"
                   Width="100px"
                   Step="0.01d"
                   Message="@($"Value: {ValueDouble}")"
                   MessageCondition="@(e => true)"
                   @bind-Value="@ValueDouble" />
 
-    <FluentNumber Label="decimal"
+    <FluentNumberInput Label="decimal"
                   Width="100px"
                   Step="0.01m"
                   Message="@($"Value: {ValueDecimal}")"
