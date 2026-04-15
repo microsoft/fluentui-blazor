@@ -15,6 +15,8 @@ You can control this behavior by providing the `OptionSelectedComparer` paramete
 
 > **Note:** Accessibility requirements are not yet implemented for this component.
 
+> **Note:** For more information about placeholders and autofill, see this <a href="/TextInput#placeholders-and-autofill">important information</a>
+
 ## Keyboard interaction
 
 | Key | Behavior |
