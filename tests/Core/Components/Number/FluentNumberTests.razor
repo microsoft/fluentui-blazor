@@ -22,7 +22,7 @@
     public void FluentNumber_Default_Double()
     {        
         // Arrange and Act
-        var cut = Render(@<FluentNumberInput Label="double" Width="100px" Value="1234.56" />);
+        var cut = Render(@<FluentNumberInput Label="double" Width="100px" Value="1234.56" Culture="@(new System.Globalization.CultureInfo("en-US"))" />);
 
         // Assert
         cut.Verify();
