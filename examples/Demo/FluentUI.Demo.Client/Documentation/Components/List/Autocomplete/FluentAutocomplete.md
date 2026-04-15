@@ -43,6 +43,9 @@ In this mode, the selected value replaces the input text and no tags are display
 
 {{ AutocompleteMultipleFalse }}
 
+**Note**: The `Value` property is updated when a user selects an option from the list, but not through code.
+To update the `Value` property from code, you must modify the `SelectedItems` or `SelectedItem` parameters.
+ 
 ## Customized options
 
 Demonstrates advanced features: a custom `OptionTemplate` to render each option with a flag, a progress indicator during async search, 
