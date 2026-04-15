@@ -1,22 +1,20 @@
-﻿<div style="overflow-x: auto;">
-    <FluentDataGrid Items="@employees"
-
+﻿    <FluentDataGrid Items="@employees"
+                    Style="min-width: max-content;"
                     HeaderCellAsButtonWithMenu="true"
-                    ResizableColumns="true"
-                    ResizeType="DataGridResizeType.Discrete"
-                    DisplayMode="DataGridDisplayMode.Grid">
-        <PropertyColumn Title="ID" Property="@(e => e.Id)" Width="100px" Pin="DataGridColumnPin.Start"  Sortable="true" />
-        <PropertyColumn Title="Full Name" Property="@(e => e.FullName)" Width="160px" Pin="DataGridColumnPin.Start"  Sortable="true" />
+                    ReorderableColumns="true"
+                    DisplayMode="DataGridDisplayMode.Table">
+        <PropertyColumn Title="ID" Property="@(e => e.Id)" Width="10%" Pin="DataGridColumnPin.Start" Sortable="true" />
+        <PropertyColumn Title="Full Name" Property="@(e => e.FullName)" Sortable="true" />
         <PropertyColumn Title="Department" Property="@(e => e.Department)" Sortable="true" />
         <PropertyColumn Title="Location" Property="@(e => e.Location)" Sortable="true" />
         <PropertyColumn Title="Start Date" Property="@(e => e.StartDate)" Sortable="true" />
-        <PropertyColumn Title="Salary" Property="@(e => e.Salary)" Width="120px" Sortable="true" Align="DataGridCellAlignment.End" Pin="DataGridColumnPin.End" />
-        <TemplateColumn Title="Actions" Width="120px" Pin="DataGridColumnPin.End">
-            <FluentButton IconStart="@(new Icons.Regular.Size16.Edit())"   Appearance="ButtonAppearance.Subtle" Title="Edit" @onclick="@(() => selectedName = context.FullName + " (edit)")"   />
+        <PropertyColumn Title="Salary" Property="@(e => e.Salary)" Width="120px" Sortable="true" Align="DataGridCellAlignment.End" />
+        <TemplateColumn Title="Actions">
+            <FluentButton IconStart="@(new Icons.Regular.Size16.Edit())" Appearance="ButtonAppearance.Subtle" Title="Edit" @onclick="@(() => selectedName = context.FullName + " (edit)")" />
             <FluentButton IconStart="@(new Icons.Regular.Size16.Delete())" Appearance="ButtonAppearance.Subtle" Title="Delete" @onclick="@(() => selectedName = context.FullName + " (delete)")" />
         </TemplateColumn>
     </FluentDataGrid>
-</div>
+
 
 @if (!string.IsNullOrEmpty(selectedName))
 {
