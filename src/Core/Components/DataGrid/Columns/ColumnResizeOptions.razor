@@ -14,7 +14,7 @@
 }
 else
 {
-    <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.End" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="4">
+    <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.End" VerticalAlignment="VerticalAlignment.Bottom" HorizontalGap="4">
         <FluentTextInput Id="width"
                          @bind-Value="@_width"
                          Style="width: 100%;"
@@ -24,11 +24,12 @@ else
                          Label="@Localizer[Localization.LanguageResource.DataGrid_ResizeExact]"
                          AutoComplete="off"
                          Autofocus="true"
-                         @onkeydown="@HandleColumnWidthKeyDownAsync" />
-        <div style="display: flex; flex-direction: row; gap: 2px; margin-top: 20px;">
-            <FluentButton OnClick="@HandleColumnWidthAsync" IconStart="@(new CoreIcons.Regular.Size20.Checkmark())" Appearance="@ButtonAppearance.Primary" aria-label="@Localizer[Localization.LanguageResource.DataGrid_ResizeSubmit]" />
-            <FluentButton OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@Localizer[Localization.LanguageResource.DataGrid_ResizeReset]" />
-        </div>
+                         @onkeydown="@HandleColumnWidthKeyDownAsync">
+            <EndTemplate>
+                <FluentButton Size="ButtonSize.Small" OnClick="@HandleColumnWidthAsync" IconStart="@(new CoreIcons.Regular.Size20.Checkmark())" Appearance="@ButtonAppearance.Subtle" aria-label="@Localizer[Localization.LanguageResource.DataGrid_ResizeSubmit]" />
+                <FluentButton Size="ButtonSize.Small" OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" Appearance="@ButtonAppearance.Subtle" aria-label="@Localizer[Localization.LanguageResource.DataGrid_ResizeReset]" />
+            </EndTemplate>
+        </FluentTextInput>
     </FluentStack>
 }
 
