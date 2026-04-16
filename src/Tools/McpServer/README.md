@@ -399,7 +399,7 @@ Enable sandboxing by adding `"sandboxEnabled": true` to your server entry in `.v
 ```
 
 > [!NOTE]
-> When sandboxing is enabled, VS Code automatically approves tool confirmations because the server runs in a controlled environment.
+> When sandboxing is enabled, tool confirmation behavior may differ because the server runs in a controlled environment. Refer to the VS Code MCP sandbox documentation below for the current behavior and configuration details.
 
 For a full reference of sandbox properties (`filesystem.allowWrite`, `filesystem.denyRead`, `network.allowedDomains`, and more), see the [VS Code MCP Sandbox Configuration](https://code.visualstudio.com/docs/copilot/reference/mcp-configuration#_sandbox-configuration) documentation.
 
