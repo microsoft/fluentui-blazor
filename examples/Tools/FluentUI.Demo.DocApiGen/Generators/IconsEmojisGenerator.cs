@@ -2,9 +2,9 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Reflection;
 using System.Text.Json;
 using FluentUI.Demo.DocApiGen.Abstractions;
+using FluentUI.Demo.DocApiGen.Models;
 
 namespace FluentUI.Demo.DocApiGen.Generators;
 
@@ -18,11 +18,10 @@ public sealed class IconsEmojisGenerator : DocumentationGeneratorBase
     /// <summary>
     /// Initializes a new instance of the <see cref="IconsEmojisGenerator"/> class.
     /// </summary>
-    /// <param name="assembly">The assembly to generate documentation for.</param>
-    /// <param name="xmlDocumentation">The XML documentation file.</param>
+    /// <param name="inputs">The documentation inputs to generate documentation for.</param>
     /// <param name="mode">The generation mode (Icons or Emojis).</param>
-    public IconsEmojisGenerator(Assembly assembly, FileInfo xmlDocumentation, GenerationMode mode)
-        : base(assembly, xmlDocumentation)
+    public IconsEmojisGenerator(IReadOnlyList<DocumentationInput> inputs, GenerationMode mode)
+        : base(inputs)
     {
         _mode = mode;
     }

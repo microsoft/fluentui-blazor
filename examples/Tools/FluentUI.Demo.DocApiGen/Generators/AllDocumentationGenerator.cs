@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Reflection;
 using FluentUI.Demo.DocApiGen.Abstractions;
 using FluentUI.Demo.DocApiGen.Extensions;
+using FluentUI.Demo.DocApiGen.Models;
 using FluentUI.Demo.DocApiGen.Models.AllMode;
 using FluentUI.Demo.DocApiGen.Models.SummaryMode;
 
@@ -17,17 +18,16 @@ namespace FluentUI.Demo.DocApiGen.Generators;
 /// </summary>
 public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
 {
-    private readonly LoxSmoke.DocXml.DocXmlReader _docXmlReader;
+    private readonly DocumentationCommentProvider _commentProvider;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AllDocumentationGenerator"/> class.
     /// </summary>
-    /// <param name="assembly">The assembly to generate documentation for.</param>
-    /// <param name="xmlDocumentation">The XML documentation file.</param>
-    public AllDocumentationGenerator(Assembly assembly, FileInfo xmlDocumentation)
-        : base(assembly, xmlDocumentation)
+    /// <param name="inputs">The documentation inputs to generate documentation for.</param>
+    public AllDocumentationGenerator(IReadOnlyList<DocumentationInput> inputs)
+        : base(inputs)
     {
-        _docXmlReader = new LoxSmoke.DocXml.DocXmlReader(xmlDocumentation.FullName);
+        _commentProvider = new DocumentationCommentProvider(inputs);
     }
 
     /// <inheritdoc/>
@@ -57,8 +57,9 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
         var components = new List<ComponentInfo>();
         var enums = new List<EnumInfo>();
 
-        var validTypes = Assembly.GetTypes().Where(IsValidComponentType).ToList();
-        var enumTypes = Assembly.GetTypes().Where(t => t.IsEnum && t.IsPublic).ToList();
+        var allTypes = Inputs.SelectMany(input => input.Assembly.GetTypes()).ToList();
+        var validTypes = allTypes.Where(IsValidComponentType).ToList();
+        var enumTypes = allTypes.Where(t => t.IsEnum && t.IsPublic).ToList();
 
         Console.WriteLine($"Processing {validTypes.Count} components and {enumTypes.Count} enums...");
 
@@ -112,7 +113,7 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
     {
         try
         {
-            var options = new ApiClassOptions(Assembly, _docXmlReader)
+            var options = new ApiClassOptions(type.Assembly, _commentProvider)
             {
                 Mode = GenerationMode.All
             };
@@ -211,7 +212,7 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
             var name = names[i];
             var value = Convert.ToInt32(enumValues.GetValue(i), CultureInfo.InvariantCulture);
             var field = type.GetField(name);
-            var description = field != null ? _docXmlReader.GetMemberSummary(field) : string.Empty;
+            var description = field != null ? _commentProvider.GetMemberSummary(field) : string.Empty;
 
             values.Add(new EnumValueInfo
             {
@@ -221,7 +222,7 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
             });
         }
 
-        var enumDescription = _docXmlReader.GetComponentSummary(type);
+        var enumDescription = _commentProvider.GetComponentSummary(type);
 
         return new EnumInfo
         {
@@ -314,7 +315,7 @@ public sealed class AllDocumentationGenerator : DocumentationGeneratorBase
     {
         var version = "Unknown";
 
-        var versionAttribute = Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+        var versionAttribute = PrimaryAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
         if (versionAttribute != null)
         {
             var versionString = versionAttribute.InformationalVersion;

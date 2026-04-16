@@ -3,6 +3,8 @@
 // ------------------------------------------------------------------------
 
 using Xunit;
+using System.Reflection;
+using FluentUI.Demo.DocApiGen.Models;
 using FluentUI.Demo.DocApiGen.Models.SummaryMode;
 using Microsoft.AspNetCore.Components;
 
@@ -21,8 +23,8 @@ public class ApiClassPerformanceTests
     {
         // Arrange
         var assembly = typeof(TestAbstractClass).Assembly;
-        var docReader = CreateMockDocReader();
-        var options = new ApiClassOptions(assembly, docReader);
+        var commentProvider = CreateMockCommentProvider(assembly);
+        var options = new ApiClassOptions(assembly, commentProvider);
 
         // Act
         var exception = Record.Exception(() =>
@@ -43,8 +45,8 @@ public class ApiClassPerformanceTests
     {
         // Arrange
         var assembly = typeof(ITestInterface).Assembly;
-        var docReader = CreateMockDocReader();
-        var options = new ApiClassOptions(assembly, docReader);
+        var commentProvider = CreateMockCommentProvider(assembly);
+        var options = new ApiClassOptions(assembly, commentProvider);
 
         // Act
         var exception = Record.Exception(() =>
@@ -65,8 +67,8 @@ public class ApiClassPerformanceTests
     {
         // Arrange
         var assembly = typeof(TestClassWithComplexConstructor).Assembly;
-        var docReader = CreateMockDocReader();
-        var options = new ApiClassOptions(assembly, docReader);
+        var commentProvider = CreateMockCommentProvider(assembly);
+        var options = new ApiClassOptions(assembly, commentProvider);
 
         // Act
         var exception = Record.Exception(() =>
@@ -87,8 +89,8 @@ public class ApiClassPerformanceTests
     {
         // Arrange
         var assembly = typeof(TestConcreteClass).Assembly;
-        var docReader = CreateMockDocReader();
-        var options = new ApiClassOptions(assembly, docReader);
+        var commentProvider = CreateMockCommentProvider(assembly);
+        var options = new ApiClassOptions(assembly, commentProvider);
 
         // Act
         var apiClass = new ApiClass(typeof(TestConcreteClass), options);
@@ -108,8 +110,8 @@ public class ApiClassPerformanceTests
     {
         // Arrange
         var assembly = typeof(TestAbstractClass).Assembly;
-        var docReader = CreateMockDocReader();
-        var options = new ApiClassOptions(assembly, docReader);
+        var commentProvider = CreateMockCommentProvider(assembly);
+        var options = new ApiClassOptions(assembly, commentProvider);
 
         var types = new[]
         {
@@ -143,9 +145,9 @@ public class ApiClassPerformanceTests
     }
 
     /// <summary>
-    /// Creates a mock DocXmlReader for testing.
+    /// Creates a mock documentation comment provider for testing.
     /// </summary>
-    private static LoxSmoke.DocXml.DocXmlReader CreateMockDocReader()
+    private static DocumentationCommentProvider CreateMockCommentProvider(Assembly assembly)
     {
         // Create a minimal XML documentation file for testing
         var xmlContent = @"<?xml version=""1.0""?>
@@ -160,7 +162,7 @@ public class ApiClassPerformanceTests
         var tempFile = Path.GetTempFileName();
         File.WriteAllText(tempFile, xmlContent);
         
-        return new LoxSmoke.DocXml.DocXmlReader(tempFile);
+        return new DocumentationCommentProvider([new DocumentationInput(assembly, new FileInfo(tempFile))]);
     }
 
     #region Test Types

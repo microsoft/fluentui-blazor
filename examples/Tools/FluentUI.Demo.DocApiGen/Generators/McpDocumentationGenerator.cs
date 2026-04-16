@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 using FluentUI.Demo.DocApiGen.Abstractions;
-using FluentUI.Demo.DocApiGen.Extensions;
+using FluentUI.Demo.DocApiGen.Models;
 using FluentUI.Demo.DocApiGen.Models.McpMode;
 
 namespace FluentUI.Demo.DocApiGen.Generators;
@@ -17,7 +17,7 @@ namespace FluentUI.Demo.DocApiGen.Generators;
 /// </summary>
 public sealed class McpDocumentationGenerator : DocumentationGeneratorBase
 {
-    private readonly LoxSmoke.DocXml.DocXmlReader _docXmlReader;
+    private readonly DocumentationCommentProvider _commentProvider;
 
     // MCP attribute type names (we check by name to avoid assembly dependency)
     private const string McpServerToolTypeAttribute = "McpServerToolTypeAttribute";
@@ -30,12 +30,11 @@ public sealed class McpDocumentationGenerator : DocumentationGeneratorBase
     /// <summary>
     /// Initializes a new instance of the <see cref="McpDocumentationGenerator"/> class.
     /// </summary>
-    /// <param name="assembly">The assembly to generate documentation for.</param>
-    /// <param name="xmlDocumentation">The XML documentation file.</param>
-    public McpDocumentationGenerator(Assembly assembly, FileInfo xmlDocumentation)
-        : base(assembly, xmlDocumentation)
+    /// <param name="inputs">The documentation inputs to generate documentation for.</param>
+    public McpDocumentationGenerator(IReadOnlyList<DocumentationInput> inputs)
+        : base(inputs)
     {
-        _docXmlReader = new LoxSmoke.DocXml.DocXmlReader(xmlDocumentation.FullName);
+        _commentProvider = new DocumentationCommentProvider(inputs);
     }
 
     /// <inheritdoc/>
@@ -66,7 +65,10 @@ public sealed class McpDocumentationGenerator : DocumentationGeneratorBase
         var resources = new List<McpResourceInfo>();
         var prompts = new List<McpPromptInfo>();
 
-        var allTypes = Assembly.GetTypes().Where(t => t.IsClass && t.IsPublic && !t.IsAbstract).ToList();
+        var allTypes = Inputs
+            .SelectMany(input => input.Assembly.GetTypes())
+            .Where(t => t.IsClass && t.IsPublic && !t.IsAbstract)
+            .ToList();
 
         Console.WriteLine($"Scanning {allTypes.Count} types for MCP attributes...");
 
@@ -125,7 +127,7 @@ public sealed class McpDocumentationGenerator : DocumentationGeneratorBase
     {
         try
         {
-            var xmlSummary = _docXmlReader.GetMemberSummary(method);
+            var xmlSummary = _commentProvider.GetMemberSummary(method);
             var description = GetDescriptionAttribute(method);
 
             var parameters = ExtractMethodParameters(method);
@@ -154,7 +156,7 @@ public sealed class McpDocumentationGenerator : DocumentationGeneratorBase
     {
         try
         {
-            var xmlSummary = _docXmlReader.GetMemberSummary(method);
+            var xmlSummary = _commentProvider.GetMemberSummary(method);
             var description = GetDescriptionAttribute(method);
             var resourceAttr = GetResourceAttributeProperties(method);
 
@@ -192,7 +194,7 @@ public sealed class McpDocumentationGenerator : DocumentationGeneratorBase
     {
         try
         {
-            var xmlSummary = _docXmlReader.GetMemberSummary(method);
+            var xmlSummary = _commentProvider.GetMemberSummary(method);
             var description = GetDescriptionAttribute(method);
 
             var parameters = ExtractMethodParameters(method);
@@ -355,7 +357,7 @@ public sealed class McpDocumentationGenerator : DocumentationGeneratorBase
     {
         var version = "Unknown";
 
-        var versionAttribute = Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+        var versionAttribute = PrimaryAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
         if (versionAttribute != null)
         {
             var versionString = versionAttribute.InformationalVersion;

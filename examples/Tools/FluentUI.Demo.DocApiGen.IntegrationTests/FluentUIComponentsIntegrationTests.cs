@@ -2,13 +2,12 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using FluentUI.Demo.DocApiGen;
+using System.Reflection;
+using System.Text.Json;
 using FluentUI.Demo.DocApiGen.Abstractions;
 using FluentUI.Demo.DocApiGen.Formatters;
 using FluentUI.Demo.DocApiGen.Generators;
-using System.Reflection;
-using System.Text.Json;
-using Xunit;
+using FluentUI.Demo.DocApiGen.Models;
 
 namespace FluentUI.Demo.DocApiGen.IntegrationTests;
 
@@ -24,7 +23,9 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     private readonly FileInfo _xmlDocumentation;
     private readonly string _tempOutputDirectory;
     private readonly string _xmlPath;
+    private readonly DocumentationAssemblyLoadContext _assemblyLoadContext;
     private readonly Assembly _fluentUIAssembly;
+    private readonly IReadOnlyList<DocumentationInput> _documentationInputs;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentUIComponentsIntegrationTests"/> class.
@@ -44,22 +45,30 @@ public class FluentUIComponentsIntegrationTests : IDisposable
         }
 
         _xmlDocumentation = new FileInfo(_xmlPath);
+        _assemblyLoadContext = new DocumentationAssemblyLoadContext([GetAssemblyPath(projectRoot, Path.Combine("src", "Core"), "Microsoft.FluentUI.AspNetCore.Components.dll")]);
 
         // Load the FluentUI assembly dynamically
-        var fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Debug", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.dll");
+        var fluentUIAssemblyPath = GetAssemblyPath(projectRoot, Path.Combine("src", "Core"), "Microsoft.FluentUI.AspNetCore.Components.dll");
 
-        if (!File.Exists(fluentUIAssemblyPath))
+        _fluentUIAssembly = _assemblyLoadContext.LoadFromAssemblyPath(fluentUIAssemblyPath);
+        _documentationInputs = [new DocumentationInput(_fluentUIAssembly, _xmlDocumentation)];
+    }
+
+    private static string GetAssemblyPath(string projectRoot, string relativeProjectDirectory, string assemblyFileName)
+    {
+        var debugPath = Path.Combine(projectRoot, relativeProjectDirectory, "bin", "Debug", NET_VERSION, assemblyFileName);
+        if (File.Exists(debugPath))
         {
-            // Try alternative path (Release build)
-            fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Release", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.dll");
-
-            if (!File.Exists(fluentUIAssemblyPath))
-            {
-                throw new FileNotFoundException($"FluentUI assembly not found. Please build the Core project first. Looked for: {fluentUIAssemblyPath}");
-            }
+            return debugPath;
         }
 
-        _fluentUIAssembly = Assembly.LoadFrom(fluentUIAssemblyPath);
+        var releasePath = Path.Combine(projectRoot, relativeProjectDirectory, "bin", "Release", NET_VERSION, assemblyFileName);
+        if (File.Exists(releasePath))
+        {
+            return releasePath;
+        }
+
+        throw new FileNotFoundException($"Assembly not found. Please build the project first. Looked for: {releasePath}");
     }
 
     /// <summary>
@@ -72,7 +81,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
         // Look for solution file
         while (directory != null)
         {
-            var solutionFiles = directory.GetFiles("*.sln");
+            var solutionFiles = directory.GetFiles("*.slnx");
             if (solutionFiles.Length > 0)
             {
                 return directory.FullName;
@@ -108,7 +117,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_ShouldGenerateJsonSuccessfully()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
 
         // Act
@@ -125,7 +134,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_ShouldGenerateCSharpSuccessfully()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateCSharpFormatter();
 
         // Act
@@ -143,7 +152,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_JsonOutput_ShouldContainFluentUIComponents()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
 
         // Act
@@ -158,7 +167,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_CSharpOutput_ShouldContainFluentUIComponents()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateCSharpFormatter();
 
         // Act
@@ -173,7 +182,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_JsonOutput_ShouldBeValidJson()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
 
         // Act
@@ -188,7 +197,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_SaveToFile_JsonShouldSucceed()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
         var outputPath = Path.Combine(_tempOutputDirectory, "fluentui_summary.json");
 
@@ -211,7 +220,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_SaveToFile_CSharpShouldSucceed()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateCSharpFormatter();
         var outputPath = Path.Combine(_tempOutputDirectory, "fluentui_summary.cs");
 
@@ -230,7 +239,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_LargeScale_ShouldCompleteWithoutErrors()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var jsonFormatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
         var csharpFormatter = OutputFormatterFactory.CreateCSharpFormatter();
 
@@ -253,7 +262,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_OutputSize_ShouldBeReasonable()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var jsonFormatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
         var csharpFormatter = OutputFormatterFactory.CreateCSharpFormatter();
 
@@ -273,7 +282,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_JsonMetadata_ShouldBePresent()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
 
         // Act
@@ -296,7 +305,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_CompactFormat_ShouldGenerateCorrectStructure()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
 
         // Act
@@ -315,7 +324,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_CompactFormat_ShouldBeValidJson()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
 
         // Act
@@ -330,7 +339,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_CompactFormat_SaveToFile_ShouldSucceed()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: true);
         var outputPath = Path.Combine(_tempOutputDirectory, "fluentui_compact.json");
 
@@ -349,6 +358,41 @@ public class FluentUIComponentsIntegrationTests : IDisposable
         Assert.Null(exception);
     }
 
+    [Fact]
+    public void AllGenerator_WithMultipleDocumentationInputs_ShouldIncludeChartsAssemblyTypes()
+    {
+        // Arrange
+        var projectRoot = GetProjectRootDirectory();
+        var chartsAssemblyPath = Path.Combine(projectRoot, "src", "Charts", "bin", "Debug", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.Charts.dll");
+
+        if (!File.Exists(chartsAssemblyPath))
+        {
+            chartsAssemblyPath = Path.Combine(projectRoot, "src", "Charts", "bin", "Release", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.Charts.dll");
+        }
+
+        var chartsXmlPath = Path.Combine(projectRoot, "examples", "Tools", "FluentUI.Demo.DocApiGen", "Microsoft.FluentUI.AspNetCore.Components.Charts.xml");
+
+        if (!File.Exists(chartsAssemblyPath) || !File.Exists(chartsXmlPath))
+        {
+            return;
+        }
+
+        var inputs = new List<DocumentationInput>(_documentationInputs)
+        {
+            new(new DocumentationAssemblyLoadContext([chartsAssemblyPath]).LoadFromAssemblyPath(chartsAssemblyPath), new FileInfo(chartsXmlPath))
+        };
+
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.All, inputs);
+        var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
+
+        // Act
+        var json = generator.Generate(formatter);
+
+        // Assert
+        Assert.Contains("FluentDonutChart", json);
+        Assert.Contains("FluentHorizontalBarChart", json);
+    }
+
     #endregion
 
     #region Summary Mode Tests - Structured Format (Extended)
@@ -357,7 +401,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void SummaryGenerator_StructuredFormat_ShouldContainMetadata()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateSummaryGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.Summary, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
 
         // Act
@@ -381,7 +425,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void AllGenerator_ShouldGenerateJsonSuccessfully()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateAllGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.All, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
 
         // Act
@@ -398,7 +442,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void AllGenerator_ShouldNotSupportCSharpFormat()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateAllGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.All, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateCSharpFormatter();
 
         // Act & Assert
@@ -410,7 +454,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void AllGenerator_JsonOutput_ShouldContainComponents()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateAllGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.All, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
 
         // Act
@@ -427,7 +471,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
     public void AllGenerator_SaveToFile_ShouldSucceed()
     {
         // Arrange
-        var generator = DocumentationGeneratorFactory.CreateAllGenerator(_fluentUIAssembly, _xmlDocumentation);
+        var generator = DocumentationGeneratorFactory.Create(GenerationMode.All, _documentationInputs);
         var formatter = OutputFormatterFactory.CreateJsonFormatter(useCompactFormat: false);
         var outputPath = Path.Combine(_tempOutputDirectory, "fluentui_all.json");
 
@@ -478,7 +522,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
             return null;
         }
 
-        var mcpAssembly = Assembly.LoadFrom(mcpAssemblyPath);
+        var mcpAssembly = new DocumentationAssemblyLoadContext([mcpAssemblyPath]).LoadFromAssemblyPath(mcpAssemblyPath);
         var mcpXml = new FileInfo(mcpXmlPath);
 
         return (mcpAssembly, mcpXml);

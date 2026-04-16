@@ -328,8 +328,8 @@ public class ApiClass
     private string GetSummary(Type component, MemberInfo? member)
     {
         return member == null
-             ? _options.DocXmlReader.GetComponentSummary(component)
-             : _options.DocXmlReader.GetMemberSummary(member);
+             ? _options.CommentProvider.GetComponentSummary(component)
+             : _options.CommentProvider.GetMemberSummary(member);
     }
 
     /// <summary>

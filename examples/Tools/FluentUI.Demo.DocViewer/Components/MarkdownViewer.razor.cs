@@ -139,11 +139,7 @@ public partial class MarkdownViewer
         }
 
         // Get the component type
-        var type = DocViewerService.ApiAssembly
-                                  ?.GetTypes()
-                                  ?.FirstOrDefault(i => i.Name == componentName
-                                                     || i.Name.StartsWith($"{componentName}`1")
-                                                     || i.Name.StartsWith($"{componentName}`2"));
+        var type = DocViewerService.FindApiType(componentName);
 
         // Create the ApiClass
         var result = type is null ? null : new ApiClass(DocViewerService, type, allProperties);
@@ -165,7 +161,6 @@ public partial class MarkdownViewer
                 }
             }
 
-            
             result.InstanceTypes = listOfTypes.ToArray();
         }
 

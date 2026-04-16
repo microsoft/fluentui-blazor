@@ -7,6 +7,7 @@ using System.Text.Json;
 using FluentUI.Demo.DocApiGen.Abstractions;
 using FluentUI.Demo.DocApiGen.Formatters;
 using FluentUI.Demo.DocApiGen.Generators;
+using FluentUI.Demo.DocApiGen.Models;
 using Xunit;
 
 namespace FluentUI.Demo.DocApiGen.Tests.Models.IconEmoji;
@@ -18,6 +19,7 @@ public class IconEmojiTests
 {
     private readonly Assembly _testAssembly;
     private readonly FileInfo _testXmlFile;
+    private readonly IReadOnlyList<DocumentationInput> _testInputs;
 
     public IconEmojiTests()
     {
@@ -29,13 +31,14 @@ public class IconEmojiTests
         var tempPath = Path.Combine(Path.GetTempPath(), "test.xml");
         File.WriteAllText(tempPath, "<?xml version=\"1.0\"?><doc></doc>");
         _testXmlFile = new FileInfo(tempPath);
+        _testInputs = [new DocumentationInput(_testAssembly, _testXmlFile)];
     }
 
     [Fact]
     public void IconsMode_Constructor_ShouldSetCorrectMode()
     {
         // Arrange & Act
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Icons);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Icons);
 
         // Assert
         Assert.Equal(GenerationMode.Icons, generator.Mode);
@@ -45,7 +48,7 @@ public class IconEmojiTests
     public void EmojisMode_Constructor_ShouldSetCorrectMode()
     {
         // Arrange & Act
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Emojis);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Emojis);
 
         // Assert
         Assert.Equal(GenerationMode.Emojis, generator.Mode);
@@ -77,7 +80,7 @@ public class IconEmojiTests
     public void IconsMode_Generate_ShouldProduceValidJson()
     {
         // Arrange
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Icons);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Icons);
         var formatter = new JsonOutputFormatter();
 
         // Act
@@ -96,7 +99,7 @@ public class IconEmojiTests
     public void EmojisMode_Generate_ShouldProduceValidJson()
     {
         // Arrange
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Emojis);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Emojis);
         var formatter = new JsonOutputFormatter();
 
         // Act
@@ -115,7 +118,7 @@ public class IconEmojiTests
     public void IconsMode_Generate_ShouldContainExpectedStructure()
     {
         // Arrange
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Icons);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Icons);
         var formatter = new JsonOutputFormatter();
 
         // Act
@@ -152,7 +155,7 @@ public class IconEmojiTests
     public void EmojisMode_Generate_ShouldContainExpectedStructure()
     {
         // Arrange
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Emojis);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Emojis);
         var formatter = new JsonOutputFormatter();
 
         // Act
@@ -190,7 +193,7 @@ public class IconEmojiTests
     public void IconsMode_Generate_ShouldExcludeCustomSize()
     {
         // Arrange
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Icons);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Icons);
         var formatter = new JsonOutputFormatter();
 
         // Act
@@ -214,7 +217,7 @@ public class IconEmojiTests
     public void EmojisMode_Generate_ShouldExcludeCustomSize()
     {
         // Arrange
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Emojis);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Emojis);
         var formatter = new JsonOutputFormatter();
 
         // Act
@@ -241,7 +244,7 @@ public class IconEmojiTests
     public void IconsMode_SaveToFile_ShouldCreateFile()
     {
         // Arrange
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Icons);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Icons);
         var formatter = new JsonOutputFormatter();
         var outputPath = Path.Combine(Path.GetTempPath(), $"icons-test-{Guid.NewGuid()}.json");
 
@@ -273,7 +276,7 @@ public class IconEmojiTests
     public void EmojisMode_SaveToFile_ShouldCreateFile()
     {
         // Arrange
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Emojis);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Emojis);
         var formatter = new JsonOutputFormatter();
         var outputPath = Path.Combine(Path.GetTempPath(), $"emojis-test-{Guid.NewGuid()}.json");
 
@@ -306,7 +309,7 @@ public class IconEmojiTests
     {
         // Arrange
         // Create generator with Summary mode (not supported by IconsEmojisGenerator)
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Summary);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Summary);
         var formatter = new JsonOutputFormatter();
 
         // Act & Assert
@@ -317,7 +320,7 @@ public class IconEmojiTests
     public void IconsMode_Generate_ShouldOrderIconsByName()
     {
         // Arrange
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Icons);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Icons);
         var formatter = new JsonOutputFormatter();
 
         // Act
@@ -337,7 +340,7 @@ public class IconEmojiTests
     public void EmojisMode_Generate_ShouldOrderEmojisByName()
     {
         // Arrange
-        var generator = new IconsEmojisGenerator(_testAssembly, _testXmlFile, GenerationMode.Emojis);
+        var generator = new IconsEmojisGenerator(_testInputs, GenerationMode.Emojis);
         var formatter = new JsonOutputFormatter();
 
         // Act

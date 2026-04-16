@@ -30,7 +30,7 @@ public class DocViewerService
         Options = options;
         ComponentsAssembly = options.ComponentsAssembly;
         ResourcesAssembly = options.ResourcesAssembly;
-        ApiAssembly = options.ApiAssembly;
+        ApiAssemblies = options.ApiAssemblies;
         ApiCommentSummary = options.ApiCommentSummary;
     }
 
@@ -50,9 +50,15 @@ public class DocViewerService
     public Assembly? ResourcesAssembly { get; }
 
     /// <summary>
-    /// Gets the assembly containing the classes to display in API sections.
+    /// Gets the assemblies containing the classes to display in API sections.
     /// </summary>
-    public Assembly? ApiAssembly { get; }
+    public IReadOnlyList<Assembly> ApiAssemblies { get; }
+
+    /// <summary>
+    /// Gets the primary assembly containing the classes to display in API sections.
+    /// </summary>
+    [Obsolete("Use ApiAssemblies instead.")]
+    public Assembly? ApiAssembly => ApiAssemblies.Count > 0 ? ApiAssemblies[0] : null;
 
     /// <summary>
     /// Function to get the summary of an API comment.
@@ -63,6 +69,33 @@ public class DocViewerService
     /// Gets the list of all markdown pages found in the resources
     /// </summary>
     public IEnumerable<Page> Pages => _pages ??= LoadAllPages();
+
+    /// <summary>
+    /// Returns the <see cref="Type"/> associated to the <paramref name="fullName"/>.
+    /// </summary>
+    /// <param name="fullName">The full name of the type.</param>
+    /// <returns>The <see cref="Type"/> if found; otherwise, <c>null</c>.</returns>
+    public Type? FindApiType(string fullName)
+    {
+        if (string.IsNullOrWhiteSpace(fullName))
+        {
+            return null;
+        }
+
+        foreach (var assembly in ApiAssemblies)
+        {
+            var type = assembly.GetType(fullName, throwOnError: false, ignoreCase: false);
+            if (type is not null)
+            {
+                return type;
+            }
+        }
+
+        return ApiAssemblies
+            .SelectMany(GetTypes)
+            .FirstOrDefault(type => string.Equals(type.FullName, fullName, StringComparison.Ordinal)
+                                 || string.Equals(type.Name, fullName, StringComparison.Ordinal));
+    }
 
     /// <summary>
     /// Returns the <see cref="Page" /> associated to the <paramref name="routeName"/>.
@@ -145,5 +178,18 @@ public class DocViewerService
         }
 
         return pages.Where(i => !string.IsNullOrEmpty(i.Route)).OrderBy(i => i.Route);
+    }
+
+    /// <summary />
+    private static IEnumerable<Type> GetTypes(Assembly assembly)
+    {
+        try
+        {
+            return assembly.GetTypes();
+        }
+        catch (ReflectionTypeLoadException ex)
+        {
+            return ex.Types.OfType<Type>();
+        }
     }
 }

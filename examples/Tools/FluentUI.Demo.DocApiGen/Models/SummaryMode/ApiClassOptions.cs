@@ -16,11 +16,11 @@ public class ApiClassOptions
     /// Initializes a new instance of the <see cref="ApiClassOptions"/> class.
     /// </summary>
     /// <param name="assembly"></param>
-    /// <param name="docReader"></param>
-    public ApiClassOptions(Assembly assembly, LoxSmoke.DocXml.DocXmlReader docReader)
+    /// <param name="commentProvider"></param>
+    public ApiClassOptions(Assembly assembly, IDocumentationCommentProvider commentProvider)
     {
         Assembly = assembly;
-        DocXmlReader = docReader;
+        CommentProvider = commentProvider;
     }
 
     /// <summary>
@@ -29,9 +29,9 @@ public class ApiClassOptions
     public Assembly Assembly { get; }
 
     /// <summary>
-    /// Gets the summary reader.
+    /// Gets the summary provider.
     /// </summary>
-    public LoxSmoke.DocXml.DocXmlReader DocXmlReader { get; }
+    public IDocumentationCommentProvider CommentProvider { get; }
 
     /// <summary>
     /// Gets or sets whether to include all properties (false) or only those with [Parameter] attribute (true).

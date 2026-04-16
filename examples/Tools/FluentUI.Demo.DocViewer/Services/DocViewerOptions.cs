@@ -29,7 +29,17 @@ public class DocViewerOptions
     /// <summary>
     /// Assembly containing the API classes to display in API sections.
     /// </summary>
-    public Assembly? ApiAssembly { get; set; }
+    public IReadOnlyList<Assembly> ApiAssemblies { get; set; } = [];
+
+    /// <summary>
+    /// Assembly containing the API classes to display in API sections.
+    /// </summary>
+    [Obsolete("Use ApiAssemblies instead.")]
+    public Assembly? ApiAssembly
+    {
+        get => ApiAssemblies.Count > 0 ? ApiAssemblies[0] : null;
+        set => ApiAssemblies = value is null ? [] : [value];
+    }
 
     /// <summary>
     /// Function to get the summary of an API comment.

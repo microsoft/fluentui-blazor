@@ -4,6 +4,7 @@
 
 using System.Reflection;
 using FluentUI.Demo.DocApiGen.Abstractions;
+using FluentUI.Demo.DocApiGen.Models;
 
 namespace FluentUI.Demo.DocApiGen.Generators;
 
@@ -13,29 +14,34 @@ namespace FluentUI.Demo.DocApiGen.Generators;
 public abstract class DocumentationGeneratorBase : IDocumentationGenerator
 {
     /// <summary>
-    /// Represents the assembly associated with the current context or operation.
+    /// Represents the documentation inputs associated with the current operation.
     /// </summary>
-    protected readonly Assembly Assembly;
+    protected readonly IReadOnlyList<DocumentationInput> Inputs;
 
     /// <summary>
-    /// Represents the XML documentation file associated with the assembly.
+    /// Gets the primary documentation input.
     /// </summary>
-    protected readonly FileInfo XmlDocumentation;
+    protected DocumentationInput PrimaryInput => Inputs[0];
+
+    /// <summary>
+    /// Gets the primary assembly.
+    /// </summary>
+    protected Assembly PrimaryAssembly => PrimaryInput.Assembly;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DocumentationGeneratorBase"/> class.
     /// </summary>
-    /// <param name="assembly">The assembly to generate documentation for.</param>
-    /// <param name="xmlDocumentation">The XML documentation file.</param>
-    protected DocumentationGeneratorBase(Assembly assembly, FileInfo xmlDocumentation)
+    /// <param name="inputs">The documentation inputs to generate documentation for.</param>
+    protected DocumentationGeneratorBase(IReadOnlyList<DocumentationInput> inputs)
     {
-        Assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
-        XmlDocumentation = xmlDocumentation ?? throw new ArgumentNullException(nameof(xmlDocumentation));
+        ArgumentNullException.ThrowIfNull(inputs);
 
-        if (!xmlDocumentation.Exists)
+        if (inputs.Count == 0)
         {
-            throw new FileNotFoundException($"XML documentation file not found: {xmlDocumentation.FullName}");
+            throw new ArgumentException("At least one documentation input is required.", nameof(inputs));
         }
+
+        Inputs = inputs;
     }
 
     /// <inheritdoc/>

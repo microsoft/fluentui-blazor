@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Reflection;
 using FluentUI.Demo.DocApiGen.Abstractions;
 using FluentUI.Demo.DocApiGen.Extensions;
+using FluentUI.Demo.DocApiGen.Models;
 using FluentUI.Demo.DocApiGen.Models.SummaryMode;
 
 namespace FluentUI.Demo.DocApiGen.Generators;
@@ -16,17 +17,16 @@ namespace FluentUI.Demo.DocApiGen.Generators;
 /// </summary>
 public sealed class SummaryDocumentationGenerator : DocumentationGeneratorBase
 {
-    private readonly LoxSmoke.DocXml.DocXmlReader _docXmlReader;
+    private readonly DocumentationCommentProvider _commentProvider;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SummaryDocumentationGenerator"/> class.
     /// </summary>
-    /// <param name="assembly">The assembly to generate documentation for.</param>
-    /// <param name="xmlDocumentation">The XML documentation file.</param>
-    public SummaryDocumentationGenerator(Assembly assembly, FileInfo xmlDocumentation)
-        : base(assembly, xmlDocumentation)
+    /// <param name="inputs">The documentation inputs to generate documentation for.</param>
+    public SummaryDocumentationGenerator(IReadOnlyList<DocumentationInput> inputs)
+        : base(inputs)
     {
-        _docXmlReader = new LoxSmoke.DocXml.DocXmlReader(xmlDocumentation.FullName);
+        _commentProvider = new DocumentationCommentProvider(inputs);
     }
 
     /// <inheritdoc/>
@@ -49,13 +49,32 @@ public sealed class SummaryDocumentationGenerator : DocumentationGeneratorBase
         var (version, date) = GetAssemblyInfo();
         var components = new Dictionary<string, ComponentEntry>();
 
-        var options = new ApiClassOptions(Assembly, _docXmlReader)
+        var options = new ApiClassOptions(PrimaryAssembly, _commentProvider)
         {
             Mode = GenerationMode.Summary,
             PropertyParameterOnly = false,
         };
 
-        var validTypes = Assembly.GetTypes().Where(t => t.IsValidType()).ToList();
+        var validTypes = Inputs
+    .SelectMany(input =>
+    {
+        try
+        {
+            return input.Assembly.GetTypes();
+        }
+        catch (ReflectionTypeLoadException ex)
+        {
+            Console.WriteLine($"[WARNING] Could not load all types from {input.Assembly.FullName}");
+            foreach (var loaderException in ex.LoaderExceptions.Where(e => e is not null))
+            {
+                Console.WriteLine($"  - {loaderException!.Message}");
+            }
+
+            return ex.Types.OfType<Type>();
+        }
+    })
+    .Where(t => t.IsValidType())
+    .ToList();
         Console.WriteLine($"Processing {validTypes.Count} valid types...");
 
         var processedCount = 0;
@@ -123,7 +142,7 @@ public sealed class SummaryDocumentationGenerator : DocumentationGeneratorBase
     {
         var version = "Unknown";
 
-        var versionAttribute = Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+        var versionAttribute = PrimaryAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
         if (versionAttribute != null)
         {
             var versionString = versionAttribute.InformationalVersion;

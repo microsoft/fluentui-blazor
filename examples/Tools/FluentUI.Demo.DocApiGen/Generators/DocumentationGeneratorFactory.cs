@@ -4,6 +4,7 @@
 
 using System.Reflection;
 using FluentUI.Demo.DocApiGen.Abstractions;
+using FluentUI.Demo.DocApiGen.Models;
 
 namespace FluentUI.Demo.DocApiGen.Generators;
 
@@ -16,29 +17,43 @@ public static class DocumentationGeneratorFactory
     /// Creates a documentation generator for the specified mode.
     /// </summary>
     /// <param name="mode">The generation mode.</param>
+    /// <param name="inputs">The documentation inputs to generate documentation for.</param>
+    /// <returns>A documentation generator instance.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when inputs is null.</exception>
+    /// <exception cref="NotSupportedException">Thrown when the mode is not supported.</exception>
+    public static IDocumentationGenerator Create(
+        GenerationMode mode,
+        IReadOnlyList<DocumentationInput> inputs)
+    {
+        ArgumentNullException.ThrowIfNull(inputs);
+
+        return mode switch
+        {
+            GenerationMode.Summary => new SummaryDocumentationGenerator(inputs),
+            GenerationMode.All => new AllDocumentationGenerator(inputs),
+            GenerationMode.Mcp => new McpDocumentationGenerator(inputs),
+            GenerationMode.Icons => new IconsEmojisGenerator(inputs, mode),
+            GenerationMode.Emojis => new IconsEmojisGenerator(inputs, mode),
+            _ => throw new NotSupportedException($"Generation mode '{mode}' is not supported.")
+        };
+    }
+
+    /// <summary>
+    /// Creates a documentation generator for the specified mode.
+    /// </summary>
+    /// <param name="mode">The generation mode.</param>
     /// <param name="assembly">The assembly to generate documentation for.</param>
     /// <param name="xmlDocumentation">The XML documentation file.</param>
     /// <returns>A documentation generator instance.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when assembly or xmlDocumentation is null.</exception>
-    /// <exception cref="NotSupportedException">Thrown when the mode is not supported.</exception>
     public static IDocumentationGenerator Create(
         GenerationMode mode,
         Assembly assembly,
         FileInfo xmlDocumentation)
     {
         ArgumentNullException.ThrowIfNull(assembly);
-
         ArgumentNullException.ThrowIfNull(xmlDocumentation);
 
-        return mode switch
-        {
-            GenerationMode.Summary => new SummaryDocumentationGenerator(assembly, xmlDocumentation),
-            GenerationMode.All => new AllDocumentationGenerator(assembly, xmlDocumentation),
-            GenerationMode.Mcp => new McpDocumentationGenerator(assembly, xmlDocumentation),
-            GenerationMode.Icons => new IconsEmojisGenerator(assembly, xmlDocumentation, mode),
-            GenerationMode.Emojis => new IconsEmojisGenerator(assembly, xmlDocumentation, mode),
-            _ => throw new NotSupportedException($"Generation mode '{mode}' is not supported.")
-        };
+        return Create(mode, [new DocumentationInput(assembly, xmlDocumentation)]);
     }
 
     /// <summary>
