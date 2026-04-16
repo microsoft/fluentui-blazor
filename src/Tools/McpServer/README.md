@@ -376,6 +376,33 @@ The Fluent UI Blazor MCP Server is designed with security as a priority:
 - ❌ Access environment variables or credentials
 - ❌ Launch other processes
 
+### VSCode Sandbox Configuration
+
+VS Code supports native **sandboxing** for locally-running `stdio` MCP servers (available on **macOS and Linux only**). Sandboxed servers can only access the file system paths and network domains that you explicitly permit — all other access is blocked.
+
+The Fluent UI Blazor MCP Server is an ideal candidate for sandboxing because it:
+- Requires **no network access** — documentation is embedded in the binary
+- Requires **no file system writes**
+- Reads only its own embedded resources, not your project files
+
+Enable sandboxing by adding `"sandboxEnabled": true` to your server entry in `.vscode/mcp.json`:
+
+```json
+{
+    "servers": {
+        "fluent-ui-blazor": {
+            "command": "fluentui-mcp",
+            "sandboxEnabled": true
+        }
+    }
+}
+```
+
+> [!NOTE]
+> When sandboxing is enabled, VS Code automatically approves tool confirmations because the server runs in a controlled environment.
+
+For a full reference of sandbox properties (`filesystem.allowWrite`, `filesystem.denyRead`, `network.allowedDomains`, and more), see the [VS Code MCP Sandbox Configuration](https://code.visualstudio.com/docs/copilot/reference/mcp-configuration#_sandbox-configuration) documentation.
+
 ### For SecOps Teams
 
 For comprehensive security information including:
