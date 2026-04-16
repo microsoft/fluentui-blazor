@@ -376,7 +376,7 @@ The Fluent UI Blazor MCP Server is designed with security as a priority:
 - ❌ Access environment variables or credentials
 - ❌ Launch other processes
 
-### VSCode Sandbox Configuration
+### VS Code Sandbox Configuration
 
 VS Code supports native **sandboxing** for locally-running `stdio` MCP servers (available on **macOS and Linux only**). Sandboxed servers can only access the file system paths and network domains that you explicitly permit — all other access is blocked.
 
