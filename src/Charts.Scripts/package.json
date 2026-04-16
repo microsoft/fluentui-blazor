@@ -1,10 +1,10 @@
 {
   "private": true,
-  "name": "microsoft.fluentui.aspnetcore.components.assets",
+  "name": "microsoft.fluentui.aspnetcore.components.charts.assets",
   "source": "src/index.ts",
-  "main": "dist/Microsoft.FluentUI.AspNetCore.Components.lib.module.js",
-  "cssFiles": "../Core/Components/**/*.css",
-  "cssBundle": "dist/Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css",
+  "main": "dist/Microsoft.FluentUI.AspNetCore.Components.Charts.lib.module.js",
+  "cssFiles": "../Charts/**/*.css",
+  "cssBundle": "dist/Microsoft.FluentUI.AspNetCore.Components.Charts.bundle.scp.css",
   "scripts": {
     "build": "node ./esbuild.config.mjs",
     "clean": "rimraf ./dist"
@@ -27,6 +27,8 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "@fluentui/web-components": "^3.0.0-rc.13"
-   }
+    "@fluentui/web-components": "^3.0.0-rc.13",
+    "@fluentui/chart-web-components": "0.0.72"
+
+  }
 }

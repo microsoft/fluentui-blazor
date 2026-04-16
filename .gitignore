@@ -416,6 +416,7 @@ FodyWeavers.xsd
 *.cobertura.xml
 Microsoft.FluentUI.AspNetCore.Components.xml
 Microsoft.FluentUI.AspNetCore.McpServer.xml
+Microsoft.FluentUI.AspNetCore.Components.Charts.xml
 /examples/Demo/FluentUI.Demo.Client/wwwroot/sources/
 /examples/Demo/FluentUI.Demo.Client/wwwroot/documentation/
 api-comments.json

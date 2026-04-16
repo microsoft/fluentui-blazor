@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.5171056">
   <PropertyGroup>
     <DebugAssetsDirectory>dist\</DebugAssetsDirectory>
-    <StaticWebAssetSourceId>Microsoft.FluentUI.AspNetCore.Components</StaticWebAssetSourceId>
+    <StaticWebAssetSourceId>Microsoft.FluentUI.AspNetCore.Components.Charts</StaticWebAssetSourceId>
     <IsPackable>false</IsPackable>
     <ShouldRunNpmAudit>false</ShouldRunNpmAudit>
     <BuildCommand>npm run build -- --build-mode=$(Configuration)</BuildCommand>
