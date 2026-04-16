@@ -1,7 +1,7 @@
 ---
 title: CSS Isolation in Blazor
 impact: MEDIUM
-impactDescription: Unscopeed CSS causes style conflicts across components
+impactDescription: Unscoped CSS causes style conflicts across components
 tags: blazor, css, isolation, deep
 ---
 
