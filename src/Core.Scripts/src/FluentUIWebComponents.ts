@@ -15,7 +15,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
     defineOnce('fluentui:web-components:accordion', () => {
       FluentUIComponents.accordionDefinition.define(registry);
     });
-    defineOnce('fluentui:web-components:accordion-item', () => {    
+    defineOnce('fluentui:web-components:accordion-item', () => {
       FluentUIComponents.accordionItemDefinition.define(registry);
     });
     defineOnce('fluentui:web-components:anchor-button', () => {
