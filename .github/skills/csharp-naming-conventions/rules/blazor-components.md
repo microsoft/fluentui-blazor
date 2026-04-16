@@ -8,6 +8,7 @@ tags: blazor, components, naming, routing
 ## Component Name
 
 Blazor Components use a combination of C# and HTML markups. HTML tags must be in `[Component].razor` and C# code in `[Component].razor.cs` — don't use `@code { }` section in razor file.
+With the exception of the demonstration example (in `/examples` folder), which uses a single file containing both HTML/Razor and code in `@code` section.
 
 ### File Naming
 - Component file paths use **Pascal case**: `Pages/ProductDetailPage.razor`.

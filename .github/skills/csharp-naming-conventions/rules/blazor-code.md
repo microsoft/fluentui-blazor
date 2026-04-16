@@ -10,11 +10,14 @@ tags: blazor, properties, inject, parameter, nullable
 ### Member Order in Blazor Components
 
 1. Private **variables** (using `readonly` if possible) and **constants**
-2. The **[Inject]** attribute
-3. **[Parameter]** attribute
-4. **Public** methods and properties
-5. **Internal** and **Protected** methods/properties
-6. **Private** methods/properties
+2. The **constructors**
+3. The **[Inject]** properties
+4. The **[Parameter]** properties
+5. The **Public** properties
+6. The other properties (**Internal**, **Protected** and **Private**)
+7. The **Public** methods
+8. The **Internal**, **Protected** methods 
+9. The **Private** methods
 
 ### Attributes Placement
 
