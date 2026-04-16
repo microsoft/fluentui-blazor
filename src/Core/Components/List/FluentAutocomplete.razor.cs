@@ -40,7 +40,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         // - if `Width` is not already set (not null),
         // - if `Multiple` is not already set to `false` using `base(configuration)`, in the Program.cs
         Width ??= "160px";
-        configuration.DefaultValues.SetInitialValues(this, [(nameof(Multiple), true)]);
+        configuration?.DefaultValues.SetInitialValues(this, [(nameof(Multiple), true)]);
     }
 
     /// <summary />
