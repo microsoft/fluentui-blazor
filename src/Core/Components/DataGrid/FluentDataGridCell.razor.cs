@@ -50,8 +50,8 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle("min-height", "40px", Owner.RowType != DataGridRowType.Default)
         .AddStyle("position", "sticky", Column != null && Column.Pin != DataGridColumnPin.None)
-        .AddStyle("inset-inline-start", $"{Column?.PinOffset}px", Column != null && Column.Pin == DataGridColumnPin.Start)
-        .AddStyle("inset-inline-end", $"{Column?.PinOffset}px", Column != null && Column.Pin == DataGridColumnPin.End)
+        .AddStyle("inset-inline-start", $"{Column?.PinOffset}", Column != null && Column.Pin == DataGridColumnPin.Start)
+        .AddStyle("inset-inline-end", $"{Column?.PinOffset}", Column != null && Column.Pin == DataGridColumnPin.End)
         .AddStyle("z-index", "1", Column != null && Column.Pin != DataGridColumnPin.None && CellType == DataGridCellType.Default)
         .AddStyle(Owner.Style)
         .Build();
