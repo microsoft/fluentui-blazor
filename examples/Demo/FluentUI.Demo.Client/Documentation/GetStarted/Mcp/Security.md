@@ -82,7 +82,7 @@ Because the Fluent UI Blazor MCP Server requires no network access and no file s
 This configuration grants zero file system write permissions and zero network access — matching the server's actual capability profile.
 
 > [!NOTE]
-> When `sandboxEnabled` is `true`, VS Code automatically approves tool confirmations because the server runs in a controlled environment.
+> When `sandboxEnabled` is `true`, VS Code may handle tool confirmations differently because the server runs in a controlled environment. The exact behavior can depend on the VS Code version and configuration, so verify the current behavior against the official VS Code documentation and your local setup.
 
 For the full list of `sandbox` properties (`filesystem.allowWrite`, `filesystem.denyRead`, `network.allowedDomains`, etc.), see the [VS Code MCP Sandbox Configuration](https://code.visualstudio.com/docs/copilot/reference/mcp-configuration#_sandbox-configuration) reference.
 
