@@ -32,8 +32,22 @@ public partial class FluentColorPicker : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
-        .AddStyle("width", Width)
-        .AddStyle("height", Height)
+        .AddStyle("width", Width, when: Width is not null)
+        .AddStyle("height", Height, when: Height is not null)
+
+        // ColorPickerView.SwatchPalette
+        .AddStyle("width", "calc(19 * 20px)", when: Width is null && View == ColorPickerView.SwatchPalette && Orientation == Orientation.Horizontal)
+        .AddStyle("width", "calc(10 * 20px)", when: Width is null && View == ColorPickerView.SwatchPalette && Orientation == Orientation.Vertical)
+        .AddStyle("height", "calc(10 * 20px)", when: Height is null && View == ColorPickerView.SwatchPalette && Orientation == Orientation.Horizontal)
+        .AddStyle("height", "calc(19 * 20px)", when: Height is null && View == ColorPickerView.SwatchPalette && Orientation == Orientation.Vertical)
+
+        // ColorPickerView.ColorWheel
+        .AddStyle("width", "300px", when: Width is null && View == ColorPickerView.ColorWheel)
+        .AddStyle("height", "260px", when: Height is null && View == ColorPickerView.ColorWheel)
+
+        // ColorPickerView.HsvSquare
+        .AddStyle("width", "300px", when: Width is null && View == ColorPickerView.HsvSquare)
+        .AddStyle("height", "200px", when: Height is null && View == ColorPickerView.HsvSquare)
         .Build();
 
     /// <summary>
@@ -43,11 +57,11 @@ public partial class FluentColorPicker : FluentComponentBase
     public ColorPickerView View { get; set; } = ColorPickerView.SwatchPalette;
 
     /// <summary>
-    /// Gets or sets the orientation of the color items.
-    /// Default is <see cref="Orientation.Vertical"/>.
+    /// Gets or sets the orientation of the color items in the swatch palette view.
+    /// Default is <see cref="Orientation.Horizontal"/>.
     /// </summary>
     [Parameter]
-    public Orientation Orientation { get; set; } = Orientation.Vertical;
+    public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
     /// <summary>
     /// Gets or sets the width of the color picker.

@@ -15,13 +15,13 @@
     display: grid;
 }
 
-.fluent-color-picker[view="swatch-palette"][orientation="vertical"] {
+.fluent-color-picker[view="swatch-palette"][orientation="horizontal"] {
     grid-auto-flow: column;
     grid-template-columns: repeat(19, 1fr);
     grid-template-rows: repeat(10, 1fr);
 }
 
-.fluent-color-picker[view="swatch-palette"][orientation="horizontal"] {
+.fluent-color-picker[view="swatch-palette"][orientation="vertical"] {
     grid-auto-flow: row;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(19, 1fr);
@@ -37,6 +37,10 @@
 }
 
 /* Color Wheel view */
+.fluent-color-picker[view="color-wheel"] {
+    align-content: center;
+}
+
 .fluent-color-picker[view="color-wheel"] polygon {
     cursor: pointer;
     transition: stroke-width 0.1s;
