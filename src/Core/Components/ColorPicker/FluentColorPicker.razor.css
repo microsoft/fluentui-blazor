@@ -60,8 +60,8 @@
     display: flex;
     gap: 8px;
     user-select: none;
-    width: 300px;
-    height: 300px;
+    min-width: 100px;
+    min-height: 100px;
 }
 
 .fluent-color-picker[view="hsv-square"] > div[part="square"] {
