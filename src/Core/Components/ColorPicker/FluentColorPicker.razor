@@ -2,15 +2,17 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-@switch (View)
-{
-    case ColorPickerView.SwatchPalette:
+<div id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     view="@View.ToAttributeValue()"
+     orientation="@Orientation.ToAttributeValue()"
+     @attributes="@AdditionalAttributes">
 
-        <div id="@Id"
-             class="@ClassValue"
-             style="@StyleValue"
-             orientation="@Orientation.ToAttributeValue()"
-             @attributes="@AdditionalAttributes">
+    @switch (View)
+    {
+        case ColorPickerView.SwatchPalette:
+
             @foreach (var color in DefaultColors)
             {
                 <div style="background-color: @color;"
@@ -24,57 +26,51 @@
                     }
                 </div>
             }
-        </div>
 
-        break;
+            break;
 
-    case ColorPickerView.ColorWheel:
+        case ColorPickerView.ColorWheel:
 
-        <svg id="@Id"
-             class="fluent-color-wheel"
-             style="@StyleValue"
-             viewBox="@WheelViewBox"
-             @attributes="@AdditionalAttributes">
-            @{
-                var ci = 0;
-                for (var row = 0; row < WheelRowSizes.Length; row++)
-                {
-                    var count = WheelRowSizes[row];
-                    var cy = WheelPadding + HexSize + row * HexYSpacing;
-                    for (var col = 0; col < count; col++)
+            <svg viewBox="@WheelViewBox">
+                @{
+                    var ci = 0;
+                    for (var row = 0; row < WheelRowSizes.Length; row++)
                     {
-                        var cx = WheelCenterX + (col - (count - 1) / 2.0) * HexWidth;
-                        var hc = WheelColors[ci++];
-                        <polygon points="@HexPointsAttr(cx, cy)"
-                                 fill="@hc"
-                                 stroke="@hc"
-                                 stroke-width="1"
-                                 selected="@(IsSelectedColor(hc) ? true : null)"
-                                 @onclick="@(async () => await ColorSelectHandlerAsync(hc))" />
+                        var count = WheelRowSizes[row];
+                        var cy = WheelPadding + HexSize + row * HexYSpacing;
+                        for (var col = 0; col < count; col++)
+                        {
+                            var cx = WheelCenterX + (col - (count - 1) / 2.0) * HexWidth;
+                            var hc = WheelColors[ci++];
+                            <polygon points="@HexPointsAttr(cx, cy)"
+                                     fill="@hc"
+                                     stroke="@hc"
+                                     stroke-width="1"
+                                     selected="@(IsSelectedColor(hc) ? true : null)"
+                                     @onclick="@(async () => await ColorSelectHandlerAsync(hc))" />
+                        }
                     }
                 }
-            }
-        </svg>
+            </svg>
 
-        break;
+            break;
 
-    case ColorPickerView.HsvSquare:
+        case ColorPickerView.HsvSquare:
 
-        <div id="@Id"
-             class="fluent-color-hsv"
-             style="@StyleValue"
-             @attributes="@AdditionalAttributes">
             <div part="square">
-                <div part="canvas" style="@HsvSquareStyle">
+                <div part="canvas"
+                     style="@HsvSquareStyle">
                     <div part="gradient-white"></div>
                     <div part="gradient-black"></div>
-                    <div part="indicator" style="left: @HsvIndicatorLeft; top: @HsvIndicatorTop;"></div>
+                    <div part="indicator"
+                         style="left: @HsvIndicatorLeft; top: @HsvIndicatorTop;"></div>
                 </div>
             </div>
             <div part="hue-bar">
-                <div part="hue-indicator" style="top: @HsvHueIndicatorTop;"></div>
+                <div part="hue-indicator"
+                     style="top: @HsvHueIndicatorTop;"></div>
             </div>
-        </div>
 
-        break;
-}
+            break;
+    }
+</div>
