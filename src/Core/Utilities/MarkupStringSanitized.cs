@@ -239,7 +239,7 @@ public readonly partial struct MarkupStringSanitized
         AlreadySanitized
     }
 
-    [GeneratedRegex(@"^(?!.*(behavior\s*:|expression\s*\(|-moz-binding\s*:|javascript\s*:|url\s*\(\s*['""]?\s*javascript\s*:))[a-zA-Z0-9\s,.:;_%\-()#{}'""pxemremvhsmsdegradturn]+$", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 400)]
+    [GeneratedRegex(@"^(?!.*(behavior\s*:|expression\s*\(|-moz-binding\s*:|javascript\s*:|url\s*\(\s*['""]?\s*javascript\s*:))[a-zA-Z0-9\s,.:;_%\-+()#{}'""pxemremvhsmsdegradturn]+$", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 400)]
     private static partial Regex InlineStyleRegex();
 
     [GeneratedRegex(@"^(?:(?:[^<>]|<(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6]|br|hr)(?:\s+(?:class|id|title|data-[a-z0-9\-]+)\s*=\s*(?:""[^""<>]*""|'[^'<>]*'))*\s*\/?>|<\/(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6])>))*$", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 400)]

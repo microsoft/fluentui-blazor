@@ -256,7 +256,22 @@
     <value>Resize</value>
   </data>
   <data name="DataGrid_OptionsMenu" xml:space="preserve">
-    <value>Filter</value>
+    <value>Column options</value>
+  </data>
+  <data name="DataGrid_ReorderMenu" xml:space="preserve">
+    <value>Reorder columns</value>
+  </data>
+  <data name="DataGrid_ReorderMoveToStart" xml:space="preserve">
+    <value>Move to start</value>
+  </data>
+  <data name="DataGrid_ReorderMoveLeft" xml:space="preserve">
+    <value>Move left</value>
+  </data>
+  <data name="DataGrid_ReorderMoveRight" xml:space="preserve">
+    <value>Move right</value>
+  </data>
+  <data name="DataGrid_ReorderMoveToEnd" xml:space="preserve">
+    <value>Move to end</value>
   </data>
   <data name="DataGrid_ResizeDiscrete" xml:space="preserve">
     <value>Column width</value>

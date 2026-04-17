@@ -19,7 +19,7 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
     /// </summary>
     public FluentSwitch(LibraryConfiguration configuration) : base(configuration)
     {
-        LabelPosition = Components.LabelPosition.After;
+        LabelPosition ??= Components.LabelPosition.After;
     }
 
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />

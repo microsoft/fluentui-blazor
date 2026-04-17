@@ -45,8 +45,6 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
     FluentUIComponents.SwitchDefinition.define(registry);
     FluentUIComponents.TabDefinition.define(registry);
     FluentUIComponents.TablistDefinition.define(registry);
-    FluentUIComponents.TabPanelDefinition.define(registry);
-    FluentUIComponents.TabsDefinition.define(registry);
     FluentUIComponents.TextAreaDefinition.define(registry);
     FluentUIComponents.TextDefinition.define(registry);
     FluentUIComponents.TextInputDefinition.define(registry);
