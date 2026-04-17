@@ -121,6 +121,30 @@ Or in the configuration:
 }
 ```
 
+## Enable Sandboxing in VS Code (Optional)
+
+VS Code supports native **sandboxing** for stdio MCP servers on **macOS and Linux**. Sandboxed servers can only access the file system paths and network domains that you explicitly permit.
+
+Because the Fluent UI Blazor MCP Server requires no file writes and no network access, you can enable the most restrictive sandbox with a single property:
+
+```json
+{
+    "servers": {
+        "fluent-ui-blazor": {
+            "command": "fluentui-mcp",
+            "sandboxEnabled": true
+        }
+    }
+}
+```
+
+This applies equally to the `dnx`-based configuration — just add `"sandboxEnabled": true` to the server entry.
+
+> [!NOTE]
+> When sandboxing is enabled, VS Code may handle tool confirmations differently because the server runs in a controlled environment. Check the current VS Code documentation for the exact behavior in your version. This setting has no effect on Windows.
+
+For advanced sandbox rules (restricting specific paths or domains), see the [VS Code MCP Sandbox Configuration](https://code.visualstudio.com/docs/copilot/reference/mcp-configuration#_sandbox-configuration) reference.
+
 ## NuGet Package
 
 For all available versions and additional installation methods, visit the official NuGet page:

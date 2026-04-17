@@ -35,7 +35,7 @@
                          MessageCondition="@MessageCondition"
                          MessageIcon="@MessageIcon"
                          MessageState="@MessageState"
-                         Placeholder="@Placeholder"
+                         Placeholder="@(_internalSelectedItems.Any() ? null : Placeholder)"
                          Style="@StyleValue"
                          Name="@Name"
                          auto-complete="true"
@@ -142,16 +142,7 @@
 
             @if (IsReachedMaxItems)
             {
-                @if (MaximumSelectedOptionsMessage is null)
-                {
-                    <FluentText Size="TextSize.Size200" Align="TextAlign.Center" Color="Color.Error" Style="display: block; margin: 12px;">
-                        @Localizer[Localization.LanguageResource.AutoComplete_MaximumSelectedOptionsMessage, MaximumSelectedOptions ?? 0]
-                    </FluentText>
-                }
-                else
-                {
-                    @MaximumSelectedOptionsMessage
-                }                
+                @MaximumSelectedOptionsMessage
             }
             else
             {

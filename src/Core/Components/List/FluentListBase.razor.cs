@@ -202,7 +202,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             return OptionSelectedComparer.Equals(item, currentAsOption);
         }
 
-        if (OptionValue is not null || typeof(TOption) == typeof(TValue))
+        if (OptionValue is not null || IsOptionTypeCompatibleWithValue())
         {
             return Equals(GetOptionValue(item), CurrentValue);
         }
@@ -218,7 +218,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             return OptionValue.Invoke(item);
         }
 
-        if (typeof(TOption) == typeof(TValue))
+        if (IsOptionTypeCompatibleWithValue())
         {
             return (TValue?)(object?)item;
         }
@@ -321,5 +321,15 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     internal InternalListContext<TValue> GetCurrentContext()
     {
         return new InternalListContext<TValue>(this);
+    }
+
+    /// <summary>
+    /// Checks whether <typeparamref name="TOption"/> is the same type as <typeparamref name="TValue"/>,
+    /// or <typeparamref name="TValue"/> is <see cref="Nullable{T}"/> of <typeparamref name="TOption"/>.
+    /// </summary>
+    private static bool IsOptionTypeCompatibleWithValue()
+    {
+        return typeof(TOption) == typeof(TValue)
+            || Nullable.GetUnderlyingType(typeof(TValue)) == typeof(TOption);
     }
 }

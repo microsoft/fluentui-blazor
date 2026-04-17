@@ -51,9 +51,9 @@ public abstract partial class ColumnBase<TGridItem>
     protected internal RenderFragment HeaderTitleContent { get; protected set; }
 
     /// <summary>
-    /// Gets a value indicating whether any column-related action is enabled.
+    /// Gets the header capabilities for this column.
     /// </summary>
-    protected bool AnyColumnActionEnabled => Sortable is true || ColumnOptions != null || Grid.ResizableColumns;
+    internal ColumnHeaderCapabilities HeaderCapabilities => Grid.GetHeaderCapabilities(this);
 
     /// <summary>
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
@@ -112,6 +112,13 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     [Parameter]
     public string? HeaderTooltip { get; set; }
+
+    /// <summary>
+    /// Gets or sets the stable identifier used to persist and restore this column's order.
+    /// When omitted, the grid derives an identifier from the bound property, title, or declaration order.
+    /// </summary>
+    [Parameter]
+    public string? ColumnId { get; set; }
 
     /// <summary>
     /// Gets or sets an optional template for this column's header cell.
@@ -207,6 +214,11 @@ public abstract partial class ColumnBase<TGridItem>
     internal string PinOffset { get; set; } = "0px";
 
     /// <summary>
+    /// Gets the effective key used by the grid when persisting and restoring column order.
+    /// </summary>
+    internal string ColumnKey { get; private set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the minimal width of the column.
     /// Defaults to 100px for a regular column and 50px for a select column.
     /// When resizing a column, the user will not be able to make it smaller than this value.
@@ -234,6 +246,14 @@ public abstract partial class ColumnBase<TGridItem>
     internal void SetColumnIndex(int index)
     {
         Index = index;
+    }
+
+    /// <summary>
+    /// Sets the effective column key for the current instance.
+    /// </summary>
+    internal void SetColumnKey(string key)
+    {
+        ColumnKey = key;
     }
 
     /// <summary />
@@ -321,15 +341,19 @@ public abstract partial class ColumnBase<TGridItem>
     [ExcludeFromCodeCoverage(Justification = "This method is virtual. It is not called directly on this type.")]
     protected virtual bool IsSortableByDefault() => false;
 
+    internal bool CanSortFromHeader() => Sortable ?? IsSortableByDefault();
+
     private async Task HandleColumnHeaderClickedAsync()
     {
-        var hasSorting = Sortable is true || IsDefaultSortColumn;
-        var hasResize = Grid.ResizableColumns;
-        var hasOptions = ColumnOptions is not null;
-        var hasMultiple = (Convert.ToInt32(hasSorting) + Convert.ToInt32(hasResize) + Convert.ToInt32(hasOptions)) > 1;
-        var hideMenu = (hasSorting ^ hasResize ^ hasOptions) && !(hasSorting && hasResize && hasOptions);
+        var headerCapabilities = HeaderCapabilities;
+        var hasSorting = headerCapabilities.CanSort;
+        var hasResize = headerCapabilities.CanResize;
+        var hasReorder = headerCapabilities.CanReorder;
+        var hasOptions = headerCapabilities.HasOptions;
+        var enabledActions = Convert.ToInt32(hasSorting) + Convert.ToInt32(hasResize) + Convert.ToInt32(hasReorder) + Convert.ToInt32(hasOptions);
+        var hasMultiple = enabledActions > 1;
 
-        if (_menu is not null && hideMenu)
+        if (_menu is not null && enabledActions == 1)
         {
             await _menu.CloseMenuAsync();
         }
@@ -348,6 +372,10 @@ public abstract partial class ColumnBase<TGridItem>
         {
             await Grid.ShowColumnResizeAsync(this);
         }
+        else if (hasReorder)
+        {
+            await Grid.ShowColumnReorderAsync(this);
+        }
         else if (hasOptions)
         {
             await Grid.ShowColumnOptionsAsync(this);
@@ -359,6 +387,18 @@ public abstract partial class ColumnBase<TGridItem>
         if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key, StringComparer.OrdinalIgnoreCase))
         {
             await Grid.SortByColumnAsync(this);
+            if (_menu is not null)
+            {
+                await _menu.CloseMenuAsync();
+            }
+        }
+    }
+
+    private async Task HandleReorderMenuKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key, StringComparer.OrdinalIgnoreCase))
+        {
+            await Grid.ShowColumnReorderAsync(this);
             if (_menu is not null)
             {
                 await _menu.CloseMenuAsync();
@@ -402,6 +442,6 @@ public abstract partial class ColumnBase<TGridItem>
             return Localizer[Localization.LanguageResource.DataGrid_SortMenuDescending];
         }
 
-        return Localizer[Localization.LanguageResource.DataGrid_SortMenu];
+        return Localizer[Grid.ColumnSortMenuSettings.Text];
     }
 }

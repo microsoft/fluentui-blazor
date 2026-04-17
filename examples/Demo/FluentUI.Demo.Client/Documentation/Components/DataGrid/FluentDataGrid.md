@@ -86,7 +86,7 @@ If you want to use the `FluentDataGrid` with data provided through EF Core, you 
 Install the package by running the command:
 
 ```cshtml
-dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapterCopy
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter
 ```
 
 ### Usage
@@ -94,7 +94,7 @@ dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrame
 In your `Program.cs` file you need to add the following after the `builder.Services.AddFluentUIComponents();` line:
 
 ```csharp
-builder.Services.AddDataGridEntityFrameworkAdapter();Copy
+builder.Services.AddDataGridEntityFrameworkAdapter();
 ```
 
 ## Using the DataGrid component with OData
@@ -106,7 +106,7 @@ If you want to use the `FluentDataGrid` with data provided through OData, you ne
 Install the package by running the command:
 
 ```cshtml
-dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapterCopy
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter
 ```
 
 ### Usage
