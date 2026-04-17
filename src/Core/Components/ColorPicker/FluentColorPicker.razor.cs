@@ -4,6 +4,8 @@
 
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -12,9 +14,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentColorPicker : FluentComponentBase
 {
+    private DotNetObjectReference<FluentColorPicker>? _dotNetHelper;
+    private double _hsvHue;
+    private double _hsvSaturation = 1;
+    private double _hsvValue = 1;
+
     /// <summary />
     public FluentColorPicker(LibraryConfiguration configuration) : base(configuration)
     {
+        Id = Identifier.NewId();
     }
 
     /// <summary />
@@ -193,5 +201,126 @@ public partial class FluentColorPicker : FluentComponentBase
         }
 
         return string.Join(" ", points);
+    }
+
+    /// <summary />
+    protected override void OnParametersSet()
+    {
+        if (View == ColorPickerView.HsvSquare && !string.IsNullOrEmpty(SelectedColor))
+        {
+            (_hsvHue, _hsvSaturation, _hsvValue) = HexToHsv(SelectedColor);
+        }
+    }
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && View == ColorPickerView.HsvSquare)
+        {
+            _dotNetHelper = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync(
+                "Microsoft.FluentUI.Blazor.Components.ColorPicker.Initialize",
+                _dotNetHelper,
+                Id,
+                _hsvHue,
+                _hsvSaturation,
+                _hsvValue);
+        }
+    }
+
+    /// <summary>
+    /// Called by JavaScript when the user selects a color in the HSV picker.
+    /// </summary>
+    [JSInvokable("FluentColorPicker.ColorChangedAsync")]
+    public async Task HsvColorChangedAsync(string hexColor)
+    {
+        SelectedColor = hexColor;
+
+        if (SelectedColorChanged.HasDelegate)
+        {
+            await SelectedColorChanged.InvokeAsync(hexColor);
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary />
+    private string HsvSquareStyle => $"background-color: hsl({Inv(_hsvHue)}, 100%, 50%);";
+
+    /// <summary />
+    private string HsvIndicatorLeft => $"{Inv(_hsvSaturation * 100)}%";
+
+    /// <summary />
+    private string HsvIndicatorTop => $"{Inv((1 - _hsvValue) * 100)}%";
+
+    /// <summary />
+    private string HsvHueIndicatorTop => $"{Inv(_hsvHue / 360.0 * 100)}%";
+
+    private static (double H, double S, double V) HexToHsv(string hex)
+    {
+        hex = hex.TrimStart('#');
+        if (hex.Length < 6)
+        {
+            return (0, 1, 1);
+        }
+
+        var r = int.Parse(hex.AsSpan(0, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture) / 255.0;
+        var g = int.Parse(hex.AsSpan(2, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture) / 255.0;
+        var b = int.Parse(hex.AsSpan(4, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture) / 255.0;
+
+        var max = Math.Max(r, Math.Max(g, b));
+        var min = Math.Min(r, Math.Min(g, b));
+        var delta = max - min;
+
+        double h = 0;
+        if (delta > 0)
+        {
+            if (max == r)
+            {
+                h = 60.0 * ((g - b) / delta % 6);
+            }
+            else if (max == g)
+            {
+                h = 60.0 * ((b - r) / delta + 2);
+            }
+            else
+            {
+                h = 60.0 * ((r - g) / delta + 4);
+            }
+        }
+
+        if (h < 0)
+        {
+            h += 360;
+        }
+
+        var s = max == 0 ? 0 : delta / max;
+        var v = max;
+
+        return (h, s, v);
+    }
+
+    /// <inheritdoc />
+    public override async ValueTask DisposeAsync()
+    {
+        if (_dotNetHelper != null)
+        {
+            try
+            {
+                await JSRuntime.InvokeVoidAsync(
+                    "Microsoft.FluentUI.Blazor.Components.ColorPicker.Dispose",
+                    Id);
+            }
+            catch (Exception ex) when (ex is JSDisconnectedException ||
+                                       ex is OperationCanceledException)
+            {
+                // Safely ignore if client already disconnected
+            }
+
+            _dotNetHelper.Dispose();
+            _dotNetHelper = null;
+        }
+
+        await base.DisposeAsync();
     }
 }

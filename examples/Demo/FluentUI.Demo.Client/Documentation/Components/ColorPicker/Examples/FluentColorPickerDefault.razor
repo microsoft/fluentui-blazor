@@ -11,6 +11,10 @@
                    View="ColorPickerView.ColorWheel"
                    @bind-SelectedColor="SelectedColor" />
 
+<FluentColorPicker Orientation="Orientation"
+                   View="ColorPickerView.HsvSquare"
+                   @bind-SelectedColor="SelectedColor" />
+
 <div>
     <FluentText>Selected Color: @SelectedColor</FluentText>
 </div>
