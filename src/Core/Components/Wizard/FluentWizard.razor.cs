@@ -126,10 +126,15 @@ public partial class FluentWizard : FluentComponentBase
     public WizardStepSequence StepSequence { get; set; } = WizardStepSequence.Linear;
 
     /// <summary />
-    protected override void OnParametersSet()
+    public override Task SetParametersAsync(ParameterView parameters)
     {
-        SetCurrentValue(Value);
-        base.OnParametersSet();
+        // If Value parameter changes, we need to switch to the new step.
+        if (parameters.TryGetValue<int>(nameof(Value), out var newValue) && !Equals(newValue, Value))
+        {
+            SetCurrentValue(newValue);
+        }
+
+        return base.SetParametersAsync(parameters);
     }
 
     /// <summary />
