@@ -20,9 +20,7 @@
                      @onclick="@(async () => await ColorSelectHandlerAsync(color))">
                     @if (IsSelectedColor(color))
                     {
-                        <FluentIcon Value="@SelectedIcon"
-                                    Color="Color.Custom"
-                                    CustomColor="@color" />
+                        <div part="indicator" />
                     }
                 </div>
             }
