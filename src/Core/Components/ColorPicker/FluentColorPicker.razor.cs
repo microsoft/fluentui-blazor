@@ -17,6 +17,7 @@ public partial class FluentColorPicker : FluentComponentBase
 {
     private HsvColor _hsv = HsvColor.Default;
     private DotNetObjectReference<FluentColorPicker>? _dotNetHelper;
+    private string? _highlightedColor;
 
     /// <summary />
     public FluentColorPicker(LibraryConfiguration configuration) : base(configuration)
@@ -94,6 +95,15 @@ public partial class FluentColorPicker : FluentComponentBase
     [Parameter]
     public IReadOnlyList<string>? Palette { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether to find the closest color in the palette
+    /// when the <see cref="SelectedColor"/> does not exactly match any palette color.
+    /// When enabled, the closest matching color will be highlighted in the picker.
+    /// Default is true.
+    /// </summary>
+    [Parameter]
+    public bool FindClosestColor { get; set; } = true;
+
     private async Task ColorSelectHandlerAsync(string color)
     {
         if (!string.Equals(SelectedColor, color, StringComparison.OrdinalIgnoreCase))
@@ -109,9 +119,16 @@ public partial class FluentColorPicker : FluentComponentBase
 
     /// <summary>
     /// Determines whether the specified color is the currently selected color.
+    /// When <see cref="FindClosestColor"/> is enabled and the selected color is not in the palette,
+    /// the closest matching color will be highlighted instead.
     /// </summary>
     private bool IsSelectedColor(string color)
     {
+        if (_highlightedColor is not null)
+        {
+            return string.Equals(_highlightedColor, color, StringComparison.OrdinalIgnoreCase);
+        }
+
         return string.Equals(SelectedColor, color, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -144,6 +161,35 @@ public partial class FluentColorPicker : FluentComponentBase
             && !string.Equals(selectedColor, SelectedColor, StringComparison.OrdinalIgnoreCase))
         {
             _hsv = HsvColor.FromHex(selectedColor);
+        }
+
+        // Compute the closest color highlight when FindClosestColor is enabled
+        if (!parameters.TryGetValue<bool>(nameof(FindClosestColor), out var findClosest))
+        {
+            findClosest = FindClosestColor;
+        }
+
+        if (!parameters.TryGetValue<string>(nameof(SelectedColor), out var selected))
+        {
+            selected = SelectedColor;
+        }
+
+        if (findClosest && !string.IsNullOrEmpty(selected) && view != ColorPickerView.HsvSquare)
+        {
+            if (!parameters.TryGetValue<IReadOnlyList<string>>(nameof(Palette), out var pal))
+            {
+                pal = Palette;
+            }
+
+            var colors = pal ?? (view == ColorPickerView.ColorWheel
+                ? DefaultColors.WheelColors
+                : DefaultColors.SwatchColors);
+
+            _highlightedColor = ColorHelper.FindClosestColor(selected, colors);
+        }
+        else
+        {
+            _highlightedColor = null;
         }
 
         return base.SetParametersAsync(parameters);
