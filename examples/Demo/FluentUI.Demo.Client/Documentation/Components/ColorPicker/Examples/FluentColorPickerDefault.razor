@@ -1,20 +1,15 @@
-﻿<FluentStack>
-    <FluentSelect Label="Flow Direction"
-                  Items=@(Enum.GetValues(typeof(Orientation)).Cast<Orientation>())"
-                  @bind-Value="Orientation" />
+﻿<FluentStack Wrap="true"
+             HorizontalGap="12px">
+    <FluentColorPicker Orientation="Orientation.Horizontal"
+                       View="ColorPickerView.SwatchPalette"
+                       @bind-SelectedColor="SelectedColor" />
+
+    <FluentColorPicker View="ColorPickerView.ColorWheel"
+                       @bind-SelectedColor="SelectedColor" />
+
+    <FluentColorPicker View="ColorPickerView.HsvSquare"
+                       @bind-SelectedColor="SelectedColor" />
 </FluentStack>
-
-<FluentColorPicker Orientation="Orientation"
-                   View="ColorPickerView.SwatchPalette"
-                   @bind-SelectedColor="SelectedColor" />
-
-<FluentColorPicker Orientation="Orientation"
-                   View="ColorPickerView.ColorWheel"
-                   @bind-SelectedColor="SelectedColor" />
-
-<FluentColorPicker Orientation="Orientation"
-                   View="ColorPickerView.HsvSquare"
-                   @bind-SelectedColor="SelectedColor" />
 
 <div>
     <FluentText>Selected Color: @SelectedColor</FluentText>
@@ -22,6 +17,5 @@
 
 @code
 {
-    Orientation Orientation = Orientation.Vertical;
-    string SelectedColor = "#FFFFFF";
+    string SelectedColor = "#FF0000";
 }
