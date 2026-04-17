@@ -52,6 +52,14 @@
     stroke-width: 3;
 }
 
+.fluent-color-picker[view="color-wheel"] circle[part="indicator"] {
+    fill: #b2b2b2;
+    stroke: #ffffff;
+    stroke-width: 2px;
+    pointer-events: none;
+    border: 3px solid #ffffff;
+}
+
 /* HSV Square view */
 .fluent-color-picker[view="hsv-square"] {
     display: flex;

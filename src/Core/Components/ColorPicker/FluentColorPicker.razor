@@ -40,12 +40,18 @@
                         {
                             var cx = WheelCenterX + (col - (count - 1) / 2.0) * HexWidth;
                             var hc = WheelColors[ci++];
+                            var isSelected = IsSelectedColor(hc);
                             <polygon points="@HexPointsAttr(cx, cy)"
                                      fill="@hc"
                                      stroke="@hc"
                                      stroke-width="1"
-                                     selected="@(IsSelectedColor(hc) ? true : null)"
+                                     selected="@(isSelected ? true : null)"
                                      @onclick="@(async () => await ColorSelectHandlerAsync(hc))" />
+                            @if (isSelected)
+                            {
+                                <circle cx="@Inv(cx)" cy="@Inv(cy)" r="@Inv(HexSize / 3)"
+                                        part="indicator" />
+                            }
                         }
                     }
                 }
