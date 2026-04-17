@@ -116,12 +116,37 @@ public partial class FluentColorPicker : FluentComponentBase
     }
 
     /// <summary />
-    protected override void OnParametersSet()
+    public override Task SetParametersAsync(ParameterView parameters)
     {
-        if (View == ColorPickerView.HsvSquare && !string.IsNullOrEmpty(SelectedColor))
+        if (!parameters.TryGetValue<ColorPickerView>(nameof(View), out var view))
         {
-            _hsv = HsvColor.FromHex(SelectedColor);
+            view = View;
         }
+
+        if (parameters.TryGetValue<IReadOnlyList<string>>(nameof(Palette), out var palette))
+        {
+            var requiredCount = view switch
+            {
+                ColorPickerView.SwatchPalette => 190,
+                ColorPickerView.ColorWheel => 127,
+                _ => 0,
+            };
+
+            if (requiredCount > 0 && palette.Count < requiredCount)
+            {
+                throw new ArgumentException($"The Palette must contain at least {requiredCount} colors for the {view} view, but only {palette.Count} were provided.");
+            }
+        }
+
+        if (view == ColorPickerView.HsvSquare
+            && parameters.TryGetValue<string>(nameof(SelectedColor), out var selectedColor)
+            && !string.IsNullOrEmpty(selectedColor)
+            && !string.Equals(selectedColor, SelectedColor, StringComparison.OrdinalIgnoreCase))
+        {
+            _hsv = HsvColor.FromHex(selectedColor);
+        }
+
+        return base.SetParametersAsync(parameters);
     }
 
     /// <summary />
