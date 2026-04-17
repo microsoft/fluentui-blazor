@@ -4,6 +4,7 @@
 
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -314,22 +315,12 @@ public partial class FluentColorPicker : FluentComponentBase
         return (h, s, v);
     }
 
-    /// <inheritdoc />
+    /// <summary />
     public override async ValueTask DisposeAsync()
     {
         if (_dotNetHelper != null)
         {
-            try
-            {
-                await JSRuntime.InvokeVoidAsync(
-                    "Microsoft.FluentUI.Blazor.Components.ColorPicker.Dispose",
-                    Id);
-            }
-            catch (Exception ex) when (ex is JSDisconnectedException ||
-                                       ex is OperationCanceledException)
-            {
-                // Safely ignore if client already disconnected
-            }
+            await JSRuntime.SafelyInvokeAsync("Microsoft.FluentUI.Blazor.Components.ColorPicker.Dispose", Id);
 
             _dotNetHelper.Dispose();
             _dotNetHelper = null;
