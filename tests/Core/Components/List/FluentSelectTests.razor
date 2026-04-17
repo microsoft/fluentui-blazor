@@ -481,6 +481,42 @@
         Assert.Contains("height: 300px", listboxStyle);
     }
 
+    [Fact]
+    public void FluentSelect_NullableEnum_InitialSelection()
+    {
+        MyDigitsEnum? value = MyDigitsEnum.Two;
+        var items = Enum.GetValues<MyDigitsEnum>();
+
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@items" @bind-Value="@value" />);
+        var two = cut.Find("fluent-option[value='Two']");
+
+        // Assert - The nullable enum value should be correctly selected
+        Assert.True(two.HasAttribute("selected"));
+    }
+
+    [Fact]
+    public async Task FluentSelect_NullableEnum_OnDropdownChange()
+    {
+        MyDigitsEnum? value = MyDigitsEnum.One;
+        var items = Enum.GetValues<MyDigitsEnum>();
+
+        // Arrange
+        var cut = Render(@<FluentSelect Items="@items" @bind-Value="@value" />);
+        var ids = cut.FindAll("fluent-option")
+                     .Where(i => i.GetAttribute("value") == "Three")
+                     .Select(i => i.GetAttribute("id"));
+
+        // Act
+        await cut.FindComponent<FluentSelect<MyDigitsEnum, MyDigitsEnum?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = string.Join(';', ids),
+        });
+
+        // Assert
+        Assert.Equal(MyDigitsEnum.Three, value);
+    }
+
     public record Person
     {
         public int Id { get; set; }
