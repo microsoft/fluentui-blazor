@@ -25,6 +25,7 @@ builder.Services.AddFluentUIComponents(config =>
     // config.DefaultValues.For<FluentButton>().Set(p => p.Appearance, ButtonAppearance.Primary);
     // config.DefaultValues.For<FluentButton>().Set(p => p.Shape, ButtonShape.Circular);
     // config.DefaultValues.ForAny<FluentAutocomplete<object, object>>().Set(p => p.Width, "100%");
+    // config.DefaultValues.ForAny<FluentAutocomplete<object, object>>().Set(p => p.Multiple, false);
 
     // Use a custom localizer
     config.Localizer = new FluentUI.Demo.MyLocalizer();
