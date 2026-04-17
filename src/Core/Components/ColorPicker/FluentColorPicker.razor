@@ -1,4 +1,5 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.ColorPicker
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
@@ -13,7 +14,7 @@
     {
         case ColorPickerView.SwatchPalette:
 
-            @foreach (var color in DefaultColors)
+            @foreach (var color in Palette is null ? DefaultColors.SwatchColors : Palette)
             {
                 <div style="background-color: @color;"
                      selected="@IsSelectedColor(color)"
@@ -29,19 +30,19 @@
 
         case ColorPickerView.ColorWheel:
 
-            <svg viewBox="@WheelViewBox">
+            <svg viewBox="@WheelColor.ViewBox">
                 @{
                     var ci = 0;
-                    for (var row = 0; row < WheelRowSizes.Length; row++)
+                    for (var row = 0; row < WheelColor.RowSizes.Length; row++)
                     {
-                        var count = WheelRowSizes[row];
-                        var cy = WheelPadding + HexSize + row * HexYSpacing;
+                        var count = WheelColor.RowSizes[row];
+                        var cy = WheelColor.Padding + WheelColor.HexSize + row * WheelColor.HexYSpacing;
                         for (var col = 0; col < count; col++)
                         {
-                            var cx = WheelCenterX + (col - (count - 1) / 2.0) * HexWidth;
-                            var hc = WheelColors[ci++];
+                            var cx = WheelColor.CenterX + (col - (count - 1) / 2.0) * WheelColor.HexWidth;
+                            var hc = Palette is null ? DefaultColors.WheelColors[ci++] : Palette[ci++];
                             var isSelected = IsSelectedColor(hc);
-                            <polygon points="@HexPointsAttr(cx, cy)"
+                            <polygon points="@WheelColor.ToHexPoints(cx, cy, WheelColor.HexSize)"
                                      fill="@hc"
                                      stroke="@hc"
                                      stroke-width="1"
@@ -49,7 +50,7 @@
                                      @onclick="@(async () => await ColorSelectHandlerAsync(hc))" />
                             @if (isSelected)
                             {
-                                <circle cx="@Inv(cx)" cy="@Inv(cy)" r="@Inv(HexSize / 3)"
+                                <circle cx="@cx.ToInvariant()" cy="@cy.ToInvariant()" r="@((WheelColor.HexSize / 3).ToInvariant())"
                                         part="indicator" />
                             }
                         }
@@ -63,16 +64,16 @@
 
             <div part="square">
                 <div part="canvas"
-                     style="@HsvSquareStyle">
+                     style="@_hsv.SquareStyle">
                     <div part="gradient-white"></div>
                     <div part="gradient-black"></div>
                     <div part="indicator"
-                         style="left: @HsvIndicatorLeft; top: @HsvIndicatorTop;"></div>
+                         style="left: @_hsv.IndicatorLeft; top: @_hsv.IndicatorTop;"></div>
                 </div>
             </div>
             <div part="hue-bar">
                 <div part="hue-indicator"
-                     style="top: @HsvHueIndicatorTop;"></div>
+                     style="top: @_hsv.HueIndicatorTop;"></div>
             </div>
 
             break;
