@@ -22,23 +22,6 @@ public partial class FluentWizardStep : FluentComponentBase
         Id = Identifier.NewId();
     }
 
-    /// <summary />
-    protected string? ClassValue => DefaultClassBuilder.Build();
-
-    /// <summary />
-    protected string? StyleValue => DefaultStyleBuilder
-        .AddStyle("position", "relative")
-        .AddStyle("display", "flex")
-        .AddStyle("gap", "10px", when: FluentWizard.StepperPosition == StepperPosition.Left)
-        .AddStyle("flex-direction", "column", when: FluentWizard.StepperPosition == StepperPosition.Top)
-        .AddStyle("align-items", "center", when: FluentWizard.StepperPosition == StepperPosition.Top)
-        .AddStyle("flex", "1", when: FluentWizard.StepperPosition == StepperPosition.Top)
-        .AddStyle("text-align", "center", when: FluentWizard.StepperPosition == StepperPosition.Top)
-        .AddStyle("max-width", FluentWizard.StepperBulletSpace ?? "100%", when: FluentWizard.StepperPosition == StepperPosition.Top)
-        .AddStyle("height", IsLastStep ? "auto" : (FluentWizard.StepperBulletSpace ?? "100%"), when: FluentWizard.StepperPosition == StepperPosition.Left)
-        .AddStyle("cursor", "pointer", when: IsStepClickable)
-        .Build();
-
     /// <summary>
     /// Gets or sets the content of the step.
     /// </summary>
@@ -50,11 +33,6 @@ public partial class FluentWizardStep : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment<FluentWizardStepArgs>? StepTemplate { get; set; }
-
-    /// <summary>
-    /// Gets the step index.
-    /// </summary>
-    public int Index { get; private set; }
 
     /// <summary>
     /// Gets or sets whether the step is disabled.
@@ -89,13 +67,6 @@ public partial class FluentWizardStep : FluentComponentBase
     public EventCallback<FluentWizardStepChangeEventArgs> OnChange { get; set; }
 
     /// <summary>
-    /// Reference to the parent <see cref="FluentWizard"/> component.
-    /// For internal use only.
-    /// </summary>
-    [CascadingParameter]
-    internal FluentWizard FluentWizard { get; set; } = default!;
-
-    /// <summary>
     /// Gets or sets the summary of the step, to display near the label.
     /// </summary>
     [Parameter]
@@ -122,13 +93,41 @@ public partial class FluentWizardStep : FluentComponentBase
     [Parameter]
     public Icon IconNext { get; set; } = new CoreIcons.Regular.Size20.Circle();
 
+    /// <summary>
+    /// Reference to the parent <see cref="FluentWizard"/> component.
+    /// For internal use only.
+    /// </summary>
+    [CascadingParameter]
+    internal FluentWizard FluentWizard { get; set; } = default!;
+
+    /// <summary>
+    /// Gets the step index.
+    /// </summary>
+    public int Index { get; private set; }
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder.Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("position", "relative")
+        .AddStyle("display", "flex")
+        .AddStyle("gap", "10px", when: FluentWizard.StepperPosition == StepperPosition.Left)
+        .AddStyle("flex-direction", "column", when: FluentWizard.StepperPosition == StepperPosition.Top)
+        .AddStyle("align-items", "center", when: FluentWizard.StepperPosition == StepperPosition.Top)
+        .AddStyle("flex", "1", when: FluentWizard.StepperPosition == StepperPosition.Top)
+        .AddStyle("text-align", "center", when: FluentWizard.StepperPosition == StepperPosition.Top)
+        .AddStyle("max-width", FluentWizard.StepperBulletSpace ?? "100%", when: FluentWizard.StepperPosition == StepperPosition.Top)
+        .AddStyle("height", IsLastStep ? "auto" : (FluentWizard.StepperBulletSpace ?? "100%"), when: FluentWizard.StepperPosition == StepperPosition.Left)
+        .AddStyle("cursor", "pointer", when: IsStepClickable)
+        .Build();
+
     internal WizardStepStatus Status { get; set; } = WizardStepStatus.Next;
 
     private bool IsLastStep => Index >= FluentWizard.StepCount - 1;
 
     private string IconStyle => "width: var(--fluent-wizard-circle-size);" +
                                 (Disabled ? " fill-opacity: 0.4;" : string.Empty);
-
     private Icon StepIcon
     {
         get
@@ -140,6 +139,35 @@ public partial class FluentWizardStep : FluentComponentBase
                 WizardStepStatus.Next => IconNext,
                 _ => new CoreIcons.Regular.Size20.Circle(),
             };
+        }
+    }
+
+    private bool IsStepClickable
+    {
+        get
+        {
+            if (Disabled)
+            {
+                return false;
+            }
+
+            if (FluentWizard.Value == Index)
+            {
+                return false;
+            }
+
+            if (FluentWizard.StepSequence == WizardStepSequence.Linear)
+            {
+                return false;
+            }
+
+            if (FluentWizard.StepSequence == WizardStepSequence.Visited &&
+                Index > FluentWizard._maxStepVisited)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 
@@ -155,19 +183,46 @@ public partial class FluentWizardStep : FluentComponentBase
         base.OnInitialized();
     }
 
-    /// <summary />
-    public override async ValueTask DisposeAsync()
-    {
-        FluentWizard?.RemoveStep(this);
-        await base.DisposeAsync();
-    }
-
     /// <summary>
     /// Registers an EditForm and its EditContext for validation tracking.
     /// </summary>
     public void RegisterEditFormAndContext(EditForm editForm, EditContext editContext)
     {
         _editForms.TryAdd(editForm, editContext);
+    }
+
+    /// <summary>
+    /// Validates all registered EditContexts.
+    /// </summary>
+    public bool ValidateEditContexts()
+    {
+        var isValid = true;
+        foreach (var editForm in _editForms)
+        {
+            var contextIsValid = editForm.Value.Validate();
+            if (!contextIsValid)
+            {
+                isValid = false;
+            }
+        }
+
+        foreach (var editContext in _editContexts)
+        {
+            var contextIsValid = editContext.Validate();
+            if (!contextIsValid)
+            {
+                isValid = false;
+            }
+        }
+
+        return isValid;
+    }
+
+    /// <summary />
+    public override async ValueTask DisposeAsync()
+    {
+        FluentWizard?.RemoveStep(this);
+        await base.DisposeAsync();
     }
 
     /// <summary>
@@ -197,33 +252,6 @@ public partial class FluentWizardStep : FluentComponentBase
     internal void UnregisterEditContext(EditContext editContext)
     {
         _editContexts.Remove(editContext);
-    }
-
-    /// <summary>
-    /// Validates all registered EditContexts.
-    /// </summary>
-    public bool ValidateEditContexts()
-    {
-        var isValid = true;
-        foreach (var editForm in _editForms)
-        {
-            var contextIsValid = editForm.Value.Validate();
-            if (!contextIsValid)
-            {
-                isValid = false;
-            }
-        }
-
-        foreach (var editContext in _editContexts)
-        {
-            var contextIsValid = editContext.Validate();
-            if (!contextIsValid)
-            {
-                isValid = false;
-            }
-        }
-
-        return isValid;
     }
 
     internal async Task InvokeOnValidSubmitForEditFormsAsync()
@@ -258,34 +286,5 @@ public partial class FluentWizardStep : FluentComponentBase
         }
 
         await FluentWizard.ValidateAndGoToStepAsync(Index, validateEditContexts: Index > FluentWizard.Value);
-    }
-
-    private bool IsStepClickable
-    {
-        get
-        {
-            if (Disabled)
-            {
-                return false;
-            }
-
-            if (FluentWizard.Value == Index)
-            {
-                return false;
-            }
-
-            if (FluentWizard.StepSequence == WizardStepSequence.Linear)
-            {
-                return false;
-            }
-
-            if (FluentWizard.StepSequence == WizardStepSequence.Visited &&
-                Index > FluentWizard._maxStepVisited)
-            {
-                return false;
-            }
-
-            return true;
-        }
     }
 }

@@ -22,17 +22,6 @@ public partial class FluentWizard : FluentComponentBase
         Id = Identifier.NewId();
     }
 
-    /// <summary />
-    protected string? ClassValue => DefaultClassBuilder
-        .AddClass("fluent-wizard")
-        .Build();
-
-    /// <summary />
-    protected string? StyleValue => DefaultStyleBuilder
-        .AddStyle("width", Width)
-        .AddStyle("height", Height)
-        .Build();
-
     /// <summary>
     /// Gets or sets the height of the wizard.
     /// </summary>
@@ -126,6 +115,23 @@ public partial class FluentWizard : FluentComponentBase
     public WizardStepSequence StepSequence { get; set; } = WizardStepSequence.Linear;
 
     /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-wizard")
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .AddStyle("height", Height)
+        .Build();
+
+    internal int StepCount => _steps.Count;
+
+    private bool DisplayPreviousButton => Value > 0 && _steps[..Value].Any(i => !i.Disabled);
+
+    private bool DisplayNextButton => Value < _steps.Count - 1 && _steps[(Value + 1)..].Any(i => !i.Disabled);
+
+    /// <summary />
     public override Task SetParametersAsync(ParameterView parameters)
     {
         // If Value parameter changes, we need to switch to the new step.
@@ -135,6 +141,48 @@ public partial class FluentWizard : FluentComponentBase
         }
 
         return base.SetParametersAsync(parameters);
+    }
+
+    /// <summary>
+    /// Optionally validate and invoke the <see cref="OnFinish"/> handler.
+    /// </summary>
+    /// <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
+    /// <returns></returns>
+    public async Task FinishAsync(bool validateEditContexts = false)
+    {
+        if (validateEditContexts)
+        {
+            // Validate any form edit contexts
+            var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
+            if (!allEditContextsAreValid)
+            {
+                // Invoke the 'OnInvalidSubmit' handlers for the edit forms.
+                await _steps[Value].InvokeOnInValidSubmitForEditFormsAsync();
+                return;
+            }
+        }
+
+        // Invoke the 'OnValidSubmit' handlers for the edit forms.
+        await _steps[Value].InvokeOnValidSubmitForEditFormsAsync();
+        await _steps[Value].InvokeOnSubmitForEditFormsAsync();
+
+        _steps[Value].Status = WizardStepStatus.Previous;
+
+        if (OnFinish.HasDelegate)
+        {
+            await OnFinish.InvokeAsync();
+        }
+    }
+
+    /// <summary>
+    /// Navigate to the specified step, with or without validate the current EditContexts.
+    /// </summary>
+    /// <param name="step">Index number of the step to display</param>
+    /// <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
+    /// <returns></returns>
+    public Task GoToStepAsync(int step, bool validateEditContexts = false)
+    {
+        return ValidateAndGoToStepAsync(step, validateEditContexts);
     }
 
     /// <summary />
@@ -240,48 +288,6 @@ public partial class FluentWizard : FluentComponentBase
         return FinishAsync(validateEditContexts: true);
     }
 
-    /// <summary>
-    /// Optionally validate and invoke the <see cref="OnFinish"/> handler.
-    /// </summary>
-    /// <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
-    /// <returns></returns>
-    public async Task FinishAsync(bool validateEditContexts = false)
-    {
-        if (validateEditContexts)
-        {
-            // Validate any form edit contexts
-            var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
-            if (!allEditContextsAreValid)
-            {
-                // Invoke the 'OnInvalidSubmit' handlers for the edit forms.
-                await _steps[Value].InvokeOnInValidSubmitForEditFormsAsync();
-                return;
-            }
-        }
-
-        // Invoke the 'OnValidSubmit' handlers for the edit forms.
-        await _steps[Value].InvokeOnValidSubmitForEditFormsAsync();
-        await _steps[Value].InvokeOnSubmitForEditFormsAsync();
-
-        _steps[Value].Status = WizardStepStatus.Previous;
-
-        if (OnFinish.HasDelegate)
-        {
-            await OnFinish.InvokeAsync();
-        }
-    }
-
-    /// <summary>
-    /// Navigate to the specified step, with or without validate the current EditContexts.
-    /// </summary>
-    /// <param name="step">Index number of the step to display</param>
-    /// <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
-    /// <returns></returns>
-    public Task GoToStepAsync(int step, bool validateEditContexts = false)
-    {
-        return ValidateAndGoToStepAsync(step, validateEditContexts);
-    }
-
     internal async Task ValidateAndGoToStepAsync(int targetIndex, bool validateEditContexts)
     {
         var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex, validateEditContexts);
@@ -319,8 +325,6 @@ public partial class FluentWizard : FluentComponentBase
 
         return index;
     }
-
-    internal int StepCount => _steps.Count;
 
     internal void RemoveStep(FluentWizardStep step)
     {
@@ -393,8 +397,4 @@ public partial class FluentWizard : FluentComponentBase
             _ => null,
         };
     }
-
-    private bool DisplayPreviousButton => Value > 0 && _steps[..Value].Any(i => !i.Disabled);
-
-    private bool DisplayNextButton => Value < _steps.Count - 1 && _steps[(Value + 1)..].Any(i => !i.Disabled);
 }
