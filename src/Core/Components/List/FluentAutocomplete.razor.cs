@@ -36,11 +36,12 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         // Default values
         Id = Identifier.NewId();
 
-        // Set default values for this component: 
-        // - if `Width` is not already set (not null),
-        // - if `Multiple` is not already set to `false` using `base(configuration)`, in the Program.cs
+        // Set default value: if `Width` is not already set (not null),
         Width ??= "160px";
-        configuration?.DefaultValues.SetInitialValues(this, [(nameof(Multiple), true)]);
+
+        // Set default value: if `Multiple` is not already set to `false` using `base(configuration)`, in the Program.cs
+        // (not used since the Multiple is overridden with a default value of true directly in this class)
+        // configuration?.DefaultValues.SetInitialValues(this, [(nameof(Multiple), true)]);
     }
 
     /// <summary />
@@ -60,6 +61,12 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// </summary>
     [Parameter]
     public string? Placeholder { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the list allows multiple selections.
+    /// </summary>
+    [Parameter]
+    public override bool Multiple { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the delay, in milliseconds, before to raise the event.
