@@ -82,6 +82,12 @@ public partial class FluentPopover : FluentComponentBase
     [Parameter]
     public bool Nested { get; set; }
 
+    /// <summary>
+    /// Gets or sets the interaction on the anchor element that triggers the popover to open or close.
+    /// </summary>
+    [Parameter]
+    public PopoverTrigger AnchorTrigger { get; set; }
+
     /// <summary />
     internal async Task OnToggleAsync(DialogToggleEventArgs args)
     {

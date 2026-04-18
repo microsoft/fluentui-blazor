@@ -1,5 +1,6 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 
 <fluent-popover-b id="@Id"
                   class="@ClassValue"
@@ -9,6 +10,7 @@
                   offset-horizontal="@(OffsetHorizontal != 0 ? OffsetHorizontal : null)"
                   opened="@(Opened ? "true" : "false")"
                   nested="@(Nested ? "true" : null)"
+                  anchor-trigger="@AnchorTrigger.ToAttributeValue(isNull: PopoverTrigger.None, returnEmptyAsNull: true)"
                   @attributes="@AdditionalAttributes"
                   @ondialogtoggle="@OnToggleAsync">
     @ChildContent

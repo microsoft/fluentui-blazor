@@ -13,6 +13,15 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     // Add backing field for opened property
     private _opened: boolean = false;
 
+    // Anchor-focus: track the element that has focus listeners attached
+    private _focusAnchorEl: HTMLElement | null = null;
+    private handleAnchorFocus = this.onAnchorFocus.bind(this);
+    private handleAnchorBlur = this.onAnchorBlur.bind(this);
+
+    // Anchor-toggle: track the element that has click/touch listeners attached
+    private _toggleAnchorEl: HTMLElement | null = null;
+    private handleAnchorToggle = this.onAnchorToggle.bind(this);
+
     // Creates a new FluentPopover element.
     constructor() {
       super();
@@ -66,12 +75,16 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     connectedCallback() {
       window.addEventListener('scroll', this.handleWindowChange, true);
       window.addEventListener('resize', this.handleWindowChange, true);
+      this.setupAnchorFocusListeners();
+      this.setupAnchorToggleListeners();
     }
 
     // Disposes the popover by removing event listeners and stopping observers.
     disconnectedCallback() {
       this.removeEventsAfterClosing();
       this.stopAnchorPositionObserver();
+      this.teardownAnchorFocusListeners();
+      this.teardownAnchorToggleListeners();
       window.removeEventListener('scroll', this.handleWindowChange, true);
       window.removeEventListener('resize', this.handleWindowChange, true);
     }
@@ -106,7 +119,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     /* Attributes     */
     /* ****************/
 
-    static get observedAttributes() { return ['style', 'class', 'opened']; }
+    static get observedAttributes() { return ['style', 'class', 'opened', 'anchor-trigger', 'anchor-id']; }
 
     // Handles attribute changes to update references and listeners.
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -127,6 +140,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         // Sync property if 'opened' attribute changes externally
         if (name === 'opened') {
           this.opened = newValue === 'true';
+        }
+
+        // Re-setup trigger listeners when anchor-trigger or anchor-id changes
+        if (name === 'anchor-trigger' || name === 'anchor-id') {
+          this.setupAnchorFocusListeners();
+          this.setupAnchorToggleListeners();
         }
       }
     }
@@ -149,6 +168,18 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     private get nested(): boolean {
       const val = this.getAttribute('nested');
       return val !== null && val !== 'false';
+    }
+
+    private get anchorTrigger(): string {
+      return this.getAttribute('anchor-trigger') ?? '';
+    }
+
+    private get anchorTriggerClick(): boolean {
+      return this.anchorTrigger === 'click' || this.anchorTrigger === 'all';
+    }
+
+    private get anchorTriggerFocus(): boolean {
+      return this.anchorTrigger === 'focus' || this.anchorTrigger === 'all';
     }
 
     /* ****************/
@@ -206,8 +237,32 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       }));
     }
 
+    // Handles focus on the anchor element to open the popover
+    private onAnchorFocus() {
+      this.showPopover();
+    }
+
+    // Handles blur on the anchor element to close the popover
+    private onAnchorBlur() {
+      this.closePopover();
+    }
+
+    // Handles click/touch on the anchor element to toggle the popover
+    private onAnchorToggle(event: MouseEvent | TouchEvent) {
+      event.stopPropagation();
+      if (this.dialogIsOpen) {
+        this.closePopover();
+      } else {
+        this.showPopover();
+      }
+    }
+
     // Handles clicks outside the dialog to close it
     private onOutsideClick(event: MouseEvent | TouchEvent) {
+      // When anchor-toggle is active the anchor click is handled by onAnchorToggle; skip here.
+      if (this.anchorTriggerClick && this.anchorEl?.contains(event.target as Node)) {
+        return;
+      }
       if (this.dialogIsOpen && !this.contains(event.target as Node) && !this.anchorEl?.contains(event.target as Node)) {
         this.closePopover();
       }
@@ -237,6 +292,44 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       document.removeEventListener('mousedown', this.handleOutsideClick);
       document.removeEventListener('touchstart', this.handleOutsideClick);
       document.removeEventListener('keydown', this.handleCloseKeydown);
+    }
+
+    // Attaches focus/blur listeners to the anchor element when anchor-trigger includes Focus.
+    private setupAnchorFocusListeners() {
+      this.teardownAnchorFocusListeners();
+      if (this.anchorTriggerFocus && this.anchorEl) {
+        this._focusAnchorEl = this.anchorEl;
+        this._focusAnchorEl.addEventListener('focus', this.handleAnchorFocus);
+        this._focusAnchorEl.addEventListener('blur', this.handleAnchorBlur);
+      }
+    }
+
+    // Removes focus/blur listeners from the tracked anchor element.
+    private teardownAnchorFocusListeners() {
+      if (this._focusAnchorEl) {
+        this._focusAnchorEl.removeEventListener('focus', this.handleAnchorFocus);
+        this._focusAnchorEl.removeEventListener('blur', this.handleAnchorBlur);
+        this._focusAnchorEl = null;
+      }
+    }
+
+    // Attaches click/touchstart listeners to the anchor element when anchor-trigger includes Click.
+    private setupAnchorToggleListeners() {
+      this.teardownAnchorToggleListeners();
+      if (this.anchorTriggerClick && this.anchorEl) {
+        this._toggleAnchorEl = this.anchorEl;
+        this._toggleAnchorEl.addEventListener('click', this.handleAnchorToggle);
+        this._toggleAnchorEl.addEventListener('touchstart', this.handleAnchorToggle);
+      }
+    }
+
+    // Removes click/touchstart listeners from the tracked anchor element.
+    private teardownAnchorToggleListeners() {
+      if (this._toggleAnchorEl) {
+        this._toggleAnchorEl.removeEventListener('click', this.handleAnchorToggle);
+        this._toggleAnchorEl.removeEventListener('touchstart', this.handleAnchorToggle);
+        this._toggleAnchorEl = null;
+      }
     }
 
     /* ****************************************************** */
