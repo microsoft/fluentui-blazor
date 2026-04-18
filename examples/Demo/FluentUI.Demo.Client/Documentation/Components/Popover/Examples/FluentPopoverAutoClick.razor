@@ -1,0 +1,17 @@
+﻿<FluentButton Id="MyButton">Open Popover</FluentButton>
+
+<FluentPopover AnchorId="MyButton"
+               AnchorTrigger="PopoverTrigger.All"
+               @bind-Opened="@Opened">
+    <p>Example content for the</p>
+    <p>Popover component</p>
+</FluentPopover>
+
+<div>
+    Opened: @Opened
+</div>
+
+@code
+{
+    bool Opened = false;
+}

@@ -45,6 +45,21 @@ But keep in mind that nesting popovers can lead to a confusing user experience i
 
 {{ FluentPopoverNested }}
 
+## AnchorTrigger
+
+By default, the **FluentPopover** is controlled entirely through code via the `@bind-Opened` parameter.
+The `AnchorTrigger` property lets the popover react automatically to user interactions on the anchor element,
+without requiring any additional event handling in your code.
+
+| Value | Behavior |
+|---|---|
+| `PopoverTrigger.None` | *(default)* The popover is only controlled by code. |
+| `PopoverTrigger.Click` | The popover toggles open/closed when the anchor is **clicked or touched**. |
+| `PopoverTrigger.Focus` | The popover opens when the anchor **receives focus** and closes when focus is lost. Useful for input fields that should show a helper popover while editing. |
+| `PopoverTrigger.All` | Combines both `Click` and `Focus` behaviors. |
+
+{{ FluentPopoverAutoClick }}
+
 ## Limitations
 
 ⚠️ The **FluentPopover** component does not yet support the `RTL` (Right-To-Left) layout.
