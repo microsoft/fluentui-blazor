@@ -53,10 +53,10 @@ without requiring any additional event handling in your code.
 
 | Value | Behavior |
 |---|---|
-| `PopoverTrigger.None` | *(default)* The popover is only controlled by code. |
-| `PopoverTrigger.Click` | The popover toggles open/closed when the anchor is **clicked or touched**. |
-| `PopoverTrigger.Focus` | The popover opens when the anchor **receives focus** and closes when focus is lost. Useful for input fields that should show a helper popover while editing. |
-| `PopoverTrigger.All` | Combines both `Click` and `Focus` behaviors. |
+| `None` | *(default)* The popover is only controlled by code. |
+| `Click` | The popover toggles open/closed when the anchor is **clicked or touched**. |
+| `Focus` | The popover opens when the anchor **receives focus** and closes when focus is lost. Useful for input fields that should show a helper popover while editing. |
+| `All` | Combines both `Click` and `Focus` behaviors. |
 
 {{ FluentPopoverAutoClick }}
 
