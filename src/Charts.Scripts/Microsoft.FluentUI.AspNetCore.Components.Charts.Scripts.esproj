@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.5171056">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.5171056">
   <PropertyGroup>
     <DebugAssetsDirectory>dist\</DebugAssetsDirectory>
     <StaticWebAssetSourceId>Microsoft.FluentUI.AspNetCore.Components.Charts</StaticWebAssetSourceId>

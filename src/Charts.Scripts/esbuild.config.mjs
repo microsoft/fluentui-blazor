@@ -30,17 +30,17 @@ await esbuild.build({
 });
 
 // CSS: Microsoft.FluentUI.AspNetCore.Components.Charts.bundle.scp.css
-const allStyleFile = 'all-styles.css';
-const files = await glob(pkg.cssFiles);
-const content = files.map(file => `@import "${file.replace(/\\/g, '/')}";`).join('\n');
+//const allStyleFile = 'all-styles.css';
+//const files = await glob(pkg.cssFiles);
+//const content = files.map(file => `@import "${file.replace(/\\/g, '/')}";`).join('\n');
 
-await writeFile(allStyleFile, content);
-await esbuild.build({
-    entryPoints: [allStyleFile],
-    loader: { '.css': 'css' },
-    outfile: pkg.cssBundle,
-    bundle: true,
-    minify: true,
-    sourcemap: false,
-});
-await unlink(allStyleFile);
+//await writeFile(allStyleFile, content);
+//await esbuild.build({
+//    entryPoints: [allStyleFile],
+//    loader: { '.css': 'css' },
+//    outfile: pkg.cssBundle,
+//    bundle: true,
+//    minify: true,
+//    sourcemap: false,
+//});
+//await unlink(allStyleFile);

@@ -31,6 +31,12 @@ public partial class FluentDonutChart : FluentComponentBase
         .Build();
 
     /// <summary>
+    /// Gets or sets the title of the donut chart, which is typically displayed above the chart to provide context about the data being represented.
+    /// </summary>
+    [Parameter]
+    public string ChartTitle { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the data for the donut chart.
     /// </summary>
     [Parameter, EditorRequired]
@@ -47,6 +53,14 @@ public partial class FluentDonutChart : FluentComponentBase
     /// </summary>
     [Parameter]
     public int? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether labels are hidden in the
+    /// component output.
+    /// Default is true.
+    /// </summary>
+    [Parameter]
+    public bool HideLabels { get; set; } = true;
 
     /// <summary>
     /// Gets or sets a value indicating whether legends are hidden in the component output.

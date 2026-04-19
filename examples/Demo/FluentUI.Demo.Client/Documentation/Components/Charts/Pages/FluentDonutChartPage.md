@@ -42,6 +42,10 @@ Donut charts are used to show proportion, which expresses a partial value in com
 
 {{ DonutChartDefault }}
 
+### Donut Chart with labels
+
+{{ DonutChartLabels }}
+
 ### RTL Donut Chart
 
 {{ DonutChartDefaultRTL }}

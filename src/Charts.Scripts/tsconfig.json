@@ -8,6 +8,7 @@
     /* Modules */
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "experimentalDecorators": true,
     "lib": [ "ESNext", "DOM" ],
     /* Emit */
     "sourceMap": true, /* Create source map files for emitted JavaScript files. */

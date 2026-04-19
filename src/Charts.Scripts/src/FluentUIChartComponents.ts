@@ -1,5 +1,5 @@
 import * as FluentUIWebComponents from '@fluentui/web-components';
-import * as FluentUIComponents from '@fluentui/chart-web-components';
+import * as FluentUIComponents from './components';
 import { defineOnce } from '@core/RegistrationState';
 
 
