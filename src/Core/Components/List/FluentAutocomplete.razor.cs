@@ -443,11 +443,10 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     private async Task ClearSelectionAsync()
     {
         _isOpen = false;
+        _internalSelectedItems.Clear();
 
         if (Multiple)
         {
-            _internalSelectedItems.Clear();
-
             if (SelectedItemsChanged.HasDelegate)
             {
                 await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
