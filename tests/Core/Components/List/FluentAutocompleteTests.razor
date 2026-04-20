@@ -1032,6 +1032,28 @@
         Assert.Empty(component.SelectedItems);
     }
 
+    [Fact]
+    public void FluentAutocomplete_ClearSelection_PreDefinedValue()
+    {
+        // Arrange
+        string? selectedItem = "One";
+
+        var cut = Render(@<FluentAutocomplete TOption="string"
+                                                  TValue="string"
+                                                  Multiple="false"
+                                                  Label="Select"
+                                                  OnOptionsSearch="@OnOptionsSearch"
+                                                  @bind-SelectedItem="selectedItem" />);
+
+        Assert.NotNull(selectedItem);
+
+        var icon = cut.Find("div[slot='end'] svg[focusable='true']");
+        icon.Click();
+
+        // Verify internal stat
+        Assert.Null(selectedItem);
+    }
+
     private void OnOptionsSearch(OptionsSearchEventArgs<string> e)
     {
         e.Items = Digits.Where(i => i.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
