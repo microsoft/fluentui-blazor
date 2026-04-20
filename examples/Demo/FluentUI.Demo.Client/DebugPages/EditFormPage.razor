@@ -81,6 +81,24 @@
                                     @bind-SelectedItem="Input.Location" /> @* EditContext won't be notified here *@
                 <ValidationMessage For="() => Input.Location" />
 
+                <FluentSwitch @bind-Value="Input.HasAgreedToTerms" Label="I Agree to the terms" />
+                <ValidationMessage For="() => Input.HasAgreedToTerms" />
+
+                @if (useNativeInputs)
+                {
+                    <label>
+                        I agree to the privacy policy
+                        <InputCheckbox @bind-Value="Input.HasAgreedToPrivacyPolicy" />
+                    </label>
+                }
+                else
+                {
+                    <FluentCheckbox Label="I agree to the privacy policy"
+                                    @bind-Value="Input.HasAgreedToPrivacyPolicy" /> @* EditContext won't be notified here *@
+                }
+
+                <ValidationMessage For="() => Input.HasAgreedToPrivacyPolicy" />
+
                 @if (useNativeButton)
                 {
                     <button type="submit">Submit</button>
@@ -123,6 +141,8 @@
         Input.Age = 30;
         Input.FavouriteDay = DayOfWeek.Friday;
         Input.Location = locations.First();
+        Input.HasAgreedToTerms = true;
+        Input.HasAgreedToPrivacyPolicy = true;
         ValidateForm();
     }
 
@@ -139,6 +159,12 @@
 
         [Required]
         public CompanyLocation? Location { get; set; }
+
+        [Range(typeof(bool), "true", "true")]
+        public bool HasAgreedToTerms { get; set; }
+
+        [Range(typeof(bool), "true", "true")]
+        public bool HasAgreedToPrivacyPolicy { get; set; }
     }
 
     public class CompanyLocation
