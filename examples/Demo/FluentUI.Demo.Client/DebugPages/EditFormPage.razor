@@ -1,52 +1,150 @@
 ﻿@page "/Debug/EditForm"
+@using System.ComponentModel.DataAnnotations
 
 <FluentStack Orientation="Orientation.Vertical" VerticalGap="6px" Style="padding: 1em;">
-	<h1>Just a simple page to do some experimenting</h1>
-	<FluentCard>
-		<h2>Debug flags</h2>
-		<FluentSwitch @bind-Value="useNativeButton" Label="Use native submit button" />
-		<FluentSwitch @bind-Value="useNativeInputs" Label="Use native inputs" />
-	</FluentCard>
+    <h1>Just a simple page to do some experimenting</h1>
+    <FluentCard>
+        <h2>Debug flags</h2>
+        <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalGap="10px">
+            <FluentSwitch @bind-Value="useNativeButton" Label="Use native submit button" />
+            <FluentSwitch @bind-Value="useNativeInputs" Label="Use native inputs" />
+            <FluentButton Appearance="ButtonAppearance.Primary" OnClick="ValidateForm">Validate form</FluentButton>
+            <FluentButton Appearance="ButtonAppearance.Primary" OnClick="SetFormToValid">Set form to valid</FluentButton>
+        </FluentStack>
+    </FluentCard>
 
-	<FluentCard>
-		<h2>Form</h2>
-		<EditForm Model="Input" OnValidSubmit="OnValidSubmit">
-			<FluentStack Orientation="Orientation.Vertical" VerticalGap="6px">
-				@if (useNativeInputs)
-				{
-					<InputText @bind-Value="Input.MyValue" />
-				}
-				else
-				{
-					<FluentTextInput @bind-Value="@Input.MyValue" /> @* Pressing enter in the input will trigger the OnValidSubmit twice *@
-				}
-		
+    <FluentCard>
+        <h2>Form</h2>
 
-				@if (useNativeButton)
-				{
-					<button type="submit">Submit</button>
-				}
-				else
-				{
-					<FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Submit</FluentButton>
-				}
-			</FluentStack>
-		</EditForm>
-	</FluentCard>
+        @* Pressing enter in any input will trigger the OnValidSubmit twice *@
+        <EditForm @ref="form" Model="Input" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <FluentValidationSummary />
+            <FluentStack Orientation="Orientation.Vertical" VerticalGap="6px">
+                @if (useNativeInputs)
+                {
+                    <label>
+                        Name
+                        <InputText @bind-Value="Input.Name" />
+                    </label>
+                }
+                else
+                {
+                    <FluentTextInput @bind-Value="@Input.Name" Width="100%" Label="Name" />
+                }
+                <ValidationMessage For="() => Input.Name" />
+
+                @if (useNativeInputs)
+                {
+                    <label>
+                        Age
+                        <InputNumber @bind-Value="Input.Age" />
+                    </label>
+                }
+                else
+                {
+                    <FluentNumberInput @bind-Value="@Input.Age" Width="100%" Label="Age" />
+                }
+                <ValidationMessage For="() => Input.Age" />
+
+                @if (useNativeInputs)
+                {
+                    <label>
+                        Favourite day
+                        <InputSelect @bind-Value="Input.FavouriteDay">
+                            <option value="">--- Select ---</option>
+                            @foreach (var item in Enum.GetValues<DayOfWeek>())
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        </InputSelect>
+                    </label>
+                }
+                else
+                {
+                    <FluentSelect Label="Favourite day"
+                                  Width="100%"
+                                  TValue="DayOfWeek?"
+                                  TOption="DayOfWeek?"
+                                  Items="Enum.GetValues<DayOfWeek>().Cast<DayOfWeek?>().Append(null)"
+                                  @bind-Value="Input.FavouriteDay" /> @* EditContext won't be notified here *@
+                }
+                <ValidationMessage For="() => Input.FavouriteDay" />
+
+                <FluentAutocomplete TValue="CompanyLocation"
+                                    TOption="CompanyLocation"
+                                    Items="locations"
+                                    OptionText="(o => o.Name)"
+                                    Multiple="false"
+                                    Width="100%"
+                                    Label="Location"
+                                    @bind-SelectedItem="Input.Location" /> @* EditContext won't be notified here *@
+                <ValidationMessage For="() => Input.Location" />
+
+                @if (useNativeButton)
+                {
+                    <button type="submit">Submit</button>
+                }
+                else
+                {
+                    <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Submit</FluentButton>
+                }
+            </FluentStack>
+        </EditForm>
+    </FluentCard>
 </FluentStack>
 
 @code {
-	bool useNativeButton;
-	bool useNativeInputs;
-	MyInput Input { get; set; } = new();
+    EditForm form = default!;
+    bool useNativeButton;
+    bool useNativeInputs;
+    List<CompanyLocation> locations = new List<CompanyLocation>
+    {
+        new CompanyLocation { Id = 1, Name = "New York" },
+        new CompanyLocation { Id = 2, Name = "London" },
+        new CompanyLocation { Id = 3, Name = "Tokyo" },
+        new CompanyLocation { Id = 4, Name = "Sydney" }
+    };
+    MyInput Input { get; set; } = new();
 
-	public void OnValidSubmit()
-	{
-		Console.WriteLine($"Submitted value: {Input.MyValue}");
-	}
+    void OnValidSubmit()
+    {
+        Console.WriteLine($"Submitted value: {Input.Name}");
+    }
 
-	public class MyInput
-	{
-		public string MyValue { get; set; } = "Test";
-	}
+    void ValidateForm()
+    {
+        form.EditContext?.Validate();
+    }
+
+    void SetFormToValid()
+    {
+        Input.Name = "Marvin";
+        Input.Age = 30;
+        Input.FavouriteDay = DayOfWeek.Friday;
+        Input.Location = locations.First();
+        ValidateForm();
+    }
+
+    public class MyInput
+    {
+        [Required]
+        public string? Name { get; set; }
+
+        [Required]
+        public int? Age { get; set; }
+
+        [Required]
+        public DayOfWeek? FavouriteDay { get; set; }
+
+        [Required]
+        public CompanyLocation? Location { get; set; }
+    }
+
+    public class CompanyLocation
+    {
+        public int Id { get; set; }
+        public required string Name { get; set; }
+    }
+
 }
