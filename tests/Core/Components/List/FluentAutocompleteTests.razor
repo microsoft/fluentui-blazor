@@ -1054,9 +1054,112 @@
         Assert.Null(selectedItem);
     }
 
+    [Fact]
+    public async Task FluentAutocomplete_OnSetValue_ResolvesItemFromValue()
+    {
+        // Arrange - Render without an initial Value, OnSetValue resolves the matching digit
+        SetValueEventArgs<string, string>? receivedArgs = null;
+
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                Items="@Digits"
+                                OnSetValue="@(args => { receivedArgs = args; args.Item = Digits.FirstOrDefault(d => d == args.Value); })" />);
+
+        // Act - Set Value externally to "Three" → triggers OnSetValue
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        var newParameters = ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            { nameof(FluentAutocomplete<string, string>.Value), "Three" }
+        });
+        await cut.InvokeAsync(() => component.SetParametersAsync(newParameters));
+
+        // Assert - OnSetValue was invoked with the new Value
+        Assert.NotNull(receivedArgs);
+        Assert.Equal("Three", receivedArgs!.Value);
+
+        // Assert - The resolved item is selected and displayed as a badge
+        Assert.Equal("Three", component.SelectedItem);
+        Assert.Single(component.SelectedItems);
+
+        var badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("Three", badge.GetAttribute("title"));
+    }
+
+    [Fact]
+    public async Task FluentAutocomplete_OnSetValue_UnresolvedValueClearsSelection()
+    {
+        // Arrange - Pre-select "Three", then set Value to something OnSetValue cannot resolve
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                Items="@Digits"
+                                SelectedItem="@("Three")"
+                                OnSetValue="@(args => { args.Item = Digits.FirstOrDefault(d => d == args.Value); })" />);
+
+        // Verify initial state
+        Assert.Equal("Three", cut.Find("span.fluent-badge[alone]").GetAttribute("title"));
+
+        // Act - Set Value to a string that does not match any digit
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        var newParameters = ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            { nameof(FluentAutocomplete<string, string>.Value), "Unknown" }
+        });
+        await cut.InvokeAsync(() => component.SetParametersAsync(newParameters));
+
+        // Assert - Selection is cleared because OnSetValue returned a null Item
+        Assert.Null(component.SelectedItem);
+        Assert.Empty(component.SelectedItems);
+        Assert.Empty(cut.FindAll("span.fluent-badge"));
+    }
+
     private void OnOptionsSearch(OptionsSearchEventArgs<string> e)
     {
         e.Items = Digits.Where(i => i.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
                         .OrderBy(i => i);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_DefaultOptionSelectedComparer_UsesTOptionAsComparer()
+    {
+        // Arrange & Act - TOption (Person) implements IEqualityComparer<Person> and has a public parameterless ctor
+        var cut = Render(@<FluentAutocomplete TOption="Person" TValue="int" Id="my-list" />);
+
+        // Assert - The default OptionSelectedComparer is automatically set to a new Person instance
+        var component = cut.FindComponent<FluentAutocomplete<Person, int>>().Instance;
+        Assert.NotNull(component.OptionSelectedComparer);
+        Assert.IsType<Person>(component.OptionSelectedComparer);
+
+        // Verify it actually compares Persons by Id
+        var p1 = new Person { Id = 1, Name = "Alice" };
+        var p2 = new Person { Id = 1, Name = "Alice (renamed)" };
+        var p3 = new Person { Id = 2, Name = "Bob" };
+        Assert.True(component.OptionSelectedComparer!.Equals(p1, p2));
+        Assert.False(component.OptionSelectedComparer!.Equals(p1, p3));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_DefaultOptionSelectedComparer_NullWhenTOptionDoesNotImplementComparer()
+    {
+        // Arrange & Act - string does NOT implement IEqualityComparer<string>
+        var cut = Render(@<FluentAutocomplete TOption="string" TValue="string" Id="my-list" />);
+
+        // Assert - No default comparer is set
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        Assert.Null(component.OptionSelectedComparer);
+    }
+
+    public class Person : IEqualityComparer<Person>
+    {
+        public int Id { get; set; }
+
+        public string? Name { get; set; }
+
+        public bool Equals(Person? x, Person? y) => x?.Id == y?.Id;
+
+        public int GetHashCode(Person obj) => obj.Id.GetHashCode();
     }
 }
