@@ -444,21 +444,16 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     {
         _isOpen = false;
         _internalSelectedItems.Clear();
+        SelectedItem = default;
 
-        if (Multiple)
+        if (SelectedItemsChanged.HasDelegate)
         {
-            if (SelectedItemsChanged.HasDelegate)
-            {
-                await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
-            }
+            await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
         }
-        else
+
+        if (SelectedItemChanged.HasDelegate)
         {
-            SelectedItem = default;
-            if (SelectedItemChanged.HasDelegate)
-            {
-                await SelectedItemChanged.InvokeAsync(SelectedItem);
-            }
+            await SelectedItemChanged.InvokeAsync(SelectedItem);
         }
     }
 

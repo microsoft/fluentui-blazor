@@ -5,6 +5,7 @@
 <div style="margin: 24px;">
 
     <div>Selected items: <b>@string.Join("; ", SelectedCountries.Select(c => c.Name))</b></div>
+    <div>Selected item: <b>@SelectedCountry?.Name</b></div>
     <div>Search Text: <b>@SearchText</b></div>
 
     <FluentAutocomplete TOption="Country"
@@ -22,6 +23,7 @@
                         Multiple="@Multiple"
                         MaximumSelectedOptions="@(SetMaximumSelectedOptions ? 4 : (int?)null)"
                         @bind-Value="@SearchText"
+                        @bind-SelectedItem="@SelectedCountry"
                         @bind-SelectedItems="@SelectedCountries">
 
         @* Drop-down item template *@
@@ -76,6 +78,7 @@
                         Label="Select countries from Items"
                         Items="@Countries"
                         OptionText="@(item => item.Name)"
+                        @bind-SelectedItem="@SelectedCountry"
                         @bind-SelectedItems="@SelectedCountries" />
 
 </div>
@@ -90,6 +93,7 @@
     bool SetMaximumSelectedOptions { get; set; }
     string? SearchText { get; set; }
     IEnumerable<Country> SelectedCountries { get; set; } = [];
+    Country? SelectedCountry { get; set; }
 
     async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
     {
