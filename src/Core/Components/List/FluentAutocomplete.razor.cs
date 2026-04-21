@@ -487,15 +487,6 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         }
     }
 
-    private async Task OnOptionsPopupClosedAsync()
-    {
-        // After closing the popup
-        if (!_isOpen)
-        {
-            await SetInputFocusAsync();
-        }
-    }
-
     /// <summary>
     /// Sets the focus to the text input element.
     /// </summary>
