@@ -478,7 +478,9 @@
 
         var listbox = cut.Find("fluent-listbox");
         var listboxStyle = listbox.GetAttribute("style");
-        Assert.Contains("height: 300px", listboxStyle);
+        Assert.Contains("max-height: 300px", listboxStyle);
+
+        cut.Verify();
     }
 
     [Fact]
