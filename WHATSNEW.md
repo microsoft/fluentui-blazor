@@ -30,7 +30,7 @@
 - \[Popover\] Allow tabbing inside open anchored regions, support keyboard accessible navigation for popover ([#4561](https://github.com/microsoft/fluentui-blazor/pull/4561))
 - \[SplashScreen\] Mark sync methods as Obsolete ([#4644](https://github.com/microsoft/fluentui-blazor/pull/4644))
 - \[Tabs\] Call HandleOnTabChange when changing to a tab through the menu ([#4564](https://github.com/microsoft/fluentui-blazor/pull/4564))
-- \[Templates\] Fix 404 in WebAssembly temp ([#4578](https://github.com/microsoft/fluentui-blazor/pull/4578))
+- \[Templates\] Fix 404 in WebAssembly template ([#4578](https://github.com/microsoft/fluentui-blazor/pull/4578))
 
 ### Icons and Emoji
 
