@@ -29,7 +29,7 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
 
     /// <summary />
     protected virtual string? ListStyle => new StyleBuilder()
-        .AddStyle("height", Height, when: !string.IsNullOrEmpty(Height))
+        .AddStyle("max-height", Height, when: !string.IsNullOrEmpty(Height))
         .Build();
 
     /// <summary>
