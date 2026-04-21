@@ -4,9 +4,9 @@
     <RuntimeVersion8>8.0.0</RuntimeVersion8>
     <AspNetCoreVersion8>8.0.26</AspNetCoreVersion8>
     <EfCoreVersion8>8.0.26</EfCoreVersion8>
-    <RuntimeVersion9>9.0.14</RuntimeVersion9>
-    <AspNetCoreVersion9>9.0.14</AspNetCoreVersion9>
-    <EfCoreVersion9>9.0.14</EfCoreVersion9>
+    <RuntimeVersion9>9.0.15</RuntimeVersion9>
+    <AspNetCoreVersion9>9.0.15</AspNetCoreVersion9>
+    <EfCoreVersion9>9.0.15</EfCoreVersion9>
     <RuntimeVersion10>10.0.7</RuntimeVersion10>
     <AspNetCoreVersion10>10.0.7</AspNetCoreVersion10>
     <EfCoreVersion10>10.0.7</EfCoreVersion10>
