@@ -1,15 +1,15 @@
-﻿<FluentButton Id="MyButton">Open Popover</FluentButton>
+﻿<FluentStack Orientation="Orientation.Vertical">
+    <FluentText>Opened: @Opened</FluentText>
 
-<FluentPopover AnchorId="MyButton"
-               AnchorTrigger="PopoverTrigger.All"
-               @bind-Opened="@Opened">
-    <p>Example content for the</p>
-    <p>Popover component</p>
-</FluentPopover>
+    <FluentButton Id="MyButton">Open Popover</FluentButton>
 
-<div>
-    Opened: @Opened
-</div>
+    <FluentPopover AnchorId="MyButton"
+                   AnchorTrigger="PopoverTrigger.All"
+                   @bind-Opened="@Opened">
+        <p>Example content for the</p>
+        <p>Popover component</p>
+    </FluentPopover>
+</FluentStack>
 
 @code
 {

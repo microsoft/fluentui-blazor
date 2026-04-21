@@ -22,6 +22,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     private _toggleAnchorEl: HTMLElement | null = null;
     private handleAnchorToggle = this.onAnchorToggle.bind(this);
 
+    // Anchor-presence: observes the DOM to (re)attach listeners when the
+    // anchor element is added or removed after the popover is connected.
+    private anchorMutationObserver: MutationObserver | null = null;
+    private anchorCheckScheduled: boolean = false;
+
     // Creates a new FluentPopover element.
     constructor() {
       super();
@@ -77,6 +82,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       window.addEventListener('resize', this.handleWindowChange, true);
       this.setupAnchorFocusListeners();
       this.setupAnchorToggleListeners();
+      this.startAnchorMutationObserver();
     }
 
     // Disposes the popover by removing event listeners and stopping observers.
@@ -85,6 +91,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       this.stopAnchorPositionObserver();
       this.teardownAnchorFocusListeners();
       this.teardownAnchorToggleListeners();
+      this.stopAnchorMutationObserver();
       window.removeEventListener('scroll', this.handleWindowChange, true);
       window.removeEventListener('resize', this.handleWindowChange, true);
     }
@@ -146,6 +153,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         if (name === 'anchor-trigger' || name === 'anchor-id') {
           this.setupAnchorFocusListeners();
           this.setupAnchorToggleListeners();
+          this.startAnchorMutationObserver();
         }
       }
     }
@@ -330,6 +338,63 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         this._toggleAnchorEl.removeEventListener('touchstart', this.handleAnchorToggle);
         this._toggleAnchorEl = null;
       }
+    }
+
+    // Starts a MutationObserver that watches the document for the anchor
+    // element being added or removed. When a change is detected, listeners
+    // are (re)attached. The observer is shared between focus and toggle
+    // setups and runs only while an `anchor-id` is configured.
+    //
+    // Performance notes:
+    //  - Only one observer instance is created per popover.
+    //  - Mutations are batched via `queueMicrotask` so the anchor lookup
+    //    runs at most once per microtask, regardless of how many DOM
+    //    mutations occurred.
+    //  - The observer is stopped automatically on `disconnectedCallback`.
+    private startAnchorMutationObserver() {
+      // Nothing to observe if no anchor-id is set
+      // Or if the trigger is not focus or click, as those are the only cases where we need to track the anchor presence
+      if (!this.getAttribute('anchor-id') || (!this.anchorTriggerFocus && !this.anchorTriggerClick)) {
+        this.stopAnchorMutationObserver();
+        return;
+      }
+
+      if (this.anchorMutationObserver) {
+        return; // Already observing.
+      }
+
+      this.anchorMutationObserver = new MutationObserver(() => {
+        if (this.anchorCheckScheduled) return;
+        this.anchorCheckScheduled = true;
+        queueMicrotask(() => {
+          this.anchorCheckScheduled = false;
+          const currentAnchor = this.anchorEl;
+          const trackedAnchor = this._toggleAnchorEl ?? this._focusAnchorEl;
+
+          // Re-attach listeners only when the resolved anchor element
+          // actually changed (added, removed, or replaced).
+          if (currentAnchor !== trackedAnchor) {
+            this.setupAnchorFocusListeners();
+            this.setupAnchorToggleListeners();
+
+            // Stop observing, to avoid unnecessary checks on future mutations
+            this.stopAnchorMutationObserver();
+          }
+        });
+      });
+
+      this.anchorMutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    private stopAnchorMutationObserver() {
+      if (this.anchorMutationObserver) {
+        this.anchorMutationObserver.disconnect();
+        this.anchorMutationObserver = null;
+      }
+      this.anchorCheckScheduled = false;
     }
 
     /* ****************************************************** */

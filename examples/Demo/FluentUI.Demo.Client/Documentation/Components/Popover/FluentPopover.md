@@ -51,12 +51,10 @@ By default, the **FluentPopover** is controlled entirely through code via the `@
 The `AnchorTrigger` property lets the popover react automatically to user interactions on the anchor element,
 without requiring any additional event handling in your code.
 
-| Value | Behavior |
-|---|---|
-| `None` | *(default)* The popover is only controlled by code. |
-| `Click` | The popover toggles open/closed when the anchor is **clicked or touched**. |
-| `Focus` | The popover opens when the anchor **receives focus** and closes when focus is lost. Useful for input fields that should show a helper popover while editing. |
-| `All` | Combines both `Click` and `Focus` behaviors. |
+- `None`: *(default)* The popover is only controlled by code.
+- `Click`: The popover toggles open/closed when the anchor is **clicked or touched**.
+- `Focus`: The popover opens when the anchor **receives focus** and closes when focus is lost. Useful for input fields that should show a helper popover while editing.
+- `All`: Combines both `Click` and `Focus` behaviors.
 
 {{ FluentPopoverAutoClick }}
 
