@@ -61,6 +61,8 @@ the component cannot match them to already-selected items by **reference**.
 Use the `OptionSelectedComparer` parameter to provide a custom `IEqualityComparer<TOption>` that compares items by a unique key (such as an ID)
 instead of by reference. Without this, previously selected items may not appear as checked in the refreshed list.
 
+If your object implements `IEqualityComparer<T>`, you can omit the `OptionSelectedComparer` parameter, as the component will automatically use the object's built-in equality logic to match selected items.
+
 {{ AutocompleteComparer }}
 
 ## API FluentAutocomplete

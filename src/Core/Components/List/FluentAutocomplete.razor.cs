@@ -81,6 +81,14 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     [Parameter]
     public EventCallback<OptionsSearchEventArgs<TOption>> OnOptionsSearch { get; set; }
 
+    /// <summary>
+    /// Gets or sets an event callback that is raised when the component needs to resolve the item corresponding to a given value,
+    /// for example when Value is set from outside the component.
+    /// The handler should set the Item property of the event args to the resolved item for the given value.
+    /// </summary>
+    [Parameter]
+    public EventCallback<SetValueEventArgs<TOption, TValue>> OnSetValue { get; set; }
+
     /// <inheritdoc cref="FluentListBase{TOption, TValue}.SelectedItems" />
     public override IEnumerable<TOption> SelectedItems
     {
@@ -197,7 +205,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     }
 
     /// <summary />
-    public override Task SetParametersAsync(ParameterView parameters)
+    public override async Task SetParametersAsync(ParameterView parameters)
     {
         // Check if SelectedItem is being supplied and has changed
         if (parameters.TryGetValue<TOption?>(nameof(SelectedItem), out var newSelectedItem))
@@ -213,7 +221,36 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             }
         }
 
-        return base.SetParametersAsync(parameters);
+        // Check if Value is being supplied and has changed (e.g. set by the developer during initialization).
+        // If so, resolve the associated option via the OnSetValue callback and synchronize the selection.
+        if (parameters.TryGetValue<TValue?>(nameof(Value), out var newValue))
+        {
+            var valueComparer = EqualityComparer<TValue>.Default;
+            var currentValue = GetOptionValue(_internalSelectedItem);
+
+            if (!valueComparer.Equals(newValue, currentValue) && OnSetValue.HasDelegate)
+            {
+                var args = new SetValueEventArgs<TOption, TValue>
+                {
+                    Value = newValue,
+                };
+
+                await OnSetValue.InvokeAsync(args);
+
+                if (args.Item is not null)
+                {
+                    _internalSelectedItems = [args.Item];
+                    SelectedItem = args.Item;
+                }
+                else
+                {
+                    _internalSelectedItems = [];
+                    SelectedItem = default;
+                }
+            }
+        }
+
+        await base.SetParametersAsync(parameters);
     }
 
     /// <summary>
@@ -343,13 +380,6 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// <returns></returns>
     internal async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty)
     {
-        // Raise the ValueChanged event to notify the parent component.
-        if (ValueChanged.HasDelegate)
-        {
-            var value = _textInput ?? string.Empty;
-            await ValueChanged.InvokeAsync((TValue)(object)value);
-        }
-
         // If the input is empty, we don't show any options in the listbox, and we close it if it was open
         if (!showWhenInputIsEmpty && string.IsNullOrEmpty(_textInput))
         {
@@ -444,21 +474,16 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     {
         _isOpen = false;
         _internalSelectedItems.Clear();
+        SelectedItem = default;
 
-        if (Multiple)
+        if (SelectedItemsChanged.HasDelegate)
         {
-            if (SelectedItemsChanged.HasDelegate)
-            {
-                await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
-            }
+            await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
         }
-        else
+
+        if (SelectedItemChanged.HasDelegate)
         {
-            SelectedItem = default;
-            if (SelectedItemChanged.HasDelegate)
-            {
-                await SelectedItemChanged.InvokeAsync(SelectedItem);
-            }
+            await SelectedItemChanged.InvokeAsync(SelectedItem);
         }
     }
 

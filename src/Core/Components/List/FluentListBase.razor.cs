@@ -22,6 +22,12 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DropdownEventArgs))]
     protected FluentListBase(LibraryConfiguration configuration) : base(configuration)
     {
+        // If TOption implements IEqualityComparer<TOption> and exposes a public parameterless
+        // constructor, use a new instance of TOption as the default OptionSelectedComparer.
+        if (OptionSelectedComparer is null && _defaultOptionSelectedComparer.Value is { } defaultComparer)
+        {
+            OptionSelectedComparer = defaultComparer;
+        }
     }
 
     /// <inheritdoc />
@@ -331,5 +337,34 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     {
         return typeof(TOption) == typeof(TValue)
             || Nullable.GetUnderlyingType(typeof(TValue)) == typeof(TOption);
+    }
+
+    // Cached default comparer (computed once per closed generic type).
+    private static readonly Lazy<IEqualityComparer<TOption>?> _defaultOptionSelectedComparer = new(CreateDefaultOptionSelectedComparer);
+
+    [UnconditionalSuppressMessage("Trimming", "IL2090:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method.", Justification = "Best-effort default comparer detection; safely returns null when the constructor is trimmed.")]
+    [UnconditionalSuppressMessage("Trimming", "IL2087:'type' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method.", Justification = "Best-effort default comparer detection; falls back to null when the constructor is trimmed.")]
+    private static IEqualityComparer<TOption>? CreateDefaultOptionSelectedComparer()
+    {
+        var optionType = typeof(TOption);
+
+        if (!typeof(IEqualityComparer<TOption>).IsAssignableFrom(optionType))
+        {
+            return null;
+        }
+
+        if (optionType.GetConstructor(Type.EmptyTypes) is null)
+        {
+            return null;
+        }
+
+        try
+        {
+            return Activator.CreateInstance(optionType) as IEqualityComparer<TOption>;
+        }
+        catch (MissingMethodException)
+        {
+            return null;
+        }
     }
 }
