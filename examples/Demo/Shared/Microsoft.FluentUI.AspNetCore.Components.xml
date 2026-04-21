@@ -7615,7 +7615,7 @@
             <summary>
             Show a message based on the provided parameters in a message bar.
             </summary>
-            <param name="title"> Main info. 
+            <param name="title"> Main info.
             Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
             Only use it with fully trusted, sanitized content.</param>
             <param name="intent">Intent of the message</param>
@@ -7657,7 +7657,7 @@
             <summary>
             Show a message based on the provided parameters in a message bar.
             </summary>
-            <param name="title"> Main info. 
+            <param name="title"> Main info.
             Using MarkupString can introduce XSS vulnerabilities because it renders unencoded HTML.
             Only use it with fully trusted, sanitized content.</param>
             <param name="intent">Intent of the message</param>

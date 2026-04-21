@@ -1,10 +1,52 @@
+## V4.14.1
+
+### General
+
+- \[General\] Fix index.ts section causing "Illegal constructor" on older iOS devices ([#4531](https://github.com/microsoft/fluentui-blazor/pull/4531))
+- \[General\] Bump minimatch from 3.1.2 to 3.1.5 in /src/Core.Assets ([#4586](https://github.com/microsoft/fluentui-blazor/pull/4586))
+- \[General\] fix: rename `dateselected` custom event to `fluentdateselected` to resolve .NET 11 exception ([#4605](https://github.com/microsoft/fluentui-blazor/pull/4605))
+- \[General\] fix: rename custom events matching browserEventName to use fluent prefix ([#4609](https://github.com/microsoft/fluentui-blazor/pull/4609))
+- \[General\] Add accent-color in reboot.css ([#4614](https://github.com/microsoft/fluentui-blazor/pull/4614))
+- \[General\] Bump flatted from 3.3.1 to 3.4.2 in /src/Core.Assets ([#4638](https://github.com/microsoft/fluentui-blazor/pull/4638))
+- \[General\] Bump picomatch from 2.3.1 to 2.3.2 in /src/Core.Assets ([#4646](https://github.com/microsoft/fluentui-blazor/pull/4646))
+
+### Demo site and documentation
+
+- \[Docs\] Update keycode docs to reflect latest interface ([#4522](https://github.com/microsoft/fluentui-blazor/pull/4522))
+- \[Docs\] Add note about render mode and required interactivity ([#4540](https://github.com/microsoft/fluentui-blazor/pull/4540))
+- \[Docs\] Fix incorrect Icon in search after Navigation ([#4641](https://github.com/microsoft/fluentui-blazor/pull/4641))
+
+### Components
+
+- \[AppBar\] Make OnClick close popover ([#4518](https://github.com/microsoft/fluentui-blazor/pull/4518))
+- \[DataGrid\] Add OnSortChanged event callback ([#4573](https://github.com/microsoft/fluentui-blazor/pull/4573))
+- \[DataGrid\] Fix SelectedItems getting unselected when using pagination (and virtualization) ([#4623](https://github.com/microsoft/fluentui-blazor/pull/4623))
+- \[DataGrid\] Improve initial load performance ([#4680](https://github.com/microsoft/fluentui-blazor/pull/4680))
+- \[Dialog\] Update docs ([#4625](https://github.com/microsoft/fluentui-blazor/pull/4625))
+- \[MessageBar\] Fix NullReferenceException in MessageService ([#4680](https://github.com/microsoft/fluentui-blazor/pull/4680))
+- \[NavGroup\] Fix disabled state for top-level `FluentNavGroup` ([#4647](https://github.com/microsoft/fluentui-blazor/pull/4647))
+- \[NavGroup\] Apply font opacity instead of color ([#4648](https://github.com/microsoft/fluentui-blazor/pull/4648))
+- \[NavGroup\] Pass CustomColor on to icon for NavGroup ([#4695](https://github.com/microsoft/fluentui-blazor/pull/4695))
+- \[Popover\] Allow tabbing inside open anchored regions, support keyboard accessible navigation for popover ([#4561](https://github.com/microsoft/fluentui-blazor/pull/4561))
+- \[SplashScreen\] Mark sync methods as Obsolete ([#4644](https://github.com/microsoft/fluentui-blazor/pull/4644))
+- \[Tabs\] Call HandleOnTabChange when changing to a tab through the menu ([#4564](https://github.com/microsoft/fluentui-blazor/pull/4564))
+- \[Templates\] Fix 404 in WebAssembly temp ([#4578](https://github.com/microsoft/fluentui-blazor/pull/4578))
+
+### Icons and Emoji
+
+- Update to Fluent UI System Icons 1.1.324
+
+See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
+
 ## V4.14.0
 
 ### General
+
 - \[General\] Pimp the publish local script ([#4363](https://github.com/microsoft/fluentui-blazor/pull/4363))
 - \[General\] Apply fix for using latest SDKs when publishing ([#4429](https://github.com/microsoft/fluentui-blazor/pull/4429))
 
 ### Demo site and documentation
+
 - Update issue reporting guidelines in README ([#4502](https://github.com/microsoft/fluentui-blazor/pull/4502))
 - \[Docs\] Typos on RebootPage ([#4389](https://github.com/microsoft/fluentui-blazor/pull/4389))
 - \[Docs\] Fix notification center demo issues ([#4493](https://github.com/microsoft/fluentui-blazor/pull/4493))
@@ -12,6 +54,7 @@
 - \[Docs\] Add note about multiple parameter in listbox ([#4514](https://github.com/microsoft/fluentui-blazor/pull/4514))
 
 ### Components
+
 - \[AppBar\] Fix AppBarItem OnClick not being handled in popover ([#4421](https://github.com/microsoft/fluentui-blazor/pull/4421))
 - \[DataGrid\] Add Hierarchical DataGrid functionality ([#4484](https://github.com/microsoft/fluentui-blazor/pull/4484))
 - \[DataGrid\] Fix resize indicator height (when ResizeColumnOnAllRows is true) ([#4383](https://github.com/microsoft/fluentui-blazor/pull/4383))
@@ -25,6 +68,7 @@
 - \[Templates\] Remove NotFound components from the .NET 10 Microsoft.NET.Sdk.BlazorW… ([#4417](https://github.com/microsoft/fluentui-blazor/pull/4417))
 
 ### Icons and Emoji
+
 - Update to Fluent UI System Icons 1.1.318
     See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
 
@@ -33,6 +77,7 @@
 ## V4.13.2
 
 ### General
+
 - \[Chore\] Use NET 10 GA SDK ([#4279](https://github.com/microsoft/fluentui-blazor/pull/4279))
 - \[Chore\] Fix CodeQL ([#4315](https://github.com/microsoft/fluentui-blazor/pull/4315))
 - \[Chore\] Configure Dependabot settings ([#4320](https://github.com/microsoft/fluentui-blazor/pull/4320))
@@ -42,6 +87,7 @@
 - \[Templates\] Fix icon in Web App 9 and 10 templates ([#4337](https://github.com/microsoft/fluentui-blazor/pull/4337))
 
 ### Components
+
 - \[AccordionItem\] Add HeadingTooltip parameter ([#4306](https://github.com/microsoft/fluentui-blazor/pull/4306))
 - \[Combobox\] Fix binding to a value not in the list items ([#4353](https://github.com/microsoft/fluentui-blazor/pull/4353))
 - \[Dialog\] Fix error when module hasn't finished loading ([#4324](https://github.com/microsoft/fluentui-blazor/pull/4324))
@@ -53,6 +99,7 @@
 - \[Splitter\] Add support for touch events ([#4338](https://github.com/microsoft/fluentui-blazor/pull/4338))
 
 ### Icons and Emoji
+
 - Update to Fluent UI System Icons 1.1.315
     See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
 
@@ -61,10 +108,12 @@
 ## V4.13.1
 
 ### General
+
 - \[General\] Fix ADO pipelines ([#4227](https://github.com/microsoft/fluentui-blazor/pull/4227))  
 - \[Templates\] Fix .NET 10 Web App template ([#4242](https://github.com/microsoft/fluentui-blazor/pull/4242))  
 
 ### Components
+
 - \[AutoComplete\] Override FocusAsync in FluentAutoComplete ([#4230](https://github.com/microsoft/fluentui-blazor/pull/4230))  
 - \[Combobox\] Fix presetting option ([#4255](https://github.com/microsoft/fluentui-blazor/pull/4255))  
 - \[Menu\] Add null checks for modules on DisposeAsync ([#4249](https://github.com/microsoft/fluentui-blazor/pull/4249))  
@@ -72,13 +121,16 @@
 - \[Menu\] More fixes for dispose error ([#4258](https://github.com/microsoft/fluentui-blazor/pull/4258))  
 
 ### Icons and Emoji
+
 - Update to Fluent UI System Icons 1.1.311
     See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
 
 -------------
+
 ## V4.13.0
 
 ### General
+
 - \[General\] Add ReDoS protection for regex matching and nit fixes. ([#4124](https://github.com/microsoft/fluentui-blazor/pull/4124))
 - \[General\] Re-add net10.0 TFM and update to latest SDKs/NuGet packages ([#4141](https://github.com/microsoft/fluentui-blazor/pull/4141))
 - \[General\] Update GH Actions ([#4016](https://github.com/microsoft/fluentui-blazor/pull/4016))
@@ -92,6 +144,7 @@
 - \[General\] Update VSCode settings and add demo server configuration ([#4115](https://github.com/microsoft/fluentui-blazor/pull/4115))
 
 ### Components
+
 - \[AppBar\] Add TryGetValue and Apps.ContainsKey ([#4146](https://github.com/microsoft/fluentui-blazor/pull/4146))
 - \[Autocomplete\] Add a ShowProgressIndicator parameter + Breaking change ([#4042](https://github.com/microsoft/fluentui-blazor/pull/4042))
 - \[AutoComplete\] Invalid aria-controls reference in Autocomplete popup rendering ([#4117](https://github.com/microsoft/fluentui-blazor/pull/4117))
@@ -129,26 +182,31 @@
 - \[Toast\] Change DynamicDependency  ([#4106](https://github.com/microsoft/fluentui-blazor/pull/4106))
 
 ### Demo site and documentation
+
 - \[Docs\] Add documentation for nested drag & drop containers ([#4050](https://github.com/microsoft/fluentui-blazor/pull/4050))
 - \[Docs\] Add extra info for list selection. ([#4192](https://github.com/microsoft/fluentui-blazor/pull/4192))
 - \[Docs\] Update NodeJS version and fix note ([#4083](https://github.com/microsoft/fluentui-blazor/pull/4083))
 - \[Docs\] Update README.md ([#4021](https://github.com/microsoft/fluentui-blazor/pull/4021))
 - \[Docs\] Use https instead of http for GitHub link ([#4121](https://github.com/microsoft/fluentui-blazor/pull/4121))
 
-
 ### Icons and Emoji
+
 - \[Icons\] Allow GetInstance to find icons regardless of casing ([#4179](https://github.com/microsoft/fluentui-blazor/pull/4179))
 - Update to Fluent UI System Icons 1.1.311
     See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
+
 --------------
+
 ## V4.12.1
 
 ### General
+
 - \[General\] Add file header to all .cs files ([#3946](https://github.com/microsoft/fluentui-blazor/pull/3946))
 - \[General\] Update the issue template ([#3995](https://github.com/microsoft/fluentui-blazor/pull/3995))
 - \[General\] Update to latest SDKs and NuGet packages ([#4006](https://github.com/microsoft/fluentui-blazor/pull/4006))
 
 ### Components
+
 - \[Autocomplete\] Fix keyboard usage in Single mode ([#3930](https://github.com/microsoft/fluentui-blazor/pull/3930))
 - \[AutoComplete\] Only render placeholder attribute when the parameter is provided ([#3919](https://github.com/microsoft/fluentui-blazor/pull/3919))
 - \[DataGrid\] Add IsFixed parameter ([#3927](https://github.com/microsoft/fluentui-blazor/pull/3927))
@@ -167,24 +225,29 @@
 - \[Toast\] Add DynamicDependency to prevent trimming errors ([#3994](https://github.com/microsoft/fluentui-blazor/pull/3994))
 
 ### Demo site and documentation
+
 - \[Docs\] Add documentation for possible placeholder autocomplete conflicts ([#3923](https://github.com/microsoft/fluentui-blazor/pull/3923))
 - \[Docs\] ComponentBase page add MultiLine to DataGrid ([#3983](https://github.com/microsoft/fluentui-blazor/pull/3983))
 - \[Docs\] Fix mismatch in accordion docs between the code and the description. ([#3932](https://github.com/microsoft/fluentui-blazor/pull/3932))
 - \[Docs\] Fix typo in AppBar demo ([#3924](https://github.com/microsoft/fluentui-blazor/pull/3924))
 - \[Docs\] Remove Autofocus parameter to prevent scrolling ([#3922](https://github.com/microsoft/fluentui-blazor/pull/3922))
 - \[Docs\] Update Card example ([#3909](https://github.com/microsoft/fluentui-blazor/pull/3909))
- 
+
 ### Icons and Emoji
+
 - Update to Fluent UI System Icons 1.1.306.
     See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
 
 -------------
+
 ## V4.12.0
 
 ### General
+
 - \[General\] Use latest .NET SDKs (including .NET 10 preview 4)([#3789](https://github.com/microsoft/fluentui-blazor/pull/3789))
 
 ### Components
+
 - \[AutoComplete\] Do not show previous/next when no option is selected ([#3780](https://github.com/microsoft/fluentui-blazor/pull/3780))
 - \[Autocomplete\] Fix active highlight size for single-select mode ([#3819](https://github.com/microsoft/fluentui-blazor/pull/3819))
 - \[AutoComplete\] Fix using different height for MaxAutoHeight (#3793) ([#3796](https://github.com/microsoft/fluentui-blazor/pull/3796))
@@ -205,6 +268,7 @@
 - \[Tabs\] Make initialization logic more robust ([#3878](https://github.com/microsoft/fluentui-blazor/pull/3878))
 
 ### Demo site and documentation
+
 - \[Docs\] Add docs about `FluentEditForm` ([#3832](https://github.com/microsoft/fluentui-blazor/pull/3832))
 - \[Docs\] Fix typo in InputFile documentation ([#3769](https://github.com/microsoft/fluentui-blazor/pull/3769))
 - \[Docs\] Fix typo in Card documentation ([#3839](https://github.com/microsoft/fluentui-blazor/pull/3839))
@@ -212,12 +276,14 @@
 - \[Docs\] Update reboot section for IIS hosting workaround ([#3788](https://github.com/microsoft/fluentui-blazor/pull/3788))
 
 ### Icons and Emoji
+
   - Update to Fluent UI System Icons 1.1.302.
     See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
 
-
 ## Before v4.12.0
+
 For versions before 4.12, see the [What's New? (v4.0 - v4.11.9)](/WhatsNew-Before412) page.
 
 ## Archives
+
 For versions before 4.0, see [What's new? (archives)](/WhatsNew-Archive) page.
