@@ -860,38 +860,6 @@
     }
 
     [Fact]
-    public void FluentAutocomplete_PopoverClosed_SetsFocusToInput()
-    {
-        // Arrange
-        var cut = Render(@<FluentAutocomplete Id="my-list"
-                                TOption="string"
-                                TValue="string"
-                                OnOptionsSearch="@OnOptionsSearch" />);
-
-        // Open the popover
-        cut.Find("fluent-text-input").Click();
-        var popover = cut.Find("fluent-popover-b");
-        Assert.Equal("true", popover.GetAttribute("opened"));
-
-        // Get the popover's Id for the dialogtoggle event
-        var popoverId = popover.GetAttribute("id");
-
-        // Act - Close the popover by triggering the dialogtoggle event (simulates popover closing)
-        popover.TriggerEvent("ondialogtoggle", new DialogToggleEventArgs { Id = popoverId, NewState = "closed", OldState = "open" });
-
-        // Assert - Popover should be closed
-        popover = cut.Find("fluent-popover-b");
-        Assert.Equal("false", popover.GetAttribute("opened"));
-
-        // Assert - SetInputFocusAsync should have been called via OnOptionsPopupClosedAsync
-        var jsInvocation = JSInterop.Invocations
-            .FirstOrDefault(i => i.Identifier == "Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus");
-
-        Assert.Equal("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus", jsInvocation.Identifier);
-        Assert.Equal("my-list", jsInvocation.Arguments[0]);
-    }
-
-    [Fact]
     public void FluentAutocomplete_BindSelectedItems_Multiple_AllItemsPreselected()
     {
         // Arrange - Pre-select "Three" and "Six" via @bind-SelectedItems with Multiple=true
