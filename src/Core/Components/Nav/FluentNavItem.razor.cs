@@ -187,10 +187,18 @@ public partial class FluentNavItem : FluentNavBase
         {
             if (IconRest is not null)
             {
+                var customColor = _isActive ? (IconActive?.Color ?? IconRest.Color) : IconRest.Color;
                 builder.OpenComponent<FluentIcon<Icon>>(0);
                 builder.AddAttribute(1, "Value", _isActive ? IconActive ?? IconRest : IconRest);
                 builder.AddAttribute(2, "Class", "icon");
-                builder.AddAttribute(3, "Color", _isActive ? Color.Primary : Color.Default);
+                builder.AddAttribute(3, "Color", _isActive
+                    ? (customColor != null ? Color.Custom : Color.Primary)
+                    : (customColor != null ? Color.Custom : Color.Default));
+                if (customColor != null)
+                {
+                    builder.AddAttribute(4, "CustomColor", customColor);
+                }
+
                 builder.CloseComponent();
             }
             else
