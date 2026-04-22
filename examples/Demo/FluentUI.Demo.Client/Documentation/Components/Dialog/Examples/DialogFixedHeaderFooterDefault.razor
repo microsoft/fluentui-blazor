@@ -1,0 +1,19 @@
+@inject IDialogService DialogService
+
+<FluentStack>
+    <FluentButton OnClick="@(async e => await DialogService.ShowDialogAsync<Dialog.FixedHeaderFooterDialog>(DefaultOptions))">
+        Open Dialog
+    </FluentButton>
+
+    <FluentButton OnClick="@(async e => await DialogService.ShowDrawerAsync<Dialog.FixedHeaderFooterDialog>(DefaultOptions))">
+        Open Drawer
+    </FluentButton>
+</FluentStack>
+
+@code 
+{
+    Action<DialogOptions> DefaultOptions => options =>
+    {
+        options.Header.Title = "Fixed Header and Footer Dialog";
+    };
+}

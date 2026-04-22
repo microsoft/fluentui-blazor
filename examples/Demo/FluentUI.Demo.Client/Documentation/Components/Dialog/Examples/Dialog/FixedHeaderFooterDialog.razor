@@ -1,0 +1,14 @@
+@inherits FluentDialogInstance
+
+<FluentDialogBody FixedHeaderFooter="true">
+    <!-- Long content -->
+    @string.Join("", SampleData.Text.LoremIpsum.Select(i => $"{i}{Environment.NewLine}"));
+</FluentDialogBody>
+
+@code
+{
+    protected override Task OnActionClickedAsync(bool primary)
+    {
+        return DialogInstance.CloseAsync(primary ? "Yes" : "No");
+    }
+}

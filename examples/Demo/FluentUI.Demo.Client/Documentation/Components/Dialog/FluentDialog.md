@@ -161,6 +161,25 @@ var result = await DialogService.ShowDialogAsync<CustomizedDialog>(options =>
 
 {{ DialogServiceCustomized Files=Code:DialogServiceCustomized.razor;CustomizedDialog:CustomizedDialog.razor;PersonDetails:PersonDetails.cs }}
 
+## FixedHeaderFooter
+
+By default, a `FluentDialogBody` (and its drawer variant) scrolls as a single block when its content
+overflows. This means the **title** and the **action buttons** (OK / Cancel) scroll away together with
+the content, which is usually not what you want for long forms, long lists, or large drawers.
+
+Setting `<FluentDialogBody FixedHeaderFooter="true">` changes the layout so that:
+
+ - The **header** and the **footer** (`ActionTemplate`) stay pinned at the top/bottom.
+ - Only the **content** (`ChildContent`) scrolls when it overflows.
+
+**When to use it**
+
+ - The dialog/drawer content may exceed the available height (long forms, lists, logs, terms of service, etc.).
+ - The primary actions must remain visible and reachable at all times, without forcing the user to scroll to the bottom.
+ - You want the title to stay visible as context while the user browses the content.
+
+{{ DialogFixedHeaderFooterDefault Files=Code:DialogFixedHeaderFooterDefault.razor;Dialog:FixedHeaderFooterDialog.razor }}
+
 ## Data exchange between components
 
 🔹You can easily send data from your main component to the dialog box
