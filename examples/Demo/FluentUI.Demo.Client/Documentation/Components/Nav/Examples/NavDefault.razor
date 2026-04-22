@@ -11,7 +11,7 @@
                Density="@Density">
 
         <!-- Navigation Items -->
-        <FluentNavItem Href="/NavX" IconRest="@((new Icons.Regular.Size20.Board().WithColor(Color.Error)))" IconActive="@((new Icons.Filled.Size20.Board().WithColor(Color.Success)))">
+        <FluentNavItem Href="/Nav" IconRest="@((new Icons.Regular.Size20.Board().WithColor(Color.Error)))" IconActive="@((new Icons.Filled.Size20.Board().WithColor(Color.Success)))">
             Dashboard
         </FluentNavItem>
         <FluentNavItem OnClick="@ShowInformationAsync" IconRest="@((new Icons.Regular.Size20.MegaphoneLoud()))" IconActive="@((new Icons.Filled.Size20.MegaphoneLoud()))">
@@ -29,7 +29,7 @@
         <FluentNavSectionHeader Title="Employee Management" />
 
         <FluentNavCategory Title="Job Postings" IconRest="@((new Icons.Regular.Size20.NotePin().WithColor(Color.Error)))" IconActive="@((new Icons.Filled.Size20.NotePin().WithColor(Color.Success)))">
-            <FluentNavItem Href="/Nav" OnClick="@ShowInformationAsync">Openings</FluentNavItem>
+            <FluentNavItem OnClick="@ShowInformationAsync">Openings</FluentNavItem>
             <FluentNavItem OnClick="@ShowInformationAsync">Submissions</FluentNavItem>
         </FluentNavCategory>
 
