@@ -3,85 +3,85 @@
     But we need to duplicated because the "action" and "footer" slots are a single `div` containing the buttons.
 */
 
-/* Dialog -> fixed-header-footer = true */
-fluent-dialog[fuib] fluent-dialog-body[fuib][fixed-header-footer] {
+/* Dialog -> scrollable = false */
+fluent-dialog[fuib] fluent-dialog-body[fuib]:not([scrollable]) {
   grid-template-rows: auto 1fr auto;
   height: 100%;
 }
 
-fluent-dialog[fuib] fluent-dialog-body[fuib][fixed-header-footer]>div[slot="action"] {
+fluent-dialog[fuib] fluent-dialog-body[fuib]:not([scrollable])>div[slot="action"] {
   display: flex;
   gap: var(--spacingVerticalS);
   flex-direction: row;
 }
 
-/* Dialog -> fixed-header-footer = false */
-fluent-dialog[fuib] fluent-dialog-body[fuib]:not([fixed-header-footer]) {
+/* Dialog -> scrollable = true */
+fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable] {
   grid-template-rows: min-content minmax(0, 1fr) min-content;
   padding: 0;
   overflow: hidden;
   height: 100%;
 }
 
-fluent-dialog[fuib] fluent-dialog-body[fuib]:not([fixed-header-footer])::part(title) {
+fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable]::part(title) {
   padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
 }
 
-fluent-dialog[fuib] fluent-dialog-body[fuib]:not([fixed-header-footer])::part(content) {
+fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable]::part(content) {
   overflow: auto;
   padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
 }
 
-fluent-dialog[fuib] fluent-dialog-body[fuib]:not([fixed-header-footer])::part(actions) {
+fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable]::part(actions) {
   padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
 }
 
-fluent-dialog[fuib] fluent-dialog-body[fuib]:not([fixed-header-footer])>div[slot="action"] {
+fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable]>div[slot="action"] {
   display: flex;
   gap: var(--spacingVerticalS);
   flex-direction: row;
 }
 
-/* Drawer -> fixed-header-footer = true */
-fluent-drawer[fuib] fluent-drawer-body[fuib][fixed-header-footer] {
+/* Drawer -> scrollable = false */
+fluent-drawer[fuib] fluent-drawer-body[fuib]:not([scrollable]) {
   grid-template-rows: min-content minmax(0, 1fr) min-content;
   padding: 0;
   overflow: hidden;
   width: var(--drawer-width, 100%);
 }
 
-fluent-drawer[fuib] fluent-drawer-body[fuib][fixed-header-footer]::part(header) {
+fluent-drawer[fuib] fluent-drawer-body[fuib]:not([scrollable])::part(header) {
   padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
 }
 
-fluent-drawer[fuib] fluent-drawer-body[fuib][fixed-header-footer]::part(content) {
+fluent-drawer[fuib] fluent-drawer-body[fuib]:not([scrollable])::part(content) {
   overflow: auto;
   padding: 0 var(--spacingHorizontalXL);
 }
 
-fluent-drawer[fuib] fluent-drawer-body[fuib][fixed-header-footer]::part(footer) {
+fluent-drawer[fuib] fluent-drawer-body[fuib]:not([scrollable])::part(footer) {
   padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
 }
 
-fluent-drawer[fuib] fluent-drawer-body[fuib][fixed-header-footer]>div[slot="footer"] {
+fluent-drawer[fuib] fluent-drawer-body[fuib]:not([scrollable])>div[slot="footer"] {
   display: flex;
   justify-content: flex-start;
   gap: var(--spacingHorizontalM);
   width: 100%;
 }
 
-/* Drawer -> fixed-header-footer = false */
+/* Drawer -> scrollable = true */
 
-fluent-drawer[fuib] fluent-drawer-body[fuib]:not([fixed-header-footer])::part(content) {
+fluent-drawer[fuib] fluent-drawer-body[fuib][scrollable]::part(content) {
     padding: var(--spacingVerticalXL) 0;
 }
 
-fluent-drawer[fuib] fluent-drawer-body[fuib]:not([fixed-header-footer]) {
+fluent-drawer[fuib] fluent-drawer-body[fuib][scrollable] {
   overflow-y: auto;
   width: var(--drawer-width, 100%);
 }
 
-fluent-drawer[fuib] fluent-drawer-body[fuib]:not([fixed-header-footer])>div[slot="footer"] {
+fluent-drawer[fuib] fluent-drawer-body[fuib][scrollable]>div[slot="footer"] {
   display: flex;
   justify-content: flex-start;
   gap: var(--spacingHorizontalM);
