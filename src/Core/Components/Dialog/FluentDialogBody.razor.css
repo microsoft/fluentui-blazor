@@ -3,24 +3,85 @@
     But we need to duplicated because the "action" and "footer" slots are a single `div` containing the buttons.
 */
 
-/* Desktop and Mobile */
-fluent-dialog[fuib] fluent-dialog-body[fuib] {
+/* Dialog -> scrollable = false */
+fluent-dialog[fuib] fluent-dialog-body[fuib]:not([scrollable]) {
   grid-template-rows: auto 1fr auto;
   height: 100%;
 }
 
-  fluent-dialog-body[fuib] > div[slot="action"] {
-    display: flex;
-    gap: var(--spacingVerticalS);
-    flex-direction: row;
-  }
+fluent-dialog[fuib] fluent-dialog-body[fuib]:not([scrollable])>div[slot="action"] {
+  display: flex;
+  gap: var(--spacingVerticalS);
+  flex-direction: row;
+}
 
-fluent-drawer[fuib] fluent-drawer-body[fuib] {
+/* Dialog -> scrollable = true */
+fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable] {
+  grid-template-rows: min-content minmax(0, 1fr) min-content;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable]::part(title) {
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+}
+
+fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable]::part(content) {
+  overflow: auto;
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+}
+
+fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable]::part(actions) {
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+}
+
+fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable]>div[slot="action"] {
+  display: flex;
+  gap: var(--spacingVerticalS);
+  flex-direction: row;
+}
+
+/* Drawer -> scrollable = false */
+fluent-drawer[fuib] fluent-drawer-body[fuib]:not([scrollable]) {
+  grid-template-rows: min-content minmax(0, 1fr) min-content;
+  padding: 0;
+  overflow: hidden;
+  width: var(--drawer-width, 100%);
+}
+
+fluent-drawer[fuib] fluent-drawer-body[fuib]:not([scrollable])::part(header) {
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+}
+
+fluent-drawer[fuib] fluent-drawer-body[fuib]:not([scrollable])::part(content) {
+  overflow: auto;
+  padding: 0 var(--spacingHorizontalXL);
+}
+
+fluent-drawer[fuib] fluent-drawer-body[fuib]:not([scrollable])::part(footer) {
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+}
+
+fluent-drawer[fuib] fluent-drawer-body[fuib]:not([scrollable])>div[slot="footer"] {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--spacingHorizontalM);
+  width: 100%;
+}
+
+/* Drawer -> scrollable = true */
+
+fluent-drawer[fuib] fluent-drawer-body[fuib][scrollable]::part(content) {
+    padding: var(--spacingVerticalXL) 0;
+}
+
+fluent-drawer[fuib] fluent-drawer-body[fuib][scrollable] {
   overflow-y: auto;
   width: var(--drawer-width, 100%);
 }
 
-fluent-drawer-body[fuib] > div[slot="footer"] {
+fluent-drawer[fuib] fluent-drawer-body[fuib][scrollable]>div[slot="footer"] {
   display: flex;
   justify-content: flex-start;
   gap: var(--spacingHorizontalM);
@@ -29,13 +90,13 @@ fluent-drawer-body[fuib] > div[slot="footer"] {
 
 /* Mobile */
 @container (max-width: 479px) {
-  fluent-dialog-body[fuib] > div[slot="action"] {
+  fluent-dialog-body[fuib]>div[slot="action"] {
     flex-direction: column;
   }
 }
 
 @media (max-width: 600px) {
-  fluent-drawer-body[fuib] > div[slot="footer"] {
+  fluent-drawer-body[fuib]>div[slot="footer"] {
     flex-direction: column;
   }
 }
