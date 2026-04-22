@@ -70,7 +70,7 @@ else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
             @if (Icon is not null)
             {
                 <span slot="start">
-                    <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
+                    <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" CustomColor="@CustomColor" Class="fluent-nav-icon" />
                 </span>
             }
         </ChildContent>
@@ -87,7 +87,7 @@ else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
     {
         @if (Icon is not null)
         {
-            <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
+            <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" CustomColor="@CustomColor" Class="fluent-nav-icon" />
         }
         else
         {

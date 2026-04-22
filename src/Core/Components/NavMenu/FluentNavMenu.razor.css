@@ -1,7 +1,6 @@
 /*  NavMenu */
 .fluent-nav-menu {
     padding: 0 2px;
-
 }
 
 ::deep .fluent-nav-item.expander:focus-within {
@@ -15,24 +14,36 @@
 }
 
     /* Hover and active highlighting */
-    ::deep .fluent-nav-item .positioning-region:hover:not(:has(.disabled)) {
+    ::deep .fluent-nav-item:not(.disabled) .positioning-region:hover:not(:has(.disabled)) {
         cursor: pointer;
         background: var(--neutral-fill-secondary-rest);
     }
 
-        /* Active item indicator */
-        ::deep .fluent-nav-item .active .positioning-region::before {
-            content: "";
-            display: block;
-            position: absolute;
-            right: unset;
-            width: 3px;
-            height: calc(((var(--base-height-multiplier) + var(--density)) * var(--design-unit) / 2) * 1px);
-            background: var(--accent-fill-rest);
-            border-radius: calc(var(--control-corner-radius) * 1px);
-            margin: calc(var(--design-unit) * 2px) 2px;
-            z-index: 5;
-        }
+    /* Active item indicator */
+    ::deep .fluent-nav-item .active .positioning-region::before {
+        content: "";
+        display: block;
+        position: absolute;
+        right: unset;
+        width: 3px;
+        height: calc(((var(--base-height-multiplier) + var(--density)) * var(--design-unit) / 2) * 1px);
+        background: var(--accent-fill-rest);
+        border-radius: calc(var(--control-corner-radius) * 1px);
+        margin: calc(var(--design-unit) * 2px) 2px;
+        z-index: 5;
+    }
+
+::deep .fluent-nav-group.disabled {
+    pointer-events: none;
+}
+
+    ::deep .fluent-nav-group.disabled .fluent-nav-icon {
+        fill: var(--neutral-stroke-rest) !important;
+    }
+
+    ::deep .fluent-nav-group.disabled .fluent-nav-text {
+        opacity: var(--disabled-opacity);
+    }
 
 [dir='rtl'] * ::deep .fluent-nav-item a.active .positioning-region::before {
     left: unset;

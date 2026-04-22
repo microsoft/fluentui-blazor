@@ -3,19 +3,35 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentPopover : FluentComponentBase
+public partial class FluentPopover : FluentComponentBase, IAsyncDisposable
 {
+    private const string ANCHORED_REGION_JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js";
+
     private FluentAnchoredRegion AnchoredRegion = default!;
+    private DotNetObjectReference<FluentPopover>? _dotNetHelper;
+    private IJSObjectReference? _anchoredRegionModule;
+    private bool _disposed;
+    private bool _previousOpen;
 
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the id of the component the popover is positioned relative to.
@@ -110,12 +126,10 @@ public partial class FluentPopover : FluentComponentBase
     public KeyCode[]? CloseKeys { get; set; } = new[] { KeyCode.Escape };
 
     /// <summary />
-    private KeyCode[] CloseAndTabKeys => CloseKeys?.Any() == true ? CloseKeys.Union(new[] { KeyCode.Tab }).ToArray() : new[] { KeyCode.Tab };
-
-    /// <summary />
     protected override void OnInitialized()
     {
-        if (CloseKeys != null && CloseKeys.Any() && string.IsNullOrEmpty(Id))
+        // Id is always needed to identify the popover content element.
+        if (string.IsNullOrEmpty(Id))
         {
             Id = Identifier.NewId();
         }
@@ -131,7 +145,47 @@ public partial class FluentPopover : FluentComponentBase
     }
 
     /// <summary />
-    protected virtual async Task CloseAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _anchoredRegionModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", ANCHORED_REGION_JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            _dotNetHelper = DotNetObjectReference.Create(this);
+        }
+
+        if (!_disposed && _anchoredRegionModule is not null && Open != _previousOpen)
+        {
+            _previousOpen = Open;
+            if (Open)
+            {
+                var closeKeyCodes = CloseKeys?.Select(k => (int)k).ToArray() ?? Array.Empty<int>();
+                await _anchoredRegionModule.InvokeVoidAsync("initializeKeyboardNavigation", AnchorId, Id, _dotNetHelper, closeKeyCodes);
+            }
+            else
+            {
+                await _anchoredRegionModule.InvokeVoidAsync("disposeKeyboardNavigation", AnchorId);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Closes the popover. Called from JavaScript keyboard navigation.
+    /// </summary>
+    [JSInvokable]
+    public async Task CloseAsync()
+    {
+        Open = false;
+        if (OpenChanged.HasDelegate)
+        {
+            await OpenChanged.InvokeAsync(Open);
+        }
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// Closes the popover and returns focus to the original element (used by the overlay on outside-click).
+    /// </summary>
+    protected virtual async Task CloseOverlayAsync()
     {
         Open = false;
         if (OpenChanged.HasDelegate)
@@ -142,16 +196,33 @@ public partial class FluentPopover : FluentComponentBase
     }
 
     /// <summary />
-    protected virtual async Task CloseOnKeyAsync(FluentKeyCodeEventArgs e)
+    public async ValueTask DisposeAsync()
     {
-        if (CloseKeys != null && CloseKeys.Contains(e.Key))
+        if (_disposed)
         {
-            await CloseAsync();
+            return;
         }
 
-        if (AutoFocus && e.Key == KeyCode.Tab)
+        _disposed = true;
+        _dotNetHelper?.Dispose();
+
+        try
         {
-            await AnchoredRegion.FocusToNextElementAsync();
+            if (_anchoredRegionModule is not null)
+            {
+                await _anchoredRegionModule.InvokeVoidAsync("disposeKeyboardNavigation", AnchorId);
+                await _anchoredRegionModule.DisposeAsync();
+            }
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
+        finally
+        {
+            GC.SuppressFinalize(this);
         }
     }
 }

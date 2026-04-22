@@ -14,6 +14,7 @@ public partial class DialogService
     /// <param name="receiver">The component that receives the callback</param>
     /// <param name="callback">Name of the callback function</param>
     /// <param name="parameters"><see cref="SplashScreenContent"/> that holds the content to display</param>
+    [Obsolete("Use ShowSplashScreenAsync(object, Func, DialogParameters) instead.")]
     public void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters)
         => ShowSplashScreen<FluentSplashScreen>(receiver, callback, parameters);
 
@@ -23,6 +24,7 @@ public partial class DialogService
     /// <param name="receiver">The component that receives the callback</param>
     /// <param name="callback">Name of the callback function</param>
     /// <param name="parameters"><see cref="SplashScreenContent"/> that holds the content to display</param>
+    [Obsolete("Use ShowSplashScreenAsync<T>(object, Func, DialogParameters) instead.")]
     public void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters)
         where T : IDialogContentComponent<SplashScreenContent>
         => ShowSplashScreen(typeof(T), receiver, callback, parameters);
@@ -34,6 +36,7 @@ public partial class DialogService
     /// <param name="receiver">The component that receives the callback</param>
     /// <param name="callback">Name of the callback function</param>
     /// <param name="parameters"><see cref="SplashScreenContent"/> that holds the content to display</param>
+    [Obsolete("Use ShowSplashScreenAsync(Type, object, Func, DialogParameters) instead.")]
     public void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters)
     {
         DialogParameters dialogParameters = new()
