@@ -11,7 +11,7 @@
                Density="@Density">
 
         <!-- Navigation Items -->
-        <FluentNavItem Href="/Nav" IconRest="@((new Icons.Regular.Size20.Board()))" IconActive="@((new Icons.Filled.Size20.Board()))">
+        <FluentNavItem Href="/NavX" IconRest="@((new Icons.Regular.Size20.Board().WithColor(Color.Error)))" IconActive="@((new Icons.Filled.Size20.Board().WithColor(Color.Success)))">
             Dashboard
         </FluentNavItem>
         <FluentNavItem OnClick="@ShowInformationAsync" IconRest="@((new Icons.Regular.Size20.MegaphoneLoud()))" IconActive="@((new Icons.Filled.Size20.MegaphoneLoud()))">
