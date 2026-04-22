@@ -161,7 +161,7 @@ var result = await DialogService.ShowDialogAsync<CustomizedDialog>(options =>
 
 {{ DialogServiceCustomized Files=Code:DialogServiceCustomized.razor;CustomizedDialog:CustomizedDialog.razor;PersonDetails:PersonDetails.cs }}
 
-## FixedHeaderFooter
+## Fixed Header and Footer
 
 By default, a `FluentDialogBody` (and its drawer variant) scrolls as a single block when its content
 overflows. This means the **title** and the **action buttons** (OK / Cancel) scroll away together with

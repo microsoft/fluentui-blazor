@@ -5,8 +5,23 @@
 
 /* Desktop and Mobile */
 fluent-dialog[fuib] fluent-dialog-body[fuib] {
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: min-content minmax(0, 1fr) min-content;
+  padding: 0;
+  overflow: hidden;
   height: 100%;
+}
+
+fluent-dialog[fuib] fluent-dialog-body[fuib]::part(title) {
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+}
+
+fluent-dialog[fuib] fluent-dialog-body[fuib]::part(content) {
+  overflow: auto;
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+}
+
+fluent-dialog[fuib] fluent-dialog-body[fuib]::part(actions) {
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
 }
 
 fluent-dialog-body[fuib]>div[slot="action"] {
@@ -16,54 +31,30 @@ fluent-dialog-body[fuib]>div[slot="action"] {
 }
 
 fluent-drawer[fuib] fluent-drawer-body[fuib] {
-  overflow-y: auto;
+  grid-template-rows: min-content minmax(0, 1fr) min-content;
+  padding: 0;
+  overflow: hidden;
   width: var(--drawer-width, 100%);
 }
 
-fluent-drawer-body[fuib]>div[slot="footer"] {
+fluent-drawer[fuib] fluent-drawer-body[fuib]::part(header) {
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+}
+
+fluent-drawer[fuib] fluent-drawer-body[fuib]::part(content) {
+  overflow: auto;
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+}
+
+fluent-drawer[fuib] fluent-drawer-body[fuib]::part(footer) {
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+}
+
+fluent-drawer[fuib] fluent-drawer-body[fuib]>div[slot="footer"] {
   display: flex;
   justify-content: flex-start;
   gap: var(--spacingHorizontalM);
   width: 100%;
-}
-
-/* fixedHeaderFooter */
-fluent-drawer-body[fuib][fixedHeaderFooter] {
-  grid-template-rows: min-content minmax(0, 1fr) min-content;
-  padding: 0;
-  overflow: hidden;
-}
-
-fluent-drawer-body[fuib][fixedHeaderFooter]::part(header) {
-  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
-}
-
-fluent-drawer-body[fuib][fixedHeaderFooter]::part(content) {
-  overflow: auto;
-  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
-}
-
-fluent-drawer-body[fuib][fixedHeaderFooter]::part(footer) {
-  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
-}
-
-fluent-dialog-body[fuib][fixedHeaderFooter] {
-  grid-template-rows: min-content minmax(0, 1fr) min-content;
-  padding: 0;
-  overflow: hidden;
-}
-
-fluent-dialog-body[fuib][fixedHeaderFooter]::part(title) {
-  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
-}
-
-fluent-dialog-body[fuib][fixedHeaderFooter]::part(content) {
-  overflow: auto;
-  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
-}
-
-fluent-dialog-body[fuib][fixedHeaderFooter]::part(actions) {
-  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
 }
 
 /* Mobile */

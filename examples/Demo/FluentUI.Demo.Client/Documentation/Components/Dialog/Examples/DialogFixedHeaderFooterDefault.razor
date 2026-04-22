@@ -1,16 +1,19 @@
 @inject IDialogService DialogService
 
-<FluentStack>
-    <FluentButton OnClick="@(async e => await DialogService.ShowDialogAsync<Dialog.FixedHeaderFooterDialog>(DefaultOptions))">
+<FluentStack HorizontalGap="24px"
+             Wrap="true">
+    <FluentButton
+        OnClick="@(async e => await DialogService.ShowDialogAsync<Dialog.FixedHeaderFooterDialog>(DefaultOptions))">
         Open Dialog
     </FluentButton>
 
-    <FluentButton OnClick="@(async e => await DialogService.ShowDrawerAsync<Dialog.FixedHeaderFooterDialog>(DefaultOptions))">
+    <FluentButton
+        OnClick="@(async e => await DialogService.ShowDrawerAsync<Dialog.FixedHeaderFooterDialog>(DefaultOptions))">
         Open Drawer
     </FluentButton>
 </FluentStack>
 
-@code 
+@code
 {
     Action<DialogOptions> DefaultOptions => options =>
     {
