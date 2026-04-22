@@ -28,8 +28,8 @@
         <!-- Employee Management -->
         <FluentNavSectionHeader Title="Employee Management" />
 
-        <FluentNavCategory Title="Job Postings" IconRest="@((new Icons.Regular.Size20.NotePin()))" IconActive="@((new Icons.Filled.Size20.NotePin()))">
-            <FluentNavItem OnClick="@ShowInformationAsync">Openings</FluentNavItem>
+        <FluentNavCategory Title="Job Postings" IconRest="@((new Icons.Regular.Size20.NotePin().WithColor(Color.Error)))" IconActive="@((new Icons.Filled.Size20.NotePin().WithColor(Color.Success)))">
+            <FluentNavItem Href="/Nav" OnClick="@ShowInformationAsync">Openings</FluentNavItem>
             <FluentNavItem OnClick="@ShowInformationAsync">Submissions</FluentNavItem>
         </FluentNavCategory>
 
