@@ -4,6 +4,27 @@
 
 <PageTitle>@App.PageTitle("Welcome")</PageTitle>
 
+<div class="demopanel" style="margin: 1rem 0; padding: 1.5rem; text-align: left">
+    <p><strong>Important: Fluent UI Blazor v5 is coming</strong></p>
+    <p>
+        We are hard at work finalizing the <strong>next major release (v5.0)</strong> of the library. This release will include a lot of
+        new features and improvements, but it will also include <strong>breaking changes</strong>.
+    </p>
+
+    <p>
+        Once we release v5.0, we will stop supporting the v4.x version of the library, which means we will not be providing any more updates
+        or fixes. The v4.x documentation and demos will of course remain available for reference.
+    </p>
+    <p>
+        The APIs are stabilized and we are regularly shipping new release candidates. We are counting on the community to help us identify any
+        remaining issues. Please file issues on GitHub, and don’t hesitate to contribute!
+    </p>
+    <p>
+        Start your migration work <strong>now</strong> (and let our <strong>new <a href="https://fluentui-blazor-v5.azurewebsites.net/Mcp">MCP Server</a></strong> assist you with that!).
+        See the <a href="https://fluentui-blazor-v5.azurewebsites.net/">V5 demo and documentation</a> site for more information on the new features and breaking changes in v5.0,
+        and try out the release candidates today! The preview packages are available on NuGet under the <code>5.0.0-*</code> version.
+    </p>
+</div>
 
 <FluentGrid Class="home" Justify="JustifyContent.FlexStart" Spacing="6">
     <FluentGridItem xs="12" sm="12" md="6">
@@ -27,20 +48,17 @@
 
     </FluentGridItem>
     <FluentGridItem xs="12" sm="12" md="6">
-        <div class="demopanel" style="margin: 1rem 0; padding: 1.5rem; text-align: center">
-            <p>
-                This is the demo and documentation site for version <strong>@_version</strong> of the library. This version supports <strong>.NET 8</strong>,
-                <strong>.NET 9</strong> and <strong>.NET 10</strong>.
-            </p>
-
-        </div>
+        <blockquote style="margin-inline-start: 0;">
+            This is the demo and documentation site for version <strong>@_version</strong> of the library. This version supports <strong>.NET 8</strong>,
+            <strong>.NET 9</strong> and <strong>.NET 10</strong>.
+        </blockquote>
 
         <h2>Latest releases</h2>
         <ul class="news">
+            <li><NewsDate Day="22" Month="Apr" Year="26" /><a href="/WhatsNew">v4.14.1 released</a></li>
             <li><NewsDate Day="13" Month="Feb" Year="26" /><a href="/WhatsNew">v4.14.0 released</a></li>
             <li><NewsDate Day="28" Month="Nov" Year="25" /><a href="/WhatsNew">v4.13.2 released</a></li>
             <li><NewsDate Day="31" Month="Oct" Year="25" /><a href="/WhatsNew">v4.13.1 released</a></li>
-            <li><NewsDate Day="10" Month="Oct" Year="25" /><a href="/WhatsNew">v4.13.0 released</a></li>
         </ul>
 
         <p>
@@ -78,7 +96,7 @@
             As mentioned, we wrap the Fluent UI Web Components for some of our components. The needed script is included in the library and will
             be loaded for you automatically by using Blazor's built-in capabilities. You do not need to download or pull the script from a CDN manually.
         </p>
-       <p>
+        <p>
             Please refer to the <a href="/CodeSetup#script">script section</a> on the Code setup page for information on how to manually add the script to your pages (which should normally not be necessary).
         </p>
 
@@ -98,7 +116,7 @@
         </p>
     </FluentGridItem>
 
-    <FluentGridItem xs="12" sm="12" md="8" >
+    <FluentGridItem xs="12" sm="12" md="8">
         <h2 id="using-the-fluentui-web-components">Using the Fluent UI Blazor library</h2>
         <p>With the package installed, you can begin using the components from the Fluent UI Blazor library in the same way as any other Razor component. Just be sure to add the following using statement to your views:</p>
         <CodeSnippet>@@using Microsoft.FluentUI.AspNetCore.Components</CodeSnippet>
@@ -117,10 +135,10 @@
                 <CodeSnippet>
                     @@using Microsoft.FluentUI.AspNetCore.Components.
 
-&lt;FluentCard Width="350px" Height="250px"&gt;
-    &lt;h2&gt;Hello World!&lt;/h2&gt;
-    &lt;FluentButton Appearance=&quot;@@Appearance.Accent&quot;&gt;Click Me&lt;/FluentButton&gt;
-&lt;/FluentCard&gt;
+                    &lt;FluentCard Width="350px" Height="250px"&gt;
+                    &lt;h2&gt;Hello World!&lt;/h2&gt;
+                    &lt;FluentButton Appearance=&quot;@@Appearance.Accent&quot;&gt;Click Me&lt;/FluentButton&gt;
+                    &lt;/FluentCard&gt;
                 </CodeSnippet>
                 <p>Renders as:</p>
             </ChildContent>
