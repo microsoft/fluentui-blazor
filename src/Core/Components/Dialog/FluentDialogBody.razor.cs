@@ -54,9 +54,10 @@ public partial class FluentDialogBody : FluentComponentBase
     /// <summary>
     /// Gets or sets a value indicating whether the header and footer are fixed.
     /// Only the content will scroll when the content overflows.
+    /// Default is true.
     /// </summary>
     [Parameter]
-    public bool FixedHeaderFooter { get; set; }
+    public bool FixedHeaderFooter { get; set; } = true;
 
     /// <summary />
     internal async Task ActionClickHandlerAsync(DialogOptionsFooterAction item)

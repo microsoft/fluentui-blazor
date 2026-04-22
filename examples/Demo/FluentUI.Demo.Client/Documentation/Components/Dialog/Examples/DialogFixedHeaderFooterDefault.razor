@@ -2,6 +2,10 @@
 
 <FluentStack HorizontalGap="24px"
              Wrap="true">
+
+    <FluentSwitch Label="Fixed Header and Footer"
+                  @bind-Value="@IsFixedHeaderFooter" />
+
     <FluentButton
         OnClick="@(async e => await DialogService.ShowDialogAsync<Dialog.FixedHeaderFooterDialog>(DefaultOptions))">
         Open Dialog
@@ -15,8 +19,11 @@
 
 @code
 {
+    bool IsFixedHeaderFooter { get; set; } = true;
+
     Action<DialogOptions> DefaultOptions => options =>
     {
+        options.Parameters.Add("ParamFixedHeaderFooter", IsFixedHeaderFooter);
         options.Header.Title = "Fixed Header and Footer Dialog";
     };
 }
