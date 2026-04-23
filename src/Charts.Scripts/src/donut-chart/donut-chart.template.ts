@@ -16,35 +16,29 @@ export function donutChartTemplate<T extends DonutChart>(): ElementViewTemplate<
           <g ${ref('group')} transform="translate(${x => x.width / 2}, ${x => x.height / 2})"></g>
         </svg>
       </div>
-      ${when(
-        x => !x.hideLegends,
-        html<T>`
-          <div class="legend-container" role="listbox" aria-label="${x => x.legendListLabel}">
-            ${repeat(
-              x => x.legends,
-              html<Legend, T>` <button
-                class="legend${(x, c) =>
-                  c.parent.activeLegend === '' || c.parent.activeLegend === x.legend ? '' : ' inactive'}"
-                role="option"
-                aria-setsize="${(x, c) => c.length}"
-                aria-posinset="${(x, c) => c.index + 1}"
-                aria-selected="${(x, c) => x.legend === c.parent.activeLegend}"
-                @mouseover="${(x, c) => c.parent.handleLegendMouseoverAndFocus(x.legend)}"
-                @mouseout="${(x, c) => c.parent.handleLegendMouseoutAndBlur()}"
-                @focus="${(x, c) => c.parent.handleLegendMouseoverAndFocus(x.legend)}"
-                @blur="${(x, c) => c.parent.handleLegendMouseoutAndBlur()}"
-                @click="${(x, c) => c.parent.handleLegendClick(x.legend)}"
-              >
-                <div
-                  class="legend-rect"
-                  style="background-color: ${x => x.color}; border-color: ${x => x.color};"
-                ></div>
-                <div class="legend-text">${x => x.legend}</div>
-              </button>`,
-            )}
-          </div>
-        `,
-      )}
+      <div class="legend-container" ?hidden="${x => x.hideLegends}" role="listbox" aria-label="${x => x.legendListLabel}">
+        ${repeat(
+          x => x.legends,
+          html<Legend, T>` <button
+            class="legend${(x, c) => (c.parent.isLegendItemDimmed(x.title) ? ' inactive' : '')}"
+            role="option"
+            aria-setsize="${(x, c) => c.length}"
+            aria-posinset="${(x, c) => c.index + 1}"
+            aria-selected="${(x, c) => c.parent.isLegendItemSelected(x.title) || x.title === c.parent.activeLegend}"
+            @mouseover="${(x, c) => c.parent.handleLegendMouseoverAndFocus(x.title)}"
+            @mouseout="${(x, c) => c.parent.handleLegendMouseoutAndBlur()}"
+            @focus="${(x, c) => c.parent.handleLegendMouseoverAndFocus(x.title)}"
+            @blur="${(x, c) => c.parent.handleLegendMouseoutAndBlur()}"
+            @click="${(x, c) => c.parent.handleLegendClick(x.title)}"
+          >
+            <div
+              class="legend-rect"
+              style="background-color: ${x => x.color}; border-color: ${x => x.color};"
+            ></div>
+            <div class="legend-text">${x => x.title}</div>
+          </button>`,
+        )}
+      </div>
       ${when(
         x => !x.hideTooltip && x.tooltipProps.isVisible,
         html<T>`

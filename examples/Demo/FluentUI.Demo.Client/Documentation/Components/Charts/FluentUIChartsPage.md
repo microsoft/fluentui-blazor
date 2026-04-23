@@ -10,9 +10,6 @@ The Fluent UI Charts are a set of components that allow you to easily create cha
 
 Currently, the following chart types are available:
 
-- Donut Chart
-- Horizontal Bar Chart
-
-## Examples
-
-{{ DonutChartDefault }}
+- [Donut Chart](/Charts/DonutChart)
+- [Horizontal Bar Chart](/Charts/HorizontalBarChart)
+- [Horizontal Bar Chart with Axis](/Charts/HorizontalBarChartWithAxis)

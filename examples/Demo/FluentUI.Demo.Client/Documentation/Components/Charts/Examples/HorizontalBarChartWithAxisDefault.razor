@@ -1,0 +1,50 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentHorizontalBarChartWithAxis Style="width: 100%"
+                                  ChartTitle="Default Horizontal Bar Chart"
+                                  ChartData="@ChartData"
+                                  Width="650"
+                                  height="350"
+                                  HideLegends="false"
+                                  HideTooltip="false"
+                                  HideLabels="false"
+                                  show-y-axis-labels="false"
+                                  show-y-axis-labels-tooltip="false"
+                                  use-single-color="false"
+                                  enable-gradient="false"
+                                  y-axis-category-order="default">
+</FluentHorizontalBarChartWithAxis>
+
+@code {
+    private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
+    [
+       new HorizontalBarChartWithAxisDataPoint {
+          X = 10000,
+          Y = "5000",
+          Legend = "Oranges",
+          YAxisCalloutData = "2020/04/30",
+          XAxisCalloutData = "10%",
+        },
+    new HorizontalBarChartWithAxisDataPoint {
+      X = 20000,
+      Y = "50000",
+      Legend = "Dogs",
+YAxisCalloutData = "2020/04/30",
+      XAxisCalloutData = "20%",
+    },
+    new HorizontalBarChartWithAxisDataPoint {
+      X = 25000,
+      Y = "30000",
+      Legend = "Apples",
+YAxisCalloutData = "2020/04/30",
+      XAxisCalloutData = "37%",
+    },
+    new HorizontalBarChartWithAxisDataPoint {
+      X = 40000,
+      Y = "13000",
+      Legend = "Bananas",
+      YAxisCalloutData = "2020/04/30",
+      XAxisCalloutData = "88%",
+    },
+    ];
+}

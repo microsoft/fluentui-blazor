@@ -1,0 +1,43 @@
+﻿@page "/Charts/DonutChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentSwitch Label="Rounded corners" @bind-Value="roundCorners"></FluentSwitch>
+    <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+    <FluentSwitch Label="Show percentages" @bind-Value="showLabelsInPercent"></FluentSwitch>
+    <FluentSwitch Label="Allow multiple legend selection" @bind-Value="allowMultipleLegendSelection"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentDonutChart ChartData="@data"
+                      ChartTitle="Donut chart rounded corners example"
+                      HideLabels="@hideLabels"
+                      InnerRadius="55"
+                      ValueInsideDonut="39,000"
+                      RoundedCorners="@roundCorners"
+                      HideLegends="@hideLegends"
+                      ShowLabelsInPercent="@showLabelsInPercent"
+                      AllowMultipleLegendSelection="@allowMultipleLegendSelection" />
+</div>
+
+
+
+
+@code {
+    private readonly DonutChartData data = new()
+    {
+        ChartData =
+        [
+            new DonutChartDataPoint { Legend = "first", Data = 20000 },
+            new DonutChartDataPoint { Legend = "second", Data = 39000 },
+            new DonutChartDataPoint { Legend = "third", Data = 15000 },
+        ]
+    };
+
+    private bool roundCorners;
+    private bool hideLabels = true;
+    private bool hideLegends;
+    private bool showLabelsInPercent;
+    private bool allowMultipleLegendSelection;
+}

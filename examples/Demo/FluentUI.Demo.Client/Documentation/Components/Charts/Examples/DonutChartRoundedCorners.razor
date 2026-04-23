@@ -1,0 +1,29 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentSwitch @bind-Value="roundCorners">Rounded corners</FluentSwitch>
+    <FluentSwitch @bind-Value="hideLabels">Hide labels</FluentSwitch>
+</div>
+
+<div style="margin-top:20px;">
+    <FluentDonutChart ChartData="@data"
+                      ChartTitle="Donut chart rounded corners example"
+                      HideLabels="@hideLabels"
+                      InnerRadius="55"
+                      ValueInsideDonut="39,000"
+                      RoundedCorners="@roundCorners" />
+</div>
+
+@code {
+    private readonly DonutChartData data = new()
+    {
+        ChartData =
+        [
+            new DonutChartDataPoint { Legend = "first", Data = 20000 },
+            new DonutChartDataPoint { Legend = "second", Data = 39000 }
+        ]
+    };
+
+    private bool roundCorners;
+    private bool hideLabels;
+}

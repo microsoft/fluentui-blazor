@@ -1,0 +1,18 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentDonutChart ChartData="@data"
+                  ChartTitle="Donut chart percent labels example"
+                  HideLabels="false"
+                  InnerRadius="55"
+                  ShowLabelsInPercent="true" />
+
+@code {
+    private readonly DonutChartData data = new()
+    {
+        ChartData =
+        [
+            new DonutChartDataPoint { Legend = "first", Data = 20000 },
+            new DonutChartDataPoint { Legend = "second", Data = 39000 }
+        ]
+    };
+}

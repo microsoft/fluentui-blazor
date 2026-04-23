@@ -4,8 +4,8 @@ import {
   getNextColor,
   getRTL,
   jsonConverter,
-  booleanStringConverter, 
-  SVG_NAMESPACE_URI
+  booleanStringConverter,
+  SVG_NAMESPACE_URI,
 } from '../utils/chart-helpers.js';
 import type {
   AxisCategoryOrder,
@@ -203,10 +203,10 @@ export class HorizontalBarChartWithAxis extends FASTElement {
   @attr({ attribute: 'enable-gradient', converter: booleanStringConverter })
   public enableGradient: boolean = false;
 
-  @attr({ attribute: 'round-corners', converter: booleanStringConverter })
+  @attr({ attribute: 'round-corners', mode: 'boolean' })
   public roundCorners: boolean = false;
 
-  @attr({ attribute: 'allow-multiple-legend-selection', converter: booleanStringConverter })
+  @attr({ attribute: 'allow-multiple-legend-selection', mode: 'boolean' })
   public allowMultipleLegendSelection: boolean = false;
 
   @attr({ attribute: 'bar-height' })
@@ -282,6 +282,14 @@ export class HorizontalBarChartWithAxis extends FASTElement {
     this._resizeObserver.observe(this);
     if (this.data) {
       this._renderChart();
+    }
+  }
+
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    if (name === 'round-corners' && oldValue !== newValue) {
+      this.roundCorners = newValue !== null && newValue !== 'false';
     }
   }
 
@@ -610,31 +618,79 @@ export class HorizontalBarChartWithAxis extends FASTElement {
       }
     };
 
-    setString('data', value => { this.data = jsonConverter.fromView(value) as HorizontalBarChartWithAxisDataPoint[]; });
-    setString('chart-title', value => { this.chartTitle = value; });
-    setString('width', value => { this.width = value; });
-    setString('legend-list-label', value => { this.legendListLabel = value; });
-    setString('bar-height', value => { this.barHeight = value; });
-    setString('height', value => { this.height = value; });
-    setString('x-axis-tick-count', value => { this.xAxisTickCount = value; });
-    setString('y-axis-tick-count', value => { this.yAxisTickCount = value; });
-    setString('y-axis-padding', value => { this.yAxisPadding = value; });
-    setString('x-min-value', value => { this.xMinValue = value; });
-    setString('x-max-value', value => { this.xMaxValue = value; });
-    setString('y-min-value', value => { this.yMinValue = value; });
-    setString('y-max-value', value => { this.yMaxValue = value; });
-    setString('y-axis-category-order', value => { this.yAxisCategoryOrder = value as AxisCategoryOrder; });
-    setString('culture', value => { this.culture = value; });
+    setString('data', value => {
+      this.data = jsonConverter.fromView(value) as HorizontalBarChartWithAxisDataPoint[];
+    });
+    setString('chart-title', value => {
+      this.chartTitle = value;
+    });
+    setString('width', value => {
+      this.width = value;
+    });
+    setString('legend-list-label', value => {
+      this.legendListLabel = value;
+    });
+    setString('bar-height', value => {
+      this.barHeight = value;
+    });
+    setString('height', value => {
+      this.height = value;
+    });
+    setString('x-axis-tick-count', value => {
+      this.xAxisTickCount = value;
+    });
+    setString('y-axis-tick-count', value => {
+      this.yAxisTickCount = value;
+    });
+    setString('y-axis-padding', value => {
+      this.yAxisPadding = value;
+    });
+    setString('x-min-value', value => {
+      this.xMinValue = value;
+    });
+    setString('x-max-value', value => {
+      this.xMaxValue = value;
+    });
+    setString('y-min-value', value => {
+      this.yMinValue = value;
+    });
+    setString('y-max-value', value => {
+      this.yMaxValue = value;
+    });
+    setString('y-axis-category-order', value => {
+      this.yAxisCategoryOrder = value as AxisCategoryOrder;
+    });
+    setString('culture', value => {
+      this.culture = value;
+    });
 
-    setBoolean('hide-legends', value => { this.hideLegends = value; });
-    setBoolean('hide-tooltip', value => { this.hideTooltip = value; });
-    setBoolean('hide-labels', value => { this.hideLabels = value; });
-    setBoolean('show-y-axis-labels', value => { this.showYAxisLabels = value; });
-    setBoolean('show-y-axis-labels-tooltip', value => { this.showYAxisLabelsTooltip = value; });
-    setBoolean('use-single-color', value => { this.useSingleColor = value; });
-    setBoolean('enable-gradient', value => { this.enableGradient = value; });
-    setBoolean('round-corners', value => { this.roundCorners = value; });
-    setBoolean('allow-multiple-legend-selection', value => { this.allowMultipleLegendSelection = value; });
+    setBoolean('hide-legends', value => {
+      this.hideLegends = value;
+    });
+    setBoolean('hide-tooltip', value => {
+      this.hideTooltip = value;
+    });
+    setBoolean('hide-labels', value => {
+      this.hideLabels = value;
+    });
+    setBoolean('show-y-axis-labels', value => {
+      this.showYAxisLabels = value;
+    });
+    setBoolean('show-y-axis-labels-tooltip', value => {
+      this.showYAxisLabelsTooltip = value;
+    });
+    setBoolean('use-single-color', value => {
+      this.useSingleColor = value;
+    });
+    setBoolean('enable-gradient', value => {
+      this.enableGradient = value;
+    });
+    setBoolean('round-corners', value => {
+      this.roundCorners = value;
+    });
+    setBoolean('allow-multiple-legend-selection', value => {
+      this.allowMultipleLegendSelection = value;
+    });
   }
 
   private _clearChart() {

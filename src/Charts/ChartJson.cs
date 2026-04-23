@@ -30,4 +30,18 @@ public static class ChartJson
         JsonSerializer.Serialize(
             value,
             HorizontalBarChartDataJsonSerializerContext.Default.IReadOnlyListHorizontalBarChartSeries);
+
+    /// <summary>
+    /// Serializes horizontal bar chart data with using the horizontal bar chart
+    /// serializer context.
+    /// </summary>
+    /// <param name="value">The horizontal bar chart series collection.</param>
+    /// <returns>
+    /// A JSON string suitable for the <c> fluent-horizontal-bar-chart</c>
+    /// component.
+    /// </returns>
+    public static string Serialize(IReadOnlyList<HorizontalBarChartWithAxisDataPoint> value) =>
+        JsonSerializer.Serialize(
+            value,
+            HorizontalBarChartWithAxisDataJsonSerializerContext.Default.IReadOnlyListHorizontalBarChartWithAxisDataPoint);
 }

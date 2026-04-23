@@ -5,7 +5,7 @@ import {
   jsonConverter,
   booleanStringConverter,
   SVG_NAMESPACE_URI,
-  validateChartPropsArray
+  validateChartPropsArray,
 } from '../utils/chart-helpers.js';
 import type { ChartDataPoint, ChartProps } from './horizontal-bar-chart.options.js';
 import { Variant } from './horizontal-bar-chart.options.js';
@@ -34,7 +34,7 @@ export class HorizontalBarChart extends FASTElement {
   @attr({ attribute: 'hide-labels', converter: booleanStringConverter })
   public hideLabels: boolean = false;
 
-  @attr({ attribute: 'round-corners', converter: booleanStringConverter })
+  @attr({ attribute: 'round-corners', mode: 'boolean' })
   public roundCorners: boolean = false;
 
   @attr({ attribute: 'chart-data-mode' })
@@ -135,6 +135,14 @@ export class HorizontalBarChart extends FASTElement {
     this._initializeAll();
   }
 
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    if (name === 'round-corners' && oldValue !== newValue) {
+      this.roundCorners = newValue !== null && newValue !== 'false';
+    }
+  }
+
   protected dataChanged(_oldValue: ChartProps[], newValue: ChartProps[]) {
     if (this.$fastController.isConnected && newValue) {
       this._clearChart();
@@ -185,19 +193,43 @@ export class HorizontalBarChart extends FASTElement {
       }
     };
 
-    setString('data', value => { this.data = jsonConverter.fromView(value) as ChartProps[]; });
-    setString('width', value => { this.width = value; });
-    setString('height', value => { this.height = value; });
-    setString('variant', value => { this.variant = value as Variant; });
-    setString('chart-data-mode', value => { this.chartDataMode = value as 'default' | 'fraction' | 'percentage'; });
-    setString('legend-list-label', value => { this.legendListLabel = value; });
-    setString('chart-title', value => { this.chartTitle = value; });
+    setString('data', value => {
+      this.data = jsonConverter.fromView(value) as ChartProps[];
+    });
+    setString('width', value => {
+      this.width = value;
+    });
+    setString('height', value => {
+      this.height = value;
+    });
+    setString('variant', value => {
+      this.variant = value as Variant;
+    });
+    setString('chart-data-mode', value => {
+      this.chartDataMode = value as 'default' | 'fraction' | 'percentage';
+    });
+    setString('legend-list-label', value => {
+      this.legendListLabel = value;
+    });
+    setString('chart-title', value => {
+      this.chartTitle = value;
+    });
 
-    setBoolean('hide-ratio', value => { this.hideRatio = value; });
-    setBoolean('hide-labels', value => { this.hideLabels = value; });
-    setBoolean('round-corners', value => { this.roundCorners = value; });
-    setBoolean('hide-legends', value => { this.hideLegends = value; });
-    setBoolean('hide-tooltip', value => { this.hideTooltip = value; });
+    setBoolean('hide-ratio', value => {
+      this.hideRatio = value;
+    });
+    setBoolean('hide-labels', value => {
+      this.hideLabels = value;
+    });
+    setBoolean('round-corners', value => {
+      this.roundCorners = value;
+    });
+    setBoolean('hide-legends', value => {
+      this.hideLegends = value;
+    });
+    setBoolean('hide-tooltip', value => {
+      this.hideTooltip = value;
+    });
   }
 
   private _clearChart() {
@@ -437,9 +469,10 @@ export class HorizontalBarChart extends FASTElement {
         .attr('rx', `${this.roundCorners ? 3 : 0}`)
         .attr(
           'x',
-          `${_isRTL
-            ? 100 - startingPoint[index] - value - barSpacingInPercent * index
-            : startingPoint[index] + barSpacingInPercent * index
+          `${
+            _isRTL
+              ? 100 - startingPoint[index] - value - barSpacingInPercent * index
+              : startingPoint[index] + barSpacingInPercent * index
           }%`,
         )
         .attr('y', 0)
@@ -449,7 +482,10 @@ export class HorizontalBarChart extends FASTElement {
       this._bars.push(rect.node()!);
     };
 
-    const containerDiv = d3Create('div').attr('style', 'position: relative; margin-bottom: var(--spacingVerticalMNudge);');
+    const containerDiv = d3Create('div').attr(
+      'style',
+      'position: relative; margin-bottom: var(--spacingVerticalMNudge);',
+    );
 
     const barTitleDiv = containerDiv.append('div').attr('class', 'bar-title-div');
     barTitleDiv
@@ -504,7 +540,7 @@ export class HorizontalBarChart extends FASTElement {
       .attr(
         'aria-label',
         data?.chartSeriesTitle ??
-        `Series with ${data.chartData.length}${data.chartData.length > 1 ? ' stacked' : ''} bars.`,
+          `Series with ${data.chartData.length}${data.chartData.length > 1 ? ' stacked' : ''} bars.`,
       )
       .selectAll('g')
       .data(data.chartData!)
@@ -547,9 +583,10 @@ export class HorizontalBarChart extends FASTElement {
             .attr('class', 'bar-label')
             .attr(
               'x',
-              `${this._isRTL
-                ? 100 - (startingPoint[startingPoint.length - 1] || 0) - value - totalMarginPercent
-                : (startingPoint[startingPoint.length - 1] || 0) + value + totalMarginPercent
+              `${
+                this._isRTL
+                  ? 100 - (startingPoint[startingPoint.length - 1] || 0) - value - totalMarginPercent
+                  : (startingPoint[startingPoint.length - 1] || 0) + value + totalMarginPercent
               }%`,
             )
             .attr('textAnchor', 'start')
@@ -566,9 +603,10 @@ export class HorizontalBarChart extends FASTElement {
             .attr('class', 'bar-label')
             .attr(
               'x',
-              `${this._isRTL
-                ? 100 - (startingPoint[startingPoint.length - 1] || 0) - value - totalMarginPercent
-                : (startingPoint[startingPoint.length - 1] || 0) + value + totalMarginPercent
+              `${
+                this._isRTL
+                  ? 100 - (startingPoint[startingPoint.length - 1] || 0) - value - totalMarginPercent
+                  : (startingPoint[startingPoint.length - 1] || 0) + value + totalMarginPercent
               }%`,
             )
             .attr('textAnchor', 'start')

@@ -38,13 +38,29 @@ Donut charts are used to show proportion, which expresses a partial value in com
 
 ## Examples
 
-### Default Donut Chart
+### Basic example
 
 {{ DonutChartDefault }}
 
-### Donut Chart with labels
+### With labels
 
 {{ DonutChartLabels }}
+
+### With labels as percentages
+
+{{ DonutChartShowLabelsInPercent }}
+
+### Without legends
+
+{{ DonutChartHideLegends }}
+
+### Rounded corners
+
+{{ DonutChartRoundedCorners }}
+
+### With custom sizing
+
+{{ DonutChartSizing }}
 
 ### RTL Donut Chart
 

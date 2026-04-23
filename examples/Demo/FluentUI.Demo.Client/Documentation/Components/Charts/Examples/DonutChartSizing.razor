@@ -1,0 +1,30 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
+    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="donut-width" Min="200" Max="640" Step="10" Style="width:300px;" />
+    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="donut-height" Min="200" Max="640" Step="10" Style="width:300px;" />
+    <FluentSlider Label=@($"Inner radius: {_innerRadius}") @bind-Value="_innerRadius" Id="donut-inner-radius" Min="1" Max="120" Step="5" Style="width:300px;" />
+</FluentStack>
+
+<FluentDonutChart ChartData="@data"
+                  ChartTitle="Donut chart sizing example"
+                  Width="@_width"
+                  Height="@_height"
+                  InnerRadius="@_innerRadius"
+                  ValueInsideDonut="39,000" />
+
+
+@code {
+    private int _width = 320;
+    private int _height = 320;
+    private int _innerRadius = 55;
+
+    private readonly DonutChartData data = new()
+    {
+        ChartData =
+            [
+                new DonutChartDataPoint { Legend = "first", Data = 20000 },
+                new DonutChartDataPoint { Legend = "second", Data = 39000 }
+            ]
+    };
+}

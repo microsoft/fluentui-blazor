@@ -101,6 +101,10 @@ export const styles = css`
     display: flex;
   }
 
+  .legend-container[hidden] {
+    display: none;
+  }
+
   .legend {
     display: flex;
     align-items: center;

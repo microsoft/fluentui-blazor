@@ -75,6 +75,18 @@ public partial class FluentDonutChart : FluentComponentBase
     public bool HideTooltip { get; set; }
 
     /// <summary>
+    /// Gets or sets whether bars/arcs in the chart should have rounded corners.
+    /// </summary>
+    [Parameter]
+    public bool RoundedCorners { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether label values should be displayed as percentages of the total rather than raw values.
+    /// </summary>
+    [Parameter]
+    public bool ShowLabelsInPercent { get; set; }
+
+    /// <summary>
     /// Gets or sets the inner radius of the component, in pixels.
     /// </summary>
     /// <remarks>If <see langword="null"/>, a default inner radius is used. The value must be non-negative.
@@ -94,4 +106,12 @@ public partial class FluentDonutChart : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? LegendListLabel { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether multiple legend items can be selected simultaneously.
+    /// When <see langword="true"/>, clicking a legend item adds it to the active selection rather than replacing the current selection.
+    /// When <see langword="false"/> (default), only a single legend item can be selected at a time.
+    /// </summary>
+    [Parameter]
+    public bool AllowMultipleLegendSelection { get; set; }
 }
