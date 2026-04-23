@@ -1,0 +1,45 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentHorizontalBarChart Style="width: 100%"
+                          ChartTitle="Default Horizontal Bar Chart"
+                          ChartData="@ChartData">
+</FluentHorizontalBarChart>
+
+@code {
+    private IReadOnlyList<HorizontalBarChartSeries> ChartData =
+    [
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "Monitored First",
+            ChartData =
+            [
+                new HorizontalBarChartDataPoint { Legend = "Debit card numbers (EU and USA)", Data = 40, Color = "#0099BC" },
+                new HorizontalBarChartDataPoint { Legend = "Passport numbers (USA)", Data = 23, Color = "#77004D" },
+                new HorizontalBarChartDataPoint { Legend = "Social security numbers", Data = 35, Color = "#4F68ED" },
+                new HorizontalBarChartDataPoint { Legend = "Credit card Numbers", Data = 87, Color = "#AE8C00" },
+                new HorizontalBarChartDataPoint { Legend = "Tax identification numbers (USA)", Data = 87, Color = "#004E8C" }
+            ]
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "Monitored Second",
+            ChartData =
+            [
+                new HorizontalBarChartDataPoint { Legend = "Debit card numbers (EU and USA)", Data = 40, Color = "#0099BC" },
+                new HorizontalBarChartDataPoint { Legend = "Passport numbers (USA)", Data = 56, Color = "#77004D" },
+                new HorizontalBarChartDataPoint { Legend = "Social security numbers", Data = 35, Color = "#4F68ED" },
+                new HorizontalBarChartDataPoint { Legend = "Credit card Numbers", Data = 92, Color = "#AE8C00" },
+                new HorizontalBarChartDataPoint { Legend = "Tax identification numbers (USA)", Data = 87, Color = "#004E8C" }
+            ]
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "Unmonitored",
+            ChartData =
+            [
+                new HorizontalBarChartDataPoint { Legend = "Phone Numbers", Data = 40, Color = "#881798" },
+                new HorizontalBarChartDataPoint { Legend = "Credit card Numbers", Data = 23, Color = "#AE8C00" }
+            ]
+        }
+    ];
+}

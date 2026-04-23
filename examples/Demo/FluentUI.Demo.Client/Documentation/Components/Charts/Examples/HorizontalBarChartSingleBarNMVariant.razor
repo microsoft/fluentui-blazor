@@ -1,0 +1,78 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Enums
+
+<div>
+    <FluentHorizontalBarChart Style="width: 100%;"
+                              ChartData="@ChartData"
+                              Variant="@HorizontalBarChartVariant.SingleBar" />
+</div>
+
+@code {
+    IReadOnlyList<HorizontalBarChartSeries> ChartData = new List<HorizontalBarChartSeries>
+    {
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "one",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "one", Data = 1543, Total = 15000, Color = "#637cef" }
+            }
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "two",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "two", Data = 800, Total = 15000, Color = "#e3008c" }
+            }
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "three",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "three", Data = 8888, Total = 15000, Color = "#2aa0a4" }
+            }
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "four",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "four", Data = 15888, Total = 15000, Color = "#9373c0" }
+            }
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "five",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "five", Data = 11444, Total = 15000, Color = "#13a10e" }
+            }
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "six",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "six", Data = 14000, Total = 15000, Color = "#3a96dd" }
+            }
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "seven",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "seven", Data = 9855, Total = 15000, Color = "#ca5010" }
+            }
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "eight",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "eight", Data = 4250, Total = 15000, Color = "#57811b" }
+            }
+        }
+    };
+}

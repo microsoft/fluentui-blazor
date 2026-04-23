@@ -1,0 +1,21 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Enums
+
+<FluentHorizontalBarChart Style="width: 100%"
+                          Variant="HorizontalBarChartVariant.SingleBar"
+                          ChartData="@ChartData">
+</FluentHorizontalBarChart>
+
+@code {
+    IReadOnlyList<HorizontalBarChartSeries> ChartData = new List<HorizontalBarChartSeries>
+    {
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "one",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "one", Data = 1543, Total = 15000, Color = "#637cef", Gradient = new[] { "#637cef", "#e3008c" } }
+            }
+        }
+    };
+}

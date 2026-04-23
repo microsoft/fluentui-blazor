@@ -1,0 +1,20 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div dir="rtl">
+    <FluentDonutChart ChartData="data"
+                      ChartTitle="Donut chart basic example RTL"
+                      ValueInsideDonut="20000"
+                      InnerRadius="45" />
+</div>
+
+@code {
+    DonutChartData data = new DonutChartData
+    {
+        ChartTitle = "Donut chart basic example",
+        ChartData = new List<DonutChartDataPoint>
+        {
+            new DonutChartDataPoint { Legend = "first", Data = 20000 },
+            new DonutChartDataPoint { Legend = "second", Data = 39000 }
+        }
+    };
+}

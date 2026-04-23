@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
     <TargetFrameworks>$(TargetNetVersions)</TargetFrameworks>
-    <PackageId>Microsoft.FluentUI.AspNetCore.Components</PackageId>
+    <PackageId>Microsoft.FluentUI.AspNetCore.Components.Charts</PackageId>
 
-    <Summary>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Summary>
-    <PackageTags>Fluent UI, Blazor, Web Components</PackageTags>
-    <Title>Microsoft Fluent UI Web Components for Blazor</Title>
-    <Description>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Description>
+    <Summary>A set of Blazor components wrapping an extended version of the Fluent UI Chart Web Components. </Summary>
+    <PackageTags>Fluent UI, Blazor, Charts, Web Components</PackageTags>
+    <Title>Microsoft Fluent UI Chart Components for Blazor</Title>
+    <Description>A set of Blazor components wrapping an extended version of the Fluent UI Chart Web Components.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icon.png</PackageIcon>
 
@@ -52,7 +52,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
     <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
     <None Include="**\*.ts" />
   </ItemGroup>
@@ -75,19 +75,17 @@
 
   <!-- Dependencies -->
   <ItemGroup>
-	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
-    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Condition="'$(TargetFramework)'=='$(NetVersion)'">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
-    <ProjectReference Include="..\Core.Scripts\Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj" PrivateAssets="All" />
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <ProjectReference Include="..\Charts.Scripts\Microsoft.FluentUI.AspNetCore.Components.Charts.Scripts.esproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
   </ItemGroup>
 
   <!-- Enable deterministic builds for CI environments and Release configuration -->
@@ -139,7 +137,7 @@
   </Target>-->
 
   <!-- Temporary fix for problem with .esproj files when using latest SDKs. Will be fully fixed in later SDK -->
-  <Target Name="FixEsprojOriginalItemSpec" AfterTargets="ResolveReferencedProjectsStaticWebAssets" Condition="'@(StaticWebAsset)' != ''">
+  <Target Name="FixEsprojOriginalItemSpec2" AfterTargets="ResolveReferencedProjectsStaticWebAssets" Condition="'@(StaticWebAsset)' != ''">
     <ItemGroup>
       <_EsprojAssetsToFix Include="@(StaticWebAsset)" Condition="'%(StaticWebAsset.OriginalItemSpec)' != '' AND $([System.String]::Copy('%(StaticWebAsset.OriginalItemSpec)').EndsWith('.esproj'))" />
     </ItemGroup>
@@ -167,5 +165,9 @@
       <AsConstants>true</AsConstants>
       <NoWarn>CS1591</NoWarn>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Charts\HorizontalBarChartWithAxis\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,16 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-horizontal-bar-chart id="@Id"
+                             class="@ClassValue"
+                             style="@StyleValue"
+                             data="@ChartJson.Serialize(ChartData!)"
+                             variant="@(Variant is null ? null : Variant.Value.ToAttributeValue())"
+                             hide-ratio="@HideRatio"
+                             hide-legends="@HideLegends"
+                             hide-tooltip="@HideTooltip"
+                             legend-list-label="@LegendListLabel"
+                             chart-title="@ChartTitle"
+                             @attributes="@AdditionalAttributes">
+</fluent-horizontal-bar-chart>
