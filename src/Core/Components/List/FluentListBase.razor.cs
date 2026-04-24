@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -22,6 +23,8 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DropdownEventArgs))]
     protected FluentListBase(LibraryConfiguration configuration) : base(configuration)
     {
+        SelectedItemsExpression = () => SelectedItems;
+
         // If TOption implements IEqualityComparer<TOption> and exposes a public parameterless
         // constructor, use a new instance of TOption as the default OptionSelectedComparer.
         if (OptionSelectedComparer is null && _defaultOptionSelectedComparer.Value is { } defaultComparer)
@@ -84,6 +87,16 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// </summary>
     [Parameter]
     public virtual EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets an expression that identifies the bound <see cref="SelectedItems"/> value.
+    /// This is required to enable the <c>@bind-SelectedItems</c> syntax (Razor automatically
+    /// supplies it). When using manual one-way binding through <see cref="SelectedItems"/>
+    /// and <see cref="SelectedItemsChanged"/>, providing this expression is optional: a
+    /// default expression pointing to <see cref="SelectedItems"/> is set in the constructor.
+    /// </summary>
+    [Parameter]
+    public virtual Expression<Func<IEnumerable<TOption>>>? SelectedItemsExpression { get; set; }
 
     /// <summary>
     /// Gets or sets the template for the <see cref="FluentListBase{TOption, TValue}.Items"/> items.
