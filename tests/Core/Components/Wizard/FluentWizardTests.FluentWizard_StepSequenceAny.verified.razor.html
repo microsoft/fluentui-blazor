@@ -42,11 +42,12 @@
 				<div style="">Content 3</div>
 			</div>
 			<div class="fluent-wizard-buttons">
-				<fluent-button style="width: 80px;" blazor:onclick="x">
-					Previous</fluent-button>
-				<span style="margin-right: 10px"></span>
-				<fluent-button style="width: 80px;" appearance="primary" blazor:onclick="x">
-					Done</fluent-button>
+				<div class="fluent-stack-horizontal" style="justify-content: end; align-items: start; column-gap: 10px; width: 100%;">
+					<fluent-button blazor:onclick="x">
+						Previous</fluent-button>
+					<fluent-button appearance="primary" blazor:onclick="x">
+						Done</fluent-button>
+				</div>
 			</div>
 		</div>
 	</body>

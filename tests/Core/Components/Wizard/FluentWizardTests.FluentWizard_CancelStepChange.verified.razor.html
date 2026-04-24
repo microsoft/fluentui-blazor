@@ -30,9 +30,10 @@
 				<div style="display: none;">Content 2</div>
 			</div>
 			<div class="fluent-wizard-buttons">
-				<span style="margin-right: 10px"></span>
-				<fluent-button style="width: 80px;" appearance="primary" blazor:onclick="x">
-					Next</fluent-button>
+				<div class="fluent-stack-horizontal" style="justify-content: end; align-items: start; column-gap: 10px; width: 100%;">
+					<fluent-button appearance="primary" blazor:onclick="x">
+						Next</fluent-button>
+				</div>
 			</div>
 		</div>
 	</body>
