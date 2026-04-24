@@ -22,9 +22,13 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     private static readonly Icon BadgeCloseIcon = new CoreIcons.Regular.Size20.Dismiss();
     private static readonly Icon ClearIcon = new CoreIcons.Regular.Size20.Dismiss();
 
+    private readonly EqualityComparer<TValue> ValueComparer = EqualityComparer<TValue>.Default;
+    private readonly EqualityComparer<TOption> OptionComparer = EqualityComparer<TOption>.Default;
+
     private string? _textInput;
     private bool _isOpen;
     private bool _inProgress;
+    private TValue? _previousValue;
 
     // List of items used in the internally filtered listbox
     private List<TOption> _internalFilteredItems = [];
@@ -218,34 +222,21 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     }
 
     /// <summary />
-    public override async Task SetParametersAsync(ParameterView parameters)
+    protected override async Task OnParametersSetAsync()
     {
-        // Check if SelectedItem is being supplied and has changed
-        if (parameters.TryGetValue<TOption?>(nameof(SelectedItem), out var newSelectedItem))
+        // This part of code cannot be moved to SetParametersAsync because we are invoking `OnSetValue` which is async,
+        // and SetParametersAsync doesn't allow awaiting other async calls inside it.
+        if (!ValueComparer.Equals(Value, _previousValue) && OnSetValue.HasDelegate)
         {
-            var comparer = OptionSelectedComparer ?? EqualityComparer<TOption>.Default;
-            var currentSelectedItem = _internalSelectedItem;
+            _previousValue = Value;
 
-            if (!comparer.Equals(newSelectedItem, currentSelectedItem))
-            {
-                // Sync _internalSelectedItems with the new value
-                _internalSelectedItems = newSelectedItem is not null ? [newSelectedItem] : [];
-                SelectedItem = newSelectedItem;
-            }
-        }
-
-        // Check if Value is being supplied and has changed (e.g. set by the developer during initialization).
-        // If so, resolve the associated option via the OnSetValue callback and synchronize the selection.
-        if (parameters.TryGetValue<TValue?>(nameof(Value), out var newValue))
-        {
-            var valueComparer = EqualityComparer<TValue>.Default;
             var currentValue = GetOptionValue(_internalSelectedItem);
 
-            if (!valueComparer.Equals(newValue, currentValue) && OnSetValue.HasDelegate)
+            if (!ValueComparer.Equals(Value, currentValue))
             {
                 var args = new SetValueEventArgs<TOption, TValue>
                 {
-                    Value = newValue,
+                    Value = Value,
                 };
 
                 await OnSetValue.InvokeAsync(args);
@@ -263,6 +254,26 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             }
         }
 
+        await base.OnParametersSetAsync();
+    }
+
+    /// <summary />
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        // Check if SelectedItem is being supplied and has changed
+        if (parameters.TryGetValue<TOption?>(nameof(SelectedItem), out var newSelectedItem))
+        {
+            var comparer = OptionSelectedComparer ?? OptionComparer;
+            var currentSelectedItem = _internalSelectedItem;
+
+            if (!comparer.Equals(newSelectedItem, currentSelectedItem))
+            {
+                // Sync _internalSelectedItems with the new value
+                _internalSelectedItems = newSelectedItem is not null ? [newSelectedItem] : [];
+                SelectedItem = newSelectedItem;
+            }
+        }
+
         await base.SetParametersAsync(parameters);
     }
 
@@ -271,7 +282,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// </summary>
     private async Task InternalSelectedItemsChangedHandlerAsync(IEnumerable<TOption> items)
     {
-        var comparer = OptionSelectedComparer ?? EqualityComparer<TOption>.Default;
+        var comparer = OptionSelectedComparer ?? OptionComparer;
         var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, comparer)).ToList();
         var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, comparer)).ToList();
 
