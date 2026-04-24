@@ -38,6 +38,7 @@
     [InlineData(CardShadow.Small, "shadow='small'")]
     [InlineData(CardShadow.Medium, "shadow='medium'")]
     [InlineData(CardShadow.Large, "shadow='large'")]
+    [InlineData(CardShadow.None, "shadow='none'")]
     [InlineData((CardShadow)999, "")]
     public void FluentCard_Shadow(CardShadow shadow, string expectedAttribute)
     {
