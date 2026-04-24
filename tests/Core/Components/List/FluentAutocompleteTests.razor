@@ -1185,6 +1185,72 @@
         Assert.Null(component.OptionSelectedComparer);
     }
 
+    [Fact]
+    public void FluentAutocomplete_SelectedItemExpression_DefaultIsNotNull()
+    {
+        string? selectedItem = "Two";
+
+        // Arrange - Render without supplying SelectedItemExpression (manual one-way binding scenario)
+        var cut = Render(@<FluentAutocomplete TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              Items="@Digits"
+                                              SelectedItem="@selectedItem"
+                                              SelectedItemChanged="@((string v) => selectedItem = v)" />);
+
+        // Assert - The constructor sets a default expression so consumers using manual
+        // one-way binding (SelectedItem + SelectedItemChanged only) still get a non-null expression.
+        var instance = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        Assert.NotNull(instance.SelectedItemExpression);
+        Assert.Equal("Two", instance.SelectedItemExpression!.Compile().Invoke());
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SelectedItemExpression_ManualOneWayBinding()
+    {
+        // This test compiles ONLY because SelectedItemExpression exists as a [Parameter].
+        // Razor's @bind-SelectedItem:get/:set syntax emits SelectedItem, SelectedItemChanged
+        // AND SelectedItemExpression on the component.
+        string? selectedItem = "One";
+
+        // Arrange
+        var cut = Render(@<FluentAutocomplete TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              Items="@Digits"
+                                              @bind-SelectedItem:get="selectedItem"
+                                              @bind-SelectedItem:set="@((string v) => { selectedItem = v; return Task.CompletedTask; })" />);
+
+        // Assert - The component's SelectedItemExpression is supplied by Razor and reflects the bound field
+        var instance = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        Assert.NotNull(instance.SelectedItemExpression);
+        Assert.Equal("One", instance.SelectedItemExpression!.Compile().Invoke());
+
+        // The badge displays the initial selection
+        var badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("One", badge.GetAttribute("title"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SelectedItemExpression_ExplicitlyProvided()
+    {
+        string? selectedItem = "Three";
+        System.Linq.Expressions.Expression<Func<string?>> expression = () => selectedItem;
+
+        // Arrange - Explicitly provide SelectedItemExpression
+        var cut = Render(@<FluentAutocomplete TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              Items="@Digits"
+                                              SelectedItem="@selectedItem"
+                                              SelectedItemChanged="@((string v) => selectedItem = v)"
+                                              SelectedItemExpression="@expression" />);
+
+        // Assert - The supplied expression overrides the default set in the constructor
+        var instance = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        Assert.Same(expression, instance.SelectedItemExpression);
+    }
+
     public class Person : IEqualityComparer<Person>
     {
         public int Id { get; set; }

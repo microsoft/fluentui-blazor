@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -39,6 +40,8 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     {
         // Default values
         Id = Identifier.NewId();
+
+        SelectedItemExpression = () => SelectedItem;
 
         // Set default value: if `Width` is not already set (not null),
         Width ??= "160px";
@@ -190,6 +193,16 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// </summary>
     [Parameter]
     public EventCallback<TOption> SelectedItemChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets an expression that identifies the bound <see cref="SelectedItem"/> value.
+    /// This is required to enable the <c>@bind-SelectedItem</c> syntax (Razor automatically
+    /// supplies it). When using manual one-way binding through <see cref="SelectedItem"/>
+    /// and <see cref="SelectedItemChanged"/>, providing this expression is optional: a
+    /// default expression pointing to <see cref="SelectedItem"/> is set in the constructor.
+    /// </summary>
+    [Parameter]
+    public Expression<Func<TOption?>>? SelectedItemExpression { get; set; }
 
     /// <summary>
     /// Gets a value indicating whether the number of selected options has reached the maximum defined by <see cref="MaximumSelectedOptions"/>.

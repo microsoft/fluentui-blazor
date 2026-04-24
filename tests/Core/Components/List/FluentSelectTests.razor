@@ -519,6 +519,76 @@
         Assert.Equal(MyDigitsEnum.Three, value);
     }
 
+    [Fact]
+    public void FluentSelect_SelectedItemsExpression_DefaultIsNotNull()
+    {
+        IEnumerable<string> selectedItems = ["Two"];
+
+        // Arrange - Render without supplying SelectedItemsExpression (manual one-way binding scenario)
+        var cut = Render(@<FluentSelect TOption="string"
+                                        TValue="string"
+                                        Multiple="true"
+                                        Items="@Digits"
+                                        SelectedItems="@selectedItems"
+                                        SelectedItemsChanged="@((IEnumerable<string> v) => selectedItems = v)" />);
+
+        // Assert - The constructor sets a default expression so consumers using manual
+        // one-way binding (SelectedItems + SelectedItemsChanged only) still get a non-null expression.
+        var instance = cut.FindComponent<FluentSelect<string, string>>().Instance;
+        Assert.NotNull(instance.SelectedItemsExpression);
+        Assert.Equal(new[] { "Two" }, instance.SelectedItemsExpression!.Compile().Invoke());
+    }
+
+    [Fact]
+    public async Task FluentSelect_SelectedItemsExpression_ManualOneWayBinding()
+    {
+        // This test compiles ONLY because SelectedItemsExpression exists as a [Parameter].
+        // Razor's @bind-SelectedItems:get/:set syntax emits SelectedItems, SelectedItemsChanged
+        // AND SelectedItemsExpression on the component.
+        IEnumerable<string> selectedItems = ["One"];
+
+        // Arrange
+        var cut = Render(@<FluentSelect TOption="string"
+                                        TValue="string"
+                                        Multiple="true"
+                                        Items="@Digits"
+                                        @bind-SelectedItems:get="selectedItems"
+                                        @bind-SelectedItems:set="@((IEnumerable<string> v) => { selectedItems = v; return Task.CompletedTask; })" />);
+
+        var ids = cut.FindAll("fluent-option")
+                     .Where(i => i.GetAttribute("value") == "One" || i.GetAttribute("value") == "Two")
+                     .Select(i => i.GetAttribute("id"));
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?, string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = string.Join(';', ids),
+        });
+
+        // Assert
+        Assert.Equal(new[] { "One", "Two" }, selectedItems);
+    }
+
+    [Fact]
+    public void FluentSelect_SelectedItemsExpression_ExplicitlyProvided()
+    {
+        IEnumerable<string> selectedItems = ["Three"];
+        System.Linq.Expressions.Expression<Func<IEnumerable<string>>> expression = () => selectedItems;
+
+        // Arrange - Explicitly provide SelectedItemsExpression
+        var cut = Render(@<FluentSelect TOption="string"
+                                        TValue="string"
+                                        Multiple="true"
+                                        Items="@Digits"
+                                        SelectedItems="@selectedItems"
+                                        SelectedItemsChanged="@((IEnumerable<string> v) => selectedItems = v)"
+                                        SelectedItemsExpression="@expression" />);
+
+        // Assert - The supplied expression overrides the default set in the constructor
+        var instance = cut.FindComponent<FluentSelect<string, string>>().Instance;
+        Assert.Same(expression, instance.SelectedItemsExpression);
+    }
+
     public record Person
     {
         public int Id { get; set; }
