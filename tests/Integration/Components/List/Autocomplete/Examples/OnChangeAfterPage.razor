@@ -1,0 +1,33 @@
+﻿@page "/list/autocomplete/onchange-after"
+
+<div>
+    Current count: <span data-testid="current-value">@countAfter</span>
+</div>
+
+<FluentAutocomplete TValue="string"
+                    TOption="string"
+                    Label="Test"
+                    Items="Options"
+                    @bind-SelectedItems="SelectedItems"
+                    @bind-SelectedItems:after="AfterChanged" />
+
+@code
+{
+    string test = string.Empty;
+    int countAfter = 0;
+    IEnumerable<string> SelectedItems { get; set; } = [];
+
+    void AfterChanged()
+    {
+        countAfter++;
+    }
+
+    List<string> Options = new List<string>
+    {
+        "Option 1",
+        "Option 2",
+        "Option 3",
+        "Option 4",
+        "Option 5"
+    };
+}

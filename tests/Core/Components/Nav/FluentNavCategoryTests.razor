@@ -145,6 +145,129 @@
         Assert.Contains("fluent-navsubitem", cut.Markup);
     }
 
+    // Icon WithColor tests
+    // Each test creates its own icon instance to avoid mutating the shared Samples.Icons statics.
+
+    [Fact]
+    public void FluentNavCategory_IconRest_WithColor_HexString_Renders_CustomColor_When_Inactive()
+    {
+        // Arrange
+        var icon = Samples.Icons.NewInfo().WithColor("#F97316");
+
+        // Act
+        var cut = Render(@<FluentNav>
+            <FluentNavCategory Title="Test Category" IconRest="@icon">
+                <FluentNavItem>Sub Item</FluentNavItem>
+            </FluentNavCategory>
+        </FluentNav>);
+
+        // Assert
+        Assert.Contains("fill: #F97316", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavCategory_IconRest_WithColor_Enum_Renders_CustomColor_When_Inactive()
+    {
+        // Arrange
+        var icon = Samples.Icons.NewInfo().WithColor(Color.Error);
+
+        // Act
+        var cut = Render(@<FluentNav>
+            <FluentNavCategory Title="Test Category" IconRest="@icon">
+                <FluentNavItem>Sub Item</FluentNavItem>
+            </FluentNavCategory>
+        </FluentNav>);
+
+        // Assert
+        Assert.Contains("fill: var(--error)", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentNavCategory_Active_IconRest_WithColor_NoIconActive_Uses_IconRest_Color()
+    {
+        // Arrange
+        var navManager = Services.GetRequiredService<NavigationManager>();
+        navManager.NavigateTo("/test-page");
+        var icon = Samples.Icons.NewInfo().WithColor("#F97316");
+
+        // Act
+        var cut = Render(@<FluentNav>
+            <FluentNavCategory Title="Test Category" Expanded="true" IconRest="@icon">
+                <FluentNavItem Href="/test-page">Active Sub Item</FluentNavItem>
+            </FluentNavCategory>
+        </FluentNav>);
+
+        var category = cut.FindComponent<FluentNavCategory>();
+        await category.Instance.ToggleExpandedAsync();
+
+        // Assert
+        Assert.Contains("fill: #F97316", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentNavCategory_Active_IconActive_WithColor_Overrides_IconRest_Color()
+    {
+        // Arrange
+        var navManager = Services.GetRequiredService<NavigationManager>();
+        navManager.NavigateTo("/test-page");
+        var iconRest = Samples.Icons.NewInfo().WithColor("#F97316");
+        var iconActive = Samples.Icons.NewWarning().WithColor("#22C55E");
+
+        // Act
+        var cut = Render(@<FluentNav>
+            <FluentNavCategory Title="Test Category" Expanded="true" IconRest="@iconRest" IconActive="@iconActive">
+                <FluentNavItem Href="/test-page">Active Sub Item</FluentNavItem>
+            </FluentNavCategory>
+        </FluentNav>);
+
+        var category = cut.FindComponent<FluentNavCategory>();
+        await category.Instance.ToggleExpandedAsync();
+
+        // Assert
+        Assert.Contains("fill: #22C55E", cut.Markup);
+        Assert.DoesNotContain("fill: #F97316", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentNavCategory_Active_IconActive_WithoutColor_Falls_Back_To_Primary()
+    {
+        // Arrange
+        var navManager = Services.GetRequiredService<NavigationManager>();
+        navManager.NavigateTo("/test-page");
+        var iconRest = Samples.Icons.NewInfo();
+        var iconActive = Samples.Icons.NewWarning();
+
+        // Act
+        var cut = Render(@<FluentNav>
+            <FluentNavCategory Title="Test Category" Expanded="true" IconRest="@iconRest" IconActive="@iconActive">
+                <FluentNavItem Href="/test-page">Active Sub Item</FluentNavItem>
+            </FluentNavCategory>
+        </FluentNav>);
+
+        var category = cut.FindComponent<FluentNavCategory>();
+        await category.Instance.ToggleExpandedAsync();
+
+        // Assert
+        Assert.Contains("fill: var(--colorBrandForeground1)", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNavCategory_Inactive_IconRest_Without_WithColor_Uses_Default_Color()
+    {
+        // Arrange
+        var icon = Samples.Icons.NewInfo();
+
+        // Act
+        var cut = Render(@<FluentNav>
+            <FluentNavCategory Title="Test Category" IconRest="@icon">
+                <FluentNavItem>Sub Item</FluentNavItem>
+            </FluentNavCategory>
+        </FluentNav>);
+
+        // Assert
+        Assert.Contains("fill: var(--colorNeutralForeground1)", cut.Markup);
+    }
+
 	[Fact]
 	public async Task FluentNavCategory_DisposeAsync()
 	{

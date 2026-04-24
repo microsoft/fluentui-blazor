@@ -13,7 +13,10 @@
 			@attributes="@AdditionalAttributes">
 		@if (Owner.UseIcons && IconRest is not null)
 		{
-			<FluentIcon Value="@(_isActive ? IconActive ?? IconRest : IconRest)" Class="icon" Color="@(_isActive ? Color.Primary : Color.Default)" />
+            var customColor = _isActive ? (IconActive?.Color ?? IconRest.Color) : IconRest.Color;
+			<FluentIcon Value="@(_isActive ? IconActive ?? IconRest : IconRest)" Class="icon" Color="@(_isActive
+                ? (customColor != null ? Color.Custom : Color.Primary)
+                : (customColor != null ? Color.Custom : Color.Default))" CustomColor="@(customColor)" />
 		}
 		@Title
 		<span aria-hidden="true" class="@( "expand-icon" + (Expanded ? " expanded" : "") + (_hasBeenManuallyCollapsed ? " user-interacted" : "") )">
