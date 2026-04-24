@@ -221,6 +221,13 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             }
         }
 
+        // During the initialization of the component, the OnSetValue is not yet set.
+        // So we need to store it in a local variable to be used later when checking if Value has changed.
+        if (parameters.TryGetValue<EventCallback<SetValueEventArgs<TOption, TValue>>>(nameof(OnSetValue), out var latestOnSetValue))
+        {
+
+        }
+
         // Check if Value is being supplied and has changed (e.g. set by the developer during initialization).
         // If so, resolve the associated option via the OnSetValue callback and synchronize the selection.
         if (parameters.TryGetValue<TValue?>(nameof(Value), out var newValue))
@@ -228,14 +235,14 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             var valueComparer = EqualityComparer<TValue>.Default;
             var currentValue = GetOptionValue(_internalSelectedItem);
 
-            if (!valueComparer.Equals(newValue, currentValue) && OnSetValue.HasDelegate)
+            if (!valueComparer.Equals(newValue, currentValue) && latestOnSetValue.HasDelegate)
             {
                 var args = new SetValueEventArgs<TOption, TValue>
                 {
                     Value = newValue,
                 };
 
-                await OnSetValue.InvokeAsync(args);
+                await latestOnSetValue.InvokeAsync(args);
 
                 if (args.Item is not null)
                 {
