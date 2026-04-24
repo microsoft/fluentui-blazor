@@ -30,6 +30,10 @@
   }
 
   /* Shadow */
+  .fluent-card[shadow="none"] {
+    box-shadow: none;
+  }
+
   .fluent-card[shadow="small"] {
     box-shadow: var(--shadow2);
   }
