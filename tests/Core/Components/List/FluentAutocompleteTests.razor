@@ -1084,6 +1084,71 @@
         Assert.Empty(cut.FindAll("span.fluent-badge"));
     }
 
+    [Fact]
+    public void FluentAutocomplete_OnSetValue_InitialBoundValue_SelectsItemOnFirstRender()
+    {
+        // Arrange - Bind Value with an initial value BEFORE the component renders
+        SetValueEventArgs<string, string>? receivedArgs = null;
+        var value = "Three";
+
+        // Act - Render the component; OnParametersSetAsync should invoke OnSetValue to resolve the initial Value
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                Items="@Digits"
+                                @bind-Value="@value"
+                                OnSetValue="@(args => { receivedArgs = args; args.Item = Digits.FirstOrDefault(d => d == args.Value); })" />);
+
+        // Assert - OnSetValue was invoked with the initial Value
+        Assert.NotNull(receivedArgs);
+        Assert.Equal("Three", receivedArgs!.Value);
+
+        // Assert - The resolved item is selected and displayed as a badge on the first render
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        Assert.Equal("Three", component.SelectedItem);
+        Assert.Single(component.SelectedItems);
+        Assert.Contains("Three", component.SelectedItems);
+
+        var badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("Three", badge.GetAttribute("title"));
+    }
+
+    [Fact]
+    public async Task FluentAutocomplete_OnSetValue_AsyncHandler_SelectsResolvedItem()
+    {
+        // Arrange - OnSetValue is an async handler; bind an initial Value before the first render
+        var value = "Six";
+
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                Items="@Digits"
+                                @bind-Value="@value"
+                                OnSetValue="@(async args => { await Task.Yield(); args.Item = Digits.FirstOrDefault(d => d == args.Value); })" />);
+
+        // Assert - The async handler resolved the initial Value and selected the matching item
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        cut.WaitForAssertion(() => Assert.Equal("Six", cut.Find("span.fluent-badge[alone]").GetAttribute("title")));
+        Assert.Equal("Six", component.SelectedItem);
+        Assert.Single(component.SelectedItems);
+        Assert.Contains("Six", component.SelectedItems);
+
+        // Act - Change the Value externally to validate that the async handler also runs after render
+        var newParameters = ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            { nameof(FluentAutocomplete<string, string>.Value), "Two" }
+        });
+        await cut.InvokeAsync(() => component.SetParametersAsync(newParameters));
+
+        // Assert - The async handler resolved the new Value and the selection was updated
+        cut.WaitForAssertion(() => Assert.Equal("Two", cut.Find("span.fluent-badge[alone]").GetAttribute("title")));
+        Assert.Equal("Two", component.SelectedItem);
+        Assert.Single(component.SelectedItems);
+        Assert.Contains("Two", component.SelectedItems);
+    }
+
     private void OnOptionsSearch(OptionsSearchEventArgs<string> e)
     {
         e.Items = Digits.Where(i => i.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
@@ -1118,6 +1183,72 @@
         // Assert - No default comparer is set
         var component = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
         Assert.Null(component.OptionSelectedComparer);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SelectedItemExpression_DefaultIsNotNull()
+    {
+        string? selectedItem = "Two";
+
+        // Arrange - Render without supplying SelectedItemExpression (manual one-way binding scenario)
+        var cut = Render(@<FluentAutocomplete TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              Items="@Digits"
+                                              SelectedItem="@selectedItem"
+                                              SelectedItemChanged="@((string v) => selectedItem = v)" />);
+
+        // Assert - The constructor sets a default expression so consumers using manual
+        // one-way binding (SelectedItem + SelectedItemChanged only) still get a non-null expression.
+        var instance = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        Assert.NotNull(instance.SelectedItemExpression);
+        Assert.Equal("Two", instance.SelectedItemExpression!.Compile().Invoke());
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SelectedItemExpression_ManualOneWayBinding()
+    {
+        // This test compiles ONLY because SelectedItemExpression exists as a [Parameter].
+        // Razor's @bind-SelectedItem:get/:set syntax emits SelectedItem, SelectedItemChanged
+        // AND SelectedItemExpression on the component.
+        string? selectedItem = "One";
+
+        // Arrange
+        var cut = Render(@<FluentAutocomplete TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              Items="@Digits"
+                                              @bind-SelectedItem:get="selectedItem"
+                                              @bind-SelectedItem:set="@((string v) => { selectedItem = v; return Task.CompletedTask; })" />);
+
+        // Assert - The component's SelectedItemExpression is supplied by Razor and reflects the bound field
+        var instance = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        Assert.NotNull(instance.SelectedItemExpression);
+        Assert.Equal("One", instance.SelectedItemExpression!.Compile().Invoke());
+
+        // The badge displays the initial selection
+        var badge = cut.Find("span.fluent-badge[alone]");
+        Assert.Equal("One", badge.GetAttribute("title"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SelectedItemExpression_ExplicitlyProvided()
+    {
+        string? selectedItem = "Three";
+        System.Linq.Expressions.Expression<Func<string?>> expression = () => selectedItem;
+
+        // Arrange - Explicitly provide SelectedItemExpression
+        var cut = Render(@<FluentAutocomplete TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              Items="@Digits"
+                                              SelectedItem="@selectedItem"
+                                              SelectedItemChanged="@((string v) => selectedItem = v)"
+                                              SelectedItemExpression="@expression" />);
+
+        // Assert - The supplied expression overrides the default set in the constructor
+        var instance = cut.FindComponent<FluentAutocomplete<string, string>>().Instance;
+        Assert.Same(expression, instance.SelectedItemExpression);
     }
 
     public class Person : IEqualityComparer<Person>
