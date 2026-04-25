@@ -1,0 +1,43 @@
+<html>
+	<head></head>
+	<body>
+		<div id="xxx" style="width: 100%; height: 400px;" class="fluent-wizard" position="left">
+			<ol>
+				<li id="xxx" status="current" blazor:onclick="x" style="position: relative; display: flex; gap: 10px; height: 100%;">
+					<div active="" step-index="0">
+						Intro
+					</div>
+					<div class="fluent-wizard-step-connector" position="left"></div>
+				</li>
+				<li id="xxx" status="next" blazor:onclick="x" style="position: relative; display: flex; gap: 10px; height: 100%;">
+					<div step-index="1">
+						Details
+					</div>
+					<div class="fluent-wizard-step-connector" position="left"></div>
+				</li>
+				<li id="xxx" status="next" blazor:onclick="x" style="position: relative; display: flex; gap: 10px; height: auto;">
+					<div step-index="2">
+						Conclusion
+					</div>
+				</li>
+			</ol>
+			<div class="fluent-wizard-content">
+				<div style="">
+					Content 1
+				</div>
+				<div style="display: none;">
+					Content 2
+				</div>
+				<div style="display: none;">
+					Content 3
+				</div>
+			</div>
+			<div class="fluent-wizard-buttons">
+				<div class="fluent-stack-horizontal" style="justify-content: end; align-items: start; column-gap: 10px; width: 100%;">
+					<fluent-button appearance="primary" blazor:onclick="x">
+						Next</fluent-button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
