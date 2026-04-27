@@ -27,6 +27,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private readonly Debounce _debounce = new();
     private bool _shouldRender = true;
     private bool _inProgress;
+    private IEnumerable<TOption> _allItems;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentAutocomplete{TOption}"/> class.
@@ -279,6 +280,38 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     protected override bool ShouldRender() => _shouldRender;
 
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        if (!Multiple)
+        {
+            bool isSetSelectedOption = false;
+            TOption? newSelectedOption = default;
+
+            foreach (var parameter in parameters)
+            {
+                if (parameter.Name.Equals(nameof(SelectedOption)))
+                {
+                    isSetSelectedOption = true;
+                    newSelectedOption = (TOption?)parameter.Value;
+                    break;
+                }
+            }
+
+            if (newSelectedOption is not null)
+            {
+                if (isSetSelectedOption && !Equals(_currentSelectedOption, newSelectedOption))
+                {
+                    if (_allItems is not null && Items is not null
+                        && _allItems.Contains(newSelectedOption) && !Items.Contains(newSelectedOption))
+                    {
+                        Items = Items.Append(newSelectedOption)!;
+                    }
+                }
+            }
+        }
+        await base.SetParametersAsync(parameters);
+    }
+
     /// <summary>
     /// Closes the multiselect dropdown.
     /// </summary>
@@ -341,8 +374,17 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         };
 
         await OnOptionsSearch.InvokeAsync(args);
+        _allItems = args.Items;
 
-        Items = args.Items?.Take(MaximumOptionsSearch);
+        var topItems = _allItems.Take(MaximumOptionsSearch);
+        if (!Multiple && SelectedOption is not null && _allItems is not null && Items is not null)
+        {
+            if (_allItems.Contains(SelectedOption) && !topItems.Contains(SelectedOption))
+            {
+                topItems = _allItems.Take(MaximumOptionsSearch - 1).Append(SelectedOption);
+            }
+        }
+        Items = topItems;
 
         SelectableItem = Items != null
             ? Items.FirstOrDefault(i => OptionDisabled is null ? true : OptionDisabled.Invoke(i) == false)
