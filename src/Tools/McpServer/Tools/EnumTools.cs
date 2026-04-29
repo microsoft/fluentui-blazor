@@ -171,6 +171,10 @@ public class EnumTools
     {
         var enums = _documentationService.GetAllEnums();
 
+        if (enums.Count == 0)
+        {
+            return "No enums found.";
+        }
         var sb = new StringBuilder();
         sb.AppendLine(CultureInfo.InvariantCulture, $"# Fluent UI Blazor - Enum Types ({enums.Count} enums)");
         sb.AppendLine();
