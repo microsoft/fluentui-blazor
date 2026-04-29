@@ -157,4 +157,37 @@ public class EnumTools
 
         return sb.ToString();
     }
+
+    /// <summary>
+    /// Lists all enum types available in the Fluent UI Blazor library.
+    /// Use this to discover valid enum names for <see cref="GetEnumValues"/>.
+    /// </summary>
+    /// <returns>
+    /// A formatted string listing all enum types with their descriptions.
+    /// </returns>
+    [McpServerTool]
+    [Description("Lists all enum types available in the Fluent UI Blazor library. Use this to discover valid enum names for GetEnumValues(enumName: ...).")]
+    public string ListEnums()
+    {
+        var enums = _documentationService.GetAllEnums();
+
+        if (enums.Count == 0)
+        {
+            return "No enums found.";
+        }
+        var sb = new StringBuilder();
+        sb.AppendLine(CultureInfo.InvariantCulture, $"# Fluent UI Blazor - Enum Types ({enums.Count} enums)");
+        sb.AppendLine();
+
+        foreach (var enumInfo in enums)
+        {
+            var description = string.IsNullOrEmpty(enumInfo.Description) ? string.Empty : $" — {enumInfo.Description}";
+            sb.AppendLine(CultureInfo.InvariantCulture, $"- **{enumInfo.Name}**{description}");
+        }
+
+        sb.AppendLine();
+        sb.AppendLine("Use `GetEnumValues(enumName: \"EnumName\")` to see all values for a specific enum.");
+
+        return sb.ToString();
+    }
 }

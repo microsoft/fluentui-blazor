@@ -332,4 +332,69 @@ public class EnumToolsTests
     }
 
     #endregion
+
+    #region ListEnums Tests
+
+    [Fact]
+    public void ListEnums_ShouldReturnEnumNames()
+    {
+        Skip.IfNot(_jsonFileExists, "JSON documentation file not found");
+
+        // Arrange
+        var tools = CreateTools();
+
+        // Act
+        var result = tools.ListEnums();
+
+        // Assert
+        Assert.False(string.IsNullOrEmpty(result));
+        Assert.Contains("Appearance", result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void ListEnums_ShouldReturnHeader()
+    {
+        Skip.IfNot(_jsonFileExists, "JSON documentation file not found");
+
+        // Arrange
+        var tools = CreateTools();
+
+        // Act
+        var result = tools.ListEnums();
+
+        // Assert
+        Assert.Contains("# Fluent UI Blazor - Enum Types", result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void ListEnums_ShouldIncludeUsageHint()
+    {
+        Skip.IfNot(_jsonFileExists, "JSON documentation file not found");
+
+        // Arrange
+        var tools = CreateTools();
+
+        // Act
+        var result = tools.ListEnums();
+
+        // Assert
+        Assert.Contains("GetEnumValues", result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void ListEnums_ShouldIncludeCount()
+    {
+        Skip.IfNot(_jsonFileExists, "JSON documentation file not found");
+
+        // Arrange
+        var tools = CreateTools();
+
+        // Act
+        var result = tools.ListEnums();
+
+        // Assert
+        Assert.Contains("enums)", result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    #endregion
 }
