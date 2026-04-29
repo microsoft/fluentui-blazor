@@ -178,6 +178,10 @@ public class ComponentListTools
             .OrderBy(g => g.Key, StringComparer.OrdinalIgnoreCase)
             .ToList();
 
+        if (groups.Count == 0)
+        {
+            return "No component categories found.";
+        }
         var sb = new StringBuilder();
         sb.AppendLine(CultureInfo.InvariantCulture, $"# Fluent UI Blazor - Component Categories ({groups.Count} categories)");
         sb.AppendLine();
