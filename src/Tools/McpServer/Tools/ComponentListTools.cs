@@ -159,4 +159,37 @@ public class ComponentListTools
         // Sort the combined results by name for stable output
         return [.. components.Concat(additionalComponents).OrderBy(c => c.Name, StringComparer.OrdinalIgnoreCase)];
     }
+
+    /// <summary>
+    /// Lists all available component categories in the Fluent UI Blazor library.
+    /// Use this to discover valid category names for filtering <see cref="ListComponents"/>.
+    /// </summary>
+    /// <returns>
+    /// A formatted string listing all component categories with the number of components in each.
+    /// </returns>
+    [McpServerTool]
+    [Description("Lists all available component categories in Fluent UI Blazor. Use this to find valid category names for filtering ListComponents(category: ...).")]
+    public string ListCategories()
+    {
+        var components = _documentationService.GetAllComponents();
+
+        var groups = components
+            .GroupBy(c => c.Category, StringComparer.OrdinalIgnoreCase)
+            .OrderBy(g => g.Key, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        var sb = new StringBuilder();
+        sb.AppendLine(CultureInfo.InvariantCulture, $"# Fluent UI Blazor - Component Categories ({groups.Count} categories)");
+        sb.AppendLine();
+
+        foreach (var group in groups)
+        {
+            sb.AppendLine(CultureInfo.InvariantCulture, $"- **{group.Key}** ({group.Count()} components)");
+        }
+
+        sb.AppendLine();
+        sb.AppendLine("Use `ListComponents(category: \"<CategoryName>\")` to list components in a specific category.");
+
+        return sb.ToString();
+    }
 }
