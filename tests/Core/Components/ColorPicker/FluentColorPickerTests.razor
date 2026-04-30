@@ -1,0 +1,80 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    public FluentColorPickerTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentColorPicker_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPicker />);
+
+        // Assert
+        var div = cut.Find(".fluent-color-picker");
+        Assert.NotNull(div);
+    }
+
+    [Fact]
+    public void FluentColorPicker_SelectedColor_ExactMatch_Highlighted()
+    {
+        // Arrange - #F44236 is in the default swatch palette
+        var cut = Render(@<FluentColorPicker SelectedColor="#F44236" />);
+
+        // Assert - indicator div is only rendered for the selected color
+        var indicators = cut.FindAll("[part=indicator]");
+        Assert.Single(indicators);
+    }
+
+    [Fact]
+    public void FluentColorPicker_SelectedColor_NotInPalette_NoHighlight()
+    {
+        // Arrange - #8B4513 (SaddleBrown) is NOT in the default palette
+        // Without FindClosestColor, nothing should be highlighted
+        var cut = Render(@<FluentColorPicker SelectedColor="#8B4513" />);
+
+        // Assert
+        Assert.Empty(cut.FindAll("[part=indicator]"));
+    }
+
+    [Fact]
+    public void FluentColorPicker_FindClosestColor_Enabled_HighlightsClosest()
+    {
+        // Arrange - #8B4513 (SaddleBrown) is NOT in the default palette
+        // With FindClosestColor, the closest color should be highlighted
+        var cut = Render(@<FluentColorPicker SelectedColor="#8B4513" FindClosestColor="true" />);
+
+        // Assert - indicator div should be rendered for the closest color
+        var indicators = cut.FindAll("[part=indicator]");
+        Assert.Single(indicators);
+    }
+
+    [Fact]
+    public void FluentColorPicker_FindClosestColor_ExactMatch_StillWorks()
+    {
+        // Arrange - #F44236 IS in the default palette
+        // FindClosestColor should still find the exact match
+        var cut = Render(@<FluentColorPicker SelectedColor="#F44236" FindClosestColor="true" />);
+
+        // Assert
+        var indicators = cut.FindAll("[part=indicator]");
+        Assert.Single(indicators);
+    }
+
+    [Fact]
+    public void FluentColorPicker_FindClosestColor_Disabled_NoHighlightForNonPaletteColor()
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPicker SelectedColor="#8B4513" FindClosestColor="false" />);
+
+        // Assert
+        Assert.Empty(cut.FindAll("[part=indicator]"));
+    }
+}
