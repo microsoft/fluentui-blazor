@@ -491,8 +491,8 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     return mode === 'dark' ? true : mode === 'light' ? false : isSystemDark();
   }
 
-  function tryGetThemeModeFromBody(): 'dark' | 'light' | 'system' | null {
-    const value = document.body.getAttribute('data-theme') as ThemeMode;
+  function tryGetThemeModeFromBody(): ThemeMode | null {
+    const value = document.body.getAttribute('data-theme');
 
     const validModes: ThemeMode[] = ['dark', 'light', 'system'];
 
