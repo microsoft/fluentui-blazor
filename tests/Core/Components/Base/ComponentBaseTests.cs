@@ -26,6 +26,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         typeof(ToastOptions),
         typeof(FluentRadio<>),  // TODO: To update
         typeof(FluentTab),      // Excluded because the Tab content in rendered in the parent FluentTabs component
+        typeof(FluentValidationMessage<>), // Excluded because requires special handling of EditContext
     ];
 
     /// <summary>
