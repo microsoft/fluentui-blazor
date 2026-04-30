@@ -491,8 +491,12 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     return mode === 'dark' ? true : mode === 'light' ? false : isSystemDark();
   }
 
-  function tryGetThemeModeFromBody(): 'dark' | null {
-    return document.body.getAttribute('data-theme') === 'dark' ? 'dark' : null;
+  function tryGetThemeModeFromBody(): 'dark' | 'light' | 'system' | null {
+    const value = document.body.getAttribute('data-theme') as ThemeMode;
+
+    const validModes: ThemeMode[] = ['dark', 'light', 'system'];
+
+    return validModes.includes(value as ThemeMode) ? (value as ThemeMode) : null;
   }
 
   function tryGetRampInputs(
