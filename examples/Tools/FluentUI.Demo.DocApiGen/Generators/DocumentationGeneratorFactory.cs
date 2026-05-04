@@ -37,6 +37,7 @@ public static class DocumentationGeneratorFactory
             GenerationMode.Mcp => new McpDocumentationGenerator(assembly, xmlDocumentation),
             GenerationMode.Icons => new IconsEmojisGenerator(assembly, xmlDocumentation, mode),
             GenerationMode.Emojis => new IconsEmojisGenerator(assembly, xmlDocumentation, mode),
+            GenerationMode.Charts => new SummaryDocumentationGenerator(assembly, xmlDocumentation),
             _ => throw new NotSupportedException($"Generation mode '{mode}' is not supported.")
         };
     }

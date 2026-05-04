@@ -58,4 +58,9 @@ public enum GenerationMode
     /// Generate documentation for emojis, including metadata and usage information.
     /// </summary>
     Emojis,
+
+    /// <summary>
+    /// Generate documentation for charts components.
+    /// </summary>
+    Charts,
 }

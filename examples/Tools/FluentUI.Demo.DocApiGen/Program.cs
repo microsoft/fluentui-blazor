@@ -2,11 +2,12 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Reflection;
 using FluentUI.Demo.DocApiGen.Abstractions;
+using FluentUI.Demo.DocApiGen.AssemblyLoading;
 using FluentUI.Demo.DocApiGen.Formatters;
 using FluentUI.Demo.DocApiGen.Generators;
 using Microsoft.Extensions.Configuration;
-using System.Reflection;
 
 namespace FluentUI.Demo.DocApiGen;
 
@@ -58,7 +59,14 @@ public class Program
             ValidateFormatCompatibility(mode, format);
 
             // Load assembly and XML documentation
-            var assembly = Assembly.LoadFile(dllFile);
+            // Use a custom AssemblyLoadContext so that dependencies (e.g. the core
+            // components DLL referenced by the charts DLL) are resolved from the
+            // same directory as the target DLL rather than from what is already
+            // loaded in the default context.
+#pragma warning disable CA1416
+            var loadContext = new PluginAssemblyLoadContext(dllFile);
+            var assembly = loadContext.LoadFromAssemblyPath(dllFile);
+#pragma warning restore CA1416
             var docXml = new FileInfo(xmlFile);
 
             Console.WriteLine("Generating documentation...");
@@ -134,6 +142,8 @@ public class Program
         Console.WriteLine("             Supports: json only");
         Console.WriteLine("  emojis   - Generate Fluent UI emoji documentation");
         Console.WriteLine("             Supports: json only");
+        Console.WriteLine("  charts   - Generate Fluent UI charts component documentation");
+        Console.WriteLine("             Supports: json only");
         Console.WriteLine();
         Console.WriteLine("Examples:");
         Console.WriteLine("  # Generate Summary mode JSON");
@@ -153,6 +163,9 @@ public class Program
         Console.WriteLine();
         Console.WriteLine("  # Generate Emojis documentation JSON");
         Console.WriteLine("  DocApiGen --xml MyApp.xml --dll MyApp.dll --output emojis.json --mode emojis");
+        Console.WriteLine();
+        Console.WriteLine("  # Generate Charts documentation JSON");
+        Console.WriteLine("  DocApiGen --xml MyApp.xml --dll MyApp.dll --output charts.json --mode charts");
     }
 
     private static GenerationMode ParseMode(string modeArg)
@@ -164,7 +177,8 @@ public class Program
             "mcp" => GenerationMode.Mcp,
             "icons" => GenerationMode.Icons,
             "emojis" => GenerationMode.Emojis,
-            _ => throw new ArgumentException($"Invalid mode '{modeArg}'. Valid modes are: summary, all, mcp, icons, emojis")
+            "charts" => GenerationMode.Charts,
+            _ => throw new ArgumentException($"Invalid mode '{modeArg}'. Valid modes are: summary, all, mcp, icons, emojis, charts")
         };
     }
 
@@ -186,8 +200,8 @@ public class Program
                 $"Mode 'mcp' only supports JSON format. Requested format: {format}");
         }
 
-        // Icons and Emojis modes only support JSON
-        if ((mode == GenerationMode.Icons || mode == GenerationMode.Emojis) && formatLower != "json")
+        // Icons, Emojis and Charts modes only support JSON
+        if ((mode == GenerationMode.Icons || mode == GenerationMode.Emojis || mode == GenerationMode.Charts) && formatLower != "json")
         {
             throw new NotSupportedException(
                 $"Mode '{mode}' only supports JSON format. Requested format: {format}");

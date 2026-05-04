@@ -69,11 +69,11 @@ public partial class MarkdownViewer
 
         Sections = await page.ExtractSectionsAsync();
 
-        // Read api-comments.json
+        // Discover and load all api-*.json files via the build-time generated index
         if (ApiDocSummary.Cached is null)
         {
             HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
-            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/api-comments.json");
+            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync(DocViewerService.Options.ApiDocIndexUrl);
         }
 
         // Load MCP documentation if any MCP or McpSummary section is present
@@ -131,20 +131,20 @@ public partial class MarkdownViewer
         var componentType = "";
 
         // Convert "MyComponent<MyType>" to ("MyComponent", "MyType")
-        var match = Regex.Match(name, @"(\w+)(&lt;|<)(.+)(>|&gt;)");
+        var match = GenericComponents().Match(name);
         if (match.Success)
         {
             componentName = match.Groups[1].Value;
             componentType = match.Groups[3].Value;
         }
 
-        // Get the component type
-        var type = DocViewerService.ApiAssembly
-                                  ?.GetTypes()
-                                  ?.FirstOrDefault(i => i.Name == componentName
-                                                     || i.Name.StartsWith($"{componentName}`1")
-                                                     || i.Name.StartsWith($"{componentName}`2"));
-
+        // Get the component type — search across all registered API assemblies
+        var type = DocViewerService.ApiAssemblies
+                                   .Select(a => a.GetTypes()
+                                                  .FirstOrDefault(i => i.Name == componentName
+                                                                     || i.Name.StartsWith($"{componentName}`1")
+                                                                     || i.Name.StartsWith($"{componentName}`2")))
+                                   .FirstOrDefault(t => t is not null);
         // Create the ApiClass
         var result = type is null ? null : new ApiClass(DocViewerService, type, allProperties);
 
@@ -165,8 +165,7 @@ public partial class MarkdownViewer
                 }
             }
 
-            
-            result.InstanceTypes = listOfTypes.ToArray();
+            result.InstanceTypes = [.. listOfTypes];
         }
 
         return result;
@@ -217,4 +216,7 @@ public partial class MarkdownViewer
             _ => "language-plaintext"
         };
     }
+
+    [GeneratedRegex(@"(\w+)(&lt;|<)(.+)(>|&gt;)")]
+    private static partial Regex GenericComponents();
 }

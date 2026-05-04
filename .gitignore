@@ -418,7 +418,7 @@ Microsoft.FluentUI.AspNetCore.Components.xml
 Microsoft.FluentUI.AspNetCore.McpServer.xml
 /examples/Demo/FluentUI.Demo.Client/wwwroot/sources/
 /examples/Demo/FluentUI.Demo.Client/wwwroot/documentation/
-api-comments.json
+api-*.json
 mcp-documentation.json
 all-icons.json
 all-emojis.json

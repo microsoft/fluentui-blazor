@@ -27,9 +27,19 @@ public class DocViewerOptions
     public Assembly? ResourcesAssembly { get; set; }
 
     /// <summary>
-    /// Assembly containing the API classes to display in API sections.
+    /// One or more assemblies containing the API classes to display in API sections.
+    /// When multiple assemblies are provided their types are searched in order.
     /// </summary>
-    public Assembly? ApiAssembly { get; set; }
+    public IReadOnlyList<Assembly> ApiAssemblies { get; set; } = [];
+
+    /// <summary>
+    /// Convenience setter: assigns a single assembly to <see cref="ApiAssemblies"/>.
+    /// </summary>
+    public Assembly? ApiAssembly
+    {
+        get => ApiAssemblies.Count > 0 ? ApiAssemblies[0] : null;
+        set => ApiAssemblies = value is null ? [] : [value];
+    }
 
     /// <summary>
     /// Function to get the summary of an API comment.
@@ -45,4 +55,11 @@ public class DocViewerOptions
     /// Gets or sets whether to use the console log provider.
     /// </summary>
     public bool EnableConsoleLogProvider { get; set; } = true;
+
+    /// <summary>
+    /// URL to the JSON index file that lists all API documentation JSON files to load (e.g. api-index.json).
+    /// At build time a <c>api-index.json</c> is generated automatically from all <c>api-*.json</c> files
+    /// in <c>wwwroot</c>, so adding a new API JSON file there requires no code changes.
+    /// </summary>
+    public string ApiDocIndexUrl { get; set; } = "/api-index.json";
 }

@@ -67,6 +67,17 @@
     <WriteLinesToFile File="$(ProjectDir)wwwroot\sources\files.txt" Lines="@(Sources->'%(Filename)%(Extension).txt')" Overwrite="true" />
   </Target>
 
+  <!-- Generate api-index.json listing all api-*.json files in wwwroot so the DocViewer can discover them automatically -->
+  <Target Name="GenerateApiIndex" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)'=='$(NetVersion)'">
+    <ItemGroup>
+      <ApiJsonFiles Include="$(ProjectDir)wwwroot\api-*.json" Exclude="$(ProjectDir)wwwroot\api-index.json" />
+    </ItemGroup>
+    <PropertyGroup>
+      <_ApiIndexContent>["@(ApiJsonFiles->'%(Filename)%(Extension)', '","')"]</_ApiIndexContent>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(ProjectDir)wwwroot\api-index.json" Lines="$(_ApiIndexContent)" Overwrite="true" />
+  </Target>
+
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>
     <None Include="**\*.*.resx" />
