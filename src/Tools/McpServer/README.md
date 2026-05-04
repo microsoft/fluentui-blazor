@@ -185,11 +185,13 @@ Tools are invoked automatically by the LLM for dynamic queries.
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `ListComponents` | Lists all available components | `category` (optional) |
+| `ListCategories` | Lists all available component categories | - |
 | `GetComponentDetails` | Gets detailed documentation for a component | `componentName` |
 | `SearchComponents` | Searches components by name or description | `searchTerm` |
 | `GetEnumValues` | Gets enum type values | `enumName`, `filter` (optional) |
 | `GetComponentEnums` | Lists enums used by a component | `componentName` |
-| `ListDocumentationTopics` | Lists all documentation topics | - |
+| `ListEnums` | Lists all available enum types | - |
+| `ListDocumentation` | Lists all documentation topics | - |
 | `GetDocumentationTopic` | Gets detailed documentation for a documentation topic | `topicName` |
 | `SearchDocumentation` | Searches documentation by keyword | `searchTerm` |
 | `GetMigrationGuide` | Gets migration guide for upgrading to v5 | - |
