@@ -287,4 +287,69 @@ public class ComponentListToolsTests
     }
 
     #endregion
+
+    #region ListCategories Tests
+
+    [Fact]
+    public void ListCategories_ShouldReturnCategories()
+    {
+        Skip.IfNot(_jsonFileExists, "JSON documentation file not found");
+
+        // Arrange
+        var tools = CreateTools();
+
+        // Act
+        var result = tools.ListCategories();
+
+        // Assert
+        Assert.False(string.IsNullOrEmpty(result));
+        Assert.Contains("# Fluent UI Blazor - Component Categories", result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void ListCategories_ShouldIncludeComponentCounts()
+    {
+        Skip.IfNot(_jsonFileExists, "JSON documentation file not found");
+
+        // Arrange
+        var tools = CreateTools();
+
+        // Act
+        var result = tools.ListCategories();
+
+        // Assert
+        Assert.Contains("components)", result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void ListCategories_ShouldIncludeUsageHint()
+    {
+        Skip.IfNot(_jsonFileExists, "JSON documentation file not found");
+
+        // Arrange
+        var tools = CreateTools();
+
+        // Act
+        var result = tools.ListCategories();
+
+        // Assert
+        Assert.Contains("ListComponents", result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void ListCategories_ShouldContainKnownCategory()
+    {
+        Skip.IfNot(_jsonFileExists, "JSON documentation file not found");
+
+        // Arrange
+        var tools = CreateTools();
+
+        // Act
+        var result = tools.ListCategories();
+
+        // Assert
+        Assert.Contains("Button", result, StringComparison.OrdinalIgnoreCase);
+    }
+
+    #endregion
 }
