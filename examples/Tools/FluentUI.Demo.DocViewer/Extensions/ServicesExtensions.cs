@@ -78,8 +78,15 @@ public static class ServicesExtensions
         // Step 2: load and merge each discovered file
         foreach (var fileName in jsonFiles)
         {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                continue;
+            }
+
+            var trimmedFileName = fileName.Trim();
+
             // Support both bare filenames ("api-comments.json") and absolute paths ("/api-comments.json")
-            var fileUrl = fileName.StartsWith('/') ? fileName : $"/{fileName}";
+            var fileUrl = trimmedFileName.StartsWith('/') ? trimmedFileName : $"/{trimmedFileName}";
 
             try
             {

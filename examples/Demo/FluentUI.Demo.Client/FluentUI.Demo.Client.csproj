@@ -73,7 +73,8 @@
       <ApiJsonFiles Include="$(ProjectDir)wwwroot\api-*.json" Exclude="$(ProjectDir)wwwroot\api-index.json" />
     </ItemGroup>
     <PropertyGroup>
-      <_ApiIndexContent>["@(ApiJsonFiles->'%(Filename)%(Extension)', '","')"]</_ApiIndexContent>
+      <_ApiIndexContent Condition="'@(ApiJsonFiles)' != ''">["@(ApiJsonFiles->'%(Filename)%(Extension)', '","')"]</_ApiIndexContent>
+      <_ApiIndexContent Condition="'@(ApiJsonFiles)' == ''">[]</_ApiIndexContent>
     </PropertyGroup>
     <WriteLinesToFile File="$(ProjectDir)wwwroot\api-index.json" Lines="$(_ApiIndexContent)" Overwrite="true" />
   </Target>
