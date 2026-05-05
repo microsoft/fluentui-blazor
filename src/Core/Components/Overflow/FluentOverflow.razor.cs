@@ -43,7 +43,9 @@ public partial class FluentOverflow : FluentComponentBase
     public RenderFragment<FluentOverflow>? OverflowTemplate { get; set; }
 
     /// <summary>
-    /// To prevent a flickering effect, set this property to False to hide the overflow items until the component is fully loaded.
+    /// Gets or sets whether overflow items are visible immediately on load.
+    /// Set to <c>false</c> to hide items until the component is fully loaded,
+    /// preventing a flickering effect. Defaults to <c>true</c>.
     /// </summary>
     [Parameter]
     public bool VisibleOnLoad { get; set; } = true;
@@ -67,7 +69,7 @@ public partial class FluentOverflow : FluentComponentBase
     public string? Selectors { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets if the tooltip should be displayed by using the TooltipService
+    /// Gets or sets whether the tooltip is displayed using the TooltipService.
     /// </summary>
     [Parameter]
     public bool UseTooltipService { get; set; } = false;
