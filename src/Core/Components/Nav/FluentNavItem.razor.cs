@@ -49,38 +49,41 @@ public partial class FluentNavItem : FluentNavBase
     internal FluentNavCategory? Category { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon to use when the item is not hovered/selected/active.
+    /// Gets or sets the icon displayed when the item is in its default (resting) state.
+    /// Use <see cref="IconActive"/> to specify the icon shown when the item is hovered, selected, or active.
     /// </summary>
     [Parameter]
     public Icon? IconRest { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon to use when the item is hovered/selected/active.
+    /// Gets or sets the icon displayed when the item is hovered, selected, or active.
+    /// Use <see cref="IconRest"/> to specify the icon shown in the default (resting) state.
     /// </summary>
     [Parameter]
     public Icon? IconActive { get; set; }
 
     /// <summary>
-    /// Gets or sets the href of the link.
+    /// Gets or sets the navigation URL for the item (e.g., <c>Href="/dashboard"</c>).
+    /// When set, the item renders as an anchor element.
     /// </summary>
     [Parameter]
     public string? Href { get; set; }
 
     /// <summary>
-    /// The callback to invoke when the item is clicked.
+    /// Gets or sets the callback invoked when the item is clicked.
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     /// <summary>
-    /// If true, the item will be disabled.
+    /// Gets or sets whether the item is disabled.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the target attribute that specifies where to open the group, if Href is specified.
-    /// Possible values: _blank | _self | _parent | _top.
+    /// Gets or sets the target attribute that specifies where to open the link when <see cref="Href"/> is set
+    /// (e.g., <c>Target="LinkTarget.Blank"</c> to open in a new tab).
     /// </summary>
     [Parameter]
     public LinkTarget? Target { get; set; }
