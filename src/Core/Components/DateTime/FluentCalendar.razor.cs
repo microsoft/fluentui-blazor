@@ -133,14 +133,15 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     public bool DisplayToday { get; set; } = true;
 
     /// <summary>
-    /// Gets ot sets if the calendar items are animated during a period change.
+    /// Gets or sets a value indicating whether calendar items are animated during a period change.
     /// By default, the animation is enabled for Months views, but disabled for Days and Years view.
     /// </summary>
     [Parameter]
     public bool? AnimatePeriodChanges { get; set; }
 
     /// <summary>
-    /// Gets or sets the way the user can select one or more dates
+    /// Gets or sets the date selection mode (e.g., <c>SelectMode="CalendarSelectMode.Range"</c>).
+    /// Controls whether the user can select a single date, a range, or multiple dates.
     /// </summary>
     [Parameter]
     public CalendarSelectMode SelectMode { get; set; } = CalendarSelectMode.Single;
@@ -158,7 +159,8 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     public EventCallback<IEnumerable<TValue>> SelectedDatesChanged { get; set; }
 
     /// <summary>
-    /// Fired when the selected mouse over change, to display the future range of dates.
+    /// Gets or sets a function invoked when the user hovers over a date, returning the projected range to highlight.
+    /// Only used when <see cref="SelectMode"/> is <see cref="CalendarSelectMode.Range"/>.
     /// </summary>
     [Parameter]
     public Func<TValue, IEnumerable<TValue>>? SelectDatesHover { get; set; }
