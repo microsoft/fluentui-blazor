@@ -54,6 +54,11 @@
   text-align: center;
   position: relative;
   padding: 2px 2px;
+  z-index: 1;
+}
+
+.fluent-data-grid .column-header:hover {
+  z-index: 6;
 }
 
 .fluent-data-grid .col-sort-button {

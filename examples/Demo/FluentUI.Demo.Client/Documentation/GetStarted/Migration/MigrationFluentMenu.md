@@ -29,6 +29,7 @@ displaying the menu (using `popover` when available).
 - You need to change the type of the `Trigger` parameter from `MouseButton` to `string`. The value should be the `id` of the element the menu is attached to. If you want to attach opening the menu to the context menu action, you can use the `OpenOnContext` parameter. Opening the menu omn oter mouse button actions is no longer supported.
 - You need to change the type argument of the `OnCheckedChanged` event from `FluentMenuItem` to `MenuItemEventArgs`. the item concerned is available in the `Item` property of the event args.
 - You need to check the `MenuItemRole` values usage when migrating to v5. See below for the mapping of the values. The changed values have been mapped to the corresponding new values but they are marked obsolete and will be removed in a future release. 
+- If you were using `@onclick` on the `FluentMenuItem`, you need to replace it with the new `OnClick` parameter. Otherwise, your app will crash at runtime when loading the page or component containing the menu.
 
 |v3 & v4|v5|
 |-----|-----|

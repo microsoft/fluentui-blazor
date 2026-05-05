@@ -41,6 +41,7 @@ public class InputBaseTests : Bunit.BunitContext
         { typeof(FluentCalendar<>), type => type.MakeGenericType(typeof(DateTime)) },
         { typeof(FluentDatePicker<>), type => type.MakeGenericType(typeof(DateTime)) },
         { typeof(FluentTimePicker<>), type => type.MakeGenericType(typeof(DateTime)) },
+        { typeof(FluentNumberInput<>), type => type.MakeGenericType(typeof(int)) },
     };
 
     /// <summary />

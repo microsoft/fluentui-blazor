@@ -10,7 +10,7 @@ namespace FluentUI.Demo.DocViewer.Models;
 public class ApiDocSummary
 {
     /// <summary>
-    /// Gets or sets the content of the API documentation, read from the api-comments.json file.
+    /// Gets or sets the content of the API documentation, read from a "comments.json" file.
     /// </summary>
     public Dictionary<string, Dictionary<string, string>>? Items { get; set; }
 

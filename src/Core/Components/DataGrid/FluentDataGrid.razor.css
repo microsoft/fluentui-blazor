@@ -6,7 +6,7 @@
   --fluent-data-grid-header-opacity: 1;
   width: auto;
   flex: 1;
-  border-collapse: separate;
+  border-collapse: collapse;
   align-items: center;
   height: max-content;
   margin-bottom: 0px;
@@ -29,10 +29,12 @@
     background: var(--colorNeutralBackground5);
   }
 
-  .fluent-data-grid .col-options, .fluent-data-grid .col-resize {
+  .fluent-data-grid .col-header-ui {
     position: absolute;
+    cursor: auto;
     min-width: 250px;
-    top: 2.7rem;
+    top: 2.45rem;
+    inset-inline-start: 0;
     background: var(--colorNeutralBackground1);
     border: 1px solid var(--colorNeutralBackground1Pressed);
     border-radius: 0.3rem;
@@ -42,18 +44,22 @@
     z-index: 1;
   }
 
-[dir=rtl] .fluent-data-grid .col-options {
+.fluent-data-grid .column-header:has(.col-header-ui) {
+  overflow: visible;
+}
+
+[dir=rtl] .fluent-data-grid .col-header-ui {
   left: unset;
 }
 
-.fluent-data-grid .col-justify-end .col-options,
-.fluent-data-grid .col-justify-right .col-options {
+.fluent-data-grid .col-justify-end .col-header-ui,
+.fluent-data-grid .col-justify-right .col-header-ui {
   left: unset;
   margin-right: 0.6rem;
 }
 
-[dir=rtl] .fluent-data-grid .col-justify-end .col-options,
-[dir=rtl] .fluent-data-grid .col-justify-right .col-options {
+[dir=rtl] .fluent-data-grid .col-justify-end .col-header-ui,
+[dir=rtl] .fluent-data-grid .col-justify-right .col-header-ui {
   right: unset;
   margin-left: 0.6rem;
 }
@@ -65,6 +71,29 @@
   width: 100%;
   justify-content: center;
   align-items: center;
+}
+
+.fluent-data-grid .reorder-options {
+  width: 100%;
+}
+
+.fluent-data-grid th.col-reorderable {
+  cursor: grab;
+}
+
+.fluent-data-grid.col-reorder-active th.col-reorderable {
+  cursor: grabbing;
+}
+
+.fluent-data-grid [col-index].col-reorder-dragging {
+  background-color: var(--colorNeutralBackground4);
+  border-inline-start: 1px solid var(--fluent-data-grid-resize-handle-color);
+  border-inline-end: 1px solid var(--fluent-data-grid-resize-handle-color);
+  opacity: 0.4;
+}
+
+.fluent-data-grid [col-index].col-reorder-drop-target {
+  background-color: var(--colorBrandBackground2);
 }
 
 .fluent-data-grid .resize-handle {

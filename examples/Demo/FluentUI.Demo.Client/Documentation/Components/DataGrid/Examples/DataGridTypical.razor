@@ -131,13 +131,13 @@
         {
             if (string.IsNullOrEmpty(nameFilter))
             {
-                await grid.CloseColumnOptionsAsync();
+                await grid.CloseColumnHeaderUIAsync();
             }
             nameFilter = string.Empty;
         }
         if (args.Key == "Enter")
         {
-            await grid.CloseColumnOptionsAsync();
+            await grid.CloseColumnHeaderUIAsync();
         }
     }
 

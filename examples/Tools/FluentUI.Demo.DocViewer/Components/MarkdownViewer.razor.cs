@@ -69,11 +69,11 @@ public partial class MarkdownViewer
 
         Sections = await page.ExtractSectionsAsync();
 
-        // Read api-comments.json
+        // Read api-comments.json and chart-comments.json
         if (ApiDocSummary.Cached is null)
         {
             HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
-            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/api-comments.json");
+            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/api-comments.json", "/chart-comments.json");
         }
 
         // Load MCP documentation if any MCP or McpSummary section is present
@@ -138,9 +138,9 @@ public partial class MarkdownViewer
             componentType = match.Groups[3].Value;
         }
 
-        // Get the component type
-        var type = DocViewerService.ApiAssembly
-                                  ?.GetTypes()
+        // Get the component type from the first assembly that contains it
+        var type = DocViewerService.ApiAssemblies
+                                  ?.SelectMany(a => a.GetTypes())
                                   ?.FirstOrDefault(i => i.Name == componentName
                                                      || i.Name.StartsWith($"{componentName}`1")
                                                      || i.Name.StartsWith($"{componentName}`2"));

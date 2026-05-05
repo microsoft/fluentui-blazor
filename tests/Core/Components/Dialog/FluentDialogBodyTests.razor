@@ -83,4 +83,24 @@
             Assert.True(buttonClicked);
         }
     }
+
+    [Fact]
+    public void FluentDialogBody_FixedHeaderFooter_False()
+    {
+        var cut = Render(@<FluentDialogBody FixedHeaderFooter="false"></FluentDialogBody>);
+
+        // Assert
+        var body = cut.Find("fluent-dialog-body");
+        Assert.True(body.HasAttribute("scrollable"));
+    }
+
+    [Fact]
+    public void FluentDialogBody_FixedHeaderFooter_True()
+    {
+        var cut = Render(@<FluentDialogBody FixedHeaderFooter="true"></FluentDialogBody>);
+
+        // Assert
+        var body = cut.Find("fluent-dialog-body");
+        Assert.False(body.HasAttribute("scrollable"));
+    }
 }

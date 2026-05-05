@@ -171,6 +171,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
       this.clearAllHovers();
       options[index].setAttribute('hovered', '');
       options[index].tabIndex = 0;
+      options[index].scrollIntoView({ block: 'nearest', inline: 'nearest' });
     }
 
     /**

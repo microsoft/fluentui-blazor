@@ -59,7 +59,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         this.refresh(true);
         this.setupListboxObserver();
         this.isInitialized = true;
-      }, 0);
+      }, 50);
 
     }
 
@@ -249,7 +249,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         if (hasNewRemovedOptions) {
           // Defer to allow FluentUI component to update its internal options array
           queueMicrotask(() => {
-            this.refresh(false);
+            setTimeout(() => {
+              this.refresh(false);
+            }, 50);
           });
         }
 

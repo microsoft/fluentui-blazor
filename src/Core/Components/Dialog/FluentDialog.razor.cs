@@ -16,6 +16,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentDialog : FluentComponentBase
 {
+    private string? _shownInstanceId;
+
     /// <summary />
     [DynamicDependency(nameof(OnToggleAsync))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
@@ -78,8 +80,10 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && LaunchedFromService)
+        var shouldShowDialog = string.CompareOrdinal(_shownInstanceId, Instance?.Id) != 0;
+        if (shouldShowDialog && LaunchedFromService)
         {
+            _shownInstanceId = Instance?.Id;
             var instance = Instance as DialogInstance;
             if (instance is not null)
             {

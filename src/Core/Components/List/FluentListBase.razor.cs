@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -22,6 +23,14 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DropdownEventArgs))]
     protected FluentListBase(LibraryConfiguration configuration) : base(configuration)
     {
+        SelectedItemsExpression = () => SelectedItems;
+
+        // If TOption implements IEqualityComparer<TOption> and exposes a public parameterless
+        // constructor, use a new instance of TOption as the default OptionSelectedComparer.
+        if (OptionSelectedComparer is null && _defaultOptionSelectedComparer.Value is { } defaultComparer)
+        {
+            OptionSelectedComparer = defaultComparer;
+        }
     }
 
     /// <inheritdoc />
@@ -78,6 +87,16 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// </summary>
     [Parameter]
     public virtual EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets an expression that identifies the bound <see cref="SelectedItems"/> value.
+    /// This is required to enable the <c>@bind-SelectedItems</c> syntax (Razor automatically
+    /// supplies it). When using manual one-way binding through <see cref="SelectedItems"/>
+    /// and <see cref="SelectedItemsChanged"/>, providing this expression is optional: a
+    /// default expression pointing to <see cref="SelectedItems"/> is set in the constructor.
+    /// </summary>
+    [Parameter]
+    public virtual Expression<Func<IEnumerable<TOption>>>? SelectedItemsExpression { get; set; }
 
     /// <summary>
     /// Gets or sets the template for the <see cref="FluentListBase{TOption, TValue}.Items"/> items.
@@ -202,7 +221,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             return OptionSelectedComparer.Equals(item, currentAsOption);
         }
 
-        if (OptionValue is not null || typeof(TOption) == typeof(TValue))
+        if (OptionValue is not null || IsOptionTypeCompatibleWithValue())
         {
             return Equals(GetOptionValue(item), CurrentValue);
         }
@@ -218,7 +237,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             return OptionValue.Invoke(item);
         }
 
-        if (typeof(TOption) == typeof(TValue))
+        if (IsOptionTypeCompatibleWithValue())
         {
             return (TValue?)(object?)item;
         }
@@ -321,5 +340,44 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     internal InternalListContext<TValue> GetCurrentContext()
     {
         return new InternalListContext<TValue>(this);
+    }
+
+    /// <summary>
+    /// Checks whether <typeparamref name="TOption"/> is the same type as <typeparamref name="TValue"/>,
+    /// or <typeparamref name="TValue"/> is <see cref="Nullable{T}"/> of <typeparamref name="TOption"/>.
+    /// </summary>
+    private static bool IsOptionTypeCompatibleWithValue()
+    {
+        return typeof(TOption) == typeof(TValue)
+            || Nullable.GetUnderlyingType(typeof(TValue)) == typeof(TOption);
+    }
+
+    // Cached default comparer (computed once per closed generic type).
+    private static readonly Lazy<IEqualityComparer<TOption>?> _defaultOptionSelectedComparer = new(CreateDefaultOptionSelectedComparer);
+
+    [UnconditionalSuppressMessage("Trimming", "IL2090:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method.", Justification = "Best-effort default comparer detection; safely returns null when the constructor is trimmed.")]
+    [UnconditionalSuppressMessage("Trimming", "IL2087:'type' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method.", Justification = "Best-effort default comparer detection; falls back to null when the constructor is trimmed.")]
+    private static IEqualityComparer<TOption>? CreateDefaultOptionSelectedComparer()
+    {
+        var optionType = typeof(TOption);
+
+        if (!typeof(IEqualityComparer<TOption>).IsAssignableFrom(optionType))
+        {
+            return null;
+        }
+
+        if (optionType.GetConstructor(Type.EmptyTypes) is null)
+        {
+            return null;
+        }
+
+        try
+        {
+            return Activator.CreateInstance(optionType) as IEqualityComparer<TOption>;
+        }
+        catch (MissingMethodException)
+        {
+            return null;
+        }
     }
 }

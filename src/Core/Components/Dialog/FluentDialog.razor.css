@@ -1,19 +1,28 @@
+fluent-dialog[fuib]::part(dialog) {
+  width: 600px;
+  max-width: min(600px, 100vw);
+}
+
 fluent-dialog[fuib][size="small"]::part(dialog) {
   width: 320px;
-  max-width: 320px;
+  max-width: min(320px, 100vw);
 }
 
 fluent-dialog[fuib][size="medium"]::part(dialog) {
   width: 592px;
-  max-width: 592px;
+  max-width: min(592px, 100vw);
 }
 
 fluent-dialog[fuib][size="large"]::part(dialog) {
   width: 940px;
-  max-width: 940px;
+  max-width: min(940px, 100vw);
 }
 
 fluent-dialog[fuib][size="full"]::part(dialog) {
   width: 100%;
   max-width: calc(-48px + 100vw);
+}
+
+fluent-dialog-body::part(content) { 
+  overflow: auto;
 }

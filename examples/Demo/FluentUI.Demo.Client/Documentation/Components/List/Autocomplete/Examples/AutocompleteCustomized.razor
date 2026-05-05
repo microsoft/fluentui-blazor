@@ -9,6 +9,7 @@
                     Label="Select countries"
                     Placeholder="Type to search..."
                     ShowProgressIndicator="@ShowProgressIndicator"                    
+                    MaximumSelectedOptions="4"
                     MaxAutoHeight="@((MaxAutoHeight) ? "unset" : null)"
                     OnOptionsSearch="@OnSearchAsync"
                     OptionText="@(item => item.Name)"
@@ -29,7 +30,13 @@
         </FluentStack>
     </OptionTemplate>
 
-    
+    @* Maximum selected options message *@
+    <MaximumSelectedOptionsMessage>
+        <FluentText Size="TextSize.Size200" Align="TextAlign.Center" Color="Color.Error">
+            You can only select up to 4 items.
+        </FluentText>
+    </MaximumSelectedOptionsMessage>
+
     @* Content display at the top of the Popup area *@
     <HeaderContent>
         <FluentText Size="TextSize.Size200" Color="Color.Primary" Align="TextAlign.Center">

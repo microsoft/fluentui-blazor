@@ -24,6 +24,30 @@ or else in the global NuGet.config. See [configuring NuGet behavior](https://lea
 Alternatively, if you are using Visual Studio, you can [Install and manage packages in Visual Studio](https://learn.microsoft.com/nuget/consume-packages/install-use-packages-visual-studio#package-sources)
 and add the feed `https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json` there.
 
+Example `nuget.config` file (adapt to your environment):
+```json
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <clear />
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+    <add key="preview" value="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json" />
+  </packageSources>
+
+  <packageSourceMapping>
+    <packageSource key="nuget.org">
+      <package pattern="*" />
+      <package pattern="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
+      <package pattern="Microsoft.FluentUI.AspNetCore.Components.Icons" />
+    </packageSource>
+
+    <packageSource key="preview">
+      <package pattern="Microsoft.FluentUI.AspNetCore.Components" />
+    </packageSource>
+  </packageSourceMapping>
+</configuration>
+```
+
 ## Restore error
 
 If you get the error **NU3018** `The author primary signature's signing certificate is not trusted by the trust provider`

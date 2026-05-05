@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -21,9 +22,13 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     private static readonly Icon BadgeCloseIcon = new CoreIcons.Regular.Size20.Dismiss();
     private static readonly Icon ClearIcon = new CoreIcons.Regular.Size20.Dismiss();
 
+    private readonly EqualityComparer<TValue> ValueComparer = EqualityComparer<TValue>.Default;
+    private readonly EqualityComparer<TOption> OptionComparer = EqualityComparer<TOption>.Default;
+
     private string? _textInput;
     private bool _isOpen;
     private bool _inProgress;
+    private TValue? _previousValue;
 
     // List of items used in the internally filtered listbox
     private List<TOption> _internalFilteredItems = [];
@@ -35,8 +40,15 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     {
         // Default values
         Id = Identifier.NewId();
-        Multiple = true;
-        Width = "160px";
+
+        SelectedItemExpression = () => SelectedItem;
+
+        // Set default value: if `Width` is not already set (not null),
+        Width ??= "160px";
+
+        // Set default value: if `Multiple` is not already set to `false` using `base(configuration)`, in the Program.cs
+        // (not used since the Multiple is overridden with a default value of true directly in this class)
+        // configuration?.DefaultValues.SetInitialValues(this, [(nameof(Multiple), true)]);
     }
 
     /// <summary />
@@ -58,6 +70,12 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     public string? Placeholder { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the list allows multiple selections.
+    /// </summary>
+    [Parameter]
+    public override bool Multiple { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the delay, in milliseconds, before to raise the event.
     /// Default is 400 milliseconds.
     /// </summary>
@@ -69,6 +87,14 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// </summary>
     [Parameter]
     public EventCallback<OptionsSearchEventArgs<TOption>> OnOptionsSearch { get; set; }
+
+    /// <summary>
+    /// Gets or sets an event callback that is raised when the component needs to resolve the item corresponding to a given value,
+    /// for example when Value is set from outside the component.
+    /// The handler should set the Item property of the event args to the resolved item for the given value.
+    /// </summary>
+    [Parameter]
+    public EventCallback<SetValueEventArgs<TOption, TValue>> OnSetValue { get; set; }
 
     /// <inheritdoc cref="FluentListBase{TOption, TValue}.SelectedItems" />
     public override IEnumerable<TOption> SelectedItems
@@ -156,6 +182,29 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     public RenderFragment<AutocompleteHeaderFooterContent<TOption>>? FooterContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the currently selected option, when <see cref="FluentListBase{TOption, TValue}.Multiple"/> is false.
+    /// </summary>
+    [Parameter]
+    public TOption? SelectedItem { get; set; }
+
+    /// <summary>
+    /// Gets or sets an event callback that is raised when the <see cref="SelectedItem"/> changes. 
+    /// This is only relevant when <see cref="FluentListBase{TOption, TValue}.Multiple"/> is false.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TOption> SelectedItemChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets an expression that identifies the bound <see cref="SelectedItem"/> value.
+    /// This is required to enable the <c>@bind-SelectedItem</c> syntax (Razor automatically
+    /// supplies it). When using manual one-way binding through <see cref="SelectedItem"/>
+    /// and <see cref="SelectedItemChanged"/>, providing this expression is optional: a
+    /// default expression pointing to <see cref="SelectedItem"/> is set in the constructor.
+    /// </summary>
+    [Parameter]
+    public Expression<Func<TOption?>>? SelectedItemExpression { get; set; }
+
+    /// <summary>
     /// Gets a value indicating whether the number of selected options has reached the maximum defined by <see cref="MaximumSelectedOptions"/>.
     /// </summary>
     public bool IsReachedMaxItems => MaximumSelectedOptions.HasValue && _internalSelectedItems.Count >= MaximumSelectedOptions.Value;
@@ -172,12 +221,68 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         await base.OnAfterRenderAsync(firstRender);
     }
 
+    /// <summary />
+    protected override async Task OnParametersSetAsync()
+    {
+        // This part of code cannot be moved to SetParametersAsync because we are invoking `OnSetValue` which is async,
+        // and SetParametersAsync doesn't allow awaiting other async calls inside it.
+        if (!ValueComparer.Equals(Value, _previousValue) && OnSetValue.HasDelegate)
+        {
+            _previousValue = Value;
+
+            var currentValue = GetOptionValue(_internalSelectedItem);
+
+            if (!ValueComparer.Equals(Value, currentValue))
+            {
+                var args = new SetValueEventArgs<TOption, TValue>
+                {
+                    Value = Value,
+                };
+
+                await OnSetValue.InvokeAsync(args);
+
+                if (args.Item is not null)
+                {
+                    _internalSelectedItems = [args.Item];
+                    SelectedItem = args.Item;
+                }
+                else
+                {
+                    _internalSelectedItems = [];
+                    SelectedItem = default;
+                }
+            }
+        }
+
+        await base.OnParametersSetAsync();
+    }
+
+    /// <summary />
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        // Check if SelectedItem is being supplied and has changed
+        if (parameters.TryGetValue<TOption?>(nameof(SelectedItem), out var newSelectedItem))
+        {
+            var comparer = OptionSelectedComparer ?? OptionComparer;
+            var currentSelectedItem = _internalSelectedItem;
+
+            if (!comparer.Equals(newSelectedItem, currentSelectedItem))
+            {
+                // Sync _internalSelectedItems with the new value
+                _internalSelectedItems = newSelectedItem is not null ? [newSelectedItem] : [];
+                SelectedItem = newSelectedItem;
+            }
+        }
+
+        await base.SetParametersAsync(parameters);
+    }
+
     /// <summary>
     /// Raised when the FluentListbox.SelectedItems property changes.
     /// </summary>
     private async Task InternalSelectedItemsChangedHandlerAsync(IEnumerable<TOption> items)
     {
-        var comparer = OptionSelectedComparer ?? EqualityComparer<TOption>.Default;
+        var comparer = OptionSelectedComparer ?? OptionComparer;
         var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, comparer)).ToList();
         var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, comparer)).ToList();
 
@@ -214,10 +319,23 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             }
         }
 
+        SelectedItem = _internalSelectedItem;
+
         // Raise event
         if (SelectedItemsChanged.HasDelegate)
         {
             await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
+        }
+
+        if (SelectedItemChanged.HasDelegate)
+        {
+            await SelectedItemChanged.InvokeAsync(_internalSelectedItem);
+        }
+
+        if (ValueChanged.HasDelegate)
+        {
+            var value = GetOptionValue(_internalSelectedItem);
+            await ValueChanged.InvokeAsync(value);
         }
 
         await SetInputFocusAsync();
@@ -286,13 +404,6 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// <returns></returns>
     internal async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty)
     {
-        // Raise the ValueChanged event to notify the parent component.
-        if (ValueChanged.HasDelegate)
-        {
-            var value = _textInput ?? string.Empty;
-            await ValueChanged.InvokeAsync((TValue)(object)value);
-        }
-
         // If the input is empty, we don't show any options in the listbox, and we close it if it was open
         if (!showWhenInputIsEmpty && string.IsNullOrEmpty(_textInput))
         {
@@ -357,6 +468,11 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         {
             await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
         }
+
+        if (SelectedItemChanged.HasDelegate)
+        {
+            await SelectedItemChanged.InvokeAsync(_internalSelectedItem);
+        }
     }
 
     /// <summary>
@@ -382,19 +498,16 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     {
         _isOpen = false;
         _internalSelectedItems.Clear();
+        SelectedItem = default;
 
         if (SelectedItemsChanged.HasDelegate)
         {
             await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
         }
-    }
 
-    private async Task OnOptionsPopupClosedAsync()
-    {
-        // After closing the popup
-        if (!_isOpen)
+        if (SelectedItemChanged.HasDelegate)
         {
-            await SetInputFocusAsync();
+            await SelectedItemChanged.InvokeAsync(SelectedItem);
         }
     }
 

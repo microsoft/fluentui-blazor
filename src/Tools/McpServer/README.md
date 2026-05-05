@@ -185,11 +185,13 @@ Tools are invoked automatically by the LLM for dynamic queries.
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `ListComponents` | Lists all available components | `category` (optional) |
+| `ListCategories` | Lists all available component categories | - |
 | `GetComponentDetails` | Gets detailed documentation for a component | `componentName` |
 | `SearchComponents` | Searches components by name or description | `searchTerm` |
 | `GetEnumValues` | Gets enum type values | `enumName`, `filter` (optional) |
 | `GetComponentEnums` | Lists enums used by a component | `componentName` |
-| `ListDocumentationTopics` | Lists all documentation topics | - |
+| `ListEnums` | Lists all available enum types | - |
+| `ListDocumentation` | Lists all documentation topics | - |
 | `GetDocumentationTopic` | Gets detailed documentation for a documentation topic | `topicName` |
 | `SearchDocumentation` | Searches documentation by keyword | `searchTerm` |
 | `GetMigrationGuide` | Gets migration guide for upgrading to v5 | - |
@@ -375,6 +377,33 @@ The Fluent UI Blazor MCP Server is designed with security as a priority:
 - ❌ Modify system state
 - ❌ Access environment variables or credentials
 - ❌ Launch other processes
+
+### VS Code Sandbox Configuration
+
+VS Code supports native **sandboxing** for locally-running `stdio` MCP servers (available on **macOS and Linux only**). Sandboxed servers can only access the file system paths and network domains that you explicitly permit — all other access is blocked.
+
+The Fluent UI Blazor MCP Server is an ideal candidate for sandboxing because it:
+- Requires **no network access** — documentation is embedded in the binary
+- Requires **no file system writes**
+- Reads only its own embedded resources, not your project files
+
+Enable sandboxing by adding `"sandboxEnabled": true` to your server entry in `.vscode/mcp.json`:
+
+```json
+{
+    "servers": {
+        "fluent-ui-blazor": {
+            "command": "fluentui-mcp",
+            "sandboxEnabled": true
+        }
+    }
+}
+```
+
+> [!NOTE]
+> When sandboxing is enabled, tool confirmation behavior may differ because the server runs in a controlled environment. Refer to the VS Code MCP sandbox documentation below for the current behavior and configuration details.
+
+For a full reference of sandbox properties (`filesystem.allowWrite`, `filesystem.denyRead`, `network.allowedDomains`, and more), see the [VS Code MCP Sandbox Configuration](https://code.visualstudio.com/docs/copilot/reference/mcp-configuration#_sandbox-configuration) documentation.
 
 ### For SecOps Teams
 

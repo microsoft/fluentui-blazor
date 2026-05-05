@@ -15,6 +15,8 @@ You can control this behavior by providing the `OptionSelectedComparer` paramete
 
 > **Note:** Accessibility requirements are not yet implemented for this component.
 
+> **Note:** For more information about placeholders and autofill, see this <a href="/TextInput#placeholders-and-autofill">important information</a>
+
 ## Keyboard interaction
 
 | Key | Behavior |
@@ -41,6 +43,9 @@ In this mode, the selected value replaces the input text and no tags are display
 
 {{ AutocompleteMultipleFalse }}
 
+**Note**: The `Value` property is updated when a user selects an option from the list, but not through code.
+To update the `Value` property from code, you must modify the `SelectedItems` or `SelectedItem` parameters.
+ 
 ## Customized options
 
 Demonstrates advanced features: a custom `OptionTemplate` to render each option with a flag, a progress indicator during async search, 
@@ -55,6 +60,8 @@ the component cannot match them to already-selected items by **reference**.
 
 Use the `OptionSelectedComparer` parameter to provide a custom `IEqualityComparer<TOption>` that compares items by a unique key (such as an ID)
 instead of by reference. Without this, previously selected items may not appear as checked in the refreshed list.
+
+If your object implements `IEqualityComparer<T>`, you can omit the `OptionSelectedComparer` parameter, as the component will automatically use the object's built-in equality logic to match selected items.
 
 {{ AutocompleteComparer }}
 
