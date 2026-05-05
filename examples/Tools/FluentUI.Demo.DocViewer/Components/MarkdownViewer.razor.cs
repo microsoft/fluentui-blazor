@@ -69,11 +69,11 @@ public partial class MarkdownViewer
 
         Sections = await page.ExtractSectionsAsync();
 
-        // Discover and load all api-*.json files via the build-time generated index
+        // Read api-comments.json and chart-comments.json
         if (ApiDocSummary.Cached is null)
         {
             HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
-            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync(DocViewerService.Options.ApiDocIndexUrl);
+            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/api-comments.json", "/chart-comments.json");
         }
 
         // Load MCP documentation if any MCP or McpSummary section is present
@@ -138,13 +138,13 @@ public partial class MarkdownViewer
             componentType = match.Groups[3].Value;
         }
 
-        // Get the component type — search across all registered API assemblies
+        // Get the component type from the first assembly that contains it
         var type = DocViewerService.ApiAssemblies
-                                   .Select(a => a.GetTypes()
-                                                  .FirstOrDefault(i => i.Name == componentName
-                                                                     || i.Name.StartsWith($"{componentName}`1")
-                                                                     || i.Name.StartsWith($"{componentName}`2")))
-                                   .FirstOrDefault(t => t is not null);
+                                  ?.SelectMany(a => a.GetTypes())
+                                  ?.FirstOrDefault(i => i.Name == componentName
+                                                     || i.Name.StartsWith($"{componentName}`1")
+                                                     || i.Name.StartsWith($"{componentName}`2"));
+
         // Create the ApiClass
         var result = type is null ? null : new ApiClass(DocViewerService, type, allProperties);
 

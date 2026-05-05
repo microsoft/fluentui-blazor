@@ -27,19 +27,9 @@ public class DocViewerOptions
     public Assembly? ResourcesAssembly { get; set; }
 
     /// <summary>
-    /// One or more assemblies containing the API classes to display in API sections.
-    /// When multiple assemblies are provided their types are searched in order.
+    /// Assemblies containing the API classes to display in API sections.
     /// </summary>
-    public IReadOnlyList<Assembly> ApiAssemblies { get; set; } = [];
-
-    /// <summary>
-    /// Convenience setter: assigns a single assembly to <see cref="ApiAssemblies"/>.
-    /// </summary>
-    public Assembly? ApiAssembly
-    {
-        get => ApiAssemblies.Count > 0 ? ApiAssemblies[0] : null;
-        set => ApiAssemblies = value is null ? [] : [value];
-    }
+    public Assembly[]? ApiAssemblies { get; set; }
 
     /// <summary>
     /// Function to get the summary of an API comment.

@@ -52,12 +52,7 @@ public class DocViewerService
     /// <summary>
     /// Gets the assemblies containing the classes to display in API sections.
     /// </summary>
-    public IReadOnlyList<Assembly> ApiAssemblies { get; }
-
-    /// <summary>
-    /// Gets the first API assembly, or <see langword="null"/> if none are configured.
-    /// </summary>
-    public Assembly? ApiAssembly => ApiAssemblies.Count > 0 ? ApiAssemblies[0] : null;
+    public Assembly[]? ApiAssemblies { get; }
 
     /// <summary>
     /// Function to get the summary of an API comment.

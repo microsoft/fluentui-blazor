@@ -43,80 +43,65 @@ public static class ServicesExtensions
     }
 
     /// <summary>
-    /// Discovers all API documentation JSON files via an index file and merges them into
-    /// a single <see cref="ApiDocSummary"/>.
-    /// The index file (default: <c>/api-index.json</c>) is a JSON array of filenames,
-    /// e.g. <c>["api-comments.json","api-comments-charts.json"]</c>.
-    /// It is generated automatically at build time from all <c>api-*.json</c> files in <c>wwwroot</c>.
+    /// Load the summaries from one or more "comments.json" files.
+    /// When multiple files are provided, their contents are merged into a single <see cref="ApiDocSummary.Items"/> dictionary.
+    /// If the same key exists in several files, entries from later files are merged into the earlier ones
+    /// (inner keys from later files override the previous ones).
     /// </summary>
     /// <param name="httpClient"></param>
-    /// <param name="indexUrl">URL of the JSON index file listing all api-*.json filenames.</param>
+    /// <param name="jsonFiles">One or more json files to load.</param>
     /// <returns></returns>
-    public static async Task<ApiDocSummary> LoadSummariesAsync(this HttpClient httpClient, string indexUrl = "/api-index.json")
+    public static async Task<ApiDocSummary> LoadSummariesAsync(this HttpClient httpClient, params string[] jsonFiles)
     {
-        var merged = new Dictionary<string, Dictionary<string, string>>();
+        var summary = new ApiDocSummary()
+        {
+            Items = new Dictionary<string, Dictionary<string, string>>(),
+        };
 
-        // Step 1: fetch the index to discover which api-*.json files exist
-        IEnumerable<string> jsonFiles;
-        try
+        if (jsonFiles is null || jsonFiles.Length == 0)
         {
-            var indexJson = await httpClient.GetStringAsync(indexUrl);
-            jsonFiles = System.Text.Json.JsonSerializer.Deserialize<IEnumerable<string>>(indexJson)
-                        ?? [];
-        }
-        catch (Exception ex)
-        {
-            return new ApiDocSummary
-            {
-                Items = new Dictionary<string, Dictionary<string, string>>
-                {
-                    ["ERROR"] = new Dictionary<string, string> { [$"{indexUrl} cannot be loaded"] = ex.Message }
-                }
-            };
+            return summary;
         }
 
-        // Step 2: load and merge each discovered file
-        foreach (var fileName in jsonFiles)
+        foreach (var jsonFile in jsonFiles)
         {
-            if (string.IsNullOrWhiteSpace(fileName))
-            {
-                continue;
-            }
-
-            var trimmedFileName = fileName.Trim();
-
-            // Support both bare filenames ("api-comments.json") and absolute paths ("/api-comments.json")
-            var fileUrl = trimmedFileName.StartsWith('/') ? trimmedFileName : $"/{trimmedFileName}";
-
             try
             {
-                var json = await httpClient.GetStringAsync(fileUrl);
+                var json = await httpClient.GetStringAsync(jsonFile);
                 var items = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(json);
 
-                if (items is not null)
+                if (items is null)
                 {
-                    foreach (var (key, value) in items)
+                    continue;
+                }
+
+                foreach (var (key, value) in items)
+                {
+                    if (summary.Items.TryGetValue(key, out var existing))
                     {
-                        if (merged.TryGetValue(key, out var existing))
+                        foreach (var (innerKey, innerValue) in value)
                         {
-                            foreach (var (memberKey, memberValue) in value)
-                            {
-                                existing[memberKey] = memberValue;
-                            }
+                            existing[innerKey] = innerValue;
                         }
-                        else
-                        {
-                            merged[key] = value;
-                        }
+                    }
+                    else
+                    {
+                        summary.Items[key] = new Dictionary<string, string>(value);
                     }
                 }
             }
             catch (Exception ex)
             {
-                merged[$"ERROR:{fileUrl}"] = new Dictionary<string, string> { [$"{fileUrl} cannot be loaded"] = ex.Message };
+                if (!summary.Items.TryGetValue("ERROR", out var errors))
+                {
+                    errors = new Dictionary<string, string>();
+                    summary.Items["ERROR"] = errors;
+                }
+
+                errors[$"{jsonFile} cannot be loaded"] = ex.Message;
             }
         }
 
-        return new ApiDocSummary { Items = merged };
+        return summary;
     }
 }
