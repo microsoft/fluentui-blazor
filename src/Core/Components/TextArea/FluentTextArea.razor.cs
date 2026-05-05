@@ -11,13 +11,13 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// A textarea component that allows users to enter and edit a single line of text.
+/// A textarea component that allows users to enter and edit multiple lines of text.
 /// </summary>
 public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress
 {
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
+    /// Initializes a new instance of the <see cref="FluentTextArea"/> class.
     /// </summary>
     public FluentTextArea(LibraryConfiguration configuration) : base(configuration)
     {
@@ -77,14 +77,14 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     public int? MinLength { get; set; }
 
     /// <summary>
-    /// Specifies whether a form or an textarea field should have autocomplete "on" or "off" or another value.
+    /// Gets or sets the autocomplete hint for the textarea (e.g., <c>AutoComplete="on"</c> or <c>AutoComplete="off"</c>).
     /// An Id value must be set to use this property.
     /// </summary>
     [Parameter]
     public string? AutoComplete { get; set; }
 
     /// <summary>
-    /// Whether the element’s height should be automatically changed based on the content.
+    /// Gets or sets a value indicating whether the textarea height adjusts automatically to fit its content.
     /// </summary>
     [Parameter]
     public bool? AutoResize { get; set; }
@@ -96,19 +96,19 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     public TextAreaSize? Size { get; set; }
 
     /// <summary>
-    /// Gets or sets the width of the input field.
+    /// Gets or sets the width of the textarea (e.g., <c>Width="300px"</c>).
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets the height of the input field.
+    /// Gets or sets the height of the textarea (e.g., <c>Height="150px"</c>). See also <see cref="AutoResize"/>.
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
 
     /// <summary>
-    /// Gets or sets the how resize the element. See <see cref="Components.TextAreaResize"/>
+    /// Gets or sets how the textarea can be resized by the user. See <see cref="Components.TextAreaResize"/>.
     /// </summary>
     [Parameter]
     public TextAreaResize? Resize { get; set; }
