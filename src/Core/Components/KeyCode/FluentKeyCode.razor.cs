@@ -48,7 +48,7 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
     /// <summary>
     /// Gets or sets the control identifier associated with the KeyCode engine.
     /// If not set, the KeyCode will be applied to the FluentKeyCode content: see <see cref="ChildContent"/>.
-    /// This attribute is ignored when the <see cref="ChildContent" /> is used..
+    /// This parameter is ignored when <see cref="ChildContent"/> is used.
     /// </summary>
     [Parameter]
     public string Anchor { get; set; } = string.Empty;
@@ -72,7 +72,7 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
     public EventCallback<FluentKeyCodeEventArgs> OnKeyUp { get; set; }
 
     /// <summary>
-    /// Ignore modifier keys (Shift, Alt, Ctrl, Meta) when evaluating the key code.
+    /// Gets or sets whether modifier keys (Shift, Alt, Ctrl, Meta) should be ignored when evaluating the key code.
     /// </summary>
     [Parameter]
     public bool IgnoreModifier { get; set; } = true;
@@ -96,14 +96,15 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
     public bool StopPropagation { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets a way to tells the user agent that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
+    /// Gets or sets whether the default browser action should be prevented for all key events.
+    /// Use <see cref="PreventDefaultOnly"/> to restrict prevention to specific keys.
     /// </summary>
     [Parameter]
     public bool PreventDefault { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the list of <see cref="KeyCode"/> to tells the user agent that if the event does not get explicitly handled,
-    /// its default action should not be taken as it normally would be.
+    /// Gets or sets the list of <see cref="KeyCode"/> values for which the default browser action should be prevented.
+    /// Use <see cref="PreventDefault"/> to prevent the default action for all key events.
     /// </summary>
     [Parameter]
     public KeyCode[] PreventDefaultOnly { get; set; } = [];
@@ -115,7 +116,7 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
     public bool StopRepeat { get; set; }
 
     /// <summary>
-    /// Prevent multiple KeyDown events.
+    /// Gets or sets whether multiple consecutive KeyDown events (key held down) should be suppressed.
     /// </summary>
     [Parameter]
     public bool PreventMultipleKeyDown { get; set; }
