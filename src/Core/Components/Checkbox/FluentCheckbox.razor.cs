@@ -15,9 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentElementBase, ITooltipComponent
 {
-    /// <summary>
-    ///
-    /// </summary>
+    /// <summary />
     public FluentCheckbox(LibraryConfiguration configuration) : base(configuration)
     {
         LabelPosition = Components.LabelPosition.After;
@@ -28,8 +26,8 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     public ElementReference Element { get; set; }
 
     /// <summary>
-    /// Gets or sets the state of the CheckBox: true, false or null.
-    /// Useful when the mode ThreeState is enable
+    /// Gets or sets the three-state value of the checkbox: <c>true</c> (checked), <c>false</c> (unchecked), or <c>null</c> (indeterminate).
+    /// Used when <see cref="ThreeState"/> is enabled.
     /// </summary>
     [Parameter]
     public bool? CheckState { get; set; }
