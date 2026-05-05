@@ -138,9 +138,9 @@ public partial class MarkdownViewer
             componentType = match.Groups[3].Value;
         }
 
-        // Get the component type
-        var type = DocViewerService.ApiAssembly
-                                  ?.GetTypes()
+        // Get the component type from the first assembly that contains it
+        var type = DocViewerService.ApiAssemblies
+                                  ?.SelectMany(a => a.GetTypes())
                                   ?.FirstOrDefault(i => i.Name == componentName
                                                      || i.Name.StartsWith($"{componentName}`1")
                                                      || i.Name.StartsWith($"{componentName}`2"));
