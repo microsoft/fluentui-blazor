@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The FluentCounterBadge component is a visual indicator that communicates a value about an associated component.
-/// It uses short positive numbers, color, and icons for quick recognition and is placed near the relevant content.
+/// The FluentPresenceBadge component is a visual indicator that communicates a user's presence status.
+/// It displays a colored icon overlay typically attached to an avatar or similar element.
 /// </summary>
 public partial class FluentPresenceBadge : FluentComponentBase
 {
@@ -41,7 +41,8 @@ public partial class FluentPresenceBadge : FluentComponentBase
     public PresenceStatus? Status { get; set; } = PresenceStatus.Available;
 
     /// <summary>
-    ///  Gets or sets the out of office state.
+    /// Gets or sets whether the presence badge indicates an out-of-office state.
+    /// When <c>true</c>, adjusts the displayed icon to reflect the out-of-office variant of the current <see cref="Status"/>.
     /// </summary>
     [Parameter]
     public bool OutOfOffice { get; set; }
@@ -53,7 +54,8 @@ public partial class FluentPresenceBadge : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="Icon"/> displayed at the start of badge content.
+    /// Gets or sets an icon override for the badge.
+    /// By default the icon is automatically chosen based on <see cref="Status"/> and <see cref="OutOfOffice"/>.
     /// </summary>
     [Parameter]
     public Icon? Icon { get; set; }

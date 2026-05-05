@@ -37,13 +37,15 @@ public partial class FluentBadge : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Gets or sets the text content displayed inside the badge (e.g., <c>Content="New"</c>).
+    /// For structured content, use <see cref="ChildContent"/> instead.
     /// </summary>
     [Parameter]
     public string? Content { get; set; }
 
     /// <summary>
-    /// Gets or sets the color.
+    /// Gets or sets the color of the badge (e.g., <c>Color="BadgeColor.Brand"</c>).
+    /// When using <see cref="BackgroundColor"/>, set this to <c>null</c>.
     /// </summary>
     [Parameter]
     public BadgeColor? Color { get; set; }
@@ -87,7 +89,8 @@ public partial class FluentBadge : FluentComponentBase
     public Icon? IconStart { get; set; }
 
     /// <summary>
-    /// Gets or sets the aria-label of the <see cref="Icon"/>.
+    /// Gets or sets the <c>aria-label</c> attribute applied to the icon(s) rendered in the badge
+    /// (e.g., <c>IconLabel="New notifications"</c>).
     /// </summary>
     [Parameter]
     public string? IconLabel { get; set; }
