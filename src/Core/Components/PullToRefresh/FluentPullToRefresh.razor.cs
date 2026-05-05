@@ -47,34 +47,35 @@ public partial class FluentPullToRefresh : FluentComponentBase
     public PullDirection Direction { get; set; } = PullDirection.Down;
 
     /// <summary>
-    /// Gets or sets if the pull action is disabled.
+    /// Gets or sets whether the pull action is disabled.
     /// Defaults to false.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets if the component should work on non-touch devices (by using an emulation script).
+    /// Gets or sets whether the component should work on non-touch devices (by using an emulation script).
     /// Defaults to true.
     /// </summary>
     [Parameter]
     public bool EmulateTouch { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets if a tip is shown when <see cref="ChildContent"/> is not being pulled.
+    /// Gets or sets whether a static tip is shown when <see cref="ChildContent"/> is not being pulled.
     /// Defaults to true.
     /// </summary>
     [Parameter]
     public bool ShowStaticTip { get; set; } = true;
 
     /// <summary>
-    /// Gets or set the content to show.
+    /// Gets or sets the content to show.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Returns whether there is more data available.
+    /// Gets or sets the async callback invoked when a refresh is triggered.
+    /// Return <c>true</c> if more data is available, or <c>false</c> to display the <see cref="NoDataTemplate"/>.
     /// </summary>
     [Parameter]
     public Func<Task<bool>>? OnRefreshAsync { get; set; }
