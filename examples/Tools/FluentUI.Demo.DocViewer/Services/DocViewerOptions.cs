@@ -27,9 +27,9 @@ public class DocViewerOptions
     public Assembly? ResourcesAssembly { get; set; }
 
     /// <summary>
-    /// Assembly containing the API classes to display in API sections.
+    /// Assemblies containing the API classes to display in API sections.
     /// </summary>
-    public Assembly? ApiAssembly { get; set; }
+    public Assembly[]? ApiAssemblies { get; set; }
 
     /// <summary>
     /// Function to get the summary of an API comment.
