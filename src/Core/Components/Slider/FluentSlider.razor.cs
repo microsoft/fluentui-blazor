@@ -48,13 +48,15 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, ITooltipCom
     public SliderSize? Size { get; set; }
 
     /// <summary>
-    /// Gets or sets the slider's minimal value. Default is 0.
+    /// Gets or sets the slider's minimum value (e.g., <c>Min="0"</c>). Default is 0.
+    /// See also <see cref="Max"/>.
     /// </summary>
     [Parameter]
     public TValue? Min { get; set; }
 
     /// <summary>
-    /// Gets or sets the slider's maximum value. Default is 100.
+    /// Gets or sets the slider's maximum value (e.g., <c>Max="100"</c>). Default is 100.
+    /// See also <see cref="Min"/>.
     /// </summary>
     [Parameter]
     public TValue? Max { get; set; }
@@ -84,7 +86,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, ITooltipCom
     public string? Tooltip { get; set; }
 
     /// <summary>
-    /// Gets or sets the delay, in milliseconds, before to raise the change event.
+    /// Gets or sets the delay, in milliseconds, before raising the change event (e.g., <c>ImmediateDelay="100"</c>).
     /// </summary>
     [Parameter]
     public ushort ImmediateDelay { get; set; } = 60;
