@@ -129,7 +129,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public Func<GridItemsProviderRequest<TGridItem>, Task>? RefreshItems { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback that supplies data for the rid.
+    /// Gets or sets a callback that supplies data for the grid.
     /// You should supply either <see cref="Items"/> or <see cref="ItemsProvider"/>, but not both.
     /// </summary>
     [Parameter]
