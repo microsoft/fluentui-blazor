@@ -60,7 +60,7 @@ public partial class FluentAccordion : FluentComponentBase
     public AccordionItemMarkerPosition? MarkerPosition { get; set; }
 
     /// <summary>
-    /// Gets or sets the width of the focus state
+    /// Gets or sets whether accordion items expand to fill the full available width (block-level display).
     /// </summary>
     [Parameter]
     public bool? Block { get; set; }
