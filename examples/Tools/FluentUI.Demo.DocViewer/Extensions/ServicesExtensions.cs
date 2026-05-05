@@ -43,7 +43,7 @@ public static class ServicesExtensions
     }
 
     /// <summary>
-    /// Load the summaries from one or more api-comments.json files.
+    /// Load the summaries from one or more "comments.json" files.
     /// When multiple files are provided, their contents are merged into a single <see cref="ApiDocSummary.Items"/> dictionary.
     /// If the same key exists in several files, entries from later files are merged into the earlier ones
     /// (inner keys from later files override the previous ones).

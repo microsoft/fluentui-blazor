@@ -69,11 +69,11 @@ public partial class MarkdownViewer
 
         Sections = await page.ExtractSectionsAsync();
 
-        // Read api-comments.json
+        // Read api-comments.json and chart-comments.json
         if (ApiDocSummary.Cached is null)
         {
             HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
-            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/api-comments.json");
+            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/api-comments.json", "/chart-comments.json");
         }
 
         // Load MCP documentation if any MCP or McpSummary section is present

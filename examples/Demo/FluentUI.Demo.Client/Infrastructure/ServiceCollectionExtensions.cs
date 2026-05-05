@@ -69,7 +69,7 @@ public static class ServiceCollectionExtensions
             {
                 if (member is null && (data is null || data?.Items?.Count <= 1))
                 {
-                    return "⚠️ The file `api-comments.json` was not found. " +
+                    return "⚠️ The file `api-comments.json` or `chart-comments.json` was not found. " +
                            "Run the project `FluentUI.Demo.DocApiGen` to generate the file. ";
                 }
 
