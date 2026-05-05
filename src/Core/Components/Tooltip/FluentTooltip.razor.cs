@@ -57,8 +57,8 @@ public partial class FluentTooltip : FluentComponentBase
     private ITooltipService? TooltipService => GetCachedServiceOrNull<ITooltipService>();
 
     /// <summary>
-    /// Use ITooltipService to create the tooltip, if this service was injected.
-    /// If the <see cref="ChildContent"/> is dynamic, set this to false. Default, true.
+    /// Gets or sets a value indicating whether the <see cref="ITooltipService"/> is used to render the tooltip.
+    /// Set this to <see langword="false"/> when <see cref="ChildContent"/> is dynamic (e.g., <c>UseTooltipService="false"</c>). Default is <see langword="true"/>.
     /// </summary>
     [Parameter]
     public bool UseTooltipService { get; set; } = true;
@@ -89,13 +89,13 @@ public partial class FluentTooltip : FluentComponentBase
     public string? MaxWidth { get; set; }
 
     /// <summary>
-    /// Gets or sets the tooltip's horizontal spacing. Default is 4px;
+    /// Gets or sets the tooltip's horizontal spacing. Default is 4px.
     /// </summary>
     [Parameter]
     public string? SpacingHorizontal { get; set; }
 
     /// <summary>
-    /// Gets or sets the tooltip's horizontal spacing. Default is 4px;
+    /// Gets or sets the tooltip's vertical spacing. Default is 4px.
     /// </summary>
     [Parameter]
     public string? SpacingVertical { get; set; }
