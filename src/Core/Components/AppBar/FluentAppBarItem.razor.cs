@@ -66,7 +66,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem
     public int? Count { get; set; }
 
     /// <summary>
-    ///  Gets or sets the content to be shown.
+    /// Gets or sets the content to be shown.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
