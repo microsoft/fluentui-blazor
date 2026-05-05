@@ -2,7 +2,6 @@ import { attr, FASTElement, nullableNumberConverter, observable } from '@microso
 import { format as d3Format } from 'd3-format';
 import { arc as d3Arc, pie as d3Pie, PieArcDatum } from 'd3-shape';
 import {
-  booleanStringConverter,
   getColorFromToken,
   getNextColor,
   getRTL,
@@ -60,7 +59,7 @@ export class DonutChart extends FASTElement {
   public hideTooltip: boolean = false;
 
   @attr({ attribute: 'hide-labels', mode: 'boolean' })
-  public hideLabels: boolean = true;
+  public hideLabels: boolean = false;
 
   @attr({ attribute: 'show-labels-in-percent', mode: 'boolean' })
   public showLabelsInPercent: boolean = false;
@@ -182,18 +181,53 @@ export class DonutChart extends FASTElement {
   }
 
   connectedCallback() {
-    this._initializeFromAttributes();
-
-    const initialChartData = this.data ? this._prepareChartData() : undefined;
+    // Class field initializers create own data properties that shadow the FAST @attr
+    // and @observable reactive getter/setters on the prototype. Delete them so that
+    // attribute changes go through the FAST reactive system and trigger the *Changed()
+    // callbacks, and so that observable assignments notify template bindings.
+    // We save the default values first so we can restore them for fields that have
+    // no corresponding HTML attribute (FAST won't call the setter in that case).
+    const self = this as Record<string, unknown>;
+    const attrFields = [
+      'chartTitle', 'height', 'width', 'hideLegends', 'hideTooltip', 'hideLabels',
+      'showLabelsInPercent', 'roundCorners', 'data', 'innerRadius', 'valueInsideDonut',
+      'legendListLabel', 'order', 'culture', 'allowMultipleLegendSelection',
+    ] as const;
+    const observableFields = [
+      'tooltipProps', 'legends', 'activeLegend', 'isLegendSelected', 'selectedLegends',
+    ] as const;
+    const saved: Partial<Record<typeof attrFields[number], unknown>> = {};
+    const savedObservables: Partial<Record<typeof observableFields[number], unknown>> = {};
+    for (const field of attrFields) {
+      saved[field] = self[field];
+      delete self[field];
+    }
+    for (const field of observableFields) {
+      savedObservables[field] = self[field];
+      delete self[field];
+      // Restore observable defaults through the prototype's FAST reactive setter
+      // BEFORE super.connectedCallback() renders the template.
+      if (savedObservables[field] !== undefined) {
+        self[field] = savedObservables[field];
+      }
+    }
 
     super.connectedCallback();
 
+    // Restore defaults for any attr-backed field that was not set from an HTML attribute.
+    for (const field of attrFields) {
+      if (self[field] === undefined && saved[field] !== undefined) {
+        self[field] = saved[field];
+      }
+    }
+
     this.addEventListener('mouseleave', this._handleMouseLeave);
 
-    if (!this.data || !initialChartData) {
+    if (!this.data) {
       return;
     }
 
+    const initialChartData = this._prepareChartData();
     this._isRTL = getRTL(this);
     this._render(initialChartData);
   }
@@ -343,69 +377,6 @@ export class DonutChart extends FASTElement {
     this._textInsideDonut = undefined;
   }
 
-  private _initializeFromAttributes() {
-    const setString = (name: string, assign: (value: string) => void) => {
-      const value = this.getAttribute(name);
-      if (value !== null) {
-        assign(value);
-      }
-    };
-
-    const setBoolean = (name: string, assign: (value: boolean) => void) => {
-      const value = this.getAttribute(name);
-      if (value !== null) {
-        assign(booleanStringConverter.fromView(value));
-      }
-    };
-
-    setString('chart-title', value => {
-      this.chartTitle = value;
-    });
-    setString('height', value => {
-      this.height = nullableNumberConverter.fromView(value) ?? this.height;
-    });
-    setString('width', value => {
-      this.width = nullableNumberConverter.fromView(value) ?? this.width;
-    });
-    setString('data', value => {
-      this.data = jsonConverter.fromView(value) as ChartProps;
-    });
-    setString('inner-radius', value => {
-      this.innerRadius = nullableNumberConverter.fromView(value) ?? this.innerRadius;
-    });
-    setString('value-inside-donut', value => {
-      this.valueInsideDonut = value;
-    });
-    setString('legend-list-label', value => {
-      this.legendListLabel = value;
-    });
-    setString('order', value => {
-      this.order = value as 'default' | 'sorted';
-    });
-    setString('culture', value => {
-      this.culture = value;
-    });
-
-    setBoolean('hide-legends', value => {
-      this.hideLegends = value;
-    });
-    setBoolean('hide-tooltip', value => {
-      this.hideTooltip = value;
-    });
-    setBoolean('hide-labels', value => {
-      this.hideLabels = value;
-    });
-    setBoolean('show-labels-in-percent', value => {
-      this.showLabelsInPercent = value;
-    });
-    setBoolean('round-corners', value => {
-      this.roundCorners = value;
-    });
-    setBoolean('allow-multiple-legend-selection', value => {
-      this.allowMultipleLegendSelection = value;
-    });
-  }
-
   private _initializeAndRender() {
     const chartData = this._prepareChartData();
 
@@ -481,7 +452,8 @@ export class DonutChart extends FASTElement {
       path.setAttribute('role', 'img');
 
       path.addEventListener('mouseover', event => {
-        if (this.activeLegend !== '' && this.activeLegend !== arcDatum.data.legend) {
+        const highlighted = this._getHighlightedLegends();
+        if (highlighted.length > 0 && !highlighted.includes(arcDatum.data.legend)) {
           return;
         }
 
@@ -490,14 +462,15 @@ export class DonutChart extends FASTElement {
         this._setTooltipProps({
           isVisible: true,
           legend: arcDatum.data.legend,
-          yValue: `${arcDatum.data.data}`,
+          yValue: this._formatDataPointValue(arcDatum.data),
           color: arcDatum.data.color!,
           xPos: this._isRTL ? bounds.right - event.clientX : event.clientX - bounds.left,
           yPos: event.clientY - bounds.top - 85,
         });
       });
       path.addEventListener('focus', event => {
-        if (this.activeLegend !== '' && this.activeLegend !== arcDatum.data.legend) {
+        const highlighted = this._getHighlightedLegends();
+        if (highlighted.length > 0 && !highlighted.includes(arcDatum.data.legend)) {
           return;
         }
 
@@ -507,7 +480,7 @@ export class DonutChart extends FASTElement {
         this._setTooltipProps({
           isVisible: true,
           legend: arcDatum.data.legend,
-          yValue: `${arcDatum.data.data}`,
+          yValue: this._formatDataPointValue(arcDatum.data),
           color: arcDatum.data.color!,
           xPos: this._isRTL
             ? rootBounds.right - arcBounds.left - arcBounds.width / 2
@@ -719,6 +692,11 @@ export class DonutChart extends FASTElement {
     return formatted.endsWith('K') ? `${formatted.slice(0, -1)}k` : formatted;
   }
 
+  private _formatDataPointValue(dataPoint: ChartDataPoint): string {
+    return dataPoint.yAxisCalloutData ?? dataPoint.calloutData ??
+      dataPoint.data.toLocaleString(this.culture || undefined);
+  }
+
   private _getTextInsideDonut(valueInsideDonut: string) {
     let textInsideDonut = valueInsideDonut;
 
@@ -735,10 +713,7 @@ export class DonutChart extends FASTElement {
         dataPoint => dataPoint.legend === singleHighlight,
       );
       if (highlightedDataPoint) {
-        textInsideDonut =
-          highlightedDataPoint.yAxisCalloutData ??
-          highlightedDataPoint.calloutData ??
-          highlightedDataPoint.data.toLocaleString(this.culture || undefined);
+        textInsideDonut = this._formatDataPointValue(highlightedDataPoint);
       }
     }
 

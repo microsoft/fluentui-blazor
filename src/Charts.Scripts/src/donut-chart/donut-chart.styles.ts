@@ -9,7 +9,6 @@ import {
   colorStrokeFocus2,
   colorTransparentStroke,
   display,
-  forcedColorsStylesheetBehavior,
   spacingHorizontalL,
   spacingHorizontalNone,
   spacingHorizontalS,
@@ -162,8 +161,8 @@ export const styles = css`
   .tooltip-content-y {
     ${typographyTitle2Styles}
   }
-`.withBehaviors(
-  forcedColorsStylesheetBehavior(css`
+
+  @media (forced-colors: active) {
     .text-inside-donut {
       fill: CanvasText;
     }
@@ -182,5 +181,5 @@ export const styles = css`
       forced-color-adjust: auto;
       color: CanvasText;
     }
-  `),
-);
+  }
+`

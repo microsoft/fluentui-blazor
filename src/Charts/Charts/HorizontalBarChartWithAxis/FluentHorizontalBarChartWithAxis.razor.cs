@@ -74,4 +74,30 @@ public partial class FluentHorizontalBarChartWithAxis : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? LegendListLabel { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether to use a single color for all bars in the chart.
+    /// </summary>
+    [Parameter]
+    public bool UseSingleColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether gradient rendering is enabled.
+    /// </summary>
+    [Parameter]
+    public bool EnableGradient { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the bars in the chart should have rounded corners.
+    /// </summary>
+    [Parameter]
+    public bool RoundedCorners { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether multiple legend items can be selected simultaneously.
+    /// When <see langword="true"/>, clicking a legend item adds it to the active selection rather than replacing the current selection.
+    /// When <see langword="false"/> (default), only a single legend item can be selected at a time.
+    /// </summary>
+    [Parameter]
+    public bool AllowMultipleLegendSelection { get; set; }
 }

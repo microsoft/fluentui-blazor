@@ -7,9 +7,9 @@
                              style="@StyleValue"
                              data="@ChartJson.Serialize(ChartData!)"
                              variant="@(Variant is null ? null : Variant.Value.ToAttributeValue())"
-                             hide-ratio="@HideRatio"
-                             hide-legends="@HideLegends"
-                             hide-tooltip="@HideTooltip"
+                             hide-ratio="@(HideRatio ? "true" : null)"
+                             hide-legends="@(HideLegends ? "true" : null)"
+                             hide-tooltip="@(HideTooltip ? "true" : null)"
                              legend-list-label="@LegendListLabel"
                              chart-title="@ChartTitle"
                              @attributes="@AdditionalAttributes">

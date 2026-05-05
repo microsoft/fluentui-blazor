@@ -17,14 +17,14 @@ export function horizontalbarchartTemplate<T extends HorizontalBarChart>(): Elem
         html<T>`
           <div class="legend-container" role="listbox" aria-label="${x => x.legendListLabel}">
             ${repeat(
-              x => x.uniqueLegends,
+              x => x.legends,
               html<ChartDataPoint, T>` <button
-                class="legend${(x, c) =>
-                  c.parent.activeLegend === '' || c.parent.activeLegend === x.legend ? '' : ' inactive'}"
+                class="legend${(x, c) => (c.parent.isLegendItemDimmed(x.legend) ? ' inactive' : '')}"
                 role="option"
                 aria-setsize="${(x, c) => c.length}"
                 aria-posinset="${(x, c) => c.index + 1}"
-                aria-selected="${(x, c) => x.legend === c.parent.activeLegend}"
+                aria-selected="${(x, c) =>
+                  c.parent.isLegendItemSelected(x.legend) || x.legend === c.parent.activeLegend}"
                 @mouseover="${(x, c) => c.parent.handleLegendMouseoverAndFocus(x.legend)}"
                 @mouseout="${(x, c) => c.parent.handleLegendMouseoutAndBlur()}"
                 @focus="${(x, c) => c.parent.handleLegendMouseoverAndFocus(x.legend)}"

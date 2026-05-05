@@ -4,23 +4,34 @@
 <div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
     <FluentSwitch Label="Rounded corners" @bind-Value="roundCorners"></FluentSwitch>
     <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+    <FluentSwitch Label="Show percentages" Disabled="@(hideLabels)" @bind-Value="showLabelsInPercent"></FluentSwitch>
     <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
-    <FluentSwitch Label="Show percentages" @bind-Value="showLabelsInPercent"></FluentSwitch>
-    <FluentSwitch Label="Allow multiple legend selection" @bind-Value="allowMultipleLegendSelection"></FluentSwitch>
+    <FluentSwitch Label="Allow multiple legend selection" Disabled="@(hideLegends)" @bind-Value="allowMultipleLegendSelection"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
 </div>
 
 <div style="margin:20px;">
     <FluentDonutChart ChartData="@data"
                       ChartTitle="Donut chart rounded corners example"
                       HideLabels="@hideLabels"
+                      HideTooltip="@hideTooltips"
                       InnerRadius="55"
-                      ValueInsideDonut="39,000"
+                      ValueInsideDonut="€ 74k"
                       RoundedCorners="@roundCorners"
                       HideLegends="@hideLegends"
                       ShowLabelsInPercent="@showLabelsInPercent"
                       AllowMultipleLegendSelection="@allowMultipleLegendSelection" />
 </div>
 
+<div style="margin:20px;">
+    <FluentDonutChart ChartData="@data2"
+                      ChartTitle="Donut chart small segments"
+                      InnerRadius="55"
+                      ValueInsideDonut="39,000"
+                      AllowMultipleLegendSelection="@allowMultipleLegendSelection"
+                      Culture="@(new System.Globalization.CultureInfo("en-US"))"
+                      />
+</div>
 
 
 
@@ -35,9 +46,27 @@
         ]
     };
 
+    private readonly DonutChartData data2 = new()
+    {
+        ChartData =
+    [
+        new DonutChartDataPoint { Legend = "first", Data = 20000 },
+        new DonutChartDataPoint { Legend = "second", Data = 39000 },
+        new DonutChartDataPoint { Legend = "third", Data = 15000 },
+        new DonutChartDataPoint { Legend = "fourth", Data = 1000 },
+        new DonutChartDataPoint { Legend = "fifth", Data = 500 },
+        new DonutChartDataPoint { Legend = "sixth", Data = 200 },
+        new DonutChartDataPoint { Legend = "seventh", Data = 100 },
+        new DonutChartDataPoint { Legend = "eighth", Data = 50 },
+        new DonutChartDataPoint { Legend = "ninth", Data = 20 },
+        new DonutChartDataPoint { Legend = "tenth", Data = 10 },
+    ]
+    };
+
     private bool roundCorners;
     private bool hideLabels = true;
     private bool hideLegends;
+    private bool hideTooltips;
     private bool showLabelsInPercent;
     private bool allowMultipleLegendSelection;
 }

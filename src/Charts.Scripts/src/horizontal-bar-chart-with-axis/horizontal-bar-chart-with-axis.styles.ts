@@ -8,7 +8,6 @@ import {
   colorNeutralStrokeAccessible,
   display,
   fontSizeHero700,
-  forcedColorsStylesheetBehavior,
   shadow4,
   spacingHorizontalL,
   spacingHorizontalNone,
@@ -164,9 +163,9 @@ export const styles: ElementStyles = css`
     direction: ltr;
     unicode-bidi: isolate;
   }
-`.withBehaviors(
-  forcedColorsStylesheetBehavior(css`
-    .legend-rect,
+
+  @media (forced-colors: active) {
+   .legend-rect,
     .tooltip-info {
       forced-color-adjust: none;
     }
@@ -174,5 +173,5 @@ export const styles: ElementStyles = css`
     .bar-label {
       fill: CanvasText !important;
     }
-  `),
-);
+  }
+`;

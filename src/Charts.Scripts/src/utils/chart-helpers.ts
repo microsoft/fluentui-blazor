@@ -177,6 +177,18 @@ export const getRTL = (rootNode: HTMLElement): boolean => {
   return getDirection(rootNode) === Direction.rtl;
 };
 
+export const lightenColor = (color: string, ratio: number): string => {
+  const normalized = color.replace('#', '');
+  if (normalized.length !== 6) {
+    return color;
+  }
+  const red = parseInt(normalized.slice(0, 2), 16);
+  const green = parseInt(normalized.slice(2, 4), 16);
+  const blue = parseInt(normalized.slice(4, 6), 16);
+  const mix = (channel: number) => Math.round(channel + (255 - channel) * ratio);
+  return `rgb(${mix(red)}, ${mix(green)}, ${mix(blue)})`;
+};
+
 export const SVG_NAMESPACE_URI = 'http://www.w3.org/2000/svg';
 
 export const wrapText = (text: SVGTextElement, width: number) => {

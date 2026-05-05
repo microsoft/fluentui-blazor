@@ -5,7 +5,6 @@ import {
   colorNeutralForeground1,
   colorNeutralStrokeAccessible,
   display,
-  forcedColorsStylesheetBehavior,
   shadow4,
   spacingHorizontalL,
   spacingHorizontalNone,
@@ -166,8 +165,8 @@ export const styles: ElementStyles = css`
     ${typographyBody1StrongStyles}
     color: ${colorNeutralForeground1};
   }
-`.withBehaviors(
-  forcedColorsStylesheetBehavior(css`
+
+  @media (forced-colors: active) {
     .legend-rect,
     .tooltip-line,
     .triangle {
@@ -181,5 +180,5 @@ export const styles: ElementStyles = css`
     .bar-label {
       fill: CanvasText !important;
     }
-  `),
-);
+  }
+`;

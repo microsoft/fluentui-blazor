@@ -2,17 +2,18 @@
 
 <FluentDonutChart ChartData="@data"
                   ChartTitle="Donut chart percent labels example"
-                  HideLabels="false"
                   InnerRadius="55"
-                  ShowLabelsInPercent="true" />
+                  ShowLabelsInPercent="@showLabelsInPercent" />
 
 @code {
+    private bool showLabelsInPercent = true;
     private readonly DonutChartData data = new()
     {
         ChartData =
         [
             new DonutChartDataPoint { Legend = "first", Data = 20000 },
-            new DonutChartDataPoint { Legend = "second", Data = 39000 }
+            new DonutChartDataPoint { Legend = "second", Data = 40000 },
+            new DonutChartDataPoint { Legend = "third", Data = 20000 },
         ]
     };
 }

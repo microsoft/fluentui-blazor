@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using System.Globalization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
@@ -55,12 +56,10 @@ public partial class FluentDonutChart : FluentComponentBase
     public int? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether labels are hidden in the
-    /// component output.
-    /// Default is true.
+    /// Gets or sets a value indicating whether labels are hidden in the component output. Default is false.
     /// </summary>
     [Parameter]
-    public bool HideLabels { get; set; } = true;
+    public bool HideLabels { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether legends are hidden in the component output.
@@ -114,4 +113,12 @@ public partial class FluentDonutChart : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool AllowMultipleLegendSelection { get; set; }
+
+    /// <summary>
+    /// Gets or sets the culture used for locale-aware number formatting of values in the chart
+    /// (labels, tooltips, and inner donut text).
+    /// By default <see cref="CultureInfo.CurrentCulture"/> to display using the OS culture.
+    /// </summary>
+    [Parameter]
+    public CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
 }

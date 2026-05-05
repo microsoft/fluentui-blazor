@@ -42,13 +42,15 @@ Donut charts are used to show proportion, which expresses a partial value in com
 
 {{ DonutChartDefault }}
 
-### With labels
-
-{{ DonutChartLabels }}
-
 ### With labels as percentages
 
+> [!NOTE] There is no value shown in the center of the Donut Chart because the 'ValueInsideDonut' property is not set.
+
 {{ DonutChartShowLabelsInPercent }}
+
+### Hide labels
+
+{{ DonutChartHideLabels }}
 
 ### Without legends
 

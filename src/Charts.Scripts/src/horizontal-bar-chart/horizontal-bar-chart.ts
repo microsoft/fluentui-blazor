@@ -1,12 +1,6 @@
 import { attr, FASTElement, observable } from '@microsoft/fast-element';
 import { create as d3Create, select as d3Select } from 'd3-selection';
-import {
-  getRTL,
-  jsonConverter,
-  booleanStringConverter,
-  SVG_NAMESPACE_URI,
-  validateChartPropsArray,
-} from '../utils/chart-helpers.js';
+import { getRTL, jsonConverter, lightenColor, SVG_NAMESPACE_URI, validateChartPropsArray } from '../utils/chart-helpers.js';
 import type { ChartDataPoint, ChartProps } from './horizontal-bar-chart.options.js';
 import { Variant } from './horizontal-bar-chart.options.js';
 
@@ -28,10 +22,10 @@ export class HorizontalBarChart extends FASTElement {
   @attr({ converter: jsonConverter })
   public data!: ChartProps[];
 
-  @attr({ attribute: 'hide-ratio', converter: booleanStringConverter })
+  @attr({ attribute: 'hide-ratio', mode: 'boolean' })
   public hideRatio: boolean = false;
 
-  @attr({ attribute: 'hide-labels', converter: booleanStringConverter })
+  @attr({ attribute: 'hide-labels', mode: 'boolean' })
   public hideLabels: boolean = false;
 
   @attr({ attribute: 'round-corners', mode: 'boolean' })
@@ -40,10 +34,10 @@ export class HorizontalBarChart extends FASTElement {
   @attr({ attribute: 'chart-data-mode' })
   public chartDataMode: 'default' | 'fraction' | 'percentage' = 'default';
 
-  @attr({ attribute: 'hide-legends', converter: booleanStringConverter })
+  @attr({ attribute: 'hide-legends', mode: 'boolean' })
   public hideLegends: boolean = false;
 
-  @attr({ attribute: 'hide-tooltip', converter: booleanStringConverter })
+  @attr({ attribute: 'hide-tooltip', mode: 'boolean' })
   public hideTooltip: boolean = false;
 
   @attr({ attribute: 'legend-list-label' })
@@ -52,27 +46,33 @@ export class HorizontalBarChart extends FASTElement {
   @attr({ attribute: 'chart-title' })
   public chartTitle?: string;
 
+  @attr
+  public culture?: string;
+
+  @attr({ attribute: 'allow-multiple-legend-selection', mode: 'boolean' })
+  public allowMultipleLegendSelection: boolean = false;
+
+  @attr({ attribute: 'enable-gradient', mode: 'boolean' })
+  public enableGradient: boolean = false;
+
   @observable
-  public uniqueLegends: ChartDataPoint[] = [];
+  public legends: ChartDataPoint[] = [];
 
   @observable
   public activeLegend: string = '';
-  protected activeLegendChanged = (oldValue: string, newValue: string) => {
-    if (newValue === '') {
-      this._bars?.forEach(bar => bar.classList.remove('inactive'));
-    } else {
-      this._bars?.forEach(bar => {
-        if (bar.getAttribute('barinfo') === newValue) {
-          bar.classList.remove('inactive');
-        } else {
-          bar.classList.add('inactive');
-        }
-      });
+  protected activeLegendChanged(_oldValue: string, _newValue: string) {
+    if (this._isSettingActiveLegend) {
+      return;
     }
-  };
+
+    this._updateLegendInteractionState();
+  }
 
   @observable
   public isLegendSelected: boolean = false;
+
+  @observable
+  public selectedLegends: string[] = [];
 
   @observable
   public tooltipProps = {
@@ -90,6 +90,7 @@ export class HorizontalBarChart extends FASTElement {
   private _isRTL: boolean = false;
   private _barHeight: number = 12;
   private _bars: SVGRectElement[] = [];
+  private _isSettingActiveLegend: boolean = false;
 
   constructor() {
     super();
@@ -97,36 +98,119 @@ export class HorizontalBarChart extends FASTElement {
     this.elementInternals.role = 'region';
   }
 
-  public handleLegendMouseoverAndFocus = (legendTitle: string) => {
-    if (this.isLegendSelected) {
+  public handleLegendMouseoverAndFocus(legendTitle: string) {
+    if (this.allowMultipleLegendSelection) {
+      if (this.selectedLegends.length > 0) {
+        return;
+      }
+    } else {
+      if (this.isLegendSelected) {
+        return;
+      }
+    }
+
+    this._setActiveLegend(legendTitle);
+  }
+
+  public handleLegendMouseoutAndBlur() {
+    if (this.allowMultipleLegendSelection) {
+      if (this.selectedLegends.length > 0) {
+        return;
+      }
+    } else {
+      if (this.isLegendSelected) {
+        return;
+      }
+    }
+
+    this._setActiveLegend('');
+  }
+
+  public handleLegendClick(legendTitle: string) {
+    if (this.allowMultipleLegendSelection) {
+      const nextSelection = this.selectedLegends.includes(legendTitle)
+        ? this.selectedLegends.filter(legend => legend !== legendTitle)
+        : [...this.selectedLegends, legendTitle];
+      this.selectedLegends = nextSelection;
+      if (nextSelection.length === 0) {
+        this._setActiveLegend('');
+      } else if (!nextSelection.includes(this.activeLegend)) {
+        this._setActiveLegend(nextSelection[nextSelection.length - 1]);
+      } else {
+        this._updateLegendInteractionState();
+      }
       return;
     }
 
-    this.activeLegend = legendTitle;
-  };
-
-  public handleLegendMouseoutAndBlur = () => {
-    if (this.isLegendSelected) {
-      return;
-    }
-
-    this.activeLegend = '';
-  };
-
-  public handleLegendClick = (legendTitle: string) => {
     if (this.isLegendSelected && this.activeLegend === legendTitle) {
-      this.activeLegend = '';
+      this._setActiveLegend('');
       this.isLegendSelected = false;
     } else {
-      this.activeLegend = legendTitle;
+      this._setActiveLegend(legendTitle);
       this.isLegendSelected = true;
     }
-  };
+  }
+
+  public isLegendItemSelected(legendTitle: string) {
+    return Array.isArray(this.selectedLegends) && this.selectedLegends.includes(legendTitle);
+  }
+
+  public isLegendItemDimmed(legendTitle: string) {
+    const highlighted = this._getHighlightedLegends();
+    return highlighted.length > 0 && !highlighted.includes(legendTitle);
+  }
 
   connectedCallback() {
-    this._initializeFromAttributes();
+    // Class field initializers create own data properties that shadow the FAST @attr
+    // and @observable reactive getter/setters on the prototype. Delete them so that
+    // attribute changes go through the FAST reactive system and trigger the *Changed()
+    // callbacks, and so that observable assignments notify template bindings.
+    const self = this as Record<string, unknown>;
+    const attrFields = [
+      'width',
+      'height',
+      'variant',
+      'data',
+      'hideRatio',
+      'hideLabels',
+      'roundCorners',
+      'chartDataMode',
+      'hideLegends',
+      'hideTooltip',
+      'legendListLabel',
+      'chartTitle',
+      'culture',
+      'allowMultipleLegendSelection',
+      'enableGradient',
+    ] as const;
+    const observableFields = [
+      'legends',
+      'activeLegend',
+      'isLegendSelected',
+      'tooltipProps',
+      'selectedLegends',
+    ] as const;
+    const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
+    const savedObservables: Partial<Record<(typeof observableFields)[number], unknown>> = {};
+    for (const field of attrFields) {
+      saved[field] = self[field];
+      delete self[field];
+    }
+    for (const field of observableFields) {
+      savedObservables[field] = self[field];
+      delete self[field];
+      if (savedObservables[field] !== undefined) {
+        self[field] = savedObservables[field];
+      }
+    }
 
     super.connectedCallback();
+
+    for (const field of attrFields) {
+      if (self[field] === undefined && saved[field] !== undefined) {
+        self[field] = saved[field];
+      }
+    }
 
     if (!this.data) {
       return;
@@ -135,101 +219,181 @@ export class HorizontalBarChart extends FASTElement {
     this._initializeAll();
   }
 
+  public disconnectedCallback() {
+    super.disconnectedCallback();
+  }
+
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     super.attributeChangedCallback(name, oldValue, newValue);
 
-    if (name === 'round-corners' && oldValue !== newValue) {
-      this.roundCorners = newValue !== null && newValue !== 'false';
+    if (oldValue === newValue) {
+      return;
+    }
+
+    const booleanValue = newValue !== null && newValue !== 'false';
+
+    if (name === 'round-corners') {
+      this.roundCorners = booleanValue;
+    }
+    if (name === 'hide-ratio') {
+      this.hideRatio = booleanValue;
+    }
+    if (name === 'hide-labels') {
+      this.hideLabels = booleanValue;
+    }
+    if (name === 'hide-legends') {
+      this.hideLegends = booleanValue;
+    }
+    if (name === 'hide-tooltip') {
+      this.hideTooltip = booleanValue;
+    }
+    if (name === 'allow-multiple-legend-selection') {
+      this.allowMultipleLegendSelection = booleanValue;
     }
   }
 
   protected dataChanged(_oldValue: ChartProps[], newValue: ChartProps[]) {
-    if (this.$fastController.isConnected && newValue) {
-      this._clearChart();
-      this._initializeAll();
+    if (newValue) {
+      this._scheduleRender();
     }
   }
 
   protected chartTitleChanged() {
-    if (this.$fastController.isConnected && this.data) {
-      this._clearChart();
-      this._initializeAll();
+    if (this.$fastController.isConnected) {
+      this.elementInternals.ariaLabel =
+        this.chartTitle || `Horizontal bar chart with ${this.data?.length ?? 0} categories.`;
     }
   }
 
   protected widthChanged() {
-    if (this.$fastController.isConnected && this.data) {
-      this._clearChart();
-      this._initializeAll();
-    }
+    this._scheduleRender();
   }
 
   protected heightChanged() {
-    if (this.$fastController.isConnected && this.data) {
-      this._clearChart();
-      this._initializeAll();
-    }
+    this._scheduleRender();
+  }
+
+  protected variantChanged() {
+    this._scheduleRender();
+  }
+
+  protected hideRatioChanged() {
+    this._scheduleRender();
+  }
+
+  protected hideLabelsChanged() {
+    this._scheduleRender();
   }
 
   protected roundCornersChanged() {
-    if (this.$fastController.isConnected && this.data) {
-      this._clearChart();
-      this._initializeAll();
+    this._scheduleRender();
+  }
+
+  protected enableGradientChanged() {
+    this._scheduleRender();
+  }
+
+  protected chartDataModeChanged() {
+    this._scheduleRender();
+  }
+
+  protected legendListLabelChanged() {
+    this._scheduleRender();
+  }
+
+  protected cultureChanged() {
+    this._scheduleRender();
+  }
+
+  protected allowMultipleLegendSelectionChanged() {
+    if (!this.allowMultipleLegendSelection) {
+      this.selectedLegends = [];
+      this._setActiveLegend('');
+      this.isLegendSelected = false;
+      return;
+    }
+
+    this._updateLegendInteractionState();
+  }
+
+  protected selectedLegendsChanged() {
+    this._updateLegendInteractionState();
+  }
+
+  private _renderPending = false;
+
+  /**
+   * Schedules a single re-render deferred to the next event-loop task,
+   * batching multiple simultaneous attribute changes into one render pass.
+   */
+  private _scheduleRender(): void {
+    if (this._renderPending) {
+      return;
+    }
+    this._renderPending = true;
+    setTimeout(() => {
+      this._renderPending = false;
+      this._rerender();
+    }, 0);
+  }
+
+  private _rerender() {
+    if (!this.$fastController.isConnected || !this.data) {
+      return;
+    }
+    this._clearChart();
+    this._initializeAll();
+    this._updateLegendInteractionState();
+  }
+
+  private _getHighlightedLegends(): string[] {
+    if (this.allowMultipleLegendSelection) {
+      if (Array.isArray(this.selectedLegends) && this.selectedLegends.length > 0) {
+        return this.selectedLegends;
+      }
+      return this.activeLegend ? [this.activeLegend] : [];
+    }
+    return this.activeLegend ? [this.activeLegend] : [];
+  }
+
+  private _updateLegendInteractionState() {
+    this._applyActiveLegendState();
+    this._applyLegendButtonState();
+  }
+
+  private _applyActiveLegendState() {
+    const highlighted = this._getHighlightedLegends();
+    if (highlighted.length === 0) {
+      this._bars?.forEach(bar => bar.classList.remove('inactive'));
+    } else {
+      this._bars?.forEach(bar => {
+        const barLegend = bar.getAttribute('barinfo');
+        const isActive = barLegend !== null && highlighted.includes(barLegend);
+        bar.classList.toggle('inactive', !isActive);
+      });
     }
   }
 
-  private _initializeFromAttributes() {
-    const setString = (name: string, assign: (value: string) => void) => {
-      const value = this.getAttribute(name);
-      if (value !== null) {
-        assign(value);
-      }
-    };
+  private _applyLegendButtonState() {
+    const legendButtons = this.shadowRoot?.querySelectorAll<HTMLButtonElement>('.legend');
+    if (!legendButtons) {
+      return;
+    }
 
-    const setBoolean = (name: string, assign: (value: boolean) => void) => {
-      const value = this.getAttribute(name);
-      if (value !== null) {
-        assign(booleanStringConverter.fromView(value));
-      }
-    };
+    const highlighted = this._getHighlightedLegends();
+    legendButtons.forEach(button => {
+      const title = button.querySelector('.legend-text')?.textContent ?? '';
+      const isActive = highlighted.length === 0 || highlighted.includes(title);
+      button.classList.toggle('inactive', !isActive);
+      button.setAttribute('aria-selected', `${highlighted.includes(title)}`);
+    });
+  }
 
-    setString('data', value => {
-      this.data = jsonConverter.fromView(value) as ChartProps[];
-    });
-    setString('width', value => {
-      this.width = value;
-    });
-    setString('height', value => {
-      this.height = value;
-    });
-    setString('variant', value => {
-      this.variant = value as Variant;
-    });
-    setString('chart-data-mode', value => {
-      this.chartDataMode = value as 'default' | 'fraction' | 'percentage';
-    });
-    setString('legend-list-label', value => {
-      this.legendListLabel = value;
-    });
-    setString('chart-title', value => {
-      this.chartTitle = value;
-    });
-
-    setBoolean('hide-ratio', value => {
-      this.hideRatio = value;
-    });
-    setBoolean('hide-labels', value => {
-      this.hideLabels = value;
-    });
-    setBoolean('round-corners', value => {
-      this.roundCorners = value;
-    });
-    setBoolean('hide-legends', value => {
-      this.hideLegends = value;
-    });
-    setBoolean('hide-tooltip', value => {
-      this.hideTooltip = value;
-    });
+  private _setActiveLegend(value: string) {
+    this._isSettingActiveLegend = true;
+    this.activeLegend = value;
+    this._isSettingActiveLegend = false;
+    this._updateLegendInteractionState();
   }
 
   private _clearChart() {
@@ -322,7 +486,7 @@ export class HorizontalBarChart extends FASTElement {
     }
 
     // Convert the map values back to an array
-    this.uniqueLegends = Array.from(uniqueLegendsMap.values());
+    this.legends = Array.from(uniqueLegendsMap.values());
   }
 
   private _hydrateData() {
@@ -439,7 +603,7 @@ export class HorizontalBarChart extends FASTElement {
         .attr('aria-label', pointData);
 
       let gradientId = '';
-      if (point.gradient) {
+      if (this.enableGradient || point.gradient) {
         const defs = document.createElementNS(SVG_NAMESPACE_URI, 'defs');
         gEle.node()!.appendChild(defs);
 
@@ -447,16 +611,20 @@ export class HorizontalBarChart extends FASTElement {
         defs.appendChild(linearGradient);
         gradientId = `gradient-${barNo}-${index}`;
         linearGradient.setAttribute('id', gradientId);
+        linearGradient.setAttribute('x1', _isRTL ? '100%' : '0%');
+        linearGradient.setAttribute('x2', _isRTL ? '0%' : '100%');
+        linearGradient.setAttribute('y1', '0%');
+        linearGradient.setAttribute('y2', '0%');
 
         const stop1 = document.createElementNS(SVG_NAMESPACE_URI, 'stop');
         linearGradient.appendChild(stop1);
         stop1.setAttribute('offset', '0%');
-        stop1.setAttribute('stop-color', point.gradient[0]);
+        stop1.setAttribute('stop-color', (point.gradient ?? [lightenColor(point.color!, 0.35), point.color!])[0]);
 
         const stop2 = document.createElementNS(SVG_NAMESPACE_URI, 'stop');
         linearGradient.appendChild(stop2);
         stop2.setAttribute('offset', '100%');
-        stop2.setAttribute('stop-color', point.gradient[1]);
+        stop2.setAttribute('stop-color', (point.gradient ?? [lightenColor(point.color!, 0.35), point.color!])[1]);
       }
 
       const rect = gEle
@@ -465,7 +633,7 @@ export class HorizontalBarChart extends FASTElement {
         .attr('id', `${barNo}-${index}`)
         .attr('barinfo', `${point.legend}`)
         .attr('class', 'bar')
-        .attr('style', point.gradient ? `fill:url(#${gradientId})` : `fill:${point.color!}`)
+        .attr('style', (this.enableGradient || point.gradient) ? `fill:url(#${gradientId})` : `fill:${point.color!}`)
         .attr('rx', `${this.roundCorners ? 3 : 0}`)
         .attr(
           'x',
@@ -554,6 +722,11 @@ export class HorizontalBarChart extends FASTElement {
           return;
         }
 
+        const highlighted = this._getHighlightedLegends();
+        if (highlighted.length > 0 && d.legend && !highlighted.includes(d.legend)) {
+          return;
+        }
+
         const bounds = this.getBoundingClientRect();
         const centerX = window.innerWidth / 2;
         const xPos = Math.max(0, Math.min(centerX, window.innerWidth));
@@ -561,7 +734,7 @@ export class HorizontalBarChart extends FASTElement {
         this.tooltipProps = {
           isVisible: true,
           legend: d.legend,
-          yValue: `${d.data}`,
+          yValue: d.data.toLocaleString(this.culture || undefined),
           color: d.gradient ? d.gradient[0] : d.color!,
           xPos: this._isRTL ? bounds.right - event.clientX : Math.min(event.clientX - bounds.left, xPos),
           yPos: event.clientY - bounds.top - 40,
