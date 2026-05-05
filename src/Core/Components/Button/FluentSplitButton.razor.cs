@@ -70,8 +70,8 @@ public partial class FluentSplitButton : FluentComponentBase
     public string? Color { get; set; }
 
     /// <summary>
-    /// Gets or sets if the button only shows an icon
-    /// Can be used when using <see cref="ChildContent"/> that renders as an icon
+    /// Gets or sets a value indicating whether the button renders icon-only (no visible text label).
+    /// Typically used when <see cref="IconStart"/> is set and no text label is needed.
     /// </summary>
     [Parameter]
     public bool IconOnly { get; set; }
@@ -97,10 +97,9 @@ public partial class FluentSplitButton : FluentComponentBase
     public string? Title { get; set; }
 
     /// <summary>
-    ///  Gets or sets the content to be rendered inside the button.
-    ///  This can be used as an alternative to specifying the content as a child component of the button.
-    ///  If both are specified, both will be rendered.
-    ///  </summary>
+    /// Gets or sets the plain-text label rendered inside the primary button area (e.g., <c>Label="Save"</c>).
+    /// For rich content such as icons or custom markup, use <see cref="ChildContent"/> instead.
+    /// </summary>
     [Parameter]
     public string? Label { get; set; }
 
