@@ -44,13 +44,15 @@ public partial class FluentNavCategory : FluentNavBase
     public string? Title { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon to use when the item is not hovered/selected/active.
+    /// Gets or sets the icon displayed when the category is in its default (resting) state.
+    /// Use <see cref="IconActive"/> to specify the icon shown when the category is hovered, selected, or active.
     /// </summary>
     [Parameter]
     public Icon? IconRest { get; set; } = new CoreIcons.Regular.Size20.Folder();
 
     /// <summary>
-    /// Gets or sets the icon to use when the item is hovered/selected/active.
+    /// Gets or sets the icon displayed when the category is hovered, selected, or active.
+    /// Use <see cref="IconRest"/> to specify the icon shown in the default (resting) state.
     /// </summary>
     [Parameter]
     public Icon? IconActive { get; set; }
@@ -74,7 +76,8 @@ public partial class FluentNavCategory : FluentNavBase
     public string? Tooltip { get; set; }
 
     /// <summary>
-    /// Gets or sets the content of the nav menu item.
+    /// Gets or sets the child content rendered inside the category.
+    /// Typically contains <see cref="FluentNavItem"/> sub-items.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
