@@ -37,7 +37,7 @@ public partial class FluentAppBar : FluentComponentBase
     }
 
     /// <summary>
-    /// Gets or sets if the popover shows the search box.
+    /// Gets or sets whether the popover shows a search box to filter overflowed items.
     /// </summary>
     [Parameter]
     public bool PopoverShowSearch { get; set; } = true;
