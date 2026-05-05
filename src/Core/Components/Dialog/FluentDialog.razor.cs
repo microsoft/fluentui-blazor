@@ -49,7 +49,8 @@ public partial class FluentDialog : FluentComponentBase
     public IDialogInstance? Instance { get; set; }
 
     /// <summary>
-    /// Used when not calling the <see cref="DialogService" /> to show a dialog.
+    /// Gets or sets the child content rendered inside the dialog when not using the <see cref="DialogService"/>.
+    /// When using the <see cref="DialogService"/>, use <see cref="Instance"/> instead.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -72,7 +73,7 @@ public partial class FluentDialog : FluentComponentBase
     public bool Modal { get; set; } = true;
 
     /// <summary>
-    /// Command executed when the user clicks on the button.
+    /// Gets or sets the callback that is invoked when the dialog state changes (e.g., opening or closing).
     /// </summary>
     [Parameter]
     public EventCallback<DialogEventArgs> OnStateChange { get; set; }

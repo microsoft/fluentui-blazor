@@ -35,18 +35,22 @@ public partial class FluentDialogBody : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the content for the title element.
+    /// For an action button in the title area, use <see cref="TitleActionTemplate"/> instead.
     /// </summary>
     [Parameter]
     public RenderFragment? TitleTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the content for the action element in the title.
+    /// Gets or sets the content for the action button rendered inside the title area.
+    /// For the primary title content, use <see cref="TitleTemplate"/>.
+    /// For footer-level actions, use <see cref="ActionTemplate"/>.
     /// </summary>
     [Parameter]
     public RenderFragment? TitleActionTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the content for the action element.
+    /// Gets or sets the content for the footer action area (e.g., confirm/cancel buttons).
+    /// For an action button inside the title bar, use <see cref="TitleActionTemplate"/> instead.
     /// </summary>
     [Parameter]
     public RenderFragment? ActionTemplate { get; set; }
