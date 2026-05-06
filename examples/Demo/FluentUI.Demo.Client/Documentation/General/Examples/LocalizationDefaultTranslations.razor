@@ -3,7 +3,7 @@
 @using System.Collections
 <FluentStack Orientation="Orientation.Vertical">
     <FluentStack VerticalAlignment="@VerticalAlignment.Center" Height="70px">
-        <FluentMenu>
+        <FluentMenu Height="300px">
             <FluentMenuButton Appearance="ButtonAppearance.Transparent"
                               IconStart="@(new Icons.Regular.Size20.Filter())">
                 Filter&nbsp;
@@ -16,7 +16,14 @@
             </FluentMenuList>
         </FluentMenu>
 
-        <FluentTextInput @bind-Value="Search" placeholder="Search..." Immediate="true" />
+        <FluentTextInput @bind-Value="Search"
+                         placeholder="Search..."
+                         Spellcheck="false"
+                         ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])">
+            <StartTemplate>
+                <FluentIcon Value="@(new Icons.Regular.Size16.Search())" Color="Color.Primary" />
+            </StartTemplate>
+        </FluentTextInput>
 
     </FluentStack>
     <table>
