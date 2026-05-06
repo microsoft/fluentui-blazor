@@ -426,3 +426,5 @@ all-emojis.json
 /global.json
 /src/Core.Scripts/src/BuildConstants.ts
 /src/Core.Scripts/obj/
+/.playwright-mcp
+/examples/Demo/FluentUI.Demo.Client/wwwroot/chart-comments.json

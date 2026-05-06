@@ -728,12 +728,15 @@ export class HorizontalBarChartWithAxis extends FASTElement {
   private _getGroupedSeries(): GroupedSeries[] {
     const groups = new Map<string, GroupedSeries>();
     this.data.forEach(point => {
-      const key = String(point.y);
+      const numericCandidate = typeof point.y === 'string' ? Number(point.y) : NaN;
+      const rawY: number | string =
+        typeof point.y === 'number' ? point.y : isFinite(numericCandidate) ? numericCandidate : point.y;
+      const key = String(rawY);
       const existing = groups.get(key);
       if (existing) {
         existing.points.push(point);
       } else {
-        groups.set(key, { key, rawY: point.y, points: [point] });
+        groups.set(key, { key, rawY, points: [point] });
       }
     });
 
