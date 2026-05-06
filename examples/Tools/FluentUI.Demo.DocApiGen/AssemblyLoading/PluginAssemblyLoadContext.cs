@@ -13,9 +13,7 @@ namespace FluentUI.Demo.DocApiGen.AssemblyLoading;
 /// from the same directory as the target DLL, preventing version conflicts with
 /// assemblies already loaded in the default context.
 /// </summary>
-[SupportedOSPlatform("windows")]
-[SupportedOSPlatform("linux")]
-[SupportedOSPlatform("macos")]
+[UnsupportedOSPlatform("browser")]
 public sealed class PluginAssemblyLoadContext : AssemblyLoadContext
 {
     private readonly string _pluginDirectory;
@@ -26,7 +24,7 @@ public sealed class PluginAssemblyLoadContext : AssemblyLoadContext
     /// </summary>
     /// <param name="dllPath">The full path to the target assembly DLL.</param>
     public PluginAssemblyLoadContext(string dllPath)
-        : base(name: Path.GetFileNameWithoutExtension(dllPath), isCollectible: true)
+        : base(name: Path.GetFileNameWithoutExtension(dllPath), isCollectible: false)
     {
         _pluginDirectory = Path.GetDirectoryName(dllPath)!;
         _resolver = new AssemblyDependencyResolver(dllPath);

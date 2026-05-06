@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Reflection;
+using System.Runtime.Versioning;
 using FluentUI.Demo.DocApiGen.Abstractions;
 using FluentUI.Demo.DocApiGen.AssemblyLoading;
 using FluentUI.Demo.DocApiGen.Formatters;
@@ -14,6 +15,7 @@ namespace FluentUI.Demo.DocApiGen;
 /// <summary>
 /// Main entry point for the DocApiGen tool.
 /// </summary>
+[UnsupportedOSPlatform("browser")]
 public class Program
 {
     private static readonly System.Diagnostics.Stopwatch _watcher = new();
@@ -63,10 +65,8 @@ public class Program
             // components DLL referenced by the charts DLL) are resolved from the
             // same directory as the target DLL rather than from what is already
             // loaded in the default context.
-#pragma warning disable CA1416
             var loadContext = new PluginAssemblyLoadContext(dllFile);
             var assembly = loadContext.LoadFromAssemblyPath(dllFile);
-#pragma warning restore CA1416
 
             var docXml = new FileInfo(xmlFile);
 
