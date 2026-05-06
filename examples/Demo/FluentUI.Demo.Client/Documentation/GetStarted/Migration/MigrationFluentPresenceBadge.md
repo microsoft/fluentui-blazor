@@ -43,10 +43,9 @@ hidden: true
   </FluentPresenceBadge>
 
   <!-- V5 -->
-  <FluentPresenceBadge Status="PresenceStatus.Available"
-                       Size="BadgeSize.Small">
-      <FluentPersona Name="Jane" />
-  </FluentPresenceBadge>
+  <FluentAvatar Name="Jane">
+		  <FluentPresenceBadge Status="PresenceStatus.Available" Siwe="BadgeSize.Small" slot="FluentSlot.Badge" />
+	</FluentAvatar>
   ```
 
 - ### New properties

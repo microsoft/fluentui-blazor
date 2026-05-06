@@ -15,7 +15,7 @@ public partial class FluentPresenceBadge : FluentComponentBase
     private int _iconWidth;
     private string _ariaLabel = string.Empty;
 
-    private bool _isAttached => ChildContent is not null;
+    private bool _isAttached => AnchorContent is not null;
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -47,10 +47,12 @@ public partial class FluentPresenceBadge : FluentComponentBase
     public bool OutOfOffice { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Gets or sets the content to attach the badge to.
+    /// When this parameter is set, the badge will be rendered as an anchored badge, using the <see cref="Positioning"/> parameter.
+    /// When this parameter is not set, the badge will be rendered as a standalone badge.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public RenderFragment? AnchorContent { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="Icon"/> displayed at the start of badge content.
