@@ -316,7 +316,7 @@
 	public void FluentCounterBadge_Attached_NoPositioning()
 	{
 		// Arrange && Act
-		var cut = Render(@<FluentCounterBadge Count="4"><FluentButton>Test</FluentButton></FluentCounterBadge> );
+		var cut = Render(@<FluentCounterBadge Count="4"><AnchorContent><FluentButton>Test</FluentButton></AnchorContent></FluentCounterBadge> );
 		// Assert
 		Assert.Equal("above-end", cut.Find("fluent-counter-badge").GetAttribute("positioning"));
 	}
@@ -325,7 +325,7 @@
 	public void FluentCounterBadge_Attached_WithPositioning()
 	{
 		// Arrange && Act
-		var cut = Render(@<FluentCounterBadge Count="4" Positioning="Positioning.CenterCenter"><FluentButton>Test</FluentButton></FluentCounterBadge> );
+		var cut = Render(@<FluentCounterBadge Count="4" Positioning="Positioning.CenterCenter"><AnchorContent><FluentButton>Test</FluentButton></AnchorContent></FluentCounterBadge> );
 		// Assert
 		Assert.Equal("center-center", cut.Find("fluent-counter-badge").GetAttribute("positioning"));
 	}

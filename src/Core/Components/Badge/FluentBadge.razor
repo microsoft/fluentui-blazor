@@ -3,7 +3,7 @@
 @inherits FluentComponentBase
 
 <AddTag Name="fluent-badge-container" TagWhen="@(() => _isAttached)" style="@_containerStyle">
-    @ChildContent
+    @AnchorContent
     <fluent-badge id="@Id"
                   fuib
                   class="@ClassValue"

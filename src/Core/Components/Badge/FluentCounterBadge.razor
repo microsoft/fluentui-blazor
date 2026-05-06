@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentBadge
 <AddTag Name="fluent-counter-badge-container" TagWhen="@(() => _isAttached && _render)" style="@_containerStyle">
-	@ChildContent
+	@AnchorContent
 	@if (_render)
 	{
 		<fluent-counter-badge id="@Id"

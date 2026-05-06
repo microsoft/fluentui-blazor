@@ -21,7 +21,7 @@ public partial class FluentBadge : FluentComponentBase
     /// <summary />
     public FluentBadge(LibraryConfiguration configuration) : base(configuration) { }
 
-    private bool _isAttached => ChildContent is not null;
+    private bool _isAttached => AnchorContent is not null;
 
     /// <summary />
     protected virtual string? ClassValue => DefaultClassBuilder
@@ -75,10 +75,12 @@ public partial class FluentBadge : FluentComponentBase
     public BadgeSize? Size { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Gets or sets the content to attach the badge to.
+    /// When this parameter is set, the badge will be rendered as an anchored badge, using the <see cref="Positioning"/> parameter.
+    /// When this parameter is not set, the badge will be rendered as a standalone badge.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public RenderFragment? AnchorContent { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="Icon"/> displayed at the start of badge content.
@@ -99,7 +101,7 @@ public partial class FluentBadge : FluentComponentBase
     public Icon? IconEnd { get; set; }
 
     /// <summary>
-    /// Gets or sets the badge's positioning relative to the <see cref="FluentBadge.ChildContent" />.
+    /// Gets or sets the badge's positioning relative to the <see cref="FluentBadge.AnchorContent" />.
     /// The default value is `null`. Internally the component uses AboveEnd as its default value.
     /// </summary>
     [Parameter]
@@ -107,14 +109,14 @@ public partial class FluentBadge : FluentComponentBase
 
     /// <summary>
     /// Gets or sets how much the badge overlaps the content it wraps on the x-axis.
-    /// Only applied when <see cref="ChildContent"/> is not null
+    /// Only applied when <see cref="AnchorContent"/> is not null
     /// </summary>
     [Parameter]
     public sbyte? OffsetX { get; set; }
 
     /// <summary>
     /// Gets or sets how much the badge overlaps the content it wraps on the y-axis.
-    /// Only applied when <see cref="ChildContent"/> is not null
+    /// Only applied when <see cref="AnchorContent"/> is not null
     /// </summary>
     [Parameter]
     public sbyte? OffsetY { get; set; }

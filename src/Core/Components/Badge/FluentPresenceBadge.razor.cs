@@ -65,7 +65,7 @@ public partial class FluentPresenceBadge : FluentComponentBase
     public BadgeSize? Size { get; set; }
 
     /// <summary>
-    /// Gets or sets the badge's positioning relative to the <see cref="FluentBadge.ChildContent" />.
+    /// Gets or sets the badge's positioning relative to the <see cref="FluentBadge.AnchorContent" />.
     /// The default value is `null`. Internally the component uses AboveEnd as its default value.
     /// </summary>
     [Parameter]
