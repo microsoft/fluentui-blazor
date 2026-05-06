@@ -53,29 +53,9 @@ the default sort).
 The DataGrid offers a `RowSize` parameter which allows you to use different preset row heights. The value uses the `DataGridRowSize`
 enumeration for its type. When using `Virtualize`, the `ItemSize` value **must** still be used to indicate the row height.
 
-## Change strings used in the UI
+## Localization
 
-The DataGrid has a number of strings that are used in the UI. These can be changed by leveraging the built-in [localization](/localization) functionality.
-The following values can be localized:
-
-- DataGrid_EmptyContent
-- DataGrid_OptionsMenu
-- DataGrid_ResizeDiscrete
-- DataGrid_ResizeExact
-- DataGrid_ResizeGrow
-- DataGrid_ResizeMenu
-- DataGrid_ResizeReset
-- DataGrid_ResizeShrink
-- DataGrid_ResizeSubmit
-- DataGrid_SelectColumn_AllChecked
-- DataGrid_SelectColumn_AllIndeterminate
-- DataGrid_SelectColumn_AllUnchecked
-- DataGrid_SelectColumn_RowChecked
-- DataGrid_SelectColumn_RowUnchecked
-- DataGrid_SortMenu
-- DataGrid_SortMenuAscending
-- DataGrid_SortMenuDescending
-- DataGrid_ToggleNesting
+The DataGrid includes several UI strings that can be customized using the built-in [localization](/localization) functionality. A complete list of available translation key/value pairs can be found [here](/localization?search=DataGrid#default-translations).
 
 ## Using the DataGrid component with EF Core
 
@@ -156,6 +136,30 @@ The following examples show how to use the DataGrid component in different scena
 - [Remote data](/DataGrid/RemoteData)
 - [Hierarchical grid](/DataGrid/HierarchicalDataGrid)
 - [Manual grid](/DataGrid/ManualDataGrid)
+
+## API FluentDataGrid
+
+{{ API Type=FluentDataGrid<string> }}
+
+## API FluentDataGridRow
+
+{{ API Type=FluentDataGridRow<string> }}
+
+## API FluentDataGridCell
+
+{{ API Type=FluentDataGridCell<string> }}
+
+## API PropertyColumn
+
+{{ API Type=PropertyColumn<string,string> }}
+
+## API TemplateColumn
+
+{{ API Type=TemplateColumn<string> }}
+
+## API SelectColumn
+
+{{ API Type=SelectColumn<string> }}
 
 ## Migrating to v5
 
