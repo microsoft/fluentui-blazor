@@ -115,6 +115,12 @@ public class DialogOptions : IFluentComponentBase
     public IDictionary<string, object?> Parameters { get; set; } = new Dictionary<string, object?>(StringComparer.Ordinal);
 
     /// <summary>
+    /// Gets or sets a value indicating whether pressing the ESC key should be prevented from closing the dialog.
+    /// By default, the ESC key closes the dialog (<c>false</c>).
+    /// </summary>
+    public bool? PreventDismissOnEscape { get; set; }
+
+    /// <summary>
     /// Gets or sets the action raised when the dialog is opened or closed.
     /// </summary>
     public Action<DialogEventArgs>? OnStateChange { get; set; }
