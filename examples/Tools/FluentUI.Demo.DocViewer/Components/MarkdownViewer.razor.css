@@ -55,11 +55,13 @@
     height: 20px;
   }
   /* Code */
-  .doc-viewer ::deep code {
+  .doc-viewer ::deep code,
+  .doc-viewer ::deep c {
     font-weight: 500;
     background-color: var(--colorNeutralBackground3);
     padding: 0px 4px;
-    overflow-wrap: anywhere
+    overflow-wrap: anywhere;
+    font-family: monospace;
   }
 
   .doc-viewer ::deep pre {
