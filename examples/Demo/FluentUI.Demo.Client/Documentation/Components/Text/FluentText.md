@@ -8,7 +8,7 @@ icon: CodeText
 
 The text component codifies Fluent's opinions on typography to make them easy to use and standardize across products.
 
-Use the text component for plain text. For hypertext, try a <a href="/link">FluentLink</a> instead.
+Use the text component for plain text. For hypertext, try a [FluentLink](/link) instead.
 
 ## Font families
 Use the `Font` parameter to choose a font family. Use the monospace font to represent code.
