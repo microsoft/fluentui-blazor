@@ -61,7 +61,7 @@
     background-color: var(--colorNeutralBackground3);
     padding: 0px 4px;
     overflow-wrap: anywhere;
-    font-family: monospace;
+    font-family: var(--fontFamilyMonospace);
   }
 
   .doc-viewer ::deep pre {
