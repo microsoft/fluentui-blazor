@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "FluentUI.Samples.SSR": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:30509;http://localhost:30510"
+    }
+  }
+}
