@@ -406,4 +406,17 @@
 		var cb = cut.Find("fluent-counter-badge");
 		Assert.NotNull(cb);
 	}
+
+	[Fact]
+    public void FluentCounterBadge_Content_ChildContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentCounterBadge Content="Badge">Content</FluentCounterBadge>);
+
+        // Act
+        var label = cut.Find("fluent-counter-badge").InnerHtml;
+
+        // Assert
+        Assert.Equal("<span>Badge Content</span>", label);
+    }
 }
