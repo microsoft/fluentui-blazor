@@ -99,7 +99,7 @@ public class FluentInputExtensionsTests
             () => parameters.ThrowNullableParameters(component, attributeName));
 
         // Assert
-        Assert.Equal("The 'Id' parameter of 'FluentSelect`2' cannot be null.", ex.Message);
+        Assert.Equal("The 'Id' parameter of 'FluentSelect`2' cannot be null. Omit the parameter to use the component default value, or provide a non-null value.", ex.Message);
     }
 
     [Fact]

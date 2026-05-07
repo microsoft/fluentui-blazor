@@ -58,7 +58,7 @@ internal static class FluentInputExtensions
         {
             if (parameters.TryGetValue(parameterName, out object? value) && value is null)
             {
-                throw new InvalidOperationException($"The '{parameterName}' parameter of '{component.GetType().Name}' cannot be null.");
+                throw new InvalidOperationException($"The '{parameterName}' parameter of '{component.GetType().Name}' cannot be null. Omit the parameter to use the component default value, or provide a non-null value.");
             }
         }
     }
