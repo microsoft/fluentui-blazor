@@ -44,8 +44,8 @@ hidden: true
 
   <!-- V5 -->
   <FluentAvatar Name="Jane">
-		  <FluentPresenceBadge Status="PresenceStatus.Available" Siwe="BadgeSize.Small" slot="FluentSlot.Badge" />
-	</FluentAvatar>
+      <FluentPresenceBadge Status="PresenceStatus.Available" Siwe="BadgeSize.Small" slot="FluentSlot.Badge" />
+  </FluentAvatar>
   ```
 
 - ### New properties
