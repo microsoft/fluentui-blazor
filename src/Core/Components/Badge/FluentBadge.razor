@@ -19,7 +19,14 @@
             <FluentIcon Value="@IconStart" Slot="@(Content is null ? null : FluentSlot.Start)" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
 
         }
+        
         @Content
+        
+        @if (ChildContent is not null)
+        {
+            <span>@ChildContent</span>
+        }
+        
         @if (IconEnd != null)
         {
             <FluentIcon Value="@IconEnd" Slot="@(Content is null ? null : FluentSlot.End)" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />

@@ -83,6 +83,12 @@ public partial class FluentBadge : FluentComponentBase
     public RenderFragment? AnchorContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered inside the badge.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the <see cref="Icon"/> displayed at the start of badge content.
     /// </summary>
     [Parameter]
