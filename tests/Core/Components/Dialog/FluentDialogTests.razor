@@ -45,6 +45,41 @@
     }
 
     [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(DialogAlignment.Start, "start")]
+    [InlineData(DialogAlignment.End, "end")]
+    [InlineData(DialogAlignment.Default, null)]
+    [InlineData(null, null)]
+    public async Task FluentDialog_Alignment(DialogAlignment? alignment, string? expectedPosition)
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Alignment = alignment;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        var dialog = DialogProvider.Find("fluent-dialog");
+
+        if (expectedPosition is null)
+        {
+            Assert.False(dialog.HasAttribute("position"));
+        }
+        else
+        {
+            Assert.Equal(expectedPosition, dialog.GetAttribute("position"));
+        }
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
     [InlineData("position=\"start\"", DialogAlignment.Start)]
     [InlineData("position=\"end\"", DialogAlignment.End)]
     [InlineData("", (DialogAlignment)999)]
