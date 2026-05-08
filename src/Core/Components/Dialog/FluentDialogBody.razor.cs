@@ -79,6 +79,6 @@ public partial class FluentDialogBody : FluentComponentBase
     }
 
     /// <summary />
-    private bool IsDrawer() => FluentDialog.IsDrawer(Instance?.Options.Alignment);
+    private bool IsDrawer() => FluentDialog.IsDrawer(Instance);
 
 }
