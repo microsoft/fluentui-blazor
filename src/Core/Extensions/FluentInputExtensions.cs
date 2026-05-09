@@ -52,6 +52,18 @@ internal static class FluentInputExtensions
     }
 
     /// <summary />
+    internal static void ThrowNullableParameters(this ParameterView parameters, ComponentBase component, params string[] parameterNames)
+    {
+        foreach (var parameterName in parameterNames)
+        {
+            if (parameters.TryGetValue(parameterName, out object? value) && value is null)
+            {
+                throw new InvalidOperationException($"The '{parameterName}' parameter of '{component.GetType().Name}' cannot be null. Omit the parameter to use the component default value, or provide a non-null value.");
+            }
+        }
+    }
+
+    /// <summary />
     private static bool TryConvertToBool<TValue>(string? value, out TValue result)
     {
         if (bool.TryParse(value, out var @bool))
