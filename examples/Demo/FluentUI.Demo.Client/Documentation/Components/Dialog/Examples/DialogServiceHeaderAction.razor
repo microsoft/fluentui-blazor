@@ -23,9 +23,16 @@
 
             options.Header.Title = "Dialog with Header Action";
             options.Header.CloseAction.Visible = true;
+
             options.Header.InfoAction.Visible = true;
-            options.Header.InfoAction.Label = "Info";
-            options.Header.InfoAction.OnClickAsync = async (e) => { await Task.CompletedTask; Console.WriteLine("Info action clicked"); };
+            options.Header.InfoAction.OnClickAsync = async (dialog) => { await Task.CompletedTask; Console.WriteLine("Info action clicked"); };
+            
+            options.Header.AddAction(action =>
+            {
+                action.Icon = new Icons.Regular.Size20.Settings();
+                action.Label = "Settings";
+                action.OnClickAsync = async (dialog) => { await Task.CompletedTask; Console.WriteLine("Settings action clicked"); };
+            });
 
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Name), "John"); // Simple type
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Person), John); // Updatable object

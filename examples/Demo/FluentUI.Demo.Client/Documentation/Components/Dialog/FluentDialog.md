@@ -138,6 +138,22 @@ fluent-dialog-body::part(title) {
 }
 ```
 
+In addition to the built-in **Close** and **Info** actions, you can add your own extra action buttons
+to the header by calling `options.Header.AddAction(...)`. Each call registers a new
+`DialogOptionsHeaderAction` which is rendered before the **Info** and **Close** buttons.
+
+```csharp
+options.Header.AddAction(action =>
+{
+    action.Icon = new Icons.Regular.Size20.Settings();
+    action.Tooltip = "Settings";
+    action.OnClickAsync = async (dialog) => { /* custom logic */ };
+});
+```
+
+> **Note:** Unlike `CloseAction` and `InfoAction`, extra actions have no default icon, so you must
+> assign an `Icon` (or a `Label`) for them to be displayed.
+
 ## Customized
 
 The previous `FluentDialogInstance` object is optional. You can create your own custom dialog box in two different ways.

@@ -9,6 +9,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class DialogOptionsHeader
 {
+    private readonly List<DialogOptionsHeaderAction> _extraActions = [];
+
     /// <summary />
     public DialogOptionsHeader()
     {
@@ -33,9 +35,25 @@ public class DialogOptionsHeader
     /// </summary>
     public DialogOptionsHeaderAction InfoAction { get; } = new(isClosedAction: false);
 
-    /// <summary />
-    internal IEnumerable<DialogOptionsHeaderAction> GetActions() => [InfoAction, CloseAction];
+    /// <summary>
+    /// Adds an extra action button to the dialog header.
+    /// Extra actions are displayed before the <see cref="InfoAction"/> and the <see cref="CloseAction"/>.
+    /// </summary>
+    /// <param name="options">A delegate used to configure the new <see cref="DialogOptionsHeaderAction"/>.</param>
+    /// <returns>The newly created <see cref="DialogOptionsHeaderAction"/>.</returns>
+    public DialogOptionsHeaderAction AddAction(Action<DialogOptionsHeaderAction> options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+
+        var action = new DialogOptionsHeaderAction() { Visible = true };
+        options(action);
+        _extraActions.Add(action);
+        return action;
+    }
 
     /// <summary />
-    internal bool HasActions => CloseAction.ToDisplay || InfoAction.ToDisplay;
+    internal IEnumerable<DialogOptionsHeaderAction> GetActions() => [.. _extraActions, InfoAction, CloseAction];
+
+    /// <summary />
+    internal bool HasActions => CloseAction.ToDisplay || InfoAction.ToDisplay || _extraActions.Any(a => a.ToDisplay);
 }
