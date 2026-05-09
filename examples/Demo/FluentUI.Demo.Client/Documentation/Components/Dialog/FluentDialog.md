@@ -107,6 +107,25 @@ var result = await DialogService.ShowDialogAsync<SimpleDialog>(options =>
 
 ## Actions in the header
 
+You can display action buttons (such as **Close** and **Info**) in the header of the dialog box.
+By default, these actions are **not displayed**. To enable them, set the `Visible` property to `true`
+on the corresponding action via `options.Header.CloseAction` or `options.Header.InfoAction`.
+
+```csharp
+options.Header.CloseAction.Visible = true;
+options.Header.InfoAction.Visible = true;
+```
+
+When the user clicks the **Close** button, the `FluentDialogInstance.OnActionClickedAsync(false)` method
+is called by default (which cancels the dialog). If you need a different behavior, you can override
+`OnActionClickedAsync` in your dialog component, or assign a custom handler directly to the action using
+the `OnClickAsync` property:
+
+```csharp
+options.Header.CloseAction.OnClickAsync = async (e) => { /* custom close logic */ };
+options.Header.InfoAction.OnClickAsync = async (e) => { /* custom info logic */ };
+```
+
 {{ DialogServiceHeaderAction }}
 
 By default, the title and actions are aligned to the top of the header. When the title fits on a single line, 
