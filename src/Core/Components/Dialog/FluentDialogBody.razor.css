@@ -99,6 +99,12 @@ fluent-drawer[fuib] fluent-drawer-body[fuib][scrollable]>div[slot="footer"] {
   width: 100%;
 }
 
+/* Header Action Icon Button */
+fluent-dialog-body[fuib]>div[slot="title-action"] fluent-button[icon-only]>svg,
+fluent-dialog-body[fuib]>div[slot="close"] fluent-button[icon-only]>svg {
+  min-width: 20px;
+}
+
 /* Mobile */
 @container (max-width: 479px) {
   fluent-dialog-body[fuib]>div[slot="action"] {

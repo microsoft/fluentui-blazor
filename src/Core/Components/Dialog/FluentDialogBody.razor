@@ -32,23 +32,12 @@
                 {
                     if (action.ToDisplay)
                     {
-                        if (string.IsNullOrEmpty(action.Label))
-                        {
-                            <FluentButton OnClick="@(async e => await ActionClickHandlerAsync(action))"
-                                          IconStart="@action.Icon"
-                                          IconOnly="true"
-                                          Tooltip="@action.Tooltip"
-                                          Appearance="ButtonAppearance.Transparent" />
-                        }
-                        else
-                        {
-                            <FluentButton OnClick="@(async e => await ActionClickHandlerAsync(action))"
-                                          IconStart="@action.Icon"
-                                          Tooltip="@action.Tooltip"
-                                          Appearance="ButtonAppearance.Transparent">
-                                @action.Label
-                            </FluentButton>
-                        }
+                        <FluentButton OnClick="@(async e => await ActionClickHandlerAsync(action))"
+                                      IconStart="@action.Icon"
+                                      IconOnly="@(action.Icon != null && string.IsNullOrEmpty(action.Label))"
+                                      Tooltip="@action.Tooltip"
+                                      ChildContent="@(builder => builder.AddContent(0, action.Label))"
+                                      Appearance="ButtonAppearance.Transparent" />
                     }
                 }
             }
