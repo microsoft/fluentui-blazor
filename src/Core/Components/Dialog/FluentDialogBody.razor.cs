@@ -79,6 +79,24 @@ public partial class FluentDialogBody : FluentComponentBase
     }
 
     /// <summary />
+    internal async Task ActionClickHandlerAsync(DialogOptionsHeaderAction item)
+    {
+        if (!item.Visible || Instance is null)
+        {
+            return;
+        }
+
+        if (item.OnClickAsync is not null)
+        {
+            await item.OnClickAsync(Instance);
+        }
+        else if (item.IsClosedAction)
+        {
+            await Instance.CloseAsync(DialogResult.Cancel());
+        }
+    }
+
+    /// <summary />
     private bool IsDrawer() => FluentDialog.IsDrawer(Instance);
 
 }

@@ -103,7 +103,21 @@ var result = await DialogService.ShowDialogAsync<SimpleDialog>(options =>
 {
     options.Modal = true;
 });
-```` 
+```
+
+## Actions in the header
+
+{{ DialogServiceHeaderAction }}
+
+By default, the title and actions are aligned to the top of the header. When the title fits on a single line, 
+this can leave a small visible gap between the two. To vertically center the title and the actions 
+within the header, apply the following global style:
+
+```css
+fluent-dialog-body::part(title) {
+  align-items: center;
+}
+```
 
 ## Customized
 

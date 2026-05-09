@@ -21,9 +21,38 @@
     }
 
     @* Header Action *@
-    @if (TitleActionTemplate is not null)
+    @if (TitleActionTemplate is not null || Instance?.Options.Header.HasActions == true)
     {
-        <div slot="@(IsDrawer() ? FluentSlot.DialogClose : FluentSlot.DialogTitleAction)">@TitleActionTemplate</div>
+        <div slot="@(IsDrawer() ? FluentSlot.DialogClose : FluentSlot.DialogTitleAction)" style="white-space: nowrap;">
+            @TitleActionTemplate
+
+            @if(Instance is not null)
+            {
+                foreach (var action in Instance.Options.Header.GetActions())
+                {
+                    if (action.ToDisplay)
+                    {
+                        if (string.IsNullOrEmpty(action.Label))
+                        {
+                            <FluentButton OnClick="@(async e => await ActionClickHandlerAsync(action))"
+                                          IconStart="@action.Icon"
+                                          IconOnly="true"
+                                          Tooltip="@action.Tooltip"
+                                          Appearance="ButtonAppearance.Transparent" />
+                        }
+                        else
+                        {
+                            <FluentButton OnClick="@(async e => await ActionClickHandlerAsync(action))"
+                                          IconStart="@action.Icon"
+                                          Tooltip="@action.Tooltip"
+                                          Appearance="ButtonAppearance.Transparent">
+                                @action.Label
+                            </FluentButton>
+                        }
+                    }
+                }
+            }
+        </div>
     }
 
     @* Content *@
