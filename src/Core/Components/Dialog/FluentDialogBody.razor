@@ -23,7 +23,7 @@
     @* Header Action *@
     @if (TitleActionTemplate is not null || Instance?.Options.Header.HasActions == true)
     {
-        <div slot="@(IsDrawer() ? FluentSlot.DialogClose : FluentSlot.DialogTitleAction)" style="white-space: nowrap;">
+        <div slot="@(IsDrawer() ? FluentSlot.DialogClose : FluentSlot.DialogTitleAction)">
             @TitleActionTemplate
 
             @if(Instance is not null)

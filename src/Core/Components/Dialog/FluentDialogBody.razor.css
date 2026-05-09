@@ -100,6 +100,11 @@ fluent-drawer[fuib] fluent-drawer-body[fuib][scrollable]>div[slot="footer"] {
 }
 
 /* Header Action Icon Button */
+fluent-dialog-body[fuib]>div[slot="title-action"],
+fluent-dialog-body[fuib]>div[slot="close"] {
+    white-space: nowrap;
+}
+
 fluent-dialog-body[fuib]>div[slot="title-action"] fluent-button[icon-only]>svg,
 fluent-dialog-body[fuib]>div[slot="close"] fluent-button[icon-only]>svg {
   min-width: 20px;
