@@ -1,14 +1,23 @@
 ﻿@inject IDialogService DialogService
 
-<div style="margin-bottom: 12px;">
-    <FluentLabel>Is Modal</FluentLabel>
-    <InputCheckbox @bind-Value="@IsModal" />
+<FluentStack HorizontalGap="24px"
+             Wrap="true">
+    
+    <FluentSwitch @bind-Value="@IsModal"
+                  Label="Is Modal"
+                  LabelPosition="LabelPosition.Above" />
 
-    <FluentLabel>Size</FluentLabel>
-    <FluentSelect Items="@AllSizes" @bind-Value="@Size" />
-</div>
+    <FluentSelect Items="@AllSizes"
+                  Label="Size"
+                  @bind-Value="@Size" />
 
-<FluentButton OnClick="@OpenDialogAsync" Appearance="ButtonAppearance.Primary">Open Dialog</FluentButton>
+    <FluentSelect Items="@AllAlignments"
+                  Label="Alignment"
+                  @bind-Value="@Alignment" />
+</FluentStack>
+
+<FluentButton OnClick="@OpenDialogAsync"
+              Appearance="ButtonAppearance.Primary">Open Dialog</FluentButton>
 
 <hr />
 <div>
@@ -19,6 +28,7 @@
 {
     private bool IsModal = true;
     private DialogSize? Size;
+    private DialogAlignment? Alignment;
     private Dialog.PersonDetails John = new() { Age = "20" };
 
     private async Task OpenDialogAsync()
@@ -27,9 +37,10 @@
         {
             options.Modal = IsModal;
             options.Size = Size;
+            options.Alignment = Alignment;
 
-            options.Parameters.Add(nameof(Dialog.SimpleDialog.Name), "John");  // Simple type
-            options.Parameters.Add(nameof(Dialog.SimpleDialog.Person), John);  // Updatable object
+            options.Parameters.Add(nameof(Dialog.SimpleDialog.Name), "John"); // Simple type
+            options.Parameters.Add(nameof(Dialog.SimpleDialog.Person), John); // Updatable object
 
             options.OnStateChange = (e) =>
             {
@@ -49,4 +60,7 @@
 
     private IEnumerable<DialogSize?> AllSizes
         => Enum.GetValues(typeof(DialogSize)).Cast<DialogSize?>().Prepend(null);
+
+    private IEnumerable<DialogAlignment?> AllAlignments
+        => Enum.GetValues(typeof(DialogAlignment)).Cast<DialogAlignment?>().Prepend(null);
 }
