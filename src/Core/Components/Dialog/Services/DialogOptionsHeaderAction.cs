@@ -53,6 +53,11 @@ public class DialogOptionsHeaderAction
     public string? Tooltip { get; set; }
 
     /// <summary>
+    /// Gets or sets the title of the action button.
+    /// </summary>
+    public string? Title { get; set; }
+
+    /// <summary>
     /// Gets or sets whether the action button is visible.
     /// </summary>
     public bool Visible { get; set; }

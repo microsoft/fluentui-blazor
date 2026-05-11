@@ -80,12 +80,14 @@ public class DialogOptionsHeaderTests
         {
             a.Label = "Help";
             a.Tooltip = "Get some help";
+            a.Title = "Help";
         });
 
         // Assert
         Assert.NotNull(action);
         Assert.Equal("Help", action.Label);
         Assert.Equal("Get some help", action.Tooltip);
+        Assert.Equal("Help", action.Title);
         Assert.True(action.Visible);
         Assert.True(action.ToDisplay);
         Assert.True(header.HasActions);
