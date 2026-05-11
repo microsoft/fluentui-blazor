@@ -42,6 +42,17 @@ fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable]>div[slot="action"] {
   flex-direction: row;
 }
 
+/* Dialog Alignment*/
+fluent-dialog[fuib][position="end"]::part(dialog) {
+  margin-inline: auto 0px;
+  height: 100%;
+}
+
+fluent-dialog[fuib][position="start"]::part(dialog) {
+  margin-inline: 0px auto;
+  height: 100%;
+}
+
 /* Drawer -> scrollable = false */
 fluent-drawer[fuib] fluent-drawer-body[fuib]:not([scrollable]) {
   grid-template-rows: min-content minmax(0, 1fr) min-content;
@@ -91,12 +102,12 @@ fluent-drawer[fuib] fluent-drawer-body[fuib][scrollable]>div[slot="footer"] {
 /* Mobile */
 @container (max-width: 479px) {
   fluent-dialog-body[fuib]>div[slot="action"] {
-    flex-direction: column;
+    flex-direction: column !important;
   }
 }
 
 @media (max-width: 600px) {
   fluent-drawer-body[fuib]>div[slot="footer"] {
-    flex-direction: column;
+    flex-direction: column !important;
   }
 }
