@@ -596,7 +596,8 @@ export class HorizontalBarChartWithAxis extends FASTElement {
     this._renderOriginLine(axisLayer, plotLayout.margins, height, xAxisScale.domain, innerWidth);
 
     this._renderedBars = [];
-    const legendColorMap = new Map<string, string>();
+    const legendColorMap = this._buildLegendColorMap();
+    let globalPointIndex = 0;
     const scaleX = (value: number) => {
       const [min, max] = xAxisScale.domain;
       const safeSpan = max - min || 1;
@@ -615,13 +616,9 @@ export class HorizontalBarChartWithAxis extends FASTElement {
       let positivePointIndex = 0;
       let negativePointIndex = 0;
 
-      group.points.forEach((point, pointIndex) => {
-        const color = this._getPointColor(point, pointIndex);
-        const gradientId = this._appendGradient(defs, groupIndex, pointIndex, point, color);
-
-        if (point.legend && !legendColorMap.has(point.legend)) {
-          legendColorMap.set(point.legend, color);
-        }
+      group.points.forEach((point, _pointIndex) => {
+        const color = this._getPointColor(point, globalPointIndex++, legendColorMap);
+        const gradientId = this._appendGradient(defs, groupIndex, globalPointIndex - 1, point, color);
 
         const startValue = point.x >= 0 ? positiveTotal : negativeTotal;
         const endValue = startValue + point.x;
@@ -687,8 +684,7 @@ export class HorizontalBarChartWithAxis extends FASTElement {
     });
 
     this.legends = Array.from(legendColorMap.entries()).map(([legend, color]) => ({ legend, color }));
-    this.chartContainer.appendChild(svg);
-    this._updateLegendInteractionState();
+    this.chartContainer.appendChild(svg);    this._updateLegendInteractionState();
   }
 
   private _clearChart() {
@@ -943,7 +939,20 @@ export class HorizontalBarChartWithAxis extends FASTElement {
     );
   }
 
-  private _getPointColor(point: HorizontalBarChartWithAxisDataPoint, index: number) {
+  private _buildLegendColorMap(): Map<string, string> {
+    const map = new Map<string, string>();
+    let index = 0;
+    this.data.forEach(point => {
+      const legend = point.legend;
+      if (legend && !map.has(legend)) {
+        map.set(legend, point.color ? getColorFromToken(point.color) : getNextColor(index, 0));
+        index++;
+      }
+    });
+    return map;
+  }
+
+  private _getPointColor(point: HorizontalBarChartWithAxisDataPoint, index: number, legendColorMap?: Map<string, string>) {
     if (this.useSingleColor) {
       const singleColorPoint = this.data.find(
         candidate => typeof candidate.color === 'string' && candidate.color.length > 0,
@@ -953,6 +962,10 @@ export class HorizontalBarChartWithAxis extends FASTElement {
 
     if (point.color) {
       return getColorFromToken(point.color);
+    }
+
+    if (point.legend && legendColorMap?.has(point.legend)) {
+      return legendColorMap.get(point.legend)!;
     }
 
     return getNextColor(index, 0);
