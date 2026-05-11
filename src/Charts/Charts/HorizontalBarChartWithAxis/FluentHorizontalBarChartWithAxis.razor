@@ -1,4 +1,5 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
 <fluent-horizontal-bar-chart-with-axis id="@Id"
@@ -12,12 +13,21 @@
                                        hide-labels="@(HideLabels ? "true" : null)"
                                        hide-legends="@(HideLegends ? "true" : null)"
                                        legend-list-label="@LegendListLabel"
-                                       show-y-axis-labels="false"
-                                       show-y-axis-labels-tooltip="false"
+                                       show-y-axis-labels="@(ShowYAxisLabels ? "true" : null)"
+                                       show-y-axis-labels-tooltip="@(ShowYAxisLabelsTooltip ? "true" : null)"
                                        use-single-color="@(UseSingleColor ? "true" : null)"
                                        enable-gradient="@(EnableGradient ? "true" : null)"
                                        round-corners="@(RoundedCorners ? "true" : null)"
                                        allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
-                                       y-axis-category-order="default"
+                                       y-axis-category-order="@YAxisCategoryOrder.ToAttributeValue()"
+                                       bar-height="@BarHeight"
+                                       x-axis-tick-count="@XAxisTickCount"
+                                       y-axis-tick-count="@YAxisTickCount"
+                                       y-axis-padding="@YAxisPadding"
+                                       x-min-value="@XMinValue"
+                                       x-max-value="@XMaxValue"
+                                       y-min-value="@YMinValue"
+                                       y-max-value="@YMaxValue"
+                                       culture="@Culture.Name"
                                        @attributes="@AdditionalAttributes">
 </fluent-horizontal-bar-chart-with-axis>
