@@ -81,6 +81,13 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     public string? Tooltip { get; set; }
 
     /// <summary>
+    /// The content to be rendered inside the checkbox component.
+    /// This is similar to set the <c>Label</c> or <c>LabelTemplate</c> parameter.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// Handler for the OnFocus event.
     /// </summary>
     /// <param name="e"></param>

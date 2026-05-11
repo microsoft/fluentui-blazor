@@ -192,4 +192,43 @@
         // Assert
         Assert.Equal(expectedValue, value);
     }
+
+    [Fact]
+    public void FluentCheckbox_Label_ChildContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentCheckbox>Content</FluentCheckbox>);
+
+        // Act
+        var label = cut.Find("label").TextContent.Replace("\n", "").Replace("\r", "").Replace(" ", "");
+
+        // Assert
+        Assert.Equal("Content", label);
+    }
+
+    [Fact]
+    public void FluentCheckbox_Label_LabelAndChildContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentCheckbox Label="Label">Content</FluentCheckbox>);
+
+        // Act
+        var label = cut.Find("label").TextContent.Replace("\n", "").Replace("\r", "").Replace(" ", "");
+
+        // Assert
+        Assert.Equal("LabelContent", label);
+    }
+
+     [Fact]
+    public void FluentCheckbox_Label_LabelTemplateAndChildContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentCheckbox><LabelTemplate>LabelTemplate</LabelTemplate><ChildContent>Content</ChildContent></FluentCheckbox>);
+
+        // Act
+        var label = cut.Find("label").TextContent.Replace("\n", "").Replace("\r", "").Replace(" ", "");
+
+        // Assert
+        Assert.Equal("LabelTemplateContent", label);
+    }
 }
