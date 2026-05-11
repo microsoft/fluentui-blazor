@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Options for configuring a dialog footer action button.
+/// Options for configuring a dialog header action button.
 /// </summary>
 public class DialogOptionsHeaderAction
 {
