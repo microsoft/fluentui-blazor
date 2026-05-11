@@ -30,6 +30,13 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
     [Parameter]
     public string? Tooltip { get; set; }
 
+    /// <summary>
+    /// The content to be rendered inside the switch component.
+    /// This is similar to set the <c>Label</c> or <c>LabelTemplate</c> parameter.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
