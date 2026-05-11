@@ -1,0 +1,23 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentCheckbox @bind-Value="@_allowMultiple" Label="Allow multiple legend selection" />
+
+<FluentDonutChart ChartData="@_data"
+                  ChartTitle="Donut chart multiple legend selection example"
+                  InnerRadius="55"
+                  AllowMultipleLegendSelection="@_allowMultiple" />
+
+@code {
+    private bool _allowMultiple = true;
+
+    private DonutChartData _data = new()
+    {
+        ChartTitle = "Donut chart multiple legend selection example",
+        ChartData =
+        [
+            new DonutChartDataPoint { Legend = "small",  Data = 5000  },
+            new DonutChartDataPoint { Legend = "large",  Data = 39000 },
+            new DonutChartDataPoint { Legend = "medium", Data = 15000 },
+        ]
+    };
+}

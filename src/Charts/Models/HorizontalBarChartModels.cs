@@ -29,6 +29,7 @@ public sealed record HorizontalBarChartDataPoint
     /// Gets the optional total bar length used for ratio-style rendering.
     /// </summary>
     [JsonPropertyName("total")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public double? Total { get; init; }
 
     /// <summary>

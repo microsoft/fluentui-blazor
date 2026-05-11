@@ -1,0 +1,34 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 16px;">
+    <div style="min-width: 260px; flex: 1 1 260px;">
+        <FluentSlider Label="@($"X-axis tick count ({_xTicks})")"
+                      Min="2" Max="12"
+                      @bind-Value="@_xTicks" />
+    </div>
+    <div style="min-width: 260px; flex: 1 1 260px;">
+        <FluentSlider Label="@($"Y-axis tick count ({_yTicks})")"
+                      Min="2" Max="12"
+                      @bind-Value="@_yTicks" />
+    </div>
+</div>
+
+<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px"
+                                  ChartTitle="Axis tick count control"
+                                  XAxisTickCount="@_xTicks"
+                                  YAxisTickCount="@_yTicks"
+                                  ChartData="@ChartData">
+</FluentHorizontalBarChartWithAxis>
+
+@code {
+    private int _xTicks = 5;
+    private int _yTicks = 4;
+
+    private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
+    [
+        new HorizontalBarChartWithAxisDataPoint { X = 10000, Y = "5000",  Legend = "Oranges", Color = "#637cef", XAxisCalloutData = "10K", YAxisCalloutData = "5K"  },
+        new HorizontalBarChartWithAxisDataPoint { X = 20000, Y = "50000", Legend = "Dogs",    Color = "#e3008c", XAxisCalloutData = "20K", YAxisCalloutData = "50K" },
+        new HorizontalBarChartWithAxisDataPoint { X = 25000, Y = "30000", Legend = "Apples",  Color = "#2aa0a4", XAxisCalloutData = "25K", YAxisCalloutData = "30K" },
+        new HorizontalBarChartWithAxisDataPoint { X = 40000, Y = "13000", Legend = "Bananas", Color = "#9373c0", XAxisCalloutData = "40K", YAxisCalloutData = "13K" },
+    ];
+}

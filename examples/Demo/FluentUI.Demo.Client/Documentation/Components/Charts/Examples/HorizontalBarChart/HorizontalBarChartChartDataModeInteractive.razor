@@ -1,0 +1,35 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin-top: 16px; max-width: 220px;">
+    <FluentSelect TOption="string"
+                  TValue="string"
+                  Label="Chart data mode"
+                  @bind-Value="@_chartDataMode">
+        <FluentOptionString Value="@("default")">default</FluentOptionString>
+        <FluentOptionString Value="@("fraction")">fraction</FluentOptionString>
+        <FluentOptionString Value="@("percentage")">percentage</FluentOptionString>
+    </FluentSelect>
+</div>
+
+<FluentHorizontalBarChart Style="width: 100%"
+                          ChartTitle="Horizontal bar chart data mode example"
+                          Variant="@Microsoft.FluentUI.AspNetCore.Components.Enums.HorizontalBarChartVariant.SingleBar"
+                          ChartDataMode="@_chartDataMode"
+                          ChartData="@ChartData">
+</FluentHorizontalBarChart>
+
+@code {
+    private string? _chartDataMode = "default";
+
+    private IReadOnlyList<HorizontalBarChartSeries> ChartData =
+    [
+        new HorizontalBarChartSeries { ChartSeriesTitle = "one",   ChartData = [ new HorizontalBarChartDataPoint { Legend = "one",   Data = 1543,  Total = 15000, Color = "#637cef" } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "two",   ChartData = [ new HorizontalBarChartDataPoint { Legend = "two",   Data = 800,   Total = 15000, Color = "#e3008c" } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "three", ChartData = [ new HorizontalBarChartDataPoint { Legend = "three", Data = 8888,  Total = 15000, Color = "#2aa0a4" } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "four",  ChartData = [ new HorizontalBarChartDataPoint { Legend = "four",  Data = 15888, Total = 15000, Color = "#9373c0" } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "five",  ChartData = [ new HorizontalBarChartDataPoint { Legend = "five",  Data = 11444, Total = 15000, Color = "#13a10e" } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "six",   ChartData = [ new HorizontalBarChartDataPoint { Legend = "six",   Data = 14000, Total = 15000, Color = "#3a96dd" } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "seven", ChartData = [ new HorizontalBarChartDataPoint { Legend = "seven", Data = 9855,  Total = 15000, Color = "#ca5010" } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "eight", ChartData = [ new HorizontalBarChartDataPoint { Legend = "eight", Data = 4250,  Total = 15000, Color = "#57811b" } ] },
+    ];
+}

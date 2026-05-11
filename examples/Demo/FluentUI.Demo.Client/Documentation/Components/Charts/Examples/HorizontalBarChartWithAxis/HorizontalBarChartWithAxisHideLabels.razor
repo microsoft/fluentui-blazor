@@ -1,0 +1,17 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentHorizontalBarChartWithAxis Style="width: 800px"
+                                  ChartTitle="Revenue by category (labels hidden)"
+                                  HideLabels="true"
+                                  ChartData="@ChartData">
+</FluentHorizontalBarChartWithAxis>
+
+@code {
+    private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
+    [
+        new HorizontalBarChartWithAxisDataPoint { Y = "String One",   X = 1000,  Legend = "Oranges", Color = "#637cef", XAxisCalloutData = "1K",  YAxisCalloutData = "String One"   },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Two",   X = 5000,  Legend = "Grapes",  Color = "#e3008c", XAxisCalloutData = "5K",  YAxisCalloutData = "String Two"   },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Three", X = 3000,  Legend = "Apples",  Color = "#2aa0a4", XAxisCalloutData = "3K",  YAxisCalloutData = "String Three" },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Four",  X = 2000,  Legend = "Bananas", Color = "#9373c0", XAxisCalloutData = "2K",  YAxisCalloutData = "String Four"  },
+    ];
+}

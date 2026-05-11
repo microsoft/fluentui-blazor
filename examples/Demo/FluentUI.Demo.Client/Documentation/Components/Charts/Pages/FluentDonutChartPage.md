@@ -40,31 +40,81 @@ Donut charts are used to show proportion, which expresses a partial value in com
 
 ### Basic example
 
+The default example renders a donut chart with color-coded segments, a center label, and a legend showing each category's data value.
+
 {{ DonutChartDefault }}
 
 ### With labels as percentages
 
 > [!NOTE] There is no value shown in the center of the Donut Chart because the 'ValueInsideDonut' property is not set.
 
+Setting `ShowLabelsInPercent` displays each segment's label as a percentage of the total rather than as a raw numeric value.
+
 {{ DonutChartShowLabelsInPercent }}
 
 ### Hide labels
+
+Setting `HideLabels` suppresses the callout labels around the chart segments, leaving only the legend to identify each slice.
 
 {{ DonutChartHideLabels }}
 
 ### Without legends
 
+Setting `HideLegends` removes the legend list below the chart, useful when the segment colors and callout labels provide sufficient identification.
+
 {{ DonutChartHideLegends }}
 
 ### Rounded corners
+
+Enabling `RoundedCorners` applies a small border-radius to each segment arc, giving the chart a softer, more modern appearance.
 
 {{ DonutChartRoundedCorners }}
 
 ### With custom sizing
 
+Use the sliders to adjust the chart's `Width`, `Height`, and `InnerRadius` at runtime, demonstrating how the donut ring scales with the available space.
+
 {{ DonutChartSizing }}
 
-### RTL Donut Chart
+### Outside labels
+
+Enabling `ShowOutsideLabels` moves each segment's label outside the ring, avoiding overlap for charts with many small segments.
+
+{{ DonutChartOutsideLabels }}
+
+### Hide tooltip
+
+Setting `HideTooltip` disables the hover callout so that mousing over a segment no longer shows a data tooltip.
+
+{{ DonutChartHideTooltip }}
+
+### Legend list label
+
+The `LegendListLabel` property sets an accessible heading for the legend list, useful when the chart is embedded in a larger page that requires descriptive landmark text.
+
+{{ DonutChartLegendListLabel }}
+
+### Culture
+
+Setting the `Culture` property to a specific locale (here `de-DE`) formats all numeric values in labels and tooltips according to that culture's conventions.
+
+{{ DonutChartCulture }}
+
+### Multiple legend selection
+
+When `AllowMultipleLegendSelection` is enabled, clicking a legend item highlights only the corresponding segment; multiple legend items can be selected at the same time.
+
+{{ DonutChartMultipleLegendSelection }}
+
+### Value inside donut
+
+The `ValueInsideDonut` property sets the text displayed in the center of the ring; use the text input to change the value and see the chart update in real time.
+
+{{ DonutChartValueInsideDonut }}
+
+### RTL
+
+Demonstrates the right-to-left layout mode, where segment labels and the legend are mirrored for RTL language support.
 
 {{ DonutChartDefaultRTL }}
 

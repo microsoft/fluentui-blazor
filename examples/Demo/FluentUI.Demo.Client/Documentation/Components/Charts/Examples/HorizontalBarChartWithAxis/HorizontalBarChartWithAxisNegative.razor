@@ -1,0 +1,56 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px"
+                                  ChartTitle="Horizontal bar chart with negative axis values"
+                                  HideLegends="true"
+                                  ShowYAxisLabelsTooltip="true"
+                                  ChartData="@ChartData">
+</FluentHorizontalBarChartWithAxis>
+
+@code {
+    private static readonly string[] Categories = ["A", "B", "C", "D", "E"];
+
+    private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
+    [
+        new HorizontalBarChartWithAxisDataPoint { X =  10, Y = "A", Legend = "Series 1", Color = "#637cef", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  20, Y = "B", Legend = "Series 1", Color = "#637cef", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  30, Y = "C", Legend = "Series 1", Color = "#637cef", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  40, Y = "D", Legend = "Series 1", Color = "#637cef", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  50, Y = "E", Legend = "Series 1", Color = "#637cef", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -10, Y = "A", Legend = "Series 1", Color = "#637cef", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -20, Y = "B", Legend = "Series 1", Color = "#637cef", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -30, Y = "C", Legend = "Series 1", Color = "#637cef", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -40, Y = "D", Legend = "Series 1", Color = "#637cef", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -50, Y = "E", Legend = "Series 1", Color = "#637cef", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  20, Y = "A", Legend = "Series 2", Color = "#e3008c", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  30, Y = "B", Legend = "Series 2", Color = "#e3008c", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  40, Y = "C", Legend = "Series 2", Color = "#e3008c", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  50, Y = "D", Legend = "Series 2", Color = "#e3008c", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  60, Y = "E", Legend = "Series 2", Color = "#e3008c", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -20, Y = "A", Legend = "Series 2", Color = "#e3008c", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -30, Y = "B", Legend = "Series 2", Color = "#e3008c", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -40, Y = "C", Legend = "Series 2", Color = "#e3008c", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -50, Y = "D", Legend = "Series 2", Color = "#e3008c", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -60, Y = "E", Legend = "Series 2", Color = "#e3008c", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  30, Y = "A", Legend = "Series 3", Color = "#2aa0a4", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  40, Y = "B", Legend = "Series 3", Color = "#2aa0a4", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  50, Y = "C", Legend = "Series 3", Color = "#2aa0a4", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  60, Y = "D", Legend = "Series 3", Color = "#2aa0a4", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  70, Y = "E", Legend = "Series 3", Color = "#2aa0a4", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -30, Y = "A", Legend = "Series 3", Color = "#2aa0a4", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -40, Y = "B", Legend = "Series 3", Color = "#2aa0a4", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -50, Y = "C", Legend = "Series 3", Color = "#2aa0a4", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -60, Y = "D", Legend = "Series 3", Color = "#2aa0a4", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -70, Y = "E", Legend = "Series 3", Color = "#2aa0a4", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  40, Y = "A", Legend = "Series 4", Color = "#9373c0", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  50, Y = "B", Legend = "Series 4", Color = "#9373c0", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  60, Y = "C", Legend = "Series 4", Color = "#9373c0", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  70, Y = "D", Legend = "Series 4", Color = "#9373c0", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X =  80, Y = "E", Legend = "Series 4", Color = "#9373c0", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -40, Y = "A", Legend = "Series 4", Color = "#9373c0", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -50, Y = "B", Legend = "Series 4", Color = "#9373c0", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -60, Y = "C", Legend = "Series 4", Color = "#9373c0", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -70, Y = "D", Legend = "Series 4", Color = "#9373c0", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+        new HorizontalBarChartWithAxisDataPoint { X = -80, Y = "E", Legend = "Series 4", Color = "#9373c0", YAxisCalloutData = "2020/04/30", XAxisCalloutData = "10%" },
+    ];
+}

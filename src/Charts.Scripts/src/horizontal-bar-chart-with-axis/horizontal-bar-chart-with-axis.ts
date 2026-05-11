@@ -684,7 +684,8 @@ export class HorizontalBarChartWithAxis extends FASTElement {
     });
 
     this.legends = Array.from(legendColorMap.entries()).map(([legend, color]) => ({ legend, color }));
-    this.chartContainer.appendChild(svg);    this._updateLegendInteractionState();
+    this.chartContainer.appendChild(svg);    
+    this._updateLegendInteractionState();
   }
 
   private _clearChart() {

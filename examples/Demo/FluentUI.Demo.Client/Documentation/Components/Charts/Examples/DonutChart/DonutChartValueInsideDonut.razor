@@ -1,0 +1,25 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="max-width: 220px;">
+    <FluentTextInput Label="Value inside donut" @bind-Value="@_value" />
+</div>
+
+<FluentDonutChart ChartData="@_data"
+                  ChartTitle="Donut chart value inside donut example"
+                  InnerRadius="55"
+                  ValueInsideDonut="@_value" />
+
+@code {
+    private string? _value = "39,000";
+
+    private DonutChartData _data = new()
+    {
+        ChartTitle = "Donut chart value inside donut example",
+        ChartData =
+        [
+            new DonutChartDataPoint { Legend = "small",  Data = 5000  },
+            new DonutChartDataPoint { Legend = "large",  Data = 39000 },
+            new DonutChartDataPoint { Legend = "medium", Data = 15000 },
+        ]
+    };
+}

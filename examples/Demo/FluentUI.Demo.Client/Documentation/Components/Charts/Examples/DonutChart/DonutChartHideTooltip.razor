@@ -1,0 +1,23 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentCheckbox @bind-Value="@_hideTooltip" Label="Hide tooltip" />
+
+<FluentDonutChart ChartData="@_data"
+                  ChartTitle="Donut chart hide tooltip example"
+                  ValueInsideDonut="39000"
+                  InnerRadius="55"
+                  HideTooltip="@_hideTooltip" />
+
+@code {
+    private bool _hideTooltip = true;
+
+    private DonutChartData _data = new()
+    {
+        ChartTitle = "Donut chart hide tooltip example",
+        ChartData =
+        [
+            new DonutChartDataPoint { Legend = "first",  Data = 20000 },
+            new DonutChartDataPoint { Legend = "second", Data = 39000 },
+        ]
+    };
+}

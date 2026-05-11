@@ -1,0 +1,26 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin-top: 16px; max-width: 300px;">
+    <FluentSlider Label="@($"Y-axis padding ({(_paddingTenths / 10.0):F1})")"
+                  Min="0" Max="9"
+                  @bind-Value="@_paddingTenths" />
+</div>
+
+<FluentHorizontalBarChartWithAxis Style="width: 800px; height: 400px"
+                                  ChartTitle="Y-axis padding control"
+                                  YAxisPadding="@_padding"
+                                  ChartData="@ChartData">
+</FluentHorizontalBarChartWithAxis>
+
+@code {
+    private int _paddingTenths = 5;
+    private double _padding => _paddingTenths / 10.0;
+
+    private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
+    [
+        new HorizontalBarChartWithAxisDataPoint { Y = "String One",   X = 1000,  Legend = "Oranges", Color = "#637cef", XAxisCalloutData = "1K",  YAxisCalloutData = "String One"   },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Two",   X = 5000,  Legend = "Grapes",  Color = "#e3008c", XAxisCalloutData = "5K",  YAxisCalloutData = "String Two"   },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Three", X = 3000,  Legend = "Apples",  Color = "#2aa0a4", XAxisCalloutData = "3K",  YAxisCalloutData = "String Three" },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Four",  X = 2000,  Legend = "Bananas", Color = "#9373c0", XAxisCalloutData = "2K",  YAxisCalloutData = "String Four"  },
+    ];
+}

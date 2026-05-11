@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Enums;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -74,6 +75,42 @@ public partial class FluentHorizontalBarChart : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? ChartTitle { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether bar labels are hidden.
+    /// </summary>
+    [Parameter]
+    public bool HideLabels { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether bars are rendered with rounded corners.
+    /// </summary>
+    [Parameter]
+    public bool RoundedCorners { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether a gradient fill is applied to the bars.
+    /// </summary>
+    [Parameter]
+    public bool EnableGradient { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether multiple legend items can be selected simultaneously.
+    /// </summary>
+    [Parameter]
+    public bool AllowMultipleLegendSelection { get; set; }
+
+    /// <summary>
+    /// Gets or sets the culture used for number and date formatting in the chart.
+    /// </summary>
+    [Parameter]
+    public CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
+
+    /// <summary>
+    /// Gets or sets the chart data mode. Accepted values are <c>"default"</c>, <c>"fraction"</c>, and <c>"percentage"</c>.
+    /// </summary>
+    [Parameter]
+    public string? ChartDataMode { get; set; }
 
     /// <summary>
     /// Gets a value indicating whether the component has data that can be rendered safely.

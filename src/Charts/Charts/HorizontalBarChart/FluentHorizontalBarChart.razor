@@ -8,9 +8,15 @@
                              data="@ChartJson.Serialize(ChartData!)"
                              variant="@(Variant is null ? null : Variant.Value.ToAttributeValue())"
                              hide-ratio="@(HideRatio ? "true" : null)"
+                             hide-labels="@(HideLabels ? "true" : null)"
                              hide-legends="@(HideLegends ? "true" : null)"
                              hide-tooltip="@(HideTooltip ? "true" : null)"
+                             round-corners="@(RoundedCorners ? "true" : null)"
+                             enable-gradient="@(EnableGradient ? "true" : null)"
+                             allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
                              legend-list-label="@LegendListLabel"
                              chart-title="@ChartTitle"
+                             chart-data-mode="@ChartDataMode"
+                             culture="@Culture.Name"
                              @attributes="@AdditionalAttributes">
 </fluent-horizontal-bar-chart>
