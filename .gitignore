@@ -420,6 +420,7 @@ Microsoft.FluentUI.AspNetCore.Components.Charts.xml
 /examples/Demo/FluentUI.Demo.Client/wwwroot/sources/
 /examples/Demo/FluentUI.Demo.Client/wwwroot/documentation/
 api-comments.json
+chart-comments.json
 mcp-documentation.json
 all-icons.json
 all-emojis.json
@@ -427,4 +428,3 @@ all-emojis.json
 /src/Core.Scripts/src/BuildConstants.ts
 /src/Core.Scripts/obj/
 /.playwright-mcp
-/examples/Demo/FluentUI.Demo.Client/wwwroot/chart-comments.json
