@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentBadge
 <AddTag Name="fluent-counter-badge-container" TagWhen="@(() => _isAttached && _render)" style="@_containerStyle">
-	@ChildContent
+	@AnchorContent
 	@if (_render)
 	{
 		<fluent-counter-badge id="@Id"
@@ -23,6 +23,13 @@
 			{
 				<FluentIcon Value="@IconStart" Slot="@FluentSlot.Start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
 			}
+
+
+			@if (ChildContent is not null || !string.IsNullOrEmpty(Content))
+			{
+				<span>@Content @ChildContent</span>
+			}
+			
 			@if (IconEnd != null)
 			{
 				<FluentIcon Value="@IconEnd" Slot="@FluentSlot.End" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
