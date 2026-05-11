@@ -18,5 +18,3 @@ Currently, the following chart types are available:
 ## API Fluent Chart Base
 
 All charts in the Fluent UI Charts package inherit from the `FluentChartBase` component, which provides common parameters for all chart types.
-
-{{ API Type="FluentChartBase" }}
