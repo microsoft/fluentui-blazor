@@ -6,9 +6,6 @@
 /* Dialog -> scrollable = false */
 fluent-dialog[fuib] fluent-dialog-body[fuib]:not([scrollable]) {
   grid-template-rows: auto minmax(0, 1fr) auto;
-  height: 100%;
-  height: -webkit-fill-available; /* Safari */
-  min-height: 100%;
 }
 
 fluent-dialog[fuib] fluent-dialog-body[fuib]:not([scrollable])>div[slot="action"] {
@@ -22,9 +19,6 @@ fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable] {
   grid-template-rows: min-content minmax(0, 1fr) min-content;
   padding: 0;
   overflow: hidden;
-  height: 100%;
-  height: -webkit-fill-available; /* Safari */
-  min-height: 100%;
 }
 
 fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable]::part(title) {
@@ -47,16 +41,22 @@ fluent-dialog[fuib] fluent-dialog-body[fuib][scrollable]>div[slot="action"] {
 }
 
 /* Dialog Alignment*/
+fluent-dialog[fuib][position="end"] fluent-dialog-body,
+fluent-dialog[fuib][position="start"] fluent-dialog-body {
+  height: 100dvh;
+  max-height: 100dvh;
+}
+
 fluent-dialog[fuib][position="end"]::part(dialog) {
   margin-inline: auto 0px;
-  height: 100vh;
-  max-height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
 }
 
 fluent-dialog[fuib][position="start"]::part(dialog) {
   margin-inline: 0px auto;
-  height: 100vh;
-  max-height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
 }
 
 /* Drawer -> scrollable = false */
