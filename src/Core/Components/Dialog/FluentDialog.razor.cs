@@ -233,21 +233,15 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     private string? GetAlignmentAttribute()
     {
-        // Alignment is only used when the dialog is a drawer (panel).
-        if (IsDrawer())
+        // Get the alignment from the DialogService (if used) or the Alignment property.
+        var alignment = Instance?.Options.Alignment ?? Alignment;
+
+        return alignment switch
         {
-            // Get the alignment from the DialogService (if used) or the Alignment property.
-            var alignment = Instance?.Options.Alignment ?? Alignment;
-
-            return alignment switch
-            {
-                DialogAlignment.Start => FluentSlot.Start,
-                DialogAlignment.End => FluentSlot.End,
-                _ => null
-            };
-        }
-
-        return null;
+            DialogAlignment.Start => FluentSlot.Start,
+            DialogAlignment.End => FluentSlot.End,
+            _ => null
+        };
     }
 
     /// <summary />
@@ -279,7 +273,7 @@ public partial class FluentDialog : FluentComponentBase
     }
 
     /// <summary />
-    private bool IsDrawer() => IsDrawer(Instance?.Options.Alignment ?? Alignment);
+    private bool IsDrawer() => IsDrawer(Instance, this);
 
     /// <summary />
     private bool IsDialog() => !IsDrawer();
@@ -298,7 +292,19 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary>
     /// Returns true if the dialog is a drawer (panel).
     /// </summary>
-    /// <param name="alignment"></param>
-    /// <returns></returns>
-    internal static bool IsDrawer(DialogAlignment? alignment) => alignment == DialogAlignment.Start || alignment == DialogAlignment.End;
+    /// <param name="instance">The dialog instance.</param>
+    /// <param name="dialog">The fluent dialog.</param>
+    /// <returns>True if the dialog is a drawer, otherwise false.</returns>
+    internal static bool IsDrawer(IDialogInstance? instance, FluentDialog? dialog = null)
+    {
+        var alignment = instance?.Options.Alignment ?? dialog?.Alignment;
+        var isDrawer = instance?.Options.IsDrawer ?? dialog?.Instance?.Options.IsDrawer;
+
+        if (isDrawer.HasValue)
+        {
+            return isDrawer.Value;
+        }
+
+        return alignment == DialogAlignment.Start || alignment == DialogAlignment.End;
+    }
 }

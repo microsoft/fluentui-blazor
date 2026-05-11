@@ -39,9 +39,11 @@ There are two actions authors should consider taking when using Badge to improve
 2.  If the text of the badge itself is not sufficient to convey its meaning, the parent element should be given an explicit label:
    ```xml
    <FluentBadge Content="New">
-       <FluentButton aria-label="Inbox, 6 new messages">
-           Inbox
-       </FluentButton>
+       <AnchorContent>
+           <FluentButton aria-label="Inbox, 6 new messages">
+               Inbox
+           </FluentButton>
+       </AnchorContent>
    </FluentBadge>
    ```
 

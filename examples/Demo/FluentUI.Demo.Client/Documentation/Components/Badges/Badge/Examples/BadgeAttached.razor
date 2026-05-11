@@ -58,7 +58,9 @@
                          OffsetY="@(SByte.TryParse(offsetY, out sbyte y) ? y : null)"
                          Size="BadgeSize.Small"
                          Positioning="@_positioning">
-                <FluentButton Id="center-center" IconStart="@(new Icons.Regular.Size24.Mail())" OnClick="@(() => HandlePositioning(Positioning.CenterCenter))">Inbox</FluentButton>
+				<AnchorContent>
+                	<FluentButton Id="center-center" IconStart="@(new Icons.Regular.Size24.Mail())" OnClick="@(() => HandlePositioning(Positioning.CenterCenter))">Inbox</FluentButton>
+            	</AnchorContent>
             </FluentBadge>
         </span>
 

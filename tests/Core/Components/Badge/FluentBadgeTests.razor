@@ -242,7 +242,7 @@
     public void FluentBadge_Attached_NoPositioning()
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge Content="Badge"><FluentButton>Test</FluentButton></FluentBadge> );
+        var cut = Render(@<FluentBadge Content="Badge"><AnchorContent><FluentButton>Test</FluentButton></AnchorContent></FluentBadge> );
         // Assert
         cut.Verify();
     }
@@ -251,8 +251,21 @@
     public void FluentBadge_Attached_WithPositioning()
     {
         // Arrange && Act
-        var cut = Render(@<FluentBadge Content="Badge" Positioning="Positioning.CenterCenter"><FluentButton>Test</FluentButton></FluentBadge> );
+        var cut = Render(@<FluentBadge Content="Badge" Positioning="Positioning.CenterCenter"><AnchorContent><FluentButton>Test</FluentButton></AnchorContent></FluentBadge> );
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_Content_ChildContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentBadge Content="Badge">Content</FluentBadge>);
+
+        // Act
+        var label = cut.Find("fluent-badge").InnerHtml;
+
+        // Assert
+        Assert.Equal("Badge<span>Content</span>", label);
     }
 }

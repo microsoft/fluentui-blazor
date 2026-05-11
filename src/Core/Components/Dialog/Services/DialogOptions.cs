@@ -29,6 +29,13 @@ public class DialogOptions : IFluentComponentBase
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the dialog should be rendered 
+    /// as a drawer (true) or a dialog (false).
+    /// If not set, the value will be determined by the dialog alignment: <see cref="FluentDialog.IsDrawer()"/>
+    /// </summary>
+    internal bool? IsDrawer { get; set; }
+
+    /// <summary>
     /// Gets or sets the unique identifier of the Dialog element.
     /// </summary>
     public string? Id { get; set; }
