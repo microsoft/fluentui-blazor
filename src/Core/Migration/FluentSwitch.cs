@@ -9,13 +9,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSwitch
 {
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
-    /// </summary>
-    [Parameter]
-    [Obsolete("This property is not supported anymore and will be removed in a future release.")]
-    public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
     /// Gets or sets the checked message
     /// </summary>
     [Parameter]
