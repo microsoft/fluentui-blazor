@@ -26,7 +26,6 @@
     "@types/d3-shape": "^3.0.0",
     "esbuild": "0.28.0",
     "esbuild-plugin-inline-css": "0.0.1",
-    "eslint": "10.3.0",
     "glob": "^13.0.6",
     "rimraf": "6.1.3"
   },
