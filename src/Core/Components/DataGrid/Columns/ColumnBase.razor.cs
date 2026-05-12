@@ -22,7 +22,7 @@ public abstract partial class ColumnBase<TGridItem>
     private readonly string _columnId = Identifier.NewId();
     private FluentMenu? _menu;
 
-    ///  <inheritdoc/>
+    /// <summary />
     [Inject]
     protected IFluentLocalizer Localizer { get; set; } = default!;
 
