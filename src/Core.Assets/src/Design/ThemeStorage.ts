@@ -1,5 +1,25 @@
 import { DesignTheme } from "../DesignTheme";
 
+type ThemeStorageValue = { mode: string | null, primaryColor: string | null, neutralColor: string | null };
+
+type StorageLike = Pick<Storage, "getItem" | "setItem" | "removeItem">;
+
+const memoryStorage = (() => {
+  const values: Record<string, string> = {};
+
+  return {
+    getItem(key: string): string | null {
+      return Object.prototype.hasOwnProperty.call(values, key) ? values[key] : null;
+    },
+    setItem(key: string, value: string): void {
+      values[key] = value;
+    },
+    removeItem(key: string): void {
+      delete values[key];
+    },
+  } satisfies StorageLike;
+})();
+
 class ThemeStorage {
 
   private _designTheme: DesignTheme
@@ -19,13 +39,16 @@ class ThemeStorage {
     return this._designTheme.storageName;
   }
 
+  private static getStorage(): StorageLike {
+    try {
+      return window.localStorage ?? memoryStorage;
+    } catch {
+      return memoryStorage;
+    }
+  }
 
   public updateLocalStorage(mode: string | null, primaryColor: string | null, neutralColor: string | null): void {
-
-    // If LocalStorage is not available, do nothing.
-    if (localStorage == null) {
-      return;
-    }
+    const storage = ThemeStorage.getStorage();
 
     // Wait the component to be initialized
     if (!this._designTheme._isInitialized) {
@@ -37,56 +60,58 @@ class ThemeStorage {
       return;
     }
 
-    // Save to the localstorage
-    localStorage.setItem(this.storageName, JSON.stringify({
-      mode: ThemeStorage.getValueOrNull(mode),
-      primaryColor: ThemeStorage.getValueOrNull(primaryColor),
-      neutralColor: ThemeStorage.getValueOrNull(neutralColor),
-    }));
+    try {
+      storage.setItem(this.storageName, JSON.stringify({
+        mode: ThemeStorage.getValueOrNull(mode),
+        primaryColor: ThemeStorage.getValueOrNull(primaryColor),
+        neutralColor: ThemeStorage.getValueOrNull(neutralColor),
+      }));
+    } catch {
+      // Ignore storage write failures and continue with in-memory theme state.
+    }
   }
 
-  public readLocalStorage(): { mode: string | null, primaryColor: string | null, neutralColor: string | null } | null {
-
-    // If LocalStorage is not available, do nothing.
-    if (localStorage == null) {
-      return null;
-    }
+  public readLocalStorage(): ThemeStorageValue | null {
+    const storage = ThemeStorage.getStorage();
 
     // Check if storageName attribute is defined
     if (this.storageName == null) {
       return null;
     }
 
-    // Check if localstorage exists
-    const storageJson = localStorage.getItem(this.storageName);
+    try {
+      const storageJson = storage.getItem(this.storageName);
+      if (storageJson == null) {
+        return null;
+      }
 
-    if (storageJson == null) {
+      // Read the localstorage
+      const storageItems = JSON.parse(storageJson);
+
+      return {
+        mode: ThemeStorage.getValueOrNull(storageItems?.mode),
+        primaryColor: ThemeStorage.getValueOrNull(storageItems?.primaryColor),
+        neutralColor: ThemeStorage.getValueOrNull(storageItems?.neutralColor),
+      }
+    } catch {
+      this.clearLocalStorage();
       return null;
-    }
-
-    // Read the localstorage
-    const storageItems = JSON.parse(storageJson);
-
-    return {
-      mode: ThemeStorage.getValueOrNull(storageItems?.mode),
-      primaryColor: ThemeStorage.getValueOrNull(storageItems?.primaryColor),
-      neutralColor: ThemeStorage.getValueOrNull(storageItems?.neutralColor),
     }
   }
 
   public clearLocalStorage(): void {
-    // If LocalStorage is not available, do nothing.
-      if (localStorage == null) {
-        return;
-      }
-  
-      // Check if storageName attribute is defined
-      if (this.storageName == null) {
-        return;
-      }
-  
-      // Clear the localstorage
-      localStorage.removeItem(this.storageName);
+    const storage = ThemeStorage.getStorage();
+
+    // Check if storageName attribute is defined
+    if (this.storageName == null) {
+      return;
+    }
+
+    try {
+      storage.removeItem(this.storageName);
+    } catch {
+      // Ignore storage clear failures and continue with in-memory theme state.
+    }
   }
 
   /**

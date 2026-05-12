@@ -2,6 +2,50 @@
 // Here we'll find the first web component and wait for it to be upgraded.
 // When it is, we'll remove this invisibility from the body.
 
+const memoryStorage = (() => {
+    const values = {};
+
+    return {
+        getItem(key) {
+            return Object.prototype.hasOwnProperty.call(values, key) ? values[key] : null;
+        },
+        setItem(key, value) {
+            values[key] = String(value);
+        },
+        removeItem(key) {
+            delete values[key];
+        }
+    };
+})();
+
+function getThemeStorage() {
+    try {
+        return window.localStorage ?? memoryStorage;
+    } catch {
+        return memoryStorage;
+    }
+}
+
+function readStoredTheme(storageName) {
+    if (!storageName) {
+        return null;
+    }
+
+    const storage = getThemeStorage();
+
+    try {
+        const theme = storage.getItem(storageName);
+        return theme ? JSON.parse(theme) : null;
+    } catch {
+        try {
+            storage.removeItem(storageName);
+        } catch {
+        }
+
+        return null;
+    }
+}
+
 class LoadingTheme extends HTMLElement {
 
     className = "hidden-body";
@@ -17,17 +61,12 @@ class LoadingTheme extends HTMLElement {
 
     // Custom element added to page.
     connectedCallback() {
-
-        // If LocalStorage is not available, do nothing.
-        if (localStorage == null) {
-            return;
-        }
-
         // Attributes
         const storageName = this.getAttribute("storage-name"); 
         const mode = this.getAttribute("mode");
         const primaryColor = this.getAttribute("primary-color");
         const neutralColor = this.getAttribute("neutral-color");
+        const storedTheme = readStoredTheme(storageName);
 
         const isDark = (modeSaved, isSystemDark) => {
             switch (modeSaved) {
@@ -41,9 +80,9 @@ class LoadingTheme extends HTMLElement {
         };
 
         // Compute the saved or the system theme (dark/light).
-        const modeSaved = mode ?? JSON.parse(localStorage.getItem(storageName))?.mode;
-        const primaryColorSaved = primaryColor ?? JSON.parse(localStorage.getItem(storageName))?.primaryColor;
-        const neutralColorSaved = neutralColor ?? JSON.parse(localStorage.getItem(storageName))?.neutralColor;
+        const modeSaved = mode ?? storedTheme?.mode;
+        const primaryColorSaved = primaryColor ?? storedTheme?.primaryColor;
+        const neutralColorSaved = neutralColor ?? storedTheme?.neutralColor;
         const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         const bgColor = isDark(modeSaved, isSystemDark) ? this.defaultDarkColor : this.defaultLightColor;
 
