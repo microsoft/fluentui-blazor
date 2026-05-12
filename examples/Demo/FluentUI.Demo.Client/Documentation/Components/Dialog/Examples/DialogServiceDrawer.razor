@@ -37,6 +37,7 @@
 
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Name), "John");  // Simple type
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Person), John);  // Updatable object
+            options.Footer.SecondaryAction.ShortCut = "Ctrl+Enter";
 
             options.OnStateChange = (e) =>
             {

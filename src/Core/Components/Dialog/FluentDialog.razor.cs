@@ -73,11 +73,11 @@ public partial class FluentDialog : FluentComponentBase
 
     /// <summary>
     /// Gets or sets a value indicating whether pressing the ESC key should be prevented from closing the dialog.
-    /// By default, the ESC key closes the dialog (<c>false</c>).
+    /// By default, the ESC key closes the dialog (<langword>false</langword>).
     /// When using the <see cref="IDialogService"/>, set <see cref="DialogOptions.PreventDismissOnEscape"/> instead.
     /// </summary>
     [Parameter]
-    public bool PreventDismissOnEscape { get; set; } = false;
+    public bool PreventDismissOnEscape { get; set; }
 
     /// <summary>
     /// Command executed when the user clicks on the button.
@@ -159,7 +159,7 @@ public partial class FluentDialog : FluentComponentBase
         var preventEscape = Instance?.Options.PreventDismissOnEscape ?? PreventDismissOnEscape;
         if (preventEscape)
         {
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", Id, true);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", Id, preventEscape);
         }
     }
 
@@ -240,7 +240,7 @@ public partial class FluentDialog : FluentComponentBase
         {
             DialogAlignment.Start => FluentSlot.Start,
             DialogAlignment.End => FluentSlot.End,
-            _ => null
+            _ => null,
         };
     }
 

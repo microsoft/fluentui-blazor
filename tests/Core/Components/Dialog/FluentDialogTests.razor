@@ -455,6 +455,22 @@
             button => Assert.Contains("Primary", button.InnerHtml));
     }
 
+    [Fact]
+    public void FluentDialog_Options_Ctor()
+    {
+        // Arrange
+        var options = new DialogOptions() { Data = "My data" };
+        var header = new DialogOptionsHeader() { Title = "My title" };
+        var footer = new DialogOptionsFooter() { PrimaryFirst = false };
+        var action = new DialogOptionsFooterAction() { Label = "My action" };
+
+        // Assert
+        Assert.Equal("My data", options.Data);
+        Assert.Equal("My title", header.Title);
+        Assert.Equal("My action", action.Label);
+        Assert.False(footer.PrimaryFirst);
+    }
+
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentDialog_PreventDismissOnEscape_Default_DoesNotCallJs()
     {
@@ -518,6 +534,40 @@
 
         // Assert: JS interceptor must not have been called
         Assert.Empty(preventEscapeSetup.Invocations);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_PreventDismissOnEscape_TrueThenFalse_OnlyFirstDialogCallsJs()
+    {
+        // Arrange
+        var preventEscapeSetup = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", _ => true);
+        var firstRenderOptions = new Templates.DialogRenderOptions() { AutoClose = true };
+        var secondRenderOptions = new Templates.DialogRenderOptions();
+
+        // Act: open first dialog with PreventDismissOnEscape = true; it auto-closes immediately
+        var firstDialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.PreventDismissOnEscape = true;
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), firstRenderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        });
+        await firstDialogTask;
+
+        // Assert: JS interceptor was called once with (id, true) for the first dialog
+        var firstInvocation = Assert.Single(preventEscapeSetup.Invocations);
+        Assert.Equal(true, firstInvocation.Arguments[1]);
+
+        // Act: open second dialog with PreventDismissOnEscape = false (default)
+        var secondDialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.PreventDismissOnEscape = false;
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), secondRenderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "Jane");
+        });
+        await Task.CompletedTask;
+
+        // Assert: no additional JS call was made for the second dialog (false does not trigger JS)
+        Assert.Single(preventEscapeSetup.Invocations);
     }
 
     [Fact]
