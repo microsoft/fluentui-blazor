@@ -85,6 +85,193 @@
     }
 
     [Fact]
+    public async Task FluentDialogBody_HeaderActions()
+    {
+        // Arrange
+        var infoClicked = false;
+        var extraClicked = false;
+        var closeClicked = false;
+
+        var options = new DialogOptions();
+        var instance = new DialogInstance(DialogService, typeof(Templates.DialogRender), options);
+
+        options.Header.Title = "My title";
+
+        // Close action (visible)
+        options.Header.CloseAction.Visible = true;
+        options.Header.CloseAction.Tooltip = "Close me";
+        options.Header.CloseAction.Title = "Close";
+        options.Header.CloseAction.OnClickAsync = (e) =>
+        {
+            closeClicked = true;
+            return Task.CompletedTask;
+        };
+
+        // Info action (visible, with label)
+        options.Header.InfoAction.Visible = true;
+        options.Header.InfoAction.Label = "Info";
+        options.Header.InfoAction.OnClickAsync = (e) =>
+        {
+            infoClicked = true;
+            return Task.CompletedTask;
+        };
+
+        // Extra action (visible by default when added)
+        var extraAction = options.Header.AddAction(a =>
+        {
+            a.Label = "Help";
+            a.Tooltip = "Get help";
+            a.OnClickAsync = (e) =>
+            {
+                extraClicked = true;
+                return Task.CompletedTask;
+            };
+        });
+
+        // Hidden extra action (should not be rendered)
+        options.Header.AddAction(a =>
+        {
+            a.Label = "Hidden";
+            a.Visible = false;
+        });
+
+        // Act
+        var cut = Render(
+    @<CascadingValue Value="@instance">
+        <FluentDialogBody>My content</FluentDialogBody>
+    </CascadingValue>
+    );
+
+        // Assert - 3 visible header buttons (extra + info + close)
+        var titleActionSlot = cut.Find($"div[slot=\"{FluentSlot.DialogTitleAction}\"]");
+        var buttons = titleActionSlot.QuerySelectorAll("fluent-button");
+        Assert.Equal(3, buttons.Length);
+
+        // Trigger each header action and verify the corresponding handler ran
+        var body = cut.FindComponent<FluentDialogBody>();
+
+        await body.Instance.ActionClickHandlerAsync(extraAction);
+        Assert.True(extraClicked);
+
+        await body.Instance.ActionClickHandlerAsync(options.Header.InfoAction);
+        Assert.True(infoClicked);
+
+        await body.Instance.ActionClickHandlerAsync(options.Header.CloseAction);
+        Assert.True(closeClicked);
+    }
+
+    [Fact]
+    public async Task FluentDialogBody_HeaderAction_NotVisible_DoesNothing()
+    {
+        // Arrange
+        var clicked = false;
+
+        var options = new DialogOptions();
+        var instance = new DialogInstance(DialogService, typeof(Templates.DialogRender), options);
+
+        var action = options.Header.AddAction(a =>
+        {
+            a.Label = "Hidden";
+            a.OnClickAsync = (e) =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            };
+        });
+        action.Visible = false;
+
+        var cut = Render(
+    @<CascadingValue Value="@instance">
+        <FluentDialogBody>My content</FluentDialogBody>
+    </CascadingValue>
+    );
+
+        // Act
+        var body = cut.FindComponent<FluentDialogBody>();
+        await body.Instance.ActionClickHandlerAsync(action);
+
+        // Assert - handler not invoked when action is not visible
+        Assert.False(clicked);
+    }
+
+    [Fact]
+    public async Task FluentDialogBody_HeaderAction_NullInstance_DoesNothing()
+    {
+        // Arrange - render the body without any cascading IDialogInstance
+        var clicked = false;
+
+        var action = new DialogOptionsHeaderAction
+        {
+            Visible = true,
+            Label = "Action",
+            OnClickAsync = (e) =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            }
+        };
+
+        var cut = Render(@<FluentDialogBody>My content</FluentDialogBody>);
+
+        // Act - should not throw even when Instance is null
+        var body = cut.FindComponent<FluentDialogBody>();
+        await body.Instance.ActionClickHandlerAsync(action);
+
+        // Assert
+        Assert.False(clicked);
+    }
+
+    [Fact]
+    public async Task FluentDialogBody_HeaderAction_CloseAction_NoHandler_ClosesWithCancel()
+    {
+        // Arrange - open a real dialog through the service so CloseAsync is wired up
+        var dialogOptions = new DialogOptions();
+        dialogOptions.Header.CloseAction.Visible = true;
+        // No custom OnClickAsync: default IsClosedAction path should close with Cancel.
+        dialogOptions.Header.CloseAction.OnClickAsync = null;
+        dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Options), new Templates.DialogRenderOptions());
+        dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(dialogOptions);
+
+        await Task.Yield();
+
+        var body = DialogProvider.FindComponents<FluentDialogBody>().First().Instance;
+
+        // Act
+        await body.ActionClickHandlerAsync(dialogOptions.Header.CloseAction);
+
+        // Assert
+        var result = await dialogTask;
+        Assert.True(result.Cancelled);
+    }
+
+    [Fact]
+    public async Task FluentDialogBody_HeaderAction_NonClosedAction_NoHandler_DoesNothing()
+    {
+        // Arrange - InfoAction is not a closed action: with no handler nothing should happen
+        var options = new DialogOptions();
+        var instance = new DialogInstance(DialogService, typeof(Templates.DialogRender), options);
+
+        options.Header.InfoAction.Visible = true;
+        options.Header.InfoAction.Label = "Info";
+        options.Header.InfoAction.OnClickAsync = null;
+
+        var cut = Render(
+    @<CascadingValue Value="@instance">
+        <FluentDialogBody>My content</FluentDialogBody>
+    </CascadingValue>
+    );
+
+        // Act - should not throw and should not complete the dialog result
+        var body = cut.FindComponent<FluentDialogBody>();
+        await body.Instance.ActionClickHandlerAsync(options.Header.InfoAction);
+
+        // Assert
+        Assert.False(instance.Result.IsCompleted);
+    }
+
+    [Fact]
     public void FluentDialogBody_FixedHeaderFooter_False()
     {
         var cut = Render(@<FluentDialogBody FixedHeaderFooter="false"></FluentDialogBody>);

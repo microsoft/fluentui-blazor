@@ -103,7 +103,56 @@ var result = await DialogService.ShowDialogAsync<SimpleDialog>(options =>
 {
     options.Modal = true;
 });
-```` 
+```
+
+## Actions in the header
+
+You can display action buttons (such as **Close** and **Info**) in the header of the dialog box.
+By default, these actions are **not displayed**. To enable them, set the `Visible` property to `true`
+on the corresponding action via `options.Header.CloseAction` or `options.Header.InfoAction`.
+
+```csharp
+options.Header.CloseAction.Visible = true;
+options.Header.InfoAction.Visible = true;
+```
+
+When the user clicks the **Close** button, the `FluentDialogInstance.OnActionClickedAsync(false)` method
+is called by default (which cancels the dialog). If you need a different behavior, you can override
+`OnActionClickedAsync` in your dialog component, or assign a custom handler directly to the action using
+the `OnClickAsync` property:
+
+```csharp
+options.Header.CloseAction.OnClickAsync = async (e) => { /* custom close logic */ };
+options.Header.InfoAction.OnClickAsync = async (e) => { /* custom info logic */ };
+```
+
+{{ DialogServiceHeaderAction }}
+
+By default, the title and actions are aligned to the top of the header. When the title fits on a single line, 
+this can leave a small visible gap between the two. To vertically center the title and the actions 
+within the header, apply the following global style:
+
+```css
+fluent-dialog-body::part(title) {
+  align-items: center;
+}
+```
+
+In addition to the built-in **Close** and **Info** actions, you can add your own extra action buttons
+to the header by calling `options.Header.AddAction(...)`. Each call registers a new
+`DialogOptionsHeaderAction` which is rendered before the **Info** and **Close** buttons.
+
+```csharp
+options.Header.AddAction(action =>
+{
+    action.Icon = new Icons.Regular.Size20.Settings();
+    action.Tooltip = "Settings";
+    action.OnClickAsync = async (dialog) => { /* custom logic */ };
+});
+```
+
+> **Note:** Unlike `CloseAction` and `InfoAction`, extra actions have no default icon, so you must
+> assign an `Icon` (or a `Label`) for them to be displayed.
 
 ## Customized
 

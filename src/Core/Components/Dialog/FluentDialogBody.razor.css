@@ -105,6 +105,29 @@ fluent-drawer[fuib] fluent-drawer-body[fuib][scrollable]>div[slot="footer"] {
   width: 100%;
 }
 
+/* Header Action Icon Button */
+fluent-dialog-body[fuib]>div[slot="title-action"],
+fluent-dialog-body[fuib]>div[slot="close"],
+fluent-drawer-body[fuib]>div[slot="title-action"],
+fluent-drawer-body[fuib]>div[slot="close"] {
+    white-space: nowrap;
+}
+
+fluent-dialog-body[fuib]>div[slot="title-action"] fluent-button[icon-only]>svg,
+fluent-dialog-body[fuib]>div[slot="close"] fluent-button[icon-only]>svg,
+fluent-drawer-body[fuib]>div[slot="title-action"] fluent-button[icon-only]>svg,
+fluent-drawer-body[fuib]>div[slot="close"] fluent-button[icon-only]>svg  {
+  min-width: 20px;
+}
+
+fluent-dialog-body[fuib]>div[slot="title-action"] fluent-button,
+fluent-dialog-body[fuib]>div[slot="close"] fluent-button,
+fluent-drawer-body[fuib]>div[slot="title-action"] fluent-button,
+fluent-drawer-body[fuib]>div[slot="close"] fluent-button {
+    min-width: 32px;
+    padding: 0 var(--spacingHorizontalXS);
+}
+
 /* Mobile */
 @container (max-width: 479px) {
   fluent-dialog-body[fuib]>div[slot="action"] {
