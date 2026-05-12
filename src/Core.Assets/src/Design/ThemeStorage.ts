@@ -65,12 +65,14 @@ class ThemeStorage {
       return;
     }
 
+    const theme: ThemeStorageValue = {
+      mode: ThemeStorage.getValueOrNull(mode),
+      primaryColor: ThemeStorage.getValueOrNull(primaryColor),
+      neutralColor: ThemeStorage.getValueOrNull(neutralColor),
+    };
+
     try {
-      storage.setItem(this.storageName, JSON.stringify({
-        mode: ThemeStorage.getValueOrNull(mode),
-        primaryColor: ThemeStorage.getValueOrNull(primaryColor),
-        neutralColor: ThemeStorage.getValueOrNull(neutralColor),
-      }));
+      storage.setItem(this.storageName, JSON.stringify(theme));
     } catch {
       // Ignore storage write failures and continue with in-memory theme state.
     }
