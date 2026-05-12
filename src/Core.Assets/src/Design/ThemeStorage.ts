@@ -97,7 +97,7 @@ class ThemeStorage {
         mode: ThemeStorage.getValueOrNull(storageItems?.mode),
         primaryColor: ThemeStorage.getValueOrNull(storageItems?.primaryColor),
         neutralColor: ThemeStorage.getValueOrNull(storageItems?.neutralColor),
-      }
+      };
     } catch {
       this.clearLocalStorage();
       return null;

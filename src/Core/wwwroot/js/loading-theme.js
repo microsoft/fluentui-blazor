@@ -67,11 +67,11 @@ class LoadingTheme extends HTMLElement {
     // Custom element added to page.
     connectedCallback() {
         // Attributes
-        const storageName = this.getAttribute("storage-name"); 
+        const storageNameAttribute = this.getAttribute("storage-name"); 
         const mode = this.getAttribute("mode");
         const primaryColor = this.getAttribute("primary-color");
         const neutralColor = this.getAttribute("neutral-color");
-        const storedTheme = readStoredTheme(storageName);
+        const storedTheme = readStoredTheme(storageNameAttribute);
 
         const isDark = (modeSaved, isSystemDark) => {
             switch (modeSaved) {
