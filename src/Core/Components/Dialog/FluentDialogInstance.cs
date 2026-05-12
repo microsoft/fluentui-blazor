@@ -43,6 +43,9 @@ public abstract class FluentDialogInstance : ComponentBase
     /// <returns></returns>
     protected override Task OnInitializedAsync()
     {
+        var header = DialogInstance.Options.Header;
+        header.CloseAction.OnClickAsync ??= (e) => OnActionClickedAsync(primary: false);
+
         var footer = DialogInstance.Options.Footer;
         footer.PrimaryAction.Label ??= Localizer[LanguageResource.MessageBox_ButtonOk];
         footer.PrimaryAction.OnClickAsync ??= (e) => OnActionClickedAsync(primary: true);

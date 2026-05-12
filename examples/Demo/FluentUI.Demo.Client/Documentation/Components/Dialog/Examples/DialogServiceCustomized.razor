@@ -16,6 +16,7 @@
         var result = await DialogService.ShowDialogAsync<Dialog.CustomizedDialog>(options =>
         {
             options.Header.Title = "Dialog Title";
+            options.Header.CloseAction.Visible = true;
 
             options.Parameters.Add(nameof(Dialog.CustomizedDialog.Name), "John");  // Simple type
             options.Parameters.Add(nameof(Dialog.CustomizedDialog.Person), John);  // Updatable object
