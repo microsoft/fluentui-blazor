@@ -13,7 +13,7 @@ hidden: true
    ```xml
    <FluentLayout>
      <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
-     <FluentLayoutItem Area="LayoutArea.Menu">Menu</FluentLayoutItem>
+     <FluentLayoutItem Area="LayoutArea.Navigation">Navigation</FluentLayoutItem>
      <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
      <FluentLayoutItem Area="LayoutArea.Aside">Aside</FluentLayoutItem>
      <FluentLayoutItem Area="LayoutArea.Footer">Footer</FluentLayoutItem>
