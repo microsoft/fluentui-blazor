@@ -47,4 +47,35 @@ export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
       }, 25);
     }
   }
+
+  /**
+   * Prevent or allow the ESC key from closing the dialog.
+   * When prevent is true, a capture-phase keydown listener blocks the Escape key
+   * before the web component can process it.
+   * @param id The id of the fluent-dialog element
+   * @param prevent Whether to prevent ESC from closing the dialog
+   */
+  export function SetPreventEscapeClose(id: string, prevent: boolean): void {
+    const dialog = document.getElementById(id) as any;
+    if (!dialog) {
+      return;
+    }
+
+    // Remove any previously registered handler for this dialog.
+    if (dialog._escapeHandler) {
+      dialog.removeEventListener('keydown', dialog._escapeHandler, true);
+      dialog._escapeHandler = null;
+    }
+
+    if (prevent) {
+      const handler = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          e.stopImmediatePropagation();
+          e.preventDefault();
+        }
+      };
+      dialog._escapeHandler = handler;
+      dialog.addEventListener('keydown', handler, true);
+    }
+  }
 }
