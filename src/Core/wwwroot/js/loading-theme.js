@@ -20,7 +20,8 @@ const memoryStorage = (() => {
 
 function getThemeStorage() {
     try {
-        return window.localStorage ?? memoryStorage;
+        const storage = window.localStorage;
+        return storage ?? memoryStorage;
     } catch {
         return memoryStorage;
     }

@@ -41,7 +41,8 @@ class ThemeStorage {
 
   private static getStorage(): StorageLike {
     try {
-      return window.localStorage ?? memoryStorage;
+      const storage = window.localStorage;
+      return storage ?? memoryStorage;
     } catch {
       return memoryStorage;
     }
