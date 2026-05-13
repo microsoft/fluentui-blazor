@@ -119,9 +119,9 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     /// <summary>
     /// Open the menu.
     /// </summary>
-    public async Task OpenMenuAsync()
+    public Task OpenMenuAsync()
     {
-        await OpenMenuAsync(null, 0, 0);
+        return OpenMenuAsync(targetId: null, targetOffsetLeft: 0, targetOffsetTop: 0);
     }
 
     /// <summary>
@@ -130,9 +130,9 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     /// <param name="targetId">The id of the element to anchor the menu to. If null, it will open relative to the trigger.</param>
     /// <param name="targetOffsetLeft">The left offset from the target element to open the menu. Default is 0.</param>
     /// <param name="targetOffsetTop">The top offset from the target element to open the menu. Default is 0.</param>
-    public async Task OpenMenuAsync(string? targetId = null, int targetOffsetLeft = 0, int targetOffsetTop = 0)
+    public Task OpenMenuAsync(string? targetId = null, int targetOffsetLeft = 0, int targetOffsetTop = 0)
     {
-        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.OpenMenu", Id, targetId, targetOffsetLeft, targetOffsetTop);
+        return JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.OpenMenu", Id, targetId, targetOffsetLeft, targetOffsetTop).AsTask();
     }
 
     internal async Task NotifyCheckedChangedAsync(MenuItemEventArgs args)
