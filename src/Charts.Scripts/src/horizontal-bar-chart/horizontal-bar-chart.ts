@@ -1,7 +1,15 @@
-import { attr, FASTElement, observable } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
+import { ChartBase } from '../utils/chart-base.js';
 import { create as d3Create, select as d3Select } from 'd3-selection';
-import { getRTL, jsonConverter, lightenColor, SVG_NAMESPACE_URI, validateChartPropsArray } from '../utils/chart-helpers.js';
+import {
+  getRTL,
+  jsonConverter,
+  lightenColor,
+  SVG_NAMESPACE_URI,
+  validateChartPropsArray,
+} from '../utils/chart-helpers.js';
 import type { ChartDataPoint, ChartProps } from './horizontal-bar-chart.options.js';
+import type { Legend } from '../utils/chart.options.js';
 import { Variant } from './horizontal-bar-chart.options.js';
 
 /**
@@ -9,7 +17,7 @@ import { Variant } from './horizontal-bar-chart.options.js';
  *
  * @public
  */
-export class HorizontalBarChart extends FASTElement {
+export class HorizontalBarChart extends ChartBase {
   @attr
   public width?: number | string;
 
@@ -25,54 +33,11 @@ export class HorizontalBarChart extends FASTElement {
   @attr({ attribute: 'hide-ratio', mode: 'boolean' })
   public hideRatio: boolean = false;
 
-  @attr({ attribute: 'hide-labels', mode: 'boolean' })
-  public hideLabels: boolean = false;
-
-  @attr({ attribute: 'round-corners', mode: 'boolean' })
-  public roundCorners: boolean = false;
-
   @attr({ attribute: 'chart-data-mode' })
   public chartDataMode: 'default' | 'fraction' | 'percentage' = 'default';
 
-  @attr({ attribute: 'hide-legends', mode: 'boolean' })
-  public hideLegends: boolean = false;
-
-  @attr({ attribute: 'hide-tooltip', mode: 'boolean' })
-  public hideTooltip: boolean = false;
-
-  @attr({ attribute: 'legend-list-label' })
-  public legendListLabel?: string;
-
-  @attr({ attribute: 'chart-title' })
-  public chartTitle?: string;
-
-  @attr
-  public culture?: string;
-
-  @attr({ attribute: 'allow-multiple-legend-selection', mode: 'boolean' })
-  public allowMultipleLegendSelection: boolean = false;
-
   @attr({ attribute: 'enable-gradient', mode: 'boolean' })
   public enableGradient: boolean = false;
-
-  @observable
-  public legends: ChartDataPoint[] = [];
-
-  @observable
-  public activeLegend: string = '';
-  protected activeLegendChanged(_oldValue: string, _newValue: string) {
-    if (this._isSettingActiveLegend) {
-      return;
-    }
-
-    this._updateLegendInteractionState();
-  }
-
-  @observable
-  public isLegendSelected: boolean = false;
-
-  @observable
-  public selectedLegends: string[] = [];
 
   @observable
   public tooltipProps = {
@@ -84,81 +49,8 @@ export class HorizontalBarChart extends FASTElement {
     yPos: 0,
   };
 
-  public chartContainer!: HTMLDivElement;
-  public elementInternals: ElementInternals = this.attachInternals();
-
-  private _isRTL: boolean = false;
   private _barHeight: number = 12;
   private _bars: SVGRectElement[] = [];
-  private _isSettingActiveLegend: boolean = false;
-
-  constructor() {
-    super();
-
-    this.elementInternals.role = 'region';
-  }
-
-  public handleLegendMouseoverAndFocus(legendTitle: string) {
-    if (this.allowMultipleLegendSelection) {
-      if (this.selectedLegends.length > 0) {
-        return;
-      }
-    } else {
-      if (this.isLegendSelected) {
-        return;
-      }
-    }
-
-    this._setActiveLegend(legendTitle);
-  }
-
-  public handleLegendMouseoutAndBlur() {
-    if (this.allowMultipleLegendSelection) {
-      if (this.selectedLegends.length > 0) {
-        return;
-      }
-    } else {
-      if (this.isLegendSelected) {
-        return;
-      }
-    }
-
-    this._setActiveLegend('');
-  }
-
-  public handleLegendClick(legendTitle: string) {
-    if (this.allowMultipleLegendSelection) {
-      const nextSelection = this.selectedLegends.includes(legendTitle)
-        ? this.selectedLegends.filter(legend => legend !== legendTitle)
-        : [...this.selectedLegends, legendTitle];
-      this.selectedLegends = nextSelection;
-      if (nextSelection.length === 0) {
-        this._setActiveLegend('');
-      } else if (!nextSelection.includes(this.activeLegend)) {
-        this._setActiveLegend(nextSelection[nextSelection.length - 1]);
-      } else {
-        this._updateLegendInteractionState();
-      }
-      return;
-    }
-
-    if (this.isLegendSelected && this.activeLegend === legendTitle) {
-      this._setActiveLegend('');
-      this.isLegendSelected = false;
-    } else {
-      this._setActiveLegend(legendTitle);
-      this.isLegendSelected = true;
-    }
-  }
-
-  public isLegendItemSelected(legendTitle: string) {
-    return Array.isArray(this.selectedLegends) && this.selectedLegends.includes(legendTitle);
-  }
-
-  public isLegendItemDimmed(legendTitle: string) {
-    const highlighted = this._getHighlightedLegends();
-    return highlighted.length > 0 && !highlighted.includes(legendTitle);
-  }
 
   connectedCallback() {
     // Class field initializers create own data properties that shadow the FAST @attr
@@ -166,36 +58,16 @@ export class HorizontalBarChart extends FASTElement {
     // attribute changes go through the FAST reactive system and trigger the *Changed()
     // callbacks, and so that observable assignments notify template bindings.
     const self = this as Record<string, unknown>;
-    const attrFields = [
-      'width',
-      'height',
-      'variant',
-      'data',
-      'hideRatio',
-      'hideLabels',
-      'roundCorners',
-      'chartDataMode',
-      'hideLegends',
-      'hideTooltip',
-      'legendListLabel',
-      'chartTitle',
-      'culture',
-      'allowMultipleLegendSelection',
-      'enableGradient',
-    ] as const;
-    const observableFields = [
-      'legends',
-      'activeLegend',
-      'isLegendSelected',
-      'tooltipProps',
-      'selectedLegends',
-    ] as const;
+    const attrFields = ['width', 'height', 'variant', 'data', 'hideRatio', 'chartDataMode', 'enableGradient'] as const;
+    const observableFields = ['tooltipProps'] as const;
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
     const savedObservables: Partial<Record<(typeof observableFields)[number], unknown>> = {};
+
     for (const field of attrFields) {
       saved[field] = self[field];
       delete self[field];
     }
+
     for (const field of observableFields) {
       savedObservables[field] = self[field];
       delete self[field];
@@ -212,132 +84,44 @@ export class HorizontalBarChart extends FASTElement {
       }
     }
 
-    if (!this.data) {
-      return;
-    }
-
-    this._initializeAll();
-  }
-
-  public disconnectedCallback() {
-    super.disconnectedCallback();
-  }
-
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    super.attributeChangedCallback(name, oldValue, newValue);
-
-    if (oldValue === newValue) {
-      return;
-    }
-
-    const booleanValue = newValue !== null && newValue !== 'false';
-
-    if (name === 'round-corners') {
-      this.roundCorners = booleanValue;
-    }
-    if (name === 'hide-ratio') {
-      this.hideRatio = booleanValue;
-    }
-    if (name === 'hide-labels') {
-      this.hideLabels = booleanValue;
-    }
-    if (name === 'hide-legends') {
-      this.hideLegends = booleanValue;
-    }
-    if (name === 'hide-tooltip') {
-      this.hideTooltip = booleanValue;
-    }
-    if (name === 'allow-multiple-legend-selection') {
-      this.allowMultipleLegendSelection = booleanValue;
-    }
+    this._requestRender();
   }
 
   protected dataChanged(_oldValue: ChartProps[], newValue: ChartProps[]) {
     if (newValue) {
-      this._scheduleRender();
+      this._requestRender();
     }
   }
 
-  protected chartTitleChanged() {
-    if (this.$fastController.isConnected) {
-      this.elementInternals.ariaLabel =
-        this.chartTitle || `Horizontal bar chart with ${this.data?.length ?? 0} categories.`;
-    }
+  protected _getHostAriaLabel(): string {
+    return this.chartTitle || `Horizontal bar chart with ${this.data?.length ?? 0} categories.`;
   }
 
   protected widthChanged() {
-    this._scheduleRender();
+    this._requestRender();
   }
 
   protected heightChanged() {
-    this._scheduleRender();
+    this._requestRender();
   }
 
   protected variantChanged() {
-    this._scheduleRender();
+    this._requestRender();
   }
 
   protected hideRatioChanged() {
-    this._scheduleRender();
-  }
-
-  protected hideLabelsChanged() {
-    this._scheduleRender();
-  }
-
-  protected roundCornersChanged() {
-    this._scheduleRender();
-  }
-
-  protected enableGradientChanged() {
-    this._scheduleRender();
+    this._requestRender();
   }
 
   protected chartDataModeChanged() {
-    this._scheduleRender();
+    this._requestRender();
   }
 
-  protected legendListLabelChanged() {
-    this._scheduleRender();
+  protected enableGradientChanged() {
+    this._requestRender();
   }
 
-  protected cultureChanged() {
-    this._scheduleRender();
-  }
-
-  protected allowMultipleLegendSelectionChanged() {
-    if (!this.allowMultipleLegendSelection) {
-      this.selectedLegends = [];
-      this._setActiveLegend('');
-      this.isLegendSelected = false;
-      return;
-    }
-
-    this._updateLegendInteractionState();
-  }
-
-  protected selectedLegendsChanged() {
-    this._updateLegendInteractionState();
-  }
-
-  private _renderPending = false;
-
-  /**
-   * Schedules a single re-render deferred to the next event-loop task,
-   * batching multiple simultaneous attribute changes into one render pass.
-   */
-  private _scheduleRender(): void {
-    if (this._renderPending) {
-      return;
-    }
-    this._renderPending = true;
-    setTimeout(() => {
-      this._renderPending = false;
-      this._rerender();
-    }, 0);
-  }
-
-  private _rerender() {
+  protected _performRender(): void {
     if (!this.$fastController.isConnected || !this.data) {
       return;
     }
@@ -346,22 +130,7 @@ export class HorizontalBarChart extends FASTElement {
     this._updateLegendInteractionState();
   }
 
-  private _getHighlightedLegends(): string[] {
-    if (this.allowMultipleLegendSelection) {
-      if (Array.isArray(this.selectedLegends) && this.selectedLegends.length > 0) {
-        return this.selectedLegends;
-      }
-      return this.activeLegend ? [this.activeLegend] : [];
-    }
-    return this.activeLegend ? [this.activeLegend] : [];
-  }
-
-  private _updateLegendInteractionState() {
-    this._applyActiveLegendState();
-    this._applyLegendButtonState();
-  }
-
-  private _applyActiveLegendState() {
+  protected _applyActiveLegendState() {
     const highlighted = this._getHighlightedLegends();
     if (highlighted.length === 0) {
       this._bars?.forEach(bar => bar.classList.remove('inactive'));
@@ -372,28 +141,6 @@ export class HorizontalBarChart extends FASTElement {
         bar.classList.toggle('inactive', !isActive);
       });
     }
-  }
-
-  private _applyLegendButtonState() {
-    const legendButtons = this.shadowRoot?.querySelectorAll<HTMLButtonElement>('.legend');
-    if (!legendButtons) {
-      return;
-    }
-
-    const highlighted = this._getHighlightedLegends();
-    legendButtons.forEach(button => {
-      const title = button.querySelector('.legend-text')?.textContent ?? '';
-      const isActive = highlighted.length === 0 || highlighted.includes(title);
-      button.classList.toggle('inactive', !isActive);
-      button.setAttribute('aria-selected', `${highlighted.includes(title)}`);
-    });
-  }
-
-  private _setActiveLegend(value: string) {
-    this._isSettingActiveLegend = true;
-    this.activeLegend = value;
-    this._isSettingActiveLegend = false;
-    this._updateLegendInteractionState();
   }
 
   private _clearChart() {
@@ -409,29 +156,15 @@ export class HorizontalBarChart extends FASTElement {
     validateChartPropsArray(this.data, 'data');
 
     this._isRTL = getRTL(this);
-    this.elementInternals.ariaLabel = this.chartTitle || `Horizontal bar chart with ${this.data.length} categories.`;
+    this.elementInternals.ariaLabel = this._getHostAriaLabel();
     this._applyHostDimensions();
 
     this._initializeData();
     this._renderChart();
   }
 
-  private _applyHostDimensions() {
-    if (this.width === undefined || this.width === null || this.width === '') {
-      this.style.removeProperty('width');
-    } else {
-      this.style.width = this._toCssLength(this.width);
-    }
-
-    if (this.height === undefined || this.height === null || this.height === '') {
-      this.style.removeProperty('height');
-    } else {
-      this.style.height = this._toCssLength(this.height);
-    }
-  }
-
-  private _toCssLength(value: number | string) {
-    return typeof value === 'number' || /^\d+(\.\d+)?$/.test(value) ? `${value}px` : value;
+  protected _applyHostDimensions() {
+    super._applyHostDimensions(this.width, this.height);
   }
 
   private _initializeData() {
@@ -456,7 +189,6 @@ export class HorizontalBarChart extends FASTElement {
   private _createSingleChartBars(singleChartData: ChartProps, index: number, nodes: any) {
     const singleChartBars = this._createBarsAndLegends(singleChartData!, index);
 
-    // create a div element. Loop through chart bars and add to the div as its children
     d3Select(nodes[index])
       .attr('key', index)
       .attr('id', `_MSBC_bar-${index}`)
@@ -465,27 +197,22 @@ export class HorizontalBarChart extends FASTElement {
   }
 
   private _hydrateLegends() {
-    // Create a map to store unique legends
     const uniqueLegendsMap = new Map();
 
-    // Iterate through all chart points and populate the map
     for (const dataSeries of this.data) {
       for (const point of dataSeries.chartData!) {
         if ((point as any).placeholder === true) {
           continue;
         }
-        // Check if the legend is already in the map
         if (!uniqueLegendsMap.has(point.legend)) {
           uniqueLegendsMap.set(point.legend, {
             legend: point.legend,
-            data: point.data,
             color: point.gradient ? point.gradient[0] : point.color,
           });
         }
       }
     }
 
-    // Convert the map values back to an array
     this.legends = Array.from(uniqueLegendsMap.values());
   }
 
@@ -532,13 +259,12 @@ export class HorizontalBarChart extends FASTElement {
       1;
     const barSpacingInPercent = this._calculateBarSpacing();
     const totalMarginPercent = barSpacingInPercent * (noOfBars - 1);
-    // calculating starting point of each bar and it's range
     const startingPoint: number[] = [];
     const barTotalValue = data.chartData!.reduce((acc: number, point: ChartDataPoint) => acc + (point.data ?? 0), 0);
     const total = this.variant === Variant.AbsoluteScale ? longestBarTotalValue : barTotalValue;
 
     let sumOfPercent = 0;
-    data.chartData!.map((point: ChartDataPoint, index: number) => {
+    data.chartData!.map((point: ChartDataPoint) => {
       const pointData = point.data ?? 0;
       const currValue = (pointData / total) * 100;
       let value = currValue ?? 0;
@@ -553,9 +279,6 @@ export class HorizontalBarChart extends FASTElement {
       return sumOfPercent;
     });
 
-    // Include an imaginary placeholder bar with value equal to
-    // the difference between longestBarTotalValue and barTotalValue
-    // while calculating sumOfPercent to get correct scalingRatio for absolute-scale variant
     if (this.variant === Variant.AbsoluteScale) {
       let value = total === 0 ? 0 : ((total - barTotalValue) / total) * 100;
       if (value < 1 && value !== 0) {
@@ -565,15 +288,6 @@ export class HorizontalBarChart extends FASTElement {
       }
       sumOfPercent += value;
     }
-
-    /**
-     * The %age of the space occupied by the margin needs to subtracted
-     * while computing the scaling ratio, since the margins are not being
-     * scaled down, only the data is being scaled down from a higher percentage to lower percentage
-     * Eg: 95% of the space is taken by the bars, 5% by the margins
-     * Now if the sumOfPercent is 120% -> This needs to be scaled down to 95%, not 100%
-     * since that's only space available to the bars
-     */
 
     const scalingRatio = sumOfPercent !== 0 ? sumOfPercent / (100 - totalMarginPercent) : 1;
 
@@ -597,10 +311,7 @@ export class HorizontalBarChart extends FASTElement {
 
       startingPoint.push(prevPosition);
 
-      const gEle = d3Select(g) // 'this' refers to the current 'g' element
-        .attr('key', index)
-        .attr('role', 'img')
-        .attr('aria-label', pointData);
+      const gEle = d3Select(g).attr('key', index).attr('role', 'img').attr('aria-label', pointData);
 
       let gradientId = '';
       if (this.enableGradient || point.gradient) {
@@ -633,7 +344,7 @@ export class HorizontalBarChart extends FASTElement {
         .attr('id', `${barNo}-${index}`)
         .attr('barinfo', `${point.legend}`)
         .attr('class', 'bar')
-        .attr('style', (this.enableGradient || point.gradient) ? `fill:url(#${gradientId})` : `fill:${point.color!}`)
+        .attr('style', this.enableGradient || point.gradient ? `fill:url(#${gradientId})` : `fill:${point.color!}`)
         .attr('rx', `${this.roundCorners ? 3 : 0}`)
         .attr(
           'x',
@@ -666,7 +377,6 @@ export class HorizontalBarChart extends FASTElement {
 
     if (!this.hideLabels && showChartDataText) {
       const numData = data!.chartData![0].data ?? 0;
-      // Compute total: prefer explicit total field, fall back to sum of all bar data
       const explicitTotal = data!.chartData![0].total;
       const sumTotal = data!.chartData!.reduce((acc: number, p: ChartDataPoint) => acc + (p.data ?? 0), 0);
       const barTotal = explicitTotal !== undefined ? explicitTotal : sumTotal;
@@ -689,7 +399,6 @@ export class HorizontalBarChart extends FASTElement {
           .attr('class', 'ratio-numerator')
           .text(`${percentage}%`);
       } else {
-        // 'default' mode: show ratio when there are exactly 2 data points and hideRatio is false
         const showRatio = !this.hideRatio && data!.chartData!.length === 2;
         if (showRatio) {
           const ratioDiv = barTitleDiv.append('div').attr('role', 'text');

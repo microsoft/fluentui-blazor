@@ -31,8 +31,3 @@ export type AxisCategoryOrder =
   | 'mean descending'
   | 'median ascending'
   | 'median descending';
-
-export interface HorizontalBarChartWithAxisLegend {
-  legend: string;
-  color: string;
-}

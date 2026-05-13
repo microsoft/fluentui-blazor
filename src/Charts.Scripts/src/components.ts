@@ -1,4 +1,10 @@
 export {
+  ChartLegend,
+  ChartLegendDefinition,
+  ChartLegendStyles,
+  ChartLegendTemplate
+} from './chart-legend/index.js';
+export {
   DonutChart,
   DonutChartDefinition,
   DonutChartStyles,

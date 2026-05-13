@@ -1,6 +1,5 @@
-import { ElementViewTemplate, html, ref, repeat, when } from '@microsoft/fast-element';
+import { ElementViewTemplate, html, ref, when } from '@microsoft/fast-element';
 import type { DonutChart } from './donut-chart.js';
-import type { Legend } from './donut-chart.options.js';
 
 /**
  * Generates a template for the DonutChart component.
@@ -16,29 +15,16 @@ export function donutChartTemplate<T extends DonutChart>(): ElementViewTemplate<
           <g ${ref('group')} transform="translate(${x => x.width / 2}, ${x => x.height / 2})"></g>
         </svg>
       </div>
-      <div class="legend-container" ?hidden="${x => x.hideLegends}" role="listbox" aria-label="${x => x.legendListLabel}">
-        ${repeat(
-          x => x.legends,
-          html<Legend, T>` <button
-            class="legend${(x, c) => (c.parent.isLegendItemDimmed(x.title) ? ' inactive' : '')}"
-            role="option"
-            aria-setsize="${(x, c) => c.length}"
-            aria-posinset="${(x, c) => c.index + 1}"
-            aria-selected="${(x, c) => c.parent.isLegendItemSelected(x.title) || x.title === c.parent.activeLegend}"
-            @mouseover="${(x, c) => c.parent.handleLegendMouseoverAndFocus(x.title)}"
-            @mouseout="${(x, c) => c.parent.handleLegendMouseoutAndBlur()}"
-            @focus="${(x, c) => c.parent.handleLegendMouseoverAndFocus(x.title)}"
-            @blur="${(x, c) => c.parent.handleLegendMouseoutAndBlur()}"
-            @click="${(x, c) => c.parent.handleLegendClick(x.title)}"
-          >
-            <div
-              class="legend-rect"
-              style="background-color: ${x => x.color}; border-color: ${x => x.color};"
-            ></div>
-            <div class="legend-text">${x => x.title}</div>
-          </button>`,
-        )}
-      </div>
+      <fluent-chart-legend
+        :items="${x => x.legends}"
+        label="${x => x.legendListLabel}"
+        ?hidden="${x => x.hideLegends}"
+        @legend-click="${(x, c) => x.handleLegendClick((c.event as CustomEvent<string>).detail)}"
+        @legend-mouseover="${(x, c) => x.handleLegendMouseoverAndFocus((c.event as CustomEvent<string>).detail)}"
+        @legend-mouseout="${x => x.handleLegendMouseoutAndBlur()}"
+        @legend-focus="${(x, c) => x.handleLegendMouseoverAndFocus((c.event as CustomEvent<string>).detail)}"
+        @legend-blur="${x => x.handleLegendMouseoutAndBlur()}"
+      ></fluent-chart-legend>
       ${when(
         x => !x.hideTooltip && x.tooltipProps.isVisible,
         html<T>`

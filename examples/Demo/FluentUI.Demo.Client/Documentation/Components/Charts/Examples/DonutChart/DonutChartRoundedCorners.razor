@@ -1,12 +1,11 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<div style="margin-top:20px;">
-    <FluentDonutChart ChartData="@data"
-                      ChartTitle="Donut chart rounded corners example"
-                      InnerRadius="55"
-                      ValueInsideDonut="39,000"
-                      RoundedCorners="true" />
-</div>
+<FluentDonutChart ChartData="@data"
+                  ChartTitle="Donut chart rounded corners example"
+                  InnerRadius="55"
+                  ValueInsideDonut="39,000"
+                  RoundedCorners="true" />
+
 
 @code {
     private readonly DonutChartData data = new()

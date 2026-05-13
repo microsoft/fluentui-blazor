@@ -32,7 +32,7 @@ import {
  * @public
  */
 export const styles = css`
-  ${display('inline-block')}
+  ${display('block')}
 
   :host {
     ${typographyBody1Styles}
@@ -90,50 +90,6 @@ export const styles = css`
     opacity: 0.1;
   }
 
-  .legend-container {
-    padding-top: ${spacingVerticalL};
-    white-space: nowrap;
-    width: 100%;
-    align-items: center;
-    margin: -${spacingVerticalS} ${spacingHorizontalNone} ${spacingVerticalNone} -${spacingHorizontalS};
-    flex-wrap: wrap;
-    display: flex;
-  }
-
-  .legend-container[hidden] {
-    display: none;
-  }
-
-  .legend {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border: none;
-    padding: ${spacingHorizontalS};
-    background: none;
-    text-transform: capitalize;
-  }
-
-  .legend-rect {
-    width: 12px;
-    height: 12px;
-    margin-inline-end: ${spacingHorizontalS};
-    border: ${strokeWidthThin} solid;
-  }
-
-  .legend-text {
-    ${typographyCaption1Styles}
-    color: ${colorNeutralForeground1};
-  }
-
-  .legend.inactive .legend-rect {
-    background-color: transparent !important;
-  }
-
-  .legend.inactive .legend-text {
-    opacity: 0.67;
-  }
-
   .tooltip {
     display: grid;
     overflow: hidden;
@@ -171,7 +127,6 @@ export const styles = css`
       fill: CanvasText;
     }
 
-    .legend-rect,
     .tooltip-body {
       forced-color-adjust: none;
     }
@@ -182,4 +137,4 @@ export const styles = css`
       color: CanvasText;
     }
   }
-`
+`;

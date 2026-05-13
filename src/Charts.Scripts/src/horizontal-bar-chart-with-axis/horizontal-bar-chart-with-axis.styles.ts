@@ -27,7 +27,7 @@ import {
 } from '@fluentui/web-components';
 
 export const styles: ElementStyles = css`
-  ${display('inline-block')}
+  ${display('block')}
 
   :host {
     position: relative;
@@ -86,45 +86,6 @@ export const styles: ElementStyles = css`
     unicode-bidi: isolate;
   }
 
-  .legend-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding-top: ${spacingVerticalL};
-    width: 100%;
-    align-items: center;
-    margin: -${spacingVerticalS} ${spacingHorizontalNone} ${spacingVerticalNone} -${spacingHorizontalS};
-  }
-
-  .legend {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border: none;
-    padding: ${spacingHorizontalS};
-    background: none;
-  }
-
-  .legend-rect {
-    width: 12px;
-    height: 12px;
-    margin-inline-end: ${spacingHorizontalS};
-    border: ${strokeWidthThin} solid;
-  }
-
-  .legend-text {
-    ${typographyCaption1Styles}
-    color: ${colorNeutralForeground1};
-  }
-
-  .legend.inactive .legend-rect {
-    background-color: transparent !important;
-  }
-
-  .legend.inactive .legend-text {
-    opacity: 0.67;
-  }
-
   .tooltip {
     ${typographyCaption1Styles}
     position: absolute;
@@ -165,7 +126,6 @@ export const styles: ElementStyles = css`
   }
 
   @media (forced-colors: active) {
-   .legend-rect,
     .tooltip-info {
       forced-color-adjust: none;
     }

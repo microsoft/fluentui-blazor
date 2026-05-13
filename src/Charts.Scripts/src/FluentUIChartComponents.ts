@@ -10,6 +10,10 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIChartComponents {
     const registry = FluentUIWebComponents.FluentDesignSystem.registry;
 
     // Register Chart Web Components
+    defineOnce('fluentui:chart-components:chart-legend', () => {
+      FluentUIComponents.ChartLegendDefinition.define(registry);
+    });
+
     defineOnce('fluentui:chart-components:donut-chart', () => {
       FluentUIComponents.DonutChartDefinition.define(registry);
     });

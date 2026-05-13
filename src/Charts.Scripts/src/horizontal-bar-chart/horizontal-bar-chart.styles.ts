@@ -31,7 +31,7 @@ import {
  * @public
  */
 export const styles: ElementStyles = css`
-  ${display('inline-block')}
+  ${display('block')}
 
   :host {
     position: relative;
@@ -94,40 +94,6 @@ export const styles: ElementStyles = css`
     white-space: nowrap;
     display: block;
   }
-  .legend-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding-top: ${spacingVerticalL};
-    width: 100%;
-    align-items: center;
-    margin: -${spacingVerticalS} ${spacingHorizontalNone} ${spacingVerticalNone} -${spacingHorizontalS};
-  }
-  .legend {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border: none;
-    padding: ${spacingHorizontalS};
-    background: none;
-    text-transform: capitalize;
-  }
-  .legend-rect {
-    width: 12px;
-    height: 12px;
-    margin-inline-end: ${spacingHorizontalS};
-    border: ${strokeWidthThin} solid;
-  }
-  .legend-text {
-    ${typographyCaption1Styles}
-    color: ${colorNeutralForeground1};
-  }
-  .legend.inactive .legend-rect {
-    background-color: transparent !important;
-  }
-  .legend.inactive .legend-text {
-    opacity: 0.67;
-  }
   .bar-label {
     ${typographyBody1StrongStyles}
     fill: ${colorNeutralForeground1};
@@ -167,7 +133,6 @@ export const styles: ElementStyles = css`
   }
 
   @media (forced-colors: active) {
-    .legend-rect,
     .tooltip-line,
     .triangle {
       forced-color-adjust: none;
