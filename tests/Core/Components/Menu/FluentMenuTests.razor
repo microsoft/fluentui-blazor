@@ -119,6 +119,39 @@
     }
 
     [Fact]
+    public void FluentMenu_OpenMenuWithTargetId()
+    {
+        // Arrange
+        var label = "My item";
+        var menu = new FluentMenu(LibraryConfiguration.Empty);
+        var invocation = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Menu.OpenMenu",
+            _ => true);
+
+        var cut = Render(@<div>
+                <FluentButton Id="anchor">Anchor</FluentButton>
+                <FluentButton Id="opener" OnClick="@(() => menu.OpenMenuAsync("anchor", 10, 20))">Open menu</FluentButton>
+                <FluentMenu @ref="menu">
+                    <FluentMenuList>
+                        <FluentMenuItem>
+                            @label
+                        </FluentMenuItem>
+                    </FluentMenuList>
+                </FluentMenu>
+            </div>
+        );
+
+        // Act
+        cut.Find("fluent-button[id=\"opener\"]").Click();
+
+        // Assert
+        var call = Assert.Single(invocation.Invocations);
+        Assert.Equal(menu.Id, call.Arguments[0]);
+        Assert.Equal("anchor", call.Arguments[1]);
+        Assert.Equal(10, call.Arguments[2]);
+        Assert.Equal(20, call.Arguments[3]);
+    }
+
+    [Fact]
     public void FluentMenu_CloseMenu()
     {
         // Arrange
