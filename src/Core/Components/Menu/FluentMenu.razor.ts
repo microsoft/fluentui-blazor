@@ -7,9 +7,8 @@ export namespace Microsoft.FluentUI.Blazor.Menu {
 
       const menu = document.getElementById(id) as any;
       if (menu && menu.slottedMenuList.length) {
-        menu.slottedTriggers.push(trigger);
         menu.slottedMenuList[0].style["position-anchor" as any] = `--anchor-${triggerId}`;
-        menu.setComponent();
+        menu.slottedTriggersChanged(menu.slottedTriggers, [trigger]);
       }
     }
   }
