@@ -13,8 +13,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentMenu : FluentComponentBase, ITooltipComponent
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Menu/FluentMenu.razor.js";
-
     /// <summary>
     /// Constructs a new instance of <see cref="FluentMenu"/>.
     /// Sets the Id to a new random value
@@ -103,12 +101,9 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     {
         if (firstRender)
         {
-            // Import the JavaScript module
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
             if (Trigger != null)
             {
-                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Menu.Initialize", Id, Trigger);
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.Initialize", Id, Trigger);
             }
         }
     }
@@ -118,7 +113,7 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     /// </summary>
     public async Task CloseMenuAsync()
     {
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Menu.CloseMenu", Id);
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.CloseMenu", Id);
     }
 
     /// <summary>
@@ -126,7 +121,18 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     /// </summary>
     public async Task OpenMenuAsync()
     {
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Menu.OpenMenu", Id);
+        await OpenMenuAsync(null, 0, 0);
+    }
+
+    /// <summary>
+    /// Open the menu.
+    /// </summary>
+    /// <param name="targetId">The id of the element to anchor the menu to. If null, it will open relative to the trigger.</param>
+    /// <param name="targetOffsetLeft">The left offset from the target element to open the menu. Default is 0.</param>
+    /// <param name="targetOffsetTop">The top offset from the target element to open the menu. Default is 0.</param>
+    public async Task OpenMenuAsync(string? targetId = null, int targetOffsetLeft = 0, int targetOffsetTop = 0)
+    {
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.OpenMenu", Id, targetId, targetOffsetLeft, targetOffsetTop);
     }
 
     internal async Task NotifyCheckedChangedAsync(MenuItemEventArgs args)

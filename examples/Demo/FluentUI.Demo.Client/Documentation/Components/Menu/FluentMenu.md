@@ -57,7 +57,26 @@ event handling and how to disable a menu item.
 
 ## Open/close menu programmatically
 A menu can be opened and closed programmatically by using the `OpenMenuAsync` and `CloseMenuAsync` methods.
+
 {{ MenuProgrammatic }}
+
+The `OpenMenuAsync` method accepts an optional `targetId` parameter. When supplied, the menu is positioned relative to
+the element with that `id` instead of the original `Trigger` element. The menu is anchored to the **bottom-left** corner
+of the target.
+
+You can fine-tune the position by passing the `targetOffsetLeft` and `targetOffsetTop` parameters (in pixels). These
+offsets are added to the computed position, so positive values shift the menu to the right and down, while negative
+values shift it to the left and up.
+
+```csharp
+// Open the menu anchored to the element with id "Target1"
+await Menu.OpenMenuAsync("Target1");
+
+// Open anchored to "Target2" and shift it 10px right and 5px down
+await Menu.OpenMenuAsync("Target2", targetOffsetLeft: 10, targetOffsetTop: 5);
+```
+
+{{ MenuProgrammaticMultipleTargets }}
 
 ## Menu item slots
 A menu item can has slots that can be used for specific content. The slots are `indicator`, `start`, `end` and `submenu-glyph`. In the `FluentMenuItem`

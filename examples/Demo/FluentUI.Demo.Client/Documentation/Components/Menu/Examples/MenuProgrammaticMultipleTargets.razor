@@ -1,0 +1,32 @@
+﻿<FluentStack Orientation="Orientation.Horizontal"
+             HorizontalGap="10">
+    <FluentButton OnClick="@(e => Menu.OpenMenuAsync("Target1"))">Open on Zone 1</FluentButton>
+    <FluentButton OnClick="@(e => Menu.OpenMenuAsync("Target2"))">Open on Zone 2</FluentButton>
+    <FluentButton OnClick="@(e => Menu.OpenMenuAsync("Target3"))">Open on Zone 3</FluentButton>
+</FluentStack>
+
+<FluentStack Orientation="Orientation.Horizontal"
+             HorizontalGap="10"
+             Margin="Margin.Top20">
+    <FluentCard Id="Target1">Zone 1</FluentCard>
+    <FluentSpacer />
+    <FluentCard Id="Target2">Zone 2</FluentCard>
+    <FluentSpacer />
+    <FluentCard Id="Target3">Zone 3</FluentCard>
+</FluentStack>
+
+<FluentMenu @ref=@Menu>
+    <FluentButton Appearance="ButtonAppearance.Primary"
+                  slot="@FluentSlot.Trigger">Menu shows here</FluentButton>
+    <FluentMenuList>
+        <FluentMenuItem>Menu item 1</FluentMenuItem>
+        <FluentMenuItem>Menu item 2</FluentMenuItem>
+        <FluentMenuItem>Menu item 3</FluentMenuItem>
+        <FluentMenuItem>Menu item 4</FluentMenuItem>
+    </FluentMenuList>
+</FluentMenu>
+
+
+@code {
+    private FluentMenu Menu { get; set; } = default!;
+}
