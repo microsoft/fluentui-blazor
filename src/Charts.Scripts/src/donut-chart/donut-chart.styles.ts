@@ -1,7 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import {
   borderRadiusMedium,
-  colorNeutralBackground1,
   colorNeutralForeground1,
   colorNeutralShadowAmbient,
   colorNeutralShadowKey,
@@ -9,11 +8,9 @@ import {
   colorStrokeFocus2,
   colorTransparentStroke,
   display,
-  spacingHorizontalL,
   spacingHorizontalNone,
   spacingHorizontalS,
   spacingVerticalL,
-  spacingVerticalMNudge,
   spacingVerticalNone,
   spacingVerticalS,
   strokeWidthThickest,
@@ -25,6 +22,7 @@ import {
   typographyTitle2Styles,
   typographyTitle3Styles,
 } from '@fluentui/web-components';
+import { tooltipBaseStyles } from '../utils/tooltip.styles.js';
 
 /**
  * Styles for the DonutChart component.
@@ -90,18 +88,14 @@ export const styles = css`
     opacity: 0.1;
   }
 
+  ${tooltipBaseStyles}
+
   .tooltip {
-    display: grid;
-    overflow: hidden;
-    padding: ${spacingVerticalMNudge} ${spacingHorizontalL};
-    background-color: ${colorNeutralBackground1};
+    z-index: 1;
     background-blend-mode: normal, luminosity;
     border-radius: ${borderRadiusMedium};
     border: 1px solid ${colorTransparentStroke};
     filter: drop-shadow(0 0 2px ${colorNeutralShadowAmbient}) drop-shadow(0 8px 16px ${colorNeutralShadowKey});
-    position: absolute;
-    z-index: 1;
-    pointer-events: none;
   }
 
   .tooltip-body {

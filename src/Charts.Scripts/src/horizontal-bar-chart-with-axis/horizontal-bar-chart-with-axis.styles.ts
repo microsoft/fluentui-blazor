@@ -1,7 +1,6 @@
 import type { ElementStyles } from '@microsoft/fast-element';
 import { css } from '@microsoft/fast-element';
 import {
-  colorNeutralBackground1,
   colorNeutralForeground1,
   colorNeutralForeground2,
   colorNeutralStroke1,
@@ -9,11 +8,9 @@ import {
   display,
   fontSizeHero700,
   shadow4,
-  spacingHorizontalL,
   spacingHorizontalNone,
   spacingHorizontalS,
   spacingVerticalL,
-  spacingVerticalMNudge,
   spacingVerticalNone,
   spacingVerticalS,
   spacingVerticalXS,
@@ -25,6 +22,7 @@ import {
   typographyCaption1Styles,
   typographySubtitle2StrongerStyles,
 } from '@fluentui/web-components';
+import { tooltipBaseStyles } from '../utils/tooltip.styles.js';
 
 export const styles: ElementStyles = css`
   ${display('block')}
@@ -86,17 +84,13 @@ export const styles: ElementStyles = css`
     unicode-bidi: isolate;
   }
 
+  ${tooltipBaseStyles}
+
   .tooltip {
     ${typographyCaption1Styles}
-    position: absolute;
     z-index: 999;
-    display: grid;
-    overflow: hidden;
-    padding: ${spacingVerticalMNudge} ${spacingHorizontalL};
-    background: ${colorNeutralBackground1};
     box-shadow: ${shadow4};
     border: ${strokeWidthThick};
-    pointer-events: none;
   }
 
   .tooltip-header {

@@ -1,18 +1,15 @@
 import type { ElementStyles } from '@microsoft/fast-element';
 import { css } from '@microsoft/fast-element';
 import {
-  colorNeutralBackground1,
   colorNeutralForeground1,
   colorNeutralStrokeAccessible,
   display,
   shadow4,
-  spacingHorizontalL,
   spacingHorizontalNone,
   spacingHorizontalS,
   spacingHorizontalSNudge,
   spacingVerticalL,
   spacingVerticalM,
-  spacingVerticalMNudge,
   spacingVerticalNone,
   spacingVerticalS,
   spacingVerticalXS,
@@ -24,6 +21,7 @@ import {
   typographyCaption1Styles,
   typographyTitle2Styles,
 } from '@fluentui/web-components';
+import { tooltipBaseStyles } from '../utils/tooltip.styles.js';
 
 /**
  * Styles for the HorizontalBarChart component.
@@ -37,20 +35,15 @@ export const styles: ElementStyles = css`
     position: relative;
     width: 100%;
   }
+  ${tooltipBaseStyles}
+
   .tooltip {
     ${typographyCaption1Styles}
-    position: absolute;
     z-index: 999;
-    display: grid;
-    overflow: hidden;
-    padding: ${spacingVerticalMNudge} ${spacingHorizontalL};
-    backgroundcolor: ${colorNeutralBackground1};
     background-blend-mode: normal, luminosity;
     text-align: center;
-    background: ${colorNeutralBackground1};
     box-shadow: ${shadow4};
     border: ${strokeWidthThick};
-    pointer-events: none;
   }
   .tooltip-line {
     padding-inline-start: ${spacingHorizontalS};

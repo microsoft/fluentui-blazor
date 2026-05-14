@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { ChartBase } from '../utils/chart-base.js';
 import { create as d3Create, select as d3Select } from 'd3-selection';
 import {
@@ -39,16 +39,6 @@ export class HorizontalBarChart extends ChartBase {
   @attr({ attribute: 'enable-gradient', mode: 'boolean' })
   public enableGradient: boolean = false;
 
-  @observable
-  public tooltipProps = {
-    isVisible: false,
-    legend: '',
-    yValue: '',
-    color: '',
-    xPos: 0,
-    yPos: 0,
-  };
-
   private _barHeight: number = 12;
   private _bars: SVGRectElement[] = [];
 
@@ -59,21 +49,11 @@ export class HorizontalBarChart extends ChartBase {
     // callbacks, and so that observable assignments notify template bindings.
     const self = this as Record<string, unknown>;
     const attrFields = ['width', 'height', 'variant', 'data', 'hideRatio', 'chartDataMode', 'enableGradient'] as const;
-    const observableFields = ['tooltipProps'] as const;
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
-    const savedObservables: Partial<Record<(typeof observableFields)[number], unknown>> = {};
 
     for (const field of attrFields) {
       saved[field] = self[field];
       delete self[field];
-    }
-
-    for (const field of observableFields) {
-      savedObservables[field] = self[field];
-      delete self[field];
-      if (savedObservables[field] !== undefined) {
-        self[field] = savedObservables[field];
-      }
     }
 
     super.connectedCallback();
@@ -431,8 +411,7 @@ export class HorizontalBarChart extends ChartBase {
           return;
         }
 
-        const highlighted = this._getHighlightedLegends();
-        if (highlighted.length > 0 && d.legend && !highlighted.includes(d.legend)) {
+        if (!this._shouldShowTooltip(d.legend)) {
           return;
         }
 
@@ -450,7 +429,7 @@ export class HorizontalBarChart extends ChartBase {
         };
       })
       .on('mouseout', () => {
-        this.tooltipProps = { isVisible: false, legend: '', yValue: '', color: '', xPos: 0, yPos: 0 };
+        this._clearTooltip();
       });
 
     if (this.variant === Variant.AbsoluteScale) {

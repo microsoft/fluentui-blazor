@@ -1,6 +1,6 @@
 import { attr, FASTElement, observable } from '@microsoft/fast-element';
 import type { ChartLegend } from '../chart-legend/chart-legend.js';
-import type { Legend } from './chart.options.js';
+import type { Legend, TooltipProps } from './chart.options.js';
 
 /**
  * Abstract base class shared by all chart web components.
@@ -57,6 +57,9 @@ export abstract class ChartBase extends FASTElement {
 
   @observable
   public legends: Legend[] = [];
+
+  @observable
+  public tooltipProps: TooltipProps = { isVisible: false, legend: '', yValue: '', color: '', xPos: 0, yPos: 0 };
 
   // ── Public refs ──────────────────────────────────────────────────
 
@@ -117,7 +120,13 @@ export abstract class ChartBase extends FASTElement {
       'culture',
       'allowMultipleLegendSelection',
     ] as const;
-    const observableFields = ['activeLegend', 'isLegendSelected', 'selectedLegends', 'legends'] as const;
+    const observableFields = [
+      'activeLegend',
+      'isLegendSelected',
+      'selectedLegends',
+      'legends',
+      'tooltipProps',
+    ] as const;
 
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
     const savedObservables: Partial<Record<(typeof observableFields)[number], unknown>> = {};
@@ -261,6 +270,25 @@ export abstract class ChartBase extends FASTElement {
     if (el) {
       el.highlighted = this._getHighlightedLegends();
     }
+  }
+
+  // ── Tooltip helpers ──────────────────────────────────────────────
+
+  /**
+   * Returns true when the tooltip should be shown for the given legend title.
+   * Returns false when legend highlighting is active and excludes this legend.
+   */
+  protected _shouldShowTooltip(legendTitle: string): boolean {
+    const highlighted = this._getHighlightedLegends();
+    return highlighted.length === 0 || highlighted.includes(legendTitle);
+  }
+
+  /**
+   * Resets the base tooltip fields to their hidden/empty defaults.
+   * Subclasses with extended tooltip shapes (e.g. extra axis labels) should override this.
+   */
+  protected _clearTooltip(): void {
+    this.tooltipProps = { isVisible: false, legend: '', yValue: '', color: '', xPos: 0, yPos: 0 };
   }
 
   // ── Render scheduling ────────────────────────────────────────────

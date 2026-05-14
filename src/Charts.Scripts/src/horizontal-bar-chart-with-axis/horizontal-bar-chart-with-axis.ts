@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { ChartBase } from '../utils/chart-base.js';
 import {
   getColorFromToken,
@@ -12,18 +12,12 @@ import type {
   AxisCategoryOrder,
   HorizontalBarChartWithAxisDataPoint,
 } from './horizontal-bar-chart-with-axis.options.js';
-import type { Legend } from '../utils/chart.options.js';
+import type { Legend, TooltipProps } from '../utils/chart.options.js';
 
-type TooltipProps = {
-  isVisible: boolean;
-  legend: string;
+type HBCWATooltipProps = TooltipProps & {
   xLabel: string;
   xValue: string;
   yLabel: string;
-  yValue: string;
-  color: string;
-  xPos: number;
-  yPos: number;
 };
 
 type GroupedSeries = {
@@ -207,18 +201,8 @@ export class HorizontalBarChartWithAxis extends ChartBase {
   @attr({ attribute: 'y-axis-category-order' })
   public yAxisCategoryOrder: AxisCategoryOrder = 'default';
 
-  @observable
-  public tooltipProps: TooltipProps = {
-    isVisible: false,
-    legend: '',
-    xLabel: X_AXIS_LABEL,
-    xValue: '',
-    yLabel: Y_AXIS_LABEL,
-    yValue: '',
-    color: '',
-    xPos: 0,
-    yPos: 0,
-  };
+  /** Narrows the inherited base tooltipProps type to include axis label fields. */
+  public declare tooltipProps: HBCWATooltipProps;
 
   private _renderedBars: RenderedBar[] = [];
   private _resizeObserver?: ResizeObserver;
@@ -247,21 +231,25 @@ export class HorizontalBarChartWithAxis extends ChartBase {
       'yMaxValue',
       'yAxisCategoryOrder',
     ] as const;
-    const observableFields = ['tooltipProps'] as const;
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
-    const savedObservables: Partial<Record<(typeof observableFields)[number], unknown>> = {};
     for (const field of attrFields) {
       saved[field] = self[field];
       delete self[field];
     }
 
-    for (const field of observableFields) {
-      savedObservables[field] = self[field];
-      delete self[field];
-      if (savedObservables[field] !== undefined) {
-        self[field] = savedObservables[field];
-      }
-    }
+    // Set the extended initial value before super so ChartBase picks it up
+    // when processing tooltipProps in its observableFields.
+    self['tooltipProps'] = {
+      isVisible: false,
+      legend: '',
+      xLabel: X_AXIS_LABEL,
+      xValue: '',
+      yLabel: Y_AXIS_LABEL,
+      yValue: '',
+      color: '',
+      xPos: 0,
+      yPos: 0,
+    } satisfies HBCWATooltipProps;
 
     super.connectedCallback();
 
@@ -488,9 +476,9 @@ export class HorizontalBarChartWithAxis extends ChartBase {
         rect.setAttribute('rx', `${this.roundCorners ? 3 : 0}`);
 
         rect.addEventListener('mouseover', event => this._showTooltip(point, color, event, rect));
-        rect.addEventListener('mouseout', () => this._clearTooltipState());
+        rect.addEventListener('mouseout', () => this._clearTooltip());
         rect.addEventListener('focus', event => this._showTooltip(point, color, event, rect));
-        rect.addEventListener('blur', () => this._clearTooltipState());
+        rect.addEventListener('blur', () => this._clearTooltip());
         rect.addEventListener('click', () => point.onClick?.());
 
         this._renderedBars.push({ legend: point.legend, element: rect });
@@ -970,8 +958,7 @@ export class HorizontalBarChartWithAxis extends ChartBase {
     event: MouseEvent | FocusEvent,
     target: SVGRectElement,
   ) {
-    const highlighted = this._getHighlightedLegends();
-    if (highlighted.length > 0 && point.legend && !highlighted.includes(point.legend)) {
+    if (!this._shouldShowTooltip(point.legend || '')) {
       return;
     }
 
@@ -993,7 +980,7 @@ export class HorizontalBarChartWithAxis extends ChartBase {
     };
   }
 
-  private _clearTooltipState() {
+  protected override _clearTooltip(): void {
     this.tooltipProps = {
       isVisible: false,
       legend: '',

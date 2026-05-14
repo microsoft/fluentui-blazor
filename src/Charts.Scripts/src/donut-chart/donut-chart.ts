@@ -1,4 +1,4 @@
-import { attr, nullableNumberConverter, observable } from '@microsoft/fast-element';
+import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { ChartBase } from '../utils/chart-base.js';
 import { format as d3Format } from 'd3-format';
 import { arc as d3Arc, pie as d3Pie, PieArcDatum } from 'd3-shape';
@@ -15,16 +15,6 @@ import type { ChartDataPoint, ChartProps } from './donut-chart.options.js';
 import type { Legend } from '../utils/chart.options.js';
 
 export class DonutChart extends ChartBase {
-  @observable
-  public tooltipProps = {
-    isVisible: false,
-    legend: '',
-    yValue: '',
-    color: '',
-    xPos: 0,
-    yPos: 0,
-  };
-
   @attr({ converter: nullableNumberConverter })
   public height: number = 200;
 
@@ -50,18 +40,13 @@ export class DonutChart extends ChartBase {
 
   private _arcs: SVGPathElement[] = [];
   private _arcLabels: SVGTextElement[] = [];
-  private _isSettingTooltipProps: boolean = false;
   private _textInsideDonut?: SVGTextElement;
 
   private readonly _handleMouseLeave = () => {
-    this._setTooltipProps({ isVisible: false, legend: '', yValue: '', color: '', xPos: 0, yPos: 0 });
+    this._clearTooltip();
   };
 
   protected tooltipPropsChanged(_oldValue: any, _newValue: any) {
-    if (this._isSettingTooltipProps) {
-      return;
-    }
-
     this._updateTextInsideDonut();
   }
 
@@ -82,25 +67,12 @@ export class DonutChart extends ChartBase {
       'valueInsideDonut',
       'order',
     ] as const;
-    const observableFields = ['tooltipProps'] as const;
 
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
-    const savedObservables: Partial<Record<(typeof observableFields)[number], unknown>> = {};
 
     for (const field of attrFields) {
       saved[field] = self[field];
       delete self[field];
-    }
-
-    for (const field of observableFields) {
-      savedObservables[field] = self[field];
-      delete self[field];
-
-      // Restore observable defaults through the prototype's FAST reactive setter
-      // BEFORE super.connectedCallback() renders the template.
-      if (savedObservables[field] !== undefined) {
-        self[field] = savedObservables[field];
-      }
     }
 
     super.connectedCallback();
@@ -253,33 +225,31 @@ export class DonutChart extends ChartBase {
       path.setAttribute('role', 'img');
 
       path.addEventListener('mouseover', event => {
-        const highlighted = this._getHighlightedLegends();
-        if (highlighted.length > 0 && !highlighted.includes(arcDatum.data.legend)) {
+        if (!this._shouldShowTooltip(arcDatum.data.legend)) {
           return;
         }
 
         const bounds = this.getBoundingClientRect();
 
-        this._setTooltipProps({
+        this.tooltipProps = {
           isVisible: true,
           legend: arcDatum.data.legend,
           yValue: this._formatDataPointValue(arcDatum.data),
           color: arcDatum.data.color!,
           xPos: this._isRTL ? bounds.right - event.clientX : event.clientX - bounds.left,
           yPos: event.clientY - bounds.top - 85,
-        });
+        };
       });
 
       path.addEventListener('focus', () => {
-        const highlighted = this._getHighlightedLegends();
-        if (highlighted.length > 0 && !highlighted.includes(arcDatum.data.legend)) {
+        if (!this._shouldShowTooltip(arcDatum.data.legend)) {
           return;
         }
 
         const rootBounds = this.getBoundingClientRect();
         const arcBounds = path.getBoundingClientRect();
 
-        this._setTooltipProps({
+        this.tooltipProps = {
           isVisible: true,
           legend: arcDatum.data.legend,
           yValue: this._formatDataPointValue(arcDatum.data),
@@ -288,11 +258,11 @@ export class DonutChart extends ChartBase {
             ? rootBounds.right - arcBounds.left - arcBounds.width / 2
             : arcBounds.left + arcBounds.width / 2 - rootBounds.left,
           yPos: arcBounds.top - rootBounds.top - 85,
-        });
+        };
       });
 
       path.addEventListener('blur', () => {
-        this._setTooltipProps({ isVisible: false, legend: '', yValue: '', color: '', xPos: 0, yPos: 0 });
+        this._clearTooltip();
       });
 
       const label = this._createArcLabel(arc, arcDatum, totalValue, outerRadius);
@@ -351,13 +321,6 @@ export class DonutChart extends ChartBase {
       });
     }
 
-    this._updateTextInsideDonut();
-  }
-
-  private _setTooltipProps(value: typeof this.tooltipProps) {
-    this._isSettingTooltipProps = true;
-    this.tooltipProps = value;
-    this._isSettingTooltipProps = false;
     this._updateTextInsideDonut();
   }
 
