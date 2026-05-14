@@ -16,6 +16,18 @@ Full screen overlay with a default background color (`var(--colorBackgroundOverl
 
 {{ OverlayDefault }}
 
+## Service
+
+In addition to the `FluentOverlay` component, you can use the `IDialogService` to display a global overlay from anywhere in your application,
+without having to declare a `FluentOverlay` in your markup.
+
+Only **one global overlay** can be displayed at a time. The overlay shows a centered spinner, with an optional text message displayed below it.
+You can also choose a `CardAppearance` style to customize how the overlay content is rendered.
+
+Use `DialogService.ShowOverlayAsync(...)` to display the overlay and `DialogService.HideOverlayAsync()` to close it.
+
+{{ OverlayService }}
+
 ## Detailed Usage
 
 The overlay can be customized to suit various use cases, including:

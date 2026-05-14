@@ -1,0 +1,35 @@
+﻿@inject IDialogService DialogService
+
+<FluentStack Wrap="true" HorizontalGap="24px">
+    <FluentTextInput Label="Overlay Text"
+                     @bind-Value="overlayText" />
+
+    <FluentSelect Items="@GetEnumValues()"
+                  Label="Appearance"
+                  @bind-Value="appearance" />
+</FluentStack>
+
+<FluentButton OnClick="@DisplayOverlay">
+    Show Overlay during 5 seconds
+</FluentButton>
+
+@code
+{
+    string overlayText = "Processing...";
+    CardAppearance? appearance = null;
+    IEnumerable<CardAppearance?> GetEnumValues() => (new CardAppearance?[] { null }).Union(Enum.GetValues(typeof(CardAppearance)).Cast<CardAppearance?>());
+
+    async Task DisplayOverlay()
+    {
+        await DialogService.ShowOverlayAsync(options =>
+        {
+            options.Text = overlayText;
+            options.CardAppearance = appearance;
+        });
+
+        // Simulate a long-running operation
+        await Task.Delay(5000);
+
+        await DialogService.HideOverlayAsync();
+    }
+}

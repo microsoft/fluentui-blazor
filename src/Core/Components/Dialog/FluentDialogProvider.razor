@@ -1,4 +1,5 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
 <div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
@@ -34,6 +35,27 @@
                 }
             }
 
+            @* FluentOverlay (global overlay) *@
+            else if (dialog.ComponentType == typeof(FluentOverlay))
+            {
+                var overlayOptions = dialog.Options?.Parameters[Components.DialogService.GlobalOverlayOptionsKey] as OverlayOptions 
+                                  ?? new OverlayOptions();
+
+                <FluentOverlay Id="@Components.DialogService.GlobalOverlayId"
+                               FullScreen="true"
+                               CloseMode="OverlayCloseMode.Manual">
+                    @if (!string.IsNullOrEmpty(overlayOptions.Text))
+                    {
+                        <div class="@overlayOptions.ClassValue"
+                             style="@overlayOptions.StyleValue"
+                             appearance="@overlayOptions.CardAppearance.ToAttributeValue()">
+                            <FluentSpinner />
+                            <FluentText>@overlayOptions.Text</FluentText>
+                        </div>
+                    }
+                </FluentOverlay>
+            }
+
             @* FluentDialog *@
             else
             {
@@ -46,5 +68,6 @@
                               @attributes="@AdditionalAttributes" />
             }
         }
+
     }
 </div>
