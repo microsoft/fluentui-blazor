@@ -17,7 +17,7 @@ public class OverlayOptions
     public string? Text { get; set; }
 
     /// <summary>
-    /// Add a card style to the overlay, which includes rounded corners and a shadow.
+    /// Gets or sets the card appearance applied to the overlay content (rounded corners and shadow).
     /// </summary>
     public CardAppearance? CardAppearance { get; set; }
 

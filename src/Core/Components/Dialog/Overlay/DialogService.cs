@@ -8,6 +8,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class DialogService : IDialogService
 {
+    private bool _isGlobalOverlayRegistered;
+
     /// <summary>
     /// Identifier of the global overlay rendered by the <see cref="FluentDialogProvider"/>.
     /// </summary>
@@ -19,11 +21,16 @@ public partial class DialogService : IDialogService
     internal const string GlobalOverlayOptionsKey = "Options";
 
     /// <see cref="IDialogService.ShowOverlayAsync(Action{OverlayOptions})"/>
-    public virtual async Task ShowOverlayAsync(Action<OverlayOptions>? options)
+    public virtual async Task ShowOverlayAsync(Action<OverlayOptions>? options = null)
     {
         if (this.ProviderNotAvailable())
         {
             throw new FluentServiceProviderException<FluentDialogProvider>();
+        }
+
+        if (!_isGlobalOverlayRegistered)
+        {
+            throw new InvalidOperationException("The global overlay is disabled in the library configuration. To enable it, set the UseGlobalOverlay property to true in the LibraryConfiguration.");
         }
 
         // Get the current options for the global overlay.
@@ -43,6 +50,16 @@ public partial class DialogService : IDialogService
     /// <see cref="IDialogService.HideOverlayAsync()"/>
     public virtual async Task HideOverlayAsync()
     {
+        if (this.ProviderNotAvailable())
+        {
+            throw new FluentServiceProviderException<FluentDialogProvider>();
+        }
+
+        if (!_isGlobalOverlayRegistered)
+        {
+            throw new InvalidOperationException("The global overlay is disabled in the library configuration. To enable it, set the UseGlobalOverlay property to true in the LibraryConfiguration.");
+        }
+
         // Hide the global overlay using JS interop.
         await _jsRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overlay.Close", GlobalOverlayId);
     }
@@ -54,6 +71,8 @@ public partial class DialogService : IDialogService
     /// </summary>
     private void RegisterGlobalOverlayComponent()
     {
+        _isGlobalOverlayRegistered = true;
+
         // Register the global overlay as a dialog instance so it is rendered by the FluentDialogProvider.
         var overlayInstance = GetGlobalOverlayInstance(new OverlayOptions());
         ServiceProvider.Items.TryAdd(overlayInstance.Id, overlayInstance);

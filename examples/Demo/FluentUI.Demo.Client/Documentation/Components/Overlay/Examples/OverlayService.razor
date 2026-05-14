@@ -1,4 +1,4 @@
-﻿@inject IDialogService DialogService
+@inject IDialogService DialogService
 
 <FluentStack Wrap="true" HorizontalGap="24px">
     <FluentTextInput Label="Overlay Text"
@@ -27,9 +27,14 @@
             options.CardAppearance = appearance;
         });
 
-        // Simulate a long-running operation
-        await Task.Delay(5000);
-
-        await DialogService.HideOverlayAsync();
+        try
+        {
+            // Simulate a long-running operation
+            await Task.Delay(5000);
+        }
+        finally
+        {
+            await DialogService.HideOverlayAsync();
+        }
     }
 }

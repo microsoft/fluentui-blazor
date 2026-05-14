@@ -62,7 +62,7 @@ public class LibraryConfiguration
 
     /// <summary>
     /// Gets or sets a value indicating whether to use the global overlay via the <see cref="IDialogService"/>.
-    /// The global overlay is a single instance of the <see cref="FluentOverlay"/> component rendered by the <see cref="FluentDialogProvider"/>,
+    /// The global overlay is a single instance of the <see cref="FluentOverlay"/> component rendered by the <see cref="FluentDialogProvider"/>.
     /// </summary>
     public bool UseGlobalOverlay { get; set; } = true;
 

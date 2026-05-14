@@ -11,7 +11,7 @@ public partial interface IDialogService
     /// Shows the global overlay.
     /// </summary>
     /// <param name="options">Options used to configure the overlay.</param>
-    Task ShowOverlayAsync(Action<OverlayOptions>? options);
+    Task ShowOverlayAsync(Action<OverlayOptions>? options = null);
 
     /// <summary>
     /// Hides the global overlay.
