@@ -38,22 +38,25 @@
             @* FluentOverlay (global overlay) *@
             else if (dialog.ComponentType == typeof(FluentOverlay))
             {
-                var overlayOptions = dialog.Options?.Parameters[Components.DialogService.GlobalOverlayOptionsKey] as OverlayOptions 
-                                  ?? new OverlayOptions();
+                if (LibraryConfiguration?.UseGlobalOverlay == true)
+                {
+                    var overlayOptions = dialog.Options?.Parameters[Components.DialogService.GlobalOverlayOptionsKey] as OverlayOptions 
+                                    ?? new OverlayOptions();
 
-                <FluentOverlay Id="@Components.DialogService.GlobalOverlayId"
-                               FullScreen="true"
-                               CloseMode="OverlayCloseMode.Manual">
-                    @if (!string.IsNullOrEmpty(overlayOptions.Text))
-                    {
-                        <div class="@overlayOptions.ClassValue"
-                             style="@overlayOptions.StyleValue"
-                             appearance="@overlayOptions.CardAppearance.ToAttributeValue()">
-                            <FluentSpinner />
-                            <FluentText>@overlayOptions.Text</FluentText>
-                        </div>
-                    }
-                </FluentOverlay>
+                    <FluentOverlay Id="@Components.DialogService.GlobalOverlayId"
+                                FullScreen="true"
+                                CloseMode="OverlayCloseMode.Manual">
+                        @if (!string.IsNullOrEmpty(overlayOptions.Text))
+                        {
+                            <div class="@overlayOptions.ClassValue"
+                                style="@overlayOptions.StyleValue"
+                                appearance="@overlayOptions.CardAppearance.ToAttributeValue()">
+                                <FluentSpinner />
+                                <FluentText>@overlayOptions.Text</FluentText>
+                            </div>
+                        }
+                    </FluentOverlay>
+                }
             }
 
             @* FluentDialog *@

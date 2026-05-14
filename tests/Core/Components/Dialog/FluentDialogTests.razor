@@ -8,7 +8,7 @@
     public FluentDialogTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
-        Services.AddFluentUIComponents();
+        Services.AddFluentUIComponents(options => options.UseGlobalOverlay = false);
 
         DialogService = Services.GetRequiredService<IDialogService>();
         DialogProvider = Render<FluentDialogProvider>();

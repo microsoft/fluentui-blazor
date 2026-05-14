@@ -28,6 +28,14 @@ Use `DialogService.ShowOverlayAsync(...)` to display the overlay and `DialogServ
 
 {{ OverlayService }}
 
+The global overlay is enabled by default. If you don't need this feature,
+you can disable it when registering the Fluent UI services to avoid rendering
+the underlying `FluentOverlay` element in the `FluentDialogProvider`:
+
+```csharp
+Services.AddFluentUIComponents(options => options.UseGlobalOverlay = false);
+```
+
 ## Detailed Usage
 
 The overlay can be customized to suit various use cases, including:
