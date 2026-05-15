@@ -22,6 +22,12 @@ public class OverlayOptions
     public CardAppearance? CardAppearance { get; set; }
 
     /// <summary>
+    /// Gets or sets the size of the spinner displayed inside the overlay.
+    /// 
+    /// </summary>
+    public SpinnerSize? SpinnerSize { get; set; }
+
+    /// <summary>
     /// Gets or sets the custom CSS styles applied to the overlay.
     /// </summary>
     public string? Style { get; set; }

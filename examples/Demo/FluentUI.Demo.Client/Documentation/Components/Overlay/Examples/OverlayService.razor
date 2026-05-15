@@ -4,9 +4,13 @@
     <FluentTextInput Label="Overlay Text"
                      @bind-Value="overlayText" />
 
-    <FluentSelect Items="@GetEnumValues()"
+    <FluentSelect Items="@GetAppearanceValues()"
                   Label="Appearance"
                   @bind-Value="appearance" />
+
+    <FluentSelect Items="@GetSpinnerSizes()"
+                  Label="Spinner Size"
+                  @bind-Value="spinnerSize" />
 </FluentStack>
 
 <FluentButton OnClick="@DisplayOverlay">
@@ -17,7 +21,9 @@
 {
     string overlayText = "Processing...";
     CardAppearance? appearance = null;
-    IEnumerable<CardAppearance?> GetEnumValues() => (new CardAppearance?[] { null }).Union(Enum.GetValues(typeof(CardAppearance)).Cast<CardAppearance?>());
+    SpinnerSize? spinnerSize = null;
+    IEnumerable<CardAppearance?> GetAppearanceValues() => (new CardAppearance?[] { null }).Union(Enum.GetValues(typeof(CardAppearance)).Cast<CardAppearance?>());
+    IEnumerable<SpinnerSize?> GetSpinnerSizes() => (new SpinnerSize?[] { null }).Union(Enum.GetValues(typeof(SpinnerSize)).Cast<SpinnerSize?>());
 
     async Task DisplayOverlay()
     {
@@ -25,6 +31,7 @@
         {
             options.Text = overlayText;
             options.CardAppearance = appearance;
+            options.SpinnerSize = spinnerSize;
         });
 
         try

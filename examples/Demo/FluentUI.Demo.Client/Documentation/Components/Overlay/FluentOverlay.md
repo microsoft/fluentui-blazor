@@ -22,7 +22,8 @@ In addition to the `FluentOverlay` component, you can use the `IDialogService` t
 without having to declare a `FluentOverlay` in your markup.
 
 Only **one global overlay** can be displayed at a time. The overlay shows a centered spinner, with an optional text message displayed below it.
-You can also choose a `CardAppearance` style to customize how the overlay content is rendered.
+You can also choose a `CardAppearance` style to customize how the overlay content is rendered. 
+And a `SpinnerSize` to set the size of the spinner.
 
 Use `DialogService.ShowOverlayAsync(...)` to display the overlay and `DialogService.HideOverlayAsync()` to close it.
 

@@ -61,11 +61,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
         sheet
       ];
 
-      // Slot for user content
+      // Slot for user content. Children stay in the light DOM and are
+      // projected through the slot, so document-level CSS can style them.
       const contentSlot = document.createElement('slot');
-      while (this.firstChild) {
-        contentSlot.appendChild(this.firstChild);
-      }
       this.dialog.appendChild(contentSlot);
       shadow.appendChild(this.dialog);
     }

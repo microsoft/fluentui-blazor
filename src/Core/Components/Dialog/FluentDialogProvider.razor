@@ -44,17 +44,17 @@
                                     ?? new OverlayOptions();
 
                     <FluentOverlay Id="@Components.DialogService.GlobalOverlayId"
-                                FullScreen="true"
-                                CloseMode="OverlayCloseMode.Manual">
-                        @if (!string.IsNullOrEmpty(overlayOptions.Text))
-                        {
-                            <div class="@overlayOptions.ClassValue"
-                                style="@overlayOptions.StyleValue"
-                                appearance="@overlayOptions.CardAppearance.ToAttributeValue()">
-                                <FluentSpinner />
+                                   FullScreen="true"
+                                   CloseMode="OverlayCloseMode.Manual">
+                        <div class="@overlayOptions.ClassValue"
+                             style="@overlayOptions.StyleValue"
+                             appearance="@overlayOptions.CardAppearance.ToAttributeValue()">
+                            <FluentSpinner Size="@overlayOptions.SpinnerSize" />
+                            @if (!string.IsNullOrEmpty(overlayOptions.Text))
+                            {
                                 <FluentText>@overlayOptions.Text</FluentText>
-                            </div>
-                        }
+                            }
+                        </div>
                     </FluentOverlay>
                 }
             }
