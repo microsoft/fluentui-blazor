@@ -114,8 +114,7 @@
 
         var overlay = DialogProvider.Find($"#{Microsoft.FluentUI.AspNetCore.Components.DialogService.GlobalOverlayId}");
         Assert.NotNull(overlay);
-        // No inner card / spinner / text should be rendered when Text is null/empty.
-        Assert.DoesNotContain("fluent-card", overlay.InnerHtml);
+        Assert.DoesNotContain("fluent-text", overlay.InnerHtml);
     }
 
     [Fact]
@@ -132,6 +131,41 @@
         Assert.Contains("Second", DialogProvider.Markup);
         Assert.DoesNotContain("First", DialogProvider.Markup);
         JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Overlay.Show", 2);
+    }
+
+    [Fact]
+    public async Task DialogService_ShowOverlayAsync_WithSpinnerSize_RendersSpinnerWithSize()
+    {
+        // Act
+        await DialogService.ShowOverlayAsync(options =>
+        {
+            options.SpinnerSize = SpinnerSize.Large;
+        });
+
+        // Assert
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Overlay.Show");
+
+        var overlay = DialogProvider.Find($"#{Microsoft.FluentUI.AspNetCore.Components.DialogService.GlobalOverlayId}");
+        var spinner = overlay.QuerySelector("fluent-spinner");
+        Assert.NotNull(spinner);
+        Assert.Equal("large", spinner.GetAttribute("size"));
+    }
+
+    [Fact]
+    public async Task DialogService_ShowOverlayAsync_WithoutSpinnerSize_RendersSpinnerWithoutSizeAttribute()
+    {
+        // Act
+        await DialogService.ShowOverlayAsync(options => { });
+
+        // Assert
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Overlay.Show");
+
+        var overlay = DialogProvider.Find($"#{Microsoft.FluentUI.AspNetCore.Components.DialogService.GlobalOverlayId}");
+        var spinner = overlay.QuerySelector("fluent-spinner");
+        Assert.NotNull(spinner);
+        // When SpinnerSize is not specified, the attribute is not emitted and the
+        // web component falls back to its default ("medium") at runtime.
+        Assert.False(spinner.HasAttribute("size"));
     }
 
     [Fact]
