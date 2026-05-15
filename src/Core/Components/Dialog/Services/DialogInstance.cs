@@ -23,6 +23,13 @@ public class DialogInstance : IDialogInstance
         DialogService = dialogService;
         Id = string.IsNullOrEmpty(options.Id) ? Identifier.NewId() : options.Id;
         Index = Interlocked.Increment(ref _counter);
+
+        if (string.Equals(options.Id, Components.DialogService.GlobalOverlayId, StringComparison.Ordinal))
+        {
+            // The global overlay must always have the highest index,
+            // so that it is displayed on top of all other dialog boxes.
+            Index = long.MaxValue;
+        }
     }
 
     /// <summary />

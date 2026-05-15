@@ -1,4 +1,5 @@
 ﻿@inherits FluentDialogInstance
+@inject IDialogService DialogService
 
 <FluentDialogBody>
     <FluentTextInput Label="Name:" @bind-Value="@Name" Disabled="true" Style="max-width: 100%;" />
@@ -26,11 +27,14 @@
     {
         if (primary)
         {
-            await DialogInstance.CloseAsync("Yes");
+            await DialogService.ShowOverlayAsync(options =>
+            {
+                options.Text = "Saving...";
+            });            
         }
         else
         {
-            await DialogInstance.CancelAsync();
+            await DialogService.HideOverlayAsync();
         }
     }
 }
