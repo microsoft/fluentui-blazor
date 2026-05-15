@@ -2,12 +2,13 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
 /// <summary>
-/// A FluentDonutChart is a component that displays data in a donut chart format.
+/// FluentDonutChart displays data in a donut chart format.
 /// </summary>
 public partial class FluentDonutChart : FluentChartBase
 {
@@ -24,15 +25,15 @@ public partial class FluentDonutChart : FluentChartBase
 
     /// <summary />
     internal string? StyleValue => DefaultStyleBuilder
-        .AddStyle("width", Width.HasValue ? $"{Width.Value}px" : null, when: Width.HasValue)
-        .AddStyle("height", Height.HasValue ? $"{Height.Value}px" : null, when: Height.HasValue)
+        .AddStyle("width", Width.HasValue ? string.Create(CultureInfo.InvariantCulture, $"{Width.Value}px") : null, when: Width.HasValue)
+        .AddStyle("height", Height.HasValue ? string.Create(CultureInfo.InvariantCulture, $"{Height.Value}px") : null, when: Height.HasValue)
         .Build();
 
     /// <summary>
     /// Gets or sets the data for the donut chart.
     /// </summary>
     [Parameter, EditorRequired]
-    public DonutChartData ChartData { get; set; } = new();
+    public IReadOnlyList<DonutDataPoint> ChartData { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the height of the donut chart.

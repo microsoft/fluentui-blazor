@@ -1,4 +1,4 @@
-export interface ChartDataPoint {
+export interface DonutDataPoint {
   /**
    * Legend text for the datapoint in the chart
    */
@@ -30,16 +30,4 @@ export interface ChartDataPoint {
    * Callout data shown in the center label when the segment is highlighted.
    */
   calloutData?: string;
-}
-
-export interface ChartProps {
-  /**
-   * chart title for the chart
-   */
-  chartTitle?: string;
-
-  /**
-   * data for the points in the chart
-   */
-  chartData: ChartDataPoint[];
 }

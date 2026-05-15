@@ -37,6 +37,26 @@ export const booleanStringConverter = {
 
 type Dict = { [key: string]: any };
 
+export const validateDonutDataArray = (obj: any, objName: string) => {
+  if (!Array.isArray(obj)) {
+    throw TypeError(`Invalid ${objName}: Expected an array.`);
+  }
+
+  (obj as any[]).forEach((item, idx) => {
+    if (item === null || typeof item !== 'object' || Array.isArray(item)) {
+      throw TypeError(`Invalid ${objName}[${idx}]: Expected an object.`);
+    }
+
+    if (typeof item.legend !== 'string') {
+      throw TypeError(`Invalid ${objName}[${idx}].legend: Expected a string.`);
+    }
+
+    if (typeof item.data !== 'number') {
+      throw TypeError(`Invalid ${objName}[${idx}].data: Expected a number.`);
+    }
+  });
+};
+
 export const validateChartPropsArray = (obj: any, objName: string) => {
   if (!Array.isArray(obj)) {
     throw TypeError(`Invalid ${objName}: Expected an array.`);

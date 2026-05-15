@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
 @inherits FluentChartBase
 
-<fluent-donut-chart @key="@($"donut_chart_{Id}")"
+<fluent-donut-chart
                     id="@Id"
                     class="@ClassValue"
                     style="@StyleValue"
@@ -18,6 +18,6 @@
                     legend-list-label="@LegendListLabel"
                     inner-radius="@InnerRadius"
                     allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
-                    culture="@Culture.Name"
+                    culture="@Culture?.Name"
                     @attributes="@AdditionalAttributes">
 </fluent-donut-chart>

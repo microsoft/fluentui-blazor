@@ -1,20 +1,16 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 @using System.Globalization
 
-<FluentDonutChart ChartData="@_data"
+<FluentDonutChart ChartData="@data"
                   ChartTitle="Donut chart culture example (de-DE)"
                   ValueInsideDonut="39.000"
                   InnerRadius="55"
                   Culture="@(new CultureInfo("de-DE"))" />
 
 @code {
-    private DonutChartData _data = new()
+    private readonly IReadOnlyList<DonutDataPoint> data = new List<DonutDataPoint>
     {
-        ChartTitle = "Donut chart culture example (de-DE)",
-        ChartData =
-        [
-            new DonutChartDataPoint { Legend = "first",  Data = 20000 },
-            new DonutChartDataPoint { Legend = "second", Data = 39000 },
-        ]
+        new DonutDataPoint { Legend = "first",  Data = 20000 },
+        new DonutDataPoint { Legend = "second", Data = 39000 },
     };
 }

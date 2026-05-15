@@ -2,6 +2,7 @@ import type { ElementStyles } from '@microsoft/fast-element';
 import { css } from '@microsoft/fast-element';
 import {
   colorNeutralForeground1,
+  spacingHorizontalL,
   spacingHorizontalNone,
   spacingHorizontalS,
   spacingVerticalL,
@@ -29,6 +30,36 @@ export const styles: ElementStyles = css`
 
   :host([hidden]) {
     display: none;
+  }
+
+  /* ── Position overrides ──────────────────────────────────────────── */
+
+  /* top: legend sits above chart — padding moves from top to bottom */
+  :host([position='top']) {
+    padding-top: 0;
+    padding-bottom: ${spacingVerticalL};
+  }
+
+  /* start: legend sits inline-start of chart */
+  :host([position='start']) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: auto;
+    padding-top: 0;
+    padding-inline-end: ${spacingHorizontalL};
+    align-items: flex-start;
+    margin: 0;
+  }
+
+  /* end: legend sits inline-end of chart */
+  :host([position='end']) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: auto;
+    padding-top: 0;
+    padding-inline-start: ${spacingHorizontalL};
+    align-items: flex-start;
+    margin: 0;
   }
 
   .legend {

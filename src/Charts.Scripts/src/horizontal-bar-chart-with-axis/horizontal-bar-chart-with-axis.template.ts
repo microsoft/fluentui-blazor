@@ -5,10 +5,11 @@ export function horizontalBarChartWithAxisTemplate<T extends HorizontalBarChartW
   return html<T>`
     <template>
       ${when(x => !!x.chartTitle, html<T>`<div class="chart-title">${x => x.chartTitle}</div>`)}
-      <div ${ref('chartContainer')}></div>
+      <div class="chart-container" ${ref('chartContainer')}></div>
       <fluent-chart-legend
         :items="${x => x.legends}"
         label="${x => x.legendListLabel}"
+        position="${x => x.legendPosition}"
         ?hidden="${x => x.hideLegends}"
         @legend-click="${(x, c) => x.handleLegendClick((c.event as CustomEvent<string>).detail)}"
         @legend-mouseover="${(x, c) => x.handleLegendMouseoverAndFocus((c.event as CustomEvent<string>).detail)}"

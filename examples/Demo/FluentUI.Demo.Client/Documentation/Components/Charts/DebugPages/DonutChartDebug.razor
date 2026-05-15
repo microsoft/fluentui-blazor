@@ -29,38 +29,32 @@
                       InnerRadius="55"
                       ValueInsideDonut="39,000"
                       AllowMultipleLegendSelection="@allowMultipleLegendSelection"
-                      Culture="@(new System.Globalization.CultureInfo("en-US"))"
+                      Culture="@(new System.Globalization.CultureInfo("nl-NL"))"
                       />
 </div>
 
 
 
 @code {
-    private readonly DonutChartData data = new()
+    private readonly IReadOnlyList<DonutDataPoint> data = new List<DonutDataPoint>
     {
-        ChartData =
-        [
-            new DonutChartDataPoint { Legend = "first", Data = 20000 },
-            new DonutChartDataPoint { Legend = "second", Data = 39000 },
-            new DonutChartDataPoint { Legend = "third", Data = 15000 },
-        ]
+            new DonutDataPoint { Legend = "first", Data = 20000 },
+            new DonutDataPoint { Legend = "second", Data = 39000 },
+            new DonutDataPoint { Legend = "third", Data = 15000 },
     };
 
-    private readonly DonutChartData data2 = new()
+    private readonly IReadOnlyList<DonutDataPoint> data2 = new List<DonutDataPoint>
     {
-        ChartData =
-    [
-        new DonutChartDataPoint { Legend = "first", Data = 20000 },
-        new DonutChartDataPoint { Legend = "second", Data = 39000 },
-        new DonutChartDataPoint { Legend = "third", Data = 15000 },
-        new DonutChartDataPoint { Legend = "fourth", Data = 1000 },
-        new DonutChartDataPoint { Legend = "fifth", Data = 500 },
-        new DonutChartDataPoint { Legend = "sixth", Data = 200 },
-        new DonutChartDataPoint { Legend = "seventh", Data = 100 },
-        new DonutChartDataPoint { Legend = "eighth", Data = 50 },
-        new DonutChartDataPoint { Legend = "ninth", Data = 20 },
-        new DonutChartDataPoint { Legend = "tenth", Data = 10 },
-    ]
+        new DonutDataPoint { Legend = "first", Data = 20000 },
+        new DonutDataPoint { Legend = "second", Data = 39000 },
+        new DonutDataPoint { Legend = "third", Data = 15000 },
+        new DonutDataPoint { Legend = "fourth", Data = 1000 },
+        new DonutDataPoint { Legend = "fifth", Data = 500 },
+        new DonutDataPoint { Legend = "sixth", Data = 200 },
+        new DonutDataPoint { Legend = "seventh", Data = 100 },
+        new DonutDataPoint { Legend = "eighth", Data = 50 },
+        new DonutDataPoint { Legend = "ninth", Data = 20 },
+        new DonutDataPoint { Legend = "tenth", Data = 10 },
     };
 
     private bool roundCorners;

@@ -1,41 +1,45 @@
-import type { ElementStyles } from '@microsoft/fast-element';
 import { css } from '@microsoft/fast-element';
 import {
+  borderRadiusMedium,
+  colorNeutralBackground1,
   colorNeutralForeground1,
-  colorNeutralForeground2,
-  colorNeutralStroke1,
-  colorNeutralStrokeAccessible,
+  colorNeutralShadowAmbient,
+  colorNeutralShadowKey,
+  colorStrokeFocus1,
+  colorStrokeFocus2,
+  colorTransparentStroke,
   display,
-  fontSizeHero700,
-  shadow4,
-  spacingHorizontalNone,
+  spacingHorizontalL,
   spacingHorizontalS,
-  spacingVerticalL,
-  spacingVerticalNone,
+  spacingVerticalMNudge,
   spacingVerticalS,
-  spacingVerticalXS,
-  strokeWidthThick,
   strokeWidthThickest,
   strokeWidthThin,
   typographyBody1StrongStyles,
-  typographyBody1Styles,
   typographyCaption1Styles,
-  typographySubtitle2StrongerStyles,
+  typographyTitle2Styles,
 } from '@fluentui/web-components';
 import { tooltipBaseStyles } from '../utils/tooltip.styles.js';
 
-export const styles: ElementStyles = css`
+/**
+ * Styles for the FunnelChart component.
+ *
+ * @public
+ */
+export const styles = css`
   ${display('block')}
 
   :host {
+    ${typographyBody1StrongStyles}
     display: grid;
     grid-template-areas:
       'title'
       'chart'
       'legend';
     grid-template-columns: 1fr;
-    position: relative;
     width: 100%;
+    height: 100%;
+    position: relative;
   }
 
   /* ── Title and legend layout (CSS Grid named areas) ─────────── */
@@ -44,12 +48,12 @@ export const styles: ElementStyles = css`
     grid-area: title;
     margin-bottom: ${spacingVerticalS};
     ${typographyBody1StrongStyles}
+    color: ${colorNeutralForeground1};
     text-align: start;
   }
 
   .chart-container {
     grid-area: chart;
-    min-width: 0; /* allow grid cell to shrink below SVG intrinsic width */
   }
 
   fluent-chart-legend {
@@ -78,19 +82,21 @@ export const styles: ElementStyles = css`
   }
 
   /* legend-position="start" */
+  /* Use auto auto 1fr so the fixed-size SVG and legend sit flush together;
+     the 1fr spacer column absorbs leftover host width. */
   :host([legend-position='start']) {
     grid-template-areas:
-      'title  title'
-      'legend chart';
-    grid-template-columns: auto 1fr;
+      'title  title  title'
+      'legend chart  .    ';
+    grid-template-columns: auto auto 1fr;
   }
 
   /* legend-position="end" */
   :host([legend-position='end']) {
     grid-template-areas:
-      'title  title'
-      'chart  legend';
-    grid-template-columns: 1fr auto;
+      'title  title  title'
+      'chart  legend .    ';
+    grid-template-columns: auto auto 1fr;
   }
 
   /* Legend on side: anchor legend to the top of its cell */
@@ -111,17 +117,17 @@ export const styles: ElementStyles = css`
   /* Combined: title-position="bottom" + legend-position="start" */
   :host([title-position='bottom'][legend-position='start']) {
     grid-template-areas:
-      'legend chart'
-      'title  title';
-    grid-template-columns: auto 1fr;
+      'legend chart  .    '
+      'title  title  title';
+    grid-template-columns: auto auto 1fr;
   }
 
   /* Combined: title-position="bottom" + legend-position="end" */
   :host([title-position='bottom'][legend-position='end']) {
     grid-template-areas:
-      'chart  legend'
-      'title  title';
-    grid-template-columns: 1fr auto;
+      'chart  legend .    '
+      'title  title  title';
+    grid-template-columns: auto auto 1fr;
   }
 
   :host([title-align='center']) .chart-title {
@@ -132,95 +138,78 @@ export const styles: ElementStyles = css`
     text-align: end;
   }
 
-  .chart-svg {
-    display: block;
+  .chart {
+    box-sizing: content-box;
     overflow: visible;
+    display: block;
   }
 
-  .axis-domain,
-  .origin-line {
-    stroke: ${colorNeutralStroke1};
-    stroke-width: 1;
-    opacity: 0.2;
+  .funnel-segment {
+    transition: opacity 0.1s ease;
   }
 
-  .axis-tick-line {
-    stroke: ${colorNeutralForeground1};
-    stroke-width: 1;
-    opacity: 0.24;
-  }
-
-  .axis-text,
-  .y-axis-text {
-    ${typographyCaption1Styles}
-    fill: ${colorNeutralForeground2};
-    font-size: 10px;
-    font-weight: 600;
-  }
-
-  .bar {
-    opacity: 1;
-  }
-
-  .bar.inactive {
+  .funnel-segment.inactive {
     opacity: 0.1;
   }
 
-  .bar:focus {
+  .funnel-segment:focus {
     outline: none;
-    stroke-width: ${strokeWidthThick};
-    stroke: black;
+    stroke-width: ${strokeWidthThin};
+    stroke: ${colorStrokeFocus1};
   }
 
-  .bar-label {
-    ${typographyBody1StrongStyles}
-    fill: ${colorNeutralForeground1};
-    direction: ltr;
-    unicode-bidi: isolate;
+  .funnel-segment:focus-visible {
+    stroke-width: ${strokeWidthThickest};
+    stroke: ${colorStrokeFocus2};
+  }
+
+  .funnel-segment-text {
+    font-size: 12px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .funnel-segment-text.inactive {
+    opacity: 0.1;
   }
 
   ${tooltipBaseStyles}
 
   .tooltip {
-    ${typographyCaption1Styles}
-    z-index: 999;
-    box-shadow: ${shadow4};
-    border: ${strokeWidthThick};
+    z-index: 1;
+    background-blend-mode: normal, luminosity;
+    border-radius: ${borderRadiusMedium};
+    border: 1px solid ${colorTransparentStroke};
+    filter: drop-shadow(0 0 2px ${colorNeutralShadowAmbient}) drop-shadow(0 8px 16px ${colorNeutralShadowKey});
   }
 
-  .tooltip-header {
-    ${typographyCaption1Styles}
-    color: ${colorNeutralForeground2};
-    opacity: 0.8;
-  }
-
-  .tooltip-info {
-    margin-top: 11px;
+  .tooltip-inner {
     padding-inline-start: ${spacingHorizontalS};
-    border-inline-start: ${strokeWidthThickest} solid;
+    color: ${colorNeutralForeground1};
+    border-inline-start: 4px solid;
   }
 
   .tooltip-legend-text {
     ${typographyCaption1Styles}
-    color: ${colorNeutralForeground1};
-    text-align: start;
-    margin-bottom: ${spacingVerticalXS};
   }
 
-  .tooltip-primary-value {
-    ${typographySubtitle2StrongerStyles}
-    font-size: ${fontSizeHero700};
-    direction: ltr;
-    unicode-bidi: isolate;
+  .tooltip-value {
+    ${typographyTitle2Styles}
   }
 
   @media (forced-colors: active) {
-    .tooltip-info {
+    .funnel-segment-text {
+      fill: CanvasText;
+    }
+
+    .tooltip-body {
       forced-color-adjust: none;
     }
 
-    .bar-label {
-      fill: CanvasText !important;
+    .tooltip-legend-text,
+    .tooltip-content-y {
+      forced-color-adjust: auto;
+      color: CanvasText;
     }
   }
 `;

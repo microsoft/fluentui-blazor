@@ -39,6 +39,8 @@ export class HorizontalBarChart extends ChartBase {
   @attr({ attribute: 'enable-gradient', mode: 'boolean' })
   public enableGradient: boolean = false;
 
+  protected override _enableResizeObserver = true;
+
   private _barHeight: number = 12;
   private _bars: SVGRectElement[] = [];
 
@@ -213,7 +215,7 @@ export class HorizontalBarChart extends ChartBase {
   }
 
   private _calculateBarSpacing(): number {
-    const svgWidth = this.getBoundingClientRect().width;
+    const svgWidth = this.chartContainer.getBoundingClientRect().width || this.getBoundingClientRect().width;
     let barSpacing = 0;
     const MARGIN_WIDTH_IN_PX = 3;
     if (svgWidth) {

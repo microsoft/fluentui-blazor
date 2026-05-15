@@ -25,5 +25,9 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIChartComponents {
     defineOnce('fluentui:chart-components:horizontal-bar-chart-with-axis', () => {
       FluentUIComponents.HorizontalBarChartWithAxisDefinition.define(registry);
     });
+
+    defineOnce('fluentui:chart-components:funnel-chart', () => {
+      FluentUIComponents.FunnelChartDefinition.define(registry);
+    });
   }
 }

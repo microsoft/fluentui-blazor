@@ -16,10 +16,10 @@ public static class ChartJson
     /// </summary>
     /// <param name="value">The donut chart data payload.</param>
     /// <returns>A JSON string suitable for the <c>fluent-donut-chart</c> component.</returns>
-    public static string Serialize(DonutChartData value) =>
+    public static string Serialize(IReadOnlyList<DonutDataPoint> value) =>
         JsonSerializer.Serialize(
             value,
-            DonutChartDataJsonSerializerContext.Default.DonutChartData);
+            DonutChartDataJsonSerializerContext.Default.IReadOnlyListDonutDataPoint);
 
     /// <summary>
     /// Serializes horizontal bar chart data using the horizontal bar chart serializer context.
@@ -44,4 +44,14 @@ public static class ChartJson
         JsonSerializer.Serialize(
             value,
             HorizontalBarChartWithAxisDataJsonSerializerContext.Default.IReadOnlyListHorizontalBarChartWithAxisDataPoint);
+
+    /// <summary>
+    /// Serializes funnel chart data using the funnel chart serializer context.
+    /// </summary>
+    /// <param name="value">The funnel chart data payload.</param>
+    /// <returns>A JSON string suitable for the <c>fluent-funnel-chart</c> component.</returns>
+    public static string Serialize(IReadOnlyList<FunnelDataPoint> value) =>
+        JsonSerializer.Serialize(
+            value,
+            FunnelChartDataJsonSerializerContext.Default.IReadOnlyListFunnelDataPoint);
 }

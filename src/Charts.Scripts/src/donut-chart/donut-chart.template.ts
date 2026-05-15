@@ -1,5 +1,6 @@
 import { ElementViewTemplate, html, ref, when } from '@microsoft/fast-element';
 import type { DonutChart } from './donut-chart.js';
+import { chartTooltipTemplate } from '../utils/chart-tooltip.template.js';
 
 /**
  * Generates a template for the DonutChart component.
@@ -10,14 +11,15 @@ export function donutChartTemplate<T extends DonutChart>(): ElementViewTemplate<
   return html<T>`
     <template>
       ${when(x => !!x.chartTitle, html<T>`<div class="chart-title">${x => x.chartTitle}</div>`)}
-      <div ${ref('chartContainer')}>
+      <div class="chart-container" ${ref('chartContainer')}>
         <svg class="chart" width="${x => x.width}" height="${x => x.height}">
-          <g ${ref('group')} transform="translate(${x => x.width / 2}, ${x => x.height / 2})"></g>
+          <g ${ref('group')} transform="translate(${x => (x.width ?? 200) / 2}, ${x => (x.height ?? 200) / 2})"></g>
         </svg>
       </div>
       <fluent-chart-legend
         :items="${x => x.legends}"
         label="${x => x.legendListLabel}"
+        position="${x => x.legendPosition}"
         ?hidden="${x => x.hideLegends}"
         @legend-click="${(x, c) => x.handleLegendClick((c.event as CustomEvent<string>).detail)}"
         @legend-mouseover="${(x, c) => x.handleLegendMouseoverAndFocus((c.event as CustomEvent<string>).detail)}"
@@ -25,22 +27,7 @@ export function donutChartTemplate<T extends DonutChart>(): ElementViewTemplate<
         @legend-focus="${(x, c) => x.handleLegendMouseoverAndFocus((c.event as CustomEvent<string>).detail)}"
         @legend-blur="${x => x.handleLegendMouseoutAndBlur()}"
       ></fluent-chart-legend>
-      ${when(
-        x => !x.hideTooltip && x.tooltipProps.isVisible,
-        html<T>`
-          <div
-            class="tooltip"
-            style="inset-inline-start: ${x => x.tooltipProps.xPos}px; top: ${x => x.tooltipProps.yPos}px"
-          >
-            <div class="tooltip-body" style="border-color: ${x => x.tooltipProps.color};">
-              <div class="tooltip-legend-text">${x => x.tooltipProps.legend}</div>
-              <div class="tooltip-content-y" style="color: ${x => x.tooltipProps.color};">
-                ${x => x.tooltipProps.yValue}
-              </div>
-            </div>
-          </div>
-        `,
-      )}
+      ${chartTooltipTemplate<T>()}
     </template>
   `;
 }

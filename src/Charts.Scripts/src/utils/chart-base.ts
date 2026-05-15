@@ -1,6 +1,7 @@
 import { attr, FASTElement, observable } from '@microsoft/fast-element';
 import type { ChartLegend } from '../chart-legend/chart-legend.js';
-import type { Legend, TooltipProps } from './chart.options.js';
+import type { ChartLegendPosition, ChartTitleAlign, ChartTitlePosition, Legend, TooltipProps } from './chart.options.js';
+import { getRTL } from './chart-helpers.js';
 
 /**
  * Abstract base class shared by all chart web components.
@@ -16,6 +17,18 @@ export abstract class ChartBase extends FASTElement {
 
   @attr({ attribute: 'chart-title' })
   public chartTitle?: string;
+
+  /** Horizontal alignment of the chart title. Defaults to `'start'`. */
+  @attr({ attribute: 'title-align' })
+  public titleAlign?: ChartTitleAlign;
+
+  /** Vertical position of the chart title. Defaults to `'top'`. */
+  @attr({ attribute: 'title-position' })
+  public titlePosition?: ChartTitlePosition;
+
+  /** Position of the legend relative to the chart. Defaults to `'bottom'`. */
+  @attr({ attribute: 'legend-position' })
+  public legendPosition?: ChartLegendPosition;
 
   @attr({ attribute: 'hide-legends', mode: 'boolean' })
   public hideLegends: boolean = false;
@@ -70,11 +83,15 @@ export abstract class ChartBase extends FASTElement {
 
   protected _isRTL: boolean = false;
 
+  /** Set to true in a subclass to automatically observe host resize and re-render. */
+  protected _enableResizeObserver: boolean = false;
+
   // ── Private state ────────────────────────────────────────────────
 
   private _isSettingActiveLegend: boolean = false;
   private _renderDirty = false;
   private _frameHandle: number | null = null;
+  private _resizeObserver?: ResizeObserver;
 
   constructor() {
     super();
@@ -112,6 +129,9 @@ export abstract class ChartBase extends FASTElement {
     const self = this as Record<string, unknown>;
     const attrFields = [
       'chartTitle',
+      'titleAlign',
+      'titlePosition',
+      'legendPosition',
       'hideLegends',
       'hideTooltip',
       'hideLabels',
@@ -151,9 +171,15 @@ export abstract class ChartBase extends FASTElement {
         self[field] = saved[field];
       }
     }
+
+    if (this._enableResizeObserver) {
+      this._resizeObserver = new ResizeObserver(() => this._requestRender());
+      this._resizeObserver.observe(this.chartContainer);
+    }
   }
 
   public disconnectedCallback() {
+    this._resizeObserver?.disconnect();
     this._cancelScheduledRender();
     super.disconnectedCallback();
   }
@@ -164,6 +190,14 @@ export abstract class ChartBase extends FASTElement {
     if (this.$fastController.isConnected) {
       this.elementInternals.ariaLabel = this._getHostAriaLabel();
     }
+  }
+
+  protected legendPositionChanged() {
+    // no-op: CSS handles layout via attr selectors
+  }
+
+  protected hideLegendsChanged() {
+    // no-op for base class: subclass logic handled by render
   }
 
   protected cultureChanged() {
@@ -186,6 +220,12 @@ export abstract class ChartBase extends FASTElement {
       return;
     }
     this._updateLegendInteractionState();
+  }
+
+  protected hideTooltipChanged() {
+    if (this.hideTooltip) {
+      this._clearTooltip();
+    }
   }
 
   protected selectedLegendsChanged() {
@@ -308,6 +348,7 @@ export abstract class ChartBase extends FASTElement {
       }
 
       this._renderDirty = false;
+      this._isRTL = getRTL(this);
       this._performRender();
     });
   }

@@ -75,5 +75,5 @@ public abstract partial class FluentChartBase : FluentComponentBase
     /// Defaults to <see cref="CultureInfo.CurrentCulture"/> to display using the OS culture.
     /// </summary>
     [Parameter]
-    public CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
+    public CultureInfo? Culture { get; set; }// = CultureInfo.CurrentCulture;
 }

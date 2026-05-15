@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// <summary>
 /// Represents a single data point in a donut chart.
 /// </summary>
-public sealed record DonutChartDataPoint
+public sealed record DonutDataPoint
 {
     /// <summary>
     /// Gets the legend text shown for the donut segment.
@@ -44,23 +44,5 @@ public sealed record DonutChartDataPoint
     /// </summary>
     [JsonPropertyName("yAxisCalloutData")]
     public string? YAxisCalloutData { get; init; }
-}
-
-/// <summary>
-/// Represents the full data payload consumed by the donut chart web component.
-/// </summary>
-public sealed record DonutChartData
-{
-    /// <summary>
-    /// Gets the optional title of the chart.
-    /// </summary>
-    [JsonPropertyName("chartTitle")]
-    public string? ChartTitle { get; init; }
-
-    /// <summary>
-    /// Gets the collection of donut chart segments.
-    /// </summary>
-    [JsonPropertyName("chartData")]
-    public IReadOnlyList<DonutChartDataPoint> ChartData { get; init; } = [];
 }
 #pragma warning restore MA0048 // File name must match type name

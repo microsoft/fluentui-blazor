@@ -1,6 +1,6 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentDonutChart ChartData="@_data"
+<FluentDonutChart ChartData="@data"
                   ChartTitle="Donut chart outside labels example"
                   ValueInsideDonut="39000"
                   InnerRadius="85"
@@ -9,13 +9,9 @@
                   HideLabels="false" />
 
 @code {
-    private DonutChartData _data = new()
+    private readonly IReadOnlyList<DonutDataPoint> data = new List<DonutDataPoint>
     {
-        ChartTitle = "Donut chart outside labels example",
-        ChartData =
-        [
-            new DonutChartDataPoint { Legend = "first",  Data = 20000 },
-            new DonutChartDataPoint { Legend = "second", Data = 39000 },
-        ]
+        new DonutDataPoint { Legend = "first", Data = 20000 },
+        new DonutDataPoint { Legend = "second", Data = 39000 }
     };
 }

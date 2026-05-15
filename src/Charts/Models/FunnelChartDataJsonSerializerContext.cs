@@ -7,10 +7,10 @@ using System.Text.Json.Serialization;
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
 /// <summary>
-/// Provides source-generated JSON serialization metadata for donut chart payloads.
+/// Provides source-generated JSON serialization metadata for funnel chart payloads.
 /// </summary>
-[JsonSerializable(typeof(DonutDataPoint))]
-[JsonSerializable(typeof(IReadOnlyList<DonutDataPoint>))]
-internal sealed partial class DonutChartDataJsonSerializerContext : JsonSerializerContext
+[JsonSerializable(typeof(FunnelDataPoint))]
+[JsonSerializable(typeof(IReadOnlyList<FunnelDataPoint>))]
+internal sealed partial class FunnelChartDataJsonSerializerContext : JsonSerializerContext
 {
 }

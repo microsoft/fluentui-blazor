@@ -1,5 +1,5 @@
 import { FASTElement, attr, observable } from '@microsoft/fast-element';
-import type { Legend } from '../utils/chart.options.js';
+import type { ChartLegendPosition, Legend } from '../utils/chart.options.js';
 import { jsonConverter } from '../utils/chart-helpers.js';
 
 /**
@@ -38,6 +38,10 @@ export class ChartLegend extends FASTElement {
   @attr
   public label?: string;
 
+  /** Position of the legend relative to the chart body. Defaults to `'bottom'`. */
+  @attr
+  public position?: ChartLegendPosition;
+
   connectedCallback() {
     // Class field initializers create own data properties that shadow the FAST
     // @attr and @observable reactive getter/setters on the prototype. Delete them
@@ -46,7 +50,7 @@ export class ChartLegend extends FASTElement {
     // Save defaults first so we can restore them for fields that have no
     // corresponding HTML attribute (FAST won't call the setter in that case).
     const self = this as Record<string, unknown>;
-    const attrFields = ['items'] as const;
+    const attrFields = ['items', 'position'] as const;
     const observableFields = ['highlighted'] as const;
 
     const savedAttr: Partial<Record<(typeof attrFields)[number], unknown>> = {};

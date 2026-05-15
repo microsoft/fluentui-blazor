@@ -10,14 +10,10 @@
 
 
 @code {
-    DonutChartData data = new DonutChartData
+    private readonly IReadOnlyList<DonutDataPoint> data = new List<DonutDataPoint>
     {
-
-        ChartData = new List<DonutChartDataPoint>
-        {
-            new DonutChartDataPoint { Legend = "first", Data = 20000 },
-            new DonutChartDataPoint { Legend = "second", Data = 39000 },
-            new DonutChartDataPoint { Legend = "third", Data = 15000 },
-        }
+        new DonutDataPoint { Legend = "first", Data = 20000 },
+        new DonutDataPoint { Legend = "second", Data = 39000 },
+        new DonutDataPoint { Legend = "third", Data = 15000 },
     };
 }

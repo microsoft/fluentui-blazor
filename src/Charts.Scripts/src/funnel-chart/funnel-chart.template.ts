@@ -1,17 +1,28 @@
 import { ElementViewTemplate, html, ref, when } from '@microsoft/fast-element';
-import type { HorizontalBarChart } from './horizontal-bar-chart.js';
+import type { FunnelChart } from './funnel-chart.js';
 import { chartTooltipTemplate } from '../utils/chart-tooltip.template.js';
 
 /**
- * Generates a template for the HorizontalBarChart component.
+ * Generates a template for the FunnelChart component.
  *
  * @public
  */
-export function horizontalbarchartTemplate<T extends HorizontalBarChart>(): ElementViewTemplate<T> {
+export function funnelChartTemplate<T extends FunnelChart>(): ElementViewTemplate<T> {
   return html<T>`
     <template>
       ${when(x => !!x.chartTitle, html<T>`<div class="chart-title">${x => x.chartTitle}</div>`)}
-      <div class="chart-container" ${ref('chartContainer')}></div>
+      <div class="chart-container" ${ref('chartContainer')}>
+        <svg
+          ${ref('svgElement')}
+          class="chart"
+          width="${x => x.width}"
+          height="${x => x.height}"
+          role="region"
+          aria-label="${x => x.chartTitle}"
+        >
+          <g ${ref('group')}></g>
+        </svg>
+      </div>
       <fluent-chart-legend
         :items="${x => x.legends}"
         label="${x => x.legendListLabel}"
@@ -31,4 +42,4 @@ export function horizontalbarchartTemplate<T extends HorizontalBarChart>(): Elem
 /**
  * @internal
  */
-export const template: ElementViewTemplate<HorizontalBarChart> = horizontalbarchartTemplate();
+export const template: ElementViewTemplate<FunnelChart> = funnelChartTemplate();

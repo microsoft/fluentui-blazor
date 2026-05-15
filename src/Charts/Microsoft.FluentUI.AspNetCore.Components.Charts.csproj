@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Charts\HorizontalBarChartWithAxis\" />
+    <Folder Include="Charts\FunnelChart\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,19 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+@inherits FluentChartBase
+
+<fluent-funnel-chart id="@Id"
+                     class="@ClassValue"
+                     style="@StyleValue"
+                     chart-title="@ChartTitle"
+                     data="@ChartJson.Serialize(ChartData)"
+                     width="@Width"
+                     height="@Height"
+                     hide-tooltip="@(HideTooltip ? "true" : null)"
+                     hide-labels="@(HideLabels ? "true" : null)"
+                     hide-legends="@(HideLegends ? "true" : null)"
+                     round-corners="@(RoundedCorners ? "true" : null)"
+                     legend-list-label="@LegendListLabel"
+                     allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
+                     culture="@Culture?.Name"
+                     @attributes="@AdditionalAttributes">
+</fluent-funnel-chart>
