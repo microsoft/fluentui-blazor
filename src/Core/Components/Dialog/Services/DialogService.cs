@@ -30,6 +30,14 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
         _serviceProvider = serviceProvider;
         _jsRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
         Localizer = localizer ?? FluentLocalizerInternal.Default;
+
+        var configuration = serviceProvider.GetService<LibraryConfiguration>();
+        
+        // Register the global overlay component only when enabled
+        if (configuration?.UseGlobalOverlay != false)
+        {
+            RegisterGlobalOverlayComponent();
+        }
     }
 
     /// <summary />
