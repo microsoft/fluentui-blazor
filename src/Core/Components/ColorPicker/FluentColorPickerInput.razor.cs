@@ -146,6 +146,13 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
         return true;
     }
 
+    /// <summary>
+    /// Internal wrapper around <see cref="TryParseValueFromString(string?, out string?, out string?)"/>,
+    /// exposed for unit testing.
+    /// </summary>
+    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
+        => TryParseValueFromString(value, out result, out validationErrorMessage);
+
     private string? GetSwatchColor()
     {
         var value = CurrentValueAsString;

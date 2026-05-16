@@ -232,6 +232,62 @@
         Assert.DoesNotContain("invalid", cut.Markup, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    public void FluentColorPickerInput_InternalTryParseValueFromString_EmptyValue_ReturnsTrue(string? value)
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPickerInput />);
+        var input = cut.FindComponent<FluentColorPickerInput>().Instance;
+
+        // Act
+        var success = input.InternalTryParseValueFromString(value, out var result, out var error);
+
+        // Assert - null/empty values are considered valid (no error)
+        Assert.True(success);
+        Assert.Equal(value, result);
+        Assert.Null(error);
+    }
+
+    [Theory]
+    [InlineData("#FFF")]
+    [InlineData("#ABCDEF")]
+    [InlineData("#abcdef")]
+    public void FluentColorPickerInput_InternalTryParseValueFromString_ValidHex_ReturnsTrue(string value)
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPickerInput />);
+        var input = cut.FindComponent<FluentColorPickerInput>().Instance;
+
+        // Act
+        var success = input.InternalTryParseValueFromString(value, out var result, out var error);
+
+        // Assert
+        Assert.True(success);
+        Assert.Equal(value, result);
+        Assert.Null(error);
+    }
+
+    [Theory]
+    [InlineData("not-a-color")]
+    [InlineData("FF0000")]      // missing '#'
+    [InlineData("#GGGGGG")]     // non-hex characters
+    [InlineData("#FFFF")]       // wrong length
+    public void FluentColorPickerInput_InternalTryParseValueFromString_InvalidHex_ReturnsFalse(string value)
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPickerInput />);
+        var input = cut.FindComponent<FluentColorPickerInput>().Instance;
+
+        // Act
+        var success = input.InternalTryParseValueFromString(value, out _, out var error);
+
+        // Assert
+        Assert.False(success);
+        Assert.Equal("Invalid hexadecimal color value", error);
+    }
+
     [Fact]
     public async Task FluentColorPickerInput_TypeInvalidHex_ShowsErrorMessage()
     {
