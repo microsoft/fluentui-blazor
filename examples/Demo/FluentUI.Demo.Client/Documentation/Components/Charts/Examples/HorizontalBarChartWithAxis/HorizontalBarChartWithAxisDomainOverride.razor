@@ -1,4 +1,4 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 16px;">
     <div style="min-width: 260px; flex: 1 1 260px;">
@@ -40,9 +40,9 @@
 
     private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
     [
-        new HorizontalBarChartWithAxisDataPoint { X = 10000, Y = "5000",  Legend = "Oranges", Color = "#637cef", XAxisCalloutData = "10K", YAxisCalloutData = "5K"  },
-        new HorizontalBarChartWithAxisDataPoint { X = 20000, Y = "50000", Legend = "Dogs",    Color = "#e3008c", XAxisCalloutData = "20K", YAxisCalloutData = "50K" },
-        new HorizontalBarChartWithAxisDataPoint { X = 25000, Y = "30000", Legend = "Apples",  Color = "#2aa0a4", XAxisCalloutData = "25K", YAxisCalloutData = "30K" },
-        new HorizontalBarChartWithAxisDataPoint { X = 40000, Y = "13000", Legend = "Bananas", Color = "#9373c0", XAxisCalloutData = "40K", YAxisCalloutData = "13K" },
+        new HorizontalBarChartWithAxisDataPoint { X = 10000, Y = "5000",  Legend = "Oranges", Color = DataVizPalette.Color1, XAxisCalloutData = "10K", YAxisCalloutData = "5K"  },
+        new HorizontalBarChartWithAxisDataPoint { X = 20000, Y = "50000", Legend = "Dogs",    Color = DataVizPalette.Color2, XAxisCalloutData = "20K", YAxisCalloutData = "50K" },
+        new HorizontalBarChartWithAxisDataPoint { X = 25000, Y = "30000", Legend = "Apples",  Color = DataVizPalette.Color3, XAxisCalloutData = "25K", YAxisCalloutData = "30K" },
+        new HorizontalBarChartWithAxisDataPoint { X = 40000, Y = "13000", Legend = "Bananas", Color = DataVizPalette.Color4, XAxisCalloutData = "40K", YAxisCalloutData = "13K" },
     ];
 }

@@ -1,4 +1,4 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentHorizontalBarChartWithAxis Style="width: 800px"
                                   ChartTitle="Quarterly comparison"
@@ -8,14 +8,14 @@
 @code {
     private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
     [
-        new HorizontalBarChartWithAxisDataPoint { X =  10000, Y = "Q1", Legend = "Product A", Color = "#637cef", XAxisCalloutData =  "10K", YAxisCalloutData = "Q1" },
-        new HorizontalBarChartWithAxisDataPoint { X =  -5000, Y = "Q1", Legend = "Product B", Color = "#e3008c", XAxisCalloutData =  "-5K", YAxisCalloutData = "Q1" },
-        new HorizontalBarChartWithAxisDataPoint { X =   8000, Y = "Q1", Legend = "Product C", Color = "#2aa0a4", XAxisCalloutData =   "8K", YAxisCalloutData = "Q1" },
-        new HorizontalBarChartWithAxisDataPoint { X =  -7000, Y = "Q2", Legend = "Product A", Color = "#637cef", XAxisCalloutData =  "-7K", YAxisCalloutData = "Q2" },
-        new HorizontalBarChartWithAxisDataPoint { X =  12000, Y = "Q2", Legend = "Product B", Color = "#e3008c", XAxisCalloutData =  "12K", YAxisCalloutData = "Q2" },
-        new HorizontalBarChartWithAxisDataPoint { X =   3000, Y = "Q2", Legend = "Product C", Color = "#2aa0a4", XAxisCalloutData =   "3K", YAxisCalloutData = "Q2" },
-        new HorizontalBarChartWithAxisDataPoint { X =  15000, Y = "Q3", Legend = "Product A", Color = "#637cef", XAxisCalloutData =  "15K", YAxisCalloutData = "Q3" },
-        new HorizontalBarChartWithAxisDataPoint { X =  -4000, Y = "Q3", Legend = "Product B", Color = "#e3008c", XAxisCalloutData =  "-4K", YAxisCalloutData = "Q3" },
-        new HorizontalBarChartWithAxisDataPoint { X =   5000, Y = "Q3", Legend = "Product C", Color = "#2aa0a4", XAxisCalloutData =   "5K", YAxisCalloutData = "Q3" },
+        new HorizontalBarChartWithAxisDataPoint { X =  10000, Y = "Q1", Legend = "Product A", Color = DataVizPalette.Color1, XAxisCalloutData =  "10K", YAxisCalloutData = "Q1" },
+        new HorizontalBarChartWithAxisDataPoint { X =  -5000, Y = "Q1", Legend = "Product B", Color = DataVizPalette.Color2, XAxisCalloutData =  "-5K", YAxisCalloutData = "Q1" },
+        new HorizontalBarChartWithAxisDataPoint { X =   8000, Y = "Q1", Legend = "Product C", Color = DataVizPalette.Color3, XAxisCalloutData =   "8K", YAxisCalloutData = "Q1" },
+        new HorizontalBarChartWithAxisDataPoint { X =  -7000, Y = "Q2", Legend = "Product A", Color = DataVizPalette.Color1, XAxisCalloutData =  "-7K", YAxisCalloutData = "Q2" },
+        new HorizontalBarChartWithAxisDataPoint { X =  12000, Y = "Q2", Legend = "Product B", Color = DataVizPalette.Color2, XAxisCalloutData =  "12K", YAxisCalloutData = "Q2" },
+        new HorizontalBarChartWithAxisDataPoint { X =   3000, Y = "Q2", Legend = "Product C", Color = DataVizPalette.Color3, XAxisCalloutData =   "3K", YAxisCalloutData = "Q2" },
+        new HorizontalBarChartWithAxisDataPoint { X =  15000, Y = "Q3", Legend = "Product A", Color = DataVizPalette.Color1, XAxisCalloutData =  "15K", YAxisCalloutData = "Q3" },
+        new HorizontalBarChartWithAxisDataPoint { X =  -4000, Y = "Q3", Legend = "Product B", Color = DataVizPalette.Color2, XAxisCalloutData =  "-4K", YAxisCalloutData = "Q3" },
+        new HorizontalBarChartWithAxisDataPoint { X =   5000, Y = "Q3", Legend = "Product C", Color = DataVizPalette.Color3, XAxisCalloutData =   "5K", YAxisCalloutData = "Q3" },
     ];
 }

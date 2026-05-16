@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Text.Json.Serialization;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
@@ -27,10 +28,28 @@ public sealed record DonutDataPoint
 
     /// <summary>
     /// Gets the color used to render the donut segment and legend.
-    /// If not provided, the web component falls back to its default palette.
+    /// Use <see cref="DataVizPalette.Custom"/> and set <see cref="CustomColor"/> to supply
+    /// an exact hex or CSS color string. If not provided, the web component falls back to
+    /// its default palette.
+    /// </summary>
+    [JsonIgnore]
+    public DataVizPalette? Color { get; init; }
+
+    /// <summary>
+    /// Custom color value used when <see cref="Color"/> is <see cref="DataVizPalette.Custom"/>.
+    /// Accepts an HTML hex color string (e.g. <c>#0099BC</c>) or a CSS variable.
+    /// </summary>
+    [JsonIgnore]
+    public string? CustomColor { get; init; }
+
+    /// <summary>
+    /// Gets the serialized color value sent to the web component.
+    /// Returns <see cref="CustomColor"/> when <see cref="Color"/> is <see cref="DataVizPalette.Custom"/>,
+    /// otherwise the palette token string, or <c>null</c> when no color is set.
     /// </summary>
     [JsonPropertyName("color")]
-    public string? Color { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SerializedColor => Color == DataVizPalette.Custom ? CustomColor : Color?.ToAttributeValue();
 
     /// <summary>
     /// Gets optional callout data for the x-axis portion of the tooltip.

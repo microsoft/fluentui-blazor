@@ -300,4 +300,10 @@ public enum DataVizPalette
     /// </summary>
     [Description("highSuccess")]
     HighSuccess,
+
+    /// <summary>
+    /// Use a custom color specified by the <c>CustomColor</c> property on the data point.
+    /// </summary>
+    [Description("custom")]
+    Custom,
 }

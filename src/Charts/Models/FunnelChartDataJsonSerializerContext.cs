@@ -9,7 +9,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// <summary>
 /// Provides source-generated JSON serialization metadata for funnel chart payloads.
 /// </summary>
-[JsonSerializable(typeof(DataVizPalette))]
 [JsonSerializable(typeof(FunnelDataPoint))]
 [JsonSerializable(typeof(IReadOnlyList<FunnelDataPoint>))]
 internal sealed partial class FunnelChartDataJsonSerializerContext : JsonSerializerContext

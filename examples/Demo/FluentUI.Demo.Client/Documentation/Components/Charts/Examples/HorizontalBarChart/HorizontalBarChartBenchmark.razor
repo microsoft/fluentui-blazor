@@ -1,4 +1,4 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 @using Microsoft.FluentUI.AspNetCore.Components.Enums
 
 <FluentHorizontalBarChart Variant="@HorizontalBarChartVariant.SingleBar"
@@ -13,7 +13,7 @@
             ChartSeriesTitle = "one",
             ChartData = new List<HorizontalBarChartDataPoint>
             {
-                new HorizontalBarChartDataPoint { Legend = "one", Data = 10, Total = 100, Color = "#637cef" }
+                new HorizontalBarChartDataPoint { Legend = "one", Data = 10, Total = 100, Color = DataVizPalette.Color1 }
             },
             BenchmarkData = 50
         },
@@ -22,7 +22,7 @@
             ChartSeriesTitle = "two",
             ChartData = new List<HorizontalBarChartDataPoint>
             {
-                new HorizontalBarChartDataPoint { Legend = "two", Data = 30, Total = 200, Color = "#e3008c" }
+                new HorizontalBarChartDataPoint { Legend = "two", Data = 30, Total = 200, Color = DataVizPalette.Color2 }
             },
             BenchmarkData = 30
         },
@@ -31,7 +31,7 @@
             ChartSeriesTitle = "three",
             ChartData = new List<HorizontalBarChartDataPoint>
             {
-                new HorizontalBarChartDataPoint { Legend = "three", Data = 15, Total = 50, Color = "#2aa0a4" }
+                new HorizontalBarChartDataPoint { Legend = "three", Data = 15, Total = 50, Color = DataVizPalette.Color3 }
             },
             BenchmarkData = 5
         }

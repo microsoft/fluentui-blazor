@@ -1,4 +1,4 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <div style="margin-top: 16px; max-width: 220px;">
     <FluentSelect TOption="string"
@@ -29,15 +29,15 @@
 
     private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
     [
-        new HorizontalBarChartWithAxisDataPoint { X =  80, Y = "Label 1", Legend = "Legend 1", Color = "#637cef" },
-        new HorizontalBarChartWithAxisDataPoint { X = -30, Y = "Label 2", Legend = "Legend 2", Color = "#e3008c" },
-        new HorizontalBarChartWithAxisDataPoint { X =  50, Y = "Label 1", Legend = "Legend 2", Color = "#e3008c" },
-        new HorizontalBarChartWithAxisDataPoint { X =  20, Y = "Label 3", Legend = "Legend 1", Color = "#637cef" },
-        new HorizontalBarChartWithAxisDataPoint { X = -60, Y = "Label 2", Legend = "Legend 1", Color = "#637cef" },
-        new HorizontalBarChartWithAxisDataPoint { X =  40, Y = "Label 3", Legend = "Legend 3", Color = "#2aa0a4" },
-        new HorizontalBarChartWithAxisDataPoint { X = -10, Y = "Label 1", Legend = "Legend 3", Color = "#2aa0a4" },
-        new HorizontalBarChartWithAxisDataPoint { X =  70, Y = "Label 4", Legend = "Legend 2", Color = "#e3008c" },
-        new HorizontalBarChartWithAxisDataPoint { X = -45, Y = "Label 4", Legend = "Legend 4", Color = "#9373c0" },
-        new HorizontalBarChartWithAxisDataPoint { X =  35, Y = "Label 5", Legend = "Legend 5", Color = "#13a10e" },
+        new HorizontalBarChartWithAxisDataPoint { X =  80, Y = "Label 1", Legend = "Legend 1", Color = DataVizPalette.Color1 },
+        new HorizontalBarChartWithAxisDataPoint { X = -30, Y = "Label 2", Legend = "Legend 2", Color = DataVizPalette.Color2 },
+        new HorizontalBarChartWithAxisDataPoint { X =  50, Y = "Label 1", Legend = "Legend 2", Color = DataVizPalette.Color2 },
+        new HorizontalBarChartWithAxisDataPoint { X =  20, Y = "Label 3", Legend = "Legend 1", Color = DataVizPalette.Color1 },
+        new HorizontalBarChartWithAxisDataPoint { X = -60, Y = "Label 2", Legend = "Legend 1", Color = DataVizPalette.Color1 },
+        new HorizontalBarChartWithAxisDataPoint { X =  40, Y = "Label 3", Legend = "Legend 3", Color = DataVizPalette.Color3 },
+        new HorizontalBarChartWithAxisDataPoint { X = -10, Y = "Label 1", Legend = "Legend 3", Color = DataVizPalette.Color3 },
+        new HorizontalBarChartWithAxisDataPoint { X =  70, Y = "Label 4", Legend = "Legend 2", Color = DataVizPalette.Color2 },
+        new HorizontalBarChartWithAxisDataPoint { X = -45, Y = "Label 4", Legend = "Legend 4", Color = DataVizPalette.Color4 },
+        new HorizontalBarChartWithAxisDataPoint { X =  35, Y = "Label 5", Legend = "Legend 5", Color = DataVizPalette.Color5 },
     ];
 }
