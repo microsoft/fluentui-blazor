@@ -134,69 +134,104 @@ public partial class FluentColorPicker : FluentComponentBase
     }
 
     /// <summary />
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0051:Method is too long", Justification = "")]
     public override Task SetParametersAsync(ParameterView parameters)
     {
-        if (!parameters.TryGetValue<ColorPickerView>(nameof(View), out var view))
-        {
-            _isHsvInitialized = false;
-            view = View;
-        }
+        var view = SetParameters_ResolveView(parameters);
 
-        if (parameters.TryGetValue<IReadOnlyList<string>>(nameof(Palette), out var palette) && palette is not null)
-        {
-            var requiredCount = view switch
-            {
-                ColorPickerView.SwatchPalette => 190,
-                ColorPickerView.ColorWheel => 127,
-                _ => 0,
-            };
-
-            if (requiredCount > 0 && palette.Count < requiredCount)
-            {
-                throw new ArgumentException($"The Palette must contain at least {requiredCount} colors for the {view} view, but only {palette.Count} were provided.");
-            }
-        }
-
-        if (view == ColorPickerView.HsvSquare
-            && parameters.TryGetValue<string>(nameof(SelectedColor), out var selectedColor)
-            && !string.IsNullOrEmpty(selectedColor)
-            && !string.Equals(selectedColor, SelectedColor, StringComparison.OrdinalIgnoreCase))
-        {
-            _isHsvInitialized = false;
-            _hsv = HsvColor.FromHex(selectedColor);
-        }
-
-        // Compute the closest color highlight when FindClosestColor is enabled
-        if (!parameters.TryGetValue<bool>(nameof(FindClosestColor), out var findClosest))
-        {
-            findClosest = FindClosestColor;
-        }
-
-        if (!parameters.TryGetValue<string>(nameof(SelectedColor), out var selected))
-        {
-            selected = SelectedColor;
-        }
-
-        if (findClosest && !string.IsNullOrEmpty(selected) && view != ColorPickerView.HsvSquare)
-        {
-            if (!parameters.TryGetValue<IReadOnlyList<string>>(nameof(Palette), out var pal))
-            {
-                pal = Palette;
-            }
-
-            var colors = pal ?? (view == ColorPickerView.ColorWheel
-                ? DefaultColors.WheelColors
-                : DefaultColors.SwatchColors);
-
-            _highlightedColor = ColorHelper.FindClosestColor(selected, colors);
-        }
-        else
-        {
-            _highlightedColor = null;
-        }
+        SetParameters_ValidatePalette(parameters, view);
+        SetParameters_UpdateHsvFromSelectedColor(parameters, view);
+        SetParameters_UpdateHighlightedColor(parameters, view);
 
         return base.SetParametersAsync(parameters);
+    }
+
+    /// <summary>
+    /// Returns the effective <see cref="ColorPickerView"/> for the incoming parameter set
+    /// and resets the HSV initialization flag when the view parameter is not explicitly provided.
+    /// </summary>
+    private ColorPickerView SetParameters_ResolveView(ParameterView parameters)
+    {
+        if (parameters.TryGetValue<ColorPickerView>(nameof(View), out var view))
+        {
+            return view;
+        }
+
+        _isHsvInitialized = false;
+        return View;
+    }
+
+    /// <summary>
+    /// Ensures the supplied <see cref="Palette"/> contains enough colors for the target view.
+    /// </summary>
+    private static void SetParameters_ValidatePalette(ParameterView parameters, ColorPickerView view)
+    {
+        if (!parameters.TryGetValue<IReadOnlyList<string>>(nameof(Palette), out var palette) || palette is null)
+        {
+            return;
+        }
+
+        var requiredCount = view switch
+        {
+            ColorPickerView.SwatchPalette => 190,
+            ColorPickerView.ColorWheel => 127,
+            _ => 0,
+        };
+
+        if (requiredCount > 0 && palette.Count < requiredCount)
+        {
+            throw new ArgumentException($"The Palette must contain at least {requiredCount} colors for the {view} view, but only {palette.Count} were provided.");
+        }
+    }
+
+    /// <summary>
+    /// Updates the cached HSV color when the HSV square view receives a new <see cref="SelectedColor"/>.
+    /// </summary>
+    private void SetParameters_UpdateHsvFromSelectedColor(ParameterView parameters, ColorPickerView view)
+    {
+        if (view != ColorPickerView.HsvSquare)
+        {
+            return;
+        }
+
+        if (!parameters.TryGetValue<string>(nameof(SelectedColor), out var selectedColor)
+            || string.IsNullOrEmpty(selectedColor)
+            || string.Equals(selectedColor, SelectedColor, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        _isHsvInitialized = false;
+        _hsv = HsvColor.FromHex(selectedColor);
+    }
+
+    /// <summary>
+    /// Computes the closest palette color highlight when <see cref="FindClosestColor"/> is enabled.
+    /// </summary>
+    private void SetParameters_UpdateHighlightedColor(ParameterView parameters, ColorPickerView view)
+    {
+        var findClosest = parameters.TryGetValue<bool>(nameof(FindClosestColor), out var findClosestParam)
+            ? findClosestParam
+            : FindClosestColor;
+
+        var selected = parameters.TryGetValue<string>(nameof(SelectedColor), out var selectedParam)
+            ? selectedParam
+            : SelectedColor;
+
+        if (!findClosest || string.IsNullOrEmpty(selected) || view == ColorPickerView.HsvSquare)
+        {
+            _highlightedColor = null;
+            return;
+        }
+
+        var palette = parameters.TryGetValue<IReadOnlyList<string>>(nameof(Palette), out var paletteParam)
+            ? paletteParam
+            : Palette;
+
+        var colors = palette ?? (view == ColorPickerView.ColorWheel
+            ? DefaultColors.WheelColors
+            : DefaultColors.SwatchColors);
+
+        _highlightedColor = ColorHelper.FindClosestColor(selected, colors);
     }
 
     /// <summary />
