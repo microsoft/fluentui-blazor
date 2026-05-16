@@ -5,3 +5,7 @@
     border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
     box-sizing: border-box;
 }
+
+fluent-text-input[hide-input]::part(control) {
+    display: none;
+}

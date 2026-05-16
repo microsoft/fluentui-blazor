@@ -94,13 +94,6 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>
     public ColorPickerView View { get; set; } = ColorPickerView.SwatchPalette;
 
     /// <summary>
-    /// Gets or sets the orientation of the color items in the swatch palette view.
-    /// Default is <see cref="Orientation.Horizontal"/>.
-    /// </summary>
-    [Parameter]
-    public Orientation Orientation { get; set; } = Orientation.Horizontal;
-
-    /// <summary>
     /// Gets or sets the custom color palette displayed in the Swatch or ColorWheel view.
     /// If not set, the default palette will be used.
     /// </summary>
@@ -114,6 +107,14 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>
     /// </summary>
     [Parameter]
     public bool FindClosestColor { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the text input should be hidden.
+    /// When true, only the color swatch and palette icon will be shown,
+    /// and the user can only select a color using the popover.
+    /// </summary>
+    [Parameter]
+    public bool HideTextInput { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the input is enabled (interactive).

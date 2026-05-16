@@ -29,6 +29,7 @@
                  MessageState="@MessageState"
                  Name="@Name"
                  MaxLength="7"
+                 hide-input="@(HideTextInput ? "true" : null)"
                  Tooltip="@Tooltip"
                  Value="@CurrentValueAsString"
                  ValueChanged="@OnTextValueChangedAsync"
@@ -61,7 +62,7 @@
                @bind-Opened="@_isOpen">
     <FluentColorPicker @ref="@_colorPicker"
                        View="@View"
-                       Orientation="@Orientation"
+                       Orientation="@Orientation.Vertical"
                        Palette="@Palette"
                        FindClosestColor="@FindClosestColor"
                        SelectedColor="@CurrentValueAsString"
