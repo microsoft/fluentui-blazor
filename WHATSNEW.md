@@ -1,3 +1,16 @@
+## V4.14.2
+
+### Components
+
+- \[Select\] Fix selected items color ([#4760](https://github.com/microsoft/fluentui-blazor/pull/4760))
+- \[DesignTheme\] Tolerate blocked localStorage during startup ([#4857](https://github.com/microsoft/fluentui-blazor/pull/4857))
+
+### Icons and Emoji
+
+- Update to Fluent UI System Icons 1.1.326
+
+See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
+
 ## V4.14.1
 
 ### General
