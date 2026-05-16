@@ -161,6 +161,34 @@ public class ColorHelperTests
     }
 
     [Fact]
+    public void FindClosestColor_WhitespacePaletteEntry_IsSkipped()
+    {
+        // Arrange - the whitespace entry exercises the IsNullOrWhiteSpace branch
+        // of the internal hex parser; the valid green entry must still win.
+        var palette = new[] { "   ", "#00FF00" };
+
+        // Act
+        var result = ColorHelper.FindClosestColor("#10EE10", palette);
+
+        // Assert
+        Assert.Equal("#00FF00", result);
+    }
+
+    [Fact]
+    public void FindClosestColor_PaletteEntryWithNonHexCharacters_IsSkipped()
+    {
+        // Arrange - "#ZZZZZZ" has the right length (6) but is not a valid hex,
+        // so int.TryParse must fail and TryParseHexColor must return false.
+        var palette = new[] { "#ZZZZZZ", "#00FF00" };
+
+        // Act
+        var result = ColorHelper.FindClosestColor("#10EE10", palette);
+
+        // Assert
+        Assert.Equal("#00FF00", result);
+    }
+
+    [Fact]
     public void ToInvariant_FormatsWithOneDecimal()
     {
         // Act && Assert
