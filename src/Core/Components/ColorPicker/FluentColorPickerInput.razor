@@ -47,13 +47,15 @@
         @if (Enabled)
         {
             <FluentIcon Value="@IconPalette"
+                        Title="@Localizer[Localization.LanguageResource.ColorPickerInput_OpenPickerTitle]"
                         Focusable="true"
                         OnClick="@TogglePopupAsync"
                         OnClickStopPropagation="true" />
         }
         else
         {
-            <FluentIcon Value="@IconPalette" />
+            <FluentIcon Value="@IconPalette"
+                        Title="@Localizer[Localization.LanguageResource.ColorPickerInput_OpenPickerTitle]" />
         }
     </EndTemplate>
 </FluentTextInput>

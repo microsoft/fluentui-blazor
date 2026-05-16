@@ -8,18 +8,19 @@ icon: TooltipQuote
 
 XXX
 
+## ColorPickerInput
+
+{{ FluentColorPickerInputDefault }}
+
 ## Example
 
 {{ FluentColorPickerDefault }}
 
-## ColorPickerInput
+## API FluentColorPickerInput
 
-{{ FluentColorPickerInputDefault }}
+{{ API Type=FluentColorPickerInput }}
 
 ## API FluentColorPicker
 
 {{ API Type=FluentColorPicker }}
 
-## API FluentColorPickerInput
-
-{{ API Type=FluentColorPickerInput }}

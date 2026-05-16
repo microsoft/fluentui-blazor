@@ -159,6 +159,9 @@
   <data name="ColorPickerInput_InvalidHexMessage" xml:space="preserve">
     <value>Invalid hexadecimal color value</value>
   </data>
+  <data name="ColorPickerInput_OpenPickerTitle" xml:space="preserve">
+    <value>Open color picker</value>
+  </data>
   <data name="Field_ErrorMessage" xml:space="preserve">
     <value>An error occurred</value>
   </data>
