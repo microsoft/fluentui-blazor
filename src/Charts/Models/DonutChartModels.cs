@@ -52,6 +52,12 @@ public sealed record DonutDataPoint
     public string? SerializedColor => Color == DataVizPalette.Custom ? CustomColor : Color?.ToAttributeValue();
 
     /// <summary>
+    /// Gets the data shown in the donut hole (center label) when this segment is highlighted.
+    /// </summary>
+    [JsonPropertyName("calloutData")]
+    public string? CalloutData { get; init; }
+
+    /// <summary>
     /// Gets optional callout data for the x-axis portion of the tooltip.
     /// </summary>
     [JsonPropertyName("xAxisCalloutData")]

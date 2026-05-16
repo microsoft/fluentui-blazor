@@ -93,7 +93,7 @@ public sealed record FunnelDataPoint
   public string? SerializedColor => Color == DataVizPalette.Custom ? CustomColor : Color?.ToAttributeValue();
 
   /// <summary>
-  /// Gets optional callout data for the x-axis portion of the tooltip.
+  /// Gets the sub-values for a stacked funnel stage.
   /// </summary>
   [JsonPropertyName("subValues")]
   public IReadOnlyList<FunnelSubValue> SubValues { get; init; } = [];

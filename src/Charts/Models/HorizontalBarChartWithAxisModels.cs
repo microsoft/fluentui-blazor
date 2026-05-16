@@ -65,9 +65,13 @@ public sealed record HorizontalBarChartWithAxisDataPoint
   public string[]? Gradient { get; init; }
 
   /// <summary>
-  /// Gets or initializes the accessibility data for the callout.
+  /// Gets the optional accessibility data for the tooltip callout.
+  /// When set, <see cref="CalloutAccessibilityData.AriaLabel"/> is used as the accessible label
+  /// for the bar's callout element.
   /// </summary>
-  public string callOutAccessibilityData { get; init; } = string.Empty;
+  [JsonPropertyName("callOutAccessibilityData")]
+  [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+  public CalloutAccessibilityData? CallOutAccessibilityData { get; init; }
 
   /// <summary>
   /// Gets optional callout data for the x-axis portion of the tooltip.
@@ -81,6 +85,19 @@ public sealed record HorizontalBarChartWithAxisDataPoint
   /// </summary>
   [JsonPropertyName("yAxisCalloutData")]
   public string? YAxisCalloutData { get; init; }
+}
+
+/// <summary>
+/// Accessibility data attached to a chart tooltip callout element.
+/// Maps to the web component's <c>AccessibilityData</c> interface.
+/// </summary>
+public sealed record CalloutAccessibilityData
+{
+  /// <summary>
+  /// Gets the accessible label announced by screen readers for the callout element.
+  /// </summary>
+  [JsonPropertyName("ariaLabel")]
+  public string? AriaLabel { get; init; }
 }
 
 /// <summary>
