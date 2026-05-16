@@ -2,29 +2,29 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <RuntimeVersion8>8.0.0</RuntimeVersion8>
-    <AspNetCoreVersion8>8.0.26</AspNetCoreVersion8>
-    <EfCoreVersion8>8.0.26</EfCoreVersion8>
-    <RuntimeVersion9>9.0.15</RuntimeVersion9>
-    <AspNetCoreVersion9>9.0.15</AspNetCoreVersion9>
-    <EfCoreVersion9>9.0.15</EfCoreVersion9>
-    <RuntimeVersion10>10.0.7</RuntimeVersion10>
-    <AspNetCoreVersion10>10.0.7</AspNetCoreVersion10>
-    <EfCoreVersion10>10.0.7</EfCoreVersion10>
+    <AspNetCoreVersion8>8.0.27</AspNetCoreVersion8>
+    <EfCoreVersion8>8.0.27</EfCoreVersion8>
+    <RuntimeVersion9>9.0.16</RuntimeVersion9>
+    <AspNetCoreVersion9>9.0.16</AspNetCoreVersion9>
+    <EfCoreVersion9>9.0.16</EfCoreVersion9>
+    <RuntimeVersion10>10.0.8</RuntimeVersion10>
+    <AspNetCoreVersion10>10.0.8</AspNetCoreVersion10>
+    <EfCoreVersion10>10.0.8</EfCoreVersion10>
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.12.0" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.13.2" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.13.2" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.14.0" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.14.1" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.14.1" />
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="1.38.5" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
-    <PackageVersion Include="coverlet.msbuild" Version="6.0.4" />
-    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="coverlet.msbuild" Version="10.0.0" />
+    <PackageVersion Include="coverlet.collector" Version="10.0.0" />
     <!-- Shared dependencies -->
-    <PackageVersion Include="Markdig.Signed" Version="0.44.0" />
+    <PackageVersion Include="Markdig.Signed" Version="1.2.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
     <PackageVersion Include="Microsoft.OData.Client" Version="8.4.3" />
