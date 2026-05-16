@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A text input component that allows the user to enter a HEX color code
 /// or pick a color from a <see cref="FluentColorPicker"/> displayed in a popover.
 /// </summary>
-public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>
+public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>, ITooltipComponent
 {
     [GeneratedRegex(@"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$", RegexOptions.None, matchTimeoutMilliseconds: 100)]
     private static partial Regex HexColorRegex();

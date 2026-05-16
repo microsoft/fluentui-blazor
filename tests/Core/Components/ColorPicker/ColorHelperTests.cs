@@ -120,4 +120,51 @@ public class ColorHelperTests
         // Assert
         Assert.Equal("#0000FF", result);
     }
+
+    [Fact]
+    public void FindClosestColor_ShortHex_ReturnsNull()
+    {
+        // Arrange
+        var palette = new[] { "#FF0000" };
+
+        // Act - 3-char hex is not supported by the parser
+        var result = ColorHelper.FindClosestColor("#FFF", palette);
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void FindClosestColor_SkipsInvalidPaletteEntries()
+    {
+        // Arrange - one entry is invalid, one is valid
+        var palette = new[] { "not-a-color", "#00FF00" };
+
+        // Act
+        var result = ColorHelper.FindClosestColor("#10EE10", palette);
+
+        // Assert - the invalid entry should be skipped and the valid one returned
+        Assert.Equal("#00FF00", result);
+    }
+
+    [Fact]
+    public void FindClosestColor_NoValidColorsInPalette_ReturnsNull()
+    {
+        // Arrange
+        var palette = new[] { "invalid1", "invalid2" };
+
+        // Act
+        var result = ColorHelper.FindClosestColor("#FF0000", palette);
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void ToInvariant_FormatsWithOneDecimal()
+    {
+        // Act && Assert
+        Assert.Equal("1.5", 1.5.ToInvariant());
+        Assert.Equal("0.0", 0.0.ToInvariant());
+    }
 }

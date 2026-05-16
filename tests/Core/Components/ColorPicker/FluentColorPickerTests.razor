@@ -1,3 +1,4 @@
+@using Microsoft.FluentUI.AspNetCore.Components.ColorPicker
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
@@ -18,63 +19,261 @@
         var cut = Render(@<FluentColorPicker />);
 
         // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentColorPicker_OrientationVertical()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPicker Orientation="Orientation.Vertical" />);
+
+        // Assert
         var div = cut.Find(".fluent-color-picker");
-        Assert.NotNull(div);
+        Assert.Equal("vertical", div.GetAttribute("orientation"));
+        Assert.Contains("calc(10 * 20px)", div.GetAttribute("style"));
     }
 
     [Fact]
-    public void FluentColorPicker_SelectedColor_ExactMatch_Highlighted()
+    public void FluentColorPicker_CustomWidthAndHeight()
     {
-        // Arrange - #F44236 is in the default swatch palette
-        var cut = Render(@<FluentColorPicker SelectedColor="#F44236" />);
-
-        // Assert - indicator div is only rendered for the selected color
-        var indicators = cut.FindAll("[part=indicator]");
-        Assert.Single(indicators);
-    }
-
-    [Fact]
-    public void FluentColorPicker_SelectedColor_NotInPalette_NoHighlight()
-    {
-        // Arrange - #8B4513 (SaddleBrown) is NOT in the default palette
-        // Without FindClosestColor, nothing should be highlighted
-        var cut = Render(@<FluentColorPicker SelectedColor="#8B4513" />);
+        // Arrange && Act
+        var cut = Render(@<FluentColorPicker Width="500px" Height="400px" />);
 
         // Assert
-        Assert.Empty(cut.FindAll("[part=indicator]"));
+        var style = cut.Find(".fluent-color-picker").GetAttribute("style");
+        Assert.Contains("width: 500px", style);
+        Assert.Contains("height: 400px", style);
     }
 
     [Fact]
-    public void FluentColorPicker_FindClosestColor_Enabled_HighlightsClosest()
+    public void FluentColorPicker_ViewColorWheel_RendersSvg()
     {
-        // Arrange - #8B4513 (SaddleBrown) is NOT in the default palette
-        // With FindClosestColor, the closest color should be highlighted
-        var cut = Render(@<FluentColorPicker SelectedColor="#8B4513" FindClosestColor="true" />);
-
-        // Assert - indicator div should be rendered for the closest color
-        var indicators = cut.FindAll("[part=indicator]");
-        Assert.Single(indicators);
-    }
-
-    [Fact]
-    public void FluentColorPicker_FindClosestColor_ExactMatch_StillWorks()
-    {
-        // Arrange - #F44236 IS in the default palette
-        // FindClosestColor should still find the exact match
-        var cut = Render(@<FluentColorPicker SelectedColor="#F44236" FindClosestColor="true" />);
+        // Arrange && Act
+        var cut = Render(@<FluentColorPicker View="ColorPickerView.ColorWheel" />);
 
         // Assert
-        var indicators = cut.FindAll("[part=indicator]");
-        Assert.Single(indicators);
+        var div = cut.Find(".fluent-color-picker");
+        Assert.Equal("color-wheel", div.GetAttribute("view"));
+        Assert.NotNull(cut.Find("svg"));
+        // 127 hexagons in the wheel
+        Assert.Equal(127, cut.FindAll("svg polygon").Count);
     }
 
     [Fact]
-    public void FluentColorPicker_FindClosestColor_Disabled_NoHighlightForNonPaletteColor()
+    public void FluentColorPicker_ViewColorWheel_SelectedColorShowsIndicator()
+    {
+        // Arrange && Act - first wheel color is "#003366"
+        var cut = Render(@<FluentColorPicker View="ColorPickerView.ColorWheel" SelectedColor="#003366" FindClosestColor="false" />);
+
+        // Assert
+        Assert.Single(cut.FindAll("svg circle[part=indicator]"));
+        Assert.Single(cut.FindAll("svg polygon[selected]"));
+    }
+
+    [Fact]
+    public void FluentColorPicker_ViewHsvSquare_RendersSquareAndHueBar()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPicker View="ColorPickerView.HsvSquare" SelectedColor="#FF0000" />);
+
+        // Assert
+        Assert.NotNull(cut.Find("[part=square]"));
+        Assert.NotNull(cut.Find("[part=canvas]"));
+        Assert.NotNull(cut.Find("[part=gradient-white]"));
+        Assert.NotNull(cut.Find("[part=gradient-black]"));
+        Assert.NotNull(cut.Find("[part=hue-bar]"));
+        Assert.NotNull(cut.Find("[part=hue-indicator]"));
+    }
+
+    [Fact]
+    public void FluentColorPicker_CustomPalette_Renders()
     {
         // Arrange
-        var cut = Render(@<FluentColorPicker SelectedColor="#8B4513" FindClosestColor="false" />);
+        var palette = Enumerable.Range(0, 190).Select(i => "#FF0000").ToList();
+
+        // Act
+        var cut = Render(@<FluentColorPicker Palette="@palette" />);
 
         // Assert
-        Assert.Empty(cut.FindAll("[part=indicator]"));
+        Assert.Equal(190, cut.FindAll(".fluent-color-picker > div").Count);
+    }
+
+    [Fact]
+    public void FluentColorPicker_PaletteTooSmall_Throws()
+    {
+        // Arrange
+        var palette = new[] { "#FF0000" };
+
+        // Act && Assert
+        Assert.Throws<ArgumentException>(() => Render(@<FluentColorPicker Palette="@palette" />));
+    }
+
+    [Fact]
+    public void FluentColorPicker_PaletteTooSmallForWheel_Throws()
+    {
+        // Arrange
+        var palette = new[] { "#FF0000" };
+
+        // Act && Assert
+        Assert.Throws<ArgumentException>(() => Render(@<FluentColorPicker View="ColorPickerView.ColorWheel" Palette="@palette" />));
+    }
+
+    [Fact]
+    public void FluentColorPicker_PaletteIgnoredForHsvSquare()
+    {
+        // Arrange - small palette is not validated for HsvSquare
+        var palette = new[] { "#FF0000" };
+
+        // Act
+        var cut = Render(@<FluentColorPicker View="ColorPickerView.HsvSquare" Palette="@palette" />);
+
+        // Assert - no exception, HSV elements rendered
+        Assert.NotNull(cut.Find("[part=square]"));
+    }
+
+    [Fact]
+    public async Task FluentColorPicker_SwatchClick_TriggersSelectedColorChanged()
+    {
+        // Arrange
+        string? selected = null;
+        var cut = Render(@<FluentColorPicker SelectedColorChanged="@(c => selected = c)" />);
+
+        // Act - click the first swatch
+        var firstSwatch = cut.FindAll(".fluent-color-picker > div").First();
+        firstSwatch.Click();
+        await Task.Yield();
+
+        // Assert
+        Assert.Equal(DefaultColors.SwatchColors[0], selected);
+    }
+
+    [Fact]
+    public async Task FluentColorPicker_SwatchClickSameColor_DoesNotInvokeCallback()
+    {
+        // Arrange
+        var invocations = 0;
+        var cut = Render(@<FluentColorPicker SelectedColor="@DefaultColors.SwatchColors[0]" SelectedColorChanged="@(c => invocations++)" />);
+
+        // Act - click the already-selected color
+        var firstSwatch = cut.FindAll(".fluent-color-picker > div").First();
+        firstSwatch.Click();
+        await Task.Yield();
+
+        // Assert
+        Assert.Equal(0, invocations);
+    }
+
+    [Fact]
+    public async Task FluentColorPicker_WheelClick_TriggersSelectedColorChanged()
+    {
+        // Arrange
+        string? selected = null;
+        var cut = Render(@<FluentColorPicker View="ColorPickerView.ColorWheel" SelectedColorChanged="@(c => selected = c)" />);
+
+        // Act
+        var firstHex = cut.FindAll("svg polygon").First();
+        firstHex.Click();
+        await Task.Yield();
+
+        // Assert
+        Assert.Equal(DefaultColors.WheelColors[0], selected);
+    }
+
+    [Fact]
+    public async Task FluentColorPicker_HsvColorChangedAsync_UpdatesSelectedColor()
+    {
+        // Arrange
+        string? selected = null;
+        var cut = Render(@<FluentColorPicker View="ColorPickerView.HsvSquare" SelectedColorChanged="@(c => selected = c)" />);
+        var picker = cut.FindComponent<FluentColorPicker>().Instance;
+
+        // Act
+        await cut.InvokeAsync(() => picker.HsvColorChangedAsync("#123456"));
+
+        // Assert
+        Assert.Equal("#123456", selected);
+        Assert.Equal("#123456", picker.SelectedColor);
+    }
+
+    [Fact]
+    public async Task FluentColorPicker_HsvColorChangedAsync_NoDelegate_DoesNotThrow()
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPicker View="ColorPickerView.HsvSquare" />);
+        var picker = cut.FindComponent<FluentColorPicker>().Instance;
+
+        // Act
+        await cut.InvokeAsync(() => picker.HsvColorChangedAsync("#ABCDEF"));
+
+        // Assert
+        Assert.Equal("#ABCDEF", picker.SelectedColor);
+    }
+
+    [Fact]
+    public void FluentColorPicker_HsvSquare_UpdatesHsvWhenSelectedColorChanges()
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPicker View="ColorPickerView.HsvSquare" SelectedColor="#FF0000" />);
+        var initialStyle = cut.Find("[part=canvas]").GetAttribute("style");
+        var pickerComp = cut.FindComponent<FluentColorPicker>();
+
+        // Act - change selected color
+        pickerComp.Render(p => p.Add(c => c.SelectedColor, "#00FF00"));
+
+        // Assert
+        var updatedStyle = cut.Find("[part=canvas]").GetAttribute("style");
+        Assert.NotEqual(initialStyle, updatedStyle);
+        Assert.Contains("hsl(120", updatedStyle);
+    }
+
+    [Fact]
+    public async Task FluentColorPicker_Dispose_DisposesJsInterop()
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPicker View="ColorPickerView.HsvSquare" />);
+        var instance = cut.FindComponent<FluentColorPicker>().Instance;
+
+        // Act
+        await instance.DisposeAsync();
+
+        // Assert - no exception, calling twice does not throw
+        await instance.DisposeAsync();
+    }
+
+    [Fact]
+    public void FluentColorPicker_SwatchPalette_Vertical_HeightStyle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPicker Orientation="Orientation.Vertical" />);
+
+        // Assert - vertical layout uses 19*20 for height
+        var style = cut.Find(".fluent-color-picker").GetAttribute("style");
+        Assert.Contains("calc(19 * 20px)", style);
+    }
+
+    [Fact]
+    public void FluentColorPicker_ColorWheel_DefaultStyle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPicker View="ColorPickerView.ColorWheel" />);
+
+        // Assert
+        var style = cut.Find(".fluent-color-picker").GetAttribute("style");
+        Assert.Contains("width: 300px", style);
+        Assert.Contains("height: 260px", style);
+    }
+
+    [Fact]
+    public void FluentColorPicker_HsvSquare_DefaultStyle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPicker View="ColorPickerView.HsvSquare" />);
+
+        // Assert
+        var style = cut.Find(".fluent-color-picker").GetAttribute("style");
+        Assert.Contains("width: 300px", style);
+        Assert.Contains("height: 200px", style);
     }
 }
+

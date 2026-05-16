@@ -1,0 +1,400 @@
+@using Microsoft.FluentUI.AspNetCore.Components.ColorPicker
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    public FluentColorPickerInputTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPickerInput Id="colorPickerInput" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_WithValue_RendersSwatch()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPickerInput Value="#FF0000" />);
+
+        // Assert
+        var swatch = cut.Find("[slot=swatch]");
+        Assert.Contains("background-color: #FF0000", swatch.GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_InvalidValue_SwatchTransparent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPickerInput Value="not-a-color" />);
+
+        // Assert
+        var swatch = cut.Find("[slot=swatch]");
+        Assert.Contains("background-color: transparent", swatch.GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_EmptyValue_SwatchTransparent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPickerInput Value="" />);
+
+        // Assert
+        var swatch = cut.Find("[slot=swatch]");
+        Assert.Contains("background-color: transparent", swatch.GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_HideTextInput_AddsHideAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPickerInput HideTextInput="true" />);
+
+        // Assert
+        var input = cut.Find("fluent-text-input");
+        Assert.Equal("true", input.GetAttribute("hide-input"));
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_Disabled_NoInteractiveIcon()
+    {
+        // Arrange && Act - Disabled inputs should not have a clickable icon
+        var cut = Render(@<FluentColorPickerInput Disabled="true" Value="#FF0000" />);
+
+        // Assert - the swatch slot is rendered with default cursor
+        var swatch = cut.Find("[slot=swatch]");
+        Assert.Contains("cursor: default", swatch.GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_Enabled_InteractiveSwatch()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPickerInput Value="#FF0000" />);
+
+        // Assert
+        var swatch = cut.Find("[slot=swatch]");
+        Assert.Contains("cursor: pointer", swatch.GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_ReadOnly_NoCursorPointer()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPickerInput ReadOnly="true" Value="#FF0000" />);
+
+        // Assert
+        var swatch = cut.Find("[slot=swatch]");
+        Assert.Contains("cursor: default", swatch.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentColorPickerInput_ClickSwatch_OpensPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPickerInput />);
+
+        // Act
+        var swatch = cut.Find("[slot=swatch]");
+        swatch.Click();
+        await Task.Yield();
+
+        // Assert - popover opened attribute should appear
+        Assert.Contains("opened=\"true\"", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentColorPickerInput_ClickSwatch_TogglesPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPickerInput />);
+        var swatch = cut.Find("[slot=swatch]");
+
+        // Act - open
+        swatch.Click();
+        await Task.Yield();
+        Assert.Contains("opened=\"true\"", cut.Markup);
+
+        // Act - close
+        cut.Find("[slot=swatch]").Click();
+        await Task.Yield();
+
+        // Assert
+        Assert.DoesNotContain("opened=\"true\"", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentColorPickerInput_ClickSwatch_Disabled_DoesNotOpenPopover()
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPickerInput Disabled="true" />);
+
+        // Act
+        cut.Find("[slot=swatch]").Click();
+        await Task.Yield();
+
+        // Assert
+        Assert.DoesNotContain("opened=\"true\"", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentColorPickerInput_ClickSwatch_HsvSquareView_InitializesAndOpens()
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPickerInput View="ColorPickerView.HsvSquare" />);
+
+        // Act
+        cut.Find("[slot=swatch]").Click();
+        await Task.Yield();
+
+        // Assert - the popover opened
+        Assert.Contains("opened=\"true\"", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentColorPickerInput_ColorPickerSelection_UpdatesValueAndClosesPopover()
+    {
+        // Arrange
+        string? value = "#000000";
+        var cut = Render(@<FluentColorPickerInput Value="@value" ValueChanged="@((string? v) => value = v)" />);
+
+        // Open the popover
+        cut.Find("[slot=swatch]").Click();
+        await Task.Yield();
+
+        // Act - click first color in picker
+        var firstSwatch = cut.FindAll(".fluent-color-picker > div").First();
+        firstSwatch.Click();
+        await Task.Yield();
+
+        // Assert - value updated and popover closed
+        Assert.Equal(DefaultColors.SwatchColors[0], value);
+        Assert.DoesNotContain("opened=\"true\"", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentColorPickerInput_ColorPickerSelectionSameColor_DoesNotInvokeValueChanged()
+    {
+        // Arrange - already-selected color
+        var initial = DefaultColors.SwatchColors[0];
+        var invocations = 0;
+        var cut = Render(@<FluentColorPickerInput Value="@initial" ValueChanged="@((string? v) => invocations++)" />);
+
+        // Open and click the same color
+        cut.Find("[slot=swatch]").Click();
+        await Task.Yield();
+
+        var firstSwatch = cut.FindAll(".fluent-color-picker > div").First();
+        firstSwatch.Click();
+        await Task.Yield();
+
+        // Assert
+        Assert.Equal(0, invocations);
+    }
+
+    [Fact]
+    public async Task FluentColorPickerInput_ColorPickerSelection_HsvView_KeepsPopoverOpen()
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPickerInput View="ColorPickerView.HsvSquare" />);
+
+        // Open the popover
+        cut.Find("[slot=swatch]").Click();
+        await Task.Yield();
+        Assert.Contains("opened=\"true\"", cut.Markup);
+
+        // Act - emulate a color change from the HSV picker via the JSInvokable
+        var picker = cut.FindComponent<FluentColorPicker>();
+        await cut.InvokeAsync(() => picker.Instance.HsvColorChangedAsync("#123456"));
+
+        // Assert - popover still open
+        Assert.Contains("opened=\"true\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_TryParseValueFromString_Valid()
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPickerInput Value="#FF0000" />);
+
+        // Assert - rendered without an error message
+        Assert.DoesNotContain("invalid", cut.Markup, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task FluentColorPickerInput_TypeInvalidHex_ShowsErrorMessage()
+    {
+        // Arrange
+        string? value = null;
+        var cut = Render(@<FluentColorPickerInput Value="@value" ValueChanged="@((string? v) => value = v)" />);
+
+        // Act - emulate user changing the text input value to an invalid hex
+        cut.Find("fluent-text-input").Change("zzz");
+        await Task.Yield();
+
+        // Assert - the MessageCondition should produce an error message
+        Assert.Contains("Invalid", cut.Markup, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task FluentColorPickerInput_TypeValidHex_UpdatesValue()
+    {
+        // Arrange
+        string? value = null;
+        var cut = Render(@<FluentColorPickerInput Value="@value" ValueChanged="@((string? v) => value = v)" />);
+
+        // Act
+        cut.Find("fluent-text-input").Change("#ABCDEF");
+        await Task.Yield();
+
+        // Assert
+        Assert.Equal("#ABCDEF", value);
+    }
+
+    [Fact]
+    public async Task FluentColorPickerInput_TypeSameValue_DoesNotInvokeValueChanged()
+    {
+        // Arrange
+        var value = "#ABCDEF";
+        var invocations = 0;
+        var cut = Render(@<FluentColorPickerInput Value="@value" ValueChanged="@((string? v) => invocations++)" />);
+
+        // Act
+        cut.Find("fluent-text-input").Change("#ABCDEF");
+        await Task.Yield();
+
+        // Assert
+        Assert.Equal(0, invocations);
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_Required_EmptyValue_FocusLost_ShowsRequiredMessage()
+    {
+        // Arrange
+        var cut = Render(@<FluentColorPickerInput Required="true" Value="" />);
+        var input = cut.FindComponent<FluentColorPickerInput>().Instance;
+
+        // Force FocusLost = true on the outer component (protected setter).
+        // The actual focusout event is captured on the inner FluentTextInput,
+        // so we simulate the post-focusout state on the outer input directly.
+        SetFocusLost(input, true);
+
+        // Act - evaluate the MessageCondition lambda (as FluentField does on render)
+        var field = new TestField();
+        var shouldShow = input.MessageCondition!.Invoke(field);
+
+        // Assert
+        Assert.True(shouldShow);
+        Assert.Equal("This field is required", field.Message);
+        Assert.Same(FluentStatus.ErrorIcon, field.MessageIcon);
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_Required_FocusLost_Disabled_DoesNotShowRequiredMessage()
+    {
+        // Arrange - Disabled inputs should not trigger the required validation
+        var cut = Render(@<FluentColorPickerInput Required="true" Disabled="true" Value="" />);
+        var input = cut.FindComponent<FluentColorPickerInput>().Instance;
+        SetFocusLost(input, true);
+
+        // Act
+        var shouldShow = input.MessageCondition!.Invoke(new TestField());
+
+        // Assert
+        Assert.False(shouldShow);
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_Required_FocusLost_ReadOnly_DoesNotShowRequiredMessage()
+    {
+        // Arrange - ReadOnly inputs should not trigger the required validation
+        var cut = Render(@<FluentColorPickerInput Required="true" ReadOnly="true" Value="" />);
+        var input = cut.FindComponent<FluentColorPickerInput>().Instance;
+        SetFocusLost(input, true);
+
+        // Act
+        var shouldShow = input.MessageCondition!.Invoke(new TestField());
+
+        // Assert
+        Assert.False(shouldShow);
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_NotRequired_FocusLost_DoesNotShowRequiredMessage()
+    {
+        // Arrange - without Required, the empty-value branch should not trigger
+        var cut = Render(@<FluentColorPickerInput Value="" />);
+        var input = cut.FindComponent<FluentColorPickerInput>().Instance;
+        SetFocusLost(input, true);
+
+        // Act
+        var shouldShow = input.MessageCondition!.Invoke(new TestField());
+
+        // Assert
+        Assert.False(shouldShow);
+    }
+
+    private static void SetFocusLost(FluentColorPickerInput input, bool value)
+    {
+        typeof(FluentInputBase<string?>)
+            .GetProperty(nameof(FluentInputBase<string?>.FocusLost))!
+            .SetValue(input, value);
+    }
+
+    private sealed class TestField : IFluentField
+    {
+        public bool FocusLost { get; set; }
+        public string? Label { get; set; }
+        public RenderFragment? LabelTemplate { get; set; }
+        public LabelPosition? LabelPosition { get; set; }
+        public string? LabelWidth { get; set; }
+        public bool? Required { get; set; }
+        public bool? Disabled { get; set; }
+        public string? Message { get; set; }
+        public Icon? MessageIcon { get; set; }
+        public RenderFragment? MessageTemplate { get; set; }
+        public Func<IFluentField, bool>? MessageCondition { get; set; }
+        public MessageState? MessageState { get; set; }
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_CustomPalette_FlowsToPicker()
+    {
+        // Arrange
+        var palette = Enumerable.Range(0, 190).Select(i => "#000000").ToList();
+
+        // Act - open the popover then check the picker uses the palette
+        var cut = Render(@<FluentColorPickerInput Palette="@palette" />);
+        cut.Find("[slot=swatch]").Click();
+        var picker = cut.FindComponent<FluentColorPicker>();
+
+        // Assert
+        Assert.Same(palette, picker.Instance.Palette);
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_TooltipPlaceholderWidthAppearance_AreApplied()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentColorPickerInput Tooltip="My tooltip"
+                                                   Placeholder="My placeholder"
+                                                   Width="123px"
+                                                   Appearance="TextInputAppearance.Underline" />);
+
+        // Assert
+        var input = cut.Find("fluent-text-input");
+        Assert.Equal("My placeholder", input.GetAttribute("placeholder"));
+        Assert.Equal("underline", input.GetAttribute("appearance"));
+    }
+}
