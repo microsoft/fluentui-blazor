@@ -1,4 +1,5 @@
-﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
 @inherits FluentChartBase
 
 <fluent-funnel-chart id="@Id"
@@ -15,5 +16,6 @@
                      legend-list-label="@LegendListLabel"
                      allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
                      culture="@Culture?.Name"
+                     orientation="@Orientation.ToAttributeValue()"
                      @attributes="@AdditionalAttributes">
 </fluent-funnel-chart>

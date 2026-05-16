@@ -45,4 +45,10 @@ public partial class FluentFunnelChart : FluentChartBase
     /// </summary>
     [Parameter]
     public int? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the orientation of the funnel chart.
+    /// </summary>
+    [Parameter]
+    public Orientation Orientation { get; set; } = Orientation.Horizontal;
 }

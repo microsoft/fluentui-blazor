@@ -26,10 +26,11 @@ public sealed record FunnelSubValue
     public double Value { get; init; }
 
     /// <summary>
-    /// Fill color for the sub value
+    /// Fill color for the sub value. The value is serialized as its token string
+    /// (e.g. <c>"color5"</c>) and resolved to an actual hex color by the web component.
     /// </summary>
     [JsonPropertyName("color")]
-    public string? Color { get; init; }
+    public DataVizPalette? Color { get; init; }
 }
 
 /// <summary>
@@ -51,10 +52,12 @@ public sealed record FunnelDataPoint
 
     /// <summary>
     /// Gets the color used to render the funnel segment and legend.
-    /// If not provided, the web component falls back to its default palette.
+    /// The value is serialized as its token string (e.g. <c>"color5"</c>) and resolved
+    /// to an actual hex color by the web component. If not provided, the web component
+    /// falls back to its default palette.
     /// </summary>
     [JsonPropertyName("color")]
-    public string? Color { get; init; }
+    public DataVizPalette? Color { get; init; }
 
     /// <summary>
     /// Gets optional callout data for the x-axis portion of the tooltip.

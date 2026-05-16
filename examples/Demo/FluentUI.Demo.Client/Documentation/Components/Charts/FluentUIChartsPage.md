@@ -15,9 +15,17 @@ In the future, the package will be extended with more chart types (based on the 
 Currently, the following chart types are available:
 
 - [Donut Chart](/Charts/DonutChart)
+- [Funnel Chart](/Charts/FunnelChart)
 - [Horizontal Bar Chart](/Charts/HorizontalBarChart)
 - [Horizontal Bar Chart with Axis](/Charts/HorizontalBarChartWithAxis)
 
 ## Fluent Chart Base
 
 All charts in the Fluent UI Charts package inherit from the `FluentChartBase` component, which provides common parameters for all chart types.
+
+## Colors
+
+The charts use the Fluent UI DataViz color palette by default, but you can customize the colors of the chart segments by providing your own color palette.
+You can also specify a custom color for each segment in the data points.
+
+{{ API Type=DataVizPalette }}

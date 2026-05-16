@@ -507,7 +507,11 @@ export function getContrastTextColor(hexColor: string): string {
  * Returns true when the data array uses stacked sub-values for every stage.
  */
 export function isStackedFunnelData(data: FunnelDataPoint[]): boolean {
-  return Array.isArray(data) && data.length > 0 && data.every(stage => Array.isArray(stage.subValues));
+  return (
+    Array.isArray(data) &&
+    data.length > 0 &&
+    data.every(stage => Array.isArray(stage.subValues) && stage.subValues.length > 0)
+  );
 }
 
 /**

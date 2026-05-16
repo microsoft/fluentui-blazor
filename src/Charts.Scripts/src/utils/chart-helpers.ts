@@ -32,7 +32,7 @@ export const booleanStringConverter = {
     if (normalized === 'true' || normalized === '') return true;
 
     return true;
-  }
+  },
 };
 
 type Dict = { [key: string]: any };
@@ -231,6 +231,11 @@ export const getColorFromToken = (token: string, isDarkTheme: boolean = false): 
     const [paletteName, colorCode] = token.split('.');
     const colors = Colors[paletteName][colorCode];
     return getThemeSpecificColor(colors, isDarkTheme);
+  }
+  // Handle DataVizPalette key names (e.g., 'color5' -> 'qualitative.5')
+  const mappedToken = DataVizPalette[token as keyof typeof DataVizPalette];
+  if (mappedToken) {
+    return getColorFromToken(mappedToken, isDarkTheme);
   }
   return token;
 };

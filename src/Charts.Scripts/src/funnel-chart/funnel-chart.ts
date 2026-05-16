@@ -35,10 +35,10 @@ const orientationConverter = {
  */
 export class FunnelChart extends ChartBase {
   @attr({ converter: nullableNumberConverter })
-  public width: number = 350;
+  public width: number = 400;
 
   @attr({ converter: nullableNumberConverter })
-  public height: number = 500;
+  public height: number = 400;
 
   @attr({ converter: jsonConverter })
   public data!: FunnelDataPoint[];
@@ -151,8 +151,12 @@ export class FunnelChart extends ChartBase {
 
   private _resolveColors(): FunnelDataPoint[] {
     return this.data.map((d, i) => {
-      if (d.subValues) {
-        return d;
+      if (d.subValues && d.subValues.length > 0) {
+        const resolvedSubValues = d.subValues.map((sv, k) => ({
+          ...sv,
+          color: sv.color ? getColorFromToken(sv.color) : getNextColor(k),
+        }));
+        return { ...d, subValues: resolvedSubValues };
       }
       const color = d.color ? getColorFromToken(d.color) : getNextColor(i);
       return { ...d, color };
