@@ -1,0 +1,7 @@
+.fluent-color-picker-input div[slot="swatch"] {
+    width: 16px;
+    height: 16px;
+    border-radius: var(--borderRadiusSmall);
+    border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+    box-sizing: border-box;
+}

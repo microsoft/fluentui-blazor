@@ -1,0 +1,68 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputImmediateBase<string?>
+
+<FluentTextInput Id="@Id"
+                 Class="@ClassValue"
+                 Style="@StyleValue"
+                 Label="@Label"
+                 LabelPosition="@LabelPosition"
+                 LabelTemplate="@LabelTemplate"
+                 LabelWidth="@LabelWidth"
+                 AriaLabel="@AriaLabel"
+                 Autofocus="@Autofocus"
+                 Disabled="@Disabled"
+                 ReadOnly="@ReadOnly"
+                 Required="@Required"
+                 Margin="@Margin"
+                 Padding="@Padding"
+                 Placeholder="@Placeholder"
+                 Width="@Width"
+                 Size="@Size"
+                 Appearance="@Appearance"
+                 Immediate="@Immediate"
+                 ImmediateDelay="@ImmediateDelay"
+                 Message="@Message"
+                 MessageTemplate="@MessageTemplate"
+                 MessageCondition="@MessageCondition"
+                 MessageIcon="@MessageIcon"
+                 MessageState="@MessageState"
+                 Name="@Name"
+                 MaxLength="7"
+                 Tooltip="@Tooltip"
+                 Value="@CurrentValueAsString"
+                 ValueChanged="@OnTextValueChangedAsync"
+                 @attributes="@AdditionalAttributes">
+
+    <StartTemplate>
+        <div slot="swatch"
+             style="background-color: @(GetSwatchColor()); cursor: @(Enabled ? "pointer" : "default")"
+             aria-hidden="true"
+             @onclick="TogglePopupAsync" 
+             @onclick:stopPropagation="true"/>
+    </StartTemplate>
+
+    <EndTemplate>
+        @if (Enabled)
+        {
+            <FluentIcon Value="@IconPalette"
+                        Focusable="true"
+                        OnClick="@TogglePopupAsync"
+                        OnClickStopPropagation="true" />
+        }
+        else
+        {
+            <FluentIcon Value="@IconPalette" />
+        }
+    </EndTemplate>
+</FluentTextInput>
+
+<FluentPopover AnchorId="@Id"
+               @bind-Opened="@_isOpen">
+    <FluentColorPicker View="@View"
+                       Orientation="@Orientation"
+                       Palette="@Palette"
+                       FindClosestColor="@FindClosestColor"
+                       SelectedColor="@CurrentValueAsString"
+                       SelectedColorChanged="@OnColorPickerSelectedAsync" />
+</FluentPopover>

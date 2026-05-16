@@ -12,6 +12,14 @@ XXX
 
 {{ FluentColorPickerDefault }}
 
+## ColorPickerInput
+
+{{ FluentColorPickerInputDefault }}
+
 ## API FluentColorPicker
 
 {{ API Type=FluentColorPicker }}
+
+## API FluentColorPickerInput
+
+{{ API Type=FluentColorPickerInput }}

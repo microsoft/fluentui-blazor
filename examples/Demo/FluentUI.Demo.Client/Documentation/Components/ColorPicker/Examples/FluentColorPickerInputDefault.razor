@@ -1,0 +1,12 @@
+<FluentColorPickerInput @bind-Value="SelectedColor"
+                        Label="Color"
+                        Placeholder="#000000" />
+
+<div>
+    <FluentText>Selected Color: @SelectedColor</FluentText>
+</div>
+
+@code
+{
+    string? SelectedColor = "#FF0000";
+}

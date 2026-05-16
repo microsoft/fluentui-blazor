@@ -140,7 +140,7 @@ public partial class FluentColorPicker : FluentComponentBase
             view = View;
         }
 
-        if (parameters.TryGetValue<IReadOnlyList<string>>(nameof(Palette), out var palette))
+        if (parameters.TryGetValue<IReadOnlyList<string>>(nameof(Palette), out var palette) && palette is not null)
         {
             var requiredCount = view switch
             {
