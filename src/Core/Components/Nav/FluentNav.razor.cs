@@ -115,7 +115,6 @@ public partial class FluentNav : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the CSS width value to apply to the component.
-    /// Default value is 260px.
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
