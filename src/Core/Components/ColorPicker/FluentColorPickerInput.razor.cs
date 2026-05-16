@@ -20,6 +20,8 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>
     [GeneratedRegex(@"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$", RegexOptions.None, matchTimeoutMilliseconds: 100)]
     private static partial Regex HexColorRegex();
 
+    private FluentColorPicker _colorPicker = default!;
+
     private bool _isOpen;
 
     /// <summary />
@@ -191,6 +193,12 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>
         }
 
         _isOpen = !_isOpen;
+
+        if (_isOpen && View == ColorPickerView.HsvSquare)
+        {
+            return _colorPicker.InitializeHsvAsync(force: true);
+        }
+
         return Task.CompletedTask;
     }
 }

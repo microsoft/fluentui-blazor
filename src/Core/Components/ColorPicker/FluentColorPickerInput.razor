@@ -59,7 +59,8 @@
 
 <FluentPopover AnchorId="@Id"
                @bind-Opened="@_isOpen">
-    <FluentColorPicker View="@View"
+    <FluentColorPicker @ref="@_colorPicker"
+                       View="@View"
                        Orientation="@Orientation"
                        Palette="@Palette"
                        FindClosestColor="@FindClosestColor"

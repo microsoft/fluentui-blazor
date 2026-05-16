@@ -15,6 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentColorPicker : FluentComponentBase
 {
+    private bool _isHsvInitialized;
     private HsvColor _hsv = HsvColor.Default;
     private DotNetObjectReference<FluentColorPicker>? _dotNetHelper;
     private string? _highlightedColor;
@@ -133,10 +134,12 @@ public partial class FluentColorPicker : FluentComponentBase
     }
 
     /// <summary />
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0051:Method is too long", Justification = "")]
     public override Task SetParametersAsync(ParameterView parameters)
     {
         if (!parameters.TryGetValue<ColorPickerView>(nameof(View), out var view))
         {
+            _isHsvInitialized = false;
             view = View;
         }
 
@@ -160,6 +163,7 @@ public partial class FluentColorPicker : FluentComponentBase
             && !string.IsNullOrEmpty(selectedColor)
             && !string.Equals(selectedColor, SelectedColor, StringComparison.OrdinalIgnoreCase))
         {
+            _isHsvInitialized = false;
             _hsv = HsvColor.FromHex(selectedColor);
         }
 
@@ -196,13 +200,30 @@ public partial class FluentColorPicker : FluentComponentBase
     }
 
     /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && View == ColorPickerView.HsvSquare)
+        if (View == ColorPickerView.HsvSquare)
         {
-            _dotNetHelper = DotNetObjectReference.Create(this);
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ColorPicker.Initialize", _dotNetHelper, Id, _hsv.Hue, _hsv.Saturation, _hsv.Value);
+            return InitializeHsvAsync();
         }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Initializes the HSV color picker by invoking the JavaScript component and passing the current HSV values.
+    /// </summary>
+    internal async Task InitializeHsvAsync(bool force = false)
+    {
+        if (_isHsvInitialized && !force)
+        {
+            return;
+        }
+
+        _isHsvInitialized = true;
+
+        _dotNetHelper ??= DotNetObjectReference.Create(this);
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ColorPicker.Initialize", _dotNetHelper, Id, _hsv.Hue, _hsv.Saturation, _hsv.Value);
     }
 
     /// <summary>
