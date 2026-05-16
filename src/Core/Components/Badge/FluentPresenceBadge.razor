@@ -3,10 +3,10 @@
 @inherits FluentComponentBase
 
 <AddTag Name="fluent-badge-container" TagWhen="@(() => _isAttached)">
-	@if (ChildContent is not null)
+	@if (AnchorContent is not null)
 	{
 		@*This is needed to make sure the Avatar renders the initials. It is doing something weird when we just render ChildContent unconditionally *@
-		@ChildContent
+		@AnchorContent
 	}
 	<fluent-badge id="@Id"
 				  class="@ClassValue"

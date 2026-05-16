@@ -97,21 +97,46 @@
         Assert.Throws<NotSupportedException>(() => fluentSwitch.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
     }
 
-#pragma warning disable CS0618
-
     [Fact]
-    public void FluentSwitch_ChildContent()
+    public void FluentSwitch_Label_ChildContent()
     {
         // Arrange
-        var cut = Render(@<FluentSwitch>My Label</FluentSwitch>);
+        var cut = Render(@<FluentSwitch>Content</FluentSwitch>);
 
         // Act
-        var label = cut.FindAll("fluent-field > label");
+        var label = cut.Find("label").TextContent.Replace("\n", "").Replace("\r", "").Replace(" ", "");
 
         // Assert
-        Assert.Empty(label);
-        Assert.DoesNotContain("My Label", cut.Markup);
+        Assert.Equal("Content", label);
     }
+
+    [Fact]
+    public void FluentSwitch_Label_LabelAndChildContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentSwitch Label="Label">Content</FluentSwitch>);
+
+        // Act
+        var label = cut.Find("label").TextContent.Replace("\n", "").Replace("\r", "").Replace(" ", "");
+
+        // Assert
+        Assert.Equal("LabelContent", label);
+    }
+
+     [Fact]
+    public void FluentSwitch_Label_LabelTemplateAndChildContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentSwitch><LabelTemplate>LabelTemplate</LabelTemplate><ChildContent>Content</ChildContent></FluentSwitch>);
+
+        // Act
+        var label = cut.Find("label").TextContent.Replace("\n", "").Replace("\r", "").Replace(" ", "");
+
+        // Assert
+        Assert.Equal("LabelTemplateContent", label);
+    }
+
+#pragma warning disable CS0618
 
     [Theory]
     [InlineData(false, "Is unchecked")]

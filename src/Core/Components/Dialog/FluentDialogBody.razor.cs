@@ -51,6 +51,14 @@ public partial class FluentDialogBody : FluentComponentBase
     [Parameter]
     public RenderFragment? ActionTemplate { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the header and footer are fixed.
+    /// Only the content will scroll when the content overflows.
+    /// Default is true.
+    /// </summary>
+    [Parameter]
+    public bool FixedHeaderFooter { get; set; } = true;
+
     /// <summary />
     internal async Task ActionClickHandlerAsync(DialogOptionsFooterAction item)
     {
@@ -71,6 +79,24 @@ public partial class FluentDialogBody : FluentComponentBase
     }
 
     /// <summary />
-    private bool IsDrawer() => FluentDialog.IsDrawer(Instance?.Options.Alignment);
+    internal async Task ActionClickHandlerAsync(DialogOptionsHeaderAction item)
+    {
+        if (!item.Visible || Instance is null)
+        {
+            return;
+        }
+
+        if (item.OnClickAsync is not null)
+        {
+            await item.OnClickAsync(Instance);
+        }
+        else if (item.IsClosedAction)
+        {
+            await Instance.CloseAsync(DialogResult.Cancel());
+        }
+    }
+
+    /// <summary />
+    private bool IsDrawer() => FluentDialog.IsDrawer(Instance);
 
 }

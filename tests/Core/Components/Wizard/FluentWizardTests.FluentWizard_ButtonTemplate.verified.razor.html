@@ -1,0 +1,56 @@
+<html>
+	<head></head>
+	<body>
+		<div id="xxx" style="width: 100%; height: 400px;" class="fluent-wizard" position="left">
+			<ol>
+				<li id="xxx" status="current" blazor:onclick="x" style="position: relative; display: flex; gap: 10px; height: 100%;">
+					<div class="fluent-wizard-icon">
+						<svg style="width: 20px; fill: var(--colorBrandForeground1); width: var(--fluent-wizard-circle-size);" focusable="false" viewBox="0 0 20 20" aria-hidden="true" blazor:onkeydown="x" blazor:onclick="x" blazor:elementreference="xxx">
+							<path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z"></path>
+						</svg>
+					</div>
+					<div class="fluent-wizard-step-labels" hidden-when="xs">
+						<fluent-label class="fluent-wizard-title" style="display: block;">Step 1</fluent-label>
+					</div>
+					<div class="fluent-wizard-step-connector" position="left"></div>
+				</li>
+				<li id="xxx" status="next" blazor:onclick="x" style="position: relative; display: flex; gap: 10px; height: 100%;">
+					<div class="fluent-wizard-icon">
+						<svg style="width: 20px; fill: var(--colorBrandForeground1); width: var(--fluent-wizard-circle-size);" focusable="false" viewBox="0 0 20 20" aria-hidden="true" blazor:onkeydown="x" blazor:onclick="x" blazor:elementreference="xxx">
+							<path d="M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-8 7a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z"></path>
+						</svg>
+					</div>
+					<div class="fluent-wizard-step-labels" hidden-when="xs">
+						<fluent-label class="fluent-wizard-title" style="display: block;">Step 2</fluent-label>
+					</div>
+					<div class="fluent-wizard-step-connector" position="left"></div>
+				</li>
+				<li id="xxx" status="next" blazor:onclick="x" style="position: relative; display: flex; gap: 10px; height: auto;">
+					<div class="fluent-wizard-icon">
+						<svg style="width: 20px; fill: var(--colorBrandForeground1); width: var(--fluent-wizard-circle-size);" focusable="false" viewBox="0 0 20 20" aria-hidden="true" blazor:onkeydown="x" blazor:onclick="x" blazor:elementreference="xxx">
+							<path d="M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-8 7a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z"></path>
+						</svg>
+					</div>
+					<div class="fluent-wizard-step-labels" hidden-when="xs">
+						<fluent-label class="fluent-wizard-title" style="display: block;">Step 3</fluent-label>
+					</div>
+				</li>
+			</ol>
+			<div class="fluent-wizard-content">
+				<div style="">Content 1</div>
+				<div style="display: none;">Content 2</div>
+				<div style="display: none;">Content 3</div>
+			</div>
+			<div class="fluent-wizard-buttons">
+				<div></div>
+				<div style="flex-grow: 1;"></div>
+				<div>
+					<fluent-button blazor:onclick="x">
+						Next</fluent-button>
+					<fluent-button blazor:onclick="x">
+						Go to last page</fluent-button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

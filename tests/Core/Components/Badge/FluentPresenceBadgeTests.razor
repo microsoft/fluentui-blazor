@@ -185,7 +185,9 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentPresenceBadge>
-                            <div id="target">Target</div>
+                            <AnchorContent>
+                              <div id="target">Target</div>
+                            </AnchorContent>
                           </FluentPresenceBadge>);
 
         // Assert

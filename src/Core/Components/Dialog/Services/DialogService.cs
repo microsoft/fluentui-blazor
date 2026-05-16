@@ -30,6 +30,14 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
         _serviceProvider = serviceProvider;
         _jsRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
         Localizer = localizer ?? FluentLocalizerInternal.Default;
+
+        var configuration = serviceProvider.GetService<LibraryConfiguration>();
+        
+        // Register the global overlay component only when enabled
+        if (configuration?.UseGlobalOverlay != false)
+        {
+            RegisterGlobalOverlayComponent();
+        }
     }
 
     /// <summary />
@@ -66,6 +74,7 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
             throw new FluentServiceProviderException<FluentDialogProvider>();
         }
 
+        options.IsDrawer ??= false;
         var instance = new DialogInstance(this, componentType, options);
 
         // Add the dialog to the service, and render it.
@@ -90,6 +99,7 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     /// <inheritdoc cref="IDialogService.ShowDrawerAsync{TDialog}(DialogOptions)"/>
     public Task<DialogResult> ShowDrawerAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(DialogOptions options) where TDialog : ComponentBase
     {
+        options.IsDrawer ??= true;
         options.Alignment ??= DialogAlignment.End;
         return ShowDialogAsync(typeof(TDialog), options);
     }
@@ -98,6 +108,7 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     public Task<DialogResult> ShowDrawerAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
     {
         var dialogOptions = new DialogOptions(options);
+        dialogOptions.IsDrawer ??= true;
         dialogOptions.Alignment ??= DialogAlignment.End;
         return ShowDialogAsync(typeof(TDialog), dialogOptions);
     }

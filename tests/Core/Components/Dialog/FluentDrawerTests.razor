@@ -8,7 +8,7 @@
     public FluentDrawerTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
-        Services.AddFluentUIComponents();
+        Services.AddFluentUIComponents(options => options.UseGlobalOverlay = false);
 
         DialogService = Services.GetRequiredService<IDialogService>();
         DialogProvider = Render<FluentDialogProvider>();
@@ -89,6 +89,41 @@
 
         // Assert
         Assert.Contains(expectedContains, DialogProvider.Markup);
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(DialogAlignment.Start, "start")]
+    [InlineData(DialogAlignment.End, "end")]
+    [InlineData(DialogAlignment.Default, null)]
+    [InlineData(null, "end")] // ShowDrawerAsync defaults Alignment to End when null.
+    public async Task FluentDrawer_Alignment(DialogAlignment? alignment, string? expectedPosition)
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDrawerAsync<Templates.DialogRender>(options =>
+               {
+                   options.Alignment = alignment;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        var dialog = DialogProvider.Find("fluent-drawer");
+
+        if (expectedPosition is null)
+        {
+            Assert.False(dialog.HasAttribute("position"));
+        }
+        else
+        {
+            Assert.Equal(expectedPosition, dialog.GetAttribute("position"));
+        }
     }
 
     [Theory(Timeout = TEST_TIMEOUT)]

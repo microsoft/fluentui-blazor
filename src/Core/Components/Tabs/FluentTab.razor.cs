@@ -41,14 +41,23 @@ public partial class FluentTab : FluentComponentBase, ITooltipComponent
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the label of the tab.
+    /// Gets or sets the text displayed on the tab.
+    /// This is the plain-text label shown in the tab strip (e.g., <c>Header="My Tab"</c>).
+    /// For rich content (icons, custom markup), use <see cref="HeaderTemplate"/> instead.
     /// </summary>
+    /// <remarks>
+    /// Renamed from <c>Label</c> in v4.
+    /// </remarks>
     [Parameter]
     public string? Header { get; set; }
 
     /// <summary>
-    /// Gets or sets the header content of the tab.
+    /// Gets or sets the custom header content of the tab (supports icons and rich markup).
+    /// Use this instead of <see cref="Header"/> when you need more than plain text.
     /// </summary>
+    /// <remarks>
+    /// Renamed from <c>Header</c> in v4.
+    /// </remarks>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 

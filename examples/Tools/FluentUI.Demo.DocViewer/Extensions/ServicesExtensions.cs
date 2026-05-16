@@ -43,31 +43,65 @@ public static class ServicesExtensions
     }
 
     /// <summary>
-    /// Load the summaries from the api-comments.json file.
+    /// Load the summaries from one or more "comments.json" files.
+    /// When multiple files are provided, their contents are merged into a single <see cref="ApiDocSummary.Items"/> dictionary.
+    /// If the same key exists in several files, entries from later files are merged into the earlier ones
+    /// (inner keys from later files override the previous ones).
     /// </summary>
     /// <param name="httpClient"></param>
-    /// <param name="jsonFile"></param>
+    /// <param name="jsonFiles">One or more json files to load.</param>
     /// <returns></returns>
-    public static async Task<ApiDocSummary> LoadSummariesAsync(this HttpClient httpClient, string jsonFile)
+    public static async Task<ApiDocSummary> LoadSummariesAsync(this HttpClient httpClient, params string[] jsonFiles)
     {
-        // Read api-comments.json
-        try
+        var summary = new ApiDocSummary()
         {
-            var json = await httpClient.GetStringAsync(jsonFile);
-            return new ApiDocSummary()
-            {
-                Items = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(json)
-            };
+            Items = new Dictionary<string, Dictionary<string, string>>(),
+        };
+
+        if (jsonFiles is null || jsonFiles.Length == 0)
+        {
+            return summary;
         }
-        catch (Exception ex)
+
+        foreach (var jsonFile in jsonFiles)
         {
-            return new ApiDocSummary()
+            try
             {
-                Items = new Dictionary<string, Dictionary<string, string>>
+                var json = await httpClient.GetStringAsync(jsonFile);
+                var items = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(json);
+
+                if (items is null)
                 {
-                    ["ERROR"] = new Dictionary<string, string> { [$"{jsonFile} cannot be loaded"] = ex.Message },
+                    continue;
                 }
-            };
+
+                foreach (var (key, value) in items)
+                {
+                    if (summary.Items.TryGetValue(key, out var existing))
+                    {
+                        foreach (var (innerKey, innerValue) in value)
+                        {
+                            existing[innerKey] = innerValue;
+                        }
+                    }
+                    else
+                    {
+                        summary.Items[key] = new Dictionary<string, string>(value);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (!summary.Items.TryGetValue("ERROR", out var errors))
+                {
+                    errors = new Dictionary<string, string>();
+                    summary.Items["ERROR"] = errors;
+                }
+
+                errors[$"{jsonFile} cannot be loaded"] = ex.Message;
+            }
         }
+
+        return summary;
     }
 }

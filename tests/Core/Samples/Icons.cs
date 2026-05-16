@@ -12,6 +12,12 @@ public static class Icons
 
     public static readonly Icon PresenceAvailable = new Samples.PresenceAvailable();
 
+    /// <summary>Creates a fresh <c>Info</c> icon instance, avoiding mutation of the shared <see cref="Info"/> static.</summary>
+    public static Icon NewInfo() => new Samples.Info();
+
+    /// <summary>Creates a fresh <c>Warning</c> icon instance, avoiding mutation of the shared <see cref="Warning"/> static.</summary>
+    public static Icon NewWarning() => new Samples.Warning();
+
     internal class Samples
     {
         internal class Info : Icon { public Info() : base("Info", IconVariant.Filled, IconSize.Size24, "<path d=\"M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 8.25a1 1 0 0 0-1 .88v5.74a1 1 0 0 0 2 0v-5.62l-.01-.12a1 1 0 0 0-1-.88Zm0-3.75A1.25 1.25 0 1 0 12 9a1.25 1.25 0 0 0 0-2.5Z\"/>") { } }

@@ -2,17 +2,20 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Reflection;
+using System.Runtime.Versioning;
 using FluentUI.Demo.DocApiGen.Abstractions;
+using FluentUI.Demo.DocApiGen.AssemblyLoading;
 using FluentUI.Demo.DocApiGen.Formatters;
 using FluentUI.Demo.DocApiGen.Generators;
 using Microsoft.Extensions.Configuration;
-using System.Reflection;
 
 namespace FluentUI.Demo.DocApiGen;
 
 /// <summary>
 /// Main entry point for the DocApiGen tool.
 /// </summary>
+[UnsupportedOSPlatform("browser")]
 public class Program
 {
     private static readonly System.Diagnostics.Stopwatch _watcher = new();
@@ -58,7 +61,13 @@ public class Program
             ValidateFormatCompatibility(mode, format);
 
             // Load assembly and XML documentation
-            var assembly = Assembly.LoadFile(dllFile);
+            // Use a custom AssemblyLoadContext so that dependencies (e.g. the core
+            // components DLL referenced by the charts DLL) are resolved from the
+            // same directory as the target DLL rather than from what is already
+            // loaded in the default context.
+            var loadContext = new PluginAssemblyLoadContext(dllFile);
+            var assembly = loadContext.LoadFromAssemblyPath(dllFile);
+
             var docXml = new FileInfo(xmlFile);
 
             Console.WriteLine("Generating documentation...");

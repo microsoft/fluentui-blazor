@@ -30,7 +30,7 @@ public class DocViewerService
         Options = options;
         ComponentsAssembly = options.ComponentsAssembly;
         ResourcesAssembly = options.ResourcesAssembly;
-        ApiAssembly = options.ApiAssembly;
+        ApiAssemblies = options.ApiAssemblies;
         ApiCommentSummary = options.ApiCommentSummary;
     }
 
@@ -50,9 +50,9 @@ public class DocViewerService
     public Assembly? ResourcesAssembly { get; }
 
     /// <summary>
-    /// Gets the assembly containing the classes to display in API sections.
+    /// Gets the assemblies containing the classes to display in API sections.
     /// </summary>
-    public Assembly? ApiAssembly { get; }
+    public Assembly[]? ApiAssemblies { get; }
 
     /// <summary>
     /// Function to get the summary of an API comment.

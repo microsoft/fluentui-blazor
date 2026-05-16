@@ -366,4 +366,16 @@
   <data name="Paginator_SummaryNoItems" xml:space="preserve">
     <value>No items</value>
   </data>
+  <data name="AutoComplete_MaximumSelectedOptionsMessage" xml:space="preserve">
+    <value>The maximum number of {0} selected items has been reached.</value>
+  </data>
+  <data name="Wizard_LabelButtonPrevious" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Wizard_LabelButtonNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Wizard_LabelButtonDone" xml:space="preserve">
+    <value>Done</value>
+  </data>
 </root>

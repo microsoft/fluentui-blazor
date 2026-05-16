@@ -137,8 +137,7 @@
         </FluentTextInput>
 
         <FluentPopover AnchorId="@Id"
-                       @bind-Opened="@_isOpen"
-                       @bind-Opened:after="OnOptionsPopupClosedAsync">
+                       @bind-Opened="@_isOpen">
 
             @if (IsReachedMaxItems)
             {

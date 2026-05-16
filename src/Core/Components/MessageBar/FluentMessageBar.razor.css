@@ -22,10 +22,6 @@ fluent-message-bar .title {
   padding: 0 4px 0 0;
 }
 
-fluent-message-bar .content {
-  max-width: unset;
-}
-
 fluent-message-bar .actions {
   display: flex;
   column-gap: var(--spacingHorizontalM);

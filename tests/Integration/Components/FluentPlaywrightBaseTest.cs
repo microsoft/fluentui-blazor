@@ -37,12 +37,13 @@ public abstract class FluentPlaywrightBaseTest : IAsyncDisposable, IDisposable
     /// </summary>
     protected virtual StartServerFixture Server { get; set; }
 
-    public async Task<IPage> WaitOpenPageAsync(string url, bool? openDevTools = null)
+    public async Task<IPage> WaitOpenPageAsync(string url, bool? openDevTools = null, bool? openHeadlessBrowser = null)
     {
         _playwright = await Playwright.Playwright.CreateAsync();
         _browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions()
         {
-            Devtools = openDevTools
+            Devtools = openDevTools,
+            Headless = openHeadlessBrowser
         });
 
         var page = await _browser.NewPageAsync();

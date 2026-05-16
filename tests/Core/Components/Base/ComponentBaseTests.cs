@@ -72,6 +72,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentAppBarItem), Loader.Default.WithCascadingValue(new InternalAppBarContext(new FluentAppBar(new LibraryConfiguration()))) },
         { typeof(FluentSortableList<>), Loader.MakeGenericType(typeof(string)).WithRequiredParameter("ItemTemplate", (RenderFragment<string>)(p => builder => builder.AddContent(0, "MyItemTemplate")))},
         { typeof(FluentNumberInput<>), Loader.MakeGenericType(typeof(int)) },
+        { typeof(FluentWizardStep), Loader.Default.WithCascadingValue(new FluentWizard(new LibraryConfiguration())) },
     };
 
     /// <summary />
