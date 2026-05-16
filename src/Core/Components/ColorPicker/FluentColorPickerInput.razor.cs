@@ -15,8 +15,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>
 {
-    private static readonly Icon IconPalette = new CoreIcons.Regular.Size20.DrawingPalette();
-
     [GeneratedRegex(@"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$", RegexOptions.None, matchTimeoutMilliseconds: 100)]
     private static partial Regex HexColorRegex();
 
@@ -61,6 +59,12 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>
     /// </summary>
     [Parameter]
     public TextInputAppearance Appearance { get; set; } = TextInputAppearance.Outline;
+
+    /// <summary>
+    /// Gets or sets the icon displayed in the color swatch button.
+    /// </summary>
+    [Parameter]
+    public Icon IconPalette { get; set; } = new CoreIcons.Regular.Size20.DrawingPalette();
 
     /// <summary>
     /// Gets or sets the short hint displayed in the input before the user enters a value.
