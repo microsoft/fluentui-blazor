@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.ColorPicker;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -277,17 +276,10 @@ public partial class FluentColorPicker : FluentComponentBase
         await InvokeAsync(StateHasChanged);
     }
 
-    /// <summary />
-    public override async ValueTask DisposeAsync()
+    /// <inheritdoc />
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        if (_dotNetHelper != null)
-        {
-            await JSRuntime.SafelyInvokeAsync("Microsoft.FluentUI.Blazor.Components.ColorPicker.Dispose", Id);
-
-            _dotNetHelper.Dispose();
-            _dotNetHelper = null;
-        }
-
-        await base.DisposeAsync();
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ColorPicker.Dispose", Id);
+        _dotNetHelper?.Dispose();
     }
 }
