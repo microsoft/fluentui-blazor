@@ -1,7 +1,9 @@
 ﻿<FluentStack>
     <div>
-        <FluentButton Id="LeftButton" OnClick="@(e => LeftOpened = !LeftOpened)">Open Popover</FluentButton>
-        <FluentPopover AnchorId="LeftButton" @bind-Opened="@LeftOpened">
+        <FluentButton Id="LeftButton"
+                      OnClick="@(e => LeftOpened = !LeftOpened)">Open Popover</FluentButton>
+        <FluentPopover AnchorId="LeftButton"
+                       @bind-Opened="@LeftOpened">
             <p>Example content for the</p>
             <p>Popover component</p>
         </FluentPopover>
@@ -10,8 +12,10 @@
     <FluentSpacer />
 
     <div>
-        <FluentButton Id="RightButton" OnClick="@(e => RightOpened = !RightOpened)">Open Popover</FluentButton>
-        <FluentPopover AnchorId="RightButton" @bind-Opened="@RightOpened">
+        <FluentButton Id="RightButton"
+                      OnClick="@(e => RightOpened = !RightOpened)">Open Popover</FluentButton>
+        <FluentPopover AnchorId="RightButton"
+                       @bind-Opened="@RightOpened">
             <p>Example content for the</p>
             <p>Popover component</p>
         </FluentPopover>
