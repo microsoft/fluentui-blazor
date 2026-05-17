@@ -2,6 +2,32 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <div style="margin:0 20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
     <FluentSwitch Label="Rounded corners" @bind-Value="roundCorners"></FluentSwitch>
     <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
     <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
@@ -19,6 +45,8 @@
 <div style="margin:20px;">
     <FluentFunnelChart ChartData="@data"
                        ChartTitle="Funnel chart interactive example"
+                       Width="@width"
+                       Height="@height"
                        HideLabels="@hideLabels"
                        HideTooltip="@hideTooltips"
                        RoundedCorners="@roundCorners"
@@ -36,6 +64,8 @@
             new FunnelDataPoint { Stage = "Customers", Value = 250, Color = DataVizPalette.Color3 },
     };
 
+    private int width = 650;
+    private int height = 350;
     private bool roundCorners;
     private bool hideLabels = true;
     private bool hideLegends;

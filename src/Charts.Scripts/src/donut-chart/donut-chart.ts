@@ -165,8 +165,7 @@ export class DonutChart extends ChartBase {
   }
 
   private _resolveChartData(): DonutDataPoint[] {
-    const sourceData =
-      this.order === 'sorted' ? [...this.data].sort((a, b) => b.data - a.data) : this.data;
+    const sourceData = this.order === 'sorted' ? [...this.data].sort((a, b) => b.data - a.data) : this.data;
 
     const totalValue = sourceData.reduce((sum, point) => sum + (point.data ?? 0), 0);
     const minimumValue = totalValue * 0.01;
@@ -217,7 +216,7 @@ export class DonutChart extends ChartBase {
       path.setAttribute('d', arc(arcDatum)!);
       path.setAttribute('fill', arcDatum.data.color!);
       path.setAttribute('data-id', arcDatum.data.legend);
-      path.setAttribute('tabindex', '0');
+      path.setAttribute('tabindex', this._arcs.length === 1 ? '0' : '-1');
       path.setAttribute('aria-label', `${arcDatum.data.legend}, ${arcDatum.data.data}.`);
       path.setAttribute('role', 'img');
 
@@ -262,6 +261,15 @@ export class DonutChart extends ChartBase {
         this._clearTooltip();
       });
 
+      path.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          path.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+        } else {
+          this._rovingKeydown(this._arcs, e);
+        }
+      });
+
       const label = this._createArcLabel(arc, arcDatum, totalValue, outerRadius);
       if (label) {
         arcGroup.appendChild(label);
@@ -301,16 +309,24 @@ export class DonutChart extends ChartBase {
     if (highlighted.length === 0) {
       this._arcs.forEach(arcEl => {
         arcEl.classList.remove('inactive');
-        arcEl.setAttribute('tabindex', '0');
       });
       this._arcLabels.forEach(label => label.classList.remove('inactive'));
+      if (this._arcs.length > 0 && !this._arcs.some(el => el.tabIndex === 0)) {
+        this._arcs[0].tabIndex = 0;
+      }
     } else {
       this._arcs.forEach(arcEl => {
         const legendId = arcEl.getAttribute('data-id');
         const isActive = legendId !== null && highlighted.includes(legendId);
         arcEl.classList.toggle('inactive', !isActive);
-        arcEl.setAttribute('tabindex', isActive ? '0' : '-1');
+        if (!isActive) {
+          arcEl.tabIndex = -1;
+        }
       });
+      const activeArcs = this._arcs.filter(el => !el.classList.contains('inactive'));
+      if (activeArcs.length > 0 && !activeArcs.some(el => el.tabIndex === 0)) {
+        activeArcs[0].tabIndex = 0;
+      }
 
       this._arcLabels.forEach(label => {
         const legendId = label.getAttribute('data-id');

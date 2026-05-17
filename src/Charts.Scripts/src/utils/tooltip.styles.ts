@@ -8,6 +8,17 @@ import { colorNeutralBackground1, spacingHorizontalL, spacingVerticalMNudge } fr
  * @internal
  */
 export const tooltipBaseStyles = css`
+  .live-region {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
   .tooltip {
     position: absolute;
     display: grid;

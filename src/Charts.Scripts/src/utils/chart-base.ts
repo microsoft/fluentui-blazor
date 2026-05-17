@@ -1,6 +1,12 @@
 import { attr, FASTElement, observable } from '@microsoft/fast-element';
 import type { ChartLegend } from '../chart-legend/chart-legend.js';
-import type { ChartLegendPosition, ChartTitleAlign, ChartTitlePosition, Legend, TooltipProps } from './chart.options.js';
+import type {
+  ChartLegendPosition,
+  ChartTitleAlign,
+  ChartTitlePosition,
+  Legend,
+  TooltipProps,
+} from './chart.options.js';
 import { getRTL } from './chart-helpers.js';
 
 /**
@@ -73,6 +79,18 @@ export abstract class ChartBase extends FASTElement {
 
   @observable
   public tooltipProps: TooltipProps = { isVisible: false, legend: '', yValue: '', color: '', xPos: 0, yPos: 0 };
+
+  /** Text announced to screen readers each time a tooltip becomes visible. */
+  @observable
+  public liveRegionText: string = '';
+
+  protected tooltipPropsChanged(_old: TooltipProps, newValue: TooltipProps): void {
+    if (newValue.isVisible && !this.hideTooltip) {
+      this.liveRegionText = [newValue.legend, newValue.yValue].filter(Boolean).join(': ');
+    } else {
+      this.liveRegionText = '';
+    }
+  }
 
   // ── Public refs ──────────────────────────────────────────────────
 
@@ -330,7 +348,28 @@ export abstract class ChartBase extends FASTElement {
   protected _clearTooltip(): void {
     this.tooltipProps = { isVisible: false, legend: '', yValue: '', color: '', xPos: 0, yPos: 0 };
   }
-
+  /**
+   * Implements the roving tabindex keyboard pattern for a focusable group.
+   * Arrow keys move focus within `elements` without adding extra Tab stops.
+   */
+  protected _rovingKeydown(elements: Element[], e: KeyboardEvent): void {
+    const forward = e.key === 'ArrowRight' || e.key === 'ArrowDown';
+    const backward = e.key === 'ArrowLeft' || e.key === 'ArrowUp';
+    if (!forward && !backward) {
+      return;
+    }
+    e.preventDefault();
+    const currentIndex = elements.findIndex(el => (el as HTMLElement).tabIndex === 0);
+    if (currentIndex === -1) {
+      return;
+    }
+    const nextIndex = forward
+      ? (currentIndex + 1) % elements.length
+      : (currentIndex - 1 + elements.length) % elements.length;
+    (elements[currentIndex] as HTMLElement).tabIndex = -1;
+    (elements[nextIndex] as HTMLElement).tabIndex = 0;
+    (elements[nextIndex] as HTMLElement).focus();
+  }
   // ── Render scheduling ────────────────────────────────────────────
 
   protected _requestRender(): void {

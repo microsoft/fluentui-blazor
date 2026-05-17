@@ -320,6 +320,19 @@ export class HorizontalBarChartWithAxis extends ChartBase {
     this._requestRender();
   }
 
+  protected override tooltipPropsChanged(_old: TooltipProps, newValue: TooltipProps): void {
+    const typed = newValue as HBCWATooltipProps;
+    if (typed.isVisible && !this.hideTooltip) {
+      const parts: string[] = [];
+      if (typed.yValue) parts.push(typed.yValue);
+      if (typed.legend && typed.xValue) parts.push(`${typed.legend}: ${typed.xValue}`);
+      else if (typed.legend) parts.push(typed.legend);
+      this.liveRegionText = parts.join(', ');
+    } else {
+      this.liveRegionText = '';
+    }
+  }
+
   protected showYAxisLabelsChanged() {
     this._requestRender();
   }
@@ -362,7 +375,10 @@ export class HorizontalBarChartWithAxis extends ChartBase {
     this.elementInternals.ariaLabel = this._getHostAriaLabel();
     this._applyHostDimensions();
 
-    const width = Math.max(this.chartContainer.getBoundingClientRect().width || this.getBoundingClientRect().width || 640, 320);
+    const width = Math.max(
+      this.chartContainer.getBoundingClientRect().width || this.getBoundingClientRect().width || 640,
+      320,
+    );
     const groups = this._getGroupedSeries();
     const numericYAxis = typeof groups[0]?.rawY === 'number';
     const yValues = groups.map(group => group.rawY).filter((value): value is number => typeof value === 'number');
@@ -395,6 +411,7 @@ export class HorizontalBarChartWithAxis extends ChartBase {
     const svg = createSvgElement<SVGSVGElement>('svg');
 
     svg.setAttribute('class', 'chart-svg');
+    svg.setAttribute('role', 'none');
     svg.setAttribute('width', `${width}`);
     svg.setAttribute('height', `${height}`);
     svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
@@ -463,7 +480,7 @@ export class HorizontalBarChartWithAxis extends ChartBase {
         rect.setAttribute('height', `${resolvedBarHeight}`);
         rect.setAttribute('fill', gradientId ? `url(#${gradientId})` : color);
         rect.setAttribute('role', 'img');
-        rect.setAttribute('tabindex', '0');
+        rect.setAttribute('tabindex', this._renderedBars.length === 0 ? '0' : '-1');
         rect.setAttribute('aria-label', this._getAriaLabel(point));
         rect.setAttribute('rx', `${this.roundCorners ? 3 : 0}`);
 
@@ -472,6 +489,17 @@ export class HorizontalBarChartWithAxis extends ChartBase {
         rect.addEventListener('focus', event => this._showTooltip(point, color, event, rect));
         rect.addEventListener('blur', () => this._clearTooltip());
         rect.addEventListener('click', () => point.onClick?.());
+        rect.addEventListener('keydown', (e: KeyboardEvent) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            point.onClick?.();
+          } else {
+            this._rovingKeydown(
+              this._renderedBars.map(b => b.element),
+              e,
+            );
+          }
+        });
 
         this._renderedBars.push({ legend: point.legend, element: rect });
         barsLayer.appendChild(rect);
@@ -929,12 +957,8 @@ export class HorizontalBarChartWithAxis extends ChartBase {
 
     const span = domain[1] - domain[0] || 1;
     const chartWidth = innerWidth + margins.left + margins.right;
-    const rangeStart = this._isRTL
-      ? chartWidth - margins.right
-      : margins.left;
-    const rangeEnd = this._isRTL
-      ? margins.left
-      : chartWidth - margins.right;
+    const rangeStart = this._isRTL ? chartWidth - margins.right : margins.left;
+    const rangeEnd = this._isRTL ? margins.left : chartWidth - margins.right;
     const originX = rangeStart + ((0 - domain[0]) / span) * (rangeEnd - rangeStart);
     const line = createSvgElement<SVGLineElement>('line');
     line.setAttribute('class', 'origin-line');
@@ -1004,7 +1028,15 @@ export class HorizontalBarChartWithAxis extends ChartBase {
       const shouldHighlight = highlighted.length === 0 || (legend ? highlighted.includes(legend) : true);
       element.classList.toggle('inactive', !shouldHighlight);
       element.setAttribute('opacity', shouldHighlight ? '1' : '0.1');
-      element.setAttribute('tabindex', shouldHighlight ? '0' : '-1');
+      if (!shouldHighlight) {
+        element.tabIndex = -1;
+      }
     });
+    const activeEls = this._renderedBars
+      .filter(({ legend }) => highlighted.length === 0 || (legend ? highlighted.includes(legend) : true))
+      .map(b => b.element);
+    if (activeEls.length > 0 && !activeEls.some(el => el.tabIndex === 0)) {
+      activeEls[0].tabIndex = 0;
+    }
   }
 }

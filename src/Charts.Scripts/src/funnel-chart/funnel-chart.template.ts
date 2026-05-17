@@ -12,14 +12,7 @@ export function funnelChartTemplate<T extends FunnelChart>(): ElementViewTemplat
     <template>
       ${when(x => !!x.chartTitle, html<T>`<div class="chart-title">${x => x.chartTitle}</div>`)}
       <div class="chart-container" ${ref('chartContainer')}>
-        <svg
-          ${ref('svgElement')}
-          class="chart"
-          width="${x => x.width}"
-          height="${x => x.height}"
-          role="region"
-          aria-label="${x => x.chartTitle}"
-        >
+        <svg ${ref('svgElement')} class="chart" width="${x => x.width}" height="${x => x.height}" role="none">
           <g ${ref('group')}></g>
         </svg>
       </div>

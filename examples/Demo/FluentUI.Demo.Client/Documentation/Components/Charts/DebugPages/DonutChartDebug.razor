@@ -2,6 +2,32 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
     <FluentSwitch Label="Rounded corners" @bind-Value="roundCorners"></FluentSwitch>
     <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
     <FluentSwitch Label="Show percentages" Disabled="@(hideLabels)" @bind-Value="showLabelsInPercent"></FluentSwitch>
@@ -13,6 +39,8 @@
 <div style="margin:20px;">
     <FluentDonutChart ChartData="@data"
                       ChartTitle="Donut chart rounded corners example"
+                      Width="@width"
+                      Height="@height"
                       HideLabels="@hideLabels"
                       HideTooltip="@hideTooltips"
                       InnerRadius="55"
@@ -26,6 +54,8 @@
 <div style="margin:20px;">
     <FluentDonutChart ChartData="@data2"
                       ChartTitle="Donut chart small segments"
+                      Width="@width"
+                      Height="@height"
                       InnerRadius="55"
                       ValueInsideDonut="39,000"
                       AllowMultipleLegendSelection="@allowMultipleLegendSelection"
@@ -57,6 +87,8 @@
         new DonutDataPoint { Legend = "tenth", Data = 10 },
     };
 
+    private int width = 400;
+    private int height = 400;
     private bool roundCorners;
     private bool hideLabels = true;
     private bool hideLegends;

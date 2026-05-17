@@ -308,7 +308,7 @@ export class FunnelChart extends ChartBase {
     path.setAttribute('d', pathD);
     path.setAttribute('fill', fill);
     path.setAttribute('data-id', legendKey);
-    path.setAttribute('tabindex', '0');
+    path.setAttribute('tabindex', this._segments.length === 0 ? '0' : '-1');
     path.setAttribute('role', 'img');
     path.setAttribute('aria-label', ariaLabel);
     this._segments.push(path);
@@ -336,6 +336,15 @@ export class FunnelChart extends ChartBase {
 
     path.addEventListener('blur', () => {
       this._clearTooltip();
+    });
+
+    path.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        path.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      } else {
+        this._rovingKeydown(this._segments, e);
+      }
     });
 
     path.addEventListener('mouseout', () => {
@@ -395,16 +404,24 @@ export class FunnelChart extends ChartBase {
     if (highlighted.length === 0) {
       this._segments.forEach(seg => {
         seg.classList.remove('inactive');
-        seg.setAttribute('tabindex', '0');
       });
       this._segmentTexts.forEach(t => t.classList.remove('inactive'));
+      if (this._segments.length > 0 && !this._segments.some(el => el.tabIndex === 0)) {
+        this._segments[0].tabIndex = 0;
+      }
     } else {
       this._segments.forEach(seg => {
         const id = seg.getAttribute('data-id');
         const isActive = id !== null && highlighted.includes(id);
         seg.classList.toggle('inactive', !isActive);
-        seg.setAttribute('tabindex', isActive ? '0' : '-1');
+        if (!isActive) {
+          seg.tabIndex = -1;
+        }
       });
+      const activeSegs = this._segments.filter(el => !el.classList.contains('inactive'));
+      if (activeSegs.length > 0 && !activeSegs.some(el => el.tabIndex === 0)) {
+        activeSegs[0].tabIndex = 0;
+      }
       this._segmentTexts.forEach(t => {
         const id = t.getAttribute('data-id');
         t.classList.toggle('inactive', id === null || !highlighted.includes(id));

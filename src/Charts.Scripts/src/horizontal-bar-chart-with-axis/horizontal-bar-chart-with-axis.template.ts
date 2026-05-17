@@ -17,6 +17,7 @@ export function horizontalBarChartWithAxisTemplate<T extends HorizontalBarChartW
         @legend-focus="${(x, c) => x.handleLegendMouseoverAndFocus((c.event as CustomEvent<string>).detail)}"
         @legend-blur="${x => x.handleLegendMouseoutAndBlur()}"
       ></fluent-chart-legend>
+      <div class="live-region" role="status" aria-live="polite" aria-atomic="true">${x => x.liveRegionText}</div>
       ${when(
         x => !x.hideTooltip && x.tooltipProps.isVisible,
         html<T>`

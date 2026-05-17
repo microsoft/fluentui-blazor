@@ -293,7 +293,7 @@ export class HorizontalBarChart extends ChartBase {
 
       startingPoint.push(prevPosition);
 
-      const gEle = d3Select(g).attr('key', index).attr('role', 'img').attr('aria-label', pointData);
+      const gEle = d3Select(g).attr('key', index).attr('role', 'group').attr('aria-label', pointData);
 
       let gradientId = '';
       if (this.enableGradient || point.gradient) {
@@ -339,8 +339,35 @@ export class HorizontalBarChart extends ChartBase {
         .attr('y', 0)
         .attr('width', value + '%')
         .attr('height', barHeight)
+        .attr('role', 'img')
+        .attr('aria-label', `${point.legend}: ${(point.data ?? 0).toLocaleString(this.culture || undefined)}`)
         .attr('tabindex', 0);
-      this._bars.push(rect.node()!);
+      const rectEl = rect.node()!;
+      this._bars.push(rectEl);
+      rectEl.addEventListener('focus', () => {
+        if (!this._shouldShowTooltip(point.legend ?? '')) {
+          return;
+        }
+        const bounds = this.getBoundingClientRect();
+        const rBounds = rectEl.getBoundingClientRect();
+        this.tooltipProps = {
+          isVisible: true,
+          legend: point.legend,
+          yValue: (point.data ?? 0).toLocaleString(this.culture || undefined),
+          color: point.gradient ? point.gradient[0] : point.color ?? '',
+          xPos: this._isRTL
+            ? bounds.right - rBounds.left - rBounds.width / 2
+            : rBounds.left + rBounds.width / 2 - bounds.left,
+          yPos: rBounds.top - bounds.top - 40,
+        };
+      });
+      rectEl.addEventListener('blur', () => this._clearTooltip());
+      rectEl.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          point.onClick?.();
+        }
+      });
     };
 
     const containerDiv = d3Create('div').attr(
@@ -396,6 +423,7 @@ export class HorizontalBarChart extends ChartBase {
       .attr('height', 12)
       .attr('width', 100 + '%')
       .attr('class', 'svg-chart')
+      .attr('role', 'group')
       .attr(
         'aria-label',
         data?.chartSeriesTitle ??

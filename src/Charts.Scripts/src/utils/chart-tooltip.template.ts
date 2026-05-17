@@ -18,20 +18,23 @@ import type { ChartBase } from './chart-base.js';
  * @internal
  */
 export function chartTooltipTemplate<T extends ChartBase>() {
-  return when(
-    (x: T) => !x.hideTooltip && x.tooltipProps.isVisible,
-    html<T>`
-      <div
-        class="tooltip"
-        style="inset-inline-start: ${(x: T) => x.tooltipProps.xPos}px; top: ${(x: T) => x.tooltipProps.yPos}px"
-      >
-        <div class="tooltip-inner" style="border-color: ${(x: T) => x.tooltipProps.color};">
-          <div class="tooltip-legend-text">${(x: T) => x.tooltipProps.legend}</div>
-          <div class="tooltip-value" style="color: ${(x: T) => x.tooltipProps.color};">
-            ${(x: T) => x.tooltipProps.yValue}
+  return html<T>`
+    <div class="live-region" role="status" aria-live="polite" aria-atomic="true">${(x: T) => x.liveRegionText}</div>
+    ${when(
+      (x: T) => !x.hideTooltip && x.tooltipProps.isVisible,
+      html<T>`
+        <div
+          class="tooltip"
+          style="inset-inline-start: ${(x: T) => x.tooltipProps.xPos}px; top: ${(x: T) => x.tooltipProps.yPos}px"
+        >
+          <div class="tooltip-inner" style="border-color: ${(x: T) => x.tooltipProps.color};">
+            <div class="tooltip-legend-text">${(x: T) => x.tooltipProps.legend}</div>
+            <div class="tooltip-value" style="color: ${(x: T) => x.tooltipProps.color};">
+              ${(x: T) => x.tooltipProps.yValue}
+            </div>
           </div>
         </div>
-      </div>
-    `,
-  );
+      `,
+    )}
+  `;
 }

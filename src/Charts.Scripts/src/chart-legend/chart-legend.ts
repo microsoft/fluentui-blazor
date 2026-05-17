@@ -80,4 +80,31 @@ export class ChartLegend extends FASTElement {
       }
     }
   }
+
+  /**
+   * Roving tabindex handler for legend button keyboard navigation.
+   * Arrow keys move focus between legend items; all other keys are ignored.
+   */
+  public _handleLegendKeydown(e: KeyboardEvent): boolean {
+    const forward = e.key === 'ArrowRight' || e.key === 'ArrowDown';
+    const backward = e.key === 'ArrowLeft' || e.key === 'ArrowUp';
+    if (!forward && !backward) {
+      return true; // Don't prevent default for Space, Enter, Tab, etc.
+    }
+    e.preventDefault();
+    const buttons = Array.from(this.shadowRoot?.querySelectorAll<HTMLButtonElement>('button.legend') ?? []);
+    const count = buttons.length;
+    if (count === 0) {
+      return false;
+    }
+    const index = buttons.indexOf(e.currentTarget as HTMLButtonElement);
+    if (index === -1) {
+      return false;
+    }
+    const nextIndex = forward ? (index + 1) % count : (index - 1 + count) % count;
+    buttons[index].tabIndex = -1;
+    buttons[nextIndex].tabIndex = 0;
+    buttons[nextIndex].focus();
+    return false;
+  }
 }
