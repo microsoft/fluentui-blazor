@@ -134,7 +134,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
 
     /// <summary>
     /// Gets or sets a value indicating whether calendar items are animated during a period change.
-    /// By default, the animation is enabled for Months views, but disabled for Days and Years view.
+    /// By default, the animation is enabled for Months views, but disabled for Days and Years views.
     /// </summary>
     [Parameter]
     public bool? AnimatePeriodChanges { get; set; }

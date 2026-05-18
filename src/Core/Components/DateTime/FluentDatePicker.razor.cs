@@ -52,8 +52,8 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
         .Build();
 
     /// <summary>
-    /// Gets or sets the icon displayed in the date picker toggle button (e.g., <c>Icon="new CoreIcons.Regular.Size20.Calendar()"</c>).
-    /// Defaults to the calendar icon.
+    /// Gets or sets the icon displayed in the date picker toggle button.
+    /// Defaults to the calendar icon. Provide any <see cref="Icon"/> instance from the public <c>Icons.*</c> types to customize.
     /// </summary>
     [Parameter]
     public Icon Icon { get; set; } = new CoreIcons.Regular.Size20.Calendar().WithColor("currentColor");

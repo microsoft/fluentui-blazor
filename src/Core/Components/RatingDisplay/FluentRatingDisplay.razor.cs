@@ -56,8 +56,8 @@ public partial class FluentRatingDisplay : FluentComponentBase, ITooltipComponen
     public RatingSize? Size { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon used for each rating item (e.g., <c>Shape="new MyIcons.Star()"</c>).
-    /// Defaults to a star icon.
+    /// Gets or sets the icon used for each rating item.
+    /// Defaults to a star icon. Provide any <see cref="Icon"/> instance to customize the shape.
     /// </summary>
     [Parameter]
     public Icon? Shape { get; set; }
