@@ -54,21 +54,21 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, II
     public string? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets the component width.
+    /// Gets or sets the component height.
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
 
     /// <summary>
-    /// To enable multiple file selection and upload, set the Multiple property to true.
-    /// Set <see cref="MaximumFileCount"/> to change the number of allowed files.
+    /// Gets or sets a value indicating whether multiple file selection is enabled.
+    /// Set <see cref="MaximumFileCount"/> to change the maximum number of allowed files.
     /// </summary>
     [Parameter]
     public bool Multiple { get; set; } = false;
 
     /// <summary>
-    /// To select multiple files, set the maximum number of files allowed to be uploaded.
-    /// Default value is 10.
+    /// Gets or sets the maximum number of files allowed to be uploaded (e.g., <c>MaximumFileCount="5"</c>).
+    /// Default value is 10. Requires <see cref="Multiple"/> to be true.
     /// </summary>
     [Parameter]
     public int MaximumFileCount { get; set; } = 10;
@@ -81,7 +81,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, II
     public long MaximumFileSize { get; set; } = 10 * 1024 * 1024;
 
     /// <summary>
-    /// Gets or sets the sze of buffer to read bytes from uploaded file (in bytes).
+    /// Gets or sets the size of the buffer used to read bytes from an uploaded file (in bytes).
     /// Default value is 10 KiB.
     /// </summary>
     [Parameter]
@@ -97,7 +97,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, II
     public string Accept { get; set; } = string.Empty;
 
     /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission.
+    /// Gets or sets a value indicating whether the form control is disabled and doesn't participate in form submission.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }

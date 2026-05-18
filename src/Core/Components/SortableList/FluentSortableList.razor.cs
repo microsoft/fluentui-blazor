@@ -83,7 +83,8 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     public string? Group { get; set; }
 
     /// <summary>
-    /// Gets or sets whether elements are cloned instead of moved. Set Clone to true to enable this.
+    /// Gets or sets whether elements are cloned instead of moved when dragged to another list (e.g., <c>Clone="true"</c>).
+    /// Requires <see cref="Group"/> to be set to the same value on both lists.
     /// </summary>
     [Parameter]
     public bool Clone { get; set; }
@@ -96,16 +97,15 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     public bool Drop { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets whether the list is sortable.
-    /// Default is true
-    /// Disable sorting within a list by setting to false.
+    /// Gets or sets whether sorting within this list is enabled. Default is <c>true</c>.
+    /// Set to <c>false</c> to disable reordering within this list while still allowing cross-list drag-and-drop.
     /// </summary>
     [Parameter]
     public bool Sort { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets whether the whole item acts as drag handle.
-    /// Set to true to use an element with classname `.sortable-grab` as the handle.
+    /// Gets or sets whether drag handles are used instead of dragging the whole item.
+    /// When <c>true</c>, only elements with the CSS class <c>sortable-grab</c> can initiate a drag.
     /// </summary>
     [Parameter]
     public bool Handle { get; set; }
@@ -117,7 +117,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     public Func<TItem, bool>? ItemFilter { get; set; }
 
     /// <summary>
-    /// Gets or sets whether to ignore the HTML5 DnD behaviour and force the fallback to kick in
+    /// Gets or sets whether to ignore the HTML5 DnD behaviour and force the fallback to kick in.
     /// </summary>
     [Parameter]
     public bool Fallback { get; set; } = false;

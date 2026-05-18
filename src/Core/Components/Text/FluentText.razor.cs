@@ -55,37 +55,37 @@ public partial class FluentText : FluentComponentBase, ITooltipComponent
     public TextFont? Font { get; set; }
 
     /// <summary>
-    /// Gets or sets if the texts is set to no-wrap.
+    /// Gets or sets whether the text is set to no-wrap (disables line wrapping).
     /// </summary>
     [Parameter]
     public bool Nowrap { get; set; }
 
     /// <summary>
-    /// Gets or sets if the text should truncate. 
+    /// Gets or sets whether the text should truncate with an ellipsis when it overflows.
     /// </summary>
     [Parameter]
     public bool Truncate { get; set; }
 
     /// <summary>
-    /// Gets or sets if the text is set to block.
+    /// Gets or sets whether the text is displayed as a block element.
     /// </summary>
     [Parameter]
     public bool Block { get; set; }
 
     /// <summary>
-    /// Gets or sets if the text is shown in italic.
+    /// Gets or sets whether the text is shown in italic.
     /// </summary>
     [Parameter]
     public bool Italic { get; set; }
 
     /// <summary>
-    /// Gets or sets is shown underlined .
+    /// Gets or sets whether the text is shown with an underline.
     /// </summary>
     [Parameter]
     public bool Underline { get; set; }
 
     /// <summary>
-    /// Gets or sets if the text is shown as strikethrough.
+    /// Gets or sets whether the text is shown with a strikethrough decoration.
     /// </summary>
     [Parameter]
     public bool Strikethrough { get; set; }
