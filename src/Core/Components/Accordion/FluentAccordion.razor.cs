@@ -61,6 +61,7 @@ public partial class FluentAccordion : FluentComponentBase
 
     /// <summary>
     /// Gets or sets whether accordion items expand to fill the full available width (block-level display).
+    /// When <see langword="null"/>, the default component behavior applies (items do not expand to fill width).
     /// </summary>
     [Parameter]
     public bool? Block { get; set; }

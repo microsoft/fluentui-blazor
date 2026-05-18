@@ -55,12 +55,14 @@ public partial class FluentMultiSplitterPane : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the maximum size of the pane as a CSS value (e.g., <c>Max="80%"</c>).
+    /// An empty string (the default) means no maximum constraint is applied.
     /// </summary>
     [Parameter]
     public string Max { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the minimum size of the pane as a CSS value (e.g., <c>Min="100px"</c>).
+    /// An empty string (the default) means no minimum constraint is applied.
     /// </summary>
     [Parameter]
     public string Min { get; set; } = string.Empty;

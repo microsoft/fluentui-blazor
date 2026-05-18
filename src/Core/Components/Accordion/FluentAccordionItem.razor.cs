@@ -21,7 +21,7 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     protected string? StyleValue => DefaultStyleBuilder.Build();
 
     /// <summary>
-    /// Gets or sets the parent <see cref="FluentAccordion"/> that owns this item.
+    /// Gets the parent <see cref="FluentAccordion"/> that owns this item, provided via cascading parameter.
     /// </summary>
     [CascadingParameter]
     public FluentAccordion? Owner { get; set; } = default!;
@@ -87,6 +87,7 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
 
     /// <summary>
     /// Gets or sets whether this accordion item expands to fill the full available width (block-level display).
+    /// When <see langword="null"/>, the value is inherited from the parent <see cref="FluentAccordion.Block"/> setting.
     /// </summary>
     [Parameter]
     public bool? Block { get; set; }
