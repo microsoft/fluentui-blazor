@@ -290,6 +290,7 @@ export abstract class ChartBase extends FASTElement {
         this._updateLegendInteractionState();
       }
 
+      this._announceLegendFilter();
       return;
     }
 
@@ -299,6 +300,18 @@ export abstract class ChartBase extends FASTElement {
     } else {
       this._setActiveLegend(legendTitle);
       this.isLegendSelected = true;
+    }
+    this._announceLegendFilter();
+  }
+
+  private _announceLegendFilter(): void {
+    const highlighted = this._getHighlightedLegends();
+    if (highlighted.length === 0) {
+      this.liveRegionText = 'Filter cleared.';
+    } else if (highlighted.length === 1) {
+      this.liveRegionText = `Filtered to ${highlighted[0]}.`;
+    } else {
+      this.liveRegionText = `Filtered to ${highlighted.join(', ')}.`;
     }
   }
 
@@ -370,6 +383,23 @@ export abstract class ChartBase extends FASTElement {
     (elements[nextIndex] as HTMLElement).tabIndex = 0;
     (elements[nextIndex] as HTMLElement).focus();
   }
+
+  /**
+   * If one of the `candidates` data elements currently has focus but has just been
+   * set to tabIndex -1 (i.e. it became inactive), move focus to the first candidate
+   * that still has tabIndex 0.
+   *
+   * We explicitly require the focused element to be in `candidates` so that nested
+   * elements (e.g. the fluent-chart-legend host, whose tabIndex is -1 by default)
+   * do not accidentally trigger a focus relocation when the user tabs into the legend.
+   */
+  protected _relocateFocusIfNeeded(candidates: HTMLOrSVGElement[]): void {
+    const focused = this.shadowRoot?.activeElement;
+    if (focused && candidates.includes(focused as HTMLOrSVGElement) && (focused as HTMLOrSVGElement).tabIndex === -1) {
+      candidates.find(el => el.tabIndex === 0)?.focus();
+    }
+  }
+
   // ── Render scheduling ────────────────────────────────────────────
 
   protected _requestRender(): void {

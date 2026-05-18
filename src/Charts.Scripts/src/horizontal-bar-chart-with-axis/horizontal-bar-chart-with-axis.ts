@@ -1038,5 +1038,8 @@ export class HorizontalBarChartWithAxis extends ChartBase {
     if (activeEls.length > 0 && !activeEls.some(el => el.tabIndex === 0)) {
       activeEls[0].tabIndex = 0;
     }
+    // Pass ALL bars (including now-inactive ones) so that a bar which just lost its
+    // tabIndex=0 is found as the focused candidate and focus is moved correctly.
+    this._relocateFocusIfNeeded(this._renderedBars.map(b => b.element));
   }
 }

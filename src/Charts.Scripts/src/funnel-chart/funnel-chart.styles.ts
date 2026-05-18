@@ -193,7 +193,7 @@ export const styles = css`
     ${typographyCaption1Styles}
   }
 
-  .tooltip-value {
+  .tooltip-content-y {
     ${typographyTitle2Styles}
   }
 

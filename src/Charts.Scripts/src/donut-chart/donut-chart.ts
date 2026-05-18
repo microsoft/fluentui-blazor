@@ -119,7 +119,9 @@ export class DonutChart extends ChartBase {
   }
 
   protected _getHostAriaLabel(): string {
-    return this.chartTitle || `Donut chart with ${this.data?.length ?? 0} segments.`;
+    return this.chartTitle
+      ? `${this.chartTitle}, donut chart`
+      : `Donut chart with ${this.data?.length ?? 0} segments.`;
   }
 
   protected orderChanged() {
@@ -332,6 +334,7 @@ export class DonutChart extends ChartBase {
         const legendId = label.getAttribute('data-id');
         label.classList.toggle('inactive', legendId === null || !highlighted.includes(legendId));
       });
+      this._relocateFocusIfNeeded(this._arcs);
     }
 
     this._updateTextInsideDonut();

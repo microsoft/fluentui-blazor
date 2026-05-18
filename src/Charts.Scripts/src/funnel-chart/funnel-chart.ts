@@ -102,7 +102,7 @@ export class FunnelChart extends ChartBase {
   }
 
   protected _getHostAriaLabel(): string {
-    return this.chartTitle || `Funnel chart with ${this.data?.length ?? 0} stages.`;
+    return this.chartTitle ? `${this.chartTitle}, funnel chart` : `Funnel chart with ${this.data?.length ?? 0} stages.`;
   }
 
   protected _performRender(): void {
@@ -426,6 +426,7 @@ export class FunnelChart extends ChartBase {
         const id = t.getAttribute('data-id');
         t.classList.toggle('inactive', id === null || !highlighted.includes(id));
       });
+      this._relocateFocusIfNeeded(this._segments);
     }
   }
 }

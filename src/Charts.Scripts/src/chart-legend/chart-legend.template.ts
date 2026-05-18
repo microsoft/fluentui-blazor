@@ -9,7 +9,7 @@ import type { Legend } from '../utils/chart.options.js';
  */
 export function chartLegendTemplate<T extends ChartLegend>(): ElementViewTemplate<T> {
   return html<T>`
-    <template role="listbox" aria-label="${x => x.label}">
+    <template role="listbox" aria-label="${x => x.label ?? 'Chart legend'}">
       ${repeat(
         x => x.items,
         html<Legend, T>`

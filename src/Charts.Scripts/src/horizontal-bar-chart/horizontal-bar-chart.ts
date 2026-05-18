@@ -76,7 +76,9 @@ export class HorizontalBarChart extends ChartBase {
   }
 
   protected _getHostAriaLabel(): string {
-    return this.chartTitle || `Horizontal bar chart with ${this.data?.length ?? 0} categories.`;
+    return this.chartTitle
+      ? `${this.chartTitle}, horizontal bar chart`
+      : `Horizontal bar chart with ${this.data?.length ?? 0} categories.`;
   }
 
   protected widthChanged() {
@@ -293,7 +295,7 @@ export class HorizontalBarChart extends ChartBase {
 
       startingPoint.push(prevPosition);
 
-      const gEle = d3Select(g).attr('key', index).attr('role', 'group').attr('aria-label', pointData);
+      const gEle = d3Select(g).attr('key', index).attr('role', 'none');
 
       let gradientId = '';
       if (this.enableGradient || point.gradient) {

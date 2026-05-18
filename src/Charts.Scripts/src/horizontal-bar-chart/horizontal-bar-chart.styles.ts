@@ -156,7 +156,7 @@ export const styles: ElementStyles = css`
     color: ${colorNeutralForeground1};
     text-align: start;
   }
-  .tooltip-value {
+  .tooltip-content-y {
     ${typographyTitle2Styles}
     text-align: start;
   }
