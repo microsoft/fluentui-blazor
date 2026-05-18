@@ -20,20 +20,26 @@ More details on [this page](https://learn.microsoft.com/aspnet/core/blazor/host-
 
 > [!WARNING] We recommend always using the `Value` property to specify the icon to be rendered (and not the `Icon` property).
 > This ensures that the icon is referenced by your project and will not deleted from the final library.
-> 
+>
 > `<FluentIcon Value="@(new Icons.Regular.Size24.Bookmark())" />`
 
 ## FluentIcon
 
-You can use any of these icons by levaraging the `<FluentIcon>` component. See below for the parameters and examples. 
+You can use any of these icons by levaraging the `<FluentIcon>` component. See below for the parameters and examples.
 
-There is also a search capability available on this page wich allows you to browse to all the different icons. At the moment the icons 
-displayed in this explorer below are always using the default blue accent color. When using the icons in your application, they will render 
+There is also a search capability available on this page wich allows you to browse to all the different icons. At the moment the icons
+displayed in this explorer below are always using the default blue accent color. When using the icons in your application, they will render
 in the color set with the `Color` parameter.
 
 ## Explore Icons
 
-`{ IconExplorer SourceCode=false }  ⚠️ TO ACTIVATE LATER`
+Use the **Icon Explorer** below to search any icon by name. Type a keyword in the search box to filter the list,
+then adjust the variant (Filled/Regular), size and color to find the exact icon you need.
+
+Click on an icon card to copy a ready-to-paste `<FluentIcon>` component declaration to the clipboard.
+**Right-click** the card to open a menu with more copy options.
+
+{{ IconExplorer SourceCode=false }}
 
 ## Overview
 
@@ -59,7 +65,7 @@ With the code above you can use the following options at the `<···>`:
 With `Color.Custom`, supply your own color value through the `CustomColor` parameter. <br/>
 Needs to be formatted as an HTML hex color string (`#rrggbb` or `#rgb`) or a CSS variable (`var(--...)`).
 
-> The default color is [currentColor](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword), 
+> The default color is [currentColor](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword),
 > which means that the icon will inherit the color from its parent element.
 
 ## Customization
@@ -97,3 +103,28 @@ public class MyCircle : Microsoft.FluentUI.AspNetCore.Components.Icon
 
 {{ INCLUDE File=MigrationColor }}
 
+## API FluentIcon
+
+<!-- The DocViewer tag cannot be used because FluentIcon requires an Icon object, which is not supported by DocViewer -->
+
+Main `FluentIcon` parameters:
+
+- `AdditionalAttributes`: Captures any additional HTML attributes that are not matched by a defined parameter and forwards them to the underlying element.
+- `Class`: Gets or sets the additional CSS class(es) applied to the component.
+- `Color`: Gets or sets the icon drawing and fill color. Value comes from the `Color` enumeration. Defaults to `Accent`.
+- `CustomColor`: Gets or sets the icon drawing and fill color to a custom value (HTML hex color `#RRGGBB` / `#RGB` or CSS variable). Only available when `Color` is set to `Color.Custom`.
+- `Data` : Gets or sets an arbitrary data object associated with the component.
+- `Element`: Gets or sets the `ElementReference` of the rendered element.
+- `Focusable`: Gets or sets whether the icon is focusable (adds `tabindex="0"` and `role="button"`), allowing the icon to be focused sequentially with the Tab key. Defaults to `false`.
+- `Id`: Gets or sets the unique identifier (HTML `id` attribute) of the component.
+- `Margin`: Gets or sets the margin spacing applied to the component (using the Fluent spacing tokens).
+- `OnClick`: Event callback raised when the icon is clicked. Provides a `MouseEventArgs`.
+- `OnClickStopPropagation`: Gets or sets whether the click event should stop propagation.
+- `OnClickPreventDefault` : Gets or sets whether the click event should prevent the default action.
+- `Padding`: Gets or sets the padding spacing applied to the component (using the Fluent spacing tokens).
+- `Slot`: Gets or sets the slot where the icon is displayed in (for example `FluentSlot.Start` or `FluentSlot.End` inside a `FluentButton`).
+- `Style`: Gets or sets the additional inline CSS style applied to the component.
+- `Title`: Gets or sets the title (HTML `title` attribute) for the icon.
+- `Tooltip`: Gets or sets the tooltip text displayed when hovering the icon.
+- `Value`: Gets or sets the `Icon` object to render. This is the recommended way to specify the icon.
+- `Width`: Gets or sets the icon width. If not set, the icon's default size is used. Set to an empty string to use 100% width of the enclosing container.

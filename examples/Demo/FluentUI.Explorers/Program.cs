@@ -37,10 +37,12 @@ app.Use(async (context, next) =>
             "'self'",
             "https://localhost:7026",
             "https://localhost:7062",
+            "https://localhost:7197",
             "https://fluentui-blazor.net",
             "https://www.fluentui-blazor.net",
             "https://preview.fluentui-blazor.net",
-            "https://fluentui-explorer-v5.azurewebsites.net"
+            "https://fluentui-explorer-v5.azurewebsites.net",
+            "https://v5.fluentui-blazor.net",
         ];
 
         // Set a single CSP header, replacing any that Blazor might have added
