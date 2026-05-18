@@ -97,7 +97,7 @@ public abstract partial class ColumnBase<TGridItem>
     public DataGridCellAlignment Align { get; set; }
 
     /// <summary>
-    /// Gets or sets whether each cell in this column renders a <c>title</c> and <c>aria-label</c> attribute
+    /// Gets or sets whether each cell in this column renders a <c>title</c> and <c>aria-label</c> attributes
     /// derived from the cell's content. Use <see cref="TooltipText"/> to supply a custom tooltip value.
     /// </summary>
     [Parameter]

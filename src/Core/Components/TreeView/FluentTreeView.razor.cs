@@ -84,7 +84,7 @@ public partial class FluentTreeView : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the id of the currently selected tree item.
-    /// See also <see cref="SelectedItem"/> (returns the <see cref="ITreeViewItem"/> data model)
+    /// See also <see cref="SelectedItem"/> (returns the <see cref="ITreeViewItem"/> data model),
     /// and <see cref="CurrentSelected"/> (returns the <see cref="FluentTreeItem"/> component instance).
     /// </summary>
     [Parameter]
@@ -98,7 +98,7 @@ public partial class FluentTreeView : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the selected <see cref="FluentTreeItem"/> component instance.
-    /// See also <see cref="SelectedId"/> (returns the item id string)
+    /// See also <see cref="SelectedId"/> (returns the item id string),
     /// and <see cref="SelectedItem"/> (returns the <see cref="ITreeViewItem"/> data model).
     /// </summary>
     [Parameter]
@@ -112,7 +112,7 @@ public partial class FluentTreeView : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the selected <see cref="ITreeViewItem"/> data model item.
-    /// See also <see cref="SelectedId"/> (returns the item id string)
+    /// See also <see cref="SelectedId"/> (returns the item id string),
     /// and <see cref="CurrentSelected"/> (returns the <see cref="FluentTreeItem"/> component instance).
     /// </summary>
     [Parameter]
