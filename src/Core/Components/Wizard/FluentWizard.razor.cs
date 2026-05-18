@@ -60,13 +60,14 @@ public partial class FluentWizard : FluentComponentBase
     public string? StepperBulletSpace { get; set; }
 
     /// <summary>
-    /// Display a border of the Wizard.
+    /// Gets or sets whether and how a border is displayed around the wizard (e.g., <c>Border="WizardBorder.Outside"</c>).
     /// </summary>
     [Parameter]
     public WizardBorder Border { get; set; } = WizardBorder.None;
 
     /// <summary>
-    /// Display a number on each step icon. Can be overridden by the step <see cref="FluentWizardStep.DisplayStepNumber"/> property.
+    /// Gets or sets when to display a step number on each step icon.
+    /// Can be overridden per step via <see cref="FluentWizardStep.DisplayStepNumber"/>.
     /// </summary>
     [Parameter]
     public WizardStepStatus DisplayStepNumber { get; set; } = WizardStepStatus.None;
