@@ -41,7 +41,7 @@ public partial class FluentPaginator : FluentComponentBase
     public EventCallback<int> CurrentPageIndexChanged { get; set; }
 
     /// <summary>
-    /// Disables the pagination buttons
+    /// Gets or sets whether the pagination buttons are disabled.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }

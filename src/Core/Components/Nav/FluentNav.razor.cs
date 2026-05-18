@@ -70,19 +70,21 @@ public partial class FluentNav : FluentComponentBase
     public bool UseIcons { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets whether to allow just one expanded category or multiple
+    /// Gets or sets whether only one <see cref="FluentNavCategory"/> can be expanded at a time.
+    /// When <c>true</c>, expanding one category automatically collapses all others.
     /// </summary>
     [Parameter]
     public bool UseSingleExpanded { get; set; }
 
     /// <summary>
-    /// Gets or sets the density of the nav menu item.
+    /// Gets or sets the density (spacing) of the navigation menu items (e.g., <c>Density="NavDensity.Compact"</c>).
     /// </summary>
     [Parameter]
     public NavDensity? Density { get; set; }
 
     /// <summary>
-    /// Gets or sets the content of the nav menu item.
+    /// Gets or sets the child content rendered inside the navigation menu.
+    /// Accepts <see cref="FluentNavItem"/>, <see cref="FluentNavCategory"/>, <see cref="FluentNavSectionHeader"/>, and <see cref="FluentDivider"/> elements.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
