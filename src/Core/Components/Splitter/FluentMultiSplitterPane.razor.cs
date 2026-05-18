@@ -42,37 +42,40 @@ public partial class FluentMultiSplitterPane : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a collapsed indicating whether this <see cref="FluentMultiSplitterPane"/> is collapsed.
+    /// Gets or sets whether this pane is currently collapsed.
     /// </summary>
     [Parameter]
     public bool Collapsed { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets a collapsed indicating whether this <see cref="FluentMultiSplitterPane"/> is collapsible.
+    /// Gets or sets whether this pane can be collapsed by the user.
     /// </summary>
     [Parameter]
     public bool Collapsible { get; set; } = false;
 
     /// <summary>
-    /// Determines the maximum collapsed.
+    /// Gets or sets the maximum size of the pane as a CSS value (e.g., <c>Max="80%"</c>).
+    /// An empty string (the default) means no maximum constraint is applied.
     /// </summary>
     [Parameter]
     public string Max { get; set; } = string.Empty;
 
     /// <summary>
-    /// Determines the minimum collapsed.
+    /// Gets or sets the minimum size of the pane as a CSS value (e.g., <c>Min="100px"</c>).
+    /// An empty string (the default) means no minimum constraint is applied.
     /// </summary>
     [Parameter]
     public string Min { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets a collapsed indicating whether this <see cref="FluentMultiSplitterPane"/> is resizable.
+    /// Gets or sets whether the user can resize this pane by dragging its splitter bar. Default is <c>true</c>.
     /// </summary>
     [Parameter]
     public bool Resizable { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the size.
+    /// Gets or sets the initial size of the pane as a CSS value (e.g., <c>Size="200px"</c> or <c>Size="30%"</c>).
+    /// When omitted, remaining space is distributed equally among unsized panes.
     /// </summary>
     [Parameter]
     public string? Size { get; set; }

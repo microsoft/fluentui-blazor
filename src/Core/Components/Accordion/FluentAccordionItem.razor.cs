@@ -21,15 +21,15 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     protected string? StyleValue => DefaultStyleBuilder.Build();
 
     /// <summary>
-    /// Gets or sets the owning FluentTreeView.
+    /// Gets the parent <see cref="FluentAccordion"/> that owns this item, provided via cascading parameter.
     /// </summary>
     [CascadingParameter]
     public FluentAccordion? Owner { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the heading of the accordion item.
-    /// Use either this or the <see cref="HeaderTemplate"/> parameter."/>
-    /// If both are set, this parameter will be used.
+    /// Gets or sets the plain-text heading of the accordion item (e.g., <c>Header="Section Title"</c>).
+    /// Use either this or the <see cref="HeaderTemplate"/> parameter.
+    /// If both are set, this parameter takes precedence.
     /// </summary>
     [Parameter]
     public string? Header { get; set; }
@@ -86,7 +86,8 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     public AccordionItemMarkerPosition? MarkerPosition { get; set; }
 
     /// <summary>
-    /// Gets or sets the width of the focus state
+    /// Gets or sets whether this accordion item expands to fill the full available width (block-level display).
+    /// When <see langword="null"/>, the value is inherited from the parent <see cref="FluentAccordion.Block"/> setting.
     /// </summary>
     [Parameter]
     public bool? Block { get; set; }

@@ -45,7 +45,7 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     public bool? OpenOnContext { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the menu when scrolling outside of it.
+    /// Gets or sets whether the menu closes automatically when the user scrolls outside of it.
     /// </summary>
     [Parameter]
     public bool? CloseOnScroll { get; set; }
@@ -57,7 +57,8 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     public bool? PersistOnItemClick { get; set; }
 
     /// <summary>
-    /// Gets or sets the id of the menu trigger.
+    /// Gets or sets the HTML element ID of the trigger element that opens this menu (e.g., <c>Trigger="my-button-id"</c>).
+    /// When set, clicking the referenced element toggles the menu open or closed.
     /// </summary>
     [Parameter]
     public string? Trigger { get; set; }
@@ -69,7 +70,7 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     public string? Height { get; set; }
 
     /// <summary>
-    /// Gets or sets the menu's submenus.
+    /// Gets or sets the child content rendered inside the menu, typically <see cref="FluentMenuItem"/> elements.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

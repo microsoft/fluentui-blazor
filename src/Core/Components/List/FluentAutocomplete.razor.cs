@@ -146,7 +146,8 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     public string? MaxSelectedWidth { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the Search icon or Clear button is displayed.
+    /// Gets or sets whether the dismiss (clear) button is visible. When <c>true</c> (default), the
+    /// dismiss button is shown; when <c>false</c>, the search icon is shown instead.
     /// </summary>
     [Parameter]
     public bool ShowDismiss { get; set; } = true;

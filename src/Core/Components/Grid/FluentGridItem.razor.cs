@@ -32,69 +32,70 @@ public partial class FluentGridItem : FluentComponentBase
     protected FluentGrid? Grid { get; set; }
 
     /// <summary>
-    /// The number of columns the item should span in the 12-column grid system.
-    /// Extra Small (xs) devices (portrait phones, less than 600px wide)
+    /// Gets or sets the number of columns (1–12) the item spans on Extra Small devices (portrait phones, less than 600px wide).
+    /// Use with <see cref="Sm"/>, <see cref="Md"/>, <see cref="Lg"/>, <see cref="Xl"/>, <see cref="Xxl"/> for responsive layouts.
     /// </summary>
     [Parameter]
     public int? Xs { get; set; }
 
     /// <summary>
-    /// The number of columns the item should span in the 12-column grid system.
-    /// Small (sm) devices (landscape phones, less than 960px wide)
+    /// Gets or sets the number of columns (1–12) the item spans on Small devices (landscape phones, less than 960px wide).
+    /// Use with <see cref="Xs"/>, <see cref="Md"/>, <see cref="Lg"/>, <see cref="Xl"/>, <see cref="Xxl"/> for responsive layouts.
     /// </summary>
     [Parameter]
     public int? Sm { get; set; }
 
     /// <summary>
-    /// The number of columns the item should span in the 12-column grid system.
-    /// Medium (md) devices (tablets, less than 1280px wide)
+    /// Gets or sets the number of columns (1–12) the item spans on Medium devices (tablets, less than 1280px wide).
+    /// Use with <see cref="Xs"/>, <see cref="Sm"/>, <see cref="Lg"/>, <see cref="Xl"/>, <see cref="Xxl"/> for responsive layouts.
     /// </summary>
     [Parameter]
     public int? Md { get; set; }
 
     /// <summary>
-    /// The number of columns the item should span in the 12-column grid system.
-    /// Large (lg) devices (desktops, less than 1920px wide)
-    /// </summary> 
+    /// Gets or sets the number of columns (1–12) the item spans on Large devices (desktops, less than 1920px wide).
+    /// Use with <see cref="Xs"/>, <see cref="Sm"/>, <see cref="Md"/>, <see cref="Xl"/>, <see cref="Xxl"/> for responsive layouts.
+    /// </summary>
     [Parameter]
     public int? Lg { get; set; }
 
     /// <summary>
-    /// The number of columns the item should span in the 12-column grid system.
-    /// Extra large (xl) devices (large desktops, less than 2560px wide)
+    /// Gets or sets the number of columns (1–12) the item spans on Extra Large devices (large desktops, less than 2560px wide).
+    /// Use with <see cref="Xs"/>, <see cref="Sm"/>, <see cref="Md"/>, <see cref="Lg"/>, <see cref="Xxl"/> for responsive layouts.
     /// </summary>
     [Parameter]
     public int? Xl { get; set; }
 
     /// <summary>
-    /// The number of columns the item should span in the 12-column grid system.
-    /// Extra extra large (xxl) devices (larger desktops, more than 2560px wide)
+    /// Gets or sets the number of columns (1–12) the item spans on Extra Extra Large devices (larger desktops, more than 2560px wide).
+    /// Use with <see cref="Xs"/>, <see cref="Sm"/>, <see cref="Md"/>, <see cref="Lg"/>, <see cref="Xl"/> for responsive layouts.
     /// </summary>
     [Parameter]
     public int? Xxl { get; set; }
 
     /// <summary>
-    /// Defines how the browser distributes space between and around content items.
+    /// Gets or sets how the browser distributes space between and around content items within this grid item.
     /// </summary>
     [Parameter]
     public JustifyContent? Justify { get; set; }
 
     /// <summary>
-    /// Gets or sets the gaps (gutters) between rows and columns.
-    /// See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
+    /// Gets or sets the gaps (gutters) between rows and columns (e.g., <c>Gap="8px"</c>).
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/gap">CSS gap</see>.
     /// </summary>
     [Parameter]
     public string? Gap { get; set; }
 
     /// <summary>
-    /// Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
-    /// Default is false.
+    /// Gets or sets the adaptive rendering behavior: when <c>true</c>, the HTML is not rendered when the item is hidden;
+    /// when <c>false</c>, the item is hidden via CSS only. Default is <c>false</c>.
     /// </summary>
     [Parameter]
     public bool? AdaptiveRendering { get; set; }
 
     /// <summary>
-    /// Hide the item on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
+    /// Gets or sets the breakpoint sizes at which this item is hidden (e.g., <c>HiddenWhen="GridItemHidden.Sm | GridItemHidden.Xl"</c>).
+    /// See <see cref="GridItemHidden"/> for available values.
     /// </summary>
     [Parameter]
     public GridItemHidden? HiddenWhen { get; set; }
