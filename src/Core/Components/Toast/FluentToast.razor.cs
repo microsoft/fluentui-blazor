@@ -73,7 +73,8 @@ public partial class FluentToast
     public int HorizontalOffset { get; set; } = 20;
 
     /// <summary>
-    /// Gets or sets the type of toast notification to display.
+    /// Gets or sets the <see cref="ToastType"/> of toast notification to display
+    /// (e.g., <c>Type="ToastType.Communication"</c>).
     /// </summary>
     [Parameter]
     public ToastType Type { get; set; } = ToastType.Communication;
@@ -146,7 +147,8 @@ public partial class FluentToast
     public string? Title { get; set; }
 
     /// <summary>
-    /// Gets or sets the body content displayed in the toast.
+    /// Gets or sets the plain-text body message displayed in the toast.
+    /// For rich content, use <see cref="BodyContent"/> instead.
     /// </summary>
     [Parameter]
     public string? Body { get; set; }
@@ -158,25 +160,29 @@ public partial class FluentToast
     public string? Subtitle { get; set; }
 
     /// <summary>
-    /// Gets or sets the first quick action label.
+    /// Gets or sets the first quick action label (e.g., <c>QuickAction1="Undo"</c>).
+    /// See also <see cref="QuickAction2"/>.
     /// </summary>
     [Parameter]
     public string? QuickAction1 { get; set; }
 
     /// <summary>
-    /// Gets or sets the second quick action label.
+    /// Gets or sets the second quick action label (e.g., <c>QuickAction2="Dismiss"</c>).
+    /// See also <see cref="QuickAction1"/>.
     /// </summary>
     [Parameter]
     public string? QuickAction2 { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the toast is dismissable by the user.
+    /// Gets or sets a value indicating whether the toast can be dismissed by the user.
+    /// When <see langword="true"/>, a dismiss button is rendered; use <see cref="DismissAction"/> to customize its label.
     /// </summary>
     [Parameter]
     public bool IsDismissable { get; set; }
 
     /// <summary>
-    /// Gets or sets the dismiss action label
+    /// Gets or sets the label for the dismiss action button (e.g., <c>DismissAction="Close"</c>).
+    /// Only relevant when <see cref="IsDismissable"/> is <see langword="true"/>.
     /// </summary>
     [Parameter]
     public string? DismissAction { get; set; }
@@ -190,6 +196,7 @@ public partial class FluentToast
     /// <summary>
     /// Gets or sets custom content rendered in the toast body, such as progress content managed through
     /// <see cref="IToastInstance.UpdateAsync(Action{ToastOptions})"/>.
+    /// For plain-text body messages, use <see cref="Body"/> instead.
     /// </summary>
     [Parameter]
     public RenderFragment? BodyContent { get; set; }
