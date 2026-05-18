@@ -50,13 +50,15 @@ public partial class FluentSkeleton : FluentComponentBase
     public bool Visible { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the loading effect is visible.
+    /// Gets or sets a value indicating whether the shimmer animation (loading wave effect) is shown.
+    /// Distinct from <see cref="Visible"/>, which controls component visibility entirely.
     /// </summary>
     [Parameter]
     public bool Shimmer { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the skeleton in a circular mode.
+    /// Gets or sets a value indicating whether the skeleton is displayed as a circle.
+    /// When <see langword="true"/>, the component renders with equal width and height styles to form a circle (the parameter values themselves are not mutated).
     /// </summary>
     [Parameter]
     public bool Circular { get; set; }
@@ -75,7 +77,8 @@ public partial class FluentSkeleton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the predefined skeleton pattern used to define the structure or layout of the component.
-    /// You can customize the skeleton's appearance by using <see cref="ChildContent" />
+    /// (e.g., <c>Pattern="SkeletonPattern.Article"</c>).
+    /// For custom layouts, use <see cref="ChildContent"/> instead.
     /// </summary>
     [Parameter]
     public SkeletonPattern? Pattern { get; set; }
