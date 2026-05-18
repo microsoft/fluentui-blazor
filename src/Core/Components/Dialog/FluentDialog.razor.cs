@@ -49,8 +49,9 @@ public partial class FluentDialog : FluentComponentBase
     public IDialogInstance? Instance { get; set; }
 
     /// <summary>
-    /// Gets or sets the child content rendered inside the dialog when not using the <see cref="DialogService"/>.
-    /// When using the <see cref="DialogService"/>, use <see cref="Instance"/> instead.
+    /// Gets or sets the child content rendered directly inside the dialog.
+    /// Use this when displaying the dialog declaratively in Razor without the <see cref="DialogService"/>.
+    /// When using <see cref="DialogService"/> to show dialogs, content is provided through the dialog component class, not via this parameter.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

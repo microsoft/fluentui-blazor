@@ -58,6 +58,7 @@ public partial class FluentTooltip : FluentComponentBase
 
     /// <summary>
     /// Gets or sets a value indicating whether the <see cref="ITooltipService"/> is used to render the tooltip.
+    /// This parameter only has an effect when <see cref="ITooltipService"/> is registered in the DI container; the service is optional and may not be available.
     /// Set this to <see langword="false"/> when <see cref="ChildContent"/> is dynamic (e.g., <c>UseTooltipService="false"</c>). Default is <see langword="true"/>.
     /// </summary>
     [Parameter]
