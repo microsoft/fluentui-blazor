@@ -36,7 +36,7 @@ public partial class FluentTabs : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets or sets the appearance affects each of the contained tabs.
+    /// Gets or sets the visual appearance applied to each contained tab (e.g., <c>Appearance="TabsAppearance.Subtle"</c>).
     /// </summary>
     [Parameter]
     public TabsAppearance? Appearance { get; set; }
@@ -72,7 +72,8 @@ public partial class FluentTabs : FluentComponentBase
     public string? Width { get; set; }
 
     /// <summary>
-    /// Gets the the active selected tab id.
+    /// Gets or sets the ID of the currently active tab. Use <c>@bind-ActiveTabId</c> for two-way binding.
+    /// See also <see cref="ActiveTab"/> to work with the <see cref="FluentTab"/> instance directly.
     /// </summary>
     [Parameter]
     public string? ActiveTabId { get; set; }
@@ -84,7 +85,8 @@ public partial class FluentTabs : FluentComponentBase
     public EventCallback<string?> ActiveTabIdChanged { get; set; }
 
     /// <summary>
-    /// Gets the the active selected tab.
+    /// Gets or sets the currently active <see cref="FluentTab"/> instance. Use <c>@bind-ActiveTab</c> for two-way binding.
+    /// See also <see cref="ActiveTabId"/> to work with the tab ID string directly.
     /// </summary>
     [Parameter]
     public FluentTab? ActiveTab { get; set; }

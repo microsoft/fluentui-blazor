@@ -105,7 +105,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     public virtual RenderFragment<TOption>? OptionTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the function used to determine which value to apply to the binded value.
+    /// Gets or sets the function used to determine which value to apply to the bound value.
     /// </summary>
     [Parameter]
     public virtual Func<TOption?, TValue?>? OptionValue { get; set; }

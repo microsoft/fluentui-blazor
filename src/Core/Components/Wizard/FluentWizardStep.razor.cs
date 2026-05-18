@@ -41,13 +41,15 @@ public partial class FluentWizardStep : FluentComponentBase
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// Render the Wizard Step content only when the Step is selected.
+    /// Gets or sets whether to render the step content only when the step is active.
+    /// Content is cleared when the step is deselected, reducing page size for inactive steps.
     /// </summary>
     [Parameter]
     public bool DeferredLoading { get; set; }
 
     /// <summary>
-    /// Gets or sets the label of the step.
+    /// Gets or sets the plain-text label shown in the step indicator (e.g., <c>Label="Step 1"</c>).
+    /// See also <see cref="Summary"/> for a short subtitle displayed below the label.
     /// </summary>
     [Parameter]
     public string Label { get; set; } = string.Empty;
@@ -67,7 +69,7 @@ public partial class FluentWizardStep : FluentComponentBase
     public EventCallback<FluentWizardStepChangeEventArgs> OnChange { get; set; }
 
     /// <summary>
-    /// Gets or sets the summary of the step, to display near the label.
+    /// Gets or sets a short subtitle displayed below the <see cref="Label"/> in the step indicator.
     /// </summary>
     [Parameter]
     public string Summary { get; set; } = string.Empty;

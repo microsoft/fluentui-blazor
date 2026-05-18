@@ -49,7 +49,9 @@ public partial class FluentDialog : FluentComponentBase
     public IDialogInstance? Instance { get; set; }
 
     /// <summary>
-    /// Used when not calling the <see cref="DialogService" /> to show a dialog.
+    /// Gets or sets the child content rendered directly inside the dialog.
+    /// Use this when displaying the dialog declaratively in Razor without the <see cref="DialogService"/>.
+    /// When using <see cref="DialogService"/> to show dialogs, content is provided through the dialog component class, not via this parameter.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -80,7 +82,7 @@ public partial class FluentDialog : FluentComponentBase
     public bool PreventDismissOnEscape { get; set; }
 
     /// <summary>
-    /// Command executed when the user clicks on the button.
+    /// Gets or sets the callback that is invoked when the dialog state changes (e.g., opening or closing).
     /// </summary>
     [Parameter]
     public EventCallback<DialogEventArgs> OnStateChange { get; set; }
