@@ -50,7 +50,8 @@ public partial class FluentTreeView : FluentComponentBase
     public TreeAppearance? Appearance { get; set; } = TreeAppearance.Subtle;
 
     /// <summary>
-    /// Gets or sets whether the tree view element is not highlighted to indicate that it is selected.
+    /// Gets or sets whether the selection highlight is hidden.
+    /// When <c>true</c>, the selected tree item is not visually highlighted.
     /// </summary>
     [Parameter]
     public bool HideSelection { get; set; }
@@ -82,7 +83,9 @@ public partial class FluentTreeView : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the selected item id.
+    /// Gets or sets the id of the currently selected tree item.
+    /// See also <see cref="SelectedItem"/> (returns the <see cref="ITreeViewItem"/> data model),
+    /// and <see cref="CurrentSelected"/> (returns the <see cref="FluentTreeItem"/> component instance).
     /// </summary>
     [Parameter]
     public string? SelectedId { get; set; }
@@ -94,7 +97,9 @@ public partial class FluentTreeView : FluentComponentBase
     public EventCallback<string?> SelectedIdChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the selected <see cref="FluentTreeItem" /> item.
+    /// Gets or sets the selected <see cref="FluentTreeItem"/> component instance.
+    /// See also <see cref="SelectedId"/> (returns the item id string),
+    /// and <see cref="SelectedItem"/> (returns the <see cref="ITreeViewItem"/> data model).
     /// </summary>
     [Parameter]
     public FluentTreeItem? CurrentSelected { get; set; }
@@ -106,7 +111,9 @@ public partial class FluentTreeView : FluentComponentBase
     public EventCallback<FluentTreeItem?> CurrentSelectedChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the selected <see cref="ITreeViewItem" /> item.
+    /// Gets or sets the selected <see cref="ITreeViewItem"/> data model item.
+    /// See also <see cref="SelectedId"/> (returns the item id string),
+    /// and <see cref="CurrentSelected"/> (returns the <see cref="FluentTreeItem"/> component instance).
     /// </summary>
     [Parameter]
     public ITreeViewItem? SelectedItem { get; set; }

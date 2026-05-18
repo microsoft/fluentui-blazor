@@ -73,7 +73,7 @@ public partial class FluentLayoutHamburger : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the panel position to display when the hamburger menu is open.
-    /// Only <see cref="DialogAlignment.Start"/> and <see cref="DialogAlignment.End"/> are supported."/>.
+    /// Only <see cref="DialogAlignment.Start"/> and <see cref="DialogAlignment.End"/> are supported.
     /// The default value is <see cref="DialogAlignment.Start"/>.
     /// </summary>
     [Parameter]
@@ -107,7 +107,8 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     public bool? Visible { get; set; }
 
     /// <summary>
-    /// Gets or sets the display mode for the hamburger menu.
+    /// Gets or sets the display mode for the hamburger menu (e.g., <c>Display="HamburgerDisplay.MobileOnly"</c>).
+    /// See <see cref="HamburgerDisplay"/> for available values.
     /// </summary>
     [Parameter]
     public HamburgerDisplay Display { get; set; } = HamburgerDisplay.MobileOnly;

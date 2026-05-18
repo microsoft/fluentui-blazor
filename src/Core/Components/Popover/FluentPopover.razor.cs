@@ -41,7 +41,7 @@ public partial class FluentPopover : FluentComponentBase
     public string? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets the width of the popover component.
+    /// Gets or sets the height of the popover component.
     /// </summary>
     [Parameter]
     public string? Height { get; set; }

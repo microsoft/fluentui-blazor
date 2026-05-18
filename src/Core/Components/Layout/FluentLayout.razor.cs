@@ -61,7 +61,7 @@ public partial class FluentLayout : FluentComponentBase
     public bool GlobalScrollbar { get; set; }
 
     /// <summary>
-    /// Gets ot sets the width of the LayoutContainer.
+    /// Gets or sets the width of the layout container (e.g., <c>Width="100%"</c>).
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
