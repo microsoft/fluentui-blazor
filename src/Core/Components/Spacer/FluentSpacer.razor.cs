@@ -41,8 +41,8 @@ public partial class FluentSpacer : FluentComponentBase
     public string? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets the orientation of the parent container.
-    /// Use <see cref="Orientation.Horizontal"/> (default) for a horizontal spacer, or <see cref="Orientation.Vertical"/> for a vertical one.
+    /// Gets or sets the orientation of this spacer, which should match the layout direction of the parent container.
+    /// Use <see cref="Orientation.Horizontal"/> (default) for a horizontal spacer (grows along the horizontal axis), or <see cref="Orientation.Vertical"/> for a vertical one.
     /// </summary>
     [Parameter]
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
