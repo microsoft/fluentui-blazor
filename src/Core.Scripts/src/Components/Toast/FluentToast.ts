@@ -119,6 +119,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Toast {
                 box-sizing: border-box;
                 min-width: 292px;
                 max-width: 292px;
+                height: auto;
                 padding: 12px;
                 transition:
                   top 240ms cubic-bezier(0.22, 1, 0.36, 1),
