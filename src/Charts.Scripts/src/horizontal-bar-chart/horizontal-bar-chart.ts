@@ -118,11 +118,23 @@ export class HorizontalBarChart extends ChartBase {
     const highlighted = this._getHighlightedLegends();
     if (highlighted.length === 0) {
       this._bars?.forEach(bar => bar.classList.remove('inactive'));
+      this.chartContainer?.querySelectorAll<Element>('.bar-label').forEach(el => el.classList.remove('inactive'));
     } else {
+      // Track whether each row container has at least one active bar.
+      const containerActivity = new Map<Element, boolean>();
       this._bars?.forEach(bar => {
         const barLegend = bar.getAttribute('barinfo');
         const isActive = barLegend !== null && highlighted.includes(barLegend);
         bar.classList.toggle('inactive', !isActive);
+        const container = bar.closest<Element>('[style*="position: relative"]');
+        if (container) {
+          containerActivity.set(container, (containerActivity.get(container) ?? false) || isActive);
+        }
+      });
+      this.chartContainer?.querySelectorAll<Element>('.bar-label').forEach(label => {
+        const container = label.closest<Element>('[style*="position: relative"]');
+        const isActive = container ? (containerActivity.get(container) ?? false) : false;
+        label.classList.toggle('inactive', !isActive);
       });
     }
   }
@@ -398,7 +410,7 @@ export class HorizontalBarChart extends ChartBase {
         chartTitleRight.classList.add('chart-data-text');
         chartTitleRight.textContent = data.chartDataText;
       } else if (this.chartDataMode === 'fraction') {
-        const ratioDiv = barTitleDiv.append('div').attr('role', 'text');
+        const ratioDiv = barTitleDiv.append('div').attr('role', 'text').attr('class', 'bar-label');
         ratioDiv.append('span').attr('class', 'ratio-numerator').text(numData);
         ratioDiv.append('span').attr('class', 'ratio-denominator').text(`/${barTotal}`);
       } else if (this.chartDataMode === 'percentage') {
@@ -412,7 +424,7 @@ export class HorizontalBarChart extends ChartBase {
       } else {
         const showRatio = !this.hideRatio && data!.chartData!.length === 2;
         if (showRatio) {
-          const ratioDiv = barTitleDiv.append('div').attr('role', 'text');
+          const ratioDiv = barTitleDiv.append('div').attr('role', 'text').attr('class', 'bar-label');
           ratioDiv.append('span').attr('class', 'ratio-numerator').text(numData);
           ratioDiv.append('span').attr('class', 'ratio-denominator').text(`/${barTotal}`);
         }

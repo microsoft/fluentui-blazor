@@ -34,6 +34,13 @@ export class ChartLegend extends FASTElement {
   @observable
   public highlighted: string[] = [];
 
+  /**
+   * Legend titles that are persistently selected (by click or Space/Enter).
+   * Used to apply `aria-selected` and the bold `.selected` style.
+   */
+  @observable
+  public selected: string[] = [];
+
   /** Accessible label for the legend listbox (`aria-label`). */
   @attr
   public label?: string;
@@ -51,7 +58,7 @@ export class ChartLegend extends FASTElement {
     // corresponding HTML attribute (FAST won't call the setter in that case).
     const self = this as Record<string, unknown>;
     const attrFields = ['items', 'position'] as const;
-    const observableFields = ['highlighted'] as const;
+    const observableFields = ['highlighted', 'selected'] as const;
 
     const savedAttr: Partial<Record<(typeof attrFields)[number], unknown>> = {};
     const savedObs: Partial<Record<(typeof observableFields)[number], unknown>> = {};

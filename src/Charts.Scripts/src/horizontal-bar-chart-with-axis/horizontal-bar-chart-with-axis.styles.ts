@@ -179,6 +179,10 @@ export const styles: ElementStyles = css`
     unicode-bidi: isolate;
   }
 
+  .bar-label.inactive {
+    opacity: 0.25;
+  }
+
   ${tooltipBaseStyles}
 
   .tooltip {

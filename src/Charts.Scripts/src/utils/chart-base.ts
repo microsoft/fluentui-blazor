@@ -107,6 +107,13 @@ export abstract class ChartBase extends FASTElement {
   // ── Private state ────────────────────────────────────────────────
 
   private _isSettingActiveLegend: boolean = false;
+  private _mouseClickPending: boolean = false;
+  private readonly _onShadowPointerDown = () => {
+    this._mouseClickPending = true;
+  };
+  private readonly _onShadowPointerUp = () => {
+    this._mouseClickPending = false;
+  };
   private _renderDirty = false;
   private _frameHandle: number | null = null;
   private _resizeObserver?: ResizeObserver;
@@ -194,9 +201,18 @@ export abstract class ChartBase extends FASTElement {
       this._resizeObserver = new ResizeObserver(() => this._requestRender());
       this._resizeObserver.observe(this.chartContainer);
     }
+
+    // Track mouse-click-initiated focus so handleLegendFocus can ignore it.
+    // pointerdown fires before focus; pointerup fires before click.
+    this.shadowRoot?.removeEventListener('pointerdown', this._onShadowPointerDown);
+    this.shadowRoot?.removeEventListener('pointerup', this._onShadowPointerUp);
+    this.shadowRoot?.addEventListener('pointerdown', this._onShadowPointerDown);
+    this.shadowRoot?.addEventListener('pointerup', this._onShadowPointerUp);
   }
 
   public disconnectedCallback() {
+    this.shadowRoot?.removeEventListener('pointerdown', this._onShadowPointerDown);
+    this.shadowRoot?.removeEventListener('pointerup', this._onShadowPointerUp);
     this._resizeObserver?.disconnect();
     this._cancelScheduledRender();
     super.disconnectedCallback();
@@ -263,6 +279,24 @@ export abstract class ChartBase extends FASTElement {
     this._setActiveLegend(legendTitle);
   }
 
+  public handleLegendFocus(legendTitle: string) {
+    // When focus is triggered by a mouse click (pointerdown precedes focus),
+    // skip state changes here — handleLegendClick will manage everything.
+    if (this._mouseClickPending) {
+      return;
+    }
+    if (this.allowMultipleLegendSelection) {
+      if (this.selectedLegends.length > 0) {
+        return;
+      }
+    } else if (this.isLegendSelected) {
+      // An explicit selection is active; arrow-key navigation should move the
+      // keyboard cursor without disturbing the persistent filter.
+      return;
+    }
+    this._setActiveLegend(legendTitle);
+  }
+
   public handleLegendMouseoutAndBlur() {
     if (this.allowMultipleLegendSelection) {
       if (this.selectedLegends.length > 0) {
@@ -295,11 +329,11 @@ export abstract class ChartBase extends FASTElement {
     }
 
     if (this.isLegendSelected && this.activeLegend === legendTitle) {
-      this._setActiveLegend('');
       this.isLegendSelected = false;
+      this._setActiveLegend('');
     } else {
-      this._setActiveLegend(legendTitle);
       this.isLegendSelected = true;
+      this._setActiveLegend(legendTitle);
     }
     this._announceLegendFilter();
   }
@@ -340,7 +374,15 @@ export abstract class ChartBase extends FASTElement {
     const el = this.shadowRoot?.querySelector<ChartLegend>('fluent-chart-legend');
     if (el) {
       el.highlighted = this._getHighlightedLegends();
+      el.selected = this._getSelectedLegends();
     }
+  }
+
+  private _getSelectedLegends(): string[] {
+    if (this.allowMultipleLegendSelection) {
+      return this.selectedLegends;
+    }
+    return this.isLegendSelected && this.activeLegend ? [this.activeLegend] : [];
   }
 
   // ── Tooltip helpers ──────────────────────────────────────────────
@@ -395,7 +437,11 @@ export abstract class ChartBase extends FASTElement {
    */
   protected _relocateFocusIfNeeded(candidates: HTMLOrSVGElement[]): void {
     const focused = this.shadowRoot?.activeElement;
-    if (focused && candidates.includes(focused as HTMLOrSVGElement) && (focused as HTMLOrSVGElement).tabIndex === -1) {
+    if (
+      focused &&
+      candidates.includes(focused as unknown as HTMLOrSVGElement) &&
+      (focused as unknown as HTMLOrSVGElement).tabIndex === -1
+    ) {
       candidates.find(el => el.tabIndex === 0)?.focus();
     }
   }

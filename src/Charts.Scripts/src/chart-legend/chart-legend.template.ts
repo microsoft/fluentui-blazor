@@ -14,13 +14,16 @@ export function chartLegendTemplate<T extends ChartLegend>(): ElementViewTemplat
         x => x.items,
         html<Legend, T>`
           <button
-            class="legend${(x, c) =>
-              c.parent.highlighted.length > 0 && !c.parent.highlighted.includes(x.legend) ? ' inactive' : ''}"
+            class="${(x, c) => {
+              const inactive = c.parent.highlighted.length > 0 && !c.parent.highlighted.includes(x.legend);
+              const selected = c.parent.selected.includes(x.legend);
+              return `legend${inactive ? ' inactive' : ''}${selected ? ' selected' : ''}`;
+            }}"
             role="option"
             tabindex="${(x, c) => (c.parent.items.indexOf(x) === 0 ? 0 : -1)}"
             aria-setsize="${(x, c) => c.parent.items.length}"
             aria-posinset="${(x, c) => c.parent.items.indexOf(x) + 1}"
-            aria-selected="${(x, c) => c.parent.highlighted.includes(x.legend)}"
+            aria-selected="${(x, c) => c.parent.selected.includes(x.legend)}"
             @mouseover="${(x, c) => c.parent.$emit('legend-mouseover', x.legend)}"
             @mouseout="${(x, c) => c.parent.$emit('legend-mouseout')}"
             @focus="${(x, c) => c.parent.$emit('legend-focus', x.legend)}"

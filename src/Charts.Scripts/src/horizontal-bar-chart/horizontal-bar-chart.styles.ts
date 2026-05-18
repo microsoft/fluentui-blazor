@@ -187,6 +187,11 @@ export const styles: ElementStyles = css`
     ${typographyBody1StrongStyles}
     fill: ${colorNeutralForeground1};
   }
+
+  .bar-label.inactive {
+    opacity: 0.25;
+  }
+
   .bar-title-div {
     width: 100%;
     display: flex;

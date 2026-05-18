@@ -170,7 +170,7 @@ export const styles = css`
   }
 
   .funnel-segment-text.inactive {
-    opacity: 0.1;
+    opacity: 0.25;
   }
 
   ${tooltipBaseStyles}

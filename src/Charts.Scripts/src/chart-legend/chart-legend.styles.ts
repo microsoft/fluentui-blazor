@@ -85,7 +85,7 @@ export const styles: ElementStyles = css`
   }
 
   .legend.inactive .legend-rect {
-    background-color: transparent !important;
+    opacity: 0.1;
   }
 
   .legend.inactive .legend-text {

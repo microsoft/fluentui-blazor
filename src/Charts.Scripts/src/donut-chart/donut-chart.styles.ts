@@ -179,7 +179,7 @@ export const styles = css`
   }
 
   .arc-label.inactive {
-    opacity: 0.1;
+    opacity: 0.25;
   }
 
   ${tooltipBaseStyles}

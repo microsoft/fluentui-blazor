@@ -1032,6 +1032,10 @@ export class HorizontalBarChartWithAxis extends ChartBase {
         element.tabIndex = -1;
       }
     });
+    // Mirror the inactive class from each bar rect to its following bar-label sibling.
+    this.shadowRoot?.querySelectorAll<SVGTextElement>('.bar-label').forEach(label => {
+      label.classList.toggle('inactive', label.previousElementSibling?.classList.contains('inactive') ?? false);
+    });
     const activeEls = this._renderedBars
       .filter(({ legend }) => highlighted.length === 0 || (legend ? highlighted.includes(legend) : true))
       .map(b => b.element);
