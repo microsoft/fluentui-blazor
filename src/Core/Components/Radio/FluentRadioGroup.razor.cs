@@ -47,7 +47,8 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
     public bool Wrap { get; set; }
 
     /// <summary>
-    ///     
+    /// Gets or sets the collection of items from which radio buttons are generated.
+    /// Use with <see cref="RadioLabel"/> and <see cref="RadioValue"/> to control display text and submitted value.
     /// </summary>
     [Parameter]
     public IEnumerable<TValue?>? Items { get; set; }
@@ -59,13 +60,13 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
     public virtual Func<TValue?, string?>? RadioValue { get; set; }
 
     /// <summary>
-    /// Gets or sets the function used to determine which text to display for each radio checkedItem.
+    /// Gets or sets the function used to determine the display label for each radio button item.
     /// </summary>
     [Parameter]
     public virtual Func<TValue?, string?>? RadioLabel { get; set; }
 
     /// <summary>
-    /// Gets or sets the function used to determine if an radio is disabled.
+    /// Gets or sets the function used to determine whether a radio button item is disabled.
     /// </summary>
     [Parameter]
     public virtual Func<TValue?, bool>? RadioDisabled { get; set; }
