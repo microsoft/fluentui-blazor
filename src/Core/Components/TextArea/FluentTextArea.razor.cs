@@ -108,7 +108,7 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     public string? Height { get; set; }
 
     /// <summary>
-    /// Gets or sets how the textarea can be resized by the user. See <see cref="Components.TextAreaResize"/>.
+    /// Gets or sets how the textarea can be resized by the user. See <see cref="TextAreaResize"/>.
     /// </summary>
     [Parameter]
     public TextAreaResize? Resize { get; set; }

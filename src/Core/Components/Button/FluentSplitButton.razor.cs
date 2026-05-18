@@ -72,6 +72,7 @@ public partial class FluentSplitButton : FluentComponentBase
     /// <summary>
     /// Gets or sets a value indicating whether the button renders icon-only (no visible text label).
     /// Typically used when <see cref="IconStart"/> is set and no text label is needed.
+    /// When using icon-only mode, provide an accessible name via <see cref="Title"/> or an <c>aria-label</c> attribute to ensure screen reader accessibility.
     /// </summary>
     [Parameter]
     public bool IconOnly { get; set; }
@@ -98,6 +99,7 @@ public partial class FluentSplitButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the plain-text label rendered inside the primary button area (e.g., <c>Label="Save"</c>).
+    /// If both <see cref="Label"/> and <see cref="ChildContent"/> are set, both are rendered together.
     /// For rich content such as icons or custom markup, use <see cref="ChildContent"/> instead.
     /// </summary>
     [Parameter]

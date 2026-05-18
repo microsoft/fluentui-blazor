@@ -112,12 +112,14 @@ public partial class FluentCompoundButton : FluentComponentBase, ITooltipCompone
     /// <summary>
     /// Gets or sets a value indicating whether the button renders icon-only (no visible text label).
     /// Typically used when <see cref="IconStart"/> or <see cref="IconEnd"/> is set and no text label is needed.
+    /// When using icon-only mode, provide an accessible name via <see cref="Title"/> or an <c>aria-label</c> attribute to ensure screen reader accessibility.
     /// </summary>
     [Parameter]
     public bool IconOnly { get; set; }
 
     /// <summary>
     /// Gets or sets the plain-text label rendered as the primary button text (e.g., <c>Label="Open"</c>).
+    /// If both <see cref="Label"/> and <see cref="ChildContent"/> are set, both are rendered together.
     /// For rich content, use <see cref="ChildContent"/> instead. See also <see cref="Description"/> for secondary text.
     /// </summary>
     [Parameter]

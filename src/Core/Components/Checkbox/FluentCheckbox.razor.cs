@@ -15,7 +15,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentElementBase, ITooltipComponent
 {
-    /// <summary />
+    /// <summary>
+    /// Initializes a new instance of <see cref="FluentCheckbox"/>.
+    /// </summary>
     public FluentCheckbox(LibraryConfiguration configuration) : base(configuration)
     {
         LabelPosition = Components.LabelPosition.After;
