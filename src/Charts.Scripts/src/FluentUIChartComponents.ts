@@ -29,5 +29,9 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIChartComponents {
     defineOnce('fluentui:chart-components:funnel-chart', () => {
       FluentUIComponents.FunnelChartDefinition.define(registry);
     });
+
+    defineOnce('fluentui:chart-components:gantt-chart', () => {
+      FluentUIComponents.GanttChartDefinition.define(registry);
+    });
   }
 }

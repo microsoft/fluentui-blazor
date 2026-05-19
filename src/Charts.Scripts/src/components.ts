@@ -28,3 +28,9 @@ export {
   FunnelChartStyles,
   FunnelChartTemplate,
 } from './funnel-chart/index.js';
+export {
+  GanttChart,
+  GanttChartDefinition,
+  GanttChartStyles,
+  GanttChartTemplate
+} from './gantt-chart/index.js';
