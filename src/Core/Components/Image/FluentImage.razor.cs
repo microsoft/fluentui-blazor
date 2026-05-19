@@ -34,19 +34,19 @@ public partial class FluentImage : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets or sets the height of the image, applies only to the parameter.
+    /// Gets or sets the height of the image (e.g., <c>Height="200px"</c>).
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
 
     /// <summary>
-    /// Gets or sets the width of the image, applies only to the parameter.
+    /// Gets or sets the width of the image (e.g., <c>Width="300px"</c>).
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets the source link for the image, applies only to the parameter.
+    /// Gets or sets the URL source of the image (e.g., <c>Source="/images/photo.jpg"</c>).
     /// </summary>
     [Parameter]
     public string? Source { get; set; }
@@ -58,19 +58,19 @@ public partial class FluentImage : FluentComponentBase
     public string? AlternateText { get; set; }
 
     /// <summary>
-    /// Gets or sets the image html component.
+    /// Gets or sets the child content rendered inside the image container.
     /// </summary>
     [Parameter]
     public RenderFragment ChildContent { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the border surrounding image.
+    /// Gets or sets a value indicating whether a border is rendered around the image.
     /// </summary>
     [Parameter]
     public bool Bordered { get; set; }
 
     /// <summary>
-    /// Gets or sets the argument ‘block’ so that the image's width will expand to fill the available container space.
+    /// Gets or sets whether the image is displayed as a block element, expanding its width to fill the available container space.
     /// </summary>
     [Parameter]
     public bool Block { get; set; }

@@ -111,7 +111,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     [Parameter]
     public Func<IFluentField, bool>? MessageCondition { get; set; }
 
-    /// <inheritdoc cref="IFluentField.MessageIcon"/>
+    /// <inheritdoc cref="IFluentField.MessageState"/>
     [Parameter]
     public MessageState? MessageState { get; set; }
 

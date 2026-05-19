@@ -30,14 +30,16 @@ public partial class FluentProgressBar : FluentComponentBase, ITooltipComponent
         .Build();
 
     /// <summary>
-    /// Gets or sets the minimum value.
+    /// Gets or sets the minimum value (e.g., <c>Min="0"</c>).
+    /// See also <see cref="Max"/>.
     /// </summary>
     [Parameter]
     public int? Min { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum value.
-    /// The FluentProgressBar bar will be full when value equals <see cref="Max"/>.
+    /// Gets or sets the maximum value (e.g., <c>Max="100"</c>).
+    /// The progress bar will be full when <see cref="Value"/> equals this.
+    /// See also <see cref="Min"/>.
     /// </summary>
     [Parameter]
     public int? Max { get; set; }
@@ -49,8 +51,9 @@ public partial class FluentProgressBar : FluentComponentBase, ITooltipComponent
     public ProgressShape? Shape { get; set; }
 
     /// <summary>
-    /// Gets or sets the current value.
-    /// If `null` (default), the FluentProgressBar will display an indeterminate state.
+    /// Gets or sets the current progress value (e.g., <c>Value="75"</c>).
+    /// If <see langword="null"/> (default), the bar displays an indeterminate state.
+    /// Must be between <see cref="Min"/> and <see cref="Max"/>.
     /// </summary>
     [Parameter]
     public int? Value { get; set; }
@@ -83,8 +86,8 @@ public partial class FluentProgressBar : FluentComponentBase, ITooltipComponent
     public string? BackgroundColor { get; set; }
 
     /// <summary>
-    /// Gets or sets the color of the progress bar.
-    /// This property is not used when the <see cref="State"/> property is set.
+    /// Gets or sets the color of the progress bar indicator (e.g., <c>Color="#0078d4"</c>).
+    /// Ignored when <see cref="State"/> is set.
     /// </summary>
     [Parameter]
     public string? Color { get; set; }
@@ -98,7 +101,8 @@ public partial class FluentProgressBar : FluentComponentBase, ITooltipComponent
     public ProgressStroke? Stroke { get; set; }
 
     /// <summary>
-    /// Gets or sets the stroke width of the progress bar.
+    /// Gets or sets the visual thickness of the progress bar track (e.g., <c>Thickness="ProgressThickness.Large"</c>).
+    /// If not set, the default theme thickness is used.
     /// </summary>
     [Parameter]
     public ProgressThickness? Thickness { get; set; }

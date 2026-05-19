@@ -31,43 +31,44 @@ public partial class FluentLink : FluentComponentBase, ITooltipComponent
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Command executed when the user clicks on the button.
+    /// Gets or sets the callback invoked when the user clicks on the link.
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     /// <summary>
-    /// Get or set the href of the anchor.
+    /// Gets or sets the URL of the link (e.g., <c>Href="/page"</c> or <c>Href="https://example.com"</c>).
     /// </summary>
     [Parameter]
     public string? Href { get; set; }
 
     /// <summary>
-    /// Get or set the ISO Code language code that specifies the language of the linked document. It is purely advisory.
+    /// Gets or sets the BCP 47 language code for the language of the linked document (e.g., <c>HrefLang="en"</c>). This is advisory only.
     /// </summary>
     [Parameter]
     public string? HrefLang { get; set; }
 
     /// <summary>
-    /// Get or set a string indicating which referrer to use when fetching the resource.
+    /// Gets or sets the referrer policy controlling how much referrer information is sent when following the link.
     /// </summary>
     [Parameter]
     public LinkReferrerPolicy? ReferrerPolicy { get; set; }
 
     /// <summary>
-    /// Get or set relationship of the linked document to the current document.
+    /// Gets or sets the relationship of the linked document to the current document.
     /// </summary>
     [Parameter]
     public LinkRel? Rel { get; set; }
 
     /// <summary>
-    /// Get or set the type of the content linked to.
+    /// Gets or sets the MIME type of the linked content (e.g., <c>LinkType="application/pdf"</c>).
     /// </summary>
     [Parameter]
     public string? LinkType { get; set; }
 
     /// <summary>
-    /// Get or set the frame or window name that has the defined linking relationship.
+    /// Gets or sets the browsing context in which to open <see cref="Href"/>
+    /// (e.g., <c>Target="LinkTarget.Blank"</c> to open in a new tab).
     /// </summary>
     [Parameter]
     public LinkTarget? Target { get; set; }
@@ -80,7 +81,7 @@ public partial class FluentLink : FluentComponentBase, ITooltipComponent
     public LinkAppearance Appearance { get; set; } = LinkAppearance.Default;
 
     /// <summary>
-    /// Get or set if the link is inline with text.
+    /// Gets or sets whether the link is rendered inline with surrounding text.
     /// </summary>
     [Parameter]
     public bool Inline { get; set; } = false;

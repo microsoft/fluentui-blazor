@@ -75,7 +75,7 @@ public partial class FluentLayoutItem : FluentComponentBase
     public LayoutArea Area { get; set; } = LayoutArea.Content;
 
     /// <summary>
-    /// Gets ot sets the width of the item.
+    /// Gets or sets the width of the item (e.g., <c>Width="300px"</c>).
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
@@ -93,7 +93,7 @@ public partial class FluentLayoutItem : FluentComponentBase
     public bool Sticky { get; set; }
 
     /// <summary>
-    /// Gets or sets the contentArea to be rendered inside the component.
+    /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
