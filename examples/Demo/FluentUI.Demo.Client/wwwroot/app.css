@@ -14,7 +14,7 @@
 }
 
 /* Hide the label "Microsoft" when the page is too small */
-body[data-media="xs"] svg g[data-name="MS-symbol"] path:first-of-type {
+body[data-media="xs"] svg g[data-name="MS-symbol"] {
   display: none;
 }
 
