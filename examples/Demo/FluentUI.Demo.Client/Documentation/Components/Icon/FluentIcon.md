@@ -25,7 +25,7 @@ More details on [this page](https://learn.microsoft.com/aspnet/core/blazor/host-
 
 ## FluentIcon
 
-You can use any of these icons by levaraging the `<FluentIcon>` component. See below for the parameters and examples.
+You can use any of these icons by using the `<FluentIcon>` component. See below for the parameters and examples.
 
 There is also a search capability available on this page wich allows you to browse to all the different icons. At the moment the icons
 displayed in this explorer below are always using the default blue accent color. When using the icons in your application, they will render
@@ -113,14 +113,14 @@ Main `FluentIcon` parameters:
 - `Class`: Gets or sets the additional CSS class(es) applied to the component.
 - `Color`: Gets or sets the icon drawing and fill color. Value comes from the `Color` enumeration. Defaults to `Accent`.
 - `CustomColor`: Gets or sets the icon drawing and fill color to a custom value (HTML hex color `#RRGGBB` / `#RGB` or CSS variable). Only available when `Color` is set to `Color.Custom`.
-- `Data` : Gets or sets an arbitrary data object associated with the component.
+- `Data`: Gets or sets an arbitrary data object associated with the component.
 - `Element`: Gets or sets the `ElementReference` of the rendered element.
 - `Focusable`: Gets or sets whether the icon is focusable (adds `tabindex="0"` and `role="button"`), allowing the icon to be focused sequentially with the Tab key. Defaults to `false`.
 - `Id`: Gets or sets the unique identifier (HTML `id` attribute) of the component.
 - `Margin`: Gets or sets the margin spacing applied to the component (using the Fluent spacing tokens).
 - `OnClick`: Event callback raised when the icon is clicked. Provides a `MouseEventArgs`.
 - `OnClickStopPropagation`: Gets or sets whether the click event should stop propagation.
-- `OnClickPreventDefault` : Gets or sets whether the click event should prevent the default action.
+- `OnClickPreventDefault`: Gets or sets whether the click event should prevent the default action.
 - `Padding`: Gets or sets the padding spacing applied to the component (using the Fluent spacing tokens).
 - `Slot`: Gets or sets the slot where the icon is displayed in (for example `FluentSlot.Start` or `FluentSlot.End` inside a `FluentButton`).
 - `Style`: Gets or sets the additional inline CSS style applied to the component.

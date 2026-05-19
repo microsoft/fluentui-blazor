@@ -53,7 +53,7 @@ Click on an emoji card to copy a ready-to-paste `<FluentEmoji>` component declar
 
 ## API FluentEmoji
 
-<!-- The DocViewer tag cannot be used because FluentEmoji requires an Icon object, which is not supported by DocViewer -->
+<!-- The DocViewer tag cannot be used because FluentEmoji requires an Emoji object, which is not supported by DocViewer -->
 
 Main `FluentEmoji` parameters:
 
