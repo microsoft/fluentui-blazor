@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// <summary>
 /// A FluentHorizontalBarChartWithAxis is a component that displays data in a horizontal bar chart format with an axis.
 /// </summary>
-public partial class FluentHorizontalBarChartWithAxis : FluentChartBase
+public partial class FluentHorizontalBarChartWithAxis : FluentCartesianChartBase
 {
     /// <summary />
     public FluentHorizontalBarChartWithAxis(LibraryConfiguration configuration) : base(configuration)
@@ -95,30 +95,4 @@ public partial class FluentHorizontalBarChartWithAxis : FluentChartBase
     /// </summary>
     [Parameter]
     public double? YAxisPadding { get; set; }
-
-    /// <summary>
-    /// Gets or sets the minimum value of the X axis domain.
-    /// When not set, the domain minimum is derived from the data.
-    /// </summary>
-    [Parameter]
-    public double? XMinValue { get; set; }
-
-    /// <summary>
-    /// Gets or sets the maximum value of the X axis domain.
-    /// When not set, the domain maximum is derived from the data.
-    /// </summary>
-    [Parameter]
-    public double? XMaxValue { get; set; }
-
-    /// <summary>
-    /// Gets or sets the minimum value of the Y axis domain (numeric axis only).
-    /// </summary>
-    [Parameter]
-    public double? YMinValue { get; set; }
-
-    /// <summary>
-    /// Gets or sets the maximum value of the Y axis domain (numeric axis only).
-    /// </summary>
-    [Parameter]
-    public double? YMaxValue { get; set; }
 }

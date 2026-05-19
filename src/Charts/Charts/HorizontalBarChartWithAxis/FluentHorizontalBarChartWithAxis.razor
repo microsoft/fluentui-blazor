@@ -1,6 +1,6 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@inherits FluentChartBase
+@inherits FluentCartesianChartBase
 
 <fluent-horizontal-bar-chart-with-axis id="@Id"
                                        class="@ClassValue"
@@ -28,6 +28,15 @@
                                        x-max-value="@XMaxValue"
                                        y-min-value="@YMinValue"
                                        y-max-value="@YMaxValue"
+                                       x-axis-title="@XAxisTitle"
+                                       y-axis-title="@YAxisTitle"
+                                       x-axis-tick-format="@XAxisTickFormat"
+                                       y-axis-tick-format="@YAxisTickFormat"
+                                       tick-padding="@TickPadding"
+                                       wrap-x-axis-labels="@(WrapXAxisLabels ? "true" : null)"
+                                       rotate-x-axis-labels="@(RotateXAxisLabels ? "true" : null)"
+                                       support-negative-data="@(SupportNegativeData ? "true" : null)"
+                                       rounded-ticks="@(RoundedTicks ? "true" : null)"
                                        culture="@Culture?.Name"
                                        @attributes="@AdditionalAttributes">
 </fluent-horizontal-bar-chart-with-axis>
