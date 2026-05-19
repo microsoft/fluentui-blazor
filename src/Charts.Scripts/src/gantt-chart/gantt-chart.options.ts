@@ -6,10 +6,15 @@ export interface GanttChartDataPoint {
   /**
    * Dependent value of the data point, rendered along the x-axis.
    * Represents the time or numeric range of the bar.
+   *
+   * When data arrives via JSON (e.g. from a Blazor wrapper), C# `DateTime` and
+   * `DateTimeOffset` values are serialized as ISO 8601 strings such as
+   * `"2024-01-15T10:30:00Z"` or `"2024-01-15T10:30:00+05:30"`. The chart
+   * accepts those strings directly and converts them to `Date` internally.
    */
   x: {
-    start: Date | number;
-    end: Date | number;
+    start: Date | number | string;
+    end: Date | number | string;
   };
 
   /**
@@ -55,21 +60,3 @@ export interface GanttChartDataPoint {
    */
   callOutAccessibilityData?: AccessibilityData;
 }
-
-export type AxisCategoryOrder =
-  | 'default'
-  | 'data'
-  | 'category ascending'
-  | 'category descending'
-  | 'total ascending'
-  | 'total descending'
-  | 'min ascending'
-  | 'min descending'
-  | 'max ascending'
-  | 'max descending'
-  | 'sum ascending'
-  | 'sum descending'
-  | 'mean ascending'
-  | 'mean descending'
-  | 'median ascending'
-  | 'median descending';

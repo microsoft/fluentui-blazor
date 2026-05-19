@@ -1,5 +1,6 @@
 import { attr } from '@microsoft/fast-element';
 import { ChartBase } from './chart-base.js';
+import { jsonConverter } from './chart-helpers.js';
 
 /**
  * Abstract base class for chart web components that use Cartesian axes (x/y).
@@ -79,6 +80,42 @@ export abstract class CartesianChartBase extends ChartBase {
   @attr({ attribute: 'y-max-value' })
   public yMaxValue?: number | string;
 
+  /**
+   * Explicit tick positions for the x-axis. Overrides the auto-generated ticks.
+   * Accepts an array of numbers, Date timestamps, or strings (parsed via JSON attribute).
+   */
+  @attr({ attribute: 'tick-values', converter: jsonConverter })
+  public tickValues?: number[] | Date[] | string[];
+
+  /**
+   * A d3-time-format specifier string (e.g. `'%m/%d'`, `'%Y-%m'`) for date axis tick labels.
+   * Only applicable when the x-axis uses a date/time scale.
+   *
+   * **Note:** This attribute is reserved for future d3-time-format support and currently has no effect.
+   * Use `date-localize-options` together with `culture` to customise date formatting via `Intl.DateTimeFormat`.
+   */
+  @attr({ attribute: 'tick-format' })
+  public tickFormat?: string;
+
+  /** Width in pixels of the SVG stroke drawn on each bar. When set, an outline is applied. */
+  @attr({ attribute: 'stroke-width' })
+  public strokeWidth?: number | string;
+
+  /**
+   * When `true`, truncates long x-axis tick labels and shows the full text in a
+   * `<title>` tooltip on hover.
+   */
+  @attr({ attribute: 'show-x-axis-labels-tooltip', mode: 'boolean' })
+  public showXAxisLabelsTooltip: boolean = false;
+
+  /**
+   * Locale-aware date/time format options (`Intl.DateTimeFormatOptions`) passed to
+   * `Intl.DateTimeFormat` when rendering date axis tick labels. Overrides the
+   * auto-determined format options.
+   */
+  @attr({ attribute: 'date-localize-options', converter: jsonConverter })
+  public dateLocalizeOptions?: Intl.DateTimeFormatOptions;
+
   // ── Lifecycle ────────────────────────────────────────────────────
 
   connectedCallback() {
@@ -99,6 +136,11 @@ export abstract class CartesianChartBase extends ChartBase {
       'xMaxValue',
       'yMinValue',
       'yMaxValue',
+      'tickValues',
+      'tickFormat',
+      'strokeWidth',
+      'showXAxisLabelsTooltip',
+      'dateLocalizeOptions',
     ] as const;
 
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
@@ -167,6 +209,26 @@ export abstract class CartesianChartBase extends ChartBase {
   }
 
   protected yMaxValueChanged() {
+    this._requestRender();
+  }
+
+  protected tickValuesChanged() {
+    this._requestRender();
+  }
+
+  protected tickFormatChanged() {
+    this._requestRender();
+  }
+
+  protected strokeWidthChanged() {
+    this._requestRender();
+  }
+
+  protected showXAxisLabelsTooltipChanged() {
+    this._requestRender();
+  }
+
+  protected dateLocalizeOptionsChanged() {
     this._requestRender();
   }
 }

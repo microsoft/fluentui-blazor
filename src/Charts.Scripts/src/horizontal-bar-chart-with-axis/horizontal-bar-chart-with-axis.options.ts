@@ -13,21 +13,3 @@ export interface HorizontalBarChartWithAxisDataPoint {
   onClick?: VoidFunction;
   callOutAccessibilityData?: AccessibilityData;
 }
-
-export type AxisCategoryOrder =
-  | 'default'
-  | 'data'
-  | 'category ascending'
-  | 'category descending'
-  | 'total ascending'
-  | 'total descending'
-  | 'min ascending'
-  | 'min descending'
-  | 'max ascending'
-  | 'max descending'
-  | 'sum ascending'
-  | 'sum descending'
-  | 'mean ascending'
-  | 'mean descending'
-  | 'median ascending'
-  | 'median descending';

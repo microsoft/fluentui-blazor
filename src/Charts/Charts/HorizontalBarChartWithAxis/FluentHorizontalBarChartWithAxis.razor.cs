@@ -65,10 +65,10 @@ public partial class FluentHorizontalBarChartWithAxis : FluentCartesianChartBase
 
     /// <summary>
     /// Gets or sets the sort order applied to categorical Y-axis groups.
-    /// Defaults to <see cref="HorizontalBarChartWithAxisCategoryOrder.Default"/>.
+    /// Defaults to <see cref="ChartCategoryOrder.Default"/>.
     /// </summary>
     [Parameter]
-    public HorizontalBarChartWithAxisCategoryOrder YAxisCategoryOrder { get; set; } = HorizontalBarChartWithAxisCategoryOrder.Default;
+    public ChartCategoryOrder YAxisCategoryOrder { get; set; } = ChartCategoryOrder.Default;
 
     /// <summary>
     /// Gets or sets the fixed height of each individual bar in pixels.

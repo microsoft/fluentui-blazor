@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
@@ -109,4 +111,74 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
     /// </summary>
     [Parameter]
     public double? YMaxValue { get; set; }
+
+    /// <summary>
+    /// Gets or sets the explicit set of x-axis tick values to render.
+    /// When set, only the specified values appear as tick marks instead of the auto-generated ones.
+    /// Use <c>double[]</c> for numeric axes. For date axes on <see cref="FluentGanttChart"/>,
+    /// use <c>DateTickValues</c> instead.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<double>? TickValues { get; set; }
+
+    /// <summary>
+    /// Gets or sets a d3-time-format specifier string (e.g. <c>'%m/%d'</c>) for date x-axis tick labels.
+    /// This attribute is reserved for future d3-time-format support and currently has no visual effect.
+    /// Use <c>DateLocalizeOptions</c> together with <c>Culture</c> to customise date formatting
+    /// via <c>Intl.DateTimeFormat</c>.
+    /// </summary>
+    [Parameter]
+    public string? TickFormat { get; set; }
+
+    /// <summary>
+    /// Gets or sets the pixel width of the stroke (outline) drawn on each bar.
+    /// When not set, no stroke is applied.
+    /// </summary>
+    [Parameter]
+    public double? StrokeWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether a tooltip is shown on x-axis labels when they are
+    /// truncated. Truncation occurs when a label exceeds the maximum display length.
+    /// </summary>
+    [Parameter]
+    public bool ShowXAxisLabelsTooltip { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <c>Intl.DateTimeFormatOptions</c>-equivalent formatting options applied
+    /// to date x-axis tick labels. Keys and values correspond to the JavaScript
+    /// <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat">
+    /// <c>Intl.DateTimeFormat</c></a> options object (e.g. <c>{ "year", "numeric" }, { "month", "short" }</c>).
+    /// When not set, the component auto-selects an appropriate format based on the visible date range.
+    /// Only applicable when the x-axis uses a date/time scale.
+    /// </summary>
+    [Parameter]
+    public IDictionary<string, string>? DateLocalizeOptions { get; set; }
+
+    // ── Computed JSON helpers ─────────────────────────────────────────────────
+
+    /// <summary>
+    /// Serializes <see cref="TickValues"/> to a JSON array string for the web component attribute.
+    /// Overridden by <see cref="FluentGanttChart"/> to also handle date tick values.
+    /// </summary>
+    internal virtual string? TickValuesJson =>
+        TickValues is not null ? JsonSerializer.Serialize(TickValues, ChartJsonSerializerContext.Default.IEnumerableDouble) : null;
+
+    /// <summary>
+    /// Serializes <see cref="DateLocalizeOptions"/> to a JSON object string for the web component attribute.
+    /// </summary>
+    internal string? DateLocalizeOptionsJson =>
+        DateLocalizeOptions is not null ? JsonSerializer.Serialize(DateLocalizeOptions, ChartJsonSerializerContext.Default.IDictionaryStringString) : null;
+}
+
+[JsonSerializable(typeof(IEnumerable<double>))]
+[JsonSerializable(typeof(double[]))]
+[JsonSerializable(typeof(List<double>))]
+[JsonSerializable(typeof(IDictionary<string, string>))]
+[JsonSerializable(typeof(Dictionary<string, string>))]
+[JsonSourceGenerationOptions(WriteIndented = false)]
+#pragma warning disable MA0048 // File name must match type name
+internal partial class ChartJsonSerializerContext : JsonSerializerContext
+#pragma warning restore MA0048 // File name must match type name
+{
 }

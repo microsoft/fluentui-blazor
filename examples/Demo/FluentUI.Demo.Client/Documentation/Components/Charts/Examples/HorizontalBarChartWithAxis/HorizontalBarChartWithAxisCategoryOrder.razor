@@ -1,11 +1,12 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Enums
 
 <div style="margin-top: 16px; max-width: 220px;">
     <FluentSelect TOption="string"
                   TValue="string"
                   Label="Category order"
                   Value="@_order.ToString()"
-                  ValueChanged="@(v => _order = Enum.Parse<Microsoft.FluentUI.AspNetCore.Components.Enums.HorizontalBarChartWithAxisCategoryOrder>(v))">
+                  ValueChanged="@(v => _order = Enum.Parse<ChartCategoryOrder>(v))">
         @foreach (var opt in _orderOptions)
         {
             <FluentOptionString Value="@opt.ToString()">@opt.ToString()</FluentOptionString>
@@ -22,10 +23,10 @@
 </FluentHorizontalBarChartWithAxis>
 
 @code {
-    private Microsoft.FluentUI.AspNetCore.Components.Enums.HorizontalBarChartWithAxisCategoryOrder _order = Microsoft.FluentUI.AspNetCore.Components.Enums.HorizontalBarChartWithAxisCategoryOrder.Default;
+    private ChartCategoryOrder _order = ChartCategoryOrder.Default;
 
-    private static readonly Microsoft.FluentUI.AspNetCore.Components.Enums.HorizontalBarChartWithAxisCategoryOrder[] _orderOptions =
-        Enum.GetValues<Microsoft.FluentUI.AspNetCore.Components.Enums.HorizontalBarChartWithAxisCategoryOrder>();
+    private static readonly ChartCategoryOrder[] _orderOptions =
+        Enum.GetValues<ChartCategoryOrder>();
 
     private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
     [

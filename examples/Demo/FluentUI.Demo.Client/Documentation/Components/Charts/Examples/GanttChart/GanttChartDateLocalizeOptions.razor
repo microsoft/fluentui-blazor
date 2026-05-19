@@ -1,0 +1,24 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentGanttChart Style="width: 600px; height: 350px" ChartTitle="Custom date format on x-axis (full month name)"
+                  ShowYAxisLabels="true" DateLocalizeOptions="@_dateOptions" ChartData="@ChartData">
+</FluentGanttChart>
+
+@code {
+  // Renders tick labels as "January 2009", "February 2009", etc.
+  private IDictionary<string, string> _dateOptions = new Dictionary<string, string>
+  {
+    ["year"] = "numeric",
+    ["month"] = "long",
+  };
+
+  private IReadOnlyList<GanttChartDataPoint> ChartData =
+  [
+      new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2009, 1, 1), End = new DateTime(2009, 2, 28)
+}, Y = "Job A", Legend = "Alex", Color = DataVizPalette.Color1 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2009, 3, 5), End = new DateTime(2009, 4, 15)
+}, Y = "Job B", Legend = "Alex", Color = DataVizPalette.Color1 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2009, 2, 20), End = new DateTime(2009, 5, 30)
+}, Y = "Job C", Legend = "Max", Color = DataVizPalette.Color2 },
+    ];
+}

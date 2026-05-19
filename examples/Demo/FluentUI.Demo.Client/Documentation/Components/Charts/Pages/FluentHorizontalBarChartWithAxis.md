@@ -173,6 +173,24 @@ Demonstrates the right-to-left layout mode, where bars grow from the right edge 
 
 {{ HorizontalBarChartWithAxisRTL }}
 
+### Tick values
+
+Set `TickValues` to an explicit array of doubles to control exactly which values appear as tick marks on the x-axis, overriding the auto-generated ticks.
+
+{{ HorizontalBarChartWithAxisTickValues }}
+
+### Stroke width
+
+Set `StrokeWidth` to add an outline stroke to each bar. Use the slider to adjust the width in pixels at runtime.
+
+{{ HorizontalBarChartWithAxisStrokeWidth }}
+
+### X-axis labels tooltip
+
+Setting `ShowXAxisLabelsTooltip` truncates x-axis tick labels that exceed ten characters and shows the full text in a tooltip on hover. In this example, `XAxisTickFormat` is set to `,.2f` so that large values are formatted with comma separators and two decimal places (e.g. "1,500,000.00"), producing labels that trigger the truncation.
+
+{{ HorizontalBarChartWithAxisShowXAxisLabelsTooltip }}
+
 ## API Fluent Horizontal Bar Chart With Axis
 
 {{ API Type=FluentHorizontalBarChartWithAxis }}

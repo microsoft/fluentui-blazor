@@ -57,6 +57,10 @@ export class FunnelChart extends ChartBase {
   };
 
   connectedCallback() {
+    // Class field initializers create own data properties that shadow the FAST @attr
+    // and @observable reactive getter/setters on the prototype. Delete them so that
+    // attribute changes go through the FAST reactive system and trigger the *Changed()
+    // callbacks, and so that observable assignments notify template bindings.
     const self = this as Record<string, unknown>;
     const attrFields = ['width', 'height', 'data', 'orientation'] as const;
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
@@ -83,10 +87,8 @@ export class FunnelChart extends ChartBase {
     super.disconnectedCallback();
   }
 
-  protected dataChanged(_oldValue: FunnelDataPoint[], newValue: FunnelDataPoint[]) {
-    if (newValue) {
-      this._requestRender();
-    }
+  protected dataChanged() {
+    this._requestRender();
   }
 
   protected widthChanged() {

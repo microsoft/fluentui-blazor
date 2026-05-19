@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Enums;
 
@@ -27,10 +28,10 @@ public partial class FluentGanttChart : FluentCartesianChartBase
        .Build();
 
     /// <summary>
-    /// Gets or sets the data for the horizontal bar chart.
+    /// Gets or sets the data for the Gantt chart.
     /// </summary>
     [Parameter, EditorRequired]
-    public IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData { get; set; } = [];
+    public IReadOnlyList<GanttChartDataPoint> ChartData { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the height of the horizontal bar chart.
@@ -65,10 +66,10 @@ public partial class FluentGanttChart : FluentCartesianChartBase
 
     /// <summary>
     /// Gets or sets the sort order applied to categorical Y-axis groups.
-    /// Defaults to <see cref="HorizontalBarChartWithAxisCategoryOrder.Default"/>.
+    /// Defaults to <see cref="ChartCategoryOrder.Default"/>.
     /// </summary>
     [Parameter]
-    public HorizontalBarChartWithAxisCategoryOrder YAxisCategoryOrder { get; set; } = HorizontalBarChartWithAxisCategoryOrder.Default;
+    public ChartCategoryOrder YAxisCategoryOrder { get; set; } = ChartCategoryOrder.Default;
 
     /// <summary>
     /// Gets or sets the fixed height of each individual bar in pixels.
@@ -95,4 +96,23 @@ public partial class FluentGanttChart : FluentCartesianChartBase
     /// </summary>
     [Parameter]
     public double? YAxisPadding { get; set; }
+
+    /// <summary>
+    /// Gets or sets the explicit set of x-axis tick values to render when the chart uses a
+    /// <b>date</b> x-axis. When set, only the specified dates appear as tick marks instead of
+    /// the auto-generated ones.
+    /// For numeric axes, use the base-class <c>TickValues</c> property instead.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<DateTime>? DateTickValues { get; set; }
+
+    /// <inheritdoc />
+    /// <remarks>
+    /// When <see cref="DateTickValues"/> is set, dates are converted to Unix millisecond timestamps
+    /// before serialisation so the web component receives the expected numeric format.
+    /// </remarks>
+    internal override string? TickValuesJson =>
+        DateTickValues is not null
+            ? JsonSerializer.Serialize(DateTickValues.Select(d => (double)new DateTimeOffset(d).ToUnixTimeMilliseconds()), ChartJsonSerializerContext.Default.IEnumerableDouble)
+            : base.TickValuesJson;
 }

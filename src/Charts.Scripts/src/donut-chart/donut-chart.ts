@@ -45,10 +45,6 @@ export class DonutChart extends ChartBase {
     this._clearTooltip();
   };
 
-  protected tooltipPropsChanged(_oldValue: any, _newValue: any) {
-    this._updateTextInsideDonut();
-  }
-
   connectedCallback() {
     // Class field initializers create own data properties that shadow the FAST @attr
     // and @observable reactive getter/setters on the prototype. Delete them so that
@@ -92,10 +88,12 @@ export class DonutChart extends ChartBase {
     super.disconnectedCallback();
   }
 
-  protected dataChanged(_oldValue: DonutDataPoint[], newValue: DonutDataPoint[]) {
-    if (newValue) {
-      this._requestRender();
-    }
+  protected tooltipPropsChanged(_oldValue: any, _newValue: any) {
+    this._updateTextInsideDonut();
+  }
+
+  protected dataChanged() {
+    this._requestRender();
   }
 
   protected widthChanged() {
@@ -118,14 +116,12 @@ export class DonutChart extends ChartBase {
     this._requestRender();
   }
 
-  protected _getHostAriaLabel(): string {
-    return this.chartTitle
-      ? `${this.chartTitle}, donut chart`
-      : `Donut chart with ${this.data?.length ?? 0} segments.`;
-  }
-
   protected orderChanged() {
     this._requestRender();
+  }
+
+  protected _getHostAriaLabel(): string {
+    return this.chartTitle ? `${this.chartTitle}, donut chart` : `Donut chart with ${this.data?.length ?? 0} segments.`;
   }
 
   protected _performRender() {

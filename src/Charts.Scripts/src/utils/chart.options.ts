@@ -30,6 +30,29 @@ export interface Legend {
 }
 
 /**
+ * Controls the ordering of categories along the y-axis for bar charts.
+ *
+ * @public
+ */
+export type AxisCategoryOrder =
+  | 'default'
+  | 'data'
+  | 'category ascending'
+  | 'category descending'
+  | 'total ascending'
+  | 'total descending'
+  | 'min ascending'
+  | 'min descending'
+  | 'max ascending'
+  | 'max descending'
+  | 'sum ascending'
+  | 'sum descending'
+  | 'mean ascending'
+  | 'mean descending'
+  | 'median ascending'
+  | 'median descending';
+
+/**
  * Shared base tooltip state used by all chart components.
  *
  * @public

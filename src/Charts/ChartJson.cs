@@ -54,4 +54,14 @@ public static class ChartJson
         JsonSerializer.Serialize(
             value,
             FunnelChartDataJsonSerializerContext.Default.IReadOnlyListFunnelDataPoint);
+
+    /// <summary>
+    /// Serializes Gantt chart data using the Gantt chart serializer context.
+    /// </summary>
+    /// <param name="value">The Gantt chart data payload.</param>
+    /// <returns>A JSON string suitable for the <c>fluent-gantt-chart</c> component.</returns>
+    public static string Serialize(IReadOnlyList<GanttChartDataPoint> value) =>
+        JsonSerializer.Serialize(
+            value,
+            GanttChartDataJsonSerializerContext.Default.IReadOnlyListGanttChartDataPoint);
 }

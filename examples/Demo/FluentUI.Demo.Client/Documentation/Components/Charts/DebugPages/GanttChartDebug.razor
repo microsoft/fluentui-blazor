@@ -1,0 +1,102 @@
+﻿@page "/Charts/GanttChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentSwitch Label="Enable gradient" @bind-Value="gradient"></FluentSwitch>
+    <FluentSwitch Label="Rounded corners" @bind-Value="roundCorners"></FluentSwitch>
+    <FluentSwitch Label="Select multiple legend" @bind-Value="allowMultipleLegendSelection"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltip"></FluentSwitch>
+    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+    <FluentSwitch Label="Support negative data" @bind-Value="supportNegativeData"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentGanttChart ChartTitle="Gantt chart basic example"
+                      ChartData="@ChartData"
+                      Width="@width"
+                      Height="@height"
+                      EnableGradient="@gradient"
+                      RoundedCorners="@roundCorners"
+                      AllowMultipleLegendSelection="@allowMultipleLegendSelection"
+                      HideTooltip="@hideTooltip"
+                      HideLegends="@hideLegends"
+                      SupportNegativeData="@supportNegativeData">
+    </FluentGanttChart>
+</div>
+
+@code {
+    private IReadOnlyList<GanttChartDataPoint> ChartData =
+    [
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = 0, End = 10000 },
+            Y = "Planning",
+            Legend = "Design",
+            Color = DataVizPalette.Color1,
+            YAxisCalloutData = "Planning",
+            XAxisCalloutData = "0 – 10K",
+        },
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = 10000, End = 30000 },
+            Y = "Development",
+            Legend = "Implementation",
+            Color = DataVizPalette.Color2,
+            YAxisCalloutData = "Development",
+            XAxisCalloutData = "10K – 30K",
+        },
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = 30000, End = 45000 },
+            Y = "Testing",
+            Legend = "QA",
+            Color = DataVizPalette.Color3,
+            YAxisCalloutData = "Testing",
+            XAxisCalloutData = "30K – 45K",
+        },
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = 45000, End = 53000 },
+            Y = "Deployment",
+            Legend = "Release",
+            Color = DataVizPalette.Color4,
+            YAxisCalloutData = "Deployment",
+            XAxisCalloutData = "45K – 53K",
+        },
+    ];
+
+    private int width = 650;
+    private int height = 350;
+    private bool gradient = false;
+    private bool roundCorners = false;
+    private bool allowMultipleLegendSelection = false;
+    private bool hideTooltip = false;
+    private bool hideLegends = false;
+    private bool supportNegativeData = false;
+}

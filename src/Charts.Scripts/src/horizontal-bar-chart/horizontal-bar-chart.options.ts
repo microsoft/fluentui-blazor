@@ -4,7 +4,7 @@ export enum Variant {
   SingleBar = 'single-bar',
 }
 
-export interface ChartDataPoint {
+export interface HorizontalBarChartDataPoint {
   /**
    * Legend text for the datapoint in the chart
    */
@@ -33,7 +33,7 @@ export interface ChartDataPoint {
   gradient?: [string, string];
 }
 
-export interface ChartProps {
+export interface HorizontalBarChartProps {
   /**
    * title for the data series
    */
@@ -42,7 +42,7 @@ export interface ChartProps {
   /**
    * data for the points in the chart
    */
-  chartData: ChartDataPoint[];
+  chartData: HorizontalBarChartDataPoint[];
 
   benchmarkData?: number;
 

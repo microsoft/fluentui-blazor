@@ -6,10 +6,11 @@ import {
   getNextColor,
   jsonConverter,
   lightenColor,
+  parseDateOrNumber,
   SVG_NAMESPACE_URI,
 } from '../utils/chart-helpers.js';
-import type { AxisCategoryOrder, GanttChartDataPoint } from './gantt-chart.options.js';
-import type { Legend, TooltipProps } from '../utils/chart.options.js';
+import type { GanttChartDataPoint } from './gantt-chart.options.js';
+import type { AxisCategoryOrder, Legend, TooltipProps } from '../utils/chart.options.js';
 
 type GanttTooltipProps = TooltipProps & {
   xLabel: string;
@@ -45,7 +46,6 @@ const X_AXIS_LABEL = 'X';
 const Y_AXIS_LABEL = 'Y';
 const DEFAULT_HEIGHT = 320;
 const DEFAULT_BAR_HEIGHT = 24;
-const DEFAULT_MAX_BAR_HEIGHT = 24;
 const DEFAULT_X_TICK_COUNT = 6;
 const DEFAULT_Y_TICK_COUNT = 4;
 const DEFAULT_Y_AXIS_PADDING = 0.5;
@@ -353,7 +353,8 @@ export class GanttChart extends CartesianChartBase {
     }
 
     this._validateData(this.data);
-    this._xAxisType = this.data[0].x.start instanceof Date ? 'date' : 'number';
+    const firstStart = this.data[0].x.start;
+    this._xAxisType = firstStart instanceof Date || typeof firstStart === 'string' ? 'date' : 'number';
     this.elementInternals.ariaLabel = this._getHostAriaLabel();
     this._applyHostDimensions();
 
@@ -430,8 +431,8 @@ export class GanttChart extends CartesianChartBase {
         const color = this._getPointColor(point, globalPointIndex++, legendColorMap);
         const gradientId = this._appendGradient(defs, groupIndex, globalPointIndex - 1, point, color);
 
-        const xStart = scaleX(+point.x.start);
-        const xEnd = scaleX(+point.x.end);
+        const xStart = scaleX(+parseDateOrNumber(point.x.start));
+        const xEnd = scaleX(+parseDateOrNumber(point.x.end));
         const rectX = Math.min(xStart, xEnd);
         const barWidth = Math.max(Math.abs(xEnd - xStart), 1);
 
@@ -442,6 +443,10 @@ export class GanttChart extends CartesianChartBase {
         rect.setAttribute('width', `${barWidth}`);
         rect.setAttribute('height', `${resolvedBarHeight}`);
         rect.setAttribute('fill', gradientId ? `url(#${gradientId})` : color);
+        if (this.strokeWidth !== undefined) {
+          rect.setAttribute('stroke-width', `${this.strokeWidth}`);
+          rect.setAttribute('stroke', color);
+        }
         rect.setAttribute('role', 'img');
         rect.setAttribute('tabindex', this._renderedBars.length === 0 ? '0' : '-1');
         rect.setAttribute('aria-label', this._getAriaLabel(point));
@@ -500,9 +505,12 @@ export class GanttChart extends CartesianChartBase {
       }
       const start = point.x.start;
       const end = point.x.end;
-      const isValidValue = (v: Date | number) => (v instanceof Date && !isNaN(v.getTime())) || typeof v === 'number';
+      const isValidValue = (v: Date | number | string) => {
+        if (typeof v === 'string') return !isNaN(new Date(v).getTime());
+        return (v instanceof Date && !isNaN(v.getTime())) || typeof v === 'number';
+      };
       if (!isValidValue(start) || !isValidValue(end)) {
-        throw new TypeError(`Invalid data[${index}].x: start and end must be Date or number.`);
+        throw new TypeError(`Invalid data[${index}].x: start and end must be Date, number, or ISO 8601 string.`);
       }
       if (typeof point.y !== 'string' && typeof point.y !== 'number') {
         throw new TypeError(`Invalid data[${index}].y: Expected a string or number.`);
@@ -552,7 +560,7 @@ export class GanttChart extends CartesianChartBase {
 
     // Aggregate by total duration of bars in the group
     const aggregate = (group: GroupedSeries) => {
-      const durations = group.points.map(point => +point.x.end - +point.x.start);
+      const durations = group.points.map(point => +parseDateOrNumber(point.x.end) - +parseDateOrNumber(point.x.start));
       switch (order) {
         case 'category ascending':
         case 'category descending':
@@ -629,11 +637,8 @@ export class GanttChart extends CartesianChartBase {
     } else {
       // Categorical: no extra domain margin — D3 scaleBand outer padding (via startOffset) handles spacing.
       domainMargin = 0;
-      const innerHeight = height - baseMargins.top - baseMargins.bottom;
-      const step = innerHeight / Math.max(groupCount + padding, 1);
-      const bandwidth = step * (1 - padding);
       if (barHeight === 0) {
-        barHeight = Math.min(bandwidth, DEFAULT_MAX_BAR_HEIGHT);
+        barHeight = DEFAULT_BAR_HEIGHT;
       }
       barHeight = Math.max(barHeight, 1);
     }
@@ -662,8 +667,8 @@ export class GanttChart extends CartesianChartBase {
   }
 
   private _getXScaleInfo() {
-    const starts = this.data.map(p => +p.x.start);
-    const ends = this.data.map(p => +p.x.end);
+    const starts = this.data.map(p => +parseDateOrNumber(p.x.start));
+    const ends = this.data.map(p => +parseDateOrNumber(p.x.end));
     let rawMin = Math.min(...starts, ...ends);
     let rawMax = Math.max(...starts, ...ends);
 
@@ -683,7 +688,9 @@ export class GanttChart extends CartesianChartBase {
       .domain([new Date(rawMin), new Date(rawMax)])
       .nice(count);
     const [niceMin, niceMax] = scale.domain() as [Date, Date];
-    const ticks = scale.ticks(count).map(d => +d);
+    const ticks = this.tickValues
+      ? (this.tickValues as Array<Date | number | string>).map(v => +v)
+      : scale.ticks(count).map(d => +d);
     return { domain: [+niceMin, +niceMax] as [number, number], ticks };
   }
 
@@ -806,11 +813,12 @@ export class GanttChart extends CartesianChartBase {
   private _formatDateTick(ms: number, rangeMs: number): string {
     const date = new Date(ms);
     const options: Intl.DateTimeFormatOptions =
-      rangeMs < 7 * 86_400_000
+      this.dateLocalizeOptions ??
+      (rangeMs < 7 * 86_400_000
         ? { month: 'short', day: 'numeric', hour: '2-digit' }
         : rangeMs < 365 * 86_400_000
         ? { month: 'short', day: 'numeric' }
-        : { year: 'numeric', month: 'short' };
+        : { year: 'numeric', month: 'short' });
     return new Intl.DateTimeFormat(this.culture || undefined, options).format(date);
   }
 
@@ -825,7 +833,9 @@ export class GanttChart extends CartesianChartBase {
         day: '2-digit',
         timeZone: 'UTC',
       });
-      return `${fmt.format(new Date(+point.x.start))} - ${fmt.format(new Date(+point.x.end))}`;
+      return `${fmt.format(new Date(+parseDateOrNumber(point.x.start)))} - ${fmt.format(
+        new Date(+parseDateOrNumber(point.x.end)),
+      )}`;
     }
     return `${formatAxisNumber(+point.x.start, this.culture)} - ${formatAxisNumber(+point.x.end, this.culture)}`;
   }
@@ -866,18 +876,30 @@ export class GanttChart extends CartesianChartBase {
           ? this._formatDateTick(tick, rangeMs)
           : formatAxisNumber(tick, this.culture);
 
+      const MAX_LABEL_CHARS = 10;
+      const displayLabel =
+        this.showXAxisLabelsTooltip && rawLabel.length > MAX_LABEL_CHARS
+          ? truncateText(rawLabel, MAX_LABEL_CHARS)
+          : rawLabel;
+      const isLabelTruncated = displayLabel !== rawLabel;
+
       const text = createSvgElement<SVGTextElement>('text');
       text.setAttribute('class', 'axis-text');
       text.setAttribute('x', `${x}`);
       text.setAttribute('y', `${labelY}`);
+      if (isLabelTruncated) {
+        const title = createSvgElement<SVGTitleElement>('title');
+        title.textContent = rawLabel;
+        text.appendChild(title);
+      }
 
       if (this.rotateXAxisLabels) {
         text.setAttribute('text-anchor', this._isRTL ? 'start' : 'end');
         text.setAttribute('transform', `rotate(-45, ${x}, ${labelY})`);
-        text.textContent = rawLabel;
+        text.textContent = displayLabel;
       } else if (this.wrapXAxisLabels) {
         text.setAttribute('text-anchor', 'middle');
-        const words = rawLabel.split(' ');
+        const words = displayLabel.split(' ');
         if (words.length > 1) {
           words.forEach((word, i) => {
             const tspan = createSvgElement<SVGTSpanElement>('tspan');
@@ -887,11 +909,11 @@ export class GanttChart extends CartesianChartBase {
             text.appendChild(tspan);
           });
         } else {
-          text.textContent = rawLabel;
+          text.textContent = displayLabel;
         }
       } else {
         text.setAttribute('text-anchor', 'middle');
-        text.textContent = rawLabel;
+        text.textContent = displayLabel;
       }
       axisLayer.appendChild(text);
     });

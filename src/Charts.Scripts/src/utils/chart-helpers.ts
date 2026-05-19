@@ -19,6 +19,19 @@ export const jsonConverter: ValueConverter = {
   },
 };
 
+/**
+ * Coerces a JSON-deserialized temporal value to `Date` or `number`.
+ *
+ * When chart data arrives from a JSON source such as a Blazor wrapper,
+ * C# `DateTime` and `DateTimeOffset` fields are serialized as ISO 8601 strings
+ * (e.g. `"2024-01-15T10:30:00Z"`, `"2024-01-15T10:30:00+05:30"`). Passing
+ * such a string directly to the unary `+` operator or to d3 scales yields `NaN`.
+ * This helper converts any string to a `Date` via `new Date(iso)`, which handles
+ * all timezone variants, and passes `Date` and `number` values through unchanged.
+ */
+export const parseDateOrNumber = (v: Date | number | string): Date | number =>
+  typeof v === 'string' ? new Date(v) : v;
+
 export const booleanStringConverter = {
   toView(value: boolean): string {
     return value ? 'true' : 'false';
