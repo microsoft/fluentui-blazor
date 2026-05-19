@@ -1,20 +1,32 @@
 import { DotNet } from "../../d-ts/Microsoft.JSInterop";
 
+type DragTarget = 'square' | 'hue';
+
 interface HsvState {
   hue: number;
   saturation: number;
   value: number;
-  draggingSquare: boolean;
-  draggingHue: boolean;
   dotNetHelper: DotNet.DotNetObject;
   square: HTMLElement;
   hueBar: HTMLElement;
   squareIndicator: HTMLElement;
   hueIndicator: HTMLElement;
-  mouseMoveHandler: (e: MouseEvent) => void;
-  mouseUpHandler: () => void;
-  touchMoveHandler: (e: TouchEvent) => void;
-  touchEndHandler: () => void;
+
+  // Currently active drag target (null when not dragging).
+  dragging: DragTarget | null;
+
+  // Listeners bound to the element itself (kept for the lifetime of the
+  // component). Stored so they can be removed on Dispose.
+  squareMouseDown: (e: MouseEvent) => void;
+  hueMouseDown: (e: MouseEvent) => void;
+  squareTouchStart: (e: TouchEvent) => void;
+  hueTouchStart: (e: TouchEvent) => void;
+
+  // Listeners bound to `document` only during an active drag.
+  documentMouseMove: (e: MouseEvent) => void;
+  documentMouseUp: () => void;
+  documentTouchMove: (e: TouchEvent) => void;
+  documentTouchEnd: () => void;
 }
 
 const states = new Map<string, HsvState>();
@@ -89,135 +101,149 @@ export namespace Microsoft.FluentUI.Blazor.Components.ColorPicker {
       state.dotNetHelper.invokeMethodAsync('FluentColorPicker.ColorChangedAsync', hex);
     };
 
-    const mouseMoveHandler = (e: MouseEvent): void => {
+    // ---- Document-level handlers (attached only during an active drag) ----
+
+    const documentMouseMove = (e: MouseEvent): void => {
       const state = states.get(id);
-      if (!state) {
+      if (!state || state.dragging === null) {
         return;
       }
-
-      if (state.draggingSquare) {
+      if (state.dragging === 'square') {
         onSquareMove(e.clientX, e.clientY);
-      }
-      if (state.draggingHue) {
+      } else {
         onHueMove(e.clientY);
       }
     };
 
-    const mouseUpHandler = (): void => {
+    const documentTouchMove = (e: TouchEvent): void => {
       const state = states.get(id);
-      if (state) {
-        state.draggingSquare = false;
-        state.draggingHue = false;
-      }
-    };
-
-    const touchMoveHandler = (e: TouchEvent): void => {
-      const state = states.get(id);
-      if (!state) {
+      if (!state || state.dragging === null || e.touches.length < 1) {
         return;
       }
-
-      if (e.touches.length < 1) {
-        return;
-      }
-
       if (e.cancelable) {
         e.preventDefault();
       }
-
       const touch = e.touches[0];
-
-      if (state.draggingSquare) {
+      if (state.dragging === 'square') {
         onSquareMove(touch.clientX, touch.clientY);
-      }
-      if (state.draggingHue) {
+      } else {
         onHueMove(touch.clientY);
       }
     };
 
-    const touchEndHandler = (): void => {
+    const stopDragging = (): void => {
       const state = states.get(id);
-      if (state) {
-        state.draggingSquare = false;
-        state.draggingHue = false;
+      if (!state || state.dragging === null) {
+        return;
       }
+      state.dragging = null;
+      document.removeEventListener('mousemove', state.documentMouseMove);
+      document.removeEventListener('mouseup', state.documentMouseUp);
+      document.removeEventListener('touchmove', state.documentTouchMove);
+      document.removeEventListener('touchend', state.documentTouchEnd);
+      document.removeEventListener('touchcancel', state.documentTouchEnd);
+    };
+
+    const documentMouseUp = (): void => stopDragging();
+    const documentTouchEnd = (): void => stopDragging();
+
+    const startDragging = (target: DragTarget): void => {
+      const state = states.get(id);
+      if (!state || state.dragging !== null) {
+        return;
+      }
+      state.dragging = target;
+      document.addEventListener('mousemove', state.documentMouseMove);
+      document.addEventListener('mouseup', state.documentMouseUp);
+      document.addEventListener('touchmove', state.documentTouchMove, { passive: false });
+      document.addEventListener('touchend', state.documentTouchEnd);
+      document.addEventListener('touchcancel', state.documentTouchEnd);
+    };
+
+    // ---- Element-level handlers (attached for the lifetime of the picker) ----
+
+    const squareMouseDown = (e: MouseEvent): void => {
+      startDragging('square');
+      onSquareMove(e.clientX, e.clientY);
+    };
+
+    const hueMouseDown = (e: MouseEvent): void => {
+      startDragging('hue');
+      onHueMove(e.clientY);
+    };
+
+    const squareTouchStart = (e: TouchEvent): void => {
+      if (e.touches.length === 0) {
+        return;
+      }
+      startDragging('square');
+      onSquareMove(e.touches[0].clientX, e.touches[0].clientY);
+    };
+
+    const hueTouchStart = (e: TouchEvent): void => {
+      if (e.touches.length === 0) {
+        return;
+      }
+      startDragging('hue');
+      onHueMove(e.touches[0].clientY);
     };
 
     const state: HsvState = {
       hue: initialHue,
       saturation: initialSaturation,
       value: initialValue,
-      draggingSquare: false,
-      draggingHue: false,
       dotNetHelper,
       square,
       hueBar,
       squareIndicator,
       hueIndicator,
-      mouseMoveHandler,
-      mouseUpHandler,
-      touchMoveHandler,
-      touchEndHandler,
+      dragging: null,
+      squareMouseDown,
+      hueMouseDown,
+      squareTouchStart,
+      hueTouchStart,
+      documentMouseMove,
+      documentMouseUp,
+      documentTouchMove,
+      documentTouchEnd,
     };
 
     states.set(id, state);
 
-    // Square mouse events
-    square.addEventListener('mousedown', (e: MouseEvent) => {
-      const s = states.get(id);
-      if (s) {
-        s.draggingSquare = true;
-        onSquareMove(e.clientX, e.clientY);
-      }
-    });
-
-    // Hue bar mouse events
-    hueBar.addEventListener('mousedown', (e: MouseEvent) => {
-      const s = states.get(id);
-      if (s) {
-        s.draggingHue = true;
-        onHueMove(e.clientY);
-      }
-    });
-
-    // Square touch events
-    square.addEventListener('touchstart', (e: TouchEvent) => {
-      const s = states.get(id);
-      if (s && e.touches.length > 0) {
-        s.draggingSquare = true;
-        onSquareMove(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: true });
-
-    // Hue bar touch events
-    hueBar.addEventListener('touchstart', (e: TouchEvent) => {
-      const s = states.get(id);
-      if (s && e.touches.length > 0) {
-        s.draggingHue = true;
-        onHueMove(e.touches[0].clientY);
-      }
-    }, { passive: true });
-
-    // Global document events for dragging
-    document.addEventListener('mousemove', mouseMoveHandler);
-    document.addEventListener('mouseup', mouseUpHandler);
-    document.addEventListener('touchmove', touchMoveHandler, { passive: false });
-    document.addEventListener('touchend', touchEndHandler);
+    // Attach element-level listeners only. Document-level listeners are
+    // attached on demand in startDragging() and removed in stopDragging(),
+    // so the page remains fully scrollable on mobile when no drag is active.
+    square.addEventListener('mousedown', squareMouseDown);
+    hueBar.addEventListener('mousedown', hueMouseDown);
+    square.addEventListener('touchstart', squareTouchStart, { passive: true });
+    hueBar.addEventListener('touchstart', hueTouchStart, { passive: true });
   }
 
   /**
-   * Disposes the HSV color picker state and removes event listeners.
+   * Disposes the HSV color picker state and removes all event listeners.
    * @param id The element ID of the color picker container.
    */
   export function Dispose(id: string): void {
     const state = states.get(id);
-    if (state) {
-      document.removeEventListener('mousemove', state.mouseMoveHandler);
-      document.removeEventListener('mouseup', state.mouseUpHandler);
-      document.removeEventListener('touchmove', state.touchMoveHandler);
-      document.removeEventListener('touchend', state.touchEndHandler);
-      states.delete(id);
+    if (!state) {
+      return;
     }
+
+    // Remove element-level listeners.
+    state.square.removeEventListener('mousedown', state.squareMouseDown);
+    state.hueBar.removeEventListener('mousedown', state.hueMouseDown);
+    state.square.removeEventListener('touchstart', state.squareTouchStart);
+    state.hueBar.removeEventListener('touchstart', state.hueTouchStart);
+
+    // Remove any leftover document-level listeners (in case Dispose is
+    // called mid-drag).
+    document.removeEventListener('mousemove', state.documentMouseMove);
+    document.removeEventListener('mouseup', state.documentMouseUp);
+    document.removeEventListener('touchmove', state.documentTouchMove);
+    document.removeEventListener('touchend', state.documentTouchEnd);
+    document.removeEventListener('touchcancel', state.documentTouchEnd);
+
+    states.delete(id);
   }
 
   function hsvToHex(h: number, s: number, v: number): string {
