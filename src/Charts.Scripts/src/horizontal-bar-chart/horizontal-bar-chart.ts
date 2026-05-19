@@ -2,6 +2,7 @@ import { attr } from '@microsoft/fast-element';
 import { ChartBase } from '../utils/chart-base.js';
 import { create as d3Create, select as d3Select } from 'd3-selection';
 import {
+  getColorFromToken,
   getRTL,
   jsonConverter,
   lightenColor,
@@ -133,7 +134,7 @@ export class HorizontalBarChart extends ChartBase {
       });
       this.chartContainer?.querySelectorAll<Element>('.bar-label').forEach(label => {
         const container = label.closest<Element>('[style*="position: relative"]');
-        const isActive = container ? (containerActivity.get(container) ?? false) : false;
+        const isActive = container ? containerActivity.get(container) ?? false : false;
         label.classList.toggle('inactive', !isActive);
       });
     }
@@ -203,7 +204,7 @@ export class HorizontalBarChart extends ChartBase {
         if (!uniqueLegendsMap.has(point.legend)) {
           uniqueLegendsMap.set(point.legend, {
             legend: point.legend,
-            color: point.gradient ? point.gradient[0] : point.color,
+            color: point.gradient ? point.gradient[0] : getColorFromToken(point.color ?? ''),
           });
         }
       }
@@ -326,12 +327,24 @@ export class HorizontalBarChart extends ChartBase {
         const stop1 = document.createElementNS(SVG_NAMESPACE_URI, 'stop');
         linearGradient.appendChild(stop1);
         stop1.setAttribute('offset', '0%');
-        stop1.setAttribute('stop-color', (point.gradient ?? [lightenColor(point.color!, 0.35), point.color!])[0]);
+        stop1.setAttribute(
+          'stop-color',
+          (point.gradient?.map(c => getColorFromToken(c)) ?? [
+            lightenColor(getColorFromToken(point.color!), 0.35),
+            getColorFromToken(point.color!),
+          ])[0],
+        );
 
         const stop2 = document.createElementNS(SVG_NAMESPACE_URI, 'stop');
         linearGradient.appendChild(stop2);
         stop2.setAttribute('offset', '100%');
-        stop2.setAttribute('stop-color', (point.gradient ?? [lightenColor(point.color!, 0.35), point.color!])[1]);
+        stop2.setAttribute(
+          'stop-color',
+          (point.gradient?.map(c => getColorFromToken(c)) ?? [
+            lightenColor(getColorFromToken(point.color!), 0.35),
+            getColorFromToken(point.color!),
+          ])[1],
+        );
       }
 
       const rect = gEle
@@ -340,7 +353,12 @@ export class HorizontalBarChart extends ChartBase {
         .attr('id', `${barNo}-${index}`)
         .attr('barinfo', `${point.legend}`)
         .attr('class', 'bar')
-        .attr('style', this.enableGradient || point.gradient ? `fill:url(#${gradientId})` : `fill:${point.color!}`)
+        .attr(
+          'style',
+          this.enableGradient || point.gradient
+            ? `fill:url(#${gradientId})`
+            : `fill:${getColorFromToken(point.color!)}`,
+        )
         .attr('rx', `${this.roundCorners ? 3 : 0}`)
         .attr(
           'x',
@@ -368,7 +386,7 @@ export class HorizontalBarChart extends ChartBase {
           isVisible: true,
           legend: point.legend,
           yValue: (point.data ?? 0).toLocaleString(this.culture || undefined),
-          color: point.gradient ? point.gradient[0] : point.color ?? '',
+          color: point.gradient ? point.gradient[0] : getColorFromToken(point.color ?? ''),
           xPos: this._isRTL
             ? bounds.right - rBounds.left - rBounds.width / 2
             : rBounds.left + rBounds.width / 2 - bounds.left,
@@ -467,7 +485,7 @@ export class HorizontalBarChart extends ChartBase {
           isVisible: true,
           legend: d.legend,
           yValue: d.data.toLocaleString(this.culture || undefined),
-          color: d.gradient ? d.gradient[0] : d.color!,
+          color: d.gradient ? d.gradient[0] : getColorFromToken(d.color!),
           xPos: this._isRTL ? bounds.right - event.clientX : Math.min(event.clientX - bounds.left, xPos),
           yPos: event.clientY - bounds.top - 40,
         };

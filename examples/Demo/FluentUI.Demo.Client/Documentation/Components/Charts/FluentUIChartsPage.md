@@ -23,9 +23,20 @@ Currently, the following chart types are available:
 
 All charts in the Fluent UI Charts package inherit from the `FluentChartBase` component, which provides common parameters for all chart types.
 
+There are common parameters defined that do not apply to all chart types
+
+## Accessibility
+
+All charts in the Fluent UI Charts package are designed with accessibility in mind. They include appropriate ARIA attributes and support
+keyboard navigation to ensure that they are usable by all users, including those with disabilities.
+
+For the chart legends, you can navigate through the items with the arrow keys. The corresponding chart element (arc, bar, etc.) will be highlighted and all
+other elements will appear dimmed. It is also possible to select one (or more, depending on the `EnableMultipleSelection`parameter) legend items and
+corresponding chart elements by using the space bar/enter key when focused. Press space bar/enter key again to toggle all items to an unselected state.
+
 ## Colors
 
 The charts use the Fluent UI DataViz color palette by default, but you can customize the colors of the chart segments by providing your own color palette.
 You can also specify a custom color for each segment in the data points.
 
-{{ API Type=DataVizPalette }}
+{{ API Type=DataVizPalette Properties=all }}

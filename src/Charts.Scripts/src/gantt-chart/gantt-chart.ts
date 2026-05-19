@@ -1,4 +1,5 @@
 import { attr } from '@microsoft/fast-element';
+import { scaleTime } from 'd3-scale';
 import { CartesianChartBase } from '../utils/cartesian-chart-base.js';
 import {
   getColorFromToken,
@@ -7,13 +8,10 @@ import {
   lightenColor,
   SVG_NAMESPACE_URI,
 } from '../utils/chart-helpers.js';
-import type {
-  AxisCategoryOrder,
-  HorizontalBarChartWithAxisDataPoint,
-} from './horizontal-bar-chart-with-axis.options.js';
+import type { AxisCategoryOrder, GanttChartDataPoint } from './gantt-chart.options.js';
 import type { Legend, TooltipProps } from '../utils/chart.options.js';
 
-type HBCWATooltipProps = TooltipProps & {
+type GanttTooltipProps = TooltipProps & {
   xLabel: string;
   xValue: string;
   yLabel: string;
@@ -22,7 +20,7 @@ type HBCWATooltipProps = TooltipProps & {
 type GroupedSeries = {
   key: string;
   rawY: number | string;
-  points: HorizontalBarChartWithAxisDataPoint[];
+  points: GanttChartDataPoint[];
 };
 
 type RenderedBar = {
@@ -41,46 +39,18 @@ type PlotLayout = {
   innerHeight: number;
 };
 
+type XAxisType = 'date' | 'number';
+
 const X_AXIS_LABEL = 'X';
 const Y_AXIS_LABEL = 'Y';
 const DEFAULT_HEIGHT = 320;
-const DEFAULT_BAR_HEIGHT = 32;
+const DEFAULT_BAR_HEIGHT = 24;
+const DEFAULT_MAX_BAR_HEIGHT = 24;
 const DEFAULT_X_TICK_COUNT = 6;
 const DEFAULT_Y_TICK_COUNT = 4;
 const DEFAULT_Y_AXIS_PADDING = 0.5;
-
 const MIN_DOMAIN_MARGIN = 8;
-const STACKED_SEGMENT_GAP = 2;
 
-/**
- * Applies a simple numeric format string to a value.
- * Supports a subset of d3-format / printf-like patterns:
- * - `'.2f'` → fixed 2 decimal places
- * - `'.0f'` → integer
- * - `'.2%'` → percentage
- * - `'.2e'` → exponential notation
- * Falls back to the raw number when the pattern is unrecognised.
- */
-const _applyFormat = (value: number, format: string): string => {
-  const match = format.match(/^([+]?)\.?(\d*)([fFeEgG%])$/);
-  if (!match) {
-    return String(value);
-  }
-  const [, , fractionStr, type] = match;
-  const fraction = fractionStr ? Number(fractionStr) : 0;
-  switch (type.toLowerCase()) {
-    case 'f':
-      return value.toFixed(fraction);
-    case 'e':
-      return value.toExponential(fraction);
-    case 'g':
-      return value.toPrecision(fraction || 6);
-    case '%':
-      return `${(value * 100).toFixed(fraction)}%`;
-    default:
-      return String(value);
-  }
-};
 const createSvgElement = <T extends SVGElement>(tag: string): T => {
   return document.createElementNS(SVG_NAMESPACE_URI, tag) as T;
 };
@@ -181,9 +151,31 @@ const getClosestPairDiffAndRange = (values: number[]) => {
   return [closestPairDiff, sorted[sorted.length - 1] - sorted[0]] as const;
 };
 
-export class HorizontalBarChartWithAxis extends CartesianChartBase {
+/** @see HBCA _applyFormat for documentation. */
+const _applyFormat = (value: number, format: string): string => {
+  const match = format.match(/^([+]?)\.?(\d*)([fFeEgG%])$/);
+  if (!match) {
+    return String(value);
+  }
+  const [, , fractionStr, type] = match;
+  const fraction = fractionStr ? Number(fractionStr) : 0;
+  switch (type.toLowerCase()) {
+    case 'f':
+      return value.toFixed(fraction);
+    case 'e':
+      return value.toExponential(fraction);
+    case 'g':
+      return value.toPrecision(fraction || 6);
+    case '%':
+      return `${(value * 100).toFixed(fraction)}%`;
+    default:
+      return String(value);
+  }
+};
+
+export class GanttChart extends CartesianChartBase {
   @attr({ converter: jsonConverter })
-  public data!: HorizontalBarChartWithAxisDataPoint[];
+  public data!: GanttChartDataPoint[];
 
   @attr
   public width?: number | string;
@@ -193,9 +185,6 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
 
   @attr({ attribute: 'show-y-axis-labels-tooltip', mode: 'boolean' })
   public showYAxisLabelsTooltip: boolean = false;
-
-  @attr({ attribute: 'use-single-color', mode: 'boolean' })
-  public useSingleColor: boolean = false;
 
   @attr({ attribute: 'enable-gradient', mode: 'boolean' })
   public enableGradient: boolean = false;
@@ -219,11 +208,12 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
   public yAxisCategoryOrder: AxisCategoryOrder = 'default';
 
   /** Narrows the inherited base tooltipProps type to include axis label fields. */
-  public declare tooltipProps: HBCWATooltipProps;
+  public declare tooltipProps: GanttTooltipProps;
 
   protected override _enableResizeObserver = true;
 
   private _renderedBars: RenderedBar[] = [];
+  private _xAxisType: XAxisType = 'number';
 
   connectedCallback() {
     // Class field initializers create own data properties that shadow the FAST @attr
@@ -236,7 +226,6 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       'width',
       'showYAxisLabels',
       'showYAxisLabelsTooltip',
-      'useSingleColor',
       'enableGradient',
       'barHeight',
       'height',
@@ -263,7 +252,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       color: '',
       xPos: 0,
       yPos: 0,
-    } satisfies HBCWATooltipProps;
+    } satisfies GanttTooltipProps;
 
     super.connectedCallback();
 
@@ -287,10 +276,6 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
   }
 
   protected heightChanged() {
-    this._requestRender();
-  }
-
-  protected useSingleColorChanged() {
     this._requestRender();
   }
 
@@ -319,7 +304,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
   }
 
   protected override tooltipPropsChanged(_old: TooltipProps, newValue: TooltipProps): void {
-    const typed = newValue as HBCWATooltipProps;
+    const typed = newValue as GanttTooltipProps;
     if (typed.isVisible && !this.hideTooltip) {
       const parts: string[] = [];
       if (typed.yValue) parts.push(typed.yValue);
@@ -341,11 +326,9 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
 
   protected _getHostAriaLabel(): string {
     if (!Array.isArray(this.data) || this.data.length === 0) {
-      return this.chartTitle || 'Horizontal bar chart with axis has no data.';
+      return this.chartTitle || 'Gantt chart has no data.';
     }
-    return (
-      (this.chartTitle ? `${this.chartTitle}. ` : '') + `Horizontal bar chart with axis with ${this.data.length} bars.`
-    );
+    return (this.chartTitle ? `${this.chartTitle}. ` : '') + `Gantt chart with ${this.data.length} bars.`;
   }
 
   public get tooltipInlineTransform() {
@@ -370,6 +353,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     }
 
     this._validateData(this.data);
+    this._xAxisType = this.data[0].x.start instanceof Date ? 'date' : 'number';
     this.elementInternals.ariaLabel = this._getHostAriaLabel();
     this._applyHostDimensions();
 
@@ -399,7 +383,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
         };
     const innerWidth = width - margins.left - margins.right;
     const plotLayout = this._getPlotLayout(groups.length, numericYAxis, height, margins, yValues);
-    const xAxisScale = this._getXScaleInfo(groups);
+    const xAxisScale = this._getXScaleInfo();
     const yPositionForGroup = this._createYPositioner(
       groups,
       numericYAxis,
@@ -426,7 +410,6 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
 
     this._renderXAxis(axisLayer, width, height, margins, xAxisScale.domain, xAxisScale.ticks);
     this._renderYAxis(axisLayer, groups, numericYAxis, width, height, plotLayout.margins, yPositionForGroup, yValues);
-    this._renderOriginLine(axisLayer, plotLayout.margins, height, xAxisScale.domain, innerWidth);
 
     this._renderedBars = [];
     const legendColorMap = this._buildLegendColorMap();
@@ -442,36 +425,16 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     groups.forEach((group, groupIndex) => {
       const yPosition = yPositionForGroup(group, groupIndex);
       const resolvedBarHeight = plotLayout.barHeight;
-      let positiveTotal = 0;
-      let negativeTotal = 0;
-      const positivePointCount = group.points.filter(point => point.x >= 0).length;
-      const negativePointCount = group.points.length - positivePointCount;
-      let positivePointIndex = 0;
-      let negativePointIndex = 0;
 
       group.points.forEach((point, _pointIndex) => {
         const color = this._getPointColor(point, globalPointIndex++, legendColorMap);
         const gradientId = this._appendGradient(defs, groupIndex, globalPointIndex - 1, point, color);
 
-        const startValue = point.x >= 0 ? positiveTotal : negativeTotal;
-        const endValue = startValue + point.x;
-        if (point.x >= 0) {
-          positiveTotal = endValue;
-          positivePointIndex += 1;
-        } else {
-          negativeTotal = endValue;
-          negativePointIndex += 1;
-        }
-
-        const xStart = scaleX(startValue);
-        const xEnd = scaleX(endValue);
-        const rawWidth = Math.max(Math.abs(xEnd - xStart), 1);
-        const shouldApplyGap =
-          rawWidth > STACKED_SEGMENT_GAP &&
-          ((point.x >= 0 && positivePointIndex !== positivePointCount) ||
-            (point.x < 0 && negativePointIndex !== negativePointCount));
-        const barWidth = rawWidth - (shouldApplyGap ? STACKED_SEGMENT_GAP : 0);
+        const xStart = scaleX(+point.x.start);
+        const xEnd = scaleX(+point.x.end);
         const rectX = Math.min(xStart, xEnd);
+        const barWidth = Math.max(Math.abs(xEnd - xStart), 1);
+
         const rect = createSvgElement<SVGRectElement>('rect');
         rect.setAttribute('class', 'bar');
         rect.setAttribute('x', `${rectX}`);
@@ -504,32 +467,13 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
         this._renderedBars.push({ legend: point.legend, element: rect });
         barsLayer.appendChild(rect);
       });
-
-      const totalValue = positiveTotal + negativeTotal;
-      if (!this.hideLabels && resolvedBarHeight >= 16) {
-        const label = createSvgElement<SVGTextElement>('text');
-        const anchorValue = totalValue >= 0 ? positiveTotal : negativeTotal;
-        const x = scaleX(anchorValue);
-        label.setAttribute('class', 'bar-label');
-        label.setAttribute('x', `${x}`);
-        label.setAttribute('y', `${yPosition}`);
-        label.setAttribute('dominant-baseline', 'central');
-        label.setAttribute(
-          'text-anchor',
-          this._isRTL ? (totalValue >= 0 ? 'end' : 'start') : totalValue >= 0 ? 'start' : 'end',
-        );
-        label.setAttribute(
-          'transform',
-          `translate(${totalValue >= 0 ? (this._isRTL ? -4 : 4) : this._isRTL ? 4 : -4}, 0)`,
-        );
-        label.textContent = formatCompactNumber(totalValue, this.culture);
-        barsLayer.appendChild(label);
-      }
     });
 
     this.legends = Array.from(legendColorMap.entries()).map(([legend, color]) => ({ legend, color }));
     this.chartContainer.appendChild(svg);
     this._updateLegendInteractionState();
+
+    void innerWidth; // suppress unused variable warning; kept for reference with other charts
   }
 
   private _clearChart() {
@@ -542,7 +486,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     }
   }
 
-  private _validateData(data: HorizontalBarChartWithAxisDataPoint[]) {
+  private _validateData(data: GanttChartDataPoint[]) {
     if (!Array.isArray(data)) {
       throw new TypeError('Invalid data: Expected an array.');
     }
@@ -551,8 +495,14 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       if (point === null || typeof point !== 'object' || Array.isArray(point)) {
         throw new TypeError(`Invalid data[${index}]: Expected an object.`);
       }
-      if (typeof point.x !== 'number') {
-        throw new TypeError(`Invalid data[${index}].x: Expected a number.`);
+      if (point.x === null || typeof point.x !== 'object') {
+        throw new TypeError(`Invalid data[${index}].x: Expected an object with start and end.`);
+      }
+      const start = point.x.start;
+      const end = point.x.end;
+      const isValidValue = (v: Date | number) => (v instanceof Date && !isNaN(v.getTime())) || typeof v === 'number';
+      if (!isValidValue(start) || !isValidValue(end)) {
+        throw new TypeError(`Invalid data[${index}].x: start and end must be Date or number.`);
       }
       if (typeof point.y !== 'string' && typeof point.y !== 'number') {
         throw new TypeError(`Invalid data[${index}].y: Expected a string or number.`);
@@ -587,15 +537,22 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
   private _sortCategoricalGroups(groups: GroupedSeries[]): GroupedSeries[] {
     const order = this.yAxisCategoryOrder || 'default';
     if (order === 'default' || order === 'data') {
-      const reversed = [...this.data].reverse();
-      const orderedKeys = new Set(reversed.map(point => String(point.y)));
-      return Array.from(orderedKeys)
-        .map(key => groups.find(group => group.key === key)!)
-        .filter(Boolean);
+      // Collect first-appearance order (data order) — index 0 maps to the top of the chart.
+      const seen = new Set<string>();
+      const orderedKeys: string[] = [];
+      for (const point of this.data) {
+        const key = String(point.y);
+        if (!seen.has(key)) {
+          seen.add(key);
+          orderedKeys.push(key);
+        }
+      }
+      return orderedKeys.map(key => groups.find(group => group.key === key)!).filter(Boolean);
     }
 
+    // Aggregate by total duration of bars in the group
     const aggregate = (group: GroupedSeries) => {
-      const values = group.points.map(point => point.x);
+      const durations = group.points.map(point => +point.x.end - +point.x.start);
       switch (order) {
         case 'category ascending':
         case 'category descending':
@@ -604,19 +561,19 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
         case 'total descending':
         case 'sum ascending':
         case 'sum descending':
-          return values.reduce((sum, value) => sum + value, 0);
+          return durations.reduce((sum, value) => sum + value, 0);
         case 'min ascending':
         case 'min descending':
-          return Math.min(...values);
+          return Math.min(...durations);
         case 'max ascending':
         case 'max descending':
-          return Math.max(...values);
+          return Math.max(...durations);
         case 'mean ascending':
         case 'mean descending':
-          return values.reduce((sum, value) => sum + value, 0) / values.length;
+          return durations.reduce((sum, value) => sum + value, 0) / durations.length;
         case 'median ascending':
         case 'median descending':
-          return getMedian(values);
+          return getMedian(durations);
         default:
           return 0;
       }
@@ -670,16 +627,15 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       barHeight = Math.max(barHeight, 1);
       domainMargin += barHeight / 2;
     } else {
-      const barGapRate = padding / (1 - padding);
-      const totalBands = groupCount + Math.max(groupCount - 1, 0) * barGapRate;
+      // Categorical: no extra domain margin — D3 scaleBand outer padding (via startOffset) handles spacing.
+      domainMargin = 0;
+      const innerHeight = height - baseMargins.top - baseMargins.bottom;
+      const step = innerHeight / Math.max(groupCount + padding, 1);
+      const bandwidth = step * (1 - padding);
       if (barHeight === 0) {
-        barHeight = totalHeight / Math.max(totalBands, 1);
+        barHeight = Math.min(bandwidth, DEFAULT_MAX_BAR_HEIGHT);
       }
-
-      const requiredHeight = totalBands * barHeight;
-      if (totalHeight >= requiredHeight) {
-        domainMargin = MIN_DOMAIN_MARGIN + (totalHeight - requiredHeight) / 2;
-      }
+      barHeight = Math.max(barHeight, 1);
     }
 
     const margins = {
@@ -705,29 +661,30 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     return clamp(rawWidth, 40, this.showYAxisLabels ? 240 : 160);
   }
 
-  private _getXScaleInfo(groups: GroupedSeries[]) {
-    let min = 0;
-    let max = 0;
+  private _getXScaleInfo() {
+    const starts = this.data.map(p => +p.x.start);
+    const ends = this.data.map(p => +p.x.end);
+    let rawMin = Math.min(...starts, ...ends);
+    let rawMax = Math.max(...starts, ...ends);
 
-    groups.forEach(group => {
-      const positive = group.points.filter(point => point.x >= 0).reduce((sum, point) => sum + point.x, 0);
-      const negative = group.points.filter(point => point.x < 0).reduce((sum, point) => sum + point.x, 0);
-      max = Math.max(max, positive);
-      min = Math.min(min, negative);
-    });
+    const userMin = toOptionalNumber(this.xMinValue);
+    const userMax = toOptionalNumber(this.xMaxValue);
+    if (userMin !== undefined) rawMin = Math.min(rawMin, userMin);
+    if (userMax !== undefined) rawMax = Math.max(rawMax, userMax);
 
-    min = Math.min(min, toOptionalNumber(this.xMinValue) ?? min);
-    max = Math.max(max, toOptionalNumber(this.xMaxValue) ?? max);
-
-    if (min === max) {
-      if (max === 0) {
-        max = 1;
-      } else {
-        min = Math.min(0, min);
-      }
+    if (rawMin === rawMax) {
+      rawMin -= 1;
+      rawMax += 1;
     }
 
-    return getNiceDomainAndTicks(min, max, toNumber(this.xAxisTickCount, DEFAULT_X_TICK_COUNT));
+    // Use D3's time scale to match React's behavior: calendar-aligned ticks + niced domain.
+    const count = toNumber(this.xAxisTickCount, DEFAULT_X_TICK_COUNT);
+    const scale = scaleTime()
+      .domain([new Date(rawMin), new Date(rawMax)])
+      .nice(count);
+    const [niceMin, niceMax] = scale.domain() as [Date, Date];
+    const ticks = scale.ticks(count).map(d => +d);
+    return { domain: [+niceMin, +niceMax] as [number, number], ticks };
   }
 
   private _getNumericYDomain(yValues: number[]) {
@@ -754,7 +711,8 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       const padding = clamp(toNumber(this.yAxisPadding, DEFAULT_Y_AXIS_PADDING), 0, 0.95);
       const step = innerHeight / Math.max(groups.length + padding, 1);
       const barBand = step * (1 - padding);
-      const startOffset = padding * step;
+      // Use 2 * padding * step to match D3 scaleBand's default align=0.5 outer-padding offset.
+      const startOffset = 2 * padding * step;
       return (_group: GroupedSeries, index: number) => margins.top + startOffset + index * step + barBand / 2;
     }
 
@@ -795,18 +753,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     return map;
   }
 
-  private _getPointColor(
-    point: HorizontalBarChartWithAxisDataPoint,
-    index: number,
-    legendColorMap?: Map<string, string>,
-  ) {
-    if (this.useSingleColor) {
-      const singleColorPoint = this.data.find(
-        candidate => typeof candidate.color === 'string' && candidate.color.length > 0,
-      );
-      return singleColorPoint?.color ? getColorFromToken(singleColorPoint.color) : getColorFromToken('qualitative.2');
-    }
-
+  private _getPointColor(point: GanttChartDataPoint, index: number, legendColorMap?: Map<string, string>) {
     if (point.color) {
       return getColorFromToken(point.color);
     }
@@ -826,14 +773,14 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     defs: SVGDefsElement,
     groupIndex: number,
     pointIndex: number,
-    point: HorizontalBarChartWithAxisDataPoint,
+    point: GanttChartDataPoint,
     color: string,
   ) {
     if (!this.enableGradient && !point.gradient) {
       return undefined;
     }
 
-    const gradientId = `hbcwa-gradient-${groupIndex}-${pointIndex}`;
+    const gradientId = `gantt-gradient-${groupIndex}-${pointIndex}`;
     const gradient = createSvgElement<SVGLinearGradientElement>('linearGradient');
     gradient.setAttribute('id', gradientId);
     gradient.setAttribute('x1', this._isRTL ? '100%' : '0%');
@@ -856,6 +803,33 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     return gradientId;
   }
 
+  private _formatDateTick(ms: number, rangeMs: number): string {
+    const date = new Date(ms);
+    const options: Intl.DateTimeFormatOptions =
+      rangeMs < 7 * 86_400_000
+        ? { month: 'short', day: 'numeric', hour: '2-digit' }
+        : rangeMs < 365 * 86_400_000
+        ? { month: 'short', day: 'numeric' }
+        : { year: 'numeric', month: 'short' };
+    return new Intl.DateTimeFormat(this.culture || undefined, options).format(date);
+  }
+
+  private _formatXRange(point: GanttChartDataPoint): string {
+    if (point.xAxisCalloutData) {
+      return point.xAxisCalloutData;
+    }
+    if (this._xAxisType === 'date') {
+      const fmt = new Intl.DateTimeFormat(this.culture || undefined, {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: 'UTC',
+      });
+      return `${fmt.format(new Date(+point.x.start))} - ${fmt.format(new Date(+point.x.end))}`;
+    }
+    return `${formatAxisNumber(+point.x.start, this.culture)} - ${formatAxisNumber(+point.x.end, this.culture)}`;
+  }
+
   private _renderXAxis(
     axisLayer: SVGGElement,
     width: number,
@@ -871,6 +845,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     const rangeEnd = this._isRTL ? margins.left : width - margins.right;
     const span = max - min || 1;
     const toX = (value: number) => rangeStart + ((value - min) / span) * (rangeEnd - rangeStart);
+    const rangeMs = max - min;
     const tickGap = toNumber(this.tickPadding, 6);
 
     ticks.forEach(tick => {
@@ -884,9 +859,12 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       axisLayer.appendChild(tickLine);
 
       const labelY = axisY + tickGap + 12;
-      const rawLabel = this.xAxisTickFormat
-        ? _applyFormat(tick, this.xAxisTickFormat)
-        : formatAxisNumber(tick, this.culture);
+      const rawLabel =
+        this.xAxisTickFormat && this._xAxisType !== 'date'
+          ? _applyFormat(tick, this.xAxisTickFormat)
+          : this._xAxisType === 'date'
+          ? this._formatDateTick(tick, rangeMs)
+          : formatAxisNumber(tick, this.culture);
 
       const text = createSvgElement<SVGTextElement>('text');
       text.setAttribute('class', 'axis-text');
@@ -1003,33 +981,8 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     axisLayer.appendChild(text);
   }
 
-  private _renderOriginLine(
-    axisLayer: SVGGElement,
-    margins: { top: number; right: number; left: number; bottom: number },
-    height: number,
-    domain: [number, number],
-    innerWidth: number,
-  ) {
-    if (!(domain[0] < 0 && domain[1] > 0)) {
-      return;
-    }
-
-    const span = domain[1] - domain[0] || 1;
-    const chartWidth = innerWidth + margins.left + margins.right;
-    const rangeStart = this._isRTL ? chartWidth - margins.right : margins.left;
-    const rangeEnd = this._isRTL ? margins.left : chartWidth - margins.right;
-    const originX = rangeStart + ((0 - domain[0]) / span) * (rangeEnd - rangeStart);
-    const line = createSvgElement<SVGLineElement>('line');
-    line.setAttribute('class', 'origin-line');
-    line.setAttribute('x1', `${originX}`);
-    line.setAttribute('x2', `${originX}`);
-    line.setAttribute('y1', `${margins.top}`);
-    line.setAttribute('y2', `${height - margins.bottom}`);
-    axisLayer.appendChild(line);
-  }
-
   private _showTooltip(
-    point: HorizontalBarChartWithAxisDataPoint,
+    point: GanttChartDataPoint,
     color: string,
     event: MouseEvent | FocusEvent,
     target: SVGRectElement,
@@ -1047,13 +1000,26 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       isVisible: true,
       legend: point.legend || '',
       xLabel: X_AXIS_LABEL,
-      xValue: point.xAxisCalloutData || formatAxisNumber(point.x, this.culture),
+      xValue: this._formatXRange(point),
       yLabel: Y_AXIS_LABEL,
       yValue: point.yAxisCalloutData || String(point.y),
       color,
       xPos: Math.max(0, xPos),
       yPos: Math.max(0, yPos),
     };
+
+    // After the tooltip renders, clamp its horizontal position so it stays within the host.
+    requestAnimationFrame(() => {
+      if (!this.tooltipProps?.isVisible) return;
+      const tooltipEl = this.shadowRoot?.querySelector<HTMLElement>('.tooltip');
+      if (!tooltipEl) return;
+      const hostWidth = this.offsetWidth;
+      const tooltipWidth = tooltipEl.offsetWidth;
+      const clampedX = Math.max(tooltipWidth / 2, Math.min(hostWidth - tooltipWidth / 2, xPos));
+      if (clampedX !== xPos) {
+        this.tooltipProps = { ...this.tooltipProps, xPos: clampedX };
+      }
+    });
   }
 
   protected override _clearTooltip(): void {
@@ -1070,8 +1036,8 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     };
   }
 
-  private _getAriaLabel(point: HorizontalBarChartWithAxisDataPoint) {
-    const xValue = point.xAxisCalloutData || point.x;
+  private _getAriaLabel(point: GanttChartDataPoint) {
+    const xValue = this._formatXRange(point);
     const legend = point.legend;
     const yValue = point.yAxisCalloutData || point.y;
     return point.callOutAccessibilityData?.ariaLabel || `${yValue}. ${legend ? `${legend}, ` : ''}${xValue}.`;
@@ -1091,10 +1057,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
         element.tabIndex = -1;
       }
     });
-    // Mirror the inactive class from each bar rect to its following bar-label sibling.
-    this.shadowRoot?.querySelectorAll<SVGTextElement>('.bar-label').forEach(label => {
-      label.classList.toggle('inactive', label.previousElementSibling?.classList.contains('inactive') ?? false);
-    });
+
     const activeEls = this._renderedBars
       .filter(({ legend }) => highlighted.length === 0 || (legend ? highlighted.includes(legend) : true))
       .map(b => b.element);

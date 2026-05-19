@@ -1,6 +1,7 @@
 import { type ElementViewTemplate, html, repeat } from '@microsoft/fast-element';
 import type { ChartLegend } from './chart-legend.js';
 import type { Legend } from '../utils/chart.options.js';
+import { getColorFromToken } from '../utils/chart-helpers.js';
 
 /**
  * Generates a template for the ChartLegend component.
@@ -31,7 +32,11 @@ export function chartLegendTemplate<T extends ChartLegend>(): ElementViewTemplat
             @click="${(x, c) => c.parent.$emit('legend-click', x.legend)}"
             @keydown="${(x, c) => c.parent._handleLegendKeydown(c.event as KeyboardEvent)}"
           >
-            <div class="legend-rect" style="background-color: ${x => x.color}; border-color: ${x => x.color};"></div>
+            <div
+              class="legend-rect"
+              style="background-color: ${x => getColorFromToken(x.color)}; border-color: ${x =>
+                getColorFromToken(x.color)};"
+            ></div>
             <div class="legend-text">${x => x.legend}</div>
           </button>
         `,
