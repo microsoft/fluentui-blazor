@@ -11,6 +11,8 @@ import { Microsoft as FluentTextInput } from './Components/TextInput/TextInput';
 import { Microsoft as FluentOverlayFile } from './Components/Overlay/FluentOverlay';
 import { Microsoft as FluentListBoxContainerFile } from './Components/List/ListBoxContainer';
 import { Microsoft as FluentAutocompleteFile } from './Components/List/FluentAutocomplete';
+import { Microsoft as FluentMenuFile } from './Components/Menu/FluentMenu';
+import { Microsoft as FluentColorPickerFile } from './Components/ColorPicker/FluentColorPicker';
 
 export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
 
@@ -42,6 +44,8 @@ export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
     (window as any).Microsoft.FluentUI.Blazor.Components.Overlay = FluentOverlayFile.FluentUI.Blazor.Components.Overlay;
     (window as any).Microsoft.FluentUI.Blazor.Components.ListBoxContainer = FluentListBoxContainerFile.FluentUI.Blazor.Components.ListBoxContainer;
     (window as any).Microsoft.FluentUI.Blazor.Components.Autocomplete = FluentAutocompleteFile.FluentUI.Blazor.Components.Autocomplete;
+    (window as any).Microsoft.FluentUI.Blazor.Components.Menu = FluentMenuFile.FluentUI.Blazor.Components.Menu;
+    (window as any).Microsoft.FluentUI.Blazor.Components.ColorPicker = FluentColorPickerFile.FluentUI.Blazor.Components.ColorPicker;
 
     // [^^^ Add your other exported methods before this line ^^^]
   }

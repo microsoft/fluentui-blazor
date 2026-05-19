@@ -67,13 +67,15 @@ public partial class FluentMenuItem : FluentComponentBase
     public bool? Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="Icon"/> displayed at the start of menu item content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the start (leading side) of the menu item content.
+    /// Use <see cref="IconEnd"/> to add an icon at the end.
     /// </summary>
     [Parameter]
     public Icon? IconStart { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="Icon"/> displayed at the end of menu item content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the end (trailing side) of the menu item content.
+    /// Use <see cref="IconStart"/> to add an icon at the start.
     /// </summary>
     [Parameter]
     public Icon? IconEnd { get; set; }
@@ -85,16 +87,16 @@ public partial class FluentMenuItem : FluentComponentBase
     public Icon? IconSubmenu { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="Icon"/> displayed as the indicator of being checked .
+    /// Gets or sets the <see cref="Icon"/> displayed as the checked indicator for items with <see cref="Role"/> set to
+    /// <see cref="MenuItemRole.Checkbox"/> or <see cref="MenuItemRole.Radio"/>.
     /// </summary>
     [Parameter]
     public Icon? IconIndicator { get; set; }
 
     /// <summary>
-    ///  Gets or sets the content to be rendered inside the menu item.
-    ///  This can be used as an alternative to specifying the content as a child component of the button.
-    ///  If both are specified, both will be rendered.
-    ///  </summary>
+    /// Gets or sets the text label of the menu item.
+    /// Use as an alternative to <see cref="ChildContent"/> for simple text; if both are set, both are rendered.
+    /// </summary>
     [Parameter]
     public string? Label { get; set; }
 

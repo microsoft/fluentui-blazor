@@ -1,0 +1,8 @@
+/* global-overlay */
+.fluent-overlay-global {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: var(--spacingVerticalS);
+    color: var(--colorNeutralForeground1);
+}

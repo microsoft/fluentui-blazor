@@ -24,7 +24,8 @@ public partial class FluentAvatar : FluentComponentBase, ITooltipComponent
         .Build();
 
     /// <summary>
-    /// Gets or sets activity indicator
+    /// Gets or sets whether the avatar displays an active state indicator ring (e.g., <c>Active="true"</c>).
+    /// Use <see cref="ActiveAppearance"/> to control the visual style of the active indicator.
     /// </summary>
     [Parameter]
     public bool? Active { get; set; }
@@ -48,20 +49,22 @@ public partial class FluentAvatar : FluentComponentBase, ITooltipComponent
     public Icon? Icon { get; set; }
 
     /// <summary>
-    /// Gets or sets an avatar can display an image.
+    /// Gets or sets the URL of the image displayed in the avatar (e.g., <c>Image="/images/profile.jpg"</c>).
+    /// The image takes precedence over <see cref="Initials"/> and <see cref="Name"/>-generated initials.
     /// </summary>
     [Parameter]
     public string? Image { get; set; }
 
     /// <summary>
-    /// Gets or sets custom initials rather than one generated via the name
+    /// Gets or sets custom initials to display in the avatar (e.g., <c>Initials="JD"</c>),
+    /// overriding the initials automatically generated from <see cref="Name"/>.
     /// </summary>
     [Parameter]
     public string? Initials { get; set; }
 
     /// <summary>
-    /// The name of the person or entity represented by this Avatar. This should always be provided if it is available.
-    /// The name is used to determine the initials displayed when there is no image.It is also provided to accessibility tools.
+    /// Gets or sets the name of the person or entity represented by this avatar (e.g., <c>Name="Jane Doe"</c>).
+    /// The name is used to generate initials when no <see cref="Image"/> is set, and is also provided to accessibility tools.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
@@ -73,7 +76,7 @@ public partial class FluentAvatar : FluentComponentBase, ITooltipComponent
     public AvatarShape? Shape { get; set; }
 
     /// <summary>
-    /// Gets or sets size of the avatar.
+    /// Gets or sets the size of the avatar (e.g., <c>Size="AvatarSize.Size48"</c>).
     /// </summary>
     [Parameter]
     public AvatarSize? Size { get; set; }

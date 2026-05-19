@@ -64,13 +64,15 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     public string? Placeholder { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to prefix the input component.
+    /// Gets or sets custom content rendered before the text input (e.g., a prefix icon or label).
+    /// See also <see cref="EndTemplate"/> for content placed after the input.
     /// </summary>
     [Parameter]
     public virtual RenderFragment? StartTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to suffix the input component.
+    /// Gets or sets custom content rendered after the text input (e.g., a suffix icon or unit label).
+    /// See also <see cref="StartTemplate"/> for content placed before the input.
     /// </summary>
     [Parameter]
     public virtual RenderFragment? EndTemplate { get; set; }
@@ -121,8 +123,8 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     public string MaskPlaceholder { get; set; } = "_";
 
     /// <summary>
-    /// Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
-    /// An Id value must be set to use this property.
+    /// Gets or sets the autocomplete hint for the input (e.g., <c>AutoComplete="email"</c>).
+    /// Specifies whether the browser should offer autocomplete suggestions. An Id value must be set to use this property.
     /// </summary>
     [Parameter]
     public string? AutoComplete { get; set; }

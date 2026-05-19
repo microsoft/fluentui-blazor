@@ -52,18 +52,22 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
         .Build();
 
     /// <summary>
-    /// Gets or sets the visual appearance.
+    /// Gets or sets the icon displayed in the date picker toggle button.
+    /// Defaults to the calendar icon. Provide any <see cref="Icon"/> instance from the public <c>Icons.*</c> types to customize.
     /// </summary>
     [Parameter]
     public Icon Icon { get; set; } = new CoreIcons.Regular.Size20.Calendar().WithColor("currentColor");
 
     /// <summary>
-    /// Gets or sets the visual appearance.
+    /// Gets or sets the visual appearance of the text input (e.g., <c>Appearance="TextInputAppearance.Outline"</c>).
     /// </summary>
     [Parameter]
     public TextInputAppearance Appearance { get; set; } = TextInputAppearance.Outline;
 
-    /// <summary />
+    /// <summary>
+    /// Gets or sets the render style of the date picker (e.g., <c>RenderStyle="DatePickerRenderStyle.FluentUI"</c>).
+    /// <see cref="DatePickerRenderStyle.FluentUI"/> renders a popup calendar; <see cref="DatePickerRenderStyle.Native"/> uses the browser's built-in date input.
+    /// </summary>
     [Parameter]
     public DatePickerRenderStyle RenderStyle { get; set; } = DatePickerRenderStyle.FluentUI;
 

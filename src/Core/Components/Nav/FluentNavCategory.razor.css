@@ -16,6 +16,8 @@
   transition-timing-function: var(--curveLinear);
   transition-property: background;
   width: 100%;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 .fluent-nav[density="small"] .fluent-navcategoryitem {
