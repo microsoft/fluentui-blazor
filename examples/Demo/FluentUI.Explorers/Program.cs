@@ -43,6 +43,7 @@ app.Use(async (context, next) =>
             "https://www.fluentui-blazor.net",
             "https://preview.fluentui-blazor.net",
             "https://fluentui-explorer-v5.azurewebsites.net",
+            "https://fluentui-blazor-v5.azurewebsites.net",
             "https://fluentui-blazor-v5-preview.azurewebsites.net",
             "https://v5.fluentui-blazor.net",
         ];
