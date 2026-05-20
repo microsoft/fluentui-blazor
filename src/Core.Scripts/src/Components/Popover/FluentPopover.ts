@@ -229,13 +229,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     private addEventsAfterOpening() {
       document.addEventListener('mousedown', this.handleOutsideClick);
-      document.addEventListener('touchstart', this.handleOutsideClick);
       document.addEventListener('keydown', this.handleCloseKeydown);
     }
 
     private removeEventsAfterClosing() {
       document.removeEventListener('mousedown', this.handleOutsideClick);
-      document.removeEventListener('touchstart', this.handleOutsideClick);
       document.removeEventListener('keydown', this.handleCloseKeydown);
     }
 
