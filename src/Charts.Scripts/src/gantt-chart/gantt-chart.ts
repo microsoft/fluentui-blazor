@@ -1,5 +1,6 @@
 import { attr } from '@microsoft/fast-element';
 import { scaleTime } from 'd3-scale';
+import { timeFormat } from 'd3-time-format';
 import { CartesianChartBase } from '../utils/cartesian-chart-base.js';
 import {
   getColorFromToken,
@@ -812,6 +813,9 @@ export class GanttChart extends CartesianChartBase {
 
   private _formatDateTick(ms: number, rangeMs: number): string {
     const date = new Date(ms);
+    if (this.tickFormat) {
+      return timeFormat(this.tickFormat)(date);
+    }
     const options: Intl.DateTimeFormatOptions =
       this.dateLocalizeOptions ??
       (rangeMs < 7 * 86_400_000

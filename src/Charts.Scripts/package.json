@@ -25,6 +25,7 @@
     "@types/d3-selection": "^3.0.0",
     "@types/d3-shape": "^3.0.0",
     "@types/d3-scale": "^4.0.0",
+    "@types/d3-time-format": "^2.3.0",
     "esbuild": "0.28.0",
     "esbuild-plugin-inline-css": "0.0.1",
     "glob": "^13.0.6",
@@ -36,6 +37,7 @@
     "d3-format": "^3.0.0",
     "d3-selection": "^3.0.0",
     "d3-shape": "^3.0.0",
-    "d3-scale": "^4.0.0"
+    "d3-scale": "^4.0.0",
+    "d3-time-format": "^4.1.0"
   }
 }

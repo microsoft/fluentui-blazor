@@ -122,10 +122,9 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
     public IEnumerable<double>? TickValues { get; set; }
 
     /// <summary>
-    /// Gets or sets a d3-time-format specifier string (e.g. <c>'%m/%d'</c>) for date x-axis tick labels.
-    /// This attribute is reserved for future d3-time-format support and currently has no visual effect.
-    /// Use <c>DateLocalizeOptions</c> together with <c>Culture</c> to customise date formatting
-    /// via <c>Intl.DateTimeFormat</c>.
+    /// Gets or sets a d3-time-format specifier string (e.g. <c>"%m/%d"</c>, <c>"%Y-%m"</c>) for date x-axis tick labels.
+    /// Only applicable when the x-axis uses a date/time scale (e.g. in <see cref="FluentGanttChart"/>).
+    /// When set, this overrides the locale-aware <c>DateLocalizeOptions</c> / <c>Culture</c> fallback.
     /// </summary>
     [Parameter]
     public string? TickFormat { get; set; }

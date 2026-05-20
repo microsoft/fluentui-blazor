@@ -91,8 +91,9 @@ export abstract class CartesianChartBase extends ChartBase {
    * A d3-time-format specifier string (e.g. `'%m/%d'`, `'%Y-%m'`) for date axis tick labels.
    * Only applicable when the x-axis uses a date/time scale.
    *
-   * **Note:** This attribute is reserved for future d3-time-format support and currently has no effect.
-   * Use `date-localize-options` together with `culture` to customise date formatting via `Intl.DateTimeFormat`.
+   * When set, overrides the `date-localize-options` / `culture`-based `Intl.DateTimeFormat` fallback.
+   * Use `date-localize-options` together with `culture` to customise date formatting via `Intl.DateTimeFormat`
+   * when locale-aware output is preferred over a fixed d3 specifier.
    */
   @attr({ attribute: 'tick-format' })
   public tickFormat?: string;
