@@ -16,6 +16,7 @@ Currently, the following chart types are available:
 
 - [Donut Chart](/Charts/DonutChart)
 - [Funnel Chart](/Charts/FunnelChart)
+- [Gantt Chart](/Charts/GanttChart)
 - [Horizontal Bar Chart](/Charts/HorizontalBarChart)
 - [Horizontal Bar Chart with Axis](/Charts/HorizontalBarChartWithAxis)
 

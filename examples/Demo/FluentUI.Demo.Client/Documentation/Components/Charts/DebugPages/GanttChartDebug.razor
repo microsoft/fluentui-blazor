@@ -1,7 +1,7 @@
 ﻿@page "/Charts/GanttChart/Debug"
 @using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:start;">
     <FluentField LabelPosition="LabelPosition.Above"
                  Style="min-width:220px;flex:1 1 220px;">
         <label slot="label" for="basic-width" id="basic-width--label">
@@ -28,6 +28,8 @@
         </FluentSlider>
         <fluent-label slot="message">@height</fluent-label>
     </FluentField>
+</div>
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
     <FluentSwitch Label="Enable gradient" @bind-Value="gradient"></FluentSwitch>
     <FluentSwitch Label="Rounded corners" @bind-Value="roundCorners"></FluentSwitch>
     <FluentSwitch Label="Select multiple legend" @bind-Value="allowMultipleLegendSelection"></FluentSwitch>
