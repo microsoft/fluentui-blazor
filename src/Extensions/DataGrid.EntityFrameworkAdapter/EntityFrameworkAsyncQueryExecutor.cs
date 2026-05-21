@@ -20,18 +20,19 @@ internal class EntityFrameworkAsyncQueryExecutor(Func<Exception, bool>? ignoreEx
         => queryable.Provider is IAsyncQueryProvider;
 
     /// <inheritdoc />
+    /// 
     public Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
-        => ExecuteAsync(() => queryable.CountAsync(cancellationToken));
+        => ExecuteAsync(() => queryable.CountAsync(cancellationToken), cancellationToken);
 
     /// <inheritdoc />
     public Task<T[]> ToArrayAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
-        => ExecuteAsync(() => queryable.ToArrayAsync(cancellationToken));
+        => ExecuteAsync(() => queryable.ToArrayAsync(cancellationToken), cancellationToken);
 
-    private async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation)
+    private async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation, CancellationToken cancellationToken)
     {
         try
         {
-            await _lock.WaitAsync();
+            await _lock.WaitAsync(cancellationToken);
 
             try
             {
@@ -41,6 +42,10 @@ internal class EntityFrameworkAsyncQueryExecutor(Func<Exception, bool>? ignoreEx
             {
                 _lock.Release();
             }
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            return default!;
         }
         catch (ObjectDisposedException)
         {

@@ -413,7 +413,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Caches of method->delegate conversions
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
-    private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderLoadingContent;
     private readonly RenderFragment _renderErrorContent;
 
@@ -452,7 +451,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _currentPageItemsChanged = new(EventCallback.Factory.Create<PaginationState>(this, RefreshDataCoreAsync));
         _renderColumnHeaders = RenderColumnHeaders;
         _renderNonVirtualizedRows = RenderNonVirtualizedRows;
-        _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
         _renderErrorContent = RenderErrorContent;
 
@@ -829,13 +827,28 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _pendingDataLoadCancellationTokenSource?.Cancel();
         var thisLoadCts = _pendingDataLoadCancellationTokenSource = new CancellationTokenSource();
 
-        if (_virtualizeComponent is not null)
+        if (Virtualize)
         {
-            // If we're using Virtualize, we have to go through its RefreshDataAsync API otherwise:
-            // (1) It won't know to update its own internal state if the provider output has changed
-            // (2) We won't know what slice of data to query for
-            await _virtualizeComponent.RefreshDataAsync();
-            _pendingDataLoadCancellationTokenSource = null;
+            if (_virtualizeComponent is not null)
+            {
+                // If we're using Virtualize, we have to go through its RefreshDataAsync API otherwise:
+                // (1) It won't know to update its own internal state if the provider output has changed
+                // (2) We won't know what slice of data to query for
+                // ProvideVirtualizedItemsAsync updates _internalGridContext.Items and fires ItemsChanged,
+                // so no second query is needed here.
+                await _virtualizeComponent.RefreshDataAsync();
+                _pendingDataLoadCancellationTokenSource = null;
+                return;
+            }
+            else
+            {
+                // If Virtualize is true but we don't have a reference to the component yet,
+                // it means we're still in the first render. The Virtualize component will call us when it's ready,
+                // so we can just wait for that instead of trying to load data now.
+                Loading = false;
+                StateHasChanged();
+                return;
+            }
         }
 
         // If we're not using Virtualize, we build and execute a request against the items provider directly
@@ -897,7 +910,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
         else
         {
-            await Task.Delay(100);
+            try
+            {
+                await Task.Delay(100, request.CancellationToken);
+            }
+            catch (TaskCanceledException)
+            {
+                return default;
+            }
         }
 
         if (request.CancellationToken.IsCancellationRequested)
@@ -911,7 +931,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (Pagination is not null)
         {
             startIndex += Pagination.CurrentPageIndex * Pagination.ItemsPerPage;
-            count = Math.Min(request.Count, Pagination.ItemsPerPage - request.StartIndex);
+            count = Math.Max(request.Count, Math.Min(0, Pagination.ItemsPerPage - request.StartIndex));
         }
 
         GridItemsProviderRequest<TGridItem> providerRequest = new(
@@ -983,8 +1003,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 if (_asyncQueryExecutor is not null)
                 {
                     await OnItemsLoading.InvokeAsync(true);
+
+                    var resultArray = Array.Empty<TGridItem>();
                     var totalItemCount = await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
-                    var resultArray = await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
+                    request.CancellationToken.ThrowIfCancellationRequested();
+
+                    if (request.Count > 0)
+                    {
+                        resultArray = await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
+                        request.CancellationToken.ThrowIfCancellationRequested();
+                    }
 
                     Loading = false;
                     _asyncQueryExecuted = true;

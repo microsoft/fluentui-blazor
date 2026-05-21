@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Runtime.ExceptionServices;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.OData.Client;
 
@@ -25,6 +26,18 @@ internal class ODataAsyncQueryExecutor : IAsyncQueryExecutor
 
     private static async Task<QueryOperationResponse<T>> ExecuteAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
     {
-        return (QueryOperationResponse<T>)await ((DataServiceQuery<T>)queryable).ExecuteAsync(cancellationToken);
+        try
+        {
+            return (QueryOperationResponse<T>)await ((DataServiceQuery<T>)queryable).ExecuteAsync(cancellationToken);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            return default!;
+        }
+        catch (DataServiceQueryException ex) when (ex.InnerException is OperationCanceledException oce)
+        {
+            ExceptionDispatchInfo.Capture(oce).Throw();
+            throw; // unreachable; satisfies compiler
+        }
     }
 }
