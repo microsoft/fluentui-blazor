@@ -18,16 +18,23 @@ internal class ODataAsyncQueryExecutor : IAsyncQueryExecutor
 
     /// <inheritdoc />
     public async Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
-        => (int)(await ExecuteAsync(((DataServiceQuery<T>)queryable.Take(0)).IncludeCount(), cancellationToken)).Count;
+    {
+        var response = await ExecuteAsync(((DataServiceQuery<T>)queryable.Take(0)).IncludeCount(), cancellationToken);
+        return response is null ? default : checked((int)response.Count);
+    }
 
     /// <inheritdoc />
     public async Task<T[]> ToArrayAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
-        => [.. await ExecuteAsync(queryable, cancellationToken)];
+    {
+        var response = await ExecuteAsync(queryable, cancellationToken);
+        return response is null ? default! : [.. response];
+    }
 
     private static async Task<QueryOperationResponse<T>> ExecuteAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
     {
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
             return (QueryOperationResponse<T>)await ((DataServiceQuery<T>)queryable).ExecuteAsync(cancellationToken);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
