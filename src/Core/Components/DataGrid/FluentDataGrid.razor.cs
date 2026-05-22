@@ -413,6 +413,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Caches of method->delegate conversions
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
+    private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderLoadingContent;
     private readonly RenderFragment _renderErrorContent;
 
@@ -451,6 +452,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _currentPageItemsChanged = new(EventCallback.Factory.Create<PaginationState>(this, RefreshDataCoreAsync));
         _renderColumnHeaders = RenderColumnHeaders;
         _renderNonVirtualizedRows = RenderNonVirtualizedRows;
+        _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
         _renderErrorContent = RenderErrorContent;
 
@@ -931,7 +933,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (Pagination is not null)
         {
             startIndex += Pagination.CurrentPageIndex * Pagination.ItemsPerPage;
-            count = Math.Max(request.Count, Math.Min(0, Pagination.ItemsPerPage - request.StartIndex));
+            count = Math.Min(request.Count, Math.Max(0, Pagination.ItemsPerPage - request.StartIndex));
         }
 
         GridItemsProviderRequest<TGridItem> providerRequest = new(

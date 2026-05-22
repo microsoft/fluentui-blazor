@@ -16,11 +16,9 @@ internal class EntityFrameworkAsyncQueryExecutor(Func<Exception, bool>? ignoreEx
     private readonly SemaphoreSlim _lock = new(1);
 
     /// <inheritdoc />
-    public bool IsSupported<T>(IQueryable<T> queryable)
-        => queryable.Provider is IAsyncQueryProvider;
+    public bool IsSupported<T>(IQueryable<T> queryable) => queryable.Provider is IAsyncQueryProvider;
 
     /// <inheritdoc />
-    /// 
     public Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
         => ExecuteAsync(() => queryable.CountAsync(cancellationToken), cancellationToken);
 
@@ -43,15 +41,11 @@ internal class EntityFrameworkAsyncQueryExecutor(Func<Exception, bool>? ignoreEx
                 _lock.Release();
             }
         }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
-        {
-            return default!;
-        }
         catch (ObjectDisposedException)
         {
             return default!;
         }
-        catch (Exception ex) when (ignoreException?.Invoke(ex) == true)
+        catch (Exception ex) when (ex is not OperationCanceledException && ignoreException?.Invoke(ex) == true)
         {
             return default!;
         }
