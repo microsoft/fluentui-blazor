@@ -19,3 +19,8 @@
                      orientation="@Orientation.ToAttributeValue()"
                      @attributes="@AdditionalAttributes">
 </fluent-funnel-chart>
+
+@if (TooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
+}

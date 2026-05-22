@@ -5,7 +5,7 @@ import {
   colorNeutralForeground2,
   colorNeutralStroke1,
   display,
-  fontSizeHero700,
+  fontSizeBase500,
   shadow4,
   spacingHorizontalS,
   spacingVerticalXS,
@@ -196,7 +196,7 @@ export const styles: ElementStyles = css`
 
   .tooltip-primary-value {
     ${typographySubtitle2StrongerStyles}
-    font-size: ${fontSizeHero700};
+    font-size: ${fontSizeBase500};
     direction: ltr;
     unicode-bidi: isolate;
   }

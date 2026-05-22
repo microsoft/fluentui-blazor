@@ -1,0 +1,40 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentHorizontalBarChart ChartTitle="Horizontal Bar Chart custom tooltip example"
+                          ChartData="@ChartData">
+    <TooltipTemplate Context="ctx">
+        <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 130px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 10px; height: 10px; border-radius: 2px; background-color: @ctx.Color.ToHex(ctx.CustomColor); flex-shrink: 0;"></span>
+                <strong>@ctx.Legend</strong>
+            </div>
+            <div style="display: flex; align-items: center; align-self: start   ; font-size: 0.85em;">Value: <strong>@ctx.YValue</strong></div>
+        </div>
+    </TooltipTemplate>
+</FluentHorizontalBarChart>
+
+@code {
+    private IReadOnlyList<HorizontalBarChartSeries> ChartData =
+    [
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "Monitored",
+            ChartData =
+            [
+                new HorizontalBarChartDataPoint { Legend = "Debit card numbers",   Data = 40, Color = DataVizPalette.Color1 },
+                new HorizontalBarChartDataPoint { Legend = "Passport numbers",     Data = 23, Color = DataVizPalette.Color2 },
+                new HorizontalBarChartDataPoint { Legend = "Social security",      Data = 35, Color = DataVizPalette.Color3 },
+                new HorizontalBarChartDataPoint { Legend = "Credit card numbers",  Data = 87, Color = DataVizPalette.Color4 },
+            ]
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "Unmonitored",
+            ChartData =
+            [
+                new HorizontalBarChartDataPoint { Legend = "Phone numbers",        Data = 40, Color = DataVizPalette.Color5 },
+                new HorizontalBarChartDataPoint { Legend = "Credit card numbers",  Data = 23, Color = DataVizPalette.Color4 },
+            ]
+        }
+    ];
+}

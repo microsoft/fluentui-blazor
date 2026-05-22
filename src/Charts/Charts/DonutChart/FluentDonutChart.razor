@@ -21,3 +21,8 @@
                     culture="@Culture?.Name"
                     @attributes="@AdditionalAttributes">
 </fluent-donut-chart>
+
+@if (TooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
+}

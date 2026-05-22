@@ -157,6 +157,12 @@ Demonstrates the right-to-left layout mode, where bars grow from the right edge 
 
 {{ HorizontalBarChartDefaultRTL }}
 
+### Custom tooltip
+
+Use the `TooltipTemplate` parameter to replace the default hover callout with fully custom Blazor markup. The `Context` parameter exposes a `TooltipContext` with `Legend`, `YValue`, and `Color` populated from the hovered bar segment.
+
+{{ HorizontalBarChartCustomTooltip }}
+
 ## API Fluent Horizontal Bar Chart
 
 {{ API Type=FluentHorizontalBarChart }}

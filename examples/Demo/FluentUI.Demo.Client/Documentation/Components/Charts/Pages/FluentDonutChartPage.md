@@ -118,6 +118,12 @@ Demonstrates the right-to-left layout mode, where segment labels and the legend 
 
 {{ DonutChartDefaultRTL }}
 
+### Custom tooltip
+
+Use the `TooltipTemplate` parameter to replace the default hover callout with fully custom Blazor markup. The `Context` parameter exposes a `TooltipContext` with `Legend`, `YValue`, and `Color` so the template can render any content you need.
+
+{{ DonutChartCustomTooltip }}
+
 ## API Fluent Donut Chart
 
 {{ API Type=FluentDonutChart }}

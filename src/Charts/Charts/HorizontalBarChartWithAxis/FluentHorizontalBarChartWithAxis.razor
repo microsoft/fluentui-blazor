@@ -21,3 +21,12 @@
                                        show-x-axis-labels-tooltip="@(ShowXAxisLabelsTooltip ? "true" : null)"
                                        date-localize-options="@DateLocalizeOptionsJson" @attributes="@AdditionalAttributes">
 </fluent-horizontal-bar-chart-with-axis>
+
+@if (CartesianTooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@CartesianTooltipTemplate((CartesianTooltipContext)_tooltipContext)</div>
+}
+else if (TooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
+}

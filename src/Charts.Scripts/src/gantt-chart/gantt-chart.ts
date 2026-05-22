@@ -11,7 +11,7 @@ import {
   SVG_NAMESPACE_URI,
 } from '../utils/chart-helpers.js';
 import type { GanttChartDataPoint } from './gantt-chart.options.js';
-import type { AxisCategoryOrder, Legend, TooltipProps } from '../utils/chart.options.js';
+import type { AxisCategoryOrder, Legend, TooltipProps, TooltipRenderer } from '../utils/chart.options.js';
 
 type GanttTooltipProps = TooltipProps & {
   xLabel: string;
@@ -211,6 +211,9 @@ export class GanttChart extends CartesianChartBase {
   /** Narrows the inherited base tooltipProps type to include axis label fields. */
   public declare tooltipProps: GanttTooltipProps;
 
+  /** Narrows the inherited base tooltipRenderer type to the GanttChart data point. */
+  public declare tooltipRenderer: TooltipRenderer<GanttChartDataPoint> | undefined;
+
   protected override _enableResizeObserver = true;
 
   private _renderedBars: RenderedBar[] = [];
@@ -315,6 +318,22 @@ export class GanttChart extends CartesianChartBase {
     } else {
       this.liveRegionText = '';
     }
+    super.tooltipPropsChanged(_old, newValue);
+  }
+
+  protected override _buildDefaultTooltipHTML(_dataPoint: unknown): string {
+    const p = this.tooltipProps;
+    const esc = (s: string) =>
+      s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    return [
+      `<div class="tooltip-header">${esc(p.yValue)}</div>`,
+      `<div class="tooltip-info" style="border-color: ${esc(p.color)};">`,
+      `<div class="tooltip-legend-text">${esc(p.legend)}</div>`,
+      `<div class="tooltip-primary-value" style="color: ${esc(p.color)};">${esc(
+        (p as GanttTooltipProps).xValue,
+      )}</div>`,
+      `</div>`,
+    ].join('');
   }
 
   protected showYAxisLabelsChanged() {
@@ -891,11 +910,6 @@ export class GanttChart extends CartesianChartBase {
       text.setAttribute('class', 'axis-text');
       text.setAttribute('x', `${x}`);
       text.setAttribute('y', `${labelY}`);
-      if (isLabelTruncated) {
-        const title = createSvgElement<SVGTitleElement>('title');
-        title.textContent = rawLabel;
-        text.appendChild(title);
-      }
 
       if (this.rotateXAxisLabels) {
         text.setAttribute('text-anchor', this._isRTL ? 'start' : 'end');
@@ -919,6 +933,14 @@ export class GanttChart extends CartesianChartBase {
         text.setAttribute('text-anchor', 'middle');
         text.textContent = displayLabel;
       }
+
+      // Prepend <title> after text content is set so it isn't wiped by textContent assignment.
+      if (isLabelTruncated) {
+        const title = createSvgElement<SVGTitleElement>('title');
+        title.textContent = rawLabel;
+        text.insertBefore(title, text.firstChild);
+      }
+
       axisLayer.appendChild(text);
     });
 
@@ -1022,6 +1044,7 @@ export class GanttChart extends CartesianChartBase {
     const xReference = 'clientX' in event ? event.clientX : targetRect.left + targetRect.width / 2;
     const xPos = this._isRTL ? hostRect.right - xReference : xReference - hostRect.left;
     const yPos = ('clientY' in event ? event.clientY : targetRect.top) - hostRect.top - 44;
+    this._currentTooltipDataPoint = point;
     this.tooltipProps = {
       isVisible: true,
       legend: point.legend || '',

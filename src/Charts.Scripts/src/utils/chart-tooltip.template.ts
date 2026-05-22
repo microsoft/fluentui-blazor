@@ -27,10 +27,12 @@ export function chartTooltipTemplate<T extends ChartBase>() {
           class="tooltip"
           style="inset-inline-start: ${(x: T) => x.tooltipProps.xPos}px; top: ${(x: T) => x.tooltipProps.yPos}px"
         >
-          <div class="tooltip-inner" style="border-color: ${(x: T) => x.tooltipProps.color};">
-            <div class="tooltip-legend-text">${(x: T) => x.tooltipProps.legend}</div>
-            <div class="tooltip-content-y" style="color: ${(x: T) => x.tooltipProps.color};">
-              ${(x: T) => x.tooltipProps.yValue}
+          <div class="tooltip-body">
+            <div class="tooltip-inner" style="border-color: ${(x: T) => x.tooltipProps.color};">
+              <div class="tooltip-legend-text">${(x: T) => x.tooltipProps.legend}</div>
+              <div class="tooltip-content-y" style="color: ${(x: T) => x.tooltipProps.color};">
+                ${(x: T) => x.tooltipProps.yValue}
+              </div>
             </div>
           </div>
         </div>

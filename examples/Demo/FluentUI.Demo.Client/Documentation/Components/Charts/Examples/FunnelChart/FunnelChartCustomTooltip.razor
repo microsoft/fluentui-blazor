@@ -1,0 +1,24 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentFunnelChart ChartData="@data"
+                   ChartTitle="Funnel chart custom tooltip example">
+    <TooltipTemplate Context="ctx">
+        <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 130px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 10px; height: 10px; border-radius: 2px; background-color: @ctx.Color.ToHex(ctx.CustomColor); flex-shrink: 0;"></span>
+                <strong>@ctx.Legend</strong>
+            </div>
+            <div style="font-size: 0.85em;">Count: <strong>@ctx.YValue</strong></div>
+        </div>
+    </TooltipTemplate>
+</FluentFunnelChart>
+
+@code {
+    private readonly IReadOnlyList<FunnelDataPoint> data = new List<FunnelDataPoint>
+    {
+        new FunnelDataPoint { Stage = "Visitors",  Value = 1000 },
+        new FunnelDataPoint { Stage = "Signups",   Value = 600  },
+        new FunnelDataPoint { Stage = "Trials",    Value = 300  },
+        new FunnelDataPoint { Stage = "Customers", Value = 250  },
+    };
+}

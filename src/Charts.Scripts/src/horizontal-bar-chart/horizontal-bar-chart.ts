@@ -10,7 +10,7 @@ import {
   validateChartPropsArray,
 } from '../utils/chart-helpers.js';
 import type { HorizontalBarChartDataPoint, HorizontalBarChartProps } from './horizontal-bar-chart.options.js';
-import type { Legend } from '../utils/chart.options.js';
+import type { Legend, TooltipRenderer } from '../utils/chart.options.js';
 import { Variant } from './horizontal-bar-chart.options.js';
 
 /**
@@ -45,6 +45,9 @@ export class HorizontalBarChart extends ChartBase {
 
   protected override _enableResizeObserver = true;
   private _bars: SVGRectElement[] = [];
+
+  /** Narrows the inherited base tooltipRenderer type to the HorizontalBarChart data point. */
+  public declare tooltipRenderer: TooltipRenderer<HorizontalBarChartDataPoint> | undefined;
 
   connectedCallback() {
     // Class field initializers create own data properties that shadow the FAST @attr
@@ -402,6 +405,7 @@ export class HorizontalBarChart extends ChartBase {
         }
         const bounds = this.getBoundingClientRect();
         const rBounds = rectEl.getBoundingClientRect();
+        this._currentTooltipDataPoint = point;
         this.tooltipProps = {
           isVisible: true,
           legend: point.legend,
@@ -501,6 +505,7 @@ export class HorizontalBarChart extends ChartBase {
         const centerX = window.innerWidth / 2;
         const xPos = Math.max(0, Math.min(centerX, window.innerWidth));
 
+        this._currentTooltipDataPoint = d;
         this.tooltipProps = {
           isVisible: true,
           legend: d.legend,

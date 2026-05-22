@@ -24,7 +24,7 @@ export function chartLegendTemplate<T extends ChartLegend>(): ElementViewTemplat
             tabindex="${(x, c) => (c.parent.items.indexOf(x) === 0 ? 0 : -1)}"
             aria-setsize="${(x, c) => c.parent.items.length}"
             aria-posinset="${(x, c) => c.parent.items.indexOf(x) + 1}"
-            aria-selected="${(x, c) => c.parent.selected.includes(x.legend)}"
+            aria-selected="${(x, c) => c.parent.highlighted.includes(x.legend) || c.parent.selected.includes(x.legend)}"
             @mouseover="${(x, c) => c.parent.$emit('legend-mouseover', x.legend)}"
             @mouseout="${(x, c) => c.parent.$emit('legend-mouseout')}"
             @focus="${(x, c) => c.parent.$emit('legend-focus', x.legend)}"

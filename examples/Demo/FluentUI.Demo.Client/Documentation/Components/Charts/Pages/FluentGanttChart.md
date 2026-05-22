@@ -141,6 +141,12 @@ Setting `ShowXAxisLabelsTooltip` truncates x-axis tick labels that exceed ten ch
 
 {{ GanttChartDateLocalizeOptions }}
 
+### Custom tooltip
+
+Use the `TooltipTemplate` parameter to replace the default hover callout with fully custom Blazor markup. The `Context` parameter exposes a `TooltipContext` with `Legend` (assignee), `YValue` (task name), `XValue` (date range), and `Color`.
+
+{{ GanttChartCustomTooltip }}
+
 ## API Fluent Gantt Chart
 
 {{ API Type=FluentGanttChart }}

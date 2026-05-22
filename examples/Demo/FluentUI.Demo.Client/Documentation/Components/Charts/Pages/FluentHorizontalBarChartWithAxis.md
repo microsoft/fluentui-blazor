@@ -191,6 +191,12 @@ Setting `ShowXAxisLabelsTooltip` truncates x-axis tick labels that exceed ten ch
 
 {{ HorizontalBarChartWithAxisShowXAxisLabelsTooltip }}
 
+### Custom tooltip
+
+Use the `TooltipTemplate` parameter to replace the default hover callout with fully custom Blazor markup. The `Context` parameter exposes a `TooltipContext` with `Legend`, `YValue` (category), `XValue` (value), and `Color`.
+
+{{ HorizontalBarChartWithAxisCustomTooltip }}
+
 ## API Fluent Horizontal Bar Chart With Axis
 
 {{ API Type=FluentHorizontalBarChartWithAxis }}

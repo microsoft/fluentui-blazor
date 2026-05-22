@@ -20,3 +20,8 @@
                              culture="@Culture?.Name"
                              @attributes="@AdditionalAttributes">
 </fluent-horizontal-bar-chart>
+
+@if (TooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
+}

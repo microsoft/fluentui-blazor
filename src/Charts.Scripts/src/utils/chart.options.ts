@@ -65,3 +65,14 @@ export interface TooltipProps {
   xPos: number;
   yPos: number;
 }
+
+/**
+ * A function that customizes the tooltip content for a chart data point.
+ *
+ * @param dataPoint - The data point for which the tooltip is being shown.
+ * @param defaultRender - A function that renders the default tooltip HTML string for the given data point.
+ * @returns Either an HTML string or a DOM Node to inject into the tooltip body.
+ *
+ * @public
+ */
+export type TooltipRenderer<T> = (dataPoint: T, defaultRender: (point: T) => string) => string | Node | Promise<string | Node>;

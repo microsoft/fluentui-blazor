@@ -176,6 +176,7 @@ export const styles = css`
   ${tooltipBaseStyles}
 
   .tooltip {
+    ${typographyCaption1Styles}
     z-index: 1;
     background-blend-mode: normal, luminosity;
     border-radius: ${borderRadiusMedium};

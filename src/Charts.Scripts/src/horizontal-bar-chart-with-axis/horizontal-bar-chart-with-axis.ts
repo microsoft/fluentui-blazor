@@ -8,7 +8,7 @@ import {
   SVG_NAMESPACE_URI,
 } from '../utils/chart-helpers.js';
 import type { HorizontalBarChartWithAxisDataPoint } from './horizontal-bar-chart-with-axis.options.js';
-import type { AxisCategoryOrder, Legend, TooltipProps } from '../utils/chart.options.js';
+import type { AxisCategoryOrder, Legend, TooltipProps, TooltipRenderer } from '../utils/chart.options.js';
 
 type HBCWATooltipProps = TooltipProps & {
   xLabel: string;
@@ -218,6 +218,9 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
   /** Narrows the inherited base tooltipProps type to include axis label fields. */
   public declare tooltipProps: HBCWATooltipProps;
 
+  /** Narrows the inherited base tooltipRenderer type to the HBCWA data point. */
+  public declare tooltipRenderer: TooltipRenderer<HorizontalBarChartWithAxisDataPoint> | undefined;
+
   protected override _enableResizeObserver = true;
 
   private _renderedBars: RenderedBar[] = [];
@@ -326,6 +329,23 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     } else {
       this.liveRegionText = '';
     }
+    super.tooltipPropsChanged(_old, newValue);
+  }
+
+  protected override _buildDefaultTooltipHTML(_dataPoint: unknown): string {
+    const p = this.tooltipProps;
+    const esc = (s: string) =>
+      s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const legendLine =
+      p.legend && p.legend !== p.yValue ? `<div class="tooltip-legend-text">${esc(p.legend)}</div>` : '';
+    return [
+      `<div class="tooltip-header">${esc(p.yValue)}</div>`,
+      `<div class="tooltip-info" style="border-color: ${esc(p.color)};">`,
+      legendLine,
+      `<div class="tooltip-primary-value" style="color: ${esc(p.color)};">` +
+        `${esc((p as HBCWATooltipProps).xValue)}</div>`,
+      `</div>`,
+    ].join('');
   }
 
   protected showYAxisLabelsChanged() {
@@ -904,11 +924,6 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       text.setAttribute('class', 'axis-text');
       text.setAttribute('x', `${x}`);
       text.setAttribute('y', `${labelY}`);
-      if (isLabelTruncated) {
-        const title = createSvgElement<SVGTitleElement>('title');
-        title.textContent = rawLabel;
-        text.appendChild(title);
-      }
 
       if (this.rotateXAxisLabels) {
         text.setAttribute('text-anchor', this._isRTL ? 'start' : 'end');
@@ -932,6 +947,14 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
         text.setAttribute('text-anchor', 'middle');
         text.textContent = displayLabel;
       }
+
+      // Prepend <title> after text content is set so it isn't wiped by textContent assignment.
+      if (isLabelTruncated) {
+        const title = createSvgElement<SVGTitleElement>('title');
+        title.textContent = rawLabel;
+        text.insertBefore(title, text.firstChild);
+      }
+
       axisLayer.appendChild(text);
     });
 
@@ -1060,11 +1083,12 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     const xReference = 'clientX' in event ? event.clientX : targetRect.left + targetRect.width / 2;
     const xPos = this._isRTL ? hostRect.right - xReference : xReference - hostRect.left;
     const yPos = ('clientY' in event ? event.clientY : targetRect.top) - hostRect.top - 44;
+    this._currentTooltipDataPoint = point;
     this.tooltipProps = {
       isVisible: true,
       legend: point.legend || '',
       xLabel: X_AXIS_LABEL,
-      xValue: point.xAxisCalloutData || formatAxisNumber(point.x, this.culture),
+      xValue: point.xAxisCalloutData || formatCompactNumber(point.x, this.culture),
       yLabel: Y_AXIS_LABEL,
       yValue: point.yAxisCalloutData || String(point.y),
       color,

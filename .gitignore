@@ -429,3 +429,4 @@ all-emojis.json
 /src/Core.Scripts/src/BuildConstants.ts
 /src/Core.Scripts/obj/
 /.playwright-mcp
+/src/Charts.Scripts/sync-from-monorepo.ps1

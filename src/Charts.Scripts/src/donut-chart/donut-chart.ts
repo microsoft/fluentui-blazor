@@ -11,7 +11,7 @@ import {
   wrapText,
 } from '../utils/chart-helpers.js';
 import type { DonutDataPoint } from './donut-chart.options.js';
-import type { Legend } from '../utils/chart.options.js';
+import type { Legend, TooltipRenderer } from '../utils/chart.options.js';
 
 export class DonutChart extends ChartBase {
   @attr({ converter: nullableNumberConverter })
@@ -36,6 +36,9 @@ export class DonutChart extends ChartBase {
   public order: 'default' | 'sorted' = 'default';
 
   public group!: SVGGElement;
+
+  /** Narrows the inherited base tooltipRenderer type to the DonutChart data point. */
+  public declare tooltipRenderer: TooltipRenderer<DonutDataPoint> | undefined;
 
   private _arcs: SVGPathElement[] = [];
   private _arcLabels: SVGTextElement[] = [];
@@ -90,6 +93,7 @@ export class DonutChart extends ChartBase {
 
   protected tooltipPropsChanged(_oldValue: any, _newValue: any) {
     this._updateTextInsideDonut();
+    super.tooltipPropsChanged(_oldValue, _newValue);
   }
 
   protected dataChanged() {
@@ -225,6 +229,7 @@ export class DonutChart extends ChartBase {
 
         const bounds = this.getBoundingClientRect();
 
+        this._currentTooltipDataPoint = arcDatum.data;
         this.tooltipProps = {
           isVisible: true,
           legend: arcDatum.data.legend,
@@ -243,6 +248,7 @@ export class DonutChart extends ChartBase {
         const rootBounds = this.getBoundingClientRect();
         const arcBounds = path.getBoundingClientRect();
 
+        this._currentTooltipDataPoint = arcDatum.data;
         this.tooltipProps = {
           isVisible: true,
           legend: arcDatum.data.legend,

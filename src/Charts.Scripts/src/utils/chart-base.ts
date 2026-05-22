@@ -6,6 +6,7 @@ import type {
   ChartTitlePosition,
   Legend,
   TooltipProps,
+  TooltipRenderer,
 } from './chart.options.js';
 import { getRTL } from './chart-helpers.js';
 
@@ -84,12 +85,116 @@ export abstract class ChartBase extends FASTElement {
   @observable
   public liveRegionText: string = '';
 
+  /**
+   * Optional function to customize the tooltip content.
+   *
+   * When set, the function receives the current data point and a `defaultRender` callback.
+   * Return either an HTML string or a DOM Node to replace the default tooltip body.
+   *
+   * @example
+   * ```ts
+   * chart.tooltipRenderer = (point, defaultRender) =>
+   *   `<strong>${point.legend}</strong><br>${defaultRender(point)}`;
+   * ```
+   */
+  public tooltipRenderer?: TooltipRenderer<unknown>;
+
+  /** The data point for the tooltip that is currently visible (or was last visible). */
+  protected _currentTooltipDataPoint: unknown = null;
+
+  /**
+   * Tracks which data point was last passed to tooltipRenderer.
+   * Reset to `undefined` when the tooltip is hidden so a re-hover on the same
+   * point triggers a fresh render.
+   */
+  private _lastRenderedTooltipDataPoint: unknown = undefined;
+
   protected tooltipPropsChanged(_old: TooltipProps, newValue: TooltipProps): void {
     if (newValue.isVisible && !this.hideTooltip) {
       this.liveRegionText = [newValue.legend, newValue.yValue].filter(Boolean).join(': ');
+      // Only invoke the renderer when the hovered data point has changed.
+      //
+      // This intentionally allows re-rendering on true→true isVisible transitions
+      // (e.g. DonutChart / HBCWA moving between segments or bars without hiding
+      // the tooltip in between) while still skipping redundant calls caused by
+      // GanttChart's position-clamping RAF, which updates only xPos and leaves
+      // _currentTooltipDataPoint unchanged.
+      if (this.tooltipRenderer && this._currentTooltipDataPoint !== this._lastRenderedTooltipDataPoint) {
+        this._lastRenderedTooltipDataPoint = this._currentTooltipDataPoint;
+        requestAnimationFrame(() => {
+          // Call the renderer BEFORE querying .tooltip-body.
+          //
+          // On the very first hover, FAST's when() directive hasn't yet run its own
+          // rAF to insert .tooltip-body into the shadow DOM (it was queued after ours).
+          // We still need to invoke the renderer so that the host (e.g. Blazor) is
+          // notified and can re-render its portal.  The bridge's MutationObserver will
+          // push the portal content once Blazor renders AND FAST has inserted the body.
+          const result = this.tooltipRenderer!(this._currentTooltipDataPoint, (p: unknown) =>
+            this._buildDefaultTooltipHTML(p),
+          );
+
+          const el = this.shadowRoot?.querySelector<HTMLElement>('.tooltip-body');
+          if (!el) {
+            // .tooltip-body is not in the shadow DOM yet — FAST will insert it in the
+            // next rAF.  The bridge MutationObserver handles populating it once ready.
+            return;
+          }
+
+          if (result instanceof Promise) {
+            // Keep default tooltip content visible until the async result arrives.
+            // Clearing el.innerHTML immediately would make the tooltip appear blank
+            // for the full Blazor round-trip duration (100-300 ms).
+            result.then(r => {
+              if (!this.tooltipProps?.isVisible) return;
+              const body = this.shadowRoot?.querySelector<HTMLElement>('.tooltip-body');
+              if (!body) return;
+              body.innerHTML = '';
+              if (typeof r === 'string') {
+                body.innerHTML = r;
+              } else {
+                body.appendChild(r);
+              }
+            });
+          } else {
+            el.innerHTML = '';
+            if (typeof result === 'string') {
+              el.innerHTML = result;
+            } else {
+              el.appendChild(result);
+            }
+          }
+        });
+      }
     } else {
       this.liveRegionText = '';
+      // Reset so re-hovering the same point after a hide triggers a fresh render.
+      this._lastRenderedTooltipDataPoint = undefined;
     }
+  }
+
+  /**
+   * Builds the default HTML string for the tooltip body.
+   * Subclasses with a richer tooltip structure should override this.
+   */
+  protected _buildDefaultTooltipHTML(_dataPoint: unknown): string {
+    const p = this.tooltipProps;
+    return [
+      `<div class="tooltip-inner" style="border-color: ${ChartBase._escapeHtml(p.color)};">`,
+      `<div class="tooltip-legend-text">${ChartBase._escapeHtml(p.legend)}</div>`,
+      `<div class="tooltip-content-y" style="color: ${ChartBase._escapeHtml(p.color)};">${ChartBase._escapeHtml(
+        p.yValue,
+      )}</div>`,
+      `</div>`,
+    ].join('');
+  }
+
+  private static _escapeHtml(str: string): string {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   // ── Public refs ──────────────────────────────────────────────────

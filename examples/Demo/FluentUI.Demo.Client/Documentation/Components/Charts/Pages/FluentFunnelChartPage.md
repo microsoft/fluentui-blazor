@@ -34,6 +34,12 @@ Demonstrates the right-to-left layout mode, where segment labels and the legend 
 
 {{ FunnelChartDefaultRTL }}
 
+### Custom tooltip
+
+Use the `TooltipTemplate` parameter to replace the default hover callout with fully custom Blazor markup. The `Context` parameter exposes a `TooltipContext` with `Legend`, `YValue`, and `Color` populated from the hovered funnel stage.
+
+{{ FunnelChartCustomTooltip }}
+
 ## API Fluent Funnel Chart
 
 {{ API Type=FluentFunnelChart }}

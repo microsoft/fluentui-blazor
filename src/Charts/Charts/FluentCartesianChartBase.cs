@@ -21,6 +21,39 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
     /// <summary />
     protected FluentCartesianChartBase(LibraryConfiguration configuration) : base(configuration)
     {
+        // Pre-seed with a CartesianTooltipContext so the portal div cast is always safe.
+        _tooltipContext = new CartesianTooltipContext();
+    }
+
+    /// <summary>
+    /// Gets or sets a custom tooltip template rendered when the user hovers over a chart element.
+    /// Use this in preference to the base <c>TooltipTemplate</c> for Cartesian charts to receive
+    /// a <see cref="CartesianTooltipContext"/> that exposes <see cref="CartesianTooltipContext.XStart"/>
+    /// and <see cref="CartesianTooltipContext.XEnd"/> in addition to the base properties.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<CartesianTooltipContext>? CartesianTooltipTemplate { get; set; }
+
+    /// <inheritdoc />
+    protected override bool HasTooltipTemplate => base.HasTooltipTemplate || CartesianTooltipTemplate is not null;
+
+    /// <inheritdoc />
+    protected override TooltipContext BuildTooltipContext(
+        string? legend, string? yValue, string? xValue, string? color, string? rawJson,
+        string? xStart, string? xEnd)
+    {
+        var palette = DataVizPaletteExtensions.FromToken(color);
+        return new CartesianTooltipContext
+        {
+            Legend = legend,
+            YValue = yValue,
+            XValue = xValue,
+            Color = palette,
+            CustomColor = palette is null ? color : null,
+            RawJson = rawJson,
+            XStart = xStart,
+            XEnd = xEnd,
+        };
     }
 
     /// <summary>

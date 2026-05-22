@@ -33,5 +33,6 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIChartComponents {
     defineOnce('fluentui:chart-components:gantt-chart', () => {
       FluentUIComponents.GanttChartDefinition.define(registry);
     });
-  }
-}
+
+      }
+    }
