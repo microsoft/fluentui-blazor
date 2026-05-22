@@ -30,7 +30,7 @@ public class ODataAsyncQueryExecutorTests
     }
 
     [Fact]
-    public async Task CountAsync_WhenPreCancelledToken_ReturnsDefault()
+    public async Task CountAsync_WhenPreCancelledToken_ThrowsOperationCanceledException()
     {
         var context = new DataServiceContext(_serviceRoot);
         IQueryable<TestEntity> query = context.CreateQuery<TestEntity>("Entities");
@@ -38,13 +38,11 @@ public class ODataAsyncQueryExecutorTests
         using var cts = new CancellationTokenSource();
         cts.Cancel();
 
-        var result = await _executor.CountAsync(query, cts.Token);
-
-        Assert.Equal(default, result);
+        await Assert.ThrowsAsync<OperationCanceledException>(() => _executor.CountAsync(query, cts.Token));
     }
 
     [Fact]
-    public async Task ToArrayAsync_WhenPreCancelledToken_ReturnsDefault()
+    public async Task ToArrayAsync_WhenPreCancelledToken_ThrowsOperationCanceledException()
     {
         var context = new DataServiceContext(_serviceRoot);
         IQueryable<TestEntity> query = context.CreateQuery<TestEntity>("Entities");
@@ -52,9 +50,7 @@ public class ODataAsyncQueryExecutorTests
         using var cts = new CancellationTokenSource();
         cts.Cancel();
 
-        var result = await _executor.ToArrayAsync(query, cts.Token);
-
-        Assert.Equal(default, result);
+        await Assert.ThrowsAsync<OperationCanceledException>(() => _executor.ToArrayAsync(query, cts.Token));
     }
 
     // ── Helpers ────────────────────────────────────────────────────────────────

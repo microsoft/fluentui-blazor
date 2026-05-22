@@ -84,7 +84,7 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
     }
 
     [Fact]
-    public async Task CountAsync_WhenPreCancelledToken_ReturnsDefault()
+    public async Task CountAsync_WhenPreCancelledToken_ThrowsOperationCanceledException()
     {
         _dbContext.Entities.Add(new TestEntity { Id = 1, Name = "A" });
         await _dbContext.SaveChangesAsync();
@@ -92,23 +92,62 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
         using var cts = new CancellationTokenSource();
         cts.Cancel();
 
-        var result = await _interface.CountAsync(_dbContext.Entities, cts.Token);
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => _interface.CountAsync(_dbContext.Entities, cts.Token));
+    }
+
+    [Fact]
+    public async Task ToArrayAsync_WhenPreCancelledToken_ThrowsOperationCanceledException()
+    {
+        _dbContext.Entities.Add(new TestEntity { Id = 1, Name = "A" });
+        await _dbContext.SaveChangesAsync();
+
+        using var cts = new CancellationTokenSource();
+        cts.Cancel();
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => _interface.ToArrayAsync(_dbContext.Entities, cts.Token));
+    }
+
+    [Fact]
+    public async Task ToArrayAsync_WhenDisposed_ReturnsDefault()
+    {
+        _dbContext.Entities.Add(new TestEntity { Id = 1, Name = "A" });
+        await _dbContext.SaveChangesAsync();
+
+        using var executor = new EntityFrameworkAsyncQueryExecutor();
+        IAsyncQueryExecutor iface = executor;
+        ((IDisposable)executor).Dispose();
+
+        // ObjectDisposedException from the disposed SemaphoreSlim should be swallowed
+        var result = await iface.ToArrayAsync(_dbContext.Entities);
 
         Assert.Equal(default, result);
     }
 
     [Fact]
-    public async Task ToArrayAsync_WhenPreCancelledToken_ReturnsDefault()
+    public async Task ToArrayAsync_WhenIgnoreExceptionMatches_ReturnsDefault()
     {
-        _dbContext.Entities.Add(new TestEntity { Id = 1, Name = "A" });
-        await _dbContext.SaveChangesAsync();
+        var thrownException = new InvalidOperationException("simulated query failure");
+        using var executor = new EntityFrameworkAsyncQueryExecutor(ex => ReferenceEquals(ex, thrownException));
+        IAsyncQueryExecutor iface = executor;
 
-        using var cts = new CancellationTokenSource();
-        cts.Cancel();
+        IQueryable<TestEntity> query = new ThrowingQueryable<TestEntity>(thrownException);
 
-        var result = await _interface.ToArrayAsync(_dbContext.Entities, cts.Token);
+        var result = await iface.ToArrayAsync(query);
 
         Assert.Equal(default, result);
+    }
+
+    [Fact]
+    public async Task ToArrayAsync_WhenIgnoreExceptionDoesNotMatch_ThrowsOriginalException()
+    {
+        var thrownException = new InvalidOperationException("simulated query failure");
+        using var executor = new EntityFrameworkAsyncQueryExecutor(ex => false);
+        IAsyncQueryExecutor iface = executor;
+
+        IQueryable<TestEntity> query = new ThrowingQueryable<TestEntity>(thrownException);
+
+        var caughtEx = await Assert.ThrowsAnyAsync<Exception>(() => iface.ToArrayAsync(query));
+        Assert.Same(thrownException, caughtEx);
     }
 
     [Fact]
@@ -173,7 +212,13 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
     /// A fake <see cref="IQueryable{T}"/> backed by an <see cref="IAsyncQueryProvider"/> that
     /// throws a controlled exception whenever a query is executed asynchronously.
     /// </summary>
-    private sealed class ThrowingQueryable<T>(Exception exception) : IQueryable<T>
+    /// <summary>
+    /// A fake <see cref="IQueryable{T}"/> backed by an <see cref="IAsyncQueryProvider"/> that
+    /// throws a controlled exception whenever a query is executed asynchronously.
+    /// Also implements <see cref="IAsyncEnumerable{T}"/> so that EF Core's ToArrayAsync
+    /// (which uses AsAsyncEnumerable) reaches the controlled exception path.
+    /// </summary>
+    private sealed class ThrowingQueryable<T>(Exception exception) : IQueryable<T>, IAsyncEnumerable<T>
     {
         public Type ElementType => typeof(T);
         public Expression Expression => Expression.Constant(this);
@@ -181,6 +226,9 @@ public class EntityFrameworkAsyncQueryExecutorTests : IDisposable
 
         public IEnumerator<T> GetEnumerator() => Enumerable.Empty<T>().GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+            => new ExceptionAsyncEnumerator<T>(exception);
     }
 
     private sealed class ThrowingAsyncQueryProvider(Exception exception) : IAsyncQueryProvider
