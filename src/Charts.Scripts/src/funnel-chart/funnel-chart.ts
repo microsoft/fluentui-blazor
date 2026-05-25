@@ -51,7 +51,7 @@ export class FunnelChart extends ChartBase {
 
   /** Narrows the inherited base tooltipRenderer type to funnel data point fields. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public declare tooltipRenderer: TooltipRenderer<any> | undefined;
+  public declare tooltipRenderer: TooltipRenderer<FunnelDataPoint> | undefined;
 
   private _segments: SVGPathElement[] = [];
   private _segmentTexts: SVGTextElement[] = [];

@@ -22,17 +22,17 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// </remarks>
 public sealed class CartesianTooltipContext : TooltipContext
 {
-    /// <summary>
-    /// Gets the start of the x-axis range for the hovered data element.
-    /// For <see cref="FluentGanttChart"/> this is an ISO 8601 date string (e.g.
-    /// <c>"2009-01-01T00:00:00.000Z"</c>).  Empty for other chart types.
-    /// </summary>
-    public string? XStart { get; init; }
+  /// <summary>
+  /// Gets the start of the x-axis range for the hovered data element.
+  /// For <see cref="FluentGanttChart"/> this is an ISO 8601 date string (e.g.
+  /// <c>"2009-01-01T00:00:00.000Z"</c>).  Empty for other chart types.
+  /// </summary>
+  public string? XStart { get; init; }
 
-    /// <summary>
-    /// Gets the end of the x-axis range for the hovered data element.
-    /// For <see cref="FluentGanttChart"/> this is an ISO 8601 date string (e.g.
-    /// <c>"2009-02-28T00:00:00.000Z"</c>).  Empty for other chart types.
-    /// </summary>
-    public string? XEnd { get; init; }
+  /// <summary>
+  /// Gets the end of the x-axis range for the hovered data element.
+  /// For <see cref="FluentGanttChart"/> this is an ISO 8601 date string (e.g.
+  /// <c>"2009-02-28T00:00:00.000Z"</c>).  Empty for other chart types.
+  /// </summary>
+  public string? XEnd { get; init; }
 }

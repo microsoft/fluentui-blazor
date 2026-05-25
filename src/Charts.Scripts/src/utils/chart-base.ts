@@ -97,7 +97,8 @@ export abstract class ChartBase extends FASTElement {
    *   `<strong>${point.legend}</strong><br>${defaultRender(point)}`;
    * ```
    */
-  public tooltipRenderer?: TooltipRenderer<unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public tooltipRenderer?: TooltipRenderer<any>;
 
   /** The data point for the tooltip that is currently visible (or was last visible). */
   protected _currentTooltipDataPoint: unknown = null;
