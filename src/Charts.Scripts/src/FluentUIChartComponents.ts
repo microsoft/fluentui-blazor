@@ -2,8 +2,6 @@ import * as FluentUIWebComponents from '@fluentui/web-components';
 import * as FluentUIComponents from './components';
 import { defineOnce } from '@core/RegistrationState';
 
-
-
 export namespace Microsoft.FluentUI.Blazor.FluentUIChartComponents {
 
   export function defineComponents() {
@@ -34,5 +32,5 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIChartComponents {
       FluentUIComponents.GanttChartDefinition.define(registry);
     });
 
-      }
-    }
+  }
+}
