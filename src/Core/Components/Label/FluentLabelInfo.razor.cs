@@ -32,7 +32,7 @@ public partial class FluentLabelInfo : FluentLabel, ILabelInfo
     /// <summary>
     /// Gets or sets the FluentField component that this label is associated with.
     /// </summary>
-    [CascadingParameter]
+    [CascadingParameter(Name = "FluentField")]
     internal FluentField? FluentField { get; set; }
 
     /// <summary>
@@ -62,7 +62,7 @@ public partial class FluentLabelInfo : FluentLabel, ILabelInfo
     [Parameter]
     public string? InfoActionLink { get; set; }
 
-     /// <summary>
+    /// <summary>
     /// Gets or sets the text displayed as a "learn more" link inside the popover.
     /// </summary>
     [Parameter]

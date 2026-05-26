@@ -13,7 +13,7 @@ The **InfoLabel** pattern is a label followed by a button that exposes additiona
 To trigger the Popover, the user may activate the button by clicking on it and focusing on it and pressing enter or space. 
 To close the Popover, the user may click the button again, click outside the popover, press the escape key, or tab out of the Popover.
 
-**InfoLabel** can not be opened on focus. The pattern where you have an icon and a tooltip that appears on focus is not the InfoLabel pattern. 
+**InfoLabel** cannot be opened on focus. The pattern where you have an icon and a tooltip that appears on focus is not the InfoLabel pattern. 
 The tooltip pattern is meant to have short text and no interaction with the content. We believe that if the content is short or even a few words,
 it should be included in the label or a secondary label. If the content is longer and/or has interaction, then it must be an InfoLabel.
 
@@ -38,7 +38,7 @@ by setting `InfoIcon` and `InfoIconActive` to suit the context of the field.
 
 ## Input elements and LabelInfo
 
-A `FluentLabelInfo` can be used as the label of a form input elements (such as `FluentTextInput`) 
+A `FluentLabelInfo` can be used as the label of a form input element (such as `FluentTextInput`) 
 by assigning it to the `LabelTemplate`, keeping accessibility and layout properly handled.
 Or assigning it to the `LabelInfo` parameter.
 

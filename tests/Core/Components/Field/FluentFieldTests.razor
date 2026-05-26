@@ -228,4 +228,71 @@
         // Assert
         Assert.Equal("Field content", cut.Markup);
     }
+
+    [Fact]
+    public void FluentField_LabelInfo_RendersFluentLabelInfo()
+    {
+        // Arrange
+        var labelInfo = new LabelInfo(
+            text: "Additional info",
+            actionLink: "https://example.com",
+            actionText: "Read documentation",
+            actionTarget: LinkTarget.Self);
+
+        // Act
+        var cut = Render(@<FluentField Label="My label" LabelInfo="@labelInfo">Field content</FluentField>);
+
+        // Assert - the FluentLabelInfo branch is rendered with all parameters forwarded
+        var labelInfoComponent = cut.FindComponent<FluentLabelInfo>();
+        Assert.Equal("Additional info", labelInfoComponent.Instance.InfoText);
+        Assert.Equal("https://example.com", labelInfoComponent.Instance.InfoActionLink);
+        Assert.Equal("Read documentation", labelInfoComponent.Instance.InfoActionText);
+        Assert.Equal(LinkTarget.Self, labelInfoComponent.Instance.InfoActionTarget);
+
+        // The label text is rendered inside the FluentLabelInfo
+        Assert.Contains("My label", cut.Markup);
+        Assert.Contains("Additional info", cut.Markup);
+        Assert.Contains("href=\"https://example.com\"", cut.Markup);
+        Assert.Contains("Read documentation", cut.Markup);
+        Assert.Contains("target=\"_self\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentField_LabelInfo_WithLabelTemplate_RendersTemplateInsideFluentLabelInfo()
+    {
+        // Arrange
+        var labelInfo = new LabelInfo(text: "Some info");
+
+        // Act
+        var cut = Render(
+    @<FluentField LabelInfo="@labelInfo">
+        <LabelTemplate>
+            My <b>label</b>
+        </LabelTemplate>
+        <ChildContent>
+            Field content
+        </ChildContent>
+    </FluentField>);
+
+        // Assert - the LabelTemplate is rendered inside the FluentLabelInfo
+        var labelInfoComponent = cut.FindComponent<FluentLabelInfo>();
+        Assert.Equal("Some info", labelInfoComponent.Instance.InfoText);
+        Assert.Contains("My <b>label</b>", cut.Markup);
+        Assert.Contains("Some info", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentField_LabelInfo_EmptyContent_DoesNotRenderFluentLabelInfo()
+    {
+        // Arrange - LabelInfo is set but has neither InfoText nor InfoActionLink,
+        // so HasLabelInfo is false and the FluentLabelInfo branch is skipped.
+        var labelInfo = new LabelInfo();
+
+        // Act
+        var cut = Render(@<FluentField Label="My label" LabelInfo="@labelInfo">Field content</FluentField>);
+
+        // Assert
+        Assert.Empty(cut.FindComponents<FluentLabelInfo>());
+        Assert.Contains("My label", cut.Markup);
+    }
 }
