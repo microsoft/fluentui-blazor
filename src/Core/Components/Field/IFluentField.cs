@@ -75,4 +75,12 @@ public interface IFluentField
     /// of the <see cref="Message"/> and the <see cref="MessageIcon" />.
     /// </summary>
     MessageState? MessageState { get; set; }
+
+    /// <summary>
+    /// Gets or sets the informational content displayed next to the label
+    /// using a <see cref="FluentLabelInfo"/> component.
+    /// When <see cref="ILabelInfo.InfoText"/> or <see cref="ILabelInfo.InfoActionLink"/> is defined,
+    /// an info icon is rendered inside the field label.
+    /// </summary>
+    ILabelInfo? LabelInfo { get; set; }
 }

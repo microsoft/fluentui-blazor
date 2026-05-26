@@ -26,8 +26,21 @@ else
                        required="@(Parameters.Required ?? false)"
                        disabled="@(Parameters.Disabled ?? false)"
                        style="@LabelStyle">
-                    @Parameters.Label
-                    @Parameters.LabelTemplate
+                    @if (Parameters.HasLabelInfo && Parameters.LabelInfo is not null)
+                    {
+                        <FluentLabelInfo InfoText="@Parameters.LabelInfo.InfoText"
+                                         InfoActionLink="@Parameters.LabelInfo.InfoActionLink"
+                                         InfoActionText="@Parameters.LabelInfo.InfoActionText"
+                                         InfoActionTarget="@Parameters.LabelInfo.InfoActionTarget">
+                            @Parameters.Label
+                            @Parameters.LabelTemplate
+                        </FluentLabelInfo>
+                    }
+                    else
+                    {
+                        @Parameters.Label
+                        @Parameters.LabelTemplate
+                    }
                 </label>
             }
 
