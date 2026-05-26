@@ -3,6 +3,7 @@ import { scaleTime } from 'd3-scale';
 import { timeFormat } from 'd3-time-format';
 import { CartesianChartBase } from '../utils/cartesian-chart-base.js';
 import {
+  createNumberFormat,
   getColorFromToken,
   getNextColor,
   jsonConverter,
@@ -67,14 +68,14 @@ const toOptionalNumber = (value: number | string | undefined): number | undefine
 };
 
 const formatCompactNumber = (value: number, culture?: string) => {
-  return new Intl.NumberFormat(culture || undefined, {
+  return createNumberFormat(culture || undefined, {
     maximumFractionDigits: Math.abs(value) >= 1000 ? 1 : 2,
     notation: Math.abs(value) >= 1000 ? 'compact' : 'standard',
   }).format(value);
 };
 
 const formatAxisNumber = (value: number, culture?: string) => {
-  return new Intl.NumberFormat(culture || undefined, {
+  return createNumberFormat(culture || undefined, {
     maximumFractionDigits: 2,
   }).format(value);
 };
@@ -178,9 +179,6 @@ export class GanttChart extends CartesianChartBase {
   @attr({ converter: jsonConverter })
   public data!: GanttChartDataPoint[];
 
-  @attr
-  public width?: number | string;
-
   @attr({ attribute: 'show-y-axis-labels', mode: 'boolean' })
   public showYAxisLabels: boolean = false;
 
@@ -192,9 +190,6 @@ export class GanttChart extends CartesianChartBase {
 
   @attr({ attribute: 'bar-height' })
   public barHeight?: number | string;
-
-  @attr({ attribute: 'height' })
-  public height?: number | string;
 
   @attr({ attribute: 'x-axis-tick-count' })
   public xAxisTickCount?: number | string;
@@ -227,12 +222,10 @@ export class GanttChart extends CartesianChartBase {
     const self = this as Record<string, unknown>;
     const attrFields = [
       'data',
-      'width',
       'showYAxisLabels',
       'showYAxisLabelsTooltip',
       'enableGradient',
       'barHeight',
-      'height',
       'xAxisTickCount',
       'yAxisTickCount',
       'yAxisPadding',
@@ -272,14 +265,6 @@ export class GanttChart extends CartesianChartBase {
   }
 
   protected dataChanged() {
-    this._requestRender();
-  }
-
-  protected widthChanged() {
-    this._requestRender();
-  }
-
-  protected heightChanged() {
     this._requestRender();
   }
 

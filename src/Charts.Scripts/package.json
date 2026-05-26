@@ -20,7 +20,6 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@microsoft/fast-element": "^2.0.0-beta.26 || ^2.0.0",
     "@types/d3-format": "^3.0.0",
     "@types/d3-selection": "^3.0.0",
     "@types/d3-shape": "^3.0.0",
@@ -33,6 +32,7 @@
   },
   "dependencies": {
     "@fluentui/web-components": "^3.0.0-rc.18",
+    "@microsoft/fast-element": "^2.0.0",
     "@microsoft/fast-web-utilities": "^6.0.0",
     "d3-format": "^3.0.0",
     "d3-selection": "^3.0.0",

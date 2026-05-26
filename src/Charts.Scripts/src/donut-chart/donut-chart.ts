@@ -3,6 +3,8 @@ import { ChartBase } from '../utils/chart-base.js';
 import { format as d3Format } from 'd3-format';
 import { arc as d3Arc, pie as d3Pie, PieArcDatum } from 'd3-shape';
 import {
+  createNumberFormat,
+  formatLocaleNumber,
   getColorFromToken,
   getNextColor,
   jsonConverter,
@@ -14,12 +16,6 @@ import type { DonutDataPoint } from './donut-chart.options.js';
 import type { Legend, TooltipRenderer } from '../utils/chart.options.js';
 
 export class DonutChart extends ChartBase {
-  @attr({ converter: nullableNumberConverter })
-  public height: number = 200;
-
-  @attr({ converter: nullableNumberConverter })
-  public width: number = 200;
-
   @attr({ attribute: 'show-labels-in-percent', mode: 'boolean' })
   public showLabelsInPercent: boolean = false;
 
@@ -36,6 +32,8 @@ export class DonutChart extends ChartBase {
   public order: 'default' | 'sorted' = 'default';
 
   public group!: SVGGElement;
+
+  protected override _enableResizeObserver = true;
 
   /** Narrows the inherited base tooltipRenderer type to the DonutChart data point. */
   public declare tooltipRenderer: TooltipRenderer<DonutDataPoint> | undefined;
@@ -56,15 +54,7 @@ export class DonutChart extends ChartBase {
     // We save the default values first so we can restore them for fields that have
     // no corresponding HTML attribute (FAST won't call the setter in that case).
     const self = this as Record<string, unknown>;
-    const attrFields = [
-      'height',
-      'width',
-      'showLabelsInPercent',
-      'data',
-      'innerRadius',
-      'valueInsideDonut',
-      'order',
-    ] as const;
+    const attrFields = ['showLabelsInPercent', 'data', 'innerRadius', 'valueInsideDonut', 'order'] as const;
 
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
 
@@ -97,14 +87,6 @@ export class DonutChart extends ChartBase {
   }
 
   protected dataChanged() {
-    this._requestRender();
-  }
-
-  protected widthChanged() {
-    this._requestRender();
-  }
-
-  protected heightChanged() {
     this._requestRender();
   }
 
@@ -182,7 +164,7 @@ export class DonutChart extends ChartBase {
         data: resolvedData,
         yAxisCalloutData:
           resolvedData !== dataPoint.data
-            ? dataPoint.yAxisCalloutData ?? dataPoint.data.toLocaleString(this.culture || undefined)
+            ? dataPoint.yAxisCalloutData ?? formatLocaleNumber(dataPoint.data, this.culture || undefined)
             : dataPoint.yAxisCalloutData,
       };
     });
@@ -190,7 +172,12 @@ export class DonutChart extends ChartBase {
 
   private _render(chartData: DonutDataPoint[]) {
     const totalValue = chartData.reduce((sum, point) => sum + (point.data ?? 0), 0);
-    const outerRadius = Math.max(0, (Math.min(this.height, this.width) - 20) / 2);
+    const svgEl = this.group.ownerSVGElement!;
+    const svgRect = svgEl.getBoundingClientRect();
+    const pixelWidth = svgRect.width || (typeof this.width === 'number' ? this.width : 200);
+    const pixelHeight = svgRect.height || (typeof this.height === 'number' ? this.height : 200);
+    this.group.setAttribute('transform', `translate(${pixelWidth / 2}, ${pixelHeight / 2})`);
+    const outerRadius = Math.max(0, (Math.min(pixelHeight, pixelWidth) - 20) / 2);
     const cornerRadius = this.roundCorners ? 3 : 0;
 
     const pie = d3Pie<DonutDataPoint>()
@@ -373,7 +360,7 @@ export class DonutChart extends ChartBase {
   }
 
   private _formatArcLabelValue(value: number) {
-    const formatted = new Intl.NumberFormat(this.culture || undefined, {
+    const formatted = createNumberFormat(this.culture || undefined, {
       maximumFractionDigits: value >= 1000 ? 1 : 2,
       notation: value >= 1000 ? 'compact' : 'standard',
     }).format(value);
@@ -383,7 +370,9 @@ export class DonutChart extends ChartBase {
 
   private _formatDataPointValue(dataPoint: DonutDataPoint): string {
     return (
-      dataPoint.yAxisCalloutData ?? dataPoint.calloutData ?? dataPoint.data.toLocaleString(this.culture || undefined)
+      dataPoint.yAxisCalloutData ??
+      dataPoint.calloutData ??
+      formatLocaleNumber(dataPoint.data, this.culture || undefined)
     );
   }
 

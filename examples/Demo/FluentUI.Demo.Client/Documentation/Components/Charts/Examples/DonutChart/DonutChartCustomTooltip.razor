@@ -7,7 +7,7 @@
     <TooltipTemplate Context="ctx">
         <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 130px;">
             <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="width: 10px; height: 10px; border-radius: 50%; background-color: @ctx.Color.ToHex(ctx.CustomColor); flex-shrink: 0;"></span>
+                <span style="width: 10px; height: 10px; border-radius: 50%; background-color: @ctx.Color.ToDataVizPaletteHex(ctx.CustomColor); flex-shrink: 0;"></span>
                 <strong>@ctx.Legend</strong>
             </div>
             <div style="font-size: 0.85em;">Value: <strong>@ctx.YValue</strong></div>

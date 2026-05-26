@@ -2,13 +2,10 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Globalization;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
-#pragma warning disable MA0048 // File name must match type name
 /// <summary>
 /// Represents a value that can be plotted on any axis of any chart type.
 /// Holds either a numeric value (e.g. a Unix timestamp in milliseconds or an
@@ -77,37 +74,3 @@ public readonly struct ChartAxisValue : IEquatable<ChartAxisValue>
     /// <summary>Returns <see langword="true"/> when the values are not equal.</summary>
     public static bool operator !=(ChartAxisValue left, ChartAxisValue right) => !left.Equals(right);
 }
-
-/// <summary>
-/// Serializes and deserializes a <see cref="ChartAxisValue"/> as either a JSON
-/// number or an ISO 8601 string, matching the format expected by the chart web components.
-/// </summary>
-internal sealed class ChartAxisValueJsonConverter : JsonConverter<ChartAxisValue>
-{
-    /// <inheritdoc/>
-    public override ChartAxisValue Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    {
-        if (reader.TokenType == JsonTokenType.Number)
-        {
-            return (ChartAxisValue)reader.GetDouble();
-        }
-
-        var str = reader.GetString();
-        return (ChartAxisValue)DateTimeOffset.Parse(str!, CultureInfo.InvariantCulture);
-    }
-
-    /// <inheritdoc/>
-    public override void Write(Utf8JsonWriter writer, ChartAxisValue value, JsonSerializerOptions options)
-    {
-        if (value.IsDate)
-        {
-            writer.WriteStringValue(value.DateValue.ToString("O", CultureInfo.InvariantCulture));
-        }
-        else
-        {
-            writer.WriteNumberValue(value.NumberValue);
-        }
-    }
-}
-
-#pragma warning restore MA0048 // File name must match type name

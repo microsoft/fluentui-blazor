@@ -7,27 +7,25 @@ using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
-#pragma warning disable MA0048 // File name must match type name
-
 /// <summary>
-/// Represents a single data point in a donut chart.
+/// Represents a single data point in a funnel chart.
 /// </summary>
-public sealed record DonutDataPoint
+public sealed record FunnelDataPoint
 {
     /// <summary>
-    /// Gets the legend text shown for the donut segment.
+    /// Gets the legend text shown for the funnel segment.
     /// </summary>
-    [JsonPropertyName("legend")]
-    public string Legend { get; init; } = string.Empty;
+    [JsonPropertyName("stage")]
+    public string Stage { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets the numeric value of the donut segment.
+    /// Gets the numeric value of the funnel segment.
     /// </summary>
-    [JsonPropertyName("data")]
-    public double Data { get; init; }
+    [JsonPropertyName("value")]
+    public double Value { get; init; }
 
     /// <summary>
-    /// Gets the color used to render the donut segment and legend.
+    /// Gets the color used to render the funnel segment and legend.
     /// Use <see cref="DataVizPalette.Custom"/> and set <see cref="CustomColor"/> to supply
     /// an exact hex or CSS color string. If not provided, the web component falls back to
     /// its default palette.
@@ -45,29 +43,15 @@ public sealed record DonutDataPoint
     /// <summary>
     /// Gets the serialized color value sent to the web component.
     /// Returns <see cref="CustomColor"/> when <see cref="Color"/> is <see cref="DataVizPalette.Custom"/>,
-    /// otherwise the palette token string, or <c>null</c> when no color is set.
+    /// otherwise the palette token string, or <see langword="null"/> when no color is set.
     /// </summary>
     [JsonPropertyName("color")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? SerializedColor => Color == DataVizPalette.Custom ? CustomColor : Color?.ToAttributeValue();
 
     /// <summary>
-    /// Gets the data shown in the donut hole (center label) when this segment is highlighted.
+    /// Gets the sub-values for a stacked funnel stage.
     /// </summary>
-    [JsonPropertyName("calloutData")]
-    public string? CalloutData { get; init; }
-
-    /// <summary>
-    /// Gets optional callout data for the x-axis portion of the tooltip.
-    /// </summary>
-    [JsonPropertyName("xAxisCalloutData")]
-    public string? XAxisCalloutData { get; init; }
-
-    /// <summary>
-    /// Gets optional callout data for the y-axis portion of the tooltip.
-    /// If not provided, the component may fall back to the numeric data value.
-    /// </summary>
-    [JsonPropertyName("yAxisCalloutData")]
-    public string? YAxisCalloutData { get; init; }
+    [JsonPropertyName("subValues")]
+    public IReadOnlyList<FunnelSubValue> SubValues { get; init; } = [];
 }
-#pragma warning restore MA0048 // File name must match type name

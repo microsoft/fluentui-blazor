@@ -1,4 +1,4 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <div style="margin-top: 16px; max-width: 220px;">
     <FluentSelect TOption="string"
@@ -12,7 +12,7 @@
 </div>
 
 <FluentHorizontalBarChart ChartTitle="Horizontal bar chart data mode example"
-                          Variant="@Microsoft.FluentUI.AspNetCore.Components.Enums.HorizontalBarChartVariant.SingleBar"
+                          Variant="@HorizontalBarChartVariant.SingleBar"
                           ChartDataMode="@_chartDataMode"
                           ChartData="@ChartData">
 </FluentHorizontalBarChart>

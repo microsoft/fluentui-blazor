@@ -2,6 +2,7 @@ import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { ChartBase } from '../utils/chart-base.js';
 import { create as d3Create, select as d3Select } from 'd3-selection';
 import {
+  formatLocaleNumber,
   getColorFromToken,
   getRTL,
   jsonConverter,
@@ -19,12 +20,6 @@ import { Variant } from './horizontal-bar-chart.options.js';
  * @public
  */
 export class HorizontalBarChart extends ChartBase {
-  @attr
-  public width?: number | string;
-
-  @attr
-  public height?: number | string;
-
   @attr
   public variant?: Variant;
 
@@ -55,16 +50,7 @@ export class HorizontalBarChart extends ChartBase {
     // attribute changes go through the FAST reactive system and trigger the *Changed()
     // callbacks, and so that observable assignments notify template bindings.
     const self = this as Record<string, unknown>;
-    const attrFields = [
-      'width',
-      'height',
-      'variant',
-      'data',
-      'hideRatio',
-      'chartDataMode',
-      'enableGradient',
-      'barHeight',
-    ] as const;
+    const attrFields = ['variant', 'data', 'hideRatio', 'chartDataMode', 'enableGradient', 'barHeight'] as const;
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
 
     for (const field of attrFields) {
@@ -84,14 +70,6 @@ export class HorizontalBarChart extends ChartBase {
   }
 
   protected dataChanged() {
-    this._requestRender();
-  }
-
-  protected widthChanged() {
-    this._requestRender();
-  }
-
-  protected heightChanged() {
     this._requestRender();
   }
 
@@ -395,7 +373,7 @@ export class HorizontalBarChart extends ChartBase {
         .attr('width', value + '%')
         .attr('height', barHeight)
         .attr('role', 'img')
-        .attr('aria-label', `${point.legend}: ${(point.data ?? 0).toLocaleString(this.culture || undefined)}`)
+        .attr('aria-label', `${point.legend}: ${formatLocaleNumber(point.data ?? 0, this.culture || undefined)}`)
         .attr('tabindex', 0);
       const rectEl = rect.node()!;
       this._bars.push(rectEl);
@@ -409,7 +387,7 @@ export class HorizontalBarChart extends ChartBase {
         this.tooltipProps = {
           isVisible: true,
           legend: point.legend,
-          yValue: (point.data ?? 0).toLocaleString(this.culture || undefined),
+          yValue: formatLocaleNumber(point.data ?? 0, this.culture || undefined),
           color: point.gradient ? point.gradient[0] : getColorFromToken(point.color ?? ''),
           xPos: this._isRTL
             ? bounds.right - rBounds.left - rBounds.width / 2
@@ -509,7 +487,7 @@ export class HorizontalBarChart extends ChartBase {
         this.tooltipProps = {
           isVisible: true,
           legend: d.legend,
-          yValue: d.data.toLocaleString(this.culture || undefined),
+          yValue: formatLocaleNumber(d.data, this.culture || undefined),
           color: d.gradient ? d.gradient[0] : getColorFromToken(d.color!),
           xPos: this._isRTL ? bounds.right - event.clientX : Math.min(event.clientX - bounds.left, xPos),
           yPos: event.clientY - bounds.top - 40,

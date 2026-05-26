@@ -13,7 +13,7 @@ public static class DataVizPaletteExtensions
 {
     // Static palette data
     // Index 0 = light theme, index 1 = dark theme (falls back to index 0 when absent).
-    private static readonly Dictionary<DataVizPalette, string[]> s_palette = new()
+    private static readonly Dictionary<DataVizPalette, string[]> Palette = new()
     {
         // Qualitative
         [DataVizPalette.Color1] = ["#637cef"],
@@ -67,7 +67,7 @@ public static class DataVizPaletteExtensions
     };
 
     // Reverse lookup: token string (e.g. "color5") → DataVizPalette enum value.
-    private static readonly Dictionary<string, DataVizPalette> s_tokenMap =
+    private static readonly Dictionary<string, DataVizPalette> TokenMap =
         Enum.GetValues<DataVizPalette>()
             .Where(v => v != DataVizPalette.Custom)
             .ToDictionary(
@@ -88,15 +88,15 @@ public static class DataVizPaletteExtensions
     /// for the light-theme variant.
     /// </param>
     /// <returns>A hex color string, or the original value if it is not a recognized token.</returns>
-    public static string ToHex(this string? token, bool isDarkTheme = false)
+    public static string ToDataVizPaletteHex(this string? token, bool isDarkTheme = false)
     {
         if (token is null)
         {
             return string.Empty;
         }
 
-        var palette = FromToken(token);
-        return palette.HasValue ? palette.Value.ToHex(isDarkTheme) : token;
+        var palette = TryGetDataVizPaletteFromToken(token);
+        return palette.HasValue ? palette.Value.ToDataVizPaletteHex(isDarkTheme) : token;
     }
 
     /// <summary>
@@ -104,8 +104,8 @@ public static class DataVizPaletteExtensions
     /// <see cref="DataVizPalette"/> enum value, or <see langword="null"/> if the
     /// string is not a recognized token (e.g. it is a custom hex color).
     /// </summary>
-    public static DataVizPalette? FromToken(string? token)
-        => token is not null && s_tokenMap.TryGetValue(token, out var value) ? value : null;
+    public static DataVizPalette? TryGetDataVizPaletteFromToken(string? token)
+        => token is not null && TokenMap.TryGetValue(token, out var value) ? value : null;
 
     /// <summary>
     /// Returns the hex color string for this palette value using the static palette table.
@@ -116,9 +116,9 @@ public static class DataVizPaletteExtensions
     /// for the light-theme variant. When no dark variant exists, the light color is returned.
     /// </param>
     /// <returns>A hex color string such as <c>#637cef</c>, or an empty string for <see cref="DataVizPalette.Custom"/>.</returns>
-    public static string ToHex(this DataVizPalette palette, bool isDarkTheme = false)
+    public static string ToDataVizPaletteHex(this DataVizPalette palette, bool isDarkTheme = false)
     {
-        if (!s_palette.TryGetValue(palette, out var colors))
+        if (!Palette.TryGetValue(palette, out var colors))
         {
             return string.Empty;
         }
@@ -134,8 +134,8 @@ public static class DataVizPaletteExtensions
     /// <see langword="true"/> to return the dark-theme variant; <see langword="false"/> (default)
     /// for the light-theme variant.
     /// </param>
-    public static string ToHex(this DataVizPalette? palette, bool isDarkTheme = false)
-        => palette.HasValue ? palette.Value.ToHex(isDarkTheme) : string.Empty;
+    public static string ToDataVizPaletteHex(this DataVizPalette? palette, bool isDarkTheme = false)
+        => palette.HasValue ? palette.Value.ToDataVizPaletteHex(isDarkTheme) : string.Empty;
 
     /// <summary>
     /// Returns the hex color string for this nullable palette value, falling back to
@@ -147,7 +147,7 @@ public static class DataVizPaletteExtensions
     /// <see langword="true"/> to return the dark-theme variant; <see langword="false"/> (default)
     /// for the light-theme variant.
     /// </param>
-    public static string ToHex(this DataVizPalette? palette, string? fallback, bool isDarkTheme = false)
-        => palette.HasValue ? palette.Value.ToHex(isDarkTheme) : (fallback ?? string.Empty);
+    public static string ToDataVizPaletteHex(this DataVizPalette? palette, string? fallback, bool isDarkTheme = false)
+        => palette.HasValue ? palette.Value.ToDataVizPaletteHex(isDarkTheme) : (fallback ?? string.Empty);
 
 }

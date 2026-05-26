@@ -8,7 +8,7 @@
     <CartesianTooltipTemplate Context="ctx">
         <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 180px;">
             <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="width: 10px; height: 10px; border-radius: 2px; background-color: @ctx.Color.ToHex(ctx.CustomColor, _isDark); flex-shrink: 0;"></span>
+                <span style="width: 10px; height: 10px; border-radius: 2px; background-color: @ctx.Color.ToDataVizPaletteHex(ctx.CustomColor, _isDark); flex-shrink: 0;"></span>
                 <strong>@ctx.Legend</strong>
             </div>
             <div style="font-size: 0.85em;">Task: <strong>@ctx.YValue</strong></div>

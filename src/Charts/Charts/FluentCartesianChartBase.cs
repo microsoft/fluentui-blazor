@@ -42,7 +42,7 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
         string? legend, string? yValue, string? xValue, string? color, string? rawJson,
         string? xStart, string? xEnd)
     {
-        var palette = DataVizPaletteExtensions.FromToken(color);
+        var palette = DataVizPaletteExtensions.TryGetDataVizPaletteFromToken(color);
         return new CartesianTooltipContext
         {
             Legend = legend,

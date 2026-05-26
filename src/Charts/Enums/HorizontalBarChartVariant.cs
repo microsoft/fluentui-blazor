@@ -4,7 +4,7 @@
 
 using System.ComponentModel;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Enums;
+namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
 /// <summary>
 /// Specifies which visual variant the<c> HorizontalBarChart</c> uses.

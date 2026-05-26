@@ -4,7 +4,7 @@
 
 using System.ComponentModel;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Enums;
+namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
 /// <summary>
 /// Specifies the sort order applied to categorical axis groups in chart components.

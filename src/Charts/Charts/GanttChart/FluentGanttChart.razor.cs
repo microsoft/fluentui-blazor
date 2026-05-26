@@ -4,12 +4,15 @@
 
 using System.Text.Json;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Enums;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
 /// <summary>
-/// A FluentHorizontalBarChartWithAxis is a component that displays data in a horizontal bar chart format with an axis.
+/// A FluentGanttChart is a component that displays data in a Gantt chart format, which is a type of horizontal bar chart
+/// that illustrates a project schedule.
+/// Each bar represents a task or activity, with the length of the bar corresponding to the duration of the task.
+/// The x-axis typically represents time, while the y-axis lists the tasks or activities.
+/// This component is useful for visualizing project timelines, task dependencies, and overall progress.
 /// </summary>
 public partial class FluentGanttChart : FluentCartesianChartBase
 {
@@ -20,11 +23,7 @@ public partial class FluentGanttChart : FluentCartesianChartBase
 
     /// <summary />
     internal string? ClassValue => DefaultClassBuilder
-       .AddClass("fluent-horizontal-bar-chart-with-axis")
-       .Build();
-
-    /// <summary />
-    internal string? StyleValue => DefaultStyleBuilder
+       .AddClass("fluent-gantt-chart")
        .Build();
 
     /// <summary>
@@ -32,18 +31,6 @@ public partial class FluentGanttChart : FluentCartesianChartBase
     /// </summary>
     [Parameter, EditorRequired]
     public IReadOnlyList<GanttChartDataPoint> ChartData { get; set; } = [];
-
-    /// <summary>
-    /// Gets or sets the height of the horizontal bar chart.
-    /// </summary>
-    [Parameter]
-    public int? Height { get; set; }
-
-    /// <summary>
-    /// Gets or sets the width of the horizontal bar chart.
-    /// </summary>
-    [Parameter]
-    public int? Width { get; set; }
 
     /// <summary>
     /// Gets or sets whether to use a single color for all bars in the chart.

@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Enums;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
@@ -20,10 +19,6 @@ public partial class FluentHorizontalBarChart : FluentChartBase
     /// <summary />
     internal string? ClassValue => DefaultClassBuilder
        .AddClass("fluent-horizontal-bar-chart")
-       .Build();
-
-    /// <summary />
-    internal string? StyleValue => DefaultStyleBuilder
        .Build();
 
     /// <summary>

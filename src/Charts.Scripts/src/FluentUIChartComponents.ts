@@ -1,11 +1,11 @@
-import * as FluentUIWebComponents from '@fluentui/web-components';
+import { FluentDesignSystem } from '@fluentui/web-components';
 import * as FluentUIComponents from './components';
 import { defineOnce } from '@core/RegistrationState';
 
 export namespace Microsoft.FluentUI.Blazor.FluentUIChartComponents {
 
   export function defineComponents() {
-    const registry = FluentUIWebComponents.FluentDesignSystem.registry;
+    const registry = FluentDesignSystem.registry;
 
     // Register Chart Web Components
     defineOnce('fluentui:chart-components:chart-legend', () => {

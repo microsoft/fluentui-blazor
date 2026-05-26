@@ -2,6 +2,38 @@ import type { ValueConverter } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import { getDirection } from '@fluentui/web-components';
 
+/**
+ * Creates an `Intl.NumberFormat` instance for the given locale, falling back to
+ * the browser default when the locale string is not recognised by the JS runtime.
+ *
+ * C# culture names such as "zh-CHS" or "sr-Latn" are valid on .NET but are not
+ * always accepted by `Intl`. Wrapping the constructor in a try/catch prevents an
+ * unhandled `RangeError: invalid language tag` from crashing the chart render.
+ */
+export const createNumberFormat = (
+  locale: string | undefined,
+  options?: Intl.NumberFormatOptions,
+): Intl.NumberFormat => {
+  try {
+    return new Intl.NumberFormat(locale, options);
+  } catch {
+    return new Intl.NumberFormat(undefined, options);
+  }
+};
+
+/**
+ * Locale-aware number-to-string conversion with the same fallback behaviour as
+ * `createNumberFormat`. `Number.prototype.toLocaleString` throws a `RangeError`
+ * for the same set of invalid C# culture names (e.g. "zh-CHS").
+ */
+export const formatLocaleNumber = (value: number, locale: string | undefined): string => {
+  try {
+    return value.toLocaleString(locale);
+  } catch {
+    return value.toLocaleString(undefined);
+  }
+};
+
 export const jsonConverter: ValueConverter = {
   toView(value: any): string {
     return JSON.stringify(value);

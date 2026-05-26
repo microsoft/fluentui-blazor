@@ -58,6 +58,14 @@ export abstract class ChartBase extends FASTElement {
   @attr({ attribute: 'allow-multiple-legend-selection', mode: 'boolean' })
   public allowMultipleLegendSelection: boolean = false;
 
+  /** Width of the chart. Accepts pixels (number) or any valid CSS length string (e.g. `'50%'`). */
+  @attr
+  public width?: number | string;
+
+  /** Height of the chart. Accepts pixels (number) or any valid CSS length string (e.g. `'50%'`). */
+  @attr
+  public height?: number | string;
+
   // ── Observables shared across all charts ─────────────────────────
 
   @observable
@@ -270,6 +278,8 @@ export abstract class ChartBase extends FASTElement {
       'legendListLabel',
       'culture',
       'allowMultipleLegendSelection',
+      'width',
+      'height',
     ] as const;
     const observableFields = [
       'activeLegend',
@@ -341,6 +351,14 @@ export abstract class ChartBase extends FASTElement {
   }
 
   protected cultureChanged() {
+    this._requestRender();
+  }
+
+  protected widthChanged() {
+    this._requestRender();
+  }
+
+  protected heightChanged() {
     this._requestRender();
   }
 

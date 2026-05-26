@@ -1,6 +1,12 @@
-import { attr, nullableNumberConverter } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { ChartBase } from '../utils/chart-base.js';
-import { getColorFromToken, getNextColor, jsonConverter, SVG_NAMESPACE_URI } from '../utils/chart-helpers.js';
+import {
+  formatLocaleNumber,
+  getColorFromToken,
+  getNextColor,
+  jsonConverter,
+  SVG_NAMESPACE_URI,
+} from '../utils/chart-helpers.js';
 import type { Legend, TooltipRenderer } from '../utils/chart.options.js';
 import type { FunnelDataPoint, FunnelSubValue } from './funnel-chart.options.js';
 import {
@@ -34,12 +40,6 @@ const orientationConverter = {
  * @public
  */
 export class FunnelChart extends ChartBase {
-  @attr({ converter: nullableNumberConverter })
-  public width: number = 400;
-
-  @attr({ converter: nullableNumberConverter })
-  public height: number = 400;
-
   @attr({ converter: jsonConverter })
   public data!: FunnelDataPoint[];
 
@@ -48,6 +48,8 @@ export class FunnelChart extends ChartBase {
 
   public svgElement!: SVGSVGElement;
   public group!: SVGGElement;
+
+  protected override _enableResizeObserver = true;
 
   /** Narrows the inherited base tooltipRenderer type to funnel data point fields. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,7 +68,7 @@ export class FunnelChart extends ChartBase {
     // attribute changes go through the FAST reactive system and trigger the *Changed()
     // callbacks, and so that observable assignments notify template bindings.
     const self = this as Record<string, unknown>;
-    const attrFields = ['width', 'height', 'data', 'orientation'] as const;
+    const attrFields = ['data', 'orientation'] as const;
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
 
     for (const field of attrFields) {
@@ -92,14 +94,6 @@ export class FunnelChart extends ChartBase {
   }
 
   protected dataChanged() {
-    this._requestRender();
-  }
-
-  protected widthChanged() {
-    this._requestRender();
-  }
-
-  protected heightChanged() {
     this._requestRender();
   }
 
@@ -132,15 +126,14 @@ export class FunnelChart extends ChartBase {
     this.legends = this._buildLegends(data);
     this.elementInternals.ariaLabel = this._getHostAriaLabel();
 
-    if (this.svgElement) {
-      this.svgElement.setAttribute('width', String(this.width));
-      this.svgElement.setAttribute('height', String(this.height));
-    }
+    const svgRect = this.svgElement.getBoundingClientRect();
+    const pixelWidth = svgRect.width || parseFloat(String(this.width)) || 400;
+    const pixelHeight = svgRect.height || parseFloat(String(this.height)) || 400;
 
     const verticalPadding = 16;
-    const funnelWidth = this.width * 0.8;
-    const funnelHeight = this.height - verticalPadding * 2;
-    const funnelOffsetX = (this.width - funnelWidth) / 2;
+    const funnelWidth = pixelWidth * 0.8;
+    const funnelHeight = pixelHeight - verticalPadding * 2;
+    const funnelOffsetX = (pixelWidth - funnelWidth) / 2;
     const funnelOffsetY = verticalPadding;
 
     this.group.setAttribute('transform', `translate(${funnelOffsetX}, ${funnelOffsetY})`);
@@ -368,7 +361,7 @@ export class FunnelChart extends ChartBase {
       textEl.setAttribute('fill', getContrastTextColor(fill));
       textEl.setAttribute('pointer-events', 'none');
       textEl.setAttribute('data-id', legendKey);
-      textEl.textContent = textProps.value.toLocaleString(this.culture ?? undefined);
+      textEl.textContent = formatLocaleNumber(textProps.value, this.culture ?? undefined);
       this._segmentTexts.push(textEl);
     }
   }

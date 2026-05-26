@@ -39,8 +39,8 @@
 <div style="margin:20px;">
     <FluentDonutChart ChartData="@data"
                       ChartTitle="Donut chart rounded corners example"
-                      Width="@width"
-                      Height="@height"
+                      Width="@($"{width}px")"
+                      Height="@($"{height}px")"
                       HideLabels="@hideLabels"
                       HideTooltip="@hideTooltips"
                       InnerRadius="55"
@@ -54,8 +54,8 @@
 <div style="margin:20px;">
     <FluentDonutChart ChartData="@data2"
                       ChartTitle="Donut chart small segments"
-                      Width="@width"
-                      Height="@height"
+                      Width="@($"{width}px")"
+                      Height="@($"{height}px")"
                       InnerRadius="55"
                       ValueInsideDonut="39,000"
                       AllowMultipleLegendSelection="@allowMultipleLegendSelection"

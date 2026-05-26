@@ -80,6 +80,26 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
     public bool EnableGradient { get; set; }
 
     /// <summary>
+    /// Gets or sets the width of the chart. Accepts any valid CSS size value (e.g. <c>"400px"</c>, <c>"100%"</c>).
+    /// When <see langword="null"/>, the chart sizes itself automatically.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the height of the chart. Accepts any valid CSS size value (e.g. <c>"300px"</c>, <c>"50vh"</c>).
+    /// When <see langword="null"/>, the chart sizes itself automatically.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
+    /// <summary />
+    internal virtual string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width, when: Width is not null)
+        .AddStyle("height", Height, when: Height is not null)
+        .Build();
+
+    /// <summary>
     /// Gets or sets a value indicating whether multiple legend items can be selected simultaneously.
     /// When <see langword="true"/>, clicking a legend item adds it to the active selection rather than replacing the current selection.
     /// When <see langword="false"/> (default), only a single legend item can be selected at a time.
@@ -148,7 +168,7 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
         string? legend, string? yValue, string? xValue, string? color, string? rawJson,
         string? xStart, string? xEnd)
     {
-        var palette = DataVizPaletteExtensions.FromToken(color);
+        var palette = DataVizPaletteExtensions.TryGetDataVizPaletteFromToken(color);
         return new TooltipContext
         {
             Legend = legend,

@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Enums;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
@@ -22,27 +21,11 @@ public partial class FluentHorizontalBarChartWithAxis : FluentCartesianChartBase
        .AddClass("fluent-horizontal-bar-chart-with-axis")
        .Build();
 
-    /// <summary />
-    internal string? StyleValue => DefaultStyleBuilder
-       .Build();
-
     /// <summary>
     /// Gets or sets the data for the horizontal bar chart.
     /// </summary>
     [Parameter, EditorRequired]
     public IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData { get; set; } = [];
-
-    /// <summary>
-    /// Gets or sets the height of the horizontal bar chart.
-    /// </summary>
-    [Parameter]
-    public int? Height { get; set; }
-
-    /// <summary>
-    /// Gets or sets the width of the horizontal bar chart.
-    /// </summary>
-    [Parameter]
-    public int? Width { get; set; }
 
     /// <summary>
     /// Gets or sets whether to use a single color for all bars in the chart.
