@@ -50,8 +50,13 @@ Or assigning it to the `LabelInfo` parameter.
 
 {{ LabelInfoField }}
 
-**Note:** The `LabelInfo` parameter can not define all parameters, but only `InfoActionText`, `InfoActionLink`, `InfoActionTarget` and the FluentLabelInfo content.
+**NOTE:** The `LabelInfo` parameter does not allow you to define all properties,
+but only `InfoActionText`, `InfoActionLink`, `InfoActionTarget`, and the contents of `FluentLabelInfo`.
 
 ## API FluentLabelInfo
 
 {{ API Type=FluentLabelInfo }}
+
+## LabelInfo
+
+{{ API Type=LabelInfo Properties=All }}
