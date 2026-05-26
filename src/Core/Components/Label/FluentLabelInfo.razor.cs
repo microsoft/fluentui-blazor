@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// informational icon next to the label. When the user clicks the icon, a popover
 /// shows additional text, an optional action link, or a custom template.
 /// </summary>
-public partial class FluentLabelInfo : FluentLabel
+public partial class FluentLabelInfo : FluentLabel, ILabelInfo
 {
     private static readonly Icon DefaultInfoIcon = new CoreIcons.Regular.Size20.Info();
     private static readonly Icon DefaultInfoIconActive = new CoreIcons.Filled.Size20.Info().WithColor(Color.Primary);
