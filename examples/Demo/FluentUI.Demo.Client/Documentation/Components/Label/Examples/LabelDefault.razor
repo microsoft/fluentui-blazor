@@ -1,2 +1,20 @@
 ﻿<FluentLabel>Default Label</FluentLabel>
 
+<br />
+
+<FluentLabelInfo InfoText="Your full legal name."
+                 InfoActionLink="https://contoso.com/help/name">
+    Full name
+</FluentLabelInfo>
+
+<FluentLabelInfo>
+    <InfoTemplate>
+        Your full <b>legal name</b>.
+        <br />
+        <FluentLink Href="https://contoso.com/help/name"
+                    Target="LinkTarget.Blank">Learn more</FluentLink>
+    </InfoTemplate>
+    <ChildContent>
+        Full name
+    </ChildContent>
+</FluentLabelInfo>
