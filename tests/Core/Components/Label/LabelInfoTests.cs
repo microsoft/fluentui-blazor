@@ -4,7 +4,7 @@
 
 using Xunit;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Label;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Label;
 
 public class LabelInfoTests
 {
