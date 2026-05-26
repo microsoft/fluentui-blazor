@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// informational content displayed inside the popover of a
 /// <see cref="FluentLabelInfo"/> component.
 /// </summary>
-public class LabelInfo : ILabelInfo
+public partial class LabelInfo : ILabelInfo
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="LabelInfo"/> class with default values.

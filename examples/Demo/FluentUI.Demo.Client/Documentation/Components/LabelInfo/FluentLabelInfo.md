@@ -17,25 +17,40 @@ To close the Popover, the user may click the button again, click outside the pop
 The tooltip pattern is meant to have short text and no interaction with the content. We believe that if the content is short or even a few words,
 it should be included in the label or a secondary label. If the content is longer and/or has interaction, then it must be an InfoLabel.
 
-## Examples
+## Default example
 
 The simplest usage sets `InfoText` to display plain text inside the popover, and optionally `InfoActionLink` to render a "Learn more" link below it.
 
 {{ LabelInfoDefault }}
 
+## Customization
+
 Use the `InfoTemplate` to provide fully customized content inside the popover, such as formatted text, links, or any other Razor markup.
 
 {{ LabelInfoCustomized }}
+
+## Other icons
 
 The default info icon can be replaced with any icon (for example a question mark, lightbulb, or warning) 
 by setting `InfoIcon` and `InfoIconActive` to suit the context of the field.
 
 {{ LabelInfoIcons }}
 
-A `FluentLabelInfo` can be used as the label of a form field (such as `FluentTextInput`) 
+## Input elements and LabelInfo
+
+A `FluentLabelInfo` can be used as the label of a form input elements (such as `FluentTextInput`) 
 by assigning it to the `LabelTemplate`, keeping accessibility and layout properly handled.
+Or assigning it to the `LabelInfo` parameter.
+
+```razor
+<FluentTextInput Label="Example label"
+                 LabelInfo="@(LabelInfo.WithText("This is example information for an InfoLabel.")
+                                       .WithActionLink("https://dotnet.microsoft.com"))" />
+```
 
 {{ LabelInfoField }}
+
+**Note:** The `LabelInfo` parameter can not define all parameters, but only `InfoActionText`, `InfoActionLink`, `InfoActionTarget` and the FluentLabelInfo content.
 
 ## API FluentLabelInfo
 
