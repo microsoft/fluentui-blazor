@@ -54,8 +54,8 @@
                 {
                     <FluentLink Href="@InfoActionLink"
                                 part="info-link"
-                                Target="LinkTarget.Blank">
-                        @InfoActionLink
+                                Target="@InfoActionTarget">
+                        @(InfoActionText ?? "Learn more")
                     </FluentLink>
                 }
             }

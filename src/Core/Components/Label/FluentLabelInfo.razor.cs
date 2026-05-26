@@ -62,6 +62,19 @@ public partial class FluentLabelInfo : FluentLabel
     [Parameter]
     public string? InfoActionLink { get; set; }
 
+     /// <summary>
+    /// Gets or sets the text displayed as a "learn more" link inside the popover.
+    /// </summary>
+    [Parameter]
+    public string? InfoActionText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the target for the "learn more" link inside the popover.
+    /// Defaults to <see cref="LinkTarget.Blank"/> to open the link in a new tab.
+    /// </summary>
+    [Parameter]
+    public LinkTarget InfoActionTarget { get; set; } = LinkTarget.Blank;
+
     /// <summary>
     /// Gets or sets a custom template rendered inside the popover.
     /// When set, <see cref="InfoText"/> and <see cref="InfoActionLink"/> are ignored.
