@@ -117,9 +117,10 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     {
         get
         {
-            var count = EndHour - StartHour < 1 ? 1 : EndHour - StartHour + 1;
+            var hourSpan = EndHour - StartHour < 1 ? 1 : EndHour - StartHour;
+            var count = hourSpan * (60 / Increment) + 1;
 
-            return Enumerable.Range(0, count * (60 / Increment) - 1)
+            return Enumerable.Range(0, count)
                              .Select(i => (DateTime?)DefaultTime.AddHours(StartHour).AddMinutes(i * Increment));
         }
     }
