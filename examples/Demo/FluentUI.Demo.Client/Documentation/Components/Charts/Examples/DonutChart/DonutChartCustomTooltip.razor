@@ -1,0 +1,24 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentDonutChart ChartData="data"
+                  ChartTitle="Donut chart custom tooltip example"
+                  ValueInsideDonut="59000"
+                  InnerRadius="55">
+    <TooltipTemplate Context="ctx">
+        <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 130px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background-color: @ctx.Color.ToDataVizPaletteHex(ctx.CustomColor); flex-shrink: 0;"></span>
+                <strong>@ctx.Legend</strong>
+            </div>
+            <div style="font-size: 0.85em;">Value: <strong>@ctx.YValue</strong></div>
+        </div>
+    </TooltipTemplate>
+</FluentDonutChart>
+
+@code {
+    private readonly IReadOnlyList<DonutDataPoint> data = new List<DonutDataPoint>
+    {
+        new DonutDataPoint { Legend = "first",  Data = 20000 },
+        new DonutDataPoint { Legend = "second", Data = 39000 }
+    };
+}

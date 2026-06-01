@@ -1,0 +1,27 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="max-width: 300px;">
+  <FluentSlider Label="@($"Stroke width ({_strokeWidth} px)")" Min="0" Max="6" @bind-Value="@_strokeWidth" />
+</div>
+
+<FluentGanttChart Style="width: 600px; height: 350px" ChartTitle="Stroke width on bars" ShowYAxisLabels="true"
+                  StrokeWidth="@_strokeWidth" ChartData="@ChartData">
+</FluentGanttChart>
+
+@code {
+  private int _strokeWidth = 2;
+
+  private IReadOnlyList<GanttChartDataPoint> ChartData =
+  [
+      new GanttChartDataPoint { X = new GanttChartXRange { Start = 0, End = 10 }, Y = "Task A", Legend = "Team Alpha", Color =
+DataVizPalette.Color1 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = 5, End = 20 }, Y = "Task B", Legend = "Team Alpha", Color =
+DataVizPalette.Color1 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = 12, End = 30 }, Y = "Task C", Legend = "Team Beta", Color =
+DataVizPalette.Color2 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = 25, End = 45 }, Y = "Task D", Legend = "Team Beta", Color =
+DataVizPalette.Color2 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = 40, End = 60 }, Y = "Task E", Legend = "Team Gamma", Color
+= DataVizPalette.Color3 },
+    ];
+}

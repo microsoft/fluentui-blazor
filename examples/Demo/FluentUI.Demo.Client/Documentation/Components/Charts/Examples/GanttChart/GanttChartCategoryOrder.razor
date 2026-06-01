@@ -1,0 +1,40 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin-top: 16px; max-width: 220px;">
+    <FluentSelect TOption="string"
+                  TValue="string"
+                  Label="Category order"
+                  Value="@_order.ToString()"
+                  ValueChanged="@(v => _order = Enum.Parse<ChartCategoryOrder>(v))">
+        @foreach (var opt in _orderOptions)
+        {
+            <FluentOptionString Value="@opt.ToString()">@opt.ToString()</FluentOptionString>
+        }
+    </FluentSelect>
+</div>
+
+<FluentGanttChart Style="width: 600px; height: 350px"
+                  ShowYAxisLabels="true"
+                  HideLegends="true"
+                  YAxisCategoryOrder="@_order"
+                  ChartData="@ChartData">
+</FluentGanttChart>
+
+@code {
+    private ChartCategoryOrder _order = ChartCategoryOrder.Default;
+
+    private static readonly ChartCategoryOrder[] _orderOptions =
+        Enum.GetValues<ChartCategoryOrder>();
+
+    private IReadOnlyList<GanttChartDataPoint> ChartData =
+    [
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2017, 1, 1),  End = new DateTime(2017, 2, 2)  }, Y = "Job-1", Legend = "Complete",    Color = DataVizPalette.Success },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2017, 1, 17), End = new DateTime(2017, 2, 17) }, Y = "Job-2", Legend = "Complete",    Color = DataVizPalette.Success },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2017, 1, 14), End = new DateTime(2017, 3, 14) }, Y = "Job-4", Legend = "Complete",    Color = DataVizPalette.Success },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2017, 2, 15), End = new DateTime(2017, 3, 15) }, Y = "Job-1", Legend = "Incomplete",  Color = DataVizPalette.Warning },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2017, 1, 17), End = new DateTime(2017, 2, 17) }, Y = "Job-2", Legend = "Not Started", Color = DataVizPalette.Error   },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2017, 3, 10), End = new DateTime(2017, 3, 20) }, Y = "Job-3", Legend = "Not Started", Color = DataVizPalette.Error   },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2017, 4, 1),  End = new DateTime(2017, 4, 20) }, Y = "Job-3", Legend = "Not Started", Color = DataVizPalette.Error   },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2017, 5, 18), End = new DateTime(2017, 6, 18) }, Y = "Job-3", Legend = "Not Started", Color = DataVizPalette.Error   },
+    ];
+}

@@ -3,6 +3,8 @@
 ## Project Guidelines
 
 - In this repository, component script changes must be made in the corresponding .ts file, not generated .js files.
+- Before debugging UI issues with Playwright, verify the Playwright connection first; if it is unavailable, close the browser or tab and retry before proceeding.
+- In the fluentui-blazor charts workspace, the `.txt` files in `wwwroot/sources/` are auto-generated. Do not manually create them.
 
 ## Skills
 
@@ -11,3 +13,4 @@
 ## Browser Automation Guidelines
 
 - When browser automation initially fails in this workspace, retry Playwright actions instead of assuming the browser backend is unavailable.
+

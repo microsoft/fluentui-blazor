@@ -1,0 +1,48 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 16px;">
+    <div style="min-width: 260px; flex: 1 1 260px;">
+        <FluentSlider Label="@($"x-min-value ({_xMin})")"
+                      Min="-10000" Max="0"
+                      @bind-Value="@_xMin" />
+    </div>
+    <div style="min-width: 260px; flex: 1 1 260px;">
+        <FluentSlider Label="@($"x-max-value ({_xMax})")"
+                      Min="40000" Max="80000" Step="1000"
+                      @bind-Value="@_xMax" />
+    </div>
+    <div style="min-width: 260px; flex: 1 1 260px;">
+        <FluentSlider Label="@($"y-min-value ({_yMin})")"
+                      Min="-20000" Max="5000" Step="1000"
+                      @bind-Value="@_yMin" />
+    </div>
+    <div style="min-width: 260px; flex: 1 1 260px;">
+        <FluentSlider Label="@($"y-max-value ({_yMax})")"
+                      Min="50000" Max="100000" Step="1000"
+                      @bind-Value="@_yMax" />
+    </div>
+</div>
+
+<FluentHorizontalBarChartWithAxis Style="width: 800px; height: 400px"
+                                  ChartTitle="Domain override (x-min/max-value, y-min/max-value)"
+                                  XMinValue="@_xMin"
+                                  XMaxValue="@_xMax"
+                                  YMinValue="@_yMin"
+                                  YMaxValue="@_yMax"
+                                  ChartData="@ChartData">
+</FluentHorizontalBarChartWithAxis>
+
+@code {
+    private double _xMin = 0;
+    private double _xMax = 40000;
+    private double _yMin = 0;
+    private double _yMax = 50000;
+
+    private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
+    [
+        new HorizontalBarChartWithAxisDataPoint { X = 10000, Y = "5000",  Legend = "Oranges", Color = DataVizPalette.Color1, XAxisCalloutData = "10K", YAxisCalloutData = "5K"  },
+        new HorizontalBarChartWithAxisDataPoint { X = 20000, Y = "50000", Legend = "Dogs",    Color = DataVizPalette.Color2, XAxisCalloutData = "20K", YAxisCalloutData = "50K" },
+        new HorizontalBarChartWithAxisDataPoint { X = 25000, Y = "30000", Legend = "Apples",  Color = DataVizPalette.Color3, XAxisCalloutData = "25K", YAxisCalloutData = "30K" },
+        new HorizontalBarChartWithAxisDataPoint { X = 40000, Y = "13000", Legend = "Bananas", Color = DataVizPalette.Color4, XAxisCalloutData = "40K", YAxisCalloutData = "13K" },
+    ];
+}

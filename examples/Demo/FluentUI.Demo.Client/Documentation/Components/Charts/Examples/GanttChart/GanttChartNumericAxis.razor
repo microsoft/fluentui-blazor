@@ -1,0 +1,18 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentGanttChart Style="width: 600px; height: 350px"
+                  ChartTitle="Task Timeline (Numeric Axis)"
+                  ShowYAxisLabels="true"
+                  ChartData="@ChartData">
+</FluentGanttChart>
+
+@code {
+    private IReadOnlyList<GanttChartDataPoint> ChartData =
+    [
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = 0,  End = 10 }, Y = "Task A", Legend = "Team Alpha", Color = DataVizPalette.Color1 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = 5,  End = 20 }, Y = "Task B", Legend = "Team Alpha", Color = DataVizPalette.Color1 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = 12, End = 30 }, Y = "Task C", Legend = "Team Beta",  Color = DataVizPalette.Color2 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = 25, End = 45 }, Y = "Task D", Legend = "Team Beta",  Color = DataVizPalette.Color2 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = 40, End = 60 }, Y = "Task E", Legend = "Team Gamma", Color = DataVizPalette.Color3 },
+    ];
+}

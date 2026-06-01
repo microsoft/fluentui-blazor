@@ -1,0 +1,28 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+@inherits FluentChartBase
+
+<fluent-donut-chart
+                    id="@Id"
+                    class="@ClassValue"
+                    style="@StyleValue"
+                    chart-title="@ChartTitle"
+                    data="@ChartJson.Serialize(ChartData)"
+                    value-inside-donut="@ValueInsideDonut"
+                    width="@Width"
+                    height="@Height"
+                    hide-tooltip="@(HideTooltip ? "true" : null)"
+                    hide-labels="@(HideLabels ? "true" : null)"
+                    hide-legends="@(HideLegends ? "true" : null)"
+                    round-corners="@(RoundedCorners ? "true" : null)"
+                    show-labels-in-percent="@(ShowLabelsInPercent ? "true" : null)"
+                    legend-list-label="@LegendListLabel"
+                    inner-radius="@InnerRadius"
+                    allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
+                    culture="@Culture?.Name"
+                    @attributes="@AdditionalAttributes">
+</fluent-donut-chart>
+
+@if (TooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
+}
