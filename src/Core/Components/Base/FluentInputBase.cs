@@ -132,6 +132,10 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Parameter]
     public virtual MessageState? MessageState { get; set; }
 
+    /// <inheritdoc cref="IFluentField.LabelInfo" />
+    [Parameter]
+    public virtual ILabelInfo? LabelInfo { get; set; }
+
     #endregion
 
     #region FluentInputBase

@@ -1,0 +1,20 @@
+﻿@* Question mark icon (common alternative for help/info) *@
+<FluentLabelInfo InfoText="Help text here"
+                 InfoIcon="@(new Icons.Regular.Size20.QuestionCircle())"
+                 InfoIconActive="@(new Icons.Filled.Size20.QuestionCircle().WithColor(Color.Primary))">
+    Example label
+</FluentLabelInfo>
+
+@* Lightbulb icon (tip / suggestion) *@
+<FluentLabelInfo InfoText="A useful tip"
+                 InfoIcon="@(new Icons.Regular.Size20.Lightbulb())"
+                 InfoIconActive="@(new Icons.Filled.Size20.Lightbulb().WithColor(Color.Warning))">
+    Example label
+</FluentLabelInfo>
+
+@* Warning icon *@
+<FluentLabelInfo InfoText="Be careful with this setting"
+                 InfoIcon="@(new Icons.Regular.Size20.Warning())"
+                 InfoIconActive="@(new Icons.Filled.Size20.Warning().WithColor(Color.Warning))">
+    Example label
+</FluentLabelInfo>
