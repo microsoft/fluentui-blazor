@@ -2,7 +2,12 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputBase<bool>
 
-<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Label="@GetLabel"
+<FluentField InputComponent="@this"
+             ForId="@Id"
+             Class="@ClassValue"
+             Style="@StyleValue"
+             Label="@GetLabel"
+             LabelTemplate="@LabelTemplate.CombinedWith(ChildContent)"
              tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)">
     <fluent-switch @ref="@Element"
                    aria-label="@AriaLabel"
@@ -10,6 +15,7 @@
                    checked="@CurrentValue"
                    disabled="@Disabled"
                    id="@Id"
+                   value="@bool.TrueString"
                    name="@Name"
                    readonly="@ReadOnly"
                    required="@Required"

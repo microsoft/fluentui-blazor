@@ -208,7 +208,7 @@
             Id="MyList"
             Multiple="true"
             Items="@Digits"
-            OptionSelectedComparer="@((i, j) => string.Compare(i, j, StringComparison.InvariantCultureIgnoreCase) == 0)"
+            OptionSelectedComparer="@(StringComparer.InvariantCultureIgnoreCase)"
             @bind-Value="@value"
             @bind-SelectedItems="@selectedItems" />);
 

@@ -1,0 +1,252 @@
+﻿@using System.Collections.Concurrent
+@using Xunit;
+@inherits FluentUITestContext
+@code
+{
+
+    public FluentToastProviderTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents(config =>
+        {
+            config.Toast.MaxToastCount = 2;
+            config.Toast.Timeout = 1234;
+            config.Toast.Position = ToastPosition.TopEnd;
+            config.Toast.VerticalOffset = 44;
+            config.Toast.HorizontalOffset = 55;
+            config.Toast.PauseOnHover = true;
+            config.Toast.PauseOnWindowBlur = true;
+        });
+
+        ToastService = Services.GetRequiredService<IToastService>();
+        ToastProvider = Render<FluentToastProvider>();
+    }
+
+    public IToastService ToastService { get; }
+
+    public IRenderedComponent<FluentToastProvider> ToastProvider { get; }
+
+    private static async Task CloseToastAndWaitAsync(IRenderedComponent<FluentToast> toast, ToastCloseReason reason)
+    {
+        await toast.Instance.Instance!.CloseAsync(reason);
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toast.Instance.Instance.Id,
+            Type = "beforetoggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+        await toast.Instance.OnToggleAsync(new()
+        {
+            Id = toast.Instance.Instance.Id,
+            Type = "toggle",
+            OldState = "open",
+            NewState = "closed",
+        });
+    }
+
+    [Fact]
+    public async Task FluentToast_ProviderDefaults_Applied()
+    {
+        var provider = Render<FluentToastProvider>();
+
+        _ = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Uses provider defaults";
+        });
+
+        await Task.CompletedTask;
+
+        var toast = provider.FindComponent<FluentToast>();
+        Assert.Equal(1234, toast.Instance.Timeout);
+        Assert.Equal(ToastPosition.TopEnd, toast.Instance.Position);
+        Assert.Equal(44, toast.Instance.VerticalOffset);
+        Assert.Equal(55, toast.Instance.HorizontalOffset);
+        Assert.True(toast.Instance.PauseOnHover);
+        Assert.True(toast.Instance.PauseOnWindowBlur);
+    }
+
+    [Fact]
+    public async Task FluentToast_PerToastOverrides_ProviderDefaults()
+    {
+        var provider = Render<FluentToastProvider>();
+
+        _ = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Uses overrides";
+            options.Timeout = 4321;
+            options.Position = ToastPosition.BottomStart;
+            options.VerticalOffset = 11;
+            options.HorizontalOffset = 22;
+            options.PauseOnHover = true;
+            options.PauseOnWindowBlur = true;
+        });
+
+        await Task.CompletedTask;
+
+        var toast = provider.FindComponent<FluentToast>();
+        Assert.Equal(4321, toast.Instance.Timeout);
+        Assert.Equal(ToastPosition.BottomStart, toast.Instance.Position);
+        Assert.Equal(11, toast.Instance.VerticalOffset);
+        Assert.Equal(22, toast.Instance.HorizontalOffset);
+        Assert.True(toast.Instance.PauseOnHover);
+        Assert.True(toast.Instance.PauseOnWindowBlur);
+    }
+
+    [Fact]
+    public async Task FluentToast_QueuedUntilProviderHasRoom()
+    {
+        var provider = Render<FluentToastProvider>();
+        var statuses = new List<ToastLifecycleStatus>();
+
+        var firstToastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "First toast";
+        });
+
+        var secondToastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Second toast";
+            options.OnStatusChange = args => statuses.Add(args.Status);
+        });
+
+        var thirdToastTask = ToastService.ShowToastAsync(options =>
+        {
+            options.Body = "Third toast";
+            options.OnStatusChange = args => statuses.Add(args.Status);
+        });
+
+        await Task.CompletedTask;
+
+        Assert.Contains("First toast", provider.Markup);
+        Assert.Contains("Second toast", provider.Markup);
+        Assert.DoesNotContain("Third toast", provider.Markup);
+        Assert.Contains(ToastLifecycleStatus.Queued, statuses);
+
+        var firstToast = provider.FindComponent<FluentToast>();
+        await CloseToastAndWaitAsync(firstToast, ToastCloseReason.Programmatic);
+
+        Assert.Contains("Third toast", provider.Markup);
+        Assert.Contains(ToastLifecycleStatus.Visible, statuses);
+    }
+
+    [Fact]
+    public async Task FluentToast_ProviderClassStyle()
+    {
+        Assert.Contains("fluent-toast-provider", ToastProvider.Markup);
+        Assert.Contains("z-index", ToastProvider.Markup);
+
+        await Task.CompletedTask;
+    }
+
+    [Fact]
+    public void FluentToast_SynchronizeToastQueue_WithNullToastService_DoesNothing()
+    {
+        var provider = Render<TestFluentToastProvider>();
+        var method = typeof(FluentToastProvider).GetMethod("SynchronizeToastQueue", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+
+        var exception = Record.Exception(() => method.Invoke(provider.Instance, null));
+
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public void FluentToast_SynchronizeToastQueue_RendersNewestVisibleToastFirst()
+    {
+        var service = new TestToastService();
+        var firstToast = new ToastInstance(service, new ToastOptions { Id = "first", Body = "First toast" });
+        var secondToast = new ToastInstance(service, new ToastOptions { Id = "second", Body = "Second toast" });
+
+        service.Items.TryAdd(firstToast.Id, firstToast);
+        service.Items.TryAdd(secondToast.Id, secondToast);
+
+        var provider = Render<TestFluentToastProvider>(parameters => parameters
+            .Add(p => p.OverrideToastService, service));
+
+        var method = typeof(FluentToastProvider).GetMethod("SynchronizeToastQueue", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        method.Invoke(provider.Instance, null);
+        provider.Render();
+
+        var toasts = provider.FindComponents<FluentToast>().ToList();
+
+        Assert.Equal(2, toasts.Count);
+        Assert.Equal("second", toasts[0].Instance.Instance?.Id);
+        Assert.Equal("first", toasts[1].Instance.Instance?.Id);
+    }
+
+    private sealed class TestFluentToastProvider : FluentToastProvider
+    {
+        public TestFluentToastProvider(LibraryConfiguration configuration)
+            : base(configuration)
+        {
+        }
+
+        [Parameter]
+        public IToastService? OverrideToastService { get; set; }
+
+        protected override IToastService? ToastService => OverrideToastService;
+    }
+
+    private sealed class TestToastService : IToastService
+    {
+        public string? ProviderId { get; set; }
+
+        public ConcurrentDictionary<string, IToastInstance> Items { get; } = new();
+
+        public Func<IToastInstance, Task> OnUpdatedAsync { get; set; } = _ => Task.CompletedTask;
+
+        public Task CloseAsync(IToastInstance Toast, ToastCloseReason reason)
+            => Task.CompletedTask;
+
+        public Task DismissAsync(IToastInstance Toast)
+            => Task.CompletedTask;
+
+        public Task<bool> DismissAsync(string toastId)
+            => Task.FromResult(false);
+
+        public Task<int> DismissAllAsync()
+            => Task.FromResult(0);
+
+        public void Dispose()
+        {
+        }
+
+        public Task<ToastCloseReason> ShowToastAsync(ToastOptions? options = null)
+            => Task.FromResult(ToastCloseReason.Programmatic);
+
+        public Task<ToastCloseReason> ShowToastAsync(Action<ToastOptions> options)
+            => Task.FromResult(ToastCloseReason.Programmatic);
+
+        public Task<IToastInstance> ShowToastInstanceAsync(ToastOptions? options = null)
+            => Task.FromResult<IToastInstance>(new TestToastInstance());
+
+        public Task<IToastInstance> ShowToastInstanceAsync(Action<ToastOptions> options)
+            => Task.FromResult<IToastInstance>(new TestToastInstance());
+
+        public Task UpdateToastAsync(IToastInstance toast, Action<ToastOptions> update)
+            => Task.CompletedTask;
+
+        private sealed class TestToastInstance : IToastInstance
+        {
+            public string Id { get; } = "toast";
+
+            public long Index => 0;
+
+            public ToastOptions Options { get; } = new();
+
+            public Task<ToastCloseReason> Result => Task.FromResult(ToastCloseReason.Programmatic);
+
+            public ToastLifecycleStatus LifecycleStatus => ToastLifecycleStatus.Visible;
+
+            public Task CancelAsync() => Task.CompletedTask;
+
+            public Task CloseAsync() => Task.CompletedTask;
+
+            public Task CloseAsync(ToastCloseReason reason) => Task.CompletedTask;
+
+            public Task DismissAsync() => Task.CompletedTask;
+
+            public Task UpdateAsync(Action<ToastOptions> update) => Task.CompletedTask;
+        }
+    }
+}

@@ -13,6 +13,7 @@ parameters:
   - name: Projects  	    # List of projects to build
     default: |
       **/Microsoft.FluentUI.AspNetCore.Components.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj
       **/Microsoft.FluentUI.AspNetCore.McpServer.csproj
 
   - name: Tests		        # List of Unit-Test projects to run

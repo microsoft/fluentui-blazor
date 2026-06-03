@@ -160,8 +160,3 @@ table[data-selectable] {
       min-width: calc(var(--selectedCheckWidth) - var(--spacingHorizontalS));
       padding: 0 var(--spacingHorizontalS) 0 0;
     }
-
-/* Border outside the focused element */
-fluent-field:focus-within {
-  outline: none;
-}

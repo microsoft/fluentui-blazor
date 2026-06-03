@@ -28,7 +28,7 @@
 
                 @* Title bar (label, previous and next buttons) *@
                 <div class="title" part="title" aria-label="@titles.Label">
-                    <div part="label" class="@GetAnimationClass("label")" readonly="@ReadOnly"
+                    <div part="label" class="@GetAnimationClass("label")" readonly="@(ReadOnly || titles.ReadOnly)"
                          role="button" tabindex="0"
                          @onclick="@(e => TitleClickHandlerAsync(titles))">
                         @titles.Label
@@ -178,6 +178,8 @@
                                     ReadOnly="@ReadOnly"
                                     Disabled="@Disabled"
                                     Culture="@Culture"
+                                    MinDate="@(MinDate.ConvertToDateTime() ?? DateTime.MinValue)"
+                                    MaxDate="@(MaxDate.ConvertToDateTime() ?? DateTime.MaxValue)"
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"
                                     DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"
@@ -194,6 +196,8 @@
                                     ReadOnly="@ReadOnly"
                                     Disabled="@Disabled"
                                     Culture="@Culture"
+                                    MinDate="@(MinDate.ConvertToDateTime() ?? DateTime.MinValue)"
+                                    MaxDate="@(MaxDate.ConvertToDateTime() ?? DateTime.MaxValue)"
                                     DisabledSelectable="@DisabledSelectable"
                                     AnimatePeriodChanges="@AnimatePeriodChanges"
                                     DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"

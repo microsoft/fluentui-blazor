@@ -14,7 +14,18 @@
             }
             else
             {
-                <text><strong>@State.TotalItemCount</strong> items</text>
+                @if (State.TotalItemCount == 0)
+                {
+                    <strong>@Localizer[Localization.LanguageResource.Paginator_SummaryNoItems]</strong>
+                }
+                else if (State.TotalItemCount == 1)
+                {
+                    <strong>@(string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_SummaryItem], State.TotalItemCount))</strong>
+                }
+                else
+                {
+                    <strong>@(string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_SummaryItems], State.TotalItemCount))</strong>
+                }
             }
         </div>
         <nav role="navigation" class="paginator-nav">

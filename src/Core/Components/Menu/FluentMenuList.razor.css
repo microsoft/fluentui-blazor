@@ -1,0 +1,4 @@
+/* Fix #4744 */
+fluent-menu fluent-menu-list:not([popover]) {
+    display: none;
+}

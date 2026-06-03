@@ -2,8 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 
@@ -22,9 +20,6 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
     /// </summary>
     /// <param name="serviceProvider">List of services available in the application.</param>
     /// <param name="localizer">Localizer for the application.</param>
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ToastEventArgs))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ToastInstance))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IToastInstance))]
     public ToastService(IServiceProvider serviceProvider, IFluentLocalizer? localizer)
     {
         _serviceProvider = serviceProvider;
@@ -35,56 +30,120 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
     /// <summary />
     protected IFluentLocalizer Localizer { get; }
 
-    /// <inheritdoc cref="IToastService.CloseAsync(IToastInstance, ToastResult)"/>
-    public async Task CloseAsync(IToastInstance Toast, ToastResult result)
+    /// <inheritdoc cref="IToastService.CloseAsync(IToastInstance, ToastCloseReason)"/>
+    public async Task CloseAsync(IToastInstance Toast, ToastCloseReason reason)
     {
         var ToastInstance = Toast as ToastInstance;
 
-        // Raise the ToastState.Closing event
-        ToastInstance?.FluentToast?.RaiseOnStateChangeAsync(Toast, DialogState.Closing);
+        if (ToastInstance?.FluentToast is FluentToast fluentToast)
+        {
+            ToastInstance.PendingCloseReason = reason;
+            await fluentToast.RequestCloseAsync();
+            return;
+        }
+
+        if (ToastInstance is not null)
+        {
+            ToastInstance.LifecycleStatus = ToastLifecycleStatus.Unmounted;
+        }
 
         // Remove the Toast from the ToastProvider
         await RemoveToastFromProviderAsync(Toast);
 
         // Set the result of the Toast
-        ToastInstance?.ResultCompletion.TrySetResult(result);
+        ToastInstance?.ResultCompletion.TrySetResult(reason);
 
-        // Raise the ToastState.Closed event
-        ToastInstance?.FluentToast?.RaiseOnStateChangeAsync(Toast, DialogState.Closed);
+        // Raise the final ToastLifecycleStatus.Unmounted event
+        if (ToastInstance is not null)
+        {
+            ToastInstance.Options.OnStatusChange?.Invoke(new ToastEventArgs(ToastInstance, ToastLifecycleStatus.Unmounted));
+        }
     }
 
-    /// <inheritdoc cref="IToastService.ShowToastAsync{TToast}(ToastOptions)"/>
-    public Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(ToastOptions? options = null) where TToast : ComponentBase
+    /// <inheritdoc cref="IToastService.DismissAsync(IToastInstance)"/>
+    public async Task DismissAsync(IToastInstance Toast)
     {
-        return ShowToastAsync(typeof(TToast), options ?? new ToastOptions());
+        await CloseAsync(Toast, ToastCloseReason.Dismissed);
     }
 
-    /// <inheritdoc cref="IToastService.ShowToastAsync{TToast}(Action{ToastOptions})"/>
-    public Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(Action<ToastOptions> options) where TToast : ComponentBase
+    /// <inheritdoc cref="IToastService.DismissAsync(string)"/>
+    public async Task<bool> DismissAsync(string toastId)
     {
-        return ShowToastAsync(typeof(TToast), new ToastOptions(options));
+        if (string.IsNullOrWhiteSpace(toastId) || !ServiceProvider.Items.TryGetValue(toastId, out var toast))
+        {
+            return false;
+        }
+
+        await CloseAsync(toast, ToastCloseReason.Dismissed);
+        return true;
+    }
+
+    /// <inheritdoc cref="IToastService.DismissAllAsync()"/>
+    public async Task<int> DismissAllAsync()
+    {
+        var toasts = ServiceProvider.Items.Values.ToList();
+
+        foreach (var toast in toasts)
+        {
+            await CloseAsync(toast, ToastCloseReason.Dismissed);
+        }
+
+        return toasts.Count;
+    }
+
+    /// <inheritdoc cref="IToastService.ShowToastAsync(ToastOptions)"/>
+    public async Task<ToastCloseReason> ShowToastAsync(ToastOptions? options = null)
+    {
+        var instance = await ShowToastInstanceCoreAsync(options ?? new ToastOptions());
+        return await instance.Result;
+    }
+
+    /// <inheritdoc cref="IToastService.ShowToastAsync(Action{ToastOptions})"/>
+    public Task<ToastCloseReason> ShowToastAsync(Action<ToastOptions> options)
+    {
+        return ShowToastAsync(new ToastOptions(options));
+    }
+
+    /// <inheritdoc cref="IToastService.ShowToastInstanceAsync(ToastOptions)"/>
+    public async Task<IToastInstance> ShowToastInstanceAsync(ToastOptions? options = null)
+    {
+        return await ShowToastInstanceCoreAsync(options ?? new ToastOptions());
+    }
+
+    /// <inheritdoc cref="IToastService.ShowToastInstanceAsync(Action{ToastOptions})"/>
+    public Task<IToastInstance> ShowToastInstanceAsync(Action<ToastOptions> options)
+    {
+        return ShowToastInstanceAsync(new ToastOptions(options));
+    }
+
+    /// <inheritdoc cref="IToastService.UpdateToastAsync(IToastInstance, Action{ToastOptions})"/>
+    public async Task UpdateToastAsync(IToastInstance toast, Action<ToastOptions> update)
+    {
+        if (toast is not ToastInstance instance)
+        {
+            throw new ArgumentException($"{nameof(toast)} must be a {nameof(ToastInstance)}.", nameof(toast));
+        }
+
+        update(instance.Options);
+        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
     }
 
     /// <summary />
-    private async Task<ToastResult> ShowToastAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, ToastOptions options)
+    private async Task<ToastInstance> ShowToastInstanceCoreAsync(ToastOptions options)
     {
-        if (!componentType.IsSubclassOf(typeof(ComponentBase)))
-        {
-            throw new ArgumentException($"{componentType.FullName} must be a Blazor Component", nameof(componentType));
-        }
-
         if (this.ProviderNotAvailable())
         {
             throw new FluentServiceProviderException<FluentToastProvider>();
         }
 
-        var instance = new ToastInstance(this, componentType, options);
+        var instance = new ToastInstance(this, options);
+        options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastLifecycleStatus.Queued));
 
         // Add the Toast to the service, and render it.
         ServiceProvider.Items.TryAdd(instance?.Id ?? "", instance ?? throw new InvalidOperationException("Failed to create FluentToast."));
         await ServiceProvider.OnUpdatedAsync.Invoke(instance);
 
-        return await instance.Result;
+        return instance;
     }
 
     /// <summary>

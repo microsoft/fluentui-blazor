@@ -15,19 +15,19 @@ public partial class FluentCounterBadge : FluentBadge
     /// <summary />
     public FluentCounterBadge(LibraryConfiguration configuration) : base(configuration) { }
 
-    private bool _isAttached => ChildContent is not null;
+    private bool _isAttached => AnchorContent is not null;
     private bool _render => ShowEmpty || Dot || GetCount() is not null || (ShowZero ?? false) || (ShowWhen?.Invoke(Count) == true);
 
     private int? GetCount() => ShowWhen?.Invoke(Count) == true ? Count : null;
 
     /// <summary>
-    ///  Gets or sets the badge's dot state.
+    /// Gets or sets whether the badge renders as a small dot without any text content (e.g., <c>Dot="true"</c>).
     /// </summary>
     [Parameter]
     public bool Dot { get; set; }
 
     /// <summary>
-    /// Gets or sets the badge's show-zero state.
+    /// Gets or sets whether the badge is visible when <see cref="Count"/> is zero (e.g., <c>ShowZero="true"</c>).
     /// </summary>
     [Parameter]
     public bool? ShowZero { get; set; }
@@ -56,8 +56,9 @@ public partial class FluentCounterBadge : FluentBadge
     public int? Count { get; set; }
 
     /// <summary>
-    /// Gets or sets the badge's overflow count.
-    /// The default value is `null`. Internally the component uses 99 as its default value.
+    /// Gets or sets the maximum count value displayed before showing an overflow indicator (e.g., <c>OverflowCount="99"</c>).
+    /// When <see cref="Count"/> exceeds this value, the badge displays the overflow count followed by a "+" sign.
+    /// The default value is <c>null</c>; the component uses <c>99</c> as its internal default.
     /// </summary>
     [Parameter]
     public int? OverflowCount { get; set; }

@@ -32,7 +32,7 @@ internal class FluentCalendarMonth<TValue>
         }
         else
         {
-            _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Month.ConvertToTValue<TValue>()) ?? false;
+            _isInDisabledList = calendar.DisabledDateMinMaxFunc?.Invoke(Month.ConvertToTValue<TValue>()) ?? false;
         }
     }
 

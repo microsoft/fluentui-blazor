@@ -12,13 +12,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class ToastInstance : IToastInstance
 {
     private static long _counter;
-    private readonly Type _componentType;
-    internal readonly TaskCompletionSource<ToastResult> ResultCompletion = new();
+    internal readonly TaskCompletionSource<ToastCloseReason> ResultCompletion = new();
 
     /// <summary />
-    internal ToastInstance(IToastService toastService, Type componentType, ToastOptions options)
+    internal ToastInstance(IToastService toastService, ToastOptions options)
     {
-        _componentType = componentType;
         Options = options;
         ToastService = toastService;
         Id = string.IsNullOrEmpty(options.Id) ? Identifier.NewId() : options.Id;
@@ -26,47 +24,50 @@ public class ToastInstance : IToastInstance
     }
 
     /// <summary />
-    Type IToastInstance.ComponentType => _componentType;
-
-    /// <summary />
     internal IToastService ToastService { get; }
 
     /// <summary />
     internal FluentToast? FluentToast { get; set; }
 
+    /// <summary />
+    internal ToastCloseReason? PendingCloseReason { get; set; }
+
     /// <inheritdoc cref="IToastInstance.Options"/>
     public ToastOptions Options { get; internal set; }
 
     /// <inheritdoc cref="IToastInstance.Result"/>
-    public Task<ToastResult> Result => ResultCompletion.Task;
+    public Task<ToastCloseReason> Result => ResultCompletion.Task;
 
-    /// <inheritdoc cref="IToastInstance.Id"/>"
+    /// <inheritdoc cref="IToastInstance.LifecycleStatus"/>
+    public ToastLifecycleStatus LifecycleStatus { get; internal set; } = ToastLifecycleStatus.Queued;
+
+    /// <inheritdoc cref="IToastInstance.Id"/>
     public string Id { get; }
 
-    /// <inheritdoc cref="IToastInstance.Index"/>"
+    /// <inheritdoc cref="IToastInstance.Index"/>
     public long Index { get; }
-
-    /// <inheritdoc cref="IToastInstance.CancelAsync()"/>
-    public Task CancelAsync()
-    {
-        return ToastService.CloseAsync(this, ToastResult.Cancel());
-    }
 
     /// <inheritdoc cref="IToastInstance.CloseAsync()"/>
     public Task CloseAsync()
     {
-        return ToastService.CloseAsync(this, ToastResult.Ok());
+        return ToastService.CloseAsync(this, ToastCloseReason.Programmatic);
     }
 
-    /// <inheritdoc cref="IToastInstance.CloseAsync{T}(T)"/>
-    public Task CloseAsync<T>(T result)
+    /// <inheritdoc cref="IToastInstance.CloseAsync(ToastCloseReason)"/>
+    public Task CloseAsync(ToastCloseReason reason)
     {
-        return ToastService.CloseAsync(this, ToastResult.Ok(result));
+        return ToastService.CloseAsync(this, reason);
     }
 
-    /// <inheritdoc cref="IToastInstance.CloseAsync(ToastResult)"/>
-    public Task CloseAsync(ToastResult result)
+    /// <inheritdoc cref="IToastInstance.DismissAsync()"/>
+    public Task DismissAsync()
     {
-        return ToastService.CloseAsync(this, result);
+        return ToastService.DismissAsync(this);
+    }
+
+    /// <inheritdoc cref="IToastInstance.UpdateAsync(Action{ToastOptions})"/>
+    public Task UpdateAsync(Action<ToastOptions> update)
+    {
+        return ToastService.UpdateToastAsync(this, update);
     }
 }

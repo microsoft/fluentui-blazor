@@ -156,6 +156,12 @@
   <data name="TextInput_RequiredMessage" xml:space="preserve">
     <value>This field is required</value>
   </data>
+  <data name="ColorPickerInput_InvalidHexMessage" xml:space="preserve">
+    <value>Invalid hexadecimal color value</value>
+  </data>
+  <data name="ColorPickerInput_OpenPickerTitle" xml:space="preserve">
+    <value>Open color picker</value>
+  </data>
   <data name="Field_ErrorMessage" xml:space="preserve">
     <value>An error occurred</value>
   </data>
@@ -256,7 +262,22 @@
     <value>Resize</value>
   </data>
   <data name="DataGrid_OptionsMenu" xml:space="preserve">
-    <value>Filter</value>
+    <value>Column options</value>
+  </data>
+  <data name="DataGrid_ReorderMenu" xml:space="preserve">
+    <value>Reorder columns</value>
+  </data>
+  <data name="DataGrid_ReorderMoveToStart" xml:space="preserve">
+    <value>Move to start</value>
+  </data>
+  <data name="DataGrid_ReorderMoveLeft" xml:space="preserve">
+    <value>Move left</value>
+  </data>
+  <data name="DataGrid_ReorderMoveRight" xml:space="preserve">
+    <value>Move right</value>
+  </data>
+  <data name="DataGrid_ReorderMoveToEnd" xml:space="preserve">
+    <value>Move to end</value>
   </data>
   <data name="DataGrid_ResizeDiscrete" xml:space="preserve">
     <value>Column width</value>
@@ -283,7 +304,7 @@
     <value>All rows are selected</value>
   </data>
   <data name="DataGrid_SelectColumn_AllUnchecked" xml:space="preserve">
-    <value>No rows areselected</value>
+    <value>No rows are selected</value>
   </data>
   <data name="DataGrid_SelectColumn_AllIndeterminate" xml:space="preserve">
     <value>Some rows are selected</value>
@@ -341,5 +362,26 @@
   </data>
   <data name="DataGrid_ToggleNesting" xml:space="preserve">
     <value>Toggle nesting</value>
+  </data>
+  <data name="Paginator_SummaryItem" xml:space="preserve">
+    <value>{0} item</value>
+  </data>
+  <data name="Paginator_SummaryItems" xml:space="preserve">
+    <value>{0} items</value>
+  </data>
+  <data name="Paginator_SummaryNoItems" xml:space="preserve">
+    <value>No items</value>
+  </data>
+  <data name="AutoComplete_MaximumSelectedOptionsMessage" xml:space="preserve">
+    <value>The maximum number of {0} selected items has been reached.</value>
+  </data>
+  <data name="Wizard_LabelButtonPrevious" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Wizard_LabelButtonNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Wizard_LabelButtonDone" xml:space="preserve">
+    <value>Done</value>
   </data>
 </root>

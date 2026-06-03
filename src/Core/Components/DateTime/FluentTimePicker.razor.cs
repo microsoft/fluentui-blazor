@@ -14,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 {
+    private static readonly IEqualityComparer<DateTime?> TimeComparer = new TimeEqualityComparer();
     private DateTime DefaultTime => Culture.Calendar.MinSupportedDateTime;
     private FluentCombobox<DateTime?, DateTime?> _fluentCombobox = default!;
 
@@ -51,7 +52,10 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     [Parameter]
     public ListAppearance Appearance { get; set; } = ListAppearance.Outline;
 
-    /// <summary />
+    /// <summary>
+    /// Gets or sets the render style of the time picker (e.g., <c>RenderStyle="DatePickerRenderStyle.FluentUI"</c>).
+    /// <see cref="DatePickerRenderStyle.FluentUI"/> renders a dropdown list; <see cref="DatePickerRenderStyle.Native"/> uses the browser's built-in time input.
+    /// </summary>
     [Parameter]
     public DatePickerRenderStyle RenderStyle { get; set; } = DatePickerRenderStyle.FluentUI;
 
@@ -75,19 +79,22 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     public string? Placeholder { get; set; }
 
     /// <summary>
-    /// Function to know if a specific time must be disabled.
+    /// Gets or sets a function that determines whether a specific time value should be disabled in the picker.
+    /// Return <see langword="true"/> to disable a time; <see langword="false"/> to allow it.
     /// </summary>
     [Parameter]
     public virtual Func<TValue, bool>? DisabledTimeFunc { get; set; }
 
     /// <summary>
-    /// Gets or sets the hour of the day at which the operation or schedule should start, in 24-hour format.
+    /// Gets or sets the first hour displayed in the time dropdown list, in 24-hour format (e.g., <c>StartHour="9"</c>).
+    /// See also <see cref="EndHour"/>.
     /// </summary>
     [Parameter]
     public int StartHour { get; set; } = 8;
 
     /// <summary>
-    /// Gets or sets the ending hour for the time range, in 24-hour format.
+    /// Gets or sets the last hour displayed in the time dropdown list, in 24-hour format (e.g., <c>EndHour="17"</c>).
+    /// See also <see cref="StartHour"/>.
     /// </summary>
     [Parameter]
     public int EndHour { get; set; } = 18;
@@ -110,9 +117,10 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     {
         get
         {
-            var count = EndHour - StartHour < 1 ? 1 : EndHour - StartHour + 1;
+            var totalMinutes = Math.Max(0, (EndHour - StartHour) * 60);
+            var count = totalMinutes / Increment + 1;
 
-            return Enumerable.Range(0, count * (60 / Increment) - 1)
+            return Enumerable.Range(0, count)
                              .Select(i => (DateTime?)DefaultTime.AddHours(StartHour).AddMinutes(i * Increment));
         }
     }
@@ -243,6 +251,19 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
                 ListAppearance.Transparent => TextInputAppearance.Underline,
                 _ => TextInputAppearance.Outline,
             };
+        }
+    }
+
+    private sealed class TimeEqualityComparer : IEqualityComparer<DateTime?>
+    {
+        public bool Equals(DateTime? x, DateTime? y)
+        {
+            return x?.Hour == y?.Hour && x?.Minute == y?.Minute;
+        }
+
+        public int GetHashCode(DateTime? obj)
+        {
+            return obj is null ? 0 : HashCode.Combine(obj.Value.Hour, obj.Value.Minute);
         }
     }
 }

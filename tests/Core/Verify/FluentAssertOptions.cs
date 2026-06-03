@@ -54,7 +54,9 @@ public class FluentAssertOptions
                       .ReplaceAttribute("blazor:onkeydown", "x")
                       .ReplaceAttribute("blazor:onmousedown", "x")
                       .ReplaceAttribute("blazor:onmouseup", "x")
-                      .ReplaceAttribute("anchor", "xxx");
+                      .ReplaceAttribute("anchor", "xxx")
+                      .ReplaceAttribute("aria-labelledby", "xxx")
+                      .ReplaceAttribute("aria-describedby", "xxx");
     }
 
     /// <summary>

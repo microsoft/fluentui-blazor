@@ -133,14 +133,15 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     public bool DisplayToday { get; set; } = true;
 
     /// <summary>
-    /// Gets ot sets if the calendar items are animated during a period change.
-    /// By default, the animation is enabled for Months views, but disabled for Days and Years view.
+    /// Gets or sets a value indicating whether calendar items are animated during a period change.
+    /// By default, the animation is enabled for Months views, but disabled for Days and Years views.
     /// </summary>
     [Parameter]
     public bool? AnimatePeriodChanges { get; set; }
 
     /// <summary>
-    /// Gets or sets the way the user can select one or more dates
+    /// Gets or sets the date selection mode (e.g., <c>SelectMode="CalendarSelectMode.Range"</c>).
+    /// Controls whether the user can select a single date, a range, or multiple dates.
     /// </summary>
     [Parameter]
     public CalendarSelectMode SelectMode { get; set; } = CalendarSelectMode.Single;
@@ -158,7 +159,8 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     public EventCallback<IEnumerable<TValue>> SelectedDatesChanged { get; set; }
 
     /// <summary>
-    /// Fired when the selected mouse over change, to display the future range of dates.
+    /// Gets or sets a function invoked when the user hovers over a date, returning the projected range to highlight.
+    /// Only used when <see cref="SelectMode"/> is <see cref="CalendarSelectMode.Range"/>.
     /// </summary>
     [Parameter]
     public Func<TValue, IEnumerable<TValue>>? SelectDatesHover { get; set; }
@@ -504,7 +506,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             SelectedDates = range.Where(day =>
             {
                 var dateTime = day.ConvertToDateTime();
-                return dateTime.HasValue && (DisabledDateFunc == null || !DisabledDateFunc(day));
+                return dateTime.HasValue && (DisabledDateMinMaxFunc == null || !DisabledDateMinMaxFunc(day));
             });
 
             if (SelectedDatesChanged.HasDelegate)
@@ -550,7 +552,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         }
 
         SelectedDates = _rangeSelector.GetAllDates()
-            .Where(day => DisabledDateFunc == null || !DisabledDateFunc(day.ConvertToTValue<TValue>()))
+            .Where(day => DisabledDateMinMaxFunc == null || !DisabledDateMinMaxFunc(day.ConvertToTValue<TValue>()))
             .Select(day => day.ConvertToTValue<TValue>());
 
         if (SelectedDatesChanged.HasDelegate)
@@ -583,9 +585,9 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
             _rangeSelectorMouseOver.End = range.MaxDateTime();
         }
 
-        var days = DisabledDateFunc is null
+        var days = DisabledDateMinMaxFunc is null
                  ? _rangeSelectorMouseOver.GetAllDates()
-                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateFunc(day.ConvertToTValue<TValue>()));
+                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateMinMaxFunc(day.ConvertToTValue<TValue>()));
 
         _selectedDatesMouseOver.Clear();
         _selectedDatesMouseOver.AddRange(days);
@@ -611,14 +613,14 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <returns></returns>
     internal bool AllDaysAreDisabled(DateTime start, DateTime end)
     {
-        if (DisabledDateFunc is null)
+        if (DisabledDateMinMaxFunc is null)
         {
             return false;
         }
 
         for (var day = start; day <= end; day = day.AddDays(1))
         {
-            if (!DisabledDateFunc.Invoke(day.ConvertToTValue<TValue>()))
+            if (!DisabledDateMinMaxFunc.Invoke(day.ConvertToTValue<TValue>()))
             {
                 return false;
             }

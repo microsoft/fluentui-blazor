@@ -69,11 +69,11 @@ public partial class MarkdownViewer
 
         Sections = await page.ExtractSectionsAsync();
 
-        // Read api-comments.json
+        // Read api-comments.json and chart-comments.json
         if (ApiDocSummary.Cached is null)
         {
             HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
-            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/api-comments.json");
+            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/api-comments.json", "/chart-comments.json");
         }
 
         // Load MCP documentation if any MCP or McpSummary section is present
@@ -131,16 +131,16 @@ public partial class MarkdownViewer
         var componentType = "";
 
         // Convert "MyComponent<MyType>" to ("MyComponent", "MyType")
-        var match = Regex.Match(name, @"(\w+)(&lt;|<)(.+)(>|&gt;)");
+        var match = ComponentsRexEx().Match(name);
         if (match.Success)
         {
             componentName = match.Groups[1].Value;
             componentType = match.Groups[3].Value;
         }
 
-        // Get the component type
-        var type = DocViewerService.ApiAssembly
-                                  ?.GetTypes()
+        // Get the component type from the first assembly that contains it
+        var type = DocViewerService.ApiAssemblies
+                                  ?.SelectMany(a => a.GetTypes())
                                   ?.FirstOrDefault(i => i.Name == componentName
                                                      || i.Name.StartsWith($"{componentName}`1")
                                                      || i.Name.StartsWith($"{componentName}`2"));
@@ -165,8 +165,7 @@ public partial class MarkdownViewer
                 }
             }
 
-            
-            result.InstanceTypes = listOfTypes.ToArray();
+            result.InstanceTypes = [.. listOfTypes];
         }
 
         return result;
@@ -217,4 +216,7 @@ public partial class MarkdownViewer
             _ => "language-plaintext"
         };
     }
+
+    [GeneratedRegex(@"(\w+)(&lt;|<)(.+)(>|&gt;)")]
+    private static partial Regex ComponentsRexEx();
 }

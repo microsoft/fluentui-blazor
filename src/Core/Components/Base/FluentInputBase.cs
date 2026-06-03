@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -131,6 +132,10 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Parameter]
     public virtual MessageState? MessageState { get; set; }
 
+    /// <inheritdoc cref="IFluentField.LabelInfo" />
+    [Parameter]
+    public virtual ILabelInfo? LabelInfo { get; set; }
+
     #endregion
 
     #region FluentInputBase
@@ -231,7 +236,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
                 await DisposeAsync(_jsModule.ObjectReference);
             }
             catch (Exception ex) when (ex is JSDisconnectedException ||
-                                       ex is OperationCanceledException)
+                                       ex is OperationCanceledException ||
+                                       ex is InvalidOperationException)
             {
                 // The JSRuntime side may routinely be gone already if the reason we're disposing is that
                 // the client disconnected. This is not an error.
@@ -270,4 +276,27 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     protected Task RenderTooltipAsync(string? label) => (_cachedServices ??= new CachedServices(ServiceProvider)).RenderTooltipAsync(this, label);
 
     #endregion
+
+    /// <summary>
+    /// Sets parameters supplied by the component's parent in the render tree.
+    /// </summary>
+    /// <param name="parameters">The parameters.</param>
+    /// <returns>A <see cref="Task"/> that completes when the component has finished updating and rendering itself.</returns>
+    /// <remarks>
+    /// <para>
+    /// Parameters are passed when <see cref="SetParametersAsync(ParameterView)"/> is called. It is not required that
+    /// the caller supply a parameter value for all of the parameters that are logically understood by the component.
+    /// </para>
+    /// <para>
+    /// The default implementation of <see cref="SetParametersAsync(ParameterView)"/> will set the value of each property
+    /// decorated with <see cref="ParameterAttribute" /> or <see cref="CascadingParameterAttribute" /> that has
+    /// a corresponding value in the <see cref="ParameterView" />. Parameters that do not have a corresponding value
+    /// will be unchanged.
+    /// </para>
+    /// </remarks>
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        parameters.ThrowNullableParameters(component: this, parameterNames: nameof(Id));
+        return base.SetParametersAsync(parameters);
+    }
 }

@@ -1,0 +1,325 @@
+﻿@using System.Collections.Concurrent;
+@using Bunit;
+@using Microsoft.Extensions.DependencyInjection;
+@using Xunit;
+
+@inherits FluentUITestContext
+
+@code {
+
+    public ToastInstanceTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public async Task DismissAsync_CallsServiceCloseWithDismissedReason()
+    {
+        var service = new TestToastService();
+        var instance = new ToastInstance(service, new ToastOptions());
+
+        await instance.DismissAsync();
+
+        Assert.Same(instance, service.LastClosedToast);
+        Assert.Equal(ToastCloseReason.Dismissed, service.LastCloseReason);
+    }
+
+    [Fact]
+    public async Task CloseAsync_WithReason_CallsServiceCloseWithProvidedReason()
+    {
+        var service = new TestToastService();
+        var instance = new ToastInstance(service, new ToastOptions());
+
+        await instance.CloseAsync(ToastCloseReason.QuickAction);
+
+        Assert.Same(instance, service.LastClosedToast);
+        Assert.Equal(ToastCloseReason.QuickAction, service.LastCloseReason);
+    }
+
+    [Fact]
+    public async Task CloseAsync_WithProgrammaticReason_CallsServiceCloseWithProgrammaticReason()
+    {
+        var service = new TestToastService();
+        var instance = new ToastInstance(service, new ToastOptions());
+
+        await instance.CloseAsync(ToastCloseReason.Programmatic);
+
+        Assert.Same(instance, service.LastClosedToast);
+        Assert.Equal(ToastCloseReason.Programmatic, service.LastCloseReason);
+    }
+
+    [Fact]
+    public async Task CloseAsync_WithoutReason_CallsServiceCloseWithProgrammaticReason()
+    {
+        var service = new TestToastService();
+        var instance = new ToastInstance(service, new ToastOptions());
+
+        await instance.CloseAsync();
+
+        Assert.Same(instance, service.LastClosedToast);
+        Assert.Equal(ToastCloseReason.Programmatic, service.LastCloseReason);
+    }
+
+    [Fact]
+    public void ToastService_UsesProvidedLocalizer()
+    {
+        var localizer = new TestLocalizer();
+        var service = new TestableToastService(Services, localizer);
+
+        var value = service.GetLocalized("Toast_TestKey");
+
+        Assert.Equal("Custom localized value", value);
+    }
+
+    [Fact]
+    public void ToastService_UsesDefaultLocalizer_WhenNoLocalizerProvided()
+    {
+        var service = new TestableToastService(Services, null);
+
+        var value = service.GetLocalized("Fake_Hello", "Denis");
+
+        Assert.Equal("Hello Denis", value);
+    }
+
+    [Fact]
+    public async Task ToastService_CloseAsync_WhenToastInstanceHasNoFluentToast_RemovesToastAndRaisesUnmounted()
+    {
+        var updates = new List<IToastInstance>();
+        ToastEventArgs? statusChange = null;
+        var options = new ToastOptions
+        {
+            OnStatusChange = args => statusChange = args,
+        };
+        var service = new TestableToastService(Services, null);
+        var instance = new ToastInstance(service, options);
+
+        service.AddItem(instance);
+        service.SetOnUpdatedAsync(toast =>
+        {
+            updates.Add(toast);
+            return Task.CompletedTask;
+        });
+
+        await service.CloseAsync(instance, ToastCloseReason.Programmatic);
+
+        var result = await instance.Result;
+
+        Assert.Equal(ToastLifecycleStatus.Unmounted, instance.LifecycleStatus);
+        Assert.Equal(ToastCloseReason.Programmatic, result);
+        Assert.False(service.ContainsItem(instance.Id));
+        Assert.Single(updates);
+        Assert.Same(instance, updates[0]);
+        Assert.NotNull(statusChange);
+        Assert.Equal(ToastLifecycleStatus.Unmounted, statusChange.Status);
+        Assert.Same(instance, statusChange.Instance);
+    }
+
+    [Fact]
+    public async Task ToastService_CloseAsync_WhenToastIsNotToastInstance_RemovesToastFromProvider()
+    {
+        var service = new TestableToastService(Services, null);
+        var instance = new TestNonToastInstance("non-toast");
+        IToastInstance? updatedToast = null;
+
+        service.AddItem(instance);
+        service.SetOnUpdatedAsync(toast =>
+        {
+            updatedToast = toast;
+            return Task.CompletedTask;
+        });
+
+        await service.CloseAsync(instance, ToastCloseReason.Dismissed);
+
+        Assert.False(service.ContainsItem(instance.Id));
+        Assert.Same(instance, updatedToast);
+    }
+
+    [Fact]
+    public async Task ToastService_DismissAsync_WhenToastIdIsNull_ReturnsFalse()
+    {
+        var service = new TestableToastService(Services, null);
+
+        var result = await service.DismissAsync((string)null!);
+
+        Assert.False(result);
+    }
+
+    [Fact]
+    public async Task ToastService_DismissAsync_WithToastInstance_ClosesWithDismissedReason()
+    {
+        var service = new TestableToastService(Services, null);
+        var instance = new ToastInstance(service, new ToastOptions());
+
+        service.AddItem(instance);
+
+        await service.DismissAsync(instance);
+
+        var result = await instance.Result;
+
+        Assert.Equal(ToastLifecycleStatus.Unmounted, instance.LifecycleStatus);
+        Assert.Equal(ToastCloseReason.Dismissed, result);
+        Assert.False(service.ContainsItem(instance.Id));
+    }
+
+    [Fact]
+    public async Task ToastService_ShowToastInstanceAsync_ReturnsLiveInstance()
+    {
+        var service = new TestableToastService(Services, null);
+        service.SetProviderId("provider");
+
+        var instance = await service.ShowToastInstanceAsync(new ToastOptions { Body = "Live body" });
+
+        Assert.NotNull(instance);
+        Assert.True(service.ContainsItem(instance.Id));
+        Assert.Equal("Live body", instance.Options.Body);
+        Assert.Equal(ToastLifecycleStatus.Queued, instance.LifecycleStatus);
+    }
+
+    [Fact]
+    public async Task ToastService_ShowToastInstanceAsync_ActionOverload_AppliesOptions()
+    {
+        var service = new TestableToastService(Services, null);
+        service.SetProviderId("provider");
+
+        var instance = await service.ShowToastInstanceAsync(options =>
+        {
+            options.Body = "Configured body";
+            options.Type = ToastType.Confirmation;
+        });
+
+        Assert.Equal("Configured body", instance.Options.Body);
+        Assert.Equal(ToastType.Confirmation, instance.Options.Type);
+    }
+
+    [Fact]
+    public async Task ToastService_UpdateToastAsync_WhenToastIsNotToastInstance_ThrowsArgumentException()
+    {
+        var service = new TestableToastService(Services, null);
+        var toast = new TestNonToastInstance("non-toast");
+
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.UpdateToastAsync(toast, options => options.Body = "Updated"));
+
+        Assert.Equal("toast", exception.ParamName);
+        Assert.Contains("must be a ToastInstance", exception.Message);
+    }
+
+    [Fact]
+    public async Task ToastService_ShowToastAsync_WhenProviderNotAvailable_ThrowsFluentServiceProviderException()
+    {
+        var service = new TestableToastService(Services, null);
+
+        await Assert.ThrowsAsync<FluentServiceProviderException<FluentToastProvider>>(() => service.ShowToastAsync());
+    }
+
+    [Fact]
+    public async Task ToastService_RemoveToastFromProviderAsync_WhenToastIdDoesNotExist_ThrowsInvalidOperationException()
+    {
+        var service = new TestableToastService(Services, null);
+        var toast = new TestNonToastInstance("missing-toast");
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => service.RemoveToastFromProviderAsync(toast));
+
+        Assert.Equal("Failed to remove Toast from ToastProvider: the ID 'missing-toast' doesn't exist in the ToastServiceProvider.", exception.Message);
+    }
+
+    private sealed class TestToastService : IToastService
+    {
+        public string? ProviderId { get; set; }
+
+        public ConcurrentDictionary<string, IToastInstance> Items { get; } = new();
+
+        public Func<IToastInstance, Task> OnUpdatedAsync { get; set; } = _ => Task.CompletedTask;
+
+        public IToastInstance? LastClosedToast { get; private set; }
+
+        public ToastCloseReason? LastCloseReason { get; private set; }
+
+        public Task CloseAsync(IToastInstance Toast, ToastCloseReason reason)
+        {
+            LastClosedToast = Toast;
+            LastCloseReason = reason;
+            return Task.CompletedTask;
+        }
+
+        public Task DismissAsync(IToastInstance Toast)
+            => CloseAsync(Toast, ToastCloseReason.Dismissed);
+
+        public Task<bool> DismissAsync(string toastId)
+            => Task.FromResult(false);
+
+        public Task<int> DismissAllAsync()
+            => Task.FromResult(0);
+
+        public void Dispose()
+        {
+        }
+
+        public Task<ToastCloseReason> ShowToastAsync(ToastOptions? options = null)
+            => Task.FromResult(ToastCloseReason.Programmatic);
+
+        public Task<ToastCloseReason> ShowToastAsync(Action<ToastOptions> options)
+            => Task.FromResult(ToastCloseReason.Programmatic);
+
+        public Task<IToastInstance> ShowToastInstanceAsync(ToastOptions? options = null)
+            => Task.FromResult<IToastInstance>(new TestNonToastInstance("toast-instance"));
+
+        public Task<IToastInstance> ShowToastInstanceAsync(Action<ToastOptions> options)
+            => Task.FromResult<IToastInstance>(new TestNonToastInstance("toast-instance"));
+
+        public Task UpdateToastAsync(IToastInstance toast, Action<ToastOptions> update)
+            => Task.CompletedTask;
+    }
+
+    private sealed class TestableToastService(IServiceProvider serviceProvider, IFluentLocalizer? localizer)
+        : ToastService(serviceProvider, localizer)
+    {
+        public string GetLocalized(string key, params object[] arguments)
+            => Localizer[key, arguments];
+
+        public void AddItem(IToastInstance toast)
+            => ServiceProvider.Items.TryAdd(toast.Id, toast);
+
+        public bool ContainsItem(string id)
+            => ServiceProvider.Items.ContainsKey(id);
+
+        public void SetOnUpdatedAsync(Func<IToastInstance, Task> onUpdatedAsync)
+            => ServiceProvider.OnUpdatedAsync = onUpdatedAsync;
+
+        public new Task RemoveToastFromProviderAsync(IToastInstance? toast)
+            => base.RemoveToastFromProviderAsync(toast);
+
+        public void SetProviderId(string providerId)
+            => typeof(IFluentServiceBase<IToastInstance>)
+                .GetProperty(nameof(IFluentServiceBase<IToastInstance>.ProviderId))!
+                .SetValue(ServiceProvider, providerId);
+    }
+
+    private sealed class TestLocalizer : IFluentLocalizer
+    {
+        public string this[string key, params object[] arguments] => "Custom localized value";
+    }
+
+    private sealed class TestNonToastInstance(string id) : IToastInstance
+    {
+        public string Id { get; } = id;
+
+        public long Index => 0;
+
+        public ToastOptions Options { get; } = new();
+
+        public Task<ToastCloseReason> Result => Task.FromResult(ToastCloseReason.Programmatic);
+
+        public ToastLifecycleStatus LifecycleStatus => ToastLifecycleStatus.Visible;
+
+        public Task CancelAsync() => Task.CompletedTask;
+
+        public Task DismissAsync() => Task.CompletedTask;
+
+        public Task CloseAsync() => Task.CompletedTask;
+
+        public Task CloseAsync(ToastCloseReason reason) => Task.CompletedTask;
+
+        public Task UpdateAsync(Action<ToastOptions> update) => Task.CompletedTask;
+    }
+}

@@ -29,7 +29,7 @@ internal static partial class CoreIcons
 
             public class ArrowCircleDown : Icon { public ArrowCircleDown() : base("ArrowCircleDown", IconVariant.Regular, IconSize.Size20, "<path d=\"M13.3536 10.8536L10.3536 13.8536C10.1583 14.0488 9.84171 14.0488 9.64645 13.8536L6.64645 10.8536C6.45118 10.6583 6.45118 10.3417 6.64645 10.1464C6.84171 9.95118 7.15829 9.95118 7.35355 10.1464L9.5 12.2929L9.5 6.5C9.5 6.22386 9.72386 6 10 6C10.2761 6 10.5 6.22386 10.5 6.5V12.2929L12.6464 10.1464C12.8417 9.95118 13.1583 9.95118 13.3536 10.1464C13.5488 10.3417 13.5488 10.6583 13.3536 10.8536ZM10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z\" />") { } }
 
-            public class ArrowCircleUp : Icon { public ArrowCircleUp(): base("ArrowCircleUp", IconVariant.Regular, IconSize.Size20, "<path d=\"M6.64645 9.14645L9.64645 6.14645C9.84171 5.95118 10.1583 5.95118 10.3536 6.14645L13.3536 9.14645C13.5488 9.34171 13.5488 9.65829 13.3536 9.85355C13.1583 10.0488 12.8417 10.0488 12.6464 9.85355L10.5 7.70711V13.5C10.5 13.7761 10.2761 14 10 14C9.72386 14 9.5 13.7761 9.5 13.5V7.70711L7.35355 9.85355C7.15829 10.0488 6.84171 10.0488 6.64645 9.85355C6.45118 9.65829 6.45118 9.34171 6.64645 9.14645ZM10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2ZM3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10Z\" />") { } }
+            public class ArrowCircleUp : Icon { public ArrowCircleUp() : base("ArrowCircleUp", IconVariant.Regular, IconSize.Size20, "<path d=\"M6.64645 9.14645L9.64645 6.14645C9.84171 5.95118 10.1583 5.95118 10.3536 6.14645L13.3536 9.14645C13.5488 9.34171 13.5488 9.65829 13.3536 9.85355C13.1583 10.0488 12.8417 10.0488 12.6464 9.85355L10.5 7.70711V13.5C10.5 13.7761 10.2761 14 10 14C9.72386 14 9.5 13.7761 9.5 13.5V7.70711L7.35355 9.85355C7.15829 10.0488 6.84171 10.0488 6.64645 9.85355C6.45118 9.65829 6.45118 9.34171 6.64645 9.14645ZM10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2ZM3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10Z\" />") { } }
 
             public class ArrowReset : Icon { public ArrowReset() : base("ArrowReset", IconVariant.Regular, IconSize.Size20, "<path d=\"M5.85 2.65c.2.2.2.5 0 .7L4.21 5H11a6 6 0 1 1-6 6 .5.5 0 0 1 1 0 5 5 0 1 0 5-5H4.2l1.65 1.65a.5.5 0 1 1-.7.7l-2.5-2.5a.5.5 0 0 1 0-.7l2.5-2.5c.2-.2.5-.2.7 0Z\"/>") { } }
 
@@ -63,7 +63,11 @@ internal static partial class CoreIcons
 
             public class Clock : Icon { public Clock() : base("Clock", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16Zm0 1a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-.5 2a.5.5 0 0 1 .5.41V10h2.5a.5.5 0 0 1 .09 1H9.5a.5.5 0 0 1-.5-.41V5.5c0-.28.22-.5.5-.5Z\"></path>") { } };
 
+            public class ColumnArrowRight : Icon { public ColumnArrowRight() : base("ColumnArrowRight", IconVariant.Regular, IconSize.Size20, "<path d=\"M4 3h1a1 1 0 0 1 1 1v4h1V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11c0 1.1.9 2 2 2h1a2 2 0 0 0 2-2v-4H6v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm11-1a2 2 0 0 0-2 2v11c0 1.1.9 2 2 2h1a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-1Zm1 1a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h1ZM9.15 7.15c.2-.2.5-.2.7 0l2 2c.2.2.2.5 0 .7l-2 2a.5.5 0 0 1-.7-.7L10.29 10H5.5a.5.5 0 0 1 0-1h4.8L9.14 7.85a.5.5 0 0 1 0-.7Z\"/>") { } }
+
             public class Dismiss : Icon { public Dismiss() : base("Dismiss", IconVariant.Regular, IconSize.Size20, "<path d=\"m4.09 4.22.06-.07a.5.5 0 0 1 .63-.06l.07.06L10 9.29l5.15-5.14a.5.5 0 0 1 .63-.06l.07.06c.18.17.2.44.06.63l-.06.07L10.71 10l5.14 5.15c.18.17.2.44.06.63l-.06.07a.5.5 0 0 1-.63.06l-.07-.06L10 10.71l-5.15 5.14a.5.5 0 0 1-.63.06l-.07-.06a.5.5 0 0 1-.06-.63l.06-.07L9.29 10 4.15 4.85a.5.5 0 0 1-.06-.63l.06-.07-.06.07Z\"></path>") { } };
+
+            public class DrawingPalette : Icon { public DrawingPalette() : base("DrawingPalette", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 2a8 8 0 0 0 0 16c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01a1.5 1.5 0 0 1 1.13-2.49h1.76A4 4 0 0 0 18 9a7 7 0 0 0-7-7h-1Zm0 1h1a6 6 0 0 1 6 6 3 3 0 0 1-3 3h-1.76a2.5 2.5 0 0 0-1.88 4.15.5.5 0 0 1-.36.85 7 7 0 1 1 0-14ZM5.5 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm2-3a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm5 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm2 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z\"/><path d=\"M14.15 16.15a.5.5 0 0 1 .7 0l1.15 1.14 1.15-1.14a.5.5 0 0 1 .7.7l-1.5 1.5a.5.5 0 0 1-.7 0l-1.5-1.5a.5.5 0 0 1 0-.7Z\"/>") { } }
 
             public class Filter : Icon { public Filter() : base("Filter", IconVariant.Regular, IconSize.Size20, "<path d=\"M7.5 13h5a.5.5 0 0 1 .09 1H7.5a.5.5 0 0 1-.09-1h5.09-5Zm-2-4h9a.5.5 0 0 1 .09 1H5.5a.5.5 0 0 1-.09-1h9.09-9Zm-2-4h13a.5.5 0 0 1 .09 1H3.5a.5.5 0 0 1-.09-1H16.5h-13Z\"/>") { } }
 
@@ -94,6 +98,8 @@ internal static partial class CoreIcons
             public class PresenceTentative : Icon { public PresenceTentative() : base("PresenceTentative", IconVariant.Regular, IconSize.Size20, "<path d=\"M8.95.05a9.96 9.96 0 0 0-8.9 8.9l8.9-8.9ZM.19 11.95 11.95.2c.8.16 1.6.42 2.35.78L.97 14.31a9.97 9.97 0 0 1-.78-2.36Zm1.99 4.29a10.12 10.12 0 0 0 1.58 1.58L17.81 3.76a10.1 10.1 0 0 0-1.58-1.58L2.18 16.24ZM19.02 5.69 5.7 19.03c.76.36 1.55.62 2.36.78L19.8 8.05c-.16-.8-.42-1.6-.79-2.36Zm.92 5.37-8.89 8.88a9.96 9.96 0 0 0 8.89-8.88Z\"/>") { } }
 
             public class PresenceUnknown : Icon { public PresenceUnknown() : base("PresenceUnknown", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16ZM0 10a10 10 0 1 1 20 0 10 10 0 0 1-20 0Z\"/>") { } }
+
+            public class Circle : Icon { public Circle() : base("Circle", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-8 7a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z\"/>") { } }
 
             public class RadioButton : Icon { public RadioButton() : base("RadioButton", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-8 7a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z\" />") { } };
 
@@ -132,6 +138,8 @@ internal static partial class CoreIcons
             public class PresenceBusy : Icon { public PresenceBusy() : base("PresenceBusy", IconVariant.Filled, IconSize.Size20, "<path d=\"M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z\"/>") { } }
 
             public class PresenceDnd : Icon { public PresenceDnd() : base("PresenceDnd", IconVariant.Filled, IconSize.Size20, "<path d=\"M10 20a10 10 0 1 0 0-20 10 10 0 0 0 0 20ZM7 9h6a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2Z\"/>") { } }
+
+            public class Circle : Icon { public Circle() : base("Circle", IconVariant.Filled, IconSize.Size20, "<path d=\"M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z\"/>") { } }
 
             public class RadioButton : Icon { public RadioButton() : base("RadioButton", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-13a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm-7 8a7 7 0 1 1 14 0 7 7 0 0 1-14 0Z\" />") { } };
 

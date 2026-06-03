@@ -36,6 +36,9 @@ dotnet add package Microsoft.FluentUI.AspNetCore.Components.Icons
 
 **Note** With the pre-release version, make sure you don't have the configuration `<TreatWarningsAsErrors>true</TreatWarningsAsErrors>` in your csproj file.
 
+> [!NOTE] If you'd like to take advantage of the daily updates, please follow [these steps](https://github.com/microsoft/fluentui-blazor/blob/dev-v5/docs/using-latest-daily.md).
+> Be aware, however, that this is at your own risk: daily builds may introduce new bugs or breaking changes while you are working.
+
 ### 2. Add Imports
 
 In your `_Imports.razor` file, include:

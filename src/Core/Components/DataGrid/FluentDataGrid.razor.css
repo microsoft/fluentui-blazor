@@ -1,4 +1,5 @@
 .fluent-data-grid {
+  --fluent-data-grid-pinned-background: var(--colorNeutralBackground2);
   --fluent-data-grid-stripe-background-color: var(--colorNeutralBackground2);
   --fluent-data-grid-resize-handle-color: var(--colorNeutralStroke2);
   --fluent-data-grid-resize-handle-width: 1px;
@@ -28,10 +29,12 @@
     background: var(--colorNeutralBackground5);
   }
 
-  .fluent-data-grid .col-options, .fluent-data-grid .col-resize {
+  .fluent-data-grid .col-header-ui {
     position: absolute;
+    cursor: auto;
     min-width: 250px;
-    top: 2.7rem;
+    top: 2.45rem;
+    inset-inline-start: 0;
     background: var(--colorNeutralBackground1);
     border: 1px solid var(--colorNeutralBackground1Pressed);
     border-radius: 0.3rem;
@@ -41,18 +44,22 @@
     z-index: 1;
   }
 
-[dir=rtl] .fluent-data-grid .col-options {
+.fluent-data-grid .column-header:has(.col-header-ui) {
+  overflow: visible;
+}
+
+[dir=rtl] .fluent-data-grid .col-header-ui {
   left: unset;
 }
 
-.fluent-data-grid .col-justify-end .col-options,
-.fluent-data-grid .col-justify-right .col-options {
+.fluent-data-grid .col-justify-end .col-header-ui,
+.fluent-data-grid .col-justify-right .col-header-ui {
   left: unset;
   margin-right: 0.6rem;
 }
 
-[dir=rtl] .fluent-data-grid .col-justify-end .col-options,
-[dir=rtl] .fluent-data-grid .col-justify-right .col-options {
+[dir=rtl] .fluent-data-grid .col-justify-end .col-header-ui,
+[dir=rtl] .fluent-data-grid .col-justify-right .col-header-ui {
   right: unset;
   margin-left: 0.6rem;
 }
@@ -64,6 +71,29 @@
   width: 100%;
   justify-content: center;
   align-items: center;
+}
+
+.fluent-data-grid .reorder-options {
+  width: 100%;
+}
+
+.fluent-data-grid th.col-reorderable {
+  cursor: grab;
+}
+
+.fluent-data-grid.col-reorder-active th.col-reorderable {
+  cursor: grabbing;
+}
+
+.fluent-data-grid [col-index].col-reorder-dragging {
+  background-color: var(--colorNeutralBackground4);
+  border-inline-start: 1px solid var(--fluent-data-grid-resize-handle-color);
+  border-inline-end: 1px solid var(--fluent-data-grid-resize-handle-color);
+  opacity: 0.4;
+}
+
+.fluent-data-grid [col-index].col-reorder-drop-target {
+  background-color: var(--colorBrandBackground2);
 }
 
 .fluent-data-grid .resize-handle {
@@ -94,6 +124,46 @@
   top: 0;
   background-color: var(--colorNeutralBackground4);
   z-index: 2;
+}
+
+/* ---- Pinned (sticky) columns ---- */
+
+/* Background: keeps content from showing through when scrolling. Override --fluent-data-grid-pinned-background to theme. */
+.fluent-data-grid th.col-pinned-start,
+.fluent-data-grid th.col-pinned-end {
+  background-color: var(--colorNeutralBackground1);
+}
+
+.fluent-data-grid td.col-pinned-start,
+.fluent-data-grid td.col-pinned-end {
+  background-color: var(--fluent-data-grid-pinned-background);
+}
+
+  /* Visual separator on the trailing edge of the last start-pinned column */
+  .fluent-data-grid td:nth-last-child(1 of .col-pinned-start),
+  .fluent-data-grid td.col-pinned-start:last-child {
+    border-inline-end: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+  }
+
+
+/* Visual separator on the leading edge of the first end-pinned column */
+.fluent-data-grid td:nth-child(1 of .col-pinned-end),
+.fluent-data-grid td:first-child.col-pinned-right {
+  border-inline-start: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+}
+/* Pinned header cells must stack above pinned data cells (z-index: 1 applied inline by C#).
+   For UseMenuService=false the inline z-index: 5 is absent, so we provide a floor here.
+   The sticky-header row needs the highest value to beat both the sticky-header row z-index (2)
+   and the pinned data cell z-index (1). */
+.fluent-data-grid th.col-pinned-start,
+.fluent-data-grid th.col-pinned-end {
+  z-index: 2;
+}
+
+.fluent-data-grid tr[row-type='sticky-header'] > th.col-pinned-start,
+.fluent-data-grid tr[row-type='sticky-header'] > th.col-pinned-end {
+  background-color: var(--colorNeutralBackground4);
+  z-index: 4;
 }
 
 .fluent-data-grid[striped] tbody tr:nth-child(even) td {

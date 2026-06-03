@@ -47,6 +47,12 @@ Example: `Culture="@(new CultureInfo("fr"))"` will display the calendar in Frenc
 
 {{ CalendarCulture }}
 
+## Min and Max
+
+You can set a minimum and maximum date for the calendar using the `MinDate` and `MaxDate` parameters.
+
+{{ CalendarMinMax }}
+
 ## Value type
 
 The **FluentCalendar** and **FluentDatePicker** components are a generic components, so you can use it with date types such as `DateTime?`, `DateTime`, `DateOnly?` or `DateOnly`.  

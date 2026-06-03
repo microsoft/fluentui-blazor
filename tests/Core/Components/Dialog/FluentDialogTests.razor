@@ -8,7 +8,7 @@
     public FluentDialogTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
-        Services.AddFluentUIComponents();
+        Services.AddFluentUIComponents(options => options.UseGlobalOverlay = false);
 
         DialogService = Services.GetRequiredService<IDialogService>();
         DialogProvider = Render<FluentDialogProvider>();
@@ -42,6 +42,41 @@
 
         // Assert
         DialogProvider.Verify();
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(DialogAlignment.Start, "start")]
+    [InlineData(DialogAlignment.End, "end")]
+    [InlineData(DialogAlignment.Default, null)]
+    [InlineData(null, null)]
+    public async Task FluentDialog_Alignment(DialogAlignment? alignment, string? expectedPosition)
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Alignment = alignment;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        var dialog = DialogProvider.Find("fluent-dialog");
+
+        if (expectedPosition is null)
+        {
+            Assert.False(dialog.HasAttribute("position"));
+        }
+        else
+        {
+            Assert.Equal(expectedPosition, dialog.GetAttribute("position"));
+        }
     }
 
     [Theory(Timeout = TEST_TIMEOUT)]
@@ -434,6 +469,121 @@
         Assert.Equal("My title", header.Title);
         Assert.Equal("My action", action.Label);
         Assert.False(footer.PrimaryFirst);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_PreventDismissOnEscape_Default_DoesNotCallJs()
+    {
+        // Arrange
+        var preventEscapeSetup = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", _ => true);
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act: open dialog with default PreventDismissOnEscape (null / false)
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        });
+
+        await Task.CompletedTask;
+
+        // Assert: JS interceptor must not have been called
+        Assert.Empty(preventEscapeSetup.Invocations);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_PreventDismissOnEscape_True_CallsJs()
+    {
+        // Arrange
+        var preventEscapeSetup = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", _ => true);
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act: open dialog with PreventDismissOnEscape = true
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.PreventDismissOnEscape = true;
+
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        });
+
+        await Task.CompletedTask;
+
+        // Assert: JS interceptor called once with (dialogId, true)
+        var invocation = Assert.Single(preventEscapeSetup.Invocations);
+        Assert.Equal(true, invocation.Arguments[1]);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_PreventDismissOnEscape_False_DoesNotCallJs()
+    {
+        // Arrange
+        var preventEscapeSetup = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", _ => true);
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act: open dialog with PreventDismissOnEscape explicitly set to false
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.PreventDismissOnEscape = false;
+
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        });
+
+        await Task.CompletedTask;
+
+        // Assert: JS interceptor must not have been called
+        Assert.Empty(preventEscapeSetup.Invocations);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_PreventDismissOnEscape_TrueThenFalse_OnlyFirstDialogCallsJs()
+    {
+        // Arrange
+        var preventEscapeSetup = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", _ => true);
+        var firstRenderOptions = new Templates.DialogRenderOptions() { AutoClose = true };
+        var secondRenderOptions = new Templates.DialogRenderOptions();
+
+        // Act: open first dialog with PreventDismissOnEscape = true; it auto-closes immediately
+        var firstDialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.PreventDismissOnEscape = true;
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), firstRenderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        });
+        await firstDialogTask;
+
+        // Assert: JS interceptor was called once with (id, true) for the first dialog
+        var firstInvocation = Assert.Single(preventEscapeSetup.Invocations);
+        Assert.Equal(true, firstInvocation.Arguments[1]);
+
+        // Act: open second dialog with PreventDismissOnEscape = false (default)
+        var secondDialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.PreventDismissOnEscape = false;
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), secondRenderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "Jane");
+        });
+        await Task.CompletedTask;
+
+        // Assert: no additional JS call was made for the second dialog (false does not trigger JS)
+        Assert.Single(preventEscapeSetup.Invocations);
+    }
+
+    [Fact]
+    public void FluentDialog_PreventDismissOnEscape_StandaloneParameter()
+    {
+        // Arrange: render a standalone FluentDialog (no DialogService) with the parameter set
+        var preventEscapeSetup = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", _ => true);
+
+        // Act
+        var cut = Render(@<FluentDialog PreventDismissOnEscape="true">
+            <p>Content</p>
+        </FluentDialog>);
+
+        // Assert: the parameter was accepted (component rendered without error)
+        var dialog = cut.FindComponent<FluentDialog>();
+        Assert.True(dialog.Instance.PreventDismissOnEscape);
     }
 
     [Theory(Timeout = TEST_TIMEOUT)]

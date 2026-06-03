@@ -11,14 +11,15 @@ component and is the one normally put onto a page. Internally it uses the`<Fluen
 the grid. It is possible (technically speaking) to use these components manually, but that is **not** the recommended way of working with the DataGrid.
 
 ## Rendering
+
 The DataGrid uses standard HTML table elements for rendering the grid. It supports 2 different display modes through the `DisplayMode`
 parameter: `DataGridDisplayMode.Grid` (default) and `DataGridDisplayMode.Table`.
+
 - With the `Grid` mode, the `GridTableColumns` parameter can be
 used to specify column widths in fractions. It basically provides an HTML table element with a `display: grid;` style.
 - With the `Table` mode, it uses standard HTML table elements and rendering. Column widths are best specified through the `Width` parameter on the columns.
 
 > [!NOTE] Specifically when using `Virtualize`, it is **highly recommended** to use the `Table` display mode as the `Grid` mode can exhibit odd scrolling behavior.
-
 
 ## Accessibility
 
@@ -45,54 +46,35 @@ again will toggle the sort direction. When `HeaderCellAsButtonWithMenu` is true,
 A sort can be removed by right clicking (or by pressing <kbd>Shift</kbd> + <kbd>r</kbd>) on the header column (with exception of
 the default sort).
 
-_The minimal width for a sortable column is 75 pixels._
+*The minimal width for a sortable column is 75 pixels.*
 
 ## Row size
 
 The DataGrid offers a `RowSize` parameter which allows you to use different preset row heights. The value uses the `DataGridRowSize`
 enumeration for its type. When using `Virtualize`, the `ItemSize` value **must** still be used to indicate the row height.
 
-## Change strings used in the UI
+## Localization
 
-The DataGrid has a number of strings that are used in the UI. These can be changed by leveraging the built-in [localization](/localization) functionality.
-The following values can be localized:
-
-- DataGrid_EmptyContent
-- DataGrid_OptionsMenu
-- DataGrid_ResizeDiscrete
-- DataGrid_ResizeExact
-- DataGrid_ResizeGrow
-- DataGrid_ResizeMenu
-- DataGrid_ResizeReset
-- DataGrid_ResizeShrink
-- DataGrid_ResizeSubmit
-- DataGrid_SelectColumn_AllChecked
-- DataGrid_SelectColumn_AllIndeterminate
-- DataGrid_SelectColumn_AllUnchecked
-- DataGrid_SelectColumn_RowChecked
-- DataGrid_SelectColumn_RowUnchecked
-- DataGrid_SortMenu
-- DataGrid_SortMenuAscending
-- DataGrid_SortMenuDescending
-- DataGrid_ToggleNesting
-
+The DataGrid includes several UI strings that can be customized using the built-in [localization](/localization) functionality. A complete list of available translation key/value pairs can be found [here](/localization?search=DataGrid#default-translations).
 
 ## Using the DataGrid component with EF Core
 
 If you want to use the `FluentDataGrid` with data provided through EF Core, you need to install an additional package so the grid knows how to resolve queries asynchronously for efficiency.
 
 ### Installation
+
 Install the package by running the command:
 
 ```cshtml
-dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapterCopy
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter
 ```
 
 ### Usage
+
 In your `Program.cs` file you need to add the following after the `builder.Services.AddFluentUIComponents();` line:
 
 ```csharp
-builder.Services.AddDataGridEntityFrameworkAdapter();Copy
+builder.Services.AddDataGridEntityFrameworkAdapter();
 ```
 
 ## Using the DataGrid component with OData
@@ -100,13 +82,15 @@ builder.Services.AddDataGridEntityFrameworkAdapter();Copy
 If you want to use the `FluentDataGrid` with data provided through OData, you need to install an additional package so the grid knows how to resolve queries asynchronously for efficiency.
 
 ### Installation
+
 Install the package by running the command:
 
 ```cshtml
-dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapterCopy
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter
 ```
 
 ### Usage
+
 In your `Program.cs` file you need to add the following after the `builder.Services.AddFluentUIComponents();` line:
 
 ```csharp
@@ -114,13 +98,17 @@ builder.Services.AddDataGridODataAdapter();
 ```
 
 ## Examples
+
 The following examples show how to use the DataGrid component in different scenarios:
 
 ### Basics
+
 - [Getting started](/DataGrid/GettingStarted)
 - [Typical grid usage](/DataGrid/Typical)
-    
+
 ### Layout
+
+- [Pinned columns](/DataGrid/PinnedColumns)
 - [Loading and empty content](/DataGrid/LoadingAndEmptyContent)
 - [Auto fit columns](/DataGrid/AutoFit)
 - [Auto items per page](/DataGrid/AutoItemsPerPage)
@@ -129,10 +117,12 @@ The following examples show how to use the DataGrid component in different scena
 - [Table with scrollbars](/DataGrid/TableScrollbars)
 
 ### Sorting
+
 - [Custom comparer for sorting](/DataGrid/CustomComparerSort)
 - [Custom sorting](/DataGrid/CustomSort)
-    
+
 ### Columns
+
 - [Single/Multi select](/DataGrid/MultiSelect)
 - [Dynamic columns](/DataGrid/DynamicColumns)
 - [Column headers](/DataGrid/HeaderGeneration)
@@ -140,12 +130,36 @@ The following examples show how to use the DataGrid component in different scena
 - [Template columns 2](/DataGrid/TemplateColumns2)
 
 ### Advanced
+
 - [Custom comparer](/DataGrid/CustomComparerSort)
 - [Virtualized grid](/DataGrid/Virtualize)
 - [Remote data](/DataGrid/RemoteData)
 - [Hierarchical grid](/DataGrid/HierarchicalDataGrid)
 - [Manual grid](/DataGrid/ManualDataGrid)
 
+## API FluentDataGrid
+
+{{ API Type=FluentDataGrid<string> }}
+
+## API FluentDataGridRow
+
+{{ API Type=FluentDataGridRow<string> }}
+
+## API FluentDataGridCell
+
+{{ API Type=FluentDataGridCell<string> }}
+
+## API PropertyColumn
+
+{{ API Type=PropertyColumn<string,string> }}
+
+## API TemplateColumn
+
+{{ API Type=TemplateColumn<string> }}
+
+## API SelectColumn
+
+{{ API Type=SelectColumn<string> }}
 
 ## Migrating to v5
 

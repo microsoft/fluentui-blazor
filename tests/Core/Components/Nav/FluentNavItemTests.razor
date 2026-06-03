@@ -243,9 +243,11 @@
 		// Arrange
 		var navMan = Services.GetRequiredService<NavigationManager>();
 		navMan.NavigateTo("https://localhost/test", true);
+        
+        var icon = Samples.Icons.Info;
 
 		var cut = Render(@<FluentNav>
-				<FluentNavItem Id="link" IconRest="@Samples.Icons.Info" Href="https://localhost/test">Test Item</FluentNavItem>
+				<FluentNavItem Id="link" IconRest="@icon" Href="https://localhost/test">Test Item</FluentNavItem>
 			</FluentNav>);
 
 		// Assert
@@ -709,6 +711,112 @@
 
 		// Assert - OnItemClick should NOT have been invoked
 		Assert.Null(clickedItem);
+	}
+
+	// Icon WithColor tests
+	// Each test creates its own icon instance to avoid mutating the shared Samples.Icons statics.
+
+	[Fact]
+	public void FluentNavItem_IconRest_WithColor_HexString_Renders_CustomColor_When_Inactive()
+	{
+		// Arrange
+		var icon = Samples.Icons.NewInfo().WithColor("#F97316");
+
+		// Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem IconRest="@icon">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert - inactive item: custom hex color on IconRest is rendered as a fill value
+		Assert.Contains("fill: #F97316", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_IconRest_WithColor_Enum_Renders_CustomColor_When_Inactive()
+	{
+		// Arrange - Color.Error maps to var(--error) per its [Description] attribute
+		var icon = Samples.Icons.NewInfo().WithColor(Color.Error);
+
+		// Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem IconRest="@icon">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert - inactive item: named color enum value is rendered as its CSS variable
+		Assert.Contains("fill: var(--error)", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_Active_IconRest_WithColor_NoIconActive_Uses_IconRest_Color()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/test", true);
+		var icon = Samples.Icons.NewInfo().WithColor("#F97316");
+
+		// Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Href="https://localhost/test" IconRest="@icon">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert - active item with no IconActive: IconRest.Color is used as the custom color
+		Assert.Contains("fill: #F97316", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_Active_IconActive_WithColor_Overrides_IconRest_Color()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/test", true);
+		var iconRest = Samples.Icons.NewInfo().WithColor("#F97316");
+		var iconActive = Samples.Icons.NewWarning().WithColor("#22C55E");
+
+		// Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Href="https://localhost/test"
+						   IconRest="@iconRest"
+						   IconActive="@iconActive">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert - active item: IconActive.Color takes precedence over IconRest.Color
+		Assert.Contains("fill: #22C55E", cut.Markup);
+		Assert.DoesNotContain("fill: #F97316", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_Active_IconActive_WithoutColor_Falls_Back_To_Primary()
+	{
+		// Arrange
+		var navMan = Services.GetRequiredService<NavigationManager>();
+		navMan.NavigateTo("https://localhost/test", true);
+		var iconRest = Samples.Icons.NewInfo();
+		var iconActive = Samples.Icons.NewWarning();
+
+		// Act — neither icon has WithColor, so customColor is null → Color.Primary is used
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Href="https://localhost/test"
+						   IconRest="@iconRest"
+						   IconActive="@iconActive">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert - active item, no custom color on either icon: Color.Primary CSS variable applied
+		Assert.Contains("fill: var(--colorBrandForeground1)", cut.Markup);
+	}
+
+	[Fact]
+	public void FluentNavItem_Inactive_IconRest_Without_WithColor_Uses_Default_Color()
+	{
+		// Arrange
+		var icon = Samples.Icons.NewInfo();
+
+		// Act — no WithColor call: customColor is null → Color.Default
+		var cut = Render(@<FluentNav>
+			<FluentNavItem IconRest="@icon">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert - inactive item, no custom color: Color.Default CSS variable applied
+		Assert.Contains("fill: var(--colorNeutralForeground1)", cut.Markup);
 	}
 
 	[Fact]

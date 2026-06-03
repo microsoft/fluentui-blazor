@@ -51,7 +51,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.PageScript {
       pageScriptInfo.referenceCount--;
     }
 
-    async initializePageScriptModule(src: string, pageScriptInfo: any): void {
+    async initializePageScriptModule(src: string, pageScriptInfo: any): Promise<void> {
       if (src.startsWith("./")) {
         src = new URL(src.substring(2), document.baseURI).toString();
       }

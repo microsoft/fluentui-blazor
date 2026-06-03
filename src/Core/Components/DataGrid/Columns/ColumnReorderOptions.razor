@@ -1,0 +1,40 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@typeparam TGridItem
+
+<FluentStack Class="my-3-o" Orientation="Orientation.Vertical">
+
+    <FluentLabel>@Localizer[Localization.LanguageResource.DataGrid_ReorderMenu]</FluentLabel>
+    <FluentStack HorizontalGap="2">
+
+        <FluentButton OnClick="@HandleMoveToStartAsync"
+                      Disabled="@(!Grid.CanMoveColumnToStart(Column))"
+                      Autofocus="@Grid.CanMoveColumnToStart(Column)"
+                      IconOnly="true"
+                      IconStart="@(new CoreIcons.Regular.Size20.ChevronDoubleLeft())"
+                      Title="@Localizer[Localization.LanguageResource.DataGrid_ReorderMoveToStart]">
+        </FluentButton>
+
+        <FluentButton OnClick="@HandleMoveLeftAsync"
+                      Disabled="@(!Grid.CanMoveColumnLeft(Column))"
+                      Autofocus="@(!Grid.CanMoveColumnToStart(Column) && Grid.CanMoveColumnLeft(Column))"
+                      IconOnly="true"
+                      IconStart="@(new CoreIcons.Regular.Size20.ChevronLeft())"
+                      Title="@Localizer[Localization.LanguageResource.DataGrid_ReorderMoveLeft]">
+        </FluentButton>
+
+        <FluentButton OnClick="@HandleMoveRightAsync"
+                      Disabled="@(!Grid.CanMoveColumnRight(Column))"
+                      Autofocus="@(!Grid.CanMoveColumnToStart(Column) && !Grid.CanMoveColumnLeft(Column) && Grid.CanMoveColumnRight(Column))"
+                      IconOnly="true"
+                      IconStart="@(new CoreIcons.Regular.Size20.ChevronRight())"
+                      Title="@Localizer[Localization.LanguageResource.DataGrid_ReorderMoveRight]">
+        </FluentButton>
+
+        <FluentButton OnClick="@HandleMoveToEndAsync"
+                      Disabled="@(!Grid.CanMoveColumnToEnd(Column))"
+                      IconOnly="true"
+                      IconStart="@(new CoreIcons.Regular.Size20.ChevronDoubleRight())"
+                      Title="@Localizer[Localization.LanguageResource.DataGrid_ReorderMoveToEnd]">
+        </FluentButton>
+    </FluentStack>
+</FluentStack>

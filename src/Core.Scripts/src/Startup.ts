@@ -4,6 +4,7 @@ import { Microsoft as FluentUIComponentsFile } from './FluentUIWebComponents';
 import { Microsoft as FluentPageScriptFile } from './Components/PageScript/FluentPageScript';
 import { Microsoft as FluentPopoverFile } from './Components/Popover/FluentPopover';
 import { Microsoft as FluentOverlayFile } from './Components/Overlay/FluentOverlay';
+import { Microsoft as FluentToastFile } from './Components/Toast/FluentToast';
 import { Microsoft as FluentUIStylesFile } from './FluentUIStyles';
 import { Microsoft as FluentUICustomEventsFile } from './FluentUICustomEvents';
 import { StartedMode } from './d-ts/StartedMode';
@@ -16,6 +17,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
   import FluentPageScript = FluentPageScriptFile.FluentUI.Blazor.Components.PageScript;
   import FluentPopover = FluentPopoverFile.FluentUI.Blazor.Components.Popover;
   import FluentOverlay = FluentOverlayFile.FluentUI.Blazor.Components.Overlay;
+  import FluentToast = FluentToastFile.FluentUI.Blazor.Components.Toast;
   import FluentUIStyles = FluentUIStylesFile.FluentUI.Blazor.FluentUIStyles;
   import FluentUICustomEvents = FluentUICustomEventsFile.FluentUI.Blazor.FluentUICustomEvents;
 
@@ -28,6 +30,10 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
   export function beforeStart(options: WebStartOptions, mode: StartedMode) {
     if (beforeStartCalled) return;
     Logger.debug(`beforeStart mode "${mode}"`, options);
+
+    // Apply theme as early as possible to reduce FOUC
+    ThemeFile.FluentUI.Blazor.Utilities.Theme.initializeThemeSettings();
+    ThemeFile.FluentUI.Blazor.Utilities.Theme.addSystemThemeChangeListener();
 
     // Define Fluent UI components
     FluentUIComponents.defineComponents();
@@ -49,13 +55,13 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     // Initialize Fluent UI theme
     blazor.theme = ThemeFile.FluentUI.Blazor.Utilities.Theme;
     ThemeFile.FluentUI.Blazor.Utilities.Theme.addMediaQueriesListener();
-    ThemeFile.FluentUI.Blazor.Utilities.Theme.setDefaultTheme();
 
     // Initialize all custom components
     FluentPageScript.registerComponent(blazor, mode);
     FluentPopover.registerComponent(blazor, mode);
     FluentOverlay.registerComponent(blazor, mode);
-    // [^^^ Add your other custom components before this line ^^^]
+    FluentToast.registerComponent(blazor, mode);
+    // [^^ Add your other custom components before this line ^^]
 
     // Register all custom events
     FluentUICustomEvents.Accordion(blazor);

@@ -6,7 +6,7 @@ icon: SplitHorizontal
 
 # Splitter
 
-The **MultiSplitter** splits the page into multiple panels and allows the user to control the page layout.
+The `FluentMultiSplitter` splits the page into multiple panels and allows the user to control the page layout.
 
 You can include as many **Panes** as you like in a container.
 By default, the panes are resizable, but the `Resizable` parameter can be used to block this functionality.
@@ -52,6 +52,14 @@ These CSS variables are predefined with these values, but can be overwritten (us
   --fluent-multi-splitter-bar-size: var(--spacingVerticalS);
 }
 ```
+
+## API FluentMultiSplitter
+
+{{ API Type=FluentMultiSplitter }}
+
+## API FluentMultiSplitterPane
+
+{{ API Type=FluentMultiSplitterPane }}
 
 ## Migrating to v5
 

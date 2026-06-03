@@ -32,7 +32,8 @@ public partial class FluentHighlighter : FluentComponentBase
     public bool CaseSensitive { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the fragment of text to be highlighted.
+    /// Gets or sets the search term to highlight within <see cref="Text"/> (e.g., <c>HighlightedText="blazor"</c>).
+    /// Use <see cref="CaseSensitive"/> to control case sensitivity and <see cref="Delimiters"/> to split the term.
     /// </summary>
     [Parameter]
     public string HighlightedText { get; set; } = string.Empty;
@@ -50,7 +51,7 @@ public partial class FluentHighlighter : FluentComponentBase
     public string Delimiters { get; set; } = string.Empty;
 
     /// <summary>
-    /// If true, highlights the text until the next regex boundary.
+    /// Gets or sets whether the <see cref="HighlightedText"/> match should extend until the next regex word boundary.
     /// </summary>
     [Parameter]
     public bool UntilNextBoundary { get; set; }

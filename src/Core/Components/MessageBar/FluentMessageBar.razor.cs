@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentMessageBar : FluentComponentBase
 {
     private static readonly Icon IconInfo = new CoreIcons.Regular.Size20.Info().WithColor("var(--info)");
-    private static readonly Icon IconWarning= new CoreIcons.Filled.Size20.Warning().WithColor("var(--warning)");
+    private static readonly Icon IconWarning = new CoreIcons.Filled.Size20.Warning().WithColor("var(--warning)");
     private static readonly Icon IconSuccess = new CoreIcons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
     private static readonly Icon IconError = new CoreIcons.Filled.Size20.DismissCircle().WithColor("var(--error)");
 
@@ -29,14 +29,14 @@ public partial class FluentMessageBar : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets or sets the intent of the message bar. 
+    /// Gets or sets the intent of the message bar.
     /// Default is <see cref="MessageBarIntent.Info"/>.
     /// </summary>
     [Parameter]
     public MessageBarIntent? Intent { get; set; }
 
     /// <summary>
-    /// Gets or sets the layout of the message bar. 
+    /// Gets or sets the layout of the message bar.
     /// Default is <see cref="MessageBarLayout.SingleLine"/>.
     /// </summary>
     [Parameter]
@@ -63,15 +63,16 @@ public partial class FluentMessageBar : FluentComponentBase
     public AriaLive? AriaLive { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon to show in the message bar based on the intent of the message.
+    /// Gets or sets the icon to show in the message bar.
+    /// When set, overrides the default icon determined by <see cref="Intent"/>.
     /// </summary>
     [Parameter]
     public Icon? Icon { get; set; }
 
     /// <summary>
-    /// Gets or sets the most important info to be shown in the message bar.
+    /// Gets or sets the plain-text title displayed in the message bar (e.g., <c>Title="Action required"</c>).
     /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
-    /// If you need to format the content, use the <see cref="ChildContent"/> parameter.
+    /// For formatted content with markup, use <see cref="ChildContent"/> instead.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -83,13 +84,14 @@ public partial class FluentMessageBar : FluentComponentBase
     public bool Visible { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the ability to dismiss the message bar. Default is true.
+    /// Gets or sets a value indicating whether the message bar can be dismissed by the user. Default is <see langword="true"/>.
     /// </summary>
     [Parameter]
     public bool AllowDismiss { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the message to be shown when not using the MessageService methods.
+    /// Gets or sets the rich content of the message bar.
+    /// Use this instead of <see cref="Title"/> when the message requires markup or custom formatting.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -101,8 +103,8 @@ public partial class FluentMessageBar : FluentComponentBase
     public RenderFragment? ActionsTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the time on which the message was created.
-    /// Only used when <see cref="ActionsTemplate"/> is not used: `null` (if not, this parameter is ignored).
+    /// Gets or sets the timestamp when the message was created.
+    /// Only displayed when <see cref="ActionsTemplate"/> is <see langword="null"/>.
     /// </summary>
     [Parameter]
     public DateTime? TimeStamp { get; set; }

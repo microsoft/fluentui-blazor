@@ -51,7 +51,8 @@ public sealed class SummaryDocumentationGenerator : DocumentationGeneratorBase
 
         var options = new ApiClassOptions(Assembly, _docXmlReader)
         {
-            Mode = GenerationMode.Summary
+            Mode = GenerationMode.Summary,
+            PropertyParameterOnly = false,
         };
 
         var validTypes = Assembly.GetTypes().Where(t => t.IsValidType()).ToList();

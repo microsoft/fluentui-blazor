@@ -1,0 +1,63 @@
+fluent-text-input[inputmode="numeric"] {
+    --numeric-height: 32px;
+}
+
+fluent-text-input[inputmode="numeric"]::part(root) {
+    padding-right: 0;
+}
+
+fluent-text-input[inputmode="numeric"] div[slot="end"]:last-child {
+    padding-left: var(--spacingHorizontalMNudge);
+}
+
+fluent-text-input[inputmode="numeric"] div[button-step] {
+    max-height: calc(var(--numeric-height) / 2);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+fluent-text-input[inputmode="numeric"] div[button-step] > svg {
+    height: 16px;
+}
+
+fluent-text-input[inputmode="numeric"] div[button-step]:hover {
+    background-color: var(--colorNeutralBackground1Hover);
+    color: var(--colorNeutralForeground1Hover);
+    border-color: var(--colorNeutralStroke1Hover);
+}
+
+fluent-text-input[inputmode="numeric"] div[button-step]:hover:active {
+    background-color: var(--colorNeutralBackground1Pressed);
+    border-color: var(--colorNeutralStroke1Pressed);
+    color: var(--colorNeutralForeground1Pressed);
+    outline-style: none;
+}
+
+fluent-text-input[inputmode="numeric"] div[button-step=up]:hover {
+    border-top-right-radius: var(--borderRadiusMedium);
+}
+
+fluent-text-input[inputmode="numeric"] div[button-step=down]:hover {
+    border-bottom-right-radius: var(--borderRadiusMedium);
+}
+
+/* The DIV containing the step buttons */
+fluent-text-input[inputmode="numeric"] div[slot="end"]:last-child > div {
+    height: calc(var(--numeric-height) - 2px);
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Auto mode: hide step buttons by default, show on hover or focus-within */
+fluent-text-input[inputmode="numeric"] div[slot="end"]:last-child > div[auto-hide] {
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+}
+
+fluent-text-input[inputmode="numeric"]:hover div[slot="end"]:last-child > div[auto-hide],
+fluent-text-input[inputmode="numeric"]:focus-within div[slot="end"]:last-child > div[auto-hide] {
+    opacity: 1;
+}

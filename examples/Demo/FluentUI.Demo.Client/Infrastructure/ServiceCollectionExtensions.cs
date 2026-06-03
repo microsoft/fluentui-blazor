@@ -64,12 +64,15 @@ public static class ServiceCollectionExtensions
             options.PageTitle = "{0} - FluentUI Blazor Components";
             options.ComponentsAssembly = typeof(Client._Imports).Assembly;
             options.ResourcesAssembly = typeof(Client._Imports).Assembly;
-            options.ApiAssembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
+            options.ApiAssemblies = [
+                typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly,
+                typeof(Microsoft.FluentUI.AspNetCore.Components.Charts._Imports).Assembly
+            ];
             options.ApiCommentSummary = (data, component, member) =>
             {
                 if (member is null && (data is null || data?.Items?.Count <= 1))
                 {
-                    return "⚠️ The file `api-comments.json` was not found. " +
+                    return "⚠️ The file `api-comments.json` or `chart-comments.json` was not found. " +
                            "Run the project `FluentUI.Demo.DocApiGen` to generate the file. ";
                 }
 

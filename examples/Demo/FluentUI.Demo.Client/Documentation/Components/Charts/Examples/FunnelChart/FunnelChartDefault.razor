@@ -1,0 +1,14 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentFunnelChart ChartData = "@data"
+                   ChartTitle="Basic Funnel chart"/>
+
+@code {
+    private readonly IReadOnlyList<FunnelDataPoint> data = new List<FunnelDataPoint>
+    {
+            new FunnelDataPoint { Stage = "Visitors", Value = 1000 },
+            new FunnelDataPoint { Stage = "Signups", Value = 600 },
+            new FunnelDataPoint { Stage = "Trials", Value = 300 },
+            new FunnelDataPoint { Stage = "Customers", Value = 250 },
+    };
+}

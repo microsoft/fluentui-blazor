@@ -60,6 +60,32 @@ The MCP server runs as a **child process** of your IDE with:
 - Sandboxed by the IDE runtime
 - Cannot access resources outside its working directory
 
+### VSCode Native Sandboxing
+
+VS Code provides a built-in **sandbox layer** for locally-running `stdio` MCP servers that restricts file system and network access at the OS level. This is available on **macOS and Linux** and provides an additional defense-in-depth control on top of process isolation.
+
+When sandboxing is enabled, the MCP server can only access the file system paths and network domains explicitly listed in the `sandbox` configuration — all other access is denied by the OS.
+
+Because the Fluent UI Blazor MCP Server requires no network access and no file system writes, it is an ideal candidate for the most restrictive sandbox policy. A minimal configuration is:
+
+```json
+{
+    "servers": {
+        "fluent-ui-blazor": {
+            "command": "fluentui-mcp",
+            "sandboxEnabled": true
+        }
+    }
+}
+```
+
+This configuration grants zero file system write permissions and zero network access — matching the server's actual capability profile.
+
+> [!NOTE]
+> When `sandboxEnabled` is `true`, VS Code may handle tool confirmations differently because the server runs in a controlled environment. The exact behavior can depend on the VS Code version and configuration, so verify the current behavior against the official VS Code documentation and your local setup.
+
+For the full list of `sandbox` properties (`filesystem.allowWrite`, `filesystem.denyRead`, `network.allowedDomains`, etc.), see the [VS Code MCP Sandbox Configuration](https://code.visualstudio.com/docs/copilot/reference/mcp-configuration#_sandbox-configuration) reference.
+
 ## Permission Model
 
 ### What the MCP Server CAN Do
@@ -299,7 +325,7 @@ Content served by MCP:
 
 ### Q: How do we verify the integrity of the MCP server?
 
-**A:** 
+**A:**
 1. Verify NuGet package signature
 2. Review open-source code on GitHub
 3. Build from source for additional assurance

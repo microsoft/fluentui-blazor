@@ -65,7 +65,7 @@ public partial record Page
         }
         else
         {
-            Category = ("20", "Components");    // Default category
+            Category = ("30", "Components");    // Default category
         }
 
         // PageGroup

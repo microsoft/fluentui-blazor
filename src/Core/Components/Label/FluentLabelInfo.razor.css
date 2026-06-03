@@ -1,0 +1,35 @@
+.fluent-label-info {
+    display: inline-flex;
+    align-items: center;
+}
+
+.fluent-label-info>button {
+    margin-left: var(--spacingHorizontalXS, 4px);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+}
+
+.fluent-label-info>fluent-popover-b::part(dialog) {
+    padding: var(--spacingVerticalS, 8px) var(--spacingHorizontalS, 8px);
+}
+
+.fluent-label-info>fluent-popover-b fluent-link[part="info-link"] {
+    margin-top: var(--spacingVerticalXS, 4px);
+    display: block;
+}
+
+.fluent-label-info>button[aria-expanded="false"] svg[part="active"],
+.fluent-label-info>button[aria-expanded="true"] svg[part="rest"],
+.fluent-label-info>button:hover svg[part="rest"] {
+    display: none;
+}
+
+.fluent-label-info>button:hover svg[part="active"] {
+    display: inline-flex;
+}
+

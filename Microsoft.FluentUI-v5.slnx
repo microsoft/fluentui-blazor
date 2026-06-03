@@ -17,10 +17,18 @@
     <Project Path="examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj" />
   </Folder>
   <Folder Name="/examples/samples/">
+    <Project Path="examples/Samples/FluentUI.Samples.SSR/FluentUI.Samples.SSR.csproj" />
     <Project Path="examples/Samples/FluentUI.Samples.WasmStandalone/FluentUI.Samples.WasmStandalone.csproj" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/Templates/Microsoft.FluentUI.AspNetCore.Templates.csproj" />
+  </Folder>
+  <Folder Name="/src/Charts/">
+    <Project Path="src/Charts.Scripts/Microsoft.FluentUI.AspNetCore.Components.Charts.Scripts.esproj">
+      <Build />
+      <Deploy />
+    </Project>
+    <Project Path="src/Charts/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj" Id="63c9d5be-e015-46ac-96d1-77d52ae5ea17" />
   </Folder>
   <Folder Name="/src/Core/">
     <Project Path="src/Core.Scripts/Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj">

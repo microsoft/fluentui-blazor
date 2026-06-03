@@ -110,7 +110,7 @@ By default, two tabs will be displayed: **Example** and **Code**.
 You can embbed the component without tabs and without code using the following syntax:
 
 ```markdown
-{{ MyCounter SourceCode="false" }}
+{{ MyCounter SourceCode=false }}
 ```
 
 You can also embbed the component with extra-tabs. You need to specify the files to include in each tabs

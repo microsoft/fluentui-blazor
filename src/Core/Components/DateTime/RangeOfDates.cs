@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Globalization;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -28,6 +29,72 @@ internal class RangeOfDates : RangeOf<System.DateTime>
         {
             return [.. Enumerable.Range(0, (max - min).Days + 1).Select(offset => min.AddDays(offset))];
         });
+    }
+
+    /// <summary>
+    /// Checks if a given date is outside the range defined by <see cref="RangeOf{T}.Start"/> and <see cref="RangeOf{T}.End"/>.
+    /// </summary>
+    /// <param name="value">The date to check.</param>
+    /// <returns>True if the date is outside the range; otherwise, false.</returns>
+    public bool IsOutside(DateTime value)
+    {
+        var min = Start?.Date;
+        var max = End?.Date;
+        var date = value.Date;
+
+        if (min.HasValue && date < min.Value)
+        {
+            return true;
+        }
+
+        if (max.HasValue && date > max.Value)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if a given period is outside the range defined by <see cref="RangeOf{T}.Start"/> and <see cref="RangeOf{T}.End"/>.
+    /// </summary>
+    /// <param name="periodStart">The start date of the period.</param>
+    /// <param name="periodEnd">The end date of the period.</param>
+    /// <returns>True if the period is outside the range; otherwise, false.</returns>
+    public bool IsOutside(DateTime periodStart, DateTime periodEnd)
+    {
+        var min = Start?.Date;
+        var max = End?.Date;
+
+        if (min.HasValue && periodEnd.Date < min.Value)
+        {
+            return true;
+        }
+
+        if (max.HasValue && periodStart.Date > max.Value)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if a given date is outside the range defined by <see cref="RangeOf{T}.Start"/> and <see cref="RangeOf{T}.End"/>, based on the specified calendar view.
+    /// </summary>
+    /// <param name="value">The date to check.</param>
+    /// <param name="view">The calendar view to consider.</param>
+    /// <param name="culture">The culture to use for date calculations.</param>
+    /// <returns>True if the date is outside the range; otherwise, false.</returns>
+    public bool IsOutside(DateTime value, CalendarViews view, CultureInfo culture)
+    {
+        return view switch
+        {
+            CalendarViews.Days => IsOutside(value),
+            CalendarViews.Months => IsOutside(value.StartOfMonth(culture), value.EndOfMonth(culture)),
+            CalendarViews.Years => IsOutside(value.StartOfYear(culture), value.EndOfYear(culture)),
+            _ => false,
+        };
     }
 
     /// <summary>

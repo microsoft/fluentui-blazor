@@ -16,6 +16,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentDialog : FluentComponentBase
 {
+    private string? _shownInstanceId;
+
     /// <summary />
     [DynamicDependency(nameof(OnToggleAsync))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
@@ -47,7 +49,9 @@ public partial class FluentDialog : FluentComponentBase
     public IDialogInstance? Instance { get; set; }
 
     /// <summary>
-    /// Used when not calling the <see cref="DialogService" /> to show a dialog.
+    /// Gets or sets the child content rendered directly inside the dialog.
+    /// Use this when displaying the dialog declaratively in Razor without the <see cref="DialogService"/>.
+    /// When using <see cref="DialogService"/> to show dialogs, content is provided through the dialog component class, not via this parameter.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -70,7 +74,15 @@ public partial class FluentDialog : FluentComponentBase
     public bool Modal { get; set; } = true;
 
     /// <summary>
-    /// Command executed when the user clicks on the button.
+    /// Gets or sets a value indicating whether pressing the ESC key should be prevented from closing the dialog.
+    /// By default, the ESC key closes the dialog (<langword>false</langword>).
+    /// When using the <see cref="IDialogService"/>, set <see cref="DialogOptions.PreventDismissOnEscape"/> instead.
+    /// </summary>
+    [Parameter]
+    public bool PreventDismissOnEscape { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the dialog state changes (e.g., opening or closing).
     /// </summary>
     [Parameter]
     public EventCallback<DialogEventArgs> OnStateChange { get; set; }
@@ -78,8 +90,10 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && LaunchedFromService)
+        var shouldShowDialog = string.CompareOrdinal(_shownInstanceId, Instance?.Id) != 0;
+        if (shouldShowDialog && LaunchedFromService)
         {
+            _shownInstanceId = Instance?.Id;
             var instance = Instance as DialogInstance;
             if (instance is not null)
             {
@@ -144,6 +158,11 @@ public partial class FluentDialog : FluentComponentBase
     public async Task ShowAsync()
     {
         await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Show", Id);
+        var preventEscape = Instance?.Options.PreventDismissOnEscape ?? PreventDismissOnEscape;
+        if (preventEscape)
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", Id, preventEscape);
+        }
     }
 
     /// <summary>
@@ -216,21 +235,15 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     private string? GetAlignmentAttribute()
     {
-        // Alignment is only used when the dialog is a drawer (panel).
-        if (IsDrawer())
+        // Get the alignment from the DialogService (if used) or the Alignment property.
+        var alignment = Instance?.Options.Alignment ?? Alignment;
+
+        return alignment switch
         {
-            // Get the alignment from the DialogService (if used) or the Alignment property.
-            var alignment = Instance?.Options.Alignment ?? Alignment;
-
-            return alignment switch
-            {
-                DialogAlignment.Start => FluentSlot.Start,
-                DialogAlignment.End => FluentSlot.End,
-                _ => null
-            };
-        }
-
-        return null;
+            DialogAlignment.Start => FluentSlot.Start,
+            DialogAlignment.End => FluentSlot.End,
+            _ => null,
+        };
     }
 
     /// <summary />
@@ -262,7 +275,7 @@ public partial class FluentDialog : FluentComponentBase
     }
 
     /// <summary />
-    private bool IsDrawer() => IsDrawer(Instance?.Options.Alignment ?? Alignment);
+    private bool IsDrawer() => IsDrawer(Instance, this);
 
     /// <summary />
     private bool IsDialog() => !IsDrawer();
@@ -281,7 +294,19 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary>
     /// Returns true if the dialog is a drawer (panel).
     /// </summary>
-    /// <param name="alignment"></param>
-    /// <returns></returns>
-    internal static bool IsDrawer(DialogAlignment? alignment) => alignment == DialogAlignment.Start || alignment == DialogAlignment.End;
+    /// <param name="instance">The dialog instance.</param>
+    /// <param name="dialog">The fluent dialog.</param>
+    /// <returns>True if the dialog is a drawer, otherwise false.</returns>
+    internal static bool IsDrawer(IDialogInstance? instance, FluentDialog? dialog = null)
+    {
+        var alignment = instance?.Options.Alignment ?? dialog?.Alignment;
+        var isDrawer = instance?.Options.IsDrawer ?? dialog?.Instance?.Options.IsDrawer;
+
+        if (isDrawer.HasValue)
+        {
+            return isDrawer.Value;
+        }
+
+        return alignment == DialogAlignment.Start || alignment == DialogAlignment.End;
+    }
 }

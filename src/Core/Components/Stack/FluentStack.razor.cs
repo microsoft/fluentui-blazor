@@ -79,17 +79,19 @@ public partial class FluentStack : FluentComponentBase
     public bool Wrap { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the gap between horizontally stacked components.
+    /// Gets or sets the gap between horizontally stacked components (e.g., <c>HorizontalGap="8px"</c>).
     /// Default is undefined. You can define the default value in the <see cref="LibraryConfiguration.DefaultStyles"/>.
-    /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/row-gap">row-gap</see> property.
+    /// Use <see cref="VerticalGap"/> to set the vertical gap.
+    /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/column-gap">column-gap</see> property.
     /// </summary>
     [Parameter]
     public string? HorizontalGap { get; set; }
 
     /// <summary>
-    /// Gets or sets the gap between vertically stacked components.
+    /// Gets or sets the gap between vertically stacked components (e.g., <c>VerticalGap="8px"</c>).
     /// Default is undefined. You can define the default value in the <see cref="LibraryConfiguration.DefaultStyles"/>.
-    /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/column-gap">column-gap</see> property.
+    /// Use <see cref="HorizontalGap"/> to set the horizontal gap.
+    /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/row-gap">row-gap</see> property.
     /// </summary>
     [Parameter]
     public string? VerticalGap { get; set; }

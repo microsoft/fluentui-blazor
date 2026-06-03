@@ -44,4 +44,30 @@ There is also a search capability available on this page wich allows you to brow
 
 ## Explore Emojis
 
-`{ EmojiExplorer SourceCode=false }  ⚠️ TO ACTIVATE LATER`
+Use the **Emoji Explorer** below to search any emoji by name.
+
+Click on an emoji card to copy a ready-to-paste `<FluentEmoji>` component declaration to the clipboard.
+**Right-click** the card to open a menu with more copy options.
+
+{{ EmojiExplorer SourceCode=false }}
+
+## API FluentEmoji
+
+<!-- The DocViewer tag cannot be used because FluentEmoji requires an Emoji object, which is not supported by DocViewer -->
+
+Main `FluentEmoji` parameters:
+
+- `AdditionalAttributes`: Captures any additional HTML attributes that are not matched by a defined parameter and forwards them to the underlying element.
+- `Class`: Gets or sets the additional CSS class(es) applied to the component.
+- `Data`: Gets or sets an arbitrary data object associated with the component.
+- `Id`: Gets or sets the unique identifier (HTML `id` attribute) of the component.
+- `Margin`: Gets or sets the margin spacing applied to the component (using the Fluent spacing tokens).
+- `OnClick`: Event callback raised when the emoji is clicked. Provides a `MouseEventArgs`.
+- `Padding`: Gets or sets the padding spacing applied to the component (using the Fluent spacing tokens).
+- `Slot`: Gets or sets the slot where the emoji is displayed in (for example `FluentSlot.Start` or `FluentSlot.End` inside a `FluentButton`).
+- `Style`: Gets or sets the additional inline CSS style applied to the component.
+- `Title`: Gets or sets the title (HTML `title` attribute) for the emoji.
+- `Value`: Gets or sets the `Emoji` object to render. This is the recommended way to specify the emoji.
+- `Width`: Gets or sets the emoji width. If not set, the emoji's default size is used.
+
+

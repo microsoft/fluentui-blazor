@@ -22,7 +22,15 @@
                  @onfocusout="@FocusOutHandlerAsync"
                  @attributes="@AdditionalAttributes">
                 <fluent-listbox style="@ListStyle">
-                    @RenderOptions()
+                    @if (ChildContent is null && (Items is null || !Items.Any()))
+                    {
+                        @* The web component requires at least one option *@
+                        <fluent-option disabled></fluent-option>
+                    }
+                    else
+                    {
+                        @RenderOptions()
+                    }
                 </fluent-listbox>
 
                 @RenderExtraFragment()

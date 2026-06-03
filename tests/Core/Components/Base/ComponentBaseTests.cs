@@ -48,6 +48,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentSelect<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
         { typeof(FluentCombobox<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
         { typeof(FluentListbox<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
+        { typeof(FluentAutocomplete<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
         { typeof(FluentOption<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentRadioGroup<>), Loader.MakeGenericType(typeof(string)) },
@@ -70,6 +71,8 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentNavSectionHeader), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
         { typeof(FluentAppBarItem), Loader.Default.WithCascadingValue(new InternalAppBarContext(new FluentAppBar(new LibraryConfiguration()))) },
         { typeof(FluentSortableList<>), Loader.MakeGenericType(typeof(string)).WithRequiredParameter("ItemTemplate", (RenderFragment<string>)(p => builder => builder.AddContent(0, "MyItemTemplate")))},
+        { typeof(FluentNumberInput<>), Loader.MakeGenericType(typeof(int)) },
+        { typeof(FluentWizardStep), Loader.Default.WithCascadingValue(new FluentWizard(new LibraryConfiguration())) },
     };
 
     /// <summary />

@@ -11,6 +11,8 @@ Entering text will filter options or allow someone to submit a free form answer.
 Comboboxes work well in situations where the list of options is very long.
 If the list is not very long or you can't accept free form answers, try a **FluentSelect**.
 
+> **Note:** For more information about placeholders and autofill, see this <a href="/TextInput#placeholders-and-autofill">important information</a>
+
 ## Default
 
 When no item is selected, a **Placeholder** can be used to describe what should be done.

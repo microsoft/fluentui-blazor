@@ -33,7 +33,8 @@ public partial class FluentSpinner : FluentComponentBase, ITooltipComponent
     public bool? Visible { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets whether the spinner should be shown in an inverted color scheme (i.e. light spinner on dark background)
+    /// Gets or sets a value indicating whether the spinner should be shown in an inverted color scheme
+    /// (e.g., <c>AppearanceInverted="true"</c> for a light spinner on a dark background).
     /// </summary>
     [Parameter]
     public bool AppearanceInverted { get; set; }

@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentElementBase, ITooltipComponent
 {
     /// <summary>
-    ///
+    /// Initializes a new instance of <see cref="FluentCheckbox"/>.
     /// </summary>
     public FluentCheckbox(LibraryConfiguration configuration) : base(configuration)
     {
@@ -28,8 +28,8 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     public ElementReference Element { get; set; }
 
     /// <summary>
-    /// Gets or sets the state of the CheckBox: true, false or null.
-    /// Useful when the mode ThreeState is enable
+    /// Gets or sets the three-state value of the checkbox: <c>true</c> (checked), <c>false</c> (unchecked), or <c>null</c> (indeterminate).
+    /// Used when <see cref="ThreeState"/> is enabled.
     /// </summary>
     [Parameter]
     public bool? CheckState { get; set; }
@@ -79,6 +79,13 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
     public string? Tooltip { get; set; }
+
+    /// <summary>
+    /// The content to be rendered inside the checkbox component.
+    /// This is similar to set the <c>Label</c> or <c>LabelTemplate</c> parameter.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// Handler for the OnFocus event.

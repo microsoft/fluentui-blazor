@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The FluentCounterBadge component is a visual indicator that communicates a value about an associated component.
-/// It uses short positive numbers, color, and icons for quick recognition and is placed near the relevant content.
+/// The FluentPresenceBadge component is a visual indicator that communicates a user's presence status.
+/// It displays a colored icon overlay typically attached to an avatar or similar element.
 /// </summary>
 public partial class FluentPresenceBadge : FluentComponentBase
 {
     private int _iconWidth;
     private string _ariaLabel = string.Empty;
 
-    private bool _isAttached => ChildContent is not null;
+    private bool _isAttached => AnchorContent is not null;
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -41,19 +41,23 @@ public partial class FluentPresenceBadge : FluentComponentBase
     public PresenceStatus? Status { get; set; } = PresenceStatus.Available;
 
     /// <summary>
-    ///  Gets or sets the out of office state.
+    /// Gets or sets whether the presence badge indicates an out-of-office state.
+    /// When <c>true</c>, adjusts the displayed icon to reflect the out-of-office variant of the current <see cref="Status"/>.
     /// </summary>
     [Parameter]
     public bool OutOfOffice { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Gets or sets the content to attach the badge to.
+    /// When this parameter is set, the badge will be rendered as an anchored badge, using the <see cref="Positioning"/> parameter.
+    /// When this parameter is not set, the badge will be rendered as a standalone badge.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public RenderFragment? AnchorContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="Icon"/> displayed at the start of badge content.
+    /// Gets or sets an icon override for the badge.
+    /// By default the icon is automatically chosen based on <see cref="Status"/> and <see cref="OutOfOffice"/>.
     /// </summary>
     [Parameter]
     public Icon? Icon { get; set; }
@@ -65,7 +69,7 @@ public partial class FluentPresenceBadge : FluentComponentBase
     public BadgeSize? Size { get; set; }
 
     /// <summary>
-    /// Gets or sets the badge's positioning relative to the <see cref="FluentBadge.ChildContent" />.
+    /// Gets or sets the badge's positioning relative to the <see cref="FluentPresenceBadge.AnchorContent" />.
     /// The default value is `null`. Internally the component uses AboveEnd as its default value.
     /// </summary>
     [Parameter]

@@ -48,7 +48,7 @@ public partial class FluentGrid : FluentComponentBase
     public int Spacing { get; set; }
 
     /// <summary>
-    /// Defines how the browser distributes space between and around content items.
+    /// Gets or sets how the browser distributes space between and around content items.
     /// </summary>
     [Parameter]
     public JustifyContent Justify { get; set; } = JustifyContent.FlexStart;

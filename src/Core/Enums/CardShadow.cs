@@ -34,4 +34,10 @@ public enum CardShadow
     /// </summary>
     [Description("large")]
     Large,
+
+    /// <summary>
+    /// There is no shadow below the card.
+    /// </summary>
+    [Description("none")]
+    None,
 }

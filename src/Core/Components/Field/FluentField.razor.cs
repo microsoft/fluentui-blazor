@@ -111,9 +111,13 @@ public partial class FluentField : FluentComponentBase, IFluentField
     [Parameter]
     public Func<IFluentField, bool>? MessageCondition { get; set; }
 
-    /// <inheritdoc cref="IFluentField.MessageIcon"/>
+    /// <inheritdoc cref="IFluentField.MessageState"/>
     [Parameter]
     public MessageState? MessageState { get; set; }
+
+    /// <inheritdoc cref="IFluentField.LabelInfo"/>
+    [Parameter]
+    public ILabelInfo? LabelInfo { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="FieldSize"/> of the label in the field.
@@ -150,7 +154,8 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     private bool HasLabel
         => !string.IsNullOrWhiteSpace(Parameters.Label)
-        || Parameters.LabelTemplate is not null;
+        || Parameters.LabelTemplate is not null
+        || Parameters.HasLabelInfo;
 
     private bool HasMessage
         => !string.IsNullOrWhiteSpace(Parameters.Message)

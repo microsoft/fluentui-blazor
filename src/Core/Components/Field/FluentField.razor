@@ -8,56 +8,75 @@
 }
 else
 {
-    <fluent-field id="@GetId("field")"
-                  label-position="@Parameters.LabelPosition.ToAttributeValue()"
-                  class="@ClassValue"
-                  style="@StyleValue"
-                  size="@Size.ToAttributeValue()"
-                  @attributes="AdditionalAttributes">
+    <CascadingValue IsFixed="true"
+                    Name="FluentField"
+                    Value="this">
+        <fluent-field id="@GetId("field")"
+                      label-position="@Parameters.LabelPosition.ToAttributeValue()"
+                      class="@ClassValue"
+                      style="@StyleValue"
+                      size="@Size.ToAttributeValue()"
+                      @attributes="AdditionalAttributes">
 
-        @if (HasLabel)
-        {
-            <label id="@GetId("label")"
-                   slot="@FluentSlot.FieldLabel"
-                   for="@GetId("input")"
-                   required="@(Parameters.Required ?? false)"
-                   disabled="@(Parameters.Disabled ?? false)"
-                   style="@LabelStyle">
-                @Parameters.Label
-                @Parameters.LabelTemplate
-            </label>
-        }
-
-        @if (ChildContent is not null)
-        {
-            @if (Parameters.HasInputComponent || !IncludeInputSlot)
+            @if (HasLabel)
             {
-                @ChildContent
+                <label id="@GetId("label")"
+                       slot="@FluentSlot.FieldLabel"
+                       for="@GetId("input")"
+                       required="@(Parameters.Required ?? false)"
+                       disabled="@(Parameters.Disabled ?? false)"
+                       style="@LabelStyle">
+                    @if (Parameters.HasLabelInfo && Parameters.LabelInfo is not null)
+                    {
+                        <FluentLabelInfo InfoText="@Parameters.LabelInfo.InfoText"
+                                         InfoActionLink="@Parameters.LabelInfo.InfoActionLink"
+                                         InfoActionText="@Parameters.LabelInfo.InfoActionText"
+                                         InfoActionTarget="@Parameters.LabelInfo.InfoActionTarget">
+                            @Parameters.Label
+                            @Parameters.LabelTemplate
+                        </FluentLabelInfo>
+                    }
+                    else
+                    {
+                        @Parameters.Label
+                        @Parameters.LabelTemplate
+                    }
+                </label>
             }
-            else
+
+            @if (ChildContent is not null)
             {
-                <div slot="@FluentSlot.FieldInput" id="@GetId("input")">
-                    @ChildContent
-                </div>
-            }
-        }
-
-        @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
-        {
-            <FluentText slot="@FluentSlot.FieldMessage" size="@TextSize.Size200">
-
-                @CreateIcon(Parameters.MessageIcon)
-
-                @if (Parameters.MessageTemplate is not null)
+                @if (Parameters.HasInputComponent || !IncludeInputSlot)
                 {
-                    @Parameters.MessageTemplate
+                    @ChildContent
                 }
                 else
                 {
-                    @Parameters.Message
+                    <div slot="@FluentSlot.FieldInput"
+                         id="@GetId("input")">
+                        @ChildContent
+                    </div>
                 }
-            </FluentText>
-        }
+            }
 
-    </fluent-field>
+            @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
+            {
+                <FluentText slot="@FluentSlot.FieldMessage"
+                            size="@TextSize.Size200">
+
+                    @CreateIcon(Parameters.MessageIcon)
+
+                    @if (Parameters.MessageTemplate is not null)
+                    {
+                        @Parameters.MessageTemplate
+                    }
+                    else
+                    {
+                        @Parameters.Message
+                    }
+                </FluentText>
+            }
+
+        </fluent-field>
+    </CascadingValue>
 }

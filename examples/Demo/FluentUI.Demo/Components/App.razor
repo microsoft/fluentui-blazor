@@ -15,12 +15,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
     <link rel="stylesheet" href="app.css" />
-    <link rel="stylesheet" href="FluentUI.Demo.styles.css" />
+    <link rel="stylesheet" href="@Assets["FluentUI.Demo.styles.css"]" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <HeadOutlet @rendermode="@DemoRenderMode" />
 
     <style>
-        /* Set the default dark mode styles, 
+        /* Set the default dark mode styles,
            used before the Fluent UI theme switcher is initialized
            This is to avoid a flash of white when in dark mode.
            Update as needed to match your dark theme.
@@ -37,7 +37,7 @@
 <body use-reboot="@reboot">
     <Routes @rendermode="@DemoRenderMode" />
     <script src="_framework/blazor.web.js"></script>
-    
+
     <!-- Include highlight.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/vs.min.css" title="highlight-light" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/vs2015.min.css" title="highlight-dark" disabled="disabled" />
@@ -50,7 +50,7 @@
         document.body.addEventListener('themeChanged', function (e) {
             const linkLight = document.querySelector('link[title="highlight-light"]');
             const linkDark = document.querySelector('link[title="highlight-dark"]');
-            
+
             if (linkLight && linkDark) {
                 linkLight.disabled = e.detail.isDark;
                 linkDark.disabled = !e.detail.isDark;

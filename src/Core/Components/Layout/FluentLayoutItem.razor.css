@@ -8,7 +8,7 @@
 
   .fluent-layout-item[area="header"] {
     display: flex;
-    background-color: var(--colorBrandBackgroundHover);
+    background-color: var(--colorBrandBackground);
     color: var(--colorNeutralForegroundOnBrand);
     overflow: hidden;
     padding: 8px;
@@ -80,5 +80,5 @@
 
 /* For external use */
 .fluent-header-hover:hover {
-  background-color: var(--colorBrandBackground);
+  background-color: var(--colorBrandBackgroundHover);
 }

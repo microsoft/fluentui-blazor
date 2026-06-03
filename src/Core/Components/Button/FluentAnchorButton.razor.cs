@@ -104,8 +104,9 @@ public partial class FluentAnchorButton : FluentComponentBase, ITooltipComponent
     public string? Color { get; set; }
 
     /// <summary>
-    /// Gets or sets if the button only shows an icon
-    /// Can be used when using <see cref="ChildContent"/> that renders as an icon
+    /// Gets or sets a value indicating whether the button renders icon-only (no visible text label).
+    /// Typically used when <see cref="IconStart"/> or <see cref="IconEnd"/> is set and no text label is needed.
+    /// When using icon-only mode, provide an accessible name via <see cref="Title"/> or an <c>aria-label</c> attribute to ensure screen reader accessibility.
     /// </summary>
     [Parameter]
     public bool IconOnly { get; set; }
@@ -130,10 +131,10 @@ public partial class FluentAnchorButton : FluentComponentBase, ITooltipComponent
     public string? Title { get; set; }
 
     /// <summary>
-    ///  Gets or sets the content to be rendered inside the button.
-    ///  This can be used as an alternative to specifying the content as a child component of the button.
-    ///  If both are specified, both will be rendered.
-    ///  </summary>
+    /// Gets or sets the plain-text label rendered inside the button (e.g., <c>Label="Go"</c>).
+    /// If both <see cref="Label"/> and <see cref="ChildContent"/> are set, both are rendered together.
+    /// For rich content such as icons or custom markup, use <see cref="ChildContent"/> instead.
+    /// </summary>
     [Parameter]
     public string? Label { get; set; }
 

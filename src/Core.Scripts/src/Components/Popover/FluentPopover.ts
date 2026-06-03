@@ -24,7 +24,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       this.dialog.setAttribute('fuib', '');
       this.dialog.setAttribute('popover', '');
       this.dialog.setAttribute('part', 'dialog');    // To allow styling using `fluent-popover-b::part(dialog)`
-      
+
       // Dispatch the toggle event when the popover is opened or closed
       // For nested popovers, the event is dispatched during showPopover/closePopover methods
       this.dialog.addEventListener('toggle', (e) => {
@@ -169,7 +169,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
       // Reflect opened property and attribute
       this.opened = true;
-      
+
       // Dispatch event when shown.
       // For non-nested popovers, the event is dispatched by the Popover component itself.
       if (this.nested) {
@@ -185,7 +185,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
         // Reflect opened property and attribute
         this.opened = false;
-        
+
         // Dispatch event when closed
         // For non-nested popovers, the event is dispatched by the Popover component itself.
         if (this.nested) {
@@ -229,13 +229,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     private addEventsAfterOpening() {
       document.addEventListener('mousedown', this.handleOutsideClick);
-      document.addEventListener('touchstart', this.handleOutsideClick);
       document.addEventListener('keydown', this.handleCloseKeydown);
     }
 
     private removeEventsAfterClosing() {
       document.removeEventListener('mousedown', this.handleOutsideClick);
-      document.removeEventListener('touchstart', this.handleOutsideClick);
       document.removeEventListener('keydown', this.handleCloseKeydown);
     }
 
@@ -280,34 +278,41 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       if (this.anchorEl === null || this.dialog === null) return;
 
       const rect = this.anchorEl.getBoundingClientRect();
+
+      const visualViewport = window.visualViewport;
+      const viewportHeight = visualViewport?.height ?? window.innerHeight;
+      const viewportWidth = visualViewport?.width ?? window.innerWidth;
+      const viewportTop = visualViewport?.offsetTop ?? 0;
+      const viewportLeft = visualViewport?.offsetLeft ?? 0;
+
       const dialogHeight = this.dialog.offsetHeight + this.offsetVertical;
       const dialogWidth = this.dialog.offsetWidth + this.offsetHorizontal;
+
       const spaceAbove = rect.top;
-      const spaceBelow = window.innerHeight - rect.bottom;
-      const spaceLeft = rect.left + dialogWidth;
-      const spaceRight = window.innerWidth - rect.left;
+      const spaceBelow = viewportHeight - rect.bottom;
+      const spaceLeft = rect.right;
+      const spaceRight = viewportWidth - rect.left;
 
       // Position dialog above the target
       const positionDialogAbove = () => {
-        this.dialog.style.top = `${rect.top - dialogHeight}px`;
+        this.dialog.style.top = `${rect.top - dialogHeight + viewportTop}px`;
       }
 
       // Position dialog below the target
       const positionDialogBelow = () => {
-        this.dialog.style.top = `${rect.bottom + this.offsetVertical}px`;
+        this.dialog.style.top = `${rect.bottom + this.offsetVertical + viewportTop}px`;
       }
 
-      // Position dialog left of the target
+      // Position dialog aligned left with the target
       const positionDialogLeft = () => {
-        this.dialog.style.left = `${rect.left + this.offsetHorizontal}px`;
+        this.dialog.style.left = `${rect.left + this.offsetHorizontal + viewportLeft}px`;
       }
 
-      // Position dialog right of the target
+      // Position dialog aligned right with the target
       const positionDialogRight = () => {
-        this.dialog.style.left = `${rect.left + rect.width - dialogWidth - this.offsetHorizontal}px`;
+        this.dialog.style.left = `${rect.left + rect.width - dialogWidth - this.offsetHorizontal + viewportLeft}px`;
       }
 
-      // Set the position above or below the anchor element
       if (spaceBelow >= dialogHeight) {
         positionDialogBelow();
       }
@@ -315,10 +320,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         positionDialogAbove();
       }
       else {
-        positionDialogBelow();  // Default
+        positionDialogBelow();
       }
 
-      // Set the position left or right of the anchor element
       if (spaceRight >= dialogWidth) {
         positionDialogLeft();
       }
@@ -326,7 +330,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         positionDialogRight();
       }
       else {
-        positionDialogLeft();  // Default
+        positionDialogLeft();
       }
     };
   }

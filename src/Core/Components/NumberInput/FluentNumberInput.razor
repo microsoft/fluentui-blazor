@@ -1,0 +1,59 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@typeparam TValue
+@inherits FluentInputImmediateBase<TValue>
+
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Size="@Size.ToFieldSize()">
+    <fluent-text-input @ref="@Element"
+                       style="@ComponentStyleValue"
+                       appearance="@Appearance.ToAttributeValue()"
+                       autocomplete="off"
+                       autofocus="@Autofocus"
+                       aria-label="@AriaLabel"
+                       disabled="@Disabled"
+                       id="@Id"
+                       inputmode="numeric"
+                       name="@Name"
+                       placeholder="@Placeholder"
+                       readonly="@ReadOnly"
+                       required="@Required"
+                       slot="@FluentSlot.FieldInput"
+                       spellcheck="false"
+                       control-size="@Size.ToAttributeValue()"
+                       value="@CurrentValueAsString"
+                       @onfocusout="@FocusOutHandlerAsync"
+                       @onchange="@ChangeHandlerAsync"
+                       @ontextimmediate="@InputHandlerAsync"
+                       @attributes="AdditionalAttributes">
+
+        @if (StartTemplate != null)
+        {
+            <div slot="@FluentSlot.Start">
+                @StartTemplate
+            </div>
+        }
+
+        <div slot="@FluentSlot.End">
+            @if (EndTemplate != null)
+            {
+                @EndTemplate
+            }
+            
+            @if (StepButtons != NumberInputStepVisibility.Hidden && IsNotEquals(Step, ZeroValue))
+            {
+                <div auto-hide="@(StepButtons == NumberInputStepVisibility.Auto ? "true" : null)">
+                    <div button-step="up">
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronUp())"
+                                    OnClick="@IncrementValue"
+                                    Color="@Color.Default" />
+                    </div>
+                    <div button-step="down">
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" 
+                                    OnClick="@DecrementValue"
+                                    Color="@Color.Default" />
+                    </div>
+                </div>
+            }
+        </div>
+    </fluent-text-input>
+</FluentField>

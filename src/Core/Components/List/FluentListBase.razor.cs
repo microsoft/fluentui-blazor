@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -22,6 +23,14 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DropdownEventArgs))]
     protected FluentListBase(LibraryConfiguration configuration) : base(configuration)
     {
+        SelectedItemsExpression = () => SelectedItems;
+
+        // If TOption implements IEqualityComparer<TOption> and exposes a public parameterless
+        // constructor, use a new instance of TOption as the default OptionSelectedComparer.
+        if (OptionSelectedComparer is null && _defaultOptionSelectedComparer.Value is { } defaultComparer)
+        {
+            OptionSelectedComparer = defaultComparer;
+        }
     }
 
     /// <inheritdoc />
@@ -46,7 +55,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// Default is `null`. Internally the component uses <see cref="ListAppearance.Outline"/> as default.
     /// </summary>
     [Parameter]
-    public ListAppearance? Appearance { get; set; }
+    public virtual ListAppearance? Appearance { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -65,19 +74,29 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// Gets or sets whether the list allows multiple selections.
     /// </summary>
     [Parameter]
-    public bool Multiple { get; set; }
+    public virtual bool Multiple { get; set; }
 
     /// <summary>
     /// Gets or sets the items that are selected in the list.
     /// </summary>
     [Parameter]
-    public IEnumerable<TOption> SelectedItems { get; set; } = [];
+    public virtual IEnumerable<TOption> SelectedItems { get; set; } = [];
 
     /// <summary>
     /// Event callback that is invoked when the selected items change.
     /// </summary>
     [Parameter]
-    public EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
+    public virtual EventCallback<IEnumerable<TOption>> SelectedItemsChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets an expression that identifies the bound <see cref="SelectedItems"/> value.
+    /// This is required to enable the <c>@bind-SelectedItems</c> syntax (Razor automatically
+    /// supplies it). When using manual one-way binding through <see cref="SelectedItems"/>
+    /// and <see cref="SelectedItemsChanged"/>, providing this expression is optional: a
+    /// default expression pointing to <see cref="SelectedItems"/> is set in the constructor.
+    /// </summary>
+    [Parameter]
+    public virtual Expression<Func<IEnumerable<TOption>>>? SelectedItemsExpression { get; set; }
 
     /// <summary>
     /// Gets or sets the template for the <see cref="FluentListBase{TOption, TValue}.Items"/> items.
@@ -86,7 +105,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     public virtual RenderFragment<TOption>? OptionTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the function used to determine which value to apply to the binded value.
+    /// Gets or sets the function used to determine which value to apply to the bound value.
     /// </summary>
     [Parameter]
     public virtual Func<TOption?, TValue?>? OptionValue { get; set; }
@@ -110,10 +129,10 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     public virtual Func<TOption?, bool>? OptionDisabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the function used to determine whether two options are considered equal for selection purposes.
+    /// Gets or sets the equality comparer used to determine whether two options are considered equal for selection purposes.
     /// </summary>
     [Parameter]
-    public virtual Func<TValue?, TValue?, bool>? OptionSelectedComparer { get; set; }
+    public virtual IEqualityComparer<TOption>? OptionSelectedComparer { get; set; }
 
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
@@ -167,6 +186,17 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     }
 
     /// <summary />
+    bool IInternalListBase<TValue>.AreValuesEqual(TValue? value1, TValue? value2)
+    {
+        if (OptionSelectedComparer != null && value1 is TOption option1 && value2 is TOption option2)
+        {
+            return OptionSelectedComparer.Equals(option1, option2);
+        }
+
+        return EqualityComparer<TValue>.Default.Equals(value1, value2);
+    }
+
+    /// <summary />
     protected virtual bool GetOptionSelected(TOption? item)
     {
         if (item == null)
@@ -179,19 +209,24 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         {
             if (OptionSelectedComparer != null)
             {
-                return SelectedItems?.Any(selectedItem => OptionSelectedComparer(GetOptionValue(item), GetOptionValue(selectedItem))) ?? false;
+                return SelectedItems?.Any(selectedItem => OptionSelectedComparer.Equals(item, selectedItem)) ?? false;
             }
 
             return SelectedItems?.Contains(item) ?? false;
         }
 
         // Single item
-        if (OptionSelectedComparer != null)
+        if (OptionSelectedComparer != null && CurrentValue is TOption currentAsOption)
         {
-            return OptionSelectedComparer(GetOptionValue(item), CurrentValue);
+            return OptionSelectedComparer.Equals(item, currentAsOption);
         }
 
-        return Equals(GetOptionValue(item), CurrentValue);
+        if (OptionValue is not null || IsOptionTypeCompatibleWithValue())
+        {
+            return Equals(GetOptionValue(item), CurrentValue);
+        }
+
+        return item is null && CurrentValue is null;
     }
 
     /// <summary />
@@ -202,7 +237,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             return OptionValue.Invoke(item);
         }
 
-        if (typeof(TOption) == typeof(TValue))
+        if (IsOptionTypeCompatibleWithValue())
         {
             return (TValue?)(object?)item;
         }
@@ -305,5 +340,44 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     internal InternalListContext<TValue> GetCurrentContext()
     {
         return new InternalListContext<TValue>(this);
+    }
+
+    /// <summary>
+    /// Checks whether <typeparamref name="TOption"/> is the same type as <typeparamref name="TValue"/>,
+    /// or <typeparamref name="TValue"/> is <see cref="Nullable{T}"/> of <typeparamref name="TOption"/>.
+    /// </summary>
+    private static bool IsOptionTypeCompatibleWithValue()
+    {
+        return typeof(TOption) == typeof(TValue)
+            || Nullable.GetUnderlyingType(typeof(TValue)) == typeof(TOption);
+    }
+
+    // Cached default comparer (computed once per closed generic type).
+    private static readonly Lazy<IEqualityComparer<TOption>?> _defaultOptionSelectedComparer = new(CreateDefaultOptionSelectedComparer);
+
+    [UnconditionalSuppressMessage("Trimming", "IL2090:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method.", Justification = "Best-effort default comparer detection; safely returns null when the constructor is trimmed.")]
+    [UnconditionalSuppressMessage("Trimming", "IL2087:'type' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method.", Justification = "Best-effort default comparer detection; falls back to null when the constructor is trimmed.")]
+    private static IEqualityComparer<TOption>? CreateDefaultOptionSelectedComparer()
+    {
+        var optionType = typeof(TOption);
+
+        if (!typeof(IEqualityComparer<TOption>).IsAssignableFrom(optionType))
+        {
+            return null;
+        }
+
+        if (optionType.GetConstructor(Type.EmptyTypes) is null)
+        {
+            return null;
+        }
+
+        try
+        {
+            return Activator.CreateInstance(optionType) as IEqualityComparer<TOption>;
+        }
+        catch (MissingMethodException)
+        {
+            return null;
+        }
     }
 }

@@ -19,7 +19,7 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
     /// </summary>
     public FluentSwitch(LibraryConfiguration configuration) : base(configuration)
     {
-        LabelPosition = Components.LabelPosition.After;
+        LabelPosition ??= Components.LabelPosition.After;
     }
 
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
@@ -29,6 +29,13 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
     public string? Tooltip { get; set; }
+
+    /// <summary>
+    /// The content to be rendered inside the switch component.
+    /// This is similar to set the <c>Label</c> or <c>LabelTemplate</c> parameter.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
     protected override async Task OnInitializedAsync()
