@@ -16,6 +16,7 @@
             config.Toast.HorizontalOffset = 55;
             config.Toast.PauseOnHover = true;
             config.Toast.PauseOnWindowBlur = true;
+            config.Toast.IsDismissable = true;
         });
 
         ToastService = Services.GetRequiredService<IToastService>();
@@ -64,6 +65,7 @@
         Assert.Equal(55, toast.Instance.HorizontalOffset);
         Assert.True(toast.Instance.PauseOnHover);
         Assert.True(toast.Instance.PauseOnWindowBlur);
+        Assert.True(toast.Instance.IsDismissable);
     }
 
     [Fact]
@@ -80,6 +82,7 @@
             options.HorizontalOffset = 22;
             options.PauseOnHover = true;
             options.PauseOnWindowBlur = true;
+            options.IsDismissable = true;
         });
 
         await Task.CompletedTask;
@@ -91,6 +94,7 @@
         Assert.Equal(22, toast.Instance.HorizontalOffset);
         Assert.True(toast.Instance.PauseOnHover);
         Assert.True(toast.Instance.PauseOnWindowBlur);
+        Assert.True(toast.Instance.IsDismissable);
     }
 
     [Fact]
