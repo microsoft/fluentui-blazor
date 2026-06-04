@@ -68,6 +68,7 @@
     <!--<Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**" />-->
     <None Include="README.md" Pack="true" PackagePath="\" />
     <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
+    <Compile Remove="**/*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -90,6 +91,10 @@
     <TemplateFiles Include="$(MSBuildThisFileDirectory)templates\**\*" Exclude="$(MSBuildThisFileDirectory)templates\**\bin\**;$(MSBuildThisFileDirectory)templates\**\obj\**;$(MSBuildThisFileDirectory)templates\**\*.csproj;$(MSBuildThisFileDirectory)templates\aspire-apphost-singlefile\**\apphost.cs">
       <PackagePath>content/templates/%(RecursiveDir)</PackagePath>
     </TemplateFiles>
+
+    <None Remove="templates\blazorweb-csharp-11\**" />
+
+    <None Remove="templates\componentswebassembly-csharp-11\**" />
 
     <TemplateFilesObj Include="@(TemplateFiles->'$(IntermediateOutputPath)content\templates\%(RecursiveDir)%(Filename)%(Extension)')" />
   </ItemGroup>
