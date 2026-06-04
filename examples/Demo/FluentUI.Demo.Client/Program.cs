@@ -13,12 +13,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 // Add FluentUI services
-builder.Services.AddFluentUIComponents(options =>
-    {
-        // Configure FluentUI options here
-        options.Toast.Position = ToastPosition.TopEnd;
-        options.Toast.IsDismissable = true;
-    });
+builder.Services.AddFluentUIComponents();
 
 // Add Demo server services
 builder.Services.AddFluentUIDemoServices().ForClient();
