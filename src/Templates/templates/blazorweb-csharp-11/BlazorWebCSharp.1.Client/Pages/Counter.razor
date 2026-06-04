@@ -1,0 +1,25 @@
+﻿@page "/counter"
+@*#if (UseServer && !InteractiveAtRoot)
+@rendermode InteractiveAuto
+##elseif (!InteractiveAtRoot)
+@rendermode InteractiveWebAssembly
+##endif*@
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<div role="status" style="display: flex; align-items: center; gap: 12px; padding-bottom: 1em;">
+    Current count: <FluentBadge Shape="BadgeShape.Rounded" Content="@($"{currentCount}")" />
+</div>
+
+<FluentButton OnClick="@IncrementCount">Click me</FluentButton>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

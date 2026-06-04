@@ -7,6 +7,9 @@
     <RuntimeVersion10>10.0.8</RuntimeVersion10>
     <AspNetCoreVersion10>10.0.8</AspNetCoreVersion10>
     <EfCoreVersion10>10.0.8</EfCoreVersion10>
+    <RuntimeVersion11>11.0.0-preview.4.26230.115</RuntimeVersion11>
+    <AspNetCoreVersion11>11.0.0-preview.4.26230.115</AspNetCoreVersion11>
+    <EfCoreVersion11>11.0.0-preview.4.26230.115</EfCoreVersion11>
   </PropertyGroup>
   <!-- Independent from TargetFrameWorks-->
   <ItemGroup>
@@ -78,5 +81,24 @@
     <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion10)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion10)" />
     <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion10)" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net11.0'">
+    <!-- Build dependencies -->
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Analyzers" Version="$(AspNetCoreVersion11)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion11)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion11)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion11)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(AspNetCoreVersion11)" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion11)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfCoreVersion11)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfCoreVersion11)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion11)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion11)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion11)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(RuntimeVersion11)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion11)" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion11)" />
+    <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion11)" />
+    <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion11)" />
   </ItemGroup>
 </Project>
