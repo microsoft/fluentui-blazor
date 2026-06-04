@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Antiforgery
 @inject IServiceProvider Services
-<FluentButton Type="ButtonType.Submit" Name="__passkeySubmit" Appearance="Appearance.Accent" @attributes="AdditionalAttributes">@ChildContent</FluentButton>
+<FluentButton Type="ButtonType.Submit" Name="__passkeySubmit" Appearance="ButtonAppearance.Primary" @attributes="AdditionalAttributes">@ChildContent</FluentButton>
 <passkey-submit
     operation="@Operation"
     name="@Name"

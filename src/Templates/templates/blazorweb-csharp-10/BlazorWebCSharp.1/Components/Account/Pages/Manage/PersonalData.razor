@@ -19,13 +19,11 @@
         </p>
         <form action="Account/Manage/DownloadPersonalData" method="post">
             <AntiforgeryToken />
-            <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width:20%;">Download</FluentButton>
+            <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary" Style="width:20%;">Download</FluentButton>
         </form>
 
-        <hr />
-
         <p style="margin-top: 10px; text-align: end;">
-            <FluentAnchor Href="Account/Manage/DeletePersonalData" Appearance="Appearance.Hypertext" >Delete your personal data</FluentAnchor>
+            <FluentLink Href="Account/Manage/DeletePersonalData" >Delete your personal data</FluentLink>
         </p>
     </FluentGridItem>
 </FluentGrid>

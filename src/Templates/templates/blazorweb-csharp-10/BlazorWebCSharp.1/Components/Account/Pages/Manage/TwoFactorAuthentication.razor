@@ -42,23 +42,23 @@
         {
             <form style="display: inline-block" @formname="forget-browser" @onsubmit="OnSubmitForgetBrowserAsync" method="post">
                 <AntiforgeryToken />
-                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Forget this browser</FluentButton>
+                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Forget this browser</FluentButton>
             </form>
         }
 
-        <FluentAnchor Href="Account/Manage/Disable2fa" >Disable 2FA</FluentAnchor>
-        <FluentAnchor Href="Account/Manage/GenerateRecoveryCodes" >Reset recovery codes</FluentAnchor>
+        <FluentLink Href="Account/Manage/Disable2fa" >Disable 2FA</FluentLink>
+        <FluentLink Href="Account/Manage/GenerateRecoveryCodes" >Reset recovery codes</FluentLink>
     }
 
     <h4>Authenticator app</h4>
     @if (!hasAuthenticator)
     {
-        <FluentAnchor Href="Account/Manage/EnableAuthenticator" Appearance="Appearance.Accent">Add authenticator app</FluentAnchor>
+        <FluentLink Href="Account/Manage/EnableAuthenticator">Add authenticator app</FluentLink>
     }
     else
     {
-        <FluentAnchor Href="Account/Manage/EnableAuthenticator">Set up authenticator app</FluentAnchor>
-        <FluentAnchor Href="Account/Manage/ResetAuthenticator">Reset authenticator app</FluentAnchor>
+        <FluentLink Href="Account/Manage/EnableAuthenticator">Set up authenticator app</FluentLink>
+        <FluentLink Href="Account/Manage/ResetAuthenticator">Reset authenticator app</FluentLink>
     }
 }
 else

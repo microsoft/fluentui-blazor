@@ -27,11 +27,11 @@
             <FluentValidationSummary class="text-danger" role="alert" />
             @if (requirePassword)
             {
-                <FluentTextField type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="new-password" Required="true" Placeholder="Please enter your password." Label="Password" Style="width: 100%" />
-                <FluentValidationMessage For="() => Input.Password" class="text-danger" />
+                <FluentTextInput type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="new-password" Required="true" Placeholder="Please enter your password." Label="Password" Style="width: 100%" />
+                @* <FluentValidationMessage For="() => Input.Password" class="text-danger" /> *@
             }
             <p style="margin-top: 10px; text-align: end;">
-                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Delete data and close my account</FluentButton>
+                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Delete data and close my account</FluentButton>
             </p>
         </EditForm>
     </FluentGridItem>

@@ -11,6 +11,10 @@
   width: 100%;
 }
 
+  .content .fluent-nav {
+    padding-top: calc(var(--spacingHorizontalXXL) + 1px);
+  }
+
 
 #blazor-error-ui {
   background: lightyellow;

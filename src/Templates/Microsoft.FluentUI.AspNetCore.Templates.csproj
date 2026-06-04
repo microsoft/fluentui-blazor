@@ -24,22 +24,22 @@
 
   <PropertyGroup>
     <!-- for templates -->
-    <IconsPackageVersion>4.14.0</IconsPackageVersion>
-    <AspirePackageVersion>13.2</AspirePackageVersion>
+    <IconsPackageVersion>4.14.2</IconsPackageVersion>
+    <AspirePackageVersion>13.4</AspirePackageVersion>
     <MicrosoftExtensionsHttpResiliencePackageVersion>10.0.0</MicrosoftExtensionsHttpResiliencePackageVersion>
-    <MicrosoftExtensionsServiceDiscoveryVersion>10.0.0</MicrosoftExtensionsServiceDiscoveryVersion>
+    <MicrosoftExtensionsServiceDiscoveryVersion>10.6.0</MicrosoftExtensionsServiceDiscoveryVersion>
     <MicrosoftAspNetCorePackageVersionForNet8>8.0.25</MicrosoftAspNetCorePackageVersionForNet8>
-    <MicrosoftAspNetCorePackageVersionForNet9>9.0.14</MicrosoftAspNetCorePackageVersionForNet9>
-    <MicrosoftAspNetCorePackageVersionForNet10>10.0.5</MicrosoftAspNetCorePackageVersionForNet10>
-    <MicrosoftAspNetCoreOpenApiVersion>9.0.11</MicrosoftAspNetCoreOpenApiVersion>
-    <MicrosoftAspNetCoreOpenApiPreviewVersion>10.0.0</MicrosoftAspNetCoreOpenApiPreviewVersion>
+    <MicrosoftAspNetCorePackageVersionForNet9>9.0.16</MicrosoftAspNetCorePackageVersionForNet9>
+    <MicrosoftAspNetCorePackageVersionForNet10>10.0.8</MicrosoftAspNetCorePackageVersionForNet10>
+    <MicrosoftAspNetCoreOpenApiVersion>9.0.16</MicrosoftAspNetCoreOpenApiVersion>
+    <MicrosoftAspNetCoreOpenApiPreviewVersion>10.0.8</MicrosoftAspNetCoreOpenApiPreviewVersion>
     <OpenTelemetryNet8Version>1.9.0</OpenTelemetryNet8Version>
     <OpenTelemetryLTSVersion>1.15.1</OpenTelemetryLTSVersion>
-    <OpenTelemetryInstrumentationAspNetCoreVersion>1.15.1</OpenTelemetryInstrumentationAspNetCoreVersion>
+    <OpenTelemetryInstrumentationAspNetCoreVersion>1.15.2</OpenTelemetryInstrumentationAspNetCoreVersion>
     <OpenTelemetryInstrumentationHttpVersion>1.15.0</OpenTelemetryInstrumentationHttpVersion>
-    <OpenTelemetryInstrumentationExtensionsHostingVersion>1.15.1</OpenTelemetryInstrumentationExtensionsHostingVersion>
-    <OpenTelemetryInstrumentationRuntimeVersion>1.15.0</OpenTelemetryInstrumentationRuntimeVersion>
-    <OpenTelemetryExporterOpenTelemetryProtocolVersion>1.15.1</OpenTelemetryExporterOpenTelemetryProtocolVersion>
+    <OpenTelemetryInstrumentationExtensionsHostingVersion>1.15.3</OpenTelemetryInstrumentationExtensionsHostingVersion>
+    <OpenTelemetryInstrumentationRuntimeVersion>1.15.1</OpenTelemetryInstrumentationRuntimeVersion>
+    <OpenTelemetryExporterOpenTelemetryProtocolVersion>1.15.3</OpenTelemetryExporterOpenTelemetryProtocolVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

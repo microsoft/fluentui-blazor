@@ -28,7 +28,7 @@
     "editorTreatAs": "solution"
   },
   "precedence": "9003",
-  "identity": "Fluent.Aspire.Starter.CSharp.13.2",
+  "identity": "Fluent.Aspire.Starter.CSharp.13.4",
   "thirdPartyNotices": "https://aka.ms/aspire/third-party-notices",
   "groupIdentity": "Fluent.Aspire.Starter",
   "guids": [
@@ -491,7 +491,7 @@
     {
       "id": "set-startup-project",
       "description": "Sets the startup project in the solution",
-      "manualInstructions": [],
+      "manualInstructions": [{ "text": "" }],
       "actionId": "5BECCC32-4D5A-4476-A0F9-BD2E81AF0689",
       "condition": "(hostIdentifier == \"vs\")",
       "args": {

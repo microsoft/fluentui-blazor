@@ -17,11 +17,11 @@
 else
 {
     <FluentDataGrid Id="weathergrid" Items="@forecasts" GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem="WeatherForecast">
-    <PropertyColumn Title="Date" Property="@(c => c!.Date)" Sortable="true" Align="DataGridCellAlignment.Start"/>
-    <PropertyColumn Title="Temp. (C)" Property="@(c => c!.TemperatureC)" Sortable="true" Align="DataGridCellAlignment.Center"/>
-    <PropertyColumn Title="Temp. (F)" Property="@(c => c!.TemperatureF)" Sortable="true" Align="DataGridCellAlignment.Center"/>
-    <PropertyColumn Title="Summary" Property="@(c => c!.Summary)" Sortable="true" Align="DataGridCellAlignment.End"/>
-</FluentDataGrid>
+        <PropertyColumn Title="Date" Property="@(c => c!.Date)" Sortable="true" Align="DataGridCellAlignment.Start"/>
+        <PropertyColumn Title="Temp. (C)" Property="@(c => c!.TemperatureC)" Sortable="true" Align="DataGridCellAlignment.Center"/>
+        <PropertyColumn Title="Temp. (F)" Property="@(c => c!.TemperatureF)" Sortable="true" Align="DataGridCellAlignment.Center"/>
+        <PropertyColumn Title="Summary" Property="@(c => c!.Summary)" Sortable="true" Align="DataGridCellAlignment.End"/>
+    </FluentDataGrid>
 }
 ##else
 <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
