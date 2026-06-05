@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:60116;http://localhost:60117"
+    }
+  }
+}
