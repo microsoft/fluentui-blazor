@@ -88,7 +88,7 @@ and has the following properties (and default values):
 
 - MaxToastCount (4);
 - Timeout (7000);
-- Position (ToastPosition.TopRight);
+- Position (ToastPosition.BottomEnd);
 - VerticalOffset (16);
 - HorizontalOffset (20);
 - PauseOnHover (true);
@@ -103,10 +103,8 @@ The preferred defaults can be set in the `AddFluentUIComponents` method when con
 // Add FluentUI services
 builder.Services.AddFluentUIComponents(config =>
 {
-    // Set default values for FluentButton component
     config.Toast.IsDismissable = true;
-    config.Toast.Position = ToastPosition.TopEnd;
-    
+    config.Toast.Position = ToastPosition.TopEnd;   
 });
 ```
 

@@ -45,7 +45,7 @@ and has the following properties (and default values):
 
 - MaxToastCount (4);
 - Timeout (7000);
-- Position (ToastPosition.TopRight);
+- Position (ToastPosition.BottomEnd);
 - VerticalOffset (16);
 - HorizontalOffset (20);
 - PauseOnHover (true);
@@ -58,7 +58,6 @@ and has the following properties (and default values):
 // Add FluentUI services
 builder.Services.AddFluentUIComponents(config =>
 {
-    // Set default values for FluentButton component
     config.Toast.IsDismissable = true;
     config.Toast.Position = ToastPosition.TopEnd;
     
@@ -78,7 +77,6 @@ and has the following property (and default value):
 // Add FluentUI services
 builder.Services.AddFluentUIComponents(config =>
 {
-    // Set default values for FluentButton component
     config.Tooltip.UseServiceProvider = false;
 });
 ``` 

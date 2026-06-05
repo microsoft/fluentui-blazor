@@ -63,7 +63,7 @@ This is possible setting the `UseTooltipService` parameter to `false` in the com
 
 ## Default value
 
-You can also configure the value for the `UseTooltipService` globally in the `Program.cs` file:
+You can also configure whether the tooltip service is registered globally in the `Program.cs` file:
 
 ```csharp
 builder.Services.AddFluentUIComponents(options =>
