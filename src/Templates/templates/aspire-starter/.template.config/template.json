@@ -16,7 +16,7 @@
     "NUnit",
     "xUnit"
   ],
-  "name": "Aspire Starter App (ASP.NET Core/Blazor/Fluent UI)",
+  "name": "FluentAspire Starter App (ASP.NET Core/Blazor/Fluent UI)",
   "defaultName": "AspireApp",
   "description": "A project template for creating an Aspire app with a Fluent UI Blazor web frontend and web API backend service, with optional Redis caching.",
   "shortName": "fluentaspire-starter",
