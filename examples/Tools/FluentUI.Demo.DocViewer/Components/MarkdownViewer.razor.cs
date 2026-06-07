@@ -131,7 +131,7 @@ public partial class MarkdownViewer
         var componentType = "";
 
         // Convert "MyComponent<MyType>" to ("MyComponent", "MyType")
-        var match = Regex.Match(name, @"(\w+)(&lt;|<)(.+)(>|&gt;)");
+        var match = ComponentsRexEx().Match(name);
         if (match.Success)
         {
             componentName = match.Groups[1].Value;
@@ -165,8 +165,7 @@ public partial class MarkdownViewer
                 }
             }
 
-            
-            result.InstanceTypes = listOfTypes.ToArray();
+            result.InstanceTypes = [.. listOfTypes];
         }
 
         return result;
@@ -217,4 +216,7 @@ public partial class MarkdownViewer
             _ => "language-plaintext"
         };
     }
+
+    [GeneratedRegex(@"(\w+)(&lt;|<)(.+)(>|&gt;)")]
+    private static partial Regex ComponentsRexEx();
 }

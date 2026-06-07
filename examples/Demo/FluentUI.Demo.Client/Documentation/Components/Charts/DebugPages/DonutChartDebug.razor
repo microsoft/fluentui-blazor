@@ -1,0 +1,98 @@
+﻿@page "/Charts/DonutChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentSwitch Label="Rounded corners" @bind-Value="roundCorners"></FluentSwitch>
+    <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+    <FluentSwitch Label="Show percentages" Disabled="@(hideLabels)" @bind-Value="showLabelsInPercent"></FluentSwitch>
+    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+    <FluentSwitch Label="Allow multiple legend selection" Disabled="@(hideLegends)" @bind-Value="allowMultipleLegendSelection"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentDonutChart ChartData="@data"
+                      ChartTitle="Donut chart rounded corners example"
+                      Width="@($"{width}px")"
+                      Height="@($"{height}px")"
+                      HideLabels="@hideLabels"
+                      HideTooltip="@hideTooltips"
+                      InnerRadius="55"
+                      ValueInsideDonut="€ 74k"
+                      RoundedCorners="@roundCorners"
+                      HideLegends="@hideLegends"
+                      ShowLabelsInPercent="@showLabelsInPercent"
+                      AllowMultipleLegendSelection="@allowMultipleLegendSelection" />
+</div>
+
+<div style="margin:20px;">
+    <FluentDonutChart ChartData="@data2"
+                      ChartTitle="Donut chart small segments"
+                      Width="@($"{width}px")"
+                      Height="@($"{height}px")"
+                      InnerRadius="55"
+                      ValueInsideDonut="39,000"
+                      AllowMultipleLegendSelection="@allowMultipleLegendSelection"
+                      Culture="@(new System.Globalization.CultureInfo("nl-NL"))"
+                      />
+</div>
+
+
+
+@code {
+    private readonly IReadOnlyList<DonutDataPoint> data = new List<DonutDataPoint>
+    {
+            new DonutDataPoint { Legend = "first", Data = 20000 },
+            new DonutDataPoint { Legend = "second", Data = 39000 },
+            new DonutDataPoint { Legend = "third", Data = 15000 },
+    };
+
+    private readonly IReadOnlyList<DonutDataPoint> data2 = new List<DonutDataPoint>
+    {
+        new DonutDataPoint { Legend = "first", Data = 20000 },
+        new DonutDataPoint { Legend = "second", Data = 39000 },
+        new DonutDataPoint { Legend = "third", Data = 15000 },
+        new DonutDataPoint { Legend = "fourth", Data = 1000 },
+        new DonutDataPoint { Legend = "fifth", Data = 500 },
+        new DonutDataPoint { Legend = "sixth", Data = 200 },
+        new DonutDataPoint { Legend = "seventh", Data = 100 },
+        new DonutDataPoint { Legend = "eighth", Data = 50 },
+        new DonutDataPoint { Legend = "ninth", Data = 20 },
+        new DonutDataPoint { Legend = "tenth", Data = 10 },
+    };
+
+    private int width = 400;
+    private int height = 400;
+    private bool roundCorners;
+    private bool hideLabels = true;
+    private bool hideLegends;
+    private bool hideTooltips;
+    private bool showLabelsInPercent;
+    private bool allowMultipleLegendSelection;
+}

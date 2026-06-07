@@ -417,12 +417,16 @@ FodyWeavers.xsd
 *.cobertura.xml
 Microsoft.FluentUI.AspNetCore.Components.xml
 Microsoft.FluentUI.AspNetCore.McpServer.xml
+Microsoft.FluentUI.AspNetCore.Components.Charts.xml
 /examples/Demo/FluentUI.Demo.Client/wwwroot/sources/
 /examples/Demo/FluentUI.Demo.Client/wwwroot/documentation/
 api-comments.json
+chart-comments.json
 mcp-documentation.json
 all-icons.json
 all-emojis.json
 /global.json
 /src/Core.Scripts/src/BuildConstants.ts
 /src/Core.Scripts/obj/
+/.playwright-mcp
+/src/Charts.Scripts/sync-from-monorepo.ps1

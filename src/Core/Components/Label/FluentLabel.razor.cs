@@ -15,11 +15,11 @@ public partial class FluentLabel : FluentComponentBase, ITooltipComponent
     public FluentLabel(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary />
-    protected string? ClassValue => DefaultClassBuilder
+    protected virtual string? ClassValue => DefaultClassBuilder
         .Build();
 
     /// <summary />
-    protected string? StyleValue => DefaultStyleBuilder
+    protected virtual string? StyleValue => DefaultStyleBuilder
         .Build();
 
     /// <summary>

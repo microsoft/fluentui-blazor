@@ -23,11 +23,12 @@ To simplify the use of the tooltip, you can set the `Tooltip` parameter on any c
 
 {{ TooltipParameter }}
 
-The components which support the `Tooltip` parameter are: 
+The components which support the `Tooltip` parameter are:
 
 {{ TooltipParameterListOfComponents  SourceCode=false }}
 
 ## Customized
+
 The tooltip can be customized with a custom template,
 adapting the delay to `700 ms`, the position of the tooltip to `BelowStart` (including spacings to `20px` and `10px`)
 and the style "Inverted".
@@ -59,7 +60,11 @@ If you are using "per page" interactivity, make sure to add a `@rendermode` to e
 
 In some use cases, you may want to render a tooltip without the provider. For example when the child content is dynamic.
 This is possible setting the `UseTooltipService` parameter to `false` in the component.
-You can also configure it globally in the `Program.cs` file:
+
+## Default value
+
+You can also configure whether the tooltip service is registered globally in the `Program.cs` file:
+
 ```csharp
 builder.Services.AddFluentUIComponents(options =>
 {

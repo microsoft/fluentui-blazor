@@ -153,7 +153,7 @@ public class ToastOptions : IFluentComponentBase
     /// <summary>
     /// Gets or sets a value indicating whether the toast can be dismissed by the user.
     /// </summary>
-    public bool IsDismissable { get; set; }
+    public bool? IsDismissable { get; set; }
 
     /// <summary>
     /// Gets or sets dismiss action label.

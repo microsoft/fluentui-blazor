@@ -111,6 +111,18 @@ internal class FluentFieldParameterSelector : IFluentField
     }
 
     /// <summary />
+    public ILabelInfo? LabelInfo
+    {
+        get => _component.LabelInfo ?? _component.InputComponent?.LabelInfo;
+        set => throw new NotSupportedException();
+    }
+
+    /// <summary />
+    public bool HasLabelInfo
+        => LabelInfo is not null
+        && (!string.IsNullOrEmpty(LabelInfo.InfoText) || !string.IsNullOrEmpty(LabelInfo.InfoActionLink));
+
+    /// <summary />
     internal static Icon? StateToIcon(MessageState? state)
     {
         return state switch

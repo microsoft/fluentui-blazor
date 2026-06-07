@@ -81,6 +81,33 @@ By using the `Intent` property (from `ToastOptions`) semantic styles, icons and 
 All feedback states except info have an “assertive” aria-live and interrupt any other announcement a screen reader is making. Too many interruptions can disrupt someone’s flow,
 so don’t overload people with too many assertive toasts.
 
+## Default values
+
+Global default values (used for all instances) can be set using the `LibraryConfiguration.Toast` member. The type of this member is `LibraryToastOptions`,
+and has the following properties (and default values):
+
+- MaxToastCount (4);
+- Timeout (7000);
+- Position (ToastPosition.BottomEnd);
+- VerticalOffset (16);
+- HorizontalOffset (20);
+- PauseOnHover (true);
+- PauseOnWindowBlur (true);
+- IsDismissable (false);
+
+The preferred defaults can be set in the `AddFluentUIComponents` method when configuring services.
+
+### Example
+
+```csharp
+// Add FluentUI services
+builder.Services.AddFluentUIComponents(config =>
+{
+    config.Toast.IsDismissable = true;
+    config.Toast.Position = ToastPosition.TopEnd;   
+});
+```
+
 ## Examples
 
 ### Default
