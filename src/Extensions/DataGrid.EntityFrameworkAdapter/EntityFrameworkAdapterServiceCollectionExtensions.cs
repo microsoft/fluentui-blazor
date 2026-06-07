@@ -19,8 +19,9 @@ public static class EntityFrameworkAdapterServiceCollectionExtensions
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
     /// <param name="ignoreException">A function to determine whether to ignore exceptions.</param>
-    public static void AddDataGridEntityFrameworkAdapter(this IServiceCollection services, Func<Exception, bool>? ignoreException = null)
+    public static IServiceCollection AddDataGridEntityFrameworkAdapter(this IServiceCollection services, Func<Exception, bool>? ignoreException = null)
     {
-        services.AddScoped<IAsyncQueryExecutor, EntityFrameworkAsyncQueryExecutor>(sp => new EntityFrameworkAsyncQueryExecutor(ignoreException));
+        services.AddScoped<IAsyncQueryExecutor, EntityFrameworkAsyncQueryExecutor>(_ => new EntityFrameworkAsyncQueryExecutor(ignoreException));
+        return services;
     }
 }
