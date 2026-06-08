@@ -1,0 +1,27 @@
+# Upload the staged DLL (+ PDB, if standalone) pairs to the internal
+# symbol server. SubmitToInternet:false keeps these out of the public
+# symbol server (MSDL); the task will print a warning about that override
+# which is intentional and safe to ignore. The pair to this template is
+# publish-symbols-stage.yml, which must run earlier in the same job.
+parameters:
+- name: condition
+  type: string
+
+steps:
+- task: MicroBuildArchiveSymbols@6
+  displayName: 'Archive symbols to internal symbol server'
+  condition: ${{ parameters.condition }}
+  inputs:
+    azureSubscription: 'VSEng-SymbolsUpload'
+    SymbolsFeatureName: 'FluentUIBlazor'
+    SymbolsProject: 'DDE'
+    SymbolsAgentPath: '$(Build.ArtifactStagingDirectory)/Symbols'
+    # FluentUI is a public Blazor library; we publish to SymWeb for
+    # internal debugging but intentionally skip MSDL because we do not
+    # currently publish symbols there for our packages. The task warns
+    # when SubmitToInternet is overridden — SuppressSymwebOnlyWarning
+    # acknowledges the override is deliberate.
+    SubmitToInternet: false
+    SuppressSymwebOnlyWarning: true
+  env:
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)
