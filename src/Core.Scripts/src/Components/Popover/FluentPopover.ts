@@ -67,8 +67,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     connectedCallback() {
       window.addEventListener('scroll', this.handleWindowChange, true);
       window.addEventListener('resize', this.handleWindowChange, true);
-      window.visualViewport?.addEventListener('scroll', this.handleWindowChange);
-      window.visualViewport?.addEventListener('resize', this.handleWindowChange);
     }
 
     // Disposes the popover by removing event listeners and stopping observers.
@@ -81,8 +79,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       }
       window.removeEventListener('scroll', this.handleWindowChange, true);
       window.removeEventListener('resize', this.handleWindowChange, true);
-      window.visualViewport?.removeEventListener('scroll', this.handleWindowChange);
-      window.visualViewport?.removeEventListener('resize', this.handleWindowChange);
     }
 
     private get dialogIsOpen(): boolean {
@@ -101,11 +97,15 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       }
 
       if (value && !this.dialogIsOpen) {
+        window.visualViewport?.addEventListener('scroll', this.handleWindowChange);
+        window.visualViewport?.addEventListener('resize', this.handleWindowChange);
         this.showPopover();
         return;
       }
 
       if (!value && this.dialogIsOpen) {
+        window.visualViewport?.removeEventListener('scroll', this.handleWindowChange);
+        window.visualViewport?.removeEventListener('resize', this.handleWindowChange);
         this.closePopover();
         return;
       }
