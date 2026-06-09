@@ -93,7 +93,7 @@ public class ToastOptions : IFluentComponentBase
     /// <summary>
     /// Gets or sets a value indicating whether the toast uses inverted colors.
     /// </summary>
-    public bool Inverted { get; set; }
+    public bool? Inverted { get; set; }
 
     /// <summary>
     /// Gets or sets the toast intent.
