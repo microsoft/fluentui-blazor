@@ -34,7 +34,7 @@ public interface ILabelInfo
 
     /// <summary>
     /// Gets or sets the maximum width of the info popover. Can be any valid CSS width value, such as "200px" or "50%".
-    /// If not set, the popover will size to fit its content up (`fit-content`).
+    /// If not set, the popover will size to fit its content (`fit-content`).
     /// </summary>
     string? MaxWidth { get; set; }
 }

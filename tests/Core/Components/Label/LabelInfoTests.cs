@@ -141,7 +141,7 @@ public class LabelInfoTests
         Assert.Equal(LinkTarget.Self, info.InfoActionTarget);
     }
 
-     [Fact]
+    [Fact]
     public void LabelInfo_MaxWidthProperty_CanBeSet()
     {
         // Arrange & Act
