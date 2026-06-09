@@ -229,4 +229,68 @@
         Assert.Throws<InvalidOperationException>(() =>
             Render(@<FluentLabelInfo Required="true">fluent label info</FluentLabelInfo>));
     }
+
+      [Fact]
+    public void FluentLabelInfo_MaxWidthIsSet_RendersCssVariable()
+    {
+        // Arrange & Act
+        var cut = Render<FluentLabelInfo>(parameters => parameters
+            .Add(p => p.MaxWidth, "200px")
+            .AddChildContent("My label"));
+
+        // Assert
+        var label = cut.Find(".fluent-label-info");
+        Assert.Contains("--fluent-label-info-width: 200px", label.GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentLabelInfo_MaxWidthIsPercentage_RendersCssVariable()
+    {
+        // Arrange & Act
+        var cut = Render<FluentLabelInfo>(parameters => parameters
+            .Add(p => p.MaxWidth, "50%")
+            .AddChildContent("My label"));
+
+        // Assert
+        var label = cut.Find(".fluent-label-info");
+        Assert.Contains("--fluent-label-info-width: 50%", label.GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentLabelInfo_MaxWidthIsNull_DoesNotRenderCssVariable()
+    {
+        // Arrange & Act
+        var cut = Render<FluentLabelInfo>(parameters => parameters
+            .Add(p => p.MaxWidth, null)
+            .AddChildContent("My label"));
+
+        // Assert
+        var label = cut.Find(".fluent-label-info");
+        Assert.DoesNotContain("--fluent-label-info-width", label.GetAttribute("style") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_MaxWidthIsEmpty_DoesNotRenderCssVariable()
+    {
+        // Arrange & Act
+        var cut = Render<FluentLabelInfo>(parameters => parameters
+            .Add(p => p.MaxWidth, string.Empty)
+            .AddChildContent("My label"));
+
+        // Assert
+        var label = cut.Find(".fluent-label-info");
+        Assert.DoesNotContain("--fluent-label-info-width", label.GetAttribute("style") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_MaxWidthNotSet_DoesNotRenderCssVariable()
+    {
+        // Arrange & Act
+        var cut = Render<FluentLabelInfo>(parameters => parameters
+            .AddChildContent("My label"));
+
+        // Assert
+        var label = cut.Find(".fluent-label-info");
+        Assert.DoesNotContain("--fluent-label-info-width", label.GetAttribute("style") ?? string.Empty);
+    }
 }

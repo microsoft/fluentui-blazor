@@ -140,4 +140,67 @@ public class LabelInfoTests
         Assert.Equal("Read", info.InfoActionText);
         Assert.Equal(LinkTarget.Self, info.InfoActionTarget);
     }
+
+     [Fact]
+    public void LabelInfo_MaxWidthProperty_CanBeSet()
+    {
+        // Arrange & Act
+        var labelInfo = new LabelInfo { MaxWidth = "300px" };
+
+        // Assert
+        Assert.Equal("300px", labelInfo.MaxWidth);
+    }
+
+    [Fact]
+    public void LabelInfo_Constructor_SetsMaxWidth()
+    {
+        // Arrange & Act
+        var labelInfo = new LabelInfo("Info text", maxWidth: "150px");
+
+        // Assert
+        Assert.Equal("150px", labelInfo.MaxWidth);
+    }
+
+    [Fact]
+    public void LabelInfo_ConstructorWithoutMaxWidth_MaxWidthIsNull()
+    {
+        // Arrange & Act
+        var labelInfo = new LabelInfo("Info text");
+
+        // Assert
+        Assert.Null(labelInfo.MaxWidth);
+    }
+
+    [Fact]
+    public void LabelInfo_WithMaxWidth_SetsMaxWidth()
+    {
+        // Arrange & Act
+        var labelInfo = LabelInfo.WithText("Info text").WithMaxWidth("250px");
+
+        // Assert
+        Assert.Equal("250px", labelInfo.MaxWidth);
+    }
+
+    [Fact]
+    public void LabelInfo_WithMaxWidth_ReturnsSameInstance()
+    {
+        // Arrange
+        var labelInfo = LabelInfo.WithText("Info text");
+
+        // Act
+        var result = labelInfo.WithMaxWidth("250px");
+
+        // Assert
+        Assert.Same(labelInfo, result);
+    }
+
+    [Fact]
+    public void LabelInfo_WithMaxWidthNull_SetsMaxWidthToNull()
+    {
+        // Arrange & Act
+        var labelInfo = LabelInfo.WithText("Info text").WithMaxWidth(null);
+
+        // Assert
+        Assert.Null(labelInfo.MaxWidth);
+    }
 }
