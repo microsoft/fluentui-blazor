@@ -16,6 +16,7 @@ public class LibraryToastOptions
     private const bool _defaultPauseOnHover = true;
     private const bool _defaultPauseOnWindowBlur = true;
     private const bool _defaultIsDismissable = false;
+    private const bool _defaultInverted = false;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LibraryToastOptions"/> class.
@@ -63,4 +64,9 @@ public class LibraryToastOptions
     /// Gets or sets a value indicating whether visible toasts can be dismissed by the user.
     /// </summary>
     public bool IsDismissable { get; set; } = _defaultIsDismissable;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the toast uses inverted colors.
+    /// </summary>
+    public bool Inverted { get; set; } = _defaultInverted;
 }

@@ -84,6 +84,9 @@ public partial class FluentToastProvider : FluentComponentBase
     private bool GetIsDismissable(IToastInstance toast)
         => toast.Options.IsDismissable ?? configuration.Toast.IsDismissable;
 
+    private bool GetInverted(IToastInstance toast)
+        => toast.Options.Inverted ?? configuration.Toast.Inverted;
+
     private IEnumerable<IToastInstance> GetRenderedToasts()
         => ToastService?.Items.Values
             .Where(toast => toast.LifecycleStatus is ToastLifecycleStatus.Visible or ToastLifecycleStatus.Dismissed)
