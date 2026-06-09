@@ -23,12 +23,14 @@ public partial class LabelInfo : ILabelInfo
     /// <param name="actionLink">The URL displayed as a "learn more" link inside the popover.</param>
     /// <param name="actionText">The text displayed as a "learn more" link inside the popover.</param>
     /// <param name="actionTarget">The target for the "learn more" link inside the popover.</param>
-    public LabelInfo(string text, string? actionLink = null, string? actionText = null, LinkTarget actionTarget = LinkTarget.Blank)
+    /// <param name="maxWidth">The maximum width of the info popover. Can be any valid CSS width value, such as "200px" or "50%".</param>
+    public LabelInfo(string text, string? actionLink = null, string? actionText = null, LinkTarget actionTarget = LinkTarget.Blank, string? maxWidth = null)
     {
         InfoText = text;
         InfoActionLink = actionLink;
         InfoActionText = actionText;
         InfoActionTarget = actionTarget;
+        MaxWidth = maxWidth;
     }
 
     /// <inheritdoc />
@@ -42,4 +44,7 @@ public partial class LabelInfo : ILabelInfo
 
     /// <inheritdoc />
     public LinkTarget InfoActionTarget { get; set; } = LinkTarget.Blank;
+
+    /// <inheritdoc />
+    public string? MaxWidth { get; set; }
 }
