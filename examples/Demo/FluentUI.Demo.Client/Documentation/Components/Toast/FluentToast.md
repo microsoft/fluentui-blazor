@@ -94,6 +94,7 @@ and has the following properties (and default values):
 - PauseOnHover (true);
 - PauseOnWindowBlur (true);
 - IsDismissable (false);
+- Inverted (false);
 
 The preferred defaults can be set in the `AddFluentUIComponents` method when configuring services.
 
