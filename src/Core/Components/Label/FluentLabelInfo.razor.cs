@@ -29,6 +29,11 @@ public partial class FluentLabelInfo : FluentLabel, ILabelInfo
         .AddClass("fluent-label-info")
         .Build();
 
+/// <summary />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("--fluent-label-info-width", MaxWidth, when: !string.IsNullOrEmpty(MaxWidth))
+        .Build();
+
     /// <summary>
     /// Gets or sets the FluentField component that this label is associated with.
     /// </summary>
@@ -55,6 +60,13 @@ public partial class FluentLabelInfo : FluentLabel, ILabelInfo
     /// </summary>
     [Parameter]
     public string? InfoText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum width of the info popover. Can be any valid CSS width value, such as "200px" or "50%".
+    /// If not set, the popover will size to fit its content (`fit-content`).
+    /// </summary>
+    [Parameter]
+    public string? MaxWidth { get; set; }
 
     /// <summary>
     /// Gets or sets the URL displayed as a "learn more" link inside the popover.

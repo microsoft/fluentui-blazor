@@ -47,4 +47,15 @@ public partial class LabelInfo : ILabelInfo
         InfoActionTarget = actionTarget;
         return this;
     }
+
+    /// <summary>
+    /// Sets the maximum width of the info popover.
+    /// </summary>
+    /// <param name="maxWidth">The maximum width of the info popover. Can be any valid CSS width value, such as "200px" or "50%".</param>
+    /// <returns>The current <see cref="LabelInfo"/> instance.</returns>
+    public LabelInfo WithMaxWidth(string? maxWidth)
+    {
+        MaxWidth = maxWidth;
+        return this;
+    }
 }
