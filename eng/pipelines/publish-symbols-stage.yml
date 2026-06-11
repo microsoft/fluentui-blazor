@@ -1,0 +1,30 @@
+# Stage shipping binaries for symbol upload. Place this immediately after
+# the Build step, BEFORE any task that runs `dotnet test` with a different
+# /p:DebugType. The test step passes /p:DebugType=Full as a global MSBuild
+# property, which propagates through P2P refs and rebuilds Core with a
+# different MVID; if we staged after the test step, the binaries we upload
+# would not match the binaries inside the shipping nupkg.
+#
+# The .pdb pattern is included for pipelines that build with
+# /p:DebugType=portable (standalone PDBs). For pipelines using the csproj
+# default of <DebugType>embedded</DebugType>, the PDB rides inside the DLL
+# and the .pdb pattern matches nothing — harmless. We deliberately stay on
+# SymWeb only (see publish-symbols-upload.yml's SubmitToInternet:false),
+# so embedded-in-DLL is fine here.
+parameters:
+- name: condition
+  type: string
+
+steps:
+- task: CopyFiles@2
+  displayName: 'Collect shipping binaries for symbol upload'
+  condition: ${{ parameters.condition }}
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      src/**/bin/Release/**/Microsoft.FluentUI.*.dll
+      src/**/bin/Release/**/Microsoft.FluentUI.*.pdb
+      !src/Templates/**
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/Symbols'
+    CleanTargetFolder: true
+    flattenFolders: false
