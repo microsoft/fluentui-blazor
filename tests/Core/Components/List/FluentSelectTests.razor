@@ -120,6 +120,19 @@
     }
 
     [Fact]
+    public void FluentSelect_OptionNoWrapMaxWidth()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" OptionNoWrapMaxWidth="200px" TOption="string" TValue="string" />);
+
+        // Assert - the no-wrap attribute is applied to the listbox with the provided max width
+        var listbox = cut.Find("fluent-listbox");
+
+        Assert.True(listbox.HasAttribute("no-wrap"));
+        Assert.Equal("200px", listbox.GetAttribute("no-wrap"));
+    }
+
+    [Fact]
     public void FluentSelect_Default_InitialSelection()
     {
         string? value = "Two";
