@@ -3,18 +3,32 @@
 <FluentSelect Label="Coworker"
               Placeholder="Select a coworker"
               Items="@Coworkers"
+              Width="250px"
               @bind-Value="@Value"
-              OptionText="@(item => item?.FirstName)"
+              OptionText="@(item => $"{item?.FirstName} {item?.LastName}")"
               OptionValueToString="@(item => item?.Id)"
+              OptionClass="my-option"
               OptionDisabled="@(item => item == Coworkers.ElementAt(3))" />
 
 <div>
     Selected: @Value?.Id - @Value?.FirstName
 </div>
 
+<style>
+    @* Add custom styling for options with long content *@
+    .my-option::part(content) {
+        display: inline-block;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 16px;
+    }
+</style>
+
 @code {
-    static Samples.Person?[] OneNullPerson = new Samples.Person?[] { null };
-    static Samples.Person?[] Coworkers = OneNullPerson.Union(Samples.Persons.Take(5).ToArray()).ToArray();
+    static Samples.Person?[] OneNullPerson = new Samples.Person?[] { null, Samples.VeryLongNamePerson };
+    static Samples.Person?[] Coworkers = OneNullPerson.Union(Samples.Persons.Take(5)).ToArray();
 
     Samples.Person? Value = Coworkers.ElementAt(2);
 }

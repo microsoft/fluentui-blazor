@@ -129,6 +129,17 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     public virtual Func<TOption?, bool>? OptionDisabled { get; set; }
 
     /// <summary>
+    /// Gets or sets the CSS class to apply to options.
+    /// The class is applied to the host <c>&lt;fluent-option&gt;</c> element.
+    /// To style an internal part (such as the content area),
+    /// target it from your stylesheet using the <c>::part()</c> selector,
+    /// for example: <c>.my-option::part(content) { ... }</c>.
+    /// The part names available for styling are `description` and `content`.
+    /// </summary>
+    [Parameter]
+    public virtual string? OptionClass { get; set; }
+
+    /// <summary>
     /// Gets or sets the equality comparer used to determine whether two options are considered equal for selection purposes.
     /// </summary>
     [Parameter]

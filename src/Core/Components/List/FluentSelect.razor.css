@@ -6,3 +6,15 @@ fluent-dropdown[readonly] {
   pointer-events: none;
   user-select: none;
 }
+
+fluent-dropdown[size="small"] button[slot="control"] {
+  max-height: var(--lineHeightBase200);
+}
+
+fluent-dropdown:not([size="small"]):not([size="large"]) button[slot="control"]{
+  max-height: var(--lineHeightBase300);
+}
+
+fluent-dropdown[size="large"] button[slot="control"] {
+  max-height: var(--lineHeightBase400);
+}
