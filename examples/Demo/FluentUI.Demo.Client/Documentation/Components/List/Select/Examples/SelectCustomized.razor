@@ -4,17 +4,19 @@
               Placeholder="Select a coworker"
               Items="@Coworkers"
               @bind-Value="@Value"
-              OptionText="@(item => item?.FirstName)"
-              OptionValueToString="@(item => item?.Id)"
-              OptionDisabled="@(item => item == Coworkers.ElementAt(3))" />
+              OptionText="@(item => $"{item?.FirstName} {item?.LastName}")"
+              OptionValueToString="@(item => item?.Id)"              
+              OptionDisabled="@(item => item == Coworkers.ElementAt(3))"
+              OptionNoWrapMaxWidth="250px"
+              Width="250px" />
 
 <div>
     Selected: @Value?.Id - @Value?.FirstName
 </div>
 
 @code {
-    static Samples.Person?[] OneNullPerson = new Samples.Person?[] { null };
-    static Samples.Person?[] Coworkers = OneNullPerson.Union(Samples.Persons.Take(5).ToArray()).ToArray();
+    static Samples.Person?[] OneNullPerson = new Samples.Person?[] { null, Samples.VeryLongNamePerson };
+    static Samples.Person?[] Coworkers = OneNullPerson.Union(Samples.Persons.Take(5)).ToArray();
 
     Samples.Person? Value = Coworkers.ElementAt(2);
 }
