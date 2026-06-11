@@ -107,6 +107,19 @@
     }
 
     [Fact]
+    public void FluentSelect_OptionClass()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" OptionClass="my-option" TOption="string" TValue="string" />);
+
+        // Assert - the custom CSS class is applied to every rendered option
+        var options = cut.FindAll("fluent-option");
+
+        Assert.NotEmpty(options);
+        Assert.All(options, option => Assert.Contains("my-option", option.GetAttribute("class")));
+    }
+
+    [Fact]
     public void FluentSelect_Default_InitialSelection()
     {
         string? value = "Two";
