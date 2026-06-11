@@ -11,10 +11,18 @@ fluent-dropdown[size="small"] button[slot="control"] {
   max-height: var(--lineHeightBase200);
 }
 
-fluent-dropdown:not([size="small"]):not([size="large"]) button[slot="control"]{
+fluent-dropdown:not([size="small"]):not([size="large"]) button[slot="control"] {
   max-height: var(--lineHeightBase300);
 }
 
 fluent-dropdown[size="large"] button[slot="control"] {
   max-height: var(--lineHeightBase400);
+}
+
+fluent-listbox[no-wrap]>fluent-option::part(content) {
+  display: inline-block;
+  max-width: var(--no-wrap-max-width, 250px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
