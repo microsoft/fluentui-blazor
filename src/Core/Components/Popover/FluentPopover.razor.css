@@ -1,0 +1,3 @@
+fluent-popover-b {
+    position: fixed; /* When the base component is not fixed it will impact the DOM and moves content around when the popover is being shown */
+}
