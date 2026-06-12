@@ -44,11 +44,15 @@ internal class EntityFrameworkAsyncQueryExecutor(Func<Exception, bool>? ignoreEx
         }
         catch (ObjectDisposedException)
         {
-            return default!;
+            return typeof(TResult).IsArray
+                 ? (TResult)(object)Array.CreateInstance(typeof(TResult).GetElementType()!, 0)
+                 : default!;
         }
         catch (Exception ex) when (ignoreException?.Invoke(ex) == true)
         {
-            return default!;
+            return typeof(TResult).IsArray
+                 ? (TResult)(object)Array.CreateInstance(typeof(TResult).GetElementType()!, 0)
+                 : default!;
         }
     }
 

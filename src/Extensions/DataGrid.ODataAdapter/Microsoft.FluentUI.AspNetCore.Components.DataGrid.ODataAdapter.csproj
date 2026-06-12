@@ -31,7 +31,7 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <IsShipping>true</IsShipping>
     <Optimize>True</Optimize>
-    <NoWarn>1701;1702;8669;1591</NoWarn>
+    <NoWarn>1701;1702;</NoWarn>
     <DebuggerSupport>false</DebuggerSupport>
     <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
