@@ -1156,6 +1156,26 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_OptionNoWrapMaxWidth()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                OptionNoWrapMaxWidth="200px"
+                                OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown to display the listbox
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - the no-wrap attribute is applied to the listbox with the provided max width
+        var listbox = cut.Find("fluent-listbox");
+
+        Assert.True(listbox.HasAttribute("no-wrap"));
+        Assert.Equal("200px", listbox.GetAttribute("no-wrap"));
+    }
+
+    [Fact]
     public void FluentAutocomplete_DefaultOptionSelectedComparer_UsesTOptionAsComparer()
     {
         // Arrange & Act - TOption (Person) implements IEqualityComparer<Person> and has a public parameterless ctor

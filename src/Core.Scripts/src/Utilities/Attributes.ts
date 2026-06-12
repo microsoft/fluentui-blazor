@@ -110,6 +110,13 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Attributes {
     const field = element as any;
     if (newValue !== field[propertyName]) {
       field[propertyName] = newValue;
+
+      // The TextArea component uses a preConnectControlEl to set the value before the control is fully connected
+      // so we need to update that as well to avoid issues with the value not being set correctly on initial render
+      const preConnect = (element as any).preConnectControlEl;
+      if (preConnect) {
+        preConnect.value = newValue;
+      }
     }
   }
 

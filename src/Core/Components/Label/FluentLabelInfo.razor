@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentLabel
 
@@ -25,7 +25,7 @@
     {
         <button id="@_infoButtonId"
                 type="button"
-                aria-label="@(string.IsNullOrEmpty(InfoText) ? "More information" : InfoText)"
+                aria-label="@(string.IsNullOrEmpty(InfoText) ? Localizer[Localization.LanguageResource.LabelInfo_InfoText] : InfoText)"
                 aria-expanded="@(_infoOpened ? "true" : "false")"
                 @onclick="OnInfoToggleAsync">
             <FluentIcon Value="@InfoIcon"
@@ -55,7 +55,7 @@
                     <FluentLink Href="@InfoActionLink"
                                 part="info-link"
                                 Target="@InfoActionTarget">
-                        @(InfoActionText ?? "Learn more")
+                        @(InfoActionText ?? Localizer[Localization.LanguageResource.LabelInfo_InfoActionText])
                     </FluentLink>
                 }
             }
