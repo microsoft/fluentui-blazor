@@ -21,7 +21,9 @@
     <Project Path="examples/Samples/FluentUI.Samples.WasmStandalone/FluentUI.Samples.WasmStandalone.csproj" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/Templates/Microsoft.FluentUI.AspNetCore.Templates.csproj" />
+    <Project Path="src/Templates/Microsoft.FluentUI.AspNetCore.Templates.csproj">
+      <Build Solution="Debug|*" Project="false" />
+    </Project>
   </Folder>
   <Folder Name="/src/Charts/">
     <Project Path="src/Charts.Scripts/Microsoft.FluentUI.AspNetCore.Components.Charts.Scripts.esproj">

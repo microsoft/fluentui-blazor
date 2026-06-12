@@ -16,27 +16,28 @@
 else
 {
     <h3>Generate two-factor authentication (2FA) recovery codes</h3>
-    <div class="alert alert-warning" role="alert">
-        <p>
-            <span class="glyphicon glyphicon-warning-sign"></span>
-            <strong>Put these codes in a safe place.</strong>
-        </p>
-        <p>
-            If you lose your device and don't have the recovery codes you will lose access to your account.
-        </p>
-        <p>
-            Generating new recovery codes does not change the keys used in authenticator apps. If you wish to change the key
-            used in an authenticator app you should <a href="Account/Manage/ResetAuthenticator">reset your authenticator keys.</a>
-        </p>
-    </div>
-    <div>
-        <form @formname="generate-recovery-codes" @onsubmit="OnSubmitAsync" method="post">
-            <AntiforgeryToken />
-            <p style="margin-top: 10px; text-align: end;">
-                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Generate Recovery Codes</FluentButton>
+     <FluentGrid>
+        <FluentGridItem sm="9">
+            <FluentMessageBar Margin="@Margin.Bottom2" Intent="MessageBarIntent.Warning" AllowDismiss="false">Put these codes in a safe place.</FluentMessageBar>
+            <p>
+                If you lose your device and don't have the recovery codes you will lose access to your account.
             </p>
-        </form>
-    </div>
+
+            <p>
+                Generating new recovery codes does not change the keys used in authenticator apps. If you wish to change the key
+                used in an authenticator app you should <a href="Account/Manage/ResetAuthenticator">reset your authenticator keys.</a>
+            </p>
+
+            <div>
+                <form @formname="generate-recovery-codes" @onsubmit="OnSubmitAsync" method="post">
+                    <AntiforgeryToken />
+                    <p style="margin-top: 10px; text-align: end;">
+                        <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Generate Recovery Codes</FluentButton>
+                    </p>
+                </form>
+            </div>
+        </FluentGridItem>
+    </FluentGrid>
 }
 
 @code {

@@ -13,24 +13,24 @@
 <StatusMessage />
 <h3>Disable two-factor authentication (2FA)</h3>
 
-<div class="alert alert-warning" role="alert">
-    <p>
-        <strong>This action only disables 2FA.</strong>
-    </p>
-    <p>
-        Disabling 2FA does not change the keys used in authenticator apps. If you wish to change the key
-        used in an authenticator app you should <a href="Account/Manage/ResetAuthenticator">reset your authenticator keys.</a>
-    </p>
-</div>
-
-<div>
-    <form @formname="disable-2fa" @onsubmit="OnSubmitAsync" method="post">
-        <AntiforgeryToken />
-        <p style="margin-top: 10px; text-align: end;">
-            <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Disable 2FA</FluentButton>
+<FluentGrid>
+    <FluentGridItem sm="9">
+        <FluentMessageBar Margin="@Margin.Bottom2" Intent="MessageBarIntent.Warning" AllowDismiss="false">This action only disables 2FA.</FluentMessageBar>
+        <p>
+            Disabling 2FA does not change the keys used in authenticator apps. If you wish to change the key
+            used in an authenticator app you should <a href="Account/Manage/ResetAuthenticator">reset your authenticator keys.</a>
         </p>
-    </form>
-</div>
+
+        <div>
+            <form @formname="disable-2fa" @onsubmit="OnSubmitAsync" method="post">
+                <AntiforgeryToken />
+                <p style="margin-top: 10px; text-align: end;">
+                    <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Disable 2FA</FluentButton>
+                </p>
+            </form>
+        </div>
+    </FluentGridItem>
+</FluentGrid>
 
 @code {
     private ApplicationUser user = default!;

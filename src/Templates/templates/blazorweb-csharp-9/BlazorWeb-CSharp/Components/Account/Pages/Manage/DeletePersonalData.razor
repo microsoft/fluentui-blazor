@@ -17,12 +17,10 @@
 <h3>Delete Personal Data</h3>
 
 <FluentGrid>
-    <FluentGridItem sm="6">
-        <div class="alert alert-warning" role="alert">
-
-                <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-
-        </div>
+    <FluentGridItem sm="9">
+        <FluentMessageBar Intent="MessageBarIntent.Warning">
+            Deleting this data will permanently remove your account, and this cannot be recovered.
+        </FluentMessageBar>
         <EditForm Model="Input" FormName="delete-user" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
             <FluentValidationSummary class="text-danger" role="alert" />

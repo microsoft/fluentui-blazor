@@ -13,7 +13,7 @@
     Current count: <FluentBadge Shape="BadgeShape.Rounded" Content="@($"{currentCount}")" />
 </div>
 
-<FluentButton OnClick="@IncrementCount">Click me</FluentButton>
+<FluentButton Appearance="ButtonAppearance.Primary" OnClick="@IncrementCount">Click me</FluentButton>
 
 @code {
     private int currentCount = 0;
