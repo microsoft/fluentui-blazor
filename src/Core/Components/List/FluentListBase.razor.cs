@@ -36,6 +36,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// <inheritdoc />
     protected override string? StyleValue => DefaultStyleBuilder
         .AddStyle("width", Width)
+        .AddStyle("--no-wrap-max-width", OptionNoWrapMaxWidth, when: !string.IsNullOrEmpty(OptionNoWrapMaxWidth))
         .Build();
 
     /// <summary>
@@ -127,6 +128,24 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     /// </summary>
     [Parameter]
     public virtual Func<TOption?, bool>? OptionDisabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS class to apply to options.
+    /// The class is applied to the host <c>&lt;fluent-option&gt;</c> element.
+    /// To style an internal part (such as the content area),
+    /// target it from your stylesheet using the <c>::part()</c> selector,
+    /// for example: <c>.my-option::part(content) { ... }</c>.
+    /// The part names available for styling are `description` and `content`.
+    /// </summary>
+    [Parameter]
+    public virtual string? OptionClass { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum width for options that should not wrap.
+    /// This parameters is the max width for options that have text long enough to wrap but should be prevented from doing so.
+    /// </summary>
+    [Parameter]
+    public virtual string? OptionNoWrapMaxWidth { get; set; }
 
     /// <summary>
     /// Gets or sets the equality comparer used to determine whether two options are considered equal for selection purposes.
