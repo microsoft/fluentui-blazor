@@ -31,4 +31,10 @@ public interface ILabelInfo
     /// Defaults to <see cref="LinkTarget.Blank"/> to open the link in a new tab.
     /// </summary>
     LinkTarget InfoActionTarget { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum width of the info popover. Can be any valid CSS width value, such as "200px" or "50%".
+    /// If not set, the popover will size to fit its content (`fit-content`).
+    /// </summary>
+    string? MaxWidth { get; set; }
 }

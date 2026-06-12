@@ -17,6 +17,7 @@
             config.Toast.PauseOnHover = true;
             config.Toast.PauseOnWindowBlur = true;
             config.Toast.IsDismissable = false;
+            config.Toast.Inverted = false;
         });
 
         ToastService = Services.GetRequiredService<IToastService>();
@@ -66,6 +67,7 @@
         Assert.True(toast.Instance.PauseOnHover);
         Assert.True(toast.Instance.PauseOnWindowBlur);
         Assert.False(toast.Instance.IsDismissable);
+        Assert.False(toast.Instance.Inverted);
     }
 
     [Fact]
@@ -83,6 +85,7 @@
             options.PauseOnHover = true;
             options.PauseOnWindowBlur = true;
             options.IsDismissable = true;
+            options.Inverted = true;
         });
 
         await Task.CompletedTask;
@@ -95,6 +98,7 @@
         Assert.True(toast.Instance.PauseOnHover);
         Assert.True(toast.Instance.PauseOnWindowBlur);
         Assert.True(toast.Instance.IsDismissable);
+        Assert.True(toast.Instance.Inverted);
     }
 
     [Fact]

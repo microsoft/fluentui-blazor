@@ -21,7 +21,7 @@
                  @onlistchange="@OnDropdownChangeHandlerAsync"
                  @onfocusout="@FocusOutHandlerAsync"
                  @attributes="@AdditionalAttributes">
-                <fluent-listbox style="@ListStyle">
+                <fluent-listbox style="@ListStyle" no-wrap="@OptionNoWrapMaxWidth">
                     @if (ChildContent is null && (Items is null || !Items.Any()))
                     {
                         @* The web component requires at least one option *@
