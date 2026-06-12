@@ -1,15 +1,12 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <RuntimeVersion9>9.0.16</RuntimeVersion9>
-    <AspNetCoreVersion9>9.0.16</AspNetCoreVersion9>
-    <EfCoreVersion9>9.0.16</EfCoreVersion9>
-    <RuntimeVersion10>10.0.8</RuntimeVersion10>
-    <AspNetCoreVersion10>10.0.8</AspNetCoreVersion10>
-    <EfCoreVersion10>10.0.8</EfCoreVersion10>
-    <RuntimeVersion11>11.0.0-preview.4.26230.115</RuntimeVersion11>
-    <AspNetCoreVersion11>11.0.0-preview.4.26230.115</AspNetCoreVersion11>
-    <EfCoreVersion11>11.0.0-preview.4.26230.115</EfCoreVersion11>
+    <RuntimeVersion9>9.0.17</RuntimeVersion9>
+    <AspNetCoreVersion9>9.0.17</AspNetCoreVersion9>
+    <EfCoreVersion9>9.0.17</EfCoreVersion9>
+    <RuntimeVersion10>10.0.9</RuntimeVersion10>
+    <AspNetCoreVersion10>10.0.9</AspNetCoreVersion10>
+    <EfCoreVersion10>10.0.9</EfCoreVersion10>
   </PropertyGroup>
   <!-- Independent from TargetFrameWorks-->
   <ItemGroup>
