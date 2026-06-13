@@ -43,7 +43,7 @@ If you want to display an Action and a TimeStamp, you can use the `ActionsTempla
 
 ## Message Service
 
-TODO in the next PR.
+{{ MessageBarServiceDefault }}
 
 > [!WARNING] `FluentMessageBars` are rendered by the `<FluentProviders />`.  
 > This component needs to be added to the layout of your application.

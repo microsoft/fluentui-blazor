@@ -1,0 +1,28 @@
+﻿@inject IMessageBarService MessageBarService
+
+<FluentMessageBarProvider />
+
+<FluentButton OnClick="@ShowMessageBar"
+              Appearance="ButtonAppearance.Primary">
+    Show MessageBar
+</FluentButton>
+
+@code
+{
+    private async Task ShowMessageBar()
+    {
+        var result = await MessageBarService.ShowMessageAsync(options =>
+        {
+            //options.Intent = MessageBarIntent.Success;
+            //options.Title = "Hello from the MessageBarService!";
+            options.AllowDismiss = false;
+            options.Lifetime = TimeSpan.FromSeconds(5);
+            options.ChildContent = builder =>
+            {
+                builder.AddContent(0, "This is a message bar created using the MessageBarService.");
+            };
+        });
+
+        Console.WriteLine($"Message bar closed: {result.Reason}");
+    }
+}

@@ -1,0 +1,30 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     @attributes="AdditionalAttributes">
+    @if (MessageBarService != null)
+    {
+        @foreach (var messageBar in GetRenderedMessageBars())
+        {
+            <FluentMessageBar @key="messageBar.Id"
+                              Id="@messageBar.Id"
+                              Class="@messageBar.Options.ClassValue"
+                              Style="@messageBar.Options.StyleValue"
+                              Intent="@messageBar.Options.Intent"
+                              Layout="@messageBar.Options.Layout"
+                              Shape="@messageBar.Options.Shape"
+                              Animation="@messageBar.Options.Animation"
+                              AriaLive="@messageBar.Options.AriaLive"
+                              Icon="@messageBar.Options.Icon"
+                              Title="@messageBar.Options.Title"
+                              AllowDismiss="@messageBar.Options.AllowDismiss"
+                              TimeStamp="@messageBar.Options.TimeStamp"
+                              ActionsTemplate="@messageBar.Options.ActionsTemplate"
+                              ChildContent="@messageBar.Options.ChildContent"
+                              AdditionalAttributes="@messageBar.Options.AdditionalAttributes" />
+        }
+    }
+</div>
