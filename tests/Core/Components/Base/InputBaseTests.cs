@@ -20,13 +20,13 @@ public class InputBaseTests : Bunit.BunitContext
     /// <summary>
     /// List of components to exclude from the test.
     /// </summary>
-    private static readonly Type[] Excluded = new[]
-    {
+    private static readonly Type[] Excluded =
+    [
         typeof(AspNetCore.Components._Imports),
         typeof(FluentRadio<>),
         typeof(FluentAutocomplete<,>),
         typeof(FluentDatePicker<>),
-    };
+    ];
 
     /// <summary>
     /// List of customized actions to initialize the component with a specific type.
@@ -90,18 +90,15 @@ public class InputBaseTests : Bunit.BunitContext
         var errors = new StringBuilder();
         var localizer = Services.GetRequiredService<IFluentLocalizer>();
 
-        if (htmlValue == null)
-        {
-            htmlValue = attributeValue;
-        }
+        htmlValue ??= attributeValue;
 
         JSInterop.Mode = JSRuntimeMode.Loose;
 
         foreach (var componentType in BaseHelpers.GetDerivedTypes(baseType: typeof(FluentInputBase<>), except: Excluded))
         {
             // Convert to generic type if needed
-            var type = ComponentInitializer.ContainsKey(componentType)
-                     ? ComponentInitializer[componentType](componentType)
+            var type = ComponentInitializer.TryGetValue(componentType, out var value)
+                     ? value(componentType)
                      : componentType;
 
             // Arrange and Act
@@ -152,7 +149,7 @@ public class InputBaseTests : Bunit.BunitContext
         Assert.True(errors.Length == 0, errors.ToString());
     }
 
-    private (bool Before, bool After) VerifyLostFocus(IRenderedComponent<DynamicComponent> component)
+    private static (bool Before, bool After) VerifyLostFocus(IRenderedComponent<DynamicComponent> component)
     {
         try
         {

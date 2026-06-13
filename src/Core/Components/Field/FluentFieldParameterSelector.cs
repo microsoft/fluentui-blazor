@@ -2,9 +2,9 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Localization;
-using System.Linq.Expressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -137,7 +137,7 @@ internal class FluentFieldParameterSelector : IFluentField
             Components.MessageState.Success => FluentStatus.SuccessIcon,
             Components.MessageState.Error => FluentStatus.ErrorIcon,
             Components.MessageState.Warning => FluentStatus.WarningIcon,
-            _ => null
+            _ => null,
         };
     }
 
@@ -149,7 +149,7 @@ internal class FluentFieldParameterSelector : IFluentField
             Components.MessageState.Success => localizer[LanguageResource.Field_SuccessMessage],
             Components.MessageState.Error => localizer[LanguageResource.Field_ErrorMessage],
             Components.MessageState.Warning => localizer[LanguageResource.Field_WarningMessage],
-            _ => null
+            _ => null,
         };
     }
 
@@ -191,7 +191,7 @@ internal class FluentFieldParameterSelector : IFluentField
                 builder.CloseComponent();
             }
             ,
-            _ => null
+            _ => null,
         };
     }
 }

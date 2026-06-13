@@ -18,7 +18,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     private readonly string _defaultId = Identifier.NewId();
     private EditContext? _previousEditContext;
     private LambdaExpression? _previousFieldAccessor;
-    private readonly EventHandler<ValidationStateChangedEventArgs>? _validationStateChangedHandler;
+    private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
     private FieldIdentifier _fieldIdentifier;
     private bool _hasFieldIdentifier;
 

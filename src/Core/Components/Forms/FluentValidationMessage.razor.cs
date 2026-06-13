@@ -15,7 +15,7 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase
 {
     private EditContext? _previousEditContext;
     private Expression<Func<TValue>>? _previousFieldAccessor;
-    private readonly EventHandler<ValidationStateChangedEventArgs>? _validationStateChangedHandler;
+    private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
     private FieldIdentifier _fieldIdentifier;
     private bool _hasFieldIdentifier;
 
