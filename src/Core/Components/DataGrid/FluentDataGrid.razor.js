@@ -1,5 +1,15 @@
 let grids = [];
 
+function getDeepActiveElement() {
+    let activeElement = document.activeElement;
+
+    while (activeElement?.shadowRoot?.activeElement) {
+        activeElement = activeElement.shadowRoot.activeElement;
+    }
+
+    return activeElement;
+}
+
 export function init(gridElement, autoFocus) {
     if (gridElement === undefined || gridElement === null) {
         return;
@@ -48,6 +58,9 @@ export function init(gridElement, autoFocus) {
         }
     }
     const keyDownHandler = event => {
+        const activeElement = getDeepActiveElement();
+        const activeTag = activeElement?.tagName?.toLowerCase();
+
         const columnOptionsElement = gridElement?.querySelector('.col-options');
         if (columnOptionsElement && columnOptionsElement.contains(event.target)) {
             if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
@@ -64,12 +77,12 @@ export function init(gridElement, autoFocus) {
             }
         }
 
-        if (document.activeElement.tagName.toLowerCase() != 'table' && document.activeElement.tagName.toLowerCase() != 'td' && document.activeElement.tagName.toLowerCase() != 'th') {
+        if (!activeTag || (activeTag !== 'table' && activeTag !== 'td' && activeTag !== 'th')) {
             return;
         }
 
         // check if start is a child of gridElement
-        if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start && document.activeElement.tagName.toLowerCase() !== 'fluent-text-field' && document.activeElement.tagName.toLowerCase() !== 'fluent-menu-item') {
+        if (start !== null && (gridElement.contains(start) || gridElement === start) && activeElement === start && activeTag !== 'fluent-text-field' && activeTag !== 'fluent-menu-item') {
             const idx = start.cellIndex;
             const isRTL = getComputedStyle(gridElement).direction === 'rtl';
 
@@ -104,7 +117,7 @@ export function init(gridElement, autoFocus) {
             }
         }
         else {
-            start = document.activeElement;
+            start = activeElement;
         }
 
     };
@@ -393,8 +406,8 @@ export function resizeColumnDiscrete(gridElement, column, change) {
     let headerBeingResized;
 
     if (!column) {
-        const targetElement = document.activeElement.parentElement.parentElement.parentElement.parentElement;
-        if (!(targetElement.classList.contains("column-header") && targetElement.classList.contains("resizable"))) {
+        const targetElement = getDeepActiveElement()?.closest?.('.column-header.resizable');
+        if (!targetElement || !(targetElement.classList.contains("column-header") && targetElement.classList.contains("resizable"))) {
             return;
         }
         headerBeingResized = targetElement;
