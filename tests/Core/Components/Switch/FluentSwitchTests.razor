@@ -88,6 +88,25 @@
     }
 
     [Fact]
+    public void FluentSwitch_OnChange_ReportsValidity()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = false;
+        var cut = Render(@<FluentSwitch Id="myId" @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-switch").Change("");
+
+        // Assert
+        var reportValidityInvocations = JSInterop.Invocations
+            .Where(invocation => invocation.Identifier == "Microsoft.FluentUI.Blazor.Utilities.Attributes.reportValidity")
+            .ToList();
+
+        Assert.Single(reportValidityInvocations);
+    }
+
+    [Fact]
     public void FluentSwitch_TryParseValueFromString()
     {
         // Arrange

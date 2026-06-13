@@ -60,6 +60,12 @@ else
                 }
             }
 
+            @if (HasValidationMessages)
+            {
+                <FluentValidationMessage TValue="object"
+                                         Field="@_fieldIdentifier" />
+            }
+
             @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
             {
                 <FluentText slot="@FluentSlot.FieldMessage"

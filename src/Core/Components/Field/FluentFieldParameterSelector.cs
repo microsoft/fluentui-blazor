@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Localization;
+using System.Linq.Expressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -25,6 +26,12 @@ internal class FluentFieldParameterSelector : IFluentField
 
     /// <summary />
     public bool HasInputComponent => _component.InputComponent != null;
+
+    /// <summary />
+    public LambdaExpression? ValueExpression
+    {
+        get => _component.For ?? _component.InputComponent?.ValueExpression;
+    }
 
     /// <summary />
     public bool FocusLost

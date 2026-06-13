@@ -54,11 +54,15 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
         return Task.CompletedTask;
     }
 
-    private void OnSwitchChangedHandler(ChangeEventArgs e)
+    [SuppressMessage("Usage", "VSTHRD200:Use \"Async\" suffix in names of methods that return an awaitable type", Justification = "Method name already uses Async suffix.")]
+    private async Task OnSwitchChangedHandlerAsync(ChangeEventArgs e)
     {
         ArgumentNullException.ThrowIfNull(e);
 
         CurrentValue = !CurrentValue;
+
+        EditContext?.NotifyFieldChanged(FieldIdentifier);
+        await ReportValidityAsync();
     }
 
     /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />

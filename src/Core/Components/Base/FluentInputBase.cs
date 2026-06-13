@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -84,6 +85,9 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     #endregion
 
     #region IFluentField
+
+    /// <inheritdoc cref="IFluentField.ValueExpression" />
+    LambdaExpression? IFluentField.ValueExpression => ValueExpression;
 
     /// <inheritdoc cref="IFluentField.FocusLost" />
     public virtual bool FocusLost { get; protected set; }
@@ -208,6 +212,31 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
         else
         {
             // TODO
+        }
+
+        await ReportValidityAsync();
+    }
+
+    /// <summary>
+    /// Requests the browser to report the current element validity state.
+    /// </summary>
+    protected virtual async Task ReportValidityAsync()
+    {
+        if (string.IsNullOrWhiteSpace(Id))
+        {
+            return;
+        }
+
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.reportValidity", Id);
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException ||
+                                   ex is InvalidOperationException)
+        {
+            // The JSRuntime side may routinely be unavailable during lifecycle transitions.
+            // This is not an error.
         }
     }
 

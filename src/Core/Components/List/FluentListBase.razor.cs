@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
@@ -294,6 +295,21 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
     protected virtual RenderFragment? RenderExtraFragment() => null;
 
     /// <summary>
+    /// Notifies the <see cref="EditContext"/> that the selected items have changed.
+    /// </summary>
+    protected virtual void NotifyValidationFieldChanged()
+    {
+        if (Multiple && SelectedItemsExpression is not null)
+        {
+            EditContext?.NotifyFieldChanged(
+                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemsExpression));
+            return;
+        }
+
+        EditContext?.NotifyFieldChanged(FieldIdentifier);
+    }
+
+    /// <summary>
     /// Handler for the OnFocus event.
     /// </summary>
     /// <param name="e"></param>
@@ -325,6 +341,8 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             {
                 await ValueChanged.InvokeAsync(GetOptionValue(SelectedItems.FirstOrDefault()));
             }
+
+            NotifyValidationFieldChanged();
         }
 
         // Manual FluentOptions
@@ -338,6 +356,8 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
             {
                 await ValueChanged.InvokeAsync(SelectedValue);
             }
+
+            NotifyValidationFieldChanged();
         }
     }
 

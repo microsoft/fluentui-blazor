@@ -24,6 +24,8 @@ public class InputBaseTests : Bunit.BunitContext
     {
         typeof(AspNetCore.Components._Imports),
         typeof(FluentRadio<>),
+        typeof(FluentAutocomplete<,>),
+        typeof(FluentDatePicker<>),
     };
 
     /// <summary>

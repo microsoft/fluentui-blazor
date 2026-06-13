@@ -410,6 +410,7 @@
 
     private sealed class TestField : IFluentField
     {
+        public System.Linq.Expressions.LambdaExpression? ValueExpression { get; }
         public bool FocusLost { get; set; }
         public string? Label { get; set; }
         public RenderFragment? LabelTemplate { get; set; }
