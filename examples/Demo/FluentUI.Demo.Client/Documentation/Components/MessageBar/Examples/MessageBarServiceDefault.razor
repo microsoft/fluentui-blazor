@@ -2,25 +2,37 @@
 
 <FluentMessageBarProvider />
 
-<FluentButton OnClick="@ShowMessageBar"
+<FluentButton OnClick="@ShowSimpleMessageBar"
               Appearance="ButtonAppearance.Primary">
-    Show MessageBar
+    Show Simple MessageBar
+</FluentButton>
+
+<FluentButton OnClick="@ShowCustomizedMessageBar"
+              Appearance="ButtonAppearance.Primary">
+    Show Customized MessageBar
 </FluentButton>
 
 @code
 {
-    private async Task ShowMessageBar()
+    private async Task ShowSimpleMessageBar()
     {
         var result = await MessageBarService.ShowMessageAsync(options =>
         {
-            //options.Intent = MessageBarIntent.Success;
-            //options.Title = "Hello from the MessageBarService!";
-            options.AllowDismiss = false;
+            options.Intent = MessageBarIntent.Success;
+            options.Title = "Hello from the MessageBarService!";
+            options.AllowDismiss = true;
             options.Lifetime = TimeSpan.FromSeconds(5);
-            options.ChildContent = builder =>
-            {
-                builder.AddContent(0, "This is a message bar created using the MessageBarService.");
-            };
+        });
+
+        Console.WriteLine($"Message bar closed: {result.Reason}");
+    }
+    
+    private async Task ShowCustomizedMessageBar()
+    {
+        var result = await MessageBarService.ShowMessageAsync<Message.CustomizedMessageBar>(options =>
+        {
+            options.Intent = MessageBarIntent.Success;
+            options.Title = "Hello from the MessageBarService!";
         });
 
         Console.WriteLine($"Message bar closed: {result.Reason}");
