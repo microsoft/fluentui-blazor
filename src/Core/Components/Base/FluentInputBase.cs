@@ -140,6 +140,13 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Parameter]
     public virtual ILabelInfo? LabelInfo { get; set; }
 
+    /// <summary>
+    /// Gets or sets the field expression used by internal <see cref="FluentField"/> wrappers
+    /// to retrieve validation messages when the component value binding differs from the input text binding.
+    /// </summary>
+    [Parameter]
+    public virtual LambdaExpression? ValidationFieldFor { get; set; }
+
     #endregion
 
     #region FluentInputBase
