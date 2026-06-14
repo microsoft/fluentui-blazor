@@ -1696,6 +1696,33 @@
     }
 
     [Fact]
+    public void FluentDataGrid_HeaderCellAsButtonWithMenu_MenuKeyDown_KeyboardOpensMenu()
+    {
+        // Arrange && Act
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true" ResizableColumns="true" ResizeType="DataGridResizeType.Discrete">
+                <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Sortable="true">
+                    <ColumnOptions>
+                        <div class="options">Hello!</div>
+                    </ColumnOptions>
+                </PropertyColumn>
+            </FluentDataGrid>
+        );
+
+        var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+
+        row.Find(".col-sort-button").KeyDown(new KeyboardEventArgs() { Code = "Enter", Key = "Enter" });
+
+        var items = cut.FindAll("fluent-menu-item");
+
+        // Assert
+        Assert.NotEmpty(items);
+        Assert.Equal(3, items.Count);
+        Assert.Empty(cut.FindAll(".col-header-ui"));
+    }
+
+    [Fact]
     public void FluentDataGrid_HeaderCellAsButtonWithMenu_OnlySort()
     {
         // Arrange && Act

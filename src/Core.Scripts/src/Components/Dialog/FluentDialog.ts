@@ -1,5 +1,14 @@
 export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
 
+  const getDeepActiveElement = (): HTMLElement | null => {
+    let activeElement: Element | null = document.activeElement;
+    while (activeElement instanceof HTMLElement && activeElement.shadowRoot?.activeElement) {
+      activeElement = activeElement.shadowRoot.activeElement;
+    }
+
+    return activeElement instanceof HTMLElement ? activeElement : null;
+  };
+
   /**
    * Display the fluent-dialog with the given id
    * @param id The id of the fluent-dialog to display
@@ -77,5 +86,35 @@ export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
       dialog._escapeHandler = handler;
       dialog.addEventListener('keydown', handler, true);
     }
+  }
+
+  /**
+   * Returns whether dialog keyboard shortcuts should be handled for the current focused element.
+   * Shortcuts are limited to dialog action areas so interactive content inside drawers/dialogs
+   * can use Enter/Space/Arrow keys without being intercepted.
+   * @param id The id of the fluent-dialog/fluent-drawer element
+   */
+  export function ShouldHandleShortcut(id: string): boolean {
+    const dialog = document.getElementById(id) as HTMLElement | null;
+    if (!dialog) {
+      return false;
+    }
+
+    const activeElement = getDeepActiveElement();
+    if (!activeElement || !dialog.contains(activeElement)) {
+      return false;
+    }
+
+    // Never steal keyboard handling from editable/menu-like controls in dialog content.
+    console.log(activeElement);
+    if (
+      activeElement.matches('input, textarea, select, fluent-data-grid, [contenteditable=""], [contenteditable="true"], [role="textbox"], [role="combobox"], [role="spinbutton"], [role="listbox"], [role="menu"], [role="menuitem"]') ||
+      !!activeElement.closest('fluent-menu, fluent-menu-list, fluent-menu-item, .col-header-ui')
+    ) {
+      return false;
+    }
+
+    // Keep shortcuts active for explicit dialog action surfaces.
+    return !!activeElement.closest('[slot="action"], [slot="footer"], [slot="close"], [slot="title-action"]');
   }
 }

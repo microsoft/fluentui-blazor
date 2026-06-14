@@ -6,7 +6,7 @@
 
     <FluentPaginator State="@pagination" SummaryTemplate="@template" />
 
-    <FluentDataGrid Items="@people" Pagination="@pagination">
+    <FluentDataGrid Items="@people" Pagination="@pagination" HeaderCellAsButtonWithMenu="true" ResizeType="DataGridResizeType.Discrete" ResizableColumns="true">
         <PropertyColumn Property="@(p => p.PersonId)" Sortable="true" />
         <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
         <PropertyColumn Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />

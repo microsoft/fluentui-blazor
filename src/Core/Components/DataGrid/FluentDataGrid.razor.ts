@@ -123,8 +123,16 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     };
     const keyboardNavigation = (sibling: HTMLElement | null) => {
       if (sibling !== null) {
+        // th elements are not focusable; transfer focus to the inner header button instead.
+        if (sibling.matches('th')) {
+          const headerButton = sibling.querySelector<HTMLElement>('.col-sort-button, .col-options-button');
+          if (headerButton) {
+            sibling = headerButton;
+          }
+        }
+
         const focusSibling = () => {
-          sibling.focus({ preventScroll: true });
+          sibling?.focus({ preventScroll: true });
           start = sibling;
         };
 
@@ -144,6 +152,36 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         }, 0);
       }
     }
+    const getHeaderButtons = () => {
+      return Array.from(
+        gridElement.querySelectorAll<HTMLElement>('.column-header .col-sort-button, .column-header .col-options-button')
+      ).filter(button => button.tabIndex >= 0 && !button.hasAttribute('disabled'));
+    };
+    const moveHeaderFocus = (current: HTMLElement, shiftKey: boolean) => {
+      const headerButtons = getHeaderButtons();
+      const currentIndex = headerButtons.indexOf(current);
+      if (currentIndex < 0) {
+        return false;
+      }
+
+      const nextIndex = shiftKey ? currentIndex - 1 : currentIndex + 1;
+      if (nextIndex < 0 || nextIndex >= headerButtons.length) {
+        return false;
+      }
+
+      headerButtons[nextIndex].focus({ preventScroll: true });
+      return true;
+    };
+    const moveFocusIntoHeader = () => {
+      const headerButtons = getHeaderButtons();
+      const firstHeaderButton = headerButtons[0];
+      if (!firstHeaderButton) {
+        return false;
+      }
+
+      firstHeaderButton.focus({ preventScroll: true });
+      return true;
+    };
     const getAdjacentRowCell = (cell: HTMLTableCellElement, direction: 'up' | 'down') => {
       const row = cell.parentElement as HTMLTableRowElement | null;
       if (!row) {
@@ -176,6 +214,42 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       }
 
       const isArrowKey = event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp";
+      const targetElement = event.target instanceof HTMLElement ? event.target : null;
+      const isMenuInteraction = event.composedPath().some((entry) =>
+        entry instanceof HTMLElement &&
+        (entry.matches('fluent-menu, fluent-menu-list, fluent-menu-item, [role="menu"], [role="menuitem"]') ||
+          !!entry.closest('fluent-menu, fluent-menu-list, fluent-menu-item, [role="menu"], [role="menuitem"]'))
+      );
+
+      if (isArrowKey && isMenuInteraction) {
+        return;
+      }
+
+      if (event.key === "Tab" && !event.shiftKey) {
+        const activeElement = getDeepActiveElement();
+        if (activeElement && !activeElement.matches('.col-sort-button, .col-options-button')) {
+          const focusableElements = Array.from(
+            document.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])')
+          ).filter(element => element.tabIndex >= 0 && !element.hasAttribute('disabled') && element.getClientRects().length > 0);
+          const currentIndex = focusableElements.indexOf(activeElement);
+          if (currentIndex >= 0) {
+            const nextFocusable = focusableElements[currentIndex + 1] ?? null;
+            if (nextFocusable && getHeaderButtons().includes(nextFocusable) && moveFocusIntoHeader()) {
+              event.preventDefault();
+              event.stopPropagation();
+              return;
+            }
+          }
+        }
+      }
+
+      if (event.key === "Tab" && targetElement && (targetElement.matches('.col-sort-button') || targetElement.matches('.col-options-button'))) {
+        if (moveHeaderFocus(targetElement, event.shiftKey)) {
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+      }
 
       const headerUiElement = gridElement?.querySelector(headerUiSelector);
       if (headerUiElement && headerUiElement.contains(event.target as HTMLElement)) {
@@ -194,7 +268,6 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         return;
       }
 
-      const targetElement = event.target instanceof HTMLElement ? event.target : null;
       if (targetElement && targetElement !== focusedGridElement && targetElement.closest('[role="gridcell"]') === focusedGridElement) {
         return;
       }
@@ -211,10 +284,12 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
           event.preventDefault();
           const previousSibling = getAdjacentRowCell(start as HTMLTableCellElement, 'up');
           keyboardNavigation(previousSibling);
+          event.stopPropagation();
         } else if (event.key === "ArrowDown") {
           event.preventDefault();
           const nextSibling = getAdjacentRowCell(start as HTMLTableCellElement, 'down');
           keyboardNavigation(nextSibling);
+          event.stopPropagation();
         } else if (event.key === "ArrowLeft") {
           // left arrow
           event.preventDefault();
@@ -229,7 +304,6 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
           event.stopPropagation();
         }
       }
-
     };
 
     const cells = gridElement.querySelectorAll('[role="gridcell"]');
@@ -289,10 +363,20 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       colPopup.style.visibility = 'visible';
       (colPopup as any).scrollIntoViewIfNeeded?.();
 
-      const autoFocusElem = colPopup.querySelector('[autofocus]') as HTMLElement | null;
-      if (autoFocusElem) {
-        autoFocusElem.focus();
-      }
+      requestAnimationFrame(() => {
+        const autoFocusElem = colPopup.querySelector<HTMLElement>('[autofocus]');
+        if (autoFocusElem) {
+          autoFocusElem.focus({ preventScroll: true });
+          return;
+        }
+
+        const firstFocusable = colPopup.querySelector<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (firstFocusable && firstFocusable.getClientRects().length > 0) {
+          firstFocusable.focus({ preventScroll: true });
+        }
+      });
     }
   }
 

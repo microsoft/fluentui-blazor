@@ -185,6 +185,15 @@ public partial class FluentDialog : FluentComponentBase
             return;
         }
 
+        if (IsDrawer())
+        {
+            var shouldHandleShortcut = await JSRuntime.InvokeAsync<bool>("Microsoft.FluentUI.Blazor.Components.Dialog.ShouldHandleShortcut", Id);
+            if (!shouldHandleShortcut)
+            {
+                return;
+            }
+        }
+
         var shortCut = $"{(e.CtrlKey ? "Ctrl+" : string.Empty)}{(e.AltKey ? "Alt+" : string.Empty)}{(e.ShiftKey ? "Shift+" : string.Empty)}{e.Key}";
 
         // OK button
