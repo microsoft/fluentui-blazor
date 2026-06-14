@@ -13,25 +13,40 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface IMessageBarService : IFluentServiceBase<IMessageBarInstance>
 {
     /// <summary>
-    /// Closes the specified message bar instance.
+    /// Shows a success message bar with the specified title and message and waits for the close result.
     /// </summary>
-    /// <param name="messageBar">Instance of the message bar to close.</param>
-    /// <param name="data">Optional data to include with the close result.</param>
-    Task CloseAsync(IMessageBarInstance messageBar, object? data = null);
+    /// <param name="section">Section used to target a specific <see cref="FluentMessageBarProvider"/>.</param>
+    /// <param name="title">The title of the message bar.</param>
+    /// <param name="message">The message content of the message bar.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the message bar.</returns>
+    Task<MessageBarResult> ShowSuccessMessageAsync(string section, string? title = null, string? message = null);
 
     /// <summary>
-    /// Closes the message bar with the specified identifier.
+    /// Shows a warning message bar with the specified title and message and waits for the close result.
     /// </summary>
-    /// <param name="messageBarId">The identifier of the message bar to close.</param>
-    /// <param name="data">Optional data to include with the close result.</param>
-    /// <returns><see langword="true"/> when a matching message bar was found; otherwise <see langword="false"/>.</returns>
-    Task<bool> CloseAsync(string messageBarId, object? data = null);
+    /// <param name="section">Section used to target a specific <see cref="FluentMessageBarProvider"/>.</param>
+    /// <param name="title">The title of the message bar.</param>
+    /// <param name="message">The message content of the message bar.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the message bar.</returns>
+    Task<MessageBarResult> ShowWarningMessageAsync(string section, string? title = null, string? message = null);
 
     /// <summary>
-    /// Closes all current message bars.
+    /// Shows an error message bar with the specified title and message and waits for the close result.
     /// </summary>
-    /// <returns>The number of message bars that were closed.</returns>
-    Task<int> CloseAllAsync();
+    /// <param name="section">Section used to target a specific <see cref="FluentMessageBarProvider"/>.</param>
+    /// <param name="title">The title of the message bar.</param>
+    /// <param name="message">The message content of the message bar.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the message bar.</returns>
+    Task<MessageBarResult> ShowErrorMessageAsync(string section, string? title = null, string? message = null);
+
+    /// <summary>
+    /// Shows an informational message bar with the specified title and message and waits for the close result.
+    /// </summary>
+    /// <param name="section">Section used to target a specific <see cref="FluentMessageBarProvider"/>.</param>
+    /// <param name="title">The title of the message bar.</param>
+    /// <param name="message">The message content of the message bar.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the message bar.</returns>
+    Task<MessageBarResult> ShowInfoMessageAsync(string section, string? title = null, string? message = null);
 
     /// <summary>
     /// Shows a message bar using the supplied options and waits for the close result.
@@ -62,4 +77,25 @@ public interface IMessageBarService : IFluentServiceBase<IMessageBarInstance>
     /// <param name="options">Action used to configure the message bar.</param>
     Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(Action<MessageBarOptions> options)
         where TMessageBar : ComponentBase;
+
+    /// <summary>
+    /// Closes the specified message bar instance.
+    /// </summary>
+    /// <param name="messageBar">Instance of the message bar to close.</param>
+    /// <param name="data">Optional data to include with the close result.</param>
+    Task CloseAsync(IMessageBarInstance messageBar, object? data = null);
+
+    /// <summary>
+    /// Closes the message bar with the specified identifier.
+    /// </summary>
+    /// <param name="messageBarId">The identifier of the message bar to close.</param>
+    /// <param name="data">Optional data to include with the close result.</param>
+    /// <returns><see langword="true"/> when a matching message bar was found; otherwise <see langword="false"/>.</returns>
+    Task<bool> CloseAsync(string messageBarId, object? data = null);
+
+    /// <summary>
+    /// Closes all current message bars.
+    /// </summary>
+    /// <returns>The number of message bars that were closed.</returns>
+    Task<int> CloseAllAsync();
 }

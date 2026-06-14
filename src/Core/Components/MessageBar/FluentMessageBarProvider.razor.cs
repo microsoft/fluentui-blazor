@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -26,7 +25,6 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
 
     /// <summary />
     internal string? StyleValue => DefaultStyleBuilder
-        .AddStyle("z-index", ZIndex.Toast.ToString(CultureInfo.InvariantCulture))
         .Build();
 
     /// <summary>

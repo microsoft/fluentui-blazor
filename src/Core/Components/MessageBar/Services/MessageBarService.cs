@@ -23,6 +23,54 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
         ServiceProvider.OnUpdatedAsync = DispatchOnUpdatedAsync;
     }
 
+    /// <inheritdoc cref="IMessageBarService.ShowSuccessMessageAsync(string, string?, string?)"/>
+    public Task<MessageBarResult> ShowSuccessMessageAsync(string section, string? title = null, string? message = null)
+    {
+        return ShowMessageAsync(options =>
+        {
+            options.Section = section;
+            options.Intent = MessageBarIntent.Success;
+            options.Title = title;
+            options.Message = message;
+        });
+    }
+
+    /// <inheritdoc cref="IMessageBarService.ShowWarningMessageAsync(string, string?, string?)"/>
+    public Task<MessageBarResult> ShowWarningMessageAsync(string section, string? title = null, string? message = null)
+    {
+        return ShowMessageAsync(options =>
+        {
+            options.Section = section;
+            options.Intent = MessageBarIntent.Warning;
+            options.Title = title;
+            options.Message = message;
+        });
+    }
+
+    /// <inheritdoc cref="IMessageBarService.ShowErrorMessageAsync(string, string?, string?)"/>
+    public Task<MessageBarResult> ShowErrorMessageAsync(string section, string? title = null, string? message = null)
+    {
+        return ShowMessageAsync(options =>
+        {
+            options.Section = section;
+            options.Intent = MessageBarIntent.Error;
+            options.Title = title;
+            options.Message = message;
+        });
+    }
+
+    /// <inheritdoc cref="IMessageBarService.ShowInfoMessageAsync(string, string?, string?)"/>
+    public Task<MessageBarResult> ShowInfoMessageAsync(string section, string? title = null, string? message = null)
+    {
+        return ShowMessageAsync(options =>
+        {
+            options.Section = section;
+            options.Intent = MessageBarIntent.Info;
+            options.Title = title;
+            options.Message = message;
+        });
+    }
+
     /// <inheritdoc cref="IMessageBarService.ShowMessageAsync(MessageBarOptions)"/>
     public async Task<MessageBarResult> ShowMessageAsync(MessageBarOptions options)
     {
