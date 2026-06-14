@@ -96,7 +96,7 @@ This is useful when the default layout is not enough and you need to render rich
 
 {{ API Type=MessageBarService }}
 
-## MessageBarOptions
+## API MessageBarOptions
 
 {{ API Type=MessageBarOptions Properties=All }}
 
