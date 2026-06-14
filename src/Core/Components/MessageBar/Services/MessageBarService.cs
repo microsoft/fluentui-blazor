@@ -14,17 +14,12 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
     /// <summary>
     /// Initializes a new instance of the <see cref="MessageBarService"/> class.
     /// </summary>
-    /// <param name="localizer">Localizer for the application.</param>
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarEventArgs))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarInstance))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IMessageBarInstance))]
-    public MessageBarService(IFluentLocalizer? localizer)
+    public MessageBarService()
     {
-        Localizer = localizer ?? FluentLocalizerInternal.Default;
     }
-
-    /// <summary />
-    protected IFluentLocalizer Localizer { get; }
 
     /// <inheritdoc cref="IMessageBarService.CloseAsync(IMessageBarInstance, MessageBarResult)"/>
     public async Task CloseAsync(IMessageBarInstance messageBar, MessageBarResult result)
