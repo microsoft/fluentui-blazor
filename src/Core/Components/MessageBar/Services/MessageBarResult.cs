@@ -27,16 +27,6 @@ public class MessageBarResult
     public object? Data { get; }
 
     /// <summary>
-    /// Gets a value indicating whether the message bar was dismissed by the user.
-    /// </summary>
-    public bool Dismissed => Reason == MessageBarCloseReason.Dismissed;
-
-    /// <summary>
-    /// Gets a value indicating whether the message bar closed because its lifetime elapsed.
-    /// </summary>
-    public bool TimedOut => Reason == MessageBarCloseReason.TimedOut;
-
-    /// <summary>
     /// Creates a <see cref="MessageBarResult"/> describing a user-driven dismissal.
     /// </summary>
     internal static MessageBarResult OfDismissed(object? data = null) => new(MessageBarCloseReason.Dismissed, data);

@@ -62,19 +62,15 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
 
     /// <inheritdoc cref="IMessageBarInstance.CloseAsync()"/>
     public Task CloseAsync()
-        => MessageBarService.CloseAsync(this, MessageBarResult.OfProgrammatic());
+    {
+        return MessageBarService.CloseAsync(this);
+    }
 
     /// <inheritdoc cref="IMessageBarInstance.CloseAsync(MessageBarResult)"/>
     public Task CloseAsync(MessageBarResult result)
-        => MessageBarService.CloseAsync(this, result);
-
-    /// <inheritdoc cref="IMessageBarInstance.DismissAsync()"/>
-    public Task DismissAsync()
-        => MessageBarService.DismissAsync(this);
-
-    /// <inheritdoc cref="IMessageBarInstance.UpdateAsync(Action{MessageBarOptions})"/>
-    public Task UpdateAsync(Action<MessageBarOptions> update)
-        => MessageBarService.UpdateMessageBarAsync(this, update);
+    {
+        return MessageBarService.CloseAsync(this, result);
+    }
 
     /// <summary>
     /// Cancels the auto-dismiss timer (if any).

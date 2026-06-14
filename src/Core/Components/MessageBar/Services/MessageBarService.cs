@@ -22,8 +22,92 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
     {
     }
 
-    /// <inheritdoc cref="IMessageBarService.CloseAsync(IMessageBarInstance, MessageBarResult)"/>
-    public async Task CloseAsync(IMessageBarInstance messageBar, MessageBarResult result)
+    /// <inheritdoc cref="IMessageBarService.CloseAsync(IMessageBarInstance, object?)"/>
+    public Task CloseAsync(IMessageBarInstance messageBar, object? data = null)
+    {
+        return CloseCoreAsync(messageBar, MessageBarResult.OfProgrammatic(data));
+    }
+
+    /// <inheritdoc cref="IMessageBarService.CloseAsync(string, object?)"/>
+    public async Task<bool> CloseAsync(string messageBarId, object? data = null)
+    {
+        if (string.IsNullOrWhiteSpace(messageBarId) || !ServiceProvider.Items.TryGetValue(messageBarId, out var messageBar))
+        {
+            return false;
+        }
+
+        await CloseCoreAsync(messageBar, MessageBarResult.OfProgrammatic(data));
+        return true;
+    }
+
+    /// <inheritdoc cref="IMessageBarService.CloseAllAsync()"/>
+    public async Task<int> CloseAllAsync()
+    {
+        var messageBars = ServiceProvider.Items.Values.ToList();
+
+        foreach (var messageBar in messageBars)
+        {
+            await CloseCoreAsync(messageBar, MessageBarResult.OfProgrammatic());
+        }
+
+        return messageBars.Count;
+    }
+
+    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync(MessageBarOptions)"/>
+    public async Task<MessageBarResult> ShowMessageAsync(MessageBarOptions options)
+    {
+        var instance = ShowMessageInstanceCore(componentType: null, options);
+        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
+        return await instance.Result;
+    }
+
+    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync(Action{MessageBarOptions})"/>
+    public Task<MessageBarResult> ShowMessageAsync(Action<MessageBarOptions> options)
+        => ShowMessageAsync(new MessageBarOptions(options));
+
+    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync{TMessageBar}(MessageBarOptions)"/>
+    public async Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(MessageBarOptions options)
+        where TMessageBar : ComponentBase
+    {
+        var instance = ShowMessageInstanceCore(typeof(TMessageBar), options);
+        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
+        return await instance.Result;
+    }
+
+    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync{TMessageBar}(Action{MessageBarOptions})"/>
+    public Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(Action<MessageBarOptions> options)
+        where TMessageBar : ComponentBase
+        => ShowMessageAsync<TMessageBar>(new MessageBarOptions(options));
+
+    /// <summary />
+    private MessageBarInstance ShowMessageInstanceCore(Type? componentType, MessageBarOptions options)
+    {
+        if (this.ProviderNotAvailable())
+        {
+            throw new FluentServiceProviderException<FluentMessageBarProvider>();
+        }
+
+        var instance = new MessageBarInstance(this, componentType, options);
+
+        // Add the MessageBar to the service.
+        if (!ServiceProvider.Items.TryAdd(instance.Id, instance))
+        {
+            throw new InvalidOperationException($"A MessageBar with the ID '{instance.Id}' is already registered.");
+        }
+
+        options.OnStatusChange?.Invoke(new MessageBarEventArgs(instance, MessageBarLifecycleStatus.Visible));
+
+        // Schedule the auto-dismiss when a lifetime is configured.
+        if (options.Lifetime is TimeSpan lifetime && lifetime > TimeSpan.Zero)
+        {
+            ScheduleAutoDismiss(instance, lifetime);
+        }
+
+        return instance;
+    }
+
+    /// <summary />
+    internal async Task CloseCoreAsync(IMessageBarInstance messageBar, MessageBarResult result)
     {
         if (messageBar is not MessageBarInstance instance)
         {
@@ -53,100 +137,6 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
         instance.Options.OnStatusChange?.Invoke(new MessageBarEventArgs(instance, MessageBarLifecycleStatus.Unmounted));
     }
 
-    /// <inheritdoc cref="IMessageBarService.DismissAsync(IMessageBarInstance)"/>
-    public Task DismissAsync(IMessageBarInstance messageBar)
-        => CloseAsync(messageBar, MessageBarResult.OfDismissed());
-
-    /// <inheritdoc cref="IMessageBarService.DismissAsync(string)"/>
-    public async Task<bool> DismissAsync(string messageBarId)
-    {
-        if (string.IsNullOrWhiteSpace(messageBarId) || !ServiceProvider.Items.TryGetValue(messageBarId, out var messageBar))
-        {
-            return false;
-        }
-
-        await CloseAsync(messageBar, MessageBarResult.OfDismissed());
-        return true;
-    }
-
-    /// <inheritdoc cref="IMessageBarService.DismissAllAsync()"/>
-    public async Task<int> DismissAllAsync()
-    {
-        var messageBars = ServiceProvider.Items.Values.ToList();
-
-        foreach (var messageBar in messageBars)
-        {
-            await CloseAsync(messageBar, MessageBarResult.OfDismissed());
-        }
-
-        return messageBars.Count;
-    }
-
-    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync(MessageBarOptions)"/>
-    public async Task<MessageBarResult> ShowMessageAsync(MessageBarOptions? options = null)
-    {
-        var instance = ShowMessageInstanceCore(componentType: null, options ?? new MessageBarOptions());
-        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
-        return await instance.Result;
-    }
-
-    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync(Action{MessageBarOptions})"/>
-    public Task<MessageBarResult> ShowMessageAsync(Action<MessageBarOptions> options)
-        => ShowMessageAsync(new MessageBarOptions(options));
-
-    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync{TMessageBar}(MessageBarOptions)"/>
-    public async Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(MessageBarOptions? options = null)
-        where TMessageBar : ComponentBase
-    {
-        var instance = ShowMessageInstanceCore(typeof(TMessageBar), options ?? new MessageBarOptions());
-        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
-        return await instance.Result;
-    }
-
-    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync{TMessageBar}(Action{MessageBarOptions})"/>
-    public Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(Action<MessageBarOptions> options)
-        where TMessageBar : ComponentBase
-        => ShowMessageAsync<TMessageBar>(new MessageBarOptions(options));
-
-    /// <inheritdoc cref="IMessageBarService.UpdateMessageBarAsync(IMessageBarInstance, Action{MessageBarOptions})"/>
-    public async Task UpdateMessageBarAsync(IMessageBarInstance messageBar, Action<MessageBarOptions> update)
-    {
-        if (messageBar is not MessageBarInstance instance)
-        {
-            throw new ArgumentException($"{nameof(messageBar)} must be a {nameof(MessageBarInstance)}.", nameof(messageBar));
-        }
-
-        update(instance.Options);
-        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
-    }
-
-    /// <summary />
-    private MessageBarInstance ShowMessageInstanceCore(Type? componentType, MessageBarOptions options)
-    {
-        if (this.ProviderNotAvailable())
-        {
-            throw new FluentServiceProviderException<FluentMessageBarProvider>();
-        }
-
-        var instance = new MessageBarInstance(this, componentType, options);
-
-        // Add the MessageBar to the service.
-        if (!ServiceProvider.Items.TryAdd(instance.Id, instance))
-        {
-            throw new InvalidOperationException($"A MessageBar with the ID '{instance.Id}' is already registered.");
-        }
-
-        options.OnStatusChange?.Invoke(new MessageBarEventArgs(instance, MessageBarLifecycleStatus.Visible));
-
-        // Schedule the auto-dismiss when a lifetime is configured.
-        if (options.Lifetime is TimeSpan lifetime && lifetime > TimeSpan.Zero)
-        {
-            ScheduleAutoDismiss(instance, lifetime);
-        }
-
-        return instance;
-    }
-
     /// <summary>
     /// Schedules a delayed automatic dismissal of the message bar after the configured lifetime.
     /// </summary>
@@ -173,7 +163,7 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
 
             try
             {
-                await CloseAsync(instance, MessageBarResult.OfTimedOut());
+                await CloseCoreAsync(instance, MessageBarResult.OfTimedOut());
             }
             catch
             {

@@ -51,15 +51,4 @@ public interface IMessageBarInstance
     /// </summary>
     /// <param name="result">Result associated with the close action.</param>
     Task CloseAsync(MessageBarResult result);
-
-    /// <summary>
-    /// Dismisses the MessageBar (close reason <see cref="MessageBarCloseReason.Dismissed"/>).
-    /// </summary>
-    Task DismissAsync();
-
-    /// <summary>
-    /// Updates the message bar options while the message bar is shown.
-    /// </summary>
-    /// <param name="update">The action that mutates the current options.</param>
-    Task UpdateAsync(Action<MessageBarOptions> update);
 }

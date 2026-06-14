@@ -92,7 +92,7 @@ public class MessageBarOptions : IFluentComponentBase
     public MessageBarAnimation? Animation { get; set; }
 
     /// <summary>
-    /// Gets or sets the <c>aria-live</c> attribute, used to inform assistive technologies (like screen readers)
+    /// Gets or sets the <code>aria-live</code> attribute, used to inform assistive technologies (like screen readers)
     /// about updates to dynamic content.
     /// </summary>
     public AriaLive? AriaLive { get; set; }
