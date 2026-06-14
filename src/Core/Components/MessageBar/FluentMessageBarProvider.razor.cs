@@ -40,8 +40,8 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
     /// This is used to scope the message bars to a specific section of the page: 
     /// only message bars with the same section identifier will be rendered in this provider.
     /// </summary>
-    [Parameter]
-    public string? Section { get; set;}
+    [Parameter, EditorRequired]
+    public required string Section { get; set; }
 
     /// <summary />
     protected virtual IMessageBarService? MessageBarService => GetCachedServiceOrNull<IMessageBarService>();
