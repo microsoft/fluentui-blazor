@@ -259,8 +259,55 @@
         Assert.Contains("slot=\"message\"", cut.Markup);
     }
 
+    [Fact]
+    public async Task FluentInputText_Uses_ValidationFieldFor_WhenProvided()
+    {
+        var model = new TextInputValidationModel();
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+
+        var cut = Render(@<CascadingValue Value="@editContext">
+                             <FluentTextInput @bind-Value="@model.Name"
+                                              ValidationFieldFor="@(() => model.Alias)" />
+                         </CascadingValue>);
+
+        await cut.InvokeAsync(() =>
+        {
+            messageStore.Add(editContext.Field(nameof(TextInputValidationModel.Name)), "Name is invalid");
+            messageStore.Add(editContext.Field(nameof(TextInputValidationModel.Alias)), "Alias is invalid");
+            editContext.NotifyValidationStateChanged();
+        });
+
+        Assert.Contains("Alias is invalid", cut.Markup);
+        Assert.DoesNotContain("Name is invalid", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentInputText_Uses_ValueExpression_When_ValidationFieldFor_IsNull()
+    {
+        var model = new TextInputValidationModel();
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+
+        var cut = Render(@<CascadingValue Value="@editContext">
+                             <FluentTextInput @bind-Value="@model.Name" />
+                         </CascadingValue>);
+
+        await cut.InvokeAsync(() =>
+        {
+            messageStore.Add(editContext.Field(nameof(TextInputValidationModel.Name)), "Name is invalid");
+            messageStore.Add(editContext.Field(nameof(TextInputValidationModel.Alias)), "Alias is invalid");
+            editContext.NotifyValidationStateChanged();
+        });
+
+        Assert.Contains("Name is invalid", cut.Markup);
+        Assert.DoesNotContain("Alias is invalid", cut.Markup);
+    }
+
     private sealed class TextInputValidationModel
     {
         public string Name { get; set; } = string.Empty;
+
+        public string Alias { get; set; } = string.Empty;
     }
 }
