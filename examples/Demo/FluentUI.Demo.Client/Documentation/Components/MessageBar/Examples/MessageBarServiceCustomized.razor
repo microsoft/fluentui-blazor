@@ -1,6 +1,7 @@
 ﻿@inject IMessageBarService MessageBarService
 
-<FluentMessageBarProvider Margin="@Margin.Vertical2" />
+<FluentMessageBarProvider Section="@MESSAGEBAR_SECTION"
+                          Margin="@Margin.Vertical2" />
 
 <FluentButton OnClick="@ShowCustomizedMessageBar"
               Appearance="ButtonAppearance.Primary">
@@ -14,10 +15,14 @@
 
 @code
 {
+    const string MESSAGEBAR_SECTION = "MESSAGEBAR_SERVICE_CUSTOMIZED";
+
     async Task ShowCustomizedMessageBar()
     {
         var result = await MessageBarService.ShowMessageAsync<Message.CustomizedMessageBar>(options =>
         {
+            options.Section = MESSAGEBAR_SECTION;
+
             options.Intent = MessageBarIntent.Success;
             options.Title = "Hello from the MessageBarService!";
             options.Lifetime = TimeSpan.FromSeconds(10);
@@ -30,6 +35,8 @@
     {
         var result = await MessageBarService.ShowMessageAsync<Message.CustomizedComponent>(options =>
         {
+            options.Section = MESSAGEBAR_SECTION;
+
             options.Title = "Hello from the MessageBarService!";
             options.Lifetime = TimeSpan.FromSeconds(5);
         });

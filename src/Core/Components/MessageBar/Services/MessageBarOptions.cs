@@ -72,6 +72,12 @@ public class MessageBarOptions : IFluentComponentBase
     public IDictionary<string, object?> Parameters { get; set; } = new Dictionary<string, object?>(StringComparer.Ordinal);
 
     /// <summary>
+    /// Gets or sets the section identifier for the message bar provider.
+    /// This message bar will only be displayed in a <see cref="FluentMessageBarProvider"/> with the same section identifier.
+    /// </summary>
+    public string? Section { get; set; }
+
+    /// <summary>
     /// Gets or sets the intent of the message bar.
     /// </summary>
     public MessageBarIntent? Intent { get; set; }

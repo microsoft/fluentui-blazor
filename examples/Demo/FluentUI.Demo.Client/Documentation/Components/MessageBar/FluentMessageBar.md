@@ -45,6 +45,8 @@ If you want to display an Action and a TimeStamp, you can use the `ActionsTempla
 
 {{ MessageBarServiceDefault }}
 
+{{ MessageBarServiceOptions }}
+
 {{ MessageBarServiceCustomized }}
 
 > [!WARNING] `FluentMessageBars` are rendered by the `<FluentProviders />`.  

@@ -1,6 +1,7 @@
 ﻿@inject IMessageBarService MessageBarService
 
-<FluentMessageBarProvider Margin="@Margin.Vertical2" />
+<FluentMessageBarProvider Section="@MESSAGEBAR_SECTION"
+                          Margin="@Margin.Vertical2" />
 
 <FluentButton OnClick="@ShowMessageBar"
               Appearance="ButtonAppearance.Primary">
@@ -9,10 +10,14 @@
 
 @code
 {
+    const string MESSAGEBAR_SECTION = "MESSAGEBAR_SERVICE_OPTIONS";
+
     async Task ShowMessageBar()
     {
         var result = await MessageBarService.ShowMessageAsync(options =>
         {
+            options.Section = MESSAGEBAR_SECTION;
+
             options.Intent = MessageBarIntent.Success;
             options.Layout = MessageBarLayout.Notification;
             options.Title = "Delete operation";

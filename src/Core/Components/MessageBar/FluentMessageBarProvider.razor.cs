@@ -35,6 +35,14 @@ public partial class FluentMessageBarProvider : FluentComponentBase
     [Inject]
     public IServiceProvider? ServiceProvider { get; set; }
 
+    /// <summary>
+    /// Gets or sets the section identifier for the message bar provider.
+    /// This is used to scope the message bars to a specific section of the page: 
+    /// only message bars with the same section identifier will be rendered in this provider.
+    /// </summary>
+    [Parameter]
+    public string? Section { get; set;}
+
     /// <summary />
     protected virtual IMessageBarService? MessageBarService => GetCachedServiceOrNull<IMessageBarService>();
 
@@ -56,7 +64,8 @@ public partial class FluentMessageBarProvider : FluentComponentBase
     /// <summary />
     private IEnumerable<IMessageBarInstance> GetRenderedMessageBars()
         => MessageBarService?.Items.Values
-            .Where(messageBar => messageBar.LifecycleStatus == MessageBarLifecycleStatus.Visible)
+            .Where(messageBar => string.Compare(messageBar.Options.Section, Section, StringComparison.OrdinalIgnoreCase) == 0 &&
+                                 messageBar.LifecycleStatus == MessageBarLifecycleStatus.Visible)
             .OrderBy(messageBar => messageBar.Index)
             ?? Enumerable.Empty<IMessageBarInstance>();
 }
