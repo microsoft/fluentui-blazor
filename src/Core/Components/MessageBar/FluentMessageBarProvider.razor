@@ -27,6 +27,7 @@
                                       AriaLive="@messageBar.Options.AriaLive"
                                       Icon="@messageBar.Options.Icon"
                                       Title="@messageBar.Options.Title"
+                                      ChildContent="@(builder => builder.AddContent(0, messageBar.Options.Message))"
                                       AllowDismiss="@messageBar.Options.AllowDismiss"
                                       TimeStamp="@messageBar.Options.TimeStamp"
                                       AdditionalAttributes="@messageBar.Options.AdditionalAttributes" />

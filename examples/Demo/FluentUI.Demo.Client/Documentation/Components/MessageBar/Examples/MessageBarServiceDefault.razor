@@ -1,38 +1,23 @@
 ﻿@inject IMessageBarService MessageBarService
 
-<FluentMessageBarProvider />
+<FluentMessageBarProvider Margin="@Margin.Vertical2" />
 
-<FluentButton OnClick="@ShowSimpleMessageBar"
+<FluentButton OnClick="@ShowMessageBar"
               Appearance="ButtonAppearance.Primary">
-    Show Simple MessageBar
-</FluentButton>
-
-<FluentButton OnClick="@ShowCustomizedMessageBar"
-              Appearance="ButtonAppearance.Primary">
-    Show Customized MessageBar
+    Show (5 seconds)
 </FluentButton>
 
 @code
 {
-    private async Task ShowSimpleMessageBar()
+    async Task ShowMessageBar()
     {
         var result = await MessageBarService.ShowMessageAsync(options =>
         {
             options.Intent = MessageBarIntent.Success;
-            options.Title = "Hello from the MessageBarService!";
+            options.Layout = MessageBarLayout.Notification;
+            options.Title = "Delete operation";
+            options.Message = "Successfully deleted 'XYZ-blazor.pdf'";
             options.AllowDismiss = true;
-            options.Lifetime = TimeSpan.FromSeconds(5);
-        });
-
-        Console.WriteLine($"Message bar closed: {result.Reason}");
-    }
-    
-    private async Task ShowCustomizedMessageBar()
-    {
-        var result = await MessageBarService.ShowMessageAsync<Message.CustomizedMessageBar>(options =>
-        {
-            options.Intent = MessageBarIntent.Success;
-            options.Title = "Hello from the MessageBarService!";
             options.Lifetime = TimeSpan.FromSeconds(5);
         });
 

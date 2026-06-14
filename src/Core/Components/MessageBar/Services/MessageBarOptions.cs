@@ -104,11 +104,16 @@ public class MessageBarOptions : IFluentComponentBase
     public Icon? Icon { get; set; }
 
     /// <summary>
-    /// Gets or sets the plain-text title displayed in the message bar.
-    /// For formatted content with markup, use a custom component via
-    /// <see cref="IMessageBarService.ShowMessageAsync{TMessageBar}(MessageBarOptions)"/>.
+    /// Gets or sets the title displayed in the message bar.
+    /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
     /// </summary>
     public string? Title { get; set; }
+
+    /// <summary>
+    /// Gets or sets the message displayed in the message bar.
+    /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
+    /// </summary>
+    public string? Message { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the message bar can be dismissed by the user.

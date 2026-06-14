@@ -76,7 +76,7 @@ public partial class FluentMessageBar : FluentComponentBase
     public Icon? Icon { get; set; }
 
     /// <summary>
-    /// Gets or sets the plain-text title displayed in the message bar (e.g., <c>Title="Action required"</c>).
+    /// Gets or sets the plain-text title displayed in the message bar (e.g., <code>Title="Action required"</code>).
     /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
     /// For formatted content with markup, use <see cref="ChildContent"/> instead.
     /// </summary>
