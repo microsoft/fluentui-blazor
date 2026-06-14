@@ -10,6 +10,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface IMessageBarInstance
 {
     /// <summary>
+    /// Gets the optional component type rendered for this message bar.
+    /// When <see langword="null"/>, the default <see cref="FluentMessageBar"/> is rendered.
+    /// </summary>
+    internal Type? ComponentType { get; }
+
+    /// <summary>
     /// Gets the unique identifier for the MessageBar. If this value is not set in the <see cref="MessageBarOptions"/>,
     /// a new identifier is generated.
     /// </summary>

@@ -1,5 +1,8 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
+@{
+#pragma warning disable IL2111
+}
 
 <div id="@Id"
      class="@ClassValue"
@@ -9,22 +12,31 @@
     {
         @foreach (var messageBar in GetRenderedMessageBars())
         {
-            <FluentMessageBar @key="messageBar.Id"
-                              Id="@messageBar.Id"
-                              Class="@messageBar.Options.ClassValue"
-                              Style="@messageBar.Options.StyleValue"
-                              Intent="@messageBar.Options.Intent"
-                              Layout="@messageBar.Options.Layout"
-                              Shape="@messageBar.Options.Shape"
-                              Animation="@messageBar.Options.Animation"
-                              AriaLive="@messageBar.Options.AriaLive"
-                              Icon="@messageBar.Options.Icon"
-                              Title="@messageBar.Options.Title"
-                              AllowDismiss="@messageBar.Options.AllowDismiss"
-                              TimeStamp="@messageBar.Options.TimeStamp"
-                              ActionsTemplate="@messageBar.Options.ActionsTemplate"
-                              ChildContent="@messageBar.Options.ChildContent"
-                              AdditionalAttributes="@messageBar.Options.AdditionalAttributes" />
+            if (messageBar.ComponentType is null)
+            {
+                <FluentMessageBar @key="messageBar.Id"
+                                  Id="@messageBar.Id"
+                                  Class="@messageBar.Options.ClassValue"
+                                  Style="@messageBar.Options.StyleValue"
+                                  Intent="@messageBar.Options.Intent"
+                                  Layout="@messageBar.Options.Layout"
+                                  Shape="@messageBar.Options.Shape"
+                                  Animation="@messageBar.Options.Animation"
+                                  AriaLive="@messageBar.Options.AriaLive"
+                                  Icon="@messageBar.Options.Icon"
+                                  Title="@messageBar.Options.Title"
+                                  AllowDismiss="@messageBar.Options.AllowDismiss"
+                                  TimeStamp="@messageBar.Options.TimeStamp"
+                                  AdditionalAttributes="@messageBar.Options.AdditionalAttributes" />
+            }
+            else
+            {
+                <CascadingValue Value="messageBar" IsFixed="true">
+                    <DynamicComponent @key="messageBar.Id"
+                                      Type="@messageBar.ComponentType"
+                                      Parameters="@messageBar.Options.Parameters" />
+                </CascadingValue>
+            }
         }
     }
 </div>

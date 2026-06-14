@@ -14,16 +14,27 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
     private static long _counter;
     internal readonly TaskCompletionSource<MessageBarResult> ResultCompletion = new();
     private readonly CancellationTokenSource _lifetimeCts = new();
+    private readonly Type? _componentType;
     private bool _disposed;
 
     /// <summary />
     internal MessageBarInstance(IMessageBarService messageBarService, MessageBarOptions options)
+        : this(messageBarService, componentType: null, options)
+    {
+    }
+
+    /// <summary />
+    internal MessageBarInstance(IMessageBarService messageBarService, Type? componentType, MessageBarOptions options)
     {
         Options = options;
         MessageBarService = messageBarService;
+        _componentType = componentType;
         Id = string.IsNullOrEmpty(options.Id) ? Identifier.NewId() : options.Id;
         Index = Interlocked.Increment(ref _counter);
     }
+
+    /// <summary />
+    Type? IMessageBarInstance.ComponentType => _componentType;
 
     /// <summary />
     internal IMessageBarService MessageBarService { get; }

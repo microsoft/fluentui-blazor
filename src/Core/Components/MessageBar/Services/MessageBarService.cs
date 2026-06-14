@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -84,7 +85,7 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
     /// <inheritdoc cref="IMessageBarService.ShowMessageAsync(MessageBarOptions)"/>
     public async Task<MessageBarResult> ShowMessageAsync(MessageBarOptions? options = null)
     {
-        var instance = ShowMessageInstanceCore(options ?? new MessageBarOptions());
+        var instance = ShowMessageInstanceCore(componentType: null, options ?? new MessageBarOptions());
         await ServiceProvider.OnUpdatedAsync.Invoke(instance);
         return await instance.Result;
     }
@@ -92,6 +93,20 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
     /// <inheritdoc cref="IMessageBarService.ShowMessageAsync(Action{MessageBarOptions})"/>
     public Task<MessageBarResult> ShowMessageAsync(Action<MessageBarOptions> options)
         => ShowMessageAsync(new MessageBarOptions(options));
+
+    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync{TMessageBar}(MessageBarOptions)"/>
+    public async Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(MessageBarOptions? options = null)
+        where TMessageBar : ComponentBase
+    {
+        var instance = ShowMessageInstanceCore(typeof(TMessageBar), options ?? new MessageBarOptions());
+        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
+        return await instance.Result;
+    }
+
+    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync{TMessageBar}(Action{MessageBarOptions})"/>
+    public Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(Action<MessageBarOptions> options)
+        where TMessageBar : ComponentBase
+        => ShowMessageAsync<TMessageBar>(new MessageBarOptions(options));
 
     /// <inheritdoc cref="IMessageBarService.UpdateMessageBarAsync(IMessageBarInstance, Action{MessageBarOptions})"/>
     public async Task UpdateMessageBarAsync(IMessageBarInstance messageBar, Action<MessageBarOptions> update)
@@ -106,14 +121,14 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
     }
 
     /// <summary />
-    private MessageBarInstance ShowMessageInstanceCore(MessageBarOptions options)
+    private MessageBarInstance ShowMessageInstanceCore(Type? componentType, MessageBarOptions options)
     {
         if (this.ProviderNotAvailable())
         {
             throw new FluentServiceProviderException<FluentMessageBarProvider>();
         }
 
-        var instance = new MessageBarInstance(this, options);
+        var instance = new MessageBarInstance(this, componentType, options);
 
         // Add the MessageBar to the service.
         if (!ServiceProvider.Items.TryAdd(instance.Id, instance))

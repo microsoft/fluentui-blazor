@@ -33,6 +33,7 @@
         {
             options.Intent = MessageBarIntent.Success;
             options.Title = "Hello from the MessageBarService!";
+            options.Lifetime = TimeSpan.FromSeconds(5);
         });
 
         Console.WriteLine($"Message bar closed: {result.Reason}");

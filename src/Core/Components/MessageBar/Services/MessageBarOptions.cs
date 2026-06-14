@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -106,7 +105,8 @@ public class MessageBarOptions : IFluentComponentBase
 
     /// <summary>
     /// Gets or sets the plain-text title displayed in the message bar.
-    /// For formatted content with markup, use <see cref="ChildContent"/> instead.
+    /// For formatted content with markup, use a custom component via
+    /// <see cref="IMessageBarService.ShowMessageAsync{TMessageBar}(MessageBarOptions)"/>.
     /// </summary>
     public string? Title { get; set; }
 
@@ -117,19 +117,7 @@ public class MessageBarOptions : IFluentComponentBase
     public bool AllowDismiss { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the rich content of the message bar.
-    /// Use this instead of <see cref="Title"/> when the message requires markup or custom formatting.
-    /// </summary>
-    public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content to be displayed inline after the main content.
-    /// </summary>
-    public RenderFragment? ActionsTemplate { get; set; }
-
-    /// <summary>
     /// Gets or sets the timestamp when the message was created.
-    /// Only displayed when <see cref="ActionsTemplate"/> is <see langword="null"/>.
     /// </summary>
     public DateTime? TimeStamp { get; set; }
 

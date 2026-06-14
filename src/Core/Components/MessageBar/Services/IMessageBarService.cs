@@ -2,6 +2,9 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -46,6 +49,24 @@ public interface IMessageBarService : IFluentServiceBase<IMessageBarInstance>
     /// </summary>
     /// <param name="options">Action used to configure the message bar.</param>
     Task<MessageBarResult> ShowMessageAsync(Action<MessageBarOptions> options);
+
+    /// <summary>
+    /// Shows a custom message bar component and waits for the close result.
+    /// The component receives the current <see cref="IMessageBarInstance"/> through a cascading parameter.
+    /// </summary>
+    /// <typeparam name="TMessageBar">A Blazor component type used to render the message bar.</typeparam>
+    /// <param name="options">Options used to configure the message bar.</param>
+    Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(MessageBarOptions? options = null)
+        where TMessageBar : ComponentBase;
+
+    /// <summary>
+    /// Shows a custom message bar component and waits for the close result.
+    /// The component receives the current <see cref="IMessageBarInstance"/> through a cascading parameter.
+    /// </summary>
+    /// <typeparam name="TMessageBar">A Blazor component type used to render the message bar.</typeparam>
+    /// <param name="options">Action used to configure the message bar.</param>
+    Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(Action<MessageBarOptions> options)
+        where TMessageBar : ComponentBase;
 
     /// <summary>
     /// Updates a shown message bar.
