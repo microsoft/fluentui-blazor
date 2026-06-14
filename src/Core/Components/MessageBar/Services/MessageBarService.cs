@@ -20,6 +20,7 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IMessageBarInstance))]
     public MessageBarService()
     {
+        ServiceProvider.OnUpdatedAsync = DispatchOnUpdatedAsync;
     }
 
     /// <inheritdoc cref="IMessageBarService.ShowMessageAsync(MessageBarOptions)"/>

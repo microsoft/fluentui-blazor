@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Container component that renders all message bars registered with the <see cref="IMessageBarService"/>.
 /// </summary>
-public partial class FluentMessageBarProvider : FluentComponentBase
+public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
 {
     /// <summary />
     public FluentMessageBarProvider(LibraryConfiguration configuration) : base(configuration)
@@ -51,13 +51,20 @@ public partial class FluentMessageBarProvider : FluentComponentBase
     {
         base.OnInitialized();
 
-        if (MessageBarService is not null)
+        if (MessageBarService is MessageBarService service)
         {
-            MessageBarService.ProviderId = Id;
-            MessageBarService.OnUpdatedAsync = async (_) =>
-            {
-                await InvokeAsync(StateHasChanged);
-            };
+            // Register this provider as a subscriber. Multiple providers can coexist:
+            // each one is notified and decides (via Section) which messages to render.
+            service.Subscribe(Id, _ => InvokeAsync(StateHasChanged));
+        }
+    }
+
+    /// <summary />
+    public void Dispose()
+    {
+        if (MessageBarService is MessageBarService service && !string.IsNullOrEmpty(Id))
+        {
+            service.Unsubscribe(Id);
         }
     }
 
