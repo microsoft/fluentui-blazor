@@ -9,6 +9,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class MessageBarResult
 {
+    internal static MessageBarResult OfDismissed(object? data = null) => new(MessageBarCloseReason.Dismissed, data);
+    internal static MessageBarResult OfProgrammatic(object? data = null) => new(MessageBarCloseReason.Programmatic, data);
+    internal static MessageBarResult OfTimedOut(object? data = null) => new(MessageBarCloseReason.TimedOut, data);
+
     /// <summary />
     protected internal MessageBarResult(MessageBarCloseReason reason, object? data)
     {
@@ -25,19 +29,4 @@ public class MessageBarResult
     /// Gets the optional data associated with the result.
     /// </summary>
     public object? Data { get; }
-
-    /// <summary>
-    /// Creates a <see cref="MessageBarResult"/> describing a user-driven dismissal.
-    /// </summary>
-    internal static MessageBarResult OfDismissed(object? data = null) => new(MessageBarCloseReason.Dismissed, data);
-
-    /// <summary>
-    /// Creates a <see cref="MessageBarResult"/> describing a programmatic close.
-    /// </summary>
-    internal static MessageBarResult OfProgrammatic(object? data = null) => new(MessageBarCloseReason.Programmatic, data);
-
-    /// <summary>
-    /// Creates a <see cref="MessageBarResult"/> describing an automatic close after the lifetime elapsed.
-    /// </summary>
-    internal static MessageBarResult OfTimedOut(object? data = null) => new(MessageBarCloseReason.TimedOut, data);
 }

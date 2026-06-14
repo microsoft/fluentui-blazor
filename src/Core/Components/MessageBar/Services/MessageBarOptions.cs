@@ -112,7 +112,7 @@ public class MessageBarOptions : IFluentComponentBase
 
     /// <summary>
     /// Gets or sets a value indicating whether the message bar can be dismissed by the user.
-    /// Default is <see langword="true"/>.
+    /// Default is `true`.
     /// </summary>
     public bool AllowDismiss { get; set; } = true;
 
@@ -125,7 +125,7 @@ public class MessageBarOptions : IFluentComponentBase
     /// Gets or sets the lifetime of the message bar.
     /// When set to a positive value, the message bar is automatically removed from the service
     /// (and from the <see cref="FluentMessageBarProvider"/>) after this duration elapses.
-    /// When <see langword="null"/>, the message bar stays visible until it is dismissed programmatically
+    /// When `null`, the message bar stays visible until it is dismissed programmatically
     /// or by the user.
     /// </summary>
     public TimeSpan? Lifetime { get; set; }

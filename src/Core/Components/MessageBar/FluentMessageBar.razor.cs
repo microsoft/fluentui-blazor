@@ -29,6 +29,12 @@ public partial class FluentMessageBar : FluentComponentBase
         .Build();
 
     /// <summary>
+    /// Gets the instance, if the message is rendered using the <see cref="IMessageBarService"/>. Otherwise, returns null.
+    /// </summary>
+    [CascadingParameter]
+    internal IMessageBarInstance? MessageBarInstance { get; set; }
+
+    /// <summary>
     /// Gets or sets the intent of the message bar.
     /// Default is <see cref="MessageBarIntent.Info"/>.
     /// </summary>
@@ -112,6 +118,11 @@ public partial class FluentMessageBar : FluentComponentBase
     /// <summary />
     protected virtual Task DismissClickAsync()
     {
+        if (MessageBarInstance != null)
+        {
+            return MessageBarInstance.CloseAsync(MessageBarResult.OfDismissed());
+        }
+
         Visible = false;
         return Task.CompletedTask;
     }
