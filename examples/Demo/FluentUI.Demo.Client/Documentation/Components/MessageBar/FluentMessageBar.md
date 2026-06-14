@@ -76,6 +76,11 @@ and a local provider scoped to a specific panel or dialog), and to route each me
 
 The simplest way to display a message is to use one of the typed helpers, passing the target section and the message text:
 
+- `MessageBarService.ShowSuccessMessageAsync("SECTION", "Title", "Message")`
+- `MessageBarService.ShowWarningMessageAsync("SECTION", "Title", "Message")`
+- `MessageBarService.ShowErrorMessageAsync("SECTION", "Title", "Message")`
+- `MessageBarService.ShowInfoMessageAsync("SECTION", "Title", "Message")`
+
 {{ MessageBarServiceDefault }}
 
 **Configuring the message bar**
@@ -90,7 +95,11 @@ an `Action<MessageBarOptions>`. The returned `MessageBarResult` indicates how th
 You can also display a fully custom component inside the message bar by using the generic `ShowMessageAsync<TComponent>` overload.
 This is useful when the default layout is not enough and you need to render rich content.
 
-{{ MessageBarServiceCustomized }}
+{{ MessageBarServiceCustomized Files=Code:MessageBarServiceCustomized.razor;CustomizedMessageBar:CustomizedMessageBar.razor;CustomizedComponent:CustomizedComponent.razor }}
+
+## API FluentMessageBar
+
+{{ API Type=FluentMessageBar }}
 
 ## API MessageBarService
 
@@ -99,10 +108,6 @@ This is useful when the default layout is not enough and you need to render rich
 ## API MessageBarOptions
 
 {{ API Type=MessageBarOptions Properties=All }}
-
-## API FluentMessageBar
-
-{{ API Type=FluentMessageBar }}
 
 ## API FluentMessageBarProvider
 
