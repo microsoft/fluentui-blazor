@@ -55,7 +55,7 @@
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoNextPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoNextPage]"
                           IconStart="@(new CoreIcons.Regular.Size20.ChevronRight())" />
-            <FluentButton Onclick="GoLastAsync"
+            <FluentButton OnClick="GoLastAsync"
                           Disabled="@(!CanGoForwards || Disabled)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoLastPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoLastPage]"
