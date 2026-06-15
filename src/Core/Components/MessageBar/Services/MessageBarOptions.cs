@@ -75,7 +75,7 @@ public class MessageBarOptions : IFluentComponentBase
     /// Gets or sets the section identifier for the message bar provider.
     /// This message bar will only be displayed in a <see cref="FluentMessageBarProvider"/> with the same section identifier.
     /// </summary>
-    public string? Section { get; set; }
+    public string Section { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the intent of the message bar.

@@ -28,12 +28,6 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
         .Build();
 
     /// <summary>
-    /// Gets or sets the injected service provider.
-    /// </summary>
-    [Inject]
-    public IServiceProvider? ServiceProvider { get; set; }
-
-    /// <summary>
     /// Gets or sets the section identifier for the message bar provider.
     /// This is used to scope the message bars to a specific section of the page: 
     /// only message bars with the same section identifier will be rendered in this provider.
@@ -73,4 +67,15 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
                                  messageBar.LifecycleStatus == MessageBarLifecycleStatus.Visible)
             .OrderBy(messageBar => messageBar.Index)
             ?? Enumerable.Empty<IMessageBarInstance>();
+
+    /// <summary />
+    private RenderFragment RenderMessageBarContent(IMessageBarInstance? messageBar) => builder =>
+    {
+        if (messageBar is null || string.IsNullOrEmpty(messageBar.Options.Message))
+        {
+            return;
+        }
+
+        builder.AddContent(0, new MarkupStringSanitized(messageBar.Options.Message, MarkupStringSanitized.Formats.Html, LibraryConfiguration));
+    };
 }

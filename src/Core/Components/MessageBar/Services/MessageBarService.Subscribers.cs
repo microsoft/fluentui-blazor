@@ -34,7 +34,7 @@ public partial class MessageBarService
     /// <summary>
     /// Unregisters a previously registered provider callback.
     /// </summary>
-    internal void Unsubscribe(string?  providerId)
+    internal void Unsubscribe(string? providerId)
     {
         if (string.IsNullOrEmpty(providerId))
         {

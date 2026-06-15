@@ -100,7 +100,7 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
     /// <inheritdoc cref="IMessageBarService.CloseAsync(IMessageBarInstance, object?)"/>
     public Task CloseAsync(IMessageBarInstance messageBar, object? data = null)
     {
-        if (data is not null && data is MessageBarResult result)
+        if (data is not null and MessageBarResult result)
         {
             return CloseCoreAsync(messageBar, result);
         }
@@ -136,6 +136,15 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
     /// <summary />
     private MessageBarInstance ShowMessageInstanceCore(Type? componentType, MessageBarOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
+        if (string.IsNullOrWhiteSpace(options.Section))
+        {
+            throw new ArgumentException(
+                $"{nameof(MessageBarOptions)}.{nameof(MessageBarOptions.Section)} must be set to the Section of a {nameof(FluentMessageBarProvider)} that will render the message bar.",
+                nameof(options));
+        }
+
         if (this.ProviderNotAvailable())
         {
             throw new FluentServiceProviderException<FluentMessageBarProvider>();
