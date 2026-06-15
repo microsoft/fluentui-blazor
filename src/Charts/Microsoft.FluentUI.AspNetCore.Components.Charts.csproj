@@ -4,7 +4,7 @@
     <PackageId>Microsoft.FluentUI.AspNetCore.Components.Charts</PackageId>
 
     <Summary>A set of Blazor components wrapping an extended version of the Fluent UI Chart Web Components. </Summary>
-    <PackageTags>Fluent UI, Blazor, Charts, Web Components</PackageTags>
+    <PackageTags>Fluent;FluentUI;fluent-ui;Blazor;Charts;Web;Components</PackageTags>
     <Title>Microsoft Fluent UI Chart Components for Blazor</Title>
     <Description>A set of Blazor components wrapping an extended version of the Fluent UI Chart Web Components.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -95,8 +95,7 @@
   </PropertyGroup>
   <Target Name="SetFluentUICoreDependencyVersion" AfterTargets="_GetProjectReferenceVersions">
     <ItemGroup>
-      <_ProjectReferencesWithVersions Update="@(_ProjectReferencesWithVersions)"
-                                      Condition="'%(Filename)' == 'Microsoft.FluentUI.AspNetCore.Components'">
+      <_ProjectReferencesWithVersions Update="@(_ProjectReferencesWithVersions)" Condition="'%(Filename)' == 'Microsoft.FluentUI.AspNetCore.Components'">
         <ProjectVersion>$(FluentUICoreMinVersion)</ProjectVersion>
       </_ProjectReferencesWithVersions>
     </ItemGroup>
