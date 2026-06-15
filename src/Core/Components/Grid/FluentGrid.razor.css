@@ -12,7 +12,7 @@
         box-sizing: border-box;
     }
 
-    /* Spacing — uses CSS gap to avoid horizontal overflow (issue #4920) */
+    /* Spacing — uses CSS gap to avoid horizontal overflow */
 
     .fluent-grid[spacing="1"]  { --fluent-grid-gap: 8px;  }
     .fluent-grid[spacing="2"]  { --fluent-grid-gap: 16px; }
