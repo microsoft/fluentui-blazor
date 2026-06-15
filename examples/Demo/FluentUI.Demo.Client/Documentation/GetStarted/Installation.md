@@ -7,6 +7,7 @@ icon: SettingsCogMultiple
 ---
 
 # Installation
+
 Getting started with **Fluent UI Blazor** for faster and easier .NET web development.
 
 ## Online Playground
@@ -15,7 +16,16 @@ TODO
 
 ## Using Templates
 
-TODO
+After installing the `Microsoft/FluentUI.AspNetCore.Templates` package (available starting with RC4) you'll have 4 standard templates available in a ready-to-run Fluent UI version.
+
+Templates added:
+
+- Fluent Blazor Web App
+- Fluent Blazor WebAssembly Standalone App
+- Fluent Aspire Starter App (ASP.NET Core/Blazor/Fluent UI)
+- Fluent .NET MAUI Blazor Hybrid and Web App
+
+The templates are all 100% code copies of the original templates. We just used the Fluent Razor components to build the UI with.
 
 ## Manual Installation
 
