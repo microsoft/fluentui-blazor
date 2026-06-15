@@ -87,6 +87,7 @@
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
+    <ProjectReference Include="..\Core.Scripts\Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj" PrivateAssets="All" />
   </ItemGroup>
 
   <!-- Enable deterministic builds for CI environments and Release configuration -->
