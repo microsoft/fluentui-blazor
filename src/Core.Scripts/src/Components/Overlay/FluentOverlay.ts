@@ -402,7 +402,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
   * @param mode
   */
   export const registerComponent = (blazor: Blazor, mode: StartedMode): void => {
-    if (typeof blazor.addEventListener === 'function' && typeof customElements !== 'undefined') {
+    if (typeof customElements !== 'undefined' && !customElements.get('fluent-overlay')) {
       customElements.define('fluent-overlay', FluentOverlay);
     }
   };
