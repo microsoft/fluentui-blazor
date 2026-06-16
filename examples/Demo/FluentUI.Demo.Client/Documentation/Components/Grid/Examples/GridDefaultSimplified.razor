@@ -1,0 +1,49 @@
+﻿<p style="font-weight: bold;">
+    Page size: @PageSize
+</p>
+
+@* 
+   When the direct children of a `FluentGrid` are HTML `<div>` elements,
+   you can simplify your markup by using...
+*@
+
+<FluentGrid Spacing="2"
+            OnBreakpointEnter="@OnBreakpointEnterHandler"
+            AdaptiveRendering="true"
+            Style="background: var(--colorNeutralBackground4);"
+            Justify="JustifyContent.FlexStart">
+    <div xs="12" class="fluent-card" shadow="none">
+        Xs="12"
+    </div>
+    <div xs="12" sm="6" hidden-when="xs sm" class="fluent-card" shadow="none">
+        Xs="12" Sm="6" Hidden="SmAndDown"
+        </div>
+    <div xs="12" sm="6" class="fluent-card" shadow="none">
+        Xs="12" Sm="6"
+    </div>
+    <div xs="6" sm="3" class="fluent-card" shadow="none">
+        Xs="6" Sm="3"
+    </div>
+    <div xs="6" sm="3" class="fluent-card" shadow="none">
+        Xs="6" Sm="3"
+    </div>
+    <div xs="6" sm="3" class="fluent-card" shadow="none">
+        Xs="6" Sm="3"
+    </div>
+    <div xs="6" sm="3" class="fluent-card" shadow="none">
+        Xs="6" Sm="3"
+    </div>
+    <div xs="3" class="fluent-card" shadow="none">
+        Xs="3"
+    </div>
+</FluentGrid>
+
+@code
+{
+    GridItemSize? PageSize;
+    void OnBreakpointEnterHandler(GridItemSize size)
+    {
+        PageSize = size;
+        Console.WriteLine($"Page Size: {size}");
+    }
+}
