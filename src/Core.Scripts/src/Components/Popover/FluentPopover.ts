@@ -372,7 +372,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     * @param mode
     */
   export const registerComponent = (blazor: Blazor, mode: StartedMode): void => {
-    if (typeof blazor.addEventListener === 'function' && mode === StartedMode.Web) {
+    if (typeof blazor.addEventListener === 'function' && typeof customElements !== 'undefined') {
       customElements.define('fluent-popover-b', FluentPopover);
     }
   };
