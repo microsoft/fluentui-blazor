@@ -1,5 +1,5 @@
 <Solution>
-  <Folder Name="/Templates/" >
+  <Folder Name="/Templates/">
     <Project Path="src/Templates/Microsoft.FluentUI.AspNetCore.Templates.csproj" />
   </Folder>
 </Solution>
