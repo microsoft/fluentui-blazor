@@ -8,7 +8,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
     <Summary>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Summary>
-    <PackageTags>Emoji, Fluent UI, Blazor, .NET8</PackageTags>
+    <PackageTags>Emoji, Fluent UI, Blazor</PackageTags>
     <Title>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Title>
     <Description>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>

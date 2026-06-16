@@ -9,7 +9,7 @@
 		<SignAssembly>false</SignAssembly>
 
 		<Summary>A Blazor wrapper library for the official Microsoft Fluent UI System Icons library.</Summary>
-		<PackageTags>Icons, Fluent UI, Blazor, .NET8</PackageTags>
+		<PackageTags>Icons, Fluent UI, Blazor</PackageTags>
 		<Title>A Blazor wrapper library for the official Microsoft Fluent UI System Icons library.</Title>
 		<Description>A Blazor wrapper library for the official Microsoft Fluent UI System Icons
 			library.</Description>

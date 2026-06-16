@@ -12,7 +12,7 @@ To generate the icons, you need:
 
    If you are working on Windows, we recommend you setup a [WSL2 environment](https://learn.microsoft.com/en-us/windows/wsl/install).
    We have validated the steps to work from an Ubuntu 22.04 installation.
-   If you are wotking on a Mac, you are probably good to go but this has not been verified.
+   If you are working on a Mac, you are probably good to go but this has not been verified.
 
    ```cmd
    wsl --install -d Ubuntu-22.04
@@ -65,7 +65,7 @@ To generate the icons, you need:
    The `/mnt/..` path is a WSL2 thing. Adjust accordingly if you are working  on a Mac.
    Make sure the path in the mnt (c/Temp/FluentIcons) points to a temporary folder will use in next steps.
 	
-   The `rsync` command should only copy new ad/or update files. 
+   The `rsync` command should only copy new and/or update files. 
 
 7. a) Compile the project and run the `FluentAssetsGenerator.exe` application,
    passing the **Assets** path to this local folder containing the SVG images as a parameter.
