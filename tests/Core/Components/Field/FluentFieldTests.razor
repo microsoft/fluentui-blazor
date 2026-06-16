@@ -66,6 +66,31 @@
         cut.Verify(suffix: value is null ? "" : value.ToString()!.ToLower());
     }
 
+    [Fact]
+    public async Task FluentField_Renders_Validation_Messages()
+    {
+        // Arrange
+        var model = new FluentFieldValidationModel();
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+
+        var cut = Render(
+            @<CascadingValue Value="@editContext">
+                <FluentField For="@(() => model.Name)">Field content</FluentField>
+            </CascadingValue>);
+
+        // Act
+        await cut.InvokeAsync(() =>
+        {
+            messageStore.Add(editContext.Field(nameof(FluentFieldValidationModel.Name)), "Name is invalid");
+            editContext.NotifyValidationStateChanged();
+        });
+
+        // Assert
+        Assert.Contains("Name is invalid", cut.Markup);
+        Assert.Contains("slot=\"message\"", cut.Markup);
+    }
+
     [Theory]
     [InlineData(LabelPosition.Above)]
     [InlineData(LabelPosition.After)]
@@ -294,5 +319,10 @@
         // Assert
         Assert.Empty(cut.FindComponents<FluentLabelInfo>());
         Assert.Contains("My label", cut.Markup);
+    }
+
+    private sealed class FluentFieldValidationModel
+    {
+        public string Name { get; set; } = string.Empty;
     }
 }

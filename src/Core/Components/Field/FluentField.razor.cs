@@ -68,13 +68,6 @@ public partial class FluentField : FluentComponentBase, IFluentField
     public IFluentField? InputComponent { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="FieldIdentifier"/> for which validation messages should be displayed.
-    /// If set, this parameter takes precedence over <see cref="For"/>.
-    /// </summary>
-    [Parameter]
-    public FieldIdentifier? Field { get; set; }
-
-    /// <summary>
     /// Gets or sets the field expression for which validation messages should be displayed.
     /// </summary>
     [Parameter]
@@ -166,30 +159,22 @@ public partial class FluentField : FluentComponentBase, IFluentField
     {
         base.OnParametersSet();
 
-        if (Field is not null)
+        var fieldAccessor = For ?? InputComponent?.ValueExpression;
+
+        if (fieldAccessor is null)
         {
-            _fieldIdentifier = Field.Value;
-            _hasFieldIdentifier = true;
+            _hasFieldIdentifier = false;
+            _previousFieldAccessor = null;
         }
         else
         {
-            var fieldAccessor = For ?? InputComponent?.ValueExpression;
-
-            if (fieldAccessor is null)
+            if (fieldAccessor != _previousFieldAccessor)
             {
-                _hasFieldIdentifier = false;
-                _previousFieldAccessor = null;
+                _fieldIdentifier = CreateFieldIdentifier(fieldAccessor);
+                _previousFieldAccessor = fieldAccessor;
             }
-            else
-            {
-                if (fieldAccessor != _previousFieldAccessor)
-                {
-                    _fieldIdentifier = CreateFieldIdentifier(fieldAccessor);
-                    _previousFieldAccessor = fieldAccessor;
-                }
 
-                _hasFieldIdentifier = true;
-            }
+            _hasFieldIdentifier = true;
         }
 
         if (CurrentEditContext != _previousEditContext)
