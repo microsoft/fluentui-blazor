@@ -1,3 +1,9 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using System.Globalization;
+
 namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator;
 
 internal class Program
@@ -33,7 +39,7 @@ internal class Program
                 // Initialize the factory
                 var factoryIcons = new IconsCodeGenerator(configuration)
                 {
-                    Logger = (message) => Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")} - {message}")
+                    Logger = (message) => Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss", CultureInfo.InvariantCulture)} - {message}")
                 };
 
                 // Start the generation
@@ -63,7 +69,7 @@ internal class Program
                 // Initialize the factory
                 var factoryEmojis = new EmojisCodeGenerator(configuration)
                 {
-                    Logger = (message) => Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")} - {message}")
+                    Logger = (message) => Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss", CultureInfo.InvariantCulture)} - {message}")
                 };
 
                 // Start the generation

@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -23,7 +27,7 @@ internal class Emoji
     {
         MetaFile = metaDataFile;
 
-        string content = System.IO.File.ReadAllText(metaDataFile.FullName);
+        var content = System.IO.File.ReadAllText(metaDataFile.FullName);
         Meta = JsonSerializer.Deserialize<EmojiMetaData>(content, JsonOptions)!;
 
         Name = Tools.ToPascalCase(Meta.Cldr)
@@ -82,5 +86,5 @@ internal class Emoji
     }
 
     /// <summary />
-    private int Count => Files.Count();
+    private int Count => Files.Length;
 }

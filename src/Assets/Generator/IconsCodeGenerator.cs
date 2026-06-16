@@ -1,3 +1,8 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
@@ -91,7 +96,7 @@ internal partial class IconsCodeGenerator
         // Delete previous files
         foreach (var file in Configuration.TargetFolder.GetFiles("*.*", SearchOption.TopDirectoryOnly))
         {
-            bool toDelete = NameParser().IsMatch(file.Name);
+            var toDelete = NameParser().IsMatch(file.Name);
             if (toDelete)
             {
                 file.Delete();
@@ -109,6 +114,7 @@ internal partial class IconsCodeGenerator
                 {
                     Directory.CreateDirectory(folder);
                 }
+
                 var file = new FileInfo(Path.Combine(folder, $"{variant}{size}.cs"));
                 var iconsForSizeAndVariant = icons.Where(i => i.Size == size && i.Variant == variant).OrderBy(i => i.Name);
 
@@ -177,7 +183,7 @@ internal partial class IconsCodeGenerator
         builder.AppendLine();
         builder.AppendLine("namespace " + Configuration.Namespace + ";");
         builder.AppendLine();
-        builder.AppendLine($"internal static partial class {className}");
+        builder.AppendLine("internal static partial class " + className);
         builder.AppendLine("{");
 
         foreach (var variant in allVariants)
@@ -214,7 +220,7 @@ internal partial class IconsCodeGenerator
 
     private static void AddProperties(StringBuilder builder, IEnumerable<Icon> icons, int indentation = 12)
     {
-        string indentationString = new(' ', indentation);
+        var indentationString = new string(' ', indentation);
 
         // Properties
         foreach (var icon in icons)
@@ -222,7 +228,14 @@ internal partial class IconsCodeGenerator
             var svgContent = icon.GetContent(removeSvgRoot: true)
                                  .Replace("\"", "\\\"");
 
-            builder.AppendLine($"{indentationString}public class {icon.Name} : Icon {{ public {icon.Name}() : base(\"{icon.Name}\", IconVariant.{icon.Variant}, IconSize.Size{icon.Size}, \"{svgContent}\") {{ }} }}");
+            builder.AppendLine(indentationString
+                               + "public class " + icon.Name
+                               + " : Icon { public " + icon.Name
+                               + "() : base(\"" + icon.Name
+                               + "\", IconVariant." + icon.Variant
+                               + ", IconSize.Size" + icon.Size.ToString(CultureInfo.InvariantCulture)
+                               + ", \"" + svgContent
+                               + "\") { } }");
         }
     }
 
