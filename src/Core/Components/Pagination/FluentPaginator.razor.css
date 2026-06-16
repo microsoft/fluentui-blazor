@@ -1,6 +1,5 @@
 .fluent-paginator {
   display: flex;
-  /*border-top: 1px solid var(--neutral-stroke-divider-rest);*/
   margin-top: 0.5rem;
   padding: 0.25rem 0;
   align-items: center;
