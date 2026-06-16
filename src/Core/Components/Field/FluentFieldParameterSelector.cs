@@ -30,7 +30,7 @@ internal class FluentFieldParameterSelector : IFluentField
     /// <summary />
     public LambdaExpression? ValueExpression
     {
-        get => _component.For ?? _component.InputComponent?.ValueExpression;
+        get => _component.ValueExpression ?? _component.InputComponent?.ValueExpression;
     }
 
     /// <summary />

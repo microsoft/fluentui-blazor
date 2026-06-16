@@ -71,10 +71,10 @@ public partial class FluentField : FluentComponentBase, IFluentField
     /// Gets or sets the field expression for which validation messages should be displayed.
     /// </summary>
     [Parameter]
-    public LambdaExpression? For { get; set; }
+    public LambdaExpression? ValueExpression { get; set; }
 
     /// <inheritdoc cref="IFluentField.ValueExpression" />
-    LambdaExpression? IFluentField.ValueExpression => For;
+    LambdaExpression? IFluentField.ValueExpression => ValueExpression;
 
     /// <summary>
     /// Gets or sets the ID of the FieldInput component to associate with the field.
@@ -159,7 +159,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     {
         base.OnParametersSet();
 
-        var fieldAccessor = For ?? InputComponent?.ValueExpression;
+        var fieldAccessor = ValueExpression ?? InputComponent?.ValueExpression;
 
         if (fieldAccessor is null)
         {
