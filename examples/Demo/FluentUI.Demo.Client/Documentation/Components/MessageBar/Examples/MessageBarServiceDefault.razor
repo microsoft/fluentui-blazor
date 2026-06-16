@@ -1,0 +1,25 @@
+﻿@inject IMessageBarService MessageBarService
+
+<FluentMessageBarProvider Section="@MESSAGEBAR_SECTION"
+                          Margin="@Margin.Vertical2" />
+
+<FluentButton OnClick="@(async e => await MessageBarService.ShowSuccessMessageAsync(MESSAGEBAR_SECTION, title: "This is a success message bar"))">
+    Success
+</FluentButton>
+
+<FluentButton OnClick="@(async e => await MessageBarService.ShowWarningMessageAsync(MESSAGEBAR_SECTION, title: "This is a warning message bar"))">
+    Warning
+</FluentButton>
+
+<FluentButton OnClick="@(async e => await MessageBarService.ShowErrorMessageAsync(MESSAGEBAR_SECTION, title: "This is an error message bar"))">
+    Error
+</FluentButton>
+
+<FluentButton OnClick="@(async e => await MessageBarService.ShowInfoMessageAsync(MESSAGEBAR_SECTION, title: "This is an info message bar"))">
+    Info
+</FluentButton>
+
+@code
+{
+    const string MESSAGEBAR_SECTION = "MESSAGEBAR_SERVICE_DEFAULT";
+}
