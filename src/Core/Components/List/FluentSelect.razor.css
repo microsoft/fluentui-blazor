@@ -7,6 +7,10 @@ fluent-dropdown[readonly] {
   user-select: none;
 }
 
+fluent-dropdown {
+  width: 100%;
+}
+
 fluent-dropdown[size="small"] button[slot="control"] {
   max-height: var(--lineHeightBase200);
 }

@@ -1,3 +1,7 @@
+fluent-textarea {
+  width: 100%;
+}
+
 fluent-textarea[style~="width:"]::part(root) {
   width: 100%;
 }

@@ -1,3 +1,9 @@
+fluent-text-input {
+  width: 100%;
+  max-width: unset;
+}
+
 fluent-text-input[style~="width:"] {
   max-width: unset;
 }
+
