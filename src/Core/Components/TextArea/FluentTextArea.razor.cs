@@ -38,14 +38,12 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     /// <inheritdoc />
     protected override string? StyleValue => DefaultStyleBuilder
         .AddStyle("width", Width)
-        .AddStyle("min-width", "180px", when: () => string.IsNullOrEmpty(Width))
         .Build();
 
     /// <summary>
     /// Gets the CSS class to apply to the internal web-component.
     /// </summary>
     protected virtual string? ComponentStyleValue => new StyleBuilder()
-        .AddStyle("width", Width)
         .AddStyle("height", Height)
         .Build();
 

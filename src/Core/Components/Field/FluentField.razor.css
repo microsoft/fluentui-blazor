@@ -23,6 +23,10 @@ fluent-field[label-position="before"]>[slot="input"] {
   min-width: 0;
 }
 
+fluent-field[label-position="before"]>[slot="message"]:empty {
+  display: none;
+}
+
 fluent-field label[disabled] {
   color: var(--colorNeutralForegroundDisabled);
 }
