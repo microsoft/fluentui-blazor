@@ -47,6 +47,7 @@
     [
         new("Text Inputs", RenderTextInput),
         new("Text Areas", RenderTextArea),
+        new("Autocomplete", RenderAutocomplete),
         new("Number Inputs", RenderNumberInput),
         new("Selects", RenderSelect),
         new("Listboxes", RenderListbox),
@@ -85,6 +86,20 @@
                                    LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                                    LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
                                    Label="@(GetLabel(sampleLabelUsage))" />;
+    }
+
+    /* FluentAutocomplete */
+    RenderFragment RenderAutocomplete(SampleLabelUsage sampleLabelUsage)    
+    {
+        return @<FluentAutocomplete Width="@Width" 
+                                    Placeholder="@(sampleLabelUsage.GetDescription())"
+                                    LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                    LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                    Label="@(GetLabel(sampleLabelUsage))"
+                                    OptionText="@(i => i?.Name)"
+                                    OptionValue="@(i => i?.Code)"
+                                    Items="@Countries"
+                                    @bind-SelectedItems="@SelectedCountries" />;
     }
 
     /* FluentSelect */
