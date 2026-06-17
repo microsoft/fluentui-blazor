@@ -212,7 +212,7 @@
         var cut = Render(@<FluentTextInput Width="100px" />);
 
         // Assert
-        Assert.Equal("width: 100px;", cut.Find("fluent-text-input").GetAttribute("style"));
+        Assert.Equal("width: 100px;", cut.Find("fluent-field").GetAttribute("style"));
     }
 
     [Fact]
