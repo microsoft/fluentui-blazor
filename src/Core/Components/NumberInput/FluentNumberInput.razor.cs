@@ -73,7 +73,7 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     /// Gets the CSS class to apply to the internal web-component.
     /// </summary>
     protected virtual string? ComponentStyleValue => new StyleBuilder()
-        .AddStyle("width", Width)
+        .AddStyle("width", "100%")
         .Build();
 
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />

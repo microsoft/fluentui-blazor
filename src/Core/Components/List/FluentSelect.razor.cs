@@ -24,7 +24,7 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
 
     /// <summary />
     protected virtual string? DropdownStyle => new StyleBuilder()
-        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
+        .AddStyle("width", "100%")
         .Build();
 
     /// <summary />

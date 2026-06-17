@@ -3,6 +3,10 @@
   margin-top: var(--spacingVerticalM);
 }
 
+fluent-field[label-position='before'] {
+  display: inline-flex;
+}
+
 fluent-field[label-position='before'] > fluent-label[slot='label'] {
   margin-top: 8px;
   align-self: flex-start;

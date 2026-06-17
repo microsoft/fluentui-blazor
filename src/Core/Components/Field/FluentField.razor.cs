@@ -31,6 +31,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     private string? LabelStyle => new StyleBuilder()
         .AddStyle("width", Parameters.LabelWidth)
+        .AddStyle("min-width", Parameters.LabelWidth, when: Parameters.LabelPosition == Components.LabelPosition.Before)
         .Build();
 
     /// <summary>
