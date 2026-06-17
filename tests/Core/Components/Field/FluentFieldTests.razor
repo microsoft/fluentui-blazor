@@ -76,7 +76,7 @@
 
         var cut = Render(
             @<CascadingValue Value="@editContext">
-                <FluentField For="@(() => model.Name)">Field content</FluentField>
+                <FluentField ValueExpression="@(() => model.Name)">Field content</FluentField>
             </CascadingValue>);
 
         // Act
