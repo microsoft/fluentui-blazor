@@ -166,7 +166,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <summary>
     /// Gets the optional in-line styles. If given, these will be included in the style attribute of the component.
     /// </summary>
-    protected virtual string? StyleValue => DefaultStyleBuilder        
+    protected virtual string? StyleValue => DefaultStyleBuilder
         .Build();
 
     /// <summary>
