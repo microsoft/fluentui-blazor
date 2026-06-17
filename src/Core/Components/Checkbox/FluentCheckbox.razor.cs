@@ -23,6 +23,17 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
         LabelPosition = Components.LabelPosition.After;
     }
 
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the width of the checkbox (e.g., <c>Width="300px"</c>).
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+    
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
     public ElementReference Element { get; set; }

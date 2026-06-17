@@ -17,7 +17,7 @@ fluent-field[label-position="before"]>label[slot="label"] {
   flex-shrink: 0;
 }
 
-fluent-field[label-position="before"]>[slot="input"] {
+fluent-field[label-position="before"]:not(:has(fluent-slider, fluent-checkbox, fluent-switch, fluent-radio-group))>[slot="input"] {
   flex: 1 1 auto;
   width: auto;
   min-width: 0;
