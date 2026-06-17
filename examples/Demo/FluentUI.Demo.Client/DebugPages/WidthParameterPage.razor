@@ -52,8 +52,13 @@
         new("Selects", RenderSelect),
         new("Listboxes", RenderListbox),
         new("Comboboxes", RenderCombobox),
+        new("Calendars", RenderCalendar),
         new("Date Pickers", RenderDatePicker),
         new("Time Pickers", RenderTimePicker),
+        new("Color Picker Inputs", RenderColorPickerInput),
+        new("Radio Groups", RenderRadioGroup),
+        new("Sliders", RenderSlider),
+        new("Checkboxes", RenderCheckbox),
         new("Switches", RenderSwitch),
     ];
 
@@ -77,6 +82,15 @@
                                 Label="@(GetLabel(sampleLabelUsage))" />;
     }
 
+    /* FluentCheckbox */
+    RenderFragment RenderCheckbox(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentCheckbox LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                Label="@(GetLabel(sampleLabelUsage))"
+                                @bind-Value="@checkboxValue" />;
+    }
+
     /* FluentNumberInput */
     RenderFragment RenderNumberInput(SampleLabelUsage sampleLabelUsage)    
     {
@@ -86,6 +100,18 @@
                                    LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                                    LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
                                    Label="@(GetLabel(sampleLabelUsage))" />;
+    }
+
+    /* FluentRadioGroup */
+    RenderFragment RenderRadioGroup(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentRadioGroup TValue="string"
+                                  LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                  LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                  Label="@(GetLabel(sampleLabelUsage))"
+                                  Items="Colors"
+                                  Orientation="Orientation.Vertical"
+                                  @bind-Value="@SelectedRadioValue" />;
     }
 
     /* FluentAutocomplete */
@@ -100,6 +126,17 @@
                                     OptionValue="@(i => i?.Code)"
                                     Items="@Countries"
                                     @bind-SelectedItems="@SelectedCountries" />;
+    }
+
+    /* FluentColorPickerInput */
+    RenderFragment RenderColorPickerInput(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentColorPickerInput Width="@Width"
+                                        Placeholder="#000000"
+                                        LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                        LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                        Label="@(GetLabel(sampleLabelUsage))"
+                                        @bind-Value="@SelectedColor" />;
     }
 
     /* FluentSelect */
@@ -145,6 +182,29 @@
                         '
                     </FreeOption>
                 </FluentCombobox>;
+    }
+
+    /* FluentSlider */
+    RenderFragment RenderSlider(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentSlider TValue="int"
+                              LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                              LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                              Label="@(GetLabel(sampleLabelUsage))"
+                              Min="0"
+                              Max="100"
+                              Step="5"
+                              @bind-Value="@SliderValue" />;
+    }
+
+    /* FluentCalendar */
+    RenderFragment RenderCalendar(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentCalendar TValue="DateOnly?"
+                                LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                Label="@(GetLabel(sampleLabelUsage))"
+                                @bind-Value="@SelectedCalendarValue" />;
     }
 
     /* FluentDadePicker */
@@ -222,9 +282,14 @@
     IEnumerable<SampleData.Olympics2024.Country> SelectedCountries = [];
 
     DateOnly? SelectedValue = null;
+    DateOnly? SelectedCalendarValue = null;
+    string? SelectedColor = "#FF0000";
+    string? SelectedRadioValue = "Red";
+    int SliderValue = 50;
     TimeOnly? SelectedTime = null;
     static string[] Colors = ["Red", "Green", "Blue"];
     string? Value;
+    bool checkboxValue = false;
     bool value = false;
 }
 
