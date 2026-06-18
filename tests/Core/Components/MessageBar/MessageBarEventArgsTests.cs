@@ -12,7 +12,7 @@ public class MessageBarEventArgsTests
     public void MessageBarEventArgs_SetsAllProperties()
     {
         // Arrange
-        var service = new MessageBarService();
+        var service = new NotificationService();
         var options = new MessageBarOptions { Section = "section-A", Id = "my-id" };
         var instance = new MessageBarInstance(service, options);
 
@@ -32,7 +32,7 @@ public class MessageBarEventArgsTests
     public void MessageBarEventArgs_KeepsStatus(MessageBarLifecycleStatus status)
     {
         // Arrange
-        var service = new MessageBarService();
+        var service = new NotificationService();
         var instance = new MessageBarInstance(service, new MessageBarOptions { Section = "section" });
 
         // Act

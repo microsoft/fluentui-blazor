@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Interface for a message bar instance managed by the <see cref="IMessageBarService"/>.
+/// Interface for a message bar instance managed by the <see cref="INotificationService"/>.
 /// </summary>
 public interface IMessageBarInstance
 {

@@ -7,11 +7,11 @@ using System.Collections.Concurrent;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Subscriber-management portion of the <see cref="MessageBarService"/>.
+/// Subscriber-management portion of the <see cref="NotificationService"/>.
 /// Allows multiple <see cref="FluentMessageBarProvider"/> instances to receive
 /// update notifications from the same service (e.g. when scoped by Section).
 /// </summary>
-public partial class MessageBarService
+public partial class NotificationService
 {
     private readonly ConcurrentDictionary<string, Func<IMessageBarInstance, Task>> _subscribers = new(StringComparer.Ordinal);
 

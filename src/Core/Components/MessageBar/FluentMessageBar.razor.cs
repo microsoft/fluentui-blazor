@@ -29,7 +29,7 @@ public partial class FluentMessageBar : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets the instance, if the message is rendered using the <see cref="IMessageBarService"/>. Otherwise, returns null.
+    /// Gets the instance, if the message is rendered using the <see cref="INotificationService"/>. Otherwise, returns null.
     /// </summary>
     [CascadingParameter]
     internal IMessageBarInstance? MessageBarInstance { get; set; }

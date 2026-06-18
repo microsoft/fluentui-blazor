@@ -7,7 +7,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Options for configuring a message bar displayed by the <see cref="IMessageBarService"/>.
+/// Options for configuring a message bar displayed by the <see cref="INotificationService"/>.
 /// </summary>
 public class MessageBarOptions : IFluentComponentBase
 {

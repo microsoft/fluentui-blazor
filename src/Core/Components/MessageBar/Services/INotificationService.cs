@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Interface for the MessageBar service.
 /// </summary>
-public interface IMessageBarService : IFluentServiceBase<IMessageBarInstance>
+public partial interface INotificationService : IFluentServiceBase<IMessageBarInstance>
 {
     /// <summary>
     /// Shows a success message bar with the specified title and message and waits for the close result.
@@ -19,7 +19,7 @@ public interface IMessageBarService : IFluentServiceBase<IMessageBarInstance>
     /// <param name="title">The title of the message bar.</param>
     /// <param name="message">The message content of the message bar.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the message bar.</returns>
-    Task<MessageBarResult> ShowSuccessMessageAsync(string section, string? title = null, string? message = null);
+    Task<MessageBarResult> ShowSuccessBarAsync(string section, string? title = null, string? message = null);
 
     /// <summary>
     /// Shows a warning message bar with the specified title and message and waits for the close result.
@@ -28,7 +28,7 @@ public interface IMessageBarService : IFluentServiceBase<IMessageBarInstance>
     /// <param name="title">The title of the message bar.</param>
     /// <param name="message">The message content of the message bar.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the message bar.</returns>
-    Task<MessageBarResult> ShowWarningMessageAsync(string section, string? title = null, string? message = null);
+    Task<MessageBarResult> ShowWarningBarAsync(string section, string? title = null, string? message = null);
 
     /// <summary>
     /// Shows an error message bar with the specified title and message and waits for the close result.
@@ -37,7 +37,7 @@ public interface IMessageBarService : IFluentServiceBase<IMessageBarInstance>
     /// <param name="title">The title of the message bar.</param>
     /// <param name="message">The message content of the message bar.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the message bar.</returns>
-    Task<MessageBarResult> ShowErrorMessageAsync(string section, string? title = null, string? message = null);
+    Task<MessageBarResult> ShowErrorBarAsync(string section, string? title = null, string? message = null);
 
     /// <summary>
     /// Shows an informational message bar with the specified title and message and waits for the close result.
@@ -46,19 +46,19 @@ public interface IMessageBarService : IFluentServiceBase<IMessageBarInstance>
     /// <param name="title">The title of the message bar.</param>
     /// <param name="message">The message content of the message bar.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the message bar.</returns>
-    Task<MessageBarResult> ShowInfoMessageAsync(string section, string? title = null, string? message = null);
+    Task<MessageBarResult> ShowInfoBarAsync(string section, string? title = null, string? message = null);
 
     /// <summary>
     /// Shows a message bar using the supplied options and waits for the close result.
     /// </summary>
     /// <param name="options">Options to configure the message bar.</param>
-    Task<MessageBarResult> ShowMessageAsync(MessageBarOptions options);
+    Task<MessageBarResult> ShowMessageBarAsync(MessageBarOptions options);
 
     /// <summary>
     /// Shows a message bar by configuring an options object and waits for the close result.
     /// </summary>
     /// <param name="options">Action used to configure the message bar.</param>
-    Task<MessageBarResult> ShowMessageAsync(Action<MessageBarOptions> options);
+    Task<MessageBarResult> ShowMessageBarAsync(Action<MessageBarOptions> options);
 
     /// <summary>
     /// Shows a custom message bar component and waits for the close result.
@@ -66,7 +66,7 @@ public interface IMessageBarService : IFluentServiceBase<IMessageBarInstance>
     /// </summary>
     /// <typeparam name="TMessageBar">A Blazor component type used to render the message bar.</typeparam>
     /// <param name="options">Options used to configure the message bar.</param>
-    Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(MessageBarOptions options)
+    Task<MessageBarResult> ShowMessageBarAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(MessageBarOptions options)
         where TMessageBar : ComponentBase;
 
     /// <summary>
@@ -75,7 +75,7 @@ public interface IMessageBarService : IFluentServiceBase<IMessageBarInstance>
     /// </summary>
     /// <typeparam name="TMessageBar">A Blazor component type used to render the message bar.</typeparam>
     /// <param name="options">Action used to configure the message bar.</param>
-    Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(Action<MessageBarOptions> options)
+    Task<MessageBarResult> ShowMessageBarAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(Action<MessageBarOptions> options)
         where TMessageBar : ComponentBase;
 
     /// <summary>
@@ -97,5 +97,5 @@ public interface IMessageBarService : IFluentServiceBase<IMessageBarInstance>
     /// Closes all current message bars.
     /// </summary>
     /// <returns>The number of message bars that were closed.</returns>
-    Task<int> CloseAllAsync();
+    Task<int> CloseAllMessageBarsAsync();
 }

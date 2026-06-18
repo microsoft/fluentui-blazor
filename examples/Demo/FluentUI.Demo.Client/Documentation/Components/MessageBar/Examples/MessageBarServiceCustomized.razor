@@ -1,4 +1,4 @@
-﻿@inject IMessageBarService MessageBarService
+﻿@inject INotificationService NotificationService
 
 <FluentMessageBarProvider Section="@MESSAGEBAR_SECTION"
                           Margin="@Margin.Vertical2" />
@@ -20,12 +20,12 @@
 
     async Task ShowCustomizedMessageBar()
     {
-        var result = await MessageBarService.ShowMessageAsync<Message.CustomizedMessageBar>(options =>
+        var result = await NotificationService.ShowMessageBarAsync<Message.CustomizedMessageBar>(options =>
         {
             options.Section = MESSAGEBAR_SECTION;
 
             options.Intent = MessageBarIntent.Success;
-            options.Title = "Hello from the MessageBarService!";
+            options.Title = "Hello from the NotificationService!";
             options.Lifetime = TimeSpan.FromSeconds(10);
         });
 
@@ -34,11 +34,11 @@
 
     async Task ShowCustomizedComponent()
     {
-        var result = await MessageBarService.ShowMessageAsync<Message.CustomizedComponent>(options =>
+        var result = await NotificationService.ShowMessageBarAsync<Message.CustomizedComponent>(options =>
         {
             options.Section = MESSAGEBAR_SECTION;
 
-            options.Title = "Hello from the MessageBarService!";
+            options.Title = "Hello from the NotificationService!";
             options.Lifetime = TimeSpan.FromSeconds(5);
         });
 

@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Event arguments for the FluentMessageBar component when displayed by the <see cref="IMessageBarService"/>.
+/// Event arguments for the FluentMessageBar component when displayed by the <see cref="INotificationService"/>.
 /// </summary>
 public class MessageBarEventArgs : EventArgs
 {
@@ -28,7 +28,7 @@ public class MessageBarEventArgs : EventArgs
     public MessageBarLifecycleStatus Status { get; }
 
     /// <summary>
-    /// Gets the instance used by the <see cref="MessageBarService" />.
+    /// Gets the instance used by the <see cref="NotificationService" />.
     /// </summary>
     public IMessageBarInstance? Instance { get; }
 }
