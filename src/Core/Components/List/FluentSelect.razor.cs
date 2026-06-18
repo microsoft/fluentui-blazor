@@ -78,5 +78,7 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
         {
             await SelectedItemsChanged.InvokeAsync(SelectedItems);
         }
+
+        NotifyValidationFieldChanged();
     }
 }

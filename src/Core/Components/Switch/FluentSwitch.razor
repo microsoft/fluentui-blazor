@@ -1,5 +1,5 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
-@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+
 @inherits FluentInputBase<bool>
 
 <FluentField InputComponent="@this"
@@ -21,7 +21,7 @@
                    required="@Required"
                    @onfocusout="@FocusOutHandlerAsync"
                    @attributes="AdditionalAttributes"
-                   @onchange="@OnSwitchChangedHandler"
+                   @onchange="@OnSwitchChangedHandlerAsync"
                    slot="@FluentSlot.FieldInput"
                    tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)" />
 </FluentField>

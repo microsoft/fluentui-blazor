@@ -24,6 +24,11 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
         // Default conditions for the message
         MessageCondition = (field) =>
         {
+            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
+            {
+                return false;
+            }
+
             field.MessageIcon = FluentStatus.ErrorIcon;
             field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
 

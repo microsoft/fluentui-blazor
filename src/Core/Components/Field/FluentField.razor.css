@@ -30,3 +30,7 @@ fluent-field[label-position="before"]>[slot="message"]:empty {
 fluent-field label[disabled] {
   color: var(--colorNeutralForegroundDisabled);
 }
+
+fluent-field.invalid div::part('root') {
+  border-color: var(--colorPaletteRedBorder2);
+}

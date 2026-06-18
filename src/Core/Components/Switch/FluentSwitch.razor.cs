@@ -65,11 +65,13 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
         return Task.CompletedTask;
     }
 
-    private void OnSwitchChangedHandler(ChangeEventArgs e)
+    private async Task OnSwitchChangedHandlerAsync(ChangeEventArgs e)
     {
         ArgumentNullException.ThrowIfNull(e);
 
         CurrentValue = !CurrentValue;
+
+        await ReportValidityAsync();
     }
 
     /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />

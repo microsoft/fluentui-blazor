@@ -1,7 +1,4 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
-@using Microsoft.FluentUI.AspNetCore.Components.Utilities
-@using System.ComponentModel.DataAnnotations
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
 @inherits FluentUITestContext
 
@@ -131,6 +128,25 @@
         Assert.Equal("new value", value);
         cut.Find("fluent-textarea")
            .MarkupMatches("<fluent-textarea id=\"myId\" slot=\"input\" value=\"new value\" />");
+    }
+
+    [Fact]
+    public void FluentTextArea_OnChange_ReportsValidity()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = "init";
+        var cut = Render(@<FluentTextArea @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-textarea").Change("new value");
+
+        // Assert
+        var reportValidityInvocations = JSInterop.Invocations
+            .Where(invocation => invocation.Identifier == "Microsoft.FluentUI.Blazor.Utilities.Attributes.reportValidity")
+            .ToList();
+
+        Assert.Single(reportValidityInvocations);
     }
 
     [Theory]
