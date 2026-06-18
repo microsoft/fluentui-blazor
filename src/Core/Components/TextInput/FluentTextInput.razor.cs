@@ -49,7 +49,6 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     /// Gets the CSS class to apply to the internal web-component.
     /// </summary>
     protected virtual string? ComponentStyleValue => new StyleBuilder()
-        .AddStyle("width", Width)
         .Build();
 
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />

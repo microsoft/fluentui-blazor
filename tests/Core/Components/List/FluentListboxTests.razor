@@ -379,8 +379,10 @@
 
         // Assert - Width and Height are applied to the listbox
         var listbox = cut.Find("fluent-listbox");
+        var field = cut.Find("fluent-field");
         var listboxStyle = listbox.GetAttribute("style");
-        Assert.Contains("width: 200px", listboxStyle);
+        var fieldStyle = field.GetAttribute("style");
+        Assert.Contains("width: 200px", fieldStyle);
         Assert.Contains("height: 300px", listboxStyle);
     }
 

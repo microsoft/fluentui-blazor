@@ -498,9 +498,12 @@
         var cut = Render(@<FluentSelect Items="@Digits" TOption="string" TValue="string" Width="200px" Height="300px" />);
 
         // Assert - Width is applied to the dropdown, Height to the listbox
+        var field = cut.Find("fluent-field");
         var dropdown = cut.Find("fluent-dropdown");
         var dropdownStyle = dropdown.GetAttribute("style");
-        Assert.Contains("width: 200px", dropdownStyle);
+        var fieldStyle = field.GetAttribute("style");
+        
+        Assert.Contains("width: 200px", fieldStyle);
 
         var listbox = cut.Find("fluent-listbox");
         var listboxStyle = listbox.GetAttribute("style");

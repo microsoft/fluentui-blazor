@@ -3,9 +3,28 @@
   margin-top: var(--spacingVerticalM);
 }
 
-fluent-field[label-position='before'] > fluent-label[slot='label'] {
+fluent-field[label-position='before'] {
+  display: inline-flex;
+}
+
+fluent-field[label-position='before']>fluent-label[slot='label'] {
   margin-top: 8px;
   align-self: flex-start;
+}
+
+fluent-field[label-position="before"]>label[slot="label"] {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+}
+
+fluent-field[label-position="before"]:not(:has(fluent-slider, fluent-checkbox, fluent-switch, fluent-radio-group))>[slot="input"] {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+}
+
+fluent-field[label-position="before"]>[slot="message"]:empty {
+  display: none;
 }
 
 fluent-field label[disabled] {
