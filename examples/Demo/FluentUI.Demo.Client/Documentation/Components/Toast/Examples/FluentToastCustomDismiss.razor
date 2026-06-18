@@ -14,7 +14,7 @@
             options.Intent = ToastIntent.Success;
             options.Title = $"Toast title {++clickCount}";
             options.Body = "This toast has a custom dismiss action.";
-            options.IsDismissable = true;
+            options.AllowDismiss = true;
             options.DismissAction = "Undo";
             options.DismissActionCallback = () =>
             {

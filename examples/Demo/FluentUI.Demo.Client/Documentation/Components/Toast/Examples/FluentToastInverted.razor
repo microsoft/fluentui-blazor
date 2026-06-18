@@ -21,7 +21,7 @@
                 Console.WriteLine("Action 1 executed.");
                 return Task.CompletedTask;
             };
-            options.IsDismissable = true;
+            options.AllowDismiss = true;
             options.DismissAction = "Close";
             options.OnStatusChange = (e) =>
             {

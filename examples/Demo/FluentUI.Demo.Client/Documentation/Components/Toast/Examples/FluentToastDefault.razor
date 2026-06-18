@@ -26,7 +26,7 @@
                 Console.WriteLine("Action 2 executed.");
                 return Task.CompletedTask;
             };
-            options.IsDismissable = true;
+            options.AllowDismiss = true;
             options.OnStatusChange = (e) =>
             {
                    Console.WriteLine($"Status changed: {e.Id} - {e.Status}");

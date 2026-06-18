@@ -76,7 +76,7 @@
     {
         var icon = new CoreIcons.Regular.Size20.Dismiss();
         var cut = Render<FluentToast>(parameters => parameters
-            .Add(p => p.Body, "Toast body")
+            .Add(p => p.Message, "Toast body")
             .Add(p => p.Icon, icon));
 
         Assert.Same(icon, cut.Instance.Icon);
@@ -88,7 +88,7 @@
     public void FluentToast_Inverted_RendersInvertedAttribute()
     {
         var cut = Render<FluentToast>(parameters => parameters
-            .Add(p => p.Body, "Toast body")
+            .Add(p => p.Message, "Toast body")
             .Add(p => p.Inverted, true));
 
         Assert.True(cut.Instance.Inverted);
@@ -99,7 +99,7 @@
     public void FluentToast_IndeterminateProgress_RendersSpinner()
     {
         var cut = Render<FluentToast>(parameters => parameters
-            .Add(p => p.Body, "Toast body")
+            .Add(p => p.Message, "Toast body")
             .Add(p => p.Type, ToastType.IndeterminateProgress));
 
         Assert.Equal(ToastType.IndeterminateProgress, cut.Instance.Type);
@@ -143,7 +143,7 @@
     [Fact]
     public void FluentToast_Subtitle_RendersWhenNotEmpty()
     {
-        var cut = Render(@<FluentToast Body="Toast body" Subtitle="Toast subtitle" />);
+        var cut = Render(@<FluentToast Message="Toast body" Subtitle="Toast subtitle" />);
 
         Assert.Contains("Toast subtitle", cut.Markup);
     }
@@ -151,7 +151,7 @@
     [Fact]
     public void FluentToast_IsDismissable_TrueWithDismissAction_RendersDismissLink()
     {
-        var cut = Render(@<FluentToast Body="Toast body" IsDismissable="true" DismissAction="Dismiss now" />);
+        var cut = Render(@<FluentToast Message="Toast body" IsDismissable="true" DismissAction="Dismiss now" />);
 
         Assert.Contains("Dismiss now", cut.Markup);
         Assert.Contains("fluent-link", cut.Markup);
@@ -160,7 +160,7 @@
     [Fact]
     public void FluentToast_IsDismissable_TrueWithNullDismissAction_RendersDismissButton()
     {
-        var cut = Render(@<FluentToast Body="Toast body" IsDismissable="true" />);
+        var cut = Render(@<FluentToast Message="Toast body" IsDismissable="true" />);
 
         Assert.Contains("Title=\"Dismiss\"", cut.Markup, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("fluent-button", cut.Markup);
@@ -172,7 +172,7 @@
         var toastTask = ToastService.ShowToastAsync(options =>
         {
             options.Body = "Dismiss button body";
-            options.IsDismissable = true;
+            options.AllowDismiss = true;
         });
 
         await Task.CompletedTask;
@@ -212,7 +212,7 @@
         var toastTask = ToastService.ShowToastAsync(options =>
         {
             options.Body = "Dismiss callback body";
-            options.IsDismissable = true;
+            options.AllowDismiss = true;
             options.DismissAction = "Dismiss now";
             options.DismissActionCallback = () =>
             {
@@ -344,7 +344,7 @@
     [Fact]
     public async Task FluentToast_RequestCloseAsync_WhenNotOpened_DoesNothing()
     {
-        var cut = Render<FluentToast>(parameters => parameters.Add(p => p.Body, "Toast body"));
+        var cut = Render<FluentToast>(parameters => parameters.Add(p => p.Message, "Toast body"));
         var method = typeof(FluentToast).GetMethod("RequestCloseAsync", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
 
         var task = (Task)method.Invoke(cut.Instance, null)!;
@@ -652,7 +652,7 @@
     [InlineData(ToastIntent.Error, Color.Error)]
     public void FluentToast_Intent_MapsToExpectedColor(ToastIntent intent, Color expectedColor)
     {
-        var cut = Render<FluentToast>(parameters => parameters.Add(p => p.Body, "test"));
+        var cut = Render<FluentToast>(parameters => parameters.Add(p => p.Message, "test"));
         var color = cut.Instance.GetIntentColor(intent);
 
         Assert.Equal(expectedColor, color);
@@ -666,7 +666,7 @@
     public void FluentToast_Inverted_Intent_MapsToExpectedColor(ToastIntent intent, Color expectedColor)
     {
         var cut = Render<FluentToast>(parameters => parameters
-            .Add(p => p.Body, "test")
+            .Add(p => p.Message, "test")
             .Add(p => p.Inverted, true));
         var color = cut.Instance.GetIntentColor(intent);
 

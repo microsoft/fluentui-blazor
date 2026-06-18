@@ -63,7 +63,7 @@ public class LibraryToastOptions
     /// <summary>
     /// Gets or sets a value indicating whether visible toasts can be dismissed by the user.
     /// </summary>
-    public bool IsDismissable { get; set; } = _defaultIsDismissable;
+    public bool AllowDismiss { get; set; } = _defaultIsDismissable;
 
     /// <summary>
     /// Gets or sets a value indicating whether the toast uses inverted colors.

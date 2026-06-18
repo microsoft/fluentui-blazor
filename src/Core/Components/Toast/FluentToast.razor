@@ -6,7 +6,7 @@
                 class="@ClassValue"
                 style="@StyleValue"
                 opened="@(Opened ? "true" : "false")"
-                timeout="@Timeout"
+                timeout="@Lifetime"
                 position="@Position.ToAttributeValue()"
                 inverted="@(Inverted ? "true" : null)"
                 intent="@Intent.ToAttributeValue()"
@@ -17,39 +17,42 @@
                 horizontal-offset="@HorizontalOffset"
                 role="listitem"
                 aria-labelledby="@(string.IsNullOrEmpty(Title) ? null : $"{Id}-title")"
-                aria-describedby="@((string.IsNullOrEmpty(Body) && BodyContent is null) ? null : $"{Id}-body")"
+                aria-describedby="@(ChildContent is null ? null : $"{Id}-body")"
                 @attributes="@AdditionalAttributes"
                 @ondialogtoggle="@OnToggleAsync"
                 @ondialogbeforetoggle="@OnToggleAsync">
-    @if (Icon is not null)
-    {
-        <div slot="media" aria-hidden="true">
-            <FluentIcon Value="@Icon" Color="@GetIntentColor(Intent)" />
-        </div>
-    }
-    else if (Type == ToastType.IndeterminateProgress)
+
+    @* Slot Media: spinner or icon *@
+    @* @if (Type == ToastType.IndeterminateProgress)
     {
         <div slot="media">
-           <FluentSpinner Visible="true" Size="@SpinnerSize.Tiny" Style="--size: 1em;" />
+            <FluentSpinner Visible="true"
+                           Size="@SpinnerSize.Tiny"
+                           Style="--size: 1em;" />
         </div>
     }
-    else
+    else *@
     {
-        <div slot="media" aria-hidden="true">
-            <FluentIcon Value="@IntentIcon" Color="@GetIntentColor(Intent)" Width="1em" />
+        <div slot="media"
+             aria-hidden="true">
+            <FluentIcon Value="@GetTitleIcon()" Width="1em" />
         </div>
     }
 
+    @* Slot Title *@
     @if (!string.IsNullOrEmpty(Title))
     {
         <div id="@($"{Id}-title")" slot="title">@Title</div>
     }
 
-    @if (IsDismissable)
+    @* Slot Action *@
+    @if (AllowDismiss)
     {
         @if (!string.IsNullOrEmpty(DismissAction))
         {
-            <FluentLink slot="action" OnClick="@OnDismissActionClickedAsync" Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
+            <FluentLink slot="action"
+                        OnClick="@DismissClickAsync"
+                        Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
                 @DismissAction
             </FluentLink>
         }
@@ -58,17 +61,16 @@
             <FluentButton Appearance="@ButtonAppearance.Subtle"
                           IconOnly="true"
                           IconStart="@DismissIcon"
-                          Title="Dismiss"
                           slot="action"
-                          OnClick="@(() => Instance!.DismissAsync())" />
+                          OnClick="@DismissClickAsync" />
         }
     }
 
-    @if (!string.IsNullOrEmpty(Body) || BodyContent is not null)
+    @if (ChildContent is not null)
     {
-        <div id="@($"{Id}-body")">@Body@BodyContent</div>
+        <div id="@($"{Id}-body")">@ChildContent</div>
     }
-
+@* 
     @if (!string.IsNullOrEmpty(Subtitle))
     {
         <div slot="subtitle">@Subtitle</div>
@@ -79,17 +81,19 @@
         <div slot="footer">
             @if (!string.IsNullOrEmpty(QuickAction1))
             {
-                <FluentLink OnClick="@OnQuickAction1ClickedAsync" Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
+                <FluentLink OnClick="@OnQuickAction1ClickedAsync"
+                            Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
                     @QuickAction1
                 </FluentLink>
             }
 
             @if (!string.IsNullOrEmpty(QuickAction2))
             {
-                <FluentLink OnClick="@OnQuickAction2ClickedAsync" Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
+                <FluentLink OnClick="@OnQuickAction2ClickedAsync"
+                            Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
                     @QuickAction2
                 </FluentLink>
             }
         </div>
-    }
+    } *@
 </fluent-toast-b>

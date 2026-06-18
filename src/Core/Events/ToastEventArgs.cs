@@ -10,40 +10,31 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class ToastEventArgs : EventArgs
 {
     /// <summary />
-    internal ToastEventArgs(FluentToast toast, DialogToggleEventArgs args)
-        : this(toast, args.Id, args.Type, args.OldState, args.NewState)
+    internal ToastEventArgs(IToastInstance? instance, ToastLifecycleStatus status)
     {
-    }
-
-    /// <summary />
-    internal ToastEventArgs(FluentToast toast, string? id, string? eventType, string? oldState, string? newState)
-    {
-        Id = id ?? string.Empty;
-        Instance = toast.Instance;
-        Status = ToastLifecycleStatus.Queued;
-
-        if (string.Equals(eventType, "toggle", StringComparison.OrdinalIgnoreCase))
-        {
-            if (string.Equals(newState, "open", StringComparison.OrdinalIgnoreCase))
-            {
-                Status = ToastLifecycleStatus.Visible;
-            }
-        }
-        else if (string.Equals(eventType, "beforetoggle", StringComparison.OrdinalIgnoreCase))
-        {
-            if (string.Equals(oldState, "open", StringComparison.OrdinalIgnoreCase))
-            {
-                Status = ToastLifecycleStatus.Dismissed;
-            }
-        }
-    }
-
-    /// <summary />
-    internal ToastEventArgs(IToastInstance instance, ToastLifecycleStatus status)
-    {
-        Id = instance.Id;
+        Id = instance?.Id ?? string.Empty;
         Instance = instance;
         Status = status;
+    }
+
+    /// <summary />
+    internal ToastEventArgs(IToastInstance? instance, DialogToggleEventArgs args)
+        : this(instance, args.Id, args.Type, args.OldState, args.NewState)
+    {
+    }
+
+    /// <summary />
+    internal ToastEventArgs(IToastInstance? instance, string? id, string? eventType, string? oldState, string? newState)
+    {
+        Id = id ?? string.Empty;
+        Instance = instance;
+
+        Status = DialogEventArgs.GetDialogState(eventType, oldState, newState) switch
+        {
+            DialogState.Open => ToastLifecycleStatus.Visible,
+            DialogState.Closing => ToastLifecycleStatus.Dismissed,
+            _ => ToastLifecycleStatus.Queued,
+        };
     }
 
     /// <summary>
@@ -58,6 +49,7 @@ public class ToastEventArgs : EventArgs
 
     /// <summary>
     /// Gets the instance used by the <see cref="ToastService" />.
+    /// This value may be null if the toast is not managed by the <see cref="ToastService"/>.
     /// </summary>
     public IToastInstance? Instance { get; }
 }

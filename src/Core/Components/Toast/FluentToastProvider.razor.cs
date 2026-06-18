@@ -81,8 +81,8 @@ public partial class FluentToastProvider : FluentComponentBase
     private bool GetPauseOnWindowBlur(IToastInstance toast)
         => toast.Options.PauseOnWindowBlur ?? configuration.Toast.PauseOnWindowBlur;
 
-    private bool GetIsDismissable(IToastInstance toast)
-        => toast.Options.IsDismissable ?? configuration.Toast.IsDismissable;
+    private bool GetAllowDismiss(IToastInstance toast)
+        => toast.Options.AllowDismiss ?? configuration.Toast.AllowDismiss;
 
     private bool GetInverted(IToastInstance toast)
         => toast.Options.Inverted ?? configuration.Toast.Inverted;
@@ -92,6 +92,17 @@ public partial class FluentToastProvider : FluentComponentBase
             .Where(toast => toast.LifecycleStatus is ToastLifecycleStatus.Visible or ToastLifecycleStatus.Dismissed)
             .OrderByDescending(toast => toast.Index)
             ?? Enumerable.Empty<IToastInstance>();
+
+    /// <summary />
+    private RenderFragment RenderToastContent(IToastInstance? toast) => builder =>
+    {
+        if (toast is null || string.IsNullOrEmpty(toast.Options.Message))
+        {
+            return;
+        }
+
+        builder.AddContent(0, new MarkupStringSanitized(toast.Options.Message, MarkupStringSanitized.Formats.Html, LibraryConfiguration));
+    };
 
     private void SynchronizeToastQueue()
     {

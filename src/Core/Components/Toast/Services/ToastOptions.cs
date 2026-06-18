@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -121,9 +120,10 @@ public class ToastOptions : IFluentComponentBase
     public string? Title { get; set; }
 
     /// <summary>
-    /// Gets or sets the body text of the toast.
+    /// Gets or sets the message displayed in the toast.
+    /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
     /// </summary>
-    public string? Body { get; set; }
+    public string? Message { get; set; }
 
     /// <summary>
     /// Gets or sets the subtitle of the toast.
@@ -153,7 +153,7 @@ public class ToastOptions : IFluentComponentBase
     /// <summary>
     /// Gets or sets a value indicating whether the toast can be dismissed by the user.
     /// </summary>
-    public bool? IsDismissable { get; set; }
+    public bool? AllowDismiss { get; set; }
 
     /// <summary>
     /// Gets or sets dismiss action label.
@@ -169,12 +169,6 @@ public class ToastOptions : IFluentComponentBase
     /// Gets or sets the icon rendered in the media slot.
     /// </summary>
     public Icon? Icon { get; set; }
-
-    /// <summary>
-    /// Gets or sets custom content rendered in the default slot, such as progress content updated through
-    /// <see cref="IToastInstance.UpdateAsync(Action{ToastOptions})"/>.
-    /// </summary>
-    public RenderFragment? BodyContent { get; set; }
 
     /// <summary>
     /// Gets or sets the action raised when the toast lifecycle status changes.
