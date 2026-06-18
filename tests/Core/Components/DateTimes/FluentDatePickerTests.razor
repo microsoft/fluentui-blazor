@@ -1,7 +1,6 @@
-﻿@using System.Globalization
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Globalization
 @using System.Reflection
-@using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@using System.Runtime.InteropServices
 @using Xunit
 @inherits FluentUITestContext
 
@@ -720,5 +719,46 @@
             Assert.NotNull(validationErrorMessage);
             Assert.Contains("must be a date", validationErrorMessage);
         }
+    }
+
+    [Fact]
+    public void FluentDatePicker_RendersFieldWithTextInput()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now); 
+
+        // Act
+        var cut = Render(@<FluentDatePicker TValue="DateTime?" Label="Date" Required="true" />);
+
+        // Assert
+        Assert.Single(cut.FindAll("fluent-field > fluent-text-input"));
+    }
+
+    [Fact]
+    public void FluentDatePicker_EditFormValidation_ShowsMessageInFieldSlot()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var model = new DatePickerValidationModel();
+        var cut = Render(
+            @<EditForm Model="@model">
+                <DataAnnotationsValidator />
+                <FluentDatePicker TValue="DateTime?" Label="Production Date" Name="production-date" @bind-Value="@model.ProductionDate" Required="true" />
+                <button type="submit">Submit</button>
+            </EditForm>);
+
+        // Act
+        cut.Find("button[type='submit']").Click();
+
+        // Assert
+        var messages = cut.FindAll("fluent-field fluent-text[slot='message']");
+        Assert.Single(messages);
+        Assert.Contains("Production date is required", messages[0].TextContent);
+    }
+
+    private class DatePickerValidationModel
+    {
+        [Required(ErrorMessage = "Production date is required")]
+        public DateTime? ProductionDate { get; set; }
     }
 }

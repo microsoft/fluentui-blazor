@@ -3,6 +3,8 @@
 // ------------------------------------------------------------------------
 
 using FluentUI.Demo.SampleData;
+using Microsoft.FluentUI.AspNetCore.Components;
+using static FluentUI.Demo.SampleData.Olympics2024;
 
 namespace FluentUI.Demo.Client.Documentation.Components.Forms.Examples;
 
@@ -13,6 +15,13 @@ public partial class BasicForm
     protected override void OnInitialized()
     {
         starship.ProductionDate = System.DateTime.Now;
+    }
+
+    private static void OnSearch(OptionsSearchEventArgs<Country> e)
+    {
+        var allCountries = Countries;
+        e.Items = allCountries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                              .OrderBy(i => i.Name);
     }
 
     private static void HandleValidSubmit()

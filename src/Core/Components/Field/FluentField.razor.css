@@ -11,3 +11,7 @@ fluent-field[label-position='before'] > fluent-label[slot='label'] {
 fluent-field label[disabled] {
   color: var(--colorNeutralForegroundDisabled);
 }
+
+fluent-field.invalid div::part('root') {
+  border-color: var(--colorPaletteRedBorder2);
+}

@@ -1,6 +1,5 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+﻿@using System.ComponentModel.DataAnnotations
 @using Xunit;
-@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
 @inherits FluentUITestContext
 @code
 {
@@ -886,7 +885,7 @@
 
     [Fact]
     public void FluentAutocomplete_BindSelectedItems_SingleSelect_TakesOnlyFirstItem()
-    {        
+    {
         // Arrange - Pass two items via @bind-SelectedItems with Multiple=false
         IEnumerable<string> selectedItems = new List<string> { "Three", "Six" };
         var cut = Render(@<FluentAutocomplete Id="my-list"
@@ -1271,6 +1270,42 @@
         Assert.Same(expression, instance.SelectedItemExpression);
     }
 
+    [Fact]
+    public void FluentAutocomplete_RendersFieldWithTextInput()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAutocomplete TOption="string" TValue="string" Label="Countries" Required="true" Items="@Digits" />);
+
+        // Assert
+        Assert.Single(cut.FindAll("fluent-field > fluent-text-input[auto-complete='true']"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_EditFormValidation_ShowsMessageInFieldSlot()
+    {
+        // Arrange
+        var model = new AutocompleteValidationModel();
+        var cut = Render(
+            @<EditForm Model="@model">
+                <DataAnnotationsValidator />
+                <FluentAutocomplete TOption="string"
+                                    TValue="string"
+                                    Name="countries"
+                                    Label="Countries"
+                                    Required="true"
+                                    Items="@Digits"
+                                    @bind-SelectedItems="@model.Countries" />
+                <button type="submit">Submit</button>
+            </EditForm>);
+
+        // Act
+        cut.Find("button[type='submit']").Click();
+
+        // Assert
+        var messages = cut.FindAll("fluent-field fluent-text[slot='message']");
+        Assert.Contains(messages, message => message.TextContent.Contains("Countries are required", StringComparison.Ordinal));
+    }
+
     public class Person : IEqualityComparer<Person>
     {
         public int Id { get; set; }
@@ -1280,5 +1315,12 @@
         public bool Equals(Person? x, Person? y) => x?.Id == y?.Id;
 
         public int GetHashCode(Person obj) => obj.Id.GetHashCode();
+    }
+
+    private class AutocompleteValidationModel
+    {
+        [Required(ErrorMessage = "Countries are required")]
+        [MinLength(1, ErrorMessage = "Countries are required")]
+        public IEnumerable<string>? Countries { get; set; }
     }
 }
