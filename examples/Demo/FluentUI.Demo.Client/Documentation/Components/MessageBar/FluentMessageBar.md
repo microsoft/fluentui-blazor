@@ -76,10 +76,10 @@ and a local provider scoped to a specific panel or dialog), and to route each me
 
 The simplest way to display a message is to use one of the typed helpers, passing the target section and the message text:
 
-- `NotificationService.ShowSuccessMessageAsync("SECTION", "Title", "Message")`
-- `NotificationService.ShowWarningMessageAsync("SECTION", "Title", "Message")`
-- `NotificationService.ShowErrorMessageAsync("SECTION", "Title", "Message")`
-- `NotificationService.ShowInfoMessageAsync("SECTION", "Title", "Message")`
+- `NotificationService.ShowSuccessBarAsync("SECTION", "Title", "Message")`
+- `NotificationService.ShowWarningBarAsync("SECTION", "Title", "Message")`
+- `NotificationService.ShowErrorBarAsync("SECTION", "Title", "Message")`
+- `NotificationService.ShowInfoBarAsync("SECTION", "Title", "Message")`
 
 {{ MessageBarServiceDefault }}
 
