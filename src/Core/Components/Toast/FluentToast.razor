@@ -23,77 +23,72 @@
                 @ondialogbeforetoggle="@OnToggleAsync">
 
     @* Slot Media: spinner or icon *@
-    @* @if (Type == ToastType.IndeterminateProgress)
+    @if (Intent is not null || Icon is not null)
     {
-        <div slot="media">
-            <FluentSpinner Visible="true"
-                           Size="@SpinnerSize.Tiny"
-                           Style="--size: 1em;" />
-        </div>
-    }
-    else *@
-    {
-        <div slot="media"
-             aria-hidden="true">
-            <FluentIcon Value="@GetTitleIcon()" Width="1em" />
+        <div slot="@FluentSlot.ToastMedia" aria-hidden="true">
+            @if (Intent == ToastIntent.Progress)
+            {
+                <FluentSpinner Visible="true" Size="@SpinnerSize.Tiny" Style="--size: 1em;" />
+            }
+            else if (Icon is not null)
+            {
+                <FluentIcon Value="@Icon" Width="1em" />
+            }
+            else
+            {
+                <FluentIcon Value="@GetIntentIcon()" Width="1em" />
+            }
         </div>
     }
 
     @* Slot Title *@
     @if (!string.IsNullOrEmpty(Title))
     {
-        <div id="@($"{Id}-title")" slot="title">@Title</div>
+        <div id="@($"{Id}-title")" slot="@FluentSlot.ToastTitle">
+             @(new MarkupStringSanitized(Title, MarkupStringSanitized.Formats.Html, LibraryConfiguration))
+        </div>
     }
 
-    @* Slot Action *@
+    @* Slot Action (right of title)*@
     @if (AllowDismiss)
     {
-        @if (!string.IsNullOrEmpty(DismissAction))
+        @if (string.IsNullOrEmpty(DismissAction))
         {
-            <FluentLink slot="action"
+            <FluentButton Appearance="@ButtonAppearance.Subtle"
+                          IconStart="@(new CoreIcons.Regular.Size20.Dismiss().WithColor("currentColor"))"
+                          IconOnly="true"
+                          Size="ButtonSize.Small"
+                          slot="@FluentSlot.ToastAction"
+                          OnClick="@DismissClickAsync" />
+        }
+        else
+        {
+            <FluentLink slot="@FluentSlot.ToastAction"
                         OnClick="@DismissClickAsync"
                         Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
                 @DismissAction
             </FluentLink>
         }
-        else
-        {
-            <FluentButton Appearance="@ButtonAppearance.Subtle"
-                          IconOnly="true"
-                          IconStart="@DismissIcon"
-                          slot="action"
-                          OnClick="@DismissClickAsync" />
-        }
     }
 
     @if (ChildContent is not null)
     {
-        <div id="@($"{Id}-body")">@ChildContent</div>
+        <div id="@($"{Id}-body")">
+            @ChildContent
+        </div>
     }
-@* 
+
     @if (!string.IsNullOrEmpty(Subtitle))
     {
-        <div slot="subtitle">@Subtitle</div>
+        <div slot="@FluentSlot.ToastSubtitle">
+            @(new MarkupStringSanitized(Subtitle, MarkupStringSanitized.Formats.Html, LibraryConfiguration))
+        </div>
     }
 
-    @if (!string.IsNullOrEmpty(QuickAction1) || !string.IsNullOrEmpty(QuickAction2))
+    @if (FooterTemplate is not null)
     {
-        <div slot="footer">
-            @if (!string.IsNullOrEmpty(QuickAction1))
-            {
-                <FluentLink OnClick="@OnQuickAction1ClickedAsync"
-                            Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
-                    @QuickAction1
-                </FluentLink>
-            }
-
-            @if (!string.IsNullOrEmpty(QuickAction2))
-            {
-                <FluentLink OnClick="@OnQuickAction2ClickedAsync"
-                            Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
-                    @QuickAction2
-                </FluentLink>
-            }
+        <div slot="@FluentSlot.ToastFooter">
+            @FooterTemplate
         </div>
-    } *@
+    }
 </fluent-toast-b>

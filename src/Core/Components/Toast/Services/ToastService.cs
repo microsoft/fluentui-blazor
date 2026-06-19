@@ -38,7 +38,7 @@ public partial class ToastService : FluentServiceBase<IToastInstance>, IToastSer
         if (ToastInstance?.FluentToast is FluentToast fluentToast)
         {
             ToastInstance.PendingCloseReason = reason;
-            await fluentToast.RequestCloseAsync();
+            await fluentToast.CloseAsync();
             return;
         }
 

@@ -85,11 +85,6 @@ public class ToastOptions : IFluentComponentBase
     public int? HorizontalOffset { get; set; }
 
     /// <summary>
-    /// Gets or sets the toast type, which determines things like a default icon and styling of the toast.
-    /// </summary>
-    public ToastType Type { get; set; } = ToastType.Communication;
-
-    /// <summary>
     /// Gets or sets a value indicating whether the toast uses inverted colors.
     /// </summary>
     public bool? Inverted { get; set; }

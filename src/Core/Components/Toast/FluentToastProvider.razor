@@ -20,7 +20,6 @@
                              Position="@GetPosition(toast)"
                              VerticalOffset="@GetVerticalOffset(toast)"
                              HorizontalOffset="@GetHorizontalOffset(toast)"
-                             Type="@toast.Options.Type"
                              Inverted="@GetInverted(toast)"
                              Intent="@toast.Options.Intent"
                              Politeness="@toast.Options.Politeness"
@@ -31,8 +30,6 @@
                              Title="@toast.Options.Title"
                              ChildContent="@RenderToastContent(toast)"
                              Subtitle="@toast.Options.Subtitle"
-                             QuickAction1="@toast.Options.QuickAction1"
-                             QuickAction2="@toast.Options.QuickAction2"
                              AllowDismiss="@GetAllowDismiss(toast)"
                              DismissAction="@toast.Options.DismissAction"
                              AdditionalAttributes="@toast.Options.AdditionalAttributes" />
