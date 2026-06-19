@@ -69,4 +69,4 @@ This allows for greater flexibility in managing the tab content and user interac
 
 ## Migrating to v5
 
-TODO
+{{ INCLUDE File=MigrationFluentTabs }}
