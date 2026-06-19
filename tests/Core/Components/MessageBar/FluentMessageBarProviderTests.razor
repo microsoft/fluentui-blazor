@@ -12,13 +12,13 @@
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
 
-        MessageBarService = Services.GetRequiredService<IMessageBarService>();
+        NotificationService = Services.GetRequiredService<INotificationService>();
     }
 
     /// <summary>
     /// Gets the message bar service.
     /// </summary>
-    public IMessageBarService MessageBarService { get; }
+    public INotificationService NotificationService { get; }
 
     [Fact]
     public void FluentMessageBarProvider_RenderEmpty()
@@ -48,7 +48,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         // Act
-        _ = MessageBarService.ShowInfoMessageAsync(TEST_SECTION, "Info title", "Info message");
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Info title", "Info message");
 
         // Don't wait for the message bar to be closed
         await Task.CompletedTask;
@@ -69,7 +69,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         // Act
-        _ = MessageBarService.ShowSuccessMessageAsync(TEST_SECTION, "Success title");
+        _ = NotificationService.ShowSuccessBarAsync(TEST_SECTION, "Success title");
 
         await Task.CompletedTask;
 
@@ -84,7 +84,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         // Act
-        _ = MessageBarService.ShowWarningMessageAsync(TEST_SECTION, "Warning title");
+        _ = NotificationService.ShowWarningBarAsync(TEST_SECTION, "Warning title");
 
         await Task.CompletedTask;
 
@@ -99,7 +99,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         // Act
-        _ = MessageBarService.ShowErrorMessageAsync(TEST_SECTION, "Error title");
+        _ = NotificationService.ShowErrorBarAsync(TEST_SECTION, "Error title");
 
         await Task.CompletedTask;
 
@@ -122,7 +122,7 @@
         };
 
         // Act
-        _ = MessageBarService.ShowMessageAsync(options);
+        _ = NotificationService.ShowMessageBarAsync(options);
 
         await Task.CompletedTask;
 
@@ -142,7 +142,7 @@
         var cutB = Render(@<FluentMessageBarProvider Section="section-B" />);
 
         // Act
-        _ = MessageBarService.ShowInfoMessageAsync("section-A", "For A");
+        _ = NotificationService.ShowInfoBarAsync("section-A", "For A");
 
         await Task.CompletedTask;
 
@@ -158,7 +158,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="LOWER" />);
 
         // Act
-        _ = MessageBarService.ShowInfoMessageAsync("lower", "Case insensitive");
+        _ = NotificationService.ShowInfoBarAsync("lower", "Case insensitive");
 
         await Task.CompletedTask;
 
@@ -172,7 +172,7 @@
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
-        var task = MessageBarService.ShowInfoMessageAsync(TEST_SECTION, "Dismiss me");
+        var task = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Dismiss me");
         cut.WaitForAssertion(() => Assert.Contains("Dismiss me", cut.Markup));
 
         // Act
@@ -192,7 +192,7 @@
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
-        var task = MessageBarService.ShowMessageAsync(o =>
+        var task = NotificationService.ShowMessageBarAsync(o =>
         {
             o.Section = TEST_SECTION;
             o.Id = "to-close";
@@ -201,7 +201,7 @@
         cut.WaitForAssertion(() => Assert.Contains("Close me", cut.Markup));
 
         // Act
-        var closed = await MessageBarService.CloseAsync("to-close", "payload");
+        var closed = await NotificationService.CloseAsync("to-close", "payload");
         var result = await task;
 
         // Assert
@@ -217,7 +217,7 @@
         Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         // Act
-        var closed = await MessageBarService.CloseAsync("unknown");
+        var closed = await NotificationService.CloseAsync("unknown");
 
         // Assert
         Assert.False(closed);
@@ -233,7 +233,7 @@
         Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         // Act
-        var closed = await MessageBarService.CloseAsync(id!);
+        var closed = await NotificationService.CloseAsync(id!);
 
         // Assert
         Assert.False(closed);
@@ -246,7 +246,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         IMessageBarInstance? captured = null;
-        var task = MessageBarService.ShowMessageAsync(o =>
+        var task = NotificationService.ShowMessageBarAsync(o =>
         {
             o.Section = TEST_SECTION;
             o.Title = "Instance close";
@@ -262,7 +262,7 @@
         cut.WaitForAssertion(() => Assert.NotNull(captured));
 
         // Act
-        await MessageBarService.CloseAsync(captured!);
+        await NotificationService.CloseAsync(captured!);
         var result = await task;
 
         // Assert
@@ -276,7 +276,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         IMessageBarInstance? captured = null;
-        var task = MessageBarService.ShowMessageAsync(o =>
+        var task = NotificationService.ShowMessageBarAsync(o =>
         {
             o.Section = TEST_SECTION;
             o.Title = "With result";
@@ -293,7 +293,7 @@
 
         // Act
         var customResult = MessageBarResult.OfDismissed("custom");
-        await MessageBarService.CloseAsync(captured!, customResult);
+        await NotificationService.CloseAsync(captured!, customResult);
         var result = await task;
 
         // Assert
@@ -310,7 +310,7 @@
         var fake = new FakeMessageBarInstance();
 
         // Act & Assert (must not throw)
-        await MessageBarService.CloseAsync(fake);
+        await NotificationService.CloseAsync(fake);
     }
 
     [Fact(Timeout = TEST_TIMEOUT)]
@@ -319,13 +319,13 @@
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
-        var task1 = MessageBarService.ShowInfoMessageAsync(TEST_SECTION, "One");
-        var task2 = MessageBarService.ShowInfoMessageAsync(TEST_SECTION, "Two");
+        var task1 = NotificationService.ShowInfoBarAsync(TEST_SECTION, "One");
+        var task2 = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Two");
 
         cut.WaitForAssertion(() => Assert.Equal(2, cut.FindAll("fluent-message-bar").Count));
 
         // Act
-        var closed = await MessageBarService.CloseAllAsync();
+        var closed = await NotificationService.CloseAllMessageBarsAsync();
         var r1 = await task1;
         var r2 = await task2;
 
@@ -343,7 +343,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         IMessageBarInstance? captured = null;
-        var task = MessageBarService.ShowMessageAsync(o =>
+        var task = NotificationService.ShowMessageBarAsync(o =>
         {
             o.Section = TEST_SECTION;
             o.Title = "Double";
@@ -358,9 +358,9 @@
         cut.WaitForAssertion(() => Assert.NotNull(captured));
 
         // Act: close twice
-        await MessageBarService.CloseAsync(captured!);
+        await NotificationService.CloseAsync(captured!);
         var result = await task;
-        await MessageBarService.CloseAsync(captured!);
+        await NotificationService.CloseAsync(captured!);
 
         // Assert: only one result was produced
         Assert.Equal(MessageBarCloseReason.Programmatic, result.Reason);
@@ -373,7 +373,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         // Act
-        var task = MessageBarService.ShowMessageAsync(o =>
+        var task = NotificationService.ShowMessageBarAsync(o =>
         {
             o.Section = TEST_SECTION;
             o.Title = "Auto";
@@ -393,7 +393,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         // Act: a zero (or negative) lifetime should NOT schedule auto-dismiss
-        var task = MessageBarService.ShowMessageAsync(o =>
+        var task = NotificationService.ShowMessageBarAsync(o =>
         {
             o.Section = TEST_SECTION;
             o.Title = "NoAuto";
@@ -407,7 +407,7 @@
         cut.WaitForAssertion(() => Assert.Contains("NoAuto", cut.Markup));
 
         // Cleanup
-        await MessageBarService.CloseAllAsync();
+        await NotificationService.CloseAllMessageBarsAsync();
         await task;
     }
 
@@ -419,7 +419,7 @@
 
         var statuses = new List<MessageBarLifecycleStatus>();
 
-        var task = MessageBarService.ShowMessageAsync(o =>
+        var task = NotificationService.ShowMessageBarAsync(o =>
         {
             o.Section = TEST_SECTION;
             o.Title = "Events";
@@ -429,7 +429,7 @@
         cut.WaitForAssertion(() => Assert.Single(statuses));
 
         // Act
-        await MessageBarService.CloseAllAsync();
+        await NotificationService.CloseAllMessageBarsAsync();
         await task;
 
         // Assert: Visible, Dismissed, Unmounted
@@ -444,7 +444,7 @@
         // Arrange
         Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
-        var first = MessageBarService.ShowMessageAsync(o =>
+        var first = NotificationService.ShowMessageBarAsync(o =>
         {
             o.Section = TEST_SECTION;
             o.Id = "dupe";
@@ -454,7 +454,7 @@
         // Act
         var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
         {
-            await MessageBarService.ShowMessageAsync(o =>
+            await NotificationService.ShowMessageBarAsync(o =>
             {
                 o.Section = TEST_SECTION;
                 o.Id = "dupe";
@@ -466,7 +466,7 @@
         Assert.Contains("dupe", ex.Message);
 
         // Cleanup
-        await MessageBarService.CloseAllAsync();
+        await NotificationService.CloseAllMessageBarsAsync();
         await first;
     }
 
@@ -479,7 +479,7 @@
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentNullException>(async () =>
         {
-            await MessageBarService.ShowMessageAsync((MessageBarOptions)null!);
+            await NotificationService.ShowMessageBarAsync((MessageBarOptions)null!);
         });
     }
 
@@ -495,7 +495,7 @@
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(async () =>
         {
-            await MessageBarService.ShowMessageAsync(o =>
+            await NotificationService.ShowMessageBarAsync(o =>
             {
                 o.Section = section!;
                 o.Title = "No section";
@@ -511,7 +511,7 @@
         // Act & Assert
         await Assert.ThrowsAsync<FluentServiceProviderException<FluentMessageBarProvider>>(async () =>
         {
-            await MessageBarService.ShowInfoMessageAsync(TEST_SECTION, "No provider");
+            await NotificationService.ShowInfoBarAsync(TEST_SECTION, "No provider");
         });
     }
 
@@ -526,7 +526,7 @@
 
         var second = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
-        _ = MessageBarService.ShowInfoMessageAsync(TEST_SECTION, "After dispose");
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "After dispose");
 
         await Task.CompletedTask;
 
@@ -546,7 +546,7 @@
         // Assert: ProviderId is reset, ShowMessage throws
         await Assert.ThrowsAsync<FluentServiceProviderException<FluentMessageBarProvider>>(async () =>
         {
-            await MessageBarService.ShowInfoMessageAsync(TEST_SECTION, "Nope");
+            await NotificationService.ShowInfoBarAsync(TEST_SECTION, "Nope");
         });
     }
 
@@ -557,7 +557,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         // Act
-        _ = MessageBarService.ShowMessageAsync<Templates.CustomMessageBarTemplate>(o =>
+        _ = NotificationService.ShowMessageBarAsync<Templates.CustomMessageBarTemplate>(o =>
         {
             o.Section = TEST_SECTION;
             o.Parameters[nameof(Templates.CustomMessageBarTemplate.Text)] = "from-test";
@@ -582,7 +582,7 @@
         options.Parameters[nameof(Templates.CustomMessageBarTemplate.Text)] = "options-text";
 
         // Act
-        _ = MessageBarService.ShowMessageAsync<Templates.CustomMessageBarTemplate>(options);
+        _ = NotificationService.ShowMessageBarAsync<Templates.CustomMessageBarTemplate>(options);
 
         await Task.CompletedTask;
 
@@ -597,7 +597,7 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         // Act: Show a message with Title only (no Message)
-        _ = MessageBarService.ShowInfoMessageAsync(TEST_SECTION, "OnlyTitle");
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "OnlyTitle");
 
         await Task.CompletedTask;
 
@@ -613,9 +613,9 @@
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
         // Act
-        _ = MessageBarService.ShowInfoMessageAsync(TEST_SECTION, "First");
-        _ = MessageBarService.ShowInfoMessageAsync(TEST_SECTION, "Second");
-        _ = MessageBarService.ShowInfoMessageAsync(TEST_SECTION, "Third");
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "First");
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Second");
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Third");
 
         await Task.CompletedTask;
 
@@ -635,8 +635,8 @@
         var cutB = Render(@<FluentMessageBarProvider Section="B" />);
 
         // Act
-        _ = MessageBarService.ShowInfoMessageAsync("A", "OnlyA");
-        _ = MessageBarService.ShowInfoMessageAsync("B", "OnlyB");
+        _ = NotificationService.ShowInfoBarAsync("A", "OnlyA");
+        _ = NotificationService.ShowInfoBarAsync("B", "OnlyB");
 
         await Task.CompletedTask;
 
@@ -648,7 +648,7 @@
     }
 
     /// <summary>
-    /// A fake <see cref="IMessageBarInstance"/> used to verify that <see cref="MessageBarService.CloseAsync(IMessageBarInstance, object?)"/>
+    /// A fake <see cref="IMessageBarInstance"/> used to verify that <see cref="NotificationService.CloseAsync(IMessageBarInstance, object?)"/>
     /// is a no-op when the instance is not a <see cref="MessageBarInstance"/>.
     /// </summary>
     private sealed class FakeMessageBarInstance : IMessageBarInstance

@@ -8,7 +8,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Container component that renders all message bars registered with the <see cref="IMessageBarService"/>.
+/// Container component that renders all message bars registered with the <see cref="INotificationService"/>.
 /// </summary>
 public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
 {
@@ -36,14 +36,14 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
     public required string Section { get; set; }
 
     /// <summary />
-    protected virtual IMessageBarService? MessageBarService => GetCachedServiceOrNull<IMessageBarService>();
+    protected virtual INotificationService? NotificationService => GetCachedServiceOrNull<INotificationService>();
 
     /// <summary />
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        if (MessageBarService is MessageBarService service)
+        if (NotificationService is NotificationService service)
         {
             // Register this provider as a subscriber. Multiple providers can coexist:
             // each one is notified and decides (via Section) which messages to render.
@@ -54,7 +54,7 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
     /// <summary />
     public void Dispose()
     {
-        if (MessageBarService is MessageBarService service && !string.IsNullOrEmpty(Id))
+        if (NotificationService is NotificationService service && !string.IsNullOrEmpty(Id))
         {
             service.Unsubscribe(Id);
         }
@@ -62,7 +62,7 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
 
     /// <summary />
     private IEnumerable<IMessageBarInstance> GetRenderedMessageBars()
-        => MessageBarService?.Items.Values
+        => NotificationService?.Items.Values
             .Where(messageBar => string.Compare(messageBar.Options.Section, Section, StringComparison.OrdinalIgnoreCase) == 0 &&
                                  messageBar.LifecycleStatus == MessageBarLifecycleStatus.Visible)
             .OrderBy(messageBar => messageBar.Index)

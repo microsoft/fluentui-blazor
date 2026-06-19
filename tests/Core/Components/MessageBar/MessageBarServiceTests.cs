@@ -12,7 +12,7 @@ public class MessageBarServiceTests
     public void MessageBarService_Subscribe_NullProviderId_NoOp()
     {
         // Arrange
-        var service = new MessageBarService();
+        var service = new NotificationService();
         var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
 
         // Act
@@ -27,7 +27,7 @@ public class MessageBarServiceTests
     public void MessageBarService_Subscribe_EmptyProviderId_NoOp()
     {
         // Arrange
-        var service = new MessageBarService();
+        var service = new NotificationService();
         var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
 
         // Act
@@ -41,7 +41,7 @@ public class MessageBarServiceTests
     public void MessageBarService_Subscribe_NullCallback_NoOp()
     {
         // Arrange
-        var service = new MessageBarService();
+        var service = new NotificationService();
         var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
 
         // Act
@@ -55,7 +55,7 @@ public class MessageBarServiceTests
     public void MessageBarService_Unsubscribe_NullProviderId_NoOp()
     {
         // Arrange
-        var service = new MessageBarService();
+        var service = new NotificationService();
         service.Subscribe("provider-1", _ => Task.CompletedTask);
 
         // Act
@@ -70,7 +70,7 @@ public class MessageBarServiceTests
     public void MessageBarService_Unsubscribe_EmptyProviderId_NoOp()
     {
         // Arrange
-        var service = new MessageBarService();
+        var service = new NotificationService();
         service.Subscribe("provider-1", _ => Task.CompletedTask);
 
         // Act
@@ -85,7 +85,7 @@ public class MessageBarServiceTests
     public void MessageBarService_Unsubscribe_OnlyProvider_ResetsProviderId()
     {
         // Arrange
-        var service = new MessageBarService();
+        var service = new NotificationService();
         var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
         service.Subscribe("provider-1", _ => Task.CompletedTask);
 
@@ -101,7 +101,7 @@ public class MessageBarServiceTests
     public void MessageBarService_Unsubscribe_FirstOfMany_SwitchesProviderId()
     {
         // Arrange
-        var service = new MessageBarService();
+        var service = new NotificationService();
         var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
         service.Subscribe("provider-1", _ => Task.CompletedTask);
         service.Subscribe("provider-2", _ => Task.CompletedTask);
@@ -119,7 +119,7 @@ public class MessageBarServiceTests
     public void MessageBarService_Unsubscribe_NotCurrentProviderId_KeepsCurrent()
     {
         // Arrange
-        var service = new MessageBarService();
+        var service = new NotificationService();
         var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
         service.Subscribe("provider-1", _ => Task.CompletedTask);
         service.Subscribe("provider-2", _ => Task.CompletedTask);
@@ -137,7 +137,7 @@ public class MessageBarServiceTests
     public async Task MessageBarService_Dispatch_SwallowsSubscriberExceptions()
     {
         // Arrange
-        var service = new MessageBarService();
+        var service = new NotificationService();
         var goodCalled = false;
 
         service.Subscribe("bad", _ => throw new InvalidOperationException("boom"));
@@ -148,7 +148,7 @@ public class MessageBarServiceTests
         });
 
         // Act: this throws inside one subscriber, but should not propagate to the show call.
-        var task = service.ShowInfoMessageAsync("section-X", "title");
+        var task = service.ShowInfoBarAsync("section-X", "title");
 
         await Task.CompletedTask;
 
@@ -156,7 +156,7 @@ public class MessageBarServiceTests
         Assert.True(goodCalled);
 
         // Cleanup
-        await service.CloseAllAsync();
+        await service.CloseAllMessageBarsAsync();
         await task;
     }
 }

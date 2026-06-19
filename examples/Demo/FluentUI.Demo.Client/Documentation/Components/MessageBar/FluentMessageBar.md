@@ -41,16 +41,16 @@ If you want to display an Action and a TimeStamp, you can use the `ActionsTempla
 
 {{ MessageBarLayouts }}
 
-## Message Service
+## Notification Service
 
-Use the `MessageBarService` to display message bars from C# code (for example, from an event handler, a service, or after an API call).
+Use the `NotificationService` to display message bars from C# code (for example, from an event handler, a service, or after an API call).
 
 The service is registered automatically when you call `AddFluentUIComponents()` in your `Program.cs`:
 
 You can then inject it into any component or service:
 
 ```csharp
-@inject IMessageBarService MessageBarService
+@inject INotificationService NotificationService
 ```
 
 **FluentMessageBarProvider**
@@ -76,10 +76,10 @@ and a local provider scoped to a specific panel or dialog), and to route each me
 
 The simplest way to display a message is to use one of the typed helpers, passing the target section and the message text:
 
-- `MessageBarService.ShowSuccessMessageAsync("SECTION", "Title", "Message")`
-- `MessageBarService.ShowWarningMessageAsync("SECTION", "Title", "Message")`
-- `MessageBarService.ShowErrorMessageAsync("SECTION", "Title", "Message")`
-- `MessageBarService.ShowInfoMessageAsync("SECTION", "Title", "Message")`
+- `NotificationService.ShowSuccessBarAsync("SECTION", "Title", "Message")`
+- `NotificationService.ShowWarningBarAsync("SECTION", "Title", "Message")`
+- `NotificationService.ShowErrorBarAsync("SECTION", "Title", "Message")`
+- `NotificationService.ShowInfoBarAsync("SECTION", "Title", "Message")`
 
 {{ MessageBarServiceDefault }}
 
@@ -101,9 +101,9 @@ This is useful when the default layout is not enough and you need to render rich
 
 {{ API Type=FluentMessageBar }}
 
-## API MessageBarService
+## API NotificationService
 
-{{ API Type=MessageBarService }}
+{{ API Type=NotificationService }}
 
 ## API MessageBarOptions
 

@@ -22,8 +22,8 @@ public static class ServiceCollectionExtensions
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogService))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IToastService))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ToastService))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IMessageBarService))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarService))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(INotificationService))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(NotificationService))]
     public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, LibraryConfiguration? configuration = null)
     {
         var options = configuration ?? new();
@@ -38,7 +38,7 @@ public static class ServiceCollectionExtensions
         services.Add<LibraryConfiguration>(provider => options ?? new(), serviceLifetime);
         services.Add<IDialogService, DialogService>(serviceLifetime);
         services.Add<IToastService, ToastService>(serviceLifetime);
-        services.Add<IMessageBarService, MessageBarService>(serviceLifetime);
+        services.Add<INotificationService, NotificationService>(serviceLifetime);
         services.Add<IFluentLocalizer>(provider => options?.Localizer ?? FluentLocalizerInternal.Default, serviceLifetime);
         services.Add<IKeyCodeService, KeyCodeService>(serviceLifetime);
         services.Add<IThemeService, ThemeService>(serviceLifetime);

@@ -10,23 +10,23 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Service for showing message bars.
 /// </summary>
-public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>, IMessageBarService
+public partial class NotificationService : FluentServiceBase<IMessageBarInstance>, INotificationService
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MessageBarService"/> class.
+    /// Initializes a new instance of the <see cref="NotificationService"/> class.
     /// </summary>
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarEventArgs))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarInstance))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IMessageBarInstance))]
-    public MessageBarService()
+    public NotificationService()
     {
         ServiceProvider.OnUpdatedAsync = DispatchOnUpdatedAsync;
     }
 
-    /// <inheritdoc cref="IMessageBarService.ShowSuccessMessageAsync(string, string?, string?)"/>
-    public Task<MessageBarResult> ShowSuccessMessageAsync(string section, string? title = null, string? message = null)
+    /// <inheritdoc cref="INotificationService.ShowSuccessBarAsync(string, string?, string?)"/>
+    public Task<MessageBarResult> ShowSuccessBarAsync(string section, string? title = null, string? message = null)
     {
-        return ShowMessageAsync(options =>
+        return ShowMessageBarAsync(options =>
         {
             options.Section = section;
             options.Intent = MessageBarIntent.Success;
@@ -35,10 +35,10 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
         });
     }
 
-    /// <inheritdoc cref="IMessageBarService.ShowWarningMessageAsync(string, string?, string?)"/>
-    public Task<MessageBarResult> ShowWarningMessageAsync(string section, string? title = null, string? message = null)
+    /// <inheritdoc cref="INotificationService.ShowWarningBarAsync(string, string?, string?)"/>
+    public Task<MessageBarResult> ShowWarningBarAsync(string section, string? title = null, string? message = null)
     {
-        return ShowMessageAsync(options =>
+        return ShowMessageBarAsync(options =>
         {
             options.Section = section;
             options.Intent = MessageBarIntent.Warning;
@@ -47,10 +47,10 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
         });
     }
 
-    /// <inheritdoc cref="IMessageBarService.ShowErrorMessageAsync(string, string?, string?)"/>
-    public Task<MessageBarResult> ShowErrorMessageAsync(string section, string? title = null, string? message = null)
+    /// <inheritdoc cref="INotificationService.ShowErrorBarAsync(string, string?, string?)"/>
+    public Task<MessageBarResult> ShowErrorBarAsync(string section, string? title = null, string? message = null)
     {
-        return ShowMessageAsync(options =>
+        return ShowMessageBarAsync(options =>
         {
             options.Section = section;
             options.Intent = MessageBarIntent.Error;
@@ -59,10 +59,10 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
         });
     }
 
-    /// <inheritdoc cref="IMessageBarService.ShowInfoMessageAsync(string, string?, string?)"/>
-    public Task<MessageBarResult> ShowInfoMessageAsync(string section, string? title = null, string? message = null)
+    /// <inheritdoc cref="INotificationService.ShowInfoBarAsync(string, string?, string?)"/>
+    public Task<MessageBarResult> ShowInfoBarAsync(string section, string? title = null, string? message = null)
     {
-        return ShowMessageAsync(options =>
+        return ShowMessageBarAsync(options =>
         {
             options.Section = section;
             options.Intent = MessageBarIntent.Info;
@@ -71,20 +71,20 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
         });
     }
 
-    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync(MessageBarOptions)"/>
-    public async Task<MessageBarResult> ShowMessageAsync(MessageBarOptions options)
+    /// <inheritdoc cref="INotificationService.ShowMessageBarAsync(MessageBarOptions)"/>
+    public async Task<MessageBarResult> ShowMessageBarAsync(MessageBarOptions options)
     {
         var instance = ShowMessageInstanceCore(componentType: null, options);
         await ServiceProvider.OnUpdatedAsync.Invoke(instance);
         return await instance.Result;
     }
 
-    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync(Action{MessageBarOptions})"/>
-    public Task<MessageBarResult> ShowMessageAsync(Action<MessageBarOptions> options)
-        => ShowMessageAsync(new MessageBarOptions(options));
+    /// <inheritdoc cref="INotificationService.ShowMessageBarAsync(Action{MessageBarOptions})"/>
+    public Task<MessageBarResult> ShowMessageBarAsync(Action<MessageBarOptions> options)
+        => ShowMessageBarAsync(new MessageBarOptions(options));
 
-    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync{TMessageBar}(MessageBarOptions)"/>
-    public async Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(MessageBarOptions options)
+    /// <inheritdoc cref="INotificationService.ShowMessageBarAsync{TMessageBar}(MessageBarOptions)"/>
+    public async Task<MessageBarResult> ShowMessageBarAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(MessageBarOptions options)
         where TMessageBar : ComponentBase
     {
         var instance = ShowMessageInstanceCore(typeof(TMessageBar), options);
@@ -92,12 +92,12 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
         return await instance.Result;
     }
 
-    /// <inheritdoc cref="IMessageBarService.ShowMessageAsync{TMessageBar}(Action{MessageBarOptions})"/>
-    public Task<MessageBarResult> ShowMessageAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(Action<MessageBarOptions> options)
+    /// <inheritdoc cref="INotificationService.ShowMessageBarAsync{TMessageBar}(Action{MessageBarOptions})"/>
+    public Task<MessageBarResult> ShowMessageBarAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TMessageBar>(Action<MessageBarOptions> options)
         where TMessageBar : ComponentBase
-        => ShowMessageAsync<TMessageBar>(new MessageBarOptions(options));
+        => ShowMessageBarAsync<TMessageBar>(new MessageBarOptions(options));
 
-    /// <inheritdoc cref="IMessageBarService.CloseAsync(IMessageBarInstance, object?)"/>
+    /// <inheritdoc cref="INotificationService.CloseAsync(IMessageBarInstance, object?)"/>
     public Task CloseAsync(IMessageBarInstance messageBar, object? data = null)
     {
         if (data is not null and MessageBarResult result)
@@ -108,7 +108,7 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
         return CloseCoreAsync(messageBar, MessageBarResult.OfProgrammatic(data));
     }
 
-    /// <inheritdoc cref="IMessageBarService.CloseAsync(string, object?)"/>
+    /// <inheritdoc cref="INotificationService.CloseAsync(string, object?)"/>
     public async Task<bool> CloseAsync(string messageBarId, object? data = null)
     {
         if (string.IsNullOrWhiteSpace(messageBarId) || !ServiceProvider.Items.TryGetValue(messageBarId, out var messageBar))
@@ -120,8 +120,8 @@ public partial class MessageBarService : FluentServiceBase<IMessageBarInstance>,
         return true;
     }
 
-    /// <inheritdoc cref="IMessageBarService.CloseAllAsync()"/>
-    public async Task<int> CloseAllAsync()
+    /// <inheritdoc cref="INotificationService.CloseAllMessageBarsAsync()"/>
+    public async Task<int> CloseAllMessageBarsAsync()
     {
         var messageBars = ServiceProvider.Items.Values.ToList();
 

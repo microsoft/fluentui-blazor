@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Represents the result of a message bar managed by the <see cref="IMessageBarService"/>.
+/// Represents the result of a message bar managed by the <see cref="INotificationService"/>.
 /// </summary>
 public class MessageBarResult
 {

@@ -1,4 +1,4 @@
-﻿@inject IMessageBarService MessageBarService
+﻿@inject INotificationService NotificationService
 
 <FluentMessageBarProvider Section="@MESSAGEBAR_SECTION"
                           Margin="@Margin.Vertical2" />
@@ -14,7 +14,7 @@
 
     async Task ShowMessageBar()
     {
-        var result = await MessageBarService.ShowMessageAsync(options =>
+        var result = await NotificationService.ShowMessageBarAsync(options =>
         {
             options.Section = MESSAGEBAR_SECTION;
 

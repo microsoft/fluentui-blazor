@@ -7,7 +7,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Represents a message bar instance used with the <see cref="IMessageBarService"/>.
+/// Represents a message bar instance used with the <see cref="INotificationService"/>.
 /// </summary>
 public class MessageBarInstance : IMessageBarInstance, IDisposable
 {
@@ -18,16 +18,16 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
     private bool _disposed;
 
     /// <summary />
-    internal MessageBarInstance(IMessageBarService messageBarService, MessageBarOptions options)
-        : this(messageBarService, componentType: null, options)
+    internal MessageBarInstance(INotificationService notificationService, MessageBarOptions options)
+        : this(notificationService, componentType: null, options)
     {
     }
 
     /// <summary />
-    internal MessageBarInstance(IMessageBarService messageBarService, Type? componentType, MessageBarOptions options)
+    internal MessageBarInstance(INotificationService notificationService, Type? componentType, MessageBarOptions options)
     {
         Options = options;
-        MessageBarService = messageBarService;
+        NotificationService = notificationService;
         _componentType = componentType;
         Id = string.IsNullOrEmpty(options.Id) ? Identifier.NewId() : options.Id;
         Index = Interlocked.Increment(ref _counter);
@@ -37,7 +37,7 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
     Type? IMessageBarInstance.ComponentType => _componentType;
 
     /// <summary />
-    internal IMessageBarService MessageBarService { get; }
+    internal INotificationService NotificationService { get; }
 
     /// <summary>
     /// Gets the cancellation token used to cancel the auto-dismiss timer when the message bar
@@ -63,13 +63,13 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
     /// <inheritdoc cref="IMessageBarInstance.CloseAsync()"/>
     public Task CloseAsync()
     {
-        return MessageBarService.CloseAsync(this);
+        return NotificationService.CloseAsync(this);
     }
 
     /// <inheritdoc cref="IMessageBarInstance.CloseAsync(MessageBarResult)"/>
     public Task CloseAsync(MessageBarResult result)
     {
-        return MessageBarService.CloseAsync(this, result);
+        return NotificationService.CloseAsync(this, result);
     }
 
     /// <summary>
