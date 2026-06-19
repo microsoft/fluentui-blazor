@@ -1,0 +1,162 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+/// <summary>
+/// Service for showing Toasts.
+/// </summary>
+public partial class NotificationService : FluentServiceBase<INotificationInstance>, INotificationService
+{
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IJSRuntime _jsRuntime;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NotificationService"/> class.
+    /// </summary>
+    /// <param name="serviceProvider">List of services available in the application.</param>
+    /// <param name="localizer">Localizer for the application.</param>
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarEventArgs))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarInstance))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(INotificationInstance))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IMessageBarInstance))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IToastInstance))]
+    public NotificationService(IServiceProvider serviceProvider, IFluentLocalizer? localizer)
+    {
+        _serviceProvider = serviceProvider;
+        _jsRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
+        Localizer = localizer ?? FluentLocalizerInternal.Default;
+        ServiceProvider.OnUpdatedAsync = DispatchOnUpdatedAsync;
+    }
+
+    /// <summary />
+    protected IFluentLocalizer Localizer { get; }
+
+    /// <inheritdoc cref="INotificationService.ShowToastAsync(ToastOptions)"/>
+    public async Task<ToastResult> ShowToastAsync(ToastOptions options)
+    {
+        var instance = ShowToastInstanceCore(componentType: null, options);
+        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
+        return await instance.Result;
+    }
+
+    /// <inheritdoc cref="INotificationService.ShowToastAsync{TToast}(ToastOptions)"/>
+    public Task<ToastResult> ShowToastAsync(Action<ToastOptions> options)
+        => ShowToastAsync(new ToastOptions(options));
+
+    /// <inheritdoc cref="INotificationService.ShowToastAsync{TToast}(ToastOptions)"/>
+    public async Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(ToastOptions options)
+        where TToast : ComponentBase
+    {
+        var instance = ShowToastInstanceCore(typeof(TToast), options);
+        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
+        return await instance.Result;
+    }
+
+    /// <inheritdoc cref="INotificationService.ShowToastAsync{TToast}(ToastOptions)"/>
+    public Task<ToastResult> ShowToastAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TToast>(Action<ToastOptions> options)
+            where TToast : ComponentBase
+        => ShowToastAsync<TToast>(new ToastOptions(options));
+
+    /// <inheritdoc cref="INotificationService.CloseAsync(IToastInstance, object?)"/>
+    public Task CloseAsync(IToastInstance toast, object? data = null)
+    {
+        if (data is not null and ToastResult result)
+        {
+            return CloseCoreAsync(toast, result);
+        }
+
+        return CloseCoreAsync(toast, ToastResult.OfProgrammatic(data));
+    }
+
+    /// <inheritdoc cref="INotificationService.CloseAllToastsAsync"/>
+    public async Task<int> CloseAllToastsAsync()
+    {
+        var toasts = ServiceProvider.Items.Values.Where(item => item is IToastInstance).Cast<IToastInstance>().ToList();
+
+        foreach (var toast in toasts)
+        {
+            await CloseCoreAsync(toast, ToastResult.OfProgrammatic());
+        }
+
+        return toasts.Count;
+    }
+
+    /// <summary />
+    private ToastInstance ShowToastInstanceCore(Type? componentType, ToastOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+
+        if (this.ProviderNotAvailable())
+        {
+            throw new FluentServiceProviderException<FluentToastProvider>();
+        }
+
+        var instance = new ToastInstance(this, componentType, options);
+
+        // Add the Toast to the service.
+        if (!ServiceProvider.Items.TryAdd(instance.Id, instance))
+        {
+            throw new InvalidOperationException($"A Toast with the ID '{instance.Id}' is already registered.");
+        }
+
+        options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastLifecycleStatus.Queued));
+
+        return instance;
+    }
+
+    /// <summary />
+    public async Task CloseCoreAsync(IToastInstance toast, ToastResult result)
+    {
+        if (toast is not ToastInstance instance)
+        {
+            return;
+        }
+
+        if (instance.LifecycleStatus == ToastLifecycleStatus.Unmounted)
+        {
+            return;
+        }
+
+        // TODO: How to close?
+        // ...
+
+        instance.LifecycleStatus = ToastLifecycleStatus.Dismissed;
+        instance.Options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastLifecycleStatus.Dismissed));
+
+        // Remove the Toast from the ToastProvider.
+        await RemoveToastFromProviderAsync(instance);
+
+        instance.LifecycleStatus = ToastLifecycleStatus.Unmounted;
+
+        // Set the result of the Toast.
+        instance.ResultCompletion.TrySetResult(result);
+
+        // Raise the final ToastLifecycleStatus.Unmounted event.
+        instance.Options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastLifecycleStatus.Unmounted));
+    }
+
+    /// <summary>
+    /// Removes the Toast from the ToastProvider.
+    /// </summary>
+    internal async Task RemoveToastFromProviderAsync(IToastInstance? toast)
+    {
+        if (toast is null)
+        {
+            return;
+        }
+
+        if (!ServiceProvider.Items.TryRemove(toast.Id, out _))
+        {
+            return;
+        }
+
+        await ServiceProvider.OnUpdatedAsync.Invoke(toast);
+    }
+}

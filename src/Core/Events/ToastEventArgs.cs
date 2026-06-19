@@ -48,8 +48,8 @@ public class ToastEventArgs : EventArgs
     public ToastLifecycleStatus Status { get; }
 
     /// <summary>
-    /// Gets the instance used by the <see cref="ToastService" />.
-    /// This value may be null if the toast is not managed by the <see cref="ToastService"/>.
+    /// Gets the instance used by the <see cref="NotificationService" />.
+    /// This value may be null if the toast is not managed by the <see cref="NotificationService"/>.
     /// </summary>
     public IToastInstance? Instance { get; }
 }

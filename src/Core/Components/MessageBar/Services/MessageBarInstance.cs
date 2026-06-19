@@ -34,7 +34,7 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
     }
 
     /// <summary />
-    Type? IMessageBarInstance.ComponentType => _componentType;
+    Type? INotificationInstance.ComponentType => _componentType;
 
     /// <summary />
     internal INotificationService NotificationService { get; }
@@ -54,13 +54,13 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
     /// <inheritdoc cref="IMessageBarInstance.LifecycleStatus"/>
     public MessageBarLifecycleStatus LifecycleStatus { get; internal set; } = MessageBarLifecycleStatus.Visible;
 
-    /// <inheritdoc cref="IMessageBarInstance.Id"/>
+    /// <inheritdoc cref="INotificationInstance.Id"/>
     public string Id { get; }
 
-    /// <inheritdoc cref="IMessageBarInstance.Index"/>
+    /// <inheritdoc cref="INotificationInstance.Index"/>
     public long Index { get; }
 
-    /// <inheritdoc cref="IMessageBarInstance.CloseAsync()"/>
+    /// <inheritdoc cref="INotificationInstance.CloseAsync()"/>
     public Task CloseAsync()
     {
         return NotificationService.CloseAsync(this);

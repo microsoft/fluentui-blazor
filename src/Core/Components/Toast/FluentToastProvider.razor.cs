@@ -9,7 +9,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public partial class FluentToastProvider : FluentComponentBase
+public partial class FluentToastProvider : FluentComponentBase, IDisposable
 {
     private readonly LibraryConfiguration configuration;
 
@@ -30,68 +30,50 @@ public partial class FluentToastProvider : FluentComponentBase
         .AddStyle("z-index", ZIndex.Toast.ToString(CultureInfo.InvariantCulture))
         .Build();
 
-    /// <summary>
-    /// Gets or sets the injected service provider.
-    /// </summary>
-    [Inject]
-    public IServiceProvider? ServiceProvider { get; set; }
-
     /// <summary />
-    protected virtual IToastService? ToastService => GetCachedServiceOrNull<IToastService>();
+    protected virtual INotificationService? NotificationService => GetCachedServiceOrNull<INotificationService>();
 
     /// <summary />
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        if (ToastService is not null)
+        if (NotificationService is NotificationService service)
         {
-            ToastService.ProviderId = Id;
-            ToastService.OnUpdatedAsync = async (item) =>
+            // Register this provider as a subscriber. Multiple providers can coexist:
+            service.Subscribe(Id, async _ =>
             {
                 SynchronizeToastQueue();
                 await InvokeAsync(StateHasChanged);
-            };
+            });
 
             SynchronizeToastQueue();
         }
     }
 
     /// <summary />
-    internal static Action<ToastEventArgs> EmptyOnStatusChange => (_) => { };
+    public void Dispose()
+    {
+        if (NotificationService is NotificationService service && !string.IsNullOrEmpty(Id))
+        {
+            service.Unsubscribe(Id);
+        }
+    }
+
+    /// <summary />
+    private IEnumerable<IToastInstance> ToastItems
+        => NotificationService?.Items.Values
+                               .Where(item => item is IToastInstance)
+                               .Cast<IToastInstance>()
+        ?? [];
+
+    /// <summary />
+    private IEnumerable<IToastInstance> GetRenderedToasts()
+        => ToastItems.Where(toast => toast.LifecycleStatus is ToastLifecycleStatus.Visible or ToastLifecycleStatus.Dismissed)
+                     .OrderBy(toast => toast.Index);
 
     private EventCallback<ToastEventArgs> GetOnStatusChangeCallback(IToastInstance toast)
-        => EventCallback.Factory.Create<ToastEventArgs>(this, toast.Options.OnStatusChange ?? EmptyOnStatusChange);
-
-    private int GetTimeout(IToastInstance toast)
-        => toast.Options.Timeout ?? configuration.Toast.Timeout;
-
-    private ToastPosition? GetPosition(IToastInstance toast)
-        => toast.Options.Position ?? configuration.Toast.Position;
-
-    private int GetVerticalOffset(IToastInstance toast)
-        => toast.Options.VerticalOffset ?? configuration.Toast.VerticalOffset;
-
-    private int GetHorizontalOffset(IToastInstance toast)
-        => toast.Options.HorizontalOffset ?? configuration.Toast.HorizontalOffset;
-
-    private bool GetPauseOnHover(IToastInstance toast)
-        => toast.Options.PauseOnHover ?? configuration.Toast.PauseOnHover;
-
-    private bool GetPauseOnWindowBlur(IToastInstance toast)
-        => toast.Options.PauseOnWindowBlur ?? configuration.Toast.PauseOnWindowBlur;
-
-    private bool GetAllowDismiss(IToastInstance toast)
-        => toast.Options.AllowDismiss ?? configuration.Toast.AllowDismiss;
-
-    private bool GetInverted(IToastInstance toast)
-        => toast.Options.Inverted ?? configuration.Toast.Inverted;
-
-    private IEnumerable<IToastInstance> GetRenderedToasts()
-        => ToastService?.Items.Values
-            .Where(toast => toast.LifecycleStatus is ToastLifecycleStatus.Visible or ToastLifecycleStatus.Dismissed)
-            .OrderByDescending(toast => toast.Index)
-            ?? Enumerable.Empty<IToastInstance>();
+        => EventCallback.Factory.Create<ToastEventArgs>(this, toast.Options.OnStatusChange ?? ((_) => { }));
 
     /// <summary />
     private RenderFragment RenderToastContent(IToastInstance? toast) => builder =>
@@ -104,19 +86,21 @@ public partial class FluentToastProvider : FluentComponentBase
         builder.AddContent(0, new MarkupStringSanitized(toast.Options.Message, MarkupStringSanitized.Formats.Html, LibraryConfiguration));
     };
 
+    /// <summary>
+    /// Synchronizes the toast queue by promoting queued toasts to visible status based on the maximum allowed toast count.
+    /// </summary>
     private void SynchronizeToastQueue()
     {
-        if (ToastService is null)
+        if (NotificationService is NotificationService service)
         {
             return;
         }
 
         var maxToastCount = configuration.Toast.MaxToastCount;
-        var activeCount = ToastService.Items.Values.Count(toast => toast.LifecycleStatus is ToastLifecycleStatus.Visible or ToastLifecycleStatus.Dismissed);
-        var queuedToasts = ToastService.Items.Values
-            .Where(toast => toast.LifecycleStatus == ToastLifecycleStatus.Queued)
-            .OrderByDescending(toast => toast.Index)
-            .ToList();
+        var activeCount = ToastItems.Count(toast => toast.LifecycleStatus is ToastLifecycleStatus.Visible or ToastLifecycleStatus.Dismissed);
+        var queuedToasts = ToastItems.Where(toast => toast.LifecycleStatus == ToastLifecycleStatus.Queued)
+                                     .OrderByDescending(toast => toast.Index)
+                                     .ToList();
 
         foreach (var toast in queuedToasts)
         {

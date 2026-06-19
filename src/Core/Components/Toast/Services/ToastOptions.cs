@@ -7,7 +7,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Options for configuring a Toast.
+/// Options for configuring a toast displayed by the <see cref="INotificationService"/>.
 /// </summary>
 public class ToastOptions : IFluentComponentBase
 {
@@ -19,9 +19,10 @@ public class ToastOptions : IFluentComponentBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ToastOptions"/> class using the specified implementation factory.
+    /// Initializes a new instance of the <see cref="ToastOptions"/> class 
+    /// using the specified implementation factory.
     /// </summary>
-    /// <param name="implementationFactory"></param>
+    /// <param name="implementationFactory">Action used to configure the toast options.</param>
     public ToastOptions(Action<ToastOptions> implementationFactory)
     {
         implementationFactory.Invoke(this);
@@ -65,9 +66,17 @@ public class ToastOptions : IFluentComponentBase
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     /// <summary>
-    /// Gets or sets the timeout duration for the Toast in milliseconds.
+    /// Gets a list of toast parameters.
+    /// Each parameter must correspond to a <c>[Parameter]</c> property defined in the toast component.
     /// </summary>
-    public int? Timeout { get; set; }
+    public IDictionary<string, object?> Parameters { get; set; } = new Dictionary<string, object?>(StringComparer.Ordinal);
+
+    /// <summary>
+    /// Gets or sets the lifetime of the toast.
+    /// When set to a positive value, the toast is automatically removed after this duration elapses.
+    /// When `null`, the toast stays visible until it is dismissed programmatically or by the user.
+    /// </summary>
+    public TimeSpan? Lifetime { get; set; }
 
     /// <summary>
     /// Gets or sets the toast position on screen.
@@ -92,12 +101,30 @@ public class ToastOptions : IFluentComponentBase
     /// <summary>
     /// Gets or sets the toast intent.
     /// </summary>
-    public ToastIntent Intent { get; set; } = ToastIntent.Info;
+    public ToastIntent? Intent { get; set; }
 
     /// <summary>
     /// Gets or sets the politeness level used for accessibility.
     /// </summary>
     public ToastPoliteness? Politeness { get; set; }
+
+        /// <summary>
+    /// Gets or sets the toast title.
+    /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
+    /// </summary>
+    public string? Title { get; set; }
+
+    /// <summary>
+    /// Gets or sets the message displayed in the toast.
+    /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
+    /// </summary>
+    public string? Message { get; set; }
+
+    /// <summary>
+    /// Gets or sets the subtitle of the toast.
+    /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
+    /// </summary>
+    public string? Subtitle { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the timeout pauses while hovering the toast.
@@ -110,42 +137,6 @@ public class ToastOptions : IFluentComponentBase
     public bool? PauseOnWindowBlur { get; set; }
 
     /// <summary>
-    /// Gets or sets the toast title.
-    /// </summary>
-    public string? Title { get; set; }
-
-    /// <summary>
-    /// Gets or sets the message displayed in the toast.
-    /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
-    /// </summary>
-    public string? Message { get; set; }
-
-    /// <summary>
-    /// Gets or sets the subtitle of the toast.
-    /// </summary>
-    public string? Subtitle { get; set; }
-
-    /// <summary>
-    /// Gets or sets the first quick action label.
-    /// </summary>
-    public string? QuickAction1 { get; set; }
-
-    /// <summary>
-    /// Gets or sets the callback invoked when the first quick action is clicked.
-    /// </summary>
-    public Func<Task>? QuickAction1Callback { get; set; }
-
-    /// <summary>
-    /// Gets or sets the second quick action label.
-    /// </summary>
-    public string? QuickAction2 { get; set; }
-
-    /// <summary>
-    /// Gets or sets the callback invoked when the second quick action is clicked.
-    /// </summary>
-    public Func<Task>? QuickAction2Callback { get; set; }
-
-    /// <summary>
     /// Gets or sets a value indicating whether the toast can be dismissed by the user.
     /// </summary>
     public bool? AllowDismiss { get; set; }
@@ -156,19 +147,21 @@ public class ToastOptions : IFluentComponentBase
     public string? DismissAction { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback invoked when the dismiss action is clicked.
+    /// Gets or sets the timestamp when the toast was created.
     /// </summary>
-    public Func<Task>? DismissActionCallback { get; set; }
-
-    /// <summary>
-    /// Gets or sets the icon rendered in the media slot.
-    /// </summary>
-    public Icon? Icon { get; set; }
+    public DateTime? TimeStamp { get; set; }
 
     /// <summary>
     /// Gets or sets the action raised when the toast lifecycle status changes.
     /// </summary>
     public Action<ToastEventArgs>? OnStatusChange { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon rendered in the toast header.
+    /// When set, this overrides the default icon determined by the <see cref="Intent" />
+    /// (Warning, Error, Success, Info) of the toast.
+    /// </summary>
+    public Icon? Icon { get; set; }
 
     /// <summary>
     /// Gets the class, including the optional <see cref="Margin"/> and <see cref="Padding"/> values.

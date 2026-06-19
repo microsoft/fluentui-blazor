@@ -8,21 +8,10 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Service for showing message bars.
+/// Service for showing message bars and toasts.
 /// </summary>
-public partial class NotificationService : FluentServiceBase<IMessageBarInstance>, INotificationService
+public partial class NotificationService : FluentServiceBase<INotificationInstance>, INotificationService
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="NotificationService"/> class.
-    /// </summary>
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarEventArgs))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarInstance))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IMessageBarInstance))]
-    public NotificationService()
-    {
-        ServiceProvider.OnUpdatedAsync = DispatchOnUpdatedAsync;
-    }
-
     /// <inheritdoc cref="INotificationService.ShowSuccessBarAsync(string, string?, string?)"/>
     public Task<MessageBarResult> ShowSuccessBarAsync(string section, string? title = null, string? message = null)
     {
@@ -109,21 +98,35 @@ public partial class NotificationService : FluentServiceBase<IMessageBarInstance
     }
 
     /// <inheritdoc cref="INotificationService.CloseAsync(string, object?)"/>
-    public async Task<bool> CloseAsync(string messageBarId, object? data = null)
+    public async Task<bool> CloseAsync(string id, object? data = null)
     {
-        if (string.IsNullOrWhiteSpace(messageBarId) || !ServiceProvider.Items.TryGetValue(messageBarId, out var messageBar))
+        if (string.IsNullOrWhiteSpace(id))
         {
             return false;
         }
 
-        await CloseCoreAsync(messageBar, MessageBarResult.OfProgrammatic(data));
-        return true;
+        if (ServiceProvider.Items.TryGetValue(id, out var notification))
+        {
+            if (notification is IMessageBarInstance messageBar)
+            {
+                await CloseCoreAsync((IMessageBarInstance)messageBar, MessageBarResult.OfProgrammatic(data));
+                return true;
+            }
+
+            if (notification is IToastInstance toast)
+            {
+                await CloseCoreAsync((IToastInstance)toast, ToastResult.OfProgrammatic(data));
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /// <inheritdoc cref="INotificationService.CloseAllMessageBarsAsync()"/>
     public async Task<int> CloseAllMessageBarsAsync()
     {
-        var messageBars = ServiceProvider.Items.Values.ToList();
+        var messageBars = ServiceProvider.Items.Values.Where(item => item is IMessageBarInstance).Cast<IMessageBarInstance>().ToList();
 
         foreach (var messageBar in messageBars)
         {
