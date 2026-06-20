@@ -43,6 +43,13 @@ public partial interface INotificationService : IFluentServiceBase<INotification
         where TToast : ComponentBase;
 
     /// <summary>
+    /// Gets the toast instance with the specified ID.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    IToastInstance? GetToastInstance(string id);
+
+    /// <summary>
     /// Closes the specified toast instance.
     /// </summary>
     /// <param name="toast">Instance of the toast to close.</param>

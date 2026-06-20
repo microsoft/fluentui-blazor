@@ -64,6 +64,17 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
             where TToast : ComponentBase
         => ShowToastAsync<TToast>(new ToastOptions(options));
 
+    /// <inheritdoc cref="INotificationService.GetToastInstance(string)"/>
+    public IToastInstance? GetToastInstance(string id)
+    {
+        if (ServiceProvider.Items.TryGetValue(id, out var instance) && instance is IToastInstance toastInstance)
+        {
+            return toastInstance;
+        }
+
+        return null;
+    }
+
     /// <inheritdoc cref="INotificationService.CloseAsync(IToastInstance, object?)"/>
     public Task CloseAsync(IToastInstance toast, object? data = null)
     {
