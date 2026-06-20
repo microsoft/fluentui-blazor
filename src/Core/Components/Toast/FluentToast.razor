@@ -1,12 +1,13 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using System.Globalization
 
 <fluent-toast-b id="@Id"
                 class="@ClassValue"
                 style="@StyleValue"
                 opened="@(Opened ? "true" : "false")"
-                timeout="@Lifetime"
+                timeout="@(Lifetime?.TotalMilliseconds.ToString(CultureInfo.InvariantCulture))"
                 position="@Position.ToAttributeValue()"
                 inverted="@(Inverted ? "true" : null)"
                 intent="@Intent.ToAttributeValue()"

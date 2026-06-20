@@ -1,4 +1,4 @@
-﻿@inject IToastService ToastService
+﻿@* @inject IToastService ToastService
 
 <FluentStack HorizontalGap="16">
     <FluentButton @ref="openToastButton" OnClick="@OpenToastAsync">
@@ -38,4 +38,4 @@
         openToastButton.SetDisabled(false);
     }
 }
-
+ *@

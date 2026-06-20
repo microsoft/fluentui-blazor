@@ -312,10 +312,10 @@ public partial class FluentToast : FluentComponentBase
 
         await ToastInstance.CloseAsync();
 
-        if (ToastInstance.Options.OnStatusChange is not null)
-        {
-            ToastInstance.Options.OnStatusChange(new ToastEventArgs(ToastInstance, ToastLifecycleStatus.Dismissed));
-        }
+        // if (ToastInstance.Options.OnStatusChange is not null)
+        // {
+        //     ToastInstance.Options.OnStatusChange(new ToastEventArgs(ToastInstance, ToastLifecycleStatus.Dismissed));
+        // }
     }
 
     /// <summary>
