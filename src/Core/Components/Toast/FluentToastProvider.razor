@@ -12,12 +12,12 @@
     {
         @foreach (var toast in GetRenderedToasts())
         {
-            <CascadingValue Value="toast"
+            <CascadingValue @key="toast.Id"
+                            Value="toast"
                             IsFixed="true">
                 @if (toast.ComponentType is null)
                 {
-                   <FluentToast @key="toast.Id"
-                                Id="@toast.Id"
+                   <FluentToast Id="@toast.Id"
                                 Class="@toast.Options.ClassValue"
                                 Style="@toast.Options.StyleValue"
                                 Data="@toast.Options.Data"
@@ -41,8 +41,7 @@
                 }
                 else
                 {
-                    <DynamicComponent @key="toast.Id"
-                                      Type="@toast.ComponentType"
+                    <DynamicComponent Type="@toast.ComponentType"
                                       Parameters="@toast.Options.Parameters" />
                 }
             </CascadingValue>
