@@ -1,37 +1,41 @@
 ﻿@inject INotificationService NotificationService
 
-<FluentButton OnClick="@OpenToastAsync">
-    Make toast
-</FluentButton>
+<FluentStack Wrap="true">
+    <FluentButton OnClick="@(() => OpenToastAsync(ToastIntent.Info))">
+        Show Info
+    </FluentButton>
+    <FluentButton OnClick="@(() => OpenToastAsync(ToastIntent.Success))">
+        Show Success
+    </FluentButton>
+    <FluentButton OnClick="@(() => OpenToastAsync(ToastIntent.Warning))">
+        Show Warning
+    </FluentButton>
+    <FluentButton OnClick="@(() => OpenToastAsync(ToastIntent.Error))">
+        Show Error
+    </FluentButton>
+    <FluentButton OnClick="@(() => OpenToastAsync(ToastIntent.Progress))">
+        Show Progress
+    </FluentButton>
+</FluentStack>
 
 @code {
-    private async Task OpenToastAsync()
+
+    int counter = 1;
+
+    private async Task OpenToastAsync(ToastIntent intent)
     {
         var result = await NotificationService.ShowToastAsync(options =>
         {
-            options.Intent = ToastIntent.Success;
-            options.Title = $"Toast title";
+            options.Intent = intent;
+            options.Title = $"{intent} toast #{counter++}";
             options.Message = "Toasts are used to show brief messages to the user.";
-            options.Subtitle = "subtitle";
+            options.Subtitle = "Sent by Fluent UI Blazor";
             options.AllowDismiss = true;
             options.Lifetime = TimeSpan.FromSeconds(5);
             options.OnStatusChange = (e) =>
             {
-                Console.WriteLine($"Toast status changed to: {e.Status}");
+                Console.WriteLine($" . Toast status changed to: {e.Status}");
             };
-
-            @* options.QuickAction1 = "Action";
-            options.QuickAction1Callback = () =>
-            {
-                Console.WriteLine("Action 1 executed.");
-                return Task.CompletedTask;
-            };
-            options.QuickAction2 = "Action";
-            options.QuickAction2Callback = () =>
-            {
-                Console.WriteLine("Action 2 executed.");
-                return Task.CompletedTask;
-            }; *@
         });
 
         Console.WriteLine($"Toast closed with Reason: {result.Reason}");
