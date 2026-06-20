@@ -33,7 +33,7 @@ public class LibraryToastOptions
     /// <summary>
     /// Gets or sets the default toast position.
     /// </summary>
-    public ToastPosition? Position { get; set; } = ToastPosition.BottomEnd;
+    public ToastPosition Position { get; set; } = ToastPosition.BottomEnd;
 
     /// <summary>
     /// Gets or sets the default vertical offset in pixels.

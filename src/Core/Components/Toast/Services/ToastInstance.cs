@@ -44,7 +44,7 @@ public class ToastInstance : IToastInstance
     public Task<ToastResult> Result => ResultCompletion.Task;
 
     /// <inheritdoc cref="IToastInstance.LifecycleStatus"/>
-    public ToastLifecycleStatus LifecycleStatus { get; internal set; } = ToastLifecycleStatus.Visible;
+    public ToastLifecycleStatus LifecycleStatus { get; internal set; } = ToastLifecycleStatus.Unmounted;
 
     /// <inheritdoc cref="INotificationInstance.Id"/>
     public string Id { get; }
@@ -62,5 +62,26 @@ public class ToastInstance : IToastInstance
     public Task CloseAsync(ToastResult result)
     {
         return NotificationService.CloseAsync(this, result);
+    }
+
+    /// <summary>
+    /// Sets the lifecycle status of the toast 
+    /// and invokes the <see cref="ToastOptions.OnStatusChange"/> callback if provided.
+    /// </summary>
+    /// <param name="status">The new lifecycle status of the toast.</param>
+    internal void SetStatus(ToastLifecycleStatus status)
+    {
+        if (LifecycleStatus == status)
+        {
+            return;
+        }
+
+        LifecycleStatus = status;
+
+        if (Options.OnStatusChange is not null)
+        {
+            var args = new ToastEventArgs(this, status);
+            Options.OnStatusChange.Invoke(args);
+        }
     }
 }

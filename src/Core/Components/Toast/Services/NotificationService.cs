@@ -106,13 +106,14 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
             throw new InvalidOperationException($"A Toast with the ID '{instance.Id}' is already registered.");
         }
 
-        options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastLifecycleStatus.Queued));
+        // Raise the initial ToastLifecycleStatus.Queued event.
+        instance.SetStatus(ToastLifecycleStatus.Queued);
 
         return instance;
     }
 
     /// <summary />
-    public async Task CloseCoreAsync(IToastInstance toast, ToastResult result)
+    private async Task CloseCoreAsync(IToastInstance toast, ToastResult result)
     {
         if (toast is not ToastInstance instance)
         {
@@ -124,22 +125,11 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
             return;
         }
 
-        // TODO: How to close?
-        // ...
-
-        instance.LifecycleStatus = ToastLifecycleStatus.Dismissed;
-        instance.Options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastLifecycleStatus.Dismissed));
-
         // Remove the Toast from the ToastProvider.
         await RemoveToastFromProviderAsync(instance);
 
-        instance.LifecycleStatus = ToastLifecycleStatus.Unmounted;
-
         // Set the result of the Toast.
         instance.ResultCompletion.TrySetResult(result);
-
-        // Raise the final ToastLifecycleStatus.Unmounted event.
-        instance.Options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastLifecycleStatus.Unmounted));
     }
 
     /// <summary>
@@ -147,7 +137,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
     /// </summary>
     internal async Task RemoveToastFromProviderAsync(IToastInstance? toast)
     {
-        if (toast is null)
+        if (toast is null || toast is not ToastInstance instance)
         {
             return;
         }
@@ -156,6 +146,9 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         {
             return;
         }
+
+        // Raise the final ToastLifecycleStatus.Unmounted event.
+        instance.SetStatus(ToastLifecycleStatus.Unmounted);
 
         await ServiceProvider.OnUpdatedAsync.Invoke(toast);
     }

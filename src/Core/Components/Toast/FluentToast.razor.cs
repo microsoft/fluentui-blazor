@@ -209,23 +209,15 @@ public partial class FluentToast : FluentComponentBase
             return;
         }
 
-        var toastInstance = ToastInstance as ToastInstance;
-        var toastEventArgs = new ToastEventArgs(this.ToastInstance, args);
-
-        if (toastInstance is not null && toastEventArgs.Status == ToastLifecycleStatus.Dismissed)
-        {
-            toastInstance.LifecycleStatus = ToastLifecycleStatus.Dismissed;
-            await RaiseOnStatusChangeAsync(toastEventArgs);
-        }
-
-        var toastState = DialogEventArgs.GetDialogState(args.Type, args.OldState, args.NewState);
+        var toast = ToastInstance as ToastInstance;
+        var state = DialogEventArgs.GetDialogState(args.Type, args.OldState, args.NewState);
 
         // If the toast state is either Open or Closed,
         // update the Opened property
         // and invoke the OpenedChanged callback if necessary.
-        if (toastState == DialogState.Open || toastState == DialogState.Closed)
+        if (state == DialogState.Open || state == DialogState.Closed)
         {
-            var isOpen = toastState == DialogState.Open;
+            var isOpen = state == DialogState.Open;
 
             if (Opened != isOpen)
             {
@@ -238,20 +230,23 @@ public partial class FluentToast : FluentComponentBase
             }
         }
 
+        if (toast is not null && state == DialogState.Open)
+        {
+            toast.SetStatus(ToastLifecycleStatus.Visible);
+        }
+
         // If the toast instance is defined and the toast state is Closed,
         // set the result of the ResultCompletion task
-        if (toastInstance is not null && toastState == DialogState.Closed)
+        if (toast is not null && state == DialogState.Closed)
         {
-            // TODO: Need to change the ToastResult
-            toastInstance.ResultCompletion.TrySetResult(ToastResult.OfTimedOut());
-            toastInstance.LifecycleStatus = ToastLifecycleStatus.Unmounted;
+            toast.ResultCompletion.TrySetResult(ToastResult.OfTimedOut());
+
+            toast.SetStatus(ToastLifecycleStatus.Dismissed);
 
             if (NotificationService is NotificationService notificationService)
             {
-                await notificationService.RemoveToastFromProviderAsync(toastInstance);
+                await notificationService.RemoveToastFromProviderAsync(toast);
             }
-
-            await RaiseOnStatusChangeAsync(new ToastEventArgs(toastInstance, ToastLifecycleStatus.Unmounted));
         }
     }
 
@@ -311,21 +306,5 @@ public partial class FluentToast : FluentComponentBase
         }
 
         await ToastInstance.CloseAsync();
-
-        // if (ToastInstance.Options.OnStatusChange is not null)
-        // {
-        //     ToastInstance.Options.OnStatusChange(new ToastEventArgs(ToastInstance, ToastLifecycleStatus.Dismissed));
-        // }
-    }
-
-    /// <summary>
-    /// Raises the status change event asynchronously using the specified toast event arguments.
-    /// </summary>
-    private async Task RaiseOnStatusChangeAsync(ToastEventArgs args)
-    {
-        if (OnStatusChange.HasDelegate)
-        {
-            await InvokeAsync(() => OnStatusChange.InvokeAsync(args));
-        }
     }
 }

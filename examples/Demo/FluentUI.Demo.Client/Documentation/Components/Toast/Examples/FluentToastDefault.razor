@@ -17,7 +17,7 @@
             options.Lifetime = TimeSpan.FromSeconds(5);
             options.OnStatusChange = (e) =>
             {
-                Console.WriteLine($"Toast status changed: {e.Status}");
+                Console.WriteLine($"Toast status changed to: {e.Status}");
             };
 
             @* options.QuickAction1 = "Action";
@@ -34,7 +34,7 @@
             }; *@
         });
 
-        Console.WriteLine($"Toast closed: {result.Reason}");
+        Console.WriteLine($"Toast closed with Reason: {result.Reason}");
     }
 }
 

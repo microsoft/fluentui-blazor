@@ -91,11 +91,6 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
     /// </summary>
     private void SynchronizeToastQueue()
     {
-        if (NotificationService is NotificationService service)
-        {
-            return;
-        }
-
         var maxToastCount = configuration.Toast.MaxToastCount;
         var activeCount = ToastItems.Count(toast => toast.LifecycleStatus is ToastLifecycleStatus.Visible or ToastLifecycleStatus.Dismissed);
         var queuedToasts = ToastItems.Where(toast => toast.LifecycleStatus == ToastLifecycleStatus.Queued)
@@ -111,8 +106,7 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
 
             if (toast is ToastInstance instance)
             {
-                instance.LifecycleStatus = ToastLifecycleStatus.Visible;
-                toast.Options.OnStatusChange?.Invoke(new ToastEventArgs(instance, ToastLifecycleStatus.Visible));
+                instance.SetStatus(ToastLifecycleStatus.Visible);
                 activeCount++;
             }
         }
