@@ -70,4 +70,9 @@ public class LibraryToastOptions
     /// Default is `false`, which is the recommended behavior according to Fluent UI design guidelines.
     /// </summary>
     public bool Inverted { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width of the toast.
+    /// </summary>
+    public string? Width { get; set; }
 }

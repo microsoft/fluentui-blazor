@@ -28,7 +28,9 @@ public partial class FluentToast : FluentComponentBase
     protected string? ClassValue => DefaultClassBuilder.Build();
 
     /// <summary />
-    protected string? StyleValue => DefaultStyleBuilder.Build();
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("--toast-width", Width)
+        .Build();
 
     /// <summary>
     /// Gets the instance, if the toast is rendered using the <see cref="INotificationService"/>. Otherwise, returns null.
@@ -179,6 +181,12 @@ public partial class FluentToast : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width of the toast.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
 
     /// <summary />
     protected override Task OnAfterRenderAsync(bool firstRender)

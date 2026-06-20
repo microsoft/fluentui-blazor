@@ -34,6 +34,7 @@
                              Subtitle="@toast.Options.Subtitle"
                              AllowDismiss="@(toast.Options.AllowDismiss ?? configuration.Toast.AllowDismiss)"
                              DismissAction="@toast.Options.DismissAction"
+                             Width="@(toast.Options.Width ?? configuration.Toast.Width)"
                              AdditionalAttributes="@toast.Options.AdditionalAttributes">
                     @RenderToastContent(toast)
                     @if (toast.ComponentType is not null)

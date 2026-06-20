@@ -1,7 +1,10 @@
-<FluentProgressBar Min="0"
-                   Max="100"
-                   Value="@ProgressValue"
-                   Width="100%" />
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentProgressBar Min="0"
+                       Max="100"
+                       Value="@ProgressValue"
+                       Width="100%" />
+    <FluentText>@(ProgressValue)% completed</FluentText>
+</FluentStack>
 
 @code {
 

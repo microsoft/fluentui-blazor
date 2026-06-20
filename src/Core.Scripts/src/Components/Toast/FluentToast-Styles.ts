@@ -19,8 +19,8 @@ export const fluentToastStyles: string = `
     border-radius: var(--borderRadiusMedium);
     box-shadow: var(--shadow8);
     box-sizing: border-box;
-    min-width: 292px;
-    max-width: 292px;
+    min-width: var(--toast-width, 292px);
+    max-width: var(--toast-width, 292px);
     height: auto;
     padding: 12px;
     transition:

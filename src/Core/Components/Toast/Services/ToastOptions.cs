@@ -164,6 +164,11 @@ public class ToastOptions : IFluentComponentBase
     public Icon? Icon { get; set; }
 
     /// <summary>
+    /// Gets or sets the width of the toast.
+    /// </summary>
+    public string? Width { get; set; }
+
+    /// <summary>
     /// Gets the class, including the optional <see cref="Margin"/> and <see cref="Padding"/> values.
     /// </summary>
     internal virtual string? ClassValue => new CssBuilder(Class)
