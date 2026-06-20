@@ -22,7 +22,7 @@
 
     int counter = 1;
 
-    private async Task OpenToastAsync(ToastIntent intent)
+    async Task OpenToastAsync(ToastIntent intent)
     {
         var result = await NotificationService.ShowToastAsync(options =>
         {

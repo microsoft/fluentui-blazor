@@ -15,35 +15,33 @@
             <CascadingValue @key="toast.Id"
                             Value="toast"
                             IsFixed="true">
-                @if (toast.ComponentType is null)
-                {
-                   <FluentToast Id="@toast.Id"
-                                Class="@toast.Options.ClassValue"
-                                Style="@toast.Options.StyleValue"
-                                Data="@toast.Options.Data"
-                                Lifetime="@(toast.Options.Lifetime ?? configuration.Toast.Lifetime)"
-                                Position="@(toast.Options.Position ?? configuration.Toast.Position)"
-                                VerticalOffset="@(toast.Options.VerticalOffset ?? configuration.Toast.VerticalOffset)"
-                                HorizontalOffset="@(toast.Options.HorizontalOffset ?? configuration.Toast.HorizontalOffset)"
-                                Inverted="@(toast.Options.Inverted ?? configuration.Toast.Inverted)"
-                                Intent="@toast.Options.Intent"
-                                Politeness="@toast.Options.Politeness"
-                                PauseOnHover="@(toast.Options.PauseOnHover ?? configuration.Toast.PauseOnHover)"
-                                PauseOnWindowBlur="@(toast.Options.PauseOnWindowBlur ?? configuration.Toast.PauseOnWindowBlur)"
-                                OnStatusChange="@GetOnStatusChangeCallback(toast)"
-                                Icon="@toast.Options.Icon"
-                                Title="@toast.Options.Title"
-                                ChildContent="@RenderToastContent(toast)"
-                                Subtitle="@toast.Options.Subtitle"
-                                AllowDismiss="@(toast.Options.AllowDismiss ?? configuration.Toast.AllowDismiss)"
-                                DismissAction="@toast.Options.DismissAction"
-                                AdditionalAttributes="@toast.Options.AdditionalAttributes" />
-                }
-                else
-                {
-                    <DynamicComponent Type="@toast.ComponentType"
-                                      Parameters="@toast.Options.Parameters" />
-                }
+                <FluentToast Id="@toast.Id"
+                             Class="@toast.Options.ClassValue"
+                             Style="@toast.Options.StyleValue"
+                             Data="@toast.Options.Data"
+                             Lifetime="@(toast.Options.Lifetime ?? configuration.Toast.Lifetime)"
+                             Position="@(toast.Options.Position ?? configuration.Toast.Position)"
+                             VerticalOffset="@(toast.Options.VerticalOffset ?? configuration.Toast.VerticalOffset)"
+                             HorizontalOffset="@(toast.Options.HorizontalOffset ?? configuration.Toast.HorizontalOffset)"
+                             Inverted="@(toast.Options.Inverted ?? configuration.Toast.Inverted)"
+                             Intent="@toast.Options.Intent"
+                             Politeness="@toast.Options.Politeness"
+                             PauseOnHover="@(toast.Options.PauseOnHover ?? configuration.Toast.PauseOnHover)"
+                             PauseOnWindowBlur="@(toast.Options.PauseOnWindowBlur ?? configuration.Toast.PauseOnWindowBlur)"
+                             OnStatusChange="@GetOnStatusChangeCallback(toast)"
+                             Icon="@toast.Options.Icon"
+                             Title="@toast.Options.Title"
+                             Subtitle="@toast.Options.Subtitle"
+                             AllowDismiss="@(toast.Options.AllowDismiss ?? configuration.Toast.AllowDismiss)"
+                             DismissAction="@toast.Options.DismissAction"
+                             AdditionalAttributes="@toast.Options.AdditionalAttributes">
+                    @RenderToastContent(toast)
+                    @if (toast.ComponentType is not null)
+                    {
+                        <DynamicComponent Type="@toast.ComponentType"
+                                          Parameters="@toast.Options.Parameters" />
+                    }
+                </FluentToast>
             </CascadingValue>
         }
     }

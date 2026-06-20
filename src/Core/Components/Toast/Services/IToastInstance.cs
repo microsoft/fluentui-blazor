@@ -27,6 +27,7 @@ public interface IToastInstance : INotificationInstance
     /// <summary>
     /// Closes the toast with the specified result.
     /// </summary>
-    /// <param name="result">Result associated with the close action.</param>
-    Task CloseAsync(ToastResult result);
+    /// <param name="reason">Reason for closing the toast.</param>
+    /// <param name="data">Optional data associated with the close action.</param>
+    Task CloseAsync(ToastCloseReason reason, object? data = null);
 }

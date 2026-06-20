@@ -63,10 +63,10 @@ public class ToastInstance : IToastInstance
         return NotificationService.CloseAsync(this);
     }
 
-    /// <inheritdoc cref="IToastInstance.CloseAsync(ToastResult)"/>
-    public Task CloseAsync(ToastResult result)
+    /// <inheritdoc cref="IToastInstance.CloseAsync(ToastCloseReason, object?)"/>
+    public Task CloseAsync(ToastCloseReason reason, object? data = null)
     {
-        return NotificationService.CloseAsync(this, result);
+        return NotificationService.CloseAsync(this, new ToastResult(reason, data));
     }
 
     /// <summary>
