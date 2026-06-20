@@ -311,6 +311,6 @@ public partial class FluentToast : FluentComponentBase
             return;
         }
 
-        await ToastInstance.CloseAsync(ToastResult.OfDismissed());
+        await ToastInstance.CloseAsync(ToastCloseReason.Dismissed);
     }
 }
