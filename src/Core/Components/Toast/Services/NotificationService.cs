@@ -125,6 +125,9 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
             return;
         }
 
+        // Raise the ToastLifecycleStatus.Dismissed event before to remove the Toast from the provider.
+        instance.SetStatus(ToastLifecycleStatus.Dismissed);
+
         // Remove the Toast from the ToastProvider.
         await RemoveToastFromProviderAsync(instance);
 

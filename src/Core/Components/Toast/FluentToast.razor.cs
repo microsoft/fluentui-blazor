@@ -239,14 +239,15 @@ public partial class FluentToast : FluentComponentBase
         // set the result of the ResultCompletion task
         if (toast is not null && state == DialogState.Closed)
         {
-            toast.ResultCompletion.TrySetResult(ToastResult.OfTimedOut());
-
             toast.SetStatus(ToastLifecycleStatus.Dismissed);
 
             if (NotificationService is NotificationService notificationService)
             {
                 await notificationService.RemoveToastFromProviderAsync(toast);
             }
+
+            // Set the result of the toast to TimedOut.
+            toast.ResultCompletion.TrySetResult(ToastResult.OfTimedOut());
         }
     }
 
@@ -282,7 +283,7 @@ public partial class FluentToast : FluentComponentBase
     /// <summary>
     /// Closes the toast component.
     /// </summary>
-    internal Task CloseAsync()
+    private Task CloseAsync()
     {
         if (!Opened)
         {
@@ -296,7 +297,6 @@ public partial class FluentToast : FluentComponentBase
     /// <summary>
     /// Handles the ToastAction click event, dismissing the toast.
     /// </summary>
-    /// <returns></returns>
     private async Task DismissClickAsync()
     {
         if (ToastInstance is null)
@@ -305,6 +305,6 @@ public partial class FluentToast : FluentComponentBase
             return;
         }
 
-        await ToastInstance.CloseAsync();
+        await ToastInstance.CloseAsync(ToastResult.OfDismissed());
     }
 }
