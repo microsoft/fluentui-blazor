@@ -1,6 +1,6 @@
 ﻿@inject INotificationService NotificationService
 
-<FluentStack Wrap="true">
+<FluentStack Wrap="true" HorizontalGap="12px">
     <FluentButton OnClick="@(() => OpenToastAsync(ToastIntent.Info))">
         Show Info
     </FluentButton>
@@ -34,11 +34,11 @@
             options.Lifetime = TimeSpan.FromSeconds(5);
             options.OnStatusChange = (e) =>
             {
-                Console.WriteLine($" . Toast status changed to: {e.Status}");
+                Console.WriteLine($" . '{e.Instance?.Options.Title}' status changed to: {e.Status}");
             };
         });
 
-        Console.WriteLine($"Toast closed with Reason: {result.Reason}");
+        Console.WriteLine($"'{intent} toast' closed with Reason: {result.Reason}");
     }
 }
 
