@@ -185,6 +185,12 @@ public partial class FluentToast : FluentComponentBase
     {
         if (firstRender && ToastInstance is ToastInstance instance)
         {
+            instance.UpdateOpenedAsync = async e =>
+            {
+                Opened = e;
+                await InvokeAsync(StateHasChanged);
+            };
+
             if (!Opened)
             {
                 Opened = true;

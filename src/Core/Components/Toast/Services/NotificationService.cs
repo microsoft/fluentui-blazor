@@ -145,14 +145,22 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
             return;
         }
 
-        if (!ServiceProvider.Items.TryRemove(toast.Id, out _))
+        // Update the Toast.Opened parameter to false to trigger the closing animation.
+        await instance.UpdateOpenedAsync(false);
+
+        // Fire-and-forget: schedule the removal without blocking the caller.
+        // to let the UI update and the ToastLifecycleStatus.Dismissed event to be processed first.
+        // to let the CSS animation to complete before the Toast is removed from the memory.
+        _ = Task.Run(async () =>
         {
-            return;
-        }
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            if (ServiceProvider.Items.TryRemove(toast.Id, out _))
+            {
+                // Raise the final ToastLifecycleStatus.Unmounted event.
+                instance.SetStatus(ToastLifecycleStatus.Unmounted);
 
-        // Raise the final ToastLifecycleStatus.Unmounted event.
-        instance.SetStatus(ToastLifecycleStatus.Unmounted);
-
-        await ServiceProvider.OnUpdatedAsync.Invoke(toast);
+                await ServiceProvider.OnUpdatedAsync.Invoke(toast);
+            }
+        });
     }
 }

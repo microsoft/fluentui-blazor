@@ -31,6 +31,11 @@ public class ToastInstance : IToastInstance
         Index = Interlocked.Increment(ref _counter);
     }
 
+    /// <summary>
+    /// Gets or sets a callback that is invoked when the toast's opened state changes.
+    /// </summary>
+    internal Func<bool, Task> UpdateOpenedAsync { get; set; } = _ => Task.CompletedTask;
+
     /// <summary />
     Type? INotificationInstance.ComponentType => _componentType;
 
