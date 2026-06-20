@@ -94,7 +94,7 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
         var maxToastCount = configuration.Toast.MaxToastCount;
         var activeCount = ToastItems.Count(toast => toast.LifecycleStatus is ToastLifecycleStatus.Visible or ToastLifecycleStatus.Dismissed);
         var queuedToasts = ToastItems.Where(toast => toast.LifecycleStatus == ToastLifecycleStatus.Queued)
-                                     .OrderByDescending(toast => toast.Index)
+                                     .OrderBy(toast => toast.Index)
                                      .ToList();
 
         foreach (var toast in queuedToasts)
